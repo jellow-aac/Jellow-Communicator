@@ -1,0 +1,102 @@
+[
+    {
+        "outputFile": "C:\\Users\\ekalpa\\Desktop\\Rahul\\New folder\\JellowCommunicatorApp\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-port\\values-port.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 55,
+                    "endOffset": 106
+                },
+                "from": {
+                    "file": "C:\\Users\\ekalpa\\Desktop\\Rahul\\New folder\\JellowCommunicatorApp\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.3.1\\res\\values-port\\values-port.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 55,
+                        "endOffset": 106
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 111,
+                    "endColumn": 45,
+                    "endOffset": 152
+                },
+                "from": {
+                    "file": "C:\\Users\\ekalpa\\Desktop\\Rahul\\New folder\\JellowCommunicatorApp\\app\\src\\main\\res\\values-port\\dimens.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 143,
+                        "endColumn": 45,
+                        "endOffset": 184
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 157,
+                    "endColumn": 44,
+                    "endOffset": 197
+                },
+                "from": {
+                    "file": "C:\\Users\\ekalpa\\Desktop\\Rahul\\New folder\\JellowCommunicatorApp\\app\\src\\main\\res\\values-port\\dimens.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 190,
+                        "endColumn": 44,
+                        "endOffset": 230
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 202,
+                    "endColumn": 40,
+                    "endOffset": 238
+                },
+                "from": {
+                    "file": "C:\\Users\\ekalpa\\Desktop\\Rahul\\New folder\\JellowCommunicatorApp\\app\\src\\main\\res\\values-port\\dimens.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 57,
+                        "endColumn": 40,
+                        "endOffset": 93
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 243,
+                    "endColumn": 42,
+                    "endOffset": 281
+                },
+                "from": {
+                    "file": "C:\\Users\\ekalpa\\Desktop\\Rahul\\New folder\\JellowCommunicatorApp\\app\\src\\main\\res\\values-port\\dimens.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 99,
+                        "endColumn": 42,
+                        "endOffset": 137
+                    }
+                }
+            }
+        ]
+    }
+]

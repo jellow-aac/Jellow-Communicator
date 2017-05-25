@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="appintro-4.0.0">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.github.paolorotolo/appintro/4.0.0/res" />
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.github.paolorotolo/appintro/4.0.0/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.paolorotolo/appintro/4.0.0/d8fca3425821643d19a9cefa9378cdf6a43d823/appintro-4.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

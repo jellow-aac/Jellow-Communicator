@@ -1,0 +1,38 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
+
+    defaultConfig {
+        applicationId "com.dsource.idc.jellow"
+        minSdkVersion 14
+        targetSdkVersion 25
+        versionCode 4
+        versionName "4.1"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+repositories {
+    maven {
+        url "https://oss.sonatype.org/content/repositories/snapshots"
+    }
+}
+dependencies {
+    compile 'com.mikhaellopez:circularimageview:3.0.2'
+    compile 'com.larswerkman:lobsterpicker:1.0.0'
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.github.rey5137:material:1.2.4'
+    compile 'com.github.rey5137:material:1.2.3.1-SNAPSHOT'
+    compile 'com.android.support:cardview-v7:25.3.1'
+    compile 'com.google.android.gms:play-services-appindexing:9.8.0'
+    compile 'com.github.paolorotolo:appintro:4.0.0'
+    compile 'com.android.support:recyclerview-v7:25.3.1'  //dependency added
+    compile 'com.mcxiaoke.volley:library-aar:1.0.0'
+}

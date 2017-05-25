@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:title="Profile"
+        android:id="@+id/profile"
+        android:numericShortcut="1"
+        android:alphabeticShortcut="a"
+        />
+    <item
+        android:title="About Jellow"
+        android:id="@+id/info"
+        android:numericShortcut="2"
+        android:alphabeticShortcut="b"
+        />
+    <item
+        android:title="Tutorial"
+        android:id="@+id/usage"
+        android:numericShortcut="3"
+        android:alphabeticShortcut="c"
+        />
+    <item
+        android:title="Settings"
+        android:id="@+id/settings"
+        android:numericShortcut="4"
+        android:alphabeticShortcut="d"
+        />
+    <item
+        android:title="Voice and Keyboard Control"
+        android:id="@+id/keyboardinput"
+        android:numericShortcut="7"
+        android:alphabeticShortcut="g"
+        />
+    <item
+        android:title="Reset Preferences"
+        android:id="@+id/reset"
+        android:numericShortcut="5"
+        android:alphabeticShortcut="e"
+        />
+    <item
+        android:title="Feedback"
+        android:id="@+id/feedback"
+        android:numericShortcut="6"
+        android:alphabeticShortcut="f"
+        />
+
+</menu>

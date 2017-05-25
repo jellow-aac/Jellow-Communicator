@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.larswerkman\lobsterpicker\1.0.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="880cff0c95bbdbf9aaf0ae9c76cc2cce3cc3963f">
+        <dex dex="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\pre-dexed\debug\com.larswerkman-lobsterpicker-1.0.0_376dd13365ac447a8467c20003529b5c115fa205.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\25.3.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="47635644d0d5c103c1dd8360549eb9ba3225c7d3">
+        <dex dex="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\pre-dexed\debug\com.android.support-animated-vector-drawable-25.3.1_680aa3dd048c54d846a4eb7f3f4f781cd94a7502.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\25.3.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="150252b33b00274cc868578ade018fda0d43a3eb">
+        <dex dex="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-25.3.1_2fa49f31eb35a456bad2daf1138e3bf64b477414.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.github.paolorotolo\appintro\4.0.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="95b97c30c8331619a9cc560ba9c3adb806e00ead">
+        <dex dex="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\pre-dexed\debug\com.github.paolorotolo-appintro-4.0.0_07df69848d5647a5e469c21fb74c96135a9c6a84.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\support-v4\25.3.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-25.3.1_42d4583ef3ba93a42a40ba16e4425cb629f4ba6e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="7e92aadd0697922316d1395c1887a23aebec640a">
+        <dex dex="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-base-9.8.0_a16f783e83bb295de4d9b9917b2f8707f276b210.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\support-fragment\25.3.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="4a26a1154d053ab11aaf4c3967c42a4d66390991">
+        <dex dex="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\pre-dexed\debug\com.android.support-support-fragment-25.3.1_ac8f41c95f39ba1e6bcc646a5d3e712b09c3d2c3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\ekalpa\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\25.3.1\support-annotations-25.3.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="bf8841d29fa39e077730e7a91222c2ce269fa7c9">
+        <dex dex="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\pre-dexed\debug\support-annotations-25.3.1_3da2a99e7848c4e26f187a0024cef33681fbc9cc.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.mcxiaoke.volley\library-aar\1.0.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="e40b9a81989bd4a846018551c280f8c4d837bf2e">
+        <dex dex="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\pre-dexed\debug\com.mcxiaoke.volley-library-aar-1.0.0_5c365c3df0dec9fbad3d786420548b7af4109c4a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.3.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="052f5f840f21174a3ecf6544130194e2652cbb73">
+        <dex dex="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\pre-dexed\debug\com.android.support-support-core-ui-25.3.1_9060f09bf05993df29be395d7967769404ac29df.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.github.rey5137\material\1.2.4\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="8419191d25f4105772fc16b55a005a270cb4d4c8">
+        <dex dex="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\pre-dexed\debug\com.github.rey5137-material-1.2.4_53a0f8bf4d90cb45d90acd2a6942f24c2239d975.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.mikhaellopez\circularimageview\3.0.2\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="a8340f8c17337c864648c13abe1416d34c80ec14">
+        <dex dex="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\pre-dexed\debug\com.mikhaellopez-circularimageview-3.0.2_f3893166753975eb903f8d9bdc89ebabdcc9ef03.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\25.3.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="efb8cb62d47d157c29d1521daac7eefd4cb881ee">
+        <dex dex="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\pre-dexed\debug\com.android.support-support-vector-drawable-25.3.1_99e42f0d65400d50a329f3430a37cd3db4a1a5f8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.3.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="da27a32db6af8954ee8061537c7d476fcb1df46f">
+        <dex dex="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\pre-dexed\debug\com.android.support-support-compat-25.3.1_82abcc6f8f698a4521be9ad66554de95fee50f75.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="9f6d236bac26d02b410e4ee186ba517ace5ee661">
+        <dex dex="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-basement-9.8.0_22e5d0c375e9dbd14da4b63967cac9403dbdc70c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\25.3.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="95519720620b553f63afc789beba9ad582807f7c">
+        <dex dex="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\pre-dexed\debug\com.android.support-recyclerview-v7-25.3.1_c42911cd64ba2501556045deea9b864ba27b5ba3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.3.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="6ef31f1555bb4cc513ec8d52711365a8b89f3600">
+        <dex dex="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\pre-dexed\debug\com.android.support-support-core-utils-25.3.1_e2a5805fbbb11d274fc6f8562bb3b3ed7cdbd117.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-common\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="c61641e333fa88da21758bab8cc28ee16604b05f">
+        <dex dex="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\pre-dexed\debug\com.google.firebase-firebase-common-9.8.0_09b3bf0fb812f23e4c92e17118d13a0c7bf2b83a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\25.3.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="914f5d3e3ace66080e59613708f06d129a222e25">
+        <dex dex="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\pre-dexed\debug\com.android.support-cardview-v7-25.3.1_213114d12ed4794930668c2592f9de22b1590e5b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="e3234cd25e23069abd48ecd2117bc0e8011bf45a">
+        <dex dex="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-appindexing-9.8.0_34f801022d44bae4b7a13189c1b0a5472f7a052f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\25.3.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="45f697922e6f072daa12f8a2995dc77ab03c11da">
+        <dex dex="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\pre-dexed\debug\com.android.support-support-media-compat-25.3.1_415995cfa8c6d63c3b7211a85c0401ef42914a9c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tasks\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="bf2e1838e4428616c1aa26edf43de72b5b99bf84">
+        <dex dex="C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-tasks-9.8.0_26bcb4ab2069c211564742e3a52db3a60cd9136b.jar" />
+    </item>
+
+</items>

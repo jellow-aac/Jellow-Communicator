@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/bg"
+    android:orientation="vertical">
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_marginTop="-45dp"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:background="@drawable/level1_bg"
+
+        tools:context="com.dsource.idc.jellow.MainActivity">
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="-5dp"
+            android:layout_marginRight="5dp"
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:layout_marginBottom="-60dp"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/ivhome"
+            android:id="@+id/linearLayout3">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight=".15"
+                android:layout_marginLeft="-15dp"
+                android:weightSum="3"
+                android:layout_height="match_parent"
+                android:id="@+id/linearLayout">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ivlike"
+                    android:layout_weight="1"
+                    android:src="@drawable/ilikewithoutoutline"
+                    android:layout_marginTop="15dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:id="@+id/ivyes"
+                    android:src="@drawable/iwantwithout"
+
+                    />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ivadd"
+                    android:layout_weight="1"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:src="@drawable/morewithout"
+                    />
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="600dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:id="@+id/recycler_view"
+                android:gravity="center"
+                android:layout_weight=".6"
+                android:focusableInTouchMode="false"
+                android:scrollbars="vertical"
+                android:scrollbarAlwaysDrawVerticalTrack="true"
+                android:divider="@null"
+                android:fadeScrollbars="false"
+                android:scrollbarFadeDuration="0"
+                android:layout_centerHorizontal="true"
+                android:verticalSpacing="-48dp"
+                android:horizontalSpacing="4dp"
+
+                android:layout_marginBottom="15dp"
+                android:dividerHeight="0dp"
+                android:layout_marginLeft="-8dp"
+                android:layout_marginStart="-8dp"
+                android:contextClickable="false"
+
+                >
+
+            </android.support.v7.widget.RecyclerView>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight=".19"
+                android:weightSum="3"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="-2dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:id="@+id/linearLayout2">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ivdislike"
+                    android:layout_weight="1"
+                    android:layout_marginRight="8dp"
+                    android:src="@drawable/idontlikewithout"
+                    android:layout_marginTop="15dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ivno"
+                    android:layout_weight="1"
+                    android:layout_marginTop="-0dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/idontwantwithout"
+                    />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ivminus"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="15dp"
+                    android:src="@drawable/lesswithout"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+        <EditText
+            android:layout_width="270dp"
+            android:layout_marginLeft="140dp"
+            android:layout_height="80dp"
+            android:id="@+id/et"
+            android:paddingTop="50dp"
+            android:textSize="20dp">
+        </EditText>
+        <!--shruti-->
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivhome"
+            android:src="@drawable/home"
+            android:visibility="visible"
+            android:layout_gravity="center_horizontal"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="-52dp"
+            android:scaleY=".5"
+            android:scaleX=".5"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha=".5"
+            android:saveEnabled="false"
+            android:src="@drawable/back_button"
+            android:id="@+id/ivback"
+            android:visibility="visible"
+            android:layout_gravity="center_horizontal"
+            android:layout_below="@+id/linearLayout3"
+            android:layout_toLeftOf="@+id/ivhome"
+            android:layout_marginRight="-90dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="-25dp"
+            android:scaleY=".6"
+            android:scaleX=".6"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/keyboard"
+            android:src="@drawable/keyboard_button"
+            android:visibility="visible"
+            android:layout_gravity="center_horizontal"
+            android:layout_below="@+id/linearLayout3"
+            android:layout_toRightOf="@+id/ivhome"
+            android:layout_marginLeft="-90dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="-25dp"
+            android:scaleY=".6"
+            android:scaleX=".6"
+            android:layout_alignParentBottom="true" />
+
+        <ImageView
+            android:layout_marginTop="-30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ttsbutton"
+            android:scaleX=".4"
+            android:scaleY=".4"
+            android:background="@drawable/speaker_button"
+            android:visibility="visible"
+            android:layout_below="@+id/et"
+            android:layout_gravity="center_horizontal"
+            android:layout_centerHorizontal="true"
+            android:adjustViewBounds="true"
+            />
+        <!--shruti-->
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:src="@drawable/jellow"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="-12dp"
+            android:layout_marginLeft="-130dp"
+            android:scaleX=".5"
+            android:scaleY=".5"
+            android:layout_gravity="bottom"
+            android:layout_alignLeft="@+id/ivback"/>
+
+    </RelativeLayout>
+    <!-- <LinearLayout
+         android:layout_width="wrap_content"
+         android:layout_height="match_parent"
+         android:orientation="horizontal"
+         android:layout_marginTop="-200dp"
+         android:layout_marginBottom="00dp">
+
+
+        &lt;!&ndash; <ImageView
+             android:layout_width="150dp"
+             android:layout_height="50dp"
+             android:src="@drawable/jellow"
+             android:layout_alignParentBottom="true"
+             android:layout_centerHorizontal="true"
+             android:layout_marginBottom="5dp"
+             android:layout_marginLeft="-20dp"
+             android:scaleX=".5"
+             android:scaleY=".5"
+             android:layout_gravity="bottom" />&ndash;&gt;
+     </LinearLayout>-->
+</LinearLayout>

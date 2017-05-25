@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<item
+    android:title="प्रोफाइल "
+    android:id="@+id/profile"
+    android:numericShortcut="1"
+    android:alphabeticShortcut="a"
+    />
+<item
+    android:title="जेलो के बारे में "
+    android:id="@+id/info"
+    android:numericShortcut="2"
+    android:alphabeticShortcut="b"
+    />
+<item
+    android:title="ट्यूटोरियल "
+    android:id="@+id/usage"
+    android:numericShortcut="3"
+    android:alphabeticShortcut="c"
+    />
+<item
+    android:title="सेटिंग्स "
+    android:id="@+id/settings"
+    android:numericShortcut="4"
+    android:alphabeticShortcut="d"
+    />
+    <item
+        android:title="आवाज़ एवं कीबोर्ड नियंत्रण "
+        android:id="@+id/keyboardinput"
+        android:numericShortcut="7"
+        android:alphabeticShortcut="g"
+        />
+<item
+    android:title="आइकॉन रीसेट करें "
+    android:id="@+id/reset"
+    android:numericShortcut="5"
+    android:alphabeticShortcut="e"
+    />
+<item
+    android:title="प्रतिक्रिया"
+    android:id="@+id/feedback"
+    android:numericShortcut="6"
+    android:alphabeticShortcut="f"
+    />
+</menu>

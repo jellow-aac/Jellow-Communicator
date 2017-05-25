@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:background="#F7F3C6">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:layout_marginBottom="25dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:layout_weight=".99"
+        android:layout_marginLeft="5dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Voice Control: "
+            android:fontFamily="fonts/Mukta-Regular.ttf"
+            android:textColor="#000000"
+            android:paddingLeft="9dp"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:id="@+id/tvvc"
+            android:layout_marginLeft="10dp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:weightSum="3">
+
+            <TextView
+                android:layout_width="420dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingLeft="32dp"
+                android:layout_weight="1"
+                android:fontFamily="fonts/Mukta-Regular.ttf"
+                android:textColor="#000000"
+                android:paddingRight="32dp"
+                android:id="@+id/tvtop"
+                android:textSize="18dp"
+                android:text="1.Activate Google TTS"/>
+            <TextView
+                android:layout_width="420dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingLeft="32dp"
+                android:layout_weight="1"
+                android:fontFamily="fonts/Mukta-Regular.ttf"
+                android:textColor="#000000"
+                android:paddingRight="32dp"
+                android:textSize="18dp"
+                android:id="@+id/tvtop1"
+                android:text="2. Change default language to Hindi"/>
+            <TextView
+                android:layout_width="420dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingLeft="32dp"
+                android:layout_weight="1"
+                android:fontFamily="fonts/Mukta-Regular.ttf"
+                android:textColor="#000000"
+                android:paddingRight="32dp"
+                android:id="@+id/tvtop2"
+                android:textSize="18dp"
+                android:text="3. Download Hindi voice"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="420dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:weightSum="3">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/gtts1"
+                android:layout_weight="1"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/gtts2"
+                android:layout_weight="1"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/gtts3"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:weightSum="3"
+            android:layout_marginLeft="9dp"
+            >
+            <Button
+                android:layout_margin="10dp"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="40dp"
+                android:background="#FFBEBCB6"
+                android:gravity="center"
+                android:fontFamily="fonts/Mukta-Regular.ttf"
+                android:textColor="#000000"
+                android:paddingLeft="64dp"
+                android:paddingRight="64dp"
+                android:textSize="20dp"
+                android:text="ACTIVATE"
+                android:onClick="getStarted1"
+                android:id="@+id/tvbottom"/>
+            <Button
+                android:layout_margin="10dp"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="40dp"
+                android:background="#FFBEBCB6"
+                android:gravity="center"
+                android:fontFamily="fonts/Mukta-Regular.ttf"
+                android:textColor="#000000"
+                android:paddingLeft="64dp"
+                android:paddingRight="64dp"
+                android:textSize="20dp"
+                android:text="CHANGE LANGUAGE"
+                android:id="@+id/tvbottom1"
+                android:onClick="getStarted2"/>
+            <Button
+                android:layout_margin="10dp"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="40dp"
+                android:background="#FFBEBCB6"
+                android:gravity="center"
+                android:fontFamily="fonts/Mukta-Regular.ttf"
+                android:textColor="#000000"
+                android:paddingLeft="64dp"
+                android:paddingRight="64dp"
+                android:textSize="20dp"
+                android:text="DOWNLOAD"
+                android:id="@+id/tvbottom2"
+                android:onClick="getStarted3"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Keyboard Control: "
+            android:id="@+id/tvkc"
+            android:textSize="20dp"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="9dp"
+            android:textStyle="bold"
+            android:fontFamily="fonts/Mukta-Regular.ttf"
+            android:textColor="#000000"
+            android:layout_marginLeft="10dp"/>
+
+
+        <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="To enable a keyboard of your choice and make it the default option, you need to complete 2 steps:"
+        android:id="@+id/t1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="30dp"
+        android:paddingLeft="9dp"
+        android:textColor="#000000"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="•"
+            android:layout_margin="22dp"
+            android:gravity="center"
+            />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Step 1: Enable Keyboard from device settings"
+        android:id="@+id/t2"
+        android:layout_marginLeft="-15dp"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="9dp"
+        android:textColor="#000000"/>
+            </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_weight="0"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:paddingLeft="24dp"
+        android:gravity="center_vertical"
+        android:paddingTop="15dp"
+        android:paddingBottom="10dp">
+
+        <Button
+            android:layout_width="230dp"
+            android:layout_height="40dp"
+            android:text="QWERTY"
+            android:layout_weight=".001"
+            android:id="@+id/qwerty"
+            android:textSize="20dp"
+            android:background="#FFBEBCB6"
+            />
+
+        <Button
+            android:layout_width="230dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="90dp"
+            android:text="SERIAL ABC"
+            android:id="@+id/abc"
+            android:textSize="20dp"
+            android:layout_weight=".001"
+            android:background="#FFBEBCB6"
+            />
+    </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="•"
+                android:layout_margin="23dp"
+                android:gravity="center"
+                />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Step 2: Save Keyboard as default option"
+        android:id="@+id/t3"
+        android:layout_marginLeft="-15dp"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="9dp"
+        android:textColor="#000000"/>
+</LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="24dp"
+        android:weightSum="1"
+        android:layout_weight="0.1"
+        android:paddingTop="10dp"
+        android:layout_marginBottom="15dp"
+        android:gravity="center_vertical">
+        <Button
+            android:layout_width="230dp"
+            android:layout_height="40dp"
+            android:text="Save as Default"
+            android:layout_weight=".002"
+            android:id="@+id/default_button"
+            android:layout_gravity="center_horizontal"
+            android:textSize="20dp"
+            android:background="#FFBEBCB6"
+            />
+    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
+
+

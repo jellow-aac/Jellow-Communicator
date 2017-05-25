@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:background="#F7F3C6">
+
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight=".12"
+
+        >
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/scrollView2"
+            android:fillViewport="false"
+            android:fadeScrollbars="false"
+            android:layout_marginRight="30dp"
+            android:paddingBottom="20dp"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Easy to Use"
+                    android:paddingLeft="13dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#000000"
+                    android:textSize="20dp"
+                    android:id="@+id/tv1"/>
+
+                <RatingBar
+                    android:layout_width="244dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/easy_to_use"
+                    android:paddingLeft="15dp"
+                    android:layout_marginLeft="10dp"
+                    android:numStars="5"
+                    android:progressBackgroundTint="#ffcc14"
+                    android:progressTint="#ffcc14"
+                    android:secondaryProgressTint="#ffcc14" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Clear Pictures"
+                    android:paddingLeft="13dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#000000"
+                    android:textSize="20dp"
+                    android:id="@+id/tv2"/>
+
+                <RatingBar
+                    android:layout_width="244dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/pictures"
+                    android:paddingLeft="15dp"
+                    android:layout_marginLeft="10dp"
+                    android:numStars="5"
+                    android:progressBackgroundTint="#ffcc14"
+                    android:progressTint="#ffcc14"
+                    android:secondaryProgressTint="#ffcc14" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Clear Voice"
+                    android:paddingLeft="13dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#000000"
+                    android:textSize="20dp"
+                    android:id="@+id/tv3"/>
+
+                <RatingBar
+                    android:layout_width="244dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/voice"
+                    android:paddingLeft="15dp"
+                    android:layout_marginLeft="10dp"
+                    android:numStars="5"
+                    android:progressBackgroundTint="#ffcc14"
+                    android:progressTint="#ffcc14"
+                    android:secondaryProgressTint="#ffcc14" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Easy to Navigate"
+                    android:paddingLeft="13dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#000000"
+                    android:textSize="20dp"
+                    android:id="@+id/tv4"
+                    />
+
+                <RatingBar
+                    android:layout_width="244dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/navigate"
+                    android:paddingLeft="15dp"
+                    android:layout_marginLeft="10dp"
+                    android:numStars="5"
+                    android:progressBackgroundTint="#ffcc14"
+                    android:progressTint="#ffcc14"
+                    android:secondaryProgressTint="#ffcc14" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Comments/Suggestions"
+                    android:paddingLeft="13dp"
+                    android:textColor="#000000"
+                    android:textSize="20dp"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/tv5"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:ems="10"
+                    android:id="@+id/comments"
+                    android:paddingLeft="15dp"
+                    android:textSize="22dp"/>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight=".88"
+        android:background="#f7e2ac"
+        android:gravity="center_vertical">
+        <Button
+            android:layout_width="230dp"
+            android:layout_height="40dp"
+            android:text="SUBMIT"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/bSubmit"
+            android:textSize="20dp"
+            android:background="#FFBEBCB6"
+            />
+    </LinearLayout>
+</LinearLayout>

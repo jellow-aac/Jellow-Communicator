@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:layout_weight="10"
+    android:id="@+id/main">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:paddingLeft="32dp"
+        android:layout_weight="6"
+        android:fontFamily="fonts/Mukta-Regular.ttf"
+        android:textColor="#000000"
+        android:paddingRight="32dp"
+        android:textSize="20dp"
+        android:text="Now you are ready to get started with Jellow"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_weight="29">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/jellow_swipe"
+            android:scaleX="0.8"
+            android:scaleY="0.8"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_weight="7"
+>
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_weight="3"
+            android:layout_height="40dp"
+            android:background="#FFD7D2D2"
+            android:gravity="center"
+            android:fontFamily="fonts/Mukta-Regular.ttf"
+            android:textColor="#000000"
+            android:paddingLeft="64dp"
+            android:paddingRight="64dp"
+            android:textSize="20dp"
+            android:text="GET STARTED"
+            android:onClick="getStarted"/>
+    </LinearLayout>
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="64dp" />
+</LinearLayout>
