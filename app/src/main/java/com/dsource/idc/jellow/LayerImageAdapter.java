@@ -79,26 +79,6 @@ public class LayerImageAdapter extends android.support.v7.widget.RecyclerView.Ad
             R.drawable.level2_dailyact_morning1,
             R.drawable.level2_dailyact_evening
     };
-    /*public Integer[] people_english = {
-            R.drawable.level2_people_mom, R.drawable.level2_people_dad,
-            R.drawable.level2_people_brother, R.drawable.level2_people_sister,
-            R.drawable.level2_people_grandfather,R.drawable.level2_people_grandmother, R.drawable.level2_people_uncle, R.drawable.level2_people_aunt, R.drawable.more,
-            R.drawable.level2_people_cousin, R.drawable.level2_people_baby,
-            R.drawable.level2_people_friend, R.drawable.level2_people_teacher,
-            R.drawable.level2_people_doctor,R.drawable.level2_people_nurse, R.drawable.level2_people_caregiver1,
-            R.drawable.level2_people_stranger, R.drawable.level2_people_aboutme
-    };
-
-    public Integer[] people_hindi = {
-            R.drawable.level2_people_mom, R.drawable.level2_people_dad,
-            R.drawable.level2_people_brother, R.drawable.level2_people_sister,R.drawable.level2_people_badepapa,R.drawable.level2_people_badimom,
-            R.drawable.level2_people_grandfather,R.drawable.level2_people_grandmother, R.drawable.more, R.drawable.level2_people_nanaji, R.drawable.level2_people_nanima,R.drawable.level2_people_uncle, R.drawable.level2_people_aunt,
-            R.drawable.level2_people_mama, R.drawable.level2_people_mami, R.drawable.level2_people_bua, R.drawable.level2_people_fufa, R.drawable.more, R.drawable.level2_people_mausi, R.drawable.level2_people_mausa,
-            R.drawable.level2_people_baby,
-            R.drawable.level2_people_friend, R.drawable.level2_people_teacher,
-            R.drawable.level2_people_doctor,  R.drawable.level2_people_nurse, R.drawable.level2_people_caregiver1,R.drawable.more,
-            R.drawable.level2_people_stranger, R.drawable.level2_people_aboutme
-    };*/
 
     public static String[] learning_text =
             {"Animals & Birds...", "Body...", "Books...", "Colors...", "Shapes...", "Stationery...", "School Objects...", "Home Objects...", "Transport Modes..."};
@@ -109,12 +89,6 @@ public class LayerImageAdapter extends android.support.v7.widget.RecyclerView.Ad
     public static String[] fun_text =
             {"Indoor Games...", "Outdoor Games...", "Sports...", "TV...", "Music...", "Activities..."};
 
-   /*public static String[] people_text =
-            {"Mom", "Dad", "Brother", "Sister", "Grandfather", "Grandmother", "Uncle", "Aunt", "More", "Cousin", "Baby", "Friends", "Teacher", "Doctor", "Nurse", "Caregiver", "Stranger", "About Me"};
-
-    public static String[] places_text =
-            {"My House", "School", "Mall", "Museum", "Hotel", "Theater", "Playground", "Garden", "More", "Store", "Friend's House", "Relative's House", "Hospital", "Clinic", "Library", "Terrace"};
-*/
     public static String[] time_weather_text =
             {"Time...", "Day...", "Month...", "Weather...", "Seasons...", "Festivals & Holidays...", "Birthdays..."};
 
@@ -132,15 +106,11 @@ public class LayerImageAdapter extends android.support.v7.widget.RecyclerView.Ad
     public static String[] daily_text_hindi =
             {"दांत साफ़ करना...", "शौचालय...", "नहाना...", "कपड़े और सहायक चीज़ें...", "तैयार होना...", "नींद...", "उपचार...", "सुबह के नियमित कार्य...", "रात के नियमित कार्य..."};
     public static String[] eat_text_hindi =
-            {"सुबह का नाश्ता...", "दोपहर/रात का भोजन...", "मिठाइयाँ...", "स्नैक्स...", "फल...", "ड्रिंक्स...", "कटलरी...", "ऍड-ऑन्स..."};
+            {"सुबह का नाश्ता...", "दोपहर/रात का भोजन...", "मिठाइयाँ...", "स्नैक्स...", "फल...", "ड्रिंक्स...", "कटलरी...", "ऐड-ऑन्स..."};
     public static String[] fun_text_hindi =
             {"घर के खेल...", "बाहरी खेल...", "खेलकूद...", "टीवी...", "संगीत...", "कार्य..."};
     public static String[] learning_text_hindi =
             {"पशु और पक्षी...", "शरीर...", "किताबें...", "रंग...", "आकार...", "स्टेशनरी...", "पाठशाला की वस्तुएं...", "घरेलु वस्तुएं...", "यात्रा के साधन..."};
-    /*public static String[] people_text_hindi =
-            {"माँ", "पिताजी", "भाई", "बहन", "बड़े पापा", "बड़ी मम्मी","दादाज़ी", "दादी माँ", "अधिक", "नानाज़ी","नानी माँ","चाचा", "चाची", "मामा","मामी" , "बुआ", "फ़ुफ़ा", "अधिक","मौसी", "मौसा", "नन्हा बच्चा", "दोस्त", "शिक्षक", "डॉक्टर","नर्स", "देख-रेख करने वाली मौसी", "अधिक","अजनबी", "मेरे बारे में"};
-    public static String[] places_text_hindi =
-            {"मेरा घर", "पाठशाला", "मॉल", "संग्रहालय", "होटल", "थिएटर", "खेल का मैदान", "बगीचा", "अधिक", "दुकान", "दोस्तों का घर", "रिश्तेदारों का घर", "अस्पताल", "क्लिनिक", "वाचनालय", "छत पर"};*/
     public static String[] time_weather_text_hindi =
             {"समय...", "दिन...", "महीना...", "मौसम...", "ऋतु...", "त्योहार और छुट्टी...", "जन्मदिन..."};
     public static String[] help_text_hindi =
@@ -193,29 +163,7 @@ Log.d("possssiii",pos+"");
                 mThumbIds = learning;
                 belowText = learning_text_hindi;
             }
-        } /*else if (pos == 5) {
-            if (session.getLanguage() == 0) {
-                mThumbIds = image_temp;
-                belowText = temp;
-
-            }else {
-
-                mThumbIds = image_temp;
-                belowText = temp;
-            }
-            }
-
-        else if (pos == 6) {
-            System.out.println("eerr " + image_temp.length);
-            if (places_more == 0) {
-                mThumbIds = image_temp;
-                belowText = temp;
-            }
-            else {
-                mThumbIds = image_temp;
-                belowText = temp;
-            }
-        }*/
+        }
         else if (pos == 7) {
             if (session.getLanguage() == 0)
             mThumbIds = time_weather;
@@ -568,189 +516,9 @@ if (session.getGridSize()==1)
         tv9.setText("");
 
     }
-
-
 }
-
-
-
-
         Log.d("trueee",x+"");
 
-
-/*        if (session.getGridSize()==1){
-            if (position == 0) {
-                tv1.setText(belowText[0]);
-                tv2.setText(belowText[1]);
-                tv3.setText(belowText[2]);
-                tv4.setText(belowText[3]);
-                tv5.setText(belowText[4]);
-                tv6.setText(belowText[5]);
-                tv7.setText(belowText[6]);
-                tv8.setText(belowText[7]);
-                tv9.setText(belowText[8]);
-                img1.setImageResource(mThumbIds[0]);
-                img1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        x=0;
-                        handleItemClick(belowText[0], 0);
-                        putpos(belowText[0]);
-                    }
-                });
-                img2.setImageResource(mThumbIds[1]);
-                img2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        x=1;
-                        handleItemClick(belowText[1], 1);
-                        putpos(belowText[1]);
-                    }
-                });
-
-                img3.setImageResource(mThumbIds[2]);
-                img3.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        x=1;
-                        handleItemClick(belowText[2], 2);
-                        putpos(belowText[2]);
-                    }
-                });
-
-                System.out.print("ssssssssssss"+j);
-            }
-            j=j-3;
-            System.out.print("cccccccccc"+j);
-*//*            if (position == 1) {
-                {
-                    System.out.print("YYYYY"+j);
-                    if(j>0) {
-                        System.out.print("zzzzzz"+j);
-                        tv1.setText(belowText[3]);
-                        img1.setImageResource(mThumbIds[3]);
-                        img1.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                x=3;
-                                handleItemClick(belowText[3], 3);
-                                putpos(belowText[3]);
-                            }
-                        });
-                        j = j - 1;
-                        System.out.print("aaaaaaaaaaa" + j);
-                    }
-                }
-                if (j > 0) {
-                    tv2.setText(belowText[4]);
-                    img2.setImageResource(mThumbIds[4]);
-                    img2.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            x=4;
-                            handleItemClick(belowText[4], 4);
-                            putpos(belowText[4]);
-                        }
-                    });
-
-                    j=j-1;
-                }
-                else
-                {
-
-                    tv2.setText(" ");
-                    img2.setImageResource(R.drawable.background_circle);
-                    img2.setAlpha(0.5f);
-                    img2.setEnabled(false);
-                }
-                if (j > 0) {
-                    tv3.setText(belowText[5]);
-                    img3.setImageResource(mThumbIds[5]);
-                    img3.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            x=5;
-                            handleItemClick(belowText[5], 5);
-                            putpos(belowText[5]);
-                        }
-                    });
-
-                    j=j-1;
-                }
-                else
-                {
-
-                    tv3.setText(" ");
-                    img3.setImageResource(R.drawable.background_circle);
-                    img3.setAlpha(0.5f);
-                    img3.setEnabled(false);
-                }
-            }
-
-            j=j-3;
-            if (position == 2) {
-                k = 6;
-                System.out.print("jjjjjjjjj"+j);
-                if(j>0) {
-                    tv1.setText(belowText[6]);
-                    img1.setImageResource(mThumbIds[6]);
-                    img1.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            x=6;
-                            handleItemClick(belowText[6], 6);
-                            putpos(belowText[6]);
-                        }
-                    });
-
-                    j = j - 1;
-                    System.out.print("DDDDD"+j);
-                }
-                if(j>0) {
-                    tv2.setText(belowText[7]);
-                    img2.setImageResource(mThumbIds[7]);
-                    img2.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            x=7;
-                            handleItemClick(belowText[7], 7);
-                            putpos(belowText[7]);
-                        }
-                    });
-
-                    j=j-1;
-                    System.out.print("QQQQQ"+j);
-                }
-                else
-                {
-
-                    tv2.setText(null);
-                    img2.setImageResource(0);
-                }
-
-                if(j>0) {
-                    tv3.setText(belowText[8]);
-                    img3.setImageResource(mThumbIds[8]);
-                    img3.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            x=8;
-                            handleItemClick(belowText[8], 8);
-                            putpos(belowText[8]);
-                        }
-                    });
-
-                }
-                else
-                {
-                    tv3.setText(" ");
-                    img3.setImageResource(R.drawable.background_circle);
-                    img3.setEnabled(false);
-                }
-
-            }*//*
-            Log.d("trueee",x+"");
-        }*/
     }
 
     @Override

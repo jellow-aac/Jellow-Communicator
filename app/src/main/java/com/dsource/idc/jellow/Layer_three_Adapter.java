@@ -48,7 +48,7 @@ CircularImageView img1,img2,img3, img4,img5,img6, img7,img8,img9;
     };
 
     public static String[] greet_feel_feelings_text =
-            {"Happy", "Sad", "Angry", "Scared", "Surprised", "Irritated", "Confused", "Ashamed",   "Disappointed", "Bored", "Worried", "Stressed", "Tired", "Hot", "Cold", "Sick", "Hurt"};
+            {"Happy", "Sad", "Angry", "Afraid", "Amazed", "Irritated", "Confused", "Ashamed",   "Disappointed", "Bored", "Worried", "Stressed", "Tired", "Hot", "Cold", "Sick", "Hurt"};
 
     public Integer[] greet_feel_requests = {
             R.drawable.please, R.drawable.thankyou,
@@ -347,14 +347,14 @@ CircularImageView img1,img2,img3, img4,img5,img6, img7,img8,img9;
     };
 
     public static String[] learning_books_text =
-            {"Bed time story book", "Comic book", "Rhymes book", "Drawing book", "Storybook", "Picture book", "Mystery book", "Adventure book",   "School notebook", "Maths book", "Science book", "History book", "Geography book", "Social studies book", "English book", "Hindi book",   "Marathi book",  "Textbook", "Favorites"};
+            {"Bed time story book", "Comic book", "Rhymes book", "Drawing book", "Story book", "Picture book", "Mystery book", "Adventure book",   "School notebook", "Maths book", "Science book", "History book", "Geography book", "Social studies book", "English book", "Hindi book",   "Marathi book",  "Textbook", "Favorites"};
 
     public Integer[] learning_colours = {
             R.drawable.black_colour, R.drawable.blue_colour,
             R.drawable.brown_colour, R.drawable.greem_colour,
             R.drawable.redcolour, R.drawable.silvercolour,
             R.drawable.white_colour,R.drawable.yellow_colour,
-                R.drawable.golden_colour, R.drawable.pink_colour, R.drawable.orange_colour,R.drawable.purple_colour, R.drawable.grey_colour
+            R.drawable.golden_colour, R.drawable.pink_colour, R.drawable.orange_colour,R.drawable.purple_colour, R.drawable.grey_colour
     };
 
     public static String[] learning_colours_text =
@@ -495,9 +495,7 @@ CircularImageView img1,img2,img3, img4,img5,img6, img7,img8,img9;
     };
 
     public static String[] time_weather_brthdays_text =
-            {"My birthday", "Mom’s birthday", "Daddy’s birthday", "Brother’s birthday", "Sister’s birthday", "Friend’s birthday", "Grandma’s birthday", "Grandpa’s birthday",   "Uncle’s birthday", "Aunt’s birthday", "Cousin’s birthday", "Teacher’s birthday"};
-
-
+            {"My birthday", "Mom’s birthday", "Father’s birthday", "Brother’s birthday", "Sister’s birthday", "Friend’s birthday", "Grandma’s birthday", "Grandpa’s birthday",   "Uncle’s birthday", "Aunt’s birthday", "Cousin’s birthday", "Teacher’s birthday"};
 
     int k=0,l=0,kk=0,j=0,u=0;
 int store=0;

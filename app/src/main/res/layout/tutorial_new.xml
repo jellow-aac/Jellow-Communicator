@@ -18,7 +18,6 @@
         android:id="@+id/sv"
         android:fadeScrollbars="false"
         android:layout_marginRight="30dp"
-        android:background="@drawable/hadow"
         android:layout_marginBottom="1dp"
         android:paddingBottom="20dp">
 
@@ -140,15 +139,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="By double-clicking on a category button, the user can access further sub-categories:"
-                    android:layout_margin="6dp"
-                    android:textSize="14dp"
-                    android:id="@+id/tv3"
-                    />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="By double-clicking on a category button, the user can access further sub-categories:"
+                        android:layout_margin="6dp"
+                        android:textSize="14dp"
+                        android:id="@+id/tv3"
+                        />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -158,13 +157,13 @@
                         android:textSize="14dp"
                         android:id="@+id/tv9"
                         />
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="200dp"
-                    android:layout_marginLeft="-50dp"
-                    android:layout_marginBottom="10dp"
-                    android:src="@drawable/eatingcategory1"
-                    android:id="@+id/pic5"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="200dp"
+                        android:layout_marginLeft="-50dp"
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/eatingcategory1"
+                        android:id="@+id/pic5"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -174,13 +173,13 @@
                         android:textSize="14dp"
                         android:id="@+id/tv10"
                         />
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="200dp"
-                    android:layout_marginLeft="-50dp"
-                    android:layout_marginBottom="10dp"
-                    android:src="@drawable/eatingcategory2"
-                    android:id="@+id/pic6"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="200dp"
+                        android:layout_marginLeft="-50dp"
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/eatingcategory2"
+                        android:id="@+id/pic6"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -190,15 +189,15 @@
                         android:textSize="14dp"
                         android:id="@+id/tv11"
                         />
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="200dp"
-                    android:layout_marginLeft="-50dp"
-                    android:layout_marginBottom="10dp"
-                    android:src="@drawable/eatingcategory3"
-                    android:id="@+id/pic7"/>
-            </LinearLayout>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="200dp"
+                        android:layout_marginLeft="-50dp"
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/eatingcategory3"
+                        android:id="@+id/pic7"/>
                 </LinearLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -215,24 +214,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="58dp"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="The user can customize their profile and adjust the basic voice settings of the application by clicking on the top right corner of the screen:"
-                    android:layout_margin="6dp"
-                    android:textSize="14dp"
-                    android:id="@+id/tv4"
-                    />
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="200dp"
-                    android:layout_marginLeft="-50dp"
-                    android:layout_marginBottom="10dp"
-                    android:src="@drawable/settings"
-                    android:id="@+id/pic8"/>
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="58dp"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="The user can customize their profile and adjust the basic voice settings of the application by clicking on the top right corner of the screen:"
+                        android:layout_margin="6dp"
+                        android:textSize="14dp"
+                        android:id="@+id/tv4"
+                        />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="200dp"
+                        android:layout_marginLeft="-50dp"
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/settings"
+                        android:id="@+id/pic8"/>
                 </LinearLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -249,15 +248,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Jellow can also be used to teach children sequential steps of daily activities. By clicking on any individual step, the user may view the expressive buttons:"
-                    android:layout_margin="6dp"
-                    android:textSize="14dp"
-                    android:id="@+id/tv5"
-                    />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Jellow can also be used to teach children sequential steps of daily activities. By clicking on any individual step, the user may view the expressive buttons:"
+                        android:layout_margin="6dp"
+                        android:textSize="14dp"
+                        android:id="@+id/tv5"
+                        />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -267,13 +266,13 @@
                         android:textSize="14dp"
                         android:id="@+id/tv12"
                         />
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="200dp"
-                    android:layout_marginLeft="-50dp"
-                    android:layout_marginBottom="10dp"
-                    android:src="@drawable/sequencewithoutexpressivebuttons"
-                    android:id="@+id/pic9"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="200dp"
+                        android:layout_marginLeft="-50dp"
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/sequencewithoutexpressivebuttons"
+                        android:id="@+id/pic9"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -283,15 +282,15 @@
                         android:textSize="14dp"
                         android:id="@+id/tv13"
                         />
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="200dp"
-                    android:layout_marginLeft="-50dp"
-                    android:layout_marginBottom="10dp"
-                    android:src="@drawable/sequencewithexpressivebuttons"
-                    android:id="@+id/pic10"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="200dp"
+                        android:layout_marginLeft="-50dp"
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/sequencewithexpressivebuttons"
+                        android:id="@+id/pic10"/>
+                </LinearLayout>
             </LinearLayout>
-           </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -311,19 +310,38 @@
                         android:layout_width="wrap_content"
                         android:layout_height="60dp"
                         android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="To use Jellow, please activate 'Google text-to-speech (tts)' within 'Language' settings of your device. Download 'English (India)' and 'Hindi (India)' voices from Google tts settings"
+                        android:text="To use Jellow, please activate 'Google text-to-speech (tts)' within 'Language' settings of your device. Within Google tts settings first change the default language to 'Hindi (India)' and then download 'Hindi (India)' voice through the 'Install voice data' option"
                         android:layout_margin="6dp"
                         android:textSize="14dp"
                         android:id="@+id/tvtts"
                         />
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="200dp"
-                        android:layout_marginLeft="-50dp"
-                        android:layout_marginBottom="15dp"
-                        android:src="@drawable/googletts"
-                        android:id="@+id/googletts"
-                        android:layout_marginTop="0dp"/>
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="185dp"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:weightSum="3">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/gtts1"
+                            android:layout_weight="1"/>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/gtts2"
+                            android:layout_weight="1"/>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/gtts3"
+                            android:layout_weight="1"/>
+                    </LinearLayout>
+
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout

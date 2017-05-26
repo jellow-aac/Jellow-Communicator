@@ -141,30 +141,36 @@ public class Profile_form extends AppCompatActivity {
 
                 if (etName.getText().length() > 0) {
 
-                    if (isValidEmail(email))
-                    {
-                        session.setFather_name(fn);
-                        session.setAddress(ad);
-                        session.setName(n);
-                        session.setFather_name(fn);
-                        session.setFather_no(fc);
-                        session.setEmailId(email);
+                    if (etFathercontact.getText().toString().trim()
+                            .length() == 10) {
 
-                        if (session.getLanguage()==1){
-                            Toast.makeText(Profile_form.this, "जानकारी रक्षित हो गई हैं ", Toast.LENGTH_SHORT).show();
+                        if (isValidEmail(email))
+                        {
+                            session.setFather_name(fn);
+                            session.setAddress(ad);
+                            session.setName(n);
+                            session.setFather_name(fn);
+                            session.setFather_no(fc);
+                            session.setEmailId(email);
+
+                            if (session.getLanguage()==1){
+                                Toast.makeText(Profile_form.this, "जानकारी रक्षित हो गई हैं ", Toast.LENGTH_SHORT).show();
+                            }
+                            if (session.getLanguage()==0) {
+                                Toast.makeText(Profile_form.this, "Details saved", Toast.LENGTH_SHORT).show();
+                            }
+                            Intent i = new Intent(Profile_form.this, MainActivity.class);
+
+                            startActivity(i);
                         }
-                        if (session.getLanguage()==0) {
-                            Toast.makeText(Profile_form.this, "Details saved", Toast.LENGTH_SHORT).show();
+                        else
+                        {
+                            Toast.makeText(getApplicationContext(),"Invalid email address", Toast.LENGTH_SHORT).show();
                         }
-                        Intent i = new Intent(Profile_form.this, MainActivity.class);
+                    } else {
 
-                        startActivity(i);
+                        Toast.makeText(getApplicationContext(),"Invalid contact number  ", Toast.LENGTH_SHORT).show();
                     }
-                    else
-                    {
-                        Toast.makeText(getApplicationContext(),"Invalid email address", Toast.LENGTH_SHORT).show();
-                    }
-
                 } else {
                     Toast.makeText(Profile_form.this, "Please Enter the Name", Toast.LENGTH_SHORT).show();
                 }

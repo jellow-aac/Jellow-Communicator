@@ -7,6 +7,7 @@ package com.dsource.idc.jellow;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,17 +17,21 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.dsource.idc.jellow.app.AppConfig;
 import com.dsource.idc.jellow.app.AppController;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class SharedPreferences extends AppCompatActivity {
@@ -52,6 +57,17 @@ public class SharedPreferences extends AppCompatActivity {
         session = new SessionManager(getApplicationContext());
 
 // onClick of button perform this simplest code.
+
+        final MainActivity mainActivity = new MainActivity();
+        mainActivity.mTts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    mainActivity.mTts.setEngineByPackageName("com.google.android.tts");
+                    mainActivity.mTts.setLanguage(new Locale("hin", "IND"));
+                }
+            }
+        });
 
         etName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -92,24 +108,31 @@ public class SharedPreferences extends AppCompatActivity {
                 ec  = etEmergencyContact.getText().toString();
 
                 if (etName.getText().length()>0){
-                    email = etEmailId.getText().toString().trim();
-                    if (isValidEmail(email))
-                    {
-                        session.setName(n);
-                        session.setFather_no(ec);
-                        session.setEmailId(email);
-                        //session.setLogin(true);
-                        Calendar ca = Calendar.getInstance();
-                        System.out.println("Current time =&gt; "+ca.getTime());
 
-                        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    if (etEmergencyContact.getText().toString().trim()
+                            .length() == 10) {
+                        email = etEmailId.getText().toString().trim();
+                        if (isValidEmail(email))
+                        {
+                            session.setName(n);
+                            session.setFather_no(ec);
+                            session.setEmailId(email);
+                            //session.setLogin(true);
+                            Calendar ca = Calendar.getInstance();
+                            System.out.println("Current time =&gt; "+ca.getTime());
 
-                        formattedDate = df.format(ca.getTime());
-                        new LongOperation().execute("");
-                    }
-                    else
-                    {
-                        Toast.makeText(getApplicationContext(),"Invalid email address", Toast.LENGTH_SHORT).show();
+                            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+                            formattedDate = df.format(ca.getTime());
+                            new LongOperation().execute("");
+                        }
+                        else
+                        {
+                            Toast.makeText(getApplicationContext(),"Invalid email address", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+
+                        Toast.makeText(getApplicationContext(),"Invalid contact number  ", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else {

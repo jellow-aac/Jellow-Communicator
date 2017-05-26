@@ -1,8 +1,7 @@
 .gradle
-
+.idea
 app/build/
 app/app.iml
 /build
-app/.idea
+JellowCommunicator.iml
 /local.properties
-.DS_Store

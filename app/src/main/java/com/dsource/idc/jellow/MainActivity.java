@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private int mSelectedItemPosition;
     private View mSelectedItemView;
     private boolean mShouldReadFullSpeech = false;
-    private TextToSpeech mTts;
+    public TextToSpeech mTts;
     private ImageAdapter mImageAdapter;
     private Integer[] mColor = {-5317, -12627531 , -7617718 , -2937298 , -648053365 , -1761607680 };
 
@@ -277,12 +277,12 @@ public class MainActivity extends AppCompatActivity {
     float dpWidth;
     int sr, bw;
 
-    final String[] belowText_hindi ={"शुभकामना और भावना", "रोज़ के काम", "खाना", "मज़े", "सीखना", "लोग", "जगअह", "समय और मौसम", "मदद"};
+    final String[] belowText_hindi ={"शुभकामना और भावना", "रोज़ के काम", "खाना", "मज़े", "सीखना", "लोग", "जगह", "समय और मौसम", "मदद"};
     final String[] belowText_english ={"greet and feel", "daily activities", "eating", "fun", "learning", "people", "places", "time and Weather", "help"};
-    final String[] english1 ={"GREET AND FEEL", "DAILY ACTIVITIES", "EATING", "FUN", "LEARNING", "PEOPLE", "PLACES", "TIME AND WEATHER", "HELP"};
+    final String[] english1 ={"Greet and Feel", "Daily Activities", "Eating", "Fun", "Learning", "People", "Places", "Time and Weather", "Help"};
 
     final String[] side_hindi ={"अच्छा लगता हैं", "सच में अच्छा लगता हैं", "हाँ", "सच में हाँ", "ज़्यादा", "सच में ज़्यादा", "अच्छा नहीं लगता हैं", "सच में अच्छा नहीं लगता हैं", "नहीं", "सच में नहीं", "कम", "सच में कम"};
-    final String[] side_english ={"like", "really like", "yes", "really yes", "mohrr", "really mohrr", "dont like", "really dont like", "no", "really no", "less", "really less"};
+    final String[] side_english ={"like", "really like", "yes", "really yes", "more", "really more", "don’t like", "really don’t like", "no", "really no", "less", "really less"};
 
     final String[] below_hindi ={"होम", "वापस", "कीबोर्ड"};
     final String[] below_english ={"Home", "back", "keyboard"};

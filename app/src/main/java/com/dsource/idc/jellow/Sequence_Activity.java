@@ -84,7 +84,7 @@ public class Sequence_Activity extends AppCompatActivity {
     String[] bt = new String[2];
 
     final String[] side_hindi = {"अच्छा लगता हैं", "सच में अच्छा लगता हैं", "हाँ", "सच में हाँ", "ज़्यादा", "सच में ज़्यादा", "अच्छा नहीं लगता हैं", "सच में अच्छा नहीं लगता हैं", "नहीं", "सच में नहीं", "कम", "सच में कम"};
-    final String[] side_english = {"like", "really like", "yes", "really yes", "mohrr", "really mohrr", "dont like", "really dont like", "no o", "really no", "less", "really less"};
+    final String[] side_english = {"like", "really like", "yes", "really yes", "more", "really more", "don’t like", "really don’t like", "no", "really no", "less", "really less"};
 
     final String[] below_hindi = {"होम", "वापस", "कीबोर्ड"};
     final String[] below_english = {"Home", "back", "keyboard"};
@@ -93,17 +93,19 @@ public class Sequence_Activity extends AppCompatActivity {
     final String[] bt_english = {"<< PREVIOUS", "NEXT >>"};
 
     final String[][] daily_activities_text_english1 =
-            {{"Rinse maauuthh", "Rinse toothbrush", "Put toothpaste on brush", "Brush front teeth", "Brush backkkteethh", "Brush tongue", "Rinse maauuthh", "All done"}, {"Pull pants down", "Sit on toil et", "Wash bottom", "Flushh toil et", "Pull pants up", "Wash hands", "All done"}, {"Remove clothes", "Turn on water", "Get in the shaaver", "Wet body", "Put soap", "Shampoo हैर", "Put face wash", "Wash हैर", "Wash body", "Turn offf water", "Dry हैर", "Dry face", "Dry body", "Put on clothes", "All done"}, {"Wake up", "Wash face", "Go to toilet", "Brush teeth", "Remove clothes", "Have a बाथ", "Get dressed", "Comb हैर", "Eat brekfust", "Pack lunch box", "Pack school bag", "Go to school", "Have a great day!"}, {"Eat dinner", "ware night clothes", "Brush teeth", "Read story", "Say goodnight", "Say prayers", "Sweet dreams!"}};
+            {{"Rinse mouth", "Rinse toothbrush", "Put toothpaste on brush", "Brush front teeth", "Brush back teeth", "Brush tongue", "Rinse mouth", "All done"}, {"Pull pants down", "Sit on toilet", "Wash bottom", "Flushh toilet", "Pull pants up", "Wash hands", "All done"}, {"Remove clothes", "Turn on water", "Get in the shower", "Wet body", "Put soap", "shampoo हैर", "Put face wash", "Wash हैर", "Wash body", "Turn off water", "Dry हैर", "Dry face", "Dry body", "Put on clothes", "All done"}, {"Wake up", "Wash face", "Go to toilet", "Brush teeth", "Remove clothes", "Have a बाथ", "Get dressed", "Comb हैर", "Eat brekfust", "Pack lunch box", "Pack school bag", "Go to school", "Have a great day!"}, {"Eat dinner", "wear night clothes", "Brush teeth", "Read story", "Say goodnight", "Say prayers", "Sweet dreams!"}};
 
-    final String[][] daily_activities_text_hindi1 = {{"मुँह पानी से धोना", "टूथ ब्रश पानी से धोना", "ब्रश पर टूथपेस्ट लगाना", "सामने के दांत साफ़ करना", "पीछे के दांत साफ़ करना", "जीभ साफ़ करना", "मुँह पानी से धोना", "मैंने ख़त्म कर दिया"}, {"pant नीचे खींचना", "शौचालय में बैठना", "पिछला हिस्सा धोना", "toil et फ़्लश करना", "pant ऊपर खींचना", "हाथ धोना", "मैंने ख़त्म कर दिया"}, {"कपड़े निकालना", "पानी चालू करना", "shaaver लेना", "शरीर को भिगोना", "साबुन लगाना", "बालों को shampooलगाना ", "फेस वॉश लगाना", "बाल धोना", "शरीर धोना", "पानी बंद करना", "बाल सुखाना", "चेहरा पोंछना", "शरीर पोंछना", "कपड़े पैहनना", "मैंने ख़त्म कर दिया"}, {"उठना", "चेहरा धोना", "शौचालय जाना", "दांत साफ़ करना", "कपड़े उतारना", "नहाना", "कपड़े पैहनना", "कंघी करना", "सुबह का नाश्ता खाना", "खाने का डिब्बा भरना", "पाठशाला की bag भरना", "पाठशाला जाना", "आपका दिन अच्छा रहे"}, {"रात का भोजन", "रात के कपड़े पैहनना", "दांत साफ़ करना", "कहानियाँ पढ़ना", "शुभ रात्रि बोलना", "प्रार्थना करना", "प्यारे सपने देखो"}};
+    final String[][] daily_activities_text_hindi1 = {{"मुँह पानी से धोना", "टूथ ब्रश पानी से धोना", "ब्रश पर टूथपेस्ट लगाना", "सामने के दांत साफ़ करना", "पीछे के दांत साफ़ करना", "जीभ साफ़ करना", "मुँह पानी से धोना", "मैंने ख़त्म कर दिया"}, {"पैन्ट नीचे खींचना", "शौचालय में बैठना", "पिछला हिस्सा धोना", "टॉयलेट फ़्लश करना", "पैन्ट ऊपर खींचना", "हाथ धोना", "मैंने ख़त्म कर दिया"}, {"कपड़े निकालना", "पानी चालू करना", "शॉवर लेना", "शरीर को भिगोना", "साबुन लगाना", "बालों को शाम्पू लगाना ", "फेस वॉश लगाना", "बाल धोना", "शरीर धोना", "पानी बंद करना", "बाल सुखाना", "चेहरा पोंछना", "शरीर पोंछना", "कपड़े पैहनना", "मैंने ख़त्म कर दिया"}, {"उठना", "चेहरा धोना", "शौचालय जाना", "दांत साफ़ करना", "कपड़े उतारना", "नहाना", "कपड़े पैहनना", "कंघी करना", "सुबह का नाश्ता खाना", "खाने का डिब्बा भरना", "पाठशाला की bag भरना", "पाठशाला जाना", "आपका दिन अच्छा रहे"}, {"रात का भोजन", "रात के कपड़े पैहनना", "दांत साफ़ करना", "कहानियाँ पढ़ना", "शुभ रात्रि बोलना", "प्रार्थना करना", "प्यारे सपने देखो"}};
 
-    final String[][] daily_activities_text_hindi = {{"1. मुँह पानी से धोना", "2. टूथब्रश पानी से धोना", "3. टूथपेस्ट लगाना", "4. सामने के दांत साफ़", "5. पीछे के दांत साफ़", "6. जीभ साफ़", "7. मुँह पानी से धोना", "8. मैंने ख़त्म कर दिया"}, {"1. पैंट नीचे खींचना", "2. शौचालय में बैठना", "3. पिछला हिस्सा धोना", "4. टॉयलेट फ़्लश करना", "5. पैंट ऊपर खींचना", "6. हाथ धोना", "7. मैंने ख़त्म कर दिया"}, {"1. कपड़े निकालना", "2. पानी चालू करना", "3. शावर लेना", "4. शरीर को भिगोना", "5. साबुन लगाना", "6. शैम्पू लगाना ", "7. फेस वॉश लगाना", "8. बाल धोना", "9. शरीर धोना", "10. पानी बंद करना", "11. बाल सुखाना ", "12. चेहरा पोंछना", "13. शरीर पोंछना", "14. कपड़े पैहनना", "15. मैंने ख़त्म कर दिया"}, {"1. उठना", "2. चेहरा धोना", "3. शौचालय जाना", "4. दांत साफ़ करना", "5. कपड़े उतारना", "6. नहाना", "7. कपड़े पैहनना", "8. कंघी करना", "9. नाश्ता खाना", "10. डिब्बा भरना", "11. पाठशाला की बॅग भरना", "12. पाठशाला जाना", "13. आपका दिन अच्छा रहे"}, {"1. रात का भोजन", "2. रात के कपड़े पैहनना", "3. दांत साफ़ करना", "4. कहानियाँ पढ़ना", "5. शुभ रात्रि बोलना", "6. प्रार्थना करना", "7. प्यारे सपने देखो"}};
+    final String[][] daily_activities_text_hindi = {{"१. मुँह पानी से धोना", "२. टूथब्रश पानी से धोना", "३. टूथपेस्ट लगाना", "४. सामने के दांत साफ़", "५. पीछे के दांत साफ़", "६. जीभ साफ़", "७. मुँह पानी से धोना", "८. मैंने ख़त्म कर दिया"}, {"१. पैंट नीचे खींचना", "२. शौचालय में बैठना", "३. पिछला हिस्सा धोना", "४. टॉयलेट फ़्लश करना", "५. पैंट ऊपर खींचना", "६. हाथ धोना", "७. मैंने ख़त्म कर दिया"}, {"१. कपड़े निकालना", "२. पानी चालू करना", "३. शावर लेना", "४. शरीर को भिगोना", "५. साबुन लगाना", "६. शैम्पू लगाना ", "७. फेस वॉश लगाना", "८. बाल धोना", "९. शरीर धोना", "१०. पानी बंद करना", "११. बाल सुखाना ", "१२. चेहरा पोंछना", "१३. शरीर पोंछना", "१४. कपड़े पैहनना", "१५. मैंने ख़त्म कर दिया"}, {"१. उठना", "२ . चेहरा धोना", "३. शौचालय जाना", "४. दांत साफ़ करना", "५. कपड़े उतारना", "६. नहाना", "७. कपड़े पैहनना", "८. कंघी करना", "९. नाश्ता खाना", "१०. डिब्बा भरना", "११. पाठशाला की बॅग भरना", "१२. पाठशाला जाना", "१३. आपका दिन अच्छा रहे"}, {"१. रात का भोजन", "२. रात के कपड़े पैहनना", "३. दांत साफ़ करना", "४. कहानियाँ पढ़ना", "५. शुभ रात्रि बोलना", "६. प्रार्थना करना", "७. प्यारे सपने देखो"}};
 
     final String[][] daily_activities_text_english = {{"1. Rinse mouth", "2. Rinse toothbrush", "3. Put toothpaste", "4. Brush front teeth", "5. Brush back teeth", "6. Brush tongue", "7. Rinse mouth", "8. All done"}, {"1. Pull pants down", "2. Sit on toilet", "3. Wash bottom", "4. Flush toilet", "5. Pull pants up", "6. Wash hands", "7. All done"}, {"1. Remove clothes", "2. Turn on water", "3. Get in shower", "4. Wet body", "5. Put soap", "6. Shampoo hair", "7. Put face wash", "8. Wash hair", "9. Wash body", "10. Turn off water", "11. Dry hair", "12. Dry face", "13. Dry body", "14. Put on clothes", "15. All done"}, {"1. Wake up", "2. Wash face", "3. Go to toilet", "4. Brush teeth", "5. Remove clothes", "6. Have a bath", "7. Get dressed", "8. Comb Hair", "9. Eat breakfast", "10. Pack lunchbox", "11. Pack school bag", "12. Go to school", "13. Have a great day"}, {"1. Eat dinner", "2. Wear night dress", "3. Brush teeth", "4. Read story", "5. Say goodnight", "6. Say prayers", "7. Sweet dreams!"}};
 
     final String[] heading_english = {"brushing", "toilet", "bathing", "\tmorning routine", "\tbedtime routine"};
+    final String[] heading_english_title = {"Brushing", "Toilet", "Bathing", "Morning Routine", "Bedtime Routine"};
 
     final String[] heading_hindi = {"ब्रश करना", "शौचालय ", "नहाना", "सुबह के कार्य", "रात के कार्य"};
+    final String[] heading_hindi_title = {"दांत साफ़ करना", "शौचालय ", "नहाना", "सुबह के नियमित कार्य", "रात के नियमित कार्य"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -1346,18 +1348,18 @@ public class Sequence_Activity extends AppCompatActivity {
         super.onPause();
     }
 
-    String[][][] layer_1_speech_english = {{{"I like to rinse my maauuthh",
-            "I really like to rinse my maauuthh",
-            "I want to rinse my maauuthh",
-            "I really want to rinse my maauuthh",
-            "I want to rinse my maauuthh some more",
-            "I really want to rinse my maauuthh some more",
-            "I don’t like to rinse my maauuthh",
-            "I really don’t like to rinse my maauuthh",
-            "I don’t want to rinse my maauuthh",
-            "I really don’t want to rinse my maauuthh",
-            "I don’t want to rinse my maauuthh more",
-            "I really don’t want to rinse my maauuthh any more",
+    String[][][] layer_1_speech_english = {{{"I like to rinse my mouth",
+            "I really like to rinse my mouth",
+            "I want to rinse my mouth",
+            "I really want to rinse my mouth",
+            "I want to rinse my mouth some more",
+            "I really want to rinse my mouth some more",
+            "I don’t like to rinse my mouth",
+            "I really don’t like to rinse my mouth",
+            "I don’t want to rinse my mouth",
+            "I really don’t want to rinse my mouth",
+            "I don’t want to rinse my mouth more",
+            "I really don’t want to rinse my mouth any more",
 
     },{"I like to rinse my toothbrush",
             "I really like to rinse my toothbrush",
@@ -1398,18 +1400,18 @@ public class Sequence_Activity extends AppCompatActivity {
             "I don’t want to brush my front teeth more",
             "I really don’t want to brush my front teeth any more"
 
-    },{"I like to brush my backkkteethh",
-            "I really like to brush my backkkteethh",
-            "I want to brush my backkkteethh",
-            "I really want to brush my backkkteethh",
-            "I want to brush my backkkteethh some more",
-            "I really want to brush my backkkteethh some more",
-            "I don’t like to brush my backkkteethh",
-            "I really don’t like to brush my backkkteethh",
-            "I don’t want to brush my backkkteethh",
-            "I really don’t want to brush my backkkteethh",
-            "I don’t want to brush my backkkteethh more",
-            "I really don’t want to brush my backkkteethh any more"
+    },{"I like to brush my back teeth",
+            "I really like to brush my back teeth",
+            "I want to brush my back teeth",
+            "I really want to brush my back teeth",
+            "I want to brush my back teeth some more",
+            "I really want to brush my back teeth some more",
+            "I don’t like to brush my back teeth",
+            "I really don’t like to brush my back teeth",
+            "I don’t want to brush my back teeth",
+            "I really don’t want to brush my back teeth",
+            "I don’t want to brush my back teeth more",
+            "I really don’t want to brush my back teeth any more"
 
     },{"I like to brush my tongue",
             "I really like to brush my tongue",
@@ -1424,18 +1426,18 @@ public class Sequence_Activity extends AppCompatActivity {
             "I don’t want to brush my tongue more",
             "I really don’t want to brush my tongue any more",
 
-    },{"I like to rinse my maauuthh",
-            "I really like to rinse my maauuthh",
-            "I want to rinse my maauuthh",
-            "I really want to rinse my maauuthh",
-            "I want to rinse my maauuthh some more",
-            "I really want to rinse my maauuthh some more",
-            "I don’t like to rinse my maauuthh",
-            "I really don’t like to rinse my maauuthh",
-            "I don’t want to rinse my maauuthh",
-            "I really don’t want to rinse my maauuthh",
-            "I don’t want to rinse my maauuthh more",
-            "I really don’t want to rinse my maauuthh any more"
+    },{"I like to rinse my mouth",
+            "I really like to rinse my mouth",
+            "I want to rinse my mouth",
+            "I really want to rinse my mouth",
+            "I want to rinse my mouth some more",
+            "I really want to rinse my mouth some more",
+            "I don’t like to rinse my mouth",
+            "I really don’t like to rinse my mouth",
+            "I don’t want to rinse my mouth",
+            "I really don’t want to rinse my mouth",
+            "I don’t want to rinse my mouth more",
+            "I really don’t want to rinse my mouth any more"
 
     }},{{
             "I have to pull my pants down",
@@ -1451,18 +1453,18 @@ public class Sequence_Activity extends AppCompatActivity {
             "I don’t want to pull my pants down again",
             "I really don’t want to pull my pants down again"
 
-    },{"I have to sit on the toil et",
-            "I really have to sit on the toil et",
-            "I want to sit on the toil et",
-            "I really want to sit on the toil et",
-            "I want to sit on the toil et again",
-            "I really want to sit on the toil et again",
-            "I don’t have to sit on the toil et",
-            "I really don’t have to sit on the toil et",
-            "I don’t want to sit on the toil et",
-            "I really don’t want to sit on the toil et",
-            "I don’t want to sit on the toil et again",
-            "I really don’t want to sit on the toil et again"
+    },{"I have to sit on the toilet",
+            "I really have to sit on the toilet",
+            "I want to sit on the toilet",
+            "I really want to sit on the toilet",
+            "I want to sit on the toilet again",
+            "I really want to sit on the toilet again",
+            "I don’t have to sit on the toilet",
+            "I really don’t have to sit on the toilet",
+            "I don’t want to sit on the toilet",
+            "I really don’t want to sit on the toilet",
+            "I don’t want to sit on the toilet again",
+            "I really don’t want to sit on the toilet again"
 
     },{"I have to wash my bottom",
             "I really have to wash my bottom",
@@ -1477,18 +1479,18 @@ public class Sequence_Activity extends AppCompatActivity {
             "I don’t want to wash my bottom again",
             "I really don’t want to wash my bottom again"
 
-    },{"I have to flushh the toil et",
-            "I really have to flushh the toil et",
-            "I want to flushh the toil et",
-            "I really want to flushh the toil et",
-            "I want to flushh the toil et again",
-            "I really want to flushh the toil et again",
-            "I don’t have to flushh the toil et",
-            "I really don’t have to flushh the toil et",
-            "I don’t want to flushh the toil et",
-            "I really don’t want to flushh the toil et",
-            "I don’t want to flushh the toil et again",
-            "I really don’t want to flushh the toil et again"
+    },{"I have to flushh the toilet",
+            "I really have to flushh the toilet",
+            "I want to flushh the toilet",
+            "I really want to flushh the toilet",
+            "I want to flushh the toilet again",
+            "I really want to flushh the toilet again",
+            "I don’t have to flushh the toilet",
+            "I really don’t have to flushh the toilet",
+            "I don’t want to flushh the toilet",
+            "I really don’t want to flushh the toilet",
+            "I don’t want to flushh the toilet again",
+            "I really don’t want to flushh the toilet again"
 
     },{"I have to pull my pants up",
             "I really have to pull my pants up",
@@ -1541,18 +1543,18 @@ public class Sequence_Activity extends AppCompatActivity {
             "I don’t want to turn on the water again",
             "I really don’t want to turn on the water again"
 
-    },{"I have to get in the shaaver",
-            "I really have to get in the shaaver",
-            "I want to get in the shaaver",
-            "I really want to get in the shaaver",
-            "I want to get in the shaaver again",
-            "I really want to get in the shaaver again",
-            "I don’t have to get in the shaaver",
-            "I really don’t have to get in the shaaver",
-            "I don’t want to get in the shaaver",
-            "I really don’t want to get in the shaaver",
-            "I don’t want to get in the shaaver again",
-            "I really don’t want to get in the shaaver again"
+    },{"I have to get in the shower",
+            "I really have to get in the shower",
+            "I want to get in the shower",
+            "I really want to get in the shower",
+            "I want to get in the shower again",
+            "I really want to get in the shower again",
+            "I don’t have to get in the shower",
+            "I really don’t have to get in the shower",
+            "I don’t want to get in the shower",
+            "I really don’t want to get in the shower",
+            "I don’t want to get in the shower again",
+            "I really don’t want to get in the shower again"
 
     },{"I like to wet my body",
             "I really like to wet my body",
@@ -1632,18 +1634,18 @@ public class Sequence_Activity extends AppCompatActivity {
             "I don’t want to wash my body again",
             "I really don’t want to wash my body again"
 
-    },{"I have to turn offf the water",
-            "I really have to turn offf the water",
-            "I want to turn offf the water",
-            "I really want to turn offf the water",
-            "I want to turn offf the water again",
-            "I really want to turn offf the water again",
-            "I don’t have to turn offf the water",
-            "I really don’t have to turn offf the water",
-            "I don’t want to turn offf the water",
-            "I really don’t want to turn offf the water",
-            "I don’t want to turn offf the water again",
-            "I really don’t want to turn offf the water again"
+    },{"I have to turn off the water",
+            "I really have to turn off the water",
+            "I want to turn off the water",
+            "I really want to turn off the water",
+            "I want to turn off the water again",
+            "I really want to turn off the water again",
+            "I don’t have to turn off the water",
+            "I really don’t have to turn off the water",
+            "I don’t want to turn off the water",
+            "I really don’t want to turn off the water",
+            "I don’t want to turn off the water again",
+            "I really don’t want to turn off the water again"
 
     },{"I like to dry my हैर",
             "I really like to dry my हैर",
@@ -1723,15 +1725,15 @@ public class Sequence_Activity extends AppCompatActivity {
             "I really don’t want to wash my face again"
 
     },{"I like to go to the toilet",
-            "I really like to go to the toilet",
-            "I want to go to the toilet",
-            "I really want to go to the toilet",
+            "I really like to go to the toilet ",
+            "I want to go to the toilet ",
+            "I really want to go to the toilet ",
             "I want to go to the toilet again",
             "I really want to go to the toilet again",
-            "I don’t like to go to the toilet",
-            "I really don’t like to go to the toilet",
-            "I don’t want to go to the toilet",
-            "I really don’t want to go to the toilet",
+            "I don’t like to go to the toilet ",
+            "I really don’t like to go to the toilet ",
+            "I don’t want to go to the toilet ",
+            "I really don’t want to go to the toilet ",
             "I don’t want to go to the toilet again",
             "I really don’t want to go to the toilet again"
 
@@ -1761,18 +1763,18 @@ public class Sequence_Activity extends AppCompatActivity {
             "I don’t want to remove my clothes again",
             "I really don’t want to remove my clothes again"
 
-    },{"I like to have a बाथ",
-            "I really like to have a बाथ",
-            "I want to have a बाथ",
-            "I really want to have a बाथ",
-            "I want to have a बाथ again",
-            "I really want to have a बाथ again",
-            "I don’t like to have a बाथ",
-            "I really don’t like to have a बाथ",
-            "I don’t want to have a बाथ",
-            "I really don’t want to have a बाथ",
-            "I don’t want to have a बाथ again",
-            "I really don’t want to have a बाथ again"
+    },{"I like to bathe",
+            "I really like to bathe",
+            "I want to bathe",
+            "I really want to bathe",
+            "I want to bathe again",
+            "I really want to bathe again",
+            "I don’t like to bathe",
+            "I really don’t like to bathe",
+            "I don’t want to bathe",
+            "I really don’t want to bathe",
+            "I don’t want to bathe again",
+            "I really don’t want to bathe again"
 
     },{"I like to get dressed",
             "I really like to get dressed",
@@ -1865,18 +1867,18 @@ public class Sequence_Activity extends AppCompatActivity {
             "I don’t want to eat more dinner",
             "I really don’t want to eat any more dinner"
 
-    },{"I like to Ware night clothes",
-            "I really like to Ware night clothes",
-            "I want to Ware night clothes",
-            "I really want to Ware night clothes",
-            "I want to Ware night clothes again",
-            "I really want to Ware night clothes again",
-            "I don’t like to Ware night clothes",
-            "I really don’t like to Ware night clothes",
-            "I don’t want to Ware night clothes",
-            "I really don’t want to Ware night clothes",
-            "I don’t want to Ware night clothes again",
-            "I really don’t want to Ware night clothes again"
+    },{"I like to Wear my night dress",
+            "I really like to Wear my night dress",
+            "I want to Wear my night dress",
+            "I really want to Wear my night dress",
+            "I want to Wear my night dress again",
+            "I really want to Wear my night dress again",
+            "I don’t like to Wear my night dress",
+            "I really don’t like to Wear my night dress",
+            "I don’t want to Wear my night dress",
+            "I really don’t want to Wear my night dress",
+            "I don’t want to Wear my night dress again",
+            "I really don’t want to Wear my night dress again"
 
     },{"I like to brush my teeth",
             "I really like to brush my teeth",
@@ -2023,31 +2025,31 @@ public class Sequence_Activity extends AppCompatActivity {
             "मुझे अपना मुँह पानी से और नहीं धोना हैं",
             "मुझे सच में अपना मुँह पानी से और नहीं धोना हैं"
 
-    }},{{"मुझे अपनी pant नीचे खींचनी हैं",
-            "मुझे सच में अपनी pant नीचे खींचनी हैं",
-            "मुझे अपनी pant नीचे खींचनी हैं",
-            "मुझे सच में अपनी pant नीचे खींचनी हैं",
-            "मुझे फिर से अपनी pant नीचे खींचनी हैं",
-            "मुझे सच में फिर से अपनी pant नीचे खींचनी हैं",
-            "मुझे अपनी pant नीचे नहीं खींचनी हैं",
-            "मुझे सच में अपनी pant नीचे नहीं खींचनी हैं",
-            "मुझे अपनी pant नीचे नहीं खींचनी हैं",
-            "मुझे सच में अपनी pant नीचे नहीं खींचनी हैं",
-            "मुझे फिर से अपनी pant नीचे नहीं खींचनी हैं",
-            "मुझे सच में फिर से अपनी pant नीचे नहीं खींचनी हैं"
+    }},{{"मुझे अपनी पैन्ट नीचे खींचनी हैं",
+            "मुझे सच में अपनी पैन्ट नीचे खींचनी हैं",
+            "मुझे अपनी पैन्ट नीचे खींचनी हैं",
+            "मुझे सच में अपनी पैन्ट नीचे खींचनी हैं",
+            "मुझे फिर से अपनी पैन्ट नीचे खींचनी हैं",
+            "मुझे सच में फिर से अपनी पैन्ट नीचे खींचनी हैं",
+            "मुझे अपनी पैन्ट नीचे नहीं खींचनी हैं",
+            "मुझे सच में अपनी पैन्ट नीचे नहीं खींचनी हैं",
+            "मुझे अपनी पैन्ट नीचे नहीं खींचनी हैं",
+            "मुझे सच में अपनी पैन्ट नीचे नहीं खींचनी हैं",
+            "मुझे फिर से अपनी पैन्ट नीचे नहीं खींचनी हैं",
+            "मुझे सच में फिर से अपनी पैन्ट नीचे नहीं खींचनी हैं"
 
-    },{"मुझे शौचा लय में बैठना हैं",
-            "मुझे सच में शौचा लय में बैठना हैं",
-            "मुझे शौचा लय में बैठना हैं",
-            "मुझे सच में शौचा लय में बैठना हैं",
-            "मुझे फिर से शौचा लय में बैठना हैं",
-            "मुझे सच में फिर से शौचा लय में बैठना हैं",
-            "मुझे शौचा लय में नहीं बैठना हैं",
-            "मुझे सच में शौचा लय में नहीं बैठना हैं",
-            "मुझे शौचा लय में नहीं बैठना हैं",
-            "मुझे सच में शौचा लय में नहीं बैठना हैं",
-            "मुझे फिर से शौचा लय में नहीं बैठना हैं",
-            "मुझे सच में फिर से शौचा लय में नहीं बैठना हैं"
+    },{"मुझे शौचालय में बैठना हैं",
+            "मुझे सच में शौचालय में बैठना हैं",
+            "मुझे शौचालय में बैठना हैं",
+            "मुझे सच में शौचालय में बैठना हैं",
+            "मुझे फिर से शौचालय में बैठना हैं",
+            "मुझे सच में फिर से शौचालय में बैठना हैं",
+            "मुझे शौचालय में नहीं बैठना हैं",
+            "मुझे सच में शौचालय में नहीं बैठना हैं",
+            "मुझे शौचालय में नहीं बैठना हैं",
+            "मुझे सच में शौचालय में नहीं बैठना हैं",
+            "मुझे फिर से शौचालय में नहीं बैठना हैं",
+            "मुझे सच में फिर से शौचालय में नहीं बैठना हैं"
 
     },{"मुझे मेरा पिछला हिस्सा धोना हैं",
             "मुझे सच में मेरा पिछला हिस्सा धोना हैं",
@@ -2062,31 +2064,31 @@ public class Sequence_Activity extends AppCompatActivity {
             "मुझे फिर से मेरा पिछला हिस्सा नहीं धोना हैं",
             "मुझे सच में फिर से मेरा पिछला हिस्सा नहीं धोना हैं"
 
-    },{"मुझे toil et फ़्लश करना हैं",
-            "मुझे सच में toil et फ़्लश करना हैं",
-            "मुझे toil et फ़्लश करना हैं",
-            "मुझे सच में toil et फ़्लश करना हैं",
-            "मुझे फिर से toil et फ़्लश करना हैं",
-            "मुझे सच में फिर से toil et फ़्लश करना हैं",
-            "मुझे toil et फ़्लश नहीं करना हैं",
-            "मुझे सच में toil et फ़्लश नहीं करना हैं",
-            "मुझे toil et फ़्लश नहीं करना हैं",
-            "मुझे सच में toil et फ़्लश नहीं करना हैं",
-            "मुझे फिर से toil et फ़्लश नहीं करना हैं",
-            "मुझे सच में फिर से toil et फ़्लश नहीं करना हैं"
+    },{"मुझे टॉयलेट फ़्लश करना हैं",
+            "मुझे सच में टॉयलेट फ़्लश करना हैं",
+            "मुझे टॉयलेट फ़्लश करना हैं",
+            "मुझे सच में टॉयलेट फ़्लश करना हैं",
+            "मुझे फिर से टॉयलेट फ़्लश करना हैं",
+            "मुझे सच में फिर से टॉयलेट फ़्लश करना हैं",
+            "मुझे टॉयलेट फ़्लश नहीं करना हैं",
+            "मुझे सच में टॉयलेट फ़्लश नहीं करना हैं",
+            "मुझे टॉयलेट फ़्लश नहीं करना हैं",
+            "मुझे सच में टॉयलेट फ़्लश नहीं करना हैं",
+            "मुझे फिर से टॉयलेट फ़्लश नहीं करना हैं",
+            "मुझे सच में फिर से टॉयलेट फ़्लश नहीं करना हैं"
 
-    },{"मुझे अपनी pant ऊपर खींचनी हैं",
-            "मुझे सच में अपनी pant ऊपर खींचनी हैं",
-            "मुझे अपनी pant ऊपर खींचनी हैं",
-            "मुझे सच में अपनी pant ऊपर खींचनी हैं",
-            "मुझे फिर से अपनी pant ऊपर खींचनी हैं",
-            "मुझे सच में फिर से अपनी pant ऊपर खींचनी हैं",
-            "मुझे अपनी pant ऊपर नहीं खींचनी हैं",
-            "मुझे सच में अपनी pant ऊपर नहीं खींचनी हैं",
-            "मुझे अपनी pant ऊपर नहीं खींचनी हैं",
-            "मुझे सच में अपनी pant ऊपर नहीं खींचनी हैं",
-            "मुझे फिर से अपनी pant ऊपर नहीं खींचनी हैं",
-            "मुझे सच में फिर से अपनी pant ऊपर नहीं खींचनी हैं"
+    },{"मुझे अपनी पैन्ट ऊपर खींचनी हैं",
+            "मुझे सच में अपनी पैन्ट ऊपर खींचनी हैं",
+            "मुझे अपनी पैन्ट ऊपर खींचनी हैं",
+            "मुझे सच में अपनी पैन्ट ऊपर खींचनी हैं",
+            "मुझे फिर से अपनी पैन्ट ऊपर खींचनी हैं",
+            "मुझे सच में फिर से अपनी पैन्ट ऊपर खींचनी हैं",
+            "मुझे अपनी पैन्ट ऊपर नहीं खींचनी हैं",
+            "मुझे सच में अपनी पैन्ट ऊपर नहीं खींचनी हैं",
+            "मुझे अपनी पैन्ट ऊपर नहीं खींचनी हैं",
+            "मुझे सच में अपनी पैन्ट ऊपर नहीं खींचनी हैं",
+            "मुझे फिर से अपनी पैन्ट ऊपर नहीं खींचनी हैं",
+            "मुझे सच में फिर से अपनी पैन्ट ऊपर नहीं खींचनी हैं"
 
     },{"मुझे अपने हाथ धोने हैं",
             "मुझे सच में अपने हाथ धोने हैं",
@@ -2127,18 +2129,18 @@ public class Sequence_Activity extends AppCompatActivity {
             "मुझे फिर से पानी चालू नहीं करना हैं",
             "मुझे सच में फिर से पानी चालू नहीं करना हैं"
 
-    },{"मुझे shaaver लेना हैं",
-            "मुझे सच में shaaver लेना हैं",
-            "मुझे shaaver लेना हैं",
-            "मुझे सच में shaaver लेना हैं",
-            "मुझे फिर से shaaver लेना हैं",
-            "मुझे सच में फिर से shaaver लेना हैं",
-            "मुझे shaaver नहीं लेना हैं",
-            "मुझे सच में shaaver नहीं लेना हैं",
-            "मुझे shaaver नहीं लेना हैं",
-            "मुझे सच में shaaver नहीं लेना हैं",
-            "मुझे फिर से shaaver नहीं लेना हैं",
-            "मुझे सच में फिर से shaaver नहीं लेना हैं"
+    },{"मुझे शॉवर लेना हैं",
+            "मुझे सच में शॉवर लेना हैं",
+            "मुझे शॉवर लेना हैं",
+            "मुझे सच में शॉवर लेना हैं",
+            "मुझे फिर से शॉवर लेना हैं",
+            "मुझे सच में फिर से शॉवर लेना हैं",
+            "मुझे शॉवर नहीं लेना हैं",
+            "मुझे सच में शॉवर नहीं लेना हैं",
+            "मुझे शॉवर नहीं लेना हैं",
+            "मुझे सच में शॉवर नहीं लेना हैं",
+            "मुझे फिर से शॉवर नहीं लेना हैं",
+            "मुझे सच में फिर से शॉवर नहीं लेना हैं"
 
     },{"मुझे अपने शरीर को भिगोना अच्छा लगता हैं",
             "मुझे सच में अपने शरीर को भिगोना अच्छा लगता हैं",
@@ -2166,18 +2168,18 @@ public class Sequence_Activity extends AppCompatActivity {
             "मुझे अपने शरीर पर और साबुन नहीं लगाना हैं",
             "मुझे सच में अपने शरीर पर और साबुन नहीं लगाना हैं"
 
-    },{"मुझे अपने बालों को shampoo लगाना अच्छा लगता हैं",
-            "मुझे सच में अपने बालों को shampoo लगाना अच्छा लगता हैं",
-            "मुझे अपने बालों को shampoo लगाना हैं",
-            "मुझे सच में अपने बालों को shampoo लगाना हैं",
-            "मुझे फिर से अपने बालों को shampoo लगाना हैं",
-            "मुझे सच में फिर से अपने बालों को shampoo लगाना हैं",
-            "मुझे अपने बालों को shampoo लगाना अच्छा नहीं लगता हैं",
-            "मुझे सच में अपने बालों को shampoo लगाना अच्छा नहीं लगता हैं",
-            "मुझे अपने बालों को shampoo नहीं लगाना हैं",
-            "मुझे सच में अपने बालों को shampoo नहीं लगाना हैं",
-            "मुझे फिर से अपने बालों को shampoo नहीं लगाना हैं",
-            "मुझे सच में फिर से अपने बालों को shampoo नहीं लगाना हैं"
+    },{"मुझे अपने बालों को शाम्पू लगाना अच्छा लगता हैं",
+            "मुझे सच में अपने बालों को शाम्पू लगाना अच्छा लगता हैं",
+            "मुझे अपने बालों को शाम्पू लगाना हैं",
+            "मुझे सच में अपने बालों को शाम्पू लगाना हैं",
+            "मुझे फिर से अपने बालों को शाम्पू लगाना हैं",
+            "मुझे सच में फिर से अपने बालों को शाम्पू लगाना हैं",
+            "मुझे अपने बालों को शाम्पू लगाना अच्छा नहीं लगता हैं",
+            "मुझे सच में अपने बालों को शाम्पू लगाना अच्छा नहीं लगता हैं",
+            "मुझे अपने बालों को शाम्पू नहीं लगाना हैं",
+            "मुझे सच में अपने बालों को शाम्पू नहीं लगाना हैं",
+            "मुझे फिर से अपने बालों को शाम्पू नहीं लगाना हैं",
+            "मुझे सच में फिर से अपने बालों को शाम्पू नहीं लगाना हैं"
 
     },{"मुझे फेस वॉश का इस्तमाल करना अच्छा लगता हैं",
             "मुझे सच में फेस वॉश का इस्तमाल करना अच्छा लगता हैं",
@@ -2270,18 +2272,18 @@ public class Sequence_Activity extends AppCompatActivity {
             "मुझे फिर से अपना शरीर नहीं पोंछना हैं",
             "मुझे सच में फिर से अपना शरीर नहीं पोंछना हैं"
 
-    },{"मुझे अपने कपड़े पैहनने हैं",
-            "मुझे सच में अपने कपड़े पैहनने हैं",
-            "मुझे अपने कपड़े पैहनने हैं",
-            "मुझे सच में अपने कपड़े पैहनने हैं",
-            "मुझे अपने कपड़े फिर से पैहनने हैं",
-            "मुझे सच में अपने कपड़े फिर से पैहनने हैं",
-            "मुझे अपने कपड़े नहीं पैहनने हैं",
-            "मुझे सच में अपने कपड़े नहीं पैहनने हैं",
-            "मुझे अपने कपड़े नहीं पैहनने हैं",
-            "मुझे सच में अपने कपड़े नहीं पैहनने हैं",
-            "मुझे अपने कपड़े फिर से नहीं पैहनने हैं",
-            "मुझे सच में अपने कपड़े फिर से नहीं पैहनने हैं"
+    },{"मुझे अपने कपड़े पहनने हैं",
+            "मुझे सच में अपने कपड़े पहनने हैं",
+            "मुझे अपने कपड़े पहनने हैं",
+            "मुझे सच में अपने कपड़े पहनने हैं",
+            "मुझे अपने कपड़े फिर से पहनने हैं",
+            "मुझे सच में अपने कपड़े फिर से पहनने हैं",
+            "मुझे अपने कपड़े नहीं पहनने हैं",
+            "मुझे सच में अपने कपड़े नहीं पहनने हैं",
+            "मुझे अपने कपड़े नहीं पहनने हैं",
+            "मुझे सच में अपने कपड़े नहीं पहनने हैं",
+            "मुझे अपने कपड़े फिर से नहीं पहनने हैं",
+            "मुझे सच में अपने कपड़े फिर से नहीं पहनने हैं"
 
     }},{{"मुझे सुबह जल्दी उठना अच्छा लगता हैं",
             "मुझे सच में सुबह जल्दी उठना अच्छा लगता हैं",
@@ -2309,18 +2311,18 @@ public class Sequence_Activity extends AppCompatActivity {
             "मुझे फिर से अपना चेहरा नहीं धोना हैं",
             "मुझे सच में फिर से अपना चेहरा नहीं धोना हैं"
 
-    },{"मुझे शौचा लय जाना अच्छा लगता हैं",
-            "मुझे सच में शौचा लय जाना अच्छा लगता हैं",
+    },{"मुझे शौचालय जाना अच्छा लगता हैं",
+            "मुझे सच में शौचालय जाना अच्छा लगता हैं",
             "मुझे शौचा लय जाना हैं",
-            "मुझे सच में शौचा लय जाना हैं",
-            "मुझे फिर से शौचा लय जाना हैं",
-            "मुझे सच में फिर से शौचा लय जाना हैं",
-            "मुझे शौचा लय जाना अच्छा नहीं लगता हैं",
-            "मुझे सच में शौचा लय जाना अच्छा नहीं लगता हैं",
-            "मुझे शौचा लय नहीं जाना हैं",
-            "मुझे सच में शौचा लय नहीं जाना हैं",
-            "मुझे फिर से शौचा लय नहीं जाना हैं",
-            "मुझे सच में फिर से शौचा लय नहीं जाना हैं"
+            "मुझे सच में शौचालय जाना हैं",
+            "मुझे फिर से शौचालय जाना हैं",
+            "मुझे सच में फिर से शौचालय जाना हैं",
+            "मुझे शौचालय जाना अच्छा नहीं लगता हैं",
+            "मुझे सच में शौचालय जाना अच्छा नहीं लगता हैं",
+            "मुझे शौचालय नहीं जाना हैं",
+            "मुझे सच में शौचालय नहीं जाना हैं",
+            "मुझे फिर से शौचालय नहीं जाना हैं",
+            "मुझे सच में फिर से शौचालय नहीं जाना हैं"
 
     },{"मुझे अपने दांत साफ़ करना अच्छा लगता हैं",
             "मुझे सच में अपने दांत साफ़ करना अच्छा लगता हैं",
@@ -2361,18 +2363,18 @@ public class Sequence_Activity extends AppCompatActivity {
             "मुझे फिर से नहाना नहीं हैं",
             "मुझे सच में फिर से नहाना नहीं हैं"
 
-    },{"मुझे कपड़े पैहनने हैं",
-            "मुझे सच में कपड़े पैहनने हैं",
-            "मुझे कपड़े पैहनने हैं",
-            "मुझे सच में कपड़े पैहनने हैं",
-            "मुझे फिर से कपड़े पैहनने हैं",
-            "मुझे सच में फिर से कपड़े पैहनने हैं",
-            "मुझे कपड़े नहीं पैहनने हैं",
-            "मुझे सच में कपड़े नहीं पैहनने हैं",
-            "मुझे कपड़े नहीं पैहनने हैं",
-            "मुझे सच में कपड़े नहीं पैहनने हैं",
-            "मुझे फिर से कपड़े नहीं पैहनने हैं",
-            "मुझे सच में फिर से कपड़े नहीं पैहनने हैं"
+    },{"मुझे कपड़े पहनने हैं",
+            "मुझे सच में कपड़े पहनने हैं",
+            "मुझे कपड़े पहनने हैं",
+            "मुझे सच में कपड़े पहनने हैं",
+            "मुझे फिर से कपड़े पहनने हैं",
+            "मुझे सच में फिर से कपड़े पहनने हैं",
+            "मुझे कपड़े नहीं पहनने हैं",
+            "मुझे सच में कपड़े नहीं पहनने हैं",
+            "मुझे कपड़े नहीं पहनने हैं",
+            "मुझे सच में कपड़े नहीं पहनने हैं",
+            "मुझे फिर से कपड़े नहीं पहनने हैं",
+            "मुझे सच में फिर से कपड़े नहीं पहनने हैं"
 
     },{"मुझे अपने बालों को कंघी करना अच्छा लगता हैं",
             "मुझे सच में अपने बालों को कंघी करना अच्छा लगता हैं",
@@ -2454,16 +2456,16 @@ public class Sequence_Activity extends AppCompatActivity {
 
     },{"मुझे रात के कपड़े पैहनना अच्छा लगता हैं",
             "मुझे सच में रात के कपड़े पैहनना अच्छा लगता हैं",
-            "मुझे रात के कपड़े पैहनने हैं",
-            "मुझे सच में रात के कपड़े पैहनने हैं",
-            "मुझे फिर से रात के कपड़े पैहनने हैं",
-            "मुझे सच में फिर से रात के कपड़े पैहनने हैं",
+            "मुझे रात के कपड़े पहनने हैं",
+            "मुझे सच में रात के कपड़े पहनने हैं",
+            "मुझे फिर से रात के कपड़े पहनने हैं",
+            "मुझे सच में फिर से रात के कपड़े पहनने हैं",
             "मुझे रात के कपड़े पैहनना अच्छा नहीं लगता हैं",
             "मुझे सच में रात के कपड़े पैहनना अच्छा नहीं लगता हैं",
-            "मुझे रात के कपड़े नहीं पैहनने हैं",
-            "मुझे सच में रात के कपड़े नहीं पैहनने हैं",
-            "मुझे फिर से रात के कपड़े नहीं पैहनने हैं",
-            "मुझे सच में फिर से रात के कपड़े नहीं पैहनने हैं"
+            "मुझे रात के कपड़े नहीं पहनने हैं",
+            "मुझे सच में रात के कपड़े नहीं पहनने हैं",
+            "मुझे फिर से रात के कपड़े नहीं पहनने हैं",
+            "मुझे सच में फिर से रात के कपड़े नहीं पहनने हैं"
 
     },{"मुझे अपने दांत साफ़ करना अच्छा लगता हैं",
             "मुझे सच में अपने दांत साफ़ करना अच्छा लगता हैं",

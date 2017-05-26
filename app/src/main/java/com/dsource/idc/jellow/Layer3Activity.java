@@ -51,63 +51,76 @@ public class Layer3Activity extends AppCompatActivity {
 
     Integer[] color = {-5317, -12627531, -7617718, -2937298, -648053365, -1761607680};
 
+    final String[] level1_english ={"Greet and Feel", "Daily Activities", "Eating", "Fun", "Learning", "People", "Places", "Time and Weather", "Help"};
+
+    final String[][] level2_english = {
+            {"Greetings", "Feelings", "Requests", "Questions"},
+            {"Brushing", "Toilet", "Bathing", "Clothes", "Getting Ready", "Sleep", "Therapy", "Morning Routine", "Bedtime Routine"},
+            {"Breakfast", "Lunch/Dinner", "Sweets", "Snacks", "Fruits", "Drinks", "Cutlery", "Add-ons"},
+            {"Indoor Games", "Outdoor Games", "Sports", "TV", "Music", "Activities"},
+            {"Animals & Birds", "Body", "Books", "Colors", "Shapes", "Stationery", "School Objects", "Home Objects", "Transport Modes"},
+            {"Mother", "Daddy", "Brother", "Sister", "Grandfather", "Grandmother", "Uncle", "Aunt", "More", "Cousin", "Baby", "Friends", "Teacher", "Doctor", "Nurse", "Caregiver", "Stranger", "About Me"},
+            {"My House", "School", "Mall", "Museum", "Hotel", "Theater", "Playground", "Park", "More", "Store", "Friend's House", "Relative's House", "Hospital", "Clinic", "Library", "Terrace"},
+            {"Time", "Day", "Month", "Weather", "Seasons", "Festivals & Holidays", "Birthdays"},
+            {"About Me", "I am hurt", "I feel sick", "I feel tired", "Help me do this", "Medicine", "Bandage", "Water"}};
+
     public static String[] greet_feel_greetings_text =
-            {"Hi", "Hello", "Bye", "Good morning", "Good afternoon", "Good evening", "Good night", "High-five",  "Nice to meet you", "How aare you?", "How was your day?", "How do you do?"};
+            {"Hi", "Hello", "Bye", "Good morning", "Good afternoon", "Good evening", "Good night", "High-five",  "Nice to meet you", "How are you?", "How was your day?", "How do you do?"};
 
     public static String[] greet_feel_feelings_text =
-            {"Happy", "Sad", "Angry", "scaered", "Surprisedh", "Irritated", "Confused", "Ashamed",  "Disappointed", "boored", "Worried", "Stressed", "Tired", "Hot", "Cold", "Sick", "Hurt"};
+            {"Happy", "Sad", "Angry", "afraid", "Amazed", "Irritated", "Confused", "Ashamed",  "Disappointed", "bored", "Worried", "Stressed", "Tired", "Hot", "Cold", "Sick", "Hurt"};
 
     public static String[] greet_feel_requests_text =
-            {"Please", "Thank you", "You're welcome", "Please give me", "Please tell me again", "Please show me", "I need a break", "I'm all done",  "Excuse me", "I'm sorry", "I don’t understand", "Please share with me", "Please slow down", "I need help", "Please come here", "Please take me"};
+            {"Please", "Thank you", "You're welcome", "Please give me", "Please tell me again", "Please show me", "I need a break", "I am all done",  "Excuse me", "I am sorry", "I don’t understand", "Please share with me", "Please slow down", "I need help", "Please come here", "Please take me"};
 
     public static String[] greet_feel_questions_text =
-            {"Howww?", "When?", "Where?", "Why?", "What?", "Who?", "How much?", "How many?", "How long?"};
+            {"How?", "When?", "Where?", "Why?", "What?", "Who?", "How much?", "How many?", "How long?"};
 
     public static String[] daily_activities_brushing_text =
-            {"Rinse maauuthh", "Rinse toothbrush", "Put toothpaste on brush", "Brush front teeth", "Brush backkkteethh", "Brush tongue", "Rinse maauuthh", "All done"};
+            {"Rinse mouth", "Rinse toothbrush", "Put toothpaste on brush", "Brush front teeth", "Brush back teeth", "Brush tongue", "Rinse mouth", "All done"};
 
     public static String[] daily_activities_toilet_text =
-            {"Pull pants down", "Sit on toil et", "Wash bottom", "Flushh toil et", "Pull pants up", "Wash hands", "All done"};
+            {"Pull pants down", "Sit on toilet", "Wash bottom", "Flushh toilet", "Pull pants up", "Wash hands", "All done"};
 
     public static String[] daily_activities_bathing_text =
-            {"Remove clothes", "Turn on water", "Get in the shaaver", "Wet body", "Put soap", "Shampoo हैर", "Put face wash", "Wash हैर",  "Wash body", "Turn off water", "Dry हैर", "Dry face", "Dry body", "Put on clothes", "All done"};
+            {"Remove clothes", "Turn on water", "Get in the shower", "Wet body", "Put soap", "Shampoo हैर", "Put face wash", "Wash हैर",  "Wash body", "Turn off water", "Dry हैर", "Dry face", "Dry body", "Put on clothes", "All done"};
 
     public static String[] daily_activities_clothes_access_text =
-            {"Change t-shirt", "Change frock", "Change skirt", "Change jeans", "Change pants", "Change legg ings", "Change slacks", "Change shorts", "Change inner ware", "Change footwear", "Change shoes", "Change socks", "ware night clothes", "Shirt", "T-shirt", "Frock",
-                    "Pants", "slacks", "Legg ings", "Shorts", "salwarkameez", "Sweater", "Jacket", "Scarf",  "Cap", "Belt", "Raincoat", "Spectacles", "Wrist watch", "Earrings", "brace let", "Necklace", "बिंदी", "Chappals", "My clothes are tight", "My clothes are loose", "I need help removing clothes", "I need help putting on clothes"};
+            {"Change t-shirt", "Change frock", "Change skirt", "Change jeans", "Change pants", "Change leggings", "Change slacks", "Change shorts", "Change inner wear", "Change footwear", "Change shoes", "Change socks", "wear night clothes", "Shirt", "T-shirt", "Frock",
+                    "Pants", "slacks", "Leggings", "Shorts", "salwarkameez", "Sweater", "Jacket", "Scarf",  "Cap", "Belt", "Raincoat", "Spectacles", "Wrist watch", "Earrings", "brace let", "Necklace", "बिंदी", "Chappals", "My clothes are tight", "My clothes are loose", "I need help removing clothes", "I need help putting on clothes"};
 
     public static String[] daily_activities_get_ready_text =
             {"Comb हैर", "Face wash", "Cut nails", "Blow nose", "Soap", "Shampoo"};
 
     public static String[] daily_activities_sleep_text =
-            {"Door", "Fan", "Light", "Window", "बेड", "Pillows", "Blanket", "Feeling warm", "Feeling cold"};
+            {"Door", "Fan", "Light", "Window", "bed", "Pillows", "Blanket", "Feeling warm", "Feeling cold"};
 
     public static String[] daily_activities_therapy_text =
-            {"exersizes", "Swing", "Trampoline", "Swiss ball", "Blanket", "Ball pit", "Hand activities", "Leg exersizes", "Body vests"};
+            {"Exercises", "Swing", "Trampoline", "Swiss ball", "Blanket", "Ball pit", "Hand activities", "Leg exercises", "Body vests"};
 
     public static String[] daily_activities_morning_schedule_text =
-            {"Wake up", "Wash face", "Go to bathroom", "Brush teeth", "Remove clothes", "Have a बाथ", "Get dressed", "Comb हैर",  "Eat brek fust", "Pack lunch box", "Pack school bag", "Go to school", "Have a great day!"};
+            {"Wake up", "Wash face", "Go to bathroom", "Brush teeth", "Remove clothes", "Have a बाथ", "Get dressed", "Comb हैर",  "Eat brekfust", "Pack lunch box", "Pack school bag", "Go to school", "Have a great day!"};
 
     public static String[] daily_activities_bedtime_schedule_text =
-            {"Eat dinner", "ware night clothes", "Brush teeth", "Read story", "Say goodnight", "Say prayers", "Sweet dreams!"};
+            {"Eat dinner", "wear night clothes", "Brush teeth", "Read story", "Say goodnight", "Say prayers", "Sweet dreams!"};
 
     public static String[] foods_drinks_breakfast_text =
-            {"Bread", "Cornflakes", "Aaloo Poori", "Eggs", "Poha", "Upma", "khichhdi", "Idli",  "dosaa", "paraathaa", "aumm lett", "मेदु वड़ा", "Porridge", "Sandwich", "Chutney", "saambaar", "Uutappam"};
+            {"Bread", "Cornflakes", "Aaloo Poori", "Eggs", "Poha", "Upma", "khichdi", "Idli",  "dosaa", "paraathaa", "omlette", "मेदु वड़ा", "Porridge", "Sandwich", "Chutney", "saambaar", "Uutappam"};
 
     public static String[] food_drinks_lunch_dinner_text =
-            {"Roti", "Sabzi", "Rice", "Dal", "Dal khichhdi", "Raaigh ta", "paraathaa", "Curd",  "Fish", "Chicken", "Pork", "Mutton", "crabbb meat", "Turkey", "Pizza", "Salad",  "Soup", "pastaa", "Noodles", "Italian", "पाव भाजी", "Bhakri"};
+            {"Roti", "Sabzi", "Rice", "Dal", "Dal khichdi", "Raaigh ta", "paraathaa", "Curd",  "Fish", "Chicken", "Pork", "Mutton", "crabbb meat", "Turkey", "Pizza", "Salad",  "Soup", "pastaa", "Noodles", "Italian", "pav bhaji", "Bhakri"};
 
     public static String[] food_drinks_sweets_text =
             {"Cake", "Icecream", "Gajar halva", "Gulab jamun", "Lud doo", "Barfi", "Jalebi", "Fruit salad",  "rass gulla", "sheeraa"};
 
     public static String[] food_drinks_snacks_text =
-            {"Biskeits", "Chaat", "Choc let", "Wafersz", "Sandwitch", "Noodles", "Cheese", "Nuts"};
+            {"Biscuits", "Chaat", "Chocolate", "Wafers", "Sandwich", "Noodles", "Cheese", "Nuts"};
 
     public static String[] food_drinks_fruits_text =
-            {"Apple", "Banana", "Grapes", "Guavaa", "Mango", "Orange", "Pineapple", "Strawberry",  "Blueberry", "Pomegranate", "Watermelon", "pare", "Papaya", "Muskmelon", "Chikoo", "Jackfruit", "Cherry"};
+            {"Apple", "Banana", "Grapes", "Guava", "Mango", "Orange", "Pineapple", "Strawberry",  "Blueberry", "Pomegranate", "Watermelon", "pear", "Papaya", "Muskmelon", "Chikoo", "Jackfruit", "Cherry"};
 
     public static String[] food_drinks_drinks_text =
-            {"Water", "Milk", "Bournvita", "Mango juice", "Apple juice", "Orange juice", "Lemon juice", "Pineapple juice",  "Pepsi", "coca co lah", "Mirinda", "Fanta", "maaza", "Sprite", "Mountain dew", "Milkshake",  "Chocolate milkshake", "Strawberry milkshake", "Banana milkshake", "Mango milkshake", "Chikoo milkshake", "टी", "Coffee", "Cold coffee", "Energy drink"};
+            {"Water", "Milk", "Bournvita", "Mango juice", "Apple juice", "Orange juice", "Lemon juice", "Pineapple juice",  "Pepsi", "cocacola", "Mirinda", "Fanta", "maaza", "Sprite", "Mountain dew", "Milk shake",  "Chocolate milk shake", "Strawberry milk shake", "Banana milk shake", "Mango milk shake", "Chikoo milk shake", "tea", "Coffee", "Cold coffee", "Energy drink"};
 
     public static String[] food_drinks_cutlery_text =
             {"Bowl", "Plate", "Spoon", "Fork", "Knife", "Mug", "Cup", "Glass"};
@@ -116,13 +129,13 @@ public class Layer3Activity extends AppCompatActivity {
             {"Butter", "Jam", "Salt", "Pepper", "Sugar", "Sauce", "Pickle", "Papad", "Masala"};
 
     public static String[] fun_indoor_games_text =
-            {"Puzzle", "Board game", "Blocks", "Legos", "Chess", "Snakes and Ladders", "Scrabble", "Videogame",  "Doll", "Action figure", "Soft toy", "Caar", "Truck", "Art and craft", "Play with me"};
+            {"Puzzle", "Board game", "Blocks", "Legos", "Chess", "Snakes and Ladders", "Scrabble", "Videogame",  "Doll", "Action figure", "Soft toy", "Car", "Truck", "Art and craft", "Play with me"};
 
     public static String[] fun_outdoor_games_text =
             {"Playground", "Park", "Swing", "Slide", "See-saw", "Merry-go-round", "Hide and seek", "Bat and ball",  "Statue", "Lock and key", "Catch-catch", "Kite", "Chor-police", "Marbles", "Walk", "Cycle",  "Run", "Swim"};
 
     public static String[] fun_sports_text =
-            {"Cricket", "Badminton", "Tennis", "baaskett ball", "Dodgeball", "Volleyball", "Kho-kho", "Football", "kabbbaddi", "gym nastics", "Swimming"};
+            {"Cricket", "Badminton", "Tennis", "basketball", "Dodgeball", "Volleyball", "Kho-kho", "Football", "kabbbaddi", "gym nastics", "Swimming"};
 
     public static String[] fun_tv_text =
             {"Next channel", "Previous channel", "Volume up", "Volume down"};
@@ -134,31 +147,31 @@ public class Layer3Activity extends AppCompatActivity {
             {"Draw", "Paint", "Read", "Write", "Arts and crafts", "Drama", "Dance", "Make music"};
 
     public static String[] learning_animals_birds_text =
-            {"Dog", "Cat", "Elephant", "Lion", "Parrot", "Rabbit", "Cow", "Duck", "Donkey", "Ant", "Tiger", "Monkey", "Pigeon", "Cockroach", "Crowww", "Horse",  "Deer", "Owl", "Wolf", "Fox", "Bear", "Sheep", "Goat", "Pig",  "Fly", "Giraffe", "zeebraa", "Mosquito", "Buffalo", "Mause", "Snake", "croco dile",  "Bee", "Hippopotamus", "Rhinoceros", "Fish", "Penguin", "Seal", "Dolphin", "Whale",  "Shark", "tortoyse", "Sparrow", "Eagle", "Hawk", "Vulture"};
+            {"Dog", "Cat", "Elephant", "Lion", "Parrot", "Rabbit", "Cow", "Duck", "Donkey", "Ant", "Tiger", "Monkey", "Pigeon", "Cockroach", "Crow", "Horse",  "Deer", "Owl", "Wolf", "Fox", "Bear", "Sheep", "Goat", "Pig",  "Fly", "Giraffe", "zebra", "Mosquito", "Buffalo", "Mouse", "Snake", "crocodile",  "Bee", "Hippopotamus", "Rhinoceros", "Fish", "Penguin", "Seal", "Dolphin", "Whale",  "Shark", "tortoyse", "Sparrow", "Eagle", "Hawk", "Vulture"};
 
     public static String[] learning_body_parts_text =
-            {"Head", "हैर", "Eyes", "Nose", "Ears", "maauuthh", "Tongue", "Neck",  "Shoulder", "Elbow", "Wrist", "Hands", "Fingers", "Back", "Stomach", "Hip",  "kneeee", "Ankle", "Legs", "Toes"};
+            {"Head", "हैर", "Eyes", "Nose", "Ears", "mouth", "Tongue", "Neck",  "Shoulder", "Elbow", "Wrist", "Hands", "Fingers", "Back", "Stomach", "Hip",  "knee", "Ankle", "Legs", "Toes"};
 
     public static String[] learning_books_text =
-            {"Bed time story book", "Comic book", "Rhymes book", "Drawing book", "Storybook", "Picture book", "Mystry book", "Adventure book", "School notebook", "Maths book", "Science book", "History book", "Jawgrephy book", "Social studies book", "English book", "Hindi book",  "Marathi book", "Textbook", "Favorites" };
+            {"Bed time story book", "Comic book", "Rhymes book", "Drawing book", "Story book", "Picture book", "Mystery book", "Adventure book", "School notebook", "Maths book", "Science book", "History book", "Geography book", "Social studies book", "English book", "Hindi book",  "Marathi book", "Textbook", "Favourites" };
 
     public static String[] learning_colours_text =
             {"Black", "Blue", "Brown", "Green", "Red", "Silver", "White", "Yellow",  "Golden", "Pink", "Orange", "Purple", "Gray"};
 
     public static String[] learning_shapes_text =
-            {"Standing line", "Sleeping line", "Slanting line", "Circle", "Rectangle", "Square", "Try engle", "Staar", "Heart", "Trapezium", "Cube", "Rhombus", "Hexagon", "Oval", "Diamond", "Pentagon", "fre form"};
+            {"Standing line", "Sleeping line", "Slanting line", "Circle", "Rectangle", "Square", "Triangle", " Star ", "Heart", "Trapezium", "Cube", "Rhombus", "Hexagon", "Oval", "Diamond", "Pentagon", " freeform "};
 
     public static String[] learning_stationary_text =
-            {"Pencil", "Pen", "Scale", "Eeraser", "Sharpner", "Crayyawn", "Blank paper", "Coloured paper",  "Scissors", "Pencil led", "Compass", "Divider", "stay pler", "U-pin", "selo tape", "Compass box"};
+            {"Pencil", "Pen", "Scale", "Eraser", "Sharpener", "Crayon", "Blank paper", "Coloured paper",  "Scissors", "Pencil led", "Compass", "Divider", "stapler", " U-pin", "selo tape", "Compass box"};
 
     public static String[] learning_school_objects_text =
-            {"Bag", "Lunch box", "Water bottle", "Compass box", "Homework", "School notebooks", "Textbooks", "Uniform",  "Shoes", "Socks", "Pencil", "Pen", "Scale", "Eeraser", "Sharpner", "Chalk"};
+            {"Bag", "Lunch box", "Water bottle", "Compass box", "Homework", "School notebooks", "Textbooks", "Uniform",  "Shoes", "Socks", "Pencil", "Pen", "Scale", "Eraser", "Sharpener", "Chalk"};
 
     public static String[] learning_home_objects_text =
-            {"Window", "Door", "Fan", "Lamp", "Desk", "cupboard", "Table", "Chare", "Toil et", "Kitchen", "Living room", "Bedroom", "Play room", "Bathroom", "Balcony", "Study room",  "बेड", "Television", "Computer", "Sofa", "Fridge", "Microwave", "Washing machine", "Vacuum cleaner",  "Clock", "Tube lite"};
+            {"Window", "Door", "Fan", "Lamp", "Desk", "cupboard", "Table", "Chair", "Toilet", "Kitchen", "Living room", "Bedroom", "Play room", "Bathroom", "Balcony", "Study room",  "bed", "Television", "Computer", "Sofa", "Fridge", "Microwave", "Washing machine", "Vacuum cleaner",  "Clock", " Tube light"};
 
     public static String[] learning_transportation_text =
-            {"Bus", "School bus", "Caar", "Bicycle", "Train", "Rickshaa", "Bike", "Aeroplane", "Ship"};
+            {"Bus", "School bus", "Car", "Bicycle", "Train", "Rickshaa", "Bike", "Aeroplane", "Ship"};
 
     public static String[] time_weather_time_text =
             {"What is the time?", "Today", "Yesterday", "Tomorrow", "Morning", "Afternoon", "Evening", "Night"};
@@ -170,7 +183,7 @@ public class Layer3Activity extends AppCompatActivity {
             {"What is the Current month?", "January", "February", "March", "April", "May", "June", "July",  "August", "September", "October", "November", "December", "This month", "Previous month", "Next month"};
 
     public static String[] time_weather_weather_text =
-            {"What is Today’s weather?", "Sunny", "Rainy", "Cloudy", "Windy", "Foggy", "Snow ee"};
+            {"What is Today’s weather?", "Sunny", "Rainy", "Cloudy", "Windy", "Foggy", "Snowy"};
 
     public static String[] time_weather_seasons_text =
             {"What is the Current season?", "Spring", "Summer", "Rainy", "Autumn", "Winter"};
@@ -179,7 +192,7 @@ public class Layer3Activity extends AppCompatActivity {
             {"Diwali", "Ganesh chaturthi", "Christmas", "Dussehra", "मकर संक्रांति", "Holi", "Eid", "Good Friday",  "गुडी पाडवा", "Republic day", "Independence day", "New year"};
 
     public static String[] time_weather_brthdays_text =
-            {"My burtday", "Mom’s burtday", "Daddy’s burtday", "Brother’s burtday", "Sister’s burtday", "Friend’s burtday", "Grandmother’s burtday", "Grandfather’s burtday",  "Uncle’s burtday", "Aunt’s burtday", "Cousin’s burtday", "Teacher’s burtday"};
+            {"My birthday", "Mom’s birthday", "Father’s birthday", "Brother’s birthday", "Sister’s birthday", "Friend’s birthday", "Grandmother’s birthday", "Grandfather’s birthday",  "Uncle’s birthday", "Aunt’s birthday", "Cousin’s birthday", "Teacher’s birthday"};
 
     public static Integer[] count = new Integer[100];
     int[] sort = new int[100];
@@ -212,7 +225,7 @@ public class Layer3Activity extends AppCompatActivity {
             bw = 7;
         }
         final String[] side_hindi = {"अच्छा लगता हैं", "सच में अच्छा लगता हैं", "हाँ", "सच में हाँ", "ज्यादा", "सच में ज्यादा", "अच्छा नहीं लगता हैं", "सच में अच्छा नहीं लगता हैं", "नहीं", "सच में नहीं", "कम", "सच में कम"};
-        final String[] side_english = {"like", "really like", "yes", "really yes", "mohrr", "really mohrr", "dont like", "really dont like", "no", "really no", "less", "really less"};
+        final String[] side_english = {"like", "really like", "yes", "really yes", "more", "really more", "dont like", "really dont like", "no", "really no", "less", "really less"};
 
         final String[] below_hindi = {"होम", "वापस", "कीबोर्ड"};
         final String[] below_english = {"Home", "back", "keyboard"};
@@ -327,7 +340,7 @@ public class Layer3Activity extends AppCompatActivity {
             myMusic_function(layer_1_id, layer_2_id);
         }
 
-        if (layer_1_id == 0) {
+        /*if (layer_1_id == 0) {
             if (layer_2_id == 0 || layer_2_id == 2 || layer_2_id == 3) {
                 like.setAlpha(0.5f);
                 dislike.setAlpha(0.5f);
@@ -342,7 +355,7 @@ public class Layer3Activity extends AppCompatActivity {
                 yes.setEnabled(false);
                 no.setEnabled(false);
             }
-        }
+        }*/
         final int[] prev_pos = {-1};
         final int[] cko = {-1};
         final View[] xx = {null};
@@ -387,6 +400,24 @@ public class Layer3Activity extends AppCompatActivity {
                                     cko[0]++;
                                     locayy = position * 3;
                                     ix[0] = sort[locayy];
+
+                                    if (layer_1_id == 0) {
+                                        if (layer_2_id == 0 || layer_2_id == 2 || layer_2_id == 3) {
+                                            like.setAlpha(0.5f);
+                                            dislike.setAlpha(0.5f);
+                                            add.setAlpha(0.5f);
+                                            minus.setAlpha(0.5f);
+                                            yes.setAlpha(0.5f);
+                                            no.setAlpha(0.5f);
+                                            like.setEnabled(false);
+                                            dislike.setEnabled(false);
+                                            add.setEnabled(false);
+                                            minus.setEnabled(false);
+                                            yes.setEnabled(false);
+                                            no.setEnabled(false);
+                                        }
+                                    }
+
                                     if (layer_1_id == 0 && layer_2_id == 1) {
                                         if (ix[0] == 0) {
                                             no.setAlpha(0.5f);
@@ -516,6 +547,24 @@ public class Layer3Activity extends AppCompatActivity {
                                     locayy = position * 3 + 1;
 
                                     ix[0] = sort[locayy];
+
+                                    if (layer_1_id == 0) {
+                                        if (layer_2_id == 0 || layer_2_id == 2 || layer_2_id == 3) {
+                                            like.setAlpha(0.5f);
+                                            dislike.setAlpha(0.5f);
+                                            add.setAlpha(0.5f);
+                                            minus.setAlpha(0.5f);
+                                            yes.setAlpha(0.5f);
+                                            no.setAlpha(0.5f);
+                                            like.setEnabled(false);
+                                            dislike.setEnabled(false);
+                                            add.setEnabled(false);
+                                            minus.setEnabled(false);
+                                            yes.setEnabled(false);
+                                            no.setEnabled(false);
+                                        }
+                                    }
+
                                     if (layer_1_id == 0 && layer_2_id == 1) {
                                         if (ix[0] == 0) {
                                             no.setAlpha(0.5f);
@@ -640,6 +689,23 @@ public class Layer3Activity extends AppCompatActivity {
                                     im1.setBorderWidth(0);
                                     cko[0]++;
                                     locayy = position * 3 + 2;
+
+                                    if (layer_1_id == 0) {
+                                        if (layer_2_id == 0 || layer_2_id == 2 || layer_2_id == 3) {
+                                            like.setAlpha(0.5f);
+                                            dislike.setAlpha(0.5f);
+                                            add.setAlpha(0.5f);
+                                            minus.setAlpha(0.5f);
+                                            yes.setAlpha(0.5f);
+                                            no.setAlpha(0.5f);
+                                            like.setEnabled(false);
+                                            dislike.setEnabled(false);
+                                            add.setEnabled(false);
+                                            minus.setEnabled(false);
+                                            yes.setEnabled(false);
+                                            no.setEnabled(false);
+                                        }
+                                    }
 
                                     ix[0] = sort[locayy];
                                     if (layer_1_id == 0 && layer_2_id == 1) {
@@ -3563,7 +3629,7 @@ public class Layer3Activity extends AppCompatActivity {
         }
     }
 
-    String[][][][] layer_3_speech = {{{{}, {}, {}, {}, {}, {}, {}, {},  {}, {}, {}, {}},
+    String[][][][] layer_3_speech = {{{{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}},
 
             {{"I feel happy",
                     "I really feel happy",
@@ -3604,31 +3670,31 @@ public class Layer3Activity extends AppCompatActivity {
                     "I don’t feel very angry",
                     "I really don’t feel angry any more"
 
-            }, {"I feel scaered",
-                    "I really feel scaered",
-                    "I want to be scaered",
-                    "I really want to be scaered",
-                    "I feel very scaered",
-                    "I really feel very scaered",
-                    "I don’t feel scaered",
-                    "I really don’t feel scaered",
-                    "I don’t want to be scaered",
-                    "I really don’t want to be scaered",
-                    "I don’t feel very scaered",
-                    "I really don’t feel scaered any more"
+            }, {"I feel afraid",
+                    "I really feel afraid",
+                    "I want to be afraid",
+                    "I really want to be afraid",
+                    "I feel very afraid",
+                    "I really feel very afraid",
+                    "I don’t feel afraid",
+                    "I really don’t feel afraid",
+                    "I don’t want to be afraid",
+                    "I really don’t want to be afraid",
+                    "I don’t feel very afraid",
+                    "I really don’t feel afraid any more"
 
-            }, {"I feel surprisedh",
-                    "I really feel surprisedh",
-                    "I want to be surprisedh",
-                    "I really want to be surprisedh",
-                    "I feel very surprisedh",
-                    "I really feel very surprisedh",
-                    "I don’t feel surprisedh",
-                    "I really don’t feel surprisedh",
-                    "I don’t want to be surprisedh",
-                    "I really don’t want to be surprisedh",
-                    "I don’t feel very surprisedh",
-                    "I really don’t feel surprisedh at all"
+            }, {"I am amazed",
+                    "I am really amazed",
+                    "I want to be amazed",
+                    "I really want to be amazed",
+                    "I am very amazed",
+                    "I am really very amazed",
+                    "I am not amazed",
+                    "I am really not amazed",
+                    "I don’t want to be amazed",
+                    "I really don’t want to be amazed",
+                    "I don’t feel very amazed",
+                    "I am really not amazed at all"
 
             }, {"I feel irritated",
                     "I really feel irritated",
@@ -3669,7 +3735,7 @@ public class Layer3Activity extends AppCompatActivity {
                     "I don’t feel very ashamed",
                     "I really don’t feel ashamed any more"
 
-            },  {"I feel disappointed",
+            }, {"I feel disappointed",
                     "I really feel disappointed",
                     "I want to be disappointed",
                     "I really want to be disappointed",
@@ -3682,18 +3748,18 @@ public class Layer3Activity extends AppCompatActivity {
                     "I don’t feel very disappointed",
                     "I really don’t feel disappointed any more"
 
-            }, {"I feel boored",
-                    "I really feel boored",
-                    "I want to be boored",
-                    "I really want to be boored",
-                    "I feel very boored",
-                    "I really feel very boored",
-                    "I don’t feel boored",
-                    "I really don’t feel boored",
-                    "I don’t want to be boored",
-                    "I really don’t want to be boored",
-                    "I don’t feel very boored",
-                    "I really don’t feel boored any more"
+            }, {"I feel bored",
+                    "I really feel bored",
+                    "I want to be bored",
+                    "I really want to be bored",
+                    "I feel very bored",
+                    "I really feel very bored",
+                    "I don’t feel bored",
+                    "I really don’t feel bored",
+                    "I don’t want to be bored",
+                    "I really don’t want to be bored",
+                    "I don’t feel very bored",
+                    "I really don’t feel bored any more"
 
             }, {"I feel worried",
                     "I really feel worried",
@@ -3789,18 +3855,18 @@ public class Layer3Activity extends AppCompatActivity {
 
             }}, {{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}}, {{}, {}, {}, {}, {}, {}, {}, {}, {
 
-    }}}, {{{"I like to rinse my maauuthh",
-            "I really like to rinse my maauuthh",
-            "I want to rinse my maauuthh",
-            "I really want to rinse my maauuthh",
-            "I want to rinse my maauuthh some more",
-            "I really want to rinse my maauuthh some more",
-            "I don’t like to rinse my maauuthh",
-            "I really don’t like to rinse my maauuthh",
-            "I don’t want to rinse my maauuthh",
-            "I really don’t want to rinse my maauuthh",
-            "I don’t want to rinse my maauuthh more",
-            "I really don’t want to rinse my maauuthh any more",
+    }}}, {{{"I like to rinse my mouth",
+            "I really like to rinse my mouth",
+            "I want to rinse my mouth",
+            "I really want to rinse my mouth",
+            "I want to rinse my mouth some more",
+            "I really want to rinse my mouth some more",
+            "I don’t like to rinse my mouth",
+            "I really don’t like to rinse my mouth",
+            "I don’t want to rinse my mouth",
+            "I really don’t want to rinse my mouth",
+            "I don’t want to rinse my mouth more",
+            "I really don’t want to rinse my mouth any more",
 
     }, {"I like to rinse my toothbrush",
             "I really like to rinse my toothbrush",
@@ -3841,18 +3907,18 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to brush my front teeth more",
             "I really don’t want to brush my front teeth any more"
 
-    }, {"I like to brush my backkkteethh",
-            "I really like to brush my backkkteethh",
-            "I want to brush my backkkteethh",
-            "I really want to brush my backkkteethh",
-            "I want to brush my backkkteethh some more",
-            "I really want to brush my backkkteethh a little longer",
-            "I don’t like to brush my backkkteethh",
-            "I really don’t like to brush my backkkteethh",
-            "I don’t want to brush my backkkteethh",
-            "I really don’t want to brush my backkkteethh",
-            "I don’t want to brush my backkkteethh more",
-            "I really don’t want to brush my backkkteethh any more"
+    }, {"I like to brush my back teeth",
+            "I really like to brush my back teeth",
+            "I want to brush my back teeth",
+            "I really want to brush my back teeth",
+            "I want to brush my back teeth some more",
+            "I really want to brush my back teeth a little longer",
+            "I don’t like to brush my back teeth",
+            "I really don’t like to brush my back teeth",
+            "I don’t want to brush my back teeth",
+            "I really don’t want to brush my back teeth",
+            "I don’t want to brush my back teeth more",
+            "I really don’t want to brush my back teeth any more"
 
     }, {"I like to brush my tongue",
             "I really like to brush my tongue",
@@ -3867,18 +3933,18 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to brush my tongue more",
             "I really don’t want to brush my tongue any more",
 
-    }, {"I like to rinse my maauuthh",
-            "I really like to rinse my maauuthh",
-            "I want to rinse my maauuthh",
-            "I really want to rinse my maauuthh",
-            "I want to rinse my maauuthh some more",
-            "I really want to rinse my maauuthh some more",
-            "I don’t like to rinse my maauuthh",
-            "I really don’t like to rinse my maauuthh",
-            "I don’t want to rinse my maauuthh",
-            "I really don’t want to rinse my maauuthh",
-            "I don’t want to rinse my maauuthh more",
-            "I really don’t want to rinse my maauuthh any more"
+    }, {"I like to rinse my mouth",
+            "I really like to rinse my mouth",
+            "I want to rinse my mouth",
+            "I really want to rinse my mouth",
+            "I want to rinse my mouth some more",
+            "I really want to rinse my mouth some more",
+            "I don’t like to rinse my mouth",
+            "I really don’t like to rinse my mouth",
+            "I don’t want to rinse my mouth",
+            "I really don’t want to rinse my mouth",
+            "I don’t want to rinse my mouth more",
+            "I really don’t want to rinse my mouth any more"
 
     }, {"I like to be all done",
             "I really like to be all done",
@@ -3906,18 +3972,18 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to pull my pants down again",
             "I really don’t want to pull my pants down again"
 
-    }, {"I have to sit on the toil et",
-            "I really have to sit on the toil et",
-            "I want to sit on the toil et",
-            "I really want to sit on the toil et",
-            "I want to sit on the toil et again",
-            "I really want to sit on the toil et again",
-            "I don’t have to sit on the toil et",
-            "I really don’t have to sit on the toil et",
-            "I don’t want to sit on the toil et",
-            "I really don’t want to sit on the toil et",
-            "I don’t want to sit on the toil et again",
-            "I really don’t want to sit on the toil et again"
+    }, {"I have to sit on the toilet",
+            "I really have to sit on the toilet",
+            "I want to sit on the toilet",
+            "I really want to sit on the toilet",
+            "I want to sit on the toilet again",
+            "I really want to sit on the toilet again",
+            "I don’t have to sit on the toilet",
+            "I really don’t have to sit on the toilet",
+            "I don’t want to sit on the toilet",
+            "I really don’t want to sit on the toilet",
+            "I don’t want to sit on the toilet again",
+            "I really don’t want to sit on the toilet again"
 
     }, {"I have to wash my bottom",
             "I really have to wash my bottom",
@@ -3932,18 +3998,18 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to wash my bottom again",
             "I really don’t want to wash my bottom again"
 
-    }, {"I have to flushh the toil et",
-            "I really have to flushh the toil et",
-            "I want to flushh the toil et",
-            "I really want to flushh the toil et",
-            "I want to flushh the toil et again",
-            "I really want to flushh the toil et again",
-            "I don’t have to flushh the toil et",
-            "I really don’t have to flushh the toil et",
-            "I don’t want to flushh the toil et",
-            "I really don’t want to flushh the toil et",
-            "I don’t want to flushh the toil et again",
-            "I really don’t want to flushh the toil et again"
+    }, {"I have to flushh the toilet",
+            "I really have to flushh the toilet",
+            "I want to flushh the toilet",
+            "I really want to flushh the toilet",
+            "I want to flushh the toilet again",
+            "I really want to flushh the toilet again",
+            "I don’t have to flushh the toilet",
+            "I really don’t have to flushh the toilet",
+            "I don’t want to flushh the toilet",
+            "I really don’t want to flushh the toilet",
+            "I don’t want to flushh the toilet again",
+            "I really don’t want to flushh the toilet again"
 
     }, {"I have to pull my pants up",
             "I really have to pull my pants up",
@@ -4010,18 +4076,18 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to turn on the water again",
             "I really don’t want to turn on the water again"
 
-    }, {"I have to get in the shaaver",
-            "I really have to get in the shaaver",
-            "I want to get in the shaaver",
-            "I really want to get in the shaaver",
-            "I want to get in the shaaver again",
-            "I really want to get in the shaaver again",
-            "I don’t have to get in the shaaver",
-            "I really don’t have to get in the shaaver",
-            "I don’t want to get in the shaaver",
-            "I really don’t want to get in the shaaver",
-            "I don’t want to get in the shaaver again",
-            "I really don’t want to get in the shaaver again"
+    }, {"I have to get in the shower",
+            "I really have to get in the shower",
+            "I want to get in the shower",
+            "I really want to get in the shower",
+            "I want to get in the shower again",
+            "I really want to get in the shower again",
+            "I don’t have to get in the shower",
+            "I really don’t have to get in the shower",
+            "I don’t want to get in the shower",
+            "I really don’t want to get in the shower",
+            "I don’t want to get in the shower again",
+            "I really don’t want to get in the shower again"
 
     }, {"I like to wet my body",
             "I really like to wet my body",
@@ -4088,7 +4154,8 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to wash my हैर again",
             "I really don’t want to wash my हैर again"
 
-    }, {       "I really like to wash my body",
+    }, {"I like to wash my body",
+            "I really like to wash my body",
             "I want to wash my body",
             "I really want to wash my body",
             "I want to wash my body again",
@@ -4245,18 +4312,18 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to change my pants again",
             "I really don’t want to change my pants again"
 
-    }, {"I like to change my legg ings",
-            "I really like to change my legg ings",
-            "I want to change my legg ings",
-            "I really want to change my legg ings",
-            "I want to change my legg ings again",
-            "I really want to change my legg ings again",
-            "I don’t like to change my legg ings",
-            "I really don’t like to change my legg ings",
-            "I don’t want to change my legg ings",
-            "I really don’t want to change my legg ings",
-            "I don’t want to change my legg ings again",
-            "I really don’t want to change my legg ings again"
+    }, {"I like to change my leggings",
+            "I really like to change my leggings",
+            "I want to change my leggings",
+            "I really want to change my leggings",
+            "I want to change my leggings again",
+            "I really want to change my leggings again",
+            "I don’t like to change my leggings",
+            "I really don’t like to change my leggings",
+            "I don’t want to change my leggings",
+            "I really don’t want to change my leggings",
+            "I don’t want to change my leggings again",
+            "I really don’t want to change my leggings again"
 
     }, {"I like to change my slacks",
             "I really like to change my slacks",
@@ -4284,31 +4351,31 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to change my shorts again",
             "I really don’t want to change my shorts again"
 
-    }, {"I like to change my inner Ware",
-            "I really like to change my inner Ware",
-            "I want to change my inner Ware",
-            "I really want to change my inner Ware",
-            "I want to change my inner Ware again",
-            "I really want to change my inner Ware again",
-            "I don’t like to change my inner Ware",
-            "I really don’t like to change my inner Ware",
-            "I don’t want to change my inner Ware",
-            "I really don’t want to change my inner Ware",
-            "I don’t want to change my inner Ware again",
-            "I really don’t want to change my inner Ware again"
+    }, {"I like to change my inner Wear",
+            "I really like to change my inner Wear",
+            "I want to change my inner Wear",
+            "I really want to change my inner Wear",
+            "I want to change my inner Wear again",
+            "I really want to change my inner Wear again",
+            "I don’t like to change my inner Wear",
+            "I really don’t like to change my inner Wear",
+            "I don’t want to change my inner Wear",
+            "I really don’t want to change my inner Wear",
+            "I don’t want to change my inner Wear again",
+            "I really don’t want to change my inner Wear again"
 
-    }, {"I like to change my footWare",
-            "I really like to change my footWare",
-            "I want to change my footWare",
-            "I really want to change my footWare",
-            "I want to change my footWare again",
-            "I really want to change my footWare again",
-            "I don’t like to change my footWare",
-            "I really don’t like to change my footWare",
-            "I don’t want to change my footWare",
-            "I really don’t want to change my footWare",
-            "I don’t want to change my footWare again",
-            "I really don’t want to change my footWare again",
+    }, {"I like to change my foot Wear",
+            "I really like to change my foot Wear",
+            "I want to change my foot Wear",
+            "I really want to change my foot Wear",
+            "I want to change my foot Wear again",
+            "I really want to change my foot Wear again",
+            "I don’t like to change my foot Wear",
+            "I really don’t like to change my foot Wear",
+            "I don’t want to change my foot Wear",
+            "I really don’t want to change my foot Wear",
+            "I don’t want to change my foot Wear again",
+            "I really don’t want to change my foot Wear again",
 
     }, {"I like to change my shoes",
             "I really like to change my shoes",
@@ -4336,291 +4403,291 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to change my socks again",
             "I really don’t want to change my socks again"
 
-    }, {"I like to Ware night clothes",
-            "I really like to Ware night clothes",
-            "I want to Ware night clothes",
-            "I really want to Ware night clothes",
-            "I want to Ware night clothes again",
-            "I really want to Ware night clothes again",
-            "I don’t like to Ware night clothes",
-            "I really don’t like to Ware night clothes",
-            "I don’t want to Ware night clothes",
-            "I really don’t want to Ware night clothes",
-            "I don’t want to Ware night clothes again",
-            "I really don’t want to Ware night clothes again"
+    }, {"I like to Wear night clothes",
+            "I really like to Wear night clothes",
+            "I want to Wear night clothes",
+            "I really want to Wear night clothes",
+            "I want to Wear night clothes again",
+            "I really want to Wear night clothes again",
+            "I don’t like to Wear night clothes",
+            "I really don’t like to Wear night clothes",
+            "I don’t want to Wear night clothes",
+            "I really don’t want to Wear night clothes",
+            "I don’t want to Wear night clothes again",
+            "I really don’t want to Wear night clothes again"
 
-    }, {"I like to wearr shirts",
-            "I really like to wearr shirts",
-            "I want to wearr a shirt",
-            "I really want to wearr a shirt",
-            "I want to wearr a shirt again",
-            "I really want to wearr a shirt again",
-            "I don’t like to Ware shirts",
-            "I really don’t like to Ware shirts",
-            "I don’t want to wearr a shirt",
-            "I really don’t want to wearr a shirt",
-            "I don’t want to wearr a shirt again",
-            "I really don’t want to wearr a shirt again"
+    }, {"I like to wear shirts",
+            "I really like to wear shirts",
+            "I want to wear a shirt",
+            "I really want to wear a shirt",
+            "I want to wear a shirt again",
+            "I really want to wear a shirt again",
+            "I don’t like to Wear shirts",
+            "I really don’t like to Wear shirts",
+            "I don’t want to wear a shirt",
+            "I really don’t want to wear a shirt",
+            "I don’t want to wear a shirt again",
+            "I really don’t want to wear a shirt again"
 
-    }, {"I like to wearr t-shirts",
-            "I really like to wearr t-shirts",
-            "I want to wearr a t-shirt",
-            "I really want to wearr a t-shirt",
-            "I want to wearr a t-shirt again",
-            "I really want to wearr a t-shirt again",
-            "I don’t like to wearr t-shirts",
-            "I really don’t like to wearr t-shirts",
-            "I don’t want to wearr a t-shirt",
-            "I really don’t want to wearr a t-shirt",
-            "I don’t want to wearr a t-shirt again",
-            "I really don’t want to wearr a t-shirt again"
+    }, {"I like to wear t-shirts",
+            "I really like to wear t-shirts",
+            "I want to wear a t-shirt",
+            "I really want to wear a t-shirt",
+            "I want to wear a t-shirt again",
+            "I really want to wear a t-shirt again",
+            "I don’t like to wear t-shirts",
+            "I really don’t like to wear t-shirts",
+            "I don’t want to wear a t-shirt",
+            "I really don’t want to wear a t-shirt",
+            "I don’t want to wear a t-shirt again",
+            "I really don’t want to wear a t-shirt again"
 
-    }, {"I like to wearr frocks",
-            "I really like to wearr frocks",
-            "I want to wearr a frock",
-            "I really want to wearr a frock",
-            "I want to wearr a frock again",
-            "I really want to wearr a frock again",
-            "I don’t like to wearr frocks",
-            "I really don’t like to wearr frocks",
-            "I don’t want to wearr a frock",
-            "I really don’t want to wearr a frock",
-            "I don’t want to wearr a frock again",
-            "I really don’t want to wearr a frock again"
+    }, {"I like to wear frocks",
+            "I really like to wear frocks",
+            "I want to wear a frock",
+            "I really want to wear a frock",
+            "I want to wear a frock again",
+            "I really want to wear a frock again",
+            "I don’t like to wear frocks",
+            "I really don’t like to wear frocks",
+            "I don’t want to wear a frock",
+            "I really don’t want to wear a frock",
+            "I don’t want to wear a frock again",
+            "I really don’t want to wear a frock again"
 
-    }, {"I like to Ware pants",
-            "I really like to Ware pants",
-            "I want to Ware pants",
-            "I really want to Ware pants",
-            "I want to Ware pants again",
-            "I really want to Ware pants again",
-            "I don’t like to Ware pants",
-            "I really don’t like to Ware pants",
-            "I don’t want to Ware pants",
-            "I really don’t want to Ware pants",
-            "I don’t want to Ware pants again",
-            "I really don’t want to Ware pants again"
+    }, {"I like to Wear pants",
+            "I really like to Wear pants",
+            "I want to Wear pants",
+            "I really want to Wear pants",
+            "I want to Wear pants again",
+            "I really want to Wear pants again",
+            "I don’t like to Wear pants",
+            "I really don’t like to Wear pants",
+            "I don’t want to Wear pants",
+            "I really don’t want to Wear pants",
+            "I don’t want to Wear pants again",
+            "I really don’t want to Wear pants again"
 
-    }, {"I like to Ware slacks",
-            "I really like to Ware slacks",
-            "I want to Ware slacks",
-            "I really want to Ware slacks",
-            "I want to Ware slacks again",
-            "I really want to Ware slacks again",
-            "I don’t like to Ware slacks",
-            "I really don’t like to Ware slacks",
-            "I don’t want to Ware slacks",
-            "I really don’t want to Ware slacks",
-            "I don’t want to Ware slacks again",
-            "I really don’t want to Ware slacks again"
+    }, {"I like to Wear slacks",
+            "I really like to Wear slacks",
+            "I want to Wear slacks",
+            "I really want to Wear slacks",
+            "I want to Wear slacks again",
+            "I really want to Wear slacks again",
+            "I don’t like to Wear slacks",
+            "I really don’t like to Wear slacks",
+            "I don’t want to Wear slacks",
+            "I really don’t want to Wear slacks",
+            "I don’t want to Wear slacks again",
+            "I really don’t want to Wear slacks again"
 
-    }, {"I like to Ware legg ings",
-            "I really like to Ware legg ings",
-            "I want to Ware legg ings",
-            "I really want to Ware legg ings",
-            "I want to Ware legg ings again",
-            "I really want to Ware legg ings again",
-            "I don’t like to Ware legg ings",
-            "I really don’t like to Ware legg ings",
-            "I don’t want to Ware legg ings",
-            "I really don’t want to Ware legg ings",
-            "I don’t want to Ware legg ings again",
-            "I really don’t want to Ware legg ings again"
+    }, {"I like to Wear leggings",
+            "I really like to Wear leggings",
+            "I want to Wear leggings",
+            "I really want to Wear leggings",
+            "I want to Wear leggings again",
+            "I really want to Wear leggings again",
+            "I don’t like to Wear leggings",
+            "I really don’t like to Wear leggings",
+            "I don’t want to Wear leggings",
+            "I really don’t want to Wear leggings",
+            "I don’t want to Wear leggings again",
+            "I really don’t want to Wear leggings again"
 
-    }, {"I like to Ware shorts",
-            "I really like to Ware shorts",
-            "I want to Ware shorts",
-            "I really want to Ware shorts",
-            "I want to Ware shorts again",
-            "I really want to Ware shorts again",
-            "I don’t like to Ware shorts",
-            "I really don’t like to Ware shorts",
-            "I don’t want to Ware shorts",
-            "I really don’t want to Ware shorts",
-            "I don’t want to Ware shorts again",
-            "I really don’t want to Ware shorts again"
+    }, {"I like to Wear shorts",
+            "I really like to Wear shorts",
+            "I want to Wear shorts",
+            "I really want to Wear shorts",
+            "I want to Wear shorts again",
+            "I really want to Wear shorts again",
+            "I don’t like to Wear shorts",
+            "I really don’t like to Wear shorts",
+            "I don’t want to Wear shorts",
+            "I really don’t want to Wear shorts",
+            "I don’t want to Wear shorts again",
+            "I really don’t want to Wear shorts again"
 
-    }, {"I like to Ware salwarkameez",
-            "I really like to Ware salwarkameez",
-            "I want to Ware salwarkameez",
-            "I really want to Ware salwarkameez",
-            "I want to Ware salwarkameez again",
-            "I really want to Ware salwarkameez again",
-            "I don’t like to Ware salwarkameez",
-            "I really don’t like to Ware salwarkameez",
-            "I don’t want to Ware salwarkameez",
-            "I really don’t want to Ware salwarkameez",
-            "I don’t want to Ware salwarkameez again",
-            "I really don’t want to Ware salwarkameez again"
+    }, {"I like to Wear salwarkameez",
+            "I really like to Wear salwarkameez",
+            "I want to Wear salwarkameez",
+            "I really want to Wear salwarkameez",
+            "I want to Wear salwarkameez again",
+            "I really want to Wear salwarkameez again",
+            "I don’t like to Wear salwarkameez",
+            "I really don’t like to Wear salwarkameez",
+            "I don’t want to Wear salwarkameez",
+            "I really don’t want to Wear salwarkameez",
+            "I don’t want to Wear salwarkameez again",
+            "I really don’t want to Wear salwarkameez again"
 
-    }, {"I like to wearr sweaters",
-            "I really like to wearr sweaters",
-            "I want to wearr a sweater",
-            "I really want to wearr a sweater",
-            "I want to wearr a sweater again",
-            "I really want to wearr a sweater again",
-            "I don’t like to wearr sweaters",
-            "I really don’t like to wearr sweaters",
-            "I don’t want to wearr a sweater",
-            "I really don’t want to wearr a sweater",
-            "I don’t want to wearr a sweater again",
-            "I really don’t want to wearr a sweater again"
+    }, {"I like to wear sweaters",
+            "I really like to wear sweaters",
+            "I want to wear a sweater",
+            "I really want to wear a sweater",
+            "I want to wear a sweater again",
+            "I really want to wear a sweater again",
+            "I don’t like to wear sweaters",
+            "I really don’t like to wear sweaters",
+            "I don’t want to wear a sweater",
+            "I really don’t want to wear a sweater",
+            "I don’t want to wear a sweater again",
+            "I really don’t want to wear a sweater again"
 
-    }, {"I like to wearr jackets",
-            "I really like to wearr jackets",
-            "I want to wearr a jacket",
-            "I really want to wearr a jacket",
-            "I want to wearr a jacket again",
-            "I really want to wearr a jacket again",
-            "I don’t like to wearr jackets",
-            "I really don’t like to wearr jackets",
-            "I don’t want to wearr a jacket",
-            "I really don’t want to wearr a jacket",
-            "I don’t want to wearr a jacket again",
-            "I really don’t want to wearr a jacket again"
+    }, {"I like to wear jackets",
+            "I really like to wear jackets",
+            "I want to wear a jacket",
+            "I really want to wear a jacket",
+            "I want to wear a jacket again",
+            "I really want to wear a jacket again",
+            "I don’t like to wear jackets",
+            "I really don’t like to wear jackets",
+            "I don’t want to wear a jacket",
+            "I really don’t want to wear a jacket",
+            "I don’t want to wear a jacket again",
+            "I really don’t want to wear a jacket again"
 
-    }, {"I like to wearr scarves",
-            "I really like to wearr scarves",
-            "I want to wearr a scarf",
-            "I really want to wearr a scarf",
-            "I want to wearr a scarf again",
-            "I really want to wearr a scarf again",
-            "I don’t like to wearr scarves",
-            "I really don’t like to wearr scarves",
-            "I don’t want to wearr a scarf",
-            "I really don’t want to wearr a scarf",
-            "I don’t want to wearr a scarf again",
-            "I really don’t want to wearr a scarf again"
+    }, {"I like to wear scarves",
+            "I really like to wear scarves",
+            "I want to wear a scarf",
+            "I really want to wear a scarf",
+            "I want to wear a scarf again",
+            "I really want to wear a scarf again",
+            "I don’t like to wear scarves",
+            "I really don’t like to wear scarves",
+            "I don’t want to wear a scarf",
+            "I really don’t want to wear a scarf",
+            "I don’t want to wear a scarf again",
+            "I really don’t want to wear a scarf again"
 
-    },  {"I like to Ware my cap",
-            "I really like to Ware my cap",
-            "I want to Ware my cap",
-            "I really want to Ware my cap",
-            "I want to Ware my cap again",
-            "I really want to Ware my cap again",
-            "I don’t like to Ware my cap",
-            "I really don’t like to Ware my cap",
-            "I don’t want to Ware my cap",
-            "I really don’t want to Ware my cap",
-            "I don’t want to Ware my cap again",
-            "I really don’t want to Ware my cap again"
+    }, {"I like to Wear my cap",
+            "I really like to Wear my cap",
+            "I want to Wear my cap",
+            "I really want to Wear my cap",
+            "I want to Wear my cap again",
+            "I really want to Wear my cap again",
+            "I don’t like to Wear my cap",
+            "I really don’t like to Wear my cap",
+            "I don’t want to Wear my cap",
+            "I really don’t want to Wear my cap",
+            "I don’t want to Wear my cap again",
+            "I really don’t want to Wear my cap again"
 
-    }, {"I like to Ware my belt",
-            "I really like to Ware my belt",
-            "I want to Ware my belt",
-            "I really want to Ware my belt",
-            "I want to Ware my belt again",
-            "I really want to Ware my belt again",
-            "I don’t like to Ware my belt",
-            "I really don’t like to Ware my belt",
-            "I don’t want to Ware my belt",
-            "I really don’t want to Ware my belt",
-            "I don’t want to Ware my belt again",
-            "I really don’t want to Ware my belt again"
+    }, {"I like to Wear my belt",
+            "I really like to Wear my belt",
+            "I want to Wear my belt",
+            "I really want to Wear my belt",
+            "I want to Wear my belt again",
+            "I really want to Wear my belt again",
+            "I don’t like to Wear my belt",
+            "I really don’t like to Wear my belt",
+            "I don’t want to Wear my belt",
+            "I really don’t want to Wear my belt",
+            "I don’t want to Wear my belt again",
+            "I really don’t want to Wear my belt again"
 
-    }, {"I like to Ware my raincoat",
-            "I really like to Ware my raincoat",
-            "I want to Ware my raincoat",
-            "I really want to Ware my raincoat",
-            "I want to Ware my raincoat again",
-            "I really want to Ware my raincoat again",
-            "I don’t like to Ware my raincoat",
-            "I really don’t like to Ware my raincoat",
-            "I don’t want to Ware my raincoat",
-            "I really don’t want to Ware my raincoat",
-            "I don’t want to Ware my raincoat again",
-            "I really don’t want to Ware my raincoat again"
+    }, {"I like to Wear my raincoat",
+            "I really like to Wear my raincoat",
+            "I want to Wear my raincoat",
+            "I really want to Wear my raincoat",
+            "I want to Wear my raincoat again",
+            "I really want to Wear my raincoat again",
+            "I don’t like to Wear my raincoat",
+            "I really don’t like to Wear my raincoat",
+            "I don’t want to Wear my raincoat",
+            "I really don’t want to Wear my raincoat",
+            "I don’t want to Wear my raincoat again",
+            "I really don’t want to Wear my raincoat again"
 
-    }, {"I like to Ware my spectacles",
-            "I really like to Ware my spectacles",
-            "I want to Ware my spectacles",
-            "I really want to Ware my spectacles",
-            "I want to Ware my spectacles again",
-            "I really want to Ware my spectacles again",
-            "I don’t like to Ware my spectacles",
-            "I really don’t like to Ware my spectacles",
-            "I don’t want to Ware my spectacles",
-            "I really don’t want to Ware my spectacles",
-            "I don’t want to Ware my spectacles again",
-            "I really don’t want to Ware my spectacles again"
+    }, {"I like to Wear my spectacles",
+            "I really like to Wear my spectacles",
+            "I want to Wear my spectacles",
+            "I really want to Wear my spectacles",
+            "I want to Wear my spectacles again",
+            "I really want to Wear my spectacles again",
+            "I don’t like to Wear my spectacles",
+            "I really don’t like to Wear my spectacles",
+            "I don’t want to Wear my spectacles",
+            "I really don’t want to Wear my spectacles",
+            "I don’t want to Wear my spectacles again",
+            "I really don’t want to Wear my spectacles again"
 
-    }, {"I like to Ware my wrist watch",
-            "I really like to Ware my wrist watch",
-            "I want to Ware my wrist watch",
-            "I really want to Ware my wrist watch",
-            "I want to Ware my wrist watch again",
-            "I really want to Ware my wrist watch again",
-            "I don’t like to Ware my wrist watch",
-            "I really don’t like to Ware my wrist watch",
-            "I don’t want to Ware my wrist watch",
-            "I really don’t want to Ware my wrist watch",
-            "I don’t want to Ware my wrist watch again",
-            "I really don’t want to Ware my wrist watch again"
+    }, {"I like to Wear my wrist watch",
+            "I really like to Wear my wrist watch",
+            "I want to Wear my wrist watch",
+            "I really want to Wear my wrist watch",
+            "I want to Wear my wrist watch again",
+            "I really want to Wear my wrist watch again",
+            "I don’t like to Wear my wrist watch",
+            "I really don’t like to Wear my wrist watch",
+            "I don’t want to Wear my wrist watch",
+            "I really don’t want to Wear my wrist watch",
+            "I don’t want to Wear my wrist watch again",
+            "I really don’t want to Wear my wrist watch again"
 
-    }, {"I like to Ware earrings",
-            "I really like to Ware earrings",
-            "I want to Ware earrings",
-            "I really want to Ware earrings",
-            "I want to Ware earrings again",
-            "I really want to Ware earrings again",
-            "I don’t like to Ware earrings",
-            "I really don’t like to Ware earrings",
-            "I don’t want to Ware earrings",
-            "I really don’t want to Ware earrings",
-            "I don’t want to Ware earrings again",
-            "I really don’t want to Ware earrings again"
+    }, {"I like to Wear earrings",
+            "I really like to Wear earrings",
+            "I want to Wear earrings",
+            "I really want to Wear earrings",
+            "I want to Wear earrings again",
+            "I really want to Wear earrings again",
+            "I don’t like to Wear earrings",
+            "I really don’t like to Wear earrings",
+            "I don’t want to Wear earrings",
+            "I really don’t want to Wear earrings",
+            "I don’t want to Wear earrings again",
+            "I really don’t want to Wear earrings again"
 
-    }, {"I like to Ware brace lets",
-            "I really like to Ware brace lets",
-            "I want to wearr a brace let",
-            "I really want to wearr a brace let",
-            "I want to wearr a brace let again",
-            "I really want to wearr a brace let again",
-            "I don’t like to Ware brace lets",
-            "I really don’t like to Ware brace lets",
-            "I don’t want to wearr a brace let",
-            "I really don’t want to wearr a brace let",
-            "I don’t want to wearr a brace let again",
-            "I really don’t want to wearr a brace let again"
+    }, {"I like to Wear brace lets",
+            "I really like to Wear brace lets",
+            "I want to wear a brace let",
+            "I really want to wear a brace let",
+            "I want to wear a brace let again",
+            "I really want to wear a brace let again",
+            "I don’t like to Wear brace lets",
+            "I really don’t like to Wear brace lets",
+            "I don’t want to wear a brace let",
+            "I really don’t want to wear a brace let",
+            "I don’t want to wear a brace let again",
+            "I really don’t want to wear a brace let again"
 
-    }, {"I like to Ware necklaces",
-            "I really like to Ware necklaces",
-            "I want to Ware a necklace",
-            "I really want to Ware a necklace",
-            "I want to Ware a necklace again",
-            "I really want to Ware a necklace again",
-            "I don’t like to Ware necklaces",
-            "I really don’t like to Ware necklaces",
-            "I don’t want to Ware a necklace",
-            "I really don’t want to Ware a necklace",
-            "I don’t want to Ware a necklace again",
-            "I really don’t want to Ware a necklace again"
+    }, {"I like to Wear necklaces",
+            "I really like to Wear necklaces",
+            "I want to Wear a necklace",
+            "I really want to Wear a necklace",
+            "I want to Wear a necklace again",
+            "I really want to Wear a necklace again",
+            "I don’t like to Wear necklaces",
+            "I really don’t like to Wear necklaces",
+            "I don’t want to Wear a necklace",
+            "I really don’t want to Wear a necklace",
+            "I don’t want to Wear a necklace again",
+            "I really don’t want to Wear a necklace again"
 
-    },  {"I like to wearr a बिंदी",
-            "I really like to wearr a बिंदी",
-            "I want to wearr a बिंदी",
-            "I really want to wearr a बिंदी",
-            "I want to wearr a बिंदी again",
-            "I really want to wearr a बिंदी again",
-            "I don’t like to wearr a बिंदी",
-            "I really don’t like to wearr a बिंदी",
-            "I don’t want to wearr a बिंदी",
-            "I really don’t want to wearr a बिंदी",
-            "I don’t want to wearr a बिंदी again",
-            "I really don’t want to wearr a बिंदी again"
+    },  {"I like to wear a बिंदी",
+            "I really like to wear a बिंदी",
+            "I want to wear a बिंदी",
+            "I really want to wear a बिंदी",
+            "I want to wear a बिंदी again",
+            "I really want to wear a बिंदी again",
+            "I don’t like to wear a बिंदी",
+            "I really don’t like to wear a बिंदी",
+            "I don’t want to wear a बिंदी",
+            "I really don’t want to wear a बिंदी",
+            "I don’t want to wear a बिंदी again",
+            "I really don’t want to wear a बिंदी again"
 
-    }, {"I like to Ware chappals",
-            "I really like to Ware chappals",
-            "I want to Ware chappals",
-            "I really want to Ware chappals",
-            "I want to Ware chappals again",
-            "I really want to Ware chappals again",
-            "I don’t like to Ware chappals",
-            "I really don’t like to Ware chappals",
-            "I don’t want to Ware chappals",
-            "I really don’t want to Ware chappals",
-            "I don’t want to Ware chappals again",
-            "I really don’t want to Ware chappals again"
+    }, {"I like to Wear chappals",
+            "I really like to Wear chappals",
+            "I want to Wear chappals",
+            "I really want to Wear chappals",
+            "I want to Wear chappals again",
+            "I really want to Wear chappals again",
+            "I don’t like to Wear chappals",
+            "I really don’t like to Wear chappals",
+            "I don’t want to Wear chappals",
+            "I really don’t want to Wear chappals",
+            "I don’t want to Wear chappals again",
+            "I really don’t want to Wear chappals again"
 
     }, {}, {}, {}, {}}, {{"I like to comb my हैर",
             "I really like to comb my हैर",
@@ -4752,18 +4819,18 @@ public class Layer3Activity extends AppCompatActivity {
             "I want to close the window again",
             "I really want to close the window again"
 
-    }, {"I like to sleep on the बेड",
-            "I really like to sleep on the बेड",
-            "I want to sleep on the बेड",
-            "I really want to sleep on the बेड",
-            "I want to sleep some more on the बेड",
-            "I really want to sleep a bit longer on the बेड",
-            "I don’t like to sleep on the बेड",
-            "I really don’t like to sleep on the बेड",
-            "I don’t want to sleep on the बेड",
-            "I really don’t want to sleep on the बेड",
-            "I don’t want to sleep any more on the बेड",
-            "I really don’t want to sleep on the बेड any more"
+    }, {"I like to sleep on the bed",
+            "I really like to sleep on the bed",
+            "I want to sleep on the bed",
+            "I really want to sleep on the bed",
+            "I want to sleep some more on the bed",
+            "I really want to sleep a bit longer on the bed",
+            "I don’t like to sleep on the bed",
+            "I really don’t like to sleep on the bed",
+            "I don’t want to sleep on the bed",
+            "I really don’t want to sleep on the bed",
+            "I don’t want to sleep any more on the bed",
+            "I really don’t want to sleep on the bed any more"
 
     }, {"I like to sleep on pillows",
             "I really like to sleep on pillows",
@@ -4819,15 +4886,15 @@ public class Layer3Activity extends AppCompatActivity {
 
     }}, {{"I like to exercise",
             "I really like to exercise",
-            "I want to do exersizes",
-            "I really want to do exersizes",
-            "I want to do some more exersizes",
+            "I want to do exercises",
+            "I really want to do exercises",
+            "I want to do some more exercises",
             "I really want to exercise for a bit longer",
             "I don’t like to exercise",
             "I really don’t like to exercise",
-            "I don’t want to do exersizes",
-            "I really don’t want to do exersizes",
-            "I don’t want to do more exersizes",
+            "I don’t want to do exercises",
+            "I really don’t want to do exercises",
+            "I don’t want to do more exercises",
             "I really don’t want to exercise any longer"
 
     }, {"I like to use the swing",
@@ -4908,31 +4975,31 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to do any more hand activities",
             "I really don’t want to do any more hand activities"
 
-    }, {"I like to do leg exersizes",
-            "I really like to do leg exersizes",
-            "I want to do leg exersizes",
-            "I really want to do leg exersizes",
-            "I want to do some more leg exersizes",
-            "I really want to do some more leg exersizes",
-            "I don’t like to do leg exersizes",
-            "I really don’t like to do leg exersizes",
-            "I don’t want to do leg exersizes",
-            "I really don’t want to do leg exersizes",
-            "I don’t want to do any more leg exersizes",
-            "I really don’t want to do any more leg exersizes"
+    }, {"I like to do leg exercises",
+            "I really like to do leg exercises",
+            "I want to do leg exercises",
+            "I really want to do leg exercises",
+            "I want to do some more leg exercises",
+            "I really want to do some more leg exercises",
+            "I don’t like to do leg exercises",
+            "I really don’t like to do leg exercises",
+            "I don’t want to do leg exercises",
+            "I really don’t want to do leg exercises",
+            "I don’t want to do any more leg exercises",
+            "I really don’t want to do any more leg exercises"
 
-    }, {"I like to Ware body vests",
-            "I really like to Ware body vests",
-            "I want to Ware body vests",
-            "I really want to Ware body vests",
-            "I want to Ware body vests again",
-            "I really want to Ware body vests again",
-            "I don’t like to Ware body vests",
-            "I really don’t like to Ware body vests",
-            "I don’t want to Ware body vests",
-            "I really don’t want to Ware body vests",
-            "I don’t want to Ware body vests again",
-            "I really don’t want to Ware body vests again"
+    }, {"I like to Wear body vests",
+            "I really like to Wear body vests",
+            "I want to Wear body vests",
+            "I really want to Wear body vests",
+            "I want to Wear body vests again",
+            "I really want to Wear body vests again",
+            "I don’t like to Wear body vests",
+            "I really don’t like to Wear body vests",
+            "I don’t want to Wear body vests",
+            "I really don’t want to Wear body vests",
+            "I don’t want to Wear body vests again",
+            "I really don’t want to Wear body vests again"
 
 
     }}, {{"I like to wake up",
@@ -5039,7 +5106,7 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to comb my हैर again",
             "I really don’t want to comb my हैर again"
 
-    }, {"I like to eat brekfust",
+    },  {"I like to eat brekfust",
             "I really like to eat brekfust",
             "I want to eat brekfust",
             "I really want to eat brekfust",
@@ -5106,18 +5173,18 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to eat more dinner",
             "I really don’t want to eat any more dinner"
 
-    }, {"I like to Ware night clothes",
-            "I really like to Ware night clothes",
-            "I want to Ware night clothes",
-            "I really want to Ware night clothes",
-            "I want to Ware night clothes again",
-            "I really want to Ware night clothes again",
-            "I don’t like to Ware night clothes",
-            "I really don’t like to Ware night clothes",
-            "I don’t want to Ware night clothes",
-            "I really don’t want to Ware night clothes",
-            "I don’t want to Ware night clothes again",
-            "I really don’t want to Ware night clothes again"
+    }, {"I like to Wear night clothes",
+            "I really like to Wear night clothes",
+            "I want to Wear night clothes",
+            "I really want to Wear night clothes",
+            "I want to Wear night clothes again",
+            "I really want to Wear night clothes again",
+            "I don’t like to Wear night clothes",
+            "I really don’t like to Wear night clothes",
+            "I don’t want to Wear night clothes",
+            "I really don’t want to Wear night clothes",
+            "I don’t want to Wear night clothes again",
+            "I really don’t want to Wear night clothes again"
 
     }, {"I like to brush my teeth",
             "I really like to brush my teeth",
@@ -5252,18 +5319,18 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want more upma",
             "I really don’t want any more upma"
 
-    }, {"I like khichhdi",
-            "I really like khichhdi",
-            "I want some khichhdi",
-            "I really want some khichhdi",
-            "I want more khichhdi",
-            "I really want some more khichhdi",
-            "I don’t like khichhdi",
-            "I really don’t like khichhdi",
-            "I don’t want any khichhdi",
-            "I really don’t want any khichhdi",
-            "I don’t want more khichhdi",
-            "I really don’t want any more khichhdi"
+    }, {"I like khichdi",
+            "I really like khichdi",
+            "I want some khichdi",
+            "I really want some khichdi",
+            "I want more khichdi",
+            "I really want some more khichdi",
+            "I don’t like khichdi",
+            "I really don’t like khichdi",
+            "I don’t want any khichdi",
+            "I really don’t want any khichdi",
+            "I don’t want more khichdi",
+            "I really don’t want any more khichdi"
 
     }, {"I like idlys",
             "I really like idlys",
@@ -5291,31 +5358,31 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want another dosaaa",
             "I really don’t want another dosaaa"
 
-    }, {"I like पराठाज़",
-            "I really like पराठाज़",
+    }, {"I like paraathaas ",
+            "I really like paraathaas",
             "I want a paraathaa",
             "I really want a paraathaa",
-            "I want more पराठाज़",
-            "I really want some more पराठाज़",
-            "I don’t like पराठाज़",
-            "I really don’t like पराठाज़",
+            "I want more paraathaas ",
+            "I really want some more paraathaas ",
+            "I don’t like paraathaas ",
+            "I really don’t like paraathaas ",
             "I don’t want a paraathaa",
             "I really don’t want a paraathaa",
-            "I don’t want more पराठाज़",
-            "I really don’t want any more पराठाज़"
+            "I don’t want more paraathaas ",
+            "I really don’t want any more paraathaas"
 
-    }, {"I like aumm lets",
-            "I really like aumm lets",
-            "I want an aumm let",
-            "I really want an aumm let",
-            "I want more aumm lets",
-            "I really want some more aumm lets",
-            "I don’t like aumm lets",
-            "I really don’t like aumm lets",
-            "I don’t want an aumm let",
-            "I really don’t want an aumm let",
-            "I don’t want more aumm lets",
-            "I really don’t want any more aumm lets",
+    }, {"I like omlettes",
+            "I really like omlettes",
+            "I want an omlette",
+            "I really want an omlette",
+            "I want more omlettes",
+            "I really want some more omlettes",
+            "I don’t like omlettes",
+            "I really don’t like omlettes",
+            "I don’t want an omlette",
+            "I really don’t want an omlette",
+            "I don’t want more omlettes",
+            "I really don’t want any more omlettes",
 
     }, {"I like मेदु वड़ा",
             "I really like मेदु वड़ा",
@@ -5447,18 +5514,18 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want more dal",
             "I really don’t want any more dal"
 
-    }, {"I like dal khichhdi",
-            "I really like dal khichhdi",
-            "I want some dal khichhdi",
-            "I really want some dal khichhdi",
-            "I want more dal khichhdi",
-            "I really want some more dal khichhdi",
-            "I don’t like dal khichhdi",
-            "I really don’t like dal khichhdi",
-            "I don’t want any dal khichhdi",
-            "I really don’t want any dal khichhdi",
-            "I don’t want more dal khichhdi",
-            "I really don’t want any more dal khichhdi"
+    }, {"I like dal khichdi",
+            "I really like dal khichdi",
+            "I want some dal khichdi",
+            "I really want some dal khichdi",
+            "I want more dal khichdi",
+            "I really want some more dal khichdi",
+            "I don’t like dal khichdi",
+            "I really don’t like dal khichdi",
+            "I don’t want any dal khichdi",
+            "I really don’t want any dal khichdi",
+            "I don’t want more dal khichdi",
+            "I really don’t want any more dal khichdi"
 
     }, {"I like raaigh ta",
             "I really like raaigh ta",
@@ -5473,18 +5540,18 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want more raaigh ta",
             "I really don’t want any more raaigh ta"
 
-    }, {"I like पराठाज़",
-            "I really like पराठाज़",
+    }, {"I like paraathaas ",
+            "I really like paraathaas",
             "I want a paraathaa",
             "I really want a paraathaa",
-            "I want more पराठाज़",
-            "I really want some more पराठाज़",
-            "I don’t like पराठाज़",
-            "I really don’t like पराठाज़",
+            "I want more paraathaas ",
+            "I really want some more paraathaas ",
+            "I don’t like paraathaas ",
+            "I really don’t like paraathaas ",
             "I don’t want a paraathaa",
             "I really don’t want a paraathaa",
-            "I don’t want more पराठाज़",
-            "I really don’t want any more पराठाज़"
+            "I don’t want more paraathaas ",
+            "I really don’t want any more paraathaas"
 
     }, {"I like curd",
             "I really like curd",
@@ -5499,7 +5566,7 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want more curd",
             "I really don’t want any more curd"
 
-    }, {"I like fish",
+    },  {"I like fish",
             "I really like fish",
             "I want some fish",
             "I really want some fish",
@@ -5551,18 +5618,18 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want more mutton",
             "I really don’t want any more mutton"
 
-    }, {"I like crab meat",
-            "I really like crab meat",
-            "I want some crab meat",
-            "I really want some crab meat",
-            "I want more crab meat",
-            "I really want some more crab meat",
-            "I don’t like crab meat",
-            "I really don’t like crab meat",
-            "I don’t want any crab meat",
-            "I really don’t want any crab meat",
-            "I don’t want more crab meat",
-            "I really don’t want any more crab meat"
+    }, {"I like crabbb meat",
+            "I really like crabbb meat",
+            "I want some crabbb meat",
+            "I really want some crabbb meat",
+            "I want more crabbb meat",
+            "I really want some more crabbb meat",
+            "I don’t like crabbb meat",
+            "I really don’t like crabbb meat",
+            "I don’t want any crabbb meat",
+            "I really don’t want any crabbb meat",
+            "I don’t want more crabbb meat",
+            "I really don’t want any more crabbb meat"
 
     }, {"I like turkey",
             "I really like turkey",
@@ -5603,7 +5670,7 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want more salad",
             "I really don’t want any more salad"
 
-    }, {"I like soup",
+    },  {"I like soup",
             "I really like soup",
             "I want some soup",
             "I really want some soup",
@@ -5642,31 +5709,31 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want more noodles",
             "I really don’t want any more noodles"
 
-    }, {"I like italian food",
-            "I really like italian food",
-            "I want some italian food",
-            "I really want some italian food",
-            "I want more italian food",
-            "I really want some more italian food",
-            "I don’t like italian food",
-            "I really don’t like italian food",
-            "I don’t want any italian food",
-            "I really don’t want any italian food",
-            "I don’t want more italian food",
-            "I really don’t want any more italian food"
+    }, {"I like Italian food",
+            "I really like Italian food",
+            "I want some Italian food",
+            "I really want some Italian food",
+            "I want more Italian food",
+            "I really want some more Italian food",
+            "I don’t like Italian food",
+            "I really don’t like Italian food",
+            "I don’t want any Italian food",
+            "I really don’t want any Italian food",
+            "I don’t want more Italian food",
+            "I really don’t want any more Italian food"
 
-    }, {"I like पाव भाजी",
-            "I really like पाव भाजी",
-            "I want some पाव भाजी",
-            "I really want some पाव भाजी",
-            "I want more पाव भाजी",
-            "I really want some more पाव भाजी",
-            "I don’t like पाव भाजी",
-            "I really don’t like पाव भाजी",
-            "I don’t want any पाव भाजी",
-            "I really don’t want any पाव भाजी",
-            "I don’t want some more पाव भाजी",
-            "I really don’t want any more पाव भाजी"
+    }, {"I like pav bhaji",
+            "I really like pav bhaji",
+            "I want some pav bhaji",
+            "I really want some pav bhaji",
+            "I want more pav bhaji",
+            "I really want some more pav bhaji",
+            "I don’t like pav bhaji",
+            "I really don’t like pav bhaji",
+            "I don’t want any pav bhaji",
+            "I really don’t want any pav bhaji",
+            "I don’t want some more pav bhaji",
+            "I really don’t want any more pav bhaji"
 
     }, {"I like bhakri",
             "I really like bhakri",
@@ -5811,18 +5878,18 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want more sheeraa",
             "I really don’t want any more sheeraa"
 
-    }}, {{"I like biskeits",
-            "I really like biskeits",
-            "I want a biskit",
-            "I really want a biskit",
-            "I want more biskeits",
-            "I really want some more biskeits",
-            "I don’t like biskeits",
-            "I really don’t like biskeits",
-            "I don’t want a biskit",
-            "I really don’t want a biskit",
-            "I don’t want more biskeits",
-            "I really don’t want any more biskeits"
+    }}, {{"I like biscuits",
+            "I really like biscuits",
+            "I want a biscuit",
+            "I really want a biscuit",
+            "I want more biscuits",
+            "I really want some more biscuits",
+            "I don’t like biscuits",
+            "I really don’t like biscuits",
+            "I don’t want a biscuit",
+            "I really don’t want a biscuit",
+            "I don’t want more biscuits",
+            "I really don’t want any more biscuits"
 
     }, {"I like chaat",
             "I really like chaat",
@@ -5837,44 +5904,44 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want more chaat",
             "I really don’t want any more chaat"
 
-    }, {"I like choc letts",
-            "I really like choc letts",
-            "I want a choc let",
-            "I really want a choc let",
-            "I want more choc letts",
-            "I really want some more choc letts",
-            "I don’t like choc letts",
-            "I really don’t like choc letts",
-            "I don’t want a choc let",
-            "I really don’t want a choc let",
-            "I don’t want more choc letts",
-            "I really don’t want any more choc letts"
+    }, {"I like chocolates",
+            "I really like chocolates",
+            "I want a chocolate",
+            "I really want a chocolate",
+            "I want more chocolates",
+            "I really want some more chocolates",
+            "I don’t like chocolates",
+            "I really don’t like chocolates",
+            "I don’t want a chocolate",
+            "I really don’t want a chocolate",
+            "I don’t want more chocolates",
+            "I really don’t want any more chocolates"
 
-    }, {"I like waferz",
-            "I really like waferz",
-            "I want some waferz",
-            "I really want some waferz",
-            "I want more waferz",
-            "I really want a some more waferz",
-            "I don’t like waferz",
-            "I really don’t like waferz",
-            "I don’t want any waferz",
-            "I really don’t want any waferz",
-            "I don’t want more waferz",
-            "I really don’t want any more waferz"
+    }, {"I like wafers",
+            "I really like wafers",
+            "I want some wafers",
+            "I really want some wafers",
+            "I want more wafers",
+            "I really want a some more wafers",
+            "I don’t like wafers",
+            "I really don’t like wafers",
+            "I don’t want any wafers",
+            "I really don’t want any wafers",
+            "I don’t want more wafers",
+            "I really don’t want any more wafers"
 
-    }, {"I like sandwitches",
-            "I really like sandwitches",
-            "I want a sandwitch",
-            "I really want a sandwitch",
-            "I want more sandwitches",
-            "I really want some more sandwitches",
-            "I don’t like sandwitches",
-            "I really don’t like sandwitches",
-            "I don’t want a sandwitch",
-            "I really don’t want a sandwitch",
-            "I don’t want more sandwitches",
-            "I really don’t want any more sandwitches"
+    }, {"I like sandwiches",
+            "I really like sandwiches",
+            "I want a sandwich",
+            "I really want a sandwich",
+            "I want more sandwiches",
+            "I really want some more sandwiches",
+            "I don’t like sandwiches",
+            "I really don’t like sandwiches",
+            "I don’t want a sandwich",
+            "I really don’t want a sandwich",
+            "I don’t want more sandwiches",
+            "I really don’t want any more sandwiches"
 
     }, {"I like noodles",
             "I really like noodles",
@@ -5954,18 +6021,18 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want more grapes",
             "I really don’t want any more grapes"
 
-    }, {"I like guavaaz",
-            "I really like guavaaz",
-            "I want a guav aa",
-            "I really want a guav aa",
-            "I want more guavaaz",
-            "I really want some more guavaaz",
-            "I don’t like guavaaz",
-            "I really don’t like guavaaz",
-            "I don’t want a guav aa",
-            "I really don’t want a guav aa",
-            "I don’t want more guavaaz",
-            "I really don’t want any more guavaaz"
+    }, {"I like guavas",
+            "I really like guavas",
+            "I want a guava",
+            "I really want a guava",
+            "I want more guavas",
+            "I really want some more guavas",
+            "I don’t like guavas",
+            "I really don’t like guavas",
+            "I don’t want a guava",
+            "I really don’t want a guava",
+            "I don’t want more guavas",
+            "I really don’t want any more guavas"
 
     }, {"I like mangoes",
             "I really like mangoes",
@@ -6058,18 +6125,18 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want more watermelons",
             "I really don’t want any more watermelons"
 
-    }, {"I like pares",
-            "I really like pares",
-            "I want a pare",
-            "I really want a pare",
-            "I want more pares",
-            "I really want some more pares",
-            "I don’t like pares",
-            "I really don’t like pares",
-            "I don’t want a pare",
-            "I really don’t want a pare",
-            "I don’t want more pares",
-            "I really don’t want any more pares"
+    }, {"I like pears",
+            "I really like pears",
+            "I want a pear",
+            "I really want a pear",
+            "I want more pears",
+            "I really want some more pears",
+            "I don’t like pears",
+            "I really don’t like pears",
+            "I don’t want a pear",
+            "I really don’t want a pear",
+            "I don’t want more pears",
+            "I really don’t want any more pears"
 
     }, {"I like papayas",
             "I really like papayas",
@@ -6253,18 +6320,18 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want more pepsi",
             "I really don’t want any more pepsi"
 
-    }, {"I like coca co lah",
-            "I really like coca co lah",
-            "I want some coca co lah",
-            "I really want some coca co lah",
-            "I want more coca co lah",
-            "I really want some more coca co lah",
-            "I don’t like coca co lah",
-            "I really don’t like coca co lah",
-            "I don’t want any coca co lah",
-            "I really don’t want any coca co lah",
-            "I don’t want more coca co lah",
-            "I really don’t want any more coca co lah"
+    }, {"I like cocacola",
+            "I really like cocacola",
+            "I want some cocacola",
+            "I really want some cocacola",
+            "I want more cocacola",
+            "I really want some more cocacola",
+            "I don’t like cocacola",
+            "I really don’t like cocacola",
+            "I don’t want any cocacola",
+            "I really don’t want any cocacola",
+            "I don’t want more cocacola",
+            "I really don’t want any more cocacola"
 
     }, {"I like mirinda",
             "I really like mirinda",
@@ -6331,95 +6398,95 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want more mountain dew",
             "I really don’t want any more mountain dew"
 
-    }, {"I like milkshakes",
-            "I really like milkshakes",
-            "I want a milkshake",
-            "I really want a milkshake",
-            "I want more milkshake",
-            "I really want some more milkshake",
-            "I don’t like milkshake",
-            "I really don’t like milkshake",
-            "I don’t want a milkshake",
-            "I really don’t want a milkshake",
-            "I don’t want more milkshake",
-            "I really don’t want any more milkshake"
-    },  {"I like chocolate milkshake",
-            "I really like chocolate milkshake",
-            "I want some chocolate milkshake",
-            "I really want some chocolate milkshake",
-            "I want more chocolate milkshake",
-            "I really want some more chocolate milkshake",
-            "I don’t like chocolate milkshake",
-            "I really don’t like chocolate milkshake",
-            "I don’t want any chocolate milkshake",
-            "I really don’t want any chocolate milkshake",
-            "I don’t want more chocolate milkshake",
-            "I really don’t want any more chocolate milkshake"
+    }, {"I like milk shakes",
+            "I really like milk shakes",
+            "I want a milk shake",
+            "I really want a milk shake",
+            "I want more milk shake",
+            "I really want some more milk shake",
+            "I don’t like milk shake",
+            "I really don’t like milk shake",
+            "I don’t want a milk shake",
+            "I really don’t want a milk shake",
+            "I don’t want more milk shake",
+            "I really don’t want any more milk shake"
+    },  {"I like chocolate milk shake",
+            "I really like chocolate milk shake",
+            "I want some chocolate milk shake",
+            "I really want some chocolate milk shake",
+            "I want more chocolate milk shake",
+            "I really want some more chocolate milk shake",
+            "I don’t like chocolate milk shake",
+            "I really don’t like chocolate milk shake",
+            "I don’t want any chocolate milk shake",
+            "I really don’t want any chocolate milk shake",
+            "I don’t want more chocolate milk shake",
+            "I really don’t want any more chocolate milk shake"
 
-    }, {"I like strawberry milkshake",
-            "I really like strawberry milkshake",
-            "I want some strawberry milkshake",
-            "I really want some strawberry milkshake",
-            "I want more strawberry milkshake",
-            "I really want some more strawberry milkshake",
-            "I don’t like strawberry milkshake",
-            "I really don’t like strawberry milkshake",
-            "I don’t want any strawberry milkshake",
-            "I really don’t want any strawberry milkshake",
-            "I don’t want more strawberry milkshake",
-            "I really don’t want any more strawberry milkshake"
+    }, {"I like strawberry milk shake",
+            "I really like strawberry milk shake",
+            "I want some strawberry milk shake",
+            "I really want some strawberry milk shake",
+            "I want more strawberry milk shake",
+            "I really want some more strawberry milk shake",
+            "I don’t like strawberry milk shake",
+            "I really don’t like strawberry milk shake",
+            "I don’t want any strawberry milk shake",
+            "I really don’t want any strawberry milk shake",
+            "I don’t want more strawberry milk shake",
+            "I really don’t want any more strawberry milk shake"
 
-    }, {"I like banana milkshake",
-            "I really like banana milkshake",
-            "I want some banana milkshake",
-            "I really want some banana milkshake",
-            "I want more banana milkshake",
-            "I really want some more banana milkshake",
-            "I don’t like banana milkshake",
-            "I really don’t like banana milkshake",
-            "I don’t want any banana milkshake",
-            "I really don’t want any banana milkshake",
-            "I don’t want more banana milkshake",
-            "I really don’t want any more banana milkshake"
+    }, {"I like banana milk shake",
+            "I really like banana milk shake",
+            "I want some banana milk shake",
+            "I really want some banana milk shake",
+            "I want more banana milk shake",
+            "I really want some more banana milk shake",
+            "I don’t like banana milk shake",
+            "I really don’t like banana milk shake",
+            "I don’t want any banana milk shake",
+            "I really don’t want any banana milk shake",
+            "I don’t want more banana milk shake",
+            "I really don’t want any more banana milk shake"
 
-    }, {"I like mango milkshake",
-            "I really like mango milkshake",
-            "I want some mango milkshake",
-            "I really want some mango milkshake",
-            "I want more mango milkshake",
-            "I really want some more mango milkshake",
-            "I don’t like mango milkshake",
-            "I really don’t like mango milkshake",
-            "I don’t want any mango milkshake",
-            "I really don’t want any mango milkshake",
-            "I don’t want more mango milkshake",
-            "I really don’t want any more mango milkshake"
+    }, {"I like mango milk shake",
+            "I really like mango milk shake",
+            "I want some mango milk shake",
+            "I really want some mango milk shake",
+            "I want more mango milk shake",
+            "I really want some more mango milk shake",
+            "I don’t like mango milk shake",
+            "I really don’t like mango milk shake",
+            "I don’t want any mango milk shake",
+            "I really don’t want any mango milk shake",
+            "I don’t want more mango milk shake",
+            "I really don’t want any more mango milk shake"
 
-    }, {"I like chikoo milkshake",
-            "I really like chikoo milkshake",
-            "I want some chikoo milkshake",
-            "I really want some chikoo milkshake",
-            "I want more chikoo milkshake",
-            "I really want some more chikoo milkshake",
-            "I don’t like chikoo milkshake",
-            "I really don’t like chikoo milkshake",
-            "I don’t want any chikoo milkshake",
-            "I really don’t want any chikoo milkshake",
-            "I don’t want more chikoo milkshake",
-            "I really don’t want any more chikoo milkshake"
+    }, {"I like chikoo milk shake",
+            "I really like chikoo milk shake",
+            "I want some chikoo milk shake",
+            "I really want some chikoo milk shake",
+            "I want more chikoo milk shake",
+            "I really want some more chikoo milk shake",
+            "I don’t like chikoo milk shake",
+            "I really don’t like chikoo milk shake",
+            "I don’t want any chikoo milk shake",
+            "I really don’t want any chikoo milk shake",
+            "I don’t want more chikoo milk shake",
+            "I really don’t want any more chikoo milk shake"
 
-    }, {"I like टी",
-            "I really like टी",
-            "I want some टी",
-            "I really want some टी",
-            "I want more टी",
-            "I really want some more टी",
-            "I don’t like टी",
-            "I really don’t like टी",
-            "I don’t want any टी",
-            "I really don’t want any टी",
-            "I don’t want more टी",
-            "I really don’t want any more टी"
+    }, {"I like tea",
+            "I really like tea",
+            "I want some tea",
+            "I really want some tea",
+            "I want more tea",
+            "I really want some more tea",
+            "I don’t like tea",
+            "I really don’t like tea",
+            "I don’t want any tea",
+            "I really don’t want any tea",
+            "I don’t want more tea",
+            "I really don’t want any more tea"
 
     }, {"I like coffee",
             "I really like coffee",
@@ -6825,18 +6892,18 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to play with soft toys any more",
             "I really don’t want to play with soft toys any longer"
 
-    }, {"I like to play with caars",
-            "I really like to play with caars",
-            "I want to play with caars",
-            "I really want to play with caars",
-            "I want to play with caars for some more time",
-            "I really want to play with caars for a bit longer",
-            "I don’t like to play with caars",
-            "I really don’t like to play with caars",
-            "I don’t want to play with caars",
-            "I really don’t want to play with caars",
-            "I don’t want to play with caars any more",
-            "I really don’t want to play with caars any longer"
+    }, {"I like to play with cars",
+            "I really like to play with cars",
+            "I want to play with cars",
+            "I really want to play with cars",
+            "I want to play with cars for some more time",
+            "I really want to play with cars for a bit longer",
+            "I don’t like to play with cars",
+            "I really don’t like to play with cars",
+            "I don’t want to play with cars",
+            "I really don’t want to play with cars",
+            "I don’t want to play with cars any more",
+            "I really don’t want to play with cars any longer"
 
     }, {"I like to play with trucks",
             "I really like to play with trucks",
@@ -6981,8 +7048,7 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to play bat and ball again",
             "I really don’t want to play bat and ball once again"
 
-    },
-             {"I like to play statue",
+    }, {"I like to play statue",
             "I really like to play statue",
             "I want to play statue",
             "I really want to play statue",
@@ -7151,18 +7217,18 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to play tennis any more",
             "I really don’t want to play tennis any longer"
 
-    }, {"I like to play baaskett ball",
-            "I really like to play baaskett ball",
-            "I want to play baaskett ball",
-            "I really want to play baaskett ball",
-            "I want to play baaskett ball for some more time",
-            "I really want to play baaskett ball for a bit longer",
-            "I don’t like to play baaskett ball",
-            "I really don’t like to play baaskett ball",
-            "I don’t want to play baaskett ball",
-            "I really don’t want to play baaskett ball",
-            "I don’t want to play baaskett ball any more",
-            "I really don’t want to play baaskett ball any longer"
+    }, {"I like to play basketball",
+            "I really like to play basketball",
+            "I want to play basketball",
+            "I really want to play basketball",
+            "I want to play basketball for some more time",
+            "I really want to play basketball for a bit longer",
+            "I don’t like to play basketball",
+            "I really don’t like to play basketball",
+            "I don’t want to play basketball",
+            "I really don’t want to play basketball",
+            "I don’t want to play basketball any more",
+            "I really don’t want to play basketball any longer"
 
     }, {"I like to play dodgeball",
             "I really like to play dodgeball",
@@ -7216,7 +7282,7 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to play football any more",
             "I really don’t want to play football any longer"
 
-    }, {"I like to play kabbbaddi",
+    },  {"I like to play kabbbaddi",
             "I really like to play kabbbaddi",
             "I want to play kabbbaddi",
             "I really want to play kabbbaddi",
@@ -7255,7 +7321,7 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to swim any more",
             "I really don’t want to swim any longer"
 
-    }},{{"I like the next channel",
+    }}, {{"I like the next channel",
             "I really like the next channel",
             "I want to watch the next channel",
             "I really want to watch the next channel",
@@ -7568,7 +7634,7 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to learn more about ducks",
             "I really don’t want to learn any more about ducks"
 
-    }, {"I like donkeys",
+    },  {"I like donkeys",
             "I really like donkeys",
             "I want to learn about donkeys",
             "I really want to learn about donkeys",
@@ -7675,7 +7741,7 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to learn more about horses",
             "I really don’t want to learn any more about horses"
 
-    }, {"I like deer",
+    },  {"I like deer",
             "I really like deer",
             "I want to learn about deer",
             "I really want to learn about deer",
@@ -7807,28 +7873,28 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to learn more about giraffes",
             "I really don’t want to learn any more about giraffes"
 
-    }, {"I like zeebraas",
-            "I really like zeebraas",
-            "I want to learn about zeebraas",
-            "I really want to learn about zeebraas",
-            "I want to learn more about zeebraas",
-            "I really want to learn some more about zeebraas",
-            "I don’t like zeebraas",
-            "I really don’t like zeebraas",
-            "I don’t want to learn about zeebraas",
-            "I really don’t want to learn about zeebraas",
-            "I don’t want to learn more about zeebraas",
-            "I really don’t want to learn any more about zeebraas"
+    }, {"I like zebras",
+            "I really like zebras",
+            "I want to learn about zebras",
+            "I really want to learn about zebras",
+            "I want to learn more about zebras",
+            "I really want to learn some more about zebras",
+            "I don’t like zebras",
+            "I really don’t like zebras",
+            "I don’t want to learn about zebras",
+            "I really don’t want to learn about zebras",
+            "I don’t want to learn more about zebras",
+            "I really don’t want to learn any more about zebras"
 
     }, {
-            "I like \n mosquitoes",
-            "I really like \n mosquitoes",
+            "I like mosquitoes",
+            "I really like mosquitoes",
             "I want to learn about mosquitoes",
             "I really want to learn about mosquitoes",
             "I want to learn more about mosquitoes",
             "I really want to learn some more about mosquitoes",
-            "I don’t like \n mosquitoes",
-            "I really don’t like \n mosquitoes",
+            "I don’t like mosquitoes",
+            "I really don’t like mosquitoes",
             "I don’t want to learn about mosquitoes",
             "I really don’t want to learn about mosquitoes",
             "I don’t want to learn more about mosquitoes",
@@ -7874,20 +7940,20 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to learn more about snakes",
             "I really don’t want to learn any more about snakes"
 
-    }, {"I like croco diles",
-            "I really like croco diles",
-            "I want to learn about croco diles",
-            "I really want to learn about croco diles",
-            "I want to learn more about croco diles",
-            "I really want to learn some more about croco diles",
-            "I don’t like croco diles",
-            "I really don’t like croco diles",
-            "I don’t want to learn about croco diles",
-            "I really don’t want to learn about croco diles",
-            "I don’t want to learn more about croco diles",
-            "I really don’t want to learn any more about croco diles"
+    }, {"I like crocodiles",
+            "I really like crocodiles",
+            "I want to learn about crocodiles",
+            "I really want to learn about crocodiles",
+            "I want to learn more about crocodiles",
+            "I really want to learn some more about crocodiles",
+            "I don’t like crocodiles",
+            "I really don’t like crocodiles",
+            "I don’t want to learn about crocodiles",
+            "I really don’t want to learn about crocodiles",
+            "I don’t want to learn more about crocodiles",
+            "I really don’t want to learn any more about crocodiles"
 
-    }, {"I like bees",
+    },  {"I like bees",
             "I really like bees",
             "I want to learn about bees",
             "I really want to learn about bees",
@@ -7900,18 +7966,18 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to learn more about bees",
             "I really don’t want to learn any more about bees"
 
-    }, {"I like hippoos",
-            "I really like hippoos",
-            "I want to learn about hippoos",
-            "I really want to learn about hippoos",
-            "I want to learn more about hippoos",
-            "I really want to learn some more about hippoos",
-            "I don’t like hippoos",
-            "I really don’t like hippoos",
-            "I don’t want to learn about hippoos",
-            "I really don’t want to learn about hippoos",
-            "I don’t want to learn more about hippoos",
-            "I really don’t want to learn any more about hippoos"
+    }, {"I like hippos",
+            "I really like hippos",
+            "I want to learn about hippos",
+            "I really want to learn about hippos",
+            "I want to learn more about hippos",
+            "I really want to learn some more about hippos",
+            "I don’t like hippos",
+            "I really don’t like hippos",
+            "I don’t want to learn about hippos",
+            "I really don’t want to learn about hippos",
+            "I don’t want to learn more about hippos",
+            "I really don’t want to learn any more about hippos"
 
     }, {"I like rhinos",
             "I really like rhinos",
@@ -7991,7 +8057,7 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to learn more about whales",
             "I really don’t want to learn any more about whales"
 
-    }, {"I like sharks",
+    },  {"I like sharks",
             "I really like sharks",
             "I want to learn about sharks",
             "I really want to learn about sharks",
@@ -8069,13 +8135,13 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to learn more about vultures",
             "I really don’t want to learn any more about vultures"
 
-    }}, {{"My head feels fine and I kan think well",
+    }}, {{"My head feels fine and I can think well",
             "My head really feels fine",
             "I want to think",
             "I really want to think",
             "I want to think more",
             "I really want to think some more",
-            "My head hurts and I kaant think well",
+            "My head hurts and I can’t think well",
             "My head really hurts a lot",
             "I don’t want to think",
             "I really don’t want to think",
@@ -8101,7 +8167,7 @@ public class Layer3Activity extends AppCompatActivity {
             "I really want to see",
             "I want to see better",
             "I really want to see much better",
-            "My eyes hurt and I kaant see well",
+            "My eyes hurt and I can’t see well",
             "My eyes really hurt a lot",
             "I don’t want to see",
             "I really don’t want to see",
@@ -8114,7 +8180,7 @@ public class Layer3Activity extends AppCompatActivity {
             "I really want to smell",
             "I want to smell that again",
             "I really want to smell that again",
-            "My nose hurts and I kaant smell well",
+            "My nose hurts and I can’t smell well",
             "My nose really hurts a lot",
             "I don’t want to smell",
             "I really don’t want to smell",
@@ -8127,21 +8193,21 @@ public class Layer3Activity extends AppCompatActivity {
             "I really want to hear",
             "I want to hear better",
             "I really want to hear much better",
-            "My ears hurt and I kaant hear well",
+            "My ears hurt and I can’t hear well",
             "My ears really hurt a lot",
             "I don’t want to hear",
             "I really don’t want to hear",
             "I don’t want to hear more",
             "I really don’t want to hear any more"
 
-    }, {"My maauuthh feels fine and I can speak well",
-            "My maauuthh really feels fine",
+    }, {"My mouth feels fine and I can speak well",
+            "My mouth really feels fine",
             "I want to speak",
             "I really want to speak",
             "I want to speak more",
             "I really want to speak some more",
-            "My maauuthh hurts and I kaant speak well",
-            "My maauuthh really hurts a lot",
+            "My mouth hurts and I can’t speak well",
+            "My mouth really hurts a lot",
             "I don’t want to speak",
             "I really don’t want to speak",
             "I don’t want to speak more",
@@ -8153,7 +8219,7 @@ public class Layer3Activity extends AppCompatActivity {
             "I really want to taste",
             "I want to taste more",
             "I really want to taste some more",
-            "My tongue hurts and I kaant taste well",
+            "My tongue hurts and I can’t taste well",
             "My tongue really hurts a lot",
             "I don’t want to taste",
             "I really don’t want to taste",
@@ -8166,7 +8232,7 @@ public class Layer3Activity extends AppCompatActivity {
             "I really want to move my neck",
             "I want to move my neck some more",
             "I really want to move my neck some more",
-            "My neck hurts and I kaant move it well",
+            "My neck hurts and I can’t move it well",
             "My neck really hurts a lot",
             "I don’t want to move my neck",
             "I really don’t want to move my neck",
@@ -8179,7 +8245,7 @@ public class Layer3Activity extends AppCompatActivity {
             "I really want to move my shoulder",
             "I want to move my shoulder some more",
             "I really want to move my shoulder some more",
-            "My shoulder hurts and I kaant move it well",
+            "My shoulder hurts and I can’t move it well",
             "My shoulder really hurts a lot",
             "I don’t want to move my shoulder",
             "I really don’t want to move my shoulder",
@@ -8192,7 +8258,7 @@ public class Layer3Activity extends AppCompatActivity {
             "I really want to move my elbow",
             "I want to move my elbow some more",
             "I really want to move my elbow some more",
-            "My elbow hurts and I kaant move it well",
+            "My elbow hurts and I can’t move it well",
             "My elbow really hurts a lot",
             "I don’t want to move my elbow",
             "I really don’t want to move my elbow",
@@ -8205,7 +8271,7 @@ public class Layer3Activity extends AppCompatActivity {
             "I really want to move my wrist",
             "I want to move my wrist some more",
             "I really want to move my wrist some more",
-            "My wrist hurts and I kaant move it well",
+            "My wrist hurts and I can’t move it well",
             "My wrist really hurts a lot",
             "I don’t want to move my wrist",
             "I really don’t want to move my wrist",
@@ -8218,25 +8284,25 @@ public class Layer3Activity extends AppCompatActivity {
             "I really want to work",
             "I want to work more",
             "I really want to work some more",
-            "My hands hurt and I kaant work",
+            "My hands hurt and I can’t work",
             "My hands really hurt a lot",
             "I don’t want to work",
             "I really don’t want to work",
             "I don’t want to work more",
             "I really don’t want to work any more"
 
-    }, {"My fingers are fine and I can feel well",
+    }, {"My fingers are fine and I can move them well",
             "My fingers really feel fine",
-            "I want to touch this",
-            "I really want to touch this",
-            "I want to touch this again",
-            "I really want to touch this again",
-            "My fingers hurt and I kaant feel well",
+            "I want to move my fingers",
+            "I really want to move my fingers",
+            "I want to move my fingers again",
+            "I really want to move my fingers again",
+            "My fingers hurt and I can’t move them well",
             "My fingers really hurt a lot",
-            "I don’t want to touch this",
-            "I really don’t want to touch this",
-            "I don’t want to touch this again",
-            "I really don’t want to touch this anymore"
+            "I don’t want to move my fingers",
+            "I really don’t want to move my fingers",
+            "I don’t want to move my fingers again",
+            "I really don’t want to move my fingers anymore"
 
     }, {"My back feels fine and I can move it well",
             "My back really feels fine",
@@ -8244,7 +8310,7 @@ public class Layer3Activity extends AppCompatActivity {
             "I really want to move my back",
             "I want to move my back some more",
             "I really want to move my back some more",
-            "My back hurts and I kaant move it well",
+            "My back hurts and I can’t move it well",
             "My back really hurts a lot",
             "I don’t want to move my back",
             "I really don’t want to move my back",
@@ -8257,7 +8323,7 @@ public class Layer3Activity extends AppCompatActivity {
             "I really want to eat",
             "I want to eat more",
             "I really want to eat some more",
-            "My stomach hurts and I kaant eat well",
+            "My stomach hurts and I can’t eat well",
             "My stomach really hurts a lot",
             "I don’t want to eat",
             "I really don’t want to eat",
@@ -8270,25 +8336,25 @@ public class Layer3Activity extends AppCompatActivity {
             "I really want to move my hip",
             "I want to move my hip some more",
             "I really want to move my hip some more",
-            "My hip hurts and I kaant move it well",
+            "My hip hurts and I can’t move it well",
             "My hip really hurts a lot",
             "I don’t want to move my hip",
             "I really don’t want to move my hip",
             "I don’t want to move my hip more",
             "I really don’t want to move my hip any more"
 
-    },  {"My kneeee feels fine and I can move it well",
-            "My kneeee really feels fine",
-            "I want to move my kneeee",
-            "I really want to move my kneeee",
-            "I want to move my kneeee some more",
-            "I really want to move my kneeee some more",
-            "My kneeee hurts and I kaant move it well",
-            "My kneeee really hurts a lot",
-            "I don’t want to move my kneeee",
-            "I really don’t want to move my kneeee",
-            "I don’t want to move my kneeee more",
-            "I really don’t want to move my kneeee any more"
+    },  {"My knee feels fine and I can move it well",
+            "My knee really feels fine",
+            "I want to move my knee",
+            "I really want to move my knee",
+            "I want to move my knee some more",
+            "I really want to move my knee some more",
+            "My knee hurts and I can’t move it well",
+            "My knee really hurts a lot",
+            "I don’t want to move my knee",
+            "I really don’t want to move my knee",
+            "I don’t want to move my knee more",
+            "I really don’t want to move my knee any more"
 
     }, {"My ankle feels fine and I can move it well",
             "My ankle really feels fine",
@@ -8296,7 +8362,7 @@ public class Layer3Activity extends AppCompatActivity {
             "I really want to move my ankle",
             "I want to move my ankle some more",
             "I really want to move my ankle some more",
-            "My ankle hurts and I kaant move it well",
+            "My ankle hurts and I can’t move it well",
             "My ankle really hurts a lot",
             "I don’t want to move my ankle",
             "I really don’t want to move my ankle",
@@ -8309,7 +8375,7 @@ public class Layer3Activity extends AppCompatActivity {
             "I really want to walk",
             "I want to walk some more",
             "I really want to walk some more",
-            "My legs hurt and I kaant walk well",
+            "My legs hurt and I can’t walk well",
             "My legs really hurt a lot",
             "I don’t want to walk",
             "I really don’t want to walk",
@@ -8322,25 +8388,25 @@ public class Layer3Activity extends AppCompatActivity {
             "I really want to move my toes",
             "I want to move my toes some more",
             "I really want to move my toes some more",
-            "My toes hurt and I kaant move them well",
+            "My toes hurt and I can’t move them well",
             "My toes really hurt a lot",
             "I don’t want to move my toes",
             "I really don’t want to move my toes",
             "I don’t want to move my toes more",
             "I really don’t want to move my toes any more"
 
-    }}, {{"I like to read bedtime stories",
-            "I really like to read bedtime stories",
-            "I want to read bedtime stories",
-            "I really want to read bedtime stories",
-            "I want to read some more bedtime stories",
-            "I really want to read some more bedtime stories",
-            "I don’t like to read bedtime stories",
-            "I really don’t like to read bedtime stories",
-            "I don’t want to read bedtime stories",
-            "I really don’t want to read bedtime stories",
-            "I don’t want to read more bedtime stories",
-            "I really don’t want to read any more bedtime stories"
+    }}, {{"I like to read bed time stories",
+            "I really like to read bed time stories",
+            "I want to read bed time stories",
+            "I really want to read bed time stories",
+            "I want to read some more bed time stories",
+            "I really want to read some more bed time stories",
+            "I don’t like to read bed time stories",
+            "I really don’t like to read bed time stories",
+            "I don’t want to read bed time stories",
+            "I really don’t want to read bed time stories",
+            "I don’t want to read more bed time stories",
+            "I really don’t want to read any more bed time stories"
 
     }, {"I like to read comic books",
             "I really like to read comic books",
@@ -8407,18 +8473,18 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to see more picture books",
             "I really don’t want to see any more picture books"
 
-    }, {"I like to read mystry books",
-            "I really like to read mystry books",
-            "I want to read a mystry book",
-            "I really want to read a mystry book",
-            "I want to read some more mystry books",
-            "I really want to read some more mystry books",
-            "I don’t like to read mystry books",
-            "I really don’t like to read mystry books",
-            "I don’t want to read a mystry book",
-            "I really don’t want to read a mystry book",
-            "I don’t want to read more mystry books",
-            "I really don’t want to read any more mystry books"
+    }, {"I like to read mystery books",
+            "I really like to read mystery books",
+            "I want to read a mystery book",
+            "I really want to read a mystery book",
+            "I want to read some more mystery books",
+            "I really want to read some more mystery books",
+            "I don’t like to read mystery books",
+            "I really don’t like to read mystery books",
+            "I don’t want to read a mystery book",
+            "I really don’t want to read a mystery book",
+            "I don’t want to read more mystery books",
+            "I really don’t want to read any more mystery books"
 
     }, {"I like to read adventure books",
             "I really like to read adventure books",
@@ -8485,18 +8551,18 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to learn more history",
             "I really don’t want any more history books"
 
-    }, {"I like to learn jawgrephy",
-            "I really like to learn jawgrephy",
-            "I want my jawgrephy book",
-            "I really want my jawgrephy book",
+    }, {"I like to learn geography ",
+            "I really like to learn geography ",
+            "I want my geography book",
+            "I really want my geography book",
             "I want to learn some more jawgrephy",
-            "I really want some more jawgrephy books",
-            "I don’t like jawgrephy",
-            "I really don’t like jawgrephy",
-            "I don’t want my jawgrephy book",
-            "I really don’t want my jawgrephy book",
-            "I don’t want to learn more jawgrephy",
-            "I really don’t want any more jawgrephy books"
+            "I really want some more geography books",
+            "I don’t like geography ",
+            "I really don’t like geography ",
+            "I don’t want my geography book",
+            "I really don’t want my geography book",
+            "I don’t want to learn more geography ",
+            "I really don’t want any more geography books"
 
     }, {"I like to learn social studies",
             "I really like to learn social studies",
@@ -8537,20 +8603,20 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to learn more hindi",
             "I really don’t want any more hindi books"},
 
-             {"I like to learn marathi",
-            "I really like to learn marathi",
-            "I want my marathi book",
-            "I really want my marathi book",
-            "I want to learn some more marathi",
-            "I really want some more marathi books",
-            "I don’t like marathi",
-            "I really don’t like marathi",
-            "I don’t want my marathi book",
-            "I really don’t want my marathi book",
-            "I don’t want to learn more marathi",
-            "I really don’t want any more marathi books"
+            {"I like to learn marathi",
+                    "I really like to learn marathi",
+                    "I want my marathi book",
+                    "I really want my marathi book",
+                    "I want to learn some more marathi",
+                    "I really want some more marathi books",
+                    "I don’t like marathi",
+                    "I really don’t like marathi",
+                    "I don’t want my marathi book",
+                    "I really don’t want my marathi book",
+                    "I don’t want to learn more marathi",
+                    "I really don’t want any more marathi books"
 
-    },  {"I like to read my textbooks",
+            },  {"I like to read my textbooks",
             "I really like to read my textbooks",
             "I want to read my textbook",
             "I really want to read my textbook",
@@ -8680,7 +8746,7 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want more yellow color",
             "I really don’t want any more yellow color"
 
-    }, {"I like golden color",
+    },  {"I like golden color",
             "I really like golden color",
             "I want golden color",
             "I really want golden color",
@@ -8823,31 +8889,31 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to draw more squares",
             "I really don’t want to draw any more squares"
 
-    }, {"I like to draw Try engles",
-            "I really like to draw Try engles",
-            "I want to draw a Try engle",
-            "I really want to draw a Try engle",
-            "I want to draw more Try engles",
-            "I really want to draw some more Try engles",
-            "I don’t like to draw Try engles",
-            "I really don’t like to draw Try engles",
-            "I don’t want to draw a Try engle",
-            "I really don’t want to draw a Try engle",
-            "I don’t want to draw more Try engles",
-            "I really don’t want to draw any more Try engles"
+    }, {"I like to draw Triangles",
+            "I really like to draw Triangles",
+            "I want to draw a Triangle",
+            "I really want to draw a Triangle",
+            "I want to draw more Triangles",
+            "I really want to draw some more Triangles",
+            "I don’t like to draw Triangles",
+            "I really don’t like to draw Triangles",
+            "I don’t want to draw a Triangle",
+            "I really don’t want to draw a Triangle",
+            "I don’t want to draw more Triangles",
+            "I really don’t want to draw any more Triangles"
 
-    }, {"I like to draw staars",
-            "I really like to draw staars",
-            "I want to draw a staar",
-            "I really want a staar",
-            "I want to draw more staars",
-            "I really want to draw some more staars",
-            "I don’t like to draw staars",
-            "I really don’t like to draw staars",
-            "I don’t want to draw a staar",
-            "I really don’t want to draw a staar",
-            "I don’t want to draw more staars",
-            "I really don’t want to draw any more staars"
+    }, {"I like to draw stars",
+            "I really like to draw stars",
+            "I want to draw a star",
+            "I really want a star",
+            "I want to draw more stars",
+            "I really want to draw some more stars",
+            "I don’t like to draw stars",
+            "I really don’t like to draw stars",
+            "I don’t want to draw a star",
+            "I really don’t want to draw a star",
+            "I don’t want to draw more stars",
+            "I really don’t want to draw any more stars"
 
     }, {"I like to draw hearts",
             "I really like to draw hearts",
@@ -8953,18 +9019,18 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to draw more pentagons",
             "I really don’t want to draw any more pentagons"
 
-    }, {"I like to draw fre form",
-            "I really like to draw fre form",
-            "I want to draw  fre form",
-            "I really want to draw  fre form",
-            "I want to draw more fre form",
-            "I really want to draw more fre form",
-            "I don’t like to draw fre form",
-            "I really don’t like to draw fre form",
-            "I don’t want to draw  fre form",
-            "I really don’t want to draw fre form",
-            "I don’t want to draw more fre form",
-            "I really don’t want to draw more fre form"
+    }, {"I like to draw freeform",
+            "I really like to draw freeform",
+            "I want to draw  freeform",
+            "I really want to draw  freeform",
+            "I want to draw more freeform",
+            "I really want to draw more freeform",
+            "I don’t like to draw freeform",
+            "I really don’t like to draw freeform",
+            "I don’t want to draw  freeform",
+            "I really don’t want to draw freeform",
+            "I don’t want to draw more freeform",
+            "I really don’t want to draw more freeform"
 
     }}, {{"I like to use pencils",
             "I really like to use pencils",
@@ -9005,44 +9071,44 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to use the scale again",
             "I really don’t want another scale"
 
-    }, {"I like to use eerasers",
-            "I really like to use eerasers",
-            "I want an eeraser",
-            "I really want an eeraser",
-            "I want to use the eeraser again",
-            "I really want another eeraser",
-            "I don’t like to use eerasers",
-            "I really don’t like to use eerasers",
-            "I don’t want an eeraser",
-            "I really don’t want an eeraser",
-            "I don’t want to use the eeraser again",
-            "I really don’t want another eeraser"
+    }, {"I like to use erasers",
+            "I really like to use erasers",
+            "I want an eraser",
+            "I really want an eraser",
+            "I want to use an eraser again",
+            "I really want another eraser",
+            "I don’t like to use erasers",
+            "I really don’t like to use erasers",
+            "I don’t want an eraser",
+            "I really don’t want an eraser",
+            "I don’t want to use an eraser again",
+            "I really don’t want another eraser"
 
-    }, {"I like to use sharpners",
-            "I really like to use sharpners",
-            "I want a sharpner",
-            "I really want a sharpner",
-            "I want to use the sharpner again",
-            "I really want another sharpner",
-            "I don’t like to use sharpners",
-            "I really don’t like to use sharpners",
-            "I don’t want a sharpner",
-            "I really don’t want a sharpner",
-            "I don’t want to use the sharpner again",
-            "I really don’t want another sharpner"
+    }, {"I like to use sharpeners",
+            "I really like to use sharpeners",
+            "I want a sharpener",
+            "I really want a sharpener",
+            "I want to use the sharpener again",
+            "I really want another sharpener",
+            "I don’t like to use sharpeners",
+            "I really don’t like to use sharpeners",
+            "I don’t want a sharpener",
+            "I really don’t want a sharpener",
+            "I don’t want to use the sharpener again",
+            "I really don’t want another sharpener"
 
-    }, {"I like to use crayyawns",
-            "I really like to use crayyawns",
-            "I want crayyawns",
-            "I really want crayyawns",
-            "I want some crayyawns",
-            "I really want some more crayyawns",
-            "I don’t like to use crayyawns",
-            "I really don’t like to use crayyawns",
-            "I don’t want crayyawns",
-            "I really don’t want crayyawns",
-            "I don’t want more crayyawns",
-            "I really don’t want any more crayyawns"
+    }, {"I like to use crayons",
+            "I really like to use crayons",
+            "I want crayons",
+            "I really want crayons",
+            "I want some crayons",
+            "I really want some more crayons",
+            "I don’t like to use crayons",
+            "I really don’t like to use crayons",
+            "I don’t want crayons",
+            "I really don’t want crayons",
+            "I don’t want more crayons",
+            "I really don’t want any more crayons"
 
     }, {"I like to use blank papers",
             "I really like to use blank papers",
@@ -9122,18 +9188,18 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to use the divider again",
             "I really don’t want another divider"
 
-    }, {"I like to use a stay pler",
-            "I really like to use a stay pler",
-            "I want a stay pler",
-            "I really want a stay pler",
-            "I want to use the stay pler again",
-            "I really want another stay pler",
-            "I don’t like to use a stay pler",
-            "I really don’t like to use a stay pler",
-            "I don’t want a stay pler",
-            "I really don’t want a stay pler",
-            "I don’t want to use the stay pler again",
-            "I really don’t want another stay pler"
+    }, {"I like to use a stapler",
+            "I really like to use a stapler",
+            "I want a stapler",
+            "I really want a stapler",
+            "I want to use the stapler again",
+            "I really want another stapler",
+            "I don’t like to use a stapler",
+            "I really don’t like to use a stapler",
+            "I don’t want a stapler",
+            "I really don’t want a stapler",
+            "I don’t want to use the stapler again",
+            "I really don’t want another stapler"
 
     }, {"I like to use यूपिंस",
             "I really like to use यूपिंस",
@@ -9267,42 +9333,42 @@ public class Layer3Activity extends AppCompatActivity {
 
     }, {"I like my school uniform",
             "I really like my school uniform",
-            "I want to ware my school uniform",
-            "I really want to ware my school uniform",
-            "I want to Ware my school uniform again",
-            "I really want to Ware my school uniform again",
+            "I want to wear my school uniform",
+            "I really want to wear my school uniform",
+            "I want to Wear my school uniform again",
+            "I really want to Wear my school uniform again",
             "I don’t like my school uniform",
             "I really don’t like my school uniform",
-            "I don’t want to ware my school uniform",
-            "I really don’t want to ware my school uniform",
-            "I don’t want to Ware my school uniform again",
-            "I really don’t want to Ware my school uniform again"
+            "I don’t want to wear my school uniform",
+            "I really don’t want to wear my school uniform",
+            "I don’t want to Wear my school uniform again",
+            "I really don’t want to Wear my school uniform again"
 
-    }, {"I like my school shoes",
+    },  {"I like my school shoes",
             "I really like my school shoes",
-            "I want to ware my school shoes",
-            "I really want to ware my school shoes",
-            "I want to Ware my school shoes again",
-            "I really want to Ware my school shoes again",
+            "I want to wear my school shoes",
+            "I really want to wear my school shoes",
+            "I want to Wear my school shoes again",
+            "I really want to Wear my school shoes again",
             "I don’t like my school shoes",
             "I really don’t like my school shoes",
-            "I don’t want to ware my school shoes",
-            "I really don’t want to ware my school shoes",
-            "I don’t want to Ware my school shoes again",
-            "I really don’t want to Ware my school shoes again"
+            "I don’t want to wear my school shoes",
+            "I really don’t want to wear my school shoes",
+            "I don’t want to Wear my school shoes again",
+            "I really don’t want to Wear my school shoes again"
 
     }, {"I like my school socks",
             "I really like my school socks",
-            "I want to ware my school socks",
-            "I really want to ware my school socks",
-            "I want to Ware my school socks again",
-            "I really want to Ware my school socks again",
+            "I want to wear my school socks",
+            "I really want to wear my school socks",
+            "I want to Wear my school socks again",
+            "I really want to Wear my school socks again",
             "I don’t like my school socks",
             "I really don’t like my school socks",
-            "I don’t want to ware my school socks",
-            "I really don’t want to ware my school socks",
-            "I don’t want to Ware my school socks again",
-            "I really don’t want to Ware my school socks again"
+            "I don’t want to wear my school socks",
+            "I really don’t want to wear my school socks",
+            "I don’t want to Wear my school socks again",
+            "I really don’t want to Wear my school socks again"
 
     }, {"I like to use pencils",
             "I really like to use pencils",
@@ -9343,31 +9409,31 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to use the scale again",
             "I really don’t want another scale"
 
-    }, {"I like to use eerasers",
-            "I really like to use eerasers",
-            "I want an eeraser",
-            "I really want an eeraser",
-            "I want to use the eeraser again",
-            "I really want another eeraser",
-            "I don’t like to use eerasers",
-            "I really don’t like to use eerasers",
-            "I don’t want an eeraser",
-            "I really don’t want an eeraser",
-            "I don’t want to use the eeraser again",
-            "I really don’t want another eeraser"
+    }, {"I like to use erasers",
+            "I really like to use erasers",
+            "I want an eraser",
+            "I really want an eraser",
+            "I want to use an eraser again",
+            "I really want another eraser",
+            "I don’t like to use erasers",
+            "I really don’t like to use erasers",
+            "I don’t want an eraser",
+            "I really don’t want an eraser",
+            "I don’t want to use an eraser again",
+            "I really don’t want another eraser"
 
-    }, {"I like to use sharpners",
-            "I really like to use sharpners",
-            "I want a sharpner",
-            "I really want a sharpner",
-            "I want to use the sharpner again",
-            "I really want another sharpner",
-            "I don’t like to use sharpners",
-            "I really don’t like to use sharpners",
-            "I don’t want a sharpner",
-            "I really don’t want a sharpner",
-            "I don’t want to use the sharpner again",
-            "I really don’t want another sharpner"
+    }, {"I like to use sharpeners",
+            "I really like to use sharpeners",
+            "I want a sharpener",
+            "I really want a sharpener",
+            "I want to use the sharpener again",
+            "I really want another sharpener",
+            "I don’t like to use sharpeners",
+            "I really don’t like to use sharpeners",
+            "I don’t want a sharpener",
+            "I really don’t want a sharpener",
+            "I don’t want to use the sharpener again",
+            "I really don’t want another sharpener"
 
     }, {"I like to write on the board with chalk",
             "I really like to write on the board with chalk",
@@ -9473,31 +9539,31 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to use the table again",
             "I really don’t want to use the table again"
 
-    }, {"I like to sit on a chare",
-            "I really like to sit on a chare",
-            "I want to sit on a chare",
-            "I really want to sit on a chare",
-            "I want to sit on the chare for some more time",
-            "I really want to sit on the chare for a bit longer",
-            "I don’t like to sit on a chare",
-            "I really don’t like to sit on a chare",
-            "I don’t want to sit on a chare",
-            "I really don’t want to sit on a chare",
-            "I don’t want to sit on the chare any more ",
-            "I really don’t want to sit on the chare any longer"
+    }, {"I like to sit on a chair ",
+            "I really like to sit on a chair",
+            "I want to sit on a chair",
+            "I really want to sit on a chair",
+            "I want to sit on the chair for some more time",
+            "I really want to sit on the chair for a bit longer",
+            "I don’t like to sit on a chair",
+            "I really don’t like to sit on a chair",
+            "I don’t want to sit on a chair",
+            "I really don’t want to sit on a chair",
+            "I don’t want to sit on the chair any more ",
+            "I really don’t want to sit on the chair any longer"
 
-    },  {"I like to go to the toil et",
-            "I really like to go to the toil et",
-            "I want to go to the toil et",
-            "I really want to go to the toil et",
-            "I want to go to the toil et again",
-            "I really want to go to the toil et again",
-            "I don’t like to go to the toil et",
-            "I really don’t like to go to the toil et",
-            "I don’t want to go to the toil et",
-            "I really don’t want to go to the toil et",
-            "I don’t want to go to the toil et again ",
-            "I really don’t want to go to the toil et again "
+    },  {"I like to go to the toilet",
+            "I really like to go to the toilet",
+            "I want to go to the toilet",
+            "I really want to go to the toilet",
+            "I want to go to the toilet again",
+            "I really want to go to the toilet again",
+            "I don’t like to go to the toilet",
+            "I really don’t like to go to the toilet",
+            "I don’t want to go to the toilet",
+            "I really don’t want to go to the toilet",
+            "I don’t want to go to the toilet again ",
+            "I really don’t want to go to the toilet again "
 
     }, {"I like to go to the kitchen",
             "I really like to go to the kitchen",
@@ -9590,18 +9656,18 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to go to the study room again",
             "I really don’t want to go to the study room again"
 
-    },  {"I like to use the बेड",
-            "I really like to use the बेड",
-            "I want to lie on the बेड",
-            "I really want to lie on the बेड",
-            "I want to lie on the बेड again",
-            "I really want to lie on the बेड again",
-            "I don’t like to use the बेड",
-            "I really don’t like to use the बेड",
-            "I don’t want to lie on the बेड",
-            "I really don’t want to lie on the बेड",
-            "I don’t want to lie on the बेड again",
-            "I really don’t want to lie on the बेड again"
+    },  {"I like to use the bed",
+            "I really like to use the bed",
+            "I want to lie on the bed",
+            "I really want to lie on the bed",
+            "I want to lie on the bed again",
+            "I really want to lie on the bed again",
+            "I don’t like to use the bed",
+            "I really don’t like to use the bed",
+            "I don’t want to lie on the bed",
+            "I really don’t want to lie on the bed",
+            "I don’t want to lie on the bed again",
+            "I really don’t want to lie on the bed again"
 
     }, {"I like to watch TV",
             "I really like to watch TV",
@@ -9707,18 +9773,18 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to see the clock again",
             "I really don’t want to see the clock again"
 
-    }, {"I like to use the tube lite",
-            "I really like to use the tube lite",
-            "I want to switch on the tube lite",
-            "I really want to switch on the tube lite",
-            "I want to switch on the tube lite again",
-            "I really want to switch on the tube lite again",
-            "I don’t like to use the tube lite",
-            "I really don’t like to use the tube lite",
-            "I want to switch off the tube lite",
-            "I really want to switch off the tube lite",
-            "I want to switch off the tube lite again",
-            "I really want to switch off the tube lite again"
+    }, {"I like to use the tube light",
+            "I really like to use the tube light",
+            "I want to switch on the tube light",
+            "I really want to switch on the tube light",
+            "I want to switch on the tube light again",
+            "I really want to switch on the tube light again",
+            "I don’t like to use the tube light",
+            "I really don’t like to use the tube light",
+            "I want to switch off the tube light",
+            "I really want to switch off the tube light",
+            "I want to switch off the tube light again",
+            "I really want to switch off the tube light again"
 
     }}, {{"I like to ride in a bus",
             "I really like ride in a bus",
@@ -9746,18 +9812,18 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to ride in the school bus again",
             "I really don’t want to ride in the school bus again"
 
-    }, {"I like to ride in a caar",
-            "I really like to ride in a caar",
-            "I want to ride in a caar",
-            "I really want to ride in a caar",
-            "I want to ride in a caar again",
-            "I really want to ride in a caar again",
-            "I don’t like to ride in a caar",
-            "I really don’t like to ride in a caar",
-            "I don’t want to ride in a caar",
-            "I really don’t want to ride in a caar",
-            "I don’t want to ride in a caar again",
-            "I really don’t want to ride in a caar again"
+    }, {"I like to ride in a car",
+            "I really like to ride in a car",
+            "I want to ride in a car",
+            "I really want to ride in a car",
+            "I want to ride in a car again",
+            "I really want to ride in a car again",
+            "I don’t like to ride in a car",
+            "I really don’t like to ride in a car",
+            "I don’t want to ride in a car",
+            "I really don’t want to ride in a car",
+            "I don’t want to ride in a car again",
+            "I really don’t want to ride in a car again"
 
     }, {"I like to ride my bicycle",
             "I really like to ride my bicycle",
@@ -9837,13 +9903,13 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to sail on a ship again",
             "I really don’t want to sail on a ship again"
 
-    }}}, {{{}}}, {{{}}}, {{{}, {"I'm having a good time today",
+    }}}, {{{}}}, {{{}}}, {{{}, {"I am having a good time today",
             "I really am having a good time today",
             "I want to have fun today",
             "I really want to have fun today",
             "I want to go out again today",
             "I really want to go out again today",
-            "I'm not having a good time today",
+            "I am not having a good time today",
             "I really am not having a good time today",
             "I don’t want to have fun today",
             "I really don’t want to have fun today",
@@ -9858,19 +9924,19 @@ public class Layer3Activity extends AppCompatActivity {
             "I really went out yesterday",
             "I did not have a good time yesterday",
             "I really did not have a good time yesterday",
-            "I didn't have fun yesterday",
-            "I really didn't have fun yesterday",
-            "I didn't go out yesterday",
-            "I really didn't go out yesterday"
+            "I did not have fun yesterday",
+            "I really did not have fun yesterday",
+            "I did not go out yesterday",
+            "I really did not go out yesterday"
 
-    }, {"I'm looking forward to tomorrow",
-            "I'm really looking forward to tomorrow",
+    }, {"I am looking forward to tomorrow",
+            "I am really looking forward to tomorrow",
             "I want to have fun tomorrow",
             "I really want to have fun tomorrow",
             "I want to go out again tomorrow",
             "I really want to go out again tomorrow",
-            "I'm not looking forward to tomorrow",
-            "I'm really not looking forward to tomorrow",
+            "I am not looking forward to tomorrow",
+            "I am really not looking forward to tomorrow",
             "I don’t want to have fun tomorrow",
             "I really don’t want to have fun tomorrow",
             "I don’t want to go out again tomorrow",
@@ -10175,13 +10241,13 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to go again in December",
             "I really don’t want to go again in December"
 
-    }, {"I'm having a good time this month",
+    }, {"I am having a good time this month",
             "I really am having a good time this month",
             "I want to have fun this month",
             "I really want to have fun this month",
             "I want to go out again this month",
             "I really want to go out again this month",
-            "I'm not having a good time this month",
+            "I am not having a good time this month",
             "I really am not having a good time this month",
             "I don’t want to have fun this month",
             "I really don’t want to have fun this month",
@@ -10196,19 +10262,19 @@ public class Layer3Activity extends AppCompatActivity {
             "I really went out last month",
             "I did not have a good time last month",
             "I really did not have a good time last month",
-            "I didn't have fun last month",
-            "I really didn't have fun last month",
-            "I didn't go out  last month",
-            "I really didn't go out last month"
+            "I did not have fun last month",
+            "I really did not have fun last month",
+            "I did not go out  last month",
+            "I really did not go out last month"
 
-    }, {"I'm looking forward to next month",
-            "I'm really looking forward to next month",
+    }, {"I am looking forward to next month",
+            "I am really looking forward to next month",
             "I want to have fun next month",
             "I really want to have fun next month",
             "I want to go out again next month",
             "I really want to go out again next month",
-            "I'm not looking forward to next month",
-            "I'm really not looking forward to next month",
+            "I am not looking forward to next month",
+            "I am really not looking forward to next month",
             "I don’t want to have fun next month",
             "I really don’t want to have fun next month",
             "I don’t want to go out again next month",
@@ -10461,7 +10527,7 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to have more fun during Good Friday",
             "I really don’t want to have any more fun during Good Friday"
 
-    },  {"I love the गुडी पाडवा festival",
+    }, {"I love the गुडी पाडवा festival",
             "I really like celebrating the गुडी पाडवा festival",
             "I want to have fun during गुडी पाडवा",
             "I really want to have fun during गुडी पाडवा",
@@ -10499,7 +10565,6 @@ public class Layer3Activity extends AppCompatActivity {
             "I really don’t want to enjoy the Independence day holiday",
             "I don’t want to have more fun during the Independence day holiday",
             "I really don't want to have any more fun during the Independence day holiday"
-
     }, {"I love New years",
             "I really like celebrating New years",
             "I want to have fun during New years",
@@ -10512,164 +10577,152 @@ public class Layer3Activity extends AppCompatActivity {
             "I really don’t want to have fun during New years",
             "I don’t want to have more fun during New years",
             "I really don’t want to have any more fun during New years"
-
-    }}, {{"I like to celebrate my burtday",
-            "I really like to celebrate my burtday",
-            "I want to have fun on my burtday",
-            "I really want to have fun on my burtday",
-            "I want to have more fun on my burtday",
-            "I really want to have some more fun on my burtday",
-            "I don’t like to celebrate my burtday",
-            "I really don’t like to celebrate my burtday",
-            "I don’t want to have fun on my burtday",
-            "I really don’t want to have fun on my burtday",
-            "I don’t want to have more fun on my burtday",
-            "I really don’t want to have any more fun on my burtday"
-
-    }, {"I like to celebrate my mom’s burtday",
-            "I really like to celebrate my mom’s burtday",
-            "I want to have fun on my mom’s burtday",
-            "I really want to have fun on my mom’s burtday",
-            "I want to have more fun on my mom’s burtday",
-            "I really want to have some more fun on my mom’s burtday",
-            "I don’t like to celebrate my mom’s burtday",
-            "I really don’t like to celebrate my mom’s burtday",
-            "I don’t want to have fun on my mom’s burtday",
-            "I really don’t want to have fun on my mom’s burtday",
-            "I don’t want to have more fun on my mom’s burtday",
-            "I really don’t want to have any more fun on my mom’s burtday"
-
-    }, {"I like to celebrate my daddy’s burtday",
-            "I really like to celebrate my daddy’s burtday",
-            "I want to have fun on my daddy’s burtday",
-            "I really want to have fun on my daddy’s burtday",
-            "I want to have more fun on my daddy’s burtday",
-            "I really want to have some more fun on my daddy’s burtday",
-            "I don’t like to celebrate my daddy’s burtday",
-            "I really don’t like to celebrate my daddy’s burtday",
-            "I don’t want to have fun on my daddy’s burtday",
-            "I really don’t want to have fun on my daddy’s burtday",
-            "I don’t want to have more fun on my daddy’s burtday",
-            "I really don’t want to have any more fun on my daddy’s burtday"
-
-    }, {"I like to celebrate my brother’s burtday",
-            "I really like to celebrate my brother’s burtday",
-            "I want to have fun on my brother’s burtday",
-            "I really want to have fun on my brother’s burtday",
-            "I want to have more fun on my brother’s burtday",
-            "I really want to have some more fun on my brother’s burtday",
-            "I don’t like to celebrate my brother’s burtday",
-            "I really don’t like to celebrate my brother’s burtday",
-            "I don’t want to have fun on my brother’s burtday",
-            "I really don’t want to have fun on my brother’s burtday",
-            "I don’t want to have more fun on my brother’s burtday",
-            "I really don’t want to have any more fun on my brother’s burtday"
-
-    }, {"I like to celebrate my sister’s burtday",
-            "I really like to celebrate my sister’s burtday",
-            "I want to have fun on my sister’s burtday",
-            "I really want to have fun on my sister’s burtday",
-            "I want to have more fun on my sister’s burtday",
-            "I really want to have some more fun on my sister’s burtday",
-            "I don’t like to celebrate my sister’s burtday",
-            "I really don’t like to celebrate my sister’s burtday",
-            "I don’t want to have fun on my sister’s burtday",
-            "I really don’t want to have fun on my sister’s burtday",
-            "I don’t want to have more fun on my sister’s burtday",
-            "I really don’t want to have any more fun on my sister’s burtday"
-
-    }, {"I like to celebrate my friend’s burtday",
-            "I really like to celebrate my friend’s burtday",
-            "I want to have fun on my friend’s burtday",
-            "I really want to have fun on my friend’s burtday",
-            "I want to have more fun on my friend’s burtday",
-            "I really want to have some more fun on my friend’s burtday",
-            "I don’t like to celebrate my friend’s burtday",
-            "I really don’t like to celebrate my friend’s burtday",
-            "I don’t want to have fun on my friend’s burtday",
-            "I really don’t want to have fun on my friend’s burtday",
-            "I don’t want to have more fun on my friend’s burtday",
-            "I really don’t want to have any more fun on my friend’s burtday"
-
-    }, {"I like to celebrate my grandmother’s burtday",
-            "I really like to celebrate my grandmother’s burtday",
-            "I want to have fun on my grandmother’s burtday",
-            "I really want to have fun on my grandmother’s burtday",
-            "I want to have more fun on my grandmother’s burtday",
-            "I really want to have some more fun on my grandmother’s burtday",
-            "I don’t like to celebrate my grandmother’s burtday",
-            "I really don’t like to celebrate my grandmother’s burtday",
-            "I don’t want to have fun on my grandmother’s burtday",
-            "I really don’t want to have fun on my grandmother’s burtday",
-            "I don’t want to have more fun on my grandmother’s burtday",
-            "I really don’t want to have any more fun on my grandmother’s burtday"
-
-    }, {"I like to celebrate my grandfather’s burtday",
-            "I really like to celebrate my grandfather’s burtday",
-            "I want to have fun on my grandfather’s burtday",
-            "I really want to have fun on my grandfather’s burtday",
-            "I want to have more fun on my grandfather’s burtday",
-            "I really want to have some more fun on my grandfather’s burtday",
-            "I don’t like to celebrate my grandfather’s burtday",
-            "I really don’t like to celebrate my grandfather’s burtday",
-            "I don’t want to have fun on my grandfather’s burtday",
-            "I really don’t want to have fun on my grandfather’s burtday",
-            "I don’t want to have more fun on my grandfather’s burtday",
-            "I really don’t want to have any more fun on my grandfather’s burtday"
-
-    },  {"I like to celebrate my uncle’s burtday",
-            "I really like to celebrate my uncle’s burtday",
-            "I want to have fun on my uncle’s burtday",
-            "I really want to have fun on my uncle’s burtday",
-            "I want to have more fun on my uncle’s burtday",
-            "I really want to have some more fun on my uncle’s burtday",
-            "I don’t like to celebrate my uncle’s burtday",
-            "I really don’t like to celebrate my uncle’s burtday",
-            "I don’t want to have fun on my uncle’s burtday",
-            "I really don’t want to have fun on my uncle’s burtday",
-            "I don’t want to have more fun on my uncle’s burtday",
-            "I really don’t want to have any more fun on my uncle’s burtday"
-
-    }, {"I like to celebrate my aunt’s burtday",
-            "I really like to celebrate my aunt’s burtday",
-            "I want to have fun on my aunt’s burtday",
-            "I really want to have fun on my aunt’s burtday",
-            "I want to have more fun on my aunt’s burtday",
-            "I really want to have some more fun on my aunt’s burtday",
-            "I don’t like to celebrate my aunt’s burtday",
-            "I really don’t like to celebrate my aunt’s burtday",
-            "I don’t want to have fun on my aunt’s burtday",
-            "I really don’t want to have fun on my aunt’s burtday",
-            "I don’t want to have more fun on my aunt’s burtday",
-            "I really don’t want to have any more fun on my aunt’s burtday"
-
-    }, {"I like to celebrate my cousin’s burtday",
-            "I really like to celebrate my cousin’s burtday",
-            "I want to have fun on my cousin’s burtday",
-            "I really want to have fun on my cousin’s burtday",
-            "I want to have more fun on my cousin’s burtday",
-            "I really want to have some more fun on my cousin’s burtday",
-            "I don’t like to celebrate my cousin’s burtday",
-            "I really don’t like to celebrate my cousin’s burtday",
-            "I don’t want to have fun on my cousin’s burtday",
-            "I really don’t want to have fun on my cousin’s burtday",
-            "I don’t want to have more fun on my cousin’s burtday",
-            "I really don’t want to have any more fun on my cousin’s burtday"
-
-    }, {"I like to celebrate my teacher’s burtday",
-            "I really like to celebrate my teacher’s burtday",
-            "I want to have fun on my teacher’s burtday",
-            "I really want to have fun on my teacher’s burtday",
-            "I want to have more fun on my teacher’s burtday",
-            "I really want to have some more fun on my teacher’s burtday",
-            "I don’t like to celebrate my teacher’s burtday",
-            "I really don’t like to celebrate my teacher’s burtday",
-            "I don’t want to have fun on my teacher’s burtday",
-            "I really don’t want to have fun on my teacher’s burtday",
-            "I don’t want to have more fun on my teacher’s burtday",
-            "I really don’t want to have any more fun on my teacher’s burtday"
-
+    }}, {{"I like to celebrate my birthday",
+            "I really like to celebrate my birthday",
+            "I want to have fun on my birthday",
+            "I really want to have fun on my birthday",
+            "I want to have more fun on my birthday",
+            "I really want to have some more fun on my birthday",
+            "I don’t like to celebrate my birthday",
+            "I really don’t like to celebrate my birthday",
+            "I don’t want to have fun on my birthday",
+            "I really don’t want to have fun on my birthday",
+            "I don’t want to have more fun on my birthday",
+            "I really don’t want to have any more fun on my birthday"
+    }, {"I like to celebrate my mom’s birthday",
+            "I really like to celebrate my mom’s birthday",
+            "I want to have fun on my mom’s birthday",
+            "I really want to have fun on my mom’s birthday",
+            "I want to have more fun on my mom’s birthday",
+            "I really want to have some more fun on my mom’s birthday",
+            "I don’t like to celebrate my mom’s birthday",
+            "I really don’t like to celebrate my mom’s birthday",
+            "I don’t want to have fun on my mom’s birthday",
+            "I really don’t want to have fun on my mom’s birthday",
+            "I don’t want to have more fun on my mom’s birthday",
+            "I really don’t want to have any more fun on my mom’s birthday"
+    }, {"I like to celebrate my father’s birthday",
+            "I really like to celebrate my father’s birthday",
+            "I want to have fun on my father’s birthday",
+            "I really want to have fun on my father’s birthday",
+            "I want to have more fun on my father’s birthday",
+            "I really want to have some more fun on my father’s birthday",
+            "I don’t like to celebrate my father’s birthday",
+            "I really don’t like to celebrate my father’s birthday",
+            "I don’t want to have fun on my father’s birthday",
+            "I really don’t want to have fun on my father’s birthday",
+            "I don’t want to have more fun on my father’s birthday",
+            "I really don’t want to have any more fun on my father’s birthday"
+    }, {"I like to celebrate my brother’s birthday",
+            "I really like to celebrate my brother’s birthday",
+            "I want to have fun on my brother’s birthday",
+            "I really want to have fun on my brother’s birthday",
+            "I want to have more fun on my brother’s birthday",
+            "I really want to have some more fun on my brother’s birthday",
+            "I don’t like to celebrate my brother’s birthday",
+            "I really don’t like to celebrate my brother’s birthday",
+            "I don’t want to have fun on my brother’s birthday",
+            "I really don’t want to have fun on my brother’s birthday",
+            "I don’t want to have more fun on my brother’s birthday",
+            "I really don’t want to have any more fun on my brother’s birthday"
+    }, {"I like to celebrate my sister’s birthday",
+            "I really like to celebrate my sister’s birthday",
+            "I want to have fun on my sister’s birthday",
+            "I really want to have fun on my sister’s birthday",
+            "I want to have more fun on my sister’s birthday",
+            "I really want to have some more fun on my sister’s birthday",
+            "I don’t like to celebrate my sister’s birthday",
+            "I really don’t like to celebrate my sister’s birthday",
+            "I don’t want to have fun on my sister’s birthday",
+            "I really don’t want to have fun on my sister’s birthday",
+            "I don’t want to have more fun on my sister’s birthday",
+            "I really don’t want to have any more fun on my sister’s birthday"
+    }, {"I like to celebrate my friend’s birthday",
+            "I really like to celebrate my friend’s birthday",
+            "I want to have fun on my friend’s birthday",
+            "I really want to have fun on my friend’s birthday",
+            "I want to have more fun on my friend’s birthday",
+            "I really want to have some more fun on my friend’s birthday",
+            "I don’t like to celebrate my friend’s birthday",
+            "I really don’t like to celebrate my friend’s birthday",
+            "I don’t want to have fun on my friend’s birthday",
+            "I really don’t want to have fun on my friend’s birthday",
+            "I don’t want to have more fun on my friend’s birthday",
+            "I really don’t want to have any more fun on my friend’s birthday"
+    }, {"I like to celebrate my grandmother’s birthday",
+            "I really like to celebrate my grandmother’s birthday",
+            "I want to have fun on my grandmother’s birthday",
+            "I really want to have fun on my grandmother’s birthday",
+            "I want to have more fun on my grandmother’s birthday",
+            "I really want to have some more fun on my grandmother’s birthday",
+            "I don’t like to celebrate my grandmother’s birthday",
+            "I really don’t like to celebrate my grandmother’s birthday",
+            "I don’t want to have fun on my grandmother’s birthday",
+            "I really don’t want to have fun on my grandmother’s birthday",
+            "I don’t want to have more fun on my grandmother’s birthday",
+            "I really don’t want to have any more fun on my grandmother’s birthday"
+    }, {"I like to celebrate my grandfather’s birthday",
+            "I really like to celebrate my grandfather’s birthday",
+            "I want to have fun on my grandfather’s birthday",
+            "I really want to have fun on my grandfather’s birthday",
+            "I want to have more fun on my grandfather’s birthday",
+            "I really want to have some more fun on my grandfather’s birthday",
+            "I don’t like to celebrate my grandfather’s birthday",
+            "I really don’t like to celebrate my grandfather’s birthday",
+            "I don’t want to have fun on my grandfather’s birthday",
+            "I really don’t want to have fun on my grandfather’s birthday",
+            "I don’t want to have more fun on my grandfather’s birthday",
+            "I really don’t want to have any more fun on my grandfather’s birthday"
+    },  {"I like to celebrate my uncle’s birthday",
+            "I really like to celebrate my uncle’s birthday",
+            "I want to have fun on my uncle’s birthday",
+            "I really want to have fun on my uncle’s birthday",
+            "I want to have more fun on my uncle’s birthday",
+            "I really want to have some more fun on my uncle’s birthday",
+            "I don’t like to celebrate my uncle’s birthday",
+            "I really don’t like to celebrate my uncle’s birthday",
+            "I don’t want to have fun on my uncle’s birthday",
+            "I really don’t want to have fun on my uncle’s birthday",
+            "I don’t want to have more fun on my uncle’s birthday",
+            "I really don’t want to have any more fun on my uncle’s birthday"
+    }, {"I like to celebrate my aunt’s birthday",
+            "I really like to celebrate my aunt’s birthday",
+            "I want to have fun on my aunt’s birthday",
+            "I really want to have fun on my aunt’s birthday",
+            "I want to have more fun on my aunt’s birthday",
+            "I really want to have some more fun on my aunt’s birthday",
+            "I don’t like to celebrate my aunt’s birthday",
+            "I really don’t like to celebrate my aunt’s birthday",
+            "I don’t want to have fun on my aunt’s birthday",
+            "I really don’t want to have fun on my aunt’s birthday",
+            "I don’t want to have more fun on my aunt’s birthday",
+            "I really don’t want to have any more fun on my aunt’s birthday"
+    }, {"I like to celebrate my cousin’s birthday",
+            "I really like to celebrate my cousin’s birthday",
+            "I want to have fun on my cousin’s birthday",
+            "I really want to have fun on my cousin’s birthday",
+            "I want to have more fun on my cousin’s birthday",
+            "I really want to have some more fun on my cousin’s birthday",
+            "I don’t like to celebrate my cousin’s birthday",
+            "I really don’t like to celebrate my cousin’s birthday",
+            "I don’t want to have fun on my cousin’s birthday",
+            "I really don’t want to have fun on my cousin’s birthday",
+            "I don’t want to have more fun on my cousin’s birthday",
+            "I really don’t want to have any more fun on my cousin’s birthday"
+    }, {"I like to celebrate my teacher’s birthday",
+            "I really like to celebrate my teacher’s birthday",
+            "I want to have fun on my teacher’s birthday",
+            "I really want to have fun on my teacher’s birthday",
+            "I want to have more fun on my teacher’s birthday",
+            "I really want to have some more fun on my teacher’s birthday",
+            "I don’t like to celebrate my teacher’s birthday",
+            "I really don’t like to celebrate my teacher’s birthday",
+            "I don’t want to have fun on my teacher’s birthday",
+            "I really don’t want to have fun on my teacher’s birthday",
+            "I don’t want to have more fun on my teacher’s birthday",
+            "I really don’t want to have any more fun on my teacher’s birthday"
     }}}, {{{}}}};
+
     public class ArrayIndexComparator implements Comparator<Integer> {
         private final Integer[] array;
 

@@ -1,10 +1,13 @@
 package com.dsource.idc.jellow;
 
-import android.content.*;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.KeyListener;
@@ -12,23 +15,21 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.*;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
+
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.StringTokenizer;
+
 import static com.dsource.idc.jellow.Adapter_ppl_places.people_more;
 import static com.dsource.idc.jellow.Adapter_ppl_places.places_more;
 
@@ -47,56 +48,49 @@ public class Main2LAyer extends AppCompatActivity {
 
     private EditText et;
     private CircularImageView im1,im2,im3, im4, im5, im6, im7, im8, im9;
+
     String[] learning_text =
-            {"Animals and Birds", "Body", "Books", "Colours", "Shapes", "Stationery", "School aubjects", "Home aubjects", "Transport Modes"};
+            {"Animals and Birds", "Body", "Books", "Colours", "Shapes", "Stationery", "School objects", "Home objects", "Tran sport Modes"};
     String[] eat_text =
-            {"Brekfust", "Lunch and Dinner", "Sweets", "Snacks", "Fruits", "Drinks", "Cutlery", "Add-ons"};
+            {"Brekfust", "Lunch and Dinner", "Sweets", "snacks", "Fruits", "Drinks", "Cutlery", "Add-ons"};
     String[] fun_text =
             {"Indoor Games", "Outdoor Games", "Sports", "TV", "Music", "Activities"};
     String[] people_text =
-            {"Mother", "Daddy", "Brother", "Sister", "Grandfather", "Grand mother", "Uncle", "Aunt",  "Cousin", "Baby", "Friends", "Teacher", "Doctor", "Nurse", "Caregiver", "Stranger", "About Me"};
+            {"Mother", "Father", "Brother", "Sister", "Grandfather", "Grandmother", "Uncle", "Aunt", "Cousin", "Baby", "Friends", "Teacher", "Doctor", "nurse", "Caregiver", "Stranger", "About Me"};
     String[] places_text =
-            {"My House", "School", "Mall", "Museum", "Hotel", "Theater", "Playground", "Park",  "stoar", "Friend's House", "Relative's House", "Hospital", "Clinic", "Library", "Terrace"};
+            {"My House", "School", "Mall", "Museum", "Hotel", "Theatre", "Playground", "Park", "store", "Friend's House", "Relative's House", "Hospital", "Clinic", "Library", "Terrace"};
     String[] time_weather_text =
-            {"Time", "Day", "Month", "Weather", "Seasons", "Festivals and Holidays", "burtdays"};
+            {"Time", "Day", "Month", "Weather", "Seasons", "Festivals and Holidays", "birthdays"};
     String[] greet_text =
             {"Greetings", "Feelings", "Requests", "Questions"};
     String[] daily_text =
-            {"Brushing", "Toi let", "Baething", "Clothes and Accessories", "Getting Ready", "Sleep", "Therapy", "Morning Routine", "Bedtime Routine"};
+            {"Brushing", "Toilet", "Baething", "Clothes and Accessories", "Getting Ready", "Sleep", "Therapy", "Morning Routine", "Bedtime Routine"};
     String[] help_text =
-            {"About Me", "I m hurt", "I feel sick", "I feel tired", "Help me do this", "Medicine", "Bandage", "Water"};
-
+            {"About Me", "I am hurt", "I feel sick", "I feel tired", "Help me do this", "Medicine", "Bandage", "Water"};
 
     public static String[] greet_text_hindi =
             {"शुभकामनाएं", "भावना", "बिनती", "सवाल"};
     public static String[] daily_text_hindi =
-            {"दांत साफ़ करना", "शौचा लय", "नहाना", "कपड़े और सहायक चीज़ें", "तैयार होना", "नींद", "उपचार", "सुबह के नियमित कार्य", "रात के नियमित कार्य"};
+            {"दांत साफ़ करना", "शौचालय", "नहाना", "कपड़े और सहायक चीज़ें", "तैयार होना", "नींद", "उपचार", "सुबह के नियमित कार्य", "रात के नियमित कार्य"};
     public static String[] eat_text_hindi =
-            {"सुबह का नाश्ता", "दोपहर और रात का भोजन", "मिठा इयाँ", "snacks", "फल", "ड्रिंक्स", "कटलरी", "add-ऑन्स"};
+            {"सुबह का नाश्ता", "दोपहर और रात का भोजन", "मिठाइयाँ", "स्नैक्स", "फल", "ड्रिंक्स", "कटलरी", "ऐड-ऑन्स"};
     public static String[] fun_text_hindi =
             {"घर के खेल", "बाहरी खेल", "खेलकूद", "टीवी", "संगीत", "कार्य"};
     public static String[] learning_text_hindi =
             {"पशु और पक्षी", "शरीर", "किताबें", "रंग", "आकार", "स्टेशनरी", "पाठशाला की वस्तुएं", "घरेलु वस्तुएं", "यात्रा करने के साधन"};
     public static String[] people_text_hindi =
-            {"माँ", "पिताजी", "भाई", "बहन", "बड़े पापा", "बड़ी मम्मी", "दादाजी", "दादी माँ",
-                    "नानाजी","नानी माँ","चाचा", "चाची", "मामा","मामी" , "बुआ", "फ़ुफ़ा",
-                    "मौसी", "मौसा", "नन्हा बच्चा", "दोस्त", "शिक्षक", "डॉक्टर", "nurse", "देख-रेख करने वाली मौसी",
-                    "अज नअबी", "मेरे बारे में"};
+            {"माँ", "पिताजी", "भाई", "बहन", "बड़े पापा", "बड़ी मम्मी", "दादाजी", "दादी माँ", "नानाजी","नानी माँ","चाचा", "चाची", "मामा","मामी" , "बुआ", "फ़ुफ़ा","मौसी", "मौसा", "नन्हा बच्चा", "दोस्त", "शिक्षक", "डॉक्टर", "नरस", "देख-रेख करने वाली मौसी", "अज नबी", "मेरे बारे में"};
     public static String[] places_text_hindi =
-            {"मेरा घर", "पाठशाला", "मॉल", "संग्रहालय", "होटल", "थिएटर", "खेल का मैदान", "बगीचा",
-                    "दुकान", "दोस्त का घर", "रिश्तेदार का घर", "अस्पताल", "क्लिनिक", "वाचनालय", "छत पर"};
+            {"मेरा घर", "पाठशाला", "मॉल", "संग्रहालय", "होटल", "थिएटर", "खेल का मैदान", "बगीचा",  "दुकान", "दोस्त का घर", "रिश्तेदार का घर", "अस्पताल", "क्लिनिक", "वाचनालय", "छत पर"};
     public static String[] time_weather_text_hindi =
             {"समय", "दिन", "महीना", "मौसम", "रूतु", "त्योहार और छुट्टी", "जन्मदिन"};
     public static String[] help_text_hindi =
-            {"मेरे बारे में", "मैं घायल हूँ", "मेरी तबियत ठीक नहीं हैं", "मुझे थकावट लग रही हैं", "मुझे मदद करें", "दवाe", "बैंडेज", "पानी"};
+            {"मेरे बारे में", "मैं घायल हूँ", "मेरी तबियत ठीक नहीं हैं", "मुझे थकावट लग रही हैं", "मुझे मदद करें", "दवाई", "बैंडेज", "पानी"};
     public static String[] people_adapter_hindi =
-            {"माँ", "पिताजी", "भाई", "बहन", "बड़े पापा", "बड़ी मम्मी", "दादाज़ी", "दादी माँ",
-                    "नानाज़ी","नानी माँ","चाचा", "चाची", "मामा","मामी" , "बुआ", "फ़ुफ़ा",
-                    "मौसी", "मौसा", "नन्हा बच्चा", "दोस्त", "शिक्षक", "डॉक्टर", "नर्स", "देख-रेख करने वाली मौसी",
-                    "अजनबी", "मेरे बारे में"};
+            {"माँ", "पिताजी", "भाई", "बहन", "बड़े पापा", "बड़ी मम्मी", "दादाज़ी", "दादी माँ","नानाज़ी","नानी माँ","चाचा", "चाची", "मामा","मामी" , "बुआ", "फ़ुफ़ा", "मौसी", "मौसा", "नन्हा बच्चा", "दोस्त", "शिक्षक", "डॉक्टर", "नर्स", "देख-रेख करने वाली मौसी", "अजनबी", "मेरे बारे में"};
     public static String[] places_adapter_hindi =
-            {"मेरा घर", "पाठशाला", "मॉल", "संग्रहालय", "होटल", "थिएटर", "खेल का मैदान", "बगीचा",
-                    "दुकान", "दोस्त का घर", "रिश्तेदार का घर", "अस्पताल", "क्लिनिक", "वाचनालय", "छत पर"};
+            {"मेरा घर", "पाठशाला", "मॉल", "संग्रहालय", "होटल", "थिएटर", "खेल का मैदान", "बगीचा",  "दुकान", "दोस्त का घर", "रिश्तेदार का घर", "अस्पताल", "क्लिनिक", "वाचनालय", "छत पर"};
+
     public static String[] places_text1 =
             {"My House", "School", "Mall", "Museum", "Hotel", "Theater", "Playground", "Garden",
                     "Store", "Friend's House", "Relative's House", "Hospital", "Clinic", "Library", "Terrace"};
@@ -104,6 +98,30 @@ public class Main2LAyer extends AppCompatActivity {
             {"My House", "School", "Mall", "Museum", "Hotel", "Theater", "Playground", "Park",
                     "Store", "Friend's House", "Relative's House", "Hospital", "Clinic", "Library", "Terrace"};
 
+    final String[] level1_hindi ={"शुभकामना और भावना", "रोज़ के काम", "खाना", "मज़े", "सीखना", "लोग", "जगह", "समय और मौसम", "मदद"};
+    final String[] level1_english ={"Greet and Feel", "Daily Activities", "Eating", "Fun", "Learning", "People", "Places", "Time and Weather", "Help"};
+
+    final String[][]  level2_hindi ={
+            {"शुभकामनाएं", "भावना", "बिनती", "सवाल"},
+            {"दांत साफ़ करना", "शौचालय", "नहाना", "कपड़े और सहायक चीज़ें", "तैयार होना", "नींद", "उपचार", "सुबह के नियमित कार्य", "रात के नियमित कार्य"},
+            {"सुबह का नाश्ता", "दोपहर/रात का भोजन", "मिठाइयाँ", "स्नैक्स", "फल", "ड्रिंक्स", "कटलरी", "ऍड-ऑन्स"},
+            {"घर के खेल", "बाहरी खेल", "खेलकूद", "टीवी", "संगीत", "कार्य"},
+            {"पशु और पक्षी", "शरीर", "किताबें", "रंग", "आकार", "स्टेशनरी", "पाठशाला की वस्तुएं", "घरेलु वस्तुएं", "यात्रा के साधन"},
+            {"माँ", "पिताजी", "भाई", "बहन", "बड़े पापा", "बड़ी मम्मी","दादाज़ी", "दादी माँ", "अधिक", "नानाज़ी","नानी माँ","चाचा", "चाची", "मामा","मामी" , "बुआ", "फ़ुफ़ा", "अधिक","मौसी", "मौसा", "नन्हा बच्चा", "दोस्त", "शिक्षक", "डॉक्टर","नर्स", "देख-रेख करने वाली मौसी", "अधिक","अजनबी", "मेरे बारे में"},
+            {"मेरा घर", "पाठशाला", "मॉल", "संग्रहालय", "होटल", "थिएटर", "खेल का मैदान", "बगीचा", "अधिक", "दुकान", "दोस्त का घर", "रिश्तेदार का घर", "अस्पताल", "क्लिनिक", "वाचनालय", "छत पर"},
+            {"समय", "दिन", "महीना", "मौसम", "ऋतु", "त्योहार और छुट्टी", "जन्मदिन"},
+            {"मेरे बारे में", "मैं घायल हूँ", "मेरी तबियत ठीक नहीं हैं", "मुझे थकावट लग रही हैं", "मुझे मदद करें", "दवाई", "बैंडेज", "पानी"}};
+
+    final String[][] level2_english = {
+            {"Greetings", "Feelings", "Requests", "Questions"},
+            {"Brushing", "Toilet", "Bathing", "Clothes", "Getting Ready", "Sleep", "Therapy", "Morning Routine", "Bedtime Routine"},
+            {"Breakfast", "Lunch/Dinner", "Sweets", "Snacks", "Fruits", "Drinks", "Cutlery", "Add-ons"},
+            {"Indoor Games", "Outdoor Games", "Sports", "TV", "Music", "Activities"},
+            {"Animals & Birds", "Body", "Books", "Colors", "Shapes", "Stationery", "School Objects", "Home Objects", "Transport Modes"},
+            {"Mother", "Daddy", "Brother", "Sister", "Grandfather", "Grandmother", "Uncle", "Aunt", "More", "Cousin", "Baby", "Friends", "Teacher", "Doctor", "Nurse", "Caregiver", "Stranger", "About Me"},
+            {"My House", "School", "Mall", "Museum", "Hotel", "Theater", "Playground", "Park", "More", "Store", "Friend's House", "Relative's House", "Hospital", "Clinic", "Library", "Terrace"},
+            {"Time", "Day", "Month", "Weather", "Seasons", "Festivals & Holidays", "Birthdays"},
+            {"About Me", "I am hurt", "I feel sick", "I feel tired", "Help me do this", "Medicine", "Bandage", "Water"}};
 
     public Integer[] people_english = {
             R.drawable.level2_people_mom, R.drawable.level2_people_dad,
@@ -138,11 +156,11 @@ public class Main2LAyer extends AppCompatActivity {
             R.drawable.level2_places_clinic,R.drawable.level2_places_library, R.drawable.level2_places_terr
     };
     public static String[] people_adapter =
-            {"Mother", "Daddy", "Brother", "Sister", "Grandfather", "Grandmother", "Uncle", "Aunt", "Cousin", "Baby", "Friends", "Teacher", "Doctor", "Nurse", "Caregiver", "Stranger", "About Me"};
+            {"Mother", "Father", "Brother", "Sister", "Grandfather", "Grandmother", "Uncle", "Aunt", "Cousin", "Baby", "Friends", "Teacher", "Doctor", "Nurse", "Caregiver", "Stranger", "About Me"};
 
 
     final String[] side_hindi = {"अच्छा लगता हैं", "सच में अच्छा लगता हैं", "हाँ", "सच में हाँ", "ज़्यादा", "सच में ज़्यादा", "अच्छा नहीं लगता हैं", "सच में अच्छा नहीं लगता हैं", "नहीं", "सच में नहीं", "कम", "सच में कम"};
-    final String[] side_english = {"like", "really like", "yes", "really yes", "mohrr", "really mohrr", "dont like", "really dont like", "no", "really no", "less", "really less"};
+    final String[] side_english = {"like", "really like", "yes", "really yes", "more", "really more", "dont like", "really dont like", "no", "really no", "less", "really less"};
 
     final String[] below_hindi = {"होम", "वापस", "कीबोर्ड"};
     final String[] below_english = {"Home", "back", "keyboard"};
@@ -3703,9 +3721,11 @@ public class Main2LAyer extends AppCompatActivity {
                             tts.speak(layer_2_speech[position][sort[location]][5], TextToSpeech.QUEUE_FLUSH, null);
                         else if (position == 6)
                             tts.speak(layer_2_speech[position][sort_places[location]][5], TextToSpeech.QUEUE_FLUSH, null);
-                        else if(position == 8 && location == 0)
-                            tts.speak(layer_2_speech[position][location][5]+session.getFather_no()+end,TextToSpeech.QUEUE_FLUSH,null) ;
-                        else
+                        else if(position == 8 && location == 0) {
+                            tts.setLanguage(Locale.US);
+                            tts.speak(layer_2_speech[position][location][5] + session.getFather_no().replaceAll("\\B", " ") + end, TextToSpeech.QUEUE_FLUSH, null);
+                            tts.setLanguage(new Locale("hin", "IND"));
+                        } else
                             tts.speak(layer_2_speech[position][location][5], TextToSpeech.QUEUE_FLUSH, null);
                         cm = 0;
                     } else {
@@ -3713,9 +3733,11 @@ public class Main2LAyer extends AppCompatActivity {
                             tts.speak(layer_2_speech[position][sort[location]][4], TextToSpeech.QUEUE_FLUSH, null);
                         else if (position == 6)
                             tts.speak(layer_2_speech[position][sort_places[location]][4], TextToSpeech.QUEUE_FLUSH, null);
-                        else if(position == 8 && location == 0)
-                            tts.speak(layer_2_speech[position][location][4]+session.getFather_no()+end,TextToSpeech.QUEUE_FLUSH,null) ;
-                        else
+                        else if(position == 8 && location == 0){
+                            tts.setLanguage(Locale.US);
+                            tts.speak(layer_2_speech[position][location][5] + session.getFather_no().replaceAll("\\B", " ") + end, TextToSpeech.QUEUE_FLUSH, null);
+                            tts.setLanguage(new Locale("hin", "IND"));
+                            } else
                             tts.speak(layer_2_speech[position][location][4], TextToSpeech.QUEUE_FLUSH, null);
                         cm = 1;
                     }
@@ -4135,8 +4157,6 @@ public class Main2LAyer extends AppCompatActivity {
 
         }
     }
-
-
     String[][][] layer_2_speech_english = {{{"I like to greet others",
             "I really like to greet others",
             "I want to greet others",
@@ -4203,31 +4223,31 @@ public class Main2LAyer extends AppCompatActivity {
             "I don’t want to brush my teeth again",
             "I really don’t want to brush my teeth again"
 
-    },{"I like to go to the toi let",
-            "I really like to go to the toi let",
-            "I want to go to the toi let",
-            "I really want to go to the toi let",
-            "I want to go to the toi let again",
-            "I really want to go to the toi let again",
-            "I don’t like to go to the toi let",
-            "I really don’t like to go to the toi let",
-            "I don’t want to go to the toi let",
-            "I really don’t want to go to the toi let",
-            "I don’t want to go to the toi let again",
-            "I really don’t want to go to the toi let again"
+    },{"I like to go to the toilet",
+            "I really like to go to the toilet",
+            "I want to go to the toilet",
+            "I really want to go to the toilet",
+            "I want to go to the toilet again",
+            "I really want to go to the toilet again",
+            "I don’t like to go to the toilet",
+            "I really don’t like to go to the toilet",
+            "I don’t want to go to the toilet",
+            "I really don’t want to go to the toilet",
+            "I don’t want to go to the toilet again",
+            "I really don’t want to go to the toilet again"
 
-    },{"I like to have a बाथ",
-            "I really like to have a बाथ",
-            "I want to have a बाथ",
-            "I really want to have a बाथ",
-            "I want to have a बाथ again",
-            "I really want to have a बाथ again",
-            "I don’t like to have a बाथ",
-            "I really don’t like to have a बाथ",
-            "I don’t want to have a बाथ",
-            "I really don’t want to have a बाथ",
-            "I don’t want to have a बाथ again",
-            "I really don’t want to have a बाथ again"
+    },{"I like to bathe",
+            "I really like to bathe ",
+            "I want to bathe ",
+            "I really want to bathe ",
+            "I want to bathe again",
+            "I really want to bathe again",
+            "I don’t like to bathe ",
+            "I really don’t like to bathe ",
+            "I don’t want to bathe ",
+            "I really don’t want to bathe ",
+            "I don’t want to bathe again",
+            "I really don’t want to bathe again"
 
     },{"I like clothes and accessories",
             "I really like clothes and accessories",
@@ -4373,18 +4393,18 @@ public class Main2LAyer extends AppCompatActivity {
             "I don’t want more fruits",
             "I really don’t want any more fruits"
 
-    },{"I'm thirsty",
-            "I'm really very thirsty",
+    },{"I am thirsty",
+            "I am really very thirsty",
             "I want to drink something",
             "I really want to drink something",
-            "I'm very thirsty",
-            "I'm really very thirsty",
-            "I'm not thirsty",
-            "I'm really not thirsty",
+            "I am very thirsty",
+            "I am really very thirsty",
+            "I am not thirsty",
+            "I am really not thirsty",
             "I don’t want to drink anything",
             "I really don’t want to drink anything",
-            "I'm not thirsty at all",
-            "I'm really not thirsty any more"
+            "I am not thirsty at all",
+            "I am really not thirsty any more"
 
     },{"I like to use cutlery",
             "I really like to use cutlery",
@@ -4478,16 +4498,16 @@ public class Main2LAyer extends AppCompatActivity {
             "I don’t want to listen to any more music",
             "I really don’t want to listen to music any more"
 
-    },{"I like to do diff rent activities",
-            "I really like to do diff rent activities",
-            "I want to do diff rent activities",
-            "I really want to do diff rent activities",
+    },{"I like to do different activities",
+            "I really like to do different activities",
+            "I want to do different activities",
+            "I really want to do different activities",
             "I want to do more activities",
             "I really want to do some more activities",
-            "I don’t like to do diff rent activities",
-            "I really don’t like to do diff rent activities",
-            "I don’t want to do diff rent activities",
-            "I really don’t want to do diff rent activities",
+            "I don’t like to do different activities",
+            "I really don’t like to do different activities",
+            "I don’t want to do different activities",
+            "I really don’t want to do different activities",
             "I don’t want to do more activities",
             "I really don’t want to do anymore activities"
 
@@ -4570,44 +4590,44 @@ public class Main2LAyer extends AppCompatActivity {
             "I don’t want more stationery",
             "I really don’t want any more stationery",
 
-    },{"I like to use school aubjects",
-            "I really like to use school aubjects",
-            "I want to learn about school aubjects",
-            "I really want to learn about school aubjects",
-            "I want to learn more about school aubjects",
-            "I really want to learn some more about school aubjects",
-            "I don’t like to use school aubjects",
-            "I really don’t like to use school aubjects",
-            "I don’t want to learn about school aubjects",
-            "I really don’t want to learn about school aubjects",
-            "I don’t want to learn more about school aubjects",
-            "I really don’t want to learn any more about school aubjects"
+    },{"I like to use school objects",
+            "I really like to use school objects",
+            "I want to learn about school objects",
+            "I really want to learn about school objects",
+            "I want to learn more about school objects",
+            "I really want to learn some more about school objects",
+            "I don’t like to use school objects",
+            "I really don’t like to use school objects",
+            "I don’t want to learn about school objects",
+            "I really don’t want to learn about school objects",
+            "I don’t want to learn more about school objects",
+            "I really don’t want to learn any more about school objects"
 
-    },{"I like to use diff rent home aubjects",
-            "I really like to use diff rent home aubjects",
-            "I want to learn about home aubjects",
-            "I really want to learn about home aubjects",
-            "I want to learn more about home aubjects",
-            "I really want to learn some more about home aubjects",
-            "I don’t like to use diff rent home aubjects",
-            "I really don’t like to use diff rent home aubjects",
-            "I don’t want to learn about home aubjects",
-            "I really don’t want to learn about home aubjects",
-            "I don't want to learn more about home aubjects",
-            "I really don’t want to learn any more about home aubjects"
+    },{"I like to use different home objects",
+            "I really like to use different home objects",
+            "I want to learn about home objects",
+            "I really want to learn about home objects",
+            "I want to learn more about home objects",
+            "I really want to learn some more about home objects",
+            "I don’t like to use different home objects",
+            "I really don’t like to use different home objects",
+            "I don’t want to learn about home objects",
+            "I really don’t want to learn about home objects",
+            "I don't want to learn more about home objects",
+            "I really don’t want to learn any more about home objects"
 
-    },{"I like to use diff rent transport modes",
-            "I really like to use diff rent transport modes",
-            "I want to learn about transport modes",
-            "I really want to learn about transport modes",
-            "I want to learn more about transport modes",
-            "I really want to learn some more about transport modes",
-            "I don’t like to use diff rent transport modes",
-            "I really don’t like to use diff rent transport modes",
-            "I don’t want to learn about transport modes",
-            "I really don’t want to learn about transport modes",
-            "I don't want to learn more about transport modes",
-            "I really don’t want to learn any more about transport modes",
+    },{"I like to use different tran sport modes",
+            "I really like to use different tran sport modes",
+            "I want to learn about tran sport modes",
+            "I really want to learn about tran sport modes",
+            "I want to learn more about tran sport modes",
+            "I really want to learn some more about tran sport modes",
+            "I don’t like to use different tran sport modes",
+            "I really don’t like to use different tran sport modes",
+            "I don’t want to learn about tran sport modes",
+            "I really don’t want to learn about tran sport modes",
+            "I don't want to learn more about tran sport modes",
+            "I really don’t want to learn any more about tran sport modes",
 
 
     }},{{"I love my mother",
@@ -4623,18 +4643,18 @@ public class Main2LAyer extends AppCompatActivity {
             "I don’t want to spend more time with my mother",
             "I really don’t want to spend any more time with my mother"
 
-    },{"I love my daddy",
-            "I really love my daddy",
-            "I want my daddy",
-            "I really want my daddy",
-            "I want to spend more time with my daddy",
-            "I really want to spend much more time with my daddy",
-            "I don’t like my daddy",
-            "I really don’t like my daddy",
-            "I don’t want my daddy",
-            "I really don’t want my daddy",
-            "I don’t want to spend more time with my daddy",
-            "I really don’t want to spend any more time with my daddy"
+    },{"I love my father",
+            "I really love my father",
+            "I want my father",
+            "I really want my father",
+            "I want to spend more time with my father",
+            "I really want to spend much more time with my father",
+            "I don’t like my father",
+            "I really don’t like my father",
+            "I don’t want my father",
+            "I really don’t want my father",
+            "I don’t want to spend more time with my father",
+            "I really don’t want to spend any more time with my father"
 
     },{"I love my brother",
             "I really love my brother",
@@ -4675,18 +4695,18 @@ public class Main2LAyer extends AppCompatActivity {
             "I don’t want to spend more time with my grandfather",
             "I really don’t want to spend any more time with my grandfather"
 
-    },{"I love my grand mother",
-            "I really love my grand mother",
-            "I want my grand mother",
-            "I really want my grand mother",
-            "I want to spend more time with my grand mother",
-            "I really want to spend much more time with my grand mother",
-            "I don’t like my grand mother",
-            "I really don’t like my grand mother",
-            "I don’t want my grand mother",
-            "I really don’t want my grand mother",
-            "I don’t want to spend more time with my grand mother",
-            "I really don’t want to spend any more time with my grand mother"
+    },{"I love my grandmother",
+            "I really love my grandmother",
+            "I want my grandmother",
+            "I really want my grandmother",
+            "I want to spend more time with my grandmother",
+            "I really want to spend much more time with my grandmother",
+            "I don’t like my grandmother",
+            "I really don’t like my grandmother",
+            "I don’t want my grandmother",
+            "I really don’t want my grandmother",
+            "I don’t want to spend more time with my grandmother",
+            "I really don’t want to spend any more time with my grandmother"
 
     },{"I love my uncle",
             "I really love my uncle",
@@ -4884,31 +4904,31 @@ public class Main2LAyer extends AppCompatActivity {
             "I don’t want to go to the museum again",
             "I really don’t want to go to the museum again"
 
-    },{"I like to go to ahotel",
-            "I really like to go to ahotel",
-            "I want to go to ahotel",
-            "I really want to go to ahotel",
-            "I want to go to ahotel again",
-            "I really want to go to ahotel again",
-            "I don’t like to go to ahotel",
-            "I really don’t like to go to ahotel",
-            "I don’t want to go to ahotel",
-            "I really don’t want to go to ahotel",
-            "I don’t want to go to ahotel again",
-            "I really don’t want to go to ahotel again"
+    },{"I like to go to a hotel",
+            "I really like to go to a hotel",
+            "I want to go to a hotel",
+            "I really want to go to a hotel",
+            "I want to go to a hotel again",
+            "I really want to go to a hotel again",
+            "I don’t like to go to a hotel",
+            "I really don’t like to go to a hotel",
+            "I don’t want to go to a hotel",
+            "I really don’t want to go to a hotel",
+            "I don’t want to go to a hotel again",
+            "I really don’t want to go to a hotel again"
 
-    },{"I like to go to the theater",
-            "I really like to go to the theater",
-            "I want to go to the theater",
-            "I really want to go to the theater",
-            "I want to go to the theater again",
-            "I really want to go to the theater again",
-            "I don’t like to go to the theater",
-            "I really don’t like to go to the theater",
-            "I don’t want to go to the theater",
-            "I really don’t want to go to the theater",
-            "I don’t want to go to the theater again",
-            "I really don’t want to go to the theater again"
+    },{"I like to go to the theatre",
+            "I really like to go to the theatre",
+            "I want to go to the theatre",
+            "I really want to go to the theatre",
+            "I want to go to the theatre again",
+            "I really want to go to the theatre again",
+            "I don’t like to go to the theatre",
+            "I really don’t like to go to the theatre",
+            "I don’t want to go to the theatre",
+            "I really don’t want to go to the theatre",
+            "I don’t want to go to the theatre again",
+            "I really don’t want to go to the theatre again"
 
     },{"I like to go to the playground",
             "I really like to go to the playground",
@@ -4936,18 +4956,18 @@ public class Main2LAyer extends AppCompatActivity {
             "I don’t want to go to the park again",
             "I really don’t want to go to the park again"
 
-    },{"I like to go to the stoar",
-            "I really like to go to the stoar",
-            "I want to go to the stoar",
-            "I really want to go to the stoar",
-            "I want to go to the stoar again",
-            "I really want to go to the stoar again",
-            "I don’t like to go to the stoar",
-            "I really don’t like to go to the stoar",
-            "I don’t want to go to the stoar",
-            "I really don’t want to go to the stoar",
-            "I don’t want to go to the stoar again",
-            "I really don’t want to go to the stoar again"
+    },{"I like to go to the store",
+            "I really like to go to the store",
+            "I want to go to the store",
+            "I really want to go to the store",
+            "I want to go to the store again",
+            "I really want to go to the store again",
+            "I don’t like to go to the store",
+            "I really don’t like to go to the store",
+            "I don’t want to go to the store",
+            "I really don’t want to go to the store",
+            "I don’t want to go to the store again",
+            "I really don’t want to go to the store again"
 
     },{"I like to go to my friend’s house",
             "I really like to go to my friend’s house",
@@ -5106,27 +5126,27 @@ public class Main2LAyer extends AppCompatActivity {
             "I don’t want to know more about festivals and holidays",
             "I really don’t want to know any more about festivals and holidays"
 
-    },{"I like to celebrate burtdays",
-            "I really like to celebrate burtdays",
-            "I want to celebrate burtdays",
-            "I really want to celebrate burtdays",
-            "I want to celebrate more burtdays",
-            "I really want to celebrate some more burtdays",
-            "I don’t like to celebrate burtdays",
-            "I really don’t like to celebrate burtdays",
-            "I don’t want to celebrate burtdays",
-            "I really don’t want to celebrate burtdays",
-            "I don’t want to celebrate more burtdays",
-            "I really don’t want to celebrate any more burtdays"
+    },{"I like to celebrate birthdays",
+            "I really like to celebrate birthdays",
+            "I want to celebrate birthdays",
+            "I really want to celebrate birthdays",
+            "I want to celebrate more birthdays",
+            "I really want to celebrate some more birthdays",
+            "I don’t like to celebrate birthdays",
+            "I really don’t like to celebrate birthdays",
+            "I don’t want to celebrate birthdays",
+            "I really don’t want to celebrate birthdays",
+            "I don’t want to celebrate more birthdays",
+            "I really don’t want to celebrate any more birthdays"
 
     }}, {{"My name is ",
             "My name is ",
-            "My care giver's email address is ",
-            "My care giver's email address is ",
-            "My care giver's contact number is ",
-            "My care giver's contact number is ",
-            "My care giver’s name is ",
-            "My care giver’s name is ",
+            "My caregiver's email address is ",
+            "My caregiver's email address is ",
+            "My caregiver's contact number is ",
+            "My caregiver's contact number is ",
+            "My caregiver’s name is ",
+            "My caregiver’s name is ",
             "My home address is ",
             "My home address is ",
             "My blood group is ",
@@ -5168,6 +5188,7 @@ public class Main2LAyer extends AppCompatActivity {
             "I really don’t want water",
             "I don’t want more water",
             "I don’t want any more water"
+
     }}};
 
     String[][][] layer_2_speech_hindi = {{
@@ -5236,18 +5257,18 @@ public class Main2LAyer extends AppCompatActivity {
             "मुझे अपने दांत फिर से साफ़ नहीं करने हैं",
             "मुझे सच में अपने दांत फिर से साफ़ नहीं करने हैं"
 
-    },{"मुझे शौचा लय जाना अच्छा लगता हैं",
-            "मुझे सच में शौचा लय जाना अच्छा लगता हैं",
-            "मुझे शौचा लय जाना हैं",
-            "मुझे सच में शौचा लय जाना हैं",
-            "मुझे फिर से शौचा लय जाना हैं",
-            "मुझे सच में फिर से शौचा लय जाना  हैं",
-            "मुझे शौचा लय जाना अच्छा नहीं लगता हैं",
-            "मुझे सच में शौचा लय जाना अच्छा नहीं लगता हैं",
-            "मुझे शौचा लय नहीं जाना हैं",
-            "मुझे सच में शौचा लय नहीं जाना हैं",
-            "मुझे फिर से शौचा लय नहीं जाना हैं",
-            "मुझे सच में फिर से शौचा लय नहीं जाना हैं",
+    },{"मुझे शौचालय जाना अच्छा लगता हैं",
+            "मुझे सच में शौचालय जाना अच्छा लगता हैं",
+            "मुझे शौचालय जाना हैं",
+            "मुझे सच में शौचालय जाना हैं",
+            "मुझे फिर से शौचालय जाना हैं",
+            "मुझे सच में फिर से शौचालय जाना  हैं",
+            "मुझे शौचालय जाना अच्छा नहीं लगता हैं",
+            "मुझे सच में शौचालय जाना अच्छा नहीं लगता हैं",
+            "मुझे शौचालय नहीं जाना हैं",
+            "मुझे सच में शौचालय नहीं जाना हैं",
+            "मुझे फिर से शौचालय नहीं जाना हैं",
+            "मुझे सच में फिर से शौचालय नहीं जाना हैं",
 
     },{"मुझे नहाना अच्छा लगता हैं",
             "मुझे सच में नहाना अच्छा लगता हैं",
@@ -5366,31 +5387,31 @@ public class Main2LAyer extends AppCompatActivity {
             "मुझे और भोजन नहीं चाहिए",
             "मुझे सच में और भोजन नहीं चाहिए"
 
-    },{"मुझे मिठा इयाँ अच्छी लगती हैं",
-            "मुझे सच में मिठा इयाँ अच्छी लगती हैं",
-            "मुझे कुछ मिठा इयाँ खानी हैं",
-            "मुझे सच में कुछ मिठा इयाँ खानी हैं",
-            "मुझे और मिठा इयाँ खानी हैं",
-            "मुझे सच में और मिठा इयाँ खानी हैं",
-            "मुझे मिठा इयाँ अच्छी नहीं लगती हैं",
-            "मुझे सच में मिठा इयाँ अच्छी नहीं लगती हैं",
-            "मुझे मिठा इयाँ नहीं खानी हैं",
-            "मुझे सच में मिठा इयाँ नहीं खानी हैं",
-            "मुझे और मिठा इयाँ नहीं खानी हैं",
-            "मुझे सच में कुछ भी मिठा इयाँ नहीं खानी हैं"
+    },{"मुझे मिठाइयाँ अच्छी लगती हैं",
+            "मुझे सच में मिठाइयाँ अच्छी लगती हैं",
+            "मुझे कुछ मिठाइयाँ खानी हैं",
+            "मुझे सच में कुछ मिठाइयाँ खानी हैं",
+            "मुझे और मिठाइयाँ खानी हैं",
+            "मुझे सच में और मिठाइयाँ खानी हैं",
+            "मुझे मिठाइयाँ अच्छी नहीं लगती हैं",
+            "मुझे सच में मिठाइयाँ अच्छी नहीं लगती हैं",
+            "मुझे मिठाइयाँ नहीं खानी हैं",
+            "मुझे सच में मिठाइयाँ नहीं खानी हैं",
+            "मुझे और मिठाइयाँ नहीं खानी हैं",
+            "मुझे सच में कुछ भी मिठाइयाँ नहीं खानी हैं"
 
-    },{"मुझे snacks खाना अच्छा लगता हैं",
-            "मुझे सच में snacks खाना अच्छा लगता हैं",
-            "मुझे कुछ snacks चाहिए",
-            "मुझे सच में कुछ snacks चाहिए",
-            "मुझे और snacks चाहिए",
-            "मुझे सच में थोड़े और snacks चाहिए",
-            "मुझे snacks खाना अच्छा नहीं लगता हैं",
-            "मुझे सच में snacks खाना अच्छा नहीं लगता हैं",
-            "मुझे snacks नहीं चाहिए",
-            "मुझे सच में snacks नहीं चाहिए",
-            "मुझे और snacks नहीं चाहिए",
-            "मुझे सच में और snacks नहीं चाहिए"
+    },{"मुझे स्नैक्स खाना अच्छा लगता हैं",
+            "मुझे सच में स्नैक्स खाना अच्छा लगता हैं",
+            "मुझे कुछ स्नैक्स चाहिए",
+            "मुझे सच में कुछ स्नैक्स चाहिए",
+            "मुझे और स्नैक्स चाहिए",
+            "मुझे सच में थोड़े और स्नैक्स चाहिए",
+            "मुझे स्नैक्स खाना अच्छा नहीं लगता हैं",
+            "मुझे सच में स्नैक्स खाना अच्छा नहीं लगता हैं",
+            "मुझे स्नैक्स नहीं चाहिए",
+            "मुझे सच में स्नैक्स नहीं चाहिए",
+            "मुझे और स्नैक्स नहीं चाहिए",
+            "मुझे सच में और स्नैक्स नहीं चाहिए"
 
     },{"मुझे फल अच्छे लगते हैं",
             "मुझे सच में फल अच्छे लगते हैं",
@@ -5431,18 +5452,18 @@ public class Main2LAyer extends AppCompatActivity {
             "मुझे और कटलरी नहीं चाहिए",
             "मुझे सच में और कटलरी नहीं चाहिए"
 
-    },{"मुझे add-ऑन्स का इस्तमाल करना अच्छा लगता हैं",
-            "मुझे सच में add-ऑन्स का इस्तमाल करना अच्छा लगता हैं",
-            "मुझे कुछ add-ऑन्स चाहिए",
-            "मुझे सच में कुछ add-ऑन्स चाहिए",
-            "मुझे और add-ऑन्स चाहिए",
-            "मुझे सच में कुछ और add-ऑन्स चाहिए",
-            "मुझे add-ऑन्स का इस्तमाल करना अच्छा नहीं लगता हैं",
-            "मुझे सच में add-ऑन्स का इस्तमाल करना अच्छा नहीं लगता हैं",
-            "मुझे कुछ भी add-ऑन्स नहीं चाहिए",
-            "मुझे सच में कुछ भी add-ऑन्स नहीं चाहिए",
-            "मुझे और add-ऑन्स नहीं चाहिए",
-            "मुझे सच में और add-ऑन्स नहीं चाहिए"
+    },{"मुझे ऐड-ऑन्स का इस्तमाल करना अच्छा लगता हैं",
+            "मुझे सच में ऐड-ऑन्स का इस्तमाल करना अच्छा लगता हैं",
+            "मुझे कुछ ऐड-ऑन्स चाहिए",
+            "मुझे सच में कुछ ऐड-ऑन्स चाहिए",
+            "मुझे और ऐड-ऑन्स चाहिए",
+            "मुझे सच में कुछ और ऐड-ऑन्स चाहिए",
+            "मुझे ऐड-ऑन्स का इस्तमाल करना अच्छा नहीं लगता हैं",
+            "मुझे सच में ऐड-ऑन्स का इस्तमाल करना अच्छा नहीं लगता हैं",
+            "मुझे कुछ भी ऐड-ऑन्स नहीं चाहिए",
+            "मुझे सच में कुछ भी ऐड-ऑन्स नहीं चाहिए",
+            "मुझे और ऐड-ऑन्स नहीं चाहिए",
+            "मुझे सच में और ऐड-ऑन्स नहीं चाहिए"
 
     }},{{"मुझे घर के खेल खेलना अच्छा लगता हैं",
             "मुझे सच में घर के खेल खेलना अच्छा लगता हैं",
@@ -5801,8 +5822,8 @@ public class Main2LAyer extends AppCompatActivity {
             "मुझे सच में अपने मामा चाहिए",
             "मुझे अपने मामा के साथ ज़्यादा समय बिताना हैं",
             "मुझे सच में अपने मामा के साथ बहुत ज़्यादा समय बिताना हैं",
-            "मुझे अपने मामा  अच्छे नहीं लगते हैं",
-            "मुझे सच में अपने मामा  अच्छा नहीं लगता हैं",
+            "मुझे अपने मामा  अच्छे  नहीं लगते हैं",
+            "मुझे सच में अपने मामा  अच्छे  नहीं लगते हैं",
             "मुझे अपने मामा  नहीं चाहिए",
             "मुझे सच में अपने मामा नहीं चाहिए",
             "मुझे अपने मामा  के साथ ज़्यादा समय नहीं बिताना हैं",
@@ -5840,8 +5861,8 @@ public class Main2LAyer extends AppCompatActivity {
             "मुझे सच में अपने फ़ुफ़ा चाहिए",
             "मुझे अपने फ़ुफ़ा के साथ ज़्यादा समय बिताना हैं",
             "मुझे सच में अपने फ़ुफ़ा के साथ बहुत ज़्यादा समय बिताना हैं",
-            "मुझे अपने फ़ुफ़ा अच्छे नहीं लगते हैं",
-            "मुझे सच में अपने फ़ुफ़ा अच्छा नहीं लगता हैं",
+            "मुझे अपने फ़ुफ़ा अच्छे  नहीं लगते हैं",
+            "मुझे सच में अपने फ़ुफ़ा अच्छे  नहीं लगते हैं",
             "मुझे अपने फ़ुफ़ा नहीं चाहिए",
             "मुझे सच में अपने फ़ुफ़ा नहीं चाहिए",
             "मुझे अपने फ़ुफ़ा के साथ ज़्यादा समय नहीं बिताना हैं",
@@ -5866,8 +5887,8 @@ public class Main2LAyer extends AppCompatActivity {
             "मुझे सच में अपने मौसा चाहिए",
             "मुझे अपने मौसा के साथ ज़्यादा समय बिताना हैं",
             "मुझे सच में अपने मौसा के साथ बहुत ज़्यादा समय बिताना हैं",
-            "मुझे अपने मौसा अच्छे नहीं लगते हैं",
-            "मुझे सच में अपने मौसा अच्छा नहीं लगता हैं",
+            "मुझे अपने मौसा अच्छे  नहीं लगते हैं",
+            "मुझे सच में अपने मौसा अच्छे  नहीं लगते हैं",
             "मुझे अपने मौसा नहीं चाहिए",
             "मुझे सच में अपने मौसा नहीं चाहिए",
             "मुझे अपने मौसा के साथ ज़्यादा समय नहीं बिताना हैं",
@@ -5912,27 +5933,27 @@ public class Main2LAyer extends AppCompatActivity {
             "मुझे अपने शिक्षक के साथ ज़्यादा समय नहीं बिताना हैं",
             "मुझे सच में अपने शिक्षक के साथ कुछ और समय नहीं बिताना हैं"
 
-    },{"मुझे य ह डॉक्टर अच्छे लगते हैं",
-            "मुझे सच में य ह डॉक्टर अच्छे लगते हैं",
+    },{"मुझे यह डॉक्टर अच्छे लगते हैं",
+            "मुझे सच में यह डॉक्टर अच्छे लगते हैं",
             "मुझे डॉक्टर के पास जाना हैं",
             "मुझे सच में डॉक्टर के पास जाना हैं",
             "मुझे डॉक्टर के साथ ज़्यादा समय बिताना हैं",
             "मुझे सच में डॉक्टर के साथ बहुत ज़्यादा समय बिताना हैं",
-            "मुझे य ह डॉक्टर अच्छे नहीं लगते हैं",
-            "मुझे सच में य ह डॉक्टर अच्छे नहीं लगते हैं",
+            "मुझे यह डॉक्टर अच्छे नहीं लगते हैं",
+            "मुझे सच में यह डॉक्टर अच्छे नहीं लगते हैं",
             "मुझे डॉक्टर के पास नहीं जाना हैं",
             "मुझे सच में डॉक्टर के पास नहीं जाना हैं",
             "मुझे डॉक्टर के साथ ज़्यादा समय नहीं बिताना हैं",
             "मुझे सच में डॉक्टर के साथ कुछ और समय नहीं बिताना हैं"
 
-    }, {"मुझे य ह नरस अच्छी लगती हैं",
-            "मुझे सच में य ह नरस अच्छी लगती हैं",
+    }, {"मुझे यह नरस अच्छी लगती हैं",
+            "मुझे सच में यह नरस अच्छी लगती हैं",
             "मुझे नरस के पास जाना हैं",
             "मुझे सच में नरस के पास जाना हैं",
             "मुझे नरस के साथ ज़्यादा समय बिताना हैं",
             "मुझे सच में नरस के साथ बहुत ज़्यादा समय बिताना हैं",
-            "मुझे य ह नरस अच्छी नहीं लगती हैं",
-            "मुझे सच में य ह नरस अच्छी नहीं लगती हैं",
+            "मुझे यह नरस अच्छी नहीं लगती हैं",
+            "मुझे सच में यह नरस अच्छी नहीं लगती हैं",
             "मुझे नरस के पास नहीं जाना हैं",
             "मुझे सच में नरस के पास नहीं जाना हैं",
             "मुझे नरस के साथ ज़्यादा समय नहीं बिताना हैं",
@@ -6016,18 +6037,18 @@ public class Main2LAyer extends AppCompatActivity {
             "मुझे फिर से मॉल नहीं जाना हैं",
             "मुझे सच में फिर से मॉल नहीं जाना हैं"
 
-    },{"मुझे संग्रालय जाना अच्छा लगता हैं",
-            "मुझे सच में संग्रालय जाना अच्छा लगता हैं",
-            "मुझे संग्रालय जाना हैं",
-            "मुझे सच में संग्रालय जाना हैं",
-            "मुझे फिर से संग्रालय जाना हैं",
-            "मुझे सच में फिर से संग्रालय जाना हैं",
-            "मुझे संग्रालय जाना अच्छा नहीं लगता हैं",
-            "मुझे सच में संग्रालय जाना अच्छा नहीं लगता हैं",
-            "मुझे संग्रालय नहीं जाना हैं",
-            "मुझे सच में संग्रालय नहीं जाना हैं",
-            "मुझे फिर से संग्रालय नहीं जाना हैं",
-            "मुझे सच में फिर से संग्रालय नहीं जाना हैं"
+    },{"मुझे संग्रहालय जाना अच्छा लगता हैं",
+            "मुझे सच में संग्रहालय जाना अच्छा लगता हैं",
+            "मुझे संग्रहालय जाना हैं",
+            "मुझे सच में संग्रहालय जाना हैं",
+            "मुझे फिर से संग्रहालय जाना हैं",
+            "मुझे सच में फिर से संग्रहालय जाना हैं",
+            "मुझे संग्रहालय जाना अच्छा नहीं लगता हैं",
+            "मुझे सच में संग्रहालय जाना अच्छा नहीं लगता हैं",
+            "मुझे संग्रहालय नहीं जाना हैं",
+            "मुझे सच में संग्रहालय नहीं जाना हैं",
+            "मुझे फिर से संग्रहालय नहीं जाना हैं",
+            "मुझे सच में फिर से संग्रहालय नहीं जाना हैं"
 
     },{"मुझे होटल जाना अच्छा लगता हैं",
             "मुझे सच में होटल जाना अच्छा लगता हैं",
@@ -6224,18 +6245,18 @@ public class Main2LAyer extends AppCompatActivity {
             "मुझे मौसम के बारे में और नहीं जानना हैं",
             "मुझे सच में मौसम के बारे में कुछ भी नहीं जानना हैं"
 
-    },{"मुझे रूतुओं के बारे में जानना अच्छा लगता हैं",
-            "मुझे सच में रूतुओं के बारे में जानना अच्छा लगता हैं",
-            "मुझे रूतुओं के बारे में जानना हैं",
-            "मुझे सच में रूतुओं के बारे में जानना हैं",
-            "मुझे रूतुओं के बारे में कुछ और जानना हैं",
-            "मुझे सच में रूतुओं के बारे में कुछ और जानना हैं",
-            "मुझे रूतुओं के बारे में जानना अच्छा नहीं लगता हैं",
-            "मुझे सच में रूतुओं के बारे में जानना अच्छा नहीं लगता हैं",
-            "मुझे रूतुओं के बारे में नहीं जानना हैं",
-            "मुझे सच में रूतुओं के बारे में नहीं जानना हैं",
-            "मुझे रूतुओं के बारे में और नहीं जानना हैं",
-            "मुझे सच में रूतुओं के बारे में कुछ भी नहीं जानना हैं"
+    },{"मुझे ऋतुओं के बारे में जानना अच्छा लगता हैं",
+            "मुझे सच में ऋतुओं के बारे में जानना अच्छा लगता हैं",
+            "मुझे ऋतुओं के बारे में जानना हैं",
+            "मुझे सच में ऋतुओं के बारे में जानना हैं",
+            "मुझे ऋतुओं के बारे में कुछ और जानना हैं",
+            "मुझे सच में ऋतुओं के बारे में कुछ और जानना हैं",
+            "मुझे ऋतुओं के बारे में जानना अच्छा नहीं लगता हैं",
+            "मुझे सच में ऋतुओं के बारे में जानना अच्छा नहीं लगता हैं",
+            "मुझे ऋतुओं के बारे में नहीं जानना हैं",
+            "मुझे सच में ऋतुओं के बारे में नहीं जानना हैं",
+            "मुझे ऋतुओं के बारे में और नहीं जानना हैं",
+            "मुझे सच में ऋतुओं के बारे में कुछ भी नहीं जानना हैं"
 
     },{"मुझे त्योहारों और छुट्टियों के बारे में जानना अच्छा लगता हैं",
             "मुझे सच में त्योहारों और छुट्टियों के बारे में जानना अच्छा लगता हैं",
@@ -6274,20 +6295,20 @@ public class Main2LAyer extends AppCompatActivity {
             "मेरे घर का पता ",
             "मेरे घर का पता ",
             "मेरा रक्त वर्ग ",
-            "मेरा रक्त वर्ग "},   //
+            "मेरा रक्त वर्ग "},
             {},{},{},{},
             {"मुझे दवाई लेना अच्छा लगता हैं",
                     "मुझे सच में दवाई लेना अच्छा लगता हैं",
                     "मुझे दवाई चाहिए",
                     "मुझे सच में दवाई चाहिए",
-                    "मुझे और दवाईyaa चाहिए",
-                    "मुझे सच में कुछ और दवाईyaa चाहिए",
+                    "मुझे और दवाईयाँ चाहिए",
+                    "मुझे सच में कुछ और दवाईयाँ चाहिए",
                     "मुझे दवाई लेना अच्छा नहीं लगता हैं",
                     "मुझे सच में दवाई लेना अच्छा नहीं लगता हैं",
                     "मुझे दवाई नहीं चाहिए",
                     "मुझे सच में दवाई नहीं चाहिए",
-                    "मुझे और दवाईyaa नहीं चाहिए",
-                    "मुझे सच में कुछ और दवाईyaa नहीं चाहिए"
+                    "मुझे और दवाईयाँ नहीं चाहिए",
+                    "मुझे सच में कुछ और दवाईयाँ नहीं चाहिए"
 
             },{"मुझे बैंडेज का इस्तमाल करना अच्छा लगता हैं",
             "मुझे सच में बैंडेज का इस्तमाल करना अच्छा लगता हैं",

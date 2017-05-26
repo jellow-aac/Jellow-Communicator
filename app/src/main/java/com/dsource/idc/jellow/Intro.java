@@ -36,9 +36,10 @@ public class Intro extends AppIntro {
         //if the session is logged in: then directly go to the main activity
         if (session.isLoggedIn1()) {
             // User is already logged in. Take him to main activity
-            Intent i = new Intent(this, MainActivity.class);
+            Intent i = new Intent(this, Splash.class);
             startActivity(i);
             finish();
+            Toast.makeText(Intro.this, "App is loading...", Toast.LENGTH_LONG).show();
             Toast.makeText(Intro.this, "App is loading...", Toast.LENGTH_LONG).show();
         }
 //        addSlide(new InputDemoSlide());
@@ -90,7 +91,7 @@ public class Intro extends AppIntro {
     public void getStarted(View view) {
         //set boolean true on getting started
         session.setLogin1(true);
-        Intent intent = new Intent(Intro.this, MainActivity.class);
+        Intent intent = new Intent(Intro.this, Splash.class);
         startActivity(intent);
         finish();
     }

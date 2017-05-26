@@ -6,53 +6,139 @@
     android:background="@drawable/bg"
     android:layout_weight="10"
     android:id="@+id/main">
-
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:paddingLeft="32dp"
-        android:layout_weight="6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="For devices where Google Text-to-Speech (TTS) is already active, please swipe screen to skip this step"
         android:fontFamily="fonts/Mukta-Regular.ttf"
         android:textColor="#000000"
-        android:paddingRight="32dp"
+        android:textStyle="bold"
         android:textSize="20dp"
-        android:text="Please activate 'Google text-to-speech (tts)' within 'Language' settings of your device"/>
+        android:paddingLeft="180dp"
+        android:paddingTop="20dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:weightSum="3">
+
+        <TextView
+            android:layout_width="420dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:paddingLeft="32dp"
+            android:layout_weight="1"
+            android:fontFamily="fonts/Mukta-Regular.ttf"
+            android:textColor="#000000"
+            android:paddingRight="32dp"
+            android:textSize="20dp"
+            android:text="1.Activate Google TTS"/>
+        <TextView
+            android:layout_width="420dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:paddingLeft="32dp"
+            android:layout_weight="1"
+            android:fontFamily="fonts/Mukta-Regular.ttf"
+            android:textColor="#000000"
+            android:paddingRight="32dp"
+            android:textSize="20dp"
+            android:text="2. Change default language to Hindi"/>
+        <TextView
+            android:layout_width="420dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:paddingLeft="32dp"
+            android:layout_weight="1"
+            android:fontFamily="fonts/Mukta-Regular.ttf"
+            android:textColor="#000000"
+            android:paddingRight="32dp"
+            android:textSize="20dp"
+            android:text="3. Download Hindi voice"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="420dp"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_weight="32">
+        android:weightSum="3">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/googletts"/>
-
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/gtts1"
+            android:layout_weight="1"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/gtts2"
+            android:layout_weight="1"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/gtts3"
+            android:layout_weight="1"/>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="80dp"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_weight="7">
+        android:layout_gravity="center"
+        android:weightSum="3"
+        >
         <TextView
+            android:layout_margin="10dp"
             android:layout_width="wrap_content"
-            android:layout_weight="3"
-            android:layout_height="64dp"
-            android:layout_gravity="top"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:background="#FFD7D2D2"
             android:gravity="center"
             android:fontFamily="fonts/Mukta-Regular.ttf"
             android:textColor="#000000"
             android:paddingLeft="64dp"
             android:paddingRight="64dp"
             android:textSize="20dp"
-            android:text="Download 'Hindi (India)' and 'English (India)' voices from Google tts settings"/>
-
+            android:text="ACTIVATE"
+            android:onClick="getStarted1"/>
+        <TextView
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:background="#FFD7D2D2"
+            android:gravity="center"
+            android:fontFamily="fonts/Mukta-Regular.ttf"
+            android:textColor="#000000"
+            android:paddingLeft="64dp"
+            android:paddingRight="64dp"
+            android:textSize="20dp"
+            android:text="CHANGE LANGUAGE"
+            android:onClick="getStarted2"/>
+        <TextView
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:background="#FFD7D2D2"
+            android:gravity="center"
+            android:fontFamily="fonts/Mukta-Regular.ttf"
+            android:textColor="#000000"
+            android:paddingLeft="64dp"
+            android:paddingRight="64dp"
+            android:textSize="20dp"
+            android:text="DOWNLOAD"
+            android:onClick="getStarted3"/>
     </LinearLayout>
+
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="64dp" />
