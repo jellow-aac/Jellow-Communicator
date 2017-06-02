@@ -20,23 +20,25 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import static com.dsource.idc.jellow.R.id.reset;
 import static com.dsource.idc.jellow.Reset__preferences.flag;
 
 public class MainActivity extends AppCompatActivity {
+    private static final int LANG_ENG = 0, LANG_HINDI = 1;
+
     int mCk = 0, mCy = 0, mCm = 0, mCd = 0, mCn = 0, mCl = 0;
-    int image_flag = -1, flag_keyboard = 0, mActionBtnClickCount;
+    int image_flag = -1, flag_keyboard = 0;
     private ImageView like, dislike, add, minus, yes, no, home, keyboard, ttsButton, back;
     private EditText et;
     private KeyListener originalKeyListener;
     private RecyclerView mRecyclerView;
-    private CircularImageView mMenuItemImage;
     private LinearLayout mMenuItemLinearLayout;
-    private int mSelectedItemPosition;
-    private View mSelectedItemView;
+    private int mSelectedItemLayoutPos = -1, mSelectedItemAdapterPos = -1, mActionBtnClickCount = -1;
     private boolean mShouldReadFullSpeech = false;
+    private ArrayList<View> mRecyclerItemsViewList;
     public TextToSpeech mTts;
     private ImageAdapter mImageAdapter;
     private Integer[] mColor = {-5317, -12627531 , -7617718 , -2937298 , -648053365 , -1761607680 };
@@ -293,7 +295,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.trial1);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setBackgroundDrawable( getResources().getDrawable(R.drawable.yellow_bg));
-
+        mRecyclerItemsViewList = new ArrayList<>(english1.length);
+        while (mRecyclerItemsViewList.size() < english1.length)  mRecyclerItemsViewList.add(null);
         new CalculateSrBwAsync().execute("");
         session = new SessionManager(getApplicationContext());
 
@@ -303,7 +306,7 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("Home");
         }
 
-        mTts =new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+        mTts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
                 if(status != TextToSpeech.ERROR) {
@@ -335,44 +338,31 @@ public class MainActivity extends AppCompatActivity {
         // Set it to null - this will make the field non-editable
         et.setKeyListener(null);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-
-        mRecyclerView.setLayoutManager( new GridLayoutManager(this, 3));
-        //mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(3, -50, false));
-
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         mImageAdapter = new ImageAdapter(this);
-        mRecyclerView.setAdapter(new ImageAdapter(this));
-
+        mRecyclerView.setAdapter(mImageAdapter);
         mRecyclerView.setVerticalScrollBarEnabled(true);
         mRecyclerView.setScrollbarFadingEnabled(false);
         mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), mRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(final View view, final int position) {
                 mMenuItemLinearLayout = (LinearLayout)view.findViewById(R.id.linearlayout_icon1);
-                mMenuItemImage = (CircularImageView) view.findViewById(R.id.icon1);
                 mMenuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         resetActionButtons(-1);
-                        resetPreviousSelectedItem();
-                        mMenuItemImage.setBorderColor(-1283893945);
-                        mMenuItemImage.setShadowColor(-1283893945);
-                        mMenuItemImage.setShadowRadius(sr);
-                        mMenuItemImage.setBorderWidth(bw);
-                        mShouldReadFullSpeech = true;
-                        mSelectedItemPosition = position;
-                        mSelectedItemView = mMenuItemImage;
+                        resetRecyclerAllItems();
                         mActionBtnClickCount = 0;
+                        setMenuImageBorder(v, true);
+                        mShouldReadFullSpeech = true;
+                        mSelectedItemLayoutPos = mRecyclerView.getChildLayoutPosition(view);
+                        mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
                         /*Intent intent = new Intent(MainActivity.this, Main2LAyer.class);
                         intent.putExtra("id", position);
                         startActivity(intent);*/
-                        getSupportActionBar().setTitle(english1[position]);
+                        if(session.getLanguage() == LANG_ENG)   getSupportActionBar().setTitle(english1[position]);
+                        else    getSupportActionBar().setTitle(belowText_hindi[position]);
                         mTts.speak(myMusic[position], TextToSpeech.QUEUE_FLUSH, null);
-                    }
-
-                    private void resetPreviousSelectedItem() {
-                        for(int i = 0; i< mRecyclerView.getChildCount(); ++i){
-                            setMenuImageBorder(mRecyclerView.getChildAt(i), false);
-                        }
                     }
                 });
             }
@@ -382,17 +372,15 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
             @Override
             public void onChildViewAttachedToWindow(View view) {
-                CircularImageView circularImageView = (CircularImageView) view.findViewById(R.id.icon1);
-                if(mSelectedItemView != null && circularImageView.equals(mSelectedItemView)){
+                mRecyclerItemsViewList.set(mRecyclerView.getChildLayoutPosition(view), view);
+                if(mRecyclerItemsViewList.contains(view) && mSelectedItemAdapterPos > -1 && mRecyclerView.getChildLayoutPosition(view) == mSelectedItemAdapterPos)
                     setMenuImageBorder(view, true);
-                }else{
-                    setMenuImageBorder(view, false);
-                }
             }
 
             @Override
             public void onChildViewDetachedFromWindow(View view) {
                 setMenuImageBorder(view, false);
+                mRecyclerItemsViewList.set(mRecyclerView.getChildLayoutPosition(view), null);
             }
         });
 
@@ -405,8 +393,8 @@ public class MainActivity extends AppCompatActivity {
                 no.setImageResource(R.drawable.idontwantwithout);
                 add.setImageResource(R.drawable.morewithout);
                 minus.setImageResource(R.drawable.lesswithout);
-                mImageAdapter.notifyDataSetChanged();
-                mSelectedItemPosition = -1;
+                home.setImageResource(R.drawable.homepressed);
+                resetRecycleraMenuItemsAndFlags();
                 flag = 0;
                 mShouldReadFullSpeech = false;
                 image_flag = -1;
@@ -433,10 +421,7 @@ public class MainActivity extends AppCompatActivity {
                     back.setAlpha(.5f);
                     back.setEnabled(false);
                 }
-
                 mTts.speak(below[0], TextToSpeech.QUEUE_FLUSH, null);
-                home.setImageResource(R.drawable.home);
-                mRecyclerView.setAdapter(new ImageAdapter(MainActivity.this));
             }
         });
 
@@ -573,17 +558,18 @@ public class MainActivity extends AppCompatActivity {
                         mCk = 1;
                     }
                 } else {
-                    ((CircularImageView)mSelectedItemView).setBorderColor(mColor[0]);
-                    ((CircularImageView)mSelectedItemView).setShadowRadius(sr);
-                    ((CircularImageView)mSelectedItemView).setBorderWidth(bw);
+                    ++mActionBtnClickCount;
+                    if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null){
+                        setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
+                    }
                     if (mCk == 1) {
-                        mTts.speak(layer_1_speech[mSelectedItemPosition][1], TextToSpeech.QUEUE_FLUSH, null);
+                        mTts.speak(layer_1_speech[mSelectedItemLayoutPos][1], TextToSpeech.QUEUE_FLUSH, null);
                         mCk = 0;
                     } else {
-                        mTts.speak(layer_1_speech[mSelectedItemPosition][0], TextToSpeech.QUEUE_FLUSH, null);
+                        mTts.speak(layer_1_speech[mSelectedItemLayoutPos][0], TextToSpeech.QUEUE_FLUSH, null);
                         mCk = 1;
                     }
-                    ++mActionBtnClickCount;
+
                 }
             }
         });
@@ -603,17 +589,17 @@ public class MainActivity extends AppCompatActivity {
                         mCd = 1;
                     }
                 } else {
-                    ((CircularImageView)mSelectedItemView).setBorderColor(mColor[1]);
-                    ((CircularImageView)mSelectedItemView).setShadowRadius(sr);
-                    ((CircularImageView)mSelectedItemView).setBorderWidth(bw);
+                    ++mActionBtnClickCount;
+                    if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
+                        setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCd == 1) {
-                        mTts.speak(layer_1_speech[mSelectedItemPosition][7], TextToSpeech.QUEUE_FLUSH, null);
+                        mTts.speak(layer_1_speech[mSelectedItemLayoutPos][7], TextToSpeech.QUEUE_FLUSH, null);
                         mCd = 0;
                     } else {
-                        mTts.speak(layer_1_speech[mSelectedItemPosition][6], TextToSpeech.QUEUE_FLUSH, null);
+                        mTts.speak(layer_1_speech[mSelectedItemLayoutPos][6], TextToSpeech.QUEUE_FLUSH, null);
                         mCd = 1;
                     }
-                    ++mActionBtnClickCount;
+
                 }
             }
         });
@@ -633,17 +619,17 @@ public class MainActivity extends AppCompatActivity {
                         mCy = 1;
                     }
                 } else {
-                    ((CircularImageView)mSelectedItemView).setBorderColor(mColor[2]);
-                    ((CircularImageView)mSelectedItemView).setShadowRadius(sr);
-                    ((CircularImageView)mSelectedItemView).setBorderWidth(bw);
+                    ++mActionBtnClickCount;
+                    if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
+                        setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCy == 1) {
-                        mTts.speak(layer_1_speech[mSelectedItemPosition][3], TextToSpeech.QUEUE_FLUSH, null);
+                        mTts.speak(layer_1_speech[mSelectedItemLayoutPos][3], TextToSpeech.QUEUE_FLUSH, null);
                         mCy = 0;
                     } else {
-                        mTts.speak(layer_1_speech[mSelectedItemPosition][2], TextToSpeech.QUEUE_FLUSH, null);
+                        mTts.speak(layer_1_speech[mSelectedItemLayoutPos][2], TextToSpeech.QUEUE_FLUSH, null);
                         mCy = 1;
                     }
-                    ++mActionBtnClickCount;
+
                 }
             }
         });
@@ -663,17 +649,17 @@ public class MainActivity extends AppCompatActivity {
                         mCn = 1;
                     }
                 } else {
-                    ((CircularImageView)mSelectedItemView).setBorderColor(mColor[3]);
-                    ((CircularImageView)mSelectedItemView).setShadowRadius(sr);
-                    ((CircularImageView)mSelectedItemView).setBorderWidth(bw);
+                    ++mActionBtnClickCount;
+                    if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
+                        setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCn == 1) {
-                        mTts.speak(layer_1_speech[mSelectedItemPosition][9], TextToSpeech.QUEUE_FLUSH, null);
+                        mTts.speak(layer_1_speech[mSelectedItemLayoutPos][9], TextToSpeech.QUEUE_FLUSH, null);
                         mCn = 0;
                     } else {
-                        mTts.speak(layer_1_speech[mSelectedItemPosition][8], TextToSpeech.QUEUE_FLUSH, null);
+                        mTts.speak(layer_1_speech[mSelectedItemLayoutPos][8], TextToSpeech.QUEUE_FLUSH, null);
                         mCn = 1;
                     }
-                    ++mActionBtnClickCount;
+
                 }
             }
         });
@@ -693,17 +679,16 @@ public class MainActivity extends AppCompatActivity {
                         mCm = 1;
                     }
                 } else {
-                    ((CircularImageView)mSelectedItemView).setBorderColor(mColor[4]);
-                    ((CircularImageView)mSelectedItemView).setShadowRadius(sr);
-                    ((CircularImageView)mSelectedItemView).setBorderWidth(bw);
+                    ++mActionBtnClickCount;
+                    if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
+                        setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCm == 1) {
-                        mTts.speak(layer_1_speech[mSelectedItemPosition][5], TextToSpeech.QUEUE_FLUSH, null);
+                        mTts.speak(layer_1_speech[mSelectedItemLayoutPos][5], TextToSpeech.QUEUE_FLUSH, null);
                         mCm = 0;
                     } else {
-                        mTts.speak(layer_1_speech[mSelectedItemPosition][4], TextToSpeech.QUEUE_FLUSH, null);
+                        mTts.speak(layer_1_speech[mSelectedItemLayoutPos][4], TextToSpeech.QUEUE_FLUSH, null);
                         mCm = 1;
                     }
-                    ++mActionBtnClickCount;
                 }
             }
         });
@@ -723,27 +708,33 @@ public class MainActivity extends AppCompatActivity {
                         mCl = 1;
                     }
                 } else {
-                    ((CircularImageView)mSelectedItemView).setBorderColor(mColor[5]);
-                    ((CircularImageView)mSelectedItemView).setShadowRadius(sr);
-                    ((CircularImageView)mSelectedItemView).setBorderWidth(bw);
+                    ++mActionBtnClickCount;
+                    if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
+                        setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCl == 1) {
-                        mTts.speak(layer_1_speech[mSelectedItemPosition][11], TextToSpeech.QUEUE_FLUSH, null);
+                        mTts.speak(layer_1_speech[mSelectedItemLayoutPos][11], TextToSpeech.QUEUE_FLUSH, null);
                         mCl = 0;
                     } else {
-                        mTts.speak(layer_1_speech[mSelectedItemPosition][10], TextToSpeech.QUEUE_FLUSH, null);
+                        mTts.speak(layer_1_speech[mSelectedItemLayoutPos][10], TextToSpeech.QUEUE_FLUSH, null);
                         mCl = 1;
                     }
-                    ++mActionBtnClickCount;
                 }
             }
         });
+    }
+
+    private void resetRecycleraMenuItemsAndFlags() {
+        resetActionButtons(6);
+        mSelectedItemLayoutPos = -1;
+        resetRecyclerAllItems();
+        mActionBtnClickCount = 0;
     }
 
     private void setMenuImageBorder(View recyclerChildView, boolean setBorder) {
         CircularImageView circularImageView = (CircularImageView) recyclerChildView.findViewById(R.id.icon1);
         if (setBorder){
             if(mActionBtnClickCount > 0)
-                ((CircularImageView)mSelectedItemView).setBorderColor(mColor[image_flag]);
+                circularImageView.setBorderColor(mColor[image_flag]);
             else {
                 circularImageView.setBorderColor(-1283893945);
                 circularImageView.setShadowColor(-1283893945);
@@ -765,6 +756,7 @@ public class MainActivity extends AppCompatActivity {
         no.setImageResource(R.drawable.idontwantwithout);
         add.setImageResource(R.drawable.morewithout);
         minus.setImageResource(R.drawable.lesswithout);
+        home.setImageResource(R.drawable.home);
         switch (image_flag){
             case 0: like.setImageResource(R.drawable.ilikewithoutline); break;
             case 1: dislike.setImageResource(R.drawable.idontlikewithoutline); break;
@@ -772,7 +764,14 @@ public class MainActivity extends AppCompatActivity {
             case 3: no.setImageResource(R.drawable.idontwantwithoutline); break;
             case 4: add.setImageResource(R.drawable.morewithoutline); break;
             case 5: minus.setImageResource(R.drawable.lesswithoutline); break;
+            case 6: home.setImageResource(R.drawable.homepressed);
             default: break;
+        }
+    }
+
+    private void resetRecyclerAllItems() {
+        for(int i = 0; i< mRecyclerView.getChildCount(); ++i){
+            setMenuImageBorder(mRecyclerView.getChildAt(i), false);
         }
     }
 

@@ -84,8 +84,7 @@
                 android:divider="@null"
                 android:fadeScrollbars="false"
                 android:scrollbarFadeDuration="0"
-                android:layout_centerHorizontal="true"
-                android:background="#FFF">
+                android:layout_centerHorizontal="true">
 
             </android.support.v7.widget.RecyclerView>
             <LinearLayout

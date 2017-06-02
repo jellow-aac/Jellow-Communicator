@@ -4,19 +4,26 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.dsource.idc.jellow.Utility.AppPreferences;
+import com.dsource.idc.jellow.Utility.EvaluateDisplayMetricsUtils;
+
 /**
  * Created by ekalpa on 4/19/2016.
  */
 
 public class ImageAdapter extends android.support.v7.widget.RecyclerView.Adapter<ImageAdapter.MyViewHolder> {
+    private static final int LANG_ENG = 0, LANG_HINDI = 1, GRID_1BY3 = 0, GRID_3BY3 = 1, MODE_PICTURE_ONLY = 1;
     private Context mContext;
     private SessionManager session;
+    private AppPreferences mAppPref;
+    private EvaluateDisplayMetricsUtils mMetricsUtils;
 
     // Keep all Images in array
     public static Integer[] mThumbId = {
@@ -30,7 +37,6 @@ public class ImageAdapter extends android.support.v7.widget.RecyclerView.Adapter
     public static String[] belowText_hindi = {"शुभकामना और भावना...", "रोज़ के काम...", "खाना...", "मज़े...", "सीखना...", "लोग...", "जगह...", "समय और मौसम...", "मदद..."};
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(), "fonts/Mukta-Regular.ttf");
         private CircularImageView menuItemImage;
         private LinearLayout menuItemLinearLayout;
         private TextView menuItemBelowText;
@@ -40,7 +46,8 @@ public class ImageAdapter extends android.support.v7.widget.RecyclerView.Adapter
             menuItemImage = (CircularImageView) view.findViewById(R.id.icon1);
             menuItemLinearLayout = (LinearLayout) view.findViewById(R.id.linearlayout_icon1);
             menuItemBelowText = (TextView) view.findViewById(R.id.te1);
-            menuItemBelowText.setTypeface(custom_font);
+            Typeface font = Typeface.createFromAsset(mContext.getAssets(), "fonts/Mukta-Regular.ttf");
+            menuItemBelowText.setTypeface(font,  Typeface.BOLD);
             menuItemBelowText.setTextColor(Color.rgb(64, 64, 64));
         }
     }
@@ -48,42 +55,63 @@ public class ImageAdapter extends android.support.v7.widget.RecyclerView.Adapter
     public ImageAdapter(Context c) {
         this.mContext = c;
         session = new SessionManager(mContext);
+        mAppPref = new AppPreferences(mContext);
+        mMetricsUtils = new EvaluateDisplayMetricsUtils(mContext);
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.myscrolllist2, parent, false);
-        /*DisplayMetrics displayMetrics = mContext.getResources().getDisplayMetrics();
-        float dpHeight = displayMetrics.heightPixels / displayMetrics.density;
-        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;*/
-        /*if (session.getGridSize()==0){
-            rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.myscrolllist2, parent, false);
-        }else if (dpHeight >= 720 && session.getGridSize()==1)
-            rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.myscrolllist2, parent, false);
-        else if (dpWidth >640 && dpWidth <=1024 && session.getGridSize()==1)
-            rowView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.myscrolllist2, parent, false);
-        else if (dpWidth > 600 && dpWidth <=640 && session.getGridSize()==1) {
-            rowView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.myscrolllist33, parent, false);
-        }else {
-            rowView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.myscrolllist33, parent, false);
-        }*/
         return new ImageAdapter.MyViewHolder(rowView);
     }
 
     @Override
     public void onBindViewHolder(final ImageAdapter.MyViewHolder holder, final int position) {
-        if (session.getGridSize() == 0) {
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.setMargins(0, 336, 0, 336);
-            holder.menuItemLinearLayout.setLayoutParams(params);
-        }else {
-            holder.menuItemLinearLayout.setScaleX(0.7f);
-            holder.menuItemLinearLayout.setScaleY(0.7f);
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        if (session.getGridSize() == GRID_1BY3) {
+            holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+            if (mAppPref.getScreenHeight() >= 720) {
+                params.setMargins(mMetricsUtils.getPixelsFromDpVal(36), mMetricsUtils.getPixelsFromDpVal(180), 0, mMetricsUtils.getPixelsFromDpVal(180));
+            }else if (mAppPref.getScreenWidth() > 640 && mAppPref.getScreenWidth() <= 1024) {
+                params.setMargins(mMetricsUtils.getPixelsFromDpVal(28), mMetricsUtils.getPixelsFromDpVal(124), 0, mMetricsUtils.getPixelsFromDpVal(124));
+                if(session.getLanguage() == LANG_HINDI) holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+            }else {
+                params.setMargins(mMetricsUtils.getPixelsFromDpVal(12), mMetricsUtils.getPixelsFromDpVal(92), 0, mMetricsUtils.getPixelsFromDpVal(92));
+                holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+            }
+        }else if(session.getGridSize() == GRID_3BY3){
+            if (mAppPref.getScreenHeight() >= 720) {
+                if(session.getLanguage() == LANG_HINDI) {
+                    holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 28);
+                    params.setMargins(mMetricsUtils.getPixelsFromDpVal(16), mMetricsUtils.getPixelsFromDpVal(-18), 0, mMetricsUtils.getPixelsFromDpVal(-38));
+                }else{
+                    params.setMargins(mMetricsUtils.getPixelsFromDpVal(36), mMetricsUtils.getPixelsFromDpVal(-16), 0, mMetricsUtils.getPixelsFromDpVal(-29));
+                }
+                holder.menuItemLinearLayout.setScaleX(0.7f);    holder.menuItemLinearLayout.setScaleY(0.7f);
+            }else if (mAppPref.getScreenWidth() > 640 && mAppPref.getScreenWidth() <= 1024) {
+                if(session.getLanguage() == LANG_HINDI) {
+                    holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+                    params.setMargins(mMetricsUtils.getPixelsFromDpVal(16), mMetricsUtils.getPixelsFromDpVal(1), 0, mMetricsUtils.getPixelsFromDpVal(-4));
+                }else{
+                    params.setMargins(mMetricsUtils.getPixelsFromDpVal(16), mMetricsUtils.getPixelsFromDpVal(1), 0, mMetricsUtils.getPixelsFromDpVal(8));
+                }
+            }else {
+                if(session.getLanguage() == LANG_HINDI) {
+                    holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+                    params.setMargins(mMetricsUtils.getPixelsFromDpVal(16), mMetricsUtils.getPixelsFromDpVal(0), 0, mMetricsUtils.getPixelsFromDpVal(-3));
+                }else {
+                    params.setMargins(mMetricsUtils.getPixelsFromDpVal(12), mMetricsUtils.getPixelsFromDpVal(0), 0, mMetricsUtils.getPixelsFromDpVal(0));
+                    holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+                }
+                if (position == mThumbId.length-1)  holder.menuItemLinearLayout.setLayerType(View.LAYER_TYPE_SOFTWARE, null); //Resolve black circular imageview issue.
+            }
         }
-        if(session.getLanguage() == 0)
+        if (session.getPictureViewMode() == MODE_PICTURE_ONLY)
+            holder.menuItemBelowText.setVisibility(View.INVISIBLE);
+        holder.menuItemLinearLayout.setLayoutParams(params);
+
+        if(session.getLanguage() == LANG_ENG)
             holder.menuItemBelowText.setText(belowText_english[position]);
         else
             holder.menuItemBelowText.setText(belowText_hindi[position]);

@@ -1,81 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearlayout_icon1"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="#FF5">
-    <!--<RelativeLayout
-        android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:layout_gravity="center">
+    <com.dsource.idc.jellow.CircularImageView
+        android:id="@+id/icon1"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/windy" />
+    <TextView
+        android:id="@+id/te1"
+        android:layout_width="168dp"
         android:layout_height="wrap_content"
-        android:fadeScrollbars="false"
-        android:layout_marginTop="72dp"
-        android:layout_marginBottom="92dp"
-        android:gravity="center_horizontal">-->
-        <LinearLayout
-            android:id="@+id/linearlayout_icon1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_horizontal">
-            <com.dsource.idc.jellow.CircularImageView
-                android:id="@+id/icon1"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/windy" />
-            <TextView
-                android:id="@+id/te1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10dp"
-                android:text="TIME AND WEATHER"
-                android:textAllCaps="true"
-                android:textAlignment="center"
-                android:textColor="#000000"/>
-        </LinearLayout>
-        <!--<LinearLayout
-            android:id="@+id/linearlayout_icon2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/linearlayout_icon1"
-            android:orientation="vertical"
-            android:gravity="center_horizontal"
-            android:layout_marginLeft="32dp"
-            android:layout_marginRight="32dp">
-            <com.dsource.idc.jellow.CircularImageView
-                android:id="@+id/icon2"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/windy"/>
-            <TextView
-                android:id="@+id/te2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10dp"
-                android:text="TIME AND WATHER"
-                android:textAllCaps="true"
-                android:textAlignment="center"
-                android:textColor="#000000"/>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/linearlayout_icon3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/linearlayout_icon2"
-            android:orientation="vertical"
-            android:gravity="center_horizontal">
-            <com.dsource.idc.jellow.CircularImageView
-                android:id="@+id/icon3"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/windy"/>
-            <TextView
-                android:id="@+id/te3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10dp"
-                android:text="TIME AND WEATHER"
-                android:textAllCaps="true"
-                android:textAlignment="center"
-                android:textColor="#000000"/>
-        </LinearLayout>
-    </RelativeLayout>-->
+        android:text="TIME AND WEATHER"
+        android:textAlignment="center"
+        android:singleLine="true"
+        android:textAllCaps="true"/>
 </LinearLayout>

@@ -1,7 +1,9 @@
 .gradle
 .idea
-app/build/
+app/build
+JellowCommunicatorApp.iml
 app/app.iml
 /build
 JellowCommunicator.iml
 /local.properties
+captures/

@@ -49,5 +49,7 @@
 
     <string name="simple_ime">Jellow Keyboard</string>
     <string name="subtype_en_US">Serial ABC</string>
+    <string name="screen_width">com.dsource.idc.jellow.screen_width</string>
+    <string name="screen_height">com.dsource.idc.jellow.screen_height</string>
 
 </resources>
