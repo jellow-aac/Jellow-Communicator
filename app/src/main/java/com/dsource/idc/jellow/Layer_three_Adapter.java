@@ -1197,7 +1197,7 @@ int position=-1;
                j = j - 1;
            } else {
                tv1.setText(" ");
-               //   img1.setImageResource(0);
+               //   menuItemImage.setImageResource(0);
                img1.setImageResource(R.drawable.background_circle);
                img1.setEnabled(false);
 
@@ -1245,7 +1245,7 @@ int position=-1;
                j = j - 1;
            } else {
                tv1.setText(" ");
-               //   img1.setImageResource(0);
+               //   menuItemImage.setImageResource(0);
                img1.setImageResource(R.drawable.background_circle);
                img1.setEnabled(false);
 

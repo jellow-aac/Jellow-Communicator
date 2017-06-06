@@ -143,19 +143,19 @@ public class Sequence_Activity extends AppCompatActivity {
             public void onInit(int status) {
                 if (status != TextToSpeech.ERROR) {
 
-                    tts.setEngineByPackageName("com.google.android.tts");           //use this package of google
+                    tts.setEngineByPackageName("com.google.android.mTts");           //use this package of google
                     new LongOperation().execute("");
                    /* if (session.getLanguage()==0 && session.getAccent() == 0){
-                        tts.setLanguage(new Locale("hin", "IND"));
+                        mTts.setLanguage(new Locale("hin", "IND"));
                     }
                     if (session.getLanguage()==0 && session.getAccent() == 1){
-                        tts.setLanguage(new Locale("en", "IN"));
+                        mTts.setLanguage(new Locale("en", "IN"));
                     }
                     if (session.getLanguage()==0 && session.getAccent() == 2){
-                        tts.setLanguage(Locale.UK);
+                        mTts.setLanguage(Locale.UK);
                     }
                     if (session.getLanguage()==1){
-                        tts.setLanguage(new Locale("hin", "IND"));
+                        mTts.setLanguage(new Locale("hin", "IND"));
                     }*/
                 }
             }
@@ -1158,10 +1158,10 @@ public class Sequence_Activity extends AppCompatActivity {
                     tts.setLanguage(new Locale("hin", "IND"));
                 }
                 /*if (session.getLanguage()==0 *//*&& session.getAccent() == 1*//*){
-                    tts.setLanguage(new Locale("en", "IN"));
+                    mTts.setLanguage(new Locale("en", "IN"));
                 }
                 if (session.getLanguage()==0 *//*&& session.getAccent() == 2*//*){
-                    tts.setLanguage(Locale.UK);
+                    mTts.setLanguage(Locale.UK);
                 }*/
                 if (session.getLanguage()==1){
                     tts.setLanguage(new Locale("hin", "IND"));

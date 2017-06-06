@@ -63,9 +63,9 @@ public class Tutorial extends AppCompatActivity {
         pic9=(ImageView)findViewById(R.id.pic9);
         pic10=(ImageView)findViewById(R.id.pic10);
 
-        String stringresources = "To use Jellow, please activate "+"<b>"+"'Google text-to-speech (tts)'"+"</b>"+" within "+"<b>"+"'Language'"+"</b>"+" settings of your device. Within Google tts settings, first change the "+"<b>"+" default language "+"</b>"+" to "+"<b>"+" 'Hindi(India)' "+"</b>"+" and then "+"<b>"+" download 'Hindi(India) voice "+"</b>"+" through the "+"<b>"+"'Install voice data' "+"</b>"+" option." ;
+        String stringresources = "To use Jellow, please activate "+"<b>"+"'Google text-to-speech (mTts)'"+"</b>"+" within "+"<b>"+"'Language'"+"</b>"+" settings of your device. Within Google mTts settings, first change the "+"<b>"+" default language "+"</b>"+" to "+"<b>"+" 'Hindi(India)' "+"</b>"+" and then "+"<b>"+" download 'Hindi(India) voice "+"</b>"+" through the "+"<b>"+"'Install voice data' "+"</b>"+" option." ;
         tv14.setText(Html.fromHtml(stringresources));
-        //To use Jellow, please activate 'Google text-to-speech (tts)' within 'Language' settings of your device. Within Google tts settings first change the default language to 'Hindi (India)' and then download 'Hindi (India)' voice through the 'Install voice data' option"
+        //To use Jellow, please activate 'Google text-to-speech (mTts)' within 'Language' settings of your device. Within Google mTts settings first change the default language to 'Hindi (India)' and then download 'Hindi (India)' voice through the 'Install voice data' option"
 
         String stringresourceshindi = "जेलो का इस्तमाल करने के लिए कृपया अपने यंत्र के"+"<b>"+" ‘भाषा'"+"</b>"+" सेटिंग्स में जाकर "+"<b>"+"‘गूगल टेक्सट टू स्पीच'"+"</b>"+" को सक्रिय करें| कृपया गूगल टेक्सट टू स्पीच के सेटिंग्स में जाकर पहले "+"<b>"+" 'हिंदी (इंडिया)' भाषा "+"</b>"+" को "+"<b>"+" डिफ़ॉल्ट "+"</b>"+" बनाएँ और फिर "+"<b>"+"'हिंदी (इंडिया)' आवाज़ "+"</b>"+" डाउन्लोड करें|";
 

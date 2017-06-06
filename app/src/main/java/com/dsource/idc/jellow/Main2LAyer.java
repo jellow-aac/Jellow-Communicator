@@ -3,12 +3,11 @@ package com.dsource.idc.jellow;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.KeyListener;
 import android.util.DisplayMetrics;
@@ -22,7 +21,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
+import android.widget.LinearLayout;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -35,19 +34,20 @@ import static com.dsource.idc.jellow.Adapter_ppl_places.places_more;
 
 
 public class Main2LAyer extends AppCompatActivity {
-    int position=0;
-    int clike = 0, cy = 0, cm = 0, cd = 0, cn = 0, cl = 0;
-
-    View vi;
-    int location = -2, flag = 0, image_flag = -1, flag_keyboard = 0;
-    int locayy=-1;
-    ImageView like, dislike, add, minus, yes, no, home, keyboard, ttsButton, back;
-    ListView listView;
-    private RecyclerView recyclerView;
-    ImageAdapter imgad;
-
+    int mCk = 0, mCy = 0, mCm = 0, mCd = 0, mCn = 0, mCl = 0;
+    int location = -2, flag = 0, image_flag = -1, flag_keyboard = 0, mActionBtnClickCount; // S
+    private ImageView like, dislike, add, minus, yes, no, home, keyboard, ttsButton, back;
     private EditText et;
-    private CircularImageView im1,im2,im3, im4, im5, im6, im7, im8, im9;
+    private KeyListener originalKeyListener;
+    private RecyclerView mRecyclerView;
+    private CircularImageView mMenuItemImage;
+    private LinearLayout mMenuItemLinearLayout;
+    private int mLevelOneItemPos, mLevelTwoItemPos;
+    private View mSelectedItemView;
+    private boolean mShouldReadFullSpeech = false;
+    private TextToSpeech mTts;
+    private LayerImageAdapter mLayerImageAdapter;
+    private Integer[] mColor = {-5317, -12627531 , -7617718 , -2937298 , -648053365 , -1761607680 };
 
     String[] learning_text =
             {"Animals and Birds", "Body", "Books", "Colours", "Shapes", "Stationery", "School objects", "Home objects", "Tran sport Modes"};
@@ -99,6 +99,7 @@ public class Main2LAyer extends AppCompatActivity {
                     "Store", "Friend's House", "Relative's House", "Hospital", "Clinic", "Library", "Terrace"};
 
     final String[] level1_hindi ={"शुभकामना और भावना", "रोज़ के काम", "खाना", "मज़े", "सीखना", "लोग", "जगह", "समय और मौसम", "मदद"};
+
     final String[] level1_english ={"Greet and Feel", "Daily Activities", "Eating", "Fun", "Learning", "People", "Places", "Time and Weather", "Help"};
 
     final String[][]  level2_hindi ={
@@ -145,7 +146,6 @@ public class Main2LAyer extends AppCompatActivity {
             R.drawable.level2_people_doctor,  R.drawable.level2_people_nurse, R.drawable.level2_people_caregiver1,
             R.drawable.level2_people_stranger, R.drawable.level2_people_aboutme
     };
-
     public Integer[] places = {
             R.drawable.level2_places_home, R.drawable.level2_places_school1,
             R.drawable.level2_places_mall, R.drawable.level2_places_museum1,
@@ -155,28 +155,28 @@ public class Main2LAyer extends AppCompatActivity {
             R.drawable.level2_places_relative_house, R.drawable.level2_places_hospital,
             R.drawable.level2_places_clinic,R.drawable.level2_places_library, R.drawable.level2_places_terr
     };
+
     public static String[] people_adapter =
             {"Mother", "Father", "Brother", "Sister", "Grandfather", "Grandmother", "Uncle", "Aunt", "Cousin", "Baby", "Friends", "Teacher", "Doctor", "Nurse", "Caregiver", "Stranger", "About Me"};
 
-
-    final String[] side_hindi = {"अच्छा लगता हैं", "सच में अच्छा लगता हैं", "हाँ", "सच में हाँ", "ज़्यादा", "सच में ज़्यादा", "अच्छा नहीं लगता हैं", "सच में अच्छा नहीं लगता हैं", "नहीं", "सच में नहीं", "कम", "सच में कम"};
-    final String[] side_english = {"like", "really like", "yes", "really yes", "more", "really more", "dont like", "really dont like", "no", "really no", "less", "really less"};
-
-    final String[] below_hindi = {"होम", "वापस", "कीबोर्ड"};
-    final String[] below_english = {"Home", "back", "keyboard"};
-    private KeyListener originalKeyListener;
-
     private SessionManager session;
-    TextToSpeech tts;
-    float dpHeight,dpWidth;
-    int sr, bw;
-    public static String[] temp = new String[100];
-    public static Integer[] image_temp = new Integer[100];
+
     String[][][] layer_2_speech = new String[100][100][100];
+    String[] myMusic;
     String[] side = new String[100];
     String[] below = new String[100];
-    String[] myMusic;
-    Integer[] color = {-5317, -12627531 , -7617718 , -2937298 , -648053365 , -1761607680 };
+
+    float dpHeight,dpWidth;
+    int sr, bw;
+
+    final String[] side_english = {"like", "really like", "yes", "really yes", "more", "really more", "dont like", "really dont like", "no", "really no", "less", "really less"};
+    final String[] side_hindi = {"अच्छा लगता हैं", "सच में अच्छा लगता हैं", "हाँ", "सच में हाँ", "ज़्यादा", "सच में ज़्यादा", "अच्छा नहीं लगता हैं", "सच में अच्छा नहीं लगता हैं", "नहीं", "सच में नहीं", "कम", "सच में कम"};
+
+    final String[] below_english = {"Home", "back", "keyboard"};
+    final String[] below_hindi = {"होम", "वापस", "कीबोर्ड"};
+
+    public static String[] temp = new String[100];
+    public static Integer[] image_temp = new Integer[100];
 
     public static String[] new_places_adapter = new String[100];
     SharedPreferences sharedpreferences,sharedPreferences_places;
@@ -199,8 +199,6 @@ public class Main2LAyer extends AppCompatActivity {
     String b;
     String end = " है।";
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -208,12 +206,12 @@ public class Main2LAyer extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
         session = new SessionManager(getApplicationContext());
-        //new LayerActivity.LongOperation1().execute("");
-        new LongOperation1().execute("");
+        //new LayerActivity.CalculateSrBwAsync().execute("");
+        new CalculateSrBwAsync().execute("");
 
         Intent i = getIntent();
-        position = i.getExtras().getInt("id");
-        Log.d("possss",position+"");
+        mLevelOneItemPos = i.getExtras().getInt("mLevelOneItemPos");
+        Log.d("possss", mLevelOneItemPos +"");
         myMusic = new String[100];
         like = (ImageView) findViewById(R.id.ivlike);
         dislike = (ImageView) findViewById(R.id.ivdislike);
@@ -228,29 +226,84 @@ public class Main2LAyer extends AppCompatActivity {
         et = (EditText) findViewById(R.id.et);
         et.setVisibility(View.INVISIBLE);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        mRecyclerView.setLayoutManager( new GridLayoutManager(this, 3));
 
-        imgad = new ImageAdapter(Main2LAyer.this);
-       RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        mLayerImageAdapter = new LayerImageAdapter(this, mLevelOneItemPos, temp, image_temp);
+        mRecyclerView.setAdapter(new LayerImageAdapter(this, mLevelOneItemPos, temp, image_temp));
 
-        recyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setVerticalScrollBarEnabled(true);
+        mRecyclerView.setScrollbarFadingEnabled(false);
+
+        mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), mRecyclerView, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(final View view, final int position) {
+                mMenuItemLinearLayout = (LinearLayout)view.findViewById(R.id.linearlayout_icon1);
+                mMenuItemImage = (CircularImageView) view.findViewById(R.id.icon1);
+                mMenuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        resetActionButtons(-1);
+                        resetPreviousSelectedItem();
+                        mMenuItemImage.setBorderColor(-1283893945);
+                        mMenuItemImage.setShadowColor(-1283893945);
+                        mMenuItemImage.setShadowRadius(sr);
+                        mMenuItemImage.setBorderWidth(bw);
+                        mShouldReadFullSpeech = true;
+                        mLevelTwoItemPos = position;
+                        mSelectedItemView = mMenuItemImage;
+                        mActionBtnClickCount = 0;
+                        /*Intent intent = new Intent(Main2Layer.this, Layer3Activity.class);
+                        intent.putExtra("id", mLevelOneItemPos);
+                        startActivity(intent);*/
+                        //getSupportActionBar().setTitle(english1[mLevelOneItemPos]);
+                        mTts.speak(myMusic[position], TextToSpeech.QUEUE_FLUSH, null);
+                    }
+
+                    private void resetPreviousSelectedItem() {
+                        for(int i = 0; i< mRecyclerView.getChildCount(); ++i){
+                            setMenuImageBorder(mRecyclerView.getChildAt(i), false);
+                        }
+                    }
+                });
+            }
+            @Override   public void onLongClick(View view, int position) {}
+        }));
+
+        mRecyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
+            @Override
+            public void onChildViewAttachedToWindow(View view) {
+                CircularImageView circularImageView = (CircularImageView) view.findViewById(R.id.icon1);
+                if(mSelectedItemView != null && circularImageView.equals(mSelectedItemView)){
+                    setMenuImageBorder(view, true);
+                }else{
+                    setMenuImageBorder(view, false);
+                }
+            }
+
+            @Override
+            public void onChildViewDetachedFromWindow(View view) {
+                setMenuImageBorder(view, false);
+            }
+        });
+
         if (session.getLanguage()==0 ){
-            //String title = "L1 " + level1_english[position] + " > L2";
+            //String title = "L1 " + level1_english[mLevelOneItemPos] + " > L2";
             //getSupportActionBar().setTitle(title);
             people = people_english;
             end =  "";
         }
         if (session.getLanguage()==1){
-            //String title = "श्रेणी स्तर १ " + level1_hindi[position] + " > श्रेणी स्तर २ ";
+            //String title = "श्रेणी स्तर १ " + level1_hindi[mLevelOneItemPos] + " > श्रेणी स्तर २ ";
             //getSupportActionBar().setTitle(title);
             people = people_hindi;
             end = " है।";
         }
-        if (position != 5 || position != 6) {
-            recyclerView.setAdapter(new LayerImageAdapter(this, position, temp, image_temp));
+        if (mLevelOneItemPos != 5 || mLevelOneItemPos != 6) {
+            mRecyclerView.setAdapter(new LayerImageAdapter(this, mLevelOneItemPos, temp, image_temp));
         }
 
-        if (position == 5) {
+        if (mLevelOneItemPos == 5) {
             count_people = new Integer[people.length];
             new_people_count = new Integer[people.length];
             sort = new int[people.length];
@@ -272,7 +325,7 @@ public class Main2LAyer extends AppCompatActivity {
         if (Reset__preferences.flag == 1)
             sharedpreferences.edit().clear().commit();
 
-        if (position == 5) {
+        if (mLevelOneItemPos == 5) {
             if (session.getLanguage() == 0){
                 if (sharedpreferences.contains(people_count)) {
                     String savedString = sharedpreferences.getString("people_count", "");
@@ -308,7 +361,7 @@ public class Main2LAyer extends AppCompatActivity {
             }
             System.out.println();
             System.out.print("Sorted");
-            Integer[] indexes = new Integer[layer_2_speech[position].length];
+            Integer[] indexes = new Integer[layer_2_speech[mLevelOneItemPos].length];
             int g = 0;
             for (Integer ij : is.getIndexes()) {
                 indexes[g] = ij;
@@ -334,10 +387,10 @@ public class Main2LAyer extends AppCompatActivity {
                 Log.d("CHERRRRr",new_people_adapter[j]+"");
             }
 
-            if (position == 5) {
+            if (mLevelOneItemPos == 5) {
                 temp = Arrays.copyOfRange(new_people_adapter, 0, new_people_count.length);
                 image_temp = Arrays.copyOfRange(new_people, 0, new_people_count.length);
-               recyclerView.setAdapter(new Adapter_ppl_places(this, position, temp, image_temp));
+               mRecyclerView.setAdapter(new Adapter_ppl_places(this, mLevelOneItemPos, temp, image_temp));
             }
         }
         sharedPreferences_places = getSharedPreferences(places_count,Context.MODE_PRIVATE);
@@ -376,10 +429,10 @@ public class Main2LAyer extends AppCompatActivity {
                 new_places_adapter[j] = places_adapter_hindi[sort_places[j]];
         }
 
-        if (position == 6) {
+        if (mLevelOneItemPos == 6) {
             temp = Arrays.copyOfRange(new_places_adapter, 0, new_places_count.length);
             image_temp = Arrays.copyOfRange(new_places, 0, new_places_count.length);
-            recyclerView.setAdapter(new Adapter_ppl_places(this, position, temp, image_temp));
+            mRecyclerView.setAdapter(new Adapter_ppl_places(this, mLevelOneItemPos, temp, image_temp));
         }
 
         ttsButton = (ImageView) findViewById(R.id.ttsbutton);
@@ -389,24 +442,24 @@ public class Main2LAyer extends AppCompatActivity {
         // Set it to null - this will make the field non-editable
         et.setKeyListener(null);
 
-        tts=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+        mTts =new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
                 if(status != TextToSpeech.ERROR) {
-                    myMusic_function(position);
-                    tts.setEngineByPackageName("com.google.android.tts");
-                    new LongOperation().execute("");
+                    myMusic_function(mLevelOneItemPos);
+                    mTts.setEngineByPackageName("com.google.android.mTts");
+                    new BackgroundSpeechOperationsAsync().execute("");
                 }
             }
         });
-        tts.setSpeechRate((float) session.getSpeed()/50);
-        tts.setPitch((float) session.getPitch()/50);
+        mTts.setSpeechRate((float) session.getSpeed()/50);
+        mTts.setPitch((float) session.getPitch()/50);
 
         final int[] prev_pos = {-1};
         final int[] cko = {-1};
         final View[] x = {null};
-//recyclerView.setScrollbarFadingEnabled(false);
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(),recyclerView, new RecyclerTouchListener.ClickListener() {
+
+/*        mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), mRecyclerView, new RecyclerTouchListener.ClickListener() {
 
                     @Override
                     public void onClick(final View view, final int position1) {
@@ -414,21 +467,21 @@ public class Main2LAyer extends AppCompatActivity {
                             notifyDataSet(x[0]);
                         }
                         if (session.getGridSize()==0){
-                        im1 = (CircularImageView) view.findViewById(R.id.icon1);
+                        mMenuItemImage = (CircularImageView) view.findViewById(R.id.icon1);
                         im2 = (CircularImageView) view.findViewById(R.id.icon2);
                         im3 = (CircularImageView) view.findViewById(R.id.icon3);
-                        //Toast.makeText(Main2LAyer.this,"pos"+position+"id2"+locayy,Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(Main2LAyer.this,"pos"+mLevelOneItemPos+"id2"+locayy,Toast.LENGTH_SHORT).show();
                            Log.d("Position1", position1 + " " + prev_pos[0]);
-                           im1.setOnClickListener(new View.OnClickListener() {
+                           mMenuItemImage.setOnClickListener(new View.OnClickListener() {
 
                                @Override
                                public void onClick(View v) {
 
                                    unset();
-                                   im1.setBorderColor(-1283893945);
-                                   im1.setShadowColor(-1283893945);
-                                   im1.setShadowRadius(sr);
-                                   im1.setBorderWidth(bw);
+                                   mMenuItemImage.setBorderColor(-1283893945);
+                                   mMenuItemImage.setShadowColor(-1283893945);
+                                   mMenuItemImage.setShadowRadius(sr);
+                                   mMenuItemImage.setBorderWidth(bw);
 
                                    im2.setBorderColor(-1);
                                    im2.setShadowColor(0);
@@ -440,7 +493,7 @@ public class Main2LAyer extends AppCompatActivity {
                                    im3.setShadowRadius(sr);
                                    im3.setBorderWidth(0);
                                    cko[0]++;
-                                   if(position!=5 || position!=6) {
+                                   if(mLevelOneItemPos!=5 || mLevelOneItemPos!=6) {
                                        if (position1 == 0)
                                            locayy = 0;
                                        else if (position1 == 1)
@@ -462,10 +515,10 @@ public class Main2LAyer extends AppCompatActivity {
                                        else if (position1 == 9)
                                            locayy = 27;
                                    }
-                                   Log.d("checkloc2", locayy+"" );//+ " pos " + position);
+                                   Log.d("checkloc2", locayy+"" );//+ " pos " + mLevelOneItemPos);
 
                                    boolean aa = true;
-                                   if (position == 5)// || position == 6 || position == 8){
+                                   if (mLevelOneItemPos == 5)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
                                    {
                                        aa = false;
 
@@ -484,11 +537,11 @@ public class Main2LAyer extends AppCompatActivity {
                                            editor.putString(people_count_hindi, str.toString());
                                        editor.commit();
                                        Log.d("printtting",myMusic[sort[x]]+" ");
-                                //       tts.speak(myMusic[sort[x]], TextToSpeech.QUEUE_FLUSH, null);
+                                //       mTts.speak(myMusic[sort[x]], TextToSpeech.QUEUE_FLUSH, null);
 
                                    }
 
-                                   if (position == 6)// || position == 6 || position == 8){
+                                   if (mLevelOneItemPos == 6)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
                                    {
                                        aa = false;
 
@@ -508,37 +561,37 @@ public class Main2LAyer extends AppCompatActivity {
 
                                    if (location == locayy) {
                                        int x = location;
-                                       if (position == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)) {
+                                       if (mLevelOneItemPos == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)) {
                                            Intent i = new Intent(getApplicationContext(), Sequence_Activity.class);
                                            int a = x;
                                            if (x == 7)
                                                a = 3;
                                            if (x == 8)
                                                a = 4;
-                                           i.putExtra("layer_1_id", position);
+                                           i.putExtra("layer_1_id", mLevelOneItemPos);
                                            i.putExtra("layer_2_id", a);
                                            startActivity(i);
                                        } else {
                                            if (session.getLanguage() == 0) {
-                                               if (position != 5 && position != 6 && position != 8) {
+                                               if (mLevelOneItemPos != 5 && mLevelOneItemPos != 6 && mLevelOneItemPos != 8) {
                                                    Intent l = new Intent(getApplicationContext(), Layer3Activity.class);
-                                                   l.putExtra("layer_1_id", position);
+                                                   l.putExtra("layer_1_id", mLevelOneItemPos);
                                                    l.putExtra("layer_2_id", location);
-                                                   //  Toast.makeText(this,"pos"+position+"id2"+loc,Toast.LENGTH_SHORT).show();
+                                                   //  Toast.makeText(this,"pos"+mLevelOneItemPos+"id2"+loc,Toast.LENGTH_SHORT).show();
                                                    System.out.println("iiiiiiid" + location);
                                                    startActivity(l);
                                                }
                                            } else if (session.getLanguage() == 1) {
-                                               if (position != 5 && position != 6 && position != 8) {
+                                               if (mLevelOneItemPos != 5 && mLevelOneItemPos != 6 && mLevelOneItemPos != 8) {
                                                    Intent ll = new Intent(getApplicationContext(), Layer_3_Hindi_Activity.class);
-                                                   ll.putExtra("layer_1_id", position);
+                                                   ll.putExtra("layer_1_id", mLevelOneItemPos);
                                                    ll.putExtra("layer_2_id", location);
                                                    startActivity(ll);
                                                }
                                            }
                                        }
                                    }
-                                   if (position == 8){
+                                   if (mLevelOneItemPos == 8){
                                        if (locayy == 1 || locayy == 2 || locayy == 3 || locayy == 4){
                                            like.setAlpha(0.5f);
                                            dislike.setAlpha(0.5f);
@@ -603,17 +656,17 @@ public class Main2LAyer extends AppCompatActivity {
                                        }
                                    }
 
-                                   if((position==5 )) {
-                                       tts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
+                                   if((mLevelOneItemPos==5 )) {
+                                       mTts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
                                    }
                                    else
-                                   if((position==6 )) {
-                                       tts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
+                                   if((mLevelOneItemPos==6 )) {
+                                       mTts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
                                    }
 
                                    else
                                        if(location!=locayy)
-                                       tts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
+                                       mTts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
                                    location = locayy;
 
                                }
@@ -627,17 +680,17 @@ public class Main2LAyer extends AppCompatActivity {
                                    im2.setShadowRadius(sr);
                                    im2.setBorderWidth(bw);
 
-                                   im1.setBorderColor(-1);
-                                   im1.setShadowColor(0);
-                                   im1.setShadowRadius(sr);
-                                   im1.setBorderWidth(0);
+                                   mMenuItemImage.setBorderColor(-1);
+                                   mMenuItemImage.setShadowColor(0);
+                                   mMenuItemImage.setShadowRadius(sr);
+                                   mMenuItemImage.setBorderWidth(0);
 
                                    im3.setBorderColor(-1);
                                    im3.setShadowColor(0);
                                    im3.setShadowRadius(sr);
                                    im3.setBorderWidth(0);
                                    cko[0]++;
-                                   if(position!=5 || position!=6) {
+                                   if(mLevelOneItemPos!=5 || mLevelOneItemPos!=6) {
 
                                        if (position1 == 0)
                                            locayy = 1;
@@ -663,7 +716,7 @@ public class Main2LAyer extends AppCompatActivity {
                                    }
 
                                    boolean aa = true;
-                                   if (position == 5)// || position == 6 || position == 8){
+                                   if (mLevelOneItemPos == 5)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
                                    {
                                        aa = false;
 
@@ -685,7 +738,7 @@ public class Main2LAyer extends AppCompatActivity {
 
 
                                    else
-                                   if (position == 6)// || position == 6 || position == 8){
+                                   if (mLevelOneItemPos == 6)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
                                    {
                                        aa = false;
 
@@ -705,24 +758,24 @@ public class Main2LAyer extends AppCompatActivity {
                                    if (location == locayy)
                                    {
                                        int x=location;
-                                       if (position == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)){
+                                       if (mLevelOneItemPos == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)){
                                            Intent i = new Intent(getApplicationContext(), Sequence_Activity.class);
                                            int a = x;
                                            if (x == 7)
                                                a = 3;
                                            if (x ==8)
                                                a = 4;
-                                           i.putExtra("layer_1_id", position);
+                                           i.putExtra("layer_1_id", mLevelOneItemPos);
                                            i.putExtra("layer_2_id", a);
                                            startActivity(i);
                                        }
                                        else {
                                            if(session.getLanguage()==0 ) {
-                                               if(position!=5 && position!=6 && position!=8) {
+                                               if(mLevelOneItemPos!=5 && mLevelOneItemPos!=6 && mLevelOneItemPos!=8) {
                                                    Intent l = new Intent(getApplicationContext(), Layer3Activity.class);
-                                                   l.putExtra("layer_1_id", position);
+                                                   l.putExtra("layer_1_id", mLevelOneItemPos);
                                                    l.putExtra("layer_2_id", location);
-                                                   //  Toast.makeText(this,"pos"+position+"id2"+loc,Toast.LENGTH_SHORT).show();
+                                                   //  Toast.makeText(this,"pos"+mLevelOneItemPos+"id2"+loc,Toast.LENGTH_SHORT).show();
                                                    System.out.println("iiiiiiid" + location);
                                                    startActivity(l);
                                                }
@@ -730,16 +783,16 @@ public class Main2LAyer extends AppCompatActivity {
                                            else
                                            if(session.getLanguage()==1)
                                            {
-                                               if(position!=5 && position!=6 && position!=8) {
+                                               if(mLevelOneItemPos!=5 && mLevelOneItemPos!=6 && mLevelOneItemPos!=8) {
                                                    Intent ll = new Intent(getApplicationContext(), Layer_3_Hindi_Activity.class);
-                                                   ll.putExtra("layer_1_id", position);
+                                                   ll.putExtra("layer_1_id", mLevelOneItemPos);
                                                    ll.putExtra("layer_2_id",location);
                                                    startActivity(ll);
                                                }
                                            }
                                        }
                                    }
-                                   if (position == 8){
+                                   if (mLevelOneItemPos == 8){
                                        if (locayy == 1 || locayy == 2 || locayy == 3 || locayy == 4){
                                            like.setAlpha(0.5f);
                                            dislike.setAlpha(0.5f);
@@ -806,19 +859,19 @@ public class Main2LAyer extends AppCompatActivity {
 
 
 
-                                   if((position==5 )) {
-                                       tts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
+                                   if((mLevelOneItemPos==5 )) {
+                                       mTts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
                                    }
                                    else
-                                   if((position==6 )) {
-                                       tts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
+                                   if((mLevelOneItemPos==6 )) {
+                                       mTts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
                                    }
 
                                    else
                                    if(location!=locayy)
-                                       tts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
+                                       mTts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
                                    location = locayy;
-                                   Log.d("checkloc", locayy + " pos " + position);
+                                   Log.d("checkloc", locayy + " pos " + mLevelOneItemPos);
 
                                }
                            });
@@ -836,12 +889,12 @@ public class Main2LAyer extends AppCompatActivity {
                                    im2.setShadowRadius(sr);
                                    im2.setBorderWidth(0);
 
-                                   im1.setBorderColor(-1);
-                                   im1.setShadowColor(0);
-                                   im1.setShadowRadius(sr);
-                                   im1.setBorderWidth(0);
+                                   mMenuItemImage.setBorderColor(-1);
+                                   mMenuItemImage.setShadowColor(0);
+                                   mMenuItemImage.setShadowRadius(sr);
+                                   mMenuItemImage.setBorderWidth(0);
                                    cko[0]++;
-                                   if(position!=5 || position!=6) {
+                                   if(mLevelOneItemPos!=5 || mLevelOneItemPos!=6) {
 
                                        if (position1 == 0)
                                            locayy = 2;
@@ -866,7 +919,7 @@ public class Main2LAyer extends AppCompatActivity {
                                    }
 
                                    boolean aa = true;
-                                   if (position == 5)// || position == 6 || position == 8){
+                                   if (mLevelOneItemPos == 5)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
                                    {
                                        aa = false;
 
@@ -887,7 +940,7 @@ public class Main2LAyer extends AppCompatActivity {
                                    }
 
                                    else
-                                   if (position == 6)// || position == 6 || position == 8){
+                                   if (mLevelOneItemPos == 6)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
                                    {
                                        aa = false;
 
@@ -904,28 +957,28 @@ public class Main2LAyer extends AppCompatActivity {
                                        editor.commit();
                                    }
 
-                                   Log.d("checkloc", locayy + " pos " + position);
+                                   Log.d("checkloc", locayy + " pos " + mLevelOneItemPos);
                                    if (location == locayy)
                                    {
                                        int x=location;
-                                       if (position == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)){
+                                       if (mLevelOneItemPos == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)){
                                            Intent i = new Intent(getApplicationContext(), Sequence_Activity.class);
                                            int a = x;
                                            if (x == 7)
                                                a = 3;
                                            if (x ==8)
                                                a = 4;
-                                           i.putExtra("layer_1_id", position);
+                                           i.putExtra("layer_1_id", mLevelOneItemPos);
                                            i.putExtra("layer_2_id", a);
                                            startActivity(i);
                                        }
                                        else {
                                            if(session.getLanguage()==0 ) {
-                                               if(position!=5 && position!=6 && position!=8) {
+                                               if(mLevelOneItemPos!=5 && mLevelOneItemPos!=6 && mLevelOneItemPos!=8) {
                                                    Intent l = new Intent(getApplicationContext(), Layer3Activity.class);
-                                                   l.putExtra("layer_1_id", position);
+                                                   l.putExtra("layer_1_id", mLevelOneItemPos);
                                                    l.putExtra("layer_2_id", location);
-                                                   //  Toast.makeText(this,"pos"+position+"id2"+loc,Toast.LENGTH_SHORT).show();
+                                                   //  Toast.makeText(this,"pos"+mLevelOneItemPos+"id2"+loc,Toast.LENGTH_SHORT).show();
                                                    System.out.println("iiiiiiid" + location);
                                                    startActivity(l);
                                                }
@@ -933,16 +986,16 @@ public class Main2LAyer extends AppCompatActivity {
                                            else
                                            if(session.getLanguage()==1)
                                            {
-                                               if(position!=5 && position!=6 && position!=8) {
+                                               if(mLevelOneItemPos!=5 && mLevelOneItemPos!=6 && mLevelOneItemPos!=8) {
                                                    Intent ll = new Intent(getApplicationContext(), Layer_3_Hindi_Activity.class);
-                                                   ll.putExtra("layer_1_id", position);
+                                                   ll.putExtra("layer_1_id", mLevelOneItemPos);
                                                    ll.putExtra("layer_2_id",location);
                                                    startActivity(ll);
                                                }
                                            }
                                        }
                                    }
-                                   if (position == 8){
+                                   if (mLevelOneItemPos == 8){
                                        if (locayy == 1 || locayy == 2 || locayy == 3 || locayy == 4){
                                            like.setAlpha(0.5f);
                                            dislike.setAlpha(0.5f);
@@ -1006,17 +1059,17 @@ public class Main2LAyer extends AppCompatActivity {
                                            minus.setImageResource(R.drawable.lesswithout);
                                        }
                                    }
-                                   if((position==5 )) {
-                                       tts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
+                                   if((mLevelOneItemPos==5 )) {
+                                       mTts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
                                    }
                                    else
-                                   if((position==6 )) {
-                                       tts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
+                                   if((mLevelOneItemPos==6 )) {
+                                       mTts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
                                    }
 
                                    else
                                    if(location!=locayy)
-                                       tts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
+                                       mTts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
                                    location = locayy;
                                }
                            });
@@ -1024,16 +1077,16 @@ public class Main2LAyer extends AppCompatActivity {
                            x[0] = view;
 
                            flag = 1;
-                           cy = 0;
-                           cm = 0;
-                           cd = 0;
-                           cn = 0;
-                           cl = 0;
-                           clike = 0;
+                           mCy = 0;
+                           mCm = 0;
+                           mCd = 0;
+                           mCn = 0;
+                           mCl = 0;
+                           mCk = 0;
                     }
 
                     if (session.getGridSize()==1){
-                        im1 = (CircularImageView) view.findViewById(R.id.icon1);
+                        mMenuItemImage = (CircularImageView) view.findViewById(R.id.icon1);
                         im2 = (CircularImageView) view.findViewById(R.id.icon2);
                         im3 = (CircularImageView) view.findViewById(R.id.icon3);
                         im4 = (CircularImageView) view.findViewById(R.id.icon4);
@@ -1042,18 +1095,18 @@ public class Main2LAyer extends AppCompatActivity {
                         im7 = (CircularImageView) view.findViewById(R.id.icon7);
                         im8 = (CircularImageView) view.findViewById(R.id.icon8);
                         im9 = (CircularImageView) view.findViewById(R.id.icon9);
-                        //Toast.makeText(Main2LAyer.this,"pos"+position+"id2"+locayy,Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(Main2LAyer.this,"pos"+mLevelOneItemPos+"id2"+locayy,Toast.LENGTH_SHORT).show();
                         Log.d("Position1", position1 + " " + prev_pos[0]);
-                        im1.setOnClickListener(new View.OnClickListener() {
+                        mMenuItemImage.setOnClickListener(new View.OnClickListener() {
 
                             @Override
                             public void onClick(View v) {
 
                                 unset();
-                                im1.setBorderColor(-1283893945);
-                                im1.setShadowColor(-1283893945);
-                                im1.setShadowRadius(sr);
-                                im1.setBorderWidth(bw);
+                                mMenuItemImage.setBorderColor(-1283893945);
+                                mMenuItemImage.setShadowColor(-1283893945);
+                                mMenuItemImage.setShadowRadius(sr);
+                                mMenuItemImage.setBorderWidth(bw);
 
                                 im4.setBorderColor(-1);
                                 im4.setShadowColor(0);
@@ -1096,24 +1149,24 @@ public class Main2LAyer extends AppCompatActivity {
                                 im9.setBorderWidth(0);
 
                                 cko[0]++;
-                                if(position==5)
+                                if(mLevelOneItemPos==5)
                                 {
                                     locayy = position1 * 9;
                                 }
                                 else
-                                    if (position == 6)
+                                    if (mLevelOneItemPos == 6)
                                     {
                                         locayy =position1 * 9;
                                     }
                                     else
-                                if(position!=5 || position!=6) {
+                                if(mLevelOneItemPos!=5 || mLevelOneItemPos!=6) {
                                     if (position1 == 0)
                                         locayy = 0;
                            }
-                                Log.d("checkloc2", locayy+"" );//+ " pos " + position);
+                                Log.d("checkloc2", locayy+"" );//+ " pos " + mLevelOneItemPos);
 
                                 boolean aa = true;
-                                if (position == 5)// || position == 6 || position == 8){
+                                if (mLevelOneItemPos == 5)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
                                 {
                                     aa = false;
 
@@ -1132,11 +1185,11 @@ public class Main2LAyer extends AppCompatActivity {
                                         editor.putString(people_count_hindi, str.toString());
                                     editor.commit();
                                     Log.d("printtting",myMusic[sort[x]]+" ");
-                                    //       tts.speak(myMusic[sort[x]], TextToSpeech.QUEUE_FLUSH, null);
+                                    //       mTts.speak(myMusic[sort[x]], TextToSpeech.QUEUE_FLUSH, null);
 
                                 }
 
-                                if (position == 6)// || position == 6 || position == 8){
+                                if (mLevelOneItemPos == 6)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
                                 {
                                     aa = false;
 
@@ -1156,37 +1209,37 @@ public class Main2LAyer extends AppCompatActivity {
 
                                 if (location == locayy) {
                                     int x = location;
-                                    if (position == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)) {
+                                    if (mLevelOneItemPos == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)) {
                                         Intent i = new Intent(getApplicationContext(), Sequence_Activity.class);
                                         int a = x;
                                         if (x == 7)
                                             a = 3;
                                         if (x == 8)
                                             a = 4;
-                                        i.putExtra("layer_1_id", position);
+                                        i.putExtra("layer_1_id", mLevelOneItemPos);
                                         i.putExtra("layer_2_id", a);
                                         startActivity(i);
                                     } else {
                                         if (session.getLanguage() == 0) {
-                                            if (position != 5 && position != 6 && position != 8) {
+                                            if (mLevelOneItemPos != 5 && mLevelOneItemPos != 6 && mLevelOneItemPos != 8) {
                                                 Intent l = new Intent(getApplicationContext(), Layer3Activity.class);
-                                                l.putExtra("layer_1_id", position);
+                                                l.putExtra("layer_1_id", mLevelOneItemPos);
                                                 l.putExtra("layer_2_id", location);
-                                                //  Toast.makeText(this,"pos"+position+"id2"+loc,Toast.LENGTH_SHORT).show();
+                                                //  Toast.makeText(this,"pos"+mLevelOneItemPos+"id2"+loc,Toast.LENGTH_SHORT).show();
                                                 System.out.println("iiiiiiid" + location);
                                                 startActivity(l);
                                             }
                                         } else if (session.getLanguage() == 1) {
-                                            if (position != 5 && position != 6 && position != 8) {
+                                            if (mLevelOneItemPos != 5 && mLevelOneItemPos != 6 && mLevelOneItemPos != 8) {
                                                 Intent ll = new Intent(getApplicationContext(), Layer_3_Hindi_Activity.class);
-                                                ll.putExtra("layer_1_id", position);
+                                                ll.putExtra("layer_1_id", mLevelOneItemPos);
                                                 ll.putExtra("layer_2_id", location);
                                                 startActivity(ll);
                                             }
                                         }
                                     }
                                 }
-                                if (position == 8){
+                                if (mLevelOneItemPos == 8){
                                     if (locayy == 1 || locayy == 2 || locayy == 3 || locayy == 4){
                                         like.setAlpha(0.5f);
                                         dislike.setAlpha(0.5f);
@@ -1251,17 +1304,17 @@ public class Main2LAyer extends AppCompatActivity {
                                     }
                                 }
 
-                                if((position==5 )) {
-                                    tts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
+                                if((mLevelOneItemPos==5 )) {
+                                    mTts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
                                 }
                                 else
-                                if((position==6 )) {
-                                    tts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
+                                if((mLevelOneItemPos==6 )) {
+                                    mTts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
                                 }
 
                                 else
                                 if(location!=locayy)
-                                    tts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
+                                    mTts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
                                 location = locayy;
 
                             }
@@ -1275,10 +1328,10 @@ public class Main2LAyer extends AppCompatActivity {
                                 im2.setShadowRadius(sr);
                                 im2.setBorderWidth(bw);
 
-                                im1.setBorderColor(-1);
-                                im1.setShadowColor(0);
-                                im1.setShadowRadius(sr);
-                                im1.setBorderWidth(0);
+                                mMenuItemImage.setBorderColor(-1);
+                                mMenuItemImage.setShadowColor(0);
+                                mMenuItemImage.setShadowRadius(sr);
+                                mMenuItemImage.setBorderWidth(0);
 
                                 im4.setBorderColor(-1);
                                 im4.setShadowColor(0);
@@ -1317,23 +1370,23 @@ public class Main2LAyer extends AppCompatActivity {
 
                                 cko[0]++;
 
-                                    if(position==5)
+                                    if(mLevelOneItemPos==5)
                                     {
                                         locayy = position1 * 9+1;
                                     }
                                     else
-                                    if (position == 6)
+                                    if (mLevelOneItemPos == 6)
                                     {
                                         locayy =position1 * 9+1;
                                     }
                                     else {
-                                        if (position != 5 || position != 6) {
+                                        if (mLevelOneItemPos != 5 || mLevelOneItemPos != 6) {
                                             if (position1 == 0)
                                                 locayy = 1;
                                         }
                                     }
                                 boolean aa = true;
-                                if (position == 5)// || position == 6 || position == 8){
+                                if (mLevelOneItemPos == 5)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
                                 {
                                     aa = false;
 
@@ -1355,7 +1408,7 @@ public class Main2LAyer extends AppCompatActivity {
 
 
                                 else
-                                if (position == 6)// || position == 6 || position == 8){
+                                if (mLevelOneItemPos == 6)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
                                 {
                                     aa = false;
 
@@ -1375,24 +1428,24 @@ public class Main2LAyer extends AppCompatActivity {
                                 if (location == locayy)
                                 {
                                     int x=location;
-                                    if (position == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)){
+                                    if (mLevelOneItemPos == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)){
                                         Intent i = new Intent(getApplicationContext(), Sequence_Activity.class);
                                         int a = x;
                                         if (x == 7)
                                             a = 3;
                                         if (x ==8)
                                             a = 4;
-                                        i.putExtra("layer_1_id", position);
+                                        i.putExtra("layer_1_id", mLevelOneItemPos);
                                         i.putExtra("layer_2_id", a);
                                         startActivity(i);
                                     }
                                     else {
                                         if(session.getLanguage()==0 ) {
-                                            if(position!=5 && position!=6 && position!=8) {
+                                            if(mLevelOneItemPos!=5 && mLevelOneItemPos!=6 && mLevelOneItemPos!=8) {
                                                 Intent l = new Intent(getApplicationContext(), Layer3Activity.class);
-                                                l.putExtra("layer_1_id", position);
+                                                l.putExtra("layer_1_id", mLevelOneItemPos);
                                                 l.putExtra("layer_2_id", location);
-                                                //  Toast.makeText(this,"pos"+position+"id2"+loc,Toast.LENGTH_SHORT).show();
+                                                //  Toast.makeText(this,"pos"+mLevelOneItemPos+"id2"+loc,Toast.LENGTH_SHORT).show();
                                                 System.out.println("iiiiiiid" + location);
                                                 startActivity(l);
                                             }
@@ -1400,16 +1453,16 @@ public class Main2LAyer extends AppCompatActivity {
                                         else
                                         if(session.getLanguage()==1)
                                         {
-                                            if(position!=5 && position!=6 && position!=8) {
+                                            if(mLevelOneItemPos!=5 && mLevelOneItemPos!=6 && mLevelOneItemPos!=8) {
                                                 Intent ll = new Intent(getApplicationContext(), Layer_3_Hindi_Activity.class);
-                                                ll.putExtra("layer_1_id", position);
+                                                ll.putExtra("layer_1_id", mLevelOneItemPos);
                                                 ll.putExtra("layer_2_id",location);
                                                 startActivity(ll);
                                             }
                                         }
                                     }
                                 }
-                                if (position == 8){
+                                if (mLevelOneItemPos == 8){
                                     if (locayy == 1 || locayy == 2 || locayy == 3 || locayy == 4){
                                         like.setAlpha(0.5f);
                                         dislike.setAlpha(0.5f);
@@ -1476,19 +1529,19 @@ public class Main2LAyer extends AppCompatActivity {
 
 
 
-                                if((position==5 )) {
-                                    tts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
+                                if((mLevelOneItemPos==5 )) {
+                                    mTts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
                                 }
                                 else
-                                if((position==6 )) {
-                                    tts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
+                                if((mLevelOneItemPos==6 )) {
+                                    mTts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
                                 }
 
                                 else
                                 if(location!=locayy)
-                                    tts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
+                                    mTts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
                                 location = locayy;
-                                Log.d("checkloc", locayy + " pos " + position);
+                                Log.d("checkloc", locayy + " pos " + mLevelOneItemPos);
 
                             }
                         });
@@ -1501,10 +1554,10 @@ public class Main2LAyer extends AppCompatActivity {
                                 im3.setShadowRadius(sr);
                                 im3.setBorderWidth(bw);
 
-                                im1.setBorderColor(-1);
-                                im1.setShadowColor(0);
-                                im1.setShadowRadius(sr);
-                                im1.setBorderWidth(0);
+                                mMenuItemImage.setBorderColor(-1);
+                                mMenuItemImage.setShadowColor(0);
+                                mMenuItemImage.setShadowRadius(sr);
+                                mMenuItemImage.setBorderWidth(0);
 
                                 im2.setBorderColor(-1);
                                 im2.setShadowColor(0);
@@ -1542,23 +1595,23 @@ public class Main2LAyer extends AppCompatActivity {
                                 im9.setBorderWidth(0);
 
                                 cko[0]++;
-                                if(position==5)
+                                if(mLevelOneItemPos==5)
                                 {
                                     locayy = position1 * 9+2;
                                 }
                                 else
-                                if (position == 6)
+                                if (mLevelOneItemPos == 6)
                                 {
                                     locayy =position1 * 9+2;
                                 }
                                 else
-                                if(position!=5 || position!=6) {
+                                if(mLevelOneItemPos!=5 || mLevelOneItemPos!=6) {
                                     if (position1 == 0)
                                         locayy = 2;
                                 }
 
                                 boolean aa = true;
-                                if (position == 5)// || position == 6 || position == 8){
+                                if (mLevelOneItemPos == 5)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
                                 {
                                     aa = false;
 
@@ -1579,7 +1632,7 @@ public class Main2LAyer extends AppCompatActivity {
                                 }
 
                                 else
-                                if (position == 6)// || position == 6 || position == 8){
+                                if (mLevelOneItemPos == 6)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
                                 {
                                     aa = false;
 
@@ -1596,28 +1649,28 @@ public class Main2LAyer extends AppCompatActivity {
                                     editor.commit();
                                 }
 
-                                Log.d("checkloc", locayy + " pos " + position);
+                                Log.d("checkloc", locayy + " pos " + mLevelOneItemPos);
                                 if (location == locayy)
                                 {
                                     int x=location;
-                                    if (position == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)){
+                                    if (mLevelOneItemPos == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)){
                                         Intent i = new Intent(getApplicationContext(), Sequence_Activity.class);
                                         int a = x;
                                         if (x == 7)
                                             a = 3;
                                         if (x ==8)
                                             a = 4;
-                                        i.putExtra("layer_1_id", position);
+                                        i.putExtra("layer_1_id", mLevelOneItemPos);
                                         i.putExtra("layer_2_id", a);
                                         startActivity(i);
                                     }
                                     else {
                                         if(session.getLanguage()==0 ) {
-                                            if(position!=5 && position!=6 && position!=8) {
+                                            if(mLevelOneItemPos!=5 && mLevelOneItemPos!=6 && mLevelOneItemPos!=8) {
                                                 Intent l = new Intent(getApplicationContext(), Layer3Activity.class);
-                                                l.putExtra("layer_1_id", position);
+                                                l.putExtra("layer_1_id", mLevelOneItemPos);
                                                 l.putExtra("layer_2_id", location);
-                                                //  Toast.makeText(this,"pos"+position+"id2"+loc,Toast.LENGTH_SHORT).show();
+                                                //  Toast.makeText(this,"pos"+mLevelOneItemPos+"id2"+loc,Toast.LENGTH_SHORT).show();
                                                 System.out.println("iiiiiiid" + location);
                                                 startActivity(l);
                                             }
@@ -1625,16 +1678,16 @@ public class Main2LAyer extends AppCompatActivity {
                                         else
                                         if(session.getLanguage()==1)
                                         {
-                                            if(position!=5 && position!=6 && position!=8) {
+                                            if(mLevelOneItemPos!=5 && mLevelOneItemPos!=6 && mLevelOneItemPos!=8) {
                                                 Intent ll = new Intent(getApplicationContext(), Layer_3_Hindi_Activity.class);
-                                                ll.putExtra("layer_1_id", position);
+                                                ll.putExtra("layer_1_id", mLevelOneItemPos);
                                                 ll.putExtra("layer_2_id",location);
                                                 startActivity(ll);
                                             }
                                         }
                                     }
                                 }
-                                if (position == 8){
+                                if (mLevelOneItemPos == 8){
                                     if (locayy == 1 || locayy == 2 || locayy == 3 || locayy == 4){
                                         like.setAlpha(0.5f);
                                         dislike.setAlpha(0.5f);
@@ -1698,17 +1751,17 @@ public class Main2LAyer extends AppCompatActivity {
                                         minus.setImageResource(R.drawable.lesswithout);
                                     }
                                 }
-                                if((position==5 )) {
-                                    tts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
+                                if((mLevelOneItemPos==5 )) {
+                                    mTts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
                                 }
                                 else
-                                if((position==6 )) {
-                                    tts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
+                                if((mLevelOneItemPos==6 )) {
+                                    mTts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
                                 }
 
                                 else
                                 if(location!=locayy)
-                                    tts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
+                                    mTts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
                                 location = locayy;
                             }
                         });
@@ -1724,10 +1777,10 @@ public class Main2LAyer extends AppCompatActivity {
                                 im4.setShadowRadius(sr);
                                 im4.setBorderWidth(bw);
 
-                                im1.setBorderColor(-1);
-                                im1.setShadowColor(0);
-                                im1.setShadowRadius(sr);
-                                im1.setBorderWidth(0);
+                                mMenuItemImage.setBorderColor(-1);
+                                mMenuItemImage.setShadowColor(0);
+                                mMenuItemImage.setShadowRadius(sr);
+                                mMenuItemImage.setBorderWidth(0);
 
                                 im2.setBorderColor(-1);
                                 im2.setShadowColor(0);
@@ -1765,24 +1818,24 @@ public class Main2LAyer extends AppCompatActivity {
                                 im9.setBorderWidth(0);
 
                                 cko[0]++;
-                                if(position==5)
+                                if(mLevelOneItemPos==5)
                                 {
                                     locayy = position1 * 9+3;
                                 }
                                 else
-                                if (position == 6)
+                                if (mLevelOneItemPos == 6)
                                 {
                                     locayy =position1 * 9+3;
                                 }
                                 else
-                                if(position!=5 || position!=6) {
+                                if(mLevelOneItemPos!=5 || mLevelOneItemPos!=6) {
                                     if (position1 == 0)
                                         locayy = 3;
                                 }
-                                Log.d("checkloc2", locayy+"" );//+ " pos " + position);
+                                Log.d("checkloc2", locayy+"" );//+ " pos " + mLevelOneItemPos);
 
                                 boolean aa = true;
-                                if (position == 5)// || position == 6 || position == 8){
+                                if (mLevelOneItemPos == 5)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
                                 {
                                     aa = false;
 
@@ -1801,11 +1854,11 @@ public class Main2LAyer extends AppCompatActivity {
                                         editor.putString(people_count_hindi, str.toString());
                                     editor.commit();
                                     Log.d("printtting",myMusic[sort[x]]+" ");
-                                    //       tts.speak(myMusic[sort[x]], TextToSpeech.QUEUE_FLUSH, null);
+                                    //       mTts.speak(myMusic[sort[x]], TextToSpeech.QUEUE_FLUSH, null);
 
                                 }
 
-                                if (position == 6)// || position == 6 || position == 8){
+                                if (mLevelOneItemPos == 6)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
                                 {
                                     aa = false;
 
@@ -1825,37 +1878,37 @@ public class Main2LAyer extends AppCompatActivity {
 
                                 if (location == locayy) {
                                     int x = location;
-                                    if (position == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)) {
+                                    if (mLevelOneItemPos == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)) {
                                         Intent i = new Intent(getApplicationContext(), Sequence_Activity.class);
                                         int a = x;
                                         if (x == 7)
                                             a = 3;
                                         if (x == 8)
                                             a = 4;
-                                        i.putExtra("layer_1_id", position);
+                                        i.putExtra("layer_1_id", mLevelOneItemPos);
                                         i.putExtra("layer_2_id", a);
                                         startActivity(i);
                                     } else {
                                         if (session.getLanguage() == 0) {
-                                            if (position != 5 && position != 6 && position != 8) {
+                                            if (mLevelOneItemPos != 5 && mLevelOneItemPos != 6 && mLevelOneItemPos != 8) {
                                                 Intent l = new Intent(getApplicationContext(), Layer3Activity.class);
-                                                l.putExtra("layer_1_id", position);
+                                                l.putExtra("layer_1_id", mLevelOneItemPos);
                                                 l.putExtra("layer_2_id", location);
-                                                //  Toast.makeText(this,"pos"+position+"id2"+loc,Toast.LENGTH_SHORT).show();
+                                                //  Toast.makeText(this,"pos"+mLevelOneItemPos+"id2"+loc,Toast.LENGTH_SHORT).show();
                                                 System.out.println("iiiiiiid" + location);
                                                 startActivity(l);
                                             }
                                         } else if (session.getLanguage() == 1) {
-                                            if (position != 5 && position != 6 && position != 8) {
+                                            if (mLevelOneItemPos != 5 && mLevelOneItemPos != 6 && mLevelOneItemPos != 8) {
                                                 Intent ll = new Intent(getApplicationContext(), Layer_3_Hindi_Activity.class);
-                                                ll.putExtra("layer_1_id", position);
+                                                ll.putExtra("layer_1_id", mLevelOneItemPos);
                                                 ll.putExtra("layer_2_id", location);
                                                 startActivity(ll);
                                             }
                                         }
                                     }
                                 }
-                                if (position == 8){
+                                if (mLevelOneItemPos == 8){
                                     if (locayy == 1 || locayy == 2 || locayy == 3 || locayy == 4){
                                         like.setAlpha(0.5f);
                                         dislike.setAlpha(0.5f);
@@ -1920,17 +1973,17 @@ public class Main2LAyer extends AppCompatActivity {
                                     }
                                 }
 
-                                if((position==5 )) {
-                                    tts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
+                                if((mLevelOneItemPos==5 )) {
+                                    mTts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
                                 }
                                 else
-                                if((position==6 )) {
-                                    tts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
+                                if((mLevelOneItemPos==6 )) {
+                                    mTts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
                                 }
 
                                 else
                                 if(location!=locayy)
-                                    tts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
+                                    mTts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
                                 location = locayy;
 
                             }
@@ -1944,10 +1997,10 @@ public class Main2LAyer extends AppCompatActivity {
                                 im5.setShadowRadius(sr);
                                 im5.setBorderWidth(bw);
 
-                                im1.setBorderColor(-1);
-                                im1.setShadowColor(0);
-                                im1.setShadowRadius(sr);
-                                im1.setBorderWidth(0);
+                                mMenuItemImage.setBorderColor(-1);
+                                mMenuItemImage.setShadowColor(0);
+                                mMenuItemImage.setShadowRadius(sr);
+                                mMenuItemImage.setBorderWidth(0);
 
                                 im2.setBorderColor(-1);
                                 im2.setShadowColor(0);
@@ -1984,23 +2037,23 @@ public class Main2LAyer extends AppCompatActivity {
                                 im9.setShadowRadius(sr);
                                 im9.setBorderWidth(0);
                                 cko[0]++;
-                                if(position==5)
+                                if(mLevelOneItemPos==5)
                                 {
                                     locayy = position1 * 9+4;
                                 }
                                 else
-                                if (position == 6)
+                                if (mLevelOneItemPos == 6)
                                 {
                                     locayy =position1 * 9+4;
                                 }
                                 else
-                                if(position!=5 || position!=6) {
+                                if(mLevelOneItemPos!=5 || mLevelOneItemPos!=6) {
                                     if (position1 == 0)
                                         locayy = 4;
                                 }
 
                                 boolean aa = true;
-                                if (position == 5)// || position == 6 || position == 8){
+                                if (mLevelOneItemPos == 5)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
                                 {
                                     aa = false;
 
@@ -2022,7 +2075,7 @@ public class Main2LAyer extends AppCompatActivity {
 
 
                                 else
-                                if (position == 6)// || position == 6 || position == 8){
+                                if (mLevelOneItemPos == 6)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
                                 {
                                     aa = false;
 
@@ -2042,24 +2095,24 @@ public class Main2LAyer extends AppCompatActivity {
                                 if (location == locayy)
                                 {
                                     int x=location;
-                                    if (position == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)){
+                                    if (mLevelOneItemPos == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)){
                                         Intent i = new Intent(getApplicationContext(), Sequence_Activity.class);
                                         int a = x;
                                         if (x == 7)
                                             a = 3;
                                         if (x ==8)
                                             a = 4;
-                                        i.putExtra("layer_1_id", position);
+                                        i.putExtra("layer_1_id", mLevelOneItemPos);
                                         i.putExtra("layer_2_id", a);
                                         startActivity(i);
                                     }
                                     else {
                                         if(session.getLanguage()==0 ) {
-                                            if(position!=5 && position!=6 && position!=8) {
+                                            if(mLevelOneItemPos!=5 && mLevelOneItemPos!=6 && mLevelOneItemPos!=8) {
                                                 Intent l = new Intent(getApplicationContext(), Layer3Activity.class);
-                                                l.putExtra("layer_1_id", position);
+                                                l.putExtra("layer_1_id", mLevelOneItemPos);
                                                 l.putExtra("layer_2_id", location);
-                                                //  Toast.makeText(this,"pos"+position+"id2"+loc,Toast.LENGTH_SHORT).show();
+                                                //  Toast.makeText(this,"pos"+mLevelOneItemPos+"id2"+loc,Toast.LENGTH_SHORT).show();
                                                 System.out.println("iiiiiiid" + location);
                                                 startActivity(l);
                                             }
@@ -2067,16 +2120,16 @@ public class Main2LAyer extends AppCompatActivity {
                                         else
                                         if(session.getLanguage()==1)
                                         {
-                                            if(position!=5 && position!=6 && position!=8) {
+                                            if(mLevelOneItemPos!=5 && mLevelOneItemPos!=6 && mLevelOneItemPos!=8) {
                                                 Intent ll = new Intent(getApplicationContext(), Layer_3_Hindi_Activity.class);
-                                                ll.putExtra("layer_1_id", position);
+                                                ll.putExtra("layer_1_id", mLevelOneItemPos);
                                                 ll.putExtra("layer_2_id",location);
                                                 startActivity(ll);
                                             }
                                         }
                                     }
                                 }
-                                if (position == 8){
+                                if (mLevelOneItemPos == 8){
                                     if (locayy == 1 || locayy == 2 || locayy == 3 || locayy == 4){
                                         like.setAlpha(0.5f);
                                         dislike.setAlpha(0.5f);
@@ -2143,19 +2196,19 @@ public class Main2LAyer extends AppCompatActivity {
 
 
 
-                                if((position==5 )) {
-                                    tts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
+                                if((mLevelOneItemPos==5 )) {
+                                    mTts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
                                 }
                                 else
-                                if((position==6 )) {
-                                    tts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
+                                if((mLevelOneItemPos==6 )) {
+                                    mTts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
                                 }
 
                                 else
                                 if(location!=locayy)
-                                    tts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
+                                    mTts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
                                 location = locayy;
-                                Log.d("checkloc", locayy + " pos " + position);
+                                Log.d("checkloc", locayy + " pos " + mLevelOneItemPos);
 
                             }
                         });
@@ -2168,10 +2221,10 @@ public class Main2LAyer extends AppCompatActivity {
                                 im6.setShadowRadius(sr);
                                 im6.setBorderWidth(bw);
 
-                                im1.setBorderColor(-1);
-                                im1.setShadowColor(0);
-                                im1.setShadowRadius(sr);
-                                im1.setBorderWidth(0);
+                                mMenuItemImage.setBorderColor(-1);
+                                mMenuItemImage.setShadowColor(0);
+                                mMenuItemImage.setShadowRadius(sr);
+                                mMenuItemImage.setBorderWidth(0);
 
                                 im2.setBorderColor(-1);
                                 im2.setShadowColor(0);
@@ -2209,23 +2262,23 @@ public class Main2LAyer extends AppCompatActivity {
                                 im9.setBorderWidth(0);
 
                                 cko[0]++;
-                                if(position==5)
+                                if(mLevelOneItemPos==5)
                                 {
                                     locayy = position1 * 9 + 5 ;
                                 }
                                 else
-                                if (position == 6)
+                                if (mLevelOneItemPos == 6)
                                 {
                                     locayy =position1 * 9+5;
                                 }
                                 else
-                                if(position!=5 || position!=6) {
+                                if(mLevelOneItemPos!=5 || mLevelOneItemPos!=6) {
                                     if (position1 == 0)
                                         locayy = 5;
                                 }
 
                                 boolean aa = true;
-                                if (position == 5)// || position == 6 || position == 8){
+                                if (mLevelOneItemPos == 5)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
                                 {
                                     aa = false;
                                     //locayy = position1*9+5;
@@ -2246,7 +2299,7 @@ public class Main2LAyer extends AppCompatActivity {
                                 }
 
                                 else
-                                if (position == 6)// || position == 6 || position == 8){
+                                if (mLevelOneItemPos == 6)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
                                 {
                                     aa = false;
 
@@ -2263,28 +2316,28 @@ public class Main2LAyer extends AppCompatActivity {
                                     editor.commit();
                                 }
 
-                                Log.d("checkloc", locayy + " pos " + position);
+                                Log.d("checkloc", locayy + " pos " + mLevelOneItemPos);
                                 if (location == locayy)
                                 {
                                     int x=location;
-                                    if (position == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)){
+                                    if (mLevelOneItemPos == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)){
                                         Intent i = new Intent(getApplicationContext(), Sequence_Activity.class);
                                         int a = x;
                                         if (x == 7)
                                             a = 3;
                                         if (x ==8)
                                             a = 4;
-                                        i.putExtra("layer_1_id", position);
+                                        i.putExtra("layer_1_id", mLevelOneItemPos);
                                         i.putExtra("layer_2_id", a);
                                         startActivity(i);
                                     }
                                     else {
                                         if(session.getLanguage()==0 ) {
-                                            if(position!=5 && position!=6 && position!=8) {
+                                            if(mLevelOneItemPos!=5 && mLevelOneItemPos!=6 && mLevelOneItemPos!=8) {
                                                 Intent l = new Intent(getApplicationContext(), Layer3Activity.class);
-                                                l.putExtra("layer_1_id", position);
+                                                l.putExtra("layer_1_id", mLevelOneItemPos);
                                                 l.putExtra("layer_2_id", location);
-                                                //  Toast.makeText(this,"pos"+position+"id2"+loc,Toast.LENGTH_SHORT).show();
+                                                //  Toast.makeText(this,"pos"+mLevelOneItemPos+"id2"+loc,Toast.LENGTH_SHORT).show();
                                                 System.out.println("iiiiiiid" + location);
                                                 startActivity(l);
                                             }
@@ -2292,16 +2345,16 @@ public class Main2LAyer extends AppCompatActivity {
                                         else
                                         if(session.getLanguage()==1)
                                         {
-                                            if(position!=5 && position!=6 && position!=8) {
+                                            if(mLevelOneItemPos!=5 && mLevelOneItemPos!=6 && mLevelOneItemPos!=8) {
                                                 Intent ll = new Intent(getApplicationContext(), Layer_3_Hindi_Activity.class);
-                                                ll.putExtra("layer_1_id", position);
+                                                ll.putExtra("layer_1_id", mLevelOneItemPos);
                                                 ll.putExtra("layer_2_id",location);
                                                 startActivity(ll);
                                             }
                                         }
                                     }
                                 }
-                                if (position == 8){
+                                if (mLevelOneItemPos == 8){
                                     if (locayy == 1 || locayy == 2 || locayy == 3 || locayy == 4){
                                         like.setAlpha(0.5f);
                                         dislike.setAlpha(0.5f);
@@ -2365,18 +2418,18 @@ public class Main2LAyer extends AppCompatActivity {
                                         minus.setImageResource(R.drawable.lesswithout);
                                     }
                                 }
-                                if((position==5 )) {
+                                if((mLevelOneItemPos==5 )) {
 
-                                    tts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
+                                    mTts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
                                 }
                                 else
-                                if((position==6 )) {
-                                    tts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
+                                if((mLevelOneItemPos==6 )) {
+                                    mTts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
                                 }
 
                                 else
                                 if(location!=locayy)
-                                    tts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
+                                    mTts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
                                 location = locayy;
                             }
                         });
@@ -2390,10 +2443,10 @@ public class Main2LAyer extends AppCompatActivity {
                                 im7.setShadowColor(-1283893945);
                                 im7.setShadowRadius(sr);
                                 im7.setBorderWidth(bw);
-                                im1.setBorderColor(-1);
-                                im1.setShadowColor(0);
-                                im1.setShadowRadius(sr);
-                                im1.setBorderWidth(0);
+                                mMenuItemImage.setBorderColor(-1);
+                                mMenuItemImage.setShadowColor(0);
+                                mMenuItemImage.setShadowRadius(sr);
+                                mMenuItemImage.setBorderWidth(0);
 
                                 im2.setBorderColor(-1);
                                 im2.setShadowColor(0);
@@ -2430,24 +2483,24 @@ public class Main2LAyer extends AppCompatActivity {
                                 im9.setShadowRadius(sr);
                                 im9.setBorderWidth(0);
                                 cko[0]++;
-                                if(position==5)
+                                if(mLevelOneItemPos==5)
                                 {
                                     locayy = position1 * 9+6;
                                 }
                                 else
-                                if (position == 6)
+                                if (mLevelOneItemPos == 6)
                                 {
                                     locayy =position1 * 9+6;
                                 }
                                 else
-                                if(position!=5 || position!=6) {
+                                if(mLevelOneItemPos!=5 || mLevelOneItemPos!=6) {
                                     if (position1 == 0)
                                         locayy = 6;
                                 }
-                                Log.d("checkloc2", locayy+"" );//+ " pos " + position);
+                                Log.d("checkloc2", locayy+"" );//+ " pos " + mLevelOneItemPos);
 
                                 boolean aa = true;
-                                if (position == 5)// || position == 6 || position == 8){
+                                if (mLevelOneItemPos == 5)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
                                 {
                                     aa = false;
 
@@ -2466,11 +2519,11 @@ public class Main2LAyer extends AppCompatActivity {
                                         editor.putString(people_count_hindi, str.toString());
                                     editor.commit();
                                     Log.d("printtting",myMusic[sort[x]]+" ");
-                                    //       tts.speak(myMusic[sort[x]], TextToSpeech.QUEUE_FLUSH, null);
+                                    //       mTts.speak(myMusic[sort[x]], TextToSpeech.QUEUE_FLUSH, null);
 
                                 }
 
-                                if (position == 6)// || position == 6 || position == 8){
+                                if (mLevelOneItemPos == 6)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
                                 {
                                     aa = false;
 
@@ -2490,37 +2543,37 @@ public class Main2LAyer extends AppCompatActivity {
 
                                 if (location == locayy) {
                                     int x = location;
-                                    if (position == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)) {
+                                    if (mLevelOneItemPos == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)) {
                                         Intent i = new Intent(getApplicationContext(), Sequence_Activity.class);
                                         int a = x;
                                         if (x == 7)
                                             a = 3;
                                         if (x == 8)
                                             a = 4;
-                                        i.putExtra("layer_1_id", position);
+                                        i.putExtra("layer_1_id", mLevelOneItemPos);
                                         i.putExtra("layer_2_id", a);
                                         startActivity(i);
                                     } else {
                                         if (session.getLanguage() == 0) {
-                                            if (position != 5 && position != 6 && position != 8) {
+                                            if (mLevelOneItemPos != 5 && mLevelOneItemPos != 6 && mLevelOneItemPos != 8) {
                                                 Intent l = new Intent(getApplicationContext(), Layer3Activity.class);
-                                                l.putExtra("layer_1_id", position);
+                                                l.putExtra("layer_1_id", mLevelOneItemPos);
                                                 l.putExtra("layer_2_id", location);
-                                                //  Toast.makeText(this,"pos"+position+"id2"+loc,Toast.LENGTH_SHORT).show();
+                                                //  Toast.makeText(this,"pos"+mLevelOneItemPos+"id2"+loc,Toast.LENGTH_SHORT).show();
                                                 System.out.println("iiiiiiid" + location);
                                                 startActivity(l);
                                             }
                                         } else if (session.getLanguage() == 1) {
-                                            if (position != 5 && position != 6 && position != 8) {
+                                            if (mLevelOneItemPos != 5 && mLevelOneItemPos != 6 && mLevelOneItemPos != 8) {
                                                 Intent ll = new Intent(getApplicationContext(), Layer_3_Hindi_Activity.class);
-                                                ll.putExtra("layer_1_id", position);
+                                                ll.putExtra("layer_1_id", mLevelOneItemPos);
                                                 ll.putExtra("layer_2_id", location);
                                                 startActivity(ll);
                                             }
                                         }
                                     }
                                 }
-                                if (position == 8){
+                                if (mLevelOneItemPos == 8){
                                     if (locayy == 1 || locayy == 2 || locayy == 3 || locayy == 4){
                                         like.setAlpha(0.5f);
                                         dislike.setAlpha(0.5f);
@@ -2585,17 +2638,17 @@ public class Main2LAyer extends AppCompatActivity {
                                     }
                                 }
 
-                                if((position==5 )) {
-                                    tts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
+                                if((mLevelOneItemPos==5 )) {
+                                    mTts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
                                 }
                                 else
-                                if((position==6 )) {
-                                    tts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
+                                if((mLevelOneItemPos==6 )) {
+                                    mTts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
                                 }
 
                                 else
                                 if(location!=locayy)
-                                    tts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
+                                    mTts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
                                 location = locayy;
 
                             }
@@ -2609,10 +2662,10 @@ public class Main2LAyer extends AppCompatActivity {
                                 im8.setShadowRadius(sr);
                                 im8.setBorderWidth(bw);
 
-                                im1.setBorderColor(-1);
-                                im1.setShadowColor(0);
-                                im1.setShadowRadius(sr);
-                                im1.setBorderWidth(0);
+                                mMenuItemImage.setBorderColor(-1);
+                                mMenuItemImage.setShadowColor(0);
+                                mMenuItemImage.setShadowRadius(sr);
+                                mMenuItemImage.setBorderWidth(0);
 
                                 im2.setBorderColor(-1);
                                 im2.setShadowColor(0);
@@ -2650,23 +2703,23 @@ public class Main2LAyer extends AppCompatActivity {
                                 im9.setBorderWidth(0);
 
                                 cko[0]++;
-                                if(position==5)
+                                if(mLevelOneItemPos==5)
                                 {
                                     locayy = position1 * 9+7;
                                 }
                                 else
-                                if (position == 6)
+                                if (mLevelOneItemPos == 6)
                                 {
                                     locayy =position1 * 9+7;
                                 }
                                 else
-                                if(position!=5 || position!=6) {
+                                if(mLevelOneItemPos!=5 || mLevelOneItemPos!=6) {
                                     if (position1 == 0)
                                         locayy = 7;
                                 }
 
                                 boolean aa = true;
-                                if (position == 5)// || position == 6 || position == 8){
+                                if (mLevelOneItemPos == 5)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
                                 {
                                     aa = false;
 
@@ -2688,7 +2741,7 @@ public class Main2LAyer extends AppCompatActivity {
 
 
                                 else
-                                if (position == 6)// || position == 6 || position == 8){
+                                if (mLevelOneItemPos == 6)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
                                 {
                                     aa = false;
 
@@ -2708,24 +2761,24 @@ public class Main2LAyer extends AppCompatActivity {
                                 if (location == locayy)
                                 {
                                     int x=location;
-                                    if (position == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)){
+                                    if (mLevelOneItemPos == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)){
                                         Intent i = new Intent(getApplicationContext(), Sequence_Activity.class);
                                         int a = x;
                                         if (x == 7)
                                             a = 3;
                                         if (x ==8)
                                             a = 4;
-                                        i.putExtra("layer_1_id", position);
+                                        i.putExtra("layer_1_id", mLevelOneItemPos);
                                         i.putExtra("layer_2_id", a);
                                         startActivity(i);
                                     }
                                     else {
                                         if(session.getLanguage()==0 ) {
-                                            if(position!=5 && position!=6 && position!=8) {
+                                            if(mLevelOneItemPos!=5 && mLevelOneItemPos!=6 && mLevelOneItemPos!=8) {
                                                 Intent l = new Intent(getApplicationContext(), Layer3Activity.class);
-                                                l.putExtra("layer_1_id", position);
+                                                l.putExtra("layer_1_id", mLevelOneItemPos);
                                                 l.putExtra("layer_2_id", location);
-                                                //  Toast.makeText(this,"pos"+position+"id2"+loc,Toast.LENGTH_SHORT).show();
+                                                //  Toast.makeText(this,"pos"+mLevelOneItemPos+"id2"+loc,Toast.LENGTH_SHORT).show();
                                                 System.out.println("iiiiiiid" + location);
                                                 startActivity(l);
                                             }
@@ -2733,16 +2786,16 @@ public class Main2LAyer extends AppCompatActivity {
                                         else
                                         if(session.getLanguage()==1)
                                         {
-                                            if(position!=5 && position!=6 && position!=8) {
+                                            if(mLevelOneItemPos!=5 && mLevelOneItemPos!=6 && mLevelOneItemPos!=8) {
                                                 Intent ll = new Intent(getApplicationContext(), Layer_3_Hindi_Activity.class);
-                                                ll.putExtra("layer_1_id", position);
+                                                ll.putExtra("layer_1_id", mLevelOneItemPos);
                                                 ll.putExtra("layer_2_id",location);
                                                 startActivity(ll);
                                             }
                                         }
                                     }
                                 }
-                                if (position == 8){
+                                if (mLevelOneItemPos == 8){
                                     if (locayy == 1 || locayy == 2 || locayy == 3 || locayy == 4){
                                         like.setAlpha(0.5f);
                                         dislike.setAlpha(0.5f);
@@ -2809,19 +2862,19 @@ public class Main2LAyer extends AppCompatActivity {
 
 
 
-                                if((position==5 )) {
-                                    tts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
+                                if((mLevelOneItemPos==5 )) {
+                                    mTts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
                                 }
                                 else
-                                if((position==6 )) {
-                                    tts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
+                                if((mLevelOneItemPos==6 )) {
+                                    mTts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
                                 }
 
                                 else
                                 if(location!=locayy)
-                                    tts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
+                                    mTts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
                                 location = locayy;
-                                Log.d("checkloc", locayy + " pos " + position);
+                                Log.d("checkloc", locayy + " pos " + mLevelOneItemPos);
 
                             }
                         });
@@ -2834,10 +2887,10 @@ public class Main2LAyer extends AppCompatActivity {
                                 im9.setShadowRadius(sr);
                                 im9.setBorderWidth(bw);
 
-                                im1.setBorderColor(-1);
-                                im1.setShadowColor(0);
-                                im1.setShadowRadius(sr);
-                                im1.setBorderWidth(0);
+                                mMenuItemImage.setBorderColor(-1);
+                                mMenuItemImage.setShadowColor(0);
+                                mMenuItemImage.setShadowRadius(sr);
+                                mMenuItemImage.setBorderWidth(0);
 
                                 im2.setBorderColor(-1);
                                 im2.setShadowColor(0);
@@ -2873,23 +2926,23 @@ public class Main2LAyer extends AppCompatActivity {
                                 im4.setShadowColor(0);
                                 im4.setShadowRadius(sr);
                                 im4.setBorderWidth(0);
-                                cko[0]++; if(position==5)
+                                cko[0]++; if(mLevelOneItemPos==5)
                                 {
                                     locayy = position1 * 9 + 8 ;
                                 }
                                 else
-                                if (position == 6)
+                                if (mLevelOneItemPos == 6)
                                 {
                                     locayy =position1 * 9 + 8 ;
                                 }
                                 else
-                                if(position!=5 || position!=6) {
+                                if(mLevelOneItemPos!=5 || mLevelOneItemPos!=6) {
                                     if (position1 == 0)
                                         locayy = 8;
                                 }
 
                                 boolean aa = true;
-                                if (position == 5)// || position == 6 || position == 8){
+                                if (mLevelOneItemPos == 5)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
                                 {
                                     aa = false;
 
@@ -2910,7 +2963,7 @@ public class Main2LAyer extends AppCompatActivity {
                                 }
 
                                 else
-                                if (position == 6)// || position == 6 || position == 8){
+                                if (mLevelOneItemPos == 6)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
                                 {
                                     aa = false;
 
@@ -2927,28 +2980,28 @@ public class Main2LAyer extends AppCompatActivity {
                                     editor.commit();
                                 }
 
-                                Log.d("checkloc", locayy + " pos " + position);
+                                Log.d("checkloc", locayy + " pos " + mLevelOneItemPos);
                                 if (location == locayy)
                                 {
                                     int x=location;
-                                    if (position == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)){
+                                    if (mLevelOneItemPos == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)){
                                         Intent i = new Intent(getApplicationContext(), Sequence_Activity.class);
                                         int a = x;
                                         if (x == 7)
                                             a = 3;
                                         if (x ==8)
                                             a = 4;
-                                        i.putExtra("layer_1_id", position);
+                                        i.putExtra("layer_1_id", mLevelOneItemPos);
                                         i.putExtra("layer_2_id", a);
                                         startActivity(i);
                                     }
                                     else {
                                         if(session.getLanguage()==0 ) {
-                                            if(position!=5 && position!=6 && position!=8) {
+                                            if(mLevelOneItemPos!=5 && mLevelOneItemPos!=6 && mLevelOneItemPos!=8) {
                                                 Intent l = new Intent(getApplicationContext(), Layer3Activity.class);
-                                                l.putExtra("layer_1_id", position);
+                                                l.putExtra("layer_1_id", mLevelOneItemPos);
                                                 l.putExtra("layer_2_id", location);
-                                                //  Toast.makeText(this,"pos"+position+"id2"+loc,Toast.LENGTH_SHORT).show();
+                                                //  Toast.makeText(this,"pos"+mLevelOneItemPos+"id2"+loc,Toast.LENGTH_SHORT).show();
                                                 System.out.println("iiiiiiid" + location);
                                                 startActivity(l);
                                             }
@@ -2956,16 +3009,16 @@ public class Main2LAyer extends AppCompatActivity {
                                         else
                                         if(session.getLanguage()==1)
                                         {
-                                            if(position!=5 && position!=6 && position!=8) {
+                                            if(mLevelOneItemPos!=5 && mLevelOneItemPos!=6 && mLevelOneItemPos!=8) {
                                                 Intent ll = new Intent(getApplicationContext(), Layer_3_Hindi_Activity.class);
-                                                ll.putExtra("layer_1_id", position);
+                                                ll.putExtra("layer_1_id", mLevelOneItemPos);
                                                 ll.putExtra("layer_2_id",location);
                                                 startActivity(ll);
                                             }
                                         }
                                     }
                                 }
-                                if (position == 8){
+                                if (mLevelOneItemPos == 8){
                                     if (locayy == 1 || locayy == 2 || locayy == 3 || locayy == 4){
                                         like.setAlpha(0.5f);
                                         dislike.setAlpha(0.5f);
@@ -3029,17 +3082,17 @@ public class Main2LAyer extends AppCompatActivity {
                                         minus.setImageResource(R.drawable.lesswithout);
                                     }
                                 }
-                                if((position==5 )) {
-                                    tts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
+                                if((mLevelOneItemPos==5 )) {
+                                    mTts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
                                 }
                                 else
-                                if((position==6 )) {
-                                    tts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
+                                if((mLevelOneItemPos==6 )) {
+                                    mTts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
                                 }
 
                                 else
                                 if(location!=locayy)
-                                    tts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
+                                    mTts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
                                 location = locayy;
                             }
                         });
@@ -3047,12 +3100,12 @@ public class Main2LAyer extends AppCompatActivity {
                         x[0] = view;
 
                         flag = 1;
-                        cy = 0;
-                        cm = 0;
-                        cd = 0;
-                        cn = 0;
-                        cl = 0;
-                        clike = 0;
+                        mCy = 0;
+                        mCm = 0;
+                        mCd = 0;
+                        mCn = 0;
+                        mCl = 0;
+                        mCk = 0;
                     }
                     }
 
@@ -3071,7 +3124,7 @@ public class Main2LAyer extends AppCompatActivity {
             private void notifyDataSet(View view) {
 //                        Toast.makeText(MainActivity.this,"here",Toast.LENGTH_SHORT).show();
                 if (session.getGridSize()==0) {
-                    im1 = (CircularImageView) view.findViewById(R.id.icon1);
+                    mMenuItemImage = (CircularImageView) view.findViewById(R.id.icon1);
                     im2 = (CircularImageView) view.findViewById(R.id.icon2);
                     im3 = (CircularImageView) view.findViewById(R.id.icon3);
 
@@ -3080,10 +3133,10 @@ public class Main2LAyer extends AppCompatActivity {
                     im2.setShadowRadius(sr);
                     im2.setBorderWidth(0);
 
-                    im1.setBorderColor(-1);
-                    im1.setShadowColor(0);
-                    im1.setShadowRadius(sr);
-                    im1.setBorderWidth(0);
+                    mMenuItemImage.setBorderColor(-1);
+                    mMenuItemImage.setShadowColor(0);
+                    mMenuItemImage.setShadowRadius(sr);
+                    mMenuItemImage.setBorderWidth(0);
 
                     im3.setBorderColor(-1);
                     im3.setShadowColor(0);
@@ -3093,7 +3146,7 @@ public class Main2LAyer extends AppCompatActivity {
 
                 }
                 if (session.getGridSize()==1){
-                    im1 = (CircularImageView) view.findViewById(R.id.icon1);
+                    mMenuItemImage = (CircularImageView) view.findViewById(R.id.icon1);
                     im2 = (CircularImageView) view.findViewById(R.id.icon2);
                     im3 = (CircularImageView) view.findViewById(R.id.icon3);
                     im4 = (CircularImageView) view.findViewById(R.id.icon4);
@@ -3103,10 +3156,10 @@ public class Main2LAyer extends AppCompatActivity {
                     im8 = (CircularImageView) view.findViewById(R.id.icon8);
                     im9 = (CircularImageView) view.findViewById(R.id.icon9);
 
-                    im1.setBorderColor(-1);
-                    im1.setShadowColor(0);
-                    im1.setShadowRadius(sr);
-                    im1.setBorderWidth(0);
+                    mMenuItemImage.setBorderColor(-1);
+                    mMenuItemImage.setShadowColor(0);
+                    mMenuItemImage.setShadowRadius(sr);
+                    mMenuItemImage.setBorderWidth(0);
 
                     im2.setBorderColor(-1);
                     im2.setShadowColor(0);
@@ -3151,23 +3204,21 @@ public class Main2LAyer extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onLongClick(View view, int position) {
+                    public void onLongClick(View view, int mLevelOneItemPos) {
 
                     }
 
                 }
                 )
 
-        );
-
-
+        );*/
 
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 home.setImageResource(R.drawable.homepressed);
-                tts.speak(below[0], TextToSpeech.QUEUE_FLUSH, null);
-                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                mTts.speak(below[0], TextToSpeech.QUEUE_FLUSH, null);
+                Intent i = new Intent(getApplicationContext(), Layer3Activity.class);
                 startActivity(i);
             }
         });
@@ -3176,13 +3227,13 @@ public class Main2LAyer extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                tts.speak(below[2], TextToSpeech.QUEUE_FLUSH, null);
+                mTts.speak(below[2], TextToSpeech.QUEUE_FLUSH, null);
 
                 if (flag_keyboard == 1) {
                     keyboard.setImageResource(R.drawable.keyboard_button);
                     back.setImageResource(R.drawable.back_button);
                     et.setVisibility(View.INVISIBLE);
-                    recyclerView.setVisibility(View.VISIBLE);
+                    mRecyclerView.setVisibility(View.VISIBLE);
                     ttsButton.setVisibility(View.INVISIBLE);
                     flag_keyboard = 0;
                     like.setEnabled(true);
@@ -3207,7 +3258,7 @@ public class Main2LAyer extends AppCompatActivity {
 
                     et.setKeyListener(originalKeyListener);
                     // Focus the field.
-                    recyclerView.setVisibility(View.INVISIBLE);
+                    mRecyclerView.setVisibility(View.INVISIBLE);
                     like.setAlpha(0.5f);
                     dislike.setAlpha(0.5f);
                     add.setAlpha(0.5f);
@@ -3235,12 +3286,10 @@ public class Main2LAyer extends AppCompatActivity {
         ttsButton.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View view) {
-
-                        //tts.setSpeechRate((float) 0.8);
-                        tts.setSpeechRate((float) session.getSpeed() / 50);
-                        tts.setPitch((float) session.getPitch() / 50);
+                        mTts.setSpeechRate((float) session.getSpeed() / 50);
+                        mTts.setPitch((float) session.getPitch() / 50);
                         String s1 = et.getText().toString();
-                        tts.speak(s1, TextToSpeech.QUEUE_FLUSH, null);
+                        mTts.speak(s1, TextToSpeech.QUEUE_FLUSH, null);
 
                         like.setEnabled(false);
                         dislike.setEnabled(false);
@@ -3259,9 +3308,9 @@ public class Main2LAyer extends AppCompatActivity {
                         if (flag_keyboard == 1) {
                             keyboard.setImageResource(R.drawable.keyboard_button);
                             back.setImageResource(R.drawable.back_button);
-                            tts.speak(below[1], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(below[1], TextToSpeech.QUEUE_FLUSH, null);
                             et.setVisibility(View.INVISIBLE);
-                            recyclerView.setVisibility(View.VISIBLE);
+                            mRecyclerView.setVisibility(View.VISIBLE);
                             ttsButton.setVisibility(View.INVISIBLE);
                             flag_keyboard = 0;
                             like.setEnabled(true);
@@ -3281,7 +3330,7 @@ public class Main2LAyer extends AppCompatActivity {
                         else
                         {
                             back.setImageResource(R.drawable.backpressed);
-                            tts.speak(below[1], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(below[1], TextToSpeech.QUEUE_FLUSH, null);
                             Intent i = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(i);
                         }
@@ -3305,15 +3354,14 @@ public class Main2LAyer extends AppCompatActivity {
         like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //int a = myMusic[0];
-                cy = 0;
-                cm = 0;
-                cd = 0;
-                cn = 0;
-                cl = 0;
+                mCy = 0;
+                mCm = 0;
+                mCd = 0;
+                mCn = 0;
+                mCl = 0;
                 image_flag = 0;
-
-                if (position == 8 && location==0){
+                resetActionButtons(image_flag);
+                if (mLevelOneItemPos == 8 && location==0){
                     like.setImageResource(R.drawable.mynameis);
                     dislike.setImageResource(R.drawable.caregiver_unpressed);
                     yes.setImageResource(R.drawable.email_unpressed);
@@ -3329,68 +3377,43 @@ public class Main2LAyer extends AppCompatActivity {
                     add.setImageResource(R.drawable.morewithout);
                     minus.setImageResource(R.drawable.lesswithout);
                 }
-                //location = passid(0);
                 if (flag == 0) {
-                    if (clike == 1) {
-                        //   Toast.makeText(MainActivity.this, tts.getLanguage().toString(), Toast.LENGTH_LONG).show();
-                        tts.speak(side[1], TextToSpeech.QUEUE_FLUSH, null);         //if pressing like for second time then says like very much
-                        clike = 0;
+                    if (mCk == 1) {
+                        mTts.speak(side[1], TextToSpeech.QUEUE_FLUSH, null);         //if pressing like for second time then says like very much
+                        mCk = 0;
                     } else {
-                        tts.speak(side[0], TextToSpeech.QUEUE_FLUSH, null);         //if pressing like for first time says i like iin lang specified for session
-                        clike = 1;
+                        mTts.speak(side[0], TextToSpeech.QUEUE_FLUSH, null);         //if pressing like for first time says i like iin lang specified for session
+                        mCk = 1;
                     }
                 } else {
+                        mMenuItemImage.setBorderColor(mColor[0]);
+                        mMenuItemImage.setShadowColor(mColor[0]);
+                        mMenuItemImage.setShadowRadius(sr);
+                        mMenuItemImage.setBorderWidth(bw);
 
-                    if(location%3==0)
-                    {
-                        im1.setBorderColor(color[0]);
-                        im1.setShadowColor(color[0]);
-                        im1.setShadowRadius(sr);
-                        im1.setBorderWidth(bw);
-
-                    }
-                    else
-                    if(location%3==1)
-                    {
-                        im2.setBorderColor(color[0]);
-                        im2.setShadowColor(color[0]);
-                        im2.setShadowRadius(sr);
-                        im2.setBorderWidth(bw);
-
-                    }
-                    else
-                    if(location%3==2)
-                    {
-                        im3.setBorderColor(color[0]);
-                        im3.setShadowColor(color[0]);
-                        im3.setShadowRadius(sr);
-                        im3.setBorderWidth(bw);
-
-                    }
-                    //imageView = (CircularImageView) vi.findViewById(R.id.circularImageView);
-                    if (clike == 1) {
-                        if (position == 5)
-                            tts.speak(layer_2_speech[position][sort[location]][1], TextToSpeech.QUEUE_FLUSH, null);
-                        else if (position == 6)
-                            tts.speak(layer_2_speech[position][sort_places[location]][1], TextToSpeech.QUEUE_FLUSH, null);
-                        else if(position == 8 && location == 0)
-                            tts.speak(layer_2_speech[position][location][1]+session.getName()+end,TextToSpeech.QUEUE_FLUSH,null) ;
+                    if (mCk == 1) {
+                        if (mLevelOneItemPos == 5)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[location]][1], TextToSpeech.QUEUE_FLUSH, null);
+                        else if (mLevelOneItemPos == 6)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[location]][1], TextToSpeech.QUEUE_FLUSH, null);
+                        else if(mLevelOneItemPos == 8 && location == 0)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][1]+session.getName()+end,TextToSpeech.QUEUE_FLUSH,null) ;
                         else
-                            tts.speak(layer_2_speech[position][location][1], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][1], TextToSpeech.QUEUE_FLUSH, null);
 
-                        clike = 0;
+                        mCk = 0;
                     } else {
-                        if(position == 5)
-                            tts.speak(layer_2_speech[position][sort[location]][0], TextToSpeech.QUEUE_FLUSH, null);
-                        else if (position == 6)
-                            tts.speak(layer_2_speech[position][sort_places[location]][0], TextToSpeech.QUEUE_FLUSH, null);
-                        else if(position == 8 && location == 0)
-                             tts.speak(layer_2_speech[position][location][0]+session.getName()+end,TextToSpeech.QUEUE_FLUSH,null) ;
+                        if(mLevelOneItemPos == 5)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[location]][0], TextToSpeech.QUEUE_FLUSH, null);
+                        else if (mLevelOneItemPos == 6)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[location]][0], TextToSpeech.QUEUE_FLUSH, null);
+                        else if(mLevelOneItemPos == 8 && location == 0)
+                             mTts.speak(layer_2_speech[mLevelOneItemPos][location][0]+session.getName()+end,TextToSpeech.QUEUE_FLUSH,null) ;
                         else
-                            tts.speak(layer_2_speech[position][location][0], TextToSpeech.QUEUE_FLUSH, null);
-
-                        clike = 1;
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][0], TextToSpeech.QUEUE_FLUSH, null);
+                        mCk = 1;
                     }
+                    ++mActionBtnClickCount;
                 }
             }
         });
@@ -3398,10 +3421,10 @@ public class Main2LAyer extends AppCompatActivity {
         dislike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //int a = myMusic[0];
-                clike = 0; cy = 0; cm = 0; cn = 0; cl = 0;
+                mCk = 0; mCy = 0; mCm = 0; mCn = 0; mCl = 0;
                 image_flag = 1;
-                if (position == 8 && location==0){
+                resetActionButtons(image_flag);
+                if (mLevelOneItemPos == 8 && location==0){
                     like.setImageResource(R.drawable.mynameis_unpressed);
                     dislike.setImageResource(R.drawable.caregiver);
                     yes.setImageResource(R.drawable.email_unpressed);
@@ -3418,78 +3441,57 @@ public class Main2LAyer extends AppCompatActivity {
                     minus.setImageResource(R.drawable.lesswithout);
                 }
                 if (flag == 0) {
-                    if (cd == 1) {
-                        tts.speak(side[7], TextToSpeech.QUEUE_FLUSH, null);
-                        cd = 0;
+                    if (mCd == 1) {
+                        mTts.speak(side[7], TextToSpeech.QUEUE_FLUSH, null);
+                        mCd = 0;
                     } else {
-                        tts.speak(side[6], TextToSpeech.QUEUE_FLUSH, null);
-                        cd = 1;
+                        mTts.speak(side[6], TextToSpeech.QUEUE_FLUSH, null);
+                        mCd = 1;
                     }
                 } else {
+                        mMenuItemImage.setBorderColor(mColor[1]);
+                        mMenuItemImage.setShadowColor(mColor[1]);
+                        mMenuItemImage.setShadowRadius(sr);
+                        mMenuItemImage.setBorderWidth(bw);
 
-                    if(location%3==0)
-                    {
-                        im1.setBorderColor(color[1]);
-                        im1.setShadowColor(color[1]);
-                        im1.setShadowRadius(sr);
-                        im1.setBorderWidth(bw);
+                    if (mCd == 1) {
 
-                    }
-                    else
-                    if(location%3==1)
-                    {
-                        im2.setBorderColor(color[1]);
-                        im2.setShadowColor(color[1]);
-                        im2.setShadowRadius(sr);
-                        im2.setBorderWidth(bw);
-
-                    }
-                    else
-                    if(location%3==2)
-                    {
-                        im3.setBorderColor(color[1]);
-                        im3.setShadowColor(color[1]);
-                        im3.setShadowRadius(sr);
-                        im3.setBorderWidth(bw);
-
-                    }
-                    //imageView = (CircularImageView) vi.findViewById(R.id.circularImageView);
-                    if (cd == 1) {
-
-                        if (position == 5)
-                            tts.speak(layer_2_speech[position][sort[location]][7], TextToSpeech.QUEUE_FLUSH, null);
-                        else if (position == 6)
-                            tts.speak(layer_2_speech[position][sort_places[location]][7], TextToSpeech.QUEUE_FLUSH, null);
-                        else if(position == 8 && location == 0)
-                            tts.speak(layer_2_speech[position][location][7]+session.getFather_name()+end,TextToSpeech.QUEUE_FLUSH,null) ;
+                        if (mLevelOneItemPos == 5)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[location]][7], TextToSpeech.QUEUE_FLUSH, null);
+                        else if (mLevelOneItemPos == 6)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[location]][7], TextToSpeech.QUEUE_FLUSH, null);
+                        else if(mLevelOneItemPos == 8 && location == 0)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][7]+session.getFather_name()+end,TextToSpeech.QUEUE_FLUSH,null) ;
 
                         else
-                            tts.speak(layer_2_speech[position][location][7], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][7], TextToSpeech.QUEUE_FLUSH, null);
 
-                        cd = 0;
+                        mCd = 0;
                     } else {
 
-                        if (position == 5)
-                            tts.speak(layer_2_speech[position][sort[location]][6], TextToSpeech.QUEUE_FLUSH, null);
-                        else if (position == 6)
-                            tts.speak(layer_2_speech[position][sort_places[location]][6], TextToSpeech.QUEUE_FLUSH, null);
-                        else if(position == 8 && location == 0)
-                            tts.speak(layer_2_speech[position][location][6]+session.getFather_name()+end,TextToSpeech.QUEUE_FLUSH,null) ;
+                        if (mLevelOneItemPos == 5)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[location]][6], TextToSpeech.QUEUE_FLUSH, null);
+                        else if (mLevelOneItemPos == 6)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[location]][6], TextToSpeech.QUEUE_FLUSH, null);
+                        else if(mLevelOneItemPos == 8 && location == 0)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][6]+session.getFather_name()+end,TextToSpeech.QUEUE_FLUSH,null) ;
                         else
-                            tts.speak(layer_2_speech[position][location][6], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][6], TextToSpeech.QUEUE_FLUSH, null);
 
-                        cd = 1;
+                        mCd = 1;
                     }
-                }            }
+                    ++mActionBtnClickCount;
+                }
+            }
         });
 
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //int a = myMusic[0];
-                clike = 0; cm = 0; cd = 0; cn = 0; cl = 0;
+                mCk = 0; mCm = 0; mCd = 0; mCn = 0; mCl = 0;
                 image_flag = 2;
-                if (position == 8 && location==0){
+                resetActionButtons(image_flag);
+                if (mLevelOneItemPos == 8 && location==0){
                     like.setImageResource(R.drawable.mynameis_unpressed);
                     dislike.setImageResource(R.drawable.caregiver_unpressed);
                     yes.setImageResource(R.drawable.email);
@@ -3506,78 +3508,54 @@ public class Main2LAyer extends AppCompatActivity {
                     minus.setImageResource(R.drawable.lesswithout);
                 }
                 if (flag == 0) {
-                    if (cy == 1) {
-                        tts.speak(side[3], TextToSpeech.QUEUE_FLUSH, null);
-                        cy = 0;
+                    if (mCy == 1) {
+                        mTts.speak(side[3], TextToSpeech.QUEUE_FLUSH, null);
+                        mCy = 0;
                     } else {
-                        tts.speak(side[2], TextToSpeech.QUEUE_FLUSH, null);
-                        cy = 1;
+                        mTts.speak(side[2], TextToSpeech.QUEUE_FLUSH, null);
+                        mCy = 1;
                     }
                 } else {
-                    if(location%3==0)
-                    {
-                        im1.setBorderColor(color[2]);
-                        im1.setShadowColor(color[2]);
-                        im1.setShadowRadius(sr);
-                        im1.setBorderWidth(bw);
-
-                    }
-                    else
-                    if(location%3==1)
-                    {
-                        im2.setBorderColor(color[2]);
-                        im2.setShadowColor(color[2]);
-                        im2.setShadowRadius(sr);
-                        im2.setBorderWidth(bw);
-
-                    }
-                    else
-                    if(location%3==2)
-                    {
-                        im3.setBorderColor(color[2]);
-                        im3.setShadowColor(color[2]);
-                        im3.setShadowRadius(sr);
-                        im3.setBorderWidth(bw);
-
-                    }
-                    //imageView = (CircularImageView) vi.findViewById(R.id.circularImageView);
-                    if (cy == 1) {
-                        if (position == 5)
-                            tts.speak(layer_2_speech[position][sort[location]][3], TextToSpeech.QUEUE_FLUSH, null);
-                        else if (position == 6)
-                            tts.speak(layer_2_speech[position][sort_places[location]][3], TextToSpeech.QUEUE_FLUSH, null);
-                        else if(position == 8 && location == 0)
-                             tts.speak(layer_2_speech[position][location][3]+session.getEmailId()+end,TextToSpeech.QUEUE_FLUSH,null) ;
+                    ((CircularImageView)mSelectedItemView).setBorderColor(mColor[2]);
+                    ((CircularImageView)mSelectedItemView).setShadowColor(mColor[2]);
+                    ((CircularImageView)mSelectedItemView).setShadowRadius(sr);
+                    ((CircularImageView)mSelectedItemView).setBorderWidth(bw);
+                    if (mCy == 1) {
+                        if (mLevelOneItemPos == 5)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[location]][3], TextToSpeech.QUEUE_FLUSH, null);
+                        else if (mLevelOneItemPos == 6)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[location]][3], TextToSpeech.QUEUE_FLUSH, null);
+                        else if(mLevelOneItemPos == 8 && location == 0)
+                             mTts.speak(layer_2_speech[mLevelOneItemPos][location][3]+session.getEmailId()+end,TextToSpeech.QUEUE_FLUSH,null) ;
                         else
 
-                            tts.speak(layer_2_speech[position][location][3], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][3], TextToSpeech.QUEUE_FLUSH, null);
 
-                        cy = 0;
+                        mCy = 0;
                     } else {
 
-                        if (position == 5)
-                            tts.speak(layer_2_speech[position][sort[location]][2], TextToSpeech.QUEUE_FLUSH, null);
-                        else if (position == 6)
-                            tts.speak(layer_2_speech[position][sort_places[location]][2], TextToSpeech.QUEUE_FLUSH, null);
-                        else if(position == 8 && location == 0)
-                            tts.speak(layer_2_speech[position][location][2]+session.getEmailId()+end,TextToSpeech.QUEUE_FLUSH,null) ;
+                        if (mLevelOneItemPos == 5)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[location]][2], TextToSpeech.QUEUE_FLUSH, null);
+                        else if (mLevelOneItemPos == 6)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[location]][2], TextToSpeech.QUEUE_FLUSH, null);
+                        else if(mLevelOneItemPos == 8 && location == 0)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][2]+session.getEmailId()+end,TextToSpeech.QUEUE_FLUSH,null) ;
                         else
-
-
-                            tts.speak(layer_2_speech[position][location][2], TextToSpeech.QUEUE_FLUSH, null);
-
-                        cy = 1;
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][2], TextToSpeech.QUEUE_FLUSH, null);
+                            mCy = 1;
+                        }
+                        ++mActionBtnClickCount;
                     }
-                }     }
+                }
         });
 
         no.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //int a = myMusic[0];
-                clike = 0; cy = 0; cm = 0; cd = 0; cl = 0;
+                mCk = 0; mCy = 0; mCm = 0; mCd = 0; mCl = 0;
                 image_flag = 3;
-                if (position == 8 && location==0){
+                resetActionButtons(image_flag);
+                if (mLevelOneItemPos == 8 && location==0){
                     like.setImageResource(R.drawable.mynameis_unpressed);
                     dislike.setImageResource(R.drawable.caregiver_unpressed);
                     yes.setImageResource(R.drawable.email_unpressed);
@@ -3594,66 +3572,42 @@ public class Main2LAyer extends AppCompatActivity {
                     minus.setImageResource(R.drawable.lesswithout);
                 }
                 if (flag == 0) {
-                    if (cn == 1) {
-                        tts.speak(side[9], TextToSpeech.QUEUE_FLUSH, null);
-                        cn = 0;
+                    if (mCn == 1) {
+                        mTts.speak(side[9], TextToSpeech.QUEUE_FLUSH, null);
+                        mCn = 0;
                     } else {
-                        tts.speak(side[8], TextToSpeech.QUEUE_FLUSH, null);
-                        cn = 1;
+                        mTts.speak(side[8], TextToSpeech.QUEUE_FLUSH, null);
+                        mCn = 1;
                     }
                 } else {
-                    if(location%3==0)
-                    {
-                        im1.setBorderColor(color[3]);
-                        im1.setShadowColor(color[3]);
-                        im1.setShadowRadius(sr);
-                        im1.setBorderWidth(bw);
-
-                    }
-                    else
-                    if(location%3==1)
-                    {
-                        im2.setBorderColor(color[3]);
-                        im2.setShadowColor(color[3]);
-                        im2.setShadowRadius(sr);
-                        im2.setBorderWidth(bw);
-
-                    }
-                    else
-                    if(location%3==2)
-                    {
-                        im3.setBorderColor(color[3]);
-                        im3.setShadowColor(color[3]);
-                        im3.setShadowRadius(sr);
-                        im3.setBorderWidth(bw);
-
-                    }
-
-                    //imageView = (CircularImageView) vi.findViewById(R.id.circularImageView);
-                    if (cn == 1) {
-                        if (position == 5)
-                            tts.speak(layer_2_speech[position][sort[location]][9], TextToSpeech.QUEUE_FLUSH, null);
-                        else if (position == 6)
-                            tts.speak(layer_2_speech[position][sort_places[location]][9], TextToSpeech.QUEUE_FLUSH, null);
-                        else if(position == 8 && location == 0)
-                            tts.speak(layer_2_speech[position][location][9]+session.getAddress()+end,TextToSpeech.QUEUE_FLUSH,null) ;
+                        mMenuItemImage.setBorderColor(mColor[3]);
+                        mMenuItemImage.setShadowColor(mColor[3]);
+                        mMenuItemImage.setShadowRadius(sr);
+                        mMenuItemImage.setBorderWidth(bw);
+                    if (mCn == 1) {
+                        if (mLevelOneItemPos == 5)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[location]][9], TextToSpeech.QUEUE_FLUSH, null);
+                        else if (mLevelOneItemPos == 6)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[location]][9], TextToSpeech.QUEUE_FLUSH, null);
+                        else if(mLevelOneItemPos == 8 && location == 0)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][9]+session.getAddress()+end,TextToSpeech.QUEUE_FLUSH,null) ;
                         else
-                            tts.speak(layer_2_speech[position][location][9], TextToSpeech.QUEUE_FLUSH, null);
-
-                        cn = 0;
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][9], TextToSpeech.QUEUE_FLUSH, null);
+                        mCn = 0;
                     } else {
-                        if (position == 5)
-                            tts.speak(layer_2_speech[position][sort[location]][8], TextToSpeech.QUEUE_FLUSH, null);
-                        else if (position == 6)
-                            tts.speak(layer_2_speech[position][sort_places[location]][8], TextToSpeech.QUEUE_FLUSH, null);
-                        else if(position == 8 && location == 0)
-                            tts.speak(layer_2_speech[position][location][8]+session.getAddress()+end,TextToSpeech.QUEUE_FLUSH,null) ;
+                        if (mLevelOneItemPos == 5)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[location]][8], TextToSpeech.QUEUE_FLUSH, null);
+                        else if (mLevelOneItemPos == 6)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[location]][8], TextToSpeech.QUEUE_FLUSH, null);
+                        else if(mLevelOneItemPos == 8 && location == 0)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][8]+session.getAddress()+end,TextToSpeech.QUEUE_FLUSH,null) ;
                         else
 
-                            tts.speak(layer_2_speech[position][location][8], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][8], TextToSpeech.QUEUE_FLUSH, null);
 
-                        cn = 1;
+                        mCn = 1;
                     }
+                    ++mActionBtnClickCount;
                 }
             }
         });
@@ -3661,10 +3615,10 @@ public class Main2LAyer extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //int a = myMusic[0];
-                clike = 0; cy = 0; cd = 0; cn = 0; cl = 0;
+                mCk = 0; mCy = 0; mCd = 0; mCn = 0; mCl = 0;
                 image_flag = 4;
-                if (position == 8 && location==0){
+                resetActionButtons(image_flag);
+                if (mLevelOneItemPos == 8 && location==0){
                     like.setImageResource(R.drawable.mynameis_unpressed);
                     dislike.setImageResource(R.drawable.caregiver_unpressed);
                     yes.setImageResource(R.drawable.email_unpressed);
@@ -3681,66 +3635,45 @@ public class Main2LAyer extends AppCompatActivity {
                     minus.setImageResource(R.drawable.lesswithout);
                 }
                 if (flag == 0) {
-                    if (cm == 1) {
-                        tts.speak(side[5], TextToSpeech.QUEUE_FLUSH, null);
-                        cm = 0;
+                    if (mCm == 1) {
+                        mTts.speak(side[5], TextToSpeech.QUEUE_FLUSH, null);
+                        mCm = 0;
                     } else {
-                        tts.speak(side[4], TextToSpeech.QUEUE_FLUSH, null);
-                        cm = 1;
+                        mTts.speak(side[4], TextToSpeech.QUEUE_FLUSH, null);
+                        mCm = 1;
                     }
                 } else {
-                    if(location%3==0)
-                    {
-                        im1.setBorderColor(color[4]);
-                        im1.setShadowColor(color[4]);
-                        im1.setShadowRadius(sr);
-                        im1.setBorderWidth(bw);
+                        mMenuItemImage.setBorderColor(mColor[4]);
+                        mMenuItemImage.setShadowColor(mColor[4]);
+                        mMenuItemImage.setShadowRadius(sr);
+                        mMenuItemImage.setBorderWidth(bw);
 
-                    }
-                    else
-                    if(location%3==1)
-                    {
-                        im2.setBorderColor(color[4]);
-                        im2.setShadowColor(color[4]);
-                        im2.setShadowRadius(sr);
-                        im2.setBorderWidth(bw);
-
-                    }
-                    else
-                    if(location%3==2)
-                    {
-                        im3.setBorderColor(color[4]);
-                        im3.setShadowColor(color[4]);
-                        im3.setShadowRadius(sr);
-                        im3.setBorderWidth(bw);
-
-                    }
-
-                    if (cm == 1) {
-                        if (position == 5)
-                            tts.speak(layer_2_speech[position][sort[location]][5], TextToSpeech.QUEUE_FLUSH, null);
-                        else if (position == 6)
-                            tts.speak(layer_2_speech[position][sort_places[location]][5], TextToSpeech.QUEUE_FLUSH, null);
-                        else if(position == 8 && location == 0) {
-                            tts.setLanguage(Locale.US);
-                            tts.speak(layer_2_speech[position][location][5] + session.getFather_no().replaceAll("\\B", " ") + end, TextToSpeech.QUEUE_FLUSH, null);
-                            tts.setLanguage(new Locale("hin", "IND"));
+                    if (mCm == 1) {
+                        if (mLevelOneItemPos == 5)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[location]][5], TextToSpeech.QUEUE_FLUSH, null);
+                        else if (mLevelOneItemPos == 6)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[location]][5], TextToSpeech.QUEUE_FLUSH, null);
+                        else if(mLevelOneItemPos == 8 && location == 0) {
+                            mTts.setLanguage(Locale.US);
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][5] + session.getFather_no().replaceAll("\\B", " ") + end, TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.setLanguage(new Locale("hin", "IND"));
                         } else
-                            tts.speak(layer_2_speech[position][location][5], TextToSpeech.QUEUE_FLUSH, null);
-                        cm = 0;
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][5], TextToSpeech.QUEUE_FLUSH, null);
+                        mCm = 0;
                     } else {
-                        if (position == 5)
-                            tts.speak(layer_2_speech[position][sort[location]][4], TextToSpeech.QUEUE_FLUSH, null);
-                        else if (position == 6)
-                            tts.speak(layer_2_speech[position][sort_places[location]][4], TextToSpeech.QUEUE_FLUSH, null);
-                        else if(position == 8 && location == 0){
-                            tts.setLanguage(Locale.US);
-                            tts.speak(layer_2_speech[position][location][5] + session.getFather_no().replaceAll("\\B", " ") + end, TextToSpeech.QUEUE_FLUSH, null);
-                            tts.setLanguage(new Locale("hin", "IND"));
+                        if (mLevelOneItemPos == 5)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[location]][4], TextToSpeech.QUEUE_FLUSH, null);
+                        else if (mLevelOneItemPos == 6)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[location]][4], TextToSpeech.QUEUE_FLUSH, null);
+                        else if(mLevelOneItemPos == 8 && location == 0){
+                            mTts.setLanguage(Locale.US);
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][5] + session.getFather_no().replaceAll("\\B", " ") + end, TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.setLanguage(new Locale("hin", "IND"));
                             } else
-                            tts.speak(layer_2_speech[position][location][4], TextToSpeech.QUEUE_FLUSH, null);
-                        cm = 1;
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][4], TextToSpeech.QUEUE_FLUSH, null);
+                        mCm = 1;
                     }
+                    ++mActionBtnClickCount;
                 }
 
             }
@@ -3749,10 +3682,9 @@ public class Main2LAyer extends AppCompatActivity {
         minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //int a = myMusic[0];
-                clike = 0; cy = 0; cm = 0; cd = 0; cn = 0;
+                mCk = 0; mCy = 0; mCm = 0; mCd = 0; mCn = 0;
                 image_flag = 5;
-                if (position == 8 && location==0){
+                if (mLevelOneItemPos == 8 && location==0){
                     like.setImageResource(R.drawable.mynameis_unpressed);
                     dislike.setImageResource(R.drawable.caregiver_unpressed);
                     yes.setImageResource(R.drawable.email_unpressed);
@@ -3770,51 +3702,24 @@ public class Main2LAyer extends AppCompatActivity {
                 }
 
                 if (flag == 0) {
-                    if (cl == 1) {
-                        tts.speak(side[11], TextToSpeech.QUEUE_FLUSH, null);
-                        cl = 0;
+                    if (mCl == 1) {
+                        mTts.speak(side[11], TextToSpeech.QUEUE_FLUSH, null);
+                        mCl = 0;
                     } else {
-                        tts.speak(side[10], TextToSpeech.QUEUE_FLUSH, null);
-                        cl = 1;
+                        mTts.speak(side[10], TextToSpeech.QUEUE_FLUSH, null);
+                        mCl = 1;
                     }
-                }          else
-                {
-
-
-                    if(location%3==0)
-                    {
-                        im1.setBorderColor(color[5]);
-                        im1.setShadowColor(color[5]);
-                        im1.setShadowRadius(sr);
-                        im1.setBorderWidth(bw);
-
-                    }
-                    else
-                    if(location%3==1)
-                    {
-                        im2.setBorderColor(color[5]);
-                        im2.setShadowColor(color[5]);
-                        im2.setShadowRadius(sr);
-                        im2.setBorderWidth(bw);
-
-                    }
-                    else
-                    if(location%3==2)
-                    {
-                        im3.setBorderColor(color[5]);
-                        im3.setShadowColor(color[5]);
-                        im3.setShadowRadius(sr);
-                        im3.setBorderWidth(bw);
-
-                    }
-
-                    if (cl == 1) {
-                        if (position == 5)
-                            tts.speak(layer_2_speech[position][sort[location]][11], TextToSpeech.QUEUE_FLUSH, null);
-                        else if (position == 6)
-                            tts.speak(layer_2_speech[position][sort_places[location]][11], TextToSpeech.QUEUE_FLUSH, null);
-                        else if(position == 8 && location == 0){
-
+                } else {
+                    ((CircularImageView)mSelectedItemView).setBorderColor(mColor[5]);
+                    ((CircularImageView)mSelectedItemView).setBorderColor(mColor[5]);
+                    ((CircularImageView)mSelectedItemView).setShadowRadius(sr);
+                    ((CircularImageView)mSelectedItemView).setBorderWidth(bw);
+                    if (mCl == 1) {
+                        if (mLevelOneItemPos == 5)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[location]][11], TextToSpeech.QUEUE_FLUSH, null);
+                        else if (mLevelOneItemPos == 6)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[location]][11], TextToSpeech.QUEUE_FLUSH, null);
+                        else if(mLevelOneItemPos == 8 && location == 0){
                             switch(session.getBlood()){
                                 case  0: b ="A positive"; break;
                                 case  1: b ="A negative"; break;
@@ -3825,42 +3730,17 @@ public class Main2LAyer extends AppCompatActivity {
                                 case  6: b ="O positive"; break;
                                 case  7: b ="O negative"; break;
                             }
-                            /*if (a==0)
-                            {
-                                b="A positive";
-                            }if (a==1)
-                            {
-                                b="A negative";
-                            }if (a==2)
-                            {
-                                b="B positive";
-                            }if (a==3)
-                            {
-                                b="B negative";
-                            }if (a==4)
-                            {
-                                b="A B positive";
-                            }if (a==5)
-                            {
-                                b="A B negative";
-                            }if (a==6)
-                            {
-                                b="O positive";
-                            }if (a==7)
-                            {
-                                b="O negative";
-                            }*/
-                            tts.speak(layer_2_speech[position][location][10] + b + end, TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][10] + b + end, TextToSpeech.QUEUE_FLUSH, null);
                         }
                         else
-                            tts.speak(layer_2_speech[position][location][11], TextToSpeech.QUEUE_FLUSH, null);
-                        cl = 0;
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][11], TextToSpeech.QUEUE_FLUSH, null);
+                        mCl = 0;
                     } else {
-                        if (position == 5)
-                            tts.speak(layer_2_speech[position][sort[location]][10], TextToSpeech.QUEUE_FLUSH, null);
-                        else if (position == 6)
-                            tts.speak(layer_2_speech[position][sort_places[location]][10], TextToSpeech.QUEUE_FLUSH, null);
-                        else if(position == 8 && location == 0){
+                        if (mLevelOneItemPos == 5)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[location]][10], TextToSpeech.QUEUE_FLUSH, null);
+                        else if (mLevelOneItemPos == 6)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[location]][10], TextToSpeech.QUEUE_FLUSH, null);
+                        else if(mLevelOneItemPos == 8 && location == 0){
 
                             switch(session.getBlood()){
                                 case  0: b ="A positive"; break;
@@ -3872,129 +3752,20 @@ public class Main2LAyer extends AppCompatActivity {
                                 case  6: b ="O positive"; break;
                                 case  7: b ="O negative"; break;
                             }
-                           /* if (a==0)
-                            {
-                                b="A positive";
-                            }if (a==1)
-                            {
-                                b="A negative";
-                            }if (a==2)
-                            {
-                                b="B positive";
-                            }if (a==3)
-                            {
-                                b="B negative";
-                            }if (a==4)
-                            {
-                                b="A B positive";
-                            }if (a==5)
-                            {
-                                b="A B negative";
-                            }if (a==6)
-                            {
-                                b="O positive";
-                            }if (a==7)
-                            {
-                                b="O negative";
-                            }*/
-                            tts.speak(layer_2_speech[position][location][10] + b + end, TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][10] + b + end, TextToSpeech.QUEUE_FLUSH, null);
                         } else
 
-                            tts.speak(layer_2_speech[position][location][10], TextToSpeech.QUEUE_FLUSH, null);
-                        cl = 1;
-                    }
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][10], TextToSpeech.QUEUE_FLUSH, null);
+                        mCl = 1;
+                        }
+                        ++mActionBtnClickCount;
                 }
-
             }
         });
-
-    }
-
-    private class LongOperation extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... params) {
-
-            try {
-
-                if (session.getLanguage()==0 /*&& session.getAccent() == 0*/){
-                    tts.setLanguage(new Locale("hin", "IND"));
-                    layer_2_speech = layer_2_speech_english;
-                    side = side_english;
-                    below = below_english;
-                }
-                else   if (session.getLanguage()==1){
-                    tts.setLanguage(new Locale("hin", "IND"));
-                    layer_2_speech = layer_2_speech_hindi;
-                    side = side_hindi;
-                    below = below_hindi;
-                }
-            } catch (Exception e) {
-                Thread.interrupted();
-            }
-
-            return "Executed";
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-
-        }
-
-        @Override
-        protected void onPreExecute() {}
-
-        @Override
-        protected void onProgressUpdate(Void... values) {}
-    }
-
-    private class LongOperation1 extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... params) {
-
-            try {
-                DisplayMetrics displayMetrics = getApplicationContext().getResources().getDisplayMetrics();
-                dpHeight = displayMetrics.heightPixels / displayMetrics.density;
-                dpWidth = displayMetrics.widthPixels / displayMetrics.density;
-
-                if (dpHeight >= 720) {
-                    sr = 0;
-                    bw = 15;
-                } else {
-                    sr = 0;
-                    bw = 7;
-                }
-
-                System.out.println("dpWidth: " + dpWidth);
-                System.out.println("dpHeight: " + dpHeight);
-
-                /*DisplayMetrics dm = new DisplayMetrics();
-                getWindowManager().getDefaultDisplay().getMetrics(dm);
-                int width = dm.widthPixels;
-                int height = dm.heightPixels;
-                int dens = dm.densityDpi;
-                double wi = (double) width / (double) dm.xdpi;
-                double hi = (double) height / (double) dm.ydpi;
-                double x = Math.pow(wi, 2);
-                double y = Math.pow(hi, 2);
-                double screenInches = Math.sqrt(x + y);
-
-                System.out.println("ScreenInches: " + screenInches);*/
-
-            } catch (Exception e) {
-                Thread.interrupted();
-            }
-
-            return "Executed";
-        }
-
-
     }
 
     public void myMusic_function(int position){
-        //System.out.println("asfarfdsf ");
-        //myMusic = null;
+
         if (position == 0){
             if (session.getLanguage() == 0)
                 myMusic = greet_text;
@@ -4142,7 +3913,7 @@ public class Main2LAyer extends AppCompatActivity {
 
          * @param arg1 The second index
 
-         * @return The result of calling compareTo on T objects at position arg0 and arg1
+         * @return The result of calling compareTo on T objects at mLevelOneItemPos arg0 and arg1
 
          */
 
@@ -4157,6 +3928,7 @@ public class Main2LAyer extends AppCompatActivity {
 
         }
     }
+
     String[][][] layer_2_speech_english = {{{"I like to greet others",
             "I really like to greet others",
             "I want to greet others",
@@ -6336,6 +6108,7 @@ public class Main2LAyer extends AppCompatActivity {
             "मुझे और पानी नहीं चाहिए",
             "मुझे सच में थोड़ा भी पानी नहीं चाहिए"
     }}};
+
     public class ArrayIndexComparator implements Comparator<Integer>
     {
         private final Integer[] array;
@@ -6360,6 +6133,43 @@ public class Main2LAyer extends AppCompatActivity {
         {
             // Autounbox from Integer to int to use as array indexes
             return array[index2].compareTo(array[index1]);
+        }
+    }
+
+    private void setMenuImageBorder(View recyclerChildView, boolean setBorder) {
+        CircularImageView circularImageView = (CircularImageView) recyclerChildView.findViewById(R.id.icon1);
+        if (setBorder){
+            if(mActionBtnClickCount > 0)
+                ((CircularImageView)mSelectedItemView).setBorderColor(mColor[image_flag]);
+            else {
+                circularImageView.setBorderColor(-1283893945);
+                circularImageView.setShadowColor(-1283893945);
+            }
+            circularImageView.setShadowRadius(sr);
+            circularImageView.setBorderWidth(bw);
+        }else {
+            circularImageView.setBorderColor(-1);
+            circularImageView.setShadowColor(0);
+            circularImageView.setShadowRadius(sr);
+            circularImageView.setBorderWidth(0);
+        }
+    }
+
+    private void resetActionButtons(int image_flag) {
+        like.setImageResource(R.drawable.ilikewithoutoutline);
+        dislike.setImageResource(R.drawable.idontlikewithout);
+        yes.setImageResource(R.drawable.iwantwithout);
+        no.setImageResource(R.drawable.idontwantwithout);
+        add.setImageResource(R.drawable.morewithout);
+        minus.setImageResource(R.drawable.lesswithout);
+        switch (image_flag){
+            case 0: like.setImageResource(R.drawable.ilikewithoutline); break;
+            case 1: dislike.setImageResource(R.drawable.idontlikewithoutline); break;
+            case 2: yes.setImageResource(R.drawable.iwantwithoutline); break;
+            case 3: no.setImageResource(R.drawable.idontwantwithoutline); break;
+            case 4: add.setImageResource(R.drawable.morewithoutline); break;
+            case 5: minus.setImageResource(R.drawable.lesswithoutline); break;
+            default: break;
         }
     }
 
@@ -6421,6 +6231,73 @@ public class Main2LAyer extends AppCompatActivity {
         return true;
     }
 
+    private class BackgroundSpeechOperationsAsync extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            try {
+
+                if (session.getLanguage()==0 /*&& session.getAccent() == 0*/){
+                    mTts.setLanguage(new Locale("hin", "IND"));
+                    layer_2_speech = layer_2_speech_english;
+                    side = side_english;
+                    below = below_english;
+                }
+                else   if (session.getLanguage()==1){
+                    mTts.setLanguage(new Locale("hin", "IND"));
+                    layer_2_speech = layer_2_speech_hindi;
+                    side = side_hindi;
+                    below = below_hindi;
+                }
+            } catch (Exception e) {
+                Thread.interrupted();
+            }
+
+            return "Executed";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+
+        }
+
+        @Override
+        protected void onPreExecute() {}
+
+        @Override
+        protected void onProgressUpdate(Void... values) {}
+    }
+
+    private class CalculateSrBwAsync extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            try {
+                DisplayMetrics displayMetrics = getApplicationContext().getResources().getDisplayMetrics();
+                dpHeight = displayMetrics.heightPixels / displayMetrics.density;
+                dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+
+                if (dpHeight >= 720) {
+                    sr = 0;
+                    bw = 15;
+                } else {
+                    sr = 0;
+                    bw = 7;
+                }
+
+                System.out.println("dpWidth: " + dpWidth);
+                System.out.println("dpHeight: " + dpHeight);
+
+            } catch (Exception e) {
+                Thread.interrupted();
+            }
+
+            return "Executed";
+        }
+    }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -6431,5 +6308,4 @@ public class Main2LAyer extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
-
 }

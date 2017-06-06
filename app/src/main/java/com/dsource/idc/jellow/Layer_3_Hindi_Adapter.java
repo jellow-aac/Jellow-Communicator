@@ -1200,7 +1200,7 @@ public class Layer_3_Hindi_Adapter extends android.support.v7.widget.RecyclerVie
                 j = j - 1;
             } else {
                 tv1.setText(" ");
-                //   img1.setImageResource(0);
+                //   menuItemImage.setImageResource(0);
                 img1.setImageResource(R.drawable.background_circle);
                 img1.setEnabled(false);
 

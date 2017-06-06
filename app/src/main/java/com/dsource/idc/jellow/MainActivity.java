@@ -27,7 +27,7 @@ import static com.dsource.idc.jellow.R.id.reset;
 import static com.dsource.idc.jellow.Reset__preferences.flag;
 
 public class MainActivity extends AppCompatActivity {
-    private static final int LANG_ENG = 0, LANG_HINDI = 1;
+    private static final int LANG_ENG = 0, LANG_HINDI = 1, GOTO_LEVEL_TWO = 1, GOTO_LEVEL_ONE = 0;
 
     int mCk = 0, mCy = 0, mCm = 0, mCd = 0, mCn = 0, mCl = 0;
     int image_flag = -1, flag_keyboard = 0;
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private KeyListener originalKeyListener;
     private RecyclerView mRecyclerView;
     private LinearLayout mMenuItemLinearLayout;
-    private int mSelectedItemLayoutPos = -1, mSelectedItemAdapterPos = -1, mActionBtnClickCount = -1;
+    private int mLevelOneItemPos = -1, mSelectedItemAdapterPos = -1, mActionBtnClickCount = -1;
     private boolean mShouldReadFullSpeech = false;
     private ArrayList<View> mRecyclerItemsViewList;
     public TextToSpeech mTts;
@@ -275,8 +275,7 @@ public class MainActivity extends AppCompatActivity {
     String[] side = new String[100];
     String[] below = new String[100];
 
-    float dpHeight;
-    float dpWidth;
+    float dpHeight, dpWidth;
     int sr, bw;
 
     final String[] belowText_hindi ={"शुभकामना और भावना", "रोज़ के काम", "खाना", "मज़े", "सीखना", "लोग", "जगह", "समय और मौसम", "मदद"};
@@ -355,11 +354,13 @@ public class MainActivity extends AppCompatActivity {
                         mActionBtnClickCount = 0;
                         setMenuImageBorder(v, true);
                         mShouldReadFullSpeech = true;
-                        mSelectedItemLayoutPos = mRecyclerView.getChildLayoutPosition(view);
+    					if (mLevelOneItemPos == position) {
+                            Intent intent = new Intent(MainActivity.this, Main2LAyer.class);
+                            intent.putExtra("mLevelOneItemPos", position);
+                            startActivity(intent);
+                        }
+                        mLevelOneItemPos = mRecyclerView.getChildLayoutPosition(view);
                         mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
-                        /*Intent intent = new Intent(MainActivity.this, Main2LAyer.class);
-                        intent.putExtra("id", position);
-                        startActivity(intent);*/
                         if(session.getLanguage() == LANG_ENG)   getSupportActionBar().setTitle(english1[position]);
                         else    getSupportActionBar().setTitle(belowText_hindi[position]);
                         mTts.speak(myMusic[position], TextToSpeech.QUEUE_FLUSH, null);
@@ -563,10 +564,10 @@ public class MainActivity extends AppCompatActivity {
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     }
                     if (mCk == 1) {
-                        mTts.speak(layer_1_speech[mSelectedItemLayoutPos][1], TextToSpeech.QUEUE_FLUSH, null);
+                        mTts.speak(layer_1_speech[mLevelOneItemPos][1], TextToSpeech.QUEUE_FLUSH, null);
                         mCk = 0;
                     } else {
-                        mTts.speak(layer_1_speech[mSelectedItemLayoutPos][0], TextToSpeech.QUEUE_FLUSH, null);
+                        mTts.speak(layer_1_speech[mLevelOneItemPos][0], TextToSpeech.QUEUE_FLUSH, null);
                         mCk = 1;
                     }
 
@@ -593,10 +594,10 @@ public class MainActivity extends AppCompatActivity {
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCd == 1) {
-                        mTts.speak(layer_1_speech[mSelectedItemLayoutPos][7], TextToSpeech.QUEUE_FLUSH, null);
+                        mTts.speak(layer_1_speech[mLevelOneItemPos][7], TextToSpeech.QUEUE_FLUSH, null);
                         mCd = 0;
                     } else {
-                        mTts.speak(layer_1_speech[mSelectedItemLayoutPos][6], TextToSpeech.QUEUE_FLUSH, null);
+                        mTts.speak(layer_1_speech[mLevelOneItemPos][6], TextToSpeech.QUEUE_FLUSH, null);
                         mCd = 1;
                     }
 
@@ -623,10 +624,10 @@ public class MainActivity extends AppCompatActivity {
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCy == 1) {
-                        mTts.speak(layer_1_speech[mSelectedItemLayoutPos][3], TextToSpeech.QUEUE_FLUSH, null);
+                        mTts.speak(layer_1_speech[mLevelOneItemPos][3], TextToSpeech.QUEUE_FLUSH, null);
                         mCy = 0;
                     } else {
-                        mTts.speak(layer_1_speech[mSelectedItemLayoutPos][2], TextToSpeech.QUEUE_FLUSH, null);
+                        mTts.speak(layer_1_speech[mLevelOneItemPos][2], TextToSpeech.QUEUE_FLUSH, null);
                         mCy = 1;
                     }
 
@@ -653,10 +654,10 @@ public class MainActivity extends AppCompatActivity {
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCn == 1) {
-                        mTts.speak(layer_1_speech[mSelectedItemLayoutPos][9], TextToSpeech.QUEUE_FLUSH, null);
+                        mTts.speak(layer_1_speech[mLevelOneItemPos][9], TextToSpeech.QUEUE_FLUSH, null);
                         mCn = 0;
                     } else {
-                        mTts.speak(layer_1_speech[mSelectedItemLayoutPos][8], TextToSpeech.QUEUE_FLUSH, null);
+                        mTts.speak(layer_1_speech[mLevelOneItemPos][8], TextToSpeech.QUEUE_FLUSH, null);
                         mCn = 1;
                     }
 
@@ -683,10 +684,10 @@ public class MainActivity extends AppCompatActivity {
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCm == 1) {
-                        mTts.speak(layer_1_speech[mSelectedItemLayoutPos][5], TextToSpeech.QUEUE_FLUSH, null);
+                        mTts.speak(layer_1_speech[mLevelOneItemPos][5], TextToSpeech.QUEUE_FLUSH, null);
                         mCm = 0;
                     } else {
-                        mTts.speak(layer_1_speech[mSelectedItemLayoutPos][4], TextToSpeech.QUEUE_FLUSH, null);
+                        mTts.speak(layer_1_speech[mLevelOneItemPos][4], TextToSpeech.QUEUE_FLUSH, null);
                         mCm = 1;
                     }
                 }
@@ -712,10 +713,10 @@ public class MainActivity extends AppCompatActivity {
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCl == 1) {
-                        mTts.speak(layer_1_speech[mSelectedItemLayoutPos][11], TextToSpeech.QUEUE_FLUSH, null);
+                        mTts.speak(layer_1_speech[mLevelOneItemPos][11], TextToSpeech.QUEUE_FLUSH, null);
                         mCl = 0;
                     } else {
-                        mTts.speak(layer_1_speech[mSelectedItemLayoutPos][10], TextToSpeech.QUEUE_FLUSH, null);
+                        mTts.speak(layer_1_speech[mLevelOneItemPos][10], TextToSpeech.QUEUE_FLUSH, null);
                         mCl = 1;
                     }
                 }
@@ -725,7 +726,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void resetRecycleraMenuItemsAndFlags() {
         resetActionButtons(6);
-        mSelectedItemLayoutPos = -1;
+        mLevelOneItemPos = -1;
         resetRecyclerAllItems();
         mActionBtnClickCount = 0;
     }

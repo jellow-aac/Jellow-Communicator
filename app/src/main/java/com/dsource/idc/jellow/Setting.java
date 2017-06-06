@@ -114,7 +114,7 @@ public class Setting extends AppCompatActivity {
             @Override
             public void onInit(int status) {
                 if(status != TextToSpeech.ERROR) {
-                    t1.setEngineByPackageName("com.google.android.tts");
+                    t1.setEngineByPackageName("com.google.android.mTts");
                 }
             }
         });

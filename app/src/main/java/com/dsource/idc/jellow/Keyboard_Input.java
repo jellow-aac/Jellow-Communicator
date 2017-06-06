@@ -108,7 +108,7 @@ public class Keyboard_Input extends AppCompatActivity {
 
                 Intent installIntent = new Intent();
                 installIntent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
-                installIntent.setPackage("com.google.android.tts");
+                installIntent.setPackage("com.google.android.mTts");
                 startActivity(installIntent);
             }
         });

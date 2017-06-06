@@ -63,7 +63,7 @@ public class SharedPreferences extends AppCompatActivity {
             @Override
             public void onInit(int status) {
                 if(status != TextToSpeech.ERROR) {
-                    mainActivity.mTts.setEngineByPackageName("com.google.android.tts");
+                    mainActivity.mTts.setEngineByPackageName("com.google.android.mTts");
                     mainActivity.mTts.setLanguage(new Locale("hin", "IND"));
                 }
             }

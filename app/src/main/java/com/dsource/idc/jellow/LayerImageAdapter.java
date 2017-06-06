@@ -4,11 +4,10 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
@@ -17,17 +16,15 @@ import android.widget.TextView;
 
 public class LayerImageAdapter extends android.support.v7.widget.RecyclerView.Adapter<LayerImageAdapter.MyViewHolder> {
     private Context mContext;
+    private SessionManager session;
+
     private int pos;
     public static Integer[] mThumbIds = new Integer[100];
-
     public static String[] belowText = new String[100];
-
-    /*public static int people_more = 0;
-    public static int places_more = 0;*/
     int j=0;
-    private SessionManager session;
-    TextView tv1,tv2,tv3, tv4,tv5,tv6, tv7,tv8,tv9;
-    CircularImageView img1,img2,img3,img4,img5,img6,img7,img8,img9;
+    private TextView menuItemBelowText;
+    private CircularImageView menuItemImage;
+    private LinearLayout menuItemLinearLayout;
     // Keep all Images in array
     public Integer[] learning = {
             R.drawable.level2_learning_animal, R.drawable.level2_learn_bodypart,
@@ -116,13 +113,14 @@ public class LayerImageAdapter extends android.support.v7.widget.RecyclerView.Ad
     public static String[] help_text_hindi =
             {"मेरे बारे में", "मैं घायल हूँ", "मेरी तबियत ठीक नहीं हैं", "मुझे थकावट लग रही हैं", "मुझे मदद करें", "दवाई", "बैंडेज", "पानी"};
 
-int k=0,l=0,a=0,x=0;
+int k=0,l=0,a=0;
     // Constructor
+
     public LayerImageAdapter(Context c, int posi, String[] temp, Integer[] image_temp){
         mContext = c;
         this.pos = posi;
         session = new SessionManager(mContext);
-Log.d("possssiii",pos+"");
+
         if (pos == 0){
             if (session.getLanguage() == 0){
             mThumbIds = greet_feel;
@@ -181,79 +179,24 @@ Log.d("possssiii",pos+"");
                 belowText = help_text_hindi;
         }
     }
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),  "fonts/Mukta-Regular.ttf");
 
         public MyViewHolder(final View view) {
-
             super(view);
-if (session.getGridSize()==0) {
-    img1 = (CircularImageView) view.findViewById(R.id.icon1);
-    img2 = (CircularImageView) view.findViewById(R.id.icon2);
-    img3 = (CircularImageView) view.findViewById(R.id.icon3);
-
-
-    tv1 = (TextView) view.findViewById(R.id.te1);
-    tv2 = (TextView) view.findViewById(R.id.te2);
-    tv3 = (TextView) view.findViewById(R.id.te3);
-
-    tv1.setTypeface(custom_font);
-    tv1.setTextColor(Color.rgb(64, 64, 64));
-    tv2.setTypeface(custom_font);
-    tv2.setTextColor(Color.rgb(64, 64, 64));
-    tv3.setTypeface(custom_font);
-    tv3.setTextColor(Color.rgb(64, 64, 64));
-}
-if (session.getGridSize()==1)
-{
-    img1 = (CircularImageView) view.findViewById(R.id.icon1);
-    img2 = (CircularImageView) view.findViewById(R.id.icon2);
-    img3 = (CircularImageView) view.findViewById(R.id.icon3);
-    img4 = (CircularImageView) view.findViewById(R.id.icon4);
-    img5 = (CircularImageView) view.findViewById(R.id.icon5);
-    img6 = (CircularImageView) view.findViewById(R.id.icon6);
-    img7 = (CircularImageView) view.findViewById(R.id.icon7);
-    img8 = (CircularImageView) view.findViewById(R.id.icon8);
-    img9 = (CircularImageView) view.findViewById(R.id.icon9);
-
-    tv1 = (TextView) view.findViewById(R.id.te1);
-    tv2 = (TextView) view.findViewById(R.id.te2);
-    tv3 = (TextView) view.findViewById(R.id.te3);
-    tv4 = (TextView) view.findViewById(R.id.te4);
-    tv5 = (TextView) view.findViewById(R.id.te5);
-    tv6 = (TextView) view.findViewById(R.id.te6);
-    tv7 = (TextView) view.findViewById(R.id.te7);
-    tv8 = (TextView) view.findViewById(R.id.te8);
-    tv9 = (TextView) view.findViewById(R.id.te9);
-
-    tv1.setTypeface(custom_font);
-    tv1.setTextColor(Color.rgb(64, 64, 64));
-    tv2.setTypeface(custom_font);
-    tv2.setTextColor(Color.rgb(64, 64, 64));
-    tv3.setTypeface(custom_font);
-    tv3.setTextColor(Color.rgb(64, 64, 64));
-    tv4.setTypeface(custom_font);
-    tv4.setTextColor(Color.rgb(64, 64, 64));
-    tv5.setTypeface(custom_font);
-    tv5.setTextColor(Color.rgb(64, 64, 64));
-    tv6.setTypeface(custom_font);
-    tv6.setTextColor(Color.rgb(64, 64, 64));
-    tv7.setTypeface(custom_font);
-    tv7.setTextColor(Color.rgb(64, 64, 64));
-    tv8.setTypeface(custom_font);
-    tv8.setTextColor(Color.rgb(64, 64, 64));
-    tv9.setTypeface(custom_font);
-    tv9.setTextColor(Color.rgb(64, 64, 64));
-
-}
+            menuItemImage = (CircularImageView) view.findViewById(R.id.icon1);
+            menuItemLinearLayout = (LinearLayout) view.findViewById(R.id.linearlayout_icon1);
+            menuItemBelowText = (TextView) view.findViewById(R.id.te1);
+            menuItemBelowText.setTypeface(custom_font);
+            menuItemBelowText.setTextColor(Color.rgb(64, 64, 64));
         }
     }
 
-
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View rowView;
-        DisplayMetrics displayMetrics = mContext.getResources().getDisplayMetrics();
+        View rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.myscrolllist2, parent, false);
+       /* DisplayMetrics displayMetrics = mContext.getResources().getDisplayMetrics();
         float dpHeight = displayMetrics.heightPixels / displayMetrics.density;
         float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
         if (session.getGridSize()==0){
@@ -270,30 +213,33 @@ if (session.getGridSize()==1)
         }else {
             rowView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.myscrolllist33, parent, false);
-        }
+        }*/
         return new LayerImageAdapter.MyViewHolder(rowView);
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
         j=mThumbIds.length;
         System.out.println("COUNTER "+position);
-        int h = 1, q = 0;
-if (session.getGridSize()==0) {
-    if (position == 0) {
-        tv1.setText(belowText[0]);
-        tv2.setText(belowText[1]);
-        tv3.setText(belowText[2]);
-        img1.setImageResource(mThumbIds[0]);
-        img1.setOnClickListener(new View.OnClickListener() {
+
+//if (session.getGridSize()==0) {
+        if (session.getGridSize() == 0) {
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.setMargins(0, 336, 0, 336);
+            menuItemLinearLayout.setLayoutParams(params);
+        }else {
+            menuItemLinearLayout.setScaleX(0.7f);
+            menuItemLinearLayout.setScaleY(0.7f);
+        }
+        menuItemBelowText.setText(belowText[position]);
+        menuItemImage.setImageResource(mThumbIds[position]);
+        menuItemImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                x = 0;
-                handleItemClick(belowText[0], 0);
-                putpos(belowText[0]);
+                putpos(belowText[position]);
             }
         });
-        img2.setImageResource(mThumbIds[1]);
+   /*     img2.setImageResource(mThumbIds[1]);
         img2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -311,20 +257,18 @@ if (session.getGridSize()==0) {
                 handleItemClick(belowText[2], 2);
                 putpos(belowText[2]);
             }
-        });
+        });*/
 
-        System.out.print("ssssssssssss" + j);
-    }
-    j = j - 3;
-    System.out.print("cccccccccc" + j);
-    if (position == 1) {
+    //j = j - 3;
+
+/*    if (position == 1) {
         {
             System.out.print("YYYYY" + j);
             if (j > 0) {
                 System.out.print("zzzzzz" + j);
-                tv1.setText(belowText[3]);
-                img1.setImageResource(mThumbIds[3]);
-                img1.setOnClickListener(new View.OnClickListener() {
+                menuItemBelowText.setText(belowText[3]);
+                menuItemImage.setImageResource(mThumbIds[3]);
+                menuItemImage.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         x = 3;
@@ -383,9 +327,9 @@ if (session.getGridSize()==0) {
         k = 6;
         System.out.print("jjjjjjjjj" + j);
         if (j > 0) {
-            tv1.setText(belowText[6]);
-            img1.setImageResource(mThumbIds[6]);
-            img1.setOnClickListener(new View.OnClickListener() {
+            menuItemBelowText.setText(belowText[6]);
+            menuItemImage.setImageResource(mThumbIds[6]);
+            menuItemImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     x = 6;
@@ -436,127 +380,18 @@ if (session.getGridSize()==0) {
             img3.setEnabled(false);
         }
 
-    }
-}
-if (session.getGridSize()==1)
-{
-    j=mThumbIds.length;
-    img1.setImageResource(mThumbIds[0]);
-    img2.setImageResource(mThumbIds[1]);
-    img3.setImageResource(mThumbIds[2]);
-    tv1.setText(belowText[0]);
-    tv2.setText(belowText[1]);
-    tv3.setText(belowText[2]);
-    j=j-3;
-
-    if(j>0) {
-        img4.setImageResource(mThumbIds[3]);
-        tv4.setText(belowText[3]);
-        j=j-1;
-    }
-    else
-    {
-        img4.setImageResource(R.drawable.background_circle);
-        tv4.setText("");
-
-    }
-
-    if(j>0) {
-        img5.setImageResource(mThumbIds[4]);
-        tv5.setText(belowText[4]);
-        j=j-1;
-    }
-    else
-    {
-        img5.setImageResource(R.drawable.background_circle);
-        tv5.setText("");
-
-    }
-    if(j>0) {
-        img6.setImageResource(mThumbIds[5]);
-        tv6.setText(belowText[5]);
-        j=j-1;
-    }
-    else
-    {
-        img6.setImageResource(R.drawable.background_circle);
-        tv6.setText("");
-
-    }
-    if(j>0) {
-        img7.setImageResource(mThumbIds[6]);
-        tv7.setText(belowText[6]);
-        j=j-1;
-    }
-    else
-    {
-        img7.setImageResource(R.drawable.background_circle);
-        tv7.setText("");
-
-    }
-    if(j>0) {
-        img8.setImageResource(mThumbIds[7]);
-        tv8.setText(belowText[7]);
-        j=j-1;
-    }
-    else
-    {
-        img8.setImageResource(R.drawable.background_circle);
-        tv8.setText("");
-
-    }
-    if(j>0) {
-        img9.setImageResource(mThumbIds[8]);
-        tv9.setText(belowText[8]);
-        j=j-1;
-    }
-    else
-    {
-        img9.setImageResource(R.drawable.background_circle);
-        tv9.setText("");
-
-    }
-}
-        Log.d("trueee",x+"");
+    }*/
 
     }
 
     @Override
     public int getItemCount() {
         System.out.println("MTHUMBSID"+(mThumbIds.length));
-        if (session.getGridSize()==0) {
-            k = (mThumbIds.length % 3);
-            System.out.println("kkkkkkkk" + k);
-            l = (mThumbIds.length / 3);
-            System.out.println("llllll" + l);
-            if (k > 0) {
-                l++;
-                System.out.println("COOUT" + l);
-            }
-            System.out.println("DOOUT" + l);
-        }
-        if (session.getGridSize()==1) {
-            k = (mThumbIds.length % 9);
-            System.out.println("kkkkkkkk" + k);
-            l = (mThumbIds.length / 9);
-            System.out.println("llllll" + l);
-            if (k > 0) {
-                l++;
-                System.out.println("COOUT" + l);
-            }
-            System.out.println("DOOUT" + l);
-        }
-
-        return l;
-
+        return mThumbIds.length;
     }
-
 
     private void handleItemClick(String position1, int local) {
-        System.out.print("CHECCCC "+position1);
-        //((Main2LAyer) mContext).myfunction(position1,local);
-
-    }
+     }
 
     private String putpos(String s) {
         String position="";
@@ -564,5 +399,4 @@ if (session.getGridSize()==1)
         System.out.println("ppppp "+position);
         return position;
     }
-
 }

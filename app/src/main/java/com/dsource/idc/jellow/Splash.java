@@ -26,11 +26,11 @@ public class Splash extends AppCompatActivity {
         pGif.setImageResource(R.drawable.jellow_j);
 
         final MainActivity mainActivity = new MainActivity();
-        mainActivity.mTts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+        mainActivity.mTts=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
                 if(status != TextToSpeech.ERROR) {
-                    mainActivity.mTts.setEngineByPackageName("com.google.android.tts");
+                    mainActivity.mTts.setEngineByPackageName("com.google.android.mTts");
                     mainActivity.mTts.setLanguage(new Locale("hin", "IND"));
                 }
             }

@@ -4,11 +4,10 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
@@ -17,17 +16,18 @@ import android.widget.TextView;
 
 public class Adapter_ppl_places extends android.support.v7.widget.RecyclerView.Adapter<Adapter_ppl_places.MyViewHolder> {
     private Context mContext;
+    private SessionManager session;
+
     private int pos;
     public static Integer[] mThumbIds = new Integer[100];
-
     public static String[] belowText = new String[100];
+    int j = 0;
+    TextView menuItemBelowText;
+    CircularImageView menuItemImage;
+    private LinearLayout menuItemLinearLayout;
 
     public static int people_more = 0;
     public static int places_more = 0;
-    int j = 0, u = 0;
-    private SessionManager session;
-    TextView tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8, tv9;
-    CircularImageView img1, img2, img3, img4, img5, img6, img7, img8, img9;
 
     int k = 0, l = 0, a = 0,kk=0;
 
@@ -61,79 +61,24 @@ public class Adapter_ppl_places extends android.support.v7.widget.RecyclerView.A
         }
     }
     public class MyViewHolder extends RecyclerView.ViewHolder {
-int position = -1;
+    int position = -1;
         Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),  "fonts/Mukta-Regular.ttf");
 
         public MyViewHolder(final View view) {
 
             super(view);
-
-            if (session.getGridSize()==0) {
-                img1 = (CircularImageView) view.findViewById(R.id.icon1);
-                img2 = (CircularImageView) view.findViewById(R.id.icon2);
-                img3 = (CircularImageView) view.findViewById(R.id.icon3);
-
-
-                tv1 = (TextView) view.findViewById(R.id.te1);
-                tv2 = (TextView) view.findViewById(R.id.te2);
-                tv3 = (TextView) view.findViewById(R.id.te3);
-
-                tv1.setTypeface(custom_font);
-                tv1.setTextColor(Color.rgb(64, 64, 64));
-                tv2.setTypeface(custom_font);
-                tv2.setTextColor(Color.rgb(64, 64, 64));
-                tv3.setTypeface(custom_font);
-                tv3.setTextColor(Color.rgb(64, 64, 64));
-            }
-
-            if (session.getGridSize()==1) {
-
-                img1 = (CircularImageView) view.findViewById(R.id.icon1);
-                img2 = (CircularImageView) view.findViewById(R.id.icon2);
-                img3 = (CircularImageView) view.findViewById(R.id.icon3);
-                img4 = (CircularImageView) view.findViewById(R.id.icon4);
-                img5 = (CircularImageView) view.findViewById(R.id.icon5);
-                img6 = (CircularImageView) view.findViewById(R.id.icon6);
-                img7 = (CircularImageView) view.findViewById(R.id.icon7);
-                img8 = (CircularImageView) view.findViewById(R.id.icon8);
-                img9 = (CircularImageView) view.findViewById(R.id.icon9);
-
-                tv1 = (TextView) view.findViewById(R.id.te1);
-                tv2 = (TextView) view.findViewById(R.id.te2);
-                tv3 = (TextView) view.findViewById(R.id.te3);
-                tv4 = (TextView) view.findViewById(R.id.te4);
-                tv5 = (TextView) view.findViewById(R.id.te5);
-                tv6 = (TextView) view.findViewById(R.id.te6);
-                tv7 = (TextView) view.findViewById(R.id.te7);
-                tv8 = (TextView) view.findViewById(R.id.te8);
-                tv9 = (TextView) view.findViewById(R.id.te9);
-
-                tv1.setTypeface(custom_font);
-                tv1.setTextColor(Color.rgb(64, 64, 64));
-                tv2.setTypeface(custom_font);
-                tv2.setTextColor(Color.rgb(64, 64, 64));
-                tv3.setTypeface(custom_font);
-                tv3.setTextColor(Color.rgb(64, 64, 64));
-                tv4.setTypeface(custom_font);
-                tv4.setTextColor(Color.rgb(64, 64, 64));
-                tv5.setTypeface(custom_font);
-                tv5.setTextColor(Color.rgb(64, 64, 64));
-                tv6.setTypeface(custom_font);
-                tv6.setTextColor(Color.rgb(64, 64, 64));
-                tv7.setTypeface(custom_font);
-                tv7.setTextColor(Color.rgb(64, 64, 64));
-                tv8.setTypeface(custom_font);
-                tv8.setTextColor(Color.rgb(64, 64, 64));
-                tv9.setTypeface(custom_font);
-                tv9.setTextColor(Color.rgb(64, 64, 64));
-            }
+                menuItemImage = (CircularImageView) view.findViewById(R.id.icon1);
+                menuItemLinearLayout = (LinearLayout) view.findViewById(R.id.linearlayout_icon1);
+                menuItemBelowText = (TextView) view.findViewById(R.id.te1);
+                menuItemBelowText.setTypeface(custom_font);
+                menuItemBelowText.setTextColor(Color.rgb(64, 64, 64));
         }
     }
 
     @Override
     public Adapter_ppl_places.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View rowView;
-        DisplayMetrics displayMetrics = mContext.getResources().getDisplayMetrics();
+        View rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.myscrolllist2, parent, false);
+       /* DisplayMetrics displayMetrics = mContext.getResources().getDisplayMetrics();
         float dpHeight = displayMetrics.heightPixels / displayMetrics.density;
         float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
 
@@ -151,10 +96,9 @@ int position = -1;
         }else {
             rowView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.myscrolllist33, parent, false);
-        }
+        }*/
 
         return new Adapter_ppl_places.MyViewHolder(rowView);
-
     }
 
     @Override
@@ -162,8 +106,24 @@ int position = -1;
         int position;
         j=mThumbIds.length;
 
-        if (session.getGridSize()==0){
-        for(int i=0;i<j;i++)
+        //if (session.getGridSize()==0){
+        if (session.getGridSize() == 0) {
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.setMargins(0, 336, 0, 336);
+            menuItemLinearLayout.setLayoutParams(params);
+        }else {
+            menuItemLinearLayout.setScaleX(0.7f);
+            menuItemLinearLayout.setScaleY(0.7f);
+        }
+            menuItemBelowText.setText(belowText[position1]);
+            menuItemImage.setImageResource(mThumbIds[position1]);
+            menuItemImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    putpos(belowText[position1]);
+                }
+            });
+       /* for(int i=0;i<j;i++)
         {
             Log.d("ppll0",belowText[i]+" "); // ppll (initial)
         }
@@ -177,43 +137,43 @@ int position = -1;
             Log.d("kvalue0",k+" ");
 
         }if(j>0) {
-                tv1.setText(belowText[k]);
-                img1.setImageResource(mThumbIds[k]);
+                menuItemBelowText.setText(belowText[k]);
+                menuItemImage.setImageResource(mThumbIds[k]);
                 j = j - 1;
             }
 
             else {
-                tv1.setText(" ");
-                img1.setImageResource(R.drawable.background_circle);
-        //        img1.setAlpha(0.5f);
-                img1.setEnabled(false);
+                menuItemBelowText.setText(" ");
+                menuItemImage.setImageResource(R.drawable.background_circle);
+        //        menuItemImage.setAlpha(0.5f);
+                menuItemImage.setEnabled(false);
             }
             if(j>0) {
-                tv2.setText(belowText[k + 1]);
-                img2.setImageResource(mThumbIds[k + 1]);
+               // tv2.setText(belowText[k + 1]);
+                //img2.setImageResource(mThumbIds[k + 1]);
                 j=j-1;
             }
             else {
-                tv2.setText(" ");
-                img2.setImageResource(R.drawable.background_circle);
+                //tv2.setText(" ");
+               // img2.setImageResource(R.drawable.background_circle);
           //      img2.setAlpha(0.5f);
-                img2.setEnabled(false);
+                //img2.setEnabled(false);
             }
 
             if(j>0) {
-                tv3.setText(belowText[k + 2]);
-                img3.setImageResource(mThumbIds[k + 2]);
+              //  tv3.setText(belowText[k + 2]);
+                //img3.setImageResource(mThumbIds[k + 2]);
                 j = j - 1;
             }
             else {
-                tv3.setText(" ");
-                img3.setImageResource(R.drawable.background_circle);
+               // tv3.setText(" ");
+               // img3.setImageResource(R.drawable.background_circle);
              //   img3.setAlpha(0.5f);
-                img3.setEnabled(false);
-            }
-        }
+              //  img3.setEnabled(false);
+            }*/
+       // }
 
-        if (session.getGridSize()==1){
+ /*       if (session.getGridSize()==1){
         for(int i=0;i<j;i++)
         {
             Log.d("ppll",belowText[i]+" ");
@@ -228,114 +188,113 @@ int position = -1;
             Log.d("kvalue",k+" ");
         }
             if(j>0) {
-                tv1.setText(belowText[k]);
-                img1.setImageResource(mThumbIds[k]);
+                menuItemBelowText.setText(belowText[k]);
+                menuItemImage.setImageResource(mThumbIds[k]);
                 Log.d("belowtext",belowText[k]+" ");
                 j = j - 1;
             }
 
             else {
-                tv1.setText(" ");
-                img1.setImageResource(R.drawable.background_circle);
-               // img1.setAlpha(0.5f);
-                img1.setEnabled(false);
+                menuItemBelowText.setText(" ");
+                menuItemImage.setImageResource(R.drawable.background_circle);
+               // menuItemImage.setAlpha(0.5f);
+                menuItemImage.setEnabled(false);
             }
             if(j>0) {
-                tv2.setText(belowText[k + 1]);
-                img2.setImageResource(mThumbIds[k + 1]);
+               // tv2.setText(belowText[k + 1]);
+               // img2.setImageResource(mThumbIds[k + 1]);
                 j=j-1;
             }
             else {
-                tv2.setText(" ");
-                img2.setImageResource(R.drawable.background_circle);
+              //  tv2.setText(" ");
+                //img2.setImageResource(R.drawable.background_circle);
             //    img2.setAlpha(0.5f);
-                img2.setEnabled(false);
+              //  img2.setEnabled(false);
             }
 
             if(j>0) {
-                tv3.setText(belowText[k + 2]);
-
-                img3.setImageResource(mThumbIds[k + 2]);
+              //  tv3.setText(belowText[k + 2]);
+              //  img3.setImageResource(mThumbIds[k + 2]);
                 j = j - 1;
             }
             else {
-                tv3.setText(" ");
-                img3.setImageResource(R.drawable.background_circle);
+                //tv3.setText(" ");
+               // img3.setImageResource(R.drawable.background_circle);
             //    img3.setAlpha(0.5f);
-                img3.setEnabled(false);
+               // img3.setEnabled(false);
             }
 
             if(j>0) {
-                tv4.setText(belowText[k + 3]);
-                img4.setImageResource(mThumbIds[k + 3]);
+               // tv4.setText(belowText[k + 3]);
+                //img4.setImageResource(mThumbIds[k + 3]);
                 j = j - 1;
             }
 
             else {
-                tv4.setText(" ");
-                img4.setImageResource(R.drawable.background_circle);
+                //tv4.setText(" ");
+                //img4.setImageResource(R.drawable.background_circle);
          //       img4.setAlpha(0.5f);
-                img4.setEnabled(false);
+               // img4.setEnabled(false);
             }
             if(j>0) {
-                tv5.setText(belowText[k + 4]);
-                img5.setImageResource(mThumbIds[k + 4]);
+               // tv5.setText(belowText[k + 4]);
+               // img5.setImageResource(mThumbIds[k + 4]);
                 j=j-1;
             }
             else {
-                tv5.setText(" ");
-                img5.setImageResource(R.drawable.background_circle);
+                //tv5.setText(" ");
+               // img5.setImageResource(R.drawable.background_circle);
          //       img5.setAlpha(0.5f);
-                img5.setEnabled(false);
+               // img5.setEnabled(false);
             }
 
             if(j>0) {
-                tv6.setText(belowText[k + 5]);
-                img6.setImageResource(mThumbIds[k + 5]);
+                //tv6.setText(belowText[k + 5]);
+               // img6.setImageResource(mThumbIds[k + 5]);
                 j = j - 1;
             }
             else {
-                tv6.setText(" ");
-                img6.setImageResource(R.drawable.background_circle);
+               // tv6.setText(" ");
+                //img6.setImageResource(R.drawable.background_circle);
            //     img6.setAlpha(0.5f);
-                img6.setEnabled(false);
+               // img6.setEnabled(false);
             }
             if(j>0) {
-                tv7.setText(belowText[k + 6]);
-                img7.setImageResource(mThumbIds[k + 6]);
+               // tv7.setText(belowText[k + 6]);
+               // img7.setImageResource(mThumbIds[k + 6]);
                 j = j - 1;
             }
 
             else {
-                tv7.setText(" ");
-                img7.setImageResource(R.drawable.background_circle);
+                //tv7.setText(" ");
+               // img7.setImageResource(R.drawable.background_circle);
              //   img7.setAlpha(0.5f);
-                img7.setEnabled(false);
+                //img7.setEnabled(false);
             }
             if(j>0) {
-                tv8.setText(belowText[k + 7]);
-                img8.setImageResource(mThumbIds[k + 7]);
+               // tv8.setText(belowText[k + 7]);
+                //img8.setImageResource(mThumbIds[k + 7]);
                 j=j-1;
             }
             else {
-                tv8.setText(" ");
-                img8.setImageResource(R.drawable.background_circle);
+                //tv8.setText(" ");
+               ///img8.setImageResource(R.drawable.background_circle);
            //     img8.setAlpha(0.5f);
-                img8.setEnabled(false);
+               // img8.setEnabled(false);
             }
 
             if(j>0) {
-                tv9.setText(belowText[k + 8]);
-                img9.setImageResource(mThumbIds[k + 8]);
+              //  tv9.setText(belowText[k + 8]);
+                //img9.setImageResource(mThumbIds[k + 8]);
                 j = j - 1;
             }
             else {
-                tv9.setText(" ");
-                img9.setImageResource(R.drawable.background_circle);
+               // tv9.setText(" ");
+                //img9.setImageResource(R.drawable.background_circle);
          //       img9.setAlpha(0.5f);
-                img9.setEnabled(false);
+                //img9.setEnabled(false);
             }
-        }
+        }*/
     }
 
     @Override
@@ -347,7 +306,7 @@ int position = -1;
     public int getItemCount() {
         System.out.println("MTHUMBSID"+(mThumbIds.length));
 
-        if (session.getGridSize()==0) {
+        /*if (session.getGridSize()==0) {
             kk = (mThumbIds.length % 3);
             System.out.println("kkkkkkkk" + kk);
             l = (mThumbIds.length / 3);
@@ -370,12 +329,11 @@ int position = -1;
                 System.out.println("COOUT" + l);
             }
             System.out.println("DOOUT" + l);
-        }
-        return l;
+        }*/
+        return mThumbIds.length;
     }
 
 private void handleItemClick(String position1, int local) {
-    System.out.print("CHECCCC "+position1);
 }
 
     private String putpos(String s) {
