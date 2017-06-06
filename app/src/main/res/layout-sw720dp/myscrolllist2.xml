@@ -8,13 +8,12 @@
     <com.dsource.idc.jellow.CircularImageView
         android:id="@+id/icon1"
         android:layout_width="195dp"
-        android:layout_height="180dp"
+        android:layout_height="195dp"
         android:src="@drawable/windy"/>
     <TextView
         android:id="@+id/te1"
         android:layout_width="324dp"
         android:layout_height="wrap_content"
-        android:textSize="22sp"
         android:text="TIME AND WEATHER"
         android:textAlignment="center"
         android:singleLine="true"

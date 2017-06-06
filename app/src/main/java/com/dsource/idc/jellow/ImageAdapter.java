@@ -70,31 +70,36 @@ public class ImageAdapter extends android.support.v7.widget.RecyclerView.Adapter
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         if (session.getGridSize() == GRID_1BY3) {
-            holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
             if (mAppPref.getScreenHeight() >= 720) {
                 params.setMargins(mMetricsUtils.getPixelsFromDpVal(36), mMetricsUtils.getPixelsFromDpVal(180), 0, mMetricsUtils.getPixelsFromDpVal(180));
+                holder.menuItemBelowText.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                if(session.getLanguage() == LANG_HINDI) holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);
+                else    holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
             }else if (mAppPref.getScreenWidth() > 640 && mAppPref.getScreenWidth() <= 1024) {
-                params.setMargins(mMetricsUtils.getPixelsFromDpVal(28), mMetricsUtils.getPixelsFromDpVal(124), 0, mMetricsUtils.getPixelsFromDpVal(124));
-                if(session.getLanguage() == LANG_HINDI) holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+                params.setMargins(mMetricsUtils.getPixelsFromDpVal(20), mMetricsUtils.getPixelsFromDpVal(124), 0, mMetricsUtils.getPixelsFromDpVal(124));
+                holder.menuItemBelowText.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                if(session.getLanguage() == LANG_HINDI) holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+                else    holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
             }else {
                 params.setMargins(mMetricsUtils.getPixelsFromDpVal(12), mMetricsUtils.getPixelsFromDpVal(92), 0, mMetricsUtils.getPixelsFromDpVal(92));
                 holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
             }
         }else if(session.getGridSize() == GRID_3BY3){
             if (mAppPref.getScreenHeight() >= 720) {
-                if(session.getLanguage() == LANG_HINDI) {
-                    holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 28);
-                    params.setMargins(mMetricsUtils.getPixelsFromDpVal(16), mMetricsUtils.getPixelsFromDpVal(-18), 0, mMetricsUtils.getPixelsFromDpVal(-38));
-                }else{
-                    params.setMargins(mMetricsUtils.getPixelsFromDpVal(36), mMetricsUtils.getPixelsFromDpVal(-16), 0, mMetricsUtils.getPixelsFromDpVal(-29));
-                }
-                holder.menuItemLinearLayout.setScaleX(0.7f);    holder.menuItemLinearLayout.setScaleY(0.7f);
-            }else if (mAppPref.getScreenWidth() > 640 && mAppPref.getScreenWidth() <= 1024) {
+                holder.menuItemImage.setLayoutParams(new LinearLayout.LayoutParams(mMetricsUtils.getPixelsFromDpVal(124), mMetricsUtils.getPixelsFromDpVal(124)));
                 if(session.getLanguage() == LANG_HINDI) {
                     holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-                    params.setMargins(mMetricsUtils.getPixelsFromDpVal(16), mMetricsUtils.getPixelsFromDpVal(1), 0, mMetricsUtils.getPixelsFromDpVal(-4));
+                    params.setMargins(mMetricsUtils.getPixelsFromDpVal(16), mMetricsUtils.getPixelsFromDpVal(16), 0, mMetricsUtils.getPixelsFromDpVal(-8));
                 }else{
+                    params.setMargins(mMetricsUtils.getPixelsFromDpVal(36), mMetricsUtils.getPixelsFromDpVal(16), 0, mMetricsUtils.getPixelsFromDpVal(-7));
+                }
+            }else if (mAppPref.getScreenWidth() > 640 && mAppPref.getScreenWidth() <= 1024) {
+                holder.menuItemImage.setLayoutParams(new LinearLayout.LayoutParams(mMetricsUtils.getPixelsFromDpVal(86), mMetricsUtils.getPixelsFromDpVal(86)));
+                if(session.getLanguage() == LANG_HINDI) {
+                    holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
                     params.setMargins(mMetricsUtils.getPixelsFromDpVal(16), mMetricsUtils.getPixelsFromDpVal(1), 0, mMetricsUtils.getPixelsFromDpVal(8));
+                }else{
+                    params.setMargins(mMetricsUtils.getPixelsFromDpVal(16), mMetricsUtils.getPixelsFromDpVal(1), 0, mMetricsUtils.getPixelsFromDpVal(16));
                 }
             }else {
                 if(session.getLanguage() == LANG_HINDI) {
