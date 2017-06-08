@@ -2,7 +2,6 @@ package com.dsource.idc.jellow;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -10,8 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.KeyListener;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,31 +20,33 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.dsource.idc.jellow.Utility.AppPreferences;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
-import static com.dsource.idc.jellow.Adapter_ppl_places.people_more;
-import static com.dsource.idc.jellow.Adapter_ppl_places.places_more;
-
-
 public class Main2LAyer extends AppCompatActivity {
+    private static final int LANG_ENG = 0, LANG_HINDI = 1, GOTO_LEVEL_TWO = 1, GOTO_LEVEL_ONE = 0,
+    MENU_ITEM_PEOPLE = 5, MENU_ITEM_PLACES = 6;
+
     int mCk = 0, mCy = 0, mCm = 0, mCd = 0, mCn = 0, mCl = 0;
-    int location = -2, flag = 0, image_flag = -1, flag_keyboard = 0, mActionBtnClickCount; // S
+    int flag = 0, image_flag = -1, flag_keyboard = 0, mActionBtnClickCount;
     private ImageView like, dislike, add, minus, yes, no, home, keyboard, ttsButton, back;
     private EditText et;
     private KeyListener originalKeyListener;
     private RecyclerView mRecyclerView;
-    private CircularImageView mMenuItemImage;
     private LinearLayout mMenuItemLinearLayout;
-    private int mLevelOneItemPos, mLevelTwoItemPos;
-    private View mSelectedItemView;
+    private int mLevelOneItemPos, mLevelTwoItemPos = -1, mSelectedItemAdapterPos = -1;
     private boolean mShouldReadFullSpeech = false;
+    private ArrayList<View> mRecyclerItemsViewList;
     private TextToSpeech mTts;
     private LayerImageAdapter mLayerImageAdapter;
-    private Integer[] mColor = {-5317, -12627531 , -7617718 , -2937298 , -648053365 , -1761607680 };
+    private Integer[] mColor = { -5317, -12627531 , -7617718 , -2937298 , -648053365 , -1761607680 };
+    private AppPreferences mAppPreferences;
 
     String[] learning_text =
             {"Animals and Birds", "Body", "Books", "Colours", "Shapes", "Stationery", "School objects", "Home objects", "Tran sport Modes"};
@@ -97,10 +96,6 @@ public class Main2LAyer extends AppCompatActivity {
     public static String[] places_adapter =
             {"My House", "School", "Mall", "Museum", "Hotel", "Theater", "Playground", "Park",
                     "Store", "Friend's House", "Relative's House", "Hospital", "Clinic", "Library", "Terrace"};
-
-    final String[] level1_hindi ={"शुभकामना और भावना", "रोज़ के काम", "खाना", "मज़े", "सीखना", "लोग", "जगह", "समय और मौसम", "मदद"};
-
-    final String[] level1_english ={"Greet and Feel", "Daily Activities", "Eating", "Fun", "Learning", "People", "Places", "Time and Weather", "Help"};
 
     final String[][]  level2_hindi ={
             {"शुभकामनाएं", "भावना", "बिनती", "सवाल"},
@@ -159,15 +154,12 @@ public class Main2LAyer extends AppCompatActivity {
     public static String[] people_adapter =
             {"Mother", "Father", "Brother", "Sister", "Grandfather", "Grandmother", "Uncle", "Aunt", "Cousin", "Baby", "Friends", "Teacher", "Doctor", "Nurse", "Caregiver", "Stranger", "About Me"};
 
-    private SessionManager session;
+    private SessionManager mSession;
 
     String[][][] layer_2_speech = new String[100][100][100];
     String[] myMusic;
     String[] side = new String[100];
     String[] below = new String[100];
-
-    float dpHeight,dpWidth;
-    int sr, bw;
 
     final String[] side_english = {"like", "really like", "yes", "really yes", "more", "really more", "dont like", "really dont like", "no", "really no", "less", "really less"};
     final String[] side_hindi = {"अच्छा लगता हैं", "सच में अच्छा लगता हैं", "हाँ", "सच में हाँ", "ज़्यादा", "सच में ज़्यादा", "अच्छा नहीं लगता हैं", "सच में अच्छा नहीं लगता हैं", "नहीं", "सच में नहीं", "कम", "सच में कम"};
@@ -179,12 +171,8 @@ public class Main2LAyer extends AppCompatActivity {
     public static Integer[] image_temp = new Integer[100];
 
     public static String[] new_places_adapter = new String[100];
-    SharedPreferences sharedpreferences,sharedPreferences_places;
 
     public Integer[] new_places = new Integer[100];
-    public static final String people_count = "people_count";
-    public static final String people_count_hindi = "people_count_hindi";
-    public static final String places_count = "places_count";
     public static Integer[] count_people = new Integer[100];
     Integer[] new_people_count = new Integer[100];
     int[] sort = new int[100];
@@ -196,22 +184,74 @@ public class Main2LAyer extends AppCompatActivity {
     Integer[] people = new Integer[100];
 
     int[] sort_places = new int[15];
-    String b;
+    String mBloodGroup;
     String end = " है।";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.trial1);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
-        session = new SessionManager(getApplicationContext());
-        //new LayerActivity.CalculateSrBwAsync().execute("");
-        new CalculateSrBwAsync().execute("");
+        mSession = new SessionManager(this);
+        mAppPreferences = new AppPreferences(this);
+        mLevelOneItemPos = getIntent().getExtras().getInt("mLevelOneItemPos");
+        {
+            int size = -1;
+            switch (mLevelOneItemPos) {
+                case 0:
+                    if(mSession.getLanguage() == LANG_ENG) size =  greet_text.length;
+                    else  size =  greet_text_hindi.length;
+                    break;
+                case 1:
+                    if(mSession.getLanguage() == LANG_ENG) size =  daily_text.length;
+                    else  size =  daily_text_hindi.length;
+                    break;
+                case 2:
+                    if(mSession.getLanguage() == LANG_ENG) size =  eat_text.length;
+                    else  size =  eat_text_hindi.length;
+                    break;
+                case 3:
+                    if(mSession.getLanguage() == LANG_ENG) size =  fun_text.length;
+                    else  size =  fun_text_hindi.length;
+                    break;
+                case 4:
+                    if(mSession.getLanguage() == LANG_ENG) size =  learning_text.length;
+                    else  size =  learning_text_hindi.length;
+                    break;
+                case 5:
+                    if(mSession.getLanguage() == LANG_ENG) size =  people_text.length;
+                    else  size =  people_text_hindi.length;
+                    break;
+                case 6:
+                    if(mSession.getLanguage() == LANG_ENG) size =  places_text.length;
+                    else  size =  places_text_hindi.length;
+                    break;
+                case 7:
+                    if(mSession.getLanguage() == LANG_ENG) size =  time_weather_text.length;
+                    else  size =  time_weather_text_hindi.length;
+                    break;
+                case 8:
+                    if(mSession.getLanguage() == LANG_ENG) size =  help_text.length;
+                    else  size =  help_text_hindi.length;
+                    break;
+            }
+            mRecyclerItemsViewList = new ArrayList<>(size);
+            while(mRecyclerItemsViewList.size() <= size) mRecyclerItemsViewList.add(null);
+        }
 
-        Intent i = getIntent();
-        mLevelOneItemPos = i.getExtras().getInt("mLevelOneItemPos");
-        Log.d("possss", mLevelOneItemPos +"");
+        mTts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    myMusic_function(mLevelOneItemPos);
+                    mTts.setEngineByPackageName("com.google.android.mTts");
+                    new BackgroundSpeechOperationsAsync().execute("");
+                }
+            }
+        });
+        mTts.setSpeechRate((float) mSession.getSpeed()/50);
+        mTts.setPitch((float) mSession.getPitch()/50);
+
         myMusic = new String[100];
         like = (ImageView) findViewById(R.id.ivlike);
         dislike = (ImageView) findViewById(R.id.ivdislike);
@@ -226,44 +266,50 @@ public class Main2LAyer extends AppCompatActivity {
         et = (EditText) findViewById(R.id.et);
         et.setVisibility(View.INVISIBLE);
 
+        ttsButton = (ImageView) findViewById(R.id.ttsbutton);
+        ttsButton.setVisibility(View.INVISIBLE);
+
+        originalKeyListener = et.getKeyListener();
+        // Set it to null - this will make the field non-editable
+        et.setKeyListener(null);
+
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager( new GridLayoutManager(this, 3));
-
-        mLayerImageAdapter = new LayerImageAdapter(this, mLevelOneItemPos, temp, image_temp);
-        mRecyclerView.setAdapter(new LayerImageAdapter(this, mLevelOneItemPos, temp, image_temp));
+        mLayerImageAdapter = new LayerImageAdapter(this, mLevelOneItemPos);
+        if (mLevelOneItemPos != MENU_ITEM_PEOPLE || mLevelOneItemPos != MENU_ITEM_PLACES) {
+            mRecyclerView.setAdapter(mLayerImageAdapter);
+        }
 
         mRecyclerView.setVerticalScrollBarEnabled(true);
         mRecyclerView.setScrollbarFadingEnabled(false);
-
         mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), mRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(final View view, final int position) {
                 mMenuItemLinearLayout = (LinearLayout)view.findViewById(R.id.linearlayout_icon1);
-                mMenuItemImage = (CircularImageView) view.findViewById(R.id.icon1);
                 mMenuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         resetActionButtons(-1);
-                        resetPreviousSelectedItem();
-                        mMenuItemImage.setBorderColor(-1283893945);
-                        mMenuItemImage.setShadowColor(-1283893945);
-                        mMenuItemImage.setShadowRadius(sr);
-                        mMenuItemImage.setBorderWidth(bw);
-                        mShouldReadFullSpeech = true;
-                        mLevelTwoItemPos = position;
-                        mSelectedItemView = mMenuItemImage;
+                        resetRecyclerAllItems();
                         mActionBtnClickCount = 0;
-                        /*Intent intent = new Intent(Main2Layer.this, Layer3Activity.class);
-                        intent.putExtra("id", mLevelOneItemPos);
-                        startActivity(intent);*/
-                        //getSupportActionBar().setTitle(english1[mLevelOneItemPos]);
-                        mTts.speak(myMusic[position], TextToSpeech.QUEUE_FLUSH, null);
-                    }
-
-                    private void resetPreviousSelectedItem() {
-                        for(int i = 0; i< mRecyclerView.getChildCount(); ++i){
-                            setMenuImageBorder(mRecyclerView.getChildAt(i), false);
-                        }
+                        setMenuImageBorder(v, true);
+                        mShouldReadFullSpeech = true;
+                        String title = getIntent().getExtras().getString("selectedMenuItemPath");
+                        if(mSession.getLanguage() == LANG_ENG)
+                            title += " / " + level2_english[mLevelOneItemPos][mLevelOneItemPos];
+                        else
+                            title += " / " + level2_hindi[mLevelOneItemPos][mLevelOneItemPos];
+                        getSupportActionBar().setTitle(title);
+                        if(mLevelTwoItemPos == position){
+                            /*Intent intent = new Intent(Main2Layer.this, Layer3Activity.class);
+                            intent.putExtra("mLevelOneItemPos", position);
+                            intent.putExtra("selectedMenuItemPath", title);
+                            startActivity(intent);*/
+                        }else
+                            mTts.speak(myMusic[position], TextToSpeech.QUEUE_FLUSH, null);
+                        mLevelTwoItemPos = mRecyclerView.getChildLayoutPosition(view);
+                        mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
+                        incrementTouchCountOfItem(position);
                     }
                 });
             }
@@ -273,2962 +319,162 @@ public class Main2LAyer extends AppCompatActivity {
         mRecyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
             @Override
             public void onChildViewAttachedToWindow(View view) {
-                CircularImageView circularImageView = (CircularImageView) view.findViewById(R.id.icon1);
-                if(mSelectedItemView != null && circularImageView.equals(mSelectedItemView)){
+                mRecyclerItemsViewList.set(mRecyclerView.getChildLayoutPosition(view), view);
+                if(mRecyclerItemsViewList.contains(view) && mSelectedItemAdapterPos > -1 && mRecyclerView.getChildLayoutPosition(view) == mSelectedItemAdapterPos)
                     setMenuImageBorder(view, true);
-                }else{
-                    setMenuImageBorder(view, false);
-                }
             }
 
             @Override
             public void onChildViewDetachedFromWindow(View view) {
                 setMenuImageBorder(view, false);
+                mRecyclerItemsViewList.set(mRecyclerView.getChildLayoutPosition(view), null);
             }
         });
 
-        if (session.getLanguage()==0 ){
-            //String title = "L1 " + level1_english[mLevelOneItemPos] + " > L2";
-            //getSupportActionBar().setTitle(title);
+        if (mSession.getLanguage() == LANG_ENG){
             people = people_english;
             end =  "";
-        }
-        if (session.getLanguage()==1){
-            //String title = "श्रेणी स्तर १ " + level1_hindi[mLevelOneItemPos] + " > श्रेणी स्तर २ ";
-            //getSupportActionBar().setTitle(title);
+        }else {
             people = people_hindi;
             end = " है।";
         }
-        if (mLevelOneItemPos != 5 || mLevelOneItemPos != 6) {
-            mRecyclerView.setAdapter(new LayerImageAdapter(this, mLevelOneItemPos, temp, image_temp));
-        }
 
-        if (mLevelOneItemPos == 5) {
+        if (mLevelOneItemPos == MENU_ITEM_PEOPLE) {
             count_people = new Integer[people.length];
             new_people_count = new Integer[people.length];
-            sort = new int[people.length];
             new_people = new Integer[people.length];
-            System.out.println("gRasdasd");
+            sort = new int[people.length];
             for (int j = 0; j < people.length; j++) {
                 count_people[j] = 0;
                 sort[j] = j;
             }
-        }
+            if (Reset__preferences.flag == 1)
+                mAppPreferences.resetUserPeoplePlacesPreferences();
 
-        for (int j = 0; j < count_places.length; j++) {
-            count_places[j] = 0;
-            sort_places[j] = j;
-        }
-        people_more = 0;
-        places_more = 0;
-        sharedpreferences = getSharedPreferences(people_count,Context.MODE_PRIVATE);
-        if (Reset__preferences.flag == 1)
-            sharedpreferences.edit().clear().commit();
-
-        if (mLevelOneItemPos == 5) {
-            if (session.getLanguage() == 0){
-                if (sharedpreferences.contains(people_count)) {
-                    String savedString = sharedpreferences.getString("people_count", "");
-                    StringTokenizer st = new StringTokenizer(savedString, ",");
-                    System.out.println("dsf" + st);
-                    System.out.println("asddsf" + savedString);
-
-                    for (int j = 0; j < people.length; j++){
-                        count_people[j] = Integer.parseInt(st.nextToken());
-                    }
-                }
+            String savedString = "";
+            if (mSession.getLanguage() == LANG_ENG)
+                savedString = mAppPreferences.getPeoplePreferences(LANG_ENG);
+            else savedString = mAppPreferences.getPeoplePreferences(LANG_HINDI);
+            if (!savedString.equals("")) {
+                StringTokenizer st = new StringTokenizer(savedString, ",");
+                for (int j = 0; j < people.length; ++j)
+                    count_people[j] = Integer.parseInt(st.nextToken());
             }
-            else {
-                if (sharedpreferences.contains(people_count_hindi)) {
-                    String savedString = sharedpreferences.getString("people_count_hindi", "");
-                    StringTokenizer st = new StringTokenizer(savedString, ",");
-                    System.out.println("dsf" + st);
-                    System.out.println("asddsf" + savedString);
 
-                    for (int j = 0; j < people.length; j++) {
-                        count_people[j] = Integer.parseInt(st.nextToken());
-                    }
-                }
-            }
             new_people_count = count_people;
-            System.out.println("dasdsds " + new_people_count.length);
             IndexSorter<Integer> is = new IndexSorter<Integer>(new_people_count);
             is.sort();
-            System.out.print("Unsorted: ");
-            for (Integer ij : new_people_count) {
-                System.out.print(ij);
-                System.out.print("\t");
-            }
-            System.out.println();
-            System.out.print("Sorted");
             Integer[] indexes = new Integer[layer_2_speech[mLevelOneItemPos].length];
             int g = 0;
             for (Integer ij : is.getIndexes()) {
                 indexes[g] = ij;
-                g++;
-                System.out.print(ij);
-                System.out.print("\t");
+                ++g;
             }
-            if (session.getLanguage() == 0 || session.getLanguage() == 1) {
-                int k = 0;
-                for (int j = 0; j < new_people_count.length; j++) {
-                    System.out.println("ryty" + indexes[j]);
-                    sort[j] = indexes[k];
-                    k++;
-                }
-            }
-            for (int j = 0; j < new_people_count.length; j++) {
+
+            for (int j = 0; j < new_people_count.length; ++j)
+                sort[j] = indexes[j];
+
+            for (int j = 0; j < new_people_count.length; ++j) {
                 new_people[j] = people[sort[j]];
-                if (session.getLanguage() == 0) {
+                if (mSession.getLanguage() == LANG_ENG)
                     new_people_adapter[j] = people_adapter[sort[j]];
-                }
                 else
                     new_people_adapter[j] = people_adapter_hindi[sort[j]];
-                Log.d("CHERRRRr",new_people_adapter[j]+"");
             }
-
-            if (mLevelOneItemPos == 5) {
-                temp = Arrays.copyOfRange(new_people_adapter, 0, new_people_count.length);
-                image_temp = Arrays.copyOfRange(new_people, 0, new_people_count.length);
-               mRecyclerView.setAdapter(new Adapter_ppl_places(this, mLevelOneItemPos, temp, image_temp));
-            }
-        }
-        sharedPreferences_places = getSharedPreferences(places_count,Context.MODE_PRIVATE);
-        if (Reset__preferences.flag == 1) {
-            Reset__preferences.flag = 0;
-            sharedPreferences_places.edit().clear().commit();
-        }
-        if (sharedPreferences_places.contains(places_count)) {
-            String savedString = sharedPreferences_places.getString("places_count", "");
-            StringTokenizer st = new StringTokenizer(savedString, ",");
-            System.out.println("SHARRED"+st);
+            temp = Arrays.copyOfRange(new_people_adapter, 0, new_people_count.length);
+            image_temp = Arrays.copyOfRange(new_people, 0, new_people_count.length);
+            myMusic = new String[temp.length];
+            myMusic = temp;
+            mRecyclerView.setAdapter(new Adapter_ppl_places(this, mLevelTwoItemPos, temp, image_temp));
+        }else if (mLevelOneItemPos == MENU_ITEM_PLACES) {
             for (int j = 0; j < count_places.length; j++) {
-
-                count_places[j] = Integer.parseInt(st.nextToken());
-                Log.d("printing places",count_places[j]+"");
+                count_places[j] = 0;
+                sort_places[j] = j;
             }
-        }
-        new_places_count = count_places;
-        ArrayIndexComparator comparator_places = new ArrayIndexComparator(new_places_count);
-        Integer[] indexes_places = comparator_places.createIndexArray();
-        Arrays.sort(indexes_places, comparator_places);
-        int l = 0;
-        if (session.getLanguage() == 0 || session.getLanguage() == 1) {
-            for (int j = 0; j < new_places_count.length; j++) {
+            if (Reset__preferences.flag == 1) {
+                Reset__preferences.flag = 0;
+                mAppPreferences.resetUserPeoplePlacesPreferences();
+            }
+            String savedString = "";
+            if (mSession.getLanguage() == LANG_ENG) savedString = mAppPreferences.getPlacesPreferences(LANG_ENG);
+            else savedString = mAppPreferences.getPlacesPreferences(LANG_HINDI);
+            if(!savedString.equals("")){
+                StringTokenizer st = new StringTokenizer(savedString, ",");
+                for (int j = 0; j < places.length; ++j)
+                    count_places[j] = Integer.parseInt(st.nextToken());
+            }
+            new_places_count = count_places;
+            ArrayIndexComparator comparator_places = new ArrayIndexComparator(new_places_count);
+            Integer[] indexes_places = comparator_places.createIndexArray();
+            Arrays.sort(indexes_places, comparator_places);
+
+            int l = 0;
+            for (int j = 0; j < new_places_count.length; ++j) {
                 sort_places[j] = indexes_places[l];
-                Log.d("loll",places[sort_places[j]]+"");
-                l++;
+                ++l;
             }
 
+            for (int j = 0; j < new_places_count.length; ++j) {
+                new_places[j] = places[sort_places[j]];
+                if (mSession.getLanguage() == LANG_ENG)
+                    new_places_adapter[j] = places_adapter[sort_places[j]];
+                else
+                    new_places_adapter[j] = places_adapter_hindi[sort_places[j]];
+            }
+
+            if (mLevelOneItemPos == MENU_ITEM_PLACES) {
+                temp = Arrays.copyOfRange(new_places_adapter, 0, new_places_count.length);
+                image_temp = Arrays.copyOfRange(new_places, 0, new_places_count.length);
+                myMusic = new String[temp.length];
+                myMusic = temp;
+                mRecyclerView.setAdapter(new Adapter_ppl_places(this, mLevelTwoItemPos, temp, image_temp));
+            }
         }
-        for (int j = 0; j < new_places_count.length; j++) {
-            new_places[j] = places[sort_places[j]];
-            if (session.getLanguage() == 0)
-                new_places_adapter[j] = places_adapter[sort_places[j]];
-            else
-                new_places_adapter[j] = places_adapter_hindi[sort_places[j]];
-        }
 
-        if (mLevelOneItemPos == 6) {
-            temp = Arrays.copyOfRange(new_places_adapter, 0, new_places_count.length);
-            image_temp = Arrays.copyOfRange(new_places, 0, new_places_count.length);
-            mRecyclerView.setAdapter(new Adapter_ppl_places(this, mLevelOneItemPos, temp, image_temp));
-        }
-
-        ttsButton = (ImageView) findViewById(R.id.ttsbutton);
-        ttsButton.setVisibility(View.INVISIBLE);
-
-        originalKeyListener = et.getKeyListener();
-        // Set it to null - this will make the field non-editable
-        et.setKeyListener(null);
-
-        mTts =new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+        home.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onInit(int status) {
-                if(status != TextToSpeech.ERROR) {
-                    myMusic_function(mLevelOneItemPos);
-                    mTts.setEngineByPackageName("com.google.android.mTts");
-                    new BackgroundSpeechOperationsAsync().execute("");
-                }
-            }
-        });
-        mTts.setSpeechRate((float) session.getSpeed()/50);
-        mTts.setPitch((float) session.getPitch()/50);
-
-        final int[] prev_pos = {-1};
-        final int[] cko = {-1};
-        final View[] x = {null};
-
-/*        mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), mRecyclerView, new RecyclerTouchListener.ClickListener() {
-
-                    @Override
-                    public void onClick(final View view, final int position1) {
-                        if(x[0]!=null && x[0]!=view) {
-                            notifyDataSet(x[0]);
-                        }
-                        if (session.getGridSize()==0){
-                        mMenuItemImage = (CircularImageView) view.findViewById(R.id.icon1);
-                        im2 = (CircularImageView) view.findViewById(R.id.icon2);
-                        im3 = (CircularImageView) view.findViewById(R.id.icon3);
-                        //Toast.makeText(Main2LAyer.this,"pos"+mLevelOneItemPos+"id2"+locayy,Toast.LENGTH_SHORT).show();
-                           Log.d("Position1", position1 + " " + prev_pos[0]);
-                           mMenuItemImage.setOnClickListener(new View.OnClickListener() {
-
-                               @Override
-                               public void onClick(View v) {
-
-                                   unset();
-                                   mMenuItemImage.setBorderColor(-1283893945);
-                                   mMenuItemImage.setShadowColor(-1283893945);
-                                   mMenuItemImage.setShadowRadius(sr);
-                                   mMenuItemImage.setBorderWidth(bw);
-
-                                   im2.setBorderColor(-1);
-                                   im2.setShadowColor(0);
-                                   im2.setShadowRadius(sr);
-                                   im2.setBorderWidth(0);
-
-                                   im3.setBorderColor(-1);
-                                   im3.setShadowColor(0);
-                                   im3.setShadowRadius(sr);
-                                   im3.setBorderWidth(0);
-                                   cko[0]++;
-                                   if(mLevelOneItemPos!=5 || mLevelOneItemPos!=6) {
-                                       if (position1 == 0)
-                                           locayy = 0;
-                                       else if (position1 == 1)
-                                           locayy = 3;
-                                       else if (position1 == 2)
-                                           locayy = 6;
-                                       else if (position1 == 3)
-                                           locayy = 9;
-                                       else if (position1 == 4)
-                                           locayy = 12;
-                                       else if (position1 == 5)
-                                           locayy = 15;
-                                       else if (position1 == 6)
-                                           locayy = 18;
-                                       else if (position1 == 7)
-                                           locayy = 21;
-                                       else if (position1 == 8)
-                                           locayy = 24;
-                                       else if (position1 == 9)
-                                           locayy = 27;
-                                   }
-                                   Log.d("checkloc2", locayy+"" );//+ " pos " + mLevelOneItemPos);
-
-                                   boolean aa = true;
-                                   if (mLevelOneItemPos == 5)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
-                                   {
-                                       aa = false;
-
-                                       int x = position1 * 3;
-                                       count_people[sort[x]] = count_people[sort[x]] + 1;
-                                       StringBuilder str = new StringBuilder();
-                                       for (int j = 0; j < count_people.length; j++) {
-                                           str.append(count_people[j]).append(",");
-                                       }
-
-                                       System.out.println("dgh" + str.toString());
-                                       Editor editor = sharedpreferences.edit();
-                                       if (session.getLanguage() == 0)
-                                           editor.putString(people_count, str.toString());
-                                       else
-                                           editor.putString(people_count_hindi, str.toString());
-                                       editor.commit();
-                                       Log.d("printtting",myMusic[sort[x]]+" ");
-                                //       mTts.speak(myMusic[sort[x]], TextToSpeech.QUEUE_FLUSH, null);
-
-                                   }
-
-                                   if (mLevelOneItemPos == 6)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
-                                   {
-                                       aa = false;
-
-                                       int x = position1 * 3;
-                                       count_places[sort_places[x]] = count_places[sort_places[x]] + 1;
-                                       StringBuilder str = new StringBuilder();
-                                       for (int j = 0; j < count_places.length; j++) {
-                                           str.append(count_places[j]).append(",");
-                                       }
-
-                                       System.out.println("dgh" + str.toString());
-                                       Editor editor = sharedPreferences_places.edit();
-                                           editor.putString(places_count, str.toString());
-                                        editor.commit();
-
-                                   }
-
-                                   if (location == locayy) {
-                                       int x = location;
-                                       if (mLevelOneItemPos == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)) {
-                                           Intent i = new Intent(getApplicationContext(), Sequence_Activity.class);
-                                           int a = x;
-                                           if (x == 7)
-                                               a = 3;
-                                           if (x == 8)
-                                               a = 4;
-                                           i.putExtra("layer_1_id", mLevelOneItemPos);
-                                           i.putExtra("layer_2_id", a);
-                                           startActivity(i);
-                                       } else {
-                                           if (session.getLanguage() == 0) {
-                                               if (mLevelOneItemPos != 5 && mLevelOneItemPos != 6 && mLevelOneItemPos != 8) {
-                                                   Intent l = new Intent(getApplicationContext(), Layer3Activity.class);
-                                                   l.putExtra("layer_1_id", mLevelOneItemPos);
-                                                   l.putExtra("layer_2_id", location);
-                                                   //  Toast.makeText(this,"pos"+mLevelOneItemPos+"id2"+loc,Toast.LENGTH_SHORT).show();
-                                                   System.out.println("iiiiiiid" + location);
-                                                   startActivity(l);
-                                               }
-                                           } else if (session.getLanguage() == 1) {
-                                               if (mLevelOneItemPos != 5 && mLevelOneItemPos != 6 && mLevelOneItemPos != 8) {
-                                                   Intent ll = new Intent(getApplicationContext(), Layer_3_Hindi_Activity.class);
-                                                   ll.putExtra("layer_1_id", mLevelOneItemPos);
-                                                   ll.putExtra("layer_2_id", location);
-                                                   startActivity(ll);
-                                               }
-                                           }
-                                       }
-                                   }
-                                   if (mLevelOneItemPos == 8){
-                                       if (locayy == 1 || locayy == 2 || locayy == 3 || locayy == 4){
-                                           like.setAlpha(0.5f);
-                                           dislike.setAlpha(0.5f);
-                                           add.setAlpha(0.5f);
-                                           minus.setAlpha(0.5f);
-                                           yes.setAlpha(0.5f);
-                                           no.setAlpha(0.5f);
-                                           like.setEnabled(false);
-                                           dislike.setEnabled(false);
-                                           add.setEnabled(false);
-                                           minus.setEnabled(false);
-                                           yes.setEnabled(false);
-                                           no.setEnabled(false);
-                                           like.setImageResource(R.drawable.ilikewithoutoutline);
-                                           dislike.setImageResource(R.drawable.idontlikewithout);
-                                           yes.setImageResource(R.drawable.iwantwithout);
-                                           no.setImageResource(R.drawable.idontwantwithout);
-                                           add.setImageResource(R.drawable.morewithout);
-                                           minus.setImageResource(R.drawable.lesswithout);
-
-                                       }
-
-                                       else if (locayy == 0){ // shruti
-                                           like.setImageResource(R.drawable.mynameis_unpressed);
-                                           dislike.setImageResource(R.drawable.caregiver_unpressed);
-                                           yes.setImageResource(R.drawable.email_unpressed);
-                                           no.setImageResource(R.drawable.address_unpressed);
-                                           add.setImageResource(R.drawable.contact_unpressed);
-                                           minus.setImageResource(R.drawable.bloodgroup_unpressed);
-                                           like.setEnabled(true);
-                                           dislike.setEnabled(true);
-                                           add.setEnabled(true);
-                                           minus.setEnabled(true);
-                                           yes.setEnabled(true);
-                                           no.setEnabled(true);
-                                           like.setAlpha(1f);
-                                           dislike.setAlpha(1f);
-                                           add.setAlpha(1f);
-                                           minus.setAlpha(1f);
-                                           yes.setAlpha(1f);
-                                           no.setAlpha(1f);
-
-                                       }else {
-                                           like.setEnabled(true);
-                                           dislike.setEnabled(true);
-                                           add.setEnabled(true);
-                                           minus.setEnabled(true);
-                                           yes.setEnabled(true);
-                                           no.setEnabled(true);
-                                           like.setAlpha(1f);
-                                           dislike.setAlpha(1f);
-                                           add.setAlpha(1f);
-                                           minus.setAlpha(1f);
-                                           yes.setAlpha(1f);
-                                           no.setAlpha(1f);
-                                           like.setImageResource(R.drawable.ilikewithoutoutline);
-                                           dislike.setImageResource(R.drawable.idontlikewithout);
-                                           yes.setImageResource(R.drawable.iwantwithout);
-                                           no.setImageResource(R.drawable.idontwantwithout);
-                                           add.setImageResource(R.drawable.morewithout);
-                                           minus.setImageResource(R.drawable.lesswithout);
-                                       }
-                                   }
-
-                                   if((mLevelOneItemPos==5 )) {
-                                       mTts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-                                   }
-                                   else
-                                   if((mLevelOneItemPos==6 )) {
-                                       mTts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-                                   }
-
-                                   else
-                                       if(location!=locayy)
-                                       mTts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
-                                   location = locayy;
-
-                               }
-                           });
-                           im2.setOnClickListener(new View.OnClickListener() {
-                               @Override
-                               public void onClick(View v) {
-                                  unset();
-                                   im2.setBorderColor(-1283893945);
-                                   im2.setShadowColor(-1283893945);
-                                   im2.setShadowRadius(sr);
-                                   im2.setBorderWidth(bw);
-
-                                   mMenuItemImage.setBorderColor(-1);
-                                   mMenuItemImage.setShadowColor(0);
-                                   mMenuItemImage.setShadowRadius(sr);
-                                   mMenuItemImage.setBorderWidth(0);
-
-                                   im3.setBorderColor(-1);
-                                   im3.setShadowColor(0);
-                                   im3.setShadowRadius(sr);
-                                   im3.setBorderWidth(0);
-                                   cko[0]++;
-                                   if(mLevelOneItemPos!=5 || mLevelOneItemPos!=6) {
-
-                                       if (position1 == 0)
-                                           locayy = 1;
-                                       else if (position1 == 1)
-                                           locayy = 4;
-                                       else if (position1 == 2)
-                                           locayy = 7;
-                                       else if (position1 == 3)
-                                           locayy = 10;
-                                       else if (position1 == 4)
-                                           locayy = 13;
-                                       else if (position1 == 5)
-                                           locayy = 16;
-                                       else if (position1 == 6)
-                                           locayy = 19;
-                                       else if (position1 == 7)
-                                           locayy = 22;
-                                       else if (position1 == 8)
-                                           locayy = 25;
-                                       else if (position1 == 9)
-                                           locayy = 28;
-
-                                   }
-
-                                   boolean aa = true;
-                                   if (mLevelOneItemPos == 5)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
-                                   {
-                                       aa = false;
-
-                                       int x = position1 * 3+1;
-                                       count_people[sort[x]] = count_people[sort[x]] + 1;
-                                       StringBuilder str = new StringBuilder();
-                                       for (int j = 0; j < count_people.length; j++) {
-                                           str.append(count_people[j]).append(",");
-                                       }
-
-                                       System.out.println("dgh" + str.toString());
-                                       Editor editor = sharedpreferences.edit();
-                                       if (session.getLanguage() == 0)
-                                           editor.putString(people_count, str.toString());
-                                       else
-                                           editor.putString(people_count_hindi, str.toString());
-                                       editor.commit();
-                                   }
-
-
-                                   else
-                                   if (mLevelOneItemPos == 6)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
-                                   {
-                                       aa = false;
-
-                                       int x = position1 * 3+1;
-                                       count_places[sort_places[x]] = count_places[sort_places[x]] + 1;
-                                       StringBuilder str = new StringBuilder();
-                                       for (int j = 0; j < count_places.length; j++) {
-                                           str.append(count_places[j]).append(",");
-                                       }
-
-                                       System.out.println("dgh" + str.toString());
-                                       Editor editor = sharedPreferences_places.edit();
-                                       editor.putString(places_count, str.toString());
-                                       editor.commit();
-                                   }
-
-                                   if (location == locayy)
-                                   {
-                                       int x=location;
-                                       if (mLevelOneItemPos == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)){
-                                           Intent i = new Intent(getApplicationContext(), Sequence_Activity.class);
-                                           int a = x;
-                                           if (x == 7)
-                                               a = 3;
-                                           if (x ==8)
-                                               a = 4;
-                                           i.putExtra("layer_1_id", mLevelOneItemPos);
-                                           i.putExtra("layer_2_id", a);
-                                           startActivity(i);
-                                       }
-                                       else {
-                                           if(session.getLanguage()==0 ) {
-                                               if(mLevelOneItemPos!=5 && mLevelOneItemPos!=6 && mLevelOneItemPos!=8) {
-                                                   Intent l = new Intent(getApplicationContext(), Layer3Activity.class);
-                                                   l.putExtra("layer_1_id", mLevelOneItemPos);
-                                                   l.putExtra("layer_2_id", location);
-                                                   //  Toast.makeText(this,"pos"+mLevelOneItemPos+"id2"+loc,Toast.LENGTH_SHORT).show();
-                                                   System.out.println("iiiiiiid" + location);
-                                                   startActivity(l);
-                                               }
-                                           }
-                                           else
-                                           if(session.getLanguage()==1)
-                                           {
-                                               if(mLevelOneItemPos!=5 && mLevelOneItemPos!=6 && mLevelOneItemPos!=8) {
-                                                   Intent ll = new Intent(getApplicationContext(), Layer_3_Hindi_Activity.class);
-                                                   ll.putExtra("layer_1_id", mLevelOneItemPos);
-                                                   ll.putExtra("layer_2_id",location);
-                                                   startActivity(ll);
-                                               }
-                                           }
-                                       }
-                                   }
-                                   if (mLevelOneItemPos == 8){
-                                       if (locayy == 1 || locayy == 2 || locayy == 3 || locayy == 4){
-                                           like.setAlpha(0.5f);
-                                           dislike.setAlpha(0.5f);
-                                           add.setAlpha(0.5f);
-                                           minus.setAlpha(0.5f);
-                                           yes.setAlpha(0.5f);
-                                           no.setAlpha(0.5f);
-                                           like.setEnabled(false);
-                                           dislike.setEnabled(false);
-                                           add.setEnabled(false);
-                                           minus.setEnabled(false);
-                                           yes.setEnabled(false);
-                                           no.setEnabled(false);
-                                           like.setImageResource(R.drawable.ilikewithoutoutline);
-                                           dislike.setImageResource(R.drawable.idontlikewithout);
-                                           yes.setImageResource(R.drawable.iwantwithout);
-                                           no.setImageResource(R.drawable.idontwantwithout);
-                                           add.setImageResource(R.drawable.morewithout);
-                                           minus.setImageResource(R.drawable.lesswithout);
-
-                                       }
-
-                                       else if (locayy == 0){ // shruti
-                                           like.setImageResource(R.drawable.mynameis_unpressed);
-                                           dislike.setImageResource(R.drawable.caregiver_unpressed);
-                                           yes.setImageResource(R.drawable.email_unpressed);
-                                           no.setImageResource(R.drawable.address_unpressed);
-                                           add.setImageResource(R.drawable.contact_unpressed);
-                                           minus.setImageResource(R.drawable.bloodgroup_unpressed);
-                                           like.setEnabled(true);
-                                           dislike.setEnabled(true);
-                                           add.setEnabled(true);
-                                           minus.setEnabled(true);
-                                           yes.setEnabled(true);
-                                           no.setEnabled(true);
-                                           like.setAlpha(1f);
-                                           dislike.setAlpha(1f);
-                                           add.setAlpha(1f);
-                                           minus.setAlpha(1f);
-                                           yes.setAlpha(1f);
-                                           no.setAlpha(1f);
-
-                                       }else {
-                                           like.setEnabled(true);
-                                           dislike.setEnabled(true);
-                                           add.setEnabled(true);
-                                           minus.setEnabled(true);
-                                           yes.setEnabled(true);
-                                           no.setEnabled(true);
-                                           like.setAlpha(1f);
-                                           dislike.setAlpha(1f);
-                                           add.setAlpha(1f);
-                                           minus.setAlpha(1f);
-                                           yes.setAlpha(1f);
-                                           no.setAlpha(1f);
-                                           like.setImageResource(R.drawable.ilikewithoutoutline);
-                                           dislike.setImageResource(R.drawable.idontlikewithout);
-                                           yes.setImageResource(R.drawable.iwantwithout);
-                                           no.setImageResource(R.drawable.idontwantwithout);
-                                           add.setImageResource(R.drawable.morewithout);
-                                           minus.setImageResource(R.drawable.lesswithout);
-                                       }
-                                   }
-
-
-
-                                   if((mLevelOneItemPos==5 )) {
-                                       mTts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-                                   }
-                                   else
-                                   if((mLevelOneItemPos==6 )) {
-                                       mTts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-                                   }
-
-                                   else
-                                   if(location!=locayy)
-                                       mTts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
-                                   location = locayy;
-                                   Log.d("checkloc", locayy + " pos " + mLevelOneItemPos);
-
-                               }
-                           });
-                           im3.setOnClickListener(new View.OnClickListener() {
-                               @Override
-                               public void onClick(View v) {
-                                unset();
-                                   im3.setBorderColor(-1283893945);
-                                   im3.setShadowColor(-1283893945);
-                                   im3.setShadowRadius(sr);
-                                   im3.setBorderWidth(bw);
-
-                                   im2.setBorderColor(-1);
-                                   im2.setShadowColor(0);
-                                   im2.setShadowRadius(sr);
-                                   im2.setBorderWidth(0);
-
-                                   mMenuItemImage.setBorderColor(-1);
-                                   mMenuItemImage.setShadowColor(0);
-                                   mMenuItemImage.setShadowRadius(sr);
-                                   mMenuItemImage.setBorderWidth(0);
-                                   cko[0]++;
-                                   if(mLevelOneItemPos!=5 || mLevelOneItemPos!=6) {
-
-                                       if (position1 == 0)
-                                           locayy = 2;
-                                       else if (position1 == 1)
-                                           locayy = 5;
-                                       else if (position1 == 2)
-                                           locayy = 8;
-                                       else if (position1 == 3)
-                                           locayy = 11;
-                                       else if (position1 == 4)
-                                           locayy = 14;
-                                       else if (position1 == 5)
-                                           locayy = 17;
-                                       else if (position1 == 6)
-                                           locayy = 20;
-                                       else if (position1 == 7)
-                                           locayy = 23;
-                                       else if (position1 == 8)
-                                           locayy = 26;
-                                       else if (position1 == 9)
-                                           locayy = 29;
-                                   }
-
-                                   boolean aa = true;
-                                   if (mLevelOneItemPos == 5)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
-                                   {
-                                       aa = false;
-
-                                       int x = position1 * 3+2;
-                                       count_people[sort[x]] = count_people[sort[x]] + 1;
-                                       StringBuilder str = new StringBuilder();
-                                       for (int j = 0; j < count_people.length; j++) {
-                                           str.append(count_people[j]).append(",");
-                                       }
-
-                                       System.out.println("dgh" + str.toString());
-                                       Editor editor = sharedpreferences.edit();
-                                       if (session.getLanguage() == 0)
-                                           editor.putString(people_count, str.toString());
-                                       else
-                                           editor.putString(people_count_hindi, str.toString());
-                                       editor.commit();
-                                   }
-
-                                   else
-                                   if (mLevelOneItemPos == 6)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
-                                   {
-                                       aa = false;
-
-                                       int x = position1 * 3+2;
-                                       count_places[sort_places[x]] = count_places[sort_places[x]] + 1;
-                                       StringBuilder str = new StringBuilder();
-                                       for (int j = 0; j < count_places.length; j++) {
-                                           str.append(count_places[j]).append(",");
-                                       }
-
-                                       System.out.println("dgh" + str.toString());
-                                       Editor editor = sharedPreferences_places.edit();
-                                       editor.putString(places_count, str.toString());
-                                       editor.commit();
-                                   }
-
-                                   Log.d("checkloc", locayy + " pos " + mLevelOneItemPos);
-                                   if (location == locayy)
-                                   {
-                                       int x=location;
-                                       if (mLevelOneItemPos == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)){
-                                           Intent i = new Intent(getApplicationContext(), Sequence_Activity.class);
-                                           int a = x;
-                                           if (x == 7)
-                                               a = 3;
-                                           if (x ==8)
-                                               a = 4;
-                                           i.putExtra("layer_1_id", mLevelOneItemPos);
-                                           i.putExtra("layer_2_id", a);
-                                           startActivity(i);
-                                       }
-                                       else {
-                                           if(session.getLanguage()==0 ) {
-                                               if(mLevelOneItemPos!=5 && mLevelOneItemPos!=6 && mLevelOneItemPos!=8) {
-                                                   Intent l = new Intent(getApplicationContext(), Layer3Activity.class);
-                                                   l.putExtra("layer_1_id", mLevelOneItemPos);
-                                                   l.putExtra("layer_2_id", location);
-                                                   //  Toast.makeText(this,"pos"+mLevelOneItemPos+"id2"+loc,Toast.LENGTH_SHORT).show();
-                                                   System.out.println("iiiiiiid" + location);
-                                                   startActivity(l);
-                                               }
-                                           }
-                                           else
-                                           if(session.getLanguage()==1)
-                                           {
-                                               if(mLevelOneItemPos!=5 && mLevelOneItemPos!=6 && mLevelOneItemPos!=8) {
-                                                   Intent ll = new Intent(getApplicationContext(), Layer_3_Hindi_Activity.class);
-                                                   ll.putExtra("layer_1_id", mLevelOneItemPos);
-                                                   ll.putExtra("layer_2_id",location);
-                                                   startActivity(ll);
-                                               }
-                                           }
-                                       }
-                                   }
-                                   if (mLevelOneItemPos == 8){
-                                       if (locayy == 1 || locayy == 2 || locayy == 3 || locayy == 4){
-                                           like.setAlpha(0.5f);
-                                           dislike.setAlpha(0.5f);
-                                           add.setAlpha(0.5f);
-                                           minus.setAlpha(0.5f);
-                                           yes.setAlpha(0.5f);
-                                           no.setAlpha(0.5f);
-                                           like.setEnabled(false);
-                                           dislike.setEnabled(false);
-                                           add.setEnabled(false);
-                                           minus.setEnabled(false);
-                                           yes.setEnabled(false);
-                                           no.setEnabled(false);
-                                           like.setImageResource(R.drawable.ilikewithoutoutline);
-                                           dislike.setImageResource(R.drawable.idontlikewithout);
-                                           yes.setImageResource(R.drawable.iwantwithout);
-                                           no.setImageResource(R.drawable.idontwantwithout);
-                                           add.setImageResource(R.drawable.morewithout);
-                                           minus.setImageResource(R.drawable.lesswithout);
-
-                                       }
-
-                                       else if (locayy == 0){ // shruti
-                                           like.setImageResource(R.drawable.mynameis_unpressed);
-                                           dislike.setImageResource(R.drawable.caregiver_unpressed);
-                                           yes.setImageResource(R.drawable.email_unpressed);
-                                           no.setImageResource(R.drawable.address_unpressed);
-                                           add.setImageResource(R.drawable.contact_unpressed);
-                                           minus.setImageResource(R.drawable.bloodgroup_unpressed);
-                                           like.setEnabled(true);
-                                           dislike.setEnabled(true);
-                                           add.setEnabled(true);
-                                           minus.setEnabled(true);
-                                           yes.setEnabled(true);
-                                           no.setEnabled(true);
-                                           like.setAlpha(1f);
-                                           dislike.setAlpha(1f);
-                                           add.setAlpha(1f);
-                                           minus.setAlpha(1f);
-                                           yes.setAlpha(1f);
-                                           no.setAlpha(1f);
-
-                                       }else {
-                                           like.setEnabled(true);
-                                           dislike.setEnabled(true);
-                                           add.setEnabled(true);
-                                           minus.setEnabled(true);
-                                           yes.setEnabled(true);
-                                           no.setEnabled(true);
-                                           like.setAlpha(1f);
-                                           dislike.setAlpha(1f);
-                                           add.setAlpha(1f);
-                                           minus.setAlpha(1f);
-                                           yes.setAlpha(1f);
-                                           no.setAlpha(1f);
-                                           like.setImageResource(R.drawable.ilikewithoutoutline);
-                                           dislike.setImageResource(R.drawable.idontlikewithout);
-                                           yes.setImageResource(R.drawable.iwantwithout);
-                                           no.setImageResource(R.drawable.idontwantwithout);
-                                           add.setImageResource(R.drawable.morewithout);
-                                           minus.setImageResource(R.drawable.lesswithout);
-                                       }
-                                   }
-                                   if((mLevelOneItemPos==5 )) {
-                                       mTts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-                                   }
-                                   else
-                                   if((mLevelOneItemPos==6 )) {
-                                       mTts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-                                   }
-
-                                   else
-                                   if(location!=locayy)
-                                       mTts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
-                                   location = locayy;
-                               }
-                           });
-                           prev_pos[0] = position1;
-                           x[0] = view;
-
-                           flag = 1;
-                           mCy = 0;
-                           mCm = 0;
-                           mCd = 0;
-                           mCn = 0;
-                           mCl = 0;
-                           mCk = 0;
-                    }
-
-                    if (session.getGridSize()==1){
-                        mMenuItemImage = (CircularImageView) view.findViewById(R.id.icon1);
-                        im2 = (CircularImageView) view.findViewById(R.id.icon2);
-                        im3 = (CircularImageView) view.findViewById(R.id.icon3);
-                        im4 = (CircularImageView) view.findViewById(R.id.icon4);
-                        im5 = (CircularImageView) view.findViewById(R.id.icon5);
-                        im6 = (CircularImageView) view.findViewById(R.id.icon6);
-                        im7 = (CircularImageView) view.findViewById(R.id.icon7);
-                        im8 = (CircularImageView) view.findViewById(R.id.icon8);
-                        im9 = (CircularImageView) view.findViewById(R.id.icon9);
-                        //Toast.makeText(Main2LAyer.this,"pos"+mLevelOneItemPos+"id2"+locayy,Toast.LENGTH_SHORT).show();
-                        Log.d("Position1", position1 + " " + prev_pos[0]);
-                        mMenuItemImage.setOnClickListener(new View.OnClickListener() {
-
-                            @Override
-                            public void onClick(View v) {
-
-                                unset();
-                                mMenuItemImage.setBorderColor(-1283893945);
-                                mMenuItemImage.setShadowColor(-1283893945);
-                                mMenuItemImage.setShadowRadius(sr);
-                                mMenuItemImage.setBorderWidth(bw);
-
-                                im4.setBorderColor(-1);
-                                im4.setShadowColor(0);
-                                im4.setShadowRadius(sr);
-                                im4.setBorderWidth(0);
-
-                                im2.setBorderColor(-1);
-                                im2.setShadowColor(0);
-                                im2.setShadowRadius(sr);
-                                im2.setBorderWidth(0);
-
-                                im3.setBorderColor(-1);
-                                im3.setShadowColor(0);
-                                im3.setShadowRadius(sr);
-                                im3.setBorderWidth(0);
-
-                                im5.setBorderColor(-1);
-                                im5.setShadowColor(0);
-                                im5.setShadowRadius(sr);
-                                im5.setBorderWidth(0);
-
-                                im6.setBorderColor(-1);
-                                im6.setShadowColor(0);
-                                im6.setShadowRadius(sr);
-                                im6.setBorderWidth(0);
-
-                                im7.setBorderColor(-1);
-                                im7.setShadowColor(0);
-                                im7.setShadowRadius(sr);
-                                im7.setBorderWidth(0);
-
-                                im8.setBorderColor(-1);
-                                im8.setShadowColor(0);
-                                im8.setShadowRadius(sr);
-                                im8.setBorderWidth(0);
-
-                                im9.setBorderColor(-1);
-                                im9.setShadowColor(0);
-                                im9.setShadowRadius(sr);
-                                im9.setBorderWidth(0);
-
-                                cko[0]++;
-                                if(mLevelOneItemPos==5)
-                                {
-                                    locayy = position1 * 9;
-                                }
-                                else
-                                    if (mLevelOneItemPos == 6)
-                                    {
-                                        locayy =position1 * 9;
-                                    }
-                                    else
-                                if(mLevelOneItemPos!=5 || mLevelOneItemPos!=6) {
-                                    if (position1 == 0)
-                                        locayy = 0;
-                           }
-                                Log.d("checkloc2", locayy+"" );//+ " pos " + mLevelOneItemPos);
-
-                                boolean aa = true;
-                                if (mLevelOneItemPos == 5)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
-                                {
-                                    aa = false;
-
-                                    int x = position1 * 9;
-                                    count_people[sort[x]] = count_people[sort[x]] + 1;
-                                    StringBuilder str = new StringBuilder();
-                                    for (int j = 0; j < count_people.length; j++) {
-                                        str.append(count_people[j]).append(",");
-                                    }
-
-                                    System.out.println("dgh" + str.toString());
-                                    Editor editor = sharedpreferences.edit();
-                                    if (session.getLanguage() == 0)
-                                        editor.putString(people_count, str.toString());
-                                    else
-                                        editor.putString(people_count_hindi, str.toString());
-                                    editor.commit();
-                                    Log.d("printtting",myMusic[sort[x]]+" ");
-                                    //       mTts.speak(myMusic[sort[x]], TextToSpeech.QUEUE_FLUSH, null);
-
-                                }
-
-                                if (mLevelOneItemPos == 6)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
-                                {
-                                    aa = false;
-
-                                    int x = position1 * 9;
-                                    count_places[sort_places[x]] = count_places[sort_places[x]] + 1;
-                                    StringBuilder str = new StringBuilder();
-                                    for (int j = 0; j < count_places.length; j++) {
-                                        str.append(count_places[j]).append(",");
-                                    }
-
-                                    System.out.println("dgh" + str.toString());
-                                    Editor editor = sharedPreferences_places.edit();
-                                    editor.putString(places_count, str.toString());
-                                    editor.commit();
-
-                                }
-
-                                if (location == locayy) {
-                                    int x = location;
-                                    if (mLevelOneItemPos == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)) {
-                                        Intent i = new Intent(getApplicationContext(), Sequence_Activity.class);
-                                        int a = x;
-                                        if (x == 7)
-                                            a = 3;
-                                        if (x == 8)
-                                            a = 4;
-                                        i.putExtra("layer_1_id", mLevelOneItemPos);
-                                        i.putExtra("layer_2_id", a);
-                                        startActivity(i);
-                                    } else {
-                                        if (session.getLanguage() == 0) {
-                                            if (mLevelOneItemPos != 5 && mLevelOneItemPos != 6 && mLevelOneItemPos != 8) {
-                                                Intent l = new Intent(getApplicationContext(), Layer3Activity.class);
-                                                l.putExtra("layer_1_id", mLevelOneItemPos);
-                                                l.putExtra("layer_2_id", location);
-                                                //  Toast.makeText(this,"pos"+mLevelOneItemPos+"id2"+loc,Toast.LENGTH_SHORT).show();
-                                                System.out.println("iiiiiiid" + location);
-                                                startActivity(l);
-                                            }
-                                        } else if (session.getLanguage() == 1) {
-                                            if (mLevelOneItemPos != 5 && mLevelOneItemPos != 6 && mLevelOneItemPos != 8) {
-                                                Intent ll = new Intent(getApplicationContext(), Layer_3_Hindi_Activity.class);
-                                                ll.putExtra("layer_1_id", mLevelOneItemPos);
-                                                ll.putExtra("layer_2_id", location);
-                                                startActivity(ll);
-                                            }
-                                        }
-                                    }
-                                }
-                                if (mLevelOneItemPos == 8){
-                                    if (locayy == 1 || locayy == 2 || locayy == 3 || locayy == 4){
-                                        like.setAlpha(0.5f);
-                                        dislike.setAlpha(0.5f);
-                                        add.setAlpha(0.5f);
-                                        minus.setAlpha(0.5f);
-                                        yes.setAlpha(0.5f);
-                                        no.setAlpha(0.5f);
-                                        like.setEnabled(false);
-                                        dislike.setEnabled(false);
-                                        add.setEnabled(false);
-                                        minus.setEnabled(false);
-                                        yes.setEnabled(false);
-                                        no.setEnabled(false);
-                                        like.setImageResource(R.drawable.ilikewithoutoutline);
-                                        dislike.setImageResource(R.drawable.idontlikewithout);
-                                        yes.setImageResource(R.drawable.iwantwithout);
-                                        no.setImageResource(R.drawable.idontwantwithout);
-                                        add.setImageResource(R.drawable.morewithout);
-                                        minus.setImageResource(R.drawable.lesswithout);
-
-                                    }
-
-                                    else if (locayy == 0){ // shruti
-                                        like.setImageResource(R.drawable.mynameis_unpressed);
-                                        dislike.setImageResource(R.drawable.caregiver_unpressed);
-                                        yes.setImageResource(R.drawable.email_unpressed);
-                                        no.setImageResource(R.drawable.address_unpressed);
-                                        add.setImageResource(R.drawable.contact_unpressed);
-                                        minus.setImageResource(R.drawable.bloodgroup_unpressed);
-                                        like.setEnabled(true);
-                                        dislike.setEnabled(true);
-                                        add.setEnabled(true);
-                                        minus.setEnabled(true);
-                                        yes.setEnabled(true);
-                                        no.setEnabled(true);
-                                        like.setAlpha(1f);
-                                        dislike.setAlpha(1f);
-                                        add.setAlpha(1f);
-                                        minus.setAlpha(1f);
-                                        yes.setAlpha(1f);
-                                        no.setAlpha(1f);
-
-                                    }else {
-                                        like.setEnabled(true);
-                                        dislike.setEnabled(true);
-                                        add.setEnabled(true);
-                                        minus.setEnabled(true);
-                                        yes.setEnabled(true);
-                                        no.setEnabled(true);
-                                        like.setAlpha(1f);
-                                        dislike.setAlpha(1f);
-                                        add.setAlpha(1f);
-                                        minus.setAlpha(1f);
-                                        yes.setAlpha(1f);
-                                        no.setAlpha(1f);
-                                        like.setImageResource(R.drawable.ilikewithoutoutline);
-                                        dislike.setImageResource(R.drawable.idontlikewithout);
-                                        yes.setImageResource(R.drawable.iwantwithout);
-                                        no.setImageResource(R.drawable.idontwantwithout);
-                                        add.setImageResource(R.drawable.morewithout);
-                                        minus.setImageResource(R.drawable.lesswithout);
-                                    }
-                                }
-
-                                if((mLevelOneItemPos==5 )) {
-                                    mTts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-                                }
-                                else
-                                if((mLevelOneItemPos==6 )) {
-                                    mTts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-                                }
-
-                                else
-                                if(location!=locayy)
-                                    mTts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
-                                location = locayy;
-
-                            }
-                        });
-                        im2.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                unset();
-                                im2.setBorderColor(-1283893945);
-                                im2.setShadowColor(-1283893945);
-                                im2.setShadowRadius(sr);
-                                im2.setBorderWidth(bw);
-
-                                mMenuItemImage.setBorderColor(-1);
-                                mMenuItemImage.setShadowColor(0);
-                                mMenuItemImage.setShadowRadius(sr);
-                                mMenuItemImage.setBorderWidth(0);
-
-                                im4.setBorderColor(-1);
-                                im4.setShadowColor(0);
-                                im4.setShadowRadius(sr);
-                                im4.setBorderWidth(0);
-
-                                im3.setBorderColor(-1);
-                                im3.setShadowColor(0);
-                                im3.setShadowRadius(sr);
-                                im3.setBorderWidth(0);
-
-                                im5.setBorderColor(-1);
-                                im5.setShadowColor(0);
-                                im5.setShadowRadius(sr);
-                                im5.setBorderWidth(0);
-
-                                im6.setBorderColor(-1);
-                                im6.setShadowColor(0);
-                                im6.setShadowRadius(sr);
-                                im6.setBorderWidth(0);
-
-                                im7.setBorderColor(-1);
-                                im7.setShadowColor(0);
-                                im7.setShadowRadius(sr);
-                                im7.setBorderWidth(0);
-
-                                im8.setBorderColor(-1);
-                                im8.setShadowColor(0);
-                                im8.setShadowRadius(sr);
-                                im8.setBorderWidth(0);
-
-                                im9.setBorderColor(-1);
-                                im9.setShadowColor(0);
-                                im9.setShadowRadius(sr);
-                                im9.setBorderWidth(0);
-
-                                cko[0]++;
-
-                                    if(mLevelOneItemPos==5)
-                                    {
-                                        locayy = position1 * 9+1;
-                                    }
-                                    else
-                                    if (mLevelOneItemPos == 6)
-                                    {
-                                        locayy =position1 * 9+1;
-                                    }
-                                    else {
-                                        if (mLevelOneItemPos != 5 || mLevelOneItemPos != 6) {
-                                            if (position1 == 0)
-                                                locayy = 1;
-                                        }
-                                    }
-                                boolean aa = true;
-                                if (mLevelOneItemPos == 5)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
-                                {
-                                    aa = false;
-
-                                    int x = position1 * 9+1;
-                                    count_people[sort[x]] = count_people[sort[x]] + 1;
-                                    StringBuilder str = new StringBuilder();
-                                    for (int j = 0; j < count_people.length; j++) {
-                                        str.append(count_people[j]).append(",");
-                                    }
-
-                                    System.out.println("dgh" + str.toString());
-                                    Editor editor = sharedpreferences.edit();
-                                    if (session.getLanguage() == 0)
-                                        editor.putString(people_count, str.toString());
-                                    else
-                                        editor.putString(people_count_hindi, str.toString());
-                                    editor.commit();
-                                }
-
-
-                                else
-                                if (mLevelOneItemPos == 6)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
-                                {
-                                    aa = false;
-
-                                    int x = position1 * 9+1;
-                                    count_places[sort_places[x]] = count_places[sort_places[x]] + 1;
-                                    StringBuilder str = new StringBuilder();
-                                    for (int j = 0; j < count_places.length; j++) {
-                                        str.append(count_places[j]).append(",");
-                                    }
-
-                                    System.out.println("dgh" + str.toString());
-                                    Editor editor = sharedPreferences_places.edit();
-                                    editor.putString(places_count, str.toString());
-                                    editor.commit();
-                                }
-
-                                if (location == locayy)
-                                {
-                                    int x=location;
-                                    if (mLevelOneItemPos == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)){
-                                        Intent i = new Intent(getApplicationContext(), Sequence_Activity.class);
-                                        int a = x;
-                                        if (x == 7)
-                                            a = 3;
-                                        if (x ==8)
-                                            a = 4;
-                                        i.putExtra("layer_1_id", mLevelOneItemPos);
-                                        i.putExtra("layer_2_id", a);
-                                        startActivity(i);
-                                    }
-                                    else {
-                                        if(session.getLanguage()==0 ) {
-                                            if(mLevelOneItemPos!=5 && mLevelOneItemPos!=6 && mLevelOneItemPos!=8) {
-                                                Intent l = new Intent(getApplicationContext(), Layer3Activity.class);
-                                                l.putExtra("layer_1_id", mLevelOneItemPos);
-                                                l.putExtra("layer_2_id", location);
-                                                //  Toast.makeText(this,"pos"+mLevelOneItemPos+"id2"+loc,Toast.LENGTH_SHORT).show();
-                                                System.out.println("iiiiiiid" + location);
-                                                startActivity(l);
-                                            }
-                                        }
-                                        else
-                                        if(session.getLanguage()==1)
-                                        {
-                                            if(mLevelOneItemPos!=5 && mLevelOneItemPos!=6 && mLevelOneItemPos!=8) {
-                                                Intent ll = new Intent(getApplicationContext(), Layer_3_Hindi_Activity.class);
-                                                ll.putExtra("layer_1_id", mLevelOneItemPos);
-                                                ll.putExtra("layer_2_id",location);
-                                                startActivity(ll);
-                                            }
-                                        }
-                                    }
-                                }
-                                if (mLevelOneItemPos == 8){
-                                    if (locayy == 1 || locayy == 2 || locayy == 3 || locayy == 4){
-                                        like.setAlpha(0.5f);
-                                        dislike.setAlpha(0.5f);
-                                        add.setAlpha(0.5f);
-                                        minus.setAlpha(0.5f);
-                                        yes.setAlpha(0.5f);
-                                        no.setAlpha(0.5f);
-                                        like.setEnabled(false);
-                                        dislike.setEnabled(false);
-                                        add.setEnabled(false);
-                                        minus.setEnabled(false);
-                                        yes.setEnabled(false);
-                                        no.setEnabled(false);
-                                        like.setImageResource(R.drawable.ilikewithoutoutline);
-                                        dislike.setImageResource(R.drawable.idontlikewithout);
-                                        yes.setImageResource(R.drawable.iwantwithout);
-                                        no.setImageResource(R.drawable.idontwantwithout);
-                                        add.setImageResource(R.drawable.morewithout);
-                                        minus.setImageResource(R.drawable.lesswithout);
-
-                                    }
-
-                                    else if (locayy == 0){ // shruti
-                                        like.setImageResource(R.drawable.mynameis_unpressed);
-                                        dislike.setImageResource(R.drawable.caregiver_unpressed);
-                                        yes.setImageResource(R.drawable.email_unpressed);
-                                        no.setImageResource(R.drawable.address_unpressed);
-                                        add.setImageResource(R.drawable.contact_unpressed);
-                                        minus.setImageResource(R.drawable.bloodgroup_unpressed);
-                                        like.setEnabled(true);
-                                        dislike.setEnabled(true);
-                                        add.setEnabled(true);
-                                        minus.setEnabled(true);
-                                        yes.setEnabled(true);
-                                        no.setEnabled(true);
-                                        like.setAlpha(1f);
-                                        dislike.setAlpha(1f);
-                                        add.setAlpha(1f);
-                                        minus.setAlpha(1f);
-                                        yes.setAlpha(1f);
-                                        no.setAlpha(1f);
-
-                                    }else {
-                                        like.setEnabled(true);
-                                        dislike.setEnabled(true);
-                                        add.setEnabled(true);
-                                        minus.setEnabled(true);
-                                        yes.setEnabled(true);
-                                        no.setEnabled(true);
-                                        like.setAlpha(1f);
-                                        dislike.setAlpha(1f);
-                                        add.setAlpha(1f);
-                                        minus.setAlpha(1f);
-                                        yes.setAlpha(1f);
-                                        no.setAlpha(1f);
-                                        like.setImageResource(R.drawable.ilikewithoutoutline);
-                                        dislike.setImageResource(R.drawable.idontlikewithout);
-                                        yes.setImageResource(R.drawable.iwantwithout);
-                                        no.setImageResource(R.drawable.idontwantwithout);
-                                        add.setImageResource(R.drawable.morewithout);
-                                        minus.setImageResource(R.drawable.lesswithout);
-                                    }
-                                }
-
-
-
-                                if((mLevelOneItemPos==5 )) {
-                                    mTts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-                                }
-                                else
-                                if((mLevelOneItemPos==6 )) {
-                                    mTts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-                                }
-
-                                else
-                                if(location!=locayy)
-                                    mTts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
-                                location = locayy;
-                                Log.d("checkloc", locayy + " pos " + mLevelOneItemPos);
-
-                            }
-                        });
-                        im3.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                unset();
-                                im3.setBorderColor(-1283893945);
-                                im3.setShadowColor(-1283893945);
-                                im3.setShadowRadius(sr);
-                                im3.setBorderWidth(bw);
-
-                                mMenuItemImage.setBorderColor(-1);
-                                mMenuItemImage.setShadowColor(0);
-                                mMenuItemImage.setShadowRadius(sr);
-                                mMenuItemImage.setBorderWidth(0);
-
-                                im2.setBorderColor(-1);
-                                im2.setShadowColor(0);
-                                im2.setShadowRadius(sr);
-                                im2.setBorderWidth(0);
-
-                                im4.setBorderColor(-1);
-                                im4.setShadowColor(0);
-                                im4.setShadowRadius(sr);
-                                im4.setBorderWidth(0);
-
-                                im5.setBorderColor(-1);
-                                im5.setShadowColor(0);
-                                im5.setShadowRadius(sr);
-                                im5.setBorderWidth(0);
-
-                                im6.setBorderColor(-1);
-                                im6.setShadowColor(0);
-                                im6.setShadowRadius(sr);
-                                im6.setBorderWidth(0);
-
-                                im7.setBorderColor(-1);
-                                im7.setShadowColor(0);
-                                im7.setShadowRadius(sr);
-                                im7.setBorderWidth(0);
-
-                                im8.setBorderColor(-1);
-                                im8.setShadowColor(0);
-                                im8.setShadowRadius(sr);
-                                im8.setBorderWidth(0);
-
-                                im9.setBorderColor(-1);
-                                im9.setShadowColor(0);
-                                im9.setShadowRadius(sr);
-                                im9.setBorderWidth(0);
-
-                                cko[0]++;
-                                if(mLevelOneItemPos==5)
-                                {
-                                    locayy = position1 * 9+2;
-                                }
-                                else
-                                if (mLevelOneItemPos == 6)
-                                {
-                                    locayy =position1 * 9+2;
-                                }
-                                else
-                                if(mLevelOneItemPos!=5 || mLevelOneItemPos!=6) {
-                                    if (position1 == 0)
-                                        locayy = 2;
-                                }
-
-                                boolean aa = true;
-                                if (mLevelOneItemPos == 5)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
-                                {
-                                    aa = false;
-
-                                    int x = position1 * 9+2;
-                                    count_people[sort[x]] = count_people[sort[x]] + 1;
-                                    StringBuilder str = new StringBuilder();
-                                    for (int j = 0; j < count_people.length; j++) {
-                                        str.append(count_people[j]).append(",");
-                                    }
-
-                                    System.out.println("dgh" + str.toString());
-                                    Editor editor = sharedpreferences.edit();
-                                    if (session.getLanguage() == 0)
-                                        editor.putString(people_count, str.toString());
-                                    else
-                                        editor.putString(people_count_hindi, str.toString());
-                                    editor.commit();
-                                }
-
-                                else
-                                if (mLevelOneItemPos == 6)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
-                                {
-                                    aa = false;
-
-                                    int x = position1 * 9+2;
-                                    count_places[sort_places[x]] = count_places[sort_places[x]] + 1;
-                                    StringBuilder str = new StringBuilder();
-                                    for (int j = 0; j < count_places.length; j++) {
-                                        str.append(count_places[j]).append(",");
-                                    }
-
-                                    System.out.println("dgh" + str.toString());
-                                    Editor editor = sharedPreferences_places.edit();
-                                    editor.putString(places_count, str.toString());
-                                    editor.commit();
-                                }
-
-                                Log.d("checkloc", locayy + " pos " + mLevelOneItemPos);
-                                if (location == locayy)
-                                {
-                                    int x=location;
-                                    if (mLevelOneItemPos == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)){
-                                        Intent i = new Intent(getApplicationContext(), Sequence_Activity.class);
-                                        int a = x;
-                                        if (x == 7)
-                                            a = 3;
-                                        if (x ==8)
-                                            a = 4;
-                                        i.putExtra("layer_1_id", mLevelOneItemPos);
-                                        i.putExtra("layer_2_id", a);
-                                        startActivity(i);
-                                    }
-                                    else {
-                                        if(session.getLanguage()==0 ) {
-                                            if(mLevelOneItemPos!=5 && mLevelOneItemPos!=6 && mLevelOneItemPos!=8) {
-                                                Intent l = new Intent(getApplicationContext(), Layer3Activity.class);
-                                                l.putExtra("layer_1_id", mLevelOneItemPos);
-                                                l.putExtra("layer_2_id", location);
-                                                //  Toast.makeText(this,"pos"+mLevelOneItemPos+"id2"+loc,Toast.LENGTH_SHORT).show();
-                                                System.out.println("iiiiiiid" + location);
-                                                startActivity(l);
-                                            }
-                                        }
-                                        else
-                                        if(session.getLanguage()==1)
-                                        {
-                                            if(mLevelOneItemPos!=5 && mLevelOneItemPos!=6 && mLevelOneItemPos!=8) {
-                                                Intent ll = new Intent(getApplicationContext(), Layer_3_Hindi_Activity.class);
-                                                ll.putExtra("layer_1_id", mLevelOneItemPos);
-                                                ll.putExtra("layer_2_id",location);
-                                                startActivity(ll);
-                                            }
-                                        }
-                                    }
-                                }
-                                if (mLevelOneItemPos == 8){
-                                    if (locayy == 1 || locayy == 2 || locayy == 3 || locayy == 4){
-                                        like.setAlpha(0.5f);
-                                        dislike.setAlpha(0.5f);
-                                        add.setAlpha(0.5f);
-                                        minus.setAlpha(0.5f);
-                                        yes.setAlpha(0.5f);
-                                        no.setAlpha(0.5f);
-                                        like.setEnabled(false);
-                                        dislike.setEnabled(false);
-                                        add.setEnabled(false);
-                                        minus.setEnabled(false);
-                                        yes.setEnabled(false);
-                                        no.setEnabled(false);
-                                        like.setImageResource(R.drawable.ilikewithoutoutline);
-                                        dislike.setImageResource(R.drawable.idontlikewithout);
-                                        yes.setImageResource(R.drawable.iwantwithout);
-                                        no.setImageResource(R.drawable.idontwantwithout);
-                                        add.setImageResource(R.drawable.morewithout);
-                                        minus.setImageResource(R.drawable.lesswithout);
-
-                                    }
-
-                                    else if (locayy == 0){ // shruti
-                                        like.setImageResource(R.drawable.mynameis_unpressed);
-                                        dislike.setImageResource(R.drawable.caregiver_unpressed);
-                                        yes.setImageResource(R.drawable.email_unpressed);
-                                        no.setImageResource(R.drawable.address_unpressed);
-                                        add.setImageResource(R.drawable.contact_unpressed);
-                                        minus.setImageResource(R.drawable.bloodgroup_unpressed);
-                                        like.setEnabled(true);
-                                        dislike.setEnabled(true);
-                                        add.setEnabled(true);
-                                        minus.setEnabled(true);
-                                        yes.setEnabled(true);
-                                        no.setEnabled(true);
-                                        like.setAlpha(1f);
-                                        dislike.setAlpha(1f);
-                                        add.setAlpha(1f);
-                                        minus.setAlpha(1f);
-                                        yes.setAlpha(1f);
-                                        no.setAlpha(1f);
-
-                                    }else {
-                                        like.setEnabled(true);
-                                        dislike.setEnabled(true);
-                                        add.setEnabled(true);
-                                        minus.setEnabled(true);
-                                        yes.setEnabled(true);
-                                        no.setEnabled(true);
-                                        like.setAlpha(1f);
-                                        dislike.setAlpha(1f);
-                                        add.setAlpha(1f);
-                                        minus.setAlpha(1f);
-                                        yes.setAlpha(1f);
-                                        no.setAlpha(1f);
-                                        like.setImageResource(R.drawable.ilikewithoutoutline);
-                                        dislike.setImageResource(R.drawable.idontlikewithout);
-                                        yes.setImageResource(R.drawable.iwantwithout);
-                                        no.setImageResource(R.drawable.idontwantwithout);
-                                        add.setImageResource(R.drawable.morewithout);
-                                        minus.setImageResource(R.drawable.lesswithout);
-                                    }
-                                }
-                                if((mLevelOneItemPos==5 )) {
-                                    mTts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-                                }
-                                else
-                                if((mLevelOneItemPos==6 )) {
-                                    mTts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-                                }
-
-                                else
-                                if(location!=locayy)
-                                    mTts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
-                                location = locayy;
-                            }
-                        });
-
-                        im4.setOnClickListener(new View.OnClickListener() {
-
-                            @Override
-                            public void onClick(View v) {
-
-                                unset();
-                                im4.setBorderColor(-1283893945);
-                                im4.setShadowColor(-1283893945);
-                                im4.setShadowRadius(sr);
-                                im4.setBorderWidth(bw);
-
-                                mMenuItemImage.setBorderColor(-1);
-                                mMenuItemImage.setShadowColor(0);
-                                mMenuItemImage.setShadowRadius(sr);
-                                mMenuItemImage.setBorderWidth(0);
-
-                                im2.setBorderColor(-1);
-                                im2.setShadowColor(0);
-                                im2.setShadowRadius(sr);
-                                im2.setBorderWidth(0);
-
-                                im3.setBorderColor(-1);
-                                im3.setShadowColor(0);
-                                im3.setShadowRadius(sr);
-                                im3.setBorderWidth(0);
-
-                                im5.setBorderColor(-1);
-                                im5.setShadowColor(0);
-                                im5.setShadowRadius(sr);
-                                im5.setBorderWidth(0);
-
-                                im6.setBorderColor(-1);
-                                im6.setShadowColor(0);
-                                im6.setShadowRadius(sr);
-                                im6.setBorderWidth(0);
-
-                                im7.setBorderColor(-1);
-                                im7.setShadowColor(0);
-                                im7.setShadowRadius(sr);
-                                im7.setBorderWidth(0);
-
-                                im8.setBorderColor(-1);
-                                im8.setShadowColor(0);
-                                im8.setShadowRadius(sr);
-                                im8.setBorderWidth(0);
-
-                                im9.setBorderColor(-1);
-                                im9.setShadowColor(0);
-                                im9.setShadowRadius(sr);
-                                im9.setBorderWidth(0);
-
-                                cko[0]++;
-                                if(mLevelOneItemPos==5)
-                                {
-                                    locayy = position1 * 9+3;
-                                }
-                                else
-                                if (mLevelOneItemPos == 6)
-                                {
-                                    locayy =position1 * 9+3;
-                                }
-                                else
-                                if(mLevelOneItemPos!=5 || mLevelOneItemPos!=6) {
-                                    if (position1 == 0)
-                                        locayy = 3;
-                                }
-                                Log.d("checkloc2", locayy+"" );//+ " pos " + mLevelOneItemPos);
-
-                                boolean aa = true;
-                                if (mLevelOneItemPos == 5)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
-                                {
-                                    aa = false;
-
-                                    int x = position1 * 9+3;
-                                    count_people[sort[x]] = count_people[sort[x]] + 1;
-                                    StringBuilder str = new StringBuilder();
-                                    for (int j = 0; j < count_people.length; j++) {
-                                        str.append(count_people[j]).append(",");
-                                    }
-
-                                    System.out.println("dgh" + str.toString());
-                                    Editor editor = sharedpreferences.edit();
-                                    if (session.getLanguage() == 0)
-                                        editor.putString(people_count, str.toString());
-                                    else
-                                        editor.putString(people_count_hindi, str.toString());
-                                    editor.commit();
-                                    Log.d("printtting",myMusic[sort[x]]+" ");
-                                    //       mTts.speak(myMusic[sort[x]], TextToSpeech.QUEUE_FLUSH, null);
-
-                                }
-
-                                if (mLevelOneItemPos == 6)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
-                                {
-                                    aa = false;
-
-                                    int x = position1 * 9+3;
-                                    count_places[sort_places[x]] = count_places[sort_places[x]] + 1;
-                                    StringBuilder str = new StringBuilder();
-                                    for (int j = 0; j < count_places.length; j++) {
-                                        str.append(count_places[j]).append(",");
-                                    }
-
-                                    System.out.println("dgh" + str.toString());
-                                    Editor editor = sharedPreferences_places.edit();
-                                    editor.putString(places_count, str.toString());
-                                    editor.commit();
-
-                                }
-
-                                if (location == locayy) {
-                                    int x = location;
-                                    if (mLevelOneItemPos == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)) {
-                                        Intent i = new Intent(getApplicationContext(), Sequence_Activity.class);
-                                        int a = x;
-                                        if (x == 7)
-                                            a = 3;
-                                        if (x == 8)
-                                            a = 4;
-                                        i.putExtra("layer_1_id", mLevelOneItemPos);
-                                        i.putExtra("layer_2_id", a);
-                                        startActivity(i);
-                                    } else {
-                                        if (session.getLanguage() == 0) {
-                                            if (mLevelOneItemPos != 5 && mLevelOneItemPos != 6 && mLevelOneItemPos != 8) {
-                                                Intent l = new Intent(getApplicationContext(), Layer3Activity.class);
-                                                l.putExtra("layer_1_id", mLevelOneItemPos);
-                                                l.putExtra("layer_2_id", location);
-                                                //  Toast.makeText(this,"pos"+mLevelOneItemPos+"id2"+loc,Toast.LENGTH_SHORT).show();
-                                                System.out.println("iiiiiiid" + location);
-                                                startActivity(l);
-                                            }
-                                        } else if (session.getLanguage() == 1) {
-                                            if (mLevelOneItemPos != 5 && mLevelOneItemPos != 6 && mLevelOneItemPos != 8) {
-                                                Intent ll = new Intent(getApplicationContext(), Layer_3_Hindi_Activity.class);
-                                                ll.putExtra("layer_1_id", mLevelOneItemPos);
-                                                ll.putExtra("layer_2_id", location);
-                                                startActivity(ll);
-                                            }
-                                        }
-                                    }
-                                }
-                                if (mLevelOneItemPos == 8){
-                                    if (locayy == 1 || locayy == 2 || locayy == 3 || locayy == 4){
-                                        like.setAlpha(0.5f);
-                                        dislike.setAlpha(0.5f);
-                                        add.setAlpha(0.5f);
-                                        minus.setAlpha(0.5f);
-                                        yes.setAlpha(0.5f);
-                                        no.setAlpha(0.5f);
-                                        like.setEnabled(false);
-                                        dislike.setEnabled(false);
-                                        add.setEnabled(false);
-                                        minus.setEnabled(false);
-                                        yes.setEnabled(false);
-                                        no.setEnabled(false);
-                                        like.setImageResource(R.drawable.ilikewithoutoutline);
-                                        dislike.setImageResource(R.drawable.idontlikewithout);
-                                        yes.setImageResource(R.drawable.iwantwithout);
-                                        no.setImageResource(R.drawable.idontwantwithout);
-                                        add.setImageResource(R.drawable.morewithout);
-                                        minus.setImageResource(R.drawable.lesswithout);
-
-                                    }
-
-                                    else if (locayy == 0){ // shruti
-                                        like.setImageResource(R.drawable.mynameis_unpressed);
-                                        dislike.setImageResource(R.drawable.caregiver_unpressed);
-                                        yes.setImageResource(R.drawable.email_unpressed);
-                                        no.setImageResource(R.drawable.address_unpressed);
-                                        add.setImageResource(R.drawable.contact_unpressed);
-                                        minus.setImageResource(R.drawable.bloodgroup_unpressed);
-                                        like.setEnabled(true);
-                                        dislike.setEnabled(true);
-                                        add.setEnabled(true);
-                                        minus.setEnabled(true);
-                                        yes.setEnabled(true);
-                                        no.setEnabled(true);
-                                        like.setAlpha(1f);
-                                        dislike.setAlpha(1f);
-                                        add.setAlpha(1f);
-                                        minus.setAlpha(1f);
-                                        yes.setAlpha(1f);
-                                        no.setAlpha(1f);
-
-                                    }else {
-                                        like.setEnabled(true);
-                                        dislike.setEnabled(true);
-                                        add.setEnabled(true);
-                                        minus.setEnabled(true);
-                                        yes.setEnabled(true);
-                                        no.setEnabled(true);
-                                        like.setAlpha(1f);
-                                        dislike.setAlpha(1f);
-                                        add.setAlpha(1f);
-                                        minus.setAlpha(1f);
-                                        yes.setAlpha(1f);
-                                        no.setAlpha(1f);
-                                        like.setImageResource(R.drawable.ilikewithoutoutline);
-                                        dislike.setImageResource(R.drawable.idontlikewithout);
-                                        yes.setImageResource(R.drawable.iwantwithout);
-                                        no.setImageResource(R.drawable.idontwantwithout);
-                                        add.setImageResource(R.drawable.morewithout);
-                                        minus.setImageResource(R.drawable.lesswithout);
-                                    }
-                                }
-
-                                if((mLevelOneItemPos==5 )) {
-                                    mTts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-                                }
-                                else
-                                if((mLevelOneItemPos==6 )) {
-                                    mTts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-                                }
-
-                                else
-                                if(location!=locayy)
-                                    mTts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
-                                location = locayy;
-
-                            }
-                        });
-                        im5.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                unset();
-                                im5.setBorderColor(-1283893945);
-                                im5.setShadowColor(-1283893945);
-                                im5.setShadowRadius(sr);
-                                im5.setBorderWidth(bw);
-
-                                mMenuItemImage.setBorderColor(-1);
-                                mMenuItemImage.setShadowColor(0);
-                                mMenuItemImage.setShadowRadius(sr);
-                                mMenuItemImage.setBorderWidth(0);
-
-                                im2.setBorderColor(-1);
-                                im2.setShadowColor(0);
-                                im2.setShadowRadius(sr);
-                                im2.setBorderWidth(0);
-
-                                im3.setBorderColor(-1);
-                                im3.setShadowColor(0);
-                                im3.setShadowRadius(sr);
-                                im3.setBorderWidth(0);
-
-                                im4.setBorderColor(-1);
-                                im4.setShadowColor(0);
-                                im4.setShadowRadius(sr);
-                                im4.setBorderWidth(0);
-
-                                im6.setBorderColor(-1);
-                                im6.setShadowColor(0);
-                                im6.setShadowRadius(sr);
-                                im6.setBorderWidth(0);
-
-                                im7.setBorderColor(-1);
-                                im7.setShadowColor(0);
-                                im7.setShadowRadius(sr);
-                                im7.setBorderWidth(0);
-
-                                im8.setBorderColor(-1);
-                                im8.setShadowColor(0);
-                                im8.setShadowRadius(sr);
-                                im8.setBorderWidth(0);
-
-                                im9.setBorderColor(-1);
-                                im9.setShadowColor(0);
-                                im9.setShadowRadius(sr);
-                                im9.setBorderWidth(0);
-                                cko[0]++;
-                                if(mLevelOneItemPos==5)
-                                {
-                                    locayy = position1 * 9+4;
-                                }
-                                else
-                                if (mLevelOneItemPos == 6)
-                                {
-                                    locayy =position1 * 9+4;
-                                }
-                                else
-                                if(mLevelOneItemPos!=5 || mLevelOneItemPos!=6) {
-                                    if (position1 == 0)
-                                        locayy = 4;
-                                }
-
-                                boolean aa = true;
-                                if (mLevelOneItemPos == 5)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
-                                {
-                                    aa = false;
-
-                                    int x = position1 * 9+4;
-                                    count_people[sort[x]] = count_people[sort[x]] + 1;
-                                    StringBuilder str = new StringBuilder();
-                                    for (int j = 0; j < count_people.length; j++) {
-                                        str.append(count_people[j]).append(",");
-                                    }
-
-                                    System.out.println("dgh" + str.toString());
-                                    Editor editor = sharedpreferences.edit();
-                                    if (session.getLanguage() == 0)
-                                        editor.putString(people_count, str.toString());
-                                    else
-                                        editor.putString(people_count_hindi, str.toString());
-                                    editor.commit();
-                                }
-
-
-                                else
-                                if (mLevelOneItemPos == 6)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
-                                {
-                                    aa = false;
-
-                                    int x = position1 * 9+4;
-                                    count_places[sort_places[x]] = count_places[sort_places[x]] + 1;
-                                    StringBuilder str = new StringBuilder();
-                                    for (int j = 0; j < count_places.length; j++) {
-                                        str.append(count_places[j]).append(",");
-                                    }
-
-                                    System.out.println("dgh" + str.toString());
-                                    Editor editor = sharedPreferences_places.edit();
-                                    editor.putString(places_count, str.toString());
-                                    editor.commit();
-                                }
-
-                                if (location == locayy)
-                                {
-                                    int x=location;
-                                    if (mLevelOneItemPos == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)){
-                                        Intent i = new Intent(getApplicationContext(), Sequence_Activity.class);
-                                        int a = x;
-                                        if (x == 7)
-                                            a = 3;
-                                        if (x ==8)
-                                            a = 4;
-                                        i.putExtra("layer_1_id", mLevelOneItemPos);
-                                        i.putExtra("layer_2_id", a);
-                                        startActivity(i);
-                                    }
-                                    else {
-                                        if(session.getLanguage()==0 ) {
-                                            if(mLevelOneItemPos!=5 && mLevelOneItemPos!=6 && mLevelOneItemPos!=8) {
-                                                Intent l = new Intent(getApplicationContext(), Layer3Activity.class);
-                                                l.putExtra("layer_1_id", mLevelOneItemPos);
-                                                l.putExtra("layer_2_id", location);
-                                                //  Toast.makeText(this,"pos"+mLevelOneItemPos+"id2"+loc,Toast.LENGTH_SHORT).show();
-                                                System.out.println("iiiiiiid" + location);
-                                                startActivity(l);
-                                            }
-                                        }
-                                        else
-                                        if(session.getLanguage()==1)
-                                        {
-                                            if(mLevelOneItemPos!=5 && mLevelOneItemPos!=6 && mLevelOneItemPos!=8) {
-                                                Intent ll = new Intent(getApplicationContext(), Layer_3_Hindi_Activity.class);
-                                                ll.putExtra("layer_1_id", mLevelOneItemPos);
-                                                ll.putExtra("layer_2_id",location);
-                                                startActivity(ll);
-                                            }
-                                        }
-                                    }
-                                }
-                                if (mLevelOneItemPos == 8){
-                                    if (locayy == 1 || locayy == 2 || locayy == 3 || locayy == 4){
-                                        like.setAlpha(0.5f);
-                                        dislike.setAlpha(0.5f);
-                                        add.setAlpha(0.5f);
-                                        minus.setAlpha(0.5f);
-                                        yes.setAlpha(0.5f);
-                                        no.setAlpha(0.5f);
-                                        like.setEnabled(false);
-                                        dislike.setEnabled(false);
-                                        add.setEnabled(false);
-                                        minus.setEnabled(false);
-                                        yes.setEnabled(false);
-                                        no.setEnabled(false);
-                                        like.setImageResource(R.drawable.ilikewithoutoutline);
-                                        dislike.setImageResource(R.drawable.idontlikewithout);
-                                        yes.setImageResource(R.drawable.iwantwithout);
-                                        no.setImageResource(R.drawable.idontwantwithout);
-                                        add.setImageResource(R.drawable.morewithout);
-                                        minus.setImageResource(R.drawable.lesswithout);
-
-                                    }
-
-                                    else if (locayy == 0){ // shruti
-                                        like.setImageResource(R.drawable.mynameis_unpressed);
-                                        dislike.setImageResource(R.drawable.caregiver_unpressed);
-                                        yes.setImageResource(R.drawable.email_unpressed);
-                                        no.setImageResource(R.drawable.address_unpressed);
-                                        add.setImageResource(R.drawable.contact_unpressed);
-                                        minus.setImageResource(R.drawable.bloodgroup_unpressed);
-                                        like.setEnabled(true);
-                                        dislike.setEnabled(true);
-                                        add.setEnabled(true);
-                                        minus.setEnabled(true);
-                                        yes.setEnabled(true);
-                                        no.setEnabled(true);
-                                        like.setAlpha(1f);
-                                        dislike.setAlpha(1f);
-                                        add.setAlpha(1f);
-                                        minus.setAlpha(1f);
-                                        yes.setAlpha(1f);
-                                        no.setAlpha(1f);
-
-                                    }else {
-                                        like.setEnabled(true);
-                                        dislike.setEnabled(true);
-                                        add.setEnabled(true);
-                                        minus.setEnabled(true);
-                                        yes.setEnabled(true);
-                                        no.setEnabled(true);
-                                        like.setAlpha(1f);
-                                        dislike.setAlpha(1f);
-                                        add.setAlpha(1f);
-                                        minus.setAlpha(1f);
-                                        yes.setAlpha(1f);
-                                        no.setAlpha(1f);
-                                        like.setImageResource(R.drawable.ilikewithoutoutline);
-                                        dislike.setImageResource(R.drawable.idontlikewithout);
-                                        yes.setImageResource(R.drawable.iwantwithout);
-                                        no.setImageResource(R.drawable.idontwantwithout);
-                                        add.setImageResource(R.drawable.morewithout);
-                                        minus.setImageResource(R.drawable.lesswithout);
-                                    }
-                                }
-
-
-
-                                if((mLevelOneItemPos==5 )) {
-                                    mTts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-                                }
-                                else
-                                if((mLevelOneItemPos==6 )) {
-                                    mTts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-                                }
-
-                                else
-                                if(location!=locayy)
-                                    mTts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
-                                location = locayy;
-                                Log.d("checkloc", locayy + " pos " + mLevelOneItemPos);
-
-                            }
-                        });
-                        im6.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                unset();
-                                im6.setBorderColor(-1283893945);
-                                im6.setShadowColor(-1283893945);
-                                im6.setShadowRadius(sr);
-                                im6.setBorderWidth(bw);
-
-                                mMenuItemImage.setBorderColor(-1);
-                                mMenuItemImage.setShadowColor(0);
-                                mMenuItemImage.setShadowRadius(sr);
-                                mMenuItemImage.setBorderWidth(0);
-
-                                im2.setBorderColor(-1);
-                                im2.setShadowColor(0);
-                                im2.setShadowRadius(sr);
-                                im2.setBorderWidth(0);
-
-                                im3.setBorderColor(-1);
-                                im3.setShadowColor(0);
-                                im3.setShadowRadius(sr);
-                                im3.setBorderWidth(0);
-
-                                im5.setBorderColor(-1);
-                                im5.setShadowColor(0);
-                                im5.setShadowRadius(sr);
-                                im5.setBorderWidth(0);
-
-                                im4.setBorderColor(-1);
-                                im4.setShadowColor(0);
-                                im4.setShadowRadius(sr);
-                                im4.setBorderWidth(0);
-
-                                im7.setBorderColor(-1);
-                                im7.setShadowColor(0);
-                                im7.setShadowRadius(sr);
-                                im7.setBorderWidth(0);
-
-                                im8.setBorderColor(-1);
-                                im8.setShadowColor(0);
-                                im8.setShadowRadius(sr);
-                                im8.setBorderWidth(0);
-
-                                im9.setBorderColor(-1);
-                                im9.setShadowColor(0);
-                                im9.setShadowRadius(sr);
-                                im9.setBorderWidth(0);
-
-                                cko[0]++;
-                                if(mLevelOneItemPos==5)
-                                {
-                                    locayy = position1 * 9 + 5 ;
-                                }
-                                else
-                                if (mLevelOneItemPos == 6)
-                                {
-                                    locayy =position1 * 9+5;
-                                }
-                                else
-                                if(mLevelOneItemPos!=5 || mLevelOneItemPos!=6) {
-                                    if (position1 == 0)
-                                        locayy = 5;
-                                }
-
-                                boolean aa = true;
-                                if (mLevelOneItemPos == 5)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
-                                {
-                                    aa = false;
-                                    //locayy = position1*9+5;
-                                    int x = position1 * 9+5;
-                                    count_people[sort[x]] = count_people[sort[x]] + 1;
-                                    StringBuilder str = new StringBuilder();
-                                    for (int j = 0; j < count_people.length; j++) {
-                                        str.append(count_people[j]).append(",");
-                                    }
-
-                                    System.out.println("dgh" + str.toString());
-                                    Editor editor = sharedpreferences.edit();
-                                    if (session.getLanguage() == 0)
-                                        editor.putString(people_count, str.toString());
-                                    else
-                                        editor.putString(people_count_hindi, str.toString());
-                                    editor.commit();
-                                }
-
-                                else
-                                if (mLevelOneItemPos == 6)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
-                                {
-                                    aa = false;
-
-                                    int x = position1 * 9+5;
-                                    count_places[sort_places[x]] = count_places[sort_places[x]] + 1;
-                                    StringBuilder str = new StringBuilder();
-                                    for (int j = 0; j < count_places.length; j++) {
-                                        str.append(count_places[j]).append(",");
-                                    }
-
-                                    System.out.println("dgh" + str.toString());
-                                    Editor editor = sharedPreferences_places.edit();
-                                    editor.putString(places_count, str.toString());
-                                    editor.commit();
-                                }
-
-                                Log.d("checkloc", locayy + " pos " + mLevelOneItemPos);
-                                if (location == locayy)
-                                {
-                                    int x=location;
-                                    if (mLevelOneItemPos == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)){
-                                        Intent i = new Intent(getApplicationContext(), Sequence_Activity.class);
-                                        int a = x;
-                                        if (x == 7)
-                                            a = 3;
-                                        if (x ==8)
-                                            a = 4;
-                                        i.putExtra("layer_1_id", mLevelOneItemPos);
-                                        i.putExtra("layer_2_id", a);
-                                        startActivity(i);
-                                    }
-                                    else {
-                                        if(session.getLanguage()==0 ) {
-                                            if(mLevelOneItemPos!=5 && mLevelOneItemPos!=6 && mLevelOneItemPos!=8) {
-                                                Intent l = new Intent(getApplicationContext(), Layer3Activity.class);
-                                                l.putExtra("layer_1_id", mLevelOneItemPos);
-                                                l.putExtra("layer_2_id", location);
-                                                //  Toast.makeText(this,"pos"+mLevelOneItemPos+"id2"+loc,Toast.LENGTH_SHORT).show();
-                                                System.out.println("iiiiiiid" + location);
-                                                startActivity(l);
-                                            }
-                                        }
-                                        else
-                                        if(session.getLanguage()==1)
-                                        {
-                                            if(mLevelOneItemPos!=5 && mLevelOneItemPos!=6 && mLevelOneItemPos!=8) {
-                                                Intent ll = new Intent(getApplicationContext(), Layer_3_Hindi_Activity.class);
-                                                ll.putExtra("layer_1_id", mLevelOneItemPos);
-                                                ll.putExtra("layer_2_id",location);
-                                                startActivity(ll);
-                                            }
-                                        }
-                                    }
-                                }
-                                if (mLevelOneItemPos == 8){
-                                    if (locayy == 1 || locayy == 2 || locayy == 3 || locayy == 4){
-                                        like.setAlpha(0.5f);
-                                        dislike.setAlpha(0.5f);
-                                        add.setAlpha(0.5f);
-                                        minus.setAlpha(0.5f);
-                                        yes.setAlpha(0.5f);
-                                        no.setAlpha(0.5f);
-                                        like.setEnabled(false);
-                                        dislike.setEnabled(false);
-                                        add.setEnabled(false);
-                                        minus.setEnabled(false);
-                                        yes.setEnabled(false);
-                                        no.setEnabled(false);
-                                        like.setImageResource(R.drawable.ilikewithoutoutline);
-                                        dislike.setImageResource(R.drawable.idontlikewithout);
-                                        yes.setImageResource(R.drawable.iwantwithout);
-                                        no.setImageResource(R.drawable.idontwantwithout);
-                                        add.setImageResource(R.drawable.morewithout);
-                                        minus.setImageResource(R.drawable.lesswithout);
-
-                                    }
-
-                                    else if (locayy == 0){ // shruti
-                                        like.setImageResource(R.drawable.mynameis_unpressed);
-                                        dislike.setImageResource(R.drawable.caregiver_unpressed);
-                                        yes.setImageResource(R.drawable.email_unpressed);
-                                        no.setImageResource(R.drawable.address_unpressed);
-                                        add.setImageResource(R.drawable.contact_unpressed);
-                                        minus.setImageResource(R.drawable.bloodgroup_unpressed);
-                                        like.setEnabled(true);
-                                        dislike.setEnabled(true);
-                                        add.setEnabled(true);
-                                        minus.setEnabled(true);
-                                        yes.setEnabled(true);
-                                        no.setEnabled(true);
-                                        like.setAlpha(1f);
-                                        dislike.setAlpha(1f);
-                                        add.setAlpha(1f);
-                                        minus.setAlpha(1f);
-                                        yes.setAlpha(1f);
-                                        no.setAlpha(1f);
-
-                                    }else {
-                                        like.setEnabled(true);
-                                        dislike.setEnabled(true);
-                                        add.setEnabled(true);
-                                        minus.setEnabled(true);
-                                        yes.setEnabled(true);
-                                        no.setEnabled(true);
-                                        like.setAlpha(1f);
-                                        dislike.setAlpha(1f);
-                                        add.setAlpha(1f);
-                                        minus.setAlpha(1f);
-                                        yes.setAlpha(1f);
-                                        no.setAlpha(1f);
-                                        like.setImageResource(R.drawable.ilikewithoutoutline);
-                                        dislike.setImageResource(R.drawable.idontlikewithout);
-                                        yes.setImageResource(R.drawable.iwantwithout);
-                                        no.setImageResource(R.drawable.idontwantwithout);
-                                        add.setImageResource(R.drawable.morewithout);
-                                        minus.setImageResource(R.drawable.lesswithout);
-                                    }
-                                }
-                                if((mLevelOneItemPos==5 )) {
-
-                                    mTts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-                                }
-                                else
-                                if((mLevelOneItemPos==6 )) {
-                                    mTts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-                                }
-
-                                else
-                                if(location!=locayy)
-                                    mTts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
-                                location = locayy;
-                            }
-                        });
-                        im7.setOnClickListener(new View.OnClickListener() {
-
-                            @Override
-                            public void onClick(View v) {
-
-                                unset();
-                                im7.setBorderColor(-1283893945);
-                                im7.setShadowColor(-1283893945);
-                                im7.setShadowRadius(sr);
-                                im7.setBorderWidth(bw);
-                                mMenuItemImage.setBorderColor(-1);
-                                mMenuItemImage.setShadowColor(0);
-                                mMenuItemImage.setShadowRadius(sr);
-                                mMenuItemImage.setBorderWidth(0);
-
-                                im2.setBorderColor(-1);
-                                im2.setShadowColor(0);
-                                im2.setShadowRadius(sr);
-                                im2.setBorderWidth(0);
-
-                                im3.setBorderColor(-1);
-                                im3.setShadowColor(0);
-                                im3.setShadowRadius(sr);
-                                im3.setBorderWidth(0);
-
-                                im5.setBorderColor(-1);
-                                im5.setShadowColor(0);
-                                im5.setShadowRadius(sr);
-                                im5.setBorderWidth(0);
-
-                                im6.setBorderColor(-1);
-                                im6.setShadowColor(0);
-                                im6.setShadowRadius(sr);
-                                im6.setBorderWidth(0);
-
-                                im4.setBorderColor(-1);
-                                im4.setShadowColor(0);
-                                im4.setShadowRadius(sr);
-                                im4.setBorderWidth(0);
-
-                                im8.setBorderColor(-1);
-                                im8.setShadowColor(0);
-                                im8.setShadowRadius(sr);
-                                im8.setBorderWidth(0);
-
-                                im9.setBorderColor(-1);
-                                im9.setShadowColor(0);
-                                im9.setShadowRadius(sr);
-                                im9.setBorderWidth(0);
-                                cko[0]++;
-                                if(mLevelOneItemPos==5)
-                                {
-                                    locayy = position1 * 9+6;
-                                }
-                                else
-                                if (mLevelOneItemPos == 6)
-                                {
-                                    locayy =position1 * 9+6;
-                                }
-                                else
-                                if(mLevelOneItemPos!=5 || mLevelOneItemPos!=6) {
-                                    if (position1 == 0)
-                                        locayy = 6;
-                                }
-                                Log.d("checkloc2", locayy+"" );//+ " pos " + mLevelOneItemPos);
-
-                                boolean aa = true;
-                                if (mLevelOneItemPos == 5)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
-                                {
-                                    aa = false;
-
-                                    int x = position1 * 9+6;
-                                    count_people[sort[x]] = count_people[sort[x]] + 1;
-                                    StringBuilder str = new StringBuilder();
-                                    for (int j = 0; j < count_people.length; j++) {
-                                        str.append(count_people[j]).append(",");
-                                    }
-
-                                    System.out.println("dgh" + str.toString());
-                                    Editor editor = sharedpreferences.edit();
-                                    if (session.getLanguage() == 0)
-                                        editor.putString(people_count, str.toString());
-                                    else
-                                        editor.putString(people_count_hindi, str.toString());
-                                    editor.commit();
-                                    Log.d("printtting",myMusic[sort[x]]+" ");
-                                    //       mTts.speak(myMusic[sort[x]], TextToSpeech.QUEUE_FLUSH, null);
-
-                                }
-
-                                if (mLevelOneItemPos == 6)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
-                                {
-                                    aa = false;
-
-                                    int x = position1 * 9+6;
-                                    count_places[sort_places[x]] = count_places[sort_places[x]] + 1;
-                                    StringBuilder str = new StringBuilder();
-                                    for (int j = 0; j < count_places.length; j++) {
-                                        str.append(count_places[j]).append(",");
-                                    }
-
-                                    System.out.println("dgh" + str.toString());
-                                    Editor editor = sharedPreferences_places.edit();
-                                    editor.putString(places_count, str.toString());
-                                    editor.commit();
-
-                                }
-
-                                if (location == locayy) {
-                                    int x = location;
-                                    if (mLevelOneItemPos == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)) {
-                                        Intent i = new Intent(getApplicationContext(), Sequence_Activity.class);
-                                        int a = x;
-                                        if (x == 7)
-                                            a = 3;
-                                        if (x == 8)
-                                            a = 4;
-                                        i.putExtra("layer_1_id", mLevelOneItemPos);
-                                        i.putExtra("layer_2_id", a);
-                                        startActivity(i);
-                                    } else {
-                                        if (session.getLanguage() == 0) {
-                                            if (mLevelOneItemPos != 5 && mLevelOneItemPos != 6 && mLevelOneItemPos != 8) {
-                                                Intent l = new Intent(getApplicationContext(), Layer3Activity.class);
-                                                l.putExtra("layer_1_id", mLevelOneItemPos);
-                                                l.putExtra("layer_2_id", location);
-                                                //  Toast.makeText(this,"pos"+mLevelOneItemPos+"id2"+loc,Toast.LENGTH_SHORT).show();
-                                                System.out.println("iiiiiiid" + location);
-                                                startActivity(l);
-                                            }
-                                        } else if (session.getLanguage() == 1) {
-                                            if (mLevelOneItemPos != 5 && mLevelOneItemPos != 6 && mLevelOneItemPos != 8) {
-                                                Intent ll = new Intent(getApplicationContext(), Layer_3_Hindi_Activity.class);
-                                                ll.putExtra("layer_1_id", mLevelOneItemPos);
-                                                ll.putExtra("layer_2_id", location);
-                                                startActivity(ll);
-                                            }
-                                        }
-                                    }
-                                }
-                                if (mLevelOneItemPos == 8){
-                                    if (locayy == 1 || locayy == 2 || locayy == 3 || locayy == 4){
-                                        like.setAlpha(0.5f);
-                                        dislike.setAlpha(0.5f);
-                                        add.setAlpha(0.5f);
-                                        minus.setAlpha(0.5f);
-                                        yes.setAlpha(0.5f);
-                                        no.setAlpha(0.5f);
-                                        like.setEnabled(false);
-                                        dislike.setEnabled(false);
-                                        add.setEnabled(false);
-                                        minus.setEnabled(false);
-                                        yes.setEnabled(false);
-                                        no.setEnabled(false);
-                                        like.setImageResource(R.drawable.ilikewithoutoutline);
-                                        dislike.setImageResource(R.drawable.idontlikewithout);
-                                        yes.setImageResource(R.drawable.iwantwithout);
-                                        no.setImageResource(R.drawable.idontwantwithout);
-                                        add.setImageResource(R.drawable.morewithout);
-                                        minus.setImageResource(R.drawable.lesswithout);
-
-                                    }
-
-                                    else if (locayy == 0){ // shruti
-                                        like.setImageResource(R.drawable.mynameis_unpressed);
-                                        dislike.setImageResource(R.drawable.caregiver_unpressed);
-                                        yes.setImageResource(R.drawable.email_unpressed);
-                                        no.setImageResource(R.drawable.address_unpressed);
-                                        add.setImageResource(R.drawable.contact_unpressed);
-                                        minus.setImageResource(R.drawable.bloodgroup_unpressed);
-                                        like.setEnabled(true);
-                                        dislike.setEnabled(true);
-                                        add.setEnabled(true);
-                                        minus.setEnabled(true);
-                                        yes.setEnabled(true);
-                                        no.setEnabled(true);
-                                        like.setAlpha(1f);
-                                        dislike.setAlpha(1f);
-                                        add.setAlpha(1f);
-                                        minus.setAlpha(1f);
-                                        yes.setAlpha(1f);
-                                        no.setAlpha(1f);
-
-                                    }else {
-                                        like.setEnabled(true);
-                                        dislike.setEnabled(true);
-                                        add.setEnabled(true);
-                                        minus.setEnabled(true);
-                                        yes.setEnabled(true);
-                                        no.setEnabled(true);
-                                        like.setAlpha(1f);
-                                        dislike.setAlpha(1f);
-                                        add.setAlpha(1f);
-                                        minus.setAlpha(1f);
-                                        yes.setAlpha(1f);
-                                        no.setAlpha(1f);
-                                        like.setImageResource(R.drawable.ilikewithoutoutline);
-                                        dislike.setImageResource(R.drawable.idontlikewithout);
-                                        yes.setImageResource(R.drawable.iwantwithout);
-                                        no.setImageResource(R.drawable.idontwantwithout);
-                                        add.setImageResource(R.drawable.morewithout);
-                                        minus.setImageResource(R.drawable.lesswithout);
-                                    }
-                                }
-
-                                if((mLevelOneItemPos==5 )) {
-                                    mTts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-                                }
-                                else
-                                if((mLevelOneItemPos==6 )) {
-                                    mTts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-                                }
-
-                                else
-                                if(location!=locayy)
-                                    mTts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
-                                location = locayy;
-
-                            }
-                        });
-                        im8.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                unset();
-                                im8.setBorderColor(-1283893945);
-                                im8.setShadowColor(-1283893945);
-                                im8.setShadowRadius(sr);
-                                im8.setBorderWidth(bw);
-
-                                mMenuItemImage.setBorderColor(-1);
-                                mMenuItemImage.setShadowColor(0);
-                                mMenuItemImage.setShadowRadius(sr);
-                                mMenuItemImage.setBorderWidth(0);
-
-                                im2.setBorderColor(-1);
-                                im2.setShadowColor(0);
-                                im2.setShadowRadius(sr);
-                                im2.setBorderWidth(0);
-
-                                im3.setBorderColor(-1);
-                                im3.setShadowColor(0);
-                                im3.setShadowRadius(sr);
-                                im3.setBorderWidth(0);
-
-                                im5.setBorderColor(-1);
-                                im5.setShadowColor(0);
-                                im5.setShadowRadius(sr);
-                                im5.setBorderWidth(0);
-
-                                im6.setBorderColor(-1);
-                                im6.setShadowColor(0);
-                                im6.setShadowRadius(sr);
-                                im6.setBorderWidth(0);
-
-                                im7.setBorderColor(-1);
-                                im7.setShadowColor(0);
-                                im7.setShadowRadius(sr);
-                                im7.setBorderWidth(0);
-
-                                im4.setBorderColor(-1);
-                                im4.setShadowColor(0);
-                                im4.setShadowRadius(sr);
-                                im4.setBorderWidth(0);
-
-                                im9.setBorderColor(-1);
-                                im9.setShadowColor(0);
-                                im9.setShadowRadius(sr);
-                                im9.setBorderWidth(0);
-
-                                cko[0]++;
-                                if(mLevelOneItemPos==5)
-                                {
-                                    locayy = position1 * 9+7;
-                                }
-                                else
-                                if (mLevelOneItemPos == 6)
-                                {
-                                    locayy =position1 * 9+7;
-                                }
-                                else
-                                if(mLevelOneItemPos!=5 || mLevelOneItemPos!=6) {
-                                    if (position1 == 0)
-                                        locayy = 7;
-                                }
-
-                                boolean aa = true;
-                                if (mLevelOneItemPos == 5)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
-                                {
-                                    aa = false;
-
-                                    int x = position1 * 9+7;
-                                    count_people[sort[x]] = count_people[sort[x]] + 1;
-                                    StringBuilder str = new StringBuilder();
-                                    for (int j = 0; j < count_people.length; j++) {
-                                        str.append(count_people[j]).append(",");
-                                    }
-
-                                    System.out.println("dgh" + str.toString());
-                                    Editor editor = sharedpreferences.edit();
-                                    if (session.getLanguage() == 0)
-                                        editor.putString(people_count, str.toString());
-                                    else
-                                        editor.putString(people_count_hindi, str.toString());
-                                    editor.commit();
-                                }
-
-
-                                else
-                                if (mLevelOneItemPos == 6)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
-                                {
-                                    aa = false;
-
-                                    int x = position1 * 9+7;
-                                    count_places[sort_places[x]] = count_places[sort_places[x]] + 1;
-                                    StringBuilder str = new StringBuilder();
-                                    for (int j = 0; j < count_places.length; j++) {
-                                        str.append(count_places[j]).append(",");
-                                    }
-
-                                    System.out.println("dgh" + str.toString());
-                                    Editor editor = sharedPreferences_places.edit();
-                                    editor.putString(places_count, str.toString());
-                                    editor.commit();
-                                }
-
-                                if (location == locayy)
-                                {
-                                    int x=location;
-                                    if (mLevelOneItemPos == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)){
-                                        Intent i = new Intent(getApplicationContext(), Sequence_Activity.class);
-                                        int a = x;
-                                        if (x == 7)
-                                            a = 3;
-                                        if (x ==8)
-                                            a = 4;
-                                        i.putExtra("layer_1_id", mLevelOneItemPos);
-                                        i.putExtra("layer_2_id", a);
-                                        startActivity(i);
-                                    }
-                                    else {
-                                        if(session.getLanguage()==0 ) {
-                                            if(mLevelOneItemPos!=5 && mLevelOneItemPos!=6 && mLevelOneItemPos!=8) {
-                                                Intent l = new Intent(getApplicationContext(), Layer3Activity.class);
-                                                l.putExtra("layer_1_id", mLevelOneItemPos);
-                                                l.putExtra("layer_2_id", location);
-                                                //  Toast.makeText(this,"pos"+mLevelOneItemPos+"id2"+loc,Toast.LENGTH_SHORT).show();
-                                                System.out.println("iiiiiiid" + location);
-                                                startActivity(l);
-                                            }
-                                        }
-                                        else
-                                        if(session.getLanguage()==1)
-                                        {
-                                            if(mLevelOneItemPos!=5 && mLevelOneItemPos!=6 && mLevelOneItemPos!=8) {
-                                                Intent ll = new Intent(getApplicationContext(), Layer_3_Hindi_Activity.class);
-                                                ll.putExtra("layer_1_id", mLevelOneItemPos);
-                                                ll.putExtra("layer_2_id",location);
-                                                startActivity(ll);
-                                            }
-                                        }
-                                    }
-                                }
-                                if (mLevelOneItemPos == 8){
-                                    if (locayy == 1 || locayy == 2 || locayy == 3 || locayy == 4){
-                                        like.setAlpha(0.5f);
-                                        dislike.setAlpha(0.5f);
-                                        add.setAlpha(0.5f);
-                                        minus.setAlpha(0.5f);
-                                        yes.setAlpha(0.5f);
-                                        no.setAlpha(0.5f);
-                                        like.setEnabled(false);
-                                        dislike.setEnabled(false);
-                                        add.setEnabled(false);
-                                        minus.setEnabled(false);
-                                        yes.setEnabled(false);
-                                        no.setEnabled(false);
-                                        like.setImageResource(R.drawable.ilikewithoutoutline);
-                                        dislike.setImageResource(R.drawable.idontlikewithout);
-                                        yes.setImageResource(R.drawable.iwantwithout);
-                                        no.setImageResource(R.drawable.idontwantwithout);
-                                        add.setImageResource(R.drawable.morewithout);
-                                        minus.setImageResource(R.drawable.lesswithout);
-
-                                    }
-
-                                    else if (locayy == 0){ // shruti
-                                        like.setImageResource(R.drawable.mynameis_unpressed);
-                                        dislike.setImageResource(R.drawable.caregiver_unpressed);
-                                        yes.setImageResource(R.drawable.email_unpressed);
-                                        no.setImageResource(R.drawable.address_unpressed);
-                                        add.setImageResource(R.drawable.contact_unpressed);
-                                        minus.setImageResource(R.drawable.bloodgroup_unpressed);
-                                        like.setEnabled(true);
-                                        dislike.setEnabled(true);
-                                        add.setEnabled(true);
-                                        minus.setEnabled(true);
-                                        yes.setEnabled(true);
-                                        no.setEnabled(true);
-                                        like.setAlpha(1f);
-                                        dislike.setAlpha(1f);
-                                        add.setAlpha(1f);
-                                        minus.setAlpha(1f);
-                                        yes.setAlpha(1f);
-                                        no.setAlpha(1f);
-
-                                    }else {
-                                        like.setEnabled(true);
-                                        dislike.setEnabled(true);
-                                        add.setEnabled(true);
-                                        minus.setEnabled(true);
-                                        yes.setEnabled(true);
-                                        no.setEnabled(true);
-                                        like.setAlpha(1f);
-                                        dislike.setAlpha(1f);
-                                        add.setAlpha(1f);
-                                        minus.setAlpha(1f);
-                                        yes.setAlpha(1f);
-                                        no.setAlpha(1f);
-                                        like.setImageResource(R.drawable.ilikewithoutoutline);
-                                        dislike.setImageResource(R.drawable.idontlikewithout);
-                                        yes.setImageResource(R.drawable.iwantwithout);
-                                        no.setImageResource(R.drawable.idontwantwithout);
-                                        add.setImageResource(R.drawable.morewithout);
-                                        minus.setImageResource(R.drawable.lesswithout);
-                                    }
-                                }
-
-
-
-                                if((mLevelOneItemPos==5 )) {
-                                    mTts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-                                }
-                                else
-                                if((mLevelOneItemPos==6 )) {
-                                    mTts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-                                }
-
-                                else
-                                if(location!=locayy)
-                                    mTts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
-                                location = locayy;
-                                Log.d("checkloc", locayy + " pos " + mLevelOneItemPos);
-
-                            }
-                        });
-                        im9.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                unset();
-                                im9.setBorderColor(-1283893945);
-                                im9.setShadowColor(-1283893945);
-                                im9.setShadowRadius(sr);
-                                im9.setBorderWidth(bw);
-
-                                mMenuItemImage.setBorderColor(-1);
-                                mMenuItemImage.setShadowColor(0);
-                                mMenuItemImage.setShadowRadius(sr);
-                                mMenuItemImage.setBorderWidth(0);
-
-                                im2.setBorderColor(-1);
-                                im2.setShadowColor(0);
-                                im2.setShadowRadius(sr);
-                                im2.setBorderWidth(0);
-
-                                im3.setBorderColor(-1);
-                                im3.setShadowColor(0);
-                                im3.setShadowRadius(sr);
-                                im3.setBorderWidth(0);
-
-                                im5.setBorderColor(-1);
-                                im5.setShadowColor(0);
-                                im5.setShadowRadius(sr);
-                                im5.setBorderWidth(0);
-
-                                im6.setBorderColor(-1);
-                                im6.setShadowColor(0);
-                                im6.setShadowRadius(sr);
-                                im6.setBorderWidth(0);
-
-                                im7.setBorderColor(-1);
-                                im7.setShadowColor(0);
-                                im7.setShadowRadius(sr);
-                                im7.setBorderWidth(0);
-
-                                im8.setBorderColor(-1);
-                                im8.setShadowColor(0);
-                                im8.setShadowRadius(sr);
-                                im8.setBorderWidth(0);
-
-                                im4.setBorderColor(-1);
-                                im4.setShadowColor(0);
-                                im4.setShadowRadius(sr);
-                                im4.setBorderWidth(0);
-                                cko[0]++; if(mLevelOneItemPos==5)
-                                {
-                                    locayy = position1 * 9 + 8 ;
-                                }
-                                else
-                                if (mLevelOneItemPos == 6)
-                                {
-                                    locayy =position1 * 9 + 8 ;
-                                }
-                                else
-                                if(mLevelOneItemPos!=5 || mLevelOneItemPos!=6) {
-                                    if (position1 == 0)
-                                        locayy = 8;
-                                }
-
-                                boolean aa = true;
-                                if (mLevelOneItemPos == 5)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
-                                {
-                                    aa = false;
-
-                                    int x = position1 * 9+8;
-                                    count_people[sort[x]] = count_people[sort[x]] + 1;
-                                    StringBuilder str = new StringBuilder();
-                                    for (int j = 0; j < count_people.length; j++) {
-                                        str.append(count_people[j]).append(",");
-                                    }
-
-                                    System.out.println("dgh" + str.toString());
-                                    Editor editor = sharedpreferences.edit();
-                                    if (session.getLanguage() == 0)
-                                        editor.putString(people_count, str.toString());
-                                    else
-                                        editor.putString(people_count_hindi, str.toString());
-                                    editor.commit();
-                                }
-
-                                else
-                                if (mLevelOneItemPos == 6)// || mLevelOneItemPos == 6 || mLevelOneItemPos == 8){
-                                {
-                                    aa = false;
-
-                                    int x = position1 * 9+8;
-                                    count_places[sort_places[x]] = count_places[sort_places[x]] + 1;
-                                    StringBuilder str = new StringBuilder();
-                                    for (int j = 0; j < count_places.length; j++) {
-                                        str.append(count_places[j]).append(",");
-                                    }
-
-                                    System.out.println("dgh" + str.toString());
-                                    Editor editor = sharedPreferences_places.edit();
-                                    editor.putString(places_count, str.toString());
-                                    editor.commit();
-                                }
-
-                                Log.d("checkloc", locayy + " pos " + mLevelOneItemPos);
-                                if (location == locayy)
-                                {
-                                    int x=location;
-                                    if (mLevelOneItemPos == 1 && (x == 0 || x == 1 || x == 2 || x == 7 || x == 8)){
-                                        Intent i = new Intent(getApplicationContext(), Sequence_Activity.class);
-                                        int a = x;
-                                        if (x == 7)
-                                            a = 3;
-                                        if (x ==8)
-                                            a = 4;
-                                        i.putExtra("layer_1_id", mLevelOneItemPos);
-                                        i.putExtra("layer_2_id", a);
-                                        startActivity(i);
-                                    }
-                                    else {
-                                        if(session.getLanguage()==0 ) {
-                                            if(mLevelOneItemPos!=5 && mLevelOneItemPos!=6 && mLevelOneItemPos!=8) {
-                                                Intent l = new Intent(getApplicationContext(), Layer3Activity.class);
-                                                l.putExtra("layer_1_id", mLevelOneItemPos);
-                                                l.putExtra("layer_2_id", location);
-                                                //  Toast.makeText(this,"pos"+mLevelOneItemPos+"id2"+loc,Toast.LENGTH_SHORT).show();
-                                                System.out.println("iiiiiiid" + location);
-                                                startActivity(l);
-                                            }
-                                        }
-                                        else
-                                        if(session.getLanguage()==1)
-                                        {
-                                            if(mLevelOneItemPos!=5 && mLevelOneItemPos!=6 && mLevelOneItemPos!=8) {
-                                                Intent ll = new Intent(getApplicationContext(), Layer_3_Hindi_Activity.class);
-                                                ll.putExtra("layer_1_id", mLevelOneItemPos);
-                                                ll.putExtra("layer_2_id",location);
-                                                startActivity(ll);
-                                            }
-                                        }
-                                    }
-                                }
-                                if (mLevelOneItemPos == 8){
-                                    if (locayy == 1 || locayy == 2 || locayy == 3 || locayy == 4){
-                                        like.setAlpha(0.5f);
-                                        dislike.setAlpha(0.5f);
-                                        add.setAlpha(0.5f);
-                                        minus.setAlpha(0.5f);
-                                        yes.setAlpha(0.5f);
-                                        no.setAlpha(0.5f);
-                                        like.setEnabled(false);
-                                        dislike.setEnabled(false);
-                                        add.setEnabled(false);
-                                        minus.setEnabled(false);
-                                        yes.setEnabled(false);
-                                        no.setEnabled(false);
-                                        like.setImageResource(R.drawable.ilikewithoutoutline);
-                                        dislike.setImageResource(R.drawable.idontlikewithout);
-                                        yes.setImageResource(R.drawable.iwantwithout);
-                                        no.setImageResource(R.drawable.idontwantwithout);
-                                        add.setImageResource(R.drawable.morewithout);
-                                        minus.setImageResource(R.drawable.lesswithout);
-
-                                    }
-
-                                    else if (locayy == 0){ // shruti
-                                        like.setImageResource(R.drawable.mynameis_unpressed);
-                                        dislike.setImageResource(R.drawable.caregiver_unpressed);
-                                        yes.setImageResource(R.drawable.email_unpressed);
-                                        no.setImageResource(R.drawable.address_unpressed);
-                                        add.setImageResource(R.drawable.contact_unpressed);
-                                        minus.setImageResource(R.drawable.bloodgroup_unpressed);
-                                        like.setEnabled(true);
-                                        dislike.setEnabled(true);
-                                        add.setEnabled(true);
-                                        minus.setEnabled(true);
-                                        yes.setEnabled(true);
-                                        no.setEnabled(true);
-                                        like.setAlpha(1f);
-                                        dislike.setAlpha(1f);
-                                        add.setAlpha(1f);
-                                        minus.setAlpha(1f);
-                                        yes.setAlpha(1f);
-                                        no.setAlpha(1f);
-
-                                    }else {
-                                        like.setEnabled(true);
-                                        dislike.setEnabled(true);
-                                        add.setEnabled(true);
-                                        minus.setEnabled(true);
-                                        yes.setEnabled(true);
-                                        no.setEnabled(true);
-                                        like.setAlpha(1f);
-                                        dislike.setAlpha(1f);
-                                        add.setAlpha(1f);
-                                        minus.setAlpha(1f);
-                                        yes.setAlpha(1f);
-                                        no.setAlpha(1f);
-                                        like.setImageResource(R.drawable.ilikewithoutoutline);
-                                        dislike.setImageResource(R.drawable.idontlikewithout);
-                                        yes.setImageResource(R.drawable.iwantwithout);
-                                        no.setImageResource(R.drawable.idontwantwithout);
-                                        add.setImageResource(R.drawable.morewithout);
-                                        minus.setImageResource(R.drawable.lesswithout);
-                                    }
-                                }
-                                if((mLevelOneItemPos==5 )) {
-                                    mTts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-                                }
-                                else
-                                if((mLevelOneItemPos==6 )) {
-                                    mTts.speak(myMusic[sort_places[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-                                }
-
-                                else
-                                if(location!=locayy)
-                                    mTts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
-                                location = locayy;
-                            }
-                        });
-                        prev_pos[0] = position1;
-                        x[0] = view;
-
-                        flag = 1;
-                        mCy = 0;
-                        mCm = 0;
-                        mCd = 0;
-                        mCn = 0;
-                        mCl = 0;
-                        mCk = 0;
-                    }
-                    }
-
-
-            private void unset()
-            {
+            public void onClick(View view) {
                 like.setImageResource(R.drawable.ilikewithoutoutline);
                 dislike.setImageResource(R.drawable.idontlikewithout);
                 yes.setImageResource(R.drawable.iwantwithout);
                 no.setImageResource(R.drawable.idontwantwithout);
                 add.setImageResource(R.drawable.morewithout);
                 minus.setImageResource(R.drawable.lesswithout);
-            }
-
-
-            private void notifyDataSet(View view) {
-//                        Toast.makeText(MainActivity.this,"here",Toast.LENGTH_SHORT).show();
-                if (session.getGridSize()==0) {
-                    mMenuItemImage = (CircularImageView) view.findViewById(R.id.icon1);
-                    im2 = (CircularImageView) view.findViewById(R.id.icon2);
-                    im3 = (CircularImageView) view.findViewById(R.id.icon3);
-
-                    im2.setBorderColor(-1);
-                    im2.setShadowColor(0);
-                    im2.setShadowRadius(sr);
-                    im2.setBorderWidth(0);
-
-                    mMenuItemImage.setBorderColor(-1);
-                    mMenuItemImage.setShadowColor(0);
-                    mMenuItemImage.setShadowRadius(sr);
-                    mMenuItemImage.setBorderWidth(0);
-
-                    im3.setBorderColor(-1);
-                    im3.setShadowColor(0);
-                    im3.setShadowRadius(sr);
-                    im3.setBorderWidth(0);
-
-
-                }
-                if (session.getGridSize()==1){
-                    mMenuItemImage = (CircularImageView) view.findViewById(R.id.icon1);
-                    im2 = (CircularImageView) view.findViewById(R.id.icon2);
-                    im3 = (CircularImageView) view.findViewById(R.id.icon3);
-                    im4 = (CircularImageView) view.findViewById(R.id.icon4);
-                    im5 = (CircularImageView) view.findViewById(R.id.icon5);
-                    im6 = (CircularImageView) view.findViewById(R.id.icon6);
-                    im7 = (CircularImageView) view.findViewById(R.id.icon7);
-                    im8 = (CircularImageView) view.findViewById(R.id.icon8);
-                    im9 = (CircularImageView) view.findViewById(R.id.icon9);
-
-                    mMenuItemImage.setBorderColor(-1);
-                    mMenuItemImage.setShadowColor(0);
-                    mMenuItemImage.setShadowRadius(sr);
-                    mMenuItemImage.setBorderWidth(0);
-
-                    im2.setBorderColor(-1);
-                    im2.setShadowColor(0);
-                    im2.setShadowRadius(sr);
-                    im2.setBorderWidth(0);
-
-                    im3.setBorderColor(-1);
-                    im3.setShadowColor(0);
-                    im3.setShadowRadius(sr);
-                    im3.setBorderWidth(0);
-
-                    im5.setBorderColor(-1);
-                    im5.setShadowColor(0);
-                    im5.setShadowRadius(sr);
-                    im5.setBorderWidth(0);
-
-                    im6.setBorderColor(-1);
-                    im6.setShadowColor(0);
-                    im6.setShadowRadius(sr);
-                    im6.setBorderWidth(0);
-
-                    im7.setBorderColor(-1);
-                    im7.setShadowColor(0);
-                    im7.setShadowRadius(sr);
-                    im7.setBorderWidth(0);
-
-                    im8.setBorderColor(-1);
-                    im8.setShadowColor(0);
-                    im8.setShadowRadius(sr);
-                    im8.setBorderWidth(0);
-
-                    im4.setBorderColor(-1);
-                    im4.setShadowColor(0);
-                    im4.setShadowRadius(sr);
-                    im4.setBorderWidth(0);
-
-                    im9.setBorderColor(-1);
-                    im9.setShadowColor(0);
-                    im9.setShadowRadius(sr);
-                    im9.setBorderWidth(0);
-                }
-                    }
-
-                    @Override
-                    public void onLongClick(View view, int mLevelOneItemPos) {
-
-                    }
-
-                }
-                )
-
-        );*/
-
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
                 home.setImageResource(R.drawable.homepressed);
+                resetRecycleraMenuItemsAndFlags();
+                flag = 0;
+                mShouldReadFullSpeech = false;
+                image_flag = -1;
+                if(flag_keyboard == 1){
+                    keyboard.setImageResource(R.drawable.keyboard_button);
+                    back.setImageResource(R.drawable.back_button);
+                    et.setVisibility(View.INVISIBLE);
+                    mRecyclerView.setVisibility(View.VISIBLE);
+                    ttsButton.setVisibility(View.INVISIBLE);
+                    flag_keyboard = 0;
+                    like.setEnabled(true);
+                    dislike.setEnabled(true);
+                    add.setEnabled(true);
+                    minus.setEnabled(true);
+                    yes.setEnabled(true);
+                    no.setEnabled(true);
+                    like.setAlpha(1f);
+                    dislike.setAlpha(1f);
+                    add.setAlpha(1f);
+                    minus.setAlpha(1f);
+                    yes.setAlpha(1f);
+                    no.setAlpha(1f);
+                    back.setAlpha(.5f);
+                    back.setEnabled(false);
+                }
                 mTts.speak(below[0], TextToSpeech.QUEUE_FLUSH, null);
-                Intent i = new Intent(getApplicationContext(), Layer3Activity.class);
-                startActivity(i);
             }
         });
 
         keyboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 mTts.speak(below[2], TextToSpeech.QUEUE_FLUSH, null);
-
                 if (flag_keyboard == 1) {
                     keyboard.setImageResource(R.drawable.keyboard_button);
                     back.setImageResource(R.drawable.back_button);
@@ -3251,7 +497,6 @@ public class Main2LAyer extends AppCompatActivity {
                     back.setAlpha(.5f);
                     back.setEnabled(false);
                 } else {
-
                     keyboard.setImageResource(R.drawable.keyboardpressed);
                     back.setImageResource(R.drawable.backpressed);
                     et.setVisibility(View.VISIBLE);
@@ -3286,8 +531,8 @@ public class Main2LAyer extends AppCompatActivity {
         ttsButton.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View view) {
-                        mTts.setSpeechRate((float) session.getSpeed() / 50);
-                        mTts.setPitch((float) session.getPitch() / 50);
+                        mTts.setSpeechRate((float) mSession.getSpeed() / 50);
+                        mTts.setPitch((float) mSession.getPitch() / 50);
                         String s1 = et.getText().toString();
                         mTts.speak(s1, TextToSpeech.QUEUE_FLUSH, null);
 
@@ -3300,43 +545,8 @@ public class Main2LAyer extends AppCompatActivity {
 
                     }
                 });
-        back.setOnClickListener(
-                new View.OnClickListener()
-                {
-                    public void onClick(View view) {
 
-                        if (flag_keyboard == 1) {
-                            keyboard.setImageResource(R.drawable.keyboard_button);
-                            back.setImageResource(R.drawable.back_button);
-                            mTts.speak(below[1], TextToSpeech.QUEUE_FLUSH, null);
-                            et.setVisibility(View.INVISIBLE);
-                            mRecyclerView.setVisibility(View.VISIBLE);
-                            ttsButton.setVisibility(View.INVISIBLE);
-                            flag_keyboard = 0;
-                            like.setEnabled(true);
-                            dislike.setEnabled(true);
-                            add.setEnabled(true);
-                            minus.setEnabled(true);
-                            yes.setEnabled(true);
-                            no.setEnabled(true);
-                            like.setAlpha(1f);
-                            dislike.setAlpha(1f);
-                            add.setAlpha(1f);
-                            minus.setAlpha(1f);
-                            yes.setAlpha(1f);
-                            no.setAlpha(1f);
-                        }
-
-                        else
-                        {
-                            back.setImageResource(R.drawable.backpressed);
-                            mTts.speak(below[1], TextToSpeech.QUEUE_FLUSH, null);
-                            Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                            startActivity(i);
-                        }
-                    }});
-
-                        et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 // If it loses focus...
@@ -3350,70 +560,79 @@ public class Main2LAyer extends AppCompatActivity {
             }
         });
 
+        back.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                if (flag_keyboard == 1) {
+                    keyboard.setImageResource(R.drawable.keyboard_button);
+                    back.setImageResource(R.drawable.back_button);
+                    mTts.speak(below[1], TextToSpeech.QUEUE_FLUSH, null);
+                    et.setVisibility(View.INVISIBLE);
+                    mRecyclerView.setVisibility(View.VISIBLE);
+                    ttsButton.setVisibility(View.INVISIBLE);
+                    flag_keyboard = 0;
+                    like.setEnabled(true);
+                    dislike.setEnabled(true);
+                    add.setEnabled(true);
+                    minus.setEnabled(true);
+                    yes.setEnabled(true);
+                    no.setEnabled(true);
+                    like.setAlpha(1f);
+                    dislike.setAlpha(1f);
+                    add.setAlpha(1f);
+                    minus.setAlpha(1f);
+                    yes.setAlpha(1f);
+                    no.setAlpha(1f);
+                } else {
+                    back.setImageResource(R.drawable.backpressed);
+                    mTts.speak(below[1], TextToSpeech.QUEUE_FLUSH, null);
+                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(i);
+                }
+            }
+        });
 
         like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCy = 0;
-                mCm = 0;
-                mCd = 0;
-                mCn = 0;
-                mCl = 0;
+                mCy = mCm = mCd = mCn = mCl = 0;
                 image_flag = 0;
-                resetActionButtons(image_flag);
-                if (mLevelOneItemPos == 8 && location==0){
-                    like.setImageResource(R.drawable.mynameis);
-                    dislike.setImageResource(R.drawable.caregiver_unpressed);
-                    yes.setImageResource(R.drawable.email_unpressed);
-                    no.setImageResource(R.drawable.address_unpressed);
-                    add.setImageResource(R.drawable.contact_unpressed);
-                    minus.setImageResource(R.drawable.bloodgroup_unpressed);
-                }
-                else {
-                    like.setImageResource(R.drawable.ilikewithoutline);
-                    dislike.setImageResource(R.drawable.idontlikewithout);
-                    yes.setImageResource(R.drawable.iwantwithout);
-                    no.setImageResource(R.drawable.idontwantwithout);
-                    add.setImageResource(R.drawable.morewithout);
-                    minus.setImageResource(R.drawable.lesswithout);
-                }
-                if (flag == 0) {
+                if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 0)
+                    resetActionButtonToAboutMe(image_flag);
+                else
+                    resetActionButtons(image_flag);
+                if (!mShouldReadFullSpeech) {
                     if (mCk == 1) {
                         mTts.speak(side[1], TextToSpeech.QUEUE_FLUSH, null);         //if pressing like for second time then says like very much
                         mCk = 0;
                     } else {
-                        mTts.speak(side[0], TextToSpeech.QUEUE_FLUSH, null);         //if pressing like for first time says i like iin lang specified for session
+                        mTts.speak(side[0], TextToSpeech.QUEUE_FLUSH, null);         //if pressing like for first time says i like iin lang specified for mSession
                         mCk = 1;
                     }
                 } else {
-                        mMenuItemImage.setBorderColor(mColor[0]);
-                        mMenuItemImage.setShadowColor(mColor[0]);
-                        mMenuItemImage.setShadowRadius(sr);
-                        mMenuItemImage.setBorderWidth(bw);
-
+                    ++mActionBtnClickCount;
+                    if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
+                        setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCk == 1) {
                         if (mLevelOneItemPos == 5)
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[location]][1], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[mLevelTwoItemPos]][1], TextToSpeech.QUEUE_FLUSH, null);
                         else if (mLevelOneItemPos == 6)
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[location]][1], TextToSpeech.QUEUE_FLUSH, null);
-                        else if(mLevelOneItemPos == 8 && location == 0)
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][1]+session.getName()+end,TextToSpeech.QUEUE_FLUSH,null) ;
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[mLevelTwoItemPos]][1], TextToSpeech.QUEUE_FLUSH, null);
+                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 0)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][mLevelTwoItemPos][1]+ mSession.getName()+end,TextToSpeech.QUEUE_FLUSH,null) ;
                         else
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][1], TextToSpeech.QUEUE_FLUSH, null);
-
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][mLevelTwoItemPos][1], TextToSpeech.QUEUE_FLUSH, null);
                         mCk = 0;
                     } else {
                         if(mLevelOneItemPos == 5)
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[location]][0], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[mLevelTwoItemPos]][0], TextToSpeech.QUEUE_FLUSH, null);
                         else if (mLevelOneItemPos == 6)
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[location]][0], TextToSpeech.QUEUE_FLUSH, null);
-                        else if(mLevelOneItemPos == 8 && location == 0)
-                             mTts.speak(layer_2_speech[mLevelOneItemPos][location][0]+session.getName()+end,TextToSpeech.QUEUE_FLUSH,null) ;
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[mLevelTwoItemPos]][0], TextToSpeech.QUEUE_FLUSH, null);
+                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 0)
+                             mTts.speak(layer_2_speech[mLevelOneItemPos][mLevelTwoItemPos][0]+ mSession.getName()+end,TextToSpeech.QUEUE_FLUSH,null) ;
                         else
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][0], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][mLevelTwoItemPos][0], TextToSpeech.QUEUE_FLUSH, null);
                         mCk = 1;
                     }
-                    ++mActionBtnClickCount;
                 }
             }
         });
@@ -3424,23 +643,11 @@ public class Main2LAyer extends AppCompatActivity {
                 mCk = 0; mCy = 0; mCm = 0; mCn = 0; mCl = 0;
                 image_flag = 1;
                 resetActionButtons(image_flag);
-                if (mLevelOneItemPos == 8 && location==0){
-                    like.setImageResource(R.drawable.mynameis_unpressed);
-                    dislike.setImageResource(R.drawable.caregiver);
-                    yes.setImageResource(R.drawable.email_unpressed);
-                    no.setImageResource(R.drawable.address_unpressed);
-                    add.setImageResource(R.drawable.contact_unpressed);
-                    minus.setImageResource(R.drawable.bloodgroup_unpressed);
-                }
-                else {
-                    like.setImageResource(R.drawable.ilikewithoutoutline);
-                    dislike.setImageResource(R.drawable.idontlikewithoutline);
-                    yes.setImageResource(R.drawable.iwantwithout);
-                    no.setImageResource(R.drawable.idontwantwithout);
-                    add.setImageResource(R.drawable.morewithout);
-                    minus.setImageResource(R.drawable.lesswithout);
-                }
-                if (flag == 0) {
+                if (mLevelOneItemPos == 8 && mLevelTwoItemPos==0)
+                    resetActionButtonToAboutMe(image_flag);
+                else
+                    resetActionButtons(image_flag);
+                if (!mShouldReadFullSpeech) {
                     if (mCd == 1) {
                         mTts.speak(side[7], TextToSpeech.QUEUE_FLUSH, null);
                         mCd = 0;
@@ -3449,38 +656,30 @@ public class Main2LAyer extends AppCompatActivity {
                         mCd = 1;
                     }
                 } else {
-                        mMenuItemImage.setBorderColor(mColor[1]);
-                        mMenuItemImage.setShadowColor(mColor[1]);
-                        mMenuItemImage.setShadowRadius(sr);
-                        mMenuItemImage.setBorderWidth(bw);
-
+                    ++mActionBtnClickCount;
+                    if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
+                        setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCd == 1) {
-
                         if (mLevelOneItemPos == 5)
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[location]][7], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[mLevelTwoItemPos]][7], TextToSpeech.QUEUE_FLUSH, null);
                         else if (mLevelOneItemPos == 6)
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[location]][7], TextToSpeech.QUEUE_FLUSH, null);
-                        else if(mLevelOneItemPos == 8 && location == 0)
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][7]+session.getFather_name()+end,TextToSpeech.QUEUE_FLUSH,null) ;
-
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[mLevelTwoItemPos]][7], TextToSpeech.QUEUE_FLUSH, null);
+                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 0)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][mLevelTwoItemPos][7]+ mSession.getFather_name()+end,TextToSpeech.QUEUE_FLUSH,null) ;
                         else
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][7], TextToSpeech.QUEUE_FLUSH, null);
-
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][mLevelTwoItemPos][7], TextToSpeech.QUEUE_FLUSH, null);
                         mCd = 0;
                     } else {
-
                         if (mLevelOneItemPos == 5)
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[location]][6], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[mLevelTwoItemPos]][6], TextToSpeech.QUEUE_FLUSH, null);
                         else if (mLevelOneItemPos == 6)
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[location]][6], TextToSpeech.QUEUE_FLUSH, null);
-                        else if(mLevelOneItemPos == 8 && location == 0)
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][6]+session.getFather_name()+end,TextToSpeech.QUEUE_FLUSH,null) ;
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[mLevelTwoItemPos]][6], TextToSpeech.QUEUE_FLUSH, null);
+                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 0)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][mLevelTwoItemPos][6]+ mSession.getFather_name()+end,TextToSpeech.QUEUE_FLUSH,null) ;
                         else
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][6], TextToSpeech.QUEUE_FLUSH, null);
-
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][mLevelTwoItemPos][6], TextToSpeech.QUEUE_FLUSH, null);
                         mCd = 1;
                     }
-                    ++mActionBtnClickCount;
                 }
             }
         });
@@ -3491,23 +690,11 @@ public class Main2LAyer extends AppCompatActivity {
                 mCk = 0; mCm = 0; mCd = 0; mCn = 0; mCl = 0;
                 image_flag = 2;
                 resetActionButtons(image_flag);
-                if (mLevelOneItemPos == 8 && location==0){
-                    like.setImageResource(R.drawable.mynameis_unpressed);
-                    dislike.setImageResource(R.drawable.caregiver_unpressed);
-                    yes.setImageResource(R.drawable.email);
-                    no.setImageResource(R.drawable.address_unpressed);
-                    add.setImageResource(R.drawable.contact_unpressed);
-                    minus.setImageResource(R.drawable.bloodgroup_unpressed);
-                }
-                else {
-                    like.setImageResource(R.drawable.ilikewithoutoutline);
-                    dislike.setImageResource(R.drawable.idontlikewithout);
-                    yes.setImageResource(R.drawable.iwantwithoutline);
-                    no.setImageResource(R.drawable.idontwantwithout);
-                    add.setImageResource(R.drawable.morewithout);
-                    minus.setImageResource(R.drawable.lesswithout);
-                }
-                if (flag == 0) {
+                if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 0)
+                    resetActionButtonToAboutMe(image_flag);
+                else
+                    resetActionButtons(image_flag);
+                if (!mShouldReadFullSpeech) {
                     if (mCy == 1) {
                         mTts.speak(side[3], TextToSpeech.QUEUE_FLUSH, null);
                         mCy = 0;
@@ -3515,37 +702,32 @@ public class Main2LAyer extends AppCompatActivity {
                         mTts.speak(side[2], TextToSpeech.QUEUE_FLUSH, null);
                         mCy = 1;
                     }
-                } else {
-                    ((CircularImageView)mSelectedItemView).setBorderColor(mColor[2]);
-                    ((CircularImageView)mSelectedItemView).setShadowColor(mColor[2]);
-                    ((CircularImageView)mSelectedItemView).setShadowRadius(sr);
-                    ((CircularImageView)mSelectedItemView).setBorderWidth(bw);
+                } else  {
+                    ++mActionBtnClickCount;
+                    if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
+                        setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCy == 1) {
                         if (mLevelOneItemPos == 5)
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[location]][3], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[mLevelTwoItemPos]][3], TextToSpeech.QUEUE_FLUSH, null);
                         else if (mLevelOneItemPos == 6)
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[location]][3], TextToSpeech.QUEUE_FLUSH, null);
-                        else if(mLevelOneItemPos == 8 && location == 0)
-                             mTts.speak(layer_2_speech[mLevelOneItemPos][location][3]+session.getEmailId()+end,TextToSpeech.QUEUE_FLUSH,null) ;
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[mLevelTwoItemPos]][3], TextToSpeech.QUEUE_FLUSH, null);
+                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 0)
+                             mTts.speak(layer_2_speech[mLevelOneItemPos][mLevelTwoItemPos][3]+ mSession.getEmailId()+end,TextToSpeech.QUEUE_FLUSH,null) ;
                         else
-
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][3], TextToSpeech.QUEUE_FLUSH, null);
-
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][mLevelTwoItemPos][3], TextToSpeech.QUEUE_FLUSH, null);
                         mCy = 0;
                     } else {
-
                         if (mLevelOneItemPos == 5)
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[location]][2], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[mLevelTwoItemPos]][2], TextToSpeech.QUEUE_FLUSH, null);
                         else if (mLevelOneItemPos == 6)
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[location]][2], TextToSpeech.QUEUE_FLUSH, null);
-                        else if(mLevelOneItemPos == 8 && location == 0)
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][2]+session.getEmailId()+end,TextToSpeech.QUEUE_FLUSH,null) ;
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[mLevelTwoItemPos]][2], TextToSpeech.QUEUE_FLUSH, null);
+                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 0)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][mLevelTwoItemPos][2]+ mSession.getEmailId()+end,TextToSpeech.QUEUE_FLUSH,null) ;
                         else
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][2], TextToSpeech.QUEUE_FLUSH, null);
-                            mCy = 1;
-                        }
-                        ++mActionBtnClickCount;
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][mLevelTwoItemPos][2], TextToSpeech.QUEUE_FLUSH, null);
+                        mCy = 1;
                     }
+                }
                 }
         });
 
@@ -3555,23 +737,11 @@ public class Main2LAyer extends AppCompatActivity {
                 mCk = 0; mCy = 0; mCm = 0; mCd = 0; mCl = 0;
                 image_flag = 3;
                 resetActionButtons(image_flag);
-                if (mLevelOneItemPos == 8 && location==0){
-                    like.setImageResource(R.drawable.mynameis_unpressed);
-                    dislike.setImageResource(R.drawable.caregiver_unpressed);
-                    yes.setImageResource(R.drawable.email_unpressed);
-                    no.setImageResource(R.drawable.address);
-                    add.setImageResource(R.drawable.contact_unpressed);
-                    minus.setImageResource(R.drawable.bloodgroup_unpressed);
-                }
-                else {
-                    like.setImageResource(R.drawable.ilikewithoutoutline);
-                    dislike.setImageResource(R.drawable.idontlikewithout);
-                    yes.setImageResource(R.drawable.iwantwithout);
-                    no.setImageResource(R.drawable.idontwantwithoutline);
-                    add.setImageResource(R.drawable.morewithout);
-                    minus.setImageResource(R.drawable.lesswithout);
-                }
-                if (flag == 0) {
+                if (mLevelOneItemPos == 8 && mLevelTwoItemPos==0)
+                    resetActionButtonToAboutMe(image_flag);
+                else
+                    resetActionButtons(image_flag);
+                if (!mShouldReadFullSpeech) {
                     if (mCn == 1) {
                         mTts.speak(side[9], TextToSpeech.QUEUE_FLUSH, null);
                         mCn = 0;
@@ -3580,34 +750,30 @@ public class Main2LAyer extends AppCompatActivity {
                         mCn = 1;
                     }
                 } else {
-                        mMenuItemImage.setBorderColor(mColor[3]);
-                        mMenuItemImage.setShadowColor(mColor[3]);
-                        mMenuItemImage.setShadowRadius(sr);
-                        mMenuItemImage.setBorderWidth(bw);
+                    ++mActionBtnClickCount;
+                    if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
+                        setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCn == 1) {
                         if (mLevelOneItemPos == 5)
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[location]][9], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[mLevelTwoItemPos]][9], TextToSpeech.QUEUE_FLUSH, null);
                         else if (mLevelOneItemPos == 6)
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[location]][9], TextToSpeech.QUEUE_FLUSH, null);
-                        else if(mLevelOneItemPos == 8 && location == 0)
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][9]+session.getAddress()+end,TextToSpeech.QUEUE_FLUSH,null) ;
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[mLevelTwoItemPos]][9], TextToSpeech.QUEUE_FLUSH, null);
+                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 0)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][mLevelTwoItemPos][9]+ mSession.getAddress()+end,TextToSpeech.QUEUE_FLUSH,null) ;
                         else
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][9], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][mLevelTwoItemPos][9], TextToSpeech.QUEUE_FLUSH, null);
                         mCn = 0;
                     } else {
                         if (mLevelOneItemPos == 5)
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[location]][8], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[mLevelTwoItemPos]][8], TextToSpeech.QUEUE_FLUSH, null);
                         else if (mLevelOneItemPos == 6)
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[location]][8], TextToSpeech.QUEUE_FLUSH, null);
-                        else if(mLevelOneItemPos == 8 && location == 0)
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][8]+session.getAddress()+end,TextToSpeech.QUEUE_FLUSH,null) ;
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[mLevelTwoItemPos]][8], TextToSpeech.QUEUE_FLUSH, null);
+                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 0)
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][mLevelTwoItemPos][8]+ mSession.getAddress()+end,TextToSpeech.QUEUE_FLUSH,null) ;
                         else
-
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][8], TextToSpeech.QUEUE_FLUSH, null);
-
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][mLevelTwoItemPos][8], TextToSpeech.QUEUE_FLUSH, null);
                         mCn = 1;
                     }
-                    ++mActionBtnClickCount;
                 }
             }
         });
@@ -3618,23 +784,11 @@ public class Main2LAyer extends AppCompatActivity {
                 mCk = 0; mCy = 0; mCd = 0; mCn = 0; mCl = 0;
                 image_flag = 4;
                 resetActionButtons(image_flag);
-                if (mLevelOneItemPos == 8 && location==0){
-                    like.setImageResource(R.drawable.mynameis_unpressed);
-                    dislike.setImageResource(R.drawable.caregiver_unpressed);
-                    yes.setImageResource(R.drawable.email_unpressed);
-                    no.setImageResource(R.drawable.address_unpressed);
-                    add.setImageResource(R.drawable.contact);
-                    minus.setImageResource(R.drawable.bloodgroup_unpressed);
-                }
-                else {
-                    like.setImageResource(R.drawable.ilikewithoutoutline);
-                    dislike.setImageResource(R.drawable.idontlikewithout);
-                    yes.setImageResource(R.drawable.iwantwithout);
-                    no.setImageResource(R.drawable.idontwantwithout);
-                    add.setImageResource(R.drawable.morewithoutline);
-                    minus.setImageResource(R.drawable.lesswithout);
-                }
-                if (flag == 0) {
+                if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 0)
+                    resetActionButtonToAboutMe(image_flag);
+                else
+                    resetActionButtons(image_flag);
+                if (!mShouldReadFullSpeech) {
                     if (mCm == 1) {
                         mTts.speak(side[5], TextToSpeech.QUEUE_FLUSH, null);
                         mCm = 0;
@@ -3643,39 +797,35 @@ public class Main2LAyer extends AppCompatActivity {
                         mCm = 1;
                     }
                 } else {
-                        mMenuItemImage.setBorderColor(mColor[4]);
-                        mMenuItemImage.setShadowColor(mColor[4]);
-                        mMenuItemImage.setShadowRadius(sr);
-                        mMenuItemImage.setBorderWidth(bw);
-
+                    ++mActionBtnClickCount;
+                    if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
+                        setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCm == 1) {
                         if (mLevelOneItemPos == 5)
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[location]][5], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[mLevelTwoItemPos]][5], TextToSpeech.QUEUE_FLUSH, null);
                         else if (mLevelOneItemPos == 6)
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[location]][5], TextToSpeech.QUEUE_FLUSH, null);
-                        else if(mLevelOneItemPos == 8 && location == 0) {
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[mLevelTwoItemPos]][5], TextToSpeech.QUEUE_FLUSH, null);
+                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 0) {
                             mTts.setLanguage(Locale.US);
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][5] + session.getFather_no().replaceAll("\\B", " ") + end, TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][mLevelTwoItemPos][5] + mSession.getFather_no().replaceAll("\\B", " ") + end, TextToSpeech.QUEUE_FLUSH, null);
                             mTts.setLanguage(new Locale("hin", "IND"));
                         } else
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][5], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][mLevelTwoItemPos][5], TextToSpeech.QUEUE_FLUSH, null);
                         mCm = 0;
                     } else {
                         if (mLevelOneItemPos == 5)
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[location]][4], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[mLevelTwoItemPos]][4], TextToSpeech.QUEUE_FLUSH, null);
                         else if (mLevelOneItemPos == 6)
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[location]][4], TextToSpeech.QUEUE_FLUSH, null);
-                        else if(mLevelOneItemPos == 8 && location == 0){
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[mLevelTwoItemPos]][4], TextToSpeech.QUEUE_FLUSH, null);
+                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 0){
                             mTts.setLanguage(Locale.US);
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][5] + session.getFather_no().replaceAll("\\B", " ") + end, TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][mLevelTwoItemPos][5] + mSession.getFather_no().replaceAll("\\B", " ") + end, TextToSpeech.QUEUE_FLUSH, null);
                             mTts.setLanguage(new Locale("hin", "IND"));
                             } else
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][4], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][mLevelTwoItemPos][4], TextToSpeech.QUEUE_FLUSH, null);
                         mCm = 1;
                     }
-                    ++mActionBtnClickCount;
                 }
-
             }
         });
 
@@ -3684,24 +834,11 @@ public class Main2LAyer extends AppCompatActivity {
             public void onClick(View v) {
                 mCk = 0; mCy = 0; mCm = 0; mCd = 0; mCn = 0;
                 image_flag = 5;
-                if (mLevelOneItemPos == 8 && location==0){
-                    like.setImageResource(R.drawable.mynameis_unpressed);
-                    dislike.setImageResource(R.drawable.caregiver_unpressed);
-                    yes.setImageResource(R.drawable.email_unpressed);
-                    no.setImageResource(R.drawable.address_unpressed);
-                    add.setImageResource(R.drawable.contact_unpressed);
-                    minus.setImageResource(R.drawable.bloodgroup);
-                }
-                else {
-                    like.setImageResource(R.drawable.ilikewithoutoutline);
-                    dislike.setImageResource(R.drawable.idontlikewithout);
-                    yes.setImageResource(R.drawable.iwantwithout);
-                    no.setImageResource(R.drawable.idontwantwithout);
-                    add.setImageResource(R.drawable.morewithout);
-                    minus.setImageResource(R.drawable.lesswithoutline);
-                }
-
-                if (flag == 0) {
+                if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 0)
+                    resetActionButtonToAboutMe(image_flag);
+                else
+                    resetActionButtons(image_flag);
+                if (!mShouldReadFullSpeech) {
                     if (mCl == 1) {
                         mTts.speak(side[11], TextToSpeech.QUEUE_FLUSH, null);
                         mCl = 0;
@@ -3710,109 +847,107 @@ public class Main2LAyer extends AppCompatActivity {
                         mCl = 1;
                     }
                 } else {
-                    ((CircularImageView)mSelectedItemView).setBorderColor(mColor[5]);
-                    ((CircularImageView)mSelectedItemView).setBorderColor(mColor[5]);
-                    ((CircularImageView)mSelectedItemView).setShadowRadius(sr);
-                    ((CircularImageView)mSelectedItemView).setBorderWidth(bw);
+                    ++mActionBtnClickCount;
+                    if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
+                        setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCl == 1) {
                         if (mLevelOneItemPos == 5)
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[location]][11], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[mLevelTwoItemPos]][11], TextToSpeech.QUEUE_FLUSH, null);
                         else if (mLevelOneItemPos == 6)
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[location]][11], TextToSpeech.QUEUE_FLUSH, null);
-                        else if(mLevelOneItemPos == 8 && location == 0){
-                            switch(session.getBlood()){
-                                case  0: b ="A positive"; break;
-                                case  1: b ="A negative"; break;
-                                case  2: b ="B positive"; break;
-                                case  3: b ="B negative"; break;
-                                case  4: b ="A B positive"; break;
-                                case  5: b ="A B negative"; break;
-                                case  6: b ="O positive"; break;
-                                case  7: b ="O negative"; break;
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[mLevelTwoItemPos]][11], TextToSpeech.QUEUE_FLUSH, null);
+                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 0){
+                            switch(mSession.getBlood()){
+                                case  0: mBloodGroup ="A positive"; break;
+                                case  1: mBloodGroup ="A negative"; break;
+                                case  2: mBloodGroup ="B positive"; break;
+                                case  3: mBloodGroup ="B negative"; break;
+                                case  4: mBloodGroup ="A B positive"; break;
+                                case  5: mBloodGroup ="A B negative"; break;
+                                case  6: mBloodGroup ="O positive"; break;
+                                case  7: mBloodGroup ="O negative"; break;
                             }
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][10] + b + end, TextToSpeech.QUEUE_FLUSH, null);
-                        }
-                        else
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][11], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][mLevelTwoItemPos][10] + mBloodGroup + end, TextToSpeech.QUEUE_FLUSH, null);
+                        } else
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][mLevelTwoItemPos][11], TextToSpeech.QUEUE_FLUSH, null);
                         mCl = 0;
                     } else {
                         if (mLevelOneItemPos == 5)
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[location]][10], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort[mLevelTwoItemPos]][10], TextToSpeech.QUEUE_FLUSH, null);
                         else if (mLevelOneItemPos == 6)
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[location]][10], TextToSpeech.QUEUE_FLUSH, null);
-                        else if(mLevelOneItemPos == 8 && location == 0){
-
-                            switch(session.getBlood()){
-                                case  0: b ="A positive"; break;
-                                case  1: b ="A negative"; break;
-                                case  2: b ="B positive"; break;
-                                case  3: b ="B negative"; break;
-                                case  4: b ="A B positive"; break;
-                                case  5: b ="A B negative"; break;
-                                case  6: b ="O positive"; break;
-                                case  7: b ="O negative"; break;
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][sort_places[mLevelTwoItemPos]][10], TextToSpeech.QUEUE_FLUSH, null);
+                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 0){
+                            switch(mSession.getBlood()){
+                                case  0: mBloodGroup ="A positive"; break;
+                                case  1: mBloodGroup ="A negative"; break;
+                                case  2: mBloodGroup ="B positive"; break;
+                                case  3: mBloodGroup ="B negative"; break;
+                                case  4: mBloodGroup ="A B positive"; break;
+                                case  5: mBloodGroup ="A B negative"; break;
+                                case  6: mBloodGroup ="O positive"; break;
+                                case  7: mBloodGroup ="O negative"; break;
                             }
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][10] + b + end, TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][mLevelTwoItemPos][10] + mBloodGroup + end, TextToSpeech.QUEUE_FLUSH, null);
                         } else
-
-                            mTts.speak(layer_2_speech[mLevelOneItemPos][location][10], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_2_speech[mLevelOneItemPos][mLevelTwoItemPos][10], TextToSpeech.QUEUE_FLUSH, null);
                         mCl = 1;
-                        }
-                        ++mActionBtnClickCount;
+                    }
                 }
             }
         });
     }
 
-    public void myMusic_function(int position){
+    private void incrementTouchCountOfItem(int levelTwoItemPosition) {
+        StringBuilder stringBuilder = new StringBuilder();
+        if(mLevelOneItemPos == MENU_ITEM_PEOPLE) {
+            count_people[sort[levelTwoItemPosition]] += 1;
+            for (Integer countPeople : count_people) stringBuilder.append(countPeople).append(",");
+        }else {
+            count_places[sort_places[levelTwoItemPosition]] += 1;
+            for (Integer countPlace : count_places) stringBuilder.append(countPlace).append(",");
+        }
+        if(mLevelOneItemPos == MENU_ITEM_PEOPLE && mSession.getLanguage() == LANG_ENG)
+            mAppPreferences.setPeoplePreferences(stringBuilder.toString(), LANG_ENG);
+        else if (mLevelOneItemPos == MENU_ITEM_PEOPLE && mSession.getLanguage() == LANG_HINDI)
+            mAppPreferences.setPeoplePreferences(stringBuilder.toString(), LANG_HINDI);
+        else if(mLevelOneItemPos == MENU_ITEM_PLACES && mSession.getLanguage() == LANG_ENG)
+            mAppPreferences.setPlacesPreferences(stringBuilder.toString(), LANG_ENG);
+        else
+            mAppPreferences.setPlacesPreferences(stringBuilder.toString(), LANG_HINDI);
+    }
 
-        if (position == 0){
-            if (session.getLanguage() == 0)
+    public void myMusic_function(int levelOneItemPos){
+        if (levelOneItemPos == 0){
+            if (mSession.getLanguage() == LANG_ENG)
                 myMusic = greet_text;
             else
                 myMusic = greet_text_hindi;
-        } else if (position == 1) {
-            if (session.getLanguage() == 0)
+        } else if (levelOneItemPos == 1) {
+            if (mSession.getLanguage() == LANG_ENG)
                 myMusic = daily_text;
             else
                 myMusic = daily_text_hindi;
-        } else if (position == 2) {
-            if (session.getLanguage() == 0)
+        } else if (levelOneItemPos == 2){
+            if (mSession.getLanguage() == LANG_ENG)
                 myMusic = eat_text;
             else
                 myMusic = eat_text_hindi;
-        } else if (position == 3) {
-            if (session.getLanguage() == 0)
+        } else if (levelOneItemPos == 3){
+            if (mSession.getLanguage() == LANG_ENG)
                 myMusic = fun_text;
             else
                 myMusic = fun_text_hindi;
-        } else if (position == 4) {
-            if (session.getLanguage() == 0)
+        } else if (levelOneItemPos == 4){
+            if (mSession.getLanguage() == LANG_ENG)
                 myMusic = learning_text;
             else
                 myMusic = learning_text_hindi;
-        }else if(position == 5)
-        {
-            if (session.getLanguage() == 0)
-                myMusic = people_text;
-            else
-                myMusic = people_text_hindi;
-
-        } else if(position == 6)
-        {
-            if (session.getLanguage() == 0)
-                myMusic = places_text;
-            else
-                myMusic = places_text_hindi;
-        }
-        else
-        if (position == 7) {
-            if (session.getLanguage() == 0)
+        }else if (levelOneItemPos == 7){
+            if (mSession.getLanguage() == LANG_ENG)
                 myMusic = time_weather_text;
             else
                 myMusic = time_weather_text_hindi;
-        } else if (position == 8) {
-            if (session.getLanguage() == 0)
+        } else if (levelOneItemPos == 8){
+            if (mSession.getLanguage() == LANG_ENG)
                 myMusic = help_text;
             else
                 myMusic = help_text_hindi;
@@ -3820,113 +955,251 @@ public class Main2LAyer extends AppCompatActivity {
     }
 
     public class IndexSorter<T extends Comparable<T>> implements Comparator<Integer> {
-
-
-
         private final T[] values;
-
-
-
         private final Integer[] indexes;
 
         /**
-
          * Constructs a new IndexSorter based upon the parameter array.
-
          * @param d
-
          */
-
         public IndexSorter(T[] d){
-
             this.values = d;
-
             indexes = new Integer[this.values.length];
-
             for ( int i = 0; i < indexes.length; i++ ){
-
                 indexes[i] = i;
-
             }
-
         }
 
         /**
-
          * Constructs a new IndexSorter based upon the parameter List.
-
          * @param d
-
          */
-
         public IndexSorter(List<T> d){
-
             this.values = (T[])d.toArray();
-
             for ( int i = 0; i < values.length; i++ ){
-
                 values[i] = d.get(i);
-
             }
-
             indexes = new Integer[this.values.length];
-
             for ( int i = 0; i < indexes.length; i++ ){
-
                 indexes[i] = i;
-
             }
-
         }
 
         /**
-
          * Sorts the underlying index array based upon the values provided in the constructor. The underlying value array is not sorted.
-
          */
-
         public void sort(){
-
             Arrays.sort(indexes, this);
-
         }
 
         /**
-
          * Retrieves the indexes of the array. The returned array is sorted if this object has been sorted.
-
          * @return The array of indexes.
-
          */
-
         public Integer[] getIndexes(){
-
             return indexes;
-
         }
 
         /**
-
          * Compares the two values at index arg0 and arg0
-
          * @param arg0 The first index
-
          * @param arg1 The second index
-
          * @return The result of calling compareTo on T objects at mLevelOneItemPos arg0 and arg1
-
          */
-
         @Override
         public int compare(Integer arg0, Integer arg1) {
-
             T d1 = values[arg0];
-
             T d2 = values[arg1];
-
             return d2.compareTo(d1);
-
         }
+    }
+
+    public class ArrayIndexComparator implements Comparator<Integer>{
+        private final Integer[] array;
+
+        public ArrayIndexComparator(Integer[] array)
+        {
+            this.array = array;
+        }
+
+        public Integer[] createIndexArray(){
+            Integer[] indexes = new Integer[array.length];
+            for (int i = 0; i < array.length; i++){
+                indexes[i] = i; // Autoboxing
+            }
+            return indexes;
+        }
+
+        @Override
+        public int compare(Integer index1, Integer index2){
+            // Autounbox from Integer to int to use as array indexes
+            return array[index2].compareTo(array[index1]);
+        }
+    }
+
+    private void resetRecycleraMenuItemsAndFlags() {
+        resetActionButtons(6);
+        mLevelTwoItemPos = -1;
+        resetRecyclerAllItems();
+        mActionBtnClickCount = 0;
+    }
+
+    private void setMenuImageBorder(View recyclerChildView, boolean setBorder) {
+        CircularImageView circularImageView = (CircularImageView) recyclerChildView.findViewById(R.id.icon1);
+        String strSrBw = new AppPreferences(this).getShadowRadiusAndBorderWidth();
+        int sr, bw;
+        sr = Integer.valueOf(strSrBw.split(",")[0]);
+        bw = Integer.valueOf(strSrBw.split(",")[1]);
+        if (setBorder){
+            if(mActionBtnClickCount > 0)
+                circularImageView.setBorderColor(mColor[image_flag]);
+            else {
+                circularImageView.setBorderColor(-1283893945);
+                circularImageView.setShadowColor(-1283893945);
+            }
+            circularImageView.setShadowRadius(sr);
+            circularImageView.setBorderWidth(bw);
+        }else {
+            circularImageView.setBorderColor(-1);
+            circularImageView.setShadowColor(0);
+            circularImageView.setShadowRadius(sr);
+            circularImageView.setBorderWidth(0);
+        }
+    }
+
+    private void resetActionButtons(int image_flag) {
+        like.setImageResource(R.drawable.ilikewithoutoutline);
+        dislike.setImageResource(R.drawable.idontlikewithout);
+        yes.setImageResource(R.drawable.iwantwithout);
+        no.setImageResource(R.drawable.idontwantwithout);
+        add.setImageResource(R.drawable.morewithout);
+        minus.setImageResource(R.drawable.lesswithout);
+        home.setImageResource(R.drawable.home);
+        switch (image_flag){
+            case 0: like.setImageResource(R.drawable.ilikewithoutline); break;
+            case 1: dislike.setImageResource(R.drawable.idontlikewithoutline); break;
+            case 2: yes.setImageResource(R.drawable.iwantwithoutline); break;
+            case 3: no.setImageResource(R.drawable.idontwantwithoutline); break;
+            case 4: add.setImageResource(R.drawable.morewithoutline); break;
+            case 5: minus.setImageResource(R.drawable.lesswithoutline); break;
+            case 6: home.setImageResource(R.drawable.homepressed); break;
+            default: break;
+        }
+    }
+
+    private void resetActionButtonToAboutMe(int image_flag){
+        like.setImageResource(R.drawable.mynameis_unpressed);
+        dislike.setImageResource(R.drawable.caregiver_unpressed);
+        yes.setImageResource(R.drawable.email_unpressed);
+        no.setImageResource(R.drawable.address_unpressed);
+        add.setImageResource(R.drawable.contact_unpressed);
+        minus.setImageResource(R.drawable.bloodgroup_unpressed);
+        switch (image_flag){
+            case 0: like.setImageResource(R.drawable.mynameis); break;
+            case 1: dislike.setImageResource(R.drawable.caregiver); break;
+            case 2: yes.setImageResource(R.drawable.email); break;
+            case 3: no.setImageResource(R.drawable.address); break;
+            case 4: add.setImageResource(R.drawable.contact); break;
+            case 5: minus.setImageResource(R.drawable.bloodgroup); break;
+            case 6: home.setImageResource(R.drawable.homepressed); break;
+            default: break;
+        }
+    }
+
+    private void resetRecyclerAllItems() {
+        for(int i = 0; i< mRecyclerView.getChildCount(); ++i){
+            setMenuImageBorder(mRecyclerView.getChildAt(i), false);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        finish();
+        super.onPause();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        if (mSession.getLanguage()==1){
+            MenuInflater blowUp = getMenuInflater();
+            blowUp.inflate(R.menu.menu_main, menu);
+        }
+        if (mSession.getLanguage()==0) {
+            MenuInflater blowUp = getMenuInflater();
+            blowUp.inflate(R.menu.menu_1, menu);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.settings:
+                Intent intent = new Intent(Main2LAyer.this, Setting.class);
+                startActivity(intent);
+                break;
+            case R.id.info:
+                Intent i = new Intent(Main2LAyer.this, About_Jellow.class);
+                startActivity(i);
+                break;
+            case R.id.profile:
+                Intent intent1 = new Intent(Main2LAyer.this, Profile_form.class);
+                startActivity(intent1);
+                break;
+            case R.id.feedback:
+                Intent intent2 = new Intent(Main2LAyer.this, Feedback.class);
+                startActivity(intent2);
+                break;
+            case R.id.usage:
+                Intent intent3 = new Intent(Main2LAyer.this, Tutorial.class);
+                startActivity(intent3);
+                break;
+            case R.id.reset:
+                Intent intent4 = new Intent(Main2LAyer.this, Reset__preferences.class);
+                startActivity(intent4);
+                break;
+            case R.id.keyboardinput:
+                Intent intent6 = new Intent(Main2LAyer.this, Keyboard_Input.class);
+                startActivity(intent6);
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
+
+    private class BackgroundSpeechOperationsAsync extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                if (mSession.getLanguage()==0 /*&& mSession.getAccent() == 0*/){
+                    mTts.setLanguage(new Locale("hin", "IND"));
+                    layer_2_speech = layer_2_speech_english;
+                    side = side_english;
+                    below = below_english;
+                }else if (mSession.getLanguage()==1){
+                    mTts.setLanguage(new Locale("hin", "IND"));
+                    layer_2_speech = layer_2_speech_hindi;
+                    side = side_hindi;
+                    below = below_hindi;
+                }
+            } catch (Exception e) {
+                Thread.interrupted();
+            }
+            return "Executed";
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent i = new Intent(Main2LAyer.this, MainActivity.class);
+            startActivity(i);
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     String[][][] layer_2_speech_english = {{{"I like to greet others",
@@ -6108,204 +3381,4 @@ public class Main2LAyer extends AppCompatActivity {
             "मुझे और पानी नहीं चाहिए",
             "मुझे सच में थोड़ा भी पानी नहीं चाहिए"
     }}};
-
-    public class ArrayIndexComparator implements Comparator<Integer>
-    {
-        private final Integer[] array;
-
-        public ArrayIndexComparator(Integer[] array)
-        {
-            this.array = array;
-        }
-
-        public Integer[] createIndexArray()
-        {
-            Integer[] indexes = new Integer[array.length];
-            for (int i = 0; i < array.length; i++)
-            {
-                indexes[i] = i; // Autoboxing
-            }
-            return indexes;
-        }
-
-        @Override
-        public int compare(Integer index1, Integer index2)
-        {
-            // Autounbox from Integer to int to use as array indexes
-            return array[index2].compareTo(array[index1]);
-        }
-    }
-
-    private void setMenuImageBorder(View recyclerChildView, boolean setBorder) {
-        CircularImageView circularImageView = (CircularImageView) recyclerChildView.findViewById(R.id.icon1);
-        if (setBorder){
-            if(mActionBtnClickCount > 0)
-                ((CircularImageView)mSelectedItemView).setBorderColor(mColor[image_flag]);
-            else {
-                circularImageView.setBorderColor(-1283893945);
-                circularImageView.setShadowColor(-1283893945);
-            }
-            circularImageView.setShadowRadius(sr);
-            circularImageView.setBorderWidth(bw);
-        }else {
-            circularImageView.setBorderColor(-1);
-            circularImageView.setShadowColor(0);
-            circularImageView.setShadowRadius(sr);
-            circularImageView.setBorderWidth(0);
-        }
-    }
-
-    private void resetActionButtons(int image_flag) {
-        like.setImageResource(R.drawable.ilikewithoutoutline);
-        dislike.setImageResource(R.drawable.idontlikewithout);
-        yes.setImageResource(R.drawable.iwantwithout);
-        no.setImageResource(R.drawable.idontwantwithout);
-        add.setImageResource(R.drawable.morewithout);
-        minus.setImageResource(R.drawable.lesswithout);
-        switch (image_flag){
-            case 0: like.setImageResource(R.drawable.ilikewithoutline); break;
-            case 1: dislike.setImageResource(R.drawable.idontlikewithoutline); break;
-            case 2: yes.setImageResource(R.drawable.iwantwithoutline); break;
-            case 3: no.setImageResource(R.drawable.idontwantwithoutline); break;
-            case 4: add.setImageResource(R.drawable.morewithoutline); break;
-            case 5: minus.setImageResource(R.drawable.lesswithoutline); break;
-            default: break;
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        finish();
-        super.onPause();
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        if (session.getLanguage()==1){
-            MenuInflater blowUp = getMenuInflater();
-            blowUp.inflate(R.menu.menu_main, menu);
-        }
-        if (session.getLanguage()==0) {
-            MenuInflater blowUp = getMenuInflater();
-            blowUp.inflate(R.menu.menu_1, menu);
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.settings:
-                Intent intent = new Intent(Main2LAyer.this, Setting.class);
-                startActivity(intent);
-                break;
-            case R.id.info:
-                Intent i = new Intent(Main2LAyer.this, About_Jellow.class);
-                startActivity(i);
-                break;
-            case R.id.profile:
-                Intent intent1 = new Intent(Main2LAyer.this, Profile_form.class);
-                startActivity(intent1);
-                break;
-            case R.id.feedback:
-                Intent intent2 = new Intent(Main2LAyer.this, Feedback.class);
-                startActivity(intent2);
-                break;
-            case R.id.usage:
-                Intent intent3 = new Intent(Main2LAyer.this, Tutorial.class);
-                startActivity(intent3);
-                break;
-            case R.id.reset:
-                Intent intent4 = new Intent(Main2LAyer.this, Reset__preferences.class);
-                startActivity(intent4);
-                break;
-            case R.id.keyboardinput:
-                Intent intent6 = new Intent(Main2LAyer.this, Keyboard_Input.class);
-                startActivity(intent6);
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return true;
-    }
-
-    private class BackgroundSpeechOperationsAsync extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... params) {
-
-            try {
-
-                if (session.getLanguage()==0 /*&& session.getAccent() == 0*/){
-                    mTts.setLanguage(new Locale("hin", "IND"));
-                    layer_2_speech = layer_2_speech_english;
-                    side = side_english;
-                    below = below_english;
-                }
-                else   if (session.getLanguage()==1){
-                    mTts.setLanguage(new Locale("hin", "IND"));
-                    layer_2_speech = layer_2_speech_hindi;
-                    side = side_hindi;
-                    below = below_hindi;
-                }
-            } catch (Exception e) {
-                Thread.interrupted();
-            }
-
-            return "Executed";
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-
-        }
-
-        @Override
-        protected void onPreExecute() {}
-
-        @Override
-        protected void onProgressUpdate(Void... values) {}
-    }
-
-    private class CalculateSrBwAsync extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... params) {
-
-            try {
-                DisplayMetrics displayMetrics = getApplicationContext().getResources().getDisplayMetrics();
-                dpHeight = displayMetrics.heightPixels / displayMetrics.density;
-                dpWidth = displayMetrics.widthPixels / displayMetrics.density;
-
-                if (dpHeight >= 720) {
-                    sr = 0;
-                    bw = 15;
-                } else {
-                    sr = 0;
-                    bw = 7;
-                }
-
-                System.out.println("dpWidth: " + dpWidth);
-                System.out.println("dpHeight: " + dpHeight);
-
-            } catch (Exception e) {
-                Thread.interrupted();
-            }
-
-            return "Executed";
-        }
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Intent i = new Intent(Main2LAyer.this, MainActivity.class);
-            startActivity(i);
-            finish();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
 }

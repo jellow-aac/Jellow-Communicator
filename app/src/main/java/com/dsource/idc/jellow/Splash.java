@@ -44,7 +44,9 @@ public class Splash extends AppCompatActivity {
                 Toast.makeText(Splash.this, "App is loading...", Toast.LENGTH_SHORT).show();
             }
         }.start();
-        new EvaluateDisplayMetricsUtils(this).calculateStoreDeviceHeightWidth();
+        EvaluateDisplayMetricsUtils displayMetricsUtils = new EvaluateDisplayMetricsUtils(this);
+        displayMetricsUtils.calculateStoreDeviceHeightWidth();
+        displayMetricsUtils.calculateStoreShadowRadiusAndBorderWidth();
     }
 
     @Override

@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.KeyListener;
-import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,6 +19,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.dsource.idc.jellow.Utility.AppPreferences;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -27,7 +28,7 @@ import static com.dsource.idc.jellow.R.id.reset;
 import static com.dsource.idc.jellow.Reset__preferences.flag;
 
 public class MainActivity extends AppCompatActivity {
-    private static final int LANG_ENG = 0, LANG_HINDI = 1, GOTO_LEVEL_TWO = 1, GOTO_LEVEL_ONE = 0;
+    private static final int LANG_ENG = 0, LANG_HINDI = 1;
 
     int mCk = 0, mCy = 0, mCm = 0, mCd = 0, mCn = 0, mCl = 0;
     int image_flag = -1, flag_keyboard = 0;
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageAdapter mImageAdapter;
     private Integer[] mColor = {-5317, -12627531 , -7617718 , -2937298 , -648053365 , -1761607680 };
 
-    String[][] layer_1_speech_hindi = {{
+    private final String[][] layer_1_speech_hindi = {{
 
             "मुझे लोगों को नमस्कार करना और अपनी भावनाओं के बारे में बात करना अच्छा लगता हैं ",
             "मुझे सच में लोगों को नमस्कार करना और अपनी भावनाओं के बारे में बात करना अच्छा लगता हैं",
@@ -155,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
             "मुझे  सच में और मदद की ज़रूरत नहीं हैं"
     }};
 
-    String[][] layer_1_speech_english = {{
+    private final String[][] layer_1_speech_english = {{
 
             "I like to greet others and talk about my feelings",
             "I really like to greet others and talk about my feelings",
@@ -270,13 +271,10 @@ public class MainActivity extends AppCompatActivity {
 
     private SessionManager session;
 
-    String[][] layer_1_speech = new String[100][100];
-    String[] myMusic = new String[100];
-    String[] side = new String[100];
-    String[] below = new String[100];
-
-    float dpHeight, dpWidth;
-    int sr, bw;
+    private String[][] layer_1_speech = new String[100][100];
+    private String[] myMusic = new String[100];
+    private String[] side = new String[100];
+    private String[] below = new String[100];
 
     final String[] belowText_hindi ={"शुभकामना और भावना", "रोज़ के काम", "खाना", "मज़े", "सीखना", "लोग", "जगह", "समय और मौसम", "मदद"};
     final String[] belowText_english ={"greet and feel", "daily activities", "eating", "fun", "learning", "people", "places", "time and Weather", "help"};
@@ -296,8 +294,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable( getResources().getDrawable(R.drawable.yellow_bg));
         mRecyclerItemsViewList = new ArrayList<>(english1.length);
         while (mRecyclerItemsViewList.size() < english1.length)  mRecyclerItemsViewList.add(null);
-        new CalculateSrBwAsync().execute("");
-        session = new SessionManager(getApplicationContext());
+        session = new SessionManager(this);
 
         if(session.getLanguage()==1){
             getSupportActionBar().setTitle("होम");
@@ -325,10 +322,11 @@ public class MainActivity extends AppCompatActivity {
         yes = (ImageView) findViewById(R.id.ivyes);
         no = (ImageView) findViewById(R.id.ivno);
         home = (ImageView) findViewById(R.id.ivhome);
+        back = (ImageView) findViewById(R.id.ivback);
+        back.setAlpha(1f);
         keyboard = (ImageView) findViewById(R.id.keyboard);
         et = (EditText) findViewById(R.id.et);
         et.setVisibility(View.INVISIBLE);
-        back = (ImageView) findViewById(R.id.ivback);
 
         ttsButton = (ImageView)findViewById(R.id.ttsbutton);
         ttsButton.setVisibility(View.INVISIBLE);
@@ -354,16 +352,22 @@ public class MainActivity extends AppCompatActivity {
                         mActionBtnClickCount = 0;
                         setMenuImageBorder(v, true);
                         mShouldReadFullSpeech = true;
-    					if (mLevelOneItemPos == position) {
+                        String title="";
+                        if(session.getLanguage() == LANG_ENG)
+                            title = english1[position];
+                        else
+                            title = belowText_hindi[position];
+                        getSupportActionBar().setTitle(title);
+                        if (mLevelOneItemPos == position) {
                             Intent intent = new Intent(MainActivity.this, Main2LAyer.class);
                             intent.putExtra("mLevelOneItemPos", position);
+                            intent.putExtra("selectedMenuItemPath", title);
                             startActivity(intent);
+                        }else {
+                            mTts.speak(myMusic[position], TextToSpeech.QUEUE_FLUSH, null);
                         }
                         mLevelOneItemPos = mRecyclerView.getChildLayoutPosition(view);
                         mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
-                        if(session.getLanguage() == LANG_ENG)   getSupportActionBar().setTitle(english1[position]);
-                        else    getSupportActionBar().setTitle(belowText_hindi[position]);
-                        mTts.speak(myMusic[position], TextToSpeech.QUEUE_FLUSH, null);
                     }
                 });
             }
@@ -399,8 +403,7 @@ public class MainActivity extends AppCompatActivity {
                 flag = 0;
                 mShouldReadFullSpeech = false;
                 image_flag = -1;
-                if (flag_keyboard  == 1)
-                {
+                if (flag_keyboard  == 1){
                     keyboard.setImageResource(R.drawable.keyboard_button);
                     back.setImageResource(R.drawable.back_button);
                     et.setVisibility(View.INVISIBLE);
@@ -430,8 +433,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mTts.speak(below[2], TextToSpeech.QUEUE_FLUSH, null);
-                if (flag_keyboard  == 1)
-                {
+                if (flag_keyboard  == 1){
                     keyboard.setImageResource(R.drawable.keyboard_button);
                     back.setImageResource(R.drawable.back_button);
                     et.setVisibility(View.INVISIBLE);
@@ -517,8 +519,7 @@ public class MainActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view)
             {
-                if (flag_keyboard == 1)
-                {
+                if (flag_keyboard == 1){
                     keyboard.setImageResource(R.drawable.keyboard_button);
                     back.setImageResource(R.drawable.back_button);
                     mTts.speak(below[1], TextToSpeech.QUEUE_FLUSH, null);
@@ -570,7 +571,6 @@ public class MainActivity extends AppCompatActivity {
                         mTts.speak(layer_1_speech[mLevelOneItemPos][0], TextToSpeech.QUEUE_FLUSH, null);
                         mCk = 1;
                     }
-
                 }
             }
         });
@@ -600,7 +600,6 @@ public class MainActivity extends AppCompatActivity {
                         mTts.speak(layer_1_speech[mLevelOneItemPos][6], TextToSpeech.QUEUE_FLUSH, null);
                         mCd = 1;
                     }
-
                 }
             }
         });
@@ -630,7 +629,6 @@ public class MainActivity extends AppCompatActivity {
                         mTts.speak(layer_1_speech[mLevelOneItemPos][2], TextToSpeech.QUEUE_FLUSH, null);
                         mCy = 1;
                     }
-
                 }
             }
         });
@@ -660,7 +658,6 @@ public class MainActivity extends AppCompatActivity {
                         mTts.speak(layer_1_speech[mLevelOneItemPos][8], TextToSpeech.QUEUE_FLUSH, null);
                         mCn = 1;
                     }
-
                 }
             }
         });
@@ -733,6 +730,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void setMenuImageBorder(View recyclerChildView, boolean setBorder) {
         CircularImageView circularImageView = (CircularImageView) recyclerChildView.findViewById(R.id.icon1);
+        String strSrBw = new AppPreferences(this).getShadowRadiusAndBorderWidth();
+        int sr, bw;
+        sr = Integer.valueOf(strSrBw.split(",")[0]);
+        bw = Integer.valueOf(strSrBw.split(",")[1]);
         if (setBorder){
             if(mActionBtnClickCount > 0)
                 circularImageView.setBorderColor(mColor[image_flag]);
@@ -765,7 +766,7 @@ public class MainActivity extends AppCompatActivity {
             case 3: no.setImageResource(R.drawable.idontwantwithoutline); break;
             case 4: add.setImageResource(R.drawable.morewithoutline); break;
             case 5: minus.setImageResource(R.drawable.lesswithoutline); break;
-            case 6: home.setImageResource(R.drawable.homepressed);
+            case 6: home.setImageResource(R.drawable.homepressed); break;
             default: break;
         }
     }
@@ -834,44 +835,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private class BackgroundSpeechOperationsAsync extends AsyncTask<String, Void, String> {
-    @Override
-    protected String doInBackground(String... params) {
-        try {
-            if (session.getLanguage()==0 ){
-                mTts.setLanguage(new Locale("hin", "IND"));
-                layer_1_speech = layer_1_speech_english;
-                myMusic = belowText_english;
-                side = side_english;
-                below = below_english;
-            }
-            if (session.getLanguage()==1){
-                mTts.setLanguage(new Locale("hin", "IND"));
-                layer_1_speech = layer_1_speech_hindi;
-                myMusic = belowText_hindi;
-                side = side_hindi;
-                below = below_hindi;
-                System.out.println("sdasdada" +session.getLanguage());
-            }
-        } catch (Exception e) {
-            Thread.interrupted();
-        }
-        return "Executed";
-    }
-}
-
-    private class CalculateSrBwAsync extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
             try {
-                DisplayMetrics displayMetrics = getApplicationContext().getResources().getDisplayMetrics();
-                dpHeight = displayMetrics.heightPixels / displayMetrics.density;
-                dpWidth = displayMetrics.widthPixels / displayMetrics.density;
-                if (dpHeight >= 720) {
-                    sr = 0;
-                    bw = 15;
-                }else{
-                    sr = 0;
-                    bw = 7;
+                if (session.getLanguage()==0 ){
+                    mTts.setLanguage(new Locale("hin", "IND"));
+                    layer_1_speech = layer_1_speech_english;
+                    myMusic = belowText_english;
+                    side = side_english;
+                    below = below_english;
+                }
+                if (session.getLanguage()==1){
+                    mTts.setLanguage(new Locale("hin", "IND"));
+                    layer_1_speech = layer_1_speech_hindi;
+                    myMusic = belowText_hindi;
+                    side = side_hindi;
+                    below = below_hindi;
+                    System.out.println("sdasdada" +session.getLanguage());
                 }
             } catch (Exception e) {
                 Thread.interrupted();

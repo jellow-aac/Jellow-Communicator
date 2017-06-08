@@ -4,19 +4,20 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.dsource.idc.jellow.R;
-
+import com.dsource.idc.jellow.SessionManager;
 
 /**
  * Created by ekalpa on 5/11/2017.
  */
-
 public class AppPreferences {
     private Context mContext;
     private SharedPreferences mPreferences;
+    private SessionManager mSession;
     private SharedPreferences.Editor mEditor;
 
     public AppPreferences(Context context){
         this.mContext = context;
+        this.mSession = new SessionManager(mContext);
         mPreferences = mContext.getSharedPreferences(mContext.getString(R.string.app_name), Context.MODE_PRIVATE);
         mEditor = mPreferences.edit();
     }
@@ -36,63 +37,71 @@ public class AppPreferences {
     public float getScreenHeight(){
         return (float) retrievePreferenceKeyWithValue(Float.class.toString(), mContext.getString(R.string.screen_height));
     }
-/*
-    public void setMyIntegerValue(int value){
-        storePreferenceKeyWithValue(Integer.class.toString(), mContext.getString(R.string.my_integer_class), value);
+
+    public void setShadowRadiusAndBorderWidth(int shadowRadius, int borderWidth) {
+        storePreferenceKeyWithValue(Integer.class.toString(), mContext.getString(R.string.shadow_radius), shadowRadius);
+        storePreferenceKeyWithValue(Integer.class.toString(), mContext.getString(R.string.border_width), borderWidth);
     }
 
-    public int getMyIntegerValue(){
-        return (int) retrievePreferenceKeyWithValue(Integer.class.toString(), mContext.getString(R.string.my_integer_class));
+    public String getShadowRadiusAndBorderWidth(){
+        String strSrBw = String.valueOf(retrievePreferenceKeyWithValue(Integer.class.toString(), mContext.getString(R.string.shadow_radius)));
+        strSrBw += "," + String.valueOf(retrievePreferenceKeyWithValue(Integer.class.toString(), mContext.getString(R.string.border_width)));
+        return strSrBw;
     }
 
-    public void setMyBooleanValue(boolean value){
-        storePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.my_boolean_class), value);
+    public void setPeoplePreferences(String peoplePreferences, int langEng) {
+        if(mSession.getLanguage() == langEng)
+            storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_eng), peoplePreferences);
+        else
+            storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_hindi), peoplePreferences);
     }
 
-    public Boolean getMyBooleanValue(){
-        return (Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.my_boolean_class));
+    public String getPeoplePreferences(int langEng) {
+        if(mSession.getLanguage() == langEng)
+            return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_eng));
+        else
+            return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_hindi));
     }
 
-    public void setMyStringValue(String value){
-        storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.my_string_class), value);
+    public void setPlacesPreferences(String placesPreferences, int langEng) {
+        if(mSession.getLanguage() == langEng)
+            storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.places_pref_count_eng), placesPreferences);
+        else
+            storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.places_pref_count_hindi), placesPreferences);
     }
 
-    public String getMyStringValue(){
-        return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.my_string_class));
+    public String getPlacesPreferences(int langEng) {
+        if(mSession.getLanguage() == langEng)
+            return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.places_pref_count_eng));
+        else
+            return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.places_pref_count_hindi));
     }
 
-    public void setDroppedItemData(String value) {
-        storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.gridview_drop_item), value);
-    }
+    public void resetUserPeoplePlacesPreferences(){
 
-    public String getDroppedItemData() {
-        return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.gridview_drop_item));
     }
-*/
 
     private void storePreferenceKeyWithValue(String classType, String key, Object val){
-        if (classType.equals(Integer.class.toString())) {
+        if (classType.equals(Integer.class.toString()))
             mEditor.putInt(key, (Integer) val).commit();
-        }else if(classType.equals(Float.class.toString())) {
+        else if(classType.equals(Float.class.toString()))
             mEditor.putFloat(key, (Float) val).commit();
-        }else if(classType.equals(Boolean.class.toString())) {
+        else if(classType.equals(Boolean.class.toString()))
             mEditor.putBoolean(key, (Boolean) val).commit();
-        }else if(classType.equals(String.class.toString())) {
+        else if(classType.equals(String.class.toString()))
             mEditor.putString(key, (String) val).commit();
-        }
     }
 
     private Object retrievePreferenceKeyWithValue(String classType, String key){
-        Object valueofKey = null;
-        if(classType.equals(Integer.class.toString())){
-            valueofKey = mPreferences.getInt(key, -1);
-        }else if(classType.equals(Float.class.toString())){
-            valueofKey = mPreferences.getFloat(key, 0.0f);
-        }else if(classType.equals(Boolean.class.toString())) {
-            valueofKey = mPreferences.getBoolean(key, false);
-        } if(classType.equals(String.class.toString())) {
-            valueofKey = mPreferences.getString(key, "");
-        }
-        return valueofKey;
+        Object valueOfKey = null;
+        if(classType.equals(Integer.class.toString()))
+            valueOfKey = mPreferences.getInt(key, -1);
+        else if(classType.equals(Float.class.toString()))
+            valueOfKey = mPreferences.getFloat(key, 0.0f);
+        else if(classType.equals(Boolean.class.toString()))
+            valueOfKey = mPreferences.getBoolean(key, false);
+        else if(classType.equals(String.class.toString()))
+            valueOfKey = mPreferences.getString(key, "");
+        return valueOfKey;
     }
 }

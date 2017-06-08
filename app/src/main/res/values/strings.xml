@@ -51,5 +51,14 @@
     <string name="subtype_en_US">Serial ABC</string>
     <string name="screen_width">com.dsource.idc.jellow.screen_width</string>
     <string name="screen_height">com.dsource.idc.jellow.screen_height</string>
+    <string name="shadow_radius">com.dsource.idc.jellow.shadow_radius</string>
+    <string name="border_width">com.dsource.idc.jellow.border_width</string>
+    <!--<string name="people_pref_count_eng">com.dsource.idc.jellow.people_pref_count_eng</string>
+    <string name="people_pref_count_hindi">com.dsource.idc.jellow.people_pref_count_hindi</string>
+    <string name="places_pref_count_eng" >com.dsource.idc.jellow.places_pref_count_eng</string>-->
+    <string name="people_pref_count_eng">people_count</string>
+    <string name="people_pref_count_hindi">people_count_hindi</string>
+    <string name="places_pref_count_eng" >places_count</string>
+    <string name="places_pref_count_hindi" >com.dsource.idc.jellow.places_pref_count_hindi</string>
 
 </resources>

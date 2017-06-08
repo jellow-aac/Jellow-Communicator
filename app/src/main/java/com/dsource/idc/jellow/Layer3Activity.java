@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.KeyListener;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -21,6 +20,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import com.dsource.idc.jellow.Utility.AppPreferences;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -214,16 +215,12 @@ public class Layer3Activity extends AppCompatActivity {
         getSupportActionBar().setElevation(0);
         session = new SessionManager(getApplicationContext());
         more_count = 0;
-        DisplayMetrics displayMetrics = getApplicationContext().getResources().getDisplayMetrics();
-        dpHeight = displayMetrics.heightPixels / displayMetrics.density;
-
-        if (dpHeight >= 720) {
-            sr = 0;
-            bw = 15;
-        } else {
-            sr = 0;
-            bw = 7;
+        {
+            String strSrBw = new AppPreferences(this).getShadowRadiusAndBorderWidth();
+            sr = Integer.valueOf(strSrBw.split(",")[0]);
+            bw = Integer.valueOf(strSrBw.split(",")[1]);
         }
+
         final String[] side_hindi = {"अच्छा लगता हैं", "सच में अच्छा लगता हैं", "हाँ", "सच में हाँ", "ज्यादा", "सच में ज्यादा", "अच्छा नहीं लगता हैं", "सच में अच्छा नहीं लगता हैं", "नहीं", "सच में नहीं", "कम", "सच में कम"};
         final String[] side_english = {"like", "really like", "yes", "really yes", "more", "really more", "dont like", "really dont like", "no", "really no", "less", "really less"};
 
