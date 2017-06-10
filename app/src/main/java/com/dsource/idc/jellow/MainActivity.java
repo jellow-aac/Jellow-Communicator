@@ -19,16 +19,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.dsource.idc.jellow.Utility.AppPreferences;
-
 import java.util.ArrayList;
 import java.util.Locale;
 
 import static com.dsource.idc.jellow.R.id.reset;
-import static com.dsource.idc.jellow.Reset__preferences.flag;
 
 public class MainActivity extends AppCompatActivity {
-    private static final int LANG_ENG = 0, LANG_HINDI = 1;
+    private final int LANG_ENG = 0, LANG_HINDI = 1;
+    private final boolean DISABLE_ACTION_BTNS = true;
 
     int mCk = 0, mCy = 0, mCm = 0, mCd = 0, mCn = 0, mCl = 0;
     int image_flag = -1, flag_keyboard = 0;
@@ -41,11 +39,19 @@ public class MainActivity extends AppCompatActivity {
     private boolean mShouldReadFullSpeech = false;
     private ArrayList<View> mRecyclerItemsViewList;
     public TextToSpeech mTts;
-    private ImageAdapter mImageAdapter;
-    private Integer[] mColor = {-5317, -12627531 , -7617718 , -2937298 , -648053365 , -1761607680 };
+    private Integer[] mColor = { -5317, -12627531 , -7617718 , -2937298 , -648053365 , -1761607680 };
+
+    final String[] belowText_hindi = {"शुभकामना और भावना", "रोज़ के काम", "खाना", "मज़े", "सीखना", "लोग", "जगह", "समय और मौसम", "मदद"};
+    final String[] belowText_english = {"greet and feel", "daily activities", "eating", "fun", "learning", "people", "places", "time and Weather", "help"};
+    final String[] english1 = {"Greet and Feel", "Daily Activities", "Eating", "Fun", "Learning", "People", "Places", "Time and Weather", "Help"};
+
+    final String[] side_hindi = {"अच्छा लगता हैं", "सच में अच्छा लगता हैं", "हाँ", "सच में हाँ", "ज़्यादा", "सच में ज़्यादा", "अच्छा नहीं लगता हैं", "सच में अच्छा नहीं लगता हैं", "नहीं", "सच में नहीं", "कम", "सच में कम"};
+    final String[] side_english = {"like", "really like", "yes", "really yes", "more", "really more", "don’t like", "really don’t like", "no", "really no", "less", "really less"};
+
+    final String[] below_hindi = {"होम", "वापस", "कीबोर्ड"};
+    final String[] below_english = {"Home", "back", "keyboard"};
 
     private final String[][] layer_1_speech_hindi = {{
-
             "मुझे लोगों को नमस्कार करना और अपनी भावनाओं के बारे में बात करना अच्छा लगता हैं ",
             "मुझे सच में लोगों को नमस्कार करना और अपनी भावनाओं के बारे में बात करना अच्छा लगता हैं",
             "मुझे लोगों को नमस्कार करना और अपनी भावनाओं के बारे में बात करनी हैं",
@@ -157,7 +163,6 @@ public class MainActivity extends AppCompatActivity {
     }};
 
     private final String[][] layer_1_speech_english = {{
-
             "I like to greet others and talk about my feelings",
             "I really like to greet others and talk about my feelings",
             "I want to greet others and talk about my feelings",
@@ -268,23 +273,12 @@ public class MainActivity extends AppCompatActivity {
             "I don’t need more help",
             "I really don’t need any more help"
     }};
-
-    private SessionManager session;
-
+    private SessionManager mSession;
     private String[][] layer_1_speech = new String[100][100];
     private String[] myMusic = new String[100];
     private String[] side = new String[100];
+
     private String[] below = new String[100];
-
-    final String[] belowText_hindi ={"शुभकामना और भावना", "रोज़ के काम", "खाना", "मज़े", "सीखना", "लोग", "जगह", "समय और मौसम", "मदद"};
-    final String[] belowText_english ={"greet and feel", "daily activities", "eating", "fun", "learning", "people", "places", "time and Weather", "help"};
-    final String[] english1 ={"Greet and Feel", "Daily Activities", "Eating", "Fun", "Learning", "People", "Places", "Time and Weather", "Help"};
-
-    final String[] side_hindi ={"अच्छा लगता हैं", "सच में अच्छा लगता हैं", "हाँ", "सच में हाँ", "ज़्यादा", "सच में ज़्यादा", "अच्छा नहीं लगता हैं", "सच में अच्छा नहीं लगता हैं", "नहीं", "सच में नहीं", "कम", "सच में कम"};
-    final String[] side_english ={"like", "really like", "yes", "really yes", "more", "really more", "don’t like", "really don’t like", "no", "really no", "less", "really less"};
-
-    final String[] below_hindi ={"होम", "वापस", "कीबोर्ड"};
-    final String[] below_english ={"Home", "back", "keyboard"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -294,11 +288,11 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable( getResources().getDrawable(R.drawable.yellow_bg));
         mRecyclerItemsViewList = new ArrayList<>(english1.length);
         while (mRecyclerItemsViewList.size() < english1.length)  mRecyclerItemsViewList.add(null);
-        session = new SessionManager(this);
+        mSession = new SessionManager(this);
 
-        if(session.getLanguage()==1){
+        if(mSession.getLanguage()==1){
             getSupportActionBar().setTitle("होम");
-        }else if (session.getLanguage()==0){
+        }else if (mSession.getLanguage()==0){
             getSupportActionBar().setTitle("Home");
         }
 
@@ -306,14 +300,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onInit(int status) {
                 if(status != TextToSpeech.ERROR) {
-                    mTts.setEngineByPackageName("com.google.android.mTts");
-                    new BackgroundSpeechOperationsAsync().execute("");
+                    mTts.setEngineByPackageName("com.google.android.tts");
+                    new BackgroundSpeechOperationsAsync().execute();
                 }
             }
         });
 
-        mTts.setSpeechRate((float) session.getSpeed()/50);
-        mTts.setPitch((float) session.getPitch()/50);
+        mTts.setSpeechRate((float) mSession.getSpeed()/50);
+        mTts.setPitch((float) mSession.getPitch()/50);
 
         like = (ImageView) findViewById(R.id.ivlike);
         dislike = (ImageView) findViewById(R.id.ivdislike);
@@ -336,8 +330,7 @@ public class MainActivity extends AppCompatActivity {
         et.setKeyListener(null);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
-        mImageAdapter = new ImageAdapter(this);
-        mRecyclerView.setAdapter(mImageAdapter);
+        mRecyclerView.setAdapter(new ImageAdapter(this));
         mRecyclerView.setVerticalScrollBarEnabled(true);
         mRecyclerView.setScrollbarFadingEnabled(false);
         mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), mRecyclerView, new RecyclerTouchListener.ClickListener() {
@@ -353,7 +346,7 @@ public class MainActivity extends AppCompatActivity {
                         setMenuImageBorder(v, true);
                         mShouldReadFullSpeech = true;
                         String title="";
-                        if(session.getLanguage() == LANG_ENG)
+                        if(mSession.getLanguage() == LANG_ENG)
                             title = english1[position];
                         else
                             title = belowText_hindi[position];
@@ -400,7 +393,6 @@ public class MainActivity extends AppCompatActivity {
                 minus.setImageResource(R.drawable.lesswithout);
                 home.setImageResource(R.drawable.homepressed);
                 resetRecycleraMenuItemsAndFlags();
-                flag = 0;
                 mShouldReadFullSpeech = false;
                 image_flag = -1;
                 if (flag_keyboard  == 1){
@@ -410,18 +402,7 @@ public class MainActivity extends AppCompatActivity {
                     mRecyclerView.setVisibility(View.VISIBLE);
                     ttsButton.setVisibility(View.INVISIBLE);
                     flag_keyboard = 0;
-                    like.setEnabled(true);
-                    dislike.setEnabled(true);
-                    add.setEnabled(true);
-                    minus.setEnabled(true);
-                    yes.setEnabled(true);
-                    no.setEnabled(true);
-                    like.setAlpha(1f);
-                    dislike.setAlpha(1f);
-                    add.setAlpha(1f);
-                    minus.setAlpha(1f);
-                    yes.setAlpha(1f);
-                    no.setAlpha(1f);
+                    changeTheActionButtons(!DISABLE_ACTION_BTNS);
                     back.setAlpha(.5f);
                     back.setEnabled(false);
                 }
@@ -440,18 +421,7 @@ public class MainActivity extends AppCompatActivity {
                     mRecyclerView.setVisibility(View.VISIBLE);
                     ttsButton.setVisibility(View.INVISIBLE);
                     flag_keyboard = 0;
-                    like.setEnabled(true);
-                    dislike.setEnabled(true);
-                    add.setEnabled(true);
-                    minus.setEnabled(true);
-                    yes.setEnabled(true);
-                    no.setEnabled(true);
-                    like.setAlpha(1f);
-                    dislike.setAlpha(1f);
-                    add.setAlpha(1f);
-                    minus.setAlpha(1f);
-                    yes.setAlpha(1f);
-                    no.setAlpha(1f);
+                    changeTheActionButtons(!DISABLE_ACTION_BTNS);
                     back.setAlpha(.5f);
                     back.setEnabled(false);
                 }else {
@@ -462,18 +432,7 @@ public class MainActivity extends AppCompatActivity {
                     et.setKeyListener(originalKeyListener);
                     // Focus the field.
                     mRecyclerView.setVisibility(View.INVISIBLE);
-                    like.setAlpha(0.5f);
-                    dislike.setAlpha(0.5f);
-                    add.setAlpha(0.5f);
-                    minus.setAlpha(0.5f);
-                    yes.setAlpha(0.5f);
-                    no.setAlpha(0.5f);
-                    like.setEnabled(false);
-                    dislike.setEnabled(false);
-                    add.setEnabled(false);
-                    minus.setEnabled(false);
-                    yes.setEnabled(false);
-                    no.setEnabled(false);
+                    changeTheActionButtons(DISABLE_ACTION_BTNS);
                     et.requestFocus();
                     ttsButton.setVisibility(View.VISIBLE);
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -488,8 +447,8 @@ public class MainActivity extends AppCompatActivity {
 
         ttsButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                mTts.setSpeechRate((float) session.getSpeed()/50);
-                mTts.setPitch((float) session.getPitch()/50);
+                mTts.setSpeechRate((float) mSession.getSpeed()/50);
+                mTts.setPitch((float) mSession.getPitch()/50);
                 String s1 = et.getText().toString();
                 mTts.speak(s1, TextToSpeech.QUEUE_FLUSH, null);
 
@@ -522,23 +481,13 @@ public class MainActivity extends AppCompatActivity {
                 if (flag_keyboard == 1){
                     keyboard.setImageResource(R.drawable.keyboard_button);
                     back.setImageResource(R.drawable.back_button);
+                    home.setImageResource(R.drawable.home);
                     mTts.speak(below[1], TextToSpeech.QUEUE_FLUSH, null);
                     et.setVisibility(View.INVISIBLE);
                     mRecyclerView.setVisibility(View.VISIBLE);
                     ttsButton.setVisibility(View.INVISIBLE);
                     flag_keyboard = 0;
-                    like.setEnabled(true);
-                    dislike.setEnabled(true);
-                    add.setEnabled(true);
-                    minus.setEnabled(true);
-                    yes.setEnabled(true);
-                    no.setEnabled(true);
-                    like.setAlpha(1f);
-                    dislike.setAlpha(1f);
-                    add.setAlpha(1f);
-                    minus.setAlpha(1f);
-                    yes.setAlpha(1f);
-                    no.setAlpha(1f);
+                    changeTheActionButtons(!DISABLE_ACTION_BTNS);
                     back.setEnabled(false);
                     back.setAlpha(.5f);
                 }
@@ -728,9 +677,39 @@ public class MainActivity extends AppCompatActivity {
         mActionBtnClickCount = 0;
     }
 
+    private void changeTheActionButtons(boolean setDisable) {
+        if(setDisable) {
+            like.setAlpha(0.5f);
+            dislike.setAlpha(0.5f);
+            yes.setAlpha(0.5f);
+            no.setAlpha(0.5f);
+            add.setAlpha(0.5f);
+            minus.setAlpha(0.5f);
+            like.setEnabled(false);
+            dislike.setEnabled(false);
+            yes.setEnabled(false);
+            no.setEnabled(false);
+            add.setEnabled(false);
+            minus.setEnabled(false);
+        }else{
+            like.setAlpha(1f);
+            dislike.setAlpha(1f);
+            yes.setAlpha(1f);
+            no.setAlpha(1f);
+            add.setAlpha(1f);
+            minus.setAlpha(1f);
+            like.setEnabled(true);
+            dislike.setEnabled(true);
+            yes.setEnabled(true);
+            no.setEnabled(true);
+            add.setEnabled(true);
+            minus.setEnabled(true);
+        }
+    }
+
     private void setMenuImageBorder(View recyclerChildView, boolean setBorder) {
         CircularImageView circularImageView = (CircularImageView) recyclerChildView.findViewById(R.id.icon1);
-        String strSrBw = new AppPreferences(this).getShadowRadiusAndBorderWidth();
+        String strSrBw = new SessionManager(this).getShadowRadiusAndBorderWidth();
         int sr, bw;
         sr = Integer.valueOf(strSrBw.split(",")[0]);
         bw = Integer.valueOf(strSrBw.split(",")[1]);
@@ -786,11 +765,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        if (session.getLanguage()==1){
+        if (mSession.getLanguage()==1){
             MenuInflater blowUp = getMenuInflater();
             blowUp.inflate(R.menu.menu_main, menu);
         }
-        if (session.getLanguage()==0) {
+        if (mSession.getLanguage()==0) {
             MenuInflater blowUp = getMenuInflater();
             blowUp.inflate(R.menu.menu_1, menu);
         }
@@ -834,29 +813,26 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private class BackgroundSpeechOperationsAsync extends AsyncTask<String, Void, String> {
+    private class BackgroundSpeechOperationsAsync extends AsyncTask<Void, Void, Void> {
         @Override
-        protected String doInBackground(String... params) {
+        protected Void doInBackground(Void... params) {
             try {
-                if (session.getLanguage()==0 ){
-                    mTts.setLanguage(new Locale("hin", "IND"));
+                mTts.setLanguage(new Locale("hin", "IND"));
+                if (mSession.getLanguage()== LANG_ENG){
                     layer_1_speech = layer_1_speech_english;
                     myMusic = belowText_english;
                     side = side_english;
                     below = below_english;
-                }
-                if (session.getLanguage()==1){
-                    mTts.setLanguage(new Locale("hin", "IND"));
+                }else if (mSession.getLanguage() == LANG_HINDI){
                     layer_1_speech = layer_1_speech_hindi;
                     myMusic = belowText_hindi;
                     side = side_hindi;
                     below = below_hindi;
-                    System.out.println("sdasdada" +session.getLanguage());
                 }
             } catch (Exception e) {
                 Thread.interrupted();
             }
-            return "Executed";
+            return null;
         }
     }
 }

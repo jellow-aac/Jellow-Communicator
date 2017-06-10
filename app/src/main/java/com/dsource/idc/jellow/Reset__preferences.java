@@ -19,19 +19,16 @@ import android.widget.Toast;
  **/
 
 public class Reset__preferences extends AppCompatActivity {
-    Button No;
-    Button Yes;
-    TextView tv1, tv2, tv3;
-    private SessionManager session;
-
-    DataBaseHelper myDbHelper;
-    public static int flag = 0;
+    private final int LANG_ENG = 0, LANG_HINDI = 1;
+    private Button mNo, mYes;
+    private TextView mTextView1, mTextView2, mTextView3;
+    private SessionManager mSession;
+    private DataBaseHelper myDbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reset_preferences);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>Reset Preferences</font>"));
         DisplayMetrics displayMetrics = getApplicationContext().getResources().getDisplayMetrics();
@@ -45,45 +42,42 @@ public class Reset__preferences extends AppCompatActivity {
 
         myDbHelper = new DataBaseHelper(Reset__preferences.this);
         myDbHelper = new DataBaseHelper(this);
-        No = (Button)findViewById(R.id.no);
-        Yes = (Button)findViewById(R.id.yes);
-        session = new SessionManager(getApplicationContext());
-        tv1=(TextView)findViewById(R.id.tv1);
-        tv2=(TextView)findViewById(R.id.tv2);
-        tv3=(TextView)findViewById(R.id.tv3);
+        mNo = (Button)findViewById(R.id.no);
+        mYes = (Button)findViewById(R.id.yes);
+        mSession = new SessionManager(getApplicationContext());
+        mTextView1 =(TextView)findViewById(R.id.tv1);
+        mTextView2 =(TextView)findViewById(R.id.tv2);
+        mTextView3 =(TextView)findViewById(R.id.tv3);
 
-        if (session.getLanguage()==1){
-            tv1.setText("प्रयोगकर्ता के द्वारा सबसे अधिक इस्तेमाल किये गए पसंदीदा आइकॉन को जेलो अॅप्लिकेशन स्मरण में रखता हैं, और उन्हें स्क्रीन पर मुख्य पसंद के रूप में प्रदर्शित करता हैं।");
-            tv2.setText("आइकॉन्स को रीसेट करके , सभी आइकॉन मूल क्रम में आ जायेंगे जैसे वे पहली बार अॅप्लिकेशन में प्रदर्शित किये गये थे।");
-            tv3.setText("आप आइकॉन्स को रीसेट करना चाहते हैं?");
-            Yes.setText("हाँ");
-            No.setText("नहीं");
+        if (mSession.getLanguage()==1){
+            mTextView1.setText("प्रयोगकर्ता के द्वारा सबसे अधिक इस्तेमाल किये गए पसंदीदा आइकॉन को जेलो अॅप्लिकेशन स्मरण में रखता हैं, और उन्हें स्क्रीन पर मुख्य पसंद के रूप में प्रदर्शित करता हैं।");
+            mTextView2.setText("आइकॉन्स को रीसेट करके , सभी आइकॉन मूल क्रम में आ जायेंगे जैसे वे पहली बार अॅप्लिकेशन में प्रदर्शित किये गये थे।");
+            mTextView3.setText("आप आइकॉन्स को रीसेट करना चाहते हैं?");
+            mYes.setText("हाँ");
+            mNo.setText("नहीं");
             getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>आइकॉन रीसेट करें</font>"));
         }
 
-        No.setOnClickListener(new View.OnClickListener() {
+        mNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                flag = 0;
+                startActivity(new Intent(Reset__preferences.this, MainActivity.class));
                 finish();
-                Intent i = new Intent(Reset__preferences.this, MainActivity.class);
-                startActivity(i);
             }
         });
 
-        Yes.setOnClickListener(new View.OnClickListener() {
+        mYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (session.getLanguage()==1){
+                if (mSession.getLanguage()== LANG_ENG){
                     Toast.makeText(Reset__preferences.this, "आयकॉन रीसेट हो गये हैं", Toast.LENGTH_SHORT).show();
                 }
-                if (session.getLanguage()==0) {
+                if (mSession.getLanguage()== LANG_HINDI) {
                     Toast.makeText(Reset__preferences.this, "Preferences have been resetted", Toast.LENGTH_SHORT).show();
                 }
                 myDbHelper.delete();
-                flag = 1;
-                Intent i = new Intent(Reset__preferences.this, MainActivity.class);
-                startActivity(i);
+                mSession.resetUserPeoplePlacesPreferences();
+                startActivity(new Intent(Reset__preferences.this, MainActivity.class));
                 finish();
             }
         });
@@ -92,11 +86,11 @@ public class Reset__preferences extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        if (session.getLanguage()==1){
+        if (mSession.getLanguage() == LANG_ENG){
             MenuInflater blowUp = getMenuInflater();
             blowUp.inflate(R.menu.menu_main, menu);
         }
-        if (session.getLanguage()==0) {
+        if (mSession.getLanguage() == LANG_HINDI) {
             MenuInflater blowUp = getMenuInflater();
             blowUp.inflate(R.menu.menu_1, menu);
         }
@@ -155,8 +149,7 @@ public class Reset__preferences extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Intent i = new Intent(Reset__preferences.this, MainActivity.class);
-            startActivity(i);
+            startActivity(new Intent(Reset__preferences.this, MainActivity.class));
             finish();
             return true;
         }

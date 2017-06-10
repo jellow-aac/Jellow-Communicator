@@ -7,10 +7,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.KeyListener;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,9 +20,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.dsource.idc.jellow.Utility.AppPreferences;
-
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -31,39 +29,27 @@ import java.util.Locale;
 import java.util.StringTokenizer;
 
 public class Layer3Activity extends AppCompatActivity {
-    int layer_1_id, layer_2_id;
-    int x = -1, image_flag = -1;
-    int clike = 0, cy = 0, cm = 0, cd = 0, cn = 0, cl = 0;
+    private static final int LANG_ENG = 0, LANG_HINDI = 1, GOTO_LEVEL_TWO = 1, GOTO_LEVEL_ONE = 0,
+        MENU_ITEM_PEOPLE = 5, MENU_ITEM_PLACES = 6;
+    int x = -1;
+    int mCk = 0, mCy = 0, mCm = 0, mCd = 0, mCn = 0, mCl = 0;
     int location=-2;
-    int locayy = -1;
-    int flag = 0, flag_keyboard = 0;
-    View vi;
-    ImageView like, dislike, add, minus, yes, no, home, keyboard, ttsButton, back;
     boolean a = true;
+
+    int flag = 0, image_flag = -1, flag_keyboard = 0, mActionBtnClickCount;
+    ImageView like, dislike, add, minus, yes, no, home, keyboard, ttsButton, back;
     private EditText et;
     private KeyListener originalKeyListener;
-    TextToSpeech tts;
-    private RecyclerView recyclerView; //new addition
+    TextToSpeech mTts;
+    private RecyclerView mRecyclerView;
+    private LinearLayout mMenuItemLinearLayout;
     String[] myMusic;
-    public static int more_count = 0;
-    //public ImageAdapter imgad;
-    private CircularImageView im1,im2,im3, im4,im5,im6,im7,im8,im9;
-    private LinearLayout mLinearLayoutIconOne, mLinearLayoutIconTwo, mLinearLayoutIconThree;
-
-    Integer[] color = {-5317, -12627531, -7617718, -2937298, -648053365, -1761607680};
-
-    final String[] level1_english ={"Greet and Feel", "Daily Activities", "Eating", "Fun", "Learning", "People", "Places", "Time and Weather", "Help"};
-
-    final String[][] level2_english = {
-            {"Greetings", "Feelings", "Requests", "Questions"},
-            {"Brushing", "Toilet", "Bathing", "Clothes", "Getting Ready", "Sleep", "Therapy", "Morning Routine", "Bedtime Routine"},
-            {"Breakfast", "Lunch/Dinner", "Sweets", "Snacks", "Fruits", "Drinks", "Cutlery", "Add-ons"},
-            {"Indoor Games", "Outdoor Games", "Sports", "TV", "Music", "Activities"},
-            {"Animals & Birds", "Body", "Books", "Colors", "Shapes", "Stationery", "School Objects", "Home Objects", "Transport Modes"},
-            {"Mother", "Daddy", "Brother", "Sister", "Grandfather", "Grandmother", "Uncle", "Aunt", "More", "Cousin", "Baby", "Friends", "Teacher", "Doctor", "Nurse", "Caregiver", "Stranger", "About Me"},
-            {"My House", "School", "Mall", "Museum", "Hotel", "Theater", "Playground", "Park", "More", "Store", "Friend's House", "Relative's House", "Hospital", "Clinic", "Library", "Terrace"},
-            {"Time", "Day", "Month", "Weather", "Seasons", "Festivals & Holidays", "Birthdays"},
-            {"About Me", "I am hurt", "I feel sick", "I feel tired", "Help me do this", "Medicine", "Bandage", "Water"}};
+    public int more_count = 0;
+    private Integer[] mColor = { -5317, -12627531 , -7617718 , -2937298 , -648053365 , -1761607680 };
+    private int mLevelOneItemPos, mLevelTwoItemPos, mLevelThreeItemPos = -1, mSelectedItemAdapterPos = -1;
+    private boolean mShouldReadFullSpeech = false;
+    private ArrayList<View> mRecyclerItemsViewList;
+    private SessionManager mSession;
 
     public static String[] greet_feel_greetings_text =
             {"Hi", "Hello", "Bye", "Good morning", "Good afternoon", "Good evening", "Good night", "High-five",  "Nice to meet you", "How are you?", "How was your day?", "How do you do?"};
@@ -198,10 +184,8 @@ public class Layer3Activity extends AppCompatActivity {
     public static Integer[] count = new Integer[100];
     int[] sort = new int[100];
     int count_flag = 0;
-    private SessionManager session;
     DataBaseHelper myDbHelper;
     float dpHeight;
-    int sr, bw;
 
     String[] side = new String[100];
     String[] below = new String[100];
@@ -210,62 +194,44 @@ public class Layer3Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.trial1);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
         getSupportActionBar().setElevation(0);
-        session = new SessionManager(getApplicationContext());
-        more_count = 0;
-        {
-            String strSrBw = new AppPreferences(this).getShadowRadiusAndBorderWidth();
-            sr = Integer.valueOf(strSrBw.split(",")[0]);
-            bw = Integer.valueOf(strSrBw.split(",")[1]);
-        }
-
-        final String[] side_hindi = {"अच्छा लगता हैं", "सच में अच्छा लगता हैं", "हाँ", "सच में हाँ", "ज्यादा", "सच में ज्यादा", "अच्छा नहीं लगता हैं", "सच में अच्छा नहीं लगता हैं", "नहीं", "सच में नहीं", "कम", "सच में कम"};
-        final String[] side_english = {"like", "really like", "yes", "really yes", "more", "really more", "dont like", "really dont like", "no", "really no", "less", "really less"};
-
-        final String[] below_hindi = {"होम", "वापस", "कीबोर्ड"};
-        final String[] below_english = {"Home", "back", "keyboard"};
-
-        if (session.getLanguage() == 0 /*&& session.getAccent() == 0*/) {
-            side = side_english;
-            below = below_english;
-        }
-        if (session.getLanguage() == 0 /*&& session.getAccent() == 1*/) {
-            side = side_english;
-            below = below_english;
-        }
-        if (session.getLanguage() == 0 /*&& session.getAccent() == 2*/) {
-            side = side_english;
-            below = below_english;
-        }
-        myDbHelper = new DataBaseHelper(Layer3Activity.this);
         myDbHelper = new DataBaseHelper(this);
-        session = new SessionManager(getApplicationContext());
+        mSession = new SessionManager(this);
+        more_count = 0;
+        final String[] side_english = {"like", "really like", "yes", "really yes", "more", "really more", "dont like", "really dont like", "no", "really no", "less", "really less"};
+        final String[] below_english = {"Home", "back", "keyboard"};
+        if (mSession.getLanguage() == LANG_ENG) {
+            side = side_english;
+            below = below_english;
+        }
+
+        mLevelOneItemPos = getIntent().getExtras().getInt("mLevelOneItemPos");
+        mLevelTwoItemPos = getIntent().getExtras().getInt("mLevelTwoItemPos");
         try {
             myDbHelper.createDataBase();
+            myDbHelper.openDataBase();
         } catch (IOException ioe) {
             throw new Error("Unable to create database");
-        }
-
-        try {
-            myDbHelper.openDataBase();
         } catch (SQLException sqle) {
             throw sqle;
         }
 
-        tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+        mRecyclerItemsViewList = new ArrayList<>(100);
+        while(mRecyclerItemsViewList.size() <= 100) mRecyclerItemsViewList.add(null);
+
+        mTts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
                 if (status != TextToSpeech.ERROR) {
-                    tts.setEngineByPackageName("com.google.android.mTts");
+                    mTts.setEngineByPackageName("com.google.android.mtts");
                     new LongOperation().execute("");
                 }
             }
         });
 
-        tts.setSpeechRate((float) session.getSpeed() / 50);
-        tts.setPitch((float) session.getPitch() / 50);
+        mTts.setSpeechRate((float) mSession.getSpeed() / 50);
+        mTts.setPitch((float) mSession.getPitch() / 50);
         myMusic = new String[100];
         like = (ImageView) findViewById(R.id.ivlike);
         dislike = (ImageView) findViewById(R.id.ivdislike);
@@ -276,10 +242,6 @@ public class Layer3Activity extends AppCompatActivity {
         home = (ImageView) findViewById(R.id.ivhome);
         back = (ImageView) findViewById(R.id.ivback);
         back.setAlpha(1f);
-        final Intent i = getIntent();
-        layer_1_id = i.getExtras().getInt("layer_1_id");
-        layer_2_id = i.getExtras().getInt("layer_2_id");
-        System.out.println("LAYERSS" + layer_1_id + " " + layer_2_id);
         keyboard = (ImageView) findViewById(R.id.keyboard);
         et = (EditText) findViewById(R.id.et);
         et.setVisibility(View.INVISIBLE);
@@ -288,2118 +250,176 @@ public class Layer3Activity extends AppCompatActivity {
         originalKeyListener = et.getKeyListener();
         // Set it to null - this will make to the field non-editable
         et.setKeyListener(null);
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        //imgad = new ImageAdapter(Layer3Activity.this);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(mLayoutManager);
-        String savedString = myDbHelper.getlevel(layer_1_id, layer_2_id);
-        System.out.println("checkkk" + savedString);
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        mRecyclerView.setVerticalScrollBarEnabled(true);
+        mRecyclerView.setScrollbarFadingEnabled(false);
+        mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), mRecyclerView, new RecyclerTouchListener.ClickListener() {
+                @Override
+                public void onClick(final View view, final int position) {
+                    mMenuItemLinearLayout = (LinearLayout) view.findViewById(R.id.linearlayout_icon1);
+                    mMenuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            resetActionButtons(-1);
+                            resetRecyclerAllItems();
+                            mActionBtnClickCount = 0;
+                            setMenuImageBorder(v, true);
+                            mShouldReadFullSpeech = true;
+                            mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
+                            mLevelThreeItemPos = mRecyclerView.getChildLayoutPosition(view);
+                            String title = getIntent().getExtras().getString("selectedMenuItemPath");
+                            /*title += " / " + layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][mLevelThreeItemPos];
+                            getSupportActionBar().setTitle(title);*/
+                            if ((mLevelOneItemPos == 3 && (mLevelTwoItemPos == 3 || mLevelTwoItemPos == 4)) || (mLevelOneItemPos == 7 && (mLevelTwoItemPos == 0 || mLevelTwoItemPos == 1 || mLevelTwoItemPos == 2 || mLevelTwoItemPos == 3 || mLevelTwoItemPos == 4)))
+                                mTts.speak(myMusic[mLevelThreeItemPos], TextToSpeech.QUEUE_FLUSH, null);
+                            else
+                                mTts.speak(myMusic[sort[mLevelThreeItemPos]], TextToSpeech.QUEUE_FLUSH, null);
+
+                            incrementTouchCountOfItem(mLevelThreeItemPos);
+                            if(mLevelOneItemPos == 0 && mLevelTwoItemPos == 2){
+                                int tmp = sort[mLevelThreeItemPos];
+                                if(tmp == 0){
+                                    no.setAlpha(0.5f);
+                                    no.setEnabled(false);
+                                    yes.setAlpha(1f);
+                                    yes.setEnabled(true);
+                                } else if (tmp == 1 || tmp == 2 || tmp == 3 || tmp == 5 || tmp == 6 || tmp == 7 || tmp == 8 || tmp == 9 || tmp == 10 || tmp == 11 || tmp == 12 || tmp == 15 || tmp == 16) {
+                                    yes.setAlpha(0.5f);
+                                    yes.setEnabled(false);
+                                    no.setAlpha(1f);
+                                    no.setEnabled(true);
+                                } else {
+                                    like.setAlpha(1f);
+                                    dislike.setAlpha(1f);
+                                    add.setAlpha(1f);
+                                    minus.setAlpha(1f);
+                                    yes.setAlpha(1f);
+                                    no.setAlpha(1f);
+                                    like.setEnabled(true);
+                                    dislike.setEnabled(true);
+                                    add.setEnabled(true);
+                                    minus.setEnabled(true);
+                                    yes.setEnabled(true);
+                                    no.setEnabled(true);
+                                }
+                            }else if(mLevelOneItemPos == 1 && mLevelTwoItemPos == 3){
+                                int tmp = sort[mLevelThreeItemPos];
+                                if (tmp == 34 || tmp == 35 || tmp == 36 || tmp == 37) {
+                                    like.setAlpha(0.5f);
+                                    dislike.setAlpha(0.5f);
+                                    add.setAlpha(0.5f);
+                                    minus.setAlpha(0.5f);
+                                    yes.setAlpha(0.5f);
+                                    no.setAlpha(0.5f);
+                                    like.setEnabled(false);
+                                    dislike.setEnabled(false);
+                                    add.setEnabled(false);
+                                    minus.setEnabled(false);
+                                    yes.setEnabled(false);
+                                    no.setEnabled(false);
+                                } else {
+                                    like.setAlpha(1f);
+                                    dislike.setAlpha(1f);
+                                    add.setAlpha(1f);
+                                    minus.setAlpha(1f);
+                                    yes.setAlpha(1f);
+                                    no.setAlpha(1f);
+                                    like.setEnabled(true);
+                                    dislike.setEnabled(true);
+                                    add.setEnabled(true);
+                                    minus.setEnabled(true);
+                                    yes.setEnabled(true);
+                                    no.setEnabled(true);
+                                }
+                            } else if (mLevelOneItemPos == 7 && (mLevelTwoItemPos == 0 || mLevelTwoItemPos == 1 || mLevelTwoItemPos == 2 || mLevelTwoItemPos == 3 || mLevelTwoItemPos == 4)) {
+                                if (mLevelThreeItemPos == 0) {
+                                    like.setAlpha(0.5f);
+                                    dislike.setAlpha(0.5f);
+                                    add.setAlpha(0.5f);
+                                    minus.setAlpha(0.5f);
+                                    yes.setAlpha(0.5f);
+                                    no.setAlpha(0.5f);
+                                    like.setEnabled(false);
+                                    dislike.setEnabled(false);
+                                    add.setEnabled(false);
+                                    minus.setEnabled(false);
+                                    yes.setEnabled(false);
+                                    no.setEnabled(false);
+                                } else {
+                                    like.setAlpha(1f);
+                                    dislike.setAlpha(1f);
+                                    add.setAlpha(1f);
+                                    minus.setAlpha(1f);
+                                    yes.setAlpha(1f);
+                                    no.setAlpha(1f);
+                                    like.setEnabled(true);
+                                    dislike.setEnabled(true);
+                                    add.setEnabled(true);
+                                    minus.setEnabled(true);
+                                    yes.setEnabled(true);
+                                    no.setEnabled(true);
+                                }
+                            }
+                        }
+                    });
+                }
+                @Override public void onLongClick(View view, int position) {}
+        }));
+
+        mRecyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
+            @Override
+            public void onChildViewAttachedToWindow(View view) {
+                mRecyclerItemsViewList.set(mRecyclerView.getChildLayoutPosition(view), view);
+                if(mRecyclerItemsViewList.contains(view) && mSelectedItemAdapterPos > -1 && mRecyclerView.getChildLayoutPosition(view) == mSelectedItemAdapterPos)
+                    setMenuImageBorder(view, true);
+            }
+
+            @Override
+            public void onChildViewDetachedFromWindow(View view) {
+                setMenuImageBorder(view, false);
+                mRecyclerItemsViewList.set(mRecyclerView.getChildLayoutPosition(view), null);
+            }
+        });
+
+        String savedString = myDbHelper.getlevel(mLevelOneItemPos, mLevelTwoItemPos);
         if (!savedString.equals("false")) {
             count_flag = 1;
             StringTokenizer st = new StringTokenizer(savedString, ",");
-            System.out.println("Stringtokenizer " + st);
-            count = new Integer[layer_3_speech[layer_1_id][layer_2_id].length];
-            Log.d("counting ", count.length + "");
-            for (int j = 0; j < layer_3_speech[layer_1_id][layer_2_id].length; j++) {
+            count = new Integer[layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos].length];
+            for (int j = 0; j < layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos].length; j++) {
                 count[j] = Integer.parseInt(st.nextToken());
-                System.out.println("count " + j + " " + count[j]);
             }
             IndexSorter<Integer> is = new IndexSorter<Integer>(count);
             is.sort();
-            System.out.print("Unsorted: ");
-            for (Integer ij : count) {
-                System.out.print(ij);
-                System.out.print("\t");
-            }
-            System.out.println();
-            System.out.print("Sorted");
-            Integer[] indexes = new Integer[layer_3_speech[layer_1_id][layer_2_id].length];
+            Integer[] indexes = new Integer[layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos].length];
             int g = 0;
             for (Integer ij : is.getIndexes()) {
                 indexes[g] = ij;
                 g++;
-                System.out.print(ij);
-                System.out.print("\t");
             }
-            for (int j = 0; j < count.length; j++) {
+            for (int j = 0; j < count.length; j++)
                 sort[j] = indexes[j];
-            }
-            for (int j = 0; j < count.length; j++) {
-                System.out.println("Sorted" + sort[j]);
-            }
-            myMusic_function(layer_1_id, layer_2_id);
-            recyclerView.setAdapter(new Layer_three_Adapter(this, layer_1_id, layer_2_id, sort));
-        } else if ((layer_1_id == 3 && (layer_2_id == 3 || layer_2_id == 4)) || (layer_1_id == 7 && (layer_2_id == 0 || layer_2_id == 1 || layer_2_id == 2 || layer_2_id == 3 || layer_2_id == 4))) {
-            myMusic_function(layer_1_id, layer_2_id);
-            recyclerView.setAdapter(new Layer_three_Adapter(this, layer_1_id, layer_2_id, sort));
+            myMusic_function(mLevelOneItemPos, mLevelTwoItemPos);
+            mRecyclerView.setAdapter(new Layer_three_Adapter(this, mLevelOneItemPos, mLevelTwoItemPos, sort));
+        } else if ((mLevelOneItemPos == 3 && (mLevelTwoItemPos == 3 || mLevelTwoItemPos == 4)) || (mLevelOneItemPos == 7 && (mLevelTwoItemPos == 0 || mLevelTwoItemPos == 1 || mLevelTwoItemPos == 2 || mLevelTwoItemPos == 3 || mLevelTwoItemPos == 4))) {
+            myMusic_function(mLevelOneItemPos, mLevelTwoItemPos);
+            mRecyclerView.setAdapter(new Layer_three_Adapter(this, mLevelOneItemPos, mLevelTwoItemPos, sort));
         } else {
             count_flag = 0;
-            myMusic_function(layer_1_id, layer_2_id);
+            myMusic_function(mLevelOneItemPos, mLevelTwoItemPos);
         }
-
-        /*if (layer_1_id == 0) {
-            if (layer_2_id == 0 || layer_2_id == 2 || layer_2_id == 3) {
-                like.setAlpha(0.5f);
-                dislike.setAlpha(0.5f);
-                add.setAlpha(0.5f);
-                minus.setAlpha(0.5f);
-                yes.setAlpha(0.5f);
-                no.setAlpha(0.5f);
-                like.setEnabled(false);
-                dislike.setEnabled(false);
-                add.setEnabled(false);
-                minus.setEnabled(false);
-                yes.setEnabled(false);
-                no.setEnabled(false);
-            }
-        }*/
-        final int[] prev_pos = {-1};
-        final int[] cko = {-1};
-        final View[] xx = {null};
-        final int[] ix = {-1};
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
-                    @Override
-                    public void onClick(final View view, final int position) {
-                        Log.d("pooooolooo", location + " " + locayy);
-                        mLinearLayoutIconOne = (LinearLayout)view.findViewById(R.id.linearlayout_icon1);
-                        mLinearLayoutIconTwo = (LinearLayout)view.findViewById(R.id.linearlayout_icon2);
-                        mLinearLayoutIconThree = (LinearLayout)view.findViewById(R.id.linearlayout_icon3);
-
-                        if (xx[0] != null && xx[0] != view) {
-                            notifyDataSet(xx[0]);
-
-                        }
-                        if (session.getGridSize() == 0) {
-                            im1 = (CircularImageView) view.findViewById(R.id.icon1);
-                            im2 = (CircularImageView) view.findViewById(R.id.icon2);
-                            im3 = (CircularImageView) view.findViewById(R.id.icon3);
-
-                            Log.d("Position", position + " " + prev_pos[0]);
-                            mLinearLayoutIconOne.setOnClickListener(new View.OnClickListener() {
-
-                                @Override
-                                public void onClick(View v) {
-                                    unset();
-                                    im1.setBorderColor(-1283893945);
-                                    im1.setShadowColor(-1283893945);
-                                    im1.setShadowRadius(sr);
-                                    im1.setBorderWidth(bw);
-
-                                    im2.setBorderColor(-1);
-                                    im2.setShadowColor(0);
-                                    im2.setShadowRadius(sr);
-                                    im2.setBorderWidth(0);
-
-                                    im3.setBorderColor(-1);
-                                    im3.setShadowColor(0);
-                                    im3.setShadowRadius(sr);
-                                    im3.setBorderWidth(0);
-                                    cko[0]++;
-                                    locayy = position * 3;
-                                    ix[0] = sort[locayy];
-
-                                    if (layer_1_id == 0) {
-                                        if (layer_2_id == 0 || layer_2_id == 2 || layer_2_id == 3) {
-                                            like.setAlpha(0.5f);
-                                            dislike.setAlpha(0.5f);
-                                            add.setAlpha(0.5f);
-                                            minus.setAlpha(0.5f);
-                                            yes.setAlpha(0.5f);
-                                            no.setAlpha(0.5f);
-                                            like.setEnabled(false);
-                                            dislike.setEnabled(false);
-                                            add.setEnabled(false);
-                                            minus.setEnabled(false);
-                                            yes.setEnabled(false);
-                                            no.setEnabled(false);
-                                        }
-                                    }
-
-                                    if (layer_1_id == 0 && layer_2_id == 1) {
-                                        if (ix[0] == 0) {
-                                            no.setAlpha(0.5f);
-                                            no.setEnabled(false);
-                                            yes.setAlpha(1f);
-                                            yes.setEnabled(true);
-
-                                        } else if (ix[0] == 1 || ix[0] == 2 || ix[0] == 3 || ix[0] == 5 || ix[0] == 6 || ix[0] == 7 || ix[0] == 8 || ix[0] == 9 || ix[0] == 10 || ix[0] == 11 || ix[0] == 12 || ix[0] == 15 || ix[0] == 16) {
-                                            yes.setAlpha(0.5f);
-                                            yes.setEnabled(false);
-                                            no.setAlpha(1f);
-                                            no.setEnabled(true);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    }
-                                    if (layer_1_id == 1 && layer_2_id == 3) {
-                                        if (ix[0] == 34 || ix[0] == 35 || ix[0] == 36 || ix[0] == 37) {
-                                            like.setAlpha(0.5f);
-                                            dislike.setAlpha(0.5f);
-                                            add.setAlpha(0.5f);
-                                            minus.setAlpha(0.5f);
-                                            yes.setAlpha(0.5f);
-                                            no.setAlpha(0.5f);
-                                            like.setEnabled(false);
-                                            dislike.setEnabled(false);
-                                            add.setEnabled(false);
-                                            minus.setEnabled(false);
-                                            yes.setEnabled(false);
-                                            no.setEnabled(false);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    } else if (layer_1_id == 7 && (layer_2_id == 0 || layer_2_id == 1 || layer_2_id == 2 || layer_2_id == 3 || layer_2_id == 4)) {
-                                        ix[0] = locayy;
-                                        if (ix[0] == 0) {
-                                            like.setAlpha(0.5f);
-                                            dislike.setAlpha(0.5f);
-                                            add.setAlpha(0.5f);
-                                            minus.setAlpha(0.5f);
-                                            yes.setAlpha(0.5f);
-                                            no.setAlpha(0.5f);
-                                            like.setEnabled(false);
-                                            dislike.setEnabled(false);
-                                            add.setEnabled(false);
-                                            minus.setEnabled(false);
-                                            yes.setEnabled(false);
-                                            no.setEnabled(false);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    }
-
-                                    if (count_flag == 1) {
-
-                                        count[sort[locayy]] = count[sort[locayy]] + 1;
-                                        StringBuilder str = new StringBuilder();
-                                        for (int j = 0; j < count.length; j++) {
-                                            str.append(count[j]).append(",");
-                                        }
-                                        System.out.println("dgh" + str.toString());
-                                        myDbHelper.setlevel(layer_1_id, layer_2_id, str.toString());
-                                    }
-                                    System.out.println("sucess" + ix[0]);
-                                    if ((layer_1_id == 3 && (layer_2_id == 3 || layer_2_id == 4)) || (layer_1_id == 7 && (layer_2_id == 0 || layer_2_id == 1 || layer_2_id == 2 || layer_2_id == 3 || layer_2_id == 4))) {
-                                        tts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
-                                    } else
-                                        tts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-                                    location = locayy;
-                                    Log.d("checkloc", locayy + " location " + location);
-
-
-                                }
-                            });
-                            mLinearLayoutIconTwo.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    unset();
-                                    im2.setBorderColor(-1283893945);
-                                    im2.setShadowColor(-1283893945);
-                                    im2.setShadowRadius(sr);
-                                    im2.setBorderWidth(bw);
-
-                                    im1.setBorderColor(-1);
-                                    im1.setShadowColor(0);
-                                    im1.setShadowRadius(sr);
-                                    im1.setBorderWidth(0);
-
-                                    im3.setBorderColor(-1);
-                                    im3.setShadowColor(0);
-                                    im3.setShadowRadius(sr);
-                                    im3.setBorderWidth(0);
-                                    cko[0]++;
-                                    locayy = position * 3 + 1;
-
-                                    ix[0] = sort[locayy];
-
-                                    if (layer_1_id == 0) {
-                                        if (layer_2_id == 0 || layer_2_id == 2 || layer_2_id == 3) {
-                                            like.setAlpha(0.5f);
-                                            dislike.setAlpha(0.5f);
-                                            add.setAlpha(0.5f);
-                                            minus.setAlpha(0.5f);
-                                            yes.setAlpha(0.5f);
-                                            no.setAlpha(0.5f);
-                                            like.setEnabled(false);
-                                            dislike.setEnabled(false);
-                                            add.setEnabled(false);
-                                            minus.setEnabled(false);
-                                            yes.setEnabled(false);
-                                            no.setEnabled(false);
-                                        }
-                                    }
-
-                                    if (layer_1_id == 0 && layer_2_id == 1) {
-                                        if (ix[0] == 0) {
-                                            no.setAlpha(0.5f);
-                                            no.setEnabled(false);
-                                            yes.setAlpha(1f);
-                                            yes.setEnabled(true);
-
-                                        } else if (ix[0] == 1 || ix[0] == 2 || ix[0] == 3 || ix[0] == 5 || ix[0] == 6 || ix[0] == 7 || ix[0] == 8 || ix[0] == 9 || ix[0] == 10 || ix[0] == 11 || ix[0] == 12 || ix[0] == 15 || ix[0] == 16) {
-                                            yes.setAlpha(0.5f);
-                                            yes.setEnabled(false);
-                                            no.setAlpha(1f);
-                                            no.setEnabled(true);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    }
-                                    if (layer_1_id == 1 && layer_2_id == 3) {
-                                        if (ix[0] == 34 || ix[0] == 35 || ix[0] == 36 || ix[0] == 37) {
-                                            like.setAlpha(0.5f);
-                                            dislike.setAlpha(0.5f);
-                                            add.setAlpha(0.5f);
-                                            minus.setAlpha(0.5f);
-                                            yes.setAlpha(0.5f);
-                                            no.setAlpha(0.5f);
-                                            like.setEnabled(false);
-                                            dislike.setEnabled(false);
-                                            add.setEnabled(false);
-                                            minus.setEnabled(false);
-                                            yes.setEnabled(false);
-                                            no.setEnabled(false);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    } else if (layer_1_id == 7 && (layer_2_id == 0 || layer_2_id == 1 || layer_2_id == 2 || layer_2_id == 3 || layer_2_id == 4)) {
-                                        ix[0] = locayy;
-                                        if (ix[0] == 0) {
-                                            like.setAlpha(0.5f);
-                                            dislike.setAlpha(0.5f);
-                                            add.setAlpha(0.5f);
-                                            minus.setAlpha(0.5f);
-                                            yes.setAlpha(0.5f);
-                                            no.setAlpha(0.5f);
-                                            like.setEnabled(false);
-                                            dislike.setEnabled(false);
-                                            add.setEnabled(false);
-                                            minus.setEnabled(false);
-                                            yes.setEnabled(false);
-                                            no.setEnabled(false);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    }
-                                    if (count_flag == 1) {
-                                        count[sort[locayy]] = count[sort[locayy]] + 1;
-                                        StringBuilder str = new StringBuilder();
-                                        for (int j = 0; j < count.length; j++) {
-                                            str.append(count[j]).append(",");
-                                        }
-                                        System.out.println("dgh" + str.toString());
-                                        myDbHelper.setlevel(layer_1_id, layer_2_id, str.toString());
-                                    }
-                                    if ((layer_1_id == 3 && (layer_2_id == 3 || layer_2_id == 4)) || (layer_1_id == 7 && (layer_2_id == 0 || layer_2_id == 1 || layer_2_id == 2 || layer_2_id == 3 || layer_2_id == 4))) {
-                                        tts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
-                                    } else
-                                        tts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-
-                                    location = locayy;
-                                    Log.d("checkloc", locayy + " location " + location);
-
-                                }
-                            });
-                            mLinearLayoutIconThree.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    unset();
-                                    im3.setBorderColor(-1283893945);
-                                    im3.setShadowColor(-1283893945);
-                                    im3.setShadowRadius(sr);
-                                    im3.setBorderWidth(bw);
-
-                                    im2.setBorderColor(-1);
-                                    im2.setShadowColor(0);
-                                    im2.setShadowRadius(sr);
-                                    im2.setBorderWidth(0);
-
-                                    im1.setBorderColor(-1);
-                                    im1.setShadowColor(0);
-                                    im1.setShadowRadius(sr);
-                                    im1.setBorderWidth(0);
-                                    cko[0]++;
-                                    locayy = position * 3 + 2;
-
-                                    if (layer_1_id == 0) {
-                                        if (layer_2_id == 0 || layer_2_id == 2 || layer_2_id == 3) {
-                                            like.setAlpha(0.5f);
-                                            dislike.setAlpha(0.5f);
-                                            add.setAlpha(0.5f);
-                                            minus.setAlpha(0.5f);
-                                            yes.setAlpha(0.5f);
-                                            no.setAlpha(0.5f);
-                                            like.setEnabled(false);
-                                            dislike.setEnabled(false);
-                                            add.setEnabled(false);
-                                            minus.setEnabled(false);
-                                            yes.setEnabled(false);
-                                            no.setEnabled(false);
-                                        }
-                                    }
-
-                                    ix[0] = sort[locayy];
-                                    if (layer_1_id == 0 && layer_2_id == 1) {
-                                        if (ix[0] == 0) {
-                                            no.setAlpha(0.5f);
-                                            no.setEnabled(false);
-                                            yes.setAlpha(1f);
-                                            yes.setEnabled(true);
-
-                                        } else if (ix[0] == 1 || ix[0] == 2 || ix[0] == 3 || ix[0] == 5 || ix[0] == 6 || ix[0] == 7 || ix[0] == 8 || ix[0] == 9 || ix[0] == 10 || ix[0] == 11 || ix[0] == 12 || ix[0] == 15 || ix[0] == 16) {
-                                            yes.setAlpha(0.5f);
-                                            yes.setEnabled(false);
-                                            no.setAlpha(1f);
-                                            no.setEnabled(true);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    }
-                                    if (layer_1_id == 1 && layer_2_id == 3) {
-                                        if (ix[0] == 34 || ix[0] == 35 || ix[0] == 36 || ix[0] == 37) {
-                                            like.setAlpha(0.5f);
-                                            dislike.setAlpha(0.5f);
-                                            add.setAlpha(0.5f);
-                                            minus.setAlpha(0.5f);
-                                            yes.setAlpha(0.5f);
-                                            no.setAlpha(0.5f);
-                                            like.setEnabled(false);
-                                            dislike.setEnabled(false);
-                                            add.setEnabled(false);
-                                            minus.setEnabled(false);
-                                            yes.setEnabled(false);
-                                            no.setEnabled(false);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    } else if (layer_1_id == 7 && (layer_2_id == 0 || layer_2_id == 1 || layer_2_id == 2 || layer_2_id == 3 || layer_2_id == 4)) {
-                                        ix[0] = locayy;
-                                        if (ix[0] == 0) {
-                                            like.setAlpha(0.5f);
-                                            dislike.setAlpha(0.5f);
-                                            add.setAlpha(0.5f);
-                                            minus.setAlpha(0.5f);
-                                            yes.setAlpha(0.5f);
-                                            no.setAlpha(0.5f);
-                                            like.setEnabled(false);
-                                            dislike.setEnabled(false);
-                                            add.setEnabled(false);
-                                            minus.setEnabled(false);
-                                            yes.setEnabled(false);
-                                            no.setEnabled(false);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    }
-
-                                    if (count_flag == 1) {
-                                        count[sort[locayy]] = count[sort[locayy]] + 1;
-                                        StringBuilder str = new StringBuilder();
-                                        for (int j = 0; j < count.length; j++) {
-                                            str.append(count[j]).append(",");
-                                        }
-                                        System.out.println("dgh" + str.toString());
-                                        myDbHelper.setlevel(layer_1_id, layer_2_id, str.toString());
-                                    }
-                                    Log.d("checkloc", locayy + " location " + location);
-                                    if ((layer_1_id == 3 && (layer_2_id == 3 || layer_2_id == 4)) || (layer_1_id == 7 && (layer_2_id == 0 || layer_2_id == 1 || layer_2_id == 2 || layer_2_id == 3 || layer_2_id == 4))) {
-                                        tts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
-                                    } else
-                                        tts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-
-                                    location = locayy;
-
-
-                                }
-                            });
-
-                            prev_pos[0] = position;
-                            xx[0] = view;
-                            //                                       location = locayy;
-
-                            flag = 1;
-                            cy = 0;
-                            cm = 0;
-                            cd = 0;
-                            cn = 0;
-                            cl = 0;
-                            clike = 0;
-
-                        }
-                        if (session.getGridSize() == 1) {
-                            im1 = (CircularImageView) view.findViewById(R.id.icon1);
-                            im2 = (CircularImageView) view.findViewById(R.id.icon2);
-                            im3 = (CircularImageView) view.findViewById(R.id.icon3);
-                            im4 = (CircularImageView) view.findViewById(R.id.icon4);
-                            im5 = (CircularImageView) view.findViewById(R.id.icon5);
-                            im6 = (CircularImageView) view.findViewById(R.id.icon6);
-                            im7 = (CircularImageView) view.findViewById(R.id.icon7);
-                            im8 = (CircularImageView) view.findViewById(R.id.icon8);
-                            im9 = (CircularImageView) view.findViewById(R.id.icon9);
-
-                            Log.d("Position", position + " " + prev_pos[0]);
-                            im1.setOnClickListener(new View.OnClickListener() {
-
-                                @Override
-                                public void onClick(View v) {
-                                    unset();
-                                    im1.setBorderColor(-1283893945);
-                                    im1.setShadowColor(-1283893945);
-                                    im1.setShadowRadius(sr);
-                                    im1.setBorderWidth(bw);
-
-                                    im2.setBorderColor(-1);
-                                    im2.setShadowColor(0);
-                                    im2.setShadowRadius(sr);
-                                    im2.setBorderWidth(0);
-
-                                    im3.setBorderColor(-1);
-                                    im3.setShadowColor(0);
-                                    im3.setShadowRadius(sr);
-                                    im3.setBorderWidth(0);
-
-                                    im4.setBorderColor(-1);
-                                    im4.setShadowColor(0);
-                                    im4.setShadowRadius(sr);
-                                    im4.setBorderWidth(0);
-
-                                    im5.setBorderColor(-1);
-                                    im5.setShadowColor(0);
-                                    im5.setShadowRadius(sr);
-                                    im5.setBorderWidth(0);
-
-                                    im6.setBorderColor(-1);
-                                    im6.setShadowColor(0);
-                                    im6.setShadowRadius(sr);
-                                    im6.setBorderWidth(0);
-
-                                    im7.setBorderColor(-1);
-                                    im7.setShadowColor(0);
-                                    im7.setShadowRadius(sr);
-                                    im7.setBorderWidth(0);
-
-                                    im8.setBorderColor(-1);
-                                    im8.setShadowColor(0);
-                                    im8.setShadowRadius(sr);
-                                    im8.setBorderWidth(0);
-
-                                    im9.setBorderColor(-1);
-                                    im9.setShadowColor(0);
-                                    im9.setShadowRadius(sr);
-                                    im9.setBorderWidth(0);
-                                    cko[0]++;
-                                    locayy = position * 9;
-                                    ix[0] = sort[locayy];
-                                    if (layer_1_id == 0 && layer_2_id == 1) {
-                                        if (ix[0] == 0) {
-                                            no.setAlpha(0.5f);
-                                            no.setEnabled(false);
-                                            yes.setAlpha(1f);
-                                            yes.setEnabled(true);
-
-                                        } else if (ix[0] == 1 || ix[0] == 2 || ix[0] == 3 || ix[0] == 5 || ix[0] == 6 || ix[0] == 7 || ix[0] == 8 || ix[0] == 9 || ix[0] == 10 || ix[0] == 11 || ix[0] == 12 || ix[0] == 15 || ix[0] == 16) {
-                                            yes.setAlpha(0.5f);
-                                            yes.setEnabled(false);
-                                            no.setAlpha(1f);
-                                            no.setEnabled(true);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    }
-                                    if (layer_1_id == 1 && layer_2_id == 3) {
-                                        if (ix[0] == 34 || ix[0] == 35 || ix[0] == 36 || ix[0] == 37) {
-                                            like.setAlpha(0.5f);
-                                            dislike.setAlpha(0.5f);
-                                            add.setAlpha(0.5f);
-                                            minus.setAlpha(0.5f);
-                                            yes.setAlpha(0.5f);
-                                            no.setAlpha(0.5f);
-                                            like.setEnabled(false);
-                                            dislike.setEnabled(false);
-                                            add.setEnabled(false);
-                                            minus.setEnabled(false);
-                                            yes.setEnabled(false);
-                                            no.setEnabled(false);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    } else if (layer_1_id == 7 && (layer_2_id == 0 || layer_2_id == 1 || layer_2_id == 2 || layer_2_id == 3 || layer_2_id == 4)) {
-                                        ix[0] = locayy;
-                                        if (ix[0] == 0) {
-                                            like.setAlpha(0.5f);
-                                            dislike.setAlpha(0.5f);
-                                            add.setAlpha(0.5f);
-                                            minus.setAlpha(0.5f);
-                                            yes.setAlpha(0.5f);
-                                            no.setAlpha(0.5f);
-                                            like.setEnabled(false);
-                                            dislike.setEnabled(false);
-                                            add.setEnabled(false);
-                                            minus.setEnabled(false);
-                                            yes.setEnabled(false);
-                                            no.setEnabled(false);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    }
-
-                                    if (count_flag == 1) {
-
-                                        count[sort[locayy]] = count[sort[locayy]] + 1;
-                                        StringBuilder str = new StringBuilder();
-                                        for (int j = 0; j < count.length; j++) {
-                                            str.append(count[j]).append(",");
-                                        }
-                                        System.out.println("dgh" + str.toString());
-                                        myDbHelper.setlevel(layer_1_id, layer_2_id, str.toString());
-                                    }
-                                    System.out.println("sucess" + ix[0]);
-                                    if ((layer_1_id == 3 && (layer_2_id == 3 || layer_2_id == 4)) || (layer_1_id == 7 && (layer_2_id == 0 || layer_2_id == 1 || layer_2_id == 2 || layer_2_id == 3 || layer_2_id == 4))) {
-                                        tts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
-                                    } else
-                                        tts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-                                    location = locayy;
-                                    Log.d("checkloc", locayy + " location " + location);
-
-
-                                }
-                            });
-                            im2.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    unset();
-                                    im2.setBorderColor(-1283893945);
-                                    im2.setShadowColor(-1283893945);
-                                    im2.setShadowRadius(sr);
-                                    im2.setBorderWidth(bw);
-
-                                    im1.setBorderColor(-1);
-                                    im1.setShadowColor(0);
-                                    im1.setShadowRadius(sr);
-                                    im1.setBorderWidth(0);
-
-                                    im3.setBorderColor(-1);
-                                    im3.setShadowColor(0);
-                                    im3.setShadowRadius(sr);
-                                    im3.setBorderWidth(0);
-
-                                    im4.setBorderColor(-1);
-                                    im4.setShadowColor(0);
-                                    im4.setShadowRadius(sr);
-                                    im4.setBorderWidth(0);
-
-                                    im5.setBorderColor(-1);
-                                    im5.setShadowColor(0);
-                                    im5.setShadowRadius(sr);
-                                    im5.setBorderWidth(0);
-
-                                    im6.setBorderColor(-1);
-                                    im6.setShadowColor(0);
-                                    im6.setShadowRadius(sr);
-                                    im6.setBorderWidth(0);
-
-                                    im7.setBorderColor(-1);
-                                    im7.setShadowColor(0);
-                                    im7.setShadowRadius(sr);
-                                    im7.setBorderWidth(0);
-
-                                    im8.setBorderColor(-1);
-                                    im8.setShadowColor(0);
-                                    im8.setShadowRadius(sr);
-                                    im8.setBorderWidth(0);
-
-                                    im9.setBorderColor(-1);
-                                    im9.setShadowColor(0);
-                                    im9.setShadowRadius(sr);
-                                    im9.setBorderWidth(0);
-
-                                    cko[0]++;
-                                    locayy = position * 9 + 1;
-
-                                    ix[0] = sort[locayy];
-                                    if (layer_1_id == 0 && layer_2_id == 1) {
-                                        if (ix[0] == 0) {
-                                            no.setAlpha(0.5f);
-                                            no.setEnabled(false);
-                                            yes.setAlpha(1f);
-                                            yes.setEnabled(true);
-
-                                        } else if (ix[0] == 1 || ix[0] == 2 || ix[0] == 3 || ix[0] == 5 || ix[0] == 6 || ix[0] == 7 || ix[0] == 8 || ix[0] == 9 || ix[0] == 10 || ix[0] == 11 || ix[0] == 12 || ix[0] == 15 || ix[0] == 16) {
-                                            yes.setAlpha(0.5f);
-                                            yes.setEnabled(false);
-                                            no.setAlpha(1f);
-                                            no.setEnabled(true);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    }
-                                    if (layer_1_id == 1 && layer_2_id == 3) {
-                                        if (ix[0] == 34 || ix[0] == 35 || ix[0] == 36 || ix[0] == 37) {
-                                            like.setAlpha(0.5f);
-                                            dislike.setAlpha(0.5f);
-                                            add.setAlpha(0.5f);
-                                            minus.setAlpha(0.5f);
-                                            yes.setAlpha(0.5f);
-                                            no.setAlpha(0.5f);
-                                            like.setEnabled(false);
-                                            dislike.setEnabled(false);
-                                            add.setEnabled(false);
-                                            minus.setEnabled(false);
-                                            yes.setEnabled(false);
-                                            no.setEnabled(false);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    } else if (layer_1_id == 7 && (layer_2_id == 0 || layer_2_id == 1 || layer_2_id == 2 || layer_2_id == 3 || layer_2_id == 4)) {
-                                        ix[0] = locayy;
-                                        if (ix[0] == 0) {
-                                            like.setAlpha(0.5f);
-                                            dislike.setAlpha(0.5f);
-                                            add.setAlpha(0.5f);
-                                            minus.setAlpha(0.5f);
-                                            yes.setAlpha(0.5f);
-                                            no.setAlpha(0.5f);
-                                            like.setEnabled(false);
-                                            dislike.setEnabled(false);
-                                            add.setEnabled(false);
-                                            minus.setEnabled(false);
-                                            yes.setEnabled(false);
-                                            no.setEnabled(false);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    }
-                                    if (count_flag == 1) {
-                                        count[sort[locayy]] = count[sort[locayy]] + 1;
-                                        StringBuilder str = new StringBuilder();
-                                        for (int j = 0; j < count.length; j++) {
-                                            str.append(count[j]).append(",");
-                                        }
-                                        System.out.println("dgh" + str.toString());
-                                        myDbHelper.setlevel(layer_1_id, layer_2_id, str.toString());
-                                    }
-                                    if ((layer_1_id == 3 && (layer_2_id == 3 || layer_2_id == 4)) || (layer_1_id == 7 && (layer_2_id == 0 || layer_2_id == 1 || layer_2_id == 2 || layer_2_id == 3 || layer_2_id == 4))) {
-                                        tts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
-                                    } else
-                                        tts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-
-                                    location = locayy;
-                                    Log.d("checkloc", locayy + " location " + location);
-
-                                }
-                            });
-                            im3.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    unset();
-                                    im3.setBorderColor(-1283893945);
-                                    im3.setShadowColor(-1283893945);
-                                    im3.setShadowRadius(sr);
-                                    im3.setBorderWidth(bw);
-
-                                    im2.setBorderColor(-1);
-                                    im2.setShadowColor(0);
-                                    im2.setShadowRadius(sr);
-                                    im2.setBorderWidth(0);
-
-                                    im1.setBorderColor(-1);
-                                    im1.setShadowColor(0);
-                                    im1.setShadowRadius(sr);
-                                    im1.setBorderWidth(0);
-
-                                    im4.setBorderColor(-1);
-                                    im4.setShadowColor(0);
-                                    im4.setShadowRadius(sr);
-                                    im4.setBorderWidth(0);
-
-                                    im5.setBorderColor(-1);
-                                    im5.setShadowColor(0);
-                                    im5.setShadowRadius(sr);
-                                    im5.setBorderWidth(0);
-
-                                    im6.setBorderColor(-1);
-                                    im6.setShadowColor(0);
-                                    im6.setShadowRadius(sr);
-                                    im6.setBorderWidth(0);
-
-                                    im7.setBorderColor(-1);
-                                    im7.setShadowColor(0);
-                                    im7.setShadowRadius(sr);
-                                    im7.setBorderWidth(0);
-
-                                    im8.setBorderColor(-1);
-                                    im8.setShadowColor(0);
-                                    im8.setShadowRadius(sr);
-                                    im8.setBorderWidth(0);
-
-                                    im9.setBorderColor(-1);
-                                    im9.setShadowColor(0);
-                                    im9.setShadowRadius(sr);
-                                    im9.setBorderWidth(0);
-
-                                    cko[0]++;
-                                    locayy = position * 9 + 2;
-
-                                    ix[0] = sort[locayy];
-                                    if (layer_1_id == 0 && layer_2_id == 1) {
-                                        if (ix[0] == 0) {
-                                            no.setAlpha(0.5f);
-                                            no.setEnabled(false);
-                                            yes.setAlpha(1f);
-                                            yes.setEnabled(true);
-
-                                        } else if (ix[0] == 1 || ix[0] == 2 || ix[0] == 3 || ix[0] == 5 || ix[0] == 6 || ix[0] == 7 || ix[0] == 8 || ix[0] == 9 || ix[0] == 10 || ix[0] == 11 || ix[0] == 12 || ix[0] == 15 || ix[0] == 16) {
-                                            yes.setAlpha(0.5f);
-                                            yes.setEnabled(false);
-                                            no.setAlpha(1f);
-                                            no.setEnabled(true);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    }
-                                    if (layer_1_id == 1 && layer_2_id == 3) {
-                                        if (ix[0] == 34 || ix[0] == 35 || ix[0] == 36 || ix[0] == 37) {
-                                            like.setAlpha(0.5f);
-                                            dislike.setAlpha(0.5f);
-                                            add.setAlpha(0.5f);
-                                            minus.setAlpha(0.5f);
-                                            yes.setAlpha(0.5f);
-                                            no.setAlpha(0.5f);
-                                            like.setEnabled(false);
-                                            dislike.setEnabled(false);
-                                            add.setEnabled(false);
-                                            minus.setEnabled(false);
-                                            yes.setEnabled(false);
-                                            no.setEnabled(false);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    } else if (layer_1_id == 7 && (layer_2_id == 0 || layer_2_id == 1 || layer_2_id == 2 || layer_2_id == 3 || layer_2_id == 4)) {
-                                        ix[0] = locayy;
-                                        if (ix[0] == 0) {
-                                            like.setAlpha(0.5f);
-                                            dislike.setAlpha(0.5f);
-                                            add.setAlpha(0.5f);
-                                            minus.setAlpha(0.5f);
-                                            yes.setAlpha(0.5f);
-                                            no.setAlpha(0.5f);
-                                            like.setEnabled(false);
-                                            dislike.setEnabled(false);
-                                            add.setEnabled(false);
-                                            minus.setEnabled(false);
-                                            yes.setEnabled(false);
-                                            no.setEnabled(false);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    }
-
-                                    if (count_flag == 1) {
-                                        count[sort[locayy]] = count[sort[locayy]] + 1;
-                                        StringBuilder str = new StringBuilder();
-                                        for (int j = 0; j < count.length; j++) {
-                                            str.append(count[j]).append(",");
-                                        }
-                                        System.out.println("dgh" + str.toString());
-                                        myDbHelper.setlevel(layer_1_id, layer_2_id, str.toString());
-                                    }
-                                    Log.d("checkloc", locayy + " location " + location);
-                                    if ((layer_1_id == 3 && (layer_2_id == 3 || layer_2_id == 4)) || (layer_1_id == 7 && (layer_2_id == 0 || layer_2_id == 1 || layer_2_id == 2 || layer_2_id == 3 || layer_2_id == 4))) {
-                                        tts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
-                                    } else
-                                        tts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-
-                                    location = locayy;
-
-
-                                }
-                            });
-                            im4.setOnClickListener(new View.OnClickListener() {
-
-                                @Override
-                                public void onClick(View v) {
-                                    unset();
-                                    im4.setBorderColor(-1283893945);
-                                    im4.setShadowColor(-1283893945);
-                                    im4.setShadowRadius(sr);
-                                    im4.setBorderWidth(bw);
-
-                                    im5.setBorderColor(-1);
-                                    im5.setShadowColor(0);
-                                    im5.setShadowRadius(sr);
-                                    im5.setBorderWidth(0);
-
-                                    im6.setBorderColor(-1);
-                                    im6.setShadowColor(0);
-                                    im6.setShadowRadius(sr);
-                                    im6.setBorderWidth(0);
-
-                                    im7.setBorderColor(-1);
-                                    im7.setShadowColor(0);
-                                    im7.setShadowRadius(sr);
-                                    im7.setBorderWidth(0);
-
-                                    im8.setBorderColor(-1);
-                                    im8.setShadowColor(0);
-                                    im8.setShadowRadius(sr);
-                                    im8.setBorderWidth(0);
-
-                                    im9.setBorderColor(-1);
-                                    im9.setShadowColor(0);
-                                    im9.setShadowRadius(sr);
-                                    im9.setBorderWidth(0);
-
-                                    im2.setBorderColor(-1);
-                                    im2.setShadowColor(0);
-                                    im2.setShadowRadius(sr);
-                                    im2.setBorderWidth(0);
-
-                                    im1.setBorderColor(-1);
-                                    im1.setShadowColor(0);
-                                    im1.setShadowRadius(sr);
-                                    im1.setBorderWidth(0);
-
-                                    im3.setBorderColor(-1);
-                                    im3.setShadowColor(0);
-                                    im3.setShadowRadius(sr);
-                                    im3.setBorderWidth(0);
-
-                                    cko[0]++;
-                                    locayy = position * 9 + 3;
-                                    ix[0] = sort[locayy];
-                                    if (layer_1_id == 0 && layer_2_id == 1) {
-                                        if (ix[0] == 0) {
-                                            no.setAlpha(0.5f);
-                                            no.setEnabled(false);
-                                            yes.setAlpha(1f);
-                                            yes.setEnabled(true);
-
-                                        } else if (ix[0] == 1 || ix[0] == 2 || ix[0] == 3 || ix[0] == 5 || ix[0] == 6 || ix[0] == 7 || ix[0] == 8 || ix[0] == 9 || ix[0] == 10 || ix[0] == 11 || ix[0] == 12 || ix[0] == 15 || ix[0] == 16) {
-                                            yes.setAlpha(0.5f);
-                                            yes.setEnabled(false);
-                                            no.setAlpha(1f);
-                                            no.setEnabled(true);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    }
-                                    if (layer_1_id == 1 && layer_2_id == 3) {
-                                        if (ix[0] == 34 || ix[0] == 35 || ix[0] == 36 || ix[0] == 37) {
-                                            like.setAlpha(0.5f);
-                                            dislike.setAlpha(0.5f);
-                                            add.setAlpha(0.5f);
-                                            minus.setAlpha(0.5f);
-                                            yes.setAlpha(0.5f);
-                                            no.setAlpha(0.5f);
-                                            like.setEnabled(false);
-                                            dislike.setEnabled(false);
-                                            add.setEnabled(false);
-                                            minus.setEnabled(false);
-                                            yes.setEnabled(false);
-                                            no.setEnabled(false);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    } else if (layer_1_id == 7 && (layer_2_id == 0 || layer_2_id == 1 || layer_2_id == 2 || layer_2_id == 3 || layer_2_id == 4)) {
-                                        ix[0] = locayy;
-                                        if (ix[0] == 0) {
-                                            like.setAlpha(0.5f);
-                                            dislike.setAlpha(0.5f);
-                                            add.setAlpha(0.5f);
-                                            minus.setAlpha(0.5f);
-                                            yes.setAlpha(0.5f);
-                                            no.setAlpha(0.5f);
-                                            like.setEnabled(false);
-                                            dislike.setEnabled(false);
-                                            add.setEnabled(false);
-                                            minus.setEnabled(false);
-                                            yes.setEnabled(false);
-                                            no.setEnabled(false);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    }
-
-                                    if (count_flag == 1) {
-
-                                        count[sort[locayy]] = count[sort[locayy]] + 1;
-                                        StringBuilder str = new StringBuilder();
-                                        for (int j = 0; j < count.length; j++) {
-                                            str.append(count[j]).append(",");
-                                        }
-                                        System.out.println("dgh" + str.toString());
-                                        myDbHelper.setlevel(layer_1_id, layer_2_id, str.toString());
-                                    }
-                                    System.out.println("sucess" + ix[0]);
-                                    if ((layer_1_id == 3 && (layer_2_id == 3 || layer_2_id == 4)) || (layer_1_id == 7 && (layer_2_id == 0 || layer_2_id == 1 || layer_2_id == 2 || layer_2_id == 3 || layer_2_id == 4))) {
-                                        tts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
-                                    } else
-                                        tts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-                                    location = locayy;
-                                    Log.d("checkloc", locayy + " location " + location);
-
-
-                                }
-                            });
-                            im5.setOnClickListener(new View.OnClickListener() {
-
-                                @Override
-                                public void onClick(View v) {
-                                    unset();
-                                    im5.setBorderColor(-1283893945);
-                                    im5.setShadowColor(-1283893945);
-                                    im5.setShadowRadius(sr);
-                                    im5.setBorderWidth(bw);
-
-                                    im4.setBorderColor(-1);
-                                    im4.setShadowColor(0);
-                                    im4.setShadowRadius(sr);
-                                    im4.setBorderWidth(0);
-
-                                    im6.setBorderColor(-1);
-                                    im6.setShadowColor(0);
-                                    im6.setShadowRadius(sr);
-                                    im6.setBorderWidth(0);
-
-                                    im7.setBorderColor(-1);
-                                    im7.setShadowColor(0);
-                                    im7.setShadowRadius(sr);
-                                    im7.setBorderWidth(0);
-
-                                    im8.setBorderColor(-1);
-                                    im8.setShadowColor(0);
-                                    im8.setShadowRadius(sr);
-                                    im8.setBorderWidth(0);
-
-                                    im9.setBorderColor(-1);
-                                    im9.setShadowColor(0);
-                                    im9.setShadowRadius(sr);
-                                    im9.setBorderWidth(0);
-
-                                    im2.setBorderColor(-1);
-                                    im2.setShadowColor(0);
-                                    im2.setShadowRadius(sr);
-                                    im2.setBorderWidth(0);
-
-                                    im1.setBorderColor(-1);
-                                    im1.setShadowColor(0);
-                                    im1.setShadowRadius(sr);
-                                    im1.setBorderWidth(0);
-
-                                    im3.setBorderColor(-1);
-                                    im3.setShadowColor(0);
-                                    im3.setShadowRadius(sr);
-                                    im3.setBorderWidth(0);
-
-                                    cko[0]++;
-                                    locayy = position * 9 + 4;
-                                    ix[0] = sort[locayy];
-                                    if (layer_1_id == 0 && layer_2_id == 1) {
-                                        if (ix[0] == 0) {
-                                            no.setAlpha(0.5f);
-                                            no.setEnabled(false);
-                                            yes.setAlpha(1f);
-                                            yes.setEnabled(true);
-
-                                        } else if (ix[0] == 1 || ix[0] == 2 || ix[0] == 3 || ix[0] == 5 || ix[0] == 6 || ix[0] == 7 || ix[0] == 8 || ix[0] == 9 || ix[0] == 10 || ix[0] == 11 || ix[0] == 12 || ix[0] == 15 || ix[0] == 16) {
-                                            yes.setAlpha(0.5f);
-                                            yes.setEnabled(false);
-                                            no.setAlpha(1f);
-                                            no.setEnabled(true);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    }
-                                    if (layer_1_id == 1 && layer_2_id == 3) {
-                                        if (ix[0] == 34 || ix[0] == 35 || ix[0] == 36 || ix[0] == 37) {
-                                            like.setAlpha(0.5f);
-                                            dislike.setAlpha(0.5f);
-                                            add.setAlpha(0.5f);
-                                            minus.setAlpha(0.5f);
-                                            yes.setAlpha(0.5f);
-                                            no.setAlpha(0.5f);
-                                            like.setEnabled(false);
-                                            dislike.setEnabled(false);
-                                            add.setEnabled(false);
-                                            minus.setEnabled(false);
-                                            yes.setEnabled(false);
-                                            no.setEnabled(false);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    } else if (layer_1_id == 7 && (layer_2_id == 0 || layer_2_id == 1 || layer_2_id == 2 || layer_2_id == 3 || layer_2_id == 4)) {
-                                        ix[0] = locayy;
-                                        if (ix[0] == 0) {
-                                            like.setAlpha(0.5f);
-                                            dislike.setAlpha(0.5f);
-                                            add.setAlpha(0.5f);
-                                            minus.setAlpha(0.5f);
-                                            yes.setAlpha(0.5f);
-                                            no.setAlpha(0.5f);
-                                            like.setEnabled(false);
-                                            dislike.setEnabled(false);
-                                            add.setEnabled(false);
-                                            minus.setEnabled(false);
-                                            yes.setEnabled(false);
-                                            no.setEnabled(false);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    }
-
-                                    if (count_flag == 1) {
-
-                                        count[sort[locayy]] = count[sort[locayy]] + 1;
-                                        StringBuilder str = new StringBuilder();
-                                        for (int j = 0; j < count.length; j++) {
-                                            str.append(count[j]).append(",");
-                                        }
-                                        System.out.println("dgh" + str.toString());
-                                        myDbHelper.setlevel(layer_1_id, layer_2_id, str.toString());
-                                    }
-                                    System.out.println("sucess" + ix[0]);
-                                    if ((layer_1_id == 3 && (layer_2_id == 3 || layer_2_id == 4)) || (layer_1_id == 7 && (layer_2_id == 0 || layer_2_id == 1 || layer_2_id == 2 || layer_2_id == 3 || layer_2_id == 4))) {
-                                        tts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
-                                    } else
-                                        tts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-                                    location = locayy;
-                                    Log.d("checkloc", locayy + " location " + location);
-
-
-                                }
-                            });
-                            im6.setOnClickListener(new View.OnClickListener() {
-
-                                @Override
-                                public void onClick(View v) {
-                                    unset();
-                                    im6.setBorderColor(-1283893945);
-                                    im6.setShadowColor(-1283893945);
-                                    im6.setShadowRadius(sr);
-                                    im6.setBorderWidth(bw);
-
-                                    im5.setBorderColor(-1);
-                                    im5.setShadowColor(0);
-                                    im5.setShadowRadius(sr);
-                                    im5.setBorderWidth(0);
-
-                                    im4.setBorderColor(-1);
-                                    im4.setShadowColor(0);
-                                    im4.setShadowRadius(sr);
-                                    im4.setBorderWidth(0);
-
-                                    im7.setBorderColor(-1);
-                                    im7.setShadowColor(0);
-                                    im7.setShadowRadius(sr);
-                                    im7.setBorderWidth(0);
-
-                                    im8.setBorderColor(-1);
-                                    im8.setShadowColor(0);
-                                    im8.setShadowRadius(sr);
-                                    im8.setBorderWidth(0);
-
-                                    im9.setBorderColor(-1);
-                                    im9.setShadowColor(0);
-                                    im9.setShadowRadius(sr);
-                                    im9.setBorderWidth(0);
-
-                                    im2.setBorderColor(-1);
-                                    im2.setShadowColor(0);
-                                    im2.setShadowRadius(sr);
-                                    im2.setBorderWidth(0);
-
-                                    im1.setBorderColor(-1);
-                                    im1.setShadowColor(0);
-                                    im1.setShadowRadius(sr);
-                                    im1.setBorderWidth(0);
-
-                                    im3.setBorderColor(-1);
-                                    im3.setShadowColor(0);
-                                    im3.setShadowRadius(sr);
-                                    im3.setBorderWidth(0);
-
-                                    cko[0]++;
-                                    locayy = position * 9 + 5;
-                                    ix[0] = sort[locayy];
-                                    if (layer_1_id == 0 && layer_2_id == 1) {
-                                        if (ix[0] == 0) {
-                                            no.setAlpha(0.5f);
-                                            no.setEnabled(false);
-                                            yes.setAlpha(1f);
-                                            yes.setEnabled(true);
-
-                                        } else if (ix[0] == 1 || ix[0] == 2 || ix[0] == 3 || ix[0] == 5 || ix[0] == 6 || ix[0] == 7 || ix[0] == 8 || ix[0] == 9 || ix[0] == 10 || ix[0] == 11 || ix[0] == 12 || ix[0] == 15 || ix[0] == 16) {
-                                            yes.setAlpha(0.5f);
-                                            yes.setEnabled(false);
-                                            no.setAlpha(1f);
-                                            no.setEnabled(true);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    }
-                                    if (layer_1_id == 1 && layer_2_id == 3) {
-                                        if (ix[0] == 34 || ix[0] == 35 || ix[0] == 36 || ix[0] == 37) {
-                                            like.setAlpha(0.5f);
-                                            dislike.setAlpha(0.5f);
-                                            add.setAlpha(0.5f);
-                                            minus.setAlpha(0.5f);
-                                            yes.setAlpha(0.5f);
-                                            no.setAlpha(0.5f);
-                                            like.setEnabled(false);
-                                            dislike.setEnabled(false);
-                                            add.setEnabled(false);
-                                            minus.setEnabled(false);
-                                            yes.setEnabled(false);
-                                            no.setEnabled(false);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    } else if (layer_1_id == 7 && (layer_2_id == 0 || layer_2_id == 1 || layer_2_id == 2 || layer_2_id == 3 || layer_2_id == 4)) {
-                                        ix[0] = locayy;
-                                        if (ix[0] == 0) {
-                                            like.setAlpha(0.5f);
-                                            dislike.setAlpha(0.5f);
-                                            add.setAlpha(0.5f);
-                                            minus.setAlpha(0.5f);
-                                            yes.setAlpha(0.5f);
-                                            no.setAlpha(0.5f);
-                                            like.setEnabled(false);
-                                            dislike.setEnabled(false);
-                                            add.setEnabled(false);
-                                            minus.setEnabled(false);
-                                            yes.setEnabled(false);
-                                            no.setEnabled(false);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    }
-
-                                    if (count_flag == 1) {
-
-                                        count[sort[locayy]] = count[sort[locayy]] + 1;
-                                        StringBuilder str = new StringBuilder();
-                                        for (int j = 0; j < count.length; j++) {
-                                            str.append(count[j]).append(",");
-                                        }
-                                        System.out.println("dgh" + str.toString());
-                                        myDbHelper.setlevel(layer_1_id, layer_2_id, str.toString());
-                                    }
-                                    System.out.println("sucess" + ix[0]);
-                                    if ((layer_1_id == 3 && (layer_2_id == 3 || layer_2_id == 4)) || (layer_1_id == 7 && (layer_2_id == 0 || layer_2_id == 1 || layer_2_id == 2 || layer_2_id == 3 || layer_2_id == 4))) {
-                                        tts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
-                                    } else
-                                        tts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-                                    location = locayy;
-                                    Log.d("checkloc", locayy + " location " + location);
-
-
-                                }
-                            });
-                            im7.setOnClickListener(new View.OnClickListener() {
-
-                                @Override
-                                public void onClick(View v) {
-                                    unset();
-                                    im7.setBorderColor(-1283893945);
-                                    im7.setShadowColor(-1283893945);
-                                    im7.setShadowRadius(sr);
-                                    im7.setBorderWidth(bw);
-
-                                    im8.setBorderColor(-1);
-                                    im8.setShadowColor(0);
-                                    im8.setShadowRadius(sr);
-                                    im8.setBorderWidth(0);
-
-                                    im9.setBorderColor(-1);
-                                    im9.setShadowColor(0);
-                                    im9.setShadowRadius(sr);
-                                    im9.setBorderWidth(0);
-
-                                    im2.setBorderColor(-1);
-                                    im2.setShadowColor(0);
-                                    im2.setShadowRadius(sr);
-                                    im2.setBorderWidth(0);
-
-                                    im1.setBorderColor(-1);
-                                    im1.setShadowColor(0);
-                                    im1.setShadowRadius(sr);
-                                    im1.setBorderWidth(0);
-
-                                    im3.setBorderColor(-1);
-                                    im3.setShadowColor(0);
-                                    im3.setShadowRadius(sr);
-                                    im3.setBorderWidth(0);
-
-                                    im4.setBorderColor(-1);
-                                    im4.setShadowColor(0);
-                                    im4.setShadowRadius(sr);
-                                    im4.setBorderWidth(0);
-
-                                    im5.setBorderColor(-1);
-                                    im5.setShadowColor(0);
-                                    im5.setShadowRadius(sr);
-                                    im5.setBorderWidth(0);
-
-                                    im6.setBorderColor(-1);
-                                    im6.setShadowColor(0);
-                                    im6.setShadowRadius(sr);
-                                    im6.setBorderWidth(0);
-
-                                    cko[0]++;
-                                    locayy = position * 9 + 6;
-                                    ix[0] = sort[locayy];
-                                    if (layer_1_id == 0 && layer_2_id == 1) {
-                                        if (ix[0] == 0) {
-                                            no.setAlpha(0.5f);
-                                            no.setEnabled(false);
-                                            yes.setAlpha(1f);
-                                            yes.setEnabled(true);
-
-                                        } else if (ix[0] == 1 || ix[0] == 2 || ix[0] == 3 || ix[0] == 5 || ix[0] == 6 || ix[0] == 7 || ix[0] == 8 || ix[0] == 9 || ix[0] == 10 || ix[0] == 11 || ix[0] == 12 || ix[0] == 15 || ix[0] == 16) {
-                                            yes.setAlpha(0.5f);
-                                            yes.setEnabled(false);
-                                            no.setAlpha(1f);
-                                            no.setEnabled(true);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    }
-                                    if (layer_1_id == 1 && layer_2_id == 3) {
-                                        if (ix[0] == 34 || ix[0] == 35 || ix[0] == 36 || ix[0] == 37) {
-                                            like.setAlpha(0.5f);
-                                            dislike.setAlpha(0.5f);
-                                            add.setAlpha(0.5f);
-                                            minus.setAlpha(0.5f);
-                                            yes.setAlpha(0.5f);
-                                            no.setAlpha(0.5f);
-                                            like.setEnabled(false);
-                                            dislike.setEnabled(false);
-                                            add.setEnabled(false);
-                                            minus.setEnabled(false);
-                                            yes.setEnabled(false);
-                                            no.setEnabled(false);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    } else if (layer_1_id == 7 && (layer_2_id == 0 || layer_2_id == 1 || layer_2_id == 2 || layer_2_id == 3 || layer_2_id == 4)) {
-                                        ix[0] = locayy;
-                                        if (ix[0] == 0) {
-                                            like.setAlpha(0.5f);
-                                            dislike.setAlpha(0.5f);
-                                            add.setAlpha(0.5f);
-                                            minus.setAlpha(0.5f);
-                                            yes.setAlpha(0.5f);
-                                            no.setAlpha(0.5f);
-                                            like.setEnabled(false);
-                                            dislike.setEnabled(false);
-                                            add.setEnabled(false);
-                                            minus.setEnabled(false);
-                                            yes.setEnabled(false);
-                                            no.setEnabled(false);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    }
-
-                                    if (count_flag == 1) {
-
-                                        count[sort[locayy]] = count[sort[locayy]] + 1;
-                                        StringBuilder str = new StringBuilder();
-                                        for (int j = 0; j < count.length; j++) {
-                                            str.append(count[j]).append(",");
-                                        }
-                                        System.out.println("dgh" + str.toString());
-                                        myDbHelper.setlevel(layer_1_id, layer_2_id, str.toString());
-                                    }
-                                    System.out.println("sucess" + ix[0]);
-                                    if ((layer_1_id == 3 && (layer_2_id == 3 || layer_2_id == 4)) || (layer_1_id == 7 && (layer_2_id == 0 || layer_2_id == 1 || layer_2_id == 2 || layer_2_id == 3 || layer_2_id == 4))) {
-                                        tts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
-                                    } else
-                                        tts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-                                    location = locayy;
-                                    Log.d("checkloc", locayy + " location " + location);
-
-
-                                }
-                            });
-                            im8.setOnClickListener(new View.OnClickListener() {
-
-                                @Override
-                                public void onClick(View v) {
-                                    unset();
-                                    im8.setBorderColor(-1283893945);
-                                    im8.setShadowColor(-1283893945);
-                                    im8.setShadowRadius(sr);
-                                    im8.setBorderWidth(bw);
-
-                                    im7.setBorderColor(-1);
-                                    im7.setShadowColor(0);
-                                    im7.setShadowRadius(sr);
-                                    im7.setBorderWidth(0);
-
-                                    im9.setBorderColor(-1);
-                                    im9.setShadowColor(0);
-                                    im9.setShadowRadius(sr);
-                                    im9.setBorderWidth(0);
-
-                                    im2.setBorderColor(-1);
-                                    im2.setShadowColor(0);
-                                    im2.setShadowRadius(sr);
-                                    im2.setBorderWidth(0);
-
-                                    im1.setBorderColor(-1);
-                                    im1.setShadowColor(0);
-                                    im1.setShadowRadius(sr);
-                                    im1.setBorderWidth(0);
-
-                                    im3.setBorderColor(-1);
-                                    im3.setShadowColor(0);
-                                    im3.setShadowRadius(sr);
-                                    im3.setBorderWidth(0);
-
-                                    im4.setBorderColor(-1);
-                                    im4.setShadowColor(0);
-                                    im4.setShadowRadius(sr);
-                                    im4.setBorderWidth(0);
-
-                                    im5.setBorderColor(-1);
-                                    im5.setShadowColor(0);
-                                    im5.setShadowRadius(sr);
-                                    im5.setBorderWidth(0);
-
-                                    im6.setBorderColor(-1);
-                                    im6.setShadowColor(0);
-                                    im6.setShadowRadius(sr);
-                                    im6.setBorderWidth(0);
-
-                                    cko[0]++;
-                                    locayy = position * 9 + 7;
-                                    ix[0] = sort[locayy];
-                                    if (layer_1_id == 0 && layer_2_id == 1) {
-                                        if (ix[0] == 0) {
-                                            no.setAlpha(0.5f);
-                                            no.setEnabled(false);
-                                            yes.setAlpha(1f);
-                                            yes.setEnabled(true);
-
-                                        } else if (ix[0] == 1 || ix[0] == 2 || ix[0] == 3 || ix[0] == 5 || ix[0] == 6 || ix[0] == 7 || ix[0] == 8 || ix[0] == 9 || ix[0] == 10 || ix[0] == 11 || ix[0] == 12 || ix[0] == 15 || ix[0] == 16) {
-                                            yes.setAlpha(0.5f);
-                                            yes.setEnabled(false);
-                                            no.setAlpha(1f);
-                                            no.setEnabled(true);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    }
-                                    if (layer_1_id == 1 && layer_2_id == 3) {
-                                        if (ix[0] == 34 || ix[0] == 35 || ix[0] == 36 || ix[0] == 37) {
-                                            like.setAlpha(0.5f);
-                                            dislike.setAlpha(0.5f);
-                                            add.setAlpha(0.5f);
-                                            minus.setAlpha(0.5f);
-                                            yes.setAlpha(0.5f);
-                                            no.setAlpha(0.5f);
-                                            like.setEnabled(false);
-                                            dislike.setEnabled(false);
-                                            add.setEnabled(false);
-                                            minus.setEnabled(false);
-                                            yes.setEnabled(false);
-                                            no.setEnabled(false);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    } else if (layer_1_id == 7 && (layer_2_id == 0 || layer_2_id == 1 || layer_2_id == 2 || layer_2_id == 3 || layer_2_id == 4)) {
-                                        ix[0] = locayy;
-                                        if (ix[0] == 0) {
-                                            like.setAlpha(0.5f);
-                                            dislike.setAlpha(0.5f);
-                                            add.setAlpha(0.5f);
-                                            minus.setAlpha(0.5f);
-                                            yes.setAlpha(0.5f);
-                                            no.setAlpha(0.5f);
-                                            like.setEnabled(false);
-                                            dislike.setEnabled(false);
-                                            add.setEnabled(false);
-                                            minus.setEnabled(false);
-                                            yes.setEnabled(false);
-                                            no.setEnabled(false);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    }
-
-                                    if (count_flag == 1) {
-
-                                        count[sort[locayy]] = count[sort[locayy]] + 1;
-                                        StringBuilder str = new StringBuilder();
-                                        for (int j = 0; j < count.length; j++) {
-                                            str.append(count[j]).append(",");
-                                        }
-                                        System.out.println("dgh" + str.toString());
-                                        myDbHelper.setlevel(layer_1_id, layer_2_id, str.toString());
-                                    }
-                                    System.out.println("sucess" + ix[0]);
-                                    if ((layer_1_id == 3 && (layer_2_id == 3 || layer_2_id == 4)) || (layer_1_id == 7 && (layer_2_id == 0 || layer_2_id == 1 || layer_2_id == 2 || layer_2_id == 3 || layer_2_id == 4))) {
-                                        tts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
-                                    } else
-                                        tts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-                                    location = locayy;
-                                    Log.d("checkloc", locayy + " location " + location);
-
-
-                                }
-                            });
-                            im9.setOnClickListener(new View.OnClickListener() {
-
-                                @Override
-                                public void onClick(View v) {
-                                    unset();
-                                    im9.setBorderColor(-1283893945);
-                                    im9.setShadowColor(-1283893945);
-                                    im9.setShadowRadius(sr);
-                                    im9.setBorderWidth(bw);
-
-                                    im8.setBorderColor(-1);
-                                    im8.setShadowColor(0);
-                                    im8.setShadowRadius(sr);
-                                    im8.setBorderWidth(0);
-
-                                    im7.setBorderColor(-1);
-                                    im7.setShadowColor(0);
-                                    im7.setShadowRadius(sr);
-                                    im7.setBorderWidth(0);
-
-                                    im2.setBorderColor(-1);
-                                    im2.setShadowColor(0);
-                                    im2.setShadowRadius(sr);
-                                    im2.setBorderWidth(0);
-
-                                    im1.setBorderColor(-1);
-                                    im1.setShadowColor(0);
-                                    im1.setShadowRadius(sr);
-                                    im1.setBorderWidth(0);
-
-                                    im3.setBorderColor(-1);
-                                    im3.setShadowColor(0);
-                                    im3.setShadowRadius(sr);
-                                    im3.setBorderWidth(0);
-
-                                    im4.setBorderColor(-1);
-                                    im4.setShadowColor(0);
-                                    im4.setShadowRadius(sr);
-                                    im4.setBorderWidth(0);
-
-                                    im5.setBorderColor(-1);
-                                    im5.setShadowColor(0);
-                                    im5.setShadowRadius(sr);
-                                    im5.setBorderWidth(0);
-
-                                    im6.setBorderColor(-1);
-                                    im6.setShadowColor(0);
-                                    im6.setShadowRadius(sr);
-                                    im6.setBorderWidth(0);
-
-                                    cko[0]++;
-                                    locayy = position * 9 + 8;
-                                    ix[0] = sort[locayy];
-                                    if (layer_1_id == 0 && layer_2_id == 1) {
-                                        if (ix[0] == 0) {
-                                            no.setAlpha(0.5f);
-                                            no.setEnabled(false);
-                                            yes.setAlpha(1f);
-                                            yes.setEnabled(true);
-
-                                        } else if (ix[0] == 1 || ix[0] == 2 || ix[0] == 3 || ix[0] == 5 || ix[0] == 6 || ix[0] == 7 || ix[0] == 8 || ix[0] == 9 || ix[0] == 10 || ix[0] == 11 || ix[0] == 12 || ix[0] == 15 || ix[0] == 16) {
-                                            yes.setAlpha(0.5f);
-                                            yes.setEnabled(false);
-                                            no.setAlpha(1f);
-                                            no.setEnabled(true);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    }
-                                    if (layer_1_id == 1 && layer_2_id == 3) {
-                                        if (ix[0] == 34 || ix[0] == 35 || ix[0] == 36 || ix[0] == 37) {
-                                            like.setAlpha(0.5f);
-                                            dislike.setAlpha(0.5f);
-                                            add.setAlpha(0.5f);
-                                            minus.setAlpha(0.5f);
-                                            yes.setAlpha(0.5f);
-                                            no.setAlpha(0.5f);
-                                            like.setEnabled(false);
-                                            dislike.setEnabled(false);
-                                            add.setEnabled(false);
-                                            minus.setEnabled(false);
-                                            yes.setEnabled(false);
-                                            no.setEnabled(false);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    } else if (layer_1_id == 7 && (layer_2_id == 0 || layer_2_id == 1 || layer_2_id == 2 || layer_2_id == 3 || layer_2_id == 4)) {
-                                        ix[0] = locayy;
-                                        if (ix[0] == 0) {
-                                            like.setAlpha(0.5f);
-                                            dislike.setAlpha(0.5f);
-                                            add.setAlpha(0.5f);
-                                            minus.setAlpha(0.5f);
-                                            yes.setAlpha(0.5f);
-                                            no.setAlpha(0.5f);
-                                            like.setEnabled(false);
-                                            dislike.setEnabled(false);
-                                            add.setEnabled(false);
-                                            minus.setEnabled(false);
-                                            yes.setEnabled(false);
-                                            no.setEnabled(false);
-                                        } else {
-                                            like.setAlpha(1f);
-                                            dislike.setAlpha(1f);
-                                            add.setAlpha(1f);
-                                            minus.setAlpha(1f);
-                                            yes.setAlpha(1f);
-                                            no.setAlpha(1f);
-                                            like.setEnabled(true);
-                                            dislike.setEnabled(true);
-                                            add.setEnabled(true);
-                                            minus.setEnabled(true);
-                                            yes.setEnabled(true);
-                                            no.setEnabled(true);
-                                        }
-                                    }
-
-                                    if (count_flag == 1) {
-
-                                        count[sort[locayy]] = count[sort[locayy]] + 1;
-                                        StringBuilder str = new StringBuilder();
-                                        for (int j = 0; j < count.length; j++) {
-                                            str.append(count[j]).append(",");
-                                        }
-                                        System.out.println("dgh" + str.toString());
-                                        myDbHelper.setlevel(layer_1_id, layer_2_id, str.toString());
-                                    }
-                                    System.out.println("sucess" + ix[0]);
-                                    if ((layer_1_id == 3 && (layer_2_id == 3 || layer_2_id == 4)) || (layer_1_id == 7 && (layer_2_id == 0 || layer_2_id == 1 || layer_2_id == 2 || layer_2_id == 3 || layer_2_id == 4))) {
-                                        tts.speak(myMusic[locayy], TextToSpeech.QUEUE_FLUSH, null);
-                                    } else
-                                        tts.speak(myMusic[sort[locayy]], TextToSpeech.QUEUE_FLUSH, null);
-                                    location = locayy;
-                                    Log.d("checkloc", locayy + " location " + location);
-
-
-                                }
-                            });
-
-                            prev_pos[0] = position;
-                            xx[0] = view;
-                            //                                       location = locayy;
-
-                            flag = 1;
-                            cy = 0;
-                            cm = 0;
-                            cd = 0;
-                            cn = 0;
-                            cl = 0;
-                            clike = 0;
-
-                        }
-                    }
-
-                    private void unset() {
-                        like.setImageResource(R.drawable.ilikewithoutoutline);
-                        dislike.setImageResource(R.drawable.idontlikewithout);
-                        yes.setImageResource(R.drawable.iwantwithout);
-                        no.setImageResource(R.drawable.idontwantwithout);
-                        add.setImageResource(R.drawable.morewithout);
-                        minus.setImageResource(R.drawable.lesswithout);
-                    }
-
-                    private void notifyDataSet(View view) {
-
-//                        Toast.makeText(MainActivity.this,"here",Toast.LENGTH_SHORT).show();
-                            if (session.getGridSize()==0) {
-                                im1 = (CircularImageView) view.findViewById(R.id.icon1);
-                                im2 = (CircularImageView) view.findViewById(R.id.icon2);
-                                im3 = (CircularImageView) view.findViewById(R.id.icon3);
-
-                                im2.setBorderColor(-1);
-                                im2.setShadowColor(0);
-                                im2.setShadowRadius(sr);
-                                im2.setBorderWidth(0);
-
-                                im1.setBorderColor(-1);
-                                im1.setShadowColor(0);
-                                im1.setShadowRadius(sr);
-                                im1.setBorderWidth(0);
-
-                                im3.setBorderColor(-1);
-                                im3.setShadowColor(0);
-                                im3.setShadowRadius(sr);
-                                im3.setBorderWidth(0);
-
-
-                            }
-                            if (session.getGridSize()==1){
-                                im1 = (CircularImageView) view.findViewById(R.id.icon1);
-                                im2 = (CircularImageView) view.findViewById(R.id.icon2);
-                                im3 = (CircularImageView) view.findViewById(R.id.icon3);
-                                im4 = (CircularImageView) view.findViewById(R.id.icon4);
-                                im5 = (CircularImageView) view.findViewById(R.id.icon5);
-                                im6 = (CircularImageView) view.findViewById(R.id.icon6);
-                                im7 = (CircularImageView) view.findViewById(R.id.icon7);
-                                im8 = (CircularImageView) view.findViewById(R.id.icon8);
-                                im9 = (CircularImageView) view.findViewById(R.id.icon9);
-
-                                im1.setBorderColor(-1);
-                                im1.setShadowColor(0);
-                                im1.setShadowRadius(sr);
-                                im1.setBorderWidth(0);
-
-                                im2.setBorderColor(-1);
-                                im2.setShadowColor(0);
-                                im2.setShadowRadius(sr);
-                                im2.setBorderWidth(0);
-
-                                im3.setBorderColor(-1);
-                                im3.setShadowColor(0);
-                                im3.setShadowRadius(sr);
-                                im3.setBorderWidth(0);
-
-                                im5.setBorderColor(-1);
-                                im5.setShadowColor(0);
-                                im5.setShadowRadius(sr);
-                                im5.setBorderWidth(0);
-
-                                im6.setBorderColor(-1);
-                                im6.setShadowColor(0);
-                                im6.setShadowRadius(sr);
-                                im6.setBorderWidth(0);
-
-                                im7.setBorderColor(-1);
-                                im7.setShadowColor(0);
-                                im7.setShadowRadius(sr);
-                                im7.setBorderWidth(0);
-
-                                im8.setBorderColor(-1);
-                                im8.setShadowColor(0);
-                                im8.setShadowRadius(sr);
-                                im8.setBorderWidth(0);
-
-                                im4.setBorderColor(-1);
-                                im4.setShadowColor(0);
-                                im4.setShadowRadius(sr);
-                                im4.setBorderWidth(0);
-
-                                im9.setBorderColor(-1);
-                                im9.setShadowColor(0);
-                                im9.setShadowRadius(sr);
-                                im9.setBorderWidth(0);
-                            }
-
-
-                        }
-
-                    @Override
-                    public void onLongClick(View view, int position) {
-
-                    }
-
-                }
-                )
-
-        );
-
-        //imgad.notifyDataSetChanged();
 
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 home.setImageResource(R.drawable.homepressed);
-                tts.speak(below[0], TextToSpeech.QUEUE_FLUSH, null);
+                mTts.speak(below[0], TextToSpeech.QUEUE_FLUSH, null);
                 more_count = 0;
+                mShouldReadFullSpeech = false;
+                image_flag = -1;
+                flag = 0;
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(i);
             }
@@ -2408,14 +428,12 @@ public class Layer3Activity extends AppCompatActivity {
         keyboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                tts.speak(below[2], TextToSpeech.QUEUE_FLUSH, null);
-
+                mTts.speak(below[2], TextToSpeech.QUEUE_FLUSH, null);
                 if (flag_keyboard == 1) {
                     keyboard.setImageResource(R.drawable.keyboard_button);
                     back.setImageResource(R.drawable.back_button);
                     et.setVisibility(View.INVISIBLE);
-                    recyclerView.setVisibility(View.VISIBLE);
+                    mRecyclerView.setVisibility(View.VISIBLE);
                     ttsButton.setVisibility(View.INVISIBLE);
                     flag_keyboard = 0;
                     like.setEnabled(true);
@@ -2430,7 +448,6 @@ public class Layer3Activity extends AppCompatActivity {
                     minus.setAlpha(1f);
                     yes.setAlpha(1f);
                     no.setAlpha(1f);
-
                 } else {
                     keyboard.setImageResource(R.drawable.keyboardpressed);
                     back.setImageResource(R.drawable.backpressed);
@@ -2438,7 +455,7 @@ public class Layer3Activity extends AppCompatActivity {
 
                     et.setKeyListener(originalKeyListener);
                     // Focus to the field.
-                    recyclerView.setVisibility(View.INVISIBLE);
+                    mRecyclerView.setVisibility(View.INVISIBLE);
                     like.setAlpha(0.5f);
                     dislike.setAlpha(0.5f);
                     add.setAlpha(0.5f);
@@ -2461,24 +478,22 @@ public class Layer3Activity extends AppCompatActivity {
         });
 
 
-        ttsButton.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
+        ttsButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    mTts.setSpeechRate((float) mSession.getSpeed() / 50);
+                    mTts.setPitch((float) mSession.getPitch() / 50);
+                    String s1 = et.getText().toString();
+                    mTts.speak(s1, TextToSpeech.QUEUE_FLUSH, null);
 
-                        tts.setSpeechRate((float) session.getSpeed() / 50);
-                        tts.setPitch((float) session.getPitch() / 50);
-                        String s1 = et.getText().toString();
-                        tts.speak(s1, TextToSpeech.QUEUE_FLUSH, null);
+                    like.setEnabled(false);
+                    dislike.setEnabled(false);
+                    add.setEnabled(false);
+                    minus.setEnabled(false);
+                    yes.setEnabled(false);
+                    no.setEnabled(false);
 
-                        like.setEnabled(false);
-                        dislike.setEnabled(false);
-                        add.setEnabled(false);
-                        minus.setEnabled(false);
-                        yes.setEnabled(false);
-                        no.setEnabled(false);
-
-                    }
-                });
+                }
+        });
 
 
         et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -2498,13 +513,13 @@ public class Layer3Activity extends AppCompatActivity {
         back.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View view) {
-                        tts.speak(below[1], TextToSpeech.QUEUE_FLUSH, null);
+                        mTts.speak(below[1], TextToSpeech.QUEUE_FLUSH, null);
                         back.setImageResource(R.drawable.backpressed);
                         if (flag_keyboard == 1) {
                             keyboard.setImageResource(R.drawable.keyboard_button);
                             back.setImageResource(R.drawable.back_button);
                             et.setVisibility(View.INVISIBLE);
-                            recyclerView.setVisibility(View.VISIBLE);
+                            mRecyclerView.setVisibility(View.VISIBLE);
                             ttsButton.setVisibility(View.INVISIBLE);
                             flag_keyboard = 0;
                             like.setEnabled(true);
@@ -2521,14 +536,14 @@ public class Layer3Activity extends AppCompatActivity {
                             no.setAlpha(1f);
                         } else if (more_count > 0) {
                             more_count -= 1;
-                            myMusic_function(layer_1_id, layer_2_id);
-                            System.out.println("LAUNCHING " + layer_1_id);
-                            recyclerView.setAdapter(new Layer_three_Adapter(Layer3Activity.this, layer_1_id, layer_2_id, sort));
+                            myMusic_function(mLevelOneItemPos, mLevelTwoItemPos);
+                            System.out.println("LAUNCHING " + mLevelOneItemPos);
+                            mRecyclerView.setAdapter(new Layer_three_Adapter(Layer3Activity.this, mLevelOneItemPos, mLevelTwoItemPos, sort));
                             x = -1;
                         } else {
                             back.setImageResource(R.drawable.backpressed);
                             Intent i = new Intent(getApplicationContext(), Main2LAyer.class);
-                            i.putExtra("id", layer_1_id);
+                            i.putExtra("id", mLevelOneItemPos);
                             startActivity(i);
                         }
 
@@ -2538,136 +553,31 @@ public class Layer3Activity extends AppCompatActivity {
         like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cy = 0;
-                cm = 0;
-                cd = 0;
-                cn = 0;
-                cl = 0;
+                mCy = mCm = mCd = mCn = mCl = 0;
                 image_flag = 0;
-                like.setImageResource(R.drawable.ilikewithoutline);
-                dislike.setImageResource(R.drawable.idontlikewithout);
-                yes.setImageResource(R.drawable.iwantwithout);
-                no.setImageResource(R.drawable.idontwantwithout);
-                add.setImageResource(R.drawable.morewithout);
-                minus.setImageResource(R.drawable.lesswithout);
-                if (flag == 0) {
-                    if (clike == 1) {
-                        tts.speak(side[1], TextToSpeech.QUEUE_FLUSH, null);
-                        clike = 0;
+                resetActionButtons(image_flag);
+                if (!mShouldReadFullSpeech) {
+                    if (mCk == 1) {
+                        mTts.speak(side[1], TextToSpeech.QUEUE_FLUSH, null);
+                        mCk = 0;
                     } else {
-                        tts.speak(side[0], TextToSpeech.QUEUE_FLUSH, null);
-                        clike = 1;
+                        mTts.speak(side[0], TextToSpeech.QUEUE_FLUSH, null);
+                        mCk = 1;
                     }
                 } else {
-                    if (session.getGridSize()==0){
-                    if (location % 3 == 0) {
-                        im1.setBorderColor(color[0]);
-                        im1.setShadowColor(color[0]);
-                        im1.setShadowRadius(sr);
-                        im1.setBorderWidth(bw);
-
-                    } else if (location % 3 == 1) {
-                        im2.setBorderColor(color[0]);
-                        im2.setShadowColor(color[0]);
-                        im2.setShadowRadius(sr);
-                        im2.setBorderWidth(bw);
-
-                    } else if (location % 3 == 2) {
-                        im3.setBorderColor(color[0]);
-                        im3.setShadowColor(color[0]);
-                        im3.setShadowRadius(sr);
-                        im3.setBorderWidth(bw);
-
-                    }
-                    if (clike == 1) {
-
+                    if (mCk == 1) {
                         if (count_flag == 1)
-                            tts.speak(layer_3_speech[layer_1_id][layer_2_id][sort[location]][1], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[location]][1], TextToSpeech.QUEUE_FLUSH, null);
                         else
-                            tts.speak(layer_3_speech[layer_1_id][layer_2_id][location][1], TextToSpeech.QUEUE_FLUSH, null);
-                        clike = 0;
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][location][1], TextToSpeech.QUEUE_FLUSH, null);
+                        mCk = 0;
 
                     } else {
                         if (count_flag == 1)
-                            tts.speak(layer_3_speech[layer_1_id][layer_2_id][sort[location]][0], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[location]][0], TextToSpeech.QUEUE_FLUSH, null);
                         else
-                            tts.speak(layer_3_speech[layer_1_id][layer_2_id][location][0], TextToSpeech.QUEUE_FLUSH, null);
-                        clike = 1;
-                    }
-                }
-                    if (session.getGridSize()==1){
-                        if (location % 9 == 0) {
-                            im1.setBorderColor(color[0]);
-                            im1.setShadowColor(color[0]);
-                            im1.setShadowRadius(sr);
-                            im1.setBorderWidth(bw);
-
-                        } else if (location % 9 == 1) {
-                            im2.setBorderColor(color[0]);
-                            im2.setShadowColor(color[0]);
-                            im2.setShadowRadius(sr);
-                            im2.setBorderWidth(bw);
-
-                        } else if (location % 9 == 2) {
-                            im3.setBorderColor(color[0]);
-                            im3.setShadowColor(color[0]);
-                            im3.setShadowRadius(sr);
-                            im3.setBorderWidth(bw);
-
-                        }
-                        if (location % 9 == 3) {
-                            im4.setBorderColor(color[0]);
-                            im4.setShadowColor(color[0]);
-                            im4.setShadowRadius(sr);
-                            im4.setBorderWidth(bw);
-
-                        } else if (location % 9 == 4) {
-                            im5.setBorderColor(color[0]);
-                            im5.setShadowColor(color[0]);
-                            im5.setShadowRadius(sr);
-                            im5.setBorderWidth(bw);
-
-                        } else if (location % 9 == 5) {
-                            im6.setBorderColor(color[0]);
-                            im6.setShadowColor(color[0]);
-                            im6.setShadowRadius(sr);
-                            im6.setBorderWidth(bw);
-
-                        }
-                        if (location % 9 == 6) {
-                            im7.setBorderColor(color[0]);
-                            im7.setShadowColor(color[0]);
-                            im7.setShadowRadius(sr);
-                            im7.setBorderWidth(bw);
-
-                        } else if (location % 9 == 7) {
-                            im8.setBorderColor(color[0]);
-                            im8.setShadowColor(color[0]);
-                            im8.setShadowRadius(sr);
-                            im8.setBorderWidth(bw);
-
-                        } else if (location % 9 == 8) {
-                            im9.setBorderColor(color[0]);
-                            im9.setShadowColor(color[0]);
-                            im9.setShadowRadius(sr);
-                            im9.setBorderWidth(bw);
-
-                        }
-                        if (clike == 1) {
-
-                            if (count_flag == 1)
-                                tts.speak(layer_3_speech[layer_1_id][layer_2_id][sort[location]][1], TextToSpeech.QUEUE_FLUSH, null);
-                            else
-                                tts.speak(layer_3_speech[layer_1_id][layer_2_id][location][1], TextToSpeech.QUEUE_FLUSH, null);
-                            clike = 0;
-
-                        } else {
-                            if (count_flag == 1)
-                                tts.speak(layer_3_speech[layer_1_id][layer_2_id][sort[location]][0], TextToSpeech.QUEUE_FLUSH, null);
-                            else
-                                tts.speak(layer_3_speech[layer_1_id][layer_2_id][location][0], TextToSpeech.QUEUE_FLUSH, null);
-                            clike = 1;
-                        }
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][location][0], TextToSpeech.QUEUE_FLUSH, null);
+                        mCk = 1;
                     }
                 }
             }
@@ -2676,131 +586,30 @@ public class Layer3Activity extends AppCompatActivity {
         dislike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clike = 0;
-                cy = 0;
-                cm = 0;
-                cn = 0;
-                cl = 0;
+                mCk = mCy = mCm = mCn = mCl = 0;
                 image_flag = 1;
-                like.setImageResource(R.drawable.ilikewithoutoutline);
-                dislike.setImageResource(R.drawable.idontlikewithoutline);
-                yes.setImageResource(R.drawable.iwantwithout);
-                no.setImageResource(R.drawable.idontwantwithout);
-                add.setImageResource(R.drawable.morewithout);
-                minus.setImageResource(R.drawable.lesswithout);
-                if (flag == 0) {
-                    if (cd == 1) {
-                        tts.speak(side[7], TextToSpeech.QUEUE_FLUSH, null);
-                        cd = 0;
+                resetActionButtons(image_flag);
+                if (!mShouldReadFullSpeech) {
+                    if (mCd == 1) {
+                        mTts.speak(side[7], TextToSpeech.QUEUE_FLUSH, null);
+                        mCd = 0;
                     } else {
-                        tts.speak(side[6], TextToSpeech.QUEUE_FLUSH, null);
-                        cd = 1;
+                        mTts.speak(side[6], TextToSpeech.QUEUE_FLUSH, null);
+                        mCd = 1;
                     }
                 } else {
-
-                    if (session.getGridSize()==0){
-                    if (location % 3 == 0) {
-                        im1.setBorderColor(color[1]);
-                        im1.setShadowColor(color[1]);
-                        im1.setShadowRadius(sr);
-                        im1.setBorderWidth(bw);
-
-                    } else if (location % 3 == 1) {
-                        im2.setBorderColor(color[1]);
-                        im2.setShadowColor(color[1]);
-                        im2.setShadowRadius(sr);
-                        im2.setBorderWidth(bw);
-
-                    } else if (location % 3 == 2) {
-                        im3.setBorderColor(color[1]);
-                        im3.setShadowColor(color[1]);
-                        im3.setShadowRadius(sr);
-                        im3.setBorderWidth(bw);
-
-                    }
-                    if (cd == 1) {
+                    if (mCd == 1) {
                         if (count_flag == 1)
-                            tts.speak(layer_3_speech[layer_1_id][layer_2_id][sort[location]][7], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[location]][7], TextToSpeech.QUEUE_FLUSH, null);
                         else
-                            tts.speak(layer_3_speech[layer_1_id][layer_2_id][location][7], TextToSpeech.QUEUE_FLUSH, null);
-                        cd = 0;
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][location][7], TextToSpeech.QUEUE_FLUSH, null);
+                        mCd = 0;
                     } else {
                         if (count_flag == 1)
-                            tts.speak(layer_3_speech[layer_1_id][layer_2_id][sort[location]][6], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[location]][6], TextToSpeech.QUEUE_FLUSH, null);
                         else
-                            tts.speak(layer_3_speech[layer_1_id][layer_2_id][location][6], TextToSpeech.QUEUE_FLUSH, null);
-                        cd = 1;
-                    }
-                }
-                    if (session.getGridSize()==1){
-                        if (location % 9 == 0) {
-                            im1.setBorderColor(color[1]);
-                            im1.setShadowColor(color[1]);
-                            im1.setShadowRadius(sr);
-                            im1.setBorderWidth(bw);
-
-                        } else if (location % 9 == 1) {
-                            im2.setBorderColor(color[1]);
-                            im2.setShadowColor(color[1]);
-                            im2.setShadowRadius(sr);
-                            im2.setBorderWidth(bw);
-
-                        } else if (location % 9 == 2) {
-                            im3.setBorderColor(color[1]);
-                            im3.setShadowColor(color[1]);
-                            im3.setShadowRadius(sr);
-                            im3.setBorderWidth(bw);
-
-                        }if (location % 9 == 3) {
-                            im4.setBorderColor(color[1]);
-                            im4.setShadowColor(color[1]);
-                            im4.setShadowRadius(sr);
-                            im4.setBorderWidth(bw);
-
-                        } else if (location % 9 == 4) {
-                            im5.setBorderColor(color[1]);
-                            im5.setShadowColor(color[1]);
-                            im5.setShadowRadius(sr);
-                            im5.setBorderWidth(bw);
-
-                        } else if (location % 9 == 5) {
-                            im6.setBorderColor(color[1]);
-                            im6.setShadowColor(color[1]);
-                            im6.setShadowRadius(sr);
-                            im6.setBorderWidth(bw);
-
-                        }if (location % 9 == 6) {
-                            im7.setBorderColor(color[1]);
-                            im7.setShadowColor(color[1]);
-                            im7.setShadowRadius(sr);
-                            im7.setBorderWidth(bw);
-
-                        } else if (location % 9 == 7) {
-                            im8.setBorderColor(color[1]);
-                            im8.setShadowColor(color[1]);
-                            im8.setShadowRadius(sr);
-                            im8.setBorderWidth(bw);
-
-                        } else if (location % 9 == 8) {
-                            im9.setBorderColor(color[1]);
-                            im9.setShadowColor(color[1]);
-                            im9.setShadowRadius(sr);
-                            im9.setBorderWidth(bw);
-
-                        }
-                        if (cd == 1) {
-                            if (count_flag == 1)
-                                tts.speak(layer_3_speech[layer_1_id][layer_2_id][sort[location]][7], TextToSpeech.QUEUE_FLUSH, null);
-                            else
-                                tts.speak(layer_3_speech[layer_1_id][layer_2_id][location][7], TextToSpeech.QUEUE_FLUSH, null);
-                            cd = 0;
-                        } else {
-                            if (count_flag == 1)
-                                tts.speak(layer_3_speech[layer_1_id][layer_2_id][sort[location]][6], TextToSpeech.QUEUE_FLUSH, null);
-                            else
-                                tts.speak(layer_3_speech[layer_1_id][layer_2_id][location][6], TextToSpeech.QUEUE_FLUSH, null);
-                            cd = 1;
-                        }
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][location][6], TextToSpeech.QUEUE_FLUSH, null);
+                        mCd = 1;
                     }
                 }
             }
@@ -2809,132 +618,30 @@ public class Layer3Activity extends AppCompatActivity {
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clike = 0;
-                cm = 0;
-                cd = 0;
-                cn = 0;
-                cl = 0;
+                mCk = mCm = mCd = mCn = mCl = 0;
                 image_flag = 2;
-                like.setImageResource(R.drawable.ilikewithoutoutline);
-                dislike.setImageResource(R.drawable.idontlikewithout);
-                yes.setImageResource(R.drawable.iwantwithoutline);
-                no.setImageResource(R.drawable.idontwantwithout);
-                add.setImageResource(R.drawable.morewithout);
-                minus.setImageResource(R.drawable.lesswithout);
-                if (flag == 0) {
-                    if (cy == 1) {
-                        tts.speak(side[3], TextToSpeech.QUEUE_FLUSH, null);
-                        cy = 0;
+                resetActionButtons(image_flag);
+                if (!mShouldReadFullSpeech) {
+                    if (mCy == 1) {
+                        mTts.speak(side[3], TextToSpeech.QUEUE_FLUSH, null);
+                        mCy = 0;
                     } else {
-                        tts.speak(side[2], TextToSpeech.QUEUE_FLUSH, null);
-                        cy = 1;
+                        mTts.speak(side[2], TextToSpeech.QUEUE_FLUSH, null);
+                        mCy = 1;
                     }
                 } else {
-                    if (session.getGridSize()==0){
-                    if (location % 3 == 0) {
-                        im1.setBorderColor(color[2]);
-                        im1.setShadowColor(color[2]);
-                        im1.setShadowRadius(sr);
-                        im1.setBorderWidth(bw);
-
-                    } else if (location % 3 == 1) {
-                        im2.setBorderColor(color[2]);
-                        im2.setShadowColor(color[2]);
-                        im2.setShadowRadius(sr);
-                        im2.setBorderWidth(bw);
-
-                    } else if (location % 3 == 2) {
-                        im3.setBorderColor(color[2]);
-                        im3.setShadowColor(color[2]);
-                        im3.setShadowRadius(sr);
-                        im3.setBorderWidth(bw);
-
-                    }
-                    if (cy == 1) {
+                    if (mCy == 1) {
                         if (count_flag == 1)
-                            tts.speak(layer_3_speech[layer_1_id][layer_2_id][sort[location]][3], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[location]][3], TextToSpeech.QUEUE_FLUSH, null);
                         else
-                            tts.speak(layer_3_speech[layer_1_id][layer_2_id][location][3], TextToSpeech.QUEUE_FLUSH, null);
-                        cy = 0;
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][location][3], TextToSpeech.QUEUE_FLUSH, null);
+                        mCy = 0;
                     } else {
                         if (count_flag == 1)
-                            tts.speak(layer_3_speech[layer_1_id][layer_2_id][sort[location]][2], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[location]][2], TextToSpeech.QUEUE_FLUSH, null);
                         else
-                            tts.speak(layer_3_speech[layer_1_id][layer_2_id][location][2], TextToSpeech.QUEUE_FLUSH, null);
-                        cy = 1;
-                    }
-                }
-                    if (session.getGridSize()==1){
-                        if (location % 9 == 0) {
-                            im1.setBorderColor(color[2]);
-                            im1.setShadowColor(color[2]);
-                            im1.setShadowRadius(sr);
-                            im1.setBorderWidth(bw);
-
-                        } else if (location % 9 == 1) {
-                            im2.setBorderColor(color[2]);
-                            im2.setShadowColor(color[2]);
-                            im2.setShadowRadius(sr);
-                            im2.setBorderWidth(bw);
-
-                        } else if (location % 9 == 2) {
-                            im3.setBorderColor(color[2]);
-                            im3.setShadowColor(color[2]);
-                            im3.setShadowRadius(sr);
-                            im3.setBorderWidth(bw);
-
-                        }
-                        if (location % 9 == 3) {
-                            im4.setBorderColor(color[2]);
-                            im4.setShadowColor(color[2]);
-                            im4.setShadowRadius(sr);
-                            im4.setBorderWidth(bw);
-
-                        } else if (location % 9 == 4) {
-                            im5.setBorderColor(color[2]);
-                            im5.setShadowColor(color[2]);
-                            im5.setShadowRadius(sr);
-                            im5.setBorderWidth(bw);
-
-                        } else if (location % 9 == 5) {
-                            im6.setBorderColor(color[2]);
-                            im6.setShadowColor(color[2]);
-                            im6.setShadowRadius(sr);
-                            im6.setBorderWidth(bw);
-
-                        }
-                        if (location % 9 == 6) {
-                            im7.setBorderColor(color[2]);
-                            im7.setShadowColor(color[2]);
-                            im7.setShadowRadius(sr);
-                            im7.setBorderWidth(bw);
-
-                        } else if (location % 9 == 7) {
-                            im8.setBorderColor(color[2]);
-                            im8.setShadowColor(color[2]);
-                            im8.setShadowRadius(sr);
-                            im8.setBorderWidth(bw);
-
-                        } else if (location % 9 == 8) {
-                            im9.setBorderColor(color[2]);
-                            im9.setShadowColor(color[2]);
-                            im9.setShadowRadius(sr);
-                            im9.setBorderWidth(bw);
-
-                        }
-                        if (cy == 1) {
-                            if (count_flag == 1)
-                                tts.speak(layer_3_speech[layer_1_id][layer_2_id][sort[location]][3], TextToSpeech.QUEUE_FLUSH, null);
-                            else
-                                tts.speak(layer_3_speech[layer_1_id][layer_2_id][location][3], TextToSpeech.QUEUE_FLUSH, null);
-                            cy = 0;
-                        } else {
-                            if (count_flag == 1)
-                                tts.speak(layer_3_speech[layer_1_id][layer_2_id][sort[location]][2], TextToSpeech.QUEUE_FLUSH, null);
-                            else
-                                tts.speak(layer_3_speech[layer_1_id][layer_2_id][location][2], TextToSpeech.QUEUE_FLUSH, null);
-                            cy = 1;
-                        }
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][location][2], TextToSpeech.QUEUE_FLUSH, null);
+                        mCy = 1;
                     }
                 }
             }
@@ -2943,132 +650,31 @@ public class Layer3Activity extends AppCompatActivity {
         no.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clike = 0;
-                cy = 0;
-                cm = 0;
-                cd = 0;
-                cl = 0;
+                mCk = mCy = mCm = mCd = mCl = 0;
                 image_flag = 3;
-                like.setImageResource(R.drawable.ilikewithoutoutline);
-                dislike.setImageResource(R.drawable.idontlikewithout);
-                yes.setImageResource(R.drawable.iwantwithout);
-                no.setImageResource(R.drawable.idontwantwithoutline);
-                add.setImageResource(R.drawable.morewithout);
-                minus.setImageResource(R.drawable.lesswithout);
-                if (flag == 0) {
-                    if (cn == 1) {
-                        tts.speak(side[9], TextToSpeech.QUEUE_FLUSH, null);
-                        cn = 0;
+                resetActionButtons(image_flag);
+                if (!mShouldReadFullSpeech) {
+                    if (mCn == 1) {
+                        mTts.speak(side[9], TextToSpeech.QUEUE_FLUSH, null);
+                        mCn = 0;
                     } else {
-                        tts.speak(side[8], TextToSpeech.QUEUE_FLUSH, null);
-                        cn = 1;
+                        mTts.speak(side[8], TextToSpeech.QUEUE_FLUSH, null);
+                        mCn = 1;
                     }
                 } else {
-
-                    if (session.getGridSize()==0){
-                    if (location % 3 == 0) {
-                        im1.setBorderColor(color[3]);
-                        im1.setShadowColor(color[3]);
-                        im1.setShadowRadius(sr);
-                        im1.setBorderWidth(bw);
-
-                    } else if (location % 3 == 1) {
-                        im2.setBorderColor(color[3]);
-                        im2.setShadowColor(color[3]);
-                        im2.setShadowRadius(sr);
-                        im2.setBorderWidth(bw);
-
-                    } else if (location % 3 == 2) {
-                        im3.setBorderColor(color[3]);
-                        im3.setShadowColor(color[3]);
-                        im3.setShadowRadius(sr);
-                        im3.setBorderWidth(bw);
-
-                    }
-                    if (cn == 1) {
-                        if (count_flag == 1)
-                            tts.speak(layer_3_speech[layer_1_id][layer_2_id][sort[location]][9], TextToSpeech.QUEUE_FLUSH, null);
-                        else
-                            tts.speak(layer_3_speech[layer_1_id][layer_2_id][location][9], TextToSpeech.QUEUE_FLUSH, null);
-                        cn = 0;
-                    } else {
-                        if (count_flag == 1)
-                            tts.speak(layer_3_speech[layer_1_id][layer_2_id][sort[location]][8], TextToSpeech.QUEUE_FLUSH, null);
-                        else
-                            tts.speak(layer_3_speech[layer_1_id][layer_2_id][location][8], TextToSpeech.QUEUE_FLUSH, null);
-                        cn = 1;
-                    }
-                }
-                    if (session.getGridSize()==1){
-                        if (location % 3 == 0) {
-                            im1.setBorderColor(color[3]);
-                            im1.setShadowColor(color[3]);
-                            im1.setShadowRadius(sr);
-                            im1.setBorderWidth(bw);
-
-                        } else if (location % 3 == 1) {
-                            im2.setBorderColor(color[3]);
-                            im2.setShadowColor(color[3]);
-                            im2.setShadowRadius(sr);
-                            im2.setBorderWidth(bw);
-
-                        } else if (location % 3 == 2) {
-                            im3.setBorderColor(color[3]);
-                            im3.setShadowColor(color[3]);
-                            im3.setShadowRadius(sr);
-                            im3.setBorderWidth(bw);
-
-                        }
-                        if (location % 9 == 3) {
-                            im4.setBorderColor(color[3]);
-                            im4.setShadowColor(color[3]);
-                            im4.setShadowRadius(sr);
-                            im4.setBorderWidth(bw);
-
-                        } else if (location % 9 == 4) {
-                            im5.setBorderColor(color[3]);
-                            im5.setShadowColor(color[3]);
-                            im5.setShadowRadius(sr);
-                            im5.setBorderWidth(bw);
-
-                        } else if (location % 9 == 5) {
-                            im6.setBorderColor(color[3]);
-                            im6.setShadowColor(color[3]);
-                            im6.setShadowRadius(sr);
-                            im6.setBorderWidth(bw);
-
-                        }
-                        if (location % 9 == 6) {
-                            im7.setBorderColor(color[3]);
-                            im7.setShadowColor(color[3]);
-                            im7.setShadowRadius(sr);
-                            im7.setBorderWidth(bw);
-
-                        } else if (location % 9 == 7) {
-                            im8.setBorderColor(color[3]);
-                            im8.setShadowColor(color[3]);
-                            im8.setShadowRadius(sr);
-                            im8.setBorderWidth(bw);
-
-                        } else if (location % 9 == 8) {
-                            im9.setBorderColor(color[3]);
-                            im9.setShadowColor(color[3]);
-                            im9.setShadowRadius(sr);
-                            im9.setBorderWidth(bw);
-
-                        }
-                        if (cn == 1) {
+                    if (mSession.getGridSize() == 0) {
+                        if (mCn == 1) {
                             if (count_flag == 1)
-                                tts.speak(layer_3_speech[layer_1_id][layer_2_id][sort[location]][9], TextToSpeech.QUEUE_FLUSH, null);
+                                mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[location]][9], TextToSpeech.QUEUE_FLUSH, null);
                             else
-                                tts.speak(layer_3_speech[layer_1_id][layer_2_id][location][9], TextToSpeech.QUEUE_FLUSH, null);
-                            cn = 0;
+                                mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][location][9], TextToSpeech.QUEUE_FLUSH, null);
+                            mCn = 0;
                         } else {
                             if (count_flag == 1)
-                                tts.speak(layer_3_speech[layer_1_id][layer_2_id][sort[location]][8], TextToSpeech.QUEUE_FLUSH, null);
+                                mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[location]][8], TextToSpeech.QUEUE_FLUSH, null);
                             else
-                                tts.speak(layer_3_speech[layer_1_id][layer_2_id][location][8], TextToSpeech.QUEUE_FLUSH, null);
-                            cn = 1;
+                                mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][location][8], TextToSpeech.QUEUE_FLUSH, null);
+                            mCn = 1;
                         }
                     }
                 }
@@ -3078,132 +684,30 @@ public class Layer3Activity extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clike = 0;
-                cy = 0;
-                cd = 0;
-                cn = 0;
-                cl = 0;
+                mCk = mCy = mCd = mCn = mCl = 0;
                 image_flag = 4;
-                like.setImageResource(R.drawable.ilikewithoutoutline);
-                dislike.setImageResource(R.drawable.idontlikewithout);
-                yes.setImageResource(R.drawable.iwantwithout);
-                no.setImageResource(R.drawable.idontwantwithout);
-                add.setImageResource(R.drawable.morewithoutline);
-                minus.setImageResource(R.drawable.lesswithout);
-                if (flag == 0) {
-                    if (cm == 1) {
-                        tts.speak(side[5], TextToSpeech.QUEUE_FLUSH, null);
-                        cm = 0;
+                resetActionButtons(image_flag);
+                if (!mShouldReadFullSpeech) {
+                    if (mCm == 1) {
+                        mTts.speak(side[5], TextToSpeech.QUEUE_FLUSH, null);
+                        mCm = 0;
                     } else {
-                        tts.speak(side[4], TextToSpeech.QUEUE_FLUSH, null);
-                        cm = 1;
+                        mTts.speak(side[4], TextToSpeech.QUEUE_FLUSH, null);
+                        mCm = 1;
                     }
                 } else {
-                    if (session.getGridSize()==0){
-                    if (location % 3 == 0) {
-                        im1.setBorderColor(color[4]);
-                        im1.setShadowColor(color[4]);
-                        im1.setShadowRadius(sr);
-                        im1.setBorderWidth(bw);
-
-                    } else if (location % 3 == 1) {
-                        im2.setBorderColor(color[4]);
-                        im2.setShadowColor(color[4]);
-                        im2.setShadowRadius(sr);
-                        im2.setBorderWidth(bw);
-
-                    } else if (location % 3 == 2) {
-                        im3.setBorderColor(color[4]);
-                        im3.setShadowColor(color[4]);
-                        im3.setShadowRadius(sr);
-                        im3.setBorderWidth(bw);
-
-                    }
-                    if (cm == 1) {
+                    if (mCm == 1) {
                         if (count_flag == 1)
-                            tts.speak(layer_3_speech[layer_1_id][layer_2_id][sort[location]][5], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[location]][5], TextToSpeech.QUEUE_FLUSH, null);
                         else
-                            tts.speak(layer_3_speech[layer_1_id][layer_2_id][location][5], TextToSpeech.QUEUE_FLUSH, null);
-                        cm = 0;
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][location][5], TextToSpeech.QUEUE_FLUSH, null);
+                        mCm = 0;
                     } else {
                         if (count_flag == 1)
-                            tts.speak(layer_3_speech[layer_1_id][layer_2_id][sort[location]][4], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[location]][4], TextToSpeech.QUEUE_FLUSH, null);
                         else
-                            tts.speak(layer_3_speech[layer_1_id][layer_2_id][location][4], TextToSpeech.QUEUE_FLUSH, null);
-                        cm = 1;
-                    }
-                }
-                    if (session.getGridSize()==1){
-                        if (location % 9 == 0) {
-                            im1.setBorderColor(color[4]);
-                            im1.setShadowColor(color[4]);
-                            im1.setShadowRadius(sr);
-                            im1.setBorderWidth(bw);
-
-                        } else if (location % 9 == 1) {
-                            im2.setBorderColor(color[4]);
-                            im2.setShadowColor(color[4]);
-                            im2.setShadowRadius(sr);
-                            im2.setBorderWidth(bw);
-
-                        } else if (location % 9 == 2) {
-                            im3.setBorderColor(color[4]);
-                            im3.setShadowColor(color[4]);
-                            im3.setShadowRadius(sr);
-                            im3.setBorderWidth(bw);
-
-                        }
-                        if (location % 9 == 3) {
-                            im4.setBorderColor(color[4]);
-                            im4.setShadowColor(color[4]);
-                            im4.setShadowRadius(sr);
-                            im4.setBorderWidth(bw);
-
-                        } else if (location % 9 == 4) {
-                            im5.setBorderColor(color[4]);
-                            im5.setShadowColor(color[4]);
-                            im5.setShadowRadius(sr);
-                            im5.setBorderWidth(bw);
-
-                        } else if (location % 9 == 5) {
-                            im6.setBorderColor(color[4]);
-                            im6.setShadowColor(color[4]);
-                            im6.setShadowRadius(sr);
-                            im6.setBorderWidth(bw);
-
-                        }
-                        if (location % 9 == 6) {
-                            im7.setBorderColor(color[4]);
-                            im7.setShadowColor(color[4]);
-                            im7.setShadowRadius(sr);
-                            im7.setBorderWidth(bw);
-
-                        } else if (location % 9 == 7) {
-                            im8.setBorderColor(color[4]);
-                            im8.setShadowColor(color[4]);
-                            im8.setShadowRadius(sr);
-                            im8.setBorderWidth(bw);
-
-                        } else if (location % 9 == 8) {
-                            im9.setBorderColor(color[4]);
-                            im9.setShadowColor(color[4]);
-                            im9.setShadowRadius(sr);
-                            im9.setBorderWidth(bw);
-
-                        }
-                        if (cm == 1) {
-                            if (count_flag == 1)
-                                tts.speak(layer_3_speech[layer_1_id][layer_2_id][sort[location]][5], TextToSpeech.QUEUE_FLUSH, null);
-                            else
-                                tts.speak(layer_3_speech[layer_1_id][layer_2_id][location][5], TextToSpeech.QUEUE_FLUSH, null);
-                            cm = 0;
-                        } else {
-                            if (count_flag == 1)
-                                tts.speak(layer_3_speech[layer_1_id][layer_2_id][sort[location]][4], TextToSpeech.QUEUE_FLUSH, null);
-                            else
-                                tts.speak(layer_3_speech[layer_1_id][layer_2_id][location][4], TextToSpeech.QUEUE_FLUSH, null);
-                            cm = 1;
-                        }
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][location][4], TextToSpeech.QUEUE_FLUSH, null);
+                        mCm = 1;
                     }
                 }
             }
@@ -3212,169 +716,110 @@ public class Layer3Activity extends AppCompatActivity {
         minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clike = 0;
-                cy = 0;
-                cm = 0;
-                cd = 0;
-                cn = 0;
+                mCk = mCy = mCm = mCd = mCn = 0;
                 image_flag = 5;
-                like.setImageResource(R.drawable.ilikewithoutoutline);
-                dislike.setImageResource(R.drawable.idontlikewithout);
-                yes.setImageResource(R.drawable.iwantwithout);
-                no.setImageResource(R.drawable.idontwantwithout);
-                add.setImageResource(R.drawable.morewithout);
-                minus.setImageResource(R.drawable.lesswithoutline);
-
-                if (flag == 0) {
-                    if (cl == 1) {
-                        tts.speak(side[11], TextToSpeech.QUEUE_FLUSH, null);
-                        cl = 0;
+                resetActionButtons(image_flag);
+                if (!mShouldReadFullSpeech) {
+                    if (mCl == 1) {
+                        mTts.speak(side[11], TextToSpeech.QUEUE_FLUSH, null);
+                        mCl = 0;
                     } else {
-                        tts.speak(side[10], TextToSpeech.QUEUE_FLUSH, null);
-                        cl = 1;
+                        mTts.speak(side[10], TextToSpeech.QUEUE_FLUSH, null);
+                        mCl = 1;
                     }
                 } else {
-                    if (session.getGridSize()==0){
-                    if (location % 3 == 0) {
-                        im1.setBorderColor(color[5]);
-                        im1.setShadowColor(color[5]);
-                        im1.setShadowRadius(sr);
-                        im1.setBorderWidth(bw);
-
-                    } else if (location % 3 == 1) {
-                        im2.setBorderColor(color[5]);
-                        im2.setShadowColor(color[5]);
-                        im2.setShadowRadius(sr);
-                        im2.setBorderWidth(bw);
-
-                    } else if (location % 3 == 2) {
-                        im3.setBorderColor(color[5]);
-                        im3.setShadowColor(color[5]);
-                        im3.setShadowRadius(sr);
-                        im3.setBorderWidth(bw);
-
-                    }
-                    if (cl == 1) {
+                    if (mCl == 1) {
                         if (count_flag == 1)
-                            tts.speak(layer_3_speech[layer_1_id][layer_2_id][sort[location]][11], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[location]][11], TextToSpeech.QUEUE_FLUSH, null);
                         else
-                            tts.speak(layer_3_speech[layer_1_id][layer_2_id][location][11], TextToSpeech.QUEUE_FLUSH, null);
-                        cl = 0;
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][location][11], TextToSpeech.QUEUE_FLUSH, null);
+                        mCl = 0;
                     } else {
                         if (count_flag == 1)
-                            tts.speak(layer_3_speech[layer_1_id][layer_2_id][sort[location]][10], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[location]][10], TextToSpeech.QUEUE_FLUSH, null);
                         else
-                            tts.speak(layer_3_speech[layer_1_id][layer_2_id][location][10], TextToSpeech.QUEUE_FLUSH, null);
-                        cl = 1;
-                    }
-                }
-                    if (session.getGridSize()==1){
-                        if (location % 9 == 0) {
-                            im1.setBorderColor(color[5]);
-                            im1.setShadowColor(color[5]);
-                            im1.setShadowRadius(sr);
-                            im1.setBorderWidth(bw);
-
-                        } else if (location % 9 == 1) {
-                            im2.setBorderColor(color[5]);
-                            im2.setShadowColor(color[5]);
-                            im2.setShadowRadius(sr);
-                            im2.setBorderWidth(bw);
-
-                        } else if (location % 9 == 2) {
-                            im3.setBorderColor(color[5]);
-                            im3.setShadowColor(color[5]);
-                            im3.setShadowRadius(sr);
-                            im3.setBorderWidth(bw);
-
-                        }
-                        if (location % 9 == 3) {
-                            im4.setBorderColor(color[5]);
-                            im4.setShadowColor(color[5]);
-                            im4.setShadowRadius(sr);
-                            im4.setBorderWidth(bw);
-
-                        } else if (location % 9 == 4) {
-                            im5.setBorderColor(color[5]);
-                            im5.setShadowColor(color[5]);
-                            im5.setShadowRadius(sr);
-                            im5.setBorderWidth(bw);
-
-                        } else if (location % 9 == 5) {
-                            im6.setBorderColor(color[5]);
-                            im6.setShadowColor(color[5]);
-                            im6.setShadowRadius(sr);
-                            im6.setBorderWidth(bw);
-
-                        }
-                        if (location % 9 == 6) {
-                            im7.setBorderColor(color[5]);
-                            im7.setShadowColor(color[5]);
-                            im7.setShadowRadius(sr);
-                            im7.setBorderWidth(bw);
-
-                        } else if (location % 9 == 7) {
-                            im8.setBorderColor(color[5]);
-                            im8.setShadowColor(color[5]);
-                            im8.setShadowRadius(sr);
-                            im8.setBorderWidth(bw);
-
-                        } else if (location % 9 == 8) {
-                            im9.setBorderColor(color[5]);
-                            im9.setShadowColor(color[5]);
-                            im9.setShadowRadius(sr);
-                            im9.setBorderWidth(bw);
-
-                        }
-                        if (cl == 1) {
-                            if (count_flag == 1)
-                                tts.speak(layer_3_speech[layer_1_id][layer_2_id][sort[location]][11], TextToSpeech.QUEUE_FLUSH, null);
-                            else
-                                tts.speak(layer_3_speech[layer_1_id][layer_2_id][location][11], TextToSpeech.QUEUE_FLUSH, null);
-                            cl = 0;
-                        } else {
-                            if (count_flag == 1)
-                                tts.speak(layer_3_speech[layer_1_id][layer_2_id][sort[location]][10], TextToSpeech.QUEUE_FLUSH, null);
-                            else
-                                tts.speak(layer_3_speech[layer_1_id][layer_2_id][location][10], TextToSpeech.QUEUE_FLUSH, null);
-                            cl = 1;
-                        }
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][location][10], TextToSpeech.QUEUE_FLUSH, null);
+                        mCl = 1;
                     }
                 }
             }
         });
-    } private class LongOperation extends AsyncTask<String, Void, String> {
+    }
 
+    private void incrementTouchCountOfItem(int levelThreeItemPos) {
+        if (count_flag == 1) {
+            count[sort[levelThreeItemPos]] = count[sort[levelThreeItemPos]] + 1;
+            StringBuilder str = new StringBuilder();
+            for (Integer count : Layer3Activity.count) str.append(count).append(",");
+            myDbHelper.setlevel(mLevelOneItemPos, mLevelTwoItemPos, str.toString());
+        }
+    }
+
+    private void resetRecyclerAllItems() {
+        for(int i = 0; i< mRecyclerView.getChildCount(); ++i){
+            setMenuImageBorder(mRecyclerView.getChildAt(i), false);
+        }
+    }
+
+    private void setMenuImageBorder(View recyclerChildView, boolean setBorder) {
+        CircularImageView circularImageView = (CircularImageView) recyclerChildView.findViewById(R.id.icon1);
+        String strSrBw = new SessionManager(this).getShadowRadiusAndBorderWidth();
+        int sr, bw;
+        sr = Integer.valueOf(strSrBw.split(",")[0]);
+        bw = Integer.valueOf(strSrBw.split(",")[1]);
+        if (setBorder){
+            if(mActionBtnClickCount > 0)
+                circularImageView.setBorderColor(mColor[image_flag]);
+            else {
+                circularImageView.setBorderColor(-1283893945);
+                circularImageView.setShadowColor(-1283893945);
+            }
+            circularImageView.setShadowRadius(sr);
+            circularImageView.setBorderWidth(bw);
+        }else {
+            circularImageView.setBorderColor(-1);
+            circularImageView.setShadowColor(0);
+            circularImageView.setShadowRadius(sr);
+            circularImageView.setBorderWidth(0);
+        }
+    }
+
+    private void resetActionButtons(int image_flag) {
+        like.setImageResource(R.drawable.ilikewithoutoutline);
+        dislike.setImageResource(R.drawable.idontlikewithout);
+        yes.setImageResource(R.drawable.iwantwithout);
+        no.setImageResource(R.drawable.idontwantwithout);
+        add.setImageResource(R.drawable.morewithout);
+        minus.setImageResource(R.drawable.lesswithout);
+        home.setImageResource(R.drawable.home);
+        switch (image_flag){
+            case 0: like.setImageResource(R.drawable.ilikewithoutline); break;
+            case 1: dislike.setImageResource(R.drawable.idontlikewithoutline); break;
+            case 2: yes.setImageResource(R.drawable.iwantwithoutline); break;
+            case 3: no.setImageResource(R.drawable.idontwantwithoutline); break;
+            case 4: add.setImageResource(R.drawable.morewithoutline); break;
+            case 5: minus.setImageResource(R.drawable.lesswithoutline); break;
+            case 6: home.setImageResource(R.drawable.homepressed); break;
+            default: break;
+        }
+    }
+
+    private class LongOperation extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
-
             try {
-
-                if (session.getLanguage() == 0 ) {
-                    tts.setLanguage(new Locale("hin", "IND"));
+                if (mSession.getLanguage() == LANG_ENG ) {
+                    mTts.setLanguage(new Locale("eng", "IND"));
                 }
-                if (session.getLanguage() == 1) {
-                    tts.setLanguage(new Locale("hin", "IND"));
+                if (mSession.getLanguage() == LANG_HINDI) {
+                    mTts.setLanguage(new Locale("hin", "IND"));
                 }
             } catch (Exception e) {
                 Thread.interrupted();
             }
-
             return "Executed";
         }
-
-        @Override
-        protected void onPostExecute(String result) {
-
-        }
-
-        @Override
-        protected void onPreExecute() {}
-
-        @Override
-        protected void onProgressUpdate(Void... values) {}
     }
-
 
     @Override
     protected void onPause() {
@@ -3515,115 +960,147 @@ public class Layer3Activity extends AppCompatActivity {
             }
         }
     }
+
     public class IndexSorter<T extends Comparable<T>> implements Comparator<Integer> {
-
-
-
         private final T[] values;
-
-
-
         private final Integer[] indexes;
 
         /**
-
          * Constructs a new IndexSorter based upon the parameter array.
-
          * @param d
-
          */
-
         public IndexSorter(T[] d){
-
             this.values = d;
-
             indexes = new Integer[this.values.length];
-
-            for ( int i = 0; i < indexes.length; i++ ){
-
+            for ( int i = 0; i < indexes.length; i++ )
                 indexes[i] = i;
-
-            }
-
         }
 
         /**
-
          * Constructs a new IndexSorter based upon the parameter List.
-
          * @param d
-
          */
-
         public IndexSorter(List<T> d){
-
             this.values = (T[])d.toArray();
-
-            for ( int i = 0; i < values.length; i++ ){
-
+            for ( int i = 0; i < values.length; i++ )
                 values[i] = d.get(i);
-
-            }
-
             indexes = new Integer[this.values.length];
-
-            for ( int i = 0; i < indexes.length; i++ ){
-
+            for ( int i = 0; i < indexes.length; i++ )
                 indexes[i] = i;
-
-            }
-
         }
 
         /**
-
          * Sorts the underlying index array based upon the values provided in the constructor. The underlying value array is not sorted.
-
          */
-
         public void sort(){
-
             Arrays.sort(indexes, this);
-
         }
 
         /**
-
          * Retrieves the indexes of the array. The returned array is sorted if this object has been sorted.
-
          * @return The array of indexes.
-
          */
-
         public Integer[] getIndexes(){
-
             return indexes;
-
         }
 
         /**
-
          * Compares the two values at index arg0 and arg0
-
          * @param arg0 The first index
-
          * @param arg1 The second index
-
          * @return The result of calling compareTo on T objects at position arg0 and arg1
-
          */
+        @Override
+        public int compare(Integer arg0, Integer arg1) {
+            T d1 = values[arg0];
+            T d2 = values[arg1];
+            return d2.compareTo(d1);
+        }
+    }
+
+    public class ArrayIndexComparator implements Comparator<Integer> {
+        private final Integer[] array;
+
+        public ArrayIndexComparator(Integer[] array) {
+            this.array = array;
+        }
+
+        public Integer[] createIndexArray() {
+            Integer[] indexes = new Integer[array.length];
+            for (int i = 0; i < array.length; i++) {
+                indexes[i] = i; // Autoboxing
+            }
+            return indexes;
+        }
 
         @Override
-
-        public int compare(Integer arg0, Integer arg1) {
-
-            T d1 = values[arg0];
-
-            T d2 = values[arg1];
-
-            return d2.compareTo(d1);
-
+        public int compare(Integer index1, Integer index2) {
+            // Autounbox from Integer to int to use as array indexes
+            return array[index2].compareTo(array[index1]);
         }
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        if (mSession.getLanguage()== LANG_HINDI){
+            MenuInflater blowUp = getMenuInflater();
+            blowUp.inflate(R.menu.menu_main, menu);
+        }
+        if (mSession.getLanguage()== LANG_ENG) {
+            MenuInflater blowUp = getMenuInflater();
+            blowUp.inflate(R.menu.menu_1, menu);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.settings:
+                Intent intent = new Intent(Layer3Activity.this, Setting.class);
+                startActivity(intent);
+                break;
+            case R.id.info:
+                Intent i = new Intent(Layer3Activity.this, About_Jellow.class);
+                startActivity(i);
+                break;
+            case R.id.profile:
+                Intent intent1 = new Intent(Layer3Activity.this, Profile_form.class);
+                startActivity(intent1);
+                break;
+            case R.id.feedback:
+                Intent intent2 = new Intent(Layer3Activity.this, Feedback.class);
+                startActivity(intent2);
+                break;
+            case R.id.usage:
+                Intent intent3 = new Intent(Layer3Activity.this, Tutorial.class);
+                startActivity(intent3);
+                break;
+            case R.id.reset:
+                Intent intent4 = new Intent(Layer3Activity.this, Reset__preferences.class);
+                startActivity(intent4);
+                break;
+            case R.id.keyboardinput:
+                Intent intent6 = new Intent(Layer3Activity.this, Keyboard_Input.class);
+                startActivity(intent6);
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent i = new Intent(Layer3Activity.this, MainActivity.class);
+            startActivity(i);
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     String[][][][] layer_3_speech = {{{{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}},
@@ -10719,94 +8196,6 @@ public class Layer3Activity extends AppCompatActivity {
             "I don’t want to have more fun on my teacher’s birthday",
             "I really don’t want to have any more fun on my teacher’s birthday"
     }}}, {{{}}}};
-
-    public class ArrayIndexComparator implements Comparator<Integer> {
-        private final Integer[] array;
-
-        public ArrayIndexComparator(Integer[] array) {
-            this.array = array;
-        }
-
-        public Integer[] createIndexArray() {
-            Integer[] indexes = new Integer[array.length];
-
-            for (int i = 0; i < array.length; i++) {
-                indexes[i] = i; // Autoboxing
-            }
-            return indexes;
-        }
-
-        @Override
-        public int compare(Integer index1, Integer index2) {
-            // Autounbox from Integer to int to use as array indexes
-
-            System.out.println("index1 " + index1);
-            System.out.println("index2 " + index2);
-            return array[index2].compareTo(array[index1]);
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        if (session.getLanguage()==1){
-            MenuInflater blowUp = getMenuInflater();
-            blowUp.inflate(R.menu.menu_main, menu);
-        }
-        if (session.getLanguage()==0) {
-            MenuInflater blowUp = getMenuInflater();
-            blowUp.inflate(R.menu.menu_1, menu);
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.settings:
-                Intent intent = new Intent(Layer3Activity.this, Setting.class);
-                startActivity(intent);
-                break;
-            case R.id.info:
-                Intent i = new Intent(Layer3Activity.this, About_Jellow.class);
-                startActivity(i);
-                break;
-            case R.id.profile:
-                Intent intent1 = new Intent(Layer3Activity.this, Profile_form.class);
-                startActivity(intent1);
-                break;
-            case R.id.feedback:
-                Intent intent2 = new Intent(Layer3Activity.this, Feedback.class);
-                startActivity(intent2);
-                break;
-            case R.id.usage:
-                Intent intent3 = new Intent(Layer3Activity.this, Tutorial.class);
-                startActivity(intent3);
-                break;
-            case R.id.reset:
-                Intent intent4 = new Intent(Layer3Activity.this, Reset__preferences.class);
-                startActivity(intent4);
-                break;
-            case R.id.keyboardinput:
-                Intent intent6 = new Intent(Layer3Activity.this, Keyboard_Input.class);
-                startActivity(intent6);
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return true;
-    }
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Intent i = new Intent(Layer3Activity.this, MainActivity.class);
-            startActivity(i);
-            finish();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
 }
-
 
 

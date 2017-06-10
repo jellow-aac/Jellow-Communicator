@@ -260,7 +260,7 @@ public class Layer_3_Hindi_Activity extends AppCompatActivity {
         back = (ImageView) findViewById(R.id.ivback);
         back.setAlpha(1f);
         Intent i = getIntent();
-        layer_1_id = i.getExtras().getInt("layer_1_id");
+        layer_1_id = i.getExtras().getInt("mLevelOneItemPos");
         layer_2_id = i.getExtras().getInt("layer_2_id");
 
         keyboard = (ImageView) findViewById(R.id.keyboard);

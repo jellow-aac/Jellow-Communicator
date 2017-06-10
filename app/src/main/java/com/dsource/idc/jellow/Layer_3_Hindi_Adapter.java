@@ -19,7 +19,7 @@ import java.util.Arrays;
 
 public class Layer_3_Hindi_Adapter extends android.support.v7.widget.RecyclerView.Adapter<Layer_3_Hindi_Adapter.MyViewHolder> {
     private Context mContext;
-    //private int layer_1_id, layer_2_id;
+    //private int mLevelOneItemPos, layer_2_id;
     public static Integer[] mThumbIds = new Integer[100];
     public static String[] belowText = new String[100];
 
@@ -499,7 +499,7 @@ public class Layer_3_Hindi_Adapter extends android.support.v7.widget.RecyclerVie
     public Layer_3_Hindi_Adapter(Context c, int layer_1_id, int layer_2_id,int sort[]) {
         mContext = c;
         session = new SessionManager(mContext);
-        /*this.layer_1_id = layer_1_id;
+        /*this.mLevelOneItemPos = mLevelOneItemPos;
         this.layer_2_id = layer_2_id;*/
 
         if (layer_1_id == 0) {

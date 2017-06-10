@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.dsource.idc.jellow.Utility.AppPreferences;
 import com.dsource.idc.jellow.Utility.EvaluateDisplayMetricsUtils;
 
 /**
@@ -24,18 +23,15 @@ public class Adapter_ppl_places extends android.support.v7.widget.RecyclerView.A
 
     private Context mContext;
     private SessionManager mSession;
-    private AppPreferences mAppPref;
     private EvaluateDisplayMetricsUtils mMetricsUtils;
 
-    private int mLevelTwoItemPos;
+
     public static Integer[] mThumbIds = new Integer[100];
     public static String[] belowText = new String[100];
 
-    public Adapter_ppl_places(Context context, int levelTwoItemPos,  String[] temp, Integer[] image_temp) {
+    public Adapter_ppl_places(Context context, String[] temp, Integer[] image_temp) {
         this.mContext = context;
-        this.mLevelTwoItemPos = levelTwoItemPos;
         this.mSession = new SessionManager(mContext);
-        this.mAppPref = new AppPreferences(mContext);
         this.mMetricsUtils = new EvaluateDisplayMetricsUtils(mContext);
 
         mThumbIds = image_temp;
@@ -70,12 +66,12 @@ public class Adapter_ppl_places extends android.support.v7.widget.RecyclerView.A
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         if (mSession.getGridSize() == GRID_1BY3) {
-            if (mAppPref.getScreenHeight() >= 720) {
+            if (mSession.getScreenHeight() >= 720) {
                 params.setMargins(mMetricsUtils.getPixelsFromDpVal(36), mMetricsUtils.getPixelsFromDpVal(180), 0, mMetricsUtils.getPixelsFromDpVal(180));
                 holder.menuItemBelowText.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                 if(mSession.getLanguage() == LANG_HINDI) holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);
                 else    holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-            }else if (mAppPref.getScreenWidth() > 640 && mAppPref.getScreenWidth() <= 1024) {
+            }else if (mSession.getScreenWidth() > 640 && mSession.getScreenWidth() <= 1024) {
                 params.setMargins(mMetricsUtils.getPixelsFromDpVal(20), mMetricsUtils.getPixelsFromDpVal(124), 0, mMetricsUtils.getPixelsFromDpVal(124));
                 holder.menuItemBelowText.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                 if(mSession.getLanguage() == LANG_HINDI) holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
@@ -85,7 +81,7 @@ public class Adapter_ppl_places extends android.support.v7.widget.RecyclerView.A
                 holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
             }
         }else if(mSession.getGridSize() == GRID_3BY3){
-            if (mAppPref.getScreenHeight() >= 720) {
+            if (mSession.getScreenHeight() >= 720) {
                 holder.menuItemImage.setLayoutParams(new LinearLayout.LayoutParams(mMetricsUtils.getPixelsFromDpVal(124), mMetricsUtils.getPixelsFromDpVal(124)));
                 if(mSession.getLanguage() == LANG_HINDI) {
                     holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
@@ -93,7 +89,7 @@ public class Adapter_ppl_places extends android.support.v7.widget.RecyclerView.A
                 }else{
                     params.setMargins(mMetricsUtils.getPixelsFromDpVal(36), mMetricsUtils.getPixelsFromDpVal(16), 0, mMetricsUtils.getPixelsFromDpVal(-7));
                 }
-            }else if (mAppPref.getScreenWidth() > 640 && mAppPref.getScreenWidth() <= 1024) {
+            }else if (mSession.getScreenWidth() > 640 && mSession.getScreenWidth() <= 1024) {
                 holder.menuItemImage.setLayoutParams(new LinearLayout.LayoutParams(mMetricsUtils.getPixelsFromDpVal(86), mMetricsUtils.getPixelsFromDpVal(86)));
                 if(mSession.getLanguage() == LANG_HINDI) {
                     holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);

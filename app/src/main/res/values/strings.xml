@@ -59,6 +59,5 @@
     <string name="people_pref_count_eng">people_count</string>
     <string name="people_pref_count_hindi">people_count_hindi</string>
     <string name="places_pref_count_eng" >places_count</string>
-    <string name="places_pref_count_hindi" >com.dsource.idc.jellow.places_pref_count_hindi</string>
 
 </resources>

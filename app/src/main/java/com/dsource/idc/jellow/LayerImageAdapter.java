@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.dsource.idc.jellow.Utility.AppPreferences;
 import com.dsource.idc.jellow.Utility.EvaluateDisplayMetricsUtils;
 
 /**
@@ -21,12 +20,10 @@ public class LayerImageAdapter extends android.support.v7.widget.RecyclerView.Ad
     private static final int LANG_ENG = 0, LANG_HINDI = 1, GRID_1BY3 = 0, GRID_3BY3 = 1, MODE_PICTURE_ONLY = 1;
     private Context mContext;
     private SessionManager mSession;
-    private AppPreferences mAppPref;
     private EvaluateDisplayMetricsUtils mMetricsUtils;
 
-    private int mLevelTwoItemPos;
-    private static Integer[] mThumbIds = new Integer[100];
-    private static String[] belowText = new String[100];
+    private Integer[] mThumbIds = new Integer[100];
+    private String[] belowText = new String[100];
 
     // Keep all Images in array
     private final Integer[] learning = {
@@ -118,12 +115,10 @@ public class LayerImageAdapter extends android.support.v7.widget.RecyclerView.Ad
 
     public LayerImageAdapter(Context context, int levelTwoItemPos){
         this.mContext = context;
-        this.mLevelTwoItemPos = levelTwoItemPos;
         this.mSession = new SessionManager(mContext);
-        this.mAppPref = new AppPreferences(mContext);
         this.mMetricsUtils = new EvaluateDisplayMetricsUtils(mContext);
 
-        if (mLevelTwoItemPos == 0){
+        if (levelTwoItemPos == 0){
             if (mSession.getLanguage() == LANG_ENG){
                 mThumbIds = greet_feel;
                 belowText = greet_text;
@@ -131,7 +126,7 @@ public class LayerImageAdapter extends android.support.v7.widget.RecyclerView.Ad
                 mThumbIds = greet_feel;
                 belowText = greet_text_hindi;
             }
-        } else if (mLevelTwoItemPos == 1) {
+        } else if (levelTwoItemPos == 1) {
             if (mSession.getLanguage() == LANG_ENG){
                 mThumbIds = daily_activities;
                 belowText = daily_text;
@@ -139,7 +134,7 @@ public class LayerImageAdapter extends android.support.v7.widget.RecyclerView.Ad
                 mThumbIds = daily_activities;
                 belowText = daily_text_hindi;
             }
-        } else if (mLevelTwoItemPos == 2) {
+        } else if (levelTwoItemPos == 2) {
             if (mSession.getLanguage() == LANG_ENG) {
                 mThumbIds = eating;
                 belowText = eat_text;
@@ -147,7 +142,7 @@ public class LayerImageAdapter extends android.support.v7.widget.RecyclerView.Ad
                 mThumbIds = eating;
                 belowText = eat_text_hindi;
             }
-        } else if (mLevelTwoItemPos == 3) {
+        } else if (levelTwoItemPos == 3) {
             if (mSession.getLanguage() == LANG_ENG) {
                 mThumbIds = fun;
                 belowText = fun_text;
@@ -155,7 +150,7 @@ public class LayerImageAdapter extends android.support.v7.widget.RecyclerView.Ad
                 mThumbIds = fun;
                 belowText = fun_text_hindi;
             }
-        } else if (mLevelTwoItemPos == 4) {
+        } else if (levelTwoItemPos == 4) {
             if (mSession.getLanguage() == LANG_ENG) {
                 mThumbIds = learning;
                 belowText = learning_text;
@@ -164,7 +159,7 @@ public class LayerImageAdapter extends android.support.v7.widget.RecyclerView.Ad
                 belowText = learning_text_hindi;
             }
         }
-        else if (mLevelTwoItemPos == 7) {
+        else if (levelTwoItemPos == 7) {
             if (mSession.getLanguage() == LANG_ENG)
                 mThumbIds = time_weather;
             else
@@ -173,7 +168,7 @@ public class LayerImageAdapter extends android.support.v7.widget.RecyclerView.Ad
                 belowText = time_weather_text;
             else
                 belowText = time_weather_text_hindi;
-        } else if (mLevelTwoItemPos == 8) {
+        } else if (levelTwoItemPos == 8) {
                 mThumbIds = help;
             if (mSession.getLanguage() == LANG_ENG)
                 belowText = help_text;
@@ -208,12 +203,12 @@ public class LayerImageAdapter extends android.support.v7.widget.RecyclerView.Ad
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         if (mSession.getGridSize() == GRID_1BY3) {
-            if (mAppPref.getScreenHeight() >= 720) {
+            if (mSession.getScreenHeight() >= 720) {
                 params.setMargins(mMetricsUtils.getPixelsFromDpVal(36), mMetricsUtils.getPixelsFromDpVal(180), 0, mMetricsUtils.getPixelsFromDpVal(180));
                 holder.menuItemBelowText.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                 if(mSession.getLanguage() == LANG_HINDI) holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);
                 else    holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-            }else if (mAppPref.getScreenWidth() > 640 && mAppPref.getScreenWidth() <= 1024) {
+            }else if (mSession.getScreenWidth() > 640 && mSession.getScreenWidth() <= 1024) {
                 params.setMargins(mMetricsUtils.getPixelsFromDpVal(20), mMetricsUtils.getPixelsFromDpVal(124), 0, mMetricsUtils.getPixelsFromDpVal(124));
                 holder.menuItemBelowText.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                 if(mSession.getLanguage() == LANG_HINDI) holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
@@ -223,7 +218,7 @@ public class LayerImageAdapter extends android.support.v7.widget.RecyclerView.Ad
                 holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
             }
         }else if(mSession.getGridSize() == GRID_3BY3){
-            if (mAppPref.getScreenHeight() >= 720) {
+            if (mSession.getScreenHeight() >= 720) {
                 holder.menuItemImage.setLayoutParams(new LinearLayout.LayoutParams(mMetricsUtils.getPixelsFromDpVal(124), mMetricsUtils.getPixelsFromDpVal(124)));
                 if(mSession.getLanguage() == LANG_HINDI) {
                     holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
@@ -231,7 +226,7 @@ public class LayerImageAdapter extends android.support.v7.widget.RecyclerView.Ad
                 }else{
                     params.setMargins(mMetricsUtils.getPixelsFromDpVal(36), mMetricsUtils.getPixelsFromDpVal(16), 0, mMetricsUtils.getPixelsFromDpVal(-7));
                 }
-            }else if (mAppPref.getScreenWidth() > 640 && mAppPref.getScreenWidth() <= 1024) {
+            }else if (mSession.getScreenWidth() > 640 && mSession.getScreenWidth() <= 1024) {
                 holder.menuItemImage.setLayoutParams(new LinearLayout.LayoutParams(mMetricsUtils.getPixelsFromDpVal(86), mMetricsUtils.getPixelsFromDpVal(86)));
                 if(mSession.getLanguage() == LANG_HINDI) {
                     holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
