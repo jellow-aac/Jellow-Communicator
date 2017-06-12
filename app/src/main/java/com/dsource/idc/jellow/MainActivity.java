@@ -317,7 +317,8 @@ public class MainActivity extends AppCompatActivity {
         no = (ImageView) findViewById(R.id.ivno);
         home = (ImageView) findViewById(R.id.ivhome);
         back = (ImageView) findViewById(R.id.ivback);
-        back.setAlpha(1f);
+        back.setAlpha(.5f);
+        back.setEnabled(false);
         keyboard = (ImageView) findViewById(R.id.keyboard);
         et = (EditText) findViewById(R.id.et);
         et.setVisibility(View.INVISIBLE);
@@ -754,12 +755,6 @@ public class MainActivity extends AppCompatActivity {
         for(int i = 0; i< mRecyclerView.getChildCount(); ++i){
             setMenuImageBorder(mRecyclerView.getChildAt(i), false);
         }
-    }
-
-    @Override
-    protected void onPause() {
-        finish();
-        super.onPause();
     }
 
     @Override

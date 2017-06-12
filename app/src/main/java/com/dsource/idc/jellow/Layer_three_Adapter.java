@@ -20,16 +20,13 @@ import java.util.Arrays;
  */
 
 public class Layer_three_Adapter extends android.support.v7.widget.RecyclerView.Adapter<Layer_three_Adapter.MyViewHolder>{
-    private static final int LANG_ENG = 0, LANG_HINDI = 1, GRID_1BY3 = 0, GRID_3BY3 = 1, MODE_PICTURE_ONLY = 1;
+    private static final int LANG_HINDI = 1, GRID_1BY3 = 0, GRID_3BY3 = 1, MODE_PICTURE_ONLY = 1;
     private Context mContext;
     private Integer[] mThumbIds = new Integer[100];
     private String[] belowText = new String[100];
-    public int more = 0;
+    public int more = 0, store=0;
     private SessionManager mSession;
     private EvaluateDisplayMetricsUtils mMetricsUtils;
-CircularImageView img1,img2,img3, img4,img5,img6, img7,img8,img9;
-    TextView tv1,tv2,tv3, tv4,tv5,tv6, tv7,tv8,tv9;
-    LinearLayout mLinearLayoutIconOne, mLinearLayoutIconTwo, mLinearLayoutIconThree;
 
     private Integer[] greet_feel_greetings = {
             R.drawable.hi, R.drawable.hello,
@@ -497,12 +494,11 @@ CircularImageView img1,img2,img3, img4,img5,img6, img7,img8,img9;
 
     private String[] time_weather_brthdays_text =
             {"My birthday", "Mom’s birthday", "Father’s birthday", "Brother’s birthday", "Sister’s birthday", "Friend’s birthday", "Grandma’s birthday", "Grandpa’s birthday",   "Uncle’s birthday", "Aunt’s birthday", "Cousin’s birthday", "Teacher’s birthday"};
-    int store=0;
 
     public Layer_three_Adapter(Context context, int levelOneITemPos, int levelTwoItemPos, int sort[]){
-        this.mContext = context;
-        this.mSession = new SessionManager(mContext);
-        this.mMetricsUtils = new EvaluateDisplayMetricsUtils(mContext);
+        mContext = context;
+        mSession = new SessionManager(mContext);
+        mMetricsUtils = new EvaluateDisplayMetricsUtils(mContext);
         if(levelOneITemPos == 0) {
             if (levelTwoItemPos == 0) {
                 Integer[] temp1 = new Integer[sort.length];
@@ -954,25 +950,6 @@ CircularImageView img1,img2,img3, img4,img5,img6, img7,img8,img9;
     @Override
     public Layer_three_Adapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View rowView =  LayoutInflater.from(parent.getContext()).inflate(R.layout.myscrolllist2, parent, false);
-        /*DisplayMetrics displayMetrics = mContext.getResources().getDisplayMetrics();
-        float dpHeight = displayMetrics.heightPixels / displayMetrics.density;
-        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
-
-        if (mSession.getGridSize()==0){
-            rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.myscrolllist2, parent, false);
-        }else if (dpHeight >= 720 && mSession.getGridSize()==1)
-            rowView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.myscrollist233, parent, false);
-        else if (dpWidth >640 && dpWidth <=1024 && mSession.getGridSize()==1)
-            rowView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.myscrollist033, parent, false);
-        else if (dpWidth > 600 && dpWidth <=640 && mSession.getGridSize()==1) {
-            rowView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.myscrolllist33, parent, false);
-        }else {
-            rowView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.myscrolllist33, parent, false);
-        }*/
         return new Layer_three_Adapter.MyViewHolder(rowView);
     }
 

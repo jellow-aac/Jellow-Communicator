@@ -28,12 +28,11 @@ import java.util.Locale;
 import java.util.StringTokenizer;
 
 public class Main2LAyer extends AppCompatActivity {
-    private final int LANG_ENG = 0, LANG_HINDI = 1, GOTO_LEVEL_TWO = 1, GOTO_LEVEL_ONE = 0,
-    MENU_ITEM_PEOPLE = 5, MENU_ITEM_PLACES = 6, MENU_ITEM_HELP = 8;
+    private final int LANG_ENG = 0, LANG_HINDI = 1, MENU_ITEM_DAILY_ACT = 1, MENU_ITEM_PEOPLE = 5, MENU_ITEM_PLACES = 6, MENU_ITEM_HELP = 8;
     private final boolean DISABLE_ACTION_BTNS = true;
 
     int mCk = 0, mCy = 0, mCm = 0, mCd = 0, mCn = 0, mCl = 0;
-    int flag = 0, image_flag = -1, flag_keyboard = 0, mActionBtnClickCount;
+    int image_flag = -1, flag_keyboard = 0, mActionBtnClickCount;
     private ImageView like, dislike, add, minus, yes, no, home, keyboard, ttsButton, back;
     private EditText et;
     private KeyListener originalKeyListener;
@@ -43,7 +42,6 @@ public class Main2LAyer extends AppCompatActivity {
     private boolean mShouldReadFullSpeech = false;
     private ArrayList<View> mRecyclerItemsViewList;
     private TextToSpeech mTts;
-    private LayerImageAdapter mLayerImageAdapter;
     private Integer[] mColor = { -5317, -12627531 , -7617718 , -2937298 , -648053365 , -1761607680 };
     private String mActionBarTitle;
 
@@ -89,10 +87,9 @@ public class Main2LAyer extends AppCompatActivity {
     private final String[] places_adapter_hindi =
                                         {"मेरा घर", "पाठशाला", "मॉल", "संग्रहालय", "होटल", "थिएटर", "खेल का मैदान", "बगीचा",  "दुकान", "दोस्त का घर", "रिश्तेदार का घर", "अस्पताल", "क्लिनिक", "वाचनालय", "छत पर"};
     private final String[] places_adapter =
-            {"My House", "School", "Mall", "Museum", "Hotel", "Theater", "Playground", "Park",
-                    "Store", "Friend's House", "Relative's House", "Hospital", "Clinic", "Library", "Terrace"};
+                                        {"My House", "School", "Mall", "Museum", "Hotel", "Theater", "Playground", "Park", "Store", "Friend's House", "Relative's House", "Hospital", "Clinic", "Library", "Terrace"};
     private final String[] people_adapter =
-            {"Mother", "Father", "Brother", "Sister", "Grandfather", "Grandmother", "Uncle", "Aunt", "Cousin", "Baby", "Friends", "Teacher", "Doctor", "Nurse", "Caregiver", "Stranger", "About Me"};
+                                        {"Mother", "Father", "Brother", "Sister", "Grandfather", "Grandmother", "Uncle", "Aunt", "Cousin", "Baby", "Friends", "Teacher", "Doctor", "Nurse", "Caregiver", "Stranger", "About Me"};
 
     private final String[] side_english = {"like", "really like", "yes", "really yes", "more", "really more", "dont like", "really dont like", "no", "really no", "less", "really less"};
     private final String[] side_hindi = {"अच्छा लगता हैं", "सच में अच्छा लगता हैं", "हाँ", "सच में हाँ", "ज़्यादा", "सच में ज़्यादा", "अच्छा नहीं लगता हैं", "सच में अच्छा नहीं लगता हैं", "नहीं", "सच में नहीं", "कम", "सच में कम"};
@@ -187,6 +184,7 @@ public class Main2LAyer extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
         mSession = new SessionManager(this);
         mLevelOneItemPos = getIntent().getExtras().getInt("mLevelOneItemPos");
+        getSupportActionBar().setTitle(getIntent().getExtras().getString("selectedMenuItemPath"));
         {
             int size = -1;
             switch (mLevelOneItemPos) {
@@ -267,9 +265,8 @@ public class Main2LAyer extends AppCompatActivity {
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager( new GridLayoutManager(this, 3));
-        mLayerImageAdapter = new LayerImageAdapter(this, mLevelOneItemPos);
         if (mLevelOneItemPos != MENU_ITEM_PEOPLE || mLevelOneItemPos != MENU_ITEM_PLACES) {
-            mRecyclerView.setAdapter(mLayerImageAdapter);
+            mRecyclerView.setAdapter(new LayerImageAdapter(this, mLevelOneItemPos));
         }
 
         mRecyclerView.setVerticalScrollBarEnabled(true);
@@ -289,12 +286,16 @@ public class Main2LAyer extends AppCompatActivity {
                         String title = getIntent().getExtras().getString("selectedMenuItemPath");
                         if (mLevelOneItemPos == MENU_ITEM_PEOPLE || mLevelOneItemPos == MENU_ITEM_PLACES)
                             mTts.speak(myMusic[position], TextToSpeech.QUEUE_FLUSH, null);
-                        else if(mLevelTwoItemPos == position){
-                            /*Intent intent = new Intent(Main2LAyer.this, Layer3Activity.class);
+                        else if(mLevelTwoItemPos == position && mLevelOneItemPos != MENU_ITEM_HELP){
+                            Intent intent = new Intent(Main2LAyer.this, Layer3Activity.class);
+                            if(mSession.getLanguage() == LANG_HINDI)
+                                intent = new Intent(Main2LAyer.this, Layer_3_Hindi_Activity.class);
+                            if(mLevelOneItemPos == MENU_ITEM_DAILY_ACT && ( mLevelTwoItemPos == 0 ||  mLevelTwoItemPos == 1 || mLevelTwoItemPos == 2 || mLevelTwoItemPos == 7 || mLevelTwoItemPos == 8 ))
+                            intent = new Intent(Main2LAyer.this, Sequence_Activity.class);
                             intent.putExtra("mLevelOneItemPos", mLevelOneItemPos);
                             intent.putExtra("mLevelTwoItemPos", position);
                             intent.putExtra("selectedMenuItemPath", mActionBarTitle);
-                            startActivity(intent);*/
+                            startActivity(intent);
                         }else if(mLevelOneItemPos == MENU_ITEM_PEOPLE || mLevelOneItemPos == MENU_ITEM_PLACES){
                             mTts.speak(myMusic[sort[mLevelTwoItemPos]], TextToSpeech.QUEUE_FLUSH, null);
                         }else {
@@ -439,7 +440,6 @@ public class Main2LAyer extends AppCompatActivity {
             public void onClick(View view) {
                 home.setImageResource(R.drawable.homepressed);
                 mTts.speak(below[0], TextToSpeech.QUEUE_FLUSH, null);
-                startActivity(new Intent(Main2LAyer.this, MainActivity.class));
                 finish();
             }
         });
@@ -447,7 +447,7 @@ public class Main2LAyer extends AppCompatActivity {
         keyboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mTts.speak(below[2], TextToSpeech.QUEUE_FLUSH, null);
+                mTts.speak(below[2], TextToSpeech.QUEUE_FLUSH, null, null);
                 if (flag_keyboard == 1) {
                     keyboard.setImageResource(R.drawable.keyboard_button);
                     back.setImageResource(R.drawable.back_button);
@@ -511,10 +511,10 @@ public class Main2LAyer extends AppCompatActivity {
 
         back.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                mTts.speak(below[1], TextToSpeech.QUEUE_FLUSH, null);
                 if (flag_keyboard == 1) {
                     keyboard.setImageResource(R.drawable.keyboard_button);
                     back.setImageResource(R.drawable.back_button);
-                    mTts.speak(below[1], TextToSpeech.QUEUE_FLUSH, null);
                     et.setVisibility(View.INVISIBLE);
                     mRecyclerView.setVisibility(View.VISIBLE);
                     ttsButton.setVisibility(View.INVISIBLE);
@@ -522,8 +522,6 @@ public class Main2LAyer extends AppCompatActivity {
                     changeTheActionButtons(!DISABLE_ACTION_BTNS);
                 } else {
                     back.setImageResource(R.drawable.backpressed);
-                    mTts.speak(below[1], TextToSpeech.QUEUE_FLUSH, null);
-                    startActivity(new Intent(Main2LAyer.this, MainActivity.class));
                     finish();
                 }
             }
@@ -1008,18 +1006,10 @@ public class Main2LAyer extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Intent i = new Intent(Main2LAyer.this, MainActivity.class);
-            startActivity(i);
             finish();
             return true;
         }
         return super.onKeyDown(keyCode, event);
-    }
-
-    @Override
-    protected void onPause() {
-        finish();
-        super.onPause();
     }
 
     @Override

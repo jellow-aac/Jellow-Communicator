@@ -28,17 +28,19 @@ import java.util.Locale;
  */
 
 public class Sequence_Activity extends AppCompatActivity {
+    private final int LANG_ENG = 0, LANG_HINDI = 1, GOTO_LEVEL_TWO = 1, GOTO_LEVEL_ONE = 0,
+            MENU_ITEM_DAILY_ACT = 1, MENU_ITEM_PEOPLE = 5, MENU_ITEM_PLACES = 6, MENU_ITEM_HELP = 8;
+    private final boolean DISABLE_ACTION_BTNS = true;
 
     int clike = 0, cy = 0, cm = 0, cd = 0, cn = 0, cl = 0;
     int image_flag = -1, flag_keyboard = 0, layer_1_id, layer_2_id;
-    ImageView like, dislike, add, minus, yes, no, home, keyboard, ttsButton;
+    private ImageView like, dislike, add, minus, yes, no, home, keyboard, ttsButton;
     private EditText et;
     private KeyListener originalKeyListener;
-    TextToSpeech tts;
+    private TextToSpeech tts;
+    private Integer[] color = {-5317, -12627531, -7617718, -2937298, -648053365, -1761607680};
 
-    Integer[] color = {-5317, -12627531, -7617718, -2937298, -648053365, -1761607680};
-
-    public Integer[][] daily_activities = {{R.drawable.rinsemouth, R.drawable.rinsetoothbrush,
+    private Integer[][] daily_activities = {{R.drawable.rinsemouth, R.drawable.rinsetoothbrush,
             R.drawable.puttoothpaste, R.drawable.brushfrontteeth,
             R.drawable.brushbackteeth, R.drawable.brushtongue,
             R.drawable.rinsemouth, R.drawable.iamalldone}, {R.drawable.pullpantsdown, R.drawable.sitonthetoilet,
@@ -60,52 +62,49 @@ public class Sequence_Activity extends AppCompatActivity {
             R.drawable.saygoodnight, R.drawable.sayprayres,
             R.drawable.sweetdreams}};
 
-    TextView tt1, bt1, bt2, bt3;
-    CircularImageView image1, image2, image3;
-    ImageView arrow1, arrow2, back;
-    LinearLayout linear;
-    Button forward, backward;
+    private TextView tt1, bt1, bt2, bt3;
+    private CircularImageView image1, image2, image3;
+    private ImageView arrow1, arrow2, back;
+    private LinearLayout linear;
+    private Button forward, backward;
 
-    public static String[] daily_activities_text1 = new String[100];
-    public static String[] daily_activities_text = new String[100];
-    public static String[] heading = new String[100];
-    String[][][] layer_1_speech = new String[100][100][100];
+    private String[] daily_activities_text1 = new String[100];
+    private String[] daily_activities_text = new String[100];
+    private String[] heading = new String[100];
+    private String[][][] layer_1_speech = new String[100][100][100];
 
-    public static int count = 0;
-
+    private int count = 0;
     private SessionManager session;
 
-    float dpHeight;
-    int sr, bw;
-    String s, s1;
+    private float dpHeight;
+    private int sr, bw;
+    private String s, s1;
 
-    String[] side = new String[100];
-    String[] below = new String[100];
-    String[] bt = new String[2];
+    private String[] side = new String[100];
+    private String[] below = new String[100];
+    private String[] bt = new String[2];
 
-    final String[] side_hindi = {"अच्छा लगता हैं", "सच में अच्छा लगता हैं", "हाँ", "सच में हाँ", "ज़्यादा", "सच में ज़्यादा", "अच्छा नहीं लगता हैं", "सच में अच्छा नहीं लगता हैं", "नहीं", "सच में नहीं", "कम", "सच में कम"};
-    final String[] side_english = {"like", "really like", "yes", "really yes", "more", "really more", "don’t like", "really don’t like", "no", "really no", "less", "really less"};
+    private final String[] side_hindi = {"अच्छा लगता हैं", "सच में अच्छा लगता हैं", "हाँ", "सच में हाँ", "ज़्यादा", "सच में ज़्यादा", "अच्छा नहीं लगता हैं", "सच में अच्छा नहीं लगता हैं", "नहीं", "सच में नहीं", "कम", "सच में कम"};
+    private final String[] side_english = {"like", "really like", "yes", "really yes", "more", "really more", "don’t like", "really don’t like", "no", "really no", "less", "really less"};
 
-    final String[] below_hindi = {"होम", "वापस", "कीबोर्ड"};
-    final String[] below_english = {"Home", "back", "keyboard"};
+    private final String[] below_hindi = {"होम", "वापस", "कीबोर्ड"};
+    private final String[] below_english = {"Home", "back", "keyboard"};
 
-    final String[] bt_hindi = {"<< पीछे", "आगे >>"};
-    final String[] bt_english = {"<< PREVIOUS", "NEXT >>"};
+    private final String[] bt_hindi = {"<< पीछे", "आगे >>"};
+    private final String[] bt_english = {"<< PREVIOUS", "NEXT >>"};
 
-    final String[][] daily_activities_text_english1 =
+    private final String[][] daily_activities_text_english1 =
             {{"Rinse mouth", "Rinse toothbrush", "Put toothpaste on brush", "Brush front teeth", "Brush back teeth", "Brush tongue", "Rinse mouth", "All done"}, {"Pull pants down", "Sit on toilet", "Wash bottom", "Flushh toilet", "Pull pants up", "Wash hands", "All done"}, {"Remove clothes", "Turn on water", "Get in the shower", "Wet body", "Put soap", "shampoo हैर", "Put face wash", "Wash हैर", "Wash body", "Turn off water", "Dry हैर", "Dry face", "Dry body", "Put on clothes", "All done"}, {"Wake up", "Wash face", "Go to toilet", "Brush teeth", "Remove clothes", "Have a बाथ", "Get dressed", "Comb हैर", "Eat brekfust", "Pack lunch box", "Pack school bag", "Go to school", "Have a great day!"}, {"Eat dinner", "wear night clothes", "Brush teeth", "Read story", "Say goodnight", "Say prayers", "Sweet dreams!"}};
 
-    final String[][] daily_activities_text_hindi1 = {{"मुँह पानी से धोना", "टूथ ब्रश पानी से धोना", "ब्रश पर टूथपेस्ट लगाना", "सामने के दांत साफ़ करना", "पीछे के दांत साफ़ करना", "जीभ साफ़ करना", "मुँह पानी से धोना", "मैंने ख़त्म कर दिया"}, {"पैन्ट नीचे खींचना", "शौचालय में बैठना", "पिछला हिस्सा धोना", "टॉयलेट फ़्लश करना", "पैन्ट ऊपर खींचना", "हाथ धोना", "मैंने ख़त्म कर दिया"}, {"कपड़े निकालना", "पानी चालू करना", "शॉवर लेना", "शरीर को भिगोना", "साबुन लगाना", "बालों को शाम्पू लगाना ", "फेस वॉश लगाना", "बाल धोना", "शरीर धोना", "पानी बंद करना", "बाल सुखाना", "चेहरा पोंछना", "शरीर पोंछना", "कपड़े पैहनना", "मैंने ख़त्म कर दिया"}, {"उठना", "चेहरा धोना", "शौचालय जाना", "दांत साफ़ करना", "कपड़े उतारना", "नहाना", "कपड़े पैहनना", "कंघी करना", "सुबह का नाश्ता खाना", "खाने का डिब्बा भरना", "पाठशाला की bag भरना", "पाठशाला जाना", "आपका दिन अच्छा रहे"}, {"रात का भोजन", "रात के कपड़े पैहनना", "दांत साफ़ करना", "कहानियाँ पढ़ना", "शुभ रात्रि बोलना", "प्रार्थना करना", "प्यारे सपने देखो"}};
+    private final String[][] daily_activities_text_hindi1 = {{"मुँह पानी से धोना", "टूथ ब्रश पानी से धोना", "ब्रश पर टूथपेस्ट लगाना", "सामने के दांत साफ़ करना", "पीछे के दांत साफ़ करना", "जीभ साफ़ करना", "मुँह पानी से धोना", "मैंने ख़त्म कर दिया"}, {"पैन्ट नीचे खींचना", "शौचालय में बैठना", "पिछला हिस्सा धोना", "टॉयलेट फ़्लश करना", "पैन्ट ऊपर खींचना", "हाथ धोना", "मैंने ख़त्म कर दिया"}, {"कपड़े निकालना", "पानी चालू करना", "शॉवर लेना", "शरीर को भिगोना", "साबुन लगाना", "बालों को शाम्पू लगाना ", "फेस वॉश लगाना", "बाल धोना", "शरीर धोना", "पानी बंद करना", "बाल सुखाना", "चेहरा पोंछना", "शरीर पोंछना", "कपड़े पैहनना", "मैंने ख़त्म कर दिया"}, {"उठना", "चेहरा धोना", "शौचालय जाना", "दांत साफ़ करना", "कपड़े उतारना", "नहाना", "कपड़े पैहनना", "कंघी करना", "सुबह का नाश्ता खाना", "खाने का डिब्बा भरना", "पाठशाला की bag भरना", "पाठशाला जाना", "आपका दिन अच्छा रहे"}, {"रात का भोजन", "रात के कपड़े पैहनना", "दांत साफ़ करना", "कहानियाँ पढ़ना", "शुभ रात्रि बोलना", "प्रार्थना करना", "प्यारे सपने देखो"}};
 
-    final String[][] daily_activities_text_hindi = {{"१. मुँह पानी से धोना", "२. टूथब्रश पानी से धोना", "३. टूथपेस्ट लगाना", "४. सामने के दांत साफ़", "५. पीछे के दांत साफ़", "६. जीभ साफ़", "७. मुँह पानी से धोना", "८. मैंने ख़त्म कर दिया"}, {"१. पैंट नीचे खींचना", "२. शौचालय में बैठना", "३. पिछला हिस्सा धोना", "४. टॉयलेट फ़्लश करना", "५. पैंट ऊपर खींचना", "६. हाथ धोना", "७. मैंने ख़त्म कर दिया"}, {"१. कपड़े निकालना", "२. पानी चालू करना", "३. शावर लेना", "४. शरीर को भिगोना", "५. साबुन लगाना", "६. शैम्पू लगाना ", "७. फेस वॉश लगाना", "८. बाल धोना", "९. शरीर धोना", "१०. पानी बंद करना", "११. बाल सुखाना ", "१२. चेहरा पोंछना", "१३. शरीर पोंछना", "१४. कपड़े पैहनना", "१५. मैंने ख़त्म कर दिया"}, {"१. उठना", "२ . चेहरा धोना", "३. शौचालय जाना", "४. दांत साफ़ करना", "५. कपड़े उतारना", "६. नहाना", "७. कपड़े पैहनना", "८. कंघी करना", "९. नाश्ता खाना", "१०. डिब्बा भरना", "११. पाठशाला की बॅग भरना", "१२. पाठशाला जाना", "१३. आपका दिन अच्छा रहे"}, {"१. रात का भोजन", "२. रात के कपड़े पैहनना", "३. दांत साफ़ करना", "४. कहानियाँ पढ़ना", "५. शुभ रात्रि बोलना", "६. प्रार्थना करना", "७. प्यारे सपने देखो"}};
+    private final String[][] daily_activities_text_hindi = {{"१. मुँह पानी से धोना", "२. टूथब्रश पानी से धोना", "३. टूथपेस्ट लगाना", "४. सामने के दांत साफ़", "५. पीछे के दांत साफ़", "६. जीभ साफ़", "७. मुँह पानी से धोना", "८. मैंने ख़त्म कर दिया"}, {"१. पैंट नीचे खींचना", "२. शौचालय में बैठना", "३. पिछला हिस्सा धोना", "४. टॉयलेट फ़्लश करना", "५. पैंट ऊपर खींचना", "६. हाथ धोना", "७. मैंने ख़त्म कर दिया"}, {"१. कपड़े निकालना", "२. पानी चालू करना", "३. शावर लेना", "४. शरीर को भिगोना", "५. साबुन लगाना", "६. शैम्पू लगाना ", "७. फेस वॉश लगाना", "८. बाल धोना", "९. शरीर धोना", "१०. पानी बंद करना", "११. बाल सुखाना ", "१२. चेहरा पोंछना", "१३. शरीर पोंछना", "१४. कपड़े पैहनना", "१५. मैंने ख़त्म कर दिया"}, {"१. उठना", "२ . चेहरा धोना", "३. शौचालय जाना", "४. दांत साफ़ करना", "५. कपड़े उतारना", "६. नहाना", "७. कपड़े पैहनना", "८. कंघी करना", "९. नाश्ता खाना", "१०. डिब्बा भरना", "११. पाठशाला की बॅग भरना", "१२. पाठशाला जाना", "१३. आपका दिन अच्छा रहे"}, {"१. रात का भोजन", "२. रात के कपड़े पैहनना", "३. दांत साफ़ करना", "४. कहानियाँ पढ़ना", "५. शुभ रात्रि बोलना", "६. प्रार्थना करना", "७. प्यारे सपने देखो"}};
 
-    final String[][] daily_activities_text_english = {{"1. Rinse mouth", "2. Rinse toothbrush", "3. Put toothpaste", "4. Brush front teeth", "5. Brush back teeth", "6. Brush tongue", "7. Rinse mouth", "8. All done"}, {"1. Pull pants down", "2. Sit on toilet", "3. Wash bottom", "4. Flush toilet", "5. Pull pants up", "6. Wash hands", "7. All done"}, {"1. Remove clothes", "2. Turn on water", "3. Get in shower", "4. Wet body", "5. Put soap", "6. Shampoo hair", "7. Put face wash", "8. Wash hair", "9. Wash body", "10. Turn off water", "11. Dry hair", "12. Dry face", "13. Dry body", "14. Put on clothes", "15. All done"}, {"1. Wake up", "2. Wash face", "3. Go to toilet", "4. Brush teeth", "5. Remove clothes", "6. Have a bath", "7. Get dressed", "8. Comb Hair", "9. Eat breakfast", "10. Pack lunchbox", "11. Pack school bag", "12. Go to school", "13. Have a great day"}, {"1. Eat dinner", "2. Wear night dress", "3. Brush teeth", "4. Read story", "5. Say goodnight", "6. Say prayers", "7. Sweet dreams!"}};
+    private final String[][] daily_activities_text_english = {{"1. Rinse mouth", "2. Rinse toothbrush", "3. Put toothpaste", "4. Brush front teeth", "5. Brush back teeth", "6. Brush tongue", "7. Rinse mouth", "8. All done"}, {"1. Pull pants down", "2. Sit on toilet", "3. Wash bottom", "4. Flush toilet", "5. Pull pants up", "6. Wash hands", "7. All done"}, {"1. Remove clothes", "2. Turn on water", "3. Get in shower", "4. Wet body", "5. Put soap", "6. Shampoo hair", "7. Put face wash", "8. Wash hair", "9. Wash body", "10. Turn off water", "11. Dry hair", "12. Dry face", "13. Dry body", "14. Put on clothes", "15. All done"}, {"1. Wake up", "2. Wash face", "3. Go to toilet", "4. Brush teeth", "5. Remove clothes", "6. Have a bath", "7. Get dressed", "8. Comb Hair", "9. Eat breakfast", "10. Pack lunchbox", "11. Pack school bag", "12. Go to school", "13. Have a great day"}, {"1. Eat dinner", "2. Wear night dress", "3. Brush teeth", "4. Read story", "5. Say goodnight", "6. Say prayers", "7. Sweet dreams!"}};
 
-    final String[] heading_english = {"brushing", "toilet", "bathing", "\tmorning routine", "\tbedtime routine"};
-    final String[] heading_english_title = {"Brushing", "Toilet", "Bathing", "Morning Routine", "Bedtime Routine"};
+    private final String[] heading_english = {"brushing", "toilet", "bathing", "\tmorning routine", "\tbedtime routine"};
 
-    final String[] heading_hindi = {"ब्रश करना", "शौचालय ", "नहाना", "सुबह के कार्य", "रात के कार्य"};
-    final String[] heading_hindi_title = {"दांत साफ़ करना", "शौचालय ", "नहाना", "सुबह के नियमित कार्य", "रात के नियमित कार्य"};
+    private final String[] heading_hindi = {"ब्रश करना", "शौचालय ", "नहाना", "सुबह के कार्य", "रात के कार्य"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,22 +113,16 @@ public class Sequence_Activity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
         getSupportActionBar().setElevation(0);
-
         new LongOperation2().execute("");
-
         Intent i = getIntent();
         layer_1_id = i.getExtras().getInt("layer_1_id");
         layer_2_id = i.getExtras().getInt("layer_2_id");
-
         session = new SessionManager(getApplicationContext());
-
         new LongOperation1().execute("");
-
         if (session.getLanguage() == 0 ) {
             bt = bt_english;
             s="NEXT";
             s1="PREVIOUS";
-
         }
 
         if (session.getLanguage() == 1) {
@@ -142,21 +135,8 @@ public class Sequence_Activity extends AppCompatActivity {
             @Override
             public void onInit(int status) {
                 if (status != TextToSpeech.ERROR) {
-
-                    tts.setEngineByPackageName("com.google.android.mTts");           //use this package of google
+                    tts.setEngineByPackageName("com.google.android.mTts");
                     new LongOperation().execute("");
-                   /* if (session.getLanguage()==0 && session.getAccent() == 0){
-                        mTts.setLanguage(new Locale("hin", "IND"));
-                    }
-                    if (session.getLanguage()==0 && session.getAccent() == 1){
-                        mTts.setLanguage(new Locale("en", "IN"));
-                    }
-                    if (session.getLanguage()==0 && session.getAccent() == 2){
-                        mTts.setLanguage(Locale.UK);
-                    }
-                    if (session.getLanguage()==1){
-                        mTts.setLanguage(new Locale("hin", "IND"));
-                    }*/
                 }
             }
         });
@@ -559,32 +539,14 @@ public class Sequence_Activity extends AppCompatActivity {
                             linear.setVisibility(View.VISIBLE);
                             ttsButton.setVisibility(View.INVISIBLE);
                             flag_keyboard = 0;
-                            like.setEnabled(true);
-                            dislike.setEnabled(true);
-                            add.setEnabled(true);
-                            minus.setEnabled(true);
-                            yes.setEnabled(true);
-                            no.setEnabled(true);
-                            like.setAlpha(1f);
-                            dislike.setAlpha(1f);
-                            add.setAlpha(1f);
-                            minus.setAlpha(1f);
-                            yes.setAlpha(1f);
-                            no.setAlpha(1f);
-                            //shruti
-                            back.setAlpha(1f);
-                            //shruti
+                            changeTheActionButtons(!DISABLE_ACTION_BTNS);
                             forward.setVisibility(View.VISIBLE);
                             backward.setVisibility(View.VISIBLE);
                         } else {
-
                             count = 0;
                             image_flag = 0;
-
                             back.setImageResource(R.drawable.backpressed);
-                            Intent i = new Intent(getApplicationContext(), Main2LAyer.class);
-                            i.putExtra("id", layer_1_id);
-                            startActivity(i);
+                            finish();
                         }
                     }
                 });
@@ -592,7 +554,6 @@ public class Sequence_Activity extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 count = 0;
                 image_flag = 0;
                 home.setImageResource(R.drawable.homepressed);
@@ -605,9 +566,7 @@ public class Sequence_Activity extends AppCompatActivity {
         keyboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 tts.speak(below[2], TextToSpeech.QUEUE_FLUSH, null);
-
                 if (flag_keyboard == 1) {
                     keyboard.setImageResource(R.drawable.keyboard_button);
                     back.setImageResource(R.drawable.back_button);
@@ -615,42 +574,17 @@ public class Sequence_Activity extends AppCompatActivity {
                     linear.setVisibility(View.VISIBLE);
                     ttsButton.setVisibility(View.INVISIBLE);
                     flag_keyboard = 0;
-                    like.setEnabled(true);
-                    dislike.setEnabled(true);
-                    add.setEnabled(true);
-                    minus.setEnabled(true);
-                    yes.setEnabled(true);
-                    no.setEnabled(true);
-                    like.setAlpha(1f);
-                    dislike.setAlpha(1f);
-                    add.setAlpha(1f);
-                    minus.setAlpha(1f);
-                    yes.setAlpha(1f);
-                    no.setAlpha(1f);
-                    back.setAlpha(1f);
+                    changeTheActionButtons(!DISABLE_ACTION_BTNS);
                     backward.setVisibility(View.VISIBLE);
                     forward.setVisibility(View.VISIBLE);
                 } else {
-
                     keyboard.setImageResource(R.drawable.keyboardpressed);
                     back.setImageResource(R.drawable.backpressed);
                     et.setVisibility(View.VISIBLE);
-
                     et.setKeyListener(originalKeyListener);
                     // Focus the field.
                     linear.setVisibility(View.INVISIBLE);
-                    like.setAlpha(0.5f);
-                    dislike.setAlpha(0.5f);
-                    add.setAlpha(0.5f);
-                    minus.setAlpha(0.5f);
-                    yes.setAlpha(0.5f);
-                    no.setAlpha(0.5f);
-                    like.setEnabled(false);
-                    dislike.setEnabled(false);
-                    add.setEnabled(false);
-                    minus.setEnabled(false);
-                    yes.setEnabled(false);
-                    no.setEnabled(false);
+                    changeTheActionButtons(DISABLE_ACTION_BTNS);
                     et.requestFocus();
                     ttsButton.setVisibility(View.VISIBLE);
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -662,23 +596,21 @@ public class Sequence_Activity extends AppCompatActivity {
             }
         });
 
-        ttsButton.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
+        ttsButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    tts.setSpeechRate((float) session.getSpeed() / 50);
+                    tts.setPitch((float) session.getPitch() / 50);
+                    String s1 = et.getText().toString();
+                    tts.speak(s1, TextToSpeech.QUEUE_FLUSH, null);
 
-                        tts.setSpeechRate((float) session.getSpeed() / 50);
-                        tts.setPitch((float) session.getPitch() / 50);
-                        String s1 = et.getText().toString();
-                        tts.speak(s1, TextToSpeech.QUEUE_FLUSH, null);
-
-                        like.setEnabled(false);
-                        dislike.setEnabled(false);
-                        add.setEnabled(false);
-                        minus.setEnabled(false);
-                        yes.setEnabled(false);
-                        no.setEnabled(false);
-                    }
-                });
+                    like.setEnabled(false);
+                    dislike.setEnabled(false);
+                    add.setEnabled(false);
+                    minus.setEnabled(false);
+                    yes.setEnabled(false);
+                    no.setEnabled(false);
+                }
+        });
 
         et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -1108,11 +1040,40 @@ public class Sequence_Activity extends AppCompatActivity {
             }
         });
     }
-    private class LongOperation2 extends AsyncTask<String, Void, String> {
 
+    private void changeTheActionButtons(boolean setDisable) {
+        if(setDisable) {
+            like.setAlpha(0.5f);
+            dislike.setAlpha(0.5f);
+            yes.setAlpha(0.5f);
+            no.setAlpha(0.5f);
+            add.setAlpha(0.5f);
+            minus.setAlpha(0.5f);
+            like.setEnabled(false);
+            dislike.setEnabled(false);
+            yes.setEnabled(false);
+            no.setEnabled(false);
+            add.setEnabled(false);
+            minus.setEnabled(false);
+        }else{
+            like.setAlpha(1f);
+            dislike.setAlpha(1f);
+            yes.setAlpha(1f);
+            no.setAlpha(1f);
+            add.setAlpha(1f);
+            minus.setAlpha(1f);
+            like.setEnabled(true);
+            dislike.setEnabled(true);
+            yes.setEnabled(true);
+            no.setEnabled(true);
+            add.setEnabled(true);
+            minus.setEnabled(true);
+        }
+    }
+
+    private class LongOperation2 extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
-
             try {
                 DisplayMetrics displayMetrics = getApplicationContext().getResources().getDisplayMetrics();
                 dpHeight = displayMetrics.heightPixels / displayMetrics.density;
@@ -1134,119 +1095,45 @@ public class Sequence_Activity extends AppCompatActivity {
 
             return "Executed";
         }
-
-        @Override
-        protected void onPostExecute(String result) {
-
-        }
-
-        @Override
-        protected void onPreExecute() {}
-
-        @Override
-        protected void onProgressUpdate(Void... values) {}
     }
 
     private class LongOperation extends AsyncTask<String, Void, String> {
-
         @Override
         protected String doInBackground(String... params) {
-
             try {
-
-                if (session.getLanguage()==0 /*&& session.getAccent() == 0*/){
                     tts.setLanguage(new Locale("hin", "IND"));
-                }
-                /*if (session.getLanguage()==0 *//*&& session.getAccent() == 1*//*){
-                    mTts.setLanguage(new Locale("en", "IN"));
-                }
-                if (session.getLanguage()==0 *//*&& session.getAccent() == 2*//*){
-                    mTts.setLanguage(Locale.UK);
-                }*/
-                if (session.getLanguage()==1){
-                    tts.setLanguage(new Locale("hin", "IND"));
-                }
             } catch (Exception e) {
                 Thread.interrupted();
             }
-
             return "Executed";
         }
-
-        @Override
-        protected void onPostExecute(String result) {
-
-        }
-
-        @Override
-        protected void onPreExecute() {}
-
-        @Override
-        protected void onProgressUpdate(Void... values) {}
     }
 
     private class LongOperation1 extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... params) {
-
             try {
-                if (session.getLanguage() == 0 /*&& session.getAccent() == 0*/) {
+                if (session.getLanguage() == LANG_ENG) {
                     daily_activities_text = daily_activities_text_english[layer_2_id];
                     daily_activities_text1 = daily_activities_text_english1[layer_2_id];
                     heading = heading_english;
                     layer_1_speech = layer_1_speech_english;
                     side = side_english;
                     below = below_english;
-                    //bt = bt_english;
-
-                }
-
-                /*if (session.getLanguage() == 0 *//*&& session.getAccent() == 1*//*) {
-                    daily_activities_text = daily_activities_text_english[layer_2_id];
-                    daily_activities_text1 = daily_activities_text_english1[layer_2_id];
-                    heading = heading_english;
-                    layer_1_speech = layer_1_speech_english;
-                    side = side_english;
-                    below = below_english;
-                    bt = bt_english;
-                }
-                if (session.getLanguage() == 0 *//*&& session.getAccent() == 2*//*) {
-                    daily_activities_text = daily_activities_text_english[layer_2_id];
-                    daily_activities_text1 = daily_activities_text_english1[layer_2_id];
-                    heading = heading_english;
-                    layer_1_speech = layer_1_speech_english;
-                    side = side_english;
-                    below = below_english;
-                    bt = bt_english;
-
-                }*/
-                if (session.getLanguage() == 1) {
+                }else{
                     daily_activities_text = daily_activities_text_hindi[layer_2_id];
                     daily_activities_text1 = daily_activities_text_hindi1[layer_2_id];
                     heading = heading_hindi;
                     layer_1_speech = layer_1_speech_hindi;
                     side = side_hindi;
                     below = below_hindi;
-                   // bt = bt_hindi;
                 }
             } catch (Exception e) {
                 Thread.interrupted();
             }
-
             return "Executed";
         }
-
-        @Override
-        protected void onPostExecute(String result) {
-
-        }
-
-        @Override
-        protected void onPreExecute() {}
-
-        @Override
-        protected void onProgressUpdate(Void... values) {}
     }
 
     private static char[] smallCaps = new char[]
@@ -1289,16 +1176,13 @@ public class Sequence_Activity extends AppCompatActivity {
         return String.valueOf(chars);
     }
 
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        if (session.getLanguage()==1){
+        if (session.getLanguage()== LANG_HINDI){
             MenuInflater blowUp = getMenuInflater();
             blowUp.inflate(R.menu.menu_main, menu);
-        }
-        if (session.getLanguage()==0) {
+        }else{
             MenuInflater blowUp = getMenuInflater();
             blowUp.inflate(R.menu.menu_1, menu);
         }
@@ -1340,12 +1224,6 @@ public class Sequence_Activity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
         return true;
-    }
-
-    @Override
-    protected void onPause() {
-        finish();
-        super.onPause();
     }
 
     String[][][] layer_1_speech_english = {{{"I like to rinse my mouth",

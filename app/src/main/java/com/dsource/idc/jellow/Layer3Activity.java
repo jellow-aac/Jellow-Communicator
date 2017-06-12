@@ -29,159 +29,113 @@ import java.util.Locale;
 import java.util.StringTokenizer;
 
 public class Layer3Activity extends AppCompatActivity {
-    private static final int LANG_ENG = 0, LANG_HINDI = 1, GOTO_LEVEL_TWO = 1, GOTO_LEVEL_ONE = 0,
-        MENU_ITEM_PEOPLE = 5, MENU_ITEM_PLACES = 6;
-    int x = -1;
-    int mCk = 0, mCy = 0, mCm = 0, mCd = 0, mCn = 0, mCl = 0;
-    int location=-2;
-    boolean a = true;
+    private static final int LANG_ENG = 0, LANG_HINDI = 1;
+    private final boolean DISABLE_ACTION_BTNS = true;
+    private int mCk = 0, mCy = 0, mCm = 0, mCd = 0, mCn = 0, mCl = 0;
 
-    int flag = 0, image_flag = -1, flag_keyboard = 0, mActionBtnClickCount;
-    ImageView like, dislike, add, minus, yes, no, home, keyboard, ttsButton, back;
+    private int image_flag = -1, flag_keyboard = 0, mActionBtnClickCount, more_count = 0;
+    private ImageView like, dislike, add, minus, yes, no, home, keyboard, ttsButton, back;
     private EditText et;
     private KeyListener originalKeyListener;
-    TextToSpeech mTts;
+    private TextToSpeech mTts;
     private RecyclerView mRecyclerView;
     private LinearLayout mMenuItemLinearLayout;
-    String[] myMusic;
-    public int more_count = 0;
+    private String[] myMusic;
     private Integer[] mColor = { -5317, -12627531 , -7617718 , -2937298 , -648053365 , -1761607680 };
     private int mLevelOneItemPos, mLevelTwoItemPos, mLevelThreeItemPos = -1, mSelectedItemAdapterPos = -1;
     private boolean mShouldReadFullSpeech = false;
     private ArrayList<View> mRecyclerItemsViewList;
     private SessionManager mSession;
 
-    public static String[] greet_feel_greetings_text =
-            {"Hi", "Hello", "Bye", "Good morning", "Good afternoon", "Good evening", "Good night", "High-five",  "Nice to meet you", "How are you?", "How was your day?", "How do you do?"};
+    private final String[] greet_feel_greetings_text =
+                                        {"Hi", "Hello", "Bye", "Good morning", "Good afternoon", "Good evening", "Good night", "High-five",  "Nice to meet you", "How are you?", "How was your day?", "How do you do?"};
+    private final String[] greet_feel_feelings_text =
+                                        {"Happy", "Sad", "Angry", "afraid", "Surprised", "Irritated", "Confused", "Ashamed",  "Disappointed", "bored", "Worried", "Stressed", "Tired", "Hot", "Cold", "Sick", "Hurt"};
+    private final String[] greet_feel_requests_text =
+                                        {"Please", "Thank you", "You're welcome", "Please give me", "Please tell me again", "Please show me", "I need a break", "I am all done",  "Excuse me", "I am sorry", "I don’t understand", "Please share with me", "Please slow down", "I need help", "Please come here", "Please take me"};
+    private final String[] greet_feel_questions_text =
+                                        {"How?", "When?", "Where?", "Why?", "What?", "Who?", "How much?", "How many?", "How long?"};
+    private final String[] daily_activities_brushing_text =
+                                        {"Rinse mouth", "Rinse toothbrush", "Put toothpaste on brush", "Brush front teeth", "Brush back teeth", "Brush tongue", "Rinse mouth", "All done"};
+    private final String[] daily_activities_toilet_text =
+                                        {"Pull pants down", "Sit on toilet", "Wash bottom", "Flushh toilet", "Pull pants up", "Wash hands", "All done"};
+    private final String[] daily_activities_bathing_text =
+                                        {"Remove clothes", "Turn on water", "Get in the shower", "Wet body", "Put soap", "Shampoo हैर", "Put face wash", "Wash हैर",  "Wash body", "Turn off water", "Dry हैर", "Dry face", "Dry body", "Put on clothes", "All done"};
+    private final String[] daily_activities_clothes_access_text =
+                                        {"Change t-shirt", "Change frock", "Change skirt", "Change jeans", "Change pants", "Change leggings", "Change slacks", "Change shorts", "Change inner wear", "Change footwear", "Change shoes", "Change socks", "wear night clothes", "Shirt", "T-shirt", "Frock",
+                                                "Pants", "slacks", "Leggings", "Shorts", "salwarkameez", "Sweater", "Jacket", "Scarf",  "Cap", "Belt", "Raincoat", "Spectacles", "Wrist watch", "Earrings", "brace let", "Necklace", "बिंदी", "Chappals", "My clothes are tight", "My clothes are loose", "I need help removing clothes", "I need help putting on clothes"};
+    private final String[] daily_activities_get_ready_text =
+                                        {"Comb हैर", "Face wash", "Cut nails", "Blow nose", "Soap", "Shampoo"};
+    private final String[] daily_activities_sleep_text =
+                                        {"Door", "Fan", "Light", "Window", "bed", "Pillows", "Blanket", "Feeling warm", "Feeling cold"};
+    private final String[] daily_activities_therapy_text =
+                                        {"Exercises", "Swing", "Trampoline", "Swiss ball", "Blanket", "Ball pit", "Hand activities", "Leg exercises", "Body vests"};
+    private final String[] daily_activities_morning_schedule_text =
+                                        {"Wake up", "Wash face", "Go to bathroom", "Brush teeth", "Remove clothes", "Have a बाथ", "Get dressed", "Comb हैर",  "Eat brekfust", "Pack lunch box", "Pack school bag", "Go to school", "Have a great day!"};
+    private final String[] daily_activities_bedtime_schedule_text =
+                                        {"Eat dinner", "wear night clothes", "Brush teeth", "Read story", "Say goodnight", "Say prayers", "Sweet dreams!"};
+    private final String[] foods_drinks_breakfast_text =
+                                        {"Bread", "Cornflakes", "Aaloo Poori", "Eggs", "Poha", "Upma", "khichdi", "Idli",  "dosaa", "paraathaa", "omlette", "मेदुवड़ा", "Porridge", "Sandwich", "Chutney", "saambaar", "Uutappam"};
+    private final String[] food_drinks_lunch_dinner_text =
+                                        {"Roti", "Sabzi", "Rice", "Dal", "Dal khichdi", "Raaigh ta", "paraathaa", "Curd",  "Fish", "Chicken", "Pork", "Mutton", "crabbb meat", "Turkey", "Pizza", "Salad",  "Soup", "pastaa", "Noodles", "Italian", "pav bhaji", "Bhakri"};
+    private final String[] food_drinks_sweets_text =
+                                        {"Cake", "Icecream", "Gajar halva", "Gulab jamun", "Lud doo", "Barfi", "Jalebi", "Fruit salad",  "rass gulla", "sheeraa"};
+    private final String[] food_drinks_snacks_text =
+                                        {"Biscuits", "Chaat", "Chocolate", "Wafers", "Sandwich", "Noodles", "Cheese", "Nuts"};
+    private final String[] food_drinks_fruits_text =
+                                        {"Apple", "Banana", "Grapes", "Guava", "Mango", "Orange", "Pineapple", "Strawberry",  "Blueberry", "Pomegranate", "Watermelon", "pear", "Papaya", "Muskmelon", "Chikoo", "Jackfruit", "Cherry"};
+    private final String[] food_drinks_drinks_text =
+                                        {"Water", "Milk", "Bournvita", "Mango juice", "Apple juice", "Orange juice", "Lemon juice", "Pineapple juice",  "Pepsi", "cocacola", "Mirinda", "Fanta", "maaza", "Sprite", "Mountain dew", "Milk shake",  "Chocolate milk shake", "Strawberry milk shake", "Banana milk shake", "Mango milk shake", "Chikoo milk shake", "tea", "Coffee", "Cold coffee", "Energy drink"};
+    private final String[] food_drinks_cutlery_text =
+                                        {"Bowl", "Plate", "Spoon", "Fork", "Knife", "Mug", "Cup", "Glass"};
+    private final String[] food_drinks_add_ons_text =
+                                        {"Butter", "Jam", "Salt", "Pepper", "Sugar", "Sauce", "Pickle", "Papad", "Masala"};
+    private final String[] fun_indoor_games_text =
+                                        {"Puzzle", "Board game", "Blocks", "Legos", "Chess", "Snakes and Ladders", "Scrabble", "Videogame",  "Doll", "Action figure", "Soft toy", "Car", "Truck", "Art and craft", "Play with me"};
+    private final String[] fun_outdoor_games_text =
+                                        {"Playground", "Park", "Swing", "Slide", "See-saw", "Merry-go-round", "Hide and seek", "Bat and ball",  "Statue", "Lock and key", "Catch-catch", "Kite", "Chor-police", "Marbles", "Walk", "Cycle",  "Run", "Swim"};
+    private final String[] fun_sports_text =
+                                        {"Cricket", "Badminton", "Tennis", "basketball", "Dodgeball", "Volleyball", "Kho-kho", "Football", "kabbbaddi", "gym nastics", "Swimming"};
+    private final String[] fun_tv_text =
+                                        {"Next channel", "Previous channel", "Volume up", "Volume down"};
+    private final String[] fun_music_text =
+                                        {"Change music", "Lets dance", "Volume up", "Volume down"};
+    private final String[] fun_activities_text =
+                                        {"Draw", "Paint", "Read", "Write", "Arts and crafts", "Drama", "Dance", "Make music"};
+    private final String[] learning_animals_birds_text =
+                                        {"Dog", "Cat", "Elephant", "Lion", "Parrot", "Rabbit", "Cow", "Duck", "Donkey", "Ant", "Tiger", "Monkey", "Pigeon", "Cockroach", "Crow", "Horse",  "Deer", "Owl", "Wolf", "Fox", "Bear", "Sheep", "Goat", "Pig",  "Fly", "Giraffe", "zeebraa", "Mosquito", "Buffalo", "Mouse", "Snake", "crocodile",  "Bee", "Hippopotamus", "Rhinoceros", "Fish", "Penguin", "Seal", "Dolphin", "Whale",  "Shark", "tortoyse", "Sparrow", "Eagle", "Hawk", "Vulture"};
+    private final String[] learning_body_parts_text =
+                                        {"Head", "हैर", "Eyes", "Nose", "Ears", "mouth", "Tongue", "Neck",  "Shoulder", "Elbow", "Wrist", "Hands", "Fingers", "Back", "Stomach", "Hip",  "knee", "Ankle", "Legs", "Toes"};
+    private final String[] learning_books_text =
+                                        {"Bed time story book", "Comic book", "Rhymes book", "Drawing book", "Storybook", "Picture book", "Mystery book", "Adventure book", "School notebook", "Maths book", "Science book", "History book", "Geography book", "Social studies book", "English book", "Hindi book",  "Marathi book", "Textbook", "Favourites" };
+    private final String[] learning_colours_text =
+                                        {"Black", "Blue", "Brown", "Green", "Red", "Silver", "White", "Yellow",  "Golden", "Pink", "Orange", "Purple", "Gray"};
+    private final String[] learning_shapes_text =
+                                        {"Standing line", "Sleeping line", "Slanting line", "Circle", "Rectangle", "Square", "Triangle", "Star", "Heart", "Trapezium", "Cube", "Rhombus", "Hexagon", "Oval", "Diamond", "Pentagon", "freeform"};
+    private final String[] learning_stationary_text =
+                                        {"Pencil", "Pen", "Scale", "Eraser", "Sharpener", "Crayon", "Blank paper", "Coloured paper",  "Scissors", "Pencil led", "Compass", "Divider", "stapler", "U-pin", "selo tape", "Compass box"};
+    private final String[] learning_school_objects_text =
+                                        {"Bag", "Lunch box", "Water bottle", "Compass box", "Homework", "School notebooks", "Textbooks", "Uniform",  "Shoes", "Socks", "Pencil", "Pen", "Scale", "Eraser", "Sharpener", "Chalk"};
+    private final String[] learning_home_objects_text =
+                                        {"Window", "Door", "Fan", "Lamp", "Desk", "cupboard", "Table", "Chair", "Toilet", "Kitchen", "Living room", "Bedroom", "Play room", "Bathroom", "Balcony", "Study room",  "bed", "Television", "Computer", "Sofa", "Fridge", "Microwave", "Washing machine", "Vacuum cleaner",  "Clock", "Tube light"};
+    private final String[] learning_transportation_text =
+                                        {"Bus", "School bus", "Car", "Bicycle", "Train", "Rickshaa", "Bike", "Aeroplane", "Ship"};
+    private final String[] time_weather_time_text =
+                                        {"What is the time?", "Today", "Yesterday", "Tomorrow", "Morning", "Afternoon", "Evening", "Night"};
+    private final String[] time_weather_day_text =
+                                        {"What is the day today?", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+    private final String[] time_weather_month_text =
+                                        {"What is the Current month?", "January", "February", "March", "April", "May", "June", "July",  "August", "September", "October", "November", "December", "This month", "Previous month", "Next month"};
+    private final String[] time_weather_weather_text =
+                                        {"What is Today’s weather?", "Sunny", "Rainy", "Cloudy", "Windy", "Foggy", "Snowy"};
+    private final String[] time_weather_seasons_text =
+                                        {"What is the Current season?", "Spring", "Summer", "Rainy", "Autumn", "Winter"};
+    private final String[] time_weather_holidays_festivals_text =
+                                        {"Diwali", "Ganesh chaturthi", "Christmas", "Dussehra", "मकरसंक्रांति", "Holi", "Eid", "Good Friday",  "गुडीपाडवा", "Republic day", "Independence day", "New year"};
+    private final String[] time_weather_brthdays_text =
+                                        {"My birthday", "Mom’s birthday", "Father’sbirthday", "Brother’s birthday", "Sister’s birthday", "Friend’s birthday", "Grandmother’s birthday", "Grandfather’s birthday",  "Uncle’s birthday", "Aunt’s birthday", "Cousin’s birthday", "Teacher’s birthday"};
 
-    public static String[] greet_feel_feelings_text =
-            {"Happy", "Sad", "Angry", "afraid", "Amazed", "Irritated", "Confused", "Ashamed",  "Disappointed", "bored", "Worried", "Stressed", "Tired", "Hot", "Cold", "Sick", "Hurt"};
-
-    public static String[] greet_feel_requests_text =
-            {"Please", "Thank you", "You're welcome", "Please give me", "Please tell me again", "Please show me", "I need a break", "I am all done",  "Excuse me", "I am sorry", "I don’t understand", "Please share with me", "Please slow down", "I need help", "Please come here", "Please take me"};
-
-    public static String[] greet_feel_questions_text =
-            {"How?", "When?", "Where?", "Why?", "What?", "Who?", "How much?", "How many?", "How long?"};
-
-    public static String[] daily_activities_brushing_text =
-            {"Rinse mouth", "Rinse toothbrush", "Put toothpaste on brush", "Brush front teeth", "Brush back teeth", "Brush tongue", "Rinse mouth", "All done"};
-
-    public static String[] daily_activities_toilet_text =
-            {"Pull pants down", "Sit on toilet", "Wash bottom", "Flushh toilet", "Pull pants up", "Wash hands", "All done"};
-
-    public static String[] daily_activities_bathing_text =
-            {"Remove clothes", "Turn on water", "Get in the shower", "Wet body", "Put soap", "Shampoo हैर", "Put face wash", "Wash हैर",  "Wash body", "Turn off water", "Dry हैर", "Dry face", "Dry body", "Put on clothes", "All done"};
-
-    public static String[] daily_activities_clothes_access_text =
-            {"Change t-shirt", "Change frock", "Change skirt", "Change jeans", "Change pants", "Change leggings", "Change slacks", "Change shorts", "Change inner wear", "Change footwear", "Change shoes", "Change socks", "wear night clothes", "Shirt", "T-shirt", "Frock",
-                    "Pants", "slacks", "Leggings", "Shorts", "salwarkameez", "Sweater", "Jacket", "Scarf",  "Cap", "Belt", "Raincoat", "Spectacles", "Wrist watch", "Earrings", "brace let", "Necklace", "बिंदी", "Chappals", "My clothes are tight", "My clothes are loose", "I need help removing clothes", "I need help putting on clothes"};
-
-    public static String[] daily_activities_get_ready_text =
-            {"Comb हैर", "Face wash", "Cut nails", "Blow nose", "Soap", "Shampoo"};
-
-    public static String[] daily_activities_sleep_text =
-            {"Door", "Fan", "Light", "Window", "bed", "Pillows", "Blanket", "Feeling warm", "Feeling cold"};
-
-    public static String[] daily_activities_therapy_text =
-            {"Exercises", "Swing", "Trampoline", "Swiss ball", "Blanket", "Ball pit", "Hand activities", "Leg exercises", "Body vests"};
-
-    public static String[] daily_activities_morning_schedule_text =
-            {"Wake up", "Wash face", "Go to bathroom", "Brush teeth", "Remove clothes", "Have a बाथ", "Get dressed", "Comb हैर",  "Eat brekfust", "Pack lunch box", "Pack school bag", "Go to school", "Have a great day!"};
-
-    public static String[] daily_activities_bedtime_schedule_text =
-            {"Eat dinner", "wear night clothes", "Brush teeth", "Read story", "Say goodnight", "Say prayers", "Sweet dreams!"};
-
-    public static String[] foods_drinks_breakfast_text =
-            {"Bread", "Cornflakes", "Aaloo Poori", "Eggs", "Poha", "Upma", "khichdi", "Idli",  "dosaa", "paraathaa", "omlette", "मेदु वड़ा", "Porridge", "Sandwich", "Chutney", "saambaar", "Uutappam"};
-
-    public static String[] food_drinks_lunch_dinner_text =
-            {"Roti", "Sabzi", "Rice", "Dal", "Dal khichdi", "Raaigh ta", "paraathaa", "Curd",  "Fish", "Chicken", "Pork", "Mutton", "crabbb meat", "Turkey", "Pizza", "Salad",  "Soup", "pastaa", "Noodles", "Italian", "pav bhaji", "Bhakri"};
-
-    public static String[] food_drinks_sweets_text =
-            {"Cake", "Icecream", "Gajar halva", "Gulab jamun", "Lud doo", "Barfi", "Jalebi", "Fruit salad",  "rass gulla", "sheeraa"};
-
-    public static String[] food_drinks_snacks_text =
-            {"Biscuits", "Chaat", "Chocolate", "Wafers", "Sandwich", "Noodles", "Cheese", "Nuts"};
-
-    public static String[] food_drinks_fruits_text =
-            {"Apple", "Banana", "Grapes", "Guava", "Mango", "Orange", "Pineapple", "Strawberry",  "Blueberry", "Pomegranate", "Watermelon", "pear", "Papaya", "Muskmelon", "Chikoo", "Jackfruit", "Cherry"};
-
-    public static String[] food_drinks_drinks_text =
-            {"Water", "Milk", "Bournvita", "Mango juice", "Apple juice", "Orange juice", "Lemon juice", "Pineapple juice",  "Pepsi", "cocacola", "Mirinda", "Fanta", "maaza", "Sprite", "Mountain dew", "Milk shake",  "Chocolate milk shake", "Strawberry milk shake", "Banana milk shake", "Mango milk shake", "Chikoo milk shake", "tea", "Coffee", "Cold coffee", "Energy drink"};
-
-    public static String[] food_drinks_cutlery_text =
-            {"Bowl", "Plate", "Spoon", "Fork", "Knife", "Mug", "Cup", "Glass"};
-
-    public static String[] food_drinks_add_ons_text =
-            {"Butter", "Jam", "Salt", "Pepper", "Sugar", "Sauce", "Pickle", "Papad", "Masala"};
-
-    public static String[] fun_indoor_games_text =
-            {"Puzzle", "Board game", "Blocks", "Legos", "Chess", "Snakes and Ladders", "Scrabble", "Videogame",  "Doll", "Action figure", "Soft toy", "Car", "Truck", "Art and craft", "Play with me"};
-
-    public static String[] fun_outdoor_games_text =
-            {"Playground", "Park", "Swing", "Slide", "See-saw", "Merry-go-round", "Hide and seek", "Bat and ball",  "Statue", "Lock and key", "Catch-catch", "Kite", "Chor-police", "Marbles", "Walk", "Cycle",  "Run", "Swim"};
-
-    public static String[] fun_sports_text =
-            {"Cricket", "Badminton", "Tennis", "basketball", "Dodgeball", "Volleyball", "Kho-kho", "Football", "kabbbaddi", "gym nastics", "Swimming"};
-
-    public static String[] fun_tv_text =
-            {"Next channel", "Previous channel", "Volume up", "Volume down"};
-
-    public static String[] fun_music_text =
-            {"Change music", "Lets dance", "Volume up", "Volume down"};
-
-    public static String[] fun_activities_text =
-            {"Draw", "Paint", "Read", "Write", "Arts and crafts", "Drama", "Dance", "Make music"};
-
-    public static String[] learning_animals_birds_text =
-            {"Dog", "Cat", "Elephant", "Lion", "Parrot", "Rabbit", "Cow", "Duck", "Donkey", "Ant", "Tiger", "Monkey", "Pigeon", "Cockroach", "Crow", "Horse",  "Deer", "Owl", "Wolf", "Fox", "Bear", "Sheep", "Goat", "Pig",  "Fly", "Giraffe", "zebra", "Mosquito", "Buffalo", "Mouse", "Snake", "crocodile",  "Bee", "Hippopotamus", "Rhinoceros", "Fish", "Penguin", "Seal", "Dolphin", "Whale",  "Shark", "tortoyse", "Sparrow", "Eagle", "Hawk", "Vulture"};
-
-    public static String[] learning_body_parts_text =
-            {"Head", "हैर", "Eyes", "Nose", "Ears", "mouth", "Tongue", "Neck",  "Shoulder", "Elbow", "Wrist", "Hands", "Fingers", "Back", "Stomach", "Hip",  "knee", "Ankle", "Legs", "Toes"};
-
-    public static String[] learning_books_text =
-            {"Bed time story book", "Comic book", "Rhymes book", "Drawing book", "Story book", "Picture book", "Mystery book", "Adventure book", "School notebook", "Maths book", "Science book", "History book", "Geography book", "Social studies book", "English book", "Hindi book",  "Marathi book", "Textbook", "Favourites" };
-
-    public static String[] learning_colours_text =
-            {"Black", "Blue", "Brown", "Green", "Red", "Silver", "White", "Yellow",  "Golden", "Pink", "Orange", "Purple", "Gray"};
-
-    public static String[] learning_shapes_text =
-            {"Standing line", "Sleeping line", "Slanting line", "Circle", "Rectangle", "Square", "Triangle", " Star ", "Heart", "Trapezium", "Cube", "Rhombus", "Hexagon", "Oval", "Diamond", "Pentagon", " freeform "};
-
-    public static String[] learning_stationary_text =
-            {"Pencil", "Pen", "Scale", "Eraser", "Sharpener", "Crayon", "Blank paper", "Coloured paper",  "Scissors", "Pencil led", "Compass", "Divider", "stapler", " U-pin", "selo tape", "Compass box"};
-
-    public static String[] learning_school_objects_text =
-            {"Bag", "Lunch box", "Water bottle", "Compass box", "Homework", "School notebooks", "Textbooks", "Uniform",  "Shoes", "Socks", "Pencil", "Pen", "Scale", "Eraser", "Sharpener", "Chalk"};
-
-    public static String[] learning_home_objects_text =
-            {"Window", "Door", "Fan", "Lamp", "Desk", "cupboard", "Table", "Chair", "Toilet", "Kitchen", "Living room", "Bedroom", "Play room", "Bathroom", "Balcony", "Study room",  "bed", "Television", "Computer", "Sofa", "Fridge", "Microwave", "Washing machine", "Vacuum cleaner",  "Clock", " Tube light"};
-
-    public static String[] learning_transportation_text =
-            {"Bus", "School bus", "Car", "Bicycle", "Train", "Rickshaa", "Bike", "Aeroplane", "Ship"};
-
-    public static String[] time_weather_time_text =
-            {"What is the time?", "Today", "Yesterday", "Tomorrow", "Morning", "Afternoon", "Evening", "Night"};
-
-    public static String[] time_weather_day_text =
-            {"What is the day today?", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
-
-    public static String[] time_weather_month_text =
-            {"What is the Current month?", "January", "February", "March", "April", "May", "June", "July",  "August", "September", "October", "November", "December", "This month", "Previous month", "Next month"};
-
-    public static String[] time_weather_weather_text =
-            {"What is Today’s weather?", "Sunny", "Rainy", "Cloudy", "Windy", "Foggy", "Snowy"};
-
-    public static String[] time_weather_seasons_text =
-            {"What is the Current season?", "Spring", "Summer", "Rainy", "Autumn", "Winter"};
-
-    public static String[] time_weather_holidays_festivals_text =
-            {"Diwali", "Ganesh chaturthi", "Christmas", "Dussehra", "मकर संक्रांति", "Holi", "Eid", "Good Friday",  "गुडी पाडवा", "Republic day", "Independence day", "New year"};
-
-    public static String[] time_weather_brthdays_text =
-            {"My birthday", "Mom’s birthday", "Father’s birthday", "Brother’s birthday", "Sister’s birthday", "Friend’s birthday", "Grandmother’s birthday", "Grandfather’s birthday",  "Uncle’s birthday", "Aunt’s birthday", "Cousin’s birthday", "Teacher’s birthday"};
-
-    public static Integer[] count = new Integer[100];
+    private Integer[] count = new Integer[100];
     int[] sort = new int[100];
     int count_flag = 0;
     DataBaseHelper myDbHelper;
@@ -195,16 +149,15 @@ public class Layer3Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.trial1);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
+        getSupportActionBar().setTitle(getIntent().getExtras().getString("selectedMenuItemPath"));
         getSupportActionBar().setElevation(0);
         myDbHelper = new DataBaseHelper(this);
         mSession = new SessionManager(this);
         more_count = 0;
         final String[] side_english = {"like", "really like", "yes", "really yes", "more", "really more", "dont like", "really dont like", "no", "really no", "less", "really less"};
         final String[] below_english = {"Home", "back", "keyboard"};
-        if (mSession.getLanguage() == LANG_ENG) {
-            side = side_english;
-            below = below_english;
-        }
+        side = side_english;
+        below = below_english;
 
         mLevelOneItemPos = getIntent().getExtras().getInt("mLevelOneItemPos");
         mLevelTwoItemPos = getIntent().getExtras().getInt("mLevelTwoItemPos");
@@ -269,16 +222,13 @@ public class Layer3Activity extends AppCompatActivity {
                             mShouldReadFullSpeech = true;
                             mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
                             mLevelThreeItemPos = mRecyclerView.getChildLayoutPosition(view);
-                            String title = getIntent().getExtras().getString("selectedMenuItemPath");
-                            /*title += " / " + layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][mLevelThreeItemPos];
-                            getSupportActionBar().setTitle(title);*/
                             if ((mLevelOneItemPos == 3 && (mLevelTwoItemPos == 3 || mLevelTwoItemPos == 4)) || (mLevelOneItemPos == 7 && (mLevelTwoItemPos == 0 || mLevelTwoItemPos == 1 || mLevelTwoItemPos == 2 || mLevelTwoItemPos == 3 || mLevelTwoItemPos == 4)))
                                 mTts.speak(myMusic[mLevelThreeItemPos], TextToSpeech.QUEUE_FLUSH, null);
                             else
                                 mTts.speak(myMusic[sort[mLevelThreeItemPos]], TextToSpeech.QUEUE_FLUSH, null);
 
                             incrementTouchCountOfItem(mLevelThreeItemPos);
-                            if(mLevelOneItemPos == 0 && mLevelTwoItemPos == 2){
+                            if(mLevelOneItemPos == 0 && mLevelTwoItemPos == 1){
                                 int tmp = sort[mLevelThreeItemPos];
                                 if(tmp == 0){
                                     no.setAlpha(0.5f);
@@ -290,77 +240,21 @@ public class Layer3Activity extends AppCompatActivity {
                                     yes.setEnabled(false);
                                     no.setAlpha(1f);
                                     no.setEnabled(true);
-                                } else {
-                                    like.setAlpha(1f);
-                                    dislike.setAlpha(1f);
-                                    add.setAlpha(1f);
-                                    minus.setAlpha(1f);
-                                    yes.setAlpha(1f);
-                                    no.setAlpha(1f);
-                                    like.setEnabled(true);
-                                    dislike.setEnabled(true);
-                                    add.setEnabled(true);
-                                    minus.setEnabled(true);
-                                    yes.setEnabled(true);
-                                    no.setEnabled(true);
-                                }
-                            }else if(mLevelOneItemPos == 1 && mLevelTwoItemPos == 3){
+                                } else
+                                    changeTheActionButtons(!DISABLE_ACTION_BTNS);
+                            }else if(mLevelOneItemPos == 0 && (mLevelTwoItemPos == 0 || mLevelTwoItemPos == 2 || mLevelTwoItemPos == 3))
+                                changeTheActionButtons(DISABLE_ACTION_BTNS);
+                            else if(mLevelOneItemPos == 1 && mLevelTwoItemPos == 3){
                                 int tmp = sort[mLevelThreeItemPos];
-                                if (tmp == 34 || tmp == 35 || tmp == 36 || tmp == 37) {
-                                    like.setAlpha(0.5f);
-                                    dislike.setAlpha(0.5f);
-                                    add.setAlpha(0.5f);
-                                    minus.setAlpha(0.5f);
-                                    yes.setAlpha(0.5f);
-                                    no.setAlpha(0.5f);
-                                    like.setEnabled(false);
-                                    dislike.setEnabled(false);
-                                    add.setEnabled(false);
-                                    minus.setEnabled(false);
-                                    yes.setEnabled(false);
-                                    no.setEnabled(false);
-                                } else {
-                                    like.setAlpha(1f);
-                                    dislike.setAlpha(1f);
-                                    add.setAlpha(1f);
-                                    minus.setAlpha(1f);
-                                    yes.setAlpha(1f);
-                                    no.setAlpha(1f);
-                                    like.setEnabled(true);
-                                    dislike.setEnabled(true);
-                                    add.setEnabled(true);
-                                    minus.setEnabled(true);
-                                    yes.setEnabled(true);
-                                    no.setEnabled(true);
-                                }
+                                if (tmp == 34 || tmp == 35 || tmp == 36 || tmp == 37)
+                                    changeTheActionButtons(DISABLE_ACTION_BTNS);
+                                else
+                                    changeTheActionButtons(!DISABLE_ACTION_BTNS);
                             } else if (mLevelOneItemPos == 7 && (mLevelTwoItemPos == 0 || mLevelTwoItemPos == 1 || mLevelTwoItemPos == 2 || mLevelTwoItemPos == 3 || mLevelTwoItemPos == 4)) {
-                                if (mLevelThreeItemPos == 0) {
-                                    like.setAlpha(0.5f);
-                                    dislike.setAlpha(0.5f);
-                                    add.setAlpha(0.5f);
-                                    minus.setAlpha(0.5f);
-                                    yes.setAlpha(0.5f);
-                                    no.setAlpha(0.5f);
-                                    like.setEnabled(false);
-                                    dislike.setEnabled(false);
-                                    add.setEnabled(false);
-                                    minus.setEnabled(false);
-                                    yes.setEnabled(false);
-                                    no.setEnabled(false);
-                                } else {
-                                    like.setAlpha(1f);
-                                    dislike.setAlpha(1f);
-                                    add.setAlpha(1f);
-                                    minus.setAlpha(1f);
-                                    yes.setAlpha(1f);
-                                    no.setAlpha(1f);
-                                    like.setEnabled(true);
-                                    dislike.setEnabled(true);
-                                    add.setEnabled(true);
-                                    minus.setEnabled(true);
-                                    yes.setEnabled(true);
-                                    no.setEnabled(true);
-                                }
+                                if (mLevelThreeItemPos == 0)
+                                    changeTheActionButtons(DISABLE_ACTION_BTNS);
+                                else
+                                    changeTheActionButtons(!DISABLE_ACTION_BTNS);
                             }
                         }
                     });
@@ -419,9 +313,9 @@ public class Layer3Activity extends AppCompatActivity {
                 more_count = 0;
                 mShouldReadFullSpeech = false;
                 image_flag = -1;
-                flag = 0;
-                Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(i);
+                Intent intent = new Intent(Layer3Activity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
 
@@ -436,18 +330,7 @@ public class Layer3Activity extends AppCompatActivity {
                     mRecyclerView.setVisibility(View.VISIBLE);
                     ttsButton.setVisibility(View.INVISIBLE);
                     flag_keyboard = 0;
-                    like.setEnabled(true);
-                    dislike.setEnabled(true);
-                    add.setEnabled(true);
-                    minus.setEnabled(true);
-                    yes.setEnabled(true);
-                    no.setEnabled(true);
-                    like.setAlpha(1f);
-                    dislike.setAlpha(1f);
-                    add.setAlpha(1f);
-                    minus.setAlpha(1f);
-                    yes.setAlpha(1f);
-                    no.setAlpha(1f);
+                    changeTheActionButtons(!DISABLE_ACTION_BTNS);
                 } else {
                     keyboard.setImageResource(R.drawable.keyboardpressed);
                     back.setImageResource(R.drawable.backpressed);
@@ -456,18 +339,7 @@ public class Layer3Activity extends AppCompatActivity {
                     et.setKeyListener(originalKeyListener);
                     // Focus to the field.
                     mRecyclerView.setVisibility(View.INVISIBLE);
-                    like.setAlpha(0.5f);
-                    dislike.setAlpha(0.5f);
-                    add.setAlpha(0.5f);
-                    minus.setAlpha(0.5f);
-                    yes.setAlpha(0.5f);
-                    no.setAlpha(0.5f);
-                    like.setEnabled(false);
-                    dislike.setEnabled(false);
-                    add.setEnabled(false);
-                    minus.setEnabled(false);
-                    yes.setEnabled(false);
-                    no.setEnabled(false);
+                    changeTheActionButtons(DISABLE_ACTION_BTNS);
                     et.requestFocus();
                     ttsButton.setVisibility(View.VISIBLE);
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -491,10 +363,8 @@ public class Layer3Activity extends AppCompatActivity {
                     minus.setEnabled(false);
                     yes.setEnabled(false);
                     no.setEnabled(false);
-
                 }
         });
-
 
         et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -522,29 +392,14 @@ public class Layer3Activity extends AppCompatActivity {
                             mRecyclerView.setVisibility(View.VISIBLE);
                             ttsButton.setVisibility(View.INVISIBLE);
                             flag_keyboard = 0;
-                            like.setEnabled(true);
-                            dislike.setEnabled(true);
-                            add.setEnabled(true);
-                            minus.setEnabled(true);
-                            yes.setEnabled(true);
-                            no.setEnabled(true);
-                            like.setAlpha(1f);
-                            dislike.setAlpha(1f);
-                            add.setAlpha(1f);
-                            minus.setAlpha(1f);
-                            yes.setAlpha(1f);
-                            no.setAlpha(1f);
+                            changeTheActionButtons(!DISABLE_ACTION_BTNS);
                         } else if (more_count > 0) {
                             more_count -= 1;
                             myMusic_function(mLevelOneItemPos, mLevelTwoItemPos);
-                            System.out.println("LAUNCHING " + mLevelOneItemPos);
                             mRecyclerView.setAdapter(new Layer_three_Adapter(Layer3Activity.this, mLevelOneItemPos, mLevelTwoItemPos, sort));
-                            x = -1;
                         } else {
                             back.setImageResource(R.drawable.backpressed);
-                            Intent i = new Intent(getApplicationContext(), Main2LAyer.class);
-                            i.putExtra("id", mLevelOneItemPos);
-                            startActivity(i);
+                            finish();
                         }
 
                     }
@@ -565,18 +420,21 @@ public class Layer3Activity extends AppCompatActivity {
                         mCk = 1;
                     }
                 } else {
+                    ++mActionBtnClickCount;
+                    if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
+                        setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCk == 1) {
                         if (count_flag == 1)
-                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[location]][1], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[mLevelThreeItemPos]][1], TextToSpeech.QUEUE_FLUSH, null);
                         else
-                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][location][1], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][mLevelThreeItemPos][1], TextToSpeech.QUEUE_FLUSH, null);
                         mCk = 0;
 
                     } else {
                         if (count_flag == 1)
-                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[location]][0], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[mLevelThreeItemPos]][0], TextToSpeech.QUEUE_FLUSH, null);
                         else
-                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][location][0], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][mLevelThreeItemPos][0], TextToSpeech.QUEUE_FLUSH, null);
                         mCk = 1;
                     }
                 }
@@ -598,17 +456,20 @@ public class Layer3Activity extends AppCompatActivity {
                         mCd = 1;
                     }
                 } else {
+                    ++mActionBtnClickCount;
+                    if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
+                        setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCd == 1) {
                         if (count_flag == 1)
-                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[location]][7], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[mLevelThreeItemPos]][7], TextToSpeech.QUEUE_FLUSH, null);
                         else
-                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][location][7], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][mLevelThreeItemPos][7], TextToSpeech.QUEUE_FLUSH, null);
                         mCd = 0;
                     } else {
                         if (count_flag == 1)
-                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[location]][6], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[mLevelThreeItemPos]][6], TextToSpeech.QUEUE_FLUSH, null);
                         else
-                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][location][6], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][mLevelThreeItemPos][6], TextToSpeech.QUEUE_FLUSH, null);
                         mCd = 1;
                     }
                 }
@@ -630,17 +491,20 @@ public class Layer3Activity extends AppCompatActivity {
                         mCy = 1;
                     }
                 } else {
+                    ++mActionBtnClickCount;
+                    if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
+                        setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCy == 1) {
                         if (count_flag == 1)
-                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[location]][3], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[mLevelThreeItemPos]][3], TextToSpeech.QUEUE_FLUSH, null);
                         else
-                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][location][3], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][mLevelThreeItemPos][3], TextToSpeech.QUEUE_FLUSH, null);
                         mCy = 0;
                     } else {
                         if (count_flag == 1)
-                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[location]][2], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[mLevelThreeItemPos]][2], TextToSpeech.QUEUE_FLUSH, null);
                         else
-                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][location][2], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][mLevelThreeItemPos][2], TextToSpeech.QUEUE_FLUSH, null);
                         mCy = 1;
                     }
                 }
@@ -662,20 +526,21 @@ public class Layer3Activity extends AppCompatActivity {
                         mCn = 1;
                     }
                 } else {
-                    if (mSession.getGridSize() == 0) {
-                        if (mCn == 1) {
-                            if (count_flag == 1)
-                                mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[location]][9], TextToSpeech.QUEUE_FLUSH, null);
-                            else
-                                mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][location][9], TextToSpeech.QUEUE_FLUSH, null);
-                            mCn = 0;
-                        } else {
-                            if (count_flag == 1)
-                                mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[location]][8], TextToSpeech.QUEUE_FLUSH, null);
-                            else
-                                mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][location][8], TextToSpeech.QUEUE_FLUSH, null);
-                            mCn = 1;
-                        }
+                    ++mActionBtnClickCount;
+                    if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
+                        setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
+                    if (mCn == 1) {
+                        if (count_flag == 1)
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[mLevelThreeItemPos]][9], TextToSpeech.QUEUE_FLUSH, null);
+                        else
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][mLevelThreeItemPos][9], TextToSpeech.QUEUE_FLUSH, null);
+                        mCn = 0;
+                    } else {
+                        if (count_flag == 1)
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[mLevelThreeItemPos]][8], TextToSpeech.QUEUE_FLUSH, null);
+                        else
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][mLevelThreeItemPos][8], TextToSpeech.QUEUE_FLUSH, null);
+                        mCn = 1;
                     }
                 }
             }
@@ -696,17 +561,20 @@ public class Layer3Activity extends AppCompatActivity {
                         mCm = 1;
                     }
                 } else {
+                    ++mActionBtnClickCount;
+                    if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
+                        setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCm == 1) {
                         if (count_flag == 1)
-                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[location]][5], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[mLevelThreeItemPos]][5], TextToSpeech.QUEUE_FLUSH, null);
                         else
-                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][location][5], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][mLevelThreeItemPos][5], TextToSpeech.QUEUE_FLUSH, null);
                         mCm = 0;
                     } else {
                         if (count_flag == 1)
-                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[location]][4], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[mLevelThreeItemPos]][4], TextToSpeech.QUEUE_FLUSH, null);
                         else
-                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][location][4], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][mLevelThreeItemPos][4], TextToSpeech.QUEUE_FLUSH, null);
                         mCm = 1;
                     }
                 }
@@ -728,17 +596,20 @@ public class Layer3Activity extends AppCompatActivity {
                         mCl = 1;
                     }
                 } else {
+                    ++mActionBtnClickCount;
+                    if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
+                        setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCl == 1) {
                         if (count_flag == 1)
-                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[location]][11], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[mLevelThreeItemPos]][11], TextToSpeech.QUEUE_FLUSH, null);
                         else
-                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][location][11], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][mLevelThreeItemPos][11], TextToSpeech.QUEUE_FLUSH, null);
                         mCl = 0;
                     } else {
                         if (count_flag == 1)
-                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[location]][10], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][sort[mLevelThreeItemPos]][10], TextToSpeech.QUEUE_FLUSH, null);
                         else
-                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][location][10], TextToSpeech.QUEUE_FLUSH, null);
+                            mTts.speak(layer_3_speech[mLevelOneItemPos][mLevelTwoItemPos][mLevelThreeItemPos][10], TextToSpeech.QUEUE_FLUSH, null);
                         mCl = 1;
                     }
                 }
@@ -746,11 +617,42 @@ public class Layer3Activity extends AppCompatActivity {
         });
     }
 
+    private void changeTheActionButtons(boolean setDisable) {
+        if(setDisable) {
+            like.setAlpha(0.5f);
+            dislike.setAlpha(0.5f);
+            yes.setAlpha(0.5f);
+            no.setAlpha(0.5f);
+            add.setAlpha(0.5f);
+            minus.setAlpha(0.5f);
+            like.setEnabled(false);
+            dislike.setEnabled(false);
+            yes.setEnabled(false);
+            no.setEnabled(false);
+            add.setEnabled(false);
+            minus.setEnabled(false);
+        }else{
+            like.setAlpha(1f);
+            dislike.setAlpha(1f);
+            yes.setAlpha(1f);
+            no.setAlpha(1f);
+            add.setAlpha(1f);
+            minus.setAlpha(1f);
+            like.setEnabled(true);
+            dislike.setEnabled(true);
+            yes.setEnabled(true);
+            no.setEnabled(true);
+            add.setEnabled(true);
+            minus.setEnabled(true);
+        }
+    }
+
     private void incrementTouchCountOfItem(int levelThreeItemPos) {
         if (count_flag == 1) {
             count[sort[levelThreeItemPos]] = count[sort[levelThreeItemPos]] + 1;
             StringBuilder str = new StringBuilder();
-            for (Integer count : Layer3Activity.count) str.append(count).append(",");
+            for(int i=0; i< count.length; ++i)
+                str.append(count[i]).append(",");
             myDbHelper.setlevel(mLevelOneItemPos, mLevelTwoItemPos, str.toString());
         }
     }
@@ -821,26 +723,16 @@ public class Layer3Activity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onPause() {
-        finish();
-        super.onPause();
-    }
-
     public void myMusic_function(int layer_1_id, int layer_2_id) {
         System.out.println("size"+greet_feel_greetings_text.length);
         if (layer_1_id == 0) {
             if (layer_2_id == 0) {
-              //  for (int j = more_count * 9; j < more_count * 9 + 9; j++)
                     myMusic = greet_feel_greetings_text;
             } else if (layer_2_id == 1) {
-               // for (int j = more_count * 9; j < more_count * 9 + 9; j++)
                     myMusic = greet_feel_feelings_text;
             } else if (layer_2_id == 2) {
-               // for (int j = more_count * 9; j < more_count * 9 + 9; j++)
                     myMusic = greet_feel_requests_text;
             } else if (layer_2_id == 3) {
-                //for (int j = more_count * 9; j < more_count * 9 + 9; j++)
                     myMusic = greet_feel_questions_text;
             }
         } else if (layer_1_id == 1) {
@@ -851,16 +743,12 @@ public class Layer3Activity extends AppCompatActivity {
             } else if (layer_2_id == 2) {
                 myMusic = daily_activities_bathing_text;
             } else if (layer_2_id == 3) {
-                //for (int j = more_count * 9; j < more_count * 9 + 9; j++)
                     myMusic = daily_activities_clothes_access_text;
             } else if (layer_2_id == 4) {
-               // for (int j = more_count * 9; j < more_count * 9 + 9; j++)
                     myMusic = daily_activities_get_ready_text;
             } else if (layer_2_id == 5) {
-                //for (int j = more_count * 9; j < more_count * 9 + 9; j++)
                     myMusic = daily_activities_sleep_text;
             } else if (layer_2_id == 6) {
-                //for (int j = more_count * 9; j < more_count * 9 + 9; j++)
                     myMusic = daily_activities_therapy_text;
             } else if (layer_2_id == 7) {
                 myMusic = daily_activities_morning_schedule_text;
@@ -869,75 +757,54 @@ public class Layer3Activity extends AppCompatActivity {
             }
         } else if (layer_1_id == 2) {
             if (layer_2_id == 0) {
-                //for (int j = more_count * 9; j < more_count * 9 + 9; j++)
                     myMusic = foods_drinks_breakfast_text;
             } else if (layer_2_id == 1) {
-                //for (int j = more_count * 9; j < more_count * 9 + 9; j++)
                     myMusic = food_drinks_lunch_dinner_text;
             } else if (layer_2_id == 2) {
-                //for (int j = more_count * 9; j < more_count * 9 + 9; j++)
                     myMusic = food_drinks_sweets_text;
             } else if (layer_2_id == 3) {
-                //for (int j = more_count * 9; j < more_count * 9 + 9; j++)
                     myMusic = food_drinks_snacks_text;
             } else if (layer_2_id == 4) {
-                //for (int j = more_count * 9; j < more_count * 9 + 9; j++)
                     myMusic = food_drinks_fruits_text;
             } else if (layer_2_id == 5) {
-                //for (int j = more_count * 9; j < more_count * 9 + 9; j++)
                     myMusic = food_drinks_drinks_text;
             } else if (layer_2_id == 6) {
-                //for (int j = more_count * 9; j < more_count * 9 + 9; j++)
                     myMusic = food_drinks_cutlery_text;
             } else if (layer_2_id == 7) {
-                //for (int j = more_count * 9; j < more_count * 9 + 9; j++)
                     myMusic = food_drinks_add_ons_text;
             }
         } else if (layer_1_id == 3) {
             if (layer_2_id == 0) {
-               // for (int j = more_count * 9; j < more_count * 9 + 9; j++)
                     myMusic = fun_indoor_games_text;
             } else if (layer_2_id == 1) {
-                //for (int j = more_count * 9; j < more_count * 9 + 9; j++)
                     myMusic = fun_outdoor_games_text;
             } else if (layer_2_id == 2) {
-                //for (int j = more_count * 9; j < more_count * 9 + 9; j++)
                     myMusic = fun_sports_text;
             } else if (layer_2_id == 3) {
                 myMusic = fun_tv_text;
             } else if (layer_2_id == 4) {
                 myMusic = fun_music_text;
             } else if (layer_2_id == 5) {
-             //   for (int j = more_count * 9; j < more_count * 9 + 9; j++)
                     myMusic = fun_activities_text;
             }
         } else if (layer_1_id == 4) {
             if (layer_2_id == 0) {
-                //for (int j = more_count * 9; j < more_count * 9 + 9; j++)
                     myMusic = learning_animals_birds_text;
             } else if (layer_2_id == 1) {
-                //for (int j = more_count * 9; j < more_count * 9 + 9; j++)
                     myMusic = learning_body_parts_text;
             } else if (layer_2_id == 2) {
-                //for (int j = more_count * 9; j < more_count * 9 + 9; j++)
                     myMusic = learning_books_text;
             } else if (layer_2_id == 3) {
-                //for (int j = more_count * 9; j < more_count * 9 + 9; j++)
                     myMusic = learning_colours_text;
             } else if (layer_2_id == 4) {
-                //for (int j = more_count * 9; j < more_count * 9 + 9; j++)
                     myMusic = learning_shapes_text;
             } else if (layer_2_id == 5) {
-                //for (int j = more_count * 9; j < more_count * 9 + 9; j++)
                     myMusic = learning_stationary_text;
             } else if (layer_2_id == 6) {
-                //for (int j = more_count * 9; j < more_count * 9 + 9; j++)
                     myMusic = learning_school_objects_text;
             } else if (layer_2_id == 7) {
-                //for (int j = more_count * 9; j < more_count * 9 + 9; j++)
                     myMusic = learning_home_objects_text;
             } else if (layer_2_id == 8) {
-                //for (int j = more_count * 9; j < more_count * 9 + 9; j++)
                     myMusic = learning_transportation_text;
             }
         } else if (layer_1_id == 7) {
@@ -952,10 +819,8 @@ public class Layer3Activity extends AppCompatActivity {
             } else if (layer_2_id == 4) {
                 myMusic = time_weather_seasons_text;
             } else if (layer_2_id == 5) {
-               // for (int j = more_count * 9; j < more_count * 9 + 9; j++)
                     myMusic = time_weather_holidays_festivals_text;
             } else if (layer_2_id == 6) {
-                //for (int j = more_count * 9; j < more_count * 9 + 9; j++)
                     myMusic = time_weather_brthdays_text;
             }
         }
@@ -1018,29 +883,6 @@ public class Layer3Activity extends AppCompatActivity {
         }
     }
 
-    public class ArrayIndexComparator implements Comparator<Integer> {
-        private final Integer[] array;
-
-        public ArrayIndexComparator(Integer[] array) {
-            this.array = array;
-        }
-
-        public Integer[] createIndexArray() {
-            Integer[] indexes = new Integer[array.length];
-            for (int i = 0; i < array.length; i++) {
-                indexes[i] = i; // Autoboxing
-            }
-            return indexes;
-        }
-
-        @Override
-        public int compare(Integer index1, Integer index2) {
-            // Autounbox from Integer to int to use as array indexes
-            return array[index2].compareTo(array[index1]);
-        }
-
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -1095,8 +937,6 @@ public class Layer3Activity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Intent i = new Intent(Layer3Activity.this, MainActivity.class);
-            startActivity(i);
             finish();
             return true;
         }
