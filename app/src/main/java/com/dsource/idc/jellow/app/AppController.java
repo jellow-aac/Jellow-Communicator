@@ -2,6 +2,7 @@ package com.dsource.idc.jellow.app;
 
 import android.app.Application;
 import android.text.TextUtils;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -11,11 +12,8 @@ import com.android.volley.toolbox.Volley;
  */
 
 public class AppController extends Application {
-
     public static final String TAG = AppController.class.getSimpleName();
-
     private RequestQueue mRequestQueue;
-
     private static AppController mInstance;
 
     @Override
@@ -32,7 +30,6 @@ public class AppController extends Application {
         if (mRequestQueue == null) {
             mRequestQueue = Volley.newRequestQueue(getApplicationContext());
         }
-
         return mRequestQueue;
     }
 

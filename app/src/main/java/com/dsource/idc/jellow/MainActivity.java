@@ -19,17 +19,20 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.dsource.idc.jellow.Utility.SessionManager;
+import com.dsource.idc.jellow.Utility.UserDataMeasure;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
 import static com.dsource.idc.jellow.R.id.reset;
 
 public class MainActivity extends AppCompatActivity {
-    private final int LANG_ENG = 0, LANG_HINDI = 1;
+    private final int LANG_ENG = 0;
     private final boolean DISABLE_ACTION_BTNS = true;
 
-    int mCk = 0, mCy = 0, mCm = 0, mCd = 0, mCn = 0, mCl = 0;
-    int image_flag = -1, flag_keyboard = 0;
+    private int mCk = 0, mCy = 0, mCm = 0, mCd = 0, mCn = 0, mCl = 0;
+    private int image_flag = -1, flag_keyboard = 0;
     private ImageView like, dislike, add, minus, yes, no, home, keyboard, ttsButton, back;
     private EditText et;
     private KeyListener originalKeyListener;
@@ -39,245 +42,13 @@ public class MainActivity extends AppCompatActivity {
     private boolean mShouldReadFullSpeech = false;
     private ArrayList<View> mRecyclerItemsViewList;
     public TextToSpeech mTts;
-    private Integer[] mColor = { -5317, -12627531 , -7617718 , -2937298 , -648053365 , -1761607680 };
-
-    final String[] belowText_hindi = {"शुभकामना और भावना", "रोज़ के काम", "खाना", "मज़े", "सीखना", "लोग", "जगह", "समय और मौसम", "मदद"};
-    final String[] belowText_english = {"greet and feel", "daily activities", "eating", "fun", "learning", "people", "places", "time and Weather", "help"};
-    final String[] english1 = {"Greet and Feel", "Daily Activities", "Eating", "Fun", "Learning", "People", "Places", "Time and Weather", "Help"};
-
-    final String[] side_hindi = {"अच्छा लगता हैं", "सच में अच्छा लगता हैं", "हाँ", "सच में हाँ", "ज़्यादा", "सच में ज़्यादा", "अच्छा नहीं लगता हैं", "सच में अच्छा नहीं लगता हैं", "नहीं", "सच में नहीं", "कम", "सच में कम"};
-    final String[] side_english = {"like", "really like", "yes", "really yes", "more", "really more", "don’t like", "really don’t like", "no", "really no", "less", "really less"};
-
-    final String[] below_hindi = {"होम", "वापस", "कीबोर्ड"};
-    final String[] below_english = {"Home", "back", "keyboard"};
-
-    private final String[][] layer_1_speech_hindi = {{
-            "मुझे लोगों को नमस्कार करना और अपनी भावनाओं के बारे में बात करना अच्छा लगता हैं ",
-            "मुझे सच में लोगों को नमस्कार करना और अपनी भावनाओं के बारे में बात करना अच्छा लगता हैं",
-            "मुझे लोगों को नमस्कार करना और अपनी भावनाओं के बारे में बात करनी हैं",
-            "मुझे सच में लोगों को नमस्कार करना और अपनी भावनाओं के बारे में बात करनी हैं",
-            "मुझे लोगों को नमस्कार करना और अपनी भावनाओं के बारे में और ज़्यादा बात करनी हैं",
-            "मुझे सच में लोगों को नमस्कार करना और अपनी भावनाओं के बारे में और ज़्यादा बात करनी हैं",
-            "मुझे लोगों को नमस्कार करना और अपनी भावनाओं के बारे में बात करना अच्छा नहीं लगता हैं",
-            "मुझे सच में लोगों को नमस्कार करना और अपनी भावनाओं के बारे में बात करना अच्छा नहीं लगता हैं",
-            "मुझे लोगों को नमस्कार करना और अपनी भावनाओं के बारे में बात नहीं करनी हैं",
-            "मुझे सच में लोगों को नमस्कार करना और अपनी भावनाओं के बारे में बात नहीं करनी हैं",
-            "मुझे लोगों को नमस्कार करना और अपनी भावनाओं के बारे में कुछ भी बात नहीं करनी हैं",
-            "मुझे सच में लोगों को नमस्कार करना और अपनी भावनाओं के बारे में कुछ भी बात नहीं करनी हैं"
-    }, {"मुझे अपने रोज़़ के काम करना अच्छा लगता हैं",
-            "मुझे सच में अपने रोज़ के काम करना अच्छा लगता हैं",
-            "मुझे अपने रोज़ के काम करने हैं",
-            "मुझे सच में अपने रोज़ के काम करने हैं",
-            "मुझे अपने रोज़ के काम पर ज़्यादा समय बिताना हैं",
-            "मुझे सच में अपने रोज़ के काम पर और ज़्यादा समय बिताना हैं",
-            "मुझे अपने रोज़ के काम करना अच्छा नहीं लगता हैं",
-            "मुझे सच में अपने रोज़ के काम करना अच्छा नहीं लगता हैं",
-            "मुझे अपने रोज़ के काम नहीं करने हैं",
-            "मुझे सच में अपने रोज़ के काम नहीं करने हैं",
-            "मुझे अपने रोज़ के काम पर ज़्यादा समय नहीं बिताना हैं",
-            "मुझे सच में अपने रोज़ के काम पर कुछ भी समय नहीं बिताना हैं"
-    }, {"मुझे खाना अच्छा लगता हैं",
-            "मुझे सच में खाना अच्छा लगता हैं",
-            "मुझे खाना हैं",
-            "मुझे सच में खाना हैं",
-            "मुझे थोड़ा और खाना हैं",
-            "मुझे सच में थोड़ा और खाना हैं",
-            "मुझे खाना अच्छा नहीं लगता हैं",
-            "मुझे सच में खाना अच्छा नहीं लगता हैं",
-            "मुझे खाना नहीं हैं",
-            "मुझे सच में खाना नहीं हैं",
-            "मुझे कुछ भी खाना नहीं हैं",
-            "मुझे सच में कुछ भी खाना नहीं हैं"
-    }, {"मुझे मज़े करना अच्छा लगता हैं",
-            "मुझे सच में मज़े करना अच्छा लगता हैं",
-            "मुझे मज़े करने हैं",
-            "मुझे सच में मज़े करने हैं",
-            "मुझे और मज़े करने हैं",
-            "मुझे सच में और ज़्यादा मज़े करने हैं",
-            "मुझे मज़े करना अच्छा नहीं लगता हैं",
-            "मुझे सच में मज़े करना अच्छा नहीं लगता हैं",
-            "मुझे मज़े नहीं करने हैं",
-            "मुझे सच में मज़े नहीं करने हैं",
-            "मुझे और मज़े नहीं करने हैं",
-            "मुझे सच में और मज़े नहीं करने हैं"
-    }, {"मुझे सीखना अच्छा लगता हैं",
-            "मुझे सच में सीखना अच्छा लगता हैं",
-            "मुझे सीखना हैं",
-            "मुझे सच में सीखना हैं",
-            "मुझे और सीखना हैं",
-            "मुझे थोड़ा और सीखना हैं",
-            "मुझे सीखना अच्छा नहीं लगता हैं",
-            "मुझे सच में सीखना अच्छा नहीं लगता हैं",
-            "मुझे सीखना नहीं हैं",
-            "मुझे सच में सीखना नहीं हैं",
-            "मुझे और सीखना नहीं हैं",
-            "मुझे सच में और सीखना  नहीं हैं"
-    }, {"मुझे लोगों से बात करना अच्छा लगता हैं",
-            "मुझे सच में लोगों से बात करना अच्छा लगता हैं",
-            "मुझे लोगों से मिलना हैं",
-            "मुझे सच में लोगों से मिलना हैं",
-            "मुझे कुछ और लोगों से मिलना हैं",
-            "मुझे सच में कुछ और लोगों से मिलना हैं",
-            "मुझे लोगों से बात करना अच्छा नहीं लगता हैं",
-            "मुझे सच में लोगों से बात करना अच्छा नहीं लगता हैं",
-            "मुझे लोगों से नहीं मिलना हैं",
-            "मुझे सच में लोगों से नहीं मिलना हैं",
-            "मुझे किसी से भी नहीं मिलना हैं",
-            "मुझे सच में किसी से भी नहीं मिलना हैं"
-    }, {"मुझे जगहों को देखना अच्छा लगता हैं",
-            "मुझे सच में जगहों को देखना अच्छा लगता हैं",
-            "मुझे अलग-अलग जगहों को देखना हैं",
-            "मुझे सच में अलग-अलग जगहों को देखना हैं",
-            "मुझे कुछ और जगहों को देखना हैं",
-            "मुझे सच में कुछ और जगहों को देखना हैं",
-            "मुझे जगहों को देखना अच्छा नहीं लगता हैं",
-            "मुझे सच में जगहों को देखना अच्छा नहीं लगता हैं",
-            "मुझे अलग-अलग जगहों को नहीं देखना हैं",
-            "मुझे सच में अलग-अलग जगहों को नहीं देखना हैं",
-            "मुझे और जगहों को नहीं देखना हैं",
-            "मुझे सच में और जगहों को नहीं देखना हैं"
-    }, {"मुझे समय और मौसम के बारे में बात करना अच्छा लगता हैं",
-            "मुझे सच में समय और मौसम के बारे में बात करना अच्छा लगता हैं",
-            "मुझे समय और मौसम के बारे में बात करनी  हैं",
-            "मुझे सच में समय और मौसम के बारे में बात करनी हैं",
-            "मुझे समय और मौसम के बारे में और ज़्यादा बात करनी  हैं",
-            "मुझे सच में समय और मौसम के बारे में और ज़्यादा बात करनी हैं",
-            "मुझे समय और मौसम के बारे में बात करना अच्छा नहीं लगता हैं",
-            "मुझे सच में समय और मौसम के बारे में बात करना अच्छा नहीं लगता हैं",
-            "मुझे समय और मौसम के बारे में बात नहीं करनी हैं",
-            "मुझे  सच में समय और मौसम के बारे में बात नहीं करनी हैं",
-            "मुझे समय और मौसम के बारे में कुछ भी बात नहीं करनी हैं",
-            "मुझे सच में समय और मौसम के बारे में कुछ भी बात नहीं करनी हैं"
-    }, {"मुझे मदद करना अच्छा लगता हैं",
-            "मुझे सच में मदद करना अच्छा लगता हैं",
-            "मुझे मदद की ज़रूरत हैं",
-            "मुझे सच में मदद की ज़रूरत हैं",
-            "मुझे और मदद की ज़रूरत हैं",
-            "मुझे  सच में और ज़्यादा मदद की ज़रूरत है",
-            "मुझे मदद करना अच्छा नहीं लगता हैं",
-            "मुझे सच में मदद करना अच्छा नहीं लगता हैं",
-            "मुझे मदद की ज़रूरत नहीं हैं",
-            "मुझे सच में मदद की ज़रूरत नहीं  हैं",
-            "मुझे और मदद की ज़रूरत नहीं हैं",
-            "मुझे  सच में और मदद की ज़रूरत नहीं हैं"
-    }};
-
-    private final String[][] layer_1_speech_english = {{
-            "I like to greet others and talk about my feelings",
-            "I really like to greet others and talk about my feelings",
-            "I want to greet others and talk about my feelings",
-            "I really want to greet others and talk about my feelings",
-            "I want to greet others and talk about my feelings some more",
-            "I really want to greet others and talk about my feelings some more",
-            "I don’t like to greet others and talk about my feelings",
-            "I really don’t like to greet others and talk about my feelings",
-            "I don’t want to greet others and talk about my feelings",
-            "I really don’t want to greet others and talk about my feelings",
-            "I don’t want to greet others and talk about my feelings anymore",
-            "I really don’t want to greet others and talk about my feelings any more",
-
-    },{"I like to do my daily activities",
-            "I really like to do my daily activities",
-            "I want to do my daily activities",
-            "I really want to do my daily activities",
-            "I want to spend more time doing my daily activities",
-            "I really want to spend some more time doing my daily activities",
-            "I don’t like to do my daily activities",
-            "I really don’t like to do my daily activities",
-            "I don’t want to do my daily activities",
-            "I really don’t want to do my daily activities",
-            "I don’t want to spend more time doing my daily activities",
-            "I really don’t want to spend any more time doing my daily activities"
-    },{"I like to eat",
-            "I really like to eat",
-            "I want to eat",
-            "I really want to eat",
-            "I want to eat some more",
-            "I really want to eat some more",
-            "I don’t like to eat",
-            "I really don’t like to eat",
-            "I don’t want to eat",
-            "I really don’t want to eat",
-            "I don’t want to eat any more",
-            "I really don’t want to eat any more",
-    },{"I like to have fun",
-            "I really like to have fun",
-            "I want to have fun",
-            "I really want to have fun",
-            "I want to have more fun",
-            "I want to have some more fun",
-            "I don’t like to have fun",
-            "I really don’t like to have fun",
-            "I don’t want to have fun",
-            "I really don’t want to have fun",
-            "I don’t want to have more fun",
-            "I really don’t want to have any more fun"
-    },{"I like to learn",
-            "I really like to learn",
-            "I want to learn",
-            "I really want to learn",
-            "I want to learn more",
-            "I really want to learn some more",
-            "I don’t like to learn",
-            "I really don’t like to learn",
-            "I don’t want to learn",
-            "I really don’t want to learn",
-            "I don’t want to learn any more",
-            "I really don’t want to learn any more"
-    },  {"I like to talk to people",
-            "I really like to talk to people",
-            "I want to meet people",
-            "I really want to meet people",
-            "I want to meet some more people",
-            "I really want to meet some more people",
-            "I don’t like to talk to people",
-            "I really don’t like to talk to people",
-            "I don’t want to meet people",
-            "I really don’t want to meet people",
-            "I don’t want to meet any more people",
-            "I really don’t want to meet any more people"
-    },{"I like to visit places",
-            "I really like to visit places",
-            "I want to visit different places",
-            "I really want to visit different places",
-            "I want to visit some more places",
-            "I really want to visit some more places",
-            "I don’t like to visit places",
-            "I really don’t like to visit places",
-            "I don’t want to visit different places",
-            "I really don’t want to visit different places",
-            "I don’t want to visit any more places",
-            "I really don’t want to visit any more places"
-    },{"I like to talk about time and weather",
-            "I really like to talk about time and weather",
-            "I want to talk about time and weather",
-            "I really want to talk about time and weather",
-            "I want to talk some more about time and weather",
-            "I really want to talk some more about time and weather",
-            "I don’t like to talk about time and weather",
-            "I really don’t like to talk about time and weather",
-            "I don’t want to talk about time and weather",
-            "I really don’t want to talk about time and weather",
-            "I don’t want to talk any more about time and weather",
-            "I really don’t want to talk any more about time and weather"
-    },{"I like to help",
-            "I really like to help",
-            "I need help",
-            "I really need help",
-            "I need more help",
-            "I really need some more help",
-            "I don’t like to help",
-            "I really don’t like to help",
-            "I don’t need help",
-            "I really don’t need help",
-            "I don’t need more help",
-            "I really don’t need any more help"
-    }};
+    private UserDataMeasure userDataMeasure;
     private SessionManager mSession;
+    private int[] mColor;
+    private String [] belowText_english, belowText_hindi, side_hindi, side_english, below_hindi, below_english;
     private String[][] layer_1_speech = new String[100][100];
     private String[] myMusic = new String[100];
     private String[] side = new String[100];
-
     private String[] below = new String[100];
 
     @Override
@@ -286,14 +57,27 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.trial1);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setBackgroundDrawable( getResources().getDrawable(R.drawable.yellow_bg));
-        mRecyclerItemsViewList = new ArrayList<>(english1.length);
-        while (mRecyclerItemsViewList.size() < english1.length)  mRecyclerItemsViewList.add(null);
+        loadArraysFromResources();
+        userDataMeasure = new UserDataMeasure(this);
+        userDataMeasure.recordScreen(this.getLocalClassName());
         mSession = new SessionManager(this);
 
-        if(mSession.getLanguage()==1){
-            getSupportActionBar().setTitle("होम");
-        }else if (mSession.getLanguage()==0){
+        if (mSession.getLanguage() == LANG_ENG){
             getSupportActionBar().setTitle("Home");
+            layer_1_speech = layer_1_speech_english;
+            myMusic = belowText_english;
+            side = side_english;
+            below = below_english;
+            mRecyclerItemsViewList = new ArrayList<>(belowText_english.length);
+            while (mRecyclerItemsViewList.size() < belowText_english.length)  mRecyclerItemsViewList.add(null);
+        }else {
+            getSupportActionBar().setTitle("होम");
+            layer_1_speech = layer_1_speech_hindi;
+            myMusic = belowText_hindi;
+            side = side_hindi;
+            below = below_hindi;
+            mRecyclerItemsViewList = new ArrayList<>(belowText_hindi.length);
+            while (mRecyclerItemsViewList.size() < belowText_hindi.length)  mRecyclerItemsViewList.add(null);
         }
 
         mTts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
@@ -334,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(new ImageAdapter(this));
         mRecyclerView.setVerticalScrollBarEnabled(true);
         mRecyclerView.setScrollbarFadingEnabled(false);
-        mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), mRecyclerView, new RecyclerTouchListener.ClickListener() {
+        mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, mRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(final View view, final int position) {
                 mMenuItemLinearLayout = (LinearLayout)view.findViewById(R.id.linearlayout_icon1);
@@ -346,11 +130,7 @@ public class MainActivity extends AppCompatActivity {
                         mActionBtnClickCount = 0;
                         setMenuImageBorder(v, true);
                         mShouldReadFullSpeech = true;
-                        String title="";
-                        if(mSession.getLanguage() == LANG_ENG)
-                            title = english1[position];
-                        else
-                            title = belowText_hindi[position];
+                        String title = getActionBarTitle(position);
                         getSupportActionBar().setTitle(title);
                         if (mLevelOneItemPos == position) {
                             Intent intent = new Intent(MainActivity.this, Main2LAyer.class);
@@ -362,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         mLevelOneItemPos = mRecyclerView.getChildLayoutPosition(view);
                         mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
+                        userDataMeasure.recordGridItem(String.valueOf(mLevelOneItemPos));
                     }
                 });
             }
@@ -393,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
                 add.setImageResource(R.drawable.morewithout);
                 minus.setImageResource(R.drawable.lesswithout);
                 home.setImageResource(R.drawable.homepressed);
-                resetRecycleraMenuItemsAndFlags();
+                resetRecyclerMenuItemsAndFlags();
                 mShouldReadFullSpeech = false;
                 image_flag = -1;
                 if (flag_keyboard  == 1){
@@ -671,7 +452,73 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void resetRecycleraMenuItemsAndFlags() {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        if (mSession.getLanguage()==1){
+            MenuInflater blowUp = getMenuInflater();
+            blowUp.inflate(R.menu.menu_main, menu);
+        }
+        if (mSession.getLanguage()==0) {
+            MenuInflater blowUp = getMenuInflater();
+            blowUp.inflate(R.menu.menu_1, menu);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.settings:
+                startActivity(new Intent(this, Setting.class));
+                break;
+            case R.id.info:
+                startActivity(new Intent(this, About_Jellow.class));
+                break;
+            case R.id.profile:
+                startActivity(new Intent(this, Profile_form.class));
+                break;
+            case R.id.feedback:
+                startActivity(new Intent(this, Feedback.class));
+                break;
+            case R.id.usage:
+                startActivity(new Intent(this, Tutorial.class));
+                break;
+            case reset:
+                startActivity(new Intent(this, Reset__preferences.class));
+                break;
+            case R.id.keyboardinput:
+                startActivity(new Intent(this, Keyboard_Input.class));
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
+
+    private String getActionBarTitle(int position) {
+        String title="";
+        if(mSession.getLanguage() == LANG_ENG) {
+            String[] tempTextarr = getResources().getStringArray(R.array.arrLevelOneActionBarTitleEnglish);
+            title = tempTextarr[position];
+        }else {
+            String[] tempTextarr = getResources().getStringArray(R.array.arrLevelOneActionBarTextHindi);
+            title = tempTextarr[position];
+        }
+        return title;
+    }
+
+    private void loadArraysFromResources() {
+        mColor = getResources().getIntArray(R.array.arrActionBtnColors);
+        belowText_english = getResources().getStringArray(R.array.arrLevelOneActionBarTitleEnglish);
+        belowText_hindi = getResources().getStringArray(R.array.arrLevelOneBelowTextHindi);
+        side_english = getResources().getStringArray(R.array.arrSideEnglish);
+        side_hindi = getResources().getStringArray(R.array.arrSideHindi);
+        below_english = getResources().getStringArray(R.array.arrBelowEnglish);
+        below_hindi = getResources().getStringArray(R.array.arrBelowHindi);
+    }
+
+    private void resetRecyclerMenuItemsAndFlags() {
         resetActionButtons(6);
         mLevelOneItemPos = -1;
         resetRecyclerAllItems();
@@ -757,77 +604,238 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        if (mSession.getLanguage()==1){
-            MenuInflater blowUp = getMenuInflater();
-            blowUp.inflate(R.menu.menu_main, menu);
-        }
-        if (mSession.getLanguage()==0) {
-            MenuInflater blowUp = getMenuInflater();
-            blowUp.inflate(R.menu.menu_1, menu);
-        }
-       return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.settings:
-                Intent intent = new Intent(MainActivity.this, Setting.class);
-                startActivity(intent);
-                break;
-            case R.id.info:
-                Intent i = new Intent(MainActivity.this, About_Jellow.class);
-                startActivity(i);
-                break;
-            case R.id.profile:
-                Intent intent1 = new Intent(MainActivity.this, Profile_form.class);
-                startActivity(intent1);
-                break;
-            case R.id.feedback:
-                Intent intent2 = new Intent(MainActivity.this, Feedback.class);
-                startActivity(intent2);
-                break;
-            case R.id.usage:
-                Intent intent3 = new Intent(MainActivity.this, Tutorial.class);
-                startActivity(intent3);
-                break;
-            case reset:
-                Intent intent4 = new Intent(MainActivity.this, Reset__preferences.class);
-                startActivity(intent4);
-                break;
-            case R.id.keyboardinput:
-                Intent intent6 = new Intent(MainActivity.this, Keyboard_Input.class);
-                startActivity(intent6);
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return true;
-    }
-
     private class BackgroundSpeechOperationsAsync extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
             try {
                 mTts.setLanguage(new Locale("hin", "IND"));
-                if (mSession.getLanguage()== LANG_ENG){
-                    layer_1_speech = layer_1_speech_english;
-                    myMusic = belowText_english;
-                    side = side_english;
-                    below = below_english;
-                }else if (mSession.getLanguage() == LANG_HINDI){
-                    layer_1_speech = layer_1_speech_hindi;
-                    myMusic = belowText_hindi;
-                    side = side_hindi;
-                    below = below_hindi;
-                }
             } catch (Exception e) {
                 Thread.interrupted();
             }
             return null;
         }
     }
+
+    private final String[][] layer_1_speech_hindi = {{
+            "मुझे लोगों को नमस्कार करना और अपनी भावनाओं के बारे में बात करना अच्छा लगता हैं ",
+            "मुझे सच में लोगों को नमस्कार करना और अपनी भावनाओं के बारे में बात करना अच्छा लगता हैं",
+            "मुझे लोगों को नमस्कार करना और अपनी भावनाओं के बारे में बात करनी हैं",
+            "मुझे सच में लोगों को नमस्कार करना और अपनी भावनाओं के बारे में बात करनी हैं",
+            "मुझे लोगों को नमस्कार करना और अपनी भावनाओं के बारे में और ज़्यादा बात करनी हैं",
+            "मुझे सच में लोगों को नमस्कार करना और अपनी भावनाओं के बारे में और ज़्यादा बात करनी हैं",
+            "मुझे लोगों को नमस्कार करना और अपनी भावनाओं के बारे में बात करना अच्छा नहीं लगता हैं",
+            "मुझे सच में लोगों को नमस्कार करना और अपनी भावनाओं के बारे में बात करना अच्छा नहीं लगता हैं",
+            "मुझे लोगों को नमस्कार करना और अपनी भावनाओं के बारे में बात नहीं करनी हैं",
+            "मुझे सच में लोगों को नमस्कार करना और अपनी भावनाओं के बारे में बात नहीं करनी हैं",
+            "मुझे लोगों को नमस्कार करना और अपनी भावनाओं के बारे में कुछ भी बात नहीं करनी हैं",
+            "मुझे सच में लोगों को नमस्कार करना और अपनी भावनाओं के बारे में कुछ भी बात नहीं करनी हैं"
+    }, {"मुझे अपने रोज़़ के काम करना अच्छा लगता हैं",
+            "मुझे सच में अपने रोज़ के काम करना अच्छा लगता हैं",
+            "मुझे अपने रोज़ के काम करने हैं",
+            "मुझे सच में अपने रोज़ के काम करने हैं",
+            "मुझे अपने रोज़ के काम पर ज़्यादा समय बिताना हैं",
+            "मुझे सच में अपने रोज़ के काम पर और ज़्यादा समय बिताना हैं",
+            "मुझे अपने रोज़ के काम करना अच्छा नहीं लगता हैं",
+            "मुझे सच में अपने रोज़ के काम करना अच्छा नहीं लगता हैं",
+            "मुझे अपने रोज़ के काम नहीं करने हैं",
+            "मुझे सच में अपने रोज़ के काम नहीं करने हैं",
+            "मुझे अपने रोज़ के काम पर ज़्यादा समय नहीं बिताना हैं",
+            "मुझे सच में अपने रोज़ के काम पर कुछ भी समय नहीं बिताना हैं"
+    }, {"मुझे खाना अच्छा लगता हैं",
+            "मुझे सच में खाना अच्छा लगता हैं",
+            "मुझे खाना हैं",
+            "मुझे सच में खाना हैं",
+            "मुझे थोड़ा और खाना हैं",
+            "मुझे सच में थोड़ा और खाना हैं",
+            "मुझे खाना अच्छा नहीं लगता हैं",
+            "मुझे सच में खाना अच्छा नहीं लगता हैं",
+            "मुझे खाना नहीं हैं",
+            "मुझे सच में खाना नहीं हैं",
+            "मुझे कुछ भी खाना नहीं हैं",
+            "मुझे सच में कुछ भी खाना नहीं हैं"
+    }, {"मुझे मज़े करना अच्छा लगता हैं",
+            "मुझे सच में मज़े करना अच्छा लगता हैं",
+            "मुझे मज़े करने हैं",
+            "मुझे सच में मज़े करने हैं",
+            "मुझे और मज़े करने हैं",
+            "मुझे सच में और ज़्यादा मज़े करने हैं",
+            "मुझे मज़े करना अच्छा नहीं लगता हैं",
+            "मुझे सच में मज़े करना अच्छा नहीं लगता हैं",
+            "मुझे मज़े नहीं करने हैं",
+            "मुझे सच में मज़े नहीं करने हैं",
+            "मुझे और मज़े नहीं करने हैं",
+            "मुझे सच में और मज़े नहीं करने हैं"
+    }, {"मुझे सीखना अच्छा लगता हैं",
+            "मुझे सच में सीखना अच्छा लगता हैं",
+            "मुझे सीखना हैं",
+            "मुझे सच में सीखना हैं",
+            "मुझे और सीखना हैं",
+            "मुझे थोड़ा और सीखना हैं",
+            "मुझे सीखना अच्छा नहीं लगता हैं",
+            "मुझे सच में सीखना अच्छा नहीं लगता हैं",
+            "मुझे सीखना नहीं हैं",
+            "मुझे सच में सीखना नहीं हैं",
+            "मुझे और सीखना नहीं हैं",
+            "मुझे सच में और सीखना  नहीं हैं"
+    }, {"मुझे लोगों से बात करना अच्छा लगता हैं",
+            "मुझे सच में लोगों से बात करना अच्छा लगता हैं",
+            "मुझे लोगों से मिलना हैं",
+            "मुझे सच में लोगों से मिलना हैं",
+            "मुझे कुछ और लोगों से मिलना हैं",
+            "मुझे सच में कुछ और लोगों से मिलना हैं",
+            "मुझे लोगों से बात करना अच्छा नहीं लगता हैं",
+            "मुझे सच में लोगों से बात करना अच्छा नहीं लगता हैं",
+            "मुझे लोगों से नहीं मिलना हैं",
+            "मुझे सच में लोगों से नहीं मिलना हैं",
+            "मुझे किसी से भी नहीं मिलना हैं",
+            "मुझे सच में किसी से भी नहीं मिलना हैं"
+    }, {"मुझे जगहों को देखना अच्छा लगता हैं",
+            "मुझे सच में जगहों को देखना अच्छा लगता हैं",
+            "मुझे अलग-अलग जगहों को देखना हैं",
+            "मुझे सच में अलग-अलग जगहों को देखना हैं",
+            "मुझे कुछ और जगहों को देखना हैं",
+            "मुझे सच में कुछ और जगहों को देखना हैं",
+            "मुझे जगहों को देखना अच्छा नहीं लगता हैं",
+            "मुझे सच में जगहों को देखना अच्छा नहीं लगता हैं",
+            "मुझे अलग-अलग जगहों को नहीं देखना हैं",
+            "मुझे सच में अलग-अलग जगहों को नहीं देखना हैं",
+            "मुझे और जगहों को नहीं देखना हैं",
+            "मुझे सच में और जगहों को नहीं देखना हैं"
+    }, {"मुझे समय और मौसम के बारे में बात करना अच्छा लगता हैं",
+            "मुझे सच में समय और मौसम के बारे में बात करना अच्छा लगता हैं",
+            "मुझे समय और मौसम के बारे में बात करनी  हैं",
+            "मुझे सच में समय और मौसम के बारे में बात करनी हैं",
+            "मुझे समय और मौसम के बारे में और ज़्यादा बात करनी  हैं",
+            "मुझे सच में समय और मौसम के बारे में और ज़्यादा बात करनी हैं",
+            "मुझे समय और मौसम के बारे में बात करना अच्छा नहीं लगता हैं",
+            "मुझे सच में समय और मौसम के बारे में बात करना अच्छा नहीं लगता हैं",
+            "मुझे समय और मौसम के बारे में बात नहीं करनी हैं",
+            "मुझे  सच में समय और मौसम के बारे में बात नहीं करनी हैं",
+            "मुझे समय और मौसम के बारे में कुछ भी बात नहीं करनी हैं",
+            "मुझे सच में समय और मौसम के बारे में कुछ भी बात नहीं करनी हैं"
+    }, {"मुझे मदद करना अच्छा लगता हैं",
+            "मुझे सच में मदद करना अच्छा लगता हैं",
+            "मुझे मदद की ज़रूरत हैं",
+            "मुझे सच में मदद की ज़रूरत हैं",
+            "मुझे और मदद की ज़रूरत हैं",
+            "मुझे  सच में और ज़्यादा मदद की ज़रूरत है",
+            "मुझे मदद करना अच्छा नहीं लगता हैं",
+            "मुझे सच में मदद करना अच्छा नहीं लगता हैं",
+            "मुझे मदद की ज़रूरत नहीं हैं",
+            "मुझे सच में मदद की ज़रूरत नहीं  हैं",
+            "मुझे और मदद की ज़रूरत नहीं हैं",
+            "मुझे  सच में और मदद की ज़रूरत नहीं हैं"
+    }};
+
+    private final String[][] layer_1_speech_english = {{
+            "I like to greet others and talk about my feelings",
+            "I really like to greet others and talk about my feelings",
+            "I want to greet others and talk about my feelings",
+            "I really want to greet others and talk about my feelings",
+            "I want to greet others and talk about my feelings some more",
+            "I really want to greet others and talk about my feelings some more",
+            "I don’t like to greet others and talk about my feelings",
+            "I really don’t like to greet others and talk about my feelings",
+            "I don’t want to greet others and talk about my feelings",
+            "I really don’t want to greet others and talk about my feelings",
+            "I don’t want to greet others and talk about my feelings anymore",
+            "I really don’t want to greet others and talk about my feelings any more",
+
+    },{"I like to do my daily activities",
+            "I really like to do my daily activities",
+            "I want to do my daily activities",
+            "I really want to do my daily activities",
+            "I want to spend more time doing my daily activities",
+            "I really want to spend some more time doing my daily activities",
+            "I don’t like to do my daily activities",
+            "I really don’t like to do my daily activities",
+            "I don’t want to do my daily activities",
+            "I really don’t want to do my daily activities",
+            "I don’t want to spend more time doing my daily activities",
+            "I really don’t want to spend any more time doing my daily activities"
+    },{"I like to eat",
+            "I really like to eat",
+            "I want to eat",
+            "I really want to eat",
+            "I want to eat some more",
+            "I really want to eat some more",
+            "I don’t like to eat",
+            "I really don’t like to eat",
+            "I don’t want to eat",
+            "I really don’t want to eat",
+            "I don’t want to eat any more",
+            "I really don’t want to eat any more",
+    },{"I like to have fun",
+            "I really like to have fun",
+            "I want to have fun",
+            "I really want to have fun",
+            "I want to have more fun",
+            "I want to have some more fun",
+            "I don’t like to have fun",
+            "I really don’t like to have fun",
+            "I don’t want to have fun",
+            "I really don’t want to have fun",
+            "I don’t want to have more fun",
+            "I really don’t want to have any more fun"
+    },{"I like to learn",
+            "I really like to learn",
+            "I want to learn",
+            "I really want to learn",
+            "I want to learn more",
+            "I really want to learn some more",
+            "I don’t like to learn",
+            "I really don’t like to learn",
+            "I don’t want to learn",
+            "I really don’t want to learn",
+            "I don’t want to learn any more",
+            "I really don’t want to learn any more"
+    },  {"I like to talk to people",
+            "I really like to talk to people",
+            "I want to meet people",
+            "I really want to meet people",
+            "I want to meet some more people",
+            "I really want to meet some more people",
+            "I don’t like to talk to people",
+            "I really don’t like to talk to people",
+            "I don’t want to meet people",
+            "I really don’t want to meet people",
+            "I don’t want to meet any more people",
+            "I really don’t want to meet any more people"
+    },{"I like to visit places",
+            "I really like to visit places",
+            "I want to visit different places",
+            "I really want to visit different places",
+            "I want to visit some more places",
+            "I really want to visit some more places",
+            "I don’t like to visit places",
+            "I really don’t like to visit places",
+            "I don’t want to visit different places",
+            "I really don’t want to visit different places",
+            "I don’t want to visit any more places",
+            "I really don’t want to visit any more places"
+    },{"I like to talk about time and weather",
+            "I really like to talk about time and weather",
+            "I want to talk about time and weather",
+            "I really want to talk about time and weather",
+            "I want to talk some more about time and weather",
+            "I really want to talk some more about time and weather",
+            "I don’t like to talk about time and weather",
+            "I really don’t like to talk about time and weather",
+            "I don’t want to talk about time and weather",
+            "I really don’t want to talk about time and weather",
+            "I don’t want to talk any more about time and weather",
+            "I really don’t want to talk any more about time and weather"
+    },{"I like to help",
+            "I really like to help",
+            "I need help",
+            "I really need help",
+            "I need more help",
+            "I really need some more help",
+            "I don’t like to help",
+            "I really don’t like to help",
+            "I don’t need help",
+            "I really don’t need help",
+            "I don’t need more help",
+            "I really don’t need any more help"
+    }};
 }

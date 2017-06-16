@@ -21,6 +21,8 @@ import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TextView;
 
+import com.dsource.idc.jellow.Utility.SessionManager;
+
 public class Feedback extends AppCompatActivity {
 
     private RatingBar easy_to_use, pictures, voice, navigate;

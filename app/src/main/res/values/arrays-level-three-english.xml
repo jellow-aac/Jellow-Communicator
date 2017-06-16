@@ -1,0 +1,2084 @@
+<resources>
+<!--LEVEL THREE ARRAYS ARE HERE-->
+    <!--LEVEL THREE SPEECH TEXT ARE HERE-->
+    <!--LEVEL THREE "GREETING" SPEECH TEXT ARE HERE-->
+    <string-array name="arrLevelThreeGreetFeelGreetingSpeechTextEnglish">
+        <item>Hi</item>
+        <item>Hello</item>
+        <item>Bye</item>
+        <item>Good morning</item>
+        <item>Good afternoon</item>
+        <item>Good evening</item>
+        <item>Good night</item>
+        <item>High-five</item>
+        <item>Nice to meet you</item>
+        <item>How are you?</item>
+        <item>How was your day?</item>
+        <item>How do you do?</item>
+    </string-array>
+    <string-array name="arrLevelThreeGreetFeelFeelingsSpeechTextEnglish">
+        <item>Happy</item>
+        <item>Sad</item>
+        <item>Angry</item>
+        <item>afraid</item>
+        <item>Surprised</item>
+        <item>Irritated</item>
+        <item>Confused</item>
+        <item>Ashamed</item>
+        <item>Disappointed</item>
+        <item>bored</item>
+        <item>Worried</item>
+        <item>Stressed</item>
+        <item>Tired</item>
+        <item>Hot</item>
+        <item>Cold</item>
+        <item>Sick</item>
+        <item>Hurt</item>
+    </string-array>
+    <string-array name="arrLevelThreeGreetFeelQuestionsSpeechTextEnglish">
+        <item>How?</item>
+        <item>When?</item>
+        <item>Where?</item>
+        <item>Why?</item>
+        <item>What?</item>
+        <item>Who?</item>
+        <item>How much?</item>
+        <item>How many?</item>
+        <item>How long?</item>
+    </string-array>
+    <string-array name="arrLevelThreeGreetFeelRequestsSpeechTextEnglish">
+        <item>Please</item>
+        <item>Thank you</item>
+        <item>You\'re welcome</item>
+        <item>Please give me</item>
+        <item>Please tell me again</item>
+        <item>Please show me</item>
+        <item>I need a break</item>
+        <item>I am all done</item>
+        <item>Excuse me</item>
+        <item>I am sorry</item>
+        <item>I don\’t understand</item>
+        <item>Please share with me</item>
+        <item>Please slow down</item>
+        <item>I need help</item>
+        <item>Please come here</item>
+        <item>Please take me</item>
+    </string-array>
+
+    <!--LEVEL THREE "DAILY ACTIVITITES" SPEECH TEXT ARE HERE-->
+    <string-array name="arrLevelThreeDailyActBrushingSpeechTextEnglish">
+        <item>Rinse mouth</item>
+        <item>Rinse toothbrush</item>
+        <item>Put toothpaste on brush</item>
+        <item>Brush front teeth</item>
+        <item>Brush back teeth</item>
+        <item>Brush tongue</item>
+        <item>Rinse mouth</item>
+        <item>All done</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActToiletSpeechTextEnglish">
+        <item>Pull pants down</item>
+        <item>Sit on toilet</item>
+        <item>Wash bottom</item>
+        <item>Flushh toilet</item>
+        <item>Pull pants up</item>
+        <item>Wash hands</item>
+        <item>All done</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActBathingSpeechTextEnglish">
+        <item>Remove clothes</item>
+        <item>Turn on water</item>
+        <item>Get in the shower</item>
+        <item>Wet body</item>
+        <item>Put soap</item>
+        <item>Shampoo हैर</item>
+        <item>Put face wash</item>
+        <item>Wash हैर</item>
+        <item>Wash body</item>
+        <item>Turn off water</item>
+        <item>Dry हैर"</item>
+        <item>Dry face</item>
+        <item>Dry body</item>
+        <item>Put on clothes</item>
+        <item>All done</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActClothesAccSpeechTextEnglish">
+        <item>Change t-shirt</item>
+        <item>Change frock</item>
+        <item>Change skirt</item>
+        <item>Change jeans</item>
+        <item>Change pants</item>
+        <item>Change leggings</item>
+        <item>Change slacks</item>
+        <item>Change shorts</item>
+        <item>Change inner wear"</item>
+        <item>Change footwear</item>
+        <item>Change shoes</item>
+        <item>Change socks</item>
+        <item>wear night clothes</item>
+        <item>Shirt</item>
+        <item>T-shirt</item>
+        <item>Frock</item>
+        <item>Pants</item>
+        <item>slacks</item>
+        <item>Leggings</item>
+        <item>Shorts</item>
+        <item>salwarkameez</item>
+        <item>Sweater</item>
+        <item>Jacket</item>
+        <item>Scarf</item>
+        <item>Cap</item>
+        <item>Belt</item>
+        <item>Raincoat</item>
+        <item>Spectacles</item>
+        <item>Wrist watch</item>
+        <item>Earrings</item>
+        <item>brace let</item>
+        <item>Necklace</item>
+        <item>बिंदी</item>
+        <item>Chappals</item>
+        <item>My clothes are tight</item>
+        <item>My clothes are loose</item>
+        <item>I need help removing clothes</item>
+        <item>I need help putting on clothes</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActGetReadySpeechTextEnglish">
+        <item>Comb हैर</item>
+        <item>Face wash</item>
+        <item>Cut nails</item>
+        <item>Blow nose</item>
+        <item>Soap</item>
+        <item>Shampoo</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActSleepSpeechTextEnglish">
+        <item>Door</item>
+        <item>Fan</item>
+        <item>Light</item>
+        <item>Window</item>
+        <item>bed</item>
+        <item>Pillows</item>
+        <item>Blanket</item>
+        <item>Feeling warm</item>
+        <item>Feeling cold</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActTherapySpeechTextEnglish">
+        <item>Exercises</item>
+        <item>Swing</item>
+        <item>Trampoline</item>
+        <item>Swiss ball</item>
+        <item>Blanket</item>
+        <item>Ball pit</item>
+        <item>Hand activities</item>
+        <item>Leg exercises</item>
+        <item>Body vests</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActMorningScheSpeechTextEnglish">
+        <item>Wake up</item>
+        <item>Wash face</item>
+        <item>Go to bathroom</item>
+        <item>Brush teeth</item>
+        <item>Remove clothes</item>
+        <item>Have a बाथ</item>
+        <item>Get dressed</item>
+        <item>Comb हैर</item>
+        <item>Eat brekfust</item>
+        <item>Pack lunch box</item>
+        <item>Pack school bag</item>
+        <item>Go to school</item>
+        <item>Have a great day!</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActBedTimeScheSpeechTextEnglish">
+        <item>Eat dinner</item>
+        <item>wear night clothes</item>
+        <item>Brush teeth</item>
+        <item>Read story</item>
+        <item>Say goodnight</item>
+        <item>Say prayers</item>
+        <item>Sweet dreams!</item>
+    </string-array>
+
+    <!--LEVEL THREE "EATING" SPEECH TEXT ARE HERE-->
+    <string-array name="arrLevelThreeFoodDrinksBreakfastSpeechTextEnglish">
+        <item>Bread</item>
+        <item>Cornflakes</item>
+        <item>Aaloo Poori</item>
+        <item>Eggs</item>
+        <item>Poha</item>
+        <item>Upma</item>
+        <item>khichdi</item>
+        <item>Idli</item>
+        <item>dosaa</item>
+        <item>paraathaa</item>
+        <item>omlette</item>
+        <item>मेदुवड़ा</item>
+        <item>Porridge</item>
+        <item>Sandwich</item>
+        <item>Chutney</item>
+        <item>saambaar</item>
+        <item>Uutappam</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksLunchDinnerSpeechTextEnglish">
+        <item>Roti</item>
+        <item>Sabzi</item>
+        <item>Rice</item>
+        <item>Dal</item>
+        <item>Dal khichdi</item>
+        <item>Raaigh ta</item>
+        <item>paraathaa</item>
+        <item>Curd</item>
+        <item>Fish</item>
+        <item>Chicken</item>
+        <item>Pork</item>
+        <item>Mutton</item>
+        <item>crabbb meat</item>
+        <item>Turkey</item>
+        <item>Pizza</item>
+        <item>Salad</item>
+        <item>Soup</item>
+        <item>pastaa</item>
+        <item>Noodles</item>
+        <item>Italian</item>
+        <item>pav bhaji</item>
+        <item>Bhakri</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksSweetsSpeechTextEnglish">
+        <item>Cake</item>
+        <item>Icecream</item>
+        <item>Gajar halva</item>
+        <item>Gulab jamun</item>
+        <item>Lud doo</item>
+        <item>Barfi</item>
+        <item>Jalebi</item>
+        <item>Fruit salad</item>
+        <item>rass gulla</item>
+        <item>sheeraa</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksSnacksSpeechTextEnglish">
+        <item>Biscuits</item>
+        <item>Chaat</item>
+        <item>Chocolate</item>
+        <item>Wafers</item>
+        <item>Sandwich</item>
+        <item>Noodles</item>
+        <item>Cheese</item>
+        <item>Nuts</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksFruitsSpeechTextEnglish">
+        <item>Apple</item>
+        <item>Banana</item>
+        <item>Grapes</item>
+        <item>Guava</item>
+        <item>Mango</item>
+        <item>Orange</item>
+        <item>Pineapple</item>
+        <item>Strawberry</item>
+        <item>Blueberry</item>
+        <item>Pomegranate</item>
+        <item>Watermelon</item>
+        <item>pear</item>
+        <item>Papaya</item>
+        <item>Muskmelon</item>
+        <item>Chikoo</item>
+        <item>Jackfruit</item>
+        <item>Cherry</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksDrinksSpeechTextEnglish">
+        <item>Water</item>
+        <item>Milk</item>
+        <item>Bournvita</item>
+        <item>Mango juice</item>
+        <item>Apple juice</item>
+        <item>Orange juice</item>
+        <item>Lemon juice</item>
+        <item>Pineapple juice</item>
+        <item>Pepsi</item>
+        <item>cocacola</item>
+        <item>Mirinda</item>
+        <item>Fanta</item>
+        <item>maaza</item>
+        <item>Sprite</item>
+        <item>Mountain dew</item>
+        <item>Milk shake</item>
+        <item>Chocolate milk shake</item>
+        <item>Strawberry milk shake</item>
+        <item>Banana milk shake</item>
+        <item>Mango milk shak</item>
+        <item>Chikoo milk shake</item>
+        <item>tea</item>
+        <item>Coffee</item>
+        <item>Cold coffee</item>
+        <item>Energy drink</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksCutlerySpeechTextEnglish">
+        <item>Bowl</item>
+        <item>Plate</item>
+        <item>Spoon</item>
+        <item>Fork</item>
+        <item>Knife</item>
+        <item>Mug</item>
+        <item>Cup</item>
+        <item>Glass</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksAddonSpeechTextEnglish">
+        <item>Butter</item>
+        <item>Jam</item>
+        <item>Salt</item>
+        <item>Pepper</item>
+        <item>Sugar</item>
+        <item>Sauce</item>
+        <item>Pickle</item>
+        <item>Papad</item>
+        <item>Masala</item>
+    </string-array>
+
+    <!--LEVEL THREE "FUN" SPEECH TEXT ARE HERE-->
+    <string-array name="arrLevelThreeFunInDGamesSpeechTextEnglish">
+        <item>Puzzle</item>
+        <item>Board game</item>
+        <item>Blocks</item>
+        <item>Legos</item>
+        <item>Chess</item>
+        <item>Snakes and Ladders</item>
+        <item>Scrabble</item>
+        <item>Videogame</item>
+        <item>Doll</item>
+        <item>Action figure</item>
+        <item>Soft toy</item>
+        <item>Car</item>
+        <item>Truck</item>
+        <item>Art and craft</item>
+        <item>Play with me</item>
+    </string-array>
+    <string-array name="arrLevelThreeFunOutDGamesSpeechTextEnglish">
+        <item>Playground</item>
+        <item>Park</item>
+        <item>Swing</item>
+        <item>Slide</item>
+        <item>See-saw</item>
+        <item>Merry-go-round</item>
+        <item>Hide and seek</item>
+        <item>Bat and ball</item>
+        <item>Statue</item>
+        <item>Lock and key</item>
+        <item>Catch-catch</item>
+        <item>Kite</item>
+        <item>Chor-police</item>
+        <item>Marbles</item>
+        <item>Walk</item>
+        <item>Cycle</item>
+        <item>Run</item>
+        <item>Swim</item>
+    </string-array>
+    <string-array name="arrLevelThreeFunSportsSpeechTextEnglish">
+        <item>Cricket</item>
+        <item>Badminton</item>
+        <item>Tennis</item>
+        <item>basketball</item>
+        <item>Dodgeball</item>
+        <item>Volleyball</item>
+        <item>Kho-kho</item>
+        <item>Football</item>
+        <item>kabbbaddi</item>
+        <item>gym nastics</item>
+        <item>Swimming</item>
+    </string-array>
+    <string-array name="arrLevelThreeFunTvSpeechTextEnglish">
+        <item>Next channel</item>
+        <item>Previous channel</item>
+        <item>Volume up</item>
+        <item>Volume down</item>
+    </string-array>
+    <string-array name="arrLevelThreeFunMusicSpeechTextEnglish">
+        <item>Change music</item>
+        <item>Lets dance</item>
+        <item>Volume up</item>
+        <item>Volume down</item>
+    </string-array>
+    <string-array name="arrLevelThreeFunActivitiesSpeechTextEnglish">
+        <item>Draw</item>
+        <item>Paint</item>
+        <item>Read</item>
+        <item>Write</item>
+        <item>Arts and crafts</item>
+        <item>Drama</item>
+        <item>Dance</item>
+        <item>Make music</item>
+    </string-array>
+
+    <!--LEVEL THREE "LEARNING" SPEECH TEXT ARE HERE-->
+    <string-array name="arrLevelThreeLearningAnimBirdsSpeechTextEnglish">
+        <item>Dog</item>
+        <item>Cat</item>
+        <item>Elephant</item>
+        <item>Lion</item>
+        <item>Parrot</item>
+        <item>Rabbit</item>
+        <item>Cow</item>
+        <item>Duck</item>
+        <item>Donkey</item>
+        <item>Ant</item>
+        <item>Tiger</item>
+        <item>Monkey</item>
+        <item>Pigeon</item>
+        <item>Cockroach</item>
+        <item>Crow</item>
+        <item>Horse</item>
+        <item>Deer</item>
+        <item>Owl</item>
+        <item>wolf</item>
+        <item>Fox</item>
+        <item>Bear</item>
+        <item>Sheep</item>
+        <item>Goat</item>
+        <item>Pig</item>
+        <item>Fly</item>
+        <item>Giraffe</item>
+        <item>Zeebraa</item>
+        <item>Mosquito</item>
+        <item>Buffalo</item>
+        <item>Mouse</item>
+        <item>Snake</item>
+        <item>Crocodile</item>
+        <item>Bee</item>
+        <item>Hippopotamus</item>
+        <item>Rhinoceros</item>
+        <item>Fish</item>
+        <item>Penguin</item>
+        <item>Seal</item>
+        <item>Dolphin</item>
+        <item>Whale</item>
+        <item>Shark</item>
+        <item>tortoyse</item>
+        <item>sparrow</item>
+        <item>Eagle</item>
+        <item>Hawk</item>
+        <item>Vulture</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningBodyPartsSpeechTextEnglish">
+        <item>Head</item>
+        <item>हैर</item>
+        <item>Eyes</item>
+        <item>Nose</item>
+        <item>Ears</item>
+        <item>mouth</item>
+        <item>Tongue</item>
+        <item>Neck</item>
+        <item>Shoulder</item>
+        <item>Elbow</item>
+        <item>Wrist</item>
+        <item>Hands</item>
+        <item>Fingers</item>
+        <item>Back</item>
+        <item>Stomach</item>
+        <item>Hip</item>
+        <item>knee</item>
+        <item>Ankle</item>
+        <item>Legs</item>
+        <item>Toes</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningBooksSpeechTextEnglish">
+        <item>Bed time story book</item>
+        <item>Comic book</item>
+        <item>Rhymes book</item>
+        <item>Drawing book</item>
+        <item>Storybook</item>
+        <item>Picture book</item>
+        <item>Mystery book</item>
+        <item>Adventure book</item>
+        <item>School notebook</item>
+        <item>Maths book</item>
+        <item>Science book</item>
+        <item>History book</item>
+        <item>Geography book</item>
+        <item>Social studies book</item>
+        <item>English book</item>
+        <item>Hindi book</item>
+        <item>Marathi book</item>
+        <item>Textbook</item>
+        <item>Favourites</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningColorsSpeechTextEnglish">
+        <item>Black</item>
+        <item>Blue</item>
+        <item>Brown</item>
+        <item>Green</item>
+        <item>Red</item>
+        <item>Silver</item>
+        <item>White</item>
+        <item>Yellow</item>
+        <item>Golden</item>
+        <item>Pink</item>
+        <item>Orange</item>
+        <item>Purple</item>
+        <item>Gray</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningShapesSpeechTextEnglish">
+        <item>Standing line</item>
+        <item>Sleeping line</item>
+        <item>Slanting line</item>
+        <item>Circle</item>
+        <item>Rectangle</item>
+        <item>Square</item>
+        <item>Triangle</item>
+        <item>Star</item>
+        <item>Heart</item>
+        <item>Trapezium</item>
+        <item>Cube</item>
+        <item>Rhombus</item>
+        <item>Hexagon</item>
+        <item>Oval</item>
+        <item>Diamond</item>
+        <item>Pentagon</item>
+        <item>freeform</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningStationarySpeechTextEnglish">
+        <item>Pencil</item>
+        <item>Pen</item>
+        <item>Scale</item>
+        <item>Eraser</item>
+        <item>Sharpener</item>
+        <item>Crayon</item>
+        <item>Blank paper</item>
+        <item>Coloured paper</item>
+        <item>Scissors</item>
+        <item>Pencil led</item>
+        <item>Compass</item>
+        <item>Divider</item>
+        <item>stapler</item>
+        <item>U-pin</item>
+        <item>selo tape</item>
+        <item>Compass box</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningSchoolObjSpeechTextEnglish">
+        <item>Bag</item>
+        <item>Lunch box</item>
+        <item>Water bottle</item>
+        <item>Compass box</item>
+        <item>Homework</item>
+        <item>School notebooks</item>
+        <item>Textbooks</item>
+        <item>Uniform</item>
+        <item>Shoes</item>
+        <item>Socks</item>
+        <item>Pencil</item>
+        <item>Pen</item>
+        <item>Scale</item>
+        <item>Eraser</item>
+        <item>Sharpener</item>
+        <item>Chalk</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningHomeObjSpeechTextEnglish">
+        <item>Window</item>
+        <item>Door</item>
+        <item>Fan</item>
+        <item>Lamp</item>
+        <item>Desk</item>
+        <item>cupboard</item>
+        <item>Table</item>
+        <item>Chair</item>
+        <item>Toilet</item>
+        <item>Kitchen</item>
+        <item>Living room</item>
+        <item>Bedroom</item>
+        <item>Play room</item>
+        <item>Bathroom</item>
+        <item>Balcony</item>
+        <item>Study room</item>
+        <item>bed</item>
+        <item>Television</item>
+        <item>Computer</item>
+        <item>Sofa</item>
+        <item>Fridge</item>
+        <item>Microwave</item>
+        <item>Washing machine</item>
+        <item>Vacuum cleaner</item>
+        <item>Clock</item>
+        <item>Tube light</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningTransportSpeechTextEnglish">
+        <item>Bus</item>
+        <item>School bus</item>
+        <item>Car</item>
+        <item>Bicycle</item>
+        <item>Train</item>
+        <item>Rickshaa</item>
+        <item>Bike</item>
+        <item>Aeroplane</item>
+        <item>Ship</item>
+    </string-array>
+
+    <!--LEVEL THREE "TIME WEATHER" SPEECH TEXT ARE HERE-->
+    <string-array name="arrLevelThreeTimeWeaTimeSpeechTextEnglish">
+        <item>What is the time?</item>
+        <item>Today</item>
+        <item>Yesterday</item>
+        <item>Tomorrow</item>
+        <item>Morning</item>
+        <item>Afternoon</item>
+        <item>Evening</item>
+        <item>Night</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaDaySpeechTextEnglish">
+        <item>What is the day today?</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaMonthSpeechTextEnglish">
+        <item>What is the Current month?</item>
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+        <item>This month</item>
+        <item>Previous month</item>
+        <item>Next month</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaWeatherSpeechTextEnglish">
+        <item>What is Today’s weather?</item>
+        <item>Sunny</item>
+        <item>Rainy</item>
+        <item>Cloudy</item>
+        <item>Windy</item>
+        <item>Foggy</item>
+        <item>Snowy</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaSeasonsSpeechTextEnglish">
+        <item>What is the Current season?</item>
+        <item>Spring</item>
+        <item>Summer</item>
+        <item>Rainy</item>
+        <item>Autumn</item>
+        <item>Winter</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaHoliFestSpeechTextEnglish">
+        <item>Diwali</item>
+        <item>Ganesh chaturthi</item>
+        <item>Christmas</item>
+        <item>Dussehra</item>
+        <item>मकर संक्रांति</item>
+        <item>Holi</item>
+        <item>Eid</item>
+        <item>Good Friday</item>
+        <item>गुडी पाडवा</item>
+        <item>Republic day</item>
+        <item>Independence day</item>
+        <item>New year</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaBirthdaysSpeechTextEnglish">
+        <item>My birthday</item>
+        <item>Mom\’s birthday</item>
+        <item>Father\’sbirthday</item>
+        <item>Brother\’s birthday</item>
+        <item>Sister\’s birthday</item>
+        <item>Friend\’s birthday</item>
+        <item>Grandmother\’s birthday</item>
+        <item>Grandfather\’s birthday</item>
+        <item>Uncle\’s birthday</item>
+        <item>Aunt\’s birthday</item>
+        <item>Cousin\’s birthday</item>
+        <item>Teacher\’s birthday</item>
+    </string-array>
+
+    <!--LEVEL THREE ADAPTER ADAPTER TEXT ARE HERE-->
+    <!--LEVEL THREE "GREET AND FEEL" ADAPTER TEXT ARE HERE-->
+    <string-array name="arrLevelThreeGreetFeelGreetingAdapterTextEnglish">
+        <item>Hi</item>
+        <item>Hello</item>
+        <item>Bye</item>
+        <item>Good morning</item>
+        <item>Good afternoon</item>
+        <item>Good evening</item>
+        <item>Good night</item>
+        <item>Hi-five</item>
+        <item>Nice to meet you</item>
+        <item>How are you?</item>
+        <item>How was your day?</item>
+        <item>How do you do?</item>
+    </string-array>
+    <string-array name="arrLevelThreeGreetFeelFeelingsAdapterTextEnglish">
+        <item>Happy</item>
+        <item>Sad</item>
+        <item>Angry</item>
+        <item>Afraid</item>
+        <item>Amazed</item>
+        <item>Irritated</item>
+        <item>Confused</item>
+        <item>Ashamed</item>
+        <item>Disappointed</item>
+        <item>Bored</item>
+        <item>Worried</item>
+        <item>Stressed</item>
+        <item>Tired</item>
+        <item>Hot</item>
+        <item>Cold</item>
+        <item>Sick</item>
+        <item>Hurt</item>
+    </string-array>
+    <string-array name="arrLevelThreeGreetFeelQuestionsAdapterTextEnglish">
+        <item>How?</item>
+        <item>When?</item>
+        <item>Where?</item>
+        <item>Why?</item>
+        <item>What?</item>
+        <item>Who?</item>
+        <item>How much?</item>
+        <item>How many?</item>
+        <item>How long?</item>
+    </string-array>
+    <string-array name="arrLevelThreeGreetFeelRequestsAdapterTextEnglish">
+        <item>Please</item>
+        <item>Thank you</item>
+        <item>You are welcome</item>
+        <item>Please give me</item>
+        <item>Please tell me again</item>
+        <item>Please show me</item>
+        <item>I need a break</item>
+        <item>I am all done</item>
+        <item>Excuse me</item>
+        <item>I am sorry</item>
+        <item>I don\’t understand</item>
+        <item>Please share</item>
+        <item>Please slow down</item>
+        <item>I need help</item>
+        <item>Please come here</item>
+        <item>Please take me</item>
+    </string-array>
+
+    <!--LEVEL THREE "DAILY ACTIVITITES" ADAPTER TEXT ARE HERE-->
+    <string-array name="arrLevelThreeDailyActBrushingAdapterTextEnglish">
+        <item>Rinse mouth</item>
+        <item>Rinse toothbrush</item>
+        <item>Put toothpaste on brush</item>
+        <item>Brush front teeth</item>
+        <item>Brush back teeth</item>
+        <item>Brush tongue</item>
+        <item>Rinse mouth</item>
+        <item>All done</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActToiletAdapterTextEnglish">
+        <item>Pull pants down</item>
+        <item>Sit on toilet</item>
+        <item>Wash bottom</item>
+        <item>Flush toilet</item>
+        <item>Pull pants up</item>
+        <item>Wash hands</item>
+        <item>All done</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActBathingAdapterTextEnglish">
+        <item>Remove clothes</item>
+        <item>Turn on water</item>
+        <item>Get in the shower</item>
+        <item>Wet body</item>
+        <item>Put soap</item>
+        <item>Shampoo hair</item>
+        <item>Put face wash</item>
+        <item>Wash hair</item>
+        <item>Wash body</item>
+        <item>Turn off water</item>
+        <item>Dry hair"</item>
+        <item>Dry face</item>
+        <item>Dry body</item>
+        <item>Put on clothes</item>
+        <item>All done</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActClothesAccAdapterTextEnglish">
+        <item>Change t-shirt</item>
+        <item>Change frock</item>
+        <item>Change skirt</item>
+        <item>Change jeans</item>
+        <item>Change pants</item>
+        <item>Change leggings</item>
+        <item>Change slacks</item>
+        <item>Change shorts</item>
+        <item>Change innerwear"</item>
+        <item>Change footwear</item>
+        <item>Change shoes</item>
+        <item>Change socks</item>
+        <item>Wear night clothes</item>
+        <item>Shirt</item>
+        <item>T-shirt</item>
+        <item>Frock</item>
+        <item>Pants</item>
+        <item>Slacks</item>
+        <item>Leggings</item>
+        <item>Shorts</item>
+        <item>Salwar kameez</item>
+        <item>Sweater</item>
+        <item>Jacket</item>
+        <item>Scarf</item>
+        <item>Cap</item>
+        <item>Belt</item>
+        <item>Raincoat</item>
+        <item>Spectacles</item>
+        <item>Wristwatch</item>
+        <item>Earrings</item>
+        <item>Bracelet</item>
+        <item>Necklace</item>
+        <item>Bindi</item>
+        <item>Chappals</item>
+        <item>My clothes are tight</item>
+        <item>My clothes are loose</item>
+        <item>Help remove clothes</item>
+        <item>Help put on clothes</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActGetReadyAdapterTextEnglish">
+        <item>Comb hair</item>
+        <item>Face wash</item>
+        <item>Cut nails</item>
+        <item>Blow nose</item>
+        <item>Soap</item>
+        <item>Shampoo</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActSleepAdapterTextEnglish">
+        <item>Door</item>
+        <item>Fan</item>
+        <item>Light</item>
+        <item>Window</item>
+        <item>Bed</item>
+        <item>Pillows</item>
+        <item>Blanket</item>
+        <item>Feeling warm</item>
+        <item>Feeling cold</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActTherapyAdapterTextEnglish">
+        <item>Exercises</item>
+        <item>Swing</item>
+        <item>Trampoline</item>
+        <item>Swiss ball</item>
+        <item>Blanket</item>
+        <item>Ball pit</item>
+        <item>Hand activities</item>
+        <item>Leg exercises</item>
+        <item>Body vests</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActMrngScheAdapterTextEnglish">
+        <item>Wake up</item>
+        <item>Wash face</item>
+        <item>Go to bathroom</item>
+        <item>Brush teeth</item>
+        <item>Remove clothes</item>
+        <item>Have a bath</item>
+        <item>Get dressed</item>
+        <item>Comb hair</item>
+        <item>Eat breakfast</item>
+        <item>Pack lunchbox</item>
+        <item>Pack school bag</item>
+        <item>Go to school</item>
+        <item>Have a great day!</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActMrngBedTimScheAdapterTextEnglish">
+        <item>Eat dinner</item>
+        <item>Wear night clothes</item>
+        <item>Brush teeth</item>
+        <item>Read story</item>
+        <item>Say goodnight</item>
+        <item>Say prayers</item>
+        <item>Sweet dreams!</item>
+    </string-array>
+
+    <!--LEVEL THREE "EATING" SPEECH TEXT ARE HERE-->
+    <string-array name="arrLevelThreeFoodDrinksBreakfastAdapterTextEnglish">
+        <item>Bread</item>
+        <item>Cornflakes</item>
+        <item>Aaloo Poori</item>
+        <item>Eggs</item>
+        <item>Poha</item>
+        <item>Upma</item>
+        <item>Khichdi</item>
+        <item>Idli</item>
+        <item>Dosaa</item>
+        <item>Paraathaa</item>
+        <item>Omlette</item>
+        <item>Medu wada</item>
+        <item>Porridge</item>
+        <item>Sandwich</item>
+        <item>Chutney</item>
+        <item>Sambhar</item>
+        <item>Utappam</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksLunchDinnerAdapterTextEnglish">
+        <item>Roti</item>
+        <item>Sabzi</item>
+        <item>Rice</item>
+        <item>Dal</item>
+        <item>Dal khichdi</item>
+        <item>Raita</item>
+        <item>Paratha</item>
+        <item>Curd</item>
+        <item>Fish</item>
+        <item>Chicken</item>
+        <item>Pork</item>
+        <item>Mutton</item>
+        <item>Crab meat</item>
+        <item>Turkey</item>
+        <item>Pizza</item>
+        <item>Salad</item>
+        <item>Soup</item>
+        <item>Pasta</item>
+        <item>Noodles</item>
+        <item>Italian</item>
+        <item>Pav bhaji</item>
+        <item>Bhakri</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksSweetsAdapterTextEnglish">
+        <item>Cake</item>
+        <item>Icecream</item>
+        <item>Gajar halwa</item>
+        <item>Gulab jamun</item>
+        <item>Luddoo</item>
+        <item>Barfi</item>
+        <item>Jalebi</item>
+        <item>Fruit salad</item>
+        <item>Rosogulla</item>
+        <item>Sheera</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksSnacksAdapterTextEnglish">
+        <item>Biscuits</item>
+        <item>Chaat</item>
+        <item>Chocolate</item>
+        <item>Wafers</item>
+        <item>Sandwich</item>
+        <item>Noodles</item>
+        <item>Cheese</item>
+        <item>Nuts</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksFruitsAdapterTextEnglish">
+        <item>Apple</item>
+        <item>Banana</item>
+        <item>Grapes</item>
+        <item>Guava</item>
+        <item>Mango</item>
+        <item>Orange</item>
+        <item>Pineapple</item>
+        <item>Strawberry</item>
+        <item>Blueberry</item>
+        <item>Pomegranate</item>
+        <item>Watermelon</item>
+        <item>Pear</item>
+        <item>Papaya</item>
+        <item>Muskmelon</item>
+        <item>Chikoo</item>
+        <item>Jackfruit</item>
+        <item>Cherry</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksDrinksAdapterTextEnglish">
+        <item>Water</item>
+        <item>Milk</item>
+        <item>Bournvita</item>
+        <item>Mango juice</item>
+        <item>Apple juice</item>
+        <item>Orange juice</item>
+        <item>Lemon juice</item>
+        <item>Pineapple juice</item>
+        <item>Pepsi</item>
+        <item>Cocacola</item>
+        <item>Mirinda</item>
+        <item>Fanta</item>
+        <item>Maaza</item>
+        <item>Sprite</item>
+        <item>Mountain dew</item>
+        <item>Milkshake</item>
+        <item>Chocolate milkshake</item>
+        <item>Strawberry milkshake</item>
+        <item>Banana milkshake</item>
+        <item>Mango milkshak</item>
+        <item>Chikoo milkshake</item>
+        <item>Tea</item>
+        <item>Coffee</item>
+        <item>Cold coffee</item>
+        <item>Energy drink</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksCutleryAdapterTextEnglish">
+        <item>Bowl</item>
+        <item>Plate</item>
+        <item>Spoon</item>
+        <item>Fork</item>
+        <item>Knife</item>
+        <item>Mug</item>
+        <item>Cup</item>
+        <item>Glass</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksAddonAdapterTextEnglish">
+        <item>Butter</item>
+        <item>Jam</item>
+        <item>Salt</item>
+        <item>Pepper</item>
+        <item>Sugar</item>
+        <item>Sauce</item>
+        <item>Pickle</item>
+        <item>Papad</item>
+        <item>Masala</item>
+    </string-array>
+
+    <!--LEVEL THREE "FUN" ADAPTER TEXT ARE HERE-->
+    <string-array name="arrLevelThreeFunInDGamesAdapterTextEnglish">
+        <item>Puzzle</item>
+        <item>Board game</item>
+        <item>Blocks</item>
+        <item>Legos</item>
+        <item>Chess</item>
+        <item>Snakes &amp; Ladders</item>
+        <item>Scrabble</item>
+        <item>Videogame</item>
+        <item>Doll</item>
+        <item>Action figure</item>
+        <item>Soft toy</item>
+        <item>Car</item>
+        <item>Truck</item>
+        <item>Art and craft</item>
+        <item>Play with me</item>
+    </string-array>
+    <string-array name="arrLevelThreeFunOutDGamesAdapterTextEnglish">
+        <item>Playground</item>
+        <item>Park</item>
+        <item>Swing</item>
+        <item>Slide</item>
+        <item>See-saw</item>
+        <item>Merry-go-round</item>
+        <item>Hide and seek</item>
+        <item>Bat and ball</item>
+        <item>Statue</item>
+        <item>Lock and key</item>
+        <item>Catch-catch</item>
+        <item>Kite</item>
+        <item>Chor-police</item>
+        <item>Marbles</item>
+        <item>Walk</item>
+        <item>Cycle</item>
+        <item>Run</item>
+        <item>Swim</item>
+    </string-array>
+    <string-array name="arrLevelThreeFunSportsAdapterTextEnglish">
+        <item>Cricket</item>
+        <item>Badminton</item>
+        <item>Tennis</item>
+        <item>Basketball</item>
+        <item>Dodgeball</item>
+        <item>Volleyball</item>
+        <item>Kho-kho</item>
+        <item>Football</item>
+        <item>Kabaddi</item>
+        <item>Gymnastics</item>
+        <item>Swimming</item>
+    </string-array>
+    <string-array name="arrLevelThreeFunTvAdapterTextEnglish">
+        <item>Next channel</item>
+        <item>Previous channel</item>
+        <item>Volume up</item>
+        <item>Volume down</item>
+    </string-array>
+    <string-array name="arrLevelThreeFunMusicAdapterTextEnglish">
+        <item>Change music</item>
+        <item>Lets dance</item>
+        <item>Volume up</item>
+        <item>Volume down</item>
+    </string-array>
+    <string-array name="arrLevelThreeFunActivitiesAdapterTextEnglish">
+        <item>Draw</item>
+        <item>Paint</item>
+        <item>Read</item>
+        <item>Write</item>
+        <item>Arts and crafts</item>
+        <item>Drama</item>
+        <item>Dance</item>
+        <item>Make music</item>
+    </string-array>
+
+    <!--LEVEL THREE "LEARNING" ADAPTER TEXT ARE HERE-->
+    <string-array name="arrLevelThreeLearningAnimBirdsAdapterTextEnglish">
+        <item>Dog</item>
+        <item>Cat</item>
+        <item>Elephant</item>
+        <item>Lion</item>
+        <item>Parrot</item>
+        <item>Rabbit</item>
+        <item>Cow</item>
+        <item>Duck</item>
+        <item>Donkey</item>
+        <item>Ant</item>
+        <item>Tiger</item>
+        <item>Monkey</item>
+        <item>Pigeon</item>
+        <item>Cockroach</item>
+        <item>Crow</item>
+        <item>Horse</item>
+        <item>Deer</item>
+        <item>Owl</item>
+        <item>wolf</item>
+        <item>Fox</item>
+        <item>Bear</item>
+        <item>Sheep</item>
+        <item>Goat</item>
+        <item>Pig</item>
+        <item>Fly</item>
+        <item>Giraffe</item>
+        <item>Zebra</item>
+        <item>Mosquito</item>
+        <item>Buffalo</item>
+        <item>Mouse</item>
+        <item>Snake</item>
+        <item>Crocodile</item>
+        <item>Bee</item>
+        <item>Hippopotamus</item>
+        <item>Rhinoceros</item>
+        <item>Fish</item>
+        <item>Penguin</item>
+        <item>Seal</item>
+        <item>Dolphin</item>
+        <item>Whale</item>
+        <item>Shark</item>
+        <item>Tortoise</item>
+        <item>Sparrow</item>
+        <item>Eagle</item>
+        <item>Hawk</item>
+        <item>Vulture</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningBodyPartsAdapterTextEnglish">
+        <item>Head</item>
+        <item>Hair</item>
+        <item>Eyes</item>
+        <item>Nose</item>
+        <item>Ears</item>
+        <item>mouth</item>
+        <item>Tongue</item>
+        <item>Neck</item>
+        <item>Shoulder</item>
+        <item>Elbow</item>
+        <item>Wrist</item>
+        <item>Hands</item>
+        <item>Fingers</item>
+        <item>Back</item>
+        <item>Stomach</item>
+        <item>Hip</item>
+        <item>Knee</item>
+        <item>Ankle</item>
+        <item>Legs</item>
+        <item>Toes</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningBooksAdapterTextEnglish">
+        <item>Bed time story book</item>
+        <item>Comic book</item>
+        <item>Rhymes book</item>
+        <item>Drawing book</item>
+        <item>Story book</item>
+        <item>Picture book</item>
+        <item>Mystery book</item>
+        <item>Adventure book</item>
+        <item>School notebook</item>
+        <item>Maths book</item>
+        <item>Science book</item>
+        <item>History book</item>
+        <item>Geography book</item>
+        <item>Social studies book</item>
+        <item>English book</item>
+        <item>Hindi book</item>
+        <item>Marathi book</item>
+        <item>Textbook</item>
+        <item>Favourites</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningColorsAdapterTextEnglish">
+        <item>Black</item>
+        <item>Blue</item>
+        <item>Brown</item>
+        <item>Green</item>
+        <item>Red</item>
+        <item>Silver</item>
+        <item>White</item>
+        <item>Yellow</item>
+        <item>Golden</item>
+        <item>Pink</item>
+        <item>Orange</item>
+        <item>Purple</item>
+        <item>Gray</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningShapesAdapterTextEnglish">
+        <item>Standing line</item>
+        <item>Sleeping line</item>
+        <item>Slanting line</item>
+        <item>Circle</item>
+        <item>Rectangle</item>
+        <item>Square</item>
+        <item>Triangle</item>
+        <item>Star</item>
+        <item>Heart</item>
+        <item>Trapezium</item>
+        <item>Cube</item>
+        <item>Rhombus</item>
+        <item>Hexagon</item>
+        <item>Oval</item>
+        <item>Diamond</item>
+        <item>Pentagon</item>
+        <item>Freeform</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningStationaryAdapterTextEnglish">
+        <item>Pencil</item>
+        <item>Pen</item>
+        <item>Scale</item>
+        <item>Eraser</item>
+        <item>Sharpener</item>
+        <item>Crayon</item>
+        <item>Blank paper</item>
+        <item>Coloured paper</item>
+        <item>Scissors</item>
+        <item>Pencil led</item>
+        <item>Compass</item>
+        <item>Divider</item>
+        <item>Stapler</item>
+        <item>U-pin</item>
+        <item>Cello tape</item>
+        <item>Compass box</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningSchoolObjAdapterTextEnglish">
+        <item>Bag</item>
+        <item>Lunch box</item>
+        <item>Water bottle</item>
+        <item>Compass box</item>
+        <item>Homework</item>
+        <item>School notebooks</item>
+        <item>Textbooks</item>
+        <item>Uniform</item>
+        <item>Shoes</item>
+        <item>Socks</item>
+        <item>Pencil</item>
+        <item>Pen</item>
+        <item>Scale</item>
+        <item>Eraser</item>
+        <item>Sharpener</item>
+        <item>Chalk</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningHomeObjAdapterTextEnglish">
+        <item>Window</item>
+        <item>Door</item>
+        <item>Fan</item>
+        <item>Lamp</item>
+        <item>Desk</item>
+        <item>Cupboard</item>
+        <item>Table</item>
+        <item>Chair</item>
+        <item>Toilet</item>
+        <item>Kitchen</item>
+        <item>Living room</item>
+        <item>Bedroom</item>
+        <item>Play room</item>
+        <item>Bathroom</item>
+        <item>Balcony</item>
+        <item>Study room</item>
+        <item>Bed</item>
+        <item>Television</item>
+        <item>Computer</item>
+        <item>Sofa</item>
+        <item>Fridge</item>
+        <item>Microwave</item>
+        <item>Washing machine</item>
+        <item>Vacuum cleaner</item>
+        <item>Clock</item>
+        <item>Tube light</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningTransportAdapterTextEnglish">
+        <item>Bus</item>
+        <item>School bus</item>
+        <item>Car</item>
+        <item>Bicycle</item>
+        <item>Train</item>
+        <item>Rickshaw</item>
+        <item>Bike</item>
+        <item>Aeroplane</item>
+        <item>Ship</item>
+    </string-array>
+
+    <!--LEVEL THREE "TIME WEATHER" ADAPTER TEXT ARE HERE-->
+    <string-array name="arrLevelThreeTimeWeaTimeAdapterTextEnglish">
+        <item>What is the time?</item>
+        <item>Today</item>
+        <item>Yesterday</item>
+        <item>Tomorrow</item>
+        <item>Morning</item>
+        <item>Afternoon</item>
+        <item>Evening</item>
+        <item>Night</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaDayAdapterTextEnglish">
+        <item>What is the day today?</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaMonthAdapterTextEnglish">
+        <item>Current month?</item>
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+        <item>This month</item>
+        <item>Previous month</item>
+        <item>Next month</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaWeatherAdapterTextEnglish">
+        <item>Today’s weather?</item>
+        <item>Sunny</item>
+        <item>Rainy</item>
+        <item>Cloudy</item>
+        <item>Windy</item>
+        <item>Foggy</item>
+        <item>Snowy</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaSeasonsAdapterTextEnglish">
+        <item>Current season?</item>
+        <item>Spring</item>
+        <item>Summer</item>
+        <item>Rainy</item>
+        <item>Autumn</item>
+        <item>Winter</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaHoliFestAdapterTextEnglish">
+        <item>Diwali</item>
+        <item>Ganesh chaturthi</item>
+        <item>Christmas</item>
+        <item>Dussehra</item>
+        <item>Makar sankranti</item>
+        <item>Holi</item>
+        <item>Eid</item>
+        <item>Good Friday</item>
+        <item>Gudi padwa</item>
+        <item>Republic day</item>
+        <item>Independence day</item>
+        <item>New year</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaBirthdaysAdapterTextEnglish">
+        <item>My birthday</item>
+        <item>Mom\’s birthday</item>
+        <item>Father\’s birthday</item>
+        <item>Brother\’s birthday</item>
+        <item>Sister\’s birthday</item>
+        <item>Friend\’s birthday</item>
+        <item>Grandmother\’s birthday</item>
+        <item>Grandfather\’s birthday</item>
+        <item>Uncle\’s birthday</item>
+        <item>Aunt\’s birthday</item>
+        <item>Cousin\’s birthday</item>
+        <item>Teacher\’s birthday</item>
+    </string-array>
+
+    <!--LEVEL THREE ADAPTER DRAWABLE ARE HERE-->
+    <!--LEVEL THREE "GREET AND FEEL" ADAPTER TEXT ARE HERE-->
+    <array name="arrLevelThreeGreetFeelGreetingIconAdapter">
+        <item>@drawable/hi</item>
+        <item>@drawable/hello</item>
+        <item>@drawable/bye</item>
+        <item>@drawable/goodmorning</item>
+        <item>@drawable/goodafternoon</item>
+        <item>@drawable/goodevening</item>
+        <item>@drawable/goodnight</item>
+        <item>@drawable/highfive</item>
+        <item>@drawable/nicetomeetyou</item>
+        <item>@drawable/howareyou</item>
+        <item>@drawable/howwasyourday</item>
+        <item>@drawable/howareyou</item>
+    </array>
+    <array name="arrLevelThreeGreetFeelFeelingIconAdapter">
+        <item>@drawable/happy</item>
+        <item>@drawable/sad</item>
+        <item>@drawable/angry</item>
+        <item>@drawable/scared</item>
+        <item>@drawable/surprised</item>
+        <item>@drawable/irritated</item>
+        <item>@drawable/confused</item>
+        <item>@drawable/ashamed</item>
+        <item>@drawable/disappointed</item>
+        <item>@drawable/bored</item>
+        <item>@drawable/worried</item>
+        <item>@drawable/stressed</item>
+        <item>@drawable/tired</item>
+        <item>@drawable/hot</item>
+        <item>@drawable/cold</item>
+        <item>@drawable/sick</item>
+        <item>@drawable/hurt</item>
+    </array>
+    <array name="arrLevelThreeGreetFeelRequestsIconAdapter">
+        <item>@drawable/please</item>
+        <item>@drawable/thankyou</item>
+        <item>@drawable/welcome</item>
+        <item>@drawable/pleasegiveme</item>
+        <item>@drawable/pleasetellmeagain</item>
+        <item>@drawable/pleaseshowme</item>
+        <item>@drawable/ineedabreak</item>
+        <item>@drawable/iamalldone</item>
+        <item>@drawable/excuseme</item>
+        <item>@drawable/iamsorry</item>
+        <item>@drawable/idontunderstand</item>
+        <item>@drawable/pleaseshare</item>
+        <item>@drawable/pleaseslowdown</item>
+        <item>@drawable/ineedhelp</item>
+        <item>@drawable/comehere</item>
+        <item>@drawable/takeme</item>
+    </array>
+    <array name="arrLevelThreeGreetFeelQuestionsIconAdapter">
+        <item>@drawable/how</item>
+        <item>@drawable/when</item>
+        <item>@drawable/where</item>
+        <item>@drawable/why</item>
+        <item>@drawable/what</item>
+        <item>@drawable/who</item>
+        <item>@drawable/howmuch</item>
+        <item>@drawable/howmany</item>
+        <item>@drawable/howlong</item>
+    </array>
+
+    <!--LEVEL THREE "DAILY ACTIVITIES" ADAPTER TEXT ARE HERE-->
+    <array name="arrLevelThreeDailyActBrushingIconAdapter">
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+    </array>
+    <array name="arrLevelThreeDailyActToiletIconAdapter">
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+    </array>
+    <array name="arrLevelThreeDailyActBathingIconAdapter">
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+    </array>
+    <array name="arrLevelThreeDailyActClothesIconAdapter">
+        <item>@drawable/tshirt_clothing</item>
+        <item>@drawable/dress_clothing</item>
+        <item>@drawable/skirt_clothing</item>
+        <item>@drawable/jeans_clothing</item>
+        <item>@drawable/pants_clothing</item>
+        <item>@drawable/leggings</item>
+        <item>@drawable/slacks_clothing</item>
+        <item>@drawable/shorts</item>
+        <item>@drawable/underwear_clothing</item>
+        <item>@drawable/slippers_clothing</item>
+        <item>@drawable/shoes_clothing</item>
+        <item>@drawable/socks_school</item>
+        <item>@drawable/nightwear_clothing</item>
+        <item>@drawable/shirt</item>
+        <item>@drawable/tshirt_clothing</item>
+        <item>@drawable/dress_clothing</item>
+        <item>@drawable/pants_clothing</item>
+        <item>@drawable/slacks_clothing</item>
+        <item>@drawable/leggings</item>
+        <item>@drawable/shorts</item>
+        <item>@drawable/salwarkhamez_clothing</item>
+        <item>@drawable/sweater_clothing</item>
+        <item>@drawable/jcket_clothing</item>
+        <item>@drawable/scarf_clothing</item>
+        <item>@drawable/cap_clothing</item>
+        <item>@drawable/belt_clothing</item>
+        <item>@drawable/raincoat_clothing</item>
+        <item>@drawable/spectacles_clothing</item>
+        <item>@drawable/watch_clothing</item>
+        <item>@drawable/earings_clothing</item>
+        <item>@drawable/bracelet_clothing</item>
+        <item>@drawable/necklace_clothing</item>
+        <item>@drawable/bindi</item>
+        <item>@drawable/slippers_clothing</item>
+        <item>@drawable/myclothesaretight</item>
+        <item>@drawable/myclothesareloose</item>
+        <item>@drawable/ineedhelpremovingclothes</item>
+        <item>@drawable/ineedhelpputtingclotheson</item>
+    </array>
+    <array name="arrLevelThreeDailyActGetReadyIconAdapter">
+        <item>@drawable/combhair</item>
+        <item>@drawable/facewash</item>
+        <item>@drawable/cuttingnails</item>
+        <item>@drawable/blowingnose</item>
+        <item>@drawable/soap</item>
+        <item>@drawable/shampoo</item>
+    </array>
+    <array name="arrLevelThreeDailyActSleepIconAdapter">
+        <item>@drawable/door_homeobjects</item>
+        <item>@drawable/fan</item>
+        <item>@drawable/light</item>
+        <item>@drawable/window</item>
+        <item>@drawable/bed</item>
+        <item>@drawable/blanket</item>
+        <item>@drawable/feelinghot</item>
+        <item>@drawable/feelingcold</item>
+    </array>
+    <array name="arrLevelThreeDailyActTherapyIconAdapter">
+        <item>@drawable/exercise</item>
+        <item>@drawable/swing</item>
+        <item>@drawable/trampoline</item>
+        <item>@drawable/swissball</item>
+        <item>@drawable/blanket</item>
+        <item>@drawable/ballpit</item>
+        <item>@drawable/handmovements</item>
+        <item>@drawable/legexercises</item>
+        <item>@drawable/bodyvest</item>
+    </array>
+    <array name="arrLevelThreeDailyActMorningScheIconAdapter">
+        <item>@drawable/wakeup</item>
+        <item>@drawable/washface</item>
+        <item>@drawable/gototoilet</item>
+        <item>@drawable/brushteeth</item>
+        <item>@drawable/removeclothes</item>
+        <item>@drawable/haveabath</item>
+        <item>@drawable/getdressed</item>
+        <item>@drawable/combhair</item>
+        <item>@drawable/eatbreakfast</item>
+        <item>@drawable/packlunch</item>
+        <item>@drawable/packbagpack</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/haveagreatday</item>
+    </array>
+    <array name="arrLevelThreeDailyActBedTimeScheIconAdapter">
+        <item>@drawable/eatdinner</item>
+        <item>@drawable/wearnightsuit</item>
+        <item>@drawable/brushteeth</item>
+        <item>@drawable/readstory</item>
+        <item>@drawable/saygoodnight</item>
+        <item>@drawable/sayprayres</item>
+        <item>@drawable/sweetdreams</item>
+    </array>
+
+    <!--LEVEL THREE "EATING" ADAPTER TEXT ARE HERE-->
+    <array name="arrLevelThreeFoodDrinksBreakfastIconAdapter">
+        <item>@drawable/bread</item>
+        <item>@drawable/cornflakes</item>
+        <item>@drawable/aloopuri</item>
+        <item>@drawable/eggs</item>
+        <item>@drawable/poha</item>
+        <item>@drawable/upma</item>
+        <item>@drawable/khichdi</item>
+        <item>@drawable/idli</item>
+        <item>@drawable/dosa</item>
+        <item>@drawable/paratha</item>
+        <item>@drawable/omelette</item>
+        <item>@drawable/meduvada</item>
+        <item>@drawable/porriage</item>
+        <item>@drawable/sandwich</item>
+        <item>@drawable/chutney</item>
+        <item>@drawable/sambar</item>
+        <item>@drawable/uttapam</item>
+    </array>
+    <array name="arrLevelThreeFoodDrinksLunchDinIconAdapter">
+        <item>@drawable/roti</item>
+        <item>@drawable/sabzi</item>
+        <item>@drawable/rice</item>
+        <item>@drawable/dal</item>
+        <item>@drawable/dalkhichdi</item>
+        <item>@drawable/raita</item>
+        <item>@drawable/paratha</item>
+        <item>@drawable/curd</item>
+        <item>@drawable/fish</item>
+        <item>@drawable/chicken</item>
+        <item>@drawable/pork</item>
+        <item>@drawable/mutton</item>
+        <item>@drawable/crab</item>
+        <item>@drawable/turkey</item>
+        <item>@drawable/pizza</item>
+        <item>@drawable/salad</item>
+        <item>@drawable/soup</item>
+        <item>@drawable/pasta</item>
+        <item>@drawable/noodles</item>
+        <item>@drawable/italian</item>
+        <item>@drawable/pavbhaji</item>
+        <item>@drawable/bhakri</item>
+    </array>
+    <array name="arrLevelThreeFoodDrinksSweetsIconAdapter">
+        <item>@drawable/cake</item>
+        <item>@drawable/icecream</item>
+        <item>@drawable/gajarhalwa</item>
+        <item>@drawable/gulabjamun</item>
+        <item>@drawable/ladoo</item>
+        <item>@drawable/barfi</item>
+        <item>@drawable/jalebi</item>
+        <item>@drawable/fruitsalad</item>
+        <item>@drawable/rasgulla</item>
+        <item>@drawable/sheera</item>
+    </array>
+    <array name="arrLevelThreeFoodDrinksSnacksIconAdapter">
+        <item>@drawable/biscuits</item>
+        <item>@drawable/chaat</item>
+        <item>@drawable/chocolate</item>
+        <item>@drawable/chips</item>
+        <item>@drawable/sandwich</item>
+        <item>@drawable/noodles</item>
+        <item>@drawable/cheese</item>
+        <item>@drawable/peanuts</item>
+    </array>
+    <array name="arrLevelThreeFoodDrinksFruitsIconAdapter">
+        <item>@drawable/apple</item>
+        <item>@drawable/banana</item>
+        <item>@drawable/grapes</item>
+        <item>@drawable/guaua</item>
+        <item>@drawable/mango</item>
+        <item>@drawable/orange</item>
+        <item>@drawable/pineapple</item>
+        <item>@drawable/strawberry</item>
+        <item>@drawable/blueberry</item>
+        <item>@drawable/pomogranate</item>
+        <item>@drawable/watermelon</item>
+        <item>@drawable/pear</item>
+        <item>@drawable/papaya</item>
+        <item>@drawable/muskmelon</item>
+        <item>@drawable/chikoo</item>
+        <item>@drawable/jackfruit</item>
+        <item>@drawable/cherry</item>
+    </array>
+    <array name="arrLevelThreeFoodDrinksDrinksIconAdapter">
+        <item>@drawable/water</item>
+        <item>@drawable/milk</item>
+        <item>@drawable/bournvita</item>
+        <item>@drawable/mangojuice</item>
+        <item>@drawable/applejuice</item>
+        <item>@drawable/orangejuice</item>
+        <item>@drawable/lemonjuice</item>
+        <item>@drawable/pineapplejuice</item>
+        <item>@drawable/pepsi</item>
+        <item>@drawable/cocacola</item>
+        <item>@drawable/mirinda</item>
+        <item>@drawable/fanta</item>
+        <item>@drawable/mazzaa</item>
+        <item>@drawable/sprite</item>
+        <item>@drawable/mountaindew</item>
+        <item>@drawable/milkshakes</item>
+        <item>@drawable/chocolatemilkshake</item>
+        <item>@drawable/strawberrymilkshake</item>
+        <item>@drawable/bananamilkshake</item>
+        <item>@drawable/mangomilkshake</item>
+        <item>@drawable/chikoomilkshake</item>
+        <item>@drawable/tea</item>
+        <item>@drawable/coffee</item>
+        <item>@drawable/coldcoffee</item>
+        <item>@drawable/energydrink</item>
+    </array>
+    <array name="arrLevelThreeFoodDrinksCutleryIconAdapter">
+        <item>@drawable/bowl_cutlery</item>
+        <item>@drawable/plate_cutlery</item>
+        <item>@drawable/spoon_cutlery</item>
+        <item>@drawable/fork_cutlery</item>
+        <item>@drawable/knife_cutlery</item>
+        <item>@drawable/mug_cutlery</item>
+        <item>@drawable/cup_cutlery</item>
+        <item>@drawable/glass_cutlery</item>
+    </array>
+    <array name="arrLevelThreeFoodDrinksAddonsIconAdapter">
+        <item>@drawable/butter_addons</item>
+        <item>@drawable/jam_addons</item>
+        <item>@drawable/salt_addons</item>
+        <item>@drawable/pepper_addons</item>
+        <item>@drawable/sugar_addons</item>
+        <item>@drawable/ketchup_addons</item>
+        <item>@drawable/pickle</item>
+        <item>@drawable/papad_addons</item>
+        <item>@drawable/masala_addons</item>
+    </array>
+
+    <!--LEVEL THREE "FUN" ADAPTER TEXT ARE HERE-->
+    <array name="arrLevelThreeFunInDGamesIconAdapter">
+        <item>@drawable/puzzles</item>
+        <item>@drawable/boradgames</item>
+        <item>@drawable/blocks</item>
+        <item>@drawable/lego</item>
+        <item>@drawable/chess</item>
+        <item>@drawable/snakesandladders</item>
+        <item>@drawable/scrabble</item>
+        <item>@drawable/videogames</item>
+        <item>@drawable/doll</item>
+        <item>@drawable/actionfigure</item>
+        <item>@drawable/teddy</item>
+        <item>@drawable/cars</item>
+        <item>@drawable/truck</item>
+        <item>@drawable/artandcraft_activities</item>
+        <item>@drawable/playwithme</item>
+    </array>
+    <array name="arrLevelThreeFunOutDGamesIconAdapter">
+        <item>@drawable/level2_places_playground</item>
+        <item>@drawable/level2_places_park</item>
+        <item>@drawable/swing</item>
+        <item>@drawable/slide</item>
+        <item>@drawable/seesaw</item>
+        <item>@drawable/merrygoround</item>
+        <item>@drawable/hideandseek</item>
+        <item>@drawable/batandball</item>
+        <item>@drawable/statue</item>
+        <item>@drawable/lockandkey</item>
+        <item>@drawable/catchcatch</item>
+        <item>@drawable/kite</item>
+        <item>@drawable/choorpolice</item>
+        <item>@drawable/marbles</item>
+        <item>@drawable/walking</item>
+        <item>@drawable/cycle_transport</item>
+        <item>@drawable/running</item>
+        <item>@drawable/swimming</item>
+    </array>
+    <array name="arrLevelThreeFunSportsIconAdapter">
+        <item>@drawable/cricket_activities</item>
+        <item>@drawable/badminton_activities</item>
+        <item>@drawable/tennis_activities</item>
+        <item>@drawable/basketball_activities</item>
+        <item>@drawable/dodgeball_activities</item>
+        <item>@drawable/vollyball_activities</item>
+        <item>@drawable/khokho</item>
+        <item>@drawable/football_activities</item>
+        <item>@drawable/kabaddi</item>
+        <item>@drawable/gymnastics</item>
+        <item>@drawable/swimming</item>
+        <!--<item>@drawable/kite</item>
+        <item>@drawable/choorpolice</item>
+        <item>@drawable/marbles</item>
+        <item>@drawable/walking</item>
+        <item>@drawable/cycle_transport</item>
+        <item>@drawable/running</item>
+        <item>@drawable/swimming</item>-->
+    </array>
+    <array name="arrLevelThreeFunTvIconAdapter">
+        <item>@drawable/nextchannel</item>
+        <item>@drawable/previouschannel</item>
+        <item>@drawable/volumeup</item>
+        <item>@drawable/volumedown</item>
+    </array>
+    <array name="arrLevelThreeFunMusicIconAdapter">
+        <item>@drawable/changemusic</item>
+        <item>@drawable/dancing</item>
+        <item>@drawable/volumeup</item>
+        <item>@drawable/volumedown</item>
+    </array>
+    <array name="arrLevelThreeFunActivitiesIconAdapter">
+        <item>@drawable/draw_activities</item>
+        <item>@drawable/painting_activities</item>
+        <item>@drawable/read_activities</item>
+        <item>@drawable/write_activities</item>
+        <item>@drawable/artandcraft_activities</item>
+        <item>@drawable/drama_activities</item>
+        <item>@drawable/dancing</item>
+        <item>@drawable/musicalinstrument_activities</item>
+    </array>
+
+    <!--LEVEL THREE "LEARNING" ADAPTER TEXT ARE HERE-->
+    <array name="arrLevelThreeLearningAnimBirdsIconAdapter">
+        <item>@drawable/dog_animals</item>
+        <item>@drawable/cat_animals</item>
+        <item>@drawable/elephant_animals</item>
+        <item>@drawable/lion_animals</item>
+        <item>@drawable/parrot</item>
+        <item>@drawable/rabbit_animals</item>
+        <item>@drawable/cow_animals</item>
+        <item>@drawable/duck_animals</item>
+        <item>@drawable/donkey</item>
+        <item>@drawable/ant</item>
+        <item>@drawable/tiger</item>
+        <item>@drawable/monkey</item>
+        <item>@drawable/pigeon</item>
+        <item>@drawable/cockroach</item>
+        <item>@drawable/crow</item>
+        <item>@drawable/horse</item>
+        <item>@drawable/deer</item>
+        <item>@drawable/owl</item>
+        <item>@drawable/wolf</item>
+        <item>@drawable/fox</item>
+        <item>@drawable/bear</item>
+        <item>@drawable/sheep</item>
+        <item>@drawable/goat</item>
+        <item>@drawable/pig</item>
+        <item>@drawable/fly</item>
+        <item>@drawable/giraffee</item>
+        <item>@drawable/zebra</item>
+        <item>@drawable/mosquito</item>
+        <item>@drawable/buffallo</item>
+        <item>@drawable/mouse</item>
+        <item>@drawable/snake</item>
+        <item>@drawable/crocodile</item>
+        <item>@drawable/honeybee</item>
+        <item>@drawable/hippo</item>
+        <item>@drawable/rhino</item>
+        <item>@drawable/fish</item>
+        <item>@drawable/penguin</item>
+        <item>@drawable/seal</item>
+        <item>@drawable/dolphin</item>
+        <item>@drawable/whale</item>
+        <item>@drawable/shark</item>
+        <item>@drawable/tortoise</item>
+        <item>@drawable/sparrow</item>
+        <item>@drawable/eagle</item>
+        <item>@drawable/hawk</item>
+        <item>@drawable/vulture</item>
+    </array>
+    <array name="arrLevelThreeLearningBodyPartsIconAdapter">
+        <item>@drawable/head</item>
+        <item>@drawable/hair_bodyparts</item>
+        <item>@drawable/eye_bodyparts</item>
+        <item>@drawable/nose_bodyparts</item>
+        <item>@drawable/ear_bodyparts</item>
+        <item>@drawable/mouth_bodyparts</item>
+        <item>@drawable/tongue</item>
+        <item>@drawable/neck</item>
+        <item>@drawable/shoulder</item>
+        <item>@drawable/elbow</item>
+        <item>@drawable/wrist</item>
+        <item>@drawable/hand_bodyparts</item>
+        <item>@drawable/fingers</item>
+        <item>@drawable/back</item>
+        <item>@drawable/stomach_bodyparts</item>
+        <item>@drawable/hips</item>
+        <item>@drawable/knee_bodyparts</item>
+        <item>@drawable/ankle</item>
+        <item>@drawable/legs</item>
+        <item>@drawable/toes</item>
+    </array>
+    <array name="arrLevelThreeLearningBooksIconAdapter">
+        <item>@drawable/bedtimebook</item>
+        <item>@drawable/comics_books</item>
+        <item>@drawable/rhymebook</item>
+        <item>@drawable/drawingbook_books</item>
+        <item>@drawable/storybook</item>
+        <item>@drawable/picturebook</item>
+        <item>@drawable/mysterybook</item>
+        <item>@drawable/adventurebook</item>
+        <item>@drawable/notebook_books</item>
+        <item>@drawable/maths</item>
+        <item>@drawable/science_books</item>
+        <item>@drawable/history</item>
+        <item>@drawable/geography_books</item>
+        <item>@drawable/socialscience</item>
+        <item>@drawable/english</item>
+        <item>@drawable/hindi_books</item>
+        <item>@drawable/marathi_books</item>
+        <item>@drawable/wordbook</item>
+        <item>@drawable/favouritebook</item>
+    </array>
+    <array name="arrLevelThreeLearningColorsIconAdapter">
+        <item>@drawable/black_colour</item>
+        <item>@drawable/blue_colour</item>
+        <item>@drawable/brown_colour</item>
+        <item>@drawable/greem_colour</item>
+        <item>@drawable/redcolour</item>
+        <item>@drawable/silvercolour</item>
+        <item>@drawable/white_colour</item>
+        <item>@drawable/yellow_colour</item>
+        <item>@drawable/golden_colour</item>
+        <item>@drawable/pink_colour</item>
+        <item>@drawable/orange_colour</item>
+        <item>@drawable/purple_colour</item>
+        <item>@drawable/grey_colour</item>
+    </array>
+    <array name="arrLevelThreeLearningShapesIconAdapter">
+        <item>@drawable/standingline_shapes</item>
+        <item>@drawable/sleepingline_shapes</item>
+        <item>@drawable/slantingline_shapes</item>
+        <item>@drawable/circle_shapes</item>
+        <item>@drawable/rectangle_shapes</item>
+        <item>@drawable/square_shapes</item>
+        <item>@drawable/triangle_shapes</item>
+        <item>@drawable/star_shapes</item>
+        <item>@drawable/heart_shape</item>
+        <item>@drawable/trapezium_shapes</item>
+        <item>@drawable/cube_shapes</item>
+        <item>@drawable/rhombus_shapes</item>
+        <item>@drawable/hexagon_shapes</item>
+        <item>@drawable/oval_shapes</item>
+        <item>@drawable/diamond_shapes</item>
+        <item>@drawable/pentagon_shapes</item>
+        <item>@drawable/freeform_shapes</item>
+    </array>
+    <array name="arrLevelThreeLearningStationaryIconAdapter">
+        <item>@drawable/pencil_stationary</item>
+        <item>@drawable/pen_stationary</item>
+        <item>@drawable/ruler_stationary</item>
+        <item>@drawable/eraser_stationary</item>
+        <item>@drawable/sharpner_stationary</item>
+        <item>@drawable/crayon_stationary</item>
+        <item>@drawable/blankpaper_stationary</item>
+        <item>@drawable/colouredpaper_stationary</item>
+        <item>@drawable/sissors</item>
+        <item>@drawable/pencillead</item>
+        <item>@drawable/compass</item>
+        <item>@drawable/divider</item>
+        <item>@drawable/stapler</item>
+        <item>@drawable/upin</item>
+        <item>@drawable/cellotape</item>
+        <item>@drawable/pencilbox</item>
+    </array>
+    <array name="arrLevelThreeLearningSchoolIconAdapter">
+        <item>@drawable/bag_school</item>
+        <item>@drawable/lunchbox</item>
+        <item>@drawable/waterbottle_school</item>
+        <item>@drawable/pencilbox</item>
+        <item>@drawable/homework_school</item>
+        <item>@drawable/notebook_books</item>
+        <item>@drawable/textbooks_school</item>
+        <item>@drawable/uniform_school</item>
+        <item>@drawable/shoes_school</item>
+        <item>@drawable/socks_school</item>
+        <item>@drawable/pencil_stationary</item>
+        <item>@drawable/pen_stationary</item>
+        <item>@drawable/ruler_stationary</item>
+        <item>@drawable/eraser_stationary</item>
+        <item>@drawable/sharpner_stationary</item>
+        <item>@drawable/chalk</item>
+    </array>
+    <array name="arrLevelThreeLearningHomeIconAdapter">
+        <item>@drawable/window</item>
+        <item>@drawable/door_homeobjects</item>
+        <item>@drawable/fan</item>
+        <item>@drawable/lamp_homeobjects</item>
+        <item>@drawable/desk_homeobjects</item>
+        <item>@drawable/cupboard</item>
+        <item>@drawable/table</item>
+        <item>@drawable/chair_homeobjects</item>
+        <item>@drawable/toilet</item>
+        <item>@drawable/kitchen</item>
+        <item>@drawable/livingroom</item>
+        <item>@drawable/bedroom</item>
+        <item>@drawable/playroom</item>
+        <item>@drawable/bathroom</item>
+        <item>@drawable/balcony</item>
+        <item>@drawable/studyroom</item>
+        <item>@drawable/bed</item>
+        <item>@drawable/level2_fun_tv</item>
+        <item>@drawable/computer</item>
+        <item>@drawable/sofa</item>
+        <item>@drawable/fridge</item>
+        <item>@drawable/microwave</item>
+        <item>@drawable/washingmachie</item>
+        <item>@drawable/vaccumcleaner</item>
+        <item>@drawable/clock_homeobjects</item>
+        <item>@drawable/tubelight</item>
+    </array>
+    <array name="arrLevelThreeLearningTransportationIconAdapter">
+        <item>@drawable/bus_transport</item>
+        <item>@drawable/schoolbus_transport</item>
+        <item>@drawable/car_transport</item>
+        <item>@drawable/cycle_transport</item>
+        <item>@drawable/train_transport</item>
+        <item>@drawable/rickshaw_transport</item>
+        <item>@drawable/motorbike_transport</item>
+        <item>@drawable/plane_transport</item>
+        <item>@drawable/shop_transport</item>
+    </array>
+
+    <!--LEVEL THREE "TIME AND WEATHER" ADAPTER TEXT ARE HERE-->
+    <array name="arrLevelThreeTimeWeaTimeIconAdapter">
+        <item>@drawable/currenttime</item>
+        <item>@drawable/today</item>
+        <item>@drawable/yesterday</item>
+        <item>@drawable/tomorrow</item>
+        <item>@drawable/morning</item>
+        <item>@drawable/afternoon</item>
+        <item>@drawable/goodevening</item>
+        <item>@drawable/night</item>
+    </array>
+    <array name="arrLevelThreeTimeWeaDayIconAdapter">
+        <item>@drawable/currentday</item>
+        <item>@drawable/monday</item>
+        <item>@drawable/tuesday</item>
+        <item>@drawable/wednesday</item>
+        <item>@drawable/thursday</item>
+        <item>@drawable/friday</item>
+        <item>@drawable/saturday</item>
+        <item>@drawable/sunday</item>
+    </array>
+    <array name="arrLevelThreeTimeWeaMonthIconAdapter">
+        <item>@drawable/whatisthemonth</item>
+        <item>@drawable/january</item>
+        <item>@drawable/february</item>
+        <item>@drawable/march</item>
+        <item>@drawable/april</item>
+        <item>@drawable/may</item>
+        <item>@drawable/june</item>
+        <item>@drawable/july</item>
+        <item>@drawable/august</item>
+        <item>@drawable/september</item>
+        <item>@drawable/october</item>
+        <item>@drawable/november</item>
+        <item>@drawable/december</item>
+        <item>@drawable/currentmonth</item>
+        <item>@drawable/previousmonth</item>
+        <item>@drawable/nextmonth</item>
+    </array>
+    <array name="arrLevelThreeTimeWeaWeatherIconAdapter">
+        <item>@drawable/todaysweather</item>
+        <item>@drawable/afternoon</item>
+        <item>@drawable/rainy</item>
+        <item>@drawable/cloudy</item>
+        <item>@drawable/windy</item>
+        <item>@drawable/foggy</item>
+        <item>@drawable/snowy</item>
+    </array>
+    <array name="arrLevelThreeTimeWeaSeasonsIconAdapter">
+        <item>@drawable/currentseason</item>
+        <item>@drawable/spring</item>
+        <item>@drawable/afternoon</item>
+        <item>@drawable/rainy</item>
+        <item>@drawable/autumn</item>
+        <item>@drawable/winter</item>
+    </array>
+    <array name="arrLevelThreeTimeWeaHoliFestIconAdapter">
+        <item>@drawable/diwali</item>
+        <item>@drawable/ganeshchaturthi</item>
+        <item>@drawable/christmas</item>
+        <item>@drawable/duserra</item>
+        <item>@drawable/mararsankranti</item>
+        <item>@drawable/holi</item>
+        <item>@drawable/eid</item>
+        <item>@drawable/goodfriday</item>
+        <item>@drawable/gudipadwa</item>
+        <item>@drawable/republicday</item>
+        <item>@drawable/independance</item>
+        <item>@drawable/newyear</item>
+    </array>
+    <array name="arrLevelThreeTimeWeaBirthdaysIconAdapter">
+        <item>@drawable/mybirthday</item>
+        <item>@drawable/momsbirthday</item>
+        <item>@drawable/dadsbirthday</item>
+        <item>@drawable/brothersbirthday</item>
+        <item>@drawable/sistersbirthday</item>
+        <item>@drawable/friendsbirthday</item>
+        <item>@drawable/grandmomsbirthday</item>
+        <item>@drawable/grandfathersbirthday</item>
+        <item>@drawable/unclesbirthday</item>
+        <item>@drawable/auntsbirthday</item>
+        <item>@drawable/cousinsbirthday</item>
+        <item>@drawable/teachersbirthday</item>
+    </array>
+</resources>

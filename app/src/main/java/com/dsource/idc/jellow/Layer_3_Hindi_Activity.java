@@ -21,6 +21,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.dsource.idc.jellow.Utility.SessionManager;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,12 +31,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
+import static com.dsource.idc.jellow.R.id.reset;
+
 /**
  * Created by ekalpa on 7/14/2016.
  **/
-
 public class Layer_3_Hindi_Activity extends AppCompatActivity{
-    private static final int LANG_ENG = 0, LANG_HINDI = 1;
+    private final int LANG_ENG = 0, LANG_HINDI = 1;
     private final boolean DISABLE_ACTION_BTNS = true;
     private int mCk = 0, mCy = 0, mCm = 0, mCd = 0, mCn = 0, mCl = 0;
 
@@ -51,127 +54,11 @@ public class Layer_3_Hindi_Activity extends AppCompatActivity{
     private boolean mShouldReadFullSpeech = false;
     private ArrayList<View> mRecyclerItemsViewList;
     private SessionManager mSession;
-
-    /*int layer_1_id, layer_2_id;
-    int x = -1, image_flag = -1;
-    int flag = 0, flag_keyboard = 0;
-    ImageView like, dislike, add, minus, yes, no, home, keyboard, ttsButton, back;
-    boolean a = true;
-    private EditText et;
-    private KeyListener originalKeyListener;
-    TextToSpeech tts;
-    private RecyclerView recyclerView; //new addition
-    private CircularImageView im1,im2,im3,im4,im5,im6, im7,im8,im9;
-    LinearLayout mLinearLayoutIconOne, mLinearLayoutIconTwo, mLinearLayoutIconThree;
-    public ImageAdapter imgad;
-    String[] myMusic;
-
-    private final int more_count = 0;
-
-    Integer[] color = {-5317, -12627531 , -7617718 , -2937298 , -648053365 , -1761607680 };*/
-
-    private final String[] daily_activities_brushing_text =
-            {"Rinse maauuthh", "Rinse toothbrush", "Put toothpaste on brush", "Brush front teeth", "Brush backkkteethh", "Brush tongue", "Rinse maauuthh", "All done"};
-
-    private final String[] daily_activities_toilet_text =
-            {"Pull pants down", "Sit on toil et", "Wash bottom", "Flushh toil et", "Pull pants up", "Wash hands", "All done"};
-
-    private final String[] daily_activities_bathing_text =
-            {"Remove clothes", "Turn on water", "Get in the shaaver", "Wet body", "Put soap", "Shampoo हैर", "Put face wash", "Wash हैर", "mohrr", "Wash body", "Turn off water", "Dry हैर", "Dry face", "Dry body", "Put on clothes", "All done"};
-
-    private final String[] daily_activities_morning_schedule_text =
-            {"Wake up", "Wash face", "Go to bathroom", "Brush teeth", "Remove clothes", "Have a बाथ", "Get dressed", "Comb हैर", "mohrr", "Eat brek fust", "Pack lunch box", "Pack school bag", "Go to school", "Have a great day!"};
-
-    private final String[] daily_activities_bedtime_schedule_text =
-            {"Eat dinner", "ware night clothes", "Brush teeth", "Read story", "Say goodnight", "Say prayers", "Sweet dreams!"};
-
-    private final String[] greet_feel_greetings_text =
-            {"नमस्ते!", "नमसकार", "अलविदा", "शुभ प्रभात", "शुभ दिन", "शुभ संध्या", "शुभ रात्रि", "ताली दो",
-                    "आपसे मिलकर अच्छा लगा", "आप कैसे हैं?", "आपका दिन कैसा था?", "आपके क्या हाल हैं?"};
-    private final String[] greet_feel_feelings_text =
-            {"खुश", "उदास", "गुस्सा", "डर", "हैरान", "चिढ़ा हुआ", "उलझन", "शर्मिंदा",
-                    "निराश", "बोर", "चिंता", "तनावग्रस्त", "थका हुआ", "गरम", "ठंडा", "बीमार", "दुखी"};
-    private final String[] greet_feel_requests_text =
-            {"कृपया", "धन्यवाद", "आपका स्वागत हैं", "कृपया मुझे दीजीए", "कृपया मुझे फिर से बताइए", "कृपया मुझे दिखाइए", "मुझे एक ब्रेक चाहिए", "मैंने खत्म कर दिया",  "क्षमा कीजिये!", "मुझे माफ करें", "मुझे समझ में नहीं आया", "मेरे साथ बाँटे", "कृपया थोड़ा धीरे जाइए", "मुझे मदद की ज़रूरत हैं", "कृपया यहाँ आईये", "कृपया मुझे लेके जाइए"};
-    private final String[] greet_feel_questions_text =
-            {"कैसे?", "कब?", "कहाँपे?", "क्यूं?", "क्या?", "कौन?", "कितने?", "कितना लंबा?", "कितनी देर"};
-    private final String[] daily_activities_clothes_access_text =
-            {"टी-शर्ट बदलना ", "फ्रॉक बदलना", "स्कर्ट  बदलना", "जीन्स बदलना", "पैन्ट बदलना", "लैगिंग्स बदलना", "स्लैक्स बदलना", "शॉर्ट्स बदलना",  "इनरवियर बदलना", "जूते बदलना", "बूट बदलना", "मोज़े बदलना", "रात के कपड़े पहनना", "शर्ट", "टी-शर्ट  ", "फ्रॉक ",  "पैन्ट ", "स्लैक्स ", "लैगिंग्स ", "शॉर्ट्स ", "सलवार कमीज़ ", "स्वेटर ", "जैकेट ", "दुपट्टा ",  "टोपी ", "बेल्ट ", "रेनकोट ", "चश्मा ", "घड़ी ", "कान की बाली ", "कंगन", "हार ", "बिंदी ", "चप्पल ", "मेरे कपड़े टाइट हैं", "मेरे कपड़े ढीले हैं",  "मुझे कपड़े निकालने में मदद चाहिए", "मुझे कपड़े पहनने में मदद चाहिए"};
-    private final String[] daily_activities_get_ready_text =
-            {"कंघी करना", "फेस वॉश", "नाखून काटना", "नाक साफ करना", "साबुन", "शाम्पू"};
-    private final String[] daily_activities_sleep_text =
-            {"दरवाज़ा", "पंखा", "लाईट", "खिड़की", "बिस्तर", "तकिया", "कंबल", "गर्मी", "ठंडक"};
-    private final String[] daily_activities_therapy_text =
-            {"कसरत", "झूला", "ट्रैम्पोलीन", "स्विस बॉल", "कंबल", "बॉल पिट", "हातों की कसरत", "पैरों की कसरत", "बॉडी वेस्ट"};
-    private final String[] foods_drinks_breakfast_text =
-            {"ब्रेड", "कोर्नफ्लेक्स", "आलू पूरी", "अंडे", "पोहा", "उपमा", "खिचड़ी", "इड़ली ",
-                    "डोसा", "पराठा", "अॉमलेट", "मेदु वड़ा", "दलिया", "सैंडविच", "चटनी", "सांबर", "उत्तप्पा"};
-    private final String[] food_drinks_lunch_dinner_text =
-            {"रोटी", "सब्ज़ी", "चावल", "दाल", "दालखिचड़ी", "रायता", "पराठा", "दही",  "मछली", "चिकन", "पोर्क", "मटन", "केकड़े का मांस", "टरकी", "pizza", "सलाड ",  "सूप ", "पास्ता ", "नूडल्स", "इटालीयन खाना", "पाव भाजी", "भाकरी"};
-    private final String[] food_drinks_sweets_text =
-            {"केक", "आइसक्रीम", "गा जर का हलवा", "गुलाब जामुन", "लड्डू", "बर्फी", "जलेबी", "फलों का सलाड",  "रसगुल्ला", "शीरा"};
-    private final String[] food_drinks_snacks_text =
-            {"बिस्कुट", "चाट", "चॉकलेट", "वएफर्स", "सैंडविच", "नूडल्स", "चीज़", "नट्स"};
-    private final String[] food_drinks_fruits_text =
-            {"सेब", "केला", "अंगूर", "अमरूद", "आम", "संतरा", "अनानास", "स्ट्रॉबेरी", "बेर", "अनार", "तरबूज", "पेर", "पपीता", "खरबूजा", "चिकू", "पनस", "चेरी"};
-    private final String[] food_drinks_drinks_text =
-            {"पानी", "दूध", "बोर्नविटा", "आम का ज्यूस", "सेब का ज्यूस", "संतरे का ज्यूस", "नींबू का ज्यूस", "अनानास का ज्यूस",  "पेप्सी", "कोका कोला", "मिरिंडा", "फैंटा", "माज़ा", "स्प्राइट ", "माउंटेन ड्यू", "मिल्कशेक",  "चॉकलेट मिल्कशेक", "स्ट्रॉबेरी मिल्कशेक ", "केला मिल्कशेक ", "आम मिल्कशेक ", "चिकू मिल्कशेक", "चाय ", "कॉफी ", "कोल्ड कॉफी", "एनर्जी ड्रिंक्स"};
-    private final String[] food_drinks_cutlery_text =
-            {"कटोरा", "प्लेट", "चम्मच", "काँटे का चम्मच", "चाकू", "मग", "कप", "ग्लास"};
-    private final String[] food_drinks_add_ons_text =
-            {"मक्खन", "जैम", "नमक", "काली मिर्च", "चीनी", "सॉस", "आचार", "पापड़", "मसाला"};
-    private final String[] fun_indoor_games_text =
-            {"पज़ल्स", "बोर्ड खेल", "ब्लॉक्स", "लेगो", "शतरंज", "सांप और सीढ़ी", "scrabble", "विडियो गेम",  "गुड़ियाँ", "ऐक्शन फिगर्स", "सॉफ्ट टॉयज़", "कार", "ट्रक", "आर्ट-क्राफ्ट", "मेरे साथ खेलो"};
-    private final String[] fun_outdoor_games_text =
-            {"खेल का मैदान", "पार्क", "झूला", "स्लाईड", "सी-सॉ", "मेरी-गो-राउंड", "लुकाछिपी", "बल्ला और गेंद", "स्टैचू", "ताला और चाबी", "पकड़ा-पकड़ी", "पतंग", "चोर-पुलिस", "कंचे", "चलना", "सायकल",  "दौड़ना", "तैरना"};
-    private final String[] fun_sports_text =
-            {"क्रिकेट ", "बैडमिंटन", "टेनिस ", "बास्केटबॉल", "डौजबौल", "वौलीबौल", "खो-खो", "फुटबॉल ",  "कबड़्डी", "जिम्नास्टिक्स", "तैरना"};
-    private final String[] fun_tv_text =
-            {"अगला चैनल", "पिछला चैनल", "उँची आवाज़", "धीमी आवाज़"};
-    private final String[] fun_music_text =
-            {"संगीत बदलना", "नाचना", "उँची आवाज़", "धीमी आवाज़"};
-    private final String[] fun_activities_text =
-            {"चित्र बनाना", "रंग भरना", "पढ़ना", "लिखना", "आर्ट-क्राफ्ट", "नाटक", "नाचना", "संगीत बजाना"};
-    private final String[] learning_animals_birds_text =
-            {"कुत्ता", "बिल्ली", "हाथी", "शेर ", "तोता ", "खरगोश ", "गाय", "बथख",  "गधा ", "चींटी", "बाघ", "बंदर", "कबूतर ", "तिलचट्टा", "कऊवा ", "घोड़ा ",  "हिरण ","उल्लू", "भेड़िया ", "लोम्ड़ी", "भालू ", "भेड़ ", "बकरी ", "सुअर ",  "मक्खी", "जिराफ़", "ज़ेब्रा", "मच्छर", "भैन्स", "चूहा", "साँप", "मगरमच्छ ",  "मधुमक्खीँ ", "दरियाई घोड़ा ", "गेंडा", "मछली ", "पैन्ग्विन ", "सील ", "डॉल्फिन ", "व्हेल ",  "शार्क ", "कछुआ ", "चिडिया", "गरुड़", "हॉक", "गिद्ध"};
-    private final String[] learning_body_parts_text =
-            {"सिर", "बाल", "आँखें", "नाक", "कान", "मुँह", "जीभ", "गर्दन",  "कंधा", "कोहनी", "कलाई", "हाथ", "उंगलियां ", "पीठ", "पेट", "कूल्हे का जोड़",  "घुटना", "घुटिका", "पैर", "पैर की उंगलियां "};
-    private final String[] learning_books_text =
-            {"सोने के समय की कहानीयाँ", "हास्यमय किताबें", "काव्यमय किताबें", " चित्र कला की किताबें", "कहानियों की किताबें", "चित्रों की किताबें", "जासूसी किताबें", "साहसी किताबें",  "पाठशाला की नोटबुक", "गणित की किताब", "विज्ञान की किताब", "इतिहास की किताब", "भूगोल की किताब", "सामाजिक अध्ययन की किताब ", "अंग्रेज़ी  की किताब", "हिंदी की किताब",  "मराठी की किताब", "पाठ्यपुस्तकें", "पसंदीदा किताब"};
-    private final String[] learning_colours_text =
-            {"काला", "नीला", "भूरा", "हरा", "लाल", "चाँदी", "सफेद", "पीला",  "सुनहरा", "गुलाबी", "नारंगी ", "जामुनी", "ग्रे"};
-    private final String[] learning_shapes_text =
-            {"सीधी रेखा ", "आड़ी रेखा", "तिरछी रेखा", "गोल", "आयत", "चौकोर", "त्रिकोण", "तारा",  "दिल", "अ समांतरभुज कोण", "घनाकार", "समअ चतुरभुज कोण", "शटकोन", "अंडाकार", "ईंट", "पंचकोन", "मुक्ताकार"};
-    private final String[] learning_stationary_text =
-            {"pencil", "pen", "स्केल", "रबर", "शारप्नर", "क्रेयौन", "कोरा कागज", "रंगीन कागज",  "कैंची", "सीसा", "कम्पास", "विभाजक", "स्टेप्लर", "यू-पिन", "सेलो टेप", "कम्पास बौक्स"};
-    private final String[] learning_school_objects_text =
-            {"bag", "खाने का डिब्बा", "पानी की बोतल", "कम्पास बौक्स", "गृहपाठ", "कापी", "पाठ्यपुस्तकें", "यूनिफार्म",  "जूते ", "मोज़े ", "pencil", "pen", "स्केल","रबर", "शारप्नर", "चॉक"};
-    private final String[] learning_home_objects_text =
-            {"खिड़की", "दरवाज़ा", "पंखा", "लैम्प", "डेस्क", "अलमारी", "टेबल", "कुर्सी",  "शौचालय", "रसोईघर", "हॉल", "बेडरूम", "खेलने का कमरा", "बाथरूम", "बालकनी", "पढ़ाई का कमरा", "बिस्तर", "टीवी", "संगणक", "सोफ़ा", "फ्रिज", "माइक्रोवेव", "वॉशिंग मशीन", "वैक्युम क्लीनर",  "घड़ी", "ट्यूब लाइट" };
-    private final String[] learning_transportation_text =
-            {"बस", "स्कूल  बस", "कार", "साइकिल", "रेल गाड़ी", "रिक्शा", "मोटर साइकिल ", "हवाई जहाज़", "जहाज़"};
-    private final String[] time_weather_time_text =
-            {"समय क्या हुआ हैं?", "आज", "कल", "कल", "सुबह", "दोपहर", "शाम", "रात"};
-    private final String[] time_weather_day_text =
-            {"आज कौनसा दिन है?", "सोमवार", "मंगलवार", "बुधवार", "गुरूवार", "शुक्रवार", "शनिवार", "रविवार"};
-    private final String[] time_weather_month_text =
-            {"वर्तमान महीना कौनसा हैं ?", "जनवरी", "फरवरी", "मार्च", "अप्रैल", "मई", "जून", "जुलाई",  "अगस्त", "सितंबर ", "अक्टूबर", "नवंबर", "दिसंबर", "यह महीना", "पिछला महीना", "अगला महीना"};
-    private final String[] time_weather_weather_text =
-            {"आज का मौसम क्या हैं? ", "गरम", "बरसात", "धुंधला", "तूफ़ानी", "घना", "बर्फीला"};
-    private final String[] time_weather_seasons_text =
-            {"वर्तमान ऋतु कौनसा हैं? ", "वसंत ऋतु", "ग्रीष्म ऋतु", "वर्षा ऋतु", "शरद ऋतु", "शीत ऋतु" };
-    private final String[] time_weather_holidays_festivals_text =
-            {"दिवाली", "गणेश चतुर्थी", "क्रिसमस ", "दशहरा", "मकर संक्रांति", "होली", "ईद", "गुड फ्राइडे",  "गुड़ी पाड़वा", "गणतंत्र दिवस", "स्वतंत्रता दिवस", "नया साल"};
-    private final String[] time_weather_birthdays_text =
-            {"मेरा जन्मदिन", "माँ का जन्मदिन", "पिताजी का जन्मदिन", "भाई का जन्मदिन", "बहन का जन्मदिन", "बड़े पापा का जन्मदिन", "बड़ी मम्मी का जन्मदिन", "दादाजी का जन्मदिन",  "दादी माँ का जन्मदिन","नानाजी का जन्मदिन","नानी माँ का जन्मदिन","चाचा का जन्मदिन", "चाची का जन्मदिन", "मामा का जन्मदिन", "मामी का जन्मदिन","बुआ का जन्मदिन","फ़ुफ़ा का जन्मदिन","मौसी का जन्मदिन", "मौसा का जन्मदिन","मित्र का जन्मदिन", "शिक्षक का जन्मदिन"};
-
-
     private Integer[] count = new Integer[100];
     int[] sort = new int[100];
     int count_flag = 0;
     DataBaseHelper myDbHelper;
     float dpHeight;
-
     String[] side = new String[100];
     String[] below = new String[100];
 
@@ -211,8 +98,8 @@ public class Layer_3_Hindi_Activity extends AppCompatActivity{
             @Override
             public void onInit(int status) {
                 if (status != TextToSpeech.ERROR) {
-                    mTts.setEngineByPackageName("com.google.android.mtts");
-                    new LongOperation().execute("");
+                    mTts.setEngineByPackageName("com.google.android.tts");
+                    new BackgroundSpeechOperationsAsync().execute("");
                 }
             }
         });
@@ -650,6 +537,60 @@ public class Layer_3_Hindi_Activity extends AppCompatActivity{
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        if (mSession.getLanguage()== LANG_HINDI){
+            MenuInflater blowUp = getMenuInflater();
+            blowUp.inflate(R.menu.menu_main, menu);
+        }
+        if (mSession.getLanguage()== LANG_ENG) {
+            MenuInflater blowUp = getMenuInflater();
+            blowUp.inflate(R.menu.menu_1, menu);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.settings:
+                startActivity(new Intent(this, Setting.class));
+                break;
+            case R.id.info:
+                startActivity(new Intent(this, About_Jellow.class));
+                break;
+            case R.id.profile:
+                startActivity(new Intent(this, Profile_form.class));
+                break;
+            case R.id.feedback:
+                startActivity(new Intent(this, Feedback.class));
+                break;
+            case R.id.usage:
+                startActivity(new Intent(this, Tutorial.class));
+                break;
+            case reset:
+                startActivity(new Intent(this, Reset__preferences.class));
+                break;
+            case R.id.keyboardinput:
+                startActivity(new Intent(this, Keyboard_Input.class));
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
     private void changeTheActionButtons(boolean setDisable) {
         if(setDisable) {
             like.setAlpha(0.5f);
@@ -677,22 +618,6 @@ public class Layer_3_Hindi_Activity extends AppCompatActivity{
             no.setEnabled(true);
             add.setEnabled(true);
             minus.setEnabled(true);
-        }
-    }
-
-    private void incrementTouchCountOfItem(int levelThreeItemPos) {
-        if (count_flag == 1) {
-            count[sort[levelThreeItemPos]] = count[sort[levelThreeItemPos]] + 1;
-            StringBuilder str = new StringBuilder();
-            for(int i=0; i< count.length; ++i)
-                str.append(count[i]).append(",");
-            myDbHelper.setlevel(mLevelOneItemPos, mLevelTwoItemPos, str.toString());
-        }
-    }
-
-    private void resetRecyclerAllItems() {
-        for(int i = 0; i< mRecyclerView.getChildCount(); ++i){
-            setMenuImageBorder(mRecyclerView.getChildAt(i), false);
         }
     }
 
@@ -739,24 +664,23 @@ public class Layer_3_Hindi_Activity extends AppCompatActivity{
         }
     }
 
-    private class LongOperation extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... params) {
-            try {
-                if (mSession.getLanguage() == LANG_ENG ) {
-                    mTts.setLanguage(new Locale("eng", "IND"));
-                }
-                if (mSession.getLanguage() == LANG_HINDI) {
-                    mTts.setLanguage(new Locale("hin", "IND"));
-                }
-            } catch (Exception e) {
-                Thread.interrupted();
-            }
-            return "Executed";
+    private void resetRecyclerAllItems() {
+        for(int i = 0; i< mRecyclerView.getChildCount(); ++i){
+            setMenuImageBorder(mRecyclerView.getChildAt(i), false);
         }
     }
 
-    public void myMusic_function(int layer_1_id, int layer_2_id) {
+    private void incrementTouchCountOfItem(int levelThreeItemPos) {
+        if (count_flag == 1) {
+            count[sort[levelThreeItemPos]] = count[sort[levelThreeItemPos]] + 1;
+            StringBuilder str = new StringBuilder();
+            for(int i=0; i< count.length; ++i)
+                str.append(count[i]).append(",");
+            myDbHelper.setlevel(mLevelOneItemPos, mLevelTwoItemPos, str.toString());
+        }
+    }
+
+    private void myMusic_function(int layer_1_id, int layer_2_id) {
         System.out.println("size"+greet_feel_greetings_text.length);
         if (layer_1_id == 0) {
             if (layer_2_id == 0) {
@@ -859,7 +783,7 @@ public class Layer_3_Hindi_Activity extends AppCompatActivity{
         }
     }
 
-    public class IndexSorter<T extends Comparable<T>> implements Comparator<Integer> {
+    private class IndexSorter<T extends Comparable<T>> implements Comparator<Integer> {
         private final T[] values;
         private final Integer[] indexes;
 
@@ -916,67 +840,114 @@ public class Layer_3_Hindi_Activity extends AppCompatActivity{
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        if (mSession.getLanguage()== LANG_HINDI){
-            MenuInflater blowUp = getMenuInflater();
-            blowUp.inflate(R.menu.menu_main, menu);
+    private class BackgroundSpeechOperationsAsync extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                mTts.setLanguage(new Locale("hin", "IND"));
+            } catch (Exception e) {
+                Thread.interrupted();
+            }
+            return "Executed";
         }
-        if (mSession.getLanguage()== LANG_ENG) {
-            MenuInflater blowUp = getMenuInflater();
-            blowUp.inflate(R.menu.menu_1, menu);
-        }
-        return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.settings:
-                Intent intent = new Intent(Layer_3_Hindi_Activity.this, Setting.class);
-                startActivity(intent);
-                break;
-            case R.id.info:
-                Intent i = new Intent(Layer_3_Hindi_Activity.this, About_Jellow.class);
-                startActivity(i);
-                break;
-            case R.id.profile:
-                Intent intent1 = new Intent(Layer_3_Hindi_Activity.this, Profile_form.class);
-                startActivity(intent1);
-                break;
-            case R.id.feedback:
-                Intent intent2 = new Intent(Layer_3_Hindi_Activity.this, Feedback.class);
-                startActivity(intent2);
-                break;
-            case R.id.usage:
-                Intent intent3 = new Intent(Layer_3_Hindi_Activity.this, Tutorial.class);
-                startActivity(intent3);
-                break;
-            case R.id.reset:
-                Intent intent4 = new Intent(Layer_3_Hindi_Activity.this, Reset__preferences.class);
-                startActivity(intent4);
-                break;
-            case R.id.keyboardinput:
-                Intent intent6 = new Intent(Layer_3_Hindi_Activity.this, Keyboard_Input.class);
-                startActivity(intent6);
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return true;
-    }
+    private final String[] daily_activities_brushing_text =
+            {"Rinse maauuthh", "Rinse toothbrush", "Put toothpaste on brush", "Brush front teeth", "Brush backkkteethh", "Brush tongue", "Rinse maauuthh", "All done"};
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            finish();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
+    private final String[] daily_activities_toilet_text =
+            {"Pull pants down", "Sit on toil et", "Wash bottom", "Flushh toil et", "Pull pants up", "Wash hands", "All done"};
 
-    String[][][][] layer_3_speech = {{{{},{},{},{},{},{},{},{},{},{},{},{}},
+    private final String[] daily_activities_bathing_text =
+            {"Remove clothes", "Turn on water", "Get in the shaaver", "Wet body", "Put soap", "Shampoo हैर", "Put face wash", "Wash हैर", "mohrr", "Wash body", "Turn off water", "Dry हैर", "Dry face", "Dry body", "Put on clothes", "All done"};
+
+    private final String[] daily_activities_morning_schedule_text =
+            {"Wake up", "Wash face", "Go to bathroom", "Brush teeth", "Remove clothes", "Have a बाथ", "Get dressed", "Comb हैर", "mohrr", "Eat brek fust", "Pack lunch box", "Pack school bag", "Go to school", "Have a great day!"};
+
+    private final String[] daily_activities_bedtime_schedule_text =
+            {"Eat dinner", "ware night clothes", "Brush teeth", "Read story", "Say goodnight", "Say prayers", "Sweet dreams!"};
+
+    private final String[] greet_feel_greetings_text =
+            {"नमस्ते!", "नमसकार", "अलविदा", "शुभ प्रभात", "शुभ दिन", "शुभ संध्या", "शुभ रात्रि", "ताली दो",
+                    "आपसे मिलकर अच्छा लगा", "आप कैसे हैं?", "आपका दिन कैसा था?", "आपके क्या हाल हैं?"};
+    private final String[] greet_feel_feelings_text =
+            {"खुश", "उदास", "गुस्सा", "डर", "हैरान", "चिढ़ा हुआ", "उलझन", "शर्मिंदा",
+                    "निराश", "बोर", "चिंता", "तनावग्रस्त", "थका हुआ", "गरम", "ठंडा", "बीमार", "दुखी"};
+    private final String[] greet_feel_requests_text =
+            {"कृपया", "धन्यवाद", "आपका स्वागत हैं", "कृपया मुझे दीजीए", "कृपया मुझे फिर से बताइए", "कृपया मुझे दिखाइए", "मुझे एक ब्रेक चाहिए", "मैंने खत्म कर दिया",  "क्षमा कीजिये!", "मुझे माफ करें", "मुझे समझ में नहीं आया", "मेरे साथ बाँटे", "कृपया थोड़ा धीरे जाइए", "मुझे मदद की ज़रूरत हैं", "कृपया यहाँ आईये", "कृपया मुझे लेके जाइए"};
+    private final String[] greet_feel_questions_text =
+            {"कैसे?", "कब?", "कहाँपे?", "क्यूं?", "क्या?", "कौन?", "कितने?", "कितना लंबा?", "कितनी देर"};
+    private final String[] daily_activities_clothes_access_text =
+            {"टी-शर्ट बदलना ", "फ्रॉक बदलना", "स्कर्ट  बदलना", "जीन्स बदलना", "पैन्ट बदलना", "लैगिंग्स बदलना", "स्लैक्स बदलना", "शॉर्ट्स बदलना",  "इनरवियर बदलना", "जूते बदलना", "बूट बदलना", "मोज़े बदलना", "रात के कपड़े पहनना", "शर्ट", "टी-शर्ट  ", "फ्रॉक ",  "पैन्ट ", "स्लैक्स ", "लैगिंग्स ", "शॉर्ट्स ", "सलवार कमीज़ ", "स्वेटर ", "जैकेट ", "दुपट्टा ",  "टोपी ", "बेल्ट ", "रेनकोट ", "चश्मा ", "घड़ी ", "कान की बाली ", "कंगन", "हार ", "बिंदी ", "चप्पल ", "मेरे कपड़े टाइट हैं", "मेरे कपड़े ढीले हैं",  "मुझे कपड़े निकालने में मदद चाहिए", "मुझे कपड़े पहनने में मदद चाहिए"};
+    private final String[] daily_activities_get_ready_text =
+            {"कंघी करना", "फेस वॉश", "नाखून काटना", "नाक साफ करना", "साबुन", "शाम्पू"};
+    private final String[] daily_activities_sleep_text =
+            {"दरवाज़ा", "पंखा", "लाईट", "खिड़की", "बिस्तर", "तकिया", "कंबल", "गर्मी", "ठंडक"};
+    private final String[] daily_activities_therapy_text =
+            {"कसरत", "झूला", "ट्रैम्पोलीन", "स्विस बॉल", "कंबल", "बॉल पिट", "हातों की कसरत", "पैरों की कसरत", "बॉडी वेस्ट"};
+    private final String[] foods_drinks_breakfast_text =
+            {"ब्रेड", "कोर्नफ्लेक्स", "आलू पूरी", "अंडे", "पोहा", "उपमा", "खिचड़ी", "इड़ली ",
+                    "डोसा", "पराठा", "अॉमलेट", "मेदु वड़ा", "दलिया", "सैंडविच", "चटनी", "सांबर", "उत्तप्पा"};
+    private final String[] food_drinks_lunch_dinner_text =
+            {"रोटी", "सब्ज़ी", "चावल", "दाल", "दालखिचड़ी", "रायता", "पराठा", "दही",  "मछली", "चिकन", "पोर्क", "मटन", "केकड़े का मांस", "टरकी", "pizza", "सलाड ",  "सूप ", "पास्ता ", "नूडल्स", "इटालीयन खाना", "पाव भाजी", "भाकरी"};
+    private final String[] food_drinks_sweets_text =
+            {"केक", "आइसक्रीम", "गा जर का हलवा", "गुलाब जामुन", "लड्डू", "बर्फी", "जलेबी", "फलों का सलाड",  "रसगुल्ला", "शीरा"};
+    private final String[] food_drinks_snacks_text =
+            {"बिस्कुट", "चाट", "चॉकलेट", "वएफर्स", "सैंडविच", "नूडल्स", "चीज़", "नट्स"};
+    private final String[] food_drinks_fruits_text =
+            {"सेब", "केला", "अंगूर", "अमरूद", "आम", "संतरा", "अनानास", "स्ट्रॉबेरी", "बेर", "अनार", "तरबूज", "पेर", "पपीता", "खरबूजा", "चिकू", "पनस", "चेरी"};
+    private final String[] food_drinks_drinks_text =
+            {"पानी", "दूध", "बोर्नविटा", "आम का ज्यूस", "सेब का ज्यूस", "संतरे का ज्यूस", "नींबू का ज्यूस", "अनानास का ज्यूस",  "पेप्सी", "कोका कोला", "मिरिंडा", "फैंटा", "माज़ा", "स्प्राइट ", "माउंटेन ड्यू", "मिल्कशेक",  "चॉकलेट मिल्कशेक", "स्ट्रॉबेरी मिल्कशेक ", "केला मिल्कशेक ", "आम मिल्कशेक ", "चिकू मिल्कशेक", "चाय ", "कॉफी ", "कोल्ड कॉफी", "एनर्जी ड्रिंक्स"};
+    private final String[] food_drinks_cutlery_text =
+            {"कटोरा", "प्लेट", "चम्मच", "काँटे का चम्मच", "चाकू", "मग", "कप", "ग्लास"};
+    private final String[] food_drinks_add_ons_text =
+            {"मक्खन", "जैम", "नमक", "काली मिर्च", "चीनी", "सॉस", "आचार", "पापड़", "मसाला"};
+    private final String[] fun_indoor_games_text =
+            {"पज़ल्स", "बोर्ड खेल", "ब्लॉक्स", "लेगो", "शतरंज", "सांप और सीढ़ी", "scrabble", "विडियो गेम",  "गुड़ियाँ", "ऐक्शन फिगर्स", "सॉफ्ट टॉयज़", "कार", "ट्रक", "आर्ट-क्राफ्ट", "मेरे साथ खेलो"};
+    private final String[] fun_outdoor_games_text =
+            {"खेल का मैदान", "पार्क", "झूला", "स्लाईड", "सी-सॉ", "मेरी-गो-राउंड", "लुकाछिपी", "बल्ला और गेंद", "स्टैचू", "ताला और चाबी", "पकड़ा-पकड़ी", "पतंग", "चोर-पुलिस", "कंचे", "चलना", "सायकल",  "दौड़ना", "तैरना"};
+    private final String[] fun_sports_text =
+            {"क्रिकेट ", "बैडमिंटन", "टेनिस ", "बास्केटबॉल", "डौजबौल", "वौलीबौल", "खो-खो", "फुटबॉल ",  "कबड़्डी", "जिम्नास्टिक्स", "तैरना"};
+    private final String[] fun_tv_text =
+            {"अगला चैनल", "पिछला चैनल", "उँची आवाज़", "धीमी आवाज़"};
+    private final String[] fun_music_text =
+            {"संगीत बदलना", "नाचना", "उँची आवाज़", "धीमी आवाज़"};
+    private final String[] fun_activities_text =
+            {"चित्र बनाना", "रंग भरना", "पढ़ना", "लिखना", "आर्ट-क्राफ्ट", "नाटक", "नाचना", "संगीत बजाना"};
+    private final String[] learning_animals_birds_text =
+            {"कुत्ता", "बिल्ली", "हाथी", "शेर ", "तोता ", "खरगोश ", "गाय", "बथख",  "गधा ", "चींटी", "बाघ", "बंदर", "कबूतर ", "तिलचट्टा", "कऊवा ", "घोड़ा ",  "हिरण ","उल्लू", "भेड़िया ", "लोम्ड़ी", "भालू ", "भेड़ ", "बकरी ", "सुअर ",  "मक्खी", "जिराफ़", "ज़ेब्रा", "मच्छर", "भैन्स", "चूहा", "साँप", "मगरमच्छ ",  "मधुमक्खीँ ", "दरियाई घोड़ा ", "गेंडा", "मछली ", "पैन्ग्विन ", "सील ", "डॉल्फिन ", "व्हेल ",  "शार्क ", "कछुआ ", "चिडिया", "गरुड़", "हॉक", "गिद्ध"};
+    private final String[] learning_body_parts_text =
+            {"सिर", "बाल", "आँखें", "नाक", "कान", "मुँह", "जीभ", "गर्दन",  "कंधा", "कोहनी", "कलाई", "हाथ", "उंगलियां ", "पीठ", "पेट", "कूल्हे का जोड़",  "घुटना", "घुटिका", "पैर", "पैर की उंगलियां "};
+    private final String[] learning_books_text =
+            {"सोने के समय की कहानीयाँ", "हास्यमय किताबें", "काव्यमय किताबें", " चित्र कला की किताबें", "कहानियों की किताबें", "चित्रों की किताबें", "जासूसी किताबें", "साहसी किताबें",  "पाठशाला की नोटबुक", "गणित की किताब", "विज्ञान की किताब", "इतिहास की किताब", "भूगोल की किताब", "सामाजिक अध्ययन की किताब ", "अंग्रेज़ी  की किताब", "हिंदी की किताब",  "मराठी की किताब", "पाठ्यपुस्तकें", "पसंदीदा किताब"};
+    private final String[] learning_colours_text =
+            {"काला", "नीला", "भूरा", "हरा", "लाल", "चाँदी", "सफेद", "पीला",  "सुनहरा", "गुलाबी", "नारंगी ", "जामुनी", "ग्रे"};
+    private final String[] learning_shapes_text =
+            {"सीधी रेखा ", "आड़ी रेखा", "तिरछी रेखा", "गोल", "आयत", "चौकोर", "त्रिकोण", "तारा",  "दिल", "अ समांतरभुज कोण", "घनाकार", "समअ चतुरभुज कोण", "शटकोन", "अंडाकार", "ईंट", "पंचकोन", "मुक्ताकार"};
+    private final String[] learning_stationary_text =
+            {"pencil", "pen", "स्केल", "रबर", "शारप्नर", "क्रेयौन", "कोरा कागज", "रंगीन कागज",  "कैंची", "सीसा", "कम्पास", "विभाजक", "स्टेप्लर", "यू-पिन", "सेलो टेप", "कम्पास बौक्स"};
+    private final String[] learning_school_objects_text =
+            {"bag", "खाने का डिब्बा", "पानी की बोतल", "कम्पास बौक्स", "गृहपाठ", "कापी", "पाठ्यपुस्तकें", "यूनिफार्म",  "जूते ", "मोज़े ", "pencil", "pen", "स्केल","रबर", "शारप्नर", "चॉक"};
+    private final String[] learning_home_objects_text =
+            {"खिड़की", "दरवाज़ा", "पंखा", "लैम्प", "डेस्क", "अलमारी", "टेबल", "कुर्सी",  "शौचालय", "रसोईघर", "हॉल", "बेडरूम", "खेलने का कमरा", "बाथरूम", "बालकनी", "पढ़ाई का कमरा", "बिस्तर", "टीवी", "संगणक", "सोफ़ा", "फ्रिज", "माइक्रोवेव", "वॉशिंग मशीन", "वैक्युम क्लीनर",  "घड़ी", "ट्यूब लाइट" };
+    private final String[] learning_transportation_text =
+            {"बस", "स्कूल  बस", "कार", "साइकिल", "रेल गाड़ी", "रिक्शा", "मोटर साइकिल ", "हवाई जहाज़", "जहाज़"};
+    private final String[] time_weather_time_text =
+            {"समय क्या हुआ हैं?", "आज", "कल", "कल", "सुबह", "दोपहर", "शाम", "रात"};
+    private final String[] time_weather_day_text =
+            {"आज कौनसा दिन है?", "सोमवार", "मंगलवार", "बुधवार", "गुरूवार", "शुक्रवार", "शनिवार", "रविवार"};
+    private final String[] time_weather_month_text =
+            {"वर्तमान महीना कौनसा हैं ?", "जनवरी", "फरवरी", "मार्च", "अप्रैल", "मई", "जून", "जुलाई",  "अगस्त", "सितंबर ", "अक्टूबर", "नवंबर", "दिसंबर", "यह महीना", "पिछला महीना", "अगला महीना"};
+    private final String[] time_weather_weather_text =
+            {"आज का मौसम क्या हैं? ", "गरम", "बरसात", "धुंधला", "तूफ़ानी", "घना", "बर्फीला"};
+    private final String[] time_weather_seasons_text =
+            {"वर्तमान ऋतु कौनसा हैं? ", "वसंत ऋतु", "ग्रीष्म ऋतु", "वर्षा ऋतु", "शरद ऋतु", "शीत ऋतु" };
+    private final String[] time_weather_holidays_festivals_text =
+            {"दिवाली", "गणेश चतुर्थी", "क्रिसमस ", "दशहरा", "मकर संक्रांति", "होली", "ईद", "गुड फ्राइडे",  "गुड़ी पाड़वा", "गणतंत्र दिवस", "स्वतंत्रता दिवस", "नया साल"};
+    private final String[] time_weather_birthdays_text =
+            {"मेरा जन्मदिन", "माँ का जन्मदिन", "पिताजी का जन्मदिन", "भाई का जन्मदिन", "बहन का जन्मदिन", "बड़े पापा का जन्मदिन", "बड़ी मम्मी का जन्मदिन", "दादाजी का जन्मदिन",  "दादी माँ का जन्मदिन","नानाजी का जन्मदिन","नानी माँ का जन्मदिन","चाचा का जन्मदिन", "चाची का जन्मदिन", "मामा का जन्मदिन", "मामी का जन्मदिन","बुआ का जन्मदिन","फ़ुफ़ा का जन्मदिन","मौसी का जन्मदिन", "मौसा का जन्मदिन","मित्र का जन्मदिन", "शिक्षक का जन्मदिन"};
+
+    private final String[][][][] layer_3_speech = {{{{},{},{},{},{},{},{},{},{},{},{},{}},
 
             {{"मैं खुश हूँ",
                     "मैं सच में खुश हूँ",

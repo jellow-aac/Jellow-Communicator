@@ -4,8 +4,6 @@ import android.content.Context;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
-import com.dsource.idc.jellow.SessionManager;
-
 /**
  * Created by ekalpa on 5/31/2017.
  */

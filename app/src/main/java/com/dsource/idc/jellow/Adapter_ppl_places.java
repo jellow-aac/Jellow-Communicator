@@ -12,48 +12,24 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dsource.idc.jellow.Utility.EvaluateDisplayMetricsUtils;
+import com.dsource.idc.jellow.Utility.SessionManager;
 
 /**
  * Created by HP on 22/01/2017.
  */
-
-public class Adapter_ppl_places extends android.support.v7.widget.RecyclerView.Adapter<Adapter_ppl_places.MyViewHolder> {
-    private static final int LANG_ENG = 0, LANG_HINDI = 1, MENU_ITEM_PEOPLE = 5, MENU_ITEM_PLACES = 6,
-            GRID_1BY3 = 0, GRID_3BY3 = 1, MODE_PICTURE_ONLY = 1;
-
+class Adapter_ppl_places extends android.support.v7.widget.RecyclerView.Adapter<Adapter_ppl_places.MyViewHolder> {
     private Context mContext;
     private SessionManager mSession;
     private EvaluateDisplayMetricsUtils mMetricsUtils;
+    private Integer[] mThumbIds = new Integer[100];
+    private String[] belowText = new String[100];
 
-
-    public static Integer[] mThumbIds = new Integer[100];
-    public static String[] belowText = new String[100];
-
-    public Adapter_ppl_places(Context context, String[] temp, Integer[] image_temp) {
-        this.mContext = context;
-        this.mSession = new SessionManager(mContext);
-        this.mMetricsUtils = new EvaluateDisplayMetricsUtils(mContext);
-
+    Adapter_ppl_places(Context context, String[] temp, Integer[] image_temp) {
+        mContext = context;
+        mSession = new SessionManager(mContext);
+        mMetricsUtils = new EvaluateDisplayMetricsUtils(mContext);
         mThumbIds = image_temp;
         belowText = temp;
-
-    }
-
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        private TextView menuItemBelowText;
-        private CircularImageView menuItemImage;
-        private LinearLayout menuItemLinearLayout;
-        int position = -1;
-
-        public MyViewHolder(final View view) {
-            super(view);
-                menuItemImage = (CircularImageView) view.findViewById(R.id.icon1);
-                menuItemLinearLayout = (LinearLayout) view.findViewById(R.id.linearlayout_icon1);
-                menuItemBelowText = (TextView) view.findViewById(R.id.te1);
-                Typeface font = Typeface.createFromAsset(mContext.getAssets(), "fonts/Mukta-Regular.ttf");
-                menuItemBelowText.setTypeface(font);
-                menuItemBelowText.setTextColor(Color.rgb(64, 64, 64));
-        }
     }
 
     @Override
@@ -64,6 +40,7 @@ public class Adapter_ppl_places extends android.support.v7.widget.RecyclerView.A
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
+        final int LANG_HINDI = 1, GRID_1BY3 = 0, GRID_3BY3 = 1, MODE_PICTURE_ONLY = 1;
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         if (mSession.getGridSize() == GRID_1BY3) {
             if (mSession.getScreenHeight() >= 720) {
@@ -128,5 +105,22 @@ public class Adapter_ppl_places extends android.support.v7.widget.RecyclerView.A
     @Override
     public int getItemCount() {
         return mThumbIds.length;
+    }
+
+    class MyViewHolder extends RecyclerView.ViewHolder {
+        private TextView menuItemBelowText;
+        private CircularImageView menuItemImage;
+        private LinearLayout menuItemLinearLayout;
+        int position = -1;
+
+        MyViewHolder(final View view) {
+            super(view);
+            menuItemImage = (CircularImageView) view.findViewById(R.id.icon1);
+            menuItemLinearLayout = (LinearLayout) view.findViewById(R.id.linearlayout_icon1);
+            menuItemBelowText = (TextView) view.findViewById(R.id.te1);
+            Typeface font = Typeface.createFromAsset(mContext.getAssets(), "fonts/Mukta-Regular.ttf");
+            menuItemBelowText.setTypeface(font);
+            menuItemBelowText.setTextColor(Color.rgb(64, 64, 64));
+        }
     }
 }

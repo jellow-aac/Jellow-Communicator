@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.dsource.idc.jellow.Utility.SessionManager;
+
 import java.util.Locale;
 
 /**

@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.Toast;
 
+import com.dsource.idc.jellow.Utility.SessionManager;
 import com.github.paolorotolo.appintro.AppIntro;
 
 /**

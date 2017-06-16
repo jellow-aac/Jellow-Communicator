@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dsource.idc.jellow.Utility.SessionManager;
+
 /**
  * Created by user on 6/6/2016.
  */

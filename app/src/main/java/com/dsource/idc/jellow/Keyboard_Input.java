@@ -16,6 +16,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.dsource.idc.jellow.Utility.SessionManager;
+
 /**
  * Created by user on 5/27/2016.
  */

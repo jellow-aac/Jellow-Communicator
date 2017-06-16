@@ -20,10 +20,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.dsource.idc.jellow.Utility.IndexSorter;
+import com.dsource.idc.jellow.Utility.SessionManager;
+import com.dsource.idc.jellow.Utility.UserDataMeasure;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
@@ -31,8 +34,8 @@ public class Main2LAyer extends AppCompatActivity {
     private final int LANG_ENG = 0, LANG_HINDI = 1, MENU_ITEM_DAILY_ACT = 1, MENU_ITEM_PEOPLE = 5, MENU_ITEM_PLACES = 6, MENU_ITEM_HELP = 8;
     private final boolean DISABLE_ACTION_BTNS = true;
 
-    int mCk = 0, mCy = 0, mCm = 0, mCd = 0, mCn = 0, mCl = 0;
-    int image_flag = -1, flag_keyboard = 0, mActionBtnClickCount;
+    private int mCk = 0, mCy = 0, mCm = 0, mCd = 0, mCn = 0, mCl = 0;
+    private int image_flag = -1, flag_keyboard = 0, mActionBtnClickCount;
     private ImageView like, dislike, add, minus, yes, no, home, keyboard, ttsButton, back;
     private EditText et;
     private KeyListener originalKeyListener;
@@ -42,138 +45,30 @@ public class Main2LAyer extends AppCompatActivity {
     private boolean mShouldReadFullSpeech = false;
     private ArrayList<View> mRecyclerItemsViewList;
     private TextToSpeech mTts;
-    private Integer[] mColor = { -5317, -12627531 , -7617718 , -2937298 , -648053365 , -1761607680 };
+    private UserDataMeasure userDataMeasure;
     private String mActionBarTitle;
-
-    private final String[] learningSpeechTextEnglish =
-                                        {"Animals and Birds", "Body", "Books", "Colours", "Shapes", "Stationery", "School objects", "Home objects", "Tran sport Modes"};
-    private final String[] eatSpeechTextEnglish =
-                                        {"Brekfust", "Lunch and Dinner", "Sweets", "स्नैक्स", "Fruits", "Drinks", "Cutlery", "Add-ons"};
-    private final String[] funSpeechTextEnglish =
-                                        {"Indoor Games", "Outdoor Games", "Sports", "TV", "Music", "Activities"};
-    private final String[] peopleSpeechTextEnglish =
-                                        {"Mother", "Father", "Brother", "Sister", "Grandfather", "Grandmother", "Uncle", "Aunt", "Cousin", "Baby", "Friends", "Teacher", "Doctor", "नरस", "Caregiver", "Stranger", "About Me"};
-    private final String[] placesSpeechTextEnglish =
-                                        {"My House", "School", "Mall", "Museum", "Hotel", "Theatre", "Playground", "Park", "store", "Friend's House", "Relative's House", "Hospital", "Clinic", "Library", "Terrace"};
-    private final String[] timeWeatherSpeechTextEnglish =
-                                        {"Time", "Day", "Month", "Weather", "Seasons", "Festivals and Holidays", "birthdays"};
-    private final String[] greetSpeechTextEnglish =
-                                        {"Greetings", "Feelings", "Requests", "Questions"};
-    private final String[] dailySpeechTextEnglish =
-                                        {"Brushing", "Toilet", "Baething", "Clothes and Accessories", "Getting Ready", "Sleep", "Therapy", "Morning Routine", "Bedtime Routine"};
-    private final String[] helpSpeechTextEnglish =
-                                        {"About Me", "I am hurt", "I feel sick", "I feel tired", "Help me do this", "Medicine", "Bandage", "Water"};
-    private final String[] greetSpeechTextHindi =
-                                        {"शुभकामनाएं", "भावना", "बिनती", "सवाल"};
-    private final String[] dailySpeechTextHindi =
-                                        {"दांत साफ़ करना", "शौचालय", "नहाना", "कपड़े और सहायक चीज़ें", "तैयार होना", "नींद", "उपचार", "सुबह के नियमित कार्य", "रात के नियमित कार्य"};
-    private final String[] eatSpeechTextHindi =
-                                        {"सुबह का नाश्ता", "दोपहर और रात का भोजन", "मिठाइयाँ", "स्नैक्स", "फल", "ड्रिंक्स", "कटलरी", "अॅड-ऑन्स"};
-    private final String[] funSpeechTextHindi =
-                                        {"घर के खेल", "बाहरी खेल", "खेलकूद", "टीवी", "संगीत", "कार्य"};
-    private final String[] learningSpeechTextHindi =
-                                        {"पशु और पक्षी", "शरीर", "किताबें", "रंग", "आकार", "स्टेशनरी", "पाठशाला की वस्तुएं", "घरेलु वस्तुएं", "यात्रा करने के साधन"};
-    private final String[] peopleSpeechTextHindi =
-                                        {"माँ", "पिताजी", "भाई", "बहन", "बड़े पापा", "बड़ी मम्मी", "दादाजी", "दादी माँ", "नानाजी","नानी माँ","चाचा", "चाची", "मामा","मामी" , "बुआ", "फ़ुफ़ा","मौसी", "मौसा", "नन्हा बच्चा", "दोस्त", "शिक्षक", "डॉक्टर", "नरस", "देख-रेख करने वाली मौसी", "अज नबी", "मेरे बारे में"};
-    private final String[] placesSpeechTextHindi =
-                                        {"मेरा घर", "पाठशाला", "मॉल", "संग्रहालय", "होटल", "थिएटर", "खेल का मैदान", "बगीचा",  "दुकान", "दोस्त का घर", "रिश्तेदार का घर", "अस्पताल", "क्लिनिक", "वाचनालय", "छत पर"};
-    private final String[] timeWeatherSpeechTextHindi =
-                                        {"समय", "दिन", "महीना", "मौसम", "रूतु", "त्योहार और छुट्टी", "जन्मदिन"};
-    private final String[] helpSpeechTextHindi =
-                                        {"मेरे बारे में", "मैं घायल हूँ", "मेरी तबियत ठीक नहीं हैं", "मुझे थकावट लग रही हैं", "मुझे मदद करें", "दवाई", "बैंडेज", "पानी"};
-
-    private final String[] people_adapter_hindi =
-                                        {"माँ", "पिताजी", "भाई", "बहन", "बड़े पापा", "बड़ी मम्मी", "दादाज़ी", "दादी माँ","नानाज़ी","नानी माँ","चाचा", "चाची", "मामा","मामी" , "बुआ", "फ़ुफ़ा", "मौसी", "मौसा", "नन्हा बच्चा", "दोस्त", "शिक्षक", "डॉक्टर", "नर्स", "देख-रेख करने वाली मौसी", "अजनबी", "मेरे बारे में"};
-    private final String[] places_adapter_hindi =
-                                        {"मेरा घर", "पाठशाला", "मॉल", "संग्रहालय", "होटल", "थिएटर", "खेल का मैदान", "बगीचा",  "दुकान", "दोस्त का घर", "रिश्तेदार का घर", "अस्पताल", "क्लिनिक", "वाचनालय", "छत पर"};
-    private final String[] places_adapter =
-                                        {"My House", "School", "Mall", "Museum", "Hotel", "Theater", "Playground", "Park", "Store", "Friend's House", "Relative's House", "Hospital", "Clinic", "Library", "Terrace"};
-    private final String[] people_adapter =
-                                        {"Mother", "Father", "Brother", "Sister", "Grandfather", "Grandmother", "Uncle", "Aunt", "Cousin", "Baby", "Friends", "Teacher", "Doctor", "Nurse", "Caregiver", "Stranger", "About Me"};
-
-    private final String[] side_english = {"like", "really like", "yes", "really yes", "more", "really more", "dont like", "really dont like", "no", "really no", "less", "really less"};
-    private final String[] side_hindi = {"अच्छा लगता हैं", "सच में अच्छा लगता हैं", "हाँ", "सच में हाँ", "ज़्यादा", "सच में ज़्यादा", "अच्छा नहीं लगता हैं", "सच में अच्छा नहीं लगता हैं", "नहीं", "सच में नहीं", "कम", "सच में कम"};
-
-    private final String[] below_english = {"Home", "back", "keyboard"};
-    private final String[] below_hindi = {"होम", "वापस", "कीबोर्ड"};
-
-    private final String[][]  level2_hindi ={
-            {"शुभकामनाएं", "भावना", "बिनती", "सवाल"},
-            {"दांत साफ़ करना", "शौचालय", "नहाना", "कपड़े और सहायक चीज़ें", "तैयार होना", "नींद", "उपचार", "सुबह के नियमित कार्य", "रात के नियमित कार्य"},
-            {"सुबह का नाश्ता", "दोपहर/रात का भोजन", "मिठाइयाँ", "स्नैक्स", "फल", "ड्रिंक्स", "कटलरी", "ऍड-ऑन्स"},
-            {"घर के खेल", "बाहरी खेल", "खेलकूद", "टीवी", "संगीत", "कार्य"},
-            {"पशु और पक्षी", "शरीर", "किताबें", "रंग", "आकार", "स्टेशनरी", "पाठशाला की वस्तुएं", "घरेलु वस्तुएं", "यात्रा के साधन"},
-            {"माँ", "पिताजी", "भाई", "बहन", "बड़े पापा", "बड़ी मम्मी","दादाज़ी", "दादी माँ", "नानाज़ी","नानी माँ","चाचा", "चाची", "मामा","मामी" , "बुआ", "फ़ुफ़ा", "अधिक","मौसी", "मौसा", "नन्हा बच्चा", "दोस्त", "शिक्षक", "डॉक्टर","नर्स", "देख-रेख करने वाली मौसी", "अधिक","अजनबी", "मेरे बारे में"},
-            {"मेरा घर", "पाठशाला", "मॉल", "संग्रहालय", "होटल", "थिएटर", "खेल का मैदान", "बगीचा", "दुकान", "दोस्त का घर", "रिश्तेदार का घर", "अस्पताल", "क्लिनिक", "वाचनालय", "छत पर"},
-            {"समय", "दिन", "महीना", "मौसम", "ऋतु", "त्योहार और छुट्टी", "जन्मदिन"},
-            {"मेरे बारे में", "मैं घायल हूँ", "मेरी तबियत ठीक नहीं हैं", "मुझे थकावट लग रही हैं", "मुझे मदद करें", "दवाई", "बैंडेज", "पानी"}};
-    private final String[][] level2_english = {
-            {"Greetings", "Feelings", "Requests", "Questions"},
-            {"Brushing", "Toilet", "Bathing", "Clothes", "Getting Ready", "Sleep", "Therapy", "Morning Routine", "Bedtime Routine"},
-            {"Breakfast", "Lunch/Dinner", "Sweets", "Snacks", "Fruits", "Drinks", "Cutlery", "Add-ons"},
-            {"Indoor Games", "Outdoor Games", "Sports", "TV", "Music", "Activities"},
-            {"Animals & Birds", "Body", "Books", "Colors", "Shapes", "Stationery", "School Objects", "Home Objects", "Transport Modes"},
-            {"Mother", "Daddy", "Brother", "Sister", "Grandfather", "Grandmother", "Uncle", "Aunt", "Cousin", "Baby", "Friends", "Teacher", "Doctor", "Nurse", "Caregiver", "Stranger", "About Me"},
-            {"My House", "School", "Mall", "Museum", "Hotel", "Theater", "Playground", "Park", "Store", "Friend's House", "Relative's House", "Hospital", "Clinic", "Library", "Terrace"},
-            {"Time", "Day", "Month", "Weather", "Seasons", "Festivals & Holidays", "Birthdays"},
-            {"About Me", "I am hurt", "I feel sick", "I feel tired", "Help me do this", "Medicine", "Bandage", "Water"}};
-
-    private final Integer[] people_english = {
-            R.drawable.level2_people_mom, R.drawable.level2_people_dad,
-            R.drawable.level2_people_brother, R.drawable.level2_people_sister,
-            R.drawable.level2_people_grandfather,R.drawable.level2_people_grandmother, R.drawable.level2_people_uncle, R.drawable.level2_people_aunt,
-            R.drawable.level2_people_cousin, R.drawable.level2_people_baby,
-            R.drawable.level2_people_friend, R.drawable.level2_people_teacher,
-            R.drawable.level2_people_doctor,R.drawable.level2_people_nurse, R.drawable.level2_people_caregiver1,
-            R.drawable.level2_people_stranger, R.drawable.level2_people_aboutme
-    };
-
-    private final Integer[] people_hindi = {
-            R.drawable.level2_people_mom, R.drawable.level2_people_dad,
-            R.drawable.level2_people_brother, R.drawable.level2_people_sister,R.drawable.level2_people_badepapa,R.drawable.level2_people_badimom,
-            R.drawable.level2_people_grandfather,R.drawable.level2_people_grandmother,
-            R.drawable.level2_people_nanaji, R.drawable.level2_people_nanima,R.drawable.level2_people_uncle, R.drawable.level2_people_aunt,
-            R.drawable.level2_people_mama, R.drawable.level2_people_mami, R.drawable.level2_people_bua, R.drawable.level2_people_fufa,
-            R.drawable.level2_people_mausi, R.drawable.level2_people_mausa,
-            R.drawable.level2_people_baby,
-            R.drawable.level2_people_friend, R.drawable.level2_people_teacher,
-            R.drawable.level2_people_doctor,  R.drawable.level2_people_nurse, R.drawable.level2_people_caregiver1,
-            R.drawable.level2_people_stranger, R.drawable.level2_people_aboutme
-    };
-
-    private final Integer[] places = {
-            R.drawable.level2_places_home, R.drawable.level2_places_school1,
-            R.drawable.level2_places_mall, R.drawable.level2_places_museum1,
-            R.drawable.level2_places_restraunt,R.drawable.level2_places_theatre,
-            R.drawable.level2_places_playground, R.drawable.level2_places_park,
-            R.drawable.level2_places_store, R.drawable.level2_places_friend_house,
-            R.drawable.level2_places_relative_house, R.drawable.level2_places_hospital,
-            R.drawable.level2_places_clinic,R.drawable.level2_places_library, R.drawable.level2_places_terr
-    };
-
     private SessionManager mSession;
+
+    private int[] mColor;
+    private String[] peopleSpeechTextEnglish, placesSpeechTextEnglish,peopleSpeechTextHindi, placesSpeechTextHindi,
+            people_adapter_hindi, places_adapter_hindi, places_adapter, people_adapter, side_english, side_hindi, below_english, below_hindi;
     private String[][][] layer_2_speech = new String[100][100][100];
-    private String[] myMusic;
+    private String[] myMusic, actionBarText;
     private String[] side = new String[100];
-
     private String[] below = new String[100];
-
     private String[] temp = new String[100];
     private Integer[] image_temp = new Integer[100];
-
     private String[] new_people_adapter = new String[100];
     private Integer[] people = new Integer[100];
     private Integer[] count_people = new Integer[100];
     private Integer[] new_people = new Integer[100];
     private Integer[] new_people_count = new Integer[100];
     private Integer[] sort = new Integer[100];
-
     private String[] new_places_adapter = new String[100];
     private Integer[] count_places = new Integer[15];
     private Integer[] new_places = new Integer[100];
     private Integer[] new_places_count = new Integer[15];
     private Integer[] sort_places = new Integer[15];
-
     private String mBloodGroup;
     private String end = " है।";
 
@@ -182,47 +77,59 @@ public class Main2LAyer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.trial1);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
-        mSession = new SessionManager(this);
         mLevelOneItemPos = getIntent().getExtras().getInt("mLevelOneItemPos");
         getSupportActionBar().setTitle(getIntent().getExtras().getString("selectedMenuItemPath"));
+        loadArraysFromResources();
+        userDataMeasure = new UserDataMeasure(this);
+        userDataMeasure.recordScreen(this.getLocalClassName());
+        mSession = new SessionManager(this);
+        if (mSession.getLanguage() == LANG_ENG){
+            layer_2_speech = layer_2_speech_english;
+            side = side_english;
+            below = below_english;
+        }else{
+            layer_2_speech = layer_2_speech_hindi;
+            side = side_hindi;
+            below = below_hindi;
+        }
         {
             int size = -1;
             switch (mLevelOneItemPos) {
                 case 0:
-                    if(mSession.getLanguage() == LANG_ENG) size =  greetSpeechTextEnglish.length;
-                    else  size =  greetSpeechTextHindi.length;
+                    if(mSession.getLanguage() == LANG_ENG) size = getResources().getStringArray(R.array.arrLevelTwoGreetFeelSpeechTextEnglish).length;
+                    else  size = getResources().getStringArray(R.array.arrLevelTwoGreetFeelSpeechTextHindi).length;
                     break;
                 case 1:
-                    if(mSession.getLanguage() == LANG_ENG) size =  dailySpeechTextEnglish.length;
-                    else  size =  dailySpeechTextHindi.length;
+                    if(mSession.getLanguage() == LANG_ENG) size = getResources().getStringArray(R.array.arrLevelTwoDailyActSpeechTextEnglish).length;
+                    else  size = getResources().getStringArray(R.array.arrLevelTwoDailyActSpeechTextHindi).length;
                     break;
                 case 2:
-                    if(mSession.getLanguage() == LANG_ENG) size =  eatSpeechTextEnglish.length;
-                    else  size =  eatSpeechTextHindi.length;
+                    if(mSession.getLanguage() == LANG_ENG) size = getResources().getStringArray(R.array.arrLevelTwoEatSpeechTextEnglish).length;
+                    else  size = getResources().getStringArray(R.array.arrLevelTwoEatSpeechTextHindi).length;
                     break;
                 case 3:
-                    if(mSession.getLanguage() == LANG_ENG) size =  funSpeechTextEnglish.length;
-                    else  size =  funSpeechTextHindi.length;
+                    if(mSession.getLanguage() == LANG_ENG) size = getResources().getStringArray(R.array.arrLevelTwoFunSpeechTextEnglish).length;
+                    else  size = getResources().getStringArray(R.array.arrLevelTwoFunSpeechTextHindi).length;
                     break;
                 case 4:
-                    if(mSession.getLanguage() == LANG_ENG) size =  learningSpeechTextEnglish.length;
-                    else  size =  learningSpeechTextHindi.length;
+                    if(mSession.getLanguage() == LANG_ENG) size = getResources().getStringArray(R.array.arrLevelTwoLearningSpeechTextEnglish).length;
+                    else  size = getResources().getStringArray(R.array.arrLevelTwoLearningSpeechTextHindi).length;
                     break;
                 case 5:
-                    if(mSession.getLanguage() == LANG_ENG) size =  peopleSpeechTextEnglish.length;
-                    else  size =  peopleSpeechTextHindi.length;
+                    if(mSession.getLanguage() == LANG_ENG) size = peopleSpeechTextEnglish.length;
+                    else  size = peopleSpeechTextHindi.length;
                     break;
                 case 6:
-                    if(mSession.getLanguage() == LANG_ENG) size =  placesSpeechTextEnglish.length;
-                    else  size =  placesSpeechTextHindi.length;
+                    if(mSession.getLanguage() == LANG_ENG) size = placesSpeechTextEnglish.length;
+                    else  size = placesSpeechTextHindi.length;
                     break;
                 case 7:
-                    if(mSession.getLanguage() == LANG_ENG) size =  timeWeatherSpeechTextEnglish.length;
-                    else  size =  timeWeatherSpeechTextHindi.length;
+                    if(mSession.getLanguage() == LANG_ENG) size = getResources().getStringArray(R.array.arrLevelTwoTimeWeatherSpeechTextEnglish).length;
+                    else  size = getResources().getStringArray(R.array.arrLevelTwoTimeWeatherSpeechTextHindi).length;
                     break;
                 case 8:
-                    if(mSession.getLanguage() == LANG_ENG) size =  helpSpeechTextEnglish.length;
-                    else  size =  helpSpeechTextHindi.length;
+                    if(mSession.getLanguage() == LANG_ENG) size = getResources().getStringArray(R.array.arrLevelTwoHelpSpeechTextEnglish).length;
+                    else  size = getResources().getStringArray(R.array.arrLevelTwoHelpSpeechTextHindi).length;
                     break;
             }
             mRecyclerItemsViewList = new ArrayList<>(size);
@@ -291,9 +198,9 @@ public class Main2LAyer extends AppCompatActivity {
                             if(mSession.getLanguage() == LANG_HINDI)
                                 intent = new Intent(Main2LAyer.this, Layer_3_Hindi_Activity.class);
                             if(mLevelOneItemPos == MENU_ITEM_DAILY_ACT && ( mLevelTwoItemPos == 0 ||  mLevelTwoItemPos == 1 || mLevelTwoItemPos == 2 || mLevelTwoItemPos == 7 || mLevelTwoItemPos == 8 ))
-                            intent = new Intent(Main2LAyer.this, Sequence_Activity.class);
+                                intent = new Intent(Main2LAyer.this, Sequence_Activity.class);
                             intent.putExtra("mLevelOneItemPos", mLevelOneItemPos);
-                            intent.putExtra("mLevelTwoItemPos", position);
+                            intent.putExtra("mLevelTwoItemPos", mLevelTwoItemPos);
                             intent.putExtra("selectedMenuItemPath", mActionBarTitle);
                             startActivity(intent);
                         }else if(mLevelOneItemPos == MENU_ITEM_PEOPLE || mLevelOneItemPos == MENU_ITEM_PLACES){
@@ -303,18 +210,14 @@ public class Main2LAyer extends AppCompatActivity {
                         }
                         mLevelTwoItemPos = mRecyclerView.getChildLayoutPosition(view);
                         mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
-                        if(mSession.getLanguage() == LANG_ENG && mLevelOneItemPos == MENU_ITEM_PEOPLE)
-                            title += " / " + level2_english[mLevelOneItemPos][sort[mLevelTwoItemPos]];
-                        else if(mSession.getLanguage() == LANG_ENG && mLevelOneItemPos == MENU_ITEM_PLACES)
-                            title += " / " + level2_english[mLevelOneItemPos][sort_places[mLevelTwoItemPos]];
-                        else if(mSession.getLanguage() == LANG_HINDI && mLevelOneItemPos == MENU_ITEM_PEOPLE)
-                            title += " / " + level2_hindi[mLevelOneItemPos][sort[mLevelTwoItemPos]];
-                        else  if(mSession.getLanguage() == LANG_HINDI && mLevelOneItemPos == MENU_ITEM_PLACES)
-                            title += " / " + level2_hindi[mLevelOneItemPos][sort_places[mLevelTwoItemPos]];
-                        else if(mSession.getLanguage() == LANG_ENG)
-                            title += " / " + level2_english[mLevelOneItemPos][mLevelTwoItemPos];
+                        if(mLevelOneItemPos == MENU_ITEM_PEOPLE)
+                            title += " / " + actionBarText[sort[mLevelTwoItemPos]];
+                        else if( mLevelOneItemPos == MENU_ITEM_PLACES)
+                            title += " / " + actionBarText[sort_places[mLevelTwoItemPos]];
+                        else if( mLevelOneItemPos == MENU_ITEM_HELP)
+                            title += " / " + actionBarText[mLevelTwoItemPos];
                         else
-                            title += " / " + level2_hindi[mLevelOneItemPos][mLevelTwoItemPos];
+                            title += " / " + actionBarText[mLevelTwoItemPos].substring(0, actionBarText[mLevelTwoItemPos].length()-1);
                         mActionBarTitle = title;
                         getSupportActionBar().setTitle(mActionBarTitle);
                         if(mLevelOneItemPos == MENU_ITEM_PEOPLE || mLevelOneItemPos == MENU_ITEM_PLACES)
@@ -327,6 +230,7 @@ public class Main2LAyer extends AppCompatActivity {
                             changeTheActionButtons(DISABLE_ACTION_BTNS);
                         else
                             changeTheActionButtons(!DISABLE_ACTION_BTNS);
+                        userDataMeasure.recordGridItem(String.valueOf(mLevelOneItemPos));
                     }
                 });
             }
@@ -447,7 +351,7 @@ public class Main2LAyer extends AppCompatActivity {
         keyboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mTts.speak(below[2], TextToSpeech.QUEUE_FLUSH, null, null);
+                mTts.speak(below[2], TextToSpeech.QUEUE_FLUSH, null);
                 if (flag_keyboard == 1) {
                     keyboard.setImageResource(R.drawable.keyboard_button);
                     back.setImageResource(R.drawable.back_button);
@@ -832,16 +736,96 @@ public class Main2LAyer extends AppCompatActivity {
         });
     }
 
-    private String[] sortTtsSpeechArray(String[] speechTextArray, int levelOnePos) {
-        String[] temp = new String[speechTextArray.length];
-        if(levelOnePos == MENU_ITEM_PEOPLE) {
-            for (int i = 0; i < speechTextArray.length; ++i)
-                temp[i] = speechTextArray[sort[i]];
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        final int LANG_HINDI = 1;
+        super.onCreateOptionsMenu(menu);
+        if (mSession.getLanguage() == LANG_HINDI){
+            MenuInflater blowUp = getMenuInflater();
+            blowUp.inflate(R.menu.menu_main, menu);
         }else{
-            for (int i = 0; i < speechTextArray.length; ++i)
-                temp[i] = speechTextArray[sort_places[i]];
+            MenuInflater blowUp = getMenuInflater();
+            blowUp.inflate(R.menu.menu_1, menu);
         }
-        return temp;
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.settings:
+                startActivity(new Intent(Main2LAyer.this, Setting.class));
+                break;
+            case R.id.info:
+                startActivity(new Intent(this, About_Jellow.class));
+                break;
+            case R.id.profile:
+                startActivity(new Intent(this, Profile_form.class));
+                break;
+            case R.id.feedback:
+                startActivity(new Intent(this, Feedback.class));
+                break;
+            case R.id.usage:
+                startActivity(new Intent(this, Tutorial.class));
+                break;
+            case R.id.reset:
+                startActivity(new Intent(this, Reset__preferences.class));
+                break;
+            case R.id.keyboardinput:
+                startActivity(new Intent(this, Keyboard_Input.class));
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void loadArraysFromResources() {
+        mColor = getResources().getIntArray(R.array.arrActionBtnColors);
+        /*greetSpeechTextEnglish = getResources().getStringArray(R.array.arrLevelTwoGreetFeelSpeechTextEnglish);
+        dailySpeechTextEnglish = getResources().getStringArray(R.array.arrLevelTwoDailyActSpeechTextEnglish);
+        eatSpeechTextEnglish = getResources().getStringArray(R.array.arrLevelTwoEatSpeechTextEnglish);
+        funSpeechTextEnglish = getResources().getStringArray(R.array.arrLevelTwoFunSpeechTextEnglish);
+        learningSpeechTextEnglish = getResources().getStringArray(R.array.arrLevelTwoLearningSpeechTextEnglish);*/
+        peopleSpeechTextEnglish = getResources().getStringArray(R.array.arrLevelTwoPeopleSpeechTextEnglish);
+        placesSpeechTextEnglish = getResources().getStringArray(R.array.arrLevelTwoPlacesSpeechTextEnglish);
+        /*timeWeatherSpeechTextEnglish = getResources().getStringArray(R.array.arrLevelTwoTimeWeatherSpeechTextEnglish);
+        helpSpeechTextEnglish = getResources().getStringArray(R.array.arrLevelTwoHelpSpeechTextEnglish);
+        greetSpeechTextHindi = getResources().getStringArray(R.array.arrLevelTwoGreetFeelSpeechTextHindi);
+        dailySpeechTextHindi = getResources().getStringArray(R.array.arrLevelTwoDailyActSpeechTextHindi);
+        eatSpeechTextHindi = getResources().getStringArray(R.array.arrLevelTwoEatSpeechTextHindi);
+        funSpeechTextHindi = getResources().getStringArray(R.array.arrLevelTwoFunSpeechTextHindi);
+        learningSpeechTextHindi = getResources().getStringArray(R.array.arrLevelTwoLearningSpeechTextHindi);*/
+        peopleSpeechTextHindi = getResources().getStringArray(R.array.arrLevelTwoPeopleSpeechTextHindi);
+        placesSpeechTextHindi = getResources().getStringArray(R.array.arrLevelTwoPlacesSpeechTextHindi);
+        /*timeWeatherSpeechTextHindi = getResources().getStringArray(R.array.arrLevelTwoTimeWeatherSpeechTextHindi);
+        helpSpeechTextHindi = getResources().getStringArray(R.array.arrLevelTwoHelpSpeechTextHindi);*/
+
+        places_adapter = getResources().getStringArray(R.array.arrLevelTwoPlacesAdapterTextEnglish);
+        people_adapter = getResources().getStringArray(R.array.arrLevelTwoPeopleAdapterTextEnglish);
+        people_adapter_hindi = getResources().getStringArray(R.array.arrLevelTwoPeopleAdapterTextHindi);
+        places_adapter_hindi = getResources().getStringArray(R.array.arrLevelTwoPlacesAdapterTextHindi);
+
+        side_english = getResources().getStringArray(R.array.arrSideEnglish);
+        side_hindi = getResources().getStringArray(R.array.arrSideHindi);
+        below_english = getResources().getStringArray(R.array.arrBelowEnglish);
+        below_hindi = getResources().getStringArray(R.array.arrBelowHindi);
+    }
+
+    private void resetRecyclerMenuItemsAndFlags() {
+        resetActionButtons(6);
+        mLevelTwoItemPos = -1;
+        resetRecyclerAllItems();
+        mActionBtnClickCount = 0;
     }
 
     private void changeTheActionButtons(boolean setDisable) {
@@ -872,67 +856,6 @@ public class Main2LAyer extends AppCompatActivity {
             add.setEnabled(true);
             minus.setEnabled(true);
         }
-    }
-
-    private void incrementTouchCountOfItem(int levelTwoItemPosition) {
-        StringBuilder stringBuilder = new StringBuilder();
-        if(mLevelOneItemPos == MENU_ITEM_PEOPLE) {
-            count_people[sort[levelTwoItemPosition]] += 1;
-            for (Integer countPeople : count_people) stringBuilder.append(countPeople).append(",");
-        }else {
-            count_places[sort_places[levelTwoItemPosition]] += 1;
-            for (Integer countPlace : count_places) stringBuilder.append(countPlace).append(",");
-        }
-        if(mLevelOneItemPos == MENU_ITEM_PEOPLE)
-            mSession.setPeoplePreferences(stringBuilder.toString());
-        else if(mLevelOneItemPos == MENU_ITEM_PLACES)
-            mSession.setPlacesPreferences(stringBuilder.toString());
-    }
-
-    public void myMusic_function(int levelOneItemPos){
-        if (levelOneItemPos == 0){
-            if (mSession.getLanguage() == LANG_ENG)
-                myMusic = greetSpeechTextEnglish;
-            else
-                myMusic = greetSpeechTextHindi;
-        } else if (levelOneItemPos == 1) {
-            if (mSession.getLanguage() == LANG_ENG)
-                myMusic = dailySpeechTextEnglish;
-            else
-                myMusic = dailySpeechTextHindi;
-        } else if (levelOneItemPos == 2){
-            if (mSession.getLanguage() == LANG_ENG)
-                myMusic = eatSpeechTextEnglish;
-            else
-                myMusic = eatSpeechTextHindi;
-        } else if (levelOneItemPos == 3){
-            if (mSession.getLanguage() == LANG_ENG)
-                myMusic = funSpeechTextEnglish;
-            else
-                myMusic = funSpeechTextHindi;
-        } else if (levelOneItemPos == 4){
-            if (mSession.getLanguage() == LANG_ENG)
-                myMusic = learningSpeechTextEnglish;
-            else
-                myMusic = learningSpeechTextHindi;
-        }else if (levelOneItemPos == 7){
-            if (mSession.getLanguage() == LANG_ENG)
-                myMusic = timeWeatherSpeechTextEnglish;
-            else
-                myMusic = timeWeatherSpeechTextHindi;
-        } else if (levelOneItemPos == 8){
-            if (mSession.getLanguage() == LANG_ENG)
-                myMusic = helpSpeechTextEnglish;
-            else
-                myMusic = helpSpeechTextHindi;
-        }
-    }
-
-    private void resetRecycleraMenuItemsAndFlags() {
-        resetActionButtons(6);
-        mLevelTwoItemPos = -1;
-        resetRecyclerAllItems();
-        mActionBtnClickCount = 0;
     }
 
     private void setMenuImageBorder(View recyclerChildView, boolean setBorder) {
@@ -978,6 +901,27 @@ public class Main2LAyer extends AppCompatActivity {
         }
     }
 
+    private void resetRecyclerAllItems() {
+        for(int i = 0; i< mRecyclerView.getChildCount(); ++i){
+            setMenuImageBorder(mRecyclerView.getChildAt(i), false);
+        }
+    }
+
+    private void incrementTouchCountOfItem(int levelTwoItemPosition) {
+        StringBuilder stringBuilder = new StringBuilder();
+        if(mLevelOneItemPos == MENU_ITEM_PEOPLE) {
+            count_people[sort[levelTwoItemPosition]] += 1;
+            for (Integer countPeople : count_people) stringBuilder.append(countPeople).append(",");
+        }else {
+            count_places[sort_places[levelTwoItemPosition]] += 1;
+            for (Integer countPlace : count_places) stringBuilder.append(countPlace).append(",");
+        }
+        if(mLevelOneItemPos == MENU_ITEM_PEOPLE)
+            mSession.setPeoplePreferences(stringBuilder.toString());
+        else if(mLevelOneItemPos == MENU_ITEM_PLACES)
+            mSession.setPlacesPreferences(stringBuilder.toString());
+    }
+
     private void setActionButtonToAboutMe(int image_flag){
         like.setImageResource(R.drawable.mynameis_unpressed);
         dislike.setImageResource(R.drawable.caregiver_unpressed);
@@ -997,137 +941,91 @@ public class Main2LAyer extends AppCompatActivity {
         }
     }
 
-    private void resetRecyclerAllItems() {
-        for(int i = 0; i< mRecyclerView.getChildCount(); ++i){
-            setMenuImageBorder(mRecyclerView.getChildAt(i), false);
+    private String[] sortTtsSpeechArray(String[] speechTextArray, int levelOnePos) {
+        String[] temp = new String[speechTextArray.length];
+        if(levelOnePos == MENU_ITEM_PEOPLE) {
+            for (int i = 0; i < speechTextArray.length; ++i)
+                temp[i] = speechTextArray[sort[i]];
+        }else{
+            for (int i = 0; i < speechTextArray.length; ++i)
+                temp[i] = speechTextArray[sort_places[i]];
         }
+        return temp;
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            finish();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
+    public void myMusic_function(int levelOneItemPos){
+        if (levelOneItemPos == 0){
+            if (mSession.getLanguage() == LANG_ENG) {
+                myMusic = getResources().getStringArray(R.array.arrLevelTwoGreetFeelSpeechTextEnglish);
+                actionBarText = getResources().getStringArray(R.array.arrLevelTwoGreetFeelAdapterTextEnglish);
+            }else {
+                myMusic = getResources().getStringArray(R.array.arrLevelTwoGreetFeelSpeechTextHindi);
+                actionBarText = getResources().getStringArray(R.array.arrLevelTwoGreetFeelAdapterTextHindi);
+            }
+        } else if (levelOneItemPos == 1) {
+            if (mSession.getLanguage() == LANG_ENG) {
+                myMusic = getResources().getStringArray(R.array.arrLevelTwoDailyActSpeechTextEnglish);
+                actionBarText = getResources().getStringArray(R.array.arrLevelTwoDailyActAdapterTextEnglish);
+            }else {
+                myMusic = getResources().getStringArray(R.array.arrLevelTwoDailyActSpeechTextHindi);
+                actionBarText = getResources().getStringArray(R.array.arrLevelTwoDailyActAdapterTextHindi);
+            }
+        } else if (levelOneItemPos == 2){
+            if (mSession.getLanguage() == LANG_ENG) {
+                myMusic = getResources().getStringArray(R.array.arrLevelTwoEatSpeechTextEnglish);
+                actionBarText = getResources().getStringArray(R.array.arrLevelTwoEatAdapterTextEnglish);
+            }else {
+                myMusic = getResources().getStringArray(R.array.arrLevelTwoEatSpeechTextHindi);
+                actionBarText = getResources().getStringArray(R.array.arrLevelTwoEatAdapterTextHindi);
+            }
+        } else if (levelOneItemPos == 3){
+            if (mSession.getLanguage() == LANG_ENG) {
+                myMusic = getResources().getStringArray(R.array.arrLevelTwoFunSpeechTextEnglish);
+                actionBarText = getResources().getStringArray(R.array.arrLevelTwoFunAdapterTextEnglish);
+            }else {
+                myMusic = getResources().getStringArray(R.array.arrLevelTwoFunSpeechTextHindi);
+                actionBarText = getResources().getStringArray(R.array.arrLevelTwoEatAdapterTextHindi);
+            }
+        } else if (levelOneItemPos == 4){
+            if (mSession.getLanguage() == LANG_ENG) {
+                myMusic = getResources().getStringArray(R.array.arrLevelTwoLearningSpeechTextEnglish);
+                actionBarText = getResources().getStringArray(R.array.arrLevelTwoLearningAdapterTextEnglish);
+            }else {
+                myMusic = getResources().getStringArray(R.array.arrLevelTwoLearningSpeechTextHindi);
+                actionBarText = getResources().getStringArray(R.array.arrLevelTwoLearningAdapterTextHindi);
+            }
+        }else if (levelOneItemPos == MENU_ITEM_PEOPLE){
+            if (mSession.getLanguage() == LANG_ENG)
+                actionBarText = getResources().getStringArray(R.array.arrLevelTwoPeopleAdapterTextEnglish);
+            else
+                actionBarText = getResources().getStringArray(R.array.arrLevelTwoPeopleAdapterTextHindi);
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        if (mSession.getLanguage()==1){
-            MenuInflater blowUp = getMenuInflater();
-            blowUp.inflate(R.menu.menu_main, menu);
-        }
-        if (mSession.getLanguage()==0) {
-            MenuInflater blowUp = getMenuInflater();
-            blowUp.inflate(R.menu.menu_1, menu);
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.settings:
-                Intent intent = new Intent(Main2LAyer.this, Setting.class);
-                startActivity(intent);
-                break;
-            case R.id.info:
-                Intent i = new Intent(Main2LAyer.this, About_Jellow.class);
-                startActivity(i);
-                break;
-            case R.id.profile:
-                Intent intent1 = new Intent(Main2LAyer.this, Profile_form.class);
-                startActivity(intent1);
-                break;
-            case R.id.feedback:
-                Intent intent2 = new Intent(Main2LAyer.this, Feedback.class);
-                startActivity(intent2);
-                break;
-            case R.id.usage:
-                Intent intent3 = new Intent(Main2LAyer.this, Tutorial.class);
-                startActivity(intent3);
-                break;
-            case R.id.reset:
-                Intent intent4 = new Intent(Main2LAyer.this, Reset__preferences.class);
-                startActivity(intent4);
-                break;
-            case R.id.keyboardinput:
-                Intent intent6 = new Intent(Main2LAyer.this, Keyboard_Input.class);
-                startActivity(intent6);
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return true;
-    }
-
-    public class IndexSorter<T extends Comparable<T>> implements Comparator<Integer> {
-
-        private final T[] values;
-
-        private final Integer[] indexes;
-
-        /**
-         * Constructs a new IndexSorter based upon the parameter array.
-         * @param d
-         */
-        public IndexSorter(T[] d){
-            this.values = d;
-            indexes = new Integer[this.values.length];
-            for ( int i = 0; i < indexes.length; i++ ){
-                indexes[i] = i;
+        } else if (levelOneItemPos == MENU_ITEM_PLACES){
+            if (mSession.getLanguage() == LANG_ENG)
+                actionBarText = getResources().getStringArray(R.array.arrLevelTwoPlacesAdapterTextEnglish);
+            else
+                actionBarText = getResources().getStringArray(R.array.arrLevelTwoPlacesAdapterTextHindi);
+        }else if (levelOneItemPos == 7){
+            if (mSession.getLanguage() == LANG_ENG) {
+                myMusic = getResources().getStringArray(R.array.arrLevelTwoTimeWeatherSpeechTextEnglish);
+                actionBarText = getResources().getStringArray(R.array.arrLevelTwoTimeWeatherAdapterTextEnglish);
+            }else {
+                myMusic = getResources().getStringArray(R.array.arrLevelTwoTimeWeatherSpeechTextHindi);
+                actionBarText = getResources().getStringArray(R.array.arrLevelTwoTimeWeatherAdapterTextHindi);
+            }
+        } else if (levelOneItemPos == 8){
+            if (mSession.getLanguage() == LANG_ENG) {
+                myMusic = getResources().getStringArray(R.array.arrLevelTwoHelpSpeechTextEnglish);
+                actionBarText = getResources().getStringArray(R.array.arrLevelTwoHelpAdapterTextEnglish);
+            }else {
+                myMusic = getResources().getStringArray(R.array.arrLevelTwoHelpSpeechTextHindi);
+                actionBarText = getResources().getStringArray(R.array.arrLevelTwoHelpAdapterTextHindi);
             }
         }
-
-        /**
-         * Constructs a new IndexSorter based upon the parameter List.
-         * @param d
-         */
-        public IndexSorter(List<T> d){
-            this.values = (T[])d.toArray();
-            for ( int i = 0; i < values.length; i++ ){
-                values[i] = d.get(i);
-            }
-            indexes = new Integer[this.values.length];
-            for ( int i = 0; i < indexes.length; i++ ){
-                indexes[i] = i;
-            }
-        }
-
-        /**
-         * Sorts the underlying index array based upon the values provided in the constructor. The underlying value array is not sorted.
-         */
-        public void sort(){
-            Arrays.sort(indexes, this);
-        }
-        /**
-         * Retrieves the indexes of the array. The returned array is sorted if this object has been sorted.
-         * @return The array of indexes.
-         */
-        public Integer[] getIndexes(){
-            return indexes;
-        }
-
-        /**
-         * Compares the two values at index arg0 and arg0
-         * @param arg0 The first index
-         * @param arg1 The second index
-         * @return The result of calling compareTo on T objects at mLevelOneItemPos arg0 and arg1
-         */
-        @Override
-        public int compare(Integer arg0, Integer arg1) {
-            T d1 = values[arg0];
-            T d2 = values[arg1];
-            return d2.compareTo(d1);
-        }
     }
 
-    public class ArrayIndexComparator implements Comparator<Integer>{
-
+    private class ArrayIndexComparator implements Comparator<Integer>{
         private final Integer[] array;
-
         public ArrayIndexComparator(Integer[] array)
         {
             this.array = array;
@@ -1145,33 +1043,54 @@ public class Main2LAyer extends AppCompatActivity {
             // Autounbox from Integer to int to use as array indexes
             return array[index2].compareTo(array[index1]);
         }
-
     }
 
     private class BackgroundSpeechOperationsAsync extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
             try {
-                if (mSession.getLanguage()==0 /*&& mSession.getAccent() == 0*/){
-                    mTts.setLanguage(new Locale("hin", "IND"));
-                    layer_2_speech = layer_2_speech_english;
-                    side = side_english;
-                    below = below_english;
-                }else if (mSession.getLanguage()==1){
-                    mTts.setLanguage(new Locale("hin", "IND"));
-                    layer_2_speech = layer_2_speech_hindi;
-                    side = side_hindi;
-                    below = below_hindi;
-                }
+                mTts.setLanguage(new Locale("hin", "IND"));
             } catch (Exception e) {
                 Thread.interrupted();
             }
             return "Executed";
         }
-
     }
 
-    String[][][] layer_2_speech_english = {{{
+    private final Integer[] people_english = {
+            R.drawable.level2_people_mom, R.drawable.level2_people_dad,
+            R.drawable.level2_people_brother, R.drawable.level2_people_sister,
+            R.drawable.level2_people_grandfather,R.drawable.level2_people_grandmother, R.drawable.level2_people_uncle, R.drawable.level2_people_aunt,
+            R.drawable.level2_people_cousin, R.drawable.level2_people_baby,
+            R.drawable.level2_people_friend, R.drawable.level2_people_teacher,
+            R.drawable.level2_people_doctor,R.drawable.level2_people_nurse, R.drawable.level2_people_caregiver1,
+            R.drawable.level2_people_stranger, R.drawable.level2_people_aboutme
+    };
+
+    private final Integer[] people_hindi = {
+            R.drawable.level2_people_mom, R.drawable.level2_people_dad,
+            R.drawable.level2_people_brother, R.drawable.level2_people_sister,R.drawable.level2_people_badepapa,R.drawable.level2_people_badimom,
+            R.drawable.level2_people_grandfather,R.drawable.level2_people_grandmother,
+            R.drawable.level2_people_nanaji, R.drawable.level2_people_nanima,R.drawable.level2_people_uncle, R.drawable.level2_people_aunt,
+            R.drawable.level2_people_mama, R.drawable.level2_people_mami, R.drawable.level2_people_bua, R.drawable.level2_people_fufa,
+            R.drawable.level2_people_mausi, R.drawable.level2_people_mausa,
+            R.drawable.level2_people_baby,
+            R.drawable.level2_people_friend, R.drawable.level2_people_teacher,
+            R.drawable.level2_people_doctor,  R.drawable.level2_people_nurse, R.drawable.level2_people_caregiver1,
+            R.drawable.level2_people_stranger, R.drawable.level2_people_aboutme
+    };
+
+    private final Integer[] places = {
+            R.drawable.level2_places_home, R.drawable.level2_places_school1,
+            R.drawable.level2_places_mall, R.drawable.level2_places_museum1,
+            R.drawable.level2_places_restraunt, R.drawable.level2_places_theatre,
+            R.drawable.level2_places_playground, R.drawable.level2_places_park,
+            R.drawable.level2_places_store, R.drawable.level2_places_friend_house,
+            R.drawable.level2_places_relative_house, R.drawable.level2_places_hospital,
+            R.drawable.level2_places_clinic, R.drawable.level2_places_library, R.drawable.level2_places_terr
+    };
+
+    private String[][][] layer_2_speech_english = {{{
             "I like to greet others",
             "I really like to greet others",
             "I want to greet others",
@@ -2203,6 +2122,19 @@ public class Main2LAyer extends AppCompatActivity {
             "I really don’t want water",
             "I don’t want more water",
             "I don’t want any more water"
+
+    },{"I like to go to the toilet",
+            "I really like to go to the toilet ",
+            "I want to go to the toilet ",
+            "I really want to go to the toilet ",
+            "I want to go to the toilet again",
+            "I really want to go to the toilet again",
+            "I don’t like to go to the toilet ",
+            "I really don’t like to go to the toilet ",
+            "I don’t want to go to the toilet ",
+            "I really don’t want to go to the toilet ",
+            "I don’t want to go to the toilet again",
+            "I really don’t want to go to the toilet again"
 
     }}};
 
@@ -3350,5 +3282,17 @@ public class Main2LAyer extends AppCompatActivity {
             "मुझे सच में पानी नहीं चाहिए",
             "मुझे और पानी नहीं चाहिए",
             "मुझे सच में थोड़ा भी पानी नहीं चाहिए"
+    },{"मुझे शौचालय में बैठना हैं",
+            "मुझे सच में शौचालय में बैठना हैं",
+            "मुझे शौचालय में बैठना हैं",
+            "मुझे सच में शौचालय में बैठना हैं",
+            "मुझे फिर से शौचालय में बैठना हैं",
+            "मुझे सच में फिर से शौचालय में बैठना हैं",
+            "मुझे शौचालय में नहीं बैठना हैं",
+            "मुझे सच में शौचालय में नहीं बैठना हैं",
+            "मुझे शौचालय में नहीं बैठना हैं",
+            "मुझे सच में शौचालय में नहीं बैठना हैं",
+            "मुझे फिर से शौचालय में नहीं बैठना हैं",
+            "मुझे सच में फिर से शौचालय में नहीं बैठना हैं"
     }}};
 }

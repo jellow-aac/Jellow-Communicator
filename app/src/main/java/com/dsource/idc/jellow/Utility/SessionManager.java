@@ -1,4 +1,4 @@
-package com.dsource.idc.jellow;
+package com.dsource.idc.jellow.Utility;
 
 /**
  * Created by ekalpa on 23-Jun-16.
@@ -8,27 +8,29 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
+import com.dsource.idc.jellow.R;
+
 public class SessionManager {
     private final int LANG_ENG = 0;
     private SharedPreferences mPreferences;
     private Editor mEditor;
     private Context mContext;
 
-    private static final String PREF_NAME = "AndroidHiveLogin";
-    private static final String KEY_IS_LOGGEDIN = "isLoggedIn";
-    private static final String KEY_IS_LOGGEDIN1 = "isLoggedIn1";
-    public static final String Name = "name";
-    public static final String EmergencyContact = "number";
-    public static final String Blood = "blood" ;
-    public static final String Father_name = "father";
-    public static final String Address = "address";
-    public static final String EmailId = "emailid";
-    public static final String Language = "lang";
-    public static final String Speed = "speechspeed";
-    public static final String Pitch = "voicepitch";
-    public static final String Keyboard = "Keyboard";
-    public static final String PictureViewMode = "PictureViewMode";
-    public static final String GridSize = "GridSize";
+    private final String PREF_NAME = "AndroidHiveLogin";
+    private final String KEY_IS_LOGGEDIN = "isLoggedIn";
+    private final String KEY_IS_LOGGEDIN1 = "isLoggedIn1";
+    public final String Name = "name";
+    private final String EmergencyContact = "number";
+    private final String Blood = "blood" ;
+    private final String Father_name = "father";
+    private final String Address = "address";
+    private final String EmailId = "emailid";
+    private final String Language = "lang";
+    private final String Speed = "speechspeed";
+    private final String Pitch = "voicepitch";
+    private final String Keyboard = "Keyboard";
+    private final String PictureViewMode = "PictureViewMode";
+    private final String GridSize = "GridSize";
 
     public SessionManager(Context context) {
         this.mContext = context;

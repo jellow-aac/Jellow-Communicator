@@ -20,16 +20,18 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.dsource.idc.jellow.Utility.IndexSorter;
+import com.dsource.idc.jellow.Utility.SessionManager;
+import com.dsource.idc.jellow.Utility.UserDataMeasure;
+
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
+import static com.dsource.idc.jellow.R.id.reset;
+
 public class Layer3Activity extends AppCompatActivity {
-    private static final int LANG_ENG = 0, LANG_HINDI = 1;
     private final boolean DISABLE_ACTION_BTNS = true;
     private int mCk = 0, mCy = 0, mCm = 0, mCd = 0, mCn = 0, mCl = 0;
 
@@ -41,108 +43,18 @@ public class Layer3Activity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private LinearLayout mMenuItemLinearLayout;
     private String[] myMusic;
-    private Integer[] mColor = { -5317, -12627531 , -7617718 , -2937298 , -648053365 , -1761607680 };
+    private int[] mColor;
+    private UserDataMeasure userDataMeasure;
     private int mLevelOneItemPos, mLevelTwoItemPos, mLevelThreeItemPos = -1, mSelectedItemAdapterPos = -1;
     private boolean mShouldReadFullSpeech = false;
     private ArrayList<View> mRecyclerItemsViewList;
     private SessionManager mSession;
-
-    private final String[] greet_feel_greetings_text =
-                                        {"Hi", "Hello", "Bye", "Good morning", "Good afternoon", "Good evening", "Good night", "High-five",  "Nice to meet you", "How are you?", "How was your day?", "How do you do?"};
-    private final String[] greet_feel_feelings_text =
-                                        {"Happy", "Sad", "Angry", "afraid", "Surprised", "Irritated", "Confused", "Ashamed",  "Disappointed", "bored", "Worried", "Stressed", "Tired", "Hot", "Cold", "Sick", "Hurt"};
-    private final String[] greet_feel_requests_text =
-                                        {"Please", "Thank you", "You're welcome", "Please give me", "Please tell me again", "Please show me", "I need a break", "I am all done",  "Excuse me", "I am sorry", "I don’t understand", "Please share with me", "Please slow down", "I need help", "Please come here", "Please take me"};
-    private final String[] greet_feel_questions_text =
-                                        {"How?", "When?", "Where?", "Why?", "What?", "Who?", "How much?", "How many?", "How long?"};
-    private final String[] daily_activities_brushing_text =
-                                        {"Rinse mouth", "Rinse toothbrush", "Put toothpaste on brush", "Brush front teeth", "Brush back teeth", "Brush tongue", "Rinse mouth", "All done"};
-    private final String[] daily_activities_toilet_text =
-                                        {"Pull pants down", "Sit on toilet", "Wash bottom", "Flushh toilet", "Pull pants up", "Wash hands", "All done"};
-    private final String[] daily_activities_bathing_text =
-                                        {"Remove clothes", "Turn on water", "Get in the shower", "Wet body", "Put soap", "Shampoo हैर", "Put face wash", "Wash हैर",  "Wash body", "Turn off water", "Dry हैर", "Dry face", "Dry body", "Put on clothes", "All done"};
-    private final String[] daily_activities_clothes_access_text =
-                                        {"Change t-shirt", "Change frock", "Change skirt", "Change jeans", "Change pants", "Change leggings", "Change slacks", "Change shorts", "Change inner wear", "Change footwear", "Change shoes", "Change socks", "wear night clothes", "Shirt", "T-shirt", "Frock",
-                                                "Pants", "slacks", "Leggings", "Shorts", "salwarkameez", "Sweater", "Jacket", "Scarf",  "Cap", "Belt", "Raincoat", "Spectacles", "Wrist watch", "Earrings", "brace let", "Necklace", "बिंदी", "Chappals", "My clothes are tight", "My clothes are loose", "I need help removing clothes", "I need help putting on clothes"};
-    private final String[] daily_activities_get_ready_text =
-                                        {"Comb हैर", "Face wash", "Cut nails", "Blow nose", "Soap", "Shampoo"};
-    private final String[] daily_activities_sleep_text =
-                                        {"Door", "Fan", "Light", "Window", "bed", "Pillows", "Blanket", "Feeling warm", "Feeling cold"};
-    private final String[] daily_activities_therapy_text =
-                                        {"Exercises", "Swing", "Trampoline", "Swiss ball", "Blanket", "Ball pit", "Hand activities", "Leg exercises", "Body vests"};
-    private final String[] daily_activities_morning_schedule_text =
-                                        {"Wake up", "Wash face", "Go to bathroom", "Brush teeth", "Remove clothes", "Have a बाथ", "Get dressed", "Comb हैर",  "Eat brekfust", "Pack lunch box", "Pack school bag", "Go to school", "Have a great day!"};
-    private final String[] daily_activities_bedtime_schedule_text =
-                                        {"Eat dinner", "wear night clothes", "Brush teeth", "Read story", "Say goodnight", "Say prayers", "Sweet dreams!"};
-    private final String[] foods_drinks_breakfast_text =
-                                        {"Bread", "Cornflakes", "Aaloo Poori", "Eggs", "Poha", "Upma", "khichdi", "Idli",  "dosaa", "paraathaa", "omlette", "मेदुवड़ा", "Porridge", "Sandwich", "Chutney", "saambaar", "Uutappam"};
-    private final String[] food_drinks_lunch_dinner_text =
-                                        {"Roti", "Sabzi", "Rice", "Dal", "Dal khichdi", "Raaigh ta", "paraathaa", "Curd",  "Fish", "Chicken", "Pork", "Mutton", "crabbb meat", "Turkey", "Pizza", "Salad",  "Soup", "pastaa", "Noodles", "Italian", "pav bhaji", "Bhakri"};
-    private final String[] food_drinks_sweets_text =
-                                        {"Cake", "Icecream", "Gajar halva", "Gulab jamun", "Lud doo", "Barfi", "Jalebi", "Fruit salad",  "rass gulla", "sheeraa"};
-    private final String[] food_drinks_snacks_text =
-                                        {"Biscuits", "Chaat", "Chocolate", "Wafers", "Sandwich", "Noodles", "Cheese", "Nuts"};
-    private final String[] food_drinks_fruits_text =
-                                        {"Apple", "Banana", "Grapes", "Guava", "Mango", "Orange", "Pineapple", "Strawberry",  "Blueberry", "Pomegranate", "Watermelon", "pear", "Papaya", "Muskmelon", "Chikoo", "Jackfruit", "Cherry"};
-    private final String[] food_drinks_drinks_text =
-                                        {"Water", "Milk", "Bournvita", "Mango juice", "Apple juice", "Orange juice", "Lemon juice", "Pineapple juice",  "Pepsi", "cocacola", "Mirinda", "Fanta", "maaza", "Sprite", "Mountain dew", "Milk shake",  "Chocolate milk shake", "Strawberry milk shake", "Banana milk shake", "Mango milk shake", "Chikoo milk shake", "tea", "Coffee", "Cold coffee", "Energy drink"};
-    private final String[] food_drinks_cutlery_text =
-                                        {"Bowl", "Plate", "Spoon", "Fork", "Knife", "Mug", "Cup", "Glass"};
-    private final String[] food_drinks_add_ons_text =
-                                        {"Butter", "Jam", "Salt", "Pepper", "Sugar", "Sauce", "Pickle", "Papad", "Masala"};
-    private final String[] fun_indoor_games_text =
-                                        {"Puzzle", "Board game", "Blocks", "Legos", "Chess", "Snakes and Ladders", "Scrabble", "Videogame",  "Doll", "Action figure", "Soft toy", "Car", "Truck", "Art and craft", "Play with me"};
-    private final String[] fun_outdoor_games_text =
-                                        {"Playground", "Park", "Swing", "Slide", "See-saw", "Merry-go-round", "Hide and seek", "Bat and ball",  "Statue", "Lock and key", "Catch-catch", "Kite", "Chor-police", "Marbles", "Walk", "Cycle",  "Run", "Swim"};
-    private final String[] fun_sports_text =
-                                        {"Cricket", "Badminton", "Tennis", "basketball", "Dodgeball", "Volleyball", "Kho-kho", "Football", "kabbbaddi", "gym nastics", "Swimming"};
-    private final String[] fun_tv_text =
-                                        {"Next channel", "Previous channel", "Volume up", "Volume down"};
-    private final String[] fun_music_text =
-                                        {"Change music", "Lets dance", "Volume up", "Volume down"};
-    private final String[] fun_activities_text =
-                                        {"Draw", "Paint", "Read", "Write", "Arts and crafts", "Drama", "Dance", "Make music"};
-    private final String[] learning_animals_birds_text =
-                                        {"Dog", "Cat", "Elephant", "Lion", "Parrot", "Rabbit", "Cow", "Duck", "Donkey", "Ant", "Tiger", "Monkey", "Pigeon", "Cockroach", "Crow", "Horse",  "Deer", "Owl", "Wolf", "Fox", "Bear", "Sheep", "Goat", "Pig",  "Fly", "Giraffe", "zeebraa", "Mosquito", "Buffalo", "Mouse", "Snake", "crocodile",  "Bee", "Hippopotamus", "Rhinoceros", "Fish", "Penguin", "Seal", "Dolphin", "Whale",  "Shark", "tortoyse", "Sparrow", "Eagle", "Hawk", "Vulture"};
-    private final String[] learning_body_parts_text =
-                                        {"Head", "हैर", "Eyes", "Nose", "Ears", "mouth", "Tongue", "Neck",  "Shoulder", "Elbow", "Wrist", "Hands", "Fingers", "Back", "Stomach", "Hip",  "knee", "Ankle", "Legs", "Toes"};
-    private final String[] learning_books_text =
-                                        {"Bed time story book", "Comic book", "Rhymes book", "Drawing book", "Storybook", "Picture book", "Mystery book", "Adventure book", "School notebook", "Maths book", "Science book", "History book", "Geography book", "Social studies book", "English book", "Hindi book",  "Marathi book", "Textbook", "Favourites" };
-    private final String[] learning_colours_text =
-                                        {"Black", "Blue", "Brown", "Green", "Red", "Silver", "White", "Yellow",  "Golden", "Pink", "Orange", "Purple", "Gray"};
-    private final String[] learning_shapes_text =
-                                        {"Standing line", "Sleeping line", "Slanting line", "Circle", "Rectangle", "Square", "Triangle", "Star", "Heart", "Trapezium", "Cube", "Rhombus", "Hexagon", "Oval", "Diamond", "Pentagon", "freeform"};
-    private final String[] learning_stationary_text =
-                                        {"Pencil", "Pen", "Scale", "Eraser", "Sharpener", "Crayon", "Blank paper", "Coloured paper",  "Scissors", "Pencil led", "Compass", "Divider", "stapler", "U-pin", "selo tape", "Compass box"};
-    private final String[] learning_school_objects_text =
-                                        {"Bag", "Lunch box", "Water bottle", "Compass box", "Homework", "School notebooks", "Textbooks", "Uniform",  "Shoes", "Socks", "Pencil", "Pen", "Scale", "Eraser", "Sharpener", "Chalk"};
-    private final String[] learning_home_objects_text =
-                                        {"Window", "Door", "Fan", "Lamp", "Desk", "cupboard", "Table", "Chair", "Toilet", "Kitchen", "Living room", "Bedroom", "Play room", "Bathroom", "Balcony", "Study room",  "bed", "Television", "Computer", "Sofa", "Fridge", "Microwave", "Washing machine", "Vacuum cleaner",  "Clock", "Tube light"};
-    private final String[] learning_transportation_text =
-                                        {"Bus", "School bus", "Car", "Bicycle", "Train", "Rickshaa", "Bike", "Aeroplane", "Ship"};
-    private final String[] time_weather_time_text =
-                                        {"What is the time?", "Today", "Yesterday", "Tomorrow", "Morning", "Afternoon", "Evening", "Night"};
-    private final String[] time_weather_day_text =
-                                        {"What is the day today?", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
-    private final String[] time_weather_month_text =
-                                        {"What is the Current month?", "January", "February", "March", "April", "May", "June", "July",  "August", "September", "October", "November", "December", "This month", "Previous month", "Next month"};
-    private final String[] time_weather_weather_text =
-                                        {"What is Today’s weather?", "Sunny", "Rainy", "Cloudy", "Windy", "Foggy", "Snowy"};
-    private final String[] time_weather_seasons_text =
-                                        {"What is the Current season?", "Spring", "Summer", "Rainy", "Autumn", "Winter"};
-    private final String[] time_weather_holidays_festivals_text =
-                                        {"Diwali", "Ganesh chaturthi", "Christmas", "Dussehra", "मकरसंक्रांति", "Holi", "Eid", "Good Friday",  "गुडीपाडवा", "Republic day", "Independence day", "New year"};
-    private final String[] time_weather_brthdays_text =
-                                        {"My birthday", "Mom’s birthday", "Father’sbirthday", "Brother’s birthday", "Sister’s birthday", "Friend’s birthday", "Grandmother’s birthday", "Grandfather’s birthday",  "Uncle’s birthday", "Aunt’s birthday", "Cousin’s birthday", "Teacher’s birthday"};
-
     private Integer[] count = new Integer[100];
-    int[] sort = new int[100];
-    int count_flag = 0;
-    DataBaseHelper myDbHelper;
-    float dpHeight;
-
-    String[] side = new String[100];
-    String[] below = new String[100];
+    private int[] sort = new int[100];
+    private int count_flag = 0;
+    private DataBaseHelper myDbHelper;
+    private String[] side = new String[100];
+    private String[] below = new String[100];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,13 +64,11 @@ public class Layer3Activity extends AppCompatActivity {
         getSupportActionBar().setTitle(getIntent().getExtras().getString("selectedMenuItemPath"));
         getSupportActionBar().setElevation(0);
         myDbHelper = new DataBaseHelper(this);
+        mColor = getResources().getIntArray(R.array.arrActionBtnColors);
+        side = getResources().getStringArray(R.array.arrSideEnglish);
+        below = getResources().getStringArray(R.array.arrBelowEnglish);
         mSession = new SessionManager(this);
         more_count = 0;
-        final String[] side_english = {"like", "really like", "yes", "really yes", "more", "really more", "dont like", "really dont like", "no", "really no", "less", "really less"};
-        final String[] below_english = {"Home", "back", "keyboard"};
-        side = side_english;
-        below = below_english;
-
         mLevelOneItemPos = getIntent().getExtras().getInt("mLevelOneItemPos");
         mLevelTwoItemPos = getIntent().getExtras().getInt("mLevelTwoItemPos");
         try {
@@ -177,8 +87,8 @@ public class Layer3Activity extends AppCompatActivity {
             @Override
             public void onInit(int status) {
                 if (status != TextToSpeech.ERROR) {
-                    mTts.setEngineByPackageName("com.google.android.mtts");
-                    new LongOperation().execute("");
+                    mTts.setEngineByPackageName("com.google.android.tts");
+                    new BackgroundSpeechOperationsAsync().execute("");
                 }
             }
         });
@@ -349,7 +259,6 @@ public class Layer3Activity extends AppCompatActivity {
             }
         });
 
-
         ttsButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
                     mTts.setSpeechRate((float) mSession.getSpeed() / 50);
@@ -380,30 +289,28 @@ public class Layer3Activity extends AppCompatActivity {
             }
         });
 
-        back.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
-                        mTts.speak(below[1], TextToSpeech.QUEUE_FLUSH, null);
-                        back.setImageResource(R.drawable.backpressed);
-                        if (flag_keyboard == 1) {
-                            keyboard.setImageResource(R.drawable.keyboard_button);
-                            back.setImageResource(R.drawable.back_button);
-                            et.setVisibility(View.INVISIBLE);
-                            mRecyclerView.setVisibility(View.VISIBLE);
-                            ttsButton.setVisibility(View.INVISIBLE);
-                            flag_keyboard = 0;
-                            changeTheActionButtons(!DISABLE_ACTION_BTNS);
-                        } else if (more_count > 0) {
-                            more_count -= 1;
-                            myMusic_function(mLevelOneItemPos, mLevelTwoItemPos);
-                            mRecyclerView.setAdapter(new Layer_three_Adapter(Layer3Activity.this, mLevelOneItemPos, mLevelTwoItemPos, sort));
-                        } else {
-                            back.setImageResource(R.drawable.backpressed);
-                            finish();
-                        }
-
-                    }
-                });
+        back.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                mTts.speak(below[1], TextToSpeech.QUEUE_FLUSH, null);
+                back.setImageResource(R.drawable.backpressed);
+                if (flag_keyboard == 1) {
+                    keyboard.setImageResource(R.drawable.keyboard_button);
+                    back.setImageResource(R.drawable.back_button);
+                    et.setVisibility(View.INVISIBLE);
+                    mRecyclerView.setVisibility(View.VISIBLE);
+                    ttsButton.setVisibility(View.INVISIBLE);
+                    flag_keyboard = 0;
+                    changeTheActionButtons(!DISABLE_ACTION_BTNS);
+                } else if (more_count > 0) {
+                    more_count -= 1;
+                    myMusic_function(mLevelOneItemPos, mLevelTwoItemPos);
+                    mRecyclerView.setAdapter(new Layer_three_Adapter(Layer3Activity.this, mLevelOneItemPos, mLevelTwoItemPos, sort));
+                } else {
+                    back.setImageResource(R.drawable.backpressed);
+                    finish();
+                }
+            }
+        });
 
         like.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -617,6 +524,60 @@ public class Layer3Activity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        final int LANG_HINDI = 1;
+        super.onCreateOptionsMenu(menu);
+        if (mSession.getLanguage()== LANG_HINDI){
+            MenuInflater blowUp = getMenuInflater();
+            blowUp.inflate(R.menu.menu_main, menu);
+        }else {
+            MenuInflater blowUp = getMenuInflater();
+            blowUp.inflate(R.menu.menu_1, menu);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.settings:
+                startActivity(new Intent(this, Setting.class));
+                break;
+            case R.id.info:
+                startActivity(new Intent(this, About_Jellow.class));
+                break;
+            case R.id.profile:
+                startActivity(new Intent(this, Profile_form.class));
+                break;
+            case R.id.feedback:
+                startActivity(new Intent(this, Feedback.class));
+                break;
+            case R.id.usage:
+                startActivity(new Intent(this, Tutorial.class));
+                break;
+            case reset:
+                startActivity(new Intent(this, Reset__preferences.class));
+                break;
+            case R.id.keyboardinput:
+                startActivity(new Intent(this, Keyboard_Input.class));
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
     private void changeTheActionButtons(boolean setDisable) {
         if(setDisable) {
             like.setAlpha(0.5f);
@@ -644,22 +605,6 @@ public class Layer3Activity extends AppCompatActivity {
             no.setEnabled(true);
             add.setEnabled(true);
             minus.setEnabled(true);
-        }
-    }
-
-    private void incrementTouchCountOfItem(int levelThreeItemPos) {
-        if (count_flag == 1) {
-            count[sort[levelThreeItemPos]] = count[sort[levelThreeItemPos]] + 1;
-            StringBuilder str = new StringBuilder();
-            for(int i=0; i< count.length; ++i)
-                str.append(count[i]).append(",");
-            myDbHelper.setlevel(mLevelOneItemPos, mLevelTwoItemPos, str.toString());
-        }
-    }
-
-    private void resetRecyclerAllItems() {
-        for(int i = 0; i< mRecyclerView.getChildCount(); ++i){
-            setMenuImageBorder(mRecyclerView.getChildAt(i), false);
         }
     }
 
@@ -706,244 +651,138 @@ public class Layer3Activity extends AppCompatActivity {
         }
     }
 
-    private class LongOperation extends AsyncTask<String, Void, String> {
+    private void resetRecyclerAllItems() {
+        for(int i = 0; i< mRecyclerView.getChildCount(); ++i){
+            setMenuImageBorder(mRecyclerView.getChildAt(i), false);
+        }
+    }
+
+    private void incrementTouchCountOfItem(int levelThreeItemPos) {
+        if (count_flag == 1) {
+            count[sort[levelThreeItemPos]] = count[sort[levelThreeItemPos]] + 1;
+            StringBuilder str = new StringBuilder();
+            for(int i=0; i< count.length; ++i)
+                str.append(count[i]).append(",");
+            myDbHelper.setlevel(mLevelOneItemPos, mLevelTwoItemPos, str.toString());
+        }
+    }
+
+    private void myMusic_function(int layer_1_id, int layer_2_id) {
+        if (layer_1_id == 0) {
+            if (layer_2_id == 0) {
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeGreetFeelGreetingSpeechTextEnglish);
+            } else if (layer_2_id == 1) {
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeGreetFeelFeelingsSpeechTextEnglish);
+            } else if (layer_2_id == 2) {
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeGreetFeelRequestsSpeechTextEnglish);
+            } else if (layer_2_id == 3) {
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeGreetFeelQuestionsSpeechTextEnglish);
+            }
+        } else if (layer_1_id == 1) {
+            if (layer_2_id == 0) {
+                myMusic = getResources().getStringArray(R.array.arrLevelThreeDailyActBrushingSpeechTextEnglish);
+            } else if (layer_2_id == 1) {
+                myMusic = getResources().getStringArray(R.array.arrLevelThreeDailyActToiletSpeechTextEnglish);
+            } else if (layer_2_id == 2) {
+                myMusic =  getResources().getStringArray(R.array.arrLevelThreeDailyActBathingSpeechTextEnglish);
+            } else if (layer_2_id == 3) {
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeDailyActClothesAccSpeechTextEnglish);
+            } else if (layer_2_id == 4) {
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeDailyActGetReadySpeechTextEnglish);
+            } else if (layer_2_id == 5) {
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeDailyActSleepSpeechTextEnglish);
+            } else if (layer_2_id == 6) {
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeDailyActTherapySpeechTextEnglish);
+            } else if (layer_2_id == 7) {
+                myMusic = getResources().getStringArray(R.array.arrLevelThreeDailyActMorningScheSpeechTextEnglish);
+            } else if (layer_2_id == 8) {
+                myMusic = getResources().getStringArray(R.array.arrLevelThreeDailyActBedTimeScheSpeechTextEnglish);
+            }
+        } else if (layer_1_id == 2) {
+            if (layer_2_id == 0) {
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksBreakfastSpeechTextEnglish);
+            } else if (layer_2_id == 1) {
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksLunchDinnerSpeechTextEnglish);
+            } else if (layer_2_id == 2) {
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksSweetsSpeechTextEnglish);
+            } else if (layer_2_id == 3) {
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksSnacksSpeechTextEnglish);
+            } else if (layer_2_id == 4) {
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksFruitsSpeechTextEnglish);
+            } else if (layer_2_id == 5) {
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksDrinksSpeechTextEnglish);
+            } else if (layer_2_id == 6) {
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksCutlerySpeechTextEnglish);
+            } else if (layer_2_id == 7) {
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksAddonSpeechTextEnglish);
+            }
+        } else if (layer_1_id == 3) {
+            if (layer_2_id == 0) {
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFunInDGamesSpeechTextEnglish);
+            } else if (layer_2_id == 1) {
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFunOutDGamesSpeechTextEnglish);
+            } else if (layer_2_id == 2) {
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFunSportsSpeechTextEnglish);
+            } else if (layer_2_id == 3) {
+                myMusic = getResources().getStringArray(R.array.arrLevelThreeFunTvSpeechTextEnglish);
+            } else if (layer_2_id == 4) {
+                myMusic = getResources().getStringArray(R.array.arrLevelThreeFunMusicSpeechTextEnglish);
+            } else if (layer_2_id == 5) {
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFunActivitiesSpeechTextEnglish);
+            }
+        } else if (layer_1_id == 4) {
+            if (layer_2_id == 0) {
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningAnimBirdsSpeechTextEnglish);
+            } else if (layer_2_id == 1) {
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningBodyPartsSpeechTextEnglish);
+            } else if (layer_2_id == 2) {
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningBooksSpeechTextEnglish);
+            } else if (layer_2_id == 3) {
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningColorsSpeechTextEnglish);
+            } else if (layer_2_id == 4) {
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningShapesSpeechTextEnglish);
+            } else if (layer_2_id == 5) {
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningStationarySpeechTextEnglish);
+            } else if (layer_2_id == 6) {
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningSchoolObjSpeechTextEnglish);
+            } else if (layer_2_id == 7) {
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningHomeObjSpeechTextEnglish);
+            } else if (layer_2_id == 8) {
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningTransportSpeechTextEnglish);
+            }
+        } else if (layer_1_id == 7) {
+            if (layer_2_id == 0) {
+                myMusic = getResources().getStringArray(R.array.arrLevelThreeTimeWeaTimeSpeechTextEnglish);
+            } else if (layer_2_id == 1) {
+                myMusic = getResources().getStringArray(R.array.arrLevelThreeTimeWeaDaySpeechTextEnglish);
+            } else if (layer_2_id == 2) {
+                myMusic = getResources().getStringArray(R.array.arrLevelThreeTimeWeaMonthSpeechTextEnglish);
+            } else if (layer_2_id == 3) {
+                myMusic = getResources().getStringArray(R.array.arrLevelThreeTimeWeaWeatherSpeechTextEnglish);
+            } else if (layer_2_id == 4) {
+                myMusic = getResources().getStringArray(R.array.arrLevelThreeTimeWeaSeasonsSpeechTextEnglish);
+            } else if (layer_2_id == 5) {
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeTimeWeaHoliFestSpeechTextEnglish);
+            } else if (layer_2_id == 6) {
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeTimeWeaBirthdaysSpeechTextEnglish);
+            }
+        }
+    }
+
+    private class BackgroundSpeechOperationsAsync extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
             try {
-                if (mSession.getLanguage() == LANG_ENG ) {
-                    mTts.setLanguage(new Locale("eng", "IND"));
-                }
-                if (mSession.getLanguage() == LANG_HINDI) {
-                    mTts.setLanguage(new Locale("hin", "IND"));
-                }
+                mTts.setLanguage(new Locale("eng", "IND"));
             } catch (Exception e) {
                 Thread.interrupted();
             }
             return "Executed";
         }
+
     }
 
-    public void myMusic_function(int layer_1_id, int layer_2_id) {
-        System.out.println("size"+greet_feel_greetings_text.length);
-        if (layer_1_id == 0) {
-            if (layer_2_id == 0) {
-                    myMusic = greet_feel_greetings_text;
-            } else if (layer_2_id == 1) {
-                    myMusic = greet_feel_feelings_text;
-            } else if (layer_2_id == 2) {
-                    myMusic = greet_feel_requests_text;
-            } else if (layer_2_id == 3) {
-                    myMusic = greet_feel_questions_text;
-            }
-        } else if (layer_1_id == 1) {
-            if (layer_2_id == 0) {
-                myMusic = daily_activities_brushing_text;
-            } else if (layer_2_id == 1) {
-                myMusic = daily_activities_toilet_text;
-            } else if (layer_2_id == 2) {
-                myMusic = daily_activities_bathing_text;
-            } else if (layer_2_id == 3) {
-                    myMusic = daily_activities_clothes_access_text;
-            } else if (layer_2_id == 4) {
-                    myMusic = daily_activities_get_ready_text;
-            } else if (layer_2_id == 5) {
-                    myMusic = daily_activities_sleep_text;
-            } else if (layer_2_id == 6) {
-                    myMusic = daily_activities_therapy_text;
-            } else if (layer_2_id == 7) {
-                myMusic = daily_activities_morning_schedule_text;
-            } else if (layer_2_id == 8) {
-                myMusic = daily_activities_bedtime_schedule_text;
-            }
-        } else if (layer_1_id == 2) {
-            if (layer_2_id == 0) {
-                    myMusic = foods_drinks_breakfast_text;
-            } else if (layer_2_id == 1) {
-                    myMusic = food_drinks_lunch_dinner_text;
-            } else if (layer_2_id == 2) {
-                    myMusic = food_drinks_sweets_text;
-            } else if (layer_2_id == 3) {
-                    myMusic = food_drinks_snacks_text;
-            } else if (layer_2_id == 4) {
-                    myMusic = food_drinks_fruits_text;
-            } else if (layer_2_id == 5) {
-                    myMusic = food_drinks_drinks_text;
-            } else if (layer_2_id == 6) {
-                    myMusic = food_drinks_cutlery_text;
-            } else if (layer_2_id == 7) {
-                    myMusic = food_drinks_add_ons_text;
-            }
-        } else if (layer_1_id == 3) {
-            if (layer_2_id == 0) {
-                    myMusic = fun_indoor_games_text;
-            } else if (layer_2_id == 1) {
-                    myMusic = fun_outdoor_games_text;
-            } else if (layer_2_id == 2) {
-                    myMusic = fun_sports_text;
-            } else if (layer_2_id == 3) {
-                myMusic = fun_tv_text;
-            } else if (layer_2_id == 4) {
-                myMusic = fun_music_text;
-            } else if (layer_2_id == 5) {
-                    myMusic = fun_activities_text;
-            }
-        } else if (layer_1_id == 4) {
-            if (layer_2_id == 0) {
-                    myMusic = learning_animals_birds_text;
-            } else if (layer_2_id == 1) {
-                    myMusic = learning_body_parts_text;
-            } else if (layer_2_id == 2) {
-                    myMusic = learning_books_text;
-            } else if (layer_2_id == 3) {
-                    myMusic = learning_colours_text;
-            } else if (layer_2_id == 4) {
-                    myMusic = learning_shapes_text;
-            } else if (layer_2_id == 5) {
-                    myMusic = learning_stationary_text;
-            } else if (layer_2_id == 6) {
-                    myMusic = learning_school_objects_text;
-            } else if (layer_2_id == 7) {
-                    myMusic = learning_home_objects_text;
-            } else if (layer_2_id == 8) {
-                    myMusic = learning_transportation_text;
-            }
-        } else if (layer_1_id == 7) {
-            if (layer_2_id == 0) {
-                myMusic = time_weather_time_text;
-            } else if (layer_2_id == 1) {
-                myMusic = time_weather_day_text;
-            } else if (layer_2_id == 2) {
-                myMusic = time_weather_month_text;
-            } else if (layer_2_id == 3) {
-                myMusic = time_weather_weather_text;
-            } else if (layer_2_id == 4) {
-                myMusic = time_weather_seasons_text;
-            } else if (layer_2_id == 5) {
-                    myMusic = time_weather_holidays_festivals_text;
-            } else if (layer_2_id == 6) {
-                    myMusic = time_weather_brthdays_text;
-            }
-        }
-    }
-
-    public class IndexSorter<T extends Comparable<T>> implements Comparator<Integer> {
-        private final T[] values;
-        private final Integer[] indexes;
-
-        /**
-         * Constructs a new IndexSorter based upon the parameter array.
-         * @param d
-         */
-        public IndexSorter(T[] d){
-            this.values = d;
-            indexes = new Integer[this.values.length];
-            for ( int i = 0; i < indexes.length; i++ )
-                indexes[i] = i;
-        }
-
-        /**
-         * Constructs a new IndexSorter based upon the parameter List.
-         * @param d
-         */
-        public IndexSorter(List<T> d){
-            this.values = (T[])d.toArray();
-            for ( int i = 0; i < values.length; i++ )
-                values[i] = d.get(i);
-            indexes = new Integer[this.values.length];
-            for ( int i = 0; i < indexes.length; i++ )
-                indexes[i] = i;
-        }
-
-        /**
-         * Sorts the underlying index array based upon the values provided in the constructor. The underlying value array is not sorted.
-         */
-        public void sort(){
-            Arrays.sort(indexes, this);
-        }
-
-        /**
-         * Retrieves the indexes of the array. The returned array is sorted if this object has been sorted.
-         * @return The array of indexes.
-         */
-        public Integer[] getIndexes(){
-            return indexes;
-        }
-
-        /**
-         * Compares the two values at index arg0 and arg0
-         * @param arg0 The first index
-         * @param arg1 The second index
-         * @return The result of calling compareTo on T objects at position arg0 and arg1
-         */
-        @Override
-        public int compare(Integer arg0, Integer arg1) {
-            T d1 = values[arg0];
-            T d2 = values[arg1];
-            return d2.compareTo(d1);
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        if (mSession.getLanguage()== LANG_HINDI){
-            MenuInflater blowUp = getMenuInflater();
-            blowUp.inflate(R.menu.menu_main, menu);
-        }
-        if (mSession.getLanguage()== LANG_ENG) {
-            MenuInflater blowUp = getMenuInflater();
-            blowUp.inflate(R.menu.menu_1, menu);
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.settings:
-                Intent intent = new Intent(Layer3Activity.this, Setting.class);
-                startActivity(intent);
-                break;
-            case R.id.info:
-                Intent i = new Intent(Layer3Activity.this, About_Jellow.class);
-                startActivity(i);
-                break;
-            case R.id.profile:
-                Intent intent1 = new Intent(Layer3Activity.this, Profile_form.class);
-                startActivity(intent1);
-                break;
-            case R.id.feedback:
-                Intent intent2 = new Intent(Layer3Activity.this, Feedback.class);
-                startActivity(intent2);
-                break;
-            case R.id.usage:
-                Intent intent3 = new Intent(Layer3Activity.this, Tutorial.class);
-                startActivity(intent3);
-                break;
-            case R.id.reset:
-                Intent intent4 = new Intent(Layer3Activity.this, Reset__preferences.class);
-                startActivity(intent4);
-                break;
-            case R.id.keyboardinput:
-                Intent intent6 = new Intent(Layer3Activity.this, Keyboard_Input.class);
-                startActivity(intent6);
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            finish();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    String[][][][] layer_3_speech = {{{{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}},
+    private final String[][][][] layer_3_speech = {{{{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}},
 
             {{"I feel happy",
                     "I really feel happy",

@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dsource.idc.jellow.Utility.SessionManager;
 import com.rey.material.widget.Slider;
 
 import java.util.Locale;

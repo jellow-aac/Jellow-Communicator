@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--GLOBAL ARRAYS ARE HERE-->
+    <integer-array name="arrActionBtnColors">
+        <item>-5317</item>
+        <item>-12627531</item>
+        <item>-7617718</item>
+        <item>-2937298</item>
+        <item>-648053365</item>
+        <item>-1761607680</item>
+    </integer-array>
+    <string-array name="arrSideEnglish">
+        <item>like</item>
+        <item>really like</item>
+        <item>yes</item>
+        <item>really yes</item>
+        <item>more</item>
+        <item>really more</item>
+        <item>don’t like</item>
+        <item>really don’t like</item>
+        <item>no</item>
+        <item>really no</item>
+        <item>less</item>
+        <item>really less</item>
+    </string-array>
+    <string-array name="arrSideHindi">
+        <item>अच्छा लगता हैं</item>
+        <item>सच में अच्छा लगता हैं</item>
+        <item>हाँ</item>
+        <item>सच में हाँ</item>
+        <item>ज़्यादा</item>
+        <item>सच में ज़्यादा</item>
+        <item>अच्छा नहीं लगता हैं</item>
+        <item>सच में अच्छा नहीं लगता हैं</item>
+        <item>नहीं</item>
+        <item>सच में नहीं</item>
+        <item>कम</item>
+        <item>सच में कम</item>
+    </string-array>
+
+    <string-array name="arrBelowEnglish">
+        <item>Home</item>
+        <item>back</item>
+        <item>keyboard</item>
+    </string-array>
+    <string-array name="arrBelowHindi">
+        <item>होम</item>
+        <item>वापस</item>
+        <item>कीबोर्ड</item>
+    </string-array>
+</resources>
+
+<!-- private Integer[] mColor = { -5317, -12627531 , -7617718 , -2937298 , -648053365 , -1761607680 };
+
+    final String[] side_hindi = {"अच्छा लगता हैं", "सच में अच्छा लगता हैं", "हाँ", "सच में हाँ", "ज़्यादा", "सच में ज़्यादा", "अच्छा नहीं लगता हैं", "सच में अच्छा नहीं लगता हैं", "नहीं", "सच में नहीं", "कम", "सच में कम"};
+    final String[] side_english = {"like", "really like", "yes", "really yes", "more", "really more", "don’t like", "really don’t like", "no", "really no", "less", "really less"};
+
+    final String[] below_hindi = {"होम", "वापस", "कीबोर्ड"};
+    final String[] below_english = {"Home", "back", "keyboard"}
+-->

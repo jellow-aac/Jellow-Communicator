@@ -12,26 +12,553 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dsource.idc.jellow.Utility.EvaluateDisplayMetricsUtils;
+import com.dsource.idc.jellow.Utility.SessionManager;
 
 import java.util.Arrays;
 
 /**
  * Created by ekalpa on 7/14/2016.
  */
-public class Layer_3_Hindi_Adapter extends android.support.v7.widget.RecyclerView.Adapter<Layer_3_Hindi_Adapter.MyViewHolder> {
-    private static final int LANG_HINDI = 1, GRID_1BY3 = 0, GRID_3BY3 = 1, MODE_PICTURE_ONLY = 1;
+class Layer_3_Hindi_Adapter extends android.support.v7.widget.RecyclerView.Adapter<Layer_3_Hindi_Adapter.MyViewHolder> {
     private Context mContext;
-    private Integer[] mThumbIds = new Integer[100];
-    private String[] belowText = new String[100];
-    public int more = 0, store=0;
     private SessionManager mSession;
     private EvaluateDisplayMetricsUtils mMetricsUtils;
+    private Integer[] mThumbIds = new Integer[100];
+    private String[] belowText = new String[100];
+
+    Layer_3_Hindi_Adapter(Context context, int levelOneITemPos, int levelTwoItemPos, int sort[]) {
+        mContext = context;
+        mSession = new SessionManager(mContext);
+        mMetricsUtils = new EvaluateDisplayMetricsUtils(mContext);
+        int store = 0;
+        if(levelOneITemPos == 0) {
+            if (levelTwoItemPos == 0) {
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< greet_feel_greetings.length; j++) {
+                    temp1[j] = greet_feel_greetings[sort[j]];
+                    temp2[j] = greet_feel_greetings_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            } else if (levelTwoItemPos == 1) {
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< greet_feel_feelings.length; j++) {
+                    temp1[j] = greet_feel_feelings[sort[j]];
+                    temp2[j] = greet_feel_feelings_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            } else if (levelTwoItemPos == 2) {
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< greet_feel_requests.length; j++) {
+                    temp1[j] = greet_feel_requests[sort[j]];
+                    temp2[j] = greet_feel_requests_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            } else if (levelTwoItemPos == 3) {
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< greet_feel_questions.length; j++) {
+                    temp1[j] = greet_feel_questions[sort[j]];
+                    temp2[j] = greet_feel_questions_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            }
+        }else if(levelOneITemPos == 1) {
+            if (levelTwoItemPos == 0) {
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< daily_activities_brushing.length; j++) {
+                    temp1[j] = daily_activities_brushing[sort[j]];
+                    temp2[j] = daily_activities_brushing_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            } else if (levelTwoItemPos == 1) {
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< daily_activities_toilet.length; j++) {
+                    temp1[j] = daily_activities_toilet[sort[j]];
+                    temp2[j] = daily_activities_toilet_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            } else if (levelTwoItemPos == 2) {
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< daily_activities_bathing.length; j++) {
+                    temp1[j] = daily_activities_bathing[sort[j]];
+                    temp2[j] = daily_activities_bathing_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            } else if (levelTwoItemPos == 3) {
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< daily_activities_clothes_access.length; j++) {
+                    temp1[j] = daily_activities_clothes_access[sort[j]];
+                    temp2[j] = daily_activities_clothes_access_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            } else if (levelTwoItemPos == 4) {
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< daily_activities_get_ready.length; j++) {
+                    temp1[j] = daily_activities_get_ready[sort[j]];
+                    temp2[j] = daily_activities_get_ready_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            } else if (levelTwoItemPos == 5) {
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< daily_activities_sleep.length; j++) {
+                    temp1[j] = daily_activities_sleep[sort[j]];
+                    temp2[j] = daily_activities_sleep_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            } else if (levelTwoItemPos == 6) {
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< daily_activities_therapy.length; j++) {
+                    temp1[j] = daily_activities_therapy[sort[j]];
+                    temp2[j] = daily_activities_therapy_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            } else if (levelTwoItemPos == 7) {
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< daily_activities_morning_schedule.length; j++) {
+                    temp1[j] = daily_activities_morning_schedule[sort[j]];
+                    temp2[j] = daily_activities_morning_schedule_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            }else if (levelTwoItemPos == 8) {
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< daily_activities_bedtime_schedule.length; j++) {
+                    temp1[j] = daily_activities_bedtime_schedule[sort[j]];
+                    temp2[j] = daily_activities_bedtime_schedule_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            }
+        }else if(levelOneITemPos == 2){
+            if(levelTwoItemPos == 0){
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< eating_foods_drinks_breakfast.length; j++) {
+                    temp1[j] = eating_foods_drinks_breakfast[sort[j]];
+                    temp2[j] = foods_drinks_breakfast_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            }else if(levelTwoItemPos == 1){
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< eating_food_drinks_lunch_dinner.length; j++) {
+                    temp1[j] = eating_food_drinks_lunch_dinner[sort[j]];
+                    temp2[j] = food_drinks_lunch_dinner_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            } else if(levelTwoItemPos == 2){
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< eating_food_drinks_sweets.length; j++) {
+                    temp1[j] = eating_food_drinks_sweets[sort[j]];
+                    temp2[j] = food_drinks_sweets_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            }else if(levelTwoItemPos == 3){
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< eating_food_drinks_snacks.length; j++) {
+                    temp1[j] = eating_food_drinks_snacks[sort[j]];
+                    temp2[j] = food_drinks_snacks_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            }else if(levelTwoItemPos == 4){
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< eating_food_drinks_fruits.length; j++) {
+                    temp1[j] = eating_food_drinks_fruits[sort[j]];
+                    temp2[j] = food_drinks_fruits_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            }else if(levelTwoItemPos == 5){
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< eating_food_drinks_drinks.length; j++) {
+                    temp1[j] = eating_food_drinks_drinks[sort[j]];
+                    temp2[j] = food_drinks_drinks_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            }else if(levelTwoItemPos == 6){
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< eating_food_drinks_cutlery.length; j++) {
+                    temp1[j] = eating_food_drinks_cutlery[sort[j]];
+                    temp2[j] = food_drinks_cutlery_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            }else if(levelTwoItemPos == 7){
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< eating_food_drinks_add_ons.length; j++) {
+                    temp1[j] = eating_food_drinks_add_ons[sort[j]];
+                    temp2[j] = food_drinks_add_ons_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            }
+        }else if(levelOneITemPos == 3){
+            if(levelTwoItemPos == 0){
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< fun_indoor_games.length; j++) {
+                    temp1[j] = fun_indoor_games[sort[j]];
+                    temp2[j] = fun_indoor_games_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            }else if(levelTwoItemPos == 1){
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< fun_outdoor_games.length; j++) {
+                    temp1[j] = fun_outdoor_games[sort[j]];
+                    temp2[j] = fun_outdoor_games_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            }else if(levelTwoItemPos == 2){
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< fun_sports.length; j++) {
+                    temp1[j] = fun_sports[sort[j]];
+                    temp2[j] = fun_sports_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            }else if(levelTwoItemPos == 3){
+                mThumbIds = fun_tv;
+                belowText = fun_tv_text;
+            }else if(levelTwoItemPos == 4){
+                mThumbIds = fun_music;
+                belowText = fun_music_text;
+            }else if(levelTwoItemPos == 5){
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< fun_activities.length; j++) {
+                    temp1[j] = fun_activities[sort[j]];
+                    temp2[j] = fun_activities_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            }
+        }else if(levelOneITemPos ==4){
+            if(levelTwoItemPos == 0){
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< learning_animals_birds.length; j++) {
+                    temp1[j] = learning_animals_birds[sort[j]];
+                    temp2[j] = learning_animals_birds_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            }else if(levelTwoItemPos == 1){
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< learning_body_parts.length; j++) {
+                    temp1[j] = learning_body_parts[sort[j]];
+                    temp2[j] = learning_body_parts_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            }else if(levelTwoItemPos == 2) {
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< learning_books.length; j++) {
+                    temp1[j] = learning_books[sort[j]];
+                    temp2[j] = learning_books_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            }else if(levelTwoItemPos == 3) {
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< learning_colours.length; j++) {
+                    temp1[j] = learning_colours[sort[j]];
+                    temp2[j] = learning_colours_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            }else if(levelTwoItemPos == 4) {
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< learning_shapes.length; j++) {
+                    temp1[j] = learning_shapes[sort[j]];
+                    temp2[j] = learning_shapes_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            }else if(levelTwoItemPos == 5){
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< learning_stationary.length; j++) {
+                    temp1[j] = learning_stationary[sort[j]];
+                    temp2[j] = learning_stationary_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            }else if(levelTwoItemPos == 6){
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< learning_school_objects.length; j++) {
+                    temp1[j] = learning_school_objects[sort[j]];
+                    temp2[j] = learning_school_objects_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            }else if(levelTwoItemPos == 7){
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< learning_home_objects.length; j++) {
+                    temp1[j] = learning_home_objects[sort[j]];
+                    temp2[j] = learning_home_objects_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            }else if(levelTwoItemPos == 8){
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< learning_transportation.length; j++) {
+                    temp1[j] = learning_transportation[sort[j]];
+                    temp2[j] = learning_transportation_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            }
+        }else if(levelOneITemPos == 7){
+            if(levelTwoItemPos == 0){
+                mThumbIds = time_weather_time;
+                belowText = time_weather_time_text;
+            }else if(levelTwoItemPos == 1){
+                mThumbIds = time_weather_day;
+                belowText = time_weather_day_text;
+            }else if(levelTwoItemPos == 2){
+                mThumbIds = time_weather_month;
+                belowText = time_weather_month_text;
+            }else if(levelTwoItemPos == 3){
+                mThumbIds = time_weather_weather;
+                belowText = time_weather_weather_text;
+            }else if(levelTwoItemPos == 4){
+                mThumbIds = time_weather_seasons;
+                belowText = time_weather_seasons_text;
+            }else if(levelTwoItemPos == 5){
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< time_weather_holidays_festivals.length; j++) {
+                    temp1[j] = time_weather_holidays_festivals[sort[j]];
+                    temp2[j] = time_weather_holidays_festivals_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            }else if(levelTwoItemPos == 6){
+                Integer[] temp1 = new Integer[sort.length];
+                String[] temp2 = new String[sort.length];
+                for (int j = 0 ; j< time_weather_birthdays.length; j++) {
+                    temp1[j] = time_weather_birthdays[sort[j]];
+                    temp2[j] = time_weather_brthdays_text[sort[j]];
+                    store = j;
+                }
+                store = store +1;
+                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
+                belowText = Arrays.copyOfRange(temp2, 0, store);
+            }
+        }
+    }
+
+    @Override
+    public Layer_3_Hindi_Adapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View rowView =  LayoutInflater.from(parent.getContext()).inflate(R.layout.myscrolllist2, parent, false);
+        return new Layer_3_Hindi_Adapter.MyViewHolder(rowView);
+    }
+
+    @Override
+    public void onBindViewHolder(Layer_3_Hindi_Adapter.MyViewHolder holder, int position) {
+        final int LANG_HINDI = 1, GRID_1BY3 = 0, GRID_3BY3 = 1, MODE_PICTURE_ONLY = 1;
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        if (mSession.getGridSize() == GRID_1BY3) {
+            if (mSession.getScreenHeight() >= 720) {
+                params.setMargins(mMetricsUtils.getPixelsFromDpVal(36), mMetricsUtils.getPixelsFromDpVal(180), 0, mMetricsUtils.getPixelsFromDpVal(180));
+                holder.menuItemBelowText.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                if(mSession.getLanguage() == LANG_HINDI) holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);
+                else    holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+            }else if (mSession.getScreenWidth() > 640 && mSession.getScreenWidth() <= 1024) {
+                params.setMargins(mMetricsUtils.getPixelsFromDpVal(20), mMetricsUtils.getPixelsFromDpVal(124), 0, mMetricsUtils.getPixelsFromDpVal(124));
+                holder.menuItemBelowText.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                if(mSession.getLanguage() == LANG_HINDI) holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+                else    holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+            }else {
+                params.setMargins(mMetricsUtils.getPixelsFromDpVal(12), mMetricsUtils.getPixelsFromDpVal(92), 0, mMetricsUtils.getPixelsFromDpVal(92));
+                holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+            }
+        }else if(mSession.getGridSize() == GRID_3BY3){
+            if (mSession.getScreenHeight() >= 720) {
+                holder.menuItemImage.setLayoutParams(new LinearLayout.LayoutParams(mMetricsUtils.getPixelsFromDpVal(124), mMetricsUtils.getPixelsFromDpVal(124)));
+                if(mSession.getLanguage() == LANG_HINDI) {
+                    holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+                    params.setMargins(mMetricsUtils.getPixelsFromDpVal(16), mMetricsUtils.getPixelsFromDpVal(16), 0, mMetricsUtils.getPixelsFromDpVal(-8));
+                }else{
+                    params.setMargins(mMetricsUtils.getPixelsFromDpVal(36), mMetricsUtils.getPixelsFromDpVal(16), 0, mMetricsUtils.getPixelsFromDpVal(-7));
+                }
+            }else if (mSession.getScreenWidth() > 640 && mSession.getScreenWidth() <= 1024) {
+                holder.menuItemImage.setLayoutParams(new LinearLayout.LayoutParams(mMetricsUtils.getPixelsFromDpVal(86), mMetricsUtils.getPixelsFromDpVal(86)));
+                if(mSession.getLanguage() == LANG_HINDI) {
+                    holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+                    params.setMargins(mMetricsUtils.getPixelsFromDpVal(16), mMetricsUtils.getPixelsFromDpVal(1), 0, mMetricsUtils.getPixelsFromDpVal(8));
+                }else{
+                    params.setMargins(mMetricsUtils.getPixelsFromDpVal(16), mMetricsUtils.getPixelsFromDpVal(1), 0, mMetricsUtils.getPixelsFromDpVal(16));
+                }
+            }else {
+                if(mSession.getLanguage() == LANG_HINDI) {
+                    holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+                    params.setMargins(mMetricsUtils.getPixelsFromDpVal(16), mMetricsUtils.getPixelsFromDpVal(0), 0, mMetricsUtils.getPixelsFromDpVal(-3));
+                }else {
+                    params.setMargins(mMetricsUtils.getPixelsFromDpVal(12), mMetricsUtils.getPixelsFromDpVal(0), 0, mMetricsUtils.getPixelsFromDpVal(0));
+                    holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+                }
+                if (position == mThumbIds.length-1)  holder.menuItemLinearLayout.setLayerType(View.LAYER_TYPE_SOFTWARE, null); //Resolve black circular imageview issue.
+            }
+        }
+
+        if (mSession.getPictureViewMode() == MODE_PICTURE_ONLY)
+            holder.menuItemBelowText.setVisibility(View.INVISIBLE);
+        holder.menuItemLinearLayout.setLayoutParams(params);
+        holder.menuItemBelowText.setText(belowText[position]);
+
+        holder.menuItemImage.setImageResource(mThumbIds[position]);
+        holder.menuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {}
+        });
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemCount() {
+        return mThumbIds.length;
+    }
+
+    class MyViewHolder extends RecyclerView.ViewHolder {
+        private TextView menuItemBelowText;
+        private CircularImageView menuItemImage;
+        private LinearLayout menuItemLinearLayout;
+
+        MyViewHolder(final View view) {
+            super(view);
+            menuItemImage = (CircularImageView) view.findViewById(R.id.icon1);
+            menuItemLinearLayout = (LinearLayout) view.findViewById(R.id.linearlayout_icon1);
+            menuItemBelowText = (TextView) view.findViewById(R.id.te1);
+            Typeface font = Typeface.createFromAsset(mContext.getAssets(), "fonts/Mukta-Regular.ttf");
+            menuItemBelowText.setTypeface(font, Typeface.BOLD);
+            menuItemBelowText.setTextColor(Color.rgb(64, 64, 64));
+        }
+    }
 
     private final Integer[] greet_feel_greetings = {
             R.drawable.thankyou, R.drawable.thankyou,
             R.drawable.bye, R.drawable.goodmorning,
-            R.drawable.goodafternoon, R.drawable.goodevening, R.drawable.goodnight, R.drawable.highfive
-            , R.drawable.nicetomeetyou, R.drawable.howareyou, R.drawable.howwasyourday, R.drawable.howareyou
+            R.drawable.goodafternoon, R.drawable.goodevening, R.drawable.goodnight, R.drawable.highfive,
+            R.drawable.nicetomeetyou, R.drawable.howareyou, R.drawable.howwasyourday, R.drawable.howareyou
     };
 
     private final Integer[] greet_feel_feelings = {
@@ -408,608 +935,83 @@ public class Layer_3_Hindi_Adapter extends android.support.v7.widget.RecyclerVie
     };
 
 
-     private final String[] greet_feel_greetings_text =
+    private final String[] greet_feel_greetings_text =
             {"नमस्ते!", "नमस्कार", "अलविदा", "शुभ प्रभात", "शुभ दिन", "शुभ संध्या", "शुभ रात्रि", "ताली दो",  "आपसे मिलकर अच्छा लगा", "आप कैसे हैं?", "आपका दिन कैसा था?", "आपके क्या हाल हैं?"};
-     private final String[] greet_feel_feelings_text =
+    private final String[] greet_feel_feelings_text =
             {"खुश", "उदास", "गुस्सा", "डर", "हैरान", "चिढ़ा हुआ", "उलझन", "शर्मिंदा", "निराश", "बोर", "चिंता", "तनावग्रस्त", "थका हुआ", "गरम", "ठंडा", "बीमार", "दुःखी"};
-     private final String[] greet_feel_requests_text =
+    private final String[] greet_feel_requests_text =
             {"कृपया", "धन्यवाद", "आपका स्वागत हैं", "कृपया दिजीए", "कृपया फिर से बताईए", "कृपया दिखाईए", "मुझे एक ब्रेक चाहिए", "मैंने खत्म कर दिया",  "क्षमा कीजिये!", "मुझे माफ करें", "मुझे समझ में नहीं आया", "मेरे साथ बाँटे", "कृपया थोड़ा धीरे जाइए", "मुझे मदद की ज़रूरत हैं", "कृपया यहाँ आइये", "कृपया मुझे लेके जाईए"};
-     private final String[] greet_feel_questions_text =
+    private final String[] greet_feel_questions_text =
             {"कैसे?", "कब?", "कहॉं पे?", "क्यूं?", "क्या?", "कौन?", "कितने?", "कितना लंबा?", "कितनी देर?"};
-     private final String[] daily_activities_clothes_access_text =
+    private final String[] daily_activities_clothes_access_text =
             {"टी-शर्ट बदलना ", "फ्रॉक बदलना", "स्कर्ट बदलना", "जीन्स बदलना", "पैंट बदलना", "लेगिंग बदलना", "स्लैक्स बदलना", "शॉर्ट्स बदलना", "इनरवियर बदलना", "जूते बदलना", "बूट बदलना", "मोज़े बदलना", "रात के कपड़े पहनना", "शर्ट ", "टी-शर्ट ", "फ्रॉक ",  "पैंट ", "स्लैक्स ", "लेगिंग ", "शॉर्ट्स ", "सलवार कमीज़ ", "स्वेटर ", "जैकेट ", "दुपट्टा ",  "टोपी ", "बेल्ट ", "रेनकोट ", "चश्मा ", "घड़ी ", "कान की बाली ", "कंगन", "हार ",  "बिंदी ", "चप्पल ", "मेरे कपड़े टाइट हैं", "मेरे कपड़े ढीले हैं", "कपड़े निकालने में मदद", "कपड़े पैहनने में मदद"};
-     private final String[] daily_activities_get_ready_text =
+    private final String[] daily_activities_get_ready_text =
             {"कंघी करना", "फेस वॉश", "नाखून काटना", "नाक साफ करना", "साबुन", "शैम्पू"};
-     private final String[] daily_activities_sleep_text =
+    private final String[] daily_activities_sleep_text =
             {"दरवाज़ा", "पंखा", "लाईट", "खिड़की", "बिस्तर", "तकिया", "कंबल", "गर्मी", "ठंडक"};
-     private final String[] daily_activities_therapy_text =
+    private final String[] daily_activities_therapy_text =
             {"कसरत", "झूला", "ट्रेम्पोलिन", "स्विस बॉल", "कंबल", "बॉल पिट", "हातों की कसरत", "पैरों की कसरत", "बॉडी वेस्ट"};
-     private final String[] foods_drinks_breakfast_text =
+    private final String[] foods_drinks_breakfast_text =
             {"ब्रेड", "कॉर्नफ़्लेक्स", "आलू पूरी", "अंडे", "पोहा", "उपमा", "खिचड़ी", "इड़ली ",  "डोसा", "पराठा", "आमलेट", "मेदु वड़ा", "दलिया", "सैंडविच", "चटनी", "सांबर", "उत्तपा"};
-     private final String[] food_drinks_lunch_dinner_text =
+    private final String[] food_drinks_lunch_dinner_text =
             {"रोटी", "सब्ज़ी", "चावल", "दाल", "दालखिचड़ी", "रायता", "पराठा", "दही",  "मछली", "चिकन", "पोर्क", "मटन", "केकड़े का मांस", "टर्की", "पिज्जा", "सलाद ",  "सूप ", "पास्ता ", "नूडल्स", "इटालियन खाना", "पाव भाजी", "भाकरी"};
-     private final String[] food_drinks_sweets_text =
+    private final String[] food_drinks_sweets_text =
             {"केक", "आइसक्रीम", "गाजर का हलवा", "गुलाब जामुन", "लड्डू", "बर्फी", "जलेबी", "फलों का सलाद",  "रसगुल्ला", "शीरा"};
-     private final String[] food_drinks_snacks_text =
+    private final String[] food_drinks_snacks_text =
             {"बिस्कुट", "चाट", "चॉकलेट", "वेफर्स", "सैंडविच", "नूडल्स", "चीज़", "नट्स"};
-     private final String[] food_drinks_fruits_text =
+    private final String[] food_drinks_fruits_text =
             {"सेब", "केला", "अंगूर", "अमरूद", "आम", "संतरा", "अनानास", "स्ट्रॉबेरी",  "बेर", "अनार", "तरबूज", "पेर", "पपीता", "खरबूजा", "चिकू", "पनस", "चेरी"};
-     private final String[] food_drinks_drinks_text =
+    private final String[] food_drinks_drinks_text =
             {"पानी", "दूध", "बॉर्नविटा", "आम का ज्यूस", "सेब का ज्यूस", "संतरे का ज्यूस", "नींबू का ज्यूस", "अनानास का ज्यूस",  "पेप्सी", "कोका कोला", "मिरिंडा", "फैंटा", "माझा", "स्प्राइट ", "माउंटेन ड्यू", "मिल्कशेक",  "चॉकलेट मिल्कशेक", "स्ट्रॉबेरी मिल्कशेक ", "केला मिल्कशेक ", "आम मिल्कशेक ", "चिकू मिल्कशेक", "चाय ", "कॉफी ", "कोल्ड कॉफी", "एनर्जी ड्रिंक्स"};
-     private final String[] food_drinks_cutlery_text =
+    private final String[] food_drinks_cutlery_text =
             {"कटोरा", "प्लेट", "चम्मच", "काँटे का चम्मच", "चाकू", "मग", "कप", "ग्लास"};
-     private final String[] food_drinks_add_ons_text =
+    private final String[] food_drinks_add_ons_text =
             {"मक्खन", "जाम", "नमक", "काली मिर्च", "चीनी", "सॉस", "आचार", "पापड़", "मसाला"};
-     private final String[] fun_indoor_games_text =
+    private final String[] fun_indoor_games_text =
             {"पज़ल्स", "बोर्ड खेल", "ब्लॉक्स", "लेगो", "शतरंज", "सांप और सीढ़ी", "स्क्रैबल", "विडियो गेम",  "गुड़ियाँ", "एक्शन फिगर्स", "सॉफ्ट टॉयज़", "कार", "ट्रक", "आर्ट-क्राफ्ट", "मेरे साथ खेलो"};
-     private final String[] fun_outdoor_games_text =
+    private final String[] fun_outdoor_games_text =
             {"खेल का मैदान", "पार्क", "झूला", "स्लाईड ", "सी-सॉ", "मेरी-गो-राउंड", "लुकाछिपी", "बल्ला और गेंद", "स्टैचू", "ताला और चाबी", "पकड़ा-पकड़ी", "पतंग", "चोर-पुलिस", "कंचे", "चलना", "साइकिल", "दौड़ना", "तैरना"};
-     private final String[] fun_sports_text =
+    private final String[] fun_sports_text =
             {"क्रिकेट ", "बैडमिंटन", "टेनिस ", "बास्केटबॉल", "डॉजबॉल", "वॉलीबॉल", "खो-खो", "फुटबॉल ",  "कबड्डी", "जिमनास्टिक", "तैरना"};
-     private final String[] fun_tv_text =
+    private final String[] fun_tv_text =
             {"अगला चैनल", "पिछला चैनल", "उँची आवाज़", "धीमी आवाज़"};
-     private final String[] fun_music_text =
+    private final String[] fun_music_text =
             {"संगीत बदलना", "नाचना", "उँची आवाज़", "धीमी आवाज़"};
-     private final String[] fun_activities_text =
+    private final String[] fun_activities_text =
             {"चित्र बनाना", "रंग भरना", "पढ़ना", "लिखना", "आर्ट-क्राफ्ट", "नाटक", "नाचना", "संगीत बजाना"};
-     private final String[] learning_animals_birds_text =
+    private final String[] learning_animals_birds_text =
             {"कुत्ता", "बिल्ली", "हाथी", "शेर ", "तोता ", "खरगोश ", "गाय", "बत्तख", "गधा ", "चींटी", "बाघ", "बंदर", "कबूतर ", "तिलचट्टा", "कौआ ", "घोड़ा ",  "हिरण ", "उल्लू", "भेड़िया ", "लोमड़ी", "भालू ", "भेड़ ", "बकरी ", "सुअर ", "मक्खी", "जिराफ़", "ज़ेब्रा", "मच्छर", "भैंस", "चूहा", "साँप", "मगरमच्छ ",  "मधुमक्खी ", "दरियाई घोड़ा ", "गेंडा", "मछली ", "पेंगविन ", "सील ", "डॉल्फिन ", "व्हेल ", "शार्क ", "कछुआ ", "चिडिया", "गरुड़", "हॉक", "गिद्ध"};
-     private final String[] learning_body_parts_text =
+    private final String[] learning_body_parts_text =
             {"सिर", "बाल", "आँखें", "नाक", "कान", "मुँह", "जीभ", "गर्दन", "कंधा", "कोहनी", "कलाई", "हाथ", "उंगलियाँ", "पीठ", "पेट", "कूल्हे का जोड़", "घुटना", "घुटिका", "पैर", "पैर की उंगलियाँ"};
-     private final String[] learning_books_text =
+    private final String[] learning_books_text =
             {"सोने के समय की कहानीयाँ", "हास्यमय किताबें", "काव्यमय किताबें", "चित्रकला की किताबें", "कहानियों की किताबें", "चित्रों की किताबें", "जासूसी किताबें", "साहसी किताबें",  "पाठशाला की नोटबुक", "गणित किताब", "विज्ञान किताब", "इतिहास किताब", "भूगोल किताब", "सामाजिक अध्ययन किताब ", "अंग्रेजी किताब", "हिंदी किताब",  "मराठी किताब", "पाठ्यपुस्तकें", "पसंदीदा किताब"};
-     private final String[] learning_colours_text =
+    private final String[] learning_colours_text =
             {"काला", "नीला", "भूरा", "हरा", "लाल", "चाँदी", "सफेद", "पीला",  "सुनहरा", "गुलाबी", "नारंगी ", "जामुनी", "ग्रे "};
-     private final String[] learning_shapes_text =
+    private final String[] learning_shapes_text =
             {"सीधी रेखा ", "आड़ी रेखा", "तिरछी रेखा", "गोल", "आयत", "चौकोर", "त्रिकोण", "तारा",  "दिल", "असमांतरभुज कोण", "घनाकार", "समचतुर्भुज कोण", "षट्कोण", "अंडाकार", "ईंट", "पंचकोण", "मुक्ताकार"};
-     private final String[] learning_stationary_text =
+    private final String[] learning_stationary_text =
             {"पेंसिल", "पेन", "स्केल", "रबर", "शार्पनर", "क्रेयान", "कोरा कागज", "रंगीन कागज",  "कैंची", "सीसा", "कम्पास", "विभाजक", "स्टेप्लर", "यू-पिन", "सेलो टेप", "कम्पास बॉक्स"};
-     private final String[] learning_school_objects_text =
+    private final String[] learning_school_objects_text =
             {"बैग", "खाने का डिब्बा", "पानी की बोतल", "कम्पास बॉक्स", "गृहपाठ", "कापी", "पाठ्यपुस्तकें", "यूनिफार्म",  "जूते ", "मोज़े ", "पेंसिल", "पेन", "स्केल", "रबर", "शार्पनर", "चॉक"};
-     private final String[] learning_home_objects_text =
+    private final String[] learning_home_objects_text =
             {"खिड़की", "दरवाज़ा", "पंखा", "लैंप", "डेस्क", "अलमारी", "टेबल", "कुर्सी","शौचालय", "रसोईघर", "हॉल", "बेडरूम", "खेलने का कमरा", "बाथरूम", "बालकनी", "पढ़ाई का कमरा", "बिस्तर", "टीवी", "संगणक", "सोफ़ा", "फ्रिज़", "माइक्रोवेव", "वॉशिंग मशीन", "वैक्यूम क्लीनर",  "घड़ी", "ट्यूब लाइट"};
-     private final String[] learning_transportation_text =
+    private final String[] learning_transportation_text =
             {"बस", "स्कूल  बस", "कार", "साइकिल", "रेलगाड़ी", "रिक्शा", "मोटर साइकिल ", "हवाई जहाज़", "जहाज़"};
-     private final String[] time_weather_time_text =
+    private final String[] time_weather_time_text =
             {"समय क्या हुआ हैं?", "आज़", "कल", "कल", "सुबह", "दोपहर", "शाम", "रात"};
-     private final String[] time_weather_day_text =
+    private final String[] time_weather_day_text =
             {"आज कौनसा दिन है?", "सोमवार", "मंगलवार", "बुधवार", "गुरूवार", "शुक्रवार", "शनिवार", "रविवार"};
-     private final String[] time_weather_month_text =
+    private final String[] time_weather_month_text =
             {"वर्तमान महीना कौनसा हैं ?", "जनवरी", "फरवरी", "मार्च", "अप्रैल", "मई", "जून", "जुलाई",  "अगस्त", "सितंबर ", "अक्टूबर", "नवंबर", "दिसंबर", "यह महीना", "पिछला महीना", "अगला महीना"};
-     private final String[] time_weather_weather_text =
+    private final String[] time_weather_weather_text =
             {"आज का मौसम क्या हैं? ", "गरम", "बरसात", "धुंधला", "तूफ़ानी", "घना", "बर्फीला"};
-     private final String[] time_weather_seasons_text =
+    private final String[] time_weather_seasons_text =
             {"वर्तमान ऋतु कौनसा हैं? ", "वसंत ऋतु", "ग्रीष्म ऋतु", "वर्षा ऋतु", "शरद ऋतु", "शीत ऋतु"};
-     private final String[] time_weather_holidays_festivals_text =
+    private final String[] time_weather_holidays_festivals_text =
             {"दिवाली", "गणेश चतुर्थी", "क्रिसमस ", "दशहरा", "मकर संक्रांति", "होली", "ईद", "गुड फ्राइडे", "गुड़ी पाड़वा", "गणतंत्र दिवस", "स्वतंत्रता दिवस", "नया साल"};
-     private final String[] time_weather_brthdays_text =
+    private final String[] time_weather_brthdays_text =
             {"मेरा जन्मदिन", "माँ का जन्मदिन", "पिताजी का जन्मदिन", "भाई का जन्मदिन", "बहन का जन्मदिन", "बड़े पापा का जन्मदिन", "बड़ी मम्मी का जन्मदिन", "दादाज़ी का जन्मदिन",
                     "दादी माँ का जन्मदिन", "नानाज़ी का जन्मदिन", "नानी माँ का जन्मदिन", "चाचा का जन्मदिन", "चाची का जन्मदिन", "मामा का जन्मदिन", "मामी का जन्मदिन", "बुआ का जन्मदिन",
                     "फ़ुफ़ा का जन्मदिन", "मौसी का जन्मदिन", "मौसा का जन्मदिन", "मित्र का जन्मदिन", "शिक्षक का जन्मदिन"};
 
-    public Layer_3_Hindi_Adapter(Context context, int levelOneITemPos, int levelTwoItemPos, int sort[]) {
-        mContext = context;
-        mSession = new SessionManager(mContext);
-        mMetricsUtils = new EvaluateDisplayMetricsUtils(mContext);
-        if(levelOneITemPos == 0) {
-            if (levelTwoItemPos == 0) {
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< greet_feel_greetings.length; j++) {
-                    temp1[j] = greet_feel_greetings[sort[j]];
-                    temp2[j] = greet_feel_greetings_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            } else if (levelTwoItemPos == 1) {
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< greet_feel_feelings.length; j++) {
-                    temp1[j] = greet_feel_feelings[sort[j]];
-                    temp2[j] = greet_feel_feelings_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            } else if (levelTwoItemPos == 2) {
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< greet_feel_requests.length; j++) {
-                    temp1[j] = greet_feel_requests[sort[j]];
-                    temp2[j] = greet_feel_requests_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            } else if (levelTwoItemPos == 3) {
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< greet_feel_questions.length; j++) {
-                    temp1[j] = greet_feel_questions[sort[j]];
-                    temp2[j] = greet_feel_questions_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            }
-        }else if(levelOneITemPos == 1) {
-            if (levelTwoItemPos == 0) {
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< daily_activities_brushing.length; j++) {
-                    temp1[j] = daily_activities_brushing[sort[j]];
-                    temp2[j] = daily_activities_brushing_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            } else if (levelTwoItemPos == 1) {
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< daily_activities_toilet.length; j++) {
-                    temp1[j] = daily_activities_toilet[sort[j]];
-                    temp2[j] = daily_activities_toilet_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            } else if (levelTwoItemPos == 2) {
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< daily_activities_bathing.length; j++) {
-                    temp1[j] = daily_activities_bathing[sort[j]];
-                    temp2[j] = daily_activities_bathing_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            } else if (levelTwoItemPos == 3) {
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< daily_activities_clothes_access.length; j++) {
-                    temp1[j] = daily_activities_clothes_access[sort[j]];
-                    temp2[j] = daily_activities_clothes_access_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            } else if (levelTwoItemPos == 4) {
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< daily_activities_get_ready.length; j++) {
-                    temp1[j] = daily_activities_get_ready[sort[j]];
-                    temp2[j] = daily_activities_get_ready_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            } else if (levelTwoItemPos == 5) {
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< daily_activities_sleep.length; j++) {
-                    temp1[j] = daily_activities_sleep[sort[j]];
-                    temp2[j] = daily_activities_sleep_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            } else if (levelTwoItemPos == 6) {
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< daily_activities_therapy.length; j++) {
-                    temp1[j] = daily_activities_therapy[sort[j]];
-                    temp2[j] = daily_activities_therapy_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            } else if (levelTwoItemPos == 7) {
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< daily_activities_morning_schedule.length; j++) {
-                    temp1[j] = daily_activities_morning_schedule[sort[j]];
-                    temp2[j] = daily_activities_morning_schedule_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            }else if (levelTwoItemPos == 8) {
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< daily_activities_bedtime_schedule.length; j++) {
-                    temp1[j] = daily_activities_bedtime_schedule[sort[j]];
-                    temp2[j] = daily_activities_bedtime_schedule_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            }
-        }else if(levelOneITemPos == 2){
-            if(levelTwoItemPos == 0){
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< eating_foods_drinks_breakfast.length; j++) {
-                    temp1[j] = eating_foods_drinks_breakfast[sort[j]];
-                    temp2[j] = foods_drinks_breakfast_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            }else if(levelTwoItemPos == 1){
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< eating_food_drinks_lunch_dinner.length; j++) {
-                    temp1[j] = eating_food_drinks_lunch_dinner[sort[j]];
-                    temp2[j] = food_drinks_lunch_dinner_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            } else if(levelTwoItemPos == 2){
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< eating_food_drinks_sweets.length; j++) {
-                    temp1[j] = eating_food_drinks_sweets[sort[j]];
-                    temp2[j] = food_drinks_sweets_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            }else if(levelTwoItemPos == 3){
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< eating_food_drinks_snacks.length; j++) {
-                    temp1[j] = eating_food_drinks_snacks[sort[j]];
-                    temp2[j] = food_drinks_snacks_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            }else if(levelTwoItemPos == 4){
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< eating_food_drinks_fruits.length; j++) {
-                    temp1[j] = eating_food_drinks_fruits[sort[j]];
-                    temp2[j] = food_drinks_fruits_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            }else if(levelTwoItemPos == 5){
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< eating_food_drinks_drinks.length; j++) {
-                    temp1[j] = eating_food_drinks_drinks[sort[j]];
-                    temp2[j] = food_drinks_drinks_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            }else if(levelTwoItemPos == 6){
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< eating_food_drinks_cutlery.length; j++) {
-                    temp1[j] = eating_food_drinks_cutlery[sort[j]];
-                    temp2[j] = food_drinks_cutlery_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            }else if(levelTwoItemPos == 7){
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< eating_food_drinks_add_ons.length; j++) {
-                    temp1[j] = eating_food_drinks_add_ons[sort[j]];
-                    temp2[j] = food_drinks_add_ons_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            }
-        }else if(levelOneITemPos == 3){
-            if(levelTwoItemPos == 0){
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< fun_indoor_games.length; j++) {
-                    temp1[j] = fun_indoor_games[sort[j]];
-                    temp2[j] = fun_indoor_games_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            }else if(levelTwoItemPos == 1){
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< fun_outdoor_games.length; j++) {
-                    temp1[j] = fun_outdoor_games[sort[j]];
-                    temp2[j] = fun_outdoor_games_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            }else if(levelTwoItemPos == 2){
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< fun_sports.length; j++) {
-                    temp1[j] = fun_sports[sort[j]];
-                    temp2[j] = fun_sports_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            }else if(levelTwoItemPos == 3){
-                mThumbIds = fun_tv;
-                belowText = fun_tv_text;
-            }else if(levelTwoItemPos == 4){
-                mThumbIds = fun_music;
-                belowText = fun_music_text;
-            }else if(levelTwoItemPos == 5){
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< fun_activities.length; j++) {
-                    temp1[j] = fun_activities[sort[j]];
-                    temp2[j] = fun_activities_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            }
-        }else if(levelOneITemPos ==4){
-            if(levelTwoItemPos == 0){
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< learning_animals_birds.length; j++) {
-                    temp1[j] = learning_animals_birds[sort[j]];
-                    temp2[j] = learning_animals_birds_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            }else if(levelTwoItemPos == 1){
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< learning_body_parts.length; j++) {
-                    temp1[j] = learning_body_parts[sort[j]];
-                    temp2[j] = learning_body_parts_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            }else if(levelTwoItemPos == 2) {
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< learning_books.length; j++) {
-                    temp1[j] = learning_books[sort[j]];
-                    temp2[j] = learning_books_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            }else if(levelTwoItemPos == 3) {
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< learning_colours.length; j++) {
-                    temp1[j] = learning_colours[sort[j]];
-                    temp2[j] = learning_colours_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            }else if(levelTwoItemPos == 4) {
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< learning_shapes.length; j++) {
-                    temp1[j] = learning_shapes[sort[j]];
-                    temp2[j] = learning_shapes_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            }else if(levelTwoItemPos == 5){
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< learning_stationary.length; j++) {
-                    temp1[j] = learning_stationary[sort[j]];
-                    temp2[j] = learning_stationary_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            }else if(levelTwoItemPos == 6){
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< learning_school_objects.length; j++) {
-                    temp1[j] = learning_school_objects[sort[j]];
-                    temp2[j] = learning_school_objects_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            }else if(levelTwoItemPos == 7){
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< learning_home_objects.length; j++) {
-                    temp1[j] = learning_home_objects[sort[j]];
-                    temp2[j] = learning_home_objects_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            }else if(levelTwoItemPos == 8){
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< learning_transportation.length; j++) {
-                    temp1[j] = learning_transportation[sort[j]];
-                    temp2[j] = learning_transportation_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            }
-        }else if(levelOneITemPos == 7){
-            if(levelTwoItemPos == 0){
-                mThumbIds = time_weather_time;
-                belowText = time_weather_time_text;
-            }else if(levelTwoItemPos == 1){
-                mThumbIds = time_weather_day;
-                belowText = time_weather_day_text;
-            }else if(levelTwoItemPos == 2){
-                mThumbIds = time_weather_month;
-                belowText = time_weather_month_text;
-            }else if(levelTwoItemPos == 3){
-                mThumbIds = time_weather_weather;
-                belowText = time_weather_weather_text;
-            }else if(levelTwoItemPos == 4){
-                mThumbIds = time_weather_seasons;
-                belowText = time_weather_seasons_text;
-            }else if(levelTwoItemPos == 5){
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< time_weather_holidays_festivals.length; j++) {
-                    temp1[j] = time_weather_holidays_festivals[sort[j]];
-                    temp2[j] = time_weather_holidays_festivals_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            }else if(levelTwoItemPos == 6){
-                Integer[] temp1 = new Integer[sort.length];
-                String[] temp2 = new String[sort.length];
-                for (int j = 0 ; j< time_weather_birthdays.length; j++) {
-                    temp1[j] = time_weather_birthdays[sort[j]];
-                    temp2[j] = time_weather_brthdays_text[sort[j]];
-                    store = j;
-                }
-                store = store+1;
-                mThumbIds = Arrays.copyOfRange(temp1, 0, store);
-                belowText = Arrays.copyOfRange(temp2, 0, store);
-            }
-        }
-    }
-
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        private TextView menuItemBelowText;
-        private CircularImageView menuItemImage;
-        private LinearLayout menuItemLinearLayout;
-
-        public MyViewHolder(final View view) {
-            super(view);
-            menuItemImage = (CircularImageView) view.findViewById(R.id.icon1);
-            menuItemLinearLayout = (LinearLayout) view.findViewById(R.id.linearlayout_icon1);
-            menuItemBelowText = (TextView) view.findViewById(R.id.te1);
-            Typeface font = Typeface.createFromAsset(mContext.getAssets(), "fonts/Mukta-Regular.ttf");
-            menuItemBelowText.setTypeface(font, Typeface.BOLD);
-            menuItemBelowText.setTextColor(Color.rgb(64, 64, 64));
-        }
-    }
-
-    @Override
-    public Layer_3_Hindi_Adapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View rowView =  LayoutInflater.from(parent.getContext()).inflate(R.layout.myscrolllist2, parent, false);
-        return new Layer_3_Hindi_Adapter.MyViewHolder(rowView);
-    }
-
-    @Override
-    public void onBindViewHolder(Layer_3_Hindi_Adapter.MyViewHolder holder, int position) {
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        if (mSession.getGridSize() == GRID_1BY3) {
-            if (mSession.getScreenHeight() >= 720) {
-                params.setMargins(mMetricsUtils.getPixelsFromDpVal(36), mMetricsUtils.getPixelsFromDpVal(180), 0, mMetricsUtils.getPixelsFromDpVal(180));
-                holder.menuItemBelowText.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                if(mSession.getLanguage() == LANG_HINDI) holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);
-                else    holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-            }else if (mSession.getScreenWidth() > 640 && mSession.getScreenWidth() <= 1024) {
-                params.setMargins(mMetricsUtils.getPixelsFromDpVal(20), mMetricsUtils.getPixelsFromDpVal(124), 0, mMetricsUtils.getPixelsFromDpVal(124));
-                holder.menuItemBelowText.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                if(mSession.getLanguage() == LANG_HINDI) holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-                else    holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-            }else {
-                params.setMargins(mMetricsUtils.getPixelsFromDpVal(12), mMetricsUtils.getPixelsFromDpVal(92), 0, mMetricsUtils.getPixelsFromDpVal(92));
-                holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
-            }
-        }else if(mSession.getGridSize() == GRID_3BY3){
-            if (mSession.getScreenHeight() >= 720) {
-                holder.menuItemImage.setLayoutParams(new LinearLayout.LayoutParams(mMetricsUtils.getPixelsFromDpVal(124), mMetricsUtils.getPixelsFromDpVal(124)));
-                if(mSession.getLanguage() == LANG_HINDI) {
-                    holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-                    params.setMargins(mMetricsUtils.getPixelsFromDpVal(16), mMetricsUtils.getPixelsFromDpVal(16), 0, mMetricsUtils.getPixelsFromDpVal(-8));
-                }else{
-                    params.setMargins(mMetricsUtils.getPixelsFromDpVal(36), mMetricsUtils.getPixelsFromDpVal(16), 0, mMetricsUtils.getPixelsFromDpVal(-7));
-                }
-            }else if (mSession.getScreenWidth() > 640 && mSession.getScreenWidth() <= 1024) {
-                holder.menuItemImage.setLayoutParams(new LinearLayout.LayoutParams(mMetricsUtils.getPixelsFromDpVal(86), mMetricsUtils.getPixelsFromDpVal(86)));
-                if(mSession.getLanguage() == LANG_HINDI) {
-                    holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-                    params.setMargins(mMetricsUtils.getPixelsFromDpVal(16), mMetricsUtils.getPixelsFromDpVal(1), 0, mMetricsUtils.getPixelsFromDpVal(8));
-                }else{
-                    params.setMargins(mMetricsUtils.getPixelsFromDpVal(16), mMetricsUtils.getPixelsFromDpVal(1), 0, mMetricsUtils.getPixelsFromDpVal(16));
-                }
-            }else {
-                if(mSession.getLanguage() == LANG_HINDI) {
-                    holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
-                    params.setMargins(mMetricsUtils.getPixelsFromDpVal(16), mMetricsUtils.getPixelsFromDpVal(0), 0, mMetricsUtils.getPixelsFromDpVal(-3));
-                }else {
-                    params.setMargins(mMetricsUtils.getPixelsFromDpVal(12), mMetricsUtils.getPixelsFromDpVal(0), 0, mMetricsUtils.getPixelsFromDpVal(0));
-                    holder.menuItemBelowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
-                }
-                if (position == mThumbIds.length-1)  holder.menuItemLinearLayout.setLayerType(View.LAYER_TYPE_SOFTWARE, null); //Resolve black circular imageview issue.
-            }
-        }
-
-        if (mSession.getPictureViewMode() == MODE_PICTURE_ONLY)
-            holder.menuItemBelowText.setVisibility(View.INVISIBLE);
-        holder.menuItemLinearLayout.setLayoutParams(params);
-        holder.menuItemBelowText.setText(belowText[position]);
-
-        holder.menuItemImage.setImageResource(mThumbIds[position]);
-        holder.menuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {}
-        });
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return position;
-    }
-
-    @Override
-    public int getItemCount() {
-        return mThumbIds.length;
-    }
 }
