@@ -1,0 +1,2105 @@
+<resources>
+<!--LEVEL THREE ARRAYS ARE HERE-->
+    <!--LEVEL THREE SPEECH TEXT ARE HERE-->
+    <!--LEVEL THREE "GREETING" SPEECH TEXT ARE HERE-->
+    <string-array name="arrLevelThreeGreetFeelGreetingSpeechTextHindi">
+        <item>नमस्ते!</item>
+        <item>नमसकार</item>
+        <item>अलविदा</item>
+        <item>शुभ प्रभात</item>
+        <item>शुभ दिन</item>
+        <item>शुभ संध्या</item>
+        <item>शुभ रात्रि</item>
+        <item>ताली दो</item>
+        <item>आपसे मिलकर अच्छा लगा</item>
+        <item>आप कैसे हैं?</item>
+        <item>आपका दिन कैसा था?</item>
+        <item>आपके क्या हाल हैं?</item>
+    </string-array>
+    <string-array name="arrLevelThreeGreetFeelFeelingsSpeechTextHindi">
+        <item>खुश</item>
+        <item>उदास</item>
+        <item>गुस्सा</item>
+        <item>डर</item>
+        <item>हैरान</item>
+        <item>चिढ़ा हुआ</item>
+        <item>उलझन</item>
+        <item>शर्मिंदा</item>
+        <item>निराश</item>
+        <item>बोर</item>
+        <item>चिंता</item>
+        <item>तनावग्रस्त</item>
+        <item>थका हुआ</item>
+        <item>गरम</item>
+        <item>ठंडा</item>
+        <item>बीमार</item>
+        <item>दुखी</item>
+    </string-array>
+    <string-array name="arrLevelThreeGreetFeelQuestionsSpeechTextHindi">
+        <item>कैसे?</item>
+        <item>कब?</item>
+        <item>कहाँपे?</item>
+        <item>क्यूं?</item>
+        <item>क्या?</item>
+        <item>कौन?</item>
+        <item>कितने?</item>
+        <item>कितना लंबा?</item>
+        <item>कितनी देर?</item>
+    </string-array>
+    <string-array name="arrLevelThreeGreetFeelRequestsSpeechTextHindi">
+        <item>कृपया</item>
+        <item>धन्यवाद</item>
+        <item>आपका स्वागत हैं</item>
+        <item>कृपया मुझे दीजीए</item>
+        <item>"कृपया मुझे फिर से बताइए</item>
+        <item>कृपया मुझे दिखाइए</item>
+        <item>मुझे एक ब्रेक चाहिए</item>
+        <item>मैंने खत्म कर दिया</item>
+        <item>क्षमा कीजिये</item>
+        <item>मुझे माफ करें</item>
+        <item>मुझे समझ में नहीं आया</item>
+        <item>"मेरे साथ बाँटे</item>
+        <item>कृपया थोड़ा धीरे जाइए</item>
+        <item>मुझे मदद की ज़रूरत हैं</item>
+        <item>कृपया यहाँ आईये</item>
+        <item>कृपया मुझे लेके जाइए</item>
+    </string-array>
+
+    <!--LEVEL THREE "DAILY ACTIVITITES" SPEECH TEXT ARE HERE-->
+    <string-array name="arrLevelThreeDailyActBrushingSpeechTextHindi">
+        <item>Rinse maauuthh</item>
+        <item>Rinse toothbrush</item>
+        <item>Put toothpaste on brush</item>
+        <item>Brush front teeth</item>
+        <item>Brush backkkteethh</item>
+        <item>Brush tongue</item>
+        <item>Rinse maauuthh</item>
+        <item>All done</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActToiletSpeechTextHindi">
+        <item>Pull pants down</item>
+        <item>Sit on toil et</item>
+        <item>Wash bottom</item>
+        <item>Flushh toil et</item>
+        <item>Pull pants up</item>
+        <item>Wash hands</item>
+        <item>All done</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActBathingSpeechTextHindi">
+        <item>Remove clothes</item>
+        <item>Turn on water</item>
+        <item>Get in the shaaver</item>
+        <item>Wet body</item>
+        <item>Put soap</item>
+        <item>Shampoo हैर</item>
+        <item>Put face wash</item>
+        <item>Wash हैर</item>
+        <item>Wash body</item>
+        <item>Turn off water</item>
+        <item>Dry हैर"</item>
+        <item>Dry face</item>
+        <item>Dry body</item>
+        <item>Put on clothes</item>
+        <item>All done</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActClothesAccSpeechTextHindi">
+        <item>टी-शर्ट बदलना</item>
+        <item>फ्रॉक बदलना</item>
+        <item>स्कर्ट  बदलना</item>
+        <item>जीन्स बदलना</item>
+        <item>पैन्ट बदलना</item>
+        <item>लैगिंग्स बदलना</item>
+        <item>स्लैक्स बदलना</item>
+        <item>शॉर्ट्स बदलना</item>
+        <item>इनरवियर बदलना</item>
+        <item>जूते बदलना</item>
+        <item>बूट बदलना</item>
+        <item>मोज़े बदलना</item>
+        <item>रात के कपड़े पहनना</item>
+        <item>शर्ट</item>
+        <item>टी-शर्ट </item>
+        <item>फ्रॉक </item>
+        <item>पैन्ट </item>
+        <item>स्लैक्स </item>
+        <item>लैगिंग्स </item>
+        <item>शॉर्ट्स </item>
+        <item>सलवार कमीज़ </item>
+        <item>स्वेटर </item>
+        <item>जैकेट </item>
+        <item>दुपट्टा </item>
+        <item>टोपी </item>
+        <item>बेल्ट </item>
+        <item>रेनकोट </item>
+        <item>चश्मा </item>
+        <item>घड़ी </item>
+        <item>कान की बाली </item>
+        <item>कंगन</item>
+        <item>हार </item>
+        <item>बिंदी</item>
+        <item>चप्पल </item>
+        <item>मेरे कपड़े टाइट हैं</item>
+        <item>मेरे कपड़े ढीले हैं</item>
+        <item>मुझे कपड़े निकालने में मदद चाहिए</item>
+        <item>मुझे कपड़े पहनने में मदद चाहिए</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActGetReadySpeechTextHindi">
+        <item>कंघी करना</item>
+        <item>फेस वॉश</item>
+        <item>नाखून काटना</item>
+        <item>नाक साफ करना</item>
+        <item>साबुन</item>
+        <item>शाम्पू</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActSleepSpeechTextHindi">
+        <item>दरवाज़ा</item>
+        <item>पंखा</item>
+        <item>लाईट</item>
+        <item>खिड़की</item>
+        <item>बिस्तर</item>
+        <item>तकिया</item>
+        <item>कंबल</item>
+        <item>गर्मी</item>
+        <item>ठंडक</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActTherapySpeechTextHindi">
+        <item>कसरत</item>
+        <item>झूला</item>
+        <item>ट्रैम्पोलीन</item>
+        <item>स्विस बॉल</item>
+        <item>कंबल</item>
+        <item>बॉल पिट</item>
+        <item>हातों की कसरत</item>
+        <item>पैरों की कसरत</item>
+        <item>बॉडी वेस्ट</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActMorningScheSpeechTextHindi">
+        <item>Wake up</item>
+        <item>Wash face</item>
+        <item>Go to bathroom</item>
+        <item>Brush teeth</item>
+        <item>Remove clothes</item>
+        <item>Have a बाथ</item>
+        <item>Get dressed</item>
+        <item>Comb हैर</item>
+        <item>Eat brek fust</item>
+        <item>Pack lunch box</item>
+        <item>Pack school bag</item>
+        <item>Go to school</item>
+        <item>Have a great day!</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActBedTimeScheSpeechTextHindi">
+        <item>Eat dinner</item>
+        <item>ware night clothes</item>
+        <item>Brush teeth</item>
+        <item>Read story</item>
+        <item>Say goodnight</item>
+        <item>Say prayers</item>
+        <item>Sweet dreams!</item>
+    </string-array>
+
+    <!--LEVEL THREE "EATING" SPEECH TEXT ARE HERE-->
+    <string-array name="arrLevelThreeFoodDrinksBreakfastSpeechTextHindi">
+        <item>ब्रेड</item>
+        <item>कोर्नफ्लेक्स</item>
+        <item>आलू पूरी</item>
+        <item>अंडे</item>
+        <item>पोहा</item>
+        <item>उपमा</item>
+        <item>खिचड़ी</item>
+        <item>इड़ली </item>
+        <item>डोसा</item>
+        <item>पराठा</item>
+        <item>अॉमलेट</item>
+        <item>मेदु वड़ा</item>
+        <item>दलिया</item>
+        <item>सैंडविच</item>
+        <item>चटनी</item>
+        <item>सांबर</item>
+        <item>उत्तप्पा</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksLunchDinnerSpeechTextHindi">
+        <item>रोटी</item>
+        <item>सब्ज़ी</item>
+        <item>चावल</item>
+        <item>दाल</item>
+        <item>दालखिचड़ी</item>
+        <item>रायता</item>
+        <item>पराठा</item>
+        <item>दही</item>
+        <item>मछली</item>
+        <item>चिकन</item>
+        <item>पोर्क</item>
+        <item>मटन</item>
+        <item>केकड़े का मांस</item>
+        <item>टरकी</item>
+        <item>pizza</item>
+        <item>सलाड </item>
+        <item>सूप </item>
+        <item>पास्ता </item>
+        <item>नूडल्स</item>
+        <item>इटालीयन खाना</item>
+        <item>पाव भाजी</item>
+        <item>भाकरी</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksSweetsSpeechTextHindi">
+        <item>केक</item>
+        <item>आइसक्रीम</item>
+        <item>गा जर का हलवा</item>
+        <item>गुलाब जामुन</item>
+        <item>लड्डू</item>
+        <item>बर्फी</item>
+        <item>जलेबी</item>
+        <item>फलों का सलाड</item>
+        <item>रसगुल्ला</item>
+        <item>शीरा</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksSnacksSpeechTextHindi">
+        <item>बिस्कुट</item>
+        <item>चाट</item>
+        <item>चॉकलेट</item>
+        <item>वएफर्स</item>
+        <item>सैंडविच</item>
+        <item>नूडल्स</item>
+        <item>चीज़</item>
+        <item>नट्स</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksFruitsSpeechTextHindi">
+        <item>सेब</item>
+        <item>केला</item>
+        <item>अंगूर</item>
+        <item>अमरूद</item>
+        <item>आम</item>
+        <item>संतरा</item>
+        <item>अनानास</item>
+        <item>स्ट्रॉबेरी</item>
+        <item>बेर</item>
+        <item>अनार</item>
+        <item>तरबूज</item>
+        <item>पेर</item>
+        <item>पपीता</item>
+        <item>खरबूजा</item>
+        <item>चिकू</item>
+        <item>पनस</item>
+        <item>चेरी</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksDrinksSpeechTextHindi">
+        <item>पानी</item>
+        <item>दूध</item>
+        <item>बोर्नविटा</item>
+        <item>आम का ज्यूस</item>
+        <item>सेब का ज्यूस</item>
+        <item>संतरे का ज्यूस</item>
+        <item>नींबू का ज्यूस</item>
+        <item>अनानास का ज्यूस</item>
+        <item>पेप्सी</item>
+        <item>कोका कोला</item>
+        <item>मिरिंडा</item>
+        <item>फैंटा</item>
+        <item>माज़ा</item>
+        <item>स्प्राइट </item>
+        <item>माउंटेन ड्यू</item>
+        <item>मिल्कशेक</item>
+        <item>चॉकलेट मिल्कशेक</item>
+        <item>स्ट्रॉबेरी मिल्कशेक </item>
+        <item>केला मिल्कशेक </item>
+        <item>आम मिल्कशेक </item>
+        <item>चिकू मिल्कशेक</item>
+        <item>चाय </item>
+        <item>कॉफी </item>
+        <item>कोल्ड कॉफी</item>
+        <item>एनर्जी ड्रिंक्स</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksCutlerySpeechTextHindi">
+        <item>कटोरा</item>
+        <item>प्लेट</item>
+        <item>चम्मच</item>
+        <item>काँटे का चम्मच</item>
+        <item>चाकू</item>
+        <item>मग</item>
+        <item>कप</item>
+        <item>ग्लास</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksAddonSpeechTextHindi">
+        <item>मक्खन</item>
+        <item>जैम</item>
+        <item>नमक</item>
+        <item>काली मिर्च</item>
+        <item>चीनी</item>
+        <item>सॉस</item>
+        <item>आचार</item>
+        <item>पापड़</item>
+        <item>मसाला</item>
+    </string-array>
+
+    <!--LEVEL THREE "FUN" SPEECH TEXT ARE HERE-->
+    <string-array name="arrLevelThreeFunInDGamesSpeechTextHindi">
+        <item>पज़ल्स</item>
+        <item>बोर्ड खेल</item>
+        <item>ब्लॉक्स</item>
+        <item>लेगो</item>
+        <item>शतरंज</item>
+        <item>सांप और सीढ़ी</item>
+        <item>Scrabble</item>
+        <item>विडियो गेम</item>
+        <item>गुड़ियाँ</item>
+        <item>ऐक्शन फिगर्स</item>
+        <item>सॉफ्ट टॉयज़</item>
+        <item>कार</item>
+        <item>ट्रक</item>
+        <item>आर्ट-क्राफ्ट</item>
+        <item>मेरे साथ खेलो</item>
+    </string-array>
+    <string-array name="arrLevelThreeFunOutDGamesSpeechTextHindi">
+        <item>खेल का मैदान</item>
+        <item>पार्क</item>
+        <item>झूला</item>
+        <item>स्लाईड</item>
+        <item>सी-सॉ</item>
+        <item>मेरी-गो-राउंड</item>
+        <item>लुकाछिपी</item>
+        <item>बल्ला और गेंद</item>
+        <item>स्टैचू</item>
+        <item>ताला और चाबी</item>
+        <item>पकड़ा-पकड़ी</item>
+        <item>पतंग</item>
+        <item>चोर-पुलिस</item>
+        <item>कंचे</item>
+        <item>चलना</item>
+        <item>सायकल</item>
+        <item>दौड़ना</item>
+        <item>तैरना</item>
+    </string-array>
+    <string-array name="arrLevelThreeFunSportsSpeechTextHindi">
+        <item>क्रिकेट </item>
+        <item>बैडमिंटन</item>
+        <item>टेनिस </item>
+        <item>बास्केटबॉल</item>
+        <item>डौजबौल</item>
+        <item>वौलीबौल</item>
+        <item>खो-खो</item>
+        <item>फुटबॉल </item>
+        <item>कबड़्डी</item>
+        <item>जिम्नास्टिक्स</item>
+        <item>तैरना</item>
+    </string-array>
+    <string-array name="arrLevelThreeFunTvSpeechTextHindi">
+        <item>अगला चैनल</item>
+        <item>पिछला चैनल</item>
+        <item>उँची आवाज़</item>
+        <item>धीमी आवाज़</item>
+    </string-array>
+    <string-array name="arrLevelThreeFunMusicSpeechTextHindi">
+        <item>संगीत बदलना</item>
+        <item>नाचना</item>
+        <item>उँची आवाज़</item>
+        <item>धीमी आवाज़</item>
+    </string-array>
+    <string-array name="arrLevelThreeFunActivitiesSpeechTextHindi">
+        <item>चित्र बनाना</item>
+        <item>रंग भरना</item>
+        <item>पढ़ना</item>
+        <item>लिखना</item>
+        <item>आर्ट-क्राफ्ट</item>
+        <item>नाटक</item>
+        <item>नाचना</item>
+        <item>संगीत बजाना</item>
+    </string-array>
+
+    <!--LEVEL THREE "LEARNING" SPEECH TEXT ARE HERE-->
+    <string-array name="arrLevelThreeLearningAnimBirdsSpeechTextHindi">
+        <item>कुत्ता</item>
+        <item>बिल्ली</item>
+        <item>हाथी</item>
+        <item>शेर </item>
+        <item>तोता </item>
+        <item>खरगोश </item>
+        <item>गाय</item>
+        <item>बथख</item>
+        <item>गधा </item>
+        <item>चींटी</item>
+        <item>बाघ</item>
+        <item>बंदर</item>
+        <item>कबूतर </item>
+        <item>तिलचट्टा</item>
+        <item>कऊवा </item>
+        <item>घोड़ा </item>
+        <item>हिरण </item>
+        <item>उल्लू</item>
+        <item>भेड़िया </item>
+        <item>लोम्ड़ी</item>
+        <item>भालू </item>
+        <item>भेड़ </item>
+        <item>बकरी </item>
+        <item>सुअर </item>
+        <item>मक्खी</item>
+        <item>जिराफ़</item>
+        <item>ज़ेब्रा</item>
+        <item>मच्छर</item>
+        <item>भैन्स</item>
+        <item>चूहा</item>
+        <item>साँप</item>
+        <item>मगरमच्छ </item>
+        <item>मधुमक्खीँ </item>
+        <item>दरियाई घोड़ा </item>
+        <item>गेंडा</item>
+        <item>मछली </item>
+        <item>पैन्ग्विन </item>
+        <item>सील </item>
+        <item>डॉल्फिन </item>
+        <item>व्हेल </item>
+        <item>शार्क </item>
+        <item>कछुआ </item>
+        <item>चिडिया</item>
+        <item>गरुड़</item>
+        <item>हॉक</item>
+        <item>गिद्ध</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningBodyPartsSpeechTextHindi">
+        <item>सिर</item>
+        <item>बाल</item>
+        <item>आँखें</item>
+        <item>नाक</item>
+        <item>कान</item>
+        <item>मुँह</item>
+        <item>जीभ</item>
+        <item>गर्दन</item>
+        <item>कंधा</item>
+        <item>कोहनी</item>
+        <item>कलाई</item>
+        <item>हाथ</item>
+        <item>उंगलियां </item>
+        <item>पीठ</item>
+        <item>पेट</item>
+        <item>कूल्हे का जोड़</item>
+        <item>घुटना</item>
+        <item>घुटिका</item>
+        <item>पैर</item>
+        <item>पैर की उंगलियां </item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningBooksSpeechTextHindi">
+        <item>सोने के समय की कहानीयाँ</item>
+        <item>हास्यमय किताबें</item>
+        <item>काव्यमय किताबें</item>
+        <item> चित्र कला की किताबें</item>
+        <item>कहानियों की किताबें</item>
+        <item>चित्रों की किताबें</item>
+        <item>जासूसी किताबें</item>
+        <item>साहसी किताबें</item>
+        <item>पाठशाला की नोटबुक</item>
+        <item>गणित की किताब</item>
+        <item>विज्ञान की किताब</item>
+        <item>इतिहास की किताब</item>
+        <item>भूगोल की किताब</item>
+        <item>सामाजिक अध्ययन की किताब </item>
+        <item>अंग्रेज़ी  की किताब</item>
+        <item>हिंदी की किताब</item>
+        <item>मराठी की किताब</item>
+        <item>पाठ्यपुस्तकें</item>
+        <item>पसंदीदा किताब</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningColorsSpeechTextHindi">
+        <item>काला</item>
+        <item>नीला</item>
+        <item>भूरा</item>
+        <item>हरा</item>
+        <item>लाल</item>
+        <item>चाँदी</item>
+        <item>सफेद</item>
+        <item>पीला</item>
+        <item>सुनहरा</item>
+        <item>गुलाबी</item>
+        <item>नारंगी </item>
+        <item>जामुनी</item>
+        <item>ग्रे</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningShapesSpeechTextHindi">
+        <item>सीधी रेखा </item>
+        <item>आड़ी रेखा</item>
+        <item>तिरछी रेखा</item>
+        <item>गोल</item>
+        <item>आयत</item>
+        <item>चौकोर</item>
+        <item>त्रिकोण</item>
+        <item>तारा</item>
+        <item>दिल</item>
+        <item>अ समांतरभुज कोण</item>
+        <item>घनाकार</item>
+        <item>समअ चतुरभुज कोण</item>
+        <item>शटकोन</item>
+        <item>अंडाकार</item>
+        <item>ईंट</item>
+        <item>पंचकोन</item>
+        <item>मुक्ताकार</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningStationarySpeechTextHindi">
+        <item>Pencil</item>
+        <item>Pen</item>
+        <item>स्केल</item>
+        <item>रबर</item>
+        <item>शारप्नर</item>
+        <item>क्रेयौन</item>
+        <item>कोरा कागज</item>
+        <item>रंगीन कागज</item>
+        <item>कैंची</item>
+        <item>सीसा</item>
+        <item>कम्पास</item>
+        <item>विभाजक</item>
+        <item>स्टेप्लर</item>
+        <item>यू-पिन</item>
+        <item>सेलो टेप</item>
+        <item>कम्पास बौक्स</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningSchoolObjSpeechTextHindi">
+        <item>Bag</item>
+        <item>खाने का डिब्बा</item>
+        <item>पानी की बोतल</item>
+        <item>कम्पास बौक्स</item>
+        <item>गृहपाठ</item>
+        <item>कापी</item>
+        <item>पाठ्यपुस्तकें</item>
+        <item>यूनिफार्म</item>
+        <item>जूते </item>
+        <item>मोज़े </item>
+        <item>pencil</item>
+        <item>pen</item>
+        <item>स्केल</item>
+        <item>रबर</item>
+        <item>शारप्नर</item>
+        <item>चॉक</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningHomeObjSpeechTextHindi">
+        <item>खिड़की</item>
+        <item>दरवाज़ा</item>
+        <item>पंखा</item>
+        <item>लैम्प</item>
+        <item>डेस्क</item>
+        <item>अलमारी</item>
+        <item>टेबल</item>
+        <item>कुर्सी</item>
+        <item>शौचालय</item>
+        <item>रसोईघर</item>
+        <item>हॉल</item>
+        <item>बेडरूम</item>
+        <item>खेलने का कमरा</item>
+        <item>बाथरूम</item>
+        <item>बालकनी</item>
+        <item>पढ़ाई का कमरा</item>
+        <item>बिस्तर</item>
+        <item>टीवी</item>
+        <item>संगणक</item>
+        <item>सोफ़ा</item>
+        <item>फ्रिज</item>
+        <item>माइक्रोवेव</item>
+        <item>वॉशिंग मशीन</item>
+        <item>वैक्युम क्लीनर</item>
+        <item>घड़ी</item>
+        <item>ट्यूब लाइट</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningTransportSpeechTextHindi">
+        <item>बस</item>
+        <item>स्कूल  बस</item>
+        <item>कार</item>
+        <item>साइकिल</item>
+        <item>रेल गाड़ी</item>
+        <item>रिक्शा</item>
+        <item>मोटर साइकिल </item>
+        <item>हवाई जहाज़</item>
+        <item>जहाज़</item>
+    </string-array>
+
+    <!--LEVEL THREE "TIME WEATHER" SPEECH TEXT ARE HERE-->
+    <string-array name="arrLevelThreeTimeWeaTimeSpeechTextHindi">
+        <item>समय क्या हुआ हैं</item>
+        <item>आज</item>
+        <item>कल</item>
+        <item>कल</item>
+        <item>सुबह</item>
+        <item>दोपहर</item>
+        <item>शाम</item>
+        <item>रात</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaDaySpeechTextHindi">
+        <item>आज कौनसा दिन है?</item>
+        <item>सोमवार</item>
+        <item>मंगलवार</item>
+        <item>बुधवार</item>
+        <item>गुरूवार</item>
+        <item>शुक्रवार</item>
+        <item>शनिवार</item>
+        <item>रविवार</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaMonthSpeechTextHindi">
+        <item>वर्तमान महीना कौनसा हैं ?</item>
+        <item>जनवरी</item>
+        <item>फरवरी</item>
+        <item>मार्च</item>
+        <item>अप्रैल</item>
+        <item>मई</item>
+        <item>जून</item>
+        <item>जुलाई</item>
+        <item>अगस्त</item>
+        <item>सितंबर </item>
+        <item>अक्टूबर</item>
+        <item>नवंबर</item>
+        <item>दिसंबर</item>
+        <item>यह महीना</item>
+        <item>पिछला महीना</item>
+        <item>अगला महीना</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaWeatherSpeechTextHindi">
+        <item>आज का मौसम क्या हैं</item>
+        <item>गरम</item>
+        <item>बरसात</item>
+        <item>धुंधला</item>
+        <item>तूफ़ानी</item>
+        <item>घना</item>
+        <item>बर्फीला</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaSeasonsSpeechTextHindi">
+        <item>वर्तमान ऋतु कौनसा हैं? </item>
+        <item>वसंत ऋतु</item>
+        <item>ग्रीष्म ऋतु</item>
+        <item>वर्षा ऋतु</item>
+        <item>शरद ऋतु</item>
+        <item>शीत ऋतु</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaHoliFestSpeechTextHindi">
+        <item>दिवाली</item>
+        <item>गणेश चतुर्थी</item>
+        <item>क्रिसमस </item>
+        <item>दशहरा</item>
+        <item>मकर संक्रांति</item>
+        <item>होली</item>
+        <item>ईद</item>
+        <item>गुड फ्राइडे</item>
+        <item>गुड़ी पाड़वा</item>
+        <item>गणतंत्र दिवस</item>
+        <item>स्वतंत्रता दिवस</item>
+        <item>नया साल</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaBirthdaysSpeechTextHindi">
+        <item>मेरा जन्मदिन</item>
+        <item>माँ का जन्मदिन</item>
+        <item>पिताजी का जन्मदिन</item>
+        <item>भाई का जन्मदिन</item>
+        <item>बहन का जन्मदिन</item>
+        <item>बड़े पापा का जन्मदिन</item>
+        <item>बड़ी मम्मी का जन्मदिन</item>
+        <item>दादाजी का जन्मदिन</item>
+        <item>दादी माँ का जन्मदिन</item>
+        <item>नानाजी का जन्मदिन</item>
+        <item>नानी माँ का जन्मदिन</item>
+        <item>चाचा का जन्मदिन</item>
+        <item>चाची का जन्मदिन</item>
+        <item>मामा का जन्मदिन</item>
+        <item>मामी का जन्मदिन</item>
+        <item>बुआ का जन्मदिन</item>
+        <item>फ़ुफ़ा का जन्मदिन</item>
+        <item>मौसी का जन्मदिन</item>
+        <item>मौसा का जन्मदिन</item>
+        <item>मित्र का जन्मदिन</item>
+        <item>शिक्षक का जन्मदिन</item>
+    </string-array>
+
+    <!--LEVEL THREE ADAPTER ADAPTER TEXT ARE HERE-->
+    <!--LEVEL THREE "GREET AND FEEL" ADAPTER TEXT ARE HERE-->
+    <string-array name="arrLevelThreeGreetFeelGreetingAdapterTextHindi">
+        <item>नमस्ते</item>
+        <item>नमस्कार</item>
+        <item>अलविदा</item>
+        <item>शुभ प्रभात</item>
+        <item>शुभ दिन</item>
+        <item>शुभ संध्या</item>
+        <item>शुभ रात्रि</item>
+        <item>ताली दो</item>
+        <item>आपसे मिलकर अच्छा लगा</item>
+        <item>आप कैसे हैं?</item>
+        <item>आपका दिन कैसा था?</item>
+        <item>आपके क्या हाल हैं?</item>
+    </string-array>
+    <string-array name="arrLevelThreeGreetFeelFeelingsAdapterTextHindi">
+        <item>खुश</item>
+        <item>उदास</item>
+        <item>गुस्सा</item>
+        <item>डर</item>
+        <item>हैरान</item>
+        <item>चिढ़ा हुआ</item>
+        <item>उलझन</item>
+        <item>शर्मिंदा</item>
+        <item>निराश</item>
+        <item>बोर</item>
+        <item>चिंता</item>
+        <item>तनावग्रस्त</item>
+        <item>थका हुआ</item>
+        <item>गरम</item>
+        <item>ठंडा</item>
+        <item>बीमार</item>
+        <item>दुःखी</item>
+    </string-array>
+    <string-array name="arrLevelThreeGreetFeelQuestionsAdapterTextHindi">
+        <item>कैसे?</item>
+        <item>कब?</item>
+        <item>कहॉं पे?</item>
+        <item>क्यूं?</item>
+        <item>क्या?</item>
+        <item>कौन?</item>
+        <item>कितने?</item>
+        <item>कितना लंबा?</item>
+        <item>कितनी देर?</item>
+    </string-array>
+    <string-array name="arrLevelThreeGreetFeelRequestsAdapterTextHindi">
+        <item>कृपया</item>
+        <item>धन्यवाद</item>
+        <item>आपका स्वागत हैं</item>
+        <item>कृपया दिजीए</item>
+        <item>कृपया फिर से बताईए</item>
+        <item>कृपया दिखाईए</item>
+        <item>मुझे एक ब्रेक चाहिए</item>
+        <item>मैंने खत्म कर दिया</item>
+        <item>क्षमा कीजिये</item>
+        <item>मुझे माफ करें</item>
+        <item>मुझे समझ में नहीं आया</item>
+        <item>मेरे साथ बाँटे</item>
+        <item>ृपया थोड़ा धीरे जाइए</item>
+        <item>मुझे मदद की ज़रूरत हैं</item>
+        <item>कृपया यहाँ आइये</item>
+        <item>कृपया मुझे लेके जाईए</item>
+    </string-array>
+
+    <!--LEVEL THREE "DAILY ACTIVITITES" ADAPTER TEXT ARE HERE-->
+    <string-array name="arrLevelThreeDailyActBrushingAdapterTextHindi">
+        <item>Rinse mouth</item>
+        <item>Rinse toothbrush</item>
+        <item>Put toothpaste on brush</item>
+        <item>Brush front teeth</item>
+        <item>Brush back teeth</item>
+        <item>Brush tongue</item>
+        <item>Rinse mouth</item>
+        <item>All done</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActToiletAdapterTextHindi">
+        <item>Pull pants down</item>
+        <item>Sit on toilet</item>
+        <item>Wash bottom</item>
+        <item>Flush toilet</item>
+        <item>Pull pants up</item>
+        <item>Wash hands</item>
+        <item>All done</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActBathingAdapterTextHindi">
+        <item>Remove clothes</item>
+        <item>Turn on water</item>
+        <item>Get in the shower</item>
+        <item>Wet body</item>
+        <item>Put soap</item>
+        <item>Shampoo hair</item>
+        <item>Put face wash</item>
+        <item>Wash hair</item>
+        <item>Wash body</item>
+        <item>Turn off water</item>
+        <item>Dry hair"</item>
+        <item>Dry face</item>
+        <item>Dry body</item>
+        <item>Put on clothes</item>
+        <item>All done</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActClothesAccAdapterTextHindi">
+        <item>टी-शर्ट बदलना </item>
+        <item>फ्रॉक बदलना</item>
+        <item>स्कर्ट बदलना</item>
+        <item>जीन्स बदलना</item>
+        <item>पैंट बदलना</item>
+        <item>लेगिंग बदलना</item>
+        <item>स्लैक्स बदलना</item>
+        <item>शॉर्ट्स बदलना</item>
+        <item>इनरवियर बदलना</item>
+        <item>जूते बदलना</item>
+        <item>बूट बदलना</item>
+        <item>मोज़े बदलना</item>
+        <item>रात के कपड़े पहनना</item>
+        <item>शर्ट </item>
+        <item>टी-शर्ट </item>
+        <item>फ्रॉक </item>
+        <item>पैंट </item>
+        <item>स्लैक्स </item>
+        <item>लेगिंग </item>
+        <item>शॉर्ट्स </item>
+        <item>सलवार कमीज़ </item>
+        <item>स्वेटर </item>
+        <item>जैकेट </item>
+        <item>दुपट्टा </item>
+        <item>टोपी </item>
+        <item>बेल्ट </item>
+        <item>रेनकोट </item>
+        <item>चश्मा </item>
+        <item>घड़ी </item>
+        <item>कान की बाली </item>
+        <item>कंगन</item>
+        <item>हार </item>
+        <item>बिंदी </item>
+        <item>चप्पल </item>
+        <item>मेरे कपड़े टाइट हैं</item>
+        <item>मेरे कपड़े ढीले हैं</item>
+        <item>कपड़े निकालने में मदद</item>
+        <item>कपड़े पैहनने में मदद</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActGetReadyAdapterTextHindi">
+        <item>कंघी करना</item>
+        <item>फेस वॉश</item>
+        <item>नाखून काटना</item>
+        <item>नाक साफ करना</item>
+        <item>साबुन</item>
+        <item>शैम्पू</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActSleepAdapterTextHindi">
+        <item>दरवाज़ा</item>
+        <item>पंखा</item>
+        <item>लाईट</item>
+        <item>खिड़की</item>
+        <item>बिस्तर</item>
+        <item>तकिया</item>
+        <item>कंबल</item>
+        <item>गर्मी</item>
+        <item>ठंडक</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActTherapyAdapterTextHindi">
+        <item>कसरत</item>
+        <item>झूला</item>
+        <item>ट्रेम्पोलिन</item>
+        <item>स्विस बॉल</item>
+        <item>कंबल</item>
+        <item>बॉल पिट</item>
+        <item>हातों की कसरत</item>
+        <item>पैरों की कसरत</item>
+        <item>बॉडी वेस्ट</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActMrngScheAdapterTextHindi">
+        <item>Wake up</item>
+        <item>Wash face</item>
+        <item>Go to bathroom</item>
+        <item>Brush teeth</item>
+        <item>Remove clothes</item>
+        <item>Have a bath</item>
+        <item>Get dressed</item>
+        <item>Comb hair</item>
+        <item>Eat breakfast</item>
+        <item>Pack lunchbox</item>
+        <item>Pack school bag</item>
+        <item>Go to school</item>
+        <item>Have a great day!</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActMrngBedTimScheAdapterTextHindi">
+        <item>Eat dinner</item>
+        <item>Wear night clothes</item>
+        <item>Brush teeth</item>
+        <item>Read story</item>
+        <item>Say goodnight</item>
+        <item>Say prayers</item>
+        <item>Sweet dreams!</item>
+    </string-array>
+
+    <!--LEVEL THREE "EATING" SPEECH TEXT ARE HERE-->
+    <string-array name="arrLevelThreeFoodDrinksBreakfastAdapterTextHindi">
+        <item>ब्रेड</item>
+        <item>कॉर्नफ़्लेक्स</item>
+        <item>आलू पूरी</item>
+        <item>अंडे</item>
+        <item>पोहा</item>
+        <item>उपमा</item>
+        <item>खिचड़ी</item>
+        <item>इड़ली </item>
+        <item>डोसा</item>
+        <item>पराठा</item>
+        <item>आमलेट</item>
+        <item>मेदु वड़ा</item>
+        <item>दलिया</item>
+        <item>सैंडविच</item>
+        <item>चटनी</item>
+        <item>सांबर</item>
+        <item>उत्तपा</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksLunchDinnerAdapterTextHindi">
+        <item>रोटी</item>
+        <item>सब्ज़ी</item>
+        <item>चावल</item>
+        <item>दाल</item>
+        <item>दालखिचड़ी</item>
+        <item>रायता</item>
+        <item>पराठा</item>
+        <item>दही</item>
+        <item>मछली</item>
+        <item>चिकन</item>
+        <item>पोर्क</item>
+        <item>मटन</item>
+        <item>केकड़े का मांस</item>
+        <item>टर्की</item>
+        <item>पिज्जा</item>
+        <item>सलाद </item>
+        <item>सूप </item>
+        <item>पास्ता </item>
+        <item>नूडल्स</item>
+        <item>इटालियन खाना</item>
+        <item>पाव भाजी</item>
+        <item>भाकरी</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksSweetsAdapterTextHindi">
+        <item>केक</item>
+        <item>आइसक्रीम</item>
+        <item>गाजर का हलवा</item>
+        <item>गुलाब जामुन</item>
+        <item>लड्डू</item>
+        <item>बर्फी</item>
+        <item>जलेबी</item>
+        <item>फलों का सलाद</item>
+        <item>रसगुल्ला</item>
+        <item>शीरा</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksSnacksAdapterTextHindi">
+        <item>बिस्कुट</item>
+        <item>चाट</item>
+        <item>चॉकलेट</item>
+        <item>वेफर्स</item>
+        <item>सैंडविच</item>
+        <item>नूडल्स</item>
+        <item>चीज़</item>
+        <item>नट्स</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksFruitsAdapterTextHindi">
+        <item>सेब</item>
+        <item>केला</item>
+        <item>अंगूर</item>
+        <item>अमरूद</item>
+        <item>आम</item>
+        <item>संतरा</item>
+        <item>अनानास</item>
+        <item>स्ट्रॉबेरी</item>
+        <item>बेर</item>
+        <item>अनार</item>
+        <item>तरबूज</item>
+        <item>पेर</item>
+        <item>पपीता</item>
+        <item>खरबूजा</item>
+        <item>चिकू</item>
+        <item>पनस</item>
+        <item>चेरी</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksDrinksAdapterTextHindi">
+        <item>पानी</item>
+        <item>दूध</item>
+        <item>बॉर्नविटा</item>
+        <item>आम का ज्यूस</item>
+        <item>सेब का ज्यूस</item>
+        <item>संतरे का ज्यूस</item>
+        <item>नींबू का ज्यूस</item>
+        <item>अनानास का ज्यूस</item>
+        <item>पेप्सी</item>
+        <item>कोका कोला</item>
+        <item>मिरिंडा</item>
+        <item>फैंटा</item>
+        <item>माझा</item>
+        <item>स्प्राइट </item>
+        <item>माउंटेन ड्यू</item>
+        <item>मिल्कशेक</item>
+        <item>चॉकलेट मिल्कशेक</item>
+        <item>स्ट्रॉबेरी मिल्कशेक </item>
+        <item>केला मिल्कशेक </item>
+        <item>आम मिल्कशेक </item>
+        <item>चिकू मिल्कशेक</item>
+        <item>चाय </item>
+        <item>कॉफी </item>
+        <item>कोल्ड कॉफी</item>
+        <item>एनर्जी ड्रिंक्स</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksCutleryAdapterTextHindi">
+        <item>कटोरा</item>
+        <item>प्लेट</item>
+        <item>चम्मच</item>
+        <item>काँटे का चम्मच</item>
+        <item>चाकू</item>
+        <item>मग</item>
+        <item>कप</item>
+        <item>ग्लास</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksAddonAdapterTextHindi">
+        <item>मक्खन</item>
+        <item>जाम</item>
+        <item>नमक</item>
+        <item>काली मिर्च</item>
+        <item>चीनी</item>
+        <item>सॉस</item>
+        <item>आचार</item>
+        <item>पापड़</item>
+        <item>मसाला</item>
+    </string-array>
+
+    <!--LEVEL THREE "FUN" ADAPTER TEXT ARE HERE-->
+    <string-array name="arrLevelThreeFunInDGamesAdapterTextHindi">
+        <item>पज़ल्स</item>
+        <item>बोर्ड खेल</item>
+        <item>ब्लॉक्स</item>
+        <item>लेगो</item>
+        <item>शतरंज</item>
+        <item>सांप और सीढ़ी</item>
+        <item>स्क्रैबल</item>
+        <item>विडियो गेम</item>
+        <item>गुड़ियाँ</item>
+        <item>एक्शन फिगर्स</item>
+        <item>सॉफ्ट टॉयज़</item>
+        <item>कार</item>
+        <item>ट्रक</item>
+        <item>आर्ट-क्राफ्ट</item>
+        <item>मेरे साथ खेलो</item>
+    </string-array>
+    <string-array name="arrLevelThreeFunOutDGamesAdapterTextHindi">
+        <item>खेल का मैदान</item>
+        <item>पार्क</item>
+        <item>झूला</item>
+        <item>स्लाईड </item>
+        <item>सी-सॉ</item>
+        <item>मेरी-गो-राउंड</item>
+        <item>लुकाछिपी</item>
+        <item>बल्ला और गेंद</item>
+        <item>स्टैचू</item>
+        <item>ताला और चाबी</item>
+        <item>पकड़ा-पकड़ी</item>
+        <item>पतंग</item>
+        <item>चोर-पुलिस</item>
+        <item>कंचे</item>
+        <item>चलना</item>
+        <item>साइकिल</item>
+        <item>दौड़ना</item>
+        <item>तैरना</item>
+    </string-array>
+    <string-array name="arrLevelThreeFunSportsAdapterTextHindi">
+        <item>क्रिकेट </item>
+        <item>बैडमिंटन</item>
+        <item>टेनिस </item>
+        <item>बास्केटबॉल</item>
+        <item>डॉजबॉल</item>
+        <item>वॉलीबॉल</item>
+        <item>खो-खो</item>
+        <item>फुटबॉल </item>
+        <item>कबड्डी</item>
+        <item>जिमनास्टिक</item>
+        <item>तैरना</item>
+    </string-array>
+    <string-array name="arrLevelThreeFunTvAdapterTextHindi">
+        <item>अगला चैनल</item>
+        <item>पिछला चैनल</item>
+        <item>उँची आवाज़</item>
+        <item>धीमी आवाज़</item>
+    </string-array>
+    <string-array name="arrLevelThreeFunMusicAdapterTextHindi">
+        <item>संगीत बदलना</item>
+        <item>नाचना</item>
+        <item>उँची आवाज़</item>
+        <item>धीमी आवाज़</item>
+    </string-array>
+    <string-array name="arrLevelThreeFunActivitiesAdapterTextHindi">
+        <item>चित्र बनाना</item>
+        <item>रंग भरना</item>
+        <item>पढ़ना</item>
+        <item>लिखना</item>
+        <item>आर्ट-क्राफ्ट</item>
+        <item>नाटक</item>
+        <item>नाचना</item>
+        <item>संगीत बजाना</item>
+    </string-array>
+
+    <!--LEVEL THREE "LEARNING" ADAPTER TEXT ARE HERE-->
+    <string-array name="arrLevelThreeLearningAnimBirdsAdapterTextHindi">
+        <item>कुत्ता</item>
+        <item>बिल्ली</item>
+        <item>हाथी</item>
+        <item>शेर </item>
+        <item>तोता </item>
+        <item>खरगोश </item>
+        <item>गाय</item>
+        <item>बत्तख</item>
+        <item>गधा </item>
+        <item>चींटी</item>
+        <item>बाघ</item>
+        <item>बंदर</item>
+        <item>कबूतर </item>
+        <item>तिलचट्टा</item>
+        <item>कौआ </item>
+        <item>घोड़ा </item>
+        <item>हिरण </item>
+        <item>उल्लू</item>
+        <item>भेड़िया </item>
+        <item>लोमड़ी</item>
+        <item>भालू </item>
+        <item>भेड़ </item>
+        <item>बकरी </item>
+        <item>सुअर </item>
+        <item>मक्खी</item>
+        <item>जिराफ़</item>
+        <item>ज़ेब्रा</item>
+        <item>मच्छर</item>
+        <item>भैंस</item>
+        <item>चूहा</item>
+        <item>साँप</item>
+        <item>मगरमच्छ </item>
+        <item>मधुमक्खी </item>
+        <item>दरियाई घोड़ा </item>
+        <item>गेंडा</item>
+        <item>मछली </item>
+        <item>पेंगविन </item>
+        <item>सील </item>
+        <item>डॉल्फिन </item>
+        <item>व्हेल </item>
+        <item>शार्क </item>
+        <item>कछुआ </item>
+        <item>चिडिया</item>
+        <item>गरुड़</item>
+        <item>हॉक</item>
+        <item>गिद्ध</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningBodyPartsAdapterTextHindi">
+        <item>सिर</item>
+        <item>बाल</item>
+        <item>आँखें</item>
+        <item>नाक</item>
+        <item>कान</item>
+        <item>मुँह</item>
+        <item>जीभ</item>
+        <item>गर्दन</item>
+        <item>कंधा</item>
+        <item>कोहनी</item>
+        <item>कलाई</item>
+        <item>हाथ</item>
+        <item>उंगलियाँ</item>
+        <item>पीठ</item>
+        <item>पेट</item>
+        <item>कूल्हे का जोड़</item>
+        <item>घुटना</item>
+        <item>घुटिका</item>
+        <item>पैर</item>
+        <item>पैर की उंगलियाँ</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningBooksAdapterTextHindi">
+        <item>सोने के समय की कहानीयाँ</item>
+        <item>हास्यमय किताबें</item>
+        <item>काव्यमय किताबें</item>
+        <item>चित्रकला की किताबें</item>
+        <item>कहानियों की किताबें</item>
+        <item>चित्रों की किताबें</item>
+        <item>जासूसी किताबें</item>
+        <item>साहसी किताबें</item>
+        <item>पाठशाला की नोटबुक</item>
+        <item>गणित किताब</item>
+        <item>विज्ञान किताब</item>
+        <item>इतिहास किताब</item>
+        <item>भूगोल किताब</item>
+        <item>सामाजिक अध्ययन किताब </item>
+        <item>अंग्रेजी किताब</item>
+        <item>हिंदी किताब</item>
+        <item>मराठी किताब</item>
+        <item>पाठ्यपुस्तकें</item>
+        <item>पसंदीदा किताब</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningColorsAdapterTextHindi">
+        <item>काला</item>
+        <item>नीला</item>
+        <item>भूरा</item>
+        <item>हरा</item>
+        <item>लाल</item>
+        <item>चाँदी</item>
+        <item>सफेद</item>
+        <item>पीला</item>
+        <item>सुनहरा</item>
+        <item>गुलाबी</item>
+        <item>नारंगी </item>
+        <item>जामुनी</item>
+        <item>ग्रे </item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningShapesAdapterTextHindi">
+        <item>सीधी रेखा </item>
+        <item>आड़ी रेखा</item>
+        <item>तिरछी रेखा</item>
+        <item>गोल</item>
+        <item>आयत</item>
+        <item>चौकोर</item>
+        <item>त्रिकोण</item>
+        <item>तारा</item>
+        <item>दिल</item>
+        <item>असमांतरभुज कोण</item>
+        <item>घनाकार</item>
+        <item>समचतुर्भुज कोण</item>
+        <item>षट्कोण</item>
+        <item>अंडाकार</item>
+        <item>ईंट</item>
+        <item>पंचकोण</item>
+        <item>मुक्ताकार</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningStationaryAdapterTextHindi">
+        <item>पेंसिल</item>
+        <item>पेन</item>
+        <item>स्केल</item>
+        <item>रबर</item>
+        <item>शार्पनर</item>
+        <item>क्रेयान</item>
+        <item>कोरा कागज</item>
+        <item>रंगीन कागज</item>
+        <item>कैंची</item>
+        <item>सीसा</item>
+        <item>कम्पास</item>
+        <item>विभाजक</item>
+        <item>स्टेप्लर</item>
+        <item>यू-पिन</item>
+        <item>सेलो टेप</item>
+        <item>कम्पास बॉक्स</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningSchoolObjAdapterTextHindi">
+        <item>बैग</item>
+        <item>खाने का डिब्बा</item>
+        <item>पानी की बोतल</item>
+        <item>कम्पास बॉक्स</item>
+        <item>गृहपाठ</item>
+        <item>कापी</item>
+        <item>पाठ्यपुस्तकें</item>
+        <item>यूनिफार्म</item>
+        <item>जूते </item>
+        <item>मोज़े </item>
+        <item>पेंसिल</item>
+        <item>पेन</item>
+        <item>स्केल</item>
+        <item>रबर</item>
+        <item>शार्पनर</item>
+        <item>चॉक</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningHomeObjAdapterTextHindi">
+        <item>खिड़की</item>
+        <item>दरवाज़ा</item>
+        <item>पंखा</item>
+        <item>लैंप</item>
+        <item>डेस्क</item>
+        <item>अलमारी</item>
+        <item>टेबल</item>
+        <item>कुर्सी</item>
+        <item>शौचालय</item>
+        <item>रसोईघर</item>
+        <item>हॉल</item>
+        <item>बेडरूम</item>
+        <item>खेलने का कमरा</item>
+        <item>बाथरूम</item>
+        <item>बालकनी</item>
+        <item>पढ़ाई का कमरा</item>
+        <item>बिस्तर</item>
+        <item>टीवी</item>
+        <item>संगणक</item>
+        <item>सोफ़ा</item>
+        <item>फ्रिज़</item>
+        <item>माइक्रोवेव</item>
+        <item>वॉशिंग मशीन</item>
+        <item>वैक्यूम क्लीनर</item>
+        <item>घड़ी</item>
+        <item>ट्यूब लाइट</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningTransportAdapterTextHindi">
+        <item>बस</item>
+        <item>स्कूल  बस</item>
+        <item>कार</item>
+        <item>साइकिल</item>
+        <item>रेलगाड़ी</item>
+        <item>रिक्शा</item>
+        <item>मोटर साइकिल </item>
+        <item>हवाई जहाज़</item>
+        <item>जहाज़</item>
+    </string-array>
+
+    <!--LEVEL THREE "TIME WEATHER" ADAPTER TEXT ARE HERE-->
+    <string-array name="arrLevelThreeTimeWeaTimeAdapterTextHindi">
+        <item>समय क्या हुआ हैं?</item>
+        <item>आज़</item>
+        <item>कल</item>
+        <item>कल</item>
+        <item>सुबह</item>
+        <item>दोपहर</item>
+        <item>शाम</item>
+        <item>रात</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaDayAdapterTextHindi">
+        <item>आज कौनसा दिन है?</item>
+        <item>सोमवार</item>
+        <item>मंगलवार</item>
+        <item>बुधवार</item>
+        <item>गुरूवार</item>
+        <item>शुक्रवार</item>
+        <item>शनिवार</item>
+        <item>रविवार</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaMonthAdapterTextHindi">
+        <item>वर्तमान महीना कौनसा हैं ?</item>
+        <item>जनवरी</item>
+        <item>फरवरी</item>
+        <item>मार्च</item>
+        <item>अप्रैल</item>
+        <item>मई</item>
+        <item>जून</item>
+        <item>जुलाई</item>
+        <item>अगस्त</item>
+        <item>सितंबर </item>
+        <item>अक्टूबर</item>
+        <item>नवंबर</item>
+        <item>दिसंबर</item>
+        <item>यह महीना</item>
+        <item>पिछला महीना</item>
+        <item>अगला महीना</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaWeatherAdapterTextHindi">
+        <item>आज का मौसम क्या हैं?</item>
+        <item>गरम</item>
+        <item>बरसात</item>
+        <item>धुंधला</item>
+        <item>तूफ़ानी</item>
+        <item>घना</item>
+        <item>बर्फीला</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaSeasonsAdapterTextHindi">
+        <item>वर्तमान ऋतु कौनसा हैं?</item>
+        <item>वसंत ऋतु</item>
+        <item>ग्रीष्म ऋतु</item>
+        <item>वर्षा ऋतु</item>
+        <item>शरद ऋतु</item>
+        <item>शीत ऋतु</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaHoliFestAdapterTextHindi">
+        <item>दिवाली</item>
+        <item>गणेश चतुर्थी</item>
+        <item>क्रिसमस </item>
+        <item>दशहरा</item>
+        <item>मकर संक्रांति</item>
+        <item>होली</item>
+        <item>ईद</item>
+        <item>गुड फ्राइडे</item>
+        <item>गुड़ी पाड़वा</item>
+        <item>गणतंत्र दिवस</item>
+        <item>स्वतंत्रता दिवस</item>
+        <item>नया साल</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaBirthdaysAdapterTextHindi">
+        <item>मेरा जन्मदिन</item>
+        <item>माँ का जन्मदिन</item>
+        <item>पिताजी का जन्मदिन</item>
+        <item>भाई का जन्मदिन</item>
+        <item>बहन का जन्मदिन</item>
+        <item>बड़े पापा का जन्मदिन</item>
+        <item>बड़ी मम्मी का जन्मदिन</item>
+        <item>दादाज़ी का जन्मदिन</item>
+        <item>दादी माँ का जन्मदिन</item>
+        <item>नानाज़ी का जन्मदिन</item>
+        <item>नानी माँ का जन्मदिन</item>
+        <item>चाचा का जन्मदिन</item>
+        <item>चाची का जन्मदिन</item>
+        <item>मामा का जन्मदिन</item>
+        <item>मामी का जन्मदिन</item>
+        <item>बुआ का जन्मदिन</item>
+        <item>फ़ुफ़ा का जन्मदिन</item>
+        <item>मौसी का जन्मदिन</item>
+        <item>मौसा का जन्मदिन</item>
+        <item>मित्र का जन्मदिन</item>
+        <item>शिक्षक का जन्मदिन</item>
+    </string-array>
+
+    <!--LEVEL THREE ADAPTER DRAWABLE ARE HERE-->
+    <!--LEVEL THREE "GREET AND FEEL" ADAPTER TEXT ARE HERE-->
+    <array name="arrLevelThreeGreetFeelGreetingIconAdapterHindi">
+        <item>@drawable/thankyou</item>
+        <item>@drawable/thankyou</item>
+        <item>@drawable/bye</item>
+        <item>@drawable/goodmorning</item>
+        <item>@drawable/goodafternoon</item>
+        <item>@drawable/goodevening</item>
+        <item>@drawable/goodnight</item>
+        <item>@drawable/highfive</item>
+        <item>@drawable/nicetomeetyou</item>
+        <item>@drawable/howareyou</item>
+        <item>@drawable/howwasyourday</item>
+        <item>@drawable/howareyou</item>
+    </array>
+    <array name="arrLevelThreeGreetFeelFeelingIconAdapterHindi">
+        <item>@drawable/happy</item>
+        <item>@drawable/sad</item>
+        <item>@drawable/angry</item>
+        <item>@drawable/scared</item>
+        <item>@drawable/surprised</item>
+        <item>@drawable/irritated</item>
+        <item>@drawable/confused</item>
+        <item>@drawable/ashamed</item>
+        <item>@drawable/disappointed</item>
+        <item>@drawable/bored</item>
+        <item>@drawable/worried</item>
+        <item>@drawable/stressed</item>
+        <item>@drawable/tired</item>
+        <item>@drawable/hot</item>
+        <item>@drawable/cold</item>
+        <item>@drawable/sick</item>
+        <item>@drawable/hurt</item>
+    </array>
+    <array name="arrLevelThreeGreetFeelRequestsIconAdapterHindi">
+        <item>@drawable/please</item>
+        <item>@drawable/thankyou</item>
+        <item>@drawable/welcome</item>
+        <item>@drawable/pleasegiveme</item>
+        <item>@drawable/pleasetellmeagain</item>
+        <item>@drawable/pleaseshowme</item>
+        <item>@drawable/ineedabreak</item>
+        <item>@drawable/iamalldone</item>
+        <item>@drawable/excuseme</item>
+        <item>@drawable/iamsorry</item>
+        <item>@drawable/idontunderstand</item>
+        <item>@drawable/pleaseshare</item>
+        <item>@drawable/pleaseslowdown</item>
+        <item>@drawable/ineedhelp</item>
+        <item>@drawable/comehere</item>
+        <item>@drawable/takeme</item>
+    </array>
+    <array name="arrLevelThreeGreetFeelQuestionsIconAdapterHindi">
+        <item>@drawable/how</item>
+        <item>@drawable/when</item>
+        <item>@drawable/where</item>
+        <item>@drawable/why</item>
+        <item>@drawable/what</item>
+        <item>@drawable/who</item>
+        <item>@drawable/howmuch</item>
+        <item>@drawable/howmany</item>
+        <item>@drawable/howlong</item>
+    </array>
+
+    <!--LEVEL THREE "DAILY ACTIVITIES" ADAPTER TEXT ARE HERE-->
+    <array name="arrLevelThreeDailyActBrushingIconAdapterHindi">
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+    </array>
+    <array name="arrLevelThreeDailyActToiletIconAdapterHindi">
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+    </array>
+    <array name="arrLevelThreeDailyActBathingIconAdapterHindi">
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/gradient</item>
+    </array>
+    <array name="arrLevelThreeDailyActClothesIconAdapterHindi">
+        <item>@drawable/tshirt_clothing</item>
+        <item>@drawable/dress_clothing</item>
+        <item>@drawable/skirt_clothing</item>
+        <item>@drawable/jeans_clothing</item>
+        <item>@drawable/pants_clothing</item>
+        <item>@drawable/leggings</item>
+        <item>@drawable/slacks_clothing</item>
+        <item>@drawable/shorts</item>
+        <item>@drawable/underwear_clothing</item>
+        <item>@drawable/slippers_clothing</item>
+        <item>@drawable/shoes_clothing</item>
+        <item>@drawable/socks_school</item>
+        <item>@drawable/nightwear_clothing</item>
+        <item>@drawable/shirt</item>
+        <item>@drawable/tshirt_clothing</item>
+        <item>@drawable/dress_clothing</item>
+        <item>@drawable/pants_clothing</item>
+        <item>@drawable/slacks_clothing</item>
+        <item>@drawable/leggings</item>
+        <item>@drawable/shorts</item>
+        <item>@drawable/salwarkhamez_clothing</item>
+        <item>@drawable/sweater_clothing</item>
+        <item>@drawable/jcket_clothing</item>
+        <item>@drawable/scarf_clothing</item>
+        <item>@drawable/cap_clothing</item>
+        <item>@drawable/belt_clothing</item>
+        <item>@drawable/raincoat_clothing</item>
+        <item>@drawable/spectacles_clothing</item>
+        <item>@drawable/watch_clothing</item>
+        <item>@drawable/earings_clothing</item>
+        <item>@drawable/bracelet_clothing</item>
+        <item>@drawable/necklace_clothing</item>
+        <item>@drawable/bindi</item>
+        <item>@drawable/slippers_clothing</item>
+        <item>@drawable/myclothesaretight</item>
+        <item>@drawable/myclothesareloose</item>
+        <item>@drawable/ineedhelpremovingclothes</item>
+        <item>@drawable/ineedhelpputtingclotheson</item>
+    </array>
+    <array name="arrLevelThreeDailyActGetReadyIconAdapterHindi">
+        <item>@drawable/combhair</item>
+        <item>@drawable/facewash</item>
+        <item>@drawable/cuttingnails</item>
+        <item>@drawable/blowingnose</item>
+        <item>@drawable/soap</item>
+        <item>@drawable/shampoo</item>
+    </array>
+    <array name="arrLevelThreeDailyActSleepIconAdapterHindi">
+        <item>@drawable/door_homeobjects</item>
+        <item>@drawable/fan</item>
+        <item>@drawable/light</item>
+        <item>@drawable/window</item>
+        <item>@drawable/bed</item>
+        <item>@drawable/pilllow</item>
+        <item>@drawable/blanket</item>
+        <item>@drawable/feelinghot</item>
+        <item>@drawable/feelingcold</item>
+    </array>
+    <array name="arrLevelThreeDailyActTherapyIconAdapterHindi">
+        <item>@drawable/exercise</item>
+        <item>@drawable/swing</item>
+        <item>@drawable/trampoline</item>
+        <item>@drawable/swissball</item>
+        <item>@drawable/blanket</item>
+        <item>@drawable/ballpit</item>
+        <item>@drawable/handmovements</item>
+        <item>@drawable/legexercises</item>
+        <item>@drawable/bodyvest</item>
+    </array>
+    <array name="arrLevelThreeDailyActMorningScheIconAdapterHindi">
+        <item>@drawable/wakeup</item>
+        <item>@drawable/washface</item>
+        <item>@drawable/gototoilet</item>
+        <item>@drawable/brushteeth</item>
+        <item>@drawable/removeclothes</item>
+        <item>@drawable/haveabath</item>
+        <item>@drawable/getdressed</item>
+        <item>@drawable/combhair</item>
+        <item>@drawable/eatbreakfast</item>
+        <item>@drawable/packlunch</item>
+        <item>@drawable/packbagpack</item>
+        <item>@drawable/gradient</item>
+        <item>@drawable/haveagreatday</item>
+    </array>
+    <array name="arrLevelThreeDailyActBedTimeScheIconAdapterHindi">
+        <item>@drawable/eatdinner</item>
+        <item>@drawable/wearnightsuit</item>
+        <item>@drawable/brushteeth</item>
+        <item>@drawable/readstory</item>
+        <item>@drawable/saygoodnight</item>
+        <item>@drawable/sayprayres</item>
+        <item>@drawable/sweetdreams</item>
+    </array>
+
+    <!--LEVEL THREE "EATING" ADAPTER TEXT ARE HERE-->
+    <array name="arrLevelThreeFoodDrinksBreakfastIconAdapterHindi">
+        <item>@drawable/bread</item>
+        <item>@drawable/cornflakes</item>
+        <item>@drawable/aloopuri</item>
+        <item>@drawable/eggs</item>
+        <item>@drawable/poha</item>
+        <item>@drawable/upma</item>
+        <item>@drawable/khichdi</item>
+        <item>@drawable/idli</item>
+        <item>@drawable/dosa</item>
+        <item>@drawable/paratha</item>
+        <item>@drawable/omelette</item>
+        <item>@drawable/meduvada</item>
+        <item>@drawable/porriage</item>
+        <item>@drawable/sandwich</item>
+        <item>@drawable/chutney</item>
+        <item>@drawable/sambar</item>
+        <item>@drawable/uttapam</item>
+    </array>
+    <array name="arrLevelThreeFoodDrinksLunchDinIconAdapterHindi">
+        <item>@drawable/roti</item>
+        <item>@drawable/sabzi</item>
+        <item>@drawable/rice</item>
+        <item>@drawable/dal</item>
+        <item>@drawable/dalkhichdi</item>
+        <item>@drawable/raita</item>
+        <item>@drawable/paratha</item>
+        <item>@drawable/curd</item>
+        <item>@drawable/fish</item>
+        <item>@drawable/chicken</item>
+        <item>@drawable/pork</item>
+        <item>@drawable/mutton</item>
+        <item>@drawable/crab</item>
+        <item>@drawable/turkey</item>
+        <item>@drawable/pizza</item>
+        <item>@drawable/salad</item>
+        <item>@drawable/soup</item>
+        <item>@drawable/pasta</item>
+        <item>@drawable/noodles</item>
+        <item>@drawable/italian</item>
+        <item>@drawable/pavbhaji</item>
+        <item>@drawable/bhakri</item>
+    </array>
+    <array name="arrLevelThreeFoodDrinksSweetsIconAdapterHindi">
+        <item>@drawable/cake</item>
+        <item>@drawable/icecream</item>
+        <item>@drawable/gajarhalwa</item>
+        <item>@drawable/gulabjamun</item>
+        <item>@drawable/ladoo</item>
+        <item>@drawable/barfi</item>
+        <item>@drawable/jalebi</item>
+        <item>@drawable/fruitsalad</item>
+        <item>@drawable/rasgulla</item>
+        <item>@drawable/sheera</item>
+    </array>
+    <array name="arrLevelThreeFoodDrinksSnacksIconAdapterHindi">
+        <item>@drawable/biscuits</item>
+        <item>@drawable/chaat</item>
+        <item>@drawable/chocolate</item>
+        <item>@drawable/chips</item>
+        <item>@drawable/sandwich</item>
+        <item>@drawable/noodles</item>
+        <item>@drawable/cheese</item>
+        <item>@drawable/peanuts</item>
+    </array>
+    <array name="arrLevelThreeFoodDrinksFruitsIconAdapterHindi">
+        <item>@drawable/apple</item>
+        <item>@drawable/banana</item>
+        <item>@drawable/grapes</item>
+        <item>@drawable/guaua</item>
+        <item>@drawable/mango</item>
+        <item>@drawable/orange</item>
+        <item>@drawable/pineapple</item>
+        <item>@drawable/strawberry</item>
+        <item>@drawable/blueberry</item>
+        <item>@drawable/pomogranate</item>
+        <item>@drawable/watermelon</item>
+        <item>@drawable/pear</item>
+        <item>@drawable/papaya</item>
+        <item>@drawable/muskmelon</item>
+        <item>@drawable/chikoo</item>
+        <item>@drawable/jackfruit</item>
+        <item>@drawable/cherry</item>
+    </array>
+    <array name="arrLevelThreeFoodDrinksDrinksIconAdapterHindi">
+        <item>@drawable/water</item>
+        <item>@drawable/milk</item>
+        <item>@drawable/bournvita</item>
+        <item>@drawable/mangojuice</item>
+        <item>@drawable/applejuice</item>
+        <item>@drawable/orangejuice</item>
+        <item>@drawable/lemonjuice</item>
+        <item>@drawable/pineapplejuice</item>
+        <item>@drawable/pepsi</item>
+        <item>@drawable/cocacola</item>
+        <item>@drawable/mirinda</item>
+        <item>@drawable/fanta</item>
+        <item>@drawable/mazzaa</item>
+        <item>@drawable/sprite</item>
+        <item>@drawable/mountaindew</item>
+        <item>@drawable/milkshakes</item>
+        <item>@drawable/chocolatemilkshake</item>
+        <item>@drawable/strawberrymilkshake</item>
+        <item>@drawable/bananamilkshake</item>
+        <item>@drawable/mangomilkshake</item>
+        <item>@drawable/chikoomilkshake</item>
+        <item>@drawable/tea</item>
+        <item>@drawable/coffee</item>
+        <item>@drawable/coldcoffee</item>
+        <item>@drawable/energydrink</item>
+    </array>
+    <array name="arrLevelThreeFoodDrinksCutleryIconAdapterHindi">
+        <item>@drawable/bowl_cutlery</item>
+        <item>@drawable/plate_cutlery</item>
+        <item>@drawable/spoon_cutlery</item>
+        <item>@drawable/fork_cutlery</item>
+        <item>@drawable/knife_cutlery</item>
+        <item>@drawable/mug_cutlery</item>
+        <item>@drawable/cup_cutlery</item>
+        <item>@drawable/glass_cutlery</item>
+    </array>
+    <array name="arrLevelThreeFoodDrinksAddonsIconAdapterHindi">
+        <item>@drawable/butter_addons</item>
+        <item>@drawable/jam_addons</item>
+        <item>@drawable/salt_addons</item>
+        <item>@drawable/pepper_addons</item>
+        <item>@drawable/sugar_addons</item>
+        <item>@drawable/ketchup_addons</item>
+        <item>@drawable/pickle</item>
+        <item>@drawable/papad_addons</item>
+        <item>@drawable/masala_addons</item>
+    </array>
+
+    <!--LEVEL THREE "FUN" ADAPTER TEXT ARE HERE-->
+    <array name="arrLevelThreeFunInDGamesIconAdapterHindi">
+        <item>@drawable/puzzles</item>
+        <item>@drawable/boradgames</item>
+        <item>@drawable/blocks</item>
+        <item>@drawable/lego</item>
+        <item>@drawable/chess</item>
+        <item>@drawable/snakesandladders</item>
+        <item>@drawable/scrabble</item>
+        <item>@drawable/videogames</item>
+        <item>@drawable/doll</item>
+        <item>@drawable/actionfigure</item>
+        <item>@drawable/teddy</item>
+        <item>@drawable/cars</item>
+        <item>@drawable/truck</item>
+        <item>@drawable/artandcraft_activities</item>
+        <item>@drawable/playwithme</item>
+    </array>
+    <array name="arrLevelThreeFunOutDGamesIconAdapterHindi">
+        <item>@drawable/level2_places_playground</item>
+        <item>@drawable/level2_places_park</item>
+        <item>@drawable/swing</item>
+        <item>@drawable/slide</item>
+        <item>@drawable/seesaw</item>
+        <item>@drawable/merrygoround</item>
+        <item>@drawable/hideandseek</item>
+        <item>@drawable/batandball</item>
+        <item>@drawable/statue</item>
+        <item>@drawable/lockandkey</item>
+        <item>@drawable/catchcatch</item>
+        <item>@drawable/kite</item>
+        <item>@drawable/choorpolice</item>
+        <item>@drawable/marbles</item>
+        <item>@drawable/walking</item>
+        <item>@drawable/cycle_transport</item>
+        <item>@drawable/running</item>
+        <item>@drawable/swimming</item>
+    </array>
+    <array name="arrLevelThreeFunSportsIconAdapterHindi">
+        <item>@drawable/cricket_activities</item>
+        <item>@drawable/badminton_activities</item>
+        <item>@drawable/tennis_activities</item>
+        <item>@drawable/basketball_activities</item>
+        <item>@drawable/dodgeball_activities</item>
+        <item>@drawable/vollyball_activities</item>
+        <item>@drawable/khokho</item>
+        <item>@drawable/football_activities</item>
+        <item>@drawable/kabaddi</item>
+        <item>@drawable/gymnastics</item>
+        <item>@drawable/swimming</item>
+    </array>
+    <array name="arrLevelThreeFunTvIconAdapterHindi">
+        <item>@drawable/nextchannel</item>
+        <item>@drawable/previouschannel</item>
+        <item>@drawable/volumeup</item>
+        <item>@drawable/volumedown</item>
+    </array>
+    <array name="arrLevelThreeFunMusicIconAdapterHindi">
+        <item>@drawable/changemusic</item>
+        <item>@drawable/dancing</item>
+        <item>@drawable/volumeup</item>
+        <item>@drawable/volumedown</item>
+    </array>
+    <array name="arrLevelThreeFunActivitiesIconAdapterHindi">
+        <item>@drawable/draw_activities</item>
+        <item>@drawable/painting_activities</item>
+        <item>@drawable/read_activities</item>
+        <item>@drawable/write_activities</item>
+        <item>@drawable/artandcraft_activities</item>
+        <item>@drawable/drama_activities</item>
+        <item>@drawable/dancing</item>
+        <item>@drawable/musicalinstrument_activities</item>
+    </array>
+
+    <!--LEVEL THREE "LEARNING" ADAPTER TEXT ARE HERE-->
+    <array name="arrLevelThreeLearningAnimBirdsIconAdapterHindi">
+        <item>@drawable/dog_animals</item>
+        <item>@drawable/cat_animals</item>
+        <item>@drawable/elephant_animals</item>
+        <item>@drawable/lion_animals</item>
+        <item>@drawable/parrot</item>
+        <item>@drawable/rabbit_animals</item>
+        <item>@drawable/cow_animals</item>
+        <item>@drawable/duck_animals</item>
+        <item>@drawable/donkey</item>
+        <item>@drawable/ant</item>
+        <item>@drawable/tiger</item>
+        <item>@drawable/monkey</item>
+        <item>@drawable/pigeon</item>
+        <item>@drawable/cockroach</item>
+        <item>@drawable/crow</item>
+        <item>@drawable/horse</item>
+        <item>@drawable/deer</item>
+        <item>@drawable/owl</item>
+        <item>@drawable/wolf</item>
+        <item>@drawable/fox</item>
+        <item>@drawable/bear</item>
+        <item>@drawable/sheep</item>
+        <item>@drawable/goat</item>
+        <item>@drawable/pig</item>
+        <item>@drawable/fly</item>
+        <item>@drawable/giraffee</item>
+        <item>@drawable/zebra</item>
+        <item>@drawable/mosquito</item>
+        <item>@drawable/buffallo</item>
+        <item>@drawable/mouse</item>
+        <item>@drawable/snake</item>
+        <item>@drawable/crocodile</item>
+        <item>@drawable/honeybee</item>
+        <item>@drawable/hippo</item>
+        <item>@drawable/rhino</item>
+        <item>@drawable/fish</item>
+        <item>@drawable/penguin</item>
+        <item>@drawable/seal</item>
+        <item>@drawable/dolphin</item>
+        <item>@drawable/whale</item>
+        <item>@drawable/shark</item>
+        <item>@drawable/tortoise</item>
+        <item>@drawable/sparrow</item>
+        <item>@drawable/eagle</item>
+        <item>@drawable/hawk</item>
+        <item>@drawable/vulture</item>
+    </array>
+    <array name="arrLevelThreeLearningBodyPartsIconAdapterHindi">
+        <item>@drawable/head</item>
+        <item>@drawable/hair_bodyparts</item>
+        <item>@drawable/eye_bodyparts</item>
+        <item>@drawable/nose_bodyparts</item>
+        <item>@drawable/ear_bodyparts</item>
+        <item>@drawable/mouth_bodyparts</item>
+        <item>@drawable/tongue</item>
+        <item>@drawable/neck</item>
+        <item>@drawable/shoulder</item>
+        <item>@drawable/elbow</item>
+        <item>@drawable/wrist</item>
+        <item>@drawable/hand_bodyparts</item>
+        <item>@drawable/fingers</item>
+        <item>@drawable/back</item>
+        <item>@drawable/stomach_bodyparts</item>
+        <item>@drawable/hips</item>
+        <item>@drawable/knee_bodyparts</item>
+        <item>@drawable/ankle</item>
+        <item>@drawable/legs</item>
+        <item>@drawable/toes</item>
+    </array>
+    <array name="arrLevelThreeLearningBooksIconAdapterHindi">
+        <item>@drawable/bedtimebook</item>
+        <item>@drawable/comics_books</item>
+        <item>@drawable/rhymebook</item>
+        <item>@drawable/drawingbook_books</item>
+        <item>@drawable/storybook</item>
+        <item>@drawable/picturebook</item>
+        <item>@drawable/mysterybook</item>
+        <item>@drawable/adventurebook</item>
+        <item>@drawable/notebook_books</item>
+        <item>@drawable/maths</item>
+        <item>@drawable/science_books</item>
+        <item>@drawable/history</item>
+        <item>@drawable/geography_books</item>
+        <item>@drawable/socialscience</item>
+        <item>@drawable/english</item>
+        <item>@drawable/hindi_books</item>
+        <item>@drawable/marathi_books</item>
+        <item>@drawable/wordbook</item>
+        <item>@drawable/favouritebook</item>
+    </array>
+    <array name="arrLevelThreeLearningColorsIconAdapterHindi">
+        <item>@drawable/black_colour</item>
+        <item>@drawable/blue_colour</item>
+        <item>@drawable/brown_colour</item>
+        <item>@drawable/greem_colour</item>
+        <item>@drawable/redcolour</item>
+        <item>@drawable/silvercolour</item>
+        <item>@drawable/white_colour</item>
+        <item>@drawable/yellow_colour</item>
+        <item>@drawable/golden_colour</item>
+        <item>@drawable/pink_colour</item>
+        <item>@drawable/orange_colour</item>
+        <item>@drawable/purple_colour</item>
+        <item>@drawable/grey_colour</item>
+    </array>
+    <array name="arrLevelThreeLearningShapesIconAdapterHindi">
+        <item>@drawable/standingline_shapes</item>
+        <item>@drawable/sleepingline_shapes</item>
+        <item>@drawable/slantingline_shapes</item>
+        <item>@drawable/circle_shapes</item>
+        <item>@drawable/rectangle_shapes</item>
+        <item>@drawable/square_shapes</item>
+        <item>@drawable/triangle_shapes</item>
+        <item>@drawable/star_shapes</item>
+        <item>@drawable/heart_shape</item>
+        <item>@drawable/trapezium_shapes</item>
+        <item>@drawable/cube_shapes</item>
+        <item>@drawable/rhombus_shapes</item>
+        <item>@drawable/hexagon_shapes</item>
+        <item>@drawable/oval_shapes</item>
+        <item>@drawable/diamond_shapes</item>
+        <item>@drawable/pentagon_shapes</item>
+        <item>@drawable/freeform_shapes</item>
+    </array>
+    <array name="arrLevelThreeLearningStationaryIconAdapterHindi">
+        <item>@drawable/pencil_stationary</item>
+        <item>@drawable/pen_stationary</item>
+        <item>@drawable/ruler_stationary</item>
+        <item>@drawable/eraser_stationary</item>
+        <item>@drawable/sharpner_stationary</item>
+        <item>@drawable/crayon_stationary</item>
+        <item>@drawable/blankpaper_stationary</item>
+        <item>@drawable/colouredpaper_stationary</item>
+        <item>@drawable/sissors</item>
+        <item>@drawable/pencillead</item>
+        <item>@drawable/compass</item>
+        <item>@drawable/divider</item>
+        <item>@drawable/stapler</item>
+        <item>@drawable/upin</item>
+        <item>@drawable/cellotape</item>
+        <item>@drawable/pencilbox</item>
+    </array>
+    <array name="arrLevelThreeLearningSchoolIconAdapterHindi">
+        <item>@drawable/bag_school</item>
+        <item>@drawable/lunchbox</item>
+        <item>@drawable/waterbottle_school</item>
+        <item>@drawable/pencilbox</item>
+        <item>@drawable/homework_school</item>
+        <item>@drawable/notebook_books</item>
+        <item>@drawable/textbooks_school</item>
+        <item>@drawable/uniform_school</item>
+        <item>@drawable/shoes_school</item>
+        <item>@drawable/socks_school</item>
+        <item>@drawable/pencil_stationary</item>
+        <item>@drawable/pen_stationary</item>
+        <item>@drawable/ruler_stationary</item>
+        <item>@drawable/eraser_stationary</item>
+        <item>@drawable/sharpner_stationary</item>
+        <item>@drawable/chalk</item>
+    </array>
+    <array name="arrLevelThreeLearningHomeIconAdapterHindi">
+        <item>@drawable/window</item>
+        <item>@drawable/door_homeobjects</item>
+        <item>@drawable/fan</item>
+        <item>@drawable/lamp_homeobjects</item>
+        <item>@drawable/desk_homeobjects</item>
+        <item>@drawable/cupboard</item>
+        <item>@drawable/table</item>
+        <item>@drawable/chair_homeobjects</item>
+        <item>@drawable/toilet</item>
+        <item>@drawable/kitchen</item>
+        <item>@drawable/livingroom</item>
+        <item>@drawable/bedroom</item>
+        <item>@drawable/playroom</item>
+        <item>@drawable/bathroom</item>
+        <item>@drawable/balcony</item>
+        <item>@drawable/studyroom</item>
+        <item>@drawable/bed</item>
+        <item>@drawable/level2_fun_tv</item>
+        <item>@drawable/computer</item>
+        <item>@drawable/sofa</item>
+        <item>@drawable/fridge</item>
+        <item>@drawable/microwave</item>
+        <item>@drawable/washingmachie</item>
+        <item>@drawable/vaccumcleaner</item>
+        <item>@drawable/clock_homeobjects</item>
+        <item>@drawable/tubelight</item>
+    </array>
+    <array name="arrLevelThreeLearningTransportationIconAdapterHindi">
+        <item>@drawable/bus_transport</item>
+        <item>@drawable/schoolbus_transport</item>
+        <item>@drawable/car_transport</item>
+        <item>@drawable/cycle_transport</item>
+        <item>@drawable/train_transport</item>
+        <item>@drawable/rickshaw_transport</item>
+        <item>@drawable/motorbike_transport</item>
+        <item>@drawable/plane_transport</item>
+        <item>@drawable/shop_transport</item>
+    </array>
+
+    <!--LEVEL THREE "TIME AND WEATHER" ADAPTER TEXT ARE HERE-->
+    <array name="arrLevelThreeTimeWeaTimeIconAdapterHindi">
+        <item>@drawable/currenttime</item>
+        <item>@drawable/today</item>
+        <item>@drawable/yesterday</item>
+        <item>@drawable/tomorrow</item>
+        <item>@drawable/morning</item>
+        <item>@drawable/afternoon</item>
+        <item>@drawable/goodevening</item>
+        <item>@drawable/night</item>
+    </array>
+    <array name="arrLevelThreeTimeWeaDayIconAdapterHindi">
+        <item>@drawable/currentday</item>
+        <item>@drawable/somvaar</item>
+        <item>@drawable/tuesday</item>
+        <item>@drawable/budhvaar</item>
+        <item>@drawable/guruvaar</item>
+        <item>@drawable/sukravaar</item>
+        <item>@drawable/shanivaar</item>
+        <item>@drawable/ravivaar</item>
+    </array>
+    <array name="arrLevelThreeTimeWeaMonthIconAdapterHindi">
+        <item>@drawable/whatisthemonth</item>
+        <item>@drawable/januaryhindi</item>
+        <item>@drawable/februaryhjindi</item>
+        <item>@drawable/marchhindi</item>
+        <item>@drawable/aprilhindi</item>
+        <item>@drawable/mayhindi</item>
+        <item>@drawable/junehindi</item>
+        <item>@drawable/julyhindi</item>
+        <item>@drawable/augusthindi</item>
+        <item>@drawable/septemberhindi</item>
+        <item>@drawable/octoberhindi</item>
+        <item>@drawable/novemberhindi</item>
+        <item>@drawable/decemberhindi</item>
+        <item>@drawable/currentmonthhindi</item>
+        <item>@drawable/previousmonthhindi</item>
+        <item>@drawable/nextmonthhindi</item>
+    </array>
+    <array name="arrLevelThreeTimeWeaWeatherIconAdapterHindi">
+        <item>@drawable/todaysweather</item>
+        <item>@drawable/afternoon</item>
+        <item>@drawable/rainy</item>
+        <item>@drawable/cloudy</item>
+        <item>@drawable/windy</item>
+        <item>@drawable/foggy</item>
+        <item>@drawable/snowy</item>
+    </array>
+    <array name="arrLevelThreeTimeWeaSeasonsIconAdapterHindi">
+        <item>@drawable/currentseason</item>
+        <item>@drawable/spring</item>
+        <item>@drawable/afternoon</item>
+        <item>@drawable/rainy</item>
+        <item>@drawable/autumn</item>
+        <item>@drawable/winter</item>
+    </array>
+    <array name="arrLevelThreeTimeWeaHoliFestIconAdapterHindi">
+        <item>@drawable/diwali</item>
+        <item>@drawable/ganeshchaturthi</item>
+        <item>@drawable/christmas</item>
+        <item>@drawable/duserra</item>
+        <item>@drawable/mararsankranti</item>
+        <item>@drawable/holi</item>
+        <item>@drawable/eid</item>
+        <item>@drawable/goodfriday</item>
+        <item>@drawable/gudipadwa</item>
+        <item>@drawable/republicday</item>
+        <item>@drawable/independance</item>
+        <item>@drawable/newyear</item>
+    </array>
+    <array name="arrLevelThreeTimeWeaBirthdaysIconAdapterHindi">
+        <item>@drawable/mybirthday</item>
+        <item>@drawable/momsbirthday</item>
+        <item>@drawable/dadsbirthday</item>
+        <item>@drawable/brothersbirthday</item>
+        <item>@drawable/sistersbirthday</item>
+        <item>@drawable/badepapa</item>
+        <item>@drawable/badimummy</item>
+        <item>@drawable/grandfathersbirthday</item>
+        <item>@drawable/grandmomsbirthday</item>
+        <item>@drawable/nanaji</item>
+        <item>@drawable/naniji</item>
+        <item>@drawable/chacha</item>
+        <item>@drawable/chachi</item>
+        <item>@drawable/mama</item>
+        <item>@drawable/mami</item>
+        <item>@drawable/bua</item>
+        <item>@drawable/fufaji</item>
+        <item>@drawable/mausi</item>
+        <item>@drawable/mausa</item>
+        <item>@drawable/friendsbirthday</item>
+        <item>@drawable/teachersbirthday</item>
+    </array>
+</resources>

@@ -111,7 +111,7 @@
         <item>Change leggings</item>
         <item>Change slacks</item>
         <item>Change shorts</item>
-        <item>Change inner wear"</item>
+        <item>Change inner wear</item>
         <item>Change footwear</item>
         <item>Change shoes</item>
         <item>Change socks</item>
@@ -143,7 +143,7 @@
         <item>I need help putting on clothes</item>
     </string-array>
     <string-array name="arrLevelThreeDailyActGetReadySpeechTextEnglish">
-        <item>Comb हैर</item>
+        <item>Comb है र</item>
         <item>Face wash</item>
         <item>Cut nails</item>
         <item>Blow nose</item>
@@ -302,7 +302,7 @@
         <item>Chocolate milk shake</item>
         <item>Strawberry milk shake</item>
         <item>Banana milk shake</item>
-        <item>Mango milk shak</item>
+        <item>Mango milk shake</item>
         <item>Chikoo milk shake</item>
         <item>tea</item>
         <item>Coffee</item>
@@ -803,7 +803,7 @@
         <item>Change leggings</item>
         <item>Change slacks</item>
         <item>Change shorts</item>
-        <item>Change innerwear"</item>
+        <item>Change innerwearF</item>
         <item>Change footwear</item>
         <item>Change shoes</item>
         <item>Change socks</item>
@@ -1764,13 +1764,6 @@
         <item>@drawable/kabaddi</item>
         <item>@drawable/gymnastics</item>
         <item>@drawable/swimming</item>
-        <!--<item>@drawable/kite</item>
-        <item>@drawable/choorpolice</item>
-        <item>@drawable/marbles</item>
-        <item>@drawable/walking</item>
-        <item>@drawable/cycle_transport</item>
-        <item>@drawable/running</item>
-        <item>@drawable/swimming</item>-->
     </array>
     <array name="arrLevelThreeFunTvIconAdapter">
         <item>@drawable/nextchannel</item>

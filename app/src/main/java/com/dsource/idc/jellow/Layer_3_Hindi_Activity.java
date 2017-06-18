@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.KeyListener;
-import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,13 +20,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.dsource.idc.jellow.Utility.IndexSorter;
 import com.dsource.idc.jellow.Utility.SessionManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
@@ -37,7 +34,6 @@ import static com.dsource.idc.jellow.R.id.reset;
  * Created by ekalpa on 7/14/2016.
  **/
 public class Layer_3_Hindi_Activity extends AppCompatActivity{
-    private final int LANG_ENG = 0, LANG_HINDI = 1;
     private final boolean DISABLE_ACTION_BTNS = true;
     private int mCk = 0, mCy = 0, mCm = 0, mCd = 0, mCn = 0, mCl = 0;
 
@@ -49,7 +45,7 @@ public class Layer_3_Hindi_Activity extends AppCompatActivity{
     private RecyclerView mRecyclerView;
     private LinearLayout mMenuItemLinearLayout;
     private String[] myMusic;
-    private Integer[] mColor = { -5317, -12627531 , -7617718 , -2937298 , -648053365 , -1761607680 };
+    private int[] mColor;
     private int mLevelOneItemPos, mLevelTwoItemPos, mLevelThreeItemPos = -1, mSelectedItemAdapterPos = -1;
     private boolean mShouldReadFullSpeech = false;
     private ArrayList<View> mRecyclerItemsViewList;
@@ -70,16 +66,11 @@ public class Layer_3_Hindi_Activity extends AppCompatActivity{
         getSupportActionBar().setTitle(getIntent().getExtras().getString("selectedMenuItemPath"));
         getSupportActionBar().setElevation(0);
         myDbHelper = new DataBaseHelper(this);
+        mColor = getResources().getIntArray(R.array.arrActionBtnColors);
+        side = getResources().getStringArray(R.array.arrSideHindi);
+        below = getResources().getStringArray(R.array.arrBelowHindi);
         mSession = new SessionManager(this);
         more_count = 0;
-        DisplayMetrics displayMetrics = getApplicationContext().getResources().getDisplayMetrics();
-        dpHeight = displayMetrics.heightPixels / displayMetrics.density;
-        more_count = 0;
-        final String[] side_hindi ={"अच्छा लगता हैं", "सच में अच्छा लगता हैं", "हाँ", "सच में हाँ", "ज़्यादा", "सच में ज़्यादा", "अच्छा नहीं लगता हैं", "सच में अच्छा नहीं लगता हैं", "नहीं", "सच में नहीं", "कम", "सच में कम"};
-        final String[] below_hindi ={"होम", "वापस", "कीबोर्ड"};
-        side = side_hindi;
-        below = below_hindi;
-
         mLevelOneItemPos = getIntent().getExtras().getInt("mLevelOneItemPos");
         mLevelTwoItemPos = getIntent().getExtras().getInt("mLevelTwoItemPos");
         try {
@@ -255,7 +246,6 @@ public class Layer_3_Hindi_Activity extends AppCompatActivity{
                     keyboard.setImageResource(R.drawable.keyboardpressed);
                     back.setImageResource(R.drawable.backpressed);
                     et.setVisibility(View.VISIBLE);
-
                     et.setKeyListener(originalKeyListener);
                     // Focus to the field.
                     mRecyclerView.setVisibility(View.INVISIBLE);
@@ -300,30 +290,28 @@ public class Layer_3_Hindi_Activity extends AppCompatActivity{
             }
         });
 
-        back.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
-                        mTts.speak(below[1], TextToSpeech.QUEUE_FLUSH, null);
-                        back.setImageResource(R.drawable.backpressed);
-                        if (flag_keyboard == 1) {
-                            keyboard.setImageResource(R.drawable.keyboard_button);
-                            back.setImageResource(R.drawable.back_button);
-                            et.setVisibility(View.INVISIBLE);
-                            mRecyclerView.setVisibility(View.VISIBLE);
-                            ttsButton.setVisibility(View.INVISIBLE);
-                            flag_keyboard = 0;
-                            changeTheActionButtons(!DISABLE_ACTION_BTNS);
-                        } else if (more_count > 0) {
-                            more_count -= 1;
-                            myMusic_function(mLevelOneItemPos, mLevelTwoItemPos);
-                            mRecyclerView.setAdapter(new Layer_3_Hindi_Adapter(Layer_3_Hindi_Activity.this, mLevelOneItemPos, mLevelTwoItemPos, sort));
-                        } else {
-                            back.setImageResource(R.drawable.backpressed);
-                            finish();
-                        }
-
-                    }
-                });
+        back.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                mTts.speak(below[1], TextToSpeech.QUEUE_FLUSH, null);
+                back.setImageResource(R.drawable.backpressed);
+                if (flag_keyboard == 1) {
+                    keyboard.setImageResource(R.drawable.keyboard_button);
+                    back.setImageResource(R.drawable.back_button);
+                    et.setVisibility(View.INVISIBLE);
+                    mRecyclerView.setVisibility(View.VISIBLE);
+                    ttsButton.setVisibility(View.INVISIBLE);
+                    flag_keyboard = 0;
+                    changeTheActionButtons(!DISABLE_ACTION_BTNS);
+                } else if (more_count > 0) {
+                    more_count -= 1;
+                    myMusic_function(mLevelOneItemPos, mLevelTwoItemPos);
+                    mRecyclerView.setAdapter(new Layer_3_Hindi_Adapter(Layer_3_Hindi_Activity.this, mLevelOneItemPos, mLevelTwoItemPos, sort));
+                } else {
+                    back.setImageResource(R.drawable.backpressed);
+                    finish();
+                }
+            }
+        });
 
         like.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -539,15 +527,13 @@ public class Layer_3_Hindi_Activity extends AppCompatActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        final int LANG_HINDI = 1;
         super.onCreateOptionsMenu(menu);
-        if (mSession.getLanguage()== LANG_HINDI){
-            MenuInflater blowUp = getMenuInflater();
+        MenuInflater blowUp = getMenuInflater();
+        if (mSession.getLanguage()== LANG_HINDI)
             blowUp.inflate(R.menu.menu_main, menu);
-        }
-        if (mSession.getLanguage()== LANG_ENG) {
-            MenuInflater blowUp = getMenuInflater();
+        else
             blowUp.inflate(R.menu.menu_1, menu);
-        }
         return true;
     }
 
@@ -577,7 +563,6 @@ public class Layer_3_Hindi_Activity extends AppCompatActivity{
                 break;
             default:
                 return super.onOptionsItemSelected(item);
-
         }
         return true;
     }
@@ -680,163 +665,111 @@ public class Layer_3_Hindi_Activity extends AppCompatActivity{
         }
     }
 
-    private void myMusic_function(int layer_1_id, int layer_2_id) {
-        System.out.println("size"+greet_feel_greetings_text.length);
-        if (layer_1_id == 0) {
-            if (layer_2_id == 0) {
-                myMusic = greet_feel_greetings_text;
-            } else if (layer_2_id == 1) {
-                myMusic = greet_feel_feelings_text;
-            } else if (layer_2_id == 2) {
-                myMusic = greet_feel_requests_text;
-            } else if (layer_2_id == 3) {
-                myMusic = greet_feel_questions_text;
+    private void myMusic_function(int levelOneItemPos, int levelTwoItemPos) {
+        if (levelOneItemPos == 0) {
+            switch(levelTwoItemPos){
+                case 0:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeGreetFeelGreetingSpeechTextHindi);   break;
+                case 1:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeGreetFeelFeelingsSpeechTextHindi);   break;
+                case 2:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeGreetFeelRequestsSpeechTextHindi);   break;
+                case 3:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeGreetFeelQuestionsSpeechTextHindi);   break;
             }
-        } else if (layer_1_id == 1) {
-            if (layer_2_id == 0) {
-                myMusic = daily_activities_brushing_text;
-            } else if (layer_2_id == 1) {
-                myMusic = daily_activities_toilet_text;
-            } else if (layer_2_id == 2) {
-                myMusic = daily_activities_bathing_text;
-            } else if (layer_2_id == 3) {
-                myMusic = daily_activities_clothes_access_text;
-            } else if (layer_2_id == 4) {
-                myMusic = daily_activities_get_ready_text;
-            } else if (layer_2_id == 5) {
-                myMusic = daily_activities_sleep_text;
-            } else if (layer_2_id == 6) {
-                myMusic = daily_activities_therapy_text;
-            } else if (layer_2_id == 7) {
-                myMusic = daily_activities_morning_schedule_text;
-            } else if (layer_2_id == 8) {
-                myMusic = daily_activities_bedtime_schedule_text;
+        } else if (levelOneItemPos == 1) {
+            switch(levelTwoItemPos){
+                case 0:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeDailyActBrushingSpeechTextHindi);   break;
+                case 1:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeDailyActToiletSpeechTextHindi);   break;
+                case 2:
+                    myMusic =  getResources().getStringArray(R.array.arrLevelThreeDailyActBathingSpeechTextHindi);   break;
+                case 3:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeDailyActClothesAccSpeechTextHindi);   break;
+                case 4:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeDailyActGetReadySpeechTextHindi);    break;
+                case 5:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeDailyActSleepSpeechTextHindi);   break;
+                case 6:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeDailyActTherapySpeechTextHindi);   break;
+                case 7:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeDailyActMorningScheSpeechTextHindi);   break;
+                case 8:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeDailyActBedTimeScheSpeechTextHindi);   break;
             }
-        } else if (layer_1_id == 2) {
-            if (layer_2_id == 0) {
-                myMusic = foods_drinks_breakfast_text;
-            } else if (layer_2_id == 1) {
-                myMusic = food_drinks_lunch_dinner_text;
-            } else if (layer_2_id == 2) {
-                myMusic = food_drinks_sweets_text;
-            } else if (layer_2_id == 3) {
-                myMusic = food_drinks_snacks_text;
-            } else if (layer_2_id == 4) {
-                myMusic = food_drinks_fruits_text;
-            } else if (layer_2_id == 5) {
-                myMusic = food_drinks_drinks_text;
-            } else if (layer_2_id == 6) {
-                myMusic = food_drinks_cutlery_text;
-            } else if (layer_2_id == 7) {
-                myMusic = food_drinks_add_ons_text;
+        } else if (levelOneItemPos == 2) {
+            switch(levelTwoItemPos){
+                case 0:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksBreakfastSpeechTextHindi);   break;
+                case 1:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksLunchDinnerSpeechTextHindi);   break;
+                case 2:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksSweetsSpeechTextHindi);   break;
+                case 3:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksSnacksSpeechTextHindi);   break;
+                case 4:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksFruitsSpeechTextHindi);    break;
+                case 5:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksDrinksSpeechTextHindi);   break;
+                case 6:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksCutlerySpeechTextHindi);   break;
+                case 7:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksAddonSpeechTextHindi);   break;
             }
-        } else if (layer_1_id == 3) {
-            if (layer_2_id == 0) {
-                myMusic = fun_indoor_games_text;
-            } else if (layer_2_id == 1) {
-                myMusic = fun_outdoor_games_text;
-            } else if (layer_2_id == 2) {
-                myMusic = fun_sports_text;
-            } else if (layer_2_id == 3) {
-                myMusic = fun_tv_text;
-            } else if (layer_2_id == 4) {
-                myMusic = fun_music_text;
-            } else if (layer_2_id == 5) {
-                myMusic = fun_activities_text;
+        } else if (levelOneItemPos == 3){
+            switch(levelTwoItemPos){
+                case 0:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFunInDGamesSpeechTextHindi);   break;
+                case 1:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFunOutDGamesSpeechTextHindi);   break;
+                case 2:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFunSportsSpeechTextHindi);   break;
+                case 3:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFunTvSpeechTextHindi);   break;
+                case 4:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFunMusicSpeechTextHindi);    break;
+                case 5:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFunActivitiesSpeechTextHindi);   break;
             }
-        } else if (layer_1_id == 4) {
-            if (layer_2_id == 0) {
-                myMusic = learning_animals_birds_text;
-            } else if (layer_2_id == 1) {
-                myMusic = learning_body_parts_text;
-            } else if (layer_2_id == 2) {
-                myMusic = learning_books_text;
-            } else if (layer_2_id == 3) {
-                myMusic = learning_colours_text;
-            } else if (layer_2_id == 4) {
-                myMusic = learning_shapes_text;
-            } else if (layer_2_id == 5) {
-                myMusic = learning_stationary_text;
-            } else if (layer_2_id == 6) {
-                myMusic = learning_school_objects_text;
-            } else if (layer_2_id == 7) {
-                myMusic = learning_home_objects_text;
-            } else if (layer_2_id == 8) {
-                myMusic = learning_transportation_text;
+        } else if (levelOneItemPos == 4) {
+            switch(levelTwoItemPos){
+                case 0:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningAnimBirdsSpeechTextHindi);   break;
+                case 1:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningBodyPartsSpeechTextHindi);   break;
+                case 2:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningBooksSpeechTextHindi);   break;
+                case 3:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningColorsSpeechTextHindi);   break;
+                case 4:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningShapesSpeechTextHindi);    break;
+                case 5:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningStationarySpeechTextHindi);   break;
+                case 6:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningSchoolObjSpeechTextHindi);   break;
+                case 7:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningHomeObjSpeechTextHindi);   break;
+                case 8:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningTransportSpeechTextHindi);   break;
             }
-        } else if (layer_1_id == 7) {
-            if (layer_2_id == 0) {
-                myMusic = time_weather_time_text;
-            } else if (layer_2_id == 1) {
-                myMusic = time_weather_day_text;
-            } else if (layer_2_id == 2) {
-                myMusic = time_weather_month_text;
-            } else if (layer_2_id == 3) {
-                myMusic = time_weather_weather_text;
-            } else if (layer_2_id == 4) {
-                myMusic = time_weather_seasons_text;
-            } else if (layer_2_id == 5) {
-                myMusic = time_weather_holidays_festivals_text;
-            } else if (layer_2_id == 6) {
-                myMusic = time_weather_birthdays_text;
+        } else if (levelOneItemPos == 7) {
+            switch(levelTwoItemPos){
+                case 0:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeTimeWeaTimeSpeechTextHindi);   break;
+                case 1:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeTimeWeaDaySpeechTextHindi);   break;
+                case 2:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeTimeWeaMonthSpeechTextHindi);   break;
+                case 3:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeTimeWeaWeatherSpeechTextHindi);   break;
+                case 4:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeTimeWeaSeasonsSpeechTextHindi);    break;
+                case 5:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeTimeWeaHoliFestSpeechTextHindi);   break;
+                case 6:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeTimeWeaBirthdaysSpeechTextHindi);   break;
             }
-        }
-    }
-
-    private class IndexSorter<T extends Comparable<T>> implements Comparator<Integer> {
-        private final T[] values;
-        private final Integer[] indexes;
-
-        /**
-         * Constructs a new IndexSorter based upon the parameter array.
-         * @param d
-         */
-        public IndexSorter(T[] d){
-            this.values = d;
-            indexes = new Integer[this.values.length];
-            for ( int i = 0; i < indexes.length; i++ )
-                indexes[i] = i;
-        }
-
-        /**
-         * Constructs a new IndexSorter based upon the parameter List.
-         * @param d
-         */
-        public IndexSorter(List<T> d){
-            this.values = (T[])d.toArray();
-            for ( int i = 0; i < values.length; i++ )
-                values[i] = d.get(i);
-            indexes = new Integer[this.values.length];
-            for ( int i = 0; i < indexes.length; i++ )
-                indexes[i] = i;
-        }
-
-        /**
-         * Sorts the underlying index array based upon the values provided in the constructor. The underlying value array is not sorted.
-         */
-        public void sort(){
-            Arrays.sort(indexes, this);
-        }
-
-        /**
-         * Retrieves the indexes of the array. The returned array is sorted if this object has been sorted.
-         * @return The array of indexes.
-         */
-        public Integer[] getIndexes(){
-            return indexes;
-        }
-
-        /**
-         * Compares the two values at index arg0 and arg0
-         * @param arg0 The first index
-         * @param arg1 The second index
-         * @return The result of calling compareTo on T objects at position arg0 and arg1
-         */
-        @Override
-        public int compare(Integer arg0, Integer arg1) {
-            T d1 = values[arg0];
-            T d2 = values[arg1];
-            return d2.compareTo(d1);
         }
     }
 
@@ -852,103 +785,7 @@ public class Layer_3_Hindi_Activity extends AppCompatActivity{
         }
     }
 
-    private final String[] daily_activities_brushing_text =
-            {"Rinse maauuthh", "Rinse toothbrush", "Put toothpaste on brush", "Brush front teeth", "Brush backkkteethh", "Brush tongue", "Rinse maauuthh", "All done"};
-
-    private final String[] daily_activities_toilet_text =
-            {"Pull pants down", "Sit on toil et", "Wash bottom", "Flushh toil et", "Pull pants up", "Wash hands", "All done"};
-
-    private final String[] daily_activities_bathing_text =
-            {"Remove clothes", "Turn on water", "Get in the shaaver", "Wet body", "Put soap", "Shampoo हैर", "Put face wash", "Wash हैर", "mohrr", "Wash body", "Turn off water", "Dry हैर", "Dry face", "Dry body", "Put on clothes", "All done"};
-
-    private final String[] daily_activities_morning_schedule_text =
-            {"Wake up", "Wash face", "Go to bathroom", "Brush teeth", "Remove clothes", "Have a बाथ", "Get dressed", "Comb हैर", "mohrr", "Eat brek fust", "Pack lunch box", "Pack school bag", "Go to school", "Have a great day!"};
-
-    private final String[] daily_activities_bedtime_schedule_text =
-            {"Eat dinner", "ware night clothes", "Brush teeth", "Read story", "Say goodnight", "Say prayers", "Sweet dreams!"};
-
-    private final String[] greet_feel_greetings_text =
-            {"नमस्ते!", "नमसकार", "अलविदा", "शुभ प्रभात", "शुभ दिन", "शुभ संध्या", "शुभ रात्रि", "ताली दो",
-                    "आपसे मिलकर अच्छा लगा", "आप कैसे हैं?", "आपका दिन कैसा था?", "आपके क्या हाल हैं?"};
-    private final String[] greet_feel_feelings_text =
-            {"खुश", "उदास", "गुस्सा", "डर", "हैरान", "चिढ़ा हुआ", "उलझन", "शर्मिंदा",
-                    "निराश", "बोर", "चिंता", "तनावग्रस्त", "थका हुआ", "गरम", "ठंडा", "बीमार", "दुखी"};
-    private final String[] greet_feel_requests_text =
-            {"कृपया", "धन्यवाद", "आपका स्वागत हैं", "कृपया मुझे दीजीए", "कृपया मुझे फिर से बताइए", "कृपया मुझे दिखाइए", "मुझे एक ब्रेक चाहिए", "मैंने खत्म कर दिया",  "क्षमा कीजिये!", "मुझे माफ करें", "मुझे समझ में नहीं आया", "मेरे साथ बाँटे", "कृपया थोड़ा धीरे जाइए", "मुझे मदद की ज़रूरत हैं", "कृपया यहाँ आईये", "कृपया मुझे लेके जाइए"};
-    private final String[] greet_feel_questions_text =
-            {"कैसे?", "कब?", "कहाँपे?", "क्यूं?", "क्या?", "कौन?", "कितने?", "कितना लंबा?", "कितनी देर"};
-    private final String[] daily_activities_clothes_access_text =
-            {"टी-शर्ट बदलना ", "फ्रॉक बदलना", "स्कर्ट  बदलना", "जीन्स बदलना", "पैन्ट बदलना", "लैगिंग्स बदलना", "स्लैक्स बदलना", "शॉर्ट्स बदलना",  "इनरवियर बदलना", "जूते बदलना", "बूट बदलना", "मोज़े बदलना", "रात के कपड़े पहनना", "शर्ट", "टी-शर्ट  ", "फ्रॉक ",  "पैन्ट ", "स्लैक्स ", "लैगिंग्स ", "शॉर्ट्स ", "सलवार कमीज़ ", "स्वेटर ", "जैकेट ", "दुपट्टा ",  "टोपी ", "बेल्ट ", "रेनकोट ", "चश्मा ", "घड़ी ", "कान की बाली ", "कंगन", "हार ", "बिंदी ", "चप्पल ", "मेरे कपड़े टाइट हैं", "मेरे कपड़े ढीले हैं",  "मुझे कपड़े निकालने में मदद चाहिए", "मुझे कपड़े पहनने में मदद चाहिए"};
-    private final String[] daily_activities_get_ready_text =
-            {"कंघी करना", "फेस वॉश", "नाखून काटना", "नाक साफ करना", "साबुन", "शाम्पू"};
-    private final String[] daily_activities_sleep_text =
-            {"दरवाज़ा", "पंखा", "लाईट", "खिड़की", "बिस्तर", "तकिया", "कंबल", "गर्मी", "ठंडक"};
-    private final String[] daily_activities_therapy_text =
-            {"कसरत", "झूला", "ट्रैम्पोलीन", "स्विस बॉल", "कंबल", "बॉल पिट", "हातों की कसरत", "पैरों की कसरत", "बॉडी वेस्ट"};
-    private final String[] foods_drinks_breakfast_text =
-            {"ब्रेड", "कोर्नफ्लेक्स", "आलू पूरी", "अंडे", "पोहा", "उपमा", "खिचड़ी", "इड़ली ",
-                    "डोसा", "पराठा", "अॉमलेट", "मेदु वड़ा", "दलिया", "सैंडविच", "चटनी", "सांबर", "उत्तप्पा"};
-    private final String[] food_drinks_lunch_dinner_text =
-            {"रोटी", "सब्ज़ी", "चावल", "दाल", "दालखिचड़ी", "रायता", "पराठा", "दही",  "मछली", "चिकन", "पोर्क", "मटन", "केकड़े का मांस", "टरकी", "pizza", "सलाड ",  "सूप ", "पास्ता ", "नूडल्स", "इटालीयन खाना", "पाव भाजी", "भाकरी"};
-    private final String[] food_drinks_sweets_text =
-            {"केक", "आइसक्रीम", "गा जर का हलवा", "गुलाब जामुन", "लड्डू", "बर्फी", "जलेबी", "फलों का सलाड",  "रसगुल्ला", "शीरा"};
-    private final String[] food_drinks_snacks_text =
-            {"बिस्कुट", "चाट", "चॉकलेट", "वएफर्स", "सैंडविच", "नूडल्स", "चीज़", "नट्स"};
-    private final String[] food_drinks_fruits_text =
-            {"सेब", "केला", "अंगूर", "अमरूद", "आम", "संतरा", "अनानास", "स्ट्रॉबेरी", "बेर", "अनार", "तरबूज", "पेर", "पपीता", "खरबूजा", "चिकू", "पनस", "चेरी"};
-    private final String[] food_drinks_drinks_text =
-            {"पानी", "दूध", "बोर्नविटा", "आम का ज्यूस", "सेब का ज्यूस", "संतरे का ज्यूस", "नींबू का ज्यूस", "अनानास का ज्यूस",  "पेप्सी", "कोका कोला", "मिरिंडा", "फैंटा", "माज़ा", "स्प्राइट ", "माउंटेन ड्यू", "मिल्कशेक",  "चॉकलेट मिल्कशेक", "स्ट्रॉबेरी मिल्कशेक ", "केला मिल्कशेक ", "आम मिल्कशेक ", "चिकू मिल्कशेक", "चाय ", "कॉफी ", "कोल्ड कॉफी", "एनर्जी ड्रिंक्स"};
-    private final String[] food_drinks_cutlery_text =
-            {"कटोरा", "प्लेट", "चम्मच", "काँटे का चम्मच", "चाकू", "मग", "कप", "ग्लास"};
-    private final String[] food_drinks_add_ons_text =
-            {"मक्खन", "जैम", "नमक", "काली मिर्च", "चीनी", "सॉस", "आचार", "पापड़", "मसाला"};
-    private final String[] fun_indoor_games_text =
-            {"पज़ल्स", "बोर्ड खेल", "ब्लॉक्स", "लेगो", "शतरंज", "सांप और सीढ़ी", "scrabble", "विडियो गेम",  "गुड़ियाँ", "ऐक्शन फिगर्स", "सॉफ्ट टॉयज़", "कार", "ट्रक", "आर्ट-क्राफ्ट", "मेरे साथ खेलो"};
-    private final String[] fun_outdoor_games_text =
-            {"खेल का मैदान", "पार्क", "झूला", "स्लाईड", "सी-सॉ", "मेरी-गो-राउंड", "लुकाछिपी", "बल्ला और गेंद", "स्टैचू", "ताला और चाबी", "पकड़ा-पकड़ी", "पतंग", "चोर-पुलिस", "कंचे", "चलना", "सायकल",  "दौड़ना", "तैरना"};
-    private final String[] fun_sports_text =
-            {"क्रिकेट ", "बैडमिंटन", "टेनिस ", "बास्केटबॉल", "डौजबौल", "वौलीबौल", "खो-खो", "फुटबॉल ",  "कबड़्डी", "जिम्नास्टिक्स", "तैरना"};
-    private final String[] fun_tv_text =
-            {"अगला चैनल", "पिछला चैनल", "उँची आवाज़", "धीमी आवाज़"};
-    private final String[] fun_music_text =
-            {"संगीत बदलना", "नाचना", "उँची आवाज़", "धीमी आवाज़"};
-    private final String[] fun_activities_text =
-            {"चित्र बनाना", "रंग भरना", "पढ़ना", "लिखना", "आर्ट-क्राफ्ट", "नाटक", "नाचना", "संगीत बजाना"};
-    private final String[] learning_animals_birds_text =
-            {"कुत्ता", "बिल्ली", "हाथी", "शेर ", "तोता ", "खरगोश ", "गाय", "बथख",  "गधा ", "चींटी", "बाघ", "बंदर", "कबूतर ", "तिलचट्टा", "कऊवा ", "घोड़ा ",  "हिरण ","उल्लू", "भेड़िया ", "लोम्ड़ी", "भालू ", "भेड़ ", "बकरी ", "सुअर ",  "मक्खी", "जिराफ़", "ज़ेब्रा", "मच्छर", "भैन्स", "चूहा", "साँप", "मगरमच्छ ",  "मधुमक्खीँ ", "दरियाई घोड़ा ", "गेंडा", "मछली ", "पैन्ग्विन ", "सील ", "डॉल्फिन ", "व्हेल ",  "शार्क ", "कछुआ ", "चिडिया", "गरुड़", "हॉक", "गिद्ध"};
-    private final String[] learning_body_parts_text =
-            {"सिर", "बाल", "आँखें", "नाक", "कान", "मुँह", "जीभ", "गर्दन",  "कंधा", "कोहनी", "कलाई", "हाथ", "उंगलियां ", "पीठ", "पेट", "कूल्हे का जोड़",  "घुटना", "घुटिका", "पैर", "पैर की उंगलियां "};
-    private final String[] learning_books_text =
-            {"सोने के समय की कहानीयाँ", "हास्यमय किताबें", "काव्यमय किताबें", " चित्र कला की किताबें", "कहानियों की किताबें", "चित्रों की किताबें", "जासूसी किताबें", "साहसी किताबें",  "पाठशाला की नोटबुक", "गणित की किताब", "विज्ञान की किताब", "इतिहास की किताब", "भूगोल की किताब", "सामाजिक अध्ययन की किताब ", "अंग्रेज़ी  की किताब", "हिंदी की किताब",  "मराठी की किताब", "पाठ्यपुस्तकें", "पसंदीदा किताब"};
-    private final String[] learning_colours_text =
-            {"काला", "नीला", "भूरा", "हरा", "लाल", "चाँदी", "सफेद", "पीला",  "सुनहरा", "गुलाबी", "नारंगी ", "जामुनी", "ग्रे"};
-    private final String[] learning_shapes_text =
-            {"सीधी रेखा ", "आड़ी रेखा", "तिरछी रेखा", "गोल", "आयत", "चौकोर", "त्रिकोण", "तारा",  "दिल", "अ समांतरभुज कोण", "घनाकार", "समअ चतुरभुज कोण", "शटकोन", "अंडाकार", "ईंट", "पंचकोन", "मुक्ताकार"};
-    private final String[] learning_stationary_text =
-            {"pencil", "pen", "स्केल", "रबर", "शारप्नर", "क्रेयौन", "कोरा कागज", "रंगीन कागज",  "कैंची", "सीसा", "कम्पास", "विभाजक", "स्टेप्लर", "यू-पिन", "सेलो टेप", "कम्पास बौक्स"};
-    private final String[] learning_school_objects_text =
-            {"bag", "खाने का डिब्बा", "पानी की बोतल", "कम्पास बौक्स", "गृहपाठ", "कापी", "पाठ्यपुस्तकें", "यूनिफार्म",  "जूते ", "मोज़े ", "pencil", "pen", "स्केल","रबर", "शारप्नर", "चॉक"};
-    private final String[] learning_home_objects_text =
-            {"खिड़की", "दरवाज़ा", "पंखा", "लैम्प", "डेस्क", "अलमारी", "टेबल", "कुर्सी",  "शौचालय", "रसोईघर", "हॉल", "बेडरूम", "खेलने का कमरा", "बाथरूम", "बालकनी", "पढ़ाई का कमरा", "बिस्तर", "टीवी", "संगणक", "सोफ़ा", "फ्रिज", "माइक्रोवेव", "वॉशिंग मशीन", "वैक्युम क्लीनर",  "घड़ी", "ट्यूब लाइट" };
-    private final String[] learning_transportation_text =
-            {"बस", "स्कूल  बस", "कार", "साइकिल", "रेल गाड़ी", "रिक्शा", "मोटर साइकिल ", "हवाई जहाज़", "जहाज़"};
-    private final String[] time_weather_time_text =
-            {"समय क्या हुआ हैं?", "आज", "कल", "कल", "सुबह", "दोपहर", "शाम", "रात"};
-    private final String[] time_weather_day_text =
-            {"आज कौनसा दिन है?", "सोमवार", "मंगलवार", "बुधवार", "गुरूवार", "शुक्रवार", "शनिवार", "रविवार"};
-    private final String[] time_weather_month_text =
-            {"वर्तमान महीना कौनसा हैं ?", "जनवरी", "फरवरी", "मार्च", "अप्रैल", "मई", "जून", "जुलाई",  "अगस्त", "सितंबर ", "अक्टूबर", "नवंबर", "दिसंबर", "यह महीना", "पिछला महीना", "अगला महीना"};
-    private final String[] time_weather_weather_text =
-            {"आज का मौसम क्या हैं? ", "गरम", "बरसात", "धुंधला", "तूफ़ानी", "घना", "बर्फीला"};
-    private final String[] time_weather_seasons_text =
-            {"वर्तमान ऋतु कौनसा हैं? ", "वसंत ऋतु", "ग्रीष्म ऋतु", "वर्षा ऋतु", "शरद ऋतु", "शीत ऋतु" };
-    private final String[] time_weather_holidays_festivals_text =
-            {"दिवाली", "गणेश चतुर्थी", "क्रिसमस ", "दशहरा", "मकर संक्रांति", "होली", "ईद", "गुड फ्राइडे",  "गुड़ी पाड़वा", "गणतंत्र दिवस", "स्वतंत्रता दिवस", "नया साल"};
-    private final String[] time_weather_birthdays_text =
-            {"मेरा जन्मदिन", "माँ का जन्मदिन", "पिताजी का जन्मदिन", "भाई का जन्मदिन", "बहन का जन्मदिन", "बड़े पापा का जन्मदिन", "बड़ी मम्मी का जन्मदिन", "दादाजी का जन्मदिन",  "दादी माँ का जन्मदिन","नानाजी का जन्मदिन","नानी माँ का जन्मदिन","चाचा का जन्मदिन", "चाची का जन्मदिन", "मामा का जन्मदिन", "मामी का जन्मदिन","बुआ का जन्मदिन","फ़ुफ़ा का जन्मदिन","मौसी का जन्मदिन", "मौसा का जन्मदिन","मित्र का जन्मदिन", "शिक्षक का जन्मदिन"};
-
     private final String[][][][] layer_3_speech = {{{{},{},{},{},{},{},{},{},{},{},{},{}},
-
             {{"मैं खुश हूँ",
                     "मैं सच में खुश हूँ",
                     "मुझे खुश रहना हैं",

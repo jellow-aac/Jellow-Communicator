@@ -27,172 +27,158 @@ class Layer_three_Adapter extends android.support.v7.widget.RecyclerView.Adapter
     private Integer[] mThumbIds = new Integer[100];
     private String[] belowText = new String[100];
 
-    Layer_three_Adapter(Context context, int levelOneITemPos, int levelTwoItemPos, int sort[]){
+    Layer_three_Adapter(Context context, int levelOneItemPos, int levelTwoItemPos, int sort[]){
         mContext = context;
         mSession = new SessionManager(mContext);
         mMetricsUtils = new EvaluateDisplayMetricsUtils(mContext);
-            if (levelOneITemPos == 0) {
-                if (levelTwoItemPos == 0) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeGreetFeelGreetingIconAdapter),
-                            mContext.getResources().getStringArray(R.array.arrLevelThreeGreetFeelGreetingAdapterTextEnglish), sort);
-                } else if (levelTwoItemPos == 1) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeGreetFeelFeelingIconAdapter),
+        if (levelOneItemPos == 0) {
+            switch(levelTwoItemPos){
+                case 0: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeGreetFeelGreetingIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreeGreetFeelGreetingAdapterTextEnglish), sort);
+                    break;
+                case 1: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeGreetFeelFeelingIconAdapter),
                             mContext.getResources().getStringArray(R.array.arrLevelThreeGreetFeelFeelingsAdapterTextEnglish), sort);
-                } else if (levelTwoItemPos == 2) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeGreetFeelRequestsIconAdapter),
+                    break;
+                case 2: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeGreetFeelRequestsIconAdapter),
                             mContext.getResources().getStringArray(R.array.arrLevelThreeGreetFeelRequestsAdapterTextEnglish), sort);
-                } else if (levelTwoItemPos == 3) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeGreetFeelQuestionsIconAdapter),
+                    break;
+                case 3: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeGreetFeelQuestionsIconAdapter),
                             mContext.getResources().getStringArray(R.array.arrLevelThreeGreetFeelQuestionsSpeechTextEnglish), sort);
-                }
-            } else if (levelOneITemPos == 1) {
-                if (levelTwoItemPos == 0) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeDailyActBrushingIconAdapter),
-                        mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActBrushingAdapterTextEnglish), sort);
-                } else if (levelTwoItemPos == 1) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeDailyActToiletIconAdapter),
-                        mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActToiletAdapterTextEnglish), sort);
-                } else if (levelTwoItemPos == 2) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeDailyActBathingIconAdapter),
-                        mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActBathingAdapterTextEnglish), sort);
-                } else if (levelTwoItemPos == 3) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeDailyActClothesIconAdapter),
-                        mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActClothesAccAdapterTextEnglish), sort);
-                } else if (levelTwoItemPos == 4) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeDailyActGetReadyIconAdapter),
-                        mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActGetReadyAdapterTextEnglish), sort);
-                } else if (levelTwoItemPos == 5) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeDailyActSleepIconAdapter),
-                        mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActSleepAdapterTextEnglish), sort);
-                } else if (levelTwoItemPos == 6) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeDailyActTherapyIconAdapter),
-                        mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActTherapyAdapterTextEnglish), sort);
-                } else if (levelTwoItemPos == 7) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeDailyActMorningScheIconAdapter),
-                        mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActMorningScheSpeechTextEnglish), sort);
-                } else if (levelTwoItemPos == 8) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeDailyActBedTimeScheIconAdapter),
-                        mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActBedTimeScheSpeechTextEnglish), sort);
-                }
-            } else if (levelOneITemPos == 2) {
-                if (levelTwoItemPos == 0) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeFoodDrinksBreakfastIconAdapter),
-                            mContext.getResources().getStringArray(R.array.arrLevelThreeFoodDrinksBreakfastAdapterTextEnglish), sort);
-                } else if (levelTwoItemPos == 1) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeFoodDrinksLunchDinIconAdapter),
-                            mContext.getResources().getStringArray(R.array.arrLevelThreeFoodDrinksLunchDinnerAdapterTextEnglish), sort);
-                } else if (levelTwoItemPos == 2) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeFoodDrinksSweetsIconAdapter),
-                            mContext.getResources().getStringArray(R.array.arrLevelThreeFoodDrinksSweetsAdapterTextEnglish), sort);
-                } else if (levelTwoItemPos == 3) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeFoodDrinksSnacksIconAdapter),
-                            mContext.getResources().getStringArray(R.array.arrLevelThreeFoodDrinksSnacksAdapterTextEnglish), sort);
-                } else if (levelTwoItemPos == 4) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeFoodDrinksFruitsIconAdapter),
-                            mContext.getResources().getStringArray(R.array.arrLevelThreeFoodDrinksFruitsAdapterTextEnglish), sort);
-                } else if (levelTwoItemPos == 5) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeFoodDrinksDrinksIconAdapter),
-                            mContext.getResources().getStringArray(R.array.arrLevelThreeFoodDrinksDrinksAdapterTextEnglish), sort);
-                } else if (levelTwoItemPos == 6) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeFoodDrinksCutleryIconAdapter),
-                            mContext.getResources().getStringArray(R.array.arrLevelThreeFoodDrinksCutleryAdapterTextEnglish), sort);
-                } else if (levelTwoItemPos == 7) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeFoodDrinksAddonsIconAdapter),
-                            mContext.getResources().getStringArray(R.array.arrLevelThreeFoodDrinksAddonAdapterTextEnglish), sort);
-                }
-            } else if (levelOneITemPos == 3) {
-                if (levelTwoItemPos == 0) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeFunInDGamesIconAdapter),
-                            mContext.getResources().getStringArray(R.array.arrLevelThreeFunInDGamesAdapterTextEnglish), sort);
-                } else if (levelTwoItemPos == 1) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeFunOutDGamesIconAdapter),
-                            mContext.getResources().getStringArray(R.array.arrLevelThreeFunOutDGamesAdapterTextEnglish), sort);
-                } else if (levelTwoItemPos == 2) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeFunSportsIconAdapter),
-                            mContext.getResources().getStringArray(R.array.arrLevelThreeFunSportsAdapterTextEnglish), sort);
-                } else if (levelTwoItemPos == 3) {
-                    mThumbIds = getIconArray(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeFunTvIconAdapter));
-                    belowText = mContext.getResources().getStringArray(R.array.arrLevelThreeFunTvAdapterTextEnglish);
-                } else if (levelTwoItemPos == 4) {
-                    mThumbIds = getIconArray(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeFunMusicIconAdapter));
-                    belowText = mContext.getResources().getStringArray(R.array.arrLevelThreeFunMusicAdapterTextEnglish);
-                } else if (levelTwoItemPos == 5) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeFunActivitiesIconAdapter),
-                            mContext.getResources().getStringArray(R.array.arrLevelThreeFunActivitiesAdapterTextEnglish), sort);
-                }
-            } else if (levelOneITemPos == 4) {
-                if (levelTwoItemPos == 0) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeLearningAnimBirdsIconAdapter),
-                            mContext.getResources().getStringArray(R.array.arrLevelThreeLearningAnimBirdsAdapterTextEnglish), sort);
-                } else if (levelTwoItemPos == 1) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeLearningBodyPartsIconAdapter),
-                            mContext.getResources().getStringArray(R.array.arrLevelThreeLearningBodyPartsAdapterTextEnglish), sort);
-                } else if (levelTwoItemPos == 2) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeLearningBooksIconAdapter),
-                            mContext.getResources().getStringArray(R.array.arrLevelThreeLearningBooksAdapterTextEnglish), sort);
-                } else if (levelTwoItemPos == 3) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeLearningColorsIconAdapter),
-                            mContext.getResources().getStringArray(R.array.arrLevelThreeLearningColorsAdapterTextEnglish), sort);
-                } else if (levelTwoItemPos == 4) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeLearningShapesIconAdapter),
-                            mContext.getResources().getStringArray(R.array.arrLevelThreeLearningShapesAdapterTextEnglish), sort);
-                } else if (levelTwoItemPos == 5) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeLearningStationaryIconAdapter),
-                            mContext.getResources().getStringArray(R.array.arrLevelThreeLearningStationaryAdapterTextEnglish), sort);
-                } else if (levelTwoItemPos == 6) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeLearningSchoolIconAdapter),
-                            mContext.getResources().getStringArray(R.array.arrLevelThreeLearningSchoolObjAdapterTextEnglish), sort);
-                } else if (levelTwoItemPos == 7) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeLearningHomeIconAdapter),
-                            mContext.getResources().getStringArray(R.array.arrLevelThreeLearningHomeObjAdapterTextEnglish), sort);
-                } else if (levelTwoItemPos == 8) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeLearningTransportationIconAdapter),
-                            mContext.getResources().getStringArray(R.array.arrLevelThreeLearningTransportAdapterTextEnglish), sort);
-                }
-            } else if (levelOneITemPos == 7) {
-                if (levelTwoItemPos == 0) {
-                    mThumbIds = getIconArray(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeTimeWeaTimeIconAdapter));
-                    belowText = mContext.getResources().getStringArray(R.array.arrLevelThreeTimeWeaTimeAdapterTextEnglish);
-                } else if (levelTwoItemPos == 1) {
-                    mThumbIds = getIconArray(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeTimeWeaDayIconAdapter));
-                    belowText = mContext.getResources().getStringArray(R.array.arrLevelThreeTimeWeaDayAdapterTextEnglish);
-                } else if (levelTwoItemPos == 2) {
-                    mThumbIds = getIconArray(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeTimeWeaMonthIconAdapter));
-                    belowText = mContext.getResources().getStringArray(R.array.arrLevelThreeTimeWeaMonthAdapterTextEnglish);
-                } else if (levelTwoItemPos == 3) {
-                    mThumbIds = getIconArray(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeTimeWeaWeatherIconAdapter));
-                    belowText = mContext.getResources().getStringArray(R.array.arrLevelThreeTimeWeaWeatherAdapterTextEnglish);
-                } else if (levelTwoItemPos == 4) {
-                    mThumbIds = getIconArray(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeTimeWeaSeasonsIconAdapter));
-                    belowText = mContext.getResources().getStringArray(R.array.arrLevelThreeTimeWeaSeasonsAdapterTextEnglish);
-                } else if (levelTwoItemPos == 5) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeTimeWeaHoliFestIconAdapter),
-                            mContext.getResources().getStringArray(R.array.arrLevelThreeTimeWeaHoliFestAdapterTextEnglish), sort);
-                } else if (levelTwoItemPos == 6) {
-                    loadAdapterMenuTextIcons(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeTimeWeaBirthdaysIconAdapter),
-                            mContext.getResources().getStringArray(R.array.arrLevelThreeTimeWeaBirthdaysAdapterTextEnglish), sort);
-                }
+                    break;
             }
-    }
-
-    private Integer[] getIconArray(TypedArray typedArray) {
-        Integer[] tempIconArr = new Integer[typedArray.length()];
-        for (int i=0; i< typedArray.length(); ++i) {
-            tempIconArr[i] = typedArray.getResourceId(i, -1);
+        } else if (levelOneItemPos == 1) {
+            switch(levelTwoItemPos){
+                case 0: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeDailyActBrushingIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActBrushingAdapterTextEnglish), sort);
+                    break;
+                case 1: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeDailyActToiletIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActToiletAdapterTextEnglish), sort);
+                    break;
+                case 2: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeDailyActBathingIconAdapter),
+                            mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActBathingAdapterTextEnglish), sort);
+                    break;
+                case 3: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeDailyActClothesIconAdapter),
+                            mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActClothesAccAdapterTextEnglish), sort);
+                    break;
+                case 4: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeDailyActGetReadyIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActGetReadyAdapterTextEnglish), sort);
+                    break;
+                case 5: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeDailyActSleepIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActSleepAdapterTextEnglish), sort);
+                    break;
+                case 6: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeDailyActTherapyIconAdapter),
+                            mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActTherapyAdapterTextEnglish), sort);
+                    break;
+                case 7: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeDailyActMorningScheIconAdapter),
+                            mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActMorningScheSpeechTextEnglish), sort);
+                    break;
+                case 8: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeDailyActBedTimeScheIconAdapter),
+                            mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActBedTimeScheSpeechTextEnglish), sort);
+                    break;
+            }
+        } else if (levelOneItemPos == 2) {
+            switch(levelTwoItemPos) {
+                case 0: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeFoodDrinksBreakfastIconAdapter),
+                            mContext.getResources().getStringArray(R.array.arrLevelThreeFoodDrinksBreakfastAdapterTextEnglish), sort);
+                    break;
+                case 1: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeFoodDrinksLunchDinIconAdapter),
+                            mContext.getResources().getStringArray(R.array.arrLevelThreeFoodDrinksLunchDinnerAdapterTextEnglish), sort);
+                    break;
+                case 2: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeFoodDrinksSweetsIconAdapter),
+                            mContext.getResources().getStringArray(R.array.arrLevelThreeFoodDrinksSweetsAdapterTextEnglish), sort);
+                    break;
+                case 3: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeFoodDrinksSnacksIconAdapter),
+                            mContext.getResources().getStringArray(R.array.arrLevelThreeFoodDrinksSnacksAdapterTextEnglish), sort);
+                    break;
+                case 4: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeFoodDrinksFruitsIconAdapter),
+                            mContext.getResources().getStringArray(R.array.arrLevelThreeFoodDrinksFruitsAdapterTextEnglish), sort);
+                    break;
+                case 5: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeFoodDrinksDrinksIconAdapter),
+                            mContext.getResources().getStringArray(R.array.arrLevelThreeFoodDrinksDrinksAdapterTextEnglish), sort);
+                    break;
+                case 6: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeFoodDrinksCutleryIconAdapter),
+                            mContext.getResources().getStringArray(R.array.arrLevelThreeFoodDrinksCutleryAdapterTextEnglish), sort);
+                    break;
+                case 7: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeFoodDrinksAddonsIconAdapter),
+                            mContext.getResources().getStringArray(R.array.arrLevelThreeFoodDrinksAddonAdapterTextEnglish), sort);
+                    break;
+            }
+        } else if (levelOneItemPos == 3) {
+            switch(levelTwoItemPos){
+                case 0: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeFunInDGamesIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreeFunInDGamesAdapterTextEnglish), sort);
+                    break;
+                case 1: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeFunOutDGamesIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreeFunOutDGamesAdapterTextEnglish), sort);
+                    break;
+                case 2: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeFunSportsIconAdapter),
+                            mContext.getResources().getStringArray(R.array.arrLevelThreeFunSportsAdapterTextEnglish), sort);
+                    break;
+                case 3: loadAdapterMenuTextIconsWithoutSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeFunTvIconAdapter),
+                            mContext.getResources().getStringArray(R.array.arrLevelThreeFunTvAdapterTextEnglish));
+                    break;
+                case 4: loadAdapterMenuTextIconsWithoutSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeFunMusicIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreeFunMusicAdapterTextEnglish));
+                    break;
+                case 5: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeFunActivitiesIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreeFunActivitiesAdapterTextEnglish), sort);
+                    break;
+            }
+        } else if (levelOneItemPos == 4) {
+            switch(levelTwoItemPos) {
+                case 0: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeLearningAnimBirdsIconAdapter),
+                            mContext.getResources().getStringArray(R.array.arrLevelThreeLearningAnimBirdsAdapterTextEnglish), sort);
+                    break;
+                case 1: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeLearningBodyPartsIconAdapter),
+                            mContext.getResources().getStringArray(R.array.arrLevelThreeLearningBodyPartsAdapterTextEnglish), sort);
+                    break;
+                case 2: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeLearningBooksIconAdapter),
+                            mContext.getResources().getStringArray(R.array.arrLevelThreeLearningBooksAdapterTextEnglish), sort);
+                    break;
+                case 3: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeLearningColorsIconAdapter),
+                            mContext.getResources().getStringArray(R.array.arrLevelThreeLearningColorsAdapterTextEnglish), sort);
+                    break;
+                case 4: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeLearningShapesIconAdapter),
+                            mContext.getResources().getStringArray(R.array.arrLevelThreeLearningShapesAdapterTextEnglish), sort);
+                    break;
+                case 5: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeLearningStationaryIconAdapter),
+                            mContext.getResources().getStringArray(R.array.arrLevelThreeLearningStationaryAdapterTextEnglish), sort);
+                    break;
+                case 6: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeLearningSchoolIconAdapter),
+                            mContext.getResources().getStringArray(R.array.arrLevelThreeLearningSchoolObjAdapterTextEnglish), sort);
+                    break;
+                case 7: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeLearningHomeIconAdapter),
+                            mContext.getResources().getStringArray(R.array.arrLevelThreeLearningHomeObjAdapterTextEnglish), sort);
+                    break;
+                case 8: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeLearningTransportationIconAdapter),
+                            mContext.getResources().getStringArray(R.array.arrLevelThreeLearningTransportAdapterTextEnglish), sort);
+                    break;
+            }
+        } else if (levelOneItemPos == 7) {
+            switch(levelTwoItemPos) {
+                case 0: loadAdapterMenuTextIconsWithoutSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeTimeWeaTimeIconAdapter),
+                            mContext.getResources().getStringArray(R.array.arrLevelThreeTimeWeaTimeAdapterTextEnglish));
+                    break;
+                case 1: loadAdapterMenuTextIconsWithoutSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeTimeWeaDayIconAdapter),
+                            mContext.getResources().getStringArray(R.array.arrLevelThreeTimeWeaDayAdapterTextEnglish));
+                    break;
+                case 2: loadAdapterMenuTextIconsWithoutSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeTimeWeaMonthIconAdapter),
+                            mContext.getResources().getStringArray(R.array.arrLevelThreeTimeWeaMonthAdapterTextEnglish));
+                    break;
+                case 3: loadAdapterMenuTextIconsWithoutSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeTimeWeaWeatherIconAdapter),
+                            mContext.getResources().getStringArray(R.array.arrLevelThreeTimeWeaWeatherAdapterTextEnglish));
+                    break;
+                case 4: loadAdapterMenuTextIconsWithoutSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeTimeWeaSeasonsIconAdapter),
+                            mContext.getResources().getStringArray(R.array.arrLevelThreeTimeWeaSeasonsAdapterTextEnglish));
+                    break;
+                case 5: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeTimeWeaHoliFestIconAdapter),
+                            mContext.getResources().getStringArray(R.array.arrLevelThreeTimeWeaHoliFestAdapterTextEnglish), sort);
+                    break;
+                case 6: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeTimeWeaBirthdaysIconAdapter),
+                            mContext.getResources().getStringArray(R.array.arrLevelThreeTimeWeaBirthdaysAdapterTextEnglish), sort);
+                    break;
+            }
         }
-        return tempIconArr;
-    }
-
-    private void loadAdapterMenuTextIcons(TypedArray typeIconArray, String[] stringBelowTextArray, int[] sort) {
-        Integer[] tempIconArr = new Integer[sort.length];
-        String[] tempBelowTextArr = new String[sort.length];
-
-        for (int j = 0; j < typeIconArray.length(); j++) {
-            tempIconArr[j] = typeIconArray.getResourceId(sort[j], -1);
-            tempBelowTextArr[j] = stringBelowTextArray[sort[j]];
-        }
-        mThumbIds = Arrays.copyOfRange(tempIconArr, 0, typeIconArray.length());
-        belowText = Arrays.copyOfRange(tempBelowTextArr, 0, typeIconArray.length());
     }
 
     @Override
@@ -268,6 +254,30 @@ class Layer_three_Adapter extends android.support.v7.widget.RecyclerView.Adapter
     @Override
     public int getItemCount() {
         return mThumbIds.length;
+    }
+
+    private void loadAdapterMenuTextIconsWithoutSort(TypedArray typeIconArray, String[] stringBelowTextArray) {
+        Integer[] tempIconArr = new Integer[stringBelowTextArray.length];
+        String[] tempBelowTextArr = new String[stringBelowTextArray.length];
+
+        for (int j = 0; j < typeIconArray.length(); j++) {
+            tempIconArr[j] = typeIconArray.getResourceId(j, -1);
+            tempBelowTextArr[j] = stringBelowTextArray[j];
+        }
+        mThumbIds = Arrays.copyOfRange(tempIconArr, 0, typeIconArray.length());
+        belowText = Arrays.copyOfRange(tempBelowTextArr, 0, typeIconArray.length());
+    }
+
+    private void loadAdapterMenuTextIconsWithSort(TypedArray typeIconArray, String[] stringBelowTextArray, int[] sort) {
+        Integer[] tempIconArr = new Integer[sort.length];
+        String[] tempBelowTextArr = new String[sort.length];
+
+        for (int j = 0; j < typeIconArray.length(); j++) {
+            tempIconArr[j] = typeIconArray.getResourceId(sort[j], -1);
+            tempBelowTextArr[j] = stringBelowTextArray[sort[j]];
+        }
+        mThumbIds = Arrays.copyOfRange(tempIconArr, 0, typeIconArray.length());
+        belowText = Arrays.copyOfRange(tempBelowTextArr, 0, typeIconArray.length());
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder  {

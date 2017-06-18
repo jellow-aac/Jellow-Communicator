@@ -29,8 +29,6 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
-import static com.dsource.idc.jellow.R.id.reset;
-
 public class Layer3Activity extends AppCompatActivity {
     private final boolean DISABLE_ACTION_BTNS = true;
     private int mCk = 0, mCy = 0, mCm = 0, mCd = 0, mCn = 0, mCl = 0;
@@ -92,7 +90,6 @@ public class Layer3Activity extends AppCompatActivity {
                 }
             }
         });
-
         mTts.setSpeechRate((float) mSession.getSpeed() / 50);
         mTts.setPitch((float) mSession.getPitch() / 50);
         myMusic = new String[100];
@@ -245,7 +242,6 @@ public class Layer3Activity extends AppCompatActivity {
                     keyboard.setImageResource(R.drawable.keyboardpressed);
                     back.setImageResource(R.drawable.backpressed);
                     et.setVisibility(View.VISIBLE);
-
                     et.setKeyListener(originalKeyListener);
                     // Focus to the field.
                     mRecyclerView.setVisibility(View.INVISIBLE);
@@ -528,13 +524,11 @@ public class Layer3Activity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         final int LANG_HINDI = 1;
         super.onCreateOptionsMenu(menu);
-        if (mSession.getLanguage()== LANG_HINDI){
-            MenuInflater blowUp = getMenuInflater();
+        MenuInflater blowUp = getMenuInflater();
+        if (mSession.getLanguage()== LANG_HINDI)
             blowUp.inflate(R.menu.menu_main, menu);
-        }else {
-            MenuInflater blowUp = getMenuInflater();
+        else
             blowUp.inflate(R.menu.menu_1, menu);
-        }
         return true;
     }
 
@@ -556,7 +550,7 @@ public class Layer3Activity extends AppCompatActivity {
             case R.id.usage:
                 startActivity(new Intent(this, Tutorial.class));
                 break;
-            case reset:
+            case R.id.reset:
                 startActivity(new Intent(this, Reset__preferences.class));
                 break;
             case R.id.keyboardinput:
@@ -564,7 +558,6 @@ public class Layer3Activity extends AppCompatActivity {
                 break;
             default:
                 return super.onOptionsItemSelected(item);
-
         }
         return true;
     }
@@ -667,104 +660,110 @@ public class Layer3Activity extends AppCompatActivity {
         }
     }
 
-    private void myMusic_function(int layer_1_id, int layer_2_id) {
-        if (layer_1_id == 0) {
-            if (layer_2_id == 0) {
-                    myMusic = getResources().getStringArray(R.array.arrLevelThreeGreetFeelGreetingSpeechTextEnglish);
-            } else if (layer_2_id == 1) {
-                    myMusic = getResources().getStringArray(R.array.arrLevelThreeGreetFeelFeelingsSpeechTextEnglish);
-            } else if (layer_2_id == 2) {
-                    myMusic = getResources().getStringArray(R.array.arrLevelThreeGreetFeelRequestsSpeechTextEnglish);
-            } else if (layer_2_id == 3) {
-                    myMusic = getResources().getStringArray(R.array.arrLevelThreeGreetFeelQuestionsSpeechTextEnglish);
+    private void myMusic_function(int levelOneItemPos, int levelTwoItemPos) {
+        if (levelOneItemPos == 0) {
+            switch(levelTwoItemPos){
+                case 0:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeGreetFeelGreetingSpeechTextEnglish);   break;
+                case 1:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeGreetFeelFeelingsSpeechTextEnglish);   break;
+                case 2:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeGreetFeelRequestsSpeechTextEnglish);   break;
+                case 3:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeGreetFeelQuestionsSpeechTextEnglish);   break;
             }
-        } else if (layer_1_id == 1) {
-            if (layer_2_id == 0) {
-                myMusic = getResources().getStringArray(R.array.arrLevelThreeDailyActBrushingSpeechTextEnglish);
-            } else if (layer_2_id == 1) {
-                myMusic = getResources().getStringArray(R.array.arrLevelThreeDailyActToiletSpeechTextEnglish);
-            } else if (layer_2_id == 2) {
-                myMusic =  getResources().getStringArray(R.array.arrLevelThreeDailyActBathingSpeechTextEnglish);
-            } else if (layer_2_id == 3) {
-                    myMusic = getResources().getStringArray(R.array.arrLevelThreeDailyActClothesAccSpeechTextEnglish);
-            } else if (layer_2_id == 4) {
-                    myMusic = getResources().getStringArray(R.array.arrLevelThreeDailyActGetReadySpeechTextEnglish);
-            } else if (layer_2_id == 5) {
-                    myMusic = getResources().getStringArray(R.array.arrLevelThreeDailyActSleepSpeechTextEnglish);
-            } else if (layer_2_id == 6) {
-                    myMusic = getResources().getStringArray(R.array.arrLevelThreeDailyActTherapySpeechTextEnglish);
-            } else if (layer_2_id == 7) {
-                myMusic = getResources().getStringArray(R.array.arrLevelThreeDailyActMorningScheSpeechTextEnglish);
-            } else if (layer_2_id == 8) {
-                myMusic = getResources().getStringArray(R.array.arrLevelThreeDailyActBedTimeScheSpeechTextEnglish);
+        } else if (levelOneItemPos == 1) {
+            switch(levelTwoItemPos){
+                case 0:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeDailyActBrushingSpeechTextEnglish);   break;
+                case 1:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeDailyActToiletSpeechTextEnglish);   break;
+                case 2:
+                    myMusic =  getResources().getStringArray(R.array.arrLevelThreeDailyActBathingSpeechTextEnglish);   break;
+                case 3:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeDailyActClothesAccSpeechTextEnglish);   break;
+                case 4:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeDailyActGetReadySpeechTextEnglish);    break;
+                case 5:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeDailyActSleepSpeechTextEnglish);   break;
+                case 6:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeDailyActTherapySpeechTextEnglish);   break;
+                case 7:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeDailyActMorningScheSpeechTextEnglish);   break;
+                case 8:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeDailyActBedTimeScheSpeechTextEnglish);   break;
             }
-        } else if (layer_1_id == 2) {
-            if (layer_2_id == 0) {
-                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksBreakfastSpeechTextEnglish);
-            } else if (layer_2_id == 1) {
-                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksLunchDinnerSpeechTextEnglish);
-            } else if (layer_2_id == 2) {
-                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksSweetsSpeechTextEnglish);
-            } else if (layer_2_id == 3) {
-                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksSnacksSpeechTextEnglish);
-            } else if (layer_2_id == 4) {
-                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksFruitsSpeechTextEnglish);
-            } else if (layer_2_id == 5) {
-                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksDrinksSpeechTextEnglish);
-            } else if (layer_2_id == 6) {
-                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksCutlerySpeechTextEnglish);
-            } else if (layer_2_id == 7) {
-                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksAddonSpeechTextEnglish);
+        } else if (levelOneItemPos == 2) {
+            switch(levelTwoItemPos){
+                case 0:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksBreakfastSpeechTextEnglish);   break;
+                case 1:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksLunchDinnerSpeechTextEnglish);   break;
+                case 2:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksSweetsSpeechTextEnglish);   break;
+                case 3:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksSnacksSpeechTextEnglish);   break;
+                case 4:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksFruitsSpeechTextEnglish);    break;
+                case 5:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksDrinksSpeechTextEnglish);   break;
+                case 6:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksCutlerySpeechTextEnglish);   break;
+                case 7:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksAddonSpeechTextEnglish);   break;
             }
-        } else if (layer_1_id == 3) {
-            if (layer_2_id == 0) {
-                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFunInDGamesSpeechTextEnglish);
-            } else if (layer_2_id == 1) {
-                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFunOutDGamesSpeechTextEnglish);
-            } else if (layer_2_id == 2) {
-                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFunSportsSpeechTextEnglish);
-            } else if (layer_2_id == 3) {
-                myMusic = getResources().getStringArray(R.array.arrLevelThreeFunTvSpeechTextEnglish);
-            } else if (layer_2_id == 4) {
-                myMusic = getResources().getStringArray(R.array.arrLevelThreeFunMusicSpeechTextEnglish);
-            } else if (layer_2_id == 5) {
-                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFunActivitiesSpeechTextEnglish);
+        } else if (levelOneItemPos == 3){
+            switch(levelTwoItemPos){
+                case 0:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFunInDGamesSpeechTextEnglish);   break;
+                case 1:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFunOutDGamesSpeechTextEnglish);   break;
+                case 2:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFunSportsSpeechTextEnglish);   break;
+                case 3:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFunTvSpeechTextEnglish);   break;
+                case 4:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFunMusicSpeechTextEnglish);    break;
+                case 5:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeFunActivitiesSpeechTextEnglish);   break;
             }
-        } else if (layer_1_id == 4) {
-            if (layer_2_id == 0) {
-                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningAnimBirdsSpeechTextEnglish);
-            } else if (layer_2_id == 1) {
-                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningBodyPartsSpeechTextEnglish);
-            } else if (layer_2_id == 2) {
-                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningBooksSpeechTextEnglish);
-            } else if (layer_2_id == 3) {
-                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningColorsSpeechTextEnglish);
-            } else if (layer_2_id == 4) {
-                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningShapesSpeechTextEnglish);
-            } else if (layer_2_id == 5) {
-                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningStationarySpeechTextEnglish);
-            } else if (layer_2_id == 6) {
-                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningSchoolObjSpeechTextEnglish);
-            } else if (layer_2_id == 7) {
-                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningHomeObjSpeechTextEnglish);
-            } else if (layer_2_id == 8) {
-                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningTransportSpeechTextEnglish);
+        } else if (levelOneItemPos == 4) {
+            switch(levelTwoItemPos){
+                case 0:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningAnimBirdsSpeechTextEnglish);   break;
+                case 1:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningBodyPartsSpeechTextEnglish);   break;
+                case 2:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningBooksSpeechTextEnglish);   break;
+                case 3:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningColorsSpeechTextEnglish);   break;
+                case 4:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningShapesSpeechTextEnglish);    break;
+                case 5:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningStationarySpeechTextEnglish);   break;
+                case 6:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningSchoolObjSpeechTextEnglish);   break;
+                case 7:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningHomeObjSpeechTextEnglish);   break;
+                case 8:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningTransportSpeechTextEnglish);   break;
             }
-        } else if (layer_1_id == 7) {
-            if (layer_2_id == 0) {
-                myMusic = getResources().getStringArray(R.array.arrLevelThreeTimeWeaTimeSpeechTextEnglish);
-            } else if (layer_2_id == 1) {
-                myMusic = getResources().getStringArray(R.array.arrLevelThreeTimeWeaDaySpeechTextEnglish);
-            } else if (layer_2_id == 2) {
-                myMusic = getResources().getStringArray(R.array.arrLevelThreeTimeWeaMonthSpeechTextEnglish);
-            } else if (layer_2_id == 3) {
-                myMusic = getResources().getStringArray(R.array.arrLevelThreeTimeWeaWeatherSpeechTextEnglish);
-            } else if (layer_2_id == 4) {
-                myMusic = getResources().getStringArray(R.array.arrLevelThreeTimeWeaSeasonsSpeechTextEnglish);
-            } else if (layer_2_id == 5) {
-                    myMusic = getResources().getStringArray(R.array.arrLevelThreeTimeWeaHoliFestSpeechTextEnglish);
-            } else if (layer_2_id == 6) {
-                    myMusic = getResources().getStringArray(R.array.arrLevelThreeTimeWeaBirthdaysSpeechTextEnglish);
+        } else if (levelOneItemPos == 7) {
+            switch(levelTwoItemPos){
+                case 0:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeTimeWeaTimeSpeechTextEnglish);   break;
+                case 1:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeTimeWeaDaySpeechTextEnglish);   break;
+                case 2:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeTimeWeaMonthSpeechTextEnglish);   break;
+                case 3:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeTimeWeaWeatherSpeechTextEnglish);   break;
+                case 4:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeTimeWeaSeasonsSpeechTextEnglish);    break;
+                case 5:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeTimeWeaHoliFestSpeechTextEnglish);   break;
+                case 6:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeTimeWeaBirthdaysSpeechTextEnglish);   break;
             }
         }
     }
