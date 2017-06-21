@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">जेलो</string>
+    <string name="action_settings">सेटिंग</string>
+    <string name="Profile">प्रोफाइल</string>
+
+    <string-array name="languages">
+        <item>अंग्रेज़ी</item>
+        <item>हिंदी</item>
+    </string-array>
+
+    <string-array name="bloodgroup">
+        <item>अ +</item>
+        <item>अ -</item>
+        <item>ब +</item>
+        <item>ब -</item>
+        <item>अब +</item>
+        <item>अब -</item>
+        <item>ओ +</item>
+        <item>ओ -</item>
+    </string-array>
+
+    <string-array name="picture_view_mode">
+        <item>चित्र एवं वर्णन</item>
+        <item>केवल चित्र</item>
+    </string-array>
+
+    <string-array name="grid_size">
+        <item>३</item>
+        <item>९</item>
+    </string-array>
+
+    <string name="simple_ime">जेलो कीबोर्ड</string>
+    <string name="subtype_en_US">सिरियल अबक</string>
+    <string name="screen_width">com.dsource.idc.jellow.screen_width</string>
+    <string name="screen_height">com.dsource.idc.jellow.screen_height</string>
+    <string name="shadow_radius">com.dsource.idc.jellow.shadow_radius</string>
+    <string name="border_width">com.dsource.idc.jellow.border_width</string>
+
+    <string name="people_pref_count_eng">people_count</string>
+    <string name="people_pref_count_hindi">people_count_hindi</string>
+    <string name="places_pref_count_eng" >places_count</string>
+
+    <string name="action_bar_title">होम</string>
+    <string name="txtLanguage">भाषा</string>
+    <string name="txtSpeechSpeed">भाषण गति</string>
+    <string name="txtVoiceSpeech">आवाज का स्तर</string>
+    <string name="txtDisplayMode">प्रदर्शन प्रकार</string>
+    <string name="txtNumOfPerPerScr">प्रति स्क्रीन आइकनों की गिनती</string>
+    <string name="txtDemo">डेमो</string>
+    <string name="txtSave">रक्षित करें</string>
+    <string name="demoTtsSpeech">मेरा नाम हेलो हैं</string>
+    <string name="savedSettingsMessage">सेटिंग्स रक्षित हो गये हैं</string>
+
+    <string name="menuProfile" >प्रोफाइल</string>
+    <string name="menuAbout">जेलो के बारे में</string>
+    <string name="menuTutorials">ट्यूटोरियल</string>
+    <string name="menuKeyboardInput">आवाज़ एवं कीबोर्ड नियंत्रण</string>
+    <string name="menuResetPref">आइकॉन रीसेट करें</string>
+    <string name="menuFeedback">प्रतिक्रिया</string>
+
+    <string name="locale_lang_en">en</string>
+    <string name="locale_lang_hi">hi</string>
+    <string name="locale_reg_IN">IN</string>
+    <string name="locale_reg_us">US</string>
+
+    <string name="endString" > है।</string>
+    <string name="aPos">A Positive</string>
+    <string name="aNeg">A Negative</string>
+    <string name="bPos">B Positive</string>
+    <string name="bNeg">B Negative</string>
+    <string name="abPos">A B Positive</string>
+    <string name="abNeg">A B Negative</string>
+    <string name="oPos">O Positive</string>
+    <string name="oNeg">O Negative</string>
+</resources>

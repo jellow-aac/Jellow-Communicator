@@ -10,7 +10,6 @@ import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.KeyListener;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -36,7 +35,7 @@ public class Sequence_Activity extends AppCompatActivity {
     private EditText et;
     private KeyListener originalKeyListener;
     private TextToSpeech mTtts;
-    private Integer[] color = {-5317, -12627531, -7617718, -2937298, -648053365, -1761607680};
+    private int[] mColor;
     private TextView tt1, bt1, bt2, bt3;
     private CircularImageView image1, image2, image3;
     private ImageView arrow1, arrow2, back;
@@ -65,6 +64,7 @@ public class Sequence_Activity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
         getSupportActionBar().setElevation(0);
+        mColor = getResources().getIntArray(R.array.arrActionBtnColors);
         Typeface fontMuktaRegular = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/Mukta-Regular.ttf");
         Typeface fontMuktaBold = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/Mukta-Bold.ttf");
         mLevelTwoItemPos = getIntent().getExtras().getInt("mLevelTwoItemPos");
@@ -613,18 +613,18 @@ public class Sequence_Activity extends AppCompatActivity {
                     }
                 } else {
                     if (image_flag == 1) {
-                        image1.setBorderColor(color[0]);
-                        image1.setShadowColor(color[0]);
+                        image1.setBorderColor(mColor[0]);
+                        image1.setShadowColor(mColor[0]);
                         image1.setShadowRadius(sr);
                         image1.setBorderWidth(bw);
                     } else if (image_flag == 2) {
-                        image2.setBorderColor(color[0]);
-                        image2.setShadowColor(color[0]);
+                        image2.setBorderColor(mColor[0]);
+                        image2.setShadowColor(mColor[0]);
                         image2.setShadowRadius(sr);
                         image2.setBorderWidth(bw);
                     } else if (image_flag == 3) {
-                        image3.setBorderColor(color[0]);
-                        image3.setShadowColor(color[0]);
+                        image3.setBorderColor(mColor[0]);
+                        image3.setShadowColor(mColor[0]);
                         image3.setShadowRadius(sr);
                         image3.setBorderWidth(bw);
                     }
@@ -672,18 +672,18 @@ public class Sequence_Activity extends AppCompatActivity {
                     }
                 } else {
                     if (image_flag == 1) {
-                        image1.setBorderColor(color[2]);
-                        image1.setShadowColor(color[2]);
+                        image1.setBorderColor(mColor[2]);
+                        image1.setShadowColor(mColor[2]);
                         image1.setShadowRadius(sr);
                         image1.setBorderWidth(bw);
                     } else if (image_flag == 2) {
-                        image2.setBorderColor(color[2]);
-                        image2.setShadowColor(color[2]);
+                        image2.setBorderColor(mColor[2]);
+                        image2.setShadowColor(mColor[2]);
                         image2.setShadowRadius(sr);
                         image2.setBorderWidth(bw);
                     } else if (image_flag == 3) {
-                        image3.setBorderColor(color[2]);
-                        image3.setShadowColor(color[2]);
+                        image3.setBorderColor(mColor[2]);
+                        image3.setShadowColor(mColor[2]);
                         image3.setShadowRadius(sr);
                         image3.setBorderWidth(bw);
                     }
@@ -731,18 +731,18 @@ public class Sequence_Activity extends AppCompatActivity {
                     }
                 } else {
                     if (image_flag == 1) {
-                        image1.setBorderColor(color[4]);
-                        image1.setShadowColor(color[4]);
+                        image1.setBorderColor(mColor[4]);
+                        image1.setShadowColor(mColor[4]);
                         image1.setShadowRadius(sr);
                         image1.setBorderWidth(bw);
                     } else if (image_flag == 2) {
-                        image2.setBorderColor(color[4]);
-                        image2.setShadowColor(color[4]);
+                        image2.setBorderColor(mColor[4]);
+                        image2.setShadowColor(mColor[4]);
                         image2.setShadowRadius(sr);
                         image2.setBorderWidth(bw);
                     } else if (image_flag == 3) {
-                        image3.setBorderColor(color[4]);
-                        image3.setShadowColor(color[4]);
+                        image3.setBorderColor(mColor[4]);
+                        image3.setShadowColor(mColor[4]);
                         image3.setShadowRadius(sr);
                         image3.setBorderWidth(bw);
                     }
@@ -790,18 +790,18 @@ public class Sequence_Activity extends AppCompatActivity {
                     }
                 } else {
                     if (image_flag == 1) {
-                        image1.setBorderColor(color[1]);
-                        image1.setShadowColor(color[1]);
+                        image1.setBorderColor(mColor[1]);
+                        image1.setShadowColor(mColor[1]);
                         image1.setShadowRadius(sr);
                         image1.setBorderWidth(bw);
                     } else if (image_flag == 2) {
-                        image2.setBorderColor(color[1]);
-                        image2.setShadowColor(color[1]);
+                        image2.setBorderColor(mColor[1]);
+                        image2.setShadowColor(mColor[1]);
                         image2.setShadowRadius(sr);
                         image2.setBorderWidth(bw);
                     } else if (image_flag == 3) {
-                        image3.setBorderColor(color[1]);
-                        image3.setShadowColor(color[1]);
+                        image3.setBorderColor(mColor[1]);
+                        image3.setShadowColor(mColor[1]);
                         image3.setShadowRadius(sr);
                         image3.setBorderWidth(bw);
                     }
@@ -849,18 +849,18 @@ public class Sequence_Activity extends AppCompatActivity {
                     }
                 } else {
                     if (image_flag == 1) {
-                        image1.setBorderColor(color[3]);
-                        image1.setShadowColor(color[3]);
+                        image1.setBorderColor(mColor[3]);
+                        image1.setShadowColor(mColor[3]);
                         image1.setShadowRadius(sr);
                         image1.setBorderWidth(bw);
                     } else if (image_flag == 2) {
-                        image2.setBorderColor(color[3]);
-                        image2.setShadowColor(color[3]);
+                        image2.setBorderColor(mColor[3]);
+                        image2.setShadowColor(mColor[3]);
                         image2.setShadowRadius(sr);
                         image2.setBorderWidth(bw);
                     } else if (image_flag == 3) {
-                        image3.setBorderColor(color[3]);
-                        image3.setShadowColor(color[3]);
+                        image3.setBorderColor(mColor[3]);
+                        image3.setShadowColor(mColor[3]);
                         image3.setShadowRadius(sr);
                         image3.setBorderWidth(bw);
                     }
@@ -908,18 +908,18 @@ public class Sequence_Activity extends AppCompatActivity {
                     }
                 } else {
                     if (image_flag == 1) {
-                        image1.setBorderColor(color[5]);
-                        image1.setShadowColor(color[5]);
+                        image1.setBorderColor(mColor[5]);
+                        image1.setShadowColor(mColor[5]);
                         image1.setShadowRadius(sr);
                         image1.setBorderWidth(bw);
                     } else if (image_flag == 2) {
-                        image2.setBorderColor(color[5]);
-                        image2.setShadowColor(color[5]);
+                        image2.setBorderColor(mColor[5]);
+                        image2.setShadowColor(mColor[5]);
                         image2.setShadowRadius(sr);
                         image2.setBorderWidth(bw);
                     } else if (image_flag == 3) {
-                        image3.setBorderColor(color[5]);
-                        image3.setShadowColor(color[5]);
+                        image3.setBorderColor(mColor[5]);
+                        image3.setShadowColor(mColor[5]);
                         image3.setShadowRadius(sr);
                         image3.setBorderWidth(bw);
                     }
@@ -938,11 +938,7 @@ public class Sequence_Activity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        MenuInflater blowUp = getMenuInflater();
-        if (mSession.getLanguage() == LANG_ENG)
-            blowUp.inflate(R.menu.menu_1, menu);
-        else
-            blowUp.inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 

@@ -23,11 +23,13 @@ class ImageAdapter extends android.support.v7.widget.RecyclerView.Adapter<ImageA
     private SessionManager mSession;
     private EvaluateDisplayMetricsUtils mMetricsUtils;
     private TypedArray mThumbId;
-    ImageAdapter(Context c) {
-        this.mContext = c;
+    private String[] mBelowText;
+    ImageAdapter(Context context) {
+        mContext = context;
         mSession = new SessionManager(mContext);
         mMetricsUtils = new EvaluateDisplayMetricsUtils(mContext);
         mThumbId = mContext.getResources().obtainTypedArray(R.array.arrLevelOneIconAdapter);
+        mBelowText = mContext.getResources().getStringArray(R.array.arrLevelOneBelowText);
     }
 
     @Override
@@ -38,9 +40,7 @@ class ImageAdapter extends android.support.v7.widget.RecyclerView.Adapter<ImageA
 
     @Override
     public void onBindViewHolder(final ImageAdapter.MyViewHolder holder, final int position) {
-        final int LANG_ENG = 0, LANG_HINDI = 1, GRID_1BY3 = 0, GRID_3BY3 = 1, MODE_PICTURE_ONLY = 1;
-        String[] belowText_english = mContext.getResources().getStringArray(R.array.arrLevelOneBelowTextEnglish);
-        String[] belowText_hindi = mContext.getResources().getStringArray(R.array.arrLevelOneBelowTextHindi);
+        final int LANG_HINDI = 1, GRID_1BY3 = 0, GRID_3BY3 = 1, MODE_PICTURE_ONLY = 1;
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         if (mSession.getGridSize() == GRID_1BY3) {
             if (mSession.getScreenHeight() >= 720) {
@@ -89,10 +89,7 @@ class ImageAdapter extends android.support.v7.widget.RecyclerView.Adapter<ImageA
             holder.menuItemBelowText.setVisibility(View.INVISIBLE);
         holder.menuItemLinearLayout.setLayoutParams(params);
 
-        if(mSession.getLanguage() == LANG_ENG)
-            holder.menuItemBelowText.setText(belowText_english[position]);
-        else
-            holder.menuItemBelowText.setText(belowText_hindi[position]);
+        holder.menuItemBelowText.setText(mBelowText[position]);
         holder.menuItemImage.setImageDrawable(mThumbId.getDrawable(position));
         holder.menuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {}

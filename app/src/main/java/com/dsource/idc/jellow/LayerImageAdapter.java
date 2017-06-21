@@ -26,56 +26,10 @@ class LayerImageAdapter extends android.support.v7.widget.RecyclerView.Adapter<L
     private String[] belowText = new String[100];
 
     LayerImageAdapter(Context context, int levelTwoItemPos){
-        final int LANG_ENG = 0;
         mContext = context;
         mSession = new SessionManager(mContext);
         mMetricsUtils = new EvaluateDisplayMetricsUtils(mContext);
-
-        if (levelTwoItemPos == 0){
-            mThumbIds = mContext.getResources().obtainTypedArray(R.array.arrLevelTwoGreetFeelIconAdapter);
-            if (mSession.getLanguage() == LANG_ENG)
-                belowText = mContext.getResources().getStringArray(R.array.arrLevelTwoGreetFeelAdapterTextEnglish);
-            else
-                belowText = mContext.getResources().getStringArray(R.array.arrLevelTwoGreetFeelAdapterTextHindi);
-        } else if (levelTwoItemPos == 1){
-            mThumbIds = mContext.getResources().obtainTypedArray(R.array.arrLevelTwoDailyActIconAdapter);
-            if (mSession.getLanguage() == LANG_ENG)
-                belowText = mContext.getResources().getStringArray(R.array.arrLevelTwoDailyActAdapterTextEnglish);
-            else
-                belowText = mContext.getResources().getStringArray(R.array.arrLevelTwoDailyActAdapterTextHindi);
-        } else if (levelTwoItemPos == 2){
-            mThumbIds = mContext.getResources().obtainTypedArray(R.array.arrLevelTwoEatingIconAdapter);
-            if (mSession.getLanguage() == LANG_ENG)
-                belowText = mContext.getResources().getStringArray(R.array.arrLevelTwoEatAdapterTextEnglish);
-            else
-                belowText = mContext.getResources().getStringArray(R.array.arrLevelTwoEatAdapterTextHindi);
-        } else if (levelTwoItemPos == 3){
-            mThumbIds = mContext.getResources().obtainTypedArray(R.array.arrLevelTwoFunIconAdapter);
-            if (mSession.getLanguage() == LANG_ENG)
-                belowText = mContext.getResources().getStringArray(R.array.arrLevelTwoFunAdapterTextEnglish);
-            else
-                belowText = mContext.getResources().getStringArray(R.array.arrLevelTwoFunAdapterTextHindi);
-        } else if (levelTwoItemPos == 4) {
-            mThumbIds = mContext.getResources().obtainTypedArray(R.array.arrLevelTwoLearningIconAdapter);
-            if (mSession.getLanguage() == LANG_ENG)
-                belowText = mContext.getResources().getStringArray(R.array.arrLevelTwoLearningAdapterTextEnglish);
-            else
-                belowText = mContext.getResources().getStringArray(R.array.arrLevelTwoLearningAdapterTextHindi);
-        } else if (levelTwoItemPos == 7) {
-            if (mSession.getLanguage() == LANG_ENG) {
-                mThumbIds = mContext.getResources().obtainTypedArray(R.array.arrLevelTwoTimeEnglishIconAdapter);
-                belowText = mContext.getResources().getStringArray(R.array.arrLevelTwoTimeWeatherAdapterTextEnglish);
-            }else {
-                mThumbIds = mContext.getResources().obtainTypedArray(R.array.arrLevelTwoTimeHindiIconAdapter);
-                belowText = mContext.getResources().getStringArray(R.array.arrLevelTwoTimeWeatherAdapterTextHindi);
-            }
-        } else if (levelTwoItemPos == 8) {
-            mThumbIds = mContext.getResources().obtainTypedArray(R.array.arrLevelTwoHelpIconAdapter);
-            if (mSession.getLanguage() == LANG_ENG)
-                belowText = mContext.getResources().getStringArray(R.array.arrLevelTwoHelpAdapterTextEnglish);
-            else
-                belowText = mContext.getResources().getStringArray(R.array.arrLevelTwoHelpAdapterTextHindi);
-        }
+        loadArraysFromResources(levelTwoItemPos);
     }
 
     @Override
@@ -146,6 +100,32 @@ class LayerImageAdapter extends android.support.v7.widget.RecyclerView.Adapter<L
     @Override
     public int getItemCount() {
         return mThumbIds.length();
+    }
+
+    private void loadArraysFromResources(int levelTwoItemPos) {
+        if (levelTwoItemPos == 0){
+            mThumbIds = mContext.getResources().obtainTypedArray(R.array.arrLevelTwoGreetFeelIconAdapter);
+            belowText = mContext.getResources().getStringArray(R.array.arrLevelTwoGreetFeelAdapterText);
+        } else if (levelTwoItemPos == 1){
+            mThumbIds = mContext.getResources().obtainTypedArray(R.array.arrLevelTwoDailyActIconAdapter);
+            belowText = mContext.getResources().getStringArray(R.array.arrLevelTwoDailyActAdapterText);
+        } else if (levelTwoItemPos == 2){
+            mThumbIds = mContext.getResources().obtainTypedArray(R.array.arrLevelTwoEatingIconAdapter);
+            belowText = mContext.getResources().getStringArray(R.array.arrLevelTwoEatAdapterText);
+        } else if (levelTwoItemPos == 3){
+            mThumbIds = mContext.getResources().obtainTypedArray(R.array.arrLevelTwoFunIconAdapter);
+            belowText = mContext.getResources().getStringArray(R.array.arrLevelTwoFunAdapterText);
+        } else if (levelTwoItemPos == 4) {
+            mThumbIds = mContext.getResources().obtainTypedArray(R.array.arrLevelTwoLearningIconAdapter);
+            belowText = mContext.getResources().getStringArray(R.array.arrLevelTwoLearningAdapterText);
+        } else if (levelTwoItemPos == 7) {
+            mThumbIds = mContext.getResources().obtainTypedArray(R.array.arrLevelTwoTimeIconAdapter);
+            belowText = mContext.getResources().getStringArray(R.array.arrLevelTwoTimeWeatherAdapterText);
+        } else if (levelTwoItemPos == 8) {
+            mThumbIds = mContext.getResources().obtainTypedArray(R.array.arrLevelTwoHelpIconAdapter);
+            belowText = mContext.getResources().getStringArray(R.array.arrLevelTwoHelpAdapterText);
+        }
+
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {

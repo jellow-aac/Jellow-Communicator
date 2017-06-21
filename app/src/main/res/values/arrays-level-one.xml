@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--LEVEL ONE ARRAYS ARE HERE-->
-    <string-array name="arrLevelOneBelowTextEnglish">
+    <string-array name="arrLevelOneBelowText">
         <item>greet and feel…</item>
         <item>daily activities…</item>
         <item>eating…</item>
@@ -12,18 +12,7 @@
         <item>time and Weather…</item>
         <item>help…</item>
     </string-array>
-    <string-array name="arrLevelOneBelowTextHindi">
-        <item>शुभकामना और भावना…</item>
-        <item>रोज़ के काम…</item>
-        <item>खाना…</item>
-        <item>मज़े…</item>
-        <item>सीखना…</item>
-        <item>लोग…</item>
-        <item>जगह…</item>
-        <item>समय और मौसम…</item>
-        <item>मदद…</item>
-    </string-array>
-    <string-array name="arrLevelOneActionBarTitleEnglish">
+    <string-array name="arrLevelOneActionBarTitle">
         <item>Greet and Feel</item>
         <item>Daily Activities</item>
         <item>Eating</item>
@@ -33,17 +22,6 @@
         <item>Places</item>
         <item>Time and Weather</item>
         <item>Help</item>
-    </string-array>
-    <string-array name="arrLevelOneActionBarTextHindi">
-        <item>शुभकामना और भावना</item>
-        <item>रोज़ के काम</item>
-        <item>खाना</item>
-        <item>मज़े</item>
-        <item>सीखना</item>
-        <item>लोग</item>
-        <item>जगह</item>
-        <item>समय और मौसम</item>
-        <item>मदद</item>
     </string-array>
     <array name="arrLevelOneIconAdapter">
         <item>@drawable/level1_greet_300</item>

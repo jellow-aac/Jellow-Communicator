@@ -2,7 +2,7 @@
 <!--LEVEL THREE ARRAYS ARE HERE-->
     <!--LEVEL THREE SPEECH TEXT ARE HERE-->
     <!--LEVEL THREE "GREETING" SPEECH TEXT ARE HERE-->
-    <string-array name="arrLevelThreeGreetFeelGreetingSpeechTextHindi">
+    <string-array name="arrLevelThreeGreetFeelGreetingSpeechText">
         <item>नमस्ते!</item>
         <item>नमसकार</item>
         <item>अलविदा</item>
@@ -16,7 +16,7 @@
         <item>आपका दिन कैसा था?</item>
         <item>आपके क्या हाल हैं?</item>
     </string-array>
-    <string-array name="arrLevelThreeGreetFeelFeelingsSpeechTextHindi">
+    <string-array name="arrLevelThreeGreetFeelFeelingsSpeechText">
         <item>खुश</item>
         <item>उदास</item>
         <item>गुस्सा</item>
@@ -35,7 +35,7 @@
         <item>बीमार</item>
         <item>दुखी</item>
     </string-array>
-    <string-array name="arrLevelThreeGreetFeelQuestionsSpeechTextHindi">
+    <string-array name="arrLevelThreeGreetFeelQuestionsSpeechText">
         <item>कैसे?</item>
         <item>कब?</item>
         <item>कहाँपे?</item>
@@ -46,7 +46,7 @@
         <item>कितना लंबा?</item>
         <item>कितनी देर?</item>
     </string-array>
-    <string-array name="arrLevelThreeGreetFeelRequestsSpeechTextHindi">
+    <string-array name="arrLevelThreeGreetFeelRequestsSpeechText">
         <item>कृपया</item>
         <item>धन्यवाद</item>
         <item>आपका स्वागत हैं</item>
@@ -66,7 +66,7 @@
     </string-array>
 
     <!--LEVEL THREE "DAILY ACTIVITITES" SPEECH TEXT ARE HERE-->
-    <string-array name="arrLevelThreeDailyActBrushingSpeechTextHindi">
+    <string-array name="arrLevelThreeDailyActBrushingSpeechText">
         <item>Rinse maauuthh</item>
         <item>Rinse toothbrush</item>
         <item>Put toothpaste on brush</item>
@@ -76,7 +76,7 @@
         <item>Rinse maauuthh</item>
         <item>All done</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActToiletSpeechTextHindi">
+    <string-array name="arrLevelThreeDailyActToiletSpeechText">
         <item>Pull pants down</item>
         <item>Sit on toil et</item>
         <item>Wash bottom</item>
@@ -85,7 +85,7 @@
         <item>Wash hands</item>
         <item>All done</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActBathingSpeechTextHindi">
+    <string-array name="arrLevelThreeDailyActBathingSpeechText">
         <item>Remove clothes</item>
         <item>Turn on water</item>
         <item>Get in the shaaver</item>
@@ -102,7 +102,7 @@
         <item>Put on clothes</item>
         <item>All done</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActClothesAccSpeechTextHindi">
+    <string-array name="arrLevelThreeDailyActClothesAccSpeechText">
         <item>टी-शर्ट बदलना</item>
         <item>फ्रॉक बदलना</item>
         <item>स्कर्ट  बदलना</item>
@@ -142,7 +142,7 @@
         <item>मुझे कपड़े निकालने में मदद चाहिए</item>
         <item>मुझे कपड़े पहनने में मदद चाहिए</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActGetReadySpeechTextHindi">
+    <string-array name="arrLevelThreeDailyActGetReadySpeechText">
         <item>कंघी करना</item>
         <item>फेस वॉश</item>
         <item>नाखून काटना</item>
@@ -150,7 +150,7 @@
         <item>साबुन</item>
         <item>शाम्पू</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActSleepSpeechTextHindi">
+    <string-array name="arrLevelThreeDailyActSleepSpeechText">
         <item>दरवाज़ा</item>
         <item>पंखा</item>
         <item>लाईट</item>
@@ -161,7 +161,7 @@
         <item>गर्मी</item>
         <item>ठंडक</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActTherapySpeechTextHindi">
+    <string-array name="arrLevelThreeDailyActTherapySpeechText">
         <item>कसरत</item>
         <item>झूला</item>
         <item>ट्रैम्पोलीन</item>
@@ -172,7 +172,7 @@
         <item>पैरों की कसरत</item>
         <item>बॉडी वेस्ट</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActMorningScheSpeechTextHindi">
+    <string-array name="arrLevelThreeDailyActMorningScheSpeechText">
         <item>Wake up</item>
         <item>Wash face</item>
         <item>Go to bathroom</item>
@@ -187,7 +187,7 @@
         <item>Go to school</item>
         <item>Have a great day!</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActBedTimeScheSpeechTextHindi">
+    <string-array name="arrLevelThreeDailyActBedTimeScheSpeechText">
         <item>Eat dinner</item>
         <item>ware night clothes</item>
         <item>Brush teeth</item>
@@ -198,7 +198,7 @@
     </string-array>
 
     <!--LEVEL THREE "EATING" SPEECH TEXT ARE HERE-->
-    <string-array name="arrLevelThreeFoodDrinksBreakfastSpeechTextHindi">
+    <string-array name="arrLevelThreeFoodDrinksBreakfastSpeechText">
         <item>ब्रेड</item>
         <item>कोर्नफ्लेक्स</item>
         <item>आलू पूरी</item>
@@ -217,7 +217,7 @@
         <item>सांबर</item>
         <item>उत्तप्पा</item>
     </string-array>
-    <string-array name="arrLevelThreeFoodDrinksLunchDinnerSpeechTextHindi">
+    <string-array name="arrLevelThreeFoodDrinksLunchDinnerSpeechText">
         <item>रोटी</item>
         <item>सब्ज़ी</item>
         <item>चावल</item>
@@ -241,7 +241,7 @@
         <item>पाव भाजी</item>
         <item>भाकरी</item>
     </string-array>
-    <string-array name="arrLevelThreeFoodDrinksSweetsSpeechTextHindi">
+    <string-array name="arrLevelThreeFoodDrinksSweetsSpeechText">
         <item>केक</item>
         <item>आइसक्रीम</item>
         <item>गा जर का हलवा</item>
@@ -253,7 +253,7 @@
         <item>रसगुल्ला</item>
         <item>शीरा</item>
     </string-array>
-    <string-array name="arrLevelThreeFoodDrinksSnacksSpeechTextHindi">
+    <string-array name="arrLevelThreeFoodDrinksSnacksSpeechText">
         <item>बिस्कुट</item>
         <item>चाट</item>
         <item>चॉकलेट</item>
@@ -263,7 +263,7 @@
         <item>चीज़</item>
         <item>नट्स</item>
     </string-array>
-    <string-array name="arrLevelThreeFoodDrinksFruitsSpeechTextHindi">
+    <string-array name="arrLevelThreeFoodDrinksFruitsSpeechText">
         <item>सेब</item>
         <item>केला</item>
         <item>अंगूर</item>
@@ -282,7 +282,7 @@
         <item>पनस</item>
         <item>चेरी</item>
     </string-array>
-    <string-array name="arrLevelThreeFoodDrinksDrinksSpeechTextHindi">
+    <string-array name="arrLevelThreeFoodDrinksDrinksSpeechText">
         <item>पानी</item>
         <item>दूध</item>
         <item>बोर्नविटा</item>
@@ -309,7 +309,7 @@
         <item>कोल्ड कॉफी</item>
         <item>एनर्जी ड्रिंक्स</item>
     </string-array>
-    <string-array name="arrLevelThreeFoodDrinksCutlerySpeechTextHindi">
+    <string-array name="arrLevelThreeFoodDrinksCutlerySpeechText">
         <item>कटोरा</item>
         <item>प्लेट</item>
         <item>चम्मच</item>
@@ -319,7 +319,7 @@
         <item>कप</item>
         <item>ग्लास</item>
     </string-array>
-    <string-array name="arrLevelThreeFoodDrinksAddonSpeechTextHindi">
+    <string-array name="arrLevelThreeFoodDrinksAddonSpeechText">
         <item>मक्खन</item>
         <item>जैम</item>
         <item>नमक</item>
@@ -332,7 +332,7 @@
     </string-array>
 
     <!--LEVEL THREE "FUN" SPEECH TEXT ARE HERE-->
-    <string-array name="arrLevelThreeFunInDGamesSpeechTextHindi">
+    <string-array name="arrLevelThreeFunInDGamesSpeechText">
         <item>पज़ल्स</item>
         <item>बोर्ड खेल</item>
         <item>ब्लॉक्स</item>
@@ -349,7 +349,7 @@
         <item>आर्ट-क्राफ्ट</item>
         <item>मेरे साथ खेलो</item>
     </string-array>
-    <string-array name="arrLevelThreeFunOutDGamesSpeechTextHindi">
+    <string-array name="arrLevelThreeFunOutDGamesSpeechText">
         <item>खेल का मैदान</item>
         <item>पार्क</item>
         <item>झूला</item>
@@ -369,7 +369,7 @@
         <item>दौड़ना</item>
         <item>तैरना</item>
     </string-array>
-    <string-array name="arrLevelThreeFunSportsSpeechTextHindi">
+    <string-array name="arrLevelThreeFunSportsSpeechText">
         <item>क्रिकेट </item>
         <item>बैडमिंटन</item>
         <item>टेनिस </item>
@@ -382,19 +382,19 @@
         <item>जिम्नास्टिक्स</item>
         <item>तैरना</item>
     </string-array>
-    <string-array name="arrLevelThreeFunTvSpeechTextHindi">
+    <string-array name="arrLevelThreeFunTvSpeechText">
         <item>अगला चैनल</item>
         <item>पिछला चैनल</item>
         <item>उँची आवाज़</item>
         <item>धीमी आवाज़</item>
     </string-array>
-    <string-array name="arrLevelThreeFunMusicSpeechTextHindi">
+    <string-array name="arrLevelThreeFunMusicSpeechText">
         <item>संगीत बदलना</item>
         <item>नाचना</item>
         <item>उँची आवाज़</item>
         <item>धीमी आवाज़</item>
     </string-array>
-    <string-array name="arrLevelThreeFunActivitiesSpeechTextHindi">
+    <string-array name="arrLevelThreeFunActivitiesSpeechText">
         <item>चित्र बनाना</item>
         <item>रंग भरना</item>
         <item>पढ़ना</item>
@@ -406,7 +406,7 @@
     </string-array>
 
     <!--LEVEL THREE "LEARNING" SPEECH TEXT ARE HERE-->
-    <string-array name="arrLevelThreeLearningAnimBirdsSpeechTextHindi">
+    <string-array name="arrLevelThreeLearningAnimBirdsSpeechText">
         <item>कुत्ता</item>
         <item>बिल्ली</item>
         <item>हाथी</item>
@@ -454,7 +454,7 @@
         <item>हॉक</item>
         <item>गिद्ध</item>
     </string-array>
-    <string-array name="arrLevelThreeLearningBodyPartsSpeechTextHindi">
+    <string-array name="arrLevelThreeLearningBodyPartsSpeechText">
         <item>सिर</item>
         <item>बाल</item>
         <item>आँखें</item>
@@ -476,7 +476,7 @@
         <item>पैर</item>
         <item>पैर की उंगलियां </item>
     </string-array>
-    <string-array name="arrLevelThreeLearningBooksSpeechTextHindi">
+    <string-array name="arrLevelThreeLearningBooksSpeechText">
         <item>सोने के समय की कहानीयाँ</item>
         <item>हास्यमय किताबें</item>
         <item>काव्यमय किताबें</item>
@@ -497,7 +497,7 @@
         <item>पाठ्यपुस्तकें</item>
         <item>पसंदीदा किताब</item>
     </string-array>
-    <string-array name="arrLevelThreeLearningColorsSpeechTextHindi">
+    <string-array name="arrLevelThreeLearningColorsSpeechText">
         <item>काला</item>
         <item>नीला</item>
         <item>भूरा</item>
@@ -512,7 +512,7 @@
         <item>जामुनी</item>
         <item>ग्रे</item>
     </string-array>
-    <string-array name="arrLevelThreeLearningShapesSpeechTextHindi">
+    <string-array name="arrLevelThreeLearningShapesSpeechText">
         <item>सीधी रेखा </item>
         <item>आड़ी रेखा</item>
         <item>तिरछी रेखा</item>
@@ -531,7 +531,7 @@
         <item>पंचकोन</item>
         <item>मुक्ताकार</item>
     </string-array>
-    <string-array name="arrLevelThreeLearningStationarySpeechTextHindi">
+    <string-array name="arrLevelThreeLearningStationarySpeechText">
         <item>Pencil</item>
         <item>Pen</item>
         <item>स्केल</item>
@@ -549,7 +549,7 @@
         <item>सेलो टेप</item>
         <item>कम्पास बौक्स</item>
     </string-array>
-    <string-array name="arrLevelThreeLearningSchoolObjSpeechTextHindi">
+    <string-array name="arrLevelThreeLearningSchoolObjSpeechText">
         <item>Bag</item>
         <item>खाने का डिब्बा</item>
         <item>पानी की बोतल</item>
@@ -567,7 +567,7 @@
         <item>शारप्नर</item>
         <item>चॉक</item>
     </string-array>
-    <string-array name="arrLevelThreeLearningHomeObjSpeechTextHindi">
+    <string-array name="arrLevelThreeLearningHomeObjSpeechText">
         <item>खिड़की</item>
         <item>दरवाज़ा</item>
         <item>पंखा</item>
@@ -595,7 +595,7 @@
         <item>घड़ी</item>
         <item>ट्यूब लाइट</item>
     </string-array>
-    <string-array name="arrLevelThreeLearningTransportSpeechTextHindi">
+    <string-array name="arrLevelThreeLearningTransportSpeechText">
         <item>बस</item>
         <item>स्कूल  बस</item>
         <item>कार</item>
@@ -608,7 +608,7 @@
     </string-array>
 
     <!--LEVEL THREE "TIME WEATHER" SPEECH TEXT ARE HERE-->
-    <string-array name="arrLevelThreeTimeWeaTimeSpeechTextHindi">
+    <string-array name="arrLevelThreeTimeWeaTimeSpeechText">
         <item>समय क्या हुआ हैं</item>
         <item>आज</item>
         <item>कल</item>
@@ -618,7 +618,7 @@
         <item>शाम</item>
         <item>रात</item>
     </string-array>
-    <string-array name="arrLevelThreeTimeWeaDaySpeechTextHindi">
+    <string-array name="arrLevelThreeTimeWeaDaySpeechText">
         <item>आज कौनसा दिन है?</item>
         <item>सोमवार</item>
         <item>मंगलवार</item>
@@ -628,7 +628,7 @@
         <item>शनिवार</item>
         <item>रविवार</item>
     </string-array>
-    <string-array name="arrLevelThreeTimeWeaMonthSpeechTextHindi">
+    <string-array name="arrLevelThreeTimeWeaMonthSpeechText">
         <item>वर्तमान महीना कौनसा हैं ?</item>
         <item>जनवरी</item>
         <item>फरवरी</item>
@@ -646,7 +646,7 @@
         <item>पिछला महीना</item>
         <item>अगला महीना</item>
     </string-array>
-    <string-array name="arrLevelThreeTimeWeaWeatherSpeechTextHindi">
+    <string-array name="arrLevelThreeTimeWeaWeatherSpeechText">
         <item>आज का मौसम क्या हैं</item>
         <item>गरम</item>
         <item>बरसात</item>
@@ -655,7 +655,7 @@
         <item>घना</item>
         <item>बर्फीला</item>
     </string-array>
-    <string-array name="arrLevelThreeTimeWeaSeasonsSpeechTextHindi">
+    <string-array name="arrLevelThreeTimeWeaSeasonsSpeechText">
         <item>वर्तमान ऋतु कौनसा हैं? </item>
         <item>वसंत ऋतु</item>
         <item>ग्रीष्म ऋतु</item>
@@ -663,7 +663,7 @@
         <item>शरद ऋतु</item>
         <item>शीत ऋतु</item>
     </string-array>
-    <string-array name="arrLevelThreeTimeWeaHoliFestSpeechTextHindi">
+    <string-array name="arrLevelThreeTimeWeaHoliFestSpeechText">
         <item>दिवाली</item>
         <item>गणेश चतुर्थी</item>
         <item>क्रिसमस </item>
@@ -677,7 +677,7 @@
         <item>स्वतंत्रता दिवस</item>
         <item>नया साल</item>
     </string-array>
-    <string-array name="arrLevelThreeTimeWeaBirthdaysSpeechTextHindi">
+    <string-array name="arrLevelThreeTimeWeaBirthdaysSpeechText">
         <item>मेरा जन्मदिन</item>
         <item>माँ का जन्मदिन</item>
         <item>पिताजी का जन्मदिन</item>
@@ -701,9 +701,9 @@
         <item>शिक्षक का जन्मदिन</item>
     </string-array>
 
-    <!--LEVEL THREE ADAPTER ADAPTER TEXT ARE HERE-->
+<!--LEVEL THREE ADAPTER ADAPTER TEXT ARE HERE-->
     <!--LEVEL THREE "GREET AND FEEL" ADAPTER TEXT ARE HERE-->
-    <string-array name="arrLevelThreeGreetFeelGreetingAdapterTextHindi">
+    <string-array name="arrLevelThreeGreetFeelGreetingAdapterText">
         <item>नमस्ते</item>
         <item>नमस्कार</item>
         <item>अलविदा</item>
@@ -717,7 +717,7 @@
         <item>आपका दिन कैसा था?</item>
         <item>आपके क्या हाल हैं?</item>
     </string-array>
-    <string-array name="arrLevelThreeGreetFeelFeelingsAdapterTextHindi">
+    <string-array name="arrLevelThreeGreetFeelFeelingsAdapterText">
         <item>खुश</item>
         <item>उदास</item>
         <item>गुस्सा</item>
@@ -736,7 +736,7 @@
         <item>बीमार</item>
         <item>दुःखी</item>
     </string-array>
-    <string-array name="arrLevelThreeGreetFeelQuestionsAdapterTextHindi">
+    <string-array name="arrLevelThreeGreetFeelQuestionsAdapterText">
         <item>कैसे?</item>
         <item>कब?</item>
         <item>कहॉं पे?</item>
@@ -747,7 +747,7 @@
         <item>कितना लंबा?</item>
         <item>कितनी देर?</item>
     </string-array>
-    <string-array name="arrLevelThreeGreetFeelRequestsAdapterTextHindi">
+    <string-array name="arrLevelThreeGreetFeelRequestsAdapterText">
         <item>कृपया</item>
         <item>धन्यवाद</item>
         <item>आपका स्वागत हैं</item>
@@ -766,8 +766,8 @@
         <item>कृपया मुझे लेके जाईए</item>
     </string-array>
 
-    <!--LEVEL THREE "DAILY ACTIVITITES" ADAPTER TEXT ARE HERE-->
-    <string-array name="arrLevelThreeDailyActBrushingAdapterTextHindi">
+    <!--LEVEL THREE "DAILY ACTIVITIES" ADAPTER TEXT ARE HERE-->
+    <string-array name="arrLevelThreeDailyActBrushingAdapterText">
         <item>Rinse mouth</item>
         <item>Rinse toothbrush</item>
         <item>Put toothpaste on brush</item>
@@ -777,7 +777,7 @@
         <item>Rinse mouth</item>
         <item>All done</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActToiletAdapterTextHindi">
+    <string-array name="arrLevelThreeDailyActToiletAdapterText">
         <item>Pull pants down</item>
         <item>Sit on toilet</item>
         <item>Wash bottom</item>
@@ -786,7 +786,7 @@
         <item>Wash hands</item>
         <item>All done</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActBathingAdapterTextHindi">
+    <string-array name="arrLevelThreeDailyActBathingAdapterText">
         <item>Remove clothes</item>
         <item>Turn on water</item>
         <item>Get in the shower</item>
@@ -803,7 +803,7 @@
         <item>Put on clothes</item>
         <item>All done</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActClothesAccAdapterTextHindi">
+    <string-array name="arrLevelThreeDailyActClothesAccAdapterText">
         <item>टी-शर्ट बदलना </item>
         <item>फ्रॉक बदलना</item>
         <item>स्कर्ट बदलना</item>
@@ -843,7 +843,7 @@
         <item>कपड़े निकालने में मदद</item>
         <item>कपड़े पैहनने में मदद</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActGetReadyAdapterTextHindi">
+    <string-array name="arrLevelThreeDailyActGetReadyAdapterText">
         <item>कंघी करना</item>
         <item>फेस वॉश</item>
         <item>नाखून काटना</item>
@@ -851,7 +851,7 @@
         <item>साबुन</item>
         <item>शैम्पू</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActSleepAdapterTextHindi">
+    <string-array name="arrLevelThreeDailyActSleepAdapterText">
         <item>दरवाज़ा</item>
         <item>पंखा</item>
         <item>लाईट</item>
@@ -862,7 +862,7 @@
         <item>गर्मी</item>
         <item>ठंडक</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActTherapyAdapterTextHindi">
+    <string-array name="arrLevelThreeDailyActTherapyAdapterText">
         <item>कसरत</item>
         <item>झूला</item>
         <item>ट्रेम्पोलिन</item>
@@ -873,7 +873,7 @@
         <item>पैरों की कसरत</item>
         <item>बॉडी वेस्ट</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActMrngScheAdapterTextHindi">
+    <string-array name="arrLevelThreeDailyActMorningScheAdapterText">
         <item>Wake up</item>
         <item>Wash face</item>
         <item>Go to bathroom</item>
@@ -888,7 +888,7 @@
         <item>Go to school</item>
         <item>Have a great day!</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActMrngBedTimScheAdapterTextHindi">
+    <string-array name="arrLevelThreeDailyActMorningBedTimScheAdapterText">
         <item>Eat dinner</item>
         <item>Wear night clothes</item>
         <item>Brush teeth</item>
@@ -899,7 +899,7 @@
     </string-array>
 
     <!--LEVEL THREE "EATING" SPEECH TEXT ARE HERE-->
-    <string-array name="arrLevelThreeFoodDrinksBreakfastAdapterTextHindi">
+    <string-array name="arrLevelThreeFoodDrinksBreakfastAdapterText">
         <item>ब्रेड</item>
         <item>कॉर्नफ़्लेक्स</item>
         <item>आलू पूरी</item>
@@ -918,7 +918,7 @@
         <item>सांबर</item>
         <item>उत्तपा</item>
     </string-array>
-    <string-array name="arrLevelThreeFoodDrinksLunchDinnerAdapterTextHindi">
+    <string-array name="arrLevelThreeFoodDrinksLunchDinnerAdapterText">
         <item>रोटी</item>
         <item>सब्ज़ी</item>
         <item>चावल</item>
@@ -942,7 +942,7 @@
         <item>पाव भाजी</item>
         <item>भाकरी</item>
     </string-array>
-    <string-array name="arrLevelThreeFoodDrinksSweetsAdapterTextHindi">
+    <string-array name="arrLevelThreeFoodDrinksSweetsAdapterText">
         <item>केक</item>
         <item>आइसक्रीम</item>
         <item>गाजर का हलवा</item>
@@ -954,7 +954,7 @@
         <item>रसगुल्ला</item>
         <item>शीरा</item>
     </string-array>
-    <string-array name="arrLevelThreeFoodDrinksSnacksAdapterTextHindi">
+    <string-array name="arrLevelThreeFoodDrinksSnacksAdapterText">
         <item>बिस्कुट</item>
         <item>चाट</item>
         <item>चॉकलेट</item>
@@ -964,7 +964,7 @@
         <item>चीज़</item>
         <item>नट्स</item>
     </string-array>
-    <string-array name="arrLevelThreeFoodDrinksFruitsAdapterTextHindi">
+    <string-array name="arrLevelThreeFoodDrinksFruitsAdapterText">
         <item>सेब</item>
         <item>केला</item>
         <item>अंगूर</item>
@@ -983,7 +983,7 @@
         <item>पनस</item>
         <item>चेरी</item>
     </string-array>
-    <string-array name="arrLevelThreeFoodDrinksDrinksAdapterTextHindi">
+    <string-array name="arrLevelThreeFoodDrinksDrinksAdapterText">
         <item>पानी</item>
         <item>दूध</item>
         <item>बॉर्नविटा</item>
@@ -1010,7 +1010,7 @@
         <item>कोल्ड कॉफी</item>
         <item>एनर्जी ड्रिंक्स</item>
     </string-array>
-    <string-array name="arrLevelThreeFoodDrinksCutleryAdapterTextHindi">
+    <string-array name="arrLevelThreeFoodDrinksCutleryAdapterText">
         <item>कटोरा</item>
         <item>प्लेट</item>
         <item>चम्मच</item>
@@ -1020,7 +1020,7 @@
         <item>कप</item>
         <item>ग्लास</item>
     </string-array>
-    <string-array name="arrLevelThreeFoodDrinksAddonAdapterTextHindi">
+    <string-array name="arrLevelThreeFoodDrinksAddonAdapterText">
         <item>मक्खन</item>
         <item>जाम</item>
         <item>नमक</item>
@@ -1033,7 +1033,7 @@
     </string-array>
 
     <!--LEVEL THREE "FUN" ADAPTER TEXT ARE HERE-->
-    <string-array name="arrLevelThreeFunInDGamesAdapterTextHindi">
+    <string-array name="arrLevelThreeFunInDGamesAdapterText">
         <item>पज़ल्स</item>
         <item>बोर्ड खेल</item>
         <item>ब्लॉक्स</item>
@@ -1050,7 +1050,7 @@
         <item>आर्ट-क्राफ्ट</item>
         <item>मेरे साथ खेलो</item>
     </string-array>
-    <string-array name="arrLevelThreeFunOutDGamesAdapterTextHindi">
+    <string-array name="arrLevelThreeFunOutDGamesAdapterText">
         <item>खेल का मैदान</item>
         <item>पार्क</item>
         <item>झूला</item>
@@ -1070,7 +1070,7 @@
         <item>दौड़ना</item>
         <item>तैरना</item>
     </string-array>
-    <string-array name="arrLevelThreeFunSportsAdapterTextHindi">
+    <string-array name="arrLevelThreeFunSportsAdapterText">
         <item>क्रिकेट </item>
         <item>बैडमिंटन</item>
         <item>टेनिस </item>
@@ -1083,19 +1083,19 @@
         <item>जिमनास्टिक</item>
         <item>तैरना</item>
     </string-array>
-    <string-array name="arrLevelThreeFunTvAdapterTextHindi">
+    <string-array name="arrLevelThreeFunTvAdapterText">
         <item>अगला चैनल</item>
         <item>पिछला चैनल</item>
         <item>उँची आवाज़</item>
         <item>धीमी आवाज़</item>
     </string-array>
-    <string-array name="arrLevelThreeFunMusicAdapterTextHindi">
+    <string-array name="arrLevelThreeFunMusicAdapterText">
         <item>संगीत बदलना</item>
         <item>नाचना</item>
         <item>उँची आवाज़</item>
         <item>धीमी आवाज़</item>
     </string-array>
-    <string-array name="arrLevelThreeFunActivitiesAdapterTextHindi">
+    <string-array name="arrLevelThreeFunActivitiesAdapterText">
         <item>चित्र बनाना</item>
         <item>रंग भरना</item>
         <item>पढ़ना</item>
@@ -1107,7 +1107,7 @@
     </string-array>
 
     <!--LEVEL THREE "LEARNING" ADAPTER TEXT ARE HERE-->
-    <string-array name="arrLevelThreeLearningAnimBirdsAdapterTextHindi">
+    <string-array name="arrLevelThreeLearningAnimBirdsAdapterText">
         <item>कुत्ता</item>
         <item>बिल्ली</item>
         <item>हाथी</item>
@@ -1155,7 +1155,7 @@
         <item>हॉक</item>
         <item>गिद्ध</item>
     </string-array>
-    <string-array name="arrLevelThreeLearningBodyPartsAdapterTextHindi">
+    <string-array name="arrLevelThreeLearningBodyPartsAdapterText">
         <item>सिर</item>
         <item>बाल</item>
         <item>आँखें</item>
@@ -1177,7 +1177,7 @@
         <item>पैर</item>
         <item>पैर की उंगलियाँ</item>
     </string-array>
-    <string-array name="arrLevelThreeLearningBooksAdapterTextHindi">
+    <string-array name="arrLevelThreeLearningBooksAdapterText">
         <item>सोने के समय की कहानीयाँ</item>
         <item>हास्यमय किताबें</item>
         <item>काव्यमय किताबें</item>
@@ -1198,7 +1198,7 @@
         <item>पाठ्यपुस्तकें</item>
         <item>पसंदीदा किताब</item>
     </string-array>
-    <string-array name="arrLevelThreeLearningColorsAdapterTextHindi">
+    <string-array name="arrLevelThreeLearningColorsAdapterText">
         <item>काला</item>
         <item>नीला</item>
         <item>भूरा</item>
@@ -1213,7 +1213,7 @@
         <item>जामुनी</item>
         <item>ग्रे </item>
     </string-array>
-    <string-array name="arrLevelThreeLearningShapesAdapterTextHindi">
+    <string-array name="arrLevelThreeLearningShapesAdapterText">
         <item>सीधी रेखा </item>
         <item>आड़ी रेखा</item>
         <item>तिरछी रेखा</item>
@@ -1232,7 +1232,7 @@
         <item>पंचकोण</item>
         <item>मुक्ताकार</item>
     </string-array>
-    <string-array name="arrLevelThreeLearningStationaryAdapterTextHindi">
+    <string-array name="arrLevelThreeLearningStationaryAdapterText">
         <item>पेंसिल</item>
         <item>पेन</item>
         <item>स्केल</item>
@@ -1250,7 +1250,7 @@
         <item>सेलो टेप</item>
         <item>कम्पास बॉक्स</item>
     </string-array>
-    <string-array name="arrLevelThreeLearningSchoolObjAdapterTextHindi">
+    <string-array name="arrLevelThreeLearningSchoolObjAdapterText">
         <item>बैग</item>
         <item>खाने का डिब्बा</item>
         <item>पानी की बोतल</item>
@@ -1268,7 +1268,7 @@
         <item>शार्पनर</item>
         <item>चॉक</item>
     </string-array>
-    <string-array name="arrLevelThreeLearningHomeObjAdapterTextHindi">
+    <string-array name="arrLevelThreeLearningHomeObjAdapterText">
         <item>खिड़की</item>
         <item>दरवाज़ा</item>
         <item>पंखा</item>
@@ -1296,7 +1296,7 @@
         <item>घड़ी</item>
         <item>ट्यूब लाइट</item>
     </string-array>
-    <string-array name="arrLevelThreeLearningTransportAdapterTextHindi">
+    <string-array name="arrLevelThreeLearningTransportAdapterText">
         <item>बस</item>
         <item>स्कूल  बस</item>
         <item>कार</item>
@@ -1309,7 +1309,7 @@
     </string-array>
 
     <!--LEVEL THREE "TIME WEATHER" ADAPTER TEXT ARE HERE-->
-    <string-array name="arrLevelThreeTimeWeaTimeAdapterTextHindi">
+    <string-array name="arrLevelThreeTimeWeaTimeAdapterText">
         <item>समय क्या हुआ हैं?</item>
         <item>आज़</item>
         <item>कल</item>
@@ -1319,7 +1319,7 @@
         <item>शाम</item>
         <item>रात</item>
     </string-array>
-    <string-array name="arrLevelThreeTimeWeaDayAdapterTextHindi">
+    <string-array name="arrLevelThreeTimeWeaDayAdapterText">
         <item>आज कौनसा दिन है?</item>
         <item>सोमवार</item>
         <item>मंगलवार</item>
@@ -1329,7 +1329,7 @@
         <item>शनिवार</item>
         <item>रविवार</item>
     </string-array>
-    <string-array name="arrLevelThreeTimeWeaMonthAdapterTextHindi">
+    <string-array name="arrLevelThreeTimeWeaMonthAdapterText">
         <item>वर्तमान महीना कौनसा हैं ?</item>
         <item>जनवरी</item>
         <item>फरवरी</item>
@@ -1347,7 +1347,7 @@
         <item>पिछला महीना</item>
         <item>अगला महीना</item>
     </string-array>
-    <string-array name="arrLevelThreeTimeWeaWeatherAdapterTextHindi">
+    <string-array name="arrLevelThreeTimeWeaWeatherAdapterText">
         <item>आज का मौसम क्या हैं?</item>
         <item>गरम</item>
         <item>बरसात</item>
@@ -1356,7 +1356,7 @@
         <item>घना</item>
         <item>बर्फीला</item>
     </string-array>
-    <string-array name="arrLevelThreeTimeWeaSeasonsAdapterTextHindi">
+    <string-array name="arrLevelThreeTimeWeaSeasonsAdapterText">
         <item>वर्तमान ऋतु कौनसा हैं?</item>
         <item>वसंत ऋतु</item>
         <item>ग्रीष्म ऋतु</item>
@@ -1364,7 +1364,7 @@
         <item>शरद ऋतु</item>
         <item>शीत ऋतु</item>
     </string-array>
-    <string-array name="arrLevelThreeTimeWeaHoliFestAdapterTextHindi">
+    <string-array name="arrLevelThreeTimeWeaHoliFestAdapterText">
         <item>दिवाली</item>
         <item>गणेश चतुर्थी</item>
         <item>क्रिसमस </item>
@@ -1378,7 +1378,7 @@
         <item>स्वतंत्रता दिवस</item>
         <item>नया साल</item>
     </string-array>
-    <string-array name="arrLevelThreeTimeWeaBirthdaysAdapterTextHindi">
+    <string-array name="arrLevelThreeTimeWeaBirthdaysAdapterText">
         <item>मेरा जन्मदिन</item>
         <item>माँ का जन्मदिन</item>
         <item>पिताजी का जन्मदिन</item>
@@ -1402,9 +1402,9 @@
         <item>शिक्षक का जन्मदिन</item>
     </string-array>
 
-    <!--LEVEL THREE ADAPTER DRAWABLE ARE HERE-->
+<!--LEVEL THREE ADAPTER DRAWABLE ARE HERE-->
     <!--LEVEL THREE "GREET AND FEEL" ADAPTER TEXT ARE HERE-->
-    <array name="arrLevelThreeGreetFeelGreetingIconAdapterHindi">
+    <array name="arrLevelThreeGreetFeelGreetingIconAdapter">
         <item>@drawable/thankyou</item>
         <item>@drawable/thankyou</item>
         <item>@drawable/bye</item>
@@ -1418,7 +1418,7 @@
         <item>@drawable/howwasyourday</item>
         <item>@drawable/howareyou</item>
     </array>
-    <array name="arrLevelThreeGreetFeelFeelingIconAdapterHindi">
+    <array name="arrLevelThreeGreetFeelFeelingIconAdapter">
         <item>@drawable/happy</item>
         <item>@drawable/sad</item>
         <item>@drawable/angry</item>
@@ -1437,7 +1437,7 @@
         <item>@drawable/sick</item>
         <item>@drawable/hurt</item>
     </array>
-    <array name="arrLevelThreeGreetFeelRequestsIconAdapterHindi">
+    <array name="arrLevelThreeGreetFeelRequestsIconAdapter">
         <item>@drawable/please</item>
         <item>@drawable/thankyou</item>
         <item>@drawable/welcome</item>
@@ -1455,7 +1455,7 @@
         <item>@drawable/comehere</item>
         <item>@drawable/takeme</item>
     </array>
-    <array name="arrLevelThreeGreetFeelQuestionsIconAdapterHindi">
+    <array name="arrLevelThreeGreetFeelQuestionsIconAdapter">
         <item>@drawable/how</item>
         <item>@drawable/when</item>
         <item>@drawable/where</item>
@@ -1468,7 +1468,7 @@
     </array>
 
     <!--LEVEL THREE "DAILY ACTIVITIES" ADAPTER TEXT ARE HERE-->
-    <array name="arrLevelThreeDailyActBrushingIconAdapterHindi">
+    <array name="arrLevelThreeDailyActBrushingIconAdapter">
         <item>@drawable/gradient</item>
         <item>@drawable/gradient</item>
         <item>@drawable/gradient</item>
@@ -1478,7 +1478,7 @@
         <item>@drawable/gradient</item>
         <item>@drawable/gradient</item>
     </array>
-    <array name="arrLevelThreeDailyActToiletIconAdapterHindi">
+    <array name="arrLevelThreeDailyActToiletIconAdapter">
         <item>@drawable/gradient</item>
         <item>@drawable/gradient</item>
         <item>@drawable/gradient</item>
@@ -1487,7 +1487,7 @@
         <item>@drawable/gradient</item>
         <item>@drawable/gradient</item>
     </array>
-    <array name="arrLevelThreeDailyActBathingIconAdapterHindi">
+    <array name="arrLevelThreeDailyActBathingIconAdapter">
         <item>@drawable/gradient</item>
         <item>@drawable/gradient</item>
         <item>@drawable/gradient</item>
@@ -1504,7 +1504,7 @@
         <item>@drawable/gradient</item>
         <item>@drawable/gradient</item>
     </array>
-    <array name="arrLevelThreeDailyActClothesIconAdapterHindi">
+    <array name="arrLevelThreeDailyActClothesIconAdapter">
         <item>@drawable/tshirt_clothing</item>
         <item>@drawable/dress_clothing</item>
         <item>@drawable/skirt_clothing</item>
@@ -1544,7 +1544,7 @@
         <item>@drawable/ineedhelpremovingclothes</item>
         <item>@drawable/ineedhelpputtingclotheson</item>
     </array>
-    <array name="arrLevelThreeDailyActGetReadyIconAdapterHindi">
+    <array name="arrLevelThreeDailyActGetReadyIconAdapter">
         <item>@drawable/combhair</item>
         <item>@drawable/facewash</item>
         <item>@drawable/cuttingnails</item>
@@ -1552,7 +1552,7 @@
         <item>@drawable/soap</item>
         <item>@drawable/shampoo</item>
     </array>
-    <array name="arrLevelThreeDailyActSleepIconAdapterHindi">
+    <array name="arrLevelThreeDailyActSleepIconAdapter">
         <item>@drawable/door_homeobjects</item>
         <item>@drawable/fan</item>
         <item>@drawable/light</item>
@@ -1563,7 +1563,7 @@
         <item>@drawable/feelinghot</item>
         <item>@drawable/feelingcold</item>
     </array>
-    <array name="arrLevelThreeDailyActTherapyIconAdapterHindi">
+    <array name="arrLevelThreeDailyActTherapyIconAdapter">
         <item>@drawable/exercise</item>
         <item>@drawable/swing</item>
         <item>@drawable/trampoline</item>
@@ -1574,7 +1574,7 @@
         <item>@drawable/legexercises</item>
         <item>@drawable/bodyvest</item>
     </array>
-    <array name="arrLevelThreeDailyActMorningScheIconAdapterHindi">
+    <array name="arrLevelThreeDailyActMorningScheIconAdapter">
         <item>@drawable/wakeup</item>
         <item>@drawable/washface</item>
         <item>@drawable/gototoilet</item>
@@ -1589,7 +1589,7 @@
         <item>@drawable/gradient</item>
         <item>@drawable/haveagreatday</item>
     </array>
-    <array name="arrLevelThreeDailyActBedTimeScheIconAdapterHindi">
+    <array name="arrLevelThreeDailyActBedTimeScheIconAdapter">
         <item>@drawable/eatdinner</item>
         <item>@drawable/wearnightsuit</item>
         <item>@drawable/brushteeth</item>
@@ -1600,7 +1600,7 @@
     </array>
 
     <!--LEVEL THREE "EATING" ADAPTER TEXT ARE HERE-->
-    <array name="arrLevelThreeFoodDrinksBreakfastIconAdapterHindi">
+    <array name="arrLevelThreeFoodDrinksBreakfastIconAdapter">
         <item>@drawable/bread</item>
         <item>@drawable/cornflakes</item>
         <item>@drawable/aloopuri</item>
@@ -1619,7 +1619,7 @@
         <item>@drawable/sambar</item>
         <item>@drawable/uttapam</item>
     </array>
-    <array name="arrLevelThreeFoodDrinksLunchDinIconAdapterHindi">
+    <array name="arrLevelThreeFoodDrinksLunchDinIconAdapter">
         <item>@drawable/roti</item>
         <item>@drawable/sabzi</item>
         <item>@drawable/rice</item>
@@ -1643,7 +1643,7 @@
         <item>@drawable/pavbhaji</item>
         <item>@drawable/bhakri</item>
     </array>
-    <array name="arrLevelThreeFoodDrinksSweetsIconAdapterHindi">
+    <array name="arrLevelThreeFoodDrinksSweetsIconAdapter">
         <item>@drawable/cake</item>
         <item>@drawable/icecream</item>
         <item>@drawable/gajarhalwa</item>
@@ -1655,7 +1655,7 @@
         <item>@drawable/rasgulla</item>
         <item>@drawable/sheera</item>
     </array>
-    <array name="arrLevelThreeFoodDrinksSnacksIconAdapterHindi">
+    <array name="arrLevelThreeFoodDrinksSnacksIconAdapter">
         <item>@drawable/biscuits</item>
         <item>@drawable/chaat</item>
         <item>@drawable/chocolate</item>
@@ -1665,7 +1665,7 @@
         <item>@drawable/cheese</item>
         <item>@drawable/peanuts</item>
     </array>
-    <array name="arrLevelThreeFoodDrinksFruitsIconAdapterHindi">
+    <array name="arrLevelThreeFoodDrinksFruitsIconAdapter">
         <item>@drawable/apple</item>
         <item>@drawable/banana</item>
         <item>@drawable/grapes</item>
@@ -1684,7 +1684,7 @@
         <item>@drawable/jackfruit</item>
         <item>@drawable/cherry</item>
     </array>
-    <array name="arrLevelThreeFoodDrinksDrinksIconAdapterHindi">
+    <array name="arrLevelThreeFoodDrinksDrinksIconAdapter">
         <item>@drawable/water</item>
         <item>@drawable/milk</item>
         <item>@drawable/bournvita</item>
@@ -1711,7 +1711,7 @@
         <item>@drawable/coldcoffee</item>
         <item>@drawable/energydrink</item>
     </array>
-    <array name="arrLevelThreeFoodDrinksCutleryIconAdapterHindi">
+    <array name="arrLevelThreeFoodDrinksCutleryIconAdapter">
         <item>@drawable/bowl_cutlery</item>
         <item>@drawable/plate_cutlery</item>
         <item>@drawable/spoon_cutlery</item>
@@ -1721,7 +1721,7 @@
         <item>@drawable/cup_cutlery</item>
         <item>@drawable/glass_cutlery</item>
     </array>
-    <array name="arrLevelThreeFoodDrinksAddonsIconAdapterHindi">
+    <array name="arrLevelThreeFoodDrinksAddonsIconAdapter">
         <item>@drawable/butter_addons</item>
         <item>@drawable/jam_addons</item>
         <item>@drawable/salt_addons</item>
@@ -1734,7 +1734,7 @@
     </array>
 
     <!--LEVEL THREE "FUN" ADAPTER TEXT ARE HERE-->
-    <array name="arrLevelThreeFunInDGamesIconAdapterHindi">
+    <array name="arrLevelThreeFunInDGamesIconAdapter">
         <item>@drawable/puzzles</item>
         <item>@drawable/boradgames</item>
         <item>@drawable/blocks</item>
@@ -1751,7 +1751,7 @@
         <item>@drawable/artandcraft_activities</item>
         <item>@drawable/playwithme</item>
     </array>
-    <array name="arrLevelThreeFunOutDGamesIconAdapterHindi">
+    <array name="arrLevelThreeFunOutDGamesIconAdapter">
         <item>@drawable/level2_places_playground</item>
         <item>@drawable/level2_places_park</item>
         <item>@drawable/swing</item>
@@ -1771,7 +1771,7 @@
         <item>@drawable/running</item>
         <item>@drawable/swimming</item>
     </array>
-    <array name="arrLevelThreeFunSportsIconAdapterHindi">
+    <array name="arrLevelThreeFunSportsIconAdapter">
         <item>@drawable/cricket_activities</item>
         <item>@drawable/badminton_activities</item>
         <item>@drawable/tennis_activities</item>
@@ -1784,19 +1784,19 @@
         <item>@drawable/gymnastics</item>
         <item>@drawable/swimming</item>
     </array>
-    <array name="arrLevelThreeFunTvIconAdapterHindi">
+    <array name="arrLevelThreeFunTvIconAdapter">
         <item>@drawable/nextchannel</item>
         <item>@drawable/previouschannel</item>
         <item>@drawable/volumeup</item>
         <item>@drawable/volumedown</item>
     </array>
-    <array name="arrLevelThreeFunMusicIconAdapterHindi">
+    <array name="arrLevelThreeFunMusicIconAdapter">
         <item>@drawable/changemusic</item>
         <item>@drawable/dancing</item>
         <item>@drawable/volumeup</item>
         <item>@drawable/volumedown</item>
     </array>
-    <array name="arrLevelThreeFunActivitiesIconAdapterHindi">
+    <array name="arrLevelThreeFunActivitiesIconAdapter">
         <item>@drawable/draw_activities</item>
         <item>@drawable/painting_activities</item>
         <item>@drawable/read_activities</item>
@@ -1808,7 +1808,7 @@
     </array>
 
     <!--LEVEL THREE "LEARNING" ADAPTER TEXT ARE HERE-->
-    <array name="arrLevelThreeLearningAnimBirdsIconAdapterHindi">
+    <array name="arrLevelThreeLearningAnimBirdsIconAdapter">
         <item>@drawable/dog_animals</item>
         <item>@drawable/cat_animals</item>
         <item>@drawable/elephant_animals</item>
@@ -1856,7 +1856,7 @@
         <item>@drawable/hawk</item>
         <item>@drawable/vulture</item>
     </array>
-    <array name="arrLevelThreeLearningBodyPartsIconAdapterHindi">
+    <array name="arrLevelThreeLearningBodyPartsIconAdapter">
         <item>@drawable/head</item>
         <item>@drawable/hair_bodyparts</item>
         <item>@drawable/eye_bodyparts</item>
@@ -1878,7 +1878,7 @@
         <item>@drawable/legs</item>
         <item>@drawable/toes</item>
     </array>
-    <array name="arrLevelThreeLearningBooksIconAdapterHindi">
+    <array name="arrLevelThreeLearningBooksIconAdapter">
         <item>@drawable/bedtimebook</item>
         <item>@drawable/comics_books</item>
         <item>@drawable/rhymebook</item>
@@ -1899,7 +1899,7 @@
         <item>@drawable/wordbook</item>
         <item>@drawable/favouritebook</item>
     </array>
-    <array name="arrLevelThreeLearningColorsIconAdapterHindi">
+    <array name="arrLevelThreeLearningColorsIconAdapter">
         <item>@drawable/black_colour</item>
         <item>@drawable/blue_colour</item>
         <item>@drawable/brown_colour</item>
@@ -1914,7 +1914,7 @@
         <item>@drawable/purple_colour</item>
         <item>@drawable/grey_colour</item>
     </array>
-    <array name="arrLevelThreeLearningShapesIconAdapterHindi">
+    <array name="arrLevelThreeLearningShapesIconAdapter">
         <item>@drawable/standingline_shapes</item>
         <item>@drawable/sleepingline_shapes</item>
         <item>@drawable/slantingline_shapes</item>
@@ -1933,7 +1933,7 @@
         <item>@drawable/pentagon_shapes</item>
         <item>@drawable/freeform_shapes</item>
     </array>
-    <array name="arrLevelThreeLearningStationaryIconAdapterHindi">
+    <array name="arrLevelThreeLearningStationaryIconAdapter">
         <item>@drawable/pencil_stationary</item>
         <item>@drawable/pen_stationary</item>
         <item>@drawable/ruler_stationary</item>
@@ -1951,7 +1951,7 @@
         <item>@drawable/cellotape</item>
         <item>@drawable/pencilbox</item>
     </array>
-    <array name="arrLevelThreeLearningSchoolIconAdapterHindi">
+    <array name="arrLevelThreeLearningSchoolIconAdapter">
         <item>@drawable/bag_school</item>
         <item>@drawable/lunchbox</item>
         <item>@drawable/waterbottle_school</item>
@@ -1969,7 +1969,7 @@
         <item>@drawable/sharpner_stationary</item>
         <item>@drawable/chalk</item>
     </array>
-    <array name="arrLevelThreeLearningHomeIconAdapterHindi">
+    <array name="arrLevelThreeLearningHomeIconAdapter">
         <item>@drawable/window</item>
         <item>@drawable/door_homeobjects</item>
         <item>@drawable/fan</item>
@@ -1997,7 +1997,7 @@
         <item>@drawable/clock_homeobjects</item>
         <item>@drawable/tubelight</item>
     </array>
-    <array name="arrLevelThreeLearningTransportationIconAdapterHindi">
+    <array name="arrLevelThreeLearningTransportationIconAdapter">
         <item>@drawable/bus_transport</item>
         <item>@drawable/schoolbus_transport</item>
         <item>@drawable/car_transport</item>
@@ -2010,7 +2010,7 @@
     </array>
 
     <!--LEVEL THREE "TIME AND WEATHER" ADAPTER TEXT ARE HERE-->
-    <array name="arrLevelThreeTimeWeaTimeIconAdapterHindi">
+    <array name="arrLevelThreeTimeWeaTimeIconAdapter">
         <item>@drawable/currenttime</item>
         <item>@drawable/today</item>
         <item>@drawable/yesterday</item>
@@ -2020,7 +2020,7 @@
         <item>@drawable/goodevening</item>
         <item>@drawable/night</item>
     </array>
-    <array name="arrLevelThreeTimeWeaDayIconAdapterHindi">
+    <array name="arrLevelThreeTimeWeaDayIconAdapter">
         <item>@drawable/currentday</item>
         <item>@drawable/somvaar</item>
         <item>@drawable/tuesday</item>
@@ -2030,25 +2030,25 @@
         <item>@drawable/shanivaar</item>
         <item>@drawable/ravivaar</item>
     </array>
-    <array name="arrLevelThreeTimeWeaMonthIconAdapterHindi">
+    <array name="arrLevelThreeTimeWeaMonthIconAdapter">
         <item>@drawable/whatisthemonth</item>
-        <item>@drawable/januaryhindi</item>
+        <item>@drawable/january</item>
         <item>@drawable/februaryhjindi</item>
-        <item>@drawable/marchhindi</item>
-        <item>@drawable/aprilhindi</item>
-        <item>@drawable/mayhindi</item>
-        <item>@drawable/junehindi</item>
-        <item>@drawable/julyhindi</item>
-        <item>@drawable/augusthindi</item>
-        <item>@drawable/septemberhindi</item>
-        <item>@drawable/octoberhindi</item>
-        <item>@drawable/novemberhindi</item>
-        <item>@drawable/decemberhindi</item>
-        <item>@drawable/currentmonthhindi</item>
-        <item>@drawable/previousmonthhindi</item>
-        <item>@drawable/nextmonthhindi</item>
+        <item>@drawable/march</item>
+        <item>@drawable/april</item>
+        <item>@drawable/may</item>
+        <item>@drawable/june</item>
+        <item>@drawable/july</item>
+        <item>@drawable/august</item>
+        <item>@drawable/september</item>
+        <item>@drawable/october</item>
+        <item>@drawable/november</item>
+        <item>@drawable/december</item>
+        <item>@drawable/currentmonth</item>
+        <item>@drawable/previousmonth</item>
+        <item>@drawable/nextmonth</item>
     </array>
-    <array name="arrLevelThreeTimeWeaWeatherIconAdapterHindi">
+    <array name="arrLevelThreeTimeWeaWeatherIconAdapter">
         <item>@drawable/todaysweather</item>
         <item>@drawable/afternoon</item>
         <item>@drawable/rainy</item>
@@ -2057,7 +2057,7 @@
         <item>@drawable/foggy</item>
         <item>@drawable/snowy</item>
     </array>
-    <array name="arrLevelThreeTimeWeaSeasonsIconAdapterHindi">
+    <array name="arrLevelThreeTimeWeaSeasonsIconAdapter">
         <item>@drawable/currentseason</item>
         <item>@drawable/spring</item>
         <item>@drawable/afternoon</item>
@@ -2065,7 +2065,7 @@
         <item>@drawable/autumn</item>
         <item>@drawable/winter</item>
     </array>
-    <array name="arrLevelThreeTimeWeaHoliFestIconAdapterHindi">
+    <array name="arrLevelThreeTimeWeaHoliFestIconAdapter">
         <item>@drawable/diwali</item>
         <item>@drawable/ganeshchaturthi</item>
         <item>@drawable/christmas</item>
@@ -2079,7 +2079,7 @@
         <item>@drawable/independance</item>
         <item>@drawable/newyear</item>
     </array>
-    <array name="arrLevelThreeTimeWeaBirthdaysIconAdapterHindi">
+    <array name="arrLevelThreeTimeWeaBirthdaysIconAdapter">
         <item>@drawable/mybirthday</item>
         <item>@drawable/momsbirthday</item>
         <item>@drawable/dadsbirthday</item>

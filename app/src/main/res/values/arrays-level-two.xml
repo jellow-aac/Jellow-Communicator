@@ -1,13 +1,14 @@
 <resources>
 <!--LEVEL TWO ARRAYS ARE HERE-->
-    <!--LEVEL TWO SPEECH ENGLISH TEXT ARE HERE-->
-    <string-array name="arrLevelTwoGreetFeelSpeechTextEnglish">
+    <!--LEVEL TWO SPEECH TEXT ARE HERE-->
+    <!--LEVEL THREE "GREETING" SPEECH TEXT ARE HERE-->
+    <string-array name="arrLevelTwoGreetFeelSpeechText">
         <item>Greetings</item>
         <item>Feelings</item>
         <item>Requests</item>
         <item>Questions</item>
     </string-array>
-    <string-array name="arrLevelTwoDailyActSpeechTextEnglish">
+    <string-array name="arrLevelTwoDailyActSpeechText">
         <item>Brushing</item>
         <item>Toilet</item>
         <item>Baething</item>
@@ -18,7 +19,7 @@
         <item>Morning Routine</item>
         <item>Bedtime Routine</item>
     </string-array>
-    <string-array name="arrLevelTwoEatSpeechTextEnglish">
+    <string-array name="arrLevelTwoEatSpeechText">
         <item>Brekfust</item>
         <item>Lunch and Dinner</item>
         <item>Sweets</item>
@@ -28,7 +29,7 @@
         <item>Cutlery</item>
         <item>Add-ons</item>
     </string-array>
-    <string-array name="arrLevelTwoFunSpeechTextEnglish">
+    <string-array name="arrLevelTwoFunSpeechText">
         <item>Indoor Games</item>
         <item>Outdoor Games</item>
         <item>Sports</item>
@@ -36,7 +37,7 @@
         <item>Music</item>
         <item>Activities</item>
     </string-array>
-    <string-array name="arrLevelTwoLearningSpeechTextEnglish">
+    <string-array name="arrLevelTwoLearningSpeechText">
         <item>Animals and Birds</item>
         <item>Body</item>
         <item>Books</item>
@@ -47,7 +48,7 @@
         <item>Home objects</item>
         <item>Tran sport Modes</item>
     </string-array>
-    <string-array name="arrLevelTwoPeopleSpeechTextEnglish">
+    <string-array name="arrLevelTwoPeopleSpeechText">
         <item>Mother</item>
         <item>Father</item>
         <item>Brother</item>
@@ -66,7 +67,7 @@
         <item>Stranger</item>
         <item>About Me</item>
     </string-array>
-    <string-array name="arrLevelTwoPlacesSpeechTextEnglish">
+    <string-array name="arrLevelTwoPlacesSpeechText">
         <item>My House</item>
         <item>School</item>
         <item>Mall</item>
@@ -83,7 +84,7 @@
         <item>Library</item>
         <item>Terrace</item>
     </string-array>
-    <string-array name="arrLevelTwoTimeWeatherSpeechTextEnglish">
+    <string-array name="arrLevelTwoTimeWeatherSpeechText">
         <item>Time</item>
         <item>Day</item>
         <item>Month</item>
@@ -92,7 +93,7 @@
         <item>Festivals and Holidays</item>
         <item>birthdays</item>
     </string-array>
-    <string-array name="arrLevelTwoHelpSpeechTextEnglish">
+    <string-array name="arrLevelTwoHelpSpeechText">
         <item>About Me</item>
         <item>I am hurt</item>
         <item>I feel sick</item>
@@ -104,14 +105,14 @@
         <item>Toilet</item>
     </string-array>
 
-    <!--LEVEL TWO ENGLSIH ADAPTER TEXT ARE HERE-->
-    <string-array name="arrLevelTwoGreetFeelAdapterTextEnglish">
+    <!--LEVEL TWO ENGLISH ADAPTER TEXT ARE HERE-->
+    <string-array name="arrLevelTwoGreetFeelAdapterText">
         <item>Greetings…</item>
         <item>Feelings…</item>
         <item>Requests…</item>
         <item>Questions…</item>
     </string-array>
-    <string-array name="arrLevelTwoDailyActAdapterTextEnglish">
+    <string-array name="arrLevelTwoDailyActAdapterText">
         <item>Brushing…</item>
         <item>Toilet…</item>
         <item>Bathing…</item>
@@ -122,7 +123,7 @@
         <item>Morning Routine…</item>
         <item>Bedtime Routine…</item>
     </string-array>
-    <string-array name="arrLevelTwoEatAdapterTextEnglish">
+    <string-array name="arrLevelTwoEatAdapterText">
         <item>Breakfast…</item>
         <item>Lunch/Dinner…</item>
         <item>Sweets…</item>
@@ -132,7 +133,7 @@
         <item>Cutlery…</item>
         <item>Add-ons…</item>
     </string-array>
-    <string-array name="arrLevelTwoFunAdapterTextEnglish">
+    <string-array name="arrLevelTwoFunAdapterText">
         <item>Indoor Games…</item>
         <item>Outdoor Games…</item>
         <item>Sports…</item>
@@ -140,7 +141,7 @@
         <item>Music…</item>
         <item>Activities…</item>
     </string-array>
-    <string-array name="arrLevelTwoLearningAdapterTextEnglish">
+    <string-array name="arrLevelTwoLearningAdapterText">
         <item>Animals &amp; Birds…</item>
         <item>Body…</item>
         <item>Books…</item>
@@ -151,7 +152,7 @@
         <item>Home objects…</item>
         <item>Transport Modes…</item>
     </string-array>
-    <string-array name="arrLevelTwoPeopleAdapterTextEnglish">
+    <string-array name="arrLevelTwoPeopleAdapterText">
         <item>Mother</item>
         <item>Father</item>
         <item>Brother</item>
@@ -170,7 +171,7 @@
         <item>Stranger</item>
         <item>About Me</item>
     </string-array>
-    <string-array name="arrLevelTwoPlacesAdapterTextEnglish">
+    <string-array name="arrLevelTwoPlacesAdapterText">
         <item>My House</item>
         <item>School</item>
         <item>Mall</item>
@@ -187,7 +188,7 @@
         <item>Library</item>
         <item>Terrace</item>
     </string-array>
-    <string-array name="arrLevelTwoTimeWeatherAdapterTextEnglish">
+    <string-array name="arrLevelTwoTimeWeatherAdapterText">
         <item>Time…</item>
         <item>Day…</item>
         <item>Month…</item>
@@ -196,7 +197,7 @@
         <item>Festivals &amp; Holidays…</item>
         <item>Birthdays…</item>
     </string-array>
-    <string-array name="arrLevelTwoHelpAdapterTextEnglish">
+    <string-array name="arrLevelTwoHelpAdapterText">
         <item>About Me</item>
         <item>I am hurt</item>
         <item>I feel sick</item>
@@ -208,231 +209,6 @@
         <item>Toilet</item>
     </string-array>
 
-    <!--LEVEL TWO HINDI SPEECH TEXT ARE HERE-->
-    <string-array name="arrLevelTwoGreetFeelSpeechTextHindi">
-        <item>शुभकामनाएं</item>
-        <item>भावना</item>
-        <item>बिनती</item>
-        <item>सवाल</item>
-    </string-array>
-    <string-array name="arrLevelTwoDailyActSpeechTextHindi">
-        <item>दांत साफ़ करना</item>
-        <item>शौचालय</item>
-        <item>नहाना</item>
-        <item>कपड़े और सहायक चीज़ें</item>
-        <item>तैयार होना</item>
-        <item>नींद</item>
-        <item>उपचार</item>
-        <item>सुबह के नियमित कार्य</item>
-        <item>रात के नियमित कार्य</item>
-    </string-array>
-    <string-array name="arrLevelTwoEatSpeechTextHindi">
-        <item>सुबह का नाश्ता</item>
-        <item>दोपहर और रात का भोजन</item>
-        <item>मिठाइयाँ</item>
-        <item>स्नैक्स</item>
-        <item>फल</item>
-        <item>ड्रिंक्स</item>
-        <item>कटलरी</item>
-        <item>अॅड-ऑन्स</item>
-    </string-array>
-    <string-array name="arrLevelTwoFunSpeechTextHindi">
-        <item>घर के खेल</item>
-        <item>बाहरी खेल</item>
-        <item>खेलकूद</item>
-        <item>टीवी</item>
-        <item>संगीत</item>
-        <item>कार्य</item>
-    </string-array>
-    <string-array name="arrLevelTwoLearningSpeechTextHindi">
-        <item>पशु और पक्षी</item>
-        <item>शरीर</item>
-        <item>किताबें</item>
-        <item>रंग</item>
-        <item>आकार</item>
-        <item>स्टेशनरी</item>
-        <item>पाठशाला की वस्तुएं</item>
-        <item>घरेलु वस्तुएं</item>
-        <item>यात्रा करने के साधन</item>
-    </string-array>
-    <string-array name="arrLevelTwoPeopleSpeechTextHindi">
-        <item>माँ</item>
-        <item>पिताजी</item>
-        <item>भाई</item>
-        <item>बहन</item>
-        <item>बड़े पापा</item>
-        <item>बड़ी मम्मी</item>
-        <item>दादाजी</item>
-        <item>दादी माँ</item>
-        <item>नानाजी</item>
-        <item>नानी माँ</item>
-        <item>चाचा</item>
-        <item>चाची</item>
-        <item>मामा</item>
-        <item>मामी</item>
-        <item>बुआ</item>
-        <item>फ़ुफ़ा</item>
-        <item>मौसी</item>
-        <item>मौसा</item>
-        <item>नन्हा बच्चा</item>
-        <item>दोस्त</item>
-        <item>शिक्षक</item>
-        <item>डॉक्टर</item>
-        <item>नरस</item>
-        <item>देख-रेख करने वाली मौसी</item>
-        <item>अज नबी</item>
-        <item>मेरे बारे में</item>
-    </string-array>
-    <string-array name="arrLevelTwoPlacesSpeechTextHindi">
-        <item>मेरा घर</item>
-        <item>पाठशाला</item>
-        <item>मॉल</item>
-        <item>संग्रहालय</item>
-        <item>होटल</item>
-        <item>थिएटर</item>
-        <item>खेल का मैदान</item>
-        <item>बगीचा</item>
-        <item>दुकान</item>
-        <item>दोस्त का घर</item>
-        <item>रिश्तेदार का घर</item>
-        <item>अस्पताल</item>
-        <item>क्लिनिक</item>
-        <item>वाचनालय</item>
-        <item>छत पर</item>
-    </string-array>
-    <string-array name="arrLevelTwoTimeWeatherSpeechTextHindi">
-        <item>समय</item>
-        <item>दिन</item>
-        <item>महीना</item>
-        <item>मौसम</item>
-        <item>रूतु</item>
-        <item>त्योहार और छुट्टी</item>
-        <item>जन्मदिन</item>
-    </string-array>
-    <string-array name="arrLevelTwoHelpSpeechTextHindi">
-        <item>मेरे बारे में</item>
-        <item>मैं घायल हूँ</item>
-        <item>मेरी तबियत ठीक नहीं हैं</item>
-        <item>मुझे थकावट लग रही हैं</item>
-        <item>मुझे मदद करें</item>
-        <item>दवाई</item>
-        <item>बैंडेज</item>
-        <item>पानी</item>
-        <item>शौचालय</item>
-    </string-array>
-
-    <!--LEVEL TWO HINDI ADAPTER TEXT ARE HERE-->
-    <string-array name="arrLevelTwoGreetFeelAdapterTextHindi">
-        <item>शुभकामनाएं…</item>
-        <item>भावना…</item>
-        <item>बिनती…</item>
-        <item>सवाल…</item>
-    </string-array>
-    <string-array name="arrLevelTwoDailyActAdapterTextHindi">
-        <item>दांत साफ़ करना…</item>
-        <item>शौचालय…</item>
-        <item>नहाना…</item>
-        <item>कपड़े और सहायक चीज़ें…</item>
-        <item>तैयार होना…</item>
-        <item>नींद…</item>
-        <item>उपचार…</item>
-        <item>सुबह के नियमित कार्य…</item>
-        <item>रात के नियमित कार्य…</item>
-    </string-array>
-    <string-array name="arrLevelTwoEatAdapterTextHindi">
-        <item>सुबह का नाश्ता…</item>
-        <item>दोपहर/रात का भोजन…</item>
-        <item>मिठाइयाँ…</item>
-        <item>स्नैक्स…</item>
-        <item>फल…</item>
-        <item>ड्रिंक्स…</item>
-        <item>कटलरी…</item>
-        <item>ऐड-ऑन्स…</item>
-    </string-array>
-    <string-array name="arrLevelTwoFunAdapterTextHindi">
-        <item>घर के खेल…</item>
-        <item>बाहरी खेल…</item>
-        <item>खेलकूद…</item>
-        <item>टीवी…</item>
-        <item>संगीत…</item>
-        <item>कार्य…</item>
-    </string-array>
-    <string-array name="arrLevelTwoLearningAdapterTextHindi">
-        <item>पशु और पक्षी…</item>
-        <item>शरीर…</item>
-        <item>किताबें…</item>
-        <item>रंग…</item>
-        <item>आकार…</item>
-        <item>स्टेशनरी…</item>
-        <item>पाठशाला की वस्तुएं…</item>
-        <item>घरेलु वस्तुएं…</item>
-        <item>यात्रा करने के साधन…</item>
-    </string-array>
-    <string-array name="arrLevelTwoPeopleAdapterTextHindi">
-        <item>माँ</item>
-        <item>पिताजी</item>
-        <item>भाई</item>
-        <item>बहन</item>
-        <item>बड़े पापा</item>
-        <item>बड़ी मम्मी</item>
-        <item>दादाजी</item>
-        <item>दादी माँ</item>
-        <item>नानाज़ी</item>
-        <item>नानी माँ</item>
-        <item>चाचा</item>
-        <item>चाची</item>
-        <item>मामा</item>
-        <item>मामी</item>
-        <item>बुआ</item>
-        <item>फ़ुफ़ा</item>
-        <item>मौसी</item>
-        <item>मौसा</item>
-        <item>नन्हा बच्चा</item>
-        <item>दोस्त</item>
-        <item>शिक्षक</item>
-        <item>डॉक्टर</item>
-        <item>नर्स</item>
-        <item>देख-रेख करने वाली मौसी</item>
-        <item>अजनबी</item>
-        <item>मेरे बारे में</item>
-    </string-array>
-    <string-array name="arrLevelTwoPlacesAdapterTextHindi">
-        <item>मेरा घर</item>
-        <item>पाठशाला</item>
-        <item>मॉल</item>
-        <item>संग्रहालय</item>
-        <item>होटल</item>
-        <item>थिएटर</item>
-        <item>खेल का मैदान</item>
-        <item>बगीचा</item>
-        <item>दुकान</item>
-        <item>दोस्त का घर</item>
-        <item>रिश्तेदार का घर</item>
-        <item>अस्पताल</item>
-        <item>क्लिनिक</item>
-        <item>वाचनालय</item>
-        <item>छत पर</item>
-    </string-array>
-    <string-array name="arrLevelTwoTimeWeatherAdapterTextHindi">
-        <item>समय…</item>
-        <item>दिन…</item>
-        <item>महीना…</item>
-        <item>मौसम…</item>
-        <item>ऋतु…</item>
-        <item>त्योहार और छुट्टी…</item>
-        <item>जन्मदिन…</item>
-    </string-array>
-    <string-array name="arrLevelTwoHelpAdapterTextHindi">
-        <item>मेरे बारे में</item>
-        <item>मैं घायल हूँ</item>
-        <item>मेरी तबियत ठीक नहीं हैं</item>
-        <item>मुझे थकावट लग रही हैं</item>
-        <item>मुझे मदद करें</item>
-        <item>दवाई</item>
-        <item>बैंडेज</item>
-        <item>पानी</item>
-        <item>शौचालय</item>
-    </string-array>
 
     <!--LEVEL TWO ADAPTER DRAWABLE ARE HERE-->
 
@@ -482,7 +258,7 @@
         <item>@drawable/level2_learn_homeobjects</item>
         <item>@drawable/level2_learn_transport</item>
     </array>
-    <array name="arrLevelTwoTimeEnglishIconAdapter">
+    <array name="arrLevelTwoTimeIconAdapter">
         <item>@drawable/level2_time_time</item>
         <item>@drawable/level2_time_day</item>
         <item>@drawable/level2_time_month</item>
@@ -491,15 +267,7 @@
         <item>@drawable/level2_time_festivals</item>
         <item>@drawable/level2_time_birthday</item>
     </array>
-    <array name="arrLevelTwoTimeHindiIconAdapter">
-        <item>@drawable/level2_time_time</item>
-        <item>@drawable/level2_time_day</item>
-        <item>@drawable/month_level2_hindi</item>
-        <item>@drawable/level2_time_weather</item>
-        <item>@drawable/level2_time_season</item>
-        <item>@drawable/level2_time_festivals</item>
-        <item>@drawable/level2_time_birthday</item>
-    </array>
+
     <array name="arrLevelTwoHelpIconAdapter">
         <item>@drawable/level2_people_aboutme</item>
         <item>@drawable/level2_help_feelhurt</item>
@@ -512,7 +280,7 @@
         <item>@drawable/toilet</item>
     </array>
 
-    <!--<array name="arrLevelTwoPeopleIconEnglish">
+    <array name="arrLevelTwoPeopleIcon">
         <item>@drawable/level2_people_mom</item>
         <item>@drawable/level2_people_dad</item>
         <item>@drawable/level2_people_brother</item>
@@ -522,34 +290,6 @@
         <item>@drawable/level2_people_uncle</item>
         <item>@drawable/level2_people_aunt</item>
         <item>@drawable/level2_people_cousin</item>
-        <item>@drawable/level2_people_baby</item>
-        <item>@drawable/level2_people_friend</item>
-        <item>@drawable/level2_people_teacher</item>
-        <item>@drawable/level2_people_doctor</item>
-        <item>@drawable/level2_people_nurse</item>
-        <item>@drawable/level2_people_caregiver1</item>
-        <item>@drawable/level2_people_stranger</item>
-        <item>@drawable/level2_people_aboutme</item>
-    </array>
-    <array name="arrLevelTwoPeopleIconHindi">
-        <item>@drawable/level2_people_mom</item>
-        <item>@drawable/level2_people_dad</item>
-        <item>@drawable/level2_people_brother</item>
-        <item>@drawable/level2_people_sister</item>
-        <item>@drawable/level2_people_badepapa</item>
-        <item>@drawable/level2_people_badimom</item>
-        <item>@drawable/level2_people_grandfather</item>
-        <item>@drawable/level2_people_grandmother</item>
-        <item>@drawable/level2_people_nanaji</item>
-        <item>@drawable/level2_people_nanima</item>
-        <item>@drawable/level2_people_uncle</item>
-        <item>@drawable/level2_people_aunt</item>
-        <item>@drawable/level2_people_mama</item>
-        <item>@drawable/level2_people_mami</item>
-        <item>@drawable/level2_people_bua</item>
-        <item>@drawable/level2_people_fufa</item>
-        <item>@drawable/level2_people_mausi</item>
-        <item>@drawable/level2_people_mausa</item>
         <item>@drawable/level2_people_baby</item>
         <item>@drawable/level2_people_friend</item>
         <item>@drawable/level2_people_teacher</item>
@@ -575,6 +315,5 @@
         <item>@drawable/level2_places_clinic</item>
         <item>@drawable/level2_places_library</item>
         <item>@drawable/level2_places_terr</item>
-    </array>-->
-
+    </array>
 </resources>

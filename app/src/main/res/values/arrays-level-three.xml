@@ -2,7 +2,7 @@
 <!--LEVEL THREE ARRAYS ARE HERE-->
     <!--LEVEL THREE SPEECH TEXT ARE HERE-->
     <!--LEVEL THREE "GREETING" SPEECH TEXT ARE HERE-->
-    <string-array name="arrLevelThreeGreetFeelGreetingSpeechTextEnglish">
+    <string-array name="arrLevelThreeGreetFeelGreetingSpeechText">
         <item>Hi</item>
         <item>Hello</item>
         <item>Bye</item>
@@ -16,7 +16,7 @@
         <item>How was your day?</item>
         <item>How do you do?</item>
     </string-array>
-    <string-array name="arrLevelThreeGreetFeelFeelingsSpeechTextEnglish">
+    <string-array name="arrLevelThreeGreetFeelFeelingsSpeechText">
         <item>Happy</item>
         <item>Sad</item>
         <item>Angry</item>
@@ -35,7 +35,7 @@
         <item>Sick</item>
         <item>Hurt</item>
     </string-array>
-    <string-array name="arrLevelThreeGreetFeelQuestionsSpeechTextEnglish">
+    <string-array name="arrLevelThreeGreetFeelQuestionsSpeechText">
         <item>How?</item>
         <item>When?</item>
         <item>Where?</item>
@@ -46,7 +46,7 @@
         <item>How many?</item>
         <item>How long?</item>
     </string-array>
-    <string-array name="arrLevelThreeGreetFeelRequestsSpeechTextEnglish">
+    <string-array name="arrLevelThreeGreetFeelRequestsSpeechText">
         <item>Please</item>
         <item>Thank you</item>
         <item>You\'re welcome</item>
@@ -66,7 +66,7 @@
     </string-array>
 
     <!--LEVEL THREE "DAILY ACTIVITITES" SPEECH TEXT ARE HERE-->
-    <string-array name="arrLevelThreeDailyActBrushingSpeechTextEnglish">
+    <string-array name="arrLevelThreeDailyActBrushingSpeechText">
         <item>Rinse mouth</item>
         <item>Rinse toothbrush</item>
         <item>Put toothpaste on brush</item>
@@ -76,7 +76,7 @@
         <item>Rinse mouth</item>
         <item>All done</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActToiletSpeechTextEnglish">
+    <string-array name="arrLevelThreeDailyActToiletSpeechText">
         <item>Pull pants down</item>
         <item>Sit on toilet</item>
         <item>Wash bottom</item>
@@ -85,7 +85,7 @@
         <item>Wash hands</item>
         <item>All done</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActBathingSpeechTextEnglish">
+    <string-array name="arrLevelThreeDailyActBathingSpeechText">
         <item>Remove clothes</item>
         <item>Turn on water</item>
         <item>Get in the shower</item>
@@ -102,7 +102,7 @@
         <item>Put on clothes</item>
         <item>All done</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActClothesAccSpeechTextEnglish">
+    <string-array name="arrLevelThreeDailyActClothesAccSpeechText">
         <item>Change t-shirt</item>
         <item>Change frock</item>
         <item>Change skirt</item>
@@ -142,7 +142,7 @@
         <item>I need help removing clothes</item>
         <item>I need help putting on clothes</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActGetReadySpeechTextEnglish">
+    <string-array name="arrLevelThreeDailyActGetReadySpeechText">
         <item>Comb है र</item>
         <item>Face wash</item>
         <item>Cut nails</item>
@@ -150,7 +150,7 @@
         <item>Soap</item>
         <item>Shampoo</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActSleepSpeechTextEnglish">
+    <string-array name="arrLevelThreeDailyActSleepSpeechText">
         <item>Door</item>
         <item>Fan</item>
         <item>Light</item>
@@ -161,7 +161,7 @@
         <item>Feeling warm</item>
         <item>Feeling cold</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActTherapySpeechTextEnglish">
+    <string-array name="arrLevelThreeDailyActTherapySpeechText">
         <item>Exercises</item>
         <item>Swing</item>
         <item>Trampoline</item>
@@ -172,7 +172,7 @@
         <item>Leg exercises</item>
         <item>Body vests</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActMorningScheSpeechTextEnglish">
+    <string-array name="arrLevelThreeDailyActMorningScheSpeechText">
         <item>Wake up</item>
         <item>Wash face</item>
         <item>Go to bathroom</item>
@@ -187,7 +187,7 @@
         <item>Go to school</item>
         <item>Have a great day!</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActBedTimeScheSpeechTextEnglish">
+    <string-array name="arrLevelThreeDailyActBedTimeScheSpeechText">
         <item>Eat dinner</item>
         <item>wear night clothes</item>
         <item>Brush teeth</item>
@@ -198,7 +198,7 @@
     </string-array>
 
     <!--LEVEL THREE "EATING" SPEECH TEXT ARE HERE-->
-    <string-array name="arrLevelThreeFoodDrinksBreakfastSpeechTextEnglish">
+    <string-array name="arrLevelThreeFoodDrinksBreakfastSpeechText">
         <item>Bread</item>
         <item>Cornflakes</item>
         <item>Aaloo Poori</item>
@@ -217,7 +217,7 @@
         <item>saambaar</item>
         <item>Uutappam</item>
     </string-array>
-    <string-array name="arrLevelThreeFoodDrinksLunchDinnerSpeechTextEnglish">
+    <string-array name="arrLevelThreeFoodDrinksLunchDinnerSpeechText">
         <item>Roti</item>
         <item>Sabzi</item>
         <item>Rice</item>
@@ -241,7 +241,7 @@
         <item>pav bhaji</item>
         <item>Bhakri</item>
     </string-array>
-    <string-array name="arrLevelThreeFoodDrinksSweetsSpeechTextEnglish">
+    <string-array name="arrLevelThreeFoodDrinksSweetsSpeechText">
         <item>Cake</item>
         <item>Icecream</item>
         <item>Gajar halva</item>
@@ -253,7 +253,7 @@
         <item>rass gulla</item>
         <item>sheeraa</item>
     </string-array>
-    <string-array name="arrLevelThreeFoodDrinksSnacksSpeechTextEnglish">
+    <string-array name="arrLevelThreeFoodDrinksSnacksSpeechText">
         <item>Biscuits</item>
         <item>Chaat</item>
         <item>Chocolate</item>
@@ -263,7 +263,7 @@
         <item>Cheese</item>
         <item>Nuts</item>
     </string-array>
-    <string-array name="arrLevelThreeFoodDrinksFruitsSpeechTextEnglish">
+    <string-array name="arrLevelThreeFoodDrinksFruitsSpeechText">
         <item>Apple</item>
         <item>Banana</item>
         <item>Grapes</item>
@@ -282,7 +282,7 @@
         <item>Jackfruit</item>
         <item>Cherry</item>
     </string-array>
-    <string-array name="arrLevelThreeFoodDrinksDrinksSpeechTextEnglish">
+    <string-array name="arrLevelThreeFoodDrinksDrinksSpeechText">
         <item>Water</item>
         <item>Milk</item>
         <item>Bournvita</item>
@@ -309,7 +309,7 @@
         <item>Cold coffee</item>
         <item>Energy drink</item>
     </string-array>
-    <string-array name="arrLevelThreeFoodDrinksCutlerySpeechTextEnglish">
+    <string-array name="arrLevelThreeFoodDrinksCutlerySpeechText">
         <item>Bowl</item>
         <item>Plate</item>
         <item>Spoon</item>
@@ -319,7 +319,7 @@
         <item>Cup</item>
         <item>Glass</item>
     </string-array>
-    <string-array name="arrLevelThreeFoodDrinksAddonSpeechTextEnglish">
+    <string-array name="arrLevelThreeFoodDrinksAddonSpeechText">
         <item>Butter</item>
         <item>Jam</item>
         <item>Salt</item>
@@ -332,7 +332,7 @@
     </string-array>
 
     <!--LEVEL THREE "FUN" SPEECH TEXT ARE HERE-->
-    <string-array name="arrLevelThreeFunInDGamesSpeechTextEnglish">
+    <string-array name="arrLevelThreeFunInDGamesSpeechText">
         <item>Puzzle</item>
         <item>Board game</item>
         <item>Blocks</item>
@@ -349,7 +349,7 @@
         <item>Art and craft</item>
         <item>Play with me</item>
     </string-array>
-    <string-array name="arrLevelThreeFunOutDGamesSpeechTextEnglish">
+    <string-array name="arrLevelThreeFunOutDGamesSpeechText">
         <item>Playground</item>
         <item>Park</item>
         <item>Swing</item>
@@ -369,7 +369,7 @@
         <item>Run</item>
         <item>Swim</item>
     </string-array>
-    <string-array name="arrLevelThreeFunSportsSpeechTextEnglish">
+    <string-array name="arrLevelThreeFunSportsSpeechText">
         <item>Cricket</item>
         <item>Badminton</item>
         <item>Tennis</item>
@@ -382,19 +382,19 @@
         <item>gym nastics</item>
         <item>Swimming</item>
     </string-array>
-    <string-array name="arrLevelThreeFunTvSpeechTextEnglish">
+    <string-array name="arrLevelThreeFunTvSpeechText">
         <item>Next channel</item>
         <item>Previous channel</item>
         <item>Volume up</item>
         <item>Volume down</item>
     </string-array>
-    <string-array name="arrLevelThreeFunMusicSpeechTextEnglish">
+    <string-array name="arrLevelThreeFunMusicSpeechText">
         <item>Change music</item>
         <item>Lets dance</item>
         <item>Volume up</item>
         <item>Volume down</item>
     </string-array>
-    <string-array name="arrLevelThreeFunActivitiesSpeechTextEnglish">
+    <string-array name="arrLevelThreeFunActivitiesSpeechText">
         <item>Draw</item>
         <item>Paint</item>
         <item>Read</item>
@@ -406,7 +406,7 @@
     </string-array>
 
     <!--LEVEL THREE "LEARNING" SPEECH TEXT ARE HERE-->
-    <string-array name="arrLevelThreeLearningAnimBirdsSpeechTextEnglish">
+    <string-array name="arrLevelThreeLearningAnimBirdsSpeechText">
         <item>Dog</item>
         <item>Cat</item>
         <item>Elephant</item>
@@ -454,7 +454,7 @@
         <item>Hawk</item>
         <item>Vulture</item>
     </string-array>
-    <string-array name="arrLevelThreeLearningBodyPartsSpeechTextEnglish">
+    <string-array name="arrLevelThreeLearningBodyPartsSpeechText">
         <item>Head</item>
         <item>हैर</item>
         <item>Eyes</item>
@@ -476,7 +476,7 @@
         <item>Legs</item>
         <item>Toes</item>
     </string-array>
-    <string-array name="arrLevelThreeLearningBooksSpeechTextEnglish">
+    <string-array name="arrLevelThreeLearningBooksSpeechText">
         <item>Bed time story book</item>
         <item>Comic book</item>
         <item>Rhymes book</item>
@@ -497,7 +497,7 @@
         <item>Textbook</item>
         <item>Favourites</item>
     </string-array>
-    <string-array name="arrLevelThreeLearningColorsSpeechTextEnglish">
+    <string-array name="arrLevelThreeLearningColorsSpeechText">
         <item>Black</item>
         <item>Blue</item>
         <item>Brown</item>
@@ -512,7 +512,7 @@
         <item>Purple</item>
         <item>Gray</item>
     </string-array>
-    <string-array name="arrLevelThreeLearningShapesSpeechTextEnglish">
+    <string-array name="arrLevelThreeLearningShapesSpeechText">
         <item>Standing line</item>
         <item>Sleeping line</item>
         <item>Slanting line</item>
@@ -531,7 +531,7 @@
         <item>Pentagon</item>
         <item>freeform</item>
     </string-array>
-    <string-array name="arrLevelThreeLearningStationarySpeechTextEnglish">
+    <string-array name="arrLevelThreeLearningStationarySpeechText">
         <item>Pencil</item>
         <item>Pen</item>
         <item>Scale</item>
@@ -549,7 +549,7 @@
         <item>selo tape</item>
         <item>Compass box</item>
     </string-array>
-    <string-array name="arrLevelThreeLearningSchoolObjSpeechTextEnglish">
+    <string-array name="arrLevelThreeLearningSchoolObjSpeechText">
         <item>Bag</item>
         <item>Lunch box</item>
         <item>Water bottle</item>
@@ -567,7 +567,7 @@
         <item>Sharpener</item>
         <item>Chalk</item>
     </string-array>
-    <string-array name="arrLevelThreeLearningHomeObjSpeechTextEnglish">
+    <string-array name="arrLevelThreeLearningHomeObjSpeechText">
         <item>Window</item>
         <item>Door</item>
         <item>Fan</item>
@@ -595,7 +595,7 @@
         <item>Clock</item>
         <item>Tube light</item>
     </string-array>
-    <string-array name="arrLevelThreeLearningTransportSpeechTextEnglish">
+    <string-array name="arrLevelThreeLearningTransportSpeechText">
         <item>Bus</item>
         <item>School bus</item>
         <item>Car</item>
@@ -608,7 +608,7 @@
     </string-array>
 
     <!--LEVEL THREE "TIME WEATHER" SPEECH TEXT ARE HERE-->
-    <string-array name="arrLevelThreeTimeWeaTimeSpeechTextEnglish">
+    <string-array name="arrLevelThreeTimeWeaTimeSpeechText">
         <item>What is the time?</item>
         <item>Today</item>
         <item>Yesterday</item>
@@ -618,7 +618,7 @@
         <item>Evening</item>
         <item>Night</item>
     </string-array>
-    <string-array name="arrLevelThreeTimeWeaDaySpeechTextEnglish">
+    <string-array name="arrLevelThreeTimeWeaDaySpeechText">
         <item>What is the day today?</item>
         <item>Monday</item>
         <item>Tuesday</item>
@@ -628,7 +628,7 @@
         <item>Saturday</item>
         <item>Sunday</item>
     </string-array>
-    <string-array name="arrLevelThreeTimeWeaMonthSpeechTextEnglish">
+    <string-array name="arrLevelThreeTimeWeaMonthSpeechText">
         <item>What is the Current month?</item>
         <item>January</item>
         <item>February</item>
@@ -646,7 +646,7 @@
         <item>Previous month</item>
         <item>Next month</item>
     </string-array>
-    <string-array name="arrLevelThreeTimeWeaWeatherSpeechTextEnglish">
+    <string-array name="arrLevelThreeTimeWeaWeatherSpeechText">
         <item>What is Today’s weather?</item>
         <item>Sunny</item>
         <item>Rainy</item>
@@ -655,7 +655,7 @@
         <item>Foggy</item>
         <item>Snowy</item>
     </string-array>
-    <string-array name="arrLevelThreeTimeWeaSeasonsSpeechTextEnglish">
+    <string-array name="arrLevelThreeTimeWeaSeasonsSpeechText">
         <item>What is the Current season?</item>
         <item>Spring</item>
         <item>Summer</item>
@@ -663,7 +663,7 @@
         <item>Autumn</item>
         <item>Winter</item>
     </string-array>
-    <string-array name="arrLevelThreeTimeWeaHoliFestSpeechTextEnglish">
+    <string-array name="arrLevelThreeTimeWeaHoliFestSpeechText">
         <item>Diwali</item>
         <item>Ganesh chaturthi</item>
         <item>Christmas</item>
@@ -677,7 +677,7 @@
         <item>Independence day</item>
         <item>New year</item>
     </string-array>
-    <string-array name="arrLevelThreeTimeWeaBirthdaysSpeechTextEnglish">
+    <string-array name="arrLevelThreeTimeWeaBirthdaysSpeechText">
         <item>My birthday</item>
         <item>Mom\’s birthday</item>
         <item>Father\’sbirthday</item>
@@ -692,9 +692,9 @@
         <item>Teacher\’s birthday</item>
     </string-array>
 
-    <!--LEVEL THREE ADAPTER ADAPTER TEXT ARE HERE-->
+<!--LEVEL THREE ADAPTER ADAPTER TEXT ARE HERE-->
     <!--LEVEL THREE "GREET AND FEEL" ADAPTER TEXT ARE HERE-->
-    <string-array name="arrLevelThreeGreetFeelGreetingAdapterTextEnglish">
+    <string-array name="arrLevelThreeGreetFeelGreetingAdapterText">
         <item>Hi</item>
         <item>Hello</item>
         <item>Bye</item>
@@ -708,7 +708,7 @@
         <item>How was your day?</item>
         <item>How do you do?</item>
     </string-array>
-    <string-array name="arrLevelThreeGreetFeelFeelingsAdapterTextEnglish">
+    <string-array name="arrLevelThreeGreetFeelFeelingsAdapterText">
         <item>Happy</item>
         <item>Sad</item>
         <item>Angry</item>
@@ -727,7 +727,7 @@
         <item>Sick</item>
         <item>Hurt</item>
     </string-array>
-    <string-array name="arrLevelThreeGreetFeelQuestionsAdapterTextEnglish">
+    <string-array name="arrLevelThreeGreetFeelQuestionsAdapterText">
         <item>How?</item>
         <item>When?</item>
         <item>Where?</item>
@@ -738,7 +738,7 @@
         <item>How many?</item>
         <item>How long?</item>
     </string-array>
-    <string-array name="arrLevelThreeGreetFeelRequestsAdapterTextEnglish">
+    <string-array name="arrLevelThreeGreetFeelRequestsAdapterText">
         <item>Please</item>
         <item>Thank you</item>
         <item>You are welcome</item>
@@ -757,8 +757,8 @@
         <item>Please take me</item>
     </string-array>
 
-    <!--LEVEL THREE "DAILY ACTIVITITES" ADAPTER TEXT ARE HERE-->
-    <string-array name="arrLevelThreeDailyActBrushingAdapterTextEnglish">
+    <!--LEVEL THREE "DAILY ACTIVITIES" ADAPTER TEXT ARE HERE-->
+    <string-array name="arrLevelThreeDailyActBrushingAdapterText">
         <item>Rinse mouth</item>
         <item>Rinse toothbrush</item>
         <item>Put toothpaste on brush</item>
@@ -768,7 +768,7 @@
         <item>Rinse mouth</item>
         <item>All done</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActToiletAdapterTextEnglish">
+    <string-array name="arrLevelThreeDailyActToiletAdapterText">
         <item>Pull pants down</item>
         <item>Sit on toilet</item>
         <item>Wash bottom</item>
@@ -777,7 +777,7 @@
         <item>Wash hands</item>
         <item>All done</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActBathingAdapterTextEnglish">
+    <string-array name="arrLevelThreeDailyActBathingAdapterText">
         <item>Remove clothes</item>
         <item>Turn on water</item>
         <item>Get in the shower</item>
@@ -794,7 +794,7 @@
         <item>Put on clothes</item>
         <item>All done</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActClothesAccAdapterTextEnglish">
+    <string-array name="arrLevelThreeDailyActClothesAccAdapterText">
         <item>Change t-shirt</item>
         <item>Change frock</item>
         <item>Change skirt</item>
@@ -834,7 +834,7 @@
         <item>Help remove clothes</item>
         <item>Help put on clothes</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActGetReadyAdapterTextEnglish">
+    <string-array name="arrLevelThreeDailyActGetReadyAdapterText">
         <item>Comb hair</item>
         <item>Face wash</item>
         <item>Cut nails</item>
@@ -842,7 +842,7 @@
         <item>Soap</item>
         <item>Shampoo</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActSleepAdapterTextEnglish">
+    <string-array name="arrLevelThreeDailyActSleepAdapterText">
         <item>Door</item>
         <item>Fan</item>
         <item>Light</item>
@@ -853,7 +853,7 @@
         <item>Feeling warm</item>
         <item>Feeling cold</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActTherapyAdapterTextEnglish">
+    <string-array name="arrLevelThreeDailyActTherapyAdapterText">
         <item>Exercises</item>
         <item>Swing</item>
         <item>Trampoline</item>
@@ -864,7 +864,7 @@
         <item>Leg exercises</item>
         <item>Body vests</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActMrngScheAdapterTextEnglish">
+    <string-array name="arrLevelThreeDailyActMorningScheAdapterText">
         <item>Wake up</item>
         <item>Wash face</item>
         <item>Go to bathroom</item>
@@ -879,7 +879,7 @@
         <item>Go to school</item>
         <item>Have a great day!</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActMrngBedTimScheAdapterTextEnglish">
+    <string-array name="arrLevelThreeDailyActMorningBedTimScheAdapterText">
         <item>Eat dinner</item>
         <item>Wear night clothes</item>
         <item>Brush teeth</item>
@@ -890,7 +890,7 @@
     </string-array>
 
     <!--LEVEL THREE "EATING" SPEECH TEXT ARE HERE-->
-    <string-array name="arrLevelThreeFoodDrinksBreakfastAdapterTextEnglish">
+    <string-array name="arrLevelThreeFoodDrinksBreakfastAdapterText">
         <item>Bread</item>
         <item>Cornflakes</item>
         <item>Aaloo Poori</item>
@@ -909,7 +909,7 @@
         <item>Sambhar</item>
         <item>Utappam</item>
     </string-array>
-    <string-array name="arrLevelThreeFoodDrinksLunchDinnerAdapterTextEnglish">
+    <string-array name="arrLevelThreeFoodDrinksLunchDinnerAdapterText">
         <item>Roti</item>
         <item>Sabzi</item>
         <item>Rice</item>
@@ -933,7 +933,7 @@
         <item>Pav bhaji</item>
         <item>Bhakri</item>
     </string-array>
-    <string-array name="arrLevelThreeFoodDrinksSweetsAdapterTextEnglish">
+    <string-array name="arrLevelThreeFoodDrinksSweetsAdapterText">
         <item>Cake</item>
         <item>Icecream</item>
         <item>Gajar halwa</item>
@@ -945,7 +945,7 @@
         <item>Rosogulla</item>
         <item>Sheera</item>
     </string-array>
-    <string-array name="arrLevelThreeFoodDrinksSnacksAdapterTextEnglish">
+    <string-array name="arrLevelThreeFoodDrinksSnacksAdapterText">
         <item>Biscuits</item>
         <item>Chaat</item>
         <item>Chocolate</item>
@@ -955,7 +955,7 @@
         <item>Cheese</item>
         <item>Nuts</item>
     </string-array>
-    <string-array name="arrLevelThreeFoodDrinksFruitsAdapterTextEnglish">
+    <string-array name="arrLevelThreeFoodDrinksFruitsAdapterText">
         <item>Apple</item>
         <item>Banana</item>
         <item>Grapes</item>
@@ -974,7 +974,7 @@
         <item>Jackfruit</item>
         <item>Cherry</item>
     </string-array>
-    <string-array name="arrLevelThreeFoodDrinksDrinksAdapterTextEnglish">
+    <string-array name="arrLevelThreeFoodDrinksDrinksAdapterText">
         <item>Water</item>
         <item>Milk</item>
         <item>Bournvita</item>
@@ -1001,7 +1001,7 @@
         <item>Cold coffee</item>
         <item>Energy drink</item>
     </string-array>
-    <string-array name="arrLevelThreeFoodDrinksCutleryAdapterTextEnglish">
+    <string-array name="arrLevelThreeFoodDrinksCutleryAdapterText">
         <item>Bowl</item>
         <item>Plate</item>
         <item>Spoon</item>
@@ -1011,7 +1011,7 @@
         <item>Cup</item>
         <item>Glass</item>
     </string-array>
-    <string-array name="arrLevelThreeFoodDrinksAddonAdapterTextEnglish">
+    <string-array name="arrLevelThreeFoodDrinksAddonAdapterText">
         <item>Butter</item>
         <item>Jam</item>
         <item>Salt</item>
@@ -1024,7 +1024,7 @@
     </string-array>
 
     <!--LEVEL THREE "FUN" ADAPTER TEXT ARE HERE-->
-    <string-array name="arrLevelThreeFunInDGamesAdapterTextEnglish">
+    <string-array name="arrLevelThreeFunInDGamesAdapterText">
         <item>Puzzle</item>
         <item>Board game</item>
         <item>Blocks</item>
@@ -1041,7 +1041,7 @@
         <item>Art and craft</item>
         <item>Play with me</item>
     </string-array>
-    <string-array name="arrLevelThreeFunOutDGamesAdapterTextEnglish">
+    <string-array name="arrLevelThreeFunOutDGamesAdapterText">
         <item>Playground</item>
         <item>Park</item>
         <item>Swing</item>
@@ -1061,7 +1061,7 @@
         <item>Run</item>
         <item>Swim</item>
     </string-array>
-    <string-array name="arrLevelThreeFunSportsAdapterTextEnglish">
+    <string-array name="arrLevelThreeFunSportsAdapterText">
         <item>Cricket</item>
         <item>Badminton</item>
         <item>Tennis</item>
@@ -1074,19 +1074,19 @@
         <item>Gymnastics</item>
         <item>Swimming</item>
     </string-array>
-    <string-array name="arrLevelThreeFunTvAdapterTextEnglish">
+    <string-array name="arrLevelThreeFunTvAdapterText">
         <item>Next channel</item>
         <item>Previous channel</item>
         <item>Volume up</item>
         <item>Volume down</item>
     </string-array>
-    <string-array name="arrLevelThreeFunMusicAdapterTextEnglish">
+    <string-array name="arrLevelThreeFunMusicAdapterText">
         <item>Change music</item>
         <item>Lets dance</item>
         <item>Volume up</item>
         <item>Volume down</item>
     </string-array>
-    <string-array name="arrLevelThreeFunActivitiesAdapterTextEnglish">
+    <string-array name="arrLevelThreeFunActivitiesAdapterText">
         <item>Draw</item>
         <item>Paint</item>
         <item>Read</item>
@@ -1098,7 +1098,7 @@
     </string-array>
 
     <!--LEVEL THREE "LEARNING" ADAPTER TEXT ARE HERE-->
-    <string-array name="arrLevelThreeLearningAnimBirdsAdapterTextEnglish">
+    <string-array name="arrLevelThreeLearningAnimBirdsAdapterText">
         <item>Dog</item>
         <item>Cat</item>
         <item>Elephant</item>
@@ -1146,7 +1146,7 @@
         <item>Hawk</item>
         <item>Vulture</item>
     </string-array>
-    <string-array name="arrLevelThreeLearningBodyPartsAdapterTextEnglish">
+    <string-array name="arrLevelThreeLearningBodyPartsAdapterText">
         <item>Head</item>
         <item>Hair</item>
         <item>Eyes</item>
@@ -1168,7 +1168,7 @@
         <item>Legs</item>
         <item>Toes</item>
     </string-array>
-    <string-array name="arrLevelThreeLearningBooksAdapterTextEnglish">
+    <string-array name="arrLevelThreeLearningBooksAdapterText">
         <item>Bed time story book</item>
         <item>Comic book</item>
         <item>Rhymes book</item>
@@ -1189,7 +1189,7 @@
         <item>Textbook</item>
         <item>Favourites</item>
     </string-array>
-    <string-array name="arrLevelThreeLearningColorsAdapterTextEnglish">
+    <string-array name="arrLevelThreeLearningColorsAdapterText">
         <item>Black</item>
         <item>Blue</item>
         <item>Brown</item>
@@ -1204,7 +1204,7 @@
         <item>Purple</item>
         <item>Gray</item>
     </string-array>
-    <string-array name="arrLevelThreeLearningShapesAdapterTextEnglish">
+    <string-array name="arrLevelThreeLearningShapesAdapterText">
         <item>Standing line</item>
         <item>Sleeping line</item>
         <item>Slanting line</item>
@@ -1223,7 +1223,7 @@
         <item>Pentagon</item>
         <item>Freeform</item>
     </string-array>
-    <string-array name="arrLevelThreeLearningStationaryAdapterTextEnglish">
+    <string-array name="arrLevelThreeLearningStationaryAdapterText">
         <item>Pencil</item>
         <item>Pen</item>
         <item>Scale</item>
@@ -1241,7 +1241,7 @@
         <item>Cello tape</item>
         <item>Compass box</item>
     </string-array>
-    <string-array name="arrLevelThreeLearningSchoolObjAdapterTextEnglish">
+    <string-array name="arrLevelThreeLearningSchoolObjAdapterText">
         <item>Bag</item>
         <item>Lunch box</item>
         <item>Water bottle</item>
@@ -1259,7 +1259,7 @@
         <item>Sharpener</item>
         <item>Chalk</item>
     </string-array>
-    <string-array name="arrLevelThreeLearningHomeObjAdapterTextEnglish">
+    <string-array name="arrLevelThreeLearningHomeObjAdapterText">
         <item>Window</item>
         <item>Door</item>
         <item>Fan</item>
@@ -1287,7 +1287,7 @@
         <item>Clock</item>
         <item>Tube light</item>
     </string-array>
-    <string-array name="arrLevelThreeLearningTransportAdapterTextEnglish">
+    <string-array name="arrLevelThreeLearningTransportAdapterText">
         <item>Bus</item>
         <item>School bus</item>
         <item>Car</item>
@@ -1300,7 +1300,7 @@
     </string-array>
 
     <!--LEVEL THREE "TIME WEATHER" ADAPTER TEXT ARE HERE-->
-    <string-array name="arrLevelThreeTimeWeaTimeAdapterTextEnglish">
+    <string-array name="arrLevelThreeTimeWeaTimeAdapterText">
         <item>What is the time?</item>
         <item>Today</item>
         <item>Yesterday</item>
@@ -1310,7 +1310,7 @@
         <item>Evening</item>
         <item>Night</item>
     </string-array>
-    <string-array name="arrLevelThreeTimeWeaDayAdapterTextEnglish">
+    <string-array name="arrLevelThreeTimeWeaDayAdapterText">
         <item>What is the day today?</item>
         <item>Monday</item>
         <item>Tuesday</item>
@@ -1320,7 +1320,7 @@
         <item>Saturday</item>
         <item>Sunday</item>
     </string-array>
-    <string-array name="arrLevelThreeTimeWeaMonthAdapterTextEnglish">
+    <string-array name="arrLevelThreeTimeWeaMonthAdapterText">
         <item>Current month?</item>
         <item>January</item>
         <item>February</item>
@@ -1338,7 +1338,7 @@
         <item>Previous month</item>
         <item>Next month</item>
     </string-array>
-    <string-array name="arrLevelThreeTimeWeaWeatherAdapterTextEnglish">
+    <string-array name="arrLevelThreeTimeWeaWeatherAdapterText">
         <item>Today’s weather?</item>
         <item>Sunny</item>
         <item>Rainy</item>
@@ -1347,7 +1347,7 @@
         <item>Foggy</item>
         <item>Snowy</item>
     </string-array>
-    <string-array name="arrLevelThreeTimeWeaSeasonsAdapterTextEnglish">
+    <string-array name="arrLevelThreeTimeWeaSeasonsAdapterText">
         <item>Current season?</item>
         <item>Spring</item>
         <item>Summer</item>
@@ -1355,7 +1355,7 @@
         <item>Autumn</item>
         <item>Winter</item>
     </string-array>
-    <string-array name="arrLevelThreeTimeWeaHoliFestAdapterTextEnglish">
+    <string-array name="arrLevelThreeTimeWeaHoliFestAdapterText">
         <item>Diwali</item>
         <item>Ganesh chaturthi</item>
         <item>Christmas</item>
@@ -1369,7 +1369,7 @@
         <item>Independence day</item>
         <item>New year</item>
     </string-array>
-    <string-array name="arrLevelThreeTimeWeaBirthdaysAdapterTextEnglish">
+    <string-array name="arrLevelThreeTimeWeaBirthdaysAdapterText">
         <item>My birthday</item>
         <item>Mom\’s birthday</item>
         <item>Father\’s birthday</item>
@@ -1384,7 +1384,7 @@
         <item>Teacher\’s birthday</item>
     </string-array>
 
-    <!--LEVEL THREE ADAPTER DRAWABLE ARE HERE-->
+<!--LEVEL THREE ADAPTER DRAWABLE ARE HERE-->
     <!--LEVEL THREE "GREET AND FEEL" ADAPTER TEXT ARE HERE-->
     <array name="arrLevelThreeGreetFeelGreetingIconAdapter">
         <item>@drawable/hi</item>
@@ -1540,6 +1540,7 @@
         <item>@drawable/light</item>
         <item>@drawable/window</item>
         <item>@drawable/bed</item>
+        <item>@drawable/pilllow</item>
         <item>@drawable/blanket</item>
         <item>@drawable/feelinghot</item>
         <item>@drawable/feelingcold</item>

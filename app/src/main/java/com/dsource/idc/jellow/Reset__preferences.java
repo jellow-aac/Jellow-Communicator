@@ -7,7 +7,6 @@ import android.text.Html;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -88,14 +87,7 @@ public class Reset__preferences extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        if (mSession.getLanguage() == LANG_ENG){
-            MenuInflater blowUp = getMenuInflater();
-            blowUp.inflate(R.menu.menu_main, menu);
-        }
-        if (mSession.getLanguage() == LANG_HINDI) {
-            MenuInflater blowUp = getMenuInflater();
-            blowUp.inflate(R.menu.menu_1, menu);
-        }
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
