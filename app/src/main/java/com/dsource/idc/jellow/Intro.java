@@ -1,7 +1,6 @@
 package com.dsource.idc.jellow;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,16 +13,14 @@ import com.github.paolorotolo.appintro.AppIntro;
 /**
  * Created by Shruti on 09-08-2016.
  */
-
 public class Intro extends AppIntro {
-
-    private SessionManager session;
+    private SessionManager mSession;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        session = new SessionManager(getApplicationContext());
+        mSession = new SessionManager(getApplicationContext());
         // Add your slide's fragments here.
         // AppIntro will automatically generate the dots indicator and buttons.
         addSlide(SampleSlide.newInstance(R.layout.intro));
@@ -34,26 +31,22 @@ public class Intro extends AppIntro {
         addSlide(SampleSlide.newInstance(R.layout.intro6));
         addSlide(SampleSlide.newInstance(R.layout.intro7));
 
-        //if the session is logged in: then directly go to the main activity
-        if (session.isLoggedIn1()) {
-            // User is already logged in. Take him to main activity
-            Intent i = new Intent(this, Splash.class);
-            startActivity(i);
+        //if the mSession is logged in: then directly go to the main activity
+        if (mSession.isLoggedIn1()) {
+            startActivity(new Intent(this, Splash.class));
             finish();
-            Toast.makeText(Intro.this, "App is loading...", Toast.LENGTH_LONG).show();
-            Toast.makeText(Intro.this, "App is loading...", Toast.LENGTH_LONG).show();
+            Toast.makeText(Intro.this, getString(R.string.appLoading), Toast.LENGTH_LONG).show();
         }
-//        addSlide(new InputDemoSlide());
-
+        // addSlide(new InputDemoSlide());
         // Instead of fragments, you can also use our default slide
         // Just set a title, description, background and image. AppIntro will do the rest.
-//        addSlide(AppIntroFragment.newInstance(title, description, image, background_colour));
+        // addSlide(AppIntroFragment.newInstance(title, description, image, background_colour));
 
         // OPTIONAL METHODS
         // Override bar/separator color/dots indicator color.
-        setBarColor(Color.parseColor("#F7F3C6"));
-        setSeparatorColor(Color.parseColor("#F7F3C6"));
-        setIndicatorColor(Color.parseColor("#DC5252"), Color.parseColor("#DC5252"));
+        setBarColor(getResources().getColor(R.color.colorIntro));
+        setSeparatorColor(getResources().getColor(R.color.colorIntro));
+        setIndicatorColor(getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorPrimary));
 
         // Hide Skip/Done button.
         showSkipButton(false);
@@ -91,9 +84,8 @@ public class Intro extends AppIntro {
 
     public void getStarted(View view) {
         //set boolean true on getting started
-        session.setLogin1(true);
-        Intent intent = new Intent(Intro.this, Splash.class);
-        startActivity(intent);
+        mSession.setLogin1(true);
+        startActivity(new Intent(Intro.this, Splash.class));
         finish();
     }
 }

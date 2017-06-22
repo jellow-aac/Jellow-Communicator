@@ -72,14 +72,10 @@ public class PlayGifView extends View{
             dur = DEFAULT_MOVIEW_DURATION;
         }
         mCurrentAnimationTime = (int) ((now - mMovieStart) % dur);
-        //System.out.println("updae  "+PlayGifView.mCurrentAnimationTime);
-        if (mCurrentAnimationTime == 2000){
-
-        }
+        //if (mCurrentAnimationTime == 2000){}
     }
 
     private void drawGif(Canvas canvas) {
-        //System.out.println("canvas "+PlayGifView.mCurrentAnimationTime);
         mMovie.setTime(mCurrentAnimationTime);
         mMovie.draw(canvas, 0, 0);
         canvas.restore();

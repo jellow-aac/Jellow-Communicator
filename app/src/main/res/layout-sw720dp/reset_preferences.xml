@@ -104,7 +104,7 @@
         <Button
             android:layout_width="230dp"
             android:layout_height="40dp"
-            android:text="yes"
+            android:text="@string/yes"
             android:layout_weight=".002"
             android:id="@+id/yes"
             android:layout_gravity="center_horizontal"
@@ -116,7 +116,7 @@
             android:layout_width="230dp"
             android:layout_height="40dp"
             android:layout_marginLeft="100dp"
-            android:text="no"
+            android:text="@string/no"
             android:layout_weight=".002"
             android:id="@+id/no"
             android:layout_gravity="center_horizontal"

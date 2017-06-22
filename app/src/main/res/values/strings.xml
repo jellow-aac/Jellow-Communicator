@@ -32,10 +32,10 @@
 
     <string name="simple_ime">Jellow Keyboard</string>
     <string name="subtype_en_US">Serial ABC</string>
-    <string name="screen_width" translatable="false">com.dsource.idc.jellow.screen_width</string>
-    <string name="screen_height" translatable="false">com.dsource.idc.jellow.screen_height</string>
-    <string name="shadow_radius" translatable="false">com.dsource.idc.jellow.shadow_radius</string>
-    <string name="border_width" translatable="false">com.dsource.idc.jellow.border_width</string>
+    <string name="screen_width">com.dsource.idc.jellow.screen_width</string>
+    <string name="screen_height">com.dsource.idc.jellow.screen_height</string>
+    <string name="shadow_radius">com.dsource.idc.jellow.shadow_radius</string>
+    <string name="border_width">com.dsource.idc.jellow.border_width</string>
 
     <string name="people_pref_count_eng">people_count</string>
     <string name="people_pref_count_hindi">people_count_hindi</string>
@@ -59,7 +59,7 @@
     <string name="menuResetPref">Reset Preferences</string>
     <string name="menuFeedback">Feedback</string>
 
-    <string name="endString"></string>
+    <string name="endString"> </string>
 
     <string name="locale_reg_IN">IN</string>
     <string name="locale_lang_hi">hi</string>
@@ -74,4 +74,47 @@
     <string name="abNeg">A B Negative</string>
     <string name="oPos">O Positive</string>
     <string name="oNeg">O Negative</string>
+    <string name="easyToUse">Easy to Use</string>
+    <string name="clearPictures">Clear Pictures</string>
+    <string name="clearVoice">Clear Voice</string>
+    <string name="easyToNavigate">Easy to Navigate</string>
+    <string name="commentSuggestions">Comments/Suggestions</string>
+    <string name="submit">SUBMIT</string>
+    <string name="appLoading">App is loading…</string>
+    <string name="activateGoogleTts">1.Activate Google TTS</string>
+    <string name="changeDefaultToHindi">2. Change default language to Hindi</string>
+    <string name="downloadVoiceTts">3. Download Hindi voice</string>
+    <string name="activate">ACTIVATE</string>
+    <string name="changeLanguage">CHANGE LANGUAGE</string>
+    <string name="download">DOWNLOAD</string>
+    <string name="keyboardControl">Keyboard Control:</string>
+    <string name="keyboardControlTxt">To enable a keyboard of your choice and make it as default, you need to complete 2 steps:</string>
+    <string name="step1">Step 1: Enable Keyboard from device settings</string>
+    <string name="qwertyKeyboard">QWERTY</string>
+    <string name="serialKeyboard">SERIAL ABC</string>
+    <string name="step2">Step 2: Save Keyboard as default option</string>
+    <string name="saveAsDefault">Save as Default</string>
+    <string name="voiceControl">Voice Control:</string>
+    <string name="getVoiceControl">Voice and Keyboard Control</string>
+    <string name="childName">Child\'s Name *</string>
+    <string name="careGiveName">Caregiver\'s Name</string>
+    <string name="careGiverContact">Caregiver\'s Contact No. *</string>
+    <string name="homeAddress">Home Address</string>
+    <string name="emailAddress">Email Address *</string>
+    <string name="bloodGroup">Blood Group</string>
+    <string name="detailSaved">Details saved</string>
+    <string name="invalid_emailId">Invalid email address.</string>
+    <string name="invalidContactNumber">Invalid contact number</string>
+    <string name="enterTheName">Please Enter the Name</string>
+    <string name="resetPreferenceMessage">
+        <ul>
+            <li>Jellow remembers the user\'s \"most-used/preferred\" icons and displays them as the top choices on the screen</li><br/>
+            <li>By resetting preferences, the icons will be set to the original order in which they were displayed the first time the application was opened</li><br/>
+            <li>Do you want to reset preferences?</li><br/><br/>
+        </ul>
+    </string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="iconsHasBeenReset">Preferences have been reset.</string>
+    <string name="checkInternetConn">Please check internet connection and try again</string>
 </resources>

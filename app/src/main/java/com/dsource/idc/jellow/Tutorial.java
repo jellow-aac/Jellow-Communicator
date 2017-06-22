@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
-import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,25 +19,21 @@ import com.dsource.idc.jellow.Utility.SessionManager;
 public class Tutorial extends AppCompatActivity {
 
     TextView tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8, tv9, tv10, tv11, tv12, tv13, tv14;
-    private SessionManager session;
+    private SessionManager mSession;
     ImageView pic1, pic2, pic4, pic5, pic6, pic7, pic8, pic9, pic10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.tutorial_new);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>Tutorial</font>"));
-        DisplayMetrics displayMetrics = getApplicationContext().getResources().getDisplayMetrics();
-        float dpHeight = displayMetrics.heightPixels / displayMetrics.density;
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.menuTutorials)+"</font>"));
+        mSession = new SessionManager(getApplicationContext());
 
-        if (dpHeight >= 600)
+        if (mSession.getScreenHeight() >= 600)
             getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back_600);
         else
             getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
-
-        setContentView(R.layout.tutorial_new);
-
-        session = new SessionManager(getApplicationContext());
 
         tv1=(TextView)findViewById(R.id.tv1);
         tv2=(TextView)findViewById(R.id.tv2);
@@ -70,7 +65,7 @@ public class Tutorial extends AppCompatActivity {
 
         String stringresourceshindi = "जेलो का इस्तमाल करने के लिए कृपया अपने यंत्र के"+"<b>"+" ‘भाषा'"+"</b>"+" सेटिंग्स में जाकर "+"<b>"+"‘गूगल टेक्सट टू स्पीच'"+"</b>"+" को सक्रिय करें| कृपया गूगल टेक्सट टू स्पीच के सेटिंग्स में जाकर पहले "+"<b>"+" 'हिंदी (इंडिया)' भाषा "+"</b>"+" को "+"<b>"+" डिफ़ॉल्ट "+"</b>"+" बनाएँ और फिर "+"<b>"+"'हिंदी (इंडिया)' आवाज़ "+"</b>"+" डाउन्लोड करें|";
 
-        if (session.getLanguage()==1){
+        if (mSession.getLanguage()==1){
             tv1.setText("जेलो के स्क्रीन के मध्य भाग में ९ मुख्य वर्गों के बटन हैं तथा उनके दोनों तरफ ६ भाववाहक बटन हैं।");
             tv7.setText("मुख्य वर्गों के बटन:");
             tv8.setText("भाववाहक बटन: ");
@@ -110,38 +105,31 @@ public class Tutorial extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.settings:
-                Intent intent = new Intent(Tutorial.this, Setting.class);
-                startActivity(intent);
+                startActivity(new Intent(Tutorial.this, Setting.class));
                 finish();
                 break;
             case R.id.info:
-                Intent i = new Intent(Tutorial.this, About_Jellow.class);
-                startActivity(i);
+                startActivity(new Intent(Tutorial.this, About_Jellow.class));
                 finish();
                 break;
             case R.id.profile:
-                Intent intent1 = new Intent(Tutorial.this, Profile_form.class);
-                startActivity(intent1);
+                startActivity(new Intent(Tutorial.this, Profile_form.class));
                 finish();
                 break;
             case R.id.feedback:
-                Intent intent2 = new Intent(Tutorial.this, Feedback.class);
-                startActivity(intent2);
+                startActivity(new Intent(Tutorial.this, Feedback.class));
                 finish();
                 break;
             case R.id.reset:
-                Intent intent4 = new Intent(Tutorial.this, Reset__preferences.class);
-                startActivity(intent4);
+                startActivity(new Intent(Tutorial.this, Reset__preferences.class));
                 finish();
                 break;
             case R.id.keyboardinput:
-                Intent intent6 = new Intent(Tutorial.this, Keyboard_Input.class);
-                startActivity(intent6);
+                startActivity(new Intent(Tutorial.this, Keyboard_Input.class));
                 finish();
                 break;
             case android.R.id.home:
-                Intent intent5 = new Intent(Tutorial.this, MainActivity.class);
-                startActivity(intent5);
+                startActivity(new Intent(Tutorial.this, MainActivity.class));
                 break;
             default:
                 return super.onOptionsItemSelected(item);
@@ -150,16 +138,9 @@ public class Tutorial extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
-        finish();
-        super.onPause();
-    }
-
-    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Intent i = new Intent(Tutorial.this, MainActivity.class);
-            startActivity(i);
+            startActivity(new Intent(Tutorial.this, MainActivity.class));
             finish();
             return true;
         }

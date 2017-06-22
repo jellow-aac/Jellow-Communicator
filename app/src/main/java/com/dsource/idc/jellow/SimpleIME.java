@@ -11,7 +11,6 @@ import android.view.inputmethod.InputConnection;
 /**
  * Created by ekalpa on 11/22/2016.
  */
-
 public class SimpleIME extends InputMethodService
         implements KeyboardView.OnKeyboardActionListener {
 
@@ -20,23 +19,16 @@ public class SimpleIME extends InputMethodService
     private Keyboard keyboard2; // private Keyboard charKeyboard;
     private Keyboard ekeyboard;
     private Keyboard e1keyboard;
-    private boolean isCharKeyboard = false;
+    //private boolean isCharKeyboard = false;
     private KeyboardView kv;
 
     private boolean caps = false;
 
-    @Override
-    public void onPress(int primaryCode) {
-    }
+    @Override   public void onPress(int primaryCode) {}
 
-    @Override
-    public void onRelease(int primaryCode) {
-    }
+    @Override   public void onRelease(int primaryCode) {}
 
-    @Override
-    public void onText(CharSequence text) {
-
-    }
+    @Override   public void onText(CharSequence text) {}
 
     @Override
     public View onCreateInputView() {
@@ -50,8 +42,6 @@ public class SimpleIME extends InputMethodService
         kv.setOnKeyboardActionListener(this);
         return kv;
     }
-
-
 
     private void playClick(int keyCode){
         AudioManager am = (AudioManager)getSystemService(AUDIO_SERVICE);
@@ -137,19 +127,11 @@ public class SimpleIME extends InputMethodService
         }
     }
 
-    @Override
-    public void swipeDown() {
-    }
+    @Override public void swipeDown() {}
 
-    @Override
-    public void swipeLeft() {
-    }
+    @Override public void swipeLeft() {}
 
-    @Override
-    public void swipeRight() {
-    }
+    @Override public void swipeRight() {}
 
-    @Override
-    public void swipeUp() {
-    }
+    @Override public void swipeUp() {}
 }
