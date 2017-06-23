@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--SEQUENCE ACTIVITY ARRAYS ARE HERE-->
+    <string-array name="arrSeqActivityHeadingText">
+        <item>ब्रश करना</item>
+        <item>शौचालय </item>
+        <item>नहाना</item>
+        <item>सुबह के कार्य</item>
+        <item>रात के कार्य</item>
+    </string-array>
+
+    <string-array name="arrSeqActivityNavigationText">
+        <item>&lt;&lt; पीछे</item>
+        <item>आगे &gt;&gt;</item>
+    </string-array>
+
+    <!--SEQUENCE ACTIVITY SPEECH TEXT ARE HERE-->
+    <string-array name="arrSeqActivityBrushingSpeechText">
+        <item>मुँह पानी से धोना</item>
+        <item>टूथ ब्रश पानी से धोना</item>
+        <item>ब्रश पर टूथपेस्ट लगाना</item>
+        <item>सामने के दांत साफ़ करना</item>
+        <item>पीछे के दांत साफ़ करना</item>
+        <item>जीभ साफ़ करना</item>
+        <item>मुँह पानी से धोना</item>
+        <item>मैंने ख़त्म कर दिया</item>
+    </string-array>
+
+    <string-array name="arrSeqActivityToiletSpeechText">
+        <item>पैन्ट नीचे खींचना</item>
+        <item>शौचालय में बैठना</item>
+        <item>पिछला हिस्सा धोना</item>
+        <item>टॉयलेट फ़्लश करना</item>
+        <item>पैन्ट ऊपर खींचना</item>
+        <item>हाथ धोना</item>
+        <item>मैंने ख़त्म कर दिया</item>
+    </string-array>
+
+    <array name="arrSeqActivityBathingSpeechText">
+        <item>कपड़े निकालना</item>
+        <item>पानी चालू करना</item>
+        <item>शॉवर लेना</item>
+        <item>शरीर को भिगोना</item>
+        <item>साबुन लगाना</item>
+        <item>बालों को शाम्पू लगाना </item>
+        <item>फेस वॉश लगाना</item>
+        <item>बाल धोना</item>
+        <item>शरीर धोना</item>
+        <item>पानी बंद करना</item>
+        <item>बाल सुखाना</item>
+        <item>चेहरा पोंछना"</item>
+        <item>शरीर पोंछना</item>
+        <item>कपड़े पैहनना</item>
+        <item>मैंने ख़त्म कर दिया</item>
+    </array>
+
+    <string-array name="arrSeqActivityMorningRoutineSpeechText">
+        <item>उठना</item>
+        <item>चेहरा धोना</item>
+        <item>शौचालय जाना</item>
+        <item>दांत साफ़ करना</item>
+        <item>कपड़े उतारना</item>
+        <item>नहाना</item>
+        <item>कपड़े पैहनना</item>
+        <item>कंघी करना</item>
+        <item>सुबह का नाश्ता खाना</item>
+        <item>खाने का डिब्बा भरना</item>
+        <item>पाठशाला की bag भरना</item>
+        <item>पाठशाला जाना</item>
+        <item>आपका दिन अच्छा रहे</item>
+    </string-array>
+
+    <string-array name="arrSeqActivityBedtimeRoutineSpeechText">
+        <item>रात का भोजन</item>
+        <item>रात के कपड़े पैहनना</item>
+        <item>दांत साफ़ करना</item>
+        <item>कहानियाँ पढ़ना</item>
+        <item>शुभ रात्रि बोलना</item>
+        <item>प्रार्थना करना</item>
+        <item>प्यारे सपने देखो</item>
+    </string-array>
+
+    <!--SEQUENCE ACTIVITY BELOW TEXT ARE HERE-->
+    <string-array name="arrSeqActivityBrushingBelowText">
+        <item>१. मुँह पानी से धोना</item>
+        <item>२. टूथ ब्रश पानी से धोना</item>
+        <item>३. टूथपेस्ट लगाना</item>
+        <item>४. सामने के दांत साफ़</item>
+        <item>५. पीछे के दांत साफ़</item>
+        <item>६. जीभ साफ़</item>
+        <item>७. मुँह पानी से धोना</item>
+        <item>८. मैंने ख़त्म कर दिया</item>
+    </string-array>
+
+    <string-array name="arrSeqActivityToiletBelowText">
+        <item>१. पैन्ट नीचे खींचना</item>
+        <item>२. शौचालय में बैठना</item>
+        <item>३. पिछला हिस्सा धोना</item>
+        <item>४. टॉयलेट फ़्लश करना</item>
+        <item>५. पैन्ट ऊपर खींचना</item>
+        <item>६. हाथ धोना</item>
+        <item>7. मैंने ख़त्म कर दिया</item>
+    </string-array>
+
+    <array name="arrSeqActivityBathingBelowText">
+        <item>१. कपड़े निकालना</item>
+        <item>२.पानी चालू करना</item>
+        <item>३. शॉवर लेना</item>
+        <item>४. शरीर को भिगोना</item>
+        <item>५. साबुन लगाना</item>
+        <item>६. शाम्पू लगाना </item>
+        <item>७. फेस वॉश लगाना</item>
+        <item>८. बाल धोना</item>
+        <item>९. शरीर धोना</item>
+        <item>१०. पानी बंद करना</item>
+        <item>११. बाल सुखाना</item>
+        <item>१२. चेहरा पोंछना"</item>
+        <item>१३. शरीर पोंछना</item>
+        <item>१४. कपड़े पैहनना</item>
+        <item>१५. मैंने ख़त्म कर दिया</item>
+    </array>
+
+    <string-array name="arrSeqActivityMorningRoutineBelowText">
+        <item>१. उठना</item>
+        <item>२. चेहरा धोना</item>
+        <item>३. शौचालय जाना</item>
+        <item>४. दांत साफ़ करना</item>
+        <item>५. कपड़े उतारना</item>
+        <item>६. नहाना</item>
+        <item>७. कपड़े पैहनना</item>
+        <item>८. कंघी करना</item>
+        <item>९. नाश्ता खाना</item>
+        <item>१०. डिब्बा भरना</item>
+        <item>११. पाठशाला की बॅग भरना</item>
+        <item>१२. पाठशाला जाना</item>
+        <item>१३. आपका दिन अच्छा रहे</item>
+    </string-array>
+
+    <string-array name="arrSeqActivityBedtimeRoutineBelowText">
+        <item>१. रात का भोजन</item>
+        <item>२. रात के कपड़े पैहनना</item>
+        <item>३. दांत साफ़ करना</item>
+        <item>४. कहानियाँ पढ़ना</item>
+        <item>५. शुभ रात्रि बोलना</item>
+        <item>६. प्रार्थना करना</item>
+        <item>७. प्यारे सपने देखो</item>
+    </string-array>
+
+    <array name="arrSeqActivityBrushingIcon">
+        <item>@drawable/rinsemouth</item>
+        <item>@drawable/rinsetoothbrush</item>
+        <item>@drawable/puttoothpaste</item>
+        <item>@drawable/brushfrontteeth</item>
+        <item>@drawable/brushbackteeth</item>
+        <item>@drawable/brushtongue</item>
+        <item>@drawable/rinsemouth</item>
+        <item>@drawable/iamalldone</item>
+    </array>
+
+    <array name="arrSeqActivityToiletIcon">
+        <item>@drawable/pullpantsdown</item>
+        <item>@drawable/sitonthetoilet</item>
+        <item>@drawable/washyourbottom</item>
+        <item>@drawable/flushtoilet</item>
+        <item>@drawable/pullpantsup</item>
+        <item>@drawable/washhands</item>
+        <item>@drawable/iamalldone</item>
+    </array>
+
+    <array name="arrSeqActivityBathingIcon">
+        <item>@drawable/removeclothes</item>
+        <item>@drawable/turnonwater</item>
+        <item>@drawable/getinshower</item>
+        <item>@drawable/wetbody</item>
+        <item>@drawable/putsoap</item>
+        <item>@drawable/putshampoo</item>
+        <item>@drawable/putfacewash</item>
+        <item>@drawable/washhair</item>
+        <item>@drawable/washbody</item>
+        <item>@drawable/closetap</item>
+        <item>@drawable/dryhair</item>
+        <item>@drawable/dryface</item>
+        <item>@drawable/drybody</item>
+        <item>@drawable/putonclothes</item>
+        <item>@drawable/iamalldone</item>
+    </array>
+
+    <array name="arrSeqActivityMorningRoutineIcon">
+        <item>@drawable/wakeup</item>
+        <item>@drawable/washface</item>
+        <item>@drawable/gototoilet</item>
+        <item>@drawable/brushteeth</item>
+        <item>@drawable/removeclothes</item>
+        <item>@drawable/haveabath</item>
+        <item>@drawable/getdressed</item>
+        <item>@drawable/combhair</item>
+        <item>@drawable/eatbreakfast</item>
+        <item>@drawable/packlunch</item>
+        <item>@drawable/packbagpack</item>
+        <item>@drawable/takeschoolbag</item>
+        <item>@drawable/haveagreatday</item>
+    </array>
+
+    <array name="arrSeqActivityBedtimeRoutineIcon">
+        <item>@drawable/eatdinner</item>
+        <item>@drawable/wearnightsuit</item>
+        <item>@drawable/brushteeth</item>
+        <item>@drawable/readstory</item>
+        <item>@drawable/saygoodnight</item>
+        <item>@drawable/sayprayres</item>
+        <item>@drawable/sweetdreams</item>
+    </array>
+
+</resources>

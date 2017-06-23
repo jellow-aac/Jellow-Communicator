@@ -1,2 +1,214 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <!--SEQUENCE ACTIVITY ARRAYS ARE HERE-->
+    <string-array name="arrSeqActivityHeadingText">
+        <item>brushing</item>
+        <item>toilet</item>
+        <item>bathing</item>
+        <item>\tmorning routine</item>
+        <item>\tbedtime routine</item>
+    </string-array>
+
+    <string-array name="arrSeqActivityNavigationText">
+        <item>&lt;&lt; PREVIOUS</item>
+        <item>NEXT &gt;&gt;</item>
+    </string-array>
+
+    <!--SEQUENCE ACTIVITY SPEECH TEXT ARE HERE-->
+    <string-array name="arrSeqActivityBrushingSpeechText">
+        <item>Rinse mouth</item>
+        <item>Rinse toothbrush</item>
+        <item>Put toothpaste on brush</item>
+        <item>Brush front teeth</item>
+        <item>Brush back teeth</item>
+        <item>Brush tongue</item>
+        <item>Rinse mouth</item>
+        <item>All done</item>
+    </string-array>
+
+    <string-array name="arrSeqActivityToiletSpeechText">
+        <item>Pull pants down</item>
+        <item>Sit on toilet</item>
+        <item>Wash bottom</item>
+        <item>Flushh toilet</item>
+        <item>Pull pants up</item>
+        <item>Wash hands</item>
+        <item>All done</item>
+    </string-array>
+
+    <array name="arrSeqActivityBathingSpeechText">
+        <item>Remove clothes</item>
+        <item>Turn on water</item>
+        <item>Get in the shower</item>
+        <item>Wet body</item>
+        <item>Put soap</item>
+        <item>shampoo हैर</item>
+        <item>Put face wash</item>
+        <item>Wash हैर</item>
+        <item>Wash body</item>
+        <item>Turn off water</item>
+        <item>Dry हैर</item>
+        <item>Dry face</item>
+        <item>Dry body</item>
+        <item>Put on clothes</item>
+        <item>All done</item>
+    </array>
+
+    <string-array name="arrSeqActivityMorningRoutineSpeechText">
+        <item>Wake up</item>
+        <item>Wash face</item>
+        <item>Go to toilet</item>
+        <item>Brush teeth</item>
+        <item>Remove clothes</item>
+        <item>Have a बाथ</item>
+        <item>Get dressed</item>
+        <item>Comb हैर</item>
+        <item>Eat brekfust</item>
+        <item>Pack lunch box</item>
+        <item>Pack school bag</item>
+        <item>Go to school</item>
+        <item>Have a great day!</item>
+    </string-array>
+
+    <string-array name="arrSeqActivityBedtimeRoutineSpeechText">
+        <item>Eat dinner</item>
+        <item>wear night clothes</item>
+        <item>Brush teeth</item>
+        <item>Read story</item>
+        <item>Say goodnight</item>
+        <item>Say prayers</item>
+        <item>Sweet dreams!</item>
+    </string-array>
+
+    <!--SEQUENCE ACTIVITY BELOW TEXT ARE HERE-->
+    <string-array name="arrSeqActivityBrushingBelowText">
+        <item>1. Rinse mouth</item>
+        <item>2. Rinse toothbrush</item>
+        <item>3. Put toothpaste</item>
+        <item>4. Brush front teeth</item>
+        <item>5. Brush back teeth</item>
+        <item>6. Brush tongue</item>
+        <item>7. Rinse mouth</item>
+        <item>8. All done</item>
+    </string-array>
+
+    <string-array name="arrSeqActivityToiletBelowText">
+        <item>1. Pull pants down</item>
+        <item>2. Sit on toilet</item>
+        <item>3. Wash bottom</item>
+        <item>4. Flush toilet</item>
+        <item>5. Pull pants up</item>
+        <item>6. Wash hands</item>
+        <item>7. All done</item>
+    </string-array>
+
+    <array name="arrSeqActivityBathingBelowText">
+        <item>1. Remove clothes</item>
+        <item>2. Turn on water</item>
+        <item>3. Get in shower</item>
+        <item>4. Wet body</item>
+        <item>5. Put soap</item>
+        <item>6. Shampoo hair</item>
+        <item>7. Put face wash</item>
+        <item>8. Wash hair</item>
+        <item>9. Wash body</item>
+        <item>10. Turn off water</item>
+        <item>11. Dry hair</item>
+        <item>12. Dry face</item>
+        <item>13. Dry body</item>
+        <item>14. Put on clothes</item>
+        <item>15. All done</item>
+    </array>
+
+    <string-array name="arrSeqActivityMorningRoutineBelowText">
+        <item>1.Wake up</item>
+        <item>2. Wash face</item>
+        <item>3. Go to toilet</item>
+        <item>4. Brush teeth</item>
+        <item>5. Remove clothes</item>
+        <item>6. Have a bath</item>
+        <item>7. Get dressed</item>
+        <item>8. Comb hair</item>
+        <item>9. Eat breakfast</item>
+        <item>10. Pack lunchbox</item>
+        <item>11. Pack school bag</item>
+        <item>12. Go to school</item>
+        <item>13. Have a great day</item>
+    </string-array>
+
+    <string-array name="arrSeqActivityBedtimeRoutineBelowText">
+        <item>1. Eat dinner</item>
+        <item>2. wear night dress</item>
+        <item>3. Brush teeth</item>
+        <item>4. Read story</item>
+        <item>5. Say goodnight</item>
+        <item>6. Say prayers</item>
+        <item>7. Sweet dreams!</item>
+    </string-array>
+
+    <array name="arrSeqActivityBrushingIcon">
+        <item>@drawable/rinsemouth</item>
+        <item>@drawable/rinsetoothbrush</item>
+        <item>@drawable/puttoothpaste</item>
+        <item>@drawable/brushfrontteeth</item>
+        <item>@drawable/brushbackteeth</item>
+        <item>@drawable/brushtongue</item>
+        <item>@drawable/rinsemouth</item>
+        <item>@drawable/iamalldone</item>
+    </array>
+
+    <array name="arrSeqActivityToiletIcon">
+        <item>@drawable/pullpantsdown</item>
+        <item>@drawable/sitonthetoilet</item>
+        <item>@drawable/washyourbottom</item>
+        <item>@drawable/flushtoilet</item>
+        <item>@drawable/pullpantsup</item>
+        <item>@drawable/washhands</item>
+        <item>@drawable/iamalldone</item>
+    </array>
+
+    <array name="arrSeqActivityBathingIcon">
+        <item>@drawable/removeclothes</item>
+        <item>@drawable/turnonwater</item>
+        <item>@drawable/getinshower</item>
+        <item>@drawable/wetbody</item>
+        <item>@drawable/putsoap</item>
+        <item>@drawable/putshampoo</item>
+        <item>@drawable/putfacewash</item>
+        <item>@drawable/washhair</item>
+        <item>@drawable/washbody</item>
+        <item>@drawable/closetap</item>
+        <item>@drawable/dryhair</item>
+        <item>@drawable/dryface</item>
+        <item>@drawable/drybody</item>
+        <item>@drawable/putonclothes</item>
+        <item>@drawable/iamalldone</item>
+    </array>
+
+    <array name="arrSeqActivityMorningRoutineIcon">
+        <item>@drawable/wakeup</item>
+        <item>@drawable/washface</item>
+        <item>@drawable/gototoilet</item>
+        <item>@drawable/brushteeth</item>
+        <item>@drawable/removeclothes</item>
+        <item>@drawable/haveabath</item>
+        <item>@drawable/getdressed</item>
+        <item>@drawable/combhair</item>
+        <item>@drawable/eatbreakfast</item>
+        <item>@drawable/packlunch</item>
+        <item>@drawable/packbagpack</item>
+        <item>@drawable/takeschoolbag</item>
+        <item>@drawable/haveagreatday</item>
+    </array>
+
+    <array name="arrSeqActivityBedtimeRoutineIcon">
+        <item>@drawable/eatdinner</item>
+        <item>@drawable/wearnightsuit</item>
+        <item>@drawable/brushteeth</item>
+        <item>@drawable/readstory</item>
+        <item>@drawable/saygoodnight</item>
+        <item>@drawable/sayprayres</item>
+        <item>@drawable/sweetdreams</item>
+    </array>
+
+</resources>

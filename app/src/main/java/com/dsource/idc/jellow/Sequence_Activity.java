@@ -2,6 +2,7 @@ package com.dsource.idc.jellow;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -19,7 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.dsource.idc.jellow.Models.SequenceActivitySpeech;
+import com.dsource.idc.jellow.Models.SequenceActivityIconsStrings;
 import com.dsource.idc.jellow.Utility.SessionManager;
 
 import java.util.Locale;
@@ -28,7 +29,6 @@ import java.util.Locale;
  * Created by ekalpa on 6/22/2016.
  */
 public class Sequence_Activity extends AppCompatActivity {
-    final int LANG_ENG = 0;
     private final boolean DISABLE_ACTION_BTNS = true;
     private int mCk = 0, mCy = 0, mCm = 0, mCd = 0, mCn = 0, mCl = 0;
     private int image_flag = -1, flag_keyboard = 0, mLevelTwoItemPos;
@@ -43,20 +43,12 @@ public class Sequence_Activity extends AppCompatActivity {
     private LinearLayout linear;
     private Button forward, backward;
 
-    private String[] daily_activities_text1 = new String[100];
-    private String[] daily_activities_text = new String[100];
-    private String[] heading = new String[100];
-    private String[][][] layer_1_speech = new String[100][100][100];
-
-    private int count = 0;
-    private SessionManager mSession;
-
-    private int sr, bw;
+    TypedArray mDailyActivitiesIcons;
     private String strNext, strPrevious;
-
-    private String[] side = new String[100];
-    private String[] below = new String[100];
-    private String[] bt = new String[2];
+    private String[] mDailyActivitiesSpeechText, mDailyActivitiesBelowText, heading, side, below, bt;
+    private String[][][] layer_1_speech = new String[100][100][100];
+    private int sr, bw, count = 0;
+    private SessionManager mSession;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +57,6 @@ public class Sequence_Activity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
         getSupportActionBar().setElevation(0);
-        mColor = getResources().getIntArray(R.array.arrActionBtnColors);
         Typeface fontMuktaRegular = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/Mukta-Regular.ttf");
         Typeface fontMuktaBold = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/Mukta-Bold.ttf");
         mLevelTwoItemPos = getIntent().getExtras().getInt("mLevelTwoItemPos");
@@ -77,26 +68,7 @@ public class Sequence_Activity extends AppCompatActivity {
             sr = Integer.valueOf(strSrBw.split(",")[0]);
             bw = Integer.valueOf(strSrBw.split(",")[1]);
         }
-
-        if (mSession.getLanguage() == LANG_ENG) {
-            daily_activities_text = daily_activities_text_english[mLevelTwoItemPos];
-            daily_activities_text1 = daily_activities_text_english1[mLevelTwoItemPos];
-            heading = heading_english;
-            layer_1_speech = new SequenceActivitySpeech().getSequenceActivitySpeechEnglish();
-            side = side_english;
-            below = below_english;
-            bt = bt_english;
-            strNext = "NEXT";   strPrevious = "PREVIOUS";
-        }else{
-            daily_activities_text = daily_activities_text_hindi[mLevelTwoItemPos];
-            daily_activities_text1 = daily_activities_text_hindi1[mLevelTwoItemPos];
-            heading = heading_hindi;
-            layer_1_speech = new SequenceActivitySpeech().getSequenceActivitySpeechHindi();
-            side = side_hindi;
-            below = below_hindi;
-            bt = bt_hindi;
-            strNext = "आगे";    strPrevious = " पीछे";
-        }
+        loadArraysFromResources();
 
         mTtts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
@@ -162,12 +134,12 @@ public class Sequence_Activity extends AppCompatActivity {
         yes.setVisibility(View.INVISIBLE);
         no.setVisibility(View.INVISIBLE);
 
-        bt1.setText(daily_activities_text[0]);
-        bt2.setText(daily_activities_text[1]);
-        bt3.setText(daily_activities_text[2]);
-        image1.setImageResource(daily_activities[mLevelTwoItemPos][0]);
-        image2.setImageResource(daily_activities[mLevelTwoItemPos][1]);
-        image3.setImageResource(daily_activities[mLevelTwoItemPos][2]);
+        bt1.setText(mDailyActivitiesBelowText[0]);
+        bt2.setText(mDailyActivitiesBelowText[1]);
+        bt3.setText(mDailyActivitiesBelowText[2]);
+        image1.setImageDrawable(mDailyActivitiesIcons.getDrawable(0));
+        image2.setImageDrawable(mDailyActivitiesIcons.getDrawable(1));
+        image3.setImageDrawable(mDailyActivitiesIcons.getDrawable(2));
 
         forward.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -207,22 +179,22 @@ public class Sequence_Activity extends AppCompatActivity {
                 add.setImageResource(R.drawable.morewithout);
                 minus.setImageResource(R.drawable.lesswithout);
 
-                if (daily_activities[mLevelTwoItemPos].length == count + 3) {
+                if (mDailyActivitiesIcons.length() == count + 3) {
                     forward.setAlpha(.5f);
                     forward.setEnabled(false);
                 }
-                if (daily_activities[mLevelTwoItemPos].length < count + 3) {
+                if (mDailyActivitiesIcons.length() < count + 3) {
                     if (mLevelTwoItemPos == 0) {
-                        image1.setImageResource(daily_activities[mLevelTwoItemPos][count]);
-                        image2.setImageResource(daily_activities[mLevelTwoItemPos][count + 1]);
+                        image1.setImageDrawable(mDailyActivitiesIcons.getDrawable(count));
+                        image2.setImageDrawable(mDailyActivitiesIcons.getDrawable(count+1));
                         arrow2.setVisibility(View.INVISIBLE);
                         image3.setVisibility(View.INVISIBLE);
                         bt3.setVisibility(View.INVISIBLE);
-                        bt1.setText(daily_activities_text[count]);
-                        bt2.setText(daily_activities_text[count + 1]);
+                        bt1.setText(mDailyActivitiesBelowText[count]);
+                        bt2.setText(mDailyActivitiesBelowText[count + 1]);
                     } else if (mLevelTwoItemPos == 1 || mLevelTwoItemPos == 4 || mLevelTwoItemPos == 3) {
-                        image1.setImageResource(daily_activities[mLevelTwoItemPos][count]);
-                        bt1.setText(daily_activities_text[count]);
+                        image1.setImageDrawable(mDailyActivitiesIcons.getDrawable(count));
+                        bt1.setText(mDailyActivitiesBelowText[count]);
                         image2.setVisibility(View.INVISIBLE);
                         image3.setVisibility(View.INVISIBLE);
                         arrow1.setVisibility(View.INVISIBLE);
@@ -233,12 +205,12 @@ public class Sequence_Activity extends AppCompatActivity {
                     forward.setAlpha(.5f);
                     forward.setEnabled(false);
                 } else {
-                    bt1.setText(daily_activities_text[count]);
-                    bt2.setText(daily_activities_text[count + 1]);
-                    bt3.setText(daily_activities_text[count + 2]);
-                    image1.setImageResource(daily_activities[mLevelTwoItemPos][count]);
-                    image2.setImageResource(daily_activities[mLevelTwoItemPos][count + 1]);
-                    image3.setImageResource(daily_activities[mLevelTwoItemPos][count + 2]);
+                    bt1.setText(mDailyActivitiesBelowText[count]);
+                    bt2.setText(mDailyActivitiesBelowText[count + 1]);
+                    bt3.setText(mDailyActivitiesBelowText[count + 2]);
+                    image1.setImageDrawable(mDailyActivitiesIcons.getDrawable(count));
+                    image2.setImageDrawable(mDailyActivitiesIcons.getDrawable(count+1));
+                    image3.setImageDrawable(mDailyActivitiesIcons.getDrawable(count+2));
                 }
             }
         });
@@ -289,12 +261,12 @@ public class Sequence_Activity extends AppCompatActivity {
                 bt3.setVisibility(View.VISIBLE);
                 bt2.setVisibility(View.VISIBLE);
                 bt1.setVisibility(View.VISIBLE);
-                bt1.setText(daily_activities_text[count]);
-                bt2.setText(daily_activities_text[count + 1]);
-                bt3.setText(daily_activities_text[count + 2]);
-                image1.setImageResource(daily_activities[mLevelTwoItemPos][count]);
-                image2.setImageResource(daily_activities[mLevelTwoItemPos][count + 1]);
-                image3.setImageResource(daily_activities[mLevelTwoItemPos][count + 2]);
+                bt1.setText(mDailyActivitiesBelowText[count]);
+                bt2.setText(mDailyActivitiesBelowText[count + 1]);
+                bt3.setText(mDailyActivitiesBelowText[count + 2]);
+                image1.setImageDrawable(mDailyActivitiesIcons.getDrawable(count));
+                image2.setImageDrawable(mDailyActivitiesIcons.getDrawable(count+1));
+                image3.setImageDrawable(mDailyActivitiesIcons.getDrawable(count+2));
 
                 if (count == 0) {
                     backward.setEnabled(false);
@@ -320,7 +292,7 @@ public class Sequence_Activity extends AppCompatActivity {
                     image_flag = 0;
                 } else {
                     image_flag = 1;
-                    if (count + image_flag == daily_activities[mLevelTwoItemPos].length) {
+                    if (count + image_flag == mDailyActivitiesIcons.length()) {
                         like.setVisibility(View.INVISIBLE);
                         dislike.setVisibility(View.INVISIBLE);
                         add.setVisibility(View.INVISIBLE);
@@ -335,7 +307,7 @@ public class Sequence_Activity extends AppCompatActivity {
                         yes.setVisibility(View.VISIBLE);
                         no.setVisibility(View.VISIBLE);
                     }
-                    mTtts.speak(daily_activities_text1[count], TextToSpeech.QUEUE_FLUSH, null);
+                    mTtts.speak(mDailyActivitiesSpeechText[count], TextToSpeech.QUEUE_FLUSH, null);
                     image1.setBorderColor(-1283893945);
                     image1.setShadowColor(-1283893945);
                     image1.setShadowRadius(sr);
@@ -378,7 +350,7 @@ public class Sequence_Activity extends AppCompatActivity {
                     image_flag = 0;
                 } else {
                     image_flag = 2;
-                    if (count + image_flag == daily_activities[mLevelTwoItemPos].length) {
+                    if (count + image_flag == mDailyActivitiesIcons.length()) {
                         like.setVisibility(View.INVISIBLE);
                         dislike.setVisibility(View.INVISIBLE);
                         add.setVisibility(View.INVISIBLE);
@@ -393,7 +365,7 @@ public class Sequence_Activity extends AppCompatActivity {
                         yes.setVisibility(View.VISIBLE);
                         no.setVisibility(View.VISIBLE);
                     }
-                    mTtts.speak(daily_activities_text1[count + 1], TextToSpeech.QUEUE_FLUSH, null);
+                    mTtts.speak(mDailyActivitiesSpeechText[count + 1], TextToSpeech.QUEUE_FLUSH, null);
                     image2.setBorderColor(-1283893945);
                     image2.setShadowColor(-1283893945);
                     image2.setShadowRadius(sr);
@@ -436,7 +408,7 @@ public class Sequence_Activity extends AppCompatActivity {
                     image_flag = 0;
                 } else {
                     image_flag = 3;
-                    if (count + image_flag == daily_activities[mLevelTwoItemPos].length) {
+                    if (count + image_flag == mDailyActivitiesIcons.length()) {
                         like.setVisibility(View.INVISIBLE);
                         dislike.setVisibility(View.INVISIBLE);
                         add.setVisibility(View.INVISIBLE);
@@ -451,7 +423,7 @@ public class Sequence_Activity extends AppCompatActivity {
                         yes.setVisibility(View.VISIBLE);
                         no.setVisibility(View.VISIBLE);
                     }
-                    mTtts.speak(daily_activities_text1[count + 2], TextToSpeech.QUEUE_FLUSH, null);
+                    mTtts.speak(mDailyActivitiesSpeechText[count + 2], TextToSpeech.QUEUE_FLUSH, null);
                     image3.setBorderColor(-1283893945);
                     image3.setShadowColor(-1283893945);
                     image3.setShadowRadius(sr);
@@ -936,6 +908,49 @@ public class Sequence_Activity extends AppCompatActivity {
         });
     }
 
+    private void loadArraysFromResources() {
+        final int LANG_ENG = 0;
+        mColor = getResources().getIntArray(R.array.arrActionBtnColors);
+        side = getResources().getStringArray(R.array.arrActionSpeech);
+        below = getResources().getStringArray(R.array.arrNavigationSpeech);
+        bt = getResources().getStringArray(R.array.arrSeqActivityNavigationText);
+        heading = getResources().getStringArray(R.array.arrSeqActivityHeadingText);
+        strPrevious = bt[0].substring(2, bt[0].length());   strNext = bt[1].substring(0, bt[1].length()-2);
+
+        switch(mLevelTwoItemPos){
+            case 0:
+                mDailyActivitiesBelowText = getResources().getStringArray(R.array.arrSeqActivityBrushingBelowText);
+                mDailyActivitiesSpeechText = getResources().getStringArray(R.array.arrSeqActivityBrushingSpeechText);
+                mDailyActivitiesIcons = getResources().obtainTypedArray(R.array.arrSeqActivityBrushingIcon);
+                break;
+            case 1:
+                mDailyActivitiesBelowText = getResources().getStringArray(R.array.arrSeqActivityToiletBelowText);
+                mDailyActivitiesSpeechText = getResources().getStringArray(R.array.arrSeqActivityToiletSpeechText);
+                mDailyActivitiesIcons = getResources().obtainTypedArray(R.array.arrSeqActivityToiletIcon);
+                break;
+            case 2:
+                mDailyActivitiesBelowText = getResources().getStringArray(R.array.arrSeqActivityBathingBelowText);
+                mDailyActivitiesSpeechText = getResources().getStringArray(R.array.arrSeqActivityBathingSpeechText);
+                mDailyActivitiesIcons = getResources().obtainTypedArray(R.array.arrSeqActivityBathingIcon);
+                break;
+            case 3:
+                mDailyActivitiesBelowText = getResources().getStringArray(R.array.arrSeqActivityMorningRoutineBelowText);
+                mDailyActivitiesSpeechText = getResources().getStringArray(R.array.arrSeqActivityMorningRoutineSpeechText);
+                mDailyActivitiesIcons = getResources().obtainTypedArray(R.array.arrSeqActivityMorningRoutineIcon);
+                break;
+            case 4:
+                mDailyActivitiesBelowText = getResources().getStringArray(R.array.arrSeqActivityBedtimeRoutineBelowText);
+                mDailyActivitiesSpeechText = getResources().getStringArray(R.array.arrSeqActivityBedtimeRoutineSpeechText);
+                mDailyActivitiesIcons = getResources().obtainTypedArray(R.array.arrSeqActivityBedtimeRoutineIcon);
+                break;
+        }
+
+        if (mSession.getLanguage() == LANG_ENG)
+            layer_1_speech = new SequenceActivityIconsStrings().getSequenceActivitySpeechEnglish();
+        else
+            layer_1_speech = new SequenceActivityIconsStrings().getSequenceActivitySpeechHindi();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -1003,46 +1018,6 @@ public class Sequence_Activity extends AppCompatActivity {
         }
     }
 
-    /*private final char[] smallCaps = new char[]
-            {
-                    '\uf761', //A
-                    '\uf762',
-                    '\uf763',
-                    '\uf764',
-                    '\uf765',
-                    '\uf766',
-                    '\uf767',
-                    '\uf768',
-                    '\uf769',
-                    '\uf76A',
-                    '\uf76B',
-                    '\uf76C',
-                    '\uf76D',
-                    '\uf76E',
-                    '\uf76F',
-                    '\uf770',
-                    '\uf771',
-                    '\uf772',
-                    '\uf773',
-                    '\uf774',
-                    '\uf775',
-                    '\uf776',
-                    '\uf777',
-                    '\uf778',
-                    '\uf779',
-                    '\uf77A'   //Z
-            };
-
-    private final String getSmallCapsString(String input) {
-        char[] chars = input.toCharArray();
-        for (int i = 0; i < chars.length; i++) {
-            if (chars[i] >= 'a' && chars[i] <= 'z') {
-                chars[i] = smallCaps[chars[i] - 'a'];
-            }
-        }
-        return String.valueOf(chars);
-    }*/
-
     private class BackgroundSpeechOperationsAsync extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
@@ -1054,61 +1029,4 @@ public class Sequence_Activity extends AppCompatActivity {
             return "Executed";
         }
     }
-
-    private Integer[][] daily_activities = {{R.drawable.rinsemouth, R.drawable.rinsetoothbrush,
-            R.drawable.puttoothpaste, R.drawable.brushfrontteeth,
-            R.drawable.brushbackteeth, R.drawable.brushtongue,
-            R.drawable.rinsemouth, R.drawable.iamalldone}, {R.drawable.pullpantsdown, R.drawable.sitonthetoilet,
-            R.drawable.washyourbottom, R.drawable.flushtoilet,
-            R.drawable.pullpantsup, R.drawable.washhands,
-            R.drawable.iamalldone}, {R.drawable.removeclothes, R.drawable.turnonwater,
-            R.drawable.getinshower, R.drawable.wetbody,
-            R.drawable.putsoap, R.drawable.putshampoo,
-            R.drawable.putfacewash, R.drawable.washhair, R.drawable.washbody,
-            R.drawable.closetap, R.drawable.dryhair,
-            R.drawable.dryface, R.drawable.drybody,
-            R.drawable.putonclothes, R.drawable.iamalldone}, { R.drawable.wakeup, R.drawable.washface,
-            R.drawable.gototoilet, R.drawable.brushteeth,
-            R.drawable.removeclothes, R.drawable.haveabath,
-            R.drawable.getdressed, R.drawable.combhair, R.drawable.eatbreakfast,
-            R.drawable.packlunch, R.drawable.packbagpack,
-            R.drawable.takeschoolbag, R.drawable.haveagreatday}, {R.drawable.eatdinner, R.drawable.wearnightsuit,
-            R.drawable.brushteeth, R.drawable.readstory,
-            R.drawable.saygoodnight, R.drawable.sayprayres,
-            R.drawable.sweetdreams}
-    };
-
-    private final String[] side_hindi = {"अच्छा लगता हैं", "सच में अच्छा लगता हैं", "हाँ", "सच में हाँ", "ज़्यादा", "सच में ज़्यादा", "अच्छा नहीं लगता हैं", "सच में अच्छा नहीं लगता हैं", "नहीं", "सच में नहीं", "कम", "सच में कम"};
-    private final String[] side_english = {"like", "really like", "yes", "really yes", "more", "really more", "don’t like", "really don’t like", "no", "really no", "less", "really less"};
-
-    private final String[] below_hindi = {"होम", "वापस", "कीबोर्ड"};
-    private final String[] below_english = {"Home", "back", "keyboard"};
-
-    private final String[] bt_hindi = {"<< पीछे", "आगे >>"};
-    private final String[] bt_english = {"<< PREVIOUS", "NEXT >>"};
-
-    private final String[][] daily_activities_text_english1 =
-            {{"Rinse mouth", "Rinse toothbrush", "Put toothpaste on brush", "Brush front teeth", "Brush back teeth", "Brush tongue", "Rinse mouth", "All done"}, {"Pull pants down", "Sit on toilet", "Wash bottom", "Flushh toilet", "Pull pants up", "Wash hands", "All done"}, {"Remove clothes", "Turn on water", "Get in the shower", "Wet body", "Put soap", "shampoo हैर", "Put face wash", "Wash हैर", "Wash body", "Turn off water", "Dry हैर", "Dry face", "Dry body", "Put on clothes", "All done"}, {"Wake up", "Wash face", "Go to toilet", "Brush teeth", "Remove clothes", "Have a बाथ", "Get dressed", "Comb हैर", "Eat brekfust", "Pack lunch box", "Pack school bag", "Go to school", "Have a great day!"}, {"Eat dinner", "wear night clothes", "Brush teeth", "Read story", "Say goodnight", "Say prayers", "Sweet dreams!"}};
-
-    private final String[][] daily_activities_text_hindi1 = {{"मुँह पानी से धोना", "टूथ ब्रश पानी से धोना", "ब्रश पर टूथपेस्ट लगाना", "सामने के दांत साफ़ करना", "पीछे के दांत साफ़ करना", "जीभ साफ़ करना", "मुँह पानी से धोना", "मैंने ख़त्म कर दिया"}, {"पैन्ट नीचे खींचना", "शौचालय में बैठना", "पिछला हिस्सा धोना", "टॉयलेट फ़्लश करना", "पैन्ट ऊपर खींचना", "हाथ धोना", "मैंने ख़त्म कर दिया"}, {"कपड़े निकालना", "पानी चालू करना", "शॉवर लेना", "शरीर को भिगोना", "साबुन लगाना", "बालों को शाम्पू लगाना ", "फेस वॉश लगाना", "बाल धोना", "शरीर धोना", "पानी बंद करना", "बाल सुखाना", "चेहरा पोंछना", "शरीर पोंछना", "कपड़े पैहनना", "मैंने ख़त्म कर दिया"}, {"उठना", "चेहरा धोना", "शौचालय जाना", "दांत साफ़ करना", "कपड़े उतारना", "नहाना", "कपड़े पैहनना", "कंघी करना", "सुबह का नाश्ता खाना", "खाने का डिब्बा भरना", "पाठशाला की bag भरना", "पाठशाला जाना", "आपका दिन अच्छा रहे"}, {"रात का भोजन", "रात के कपड़े पैहनना", "दांत साफ़ करना", "कहानियाँ पढ़ना", "शुभ रात्रि बोलना", "प्रार्थना करना", "प्यारे सपने देखो"}};
-
-    private final String[][] daily_activities_text_hindi = {
-            {"१. मुँह पानी से धोना", "२. टूथब्रश पानी से धोना", "३. टूथपेस्ट लगाना", "४. सामने के दांत साफ़", "५. पीछे के दांत साफ़", "६. जीभ साफ़", "७. मुँह पानी से धोना", "८. मैंने ख़त्म कर दिया"},
-            {"१. पैंट नीचे खींचना", "२. शौचालय में बैठना", "३. पिछला हिस्सा धोना", "४. टॉयलेट फ़्लश करना", "५. पैंट ऊपर खींचना", "६. हाथ धोना", "७. मैंने ख़त्म कर दिया"},
-            {"१. कपड़े निकालना", "२. पानी चालू करना", "३. शावर लेना", "४. शरीर को भिगोना", "५. साबुन लगाना", "६. शैम्पू लगाना ", "७. फेस वॉश लगाना", "८. बाल धोना", "९. शरीर धोना", "१०. पानी बंद करना", "११. बाल सुखाना ", "१२. चेहरा पोंछना", "१३. शरीर पोंछना", "१४. कपड़े पैहनना", "१५. मैंने ख़त्म कर दिया"},
-            {"१. उठना", "२ . चेहरा धोना", "३. शौचालय जाना", "४. दांत साफ़ करना", "५. कपड़े उतारना", "६. नहाना", "७. कपड़े पैहनना", "८. कंघी करना", "९. नाश्ता खाना", "१०. डिब्बा भरना", "११. पाठशाला की बॅग भरना", "१२. पाठशाला जाना", "१३. आपका दिन अच्छा रहे"},
-            {"१. रात का भोजन", "२. रात के कपड़े पैहनना", "३. दांत साफ़ करना", "४. कहानियाँ पढ़ना", "५. शुभ रात्रि बोलना", "६. प्रार्थना करना", "७. प्यारे सपने देखो"}
-    };
-
-    private final String[][] daily_activities_text_english = {
-            {"1. Rinse mouth", "2. Rinse toothbrush", "3. Put toothpaste", "4. Brush front teeth", "5. Brush back teeth", "6. Brush tongue", "7. Rinse mouth", "8. All done"},
-            {"1. Pull pants down", "2. Sit on toilet", "3. Wash bottom", "4. Flush toilet", "5. Pull pants up", "6. Wash hands", "7. All done"},
-            {"1. Remove clothes", "2. Turn on water", "3. Get in shower", "4. Wet body", "5. Put soap", "6. Shampoo hair", "7. Put face wash", "8. Wash hair", "9. Wash body", "10. Turn off water", "11. Dry hair", "12. Dry face", "13. Dry body", "14. Put on clothes", "15. All done"},
-            {"1. Wake up", "2. Wash face", "3. Go to toilet", "4. Brush teeth", "5. Remove clothes", "6. Have a bath", "7. Get dressed", "8. Comb Hair", "9. Eat breakfast", "10. Pack lunchbox", "11. Pack school bag", "12. Go to school", "13. Have a great day"},
-            {"1. Eat dinner", "2. Wear night dress", "3. Brush teeth", "4. Read story", "5. Say goodnight", "6. Say prayers", "7. Sweet dreams!"}
-    };
-
-    private final String[] heading_english = {"brushing", "toilet", "bathing", "\tmorning routine", "\tbedtime routine"};
-
-    private final String[] heading_hindi = {"ब्रश करना", "शौचालय ", "नहाना", "सुबह के कार्य", "रात के कार्य"};
 }

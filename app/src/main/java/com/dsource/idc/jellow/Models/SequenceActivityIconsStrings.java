@@ -4,7 +4,7 @@ package com.dsource.idc.jellow.Models;
  * Created by ekalpa on 6/22/2017.
  */
 
-public class SequenceActivitySpeech {
+public class SequenceActivityIconsStrings {
 
 
     public String[][][] getSequenceActivitySpeechEnglish(){
