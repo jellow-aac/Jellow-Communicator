@@ -7,7 +7,6 @@ package com.dsource.idc.jellow;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -32,7 +31,6 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 public class SharedPreferences extends AppCompatActivity {
@@ -53,9 +51,9 @@ public class SharedPreferences extends AppCompatActivity {
         bRegister = (Button) findViewById(R.id.bRegister);
         bRegister.setAlpha(0.5f);
         bRegister.setEnabled(true);
-        mSession = new SessionManager(getApplicationContext());
+        mSession = new SessionManager(this);
 
-        final MainActivity mainActivity = new MainActivity();
+        /*final MainActivity mainActivity = new MainActivity();
         mainActivity.mTts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
@@ -64,7 +62,7 @@ public class SharedPreferences extends AppCompatActivity {
                     mainActivity.mTts.setLanguage(new Locale("hin", "IND"));
                 }
             }
-        });
+        });*/
 
         etName.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}

@@ -111,7 +111,6 @@ class Adapter_ppl_places extends android.support.v7.widget.RecyclerView.Adapter<
         private TextView menuItemBelowText;
         private CircularImageView menuItemImage;
         private LinearLayout menuItemLinearLayout;
-        int position = -1;
 
         MyViewHolder(final View view) {
             super(view);

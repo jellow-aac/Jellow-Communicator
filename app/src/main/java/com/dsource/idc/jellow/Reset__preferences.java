@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dsource.idc.jellow.Utility.SessionManager;
@@ -28,22 +27,19 @@ public class Reset__preferences extends AppCompatActivity {
         setContentView(R.layout.reset_preferences);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+ getString(R.string.menuResetPref) +"</font>"));
-        mSession = new SessionManager(getApplicationContext());
+        mSession = new SessionManager(this);
 
         if (mSession.getScreenHeight() >= 600)
             getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back_600);
         else
             getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
 
-        myDbHelper = new DataBaseHelper(Reset__preferences.this);
         myDbHelper = new DataBaseHelper(this);
         Button mNo = (Button) findViewById(R.id.no);
         Button mYes = (Button) findViewById(R.id.yes);
-        TextView mTextView1 = (TextView) findViewById(R.id.tv1);
-
-
-        /*mTextView2 =(TextView)findViewById(R.id.tv2);
-        mTextView3 =(TextView)findViewById(R.id.tv3);*/
+        /*TextView mTextView1 = (TextView) findViewById(R.id.tv1);
+            mTextView2 =(TextView)findViewById(R.id.tv2);
+            mTextView3 =(TextView)findViewById(R.id.tv3);*/
 
         /*if (mSession.getLanguage()==1){
             mTextView1.setText("प्रयोगकर्ता के द्वारा सबसे अधिक इस्तेमाल किये गए पसंदीदा आइकॉन को जेलो अॅप्लिकेशन स्मरण में रखता हैं, और उन्हें स्क्रीन पर मुख्य पसंद के रूप में प्रदर्शित करता हैं।");

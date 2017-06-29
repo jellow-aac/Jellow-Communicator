@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.KeyListener;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,11 +20,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.dsource.idc.jellow.Models.LayerThreeEnglishSpeech;
-import com.dsource.idc.jellow.Models.LayerThreeHindiSpeech;
+import com.dsource.idc.jellow.Models.LevelThreeVerbiageModel;
 import com.dsource.idc.jellow.Utility.IndexSorter;
 import com.dsource.idc.jellow.Utility.SessionManager;
 import com.dsource.idc.jellow.Utility.UserDataMeasure;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -43,7 +44,6 @@ public class Layer3Activity extends AppCompatActivity {
     private LinearLayout mMenuItemLinearLayout;
     private String[] myMusic;
     private int[] mColor;
-    private UserDataMeasure userDataMeasure;
     private int mLevelOneItemPos, mLevelTwoItemPos, mLevelThreeItemPos = -1, mSelectedItemAdapterPos = -1;
     private boolean mShouldReadFullSpeech = false;
     private ArrayList<View> mRecyclerItemsViewList;
@@ -54,7 +54,8 @@ public class Layer3Activity extends AppCompatActivity {
     private DataBaseHelper myDbHelper;
     private String[] side = new String[100];
     private String[] below = new String[100];
-    private String[][][][] tempSpeech;
+    private ArrayList<ArrayList<ArrayList <ArrayList <String>>>> mVerbTxt;
+    private UserDataMeasure mUserDataMeasure;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,24 +65,22 @@ public class Layer3Activity extends AppCompatActivity {
         getSupportActionBar().setTitle(getIntent().getExtras().getString("selectedMenuItemPath"));
         getSupportActionBar().setElevation(0);
         myDbHelper = new DataBaseHelper(this);
-        mColor = getResources().getIntArray(R.array.arrActionBtnColors);
-        side = getResources().getStringArray(R.array.arrActionSpeech);
-        below = getResources().getStringArray(R.array.arrNavigationSpeech);
         mSession = new SessionManager(this);
+        mUserDataMeasure = new UserDataMeasure(this);
+        mUserDataMeasure.recordScreen(getLocalClassName());
         more_count = 0;
         mLevelOneItemPos = getIntent().getExtras().getInt("mLevelOneItemPos");
         mLevelTwoItemPos = getIntent().getExtras().getInt("mLevelTwoItemPos");
-        if(mSession.getLanguage() == 0)
-            tempSpeech = new LayerThreeEnglishSpeech().getLayerThreeSpeechEnglish();
-        else
-            tempSpeech = new LayerThreeHindiSpeech().getlayerThreeSpeechHindi();
+        loadArraysFromResources();
+
         try {
             myDbHelper.createDataBase();
             myDbHelper.openDataBase();
-        } catch (IOException ioe) {
-            throw new Error("Unable to create database");
-        } catch (SQLException sqle) {
-            throw sqle;
+        } catch (IOException e) {
+            mUserDataMeasure.reportLog("Unable to create database.", Log.ERROR);
+            mUserDataMeasure.reportException(e);
+        } catch (SQLException e) {
+            mUserDataMeasure.reportException(e);
         }
 
         mRecyclerItemsViewList = new ArrayList<>(100);
@@ -136,9 +135,9 @@ public class Layer3Activity extends AppCompatActivity {
                             mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
                             mLevelThreeItemPos = mRecyclerView.getChildLayoutPosition(view);
                             if ((mLevelOneItemPos == 3 && (mLevelTwoItemPos == 3 || mLevelTwoItemPos == 4)) || (mLevelOneItemPos == 7 && (mLevelTwoItemPos == 0 || mLevelTwoItemPos == 1 || mLevelTwoItemPos == 2 || mLevelTwoItemPos == 3 || mLevelTwoItemPos == 4)))
-                                mTts.speak(myMusic[mLevelThreeItemPos], TextToSpeech.QUEUE_FLUSH, null);
+                                speakSpeech(myMusic[mLevelThreeItemPos]);
                             else
-                                mTts.speak(myMusic[sort[mLevelThreeItemPos]], TextToSpeech.QUEUE_FLUSH, null);
+                                speakSpeech(myMusic[sort[mLevelThreeItemPos]]);
 
                             incrementTouchCountOfItem(mLevelThreeItemPos);
                             if(mLevelOneItemPos == 0 && mLevelTwoItemPos == 1){
@@ -169,6 +168,8 @@ public class Layer3Activity extends AppCompatActivity {
                                 else
                                     changeTheActionButtons(!DISABLE_ACTION_BTNS);
                             }
+                            mUserDataMeasure.reportLog(getLocalClassName()+", "+
+                                    mLevelOneItemPos+", "+ mLevelTwoItemPos +", "+ mLevelThreeItemPos, Log.INFO);
                         }
                     });
                 }
@@ -194,13 +195,13 @@ public class Layer3Activity extends AppCompatActivity {
         if (!savedString.equals("false")) {
             count_flag = 1;
             StringTokenizer st = new StringTokenizer(savedString, ",");
-            count = new Integer[tempSpeech[mLevelOneItemPos][mLevelTwoItemPos].length];
-            for (int j = 0; j < tempSpeech[mLevelOneItemPos][mLevelTwoItemPos].length; j++) {
+            count = new Integer[mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).size()];
+            for (int j = 0; j < mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).size(); j++) {
                 count[j] = Integer.parseInt(st.nextToken());
             }
             IndexSorter<Integer> is = new IndexSorter<Integer>(count);
             is.sort();
-            Integer[] indexes = new Integer[tempSpeech[mLevelOneItemPos][mLevelTwoItemPos].length];
+            Integer[] indexes = new Integer[mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).size()];
             int g = 0;
             for (Integer ij : is.getIndexes()) {
                 indexes[g] = ij;
@@ -222,7 +223,7 @@ public class Layer3Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 home.setImageResource(R.drawable.homepressed);
-                mTts.speak(below[0], TextToSpeech.QUEUE_FLUSH, null);
+                speakSpeech(below[0]);
                 more_count = 0;
                 mShouldReadFullSpeech = false;
                 image_flag = -1;
@@ -235,7 +236,7 @@ public class Layer3Activity extends AppCompatActivity {
         keyboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mTts.speak(below[2], TextToSpeech.QUEUE_FLUSH, null);
+                speakSpeech(below[2]);
                 if (flag_keyboard == 1) {
                     keyboard.setImageResource(R.drawable.keyboard_button);
                     back.setImageResource(R.drawable.back_button);
@@ -266,8 +267,8 @@ public class Layer3Activity extends AppCompatActivity {
                     mTts.setSpeechRate((float) mSession.getSpeed() / 50);
                     mTts.setPitch((float) mSession.getPitch() / 50);
                     String s1 = et.getText().toString();
-                    mTts.speak(s1, TextToSpeech.QUEUE_FLUSH, null);
-
+                    speakSpeech(s1);
+                    mUserDataMeasure.reportLog(getLocalClassName()+", TtsSpeak", Log.INFO);
                     like.setEnabled(false);
                     dislike.setEnabled(false);
                     add.setEnabled(false);
@@ -293,7 +294,7 @@ public class Layer3Activity extends AppCompatActivity {
 
         back.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                mTts.speak(below[1], TextToSpeech.QUEUE_FLUSH, null);
+                speakSpeech(below[1]);
                 back.setImageResource(R.drawable.backpressed);
                 if (flag_keyboard == 1) {
                     keyboard.setImageResource(R.drawable.keyboard_button);
@@ -322,28 +323,29 @@ public class Layer3Activity extends AppCompatActivity {
                 resetActionButtons(image_flag);
                 if (!mShouldReadFullSpeech) {
                     if (mCk == 1) {
-                        mTts.speak(side[1], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[1]);
                         mCk = 0;
                     } else {
-                        mTts.speak(side[0], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[0]);
                         mCk = 1;
                     }
                 } else {
+                    mUserDataMeasure.reportLog(getLocalClassName()+", like: "+
+                        mLevelOneItemPos+", "+ mLevelTwoItemPos +", "+ mLevelThreeItemPos, Log.INFO);
                     ++mActionBtnClickCount;
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCk == 1) {
                         if (count_flag == 1)
-                            mTts.speak(tempSpeech[mLevelOneItemPos][mLevelTwoItemPos][sort[mLevelThreeItemPos]][1], TextToSpeech.QUEUE_FLUSH, null);
+                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(1));
                         else
-                            mTts.speak(tempSpeech[mLevelOneItemPos][mLevelTwoItemPos][mLevelThreeItemPos][1], TextToSpeech.QUEUE_FLUSH, null);
+                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(1));
                         mCk = 0;
-
                     } else {
                         if (count_flag == 1)
-                            mTts.speak(tempSpeech[mLevelOneItemPos][mLevelTwoItemPos][sort[mLevelThreeItemPos]][0], TextToSpeech.QUEUE_FLUSH, null);
+                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(0));
                         else
-                            mTts.speak(tempSpeech[mLevelOneItemPos][mLevelTwoItemPos][mLevelThreeItemPos][0], TextToSpeech.QUEUE_FLUSH, null);
+                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(0));
                         mCk = 1;
                     }
                 }
@@ -358,27 +360,29 @@ public class Layer3Activity extends AppCompatActivity {
                 resetActionButtons(image_flag);
                 if (!mShouldReadFullSpeech) {
                     if (mCd == 1) {
-                        mTts.speak(side[7], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[7]);
                         mCd = 0;
                     } else {
-                        mTts.speak(side[6], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[6]);
                         mCd = 1;
                     }
                 } else {
+                    mUserDataMeasure.reportLog(getLocalClassName()+", dislike: "+
+                            mLevelOneItemPos+", "+ mLevelTwoItemPos +", "+ mLevelThreeItemPos, Log.INFO);
                     ++mActionBtnClickCount;
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCd == 1) {
                         if (count_flag == 1)
-                            mTts.speak(tempSpeech[mLevelOneItemPos][mLevelTwoItemPos][sort[mLevelThreeItemPos]][7], TextToSpeech.QUEUE_FLUSH, null);
-                        else
-                            mTts.speak(tempSpeech[mLevelOneItemPos][mLevelTwoItemPos][mLevelThreeItemPos][7], TextToSpeech.QUEUE_FLUSH, null);
+                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(7));
+                         else
+                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(7));
                         mCd = 0;
                     } else {
                         if (count_flag == 1)
-                            mTts.speak(tempSpeech[mLevelOneItemPos][mLevelTwoItemPos][sort[mLevelThreeItemPos]][6], TextToSpeech.QUEUE_FLUSH, null);
+                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(6));
                         else
-                            mTts.speak(tempSpeech[mLevelOneItemPos][mLevelTwoItemPos][mLevelThreeItemPos][6], TextToSpeech.QUEUE_FLUSH, null);
+                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(6));
                         mCd = 1;
                     }
                 }
@@ -393,27 +397,29 @@ public class Layer3Activity extends AppCompatActivity {
                 resetActionButtons(image_flag);
                 if (!mShouldReadFullSpeech) {
                     if (mCy == 1) {
-                        mTts.speak(side[3], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[3]);
                         mCy = 0;
                     } else {
-                        mTts.speak(side[2], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[2]);
                         mCy = 1;
                     }
                 } else {
+                    mUserDataMeasure.reportLog(getLocalClassName()+", yes: "+
+                            mLevelOneItemPos+", "+ mLevelTwoItemPos +", "+ mLevelThreeItemPos, Log.INFO);
                     ++mActionBtnClickCount;
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCy == 1) {
                         if (count_flag == 1)
-                            mTts.speak(tempSpeech[mLevelOneItemPos][mLevelTwoItemPos][sort[mLevelThreeItemPos]][3], TextToSpeech.QUEUE_FLUSH, null);
+                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(3));
                         else
-                            mTts.speak(tempSpeech[mLevelOneItemPos][mLevelTwoItemPos][mLevelThreeItemPos][3], TextToSpeech.QUEUE_FLUSH, null);
+                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(3));
                         mCy = 0;
                     } else {
                         if (count_flag == 1)
-                            mTts.speak(tempSpeech[mLevelOneItemPos][mLevelTwoItemPos][sort[mLevelThreeItemPos]][2], TextToSpeech.QUEUE_FLUSH, null);
+                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(2));
                         else
-                            mTts.speak(tempSpeech[mLevelOneItemPos][mLevelTwoItemPos][mLevelThreeItemPos][2], TextToSpeech.QUEUE_FLUSH, null);
+                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(2));
                         mCy = 1;
                     }
                 }
@@ -428,27 +434,29 @@ public class Layer3Activity extends AppCompatActivity {
                 resetActionButtons(image_flag);
                 if (!mShouldReadFullSpeech) {
                     if (mCn == 1) {
-                        mTts.speak(side[9], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[9]);
                         mCn = 0;
                     } else {
-                        mTts.speak(side[8], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[8]);
                         mCn = 1;
                     }
                 } else {
+                    mUserDataMeasure.reportLog(getLocalClassName()+", no: "+
+                            mLevelOneItemPos+", "+ mLevelTwoItemPos +", "+ mLevelThreeItemPos, Log.INFO);
                     ++mActionBtnClickCount;
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCn == 1) {
                         if (count_flag == 1)
-                            mTts.speak(tempSpeech[mLevelOneItemPos][mLevelTwoItemPos][sort[mLevelThreeItemPos]][9], TextToSpeech.QUEUE_FLUSH, null);
+                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(9));
                         else
-                            mTts.speak(tempSpeech[mLevelOneItemPos][mLevelTwoItemPos][mLevelThreeItemPos][9], TextToSpeech.QUEUE_FLUSH, null);
+                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(9));
                         mCn = 0;
                     } else {
                         if (count_flag == 1)
-                            mTts.speak(tempSpeech[mLevelOneItemPos][mLevelTwoItemPos][sort[mLevelThreeItemPos]][8], TextToSpeech.QUEUE_FLUSH, null);
-                        else
-                            mTts.speak(tempSpeech[mLevelOneItemPos][mLevelTwoItemPos][mLevelThreeItemPos][8], TextToSpeech.QUEUE_FLUSH, null);
+                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(8));
+                         else
+                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(8));
                         mCn = 1;
                     }
                 }
@@ -463,27 +471,29 @@ public class Layer3Activity extends AppCompatActivity {
                 resetActionButtons(image_flag);
                 if (!mShouldReadFullSpeech) {
                     if (mCm == 1) {
-                        mTts.speak(side[5], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[5]);
                         mCm = 0;
                     } else {
-                        mTts.speak(side[4], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[4]);
                         mCm = 1;
                     }
                 } else {
+                    mUserDataMeasure.reportLog(getLocalClassName()+", add: "+
+                            mLevelOneItemPos+", "+ mLevelTwoItemPos +", "+ mLevelThreeItemPos, Log.INFO);
                     ++mActionBtnClickCount;
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCm == 1) {
                         if (count_flag == 1)
-                            mTts.speak(tempSpeech[mLevelOneItemPos][mLevelTwoItemPos][sort[mLevelThreeItemPos]][5], TextToSpeech.QUEUE_FLUSH, null);
+                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(5));
                         else
-                            mTts.speak(tempSpeech[mLevelOneItemPos][mLevelTwoItemPos][mLevelThreeItemPos][5], TextToSpeech.QUEUE_FLUSH, null);
+                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(5));
                         mCm = 0;
                     } else {
                         if (count_flag == 1)
-                            mTts.speak(tempSpeech[mLevelOneItemPos][mLevelTwoItemPos][sort[mLevelThreeItemPos]][4], TextToSpeech.QUEUE_FLUSH, null);
+                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(4));
                         else
-                            mTts.speak(tempSpeech[mLevelOneItemPos][mLevelTwoItemPos][mLevelThreeItemPos][4], TextToSpeech.QUEUE_FLUSH, null);
+                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(4));
                         mCm = 1;
                     }
                 }
@@ -498,27 +508,29 @@ public class Layer3Activity extends AppCompatActivity {
                 resetActionButtons(image_flag);
                 if (!mShouldReadFullSpeech) {
                     if (mCl == 1) {
-                        mTts.speak(side[11], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[11]);
                         mCl = 0;
                     } else {
-                        mTts.speak(side[10], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[10]);
                         mCl = 1;
                     }
                 } else {
+                    mUserDataMeasure.reportLog(getLocalClassName()+", minus: "+
+                            mLevelOneItemPos+", "+ mLevelTwoItemPos +", "+ mLevelThreeItemPos, Log.INFO);
                     ++mActionBtnClickCount;
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCl == 1) {
                         if (count_flag == 1)
-                            mTts.speak(tempSpeech[mLevelOneItemPos][mLevelTwoItemPos][sort[mLevelThreeItemPos]][11], TextToSpeech.QUEUE_FLUSH, null);
+                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(11));
                         else
-                            mTts.speak(tempSpeech[mLevelOneItemPos][mLevelTwoItemPos][mLevelThreeItemPos][11], TextToSpeech.QUEUE_FLUSH, null);
+                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(11));
                         mCl = 0;
                     } else {
                         if (count_flag == 1)
-                            mTts.speak(tempSpeech[mLevelOneItemPos][mLevelTwoItemPos][sort[mLevelThreeItemPos]][10], TextToSpeech.QUEUE_FLUSH, null);
+                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(10));
                         else
-                            mTts.speak(tempSpeech[mLevelOneItemPos][mLevelTwoItemPos][mLevelThreeItemPos][10], TextToSpeech.QUEUE_FLUSH, null);
+                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(10));
                         mCl = 1;
                     }
                 }
@@ -570,6 +582,15 @@ public class Layer3Activity extends AppCompatActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    private void loadArraysFromResources() {
+        mColor = getResources().getIntArray(R.array.arrActionBtnColors);
+        side = getResources().getStringArray(R.array.arrActionSpeech);
+        below = getResources().getStringArray(R.array.arrNavigationSpeech);
+        String str = getResources().getString(R.string.levelThreeVerbiage);
+        LevelThreeVerbiageModel mLevelThreeVerbiageModel = new Gson().fromJson(str, LevelThreeVerbiageModel.class);
+        mVerbTxt = mLevelThreeVerbiageModel.getVerbiageModel();
     }
 
     private void changeTheActionButtons(boolean setDisable) {
@@ -769,13 +790,18 @@ public class Layer3Activity extends AppCompatActivity {
         }
     }
 
+    private void speakSpeech(String speechText){
+        mTts.speak(speechText, TextToSpeech.QUEUE_FLUSH, null);
+    }
+
     private class BackgroundSpeechOperationsAsync extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
             try {
                 mTts.setLanguage(new Locale("eng", "IND"));
             } catch (Exception e) {
-                Thread.interrupted();
+                mUserDataMeasure.reportException(e);
+                mUserDataMeasure.reportLog("Failed to set language.", Log.ERROR);
             }
             return "Executed";
         }

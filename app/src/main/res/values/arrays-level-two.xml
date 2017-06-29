@@ -1,5 +1,111 @@
 <resources>
 <!--LEVEL TWO ARRAYS ARE HERE-->
+    <!--LEVEL TWO ADAPTER DRAWABLE ARE HERE-->
+    <array name="arrLevelTwoGreetFeelIconAdapter">
+        <item>@drawable/level2_time_greetings</item>
+        <item>@drawable/level2_time_feelings</item>
+        <item>@drawable/level2_time_request</item>
+        <item>@drawable/level2_time_questions</item>
+    </array>
+    <array name="arrLevelTwoDailyActIconAdapter">
+        <item>@drawable/level2_dailyact_brush</item>
+        <item>@drawable/level2_dailyact_toilet1</item>
+        <item>@drawable/level2_dailyact_bathing</item>
+        <item>@drawable/level2_dailyact_clothing1</item>
+        <item>@drawable/level2_dailyact_getready</item>
+        <item>@drawable/level2_dailyact_sleep</item>
+        <item>@drawable/level2_dailyact_therapy</item>
+        <item>@drawable/level2_dailyact_morning1</item>
+        <item>@drawable/level2_dailyact_evening</item>
+    </array>
+    <array name="arrLevelTwoEatingIconAdapter">
+        <item>@drawable/level2_eat_breakfast</item>
+        <item>@drawable/level2_eat_lunch</item>
+        <item>@drawable/level2_eat_sweets</item>
+        <item>@drawable/level2_eat_snacks</item>
+        <item>@drawable/level2_eat_fruits</item>
+        <item>@drawable/level2_eat_beverages</item>
+        <item>@drawable/level2_eat_cutlery</item>
+        <item>@drawable/level2_eat_addons</item>
+    </array>
+    <array name="arrLevelTwoFunIconAdapter">
+        <item>@drawable/level2_fun_indoor_games1</item>
+        <item>@drawable/level2_fun_outdoor_games</item>
+        <item>@drawable/level2_fun_sports1</item>
+        <item>@drawable/level2_fun_tv</item>
+        <item>@drawable/level2_fun_music</item>
+        <item>@drawable/level2_fun_activities</item>
+    </array>
+    <array name="arrLevelTwoLearningIconAdapter">
+        <item>@drawable/level2_learning_animal</item>
+        <item>@drawable/level2_learn_bodypart</item>
+        <item>@drawable/level2_learn_books</item>
+        <item>@drawable/level2_learn_colors</item>
+        <item>@drawable/level2_learn_shapes</item>
+        <item>@drawable/level2_learn_stationery</item>
+        <item>@drawable/level2_learn_schoolobject2</item>
+        <item>@drawable/level2_learn_homeobjects</item>
+        <item>@drawable/level2_learn_transport</item>
+    </array>
+    <array name="arrLevelTwoTimeIconAdapter">
+        <item>@drawable/level2_time_time</item>
+        <item>@drawable/level2_time_day</item>
+        <item>@drawable/level2_time_month</item>
+        <item>@drawable/level2_time_weather</item>
+        <item>@drawable/level2_time_season</item>
+        <item>@drawable/level2_time_festivals</item>
+        <item>@drawable/level2_time_birthday</item>
+    </array>
+
+    <array name="arrLevelTwoHelpIconAdapter">
+        <item>@drawable/level2_people_aboutme</item>
+        <item>@drawable/level2_help_feelhurt</item>
+        <item>@drawable/level2_help_feelsick</item>
+        <item>@drawable/level2_help_feeltired</item>
+        <item>@drawable/level2_help_helpmedo1</item>
+        <item>@drawable/level2_help_medicine</item>
+        <item>@drawable/level2_help_bandaid</item>
+        <item>@drawable/water</item>
+        <item>@drawable/toilet</item>
+    </array>
+
+    <array name="arrLevelTwoPeopleIcon">
+        <item>@drawable/level2_people_mom</item>
+        <item>@drawable/level2_people_dad</item>
+        <item>@drawable/level2_people_brother</item>
+        <item>@drawable/level2_people_sister</item>
+        <item>@drawable/level2_people_grandfather</item>
+        <item>@drawable/level2_people_grandmother</item>
+        <item>@drawable/level2_people_uncle</item>
+        <item>@drawable/level2_people_aunt</item>
+        <item>@drawable/level2_people_cousin</item>
+        <item>@drawable/level2_people_baby</item>
+        <item>@drawable/level2_people_friend</item>
+        <item>@drawable/level2_people_teacher</item>
+        <item>@drawable/level2_people_doctor</item>
+        <item>@drawable/level2_people_nurse</item>
+        <item>@drawable/level2_people_caregiver1</item>
+        <item>@drawable/level2_people_stranger</item>
+        <item>@drawable/level2_people_aboutme</item>
+    </array>
+    <array name="arrLevelTwoPlacesIcon">
+        <item>@drawable/level2_places_home</item>
+        <item>@drawable/level2_places_school1</item>
+        <item>@drawable/level2_places_mall</item>
+        <item>@drawable/level2_places_museum1</item>
+        <item>@drawable/level2_places_restraunt</item>
+        <item>@drawable/level2_places_theatre</item>
+        <item>@drawable/level2_places_playground</item>
+        <item>@drawable/level2_places_park</item>
+        <item>@drawable/level2_places_store</item>
+        <item>@drawable/level2_places_friend_house</item>
+        <item>@drawable/level2_places_relative_house</item>
+        <item>@drawable/level2_places_hospital</item>
+        <item>@drawable/level2_places_clinic</item>
+        <item>@drawable/level2_places_library</item>
+        <item>@drawable/level2_places_terr</item>
+    </array>
+
     <!--LEVEL TWO SPEECH TEXT ARE HERE-->
     <!--LEVEL THREE "GREETING" SPEECH TEXT ARE HERE-->
     <string-array name="arrLevelTwoGreetFeelSpeechText">
@@ -209,111 +315,1053 @@
         <item>Toilet</item>
     </string-array>
 
+    <string name="levelTwoVerbiage">
+        {\"arrays\":[[[
+            \"I like to greet others\",
+            \"I really like to greet others\",
+            \"I want to greet others\",
+            \"I really want to greet others\",
+            \"I want to greet some more\",
+            \"I really want to greet some more\",
+            \"I don\'t like to greet others\",
+            \"I really don\'t like to use greet others\",
+            \"I don\'t want to greet others\",
+            \"I really don\'t want to greet others\",
+            \"I don\'t want to greet any more\",
+            \"I really don\'t want to greet any more\"
 
-    <!--LEVEL TWO ADAPTER DRAWABLE ARE HERE-->
+    ],[\"I like to talk about my feelings\",
+            \"I really like to talk about my feelings\",
+            \"I want to talk about my feelings\",
+            \"I really want to talk about my feelings\",
+            \"I want to talk some more about my feelings\",
+            \"I really want to talk some more about my feelings\",
+            \"I don\'t like to talk about my feelings\",
+            \"I really don\'t like to talk about my feelings\",
+            \"I don\'t want to talk about my feelings\",
+            \"I really don\'t want to talk about my feelings\",
+            \"I don\'t want to talk more about my feelings\",
+            \"I really don\'t want to talk any more about my feelings\"
 
-    <array name="arrLevelTwoGreetFeelIconAdapter">
-        <item>@drawable/level2_time_greetings</item>
-        <item>@drawable/level2_time_feelings</item>
-        <item>@drawable/level2_time_request</item>
-        <item>@drawable/level2_time_questions</item>
-    </array>
-    <array name="arrLevelTwoDailyActIconAdapter">
-        <item>@drawable/level2_dailyact_brush</item>
-        <item>@drawable/level2_dailyact_toilet1</item>
-        <item>@drawable/level2_dailyact_bathing</item>
-        <item>@drawable/level2_dailyact_clothing1</item>
-        <item>@drawable/level2_dailyact_getready</item>
-        <item>@drawable/level2_dailyact_sleep</item>
-        <item>@drawable/level2_dailyact_therapy</item>
-        <item>@drawable/level2_dailyact_morning1</item>
-        <item>@drawable/level2_dailyact_evening</item>
-    </array>
-    <array name="arrLevelTwoEatingIconAdapter">
-        <item>@drawable/level2_eat_breakfast</item>
-        <item>@drawable/level2_eat_lunch</item>
-        <item>@drawable/level2_eat_sweets</item>
-        <item>@drawable/level2_eat_snacks</item>
-        <item>@drawable/level2_eat_fruits</item>
-        <item>@drawable/level2_eat_beverages</item>
-        <item>@drawable/level2_eat_cutlery</item>
-        <item>@drawable/level2_eat_addons</item>
-    </array>
-    <array name="arrLevelTwoFunIconAdapter">
-        <item>@drawable/level2_fun_indoor_games1</item>
-        <item>@drawable/level2_fun_outdoor_games</item>
-        <item>@drawable/level2_fun_sports1</item>
-        <item>@drawable/level2_fun_tv</item>
-        <item>@drawable/level2_fun_music</item>
-        <item>@drawable/level2_fun_activities</item>
-    </array>
-    <array name="arrLevelTwoLearningIconAdapter">
-        <item>@drawable/level2_learning_animal</item>
-        <item>@drawable/level2_learn_bodypart</item>
-        <item>@drawable/level2_learn_books</item>
-        <item>@drawable/level2_learn_colors</item>
-        <item>@drawable/level2_learn_shapes</item>
-        <item>@drawable/level2_learn_stationery</item>
-        <item>@drawable/level2_learn_schoolobject2</item>
-        <item>@drawable/level2_learn_homeobjects</item>
-        <item>@drawable/level2_learn_transport</item>
-    </array>
-    <array name="arrLevelTwoTimeIconAdapter">
-        <item>@drawable/level2_time_time</item>
-        <item>@drawable/level2_time_day</item>
-        <item>@drawable/level2_time_month</item>
-        <item>@drawable/level2_time_weather</item>
-        <item>@drawable/level2_time_season</item>
-        <item>@drawable/level2_time_festivals</item>
-        <item>@drawable/level2_time_birthday</item>
-    </array>
+    ],[\"I like to request\",
+            \"I really like to request\",
+            \"I want to request something\",
+            \"I really want to request something\",
+            \"I want to request something more\",
+            \"I really want to request some more\",
+            \"I don\'t like to request\",
+            \"I really don\'t like to request\",
+            \"I don\'t want to request anything\",
+            \"I really don\'t want to request anything\",
+            \"I don\'t want to request any more\",
+            \"I really don\'t want to request any more\"
 
-    <array name="arrLevelTwoHelpIconAdapter">
-        <item>@drawable/level2_people_aboutme</item>
-        <item>@drawable/level2_help_feelhurt</item>
-        <item>@drawable/level2_help_feelsick</item>
-        <item>@drawable/level2_help_feeltired</item>
-        <item>@drawable/level2_help_helpmedo1</item>
-        <item>@drawable/level2_help_medicine</item>
-        <item>@drawable/level2_help_bandaid</item>
-        <item>@drawable/water</item>
-        <item>@drawable/toilet</item>
-    </array>
+    ],[\"I like to ask questions\",
+            \"I really like to ask questions\",
+            \"I want to ask a question\",
+            \"I really want to ask a question\",
+            \"I want to ask more questions\",
+            \"I really want to ask some more questions\",
+            \"I don\'t like to ask questions\",
+            \"I really don\'t like to ask questions\",
+            \"I don\'t want to ask a question\",
+            \"I really don\'t want to ask a question\",
+            \"I don\'t want to ask more questions\",
+            \"I really don\'t want to ask any more questions\"
 
-    <array name="arrLevelTwoPeopleIcon">
-        <item>@drawable/level2_people_mom</item>
-        <item>@drawable/level2_people_dad</item>
-        <item>@drawable/level2_people_brother</item>
-        <item>@drawable/level2_people_sister</item>
-        <item>@drawable/level2_people_grandfather</item>
-        <item>@drawable/level2_people_grandmother</item>
-        <item>@drawable/level2_people_uncle</item>
-        <item>@drawable/level2_people_aunt</item>
-        <item>@drawable/level2_people_cousin</item>
-        <item>@drawable/level2_people_baby</item>
-        <item>@drawable/level2_people_friend</item>
-        <item>@drawable/level2_people_teacher</item>
-        <item>@drawable/level2_people_doctor</item>
-        <item>@drawable/level2_people_nurse</item>
-        <item>@drawable/level2_people_caregiver1</item>
-        <item>@drawable/level2_people_stranger</item>
-        <item>@drawable/level2_people_aboutme</item>
-    </array>
-    <array name="arrLevelTwoPlacesIcon">
-        <item>@drawable/level2_places_home</item>
-        <item>@drawable/level2_places_school1</item>
-        <item>@drawable/level2_places_mall</item>
-        <item>@drawable/level2_places_museum1</item>
-        <item>@drawable/level2_places_restraunt</item>
-        <item>@drawable/level2_places_theatre</item>
-        <item>@drawable/level2_places_playground</item>
-        <item>@drawable/level2_places_park</item>
-        <item>@drawable/level2_places_store</item>
-        <item>@drawable/level2_places_friend_house</item>
-        <item>@drawable/level2_places_relative_house</item>
-        <item>@drawable/level2_places_hospital</item>
-        <item>@drawable/level2_places_clinic</item>
-        <item>@drawable/level2_places_library</item>
-        <item>@drawable/level2_places_terr</item>
-    </array>
+
+    ]],[[\"I like to brush my teeth\",
+            \"I really like to brush my teeth\",
+            \"I want to brush my teeth\",
+            \"I really want to brush my teeth\",
+            \"I want to brush my teeth again\",
+            \"I really want to brush my teeth again\",
+            \"I don\'t like to brush my teeth\",
+            \"I really don\'t like to brush my teeth\",
+            \"I don\'t want to brush my teeth\",
+            \"I really don\'t want to brush my teeth\",
+            \"I don\'t want to brush my teeth again\",
+            \"I really don\'t want to brush my teeth again\"
+
+    ],[\"I like to go to the toilet\",
+            \"I really like to go to the toilet\",
+            \"I want to go to the toilet\",
+            \"I really want to go to the toilet\",
+            \"I want to go to the toilet again\",
+            \"I really want to go to the toilet again\",
+            \"I don\'t like to go to the toilet\",
+            \"I really don\'t like to go to the toilet\",
+            \"I don\'t want to go to the toilet\",
+            \"I really don\'t want to go to the toilet\",
+            \"I don\'t want to go to the toilet again\",
+            \"I really don\'t want to go to the toilet again\"
+
+    ],[\"I like to bathe\",
+            \"I really like to bathe \",
+            \"I want to bathe \",
+            \"I really want to bathe \",
+            \"I want to bathe again\",
+            \"I really want to bathe again\",
+            \"I don\'t like to bathe \",
+            \"I really don\'t like to bathe \",
+            \"I don\'t want to bathe \",
+            \"I really don\'t want to bathe \",
+            \"I don\'t want to bathe again\",
+            \"I really don\'t want to bathe again\"
+
+    ],[\"I like clothes and accessories\",
+            \"I really like clothes and accessories\",
+            \"I want some clothes and accessories\",
+            \"I really want some clothes and accessories\",
+            \"I want more clothes and accessories\",
+            \"I really want some more clothes and accessories\",
+            \"I don\'t like clothes and accessories\",
+            \"I really don\'t like clothes and accessories\",
+            \"I don\'t want clothes and accessories\",
+            \"I really don\'t want any clothes and accessories\",
+            \"I don\'t want more clothes and accessories\",
+            \"I really don\'t want any more clothes and accessories\"
+
+    ],[\"I like to get ready\",
+            \"I really like to get ready\",
+            \"I want to get ready\",
+            \"I really want to get ready\",
+            \"I need more time to get ready\",
+            \"I really need some more time to get ready\",
+            \"I don\'t like to get ready\",
+            \"I really don\'t like to get ready\",
+            \"I don\'t want to get ready\",
+            \"I really don\'t want to get ready\",
+            \"I don\'t need more time to get ready\",
+            \"I really don\'t need any more time to get ready\"
+
+    ],[\"I like to sleep\",
+            \"I really like to sleep\",
+            \"I want to sleep\",
+            \"I really want to sleep\",
+            \"I want to sleep some more\",
+            \"I really want to sleep for some more time\",
+            \"I don\'t like to sleep\",
+            \"I really don\'t like to sleep\",
+            \"I don\'t want to sleep\",
+            \"I really don\'t want to sleep\",
+            \"I don\'t want to sleep any more\",
+            \"I really don\'t want to sleep any more now\"
+
+    ],[\"I like to go for therapy\",
+            \"I really like to go for therapy\",
+            \"I want to go for therapy\",
+            \"I really want to go for therapy\",
+            \"I want to go for therapy again\",
+            \"I really want to go for therapy again\",
+            \"I don\'t like to go for therapy\",
+            \"I really don\'t like to go for therapy\",
+            \"I don\'t want to go for therapy\",
+            \"I really don\'t want to go for therapy\",
+            \"I don\'t want to go for therapy again\",
+            \"I really don\'t want to go for therapy again\"
+
+    ],[\"I like to follow my morning routine\",
+            \"I really like to follow my morning routine\",
+            \"I want to know my morning routine\",
+            \"I really want to know my morning routine\",
+            \"I want to know more about my morning routine\",
+            \"I really want to know some more about my morning routine\",
+            \"I don\'t like to follow my morning routine\",
+            \"I really don\'t like to follow my morning routine\",
+            \"I don\'t want to know my morning routine\",
+            \"I really don\'t want to know my morning routine\",
+            \"I don\'t want to know more about my morning routine\",
+            \"I really don\'t want to know any more about my morning routine\"
+
+    ],[\"I like to follow my bedtime routine\",
+            \"I really like to follow my bedtime routine\",
+            \"I want to know my bedtime routine\",
+            \"I really want to know my bedtime routine\",
+            \"I want to know more about my bedtime routine\",
+            \"I really want to know some more about my bedtime routine\",
+            \"I don\'t like to follow my bedtime routine\",
+            \"I really don\'t like to follow my bedtime routine\",
+            \"I don\'t want to know my bedtime routine\",
+            \"I really don\'t want to know my bedtime routine\",
+            \"I don\'t want to know more about my bedtime routine\",
+            \"I really don\'t want to know any more about my bedtime routine\"
+
+
+    ]],[[\"I like to have brekfust\",
+            \"I really like to have brekfust\",
+            \"I want to have brekfust\",
+            \"I really want to have brekfust\",
+            \"I want to have more brekfust\",
+            \"I really want to have some more brekfust\",
+            \"I don\'t like to have brekfust\",
+            \"I really don\'t like to have brekfust\",
+            \"I don\'t want to have brekfust\",
+            \"I really don\'t want to have brekfust\",
+            \"I don\'t want any more brekfust\",
+            \"I really don\'t want any more brekfust\"
+
+    ],[\"I like to have food\",
+            \"I really like to have food\",
+            \"I want to have some food\",
+            \"I really want to have some food\",
+            \"I want more food\",
+            \"I really want some more food\",
+            \"I don\'t like to have food\",
+            \"I really don\'t like to have food\",
+            \"I don\'t want to have food\",
+            \"I really don\'t want any food\",
+            \"I don\'t want more food\",
+            \"I really don\'t want any more food\"
+
+    ],[\"I like sweets\",
+            \"I really like sweets\",
+            \"I want to have some sweets\",
+            \"I really want to have some sweets\",
+            \"I want more sweets\",
+            \"I really want some more sweets\",
+            \"I don\'t like sweets\",
+            \"I really don\'t like sweets\",
+            \"I don\'t want to have sweets\",
+            \"I really don\'t want to have sweets\",
+            \"I don\'t want more sweets\",
+            \"I really don\'t want any more sweets\"
+
+    ],[\"I like स्नैक्स\",
+            \"I really like स्नैक्स\",
+            \"I want to have some स्नैक्स\",
+            \"I really want to have some स्नैक्स\",
+            \"I want more स्नैक्स \",
+            \"I really want some more स्नैक्स\",
+            \"I don\'t like स्नैक्स\",
+            \"I really don\'t like स्नैक्स\",
+            \"I don\'t want to have स्नैक्स\",
+            \"I really don\'t want to have स्नैक्स\",
+            \"I don\'t want more स्नैक्स\",
+            \"I really don\'t want any more स्नैक्स\"
+
+    ],[\"I like fruits\",
+            \"I really like fruits\",
+            \"I want to have some fruits\",
+            \"I really want to have some fruits\",
+            \"I want more fruits \",
+            \"I really want some more fruits\",
+            \"I don\'t like fruits\",
+            \"I really don\'t like fruits\",
+            \"I don\'t want to have fruits\",
+            \"I really don\'t want to have fruits\",
+            \"I don\'t want more fruits\",
+            \"I really don\'t want any more fruits\"
+
+    ],[\"I am thirsty\",
+            \"I am really very thirsty\",
+            \"I want to drink something\",
+            \"I really want to drink something\",
+            \"I am very thirsty\",
+            \"I am really very thirsty\",
+            \"I am not thirsty\",
+            \"I am really not thirsty\",
+            \"I don\'t want to drink anything\",
+            \"I really don\'t want to drink anything\",
+            \"I am not thirsty at all\",
+            \"I am really not thirsty any more\"
+
+    ],[\"I like to use cutlery\",
+            \"I really like to use cutlery\",
+            \"I want some cutlery\",
+            \"I really want some cutlery\",
+            \"I want some more cutlery \",
+            \"I really want some more cutlery\",
+            \"I don\'t like to use cutlery\",
+            \"I really don\'t like to use cutlery\",
+            \"I don\'t want cutlery\",
+            \"I really don\'t want any cutlery\",
+            \"I don\'t want more cutlery \",
+            \"I really don\'t want any more cutlery\"
+
+    ],[\"I like to use add-ons\",
+            \"I really like to use add-ons\",
+            \"I want to use some add-ons\",
+            \"I really want to use some add-ons\",
+            \"I want more add-ons\",
+            \"I really want some more add-ons\",
+            \"I don\'t like to use add-ons\",
+            \"I really don\'t like to use add-ons\",
+            \"I don\'t want to use add-ons\",
+            \"I really don\'t want to use add-ons\",
+            \"I don\'t want more add-ons\",
+            \"I really don\'t want any more add-ons\"
+
+
+    ]],[[\"I like to play indoor games\",
+            \"I really like to play indoor games\",
+            \"I want to play some indoor games\",
+            \"I really want to play some indoor games\",
+            \"I want to play some more indoor games\",
+            \"I really want to play indoor games some more\",
+            \"I don\'t like to play indoor games\",
+            \"I really don\'t like to play indoor games\",
+            \"I don\'t want to play indoor games\",
+            \"I really don\'t want to play indoor games\",
+            \"I don\'t want to play any more indoor games\",
+            \"I really don\'t want to play indoor games any more\"
+
+    ],[\"I like to play outdoor games\",
+            \"I really like to play outdoor games\",
+            \"I want to play some outdoor games\",
+            \"I really want to play some outdoor games\",
+            \"I want to play some more outdoor games\",
+            \"I really want to play outdoor games some more\",
+            \"I don\'t like to play outdoor games\",
+            \"I really don\'t like to play outdoor games\",
+            \"I don\'t want to play outdoor games\",
+            \"I really don\'t want to play outdoor games\",
+            \"I don\'t want to play any more outdoor games\",
+            \"I really don\'t want to play outdoor games any more\"
+
+    ],[\"I like sports\",
+            \"I really like sports\",
+            \"I want to play sports\",
+            \"I really want to play sports\",
+            \"I want to play some more sports\",
+            \"I really want to play sports some more\",
+            \"I don\'t like sports\",
+            \"I really don\'t like sports\",
+            \"I don\'t want to play sports\",
+            \"I really don\'t want to play sports\",
+            \"I don\'t want to play any more sports\",
+            \"I really don\'t want to play sports any more\"
+
+    ],[\"I like to watch TV\",
+            \"I really like to watch TV\",
+            \"I want to watch TV\",
+            \"I really want to watch TV\",
+            \"I want to watch some more TV\",
+            \"I really want to watch TV some more\",
+            \"I don\'t like to watch TV\",
+            \"I really don\'t like to watch TV\",
+            \"I don\'t want to watch TV\",
+            \"I really don\'t want to watch TV\",
+            \"I don\'t want to watch any more TV\",
+            \"I really don\'t want to watch TV any more\"
+
+    ],[\"I like to listen to music\",
+            \"I really like to listen to music\",
+            \"I want to listen to some music\",
+            \"I really want to listen to some music\",
+            \"I want to listen to some more music\",
+            \"I really want to listen to music some more\",
+            \"I don\'t like to listen to music\",
+            \"I really don\'t like to listen to music\",
+            \"I don\'t want to listen to music\",
+            \"I really don\'t want to listen to music\",
+            \"I don\'t want to listen to any more music\",
+            \"I really don\'t want to listen to music any more\"
+
+    ],[\"I like to do different activities\",
+            \"I really like to do different activities\",
+            \"I want to do different activities\",
+            \"I really want to do different activities\",
+            \"I want to do more activities\",
+            \"I really want to do some more activities\",
+            \"I don\'t like to do different activities\",
+            \"I really don\'t like to do different activities\",
+            \"I don\'t want to do different activities\",
+            \"I really don\'t want to do different activities\",
+            \"I don\'t want to do more activities\",
+            \"I really don\'t want to do anymore activities\"
+
+
+    ]],[[\"I like animals and birds\",
+            \"I really like animals and birds\",
+            \"I want to learn about animals and birds\",
+            \"I really want to learn about animals and birds\",
+            \"I want to learn more about animals and birds\",
+            \"I really want to learn some more about animals and birds\",
+            \"I don\'t like animals and birds\",
+            \"I really don\'t like animals and birds\",
+            \"I don\'t want to learn about animals and birds\",
+            \"I really don\'t want to learn about animals and birds\",
+            \"I don\'t want to learn more about animals and birds\",
+            \"I really don\'t want to learn any more about animals and birds\"
+
+    ],[\"I like my body\",
+            \"I really like my body\",
+            \"I want to learn about my body\",
+            \"I really want to learn about my body\",
+            \"I want to learn more about my body\",
+            \"I really want to learn some more about my body\",
+            \"I don\'t like my body\",
+            \"I really don\'t like my body\",
+            \"I don\'t want to learn about my body\",
+            \"I really don\'t want to learn about my body\",
+            \"I don\'t want to learn more about my body\",
+            \"I really don\'t want to learn any more about my body\"
+
+    ],[\"I like books\",
+            \"I really like books\",
+            \"I want to read books\",
+            \"I really want to read books\",
+            \"I want to read more books\",
+            \"I really want to read some more books\",
+            \"I don\'t like books\",
+            \"I really don\'t like books\",
+            \"I don\'t want to read books\",
+            \"I really don\'t want to read books\",
+            \"I don\'t want to read more books\",
+            \"I really don\'t want to read any more books\"
+
+    ],[\"I like colours\",
+            \"I really like colours\",
+            \"I want to learn about colours\",
+            \"I really want to learn about colours\",
+            \"I want to learn more about colours\",
+            \"I really want to learn some more about colours\",
+            \"I don\'t like colours\",
+            \"I really don\'t like colours\",
+            \"I don\'t want to learn about colours\",
+            \"I really don\'t want to learn about colours\",
+            \"I don\'t want to learn more about colours\",
+            \"I really don\'t want to learn any more about colours\"
+
+    ],[\"I like shapes\",
+            \"I really like shapes\",
+            \"I want to learn about shapes\",
+            \"I really want to learn about shapes\",
+            \"I want to learn more about shapes\",
+            \"I really want to learn some more about shapes\",
+            \"I don\'t like shapes\",
+            \"I really don\'t like shapes\",
+            \"I don\'t want to learn about shapes\",
+            \"I really don\'t want to learn about shapes\",
+            \"I don\'t want to learn more about shapes\",
+            \"I really don\'t want to learn any more about shapes\"
+
+    ],[\"I like to use stationery\",
+            \"I really like to use stationery\",
+            \"I want some stationery\",
+            \"I really want some stationery\",
+            \"I want more stationery\",
+            \"I really want some more stationery\",
+            \"I don\'t like to use stationery\",
+            \"I really don\'t like to use stationery\",
+            \"I don\'t want stationery\",
+            \"I really don\'t want any stationery\",
+            \"I don\'t want more stationery\",
+            \"I really don\'t want any more stationery\"
+
+    ],[\"I like to use school objects\",
+            \"I really like to use school objects\",
+            \"I want to learn about school objects\",
+            \"I really want to learn about school objects\",
+            \"I want to learn more about school objects\",
+            \"I really want to learn some more about school objects\",
+            \"I don\'t like to use school objects\",
+            \"I really don\'t like to use school objects\",
+            \"I don\'t want to learn about school objects\",
+            \"I really don\'t want to learn about school objects\",
+            \"I don\'t want to learn more about school objects\",
+            \"I really don\'t want to learn any more about school objects\"
+
+    ],[\"I like to use different home objects\",
+            \"I really like to use different home objects\",
+            \"I want to learn about home objects\",
+            \"I really want to learn about home objects\",
+            \"I want to learn more about home objects\",
+            \"I really want to learn some more about home objects\",
+            \"I don\'t like to use different home objects\",
+            \"I really don\'t like to use different home objects\",
+            \"I don\'t want to learn about home objects\",
+            \"I really don\'t want to learn about home objects\",
+            \"I don\'t want to learn more about home objects\",
+            \"I really don\'t want to learn any more about home objects\"
+
+    ],[\"I like to use different tran sport modes\",
+            \"I really like to use different tran sport modes\",
+            \"I want to learn about tran sport modes\",
+            \"I really want to learn about tran sport modes\",
+            \"I want to learn more about tran sport modes\",
+            \"I really want to learn some more about tran sport modes\",
+            \"I don\'t like to use different tran sport modes\",
+            \"I really don\'t like to use different tran sport modes\",
+            \"I don\'t want to learn about tran sport modes\",
+            \"I really don\'t want to learn about tran sport modes\",
+            \"I don\'t want to learn more about tran sport modes\",
+            \"I really don\'t want to learn any more about tran sport modes\"
+
+
+    ]],[[\"I love my mother\",
+            \"I really love my mother\",
+            \"I want my mother\",
+            \"I really want my mother\",
+            \"I want to spend more time with my mother\",
+            \"I really want to spend much more time with my mother\",
+            \"I don\'t like my mother\",
+            \"I really don\'t like my mother\",
+            \"I don\'t want my mother\",
+            \"I really don\'t want my mother\",
+            \"I don\'t want to spend more time with my mother\",
+            \"I really don\'t want to spend any more time with my mother\"
+
+    ],[\"I love my father\",
+            \"I really love my father\",
+            \"I want my father\",
+            \"I really want my father\",
+            \"I want to spend more time with my father\",
+            \"I really want to spend much more time with my father\",
+            \"I don\'t like my father\",
+            \"I really don\'t like my father\",
+            \"I don\'t want my father\",
+            \"I really don\'t want my father\",
+            \"I don\'t want to spend more time with my father\",
+            \"I really don\'t want to spend any more time with my father\"
+
+    ],[\"I love my brother\",
+            \"I really love my brother\",
+            \"I want my brother\",
+            \"I really want my brother\",
+            \"I want to spend more time with my brother\",
+            \"I really want to spend much more time with my brother\",
+            \"I don\'t like my brother\",
+            \"I really don\'t like my brother\",
+            \"I don\'t want my brother\",
+            \"I really don\'t want my brother\",
+            \"I don\'t want to spend more time with my brother\",
+            \"I really don\'t want to spend any more time with my brother\"
+
+    ],[\"I love my sister\",
+            \"I really love my sister\",
+            \"I want my sister\",
+            \"I really want my sister\",
+            \"I want to spend more time with my sister\",
+            \"I really want to spend much more time with my sister\",
+            \"I don\'t like my sister\",
+            \"I really don\'t like my sister\",
+            \"I don\'t want my sister\",
+            \"I really don\'t want my sister\",
+            \"I don\'t want to spend more time with my sister\",
+            \"I really don\'t want to spend any more time with my sister\"
+
+    ],[\"I love my grandfather\",
+            \"I really love my grandfather\",
+            \"I want my grandfather\",
+            \"I really want my grandfather\",
+            \"I want to spend more time with my grandfather\",
+            \"I really want to spend much more time with my grandfather\",
+            \"I don\'t like my grandfather\",
+            \"I really don\'t like my grandfather\",
+            \"I don\'t want my grandfather\",
+            \"I really don\'t want my grandfather\",
+            \"I don\'t want to spend more time with my grandfather\",
+            \"I really don\'t want to spend any more time with my grandfather\"
+
+    ],[\"I love my grandmother\",
+            \"I really love my grandmother\",
+            \"I want my grandmother\",
+            \"I really want my grandmother\",
+            \"I want to spend more time with my grandmother\",
+            \"I really want to spend much more time with my grandmother\",
+            \"I don\'t like my grandmother\",
+            \"I really don\'t like my grandmother\",
+            \"I don\'t want my grandmother\",
+            \"I really don\'t want my grandmother\",
+            \"I don\'t want to spend more time with my grandmother\",
+            \"I really don\'t want to spend any more time with my grandmother\"
+
+    ],[\"I love my uncle\",
+            \"I really love my uncle\",
+            \"I want my uncle\",
+            \"I really want my uncle\",
+            \"I want to spend more time with my uncle\",
+            \"I really want to spend much more time with my uncle\",
+            \"I don\'t like my uncle\",
+            \"I really don\'t like my uncle\",
+            \"I don\'t want my uncle\",
+            \"I really don\'t want my uncle\",
+            \"I don\'t want to spend more time with my uncle\",
+            \"I really don\'t want to spend any more time with my uncle\"
+
+    ],[\"I love my aunt\",
+            \"I really love my aunt\",
+            \"I want my aunt\",
+            \"I really want my aunt\",
+            \"I want to spend more time with my aunt\",
+            \"I really want to spend much more time with my aunt\",
+            \"I don\'t like my aunt\",
+            \"I really don\'t like my aunt\",
+            \"I don\'t want my aunt\",
+            \"I really don\'t want my aunt\",
+            \"I don\'t want to spend more time with my aunt\",
+            \"I really don\'t want to spend any more time with my aunt\"
+
+    ],[\"I love my cousin\",
+            \"I really love my cousin\",
+            \"I want my cousin\",
+            \"I really want my cousin\",
+            \"I want to spend more time with my cousin\",
+            \"I really want to spend much more time with my cousin\",
+            \"I don\'t like my cousin\",
+            \"I really don\'t like my cousin\",
+            \"I don\'t want my cousin\",
+            \"I really don\'t want my cousin\",
+            \"I don\'t want to spend more time with my cousin\",
+            \"I really don\'t want to spend any more time with my cousin\"
+
+    ],[\"I love babies\",
+            \"I really love babies\",
+            \"I want to hold the baby\",
+            \"I really want to hold the baby\",
+            \"I want to spend more time with the baby\",
+            \"I really want to spend much more time with the baby\",
+            \"I don\'t like babies\",
+            \"I really don\'t like babies\",
+            \"I don\'t want to hold the baby\",
+            \"I really don\'t want to hold the baby\",
+            \"I don\'t want to spend more time with the baby\",
+            \"I really don\'t want to spend any more time with the baby\"
+
+    ],[\"I love my friends\",
+            \"I really love my friends\",
+            \"I want my friends\",
+            \"I really want my friends\",
+            \"I want to spend more time with my friends\",
+            \"I really want to spend much more time with my friends\",
+            \"I don\'t like my friends\",
+            \"I really don\'t like my friends\",
+            \"I don\'t want my friends\",
+            \"I really don\'t want my friends\",
+            \"I don\'t want to spend more time with my friends\",
+            \"I really don\'t want to spend any more time with my friends\"
+
+    ],[\"I like my teacher\",
+            \"I really like my teacher\",
+            \"I want my teacher\",
+            \"I really want my teacher\",
+            \"I want to spend more time with my teacher\",
+            \"I really want to spend much more time with my teacher\",
+            \"I don\'t like my teacher\",
+            \"I really don\'t like my teacher\",
+            \"I don\'t want my teacher\",
+            \"I really don\'t want my teacher\",
+            \"I don\'t want to spend more time with my teacher\",
+            \"I really don\'t want to spend any more time with my teacher\"
+
+    ],[\"I like the doctor\",
+            \"I really like the doctor\",
+            \"I want to go to the doctor\",
+            \"I really want to go to the doctor\",
+            \"I want to spend more time with the doctor\",
+            \"I really want to spend much more time with the doctor\",
+            \"I don\'t like the doctor\",
+            \"I really don\'t like the doctor\",
+            \"I don\'t want to go to the doctor\",
+            \"I really don\'t want to go to the doctor\",
+            \"I don\'t want to spend more time with the doctor\",
+            \"I really don\'t want to spend any more time with the doctor\"
+
+    ],[\"I like the nurse\",
+            \"I really like the nurse\",
+            \"I want to go to the nurse\",
+            \"I really want to go to the nurse\",
+            \"I want to spend more time with the nurse\",
+            \"I really want to spend much more time with the nurse\",
+            \"I don\'t like the nurse\",
+            \"I really don\'t like the nurse\",
+            \"I don\'t want to go to the nurse\",
+            \"I really don\'t want to go to the nurse\",
+            \"I don\'t want to spend more time with the nurse\",
+            \"I really don\'t want to spend any more time with the nurse\"
+
+    ],[\"I like my caregiver\",
+            \"I really like my caregiver\",
+            \"I want my caregiver\",
+            \"I really want my caregiver\",
+            \"I want to spend more time with my caregiver\",
+            \"I really want to spend much more time with my caregiver\",
+            \"I don\'t like my caregiver\",
+            \"I really don\'t like my caregiver\",
+            \"I don\'t want my caregiver\",
+            \"I really don\'t want my caregiver\",
+            \"I don\'t want to spend more time with my caregiver\",
+            \"I really don\'t want to spend any more time with my caregiver\"
+
+    ],[\"I like that stranger\",
+            \"I really like that stranger\",
+            \"I want to talk to that stranger\",
+            \"I really want to talk to that stranger\",
+            \"I want to spend more time with that stranger\",
+            \"I really want to spend much more time with that stranger\",
+            \"I don\'t like that stranger\",
+            \"I really don\'t like that stranger\",
+            \"I don\'t want to talk to that stranger\",
+            \"I really don\'t want to talk to that stranger\",
+            \"I don\'t want to spend more time with that stranger\",
+            \"I really don\'t want to spend any more time with that stranger\"
+
+    ],[\"I like myself\",
+            \"I really like myself\",
+            \"I want to tell you about myself\",
+            \"I really want to tell you about myself\",
+            \"I want to tell you some more about myself\",
+            \"I really want to tell you much more about myself\",
+            \"I don\'t like myself\",
+            \"I really don\'t like myself\",
+            \"I don\'t want to tell you about myself\",
+            \"I really don\'t want to tell you about myself\",
+            \"I don\'t want to tell you more about myself\",
+            \"I really don\'t want to tell you any more about myself\"
+
+
+    ]],[[\"I like my house\",
+            \"I really like my house\",
+            \"I want to go to my house\",
+            \"I really want to go to my house\",
+            \"I want to go to my house again\",
+            \"I really want to go to my house again\",
+            \"I don\'t like my house\",
+            \"I really don\'t like my house\",
+            \"I don\'t want to go to my house\",
+            \"I really don\'t want to go to my house\",
+            \"I don\'t want to go to my house again\",
+            \"I really don\'t want to go to my house again\"
+
+    ],[\"I like my school\",
+            \"I really like my school\",
+            \"I want to go to school\",
+            \"I really want to go to school\",
+            \"I want to go to school again\",
+            \"I really want to go to school again\",
+            \"I don\'t like my school\",
+            \"I really don\'t like my school\",
+            \"I don\'t want to go to school\",
+            \"I really don\'t want to go to school\",
+            \"I don\'t want to go to school again\",
+            \"I really don\'t want to go to school again\"
+
+    ],[\"I like to go to the mall\",
+            \"I really like to go to the mall\",
+            \"I want to go to the mall\",
+            \"I really want to go to the mall\",
+            \"I want to go again to the mall\",
+            \"I really want to go to the mall again\",
+            \"I don\'t like to go to the mall\",
+            \"I really don\'t like to go to the mall\",
+            \"I don\'t want to go to the mall\",
+            \"I really don\'t want to go to the mall\",
+            \"I don\'t want to go to the mall again\",
+            \"I really don\'t want to go to the mall again\"
+
+    ],[\"I like to go to the museum\",
+            \"I really like to go to the museum\",
+            \"I want to go to the museum\",
+            \"I really want to go to the museum\",
+            \"I want to go to the museum again\",
+            \"I really want to go to the museum again\",
+            \"I don\'t like to go to the museum\",
+            \"I really don\'t like to go to the museum\",
+            \"I don\'t want to go to the museum\",
+            \"I really don\'t want to go to the museum\",
+            \"I don\'t want to go to the museum again\",
+            \"I really don\'t want to go to the museum again\"
+
+    ],[\"I like to go to a hotel\",
+            \"I really like to go to a hotel\",
+            \"I want to go to a hotel\",
+            \"I really want to go to a hotel\",
+            \"I want to go to a hotel again\",
+            \"I really want to go to a hotel again\",
+            \"I don\'t like to go to a hotel\",
+            \"I really don\'t like to go to a hotel\",
+            \"I don\'t want to go to a hotel\",
+            \"I really don\'t want to go to a hotel\",
+            \"I don\'t want to go to a hotel again\",
+            \"I really don\'t want to go to a hotel again\"
+
+    ],[\"I like to go to the theatre\",
+            \"I really like to go to the theatre\",
+            \"I want to go to the theatre\",
+            \"I really want to go to the theatre\",
+            \"I want to go to the theatre again\",
+            \"I really want to go to the theatre again\",
+            \"I don\'t like to go to the theatre\",
+            \"I really don\'t like to go to the theatre\",
+            \"I don\'t want to go to the theatre\",
+            \"I really don\'t want to go to the theatre\",
+            \"I don\'t want to go to the theatre again\",
+            \"I really don\'t want to go to the theatre again\"
+
+    ],[\"I like to go to the playground\",
+            \"I really like to go to the playground\",
+            \"I want to go to the playground\",
+            \"I really want to go to the playground\",
+            \"I want to go to the playground again\",
+            \"I really want to go to the playground again\",
+            \"I don\'t like to go to the playground\",
+            \"I really don\'t like to go to the playground\",
+            \"I don\'t want to go to the playground\",
+            \"I really don\'t want to go to the playground\",
+            \"I don\'t want to go to the playground again\",
+            \"I really don\'t want to go to the playground again\"
+
+    ],[\"I like to go to the park\",
+            \"I really like to go to the park\",
+            \"I want to go to the park\",
+            \"I really want to go to the park\",
+            \"I want to go to the park again\",
+            \"I really want to go to the park again\",
+            \"I don\'t like to go to the park\",
+            \"I really don\'t like to go to the park\",
+            \"I don\'t want to go to the park\",
+            \"I really don\'t want to go to the park\",
+            \"I don\'t want to go to the park again\",
+            \"I really don\'t want to go to the park again\"
+
+    ],[\"I like to go to the store\",
+            \"I really like to go to the store\",
+            \"I want to go to the store\",
+            \"I really want to go to the store\",
+            \"I want to go to the store again\",
+            \"I really want to go to the store again\",
+            \"I don\'t like to go to the store\",
+            \"I really don\'t like to go to the store\",
+            \"I don\'t want to go to the store\",
+            \"I really don\'t want to go to the store\",
+            \"I don\'t want to go to the store again\",
+            \"I really don\'t want to go to the store again\"
+
+    ],[\"I like to go to my friend\'s house\",
+            \"I really like to go to my friend\'s house\",
+            \"I want to go to my friend\'s house\",
+            \"I really want to go to my friend\'s house\",
+            \"I want to go to my friend\'s house again\",
+            \"I really want to go to my friend\'s house again\",
+            \"I don\'t like to go to my friend\'s house\",
+            \"I really don\'t like to go to my friend\'s house\",
+            \"I don\'t want to go to my friend\'s house\",
+            \"I really don\'t want to go to my friend\'s house\",
+            \"I don\'t want to go to my friend\'s house again\",
+            \"I really don\'t want to go to my friend\'s house again\"
+
+    ],[\"I like to go to my relative\'s house\",
+            \"I really like to go to my relative\'s house\",
+            \"I want to go to my relative\'s house\",
+            \"I really want to go to my relative\'s house\",
+            \"I want to go to my relative\'s house again\",
+            \"I really want to go to my relative\'s house again\",
+            \"I don\'t like to go to my relative\'s house\",
+            \"I really don\'t like to go to my relative\'s house\",
+            \"I don\'t want to go to my relative\'s house\",
+            \"I really don\'t want to go to my relative\'s house\",
+            \"I don\'t want to go to my relative\'s house again\",
+            \"I really don\'t want to go to my relative\'s house again\"
+
+    ],[\"I like to go to the hospital\",
+            \"I really like to go to the hospital\",
+            \"I want to go to the hospital\",
+            \"I really want to go to the hospital\",
+            \"I want to go to the hospital again\",
+            \"I really want to go to the hospital again\",
+            \"I don\'t like to go to the hospital\",
+            \"I really don\'t like to go to the hospital\",
+            \"I don\'t want to go to the hospital\",
+            \"I really don\'t want to go to the hospital\",
+            \"I don\'t want to go to the hospital again\",
+            \"I really don\'t want to go to the hospital again\"
+
+    ],[\"I like to go to the clinic\",
+            \"I really like to go to the clinic\",
+            \"I want to go to the clinic\",
+            \"I really want to go to the clinic\",
+            \"I want to go to the clinic again\",
+            \"I really want to go to the clinic again\",
+            \"I don\'t like to go to the clinic\",
+            \"I really don\'t like to go to the clinic\",
+            \"I don\'t want to go to the clinic\",
+            \"I really don\'t want to go to the clinic\",
+            \"I don\'t want to go to the clinic again\",
+            \"I really don\'t want to go to the clinic again\"
+
+    ],[\"I like to go to the library\",
+            \"I really like to go to the library\",
+            \"I want to go to the library\",
+            \"I really want to go to the library\",
+            \"I want to go to the library again\",
+            \"I really want to go to the library again\",
+            \"I don\'t like to go to the library\",
+            \"I really don\'t like to go to the library\",
+            \"I don\'t want to go to the library\",
+            \"I really don\'t want to go to the library\",
+            \"I don\'t want to go to the library again\",
+            \"I really don\'t want to go to the library again\"
+
+    ],[\"I like to go to the terrace\",
+            \"I really like to go to the terrace\",
+            \"I want to go to the terrace\",
+            \"I really want to go to the terrace\",
+            \"I want to go to the terrace again\",
+            \"I really want to go to the terrace again\",
+            \"I don\'t like to go to the terrace\",
+            \"I really don\'t like to go to the terrace\",
+            \"I don\'t want to go to the terrace\",
+            \"I really don\'t want to go to the terrace\",
+            \"I don\'t want to go to the terrace again\",
+            \"I really don\'t want to go to the terrace again\"
+
+
+    ]],[[\"I like to be on time\",
+            \"I really like to be on time\",
+            \"I need some time\",
+            \"I really need some time\",
+            \"I need some more time\",
+            \"I really need some more time\",
+            \"I don\'t like to be on time\",
+            \"I really don\'t like to be on time\",
+            \"I don\'t need any time\",
+            \"I really don\'t need any time\",
+            \"I don\'t need any more time\",
+            \"I really don\'t need any more time\"
+
+    ],[\"I like to know about the days of the week\",
+            \"I really like to know about the days of the week\",
+            \"I want to know about the days of the week\",
+            \"I really want to know about the days of the week\",
+            \"I want to know more about the days of the week\",
+            \"I really want to know some more about the days of the week\",
+            \"I don\'t like to know about the days of the week\",
+            \"I really don\'t like to know about the days of the week\",
+            \"I don\'t want to know about the days of the week\",
+            \"I really don\'t want to know about the days of the week\",
+            \"I don\'t want to know more about the days of the week\",
+            \"I really don\'t want to know any more about the days of the week\"
+
+    ],[\"I like to know about the months of the year\",
+            \"I really like to know about the months of the year\",
+            \"I want to know about the months of the year\",
+            \"I really want to know about the months of the year\",
+            \"I want to know more about the months of the year\",
+            \"I really want to know some more about the months of the year\",
+            \"I don\'t like to know about the months of the year\",
+            \"I really don\'t like to know about the months of the year\",
+            \"I don\'t want to know about the months of the year\",
+            \"I really don\'t want to know about the months of the year\",
+            \"I don\'t want to know more about the months of the year\",
+            \"I really don\'t want to know any more about the months of the year\"
+
+    ],[\"I like to know about the weather\",
+            \"I really like to know about the weather\",
+            \"I want to know about the weather\",
+            \"I really want to know about the weather\",
+            \"I want to know more about the weather\",
+            \"I really want to know some more about the weather\",
+            \"I don\'t like to know about the weather\",
+            \"I really don\'t like to know about the weather\",
+            \"I don\'t want to know about the weather\",
+            \"I really don\'t want to know about the weather\",
+            \"I don\'t want to know more about the weather\",
+            \"I really don\'t want to know any more about the weather\"
+
+    ],[\"I like to know about the seasons\",
+            \"I really like to know about the seasons\",
+            \"I want to know about the seasons\",
+            \"I really want to know about the seasons\",
+            \"I want to know more about the seasons\",
+            \"I really want to know some more about the seasons\",
+            \"I don\'t like to know about the seasons\",
+            \"I really don\'t like to know about the seasons\",
+            \"I don\'t want to know about the seasons\",
+            \"I really don\'t want to know about the seasons\",
+            \"I don\'t want to know more about the seasons\",
+            \"I really don\'t want to know any more about the seasons\"
+
+    ],[\"I like to know about festivals and holidays\",
+            \"I really like to know about festivals and holidays\",
+            \"I want to know about festivals and holidays\",
+            \"I really want to know about festivals and holidays\",
+            \"I want to know some more about festivals and holidays\",
+            \"I really want to know some more about festivals and holidays\",
+            \"I don\'t like to know about festivals and holidays\",
+            \"I really don\'t like to know about festivals and holidays\",
+            \"I don\'t want to know about festivals and holidays\",
+            \"I really don\'t want to know about festivals and holidays\",
+            \"I don\'t want to know more about festivals and holidays\",
+            \"I really don\'t want to know any more about festivals and holidays\"
+
+    ],[\"I like to celebrate birthdays\",
+            \"I really like to celebrate birthdays\",
+            \"I want to celebrate birthdays\",
+            \"I really want to celebrate birthdays\",
+            \"I want to celebrate more birthdays\",
+            \"I really want to celebrate some more birthdays\",
+            \"I don\'t like to celebrate birthdays\",
+            \"I really don\'t like to celebrate birthdays\",
+            \"I don\'t want to celebrate birthdays\",
+            \"I really don\'t want to celebrate birthdays\",
+            \"I don\'t want to celebrate more birthdays\",
+            \"I really don\'t want to celebrate any more birthdays\"
+
+    ]], [[\"My name is \",
+            \"My name is \",
+            \"My caregiver\'s email address is \",
+            \"My caregiver\'s email address is \",
+            \"My caregiver\'s contact number is \",
+            \"My caregiver\'s contact number is \",
+            \"My caregiver\'s name is \",
+            \"My caregiver\'s name is \",
+            \"My home address is \",
+            \"My home address is \",
+            \"My blood group is \",
+            \"My blood group is \"],
+            [],[],[],[],
+            [\"I like medicines\",
+                    \"I really like medicines\",
+                    \"I want a medicine\",
+                    \"I really want a medicine\",
+                    \"I want more medicines\",
+                    \"I want many more medicines\",
+                    \"I don\'t like medicines\",
+                    \"I really don\'t like medicines\",
+                    \"I don\'t want a medicine\",
+                    \"I really don\'t want a medicine\",
+                    \"I don\'t want more medicines\",
+                    \"I don\'t want any more medicines\"
+            ],[\"I like to use bandages\",
+            \"I really like to use bandages\",
+            \"I want a bandage\",
+            \"I really want a bandage\",
+            \"I want more bandages\",
+            \"I want many more bandages\",
+            \"I don\'t like to use bandages\",
+            \"I really don\'t like to use bandages\",
+            \"I don\'t want a bandage\",
+            \"I really don\'t want a bandage\",
+            \"I don\'t want more bandages\",
+            \"I don\'t want any more bandages\"
+    ],[\"I like water\",
+            \"I really like water\",
+            \"I want water\",
+            \"I really want water\",
+            \"I want more water\",
+            \"I want a lot more water\",
+            \"I don\'t like water\",
+            \"I really don\'t like water\",
+            \"I don\'t want water\",
+            \"I really don\'t want water\",
+            \"I don\'t want more water\",
+            \"I don\'t want any more water\"
+
+    ],[\"I like to go to the toilet\",
+            \"I really like to go to the toilet \",
+            \"I want to go to the toilet \",
+            \"I really want to go to the toilet \",
+            \"I want to go to the toilet again\",
+            \"I really want to go to the toilet again\",
+            \"I don\'t like to go to the toilet \",
+            \"I really don\'t like to go to the toilet \",
+            \"I don\'t want to go to the toilet \",
+            \"I really don\'t want to go to the toilet \",
+            \"I don\'t want to go to the toilet again\",
+            \"I really don\'t want to go to the toilet again\"
+
+    ]]]}
+    </string>
 </resources>

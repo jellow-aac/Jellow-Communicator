@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.KeyListener;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,9 +21,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.dsource.idc.jellow.Models.SequenceActivityIconsStrings;
+import com.dsource.idc.jellow.Models.SeqActivityVerbiageModel;
 import com.dsource.idc.jellow.Utility.SessionManager;
+import com.dsource.idc.jellow.Utility.UserDataMeasure;
+import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 /**
@@ -35,7 +39,7 @@ public class Sequence_Activity extends AppCompatActivity {
     private ImageView like, dislike, add, minus, yes, no, home, keyboard, ttsButton;
     private EditText et;
     private KeyListener originalKeyListener;
-    private TextToSpeech mTtts;
+    private TextToSpeech mTts;
     private int[] mColor;
     private TextView tt1, bt1, bt2, bt3;
     private CircularImageView image1, image2, image3;
@@ -46,9 +50,10 @@ public class Sequence_Activity extends AppCompatActivity {
     TypedArray mDailyActivitiesIcons;
     private String strNext, strPrevious;
     private String[] mDailyActivitiesSpeechText, mDailyActivitiesBelowText, heading, side, below, bt;
-    private String[][][] layer_1_speech = new String[100][100][100];
+    private ArrayList<ArrayList<ArrayList<String>>> mSeqActSpeech;
     private int sr, bw, count = 0;
     private SessionManager mSession;
+    private UserDataMeasure mUserDataMeasure;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,48 +64,31 @@ public class Sequence_Activity extends AppCompatActivity {
         getSupportActionBar().setElevation(0);
         Typeface fontMuktaRegular = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/Mukta-Regular.ttf");
         Typeface fontMuktaBold = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/Mukta-Bold.ttf");
+        mSession = new SessionManager(this);
+        mUserDataMeasure = new UserDataMeasure(this);
+        mUserDataMeasure.recordScreen(getLocalClassName());
         mLevelTwoItemPos = getIntent().getExtras().getInt("mLevelTwoItemPos");
         if(mLevelTwoItemPos == 7)   mLevelTwoItemPos = 3;
         else if(mLevelTwoItemPos == 8)  mLevelTwoItemPos = 4;
-        mSession = new SessionManager(this);
         {
             String strSrBw = mSession.getShadowRadiusAndBorderWidth();
             sr = Integer.valueOf(strSrBw.split(",")[0]);
             bw = Integer.valueOf(strSrBw.split(",")[1]);
         }
         loadArraysFromResources();
-
-        mTtts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+        mTts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
                 if (status != TextToSpeech.ERROR) {
-                    mTtts.setEngineByPackageName("com.google.android.tts");
+                    mTts.setEngineByPackageName("com.google.android.tts");
                     new BackgroundSpeechOperationsAsync().execute("");
                 }
             }
         });
 
-        mTtts.setSpeechRate((float) mSession.getSpeed() / 50);
-        mTtts.setPitch((float) mSession.getPitch() / 50);
-
-        like = (ImageView) findViewById(R.id.ivlike);
-        dislike = (ImageView) findViewById(R.id.ivdislike);
-        add = (ImageView) findViewById(R.id.ivadd);
-        minus = (ImageView) findViewById(R.id.ivminus);
-        yes = (ImageView) findViewById(R.id.ivyes);
-        no = (ImageView) findViewById(R.id.ivno);
-        home = (ImageView) findViewById(R.id.ivhome);
-        keyboard = (ImageView) findViewById(R.id.keyboard);
-        et = (EditText) findViewById(R.id.et);
-        linear = (LinearLayout) findViewById(R.id.linear);
-        back = (ImageView) findViewById(R.id.ivback);
-        forward = (Button) findViewById(R.id.forward);
-        backward = (Button) findViewById(R.id.backward);
-        tt1 = (TextView) findViewById(R.id.tt1);
-        bt1 = (TextView) findViewById(R.id.bt1);
-        bt2 = (TextView) findViewById(R.id.bt2);
-        bt3 = (TextView) findViewById(R.id.bt3);
-
+        mTts.setSpeechRate((float) mSession.getSpeed() / 50);
+        mTts.setPitch((float) mSession.getPitch() / 50);
+        initializeViews();
         forward.setText(bt[1]);
         backward.setText(bt[0]);
         backward.setEnabled(false);
@@ -120,20 +108,7 @@ public class Sequence_Activity extends AppCompatActivity {
         bt3.setTypeface(fontMuktaRegular);
         bt3.setTextColor(Color.rgb(64, 64, 64));
 
-        image1 = (CircularImageView) findViewById(R.id.image1);
-        image2 = (CircularImageView) findViewById(R.id.image2);
-        image3 = (CircularImageView) findViewById(R.id.image3);
-
-        arrow1 = (ImageView) findViewById(R.id.arrow1);
-        arrow2 = (ImageView) findViewById(R.id.arrow2);
-
-        like.setVisibility(View.INVISIBLE);
-        dislike.setVisibility(View.INVISIBLE);
-        add.setVisibility(View.INVISIBLE);
-        minus.setVisibility(View.INVISIBLE);
-        yes.setVisibility(View.INVISIBLE);
-        no.setVisibility(View.INVISIBLE);
-
+        hideActionBtn(true);
         bt1.setText(mDailyActivitiesBelowText[0]);
         bt2.setText(mDailyActivitiesBelowText[1]);
         bt3.setText(mDailyActivitiesBelowText[2]);
@@ -144,41 +119,13 @@ public class Sequence_Activity extends AppCompatActivity {
         forward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mTtts.speak(strNext,TextToSpeech.QUEUE_FLUSH, null);
+                speakSpeech(strNext);
                 backward.setEnabled(true);
                 backward.setAlpha(1f);
                 count = count + 3;
-
-                like.setVisibility(View.INVISIBLE);
-                dislike.setVisibility(View.INVISIBLE);
-                add.setVisibility(View.INVISIBLE);
-                minus.setVisibility(View.INVISIBLE);
-                yes.setVisibility(View.INVISIBLE);
-                no.setVisibility(View.INVISIBLE);
-                image2.setBorderColor(-1);
-                image2.setShadowColor(0);
-                image2.setShadowRadius(sr);
-                image2.setBorderWidth(0);
-
-                image1.setBorderColor(-1);
-                image1.setShadowColor(0);
-                image1.setShadowRadius(sr);
-                image1.setBorderWidth(0);
-
-                image3.setBorderColor(-1);
-                image3.setShadowColor(0);
-                image3.setShadowRadius(sr);
-                image3.setBorderWidth(0);
-
+                hideActionBtn(true);
+                resetActionBtnImageIcons();
                 image_flag = 0;
-
-                like.setImageResource(R.drawable.ilikewithoutoutline);
-                dislike.setImageResource(R.drawable.idontlikewithout);
-                yes.setImageResource(R.drawable.iwantwithout);
-                no.setImageResource(R.drawable.idontwantwithout);
-                add.setImageResource(R.drawable.morewithout);
-                minus.setImageResource(R.drawable.lesswithout);
-
                 if (mDailyActivitiesIcons.length() == count + 3) {
                     forward.setAlpha(.5f);
                     forward.setEnabled(false);
@@ -218,41 +165,13 @@ public class Sequence_Activity extends AppCompatActivity {
         backward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mTtts.speak(strPrevious,TextToSpeech.QUEUE_FLUSH, null);
-                count = count - 3;
-                forward.setAlpha(1f);
+                speakSpeech(strPrevious);
                 forward.setEnabled(true);
-
-                like.setVisibility(View.INVISIBLE);
-                dislike.setVisibility(View.INVISIBLE);
-                add.setVisibility(View.INVISIBLE);
-                minus.setVisibility(View.INVISIBLE);
-                yes.setVisibility(View.INVISIBLE);
-                no.setVisibility(View.INVISIBLE);
-                image2.setBorderColor(-1);
-                image2.setShadowColor(0);
-                image2.setShadowRadius(sr);
-                image2.setBorderWidth(0);
-
-                image1.setBorderColor(-1);
-                image1.setShadowColor(0);
-                image1.setShadowRadius(sr);
-                image1.setBorderWidth(0);
-
-                image3.setBorderColor(-1);
-                image3.setShadowColor(0);
-                image3.setShadowRadius(sr);
-                image3.setBorderWidth(0);
-
-                like.setImageResource(R.drawable.ilikewithoutoutline);
-                dislike.setImageResource(R.drawable.idontlikewithout);
-                yes.setImageResource(R.drawable.iwantwithout);
-                no.setImageResource(R.drawable.idontwantwithout);
-                add.setImageResource(R.drawable.morewithout);
-                minus.setImageResource(R.drawable.lesswithout);
-
+                forward.setAlpha(1f);
+                count = count - 3;
+                hideActionBtn(true);
+                resetActionBtnImageIcons();
                 image_flag = 0;
-
                 arrow1.setVisibility(View.VISIBLE);
                 arrow2.setVisibility(View.VISIBLE);
                 image3.setVisibility(View.VISIBLE);
@@ -279,56 +198,25 @@ public class Sequence_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (image_flag == 1) {
-                    like.setVisibility(View.INVISIBLE);
-                    dislike.setVisibility(View.INVISIBLE);
-                    add.setVisibility(View.INVISIBLE);
-                    minus.setVisibility(View.INVISIBLE);
-                    yes.setVisibility(View.INVISIBLE);
-                    no.setVisibility(View.INVISIBLE);
+                    hideActionBtn(true);
                     image1.setBorderColor(-1);
                     image1.setShadowColor(0);
                     image1.setShadowRadius(sr);
                     image1.setBorderWidth(0);
                     image_flag = 0;
                 } else {
+                    mUserDataMeasure.reportLog(getLocalClassName()+", firstIcon: "+ mDailyActivitiesSpeechText[count], Log.INFO);
                     image_flag = 1;
-                    if (count + image_flag == mDailyActivitiesIcons.length()) {
-                        like.setVisibility(View.INVISIBLE);
-                        dislike.setVisibility(View.INVISIBLE);
-                        add.setVisibility(View.INVISIBLE);
-                        minus.setVisibility(View.INVISIBLE);
-                        yes.setVisibility(View.INVISIBLE);
-                        no.setVisibility(View.INVISIBLE);
-                    } else {
-                        like.setVisibility(View.VISIBLE);
-                        dislike.setVisibility(View.VISIBLE);
-                        add.setVisibility(View.VISIBLE);
-                        minus.setVisibility(View.VISIBLE);
-                        yes.setVisibility(View.VISIBLE);
-                        no.setVisibility(View.VISIBLE);
-                    }
-                    mTtts.speak(mDailyActivitiesSpeechText[count], TextToSpeech.QUEUE_FLUSH, null);
+                    if (count + image_flag == mDailyActivitiesIcons.length())
+                        hideActionBtn(true);
+                    else
+                        hideActionBtn(false);
+                    speakSpeech(mDailyActivitiesSpeechText[count]);
+                    resetActionBtnImageIcons();
                     image1.setBorderColor(-1283893945);
                     image1.setShadowColor(-1283893945);
                     image1.setShadowRadius(sr);
                     image1.setBorderWidth(bw);
-
-                    image2.setBorderColor(-1);
-                    image2.setShadowColor(0);
-                    image2.setShadowRadius(sr);
-                    image2.setBorderWidth(0);
-
-                    image3.setBorderColor(-1);
-                    image3.setShadowColor(0);
-                    image3.setShadowRadius(sr);
-                    image3.setBorderWidth(0);
-
-                    like.setImageResource(R.drawable.ilikewithoutoutline);
-                    dislike.setImageResource(R.drawable.idontlikewithout);
-                    yes.setImageResource(R.drawable.iwantwithout);
-                    no.setImageResource(R.drawable.idontwantwithout);
-                    add.setImageResource(R.drawable.morewithout);
-                    minus.setImageResource(R.drawable.lesswithout);
                 }
             }
         });
@@ -337,56 +225,25 @@ public class Sequence_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (image_flag == 2) {
-                    like.setVisibility(View.INVISIBLE);
-                    dislike.setVisibility(View.INVISIBLE);
-                    add.setVisibility(View.INVISIBLE);
-                    minus.setVisibility(View.INVISIBLE);
-                    yes.setVisibility(View.INVISIBLE);
-                    no.setVisibility(View.INVISIBLE);
+                    hideActionBtn(true);
                     image2.setBorderColor(-1);
                     image2.setShadowColor(0);
                     image2.setShadowRadius(sr);
                     image2.setBorderWidth(0);
                     image_flag = 0;
                 } else {
+                    mUserDataMeasure.reportLog(getLocalClassName()+", secondIcon: "+ mDailyActivitiesSpeechText[count + 1], Log.INFO);
                     image_flag = 2;
-                    if (count + image_flag == mDailyActivitiesIcons.length()) {
-                        like.setVisibility(View.INVISIBLE);
-                        dislike.setVisibility(View.INVISIBLE);
-                        add.setVisibility(View.INVISIBLE);
-                        minus.setVisibility(View.INVISIBLE);
-                        yes.setVisibility(View.INVISIBLE);
-                        no.setVisibility(View.INVISIBLE);
-                    } else {
-                        like.setVisibility(View.VISIBLE);
-                        dislike.setVisibility(View.VISIBLE);
-                        add.setVisibility(View.VISIBLE);
-                        minus.setVisibility(View.VISIBLE);
-                        yes.setVisibility(View.VISIBLE);
-                        no.setVisibility(View.VISIBLE);
-                    }
-                    mTtts.speak(mDailyActivitiesSpeechText[count + 1], TextToSpeech.QUEUE_FLUSH, null);
+                    if (count + image_flag == mDailyActivitiesIcons.length())
+                        hideActionBtn(true);
+                    else
+                        hideActionBtn(false);
+                    speakSpeech(mDailyActivitiesSpeechText[count + 1]);
+                    resetActionBtnImageIcons();
                     image2.setBorderColor(-1283893945);
                     image2.setShadowColor(-1283893945);
                     image2.setShadowRadius(sr);
                     image2.setBorderWidth(bw);
-
-                    image1.setBorderColor(-1);
-                    image1.setShadowColor(0);
-                    image1.setShadowRadius(sr);
-                    image1.setBorderWidth(0);
-
-                    image3.setBorderColor(-1);
-                    image3.setShadowColor(0);
-                    image3.setShadowRadius(sr);
-                    image3.setBorderWidth(0);
-
-                    like.setImageResource(R.drawable.ilikewithoutoutline);
-                    dislike.setImageResource(R.drawable.idontlikewithout);
-                    yes.setImageResource(R.drawable.iwantwithout);
-                    no.setImageResource(R.drawable.idontwantwithout);
-                    add.setImageResource(R.drawable.morewithout);
-                    minus.setImageResource(R.drawable.lesswithout);
                 }
             }
         });
@@ -395,56 +252,25 @@ public class Sequence_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (image_flag == 3) {
-                    like.setVisibility(View.INVISIBLE);
-                    dislike.setVisibility(View.INVISIBLE);
-                    add.setVisibility(View.INVISIBLE);
-                    minus.setVisibility(View.INVISIBLE);
-                    yes.setVisibility(View.INVISIBLE);
-                    no.setVisibility(View.INVISIBLE);
+                    hideActionBtn(true);
                     image3.setBorderColor(-1);
                     image3.setShadowColor(0);
                     image3.setShadowRadius(sr);
                     image3.setBorderWidth(0);
                     image_flag = 0;
                 } else {
+                    mUserDataMeasure.reportLog(getLocalClassName()+", thirdIcon: "+ mDailyActivitiesSpeechText[count + 2], Log.INFO);
                     image_flag = 3;
-                    if (count + image_flag == mDailyActivitiesIcons.length()) {
-                        like.setVisibility(View.INVISIBLE);
-                        dislike.setVisibility(View.INVISIBLE);
-                        add.setVisibility(View.INVISIBLE);
-                        minus.setVisibility(View.INVISIBLE);
-                        yes.setVisibility(View.INVISIBLE);
-                        no.setVisibility(View.INVISIBLE);
-                    } else {
-                        like.setVisibility(View.VISIBLE);
-                        dislike.setVisibility(View.VISIBLE);
-                        add.setVisibility(View.VISIBLE);
-                        minus.setVisibility(View.VISIBLE);
-                        yes.setVisibility(View.VISIBLE);
-                        no.setVisibility(View.VISIBLE);
-                    }
-                    mTtts.speak(mDailyActivitiesSpeechText[count + 2], TextToSpeech.QUEUE_FLUSH, null);
+                    if (count + image_flag == mDailyActivitiesIcons.length())
+                        hideActionBtn(true);
+                    else
+                        hideActionBtn(false);
+                    speakSpeech(mDailyActivitiesSpeechText[count + 2]);
+                    resetActionBtnImageIcons();
                     image3.setBorderColor(-1283893945);
                     image3.setShadowColor(-1283893945);
                     image3.setShadowRadius(sr);
                     image3.setBorderWidth(bw);
-
-                    image2.setBorderColor(-1);
-                    image2.setShadowColor(0);
-                    image2.setShadowRadius(sr);
-                    image2.setBorderWidth(0);
-
-                    image1.setBorderColor(-1);
-                    image1.setShadowColor(0);
-                    image1.setShadowRadius(sr);
-                    image1.setBorderWidth(0);
-
-                    like.setImageResource(R.drawable.ilikewithoutoutline);
-                    dislike.setImageResource(R.drawable.idontlikewithout);
-                    yes.setImageResource(R.drawable.iwantwithout);
-                    no.setImageResource(R.drawable.idontwantwithout);
-                    add.setImageResource(R.drawable.morewithout);
-                    minus.setImageResource(R.drawable.lesswithout);
                 }
             }
         });
@@ -459,7 +285,7 @@ public class Sequence_Activity extends AppCompatActivity {
         back.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View view) {
-                        mTtts.speak(below[1], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(below[1]);
                         if (flag_keyboard == 1) {
                             keyboard.setImageResource(R.drawable.keyboard_button);
                             back.setImageResource(R.drawable.back_button);
@@ -482,10 +308,10 @@ public class Sequence_Activity extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                speakSpeech(below[0]);
                 count = 0;
                 image_flag = 0;
                 home.setImageResource(R.drawable.homepressed);
-                mTtts.speak(below[0], TextToSpeech.QUEUE_FLUSH, null);
                 startActivity(new Intent(Sequence_Activity.this, MainActivity.class));
             }
         });
@@ -493,7 +319,7 @@ public class Sequence_Activity extends AppCompatActivity {
         keyboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mTtts.speak(below[2], TextToSpeech.QUEUE_FLUSH, null);
+                speakSpeech(below[2]);
                 if (flag_keyboard == 1) {
                     keyboard.setImageResource(R.drawable.keyboard_button);
                     back.setImageResource(R.drawable.back_button);
@@ -525,17 +351,11 @@ public class Sequence_Activity extends AppCompatActivity {
 
         ttsButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    mTtts.setSpeechRate((float) mSession.getSpeed() / 50);
-                    mTtts.setPitch((float) mSession.getPitch() / 50);
-                    String tmpStr = et.getText().toString();
-                    mTtts.speak(tmpStr, TextToSpeech.QUEUE_FLUSH, null);
-
-                    like.setEnabled(false);
-                    dislike.setEnabled(false);
-                    add.setEnabled(false);
-                    minus.setEnabled(false);
-                    yes.setEnabled(false);
-                    no.setEnabled(false);
+                    mTts.setSpeechRate((float) mSession.getSpeed() / 50);
+                    mTts.setPitch((float) mSession.getPitch() / 50);
+                    speakSpeech(et.getText().toString());
+                    mUserDataMeasure.reportLog(getLocalClassName()+", TtsSpeak: ", Log.INFO);
+                    hideActionBtn(true);
                 }
         });
 
@@ -557,55 +377,26 @@ public class Sequence_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mCy = mCm = mCd = mCn = mCl = 0;
-                image1.setBorderColor(-1);
-                image1.setShadowColor(0);
-                image1.setShadowRadius(sr);
-                image1.setBorderWidth(0);
-                image2.setBorderColor(-1);
-                image2.setShadowColor(0);
-                image2.setShadowRadius(sr);
-                image2.setBorderWidth(0);
-                image3.setBorderColor(-1);
-                image3.setShadowColor(0);
-                image3.setShadowRadius(sr);
-                image3.setBorderWidth(0);
-                like.setImageResource(R.drawable.ilikewithoutline);
-                dislike.setImageResource(R.drawable.idontlikewithout);
-                yes.setImageResource(R.drawable.iwantwithout);
-                no.setImageResource(R.drawable.idontwantwithout);
-                add.setImageResource(R.drawable.morewithout);
-                minus.setImageResource(R.drawable.lesswithout);
-
+                resetActionBtnImageIcons();
                 if (image_flag == 0) {
                     if (mCk == 1) {
-                        mTtts.speak(side[1], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[1]);
                         mCk = 0;
                     } else {
-                        mTtts.speak(side[0], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[0]);
                         mCk = 1;
                     }
                 } else {
-                    if (image_flag == 1) {
-                        image1.setBorderColor(mColor[0]);
-                        image1.setShadowColor(mColor[0]);
-                        image1.setShadowRadius(sr);
-                        image1.setBorderWidth(bw);
-                    } else if (image_flag == 2) {
-                        image2.setBorderColor(mColor[0]);
-                        image2.setShadowColor(mColor[0]);
-                        image2.setShadowRadius(sr);
-                        image2.setBorderWidth(bw);
-                    } else if (image_flag == 3) {
-                        image3.setBorderColor(mColor[0]);
-                        image3.setShadowColor(mColor[0]);
-                        image3.setShadowRadius(sr);
-                        image3.setBorderWidth(bw);
-                    }
+                    setBorderToIcon(0);
                     if (mCk == 1) {
-                        mTtts.speak(layer_1_speech[mLevelTwoItemPos][count + image_flag - 1][1], TextToSpeech.QUEUE_FLUSH, null);
+                        mUserDataMeasure.reportLog(getLocalClassName()+", like: "+
+                                mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(1), Log.INFO);
+                        speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(1));
                         mCk = 0;
                     } else {
-                        mTtts.speak(layer_1_speech[mLevelTwoItemPos][count + image_flag - 1][0], TextToSpeech.QUEUE_FLUSH, null);
+                        mUserDataMeasure.reportLog(getLocalClassName()+", like: "+
+                                mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(0), Log.INFO);
+                        speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(0));
                         mCk = 1;
                     }
                 }
@@ -616,55 +407,26 @@ public class Sequence_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mCk = mCm = mCd = mCn = mCl = 0;
-                image1.setBorderColor(-1);
-                image1.setShadowColor(0);
-                image1.setShadowRadius(sr);
-                image1.setBorderWidth(0);
-                image2.setBorderColor(-1);
-                image2.setShadowColor(0);
-                image2.setShadowRadius(sr);
-                image2.setBorderWidth(0);
-                image3.setBorderColor(-1);
-                image3.setShadowColor(0);
-                image3.setShadowRadius(sr);
-                image3.setBorderWidth(0);
-
-                like.setImageResource(R.drawable.ilikewithoutoutline);
-                dislike.setImageResource(R.drawable.idontlikewithout);
-                yes.setImageResource(R.drawable.iwantwithoutline);
-                no.setImageResource(R.drawable.idontwantwithout);
-                add.setImageResource(R.drawable.morewithout);
-                minus.setImageResource(R.drawable.lesswithout);
+                resetActionBtnImageIcons();
                 if (image_flag == 0) {
                     if (mCy == 1) {
-                        mTtts.speak(side[3], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[3]);
                         mCy = 0;
                     } else {
-                        mTtts.speak(side[2], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[2]);
                         mCy = 1;
                     }
                 } else {
-                    if (image_flag == 1) {
-                        image1.setBorderColor(mColor[2]);
-                        image1.setShadowColor(mColor[2]);
-                        image1.setShadowRadius(sr);
-                        image1.setBorderWidth(bw);
-                    } else if (image_flag == 2) {
-                        image2.setBorderColor(mColor[2]);
-                        image2.setShadowColor(mColor[2]);
-                        image2.setShadowRadius(sr);
-                        image2.setBorderWidth(bw);
-                    } else if (image_flag == 3) {
-                        image3.setBorderColor(mColor[2]);
-                        image3.setShadowColor(mColor[2]);
-                        image3.setShadowRadius(sr);
-                        image3.setBorderWidth(bw);
-                    }
+                    setBorderToIcon(2);
                     if (mCy == 1) {
-                        mTtts.speak(layer_1_speech[mLevelTwoItemPos][count + image_flag - 1][3], TextToSpeech.QUEUE_FLUSH, null);
+                        mUserDataMeasure.reportLog(getLocalClassName()+", yes: "+
+                                mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(3), Log.INFO);
+                        speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(3));
                         mCy = 0;
                     } else {
-                        mTtts.speak(layer_1_speech[mLevelTwoItemPos][count + image_flag - 1][2], TextToSpeech.QUEUE_FLUSH, null);
+                        mUserDataMeasure.reportLog(getLocalClassName()+", yes: "+
+                                mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(2), Log.INFO);
+                        speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(2));
                         mCy = 1;
                     }
                 }
@@ -675,55 +437,26 @@ public class Sequence_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mCk = mCy = mCd = mCn = mCl = 0;
-                image1.setBorderColor(-1);
-                image1.setShadowColor(0);
-                image1.setShadowRadius(sr);
-                image1.setBorderWidth(0);
-                image2.setBorderColor(-1);
-                image2.setShadowColor(0);
-                image2.setShadowRadius(sr);
-                image2.setBorderWidth(0);
-                image3.setBorderColor(-1);
-                image3.setShadowColor(0);
-                image3.setShadowRadius(sr);
-                image3.setBorderWidth(0);
-                like.setImageResource(R.drawable.ilikewithoutoutline);
-                dislike.setImageResource(R.drawable.idontlikewithout);
-                yes.setImageResource(R.drawable.iwantwithout);
-                no.setImageResource(R.drawable.idontwantwithout);
-                add.setImageResource(R.drawable.morewithoutline);
-                minus.setImageResource(R.drawable.lesswithout);
-
+                resetActionBtnImageIcons();
                 if (image_flag == 0) {
                     if (mCm == 1) {
-                        mTtts.speak(side[5], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[5]);
                         mCm = 0;
                     } else {
-                        mTtts.speak(side[4], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[4]);
                         mCm = 1;
                     }
                 } else {
-                    if (image_flag == 1) {
-                        image1.setBorderColor(mColor[4]);
-                        image1.setShadowColor(mColor[4]);
-                        image1.setShadowRadius(sr);
-                        image1.setBorderWidth(bw);
-                    } else if (image_flag == 2) {
-                        image2.setBorderColor(mColor[4]);
-                        image2.setShadowColor(mColor[4]);
-                        image2.setShadowRadius(sr);
-                        image2.setBorderWidth(bw);
-                    } else if (image_flag == 3) {
-                        image3.setBorderColor(mColor[4]);
-                        image3.setShadowColor(mColor[4]);
-                        image3.setShadowRadius(sr);
-                        image3.setBorderWidth(bw);
-                    }
+                    setBorderToIcon(4);
                     if (mCm == 1) {
-                        mTtts.speak(layer_1_speech[mLevelTwoItemPos][count + image_flag - 1][5], TextToSpeech.QUEUE_FLUSH, null);
+                        mUserDataMeasure.reportLog(getLocalClassName()+", add: "+
+                                mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(5), Log.INFO);
+                        speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(5));
                         mCm = 0;
                     } else {
-                        mTtts.speak(layer_1_speech[mLevelTwoItemPos][count + image_flag - 1][4], TextToSpeech.QUEUE_FLUSH, null);
+                        mUserDataMeasure.reportLog(getLocalClassName()+", add: "+
+                                mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(4), Log.INFO);
+                        speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(4));
                         mCm = 1;
                     }
                 }
@@ -734,55 +467,26 @@ public class Sequence_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mCk = mCy = mCm = mCn = mCl = 0;
-                image1.setBorderColor(-1);
-                image1.setShadowColor(0);
-                image1.setShadowRadius(sr);
-                image1.setBorderWidth(0);
-                image2.setBorderColor(-1);
-                image2.setShadowColor(0);
-                image2.setShadowRadius(sr);
-                image2.setBorderWidth(0);
-                image3.setBorderColor(-1);
-                image3.setShadowColor(0);
-                image3.setShadowRadius(sr);
-                image3.setBorderWidth(0);
-                like.setImageResource(R.drawable.ilikewithoutoutline);
-                dislike.setImageResource(R.drawable.idontlikewithoutline);
-                yes.setImageResource(R.drawable.iwantwithout);
-                no.setImageResource(R.drawable.idontwantwithout);
-                add.setImageResource(R.drawable.morewithout);
-                minus.setImageResource(R.drawable.lesswithout);
-
+                resetActionBtnImageIcons();
                 if (image_flag == 0) {
                     if (mCd == 1) {
-                        mTtts.speak(side[7], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[7]);
                         mCd = 0;
                     } else {
-                        mTtts.speak(side[6], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[6]);
                         mCd = 1;
                     }
                 } else {
-                    if (image_flag == 1) {
-                        image1.setBorderColor(mColor[1]);
-                        image1.setShadowColor(mColor[1]);
-                        image1.setShadowRadius(sr);
-                        image1.setBorderWidth(bw);
-                    } else if (image_flag == 2) {
-                        image2.setBorderColor(mColor[1]);
-                        image2.setShadowColor(mColor[1]);
-                        image2.setShadowRadius(sr);
-                        image2.setBorderWidth(bw);
-                    } else if (image_flag == 3) {
-                        image3.setBorderColor(mColor[1]);
-                        image3.setShadowColor(mColor[1]);
-                        image3.setShadowRadius(sr);
-                        image3.setBorderWidth(bw);
-                    }
+                    setBorderToIcon(1);
                     if (mCd == 1) {
-                        mTtts.speak(layer_1_speech[mLevelTwoItemPos][count + image_flag - 1][7], TextToSpeech.QUEUE_FLUSH, null);
+                        mUserDataMeasure.reportLog(getLocalClassName()+", dislike: "+
+                                mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(7), Log.INFO);
+                        speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(7));
                         mCd = 0;
                     } else {
-                        mTtts.speak(layer_1_speech[mLevelTwoItemPos][count + image_flag - 1][6], TextToSpeech.QUEUE_FLUSH, null);
+                        mUserDataMeasure.reportLog(getLocalClassName()+", dislike: "+
+                                mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(6), Log.INFO);
+                        speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(6));
                         mCd = 1;
                     }
                 }
@@ -793,55 +497,25 @@ public class Sequence_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mCk = mCy = mCm = mCd = mCl = 0;
-                image1.setBorderColor(-1);
-                image1.setShadowColor(0);
-                image1.setShadowRadius(sr);
-                image1.setBorderWidth(0);
-                image2.setBorderColor(-1);
-                image2.setShadowColor(0);
-                image2.setShadowRadius(sr);
-                image2.setBorderWidth(0);
-                image3.setBorderColor(-1);
-                image3.setShadowColor(0);
-                image3.setShadowRadius(sr);
-                image3.setBorderWidth(0);
-                like.setImageResource(R.drawable.ilikewithoutoutline);
-                dislike.setImageResource(R.drawable.idontlikewithout);
-                yes.setImageResource(R.drawable.iwantwithout);
-                no.setImageResource(R.drawable.idontwantwithoutline);
-                add.setImageResource(R.drawable.morewithout);
-                minus.setImageResource(R.drawable.lesswithout);
-
                 if (image_flag == 0) {
                     if (mCn == 1) {
-                        mTtts.speak(side[9], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[9]);
                         mCn = 0;
                     } else {
-                        mTtts.speak(side[8], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[8]);
                         mCn = 1;
                     }
                 } else {
-                    if (image_flag == 1) {
-                        image1.setBorderColor(mColor[3]);
-                        image1.setShadowColor(mColor[3]);
-                        image1.setShadowRadius(sr);
-                        image1.setBorderWidth(bw);
-                    } else if (image_flag == 2) {
-                        image2.setBorderColor(mColor[3]);
-                        image2.setShadowColor(mColor[3]);
-                        image2.setShadowRadius(sr);
-                        image2.setBorderWidth(bw);
-                    } else if (image_flag == 3) {
-                        image3.setBorderColor(mColor[3]);
-                        image3.setShadowColor(mColor[3]);
-                        image3.setShadowRadius(sr);
-                        image3.setBorderWidth(bw);
-                    }
+                    setBorderToIcon(3);
                     if (mCn == 1) {
-                        mTtts.speak(layer_1_speech[mLevelTwoItemPos][count + image_flag - 1][9], TextToSpeech.QUEUE_FLUSH, null);
+                        mUserDataMeasure.reportLog(getLocalClassName()+", no: "+
+                                mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(9), Log.INFO);
+                        speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(9));
                         mCn = 0;
                     } else {
-                        mTtts.speak(layer_1_speech[mLevelTwoItemPos][count + image_flag - 1][8], TextToSpeech.QUEUE_FLUSH, null);
+                        mUserDataMeasure.reportLog(getLocalClassName()+", no: "+
+                                mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(8), Log.INFO);
+                        speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(8));
                         mCn = 1;
                     }
                 }
@@ -852,103 +526,31 @@ public class Sequence_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mCk = mCy = mCm = mCd = mCn = 0;
-                image1.setBorderColor(-1);
-                image1.setShadowColor(0);
-                image1.setShadowRadius(sr);
-                image1.setBorderWidth(0);
-                image2.setBorderColor(-1);
-                image2.setShadowColor(0);
-                image2.setShadowRadius(sr);
-                image2.setBorderWidth(0);
-                image3.setBorderColor(-1);
-                image3.setShadowColor(0);
-                image3.setShadowRadius(sr);
-                image3.setBorderWidth(0);
-                like.setImageResource(R.drawable.ilikewithoutoutline);
-                dislike.setImageResource(R.drawable.idontlikewithout);
-                yes.setImageResource(R.drawable.iwantwithout);
-                no.setImageResource(R.drawable.idontwantwithout);
-                add.setImageResource(R.drawable.morewithout);
-                minus.setImageResource(R.drawable.lesswithoutline);
-
+                resetActionBtnImageIcons();
                 if (image_flag == 0) {
                     if (mCl == 1) {
-                        mTtts.speak(side[11], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[11]);
                         mCl = 0;
                     } else {
-                        mTtts.speak(side[10], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[10]);
                         mCl = 1;
                     }
                 } else {
-                    if (image_flag == 1) {
-                        image1.setBorderColor(mColor[5]);
-                        image1.setShadowColor(mColor[5]);
-                        image1.setShadowRadius(sr);
-                        image1.setBorderWidth(bw);
-                    } else if (image_flag == 2) {
-                        image2.setBorderColor(mColor[5]);
-                        image2.setShadowColor(mColor[5]);
-                        image2.setShadowRadius(sr);
-                        image2.setBorderWidth(bw);
-                    } else if (image_flag == 3) {
-                        image3.setBorderColor(mColor[5]);
-                        image3.setShadowColor(mColor[5]);
-                        image3.setShadowRadius(sr);
-                        image3.setBorderWidth(bw);
-                    }
+                    setBorderToIcon(5);
                     if (mCl == 1) {
-                        mTtts.speak(layer_1_speech[mLevelTwoItemPos][count + image_flag - 1][11], TextToSpeech.QUEUE_FLUSH, null);
+                        mUserDataMeasure.reportLog(getLocalClassName()+", minus: "+
+                                mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(11), Log.INFO);
+                        speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(11));
                         mCl = 0;
                     } else {
-                        mTtts.speak(layer_1_speech[mLevelTwoItemPos][count + image_flag - 1][10], TextToSpeech.QUEUE_FLUSH, null);
+                        mUserDataMeasure.reportLog(getLocalClassName()+", minus: "+
+                                mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(10), Log.INFO);
+                        speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(10));
                         mCl = 1;
                     }
                 }
             }
         });
-    }
-
-    private void loadArraysFromResources() {
-        final int LANG_ENG = 0;
-        mColor = getResources().getIntArray(R.array.arrActionBtnColors);
-        side = getResources().getStringArray(R.array.arrActionSpeech);
-        below = getResources().getStringArray(R.array.arrNavigationSpeech);
-        bt = getResources().getStringArray(R.array.arrSeqActivityNavigationText);
-        heading = getResources().getStringArray(R.array.arrSeqActivityHeadingText);
-        strPrevious = bt[0].substring(2, bt[0].length());   strNext = bt[1].substring(0, bt[1].length()-2);
-
-        switch(mLevelTwoItemPos){
-            case 0:
-                mDailyActivitiesBelowText = getResources().getStringArray(R.array.arrSeqActivityBrushingBelowText);
-                mDailyActivitiesSpeechText = getResources().getStringArray(R.array.arrSeqActivityBrushingSpeechText);
-                mDailyActivitiesIcons = getResources().obtainTypedArray(R.array.arrSeqActivityBrushingIcon);
-                break;
-            case 1:
-                mDailyActivitiesBelowText = getResources().getStringArray(R.array.arrSeqActivityToiletBelowText);
-                mDailyActivitiesSpeechText = getResources().getStringArray(R.array.arrSeqActivityToiletSpeechText);
-                mDailyActivitiesIcons = getResources().obtainTypedArray(R.array.arrSeqActivityToiletIcon);
-                break;
-            case 2:
-                mDailyActivitiesBelowText = getResources().getStringArray(R.array.arrSeqActivityBathingBelowText);
-                mDailyActivitiesSpeechText = getResources().getStringArray(R.array.arrSeqActivityBathingSpeechText);
-                mDailyActivitiesIcons = getResources().obtainTypedArray(R.array.arrSeqActivityBathingIcon);
-                break;
-            case 3:
-                mDailyActivitiesBelowText = getResources().getStringArray(R.array.arrSeqActivityMorningRoutineBelowText);
-                mDailyActivitiesSpeechText = getResources().getStringArray(R.array.arrSeqActivityMorningRoutineSpeechText);
-                mDailyActivitiesIcons = getResources().obtainTypedArray(R.array.arrSeqActivityMorningRoutineIcon);
-                break;
-            case 4:
-                mDailyActivitiesBelowText = getResources().getStringArray(R.array.arrSeqActivityBedtimeRoutineBelowText);
-                mDailyActivitiesSpeechText = getResources().getStringArray(R.array.arrSeqActivityBedtimeRoutineSpeechText);
-                mDailyActivitiesIcons = getResources().obtainTypedArray(R.array.arrSeqActivityBedtimeRoutineIcon);
-                break;
-        }
-
-        if (mSession.getLanguage() == LANG_ENG)
-            layer_1_speech = new SequenceActivityIconsStrings().getSequenceActivitySpeechEnglish();
-        else
-            layer_1_speech = new SequenceActivityIconsStrings().getSequenceActivitySpeechHindi();
     }
 
     @Override
@@ -988,6 +590,91 @@ public class Sequence_Activity extends AppCompatActivity {
         return true;
     }
 
+    private void initializeViews() {
+        like = (ImageView) findViewById(R.id.ivlike);
+        dislike = (ImageView) findViewById(R.id.ivdislike);
+        add = (ImageView) findViewById(R.id.ivadd);
+        minus = (ImageView) findViewById(R.id.ivminus);
+        yes = (ImageView) findViewById(R.id.ivyes);
+        no = (ImageView) findViewById(R.id.ivno);
+        home = (ImageView) findViewById(R.id.ivhome);
+        keyboard = (ImageView) findViewById(R.id.keyboard);
+        et = (EditText) findViewById(R.id.et);
+        linear = (LinearLayout) findViewById(R.id.linear);
+        back = (ImageView) findViewById(R.id.ivback);
+        forward = (Button) findViewById(R.id.forward);
+        backward = (Button) findViewById(R.id.backward);
+        tt1 = (TextView) findViewById(R.id.tt1);
+        bt1 = (TextView) findViewById(R.id.bt1);
+        bt2 = (TextView) findViewById(R.id.bt2);
+        bt3 = (TextView) findViewById(R.id.bt3);
+        image1 = (CircularImageView) findViewById(R.id.image1);
+        image2 = (CircularImageView) findViewById(R.id.image2);
+        image3 = (CircularImageView) findViewById(R.id.image3);
+
+        arrow1 = (ImageView) findViewById(R.id.arrow1);
+        arrow2 = (ImageView) findViewById(R.id.arrow2);
+    }
+
+    private void loadArraysFromResources() {
+        mColor = getResources().getIntArray(R.array.arrActionBtnColors);
+        side = getResources().getStringArray(R.array.arrActionSpeech);
+        below = getResources().getStringArray(R.array.arrNavigationSpeech);
+        bt = getResources().getStringArray(R.array.arrSeqActivityNavigationText);
+        heading = getResources().getStringArray(R.array.arrSeqActivityHeadingText);
+        strPrevious = bt[0].substring(2, bt[0].length());   strNext = bt[1].substring(0, bt[1].length()-2);
+
+        SeqActivityVerbiageModel verbiageModel = new Gson()
+                .fromJson(getString(R.string.sequenceActVerbiage), SeqActivityVerbiageModel.class);
+        mSeqActSpeech = verbiageModel.getVerbiageModel();
+
+        switch(mLevelTwoItemPos){
+            case 0:
+                mDailyActivitiesBelowText = getResources().getStringArray(R.array.arrSeqActivityBrushingBelowText);
+                mDailyActivitiesSpeechText = getResources().getStringArray(R.array.arrSeqActivityBrushingSpeechText);
+                mDailyActivitiesIcons = getResources().obtainTypedArray(R.array.arrSeqActivityBrushingIcon);
+                break;
+            case 1:
+                mDailyActivitiesBelowText = getResources().getStringArray(R.array.arrSeqActivityToiletBelowText);
+                mDailyActivitiesSpeechText = getResources().getStringArray(R.array.arrSeqActivityToiletSpeechText);
+                mDailyActivitiesIcons = getResources().obtainTypedArray(R.array.arrSeqActivityToiletIcon);
+                break;
+            case 2:
+                mDailyActivitiesBelowText = getResources().getStringArray(R.array.arrSeqActivityBathingBelowText);
+                mDailyActivitiesSpeechText = getResources().getStringArray(R.array.arrSeqActivityBathingSpeechText);
+                mDailyActivitiesIcons = getResources().obtainTypedArray(R.array.arrSeqActivityBathingIcon);
+                break;
+            case 3:
+                mDailyActivitiesBelowText = getResources().getStringArray(R.array.arrSeqActivityMorningRoutineBelowText);
+                mDailyActivitiesSpeechText = getResources().getStringArray(R.array.arrSeqActivityMorningRoutineSpeechText);
+                mDailyActivitiesIcons = getResources().obtainTypedArray(R.array.arrSeqActivityMorningRoutineIcon);
+                break;
+            case 4:
+                mDailyActivitiesBelowText = getResources().getStringArray(R.array.arrSeqActivityBedtimeRoutineBelowText);
+                mDailyActivitiesSpeechText = getResources().getStringArray(R.array.arrSeqActivityBedtimeRoutineSpeechText);
+                mDailyActivitiesIcons = getResources().obtainTypedArray(R.array.arrSeqActivityBedtimeRoutineIcon);
+                break;
+        }
+    }
+
+    private void hideActionBtn(boolean hideBtn) {
+        if(hideBtn) {
+            like.setVisibility(View.INVISIBLE);
+            dislike.setVisibility(View.INVISIBLE);
+            add.setVisibility(View.INVISIBLE);
+            minus.setVisibility(View.INVISIBLE);
+            yes.setVisibility(View.INVISIBLE);
+            no.setVisibility(View.INVISIBLE);
+        }else{
+            like.setVisibility(View.VISIBLE);
+            dislike.setVisibility(View.VISIBLE);
+            add.setVisibility(View.VISIBLE);
+            minus.setVisibility(View.VISIBLE);
+            yes.setVisibility(View.VISIBLE);
+            no.setVisibility(View.VISIBLE);
+        }
+    }
+
     private void changeTheActionButtons(boolean setDisable) {
         if(setDisable) {
             like.setAlpha(0.5f);
@@ -1018,13 +705,58 @@ public class Sequence_Activity extends AppCompatActivity {
         }
     }
 
+    private void resetActionBtnImageIcons() {
+        image1.setBorderColor(-1);
+        image1.setShadowColor(0);
+        image1.setShadowRadius(sr);
+        image1.setBorderWidth(0);
+        image2.setBorderColor(-1);
+        image2.setShadowColor(0);
+        image2.setShadowRadius(sr);
+        image2.setBorderWidth(0);
+        image3.setBorderColor(-1);
+        image3.setShadowColor(0);
+        image3.setShadowRadius(sr);
+        image3.setBorderWidth(0);
+        like.setImageResource(R.drawable.ilikewithoutoutline);
+        dislike.setImageResource(R.drawable.idontlikewithout);
+        yes.setImageResource(R.drawable.iwantwithout);
+        no.setImageResource(R.drawable.idontwantwithout);
+        add.setImageResource(R.drawable.morewithout);
+        minus.setImageResource(R.drawable.lesswithout);
+    }
+
+    private void setBorderToIcon(int actionBtnIdx) {
+        if (image_flag == 1) {
+            image1.setBorderColor(mColor[actionBtnIdx]);
+            image1.setShadowColor(mColor[actionBtnIdx]);
+            image1.setShadowRadius(sr);
+            image1.setBorderWidth(bw);
+        } else if (image_flag == 2) {
+            image2.setBorderColor(mColor[actionBtnIdx]);
+            image2.setShadowColor(mColor[actionBtnIdx]);
+            image2.setShadowRadius(sr);
+            image2.setBorderWidth(bw);
+        } else if (image_flag == 3) {
+            image3.setBorderColor(mColor[actionBtnIdx]);
+            image3.setShadowColor(mColor[actionBtnIdx]);
+            image3.setShadowRadius(sr);
+            image3.setBorderWidth(bw);
+        }
+    }
+
+    private void speakSpeech(String speechText){
+        mTts.speak(speechText, TextToSpeech.QUEUE_FLUSH, null);
+    }
+
     private class BackgroundSpeechOperationsAsync extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
             try {
-                mTtts.setLanguage(new Locale("hin", "IND"));
+                mTts.setLanguage(new Locale("hin", "IND"));
             } catch (Exception e) {
-                Thread.interrupted();
+                new UserDataMeasure(Sequence_Activity.this).reportException(e);
+                new UserDataMeasure(Sequence_Activity.this).reportLog("Failed to set language.", Log.ERROR);
             }
             return "Executed";
         }

@@ -28,7 +28,7 @@ public class Tutorial extends AppCompatActivity {
         setContentView(R.layout.tutorial_new);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.menuTutorials)+"</font>"));
-        mSession = new SessionManager(getApplicationContext());
+        mSession = new SessionManager(this);
 
         if (mSession.getScreenHeight() >= 600)
             getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back_600);

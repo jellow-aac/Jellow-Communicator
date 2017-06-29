@@ -1,28 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--LEVEL ONE ARRAYS ARE HERE-->
-    <string-array name="arrLevelOneBelowText">
-        <item>greet and feel…</item>
-        <item>daily activities…</item>
-        <item>eating…</item>
-        <item>fun…</item>
-        <item>learning…</item>
-        <item>people…</item>
-        <item>places…</item>
-        <item>time and Weather…</item>
-        <item>help…</item>
-    </string-array>
-    <string-array name="arrLevelOneActionBarTitle">
-        <item>Greet and Feel</item>
-        <item>Daily Activities</item>
-        <item>Eating</item>
-        <item>Fun</item>
-        <item>Learning</item>
-        <item>People</item>
-        <item>Places</item>
-        <item>Time and Weather</item>
-        <item>Help</item>
-    </string-array>
     <array name="arrLevelOneIconAdapter">
         <item>@drawable/level1_greet_300</item>
         <item>@drawable/level1_daily_300</item>
@@ -34,4 +12,141 @@
         <item>@drawable/level1_time_300</item>
         <item>@drawable/level1_help_300</item>
     </array>
+
+    <string-array name="arrLevelOneBelowText">
+        <item>greet and feel…</item>
+        <item>daily activities…</item>
+        <item>eating…</item>
+        <item>fun…</item>
+        <item>learning…</item>
+        <item>people…</item>
+        <item>places…</item>
+        <item>time and Weather…</item>
+        <item>help…</item>
+    </string-array>
+
+    <string-array name="arrLevelOneActionBarTitle">
+        <item>Greet and Feel</item>
+        <item>Daily Activities</item>
+        <item>Eating</item>
+        <item>Fun</item>
+        <item>Learning</item>
+        <item>People</item>
+        <item>Places</item>
+        <item>Time and Weather</item>
+        <item>Help</item>
+    </string-array>
+
+    <string name="levelOneVerbiage">
+        {\"arrays\":[[
+        \"I like to greet others and talk about my feelings\",
+        \"I really like to greet others and talk about my feelings\",
+        \"I want to greet others and talk about my feelings\",
+        \"I really want to greet others and talk about my feelings\",
+        \"I want to greet others and talk about my feelings some more\",
+        \"I really want to greet others and talk about my feelings some more\",
+        \"I don\'t like to greet others and talk about my feelings\",
+        \"I really don\'t like to greet others and talk about my feelings\",
+        \"I don\'t want to greet others and talk about my feelings\",
+        \"I really don\'t want to greet others and talk about my feelings\",
+        \"I don\'t want to greet others and talk about my feelings anymore\",
+        \"I really don\'t want to greet others and talk about my feelings any more\"
+        ],[\"I like to do my daily activities\",
+        \"I really like to do my daily activities\",
+        \"I want to do my daily activities\",
+        \"I really want to do my daily activities\",
+        \"I want to spend more time doing my daily activities\",
+        \"I really want to spend some more time doing my daily activities\",
+        \"I don\'t like to do my daily activities\",
+        \"I really don\'t like to do my daily activities\",
+        \"I don\'t want to do my daily activities\",
+        \"I really don\'t want to do my daily activities\",
+        \"I don\'t want to spend more time doing my daily activities\",
+        \"I really don\'t want to spend any more time doing my daily activities\"
+        ],[\"I like to eat\",
+        \"I really like to eat\",
+        \"I want to eat\",
+        \"I really want to eat\",
+        \"I want to eat some more\",
+        \"I really want to eat some more\",
+        \"I don\'t like to eat\",
+        \"I really don\'t like to eat\",
+        \"I don\'t want to eat\",
+        \"I really don\'t want to eat\",
+        \"I don\'t want to eat any more\",
+        \"I really don\'t want to eat any more\"
+        ],[\"I like to have fun\",
+        \"I really like to have fun\",
+        \"I want to have fun\",
+        \"I really want to have fun\",
+        \"I want to have more fun\",
+        \"I want to have some more fun\",
+        \"I don\'t like to have fun\",
+        \"I really don\'t like to have fun\",
+        \"I don\'t want to have fun\",
+        \"I really don\'t want to have fun\",
+        \"I don\'t want to have more fun\",
+        \"I really don\'t want to have any more fun\"
+        ],[\"I like to learn\",
+        \"I really like to learn\",
+        \"I want to learn\",
+        \"I really want to learn\",
+        \"I want to learn more\",
+        \"I really want to learn some more\",
+        \"I don\'t like to learn\",
+        \"I really don\'t like to learn\",
+        \"I don\'t want to learn\",
+        \"I really don\'t want to learn\",
+        \"I don\'t want to learn any more\",
+        \"I really don\'t want to learn any more\"
+        ],  [\"I like to talk to people\",
+        \"I really like to talk to people\",
+        \"I want to meet people\",
+        \"I really want to meet people\",
+        \"I want to meet some more people\",
+        \"I really want to meet some more people\",
+        \"I don\'t like to talk to people\",
+        \"I really don\'t like to talk to people\",
+        \"I don\'t want to meet people\",
+        \"I really don\'t want to meet people\",
+        \"I don\'t want to meet any more people\",
+        \"I really don\'t want to meet any more people\"
+        ],[\"I like to visit places\",
+        \"I really like to visit places\",
+        \"I want to visit different places\",
+        \"I really want to visit different places\",
+        \"I want to visit some more places\",
+        \"I really want to visit some more places\",
+        \"I don\'t like to visit places\",
+        \"I really don\'t like to visit places\",
+        \"I don\'t want to visit different places\",
+        \"I really don\'t want to visit different places\",
+        \"I don\'t want to visit any more places\",
+        \"I really don\'t want to visit any more places\"
+        ],[\"I like to talk about time and weather\",
+        \"I really like to talk about time and weather\",
+        \"I want to talk about time and weather\",
+        \"I really want to talk about time and weather\",
+        \"I want to talk some more about time and weather\",
+        \"I really want to talk some more about time and weather\",
+        \"I don\'t like to talk about time and weather\",
+        \"I really don\'t like to talk about time and weather\",
+        \"I don\'t want to talk about time and weather\",
+        \"I really don\'t want to talk about time and weather\",
+        \"I don\'t want to talk any more about time and weather\",
+        \"I really don\'t want to talk any more about time and weather\"
+        ],[\"I like to help\",
+        \"I really like to help\",
+        \"I need help\",
+        \"I really need help\",
+        \"I need more help\",
+        \"I really need some more help\",
+        \"I don\'t like to help\",
+        \"I really don\'t like to help\",
+        \"I don\'t need help\",
+        \"I really don\'t need help\",
+        \"I don\'t need more help\",
+        \"I really don\'t need any more help\"
+        ]]}
+    </string>
 </resources>

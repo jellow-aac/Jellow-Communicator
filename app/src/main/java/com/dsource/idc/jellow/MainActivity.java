@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.KeyListener;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,9 +19,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.dsource.idc.jellow.Models.LayerOneSpeech;
+import com.dsource.idc.jellow.Models.LevelOneVerbiageModel;
 import com.dsource.idc.jellow.Utility.SessionManager;
 import com.dsource.idc.jellow.Utility.UserDataMeasure;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -40,11 +42,11 @@ public class MainActivity extends AppCompatActivity {
     private int mLevelOneItemPos = -1, mSelectedItemAdapterPos = -1, mActionBtnClickCount = -1;
     private boolean mShouldReadFullSpeech = false;
     private ArrayList<View> mRecyclerItemsViewList;
-    public TextToSpeech mTts;
-    private UserDataMeasure userDataMeasure;
+    private TextToSpeech mTts;
+    private UserDataMeasure mUserDataMeasure;
     private SessionManager mSession;
     private int[] mColor;
-    private String[][] layer_1_speech = new String[100][100];
+    private ArrayList<ArrayList<String>> mLayerOneSpeech;
     private String[] myMusic, side, below;
 
     @Override
@@ -54,11 +56,10 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setBackgroundDrawable( getResources().getDrawable(R.drawable.yellow_bg));
         getSupportActionBar().setTitle(getString(R.string.action_bar_title));
-        userDataMeasure = new UserDataMeasure(this);
-        userDataMeasure.recordScreen(this.getLocalClassName());
+        mUserDataMeasure = new UserDataMeasure(this);
+        mUserDataMeasure.recordScreen(this.getLocalClassName());
         mSession = new SessionManager(this);
         loadArraysFromResources();
-
         mRecyclerItemsViewList = new ArrayList<>(myMusic.length);
         while (mRecyclerItemsViewList.size() < myMusic.length)  mRecyclerItemsViewList.add(null);
 
@@ -120,11 +121,11 @@ public class MainActivity extends AppCompatActivity {
                             intent.putExtra("selectedMenuItemPath", title);
                             startActivity(intent);
                         }else {
-                            mTts.speak(myMusic[position], TextToSpeech.QUEUE_FLUSH, null);
+                            speakSpeech(myMusic[position]);
                         }
                         mLevelOneItemPos = mRecyclerView.getChildLayoutPosition(view);
                         mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
-                        userDataMeasure.recordGridItem(String.valueOf(mLevelOneItemPos));
+                        mUserDataMeasure.reportLog(getLocalClassName()+" "+mLevelOneItemPos, Log.INFO);
                     }
                 });
             }
@@ -170,14 +171,14 @@ public class MainActivity extends AppCompatActivity {
                     back.setAlpha(.5f);
                     back.setEnabled(false);
                 }
-                mTts.speak(below[0], TextToSpeech.QUEUE_FLUSH, null);
+                speakSpeech(below[0]);
             }
         });
 
         keyboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mTts.speak(below[2], TextToSpeech.QUEUE_FLUSH, null);
+                speakSpeech(below[2]);
                 if (flag_keyboard  == 1){
                     keyboard.setImageResource(R.drawable.keyboard_button);
                     back.setImageResource(R.drawable.back_button);
@@ -213,8 +214,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view){
                 mTts.setSpeechRate((float) mSession.getSpeed()/50);
                 mTts.setPitch((float) mSession.getPitch()/50);
-                String s1 = et.getText().toString();
-                mTts.speak(s1, TextToSpeech.QUEUE_FLUSH, null);
+                speakSpeech(et.getText().toString());
+                mUserDataMeasure.reportLog(getLocalClassName()+", TtsSpeak", Log.INFO);
 
                 like.setEnabled(false);
                 dislike.setEnabled(false);
@@ -246,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
                     keyboard.setImageResource(R.drawable.keyboard_button);
                     back.setImageResource(R.drawable.back_button);
                     home.setImageResource(R.drawable.home);
-                    mTts.speak(below[1], TextToSpeech.QUEUE_FLUSH, null);
+                    speakSpeech(below[1]);
                     et.setVisibility(View.INVISIBLE);
                     mRecyclerView.setVisibility(View.VISIBLE);
                     ttsButton.setVisibility(View.INVISIBLE);
@@ -266,22 +267,23 @@ public class MainActivity extends AppCompatActivity {
                 resetActionButtons(image_flag);
                 if (!mShouldReadFullSpeech) {
                     if (mCk == 1) {
-                        mTts.speak(side[1], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[1]);
                         mCk = 0;
                     } else {
-                        mTts.speak(side[0], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[0]);
                         mCk = 1;
                     }
                 } else {
+                    mUserDataMeasure.reportLog(getLocalClassName()+", like: "+mLevelOneItemPos, Log.INFO);
                     ++mActionBtnClickCount;
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null){
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     }
                     if (mCk == 1) {
-                        mTts.speak(layer_1_speech[mLevelOneItemPos][1], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(1));
                         mCk = 0;
                     } else {
-                        mTts.speak(layer_1_speech[mLevelOneItemPos][0], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(0));
                         mCk = 1;
                     }
                 }
@@ -296,21 +298,22 @@ public class MainActivity extends AppCompatActivity {
                 resetActionButtons(image_flag);
                 if (!mShouldReadFullSpeech) {
                     if (mCd == 1) {
-                        mTts.speak(side[7], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[7]);
                         mCd = 0;
                     } else {
-                        mTts.speak(side[6], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[6]);
                         mCd = 1;
                     }
                 } else {
+                    mUserDataMeasure.reportLog(getLocalClassName()+", dislike: "+mLevelOneItemPos, Log.INFO);
                     ++mActionBtnClickCount;
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCd == 1) {
-                        mTts.speak(layer_1_speech[mLevelOneItemPos][7], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(7));
                         mCd = 0;
                     } else {
-                        mTts.speak(layer_1_speech[mLevelOneItemPos][6], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(6));
                         mCd = 1;
                     }
                 }
@@ -325,21 +328,22 @@ public class MainActivity extends AppCompatActivity {
                 resetActionButtons(image_flag);
                 if (!mShouldReadFullSpeech) {
                     if (mCy == 1) {
-                        mTts.speak(side[3], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[3]);
                         mCy = 0;
                     } else {
-                        mTts.speak(side[2], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[2]);
                         mCy = 1;
                     }
                 } else {
+                    mUserDataMeasure.reportLog(getLocalClassName()+", yes: "+mLevelOneItemPos, Log.INFO);
                     ++mActionBtnClickCount;
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCy == 1) {
-                        mTts.speak(layer_1_speech[mLevelOneItemPos][3], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(3));
                         mCy = 0;
                     } else {
-                        mTts.speak(layer_1_speech[mLevelOneItemPos][2], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(2));
                         mCy = 1;
                     }
                 }
@@ -354,21 +358,22 @@ public class MainActivity extends AppCompatActivity {
                 resetActionButtons(image_flag);
                 if (!mShouldReadFullSpeech) {
                     if (mCn == 1) {
-                        mTts.speak(side[9], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[9]);
                         mCn = 0;
                     } else {
-                        mTts.speak(side[8], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[8]);
                         mCn = 1;
                     }
                 } else {
+                    mUserDataMeasure.reportLog(getLocalClassName()+", no: "+mLevelOneItemPos, Log.INFO);
                     ++mActionBtnClickCount;
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCn == 1) {
-                        mTts.speak(layer_1_speech[mLevelOneItemPos][9], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(9));
                         mCn = 0;
                     } else {
-                        mTts.speak(layer_1_speech[mLevelOneItemPos][8], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(8));
                         mCn = 1;
                     }
                 }
@@ -383,21 +388,22 @@ public class MainActivity extends AppCompatActivity {
                 resetActionButtons(image_flag);
                 if (!mShouldReadFullSpeech) {
                     if (mCm == 1) {
-                        mTts.speak(side[5], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[5]);
                         mCm = 0;
                     } else {
-                        mTts.speak(side[4], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[4]);
                         mCm = 1;
                     }
                 } else {
+                    mUserDataMeasure.reportLog(getLocalClassName()+", add: "+mLevelOneItemPos, Log.INFO);
                     ++mActionBtnClickCount;
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCm == 1) {
-                        mTts.speak(layer_1_speech[mLevelOneItemPos][5], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(5));
                         mCm = 0;
                     } else {
-                        mTts.speak(layer_1_speech[mLevelOneItemPos][4], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(4));
                         mCm = 1;
                     }
                 }
@@ -412,21 +418,22 @@ public class MainActivity extends AppCompatActivity {
                 resetActionButtons(image_flag);
                 if (!mShouldReadFullSpeech) {
                     if (mCl == 1) {
-                        mTts.speak(side[11], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[11]);
                         mCl = 0;
                     } else {
-                        mTts.speak(side[10], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(side[10]);
                         mCl = 1;
                     }
                 } else {
+                    mUserDataMeasure.reportLog(getLocalClassName()+", minus: "+mLevelOneItemPos, Log.INFO);
                     ++mActionBtnClickCount;
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCl == 1) {
-                        mTts.speak(layer_1_speech[mLevelOneItemPos][11], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(11));
                         mCl = 0;
                     } else {
-                        mTts.speak(layer_1_speech[mLevelOneItemPos][10], TextToSpeech.QUEUE_FLUSH, null);
+                        speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(10));
                         mCl = 1;
                     }
                 }
@@ -471,18 +478,23 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    private void speakSpeech(String speechText){
+        mTts.speak(speechText, TextToSpeech.QUEUE_FLUSH, null);
+    }
+
     private String getActionBarTitle(int position) {
             String[] tempTextArr = getResources().getStringArray(R.array.arrLevelOneActionBarTitle);
         return tempTextArr[position];
     }
 
     private void loadArraysFromResources() {
-        final int LANG_ENG = 0;
         mColor = getResources().getIntArray(R.array.arrActionBtnColors);
-        if(mSession.getLanguage() == LANG_ENG)
-            layer_1_speech = new LayerOneSpeech().getLayerOneSpeechEnglish();
-        else
-            layer_1_speech = new LayerOneSpeech().getLayerOneSpeechHindi();
+        LevelOneVerbiageModel verbiageModel = new Gson()
+                .fromJson(getString(R.string.levelOneVerbiage), LevelOneVerbiageModel.class);
+        mLayerOneSpeech = verbiageModel.getVerbiageModel();
+        //To log custom events.
+
+        mUserDataMeasure.reportLog("Activity created", Log.INFO);
         myMusic = getResources().getStringArray(R.array.arrLevelOneActionBarTitle);
         side = getResources().getStringArray(R.array.arrActionSpeech);
         below = getResources().getStringArray(R.array.arrNavigationSpeech);
@@ -580,7 +592,8 @@ public class MainActivity extends AppCompatActivity {
             try {
                 mTts.setLanguage(new Locale("hin", "IND"));
             } catch (Exception e) {
-                Thread.interrupted();
+                new UserDataMeasure(MainActivity.this).reportException(e);
+                new UserDataMeasure(MainActivity.this).reportLog("Failed to set language.", Log.ERROR);
             }
             return null;
         }
