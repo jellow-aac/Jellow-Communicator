@@ -6,7 +6,6 @@ import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.util.DisplayMetrics;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +19,6 @@ import java.util.Locale;
 /**
  * Created by user on 5/27/2016.
  */
-
 public class About_Jellow extends AppCompatActivity {
 
     TextToSpeech t1;
@@ -178,60 +176,30 @@ public class About_Jellow extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        menu.getItem(1).setVisible(false);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.settings:
-                Intent intent = new Intent(About_Jellow.this, Setting.class);
-                startActivity(intent);
-                finish();
-                break;
-            case R.id.profile:
-                Intent intent1 = new Intent(About_Jellow.this, Profile_form.class);
-                startActivity(intent1);
-                finish();
-                break;
-            case R.id.feedback:
-                Intent intent2 = new Intent(About_Jellow.this, Feedback.class);
-                startActivity(intent2);
-                finish();
-                break;
-            case R.id.usage:
-                Intent intent3 = new Intent(About_Jellow.this, Tutorial.class);
-                startActivity(intent3);
-                finish();
-                break;
-            case R.id.reset:
-                Intent intent4 = new Intent(About_Jellow.this, Reset__preferences.class);
-                startActivity(intent4);
-                finish();
-                break;
-            case android.R.id.home:
-                Intent intent5 = new Intent(About_Jellow.this, MainActivity.class);
-                startActivity(intent5);
-                break;
-            case R.id.keyboardinput:
-                Intent intent6 = new Intent(About_Jellow.this, Keyboard_Input.class);
-                startActivity(intent6);
-                finish();
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
+            case R.id.profile: startActivity(new Intent(About_Jellow.this, Profile_form.class)); finish(); break;
+            case R.id.info: startActivity(new Intent(About_Jellow.this, About_Jellow.class));   finish(); break;
+            case R.id.usage: startActivity(new Intent(About_Jellow.this, Tutorial.class)); finish(); break;
+            case R.id.keyboardinput: startActivity(new Intent(About_Jellow.this, Keyboard_Input.class)); finish(); break;
+            case R.id.feedback: startActivity(new Intent(About_Jellow.this, Feedback.class)); finish(); break;
+            case R.id.settings: startActivity(new Intent(About_Jellow.this, Setting.class)); finish(); break;
+            case R.id.reset: startActivity(new Intent(About_Jellow.this, Reset__preferences.class)); finish(); break;
+            case android.R.id.home: finish(); break;
+            default: return super.onOptionsItemSelected(item);
+
         }
         return true;
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Intent i = new Intent(About_Jellow.this, MainActivity.class);
-            startActivity(i);
-            finish();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

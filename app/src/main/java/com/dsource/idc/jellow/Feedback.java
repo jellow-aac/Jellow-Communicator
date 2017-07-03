@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,6 +45,35 @@ public class Feedback extends AppCompatActivity {
         mBtnSubmit = (Button) findViewById(R.id.bSubmit);
         addListenerOnRatingBar();
         addListenerOnButton();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        menu.getItem(4).setVisible(false);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.profile: startActivity(new Intent(Feedback.this, Profile_form.class)); finish(); break;
+            case R.id.info: startActivity(new Intent(Feedback.this, About_Jellow.class)); finish(); break;
+            case R.id.usage: startActivity(new Intent(Feedback.this, Tutorial.class)); finish(); break;
+            case R.id.keyboardinput: startActivity(new Intent(Feedback.this, Keyboard_Input.class)); finish(); break;
+            case R.id.settings: startActivity(new Intent(Feedback.this, Setting.class)); finish(); break;
+            case R.id.reset: startActivity(new Intent(Feedback.this, Reset__preferences.class)); finish(); break;
+            case android.R.id.home: finish(); break;
+            default: return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 
     public void addListenerOnRatingBar() {
@@ -96,7 +124,6 @@ public class Feedback extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-
                 String cs  = mEtComments.getText().toString();
                 Intent email = new Intent(Intent.ACTION_SEND);
                 email.putExtra(Intent.EXTRA_EMAIL, new String[]{"dsource.in@gmail.com"});
@@ -106,43 +133,5 @@ public class Feedback extends AppCompatActivity {
                 startActivity(Intent.createChooser(email, "Choose an Email client :"));
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.settings: startActivity(new Intent(Feedback.this, Setting.class)); break;
-            case R.id.info: startActivity(new Intent(Feedback.this, About_Jellow.class)); break;
-            case R.id.profile: startActivity(new Intent(Feedback.this, Profile_form.class)); break;
-            case R.id.usage: startActivity(new Intent(Feedback.this, Tutorial.class)); break;
-            case R.id.reset: startActivity(new Intent(Feedback.this, Reset__preferences.class)); break;
-            case android.R.id.home: startActivity(new Intent(Feedback.this, MainActivity.class)); break;
-            case R.id.keyboardinput: startActivity(new Intent(Feedback.this, Keyboard_Input.class)); break;
-            default: return super.onOptionsItemSelected(item);
-        }
-        finish();
-        return true;
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            startActivity(new Intent(Feedback.this, MainActivity.class));
-            finish();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
     }
 }

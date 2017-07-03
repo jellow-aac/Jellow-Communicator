@@ -3,7 +3,6 @@ package com.dsource.idc.jellow;
 /**
  * Created by user on 5/25/2016.
  */
-
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
@@ -12,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,7 +31,6 @@ public class Profile_form extends AppCompatActivity {
     private String email;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +76,6 @@ public class Profile_form extends AppCompatActivity {
                     bSave.setEnabled(true);
                 }
             }
-
             @Override public void afterTextChanged(Editable s) {}
         });
 
@@ -96,7 +92,7 @@ public class Profile_form extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 email = etEmailId.getText().toString().trim();
-                if (etName.getText().toString().length() < 0) {
+                if (etName.getText().toString().length() > 0) {
                     if (etFatherContact.getText().toString().trim().length() == 10) {
                         if (isValidEmail(email)) {
                             mSession.setFather_name(etFathername.getText().toString());
@@ -105,7 +101,7 @@ public class Profile_form extends AppCompatActivity {
                             mSession.setFather_no(etFatherContact.getText().toString());
                             mSession.setEmailId(email);
                             Toast.makeText(Profile_form.this, getString(R.string.detailSaved), Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(Profile_form.this, MainActivity.class));
+                            finish();
                         } else
                             Toast.makeText(getApplicationContext(), getString(R.string.invalid_emailId), Toast.LENGTH_SHORT).show();
                     } else
@@ -115,65 +111,41 @@ public class Profile_form extends AppCompatActivity {
             }
         });
     }
-    public final static boolean isValidEmail(CharSequence target) {
-        if (target == null) {
-            return false;
-        } else {
-            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        menu.getItem(0).setVisible(false);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.settings:
-                startActivity(new Intent(Profile_form.this, Setting.class));
-                finish();
-                break;
-            case R.id.info:
-                startActivity(new Intent(Profile_form.this, About_Jellow.class));
-                finish();
-                break;
-            case R.id.feedback:
-                startActivity(new Intent(Profile_form.this, Feedback.class));
-                finish();
-                break;
-            case R.id.usage:
-                startActivity(new Intent(Profile_form.this, Tutorial.class));
-                finish();
-                break;
-            case R.id.reset:
-                startActivity(new Intent(Profile_form.this, Reset__preferences.class));
-                finish();
-                break;
-            case android.R.id.home:
-                startActivity(new Intent(Profile_form.this, MainActivity.class));
-                break;
-            case R.id.keyboardinput:
-                startActivity(new Intent(Profile_form.this, Keyboard_Input.class));
-                finish();
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
+            case R.id.info: startActivity(new Intent(Profile_form.this, About_Jellow.class));   finish(); break;
+            case R.id.usage: startActivity(new Intent(Profile_form.this, Tutorial.class)); finish(); break;
+            case R.id.keyboardinput: startActivity(new Intent(Profile_form.this, Keyboard_Input.class)); finish(); break;
+            case R.id.feedback: startActivity(new Intent(Profile_form.this, Feedback.class)); finish(); break;
+            case R.id.reset: startActivity(new Intent(Profile_form.this, Reset__preferences.class)); finish(); break;
+            case R.id.settings: startActivity(new Intent(Profile_form.this, Setting.class)); finish(); break;
+            case android.R.id.home: finish(); break;
+            default: return super.onOptionsItemSelected(item);
         }
         return true;
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            startActivity(new Intent(Profile_form.this, MainActivity.class));
-            finish();
-            return true;
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+    public static boolean isValidEmail(CharSequence target) {
+        if (target == null) {
+            return false;
+        } else {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
         }
-        return super.onKeyDown(keyCode, event);
     }
 }
-

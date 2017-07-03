@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -112,68 +111,46 @@ public class Setting extends AppCompatActivity {
                     case 1: setLocale(new Locale(getString(R.string.locale_lang_hi),getString(R.string.locale_reg_IN))); break;
                 }
                 Toast.makeText(Setting.this, getString(R.string.savedSettingsMessage), Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(Setting.this, MainActivity.class));
+                Intent intent = new  Intent(Setting.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
                 finish();
             }
         });
-    }
-
-    private void setLocale(Locale locale) {
-        Configuration conf = getResources().getConfiguration();
-        conf.locale = locale;
-        getResources().updateConfiguration(conf, getResources().getDisplayMetrics());
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        menu.getItem(6).setVisible(false);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.info:
-                startActivity(new Intent(Setting.this, About_Jellow.class));
-                finish();
-                break;
-            case R.id.profile:
-                startActivity(new Intent(Setting.this, Profile_form.class));
-                finish();
-                break;
-            case R.id.feedback:
-                startActivity(new Intent(Setting.this, Feedback.class));
-                finish();
-                break;
-            case R.id.usage:
-                startActivity(new Intent(Setting.this, Tutorial.class));
-                finish();
-                break;
-            case R.id.reset:
-                startActivity(new Intent(Setting.this, Reset__preferences.class));
-                finish();
-                break;
-            case R.id.keyboardinput:
-                startActivity(new Intent(Setting.this, Keyboard_Input.class));
-                finish();
-                break;
-            case android.R.id.home:
-                startActivity(new Intent(Setting.this, MainActivity.class));
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
+            case R.id.profile: startActivity(new Intent(Setting.this, Profile_form.class)); finish(); break;
+            case R.id.info: startActivity(new Intent(Setting.this, About_Jellow.class));   finish(); break;
+            case R.id.usage: startActivity(new Intent(Setting.this, Tutorial.class)); finish(); break;
+            case R.id.keyboardinput: startActivity(new Intent(Setting.this, Keyboard_Input.class)); finish(); break;
+            case R.id.feedback: startActivity(new Intent(Setting.this, Feedback.class)); finish(); break;
+            case R.id.reset: startActivity(new Intent(Setting.this, Reset__preferences.class)); finish(); break;
+            case android.R.id.home: finish(); break;
+            default: return super.onOptionsItemSelected(item);
         }
         return true;
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            startActivity(new Intent(Setting.this, MainActivity.class));
-            finish();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+    private void setLocale(Locale locale) {
+        Configuration conf = getResources().getConfiguration();
+        conf.locale = locale;
+        getResources().updateConfiguration(conf, getResources().getDisplayMetrics());
     }
 }

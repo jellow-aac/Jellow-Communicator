@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +15,6 @@ import com.dsource.idc.jellow.Utility.SessionManager;
 /**
  * Created by ekalpa on 15-Jun-16.
  **/
-
 public class Reset__preferences extends AppCompatActivity {
     private SessionManager mSession;
     private DataBaseHelper myDbHelper;
@@ -53,7 +51,6 @@ public class Reset__preferences extends AppCompatActivity {
         mNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Reset__preferences.this, MainActivity.class));
                 finish();
             }
         });
@@ -64,7 +61,9 @@ public class Reset__preferences extends AppCompatActivity {
             Toast.makeText(Reset__preferences.this, getString(R.string.iconsHasBeenReset), Toast.LENGTH_SHORT).show();
             myDbHelper.delete();
             mSession.resetUserPeoplePlacesPreferences();
-            startActivity(new Intent(Reset__preferences.this, MainActivity.class));
+            Intent intent = new Intent(Reset__preferences.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
             finish();
             }
         });
@@ -74,52 +73,29 @@ public class Reset__preferences extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        menu.getItem(7).setVisible(false);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.settings:
-                startActivity(new Intent(Reset__preferences.this, Setting.class));
-                finish();
-                break;
-            case R.id.info:
-                startActivity(new Intent(Reset__preferences.this, About_Jellow.class));
-                finish();
-                break;
-            case R.id.profile:
-                startActivity(new Intent(Reset__preferences.this, Profile_form.class));
-                finish();
-                break;
-            case R.id.feedback:
-                startActivity(new Intent(Reset__preferences.this, Feedback.class));
-                finish();
-                break;
-            case R.id.usage:
-                startActivity(new Intent(Reset__preferences.this, Tutorial.class));
-                finish();
-                break;
-            case android.R.id.home:
-                startActivity(new Intent(Reset__preferences.this, MainActivity.class));
-                break;
-            case R.id.keyboardinput:
-                startActivity(new Intent(Reset__preferences.this, Keyboard_Input.class));
-                finish();
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
+            case R.id.profile: startActivity(new Intent(Reset__preferences.this, Profile_form.class)); finish(); break;
+            case R.id.info: startActivity(new Intent(Reset__preferences.this, About_Jellow.class));   finish(); break;
+            case R.id.usage: startActivity(new Intent(Reset__preferences.this, Tutorial.class)); finish(); break;
+            case R.id.keyboardinput: startActivity(new Intent(Reset__preferences.this, Keyboard_Input.class)); finish(); break;
+            case R.id.feedback: startActivity(new Intent(Reset__preferences.this, Feedback.class)); finish(); break;
+            case R.id.settings: startActivity(new Intent(Reset__preferences.this, Setting.class)); finish(); break;
+            case R.id.reset: startActivity(new Intent(Reset__preferences.this, Reset__preferences.class)); finish(); break;
+            case android.R.id.home: finish(); break;
+            default: return super.onOptionsItemSelected(item);
         }
         return true;
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            startActivity(new Intent(Reset__preferences.this, MainActivity.class));
-            finish();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

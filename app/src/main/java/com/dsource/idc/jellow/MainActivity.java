@@ -27,8 +27,6 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import static com.dsource.idc.jellow.R.id.reset;
-
 public class MainActivity extends AppCompatActivity {
     private final boolean DISABLE_ACTION_BTNS = true;
 
@@ -451,9 +449,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.settings:
-                startActivity(new Intent(this, Setting.class));
-                break;
             case R.id.info:
                 startActivity(new Intent(this, About_Jellow.class));
                 break;
@@ -466,11 +461,14 @@ public class MainActivity extends AppCompatActivity {
             case R.id.usage:
                 startActivity(new Intent(this, Tutorial.class));
                 break;
-            case reset:
-                startActivity(new Intent(this, Reset__preferences.class));
-                break;
             case R.id.keyboardinput:
                 startActivity(new Intent(this, Keyboard_Input.class));
+                break;
+            case R.id.settings:
+                startActivity(new Intent(this, Setting.class));
+                break;
+            case R.id.reset:
+                startActivity(new Intent(this, Reset__preferences.class));
                 break;
             default:
                 return super.onOptionsItemSelected(item);

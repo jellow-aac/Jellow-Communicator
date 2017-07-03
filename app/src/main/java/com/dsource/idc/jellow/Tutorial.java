@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -15,7 +14,6 @@ import com.dsource.idc.jellow.Utility.SessionManager;
 /**
  * Created by user on 6/6/2016.
  */
-
 public class Tutorial extends AppCompatActivity {
 
     TextView tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8, tv9, tv10, tv11, tv12, tv13, tv14;
@@ -98,55 +96,28 @@ public class Tutorial extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        menu.getItem(2).setVisible(false);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.settings:
-                startActivity(new Intent(Tutorial.this, Setting.class));
-                finish();
-                break;
-            case R.id.info:
-                startActivity(new Intent(Tutorial.this, About_Jellow.class));
-                finish();
-                break;
-            case R.id.profile:
-                startActivity(new Intent(Tutorial.this, Profile_form.class));
-                finish();
-                break;
-            case R.id.feedback:
-                startActivity(new Intent(Tutorial.this, Feedback.class));
-                finish();
-                break;
-            case R.id.reset:
-                startActivity(new Intent(Tutorial.this, Reset__preferences.class));
-                finish();
-                break;
-            case R.id.keyboardinput:
-                startActivity(new Intent(Tutorial.this, Keyboard_Input.class));
-                finish();
-                break;
-            case android.R.id.home:
-                startActivity(new Intent(Tutorial.this, MainActivity.class));
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
+            case R.id.profile: startActivity(new Intent(Tutorial.this, Profile_form.class)); finish(); break;
+            case R.id.info: startActivity(new Intent(Tutorial.this, About_Jellow.class));   finish(); break;
+            case R.id.keyboardinput: startActivity(new Intent(Tutorial.this, Keyboard_Input.class)); finish(); break;
+            case R.id.feedback: startActivity(new Intent(Tutorial.this, Feedback.class)); finish(); break;
+            case R.id.settings: startActivity(new Intent(Tutorial.this, Setting.class)); finish(); break;
+            case R.id.reset: startActivity(new Intent(Tutorial.this, Reset__preferences.class)); finish(); break;
+            case android.R.id.home: finish(); break;
+            default: return super.onOptionsItemSelected(item);
         }
         return true;
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            startActivity(new Intent(Tutorial.this, MainActivity.class));
-            finish();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }
-
-
-
