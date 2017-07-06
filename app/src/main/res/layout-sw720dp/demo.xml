@@ -37,12 +37,9 @@
                     android:id="@+id/easy_to_use"
                     android:layout_width="244dp"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="15dp"
                     android:layout_marginLeft="10dp"
                     android:numStars="5"
-                    android:progressBackgroundTint="#ffcc14"
-                    android:progressTint="#ffcc14"
-                    android:secondaryProgressTint="#ffcc14" />
+                    android:theme="@style/RatingBar" />
                 <TextView
                     android:id="@+id/tv2"
                     android:layout_width="match_parent"
@@ -57,12 +54,9 @@
                     android:id="@+id/pictures"
                     android:layout_width="244dp"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="15dp"
                     android:layout_marginLeft="10dp"
                     android:numStars="5"
-                    android:progressBackgroundTint="#ffcc14"
-                    android:progressTint="#ffcc14"
-                    android:secondaryProgressTint="#ffcc14" />
+                    android:theme="@style/RatingBar" />
                 <TextView
                     android:id="@+id/tv3"
                     android:layout_width="match_parent"
@@ -77,12 +71,9 @@
                     android:id="@+id/voice"
                     android:layout_width="244dp"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="15dp"
                     android:layout_marginLeft="10dp"
                     android:numStars="5"
-                    android:progressBackgroundTint="#ffcc14"
-                    android:progressTint="#ffcc14"
-                    android:secondaryProgressTint="#ffcc14" />
+                    android:theme="@style/RatingBar"/>
                 <TextView
                     android:id="@+id/tv4"
                     android:layout_width="match_parent"
@@ -97,12 +88,9 @@
                     android:id="@+id/navigate"
                     android:layout_width="244dp"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="15dp"
                     android:layout_marginLeft="10dp"
                     android:numStars="5"
-                    android:progressBackgroundTint="#ffcc14"
-                    android:progressTint="#ffcc14"
-                    android:secondaryProgressTint="#ffcc14" />
+                    android:theme="@style/RatingBar"/>
                 <TextView
                     android:id="@+id/tv5"
                     android:layout_width="match_parent"

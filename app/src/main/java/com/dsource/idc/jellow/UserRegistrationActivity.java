@@ -3,7 +3,6 @@ package com.dsource.idc.jellow;
 /**
  * Created by user on 5/25/2016.
  */
-
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -33,7 +32,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SharedPreferences extends AppCompatActivity {
+public class UserRegistrationActivity extends AppCompatActivity {
+    final int LANG_ENGLISH = 0, GRID_3BY3 = 1;
     private Button bRegister;
     private EditText etName, etEmergencyContact, etEmailId;
     private SessionManager mSession;
@@ -53,17 +53,6 @@ public class SharedPreferences extends AppCompatActivity {
         bRegister.setEnabled(true);
         mSession = new SessionManager(this);
 
-        /*final MainActivity mainActivity = new MainActivity();
-        mainActivity.mTts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if(status != TextToSpeech.ERROR) {
-                    mainActivity.mTts.setEngineByPackageName("com.google.android.mTts");
-                    mainActivity.mTts.setLanguage(new Locale("hin", "IND"));
-                }
-            }
-        });*/
-
         etName.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override public void afterTextChanged(Editable s) {}
@@ -80,9 +69,8 @@ public class SharedPreferences extends AppCompatActivity {
             }
         });
 
-        if (mSession.isLoggedIn()) {
-            // User is already logged in. Take him to main activity
-            startActivity(new Intent(this, Intro.class));
+        if (mSession.isUserLoggedIn()) {
+            startActivity(new Intent(this, Splash.class));
             finish();
         }
 
@@ -107,7 +95,7 @@ public class SharedPreferences extends AppCompatActivity {
                     } else
                         Toast.makeText(getApplicationContext(), getString(R.string.invalidContactNumber), Toast.LENGTH_SHORT).show();
                 }else
-                    Toast.makeText(SharedPreferences.this, getString(R.string.enterTheName), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserRegistrationActivity.this, getString(R.string.enterTheName), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -129,34 +117,29 @@ public class SharedPreferences extends AppCompatActivity {
                 try {
                     JSONObject jObj = new JSONObject(response);
                     boolean error = jObj.getBoolean("error");
-                   // Check for error node in json
                     if (!error) {
-                        //register
                         bRegister.setEnabled(false);
-                        mSession.setLogin(true);
-                        startActivity(new Intent(SharedPreferences.this, Intro.class));
+                        mSession.setUserLoggedIn(true);
+                        mSession.setLanguage(LANG_ENGLISH);
+                        mSession.setGridSize(GRID_3BY3);
+                        startActivity(new Intent(UserRegistrationActivity.this, Intro.class));
                         finish();
                     } else {
-                        // Error in login. Get the error message
-                        //register
                         bRegister.setEnabled(true);
                         String errorMsg = jObj.getString("error_msg");
-                        Toast.makeText(SharedPreferences.this, errorMsg, Toast.LENGTH_LONG).show();
+                        Toast.makeText(UserRegistrationActivity.this, errorMsg, Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
-                    // JSON error
-                    //register
                     bRegister.setEnabled(true);
                     e.printStackTrace();
-                    Toast.makeText(SharedPreferences.this, "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(UserRegistrationActivity.this, "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                //register
                 bRegister.setEnabled(true);
-                Toast.makeText(SharedPreferences.this, getString(R.string.checkInternetConn) , Toast.LENGTH_LONG).show();
+                Toast.makeText(UserRegistrationActivity.this, getString(R.string.checkInternetConn) , Toast.LENGTH_LONG).show();
             }
         }) {
             @Override

@@ -3,7 +3,6 @@ package com.dsource.idc.jellow;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.Menu;
@@ -22,7 +21,6 @@ import java.util.Locale;
 
 public class Setting extends AppCompatActivity {
     private Spinner mSpinnerLanguage, mSpinnerViewMode, mSpinnerGridSize;
-    private TextToSpeech mTts;
     private SessionManager mSession;
     private TextView mTxtViewSpeechSpeed, mTxtViewVoicePitch;
     private Slider mSliderSpeed, mSliderPitch;
@@ -32,7 +30,7 @@ public class Setting extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+ getString(R.string.action_settings)+"</font>"));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.action_settings)+"</font>"));
         mSession = new SessionManager(this);
 
         if (mSession.getScreenHeight() >= 600)
@@ -60,32 +58,19 @@ public class Setting extends AppCompatActivity {
         mSpinnerViewMode.setSelection(mSession.getPictureViewMode());
         mSpinnerGridSize.setSelection(mSession.getGridSize());
 
-        mTts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if(status != TextToSpeech.ERROR) {
-                    mTts.setEngineByPackageName("com.google.android.tts");
-                    if (mTts.getLanguage().getLanguage().equals("eng"))
-                        mTts.setLanguage(Locale.US);
-                    else
-                        mTts.setLanguage(new Locale("hin", "IND"));
-                }
-            }
-        });
-
-        mTts.setPitch((float) mSliderPitch.getValue()/50);
+        setSpeechPitch((float) mSliderPitch.getValue()/50);
 
         btnDemo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mTts.speak(getString(R.string.demoTtsSpeech), TextToSpeech.QUEUE_FLUSH, null);
+                speakSpeech(getString(R.string.demoTtsSpeech));
             }
         });
 
         mSliderSpeed.setOnPositionChangeListener(new Slider.OnPositionChangeListener() {
             @Override
             public void onPositionChanged(Slider view, boolean fromUser, float oldPos, float newPos, int oldValue, int newValue) {
-                mTts.setSpeechRate((float) newValue / 50);
+                setSpeechRate((float) newValue / 50);
                 mTxtViewSpeechSpeed.setText(getString(R.string.txtSpeechSpeed).concat(": " + String.valueOf((float) newValue / 50)));
             }
         });
@@ -93,7 +78,7 @@ public class Setting extends AppCompatActivity {
         mSliderPitch.setOnPositionChangeListener(new Slider.OnPositionChangeListener() {
             @Override
             public void onPositionChanged(Slider view, boolean fromUser, float oldPos, float newPos, int oldValue, int newValue) {
-                mTts.setPitch((float) newValue / 50);
+                setSpeechPitch((float) newValue / 50);
                 mTxtViewVoicePitch.setText(getString(R.string.txtVoiceSpeech).concat(": " + String.valueOf((float) newValue / 50)));
             }
         });
@@ -111,7 +96,7 @@ public class Setting extends AppCompatActivity {
                     case 1: setLocale(new Locale(getString(R.string.locale_lang_hi),getString(R.string.locale_reg_IN))); break;
                 }
                 Toast.makeText(Setting.this, getString(R.string.savedSettingsMessage), Toast.LENGTH_SHORT).show();
-                Intent intent = new  Intent(Setting.this, MainActivity.class);
+                Intent intent = new  Intent(Setting.this, Splash.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
@@ -130,12 +115,12 @@ public class Setting extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.profile: startActivity(new Intent(Setting.this, Profile_form.class)); finish(); break;
-            case R.id.info: startActivity(new Intent(Setting.this, About_Jellow.class));   finish(); break;
+            case R.id.profile: startActivity(new Intent(Setting.this, ProfileForm.class)); finish(); break;
+            case R.id.info: startActivity(new Intent(Setting.this, AboutJellow.class));   finish(); break;
             case R.id.usage: startActivity(new Intent(Setting.this, Tutorial.class)); finish(); break;
-            case R.id.keyboardinput: startActivity(new Intent(Setting.this, Keyboard_Input.class)); finish(); break;
+            case R.id.keyboardinput: startActivity(new Intent(Setting.this, KeyboardInput.class)); finish(); break;
             case R.id.feedback: startActivity(new Intent(Setting.this, Feedback.class)); finish(); break;
-            case R.id.reset: startActivity(new Intent(Setting.this, Reset__preferences.class)); finish(); break;
+            case R.id.reset: startActivity(new Intent(Setting.this, ResetPreferences.class)); finish(); break;
             case android.R.id.home: finish(); break;
             default: return super.onOptionsItemSelected(item);
         }
@@ -152,5 +137,23 @@ public class Setting extends AppCompatActivity {
         Configuration conf = getResources().getConfiguration();
         conf.locale = locale;
         getResources().updateConfiguration(conf, getResources().getDisplayMetrics());
+    }
+
+    private void speakSpeech(String speechText){
+        Intent intent = new Intent("com.dsource.idc.jellow.SPEECH_TEXT");
+        intent.putExtra("speechText", speechText);
+        sendBroadcast(intent);
+    }
+
+    private void setSpeechRate(float speechRate){
+        Intent intent = new Intent("com.dsource.idc.jellow.SPEECH_SPEED");
+        intent.putExtra("speechSpeed", speechRate);
+        sendBroadcast(intent);
+    }
+
+    private void setSpeechPitch(float speechPitch){
+        Intent intent = new Intent("com.dsource.idc.jellow.SPEECH_PITCH");
+        intent.putExtra("speechPitch", speechPitch);
+        sendBroadcast(intent);
     }
 }

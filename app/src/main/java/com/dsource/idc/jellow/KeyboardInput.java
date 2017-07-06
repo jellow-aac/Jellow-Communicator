@@ -17,7 +17,7 @@ import com.dsource.idc.jellow.Utility.SessionManager;
 /**
  * Created by user on 5/27/2016.
  */
-public class Keyboard_Input extends AppCompatActivity {
+public class KeyboardInput extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class Keyboard_Input extends AppCompatActivity {
             public void onClick(View v) {
                 Intent installIntent = new Intent();
                 installIntent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
-                installIntent.setPackage("com.google.android.mtts");
+                installIntent.setPackage("com.google.android.tts");
                 startActivity(installIntent);
             }
         });
@@ -81,7 +81,7 @@ public class Keyboard_Input extends AppCompatActivity {
             public void onClick(View v) {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.showInputMethodPicker();
-                startActivity(new Intent(Keyboard_Input.this, MainActivity.class));
+                startActivity(new Intent(KeyboardInput.this, MainActivity.class));
                 finish();
             }
         });
@@ -98,12 +98,12 @@ public class Keyboard_Input extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.profile: startActivity(new Intent(Keyboard_Input.this, Profile_form.class)); finish(); break;
-            case R.id.info: startActivity(new Intent(Keyboard_Input.this, About_Jellow.class));   finish(); break;
-            case R.id.usage: startActivity(new Intent(Keyboard_Input.this, Tutorial.class)); finish(); break;
-            case R.id.feedback: startActivity(new Intent(Keyboard_Input.this, Feedback.class)); finish(); break;
-            case R.id.settings: startActivity(new Intent(Keyboard_Input.this, Setting.class)); finish(); break;
-            case R.id.reset: startActivity(new Intent(Keyboard_Input.this, Reset__preferences.class)); finish(); break;
+            case R.id.profile: startActivity(new Intent(KeyboardInput.this, ProfileForm.class)); finish(); break;
+            case R.id.info: startActivity(new Intent(KeyboardInput.this, AboutJellow.class));   finish(); break;
+            case R.id.usage: startActivity(new Intent(KeyboardInput.this, Tutorial.class)); finish(); break;
+            case R.id.feedback: startActivity(new Intent(KeyboardInput.this, Feedback.class)); finish(); break;
+            case R.id.settings: startActivity(new Intent(KeyboardInput.this, Setting.class)); finish(); break;
+            case R.id.reset: startActivity(new Intent(KeyboardInput.this, ResetPreferences.class)); finish(); break;
             case android.R.id.home: finish(); break;
             default: return super.onOptionsItemSelected(item);
         }

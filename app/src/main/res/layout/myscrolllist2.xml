@@ -15,8 +15,7 @@
         android:id="@+id/te1"
         android:layout_width="168dp"
         android:layout_height="wrap_content"
-        android:text="TIME AND WEATHER"
+        android:text="festivals &amp; hodidays"
         android:textAlignment="center"
-        android:singleLine="true"
-        android:textAllCaps="true"/>
+        android:singleLine="true"/>
 </LinearLayout>

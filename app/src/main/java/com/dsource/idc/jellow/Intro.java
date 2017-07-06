@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
-import android.widget.Toast;
 
 import com.dsource.idc.jellow.Utility.SessionManager;
 import com.github.paolorotolo.appintro.AppIntro;
@@ -19,8 +18,8 @@ public class Intro extends AppIntro {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mSession = new SessionManager(getApplicationContext());
+
         // Add your slide's fragments here.
         // AppIntro will automatically generate the dots indicator and buttons.
         addSlide(SampleSlide.newInstance(R.layout.intro));
@@ -32,11 +31,7 @@ public class Intro extends AppIntro {
         addSlide(SampleSlide.newInstance(R.layout.intro7));
 
         //if the mSession is logged in: then directly go to the main activity
-        if (mSession.isLoggedIn1()) {
-            startActivity(new Intent(this, Splash.class));
-            finish();
-            Toast.makeText(Intro.this, getString(R.string.appLoading), Toast.LENGTH_LONG).show();
-        }
+
         // addSlide(new InputDemoSlide());
         // Instead of fragments, you can also use our default slide
         // Just set a title, description, background and image. AppIntro will do the rest.
@@ -79,12 +74,10 @@ public class Intro extends AppIntro {
     @Override
     public void onSlideChanged(@Nullable Fragment oldFragment, @Nullable Fragment newFragment) {
         super.onSlideChanged(oldFragment, newFragment);
-        // Do something when the slide changes.
     }
 
     public void getStarted(View view) {
         //set boolean true on getting started
-        mSession.setLogin1(true);
         startActivity(new Intent(Intro.this, Splash.class));
         finish();
     }

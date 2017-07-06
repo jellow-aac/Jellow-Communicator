@@ -117,4 +117,75 @@
     <string name="no">no</string>
     <string name="iconsHasBeenReset">Preferences have been reset.</string>
     <string name="checkInternetConn">Please check internet connection and try again</string>
+    <string name="about_jellow">
+        <![CDATA[
+        <body bgcolor="#F7F3C6">
+<h2><strong>General Information</strong></h2>
+<ul style="list-style-type: disc;">
+<li>Jellow is a communicator using icons to enable speech and can be used by those learning to speak or those who have difficulty with speech.<br /><br /></li>
+<li>It is developed at IDC School of Design at the Indian Institute of Technology Bombay located in Mumbai.<br /><br /></li>
+<li>A novel Visual Emotional Language Proto call or VELP was conceived and developed by the project investigators in order to enhance the language ability of Jellow. VELP represents the 6 expressive icons that form the core of the interface.<br /><br /></li>
+<li>Using these core icons, the child can communicate their likes, dislikes, and needs with others.<br /><br /></li>
+<li>Jellow is conceived as children-friendly with an easy-to-learn interface.</li>
+<li>The application is optimized for Android tablets.<br /><br /></li>
+<li>Jellow is currently available in English and Hindi.<br /><br /></li>
+</ul>
+<h2><strong>Software Version: 5.0</strong></h2>
+<ul style="list-style-type: disc;">
+<li>The current version of Jellow is 5.0. The application is under further development. Therefore, if you have any suggestions for us, please submit it under the feedback tab.</li>
+</ul>
+<h2><strong>Terms of Use</strong></h2>
+<ul style="list-style-type: disc;">
+<li>Jellow is licensed under a Creative Commons Attribution Non-commercial Share Alike 4.0 International License.<br/><br/></li>
+<li>Work on Jellow is attributed to the Indian Institute of Technology Bombay.<br/><br/></li>
+<li>The content in this application comprising icons, layout, architecture, visual identity, translation, and the software codes can be shared and adopted but cannot be used for commercial purposes.<br/><br/></li>
+<li>When the content is used, we request you to acknowledge Indian Institute of Technology Bombay.<br/><br/></li>
+<li>Jellow is available for download at <a href="http://www.dsource.in/tools/jellow">www.dsource.in/tools/jellow</a><br/><br/></li>
+<li>If interested in further developing the code, please write to Professor Ravi Poovaiah at <span style="color: #ff6600;"><a href="mailto:ravi@iitb.ac.in">ravi@iitb.ac.in</a></span><br/><br/></li>
+</ul>
+<h2><strong>Credits:</strong></h2>
+<ul style="list-style-type: disc;">
+<li><strong><strong> Project Investigation, Conception, and Supervision:&nbsp;</strong></strong></li>
+Prof. Ravi Poovaiah and Dr. Ajanta Sen&nbsp;</ul>
+<ul style="list-style-type: disc;">
+<li><strong>Initial Concept Development :&nbsp;</strong></li>
+Anchal Kumar, Samraat Sardesai, Peter Joseph, Antara Hazarika</ul>
+<ul style="list-style-type: disc;">
+<li><strong>Software Development: </strong></li>
+Sumeet Agrawal, Roop Sahoo, Shruti Gupta, Aastha Joshi, Rahul Rupchand Jidge, Dhairya Dand, Pritam Pebam</ul>
+<ul style="list-style-type: disc;">
+<li><strong>Website Design:</strong></li>
+Prof. Ravi Poovaiah, Yogesh Masaye, Sumedh Garud, Roop Sahoo</ul>
+<ul style="list-style-type: disc;">
+<li><strong>Icons and Visual Design:</strong></li>
+Vinaya Tawde, Anisha Malhotra, Nikita Iyer, Ganesh Gajjela</ul>
+<ul style="list-style-type: disc;">
+<li><strong>Translation:</strong></li>
+Sachin Sonawane, Dr. Sudha Srinivasan</ul>
+<ul style="list-style-type: disc;">
+<li><strong>Research, Vocabulary Development, and User Studies:</strong></li>
+Dr. Sudha Srinivasan</ul>
+<ul style="list-style-type: disc;">
+<li><strong>Support:</strong></li>
+&nbsp;E-kalpa project sponsored under NMEICT by MHRD and Microsoft Design Expo 2004</ul>
+</body>
+]]>
+    </string>
+    <string name="speak">Speak</string>
+    <string name="stop">Stop</string>
+    <string name="about_jellow_speech">Jellow is a communicator using icons to enable speech and can be used by those learning to speak or those who have difficulty with speech. It is developed at IDC School of Design at the Indian Institute of Technology Bombay located in Mumbai. A novel Visual Emotional Language Proto call or VELP was conceived and developed by the project investigators in order to enhance the language ability of Jellow. VELP represents the 6 expressive icons that form the core of the interface. Using these core icons, the child can communicate their likes, dislikes, and needs with others. Jellow is conceived as children-friendly with an easy-to-learn interface. The application is optimized for Android tablets.Jellow is currently available in English and Hindi. The current version of Jellow is 4.1. The application is under further development. Therefore, if you have any suggestions for us, please submit it under the feedback tab.  Jellow is licensed under a Creative Commons Attribution Non-commercial Share Alike 4.0 International License. Work on Jellow is attributed to the Indian Institute of Technology Bombay. The content in this application comprising icons, layout, architecture, visual identity, translation, and the software codes can be shared and adopted but cannot be used for commercial purposes. When the content is used, we request you to acknowledge Indian Institute of Technology Bombay. Jellow is available for download at www dot d source.in/tools/jellow. If interested in further developing the code, please write to Professor Ravi Poovaiah at ravi @ i i t b dot a c.in</string>
+    <string name="catBtnDesc">Jellow has 9 central category buttons and 6 expressive side buttons:</string>
+    <string name="catBtn">Category buttons:</string>
+    <string name="expBtn">Expressive buttons:</string>
+    <string name="jellowUsageDesc">To speak using Jellow, the user first clicks on any category button and then on an expressive button in that order. For instance, Jellow will say, “I want to eat” using the selection below:</string>
+    <string name="jellowUsageSubCat">By double-clicking on a category button, the user can access further sub-categories:</string>
+    <string name="levelOneCat">Level 1 categories:</string>
+    <string name="levelTwoCat">Level 2 categories:</string>
+    <string name="levelThreeCat">Level 3 options:</string>
+    <string name="settingDesc">The user can customize their profile and adjust the basic voice settings of the application by clicking on the top right corner of the screen:</string>
+    <string name="seqActDesc">Jellow can also be used to teach children sequential steps of daily activities. By clicking on any individual step, the user may view the expressive buttons:</string>
+    <string name="toiletSeq">Toilet sequence:</string>
+    <string name="expBtnSeq">Expressive buttons in the sequence:</string>
+    <string name="ttsDesc">To use Jellow, please activate <b>\'Google text-to-speech (TTS)\'</b> within <b>\'Language\'</b> settings of your device. Within Google TTS settings first change the <b>default language</b> to <b>\'Hindi (India)\'</b> and then <b>download \'Hindi (India)\' voice</b> through the <b>\'Install voice data\'</b> option</string>
+    <string name="softwareVersion">Software version: </string>
 </resources>

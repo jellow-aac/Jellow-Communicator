@@ -17,14 +17,14 @@ import com.dsource.idc.jellow.Utility.SessionManager;
 /**
  * Created by HP on 22/01/2017.
  */
-class Adapter_ppl_places extends android.support.v7.widget.RecyclerView.Adapter<Adapter_ppl_places.MyViewHolder> {
+class AdapterPeoplePlaces extends android.support.v7.widget.RecyclerView.Adapter<AdapterPeoplePlaces.MyViewHolder> {
     private Context mContext;
     private SessionManager mSession;
     private EvaluateDisplayMetricsUtils mMetricsUtils;
     private Integer[] mThumbIds = new Integer[100];
     private String[] belowText = new String[100];
 
-    Adapter_ppl_places(Context context, String[] temp, Integer[] image_temp) {
+    AdapterPeoplePlaces(Context context, String[] temp, Integer[] image_temp) {
         mContext = context;
         mSession = new SessionManager(mContext);
         mMetricsUtils = new EvaluateDisplayMetricsUtils(mContext);
@@ -33,9 +33,9 @@ class Adapter_ppl_places extends android.support.v7.widget.RecyclerView.Adapter<
     }
 
     @Override
-    public Adapter_ppl_places.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public AdapterPeoplePlaces.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.myscrolllist2, parent, false);
-        return new Adapter_ppl_places.MyViewHolder(rowView);
+        return new AdapterPeoplePlaces.MyViewHolder(rowView);
     }
 
     @Override
@@ -89,8 +89,6 @@ class Adapter_ppl_places extends android.support.v7.widget.RecyclerView.Adapter<
             holder.menuItemBelowText.setVisibility(View.INVISIBLE);
         holder.menuItemLinearLayout.setLayoutParams(params);
         holder.menuItemBelowText.setText(belowText[position]);
-
-        holder.menuItemBelowText.setText(belowText[position]);
         holder.menuItemImage.setImageResource(mThumbIds[position]);
         holder.menuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {}
@@ -118,7 +116,7 @@ class Adapter_ppl_places extends android.support.v7.widget.RecyclerView.Adapter<
             menuItemLinearLayout = (LinearLayout) view.findViewById(R.id.linearlayout_icon1);
             menuItemBelowText = (TextView) view.findViewById(R.id.te1);
             Typeface font = Typeface.createFromAsset(mContext.getAssets(), "fonts/Mukta-Regular.ttf");
-            menuItemBelowText.setTypeface(font);
+            menuItemBelowText.setTypeface(font,  Typeface.BOLD);
             menuItemBelowText.setTextColor(Color.rgb(64, 64, 64));
         }
     }

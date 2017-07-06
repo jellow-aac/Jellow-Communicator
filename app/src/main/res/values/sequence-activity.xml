@@ -73,7 +73,7 @@
         <item>toilet</item>
         <item>bathing</item>
         <item>\tmorning routine</item>
-        <item>\tbedtime routine</item>
+        <item>\tbed time routine</item>
     </string-array>
 
     <string-array name="arrSeqActivityNavigationText">

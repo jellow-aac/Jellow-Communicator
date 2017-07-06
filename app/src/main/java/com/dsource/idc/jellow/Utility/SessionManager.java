@@ -38,22 +38,22 @@ public class SessionManager {
         mEditor = mPreferences.edit();
     }
 
-    public void setLogin(boolean isLoggedIn) {
+    public void setUserLoggedIn(boolean isLoggedIn) {
         storePreferenceKeyWithValue(Boolean.class.toString(), KEY_IS_LOGGEDIN, isLoggedIn);
     }
 
-    public boolean isLoggedIn(){
+    public boolean isUserLoggedIn(){
         return (Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(), KEY_IS_LOGGEDIN);
     }
 
     //another login for swipe
-    public void setLogin1(boolean isLoggedIn1) {
+    /*public void setIntroduction(boolean isLoggedIn1) {
         storePreferenceKeyWithValue(Boolean.class.toString(), KEY_IS_LOGGEDIN1, isLoggedIn1);
     }
 
     public boolean isLoggedIn1(){
         return (Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(), KEY_IS_LOGGEDIN1);
-    }
+    }*/
 
 
     public void setBlood(int bloodGroup) {

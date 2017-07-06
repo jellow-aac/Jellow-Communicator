@@ -3,15 +3,12 @@ package com.dsource.idc.jellow;
 import android.content.Context;
 import android.content.Intent;
 import android.database.SQLException;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.KeyListener;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,7 +25,6 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.StringTokenizer;
 
 public class Layer3Activity extends AppCompatActivity {
@@ -39,7 +35,6 @@ public class Layer3Activity extends AppCompatActivity {
     private ImageView like, dislike, add, minus, yes, no, home, keyboard, ttsButton, back;
     private EditText et;
     private KeyListener originalKeyListener;
-    private TextToSpeech mTts;
     private RecyclerView mRecyclerView;
     private LinearLayout mMenuItemLinearLayout;
     private String[] myMusic;
@@ -47,13 +42,11 @@ public class Layer3Activity extends AppCompatActivity {
     private int mLevelOneItemPos, mLevelTwoItemPos, mLevelThreeItemPos = -1, mSelectedItemAdapterPos = -1;
     private boolean mShouldReadFullSpeech = false;
     private ArrayList<View> mRecyclerItemsViewList;
-    private SessionManager mSession;
     private Integer[] count = new Integer[100];
     private int[] sort = new int[100];
     private int count_flag = 0;
     private DataBaseHelper myDbHelper;
-    private String[] side = new String[100];
-    private String[] below = new String[100];
+    private String[] side, below;
     private ArrayList<ArrayList<ArrayList <ArrayList <String>>>> mVerbTxt;
     private UserDataMeasure mUserDataMeasure;
 
@@ -65,7 +58,6 @@ public class Layer3Activity extends AppCompatActivity {
         getSupportActionBar().setTitle(getIntent().getExtras().getString("selectedMenuItemPath"));
         getSupportActionBar().setElevation(0);
         myDbHelper = new DataBaseHelper(this);
-        mSession = new SessionManager(this);
         mUserDataMeasure = new UserDataMeasure(this);
         mUserDataMeasure.recordScreen(getLocalClassName());
         more_count = 0;
@@ -85,19 +77,6 @@ public class Layer3Activity extends AppCompatActivity {
 
         mRecyclerItemsViewList = new ArrayList<>(100);
         while(mRecyclerItemsViewList.size() <= 100) mRecyclerItemsViewList.add(null);
-
-        mTts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if (status != TextToSpeech.ERROR) {
-                    mTts.setEngineByPackageName("com.google.android.tts");
-                    new BackgroundSpeechOperationsAsync().execute("");
-                }
-            }
-        });
-        mTts.setSpeechRate((float) mSession.getSpeed() / 50);
-        mTts.setPitch((float) mSession.getPitch() / 50);
-        myMusic = new String[100];
         like = (ImageView) findViewById(R.id.ivlike);
         dislike = (ImageView) findViewById(R.id.ivdislike);
         add = (ImageView) findViewById(R.id.ivadd);
@@ -140,34 +119,7 @@ public class Layer3Activity extends AppCompatActivity {
                                 speakSpeech(myMusic[sort[mLevelThreeItemPos]]);
 
                             incrementTouchCountOfItem(mLevelThreeItemPos);
-                            if(mLevelOneItemPos == 0 && mLevelTwoItemPos == 1){
-                                int tmp = sort[mLevelThreeItemPos];
-                                if(tmp == 0){
-                                    no.setAlpha(0.5f);
-                                    no.setEnabled(false);
-                                    yes.setAlpha(1f);
-                                    yes.setEnabled(true);
-                                } else if (tmp == 1 || tmp == 2 || tmp == 3 || tmp == 5 || tmp == 6 || tmp == 7 || tmp == 8 || tmp == 9 || tmp == 10 || tmp == 11 || tmp == 12 || tmp == 15 || tmp == 16) {
-                                    yes.setAlpha(0.5f);
-                                    yes.setEnabled(false);
-                                    no.setAlpha(1f);
-                                    no.setEnabled(true);
-                                } else
-                                    changeTheActionButtons(!DISABLE_ACTION_BTNS);
-                            }else if(mLevelOneItemPos == 0 && (mLevelTwoItemPos == 0 || mLevelTwoItemPos == 2 || mLevelTwoItemPos == 3))
-                                changeTheActionButtons(DISABLE_ACTION_BTNS);
-                            else if(mLevelOneItemPos == 1 && mLevelTwoItemPos == 3){
-                                int tmp = sort[mLevelThreeItemPos];
-                                if (tmp == 34 || tmp == 35 || tmp == 36 || tmp == 37)
-                                    changeTheActionButtons(DISABLE_ACTION_BTNS);
-                                else
-                                    changeTheActionButtons(!DISABLE_ACTION_BTNS);
-                            } else if (mLevelOneItemPos == 7 && (mLevelTwoItemPos == 0 || mLevelTwoItemPos == 1 || mLevelTwoItemPos == 2 || mLevelTwoItemPos == 3 || mLevelTwoItemPos == 4)) {
-                                if (mLevelThreeItemPos == 0)
-                                    changeTheActionButtons(DISABLE_ACTION_BTNS);
-                                else
-                                    changeTheActionButtons(!DISABLE_ACTION_BTNS);
-                            }
+                            retainExpressiveButtonStates();
                             mUserDataMeasure.reportLog(getLocalClassName()+", "+
                                     mLevelOneItemPos+", "+ mLevelTwoItemPos +", "+ mLevelThreeItemPos, Log.INFO);
                         }
@@ -210,23 +162,44 @@ public class Layer3Activity extends AppCompatActivity {
             for (int j = 0; j < count.length; j++)
                 sort[j] = indexes[j];
             myMusic_function(mLevelOneItemPos, mLevelTwoItemPos);
-            mRecyclerView.setAdapter(new Layer_three_Adapter(this, mLevelOneItemPos, mLevelTwoItemPos, sort));
+            mRecyclerView.setAdapter(new LayerThreeAdapter(this, mLevelOneItemPos, mLevelTwoItemPos, sort));
         } else if ((mLevelOneItemPos == 3 && (mLevelTwoItemPos == 3 || mLevelTwoItemPos == 4)) || (mLevelOneItemPos == 7 && (mLevelTwoItemPos == 0 || mLevelTwoItemPos == 1 || mLevelTwoItemPos == 2 || mLevelTwoItemPos == 3 || mLevelTwoItemPos == 4))) {
             myMusic_function(mLevelOneItemPos, mLevelTwoItemPos);
-            mRecyclerView.setAdapter(new Layer_three_Adapter(this, mLevelOneItemPos, mLevelTwoItemPos, sort));
+            mRecyclerView.setAdapter(new LayerThreeAdapter(this, mLevelOneItemPos, mLevelTwoItemPos, sort));
         } else {
             count_flag = 0;
             myMusic_function(mLevelOneItemPos, mLevelTwoItemPos);
         }
 
+        back.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                speakSpeech(below[1]);
+                back.setImageResource(R.drawable.backpressed);
+                if (flag_keyboard == 1) {
+                    keyboard.setImageResource(R.drawable.keyboard_button);
+                    back.setImageResource(R.drawable.back_button);
+                    et.setVisibility(View.INVISIBLE);
+                    mRecyclerView.setVisibility(View.VISIBLE);
+                    ttsButton.setVisibility(View.INVISIBLE);
+                    flag_keyboard = 0;
+                    retainExpressiveButtonStates();
+                } else if (more_count > 0) {
+                    more_count -= 1;
+                    myMusic_function(mLevelOneItemPos, mLevelTwoItemPos);
+                    mRecyclerView.setAdapter(new LayerThreeAdapter(Layer3Activity.this, mLevelOneItemPos, mLevelTwoItemPos, sort));
+                } else {
+                    back.setImageResource(R.drawable.backpressed);
+                    finish();
+                }
+            }
+        });
+
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 home.setImageResource(R.drawable.homepressed);
+                keyboard.setImageResource(R.drawable.keyboard_button);
                 speakSpeech(below[0]);
-                more_count = 0;
-                mShouldReadFullSpeech = false;
-                image_flag = -1;
                 Intent intent = new Intent(Layer3Activity.this, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
@@ -244,10 +217,9 @@ public class Layer3Activity extends AppCompatActivity {
                     mRecyclerView.setVisibility(View.VISIBLE);
                     ttsButton.setVisibility(View.INVISIBLE);
                     flag_keyboard = 0;
-                    changeTheActionButtons(!DISABLE_ACTION_BTNS);
+                    retainExpressiveButtonStates();
                 } else {
                     keyboard.setImageResource(R.drawable.keyboardpressed);
-                    back.setImageResource(R.drawable.backpressed);
                     et.setVisibility(View.VISIBLE);
                     et.setKeyListener(originalKeyListener);
                     // Focus to the field.
@@ -264,10 +236,7 @@ public class Layer3Activity extends AppCompatActivity {
 
         ttsButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    mTts.setSpeechRate((float) mSession.getSpeed() / 50);
-                    mTts.setPitch((float) mSession.getPitch() / 50);
-                    String s1 = et.getText().toString();
-                    speakSpeech(s1);
+                    speakSpeech(et.getText().toString());
                     mUserDataMeasure.reportLog(getLocalClassName()+", TtsSpeak", Log.INFO);
                     like.setEnabled(false);
                     dislike.setEnabled(false);
@@ -292,28 +261,6 @@ public class Layer3Activity extends AppCompatActivity {
             }
         });
 
-        back.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                speakSpeech(below[1]);
-                back.setImageResource(R.drawable.backpressed);
-                if (flag_keyboard == 1) {
-                    keyboard.setImageResource(R.drawable.keyboard_button);
-                    back.setImageResource(R.drawable.back_button);
-                    et.setVisibility(View.INVISIBLE);
-                    mRecyclerView.setVisibility(View.VISIBLE);
-                    ttsButton.setVisibility(View.INVISIBLE);
-                    flag_keyboard = 0;
-                    changeTheActionButtons(!DISABLE_ACTION_BTNS);
-                } else if (more_count > 0) {
-                    more_count -= 1;
-                    myMusic_function(mLevelOneItemPos, mLevelTwoItemPos);
-                    mRecyclerView.setAdapter(new Layer_three_Adapter(Layer3Activity.this, mLevelOneItemPos, mLevelTwoItemPos, sort));
-                } else {
-                    back.setImageResource(R.drawable.backpressed);
-                    finish();
-                }
-            }
-        });
 
         like.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -548,40 +495,28 @@ public class Layer3Activity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.settings:
-                startActivity(new Intent(this, Setting.class));
-                break;
-            case R.id.info:
-                startActivity(new Intent(this, About_Jellow.class));
-                break;
-            case R.id.profile:
-                startActivity(new Intent(this, Profile_form.class));
-                break;
-            case R.id.feedback:
-                startActivity(new Intent(this, Feedback.class));
-                break;
-            case R.id.usage:
-                startActivity(new Intent(this, Tutorial.class));
-                break;
-            case R.id.reset:
-                startActivity(new Intent(this, Reset__preferences.class));
-                break;
-            case R.id.keyboardinput:
-                startActivity(new Intent(this, Keyboard_Input.class));
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
+            case R.id.profile: startActivity(new Intent(this, ProfileForm.class)); break;
+            case R.id.info: startActivity(new Intent(this, AboutJellow.class)); break;
+            case R.id.usage: startActivity(new Intent(this, Tutorial.class)); break;
+            case R.id.keyboardinput: startActivity(new Intent(this, KeyboardInput.class)); break;
+            case R.id.feedback: startActivity(new Intent(this, Feedback.class)); break;
+            case R.id.settings: startActivity(new Intent(this, Setting.class)); break;
+            case R.id.reset: startActivity(new Intent(this, ResetPreferences.class)); break;
+            default: return super.onOptionsItemSelected(item);
         }
         return true;
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            finish();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+    private void speakSpeech(String speechText){
+        Intent intent = new Intent("com.dsource.idc.jellow.SPEECH_TEXT");
+        intent.putExtra("speechText", speechText);
+        sendBroadcast(intent);
     }
 
     private void loadArraysFromResources() {
@@ -591,6 +526,38 @@ public class Layer3Activity extends AppCompatActivity {
         String str = getResources().getString(R.string.levelThreeVerbiage);
         LevelThreeVerbiageModel mLevelThreeVerbiageModel = new Gson().fromJson(str, LevelThreeVerbiageModel.class);
         mVerbTxt = mLevelThreeVerbiageModel.getVerbiageModel();
+    }
+
+    private void retainExpressiveButtonStates() {
+        if(mLevelOneItemPos == 0 && mLevelTwoItemPos == 1){
+            int tmp = sort[mLevelThreeItemPos];
+            if(tmp == 0){
+                no.setAlpha(0.5f);
+                no.setEnabled(false);
+                yes.setAlpha(1f);
+                yes.setEnabled(true);
+            } else if (tmp == 1 || tmp == 2 || tmp == 3 || tmp == 5 || tmp == 6 || tmp == 7 || tmp == 8 || tmp == 9 || tmp == 10 || tmp == 11 || tmp == 12 || tmp == 15 || tmp == 16) {
+                yes.setAlpha(0.5f);
+                yes.setEnabled(false);
+                no.setAlpha(1f);
+                no.setEnabled(true);
+            } else
+                changeTheActionButtons(!DISABLE_ACTION_BTNS);
+        }else if(mLevelOneItemPos == 0 && (mLevelTwoItemPos == 0 || mLevelTwoItemPos == 2 || mLevelTwoItemPos == 3))
+            changeTheActionButtons(DISABLE_ACTION_BTNS);
+        else if(mLevelOneItemPos == 1 && mLevelTwoItemPos == 3){
+            int tmp = sort[mLevelThreeItemPos];
+            if (tmp == 34 || tmp == 35 || tmp == 36 || tmp == 37)
+                changeTheActionButtons(DISABLE_ACTION_BTNS);
+            else
+                changeTheActionButtons(!DISABLE_ACTION_BTNS);
+        } else if (mLevelOneItemPos == 7 && (mLevelTwoItemPos == 0 || mLevelTwoItemPos == 1 || mLevelTwoItemPos == 2 || mLevelTwoItemPos == 3 || mLevelTwoItemPos == 4)) {
+            if (mLevelThreeItemPos == 0)
+                changeTheActionButtons(DISABLE_ACTION_BTNS);
+            else
+                changeTheActionButtons(!DISABLE_ACTION_BTNS);
+        }else
+            changeTheActionButtons(!DISABLE_ACTION_BTNS);
     }
 
     private void changeTheActionButtons(boolean setDisable) {
@@ -789,23 +756,4 @@ public class Layer3Activity extends AppCompatActivity {
             }
         }
     }
-
-    private void speakSpeech(String speechText){
-        mTts.speak(speechText, TextToSpeech.QUEUE_FLUSH, null);
-    }
-
-    private class BackgroundSpeechOperationsAsync extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... params) {
-            try {
-                mTts.setLanguage(new Locale("eng", "IND"));
-            } catch (Exception e) {
-                mUserDataMeasure.reportException(e);
-                mUserDataMeasure.reportLog("Failed to set language.", Log.ERROR);
-            }
-            return "Executed";
-        }
-    }
 }
-
-

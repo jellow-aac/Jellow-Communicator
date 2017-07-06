@@ -22,11 +22,6 @@
             android:id="@+id/feedback"
             android:title="@string/menuFeedback"
             app:showAsAction="never"/>
-        <item
-            android:actionLayout="@layout/about_jellow"
-            android:title="@string/saveAsDefault"
-            app:showAsAction="never">
-        </item>
     </group>
     <group android:id="@+id/menuGroupSettings">
         <item

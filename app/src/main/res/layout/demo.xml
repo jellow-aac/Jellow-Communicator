@@ -11,124 +11,139 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_weight=".169">
+
         <ScrollView
             android:id="@+id/scrollView2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="false"
-            android:fadeScrollbars="false"
             android:layout_marginRight="30dp"
+            android:fadeScrollbars="false"
+            android:fillViewport="false"
             android:paddingBottom="20dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/tv1"
                     android:layout_width="match_parent"
                     android:layout_height="22dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/easyToUse"
-                    android:paddingLeft="13dp"
                     android:layout_marginTop="10dp"
+                    android:paddingLeft="13dp"
+                    android:text="@string/easyToUse"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="#000000"
-                    android:textSize="14dp"/>
+                    android:textSize="14dp" />
+
                 <RatingBar
                     android:id="@+id/easy_to_use"
-                    android:layout_width="244dp"
-                    android:layout_height="50dp"
-                    android:numStars="5"
-                    android:progressBackgroundTint="#ffcc14"
-                    android:progressTint="#ffcc14"
-                    android:secondaryProgressTint="#ffcc14"
-                    android:layout_marginTop="-14dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="-38dp"
+                    android:layout_marginTop="-14dp"
+                    android:numStars="5"
+                    style="?android:attr/ratingBarStyleIndicator"
+                    android:theme="@style/RatingBar"
                     android:scaleX="0.6"
                     android:scaleY="0.6"/>
+
                 <TextView
                     android:id="@+id/tv2"
                     android:layout_width="match_parent"
                     android:layout_height="22dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/clearPictures"
-                    android:paddingLeft="13dp"
                     android:layout_marginTop="-2dp"
+                    android:paddingLeft="13dp"
+                    android:text="@string/clearPictures"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="#000000"
-                    android:textSize="14dp"/>
+                    android:textSize="14dp" />
+
                 <RatingBar
                     android:id="@+id/pictures"
-                    android:layout_width="244dp"
-                    android:layout_height="50dp"
-                    android:numStars="5"
-                    android:progressBackgroundTint="#ffcc14"
-                    android:progressTint="#ffcc14"
-                    android:secondaryProgressTint="#ffcc14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="-38dp"
+                    android:layout_marginTop="-14dp"
+                    android:numStars="5"
                     android:scaleX="0.6"
                     android:scaleY="0.6"
-                    android:layout_marginTop="-14dp"/>
+                    style="?android:attr/ratingBarStyleIndicator"
+                    android:theme="@style/RatingBar"/>
+
                 <TextView
                     android:id="@+id/tv3"
                     android:layout_width="match_parent"
                     android:layout_height="22dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/clearVoice"
-                    android:paddingLeft="13dp"
                     android:layout_marginTop="-2dp"
+                    android:paddingLeft="13dp"
+                    android:text="@string/clearVoice"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="#000000"
-                    android:textSize="14dp"/>
+                    android:textSize="14dp" />
+
                 <RatingBar
                     android:id="@+id/voice"
-                    android:layout_width="244dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:numStars="5"
-                    android:progressBackgroundTint="#ffcc14"
-                    android:progressTint="#ffcc14"
-                    android:secondaryProgressTint="#ffcc14"
                     android:layout_marginLeft="-38dp"
+                    android:layout_marginTop="-14dp"
+                    android:numStars="5"
                     android:scaleX="0.6"
                     android:scaleY="0.6"
-                    android:layout_marginTop="-14dp"/>
+                    style="?android:attr/ratingBarStyleIndicator"
+                    android:theme="@style/RatingBar"/>
+
                 <TextView
                     android:id="@+id/tv4"
                     android:layout_width="175dp"
                     android:layout_height="22dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/easyToNavigate"
-                    android:paddingLeft="13dp"
                     android:layout_marginTop="-2dp"
+                    android:paddingLeft="13dp"
+                    android:text="@string/easyToNavigate"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="#000000"
-                    android:textSize="14dp"/>
+                    android:textSize="14dp" />
+
                 <RatingBar
                     android:id="@+id/navigate"
-                    android:layout_width="244dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:numStars="5"
-                    android:progressBackgroundTint="#ffcc14"
-                    android:progressTint="#ffcc14"
-                    android:secondaryProgressTint="#ffcc14"
                     android:layout_marginLeft="-38dp"
+                    android:layout_marginTop="-14dp"
+                    android:numStars="5"
                     android:scaleX="0.6"
                     android:scaleY="0.6"
-                    android:layout_marginTop="-14dp"/>
+                    style="?android:attr/ratingBarStyleIndicator"
+                    android:theme="@style/RatingBar"/>
+
                 <TextView
                     android:id="@+id/tv5"
                     android:layout_width="248dp"
                     android:layout_height="30dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/commentSuggestions"
                     android:paddingLeft="13dp"
+                    android:text="@string/commentSuggestions"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="#000000"
-                    android:textSize="14dp"/>
-                <EditText
-                    android:id="@+id/comments"
+                    android:textSize="14dp" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputComments"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textMultiLine"
-                    android:ems="10"
-                    android:paddingLeft="15dp"
-                    android:textSize="22dp"/>
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/comments"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="@string/commentSuggestions"
+                        android:inputType="textMultiLine"
+                        android:textSize="22dp" />
+
+                </android.support.design.widget.TextInputLayout>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

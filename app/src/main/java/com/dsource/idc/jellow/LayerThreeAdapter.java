@@ -20,14 +20,14 @@ import java.util.Arrays;
 /**
  * Created by Sumeet on 19-04-2016.
  */
-class Layer_three_Adapter extends android.support.v7.widget.RecyclerView.Adapter<Layer_three_Adapter.MyViewHolder>{
+class LayerThreeAdapter extends android.support.v7.widget.RecyclerView.Adapter<LayerThreeAdapter.MyViewHolder>{
     private Context mContext;
     private SessionManager mSession;
     private EvaluateDisplayMetricsUtils mMetricsUtils;
     private Integer[] mThumbIds = new Integer[100];
     private String[] belowText = new String[100];
 
-    Layer_three_Adapter(Context context, int levelOneItemPos, int levelTwoItemPos, int sort[]){
+    LayerThreeAdapter(Context context, int levelOneItemPos, int levelTwoItemPos, int sort[]){
         mContext = context;
         mSession = new SessionManager(mContext);
         mMetricsUtils = new EvaluateDisplayMetricsUtils(mContext);
@@ -35,9 +35,9 @@ class Layer_three_Adapter extends android.support.v7.widget.RecyclerView.Adapter
     }
 
     @Override
-    public Layer_three_Adapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public LayerThreeAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View rowView =  LayoutInflater.from(parent.getContext()).inflate(R.layout.myscrolllist2, parent, false);
-        return new Layer_three_Adapter.MyViewHolder(rowView);
+        return new LayerThreeAdapter.MyViewHolder(rowView);
     }
 
     @Override

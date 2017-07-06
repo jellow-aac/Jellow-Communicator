@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 
 import com.dsource.idc.jellow.Utility.EvaluateDisplayMetricsUtils;
+import com.dsource.idc.jellow.Utility.JellowTTSService;
 import com.dsource.idc.jellow.Utility.SessionManager;
 
 import java.util.Locale;
@@ -15,30 +16,21 @@ import java.util.Locale;
 /**
  * Created by ekalpa on 7/12/2016.
  */
-
 public class Splash extends AppCompatActivity {
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
+        getSupportActionBar().hide();
+        startService(new Intent(this, JellowTTSService.class));
         PlayGifView pGif = (PlayGifView) findViewById(R.id.viewGif);
         pGif.setImageResource(R.drawable.jellow_j);
+        setLocale(new Locale(getString(R.string.locale_lang_hi),getString(R.string.locale_reg_IN)));
+
         if((new SessionManager(this).getLanguage()) == 0)
             setLocale(Locale.US);
         else
             setLocale(new Locale(getString(R.string.locale_lang_hi),getString(R.string.locale_reg_IN)));
-
-        /*final MainActivity mainActivity = new MainActivity();
-        mainActivity.mTts=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if(status != TextToSpeech.ERROR) {
-                    mainActivity.mTts.setEngineByPackageName("com.google.android.tts");
-                    mainActivity.mTts.setLanguage(new Locale("hin", "IND"));
-                }
-            }
-        });*/
 
         new CountDownTimer(7000, 1) {
             public void onTick(long millisUntilFinished) {}

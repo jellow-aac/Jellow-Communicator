@@ -24,7 +24,7 @@ import android.widget.Toast;
 
 import com.dsource.idc.jellow.Utility.SessionManager;
 
-public class Profile_form extends AppCompatActivity {
+public class ProfileForm extends AppCompatActivity {
     private Button bSave;
     private EditText etName, etFatherContact, etFathername, etAddress, etEmailId;
     private SessionManager mSession;
@@ -100,14 +100,14 @@ public class Profile_form extends AppCompatActivity {
                             mSession.setName(etName.getText().toString());
                             mSession.setFather_no(etFatherContact.getText().toString());
                             mSession.setEmailId(email);
-                            Toast.makeText(Profile_form.this, getString(R.string.detailSaved), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ProfileForm.this, getString(R.string.detailSaved), Toast.LENGTH_SHORT).show();
                             finish();
                         } else
                             Toast.makeText(getApplicationContext(), getString(R.string.invalid_emailId), Toast.LENGTH_SHORT).show();
                     } else
                         Toast.makeText(getApplicationContext(), getString(R.string.invalidContactNumber), Toast.LENGTH_SHORT).show();
                 }else
-                    Toast.makeText(Profile_form.this, getString(R.string.enterTheName), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProfileForm.this, getString(R.string.enterTheName), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -123,12 +123,12 @@ public class Profile_form extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.info: startActivity(new Intent(Profile_form.this, About_Jellow.class));   finish(); break;
-            case R.id.usage: startActivity(new Intent(Profile_form.this, Tutorial.class)); finish(); break;
-            case R.id.keyboardinput: startActivity(new Intent(Profile_form.this, Keyboard_Input.class)); finish(); break;
-            case R.id.feedback: startActivity(new Intent(Profile_form.this, Feedback.class)); finish(); break;
-            case R.id.reset: startActivity(new Intent(Profile_form.this, Reset__preferences.class)); finish(); break;
-            case R.id.settings: startActivity(new Intent(Profile_form.this, Setting.class)); finish(); break;
+            case R.id.info: startActivity(new Intent(ProfileForm.this, AboutJellow.class));   finish(); break;
+            case R.id.usage: startActivity(new Intent(ProfileForm.this, Tutorial.class)); finish(); break;
+            case R.id.keyboardinput: startActivity(new Intent(ProfileForm.this, KeyboardInput.class)); finish(); break;
+            case R.id.feedback: startActivity(new Intent(ProfileForm.this, Feedback.class)); finish(); break;
+            case R.id.reset: startActivity(new Intent(ProfileForm.this, ResetPreferences.class)); finish(); break;
+            case R.id.settings: startActivity(new Intent(ProfileForm.this, Setting.class)); finish(); break;
             case android.R.id.home: finish(); break;
             default: return super.onOptionsItemSelected(item);
         }

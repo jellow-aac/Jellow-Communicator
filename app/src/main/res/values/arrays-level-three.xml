@@ -21,7 +21,7 @@
         <item>Sad</item>
         <item>Angry</item>
         <item>afraid</item>
-        <item>Surprised</item>
+        <item>Amazed</item>
         <item>Irritated</item>
         <item>Confused</item>
         <item>Ashamed</item>
@@ -143,7 +143,7 @@
         <item>I need help putting on clothes</item>
     </string-array>
     <string-array name="arrLevelThreeDailyActGetReadySpeechText">
-        <item>Comb है र</item>
+        <item>Comb hair</item>
         <item>Face wash</item>
         <item>Cut nails</item>
         <item>Blow nose</item>
@@ -246,7 +246,7 @@
         <item>Icecream</item>
         <item>Gajar halva</item>
         <item>Gulab jamun</item>
-        <item>Lud doo</item>
+        <item>Luddoo</item>
         <item>Barfi</item>
         <item>Jalebi</item>
         <item>Fruit salad</item>
@@ -275,7 +275,7 @@
         <item>Blueberry</item>
         <item>Pomegranate</item>
         <item>Watermelon</item>
-        <item>pear</item>
+        <item>pare</item>
         <item>Papaya</item>
         <item>Muskmelon</item>
         <item>Chikoo</item>
@@ -803,7 +803,7 @@
         <item>Change leggings</item>
         <item>Change slacks</item>
         <item>Change shorts</item>
-        <item>Change innerwearF</item>
+        <item>Change innerwear</item>
         <item>Change footwear</item>
         <item>Change shoes</item>
         <item>Change socks</item>
@@ -899,8 +899,8 @@
         <item>Upma</item>
         <item>Khichdi</item>
         <item>Idli</item>
-        <item>Dosaa</item>
-        <item>Paraathaa</item>
+        <item>Dosa</item>
+        <item>Paratha</item>
         <item>Omlette</item>
         <item>Medu wada</item>
         <item>Porridge</item>
@@ -938,7 +938,7 @@
         <item>Icecream</item>
         <item>Gajar halwa</item>
         <item>Gulab jamun</item>
-        <item>Luddoo</item>
+        <item>Laddoo</item>
         <item>Barfi</item>
         <item>Jalebi</item>
         <item>Fruit salad</item>
@@ -967,7 +967,7 @@
         <item>Blueberry</item>
         <item>Pomegranate</item>
         <item>Watermelon</item>
-        <item>Pear</item>
+        <item>Pare</item>
         <item>Papaya</item>
         <item>Muskmelon</item>
         <item>Chikoo</item>
@@ -1117,7 +1117,7 @@
         <item>Horse</item>
         <item>Deer</item>
         <item>Owl</item>
-        <item>wolf</item>
+        <item>W0olf</item>
         <item>Fox</item>
         <item>Bear</item>
         <item>Sheep</item>
@@ -1371,17 +1371,17 @@
     </string-array>
     <string-array name="arrLevelThreeTimeWeaBirthdaysAdapterText">
         <item>My birthday</item>
-        <item>Mom\’s birthday</item>
-        <item>Father\’s birthday</item>
-        <item>Brother\’s birthday</item>
-        <item>Sister\’s birthday</item>
-        <item>Friend\’s birthday</item>
-        <item>Grandmother\’s birthday</item>
-        <item>Grandfather\’s birthday</item>
-        <item>Uncle\’s birthday</item>
-        <item>Aunt\’s birthday</item>
-        <item>Cousin\’s birthday</item>
-        <item>Teacher\’s birthday</item>
+        <item>Mom\'s birthday</item>
+        <item>Father\'s birthday</item>
+        <item>Brother\'s birthday</item>
+        <item>Sister\'s birthday</item>
+        <item>Friend\'s birthday</item>
+        <item>Grandma\'s birthday</item>
+        <item>Grandpa\'s birthday</item>
+        <item>Uncle\'s birthday</item>
+        <item>Aunt\'s birthday</item>
+        <item>Cousin\'s birthday</item>
+        <item>Teacher\'s birthday</item>
     </string-array>
 
 <!--LEVEL THREE ADAPTER DRAWABLE ARE HERE-->

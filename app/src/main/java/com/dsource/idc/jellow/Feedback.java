@@ -58,12 +58,12 @@ public class Feedback extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.profile: startActivity(new Intent(Feedback.this, Profile_form.class)); finish(); break;
-            case R.id.info: startActivity(new Intent(Feedback.this, About_Jellow.class)); finish(); break;
+            case R.id.profile: startActivity(new Intent(Feedback.this, ProfileForm.class)); finish(); break;
+            case R.id.info: startActivity(new Intent(Feedback.this, AboutJellow.class)); finish(); break;
             case R.id.usage: startActivity(new Intent(Feedback.this, Tutorial.class)); finish(); break;
-            case R.id.keyboardinput: startActivity(new Intent(Feedback.this, Keyboard_Input.class)); finish(); break;
+            case R.id.keyboardinput: startActivity(new Intent(Feedback.this, KeyboardInput.class)); finish(); break;
             case R.id.settings: startActivity(new Intent(Feedback.this, Setting.class)); finish(); break;
-            case R.id.reset: startActivity(new Intent(Feedback.this, Reset__preferences.class)); finish(); break;
+            case R.id.reset: startActivity(new Intent(Feedback.this, ResetPreferences.class)); finish(); break;
             case android.R.id.home: finish(); break;
             default: return super.onOptionsItemSelected(item);
         }

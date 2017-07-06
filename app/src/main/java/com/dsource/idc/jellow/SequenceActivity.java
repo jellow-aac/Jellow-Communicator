@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.KeyListener;
 import android.util.Log;
@@ -27,19 +25,18 @@ import com.dsource.idc.jellow.Utility.UserDataMeasure;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 /**
  * Created by ekalpa on 6/22/2016.
  */
-public class Sequence_Activity extends AppCompatActivity {
+public class SequenceActivity extends AppCompatActivity {
     private final boolean DISABLE_ACTION_BTNS = true;
     private int mCk = 0, mCy = 0, mCm = 0, mCd = 0, mCn = 0, mCl = 0;
-    private int image_flag = -1, flag_keyboard = 0, mLevelTwoItemPos;
+    private int image_flag = -1, flag_keyboard = 0, mLevelTwoItemPos,
+            sr, bw, count = 0;
     private ImageView like, dislike, add, minus, yes, no, home, keyboard, ttsButton;
     private EditText et;
     private KeyListener originalKeyListener;
-    private TextToSpeech mTts;
     private int[] mColor;
     private TextView tt1, bt1, bt2, bt3;
     private CircularImageView image1, image2, image3;
@@ -51,7 +48,6 @@ public class Sequence_Activity extends AppCompatActivity {
     private String strNext, strPrevious;
     private String[] mDailyActivitiesSpeechText, mDailyActivitiesBelowText, heading, side, below, bt;
     private ArrayList<ArrayList<ArrayList<String>>> mSeqActSpeech;
-    private int sr, bw, count = 0;
     private SessionManager mSession;
     private UserDataMeasure mUserDataMeasure;
 
@@ -59,9 +55,8 @@ public class Sequence_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
-        getSupportActionBar().setElevation(0);
+        getSupportActionBar().setTitle(getIntent().getExtras().getString("selectedMenuItemPath"));
         Typeface fontMuktaRegular = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/Mukta-Regular.ttf");
         Typeface fontMuktaBold = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/Mukta-Bold.ttf");
         mSession = new SessionManager(this);
@@ -76,18 +71,6 @@ public class Sequence_Activity extends AppCompatActivity {
             bw = Integer.valueOf(strSrBw.split(",")[1]);
         }
         loadArraysFromResources();
-        mTts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if (status != TextToSpeech.ERROR) {
-                    mTts.setEngineByPackageName("com.google.android.tts");
-                    new BackgroundSpeechOperationsAsync().execute("");
-                }
-            }
-        });
-
-        mTts.setSpeechRate((float) mSession.getSpeed() / 50);
-        mTts.setPitch((float) mSession.getPitch() / 50);
         initializeViews();
         forward.setText(bt[1]);
         backward.setText(bt[0]);
@@ -96,8 +79,9 @@ public class Sequence_Activity extends AppCompatActivity {
         et.setVisibility(View.INVISIBLE);
 
         tt1.setTypeface(fontMuktaBold);
+        tt1.setAllCaps(true);
         tt1.setTextColor(Color.rgb(64, 64, 64));
-        tt1.setText(/*getSmallCapsString(*/heading[mLevelTwoItemPos].toLowerCase())/*)*/;
+        tt1.setText(heading[mLevelTwoItemPos].toLowerCase());
 
         bt1.setTypeface(fontMuktaRegular);
         bt1.setTextColor(Color.rgb(64, 64, 64));
@@ -282,37 +266,35 @@ public class Sequence_Activity extends AppCompatActivity {
         // Set it to null - this will make the field non-editable
         et.setKeyListener(null);
 
-        back.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
-                        speakSpeech(below[1]);
-                        if (flag_keyboard == 1) {
-                            keyboard.setImageResource(R.drawable.keyboard_button);
-                            back.setImageResource(R.drawable.back_button);
-                            et.setVisibility(View.INVISIBLE);
-                            linear.setVisibility(View.VISIBLE);
-                            ttsButton.setVisibility(View.INVISIBLE);
-                            flag_keyboard = 0;
-                            changeTheActionButtons(!DISABLE_ACTION_BTNS);
-                            forward.setVisibility(View.VISIBLE);
-                            backward.setVisibility(View.VISIBLE);
-                        } else {
-                            count = 0;
-                            image_flag = 0;
-                            back.setImageResource(R.drawable.backpressed);
-                            finish();
-                        }
-                    }
-                });
+        back.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                speakSpeech(below[1]);
+                if (flag_keyboard == 1) {
+                    keyboard.setImageResource(R.drawable.keyboard_button);
+                    back.setImageResource(R.drawable.back_button);
+                    et.setVisibility(View.INVISIBLE);
+                    linear.setVisibility(View.VISIBLE);
+                    ttsButton.setVisibility(View.INVISIBLE);
+                    image_flag = flag_keyboard = 0;
+                    changeTheActionButtons(!DISABLE_ACTION_BTNS);
+                    forward.setVisibility(View.VISIBLE);
+                    backward.setVisibility(View.VISIBLE);
+                } else {
+                    back.setImageResource(R.drawable.backpressed);
+                    finish();
+                }
+            }
+        });
 
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                speakSpeech(below[0]);
-                count = 0;
-                image_flag = 0;
                 home.setImageResource(R.drawable.homepressed);
-                startActivity(new Intent(Sequence_Activity.this, MainActivity.class));
+                keyboard.setImageResource(R.drawable.keyboard_button);
+                speakSpeech(below[0]);
+                Intent intent = new Intent(SequenceActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
 
@@ -332,7 +314,6 @@ public class Sequence_Activity extends AppCompatActivity {
                     forward.setVisibility(View.VISIBLE);
                 } else {
                     keyboard.setImageResource(R.drawable.keyboardpressed);
-                    back.setImageResource(R.drawable.backpressed);
                     et.setVisibility(View.VISIBLE);
                     et.setKeyListener(originalKeyListener);
                     // Focus the field.
@@ -351,8 +332,6 @@ public class Sequence_Activity extends AppCompatActivity {
 
         ttsButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    mTts.setSpeechRate((float) mSession.getSpeed() / 50);
-                    mTts.setPitch((float) mSession.getPitch() / 50);
                     speakSpeech(et.getText().toString());
                     mUserDataMeasure.reportLog(getLocalClassName()+", TtsSpeak: ", Log.INFO);
                     hideActionBtn(true);
@@ -563,31 +542,22 @@ public class Sequence_Activity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.settings:
-                startActivity(new Intent(this, Setting.class));
-                break;
-            case R.id.info:
-                startActivity(new Intent(this, About_Jellow.class));
-                break;
-            case R.id.profile:
-                startActivity(new Intent(this, Profile_form.class));
-                break;
-            case R.id.feedback:
-                startActivity(new Intent(this, Feedback.class));
-                break;
-            case R.id.usage:
-                startActivity(new Intent(this, Tutorial.class));
-                break;
-            case R.id.reset:
-                startActivity(new Intent(this, Reset__preferences.class));
-                break;
-            case R.id.keyboardinput:
-                startActivity(new Intent(this, Keyboard_Input.class));
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
+            case R.id.profile: startActivity(new Intent(this, ProfileForm.class)); break;
+            case R.id.info: startActivity(new Intent(this, AboutJellow.class)); break;
+            case R.id.usage: startActivity(new Intent(this, Tutorial.class)); break;
+            case R.id.keyboardinput: startActivity(new Intent(this, KeyboardInput.class)); break;
+            case R.id.feedback: startActivity(new Intent(this, Feedback.class)); break;
+            case R.id.settings: startActivity(new Intent(this, Setting.class)); break;
+            case R.id.reset: startActivity(new Intent(this, ResetPreferences.class)); break;
+            default: return super.onOptionsItemSelected(item);
         }
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 
     private void initializeViews() {
@@ -614,6 +584,12 @@ public class Sequence_Activity extends AppCompatActivity {
 
         arrow1 = (ImageView) findViewById(R.id.arrow1);
         arrow2 = (ImageView) findViewById(R.id.arrow2);
+    }
+
+    private void speakSpeech(String speechText){
+        Intent intent = new Intent("com.dsource.idc.jellow.SPEECH_TEXT");
+        intent.putExtra("speechText", speechText);
+        sendBroadcast(intent);
     }
 
     private void loadArraysFromResources() {
@@ -743,22 +719,15 @@ public class Sequence_Activity extends AppCompatActivity {
             image3.setShadowRadius(sr);
             image3.setBorderWidth(bw);
         }
-    }
-
-    private void speakSpeech(String speechText){
-        mTts.speak(speechText, TextToSpeech.QUEUE_FLUSH, null);
-    }
-
-    private class BackgroundSpeechOperationsAsync extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... params) {
-            try {
-                mTts.setLanguage(new Locale("hin", "IND"));
-            } catch (Exception e) {
-                new UserDataMeasure(Sequence_Activity.this).reportException(e);
-                new UserDataMeasure(Sequence_Activity.this).reportLog("Failed to set language.", Log.ERROR);
-            }
-            return "Executed";
+        switch (actionBtnIdx){
+            case 0: like.setImageResource(R.drawable.ilikewithoutline); break;
+            case 1: dislike.setImageResource(R.drawable.idontlikewithoutline); break;
+            case 2: yes.setImageResource(R.drawable.iwantwithoutline); break;
+            case 3: no.setImageResource(R.drawable.idontwantwithoutline); break;
+            case 4: add.setImageResource(R.drawable.morewithoutline); break;
+            case 5: minus.setImageResource(R.drawable.lesswithoutline); break;
+            case 6: home.setImageResource(R.drawable.homepressed); break;
+            default: break;
         }
     }
 }

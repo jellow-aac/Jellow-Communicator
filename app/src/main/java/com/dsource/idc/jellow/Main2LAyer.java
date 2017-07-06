@@ -3,15 +3,12 @@ package com.dsource.idc.jellow;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.KeyListener;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,7 +27,6 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Locale;
 import java.util.StringTokenizer;
 
 public class Main2LAyer extends AppCompatActivity {
@@ -47,7 +43,6 @@ public class Main2LAyer extends AppCompatActivity {
     private int mLevelOneItemPos, mLevelTwoItemPos = -1, mSelectedItemAdapterPos = -1;
     private boolean mShouldReadFullSpeech = false;
     private ArrayList<View> mRecyclerItemsViewList;
-    private TextToSpeech mTts;
     private UserDataMeasure userDataMeasure;
     private String mActionBarTitle;
     private SessionManager mSession;
@@ -87,21 +82,8 @@ public class Main2LAyer extends AppCompatActivity {
         userDataMeasure.recordScreen(this.getLocalClassName());
         mSession = new SessionManager(this);
         initializeArrayListOfRecycler();
+        myMusic_function(mLevelOneItemPos);
 
-        mTts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if(status != TextToSpeech.ERROR) {
-                    myMusic_function(mLevelOneItemPos);
-                    mTts.setEngineByPackageName("com.google.android.tts");
-                    new BackgroundSpeechOperationsAsync().execute("");
-                }
-            }
-        });
-        mTts.setSpeechRate((float) mSession.getSpeed()/50);
-        mTts.setPitch((float) mSession.getPitch()/50);
-
-        myMusic = new String[100];
         like = (ImageView) findViewById(R.id.ivlike);
         dislike = (ImageView) findViewById(R.id.ivdislike);
         add = (ImageView) findViewById(R.id.ivadd);
@@ -141,16 +123,16 @@ public class Main2LAyer extends AppCompatActivity {
                         mActionBtnClickCount = 0;
                         setMenuImageBorder(v, true);
                         mShouldReadFullSpeech = true;
-                        String title = getIntent().getExtras().getString("selectedMenuItemPath");
+                        String title = getIntent().getExtras().getString("selectedMenuItemPath")+ " ";
                         if (mLevelOneItemPos == MENU_ITEM_PEOPLE || mLevelOneItemPos == MENU_ITEM_PLACES)
                             speakSpeech(myMusic[position]);
                         else if(mLevelTwoItemPos == position && mLevelOneItemPos != MENU_ITEM_HELP){
                             Intent intent = new Intent(Main2LAyer.this, Layer3Activity.class);
                             if(mLevelOneItemPos == MENU_ITEM_DAILY_ACT && ( mLevelTwoItemPos == 0 ||  mLevelTwoItemPos == 1 || mLevelTwoItemPos == 2 || mLevelTwoItemPos == 7 || mLevelTwoItemPos == 8 ))
-                                intent = new Intent(Main2LAyer.this, Sequence_Activity.class);
+                                intent = new Intent(Main2LAyer.this, SequenceActivity.class);
                             intent.putExtra("mLevelOneItemPos", mLevelOneItemPos);
                             intent.putExtra("mLevelTwoItemPos", mLevelTwoItemPos);
-                            intent.putExtra("selectedMenuItemPath", mActionBarTitle);
+                            intent.putExtra("selectedMenuItemPath", mActionBarTitle+ "/");
                             startActivity(intent);
                         }else if(mLevelOneItemPos == MENU_ITEM_PEOPLE || mLevelOneItemPos == MENU_ITEM_PLACES){
                             speakSpeech(myMusic[sort[mLevelTwoItemPos]]);
@@ -160,13 +142,13 @@ public class Main2LAyer extends AppCompatActivity {
                         mLevelTwoItemPos = mRecyclerView.getChildLayoutPosition(view);
                         mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
                         if(mLevelOneItemPos == MENU_ITEM_PEOPLE)
-                            title += " / " + actionBarText[sort[mLevelTwoItemPos]];
+                            title += actionBarText[sort[mLevelTwoItemPos]];
                         else if( mLevelOneItemPos == MENU_ITEM_PLACES)
-                            title += " / " + actionBarText[sort_places[mLevelTwoItemPos]];
+                            title += actionBarText[sort_places[mLevelTwoItemPos]];
                         else if( mLevelOneItemPos == MENU_ITEM_HELP)
-                            title += " / " + actionBarText[mLevelTwoItemPos];
+                            title += actionBarText[mLevelTwoItemPos];
                         else
-                            title += " / " + actionBarText[mLevelTwoItemPos].substring(0, actionBarText[mLevelTwoItemPos].length()-1);
+                            title += actionBarText[mLevelTwoItemPos].substring(0, actionBarText[mLevelTwoItemPos].length()-1);
                         mActionBarTitle = title;
                         getSupportActionBar().setTitle(mActionBarTitle);
                         if(mLevelOneItemPos == MENU_ITEM_PEOPLE || mLevelOneItemPos == MENU_ITEM_PLACES)
@@ -214,9 +196,12 @@ public class Main2LAyer extends AppCompatActivity {
             }
 
             String savedString = "";
-            if (mSession.getLanguage() == LANG_ENG)
-                savedString = mSession.getPeoplePreferences();
-            else savedString = mSession.getPeoplePreferences();
+            {
+                final int LANG_ENG = 0;
+                if (mSession.getLanguage() == LANG_ENG)
+                    savedString = mSession.getPeoplePreferences();
+                else savedString = mSession.getPeoplePreferences();
+            }
             if (!savedString.equals("")) {
                 StringTokenizer st = new StringTokenizer(savedString, ",");
                 for (int j = 0; j < people.length; ++j)
@@ -240,7 +225,7 @@ public class Main2LAyer extends AppCompatActivity {
             }
             temp = Arrays.copyOfRange(new_people_adapter, 0, new_people_count.length);
             image_temp = Arrays.copyOfRange(new_people, 0, new_people_count.length);
-            mRecyclerView.setAdapter(new Adapter_ppl_places(this, temp, image_temp));
+            mRecyclerView.setAdapter(new AdapterPeoplePlaces(this, temp, image_temp));
             myMusic = new String[temp.length];
             myMusic = sortTtsSpeechArray(mLevelTwoSpeechText, MENU_ITEM_PEOPLE);
         }else if (mLevelOneItemPos == MENU_ITEM_PLACES) {
@@ -269,18 +254,43 @@ public class Main2LAyer extends AppCompatActivity {
             if (mLevelOneItemPos == MENU_ITEM_PLACES) {
                 temp = Arrays.copyOfRange(new_places_adapter, 0, new_places_count.length);
                 image_temp = Arrays.copyOfRange(new_places, 0, new_places_count.length);
-                mRecyclerView.setAdapter(new Adapter_ppl_places(this, temp, image_temp));
+                mRecyclerView.setAdapter(new AdapterPeoplePlaces(this, temp, image_temp));
                 myMusic = new String[temp.length];
                 myMusic = sortTtsSpeechArray(mLevelTwoSpeechText, MENU_ITEM_PLACES);
             }
         }
 
+        back.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                speakSpeech(below[1]);
+                if (flag_keyboard == 1) {
+                    keyboard.setImageResource(R.drawable.keyboard_button);
+                    back.setImageResource(R.drawable.back_button);
+                    et.setVisibility(View.INVISIBLE);
+                    mRecyclerView.setVisibility(View.VISIBLE);
+                    ttsButton.setVisibility(View.INVISIBLE);
+                    flag_keyboard = 0;
+                    if(mLevelOneItemPos == 8 &&
+                            (mLevelTwoItemPos == 1 || mLevelTwoItemPos == 2 || mLevelTwoItemPos == 3 || mLevelTwoItemPos == 4))
+                       changeTheActionButtons(DISABLE_ACTION_BTNS);
+                    else
+                        changeTheActionButtons(!DISABLE_ACTION_BTNS);
+                } else {
+                    back.setImageResource(R.drawable.backpressed);
+                    finish();
+                }
+            }
+        });
+
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 home.setImageResource(R.drawable.homepressed);
+                keyboard.setImageResource(R.drawable.keyboard_button);
                 speakSpeech(below[0]);
-                finish();
+                Intent intent = new Intent(Main2LAyer.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
 
@@ -294,13 +304,14 @@ public class Main2LAyer extends AppCompatActivity {
                     et.setVisibility(View.INVISIBLE);
                     mRecyclerView.setVisibility(View.VISIBLE);
                     ttsButton.setVisibility(View.INVISIBLE);
-                    changeTheActionButtons(!DISABLE_ACTION_BTNS);
-                    back.setAlpha(.5f);
-                    back.setEnabled(false);
+                    if(mLevelOneItemPos == 8 &&
+                            (mLevelTwoItemPos == 1 || mLevelTwoItemPos == 2 || mLevelTwoItemPos == 3 || mLevelTwoItemPos == 4))
+                        changeTheActionButtons(DISABLE_ACTION_BTNS);
+                    else
+                        changeTheActionButtons(!DISABLE_ACTION_BTNS);
                     flag_keyboard = 0;
                 } else {
                     keyboard.setImageResource(R.drawable.keyboardpressed);
-                    back.setImageResource(R.drawable.backpressed);
                     et.setVisibility(View.VISIBLE);
                     et.setKeyListener(originalKeyListener);
                     // Focus the field.
@@ -320,8 +331,6 @@ public class Main2LAyer extends AppCompatActivity {
 
         ttsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                mTts.setSpeechRate((float) mSession.getSpeed() / 50);
-                mTts.setPitch((float) mSession.getPitch() / 50);
                 speakSpeech(et.getText().toString());
                 userDataMeasure.reportLog(getLocalClassName()+", TtsSpeak", Log.INFO);
                 like.setEnabled(false);
@@ -343,24 +352,6 @@ public class Main2LAyer extends AppCompatActivity {
                     imm.hideSoftInputFromWindow(et.getWindowToken(), 0);
                     // Make it non-editable again.
                     et.setKeyListener(null);
-                }
-            }
-        });
-
-        back.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                speakSpeech(below[1]);
-                if (flag_keyboard == 1) {
-                    keyboard.setImageResource(R.drawable.keyboard_button);
-                    back.setImageResource(R.drawable.back_button);
-                    et.setVisibility(View.INVISIBLE);
-                    mRecyclerView.setVisibility(View.VISIBLE);
-                    ttsButton.setVisibility(View.INVISIBLE);
-                    flag_keyboard = 0;
-                    changeTheActionButtons(!DISABLE_ACTION_BTNS);
-                } else {
-                    back.setImageResource(R.drawable.backpressed);
-                    finish();
                 }
             }
         });
@@ -584,12 +575,9 @@ public class Main2LAyer extends AppCompatActivity {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort[mLevelTwoItemPos]).get(5));
                         else if (mLevelOneItemPos == 6)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort_places[mLevelTwoItemPos]).get(5));
-                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 0) {
-                            /*mTts.setLanguage(new Locale("eng", "IND"));*/
-                            mTts.setLanguage(Locale.US);
+                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 0)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(5)+ mSession.getFather_no().replaceAll("\\B", " ")+end);
-                            mTts.setLanguage(new Locale(getString(R.string.locale_lang_hi),getString(R.string.locale_reg_IN)));
-                        } else
+                        else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(5));
                         mCm = 0;
                     } else {
@@ -597,12 +585,9 @@ public class Main2LAyer extends AppCompatActivity {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort[mLevelTwoItemPos]).get(4));
                         else if (mLevelOneItemPos == 6)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort_places[mLevelTwoItemPos]).get(4));
-                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 0){
-                            //mTts.setLanguage(new Locale("eng", "IND"));
-                            mTts.setLanguage(Locale.US);
+                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 0)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(5) + mSession.getFather_no().replaceAll("\\B", " ")+end);
-                            mTts.setLanguage(new Locale(getString(R.string.locale_lang_hi),getString(R.string.locale_reg_IN)));
-                        } else
+                        else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(4));
                         mCm = 1;
                     }
@@ -670,40 +655,22 @@ public class Main2LAyer extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.settings:
-                startActivity(new Intent(Main2LAyer.this, Setting.class));
-                break;
-            case R.id.info:
-                startActivity(new Intent(this, About_Jellow.class));
-                break;
-            case R.id.profile:
-                startActivity(new Intent(this, Profile_form.class));
-                break;
-            case R.id.feedback:
-                startActivity(new Intent(this, Feedback.class));
-                break;
-            case R.id.usage:
-                startActivity(new Intent(this, Tutorial.class));
-                break;
-            case R.id.reset:
-                startActivity(new Intent(this, Reset__preferences.class));
-                break;
-            case R.id.keyboardinput:
-                startActivity(new Intent(this, Keyboard_Input.class));
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
+            case R.id.profile: startActivity(new Intent(this, ProfileForm.class)); break;
+            case R.id.info: startActivity(new Intent(this, AboutJellow.class)); break;
+            case R.id.usage: startActivity(new Intent(this, Tutorial.class)); break;
+            case R.id.keyboardinput: startActivity(new Intent(this, KeyboardInput.class)); break;
+            case R.id.feedback: startActivity(new Intent(this, Feedback.class)); break;
+            case R.id.settings: startActivity(new Intent(this, Setting.class)); break;
+            case R.id.reset: startActivity(new Intent(this, ResetPreferences.class)); break;
+            default: return super.onOptionsItemSelected(item);
         }
         return true;
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            finish();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 
     private void initializeArrayListOfRecycler() {
@@ -724,7 +691,27 @@ public class Main2LAyer extends AppCompatActivity {
     }
 
     private void speakSpeech(String speechText){
-        mTts.speak(speechText, TextToSpeech.QUEUE_FLUSH, null);
+        Intent intent = new Intent("com.dsource.idc.jellow.SPEECH_TEXT");
+        intent.putExtra("speechText", speechText);
+        sendBroadcast(intent);
+    }
+
+    private void loadArraysFromResources() {
+        mColor = getResources().getIntArray(R.array.arrActionBtnColors);
+        side = getResources().getStringArray(R.array.arrActionSpeech);
+        below = getResources().getStringArray(R.array.arrNavigationSpeech);
+
+        LevelTwoVerbiageModel verbiageModel = new Gson()
+                .fromJson(getString(R.string.levelTwoVerbiage), LevelTwoVerbiageModel.class);
+        mLayerTwoSpeech = verbiageModel.getVerbiageModel();
+
+        if (mLevelOneItemPos == MENU_ITEM_PEOPLE) {
+            mLevelTwoSpeechText = getResources().getStringArray(R.array.arrLevelTwoPeopleSpeechText);
+            mLevelTwoAdapterText = getResources().getStringArray(R.array.arrLevelTwoPeopleAdapterText);
+        }else if (mLevelOneItemPos == MENU_ITEM_PLACES) {
+            mLevelTwoSpeechText = getResources().getStringArray(R.array.arrLevelTwoPlacesSpeechText);
+            mLevelTwoAdapterText = getResources().getStringArray(R.array.arrLevelTwoPlacesAdapterText);
+        }
     }
 
     private Integer[] loadAdapterMenuIconsWithoutSort(TypedArray typeIconArray) {
@@ -746,24 +733,6 @@ public class Main2LAyer extends AppCompatActivity {
             case  5: mBloodGroup = getString(R.string.abNeg); break;
             case  6: mBloodGroup = getString(R.string.oPos); break;
             case  7: mBloodGroup = getString(R.string.oNeg); break;
-        }
-    }
-
-    private void loadArraysFromResources() {
-        mColor = getResources().getIntArray(R.array.arrActionBtnColors);
-        side = getResources().getStringArray(R.array.arrActionSpeech);
-        below = getResources().getStringArray(R.array.arrNavigationSpeech);
-
-        LevelTwoVerbiageModel verbiageModel = new Gson()
-                .fromJson(getString(R.string.levelTwoVerbiage), LevelTwoVerbiageModel.class);
-        mLayerTwoSpeech = verbiageModel.getVerbiageModel();
-
-        if (mLevelOneItemPos == MENU_ITEM_PEOPLE) {
-            mLevelTwoSpeechText = getResources().getStringArray(R.array.arrLevelTwoPeopleSpeechText);
-            mLevelTwoAdapterText = getResources().getStringArray(R.array.arrLevelTwoPeopleAdapterText);
-        }else if (mLevelOneItemPos == MENU_ITEM_PLACES) {
-            mLevelTwoSpeechText = getResources().getStringArray(R.array.arrLevelTwoPlacesSpeechText);
-            mLevelTwoAdapterText = getResources().getStringArray(R.array.arrLevelTwoPlacesAdapterText);
         }
     }
 
@@ -946,19 +915,6 @@ public class Main2LAyer extends AppCompatActivity {
         public int compare(Integer index1, Integer index2){
             // Autounbox from Integer to int to use as array indexes
             return array[index2].compareTo(array[index1]);
-        }
-    }
-
-    private class BackgroundSpeechOperationsAsync extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... params) {
-            try {
-                mTts.setLanguage(new Locale(getString(R.string.locale_lang_hi),getString(R.string.locale_reg_IN)));
-            } catch (Exception e) {
-                new UserDataMeasure(Main2LAyer.this).reportException(e);
-                new UserDataMeasure(Main2LAyer.this).reportLog("Failed to set language.", Log.ERROR);
-            }
-            return "";
         }
     }
 }

@@ -129,7 +129,7 @@
         <item>Brekfust</item>
         <item>Lunch and Dinner</item>
         <item>Sweets</item>
-        <item>स्नैक्स</item>
+        <item>Snacks</item>
         <item>Fruits</item>
         <item>Drinks</item>
         <item>Cutlery</item>
@@ -168,7 +168,7 @@
         <item>Friends</item>
         <item>Teacher</item>
         <item>Doctor</item>
-        <item>नरस</item>
+        <item>Nurse</item>
         <item>Caregiver</item>
         <item>Stranger</item>
         <item>About Me</item>
@@ -227,7 +227,7 @@
         <item>Sleep…</item>
         <item>Therapy…</item>
         <item>Morning Routine…</item>
-        <item>Bedtime Routine…</item>
+        <item>Bed Time Routine…</item>
     </string-array>
     <string-array name="arrLevelTwoEatAdapterText">
         <item>Breakfast…</item>
@@ -527,18 +527,18 @@
             \"I don\'t want more sweets\",
             \"I really don\'t want any more sweets\"
 
-    ],[\"I like स्नैक्स\",
-            \"I really like स्नैक्स\",
-            \"I want to have some स्नैक्स\",
-            \"I really want to have some स्नैक्स\",
-            \"I want more स्नैक्स \",
-            \"I really want some more स्नैक्स\",
-            \"I don\'t like स्नैक्स\",
-            \"I really don\'t like स्नैक्स\",
-            \"I don\'t want to have स्नैक्स\",
-            \"I really don\'t want to have स्नैक्स\",
-            \"I don\'t want more स्नैक्स\",
-            \"I really don\'t want any more स्नैक्स\"
+    ],[\"I like snacks\",
+            \"I really like snacks\",
+            \"I want to have some snacks\",
+            \"I really want to have some snacks\",
+            \"I want more snacks\",
+            \"I really want some more snacks\",
+            \"I don\'t like snacks\",
+            \"I really don\'t like snacks\",
+            \"I don\'t want to have snacks\",
+            \"I really don\'t want to have snacks\",
+            \"I don\'t want more snacks\",
+            \"I really don\'t want any more snacks\"
 
     ],[\"I like fruits\",
             \"I really like fruits\",

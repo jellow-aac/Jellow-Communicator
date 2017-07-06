@@ -2,9 +2,7 @@ package com.dsource.idc.jellow;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,7 +23,6 @@ import com.dsource.idc.jellow.Utility.UserDataMeasure;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     private final boolean DISABLE_ACTION_BTNS = true;
@@ -40,9 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private int mLevelOneItemPos = -1, mSelectedItemAdapterPos = -1, mActionBtnClickCount = -1;
     private boolean mShouldReadFullSpeech = false;
     private ArrayList<View> mRecyclerItemsViewList;
-    private TextToSpeech mTts;
     private UserDataMeasure mUserDataMeasure;
-    private SessionManager mSession;
     private int[] mColor;
     private ArrayList<ArrayList<String>> mLayerOneSpeech;
     private String[] myMusic, side, below;
@@ -56,23 +51,9 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(getString(R.string.action_bar_title));
         mUserDataMeasure = new UserDataMeasure(this);
         mUserDataMeasure.recordScreen(this.getLocalClassName());
-        mSession = new SessionManager(this);
         loadArraysFromResources();
         mRecyclerItemsViewList = new ArrayList<>(myMusic.length);
         while (mRecyclerItemsViewList.size() < myMusic.length)  mRecyclerItemsViewList.add(null);
-
-        mTts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if(status != TextToSpeech.ERROR) {
-                    mTts.setEngineByPackageName("com.google.android.tts");
-                    new BackgroundSpeechOperationsAsync().execute();
-                }
-            }
-        });
-
-        mTts.setSpeechRate((float) mSession.getSpeed()/50);
-        mTts.setPitch((float) mSession.getPitch()/50);
 
         like = (ImageView) findViewById(R.id.ivlike);
         dislike = (ImageView) findViewById(R.id.ivdislike);
@@ -116,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                         if (mLevelOneItemPos == position) {
                             Intent intent = new Intent(MainActivity.this, Main2LAyer.class);
                             intent.putExtra("mLevelOneItemPos", position);
-                            intent.putExtra("selectedMenuItemPath", title);
+                            intent.putExtra("selectedMenuItemPath", title + "/");
                             startActivity(intent);
                         }else {
                             speakSpeech(myMusic[position]);
@@ -145,9 +126,31 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        back.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view)
+            {
+                if (flag_keyboard == 1){
+                    keyboard.setImageResource(R.drawable.keyboard_button);
+                    back.setImageResource(R.drawable.back_button);
+                    home.setImageResource(R.drawable.home);
+                    speakSpeech(below[1]);
+                    et.setVisibility(View.INVISIBLE);
+                    mRecyclerView.setVisibility(View.VISIBLE);
+                    ttsButton.setVisibility(View.INVISIBLE);
+                    flag_keyboard = 0;
+                    changeTheActionButtons(!DISABLE_ACTION_BTNS);
+                    back.setEnabled(false);
+                    back.setAlpha(.5f);
+                }
+            }
+        });
+
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                speakSpeech(below[0]);
+                getSupportActionBar().setTitle(getString(R.string.action_bar_title));
+                mCk = mCy = mCm = mCd = mCn = mCl = 0;
                 like.setImageResource(R.drawable.ilikewithoutoutline);
                 dislike.setImageResource(R.drawable.idontlikewithout);
                 yes.setImageResource(R.drawable.iwantwithout);
@@ -155,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
                 add.setImageResource(R.drawable.morewithout);
                 minus.setImageResource(R.drawable.lesswithout);
                 home.setImageResource(R.drawable.homepressed);
-                resetRecyclerMenuItemsAndFlags();
+                resetRecyclerMenuItemsAndFlags(6);
                 mShouldReadFullSpeech = false;
                 image_flag = -1;
                 if (flag_keyboard  == 1){
@@ -169,7 +172,6 @@ public class MainActivity extends AppCompatActivity {
                     back.setAlpha(.5f);
                     back.setEnabled(false);
                 }
-                speakSpeech(below[0]);
             }
         });
 
@@ -189,7 +191,8 @@ public class MainActivity extends AppCompatActivity {
                     back.setEnabled(false);
                 }else {
                     keyboard.setImageResource(R.drawable.keyboardpressed);
-                    back.setImageResource(R.drawable.backpressed);
+                    back.setImageResource(R.drawable.back_button);
+                    home.setImageResource(R.drawable.home);
                     et.setVisibility(View.VISIBLE);
 
                     et.setKeyListener(originalKeyListener);
@@ -210,8 +213,6 @@ public class MainActivity extends AppCompatActivity {
 
         ttsButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                mTts.setSpeechRate((float) mSession.getSpeed()/50);
-                mTts.setPitch((float) mSession.getPitch()/50);
                 speakSpeech(et.getText().toString());
                 mUserDataMeasure.reportLog(getLocalClassName()+", TtsSpeak", Log.INFO);
 
@@ -234,25 +235,6 @@ public class MainActivity extends AppCompatActivity {
                     imm.hideSoftInputFromWindow(et.getWindowToken(), 0);
                     // Make it non-editable again.
                     et.setKeyListener(null);
-                }
-            }
-        });
-
-        back.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view)
-            {
-                if (flag_keyboard == 1){
-                    keyboard.setImageResource(R.drawable.keyboard_button);
-                    back.setImageResource(R.drawable.back_button);
-                    home.setImageResource(R.drawable.home);
-                    speakSpeech(below[1]);
-                    et.setVisibility(View.INVISIBLE);
-                    mRecyclerView.setVisibility(View.VISIBLE);
-                    ttsButton.setVisibility(View.INVISIBLE);
-                    flag_keyboard = 0;
-                    changeTheActionButtons(!DISABLE_ACTION_BTNS);
-                    back.setEnabled(false);
-                    back.setAlpha(.5f);
                 }
             }
         });
@@ -440,6 +422,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        sendBroadcast(new Intent("com.dsource.idc.jellow.STOP_SERVICE"));
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -449,35 +437,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.info:
-                startActivity(new Intent(this, About_Jellow.class));
-                break;
-            case R.id.profile:
-                startActivity(new Intent(this, Profile_form.class));
-                break;
-            case R.id.feedback:
-                startActivity(new Intent(this, Feedback.class));
-                break;
-            case R.id.usage:
-                startActivity(new Intent(this, Tutorial.class));
-                break;
-            case R.id.keyboardinput:
-                startActivity(new Intent(this, Keyboard_Input.class));
-                break;
-            case R.id.settings:
-                startActivity(new Intent(this, Setting.class));
-                break;
-            case R.id.reset:
-                startActivity(new Intent(this, Reset__preferences.class));
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
+            case R.id.profile: startActivity(new Intent(this, ProfileForm.class)); break;
+            case R.id.info: startActivity(new Intent(this, AboutJellow.class)); break;
+            case R.id.usage: startActivity(new Intent(this, Tutorial.class)); break;
+            case R.id.keyboardinput: startActivity(new Intent(this, KeyboardInput.class)); break;
+            case R.id.feedback: startActivity(new Intent(this, Feedback.class)); break;
+            case R.id.settings: startActivity(new Intent(this, Setting.class)); break;
+            case R.id.reset: startActivity(new Intent(this, ResetPreferences.class)); break;
+            default: return super.onOptionsItemSelected(item);
         }
         return true;
     }
 
     private void speakSpeech(String speechText){
-        mTts.speak(speechText, TextToSpeech.QUEUE_FLUSH, null);
+        Intent intent = new Intent("com.dsource.idc.jellow.SPEECH_TEXT");
+        intent.putExtra("speechText", speechText);
+        sendBroadcast(intent);
     }
 
     private String getActionBarTitle(int position) {
@@ -498,8 +473,8 @@ public class MainActivity extends AppCompatActivity {
         below = getResources().getStringArray(R.array.arrNavigationSpeech);
     }
 
-    private void resetRecyclerMenuItemsAndFlags() {
-        resetActionButtons(6);
+    private void resetRecyclerMenuItemsAndFlags(int setPressedIcon) {
+        resetActionButtons(setPressedIcon);
         mLevelOneItemPos = -1;
         resetRecyclerAllItems();
         mActionBtnClickCount = 0;
@@ -581,19 +556,6 @@ public class MainActivity extends AppCompatActivity {
     private void resetRecyclerAllItems() {
         for(int i = 0; i< mRecyclerView.getChildCount(); ++i){
             setMenuImageBorder(mRecyclerView.getChildAt(i), false);
-        }
-    }
-
-    private class BackgroundSpeechOperationsAsync extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected Void doInBackground(Void... params) {
-            try {
-                mTts.setLanguage(new Locale("hin", "IND"));
-            } catch (Exception e) {
-                new UserDataMeasure(MainActivity.this).reportException(e);
-                new UserDataMeasure(MainActivity.this).reportLog("Failed to set language.", Log.ERROR);
-            }
-            return null;
         }
     }
 }

@@ -16,6 +16,5 @@
         android:layout_height="wrap_content"
         android:text="TIME AND WEATHER"
         android:textAlignment="center"
-        android:singleLine="true"
-        android:textAllCaps="true"/>
+        android:singleLine="true"/>
 </LinearLayout>

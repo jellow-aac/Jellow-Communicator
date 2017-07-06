@@ -89,6 +89,7 @@ class ImageAdapter extends android.support.v7.widget.RecyclerView.Adapter<ImageA
             holder.menuItemBelowText.setVisibility(View.INVISIBLE);
         holder.menuItemLinearLayout.setLayoutParams(params);
 
+        holder.menuItemBelowText.setAllCaps(true);
         holder.menuItemBelowText.setText(mBelowText[position]);
         holder.menuItemImage.setImageDrawable(mThumbId.getDrawable(position));
         holder.menuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
