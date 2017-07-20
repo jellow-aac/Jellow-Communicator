@@ -21,7 +21,7 @@ public class JellowTTSService extends Service{
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        new BackgroundSpeechOperationsAsync(this).execute();
+        new BackgroundSpeechOperationsAsync().execute(this);
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.dsource.idc.jellow.SPEECH_TEXT");
         filter.addAction("com.dsource.idc.jellow.SPEECH_PITCH");
@@ -29,7 +29,7 @@ public class JellowTTSService extends Service{
         filter.addAction("com.dsource.idc.jellow.SPEECH_STOP");
         filter.addAction("com.dsource.idc.jellow.STOP_SERVICE");
         registerReceiver(receiver, filter);
-        return super.onStartCommand(intent, flags, startId);
+        return START_STICKY;
     }
 
     @Nullable
@@ -79,27 +79,22 @@ public class JellowTTSService extends Service{
         }
     };
 
-    private class BackgroundSpeechOperationsAsync extends AsyncTask<Void, Void, Void> {
-        private Context mContext;
-        private  SessionManager mSession;
-        public BackgroundSpeechOperationsAsync(Context context) {
-            mContext = context;
-            mSession = new SessionManager(mContext);
-        }
-
+    private class BackgroundSpeechOperationsAsync extends AsyncTask<Context, Void, Void> {
         @Override
-        protected Void doInBackground(Void... params) {
-            mTts = new TextToSpeech(mContext, new TextToSpeech.OnInitListener() {
+        protected Void doInBackground(Context... params) {
+            final Context context = params[0];
+            final SessionManager session = new SessionManager(context);
+            mTts = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
                 @Override
                 public void onInit(int status) {
                     try {
                         mTts.setEngineByPackageName("com.google.android.tts");
                         mTts.setLanguage(new Locale("hin", "IND"));
-                        mTts.setSpeechRate((float) mSession.getSpeed()/50);
-                        mTts.setPitch((float) mSession.getPitch()/50);
+                        mTts.setSpeechRate((float) session.getSpeed()/100);
+                        mTts.setPitch((float) session.getPitch()/100);
                     } catch (Exception e) {
-                        new UserDataMeasure(mContext).reportException(e);
-                        new UserDataMeasure(mContext).reportLog("Failed to set language.", Log.ERROR);
+                        new UserDataMeasure(context).reportException(e);
+                        new UserDataMeasure(context).reportLog("Failed to set language.", Log.ERROR);
                     }
                 }
             });

@@ -25,6 +25,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+    private static final int REQ_HOME = 0;
     private final boolean DISABLE_ACTION_BTNS = true;
 
     private int mCk = 0, mCy = 0, mCm = 0, mCd = 0, mCn = 0, mCl = 0;
@@ -41,11 +42,12 @@ public class MainActivity extends AppCompatActivity {
     private int[] mColor;
     private ArrayList<ArrayList<String>> mLayerOneSpeech;
     private String[] myMusic, side, below;
+    private String actionBarTitleTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.trial1);
+        setContentView(R.layout.activity_levelx_layout);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setBackgroundDrawable( getResources().getDrawable(R.drawable.yellow_bg));
         getSupportActionBar().setTitle(getString(R.string.action_bar_title));
@@ -77,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         et.setKeyListener(null);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
-        mRecyclerView.setAdapter(new ImageAdapter(this));
+        mRecyclerView.setAdapter(new MainActivityAdapter(this));
         mRecyclerView.setVerticalScrollBarEnabled(true);
         mRecyclerView.setScrollbarFadingEnabled(false);
         mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, mRecyclerView, new RecyclerTouchListener.ClickListener() {
@@ -95,10 +97,10 @@ public class MainActivity extends AppCompatActivity {
                         String title = getActionBarTitle(position);
                         getSupportActionBar().setTitle(title);
                         if (mLevelOneItemPos == position) {
-                            Intent intent = new Intent(MainActivity.this, Main2LAyer.class);
+                            Intent intent = new Intent(MainActivity.this, LevelTwoActivity.class);
                             intent.putExtra("mLevelOneItemPos", position);
                             intent.putExtra("selectedMenuItemPath", title + "/");
-                            startActivity(intent);
+                            startActivityForResult(intent,REQ_HOME);
                         }else {
                             speakSpeech(myMusic[position]);
                         }
@@ -141,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
                     changeTheActionButtons(!DISABLE_ACTION_BTNS);
                     back.setEnabled(false);
                     back.setAlpha(.5f);
+                    showActionBarTitle(true);
                 }
             }
         });
@@ -148,30 +151,7 @@ public class MainActivity extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                speakSpeech(below[0]);
-                getSupportActionBar().setTitle(getString(R.string.action_bar_title));
-                mCk = mCy = mCm = mCd = mCn = mCl = 0;
-                like.setImageResource(R.drawable.ilikewithoutoutline);
-                dislike.setImageResource(R.drawable.idontlikewithout);
-                yes.setImageResource(R.drawable.iwantwithout);
-                no.setImageResource(R.drawable.idontwantwithout);
-                add.setImageResource(R.drawable.morewithout);
-                minus.setImageResource(R.drawable.lesswithout);
-                home.setImageResource(R.drawable.homepressed);
-                resetRecyclerMenuItemsAndFlags(6);
-                mShouldReadFullSpeech = false;
-                image_flag = -1;
-                if (flag_keyboard  == 1){
-                    keyboard.setImageResource(R.drawable.keyboard_button);
-                    back.setImageResource(R.drawable.back_button);
-                    et.setVisibility(View.INVISIBLE);
-                    mRecyclerView.setVisibility(View.VISIBLE);
-                    ttsButton.setVisibility(View.INVISIBLE);
-                    flag_keyboard = 0;
-                    changeTheActionButtons(!DISABLE_ACTION_BTNS);
-                    back.setAlpha(.5f);
-                    back.setEnabled(false);
-                }
+                gotoHome(true);
             }
         });
 
@@ -189,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
                     changeTheActionButtons(!DISABLE_ACTION_BTNS);
                     back.setAlpha(.5f);
                     back.setEnabled(false);
+                    showActionBarTitle(true);
                 }else {
                     keyboard.setImageResource(R.drawable.keyboardpressed);
                     back.setImageResource(R.drawable.back_button);
@@ -207,6 +188,7 @@ public class MainActivity extends AppCompatActivity {
                     back.setAlpha(1f);
                     back.setEnabled(true);
                     flag_keyboard = 1;
+                    showActionBarTitle(false);
                 }
             }
         });
@@ -437,16 +419,63 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.profile: startActivity(new Intent(this, ProfileForm.class)); break;
-            case R.id.info: startActivity(new Intent(this, AboutJellow.class)); break;
-            case R.id.usage: startActivity(new Intent(this, Tutorial.class)); break;
-            case R.id.keyboardinput: startActivity(new Intent(this, KeyboardInput.class)); break;
-            case R.id.feedback: startActivity(new Intent(this, Feedback.class)); break;
-            case R.id.settings: startActivity(new Intent(this, Setting.class)); break;
-            case R.id.reset: startActivity(new Intent(this, ResetPreferences.class)); break;
+            case R.id.profile: startActivity(new Intent(this, ProfileFormActivity.class)); break;
+            case R.id.info: startActivity(new Intent(this, AboutJellowActivity.class)); break;
+            case R.id.usage: startActivity(new Intent(this, TutorialActivity.class)); break;
+            case R.id.keyboardinput: startActivity(new Intent(this, KeyboardInputActivity.class)); break;
+            case R.id.feedback: startActivity(new Intent(this, FeedbackActivity.class)); break;
+            case R.id.settings: startActivity(new Intent(getApplication(), SettingActivity.class)); break;
+            case R.id.reset: startActivity(new Intent(this, ResetPreferencesActivity.class)); break;
             default: return super.onOptionsItemSelected(item);
         }
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQ_HOME && resultCode == RESULT_CANCELED)
+            gotoHome(false);
+    }
+
+    private void gotoHome(boolean isHomePressed) {
+        getSupportActionBar().setTitle(getString(R.string.action_bar_title));
+        mCk = mCy = mCm = mCd = mCn = mCl = 0;
+        like.setImageResource(R.drawable.ilikewithoutoutline);
+        dislike.setImageResource(R.drawable.idontlikewithout);
+        yes.setImageResource(R.drawable.iwantwithout);
+        no.setImageResource(R.drawable.idontwantwithout);
+        add.setImageResource(R.drawable.morewithout);
+        minus.setImageResource(R.drawable.lesswithout);
+        resetRecyclerMenuItemsAndFlags(6);
+        mShouldReadFullSpeech = false;
+        image_flag = -1;
+        if (flag_keyboard  == 1){
+            keyboard.setImageResource(R.drawable.keyboard_button);
+            back.setImageResource(R.drawable.back_button);
+            et.setVisibility(View.INVISIBLE);
+            mRecyclerView.setVisibility(View.VISIBLE);
+            ttsButton.setVisibility(View.INVISIBLE);
+            flag_keyboard = 0;
+            changeTheActionButtons(!DISABLE_ACTION_BTNS);
+            back.setAlpha(.5f);
+            back.setEnabled(false);
+        }
+        if(isHomePressed) {
+            speakSpeech(below[0]);
+            home.setImageResource(R.drawable.homepressed);
+        }else
+            home.setImageResource(R.drawable.home);
+    }
+
+    private void showActionBarTitle(boolean showTitle){
+        if (showTitle)
+            getSupportActionBar().setTitle(actionBarTitleTxt);
+        else{
+            actionBarTitleTxt = getSupportActionBar().getTitle().toString();
+            getSupportActionBar().setTitle("");
+        }
+
     }
 
     private void speakSpeech(String speechText){

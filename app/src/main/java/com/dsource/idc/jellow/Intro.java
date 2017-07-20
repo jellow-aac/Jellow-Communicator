@@ -2,33 +2,31 @@ package com.dsource.idc.jellow;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
-import com.dsource.idc.jellow.Utility.SessionManager;
 import com.github.paolorotolo.appintro.AppIntro;
 
 /**
  * Created by Shruti on 09-08-2016.
  */
 public class Intro extends AppIntro {
-    private SessionManager mSession;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mSession = new SessionManager(getApplicationContext());
 
         // Add your slide's fragments here.
         // AppIntro will automatically generate the dots indicator and buttons.
-        addSlide(SampleSlide.newInstance(R.layout.intro));
-        addSlide(SampleSlide.newInstance(R.layout.intro5));
-        addSlide(SampleSlide.newInstance(R.layout.intro2));
-        addSlide(SampleSlide.newInstance(R.layout.intro3));
-        addSlide(SampleSlide.newInstance(R.layout.intro4));
-        addSlide(SampleSlide.newInstance(R.layout.intro6));
-        addSlide(SampleSlide.newInstance(R.layout.intro7));
+        addSlide(SampleSlideFragment.newInstance(R.layout.intro));
+        addSlide(SampleSlideFragment.newInstance(R.layout.intro5));
+        addSlide(SampleSlideFragment.newInstance(R.layout.intro2));
+        addSlide(SampleSlideFragment.newInstance(R.layout.intro3));
+        addSlide(SampleSlideFragment.newInstance(R.layout.intro4));
+        addSlide(SampleSlideFragment.newInstance(R.layout.intro6));
+        addSlide(SampleSlideFragment.newInstance(R.layout.intro7));
 
         //if the mSession is logged in: then directly go to the main activity
 
@@ -77,8 +75,24 @@ public class Intro extends AppIntro {
     }
 
     public void getStarted(View view) {
-        //set boolean true on getting started
-        startActivity(new Intent(Intro.this, Splash.class));
+        startActivity(new Intent(Intro.this, SplashActivity.class));
         finish();
+    }
+
+    public void getStarted1(View view){
+        Intent intent = new Intent();
+        intent.setAction("com.android.settings.TTS_SETTINGS");
+        startActivity(intent);
+    }
+
+    public void getStarted2(View view){
+        getStarted1(view);
+    }
+
+    public void getStarted3(View view){
+        Intent intent = new Intent();
+        intent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

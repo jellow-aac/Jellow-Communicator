@@ -166,7 +166,7 @@
         <item>४. टॉयलेट फ़्लश करना</item>
         <item>५. पैन्ट ऊपर खींचना</item>
         <item>६. हाथ धोना</item>
-        <item>7. मैंने ख़त्म कर दिया</item>
+        <item>७. मैंने ख़त्म कर दिया</item>
     </string-array>
 
     <array name="arrSeqActivityBathingBelowText">
@@ -205,7 +205,7 @@
 
     <string-array name="arrSeqActivityBedtimeRoutineBelowText">
         <item>१. रात का भोजन</item>
-        <item>२. रात के कपड़े पैहनना</item>
+        <item>२. रात के कपड़े पहनना</item>
         <item>३. दांत साफ़ करना</item>
         <item>४. कहानियाँ पढ़ना</item>
         <item>५. शुभ रात्रि बोलना</item>

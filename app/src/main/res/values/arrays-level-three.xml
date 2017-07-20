@@ -96,7 +96,7 @@
         <item>Wash हैर</item>
         <item>Wash body</item>
         <item>Turn off water</item>
-        <item>Dry हैर"</item>
+        <item>Dry हैर</item>
         <item>Dry face</item>
         <item>Dry body</item>
         <item>Put on clothes</item>
@@ -143,7 +143,7 @@
         <item>I need help putting on clothes</item>
     </string-array>
     <string-array name="arrLevelThreeDailyActGetReadySpeechText">
-        <item>Comb hair</item>
+        <item>Comb हैर</item>
         <item>Face wash</item>
         <item>Cut nails</item>
         <item>Blow nose</item>
@@ -788,7 +788,7 @@
         <item>Wash hair</item>
         <item>Wash body</item>
         <item>Turn off water</item>
-        <item>Dry hair"</item>
+        <item>Dry hair</item>
         <item>Dry face</item>
         <item>Dry body</item>
         <item>Put on clothes</item>
@@ -964,15 +964,15 @@
         <item>Orange</item>
         <item>Pineapple</item>
         <item>Strawberry</item>
-        <item>Blueberry</item>
+        <item>Blueberry\u00A0</item>
         <item>Pomegranate</item>
         <item>Watermelon</item>
-        <item>Pare</item>
+        <item>Pear</item>
         <item>Papaya</item>
         <item>Muskmelon</item>
         <item>Chikoo</item>
         <item>Jackfruit</item>
-        <item>Cherry</item>
+        <item>Cherry\u00A0</item>
     </string-array>
     <string-array name="arrLevelThreeFoodDrinksDrinksAdapterText">
         <item>Water</item>
@@ -1035,7 +1035,7 @@
         <item>Videogame</item>
         <item>Doll</item>
         <item>Action figure</item>
-        <item>Soft toy</item>
+        <item>Soft toy\u00A0</item>
         <item>Car</item>
         <item>Truck</item>
         <item>Art and craft</item>
@@ -1051,7 +1051,7 @@
         <item>Hide and seek</item>
         <item>Bat and ball</item>
         <item>Statue</item>
-        <item>Lock and key</item>
+        <item>Lock and key\u00A0</item>
         <item>Catch-catch</item>
         <item>Kite</item>
         <item>Chor-police</item>
@@ -1107,23 +1107,23 @@
         <item>Rabbit</item>
         <item>Cow</item>
         <item>Duck</item>
-        <item>Donkey</item>
+        <item>Donkey\u00A0</item>
         <item>Ant</item>
         <item>Tiger</item>
-        <item>Monkey</item>
+        <item>Monkey\u00A0</item>
         <item>Pigeon</item>
         <item>Cockroach</item>
         <item>Crow</item>
         <item>Horse</item>
         <item>Deer</item>
         <item>Owl</item>
-        <item>W0olf</item>
+        <item>Wolf</item>
         <item>Fox</item>
         <item>Bear</item>
         <item>Sheep</item>
         <item>Goat</item>
         <item>Pig</item>
-        <item>Fly</item>
+        <item>Fly\u00A0</item>
         <item>Giraffe</item>
         <item>Zebra</item>
         <item>Mosquito</item>
@@ -1202,7 +1202,7 @@
         <item>Pink</item>
         <item>Orange</item>
         <item>Purple</item>
-        <item>Gray</item>
+        <item>Gray\u00A0</item>
     </string-array>
     <string-array name="arrLevelThreeLearningShapesAdapterText">
         <item>Standing line</item>
@@ -1233,7 +1233,7 @@
         <item>Blank paper</item>
         <item>Coloured paper</item>
         <item>Scissors</item>
-        <item>Pencil led</item>
+        <item>Pencil lead</item>
         <item>Compass</item>
         <item>Divider</item>
         <item>Stapler</item>
@@ -1274,7 +1274,7 @@
         <item>Bedroom</item>
         <item>Play room</item>
         <item>Bathroom</item>
-        <item>Balcony</item>
+        <item>Balcony\u00A0</item>
         <item>Study room</item>
         <item>Bed</item>
         <item>Television</item>
@@ -1302,8 +1302,8 @@
     <!--LEVEL THREE "TIME WEATHER" ADAPTER TEXT ARE HERE-->
     <string-array name="arrLevelThreeTimeWeaTimeAdapterText">
         <item>What is the time?</item>
-        <item>Today</item>
-        <item>Yesterday</item>
+        <item>Today\u00A0</item>
+        <item>Yesterday\u00A0</item>
         <item>Tomorrow</item>
         <item>Morning</item>
         <item>Afternoon</item>
@@ -1312,23 +1312,23 @@
     </string-array>
     <string-array name="arrLevelThreeTimeWeaDayAdapterText">
         <item>What is the day today?</item>
-        <item>Monday</item>
-        <item>Tuesday</item>
-        <item>Wednesday</item>
-        <item>Thursday</item>
-        <item>Friday</item>
-        <item>Saturday</item>
-        <item>Sunday</item>
+        <item>Monday\u00A0</item>
+        <item>Tuesday\u00A0</item>
+        <item>Wednesday\u00A0</item>
+        <item>Thursday\u00A0</item>
+        <item>Friday\u00A0</item>
+        <item>Saturday\u00A0</item>
+        <item>Sunday\u00A0</item>
     </string-array>
     <string-array name="arrLevelThreeTimeWeaMonthAdapterText">
         <item>Current month?</item>
-        <item>January</item>
-        <item>February</item>
+        <item>January\u00A0</item>
+        <item>February\u00A0</item>
         <item>March</item>
         <item>April</item>
-        <item>May</item>
+        <item>May\u00A0</item>
         <item>June</item>
-        <item>July</item>
+        <item>July\u00A0</item>
         <item>August</item>
         <item>September</item>
         <item>October</item>
@@ -1340,18 +1340,18 @@
     </string-array>
     <string-array name="arrLevelThreeTimeWeaWeatherAdapterText">
         <item>Today’s weather?</item>
-        <item>Sunny</item>
-        <item>Rainy</item>
-        <item>Cloudy</item>
-        <item>Windy</item>
-        <item>Foggy</item>
-        <item>Snowy</item>
+        <item>Sunny\u00A0</item>
+        <item>Rainy\u00A0</item>
+        <item>Cloudy\u00A0</item>
+        <item>Windy\u00A0</item>
+        <item>Foggy\u00A0</item>
+        <item>Snowy\u00A0</item>
     </string-array>
     <string-array name="arrLevelThreeTimeWeaSeasonsAdapterText">
         <item>Current season?</item>
         <item>Spring</item>
         <item>Summer</item>
-        <item>Rainy</item>
+        <item>Rainy\u00A0</item>
         <item>Autumn</item>
         <item>Winter</item>
     </string-array>
@@ -1363,25 +1363,25 @@
         <item>Makar sankranti</item>
         <item>Holi</item>
         <item>Eid</item>
-        <item>Good Friday</item>
+        <item>Good Friday\u00A0</item>
         <item>Gudi padwa</item>
-        <item>Republic day</item>
-        <item>Independence day</item>
+        <item>Republic day\u00A0</item>
+        <item>Independence day\u00A0</item>
         <item>New year</item>
     </string-array>
     <string-array name="arrLevelThreeTimeWeaBirthdaysAdapterText">
-        <item>My birthday</item>
-        <item>Mom\'s birthday</item>
-        <item>Father\'s birthday</item>
-        <item>Brother\'s birthday</item>
-        <item>Sister\'s birthday</item>
-        <item>Friend\'s birthday</item>
-        <item>Grandma\'s birthday</item>
-        <item>Grandpa\'s birthday</item>
-        <item>Uncle\'s birthday</item>
-        <item>Aunt\'s birthday</item>
-        <item>Cousin\'s birthday</item>
-        <item>Teacher\'s birthday</item>
+        <item>My birthday\u00A0</item>
+        <item>Mom\'s birthday\u00A0</item>
+        <item>Father\'s birthday\u00A0</item>
+        <item>Brother\'s birthday\u00A0</item>
+        <item>Sister\'s birthday\u00A0</item>
+        <item>Friend\'s birthday\u00A0</item>
+        <item>Grandma\'s birthday\u00A0</item>
+        <item>Grandpa\'s birthday\u00A0</item>
+        <item>Uncle\'s birthday\u00A0</item>
+        <item>Aunt\'s birthday\u00A0</item>
+        <item>Cousin\'s birthday\u00A0</item>
+        <item>Teacher\'s birthday\u00A0</item>
     </string-array>
 
 <!--LEVEL THREE ADAPTER DRAWABLE ARE HERE-->

@@ -52,44 +52,44 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Setting"
+            android:name=".SettingActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="Settings"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".KeyboardInput"
+            android:name=".KeyboardInputActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="Keyboard Input"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".AboutJellow"
+            android:name=".AboutJellowActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="About Jellow"
             android:screenOrientation="landscape"/>
         <activity
-            android:name=".ProfileForm"
+            android:name=".ProfileFormActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="Profile"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".Feedback"
+            android:name=".FeedbackActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="Feedback"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".Tutorial"
+            android:name=".TutorialActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="Tutorial"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ResetPreferences"
+            android:name=".ResetPreferencesActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="Reset Preferences"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".Splash"
+            android:name=".SplashActivity"
             android:screenOrientation="landscape">
         </activity>
         <!--
@@ -100,9 +100,9 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
         <activity
-            android:name=".Main2LAyer"
+            android:name=".LevelTwoActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".Layer3Activity"
+        <activity android:name=".LevelThreeActivity"
             android:screenOrientation="landscape"/>
         <service android:name=".Utility.JellowTTSService"/>
     </application>

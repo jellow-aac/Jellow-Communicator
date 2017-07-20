@@ -139,7 +139,7 @@
 
     <string-array name="arrSeqActivityBedtimeRoutineSpeechText">
         <item>Eat dinner</item>
-        <item>wear night dress</item>
+        <item>Wear night dress</item>
         <item>Brush teeth</item>
         <item>Read story</item>
         <item>Say goodnight</item>
@@ -188,7 +188,7 @@
     </array>
 
     <string-array name="arrSeqActivityMorningRoutineBelowText">
-        <item>1.Wake up</item>
+        <item>1. Wake up</item>
         <item>2. Wash face</item>
         <item>3. Go to toilet</item>
         <item>4. Brush teeth</item>
@@ -205,7 +205,7 @@
 
     <string-array name="arrSeqActivityBedtimeRoutineBelowText">
         <item>1. Eat dinner</item>
-        <item>2. wear night dress</item>
+        <item>2. Wear night dress</item>
         <item>3. Brush teeth</item>
         <item>4. Read story</item>
         <item>5. Say goodnight</item>

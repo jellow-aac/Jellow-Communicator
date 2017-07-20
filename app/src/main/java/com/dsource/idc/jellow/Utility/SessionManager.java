@@ -46,16 +46,6 @@ public class SessionManager {
         return (Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(), KEY_IS_LOGGEDIN);
     }
 
-    //another login for swipe
-    /*public void setIntroduction(boolean isLoggedIn1) {
-        storePreferenceKeyWithValue(Boolean.class.toString(), KEY_IS_LOGGEDIN1, isLoggedIn1);
-    }
-
-    public boolean isLoggedIn1(){
-        return (Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(), KEY_IS_LOGGEDIN1);
-    }*/
-
-
     public void setBlood(int bloodGroup) {
         storePreferenceKeyWithValue(Integer.class.toString(), Blood, bloodGroup);
     }
@@ -135,7 +125,7 @@ public class SessionManager {
     public int getSpeed(){
         int speed = (Integer) retrievePreferenceKeyWithValue(Integer.class.toString(), Speed);
         if(speed == 0)
-            return 40;              //40 is default value for speed of speech to keep.
+            return 100;              //100 is default value for speed of speech to keep.
         return  speed;
     }
 
@@ -146,7 +136,7 @@ public class SessionManager {
     public int getPitch(){
         int pitch = (Integer) retrievePreferenceKeyWithValue(Integer.class.toString(), Pitch);
         if(pitch == 0)
-            return 50;              //50 is default value for pitch of speech to keep.
+            return 100;              //100 is default value for pitch of speech to keep.
         return pitch;
     }
 

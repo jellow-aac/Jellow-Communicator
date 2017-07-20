@@ -107,11 +107,11 @@
     <string name="invalidContactNumber">Invalid contact number</string>
     <string name="enterTheName">Please Enter the Name</string>
     <string name="resetPreferenceMessage">
-        <ul>
+       <![CDATA[ <ul>
             <li>Jellow remembers the user\'s \"most-used/preferred\" icons and displays them as the top choices on the screen</li><br/>
             <li>By resetting preferences, the icons will be set to the original order in which they were displayed the first time the application was opened</li><br/>
             <li>Do you want to reset preferences?</li><br/><br/>
-        </ul>
+       </ul>]]>
     </string>
     <string name="yes">yes</string>
     <string name="no">no</string>

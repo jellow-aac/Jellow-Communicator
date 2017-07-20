@@ -42,7 +42,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.format);
+        setContentView(R.layout.activity_user_registration);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         etName = (EditText) findViewById(R.id.etName);
@@ -70,7 +70,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
         });
 
         if (mSession.isUserLoggedIn()) {
-            startActivity(new Intent(this, Splash.class));
+            startActivity(new Intent(this, SplashActivity.class));
             finish();
         }
 

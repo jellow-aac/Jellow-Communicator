@@ -739,7 +739,7 @@
     <string-array name="arrLevelThreeGreetFeelQuestionsAdapterText">
         <item>कैसे?</item>
         <item>कब?</item>
-        <item>कहॉं पे?</item>
+        <item>कहाँ पे?</item>
         <item>क्यूं?</item>
         <item>क्या?</item>
         <item>कौन?</item>
@@ -760,7 +760,7 @@
         <item>मुझे माफ करें</item>
         <item>मुझे समझ में नहीं आया</item>
         <item>मेरे साथ बाँटे</item>
-        <item>ृपया थोड़ा धीरे जाइए</item>
+        <item>कृपया थोड़ा धीरे जाइए</item>
         <item>मुझे मदद की ज़रूरत हैं</item>
         <item>कृपया यहाँ आइये</item>
         <item>कृपया मुझे लेके जाईए</item>
@@ -841,7 +841,7 @@
         <item>मेरे कपड़े टाइट हैं</item>
         <item>मेरे कपड़े ढीले हैं</item>
         <item>कपड़े निकालने में मदद</item>
-        <item>कपड़े पैहनने में मदद</item>
+        <item>कपड़े पहनने में मदद</item>
     </string-array>
     <string-array name="arrLevelThreeDailyActGetReadyAdapterText">
         <item>कंघी करना</item>

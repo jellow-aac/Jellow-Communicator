@@ -36,7 +36,7 @@ class LayerThreeAdapter extends android.support.v7.widget.RecyclerView.Adapter<L
 
     @Override
     public LayerThreeAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View rowView =  LayoutInflater.from(parent.getContext()).inflate(R.layout.myscrolllist2, parent, false);
+        View rowView =  LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter, parent, false);
         return new LayerThreeAdapter.MyViewHolder(rowView);
     }
 

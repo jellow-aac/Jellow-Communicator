@@ -45,7 +45,7 @@ public class SequenceActivity extends AppCompatActivity {
     private Button forward, backward;
 
     TypedArray mDailyActivitiesIcons;
-    private String strNext, strPrevious;
+    private String strNext, strPrevious, actionBarTitleTxt;
     private String[] mDailyActivitiesSpeechText, mDailyActivitiesBelowText, heading, side, below, bt;
     private ArrayList<ArrayList<ArrayList<String>>> mSeqActSpeech;
     private SessionManager mSession;
@@ -54,7 +54,7 @@ public class SequenceActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_sequence);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
         getSupportActionBar().setTitle(getIntent().getExtras().getString("selectedMenuItemPath"));
         Typeface fontMuktaRegular = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/Mukta-Regular.ttf");
@@ -281,8 +281,10 @@ public class SequenceActivity extends AppCompatActivity {
                     backward.setVisibility(View.VISIBLE);
                 } else {
                     back.setImageResource(R.drawable.backpressed);
+                    setResult(RESULT_OK);
                     finish();
                 }
+                showActionBarTitle(true);
             }
         });
 
@@ -292,9 +294,8 @@ public class SequenceActivity extends AppCompatActivity {
                 home.setImageResource(R.drawable.homepressed);
                 keyboard.setImageResource(R.drawable.keyboard_button);
                 speakSpeech(below[0]);
-                Intent intent = new Intent(SequenceActivity.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                setResult(RESULT_CANCELED);
+                finish();
             }
         });
 
@@ -312,6 +313,7 @@ public class SequenceActivity extends AppCompatActivity {
                     changeTheActionButtons(!DISABLE_ACTION_BTNS);
                     backward.setVisibility(View.VISIBLE);
                     forward.setVisibility(View.VISIBLE);
+                    showActionBarTitle(true);
                 } else {
                     keyboard.setImageResource(R.drawable.keyboardpressed);
                     et.setVisibility(View.VISIBLE);
@@ -326,6 +328,7 @@ public class SequenceActivity extends AppCompatActivity {
                     backward.setVisibility(View.INVISIBLE);
                     forward.setVisibility(View.INVISIBLE);
                     flag_keyboard = 1;
+                    showActionBarTitle(false);
                 }
             }
         });
@@ -542,13 +545,13 @@ public class SequenceActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.profile: startActivity(new Intent(this, ProfileForm.class)); break;
-            case R.id.info: startActivity(new Intent(this, AboutJellow.class)); break;
-            case R.id.usage: startActivity(new Intent(this, Tutorial.class)); break;
-            case R.id.keyboardinput: startActivity(new Intent(this, KeyboardInput.class)); break;
-            case R.id.feedback: startActivity(new Intent(this, Feedback.class)); break;
-            case R.id.settings: startActivity(new Intent(this, Setting.class)); break;
-            case R.id.reset: startActivity(new Intent(this, ResetPreferences.class)); break;
+            case R.id.profile: startActivity(new Intent(this, ProfileFormActivity.class)); break;
+            case R.id.info: startActivity(new Intent(this, AboutJellowActivity.class)); break;
+            case R.id.usage: startActivity(new Intent(this, TutorialActivity.class)); break;
+            case R.id.keyboardinput: startActivity(new Intent(this, KeyboardInputActivity.class)); break;
+            case R.id.feedback: startActivity(new Intent(this, FeedbackActivity.class)); break;
+            case R.id.settings: startActivity(new Intent(this, SettingActivity.class)); break;
+            case R.id.reset: startActivity(new Intent(this, ResetPreferencesActivity.class)); break;
             default: return super.onOptionsItemSelected(item);
         }
         return true;
@@ -558,6 +561,15 @@ public class SequenceActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    private void showActionBarTitle(boolean showTitle){
+        if (showTitle)
+            getSupportActionBar().setTitle(actionBarTitleTxt);
+        else{
+            actionBarTitleTxt = getSupportActionBar().getTitle().toString();
+            getSupportActionBar().setTitle("");
+        }
     }
 
     private void initializeViews() {
@@ -584,6 +596,12 @@ public class SequenceActivity extends AppCompatActivity {
 
         arrow1 = (ImageView) findViewById(R.id.arrow1);
         arrow2 = (ImageView) findViewById(R.id.arrow2);
+        final int MODE_PICTURE_ONLY = 1;
+        if(mSession.getPictureViewMode() == MODE_PICTURE_ONLY){
+            bt1.setVisibility(View.GONE);
+            bt2.setVisibility(View.GONE);
+            bt3.setVisibility(View.GONE);
+        }
     }
 
     private void speakSpeech(String speechText){
