@@ -31,16 +31,15 @@
 
                 <TextView
                     android:id="@+id/tv1"
-                    android:layout_width="283dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:paddingLeft="9dp"
                     android:text="@string/txtLanguage"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="#000000"
-                    android:textSize="14dp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
-
                 <Spinner
                     android:id="@+id/spinner"
                     android:layout_width="190dp"
@@ -49,7 +48,7 @@
                     android:paddingBottom="10dp"
                     android:paddingLeft="10dp"
                     android:spinnerMode="dropdown"
-                    android:textSize="14dp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/speechspeed"
@@ -60,9 +59,8 @@
                     android:text="@string/txtSpeechSpeed"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="#000000"
-                    android:textSize="14dp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
-
                 <com.rey.material.widget.Slider
                     android:id="@+id/speed"
                     android:layout_width="370dp"
@@ -86,7 +84,6 @@
                     android:textColor="#000000"
                     android:textSize="14dp"
                     android:textStyle="bold" />
-
                 <com.rey.material.widget.Slider
                     android:id="@+id/pitch"
                     android:layout_width="370dp"
@@ -103,6 +100,7 @@
                     android:id="@+id/tv3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
                     android:layout_marginLeft="10dp"
                     android:paddingLeft="9dp"
                     android:text="@string/txtDisplayMode"
@@ -110,7 +108,6 @@
                     android:textColor="#000000"
                     android:textSize="14dp"
                     android:textStyle="bold" />
-
                 <Spinner
                     android:id="@+id/spinner3"
                     android:layout_width="190dp"
@@ -130,7 +127,6 @@
                     android:textColor="#000000"
                     android:textSize="14dp"
                     android:textStyle="bold" />
-
                 <Spinner
                     android:id="@+id/spinner4"
                     android:layout_width="190dp"

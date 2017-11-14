@@ -37,7 +37,6 @@ public class UserRegistrationActivity extends AppCompatActivity {
     private Button bRegister;
     private EditText etName, etEmergencyContact, etEmailId;
     private SessionManager mSession;
-    private String email, n, ec, formattedDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,19 +76,21 @@ public class UserRegistrationActivity extends AppCompatActivity {
         bRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                n  = etName.getText().toString();
-                ec  = etEmergencyContact.getText().toString();
+                String name, emergencyContact, eMailId, formattedDate;
+                name  = etName.getText().toString();
+                emergencyContact  = etEmergencyContact.getText().toString();
                 if (etName.getText().length()>0){
                     if (etEmergencyContact.getText().toString().trim().length() == 10) {
-                        email = etEmailId.getText().toString().trim();
-                        if (isValidEmail(email)){
-                            mSession.setName(n);
-                            mSession.setFather_no(ec);
-                            mSession.setEmailId(email);
+                        eMailId = etEmailId.getText().toString().trim();
+                        if (isValidEmail(eMailId)){
+                            mSession.setName(name);
+                            mSession.setFather_no(emergencyContact);
+                            mSession.setEmailId(eMailId);
                             Calendar ca = Calendar.getInstance();
                             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                             formattedDate = df.format(ca.getTime());
-                            new LongOperation().execute("");
+                            bRegister.setEnabled(false);
+                            new LongOperation().execute(name, emergencyContact, eMailId, formattedDate);
                         }else
                             Toast.makeText(getApplicationContext(),getString(R.string.invalid_emailId), Toast.LENGTH_SHORT).show();
                     } else
@@ -118,7 +119,6 @@ public class UserRegistrationActivity extends AppCompatActivity {
                     JSONObject jObj = new JSONObject(response);
                     boolean error = jObj.getBoolean("error");
                     if (!error) {
-                        bRegister.setEnabled(false);
                         mSession.setUserLoggedIn(true);
                         mSession.setLanguage(LANG_ENGLISH);
                         mSession.setGridSize(GRID_3BY3);
@@ -150,6 +150,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 params.put("contact", contact);
                 params.put("mail", mail);
                 params.put("time", time);
+                params.put("version", "Indian");
                 return params;
             }
         };
@@ -157,15 +158,15 @@ public class UserRegistrationActivity extends AppCompatActivity {
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
-    private class LongOperation extends AsyncTask<String, Void, String> {
+    private class LongOperation extends AsyncTask<String, Void, Void> {
         @Override
-        protected String doInBackground(String... params) {
+        protected Void doInBackground(String... params) {
             try {
-                checkLogin(n, ec, email, formattedDate);
+                checkLogin(params[0], params[1], params[2], params[3]);
             } catch (Exception e) {
                 Thread.interrupted();
             }
-            return "Executed";
+            return null;
         }
     }
 }

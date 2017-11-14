@@ -8,6 +8,7 @@ import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dsource.idc.jellow.Utility.SessionManager;
+import com.dsource.idc.jellow.Utility.UserDataMeasure;
 import com.rey.material.widget.Slider;
 
 import java.util.Locale;
@@ -24,6 +26,7 @@ public class SettingActivity extends AppCompatActivity {
     private SessionManager mSession;
     private TextView mTxtViewSpeechSpeed, mTxtViewVoicePitch;
     private Slider mSliderSpeed, mSliderPitch;
+    private UserDataMeasure mUserDataMeasure;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,7 @@ public class SettingActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.action_settings)+"</font>"));
         mSession = new SessionManager(this);
+        mUserDataMeasure = new UserDataMeasure(this);
 
         if (mSession.getScreenHeight() >= 600)
             getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back_600);
@@ -65,6 +69,13 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
+        mSpinnerLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mUserDataMeasure.setProperty("Language", position == 0 ? "English": "Hindi");
+            }
+            @Override public void onNothingSelected(AdapterView<?> parent) {}
+        });
         mSliderSpeed.setOnPositionChangeListener(new Slider.OnPositionChangeListener() {
             @Override
             public void onPositionChanged(Slider view, boolean fromUser, float oldPos, float newPos, int oldValue, int newValue) {
@@ -81,6 +92,22 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
+        mSpinnerViewMode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mUserDataMeasure.setProperty("PictureViewMode", position == 0 ? "PictureText": "PictureOnly");
+            }
+            @Override public void onNothingSelected(AdapterView<?> parent) {}
+        });
+
+        mSpinnerGridSize.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mUserDataMeasure.setProperty("GridSize", position == 0 ? "3": "9");
+            }
+            @Override public void onNothingSelected(AdapterView<?> parent) {}
+        });
+
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,9 +119,18 @@ public class SettingActivity extends AppCompatActivity {
                         case 0: setLocale(Locale.US); break;
                         case 1: setLocale(new Locale(getString(R.string.locale_lang_hi),getString(R.string.locale_reg_IN))); break;
                     }
-                    mSession.setLanguage(mSpinnerLanguage.getSelectedItemPosition());
-                    mSession.setPictureViewMode(mSpinnerViewMode.getSelectedItemPosition());
-                    mSession.setGridSize(mSpinnerGridSize.getSelectedItemPosition());
+                    if(mSession.getLanguage() != mSpinnerLanguage.getSelectedItemPosition()) {
+                        mUserDataMeasure.setProperty("Language", mSpinnerLanguage.getSelectedItemPosition() == 0 ? "En" : "Hi");
+                        mSession.setLanguage(mSpinnerLanguage.getSelectedItemPosition());
+                    }
+                    if(mSession.getPictureViewMode() != mSpinnerViewMode.getSelectedItemPosition()) {
+                        mUserDataMeasure.setProperty("PictureViewMode", mSpinnerViewMode.getSelectedItemPosition() == 0 ? "PT" : "PO");
+                        mSession.setPictureViewMode(mSpinnerViewMode.getSelectedItemPosition());
+                    }
+                    if(mSession.getGridSize() != mSpinnerGridSize.getSelectedItemPosition()) {
+                        mUserDataMeasure.setProperty("GridSize", mSpinnerGridSize.getSelectedItemPosition() == 0 ? "3" : "9");
+                        mSession.setGridSize(mSpinnerGridSize.getSelectedItemPosition());
+                    }
                     Intent intent = new Intent(SettingActivity.this, SplashActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
@@ -117,20 +153,19 @@ public class SettingActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        menu.getItem(6).setVisible(false);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.profile: startActivity(new Intent(SettingActivity.this, ProfileFormActivity.class)); finish(); break;
-            case R.id.info: startActivity(new Intent(SettingActivity.this, AboutJellowActivity.class));   finish(); break;
-            case R.id.usage: startActivity(new Intent(SettingActivity.this, TutorialActivity.class)); finish(); break;
-            case R.id.keyboardinput: startActivity(new Intent(SettingActivity.this, KeyboardInputActivity.class)); finish(); break;
-            case R.id.feedback: startActivity(new Intent(SettingActivity.this, FeedbackActivity.class)); finish(); break;
-            case R.id.reset: startActivity(new Intent(SettingActivity.this, ResetPreferencesActivity.class)); finish(); break;
-            case android.R.id.home: onBackPressed(); break;
+            case R.id.profile: startActivity(new Intent(this, ProfileFormActivity.class)); finish(); break;
+            case R.id.info: startActivity(new Intent(this, AboutJellowActivity.class)); finish(); break;
+            case R.id.usage: startActivity(new Intent(this, TutorialActivity.class)); finish(); break;
+            case R.id.keyboardinput: startActivity(new Intent(this, KeyboardInputActivity.class)); finish(); break;
+            case R.id.reset: startActivity(new Intent(this, ResetPreferencesActivity.class)); finish(); break;
+            case R.id.feedback: startActivity(new Intent(this, FeedbackActivity.class)); finish(); break;
+            case android.R.id.home: finish(); break;
             default: return super.onOptionsItemSelected(item);
         }
         return true;

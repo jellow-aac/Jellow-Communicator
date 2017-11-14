@@ -2,12 +2,15 @@ package com.dsource.idc.jellow;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.KeyListener;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,7 +30,10 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Locale;
 import java.util.StringTokenizer;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class LevelTwoActivity extends AppCompatActivity {
     private final int REQ_HOME = 0, MENU_ITEM_DAILY_ACT = 1, MENU_ITEM_PEOPLE = 5, MENU_ITEM_PLACES = 6, MENU_ITEM_HELP = 8;
@@ -43,7 +49,7 @@ public class LevelTwoActivity extends AppCompatActivity {
     private int mLevelOneItemPos, mLevelTwoItemPos = -1, mSelectedItemAdapterPos = -1;
     private boolean mShouldReadFullSpeech = false;
     private ArrayList<View> mRecyclerItemsViewList;
-    private UserDataMeasure userDataMeasure;
+    private UserDataMeasure mUserDataMeasure;
     private String mActionBarTitle;
     private SessionManager mSession;
 
@@ -77,26 +83,37 @@ public class LevelTwoActivity extends AppCompatActivity {
         mLevelOneItemPos = getIntent().getExtras().getInt("mLevelOneItemPos");
         getSupportActionBar().setTitle(getIntent().getExtras().getString("selectedMenuItemPath"));
         loadArraysFromResources();
-        userDataMeasure = new UserDataMeasure(this);
-        userDataMeasure.recordScreen(this.getLocalClassName());
+        mUserDataMeasure = new UserDataMeasure(this);
+        mUserDataMeasure.recordScreen(this.getLocalClassName());
         mSession = new SessionManager(this);
         initializeArrayListOfRecycler();
         myMusic_function(mLevelOneItemPos);
 
         like = (ImageView) findViewById(R.id.ivlike);
+        like.setContentDescription(side[0]);
         dislike = (ImageView) findViewById(R.id.ivdislike);
+        dislike.setContentDescription(side[6]);
         add = (ImageView) findViewById(R.id.ivadd);
+        add.setContentDescription(side[4]);
         minus = (ImageView) findViewById(R.id.ivminus);
+        minus.setContentDescription(side[10]);
         yes = (ImageView) findViewById(R.id.ivyes);
+        yes.setContentDescription(side[2]);
         no = (ImageView) findViewById(R.id.ivno);
+        no.setContentDescription(side[8]);
         home = (ImageView) findViewById(R.id.ivhome);
+        home.setContentDescription(below[0]);
         back = (ImageView) findViewById(R.id.ivback);
+        back.setContentDescription(below[1]);
         back.setAlpha(1f);
         keyboard = (ImageView) findViewById(R.id.keyboard);
+        keyboard.setContentDescription(below[2]);
         et = (EditText) findViewById(R.id.et);
+        et.setContentDescription(getString(R.string.string_to_speak));
         et.setVisibility(View.INVISIBLE);
 
         ttsButton = (ImageView) findViewById(R.id.ttsbutton);
+        ttsButton.setContentDescription(getString(R.string.speak_written_text));
         ttsButton.setVisibility(View.INVISIBLE);
 
         originalKeyListener = et.getKeyListener();
@@ -117,26 +134,31 @@ public class LevelTwoActivity extends AppCompatActivity {
                 mMenuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        mCk = mCy = mCm = mCd = mCn = mCl = 0;
                         resetActionButtons(-1);
                         resetRecyclerAllItems();
                         mActionBtnClickCount = 0;
                         setMenuImageBorder(v, true);
                         mShouldReadFullSpeech = true;
                         String title = getIntent().getExtras().getString("selectedMenuItemPath")+ " ";
-                        if (mLevelOneItemPos == MENU_ITEM_PEOPLE || mLevelOneItemPos == MENU_ITEM_PLACES)
+                        if (mLevelOneItemPos == MENU_ITEM_PEOPLE || mLevelOneItemPos == MENU_ITEM_PLACES) {
                             speakSpeech(myMusic[position]);
-                        else if(mLevelTwoItemPos == position && mLevelOneItemPos != MENU_ITEM_HELP){
+                            mUserDataMeasure.recordGridItem("Tapped ".concat(myMusic[position]));
+                        }else if(mLevelTwoItemPos == position && mLevelOneItemPos != MENU_ITEM_HELP){
                             Intent intent = new Intent(LevelTwoActivity.this, LevelThreeActivity.class);
                             if(mLevelOneItemPos == MENU_ITEM_DAILY_ACT && ( mLevelTwoItemPos == 0 ||  mLevelTwoItemPos == 1 || mLevelTwoItemPos == 2 || mLevelTwoItemPos == 7 || mLevelTwoItemPos == 8 ))
                                 intent = new Intent(LevelTwoActivity.this, SequenceActivity.class);
+                            mUserDataMeasure.recordGridItem("Opened ".concat(myMusic[position]));
                             intent.putExtra("mLevelOneItemPos", mLevelOneItemPos);
                             intent.putExtra("mLevelTwoItemPos", mLevelTwoItemPos);
                             intent.putExtra("selectedMenuItemPath", mActionBarTitle+ "/");
                             startActivityForResult(intent, REQ_HOME);
                         }else if(mLevelOneItemPos == MENU_ITEM_PEOPLE || mLevelOneItemPos == MENU_ITEM_PLACES){
                             speakSpeech(myMusic[sort[mLevelTwoItemPos]]);
+                            mUserDataMeasure.recordGridItem("Tapped ".concat(myMusic[position]));
                         }else {
                             speakSpeech(myMusic[position]);
+                            mUserDataMeasure.recordGridItem("Tapped ".concat(myMusic[position]));
                         }
                         mLevelTwoItemPos = mRecyclerView.getChildLayoutPosition(view);
                         mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
@@ -160,7 +182,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                             changeTheActionButtons(DISABLE_ACTION_BTNS);
                         else
                             changeTheActionButtons(!DISABLE_ACTION_BTNS);
-                        userDataMeasure.reportLog(getLocalClassName()+", "+mLevelOneItemPos+", "+ mLevelTwoItemPos , Log.INFO);
+                        mUserDataMeasure.reportLog(getLocalClassName()+", "+mLevelOneItemPos+", "+ mLevelTwoItemPos , Log.INFO);
                     }
                 });
             }
@@ -264,7 +286,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                 speakSpeech(below[1]);
                 if (flag_keyboard == 1) {
                     keyboard.setImageResource(R.drawable.keyboard_button);
-                    back.setImageResource(R.drawable.back_button);
+                    back.setImageResource(R.drawable.backpressed);
                     et.setVisibility(View.INVISIBLE);
                     mRecyclerView.setVisibility(View.VISIBLE);
                     ttsButton.setVisibility(View.INVISIBLE);
@@ -334,7 +356,7 @@ public class LevelTwoActivity extends AppCompatActivity {
         ttsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 speakSpeech(et.getText().toString());
-                userDataMeasure.reportLog(getLocalClassName()+", TtsSpeak", Log.INFO);
+                mUserDataMeasure.reportLog(getLocalClassName()+", TtsSpeak", Log.INFO);
                 like.setEnabled(false);
                 dislike.setEnabled(false);
                 add.setEnabled(false);
@@ -371,12 +393,14 @@ public class LevelTwoActivity extends AppCompatActivity {
                     if (mCk == 1) {
                         speakSpeech(side[1]);                               //if pressing like for second time then says like very much
                         mCk = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyLike"));
                     } else {
                         speakSpeech(side[0]);                               //if pressing like for first time says i like iin lang specified for mSession
                         mCk = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("like"));
                     }
                 } else {
-                    userDataMeasure.reportLog(getLocalClassName()+", like: "+mLevelOneItemPos+", "+ mLevelTwoItemPos , Log.INFO);
+                    mUserDataMeasure.reportLog(getLocalClassName()+", like: "+mLevelOneItemPos+", "+ mLevelTwoItemPos , Log.INFO);
                     ++mActionBtnClickCount;
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
@@ -390,6 +414,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(1));
                         mCk = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyLikeVerbiage"));
                     } else {
                         if(mLevelOneItemPos == 5)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort[mLevelTwoItemPos]).get(0));
@@ -400,6 +425,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(0));
                         mCk = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("LikeVerbiage"));
                     }
                 }
             }
@@ -419,12 +445,14 @@ public class LevelTwoActivity extends AppCompatActivity {
                     if (mCd == 1) {
                         speakSpeech(side[7]);
                         mCd = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyDislike"));
                     } else {
                         speakSpeech(side[6]);
                         mCd = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("Dislike"));
                     }
                 } else {
-                    userDataMeasure.reportLog(getLocalClassName()+", dislike: "+mLevelOneItemPos+", "+ mLevelTwoItemPos , Log.INFO);
+                    mUserDataMeasure.reportLog(getLocalClassName()+", dislike: "+mLevelOneItemPos+", "+ mLevelTwoItemPos , Log.INFO);
                     ++mActionBtnClickCount;
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
@@ -438,6 +466,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(7));
                         mCd = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyDislikeVerbiage"));
                     } else {
                         if (mLevelOneItemPos == 5)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort[mLevelTwoItemPos]).get(6));
@@ -448,6 +477,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(6));
                         mCd = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("DislikeVerbiage"));
                     }
                 }
             }
@@ -467,12 +497,14 @@ public class LevelTwoActivity extends AppCompatActivity {
                     if (mCy == 1) {
                         speakSpeech(side[3]);
                         mCy = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyYes"));
                     } else {
                         speakSpeech(side[2]);
                         mCy = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("Yes"));
                     }
                 } else  {
-                    userDataMeasure.reportLog(getLocalClassName()+", yes: "+mLevelOneItemPos+", "+ mLevelTwoItemPos , Log.INFO);
+                    mUserDataMeasure.reportLog(getLocalClassName()+", yes: "+mLevelOneItemPos+", "+ mLevelTwoItemPos , Log.INFO);
                     ++mActionBtnClickCount;
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
@@ -486,6 +518,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(3));
                         mCy = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyYesVerbiage"));
                     } else {
                         if (mLevelOneItemPos == 5)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort[mLevelTwoItemPos]).get(2));
@@ -496,6 +529,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(2));
                         mCy = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("YesVerbiage"));
                     }
                 }
                 }
@@ -515,12 +549,14 @@ public class LevelTwoActivity extends AppCompatActivity {
                     if (mCn == 1) {
                         speakSpeech(side[9]);
                         mCn = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyNo"));
                     } else {
                         speakSpeech(side[8]);
                         mCn = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("No"));
                     }
                 } else {
-                    userDataMeasure.reportLog(getLocalClassName()+", no: "+mLevelOneItemPos+", "+ mLevelTwoItemPos , Log.INFO);
+                    mUserDataMeasure.reportLog(getLocalClassName()+", no: "+mLevelOneItemPos+", "+ mLevelTwoItemPos , Log.INFO);
                     ++mActionBtnClickCount;
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
@@ -534,6 +570,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(9));
                         mCn = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyNoVerbiage"));
                     } else {
                         if (mLevelOneItemPos == 5)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort[mLevelTwoItemPos]).get(8));
@@ -544,6 +581,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(8));
                         mCn = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("NoVerbiage"));
                     }
                 }
             }
@@ -563,12 +601,14 @@ public class LevelTwoActivity extends AppCompatActivity {
                     if (mCm == 1) {
                         speakSpeech(side[5]);
                         mCm = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyAdd"));
                     } else {
                         speakSpeech(side[4]);
                         mCm = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("Add"));
                     }
                 } else {
-                    userDataMeasure.reportLog(getLocalClassName()+", add: "+mLevelOneItemPos+", "+ mLevelTwoItemPos , Log.INFO);
+                    mUserDataMeasure.reportLog(getLocalClassName()+", add: "+mLevelOneItemPos+", "+ mLevelTwoItemPos , Log.INFO);
                     ++mActionBtnClickCount;
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
@@ -582,6 +622,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(5));
                         mCm = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyAddVerbiage"));
                     } else {
                         if (mLevelOneItemPos == 5)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort[mLevelTwoItemPos]).get(4));
@@ -592,6 +633,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(4));
                         mCm = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("AddVerbiage"));
                     }
                 }
             }
@@ -610,12 +652,14 @@ public class LevelTwoActivity extends AppCompatActivity {
                     if (mCl == 1) {
                         speakSpeech(side[11]);
                         mCl = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyMinus"));
                     } else {
                         speakSpeech(side[10]);
                         mCl = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("Minus"));
                     }
                 } else {
-                    userDataMeasure.reportLog(getLocalClassName()+",minus: "+mLevelOneItemPos+", "+ mLevelTwoItemPos , Log.INFO);
+                    mUserDataMeasure.reportLog(getLocalClassName()+",minus: "+mLevelOneItemPos+", "+ mLevelTwoItemPos , Log.INFO);
                     ++mActionBtnClickCount;
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
@@ -630,6 +674,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         } else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(11));
                         mCl = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyMinusVerbiage"));
                     } else {
                         if (mLevelOneItemPos == 5)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort[mLevelTwoItemPos]).get(10));
@@ -641,6 +686,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         } else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(10));
                         mCl = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("MinusVerbiage"));
                     }
                 }
             }
@@ -680,6 +726,22 @@ public class LevelTwoActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if((new SessionManager(this).getLanguage()) == 0)
+            setLocale(Locale.US);
+        else
+            setLocale(new Locale(getString(R.string.locale_lang_hi),getString(R.string.locale_reg_IN)));
+    }
+
+    private void setLocale(Locale locale) {
+        Configuration conf = getResources().getConfiguration();
+        conf.locale = locale;
+        DisplayMetrics dm = getResources().getDisplayMetrics();
+        getResources().updateConfiguration(conf, dm);
     }
 
     private void initializeArrayListOfRecycler() {
@@ -785,7 +847,8 @@ public class LevelTwoActivity extends AppCompatActivity {
     }
 
     private void setMenuImageBorder(View recyclerChildView, boolean setBorder) {
-        CircularImageView circularImageView = (CircularImageView) recyclerChildView.findViewById(R.id.icon1);
+        //RoundedImageView circularImageView = (RoundedImageView) recyclerChildView.findViewById(R.id.icon1);
+        CircleImageView circularImageView = (CircleImageView) recyclerChildView.findViewById(R.id.icon1);
         String strSrBw = new SessionManager(this).getShadowRadiusAndBorderWidth();
         int sr, bw;
         sr = Integer.valueOf(strSrBw.split(",")[0]);
@@ -795,15 +858,18 @@ public class LevelTwoActivity extends AppCompatActivity {
                 circularImageView.setBorderColor(mColor[image_flag]);
             else {
                 circularImageView.setBorderColor(-1283893945);
-                circularImageView.setShadowColor(-1283893945);
+                //circularImageView.setShadowColor(-1283893945);
             }
-            circularImageView.setShadowRadius(sr);
-            circularImageView.setBorderWidth(bw);
+            //circularImageView.setShadowRadius(sr);
+            //circularImageView.setBorderWidth((float) bw);
+            //circularImageView.setBorderWidth(bw);
         }else {
-            circularImageView.setBorderColor(-1);
-            circularImageView.setShadowColor(0);
-            circularImageView.setShadowRadius(sr);
-            circularImageView.setBorderWidth(0);
+            circularImageView.setBorderColor(Color.TRANSPARENT);
+            //circularImageView.setBorderColor(-1);
+            //circularImageView.setShadowColor(0);
+            //circularImageView.setShadowRadius(sr);
+            //circularImageView.setBorderWidth((float)0);
+            //circularImageView.setBorderWidth(0);
         }
     }
 
@@ -848,19 +914,19 @@ public class LevelTwoActivity extends AppCompatActivity {
     }
 
     private void setActionButtonToAboutMe(int image_flag){
-        like.setImageResource(R.drawable.mynameis_unpressed);
-        dislike.setImageResource(R.drawable.caregiver_unpressed);
-        yes.setImageResource(R.drawable.email_unpressed);
-        no.setImageResource(R.drawable.address_unpressed);
-        add.setImageResource(R.drawable.contact_unpressed);
-        minus.setImageResource(R.drawable.bloodgroup_unpressed);
+        like.setImageResource(R.drawable.mynameis);
+        dislike.setImageResource(R.drawable.caregiver);
+        yes.setImageResource(R.drawable.email);
+        no.setImageResource(R.drawable.address);
+        add.setImageResource(R.drawable.contact);
+        minus.setImageResource(R.drawable.bloodgroup);
         switch (image_flag){
-            case 0: like.setImageResource(R.drawable.mynameis); break;
-            case 1: dislike.setImageResource(R.drawable.caregiver); break;
-            case 2: yes.setImageResource(R.drawable.email); break;
-            case 3: no.setImageResource(R.drawable.address); break;
-            case 4: add.setImageResource(R.drawable.contact); break;
-            case 5: minus.setImageResource(R.drawable.bloodgroup); break;
+            case 0: like.setImageResource(R.drawable.mynameis_pressed); break;
+            case 1: dislike.setImageResource(R.drawable.caregiver_pressed); break;
+            case 2: yes.setImageResource(R.drawable.email_pressed); break;
+            case 3: no.setImageResource(R.drawable.address_pressed); break;
+            case 4: add.setImageResource(R.drawable.contact_pressed); break;
+            case 5: minus.setImageResource(R.drawable.blooedgroup_pressed); break;
             case 6: home.setImageResource(R.drawable.homepressed); break;
             default: break;
         }

@@ -1,28 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
-    android:layout_weight="10"
-    android:id="@+id/main"
-    >
+    android:background="@drawable/bg">
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="fonts/Mukta-Regular.ttf"
-        android:textColor="#000000"
+        android:textColor="#000"
         android:text="Devices with active Google TTS engine: Please swipe to skip current step"
         android:textStyle="bold"
-        android:paddingLeft="73dp"
-        android:paddingTop="9dp"/>
+        android:layout_gravity="center_horizontal"/>
     <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="-8dp"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+            <TextView
+                android:id="@+id/tvtop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="fonts/Mukta-Regular.ttf"
+                android:textColor="#000"
+                android:textSize="13sp"
+                android:text="1.Activate Google TTS"/>
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="150dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/gtts1"/>
+            <TextView
+                android:id="@+id/tvbottom"
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:background="#FFD7D2D2"
+                android:gravity="center"
+                android:textColor="#000"
+                android:fontFamily="fonts/Mukta-Regular.ttf"
+                android:textStyle="bold"
+                android:textSize="10sp"
+                android:onClick="getStarted1"
+                android:text="ACTIVATE"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal">
+            <TextView
+                android:id="@+id/tvtop1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="fonts/Mukta-Regular.ttf"
+                android:textColor="#000"
+                android:textSize="13sp"
+                android:text="2. Change default language to Hindi"/>
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="150dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/gtts2"/>
+            <TextView
+                android:id="@+id/tvbottom1"
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:background="#FFD7D2D2"
+                android:gravity="center"
+                android:textColor="#000"
+                android:fontFamily="fonts/Mukta-Regular.ttf"
+                android:textStyle="bold"
+                android:textSize="10sp"
+                android:onClick="getStarted2"
+                android:text="CHANGE LANGUAGE"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="6dp"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal">
+            <TextView
+                android:id="@+id/tvtop2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="fonts/Mukta-Regular.ttf"
+                android:textColor="#000"
+                android:textSize="13sp"
+                android:text="3. Download Hindi voice"/>
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="150dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/gtts3"/>
+            <TextView
+                android:id="@+id/tvbottom3"
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:background="#FFD7D2D2"
+                android:gravity="center"
+                android:textColor="#000"
+                android:fontFamily="fonts/Mukta-Regular.ttf"
+                android:textStyle="bold"
+                android:textSize="10sp"
+                android:onClick="getStarted3"
+                android:text="DOWNLOAD"/>
+        </LinearLayout>
+    </LinearLayout>
+    <!--<LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:weightSum="3"
         android:layout_marginTop="0dp">
 
         <TextView
-            android:layout_width="190dp"
+            android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:paddingLeft="20dp"
             android:layout_weight="1"
@@ -146,7 +248,7 @@
             android:textSize="10dp"
             android:onClick="getStarted3"
             android:text="DOWNLOAD"/>
-    </LinearLayout>
+    </LinearLayout>-->
 
     <TextView
         android:layout_width="fill_parent"

@@ -11,6 +11,8 @@ import android.speech.tts.TextToSpeech;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.dsource.idc.jellow.R;
+
 import java.util.Locale;
 
 /**
@@ -43,6 +45,7 @@ public class JellowTTSService extends Service{
         super.onDestroy();
         unregisterReceiver(receiver);
         mTts.shutdown();
+        startService(new Intent(getApplication(), JellowTTSService.class));
     }
 
     private void say(String speechText){
@@ -89,7 +92,7 @@ public class JellowTTSService extends Service{
                 public void onInit(int status) {
                     try {
                         mTts.setEngineByPackageName("com.google.android.tts");
-                        mTts.setLanguage(new Locale("hin", "IND"));
+                        mTts.setLanguage(new Locale(getString(R.string.locale_lang_hi),getString(R.string.locale_reg_IN)));
                         mTts.setSpeechRate((float) session.getSpeed()/100);
                         mTts.setPitch((float) session.getPitch()/100);
                     } catch (Exception e) {

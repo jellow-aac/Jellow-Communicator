@@ -54,20 +54,18 @@ public class ResetPreferencesActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        menu.getItem(6).setVisible(false);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.profile: startActivity(new Intent(ResetPreferencesActivity.this, ProfileFormActivity.class)); finish(); break;
-            case R.id.info: startActivity(new Intent(ResetPreferencesActivity.this, AboutJellowActivity.class));   finish(); break;
-            case R.id.usage: startActivity(new Intent(ResetPreferencesActivity.this, TutorialActivity.class)); finish(); break;
-            case R.id.keyboardinput: startActivity(new Intent(ResetPreferencesActivity.this, KeyboardInputActivity.class)); finish(); break;
-            case R.id.feedback: startActivity(new Intent(ResetPreferencesActivity.this, FeedbackActivity.class)); finish(); break;
-            case R.id.settings: startActivity(new Intent(ResetPreferencesActivity.this, SettingActivity.class)); finish(); break;
-            case R.id.reset: startActivity(new Intent(ResetPreferencesActivity.this, ResetPreferencesActivity.class)); finish(); break;
+            case R.id.profile: startActivity(new Intent(this, ProfileFormActivity.class)); finish(); break;
+            case R.id.info: startActivity(new Intent(this, AboutJellowActivity.class)); finish(); break;
+            case R.id.usage: startActivity(new Intent(this, TutorialActivity.class)); finish(); break;
+            case R.id.keyboardinput: startActivity(new Intent(this, KeyboardInputActivity.class)); finish(); break;
+            case R.id.settings: startActivity(new Intent(getApplication(), SettingActivity.class)); finish(); break;
+            case R.id.feedback: startActivity(new Intent(this, FeedbackActivity.class)); finish(); break;
             case android.R.id.home: finish(); break;
             default: return super.onOptionsItemSelected(item);
         }

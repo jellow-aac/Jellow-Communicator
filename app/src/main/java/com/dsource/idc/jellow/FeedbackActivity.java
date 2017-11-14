@@ -3,6 +3,7 @@ package com.dsource.idc.jellow;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -42,6 +43,7 @@ public class FeedbackActivity extends AppCompatActivity {
             }
         }
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        findViewById(R.id.comments).clearFocus();
         mBtnSubmit = (Button) findViewById(R.id.bSubmit);
         addListenerOnRatingBar();
         addListenerOnButton();
@@ -51,7 +53,6 @@ public class FeedbackActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        menu.getItem(4).setVisible(false);
         return true;
     }
 
@@ -78,18 +79,19 @@ public class FeedbackActivity extends AppCompatActivity {
 
     public void addListenerOnRatingBar() {
         mRatingEasyToUse = (RatingBar) findViewById(R.id.easy_to_use);
-        Drawable progress1 = mRatingEasyToUse.getProgressDrawable();
-        DrawableCompat.setTint(progress1, Color.argb(255, 255, 204, 20));
         RatingBar pictures = (RatingBar) findViewById(R.id.pictures);
-        Drawable progress2 = pictures.getProgressDrawable();
-        DrawableCompat.setTint(progress2, Color.argb(255, 255, 204, 20));
         RatingBar voice = (RatingBar) findViewById(R.id.voice);
-        Drawable progress3 = voice.getProgressDrawable();
-        DrawableCompat.setTint(progress3, Color.argb(255, 255, 204, 20));
         RatingBar navigate = (RatingBar) findViewById(R.id.navigate);
-        Drawable progress4 = navigate.getProgressDrawable();
-        DrawableCompat.setTint(progress4, Color.argb(255, 255, 204, 20));
-
+        if(Build.VERSION.SDK_INT < 23) {
+            Drawable progress1 = mRatingEasyToUse.getProgressDrawable();
+            DrawableCompat.setTint(progress1, Color.argb(255, 255, 204, 20));
+            Drawable progress2 = pictures.getProgressDrawable();
+            DrawableCompat.setTint(progress2, Color.argb(255, 255, 204, 20));
+            Drawable progress3 = voice.getProgressDrawable();
+            DrawableCompat.setTint(progress3, Color.argb(255, 255, 204, 20));
+            Drawable progress4 = navigate.getProgressDrawable();
+            DrawableCompat.setTint(progress4, Color.argb(255, 255, 204, 20));
+        }
         mRatingEasyToUse.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
             public void onRatingChanged(RatingBar ratingBar, float rating,
                                         boolean fromUser) {

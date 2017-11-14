@@ -39,7 +39,7 @@
         <item>कैसे?</item>
         <item>कब?</item>
         <item>कहाँपे?</item>
-        <item>क्यूं?</item>
+        <item>क्यों?</item>
         <item>क्या?</item>
         <item>कौन?</item>
         <item>कितने?</item>
@@ -740,7 +740,7 @@
         <item>कैसे?</item>
         <item>कब?</item>
         <item>कहाँ पे?</item>
-        <item>क्यूं?</item>
+        <item>क्यों?</item>
         <item>क्या?</item>
         <item>कौन?</item>
         <item>कितने?</item>
@@ -945,7 +945,7 @@
     <string-array name="arrLevelThreeFoodDrinksSweetsAdapterText">
         <item>केक</item>
         <item>आइसक्रीम</item>
-        <item>गाजर का हलवा</item>
+        <item>गाज़र का हलवा</item>
         <item>गुलाब जामुन</item>
         <item>लड्डू</item>
         <item>बर्फी</item>
@@ -1150,7 +1150,7 @@
         <item>व्हेल </item>
         <item>शार्क </item>
         <item>कछुआ </item>
-        <item>चिडिया</item>
+        <item>चिड़िया</item>
         <item>गरुड़</item>
         <item>हॉक</item>
         <item>गिद्ध</item>

@@ -580,10 +580,10 @@
         <item>Kitchen</item>
         <item>Living room</item>
         <item>Bedroom</item>
-        <item>Play room</item>
+        <item>Playroom</item>
         <item>Bathroom</item>
         <item>Balcony</item>
-        <item>Study room</item>
+        <item>Studyroom</item>
         <item>bed</item>
         <item>Television</item>
         <item>Computer</item>
@@ -672,7 +672,7 @@
         <item>Holi</item>
         <item>Eid</item>
         <item>Good Friday</item>
-        <item>गुडी पाडवा</item>
+        <item>gudi paadwa</item>
         <item>Republic day</item>
         <item>Independence day</item>
         <item>New year</item>
@@ -994,7 +994,7 @@
         <item>Chocolate milkshake</item>
         <item>Strawberry milkshake</item>
         <item>Banana milkshake</item>
-        <item>Mango milkshak</item>
+        <item>Mango milkshake</item>
         <item>Chikoo milkshake</item>
         <item>Tea</item>
         <item>Coffee</item>
@@ -1301,7 +1301,7 @@
 
     <!--LEVEL THREE "TIME WEATHER" ADAPTER TEXT ARE HERE-->
     <string-array name="arrLevelThreeTimeWeaTimeAdapterText">
-        <item>What is the time?</item>
+        <item>Current time?</item>
         <item>Today\u00A0</item>
         <item>Yesterday\u00A0</item>
         <item>Tomorrow</item>
@@ -1311,7 +1311,7 @@
         <item>Night</item>
     </string-array>
     <string-array name="arrLevelThreeTimeWeaDayAdapterText">
-        <item>What is the day today?</item>
+        <item>What day is it?</item>
         <item>Monday\u00A0</item>
         <item>Tuesday\u00A0</item>
         <item>Wednesday\u00A0</item>

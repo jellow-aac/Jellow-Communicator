@@ -2,12 +2,14 @@ package com.dsource.idc.jellow;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.KeyListener;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,7 +18,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dsource.idc.jellow.Models.SeqActivityVerbiageModel;
@@ -25,6 +27,9 @@ import com.dsource.idc.jellow.Utility.UserDataMeasure;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Locale;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by ekalpa on 6/22/2016.
@@ -39,9 +44,9 @@ public class SequenceActivity extends AppCompatActivity {
     private KeyListener originalKeyListener;
     private int[] mColor;
     private TextView tt1, bt1, bt2, bt3;
-    private CircularImageView image1, image2, image3;
+    private CircleImageView image1, image2, image3;
     private ImageView arrow1, arrow2, back;
-    private LinearLayout linear;
+    private RelativeLayout relativeLayout;
     private Button forward, backward;
 
     TypedArray mDailyActivitiesIcons;
@@ -181,14 +186,13 @@ public class SequenceActivity extends AppCompatActivity {
         image1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mCk = mCy = mCm = mCd = mCn = mCl = 0;
                 if (image_flag == 1) {
                     hideActionBtn(true);
-                    image1.setBorderColor(-1);
-                    image1.setShadowColor(0);
-                    image1.setShadowRadius(sr);
-                    image1.setBorderWidth(0);
+                    image1.setBorderColor(Color.TRANSPARENT);
                     image_flag = 0;
                 } else {
+                    mUserDataMeasure.recordGridItem("Tapped ".concat(mDailyActivitiesSpeechText[count]));
                     mUserDataMeasure.reportLog(getLocalClassName()+", firstIcon: "+ mDailyActivitiesSpeechText[count], Log.INFO);
                     image_flag = 1;
                     if (count + image_flag == mDailyActivitiesIcons.length())
@@ -198,9 +202,6 @@ public class SequenceActivity extends AppCompatActivity {
                     speakSpeech(mDailyActivitiesSpeechText[count]);
                     resetActionBtnImageIcons();
                     image1.setBorderColor(-1283893945);
-                    image1.setShadowColor(-1283893945);
-                    image1.setShadowRadius(sr);
-                    image1.setBorderWidth(bw);
                 }
             }
         });
@@ -208,14 +209,13 @@ public class SequenceActivity extends AppCompatActivity {
         image2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mCk = mCy = mCm = mCd = mCn = mCl = 0;
                 if (image_flag == 2) {
                     hideActionBtn(true);
-                    image2.setBorderColor(-1);
-                    image2.setShadowColor(0);
-                    image2.setShadowRadius(sr);
-                    image2.setBorderWidth(0);
+                    image2.setBorderColor(Color.TRANSPARENT);
                     image_flag = 0;
                 } else {
+                    mUserDataMeasure.recordGridItem("Tapped ".concat(mDailyActivitiesSpeechText[count+1]));
                     mUserDataMeasure.reportLog(getLocalClassName()+", secondIcon: "+ mDailyActivitiesSpeechText[count + 1], Log.INFO);
                     image_flag = 2;
                     if (count + image_flag == mDailyActivitiesIcons.length())
@@ -225,9 +225,6 @@ public class SequenceActivity extends AppCompatActivity {
                     speakSpeech(mDailyActivitiesSpeechText[count + 1]);
                     resetActionBtnImageIcons();
                     image2.setBorderColor(-1283893945);
-                    image2.setShadowColor(-1283893945);
-                    image2.setShadowRadius(sr);
-                    image2.setBorderWidth(bw);
                 }
             }
         });
@@ -235,14 +232,13 @@ public class SequenceActivity extends AppCompatActivity {
         image3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mCk = mCy = mCm = mCd = mCn = mCl = 0;
                 if (image_flag == 3) {
                     hideActionBtn(true);
-                    image3.setBorderColor(-1);
-                    image3.setShadowColor(0);
-                    image3.setShadowRadius(sr);
-                    image3.setBorderWidth(0);
+                    image3.setBorderColor(Color.TRANSPARENT);
                     image_flag = 0;
                 } else {
+                    mUserDataMeasure.recordGridItem("Tapped ".concat(mDailyActivitiesSpeechText[count+2]));
                     mUserDataMeasure.reportLog(getLocalClassName()+", thirdIcon: "+ mDailyActivitiesSpeechText[count + 2], Log.INFO);
                     image_flag = 3;
                     if (count + image_flag == mDailyActivitiesIcons.length())
@@ -252,9 +248,6 @@ public class SequenceActivity extends AppCompatActivity {
                     speakSpeech(mDailyActivitiesSpeechText[count + 2]);
                     resetActionBtnImageIcons();
                     image3.setBorderColor(-1283893945);
-                    image3.setShadowColor(-1283893945);
-                    image3.setShadowRadius(sr);
-                    image3.setBorderWidth(bw);
                 }
             }
         });
@@ -271,11 +264,11 @@ public class SequenceActivity extends AppCompatActivity {
                 speakSpeech(below[1]);
                 if (flag_keyboard == 1) {
                     keyboard.setImageResource(R.drawable.keyboard_button);
-                    back.setImageResource(R.drawable.back_button);
+                    back.setImageResource(R.drawable.backpressed);
                     et.setVisibility(View.INVISIBLE);
-                    linear.setVisibility(View.VISIBLE);
+                    relativeLayout.setVisibility(View.VISIBLE);
                     ttsButton.setVisibility(View.INVISIBLE);
-                    image_flag = flag_keyboard = 0;
+                    flag_keyboard = 0;
                     changeTheActionButtons(!DISABLE_ACTION_BTNS);
                     forward.setVisibility(View.VISIBLE);
                     backward.setVisibility(View.VISIBLE);
@@ -305,9 +298,8 @@ public class SequenceActivity extends AppCompatActivity {
                 speakSpeech(below[2]);
                 if (flag_keyboard == 1) {
                     keyboard.setImageResource(R.drawable.keyboard_button);
-                    back.setImageResource(R.drawable.back_button);
                     et.setVisibility(View.INVISIBLE);
-                    linear.setVisibility(View.VISIBLE);
+                    relativeLayout.setVisibility(View.VISIBLE);
                     ttsButton.setVisibility(View.INVISIBLE);
                     flag_keyboard = 0;
                     changeTheActionButtons(!DISABLE_ACTION_BTNS);
@@ -319,7 +311,7 @@ public class SequenceActivity extends AppCompatActivity {
                     et.setVisibility(View.VISIBLE);
                     et.setKeyListener(originalKeyListener);
                     // Focus the field.
-                    linear.setVisibility(View.INVISIBLE);
+                    relativeLayout.setVisibility(View.INVISIBLE);
                     changeTheActionButtons(DISABLE_ACTION_BTNS);
                     et.requestFocus();
                     ttsButton.setVisibility(View.VISIBLE);
@@ -330,6 +322,7 @@ public class SequenceActivity extends AppCompatActivity {
                     flag_keyboard = 1;
                     showActionBarTitle(false);
                 }
+                back.setImageResource(R.drawable.back_button);
             }
         });
 
@@ -364,9 +357,11 @@ public class SequenceActivity extends AppCompatActivity {
                     if (mCk == 1) {
                         speakSpeech(side[1]);
                         mCk = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyLike"));
                     } else {
                         speakSpeech(side[0]);
                         mCk = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("like"));
                     }
                 } else {
                     setBorderToIcon(0);
@@ -375,71 +370,13 @@ public class SequenceActivity extends AppCompatActivity {
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(1), Log.INFO);
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(1));
                         mCk = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyLikeVerbiage"));
                     } else {
                         mUserDataMeasure.reportLog(getLocalClassName()+", like: "+
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(0), Log.INFO);
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(0));
                         mCk = 1;
-                    }
-                }
-            }
-        });
-
-        yes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mCk = mCm = mCd = mCn = mCl = 0;
-                resetActionBtnImageIcons();
-                if (image_flag == 0) {
-                    if (mCy == 1) {
-                        speakSpeech(side[3]);
-                        mCy = 0;
-                    } else {
-                        speakSpeech(side[2]);
-                        mCy = 1;
-                    }
-                } else {
-                    setBorderToIcon(2);
-                    if (mCy == 1) {
-                        mUserDataMeasure.reportLog(getLocalClassName()+", yes: "+
-                                mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(3), Log.INFO);
-                        speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(3));
-                        mCy = 0;
-                    } else {
-                        mUserDataMeasure.reportLog(getLocalClassName()+", yes: "+
-                                mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(2), Log.INFO);
-                        speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(2));
-                        mCy = 1;
-                    }
-                }
-            }
-        });
-
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mCk = mCy = mCd = mCn = mCl = 0;
-                resetActionBtnImageIcons();
-                if (image_flag == 0) {
-                    if (mCm == 1) {
-                        speakSpeech(side[5]);
-                        mCm = 0;
-                    } else {
-                        speakSpeech(side[4]);
-                        mCm = 1;
-                    }
-                } else {
-                    setBorderToIcon(4);
-                    if (mCm == 1) {
-                        mUserDataMeasure.reportLog(getLocalClassName()+", add: "+
-                                mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(5), Log.INFO);
-                        speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(5));
-                        mCm = 0;
-                    } else {
-                        mUserDataMeasure.reportLog(getLocalClassName()+", add: "+
-                                mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(4), Log.INFO);
-                        speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(4));
-                        mCm = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("LikeVerbiage"));
                     }
                 }
             }
@@ -454,9 +391,11 @@ public class SequenceActivity extends AppCompatActivity {
                     if (mCd == 1) {
                         speakSpeech(side[7]);
                         mCd = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyDislike"));
                     } else {
                         speakSpeech(side[6]);
                         mCd = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("Dislike"));
                     }
                 } else {
                     setBorderToIcon(1);
@@ -465,11 +404,47 @@ public class SequenceActivity extends AppCompatActivity {
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(7), Log.INFO);
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(7));
                         mCd = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyDislikeVerbiage"));
                     } else {
                         mUserDataMeasure.reportLog(getLocalClassName()+", dislike: "+
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(6), Log.INFO);
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(6));
                         mCd = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("DislikeVerbiage"));
+                    }
+                }
+            }
+        });
+
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCk = mCm = mCd = mCn = mCl = 0;
+                resetActionBtnImageIcons();
+                if (image_flag == 0) {
+                    if (mCy == 1) {
+                        speakSpeech(side[3]);
+                        mCy = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyYes"));
+                    } else {
+                        speakSpeech(side[2]);
+                        mCy = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("Yes"));
+                    }
+                } else {
+                    setBorderToIcon(2);
+                    if (mCy == 1) {
+                        mUserDataMeasure.reportLog(getLocalClassName()+", yes: "+
+                                mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(3), Log.INFO);
+                        speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(3));
+                        mCy = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyYesVerbiage"));
+                    } else {
+                        mUserDataMeasure.reportLog(getLocalClassName()+", yes: "+
+                                mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(2), Log.INFO);
+                        speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(2));
+                        mCy = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("YesVerbiage"));
                     }
                 }
             }
@@ -479,13 +454,16 @@ public class SequenceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mCk = mCy = mCm = mCd = mCl = 0;
+                resetActionBtnImageIcons();
                 if (image_flag == 0) {
                     if (mCn == 1) {
                         speakSpeech(side[9]);
                         mCn = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyNo"));
                     } else {
                         speakSpeech(side[8]);
                         mCn = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("No"));
                     }
                 } else {
                     setBorderToIcon(3);
@@ -494,11 +472,47 @@ public class SequenceActivity extends AppCompatActivity {
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(9), Log.INFO);
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(9));
                         mCn = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyNoVerbiage"));
                     } else {
                         mUserDataMeasure.reportLog(getLocalClassName()+", no: "+
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(8), Log.INFO);
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(8));
                         mCn = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("NoVerbiage"));
+                    }
+                }
+            }
+        });
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCk = mCy = mCd = mCn = mCl = 0;
+                resetActionBtnImageIcons();
+                if (image_flag == 0) {
+                    if (mCm == 1) {
+                        speakSpeech(side[5]);
+                        mCm = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyAdd"));
+                    } else {
+                        speakSpeech(side[4]);
+                        mCm = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("Add"));
+                    }
+                } else {
+                    setBorderToIcon(4);
+                    if (mCm == 1) {
+                        mUserDataMeasure.reportLog(getLocalClassName()+", add: "+
+                                mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(5), Log.INFO);
+                        speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(5));
+                        mCm = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyAddVerbiage"));
+                    } else {
+                        mUserDataMeasure.reportLog(getLocalClassName()+", add: "+
+                                mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(4), Log.INFO);
+                        speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(4));
+                        mCm = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("AddVerbiage"));
                     }
                 }
             }
@@ -513,9 +527,11 @@ public class SequenceActivity extends AppCompatActivity {
                     if (mCl == 1) {
                         speakSpeech(side[11]);
                         mCl = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyMinus"));
                     } else {
                         speakSpeech(side[10]);
                         mCl = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("Minus"));
                     }
                 } else {
                     setBorderToIcon(5);
@@ -524,11 +540,13 @@ public class SequenceActivity extends AppCompatActivity {
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(11), Log.INFO);
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(11));
                         mCl = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyMinusVerbiage"));
                     } else {
                         mUserDataMeasure.reportLog(getLocalClassName()+", minus: "+
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(10), Log.INFO);
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(10));
                         mCl = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("MinusVerbiage"));
                     }
                 }
             }
@@ -563,6 +581,22 @@ public class SequenceActivity extends AppCompatActivity {
         finish();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if((new SessionManager(this).getLanguage()) == 0)
+            setLocale(Locale.US);
+        else
+            setLocale(new Locale(getString(R.string.locale_lang_hi),getString(R.string.locale_reg_IN)));
+    }
+
+    private void setLocale(Locale locale) {
+        Configuration conf = getResources().getConfiguration();
+        conf.locale = locale;
+        DisplayMetrics dm = getResources().getDisplayMetrics();
+        getResources().updateConfiguration(conf, dm);
+    }
+
     private void showActionBarTitle(boolean showTitle){
         if (showTitle)
             getSupportActionBar().setTitle(actionBarTitleTxt);
@@ -582,7 +616,7 @@ public class SequenceActivity extends AppCompatActivity {
         home = (ImageView) findViewById(R.id.ivhome);
         keyboard = (ImageView) findViewById(R.id.keyboard);
         et = (EditText) findViewById(R.id.et);
-        linear = (LinearLayout) findViewById(R.id.linear);
+        relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
         back = (ImageView) findViewById(R.id.ivback);
         forward = (Button) findViewById(R.id.forward);
         backward = (Button) findViewById(R.id.backward);
@@ -590,17 +624,17 @@ public class SequenceActivity extends AppCompatActivity {
         bt1 = (TextView) findViewById(R.id.bt1);
         bt2 = (TextView) findViewById(R.id.bt2);
         bt3 = (TextView) findViewById(R.id.bt3);
-        image1 = (CircularImageView) findViewById(R.id.image1);
-        image2 = (CircularImageView) findViewById(R.id.image2);
-        image3 = (CircularImageView) findViewById(R.id.image3);
+        image1 = (CircleImageView) findViewById(R.id.image1);
+        image2 = (CircleImageView) findViewById(R.id.image2);
+        image3 = (CircleImageView) findViewById(R.id.image3);
 
         arrow1 = (ImageView) findViewById(R.id.arrow1);
         arrow2 = (ImageView) findViewById(R.id.arrow2);
         final int MODE_PICTURE_ONLY = 1;
         if(mSession.getPictureViewMode() == MODE_PICTURE_ONLY){
-            bt1.setVisibility(View.GONE);
-            bt2.setVisibility(View.GONE);
-            bt3.setVisibility(View.GONE);
+            bt1.setVisibility(View.INVISIBLE);
+            bt2.setVisibility(View.INVISIBLE);
+            bt3.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -700,18 +734,9 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     private void resetActionBtnImageIcons() {
-        image1.setBorderColor(-1);
-        image1.setShadowColor(0);
-        image1.setShadowRadius(sr);
-        image1.setBorderWidth(0);
-        image2.setBorderColor(-1);
-        image2.setShadowColor(0);
-        image2.setShadowRadius(sr);
-        image2.setBorderWidth(0);
-        image3.setBorderColor(-1);
-        image3.setShadowColor(0);
-        image3.setShadowRadius(sr);
-        image3.setBorderWidth(0);
+        image1.setBorderColor(Color.TRANSPARENT);
+        image2.setBorderColor(Color.TRANSPARENT);
+        image3.setBorderColor(Color.TRANSPARENT);
         like.setImageResource(R.drawable.ilikewithoutoutline);
         dislike.setImageResource(R.drawable.idontlikewithout);
         yes.setImageResource(R.drawable.iwantwithout);
@@ -723,19 +748,10 @@ public class SequenceActivity extends AppCompatActivity {
     private void setBorderToIcon(int actionBtnIdx) {
         if (image_flag == 1) {
             image1.setBorderColor(mColor[actionBtnIdx]);
-            image1.setShadowColor(mColor[actionBtnIdx]);
-            image1.setShadowRadius(sr);
-            image1.setBorderWidth(bw);
         } else if (image_flag == 2) {
             image2.setBorderColor(mColor[actionBtnIdx]);
-            image2.setShadowColor(mColor[actionBtnIdx]);
-            image2.setShadowRadius(sr);
-            image2.setBorderWidth(bw);
         } else if (image_flag == 3) {
             image3.setBorderColor(mColor[actionBtnIdx]);
-            image3.setShadowColor(mColor[actionBtnIdx]);
-            image3.setShadowRadius(sr);
-            image3.setBorderWidth(bw);
         }
         switch (actionBtnIdx){
             case 0: like.setImageResource(R.drawable.ilikewithoutline); break;

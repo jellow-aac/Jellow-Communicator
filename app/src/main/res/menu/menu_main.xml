@@ -18,10 +18,6 @@
             android:id="@+id/keyboardinput"
             android:title="@string/menuKeyboardInput"
             app:showAsAction="never"/>
-        <item
-            android:id="@+id/feedback"
-            android:title="@string/menuFeedback"
-            app:showAsAction="never"/>
     </group>
     <group android:id="@+id/menuGroupSettings">
         <item
@@ -31,6 +27,12 @@
         <item
             android:id="@+id/reset"
             android:title="@string/menuResetPref"
+            app:showAsAction="never"/>
+    </group>
+    <group android:id="@+id/menuFeedback">
+        <item
+            android:id="@+id/feedback"
+            android:title="@string/menuFeedback"
             app:showAsAction="never"/>
     </group>
 </menu>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    android:paddingTop="12dp"
     android:layout_width="match_parent"
     android:background="#F7F3C6"
     android:weightSum="1"
@@ -11,24 +11,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_weight=".12">
-        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_weight=".12"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="22dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginRight="22dp"
+        android:layout_marginEnd="22dp">
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
-            android:paddingTop="10dp"
-            android:paddingLeft="23dp"
-            android:paddingRight="5dp"
             android:fadeScrollbars="false"
-            android:layout_marginRight="30dp"
             android:scrollbarStyle="outsideInset"
             android:scrollbarAlwaysDrawVerticalTrack="true"
             android:scrollbarSize="10dp"
-            android:isScrollContainer="false"
-            android:paddingBottom="28dp">
+            android:isScrollContainer="false">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <TextView
                     android:id="@+id/tvName"
@@ -36,12 +36,13 @@
                     android:layout_height="wrap_content"
                     android:text="@string/childName"
                     android:textSize="18sp"
+                    android:textStyle="bold"
                     android:textColor="#000000"/>
                 <EditText
                     android:id="@+id/etName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
+                    android:textSize="18sp"
                     android:inputType="textPersonName"
                     android:imeOptions="actionDone"/>
                 <TextView
@@ -51,12 +52,14 @@
                     android:text="@string/careGiveName"
                     android:paddingTop="28dp"
                     android:textSize="18sp"
+                    android:textStyle="bold"
                     android:textColor="#000000"/>
                 <EditText
                     android:id="@+id/etFathername"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
+                    android:inputType="textPersonName"
+                    android:textSize="18sp"
                     android:imeOptions="actionDone"/>
                 <TextView
                     android:id="@+id/tvCaregiverNo"
@@ -66,14 +69,16 @@
                     android:textColor="#000000"
                     android:paddingTop="28dp"
                     android:textSize="18sp"
-                    android:inputType="textPersonName"/>
+                    android:textStyle="bold"
+                    android:inputType="textPersonName"
+                    tools:ignore="TextViewEdits" />
                 <EditText
                     android:id="@+id/etFathercontact"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="phone"
                     android:ems="10"
-                    android:textSize="20dp"
+                    android:textSize="18sp"
                     android:imeOptions="actionDone"/>
                 <TextView
                     android:id="@+id/tvHomeAddress"
@@ -82,12 +87,13 @@
                     android:text="@string/homeAddress"
                     android:textColor="#000000"
                     android:textSize="18sp"
+                    android:textStyle="bold"
                     android:paddingTop="28dp"/>
                 <EditText
                     android:id="@+id/etAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
+                    android:textSize="18sp"
                     android:inputType="textPostalAddress"
                     android:imeOptions="actionDone"/>
                 <TextView
@@ -97,13 +103,14 @@
                     android:text="@string/emailAddress"
                     android:textColor="#000000"
                     android:textSize="18sp"
+                    android:textStyle="bold"
                     android:paddingTop="28dp"/>
                 <EditText
                     android:id="@+id/etEmailId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
-                    android:textSize="20dp"
+                    android:textSize="18sp"
                     android:imeOptions="actionDone"/>
                 <TextView
                     android:id="@+id/tvBloodGrp"
@@ -112,6 +119,7 @@
                     android:text="@string/bloodGroup"
                     android:textColor="#000000"
                     android:textSize="18sp"
+                    android:textStyle="bold"
                     android:paddingTop="28dp"/>
                 <Spinner
                     android:id="@+id/bloodgroup"
@@ -125,15 +133,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight=".87"
-        android:background="#f7e2ac"
+        android:background="#F7E2AC"
         android:gravity="center_vertical">
         <Button
             android:id="@+id/bSave"
-            android:layout_marginLeft="22dp"
             android:text="@string/txtSave"
             android:layout_width="230dp"
             android:layout_height="40dp"
-            android:textSize="20dp"
-            android:background="#FFBEBCB6" />
+            android:textSize="18sp"
+            android:background="#FFBEBCB6"
+            android:layout_marginLeft="22dp"
+            android:layout_marginStart="22dp" />
     </LinearLayout>
 </LinearLayout>

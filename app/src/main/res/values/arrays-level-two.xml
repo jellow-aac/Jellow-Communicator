@@ -9,7 +9,7 @@
     </array>
     <array name="arrLevelTwoDailyActIconAdapter">
         <item>@drawable/level2_dailyact_brush</item>
-        <item>@drawable/level2_dailyact_toilet1</item>
+        <item>@drawable/toilet</item>
         <item>@drawable/level2_dailyact_bathing</item>
         <item>@drawable/level2_dailyact_clothing1</item>
         <item>@drawable/level2_dailyact_getready</item>
@@ -178,7 +178,7 @@
         <item>School</item>
         <item>Mall</item>
         <item>Museum</item>
-        <item>Hotel</item>
+        <item>Restaurant</item>
         <item>Theatre</item>
         <item>Playground</item>
         <item>Park</item>
@@ -282,7 +282,7 @@
         <item>School</item>
         <item>Mall</item>
         <item>Museum</item>
-        <item>Hotel</item>
+        <item>Restaurant</item>
         <item>Theatre</item>
         <item>Playground</item>
         <item>Park</item>
@@ -1064,18 +1064,18 @@
             \"I don\'t want to go to the museum again\",
             \"I really don\'t want to go to the museum again\"
 
-    ],[\"I like to go to a hotel\",
-            \"I really like to go to a hotel\",
-            \"I want to go to a hotel\",
-            \"I really want to go to a hotel\",
-            \"I want to go to a hotel again\",
-            \"I really want to go to a hotel again\",
-            \"I don\'t like to go to a hotel\",
-            \"I really don\'t like to go to a hotel\",
-            \"I don\'t want to go to a hotel\",
-            \"I really don\'t want to go to a hotel\",
-            \"I don\'t want to go to a hotel again\",
-            \"I really don\'t want to go to a hotel again\"
+    ],[\"I like to go to a restaurant\",
+            \"I really like to go to a restaurant\",
+            \"I want to go to a restaurant\",
+            \"I really want to go to a restaurant\",
+            \"I want to go to a restaurant again\",
+            \"I really want to go to a restaurant again\",
+            \"I don\'t like to go to a restaurant\",
+            \"I really don\'t like to go to a restaurant\",
+            \"I don\'t want to go to a restaurant\",
+            \"I really don\'t want to go to a restaurant\",
+            \"I don\'t want to go to a restaurant again\",
+            \"I really don\'t want to go to a restaurant again\"
 
     ],[\"I like to go to the theatre\",
             \"I really like to go to the theatre\",

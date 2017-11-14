@@ -25,11 +25,33 @@ public class UserDataMeasure {
     public void recordGridItem(String gridItem){
         Bundle bundle = new Bundle();
         bundle.putString("gridItem", gridItem);
-        mFirebaseAnalytics.logEvent("gridItem", bundle);
+        mFirebaseAnalytics.logEvent("GridItem", bundle);
+    }
+
+    public void recordExpressiveGridItem(String gridItem){
+        Bundle bundle = new Bundle();
+        bundle.putString("expressiveGrid", gridItem);
+        mFirebaseAnalytics.logEvent("ExpressiveGrid", bundle);
+    }
+
+    public void recordNavigationItem(String itemValue){
+        Bundle bundle = new Bundle();
+        bundle.putString("navigation", itemValue);
+        mFirebaseAnalytics.logEvent("Navigation", bundle);
+    }
+
+    public void recordKeyboardItem(String itemValue){
+        Bundle bundle = new Bundle();
+        bundle.putString("keyboard", itemValue);
+        mFirebaseAnalytics.logEvent("Keyboard", bundle);
     }
 
     public void recordScreen(String screenName){
         mFirebaseAnalytics.setCurrentScreen((Activity) mContext, screenName, null);
+    }
+
+    public void setProperty(String propertyName, String propertyValue){
+        mFirebaseAnalytics.setUserProperty(propertyName, propertyValue);
     }
 
     public void reportLog(String message, int msgCode){

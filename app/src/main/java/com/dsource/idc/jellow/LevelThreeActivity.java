@@ -2,12 +2,15 @@ package com.dsource.idc.jellow;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.SQLException;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.KeyListener;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,7 +28,10 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.StringTokenizer;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class LevelThreeActivity extends AppCompatActivity {
     private final boolean DISABLE_ACTION_BTNS = true;
@@ -79,18 +85,28 @@ public class LevelThreeActivity extends AppCompatActivity {
         mRecyclerItemsViewList = new ArrayList<>(100);
         while(mRecyclerItemsViewList.size() <= 100) mRecyclerItemsViewList.add(null);
         like = (ImageView) findViewById(R.id.ivlike);
+        like.setContentDescription(side[0]);
         dislike = (ImageView) findViewById(R.id.ivdislike);
+        dislike.setContentDescription(side[6]);
         add = (ImageView) findViewById(R.id.ivadd);
+        add.setContentDescription(side[4]);
         minus = (ImageView) findViewById(R.id.ivminus);
+        minus.setContentDescription(side[10]);
         yes = (ImageView) findViewById(R.id.ivyes);
+        yes.setContentDescription(side[2]);
         no = (ImageView) findViewById(R.id.ivno);
+        no.setContentDescription(side[8]);
         home = (ImageView) findViewById(R.id.ivhome);
+        home.setContentDescription(below[0]);
         back = (ImageView) findViewById(R.id.ivback);
-        back.setAlpha(1f);
+        back.setContentDescription(below[1]);
         keyboard = (ImageView) findViewById(R.id.keyboard);
+        keyboard.setContentDescription(below[2]);
         et = (EditText) findViewById(R.id.et);
+        et.setContentDescription(getString(R.string.string_to_speak));
         et.setVisibility(View.INVISIBLE);
         ttsButton = (ImageView) findViewById(R.id.ttsbutton);
+        ttsButton.setContentDescription(getString(R.string.speak_written_text));
         ttsButton.setVisibility(View.INVISIBLE);
         originalKeyListener = et.getKeyListener();
         // Set it to null - this will make to the field non-editable
@@ -107,6 +123,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                     mMenuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            mCk = mCy = mCm = mCd = mCn = mCl = 0;
                             resetActionButtons(-1);
                             resetRecyclerAllItems();
                             mActionBtnClickCount = 0;
@@ -121,6 +138,7 @@ public class LevelThreeActivity extends AppCompatActivity {
 
                             incrementTouchCountOfItem(mLevelThreeItemPos);
                             retainExpressiveButtonStates();
+                            mUserDataMeasure.recordGridItem("Tapped ".concat(myMusic[position]));
                             mUserDataMeasure.reportLog(getLocalClassName()+", "+
                                     mLevelOneItemPos+", "+ mLevelTwoItemPos +", "+ mLevelThreeItemPos, Log.INFO);
                         }
@@ -178,7 +196,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                 back.setImageResource(R.drawable.backpressed);
                 if (flag_keyboard == 1) {
                     keyboard.setImageResource(R.drawable.keyboard_button);
-                    back.setImageResource(R.drawable.back_button);
+                    back.setImageResource(R.drawable.backpressed);
                     et.setVisibility(View.INVISIBLE);
                     mRecyclerView.setVisibility(View.VISIBLE);
                     ttsButton.setVisibility(View.INVISIBLE);
@@ -276,9 +294,11 @@ public class LevelThreeActivity extends AppCompatActivity {
                     if (mCk == 1) {
                         speakSpeech(side[1]);
                         mCk = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyLike"));
                     } else {
                         speakSpeech(side[0]);
                         mCk = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("like"));
                     }
                 } else {
                     mUserDataMeasure.reportLog(getLocalClassName()+", like: "+
@@ -292,12 +312,14 @@ public class LevelThreeActivity extends AppCompatActivity {
                         else
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(1));
                         mCk = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyLikeVerbiage"));
                     } else {
                         if (count_flag == 1)
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(0));
                         else
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(0));
                         mCk = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("LikeVerbiage"));
                     }
                 }
             }
@@ -313,9 +335,11 @@ public class LevelThreeActivity extends AppCompatActivity {
                     if (mCd == 1) {
                         speakSpeech(side[7]);
                         mCd = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyDislike"));
                     } else {
                         speakSpeech(side[6]);
                         mCd = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("Dislike"));
                     }
                 } else {
                     mUserDataMeasure.reportLog(getLocalClassName()+", dislike: "+
@@ -329,12 +353,14 @@ public class LevelThreeActivity extends AppCompatActivity {
                          else
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(7));
                         mCd = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyDislikeVerbiage"));
                     } else {
                         if (count_flag == 1)
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(6));
                         else
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(6));
                         mCd = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("DislikeVerbiage"));
                     }
                 }
             }
@@ -350,9 +376,11 @@ public class LevelThreeActivity extends AppCompatActivity {
                     if (mCy == 1) {
                         speakSpeech(side[3]);
                         mCy = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyYes"));
                     } else {
                         speakSpeech(side[2]);
                         mCy = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("Yes"));
                     }
                 } else {
                     mUserDataMeasure.reportLog(getLocalClassName()+", yes: "+
@@ -366,12 +394,14 @@ public class LevelThreeActivity extends AppCompatActivity {
                         else
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(3));
                         mCy = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyYesVerbiage"));
                     } else {
                         if (count_flag == 1)
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(2));
                         else
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(2));
                         mCy = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("YesVerbiage"));
                     }
                 }
             }
@@ -387,9 +417,11 @@ public class LevelThreeActivity extends AppCompatActivity {
                     if (mCn == 1) {
                         speakSpeech(side[9]);
                         mCn = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyNo"));
                     } else {
                         speakSpeech(side[8]);
                         mCn = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("No"));
                     }
                 } else {
                     mUserDataMeasure.reportLog(getLocalClassName()+", no: "+
@@ -403,12 +435,14 @@ public class LevelThreeActivity extends AppCompatActivity {
                         else
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(9));
                         mCn = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyNoVerbiage"));
                     } else {
                         if (count_flag == 1)
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(8));
                          else
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(8));
                         mCn = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("NoVerbiage"));
                     }
                 }
             }
@@ -424,9 +458,11 @@ public class LevelThreeActivity extends AppCompatActivity {
                     if (mCm == 1) {
                         speakSpeech(side[5]);
                         mCm = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyAdd"));
                     } else {
                         speakSpeech(side[4]);
                         mCm = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("Add"));
                     }
                 } else {
                     mUserDataMeasure.reportLog(getLocalClassName()+", add: "+
@@ -440,12 +476,14 @@ public class LevelThreeActivity extends AppCompatActivity {
                         else
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(5));
                         mCm = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyAddVerbiage"));
                     } else {
                         if (count_flag == 1)
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(4));
                         else
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(4));
                         mCm = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("AddVerbiage"));
                     }
                 }
             }
@@ -461,9 +499,11 @@ public class LevelThreeActivity extends AppCompatActivity {
                     if (mCl == 1) {
                         speakSpeech(side[11]);
                         mCl = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyMinus"));
                     } else {
                         speakSpeech(side[10]);
                         mCl = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("Minus"));
                     }
                 } else {
                     mUserDataMeasure.reportLog(getLocalClassName()+", minus: "+
@@ -477,12 +517,14 @@ public class LevelThreeActivity extends AppCompatActivity {
                         else
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(11));
                         mCl = 0;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyMinusVerbiage"));
                     } else {
                         if (count_flag == 1)
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(10));
                         else
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(10));
                         mCl = 1;
+                        mUserDataMeasure.recordGridItem("Tapped ".concat("MinusVerbiage"));
                     }
                 }
             }
@@ -515,6 +557,22 @@ public class LevelThreeActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if((new SessionManager(this).getLanguage()) == 0)
+            setLocale(Locale.US);
+        else
+            setLocale(new Locale(getString(R.string.locale_lang_hi),getString(R.string.locale_reg_IN)));
+    }
+
+    private void setLocale(Locale locale) {
+        Configuration conf = getResources().getConfiguration();
+        conf.locale = locale;
+        DisplayMetrics dm = getResources().getDisplayMetrics();
+        getResources().updateConfiguration(conf, dm);
     }
 
     private void showActionBarTitle(boolean showTitle){
@@ -604,7 +662,8 @@ public class LevelThreeActivity extends AppCompatActivity {
     }
 
     private void setMenuImageBorder(View recyclerChildView, boolean setBorder) {
-        CircularImageView circularImageView = (CircularImageView) recyclerChildView.findViewById(R.id.icon1);
+        //RoundedImageView circularImageView = (RoundedImageView) recyclerChildView.findViewById(R.id.icon1);
+        CircleImageView circularImageView = (CircleImageView) recyclerChildView.findViewById(R.id.icon1);
         String strSrBw = new SessionManager(this).getShadowRadiusAndBorderWidth();
         int sr, bw;
         sr = Integer.valueOf(strSrBw.split(",")[0]);
@@ -614,15 +673,18 @@ public class LevelThreeActivity extends AppCompatActivity {
                 circularImageView.setBorderColor(mColor[image_flag]);
             else {
                 circularImageView.setBorderColor(-1283893945);
-                circularImageView.setShadowColor(-1283893945);
+                //circularImageView.setShadowColor(-1283893945);
             }
-            circularImageView.setShadowRadius(sr);
-            circularImageView.setBorderWidth(bw);
+            //circularImageView.setShadowRadius(sr);
+            //circularImageView.setBorderWidth((float)bw);
+            //circularImageView.setBorderWidth(bw);
         }else {
-            circularImageView.setBorderColor(-1);
-            circularImageView.setShadowColor(0);
-            circularImageView.setShadowRadius(sr);
-            circularImageView.setBorderWidth(0);
+            circularImageView.setBorderColor(Color.TRANSPARENT);
+            //circularImageView.setBorderColor(-1);
+            //circularImageView.setShadowColor(0);
+            //circularImageView.setShadowRadius(sr);
+            //circularImageView.setBorderWidth((float)0);
+            //circularImageView.setBorderWidth(0);
         }
     }
 

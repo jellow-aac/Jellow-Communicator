@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    android:paddingTop="12dp"
     android:layout_width="match_parent"
     android:background="#F7F3C6"
     android:weightSum="1"
@@ -11,75 +10,61 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_weight=".12">
-        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_weight=".12"
+        android:layout_margin="@dimen/activity_vertical_margin">
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
-            android:paddingTop="10dp"
-            android:paddingLeft="23dp"
-            android:paddingRight="5dp"
             android:fadeScrollbars="false"
-            android:layout_marginRight="30dp"
             android:scrollbarStyle="outsideInset"
             android:scrollbarAlwaysDrawVerticalTrack="true"
             android:scrollbarSize="10dp"
-            android:isScrollContainer="false"
-            android:paddingBottom="28dp">
+            android:isScrollContainer="false">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <!--<TextView
+                <TextView
+                    android:id="@+id/tvName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Child's Name *"
-                    android:id="@+id/tvName"
+                    android:text="@string/childName"
                     android:textColor="#000000"
-                    android:textSize="18sp"/>-->
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
                 <EditText
                     android:id="@+id/etName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:hint="Child's Name *"
                     android:inputType="textPersonName"
+                    android:textSize="20sp"
                     android:imeOptions="actionDone"/>
-                </android.support.design.widget.TextInputLayout>
-
-                <!--<TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Caregiver's Name"
-                    android:paddingTop="28dp"
-                    android:textColor="#000000"
-                    android:id="@+id/tvCaregiverName"
-                    android:textSize="18sp"/>-->
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/etFathername"
-                    android:textSize="20sp"
-                    android:inputType="textPersonName"
-                    android:imeOptions="actionDone"
-                    android:hint="Caregiver's Name"/>
-                </android.support.design.widget.TextInputLayout>
-
                 <TextView
+                    android:id="@+id/tvCaregiverName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Caregiver's Contact No. *"
+                    android:text="@string/careGiveName"
                     android:textColor="#000000"
                     android:paddingTop="28dp"
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
+                <EditText
+                    android:id="@+id/etFathername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:textSize="20sp"
+                    android:imeOptions="actionDone"/>
+                <TextView
                     android:id="@+id/tvCaregiverNo"
-                    android:textSize="18sp"/>
-
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/careGiverContact"
+                    android:textColor="#000000"
+                    android:paddingTop="28dp"
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -89,46 +74,49 @@
                     android:textSize="20sp"
                     android:imeOptions="actionDone"/>
                 <TextView
+                    android:id="@+id/tvHomeAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Home Address"
+                    android:text="@string/homeAddress"
                     android:textColor="#000000"
                     android:paddingTop="28dp"
-                    android:id="@+id/tvHomeAddress"
-                    android:textSize="18sp"/>
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
                 <EditText
+                    android:id="@+id/etAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/etAddress"
                     android:textSize="20sp"
                     android:inputType="textPostalAddress"
                     android:imeOptions="actionDone"/>
                 <TextView
+                    android:id="@+id/tvEmailAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Email Address *"
+                    android:text="@string/emailAddress"
                     android:textColor="#000000"
                     android:paddingTop="28dp"
-                    android:id="@+id/tvEmailAddress"/>
+                    android:textStyle="bold"/>
                 <EditText
+                    android:id="@+id/etEmailId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/etEmailId"
                     android:inputType="textEmailAddress"
                     android:textSize="20sp"
                     android:imeOptions="actionDone"/>
                 <TextView
+                    android:id="@+id/tvBloodGrp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Blood Group"
+                    android:text="@string/bloodGroup"
                     android:textColor="#000000"
                     android:paddingTop="28dp"
-                    android:id="@+id/tvBloodGrp"
-                    android:textSize="18sp"/>
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
                 <Spinner
+                    android:id="@+id/bloodgroup"
                     android:layout_width="190dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/bloodgroup" />
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

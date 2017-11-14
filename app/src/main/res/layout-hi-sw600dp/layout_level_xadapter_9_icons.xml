@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/linearlayout_icon1"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center_horizontal">
-    <com.dsource.idc.jellow.CircularImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/icon1"
-        android:layout_width="142dp"
-        android:layout_height="142dp"
+        android:layout_width="94dp"
+        android:layout_height="94dp"
+        app:civ_border_width="6dp"
+        app:civ_border_color="@android:color/transparent"
         android:src="@drawable/windy"/>
     <TextView
         android:id="@+id/te1"
         android:layout_width="192dp"
         android:layout_height="wrap_content"
         android:text="TIME AND WEATHER..."
+        android:textSize="18sp"
         android:textAlignment="center"
         android:singleLine="true"/>
 </LinearLayout>

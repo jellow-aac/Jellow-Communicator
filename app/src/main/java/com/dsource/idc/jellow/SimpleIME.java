@@ -8,12 +8,15 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputConnection;
 
+import com.dsource.idc.jellow.Utility.SessionManager;
+
 /**
  * Created by ekalpa on 11/22/2016.
  */
 public class SimpleIME extends InputMethodService
         implements KeyboardView.OnKeyboardActionListener {
 
+    private final int LANG_ENG = 0;
     private Keyboard keyboard;  // private Keyboard defaultKeyboard;
     private Keyboard keyboard1;
     private Keyboard keyboard2; // private Keyboard charKeyboard;
@@ -21,6 +24,7 @@ public class SimpleIME extends InputMethodService
     private Keyboard e1keyboard;
     //private boolean isCharKeyboard = false;
     private KeyboardView kv;
+    private SessionManager mSession;
 
     private boolean caps = false;
 
@@ -38,8 +42,13 @@ public class SimpleIME extends InputMethodService
         keyboard2 = new Keyboard(this, R.xml.qwerty2); //char
         ekeyboard = new Keyboard(this, R.xml.eqwerty);
         e1keyboard = new Keyboard(this, R.xml.eqwerty1);
-        kv.setKeyboard(keyboard );
+        mSession = new SessionManager(this);
+        if(mSession.getLanguage() == LANG_ENG)
+            kv.setKeyboard(ekeyboard);
+        else
+            kv.setKeyboard(keyboard);
         kv.setOnKeyboardActionListener(this);
+        kv.setPreviewEnabled(false);
         return kv;
     }
 

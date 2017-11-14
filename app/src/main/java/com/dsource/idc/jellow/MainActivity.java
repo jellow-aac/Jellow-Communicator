@@ -2,11 +2,14 @@ package com.dsource.idc.jellow;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.KeyListener;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,10 +22,14 @@ import android.widget.LinearLayout;
 
 import com.dsource.idc.jellow.Models.LevelOneVerbiageModel;
 import com.dsource.idc.jellow.Utility.SessionManager;
+import com.dsource.idc.jellow.Utility.SpeakOnKeyboardDialog;
 import com.dsource.idc.jellow.Utility.UserDataMeasure;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Locale;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
     private static final int REQ_HOME = 0;
@@ -33,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView like, dislike, add, minus, yes, no, home, keyboard, ttsButton, back;
     private EditText et;
     private KeyListener originalKeyListener;
-    private RecyclerView mRecyclerView;
+    public RecyclerView mRecyclerView;
     private LinearLayout mMenuItemLinearLayout;
     private int mLevelOneItemPos = -1, mSelectedItemAdapterPos = -1, mActionBtnClickCount = -1;
     private boolean mShouldReadFullSpeech = false;
@@ -43,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<ArrayList<String>> mLayerOneSpeech;
     private String[] myMusic, side, below;
     private String actionBarTitleTxt;
+    private SpeakOnKeyboardDialog mKeyboardDialog;
+    private boolean mKeyChange;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,22 +65,32 @@ public class MainActivity extends AppCompatActivity {
         loadArraysFromResources();
         mRecyclerItemsViewList = new ArrayList<>(myMusic.length);
         while (mRecyclerItemsViewList.size() < myMusic.length)  mRecyclerItemsViewList.add(null);
-
         like = (ImageView) findViewById(R.id.ivlike);
+        like.setContentDescription(side[0]);
         dislike = (ImageView) findViewById(R.id.ivdislike);
+        dislike.setContentDescription(side[6]);
         add = (ImageView) findViewById(R.id.ivadd);
+        add.setContentDescription(side[4]);
         minus = (ImageView) findViewById(R.id.ivminus);
+        minus.setContentDescription(side[10]);
         yes = (ImageView) findViewById(R.id.ivyes);
+        yes.setContentDescription(side[2]);
         no = (ImageView) findViewById(R.id.ivno);
+        no.setContentDescription(side[8]);
         home = (ImageView) findViewById(R.id.ivhome);
+        home.setContentDescription(below[0]);
         back = (ImageView) findViewById(R.id.ivback);
+        back.setContentDescription(below[1]);
         back.setAlpha(.5f);
         back.setEnabled(false);
         keyboard = (ImageView) findViewById(R.id.keyboard);
+        keyboard.setContentDescription(below[2]);
         et = (EditText) findViewById(R.id.et);
+        et.setContentDescription(getString(R.string.string_to_speak));
         et.setVisibility(View.INVISIBLE);
 
         ttsButton = (ImageView)findViewById(R.id.ttsbutton);
+        ttsButton.setContentDescription(getString(R.string.speak_written_text));
         ttsButton.setVisibility(View.INVISIBLE);
 
         originalKeyListener = et.getKeyListener();
@@ -82,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(new MainActivityAdapter(this));
         mRecyclerView.setVerticalScrollBarEnabled(true);
         mRecyclerView.setScrollbarFadingEnabled(false);
+        mRecyclerView.requestFocus();
         mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, mRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(final View view, final int position) {
@@ -89,24 +109,7 @@ public class MainActivity extends AppCompatActivity {
                 mMenuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        resetActionButtons(-1);
-                        resetRecyclerAllItems();
-                        mActionBtnClickCount = 0;
-                        setMenuImageBorder(v, true);
-                        mShouldReadFullSpeech = true;
-                        String title = getActionBarTitle(position);
-                        getSupportActionBar().setTitle(title);
-                        if (mLevelOneItemPos == position) {
-                            Intent intent = new Intent(MainActivity.this, LevelTwoActivity.class);
-                            intent.putExtra("mLevelOneItemPos", position);
-                            intent.putExtra("selectedMenuItemPath", title + "/");
-                            startActivityForResult(intent,REQ_HOME);
-                        }else {
-                            speakSpeech(myMusic[position]);
-                        }
-                        mLevelOneItemPos = mRecyclerView.getChildLayoutPosition(view);
-                        mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
-                        mUserDataMeasure.reportLog(getLocalClassName()+" "+mLevelOneItemPos, Log.INFO);
+                        tappedGridItemEvent(view, v, position);
                     }
                 });
             }
@@ -144,6 +147,8 @@ public class MainActivity extends AppCompatActivity {
                     back.setEnabled(false);
                     back.setAlpha(.5f);
                     showActionBarTitle(true);
+                    //mKeyboardDialog.dismissDialog();
+                    mUserDataMeasure.recordNavigationItem(below[1]);
                 }
             }
         });
@@ -159,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 speakSpeech(below[2]);
+                mUserDataMeasure.recordNavigationItem(below[2]);
                 if (flag_keyboard  == 1){
                     keyboard.setImageResource(R.drawable.keyboard_button);
                     back.setImageResource(R.drawable.back_button);
@@ -185,6 +191,8 @@ public class MainActivity extends AppCompatActivity {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
                     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+                    //mKeyboardDialog = new SpeakOnKeyboardDialog(MainActivity.this);
+                    //mKeyboardDialog.showDialog();
                     back.setAlpha(1f);
                     back.setEnabled(true);
                     flag_keyboard = 1;
@@ -197,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view){
                 speakSpeech(et.getText().toString());
                 mUserDataMeasure.reportLog(getLocalClassName()+", TtsSpeak", Log.INFO);
-
+                mUserDataMeasure.recordKeyboardItem(et.getText().toString());
                 like.setEnabled(false);
                 dislike.setEnabled(false);
                 add.setEnabled(false);
@@ -231,9 +239,11 @@ public class MainActivity extends AppCompatActivity {
                     if (mCk == 1) {
                         speakSpeech(side[1]);
                         mCk = 0;
+                        mUserDataMeasure.recordExpressiveGridItem(side[1]);
                     } else {
                         speakSpeech(side[0]);
                         mCk = 1;
+                        mUserDataMeasure.recordExpressiveGridItem(side[0]);
                     }
                 } else {
                     mUserDataMeasure.reportLog(getLocalClassName()+", like: "+mLevelOneItemPos, Log.INFO);
@@ -244,9 +254,11 @@ public class MainActivity extends AppCompatActivity {
                     if (mCk == 1) {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(1));
                         mCk = 0;
+                        mUserDataMeasure.recordExpressiveGridItem(mLayerOneSpeech.get(mLevelOneItemPos).get(1));
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(0));
                         mCk = 1;
+                        mUserDataMeasure.recordExpressiveGridItem(mLayerOneSpeech.get(mLevelOneItemPos).get(0));
                     }
                 }
             }
@@ -262,9 +274,11 @@ public class MainActivity extends AppCompatActivity {
                     if (mCd == 1) {
                         speakSpeech(side[7]);
                         mCd = 0;
+                        mUserDataMeasure.recordExpressiveGridItem(side[7]);
                     } else {
                         speakSpeech(side[6]);
                         mCd = 1;
+                        mUserDataMeasure.recordExpressiveGridItem(side[6]);
                     }
                 } else {
                     mUserDataMeasure.reportLog(getLocalClassName()+", dislike: "+mLevelOneItemPos, Log.INFO);
@@ -274,9 +288,11 @@ public class MainActivity extends AppCompatActivity {
                     if (mCd == 1) {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(7));
                         mCd = 0;
+                        mUserDataMeasure.recordExpressiveGridItem(mLayerOneSpeech.get(mLevelOneItemPos).get(7));
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(6));
                         mCd = 1;
+                        mUserDataMeasure.recordExpressiveGridItem(mLayerOneSpeech.get(mLevelOneItemPos).get(6));
                     }
                 }
             }
@@ -292,9 +308,11 @@ public class MainActivity extends AppCompatActivity {
                     if (mCy == 1) {
                         speakSpeech(side[3]);
                         mCy = 0;
+                        mUserDataMeasure.recordExpressiveGridItem(side[3]);
                     } else {
                         speakSpeech(side[2]);
                         mCy = 1;
+                        mUserDataMeasure.recordExpressiveGridItem(side[2]);
                     }
                 } else {
                     mUserDataMeasure.reportLog(getLocalClassName()+", yes: "+mLevelOneItemPos, Log.INFO);
@@ -304,9 +322,11 @@ public class MainActivity extends AppCompatActivity {
                     if (mCy == 1) {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(3));
                         mCy = 0;
+                        mUserDataMeasure.recordExpressiveGridItem(mLayerOneSpeech.get(mLevelOneItemPos).get(3));
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(2));
                         mCy = 1;
+                        mUserDataMeasure.recordExpressiveGridItem(mLayerOneSpeech.get(mLevelOneItemPos).get(2));
                     }
                 }
             }
@@ -322,9 +342,11 @@ public class MainActivity extends AppCompatActivity {
                     if (mCn == 1) {
                         speakSpeech(side[9]);
                         mCn = 0;
+                        mUserDataMeasure.recordExpressiveGridItem(side[9]);
                     } else {
                         speakSpeech(side[8]);
                         mCn = 1;
+                        mUserDataMeasure.recordExpressiveGridItem(side[8]);
                     }
                 } else {
                     mUserDataMeasure.reportLog(getLocalClassName()+", no: "+mLevelOneItemPos, Log.INFO);
@@ -334,9 +356,11 @@ public class MainActivity extends AppCompatActivity {
                     if (mCn == 1) {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(9));
                         mCn = 0;
+                        mUserDataMeasure.recordExpressiveGridItem(mLayerOneSpeech.get(mLevelOneItemPos).get(9));
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(8));
                         mCn = 1;
+                        mUserDataMeasure.recordExpressiveGridItem(mLayerOneSpeech.get(mLevelOneItemPos).get(8));
                     }
                 }
             }
@@ -352,9 +376,11 @@ public class MainActivity extends AppCompatActivity {
                     if (mCm == 1) {
                         speakSpeech(side[5]);
                         mCm = 0;
+                        mUserDataMeasure.recordExpressiveGridItem(side[5]);
                     } else {
                         speakSpeech(side[4]);
                         mCm = 1;
+                        mUserDataMeasure.recordExpressiveGridItem(side[4]);
                     }
                 } else {
                     mUserDataMeasure.reportLog(getLocalClassName()+", add: "+mLevelOneItemPos, Log.INFO);
@@ -364,9 +390,11 @@ public class MainActivity extends AppCompatActivity {
                     if (mCm == 1) {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(5));
                         mCm = 0;
+                        mUserDataMeasure.recordExpressiveGridItem(mLayerOneSpeech.get(mLevelOneItemPos).get(5));
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(4));
                         mCm = 1;
+                        mUserDataMeasure.recordExpressiveGridItem(mLayerOneSpeech.get(mLevelOneItemPos).get(4));
                     }
                 }
             }
@@ -382,9 +410,11 @@ public class MainActivity extends AppCompatActivity {
                     if (mCl == 1) {
                         speakSpeech(side[11]);
                         mCl = 0;
+                        mUserDataMeasure.recordExpressiveGridItem(side[11]);
                     } else {
                         speakSpeech(side[10]);
                         mCl = 1;
+                        mUserDataMeasure.recordExpressiveGridItem(side[10]);
                     }
                 } else {
                     mUserDataMeasure.reportLog(getLocalClassName()+", minus: "+mLevelOneItemPos, Log.INFO);
@@ -394,9 +424,11 @@ public class MainActivity extends AppCompatActivity {
                     if (mCl == 1) {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(11));
                         mCl = 0;
+                        mUserDataMeasure.recordExpressiveGridItem(mLayerOneSpeech.get(mLevelOneItemPos).get(11));
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(10));
                         mCl = 1;
+                        mUserDataMeasure.recordExpressiveGridItem(mLayerOneSpeech.get(mLevelOneItemPos).get(10));
                     }
                 }
             }
@@ -423,9 +455,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.info: startActivity(new Intent(this, AboutJellowActivity.class)); break;
             case R.id.usage: startActivity(new Intent(this, TutorialActivity.class)); break;
             case R.id.keyboardinput: startActivity(new Intent(this, KeyboardInputActivity.class)); break;
-            case R.id.feedback: startActivity(new Intent(this, FeedbackActivity.class)); break;
             case R.id.settings: startActivity(new Intent(getApplication(), SettingActivity.class)); break;
             case R.id.reset: startActivity(new Intent(this, ResetPreferencesActivity.class)); break;
+            case R.id.feedback: startActivity(new Intent(this, FeedbackActivity.class)); break;
             default: return super.onOptionsItemSelected(item);
         }
         return true;
@@ -436,6 +468,46 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQ_HOME && resultCode == RESULT_CANCELED)
             gotoHome(false);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if((new SessionManager(this).getLanguage()) == 0)
+            setLocale(Locale.US);
+        else
+            setLocale(new Locale(getString(R.string.locale_lang_hi),getString(R.string.locale_reg_IN)));
+    }
+
+    private void setLocale(Locale locale) {
+        Configuration conf = getResources().getConfiguration();
+        conf.locale = locale;
+        DisplayMetrics dm = getResources().getDisplayMetrics();
+        getResources().updateConfiguration(conf, dm);
+    }
+
+    public void tappedGridItemEvent(final View view, View v, int position) {
+        mCk = mCy = mCm = mCd = mCn = mCl = 0;
+        resetActionButtons(-1);
+        resetRecyclerAllItems();
+        mActionBtnClickCount = 0;
+        setMenuImageBorder(v, true);
+        mShouldReadFullSpeech = true;
+        String title = getActionBarTitle(position);
+        getSupportActionBar().setTitle(title);
+        if (mLevelOneItemPos == position) {
+            mUserDataMeasure.recordGridItem("Opened ".concat(myMusic[position]));
+            Intent intent = new Intent(MainActivity.this, LevelTwoActivity.class);
+            intent.putExtra("mLevelOneItemPos", position);
+            intent.putExtra("selectedMenuItemPath", title + "/");
+            startActivityForResult(intent,REQ_HOME);
+        }else {
+            speakSpeech(myMusic[position]);
+            mUserDataMeasure.recordGridItem(myMusic[position]);
+        }
+        mLevelOneItemPos = mRecyclerView.getChildLayoutPosition(view);
+        mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
+        mUserDataMeasure.reportLog(getLocalClassName()+" "+mLevelOneItemPos, Log.INFO);
     }
 
     private void gotoHome(boolean isHomePressed) {
@@ -463,6 +535,7 @@ public class MainActivity extends AppCompatActivity {
         }
         if(isHomePressed) {
             speakSpeech(below[0]);
+            mUserDataMeasure.recordNavigationItem(below[0]);
             home.setImageResource(R.drawable.homepressed);
         }else
             home.setImageResource(R.drawable.home);
@@ -540,7 +613,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setMenuImageBorder(View recyclerChildView, boolean setBorder) {
-        CircularImageView circularImageView = (CircularImageView) recyclerChildView.findViewById(R.id.icon1);
+        //RoundedImageView circularImageView = (RoundedImageView) recyclerChildView.findViewById(R.id.icon1);
+        CircleImageView circularImageView = (CircleImageView) recyclerChildView.findViewById(R.id.icon1);
         String strSrBw = new SessionManager(this).getShadowRadiusAndBorderWidth();
         int sr, bw;
         sr = Integer.valueOf(strSrBw.split(",")[0]);
@@ -550,15 +624,19 @@ public class MainActivity extends AppCompatActivity {
                 circularImageView.setBorderColor(mColor[image_flag]);
             else {
                 circularImageView.setBorderColor(-1283893945);
-                circularImageView.setShadowColor(-1283893945);
+                //circularImageView.setShadowColor(-1283893945);
             }
-            circularImageView.setShadowRadius(sr);
-            circularImageView.setBorderWidth(bw);
+            //circularImageView.setShadowRadius(sr);
+            //circularImageView.setBorderWidth((float)bw);
+            //circularImageView.setBorderWidth(bw);
         }else {
-            circularImageView.setBorderColor(-1);
-            circularImageView.setShadowColor(0);
-            circularImageView.setShadowRadius(sr);
-            circularImageView.setBorderWidth(0);
+            //circularImageView.setBorderColor(-1);
+            circularImageView.setBorderColor(Color.TRANSPARENT);
+            //circularImageView.setShadowColor(0);
+            //circularImageView.setShadowRadius(sr);
+            //circularImageView.setBorderWidth((float)0);
+            //circularImageView.setBorderWidth(0);
+
         }
     }
 

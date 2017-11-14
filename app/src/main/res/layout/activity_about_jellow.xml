@@ -22,24 +22,23 @@
         android:layout_height="0dp"
         android:background="#f7e2ac"
         android:orientation="horizontal"
-        android:layout_weight="0.2"
-        android:gravity="center">
+        android:layout_weight="0.22"
+        android:gravity="start|left">
         <Button
             android:id="@+id/speak"
-            android:layout_width="230dp"
+            android:layout_width="224dp"
             android:layout_height="wrap_content"
             android:text="@string/speak"
-            android:layout_weight=".01"
-            android:textSize="14dp"
+            android:textSize="18sp"
+            android:layout_margin="@dimen/activity_vertical_margin"
             android:background="#FFBEBCB6"/>
         <Button
             android:id="@+id/stop"
-            android:layout_width="230dp"
+            android:layout_width="224dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
             android:text="@string/stop"
-            android:layout_weight=".01"
-            android:textSize="14dp"
+            android:textSize="18sp"
+            android:layout_margin="@dimen/activity_vertical_margin"
             android:background="#FFBEBCB6"/>
     </LinearLayout>
 </LinearLayout>
