@@ -38,7 +38,7 @@ public class SettingActivity extends AppCompatActivity {
         mUserDataMeasure = new UserDataMeasure(this);
 
         if (mSession.getScreenHeight() >= 600)
-            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back_600);
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
         else
             getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
 

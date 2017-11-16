@@ -24,11 +24,7 @@ public class ResetPreferencesActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+ getString(R.string.menuResetPref) +"</font>"));
         final SessionManager session = new SessionManager(this);
         final DataBaseHelper myDbHelper = new DataBaseHelper(this);
-
-        if (session.getScreenHeight() >= 600)
-            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back_600);
-        else
-            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
 
         findViewById(R.id.no).setOnClickListener(new View.OnClickListener() {
             @Override

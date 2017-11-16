@@ -119,55 +119,82 @@
     <string name="checkInternetConn">Please check internet connection and try again</string>
     <string name="about_jellow">
         <![CDATA[
+        <head>
+            <style>
+                    li  { font-size: 14px; }
+                    p  { font-size: 14px; }
+                    ul { padding-left:20px; }
+            </style>
+        </head>
         <body bgcolor="#F7F3C6">
-<h3><strong>&nbsp;&nbsp;&nbsp;&nbsp;General Information</strong></h3>
-<ul style="list-style-type: disc;">
-<li>Jellow is a communicator using icons to enable speech and can be used by those learning to speak or those who have difficulty with speech.<br /><br /></li>
-<li>It is developed at IDC School of Design at the Indian Institute of Technology Bombay located in Mumbai.<br /><br /></li>
-<li>A novel Visual Emotional Language Protocol or VELP was conceived and developed by the project investigators in order to enhance the language ability of Jellow. VELP represents the 6 expressive icons that form the core of the interface.<br /><br /></li>
-<li>Using these core icons, the child can communicate their likes, dislikes, and needs with others.<br /><br /></li>
-<li>Jellow is conceived as children-friendly with an easy-to-learn interface.<br /><br /></li>
-<li>The application is optimized for Android tablets.<br /><br /></li>
-<li>Jellow is currently available in English and Hindi.<br /><br /></li>
+
+<p><strong>&nbsp;General Information</strong></p>
+<ul>
+<li>Jellow is a communicator using icons to enable speech and can be used by those learning to speak or those who have difficulty with speech.</li><br/>
+<li>It is developed at IDC School of Design at the Indian Institute of Technology Bombay located in Mumbai.</li><br/>
+<li>A novel Visual Emotional Language Protocol or VELP was conceived and developed by the project investigators in order to enhance the language ability of Jellow. VELP represents the 6 expressive icons that form the core of the interface.</li><br/>
+<li>Using these core icons, the child can communicate their likes, dislikes, and needs with others.</li><br/>
+<li>Jellow is conceived as children-friendly with an easy-to-learn interface.</li><br/>
+<li>The application is optimized for Android tablets.</li><br/>
+<li>Jellow is currently available in English and Hindi.</li><br/>
 </ul>
-<h3><strong>&nbsp;&nbsp;&nbsp;&nbsp;Software Version: 5.0</strong></h3>
-<ul style="list-style-type: disc;">
-<li>The current version of Jellow is 5.0. The application is under further development. Therefore, if you have any suggestions for us, please submit it under the feedback tab.</li>
+
 </ul>
-<h3><strong>&nbsp;&nbsp;&nbsp;&nbsp;Terms of Use</strong></h3>
-<ul style="list-style-type: disc;">
-<li>Jellow is licensed under a Creative Commons Attribution Non-commercial Share Alike 4.0 International License.<br/><br/></li>
-<li>Work on Jellow is attributed to the Indian Institute of Technology Bombay.<br/><br/></li>
-<li>The content in this application comprising icons, layout, architecture, visual identity, translation, and the software codes can be shared and adopted but cannot be used for commercial purposes.<br/><br/></li>
-<li>When the content is used, we request you to acknowledge Indian Institute of Technology Bombay.<br/><br/></li>
-<li>Jellow is available for download at <a href="http://www.dsource.in/tool/jellow">www.dsource.in/tool/jellow</a><br/><br/></li>
-<li>If interested in further developing the code, please write to Professor Ravi Poovaiah at <span style="color: #ff6600;"><a href="mailto:ravi@iitb.ac.in">ravi@iitb.ac.in</a></span><br/><br/></li>
+<p><strong>&nbsp;Software Version: 5.0</strong></p>
+<ul style="padding-left:20px">
+<li>The current version of Jellow is 5.0. The application is under further development. Therefore, if you have any suggestions for us, please submit it under the feedback tab.</li><br/>
 </ul>
-<h3><strong>&nbsp;&nbsp;&nbsp;&nbsp;Credits:</strong></h3>
-<ul style="list-style-type: disc;">
-<li><strong><strong> Project Investigation, Conception, and Supervision:&nbsp;</strong></strong></li>
-Prof. Ravi Poovaiah and Dr. Ajanta Sen&nbsp;</ul>
-<ul style="list-style-type: disc;">
-<li><strong>Initial Concept Development :&nbsp;</strong></li>
-Anchal Kumar, Samraat Sardesai, Peter Joseph, Antara Hazarika</ul>
-<ul style="list-style-type: disc;">
+
+<p><strong>&nbsp;Terms of Use</strong></p>
+<ul>
+<li>Jellow is licensed under a Creative Commons Attribution Non-commercial Share Alike 4.0 International License.</li><br/>
+<li>Work on Jellow is attributed to the Indian Institute of Technology Bombay.</li><br/>
+<li>The content in this application comprising icons, layout, architecture, visual identity, translation, and the software codes can be shared and adopted but cannot be used for commercial purposes.</li><br/>
+<li>When the content is used, we request you to acknowledge Indian Institute of Technology Bombay.</li><br/>
+<li>Jellow is available for download at <a href="http://www.dsource.in/tool/jellow">www.dsource.in/tool/jellow</a></li><br/>
+<li>If interested in further developing the code, please write to Professor Ravi Poovaiah at <span style="color: #ff6600;"><a href="mailto:ravi@iitb.ac.in">ravi@iitb.ac.in</a></span></li><br/>
+</ul>
+
+<p><strong>&nbsp;Credits:</strong></p>
+<ul>
+<li><strong>Idea Conception, Project Investigation and Supervision:</strong></li>
+<font style="font-size:14px">Prof. Ravi Poovaiah and Dr. Ajanta Sen</font>
+</ul>
+
+<ul>
+<li><strong>Initial Concept Development :</strong></li>
+<font style="font-size:14px">Anchal Kumar, Samraat Sardesai, Peter Joseph, Antara Hazarika</font>
+</ul>
+
+<ul>
 <li><strong>Software Development: </strong></li>
-Rahul Rupchand Jidge, Sumeet Agrawal, Roop Sahoo, Shruti Gupta, Aastha Joshi, Dhairya Dand, Pritam Pebam</ul>
-<ul style="list-style-type: disc;">
+<font style="font-size:14px">Rahul Rupchand Jidge, Sumeet Agrawal, Roop Sahoo, Shruti Gupta, Aastha Joshi, Dhairya Dand, Pritam Pebam</font>
+</ul>
+
+<ul>
 <li><strong>Website Design:</strong></li>
-Prof. Ravi Poovaiah, Yogesh Masaye, Sumedh Garud, Roop Sahoo</ul>
-<ul style="list-style-type: disc;">
+<font style="font-size:14px">Prof. Ravi Poovaiah, Yogesh Masaye, Sumedh Garud, Roop Sahoo</font>
+</ul>
+
+<ul>
 <li><strong>Icons and Visual Design:</strong></li>
-Vinaya Tawde, Anisha Malhotra, Nikita Iyer, Ganesh Gajjela</ul>
-<ul style="list-style-type: disc;">
+<font style="font-size:14px">Vinaya Tawde, Anisha Malhotra, Nikita Iyer, Ganesh Gajjela</font>
+</ul>
+
+<ul>
 <li><strong>Translation:</strong></li>
-Sachin Sonawane, Dr. Sudha Srinivasan</ul>
-<ul style="list-style-type: disc;">
+<font style="font-size:14px">Sachin Sonawane, Dr. Sudha Srinivasan</font>
+</ul>
+
+<ul>
 <li><strong>Research, Vocabulary Development, and User Studies:</strong></li>
-Dr. Sudha Srinivasan</ul>
-<ul style="list-style-type: disc;">
+<font style="font-size:14px">Dr. Sudha Srinivasan</font>
+</ul>
+
+<ul>
 <li><strong>Support:</strong></li>
-E-kalpa project sponsored under NMEICT by MHRD and Microsoft Design Expo 2004</ul>
+<font style="font-size:14px">E-kalpa project sponsored under NMEICT by MHRD and Microsoft Design Expo 2004</font>
+</ul>
 </body>
 ]]>
     </string>
@@ -194,4 +221,5 @@ E-kalpa project sponsored under NMEICT by MHRD and Microsoft Design Expo 2004</u
     <string name="resetPrefPointOne">Jellow remembers the user’s “most-used/preferred” icons and displays them as the top choices on the screen</string>
     <string name="resetPrefPointTwo">By resetting preferences, the icons will be set to the original order in which they were displayed the first time the application was opened</string>
     <string name="resetPrefPointThree">Do you want to reset preferences?</string>
+    <string name="bullet">\u25CF</string>
 </resources>

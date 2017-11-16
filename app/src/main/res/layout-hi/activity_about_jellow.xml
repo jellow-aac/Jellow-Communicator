@@ -17,13 +17,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-        <WebView
-            android:id="@+id/webAboutJellow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="48dp" />
+            <WebView
+                android:id="@+id/webAboutJellow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="48dp" />
         </LinearLayout>
     </ScrollView>
     <LinearLayout

@@ -9,8 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 
-import com.dsource.idc.jellow.Utility.SessionManager;
-
 /**
  * Created by user on 5/27/2016.
  */
@@ -25,11 +23,7 @@ public class AboutJellowActivity extends AppCompatActivity {
         ((WebView)findViewById(R.id.webAboutJellow)).
                 loadDataWithBaseURL(null, getString(R.string.about_jellow), "text/html", "utf-8", null);
 
-        if (new SessionManager(this).getScreenHeight() >= 600)
-            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back_600);
-        else
-            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
-
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
         findViewById(R.id.speak).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
