@@ -1,27 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1"
     android:background="#F7F3C6">
-
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fillViewport="false"
-        android:paddingTop="10dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
         android:fadeScrollbars="false"
-        android:layout_marginRight="30dp"
-        android:layout_weight=".999"
-        >
+        android:layout_marginTop="19dp"
+        android:layout_marginBottom="19dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp">
         <LinearLayout
-            android:layout_width="720dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingLeft="6dp"
-            >
+            android:layout_marginRight="280dp"
+            android:layout_marginEnd="280dp" >
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -29,42 +25,43 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="•"
-                    android:layout_margin="10dp"
-                    android:gravity="center"
-                    />
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginRight="4dp"
+                    android:textColor="#000"
+                    android:scaleX=".7"
+                    android:scaleY=".7"
+                    android:text="@string/bullet" />
                 <TextView
+                    android:id="@+id/tv1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="@string/resetPrefPointOne"
-                    android:layout_margin="10dp"
-                    android:textSize="20dp"
-                    android:id="@+id/tv1"
-                    />
+                    android:textSize="18sp"
+                    android:scrollHorizontally="true"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="19dp"
+                android:layout_marginBottom="19dp"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="•"
-                    android:layout_margin="10dp"
-                    android:gravity="center"
-                    />
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginRight="4dp"
+                    android:textColor="#000"
+                    android:scaleX=".7"
+                    android:scaleY=".7"
+                    android:text="@string/bullet" />
                 <TextView
+                    android:id="@+id/tv2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="@string/resetPrefPointTwo"
-                    android:layout_margin="10dp"
-                    android:textSize="20dp"
-                    android:id="@+id/tv2"
-                    />
+                    android:textSize="18sp"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -73,56 +70,49 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="•"
-                    android:layout_margin="10dp"
-                    android:gravity="center"
-                    />
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginRight="4dp"
+                    android:textColor="#000"
+                    android:scaleX=".7"
+                    android:scaleY=".7"
+                    android:text="@string/bullet" />
                 <TextView
+                    android:id="@+id/tv3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="@string/resetPrefPointThree"
-                    android:layout_margin="10dp"
-                    android:textSize="20dp"
-                    android:id="@+id/tv3"
-                    />
+                    android:textSize="18sp"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="58dp"
         android:orientation="horizontal"
-        android:paddingLeft="24dp"
-        android:weightSum="1"
+        android:layout_alignParentBottom="true"
         android:background="#f7e2ac"
-        android:layout_weight="0.1"
-        android:paddingTop="10dp"
-        android:layout_marginBottom="8dp"
         android:gravity="center_vertical">
         <Button
+            android:id="@+id/yes"
             android:layout_width="230dp"
             android:layout_height="40dp"
             android:text="@string/yes"
-            android:layout_weight=".002"
-            android:id="@+id/yes"
-            android:layout_gravity="center_horizontal"
-            android:textSize="20dp"
+            android:textSize="18sp"
+            android:layout_gravity="center_vertical"
             android:background="#FFBEBCB6"
-            />
-
+            android:layout_marginLeft="32dp"
+            android:layout_marginStart="32dp"/>
         <Button
+            android:id="@+id/no"
             android:layout_width="230dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="100dp"
             android:text="@string/no"
-            android:layout_weight=".002"
-            android:id="@+id/no"
-            android:layout_gravity="center_horizontal"
-            android:textSize="20dp"
-            android:background="#FFBEBCB6"/>
+            android:textSize="18sp"
+            android:layout_gravity="center_vertical"
+            android:background="#FFBEBCB6"
+            android:layout_marginLeft="32dp"
+            android:layout_marginStart="32dp"/>
     </LinearLayout>
-</LinearLayout>
-
+</RelativeLayout>
 

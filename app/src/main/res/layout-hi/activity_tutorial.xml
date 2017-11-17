@@ -51,7 +51,8 @@
                         android:layout_marginTop="19dp"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="@string/catBtn"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp"
+                        android:textStyle="bold"/>
                     <ImageView
                         android:id="@+id/pic1"
                         android:layout_width="wrap_content"
@@ -69,7 +70,8 @@
                         android:layout_marginTop="19dp"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="@string/expBtn"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp"
+                        android:textStyle="bold"/>
                     <ImageView
                         android:id="@+id/pic2"
                         android:layout_width="wrap_content"
@@ -101,7 +103,7 @@
                     <TextView
                         android:id="@+id/tv2"
                         android:layout_width="wrap_content"
-                        android:layout_height="50dp"
+                        android:layout_height="54dp"
                         android:layout_toEndOf="@+id/bullet2"
                         android:layout_toRightOf="@+id/bullet2"
                         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -140,7 +142,7 @@
                     <TextView
                         android:id="@+id/tv3"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="34dp"
                         android:layout_toEndOf="@+id/bullet3"
                         android:layout_toRightOf="@+id/bullet3"
                         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -155,7 +157,8 @@
                         android:layout_marginTop="19dp"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="@string/levelOneCat"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp"
+                        android:textStyle="bold"/>
                     <ImageView
                         android:id="@+id/pic5"
                         android:layout_width="wrap_content"
@@ -172,7 +175,8 @@
                         android:layout_marginTop="19dp"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="@string/levelTwoCat"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp"
+                        android:textStyle="bold"/>
                     <ImageView
                         android:id="@+id/pic6"
                         android:layout_width="wrap_content"
@@ -189,7 +193,8 @@
                         android:layout_marginTop="19dp"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="@string/levelThreeCat"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp"
+                        android:textStyle="bold"/>
                     <ImageView
                         android:id="@+id/pic7"
                         android:layout_width="wrap_content"
@@ -274,7 +279,8 @@
                         android:layout_marginTop="19dp"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="@string/toiletSeq"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp"
+                        android:textStyle="bold"/>
                     <ImageView
                         android:id="@+id/pic9"
                         android:layout_width="wrap_content"
@@ -291,7 +297,8 @@
                         android:layout_marginTop="19dp"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="@string/expBtnSeq"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp"
+                        android:textStyle="bold"/>
                     <ImageView
                         android:id="@+id/pic10"
                         android:layout_width="wrap_content"
@@ -383,9 +390,9 @@
                     android:layout_toEndOf="@+id/bullet7"
                     android:layout_toRightOf="@+id/bullet7"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textStyle="bold"
                     android:text="@string/softwareVersion"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>

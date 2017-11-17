@@ -82,9 +82,9 @@
     <string name="appLoading">अॅप लोडिंग…</string>
     <string name="getVoiceControl">आवाज़ एवं कीबोर्ड नियंत्रण</string>
     <string name="voiceControl">आवाज़ नियंत्रण</string>
-    <string name="activateGoogleTts">गूगल टेक्सट टू स्पीच चुनें</string>
-    <string name="changeDefaultToHindi">हिंदी भाषा को  डिफ़ॉल्ट बनाएँ</string>
-    <string name="downloadVoiceTts">हिंदी आवाज़ डाउनलोड करें</string>
+    <string name="activateGoogleTts">१. गूगल टेक्सट टू स्पीच चुनें</string>
+    <string name="changeDefaultToHindi">२. हिंदी भाषा को  डिफ़ॉल्ट बनाएँ</string>
+    <string name="downloadVoiceTts">३. हिंदी आवाज़ डाउनलोड करें</string>
     <string name="activate">सक्रिय करें</string>
     <string name="changeLanguage">डिफ़ॉल्ट बनाएँ</string>
     <string name="download">डाउनलोड करें</string>

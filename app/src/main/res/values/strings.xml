@@ -81,7 +81,7 @@
     <string name="commentSuggestions">Comments/Suggestions</string>
     <string name="submit">SUBMIT</string>
     <string name="appLoading">App is loading…</string>
-    <string name="activateGoogleTts">1.Activate Google TTS</string>
+    <string name="activateGoogleTts">1. Activate Google TTS</string>
     <string name="changeDefaultToHindi">2. Change default language to Hindi</string>
     <string name="downloadVoiceTts">3. Download Hindi voice</string>
     <string name="activate">ACTIVATE</string>
@@ -93,7 +93,7 @@
     <string name="qwertyKeyboard">QWERTY</string>
     <string name="serialKeyboard">SERIAL ABC</string>
     <string name="step2">Step 2: Save Keyboard as default option</string>
-    <string name="saveAsDefault">Save as Default</string>
+    <string name="saveAsDefault">SAVE AS DEFAULT</string>
     <string name="voiceControl">Voice Control:</string>
     <string name="getVoiceControl">Voice and Keyboard Control</string>
     <string name="childName">Child\'s Name *</string>

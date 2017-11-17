@@ -11,8 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import com.dsource.idc.jellow.Utility.SessionManager;
-
 /**
  * Created by user on 5/27/2016.
  */
@@ -25,11 +23,7 @@ public class KeyboardInputActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.getVoiceControl)+"</font>"));
-
-        if ((new SessionManager(this).getScreenHeight()) >= 600)
-            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
-        else
-            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
 
         findViewById(R.id.tvbottom).setOnClickListener(new View.OnClickListener() {
             @Override
