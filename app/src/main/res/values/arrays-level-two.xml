@@ -46,6 +46,7 @@
         <item>@drawable/level2_learn_schoolobject2</item>
         <item>@drawable/level2_learn_homeobjects</item>
         <item>@drawable/level2_learn_transport</item>
+        <item>@drawable/level2_learn_money</item>
     </array>
     <array name="arrLevelTwoTimeIconAdapter">
         <item>@drawable/level2_time_time</item>
@@ -58,6 +59,7 @@
     </array>
 
     <array name="arrLevelTwoHelpIconAdapter">
+        <item>@drawable/emergency</item>
         <item>@drawable/level2_people_aboutme</item>
         <item>@drawable/level2_help_feelhurt</item>
         <item>@drawable/level2_help_feelsick</item>
@@ -67,6 +69,12 @@
         <item>@drawable/level2_help_bandaid</item>
         <item>@drawable/water</item>
         <item>@drawable/toilet</item>
+        <item>@drawable/badtouch</item>
+        <item>@drawable/sanitarynapkin</item>
+        <item>@drawable/allergies</item>
+        <item>@drawable/danger</item>
+        <item>@drawable/hazards</item>
+        <item>@drawable/emergency</item>
     </array>
 
     <array name="arrLevelTwoPeopleIcon">
@@ -153,6 +161,7 @@
         <item>School objects</item>
         <item>Home objects</item>
         <item>Tran sport Modes</item>
+        <item>Money</item>
     </string-array>
     <string-array name="arrLevelTwoPeopleSpeechText">
         <item>Mother</item>
@@ -200,6 +209,7 @@
         <item>birthdays</item>
     </string-array>
     <string-array name="arrLevelTwoHelpSpeechText">
+        <item>I am in an Emergency! Please help</item>
         <item>About Me</item>
         <item>I am hurt</item>
         <item>I feel sick</item>
@@ -209,6 +219,12 @@
         <item>Bandage</item>
         <item>Water</item>
         <item>Toilet</item>
+        <item>Bad touch</item>
+        <item>Sanitary pads</item>
+        <item>I have an allergy</item>
+        <item>I am in danger! Please help</item>
+        <item>Hazard! Don’t touch</item>
+        <item>Safety</item>
     </string-array>
 
     <!--LEVEL TWO ENGLISH ADAPTER TEXT ARE HERE-->
@@ -257,6 +273,7 @@
         <item>School objects…</item>
         <item>Home objects…</item>
         <item>Transport Modes…</item>
+        <item>Money…</item>
     </string-array>
     <string-array name="arrLevelTwoPeopleAdapterText">
         <item>Mother</item>
@@ -304,6 +321,7 @@
         <item>Birthdays…</item>
     </string-array>
     <string-array name="arrLevelTwoHelpAdapterText">
+        <item>Emergency</item>
         <item>About Me</item>
         <item>I am hurt</item>
         <item>I feel sick</item>
@@ -313,6 +331,12 @@
         <item>Bandage</item>
         <item>Water</item>
         <item>Toilet</item>
+        <item>Bad touch</item>
+        <item>Sanitary pads</item>
+        <item>Allergy</item>
+        <item>Danger</item>
+        <item>Hazards</item>
+        <item>Safety</item>
     </string-array>
 
     <string name="levelTwoVerbiage">
@@ -789,6 +813,19 @@
             \"I don\'t want to learn more about tran sport modes\",
             \"I really don\'t want to learn any more about tran sport modes\"
 
+    ],[\"I like to spend money\",
+            \"I really like to spend money\",
+            \"I want some money\",
+            \"I really want some money\",
+            \"I want some more money\",
+            \"I really want some more money\",
+            \"I don’t like to spend money\",
+            \"I really don’t like to spend money\",
+            \"I don’t want any money\",
+            \"I really don’t want any money\",
+            \"I don’t want any more money\",
+            \"I really don’t want any more money at all\"
+
 
     ]],[[\"I love my mother\",
             \"I really love my mother\",
@@ -1064,14 +1101,14 @@
             \"I don\'t want to go to the museum again\",
             \"I really don\'t want to go to the museum again\"
 
-    ],[\"I like to go to a restaurant\",
-            \"I really like to go to a restaurant\",
+    ],[\"I like to go to restaurants\",
+            \"I really like to go to restaurants\",
             \"I want to go to a restaurant\",
             \"I really want to go to a restaurant\",
             \"I want to go to a restaurant again\",
             \"I really want to go to a restaurant again\",
-            \"I don\'t like to go to a restaurant\",
-            \"I really don\'t like to go to a restaurant\",
+            \"I don\'t like to go to restaurants\",
+            \"I really don\'t like to go to restaurants\",
             \"I don\'t want to go to a restaurant\",
             \"I really don\'t want to go to a restaurant\",
             \"I don\'t want to go to a restaurant again\",
@@ -1299,7 +1336,19 @@
             \"I don\'t want to celebrate more birthdays\",
             \"I really don\'t want to celebrate any more birthdays\"
 
-    ]], [[\"My name is \",
+    ]], [[\"I like\",
+            \"I really like\",
+            \"I want\",
+            \"I really want\",
+            \"I want more\",
+            \"I really want more\",
+            \"I don’t like\",
+            \"I really don’t like\",
+            \"I don’t want\",
+            \"I really don’t want\",
+            \"I don’t want more\",
+            \"I really don’t want more\"
+    ],[\"My name is \",
             \"My name is \",
             \"My caregiver\'s email address is \",
             \"My caregiver\'s email address is \",
@@ -1348,7 +1397,6 @@
             \"I really don\'t want water\",
             \"I don\'t want more water\",
             \"I don\'t want any more water\"
-
     ],[\"I like to go to the toilet\",
             \"I really like to go to the toilet \",
             \"I want to go to the toilet \",
@@ -1361,7 +1409,78 @@
             \"I really don\'t want to go to the toilet \",
             \"I don\'t want to go to the toilet again\",
             \"I really don\'t want to go to the toilet again\"
-
+    ],[\"I like\",
+            \"I really like\",
+            \"I want\",
+            \"I really want\",
+            \"I want more\",
+            \"I really want more\",
+            \"I don\'t like this touch\",
+            \"I really don\'t like this touch\",
+            \"I don\'t want this touch\",
+            \"I really don\'t want this touch\",
+            \"I don\'t want this touch any more\",
+            \"I really don\'t want this touch at all\"
+    ],[\"I like to use sanitary pads\",
+            \"I really like to use sanitary pads\",
+            \"I want a sanitary पैड\",
+            \"I really want a sanitary पैड\",
+            \"I want another sanitary पैड\",
+            \"I really want another sanitary पैड\",
+            \"I don’t like to use sanitary pads\",
+            \"I really don’t like to use sanitary pads\",
+            \"I don’t want a sanitary पैड\",
+            \"I really don’t want a sanitary पैड\",
+            \"I don’t want another sanitary पैड\",
+            \"I really don’t want any more sanitary pads\"
+    ],[\"I like\",
+            \"I really like\",
+            \"I want\",
+            \"I really want\",
+            \"I want more\",
+            \"I really want more\",
+            \"I don’t like\",
+            \"I really don’t like\",
+            \"I don’t want\",
+            \"I really don’t want\",
+            \"I don’t want more\",
+            \"I really don’t want more\"
+    ],[\"I like\",
+            \"I really like\",
+            \"I want\",
+            \"I really want\",
+            \"I want more\",
+            \"I really want more\",
+            \"I don’t like\",
+            \"I really don’t like\",
+            \"I don’t want\",
+            \"I really don’t want\",
+            \"I don’t want more\",
+            \"I really don’t want more\"
+    ],[\"I like\",
+            \"I really like\",
+            \"I want\",
+            \"I really want\",
+            \"I want more\",
+            \"I really want more\",
+            \"I don’t like\",
+            \"I really don’t like\",
+            \"I don’t want\",
+            \"I really don’t want\",
+            \"I don’t want more\",
+            \"I really don’t want more\"
+    ],[\"I feel safe\",
+            \"I really feel safe\",
+            \"I want to feel safe\",
+            \"I really want to feel safe\",
+            \"I want to feel very safe\",
+            \"I really want to feel very safe\",
+            \"I don’t feel safe\",
+            \"I really don’t feel safe\",
+            \"I don’t want\",
+            \"I really don’t want\",
+            \"I don’t feel very safe\",
+            \"I really don’t feel very safe\"
     ]]]}
     </string>
 </resources>

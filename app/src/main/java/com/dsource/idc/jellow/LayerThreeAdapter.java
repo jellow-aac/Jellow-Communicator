@@ -189,6 +189,9 @@ class LayerThreeAdapter extends android.support.v7.widget.RecyclerView.Adapter<L
                 case 8: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeLearningTransportationIconAdapter),
                         mContext.getResources().getStringArray(R.array.arrLevelThreeLearningTransportAdapterText), sort);
                     break;
+                case 9: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeLearningMoneyIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreeLearningMoneyAdapterText), sort);
+                    break;
             }
         } else if (levelOneItemPos == 7) {
             switch(levelTwoItemPos) {

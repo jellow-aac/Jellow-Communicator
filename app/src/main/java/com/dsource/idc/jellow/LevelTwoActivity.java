@@ -175,11 +175,15 @@ public class LevelTwoActivity extends AppCompatActivity {
                         if(mLevelOneItemPos == MENU_ITEM_PEOPLE || mLevelOneItemPos == MENU_ITEM_PLACES)
                             incrementTouchCountOfItem(mLevelTwoItemPos);
 
-                        if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 0)
+                        if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 1)
                             setActionButtonToAboutMe(-1);
                         if(mLevelOneItemPos == MENU_ITEM_HELP &&
-                                ((mLevelTwoItemPos == 1) || (mLevelTwoItemPos == 2) || (mLevelTwoItemPos == 3) ||(mLevelTwoItemPos == 4)))
+                                ((mLevelTwoItemPos == 0) ||(mLevelTwoItemPos == 2) || (mLevelTwoItemPos == 3) || (mLevelTwoItemPos == 4) ||(mLevelTwoItemPos == 5)) ||(mLevelTwoItemPos == 12) ||(mLevelTwoItemPos == 13) ||(mLevelTwoItemPos == 14))
                             changeTheActionButtons(DISABLE_ACTION_BTNS);
+                        else if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 10)
+                            badTouchDisableActionButtons();
+                        else if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 15)
+                            safetyDisableActionButtons();
                         else
                             changeTheActionButtons(!DISABLE_ACTION_BTNS);
                         mUserDataMeasure.reportLog(getLocalClassName()+", "+mLevelOneItemPos+", "+ mLevelTwoItemPos , Log.INFO);
@@ -291,9 +295,15 @@ public class LevelTwoActivity extends AppCompatActivity {
                     mRecyclerView.setVisibility(View.VISIBLE);
                     ttsButton.setVisibility(View.INVISIBLE);
                     flag_keyboard = 0;
-                    if(mLevelOneItemPos == 8 &&
-                            (mLevelTwoItemPos == 1 || mLevelTwoItemPos == 2 || mLevelTwoItemPos == 3 || mLevelTwoItemPos == 4))
-                       changeTheActionButtons(DISABLE_ACTION_BTNS);
+                    if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 1)
+                        setActionButtonToAboutMe(-1);
+                    if(mLevelOneItemPos == MENU_ITEM_HELP &&
+                            ((mLevelTwoItemPos == 0) ||(mLevelTwoItemPos == 2) || (mLevelTwoItemPos == 3) || (mLevelTwoItemPos == 4) ||(mLevelTwoItemPos == 5)) ||(mLevelTwoItemPos == 12) ||(mLevelTwoItemPos == 13) ||(mLevelTwoItemPos == 14))
+                        changeTheActionButtons(DISABLE_ACTION_BTNS);
+                    else if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 10)
+                        badTouchDisableActionButtons();
+                    else if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 15)
+                        safetyDisableActionButtons();
                     else
                         changeTheActionButtons(!DISABLE_ACTION_BTNS);
                 } else {
@@ -326,9 +336,15 @@ public class LevelTwoActivity extends AppCompatActivity {
                     et.setVisibility(View.INVISIBLE);
                     mRecyclerView.setVisibility(View.VISIBLE);
                     ttsButton.setVisibility(View.INVISIBLE);
-                    if(mLevelOneItemPos == 8 &&
-                            (mLevelTwoItemPos == 1 || mLevelTwoItemPos == 2 || mLevelTwoItemPos == 3 || mLevelTwoItemPos == 4))
+                    if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 1)
+                        setActionButtonToAboutMe(-1);
+                    if(mLevelOneItemPos == MENU_ITEM_HELP &&
+                            ((mLevelTwoItemPos == 0) ||(mLevelTwoItemPos == 2) || (mLevelTwoItemPos == 3) || (mLevelTwoItemPos == 4) ||(mLevelTwoItemPos == 5)) ||(mLevelTwoItemPos == 12) ||(mLevelTwoItemPos == 13) ||(mLevelTwoItemPos == 14))
                         changeTheActionButtons(DISABLE_ACTION_BTNS);
+                    else if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 10)
+                        badTouchDisableActionButtons();
+                    else if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 15)
+                        safetyDisableActionButtons();
                     else
                         changeTheActionButtons(!DISABLE_ACTION_BTNS);
                     flag_keyboard = 0;
@@ -345,6 +361,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
                     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+                    back.setImageResource(R.drawable.back_button);
                     back.setAlpha(1f);
                     back.setEnabled(true);
                     flag_keyboard = 1;
@@ -385,7 +402,7 @@ public class LevelTwoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mCy = mCm = mCd = mCn = mCl = 0;
                 image_flag = 0;
-                if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 0)
+                if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
                     setActionButtonToAboutMe(image_flag);
                 else
                     resetActionButtons(image_flag);
@@ -409,7 +426,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort[mLevelTwoItemPos]).get(1));
                         else if (mLevelOneItemPos == 6)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort_places[mLevelTwoItemPos]).get(1));
-                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 0)
+                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(1) + mSession.getName()+end);
                         else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(1));
@@ -420,7 +437,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort[mLevelTwoItemPos]).get(0));
                         else if (mLevelOneItemPos == 6)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort_places[mLevelTwoItemPos]).get(0));
-                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 0)
+                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(0)+ mSession.getName()+end);
                         else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(0));
@@ -437,7 +454,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                 mCk = 0; mCy = 0; mCm = 0; mCn = 0; mCl = 0;
                 image_flag = 1;
                 resetActionButtons(image_flag);
-                if (mLevelOneItemPos == 8 && mLevelTwoItemPos==0)
+                if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
                     setActionButtonToAboutMe(image_flag);
                 else
                     resetActionButtons(image_flag);
@@ -461,7 +478,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort[mLevelTwoItemPos]).get(7));
                         else if (mLevelOneItemPos == 6)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort_places[mLevelTwoItemPos]).get(7));
-                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 0)
+                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(7)+ mSession.getFather_name()+end);
                         else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(7));
@@ -472,7 +489,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort[mLevelTwoItemPos]).get(6));
                         else if (mLevelOneItemPos == 6)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort_places[mLevelTwoItemPos]).get(6));
-                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 0)
+                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(6)+ mSession.getFather_name()+end);
                         else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(6));
@@ -489,7 +506,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                 mCk = 0; mCm = 0; mCd = 0; mCn = 0; mCl = 0;
                 image_flag = 2;
                 resetActionButtons(image_flag);
-                if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 0)
+                if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
                     setActionButtonToAboutMe(image_flag);
                 else
                     resetActionButtons(image_flag);
@@ -513,7 +530,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort[mLevelTwoItemPos]).get(3));
                         else if (mLevelOneItemPos == 6)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort_places[mLevelTwoItemPos]).get(3));
-                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 0)
+                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(3)+ mSession.getEmailId()+end);
                         else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(3));
@@ -524,7 +541,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort[mLevelTwoItemPos]).get(2));
                         else if (mLevelOneItemPos == 6)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort_places[mLevelTwoItemPos]).get(2));
-                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 0)
+                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(2)+ mSession.getEmailId()+end);
                         else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(2));
@@ -541,7 +558,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                 mCk = 0; mCy = 0; mCm = 0; mCd = 0; mCl = 0;
                 image_flag = 3;
                 resetActionButtons(image_flag);
-                if (mLevelOneItemPos == 8 && mLevelTwoItemPos==0)
+                if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
                     setActionButtonToAboutMe(image_flag);
                 else
                     resetActionButtons(image_flag);
@@ -565,7 +582,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort[mLevelTwoItemPos]).get(9));
                         else if (mLevelOneItemPos == 6)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort_places[mLevelTwoItemPos]).get(9));
-                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 0)
+                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(9)+ mSession.getAddress()+end);
                         else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(9));
@@ -576,7 +593,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort[mLevelTwoItemPos]).get(8));
                         else if (mLevelOneItemPos == 6)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort_places[mLevelTwoItemPos]).get(8));
-                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 0)
+                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(8)+ mSession.getAddress()+end);
                         else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(8));
@@ -593,7 +610,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                 mCk = 0; mCy = 0; mCd = 0; mCn = 0; mCl = 0;
                 image_flag = 4;
                 resetActionButtons(image_flag);
-                if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 0)
+                if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
                     setActionButtonToAboutMe(image_flag);
                 else
                     resetActionButtons(image_flag);
@@ -617,7 +634,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort[mLevelTwoItemPos]).get(5));
                         else if (mLevelOneItemPos == 6)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort_places[mLevelTwoItemPos]).get(5));
-                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 0)
+                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(5)+ mSession.getFather_no().replaceAll("\\B", " ")+end);
                         else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(5));
@@ -628,7 +645,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort[mLevelTwoItemPos]).get(4));
                         else if (mLevelOneItemPos == 6)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort_places[mLevelTwoItemPos]).get(4));
-                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 0)
+                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(5) + mSession.getFather_no().replaceAll("\\B", " ")+end);
                         else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(4));
@@ -644,7 +661,7 @@ public class LevelTwoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mCk = 0; mCy = 0; mCm = 0; mCd = 0; mCn = 0;
                 image_flag = 5;
-                if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 0)
+                if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
                     setActionButtonToAboutMe(image_flag);
                 else
                     resetActionButtons(image_flag);
@@ -668,7 +685,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort[mLevelTwoItemPos]).get(11));
                         else if (mLevelOneItemPos == 6)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort_places[mLevelTwoItemPos]).get(11));
-                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 0){
+                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1){
                             setBloodGroup();
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(10) + mBloodGroup+end);
                         } else
@@ -680,7 +697,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort[mLevelTwoItemPos]).get(10));
                         else if (mLevelOneItemPos == 6)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort_places[mLevelTwoItemPos]).get(10));
-                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 0){
+                        else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1){
                             setBloodGroup();
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(10)+ mBloodGroup+end);
                         } else
@@ -814,6 +831,36 @@ public class LevelTwoActivity extends AppCompatActivity {
             case  6: mBloodGroup = getString(R.string.oPos); break;
             case  7: mBloodGroup = getString(R.string.oNeg); break;
         }
+    }
+
+    private void safetyDisableActionButtons() {
+        like.setAlpha(1f);
+        dislike.setAlpha(1f);
+        yes.setAlpha(1f);
+        no.setAlpha(0.5f);
+        add.setAlpha(1f);
+        minus.setAlpha(1f);
+        like.setEnabled(true);
+        dislike.setEnabled(true);
+        yes.setEnabled(true);
+        no.setEnabled(false);
+        add.setEnabled(true);
+        minus.setEnabled(true);
+    }
+
+    private void badTouchDisableActionButtons() {
+        dislike.setAlpha(1f);
+        no.setAlpha(1f);
+        minus.setAlpha(1f);
+        dislike.setEnabled(true);
+        no.setEnabled(true);
+        minus.setEnabled(true);
+        like.setAlpha(0.5f);
+        yes.setAlpha(0.5f);
+        add.setAlpha(0.5f);
+        like.setEnabled(false);
+        yes.setEnabled(false);
+        add.setEnabled(false);
     }
 
     private void changeTheActionButtons(boolean setDisable) {

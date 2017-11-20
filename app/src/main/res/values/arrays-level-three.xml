@@ -63,6 +63,7 @@
         <item>I need help</item>
         <item>Please come here</item>
         <item>Please take me</item>
+        <item>I need more time</item>
     </string-array>
 
     <!--LEVEL THREE "DAILY ACTIVITITES" SPEECH TEXT ARE HERE-->
@@ -149,6 +150,7 @@
         <item>Blow nose</item>
         <item>Soap</item>
         <item>Shampoo</item>
+        <item>Sanitary pads</item>
     </string-array>
     <string-array name="arrLevelThreeDailyActSleepSpeechText">
         <item>Door</item>
@@ -171,6 +173,8 @@
         <item>Hand activities</item>
         <item>Leg exercises</item>
         <item>Body vests</item>
+        <item>Speech therapy</item>
+        <item>Group therapy</item>
     </string-array>
     <string-array name="arrLevelThreeDailyActMorningScheSpeechText">
         <item>Wake up</item>
@@ -606,6 +610,15 @@
         <item>Aeroplane</item>
         <item>Ship</item>
     </string-array>
+    <string-array name="arrLevelThreeLearningMoneySpeechText">
+        <item>Ten rupees</item>
+        <item>Twenty rupees</item>
+        <item>Fifty rupees</item>
+        <item>One Hundred rupees</item>
+        <item>Two Hundred rupees</item>
+        <item>Five Hundred rupees</item>
+        <item>Two Thousand rupees</item>
+    </string-array>
 
     <!--LEVEL THREE "TIME WEATHER" SPEECH TEXT ARE HERE-->
     <string-array name="arrLevelThreeTimeWeaTimeSpeechText">
@@ -755,6 +768,7 @@
         <item>I need help</item>
         <item>Please come here</item>
         <item>Please take me</item>
+        <item>I need more time</item>
     </string-array>
 
     <!--LEVEL THREE "DAILY ACTIVITIES" ADAPTER TEXT ARE HERE-->
@@ -841,6 +855,7 @@
         <item>Blow nose</item>
         <item>Soap</item>
         <item>Shampoo</item>
+        <item>Sanitary pads</item>
     </string-array>
     <string-array name="arrLevelThreeDailyActSleepAdapterText">
         <item>Door</item>
@@ -863,6 +878,8 @@
         <item>Hand activities</item>
         <item>Leg exercises</item>
         <item>Body vests</item>
+        <item>Speech therapy</item>
+        <item>Group therapy</item>
     </string-array>
     <string-array name="arrLevelThreeDailyActMorningScheAdapterText">
         <item>Wake up</item>
@@ -1298,6 +1315,15 @@
         <item>Aeroplane</item>
         <item>Ship</item>
     </string-array>
+    <string-array name="arrLevelThreeLearningMoneyAdapterText">
+        <item>INR 10</item>
+        <item>INR 20</item>
+        <item>INR 50</item>
+        <item>INR 100</item>
+        <item>INR 200</item>
+        <item>INR 500</item>
+        <item>INR 2000</item>
+    </string-array>
 
     <!--LEVEL THREE "TIME WEATHER" ADAPTER TEXT ARE HERE-->
     <string-array name="arrLevelThreeTimeWeaTimeAdapterText">
@@ -1436,6 +1462,7 @@
         <item>@drawable/ineedhelp</item>
         <item>@drawable/comehere</item>
         <item>@drawable/takeme</item>
+        <item>@drawable/ineedmoretime</item>
     </array>
     <array name="arrLevelThreeGreetFeelQuestionsIconAdapter">
         <item>@drawable/how</item>
@@ -1533,6 +1560,7 @@
         <item>@drawable/blowingnose</item>
         <item>@drawable/soap</item>
         <item>@drawable/shampoo</item>
+        <item>@drawable/sanitarynapkin</item>
     </array>
     <array name="arrLevelThreeDailyActSleepIconAdapter">
         <item>@drawable/door_homeobjects</item>
@@ -1555,6 +1583,8 @@
         <item>@drawable/handmovements</item>
         <item>@drawable/legexercises</item>
         <item>@drawable/bodyvest</item>
+        <item>@drawable/speechtherapy</item>
+        <item>@drawable/grouptherapy</item>
     </array>
     <array name="arrLevelThreeDailyActMorningScheIconAdapter">
         <item>@drawable/wakeup</item>
@@ -1989,6 +2019,15 @@
         <item>@drawable/motorbike_transport</item>
         <item>@drawable/plane_transport</item>
         <item>@drawable/shop_transport</item>
+    </array>
+    <array name="arrLevelThreeLearningMoneyIconAdapter">
+        <item>@drawable/rupees10</item>
+        <item>@drawable/rupees20</item>
+        <item>@drawable/rupees50</item>
+        <item>@drawable/rupees100</item>
+        <item>@drawable/rupees200</item>
+        <item>@drawable/rupees500</item>
+        <item>@drawable/rupees2000</item>
     </array>
 
     <!--LEVEL THREE "TIME AND WEATHER" ADAPTER TEXT ARE HERE-->

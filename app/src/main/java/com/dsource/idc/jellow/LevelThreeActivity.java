@@ -811,6 +811,8 @@ public class LevelThreeActivity extends AppCompatActivity {
                     myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningHomeObjSpeechText);   break;
                 case 8:
                     myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningTransportSpeechText);   break;
+                case 9:
+                    myMusic = getResources().getStringArray(R.array.arrLevelThreeLearningMoneySpeechText);   break;
             }
         } else if (levelOneItemPos == 7) {
             switch(levelTwoItemPos){

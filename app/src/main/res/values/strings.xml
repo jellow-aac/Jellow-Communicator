@@ -121,8 +121,7 @@
         <![CDATA[
         <head>
             <style>
-                    li  { font-size: 14px; }
-                    p  { font-size: 14px; }
+                    li,p,font  {    font-size: 2.2vw; }
                     ul { padding-left:20px; }
             </style>
         </head>
@@ -141,7 +140,8 @@
 
 </ul>
 <p><strong>&nbsp;Software Version: 5.0</strong></p>
-<ul style="padding-left:20px">
+
+<ul>
 <li>The current version of Jellow is 5.0. The application is under further development. Therefore, if you have any suggestions for us, please submit it under the feedback tab.</li><br/>
 </ul>
 
@@ -158,42 +158,42 @@
 <p><strong>&nbsp;Credits:</strong></p>
 <ul>
 <li><strong>Idea Conception, Project Investigation and Supervision:</strong></li>
-<font style="font-size:14px">Prof. Ravi Poovaiah and Dr. Ajanta Sen</font>
+<font>Prof. Ravi Poovaiah and Dr. Ajanta Sen</font>
 </ul>
 
 <ul>
 <li><strong>Initial Concept Development :</strong></li>
-<font style="font-size:14px">Anchal Kumar, Samraat Sardesai, Peter Joseph, Antara Hazarika</font>
+<font>Anchal Kumar, Samraat Sardesai, Peter Joseph, Antara Hazarika</font>
 </ul>
 
 <ul>
 <li><strong>Software Development: </strong></li>
-<font style="font-size:14px">Rahul Rupchand Jidge, Sumeet Agrawal, Roop Sahoo, Shruti Gupta, Aastha Joshi, Dhairya Dand, Pritam Pebam</font>
+<font>Rahul Rupchand Jidge, Sumeet Agrawal, Roop Sahoo, Shruti Gupta, Aastha Joshi, Dhairya Dand, Pritam Pebam</font>
 </ul>
 
 <ul>
 <li><strong>Website Design:</strong></li>
-<font style="font-size:14px">Prof. Ravi Poovaiah, Yogesh Masaye, Sumedh Garud, Roop Sahoo</font>
+<font>Prof. Ravi Poovaiah, Yogesh Masaye, Sumedh Garud, Roop Sahoo</font>
 </ul>
 
 <ul>
 <li><strong>Icons and Visual Design:</strong></li>
-<font style="font-size:14px">Vinaya Tawde, Anisha Malhotra, Nikita Iyer, Ganesh Gajjela</font>
+<font>Vinaya Tawde, Anisha Malhotra, Nikita Iyer, Ganesh Gajjela</font>
 </ul>
 
 <ul>
 <li><strong>Translation:</strong></li>
-<font style="font-size:14px">Sachin Sonawane, Dr. Sudha Srinivasan</font>
+<font>Sachin Sonawane, Dr. Sudha Srinivasan</font>
 </ul>
 
 <ul>
 <li><strong>Research, Vocabulary Development, and User Studies:</strong></li>
-<font style="font-size:14px">Dr. Sudha Srinivasan</font>
+<font>Dr. Sudha Srinivasan</font>
 </ul>
 
 <ul>
 <li><strong>Support:</strong></li>
-<font style="font-size:14px">E-kalpa project sponsored under NMEICT by MHRD and Microsoft Design Expo 2004</font>
+<font>E-kalpa project sponsored under NMEICT by MHRD and Microsoft Design Expo 2004</font>
 </ul>
 </body>
 ]]>
