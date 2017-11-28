@@ -18,6 +18,8 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
 
+import com.dsource.idc.jellow.Utility.ChangeAppLocale;
+
 public class FeedbackActivity extends AppCompatActivity {
     private RatingBar mRatingEasyToUse;
     private Button mBtnSubmit;
@@ -28,6 +30,7 @@ public class FeedbackActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback);
+        new ChangeAppLocale(this).setLocale();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>" + getString(R.string.menuFeedback) + "</font>"));
@@ -60,6 +63,12 @@ public class FeedbackActivity extends AppCompatActivity {
             default: return super.onOptionsItemSelected(item);
         }
         return true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        new ChangeAppLocale(this).setLocale();
     }
 
     @Override

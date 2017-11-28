@@ -1,17 +1,19 @@
 package com.dsource.idc.jellow;
 
 import android.content.Intent;
-import android.content.res.Configuration;
+import android.database.SQLException;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
+import android.util.Log;
 
+import com.dsource.idc.jellow.Utility.ChangeAppLocale;
 import com.dsource.idc.jellow.Utility.EvaluateDisplayMetricsUtils;
 import com.dsource.idc.jellow.Utility.JellowTTSService;
 import com.dsource.idc.jellow.Utility.SessionManager;
+import com.dsource.idc.jellow.Utility.UserDataMeasure;
 
-import java.util.Locale;
+import java.io.IOException;
 
 /**
  * Created by ekalpa on 7/12/2016.
@@ -22,16 +24,13 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         getSupportActionBar().hide();
+
+        if(!(new SessionManager(this).isUpdatedForNewContentV5()))
+            addNewRowsInDatabaseForNewContent();
         startTTsService();
         PlayGifView pGif = (PlayGifView) findViewById(R.id.viewGif);
         pGif.setImageResource(R.drawable.jellow_j);
-        setLocale(new Locale(getString(R.string.locale_lang_hi),getString(R.string.locale_reg_IN)));
-
-        if((new SessionManager(this).getLanguage()) == 0)
-            setLocale(Locale.US);
-        else
-            setLocale(new Locale(getString(R.string.locale_lang_hi),getString(R.string.locale_reg_IN)));
-
+        new ChangeAppLocale(this).setLocale();
         new CountDownTimer(5000, 1) {
             public void onTick(long millisUntilFinished) {}
             public void onFinish() {
@@ -44,14 +43,28 @@ public class SplashActivity extends AppCompatActivity {
         displayMetricsUtils.calculateStoreShadowRadiusAndBorderWidth();
     }
 
-    private void startTTsService() {
-        startService(new Intent(getApplication(), JellowTTSService.class));
+    private void addNewRowsInDatabaseForNewContent() {
+        DataBaseHelper dbHelper = new DataBaseHelper(this);
+        UserDataMeasure mUserDataMeasure = new UserDataMeasure(this);
+        String queryResult;
+        try {
+            dbHelper.createDataBase();
+            dbHelper.openDataBase();
+            queryResult = dbHelper.addNewRowsInDatabaseForNewContentVersionV5();
+            if(queryResult.split(",")[0].equals("OK") &&
+                queryResult.split(",")[1].equals("OK"))
+                new SessionManager(this).setUpdatedForNewContentV5();
+            else
+                mUserDataMeasure.reportLog("Unable to add content in database at splash screen. QueryResult is "+ queryResult, Log.ERROR);
+        } catch (SQLException e) {
+            mUserDataMeasure.reportLog("Unable to add content in database at splash screen.", Log.ERROR);
+            mUserDataMeasure.reportException(e);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void setLocale(Locale locale) {
-        Configuration conf = getResources().getConfiguration();
-        conf.locale = locale;
-        DisplayMetrics dm = getResources().getDisplayMetrics();
-        getResources().updateConfiguration(conf, dm);
+    private void startTTsService() {
+        startService(new Intent(getApplication(), JellowTTSService.class));
     }
 }

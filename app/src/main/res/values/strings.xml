@@ -6,7 +6,7 @@
 
     <string-array name="languages">
         <item>English</item>
-        <item>Hindi</item>
+        <item>हिंदी</item>
     </string-array>
 
     <string-array name="bloodgroup">
@@ -36,6 +36,7 @@
     <string name="screen_height">com.dsource.idc.jellow.screen_height</string>
     <string name="shadow_radius">com.dsource.idc.jellow.shadow_radius</string>
     <string name="border_width">com.dsource.idc.jellow.border_width</string>
+    <string name="updated_app_for_new_content" >com.dsource.idc.jellow.updated_app_for_new_content</string>
 
     <string name="people_pref_count_eng">people_count</string>
     <string name="people_pref_count_hindi">people_count_hindi</string>
@@ -121,7 +122,7 @@
         <![CDATA[
         <head>
             <style>
-                    li,p,font  {    font-size: 2.2vw; }
+                    li,p,font  {    font-size: 100%; }
                     ul { padding-left:20px; }
             </style>
         </head>

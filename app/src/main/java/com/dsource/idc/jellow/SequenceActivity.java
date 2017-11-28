@@ -1,15 +1,14 @@
 package com.dsource.idc.jellow;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.KeyListener;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,12 +21,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dsource.idc.jellow.Models.SeqActivityVerbiageModel;
+import com.dsource.idc.jellow.Utility.ChangeAppLocale;
 import com.dsource.idc.jellow.Utility.SessionManager;
 import com.dsource.idc.jellow.Utility.UserDataMeasure;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -56,10 +55,12 @@ public class SequenceActivity extends AppCompatActivity {
     private SessionManager mSession;
     private UserDataMeasure mUserDataMeasure;
 
+    @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sequence);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
         getSupportActionBar().setTitle(getIntent().getExtras().getString("selectedMenuItemPath"));
         Typeface fontMuktaRegular = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/Mukta-Regular.ttf");
@@ -68,6 +69,7 @@ public class SequenceActivity extends AppCompatActivity {
         mUserDataMeasure = new UserDataMeasure(this);
         mUserDataMeasure.recordScreen(getLocalClassName());
         mLevelTwoItemPos = getIntent().getExtras().getInt("mLevelTwoItemPos");
+        new ChangeAppLocale(this).setLocale();
         if(mLevelTwoItemPos == 7)   mLevelTwoItemPos = 3;
         else if(mLevelTwoItemPos == 8)  mLevelTwoItemPos = 4;
         {
@@ -203,6 +205,7 @@ public class SequenceActivity extends AppCompatActivity {
                     resetActionBtnImageIcons();
                     image1.setBorderColor(-1283893945);
                 }
+                back.setImageResource(R.drawable.back_button);
             }
         });
 
@@ -226,6 +229,7 @@ public class SequenceActivity extends AppCompatActivity {
                     resetActionBtnImageIcons();
                     image2.setBorderColor(-1283893945);
                 }
+                back.setImageResource(R.drawable.back_button);
             }
         });
 
@@ -249,6 +253,7 @@ public class SequenceActivity extends AppCompatActivity {
                     resetActionBtnImageIcons();
                     image3.setBorderColor(-1283893945);
                 }
+                back.setImageResource(R.drawable.back_button);
             }
         });
 
@@ -262,6 +267,7 @@ public class SequenceActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 speakSpeech(below[1]);
+                ttsButton.setImageResource(R.drawable.speaker_button);
                 if (flag_keyboard == 1) {
                     keyboard.setImageResource(R.drawable.keyboard_button);
                     back.setImageResource(R.drawable.backpressed);
@@ -296,6 +302,7 @@ public class SequenceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 speakSpeech(below[2]);
+                ttsButton.setImageResource(R.drawable.speaker_button);
                 if (flag_keyboard == 1) {
                     keyboard.setImageResource(R.drawable.keyboard_button);
                     et.setVisibility(View.INVISIBLE);
@@ -329,6 +336,7 @@ public class SequenceActivity extends AppCompatActivity {
         ttsButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
                     speakSpeech(et.getText().toString());
+                    if(!et.getText().toString().equals("")) ttsButton.setImageResource(R.drawable.speaker_pressed);
                     mUserDataMeasure.reportLog(getLocalClassName()+", TtsSpeak: ", Log.INFO);
                     hideActionBtn(true);
                 }
@@ -379,6 +387,7 @@ public class SequenceActivity extends AppCompatActivity {
                         mUserDataMeasure.recordGridItem("Tapped ".concat("LikeVerbiage"));
                     }
                 }
+                back.setImageResource(R.drawable.back_button);
             }
         });
 
@@ -413,6 +422,7 @@ public class SequenceActivity extends AppCompatActivity {
                         mUserDataMeasure.recordGridItem("Tapped ".concat("DislikeVerbiage"));
                     }
                 }
+                back.setImageResource(R.drawable.back_button);
             }
         });
 
@@ -447,6 +457,7 @@ public class SequenceActivity extends AppCompatActivity {
                         mUserDataMeasure.recordGridItem("Tapped ".concat("YesVerbiage"));
                     }
                 }
+                back.setImageResource(R.drawable.back_button);
             }
         });
 
@@ -481,6 +492,7 @@ public class SequenceActivity extends AppCompatActivity {
                         mUserDataMeasure.recordGridItem("Tapped ".concat("NoVerbiage"));
                     }
                 }
+                back.setImageResource(R.drawable.back_button);
             }
         });
 
@@ -515,6 +527,7 @@ public class SequenceActivity extends AppCompatActivity {
                         mUserDataMeasure.recordGridItem("Tapped ".concat("AddVerbiage"));
                     }
                 }
+                back.setImageResource(R.drawable.back_button);
             }
         });
 
@@ -549,6 +562,7 @@ public class SequenceActivity extends AppCompatActivity {
                         mUserDataMeasure.recordGridItem("Tapped ".concat("MinusVerbiage"));
                     }
                 }
+                back.setImageResource(R.drawable.back_button);
             }
         });
     }
@@ -584,17 +598,7 @@ public class SequenceActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if((new SessionManager(this).getLanguage()) == 0)
-            setLocale(Locale.US);
-        else
-            setLocale(new Locale(getString(R.string.locale_lang_hi),getString(R.string.locale_reg_IN)));
-    }
-
-    private void setLocale(Locale locale) {
-        Configuration conf = getResources().getConfiguration();
-        conf.locale = locale;
-        DisplayMetrics dm = getResources().getDisplayMetrics();
-        getResources().updateConfiguration(conf, dm);
+        new ChangeAppLocale(this).setLocale();
     }
 
     private void showActionBarTitle(boolean showTitle){
@@ -604,9 +608,15 @@ public class SequenceActivity extends AppCompatActivity {
             actionBarTitleTxt = getSupportActionBar().getTitle().toString();
             getSupportActionBar().setTitle("");
         }
+        /*if (showTitle)
+            titleView.setTitleText(actionBarTitleTxt);
+        else{
+            actionBarTitleTxt = titleView.getTitleText();
+            titleView.setTitleText("");
+        }*/
     }
 
-    private void initializeViews() {
+    private void initializeViews(){
         like = (ImageView) findViewById(R.id.ivlike);
         dislike = (ImageView) findViewById(R.id.ivdislike);
         add = (ImageView) findViewById(R.id.ivadd);

@@ -35,7 +35,6 @@
                 <Spinner
                     android:id="@+id/spinner"
                     android:layout_width="190dp"
-                    android:layout_marginLeft="-8dp"
                     android:layout_marginBottom="19dp"
                     android:layout_height="wrap_content"
                     android:spinnerMode="dropdown"
@@ -92,7 +91,6 @@
                     android:id="@+id/spinner3"
                     android:layout_width="190dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="-8dp"
                     android:layout_marginBottom="19dp"/>
                 <TextView
                     android:id="@+id/tv4"
@@ -107,8 +105,7 @@
                 <Spinner
                     android:id="@+id/spinner4"
                     android:layout_width="190dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="-8dp"/>
+                    android:layout_height="wrap_content"/>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="58dp" />

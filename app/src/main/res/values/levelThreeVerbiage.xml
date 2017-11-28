@@ -1136,18 +1136,18 @@
             \"I really don\'t want to use shampoo\",
             \"I don\'t want to use more shampoo\",
             \"I really don\'t want to use any more shampoo\"
-    ],[\"I like to use sanitary pads\",
-            \"I really like to use sanitary pads\",
-            \"I want a sanitary पैड\",
-            \"I really want a sanitary पैड\",
-            \"I want another sanitary पैड\",
-            \"I really want another sanitary पैड\",
-            \"I don’t like to use sanitary pads\",
-            \"I really don’t like to use sanitary pads\",
-            \"I don’t want a sanitary पैड\",
-            \"I really don’t want a sanitary पैड\",
-            \"I don’t want another sanitary पैड\",
-            \"I really don’t want any more sanitary pads\"
+    ],[\"I like to use sanitary napkins\",
+            \"I really like to use sanitary napkins\",
+            \"I want a sanitary napkin\",
+            \"I really want a sanitary napkin\",
+            \"I want another sanitary napkin\",
+            \"I really want another sanitary napkin\",
+            \"I don’t like to use sanitary napkins\",
+            \"I really don’t like to use sanitary napkins\",
+            \"I don’t want a sanitary napkin\",
+            \"I really don’t want a sanitary napkin\",
+            \"I don’t want another sanitary napkin\",
+            \"I really don’t want any more sanitary napkins\"
 
     ]], [[\"I like to use the door\",
             \"I really like to use the door\",
@@ -6012,18 +6012,18 @@
             \"I don\'t want to go to the bedroom again\",
             \"I really don\'t want to go to the bedroom again\"
 
-    ], [\"I like to go to the playroom\",
-            \"I really like to go to the playroom\",
-            \"I want to go to the playroom\",
-            \"I really want to go to the playroom\",
-            \"I want to go to the playroom again\",
-            \"I really want to go to the playroom again\",
-            \"I don\'t like to go to the playroom\",
-            \"I really don\'t like to go to the playroom\",
-            \"I don\'t want to go to the playroom\",
-            \"I really don\'t want to go to the playroom\",
-            \"I don\'t want to go to the playroom again\",
-            \"I really don\'t want to go to the playroom again\"
+    ], [\"I like to go to the play room\",
+            \"I really like to go to the play room\",
+            \"I want to go to the play room\",
+            \"I really want to go to the play room\",
+            \"I want to go to the play room again\",
+            \"I really want to go to the play room again\",
+            \"I don\'t like to go to the play room\",
+            \"I really don\'t like to go to the play room\",
+            \"I don\'t want to go to the play room\",
+            \"I really don\'t want to go to the play room\",
+            \"I don\'t want to go to the play room again\",
+            \"I really don\'t want to go to the play room again\"
 
     ], [\"I like to go to the bathroom\",
             \"I really like to go to the bathroom\",
@@ -6051,18 +6051,18 @@
             \"I don\'t want to go to the balcony again\",
             \"I really don\'t want to go to the balcony again\"
 
-    ], [\"I like to go to the studyroom\",
-            \"I really like to go to the studyroom\",
-            \"I want to go to the studyroom\",
-            \"I really want to go to the studyroom\",
-            \"I want to go to the studyroom again\",
-            \"I really want to go to the studyroom again\",
-            \"I don\'t like to go to the studyroom\",
-            \"I really don\'t like to go to the studyroom\",
-            \"I don\'t want to go to the studyroom\",
-            \"I really don\'t want to go to the studyroom\",
-            \"I don\'t want to go to the studyroom again\",
-            \"I really don\'t want to go to the studyroom again\"
+    ], [\"I like to go to the study room\",
+            \"I really like to go to the study room\",
+            \"I want to go to the study room\",
+            \"I really want to go to the study room\",
+            \"I want to go to the study room again\",
+            \"I really want to go to the study room again\",
+            \"I don\'t like to go to the study room\",
+            \"I really don\'t like to go to the study room\",
+            \"I don\'t want to go to the study room\",
+            \"I really don\'t want to go to the study room\",
+            \"I don\'t want to go to the study room again\",
+            \"I really don\'t want to go to the study room again\"
 
     ],  [\"I like to use the bed\",
             \"I really like to use the bed\",
@@ -6394,7 +6394,19 @@
             \"I don’t want 2000 rupees\",
             \"I really don’t want 2000 rupees\",
             \"I don’t want another 2000-rupee note\",
-            \"I really don’t want any more 2000 rupee notes\"]
+            \"I really don’t want any more 2000 rupee notes\"],
+    [\"I like to use change\",
+            \"I really like to use change\",
+            \"I want some change\",
+            \"I really want some change\",
+            \"I want some more change\",
+            \"I really want some more change\",
+            \"I don’t like to use change\",
+            \"I really don’t like to use change\",
+            \"I don’t want any change\",
+            \"I really don’t want any change\",
+            \"I don’t want any more change\",
+            \"I really don’t want any more change\"]
 
 
     ]], [[[]]], [[[]]], [[[], [\"I am having a good time today\",

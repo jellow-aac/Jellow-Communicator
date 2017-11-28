@@ -74,7 +74,7 @@
         <item>@drawable/allergies</item>
         <item>@drawable/danger</item>
         <item>@drawable/hazards</item>
-        <item>@drawable/emergency</item>
+        <item>@drawable/safety</item>
     </array>
 
     <array name="arrLevelTwoPeopleIcon">
@@ -220,10 +220,10 @@
         <item>Water</item>
         <item>Toilet</item>
         <item>Bad touch</item>
-        <item>Sanitary pads</item>
+        <item>Sanitary napkins</item>
         <item>I have an allergy</item>
         <item>I am in danger! Please help</item>
-        <item>Hazard! Don’t touch</item>
+        <item>Hazard! Please don’t touch</item>
         <item>Safety</item>
     </string-array>
 
@@ -332,7 +332,7 @@
         <item>Water</item>
         <item>Toilet</item>
         <item>Bad touch</item>
-        <item>Sanitary pads</item>
+        <item>Sanitary napkins</item>
         <item>Allergy</item>
         <item>Danger</item>
         <item>Hazards</item>
@@ -1421,18 +1421,18 @@
             \"I really don\'t want this touch\",
             \"I don\'t want this touch any more\",
             \"I really don\'t want this touch at all\"
-    ],[\"I like to use sanitary pads\",
-            \"I really like to use sanitary pads\",
-            \"I want a sanitary पैड\",
-            \"I really want a sanitary पैड\",
-            \"I want another sanitary पैड\",
-            \"I really want another sanitary पैड\",
-            \"I don’t like to use sanitary pads\",
-            \"I really don’t like to use sanitary pads\",
-            \"I don’t want a sanitary पैड\",
-            \"I really don’t want a sanitary पैड\",
-            \"I don’t want another sanitary पैड\",
-            \"I really don’t want any more sanitary pads\"
+    ],[\"I like to use sanitary napkins\",
+            \"I really like to use sanitary napkins\",
+            \"I want a sanitary napkin\",
+            \"I really want a sanitary napkin\",
+            \"I want another sanitary napkin\",
+            \"I really want another sanitary napkin\",
+            \"I don’t like to use sanitary napkins\",
+            \"I really don’t like to use sanitary napkins\",
+            \"I don’t want a sanitary napkin\",
+            \"I really don’t want a sanitary napkin\",
+            \"I don’t want another sanitary napkin\",
+            \"I really don’t want any more sanitary napkins\"
     ],[\"I like\",
             \"I really like\",
             \"I want\",

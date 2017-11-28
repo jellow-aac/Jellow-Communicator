@@ -6,14 +6,15 @@ android {
 
     defaultConfig {
         applicationId "com.dsource.idc.jellow"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 25
-        versionCode 5
+        versionCode 15
         versionName "5.0"
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -29,8 +30,8 @@ dependencies {
     compile 'com.google.firebase:firebase-appindexing:11.0.1'
     compile 'com.google.firebase:firebase-crash:11.0.1'
 
-    compile 'com.mikhaellopez:circularimageview:3.0.2'
-    compile 'com.makeramen:roundedimageview:2.3.0'
+    //compile 'com.mikhaellopez:circularimageview:3.0.2'
+    //compile 'com.makeramen:roundedimageview:2.3.0'
     compile 'de.hdodenhof:circleimageview:2.2.0'
 
     compile 'com.github.rey5137:material:1.2.4'

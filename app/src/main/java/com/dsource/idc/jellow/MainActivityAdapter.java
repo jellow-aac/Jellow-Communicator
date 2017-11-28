@@ -41,6 +41,7 @@ class MainActivityAdapter extends android.support.v7.widget.RecyclerView.Adapter
         return new MainActivityAdapter.MyViewHolder(rowView);
     }
 
+
     @Override
     public void onBindViewHolder(final MainActivityAdapter.MyViewHolder holder, final int position) {
         final int MODE_PICTURE_ONLY = 1;

@@ -22,6 +22,7 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:text="TIME AND WEATHER"
+        android:gravity="center"
         android:textSize="22sp"
         android:textAlignment="center"
         android:singleLine="true"/>

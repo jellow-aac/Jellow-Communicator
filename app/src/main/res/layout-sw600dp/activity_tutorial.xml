@@ -21,8 +21,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="30dp">
+                android:orientation="horizontal">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -43,6 +42,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@+id/bullet1"
                         android:layout_toRightOf="@+id/bullet1"
+                        android:layout_marginBottom="16dp"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="@string/catBtnDesc"
                         android:textSize="18sp"/>
@@ -51,7 +51,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/tv1"
-                        android:layout_marginTop="16dp"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="@string/catBtn"
                         android:textSize="18sp"
@@ -61,9 +60,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="500dp"
                         android:layout_below="@+id/tv7"
-                        android:layout_marginTop="-30dp"
-                        android:layout_marginBottom="-30dp"
-                        android:layout_centerHorizontal="true"
                         android:src="@drawable/categorybuttons" />
                     <TextView
                         android:id="@+id/tv8"
@@ -79,8 +75,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="500dp"
                         android:layout_below="@+id/tv8"
-                        android:layout_marginTop="-30dp"
-                        android:layout_marginBottom="-30dp"
                         android:src="@drawable/expressivebuttons"/>
                 </RelativeLayout>
             </LinearLayout>
@@ -88,8 +82,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="-30dp">
+                android:orientation="horizontal">
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -118,7 +111,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="500dp"
                         android:layout_below="@+id/tv2"
-                        android:layout_marginTop="-30dp"
                         android:src="@drawable/speakingwithjellowimage2" />
                 </RelativeLayout>
             </LinearLayout>
@@ -126,9 +118,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="-30dp"
-                android:layout_marginBottom="50dp">
+                android:orientation="horizontal">
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -149,6 +139,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@+id/bullet3"
                         android:layout_toRightOf="@+id/bullet3"
+                        android:layout_marginBottom="16dp"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="@string/jellowUsageSubCat"
                         android:textSize="18sp"/>
@@ -157,7 +148,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv3"
-                        android:layout_marginTop="19dp"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="@string/levelOneCat"
                         android:textSize="18sp"
@@ -167,8 +157,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="500dp"
                         android:layout_below="@+id/tv9"
-                        android:layout_marginTop="-30dp"
-                        android:layout_marginBottom="-30dp"
                         android:src="@drawable/eatingcategory1"/>
                     <TextView
                         android:id="@+id/tv10"
@@ -184,8 +172,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="500dp"
                         android:layout_below="@+id/tv10"
-                        android:layout_marginTop="-30dp"
-                        android:layout_marginBottom="-30dp"
                         android:src="@drawable/eatingcategory2"/>
                     <TextView
                         android:id="@+id/tv11"
@@ -201,8 +187,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="500dp"
                         android:layout_below="@+id/tv11"
-                        android:layout_marginTop="-30dp"
-                        android:layout_marginBottom="-30dp"
                         android:src="@drawable/eatingcategory3"/>
                 </RelativeLayout>
             </LinearLayout>
@@ -210,9 +194,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="-30dp"
-                android:layout_marginBottom="50dp">
+                android:orientation="horizontal">
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -220,7 +202,7 @@
                     <TextView
                         android:id="@+id/bullet4"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:layout_marginEnd="4dp"
                         android:layout_marginRight="4dp"
                         android:textColor="#000"
@@ -241,8 +223,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="500dp"
                         android:layout_below="@+id/tv4"
-                        android:layout_marginTop="-30dp"
-                        android:layout_marginBottom="-30dp"
                         android:src="@drawable/settings"/>
                 </RelativeLayout>
             </LinearLayout>
@@ -250,8 +230,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="-30dp">
+                android:orientation="horizontal">
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -259,7 +238,7 @@
                     <TextView
                         android:id="@+id/bullet5"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:layout_marginEnd="4dp"
                         android:layout_marginRight="4dp"
                         android:textColor="#000"
@@ -272,6 +251,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@+id/bullet5"
                         android:layout_toRightOf="@+id/bullet5"
+                        android:layout_marginBottom="16dp"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="@string/seqActDesc"
                         android:textSize="18sp"/>
@@ -280,7 +260,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv5"
-                        android:layout_marginTop="19dp"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="@string/toiletSeq"
                         android:textSize="18sp"
@@ -290,15 +269,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="500dp"
                         android:layout_below="@id/tv12"
-                        android:layout_marginTop="-30dp"
-                        android:layout_marginBottom="-30dp"
                         android:src="@drawable/sequencewithoutexpressivebuttons"/>
                     <TextView
                         android:id="@+id/tv13"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/pic9"
-                        android:layout_marginTop="19dp"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="@string/expBtnSeq"
                         android:textSize="18sp"
@@ -308,8 +284,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="500dp"
                         android:layout_below="@+id/tv13"
-                        android:layout_marginTop="-30dp"
-                        android:layout_marginBottom="-30dp"
                         android:src="@drawable/sequencewithexpressivebuttons"/>
                 </RelativeLayout>
             </LinearLayout>
@@ -317,7 +291,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -340,7 +315,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@+id/bullet6"
                         android:layout_toRightOf="@+id/bullet6"
-                        android:layout_marginTop="19dp"
+                        android:layout_marginBottom="16dp"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="@string/ttsDesc"
                         android:textSize="18sp"/>
@@ -348,7 +323,7 @@
                         android:layout_below="@+id/tvtts"
                         android:layout_width="match_parent"
                         android:layout_height="300dp"
-                        android:layout_marginTop="19dp"
+                        android:layout_marginBottom="16dp"
                         android:orientation="horizontal"
                         android:gravity="center"
                         android:weightSum="3">
@@ -379,7 +354,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="28dp">
+                android:layout_marginBottom="16dp">
                 <TextView
                     android:id="@+id/bullet7"
                     android:layout_width="wrap_content"
@@ -397,6 +372,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/bullet7"
                     android:layout_toRightOf="@+id/bullet7"
+                    android:layout_marginBottom="16dp"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="@string/softwareVersion"
                     android:textSize="18sp"

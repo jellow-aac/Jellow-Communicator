@@ -9,8 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="19dp"
-        android:paddingLeft="18dp"
-        android:paddingRight="18dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:fadeScrollbars="false"
         tools:ignore="WebViewLayout">
         <LinearLayout
@@ -38,7 +38,7 @@
             android:layout_width="230dp"
             android:layout_height="40dp"
             android:text="@string/speak"
-            android:textSize="14sp"
+            android:textSize="18sp"
             android:layout_gravity="center_vertical"
             android:background="#FFBEBCB6"
             android:layout_marginLeft="32dp"
@@ -48,7 +48,7 @@
             android:layout_width="230dp"
             android:layout_height="40dp"
             android:text="@string/stop"
-            android:textSize="14sp"
+            android:textSize="18sp"
             android:layout_gravity="center_vertical"
             android:background="#FFBEBCB6"
             android:layout_marginLeft="32dp"

@@ -3,6 +3,7 @@ package com.dsource.idc.jellow;
 /**
  * Created by user on 5/25/2016.
  */
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.dsource.idc.jellow.Utility.ChangeAppLocale;
 import com.dsource.idc.jellow.Utility.SessionManager;
 
 public class ProfileFormActivity extends AppCompatActivity {
@@ -32,6 +34,7 @@ public class ProfileFormActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_form);
+        new ChangeAppLocale(this).setLocale();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.menuProfile)+"</font>"));
         mSession = new SessionManager(this);
@@ -125,6 +128,12 @@ public class ProfileFormActivity extends AppCompatActivity {
             default: return super.onOptionsItemSelected(item);
         }
         return true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        new ChangeAppLocale(this).setLocale();
     }
 
     @Override

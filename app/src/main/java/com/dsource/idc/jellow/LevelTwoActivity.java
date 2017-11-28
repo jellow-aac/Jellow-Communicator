@@ -2,7 +2,6 @@ package com.dsource.idc.jellow;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.KeyListener;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.dsource.idc.jellow.Models.LevelTwoVerbiageModel;
+import com.dsource.idc.jellow.Utility.ChangeAppLocale;
 import com.dsource.idc.jellow.Utility.IndexSorter;
 import com.dsource.idc.jellow.Utility.SessionManager;
 import com.dsource.idc.jellow.Utility.UserDataMeasure;
@@ -30,7 +29,6 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Locale;
 import java.util.StringTokenizer;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -79,12 +77,18 @@ public class LevelTwoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_levelx_layout);
+
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
         mLevelOneItemPos = getIntent().getExtras().getInt("mLevelOneItemPos");
         getSupportActionBar().setTitle(getIntent().getExtras().getString("selectedMenuItemPath"));
+        if(findViewById(R.id.parent).getTag().toString().equals("large"))
+            getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
+                    WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
         loadArraysFromResources();
         mUserDataMeasure = new UserDataMeasure(this);
         mUserDataMeasure.recordScreen(this.getLocalClassName());
+        new ChangeAppLocale(this).setLocale();
         mSession = new SessionManager(this);
         initializeArrayListOfRecycler();
         myMusic_function(mLevelOneItemPos);
@@ -134,59 +138,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                 mMenuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mCk = mCy = mCm = mCd = mCn = mCl = 0;
-                        resetActionButtons(-1);
-                        resetRecyclerAllItems();
-                        mActionBtnClickCount = 0;
-                        setMenuImageBorder(v, true);
-                        mShouldReadFullSpeech = true;
-                        String title = getIntent().getExtras().getString("selectedMenuItemPath")+ " ";
-                        if (mLevelOneItemPos == MENU_ITEM_PEOPLE || mLevelOneItemPos == MENU_ITEM_PLACES) {
-                            speakSpeech(myMusic[position]);
-                            mUserDataMeasure.recordGridItem("Tapped ".concat(myMusic[position]));
-                        }else if(mLevelTwoItemPos == position && mLevelOneItemPos != MENU_ITEM_HELP){
-                            Intent intent = new Intent(LevelTwoActivity.this, LevelThreeActivity.class);
-                            if(mLevelOneItemPos == MENU_ITEM_DAILY_ACT && ( mLevelTwoItemPos == 0 ||  mLevelTwoItemPos == 1 || mLevelTwoItemPos == 2 || mLevelTwoItemPos == 7 || mLevelTwoItemPos == 8 ))
-                                intent = new Intent(LevelTwoActivity.this, SequenceActivity.class);
-                            mUserDataMeasure.recordGridItem("Opened ".concat(myMusic[position]));
-                            intent.putExtra("mLevelOneItemPos", mLevelOneItemPos);
-                            intent.putExtra("mLevelTwoItemPos", mLevelTwoItemPos);
-                            intent.putExtra("selectedMenuItemPath", mActionBarTitle+ "/");
-                            startActivityForResult(intent, REQ_HOME);
-                        }else if(mLevelOneItemPos == MENU_ITEM_PEOPLE || mLevelOneItemPos == MENU_ITEM_PLACES){
-                            speakSpeech(myMusic[sort[mLevelTwoItemPos]]);
-                            mUserDataMeasure.recordGridItem("Tapped ".concat(myMusic[position]));
-                        }else {
-                            speakSpeech(myMusic[position]);
-                            mUserDataMeasure.recordGridItem("Tapped ".concat(myMusic[position]));
-                        }
-                        mLevelTwoItemPos = mRecyclerView.getChildLayoutPosition(view);
-                        mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
-                        if(mLevelOneItemPos == MENU_ITEM_PEOPLE)
-                            title += actionBarText[sort[mLevelTwoItemPos]];
-                        else if( mLevelOneItemPos == MENU_ITEM_PLACES)
-                            title += actionBarText[sort_places[mLevelTwoItemPos]];
-                        else if( mLevelOneItemPos == MENU_ITEM_HELP)
-                            title += actionBarText[mLevelTwoItemPos];
-                        else
-                            title += actionBarText[mLevelTwoItemPos].substring(0, actionBarText[mLevelTwoItemPos].length()-1);
-                        mActionBarTitle = title;
-                        getSupportActionBar().setTitle(mActionBarTitle);
-                        if(mLevelOneItemPos == MENU_ITEM_PEOPLE || mLevelOneItemPos == MENU_ITEM_PLACES)
-                            incrementTouchCountOfItem(mLevelTwoItemPos);
-
-                        if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 1)
-                            setActionButtonToAboutMe(-1);
-                        if(mLevelOneItemPos == MENU_ITEM_HELP &&
-                                ((mLevelTwoItemPos == 0) ||(mLevelTwoItemPos == 2) || (mLevelTwoItemPos == 3) || (mLevelTwoItemPos == 4) ||(mLevelTwoItemPos == 5)) ||(mLevelTwoItemPos == 12) ||(mLevelTwoItemPos == 13) ||(mLevelTwoItemPos == 14))
-                            changeTheActionButtons(DISABLE_ACTION_BTNS);
-                        else if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 10)
-                            badTouchDisableActionButtons();
-                        else if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 15)
-                            safetyDisableActionButtons();
-                        else
-                            changeTheActionButtons(!DISABLE_ACTION_BTNS);
-                        mUserDataMeasure.reportLog(getLocalClassName()+", "+mLevelOneItemPos+", "+ mLevelTwoItemPos , Log.INFO);
+                        tappedGridItemEvent(view, v, position);
                     }
                 });
             }
@@ -295,10 +247,11 @@ public class LevelTwoActivity extends AppCompatActivity {
                     mRecyclerView.setVisibility(View.VISIBLE);
                     ttsButton.setVisibility(View.INVISIBLE);
                     flag_keyboard = 0;
-                    if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 1)
-                        setActionButtonToAboutMe(-1);
-                    if(mLevelOneItemPos == MENU_ITEM_HELP &&
-                            ((mLevelTwoItemPos == 0) ||(mLevelTwoItemPos == 2) || (mLevelTwoItemPos == 3) || (mLevelTwoItemPos == 4) ||(mLevelTwoItemPos == 5)) ||(mLevelTwoItemPos == 12) ||(mLevelTwoItemPos == 13) ||(mLevelTwoItemPos == 14))
+                    if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 1) {
+                        setActionButtonToAboutMe(image_flag);
+                        changeTheActionButtons(!DISABLE_ACTION_BTNS);
+                    }else if(mLevelOneItemPos == MENU_ITEM_HELP &&
+                            ((mLevelTwoItemPos == 0) ||(mLevelTwoItemPos == 2) || (mLevelTwoItemPos == 3) || (mLevelTwoItemPos == 4) ||(mLevelTwoItemPos == 5) ||(mLevelTwoItemPos == 12) ||(mLevelTwoItemPos == 13) ||(mLevelTwoItemPos == 14)))
                         changeTheActionButtons(DISABLE_ACTION_BTNS);
                     else if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 10)
                         badTouchDisableActionButtons();
@@ -330,16 +283,18 @@ public class LevelTwoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 speakSpeech(below[2]);
+                ttsButton.setImageResource(R.drawable.speaker_button);
                 if (flag_keyboard == 1) {
                     keyboard.setImageResource(R.drawable.keyboard_button);
                     back.setImageResource(R.drawable.back_button);
                     et.setVisibility(View.INVISIBLE);
                     mRecyclerView.setVisibility(View.VISIBLE);
                     ttsButton.setVisibility(View.INVISIBLE);
-                    if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 1)
-                        setActionButtonToAboutMe(-1);
-                    if(mLevelOneItemPos == MENU_ITEM_HELP &&
-                            ((mLevelTwoItemPos == 0) ||(mLevelTwoItemPos == 2) || (mLevelTwoItemPos == 3) || (mLevelTwoItemPos == 4) ||(mLevelTwoItemPos == 5)) ||(mLevelTwoItemPos == 12) ||(mLevelTwoItemPos == 13) ||(mLevelTwoItemPos == 14))
+                    if (mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 1){
+                        setActionButtonToAboutMe(image_flag);
+                        changeTheActionButtons(!DISABLE_ACTION_BTNS);
+                    }else if(mLevelOneItemPos == MENU_ITEM_HELP &&
+                            ((mLevelTwoItemPos == 0) ||(mLevelTwoItemPos == 2) || (mLevelTwoItemPos == 3) || (mLevelTwoItemPos == 4) ||(mLevelTwoItemPos == 5) ||(mLevelTwoItemPos == 12) ||(mLevelTwoItemPos == 13) ||(mLevelTwoItemPos == 14)))
                         changeTheActionButtons(DISABLE_ACTION_BTNS);
                     else if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 10)
                         badTouchDisableActionButtons();
@@ -349,7 +304,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         changeTheActionButtons(!DISABLE_ACTION_BTNS);
                     flag_keyboard = 0;
                     showActionBarTitle(true);
-                } else {
+                    } else {
                     keyboard.setImageResource(R.drawable.keyboardpressed);
                     et.setVisibility(View.VISIBLE);
                     et.setKeyListener(originalKeyListener);
@@ -373,6 +328,7 @@ public class LevelTwoActivity extends AppCompatActivity {
         ttsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 speakSpeech(et.getText().toString());
+                if(!et.getText().toString().equals("")) ttsButton.setImageResource(R.drawable.speaker_pressed);
                 mUserDataMeasure.reportLog(getLocalClassName()+", TtsSpeak", Log.INFO);
                 like.setEnabled(false);
                 dislike.setEnabled(false);
@@ -445,6 +401,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         mUserDataMeasure.recordGridItem("Tapped ".concat("LikeVerbiage"));
                     }
                 }
+                back.setImageResource(R.drawable.back_button);
             }
         });
 
@@ -497,6 +454,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         mUserDataMeasure.recordGridItem("Tapped ".concat("DislikeVerbiage"));
                     }
                 }
+                back.setImageResource(R.drawable.back_button);
             }
         });
 
@@ -549,7 +507,8 @@ public class LevelTwoActivity extends AppCompatActivity {
                         mUserDataMeasure.recordGridItem("Tapped ".concat("YesVerbiage"));
                     }
                 }
-                }
+                back.setImageResource(R.drawable.back_button);
+            }
         });
 
         no.setOnClickListener(new View.OnClickListener() {
@@ -601,6 +560,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         mUserDataMeasure.recordGridItem("Tapped ".concat("NoVerbiage"));
                     }
                 }
+                back.setImageResource(R.drawable.back_button);
             }
         });
 
@@ -653,6 +613,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         mUserDataMeasure.recordGridItem("Tapped ".concat("AddVerbiage"));
                     }
                 }
+                back.setImageResource(R.drawable.back_button);
             }
         });
 
@@ -706,6 +667,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         mUserDataMeasure.recordGridItem("Tapped ".concat("MinusVerbiage"));
                     }
                 }
+                back.setImageResource(R.drawable.back_button);
             }
         });
     }
@@ -748,17 +710,64 @@ public class LevelTwoActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if((new SessionManager(this).getLanguage()) == 0)
-            setLocale(Locale.US);
-        else
-            setLocale(new Locale(getString(R.string.locale_lang_hi),getString(R.string.locale_reg_IN)));
+        new ChangeAppLocale(this).setLocale();
     }
 
-    private void setLocale(Locale locale) {
-        Configuration conf = getResources().getConfiguration();
-        conf.locale = locale;
-        DisplayMetrics dm = getResources().getDisplayMetrics();
-        getResources().updateConfiguration(conf, dm);
+    public void tappedGridItemEvent(View view, View v, int position) {
+        mCk = mCy = mCm = mCd = mCn = mCl = 0;
+        resetActionButtons(-1);
+        resetRecyclerAllItems();
+        mActionBtnClickCount = 0;
+        setMenuImageBorder(v, true);
+        mShouldReadFullSpeech = true;
+        String title = getIntent().getExtras().getString("selectedMenuItemPath")+ " ";
+        if (mLevelOneItemPos == MENU_ITEM_PEOPLE || mLevelOneItemPos == MENU_ITEM_PLACES) {
+            speakSpeech(myMusic[position]);
+            mUserDataMeasure.recordGridItem("Tapped ".concat(myMusic[position]));
+        }else if(mLevelTwoItemPos == position && mLevelOneItemPos != MENU_ITEM_HELP){
+            Intent intent = new Intent(LevelTwoActivity.this, LevelThreeActivity.class);
+            if(mLevelOneItemPos == MENU_ITEM_DAILY_ACT && ( mLevelTwoItemPos == 0 ||  mLevelTwoItemPos == 1 || mLevelTwoItemPos == 2 || mLevelTwoItemPos == 7 || mLevelTwoItemPos == 8 ))
+                intent = new Intent(LevelTwoActivity.this, SequenceActivity.class);
+            mUserDataMeasure.recordGridItem("Opened ".concat(myMusic[position]));
+            intent.putExtra("mLevelOneItemPos", mLevelOneItemPos);
+            intent.putExtra("mLevelTwoItemPos", mLevelTwoItemPos);
+            intent.putExtra("selectedMenuItemPath", mActionBarTitle+ "/");
+            startActivityForResult(intent, REQ_HOME);
+        }else if(mLevelOneItemPos == MENU_ITEM_PEOPLE || mLevelOneItemPos == MENU_ITEM_PLACES){
+            speakSpeech(myMusic[sort[mLevelTwoItemPos]]);
+            mUserDataMeasure.recordGridItem("Tapped ".concat(myMusic[position]));
+        }else {
+            speakSpeech(myMusic[position]);
+            mUserDataMeasure.recordGridItem("Tapped ".concat(myMusic[position]));
+        }
+        mLevelTwoItemPos = mRecyclerView.getChildLayoutPosition(view);
+        mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
+        if(mLevelOneItemPos == MENU_ITEM_PEOPLE)
+            title += actionBarText[sort[mLevelTwoItemPos]];
+        else if( mLevelOneItemPos == MENU_ITEM_PLACES)
+            title += actionBarText[sort_places[mLevelTwoItemPos]];
+        else if( mLevelOneItemPos == MENU_ITEM_HELP)
+            title += actionBarText[mLevelTwoItemPos];
+        else
+            title += actionBarText[mLevelTwoItemPos].substring(0, actionBarText[mLevelTwoItemPos].length()-1);
+        mActionBarTitle = title;
+        getSupportActionBar().setTitle(mActionBarTitle);
+        if(mLevelOneItemPos == MENU_ITEM_PEOPLE || mLevelOneItemPos == MENU_ITEM_PLACES)
+            incrementTouchCountOfItem(mLevelTwoItemPos);
+
+        if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 1)
+            setActionButtonToAboutMe(-1);
+        if(mLevelOneItemPos == MENU_ITEM_HELP &&
+                ((mLevelTwoItemPos == 0) ||(mLevelTwoItemPos == 2) || (mLevelTwoItemPos == 3) || (mLevelTwoItemPos == 4) ||(mLevelTwoItemPos == 5) ||(mLevelTwoItemPos == 12) ||(mLevelTwoItemPos == 13) ||(mLevelTwoItemPos == 14)))
+            changeTheActionButtons(DISABLE_ACTION_BTNS);
+        else if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 10)
+            badTouchDisableActionButtons();
+        else if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 15)
+            safetyDisableActionButtons();
+        else
+            changeTheActionButtons(!DISABLE_ACTION_BTNS);
+        mUserDataMeasure.reportLog(getLocalClassName()+", "+mLevelOneItemPos+", "+ mLevelTwoItemPos , Log.INFO);
+        back.setImageResource(R.drawable.back_button);
     }
 
     private void initializeArrayListOfRecycler() {
@@ -894,30 +903,14 @@ public class LevelTwoActivity extends AppCompatActivity {
     }
 
     private void setMenuImageBorder(View recyclerChildView, boolean setBorder) {
-        //RoundedImageView circularImageView = (RoundedImageView) recyclerChildView.findViewById(R.id.icon1);
         CircleImageView circularImageView = (CircleImageView) recyclerChildView.findViewById(R.id.icon1);
-        String strSrBw = new SessionManager(this).getShadowRadiusAndBorderWidth();
-        int sr, bw;
-        sr = Integer.valueOf(strSrBw.split(",")[0]);
-        bw = Integer.valueOf(strSrBw.split(",")[1]);
         if (setBorder){
             if(mActionBtnClickCount > 0)
                 circularImageView.setBorderColor(mColor[image_flag]);
-            else {
+            else
                 circularImageView.setBorderColor(-1283893945);
-                //circularImageView.setShadowColor(-1283893945);
-            }
-            //circularImageView.setShadowRadius(sr);
-            //circularImageView.setBorderWidth((float) bw);
-            //circularImageView.setBorderWidth(bw);
-        }else {
+        }else
             circularImageView.setBorderColor(Color.TRANSPARENT);
-            //circularImageView.setBorderColor(-1);
-            //circularImageView.setShadowColor(0);
-            //circularImageView.setShadowRadius(sr);
-            //circularImageView.setBorderWidth((float)0);
-            //circularImageView.setBorderWidth(0);
-        }
     }
 
     private void resetActionButtons(int image_flag) {

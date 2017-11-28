@@ -44,7 +44,7 @@ class LayerThreeAdapter extends android.support.v7.widget.RecyclerView.Adapter<L
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         final int MODE_PICTURE_ONLY = 1;
         if (mSession.getPictureViewMode() == MODE_PICTURE_ONLY)
             holder.menuItemBelowText.setVisibility(View.INVISIBLE);
@@ -52,7 +52,9 @@ class LayerThreeAdapter extends android.support.v7.widget.RecyclerView.Adapter<L
 
         holder.menuItemImage.setImageResource(mThumbIds[position]);
         holder.menuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {}
+            @Override public void onClick(View v) {
+                ((LevelThreeActivity)mContext).tappedGridItemEvent(holder.menuItemLinearLayout, v, position);
+            }
         });
     }
 
@@ -189,8 +191,8 @@ class LayerThreeAdapter extends android.support.v7.widget.RecyclerView.Adapter<L
                 case 8: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeLearningTransportationIconAdapter),
                         mContext.getResources().getStringArray(R.array.arrLevelThreeLearningTransportAdapterText), sort);
                     break;
-                case 9: loadAdapterMenuTextIconsWithSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeLearningMoneyIconAdapter),
-                        mContext.getResources().getStringArray(R.array.arrLevelThreeLearningMoneyAdapterText), sort);
+                case 9: loadAdapterMenuTextIconsWithoutSort(mContext.getResources().obtainTypedArray(R.array.arrLevelThreeLearningMoneyIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreeLearningMoneyAdapterText));
                     break;
             }
         } else if (levelOneItemPos == 7) {

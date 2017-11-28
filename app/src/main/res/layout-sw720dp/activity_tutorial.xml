@@ -154,6 +154,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv3"
+                        android:layout_marginBottom="16dp"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="@string/levelOneCat"
                         android:textSize="18sp"

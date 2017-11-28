@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.dsource.idc.jellow.Utility.ChangeAppLocale;
 import com.dsource.idc.jellow.Utility.SessionManager;
 
 /**
@@ -20,6 +21,7 @@ public class ResetPreferencesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_preferences);
+        new ChangeAppLocale(this).setLocale();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+ getString(R.string.menuResetPref) +"</font>"));
         final SessionManager session = new SessionManager(this);
@@ -66,6 +68,12 @@ public class ResetPreferencesActivity extends AppCompatActivity {
             default: return super.onOptionsItemSelected(item);
         }
         return true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        new ChangeAppLocale(this).setLocale();
     }
 
     @Override

@@ -150,7 +150,7 @@
         <item>नाक साफ करना</item>
         <item>साबुन</item>
         <item>शाम्पू</item>
-        <item>सेनेटरी नैपकिन</item>
+        <item>सैनेटरी नैपकिन</item>
     </string-array>
     <string-array name="arrLevelThreeDailyActSleepSpeechText">
         <item>दरवाज़ा</item>
@@ -204,7 +204,7 @@
     <!--LEVEL THREE "EATING" SPEECH TEXT ARE HERE-->
     <string-array name="arrLevelThreeFoodDrinksBreakfastSpeechText">
         <item>ब्रेड</item>
-        <item>कौर्नफ्लेक्स</item>
+        <item>कौर्न फ्लेक्स</item>
         <item>आलू पूरी</item>
         <item>अंडे</item>
         <item>पोहा</item>
@@ -618,6 +618,7 @@
         <item>२०० रूपये</item>
         <item>५०० रूपये</item>
         <item>२००० रूपये</item>
+        <item>छुट्टे पैसे</item>
     </string-array>
 
     <!--LEVEL THREE "TIME WEATHER" SPEECH TEXT ARE HERE-->
@@ -864,7 +865,7 @@
         <item>नाक साफ करना</item>
         <item>साबुन</item>
         <item>शैम्पू</item>
-        <item>सेनेटरी नैपकिन</item>
+        <item>सैनेटरी नैपकिन</item>
     </string-array>
     <string-array name="arrLevelThreeDailyActSleepAdapterText">
         <item>दरवाज़ा</item>
@@ -1332,6 +1333,7 @@
         <item>२०० रूपये</item>
         <item>५०० रूपये</item>
         <item>२००० रूपये</item>
+        <item>छुट्टे पैसे</item>
     </string-array>
 
     <!--LEVEL THREE "TIME WEATHER" ADAPTER TEXT ARE HERE-->
@@ -2046,6 +2048,7 @@
         <item>@drawable/rupees200</item>
         <item>@drawable/rupees500</item>
         <item>@drawable/rupees2000</item>
+        <item>@drawable/moneychange</item>
     </array>
 
     <!--LEVEL THREE "TIME AND WEATHER" ADAPTER TEXT ARE HERE-->

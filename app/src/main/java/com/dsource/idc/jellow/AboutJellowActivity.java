@@ -9,6 +9,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 
+import com.dsource.idc.jellow.Utility.ChangeAppLocale;
+
 /**
  * Created by user on 5/27/2016.
  */
@@ -18,11 +20,10 @@ public class AboutJellowActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_jellow);
+        new ChangeAppLocale(this).setLocale();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+ getString(R.string.menuAbout)+"</font>"));
-        ((WebView)findViewById(R.id.webAboutJellow)).
-                loadDataWithBaseURL(null, getString(R.string.about_jellow), "text/html", "utf-8", null);
-
+        ((WebView)findViewById(R.id.webAboutJellow)).loadData(getString(R.string.about_jellow),  "text/html; charset=utf-8","UTF-8");
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
         findViewById(R.id.speak).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,8 +63,14 @@ public class AboutJellowActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
+    protected void onPause() {
+        super.onPause();
+        new ChangeAppLocale(this).setLocale();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
         stopSpeech();
         finish();
     }

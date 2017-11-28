@@ -42,7 +42,7 @@ class LevelTwoAdapter extends android.support.v7.widget.RecyclerView.Adapter<Lev
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         final int MODE_PICTURE_ONLY = 1;
         if (mSession.getPictureViewMode() == MODE_PICTURE_ONLY)
             holder.menuItemBelowText.setVisibility(View.INVISIBLE);
@@ -50,7 +50,9 @@ class LevelTwoAdapter extends android.support.v7.widget.RecyclerView.Adapter<Lev
 
         holder.menuItemImage.setImageDrawable(mThumbIds.getDrawable(position));
         holder.menuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {}
+            @Override public void onClick(View v) {
+                ((LevelTwoActivity)mContext).tappedGridItemEvent(holder.menuItemLinearLayout, v, position);
+            }
         });
     }
 

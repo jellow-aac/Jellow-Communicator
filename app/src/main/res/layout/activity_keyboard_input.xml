@@ -50,9 +50,7 @@
                         android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:textColor="#000000"
-                        android:fontFamily="fonts/Mukta-Regular.ttf"
-                        android:textStyle="bold"
-                        android:textSize="10sp"
+                        android:textSize="14sp"
                         android:onClick="getStarted1"
                         android:text="@string/activate"
                         android:background="#FFBEBCB6"/>
@@ -85,9 +83,7 @@
                         android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:textColor="#000000"
-                        android:fontFamily="fonts/Mukta-Regular.ttf"
-                        android:textStyle="bold"
-                        android:textSize="10sp"
+                        android:textSize="14sp"
                         android:onClick="getStarted2"
                         android:text="@string/changeLanguage"
                         android:background="#FFBEBCB6"/>
@@ -118,9 +114,7 @@
                         android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:textColor="#000000"
-                        android:fontFamily="fonts/Mukta-Regular.ttf"
-                        android:textStyle="bold"
-                        android:textSize="10sp"
+                        android:textSize="14sp"
                         android:onClick="getStarted3"
                         android:text="@string/download"
                         android:background="#FFBEBCB6"/>
@@ -176,8 +170,7 @@
                     android:layout_width="150dp"
                     android:layout_height="30dp"
                     android:text="@string/qwertyKeyboard"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
+                    android:textSize="14sp"
                     android:background="#FFBEBCB6"/>
                 <Button
                     android:id="@+id/abc"
@@ -185,8 +178,7 @@
                     android:layout_height="30dp"
                     android:layout_marginLeft="90dp"
                     android:text="@string/serialKeyboard"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
+                    android:textSize="14sp"
                     android:background="#FFBEBCB6"/>
             </LinearLayout>
             <LinearLayout
@@ -223,8 +215,7 @@
                     android:layout_width="150dp"
                     android:layout_height="30dp"
                     android:text="@string/saveAsDefault"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
+                    android:textSize="14sp"
                     android:background="#FFBEBCB6"/>
             </LinearLayout>
         </LinearLayout>

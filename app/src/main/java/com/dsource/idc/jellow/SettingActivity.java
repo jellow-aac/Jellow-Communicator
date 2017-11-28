@@ -1,7 +1,6 @@
 package com.dsource.idc.jellow;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
@@ -15,11 +14,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dsource.idc.jellow.Utility.ChangeAppLocale;
 import com.dsource.idc.jellow.Utility.SessionManager;
 import com.dsource.idc.jellow.Utility.UserDataMeasure;
 import com.rey.material.widget.Slider;
-
-import java.util.Locale;
 
 public class SettingActivity extends AppCompatActivity {
     private Spinner mSpinnerLanguage, mSpinnerViewMode, mSpinnerGridSize;
@@ -27,6 +25,7 @@ public class SettingActivity extends AppCompatActivity {
     private TextView mTxtViewSpeechSpeed, mTxtViewVoicePitch;
     private Slider mSliderSpeed, mSliderPitch;
     private UserDataMeasure mUserDataMeasure;
+    private  ChangeAppLocale mChangeAppLocale;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,6 +35,8 @@ public class SettingActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.action_settings)+"</font>"));
         mSession = new SessionManager(this);
         mUserDataMeasure = new UserDataMeasure(this);
+        mChangeAppLocale = new ChangeAppLocale(this);
+        mChangeAppLocale.setLocale();
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
 
         mSpinnerLanguage = (Spinner) findViewById(R.id.spinner);
@@ -112,8 +113,8 @@ public class SettingActivity extends AppCompatActivity {
                         mSession.getPictureViewMode() != mSpinnerViewMode.getSelectedItemPosition() ||
                             mSession.getGridSize() != mSpinnerGridSize.getSelectedItemPosition()) {
                     switch(mSession.getLanguage()) {
-                        case 0: setLocale(Locale.US); break;
-                        case 1: setLocale(new Locale(getString(R.string.locale_lang_hi),getString(R.string.locale_reg_IN))); break;
+                        case 0: mChangeAppLocale.setLocale(); break;
+                        case 1: mChangeAppLocale.setLocale(); break;
                     }
                     if(mSession.getLanguage() != mSpinnerLanguage.getSelectedItemPosition()) {
                         mUserDataMeasure.setProperty("Language", mSpinnerLanguage.getSelectedItemPosition() == 0 ? "En" : "Hi");
@@ -127,9 +128,8 @@ public class SettingActivity extends AppCompatActivity {
                         mUserDataMeasure.setProperty("GridSize", mSpinnerGridSize.getSelectedItemPosition() == 0 ? "3" : "9");
                         mSession.setGridSize(mSpinnerGridSize.getSelectedItemPosition());
                     }
-                    Intent intent = new Intent(SettingActivity.this, SplashActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
+                    startActivity(new Intent(getApplicationContext(), SplashActivity.class));
+                    finishAffinity();
                 }
                 if(mSession.getSpeed() != mSliderSpeed.getValue()) {
                     setSpeechRate(mSliderSpeed.getValue()/100);
@@ -143,6 +143,18 @@ public class SettingActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mChangeAppLocale.setLocale();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        sendBroadcast(new Intent("com.dsource.idc.jellow.SPEECH_STOP"));
     }
 
     @Override
@@ -173,12 +185,6 @@ public class SettingActivity extends AppCompatActivity {
         setSpeechPitch(mSession.getPitch()/100);
         setSpeechRate(mSession.getSpeed()/100);
         finish();
-    }
-
-    private void setLocale(Locale locale) {
-        Configuration conf = getResources().getConfiguration();
-        conf.locale = locale;
-        getResources().updateConfiguration(conf, getResources().getDisplayMetrics());
     }
 
     private void speakSpeech(String speechText){

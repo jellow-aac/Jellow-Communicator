@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.dsource.idc.jellow.Utility.ChangeAppLocale;
+
 /**
  * Created by user on 5/27/2016.
  */
@@ -20,6 +22,7 @@ public class KeyboardInputActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_keyboard_input);
+        new ChangeAppLocale(this).setLocale();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.getVoiceControl)+"</font>"));
@@ -100,6 +103,12 @@ public class KeyboardInputActivity extends AppCompatActivity {
             default: return super.onOptionsItemSelected(item);
         }
         return true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        new ChangeAppLocale(this).setLocale();
     }
 
     @Override

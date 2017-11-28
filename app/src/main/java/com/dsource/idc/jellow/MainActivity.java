@@ -2,14 +2,12 @@ package com.dsource.idc.jellow;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.KeyListener;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,15 +17,15 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.dsource.idc.jellow.Models.LevelOneVerbiageModel;
-import com.dsource.idc.jellow.Utility.SessionManager;
+import com.dsource.idc.jellow.Utility.ChangeAppLocale;
 import com.dsource.idc.jellow.Utility.SpeakOnKeyboardDialog;
 import com.dsource.idc.jellow.Utility.UserDataMeasure;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -39,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private int image_flag = -1, flag_keyboard = 0;
     private ImageView like, dislike, add, minus, yes, no, home, keyboard, ttsButton, back;
     private EditText et;
+    private TextView actionBarTitle;
     private KeyListener originalKeyListener;
     public RecyclerView mRecyclerView;
     private LinearLayout mMenuItemLinearLayout;
@@ -62,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(getString(R.string.action_bar_title));
         mUserDataMeasure = new UserDataMeasure(this);
         mUserDataMeasure.recordScreen(this.getLocalClassName());
+        new ChangeAppLocale(this).setLocale();
         loadArraysFromResources();
         mRecyclerItemsViewList = new ArrayList<>(myMusic.length);
         while (mRecyclerItemsViewList.size() < myMusic.length)  mRecyclerItemsViewList.add(null);
@@ -138,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
                     keyboard.setImageResource(R.drawable.keyboard_button);
                     back.setImageResource(R.drawable.back_button);
                     home.setImageResource(R.drawable.home);
+                    ttsButton.setImageResource(R.drawable.speaker_button);
                     speakSpeech(below[1]);
                     et.setVisibility(View.INVISIBLE);
                     mRecyclerView.setVisibility(View.VISIBLE);
@@ -165,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 speakSpeech(below[2]);
                 mUserDataMeasure.recordNavigationItem(below[2]);
+                ttsButton.setImageResource(R.drawable.speaker_button);
                 if (flag_keyboard  == 1){
                     keyboard.setImageResource(R.drawable.keyboard_button);
                     back.setImageResource(R.drawable.back_button);
@@ -204,6 +206,7 @@ public class MainActivity extends AppCompatActivity {
         ttsButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 speakSpeech(et.getText().toString());
+                if(!et.getText().toString().equals("")) ttsButton.setImageResource(R.drawable.speaker_pressed);
                 mUserDataMeasure.reportLog(getLocalClassName()+", TtsSpeak", Log.INFO);
                 mUserDataMeasure.recordKeyboardItem(et.getText().toString());
                 like.setEnabled(false);
@@ -473,17 +476,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if((new SessionManager(this).getLanguage()) == 0)
-            setLocale(Locale.US);
-        else
-            setLocale(new Locale(getString(R.string.locale_lang_hi),getString(R.string.locale_reg_IN)));
-    }
-
-    private void setLocale(Locale locale) {
-        Configuration conf = getResources().getConfiguration();
-        conf.locale = locale;
-        DisplayMetrics dm = getResources().getDisplayMetrics();
-        getResources().updateConfiguration(conf, dm);
+        new ChangeAppLocale(this).setLocale();
     }
 
     public void tappedGridItemEvent(final View view, View v, int position) {
@@ -548,7 +541,6 @@ public class MainActivity extends AppCompatActivity {
             actionBarTitleTxt = getSupportActionBar().getTitle().toString();
             getSupportActionBar().setTitle("");
         }
-
     }
 
     private void speakSpeech(String speechText){
@@ -613,31 +605,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setMenuImageBorder(View recyclerChildView, boolean setBorder) {
-        //RoundedImageView circularImageView = (RoundedImageView) recyclerChildView.findViewById(R.id.icon1);
         CircleImageView circularImageView = (CircleImageView) recyclerChildView.findViewById(R.id.icon1);
-        String strSrBw = new SessionManager(this).getShadowRadiusAndBorderWidth();
-        int sr, bw;
-        sr = Integer.valueOf(strSrBw.split(",")[0]);
-        bw = Integer.valueOf(strSrBw.split(",")[1]);
         if (setBorder){
             if(mActionBtnClickCount > 0)
                 circularImageView.setBorderColor(mColor[image_flag]);
-            else {
+            else
                 circularImageView.setBorderColor(-1283893945);
-                //circularImageView.setShadowColor(-1283893945);
-            }
-            //circularImageView.setShadowRadius(sr);
-            //circularImageView.setBorderWidth((float)bw);
-            //circularImageView.setBorderWidth(bw);
-        }else {
-            //circularImageView.setBorderColor(-1);
+        }else
             circularImageView.setBorderColor(Color.TRANSPARENT);
-            //circularImageView.setShadowColor(0);
-            //circularImageView.setShadowRadius(sr);
-            //circularImageView.setBorderWidth((float)0);
-            //circularImageView.setBorderWidth(0);
-
-        }
     }
 
     private void resetActionButtons(int image_flag) {

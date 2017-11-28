@@ -16,7 +16,7 @@
         android:fontFamily="fonts/Mukta-Regular.ttf"
         android:textColor="#000000"
         android:paddingRight="32dp"
-        android:textSize="12dp"
+        android:textSize="12sp"
         android:text="By double-clicking on a category button, user can access further categories and sub-categories"
         android:id="@+id/tvtop"/>
 
@@ -44,7 +44,7 @@
         android:paddingRight="64dp"
         android:id="@+id/tvbottom"
         android:fontFamily="fonts/Mukta-Regular.ttf"
-        android:textSize="13dp"
+        android:textSize="13sp"
         android:text="Navigating within Jellow"/>
     <TextView
         android:layout_width="fill_parent"

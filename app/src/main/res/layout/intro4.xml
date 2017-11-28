@@ -5,7 +5,6 @@
     android:background="@drawable/bg"
     android:layout_weight="10"
     android:id="@+id/main">
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -16,17 +15,15 @@
         android:fontFamily="fonts/Mukta-Regular.ttf"
         android:textColor="#000000"
         android:paddingRight="32dp"
-        android:textSize="13dp"
+        android:textSize="12sp"
         android:text="User can customize application settings by clicking on top right corner of the application"
         android:id="@+id/tvtop"/>
-
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
         android:gravity="center"
         android:layout_weight="10">
-
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,6 +31,19 @@
             android:src="@drawable/settings"/>
     </LinearLayout>
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:paddingLeft="64dp"
+        android:paddingRight="64dp"
+        android:id="@+id/tvbottom"
+        android:fontFamily="fonts/Mukta-Regular.ttf"
+        android:textSize="13sp"
+        android:text="Settings within Jellow"/>
+    <TextView
         android:layout_width="fill_parent"
-        android:layout_height="60dp" />
+        android:layout_height="54dp" />
 </LinearLayout>

@@ -86,7 +86,7 @@ public class SessionManager {
         return (String) retrievePreferenceKeyWithValue(String.class.toString(), Father_name);
     }
 
-      public void setAddress(String address){
+    public void setAddress(String address){
         storePreferenceKeyWithValue(String.class.toString(), Address, address);
     }
 
@@ -182,11 +182,19 @@ public class SessionManager {
     }
 
     public void setPlacesPreferences(String placesPreferences) {
-            storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.places_pref_count_eng), placesPreferences);
+        storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.places_pref_count_eng), placesPreferences);
     }
 
     public String getPlacesPreferences() {
             return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.places_pref_count_eng));
+    }
+
+    public void setUpdatedForNewContentV5() {
+        storePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.updated_app_for_new_content), true);
+    }
+
+    public boolean isUpdatedForNewContentV5() {
+        return (Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.updated_app_for_new_content));
     }
 
     public void resetUserPeoplePlacesPreferences(){
