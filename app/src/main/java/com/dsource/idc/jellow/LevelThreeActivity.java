@@ -564,6 +564,11 @@ public class LevelThreeActivity extends AppCompatActivity {
         new ChangeAppLocale(this).setLocale();
     }
 
+
+
+
+
+
     public void tappedGridItemEvent(View view, View v, int position) {
         mCk = mCy = mCm = mCd = mCn = mCl = 0;
         resetActionButtons(-1);
