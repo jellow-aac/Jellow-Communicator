@@ -21,7 +21,7 @@ import android.widget.TextView;
 
 import com.dsource.idc.jellow.Models.LevelOneVerbiageModel;
 import com.dsource.idc.jellow.Utility.ChangeAppLocale;
-import com.dsource.idc.jellow.Utility.SpeakOnKeyboardDialog;
+//import com.dsource.idc.jellow.Utility.SpeakOnKeyboardDialog;
 import com.dsource.idc.jellow.Utility.UserDataMeasure;
 import com.google.gson.Gson;
 
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<ArrayList<String>> mLayerOneSpeech;
     private String[] myMusic, side, below;
     private String actionBarTitleTxt;
-    private SpeakOnKeyboardDialog mKeyboardDialog;
+    //private SpeakOnKeyboardDialog mKeyboardDialog;
     private boolean mKeyChange;
 
     @Override
@@ -478,6 +478,16 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         new ChangeAppLocale(this).setLocale();
     }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        new ChangeAppLocale(this).setLocale();
+
+    }
+
+
 
     public void tappedGridItemEvent(final View view, View v, int position) {
         mCk = mCy = mCm = mCd = mCn = mCl = 0;

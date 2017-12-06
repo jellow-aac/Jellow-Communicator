@@ -601,6 +601,13 @@ public class SequenceActivity extends AppCompatActivity {
         new ChangeAppLocale(this).setLocale();
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        new ChangeAppLocale(this).setLocale();
+    }
+
     private void showActionBarTitle(boolean showTitle){
         if (showTitle)
             getSupportActionBar().setTitle(actionBarTitleTxt);

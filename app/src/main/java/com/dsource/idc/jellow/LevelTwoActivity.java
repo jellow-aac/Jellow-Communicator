@@ -679,6 +679,13 @@ public class LevelTwoActivity extends AppCompatActivity {
         return true;
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        new ChangeAppLocale(this).setLocale();
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {

@@ -8,4 +8,8 @@
     <dimen name="layout_width">180dp</dimen>
     <dimen name="text_size">20dp</dimen>
     <dimen name="text_size_2">18dp</dimen>
+    <style name="Widget.Design.TabLayout" parent="Base.Widget.Design.TabLayout">
+        <item name="tabGravity">center</item>
+        <item name="tabMode">fixed</item>
+    </style>
 </resources>

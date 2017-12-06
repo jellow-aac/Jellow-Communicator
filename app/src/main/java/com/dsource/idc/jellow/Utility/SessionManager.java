@@ -16,6 +16,7 @@ public class SessionManager {
     private Editor mEditor;
     private Context mContext;
 
+
     private final String PREF_NAME = "AndroidHiveLogin";
     private final String KEY_IS_LOGGEDIN = "isLoggedIn";
     private final String KEY_IS_LOGGEDIN1 = "isLoggedIn1";
