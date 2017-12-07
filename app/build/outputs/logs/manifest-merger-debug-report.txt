@@ -1,320 +1,558 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:2:1-128:12
+ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:2:1-110:12
+INJECTED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:2:1-110:12
+INJECTED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:2:1-110:12
+INJECTED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:2:1-110:12
+MERGED from [com.android.support:design:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/design-25.3.1.aar/206d5ccc879f089930e09df3d4fbbbd2/AndroidManifest.xml:17:1-31:12
+MERGED from [com.github.rey5137:material:1.2.4] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/material-1.2.4.aar/ccdb2713bd374b5932c2a48709988712/AndroidManifest.xml:2:1-11:12
+MERGED from [com.github.paolorotolo:appintro:4.0.0] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/appintro-4.0.0.aar/2011a7bafdeef6a72de0f75213c689a6/AndroidManifest.xml:2:1-11:12
+MERGED from [com.android.support:appcompat-v7:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.3.1.aar/eda944a6378b73756f82c8290c97317a/AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:recyclerview-v7:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-25.3.1.aar/fcd513d4d05b3dbca0286970ab63f158/AndroidManifest.xml:17:1-26:12
+MERGED from [com.google.firebase:firebase-crash:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-crash-11.0.1.aar/d46041467c6624cfb6a0c164afc8995e/AndroidManifest.xml:16:1-25:12
+MERGED from [com.google.firebase:firebase-core:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-core-11.0.1.aar/c5baf8a05764a300557d7f105ac7c6e2/AndroidManifest.xml:2:1-6:12
+MERGED from [com.google.firebase:firebase-analytics:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-11.0.1.aar/0d611721d5627476297e65148b3fbc42/AndroidManifest.xml:16:1-35:12
+MERGED from [com.google.firebase:firebase-appindexing:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-appindexing-11.0.1.aar/6eb408cc89c99a045fcd238eae4bf85c/AndroidManifest.xml:16:1-19:12
+MERGED from [de.hdodenhof:circleimageview:2.2.0] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/circleimageview-2.2.0.aar/c0ecd1487fc1153d6c66ab7a852b9c6c/AndroidManifest.xml:2:1-11:12
+MERGED from [com.mcxiaoke.volley:library-aar:1.0.0] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/library-aar-1.0.0.aar/34599572062770944b317832a58b3eff/AndroidManifest.xml:1:70-7:12
+MERGED from [com.android.support:transition:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/transition-25.3.1.aar/cc46923e6309bc4e200eeeade3dc92b1/AndroidManifest.xml:17:1-28:12
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-25.3.1.aar/724f797f8f4d5ced5aa651ffaf8bf3b3/AndroidManifest.xml:17:1-28:12
+MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-25.3.1.aar/f9fb5c281b45ef62b9e129da88b313d7/AndroidManifest.xml:17:1-28:12
+MERGED from [com.google.firebase:firebase-analytics-impl:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-impl-11.0.1.aar/245f512e357911bd335548ea678d9c59/AndroidManifest.xml:16:1-29:12
+MERGED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:16:1-50:12
+MERGED from [com.google.firebase:firebase-common:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-common-11.0.1.aar/e80451b7e8c4d39b2c1b1973c2792184/AndroidManifest.xml:2:1-8:12
+MERGED from [com.google.android.gms:play-services-base:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/play-services-base-11.0.1.aar/523b08d7dbb5541be30e82dd539e5253/AndroidManifest.xml:16:1-21:12
+MERGED from [com.google.android.gms:play-services-tasks:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/play-services-tasks-11.0.1.aar/313e7062ddc84fdf1815425c0290124b/AndroidManifest.xml:2:1-5:12
+MERGED from [com.google.android.gms:play-services-basement:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/play-services-basement-11.0.1.aar/74849da7a79c04a7255329bb23524659/AndroidManifest.xml:16:1-23:12
+MERGED from [com.android.support:support-v4:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-v4-25.3.1.aar/6312e6c854819c8e9c76e16724343a8d/AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-fragment:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-fragment-25.3.1.aar/517b1b3ec9c77c4c97d960b5d3da21d7/AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-core-ui:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-core-ui-25.3.1.aar/94ad3ff97551f3bb93c169461e3244b0/AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-media-compat:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-media-compat-25.3.1.aar/ffca3a20a62627045c7742c56e7b782d/AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-core-utils:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-core-utils-25.3.1.aar/552b3d9055e378591c4bba30c61c41f7/AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-compat:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-compat-25.3.1.aar/2780b736c98659fa05febce6c9efc3c3/AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:cardview-v7:23.4.0] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/cardview-v7-23.4.0.aar/9784c2f96b21cd1b5bd32f0aa0e47eb2/AndroidManifest.xml:17:1-24:12
+INJECTED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:2:1-110:12
+INJECTED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:2:1-110:12
+INJECTED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:2:1-110:12
 	package
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:3:5-37
-		INJECTED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:3:5-37
+		INJECTED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml
 	android:versionName
-		INJECTED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml
-	xmlns:android
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:2:11-69
+		INJECTED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:2:1-110:12
+		INJECTED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml
 	android:versionCode
-		INJECTED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml
+		INJECTED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:2:1-110:12
+		INJECTED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:2:11-69
 uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
-ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:4:5-81
+ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:4:5-81
 	android:name
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:4:22-78
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:4:22-78
 uses-permission#android.permission.INTERNET
-ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:5:5-67
+ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:5:5-67
+MERGED from [com.google.firebase:firebase-crash:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-crash-11.0.1.aar/d46041467c6624cfb6a0c164afc8995e/AndroidManifest.xml:18:5-66
+MERGED from [com.google.firebase:firebase-crash:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-crash-11.0.1.aar/d46041467c6624cfb6a0c164afc8995e/AndroidManifest.xml:18:5-66
+MERGED from [com.google.firebase:firebase-analytics:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-11.0.1.aar/0d611721d5627476297e65148b3fbc42/AndroidManifest.xml:20:5-66
+MERGED from [com.google.firebase:firebase-analytics:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-11.0.1.aar/0d611721d5627476297e65148b3fbc42/AndroidManifest.xml:20:5-66
+MERGED from [com.google.firebase:firebase-analytics-impl:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-impl-11.0.1.aar/245f512e357911bd335548ea678d9c59/AndroidManifest.xml:20:5-66
+MERGED from [com.google.firebase:firebase-analytics-impl:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-impl-11.0.1.aar/245f512e357911bd335548ea678d9c59/AndroidManifest.xml:20:5-66
+MERGED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:20:5-66
+MERGED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:20:5-66
 	android:name
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:5:22-64
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:5:22-64
 uses-permission#android.permission.READ_EXTERNAL_STORAGE
-ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:6:5-80
+ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:6:5-80
 	android:name
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:6:22-77
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:6:22-77
 application
-ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:8:5-126:19
-MERGED from [com.mikhaellopez:circularimageview:3.0.2] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.mikhaellopez\circularimageview\3.0.2\AndroidManifest.xml:11:5-13:38
-MERGED from [com.android.support:cardview-v7:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\25.3.1\AndroidManifest.xml:26:5-20
-MERGED from [com.google.android.gms:play-services-appindexing:9.8.0] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\9.8.0\AndroidManifest.xml:18:5-19
-MERGED from [com.google.android.gms:play-services-base:9.8.0] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\9.8.0\AndroidManifest.xml:18:5-20:19
-MERGED from [com.google.firebase:firebase-common:9.8.0] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-common\9.8.0\AndroidManifest.xml:4:5-7:19
-MERGED from [com.google.android.gms:play-services-tasks:9.8.0] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tasks\9.8.0\AndroidManifest.xml:4:5-19
-MERGED from [com.google.android.gms:play-services-basement:9.8.0] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\9.8.0\AndroidManifest.xml:19:5-21:19
-MERGED from [com.android.support:appcompat-v7:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\25.3.1\AndroidManifest.xml:29:5-20
-MERGED from [com.android.support:support-v4:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\support-v4\25.3.1\AndroidManifest.xml:29:5-20
-MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\support-fragment\25.3.1\AndroidManifest.xml:29:5-20
-MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\25.3.1\AndroidManifest.xml:29:5-20
-MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.3.1\AndroidManifest.xml:29:5-20
-MERGED from [com.android.support:animated-vector-drawable:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\25.3.1\AndroidManifest.xml:26:5-20
-MERGED from [com.android.support:support-vector-drawable:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\25.3.1\AndroidManifest.xml:26:5-20
-MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.3.1\AndroidManifest.xml:29:5-20
-MERGED from [com.android.support:support-compat:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.3.1\AndroidManifest.xml:29:5-20
-MERGED from [com.mcxiaoke.volley:library-aar:1.0.0] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.mcxiaoke.volley\library-aar\1.0.0\AndroidManifest.xml:5:5-19
+ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:8:5-108:19
+MERGED from [com.android.support:design:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/design-25.3.1.aar/206d5ccc879f089930e09df3d4fbbbd2/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:design:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/design-25.3.1.aar/206d5ccc879f089930e09df3d4fbbbd2/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:appcompat-v7:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.3.1.aar/eda944a6378b73756f82c8290c97317a/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:appcompat-v7:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.3.1.aar/eda944a6378b73756f82c8290c97317a/AndroidManifest.xml:29:5-20
+MERGED from [com.google.firebase:firebase-crash:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-crash-11.0.1.aar/d46041467c6624cfb6a0c164afc8995e/AndroidManifest.xml:22:5-23:19
+MERGED from [com.google.firebase:firebase-crash:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-crash-11.0.1.aar/d46041467c6624cfb6a0c164afc8995e/AndroidManifest.xml:22:5-23:19
+MERGED from [com.google.firebase:firebase-core:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-core-11.0.1.aar/c5baf8a05764a300557d7f105ac7c6e2/AndroidManifest.xml:5:5-20
+MERGED from [com.google.firebase:firebase-core:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-core-11.0.1.aar/c5baf8a05764a300557d7f105ac7c6e2/AndroidManifest.xml:5:5-20
+MERGED from [com.google.firebase:firebase-analytics:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-11.0.1.aar/0d611721d5627476297e65148b3fbc42/AndroidManifest.xml:24:5-34:19
+MERGED from [com.google.firebase:firebase-analytics:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-11.0.1.aar/0d611721d5627476297e65148b3fbc42/AndroidManifest.xml:24:5-34:19
+MERGED from [com.google.firebase:firebase-appindexing:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-appindexing-11.0.1.aar/6eb408cc89c99a045fcd238eae4bf85c/AndroidManifest.xml:18:5-19
+MERGED from [com.google.firebase:firebase-appindexing:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-appindexing-11.0.1.aar/6eb408cc89c99a045fcd238eae4bf85c/AndroidManifest.xml:18:5-19
+MERGED from [de.hdodenhof:circleimageview:2.2.0] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/circleimageview-2.2.0.aar/c0ecd1487fc1153d6c66ab7a852b9c6c/AndroidManifest.xml:9:5-20
+MERGED from [de.hdodenhof:circleimageview:2.2.0] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/circleimageview-2.2.0.aar/c0ecd1487fc1153d6c66ab7a852b9c6c/AndroidManifest.xml:9:5-20
+MERGED from [com.mcxiaoke.volley:library-aar:1.0.0] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/library-aar-1.0.0.aar/34599572062770944b317832a58b3eff/AndroidManifest.xml:5:5-19
+MERGED from [com.mcxiaoke.volley:library-aar:1.0.0] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/library-aar-1.0.0.aar/34599572062770944b317832a58b3eff/AndroidManifest.xml:5:5-19
+MERGED from [com.android.support:transition:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/transition-25.3.1.aar/cc46923e6309bc4e200eeeade3dc92b1/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:transition:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/transition-25.3.1.aar/cc46923e6309bc4e200eeeade3dc92b1/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-25.3.1.aar/724f797f8f4d5ced5aa651ffaf8bf3b3/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-25.3.1.aar/724f797f8f4d5ced5aa651ffaf8bf3b3/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-25.3.1.aar/f9fb5c281b45ef62b9e129da88b313d7/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-25.3.1.aar/f9fb5c281b45ef62b9e129da88b313d7/AndroidManifest.xml:26:5-20
+MERGED from [com.google.firebase:firebase-analytics-impl:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-impl-11.0.1.aar/245f512e357911bd335548ea678d9c59/AndroidManifest.xml:24:5-28:19
+MERGED from [com.google.firebase:firebase-analytics-impl:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-impl-11.0.1.aar/245f512e357911bd335548ea678d9c59/AndroidManifest.xml:24:5-28:19
+MERGED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:28:5-49:19
+MERGED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:28:5-49:19
+MERGED from [com.google.firebase:firebase-common:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-common-11.0.1.aar/e80451b7e8c4d39b2c1b1973c2792184/AndroidManifest.xml:4:5-7:19
+MERGED from [com.google.firebase:firebase-common:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-common-11.0.1.aar/e80451b7e8c4d39b2c1b1973c2792184/AndroidManifest.xml:4:5-7:19
+MERGED from [com.google.android.gms:play-services-base:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/play-services-base-11.0.1.aar/523b08d7dbb5541be30e82dd539e5253/AndroidManifest.xml:18:5-20:19
+MERGED from [com.google.android.gms:play-services-base:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/play-services-base-11.0.1.aar/523b08d7dbb5541be30e82dd539e5253/AndroidManifest.xml:18:5-20:19
+MERGED from [com.google.android.gms:play-services-tasks:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/play-services-tasks-11.0.1.aar/313e7062ddc84fdf1815425c0290124b/AndroidManifest.xml:4:5-19
+MERGED from [com.google.android.gms:play-services-tasks:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/play-services-tasks-11.0.1.aar/313e7062ddc84fdf1815425c0290124b/AndroidManifest.xml:4:5-19
+MERGED from [com.google.android.gms:play-services-basement:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/play-services-basement-11.0.1.aar/74849da7a79c04a7255329bb23524659/AndroidManifest.xml:19:5-21:19
+MERGED from [com.google.android.gms:play-services-basement:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/play-services-basement-11.0.1.aar/74849da7a79c04a7255329bb23524659/AndroidManifest.xml:19:5-21:19
+MERGED from [com.android.support:support-v4:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-v4-25.3.1.aar/6312e6c854819c8e9c76e16724343a8d/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-v4:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-v4-25.3.1.aar/6312e6c854819c8e9c76e16724343a8d/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-fragment:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-fragment-25.3.1.aar/517b1b3ec9c77c4c97d960b5d3da21d7/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-fragment:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-fragment-25.3.1.aar/517b1b3ec9c77c4c97d960b5d3da21d7/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-ui:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-core-ui-25.3.1.aar/94ad3ff97551f3bb93c169461e3244b0/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-ui:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-core-ui-25.3.1.aar/94ad3ff97551f3bb93c169461e3244b0/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-media-compat:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-media-compat-25.3.1.aar/ffca3a20a62627045c7742c56e7b782d/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-media-compat:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-media-compat-25.3.1.aar/ffca3a20a62627045c7742c56e7b782d/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-utils:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-core-utils-25.3.1.aar/552b3d9055e378591c4bba30c61c41f7/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-utils:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-core-utils-25.3.1.aar/552b3d9055e378591c4bba30c61c41f7/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-compat:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-compat-25.3.1.aar/2780b736c98659fa05febce6c9efc3c3/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-compat:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-compat-25.3.1.aar/2780b736c98659fa05febce6c9efc3c3/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:cardview-v7:23.4.0] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/cardview-v7-23.4.0.aar/9784c2f96b21cd1b5bd32f0aa0e47eb2/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:cardview-v7:23.4.0] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/cardview-v7-23.4.0.aar/9784c2f96b21cd1b5bd32f0aa0e47eb2/AndroidManifest.xml:22:5-20
 	android:label
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:12:9-41
-	android:supportsRtl
-		ADDED from [com.mikhaellopez:circularimageview:3.0.2] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.mikhaellopez\circularimageview\3.0.2\AndroidManifest.xml:13:9-35
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:12:9-41
+	android:hardwareAccelerated
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:14:9-44
 	android:fullBackupContent
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:15:9-42
-	android:allowBackup
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:10:9-35
-	android:icon
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:11:9-45
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:16:9-42
 	android:largeHeap
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:13:9-33
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:13:9-33
+	android:icon
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:11:9-45
+	android:allowBackup
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:10:9-35
 	android:theme
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:14:9-40
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:15:9-40
 	android:name
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:9:9-42
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:9:9-42
 service#com.dsource.idc.jellow.SimpleIME
-ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:16:9-26:19
+ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:17:9-27:19
 	android:label
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:18:13-47
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:19:13-47
 	android:permission
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:19:13-70
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:20:13-70
 	android:name
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:17:13-38
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:18:13-38
 meta-data#android.view.im
-ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:20:13-22:50
+ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:21:13-23:50
 	android:resource
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:22:17-47
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:23:17-47
 	android:name
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:21:17-47
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:22:17-47
 intent-filter#android.view.InputMethod
-ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:23:13-25:29
+ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:24:13-26:29
 action#android.view.InputMethod
-ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:24:17-67
+ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:25:17-67
 	android:name
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:24:25-64
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:25:25-64
 activity#com.dsource.idc.jellow.MainActivity
-ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:27:9-35:20
+ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:28:9-36:20
 	android:screenOrientation
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:31:13-50
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:32:13-50
 	android:label
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:30:13-45
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:31:13-45
 	android:configChanges
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:29:13-76
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:30:13-76
 	android:name
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:28:13-41
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:29:13-41
 meta-data#android.app.searchable
-ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:32:13-34:54
+ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:33:13-35:54
 	android:resource
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:34:17-51
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:35:17-51
 	android:name
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:33:17-54
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:34:17-54
 activity#com.dsource.idc.jellow.Intro
-ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:36:9-40:53
+ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:37:9-41:53
 	android:screenOrientation
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:40:13-50
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:41:13-50
 	android:label
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:39:13-51
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:40:13-51
 	android:configChanges
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:38:13-76
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:39:13-76
 	android:name
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:37:13-34
-activity#com.dsource.idc.jellow.SearchResultsActivity
-ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:46:9-56:20
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:38:13-34
+activity#com.dsource.idc.jellow.SequenceActivity
+ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:42:9-46:53
 	android:screenOrientation
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:49:13-50
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:46:13-50
 	android:label
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:48:13-45
-	android:name
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:47:13-50
-intent-filter#android.intent.action.SEARCH
-ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:50:13-52:29
-action#android.intent.action.SEARCH
-ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:51:17-71
-	android:name
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:51:25-68
-activity#com.dsource.idc.jellow.Sequence_Activity
-ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:57:9-61:53
-	android:screenOrientation
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:61:13-50
-	android:label
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:60:13-45
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:45:13-45
 	android:configChanges
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:59:13-76
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:44:13-76
 	android:name
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:58:13-46
-activity#com.dsource.idc.jellow.SharedPreferences
-ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:62:9-64:53
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:43:13-45
+activity#com.dsource.idc.jellow.UserRegistrationActivity
+ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:47:9-54:20
 	android:screenOrientation
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:64:13-50
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:49:13-50
 	android:name
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:63:13-46
-activity#com.dsource.idc.jellow.Setting
-ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:65:9-69:53
-	android:screenOrientation
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:69:13-50
-	android:label
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:68:13-37
-	android:configChanges
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:67:13-74
-	android:name
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:66:13-36
-activity#com.dsource.idc.jellow.Keyboard_Input
-ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:70:9-74:53
-	android:screenOrientation
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:74:13-50
-	android:label
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:73:13-43
-	android:configChanges
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:72:13-74
-	android:name
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:71:13-43
-activity#com.dsource.idc.jellow.About_Jellow
-ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:75:9-79:53
-	android:screenOrientation
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:79:13-50
-	android:label
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:78:13-41
-	android:configChanges
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:77:13-74
-	android:name
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:76:13-41
-activity#com.dsource.idc.jellow.Profile_form
-ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:80:9-85:55
-	android:screenOrientation
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:84:13-50
-	android:label
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:83:13-36
-	android:windowSoftInputMode
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:85:13-52
-	android:configChanges
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:82:13-74
-	android:name
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:81:13-41
-activity#com.dsource.idc.jellow.Feedback
-ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:86:9-91:55
-	android:screenOrientation
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:90:13-50
-	android:label
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:89:13-37
-	android:windowSoftInputMode
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:91:13-52
-	android:configChanges
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:88:13-74
-	android:name
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:87:13-37
-activity#com.dsource.idc.jellow.Tutorial
-ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:92:9-96:53
-	android:screenOrientation
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:96:13-50
-	android:label
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:95:13-37
-	android:configChanges
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:94:13-74
-	android:name
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:93:13-37
-activity#com.dsource.idc.jellow.Reset__preferences
-ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:97:9-101:53
-	android:screenOrientation
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:101:13-50
-	android:label
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:100:13-46
-	android:configChanges
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:99:13-74
-	android:name
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:98:13-47
-activity#com.dsource.idc.jellow.Splash
-ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:102:9-109:20
-	android:screenOrientation
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:104:13-50
-	android:name
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:103:13-35
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:48:13-53
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:105:13-108:29
+ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:50:13-53:29
 action#android.intent.action.MAIN
-ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:106:17-69
+ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:51:17-69
 	android:name
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:106:25-66
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:51:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:107:17-77
+ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:52:17-77
 	android:name
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:107:27-74
-activity#com.dsource.idc.jellow.Layer_3_Hindi_Activity
-ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:110:9-113:53
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:52:27-74
+activity#com.dsource.idc.jellow.SettingActivity
+ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:55:9-59:53
 	android:screenOrientation
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:113:13-50
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:59:13-50
+	android:label
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:58:13-37
 	android:configChanges
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:112:13-74
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:57:13-74
 	android:name
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:111:13-51
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:56:13-44
+activity#com.dsource.idc.jellow.KeyboardInputActivity
+ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:60:9-64:53
+	android:screenOrientation
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:64:13-50
+	android:label
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:63:13-43
+	android:configChanges
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:62:13-74
+	android:name
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:61:13-50
+activity#com.dsource.idc.jellow.AboutJellowActivity
+ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:65:9-69:52
+	android:screenOrientation
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:69:13-50
+	android:label
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:68:13-41
+	android:configChanges
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:67:13-74
+	android:name
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:66:13-48
+activity#com.dsource.idc.jellow.ProfileFormActivity
+ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:70:9-75:55
+	android:screenOrientation
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:74:13-50
+	android:label
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:73:13-36
+	android:windowSoftInputMode
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:75:13-52
+	android:configChanges
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:72:13-74
+	android:name
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:71:13-48
+activity#com.dsource.idc.jellow.FeedbackActivity
+ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:76:9-81:55
+	android:screenOrientation
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:80:13-50
+	android:label
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:79:13-37
+	android:windowSoftInputMode
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:81:13-52
+	android:configChanges
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:78:13-74
+	android:name
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:77:13-45
+activity#com.dsource.idc.jellow.TutorialActivity
+ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:82:9-86:53
+	android:screenOrientation
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:86:13-50
+	android:label
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:85:13-37
+	android:configChanges
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:84:13-74
+	android:name
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:83:13-45
+activity#com.dsource.idc.jellow.ResetPreferencesActivity
+ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:87:9-91:53
+	android:screenOrientation
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:91:13-50
+	android:label
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:90:13-46
+	android:configChanges
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:89:13-74
+	android:name
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:88:13-53
+activity#com.dsource.idc.jellow.SplashActivity
+ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:92:9-94:52
+	android:screenOrientation
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:94:13-50
+	android:name
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:93:13-43
 meta-data#com.google.android.gms.version
-ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:118:9-120:69
-MERGED from [com.google.android.gms:play-services-basement:9.8.0] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\9.8.0\AndroidManifest.xml:20:9-121
+ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:99:9-101:69
+MERGED from [com.google.android.gms:play-services-basement:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/play-services-basement-11.0.1.aar/74849da7a79c04a7255329bb23524659/AndroidManifest.xml:20:9-121
+MERGED from [com.google.android.gms:play-services-basement:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/play-services-basement-11.0.1.aar/74849da7a79c04a7255329bb23524659/AndroidManifest.xml:20:9-121
 	android:value
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:120:13-66
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:101:13-66
 	android:name
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:119:13-58
-activity#com.dsource.idc.jellow.Main2LAyer
-ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:121:9-123:53
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:100:13-58
+activity#com.dsource.idc.jellow.LevelTwoActivity
+ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:102:9-104:53
 	android:screenOrientation
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:123:13-50
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:104:13-50
 	android:name
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:122:13-39
-activity#com.dsource.idc.jellow.Layer3Activity
-ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:124:9-125:52
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:103:13-45
+activity#com.dsource.idc.jellow.LevelThreeActivity
+ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:105:9-106:52
 	android:screenOrientation
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:125:13-50
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:106:13-50
 	android:name
-		ADDED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml:124:19-49
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:105:19-53
+service#com.dsource.idc.jellow.Utility.JellowTTSService
+ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:107:9-60
+	android:name
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml:107:18-58
 uses-sdk
-INJECTED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
-MERGED from [com.mikhaellopez:circularimageview:3.0.2] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.mikhaellopez\circularimageview\3.0.2\AndroidManifest.xml:7:5-9:41
-MERGED from [com.larswerkman:lobsterpicker:1.0.0] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.larswerkman\lobsterpicker\1.0.0\AndroidManifest.xml:22:5-24:41
-MERGED from [com.github.rey5137:material:1.2.4] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.github.rey5137\material\1.2.4\AndroidManifest.xml:7:5-9:41
-MERGED from [com.android.support:cardview-v7:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\25.3.1\AndroidManifest.xml:20:5-43
-MERGED from [com.google.android.gms:play-services-appindexing:9.8.0] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\9.8.0\AndroidManifest.xml:17:5-42
-MERGED from [com.google.android.gms:play-services-base:9.8.0] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\9.8.0\AndroidManifest.xml:17:5-42
-MERGED from [com.google.firebase:firebase-common:9.8.0] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-common\9.8.0\AndroidManifest.xml:3:5-42
-MERGED from [com.google.android.gms:play-services-tasks:9.8.0] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tasks\9.8.0\AndroidManifest.xml:3:5-42
-MERGED from [com.google.android.gms:play-services-basement:9.8.0] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\9.8.0\AndroidManifest.xml:17:5-42
-MERGED from [com.github.paolorotolo:appintro:4.0.0] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.github.paolorotolo\appintro\4.0.0\AndroidManifest.xml:7:5-9:41
-MERGED from [com.android.support:appcompat-v7:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\25.3.1\AndroidManifest.xml:21:5-23:78
-MERGED from [com.android.support:support-v4:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\support-v4\25.3.1\AndroidManifest.xml:21:5-23:54
-MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\support-fragment\25.3.1\AndroidManifest.xml:21:5-23:60
-MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\25.3.1\AndroidManifest.xml:21:5-23:63
-MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.3.1\AndroidManifest.xml:21:5-23:61
-MERGED from [com.android.support:animated-vector-drawable:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\25.3.1\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-vector-drawable:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\25.3.1\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:recyclerview-v7:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\25.3.1\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.3.1\AndroidManifest.xml:21:5-23:58
-MERGED from [com.android.support:support-compat:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.3.1\AndroidManifest.xml:21:5-23:58
-MERGED from [com.mcxiaoke.volley:library-aar:1.0.0] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.mcxiaoke.volley\library-aar\1.0.0\AndroidManifest.xml:3:5-72
+INJECTED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml
+INJECTED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml
+MERGED from [com.android.support:design:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/design-25.3.1.aar/206d5ccc879f089930e09df3d4fbbbd2/AndroidManifest.xml:21:5-23:62
+MERGED from [com.android.support:design:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/design-25.3.1.aar/206d5ccc879f089930e09df3d4fbbbd2/AndroidManifest.xml:21:5-23:62
+MERGED from [com.github.rey5137:material:1.2.4] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/material-1.2.4.aar/ccdb2713bd374b5932c2a48709988712/AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.rey5137:material:1.2.4] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/material-1.2.4.aar/ccdb2713bd374b5932c2a48709988712/AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.paolorotolo:appintro:4.0.0] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/appintro-4.0.0.aar/2011a7bafdeef6a72de0f75213c689a6/AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.paolorotolo:appintro:4.0.0] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/appintro-4.0.0.aar/2011a7bafdeef6a72de0f75213c689a6/AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:appcompat-v7:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.3.1.aar/eda944a6378b73756f82c8290c97317a/AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:appcompat-v7:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.3.1.aar/eda944a6378b73756f82c8290c97317a/AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:recyclerview-v7:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-25.3.1.aar/fcd513d4d05b3dbca0286970ab63f158/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-25.3.1.aar/fcd513d4d05b3dbca0286970ab63f158/AndroidManifest.xml:20:5-43
+MERGED from [com.google.firebase:firebase-crash:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-crash-11.0.1.aar/d46041467c6624cfb6a0c164afc8995e/AndroidManifest.xml:20:5-43
+MERGED from [com.google.firebase:firebase-crash:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-crash-11.0.1.aar/d46041467c6624cfb6a0c164afc8995e/AndroidManifest.xml:20:5-43
+MERGED from [com.google.firebase:firebase-core:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-core-11.0.1.aar/c5baf8a05764a300557d7f105ac7c6e2/AndroidManifest.xml:4:5-43
+MERGED from [com.google.firebase:firebase-core:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-core-11.0.1.aar/c5baf8a05764a300557d7f105ac7c6e2/AndroidManifest.xml:4:5-43
+MERGED from [com.google.firebase:firebase-analytics:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-11.0.1.aar/0d611721d5627476297e65148b3fbc42/AndroidManifest.xml:17:5-43
+MERGED from [com.google.firebase:firebase-analytics:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-11.0.1.aar/0d611721d5627476297e65148b3fbc42/AndroidManifest.xml:17:5-43
+MERGED from [com.google.firebase:firebase-appindexing:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-appindexing-11.0.1.aar/6eb408cc89c99a045fcd238eae4bf85c/AndroidManifest.xml:17:5-43
+MERGED from [com.google.firebase:firebase-appindexing:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-appindexing-11.0.1.aar/6eb408cc89c99a045fcd238eae4bf85c/AndroidManifest.xml:17:5-43
+MERGED from [de.hdodenhof:circleimageview:2.2.0] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/circleimageview-2.2.0.aar/c0ecd1487fc1153d6c66ab7a852b9c6c/AndroidManifest.xml:5:5-7:41
+MERGED from [de.hdodenhof:circleimageview:2.2.0] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/circleimageview-2.2.0.aar/c0ecd1487fc1153d6c66ab7a852b9c6c/AndroidManifest.xml:5:5-7:41
+MERGED from [com.mcxiaoke.volley:library-aar:1.0.0] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/library-aar-1.0.0.aar/34599572062770944b317832a58b3eff/AndroidManifest.xml:3:5-72
+MERGED from [com.mcxiaoke.volley:library-aar:1.0.0] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/library-aar-1.0.0.aar/34599572062770944b317832a58b3eff/AndroidManifest.xml:3:5-72
+MERGED from [com.android.support:transition:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/transition-25.3.1.aar/cc46923e6309bc4e200eeeade3dc92b1/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/transition-25.3.1.aar/cc46923e6309bc4e200eeeade3dc92b1/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-25.3.1.aar/724f797f8f4d5ced5aa651ffaf8bf3b3/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-25.3.1.aar/724f797f8f4d5ced5aa651ffaf8bf3b3/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-25.3.1.aar/f9fb5c281b45ef62b9e129da88b313d7/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-25.3.1.aar/f9fb5c281b45ef62b9e129da88b313d7/AndroidManifest.xml:20:5-43
+MERGED from [com.google.firebase:firebase-analytics-impl:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-impl-11.0.1.aar/245f512e357911bd335548ea678d9c59/AndroidManifest.xml:17:5-43
+MERGED from [com.google.firebase:firebase-analytics-impl:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-impl-11.0.1.aar/245f512e357911bd335548ea678d9c59/AndroidManifest.xml:17:5-43
+MERGED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:17:5-43
+MERGED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:17:5-43
+MERGED from [com.google.firebase:firebase-common:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-common-11.0.1.aar/e80451b7e8c4d39b2c1b1973c2792184/AndroidManifest.xml:3:5-43
+MERGED from [com.google.firebase:firebase-common:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-common-11.0.1.aar/e80451b7e8c4d39b2c1b1973c2792184/AndroidManifest.xml:3:5-43
+MERGED from [com.google.android.gms:play-services-base:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/play-services-base-11.0.1.aar/523b08d7dbb5541be30e82dd539e5253/AndroidManifest.xml:17:5-43
+MERGED from [com.google.android.gms:play-services-base:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/play-services-base-11.0.1.aar/523b08d7dbb5541be30e82dd539e5253/AndroidManifest.xml:17:5-43
+MERGED from [com.google.android.gms:play-services-tasks:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/play-services-tasks-11.0.1.aar/313e7062ddc84fdf1815425c0290124b/AndroidManifest.xml:3:5-43
+MERGED from [com.google.android.gms:play-services-tasks:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/play-services-tasks-11.0.1.aar/313e7062ddc84fdf1815425c0290124b/AndroidManifest.xml:3:5-43
+MERGED from [com.google.android.gms:play-services-basement:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/play-services-basement-11.0.1.aar/74849da7a79c04a7255329bb23524659/AndroidManifest.xml:17:5-43
+MERGED from [com.google.android.gms:play-services-basement:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/play-services-basement-11.0.1.aar/74849da7a79c04a7255329bb23524659/AndroidManifest.xml:17:5-43
+MERGED from [com.android.support:support-v4:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-v4-25.3.1.aar/6312e6c854819c8e9c76e16724343a8d/AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-v4:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-v4-25.3.1.aar/6312e6c854819c8e9c76e16724343a8d/AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-fragment:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-fragment-25.3.1.aar/517b1b3ec9c77c4c97d960b5d3da21d7/AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-fragment:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-fragment-25.3.1.aar/517b1b3ec9c77c4c97d960b5d3da21d7/AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-core-ui:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-core-ui-25.3.1.aar/94ad3ff97551f3bb93c169461e3244b0/AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-core-ui:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-core-ui-25.3.1.aar/94ad3ff97551f3bb93c169461e3244b0/AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-media-compat:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-media-compat-25.3.1.aar/ffca3a20a62627045c7742c56e7b782d/AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-media-compat:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-media-compat-25.3.1.aar/ffca3a20a62627045c7742c56e7b782d/AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-core-utils:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-core-utils-25.3.1.aar/552b3d9055e378591c4bba30c61c41f7/AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:support-core-utils:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-core-utils-25.3.1.aar/552b3d9055e378591c4bba30c61c41f7/AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:support-compat:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-compat-25.3.1.aar/2780b736c98659fa05febce6c9efc3c3/AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-compat:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-compat-25.3.1.aar/2780b736c98659fa05febce6c9efc3c3/AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:cardview-v7:23.4.0] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/cardview-v7-23.4.0.aar/9784c2f96b21cd1b5bd32f0aa0e47eb2/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:cardview-v7:23.4.0] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/cardview-v7-23.4.0.aar/9784c2f96b21cd1b5bd32f0aa0e47eb2/AndroidManifest.xml:20:5-43
+INJECTED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml
+INJECTED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml
 	tools:overrideLibrary
-		ADDED from [com.android.support:appcompat-v7:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\25.3.1\AndroidManifest.xml:23:9-75
+		ADDED from [com.android.support:design:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/design-25.3.1.aar/206d5ccc879f089930e09df3d4fbbbd2/AndroidManifest.xml:23:9-59
 	android:targetSdkVersion
-		INJECTED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml
+		INJECTED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\src\main\AndroidManifest.xml
+		INJECTED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml
+		ADDED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/ravipoovaiah/StudioProjects/JellowCommunicator/app/src/main/AndroidManifest.xml
 meta-data#android.support.VERSION
-ADDED from [com.android.support:cardview-v7:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\25.3.1\AndroidManifest.xml:22:5-24:34
-MERGED from [com.android.support:appcompat-v7:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\25.3.1\AndroidManifest.xml:25:5-27:34
-MERGED from [com.android.support:support-v4:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\support-v4\25.3.1\AndroidManifest.xml:25:5-27:34
-MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\support-fragment\25.3.1\AndroidManifest.xml:25:5-27:34
-MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\25.3.1\AndroidManifest.xml:25:5-27:34
-MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.3.1\AndroidManifest.xml:25:5-27:34
-MERGED from [com.android.support:animated-vector-drawable:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\25.3.1\AndroidManifest.xml:22:5-24:34
-MERGED from [com.android.support:support-vector-drawable:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\25.3.1\AndroidManifest.xml:22:5-24:34
-MERGED from [com.android.support:recyclerview-v7:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\25.3.1\AndroidManifest.xml:22:5-24:34
-MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.3.1\AndroidManifest.xml:25:5-27:34
-MERGED from [com.android.support:support-compat:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.3.1\AndroidManifest.xml:25:5-27:34
+ADDED from [com.android.support:design:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/design-25.3.1.aar/206d5ccc879f089930e09df3d4fbbbd2/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:appcompat-v7:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.3.1.aar/eda944a6378b73756f82c8290c97317a/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:appcompat-v7:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.3.1.aar/eda944a6378b73756f82c8290c97317a/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:recyclerview-v7:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-25.3.1.aar/fcd513d4d05b3dbca0286970ab63f158/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:recyclerview-v7:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-25.3.1.aar/fcd513d4d05b3dbca0286970ab63f158/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:transition:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/transition-25.3.1.aar/cc46923e6309bc4e200eeeade3dc92b1/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:transition:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/transition-25.3.1.aar/cc46923e6309bc4e200eeeade3dc92b1/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-25.3.1.aar/724f797f8f4d5ced5aa651ffaf8bf3b3/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-25.3.1.aar/724f797f8f4d5ced5aa651ffaf8bf3b3/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-25.3.1.aar/f9fb5c281b45ef62b9e129da88b313d7/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-25.3.1.aar/f9fb5c281b45ef62b9e129da88b313d7/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:support-v4:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-v4-25.3.1.aar/6312e6c854819c8e9c76e16724343a8d/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-v4:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-v4-25.3.1.aar/6312e6c854819c8e9c76e16724343a8d/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-fragment:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-fragment-25.3.1.aar/517b1b3ec9c77c4c97d960b5d3da21d7/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-fragment:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-fragment-25.3.1.aar/517b1b3ec9c77c4c97d960b5d3da21d7/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-ui:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-core-ui-25.3.1.aar/94ad3ff97551f3bb93c169461e3244b0/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-ui:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-core-ui-25.3.1.aar/94ad3ff97551f3bb93c169461e3244b0/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-media-compat:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-media-compat-25.3.1.aar/ffca3a20a62627045c7742c56e7b782d/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-media-compat:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-media-compat-25.3.1.aar/ffca3a20a62627045c7742c56e7b782d/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-utils:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-core-utils-25.3.1.aar/552b3d9055e378591c4bba30c61c41f7/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-utils:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-core-utils-25.3.1.aar/552b3d9055e378591c4bba30c61c41f7/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-compat:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-compat-25.3.1.aar/2780b736c98659fa05febce6c9efc3c3/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-compat:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/support-compat-25.3.1.aar/2780b736c98659fa05febce6c9efc3c3/AndroidManifest.xml:25:5-27:34
 	android:value
-		ADDED from [com.android.support:cardview-v7:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\25.3.1\AndroidManifest.xml:24:9-31
+		ADDED from [com.android.support:design:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/design-25.3.1.aar/206d5ccc879f089930e09df3d4fbbbd2/AndroidManifest.xml:27:9-31
 	android:name
-		ADDED from [com.android.support:cardview-v7:25.3.1] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\25.3.1\AndroidManifest.xml:23:9-47
-activity#com.google.android.gms.common.api.GoogleApiActivity
-ADDED from [com.google.android.gms:play-services-base:9.8.0] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\9.8.0\AndroidManifest.xml:19:9-172
+		ADDED from [com.android.support:design:25.3.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/design-25.3.1.aar/206d5ccc879f089930e09df3d4fbbbd2/AndroidManifest.xml:26:9-47
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [com.google.firebase:firebase-analytics:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-11.0.1.aar/0d611721d5627476297e65148b3fbc42/AndroidManifest.xml:21:5-78
+MERGED from [com.google.firebase:firebase-analytics-impl:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-impl-11.0.1.aar/245f512e357911bd335548ea678d9c59/AndroidManifest.xml:21:5-78
+MERGED from [com.google.firebase:firebase-analytics-impl:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-impl-11.0.1.aar/245f512e357911bd335548ea678d9c59/AndroidManifest.xml:21:5-78
+MERGED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:19:5-78
+MERGED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:19:5-78
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-11.0.1.aar/0d611721d5627476297e65148b3fbc42/AndroidManifest.xml:21:22-76
+uses-permission#android.permission.WAKE_LOCK
+ADDED from [com.google.firebase:firebase-analytics:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-11.0.1.aar/0d611721d5627476297e65148b3fbc42/AndroidManifest.xml:22:5-67
+MERGED from [com.google.firebase:firebase-analytics-impl:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-impl-11.0.1.aar/245f512e357911bd335548ea678d9c59/AndroidManifest.xml:22:5-67
+MERGED from [com.google.firebase:firebase-analytics-impl:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-impl-11.0.1.aar/245f512e357911bd335548ea678d9c59/AndroidManifest.xml:22:5-67
+MERGED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:21:5-67
+MERGED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:21:5-67
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-11.0.1.aar/0d611721d5627476297e65148b3fbc42/AndroidManifest.xml:22:22-65
+receiver#com.google.android.gms.measurement.AppMeasurementReceiver
+ADDED from [com.google.firebase:firebase-analytics:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-11.0.1.aar/0d611721d5627476297e65148b3fbc42/AndroidManifest.xml:25:7-26:18
+MERGED from [com.google.firebase:firebase-analytics-impl:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-impl-11.0.1.aar/245f512e357911bd335548ea678d9c59/AndroidManifest.xml:25:7-26:18
+MERGED from [com.google.firebase:firebase-analytics-impl:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-impl-11.0.1.aar/245f512e357911bd335548ea678d9c59/AndroidManifest.xml:25:7-26:18
+	android:enabled
+		ADDED from [com.google.firebase:firebase-analytics:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-11.0.1.aar/0d611721d5627476297e65148b3fbc42/AndroidManifest.xml:25:90-112
 	android:exported
-		ADDED from [com.google.android.gms:play-services-base:9.8.0] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\9.8.0\AndroidManifest.xml:19:146-170
-	android:theme
-		ADDED from [com.google.android.gms:play-services-base:9.8.0] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\9.8.0\AndroidManifest.xml:19:86-145
+		ADDED from [com.google.firebase:firebase-analytics:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-11.0.1.aar/0d611721d5627476297e65148b3fbc42/AndroidManifest.xml:25:113-137
 	android:name
-		ADDED from [com.google.android.gms:play-services-base:9.8.0] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\9.8.0\AndroidManifest.xml:19:19-85
+		ADDED from [com.google.firebase:firebase-analytics:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-11.0.1.aar/0d611721d5627476297e65148b3fbc42/AndroidManifest.xml:25:17-89
+receiver#com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver
+ADDED from [com.google.firebase:firebase-analytics:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-11.0.1.aar/0d611721d5627476297e65148b3fbc42/AndroidManifest.xml:27:7-31:18
+	android:enabled
+		ADDED from [com.google.firebase:firebase-analytics:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-11.0.1.aar/0d611721d5627476297e65148b3fbc42/AndroidManifest.xml:27:162-184
+	android:exported
+		ADDED from [com.google.firebase:firebase-analytics:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-11.0.1.aar/0d611721d5627476297e65148b3fbc42/AndroidManifest.xml:27:185-208
+	android:permission
+		ADDED from [com.google.firebase:firebase-analytics:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-11.0.1.aar/0d611721d5627476297e65148b3fbc42/AndroidManifest.xml:27:105-161
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-11.0.1.aar/0d611721d5627476297e65148b3fbc42/AndroidManifest.xml:27:17-104
+intent-filter#com.android.vending.INSTALL_REFERRER
+ADDED from [com.google.firebase:firebase-analytics:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-11.0.1.aar/0d611721d5627476297e65148b3fbc42/AndroidManifest.xml:28:11-30:27
+action#com.android.vending.INSTALL_REFERRER
+ADDED from [com.google.firebase:firebase-analytics:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-11.0.1.aar/0d611721d5627476297e65148b3fbc42/AndroidManifest.xml:29:15-76
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-11.0.1.aar/0d611721d5627476297e65148b3fbc42/AndroidManifest.xml:29:23-74
+service#com.google.android.gms.measurement.AppMeasurementService
+ADDED from [com.google.firebase:firebase-analytics:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-11.0.1.aar/0d611721d5627476297e65148b3fbc42/AndroidManifest.xml:32:7-137
+MERGED from [com.google.firebase:firebase-analytics-impl:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-impl-11.0.1.aar/245f512e357911bd335548ea678d9c59/AndroidManifest.xml:27:7-137
+MERGED from [com.google.firebase:firebase-analytics-impl:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-impl-11.0.1.aar/245f512e357911bd335548ea678d9c59/AndroidManifest.xml:27:7-137
+	android:enabled
+		ADDED from [com.google.firebase:firebase-analytics:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-11.0.1.aar/0d611721d5627476297e65148b3fbc42/AndroidManifest.xml:32:88-110
+	android:exported
+		ADDED from [com.google.firebase:firebase-analytics:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-11.0.1.aar/0d611721d5627476297e65148b3fbc42/AndroidManifest.xml:32:111-135
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-11.0.1.aar/0d611721d5627476297e65148b3fbc42/AndroidManifest.xml:32:16-87
+service#com.google.android.gms.measurement.AppMeasurementJobService
+ADDED from [com.google.firebase:firebase-analytics:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-11.0.1.aar/0d611721d5627476297e65148b3fbc42/AndroidManifest.xml:33:7-197
+	android:enabled
+		ADDED from [com.google.firebase:firebase-analytics:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-11.0.1.aar/0d611721d5627476297e65148b3fbc42/AndroidManifest.xml:33:148-170
+	android:exported
+		ADDED from [com.google.firebase:firebase-analytics:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-11.0.1.aar/0d611721d5627476297e65148b3fbc42/AndroidManifest.xml:33:171-195
+	android:permission
+		ADDED from [com.google.firebase:firebase-analytics:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-11.0.1.aar/0d611721d5627476297e65148b3fbc42/AndroidManifest.xml:33:91-147
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-analytics-11.0.1.aar/0d611721d5627476297e65148b3fbc42/AndroidManifest.xml:33:16-90
+uses-permission#com.google.android.c2dm.permission.RECEIVE
+ADDED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:22:5-81
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:22:22-79
+permission#${applicationId}.permission.C2D_MESSAGE
+ADDED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:24:5-109
+	android:protectionLevel
+		ADDED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:24:72-107
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:24:17-71
+permission#com.dsource.idc.jellow.permission.C2D_MESSAGE
+ADDED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:24:5-109
+	android:protectionLevel
+		ADDED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:24:72-107
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:24:17-71
+uses-permission#${applicationId}.permission.C2D_MESSAGE
+ADDED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:26:5-78
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:26:22-76
+uses-permission#com.dsource.idc.jellow.permission.C2D_MESSAGE
+ADDED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:26:5-78
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:26:22-76
+receiver#com.google.firebase.iid.FirebaseInstanceIdReceiver
+ADDED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:30:9-35:20
+	android:exported
+		ADDED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:30:85-108
+	android:permission
+		ADDED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:30:109-169
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:30:19-84
+intent-filter#${applicationId}+com.google.android.c2dm.intent.RECEIVE
+ADDED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:31:13-34:29
+intent-filter#com.dsource.idc.jellow+com.google.android.c2dm.intent.RECEIVE
+ADDED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:31:13-34:29
+action#com.google.android.c2dm.intent.RECEIVE
+ADDED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:32:17-80
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:32:25-78
+category#${applicationId}
+ADDED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:33:17-60
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:33:27-58
+category#com.dsource.idc.jellow
+ADDED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:33:17-60
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:33:27-58
+receiver#com.google.firebase.iid.FirebaseInstanceIdInternalReceiver
+ADDED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:39:9-119
+	android:exported
+		ADDED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:39:93-117
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:39:19-92
+service#com.google.firebase.iid.FirebaseInstanceIdService
+ADDED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:43:9-47:19
+	android:exported
+		ADDED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:43:83-106
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:43:18-82
+intent-filter#com.google.firebase.INSTANCE_ID_EVENT
+ADDED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:44:13-46:29
+	android:priority
+		ADDED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:44:28-51
+action#com.google.firebase.INSTANCE_ID_EVENT
+ADDED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:45:17-79
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.0.1.aar/4491430312a10ac0aeab1edba8a093aa/AndroidManifest.xml:45:25-77
 provider#com.google.firebase.provider.FirebaseInitProvider
-ADDED from [com.google.firebase:firebase-common:9.8.0] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-common\9.8.0\AndroidManifest.xml:6:9-175
+ADDED from [com.google.firebase:firebase-common:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-common-11.0.1.aar/e80451b7e8c4d39b2c1b1973c2792184/AndroidManifest.xml:6:9-194
 	android:authorities
-		ADDED from [com.google.firebase:firebase-common:9.8.0] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-common\9.8.0\AndroidManifest.xml:6:19-78
+		ADDED from [com.google.firebase:firebase-common:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-common-11.0.1.aar/e80451b7e8c4d39b2c1b1973c2792184/AndroidManifest.xml:6:19-78
 	android:exported
-		ADDED from [com.google.firebase:firebase-common:9.8.0] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-common\9.8.0\AndroidManifest.xml:6:125-149
+		ADDED from [com.google.firebase:firebase-common:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-common-11.0.1.aar/e80451b7e8c4d39b2c1b1973c2792184/AndroidManifest.xml:6:144-168
 	android:initOrder
-		ADDED from [com.google.firebase:firebase-common:9.8.0] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-common\9.8.0\AndroidManifest.xml:6:150-173
+		ADDED from [com.google.firebase:firebase-common:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-common-11.0.1.aar/e80451b7e8c4d39b2c1b1973c2792184/AndroidManifest.xml:6:169-192
 	android:name
-		ADDED from [com.google.firebase:firebase-common:9.8.0] C:\Users\ekalpa\Desktop\Rahul\New folder\JellowCommunicatorApp\app\build\intermediates\exploded-aar\com.google.firebase\firebase-common\9.8.0\AndroidManifest.xml:6:79-124
+		ADDED from [com.google.firebase:firebase-common:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/firebase-common-11.0.1.aar/e80451b7e8c4d39b2c1b1973c2792184/AndroidManifest.xml:6:79-143
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/play-services-base-11.0.1.aar/523b08d7dbb5541be30e82dd539e5253/AndroidManifest.xml:19:9-172
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/play-services-base-11.0.1.aar/523b08d7dbb5541be30e82dd539e5253/AndroidManifest.xml:19:146-170
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/play-services-base-11.0.1.aar/523b08d7dbb5541be30e82dd539e5253/AndroidManifest.xml:19:86-145
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:11.0.1] /Users/ravipoovaiah/.gradle/caches/transforms-1/files-1.1/play-services-base-11.0.1.aar/523b08d7dbb5541be30e82dd539e5253/AndroidManifest.xml:19:19-85

@@ -11,6 +11,15 @@
     <dimen name="activity_horizontal_margin">44dp</dimen>
     <dimen name="appIntroDefaultPaddingLeft">80dp</dimen>
     <dimen name="appIntroDefaultPaddingRight">80dp</dimen>
+    <dimen name="design_navigation_max_width">320dp</dimen>
+    <dimen name="design_snackbar_action_inline_max_width">0dp</dimen>
+    <dimen name="design_snackbar_background_corner_radius">2dp</dimen>
+    <dimen name="design_snackbar_extra_spacing_horizontal">24dp</dimen>
+    <dimen name="design_snackbar_max_width">576dp</dimen>
+    <dimen name="design_snackbar_min_width">320dp</dimen>
+    <dimen name="design_snackbar_padding_vertical_2lines">@dimen/design_snackbar_padding_vertical</dimen>
+    <dimen name="design_tab_scrollable_min_width">160dp</dimen>
+    <integer name="design_snackbar_text_max_lines">1</integer>
     <style name="ActionBar.Solid.MyAppTheme" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
         <item name="android:background">@drawable/red_bg</item>
         <item name="android:windowContentOverlay">@null</item>
@@ -53,6 +62,10 @@
     </style>
     <style name="OverFlow" parent="Widget.AppCompat.ActionButton.Overflow">
         <item name="android:src">@drawable/ic_action_image_dehaze</item>
+    </style>
+    <style name="Widget.Design.TabLayout" parent="Base.Widget.Design.TabLayout">
+        <item name="tabGravity">center</item>
+        <item name="tabMode">fixed</item>
     </style>
     <style name="spinnerDropDownItemStyle">
         <item name="android:padding">8dp</item>

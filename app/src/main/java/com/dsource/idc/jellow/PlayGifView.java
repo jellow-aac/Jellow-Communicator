@@ -19,6 +19,7 @@ public class PlayGifView extends View{
     private int mMovieResourceId;
     private Movie mMovie;
 
+
     private long mMovieStart = 0;
     public static int mCurrentAnimationTime = 0;
 

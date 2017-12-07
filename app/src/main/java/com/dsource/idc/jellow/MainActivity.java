@@ -2,8 +2,8 @@ package com.dsource.idc.jellow;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -479,6 +479,16 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         new ChangeAppLocale(this).setLocale();
     }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        new ChangeAppLocale(this).setLocale();
+
+    }
+
+
 
     public void tappedGridItemEvent(final View view, View v, int position) {
         mCk = mCy = mCm = mCd = mCn = mCl = 0;
