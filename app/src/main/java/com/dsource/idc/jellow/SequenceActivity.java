@@ -7,6 +7,7 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.KeyListener;
 import android.util.Log;
@@ -22,28 +23,28 @@ import android.widget.TextView;
 
 import com.dsource.idc.jellow.Models.SeqActivityVerbiageModel;
 import com.dsource.idc.jellow.Utility.ChangeAppLocale;
+import com.dsource.idc.jellow.Utility.DefaultExceptionHandler;
 import com.dsource.idc.jellow.Utility.SessionManager;
 import com.dsource.idc.jellow.Utility.UserDataMeasure;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by ekalpa on 6/22/2016.
  */
 public class SequenceActivity extends AppCompatActivity {
     private final boolean DISABLE_ACTION_BTNS = true;
+    private final int MODE_PICTURE_ONLY = 1;
     private int mCk = 0, mCy = 0, mCm = 0, mCd = 0, mCn = 0, mCl = 0;
-    private int image_flag = -1, flag_keyboard = 0, mLevelTwoItemPos,
-            sr, bw, count = 0;
+    private int image_flag = -1, flag_keyboard = 0, mLevelTwoItemPos, count = 0;
     private ImageView like, dislike, add, minus, yes, no, home, keyboard, ttsButton;
     private EditText et;
     private KeyListener originalKeyListener;
     private int[] mColor;
     private TextView tt1, bt1, bt2, bt3;
-    private CircleImageView image1, image2, image3;
+    private ImageView image1, image2, image3;
     private ImageView arrow1, arrow2, back;
     private RelativeLayout relativeLayout;
     private Button forward, backward;
@@ -70,13 +71,10 @@ public class SequenceActivity extends AppCompatActivity {
         mUserDataMeasure.recordScreen(getLocalClassName());
         mLevelTwoItemPos = getIntent().getExtras().getInt("mLevelTwoItemPos");
         new ChangeAppLocale(this).setLocale();
+        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         if(mLevelTwoItemPos == 7)   mLevelTwoItemPos = 3;
         else if(mLevelTwoItemPos == 8)  mLevelTwoItemPos = 4;
-        {
-            String strSrBw = mSession.getShadowRadiusAndBorderWidth();
-            sr = Integer.valueOf(strSrBw.split(",")[0]);
-            bw = Integer.valueOf(strSrBw.split(",")[1]);
-        }
+
         loadArraysFromResources();
         initializeViews();
         forward.setText(bt[1]);
@@ -103,9 +101,13 @@ public class SequenceActivity extends AppCompatActivity {
         bt1.setText(mDailyActivitiesBelowText[0]);
         bt2.setText(mDailyActivitiesBelowText[1]);
         bt3.setText(mDailyActivitiesBelowText[2]);
-        image1.setImageDrawable(mDailyActivitiesIcons.getDrawable(0));
-        image2.setImageDrawable(mDailyActivitiesIcons.getDrawable(1));
-        image3.setImageDrawable(mDailyActivitiesIcons.getDrawable(2));
+
+        setImageToCView(image1, 0);
+        setImageToCView(image2, 1);
+        setImageToCView(image3, 2);
+        //image1.setImageDrawable(mDailyActivitiesIcons.getDrawable(0));
+        //image2.setImageDrawable(mDailyActivitiesIcons.getDrawable(1));
+        //image3.setImageDrawable(mDailyActivitiesIcons.getDrawable(2));
 
         forward.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,15 +125,18 @@ public class SequenceActivity extends AppCompatActivity {
                 }
                 if (mDailyActivitiesIcons.length() < count + 3) {
                     if (mLevelTwoItemPos == 0) {
-                        image1.setImageDrawable(mDailyActivitiesIcons.getDrawable(count));
-                        image2.setImageDrawable(mDailyActivitiesIcons.getDrawable(count+1));
+                        setImageToCView(image1, count);
+                        setImageToCView(image2, count+1);
+                        /*image1.setImageDrawable(mDailyActivitiesIcons.getDrawable(count));
+                        image2.setImageDrawable(mDailyActivitiesIcons.getDrawable(count+1));*/
                         arrow2.setVisibility(View.INVISIBLE);
                         image3.setVisibility(View.INVISIBLE);
                         bt3.setVisibility(View.INVISIBLE);
                         bt1.setText(mDailyActivitiesBelowText[count]);
                         bt2.setText(mDailyActivitiesBelowText[count + 1]);
                     } else if (mLevelTwoItemPos == 1 || mLevelTwoItemPos == 4 || mLevelTwoItemPos == 3) {
-                        image1.setImageDrawable(mDailyActivitiesIcons.getDrawable(count));
+                        setImageToCView(image1, count);
+                        //image1.setImageDrawable(mDailyActivitiesIcons.getDrawable(count));
                         bt1.setText(mDailyActivitiesBelowText[count]);
                         image2.setVisibility(View.INVISIBLE);
                         image3.setVisibility(View.INVISIBLE);
@@ -146,9 +151,12 @@ public class SequenceActivity extends AppCompatActivity {
                     bt1.setText(mDailyActivitiesBelowText[count]);
                     bt2.setText(mDailyActivitiesBelowText[count + 1]);
                     bt3.setText(mDailyActivitiesBelowText[count + 2]);
-                    image1.setImageDrawable(mDailyActivitiesIcons.getDrawable(count));
+                    setImageToCView(image1, count);
+                    setImageToCView(image2, count+1);
+                    setImageToCView(image3, count+2);
+                    /*image1.setImageDrawable(mDailyActivitiesIcons.getDrawable(count));
                     image2.setImageDrawable(mDailyActivitiesIcons.getDrawable(count+1));
-                    image3.setImageDrawable(mDailyActivitiesIcons.getDrawable(count+2));
+                    image3.setImageDrawable(mDailyActivitiesIcons.getDrawable(count+2));*/
                 }
             }
         });
@@ -168,15 +176,20 @@ public class SequenceActivity extends AppCompatActivity {
                 image3.setVisibility(View.VISIBLE);
                 image2.setVisibility(View.VISIBLE);
                 image1.setVisibility(View.VISIBLE);
-                bt3.setVisibility(View.VISIBLE);
-                bt2.setVisibility(View.VISIBLE);
-                bt1.setVisibility(View.VISIBLE);
+                if(mSession.getPictureViewMode() != MODE_PICTURE_ONLY) {
+                    bt1.setVisibility(View.VISIBLE);
+                    bt2.setVisibility(View.VISIBLE);
+                    bt3.setVisibility(View.VISIBLE);
+                }
                 bt1.setText(mDailyActivitiesBelowText[count]);
                 bt2.setText(mDailyActivitiesBelowText[count + 1]);
                 bt3.setText(mDailyActivitiesBelowText[count + 2]);
-                image1.setImageDrawable(mDailyActivitiesIcons.getDrawable(count));
+                setImageToCView(image1, count);
+                setImageToCView(image2, count+1);
+                setImageToCView(image3, count+2);
+                /*image1.setImageDrawable(mDailyActivitiesIcons.getDrawable(count));
                 image2.setImageDrawable(mDailyActivitiesIcons.getDrawable(count+1));
-                image3.setImageDrawable(mDailyActivitiesIcons.getDrawable(count+2));
+                image3.setImageDrawable(mDailyActivitiesIcons.getDrawable(count+2));*/
 
                 if (count == 0) {
                     backward.setEnabled(false);
@@ -190,8 +203,7 @@ public class SequenceActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mCk = mCy = mCm = mCd = mCn = mCl = 0;
                 if (image_flag == 1) {
-                    hideActionBtn(true);
-                    image1.setBorderColor(Color.TRANSPARENT);
+                    hideActionBtn(true);setBorderToView(findViewById(R.id.borderView1), -1);
                     image_flag = 0;
                 } else {
                     mUserDataMeasure.recordGridItem("Tapped ".concat(mDailyActivitiesSpeechText[count]));
@@ -203,7 +215,7 @@ public class SequenceActivity extends AppCompatActivity {
                         hideActionBtn(false);
                     speakSpeech(mDailyActivitiesSpeechText[count]);
                     resetActionBtnImageIcons();
-                    image1.setBorderColor(-1283893945);
+                    setBorderToView(findViewById(R.id.borderView1), 6);
                 }
                 back.setImageResource(R.drawable.back_button);
             }
@@ -214,8 +226,7 @@ public class SequenceActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mCk = mCy = mCm = mCd = mCn = mCl = 0;
                 if (image_flag == 2) {
-                    hideActionBtn(true);
-                    image2.setBorderColor(Color.TRANSPARENT);
+                    hideActionBtn(true);setBorderToView(findViewById(R.id.borderView2), -1);
                     image_flag = 0;
                 } else {
                     mUserDataMeasure.recordGridItem("Tapped ".concat(mDailyActivitiesSpeechText[count+1]));
@@ -226,8 +237,7 @@ public class SequenceActivity extends AppCompatActivity {
                     else
                         hideActionBtn(false);
                     speakSpeech(mDailyActivitiesSpeechText[count + 1]);
-                    resetActionBtnImageIcons();
-                    image2.setBorderColor(-1283893945);
+                    resetActionBtnImageIcons();setBorderToView(findViewById(R.id.borderView2), 6);
                 }
                 back.setImageResource(R.drawable.back_button);
             }
@@ -239,7 +249,7 @@ public class SequenceActivity extends AppCompatActivity {
                 mCk = mCy = mCm = mCd = mCn = mCl = 0;
                 if (image_flag == 3) {
                     hideActionBtn(true);
-                    image3.setBorderColor(Color.TRANSPARENT);
+                    setBorderToView(findViewById(R.id.borderView3), -1);
                     image_flag = 0;
                 } else {
                     mUserDataMeasure.recordGridItem("Tapped ".concat(mDailyActivitiesSpeechText[count+2]));
@@ -251,7 +261,7 @@ public class SequenceActivity extends AppCompatActivity {
                         hideActionBtn(false);
                     speakSpeech(mDailyActivitiesSpeechText[count + 2]);
                     resetActionBtnImageIcons();
-                    image3.setBorderColor(-1283893945);
+                    setBorderToView(findViewById(R.id.borderView3), 6);
                 }
                 back.setImageResource(R.drawable.back_button);
             }
@@ -567,6 +577,17 @@ public class SequenceActivity extends AppCompatActivity {
         });
     }
 
+    private void setImageToCView(ImageView imageView, int index) {
+        /*if(Build.MANUFACTURER.equals("HTC"))                //Handle image loading on HTC low memory devices.
+            Picasso.with(this)
+                    .load(mDailyActivitiesIcons.getResourceId(index,R.drawable.actionfigure))
+                    .fit()
+                    .centerCrop()
+                    .into(circleImageView);
+        else*/
+        imageView.setImageDrawable(mDailyActivitiesIcons.getDrawable(index));
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -601,6 +622,21 @@ public class SequenceActivity extends AppCompatActivity {
         new ChangeAppLocale(this).setLocale();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mSeqActSpeech = null;
+        mDailyActivitiesIcons = null;
+        relativeLayout = null;
+        mDailyActivitiesSpeechText = null;
+        mDailyActivitiesBelowText = null;
+        heading = null;
+        side = null;
+        below = null;
+        bt = null;
+        mUserDataMeasure = null;
+    }
+
     private void showActionBarTitle(boolean showTitle){
         if (showTitle)
             getSupportActionBar().setTitle(actionBarTitleTxt);
@@ -608,12 +644,6 @@ public class SequenceActivity extends AppCompatActivity {
             actionBarTitleTxt = getSupportActionBar().getTitle().toString();
             getSupportActionBar().setTitle("");
         }
-        /*if (showTitle)
-            titleView.setTitleText(actionBarTitleTxt);
-        else{
-            actionBarTitleTxt = titleView.getTitleText();
-            titleView.setTitleText("");
-        }*/
     }
 
     private void initializeViews(){
@@ -634,9 +664,9 @@ public class SequenceActivity extends AppCompatActivity {
         bt1 = (TextView) findViewById(R.id.bt1);
         bt2 = (TextView) findViewById(R.id.bt2);
         bt3 = (TextView) findViewById(R.id.bt3);
-        image1 = (CircleImageView) findViewById(R.id.image1);
-        image2 = (CircleImageView) findViewById(R.id.image2);
-        image3 = (CircleImageView) findViewById(R.id.image3);
+        image1 = (ImageView) findViewById(R.id.image1);
+        image2 = (ImageView) findViewById(R.id.image2);
+        image3 = (ImageView) findViewById(R.id.image3);
 
         arrow1 = (ImageView) findViewById(R.id.arrow1);
         arrow2 = (ImageView) findViewById(R.id.arrow2);
@@ -744,9 +774,9 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     private void resetActionBtnImageIcons() {
-        image1.setBorderColor(Color.TRANSPARENT);
-        image2.setBorderColor(Color.TRANSPARENT);
-        image3.setBorderColor(Color.TRANSPARENT);
+        findViewById(R.id.borderView1).setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_nocolor_1by3));
+        findViewById(R.id.borderView2).setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_nocolor_1by3));
+        findViewById(R.id.borderView3).setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_nocolor_1by3));
         like.setImageResource(R.drawable.ilikewithoutoutline);
         dislike.setImageResource(R.drawable.idontlikewithout);
         yes.setImageResource(R.drawable.iwantwithout);
@@ -757,11 +787,11 @@ public class SequenceActivity extends AppCompatActivity {
 
     private void setBorderToIcon(int actionBtnIdx) {
         if (image_flag == 1) {
-            image1.setBorderColor(mColor[actionBtnIdx]);
+            setBorderToView(findViewById(R.id.borderView1), actionBtnIdx);
         } else if (image_flag == 2) {
-            image2.setBorderColor(mColor[actionBtnIdx]);
+            setBorderToView(findViewById(R.id.borderView2), actionBtnIdx);
         } else if (image_flag == 3) {
-            image3.setBorderColor(mColor[actionBtnIdx]);
+            setBorderToView(findViewById(R.id.borderView3), actionBtnIdx);
         }
         switch (actionBtnIdx){
             case 0: like.setImageResource(R.drawable.ilikewithoutline); break;
@@ -773,5 +803,26 @@ public class SequenceActivity extends AppCompatActivity {
             case 6: home.setImageResource(R.drawable.homepressed); break;
             default: break;
         }
+    }
+
+    private void setBorderToView(View borderView, int actionBtnIdx) {
+        switch(actionBtnIdx){
+            case 0: borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_yellow_1by3));
+                break;
+            case 1: borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_blue_1by3));
+                break;
+            case 2: borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_green_1by3));
+                break;
+            case 3: borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_red_1by3));
+                break;
+            case 4: borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_grey_light_1by3));
+                break;
+            case 5: borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_grey_dark_1by3));
+                break;
+            case 6: borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_brown_1by3));
+                break;
+            default:    borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_nocolor_1by3));
+        }
+        borderView.invalidate();
     }
 }

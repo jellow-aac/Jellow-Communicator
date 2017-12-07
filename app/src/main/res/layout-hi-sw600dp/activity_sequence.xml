@@ -3,7 +3,6 @@
     android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/level1_bg"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -93,14 +92,24 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:layout_centerVertical="true">
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:layout_width="156dp"
-                            android:layout_height="156dp"
-                            app:civ_border_width="8dp"
-                            app:civ_border_color="@android:color/transparent"
-                            android:src="@drawable/brushteeth"
-                            android:layout_gravity="center_horizontal"
-                            android:id="@+id/image1" />
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:id="@+id/image1"
+                                android:layout_width="156dp"
+                                android:layout_height="156dp"
+                                android:src="@drawable/grouptherapy"
+                                android:layout_gravity="center_horizontal"
+                                android:background="@android:color/transparent"
+                                android:scaleType="centerInside" />
+                            <View
+                                android:id="@+id/borderView1"
+                                android:layout_width="156dp"
+                                android:layout_height="156dp"
+                                android:layout_gravity="center_horizontal"
+                                android:background="@drawable/custom_drawable_nocolor_1by3"/>
+                        </FrameLayout>
                         <TextView
                             android:id="@+id/bt1"
                             android:layout_width="wrap_content"
@@ -126,14 +135,24 @@
                         android:layout_toRightOf="@+id/arrow1"
                         android:layout_centerVertical="true"
                         android:layout_toEndOf="@+id/arrow1">
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:layout_width="156dp"
-                            android:layout_height="156dp"
-                            app:civ_border_width="8dp"
-                            app:civ_border_color="@android:color/transparent"
-                            android:src="@drawable/brushteeth"
-                            android:layout_gravity="center_horizontal"
-                            android:id="@+id/image2" />
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:id="@+id/image2"
+                                android:layout_width="156dp"
+                                android:layout_height="156dp"
+                                android:src="@drawable/grouptherapy"
+                                android:layout_gravity="center_horizontal"
+                                android:background="@android:color/transparent"
+                                android:scaleType="centerInside" />
+                            <View
+                                android:id="@+id/borderView2"
+                                android:layout_width="156dp"
+                                android:layout_height="156dp"
+                                android:layout_gravity="center_horizontal"
+                                android:background="@drawable/custom_drawable_nocolor_1by3"/>
+                        </FrameLayout>
                         <TextView
                             android:id="@+id/bt2"
                             android:layout_width="wrap_content"
@@ -159,14 +178,24 @@
                         android:layout_toRightOf="@+id/arrow2"
                         android:layout_centerVertical="true"
                         android:layout_toEndOf="@+id/arrow2">
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:layout_width="156dp"
-                            android:layout_height="156dp"
-                            app:civ_border_width="8dp"
-                            app:civ_border_color="@android:color/transparent"
-                            android:src="@drawable/brushteeth"
-                            android:layout_gravity="center_horizontal"
-                            android:id="@+id/image3" />
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:id="@+id/image3"
+                                android:layout_width="156dp"
+                                android:layout_height="156dp"
+                                android:src="@drawable/grouptherapy"
+                                android:layout_gravity="center_horizontal"
+                                android:background="@android:color/transparent"
+                                android:scaleType="centerInside" />
+                            <View
+                                android:id="@+id/borderView3"
+                                android:layout_width="156dp"
+                                android:layout_height="156dp"
+                                android:layout_gravity="center_horizontal"
+                                android:background="@drawable/custom_drawable_nocolor_1by3"/>
+                        </FrameLayout>
                         <TextView
                             android:id="@+id/bt3"
                             android:layout_width="wrap_content"

@@ -2,8 +2,8 @@ package com.dsource.idc.jellow;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,13 +21,13 @@ import android.widget.TextView;
 
 import com.dsource.idc.jellow.Models.LevelOneVerbiageModel;
 import com.dsource.idc.jellow.Utility.ChangeAppLocale;
+import com.dsource.idc.jellow.Utility.DefaultExceptionHandler;
+import com.dsource.idc.jellow.Utility.SessionManager;
 import com.dsource.idc.jellow.Utility.SpeakOnKeyboardDialog;
 import com.dsource.idc.jellow.Utility.UserDataMeasure;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
     private static final int REQ_HOME = 0;
@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         mUserDataMeasure = new UserDataMeasure(this);
         mUserDataMeasure.recordScreen(this.getLocalClassName());
         new ChangeAppLocale(this).setLocale();
+        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         loadArraysFromResources();
         mRecyclerItemsViewList = new ArrayList<>(myMusic.length);
         while (mRecyclerItemsViewList.size() < myMusic.length)  mRecyclerItemsViewList.add(null);
@@ -605,14 +606,63 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setMenuImageBorder(View recyclerChildView, boolean setBorder) {
-        CircleImageView circularImageView = (CircleImageView) recyclerChildView.findViewById(R.id.icon1);
-        if (setBorder){
-            if(mActionBtnClickCount > 0)
-                circularImageView.setBorderColor(mColor[image_flag]);
-            else
-                circularImageView.setBorderColor(-1283893945);
-        }else
-            circularImageView.setBorderColor(Color.TRANSPARENT);
+        View borderView = recyclerChildView.findViewById(R.id.borderView);
+        if(new SessionManager(this).getGridSize() == 0) {
+            if (setBorder) {
+                if (mActionBtnClickCount > 0) {
+                    switch (image_flag) {
+                        case 0:
+                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_yellow_1by3));
+                            break;
+                        case 1:
+                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_blue_1by3));
+                            break;
+                        case 2:
+                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_green_1by3));
+                            break;
+                        case 3:
+                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_red_1by3));
+                            break;
+                        case 4:
+                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_grey_light_1by3));
+                            break;
+                        case 5:
+                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_grey_dark_1by3));
+                            break;
+                    }
+                } else
+                    borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_brown_1by3));
+            } else
+                borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_nocolor_1by3));
+        }else{
+            if (setBorder) {
+                if (mActionBtnClickCount > 0) {
+                    switch (image_flag) {
+                        case 0:
+                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_yellow_3by3));
+                            break;
+                        case 1:
+                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_blue_3by3));
+                            break;
+                        case 2:
+                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_green_3by3));
+                            break;
+                        case 3:
+                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_red_3by3));
+                            break;
+                        case 4:
+                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_grey_light_3by3));
+                            break;
+                        case 5:
+                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_grey_dark_3by3));
+                            break;
+                    }
+                } else
+                    borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_brown_3by3));
+            } else
+                borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_nocolor_3by3));
+        }
+        borderView.invalidate();
     }
 
     private void resetActionButtons(int image_flag) {

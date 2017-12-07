@@ -3,8 +3,8 @@ package com.dsource.idc.jellow;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 
 import com.dsource.idc.jellow.Models.LevelTwoVerbiageModel;
 import com.dsource.idc.jellow.Utility.ChangeAppLocale;
+import com.dsource.idc.jellow.Utility.DefaultExceptionHandler;
 import com.dsource.idc.jellow.Utility.IndexSorter;
 import com.dsource.idc.jellow.Utility.SessionManager;
 import com.dsource.idc.jellow.Utility.UserDataMeasure;
@@ -30,8 +31,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.StringTokenizer;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class LevelTwoActivity extends AppCompatActivity {
     private final int REQ_HOME = 0, MENU_ITEM_DAILY_ACT = 1, MENU_ITEM_PEOPLE = 5, MENU_ITEM_PLACES = 6, MENU_ITEM_HELP = 8;
@@ -85,6 +84,7 @@ public class LevelTwoActivity extends AppCompatActivity {
             getWindow().setFlags(
                 WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
                     WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
+        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         loadArraysFromResources();
         mUserDataMeasure = new UserDataMeasure(this);
         mUserDataMeasure.recordScreen(this.getLocalClassName());
@@ -713,6 +713,34 @@ public class LevelTwoActivity extends AppCompatActivity {
         new ChangeAppLocale(this).setLocale();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mRecyclerView = null;
+        mLayerTwoSpeech = null;
+        mRecyclerItemsViewList = null;
+        mMenuItemLinearLayout = null;
+        mUserDataMeasure = null;
+        mLevelTwoSpeechText = null;
+        mLevelTwoAdapterText = null;
+        side = null; below = null;
+        temp = null;
+        image_temp = null;
+        new_people_adapter = null;
+        people  = null;
+        count_people = null;
+        new_people = null;
+        new_people_count = null;
+        sort = null;
+
+        places = null;
+        new_places_adapter = null;
+        count_places = null;
+        new_places = null;
+        new_places_count = null;
+        sort_places = null;
+    }
+
     public void tappedGridItemEvent(View view, View v, int position) {
         mCk = mCy = mCm = mCd = mCn = mCl = 0;
         resetActionButtons(-1);
@@ -903,14 +931,63 @@ public class LevelTwoActivity extends AppCompatActivity {
     }
 
     private void setMenuImageBorder(View recyclerChildView, boolean setBorder) {
-        CircleImageView circularImageView = (CircleImageView) recyclerChildView.findViewById(R.id.icon1);
-        if (setBorder){
-            if(mActionBtnClickCount > 0)
-                circularImageView.setBorderColor(mColor[image_flag]);
-            else
-                circularImageView.setBorderColor(-1283893945);
-        }else
-            circularImageView.setBorderColor(Color.TRANSPARENT);
+        View borderView = recyclerChildView.findViewById(R.id.borderView);
+        if(mSession.getGridSize() == 0) {
+            if (setBorder) {
+                if (mActionBtnClickCount > 0) {
+                    switch (image_flag) {
+                        case 0:
+                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_yellow_1by3));
+                            break;
+                        case 1:
+                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_blue_1by3));
+                            break;
+                        case 2:
+                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_green_1by3));
+                            break;
+                        case 3:
+                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_red_1by3));
+                            break;
+                        case 4:
+                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_grey_light_1by3));
+                            break;
+                        case 5:
+                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_grey_dark_1by3));
+                            break;
+                    }
+                } else
+                    borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_brown_1by3));
+            } else
+                borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_nocolor_1by3));
+        }else{
+            if (setBorder) {
+                if (mActionBtnClickCount > 0) {
+                    switch (image_flag) {
+                        case 0:
+                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_yellow_3by3));
+                            break;
+                        case 1:
+                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_blue_3by3));
+                            break;
+                        case 2:
+                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_green_3by3));
+                            break;
+                        case 3:
+                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_red_3by3));
+                            break;
+                        case 4:
+                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_grey_light_3by3));
+                            break;
+                        case 5:
+                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_grey_dark_3by3));
+                            break;
+                    }
+                } else
+                    borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_brown_3by3));
+            } else
+                borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_nocolor_3by3));
+        }
+        borderView.invalidate();
     }
 
     private void resetActionButtons(int image_flag) {

@@ -1,6 +1,7 @@
 package com.dsource.idc.jellow.app;
 
 import android.app.Application;
+import android.content.Context;
 import android.text.TextUtils;
 
 import com.android.volley.Request;
@@ -10,16 +11,22 @@ import com.android.volley.toolbox.Volley;
 /**
  * Created by ekalpa on 8/19/2016.
  */
-
 public class AppController extends Application {
     public static final String TAG = AppController.class.getSimpleName();
     private RequestQueue mRequestQueue;
     private static AppController mInstance;
+    private static Context mContext;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        mContext = getApplicationContext();
         mInstance = this;
+    }
+
+    @Override
+    public Context getApplicationContext() {
+        return super.getApplicationContext();
     }
 
     public static synchronized AppController getInstance() {

@@ -8,12 +8,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dsource.idc.jellow.Utility.SessionManager;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by ekalpa on 4/19/2016.
@@ -41,7 +40,6 @@ class MainActivityAdapter extends android.support.v7.widget.RecyclerView.Adapter
         return new MainActivityAdapter.MyViewHolder(rowView);
     }
 
-
     @Override
     public void onBindViewHolder(final MainActivityAdapter.MyViewHolder holder, final int position) {
         final int MODE_PICTURE_ONLY = 1;
@@ -50,6 +48,13 @@ class MainActivityAdapter extends android.support.v7.widget.RecyclerView.Adapter
 
         holder.menuItemBelowText.setAllCaps(true);
         holder.menuItemBelowText.setText(mBelowText[position]);
+        /*if(Build.MANUFACTURER.equals("HTC"))                //Handle image loading on HTC low memory devices.
+            Picasso.with(mContext)
+                    .load(mThumbId.getResourceId(position, R.drawable.actionfigure))
+                    .fit()
+                    .centerCrop()
+                    .into(holder.menuItemImage);
+        else*/
         holder.menuItemImage.setImageDrawable(mThumbId.getDrawable(position));
         holder.menuItemLinearLayout.setContentDescription(mBelowText[position]);
         holder.menuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
@@ -66,12 +71,12 @@ class MainActivityAdapter extends android.support.v7.widget.RecyclerView.Adapter
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         private LinearLayout menuItemLinearLayout;
-        private CircleImageView menuItemImage;
+        private ImageView menuItemImage;
         private TextView menuItemBelowText;
 
         MyViewHolder(final View view) {
             super(view);
-            menuItemImage = (CircleImageView) view.findViewById(R.id.icon1);
+            menuItemImage = (ImageView) view.findViewById(R.id.icon1);
             menuItemLinearLayout = (LinearLayout) view.findViewById(R.id.linearlayout_icon1);
             menuItemBelowText = (TextView) view.findViewById(R.id.te1);
             Typeface font = Typeface.createFromAsset(mContext.getAssets(), "fonts/Mukta-Regular.ttf");

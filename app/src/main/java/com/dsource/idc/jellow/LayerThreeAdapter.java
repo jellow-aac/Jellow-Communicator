@@ -8,14 +8,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dsource.idc.jellow.Utility.SessionManager;
 
 import java.util.Arrays;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Sumeet on 19-04-2016.
@@ -49,7 +48,13 @@ class LayerThreeAdapter extends android.support.v7.widget.RecyclerView.Adapter<L
         if (mSession.getPictureViewMode() == MODE_PICTURE_ONLY)
             holder.menuItemBelowText.setVisibility(View.INVISIBLE);
         holder.menuItemBelowText.setText(belowText[position]);
-
+        /*if(Build.MANUFACTURER.equals("HTC"))                //Handle image loading on HTC low memory devices.
+            Picasso.with(mContext)
+                    .load(mThumbIds[position])
+                    .fit()
+                    .centerCrop()
+                    .into(holder.menuItemImage);
+        else*/
         holder.menuItemImage.setImageResource(mThumbIds[position]);
         holder.menuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
@@ -248,12 +253,12 @@ class LayerThreeAdapter extends android.support.v7.widget.RecyclerView.Adapter<L
 
     class MyViewHolder extends RecyclerView.ViewHolder  {
         private LinearLayout menuItemLinearLayout;
-        private CircleImageView menuItemImage;
+        private ImageView menuItemImage;
         private TextView menuItemBelowText;
 
         MyViewHolder(final View view) {
             super(view);
-            menuItemImage = (CircleImageView) view.findViewById(R.id.icon1);
+            menuItemImage = (ImageView) view.findViewById(R.id.icon1);
             menuItemLinearLayout = (LinearLayout) view.findViewById(R.id.linearlayout_icon1);
             menuItemBelowText = (TextView) view.findViewById(R.id.te1);
             Typeface font = Typeface.createFromAsset(mContext.getAssets(), "fonts/Mukta-Regular.ttf");
