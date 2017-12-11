@@ -3,8 +3,8 @@ package com.dsource.idc.jellow;
 import android.content.Context;
 import android.content.Intent;
 import android.database.SQLException;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,14 +21,14 @@ import android.widget.LinearLayout;
 
 import com.dsource.idc.jellow.Models.LevelThreeVerbiageModel;
 import com.dsource.idc.jellow.Utility.ChangeAppLocale;
+import com.dsource.idc.jellow.Utility.DefaultExceptionHandler;
 import com.dsource.idc.jellow.Utility.IndexSorter;
+import com.dsource.idc.jellow.Utility.SessionManager;
 import com.dsource.idc.jellow.Utility.UserDataMeasure;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class LevelThreeActivity extends AppCompatActivity {
     private final boolean DISABLE_ACTION_BTNS = true;
@@ -529,7 +529,6 @@ public class LevelThreeActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
 
     @Override
     protected void onResume() {

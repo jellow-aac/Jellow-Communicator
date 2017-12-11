@@ -679,7 +679,6 @@ public class LevelTwoActivity extends AppCompatActivity {
         return true;
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();

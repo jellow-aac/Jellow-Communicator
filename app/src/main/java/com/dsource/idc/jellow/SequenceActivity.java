@@ -102,12 +102,9 @@ public class SequenceActivity extends AppCompatActivity {
         bt2.setText(mDailyActivitiesBelowText[1]);
         bt3.setText(mDailyActivitiesBelowText[2]);
 
-        setImageToCView(image1, 0);
-        setImageToCView(image2, 1);
-        setImageToCView(image3, 2);
-        //image1.setImageDrawable(mDailyActivitiesIcons.getDrawable(0));
-        //image2.setImageDrawable(mDailyActivitiesIcons.getDrawable(1));
-        //image3.setImageDrawable(mDailyActivitiesIcons.getDrawable(2));
+        image1.setImageDrawable(mDailyActivitiesIcons.getDrawable(0));
+        image2.setImageDrawable(mDailyActivitiesIcons.getDrawable(1));
+        image3.setImageDrawable(mDailyActivitiesIcons.getDrawable(2));
 
         forward.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,18 +122,15 @@ public class SequenceActivity extends AppCompatActivity {
                 }
                 if (mDailyActivitiesIcons.length() < count + 3) {
                     if (mLevelTwoItemPos == 0) {
-                        setImageToCView(image1, count);
-                        setImageToCView(image2, count+1);
-                        /*image1.setImageDrawable(mDailyActivitiesIcons.getDrawable(count));
-                        image2.setImageDrawable(mDailyActivitiesIcons.getDrawable(count+1));*/
+                        image1.setImageDrawable(mDailyActivitiesIcons.getDrawable(count));
+                        image2.setImageDrawable(mDailyActivitiesIcons.getDrawable(count+1));
                         arrow2.setVisibility(View.INVISIBLE);
                         image3.setVisibility(View.INVISIBLE);
                         bt3.setVisibility(View.INVISIBLE);
                         bt1.setText(mDailyActivitiesBelowText[count]);
                         bt2.setText(mDailyActivitiesBelowText[count + 1]);
                     } else if (mLevelTwoItemPos == 1 || mLevelTwoItemPos == 4 || mLevelTwoItemPos == 3) {
-                        setImageToCView(image1, count);
-                        //image1.setImageDrawable(mDailyActivitiesIcons.getDrawable(count));
+                        image1.setImageDrawable(mDailyActivitiesIcons.getDrawable(count));
                         bt1.setText(mDailyActivitiesBelowText[count]);
                         image2.setVisibility(View.INVISIBLE);
                         image3.setVisibility(View.INVISIBLE);
@@ -151,12 +145,9 @@ public class SequenceActivity extends AppCompatActivity {
                     bt1.setText(mDailyActivitiesBelowText[count]);
                     bt2.setText(mDailyActivitiesBelowText[count + 1]);
                     bt3.setText(mDailyActivitiesBelowText[count + 2]);
-                    setImageToCView(image1, count);
-                    setImageToCView(image2, count+1);
-                    setImageToCView(image3, count+2);
-                    /*image1.setImageDrawable(mDailyActivitiesIcons.getDrawable(count));
+                    image1.setImageDrawable(mDailyActivitiesIcons.getDrawable(count));
                     image2.setImageDrawable(mDailyActivitiesIcons.getDrawable(count+1));
-                    image3.setImageDrawable(mDailyActivitiesIcons.getDrawable(count+2));*/
+                    image3.setImageDrawable(mDailyActivitiesIcons.getDrawable(count+2));
                 }
             }
         });
@@ -184,12 +175,9 @@ public class SequenceActivity extends AppCompatActivity {
                 bt1.setText(mDailyActivitiesBelowText[count]);
                 bt2.setText(mDailyActivitiesBelowText[count + 1]);
                 bt3.setText(mDailyActivitiesBelowText[count + 2]);
-                setImageToCView(image1, count);
-                setImageToCView(image2, count+1);
-                setImageToCView(image3, count+2);
-                /*image1.setImageDrawable(mDailyActivitiesIcons.getDrawable(count));
+                image1.setImageDrawable(mDailyActivitiesIcons.getDrawable(count));
                 image2.setImageDrawable(mDailyActivitiesIcons.getDrawable(count+1));
-                image3.setImageDrawable(mDailyActivitiesIcons.getDrawable(count+2));*/
+                image3.setImageDrawable(mDailyActivitiesIcons.getDrawable(count+2));
 
                 if (count == 0) {
                     backward.setEnabled(false);
@@ -575,17 +563,6 @@ public class SequenceActivity extends AppCompatActivity {
                 back.setImageResource(R.drawable.back_button);
             }
         });
-    }
-
-    private void setImageToCView(ImageView imageView, int index) {
-        /*if(Build.MANUFACTURER.equals("HTC"))                //Handle image loading on HTC low memory devices.
-            Picasso.with(this)
-                    .load(mDailyActivitiesIcons.getResourceId(index,R.drawable.actionfigure))
-                    .fit()
-                    .centerCrop()
-                    .into(circleImageView);
-        else*/
-        imageView.setImageDrawable(mDailyActivitiesIcons.getDrawable(index));
     }
 
     @Override

@@ -48,13 +48,6 @@ class MainActivityAdapter extends android.support.v7.widget.RecyclerView.Adapter
 
         holder.menuItemBelowText.setAllCaps(true);
         holder.menuItemBelowText.setText(mBelowText[position]);
-        /*if(Build.MANUFACTURER.equals("HTC"))                //Handle image loading on HTC low memory devices.
-            Picasso.with(mContext)
-                    .load(mThumbId.getResourceId(position, R.drawable.actionfigure))
-                    .fit()
-                    .centerCrop()
-                    .into(holder.menuItemImage);
-        else*/
         holder.menuItemImage.setImageDrawable(mThumbId.getDrawable(position));
         holder.menuItemLinearLayout.setContentDescription(mBelowText[position]);
         holder.menuItemLinearLayout.setOnClickListener(new View.OnClickListener() {

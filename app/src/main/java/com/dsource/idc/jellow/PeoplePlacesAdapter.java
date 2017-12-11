@@ -47,14 +47,6 @@ class PeoplePlacesAdapter extends android.support.v7.widget.RecyclerView.Adapter
         if (mSession.getPictureViewMode() == MODE_PICTURE_ONLY)
             holder.menuItemBelowText.setVisibility(View.INVISIBLE);
         holder.menuItemBelowText.setText(belowText[position]);
-
-        /*if(Build.MANUFACTURER.equals("HTC"))                //Handle image loading on HTC low memory devices.
-            Picasso.with(mContext)
-                    .load(mThumbIds[position])
-                    .fit()
-                    .centerCrop()
-                    .into(holder.menuItemImage);
-        else*/
         holder.menuItemImage.setImageResource(mThumbIds[position]);
         holder.menuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {}

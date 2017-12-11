@@ -5,5 +5,5 @@
     android:thickness="10dp"
     android:useLevel="false"
     android:innerRadius="68dp">
-    <solid android:color="#A52A2A"/>
+    <solid android:color="#9E846D"/>
 </shape>
