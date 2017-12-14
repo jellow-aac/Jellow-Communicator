@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dsource.idc.jellow">
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -8,12 +9,12 @@
     <application
         android:name=".app.AppController"
         android:allowBackup="true"
+        android:fullBackupContent="@null"
+        android:hardwareAccelerated="false"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:hardwareAccelerated="false"
-        android:theme="@style/AppTheme"
-        android:fullBackupContent="@null">
+        android:theme="@style/AppTheme">
         <service
             android:name=".SimpleIME"
             android:label="@string/simple_ime"
@@ -21,10 +22,12 @@
             <meta-data
                 android:name="android.view.im"
                 android:resource="@xml/method" />
+
             <intent-filter>
                 <action android:name="android.view.InputMethod" />
             </intent-filter>
         </service>
+
         <activity
             android:name=".MainActivity"
             android:configChanges="keyboardHidden|orientation|screenLayout"
@@ -49,6 +52,7 @@
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -66,7 +70,7 @@
             android:name=".AboutJellowActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="About Jellow"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".ProfileFormActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -91,7 +95,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".SplashActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -99,12 +103,18 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
         <activity
             android:name=".LevelTwoActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".LevelThreeActivity"
-            android:screenOrientation="landscape"/>
-        <service android:name=".Utility.JellowTTSService"/>
+        <activity
+            android:name=".LevelThreeActivity"
+            android:screenOrientation="landscape" />
+
+        <service android:name=".Utility.JellowTTSService" />
+
+        <activity android:name=".TemporaryActivity"
+            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>

@@ -6,6 +6,7 @@ package com.dsource.idc.jellow;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -23,6 +24,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.dsource.idc.jellow.Utility.SessionManager;
 import com.dsource.idc.jellow.app.AppConfig;
 import com.dsource.idc.jellow.app.AppController;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,11 +42,16 @@ public class UserRegistrationActivity extends AppCompatActivity {
     private Button bRegister;
     private EditText etName, etEmergencyContact, etEmailId;
     private SessionManager mSession;
+    private FirebaseDatabase mDB;
+    private DatabaseReference mRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_registration);
+
+        mDB = FirebaseDatabase.getInstance();
+        mRef = mDB.getReference(BuildConfig.DB_TYPE+"/users");
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         etName = (EditText) findViewById(R.id.etName);
@@ -90,7 +100,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
                             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                             formattedDate = df.format(ca.getTime());
                             bRegister.setEnabled(false);
-                            new LongOperation().execute(name, emergencyContact, eMailId, formattedDate);
+                            //new LongOperation().execute(name, emergencyContact, eMailId, formattedDate);
+                            createUser(name, emergencyContact, eMailId, formattedDate);
                         }else
                             Toast.makeText(getApplicationContext(),getString(R.string.invalid_emailId), Toast.LENGTH_SHORT).show();
                     } else
@@ -109,6 +120,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
         }
     }
 
+    /*
     private void checkLogin(final String name, final String contact, final String mail, final String time) {
         String tag_string_req = "req_login";
         StringRequest strReq = new StringRequest(Request.Method.POST,
@@ -169,5 +181,35 @@ public class UserRegistrationActivity extends AppCompatActivity {
             return null;
         }
     }
+    */
+
+    private void createUser(String name,String emergencyContact,String eMailId,String formattedDate)
+    {
+        try {
+            mRef.child(emergencyContact).child("email").setValue(eMailId);
+            mRef.child(emergencyContact).child("emergencyContact").setValue(emergencyContact);
+            mRef.child(emergencyContact).child("name").setValue(name);
+            mRef.child(emergencyContact).child("formattedDate").setValue(formattedDate).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        mSession.setUserLoggedIn(true);
+                        mSession.setLanguage(LANG_ENGLISH);
+                        mSession.setGridSize(GRID_3BY3);
+                        //startActivity(new Intent(UserRegistrationActivity.this, Intro.class));
+                        startActivity(new Intent(UserRegistrationActivity.this, TemporaryActivity.class));
+                        finish();
+                    } else {
+                        bRegister.setEnabled(true);
+                        Toast.makeText(UserRegistrationActivity.this, getString(R.string.checkInternetConn), Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
 }
 

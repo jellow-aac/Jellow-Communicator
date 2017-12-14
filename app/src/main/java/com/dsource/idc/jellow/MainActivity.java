@@ -23,7 +23,7 @@ import com.dsource.idc.jellow.Models.LevelOneVerbiageModel;
 import com.dsource.idc.jellow.Utility.ChangeAppLocale;
 import com.dsource.idc.jellow.Utility.DefaultExceptionHandler;
 import com.dsource.idc.jellow.Utility.SessionManager;
-import com.dsource.idc.jellow.Utility.SpeakOnKeyboardDialog;
+//import com.dsource.idc.jellow.Utility.SpeakOnKeyboardDialog;
 import com.dsource.idc.jellow.Utility.UserDataMeasure;
 import com.google.gson.Gson;
 
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<ArrayList<String>> mLayerOneSpeech;
     private String[] myMusic, side, below;
     private String actionBarTitleTxt;
-    private SpeakOnKeyboardDialog mKeyboardDialog;
+    //private SpeakOnKeyboardDialog mKeyboardDialog;
     private boolean mKeyChange;
 
     @Override
