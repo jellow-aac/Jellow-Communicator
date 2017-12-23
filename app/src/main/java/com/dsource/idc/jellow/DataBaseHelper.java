@@ -130,7 +130,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
     }
     // Getting single contact
     public String getlevel(int layer_1_id, int layer_2_id) {
-        if (layer_1_id == 7 && layer_2_id == 6 && mSession.getLanguage() == 1)
+        if (layer_1_id == 7 && layer_2_id == 6 && mSession.getLanguage().equals(SessionManager.HI_IN))
             layer_2_id = layer_2_id+1;
         Cursor cursor = myDataBase.query("three", new String[]{"_id", "layer_1_id", "layer_2_id", "layer_3"}, "layer_1_id='" + layer_1_id + "' AND layer_2_id='" + layer_2_id + "'", null, null, null, null);
         if (cursor.getCount()>0){
@@ -142,7 +142,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     public void setlevel(int layer_1_id, int layer_2_id, String n) {
-        if (layer_1_id == 7 && layer_2_id == 6 && mSession.getLanguage() == 1)
+        if (layer_1_id == 7 && layer_2_id == 6 && mSession.getLanguage().equals(SessionManager.HI_IN))
             layer_2_id = layer_2_id+1;
         ContentValues dataToInsert = new ContentValues();
         dataToInsert.put("layer_3", n);

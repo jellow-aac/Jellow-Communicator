@@ -11,7 +11,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dsource.idc.jellow.Utility.SessionManager;
+
+import java.io.File;
 
 /**
  * Created by HP on 22/01/2017.
@@ -19,14 +22,17 @@ import com.dsource.idc.jellow.Utility.SessionManager;
 class PeoplePlacesAdapter extends android.support.v7.widget.RecyclerView.Adapter<PeoplePlacesAdapter.MyViewHolder> {
     private Context mContext;
     private SessionManager mSession;
-    private Integer[] mThumbIds = new Integer[100];
+    private String[] mThumbIds = new String[100];
     private String[] belowText = new String[100];
+    private String path;
 
-    PeoplePlacesAdapter(Context context, String[] temp, Integer[] image_temp) {
+    PeoplePlacesAdapter(Context context, String[] temp, String[] image_temp) {
         mContext = context;
         mSession = new SessionManager(mContext);
         mThumbIds = image_temp;
         belowText = temp;
+        File en_dir = mContext.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
+        path = en_dir.getAbsolutePath()+"/"+mSession.getLanguage()+"/drawables";
     }
 
     @Override
@@ -47,7 +53,13 @@ class PeoplePlacesAdapter extends android.support.v7.widget.RecyclerView.Adapter
         if (mSession.getPictureViewMode() == MODE_PICTURE_ONLY)
             holder.menuItemBelowText.setVisibility(View.INVISIBLE);
         holder.menuItemBelowText.setText(belowText[position]);
-        holder.menuItemImage.setImageResource(mThumbIds[position]);
+        //holder.menuItemImage.setImageResource(mThumbIds[position]);
+        GlideApp.with(mContext)
+                .load(path+"/"+mThumbIds[position]+".png")
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(false)
+                .dontAnimate()
+                .into(holder.menuItemImage);
         holder.menuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {}
         });

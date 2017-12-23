@@ -21,6 +21,10 @@
     </group>
     <group android:id="@+id/menuGroupSettings">
         <item
+            android:id="@+id/languageSelect"
+            android:title="Change Language"
+            app:showAsAction="never"/>
+        <item
             android:id="@+id/settings"
             android:title="@string/action_settings"
             app:showAsAction="never"/>

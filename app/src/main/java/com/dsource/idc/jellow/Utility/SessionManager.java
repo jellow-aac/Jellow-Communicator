@@ -10,8 +10,37 @@ import android.content.SharedPreferences.Editor;
 
 import com.dsource.idc.jellow.R;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SessionManager {
-    private final int LANG_ENG = 0;
+
+    public final static String ENG_US = "en-rUS";
+    public final static String ENG_UK = "en-rGB";
+    public final static String ENG_IN = "en-rIN";
+    public final static String HI_IN = "hi-rIN";
+
+    public final static HashMap<String,String> LangMap = new HashMap<String,String>(){
+        {
+            put("English (IN)", ENG_IN);
+            put("English (US)", ENG_US);
+            put("English (UK)", ENG_UK);
+            put("Hindi (IN)", HI_IN);
+        }
+    };
+
+    public final static HashMap<String,String> LangValueMap = new HashMap<String,String>(){
+        {
+            put(ENG_IN,"English (IN)");
+            put(ENG_US,"English (US)");
+            put(ENG_UK,"English (UK)");
+            put(HI_IN,"Hindi (IN)");
+        }
+    };
+
+
+
+
     private SharedPreferences mPreferences;
     private Editor mEditor;
     private Context mContext;
@@ -33,6 +62,7 @@ public class SessionManager {
     private final String PictureViewMode = "PictureViewMode";
     private final String GridSize = "GridSize";
 
+
     public SessionManager(Context context) {
         this.mContext = context;
         mPreferences = mContext.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
@@ -51,8 +81,23 @@ public class SessionManager {
         storePreferenceKeyWithValue(Integer.class.toString(), Blood, bloodGroup);
     }
 
+
     public int getBlood(){
         return (Integer) retrievePreferenceKeyWithValue(Integer.class.toString(), Blood);
+    }
+
+    public void setDownloaded(String lang) {
+        storePreferenceKeyWithValue(Boolean.class.toString(), lang, true);
+    }
+
+    public void setRemoved(String lang) {
+        storePreferenceKeyWithValue(Boolean.class.toString(), lang, false);
+    }
+
+
+
+    public Boolean isDownloaded(String lang){
+        return (Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(), lang);
     }
 
     public void setName(String name) {
@@ -95,12 +140,12 @@ public class SessionManager {
         return (String) retrievePreferenceKeyWithValue(String.class.toString(), Address);
     }
 
-    public void setLanguage(int lang){
-        storePreferenceKeyWithValue(Integer.class.toString(), Language, lang);
+    public void setLanguage(String lang){
+        storePreferenceKeyWithValue(String.class.toString(), Language, lang);
     }
 
-    public int getLanguage(){
-        return (Integer) retrievePreferenceKeyWithValue(Integer.class.toString(), Language);
+    public String getLanguage(){
+        return (String) retrievePreferenceKeyWithValue(String.class.toString(), Language);
     }
 
     public void setPictureViewMode(int pictureViewMode){
@@ -169,14 +214,14 @@ public class SessionManager {
     }
 
     public void setPeoplePreferences(String peoplePreferences) {
-        if(getLanguage() == LANG_ENG)
+        if(getLanguage().contains("en"))
             storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_eng), peoplePreferences);
         else
             storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_hindi), peoplePreferences);
     }
 
     public String getPeoplePreferences() {
-        if(getLanguage() == LANG_ENG)
+        if(getLanguage().contains("en"))
             return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_eng));
         else
             return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_hindi));

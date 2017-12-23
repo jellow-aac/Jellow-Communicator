@@ -145,6 +145,8 @@ public class DownloadManager {
     private void extractZip() {
         File en_dir = context.getDir(localeCode, Context.MODE_PRIVATE);
         ZipArchive.unzip(en_dir.getPath()+"/"+localeCode+".zip",en_dir.getPath(),"");
+        File zip = new File(en_dir.getPath(),localeCode+".zip");
+        if(zip.exists()) zip.delete();
 
 
     }

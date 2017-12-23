@@ -90,6 +90,18 @@
                 android:inputType="textEmailAddress"
                 android:imeOptions="actionDone"/>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select a Language"
+                android:textColor="#000000"
+                android:textSize="20dp"/>
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/langSelectSpinner"/>
+
             <Button
                 android:id="@+id/bRegister"
                 android:text="REGISTER"

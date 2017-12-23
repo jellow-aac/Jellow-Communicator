@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F7F3C6"
-    tools:context="com.dsource.idc.jellow.TemporaryActivity">
+    android:background="@drawable/dbg"
+    tools:context="com.dsource.idc.jellow.LanguageDownloadActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+        android:id="@+id/pg"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_margin="30dp"
+        android:layout_alignParentBottom="true"
+        app:rcBackgroundColor="@android:color/black"
+        app:rcBackgroundPadding="2dp"
+        app:rcProgressColor="@color/colorPrimary"
+        app:rcRadius="10dp"
+        app:rcReverse="false"
+        app:rcSecondaryProgressColor="@color/colorAccent" />
+
+
+</RelativeLayout>

@@ -455,6 +455,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.languageSelect: startActivity(new Intent(this, LanguageSelectActivity.class)); break;
             case R.id.profile: startActivity(new Intent(this, ProfileFormActivity.class)); break;
             case R.id.info: startActivity(new Intent(this, AboutJellowActivity.class)); break;
             case R.id.usage: startActivity(new Intent(this, TutorialActivity.class)); break;

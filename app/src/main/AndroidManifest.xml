@@ -113,8 +113,12 @@
 
         <service android:name=".Utility.JellowTTSService" />
 
-        <activity android:name=".TemporaryActivity"
-            android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".LanguageDownloadActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+
+        <activity android:name=".LanguageSelectActivity"></activity>
     </application>
 
 </manifest>

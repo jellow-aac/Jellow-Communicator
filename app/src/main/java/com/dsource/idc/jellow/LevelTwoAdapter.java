@@ -12,7 +12,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dsource.idc.jellow.Utility.SessionManager;
+
+import java.io.File;
 
 /**
  * Created by Sumeet on 19-04-2016.
@@ -20,13 +23,16 @@ import com.dsource.idc.jellow.Utility.SessionManager;
 class LevelTwoAdapter extends android.support.v7.widget.RecyclerView.Adapter<LevelTwoAdapter.MyViewHolder> {
     private Context mContext;
     private SessionManager mSession;
-    private TypedArray mThumbIds;
-    private String[] belowText = new String[100];
+    private String[] mThumbIds;
+    private String[] belowText;
+    private String path;
 
     LevelTwoAdapter(Context context, int levelTwoItemPos){
         mContext = context;
         mSession = new SessionManager(mContext);
         loadArraysFromResources(levelTwoItemPos);
+        File en_dir = mContext.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
+        path = en_dir.getAbsolutePath()+"/"+mSession.getLanguage()+"/drawables";
     }
 
     @Override
@@ -46,7 +52,13 @@ class LevelTwoAdapter extends android.support.v7.widget.RecyclerView.Adapter<Lev
         if (mSession.getPictureViewMode() == MODE_PICTURE_ONLY)
             holder.menuItemBelowText.setVisibility(View.INVISIBLE);
         holder.menuItemBelowText.setText(belowText[position]);
-        holder.menuItemImage.setImageDrawable(mThumbIds.getDrawable(position));
+        //holder.menuItemImage.setImageDrawable(mThumbIds.getDrawable(position));
+        GlideApp.with(mContext)
+                .load(path+"/"+mThumbIds[position]+".png")
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(false)
+                .dontAnimate()
+                .into(holder.menuItemImage);
         holder.menuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 ((LevelTwoActivity)mContext).tappedGridItemEvent(holder.menuItemLinearLayout, v, position);
@@ -56,30 +68,30 @@ class LevelTwoAdapter extends android.support.v7.widget.RecyclerView.Adapter<Lev
 
     @Override
     public int getItemCount() {
-        return mThumbIds.length();
+        return mThumbIds.length;
     }
 
     private void loadArraysFromResources(int levelTwoItemPos) {
         if (levelTwoItemPos == 0){
-            mThumbIds = mContext.getResources().obtainTypedArray(R.array.arrLevelTwoGreetFeelIconAdapter);
+            mThumbIds = mContext.getResources().getStringArray(R.array.arrLevelTwoGreetFeelIconAdapter);
             belowText = mContext.getResources().getStringArray(R.array.arrLevelTwoGreetFeelAdapterText);
         } else if (levelTwoItemPos == 1){
-            mThumbIds = mContext.getResources().obtainTypedArray(R.array.arrLevelTwoDailyActIconAdapter);
+            mThumbIds = mContext.getResources().getStringArray(R.array.arrLevelTwoDailyActIconAdapter);
             belowText = mContext.getResources().getStringArray(R.array.arrLevelTwoDailyActAdapterText);
         } else if (levelTwoItemPos == 2){
-            mThumbIds = mContext.getResources().obtainTypedArray(R.array.arrLevelTwoEatingIconAdapter);
+            mThumbIds = mContext.getResources().getStringArray(R.array.arrLevelTwoEatingIconAdapter);
             belowText = mContext.getResources().getStringArray(R.array.arrLevelTwoEatAdapterText);
         } else if (levelTwoItemPos == 3){
-            mThumbIds = mContext.getResources().obtainTypedArray(R.array.arrLevelTwoFunIconAdapter);
+            mThumbIds = mContext.getResources().getStringArray(R.array.arrLevelTwoFunIconAdapter);
             belowText = mContext.getResources().getStringArray(R.array.arrLevelTwoFunAdapterText);
         } else if (levelTwoItemPos == 4) {
-            mThumbIds = mContext.getResources().obtainTypedArray(R.array.arrLevelTwoLearningIconAdapter);
+            mThumbIds = mContext.getResources().getStringArray(R.array.arrLevelTwoLearningIconAdapter);
             belowText = mContext.getResources().getStringArray(R.array.arrLevelTwoLearningAdapterText);
         } else if (levelTwoItemPos == 7) {
-            mThumbIds = mContext.getResources().obtainTypedArray(R.array.arrLevelTwoTimeIconAdapter);
+            mThumbIds = mContext.getResources().getStringArray(R.array.arrLevelTwoTimeIconAdapter);
             belowText = mContext.getResources().getStringArray(R.array.arrLevelTwoTimeWeatherAdapterText);
         } else if (levelTwoItemPos == 8) {
-            mThumbIds = mContext.getResources().obtainTypedArray(R.array.arrLevelTwoHelpIconAdapter);
+            mThumbIds = mContext.getResources().getStringArray(R.array.arrLevelTwoHelpIconAdapter);
             belowText = mContext.getResources().getStringArray(R.array.arrLevelTwoHelpAdapterText);
         }
 

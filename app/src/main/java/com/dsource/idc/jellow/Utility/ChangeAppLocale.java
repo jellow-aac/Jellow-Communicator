@@ -12,7 +12,7 @@ import java.util.Locale;
  * Created by ekalpa on 11/27/2017.
  */
 public class ChangeAppLocale {
-    private final int LANG_ENG = 0, LANG_HINDI = 1;
+    //private final int LANG_ENG = 0, LANG_HINDI = 1;
     private Context mContext;
 
     public ChangeAppLocale(Context context){
@@ -23,13 +23,21 @@ public class ChangeAppLocale {
         Locale locale;
         SessionManager session= new SessionManager(mContext);
         switch (session.getLanguage()){
-            case LANG_ENG:  locale = Locale.US;
+            case SessionManager.ENG_IN:
+                locale = new Locale("en","IN");
                 break;
-            case LANG_HINDI:
+            case SessionManager.ENG_UK:
+                locale = new Locale("en","GB");
+                break;
+            case SessionManager.ENG_US:
+                locale = new Locale("en","US");
+                break;
+            case SessionManager.HI_IN:
                 locale = new Locale(mContext.getString(R.string.locale_lang_hi),
                                     mContext.getString(R.string.locale_reg_IN));
                 break;
-            default:    LANG_ENG: locale = Locale.US;
+            default:
+                locale = Locale.US;
                 break;
         }
 

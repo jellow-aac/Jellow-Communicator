@@ -53,7 +53,7 @@ public class SettingActivity extends AppCompatActivity {
         mTxtViewSpeechSpeed = (TextView)findViewById(R.id.speechspeed);
         mTxtViewVoicePitch = (TextView)findViewById(R.id.voicepitch);
 
-        mSpinnerLanguage.setSelection(mSession.getLanguage());
+        mSpinnerLanguage.setSelection(1);//mSession.getLanguage());
         mSliderSpeed.setValue(mSession.getSpeed(),true);
         mSliderPitch.setValue(mSession.getPitch(),true);
         mSpinnerViewMode.setSelection(mSession.getPictureViewMode());
@@ -109,16 +109,16 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 /*Identify if language is changed, to app needs to restart from splash*/
-                if(mSession.getLanguage() != mSpinnerLanguage.getSelectedItemPosition() ||
+                if(/*mSession.getLanguage()*/ 1 != mSpinnerLanguage.getSelectedItemPosition() ||
                         mSession.getPictureViewMode() != mSpinnerViewMode.getSelectedItemPosition() ||
                             mSession.getGridSize() != mSpinnerGridSize.getSelectedItemPosition()) {
-                    switch(mSession.getLanguage()) {
+                    switch(/*mSession.getLanguage()*/ 1) {
                         case 0: mChangeAppLocale.setLocale(); break;
                         case 1: mChangeAppLocale.setLocale(); break;
                     }
-                    if(mSession.getLanguage() != mSpinnerLanguage.getSelectedItemPosition()) {
+                    if(/*mSession.getLanguage()*/ 1 != mSpinnerLanguage.getSelectedItemPosition()) {
                         mUserDataMeasure.setProperty("Language", mSpinnerLanguage.getSelectedItemPosition() == 0 ? "En" : "Hi");
-                        mSession.setLanguage(mSpinnerLanguage.getSelectedItemPosition());
+                        mSession.setLanguage(""/*mSpinnerLanguage.getSelectedItemPosition()*/);
                     }
                     if(mSession.getPictureViewMode() != mSpinnerViewMode.getSelectedItemPosition()) {
                         mUserDataMeasure.setProperty("PictureViewMode", mSpinnerViewMode.getSelectedItemPosition() == 0 ? "PT" : "PO");
@@ -167,6 +167,7 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
+            case R.id.languageSelect: startActivity(new Intent(this, LanguageSelectActivity.class)); break;
             case R.id.profile: startActivity(new Intent(this, ProfileFormActivity.class)); finish(); break;
             case R.id.info: startActivity(new Intent(this, AboutJellowActivity.class)); finish(); break;
             case R.id.usage: startActivity(new Intent(this, TutorialActivity.class)); finish(); break;
@@ -204,4 +205,7 @@ public class SettingActivity extends AppCompatActivity {
         intent.putExtra("speechPitch", speechPitch);
         sendBroadcast(intent);
     }
+
+
+
 }

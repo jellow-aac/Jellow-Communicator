@@ -55,19 +55,19 @@ public class LevelTwoActivity extends AppCompatActivity {
     private ArrayList<ArrayList<ArrayList<String>>> mLayerTwoSpeech;
     private String[] myMusic, actionBarText;
     private String[] temp = new String[100];
-    private Integer[] image_temp = new Integer[100];
+    private String[] image_temp = new String[100];
 
     private String[] new_people_adapter = new String[100];
-    private Integer[] people = new Integer[100];
+    private String[] people = new String[100];
     private Integer[] count_people = new Integer[100];
-    private Integer[] new_people = new Integer[100];
+    private String[] new_people = new String[100];
     private Integer[] new_people_count = new Integer[100];
     private Integer[] sort = new Integer[100];
 
-    private Integer[] places = new Integer[100];
+    private String[] places = new String[100];
     private String[] new_places_adapter = new String[100];
     private Integer[] count_places = new Integer[15];
-    private Integer[] new_places = new Integer[100];
+    private String[] new_places = new String[100];
     private Integer[] new_places_count = new Integer[15];
     private Integer[] sort_places = new Integer[15];
     private String mBloodGroup, end, actionBarTitleTxt;
@@ -162,10 +162,10 @@ public class LevelTwoActivity extends AppCompatActivity {
 
         end = getString(R.string.endString);
         if (mLevelOneItemPos == MENU_ITEM_PEOPLE) {
-            people = loadAdapterMenuIconsWithoutSort(getResources().obtainTypedArray(R.array.arrLevelTwoPeopleIcon));
+            people = getResources().getStringArray(R.array.arrLevelTwoPeopleIcon);
             count_people = new Integer[people.length];
             new_people_count = new Integer[people.length];
-            new_people = new Integer[people.length];
+            new_people = new String[people.length];
             sort = new Integer[people.length];
             for (int j = 0; j < people.length; j++) {
                 count_people[j] = 0;
@@ -175,7 +175,7 @@ public class LevelTwoActivity extends AppCompatActivity {
             String savedString = "";
             {
                 final int LANG_ENG = 0;
-                if (mSession.getLanguage() == LANG_ENG)
+                if (mSession.getLanguage().contains("en"))
                     savedString = mSession.getPeoplePreferences();
                 else savedString = mSession.getPeoplePreferences();
             }
@@ -206,7 +206,7 @@ public class LevelTwoActivity extends AppCompatActivity {
             myMusic = new String[temp.length];
             myMusic = sortTtsSpeechArray(mLevelTwoSpeechText, MENU_ITEM_PEOPLE);
         }else if (mLevelOneItemPos == MENU_ITEM_PLACES) {
-            places = loadAdapterMenuIconsWithoutSort(getResources().obtainTypedArray(R.array.arrLevelTwoPlacesIcon));
+            places = getResources().getStringArray(R.array.arrLevelTwoPlacesIcon);
             for (int j = 0; j < count_places.length; j++) {
                 count_places[j] = 0;
                 sort_places[j] = j;
@@ -688,6 +688,7 @@ public class LevelTwoActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
+            case R.id.languageSelect: startActivity(new Intent(this, LanguageSelectActivity.class)); break;
             case R.id.profile: startActivity(new Intent(this, ProfileFormActivity.class)); break;
             case R.id.info: startActivity(new Intent(this, AboutJellowActivity.class)); break;
             case R.id.usage: startActivity(new Intent(this, TutorialActivity.class)); break;
@@ -854,14 +855,6 @@ public class LevelTwoActivity extends AppCompatActivity {
         }
     }
 
-    private Integer[] loadAdapterMenuIconsWithoutSort(TypedArray typeIconArray) {
-        Integer[] tempIconArr = new Integer[typeIconArray.length()];
-
-        for (int j = 0; j < typeIconArray.length(); j++) {
-            tempIconArr[j] = typeIconArray.getResourceId(j, -1);
-        }
-        return tempIconArr;
-    }
 
     private void setBloodGroup() {
         switch(mSession.getBlood()){

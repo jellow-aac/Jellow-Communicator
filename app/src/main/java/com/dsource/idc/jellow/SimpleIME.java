@@ -43,7 +43,7 @@ public class SimpleIME extends InputMethodService
         ekeyboard = new Keyboard(this, R.xml.eqwerty);
         e1keyboard = new Keyboard(this, R.xml.eqwerty1);
         mSession = new SessionManager(this);
-        if(mSession.getLanguage() == LANG_ENG)
+        if(mSession.getLanguage().contains("en"))
             kv.setKeyboard(ekeyboard);
         else
             kv.setKeyboard(keyboard);

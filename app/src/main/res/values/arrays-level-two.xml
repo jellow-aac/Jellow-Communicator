@@ -1,118 +1,118 @@
 <resources>
 <!--LEVEL TWO ARRAYS ARE HERE-->
     <!--LEVEL TWO ADAPTER DRAWABLE ARE HERE-->
-    <array name="arrLevelTwoGreetFeelIconAdapter">
-        <item>@drawable/level2_time_greetings</item>
-        <item>@drawable/level2_time_feelings</item>
-        <item>@drawable/level2_time_request</item>
-        <item>@drawable/level2_time_questions</item>
-    </array>
-    <array name="arrLevelTwoDailyActIconAdapter">
-        <item>@drawable/level2_dailyact_brush</item>
-        <item>@drawable/toilet</item>
-        <item>@drawable/level2_dailyact_bathing</item>
-        <item>@drawable/level2_dailyact_clothing1</item>
-        <item>@drawable/level2_dailyact_getready</item>
-        <item>@drawable/level2_dailyact_sleep</item>
-        <item>@drawable/level2_dailyact_therapy</item>
-        <item>@drawable/level2_dailyact_morning1</item>
-        <item>@drawable/level2_dailyact_evening</item>
-    </array>
-    <array name="arrLevelTwoEatingIconAdapter">
-        <item>@drawable/level2_eat_breakfast</item>
-        <item>@drawable/level2_eat_lunch</item>
-        <item>@drawable/level2_eat_sweets</item>
-        <item>@drawable/level2_eat_snacks</item>
-        <item>@drawable/level2_eat_fruits</item>
-        <item>@drawable/level2_eat_beverages</item>
-        <item>@drawable/level2_eat_cutlery</item>
-        <item>@drawable/level2_eat_addons</item>
-    </array>
-    <array name="arrLevelTwoFunIconAdapter">
-        <item>@drawable/level2_fun_indoor_games1</item>
-        <item>@drawable/level2_fun_outdoor_games</item>
-        <item>@drawable/level2_fun_sports1</item>
-        <item>@drawable/level2_fun_tv</item>
-        <item>@drawable/level2_fun_music</item>
-        <item>@drawable/level2_fun_activities</item>
-    </array>
-    <array name="arrLevelTwoLearningIconAdapter">
-        <item>@drawable/level2_learning_animal</item>
-        <item>@drawable/level2_learn_bodypart</item>
-        <item>@drawable/level2_learn_books</item>
-        <item>@drawable/level2_learn_colors</item>
-        <item>@drawable/level2_learn_shapes</item>
-        <item>@drawable/level2_learn_stationery</item>
-        <item>@drawable/level2_learn_schoolobject2</item>
-        <item>@drawable/level2_learn_homeobjects</item>
-        <item>@drawable/level2_learn_transport</item>
-        <item>@drawable/level2_learn_money</item>
-    </array>
-    <array name="arrLevelTwoTimeIconAdapter">
-        <item>@drawable/level2_time_time</item>
-        <item>@drawable/level2_time_day</item>
-        <item>@drawable/level2_time_month</item>
-        <item>@drawable/level2_time_weather</item>
-        <item>@drawable/level2_time_season</item>
-        <item>@drawable/level2_time_festivals</item>
-        <item>@drawable/level2_time_birthday</item>
-    </array>
+    <string-array name="arrLevelTwoGreetFeelIconAdapter">
+        <item>level2_time_greetings</item>
+        <item>level2_time_feelings</item>
+        <item>level2_time_request</item>
+        <item>level2_time_questions</item>
+    </string-array>
+    <string-array name="arrLevelTwoDailyActIconAdapter">
+        <item>level2_dailyact_brush</item>
+        <item>toilet</item>
+        <item>level2_dailyact_bathing</item>
+        <item>level2_dailyact_clothing1</item>
+        <item>level2_dailyact_getready</item>
+        <item>level2_dailyact_sleep</item>
+        <item>level2_dailyact_therapy</item>
+        <item>level2_dailyact_morning1</item>
+        <item>level2_dailyact_evening</item>
+    </string-array>
+    <string-array name="arrLevelTwoEatingIconAdapter">
+        <item>level2_eat_breakfast</item>
+        <item>level2_eat_lunch</item>
+        <item>level2_eat_sweets</item>
+        <item>level2_eat_snacks</item>
+        <item>level2_eat_fruits</item>
+        <item>level2_eat_beverages</item>
+        <item>level2_eat_cutlery</item>
+        <item>level2_eat_addons</item>
+    </string-array>
+    <string-array name="arrLevelTwoFunIconAdapter">
+        <item>level2_fun_indoor_games1</item>
+        <item>level2_fun_outdoor_games</item>
+        <item>level2_fun_sports1</item>
+        <item>level2_fun_tv</item>
+        <item>level2_fun_music</item>
+        <item>level2_fun_activities</item>
+    </string-array>
+    <string-array name="arrLevelTwoLearningIconAdapter">
+        <item>level2_learning_animal</item>
+        <item>level2_learn_bodypart</item>
+        <item>level2_learn_books</item>
+        <item>level2_learn_colors</item>
+        <item>level2_learn_shapes</item>
+        <item>level2_learn_stationery</item>
+        <item>level2_learn_schoolobject2</item>
+        <item>level2_learn_homeobjects</item>
+        <item>level2_learn_transport</item>
+        <item>level2_learn_money</item>
+    </string-array>
+    <string-array name="arrLevelTwoTimeIconAdapter">
+        <item>level2_time_time</item>
+        <item>level2_time_day</item>
+        <item>level2_time_month</item>
+        <item>level2_time_weather</item>
+        <item>level2_time_season</item>
+        <item>level2_time_festivals</item>
+        <item>level2_time_birthday</item>
+    </string-array>
 
-    <array name="arrLevelTwoHelpIconAdapter">
-        <item>@drawable/emergency</item>
-        <item>@drawable/level2_people_aboutme</item>
-        <item>@drawable/level2_help_feelhurt</item>
-        <item>@drawable/level2_help_feelsick</item>
-        <item>@drawable/level2_help_feeltired</item>
-        <item>@drawable/level2_help_helpmedo1</item>
-        <item>@drawable/level2_help_medicine</item>
-        <item>@drawable/level2_help_bandaid</item>
-        <item>@drawable/water</item>
-        <item>@drawable/toilet</item>
-        <item>@drawable/badtouch</item>
-        <item>@drawable/sanitarynapkin</item>
-        <item>@drawable/allergies</item>
-        <item>@drawable/danger</item>
-        <item>@drawable/hazards</item>
-        <item>@drawable/safety</item>
-    </array>
+    <string-array name="arrLevelTwoHelpIconAdapter">
+        <item>emergency</item>
+        <item>level2_people_aboutme</item>
+        <item>level2_help_feelhurt</item>
+        <item>level2_help_feelsick</item>
+        <item>level2_help_feeltired</item>
+        <item>level2_help_helpmedo1</item>
+        <item>level2_help_medicine</item>
+        <item>level2_help_bandaid</item>
+        <item>water</item>
+        <item>toilet</item>
+        <item>badtouch</item>
+        <item>sanitarynapkin</item>
+        <item>allergies</item>
+        <item>danger</item>
+        <item>hazards</item>
+        <item>safety</item>
+    </string-array>
 
-    <array name="arrLevelTwoPeopleIcon">
-        <item>@drawable/level2_people_mom</item>
-        <item>@drawable/level2_people_dad</item>
-        <item>@drawable/level2_people_brother</item>
-        <item>@drawable/level2_people_sister</item>
-        <item>@drawable/level2_people_grandfather</item>
-        <item>@drawable/level2_people_grandmother</item>
-        <item>@drawable/level2_people_uncle</item>
-        <item>@drawable/level2_people_aunt</item>
-        <item>@drawable/level2_people_cousin</item>
-        <item>@drawable/level2_people_baby</item>
-        <item>@drawable/level2_people_friend</item>
-        <item>@drawable/level2_people_teacher</item>
-        <item>@drawable/level2_people_doctor</item>
-        <item>@drawable/level2_people_nurse</item>
-        <item>@drawable/level2_people_caregiver1</item>
-        <item>@drawable/level2_people_stranger</item>
-        <item>@drawable/level2_people_aboutme</item>
-    </array>
-    <array name="arrLevelTwoPlacesIcon">
-        <item>@drawable/level2_places_home</item>
-        <item>@drawable/level2_places_school1</item>
-        <item>@drawable/level2_places_mall</item>
-        <item>@drawable/level2_places_museum1</item>
-        <item>@drawable/level2_places_restraunt</item>
-        <item>@drawable/level2_places_theatre</item>
-        <item>@drawable/level2_places_playground</item>
-        <item>@drawable/level2_places_park</item>
-        <item>@drawable/level2_places_store</item>
-        <item>@drawable/level2_places_friend_house</item>
-        <item>@drawable/level2_places_relative_house</item>
-        <item>@drawable/level2_places_hospital</item>
-        <item>@drawable/level2_places_clinic</item>
-        <item>@drawable/level2_places_library</item>
-        <item>@drawable/level2_places_terr</item>
-    </array>
+    <string-array name="arrLevelTwoPeopleIcon">
+        <item>level2_people_mom</item>
+        <item>level2_people_dad</item>
+        <item>level2_people_brother</item>
+        <item>level2_people_sister</item>
+        <item>level2_people_grandfather</item>
+        <item>level2_people_grandmother</item>
+        <item>level2_people_uncle</item>
+        <item>level2_people_aunt</item>
+        <item>level2_people_cousin</item>
+        <item>level2_people_baby</item>
+        <item>level2_people_friend</item>
+        <item>level2_people_teacher</item>
+        <item>level2_people_doctor</item>
+        <item>level2_people_nurse</item>
+        <item>level2_people_caregiver1</item>
+        <item>level2_people_stranger</item>
+        <item>level2_people_aboutme</item>
+    </string-array>
+    <string-array name="arrLevelTwoPlacesIcon">
+        <item>level2_places_home</item>
+        <item>level2_places_school1</item>
+        <item>level2_places_mall</item>
+        <item>level2_places_museum1</item>
+        <item>level2_places_restraunt</item>
+        <item>level2_places_theatre</item>
+        <item>level2_places_playground</item>
+        <item>level2_places_park</item>
+        <item>level2_places_store</item>
+        <item>level2_places_friend_house</item>
+        <item>level2_places_relative_house</item>
+        <item>level2_places_hospital</item>
+        <item>level2_places_clinic</item>
+        <item>level2_places_library</item>
+        <item>level2_places_terr</item>
+    </string-array>
 
     <!--LEVEL TWO SPEECH TEXT ARE HERE-->
     <!--LEVEL THREE "GREETING" SPEECH TEXT ARE HERE-->
