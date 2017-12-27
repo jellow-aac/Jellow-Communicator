@@ -46,10 +46,12 @@ public class LanguageSelectActivity extends AppCompatActivity {
         setContentView(R.layout.activity_language_select);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+"Language"+"</font>"));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.Language)+"</font>"));
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
 
         mSession = new SessionManager(this);
+
+
 
 
         offlineLanguages = getOfflineLanguages();
@@ -246,6 +248,7 @@ public class LanguageSelectActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        new ChangeAppLocale(this).setLocale();
         onlineLanguages = getOnlineLanguages();
         offlineLanguages = getOfflineLanguages();
         adapter_lan = new ArrayAdapter<String>(this,

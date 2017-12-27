@@ -118,7 +118,9 @@
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
 
-        <activity android:name=".LanguageSelectActivity"></activity>
+        <activity android:name=".LanguageSelectActivity"
+            android:screenOrientation="landscape">
+        </activity>
     </application>
 
 </manifest>

@@ -22,7 +22,7 @@
     <group android:id="@+id/menuGroupSettings">
         <item
             android:id="@+id/languageSelect"
-            android:title="Change Language"
+            android:title="@string/ChangeLanguage"
             app:showAsAction="never"/>
         <item
             android:id="@+id/settings"

@@ -25,7 +25,7 @@ public class SessionManager {
             put("English (IN)", ENG_IN);
             put("English (US)", ENG_US);
             put("English (UK)", ENG_UK);
-            put("Hindi (IN)", HI_IN);
+            put("हिंदी", HI_IN);
         }
     };
 
@@ -34,7 +34,7 @@ public class SessionManager {
             put(ENG_IN,"English (IN)");
             put(ENG_US,"English (US)");
             put(ENG_UK,"English (UK)");
-            put(HI_IN,"Hindi (IN)");
+            put(HI_IN,"हिंदी");
         }
     };
 

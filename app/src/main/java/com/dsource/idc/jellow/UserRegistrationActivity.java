@@ -20,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.dsource.idc.jellow.Utility.SessionManager;
+import com.dsource.idc.jellow.Utility.UserDataMeasure;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
@@ -39,6 +40,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
     private SessionManager mSession;
     private FirebaseDatabase mDB;
     private DatabaseReference mRef;
+    UserDataMeasure analytics;
     Spinner languageSelect;
     String[] languages = new String[4];
     String selectedLanguage;
@@ -51,6 +53,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
         mSession = new SessionManager(this);
 
         getAnalytics(this,mSession.getFather_no());
+
+        analytics = new UserDataMeasure(this);
 
         if (mSession.isUserLoggedIn())
         {
@@ -222,7 +226,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
     }
     */
 
-    private void createUser(String name,String emergencyContact,String eMailId,String formattedDate)
+    private void createUser(final String name, String emergencyContact, String eMailId, String formattedDate)
     {
         try {
             mRef.child(emergencyContact).child("email").setValue(eMailId);
@@ -235,6 +239,9 @@ public class UserRegistrationActivity extends AppCompatActivity {
                         mSession.setUserLoggedIn(true);
                         mSession.setLanguage(LangMap.get(selectedLanguage));
                         mSession.setGridSize(GRID_3BY3);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("First Run Selected Language",LangMap.get(selectedLanguage));
+                        analytics.genericEvent("Language",bundle);
                         //startActivity(new Intent(UserRegistrationActivity.this, Intro.class));
                         startActivity(new Intent(UserRegistrationActivity.this,
                                 LanguageDownloadActivity.class).putExtra(LCODE,LangMap.get(selectedLanguage)));

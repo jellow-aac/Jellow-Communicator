@@ -4,6 +4,12 @@
     <string name="action_settings">Settings</string>
     <string name="Profile">Profile</string>
 
+    <string name="Language">Language</string>
+    <string name="ChangeLanguage">Change Language</string>
+    <string name="saveLanguage">Save</string>
+    <string name="addLanguage">Add Language</string>
+    <string name="deleteLanguage">Delete Language</string>
+
 
     <string-array name="bloodgroup">
         <item>A+ve</item>

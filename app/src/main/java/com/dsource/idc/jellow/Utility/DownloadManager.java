@@ -2,6 +2,7 @@ package com.dsource.idc.jellow.Utility;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
@@ -155,7 +156,16 @@ public class DownloadManager {
         File zip = new File(en_dir.getPath(),localeCode+".zip");
         if(zip.exists()) zip.delete();
 
+        registerEvent();
 
+
+    }
+
+    private void registerEvent() {
+        UserDataMeasure analytics = new UserDataMeasure(context);
+        Bundle bundle = new Bundle();
+        bundle.putString("Downloaded Language",localeCode);
+        analytics.genericEvent("Language",bundle);
     }
 
 

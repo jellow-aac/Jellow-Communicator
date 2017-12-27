@@ -87,6 +87,12 @@ public class UserDataMeasure {
         mFirebaseAnalytics.logEvent("Keyboard", bundle);
     }
 
+    public void genericEvent(String itemName,Bundle bundle)
+    {
+        mFirebaseAnalytics.logEvent(itemName, bundle);
+    }
+
+
     public void recordScreen(String screenName){
         mFirebaseAnalytics.setCurrentScreen((Activity) mContext, screenName, null);
     }

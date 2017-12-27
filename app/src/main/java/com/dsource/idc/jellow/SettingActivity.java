@@ -112,7 +112,7 @@ public class SettingActivity extends AppCompatActivity {
 
 
                     if(mSession.getPictureViewMode() != mSpinnerViewMode.getSelectedItemPosition()) {
-                        mUserDataMeasure.setProperty("PictureViewMode", mSpinnerViewMode.getSelectedItemPosition() == 0 ? "PT" : "PO");
+                        mUserDataMeasure.setProperty("PictureViewMode", mSpinnerViewMode.getSelectedItemPosition() == 0 ? "PictureText": "PictureOnly");
                         mSession.setPictureViewMode(mSpinnerViewMode.getSelectedItemPosition());
                     }
                     if(mSession.getGridSize() != mSpinnerGridSize.getSelectedItemPosition()) {

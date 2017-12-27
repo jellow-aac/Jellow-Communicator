@@ -5,6 +5,13 @@
     <string name="Profile">प्रोफाइल</string>
 
 
+    <string name="Language">भाषा</string>
+    <string name="ChangeLanguage">भाषा बदलो</string>
+    <string name="saveLanguage">रक्षित करें</string>
+    <string name="addLanguage">भाषा जोड़ें</string>
+    <string name="deleteLanguage">भाषा डिलीट करें</string>
+
+
     <string-array name="bloodgroup">
         <item>अ +</item>
         <item>अ -</item>
@@ -26,6 +33,10 @@
         <item>९</item>
     </string-array>
 
+    <string name="change_language_line1">आप अॅप्लिकेशन में अधिकतम ३ भाषाएँ डाउनलोड कर सकते हैं</string>
+    <string name="change_language_line2">डाउनलोड की गई भाषाओं मे से एक चुने:</string>
+    <string name="change_language_line3">जेलो अॅप्लिकेशन में अधिक भाषाएँ डाउनलोड करने के लिये “भाषा जोड़ें” बटन पर क्लिक करें।
+अॅप्लिकेशन में पहले से ही डाउनलोड की गई भाषाओं को हटाने के लिये “भाषा डिलीट करें” बटन पर क्लिक करें।</string>
     <string name="simple_ime">जेलो कीबोर्ड</string>
     <string name="subtype_en_US">सिरियल अबक</string>
     <string name="screen_width">com.dsource.idc.jellow.screen_width</string>
