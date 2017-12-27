@@ -32,7 +32,7 @@ class PeoplePlacesAdapter extends android.support.v7.widget.RecyclerView.Adapter
         mThumbIds = image_temp;
         belowText = temp;
         File en_dir = mContext.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
-        path = en_dir.getAbsolutePath()+"/"+mSession.getLanguage()+"/drawables";
+        path = en_dir.getAbsolutePath()+"/drawables";
     }
 
     @Override

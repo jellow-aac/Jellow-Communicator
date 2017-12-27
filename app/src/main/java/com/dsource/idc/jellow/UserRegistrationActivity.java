@@ -29,6 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import static com.dsource.idc.jellow.Utility.SessionManager.LangMap;
+import static com.dsource.idc.jellow.Utility.UserDataMeasure.getAnalytics;
 
 public class UserRegistrationActivity extends AppCompatActivity {
     public static final String LCODE = "lcode";
@@ -48,6 +49,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_registration);
 
         mSession = new SessionManager(this);
+
+        getAnalytics(this,mSession.getFather_no());
 
         if (mSession.isUserLoggedIn())
         {

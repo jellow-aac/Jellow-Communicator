@@ -19,7 +19,7 @@ public class LanguageDownloadActivity extends AppCompatActivity {
     RoundCornerProgressBar progressBar;
     private SessionManager mSession;
     String langCode;
-    Boolean finish;
+    Boolean finish = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +29,7 @@ public class LanguageDownloadActivity extends AppCompatActivity {
             getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.colorPrimary));
 
         try {
+
            langCode =  getIntent().getExtras().getString(LCODE);
            finish = getIntent().getBooleanExtra(FINISH,true);
         }catch (Exception e)
@@ -62,8 +63,14 @@ public class LanguageDownloadActivity extends AppCompatActivity {
         Toast.makeText(LanguageDownloadActivity.this,"Downloading Language Pack",Toast.LENGTH_SHORT).show();
 
         if(langCode != null) {
-            manager = new DownloadManager(langCode, this, progressReciever);
-            manager.start();
+            try {
+                manager = new DownloadManager(langCode, this, progressReciever);
+                manager.start();
+            }catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+
         }
 
 

@@ -2,6 +2,8 @@ package com.dsource.idc.jellow;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
@@ -22,8 +24,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.dsource.idc.jellow.UserRegistrationActivity.LCODE;
 import static com.dsource.idc.jellow.Utility.SessionManager.LangMap;
 import static com.dsource.idc.jellow.Utility.SessionManager.LangValueMap;
+import static com.dsource.idc.jellow.Utility.UserDataMeasure.startMeasuring;
+import static com.dsource.idc.jellow.Utility.UserDataMeasure.stopMeasuring;
 
 public class LanguageSelectActivity extends AppCompatActivity {
 
@@ -41,7 +46,7 @@ public class LanguageSelectActivity extends AppCompatActivity {
         setContentView(R.layout.activity_language_select);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+"Manage Language Packs"+"</font>"));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+"Language"+"</font>"));
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
 
         mSession = new SessionManager(this);
@@ -49,6 +54,8 @@ public class LanguageSelectActivity extends AppCompatActivity {
 
         offlineLanguages = getOfflineLanguages();
         onlineLanguages = getOnlineLanguages();
+
+        startMeasuring();
 
 
         languageSelect = (Spinner) findViewById(R.id.selectDownloadedLanguageSpinner);
@@ -79,6 +86,7 @@ public class LanguageSelectActivity extends AppCompatActivity {
                 if(selectedLanguage != null)
                 {
                     if(mSession.getLanguage().equals(LangMap.get(selectedLanguage))) return;
+                    mSession.setLanguage(LangMap.get(selectedLanguage));
                     ChangeAppLocale changeAppLocale = new ChangeAppLocale(getBaseContext());
                     changeAppLocale.setLocale();
                     startActivity(new Intent(getApplicationContext(), SplashActivity.class));
@@ -101,8 +109,25 @@ public class LanguageSelectActivity extends AppCompatActivity {
                                     0, new MaterialDialog.ListCallbackSingleChoice() {
                                         @Override
                                         public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
-                                            startActivity(new Intent(getBaseContext(),LanguageDownloadActivity.class).putExtra(FINISH,false));
-                                            dialog.dismiss();
+                                            ConnectivityManager cm =
+                                                    (ConnectivityManager)LanguageSelectActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+                                            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+                                            boolean isConnected = activeNetwork != null &&
+                                                    activeNetwork.isConnectedOrConnecting();
+
+                                            if(isConnected)
+                                            {
+                                                Bundle bundle = new Bundle();
+                                                bundle.putString(LCODE,LangMap.get(onlineLanguages[which]));
+                                                bundle.putBoolean(FINISH,false);
+                                                startActivity(new Intent(getBaseContext(),LanguageDownloadActivity.class).putExtras(bundle));
+                                                dialog.dismiss();
+                                            }else {
+
+                                                Toast.makeText(LanguageSelectActivity.this,"Please check your Internet Connectivity",Toast.LENGTH_SHORT).show();
+                                            }
+
                                             return true;
                                         }
                                     })
@@ -138,6 +163,9 @@ public class LanguageSelectActivity extends AppCompatActivity {
                                             }
                                             File file = getBaseContext().getDir(locale, Context.MODE_PRIVATE);
                                             if(file.exists())
+                                            {
+                                                deleteRecursive(file);
+                                            }
                                                 file.delete();
                                             mSession.setRemoved(locale);
                                             onlineLanguages = getOnlineLanguages();
@@ -161,17 +189,36 @@ public class LanguageSelectActivity extends AppCompatActivity {
 
     }
 
+    private void deleteRecursive(File fileObj) {
+        if (fileObj.isDirectory())
+            for (File child : fileObj.listFiles())
+                deleteRecursive(child);
+
+        fileObj.delete();
+    }
+
     private String[] getOfflineLanguages()
     {
         List<String> lang = new ArrayList<>();
 
-        if( mSession.isDownloaded(SessionManager.ENG_IN))
+        String current = mSession.getLanguage();
+
+        lang.add(LangValueMap.get(current));
+
+        if( mSession.isDownloaded(SessionManager.ENG_IN) &&
+                !current.equals(SessionManager.ENG_IN))
             lang.add(LangValueMap.get(SessionManager.ENG_IN));
-        if( mSession.isDownloaded(SessionManager.ENG_US))
+
+        if( mSession.isDownloaded(SessionManager.ENG_US) &&
+                !current.equals(SessionManager.ENG_US))
             lang.add(LangValueMap.get(SessionManager.ENG_US));
-        if( mSession.isDownloaded(SessionManager.ENG_UK))
+
+        if( mSession.isDownloaded(SessionManager.ENG_UK) &&
+                !current.equals(SessionManager.ENG_UK))
             lang.add(LangValueMap.get(SessionManager.ENG_UK));
-        if( mSession.isDownloaded(SessionManager.HI_IN))
+
+        if( mSession.isDownloaded(SessionManager.HI_IN) &&
+                !current.equals(SessionManager.HI_IN))
             lang.add(LangValueMap.get(SessionManager.HI_IN));
 
         return lang.toArray(new String[lang.size()]);
@@ -180,6 +227,7 @@ public class LanguageSelectActivity extends AppCompatActivity {
     private String[] getOnlineLanguages()
     {
         List<String> lang = new ArrayList<>();
+
 
         if( !mSession.isDownloaded(SessionManager.ENG_IN))
             lang.add(LangValueMap.get(SessionManager.ENG_IN));
@@ -192,6 +240,7 @@ public class LanguageSelectActivity extends AppCompatActivity {
 
         return lang.toArray(new String[lang.size()]);
     }
+
 
 
     @Override
@@ -232,5 +281,12 @@ public class LanguageSelectActivity extends AppCompatActivity {
             default: return super.onOptionsItemSelected(item);
         }
         return true;
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        stopMeasuring("ChangeLanguageActivity");
+        super.onDestroy();
     }
 }

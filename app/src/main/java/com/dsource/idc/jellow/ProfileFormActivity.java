@@ -24,6 +24,9 @@ import android.widget.Toast;
 import com.dsource.idc.jellow.Utility.ChangeAppLocale;
 import com.dsource.idc.jellow.Utility.SessionManager;
 
+import static com.dsource.idc.jellow.Utility.UserDataMeasure.startMeasuring;
+import static com.dsource.idc.jellow.Utility.UserDataMeasure.stopMeasuring;
+
 public class ProfileFormActivity extends AppCompatActivity {
     private Button bSave;
     private EditText etName, etFatherContact, etFathername, etAddress, etEmailId;
@@ -51,6 +54,8 @@ public class ProfileFormActivity extends AppCompatActivity {
         bloodgroup.setAdapter(adapter);
         bSave = (Button) findViewById(R.id.bSave);
         mSession = new SessionManager(getApplicationContext());
+
+        startMeasuring();
 
         etName.setText(mSession.getName());
         etFatherContact.setText(mSession.getFather_no());
@@ -148,5 +153,11 @@ public class ProfileFormActivity extends AppCompatActivity {
         } else {
             return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        stopMeasuring("ProfileFormActivity");
+        super.onDestroy();
     }
 }

@@ -7,6 +7,8 @@ import android.text.TextUtils;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * Created by ekalpa on 8/19/2016.
@@ -20,6 +22,13 @@ public class AppController extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        try{
+            FirebaseApp.initializeApp(getApplicationContext());
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
         mContext = getApplicationContext();
         mInstance = this;
     }

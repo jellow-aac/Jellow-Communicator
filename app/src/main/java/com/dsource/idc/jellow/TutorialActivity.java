@@ -11,6 +11,9 @@ import android.widget.TextView;
 import com.dsource.idc.jellow.Utility.ChangeAppLocale;
 import com.dsource.idc.jellow.Utility.SessionManager;
 
+import static com.dsource.idc.jellow.Utility.UserDataMeasure.startMeasuring;
+import static com.dsource.idc.jellow.Utility.UserDataMeasure.stopMeasuring;
+
 /**
  * Created by user on 6/6/2016.
  */
@@ -28,6 +31,8 @@ public class TutorialActivity extends AppCompatActivity {
 
         ((TextView)findViewById(R.id.tv6)).setText(
                 getString(R.string.softwareVersion).concat(" " + String.valueOf(BuildConfig.VERSION_NAME)));
+
+        startMeasuring();
     }
 
     @Override
@@ -40,6 +45,7 @@ public class TutorialActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.languageSelect: startActivity(new Intent(this, LanguageSelectActivity.class)); break;
             case R.id.profile: startActivity(new Intent(this, ProfileFormActivity.class)); finish(); break;
             case R.id.info: startActivity(new Intent(this, AboutJellowActivity.class)); finish(); break;
             case R.id.keyboardinput: startActivity(new Intent(this, KeyboardInputActivity.class)); finish(); break;
@@ -62,5 +68,11 @@ public class TutorialActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        stopMeasuring("TutorialActivity");
+        super.onDestroy();
     }
 }

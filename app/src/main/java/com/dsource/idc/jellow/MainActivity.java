@@ -29,6 +29,9 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
+import static com.dsource.idc.jellow.Utility.UserDataMeasure.startMeasuring;
+import static com.dsource.idc.jellow.Utility.UserDataMeasure.stopMeasuring;
+
 public class MainActivity extends AppCompatActivity {
     private static final int REQ_HOME = 0;
     private final boolean DISABLE_ACTION_BTNS = true;
@@ -93,6 +96,8 @@ public class MainActivity extends AppCompatActivity {
         ttsButton = (ImageView)findViewById(R.id.ttsbutton);
         ttsButton.setContentDescription(getString(R.string.speak_written_text));
         ttsButton.setVisibility(View.INVISIBLE);
+
+        startMeasuring();
 
         originalKeyListener = et.getKeyListener();
         // Set it to null - this will make the field non-editable
@@ -441,8 +446,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
+        stopMeasuring("LevelOneActivity");
         sendBroadcast(new Intent("com.dsource.idc.jellow.STOP_SERVICE"));
+        super.onDestroy();
+
     }
 
     @Override

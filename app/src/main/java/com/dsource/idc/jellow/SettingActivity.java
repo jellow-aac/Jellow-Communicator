@@ -19,8 +19,11 @@ import com.dsource.idc.jellow.Utility.SessionManager;
 import com.dsource.idc.jellow.Utility.UserDataMeasure;
 import com.rey.material.widget.Slider;
 
+import static com.dsource.idc.jellow.Utility.UserDataMeasure.startMeasuring;
+import static com.dsource.idc.jellow.Utility.UserDataMeasure.stopMeasuring;
+
 public class SettingActivity extends AppCompatActivity {
-    private Spinner mSpinnerLanguage, mSpinnerViewMode, mSpinnerGridSize;
+    private Spinner mSpinnerViewMode, mSpinnerGridSize;
     private SessionManager mSession;
     private TextView mTxtViewSpeechSpeed, mTxtViewVoicePitch;
     private Slider mSliderSpeed, mSliderPitch;
@@ -39,10 +42,9 @@ public class SettingActivity extends AppCompatActivity {
         mChangeAppLocale.setLocale();
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
 
-        mSpinnerLanguage = (Spinner) findViewById(R.id.spinner);
+
         mSpinnerViewMode = (Spinner) findViewById(R.id.spinner3);
         mSpinnerGridSize = (Spinner) findViewById(R.id.spinner4);
-        mSpinnerLanguage.setAdapter(ArrayAdapter.createFromResource(this, R.array.languages, android.R.layout.simple_spinner_item));
         mSpinnerViewMode.setAdapter(ArrayAdapter.createFromResource(this, R.array.picture_view_mode, android.R.layout.simple_spinner_item));
         mSpinnerGridSize.setAdapter(ArrayAdapter.createFromResource(this, R.array.grid_size, android.R.layout.simple_spinner_item));
 
@@ -53,7 +55,9 @@ public class SettingActivity extends AppCompatActivity {
         mTxtViewSpeechSpeed = (TextView)findViewById(R.id.speechspeed);
         mTxtViewVoicePitch = (TextView)findViewById(R.id.voicepitch);
 
-        mSpinnerLanguage.setSelection(1);//mSession.getLanguage());
+        startMeasuring();
+
+
         mSliderSpeed.setValue(mSession.getSpeed(),true);
         mSliderPitch.setValue(mSession.getPitch(),true);
         mSpinnerViewMode.setSelection(mSession.getPictureViewMode());
@@ -66,13 +70,7 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
-        mSpinnerLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mUserDataMeasure.setProperty("Language", position == 0 ? "English": "Hindi");
-            }
-            @Override public void onNothingSelected(AdapterView<?> parent) {}
-        });
+
         mSliderSpeed.setOnPositionChangeListener(new Slider.OnPositionChangeListener() {
             @Override
             public void onPositionChanged(Slider view, boolean fromUser, float oldPos, float newPos, int oldValue, int newValue) {
@@ -109,17 +107,10 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 /*Identify if language is changed, to app needs to restart from splash*/
-                if(/*mSession.getLanguage()*/ 1 != mSpinnerLanguage.getSelectedItemPosition() ||
-                        mSession.getPictureViewMode() != mSpinnerViewMode.getSelectedItemPosition() ||
+                if(mSession.getPictureViewMode() != mSpinnerViewMode.getSelectedItemPosition() ||
                             mSession.getGridSize() != mSpinnerGridSize.getSelectedItemPosition()) {
-                    switch(/*mSession.getLanguage()*/ 1) {
-                        case 0: mChangeAppLocale.setLocale(); break;
-                        case 1: mChangeAppLocale.setLocale(); break;
-                    }
-                    if(/*mSession.getLanguage()*/ 1 != mSpinnerLanguage.getSelectedItemPosition()) {
-                        mUserDataMeasure.setProperty("Language", mSpinnerLanguage.getSelectedItemPosition() == 0 ? "En" : "Hi");
-                        mSession.setLanguage(""/*mSpinnerLanguage.getSelectedItemPosition()*/);
-                    }
+
+
                     if(mSession.getPictureViewMode() != mSpinnerViewMode.getSelectedItemPosition()) {
                         mUserDataMeasure.setProperty("PictureViewMode", mSpinnerViewMode.getSelectedItemPosition() == 0 ? "PT" : "PO");
                         mSession.setPictureViewMode(mSpinnerViewMode.getSelectedItemPosition());
@@ -153,8 +144,9 @@ public class SettingActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         sendBroadcast(new Intent("com.dsource.idc.jellow.SPEECH_STOP"));
+        stopMeasuring("SettingsActivity");
+        super.onDestroy();
     }
 
     @Override

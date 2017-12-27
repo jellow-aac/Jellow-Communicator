@@ -30,6 +30,9 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+import static com.dsource.idc.jellow.Utility.UserDataMeasure.startMeasuring;
+import static com.dsource.idc.jellow.Utility.UserDataMeasure.stopMeasuring;
+
 public class LevelThreeActivity extends AppCompatActivity {
     private final boolean DISABLE_ACTION_BTNS = true;
     private int mCk = 0, mCy = 0, mCm = 0, mCd = 0, mCn = 0, mCl = 0;
@@ -79,6 +82,8 @@ public class LevelThreeActivity extends AppCompatActivity {
         } catch (SQLException e) {
             mUserDataMeasure.reportException(e);
         }
+
+        startMeasuring();
 
         mRecyclerItemsViewList = new ArrayList<>(100);
         while(mRecyclerItemsViewList.size() <= 100) mRecyclerItemsViewList.add(null);
@@ -566,7 +571,7 @@ public class LevelThreeActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
+        stopMeasuring("LevelThreeActivity");
         mRecyclerView = null;
         mVerbTxt = null;
         mRecyclerItemsViewList = null;
@@ -575,6 +580,8 @@ public class LevelThreeActivity extends AppCompatActivity {
         myMusic = side = below = null;
         sort = null; count = null; mColor = null;
         myDbHelper = null;
+        super.onDestroy();
+
     }
 
     public void tappedGridItemEvent(View view, View v, int position) {

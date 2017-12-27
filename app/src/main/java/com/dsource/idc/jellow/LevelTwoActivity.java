@@ -32,6 +32,9 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.StringTokenizer;
 
+import static com.dsource.idc.jellow.Utility.UserDataMeasure.startMeasuring;
+import static com.dsource.idc.jellow.Utility.UserDataMeasure.stopMeasuring;
+
 public class LevelTwoActivity extends AppCompatActivity {
     private final int REQ_HOME = 0, MENU_ITEM_DAILY_ACT = 1, MENU_ITEM_PEOPLE = 5, MENU_ITEM_PLACES = 6, MENU_ITEM_HELP = 8;
     private final boolean DISABLE_ACTION_BTNS = true;
@@ -123,6 +126,9 @@ public class LevelTwoActivity extends AppCompatActivity {
         originalKeyListener = et.getKeyListener();
         // Set it to null - this will make the field non-editable
         et.setKeyListener(null);
+
+
+        startMeasuring();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager( new GridLayoutManager(this, 3));
@@ -722,7 +728,6 @@ public class LevelTwoActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         mRecyclerView = null;
         mLayerTwoSpeech = null;
         mRecyclerItemsViewList = null;
@@ -746,6 +751,10 @@ public class LevelTwoActivity extends AppCompatActivity {
         new_places = null;
         new_places_count = null;
         sort_places = null;
+
+        stopMeasuring("LevelTwoActivity");
+        super.onDestroy();
+
     }
 
     public void tappedGridItemEvent(View view, View v, int position) {

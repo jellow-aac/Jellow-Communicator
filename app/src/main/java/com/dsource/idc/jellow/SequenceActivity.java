@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dsource.idc.jellow.Models.SeqActivityVerbiageModel;
 import com.dsource.idc.jellow.Utility.ChangeAppLocale;
 import com.dsource.idc.jellow.Utility.DefaultExceptionHandler;
@@ -28,7 +29,11 @@ import com.dsource.idc.jellow.Utility.SessionManager;
 import com.dsource.idc.jellow.Utility.UserDataMeasure;
 import com.google.gson.Gson;
 
+import java.io.File;
 import java.util.ArrayList;
+
+import static com.dsource.idc.jellow.Utility.UserDataMeasure.startMeasuring;
+import static com.dsource.idc.jellow.Utility.UserDataMeasure.stopMeasuring;
 
 
 /**
@@ -48,8 +53,8 @@ public class SequenceActivity extends AppCompatActivity {
     private ImageView arrow1, arrow2, back;
     private RelativeLayout relativeLayout;
     private Button forward, backward;
-
-    TypedArray mDailyActivitiesIcons;
+    private String path;
+    String[] mDailyActivitiesIcons;
     private String strNext, strPrevious, actionBarTitleTxt;
     private String[] mDailyActivitiesSpeechText, mDailyActivitiesBelowText, heading, side, below, bt;
     private ArrayList<ArrayList<ArrayList<String>>> mSeqActSpeech;
@@ -61,6 +66,8 @@ public class SequenceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sequence);
+
+
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
         getSupportActionBar().setTitle(getIntent().getExtras().getString("selectedMenuItemPath"));
@@ -75,6 +82,8 @@ public class SequenceActivity extends AppCompatActivity {
         if(mLevelTwoItemPos == 7)   mLevelTwoItemPos = 3;
         else if(mLevelTwoItemPos == 8)  mLevelTwoItemPos = 4;
 
+        startMeasuring();
+
         loadArraysFromResources();
         initializeViews();
         forward.setText(bt[1]);
@@ -82,6 +91,10 @@ public class SequenceActivity extends AppCompatActivity {
         backward.setEnabled(false);
         backward.setAlpha(.5f);
         et.setVisibility(View.INVISIBLE);
+
+        File en_dir = SequenceActivity.this.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
+
+        path = en_dir.getAbsolutePath()+"/drawables";
 
         tt1.setTypeface(fontMuktaBold);
         tt1.setAllCaps(true);
@@ -102,9 +115,29 @@ public class SequenceActivity extends AppCompatActivity {
         bt2.setText(mDailyActivitiesBelowText[1]);
         bt3.setText(mDailyActivitiesBelowText[2]);
 
-        image1.setImageDrawable(mDailyActivitiesIcons.getDrawable(0));
-        image2.setImageDrawable(mDailyActivitiesIcons.getDrawable(1));
-        image3.setImageDrawable(mDailyActivitiesIcons.getDrawable(2));
+        GlideApp.with(this)
+                .load(path+"/"+mDailyActivitiesIcons[0]+".png")
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(false)
+                .dontAnimate()
+                .into(image1);
+
+        GlideApp.with(this)
+                .load(path+"/"+mDailyActivitiesIcons[1]+".png")
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(false)
+                .dontAnimate()
+                .into(image2);
+
+        GlideApp.with(this)
+                .load(path+"/"+mDailyActivitiesIcons[2]+".png")
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(false)
+                .dontAnimate()
+                .into(image3);
+
+
+
 
         forward.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,21 +149,37 @@ public class SequenceActivity extends AppCompatActivity {
                 hideActionBtn(true);
                 resetActionBtnImageIcons();
                 image_flag = 0;
-                if (mDailyActivitiesIcons.length() == count + 3) {
+                if (mDailyActivitiesIcons.length == count + 3) {
                     forward.setAlpha(.5f);
                     forward.setEnabled(false);
                 }
-                if (mDailyActivitiesIcons.length() < count + 3) {
+                if (mDailyActivitiesIcons.length < count + 3) {
                     if (mLevelTwoItemPos == 0) {
-                        image1.setImageDrawable(mDailyActivitiesIcons.getDrawable(count));
-                        image2.setImageDrawable(mDailyActivitiesIcons.getDrawable(count+1));
+                        GlideApp.with(SequenceActivity.this)
+                                .load(path+"/"+mDailyActivitiesIcons[count]+".png")
+                                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                .skipMemoryCache(false)
+                                .dontAnimate()
+                                .into(image1);
+                        GlideApp.with(SequenceActivity.this)
+                                .load(path+"/"+mDailyActivitiesIcons[count+1]+".png")
+                                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                .skipMemoryCache(false)
+                                .dontAnimate()
+                                .into(image2);
+
                         arrow2.setVisibility(View.INVISIBLE);
                         image3.setVisibility(View.INVISIBLE);
                         bt3.setVisibility(View.INVISIBLE);
                         bt1.setText(mDailyActivitiesBelowText[count]);
                         bt2.setText(mDailyActivitiesBelowText[count + 1]);
                     } else if (mLevelTwoItemPos == 1 || mLevelTwoItemPos == 4 || mLevelTwoItemPos == 3) {
-                        image1.setImageDrawable(mDailyActivitiesIcons.getDrawable(count));
+                        GlideApp.with(SequenceActivity.this)
+                                .load(path+"/"+mDailyActivitiesIcons[count]+".png")
+                                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                .skipMemoryCache(false)
+                                .dontAnimate()
+                                .into(image1);
                         bt1.setText(mDailyActivitiesBelowText[count]);
                         image2.setVisibility(View.INVISIBLE);
                         image3.setVisibility(View.INVISIBLE);
@@ -145,9 +194,26 @@ public class SequenceActivity extends AppCompatActivity {
                     bt1.setText(mDailyActivitiesBelowText[count]);
                     bt2.setText(mDailyActivitiesBelowText[count + 1]);
                     bt3.setText(mDailyActivitiesBelowText[count + 2]);
-                    image1.setImageDrawable(mDailyActivitiesIcons.getDrawable(count));
-                    image2.setImageDrawable(mDailyActivitiesIcons.getDrawable(count+1));
-                    image3.setImageDrawable(mDailyActivitiesIcons.getDrawable(count+2));
+                    GlideApp.with(SequenceActivity.this)
+                            .load(path+"/"+mDailyActivitiesIcons[count]+".png")
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .skipMemoryCache(false)
+                            .dontAnimate()
+                            .into(image1);
+
+                    GlideApp.with(SequenceActivity.this)
+                            .load(path+"/"+mDailyActivitiesIcons[count+1]+".png")
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .skipMemoryCache(false)
+                            .dontAnimate()
+                            .into(image2);
+
+                    GlideApp.with(SequenceActivity.this)
+                            .load(path+"/"+mDailyActivitiesIcons[count+2]+".png")
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .skipMemoryCache(false)
+                            .dontAnimate()
+                            .into(image3);
                 }
             }
         });
@@ -175,10 +241,26 @@ public class SequenceActivity extends AppCompatActivity {
                 bt1.setText(mDailyActivitiesBelowText[count]);
                 bt2.setText(mDailyActivitiesBelowText[count + 1]);
                 bt3.setText(mDailyActivitiesBelowText[count + 2]);
-                image1.setImageDrawable(mDailyActivitiesIcons.getDrawable(count));
-                image2.setImageDrawable(mDailyActivitiesIcons.getDrawable(count+1));
-                image3.setImageDrawable(mDailyActivitiesIcons.getDrawable(count+2));
+                GlideApp.with(SequenceActivity.this)
+                        .load(path+"/"+mDailyActivitiesIcons[count]+".png")
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(false)
+                        .dontAnimate()
+                        .into(image1);
 
+                GlideApp.with(SequenceActivity.this)
+                        .load(path+"/"+mDailyActivitiesIcons[count+1]+".png")
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(false)
+                        .dontAnimate()
+                        .into(image2);
+
+                GlideApp.with(SequenceActivity.this)
+                        .load(path+"/"+mDailyActivitiesIcons[count+2]+".png")
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(false)
+                        .dontAnimate()
+                        .into(image3);
                 if (count == 0) {
                     backward.setEnabled(false);
                     backward.setAlpha(.5f);
@@ -197,7 +279,7 @@ public class SequenceActivity extends AppCompatActivity {
                     mUserDataMeasure.recordGridItem("Tapped ".concat(mDailyActivitiesSpeechText[count]));
                     mUserDataMeasure.reportLog(getLocalClassName()+", firstIcon: "+ mDailyActivitiesSpeechText[count], Log.INFO);
                     image_flag = 1;
-                    if (count + image_flag == mDailyActivitiesIcons.length())
+                    if (count + image_flag == mDailyActivitiesIcons.length)
                         hideActionBtn(true);
                     else
                         hideActionBtn(false);
@@ -220,7 +302,7 @@ public class SequenceActivity extends AppCompatActivity {
                     mUserDataMeasure.recordGridItem("Tapped ".concat(mDailyActivitiesSpeechText[count+1]));
                     mUserDataMeasure.reportLog(getLocalClassName()+", secondIcon: "+ mDailyActivitiesSpeechText[count + 1], Log.INFO);
                     image_flag = 2;
-                    if (count + image_flag == mDailyActivitiesIcons.length())
+                    if (count + image_flag == mDailyActivitiesIcons.length)
                         hideActionBtn(true);
                     else
                         hideActionBtn(false);
@@ -243,7 +325,7 @@ public class SequenceActivity extends AppCompatActivity {
                     mUserDataMeasure.recordGridItem("Tapped ".concat(mDailyActivitiesSpeechText[count+2]));
                     mUserDataMeasure.reportLog(getLocalClassName()+", thirdIcon: "+ mDailyActivitiesSpeechText[count + 2], Log.INFO);
                     image_flag = 3;
-                    if (count + image_flag == mDailyActivitiesIcons.length())
+                    if (count + image_flag == mDailyActivitiesIcons.length)
                         hideActionBtn(true);
                     else
                         hideActionBtn(false);
@@ -575,6 +657,7 @@ public class SequenceActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
+            case R.id.languageSelect: startActivity(new Intent(this, LanguageSelectActivity.class)); break;
             case R.id.profile: startActivity(new Intent(this, ProfileFormActivity.class)); break;
             case R.id.info: startActivity(new Intent(this, AboutJellowActivity.class)); break;
             case R.id.usage: startActivity(new Intent(this, TutorialActivity.class)); break;
@@ -607,6 +690,7 @@ public class SequenceActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        stopMeasuring("SequenceActivity");
         super.onDestroy();
         mSeqActSpeech = null;
         mDailyActivitiesIcons = null;
@@ -683,27 +767,27 @@ public class SequenceActivity extends AppCompatActivity {
             case 0:
                 mDailyActivitiesBelowText = getResources().getStringArray(R.array.arrSeqActivityBrushingBelowText);
                 mDailyActivitiesSpeechText = getResources().getStringArray(R.array.arrSeqActivityBrushingSpeechText);
-                mDailyActivitiesIcons = getResources().obtainTypedArray(R.array.arrSeqActivityBrushingIcon);
+                mDailyActivitiesIcons = getResources().getStringArray(R.array.arrSeqActivityBrushingIcon);
                 break;
             case 1:
                 mDailyActivitiesBelowText = getResources().getStringArray(R.array.arrSeqActivityToiletBelowText);
                 mDailyActivitiesSpeechText = getResources().getStringArray(R.array.arrSeqActivityToiletSpeechText);
-                mDailyActivitiesIcons = getResources().obtainTypedArray(R.array.arrSeqActivityToiletIcon);
+                mDailyActivitiesIcons = getResources().getStringArray(R.array.arrSeqActivityToiletIcon);
                 break;
             case 2:
                 mDailyActivitiesBelowText = getResources().getStringArray(R.array.arrSeqActivityBathingBelowText);
                 mDailyActivitiesSpeechText = getResources().getStringArray(R.array.arrSeqActivityBathingSpeechText);
-                mDailyActivitiesIcons = getResources().obtainTypedArray(R.array.arrSeqActivityBathingIcon);
+                mDailyActivitiesIcons = getResources().getStringArray(R.array.arrSeqActivityBathingIcon);
                 break;
             case 3:
                 mDailyActivitiesBelowText = getResources().getStringArray(R.array.arrSeqActivityMorningRoutineBelowText);
                 mDailyActivitiesSpeechText = getResources().getStringArray(R.array.arrSeqActivityMorningRoutineSpeechText);
-                mDailyActivitiesIcons = getResources().obtainTypedArray(R.array.arrSeqActivityMorningRoutineIcon);
+                mDailyActivitiesIcons = getResources().getStringArray(R.array.arrSeqActivityMorningRoutineIcon);
                 break;
             case 4:
                 mDailyActivitiesBelowText = getResources().getStringArray(R.array.arrSeqActivityBedtimeRoutineBelowText);
                 mDailyActivitiesSpeechText = getResources().getStringArray(R.array.arrSeqActivityBedtimeRoutineSpeechText);
-                mDailyActivitiesIcons = getResources().obtainTypedArray(R.array.arrSeqActivityBedtimeRoutineIcon);
+                mDailyActivitiesIcons = getResources().getStringArray(R.array.arrSeqActivityBedtimeRoutineIcon);
                 break;
         }
     }

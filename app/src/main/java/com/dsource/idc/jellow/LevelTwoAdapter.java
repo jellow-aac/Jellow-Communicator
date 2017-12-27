@@ -32,7 +32,7 @@ class LevelTwoAdapter extends android.support.v7.widget.RecyclerView.Adapter<Lev
         mSession = new SessionManager(mContext);
         loadArraysFromResources(levelTwoItemPos);
         File en_dir = mContext.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
-        path = en_dir.getAbsolutePath()+"/"+mSession.getLanguage()+"/drawables";
+        path = en_dir.getAbsolutePath()+"/drawables";
     }
 
     @Override

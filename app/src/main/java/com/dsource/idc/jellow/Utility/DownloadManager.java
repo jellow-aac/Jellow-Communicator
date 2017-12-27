@@ -7,6 +7,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.liulishuo.filedownloader.BaseDownloadTask;
@@ -28,6 +30,9 @@ public class DownloadManager {
     String localeCode;
     Context context;
     ProgressReciever progressReciever;
+    FirebaseAuth mAuth;
+
+
 
 
 
@@ -37,6 +42,7 @@ public class DownloadManager {
         this.localeCode = localeCode;
         this.context = context;
         this.progressReciever = progressReciever;
+        //FirebaseApp.initializeApp(context);
 
     }
 
@@ -60,6 +66,7 @@ public class DownloadManager {
             @Override
             public void onSuccess(Uri uri) {
 
+                if(uri != null)
                 startDownload(uri);
                 // Got the download URL for 'en.zip'
 

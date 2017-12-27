@@ -2,70 +2,70 @@
 <resources>
     <!--SEQUENCE ACTIVITY ARRAYS ARE HERE-->
     <!--SEQUENCE ACTIVITY ADAPTER DRAWABLE ARE HERE-->
-    <array name="arrSeqActivityBrushingIcon">
-        <item>@drawable/rinsemouth</item>
-        <item>@drawable/rinsetoothbrush</item>
-        <item>@drawable/puttoothpaste</item>
-        <item>@drawable/brushfrontteeth</item>
-        <item>@drawable/brushbackteeth</item>
-        <item>@drawable/brushtongue</item>
-        <item>@drawable/rinsemouth</item>
-        <item>@drawable/iamalldone</item>
-    </array>
+    <string-array name="arrSeqActivityBrushingIcon">
+        <item>rinsemouth</item>
+        <item>rinsetoothbrush</item>
+        <item>puttoothpaste</item>
+        <item>brushfrontteeth</item>
+        <item>brushbackteeth</item>
+        <item>brushtongue</item>
+        <item>rinsemouth</item>
+        <item>iamalldone</item>
+    </string-array>
 
-    <array name="arrSeqActivityToiletIcon">
-        <item>@drawable/pullpantsdown</item>
-        <item>@drawable/sitonthetoilet</item>
-        <item>@drawable/washyourbottom</item>
-        <item>@drawable/flushtoilet</item>
-        <item>@drawable/pullpantsup</item>
-        <item>@drawable/washhands</item>
-        <item>@drawable/iamalldone</item>
-    </array>
+    <string-array name="arrSeqActivityToiletIcon">
+        <item>pullpantsdown</item>
+        <item>sitonthetoilet</item>
+        <item>washyourbottom</item>
+        <item>flushtoilet</item>
+        <item>pullpantsup</item>
+        <item>washhands</item>
+        <item>iamalldone</item>
+    </string-array>
 
-    <array name="arrSeqActivityBathingIcon">
-        <item>@drawable/removeclothes</item>
-        <item>@drawable/turnonwater</item>
-        <item>@drawable/getinshower</item>
-        <item>@drawable/wetbody</item>
-        <item>@drawable/putsoap</item>
-        <item>@drawable/putshampoo</item>
-        <item>@drawable/putfacewash</item>
-        <item>@drawable/washhair</item>
-        <item>@drawable/washbody</item>
-        <item>@drawable/closetap</item>
-        <item>@drawable/dryhair</item>
-        <item>@drawable/dryface</item>
-        <item>@drawable/drybody</item>
-        <item>@drawable/putonclothes</item>
-        <item>@drawable/iamalldone</item>
-    </array>
+    <string-array name="arrSeqActivityBathingIcon">
+        <item>removeclothes</item>
+        <item>turnonwater</item>
+        <item>getinshower</item>
+        <item>wetbody</item>
+        <item>putsoap</item>
+        <item>putshampoo</item>
+        <item>putfacewash</item>
+        <item>washhair</item>
+        <item>washbody</item>
+        <item>closetap</item>
+        <item>dryhair</item>
+        <item>dryface</item>
+        <item>drybody</item>
+        <item>putonclothes</item>
+        <item>iamalldone</item>
+    </string-array>
 
-    <array name="arrSeqActivityMorningRoutineIcon">
-        <item>@drawable/wakeup</item>
-        <item>@drawable/washface</item>
-        <item>@drawable/gototoilet</item>
-        <item>@drawable/brushteeth</item>
-        <item>@drawable/removeclothes</item>
-        <item>@drawable/haveabath</item>
-        <item>@drawable/getdressed</item>
-        <item>@drawable/combhair</item>
-        <item>@drawable/eatbreakfast</item>
-        <item>@drawable/packlunch</item>
-        <item>@drawable/packbagpack</item>
-        <item>@drawable/takeschoolbag</item>
-        <item>@drawable/haveagreatday</item>
-    </array>
+    <string-array name="arrSeqActivityMorningRoutineIcon">
+        <item>wakeup</item>
+        <item>washface</item>
+        <item>gototoilet</item>
+        <item>brushteeth</item>
+        <item>removeclothes</item>
+        <item>haveabath</item>
+        <item>getdressed</item>
+        <item>combhair</item>
+        <item>eatbreakfast</item>
+        <item>packlunch</item>
+        <item>packbagpack</item>
+        <item>takeschoolbag</item>
+        <item>haveagreatday</item>
+    </string-array>
 
-    <array name="arrSeqActivityBedtimeRoutineIcon">
-        <item>@drawable/eatdinner</item>
-        <item>@drawable/wearnightsuit</item>
-        <item>@drawable/brushteeth</item>
-        <item>@drawable/readstory</item>
-        <item>@drawable/saygoodnight</item>
-        <item>@drawable/sayprayres</item>
-        <item>@drawable/sweetdreams</item>
-    </array>
+    <string-array name="arrSeqActivityBedtimeRoutineIcon">
+        <item>eatdinner</item>
+        <item>wearnightsuit</item>
+        <item>brushteeth</item>
+        <item>readstory</item>
+        <item>saygoodnight</item>
+        <item>sayprayres</item>
+        <item>sweetdreams</item>
+    </string-array>
 
     <!--SEQUENCE ACTIVITY HEADING TEXT ARE HERE-->
     <string-array name="arrSeqActivityHeadingText">
@@ -103,7 +103,7 @@
         <item>मैंने ख़त्म कर दिया</item>
     </string-array>
 
-    <array name="arrSeqActivityBathingSpeechText">
+    <string-array name="arrSeqActivityBathingSpeechText">
         <item>कपड़े निकालना</item>
         <item>पानी चालू करना</item>
         <item>शावर लेना</item>
@@ -119,7 +119,7 @@
         <item>शरीर पोंछना</item>
         <item>कपड़े पैहनना</item>
         <item>मैंने ख़त्म कर दिया</item>
-    </array>
+    </string-array>
 
     <string-array name="arrSeqActivityMorningRoutineSpeechText">
         <item>उठना</item>
@@ -169,7 +169,7 @@
         <item>७. मैंने ख़त्म कर दिया</item>
     </string-array>
 
-    <array name="arrSeqActivityBathingBelowText">
+    <string-array name="arrSeqActivityBathingBelowText">
         <item>१. कपड़े निकालना</item>
         <item>२.पानी चालू करना</item>
         <item>३. शावर लेना</item>
@@ -185,7 +185,7 @@
         <item>१३. शरीर पोंछना</item>
         <item>१४. कपड़े पैहनना</item>
         <item>१५. मैंने ख़त्म कर दिया</item>
-    </array>
+    </string-array>
 
     <string-array name="arrSeqActivityMorningRoutineBelowText">
         <item>१. उठना</item>

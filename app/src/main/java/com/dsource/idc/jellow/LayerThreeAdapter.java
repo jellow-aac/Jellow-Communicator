@@ -34,7 +34,7 @@ class LayerThreeAdapter extends android.support.v7.widget.RecyclerView.Adapter<L
         mSession = new SessionManager(mContext);
         loadArraysFromResources(levelOneItemPos, levelTwoItemPos, sort);
         File en_dir = mContext.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
-        path = en_dir.getAbsolutePath()+"/"+mSession.getLanguage()+"/drawables";
+        path = en_dir.getAbsolutePath()+"/drawables";
 
     }
 
