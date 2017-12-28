@@ -20,27 +20,31 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.dsource.idc.jellow.Utility.SessionManager;
-import com.dsource.idc.jellow.Utility.UserDataMeasure;
+import com.dsource.idc.jellow.Utility.Analytics;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import static com.dsource.idc.jellow.Utility.Analytics.bundleEvent;
+import static com.dsource.idc.jellow.Utility.Analytics.setUserProperty;
+import static com.dsource.idc.jellow.Utility.Analytics.singleEvent;
 import static com.dsource.idc.jellow.Utility.SessionManager.LangMap;
-import static com.dsource.idc.jellow.Utility.UserDataMeasure.getAnalytics;
+import static com.dsource.idc.jellow.Utility.Analytics.getAnalytics;
 
 public class UserRegistrationActivity extends AppCompatActivity {
     public static final String LCODE = "lcode";
+    public static final String TUTORIAL = "tutorial";
     final int GRID_3BY3 = 1;
     private Button bRegister;
     private EditText etName, etEmergencyContact, etEmailId;
     private SessionManager mSession;
     private FirebaseDatabase mDB;
     private DatabaseReference mRef;
-    UserDataMeasure analytics;
     Spinner languageSelect;
     String[] languages = new String[4];
     String selectedLanguage;
@@ -52,9 +56,11 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
         mSession = new SessionManager(this);
 
+        if(!mSession.getFather_no().equals(""))
         getAnalytics(this,mSession.getFather_no());
 
-        analytics = new UserDataMeasure(this);
+
+
 
         if (mSession.isUserLoggedIn())
         {
@@ -226,13 +232,14 @@ public class UserRegistrationActivity extends AppCompatActivity {
     }
     */
 
-    private void createUser(final String name, String emergencyContact, String eMailId, String formattedDate)
+    private void createUser(final String name, final String emergencyContact, String eMailId, String formattedDate)
     {
         try {
+            getAnalytics(UserRegistrationActivity.this,emergencyContact);
             mRef.child(emergencyContact).child("email").setValue(eMailId);
             mRef.child(emergencyContact).child("emergencyContact").setValue(emergencyContact);
             mRef.child(emergencyContact).child("name").setValue(name);
-            mRef.child(emergencyContact).child("formattedDate").setValue(formattedDate).addOnCompleteListener(new OnCompleteListener<Void>() {
+            mRef.child(emergencyContact).child("joinedOn").setValue(ServerValue.TIMESTAMP).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
@@ -241,10 +248,14 @@ public class UserRegistrationActivity extends AppCompatActivity {
                         mSession.setGridSize(GRID_3BY3);
                         Bundle bundle = new Bundle();
                         bundle.putString("First Run Selected Language",LangMap.get(selectedLanguage));
-                        analytics.genericEvent("Language",bundle);
+                        setUserProperty("UserId",emergencyContact);
+                        bundleEvent("Language",bundle);
                         //startActivity(new Intent(UserRegistrationActivity.this, Intro.class));
+                        bundle.clear();
+                        bundle.putString(LCODE,LangMap.get(selectedLanguage));
+                        bundle.putBoolean(TUTORIAL,true);
                         startActivity(new Intent(UserRegistrationActivity.this,
-                                LanguageDownloadActivity.class).putExtra(LCODE,LangMap.get(selectedLanguage)));
+                                LanguageDownloadActivity.class).putExtras(bundle));
                         finish();
                     } else {
                         bRegister.setEnabled(true);

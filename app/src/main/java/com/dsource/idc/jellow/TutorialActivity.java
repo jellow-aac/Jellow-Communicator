@@ -11,8 +11,8 @@ import android.widget.TextView;
 import com.dsource.idc.jellow.Utility.ChangeAppLocale;
 import com.dsource.idc.jellow.Utility.SessionManager;
 
-import static com.dsource.idc.jellow.Utility.UserDataMeasure.startMeasuring;
-import static com.dsource.idc.jellow.Utility.UserDataMeasure.stopMeasuring;
+import static com.dsource.idc.jellow.Utility.Analytics.startMeasuring;
+import static com.dsource.idc.jellow.Utility.Analytics.stopMeasuring;
 
 /**
  * Created by user on 6/6/2016.
@@ -32,7 +32,6 @@ public class TutorialActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.tv6)).setText(
                 getString(R.string.softwareVersion).concat(" " + String.valueOf(BuildConfig.VERSION_NAME)));
 
-        startMeasuring();
     }
 
     @Override
@@ -59,8 +58,16 @@ public class TutorialActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        new ChangeAppLocale(this).setLocale();
+        startMeasuring();
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
+        stopMeasuring("TutorialActivity");
         new ChangeAppLocale(this).setLocale();
     }
 
@@ -72,7 +79,7 @@ public class TutorialActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        stopMeasuring("TutorialActivity");
+
         super.onDestroy();
     }
 }

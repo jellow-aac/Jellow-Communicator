@@ -24,14 +24,18 @@ import com.dsource.idc.jellow.Utility.ChangeAppLocale;
 import com.dsource.idc.jellow.Utility.DefaultExceptionHandler;
 import com.dsource.idc.jellow.Utility.IndexSorter;
 import com.dsource.idc.jellow.Utility.SessionManager;
-import com.dsource.idc.jellow.Utility.UserDataMeasure;
+import com.dsource.idc.jellow.Utility.Analytics;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-import static com.dsource.idc.jellow.Utility.UserDataMeasure.startMeasuring;
-import static com.dsource.idc.jellow.Utility.UserDataMeasure.stopMeasuring;
+import static com.dsource.idc.jellow.Utility.Analytics.bundleEvent;
+ import static com.dsource.idc.jellow.Utility.Analytics.reportException;
+
+import static com.dsource.idc.jellow.Utility.Analytics.singleEvent;
+import static com.dsource.idc.jellow.Utility.Analytics.startMeasuring;
+import static com.dsource.idc.jellow.Utility.Analytics.stopMeasuring;
 
 public class LevelThreeActivity extends AppCompatActivity {
     private final boolean DISABLE_ACTION_BTNS = true;
@@ -54,7 +58,7 @@ public class LevelThreeActivity extends AppCompatActivity {
     private DataBaseHelper myDbHelper;
     private String[] side, below;
     private ArrayList<ArrayList<ArrayList <ArrayList <String>>>> mVerbTxt;
-    private UserDataMeasure mUserDataMeasure;
+    //private Analytics mAnalytics;
     private String actionBarTitleTxt;
 
     @Override
@@ -68,8 +72,8 @@ public class LevelThreeActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
                     WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
         myDbHelper = new DataBaseHelper(this);
-        mUserDataMeasure = new UserDataMeasure(this);
-        mUserDataMeasure.recordScreen(getLocalClassName());
+
+
         new ChangeAppLocale(this).setLocale();
         more_count = 0;
         mLevelOneItemPos = getIntent().getExtras().getInt("mLevelOneItemPos");
@@ -80,10 +84,8 @@ public class LevelThreeActivity extends AppCompatActivity {
         try {
             myDbHelper.openDataBase();
         } catch (SQLException e) {
-            mUserDataMeasure.reportException(e);
+            reportException(e);
         }
-
-        startMeasuring();
 
         mRecyclerItemsViewList = new ArrayList<>(100);
         while(mRecyclerItemsViewList.size() <= 100) mRecyclerItemsViewList.add(null);
@@ -178,6 +180,8 @@ public class LevelThreeActivity extends AppCompatActivity {
 
         back.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+
+
                 speakSpeech(below[1]);
                 ttsButton.setImageResource(R.drawable.speaker_button);
                 back.setImageResource(R.drawable.backpressed);
@@ -199,6 +203,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                     setResult(RESULT_OK);
                     finish();
                 }
+                singleEvent("Navigation","Back");
                 showActionBarTitle(true);
             }
         });
@@ -206,6 +211,8 @@ public class LevelThreeActivity extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                singleEvent("Navigation","Home");
+
                 home.setImageResource(R.drawable.homepressed);
                 keyboard.setImageResource(R.drawable.keyboard_button);
                 speakSpeech(below[0]);
@@ -250,7 +257,8 @@ public class LevelThreeActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     speakSpeech(et.getText().toString());
                     if(!et.getText().toString().equals("")) ttsButton.setImageResource(R.drawable.speaker_pressed);
-                    mUserDataMeasure.reportLog(getLocalClassName()+", TtsSpeak", Log.INFO);
+                    singleEvent("Keyboard",et.getText().toString());
+                    //mAnalytics.reportLog(getLocalClassName()+", TtsSpeak", Log.INFO);
                     like.setEnabled(false);
                     dislike.setEnabled(false);
                     add.setEnabled(false);
@@ -285,32 +293,35 @@ public class LevelThreeActivity extends AppCompatActivity {
                     if (mCk == 1) {
                         speakSpeech(side[1]);
                         mCk = 0;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyLike"));
+                        singleEvent("ExpressiveIcon","ReallyLike");
                     } else {
                         speakSpeech(side[0]);
                         mCk = 1;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("like"));
+                        singleEvent("ExpressiveIcon","like");
                     }
                 } else {
-                    mUserDataMeasure.reportLog(getLocalClassName()+", like: "+
-                        mLevelOneItemPos+", "+ mLevelTwoItemPos +", "+ mLevelThreeItemPos, Log.INFO);
+                    //mAnalytics.reportLog(getLocalClassName()+", like: "+mLevelOneItemPos+", "+ mLevelTwoItemPos +", "+ mLevelThreeItemPos, Log.INFO);
                     ++mActionBtnClickCount;
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCk == 1) {
+                        singleEvent("ExpressiveIcon","ReallyLike");
+
                         if (count_flag == 1)
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(1));
                         else
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(1));
                         mCk = 0;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyLikeVerbiage"));
+                        //mAnalytics.recordGridItem("Tapped ".concat("ReallyLikeVerbiage"));
                     } else {
+                        singleEvent("ExpressiveIcon","like");
+
                         if (count_flag == 1)
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(0));
                         else
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(0));
                         mCk = 1;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("LikeVerbiage"));
+                        //mAnalytics.recordGridItem("Tapped ".concat("LikeVerbiage"));
                     }
                 }
                 back.setImageResource(R.drawable.back_button);
@@ -327,32 +338,35 @@ public class LevelThreeActivity extends AppCompatActivity {
                     if (mCd == 1) {
                         speakSpeech(side[7]);
                         mCd = 0;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyDislike"));
+                        singleEvent("ExpressiveIcon","ReallyDon'tLike");
                     } else {
                         speakSpeech(side[6]);
                         mCd = 1;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("Dislike"));
+                        singleEvent("ExpressiveIcon","Don'tLike");
                     }
                 } else {
-                    mUserDataMeasure.reportLog(getLocalClassName()+", dislike: "+
-                            mLevelOneItemPos+", "+ mLevelTwoItemPos +", "+ mLevelThreeItemPos, Log.INFO);
+                    //mAnalytics.reportLog(getLocalClassName()+", dislike: "+mLevelOneItemPos+", "+ mLevelTwoItemPos +", "+ mLevelThreeItemPos, Log.INFO);
                     ++mActionBtnClickCount;
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCd == 1) {
+                        singleEvent("ExpressiveIcon","ReallyDon'tLike");
+
                         if (count_flag == 1)
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(7));
                          else
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(7));
                         mCd = 0;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyDislikeVerbiage"));
+                        //mAnalytics.recordGridItem("Tapped ".concat("ReallyDislikeVerbiage"));
                     } else {
+                        singleEvent("ExpressiveIcon","Don'tLike");
+
                         if (count_flag == 1)
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(6));
                         else
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(6));
                         mCd = 1;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("DislikeVerbiage"));
+                        //mAnalytics.recordGridItem("Tapped ".concat("DislikeVerbiage"));
                     }
                 }
                 back.setImageResource(R.drawable.back_button);
@@ -369,32 +383,35 @@ public class LevelThreeActivity extends AppCompatActivity {
                     if (mCy == 1) {
                         speakSpeech(side[3]);
                         mCy = 0;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyYes"));
+                        singleEvent("ExpressiveIcon","ReallyYes");
                     } else {
                         speakSpeech(side[2]);
                         mCy = 1;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("Yes"));
+                        singleEvent("ExpressiveIcon","Yes");
                     }
                 } else {
-                    mUserDataMeasure.reportLog(getLocalClassName()+", yes: "+
-                            mLevelOneItemPos+", "+ mLevelTwoItemPos +", "+ mLevelThreeItemPos, Log.INFO);
+                    //mAnalytics.reportLog(getLocalClassName()+", yes: "+ mLevelOneItemPos+", "+ mLevelTwoItemPos +", "+ mLevelThreeItemPos, Log.INFO);
                     ++mActionBtnClickCount;
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCy == 1) {
+                        singleEvent("ExpressiveIcon","ReallyYes");
+
                         if (count_flag == 1)
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(3));
                         else
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(3));
                         mCy = 0;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyYesVerbiage"));
+                        //mAnalytics.recordGridItem("Tapped ".concat("ReallyYesVerbiage"));
                     } else {
+                        singleEvent("ExpressiveIcon","Yes");
+
                         if (count_flag == 1)
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(2));
                         else
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(2));
                         mCy = 1;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("YesVerbiage"));
+                        //mAnalytics.recordGridItem("Tapped ".concat("YesVerbiage"));
                     }
                 }
                 back.setImageResource(R.drawable.back_button);
@@ -411,32 +428,35 @@ public class LevelThreeActivity extends AppCompatActivity {
                     if (mCn == 1) {
                         speakSpeech(side[9]);
                         mCn = 0;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyNo"));
+                        singleEvent("ExpressiveIcon","ReallyNo");
                     } else {
                         speakSpeech(side[8]);
                         mCn = 1;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("No"));
+                        singleEvent("ExpressiveIcon","No");
                     }
                 } else {
-                    mUserDataMeasure.reportLog(getLocalClassName()+", no: "+
-                            mLevelOneItemPos+", "+ mLevelTwoItemPos +", "+ mLevelThreeItemPos, Log.INFO);
+                    //mAnalytics.reportLog(getLocalClassName()+", no: "+ mLevelOneItemPos+", "+ mLevelTwoItemPos +", "+ mLevelThreeItemPos, Log.INFO);
                     ++mActionBtnClickCount;
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCn == 1) {
+                        singleEvent("ExpressiveIcon","ReallyNo");
+
                         if (count_flag == 1)
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(9));
                         else
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(9));
                         mCn = 0;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyNoVerbiage"));
+                        //mAnalytics.recordGridItem("Tapped ".concat("ReallyNoVerbiage"));
                     } else {
+                        singleEvent("ExpressiveIcon","No");
+
                         if (count_flag == 1)
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(8));
                          else
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(8));
                         mCn = 1;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("NoVerbiage"));
+                        //mAnalytics.recordGridItem("Tapped ".concat("NoVerbiage"));
                     }
                 }
                 back.setImageResource(R.drawable.back_button);
@@ -453,32 +473,35 @@ public class LevelThreeActivity extends AppCompatActivity {
                     if (mCm == 1) {
                         speakSpeech(side[5]);
                         mCm = 0;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyAdd"));
+                        singleEvent("ExpressiveIcon","ReallyMore");
                     } else {
                         speakSpeech(side[4]);
                         mCm = 1;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("Add"));
+                        singleEvent("ExpressiveIcon","More");
                     }
                 } else {
-                    mUserDataMeasure.reportLog(getLocalClassName()+", add: "+
-                            mLevelOneItemPos+", "+ mLevelTwoItemPos +", "+ mLevelThreeItemPos, Log.INFO);
+                    //mAnalytics.reportLog(getLocalClassName()+", add: "+ mLevelOneItemPos+", "+ mLevelTwoItemPos +", "+ mLevelThreeItemPos, Log.INFO);
                     ++mActionBtnClickCount;
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCm == 1) {
+                        singleEvent("ExpressiveIcon","ReallyMore");
+
                         if (count_flag == 1)
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(5));
                         else
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(5));
                         mCm = 0;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyAddVerbiage"));
+                        //mAnalytics.recordGridItem("Tapped ".concat("ReallyAddVerbiage"));
                     } else {
+                        singleEvent("ExpressiveIcon","More");
+
                         if (count_flag == 1)
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(4));
                         else
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(4));
                         mCm = 1;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("AddVerbiage"));
+                        //mAnalytics.recordGridItem("Tapped ".concat("AddVerbiage"));
                     }
                 }
                 back.setImageResource(R.drawable.back_button);
@@ -495,32 +518,36 @@ public class LevelThreeActivity extends AppCompatActivity {
                     if (mCl == 1) {
                         speakSpeech(side[11]);
                         mCl = 0;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyMinus"));
+                        singleEvent("ExpressiveIcon","ReallyLess");
+
                     } else {
                         speakSpeech(side[10]);
                         mCl = 1;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("Minus"));
+                        singleEvent("ExpressiveIcon","Less");
                     }
                 } else {
-                    mUserDataMeasure.reportLog(getLocalClassName()+", minus: "+
-                            mLevelOneItemPos+", "+ mLevelTwoItemPos +", "+ mLevelThreeItemPos, Log.INFO);
+                    //mAnalytics.reportLog(getLocalClassName()+", minus: "+ mLevelOneItemPos+", "+ mLevelTwoItemPos +", "+ mLevelThreeItemPos, Log.INFO);
                     ++mActionBtnClickCount;
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
                     if (mCl == 1) {
+                        singleEvent("ExpressiveIcon","ReallyLess");
+
                         if (count_flag == 1)
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(11));
                         else
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(11));
                         mCl = 0;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyMinusVerbiage"));
+                        //mAnalytics.recordGridItem("Tapped ".concat("ReallyMinusVerbiage"));
                     } else {
+                        singleEvent("ExpressiveIcon","Less");
+
                         if (count_flag == 1)
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(10));
                         else
                             speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(10));
                         mCl = 1;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("MinusVerbiage"));
+                        //mAnalytics.recordGridItem("Tapped ".concat("MinusVerbiage"));
                     }
                 }
                 back.setImageResource(R.drawable.back_button);
@@ -538,6 +565,7 @@ public class LevelThreeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+         startMeasuring();
         new ChangeAppLocale(this).setLocale();
     }
 
@@ -566,17 +594,18 @@ public class LevelThreeActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        stopMeasuring("LevelThreeActivity");
         new ChangeAppLocale(this).setLocale();
     }
 
     @Override
     protected void onDestroy() {
-        stopMeasuring("LevelThreeActivity");
+
         mRecyclerView = null;
         mVerbTxt = null;
         mRecyclerItemsViewList = null;
         mMenuItemLinearLayout = null;
-        mUserDataMeasure = null;
+        //mAnalytics = null;
         myMusic = side = below = null;
         sort = null; count = null; mColor = null;
         myDbHelper = null;
@@ -600,9 +629,11 @@ public class LevelThreeActivity extends AppCompatActivity {
 
         incrementTouchCountOfItem(mLevelThreeItemPos);
         retainExpressiveButtonStates();
-        mUserDataMeasure.recordGridItem("Tapped ".concat(myMusic[position]));
-        mUserDataMeasure.reportLog(getLocalClassName()+", "+
-                mLevelOneItemPos+", "+ mLevelTwoItemPos +", "+ mLevelThreeItemPos, Log.INFO);
+        Bundle bundle = new Bundle();
+        bundle.putString("Icon",myMusic[position]);
+        bundle.putString("Level","LevelThree");
+        bundleEvent("Grid",bundle);
+
         back.setImageResource(R.drawable.back_button);
     }
 

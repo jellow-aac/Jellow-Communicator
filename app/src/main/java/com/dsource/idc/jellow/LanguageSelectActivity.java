@@ -27,8 +27,8 @@ import java.util.List;
 import static com.dsource.idc.jellow.UserRegistrationActivity.LCODE;
 import static com.dsource.idc.jellow.Utility.SessionManager.LangMap;
 import static com.dsource.idc.jellow.Utility.SessionManager.LangValueMap;
-import static com.dsource.idc.jellow.Utility.UserDataMeasure.startMeasuring;
-import static com.dsource.idc.jellow.Utility.UserDataMeasure.stopMeasuring;
+import static com.dsource.idc.jellow.Utility.Analytics.startMeasuring;
+import static com.dsource.idc.jellow.Utility.Analytics.stopMeasuring;
 
 public class LanguageSelectActivity extends AppCompatActivity {
 
@@ -56,8 +56,6 @@ public class LanguageSelectActivity extends AppCompatActivity {
 
         offlineLanguages = getOfflineLanguages();
         onlineLanguages = getOnlineLanguages();
-
-        startMeasuring();
 
 
         languageSelect = (Spinner) findViewById(R.id.selectDownloadedLanguageSpinner);
@@ -91,6 +89,7 @@ public class LanguageSelectActivity extends AppCompatActivity {
                     mSession.setLanguage(LangMap.get(selectedLanguage));
                     ChangeAppLocale changeAppLocale = new ChangeAppLocale(getBaseContext());
                     changeAppLocale.setLocale();
+                    Toast.makeText(LanguageSelectActivity.this,getString(R.string.languageChanged),Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplicationContext(), SplashActivity.class));
                     finishAffinity();
 
@@ -120,14 +119,20 @@ public class LanguageSelectActivity extends AppCompatActivity {
 
                                             if(isConnected)
                                             {
-                                                Bundle bundle = new Bundle();
-                                                bundle.putString(LCODE,LangMap.get(onlineLanguages[which]));
-                                                bundle.putBoolean(FINISH,false);
-                                                startActivity(new Intent(getBaseContext(),LanguageDownloadActivity.class).putExtras(bundle));
-                                                dialog.dismiss();
+                                                if(offlineLanguages.length < 3)
+                                                {
+                                                    Bundle bundle = new Bundle();
+                                                    bundle.putString(LCODE,LangMap.get(onlineLanguages[which]));
+                                                    bundle.putBoolean(FINISH,false);
+                                                    startActivity(new Intent(getBaseContext(),LanguageDownloadActivity.class).putExtras(bundle));
+                                                    dialog.dismiss();
+                                                } else {
+                                                    Toast.makeText(LanguageSelectActivity.this,getString(R.string.languageLimitExceeded),Toast.LENGTH_SHORT).show();
+                                                }
+
                                             }else {
 
-                                                Toast.makeText(LanguageSelectActivity.this,"Please check your Internet Connectivity",Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(LanguageSelectActivity.this,getString(R.string.checkConnectivity),Toast.LENGTH_SHORT).show();
                                             }
 
                                             return true;
@@ -159,7 +164,7 @@ public class LanguageSelectActivity extends AppCompatActivity {
                                             String locale = LangMap.get(offlineLanguages[which]);
                                             if(mSession.getLanguage().equals(locale))
                                             {
-                                                Toast.makeText(getBaseContext(),"Language is currently in use",Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(getBaseContext(),getString(R.string.languageCurrentlyInUse),Toast.LENGTH_SHORT).show();
                                                 dialog.dismiss();
                                                 return true;
                                             }
@@ -176,7 +181,7 @@ public class LanguageSelectActivity extends AppCompatActivity {
                                                     android.R.layout.simple_spinner_item, offlineLanguages);
                                             languageSelect.setAdapter(adapter_lan);
                                             dialog.dismiss();
-                                            Toast.makeText(getBaseContext(),"Language Removed",Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getBaseContext(),getString(R.string.languageRemoved),Toast.LENGTH_SHORT).show();
                                             return true;
                                         }
                                     })
@@ -244,10 +249,16 @@ public class LanguageSelectActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopMeasuring("ChangeLanguageActivity");
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
+        startMeasuring();
         new ChangeAppLocale(this).setLocale();
         onlineLanguages = getOnlineLanguages();
         offlineLanguages = getOfflineLanguages();
@@ -289,7 +300,6 @@ public class LanguageSelectActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        stopMeasuring("ChangeLanguageActivity");
         super.onDestroy();
     }
 }

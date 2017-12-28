@@ -50,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="19dp"
-                android:layout_marginBottom="19dp"
+                android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="wrap_content"
@@ -78,29 +78,36 @@
             <Button
                 android:id="@+id/saveBut"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_gravity="center_vertical"
+                android:background="#FFBEBCB6"
+                android:layout_height="40dp"
                 android:layout_margin="10dp"
                 android:text="@string/saveLanguage" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
-                    android:textColor="#000"
                     android:scaleX=".7"
                     android:scaleY=".7"
-                    android:text="@string/bullet" />
+                    android:text="@string/bullet"
+                    android:textColor="#000" />
+
                 <TextView
                     android:id="@+id/tv3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="@string/change_language_line3"
-                    android:textSize="18sp"/>
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="18sp" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
@@ -118,18 +125,28 @@
 
         <Button
             android:id="@+id/addBut"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="230dp"
+            android:textSize="18sp"
+            android:layout_gravity="center_vertical"
+            android:background="#FFBEBCB6"
+            android:layout_height="40dp"
             android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginStart="30dp"
             android:text="@string/addLanguage" />
 
         <Button
             android:id="@+id/delBut"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="230dp"
+            android:textSize="18sp"
+            android:layout_gravity="center_vertical"
+            android:background="#FFBEBCB6"
+            android:layout_height="40dp"
             android:layout_marginLeft="30dp"
             android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:text="@string/deleteLanguage" />
 
     </LinearLayout>

@@ -10,12 +10,15 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.dsource.idc.jellow.Utility.SessionManager;
-import com.dsource.idc.jellow.Utility.UserDataMeasure;
+import com.dsource.idc.jellow.Utility.Analytics;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
+import static com.dsource.idc.jellow.Utility.Analytics.reportException;
+import static com.dsource.idc.jellow.Utility.Analytics.reportLog;
 
 /**
  * Created by ekalpa on 6/27/2016.
@@ -55,8 +58,8 @@ class DataBaseHelper extends SQLiteOpenHelper {
             try {
                 copyDataBase();
             } catch (IOException e) {
-                new UserDataMeasure(myContext).reportLog("Error copying database.", Log.ERROR);
-                new UserDataMeasure(myContext).reportException(e);
+               reportLog("Error copying database.", Log.ERROR);
+               reportException(e);
             }
         }
     }
@@ -72,8 +75,8 @@ class DataBaseHelper extends SQLiteOpenHelper {
             checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
 
         }catch(SQLiteException e){
-            new UserDataMeasure(myContext).reportLog("database does't exist yet.", Log.ERROR);
-            new UserDataMeasure(myContext).reportException(e);
+            reportLog("database does't exist yet.", Log.ERROR);
+            reportException(e);
         }
         if(checkDB != null){
             checkDB.close();

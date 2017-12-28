@@ -16,18 +16,20 @@ import android.widget.Toast;
 
 import com.dsource.idc.jellow.Utility.ChangeAppLocale;
 import com.dsource.idc.jellow.Utility.SessionManager;
-import com.dsource.idc.jellow.Utility.UserDataMeasure;
+import com.dsource.idc.jellow.Utility.Analytics;
 import com.rey.material.widget.Slider;
 
-import static com.dsource.idc.jellow.Utility.UserDataMeasure.startMeasuring;
-import static com.dsource.idc.jellow.Utility.UserDataMeasure.stopMeasuring;
+
+import static com.dsource.idc.jellow.Utility.Analytics.setUserProperty;
+import static com.dsource.idc.jellow.Utility.Analytics.singleEvent;
+import static com.dsource.idc.jellow.Utility.Analytics.startMeasuring;
+import static com.dsource.idc.jellow.Utility.Analytics.stopMeasuring;
 
 public class SettingActivity extends AppCompatActivity {
     private Spinner mSpinnerViewMode, mSpinnerGridSize;
     private SessionManager mSession;
     private TextView mTxtViewSpeechSpeed, mTxtViewVoicePitch;
     private Slider mSliderSpeed, mSliderPitch;
-    private UserDataMeasure mUserDataMeasure;
     private  ChangeAppLocale mChangeAppLocale;
 
     @Override
@@ -37,7 +39,6 @@ public class SettingActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.action_settings)+"</font>"));
         mSession = new SessionManager(this);
-        mUserDataMeasure = new UserDataMeasure(this);
         mChangeAppLocale = new ChangeAppLocale(this);
         mChangeAppLocale.setLocale();
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
@@ -55,7 +56,6 @@ public class SettingActivity extends AppCompatActivity {
         mTxtViewSpeechSpeed = (TextView)findViewById(R.id.speechspeed);
         mTxtViewVoicePitch = (TextView)findViewById(R.id.voicepitch);
 
-        startMeasuring();
 
 
         mSliderSpeed.setValue(mSession.getSpeed(),true);
@@ -90,7 +90,7 @@ public class SettingActivity extends AppCompatActivity {
         mSpinnerViewMode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mUserDataMeasure.setProperty("PictureViewMode", position == 0 ? "PictureText": "PictureOnly");
+                setUserProperty("PictureViewMode", position == 0 ? "PictureText": "PictureOnly");
             }
             @Override public void onNothingSelected(AdapterView<?> parent) {}
         });
@@ -98,7 +98,7 @@ public class SettingActivity extends AppCompatActivity {
         mSpinnerGridSize.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mUserDataMeasure.setProperty("GridSize", position == 0 ? "3": "9");
+                setUserProperty("GridSize", position == 0 ? "3": "9");
             }
             @Override public void onNothingSelected(AdapterView<?> parent) {}
         });
@@ -112,11 +112,11 @@ public class SettingActivity extends AppCompatActivity {
 
 
                     if(mSession.getPictureViewMode() != mSpinnerViewMode.getSelectedItemPosition()) {
-                        mUserDataMeasure.setProperty("PictureViewMode", mSpinnerViewMode.getSelectedItemPosition() == 0 ? "PictureText": "PictureOnly");
+                        setUserProperty("PictureViewMode", mSpinnerViewMode.getSelectedItemPosition() == 0 ? "PictureText": "PictureOnly");
                         mSession.setPictureViewMode(mSpinnerViewMode.getSelectedItemPosition());
                     }
                     if(mSession.getGridSize() != mSpinnerGridSize.getSelectedItemPosition()) {
-                        mUserDataMeasure.setProperty("GridSize", mSpinnerGridSize.getSelectedItemPosition() == 0 ? "3" : "9");
+                        setUserProperty("GridSize", mSpinnerGridSize.getSelectedItemPosition() == 0 ? "3" : "9");
                         mSession.setGridSize(mSpinnerGridSize.getSelectedItemPosition());
                     }
                     startActivity(new Intent(getApplicationContext(), SplashActivity.class));
@@ -139,13 +139,21 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        stopMeasuring("SettingsActivity");
         mChangeAppLocale.setLocale();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mChangeAppLocale.setLocale();
+        startMeasuring();
     }
 
     @Override
     protected void onDestroy() {
         sendBroadcast(new Intent("com.dsource.idc.jellow.SPEECH_STOP"));
-        stopMeasuring("SettingsActivity");
+
         super.onDestroy();
     }
 

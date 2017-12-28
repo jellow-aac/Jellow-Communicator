@@ -11,9 +11,12 @@ import com.dsource.idc.jellow.Utility.ChangeAppLocale;
 import com.dsource.idc.jellow.Utility.EvaluateDisplayMetricsUtils;
 import com.dsource.idc.jellow.Utility.JellowTTSService;
 import com.dsource.idc.jellow.Utility.SessionManager;
-import com.dsource.idc.jellow.Utility.UserDataMeasure;
+import com.dsource.idc.jellow.Utility.Analytics;
 
 import java.io.IOException;
+
+import static com.dsource.idc.jellow.Utility.Analytics.reportException;
+import static com.dsource.idc.jellow.Utility.Analytics.reportLog;
 
 /**
  * Created by ekalpa on 7/12/2016.
@@ -45,7 +48,6 @@ public class SplashActivity extends AppCompatActivity {
 
     private void addNewRowsInDatabaseForNewContent() {
         DataBaseHelper dbHelper = new DataBaseHelper(this);
-        UserDataMeasure mUserDataMeasure = new UserDataMeasure(this);
         String queryResult;
         try {
             dbHelper.createDataBase();
@@ -55,10 +57,10 @@ public class SplashActivity extends AppCompatActivity {
                 queryResult.split(",")[1].equals("OK"))
                 new SessionManager(this).setUpdatedForNewContentV5();
             else
-                mUserDataMeasure.reportLog("Unable to add content in database at splash screen. QueryResult is "+ queryResult, Log.ERROR);
+                reportLog("Unable to add content in database at splash screen. QueryResult is "+ queryResult, Log.ERROR);
         } catch (SQLException e) {
-            mUserDataMeasure.reportLog("Unable to add content in database at splash screen.", Log.ERROR);
-            mUserDataMeasure.reportException(e);
+            reportLog("Unable to add content in database at splash screen.", Log.ERROR);
+            reportException(e);
         } catch (IOException e) {
             e.printStackTrace();
         }

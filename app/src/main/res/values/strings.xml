@@ -6,7 +6,7 @@
 
     <string name="Language">Language</string>
     <string name="ChangeLanguage">Change Language</string>
-    <string name="saveLanguage">Save</string>
+    <string name="saveLanguage">Change</string>
     <string name="addLanguage">Add Language</string>
     <string name="deleteLanguage">Delete Language</string>
 
@@ -57,6 +57,12 @@
     <string name="txtSave">SAVE</string>
     <string name="demoTtsSpeech">Hello! you are using Jellow Communicator.</string>
     <string name="savedSettingsMessage">Settings saved.</string>
+    <string name="languageChanged">Language Changed</string>
+    <string name="checkConnectivity">Please check internet connectivity</string>
+    <string name="languageCurrentlyInUse">Language is currently in use</string>
+    <string name="languageRemoved">Language removed</string>
+    <string name="languageLimitExceeded">Delete a language to add new language</string>
+
 
     <string name="menuProfile">Profile</string>
     <string name="menuAbout">About Jellow</string>

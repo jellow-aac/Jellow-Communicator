@@ -15,6 +15,8 @@ import com.dsource.idc.jellow.R;
 
 import java.util.Locale;
 
+import static com.dsource.idc.jellow.Utility.Analytics.reportException;
+
 /**
  * Created by ekalpa on 7/4/2017.
  */
@@ -96,8 +98,7 @@ public class JellowTTSService extends Service{
                         mTts.setSpeechRate((float) session.getSpeed()/100);
                         mTts.setPitch((float) session.getPitch()/100);
                     } catch (Exception e) {
-                        new UserDataMeasure(context).reportException(e);
-                        new UserDataMeasure(context).reportLog("Failed to set language.", Log.ERROR);
+                        reportException(e);
                     }
                 }
             });

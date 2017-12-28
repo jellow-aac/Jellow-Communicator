@@ -10,6 +10,14 @@
     <string name="saveLanguage">रक्षित करें</string>
     <string name="addLanguage">भाषा जोड़ें</string>
     <string name="deleteLanguage">भाषा डिलीट करें</string>
+    <string name="languageChanged">भाषा रक्षित की गई हैं</string>
+    <string name="checkConnectivity">कृपया अपने इंटरनेट कनेक्टिविटी की जांच करें</string>
+    <string name="languageCurrentlyInUse">भाषा फिलहाल उपयोग में हैं</string>
+    <string name="languageRemoved">भाषा डिलीट की गई हैं</string>
+    <string name="languageLimitExceeded">नई भाषा जोडने के लिये पहले से मौजूद एक भाषा को डिलीट करें</string>
+
+
+
 
 
     <string-array name="bloodgroup">
@@ -33,7 +41,7 @@
         <item>९</item>
     </string-array>
 
-    <string name="change_language_line1">आप अॅप्लिकेशन में अधिकतम ३ भाषाएँ डाउनलोड कर सकते हैं</string>
+    <string name="change_language_line1">आप अॅप्लिकेशन में अधिकतम ३ भाषाएँ डाउनलोड कर सकते हैं।</string>
     <string name="change_language_line2">डाउनलोड की गई भाषाओं मे से एक चुने:</string>
     <string name="change_language_line3">जेलो अॅप्लिकेशन में अधिक भाषाएँ डाउनलोड करने के लिये “भाषा जोड़ें” बटन पर क्लिक करें।
 अॅप्लिकेशन में पहले से ही डाउनलोड की गई भाषाओं को हटाने के लिये “भाषा डिलीट करें” बटन पर क्लिक करें।</string>

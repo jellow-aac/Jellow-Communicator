@@ -6,6 +6,7 @@ package com.dsource.idc.jellow;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.Html;
@@ -23,15 +24,22 @@ import android.widget.Toast;
 
 import com.dsource.idc.jellow.Utility.ChangeAppLocale;
 import com.dsource.idc.jellow.Utility.SessionManager;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-import static com.dsource.idc.jellow.Utility.UserDataMeasure.startMeasuring;
-import static com.dsource.idc.jellow.Utility.UserDataMeasure.stopMeasuring;
+
+import static com.dsource.idc.jellow.Utility.Analytics.startMeasuring;
+import static com.dsource.idc.jellow.Utility.Analytics.stopMeasuring;
 
 public class ProfileFormActivity extends AppCompatActivity {
     private Button bSave;
     private EditText etName, etFatherContact, etFathername, etAddress, etEmailId;
     private SessionManager mSession;
     private String email;
+    FirebaseDatabase mDB;
+    DatabaseReference mRef;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +63,9 @@ public class ProfileFormActivity extends AppCompatActivity {
         bSave = (Button) findViewById(R.id.bSave);
         mSession = new SessionManager(getApplicationContext());
 
-        startMeasuring();
+        mDB = FirebaseDatabase.getInstance();
+        mRef = mDB.getReference(BuildConfig.DB_TYPE+"/users");
+
 
         etName.setText(mSession.getName());
         etFatherContact.setText(mSession.getFather_no());
@@ -96,6 +106,21 @@ public class ProfileFormActivity extends AppCompatActivity {
                 if (etName.getText().toString().length() > 0) {
                     if (etFatherContact.getText().toString().trim().length() == 10) {
                         if (isValidEmail(email)) {
+
+                            if(etFatherContact.getText().toString().trim().equals(mSession.getFather_no()))
+                            {
+                                String emergencyContact = mSession.getFather_no();
+                                mRef.child(emergencyContact).child("email").setValue(email);
+                                mRef.child(emergencyContact).child("name").setValue(etName.getText().toString());
+
+                            }else {
+
+                                String emergencyContact = etFatherContact.getText().toString().trim();
+                                mRef.child(emergencyContact).child("emergencyContact").setValue(emergencyContact);
+                                mRef.child(emergencyContact).child("email").setValue(email);
+                                mRef.child(emergencyContact).child("name").setValue(etName.getText().toString());
+                            }
+
                             mSession.setFather_name(etFathername.getText().toString());
                             mSession.setAddress(etAddress.getText().toString());
                             mSession.setName(etName.getText().toString());
@@ -103,6 +128,7 @@ public class ProfileFormActivity extends AppCompatActivity {
                             mSession.setEmailId(email);
                             Toast.makeText(ProfileFormActivity.this, getString(R.string.detailSaved), Toast.LENGTH_SHORT).show();
                             finish();
+
                         } else
                             Toast.makeText(getApplicationContext(), getString(R.string.invalid_emailId), Toast.LENGTH_SHORT).show();
                     } else
@@ -138,6 +164,7 @@ public class ProfileFormActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        stopMeasuring("ProfileFormActivity");
         new ChangeAppLocale(this).setLocale();
     }
 
@@ -156,8 +183,13 @@ public class ProfileFormActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+         startMeasuring();
+    }
+
+    @Override
     protected void onDestroy() {
-        stopMeasuring("ProfileFormActivity");
         super.onDestroy();
     }
 }

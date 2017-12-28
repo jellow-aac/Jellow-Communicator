@@ -8,7 +8,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -19,6 +18,8 @@ import com.liulishuo.filedownloader.FileDownloader;
 import java.io.File;
 
 import ir.mahdi.mzip.zip.ZipArchive;
+
+import static com.dsource.idc.jellow.Utility.Analytics.bundleEvent;
 
 /**
  * Created by ravipoovaiah on 14/12/17.
@@ -47,6 +48,7 @@ public class DownloadManager {
 
     }
 
+    // any class using DownloadManager should implement this ProgressReciever for getting callbacks
     public interface ProgressReciever{
         void onprogress(int soFarBytes, int totalBytes);
 
@@ -69,7 +71,7 @@ public class DownloadManager {
 
                 if(uri != null)
                 startDownload(uri);
-                // Got the download URL for 'en.zip'
+                // Got the download URL for 'locale.zip'
 
 
             }
@@ -86,10 +88,12 @@ public class DownloadManager {
 
     private void startDownload(Uri url)
     {
-
+        // get a reference to internal directory
         File en_dir = context.getDir(localeCode, Context.MODE_PRIVATE);
 
+        // setup file downloader
         FileDownloader.setup(context);
+        // add listener for callbacks
         fileDownloadListener = new FileDownloadListener() {
             @Override
             protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
@@ -142,7 +146,7 @@ public class DownloadManager {
         };
 
 
-
+        // create a download task
         id = FileDownloader.getImpl().create(url.toString())
                 .setPath(en_dir.getPath()+"/"+localeCode+".zip")
                 .setForceReDownload(true)
@@ -161,11 +165,12 @@ public class DownloadManager {
 
     }
 
+    // for Analytics Purpose
     private void registerEvent() {
-        UserDataMeasure analytics = new UserDataMeasure(context);
+
         Bundle bundle = new Bundle();
         bundle.putString("Downloaded Language",localeCode);
-        analytics.genericEvent("Language",bundle);
+        bundleEvent("Language",bundle);
     }
 
 
@@ -178,6 +183,7 @@ public class DownloadManager {
     {
         if(id != 0)
         {
+            // if file is not downloaded then start the download
             if(FileDownloader.getImpl().getSoFar(id) < FileDownloader.getImpl().getTotal(id))
             {
                 start();

@@ -3,7 +3,6 @@ package com.dsource.idc.jellow;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -26,14 +25,17 @@ import com.dsource.idc.jellow.Models.SeqActivityVerbiageModel;
 import com.dsource.idc.jellow.Utility.ChangeAppLocale;
 import com.dsource.idc.jellow.Utility.DefaultExceptionHandler;
 import com.dsource.idc.jellow.Utility.SessionManager;
-import com.dsource.idc.jellow.Utility.UserDataMeasure;
+import com.dsource.idc.jellow.Utility.Analytics;
 import com.google.gson.Gson;
 
 import java.io.File;
 import java.util.ArrayList;
 
-import static com.dsource.idc.jellow.Utility.UserDataMeasure.startMeasuring;
-import static com.dsource.idc.jellow.Utility.UserDataMeasure.stopMeasuring;
+ import static com.dsource.idc.jellow.Utility.Analytics.reportLog;
+
+import static com.dsource.idc.jellow.Utility.Analytics.singleEvent;
+import static com.dsource.idc.jellow.Utility.Analytics.startMeasuring;
+import static com.dsource.idc.jellow.Utility.Analytics.stopMeasuring;
 
 
 /**
@@ -59,7 +61,6 @@ public class SequenceActivity extends AppCompatActivity {
     private String[] mDailyActivitiesSpeechText, mDailyActivitiesBelowText, heading, side, below, bt;
     private ArrayList<ArrayList<ArrayList<String>>> mSeqActSpeech;
     private SessionManager mSession;
-    private UserDataMeasure mUserDataMeasure;
 
     @SuppressLint("ResourceType")
     @Override
@@ -74,15 +75,12 @@ public class SequenceActivity extends AppCompatActivity {
         Typeface fontMuktaRegular = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/Mukta-Regular.ttf");
         Typeface fontMuktaBold = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/Mukta-Bold.ttf");
         mSession = new SessionManager(this);
-        mUserDataMeasure = new UserDataMeasure(this);
-        mUserDataMeasure.recordScreen(getLocalClassName());
         mLevelTwoItemPos = getIntent().getExtras().getInt("mLevelTwoItemPos");
         new ChangeAppLocale(this).setLocale();
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         if(mLevelTwoItemPos == 7)   mLevelTwoItemPos = 3;
         else if(mLevelTwoItemPos == 8)  mLevelTwoItemPos = 4;
 
-        startMeasuring();
 
         loadArraysFromResources();
         initializeViews();
@@ -276,8 +274,8 @@ public class SequenceActivity extends AppCompatActivity {
                     hideActionBtn(true);setBorderToView(findViewById(R.id.borderView1), -1);
                     image_flag = 0;
                 } else {
-                    mUserDataMeasure.recordGridItem("Tapped ".concat(mDailyActivitiesSpeechText[count]));
-                    mUserDataMeasure.reportLog(getLocalClassName()+", firstIcon: "+ mDailyActivitiesSpeechText[count], Log.INFO);
+                    singleEvent("SequenceActivity",mDailyActivitiesSpeechText[count]);
+                    reportLog(getLocalClassName()+", firstIcon: "+ mDailyActivitiesSpeechText[count], Log.INFO);
                     image_flag = 1;
                     if (count + image_flag == mDailyActivitiesIcons.length)
                         hideActionBtn(true);
@@ -299,8 +297,8 @@ public class SequenceActivity extends AppCompatActivity {
                     hideActionBtn(true);setBorderToView(findViewById(R.id.borderView2), -1);
                     image_flag = 0;
                 } else {
-                    mUserDataMeasure.recordGridItem("Tapped ".concat(mDailyActivitiesSpeechText[count+1]));
-                    mUserDataMeasure.reportLog(getLocalClassName()+", secondIcon: "+ mDailyActivitiesSpeechText[count + 1], Log.INFO);
+                    singleEvent("SequenceActivity",mDailyActivitiesSpeechText[count+1]);
+                    reportLog(getLocalClassName()+", secondIcon: "+ mDailyActivitiesSpeechText[count + 1], Log.INFO);
                     image_flag = 2;
                     if (count + image_flag == mDailyActivitiesIcons.length)
                         hideActionBtn(true);
@@ -322,8 +320,8 @@ public class SequenceActivity extends AppCompatActivity {
                     setBorderToView(findViewById(R.id.borderView3), -1);
                     image_flag = 0;
                 } else {
-                    mUserDataMeasure.recordGridItem("Tapped ".concat(mDailyActivitiesSpeechText[count+2]));
-                    mUserDataMeasure.reportLog(getLocalClassName()+", thirdIcon: "+ mDailyActivitiesSpeechText[count + 2], Log.INFO);
+                    singleEvent("SequenceActivity",mDailyActivitiesSpeechText[count+2]);
+                    reportLog(getLocalClassName()+", thirdIcon: "+ mDailyActivitiesSpeechText[count + 2], Log.INFO);
                     image_flag = 3;
                     if (count + image_flag == mDailyActivitiesIcons.length)
                         hideActionBtn(true);
@@ -417,7 +415,7 @@ public class SequenceActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     speakSpeech(et.getText().toString());
                     if(!et.getText().toString().equals("")) ttsButton.setImageResource(R.drawable.speaker_pressed);
-                    mUserDataMeasure.reportLog(getLocalClassName()+", TtsSpeak: ", Log.INFO);
+                    reportLog(getLocalClassName()+", TtsSpeak: ", Log.INFO);
                     hideActionBtn(true);
                 }
         });
@@ -445,26 +443,24 @@ public class SequenceActivity extends AppCompatActivity {
                     if (mCk == 1) {
                         speakSpeech(side[1]);
                         mCk = 0;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyLike"));
+                        singleEvent("ExpressiveIcon","ReallyLike");
                     } else {
                         speakSpeech(side[0]);
                         mCk = 1;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("like"));
+                        singleEvent("ExpressiveIcon","like");
                     }
                 } else {
                     setBorderToIcon(0);
                     if (mCk == 1) {
-                        mUserDataMeasure.reportLog(getLocalClassName()+", like: "+
+                        reportLog(getLocalClassName()+", like: "+
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(1), Log.INFO);
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(1));
                         mCk = 0;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyLikeVerbiage"));
                     } else {
-                        mUserDataMeasure.reportLog(getLocalClassName()+", like: "+
+                        reportLog(getLocalClassName()+", like: "+
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(0), Log.INFO);
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(0));
                         mCk = 1;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("LikeVerbiage"));
                     }
                 }
                 back.setImageResource(R.drawable.back_button);
@@ -480,26 +476,24 @@ public class SequenceActivity extends AppCompatActivity {
                     if (mCd == 1) {
                         speakSpeech(side[7]);
                         mCd = 0;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyDislike"));
+                        singleEvent("ExpressiveIcon","ReallyDislike");
                     } else {
                         speakSpeech(side[6]);
                         mCd = 1;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("Dislike"));
+                        singleEvent("ExpressiveIcon","Dislike");
                     }
                 } else {
                     setBorderToIcon(1);
                     if (mCd == 1) {
-                        mUserDataMeasure.reportLog(getLocalClassName()+", dislike: "+
+                       reportLog(getLocalClassName()+", dislike: "+
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(7), Log.INFO);
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(7));
                         mCd = 0;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyDislikeVerbiage"));
                     } else {
-                        mUserDataMeasure.reportLog(getLocalClassName()+", dislike: "+
+                       reportLog(getLocalClassName()+", dislike: "+
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(6), Log.INFO);
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(6));
                         mCd = 1;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("DislikeVerbiage"));
                     }
                 }
                 back.setImageResource(R.drawable.back_button);
@@ -515,26 +509,24 @@ public class SequenceActivity extends AppCompatActivity {
                     if (mCy == 1) {
                         speakSpeech(side[3]);
                         mCy = 0;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyYes"));
+                        singleEvent("ExpressiveIcon","ReallyYes");
                     } else {
                         speakSpeech(side[2]);
                         mCy = 1;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("Yes"));
+                        singleEvent("ExpressiveIcon","Yes");
                     }
                 } else {
                     setBorderToIcon(2);
                     if (mCy == 1) {
-                        mUserDataMeasure.reportLog(getLocalClassName()+", yes: "+
+                        reportLog(getLocalClassName()+", yes: "+
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(3), Log.INFO);
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(3));
                         mCy = 0;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyYesVerbiage"));
                     } else {
-                        mUserDataMeasure.reportLog(getLocalClassName()+", yes: "+
+                        reportLog(getLocalClassName()+", yes: "+
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(2), Log.INFO);
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(2));
                         mCy = 1;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("YesVerbiage"));
                     }
                 }
                 back.setImageResource(R.drawable.back_button);
@@ -550,26 +542,24 @@ public class SequenceActivity extends AppCompatActivity {
                     if (mCn == 1) {
                         speakSpeech(side[9]);
                         mCn = 0;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyNo"));
+                        singleEvent("ExpressiveIcon","ReallyNo");
                     } else {
                         speakSpeech(side[8]);
                         mCn = 1;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("No"));
+                        singleEvent("ExpressiveIcon","No");
                     }
                 } else {
                     setBorderToIcon(3);
                     if (mCn == 1) {
-                        mUserDataMeasure.reportLog(getLocalClassName()+", no: "+
+                        reportLog(getLocalClassName()+", no: "+
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(9), Log.INFO);
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(9));
                         mCn = 0;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyNoVerbiage"));
                     } else {
-                        mUserDataMeasure.reportLog(getLocalClassName()+", no: "+
+                        reportLog(getLocalClassName()+", no: "+
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(8), Log.INFO);
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(8));
                         mCn = 1;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("NoVerbiage"));
                     }
                 }
                 back.setImageResource(R.drawable.back_button);
@@ -585,26 +575,24 @@ public class SequenceActivity extends AppCompatActivity {
                     if (mCm == 1) {
                         speakSpeech(side[5]);
                         mCm = 0;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyAdd"));
+                        singleEvent("ExpressiveIcon","ReallyMore");
                     } else {
                         speakSpeech(side[4]);
                         mCm = 1;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("Add"));
+                        singleEvent("ExpressiveIcon","More");
                     }
                 } else {
                     setBorderToIcon(4);
                     if (mCm == 1) {
-                        mUserDataMeasure.reportLog(getLocalClassName()+", add: "+
+                        reportLog(getLocalClassName()+", add: "+
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(5), Log.INFO);
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(5));
                         mCm = 0;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyAddVerbiage"));
                     } else {
-                        mUserDataMeasure.reportLog(getLocalClassName()+", add: "+
+                        reportLog(getLocalClassName()+", add: "+
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(4), Log.INFO);
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(4));
                         mCm = 1;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("AddVerbiage"));
                     }
                 }
                 back.setImageResource(R.drawable.back_button);
@@ -620,26 +608,24 @@ public class SequenceActivity extends AppCompatActivity {
                     if (mCl == 1) {
                         speakSpeech(side[11]);
                         mCl = 0;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyMinus"));
+                        singleEvent("ExpressiveIcon","ReallyLess");
                     } else {
                         speakSpeech(side[10]);
                         mCl = 1;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("Minus"));
+                        singleEvent("ExpressiveIcon","Less");
                     }
                 } else {
                     setBorderToIcon(5);
                     if (mCl == 1) {
-                        mUserDataMeasure.reportLog(getLocalClassName()+", minus: "+
+                        reportLog(getLocalClassName()+", minus: "+
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(11), Log.INFO);
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(11));
                         mCl = 0;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("ReallyMinusVerbiage"));
                     } else {
-                        mUserDataMeasure.reportLog(getLocalClassName()+", minus: "+
+                        reportLog(getLocalClassName()+", minus: "+
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(10), Log.INFO);
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + image_flag - 1).get(10));
                         mCl = 1;
-                        mUserDataMeasure.recordGridItem("Tapped ".concat("MinusVerbiage"));
                     }
                 }
                 back.setImageResource(R.drawable.back_button);
@@ -679,18 +665,20 @@ public class SequenceActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+         startMeasuring();
         new ChangeAppLocale(this).setLocale();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        stopMeasuring("SequenceActivity");
         new ChangeAppLocale(this).setLocale();
     }
 
     @Override
     protected void onDestroy() {
-        stopMeasuring("SequenceActivity");
+
         super.onDestroy();
         mSeqActSpeech = null;
         mDailyActivitiesIcons = null;
@@ -701,7 +689,7 @@ public class SequenceActivity extends AppCompatActivity {
         side = null;
         below = null;
         bt = null;
-        mUserDataMeasure = null;
+        
     }
 
     private void showActionBarTitle(boolean showTitle){

@@ -12,93 +12,106 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fillViewport="false"
+        android:layout_margin="19dp"
         android:fadeScrollbars="false"
-        android:layout_margin="19dp">
+        android:fillViewport="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
-                    android:textColor="#000"
                     android:scaleX=".7"
                     android:scaleY=".7"
-                    android:text="@string/bullet" />
+                    android:text="@string/bullet"
+                    android:textColor="#000" />
+
                 <TextView
                     android:id="@+id/tv1"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:scrollHorizontally="true"
                     android:text="@string/change_language_line1"
-                    android:textSize="14sp"
-                    android:scrollHorizontally="true"/>
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:layout_marginTop="19dp"
-                android:layout_marginBottom="19dp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
-                    android:textColor="#000"
                     android:scaleX=".7"
                     android:scaleY=".7"
-                    android:text="@string/bullet" />
+                    android:text="@string/bullet"
+                    android:textColor="#000" />
+
                 <TextView
                     android:id="@+id/tv2"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="@string/change_language_line2"
-                    android:textSize="14sp"/>
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14sp" />
             </LinearLayout>
 
 
             <Spinner
                 android:id="@+id/selectDownloadedLanguageSpinner"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
             <Button
                 android:id="@+id/saveBut"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_margin="10dp"
-                android:text= "@string/saveLanguage"/>
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#FFBEBCB6"
+                android:text="@string/saveLanguage" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
-                    android:textColor="#000"
                     android:scaleX=".7"
                     android:scaleY=".7"
-                    android:text="@string/bullet" />
+                    android:text="@string/bullet"
+                    android:textColor="#000" />
+
                 <TextView
                     android:id="@+id/tv3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:minHeight="40dp"
                     android:text="@string/change_language_line3"
-                    android:textSize="14sp"/>
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
@@ -116,18 +129,24 @@
 
         <Button
             android:id="@+id/addBut"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="230dp"
+            android:layout_height="30dp"
             android:layout_marginLeft="20dp"
+            android:background="#FFBEBCB6"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:text="@string/addLanguage" />
 
         <Button
             android:id="@+id/delBut"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="230dp"
+            android:layout_height="30dp"
+            android:background="#FFBEBCB6"
             android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:text="@string/deleteLanguage" />
 
     </LinearLayout>
