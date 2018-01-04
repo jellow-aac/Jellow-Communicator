@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.util.DisplayMetrics;
 
-import com.dsource.idc.jellow.R;
-
 import java.util.Locale;
 
 /**
@@ -23,21 +21,18 @@ public class ChangeAppLocale {
         Locale locale;
         SessionManager session= new SessionManager(mContext);
         switch (session.getLanguage()){
-            case SessionManager.ENG_IN:
-                locale = new Locale("en","IN");
-                break;
             case SessionManager.ENG_UK:
-                locale = new Locale("en","GB");
+                locale = Locale.UK;
                 break;
             case SessionManager.ENG_US:
-                locale = new Locale("en","US");
+                locale = Locale.US;
                 break;
             case SessionManager.HI_IN:
-                locale = new Locale(mContext.getString(R.string.locale_lang_hi),
-                                    mContext.getString(R.string.locale_reg_IN));
+                locale = new Locale("hi","IN");
                 break;
+            case SessionManager.ENG_IN:
             default:
-                locale = Locale.US;
+                locale = new Locale("en","IN");
                 break;
         }
 

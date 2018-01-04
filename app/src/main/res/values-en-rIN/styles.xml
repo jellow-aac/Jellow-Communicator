@@ -1,0 +1,83 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="actionBarStyle">@style/ActionBar.Solid.MyAppTheme</item>
+        <item name="actionOverflowButtonStyle">@style/OverFlow</item>
+        <item name="android:spinnerItemStyle">@style/spinnerItemStyle</item>
+        <item name="android:spinnerDropDownItemStyle">@style/spinnerDropDownItemStyle</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:height">@dimen/bar_height</item>
+        <item name="height">@dimen/bar_height</item>
+    </style>
+
+
+    <style name="spinnerDropDownItemStyle">
+        <item name="android:padding">8dp</item>
+        <item name="android:textSize">13dp</item>
+    </style>
+
+    <style name="spinnerItemStyle">
+        <item name="android:padding">8dp</item>
+        <item name="android:textSize">13dp</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <style name="OverFlow" parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_action_image_dehaze</item>
+        <item name="android:scaleX">.45</item>
+        <item name="android:scaleY">.45</item>
+        <item name="android:layout_marginTop">-50dp</item>
+        <item name="android:paddingTop">-50dp</item>
+        <item name="android:layout_marginBottom">30dp</item>
+        <item name="android:paddingBottom">5dp</item>
+    </style>
+
+    <style name="ActionBar.Solid.MyAppTheme" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
+        <item name="android:background">@drawable/red_bg</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="elevation">0dp</item>
+        <item name="titleTextStyle">@style/MyTitleTextStyle</item>
+        <item name="android:height">@dimen/bar_height</item>
+        <item name="height">@dimen/bar_height</item>
+    </style>
+
+    <style name="MyTitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">#404040</item>
+        <item name="android:height">@dimen/bar_height</item>
+        <item name="height">@dimen/bar_height</item>
+    </style>
+
+    <style name="Material.Widget.Slider">
+        <item name="sl_trackSize">2dp</item>
+        <item name="sl_trackCap">square</item>
+        <item name="sl_thumbBorderSize">2dp</item>
+        <item name="sl_thumbRadius">10dp</item>
+        <item name="sl_thumbFocusRadius">14dp</item>
+        <item name="sl_travelAnimDuration">@android:integer/config_mediumAnimTime</item>
+        <item name="sl_transformAnimDuration">@android:integer/config_shortAnimTime</item>
+        <item name="sl_interpolator">@android:anim/decelerate_interpolator</item>
+        <item name="sl_minValue">0</item>
+        <item name="sl_maxValue">100</item>
+        <item name="sl_stepValue">1</item>
+        <item name="sl_discreteMode">false</item>
+        <item name="sl_textSize">@dimen/abc_text_size_small_material</item>
+        <item name="sl_textColor">#FFFFFFFF</item>
+        <item name="sl_alwaysFillThumb">false</item>
+        <item name="sl_baselineOffset">0dp</item>
+    </style>
+
+    <style name="Material.Widget.Slider.Discrete" parent="Material.Widget.Slider">
+        <item name="sl_discreteMode">true</item>
+    </style>
+
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">#000</item>
+        <item name="colorControlActivated">@color/yellow_silhouette</item>
+    </style>
+
+    <color name="yellow_silhouette">#ffcc14</color>
+</resources>

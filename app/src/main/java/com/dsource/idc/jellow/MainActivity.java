@@ -20,19 +20,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dsource.idc.jellow.Models.LevelOneVerbiageModel;
-import com.dsource.idc.jellow.Utility.ChangeAppLocale;
-import com.dsource.idc.jellow.Utility.DefaultExceptionHandler;
-import com.dsource.idc.jellow.Utility.SessionManager;
-//import com.dsource.idc.jellow.Utility.SpeakOnKeyboardDialog;
 import com.dsource.idc.jellow.Utility.Analytics;
+import com.dsource.idc.jellow.Utility.ChangeAppLocale;
+import com.dsource.idc.jellow.Utility.SessionManager;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
 import static com.dsource.idc.jellow.Utility.Analytics.bundleEvent;
-
 import static com.dsource.idc.jellow.Utility.Analytics.reportLog;
-
 import static com.dsource.idc.jellow.Utility.Analytics.singleEvent;
 import static com.dsource.idc.jellow.Utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellow.Utility.Analytics.stopMeasuring;
@@ -53,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
     private boolean mShouldReadFullSpeech = false;
     private ArrayList<View> mRecyclerItemsViewList;
     private Analytics mAnalytics;
-    private int[] mColor;
     private ArrayList<ArrayList<String>> mLayerOneSpeech;
     private String[] myMusic, side, below;
     private String actionBarTitleTxt;
@@ -69,42 +64,42 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(getString(R.string.action_bar_title));
 
         new ChangeAppLocale(this).setLocale();
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
+        //Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         loadArraysFromResources();
         mRecyclerItemsViewList = new ArrayList<>(myMusic.length);
         while (mRecyclerItemsViewList.size() < myMusic.length)  mRecyclerItemsViewList.add(null);
-        like = (ImageView) findViewById(R.id.ivlike);
+        like = findViewById(R.id.ivlike);
         like.setContentDescription(side[0]);
-        dislike = (ImageView) findViewById(R.id.ivdislike);
+        dislike = findViewById(R.id.ivdislike);
         dislike.setContentDescription(side[6]);
-        add = (ImageView) findViewById(R.id.ivadd);
+        add = findViewById(R.id.ivadd);
         add.setContentDescription(side[4]);
-        minus = (ImageView) findViewById(R.id.ivminus);
+        minus = findViewById(R.id.ivminus);
         minus.setContentDescription(side[10]);
-        yes = (ImageView) findViewById(R.id.ivyes);
+        yes = findViewById(R.id.ivyes);
         yes.setContentDescription(side[2]);
-        no = (ImageView) findViewById(R.id.ivno);
+        no = findViewById(R.id.ivno);
         no.setContentDescription(side[8]);
-        home = (ImageView) findViewById(R.id.ivhome);
+        home = findViewById(R.id.ivhome);
         home.setContentDescription(below[0]);
-        back = (ImageView) findViewById(R.id.ivback);
+        back = findViewById(R.id.ivback);
         back.setContentDescription(below[1]);
         back.setAlpha(.5f);
         back.setEnabled(false);
-        keyboard = (ImageView) findViewById(R.id.keyboard);
+        keyboard = findViewById(R.id.keyboard);
         keyboard.setContentDescription(below[2]);
-        et = (EditText) findViewById(R.id.et);
+        et = findViewById(R.id.et);
         et.setContentDescription(getString(R.string.string_to_speak));
         et.setVisibility(View.INVISIBLE);
 
-        ttsButton = (ImageView)findViewById(R.id.ttsbutton);
+        ttsButton = findViewById(R.id.ttsbutton);
         ttsButton.setContentDescription(getString(R.string.speak_written_text));
         ttsButton.setVisibility(View.INVISIBLE);
 
         originalKeyListener = et.getKeyListener();
         // Set it to null - this will make the field non-editable
         et.setKeyListener(null);
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         mRecyclerView.setAdapter(new MainActivityAdapter(this));
         mRecyclerView.setVerticalScrollBarEnabled(true);
@@ -113,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, mRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(final View view, final int position) {
-                mMenuItemLinearLayout = (LinearLayout)view.findViewById(R.id.linearlayout_icon1);
+                mMenuItemLinearLayout = view.findViewById(R.id.linearlayout_icon1);
                 mMenuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -593,7 +588,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadArraysFromResources() {
-        mColor = getResources().getIntArray(R.array.arrActionBtnColors);
         LevelOneVerbiageModel verbiageModel = new Gson()
                 .fromJson(getString(R.string.levelOneVerbiage), LevelOneVerbiageModel.class);
         mLayerOneSpeech = verbiageModel.getVerbiageModel();

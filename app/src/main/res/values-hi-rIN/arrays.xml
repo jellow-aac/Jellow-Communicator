@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--GLOBAL ARRAYS ARE HERE-->
-    <integer-array name="arrActionBtnColors">
-        <item>-5317</item>
-        <item>-12627531</item>
-        <item>-7617718</item>
-        <item>-2937298</item>
-        <item>-648053365</item>
-        <item>-1761607680</item>
-    </integer-array>
     <string-array name="arrActionSpeech">
         <item>अच्छा लगता हैं</item>
         <item>सच में अच्छा लगता हैं</item>

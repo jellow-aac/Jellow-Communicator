@@ -25,14 +25,12 @@ import com.dsource.idc.jellow.Models.SeqActivityVerbiageModel;
 import com.dsource.idc.jellow.Utility.ChangeAppLocale;
 import com.dsource.idc.jellow.Utility.DefaultExceptionHandler;
 import com.dsource.idc.jellow.Utility.SessionManager;
-import com.dsource.idc.jellow.Utility.Analytics;
 import com.google.gson.Gson;
 
 import java.io.File;
 import java.util.ArrayList;
 
- import static com.dsource.idc.jellow.Utility.Analytics.reportLog;
-
+import static com.dsource.idc.jellow.Utility.Analytics.reportLog;
 import static com.dsource.idc.jellow.Utility.Analytics.singleEvent;
 import static com.dsource.idc.jellow.Utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellow.Utility.Analytics.stopMeasuring;
@@ -49,7 +47,6 @@ public class SequenceActivity extends AppCompatActivity {
     private ImageView like, dislike, add, minus, yes, no, home, keyboard, ttsButton;
     private EditText et;
     private KeyListener originalKeyListener;
-    private int[] mColor;
     private TextView tt1, bt1, bt2, bt3;
     private ImageView image1, image2, image3;
     private ImageView arrow1, arrow2, back;
@@ -335,7 +332,7 @@ public class SequenceActivity extends AppCompatActivity {
             }
         });
 
-        ttsButton = (ImageView) findViewById(R.id.ttsbutton);
+        ttsButton = findViewById(R.id.ttsbutton);
         ttsButton.setVisibility(View.INVISIBLE);
 
         originalKeyListener = et.getKeyListener();
@@ -702,29 +699,29 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     private void initializeViews(){
-        like = (ImageView) findViewById(R.id.ivlike);
-        dislike = (ImageView) findViewById(R.id.ivdislike);
-        add = (ImageView) findViewById(R.id.ivadd);
-        minus = (ImageView) findViewById(R.id.ivminus);
-        yes = (ImageView) findViewById(R.id.ivyes);
-        no = (ImageView) findViewById(R.id.ivno);
-        home = (ImageView) findViewById(R.id.ivhome);
-        keyboard = (ImageView) findViewById(R.id.keyboard);
-        et = (EditText) findViewById(R.id.et);
-        relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
-        back = (ImageView) findViewById(R.id.ivback);
-        forward = (Button) findViewById(R.id.forward);
-        backward = (Button) findViewById(R.id.backward);
-        tt1 = (TextView) findViewById(R.id.tt1);
-        bt1 = (TextView) findViewById(R.id.bt1);
-        bt2 = (TextView) findViewById(R.id.bt2);
-        bt3 = (TextView) findViewById(R.id.bt3);
-        image1 = (ImageView) findViewById(R.id.image1);
-        image2 = (ImageView) findViewById(R.id.image2);
-        image3 = (ImageView) findViewById(R.id.image3);
+        like = findViewById(R.id.ivlike);
+        dislike = findViewById(R.id.ivdislike);
+        add = findViewById(R.id.ivadd);
+        minus = findViewById(R.id.ivminus);
+        yes = findViewById(R.id.ivyes);
+        no = findViewById(R.id.ivno);
+        home = findViewById(R.id.ivhome);
+        keyboard = findViewById(R.id.keyboard);
+        et = findViewById(R.id.et);
+        relativeLayout = findViewById(R.id.relativeLayout);
+        back = findViewById(R.id.ivback);
+        forward = findViewById(R.id.forward);
+        backward = findViewById(R.id.backward);
+        tt1 = findViewById(R.id.tt1);
+        bt1 = findViewById(R.id.bt1);
+        bt2 = findViewById(R.id.bt2);
+        bt3 = findViewById(R.id.bt3);
+        image1 = findViewById(R.id.image1);
+        image2 = findViewById(R.id.image2);
+        image3 = findViewById(R.id.image3);
 
-        arrow1 = (ImageView) findViewById(R.id.arrow1);
-        arrow2 = (ImageView) findViewById(R.id.arrow2);
+        arrow1 = findViewById(R.id.arrow1);
+        arrow2 = findViewById(R.id.arrow2);
         final int MODE_PICTURE_ONLY = 1;
         if(mSession.getPictureViewMode() == MODE_PICTURE_ONLY){
             bt1.setVisibility(View.INVISIBLE);
@@ -740,7 +737,6 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     private void loadArraysFromResources() {
-        mColor = getResources().getIntArray(R.array.arrActionBtnColors);
         side = getResources().getStringArray(R.array.arrActionSpeech);
         below = getResources().getStringArray(R.array.arrNavigationSpeech);
         bt = getResources().getStringArray(R.array.arrSeqActivityNavigationText);

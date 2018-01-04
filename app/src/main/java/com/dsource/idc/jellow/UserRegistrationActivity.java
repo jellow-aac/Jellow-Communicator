@@ -20,7 +20,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.dsource.idc.jellow.Utility.SessionManager;
-import com.dsource.idc.jellow.Utility.Analytics;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
@@ -31,10 +30,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import static com.dsource.idc.jellow.Utility.Analytics.bundleEvent;
-import static com.dsource.idc.jellow.Utility.Analytics.setUserProperty;
-import static com.dsource.idc.jellow.Utility.Analytics.singleEvent;
-import static com.dsource.idc.jellow.Utility.SessionManager.LangMap;
 import static com.dsource.idc.jellow.Utility.Analytics.getAnalytics;
+import static com.dsource.idc.jellow.Utility.Analytics.setUserProperty;
+import static com.dsource.idc.jellow.Utility.SessionManager.LangMap;
 
 public class UserRegistrationActivity extends AppCompatActivity {
     public static final String LCODE = "lcode";
@@ -80,10 +78,10 @@ public class UserRegistrationActivity extends AppCompatActivity {
         LangMap.keySet().toArray(languages);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        etName = (EditText) findViewById(R.id.etName);
-        etEmergencyContact = (EditText) findViewById(R.id.etEmergencyContact);
-        etEmailId= (EditText)findViewById(R.id.etEmailId);
-        bRegister = (Button) findViewById(R.id.bRegister);
+        etName = findViewById(R.id.etName);
+        etEmergencyContact = findViewById(R.id.etEmergencyContact);
+        etEmailId= findViewById(R.id.etEmailId);
+        bRegister = findViewById(R.id.bRegister);
         bRegister.setAlpha(0.5f);
         bRegister.setEnabled(true);
 
@@ -108,7 +106,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
 
 
-        languageSelect = (Spinner) findViewById(R.id.langSelectSpinner);
+        languageSelect = findViewById(R.id.langSelectSpinner);
 
         ArrayAdapter<String> adapter_lan = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, languages);
@@ -169,70 +167,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
         }
     }
 
-    /*
-    private void checkLogin(final String name, final String contact, final String mail, final String time) {
-        String tag_string_req = "req_login";
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_LOGIN, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jObj = new JSONObject(response);
-                    boolean error = jObj.getBoolean("error");
-                    if (!error) {
-                        mSession.setUserLoggedIn(true);
-                        mSession.setLanguage(LANG_ENGLISH);
-                        mSession.setGridSize(GRID_3BY3);
-                        startActivity(new Intent(UserRegistrationActivity.this, Intro.class));
-                        finish();
-                    } else {
-                        bRegister.setEnabled(true);
-                        String errorMsg = jObj.getString("error_msg");
-                        Toast.makeText(UserRegistrationActivity.this, errorMsg, Toast.LENGTH_LONG).show();
-                    }
-                } catch (JSONException e) {
-                    bRegister.setEnabled(true);
-                    e.printStackTrace();
-                    Toast.makeText(UserRegistrationActivity.this, "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                bRegister.setEnabled(true);
-                Toast.makeText(UserRegistrationActivity.this, getString(R.string.checkInternetConn) , Toast.LENGTH_LONG).show();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                // Posting parameters to login url
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("name", name);
-                params.put("contact", contact);
-                params.put("mail", mail);
-                params.put("time", time);
-                params.put("version", "Indian");
-                return params;
-            }
-        };
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-    }
-
-    private class LongOperation extends AsyncTask<String, Void, Void> {
-        @Override
-        protected Void doInBackground(String... params) {
-            try {
-                checkLogin(params[0], params[1], params[2], params[3]);
-            } catch (Exception e) {
-                Thread.interrupted();
-            }
-            return null;
-        }
-    }
-    */
-
-    private void createUser(final String name, final String emergencyContact, String eMailId, String formattedDate)
+    private void createUser(final String name,final String emergencyContact, String eMailId, String formattedDate)
     {
         try {
             getAnalytics(UserRegistrationActivity.this,emergencyContact);

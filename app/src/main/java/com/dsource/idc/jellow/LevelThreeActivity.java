@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.KeyListener;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,15 +23,13 @@ import com.dsource.idc.jellow.Utility.ChangeAppLocale;
 import com.dsource.idc.jellow.Utility.DefaultExceptionHandler;
 import com.dsource.idc.jellow.Utility.IndexSorter;
 import com.dsource.idc.jellow.Utility.SessionManager;
-import com.dsource.idc.jellow.Utility.Analytics;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import static com.dsource.idc.jellow.Utility.Analytics.bundleEvent;
- import static com.dsource.idc.jellow.Utility.Analytics.reportException;
-
+import static com.dsource.idc.jellow.Utility.Analytics.reportException;
 import static com.dsource.idc.jellow.Utility.Analytics.singleEvent;
 import static com.dsource.idc.jellow.Utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellow.Utility.Analytics.stopMeasuring;
@@ -57,7 +54,7 @@ public class LevelThreeActivity extends AppCompatActivity {
     private int count_flag = 0;
     private DataBaseHelper myDbHelper;
     private String[] side, below;
-    private ArrayList<ArrayList<ArrayList <ArrayList <String>>>> mVerbTxt;
+	ArrayList <ArrayList <String>> mNewVerbTxt;
     //private Analytics mAnalytics;
     private String actionBarTitleTxt;
 
@@ -69,11 +66,10 @@ public class LevelThreeActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(getIntent().getExtras().getString("selectedMenuItemPath"));
         if(findViewById(R.id.parent).getTag().toString().equals("large"))
             getWindow().setFlags(
-                WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
-                    WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
+                    WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
+                        WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
+
         myDbHelper = new DataBaseHelper(this);
-
-
         new ChangeAppLocale(this).setLocale();
         more_count = 0;
         mLevelOneItemPos = getIntent().getExtras().getInt("mLevelOneItemPos");
@@ -89,42 +85,42 @@ public class LevelThreeActivity extends AppCompatActivity {
 
         mRecyclerItemsViewList = new ArrayList<>(100);
         while(mRecyclerItemsViewList.size() <= 100) mRecyclerItemsViewList.add(null);
-        like = (ImageView) findViewById(R.id.ivlike);
+        like = findViewById(R.id.ivlike);
         like.setContentDescription(side[0]);
-        dislike = (ImageView) findViewById(R.id.ivdislike);
+        dislike = findViewById(R.id.ivdislike);
         dislike.setContentDescription(side[6]);
-        add = (ImageView) findViewById(R.id.ivadd);
+        add = findViewById(R.id.ivadd);
         add.setContentDescription(side[4]);
-        minus = (ImageView) findViewById(R.id.ivminus);
+        minus = findViewById(R.id.ivminus);
         minus.setContentDescription(side[10]);
-        yes = (ImageView) findViewById(R.id.ivyes);
+        yes = findViewById(R.id.ivyes);
         yes.setContentDescription(side[2]);
-        no = (ImageView) findViewById(R.id.ivno);
+        no = findViewById(R.id.ivno);
         no.setContentDescription(side[8]);
-        home = (ImageView) findViewById(R.id.ivhome);
+        home = findViewById(R.id.ivhome);
         home.setContentDescription(below[0]);
-        back = (ImageView) findViewById(R.id.ivback);
+        back = findViewById(R.id.ivback);
         back.setContentDescription(below[1]);
-        keyboard = (ImageView) findViewById(R.id.keyboard);
+        keyboard = findViewById(R.id.keyboard);
         keyboard.setContentDescription(below[2]);
-        et = (EditText) findViewById(R.id.et);
+        et = findViewById(R.id.et);
         et.setContentDescription(getString(R.string.string_to_speak));
         et.setVisibility(View.INVISIBLE);
-        ttsButton = (ImageView) findViewById(R.id.ttsbutton);
+        ttsButton = findViewById(R.id.ttsbutton);
         ttsButton.setContentDescription(getString(R.string.speak_written_text));
         ttsButton.setVisibility(View.INVISIBLE);
         originalKeyListener = et.getKeyListener();
         // Set it to null - this will make to the field non-editable
         et.setKeyListener(null);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         mRecyclerView.setVerticalScrollBarEnabled(true);
         mRecyclerView.setScrollbarFadingEnabled(false);
         mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), mRecyclerView, new RecyclerTouchListener.ClickListener() {
                 @Override
                 public void onClick(final View view, final int position) {
-                    mMenuItemLinearLayout = (LinearLayout) view.findViewById(R.id.linearlayout_icon1);
+                    mMenuItemLinearLayout = view.findViewById(R.id.linearlayout_icon1);
                     mMenuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -154,13 +150,15 @@ public class LevelThreeActivity extends AppCompatActivity {
         if (!savedString.equals("false")) {
             count_flag = 1;
             StringTokenizer st = new StringTokenizer(savedString, ",");
-            count = new Integer[mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).size()];
-            for (int j = 0; j < mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).size(); j++) {
+
+            count = new Integer[mNewVerbTxt.size()];
+            for (int j = 0; j < mNewVerbTxt.size(); j++) {
                 count[j] = Integer.parseInt(st.nextToken());
             }
             IndexSorter<Integer> is = new IndexSorter<Integer>(count);
             is.sort();
-            Integer[] indexes = new Integer[mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).size()];
+            Integer[] indexes = new Integer[mNewVerbTxt.size()];
+
             int g = 0;
             for (Integer ij : is.getIndexes()) {
                 indexes[g] = ij;
@@ -172,6 +170,8 @@ public class LevelThreeActivity extends AppCompatActivity {
             mRecyclerView.setAdapter(new LayerThreeAdapter(this, mLevelOneItemPos, mLevelTwoItemPos, sort));
         } else if ((mLevelOneItemPos == 3 && (mLevelTwoItemPos == 3 || mLevelTwoItemPos == 4)) || (mLevelOneItemPos == 7 && (mLevelTwoItemPos == 0 || mLevelTwoItemPos == 1 || mLevelTwoItemPos == 2 || mLevelTwoItemPos == 3 || mLevelTwoItemPos == 4)) || (mLevelOneItemPos == 4 && mLevelTwoItemPos == 9)) {
             myMusic_function(mLevelOneItemPos, mLevelTwoItemPos);
+            for (int i=0; i< mNewVerbTxt.size();i++)
+                sort[i] = i;
             mRecyclerView.setAdapter(new LayerThreeAdapter(this, mLevelOneItemPos, mLevelTwoItemPos, sort));
         } else {
             count_flag = 0;
@@ -273,7 +273,7 @@ public class LevelThreeActivity extends AppCompatActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 // If it loses focus...
                 if (!hasFocus) {
-                    // Hithe soft keyboard.
+                    // Hit the soft keyboard.
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(et.getWindowToken(), 0);
                     // Make it non-editable again.
@@ -308,18 +308,19 @@ public class LevelThreeActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","ReallyLike");
 
                         if (count_flag == 1)
-                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(1));
-                        else
-                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(1));
+                            speakSpeech(mNewVerbTxt.get(sort[mLevelThreeItemPos]).get(1));
+                        else {
+                            speakSpeech(mNewVerbTxt.get(sort[mLevelThreeItemPos]).get(1));
+                        }
                         mCk = 0;
                         //mAnalytics.recordGridItem("Tapped ".concat("ReallyLikeVerbiage"));
                     } else {
                         singleEvent("ExpressiveIcon","like");
 
                         if (count_flag == 1)
-                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(0));
+                            speakSpeech(mNewVerbTxt.get(sort[mLevelThreeItemPos]).get(0));
                         else
-                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(0));
+                            speakSpeech(mNewVerbTxt.get(sort[mLevelThreeItemPos]).get(0));
                         mCk = 1;
                         //mAnalytics.recordGridItem("Tapped ".concat("LikeVerbiage"));
                     }
@@ -353,18 +354,18 @@ public class LevelThreeActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","ReallyDon'tLike");
 
                         if (count_flag == 1)
-                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(7));
+                            speakSpeech(mNewVerbTxt.get(sort[mLevelThreeItemPos]).get(7));
                          else
-                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(7));
+                            speakSpeech(mNewVerbTxt.get(sort[mLevelThreeItemPos]).get(7));
                         mCd = 0;
                         //mAnalytics.recordGridItem("Tapped ".concat("ReallyDislikeVerbiage"));
                     } else {
                         singleEvent("ExpressiveIcon","Don'tLike");
 
                         if (count_flag == 1)
-                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(6));
+                            speakSpeech(mNewVerbTxt.get(sort[mLevelThreeItemPos]).get(6));
                         else
-                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(6));
+                            speakSpeech(mNewVerbTxt.get(sort[mLevelThreeItemPos]).get(6));
                         mCd = 1;
                         //mAnalytics.recordGridItem("Tapped ".concat("DislikeVerbiage"));
                     }
@@ -398,18 +399,18 @@ public class LevelThreeActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","ReallyYes");
 
                         if (count_flag == 1)
-                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(3));
+                            speakSpeech(mNewVerbTxt.get(sort[mLevelThreeItemPos]).get(3));
                         else
-                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(3));
+                            speakSpeech(mNewVerbTxt.get(sort[mLevelThreeItemPos]).get(3));
                         mCy = 0;
                         //mAnalytics.recordGridItem("Tapped ".concat("ReallyYesVerbiage"));
                     } else {
                         singleEvent("ExpressiveIcon","Yes");
 
                         if (count_flag == 1)
-                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(2));
+                            speakSpeech(mNewVerbTxt.get(sort[mLevelThreeItemPos]).get(2));
                         else
-                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(2));
+                            speakSpeech(mNewVerbTxt.get(sort[mLevelThreeItemPos]).get(2));
                         mCy = 1;
                         //mAnalytics.recordGridItem("Tapped ".concat("YesVerbiage"));
                     }
@@ -443,18 +444,18 @@ public class LevelThreeActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","ReallyNo");
 
                         if (count_flag == 1)
-                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(9));
+                            speakSpeech(mNewVerbTxt.get(sort[mLevelThreeItemPos]).get(9));
                         else
-                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(9));
+                            speakSpeech(mNewVerbTxt.get(sort[mLevelThreeItemPos]).get(9));
                         mCn = 0;
                         //mAnalytics.recordGridItem("Tapped ".concat("ReallyNoVerbiage"));
                     } else {
                         singleEvent("ExpressiveIcon","No");
 
                         if (count_flag == 1)
-                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(8));
+                            speakSpeech(mNewVerbTxt.get(sort[mLevelThreeItemPos]).get(8));
                          else
-                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(8));
+                            speakSpeech(mNewVerbTxt.get(sort[mLevelThreeItemPos]).get(8));
                         mCn = 1;
                         //mAnalytics.recordGridItem("Tapped ".concat("NoVerbiage"));
                     }
@@ -488,18 +489,18 @@ public class LevelThreeActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","ReallyMore");
 
                         if (count_flag == 1)
-                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(5));
+                            speakSpeech(mNewVerbTxt.get(sort[mLevelThreeItemPos]).get(5));
                         else
-                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(5));
+                            speakSpeech(mNewVerbTxt.get(sort[mLevelThreeItemPos]).get(5));
                         mCm = 0;
                         //mAnalytics.recordGridItem("Tapped ".concat("ReallyAddVerbiage"));
                     } else {
                         singleEvent("ExpressiveIcon","More");
 
                         if (count_flag == 1)
-                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(4));
+                            speakSpeech(mNewVerbTxt.get(sort[mLevelThreeItemPos]).get(4));
                         else
-                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(4));
+                            speakSpeech(mNewVerbTxt.get(sort[mLevelThreeItemPos]).get(4));
                         mCm = 1;
                         //mAnalytics.recordGridItem("Tapped ".concat("AddVerbiage"));
                     }
@@ -534,18 +535,18 @@ public class LevelThreeActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","ReallyLess");
 
                         if (count_flag == 1)
-                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(11));
+                            speakSpeech(mNewVerbTxt.get(sort[mLevelThreeItemPos]).get(11));
                         else
-                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(11));
+                            speakSpeech(mNewVerbTxt.get(sort[mLevelThreeItemPos]).get(11));
                         mCl = 0;
                         //mAnalytics.recordGridItem("Tapped ".concat("ReallyMinusVerbiage"));
                     } else {
                         singleEvent("ExpressiveIcon","Less");
 
                         if (count_flag == 1)
-                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(sort[mLevelThreeItemPos]).get(10));
+                            speakSpeech(mNewVerbTxt.get(sort[mLevelThreeItemPos]).get(10));
                         else
-                            speakSpeech(mVerbTxt.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(mLevelThreeItemPos).get(10));
+                            speakSpeech(mNewVerbTxt.get(sort[mLevelThreeItemPos]).get(10));
                         mCl = 1;
                         //mAnalytics.recordGridItem("Tapped ".concat("MinusVerbiage"));
                     }
@@ -602,7 +603,6 @@ public class LevelThreeActivity extends AppCompatActivity {
     protected void onDestroy() {
 
         mRecyclerView = null;
-        mVerbTxt = null;
         mRecyclerItemsViewList = null;
         mMenuItemLinearLayout = null;
         //mAnalytics = null;
@@ -653,12 +653,12 @@ public class LevelThreeActivity extends AppCompatActivity {
     }
 
     private void loadArraysFromResources() {
-        mColor = getResources().getIntArray(R.array.arrActionBtnColors);
         side = getResources().getStringArray(R.array.arrActionSpeech);
         below = getResources().getStringArray(R.array.arrNavigationSpeech);
         String str = getResources().getString(R.string.levelThreeVerbiage);
         LevelThreeVerbiageModel mLevelThreeVerbiageModel = new Gson().fromJson(str, LevelThreeVerbiageModel.class);
-        mVerbTxt = mLevelThreeVerbiageModel.getVerbiageModel();
+        mNewVerbTxt = mLevelThreeVerbiageModel.getVerbiageModel()
+                                         .get(mLevelOneItemPos).get(mLevelTwoItemPos);
     }
 
     private void retainExpressiveButtonStates() {
@@ -680,7 +680,9 @@ public class LevelThreeActivity extends AppCompatActivity {
             changeTheActionButtons(DISABLE_ACTION_BTNS);
         else if(mLevelOneItemPos == 1 && mLevelTwoItemPos == 3){
             int tmp = sort[mLevelThreeItemPos];
-            if (tmp == 34 || tmp == 35 || tmp == 36 || tmp == 37)
+            String lang = new SessionManager(this).getLanguage();
+            if (!lang.equals("en-rUS") && ((tmp == 34 || tmp == 35 || tmp == 36 || tmp == 37))||
+                    (lang.equals("en-rUS") && (tmp == 39 || tmp == 40 || tmp == 41 || tmp == 42) ))
                 changeTheActionButtons(DISABLE_ACTION_BTNS);
             else
                 changeTheActionButtons(!DISABLE_ACTION_BTNS);

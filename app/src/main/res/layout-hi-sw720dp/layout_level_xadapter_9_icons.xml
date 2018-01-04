@@ -12,7 +12,6 @@
             android:id="@+id/icon1"
             android:layout_width="132dp"
             android:layout_height="132dp"
-            android:src="@drawable/grouptherapy"
             android:layout_gravity="center_horizontal"
             android:background="@android:color/transparent"
             android:scaleType="centerInside" />

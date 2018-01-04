@@ -122,127 +122,6 @@
         <item>level2_places_terr</item>
     </string-array>
 
-    <!--LEVEL TWO SPEECH HINDI TEXT ARE HERE-->
-    <string-array name="arrLevelTwoGreetFeelSpeechText">
-        <item>शुभकामनाएं</item>
-        <item>भावना</item>
-        <item>बिनती</item>
-        <item>सवाल</item>
-    </string-array>
-    <string-array name="arrLevelTwoDailyActSpeechText">
-        <item>दांत साफ़ करना</item>
-        <item>शौचालय</item>
-        <item>नहाना</item>
-        <item>कपड़े और सहायक चीज़ें</item>
-        <item>तैयार होना</item>
-        <item>नींद</item>
-        <item>उपचार</item>
-        <item>सुबह के नियमित कार्य</item>
-        <item>रात के नियमित कार्य</item>
-    </string-array>
-    <string-array name="arrLevelTwoEatSpeechText">
-        <item>सुबह का नाश्ता</item>
-        <item>दोपहर और रात का भोजन</item>
-        <item>मिठाइयाँ</item>
-        <item>स्नैक्स</item>
-        <item>फल</item>
-        <item>ड्रिंक्स</item>
-        <item>कटलरी</item>
-        <item>ऐड ऑन्स</item>
-    </string-array>
-    <string-array name="arrLevelTwoFunSpeechText">
-        <item>घर के खेल</item>
-        <item>बाहरी खेल</item>
-        <item>खेलकूद</item>
-        <item>टीवी</item>
-        <item>संगीत</item>
-        <item>कार्य</item>
-    </string-array>
-    <string-array name="arrLevelTwoLearningSpeechText">
-        <item>पशु और पक्षी</item>
-        <item>शरीर</item>
-        <item>किताबें</item>
-        <item>रंग</item>
-        <item>आकार</item>
-        <item>स्टेशनरी</item>
-        <item>पाठशाला की वस्तुएं</item>
-        <item>घरेलु वस्तुएं</item>
-        <item>यात्रा करने के साधन</item>
-        <item>पैसे</item>
-    </string-array>
-    <string-array name="arrLevelTwoPeopleSpeechText">
-        <item>माँ</item>
-        <item>पिताजी</item>
-        <item>भाई</item>
-        <item>बहन</item>
-        <item>बड़े पापा</item>
-        <item>बड़ी मम्मी</item>
-        <item>दादाजी</item>
-        <item>दादी माँ</item>
-        <item>नानाजी</item>
-        <item>नानी माँ</item>
-        <item>चाचा</item>
-        <item>चाची</item>
-        <item>मामा</item>
-        <item>मामी</item>
-        <item>बुआ</item>
-        <item>फ़ुफ़ा</item>
-        <item>मौसी</item>
-        <item>मौसा</item>
-        <item>नन्हा बच्चा</item>
-        <item>दोस्त</item>
-        <item>शिक्षक</item>
-        <item>डॉक्टर</item>
-        <item>नरस</item>
-        <item>देख-रेख करने वाली मौसी</item>
-        <item>अज नबी</item>
-        <item>मेरे बारे में</item>
-    </string-array>
-    <string-array name="arrLevelTwoPlacesSpeechText">
-        <item>मेरा घर</item>
-        <item>पाठशाला</item>
-        <item>मॉल</item>
-        <item>संग्रहालय</item>
-        <item>होटल</item>
-        <item>थिएटर</item>
-        <item>खेल का मैदान</item>
-        <item>बगीचा</item>
-        <item>दुकान</item>
-        <item>दोस्त का घर</item>
-        <item>रिश्तेदार का घर</item>
-        <item>अस्पताल</item>
-        <item>क्लिनिक</item>
-        <item>वाचनालय</item>
-        <item>छत पर</item>
-    </string-array>
-    <string-array name="arrLevelTwoTimeWeatherSpeechText">
-        <item>समय</item>
-        <item>दिन</item>
-        <item>महीना</item>
-        <item>मौसम</item>
-        <item>रूतु</item>
-        <item>त्योहार और छुट्टी</item>
-        <item>जन्मदिन</item>
-    </string-array>
-    <string-array name="arrLevelTwoHelpSpeechText">
-        <item>मैं संकट में हूँ ! कृपया मदद कीजिए</item>
-        <item>मेरे बारे में</item>
-        <item>मैं घायल हूँ</item>
-        <item>मेरी तबियत ठीक नहीं हैं</item>
-        <item>मुझे थकावट लग रही हैं</item>
-        <item>मुझे मदद करें</item>
-        <item>दवाई</item>
-        <item>बैंडेज</item>
-        <item>पानी</item>
-        <item>शौचालय</item>
-        <item>बुरा स्पर्श</item>
-        <item>सैनेटरी नैपकिन</item>
-        <item>मुझे एल्र जी हैं</item>
-        <item>मैं खतरे में हूँ! कृपया मदद कीजिए</item>
-        <item>यहाँ धोका हैं! कृपया स्पर्श न करें</item>
-        <item>सुरक्षा</item>
-    </string-array>
-
     <!--LEVEL TWO HINDI ADAPTER TEXT ARE HERE-->
     <string-array name="arrLevelTwoGreetFeelAdapterText">
         <item>शुभकामनाएं…</item>
@@ -361,6 +240,127 @@
         <item>एलर्जी</item>
         <item>खतरा</item>
         <item>धोका</item>
+        <item>सुरक्षा</item>
+    </string-array>
+
+    <!--LEVEL TWO SPEECH HINDI TEXT ARE HERE-->
+    <string-array name="arrLevelTwoGreetFeelSpeechText">
+        <item>शुभकामनाएं</item>
+        <item>भावना</item>
+        <item>बिनती</item>
+        <item>सवाल</item>
+    </string-array>
+    <string-array name="arrLevelTwoDailyActSpeechText">
+        <item>दांत साफ़ करना</item>
+        <item>शौचालय</item>
+        <item>नहाना</item>
+        <item>कपड़े और सहायक चीज़ें</item>
+        <item>तैयार होना</item>
+        <item>नींद</item>
+        <item>उपचार</item>
+        <item>सुबह के नियमित कार्य</item>
+        <item>रात के नियमित कार्य</item>
+    </string-array>
+    <string-array name="arrLevelTwoEatSpeechText">
+        <item>सुबह का नाश्ता</item>
+        <item>दोपहर और रात का भोजन</item>
+        <item>मिठाइयाँ</item>
+        <item>स्नैक्स</item>
+        <item>फल</item>
+        <item>ड्रिंक्स</item>
+        <item>कटलरी</item>
+        <item>ऐड ऑन्स</item>
+    </string-array>
+    <string-array name="arrLevelTwoFunSpeechText">
+        <item>घर के खेल</item>
+        <item>बाहरी खेल</item>
+        <item>खेलकूद</item>
+        <item>टीवी</item>
+        <item>संगीत</item>
+        <item>कार्य</item>
+    </string-array>
+    <string-array name="arrLevelTwoLearningSpeechText">
+        <item>पशु और पक्षी</item>
+        <item>शरीर</item>
+        <item>किताबें</item>
+        <item>रंग</item>
+        <item>आकार</item>
+        <item>स्टेशनरी</item>
+        <item>पाठशाला की वस्तुएं</item>
+        <item>घरेलु वस्तुएं</item>
+        <item>यात्रा करने के साधन</item>
+        <item>पैसे</item>
+    </string-array>
+    <string-array name="arrLevelTwoPeopleSpeechText">
+        <item>माँ</item>
+        <item>पिताजी</item>
+        <item>भाई</item>
+        <item>बहन</item>
+        <item>बड़े पापा</item>
+        <item>बड़ी मम्मी</item>
+        <item>दादाजी</item>
+        <item>दादी माँ</item>
+        <item>नानाजी</item>
+        <item>नानी माँ</item>
+        <item>चाचा</item>
+        <item>चाची</item>
+        <item>मामा</item>
+        <item>मामी</item>
+        <item>बुआ</item>
+        <item>फ़ुफ़ा</item>
+        <item>मौसी</item>
+        <item>मौसा</item>
+        <item>नन्हा बच्चा</item>
+        <item>दोस्त</item>
+        <item>शिक्षक</item>
+        <item>डॉक्टर</item>
+        <item>नरस</item>
+        <item>देख-रेख करने वाली मौसी</item>
+        <item>अज नबी</item>
+        <item>मेरे बारे में</item>
+    </string-array>
+    <string-array name="arrLevelTwoPlacesSpeechText">
+        <item>मेरा घर</item>
+        <item>पाठशाला</item>
+        <item>मॉल</item>
+        <item>संग्रहालय</item>
+        <item>होटल</item>
+        <item>थिएटर</item>
+        <item>खेल का मैदान</item>
+        <item>बगीचा</item>
+        <item>दुकान</item>
+        <item>दोस्त का घर</item>
+        <item>रिश्तेदार का घर</item>
+        <item>अस्पताल</item>
+        <item>क्लिनिक</item>
+        <item>वाचनालय</item>
+        <item>छत पर</item>
+    </string-array>
+    <string-array name="arrLevelTwoTimeWeatherSpeechText">
+        <item>समय</item>
+        <item>दिन</item>
+        <item>महीना</item>
+        <item>मौसम</item>
+        <item>रूतु</item>
+        <item>त्योहार और छुट्टी</item>
+        <item>जन्मदिन</item>
+    </string-array>
+    <string-array name="arrLevelTwoHelpSpeechText">
+        <item>मैं संकट में हूँ ! कृपया मदद कीजिए</item>
+        <item>मेरे बारे में</item>
+        <item>मैं घायल हूँ</item>
+        <item>मेरी तबियत ठीक नहीं हैं</item>
+        <item>मुझे थकावट लग रही हैं</item>
+        <item>मुझे मदद करें</item>
+        <item>दवाई</item>
+        <item>बैंडेज</item>
+        <item>पानी</item>
+        <item>शौचालय</item>
+        <item>बुरा स्पर्श</item>
+        <item>सैनेटरी नैपकिन</item>
+        <item>मुझे एल्र जी हैं</item>
+        <item>मैं खतरे में हूँ! कृपया मदद कीजिए</item>
+        <item>यहाँ धोका हैं! कृपया स्पर्श न करें</item>
         <item>सुरक्षा</item>
     </string-array>
 

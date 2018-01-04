@@ -9,9 +9,6 @@ import android.os.AsyncTask;
 import android.os.IBinder;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.Nullable;
-import android.util.Log;
-
-import com.dsource.idc.jellow.R;
 
 import java.util.Locale;
 
@@ -62,6 +59,22 @@ public class JellowTTSService extends Service{
         mTts.setPitch(pitch);
     }
 
+    private void changeTtsLanguage() {
+        switch (new SessionManager(this).getLanguage()){
+                case SessionManager.ENG_UK:
+                    mTts.setLanguage(Locale.UK);
+                    break;
+                case SessionManager.ENG_US:
+                    mTts.setLanguage(Locale.US);
+                    break;
+                case SessionManager.HI_IN:
+                case SessionManager.ENG_IN:
+                default:
+                    mTts.setLanguage(new Locale("hi","IN"));
+                    break;
+        }
+    }
+
     private void stopTtsSay(){
         mTts.stop();
     }
@@ -94,7 +107,7 @@ public class JellowTTSService extends Service{
                 public void onInit(int status) {
                     try {
                         mTts.setEngineByPackageName("com.google.android.tts");
-                        mTts.setLanguage(new Locale(getString(R.string.locale_lang_hi),getString(R.string.locale_reg_IN)));
+                        changeTtsLanguage();
                         mTts.setSpeechRate((float) session.getSpeed()/100);
                         mTts.setPitch((float) session.getPitch()/100);
                     } catch (Exception e) {

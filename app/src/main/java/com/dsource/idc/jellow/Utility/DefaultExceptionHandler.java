@@ -5,9 +5,11 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.dsource.idc.jellow.SplashActivity;
 import com.dsource.idc.jellow.app.AppController;
+import com.google.firebase.crash.FirebaseCrash;
 
 /**
  * Created by ekalpa on 12/4/2017.
@@ -25,6 +27,8 @@ public class DefaultExceptionHandler implements Thread.UncaughtExceptionHandler 
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
 
+        FirebaseCrash.report(ex);
+        Log.e("Jellow","exception caught", ex);
         Intent intent = new Intent(activity, SplashActivity.class);
 
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP

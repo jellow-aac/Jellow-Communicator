@@ -100,7 +100,6 @@
                                 android:id="@+id/image1"
                                 android:layout_width="195dp"
                                 android:layout_height="195dp"
-                                android:src="@drawable/grouptherapy"
                                 android:layout_gravity="center_horizontal"
                                 android:background="@android:color/transparent"
                                 android:scaleType="centerInside" />
@@ -143,7 +142,6 @@
                                 android:id="@+id/image2"
                                 android:layout_width="195dp"
                                 android:layout_height="195dp"
-                                android:src="@drawable/grouptherapy"
                                 android:layout_gravity="center_horizontal"
                                 android:background="@android:color/transparent"
                                 android:scaleType="centerInside" />
@@ -186,7 +184,6 @@
                                 android:id="@+id/image3"
                                 android:layout_width="195dp"
                                 android:layout_height="195dp"
-                                android:src="@drawable/grouptherapy"
                                 android:layout_gravity="center_horizontal"
                                 android:background="@android:color/transparent"
                                 android:scaleType="centerInside" />

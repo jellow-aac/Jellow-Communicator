@@ -1,7 +1,6 @@
 package com.dsource.idc.jellow;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
@@ -17,7 +16,6 @@ import com.dsource.idc.jellow.Utility.SessionManager;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by Sumeet on 19-04-2016.
@@ -55,7 +53,6 @@ class LayerThreeAdapter extends android.support.v7.widget.RecyclerView.Adapter<L
         if (mSession.getPictureViewMode() == MODE_PICTURE_ONLY)
             holder.menuItemBelowText.setVisibility(View.INVISIBLE);
         holder.menuItemBelowText.setText(belowText.get(position));
-        //holder.menuItemImage.setImageResource(mThumbIds[position]);
         GlideApp.with(mContext)
                 .load(path+"/"+mThumbIds.get(position)+".png")
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -266,9 +263,9 @@ class LayerThreeAdapter extends android.support.v7.widget.RecyclerView.Adapter<L
 
         MyViewHolder(final View view) {
             super(view);
-            menuItemImage = (ImageView) view.findViewById(R.id.icon1);
-            menuItemLinearLayout = (LinearLayout) view.findViewById(R.id.linearlayout_icon1);
-            menuItemBelowText = (TextView) view.findViewById(R.id.te1);
+            menuItemImage = view.findViewById(R.id.icon1);
+            menuItemLinearLayout = view.findViewById(R.id.linearlayout_icon1);
+            menuItemBelowText = view.findViewById(R.id.te1);
             Typeface font = Typeface.createFromAsset(mContext.getAssets(), "fonts/Mukta-Regular.ttf");
             menuItemBelowText.setTypeface(font);
             menuItemBelowText.setTextColor(Color.rgb(64, 64, 64));

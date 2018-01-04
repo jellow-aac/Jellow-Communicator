@@ -10,7 +10,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.dsource.idc.jellow.Utility.SessionManager;
-import com.dsource.idc.jellow.Utility.Analytics;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -150,35 +149,5 @@ class DataBaseHelper extends SQLiteOpenHelper {
         ContentValues dataToInsert = new ContentValues();
         dataToInsert.put("layer_3", n);
         myDataBase.update("three", dataToInsert, "layer_1_id='" + layer_1_id + "' AND layer_2_id='" + layer_2_id + "'", null);
-    }
-    // Add your public helper methods to access and get content from the database.
-    // You could return cursors by doing "return myDataBase.query(....)" so it'd be easy
-    // to you to create adapters for your views.
-
-    public String addNewRowsInDatabaseForNewContentVersionV5(){
-            String queryResults="";
-        {
-            Cursor cursor = myDataBase.query("three", new String[]{"layer_3"}, "layer_1_id=1 AND layer_2_id=6", null, null, null, null);
-            if (cursor.getCount()>0)
-                cursor.moveToFirst();
-            String newValString = cursor.getString(0);
-            newValString = cursor.getString(0).concat("0,0,");
-            ContentValues cvForDailyAct = new ContentValues();
-            cvForDailyAct.put("layer_3", newValString);
-            if(myDataBase.update("three", cvForDailyAct, "layer_1_id=1 AND layer_2_id=6", null) > 0) queryResults = "OK,";
-            else queryResults = queryResults.concat("NOT_OK,");
-        }{
-            Cursor cursor = myDataBase.query("three", new String[]{"layer_3"}, "layer_1_id=0 AND layer_2_id=2", null, null, null, null);
-            if (cursor.getCount()>0)
-                cursor.moveToFirst();
-            String newValString = cursor.getString(0);
-            newValString = cursor.getString(0).concat("0,");
-            ContentValues cvForGreetNFeel = new ContentValues();
-            cvForGreetNFeel.put("layer_3", newValString);
-            if(myDataBase.update("three", cvForGreetNFeel, "layer_1_id=0 AND layer_2_id=2", null) > 0) queryResults = queryResults.concat("OK,");
-            else
-            queryResults = "NOT_OK,";
-        }
-        return queryResults;
     }
 }

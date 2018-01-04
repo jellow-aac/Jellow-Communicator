@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.widget.Toast;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
@@ -17,7 +17,6 @@ import com.dsource.idc.jellow.Utility.SessionManager;
 import static com.dsource.idc.jellow.LanguageSelectActivity.FINISH;
 import static com.dsource.idc.jellow.UserRegistrationActivity.LCODE;
 import static com.dsource.idc.jellow.UserRegistrationActivity.TUTORIAL;
-import static com.dsource.idc.jellow.Utility.SessionManager.LangMap;
 import static com.dsource.idc.jellow.Utility.SessionManager.LangValueMap;
 
 public class LanguageDownloadActivity extends AppCompatActivity {
@@ -63,9 +62,9 @@ public class LanguageDownloadActivity extends AppCompatActivity {
                 mSession.setDownloaded(langCode);
                 Toast.makeText(LanguageDownloadActivity.this,LangValueMap.get(langCode)+" Language Downloaded",Toast.LENGTH_SHORT).show();
                 if(tutorial)
-                    startActivity(new Intent(LanguageDownloadActivity.this,TutorialActivity.class));
-                if(finish)
-                    startActivity(new Intent(LanguageDownloadActivity.this,SplashActivity.class));
+                    startActivity(new Intent(LanguageDownloadActivity.this,Intro.class));
+                /*else if(finish)
+                    startActivity(new Intent(LanguageDownloadActivity.this,SplashActivity.class));*/
                 finish();
             }
 

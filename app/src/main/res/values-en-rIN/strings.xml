@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Jellow</string>
+    <string name="action_settings">Settings</string>
+    <string name="Profile">Profile</string>
+
+    <string name="Language">Language</string>
+    <string name="ChangeLanguage">Change Language</string>
+    <string name="saveLanguage">Change</string>
+    <string name="addLanguage">Add Language</string>
+    <string name="deleteLanguage">Delete Language</string>
+
+
+    <string-array name="bloodgroup">
+        <item>A+ve</item>
+        <item>A-ve</item>
+        <item>B+ve</item>
+        <item>B-ve</item>
+        <item>AB+ve</item>
+        <item>AB-ve</item>
+        <item>O+ve</item>
+        <item>O-ve</item>
+    </string-array>
+
+    <string-array name="picture_view_mode">
+        <item>Picture + Text</item>
+        <item>Picture only</item>
+    </string-array>
+
+    <string-array name="grid_size">
+        <item>3</item>
+        <item>9</item>
+    </string-array>
+
+    <string name="change_language_line1">You can download upto 3 languages into the application</string>
+    <string name="change_language_line2">Select any downloaded language from the dropdown below: </string>
+    <string name="change_language_line3">You can download new languages by clicking \'Add Language\' button and remove already downloaded languages by clicking \'Delete Language\' button </string>
+    <string name="simple_ime">Jellow Keyboard</string>
+    <string name="subtype_en_US">Serial ABC</string>
+    <string name="screen_width">com.dsource.idc.jellow.screen_width</string>
+    <string name="screen_height">com.dsource.idc.jellow.screen_height</string>
+    <string name="shadow_radius">com.dsource.idc.jellow.shadow_radius</string>
+    <string name="border_width">com.dsource.idc.jellow.border_width</string>
+    <string name="updated_app_for_new_content">com.dsource.idc.jellow.updated_app_for_new_content</string>
+
+    <string name="people_pref_count_eng">people_count</string>
+    <string name="people_pref_count_hindi">people_count_hindi</string>
+    <string name="places_pref_count_eng">places_count</string>
+
+    <string name="action_bar_title">Home</string>
+    <string name="txtLanguage">Language</string>
+    <string name="txtSpeechSpeed">Speech Speed</string>
+    <string name="txtVoiceSpeech">Voice Pitch</string>
+    <string name="txtDisplayMode">Display Mode</string>
+    <string name="txtNumOfPerPerScr">Number of icons per screen</string>
+    <string name="txtDemo">DEMO</string>
+    <string name="txtSave">SAVE</string>
+    <string name="demoTtsSpeech">Hello! you are using Jellow Communicator.</string>
+    <string name="savedSettingsMessage">Settings saved.</string>
+    <string name="languageChanged">Language Changed</string>
+    <string name="checkConnectivity">Please check internet connectivity</string>
+    <string name="languageCurrentlyInUse">Language is currently in use</string>
+    <string name="languageRemoved">Language removed</string>
+    <string name="languageLimitExceeded">Delete a language to add new language</string>
+
+
+    <string name="menuProfile">Profile</string>
+    <string name="menuAbout">About Jellow</string>
+    <string name="menuTutorials">Tutorial</string>
+    <string name="menuKeyboardInput">Voice and Keyboard Control</string>
+    <string name="menuResetPref">Reset Preferences</string>
+    <string name="menuFeedback">Feedback</string>
+
+    <string name="endString"> </string>
+
+    <string name="locale_reg_IN">IN</string>
+    <string name="locale_lang_hi">hi</string>
+    <string name="locale_reg_us">US</string>
+    <string name="locale_lang_en">en</string>
+
+    <string name="aPos">A Positive</string>
+    <string name="aNeg">A Negative</string>
+    <string name="bPos">B Positive</string>
+    <string name="bNeg">B Negative</string>
+    <string name="abPos">A B Positive</string>
+    <string name="abNeg">A B Negative</string>
+    <string name="oPos">O Positive</string>
+    <string name="oNeg">O Negative</string>
+    <string name="easyToUse">Easy to Use</string>
+    <string name="clearPictures">Clear Pictures</string>
+    <string name="clearVoice">Clear Voice</string>
+    <string name="easyToNavigate">Easy to Navigate</string>
+    <string name="commentSuggestions">Comments/Suggestions</string>
+    <string name="submit">SUBMIT</string>
+    <string name="appLoading">App is loading…</string>
+    <string name="activateGoogleTts">1. Activate Google TTS</string>
+    <string name="changeDefaultToHindi">2. Change default language to Hindi</string>
+    <string name="downloadVoiceTts">3. Download Hindi voice</string>
+    <string name="activate">ACTIVATE</string>
+    <string name="changeLanguage">CHANGE LANGUAGE</string>
+    <string name="download">DOWNLOAD</string>
+    <string name="keyboardControl">Keyboard Control:</string>
+    <string name="keyboardControlTxt">To enable a keyboard of your choice and make it as default, you need to complete 2 steps:</string>
+    <string name="step1">Step 1: Enable Keyboard from device settings</string>
+    <string name="qwertyKeyboard">QWERTY</string>
+    <string name="serialKeyboard">SERIAL ABC</string>
+    <string name="step2">Step 2: Save Keyboard as default option</string>
+    <string name="saveAsDefault">SAVE AS DEFAULT</string>
+    <string name="voiceControl">Voice Control:</string>
+    <string name="getVoiceControl">Voice and Keyboard Control</string>
+    <string name="childName">Child\'s Name *</string>
+    <string name="careGiveName">Caregiver\'s Name</string>
+    <string name="careGiverContact">Caregiver\'s Contact No. *</string>
+    <string name="homeAddress">Home Address</string>
+    <string name="emailAddress">Email Address *</string>
+    <string name="bloodGroup">Blood Group</string>
+    <string name="detailSaved">Details saved</string>
+    <string name="invalid_emailId">Invalid email address.</string>
+    <string name="invalidContactNumber">Invalid contact number</string>
+    <string name="enterTheName">Please Enter the Name</string>
+    <string name="resetPreferenceMessage">
+       <![CDATA[ <ul>
+            <li>Jellow remembers the user\'s \"most-used/preferred\" icons and displays them as the top choices on the screen</li><br/>
+            <li>By resetting preferences, the icons will be set to the original order in which they were displayed the first time the application was opened</li><br/>
+            <li>Do you want to reset preferences?</li><br/><br/>
+       </ul>]]>
+    </string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="iconsHasBeenReset">Preferences have been reset.</string>
+    <string name="checkInternetConn">Please check internet connection and try again</string>
+    <string name="about_jellow">
+        <![CDATA[
+        <head>
+            <style>
+                    li,p,font  {    font-size: 100%; }
+                    ul { padding-left:20px; }
+            </style>
+        </head>
+        <body bgcolor="#F7F3C6">
+
+<p><strong>&nbsp;General Information</strong></p>
+<ul>
+<li>Jellow is a communicator using icons to enable speech and can be used by those learning to speak or those who have difficulty with speech.</li><br/>
+<li>It is developed at IDC School of Design at the Indian Institute of Technology Bombay located in Mumbai.</li><br/>
+<li>A novel Visual Emotional Language Protocol or VELP was conceived and developed by the project investigators in order to enhance the language ability of Jellow. VELP represents the 6 expressive icons that form the core of the interface.</li><br/>
+<li>Using these core icons, the child can communicate their likes, dislikes, and needs with others.</li><br/>
+<li>Jellow is conceived as children-friendly with an easy-to-learn interface.</li><br/>
+<li>The application is optimized for Android tablets.</li><br/>
+<li>Jellow is currently available in English and Hindi.</li><br/>
+</ul>
+
+</ul>
+<p><strong>&nbsp;Software Version: 5.0</strong></p>
+
+<ul>
+<li>The current version of Jellow is 5.0. The application is under further development. Therefore, if you have any suggestions for us, please submit it under the feedback tab.</li><br/>
+</ul>
+
+<p><strong>&nbsp;Terms of Use</strong></p>
+<ul>
+<li>Jellow is licensed under a Creative Commons Attribution Non-commercial Share Alike 4.0 International License.</li><br/>
+<li>Work on Jellow is attributed to the Indian Institute of Technology Bombay.</li><br/>
+<li>The content in this application comprising icons, layout, architecture, visual identity, translation, and the software codes can be shared and adopted but cannot be used for commercial purposes.</li><br/>
+<li>When the content is used, we request you to acknowledge Indian Institute of Technology Bombay.</li><br/>
+<li>Jellow is available for download at <a href="http://www.dsource.in/tool/jellow">www.dsource.in/tool/jellow</a></li><br/>
+<li>If interested in further developing the code, please write to Professor Ravi Poovaiah at <span style="color: #ff6600;"><a href="mailto:ravi@iitb.ac.in">ravi@iitb.ac.in</a></span></li><br/>
+</ul>
+
+<p><strong>&nbsp;Credits:</strong></p>
+<ul>
+<li><strong>Idea Conception, Project Investigation and Supervision:</strong></li>
+<font>Prof. Ravi Poovaiah and Dr. Ajanta Sen</font>
+</ul>
+
+<ul>
+<li><strong>Initial Concept Development :</strong></li>
+<font>Anchal Kumar, Samraat Sardesai, Peter Joseph, Antara Hazarika</font>
+</ul>
+
+<ul>
+<li><strong>Software Development: </strong></li>
+<font>Rahul Rupchand Jidge, Sumeet Agrawal, Roop Sahoo, Shruti Gupta, Aastha Joshi, Dhairya Dand, Pritam Pebam</font>
+</ul>
+
+<ul>
+<li><strong>Website Design:</strong></li>
+<font>Prof. Ravi Poovaiah, Yogesh Masaye, Sumedh Garud, Roop Sahoo</font>
+</ul>
+
+<ul>
+<li><strong>Icons and Visual Design:</strong></li>
+<font>Vinaya Tawde, Anisha Malhotra, Nikita Iyer, Ganesh Gajjela</font>
+</ul>
+
+<ul>
+<li><strong>Translation:</strong></li>
+<font>Sachin Sonawane, Dr. Sudha Srinivasan</font>
+</ul>
+
+<ul>
+<li><strong>Research, Vocabulary Development, and User Studies:</strong></li>
+<font>Dr. Sudha Srinivasan</font>
+</ul>
+
+<ul>
+<li><strong>Support:</strong></li>
+<font>E-kalpa project sponsored under NMEICT by MHRD and Microsoft Design Expo 2004</font>
+</ul>
+</body>
+]]>
+    </string>
+    <string name="speak">Speak</string>
+    <string name="stop">Stop</string>
+    <string name="about_jellow_speech">Jellow is a communicator using icons to enable speech and can be used by those learning to speak or those who have difficulty with speech. It is developed at IDC School of Design at the Indian Institute of Technology Bombay located in Mumbai. A novel Visual Emotional Language Proto call or VELP was conceived and developed by the project investigators in order to enhance the language ability of Jellow. VELP represents the 6 expressive icons that form the core of the interface. Using these core icons, the child can communicate their likes, dislikes, and needs with others. Jellow is conceived as children-friendly with an easy-to-learn interface. The application is optimized for Android tablets.Jellow is currently available in English and Hindi. The current version of Jellow is 5.0. The application is under further development. Therefore, if you have any suggestions for us, please submit it under the feedback tab.  Jellow is licensed under a Creative Commons Attribution Non-commercial Share Alike 4.0 International License. Work on Jellow is attributed to the Indian Institute of Technology Bombay. The content in this application comprising icons, layout, architecture, visual identity, translation, and the software codes can be shared and adopted but cannot be used for commercial purposes. When the content is used, we request you to acknowledge Indian Institute of Technology Bombay. Jellow is available for download at www dot d source.in/tool/jellow. If interested in further developing the code, please write to Professor Ravi Poovaiah at ravi @ i i t b dot a c.in</string>
+    <string name="catBtnDesc">Jellow has 9 central category buttons and 6 expressive side buttons:</string>
+    <string name="catBtn">Category buttons:</string>
+    <string name="expBtn">Expressive buttons:</string>
+    <string name="jellowUsageDesc">To speak using Jellow, the user first clicks on any category button and then on an expressive button in that order. For instance, Jellow will say, “I want to eat” using the selection below:</string>
+    <string name="jellowUsageSubCat">By double-clicking on a category button, the user can access further sub-categories:</string>
+    <string name="levelOneCat">Level 1 categories:</string>
+    <string name="levelTwoCat">Level 2 categories:</string>
+    <string name="levelThreeCat">Level 3 options:</string>
+    <string name="settingDesc">The user can customize their profile and adjust the basic voice settings of the application by clicking on the top right corner of the screen:</string>
+    <string name="seqActDesc">Jellow can also be used to teach children sequential steps of daily activities. By clicking on any individual step, the user may view the expressive buttons:</string>
+    <string name="toiletSeq">Toilet sequence:</string>
+    <string name="expBtnSeq">Expressive buttons in the sequence:</string>
+    <string name="ttsDesc">To use Jellow, please activate <b>\'Google text-to-speech (TTS)\'</b> within <b>\'Language\'</b> settings of your device. Within Google TTS settings, first change the <b>default language</b> to <b>\'Hindi (India)\'</b> and then <b>download \'Hindi (India)\' voice</b> through the <b>\'Install voice data\'</b> option</string>
+    <string name="softwareVersion">Software version: </string>
+    <string name="customSpeakIcon">Press here to speak above text.</string>
+    <string name="string_to_speak">Enter words here to speak.</string>
+    <string name="speak_written_text">Speak written text</string>
+    <string name="resetPrefPointOne">Jellow remembers the user’s “most-used/preferred” icons and displays them as the top choices on the screen</string>
+    <string name="resetPrefPointTwo">By resetting preferences, the icons will be set to the original order in which they were displayed the first time the application was opened</string>
+    <string name="resetPrefPointThree">Do you want to reset preferences?</string>
+    <string name="bullet">\u25CF</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

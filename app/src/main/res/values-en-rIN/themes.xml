@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="slider_discrete">
+        <item>@style/LightSliderDiscrete</item>
+        <item>@style/DarkSliderDiscrete</item>
+    </array>
+
+    <array name="spinner">
+        <item>@style/LightSpinner</item>
+        <item>@style/DarkSpinner</item>
+    </array>
+    <array name="spinner_item">
+        <item>@style/LightSpinnerItem</item>
+        <item>@style/DarkSpinnerItem</item>
+    </array>
+</resources>

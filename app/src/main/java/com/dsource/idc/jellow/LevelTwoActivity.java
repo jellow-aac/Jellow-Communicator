@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.KeyListener;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,7 +22,6 @@ import com.dsource.idc.jellow.Utility.ChangeAppLocale;
 import com.dsource.idc.jellow.Utility.DefaultExceptionHandler;
 import com.dsource.idc.jellow.Utility.IndexSorter;
 import com.dsource.idc.jellow.Utility.SessionManager;
-import com.dsource.idc.jellow.Utility.Analytics;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -32,7 +30,6 @@ import java.util.Comparator;
 import java.util.StringTokenizer;
 
 import static com.dsource.idc.jellow.Utility.Analytics.bundleEvent;
-
 import static com.dsource.idc.jellow.Utility.Analytics.singleEvent;
 import static com.dsource.idc.jellow.Utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellow.Utility.Analytics.stopMeasuring;
@@ -54,7 +51,6 @@ public class LevelTwoActivity extends AppCompatActivity {
     private String mActionBarTitle;
     private SessionManager mSession;
 
-    private int[] mColor;
     private String[] mLevelTwoSpeechText, mLevelTwoAdapterText,side, below;
     private ArrayList<ArrayList<ArrayList<String>>> mLayerTwoSpeech;
     private String[] myMusic, actionBarText;
@@ -97,30 +93,30 @@ public class LevelTwoActivity extends AppCompatActivity {
         initializeArrayListOfRecycler();
         myMusic_function(mLevelOneItemPos);
 
-        like = (ImageView) findViewById(R.id.ivlike);
+        like = findViewById(R.id.ivlike);
         like.setContentDescription(side[0]);
-        dislike = (ImageView) findViewById(R.id.ivdislike);
+        dislike = findViewById(R.id.ivdislike);
         dislike.setContentDescription(side[6]);
-        add = (ImageView) findViewById(R.id.ivadd);
+        add = findViewById(R.id.ivadd);
         add.setContentDescription(side[4]);
-        minus = (ImageView) findViewById(R.id.ivminus);
+        minus = findViewById(R.id.ivminus);
         minus.setContentDescription(side[10]);
-        yes = (ImageView) findViewById(R.id.ivyes);
+        yes = findViewById(R.id.ivyes);
         yes.setContentDescription(side[2]);
-        no = (ImageView) findViewById(R.id.ivno);
+        no = findViewById(R.id.ivno);
         no.setContentDescription(side[8]);
-        home = (ImageView) findViewById(R.id.ivhome);
+        home = findViewById(R.id.ivhome);
         home.setContentDescription(below[0]);
-        back = (ImageView) findViewById(R.id.ivback);
+        back = findViewById(R.id.ivback);
         back.setContentDescription(below[1]);
         back.setAlpha(1f);
-        keyboard = (ImageView) findViewById(R.id.keyboard);
+        keyboard = findViewById(R.id.keyboard);
         keyboard.setContentDescription(below[2]);
-        et = (EditText) findViewById(R.id.et);
+        et = findViewById(R.id.et);
         et.setContentDescription(getString(R.string.string_to_speak));
         et.setVisibility(View.INVISIBLE);
 
-        ttsButton = (ImageView) findViewById(R.id.ttsbutton);
+        ttsButton = findViewById(R.id.ttsbutton);
         ttsButton.setContentDescription(getString(R.string.speak_written_text));
         ttsButton.setVisibility(View.INVISIBLE);
 
@@ -129,7 +125,7 @@ public class LevelTwoActivity extends AppCompatActivity {
         et.setKeyListener(null);
 
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager( new GridLayoutManager(this, 3));
         if (mLevelOneItemPos == MENU_ITEM_PEOPLE || mLevelOneItemPos == MENU_ITEM_PLACES) {}
         else mRecyclerView.setAdapter(new LevelTwoAdapter(this, mLevelOneItemPos));
@@ -139,7 +135,7 @@ public class LevelTwoActivity extends AppCompatActivity {
         mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), mRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(final View view, final int position) {
-                mMenuItemLinearLayout = (LinearLayout)view.findViewById(R.id.linearlayout_icon1);
+                mMenuItemLinearLayout = view.findViewById(R.id.linearlayout_icon1);
                 mMenuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -882,7 +878,6 @@ public class LevelTwoActivity extends AppCompatActivity {
     }
 
     private void loadArraysFromResources() {
-        mColor = getResources().getIntArray(R.array.arrActionBtnColors);
         side = getResources().getStringArray(R.array.arrActionSpeech);
         below = getResources().getStringArray(R.array.arrNavigationSpeech);
 
