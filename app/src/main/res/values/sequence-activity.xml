@@ -142,7 +142,7 @@
         <item>2. Wear night dress</item>
         <item>3. Brush teeth</item>
         <item>4. Read story</item>
-        <item>5. Say goodnight</item>
+        <item>5. Say good night</item>
         <item>6. Say prayers</item>
         <item>7. Sweet dreams!</item>
     </string-array>
@@ -176,12 +176,12 @@
         <item>Get in the shower</item>
         <item>Wet body</item>
         <item>Put soap</item>
-        <item>shampoo à¤¹à¥ˆà¤°</item>
+        <item>Shampoo हैर</item>
         <item>Put face wash</item>
-        <item>Wash à¤¹à¥ˆà¤°</item>
+        <item>Wash हैर</item>
         <item>Wash body</item>
         <item>Turn off water</item>
-        <item>Dry à¤¹à¥ˆà¤°</item>
+        <item>Dry हैर</item>
         <item>Dry face</item>
         <item>Dry body</item>
         <item>Put on clothes</item>
@@ -194,9 +194,9 @@
         <item>Go to toilet</item>
         <item>Brush teeth</item>
         <item>Remove clothes</item>
-        <item>Have a à¤¬à¤¾à¤¥</item>
+        <item>Have a bath</item>
         <item>Get dressed</item>
-        <item>Comb à¤¹à¥ˆà¤°</item>
+        <item>Comb हैर</item>
         <item>Eat brekfust</item>
         <item>Pack lunch box</item>
         <item>Pack school bag</item>
@@ -449,18 +449,18 @@
             \"I don\'t want to put more soap on my body\",
             \"I really don\'t want to put any more soap on my body\"
 
-    ],[\"I like to shampoo my à¤¹à¥ˆà¤°\",
-            \"I really like to shampoo my à¤¹à¥ˆà¤°\",
-            \"I want to shampoo my à¤¹à¥ˆà¤°\",
-            \"I really want to shampoo my à¤¹à¥ˆà¤°\",
-            \"I want to shampoo my à¤¹à¥ˆà¤° again\",
-            \"I really want to shampoo my à¤¹à¥ˆà¤° again\",
-            \"I don\'t like to shampoo my à¤¹à¥ˆà¤°\",
-            \"I really don\'t like to shampoo my à¤¹à¥ˆà¤°\",
-            \"I don\'t want to shampoo my à¤¹à¥ˆà¤°\",
-            \"I really don\'t want to shampoo my à¤¹à¥ˆà¤°\",
-            \"I don\'t want to shampoo my à¤¹à¥ˆà¤° again\",
-            \"I really don\'t want to shampoo my à¤¹à¥ˆà¤° again\"
+    ],[\"I like to shampoo my हैर\",
+            \"I really like to shampoo my हैर\",
+            \"I want to shampoo my हैर\",
+            \"I really want to shampoo my हैर\",
+            \"I want to shampoo my हैर again\",
+            \"I really want to shampoo my हैर again\",
+            \"I don\'t like to shampoo my हैर\",
+            \"I really don\'t like to shampoo my हैर\",
+            \"I don\'t want to shampoo my हैर\",
+            \"I really don\'t want to shampoo my हैर\",
+            \"I don\'t want to shampoo my हैर again\",
+            \"I really don\'t want to shampoo my हैर again\"
 
     ],[\"I like to use face wash\",
             \"I really like to use face wash\",
@@ -475,18 +475,18 @@
             \"I don\'t want to use face wash again\",
             \"I really don\'t want to use face wash again\"
 
-    ],[\"I like to wash my à¤¹à¥ˆà¤°\",
-            \"I really like to wash my à¤¹à¥ˆà¤°\",
-            \"I want to wash my à¤¹à¥ˆà¤°\",
-            \"I really want to wash my à¤¹à¥ˆà¤°\",
-            \"I want to wash my à¤¹à¥ˆà¤° again\",
-            \"I really want to wash my à¤¹à¥ˆà¤° again\",
-            \"I don\'t like to wash my à¤¹à¥ˆà¤°\",
-            \"I really don\'t like to wash my à¤¹à¥ˆà¤°\",
-            \"I don\'t want to wash my à¤¹à¥ˆà¤°\",
-            \"I really don\'t want to wash my à¤¹à¥ˆà¤°\",
-            \"I don\'t want to wash my à¤¹à¥ˆà¤° again\",
-            \"I really don\'t want to wash my à¤¹à¥ˆà¤° again\"
+    ],[\"I like to wash my हैर\",
+            \"I really like to wash my हैर\",
+            \"I want to wash my हैर\",
+            \"I really want to wash my हैर\",
+            \"I want to wash my हैर again\",
+            \"I really want to wash my हैर again\",
+            \"I don\'t like to wash my हैर\",
+            \"I really don\'t like to wash my हैर\",
+            \"I don\'t want to wash my हैर\",
+            \"I really don\'t want to wash my हैर\",
+            \"I don\'t want to wash my हैर again\",
+            \"I really don\'t want to wash my हैर again\"
 
     ],[\"I like to wash my body\",
             \"I really like to wash my body\",
@@ -514,18 +514,18 @@
             \"I don\'t want to turn off the water again\",
             \"I really don\'t want to turn off the water again\"
 
-    ],[\"I like to dry my à¤¹à¥ˆà¤°\",
-            \"I really like to dry my à¤¹à¥ˆà¤°\",
-            \"I want to dry my à¤¹à¥ˆà¤°\",
-            \"I really want to dry my à¤¹à¥ˆà¤°\",
-            \"I want to dry my à¤¹à¥ˆà¤° again\",
-            \"I really want to dry my à¤¹à¥ˆà¤° again\",
-            \"I don\'t like to dry my à¤¹à¥ˆà¤°\",
-            \"I really don\'t like to dry my à¤¹à¥ˆà¤°\",
-            \"I don\'t want to dry my à¤¹à¥ˆà¤°\",
-            \"I really don\'t want to dry my à¤¹à¥ˆà¤°\",
-            \"I don\'t want to dry my à¤¹à¥ˆà¤° again\",
-            \"I really don\'t want to dry my à¤¹à¥ˆà¤° again\"
+    ],[\"I like to dry my हैर\",
+            \"I really like to dry my हैर\",
+            \"I want to dry my हैर\",
+            \"I really want to dry my हैर\",
+            \"I want to dry my हैर again\",
+            \"I really want to dry my हैर again\",
+            \"I don\'t like to dry my हैर\",
+            \"I really don\'t like to dry my हैर\",
+            \"I don\'t want to dry my हैर\",
+            \"I really don\'t want to dry my हैर\",
+            \"I don\'t want to dry my हैर again\",
+            \"I really don\'t want to dry my हैर again\"
 
     ],[\"I like to dry my face\",
             \"I really like to dry my face\",
@@ -656,24 +656,24 @@
             \"I don\'t want to get dressed again\",
             \"I really don\'t want to get dressed again\"
 
-    ],[\"I like to comb my à¤¹à¥ˆà¤°\",
-            \"I really like to comb my à¤¹à¥ˆà¤°\",
-            \"I want to comb my à¤¹à¥ˆà¤°\",
-            \"I really want to comb my à¤¹à¥ˆà¤°\",
-            \"I want to comb my à¤¹à¥ˆà¤° again\",
-            \"I really want to comb my à¤¹à¥ˆà¤° again\",
-            \"I don\'t like to comb my à¤¹à¥ˆà¤°\",
-            \"I really don\'t like to comb my à¤¹à¥ˆà¤°\",
-            \"I don\'t want to comb my à¤¹à¥ˆà¤°\",
-            \"I really don\'t want to comb my à¤¹à¥ˆà¤°\",
-            \"I don\'t want to comb my à¤¹à¥ˆà¤° again\",
-            \"I really don\'t want to comb my à¤¹à¥ˆà¤° again\"
+    ],[\"I like to comb my हैर\",
+            \"I really like to comb my हैर\",
+            \"I want to comb my हैर\",
+            \"I really want to comb my हैर\",
+            \"I want to comb my हैर again\",
+            \"I really want to comb my हैर again\",
+            \"I don\'t like to comb my हैर\",
+            \"I really don\'t like to comb my हैर\",
+            \"I don\'t want to comb my हैर\",
+            \"I really don\'t want to comb my हैर\",
+            \"I don\'t want to comb my हैर again\",
+            \"I really don\'t want to comb my हैर again\"
 
     ],[\"I like to eat brekfust\",
             \"I really like to eat brekfust\",
             \"I want to eat brekfust\",
             \"I really want to eat brekfust\",
-            \"I want to eat more brekfust\",
+            \"I want to eat some more brekfust\",
             \"I really want to eat some more brekfust\",
             \"I don\'t like to eat brekfust\",
             \"I really don\'t like to eat brekfust\",
@@ -725,7 +725,7 @@
             \"I really like to eat dinner\",
             \"I want to eat dinner\",
             \"I really want to eat dinner\",
-            \"I want to eat more dinner\",
+            \"I want to eat some more dinner\",
             \"I really want to eat some more dinner\",
             \"I don\'t like to eat dinner\",
             \"I really don\'t like to eat dinner\",

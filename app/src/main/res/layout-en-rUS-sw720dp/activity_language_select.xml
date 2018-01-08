@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#F7F3C6"
-    tools:context="com.dsource.idc.jellow.LanguageSelectActivity">
+    tools:context="com.dsource.idc.jellowintl.LanguageSelectActivity">
 
 
     <ScrollView

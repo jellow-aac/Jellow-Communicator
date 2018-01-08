@@ -763,7 +763,7 @@
         <item>I am all done</item>
         <item>Excuse me</item>
         <item>I am sorry</item>
-        <item>I don\â€™t understand</item>
+        <item>I don\'t understand</item>
         <item>Please share</item>
         <item>Please slow down</item>
         <item>I need help</item>
@@ -1170,7 +1170,7 @@
         <item>Eyes</item>
         <item>Nose</item>
         <item>Ears</item>
-        <item>mouth</item>
+        <item>Mouth</item>
         <item>Tongue</item>
         <item>Neck</item>
         <item>Shoulder</item>
@@ -1255,7 +1255,7 @@
         <item>Compass</item>
         <item>Divider</item>
         <item>Stapler</item>
-        <item>U-pin</item>
+        <item>U-clip</item>
         <item>Cello tape</item>
         <item>Compass box</item>
     </string-array>
@@ -1367,7 +1367,7 @@
         <item>Next month</item>
     </string-array>
     <string-array name="arrLevelThreeTimeWeaWeatherAdapterText">
-        <item>Todayâ€™s weather?</item>
+        <item>Today\'s weather?</item>
         <item>Sunny</item>
         <item>Rainy</item>
         <item>Cloudy</item>
@@ -1391,7 +1391,7 @@
         <item>Makar sankranti</item>
         <item>Holi</item>
         <item>Eid</item>
-        <item>Good Friday</item>
+        <item>Good friday</item>
         <item>Gudi padwa</item>
         <item>Republic day</item>
         <item>Independence day</item>
@@ -1438,7 +1438,7 @@
         <item>Confused</item>
         <item>Ashamed</item>
         <item>Disappointed</item>
-        <item>bored</item>
+        <item>Bored</item>
         <item>Worried</item>
         <item>Stressed</item>
         <item>Tired</item>
@@ -1469,7 +1469,7 @@
         <item>I am all done</item>
         <item>Excuse me</item>
         <item>I am sorry</item>
-        <item>I don\â€™t understand</item>
+        <item>I don\'t understand</item>
         <item>Please share with me</item>
         <item>Please slow down</item>
         <item>I need help</item>
@@ -1504,12 +1504,12 @@
         <item>Get in the shower</item>
         <item>Wet body</item>
         <item>Put soap</item>
-        <item>Shampoo à¤¹à¥ˆà¤°</item>
+        <item>Shampoo हैर</item>
         <item>Put face wash</item>
-        <item>Wash à¤¹à¥ˆà¤°</item>
+        <item>Wash हैर</item>
         <item>Wash body</item>
         <item>Turn off water</item>
-        <item>Dry à¤¹à¥ˆà¤°</item>
+        <item>Dry हैर</item>
         <item>Dry face</item>
         <item>Dry body</item>
         <item>Put on clothes</item>
@@ -1528,15 +1528,15 @@
         <item>Change footwear</item>
         <item>Change shoes</item>
         <item>Change socks</item>
-        <item>wear night clothes</item>
+        <item>Wear night clothes</item>
         <item>Shirt</item>
         <item>T-shirt</item>
         <item>Frock</item>
         <item>Pants</item>
-        <item>slacks</item>
+        <item>Slacks</item>
         <item>Leggings</item>
         <item>Shorts</item>
-        <item>salwarkameez</item>
+        <item>Salwarkameez</item>
         <item>Sweater</item>
         <item>Jacket</item>
         <item>Scarf</item>
@@ -1548,7 +1548,7 @@
         <item>Earrings</item>
         <item>brace let</item>
         <item>Necklace</item>
-        <item>à¤¬à¤¿à¤‚à¤¦à¥€</item>
+        <item>बिंदी</item>
         <item>Chappals</item>
         <item>My clothes are tight</item>
         <item>My clothes are loose</item>
@@ -1556,7 +1556,7 @@
         <item>I need help putting on clothes</item>
     </string-array>
     <string-array name="arrLevelThreeDailyActGetReadySpeechText">
-        <item>Comb à¤¹à¥ˆà¤°</item>
+        <item>Comb हैर</item>
         <item>Face wash</item>
         <item>Cut nails</item>
         <item>Blow nose</item>
@@ -1569,7 +1569,7 @@
         <item>Fan</item>
         <item>Light</item>
         <item>Window</item>
-        <item>bed</item>
+        <item>Bed</item>
         <item>Pillows</item>
         <item>Blanket</item>
         <item>Feeling warm</item>
@@ -1594,9 +1594,9 @@
         <item>Go to bathroom</item>
         <item>Brush teeth</item>
         <item>Remove clothes</item>
-        <item>Have a à¤¬à¤¾à¤¥</item>
+        <item>Have a bath</item>
         <item>Get dressed</item>
-        <item>Comb à¤¹à¥ˆà¤°</item>
+        <item>Comb हैर</item>
         <item>Eat brekfust</item>
         <item>Pack lunch box</item>
         <item>Pack school bag</item>
@@ -1605,7 +1605,7 @@
     </string-array>
     <string-array name="arrLevelThreeDailyActBedTimeScheSpeechText">
         <item>Eat dinner</item>
-        <item>wear night dress</item>
+        <item>Wear night dress</item>
         <item>Brush teeth</item>
         <item>Read story</item>
         <item>Say goodnight</item>
@@ -1621,16 +1621,16 @@
         <item>Eggs</item>
         <item>Poha</item>
         <item>Upma</item>
-        <item>khichdi</item>
+        <item>Khichdi</item>
         <item>Idli</item>
-        <item>dosaa</item>
-        <item>paraathaa</item>
-        <item>omlette</item>
-        <item>à¤®à¥‡à¤¦à¥à¤µà¤¡à¤¼à¤¾</item>
+        <item>Dosaa</item>
+        <item>Paraathaa</item>
+        <item>Omlette</item>
+        <item>मेदुवड़ा</item>
         <item>Porridge</item>
         <item>Sandwich</item>
         <item>Chutney</item>
-        <item>saambaar</item>
+        <item>Saambaar</item>
         <item>Uutappam</item>
     </string-array>
     <string-array name="arrLevelThreeFoodDrinksLunchDinnerSpeechText">
@@ -1640,21 +1640,21 @@
         <item>Dal</item>
         <item>Dal khichdi</item>
         <item>Raaigh ta</item>
-        <item>paraathaa</item>
+        <item>Paraathaa</item>
         <item>Curd</item>
         <item>Fish</item>
         <item>Chicken</item>
         <item>Pork</item>
         <item>Mutton</item>
-        <item>crabbb meat</item>
+        <item>Crabbb meat</item>
         <item>Turkey</item>
         <item>Pizza</item>
         <item>Salad</item>
         <item>Soup</item>
-        <item>pastaa</item>
+        <item>Pastaa</item>
         <item>Noodles</item>
         <item>Italian</item>
-        <item>pav bhaji</item>
+        <item>Pav bhaji</item>
         <item>Bhakri</item>
     </string-array>
     <string-array name="arrLevelThreeFoodDrinksSweetsSpeechText">
@@ -1666,8 +1666,8 @@
         <item>Barfi</item>
         <item>Jalebi</item>
         <item>Fruit salad</item>
-        <item>rass gulla</item>
-        <item>sheeraa</item>
+        <item>Rass gulla</item>
+        <item>Sheeraa</item>
     </string-array>
     <string-array name="arrLevelThreeFoodDrinksSnacksSpeechText">
         <item>Biscuits</item>
@@ -1691,7 +1691,7 @@
         <item>Blueberry</item>
         <item>Pomegranate</item>
         <item>Watermelon</item>
-        <item>pare</item>
+        <item>Pare</item>
         <item>Papaya</item>
         <item>Muskmelon</item>
         <item>Chikoo</item>
@@ -1708,10 +1708,10 @@
         <item>Lemon juice</item>
         <item>Pineapple juice</item>
         <item>Pepsi</item>
-        <item>cocacola</item>
+        <item>Cocacola</item>
         <item>Mirinda</item>
         <item>Fanta</item>
-        <item>maaza</item>
+        <item>Maaza</item>
         <item>Sprite</item>
         <item>Mountain dew</item>
         <item>Milk shake</item>
@@ -1720,7 +1720,7 @@
         <item>Banana milk shake</item>
         <item>Mango milk shake</item>
         <item>Chikoo milk shake</item>
-        <item>tea</item>
+        <item>Tea</item>
         <item>Coffee</item>
         <item>Cold coffee</item>
         <item>Energy drink</item>
@@ -1789,13 +1789,13 @@
         <item>Cricket</item>
         <item>Badminton</item>
         <item>Tennis</item>
-        <item>basketball</item>
+        <item>Basketball</item>
         <item>Dodgeball</item>
         <item>Volleyball</item>
         <item>Kho-kho</item>
         <item>Football</item>
         <item>kabbbaddi</item>
-        <item>gym nastics</item>
+        <item>Gym nastics</item>
         <item>Swimming</item>
     </string-array>
     <string-array name="arrLevelThreeFunTvSpeechText">
@@ -1841,7 +1841,7 @@
         <item>Horse</item>
         <item>Deer</item>
         <item>Owl</item>
-        <item>wolf</item>
+        <item>Wolf</item>
         <item>Fox</item>
         <item>Bear</item>
         <item>Sheep</item>
@@ -1864,19 +1864,19 @@
         <item>Dolphin</item>
         <item>Whale</item>
         <item>Shark</item>
-        <item>tortoyse</item>
-        <item>sparrow</item>
+        <item>Tortoyse</item>
+        <item>Sparrow</item>
         <item>Eagle</item>
         <item>Hawk</item>
         <item>Vulture</item>
     </string-array>
     <string-array name="arrLevelThreeLearningBodyPartsSpeechText">
         <item>Head</item>
-        <item>à¤¹à¥ˆà¤°</item>
+        <item>हैर</item>
         <item>Eyes</item>
         <item>Nose</item>
         <item>Ears</item>
-        <item>mouth</item>
+        <item>Mouth</item>
         <item>Tongue</item>
         <item>Neck</item>
         <item>Shoulder</item>
@@ -1887,7 +1887,7 @@
         <item>Back</item>
         <item>Stomach</item>
         <item>Hip</item>
-        <item>knee</item>
+        <item>Knee</item>
         <item>Ankle</item>
         <item>Legs</item>
         <item>Toes</item>
@@ -1945,7 +1945,7 @@
         <item>Oval</item>
         <item>Diamond</item>
         <item>Pentagon</item>
-        <item>freeform</item>
+        <item>Freeform</item>
     </string-array>
     <string-array name="arrLevelThreeLearningStationarySpeechText">
         <item>Pencil</item>
@@ -1960,9 +1960,9 @@
         <item>Pencil led</item>
         <item>Compass</item>
         <item>Divider</item>
-        <item>stapler</item>
-        <item>U-pin</item>
-        <item>selo tape</item>
+        <item>Stapler</item>
+        <item>U-clip</item>
+        <item>Selo tape</item>
         <item>Compass box</item>
     </string-array>
     <string-array name="arrLevelThreeLearningSchoolObjSpeechText">
@@ -1989,7 +1989,7 @@
         <item>Fan</item>
         <item>Lamp</item>
         <item>Desk</item>
-        <item>cupboard</item>
+        <item>Cupboard</item>
         <item>Table</item>
         <item>Chare</item>
         <item>Toilet</item>
@@ -2000,7 +2000,7 @@
         <item>Bathroom</item>
         <item>Balcony</item>
         <item>Study room</item>
-        <item>bed</item>
+        <item>Bed</item>
         <item>Television</item>
         <item>Computer</item>
         <item>Sofa</item>
@@ -2073,7 +2073,7 @@
         <item>Next month</item>
     </string-array>
     <string-array name="arrLevelThreeTimeWeaWeatherSpeechText">
-        <item>What is Todayâ€™s weather?</item>
+        <item>What is Today\'s weather?</item>
         <item>Sunny</item>
         <item>Rainy</item>
         <item>Cloudy</item>
@@ -2094,27 +2094,27 @@
         <item>Ganesh chaturthi</item>
         <item>Christmas</item>
         <item>Dussehra</item>
-        <item>à¤®à¤•à¤° à¤¸à¤‚à¤•à¥à¤°à¤¾à¤‚à¤¤à¤¿</item>
+        <item>मकर संक्रांति</item>
         <item>Holi</item>
         <item>Eid</item>
         <item>Good Friday</item>
-        <item>gudi paadwa</item>
+        <item>Gudi paadwa</item>
         <item>Republic day</item>
         <item>Independence day</item>
         <item>New year</item>
     </string-array>
     <string-array name="arrLevelThreeTimeWeaBirthdaysSpeechText">
-        <item>My birthday</item>
-        <item>Mom\â€™s birthday</item>
-        <item>Father\â€™sbirthday</item>
-        <item>Brother\â€™s birthday</item>
-        <item>Sister\â€™s birthday</item>
-        <item>Friend\â€™s birthday</item>
-        <item>Grandmother\â€™s birthday</item>
-        <item>Grandfather\â€™s birthday</item>
-        <item>Uncle\â€™s birthday</item>
-        <item>Aunt\â€™s birthday</item>
-        <item>Cousin\â€™s birthday</item>
-        <item>Teacher\â€™s birthday</item>
+        <item>My birthday</item>\'
+        <item>Mom\'s birthday</item>
+        <item>Father\'s birthday</item>
+        <item>Brother\'s birthday</item>
+        <item>Sister\'s birthday</item>
+        <item>Friend\'s birthday</item>
+        <item>Grandmother\'s birthday</item>
+        <item>Grandfather\'s birthday</item>
+        <item>Uncle\'s birthday</item>
+        <item>Aunt\'s birthday</item>
+        <item>Cousin\'s birthday</item>
+        <item>Teacher\'s birthday</item>
     </string-array>
 </resources>
