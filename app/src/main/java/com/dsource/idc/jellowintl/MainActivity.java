@@ -518,13 +518,13 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(title);
         if (mLevelOneItemPos == position) {
             Bundle bundle = new Bundle();
-            bundle.putString("Icon",myMusic[position]);
-            bundle.putString("Level","LevelOne");
-            bundleEvent("Grid",bundle);
+            bundle.putString("Icon", myMusic[position]);
+            bundle.putString("Level", "LevelOne");
+            bundleEvent("Grid", bundle);
             Intent intent = new Intent(MainActivity.this, LevelTwoActivity.class);
             intent.putExtra("mLevelOneItemPos", position);
             intent.putExtra("selectedMenuItemPath", title + "/");
-            startActivityForResult(intent,REQ_HOME);
+            startActivityForResult(intent, REQ_HOME);
         }else {
             speakSpeech(myMusic[position]);
         }

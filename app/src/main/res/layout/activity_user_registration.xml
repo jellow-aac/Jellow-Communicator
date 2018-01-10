@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_height="match_parent"
     android:padding="10dp"
@@ -62,15 +63,26 @@
                 android:layout_marginBottom="-15dp"
                 android:textSize="12dp"/>
 
-            <EditText
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:inputType="phone"
-                android:ems="10"
-                android:id="@+id/etEmergencyContact"
-                android:imeOptions="actionDone"/>
-
+                android:layout_height="wrap_content">
+                <com.hbb20.CountryCodePicker
+                    android:id="@+id/ccp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:ccpDialog_showCloseIcon="true"
+                    app:ccp_countryPreference="US,GB,IN"
+                    app:ccp_autoDetectCountry="true"
+                    app:ccpDialog_keyboardAutoPopup="false"
+                    app:ccpDialog_backgroundColor="@color/colorIntro"/>
+                <EditText
+                    android:id="@+id/etEmergencyContact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:inputType="phone"
+                    android:imeOptions="actionDone"/>
+            </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -95,7 +107,6 @@
                 android:id="@+id/etEmailId"
                 android:inputType="textEmailAddress"
                 android:imeOptions="actionDone"/>
-
 
             <TextView
                 android:layout_width="wrap_content"

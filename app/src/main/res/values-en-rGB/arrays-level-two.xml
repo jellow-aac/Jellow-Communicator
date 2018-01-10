@@ -125,17 +125,17 @@
         <item>Brushing…</item>
         <item>Toilet…</item>
         <item>Bathing…</item>
-        <item>Clothes &amp; More…</item>
-        <item>Getting Ready…</item>
+        <item>Clothes &amp; more…</item>
+        <item>Getting ready…</item>
         <item>Sleep…</item>
         <item>Therapy…</item>
-        <item>Morning Routine…</item>
-        <item>Bed Time Routine…</item>
+        <item>Morning routine…</item>
+        <item>Bed Time routine…</item>
     </string-array>
     <string-array name="arrLevelTwoEatAdapterText">
         <item>Breakfast…</item>
         <item>Lunch/Dinner…</item>
-        <item>Sweets…</item>
+        <item>Desserts…</item>
         <item>Snacks…</item>
         <item>Fruits…</item>
         <item>Drinks…</item>
@@ -151,7 +151,7 @@
         <item>Activities…</item>
     </string-array>
     <string-array name="arrLevelTwoLearningAdapterText">
-        <item>Animals &amp; Birds…</item>
+        <item>Animals &amp; birds…</item>
         <item>Body…</item>
         <item>Books…</item>
         <item>Colors…</item>
@@ -159,12 +159,12 @@
         <item>Stationery…</item>
         <item>School objects…</item>
         <item>Home objects…</item>
-        <item>Transport Modes…</item>
+        <item>Transport modes…</item>
         <item>Money…</item>
     </string-array>
     <string-array name="arrLevelTwoPeopleAdapterText">
         <item>Mother</item>
-        <item>Daddy</item>
+        <item>Father</item>
         <item>Brother</item>
         <item>Sister</item>
         <item>Grandfather</item>
@@ -186,7 +186,7 @@
         <item>School</item>
         <item>Mall</item>
         <item>Museum</item>
-        <item>Hotel</item>
+        <item>Restaurant</item>
         <item>Theatre</item>
         <item>Playground</item>
         <item>Park</item>
@@ -248,7 +248,7 @@
     <string-array name="arrLevelTwoEatSpeechText">
         <item>Breakfast</item>
         <item>Lunch and Dinner</item>
-        <item>Sweets</item>
+        <item>Desserts</item>
         <item>Snacks</item>
         <item>Fruits</item>
         <item>Drinks</item>
@@ -277,7 +277,7 @@
     </string-array>
     <string-array name="arrLevelTwoPeopleSpeechText">
         <item>Mother</item>
-        <item>Daddy</item>
+        <item>Father</item>
         <item>Brother</item>
         <item>Sister</item>
         <item>Grandfather</item>
@@ -299,7 +299,7 @@
         <item>School</item>
         <item>Mall</item>
         <item>Museum</item>
-        <item>Hotel</item>
+        <item>Restaurant</item>
         <item>Theatre</item>
         <item>Playground</item>
         <item>Park</item>
@@ -420,18 +420,18 @@
             \"I don\'t want to go to the toilet again\",
             \"I really don\'t want to go to the toilet again\"
 
-    ],[\"I like to bath\",
-            \"I really like to bath\",
-            \"I want to bath\",
-            \"I really want to bath\",
+    ],[\"I like to bathe\",
+            \"I really like to bathe\",
+            \"I want to bathe\",
+            \"I really want to bathe\",
             \"I want to bathe again\",
-            \"I really want to bath again\",
-            \"I don\'t like to bath\",
-            \"I really don\'t like to bath\",
-            \"I don\'t want to bath\",
-            \"I really don\'t want to bath\",
+            \"I really want to bathe again\",
+            \"I don\'t like to bathe\",
+            \"I really don\'t like to bathe\",
+            \"I don\'t want to bathe\",
+            \"I really don\'t want to bathe\",
             \"I don\'t want to bathe again\",
-            \"I really don\'t want to bath again\"
+            \"I really don\'t want to bathe again\"
 
     ],[\"I like clothes and accessories\",
             \"I really like clothes and accessories\",
@@ -538,18 +538,18 @@
             \"I don\'t want more food\",
             \"I really don\'t want any more food\"
 
-    ],[\"I like sweets\",
-            \"I really like sweets\",
-            \"I want to have some sweets\",
-            \"I really want to have some sweets\",
-            \"I want more sweets\",
-            \"I really want some more sweets\",
-            \"I don\'t like sweets\",
-            \"I really don\'t like sweets\",
-            \"I don\'t want to have sweets\",
-            \"I really don\'t want to have sweets\",
-            \"I don\'t want more sweets\",
-            \"I really don\'t want any more sweets\"
+    ],[\"I like desserts\",
+            \"I really like desserts\",
+            \"I want to have some dessert\",
+            \"I really want to have some dessert\",
+            \"I want more dessert\",
+            \"I really want some more dessert\",
+            \"I don\'t like desserts\",
+            \"I really don\'t like desserts\",
+            \"I don\'t want to have dessert\",
+            \"I really don\'t want to have dessert\",
+            \"I don\'t want more dessert\",
+            \"I really don\'t want any more dessert\"
 
     ],[\"I like snacks\",
             \"I really like snacks\",
@@ -840,18 +840,18 @@
             \"I don\'t want to spend more time with my mother\",
             \"I really don\'t want to spend any more time with my mother\"
 
-    ],[\"I love my daddy\",
-            \"I really love my daddy\",
-            \"I want my daddy\",
-            \"I really want my daddy\",
-            \"I want to spend more time with my daddy\",
-            \"I really want to spend much more time with my daddy\",
-            \"I don\'t like my daddy\",
-            \"I really don\'t like my daddy\",
-            \"I don\'t want my daddy\",
-            \"I really don\'t want my daddy\",
-            \"I don\'t want to spend more time with my daddy\",
-            \"I really don\'t want to spend any more time with my daddy\"
+    ],[\"I love my father\",
+            \"I really love my father\",
+            \"I want my father\",
+            \"I really want my father\",
+            \"I want to spend more time with my father\",
+            \"I really want to spend much more time with my father\",
+            \"I don\'t like my father\",
+            \"I really don\'t like my father\",
+            \"I don\'t want my father\",
+            \"I really don\'t want my father\",
+            \"I don\'t want to spend more time with my father\",
+            \"I really don\'t want to spend any more time with my father\"
 
     ],[\"I love my brother\",
             \"I really love my brother\",
@@ -1101,18 +1101,18 @@
             \"I don\'t want to go to the museum again\",
             \"I really don\'t want to go to the museum again\"
 
-    ],[\"I like to go to hotel\",
-            \"I really like to go to hotel\",
-            \"I want to go to a hotel\",
-            \"I really want to go to a hotel\",
-            \"I want to go to a hotel again\",
-            \"I really want to go to a hotel again\",
-            \"I don\'t like to go to hotel\",
-            \"I really don\'t like to go to hotel\",
-            \"I don\'t want to go to a hotel\",
-            \"I really don\'t want to go to a hotel\",
-            \"I don\'t want to go to a hotel again\",
-            \"I really don\'t want to go to a hotel again\"
+    ],[\"I like to go to restaurants\",
+            \"I really like to go to restaurants\",
+            \"I want to go to a restaurant\",
+            \"I really want to go to a restaurant\",
+            \"I want to go to a restaurant again\",
+            \"I really want to go to a restaurant again\",
+            \"I don\'t like to go to restaurants\",
+            \"I really don\'t like to go to restaurants\",
+            \"I don\'t want to go to a restaurant\",
+            \"I really don\'t want to go to a restaurant\",
+            \"I don\'t want to go to a restaurant again\",
+            \"I really don\'t want to go to a restaurant again\"
 
     ],[\"I like to go to the theater\",
             \"I really like to go to the theater\",
@@ -1366,7 +1366,7 @@
                     \"I want a medicine\",
                     \"I really want a medicine\",
                     \"I want more medicines\",
-                    \"I want many more medicines\",
+                    \"I want some more medicines\",
                     \"I don\'t like medicines\",
                     \"I really don\'t like medicines\",
                     \"I don\'t want a medicine\",
@@ -1378,7 +1378,7 @@
             \"I want a bandage\",
             \"I really want a bandage\",
             \"I want more bandages\",
-            \"I want many more bandages\",
+            \"I want some more bandages\",
             \"I don\'t like to use bandages\",
             \"I really don\'t like to use bandages\",
             \"I don\'t want a bandage\",
@@ -1390,7 +1390,7 @@
             \"I want water\",
             \"I really want water\",
             \"I want more water\",
-            \"I want a lot more water\",
+            \"I want some more water\",
             \"I don\'t like water\",
             \"I really don\'t like water\",
             \"I don\'t want water\",

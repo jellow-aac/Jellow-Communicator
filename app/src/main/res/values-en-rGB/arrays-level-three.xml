@@ -1087,7 +1087,7 @@
         <item>Mashed potatoes</item>
         <item>Mac and cheese</item>
         <item>Baked vegetables</item>
-        <item>Streamed vegetables</item>
+        <item>Steamed vegetables</item>
         <item>Bread</item>
         <item>Pasta</item>
         <item>Tacos</item>
@@ -1101,7 +1101,7 @@
         <item>Burger</item>
         <item>Hot dog</item>
         <item>Gyro</item>
-        <item>Fafafel</item>
+        <item>Falafel</item>
         <item>Grinder</item>
         <item>Burrito bowl</item>
         <item>Tortillas</item>
@@ -1125,8 +1125,8 @@
         <item>Casserole</item>
         <item>Cauliflower cheese</item>
         <item>Kippers</item>
-        <item>Black puddings</item>
-        <item>White puddings</item>
+        <item>Black pudding</item>
+        <item>White pudding</item>
         <item>Italian food</item>
         <item>Cheese pudding</item>
         <item>Steak pies</item>
@@ -1141,8 +1141,8 @@
         <item>Cookie</item>
         <item>Donut</item>
         <item>Brownie</item>
-        <item>Fruit Platter</item>
-        <item>Frozen Yogurt</item>
+        <item>Fruit platter</item>
+        <item>Frozen yogurt</item>
         <item>Granola parfait</item>
         <item>Pudding</item>
         <item>Crumble</item>
@@ -1173,7 +1173,7 @@
         <item>Beef jerky</item>
         <item>Popcorn</item>
         <item>Vegetable sticks</item>
-        <item>Snacks mix</item>
+        <item>Snack mix</item>
         <item>Scones</item>
         <item>Biscuits</item>
         <item>Buns</item>
@@ -1434,7 +1434,7 @@
         <item>Eyes</item>
         <item>Nose</item>
         <item>Ears</item>
-        <item>mouth</item>
+        <item>Mouth</item>
         <item>Tongue</item>
         <item>Neck</item>
         <item>Shoulder</item>
@@ -1647,14 +1647,14 @@
         <item>Martin Luther king day</item>
         <item>Valentine\'s day</item>
         <item>President\'s day</item>
-        <item>St. Patricks\'s day</item>
+        <item>St. Patrick\'s day</item>
         <item>Easter</item>
         <item>Memorial day</item>
         <item>Eid</item>
-        <item>Good Friday</item>
+        <item>Good friday</item>
         <item>Diwali</item>
         <item>Labour day</item>
-        <item>Us Independence day</item>
+        <item>US Independence day</item>
         <item>Halloween</item>
         <item>Columbus day</item>
         <item>Veteran\'s day</item>
@@ -1758,10 +1758,10 @@
     <string-array name="arrLevelThreeDailyActToiletSpeechText">
         <item>Pull pants down</item>
         <item>Sit on toilet</item>
-        <item>washh bottom</item>
+        <item>wash bottom</item>
         <item>Flush toilet</item>
         <item>Pull pants up</item>
-        <item>washh hands</item>
+        <item>wash hands</item>
         <item>All done</item>
     </string-array>
     <string-array name="arrLevelThreeDailyActBathingSpeechText">
@@ -1771,9 +1771,9 @@
         <item>Wet body</item>
         <item>Put soap</item>
         <item>Shampoo hair</item>
-        <item>Put face washh</item>
-        <item>washh hair</item>
-        <item>washh body</item>
+        <item>Put face wash</item>
+        <item>wash hair</item>
+        <item>wash body</item>
         <item>Turn off water</item>
         <item>Dry hair</item>
         <item>Dry face</item>
@@ -1823,12 +1823,12 @@
         <item>Flipflops</item>
         <item>My clothes are tight</item>
         <item>My clothes are loose</item>
-        <item>Help remove clothes</item>
-        <item>Help put on clothes</item>
+        <item>I need help removing clothes</item>
+        <item>I need help putting on clothes</item>
     </string-array>
     <string-array name="arrLevelThreeDailyActGetReadySpeechText">
         <item>Comb hair</item>
-        <item>Face washh</item>
+        <item>Face wash</item>
         <item>Cut nails</item>
         <item>Blow nose</item>
         <item>Soap</item>
@@ -1862,7 +1862,7 @@
     </string-array>
     <string-array name="arrLevelThreeDailyActMorningScheSpeechText">
         <item>Wake up</item>
-        <item>washh face</item>
+        <item>wash face</item>
         <item>Go to bathroom</item>
         <item>Brush teeth</item>
         <item>Remove clothes</item>
@@ -1902,7 +1902,7 @@
         <item>Bagel with cream cheese</item>
         <item>Breakfast burrito</item>
         <item>Sandwich</item>
-        <item>Crowssaunt</item>
+        <item>Croissant</item>
         <item>French toast</item>
         <item>Hash browns</item>
         <item>Waffles</item>
@@ -1926,7 +1926,7 @@
         <item>Mashed potatoes</item>
         <item>Mac and cheese</item>
         <item>Baked vegetables</item>
-        <item>Streamed vegetables</item>
+        <item>Steamed vegetables</item>
         <item>Bread</item>
         <item>Pasta</item>
         <item>Tacos</item>
@@ -1940,7 +1940,7 @@
         <item>Burger</item>
         <item>Hot dog</item>
         <item>Gyro</item>
-        <item>Fafafel</item>
+        <item>Falafel</item>
         <item>Grinder</item>
         <item>Burrito bowl</item>
         <item>Tortillas</item>
@@ -1964,8 +1964,8 @@
         <item>Casserole</item>
         <item>Cauliflower cheese</item>
         <item>Kippers</item>
-        <item>Black puddings</item>
-        <item>White puddings</item>
+        <item>Black pudding</item>
+        <item>White pudding</item>
         <item>Italian food</item>
         <item>Cheese pudding</item>
         <item>Steak pies</item>
@@ -1980,8 +1980,8 @@
         <item>Cookie</item>
         <item>Donut</item>
         <item>Brownie</item>
-        <item>Fruit Platter</item>
-        <item>Frozen Yogurt</item>
+        <item>Fruit platter</item>
+        <item>Frozen yogurt</item>
         <item>Granola parfait</item>
         <item>Pudding</item>
         <item>Crumble</item>
@@ -2012,7 +2012,7 @@
         <item>Beef jerky</item>
         <item>Popcorn</item>
         <item>Vegetable sticks</item>
-        <item>Snacks mix</item>
+        <item>Snack mix</item>
         <item>Scones</item>
         <item>Biscuits</item>
         <item>Buns</item>
@@ -2486,14 +2486,14 @@
         <item>Martin Luther king day</item>
         <item>Valentine\'s day</item>
         <item>President\'s day</item>
-        <item>St. Patricks\'s day</item>
+        <item>Saint Patrick\'s day</item>
         <item>Easter</item>
         <item>Memorial day</item>
         <item>Eid</item>
         <item>Good Friday</item>
         <item>Diwali</item>
         <item>Labour day</item>
-        <item>Us Independance day</item>
+        <item>US Independence day</item>
         <item>Halloween</item>
         <item>Columbus day</item>
         <item>Veteran\'s day</item>

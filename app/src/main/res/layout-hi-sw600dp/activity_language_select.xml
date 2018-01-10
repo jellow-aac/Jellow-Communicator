@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F7F3C6"
+    android:background="#F6F4E8"
     tools:context="com.dsource.idc.jellowintl.LanguageSelectActivity">
 
 
@@ -23,28 +23,7 @@
             android:orientation="vertical"
             android:layout_marginRight="168dp"
             android:layout_marginEnd="168dp" >
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="4dp"
-                    android:layout_marginRight="4dp"
-                    android:textColor="#000"
-                    android:scaleX=".7"
-                    android:scaleY=".7"
-                    android:text="@string/bullet" />
-                <TextView
-                    android:id="@+id/tv1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="@string/change_language_line1"
-                    android:textSize="18sp"
-                    android:scrollHorizontally="true"/>
-            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -83,6 +62,29 @@
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
                 android:text="@string/saveLanguage" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginRight="4dp"
+                    android:textColor="#000"
+                    android:scaleX=".7"
+                    android:scaleY=".7"
+                    android:text="@string/bullet" />
+                <TextView
+                    android:id="@+id/tv1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/change_language_line1"
+                    android:textSize="18sp"
+                    android:scrollHorizontally="true"/>
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

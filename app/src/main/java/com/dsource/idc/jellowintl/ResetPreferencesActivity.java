@@ -24,7 +24,7 @@ public class ResetPreferencesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reset_preferences);
         new ChangeAppLocale(this).setLocale();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+ getString(R.string.menuResetPref) +"</font>"));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F6F4E8'>"+ getString(R.string.menuResetPref) +"</font>"));
         final SessionManager session = new SessionManager(this);
         final DataBaseHelper myDbHelper = new DataBaseHelper(this);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
@@ -60,7 +60,7 @@ public class ResetPreferencesActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.languageSelect: startActivity(new Intent(this, LanguageSelectActivity.class)); break;
+            case R.id.languageSelect: startActivity(new Intent(this, LanguageSelectActivity.class)); finish(); break;
             case R.id.profile: startActivity(new Intent(this, ProfileFormActivity.class)); finish(); break;
             case R.id.info: startActivity(new Intent(this, AboutJellowActivity.class)); finish(); break;
             case R.id.usage: startActivity(new Intent(this, TutorialActivity.class)); finish(); break;

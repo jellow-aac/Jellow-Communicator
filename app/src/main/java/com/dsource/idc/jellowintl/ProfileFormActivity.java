@@ -43,7 +43,7 @@ public class ProfileFormActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile_form);
         new ChangeAppLocale(this).setLocale();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.menuProfile)+"</font>"));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F6F4E8'>"+getString(R.string.menuProfile)+"</font>"));
         mSession = new SessionManager(this);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);

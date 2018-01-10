@@ -114,6 +114,7 @@ public class SequenceActivity extends AppCompatActivity {
                 .load(path+"/"+mDailyActivitiesIcons[0]+".png")
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(false)
+                .centerCrop()
                 .dontAnimate()
                 .into(image1);
 
@@ -121,6 +122,7 @@ public class SequenceActivity extends AppCompatActivity {
                 .load(path+"/"+mDailyActivitiesIcons[1]+".png")
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(false)
+                .centerCrop()
                 .dontAnimate()
                 .into(image2);
 
@@ -128,6 +130,7 @@ public class SequenceActivity extends AppCompatActivity {
                 .load(path+"/"+mDailyActivitiesIcons[2]+".png")
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(false)
+                .centerCrop()
                 .dontAnimate()
                 .into(image3);
 
@@ -154,12 +157,14 @@ public class SequenceActivity extends AppCompatActivity {
                                 .load(path+"/"+mDailyActivitiesIcons[count]+".png")
                                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                                 .skipMemoryCache(false)
+                                .centerCrop()
                                 .dontAnimate()
                                 .into(image1);
                         GlideApp.with(SequenceActivity.this)
                                 .load(path+"/"+mDailyActivitiesIcons[count+1]+".png")
                                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                                 .skipMemoryCache(false)
+                                .centerCrop()
                                 .dontAnimate()
                                 .into(image2);
 
@@ -173,6 +178,7 @@ public class SequenceActivity extends AppCompatActivity {
                                 .load(path+"/"+mDailyActivitiesIcons[count]+".png")
                                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                                 .skipMemoryCache(false)
+                                .centerCrop()
                                 .dontAnimate()
                                 .into(image1);
                         bt1.setText(mDailyActivitiesBelowText[count]);
@@ -193,6 +199,7 @@ public class SequenceActivity extends AppCompatActivity {
                             .load(path+"/"+mDailyActivitiesIcons[count]+".png")
                             .diskCacheStrategy(DiskCacheStrategy.NONE)
                             .skipMemoryCache(false)
+                            .centerCrop()
                             .dontAnimate()
                             .into(image1);
 
@@ -200,6 +207,7 @@ public class SequenceActivity extends AppCompatActivity {
                             .load(path+"/"+mDailyActivitiesIcons[count+1]+".png")
                             .diskCacheStrategy(DiskCacheStrategy.NONE)
                             .skipMemoryCache(false)
+                            .centerCrop()
                             .dontAnimate()
                             .into(image2);
 
@@ -207,6 +215,7 @@ public class SequenceActivity extends AppCompatActivity {
                             .load(path+"/"+mDailyActivitiesIcons[count+2]+".png")
                             .diskCacheStrategy(DiskCacheStrategy.NONE)
                             .skipMemoryCache(false)
+                            .centerCrop()
                             .dontAnimate()
                             .into(image3);
                 }
@@ -240,6 +249,7 @@ public class SequenceActivity extends AppCompatActivity {
                         .load(path+"/"+mDailyActivitiesIcons[count]+".png")
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .skipMemoryCache(false)
+                        .centerCrop()
                         .dontAnimate()
                         .into(image1);
 
@@ -247,6 +257,7 @@ public class SequenceActivity extends AppCompatActivity {
                         .load(path+"/"+mDailyActivitiesIcons[count+1]+".png")
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .skipMemoryCache(false)
+                        .centerCrop()
                         .dontAnimate()
                         .into(image2);
 
@@ -254,6 +265,7 @@ public class SequenceActivity extends AppCompatActivity {
                         .load(path+"/"+mDailyActivitiesIcons[count+2]+".png")
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .skipMemoryCache(false)
+                        .centerCrop()
                         .dontAnimate()
                         .into(image3);
                 if (count == 0) {

@@ -189,8 +189,8 @@
                                 android:scaleType="centerInside" />
                             <View
                                 android:id="@+id/borderView3"
-                                android:layout_width="180dp"
-                                android:layout_height="180dp"
+                                android:layout_width="195dp"
+                                android:layout_height="195dp"
                                 android:layout_gravity="center_horizontal"
                                 android:background="@drawable/custom_drawable_nocolor_1by3"/>
                         </FrameLayout>

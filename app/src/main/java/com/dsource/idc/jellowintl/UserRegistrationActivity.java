@@ -27,6 +27,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
+import com.hbb20.CountryCodePicker;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -45,8 +46,9 @@ public class UserRegistrationActivity extends AppCompatActivity {
     private SessionManager mSession;
     private FirebaseDatabase mDB;
     private DatabaseReference mRef;
+    private CountryCodePicker mCcp;
     Spinner languageSelect;
-    String[] languages = new String[4];
+    String[] languagesCodes = new String[4], languageNames = new String[4];
     String selectedLanguage;
 
     @Override
@@ -78,11 +80,13 @@ public class UserRegistrationActivity extends AppCompatActivity {
         mDB = FirebaseDatabase.getInstance();
         mRef = mDB.getReference(BuildConfig.DB_TYPE+"/users");
 
-        LangMap.keySet().toArray(languages);
-
+        LangMap.keySet().toArray(languagesCodes);
+        LangMap.keySet().toArray(languageNames);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         etName = findViewById(R.id.etName);
         etEmergencyContact = findViewById(R.id.etEmergencyContact);
+        mCcp = findViewById(R.id.ccp);
+        mCcp.registerCarrierNumberEditText(etEmergencyContact);
         etEmailId= findViewById(R.id.etEmailId);
         bRegister = findViewById(R.id.bRegister);
         bRegister.setAlpha(0.5f);
@@ -112,7 +116,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
         languageSelect = findViewById(R.id.langSelectSpinner);
 
         ArrayAdapter<String> adapter_lan = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, languages);
+                android.R.layout.simple_spinner_item, languageNames);
 
         adapter_lan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -120,7 +124,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
         languageSelect.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedLanguage = languages[i];
+                selectedLanguage = languagesCodes[i];
             }
 
             @Override
@@ -129,33 +133,28 @@ public class UserRegistrationActivity extends AppCompatActivity {
             }
         });
 
-
         bRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String name, emergencyContact, eMailId, formattedDate;
                 name  = etName.getText().toString();
-                emergencyContact  = etEmergencyContact.getText().toString();
+                emergencyContact = mCcp.getFullNumberWithPlus();
                 if (etName.getText().length()>0){
-                    if (etEmergencyContact.getText().toString().trim().length() == 10) {
-                        eMailId = etEmailId.getText().toString().trim();
-                        if (isValidEmail(eMailId)){
-                            if(selectedLanguage != null) {
-                                mSession.setName(name);
-                                mSession.setFather_no(emergencyContact);
-                                mSession.setEmailId(eMailId);
-                                Calendar ca = Calendar.getInstance();
-                                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                                formattedDate = df.format(ca.getTime());
-                                bRegister.setEnabled(false);
-                                //new LongOperation().execute(name, emergencyContact, eMailId, formattedDate);
-                                createUser(name, emergencyContact, eMailId, formattedDate);
-                            } else
-                                Toast.makeText(getBaseContext(),"Please Select a Language", Toast.LENGTH_SHORT).show();
-                        }else
-                            Toast.makeText(getBaseContext(),getString(R.string.invalid_emailId), Toast.LENGTH_SHORT).show();
-                    } else
-                        Toast.makeText(getBaseContext(), getString(R.string.invalidContactNumber), Toast.LENGTH_SHORT).show();
+                    eMailId = etEmailId.getText().toString().trim();
+                    if (isValidEmail(eMailId)){
+                        if(selectedLanguage != null) {
+                            mSession.setName(name);
+                            mSession.setFather_no(emergencyContact);
+                            mSession.setEmailId(eMailId);
+                            Calendar ca = Calendar.getInstance();
+                            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                            formattedDate = df.format(ca.getTime());
+                            bRegister.setEnabled(false);
+                            createUser(name, emergencyContact, eMailId, formattedDate);
+                        } else
+                            Toast.makeText(getBaseContext(),"Please Select a Language", Toast.LENGTH_SHORT).show();
+                    }else
+                        Toast.makeText(getBaseContext(),getString(R.string.invalid_emailId), Toast.LENGTH_SHORT).show();
                 }else
                     Toast.makeText(getBaseContext(), getString(R.string.enterTheName), Toast.LENGTH_SHORT).show();
             }

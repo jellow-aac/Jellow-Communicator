@@ -25,7 +25,7 @@ public class TutorialActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tutorial);
         new ChangeAppLocale(this).setLocale();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.menuTutorials)+"</font>"));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F6F4E8'>"+getString(R.string.menuTutorials)+"</font>"));
         SessionManager mSession = new SessionManager(this);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
 
@@ -44,7 +44,7 @@ public class TutorialActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.languageSelect: startActivity(new Intent(this, LanguageSelectActivity.class)); break;
+            case R.id.languageSelect: startActivity(new Intent(this, LanguageSelectActivity.class)); finish(); break;
             case R.id.profile: startActivity(new Intent(this, ProfileFormActivity.class)); finish(); break;
             case R.id.info: startActivity(new Intent(this, AboutJellowActivity.class)); finish(); break;
             case R.id.keyboardinput: startActivity(new Intent(this, KeyboardInputActivity.class)); finish(); break;

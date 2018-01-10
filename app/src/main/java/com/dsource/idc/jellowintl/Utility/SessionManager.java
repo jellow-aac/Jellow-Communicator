@@ -21,18 +21,26 @@ public class SessionManager {
 
     public final static HashMap<String,String> LangMap = new HashMap<String,String>(){
         {
-            put("English (IN)", ENG_IN);
+            /*put("English (IN)", ENG_IN);
             put("English (US)", ENG_US);
             put("English (UK)", ENG_UK);
+            put("हिंदी", HI_IN);*/
+            put("English (India)", ENG_IN);
+            put("English (United States)", ENG_US);
+            put("English (United Kingdom)", ENG_UK);
             put("हिंदी", HI_IN);
         }
     };
 
     public final static HashMap<String,String> LangValueMap = new HashMap<String,String>(){
         {
-            put(ENG_IN,"English (IN)");
+            /*put(ENG_IN,"English (IN)");
             put(ENG_US,"English (US)");
             put(ENG_UK,"English (UK)");
+            put(HI_IN,"हिंदी");*/
+            put(ENG_IN,"English (India)");
+            put(ENG_US,"English (United States)");
+            put(ENG_UK,"English (United Kingdom)");
             put(HI_IN,"हिंदी");
         }
     };

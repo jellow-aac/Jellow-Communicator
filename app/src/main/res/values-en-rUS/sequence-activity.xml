@@ -142,7 +142,7 @@
     <item>2. Wear night dress</item>
     <item>3. Brush teeth</item>
     <item>4. Read story</item>
-    <item>5. Say goodnight</item>
+    <item>5. Say good night</item>
     <item>6. Say prayers</item>
     <item>7. Sweet dreams!</item>
 </string-array>
@@ -164,7 +164,7 @@
     <item>Pull pants down</item>
     <item>Sit on toilet</item>
     <item>Wash bottom</item>
-    <item>Flushh toilet</item>
+    <item>Flush toilet</item>
     <item>Pull pants up</item>
     <item>Wash hands</item>
     <item>All done</item>
@@ -346,18 +346,18 @@
             \"I don\'t want to wash my bottom again\",
             \"I really don\'t want to wash my bottom again\"
 
-    ],[\"I have to flushh the toilet\",
-            \"I really have to flushh the toilet\",
-            \"I want to flushh the toilet\",
-            \"I really want to flushh the toilet\",
-            \"I want to flushh the toilet again\",
-            \"I really want to flushh the toilet again\",
-            \"I don\'t have to flushh the toilet\",
-            \"I really don\'t have to flushh the toilet\",
-            \"I don\'t want to flushh the toilet\",
-            \"I really don\'t want to flushh the toilet\",
-            \"I don\'t want to flushh the toilet again\",
-            \"I really don\'t want to flushh the toilet again\"
+    ],[\"I have to flush the toilet\",
+            \"I really have to flush the toilet\",
+            \"I want to flush the toilet\",
+            \"I really want to flush the toilet\",
+            \"I want to flush the toilet again\",
+            \"I really want to flush the toilet again\",
+            \"I don\'t have to flush the toilet\",
+            \"I really don\'t have to flush the toilet\",
+            \"I don\'t want to flush the toilet\",
+            \"I really don\'t want to flush the toilet\",
+            \"I don\'t want to flush the toilet again\",
+            \"I really don\'t want to flush the toilet again\"
 
     ],[\"I have to pull my pants up\",
             \"I really have to pull my pants up\",
@@ -673,7 +673,7 @@
             \"I really like to eat breakfast\",
             \"I want to eat breakfast\",
             \"I really want to eat breakfast\",
-            \"I want to eat more breakfast\",
+            \"I want to eat some more breakfast\",
             \"I really want to eat some more breakfast\",
             \"I don\'t like to eat breakfast\",
             \"I really don\'t like to eat breakfast\",
@@ -725,7 +725,7 @@
             \"I really like to eat dinner\",
             \"I want to eat dinner\",
             \"I really want to eat dinner\",
-            \"I want to eat more dinner\",
+            \"I want to eat some more dinner\",
             \"I really want to eat some more dinner\",
             \"I don\'t like to eat dinner\",
             \"I really don\'t like to eat dinner\",
@@ -773,18 +773,18 @@
             \"I don\'t want to read another story\",
             \"I really don\'t want to read another story\"
 
-    ],[\"I like to say goodnight to every1\",
-            \"I really like to say goodnight to every1\",
-            \"I want to say goodnight to every1\",
-            \"I really want to say goodnight to every1\",
-            \"I want to say goodnight to every1 again\",
-            \"I really want to say goodnight to every1 again\",
-            \"I don\'t like to say goodnight to every1\",
-            \"I really don\'t like to say goodnight to every1\",
-            \"I don\'t want to say goodnight to every1\",
-            \"I really don\'t want to say goodnight to every1\",
-            \"I don\'t want to say goodnight to every1 again\",
-            \"I really don\'t want to say goodnight to every1 again\"
+    ],[\"I like to say goodnight to everyone\",
+            \"I really like to say goodnight to everyone\",
+            \"I want to say goodnight to everyone\",
+            \"I really want to say goodnight to everyone\",
+            \"I want to say goodnight to everyone again\",
+            \"I really want to say goodnight to everyone again\",
+            \"I don\'t like to say goodnight to everyone\",
+            \"I really don\'t like to say goodnight to everyone\",
+            \"I don\'t want to say goodnight to everyone\",
+            \"I really don\'t want to say goodnight to everyone\",
+            \"I don\'t want to say goodnight to everyone again\",
+            \"I really don\'t want to say goodnight to everyone again\"
 
     ],[\"I like to say my prayers\",
             \"I really like to say my prayers\",

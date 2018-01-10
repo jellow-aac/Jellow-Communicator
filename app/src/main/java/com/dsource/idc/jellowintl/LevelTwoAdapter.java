@@ -55,6 +55,7 @@ class LevelTwoAdapter extends android.support.v7.widget.RecyclerView.Adapter<Lev
                 .load(path+"/"+mThumbIds[position]+".png")
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(false)
+                .centerCrop()
                 .dontAnimate()
                 .into(holder.menuItemImage);
         holder.menuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
