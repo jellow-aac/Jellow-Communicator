@@ -4,9 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F6F4E8"
+    android:background="#F7F3C6"
     tools:context="com.dsource.idc.jellowintl.LanguageSelectActivity">
-
 
     <ScrollView
         android:layout_width="match_parent"
@@ -40,12 +39,11 @@
                 <TextView
                     android:id="@+id/tv2"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:text="@string/change_language_line2"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textSize="14sp" />
             </LinearLayout>
-
 
             <Spinner
                 android:id="@+id/selectDownloadedLanguageSpinner"
@@ -80,8 +78,8 @@
                 <TextView
                     android:id="@+id/tv1"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:scrollHorizontally="true"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"
                     android:text="@string/change_language_line1"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textSize="14sp" />
@@ -107,11 +105,14 @@
                     android:id="@+id/tv3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="40dp"
+                    android:maxLines="5"
                     android:text="@string/change_language_line3"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textSize="14sp" />
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="48dp"/>
         </LinearLayout>
     </ScrollView>
 

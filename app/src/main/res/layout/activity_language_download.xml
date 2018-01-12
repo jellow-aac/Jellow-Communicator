@@ -1,35 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorIntro"
-    tools:context="com.dsource.idc.jellowintl.LanguageDownloadActivity"
-    android:weightSum="10"
-    android:orientation="vertical">
-
-    <View
-        android:id="@+id/view"
+    tools:context="com.dsource.idc.jellowintl.LanguageDownloadActivity">
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="5"
-        android:background="@drawable/dbg"/>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="5">
+        android:layout_height="wrap_content"
+        android:src="@drawable/dbg"/>
     <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
         android:id="@+id/pg"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_margin="30dp"
-        android:layout_centerVertical="true"
+        android:layout_centerInParent="true"
         app:rcBackgroundColor="@color/colorPrimary"
         app:rcBackgroundPadding="2dp"
         app:rcProgressColor="@color/colorIntro"
         app:rcRadius="10dp"
         app:rcReverse="false"
         app:rcSecondaryProgressColor="@color/colorIntro" />
-    </RelativeLayout>
-</LinearLayout>
+</RelativeLayout>

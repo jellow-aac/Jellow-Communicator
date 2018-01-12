@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dsource.idc.jellowintl.Models.LevelOneVerbiageModel;
 import com.dsource.idc.jellowintl.Utility.Analytics;
@@ -26,6 +27,7 @@ import com.dsource.idc.jellowintl.Utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.Utility.SessionManager;
 import com.google.gson.Gson;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import static com.dsource.idc.jellowintl.Utility.Analytics.bundleEvent;
@@ -517,14 +519,20 @@ public class MainActivity extends AppCompatActivity {
         String title = getActionBarTitle(position);
         getSupportActionBar().setTitle(title);
         if (mLevelOneItemPos == position) {
-            Bundle bundle = new Bundle();
-            bundle.putString("Icon", myMusic[position]);
-            bundle.putString("Level", "LevelOne");
-            bundleEvent("Grid", bundle);
-            Intent intent = new Intent(MainActivity.this, LevelTwoActivity.class);
-            intent.putExtra("mLevelOneItemPos", position);
-            intent.putExtra("selectedMenuItemPath", title + "/");
-            startActivityForResult(intent, REQ_HOME);
+            SessionManager session = new SessionManager(this);
+            File f =   new File("/data/data/com.dsource.idc.jellowintl/app_"+session.getLanguage()+"/drawables");
+            if(f.exists() && f.isDirectory()) {
+                Bundle bundle = new Bundle();
+                bundle.putString("Icon", myMusic[position]);
+                bundle.putString("Level", "LevelOne");
+                bundleEvent("Grid", bundle);
+                Intent intent = new Intent(MainActivity.this, LevelTwoActivity.class);
+                intent.putExtra("mLevelOneItemPos", position);
+                intent.putExtra("selectedMenuItemPath", title + "/");
+                startActivityForResult(intent, REQ_HOME);
+            }else{
+                Toast.makeText(this, getString(R.string.no_language_data_avail), Toast.LENGTH_SHORT).show();
+            }
         }else {
             speakSpeech(myMusic[position]);
         }

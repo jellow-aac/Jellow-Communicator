@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F6F4E8"
+    android:background="#F7F3C6"
     tools:context="com.dsource.idc.jellowintl.LanguageSelectActivity">
 
 
@@ -85,30 +85,27 @@
                     android:textSize="18sp"
                     android:scrollHorizontally="true"/>
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
+                    android:textColor="#000"
                     android:scaleX=".7"
                     android:scaleY=".7"
-                    android:text="@string/bullet"
-                    android:textColor="#000" />
-
+                    android:text="@string/bullet" />
                 <TextView
                     android:id="@+id/tv3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/change_language_line3"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textSize="18sp" />
+                    android:text="@string/change_language_line3"
+                    android:textSize="18sp"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

@@ -24,7 +24,7 @@
             android:layout_width="195dp"
             android:layout_height="195dp"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/custom_drawable_nocolor_1by3"/>
+            android:background="@drawable/custom_drawable_nocolor_3by3"/>
     </FrameLayout>
     <TextView
         android:id="@+id/te1"
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:text="TIME AND WEATHER"
         android:gravity="center"
-        android:textSize="20sp"
+        android:textSize="22sp"
         android:textAlignment="center"
         android:singleLine="true"/>
 </LinearLayout>

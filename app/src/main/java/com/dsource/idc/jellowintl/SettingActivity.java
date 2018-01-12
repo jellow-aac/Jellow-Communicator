@@ -35,7 +35,7 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F6F4E8'>"+getString(R.string.action_settings)+"</font>"));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.action_settings)+"</font>"));
         mSession = new SessionManager(this);
         mChangeAppLocale = new ChangeAppLocale(this);
         mChangeAppLocale.setLocale();

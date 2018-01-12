@@ -27,7 +27,6 @@
                 android:layout_height="wrap_content"
                 android:text="Child's Name"
                 android:textColor="#000000"
-                android:layout_marginBottom="-15dp"
                 android:textSize="12dp"/>
 
             <TextView
@@ -35,7 +34,6 @@
                 android:layout_height="wrap_content"
                 android:text="(This is how Jellow calls you)"
                 android:textColor="#000000"
-                android:layout_marginBottom="-15dp"
                 android:textSize="12dp"/>
 
             <EditText
@@ -52,7 +50,6 @@
                 android:layout_height="wrap_content"
                 android:text="Emergency Contact No."
                 android:textColor="#000000"
-                android:layout_marginBottom="-15dp"
                 android:textSize="12dp"/>
 
             <TextView
@@ -60,7 +57,6 @@
                 android:layout_height="wrap_content"
                 android:text="(To be used for correspondence in case of an emergency involving the child)"
                 android:textColor="#000000"
-                android:layout_marginBottom="-15dp"
                 android:textSize="12dp"/>
 
             <LinearLayout
@@ -88,7 +84,6 @@
                 android:layout_height="wrap_content"
                 android:text="Email Id"
                 android:textColor="#000000"
-                android:layout_marginBottom="-15dp"
                 android:textSize="12dp"/>
 
             <TextView
@@ -96,7 +91,6 @@
                 android:layout_height="wrap_content"
                 android:text="(To notify you about the release of Jellow updates)"
                 android:textColor="#000000"
-                android:layout_marginBottom="-15dp"
                 android:textSize="12dp"/>
 
             <EditText
@@ -111,7 +105,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="-15dp"
                 android:text="Select a Language for Jellow"
                 android:textColor="#000000"
                 android:textSize="12dp" />

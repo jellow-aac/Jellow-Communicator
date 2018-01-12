@@ -53,11 +53,11 @@ class PeoplePlacesAdapter extends android.support.v7.widget.RecyclerView.Adapter
         if (mSession.getPictureViewMode() == MODE_PICTURE_ONLY)
             holder.menuItemBelowText.setVisibility(View.INVISIBLE);
         holder.menuItemBelowText.setText(belowText[position]);
-        //holder.menuItemImage.setImageResource(mThumbIds[position]);
         GlideApp.with(mContext)
                 .load(path+"/"+mThumbIds[position]+".png")
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(false)
+                .centerCrop()
                 .dontAnimate()
                 .into(holder.menuItemImage);
         holder.menuItemLinearLayout.setOnClickListener(new View.OnClickListener() {

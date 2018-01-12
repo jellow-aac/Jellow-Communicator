@@ -24,7 +24,7 @@ public class ResetPreferencesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reset_preferences);
         new ChangeAppLocale(this).setLocale();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F6F4E8'>"+ getString(R.string.menuResetPref) +"</font>"));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+ getString(R.string.menuResetPref) +"</font>"));
         final SessionManager session = new SessionManager(this);
         final DataBaseHelper myDbHelper = new DataBaseHelper(this);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);

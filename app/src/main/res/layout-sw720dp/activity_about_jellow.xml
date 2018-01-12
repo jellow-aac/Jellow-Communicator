@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F6F4E8">
+    android:background="#F7F3C6">
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
@@ -11,6 +11,8 @@
         android:paddingTop="19dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
+
+
         android:fadeScrollbars="false"
         tools:ignore="WebViewLayout">
         <LinearLayout

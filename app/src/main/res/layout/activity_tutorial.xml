@@ -3,7 +3,7 @@
     android:id="@+id/ll"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F6F4E8">
+    android:background="#F7F3C6">
     <ScrollView
         android:id="@+id/sv"
         android:layout_width="match_parent"
@@ -103,7 +103,7 @@
                     <TextView
                         android:id="@+id/tv2"
                         android:layout_width="wrap_content"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
                         android:layout_toEndOf="@+id/bullet2"
                         android:layout_toRightOf="@+id/bullet2"
                         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -142,7 +142,7 @@
                     <TextView
                         android:id="@+id/tv3"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="34dp"
                         android:layout_toEndOf="@+id/bullet3"
                         android:layout_toRightOf="@+id/bullet3"
                         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -332,7 +332,7 @@
                     <TextView
                         android:id="@+id/tvtts"
                         android:layout_width="wrap_content"
-                        android:layout_height="70dp"
+                        android:layout_height="wrap_content"
                         android:layout_toEndOf="@+id/bullet6"
                         android:layout_toRightOf="@+id/bullet6"
                         android:layout_marginBottom="19dp"
@@ -369,7 +369,6 @@
 
                 </RelativeLayout>
             </LinearLayout>
-
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

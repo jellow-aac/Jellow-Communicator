@@ -10,13 +10,12 @@
         android:fontFamily="fonts/Mukta-Regular.ttf"
         android:textColor="#000"
         android:text="Devices with active Google TTS engine: Please swipe to skip current step"
-        android:textStyle="bold"
+        android:textSize="11sp"
         android:layout_gravity="center_horizontal"/>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="-8dp"
         android:orientation="horizontal">
         <LinearLayout
             android:layout_width="wrap_content"
@@ -28,8 +27,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="fonts/Mukta-Regular.ttf"
+                android:minLines="2"
                 android:textColor="#000"
-                android:textSize="13sp"
+                android:textSize="11sp"
                 android:text="1.Activate Google TTS"/>
             <ImageView
                 android:layout_width="120dp"
@@ -39,7 +39,7 @@
             <TextView
                 android:id="@+id/tvbottom"
                 android:layout_width="120dp"
-                android:layout_height="match_parent"
+                android:layout_height="30dp"
                 android:background="#FFD7D2D2"
                 android:gravity="center"
                 android:textColor="#000"
@@ -62,8 +62,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="fonts/Mukta-Regular.ttf"
+                android:minLines="2"
                 android:textColor="#000"
-                android:textSize="13sp"
+                android:textSize="11sp"
                 android:text="2. Change default language to Hindi"/>
             <ImageView
                 android:layout_width="120dp"
@@ -73,7 +74,7 @@
             <TextView
                 android:id="@+id/tvbottom1"
                 android:layout_width="120dp"
-                android:layout_height="match_parent"
+                android:layout_height="30dp"
                 android:background="#FFD7D2D2"
                 android:gravity="center"
                 android:textColor="#000"
@@ -95,8 +96,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="fonts/Mukta-Regular.ttf"
+                android:minLines="2"
                 android:textColor="#000"
-                android:textSize="13sp"
+                android:textSize="11sp"
                 android:text="3. Download Hindi voice"/>
             <ImageView
                 android:layout_width="120dp"
@@ -106,7 +108,7 @@
             <TextView
                 android:id="@+id/tvbottom3"
                 android:layout_width="120dp"
-                android:layout_height="match_parent"
+                android:layout_height="30dp"
                 android:background="#FFD7D2D2"
                 android:gravity="center"
                 android:textColor="#000"

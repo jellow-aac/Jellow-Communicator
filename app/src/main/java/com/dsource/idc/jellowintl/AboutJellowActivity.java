@@ -22,7 +22,7 @@ public class AboutJellowActivity extends AppCompatActivity {
         setContentView(R.layout.activity_about_jellow);
         new ChangeAppLocale(this).setLocale();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F6F4E8'>"+ getString(R.string.menuAbout)+"</font>"));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+ getString(R.string.menuAbout)+"</font>"));
         ((WebView)findViewById(R.id.webAboutJellow)).loadData(getString(R.string.about_jellow),  "text/html; charset=utf-8","UTF-8");
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
         findViewById(R.id.speak).setOnClickListener(new View.OnClickListener() {

@@ -678,8 +678,8 @@ public class LevelThreeActivity extends AppCompatActivity {
         else if(mLevelOneItemPos == 1 && mLevelTwoItemPos == 3){
             int tmp = sort[mLevelThreeItemPos];
             String lang = new SessionManager(this).getLanguage();
-            if (!lang.equals("en-rUS") && ((tmp == 34 || tmp == 35 || tmp == 36 || tmp == 37))||
-                    (lang.equals("en-rUS") && (tmp == 39 || tmp == 40 || tmp == 41 || tmp == 42) ))
+            if ((!lang.equals("en-rUS") && (tmp == 34 || tmp == 35 || tmp == 36 || tmp == 37))||
+                    ((lang.equals("en-rUS") || lang.equals("en-rGB")) && (tmp == 39 || tmp == 40 || tmp == 41 || tmp == 42) ))
                 changeTheActionButtons(DISABLE_ACTION_BTNS);
             else
                 changeTheActionButtons(!DISABLE_ACTION_BTNS);

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F6F4E8">
+    android:background="#F7F3C6">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,9 +36,12 @@
                     android:orientation="vertical">
                     <TextView
                         android:id="@+id/tvtop"
-                        android:layout_width="wrap_content"
+                        android:layout_width="230dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="19dp"
+                        android:minLines="2"
+                        android:maxLines="4"
+                        android:textAlignment="center"
                         android:fontFamily="fonts/Mukta-Regular.ttf"
                         android:textColor="#000000"
                         android:textSize="18sp"
@@ -52,7 +55,7 @@
                     <Button
                         android:id="@+id/tvbottom"
                         android:layout_width="230dp"
-                        android:layout_height="40dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:textColor="#000000"
                         android:textSize="18sp"
@@ -68,9 +71,12 @@
                     android:layout_marginRight="@dimen/activity_horizontal_margin">
                     <TextView
                         android:id="@+id/tvtop1"
-                        android:layout_width="wrap_content"
+                        android:layout_width="230dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="19dp"
+                        android:textAlignment="center"
+                        android:minLines="2"
+                        android:maxLines="4"
                         android:fontFamily="fonts/Mukta-Regular.ttf"
                         android:textColor="#000000"
                         android:paddingRight="0dp"
@@ -85,7 +91,7 @@
                     <Button
                         android:id="@+id/tvbottom1"
                         android:layout_width="230dp"
-                        android:layout_height="40dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:textColor="#000000"
                         android:textSize="18sp"
@@ -99,9 +105,12 @@
                     android:orientation="vertical">
                     <TextView
                         android:id="@+id/tvtop2"
-                        android:layout_width="wrap_content"
+                        android:layout_width="230dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="19dp"
+                        android:minLines="2"
+                        android:maxLines="4"
+                        android:textAlignment="center"
                         android:fontFamily="fonts/Mukta-Regular.ttf"
                         android:textColor="#000000"
                         android:paddingRight="32dp"
@@ -116,10 +125,9 @@
                     <Button
                         android:id="@+id/tvbottom2"
                         android:layout_width="230dp"
-                        android:layout_height="40dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:textColor="#000000"
-                        android:fontFamily="fonts/Mukta-Regular.ttf"
                         android:textSize="18sp"
                         android:onClick="getStarted3"
                         android:text="@string/download"
@@ -177,14 +185,14 @@
                 <Button
                     android:id="@+id/qwerty"
                     android:layout_width="230dp"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:text="@string/qwertyKeyboard"
                     android:textSize="18sp"
                     android:background="#FFBEBCB6"/>
                 <Button
                     android:id="@+id/abc"
                     android:layout_width="230dp"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="90dp"
                     android:text="@string/serialKeyboard"
                     android:textSize="18sp"
@@ -222,7 +230,8 @@
                 <Button
                     android:id="@+id/default_button"
                     android:layout_width="230dp"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
+                    android:maxLines="4"
                     android:text="@string/saveAsDefault"
                     android:textSize="18sp"
                     android:background="#FFBEBCB6"/>

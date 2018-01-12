@@ -109,6 +109,7 @@ class LevelTwoAdapter extends android.support.v7.widget.RecyclerView.Adapter<Lev
             Typeface font = Typeface.createFromAsset(mContext.getAssets(), "fonts/Mukta-Regular.ttf");
             menuItemBelowText.setTypeface(font);
             menuItemBelowText.setTextColor(Color.rgb(64, 64, 64));
+            menuItemBelowText.setSingleLine(false);
         }
     }
 }

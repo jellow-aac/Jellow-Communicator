@@ -10,8 +10,6 @@
         <item name="android:spinnerItemStyle">@style/spinnerItemStyle</item>
         <item name="android:spinnerDropDownItemStyle">@style/spinnerDropDownItemStyle</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="android:height">@dimen/bar_height</item>
-        <item name="height">@dimen/bar_height</item>
     </style>
 
 

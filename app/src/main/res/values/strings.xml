@@ -137,7 +137,7 @@
                     ul { padding-left:20px; }
             </style>
         </head>
-        <body bgcolor="#F6F4E8">
+        <body bgcolor="#F7F3C6">
 
 <p><strong>&nbsp;General Information</strong></p>
 <ul>
@@ -237,4 +237,5 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="no_language_data_avail">Please download selected language data.</string>
 </resources>

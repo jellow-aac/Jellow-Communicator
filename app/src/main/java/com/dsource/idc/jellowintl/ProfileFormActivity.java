@@ -43,7 +43,7 @@ public class ProfileFormActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile_form);
         new ChangeAppLocale(this).setLocale();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F6F4E8'>"+getString(R.string.menuProfile)+"</font>"));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.menuProfile)+"</font>"));
         mSession = new SessionManager(this);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
@@ -100,9 +100,7 @@ public class ProfileFormActivity extends AppCompatActivity {
             public void onClick(View v) {
                 email = etEmailId.getText().toString().trim();
                 if (etName.getText().toString().length() > 0) {
-                    if (etFatherContact.getText().toString().trim().length() == 10) {
                         if (isValidEmail(email)) {
-
                             if(etFatherContact.getText().toString().trim().equals(mSession.getFather_no()))
                             {
                                 String emergencyContact = mSession.getFather_no();
@@ -127,8 +125,6 @@ public class ProfileFormActivity extends AppCompatActivity {
 
                         } else
                             Toast.makeText(getApplicationContext(), getString(R.string.invalid_emailId), Toast.LENGTH_SHORT).show();
-                    } else
-                        Toast.makeText(getApplicationContext(), getString(R.string.invalidContactNumber), Toast.LENGTH_SHORT).show();
                 }else
                     Toast.makeText(ProfileFormActivity.this, getString(R.string.enterTheName), Toast.LENGTH_SHORT).show();
             }
@@ -145,6 +141,7 @@ public class ProfileFormActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
+            case R.id.languageSelect: startActivity(new Intent(this, LanguageSelectActivity.class)); finish(); break;
             case R.id.info: startActivity(new Intent(this, AboutJellowActivity.class)); finish(); break;
             case R.id.usage: startActivity(new Intent(this, TutorialActivity.class)); finish(); break;
             case R.id.keyboardinput: startActivity(new Intent(this, KeyboardInputActivity.class)); finish(); break;

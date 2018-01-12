@@ -28,11 +28,11 @@
     </FrameLayout>
     <TextView
         android:id="@+id/te1"
-        android:layout_width="136dp"
+        android:layout_width="112dp"
         android:layout_height="wrap_content"
         android:text="TIME AND WEATHER"
         android:gravity="center"
-        android:textSize="13sp"
+        android:textSize="12sp"
         android:textAlignment="center"
         android:singleLine="true"/>
 </LinearLayout>
