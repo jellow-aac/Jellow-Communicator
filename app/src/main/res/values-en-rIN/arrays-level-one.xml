@@ -14,15 +14,15 @@
     </array>
 
     <string-array name="arrLevelOneBelowText">
-        <item>வாழ்த்துக்கள்…</item>
-        <item>தினசரி நடவடிக்கைகள்…</item>
-        <item>சாப்பிடுவது…</item>
-        <item>வேடிக்கை…</item>
-        <item>கற்றல்…</item>
-        <item>மக்கள்…</item>
-        <item>இடங்கள்…</item>
-        <item>நேரம் மற்றும் வானிலை…</item>
-        <item>உதவி…</item>
+        <item>greet and feel…</item>
+        <item>daily activities…</item>
+        <item>eating…</item>
+        <item>fun…</item>
+        <item>learning…</item>
+        <item>people…</item>
+        <item>places…</item>
+        <item>time and Weather…</item>
+        <item>help…</item>
     </string-array>
 
     <string-array name="arrLevelOneActionBarTitle">

@@ -753,23 +753,23 @@
         <item>How long?</item>
     </string-array>
     <string-array name="arrLevelThreeGreetFeelRequestsAdapterText">
-        <item>தயவு செய்து</item>
-        <item>நன்றி</item>
-        <item>நீங்கள் வரவேற்கப்படுகிறீர்கள்</item>
-        <item>தயவுசெய்து எனக்கு கொடு</item>
-        <item>தயவுசெய்து என்னை மீண்டும் சொல்லுங்கள்</item>
-        <item>தயவு செய்து என்னைக் காட்டு</item>
-        <item>எனக்கு கொஞ்சம் ஓய்வு தேவை</item>
-        <item>நான் எல்லாம் முடிந்தது</item>
-        <item>மன்னிக்கவும்</item>
-        <item>என்னை மன்னிக்கவும்</item>
-        <item>நான் புரிந்து கொள்ளவில்லை</item>
-        <item>தயவு செய்து பகிரவும்</item>
-        <item>மெதுவாக செய்க</item>
-        <item>எனக்கு உதவி தேவை</item>
-        <item>தயவு செய்து இங்கே வா</item>
-        <item>தயவுசெய்து என்னை எடுத்துக்கொள்</item>
-        <item>எனக்கு அதிக நேரம்தேவை</item>
+        <item>Please</item>
+        <item>Thank you</item>
+        <item>You are welcome</item>
+        <item>Please give me</item>
+        <item>Please tell me again</item>
+        <item>Please show me</item>
+        <item>I need a break</item>
+        <item>I am all done</item>
+        <item>Excuse me</item>
+        <item>I am sorry</item>
+        <item>I don\'t understand</item>
+        <item>Please share</item>
+        <item>Please slow down</item>
+        <item>I need help</item>
+        <item>Please come here</item>
+        <item>Please take me</item>
+        <item>I need more time</item>
     </string-array>
 
     <!--LEVEL THREE "DAILY ACTIVITIES" ADAPTER TEXT ARE HERE-->
@@ -810,44 +810,44 @@
         <item>All done</item>
     </string-array>
     <string-array name="arrLevelThreeDailyActClothesAccAdapterText">
-        <item>டி சட்டை மாற்றவும்</item>
-        <item>உறை மாற்றவும்</item>
-        <item>பாவாடை மாற்று</item>
-        <item>ஜீன்ஸ் மாற்று</item>
-        <item>பேண்ட்களை மாற்றவும்</item>
-        <item>Leggings ஐ மாற்றவும்</item>
-        <item>ஸ்லோக்களை மாற்றுங்கள்</item>
-        <item>ஷார்ட்ஸை மாற்றவும்</item>
-        <item>உள்ளாடை மாற்ற</item>
-        <item>காலணி மாற்றவும்</item>
-        <item>காலணிகள் மாற்றவும்</item>
-        <item>சாக்ஸ் மாற்ற</item>
-        <item>இரவு துணிகளை அணிந்துகொள்</item>
-        <item>சட்டை</item>
-        <item>டி-சட்டை</item>
-        <item>கவுன்</item>
-        <item>பேன்ட்ஸில்</item>
-        <item>தளர்ச்சியான சட்டை</item>
+        <item>Change t-shirt</item>
+        <item>Change frock</item>
+        <item>Change skirt</item>
+        <item>Change jeans</item>
+        <item>Change pants</item>
+        <item>Change leggings</item>
+        <item>Change slacks</item>
+        <item>Change shorts</item>
+        <item>Change innerwear</item>
+        <item>Change footwear</item>
+        <item>Change shoes</item>
+        <item>Change socks</item>
+        <item>Wear night clothes</item>
+        <item>Shirt</item>
+        <item>T-shirt</item>
+        <item>Frock</item>
+        <item>Pants</item>
+        <item>Slacks</item>
         <item>Leggings</item>
-        <item>ஷார்ட்ஸ்</item>
-        <item>சல்வார் கமீஸ்</item>
-        <item>ஸ்வெட்டர்</item>
-        <item>ஜாக்கெட்</item>
-        <item>தாவணி</item>
-        <item>காப்</item>
-        <item>பெல்ட்</item>
-        <item>ரெயின்கோட்</item>
-        <item>மூக்கு கண்ணாடி</item>
-        <item>கைக்கடிகாரம்</item>
-        <item>காதணிகள்</item>
-        <item>காப்பு</item>
-        <item>நெக்லெஸ்</item>
-        <item>பிண்டி</item>
-        <item>காலணிகளையும்</item>
-        <item>என் துணி இறுக்கமாக இருக்கிறது</item>
-        <item>என் உடைகள் தளர்வானவை</item>
-        <item>துணிகளை அகற்ற உதவுங்கள்</item>
-        <item>உடைகள் மீது உதவுங்கள்</item>
+        <item>Shorts</item>
+        <item>Salwar kameez</item>
+        <item>Sweater</item>
+        <item>Jacket</item>
+        <item>Scarf</item>
+        <item>Cap</item>
+        <item>Belt</item>
+        <item>Raincoat</item>
+        <item>Spectacles</item>
+        <item>Wristwatch</item>
+        <item>Earrings</item>
+        <item>Bracelet</item>
+        <item>Necklace</item>
+        <item>Bindi</item>
+        <item>Chappals</item>
+        <item>My clothes are tight</item>
+        <item>My clothes are loose</item>
+        <item>Help remove clothes</item>
+        <item>Help put on clothes</item>
     </string-array>
     <string-array name="arrLevelThreeDailyActGetReadyAdapterText">
         <item>Comb hair</item>
@@ -1187,25 +1187,25 @@
         <item>Toes</item>
     </string-array>
     <string-array name="arrLevelThreeLearningBooksAdapterText">
-        <item>படுக்கை நேரம் கதை புத்தகம்</item>
-        <item>காமிக் புத்தகம்</item>
-        <item>ரைம்ஸின் புத்தகம்</item>
-        <item>வரைதல் புத்தகம்</item>
-        <item>கதை புத்தகம்</item>
-        <item>படம் புத்தகம்</item>
-        <item>மர்ம புத்தகம்</item>
-        <item>சாகச புத்தகம்</item>
-        <item>பள்ளி நோட்புக்</item>
-        <item>கணிதம் புத்தகம்</item>
-        <item>அறிவியல் புத்தகம்</item>
-        <item>வரலாறு புத்தகம்</item>
-        <item>நிலவியல் புத்தகம்</item>
-        <item>சமூக ஆய்வுகள் புத்தகம்</item>
-        <item>ஆங்கிலம் புத்தகம்</item>
-        <item>இந்தி புத்தகம்</item>
-        <item>மராத்தி புத்தகம்</item>
-        <item>பாடநூல்</item>
-        <item>பிடித்த</item>
+        <item>Bed time story book</item>
+        <item>Comic book</item>
+        <item>Rhymes book</item>
+        <item>Drawing book</item>
+        <item>Story book</item>
+        <item>Picture book</item>
+        <item>Mystery book</item>
+        <item>Adventure book</item>
+        <item>School notebook</item>
+        <item>Maths book</item>
+        <item>Science book</item>
+        <item>History book</item>
+        <item>Geography book</item>
+        <item>Social studies book</item>
+        <item>English book</item>
+        <item>Hindi book</item>
+        <item>Marathi book</item>
+        <item>Textbook</item>
+        <item>Favourites</item>
     </string-array>
     <string-array name="arrLevelThreeLearningColorsAdapterText">
         <item>Black</item>
@@ -1398,18 +1398,18 @@
         <item>New year</item>
     </string-array>
     <string-array name="arrLevelThreeTimeWeaBirthdaysAdapterText">
-        <item>என் பிறந்த நாள்</item>
-        <item>அம்மா பிறந்த நாள்</item>
-        <item>தந்தையின் பிறந்த நாள்</item>
-        <item>சகோதரனின் பிறந்த நாள்</item>
-        <item>சகோதரியின் பிறந்த நாள்</item>
-        <item>நண்பர்கள்\'s பிறந்த நாள்</item>
-        <item>பாட்டியின்\'s பிறந்த நாள்</item>
-        <item>தாத்தாவின்\'s பிறந்த நாள்</item>
-        <item>மாமாவின்\'s பிறந்த நாள்</item>
-        <item>அத்தையின்\'s பிறந்த நாள்</item>
-        <item>உறவினர்\'s பிறந்த நாள்</item>
-        <item>ஆசிரியர்\'s பிறந்த நாள்</item>
+        <item>My birthday</item>
+        <item>Mom\'s birthday</item>
+        <item>Father\'s birthday</item>
+        <item>Brother\'s birthday</item>
+        <item>Sister\'s birthday</item>
+        <item>Friend\'s birthday</item>
+        <item>Grandma\'s birthday</item>
+        <item>Grandpa\'s birthday</item>
+        <item>Uncle\'s birthday</item>
+        <item>Aunt\'s birthday</item>
+        <item>Cousin\'s birthday</item>
+        <item>Teacher\'s birthday</item>
     </string-array>
 
     <!--LEVEL THREE SPEECH TEXT ARE HERE-->

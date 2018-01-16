@@ -73,7 +73,7 @@
             android:layout_centerHorizontal="true"
             android:scrollbars="vertical"
             android:scrollbarFadeDuration="0"
-            android:layout_marginBottom="164dp"/>
+            android:layout_marginBottom="165dp"/>
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/relativeLayoutNavigation"

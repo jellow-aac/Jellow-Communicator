@@ -31,7 +31,9 @@ public class LanguageDownloadActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_language_download);
+        setContentView(R.layout.activity_language_download);/*
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setTitle(Html.fromHtml("Downloading language files..."));*/
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.colorPrimary));
@@ -69,8 +71,6 @@ public class LanguageDownloadActivity extends AppCompatActivity {
                     startActivity(new Intent(LanguageDownloadActivity.this,SplashActivity.class));
                 finish();
             }
-
-
         };
 
         Toast.makeText(LanguageDownloadActivity.this,"Downloading "+LangValueMap.get(langCode)+ " Language",Toast.LENGTH_SHORT).show();

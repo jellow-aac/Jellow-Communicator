@@ -520,8 +520,8 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(title);
         if (mLevelOneItemPos == position) {
             SessionManager session = new SessionManager(this);
-            File f =   new File("/data/data/com.dsource.idc.jellowintl/app_"+session.getLanguage()+"/drawables");
-            if(f.exists() && f.isDirectory()) {
+            File langDir =   new File("/data/data/com.dsource.idc.jellowintl/app_"+session.getLanguage()+"/drawables");
+            if(langDir.exists() && langDir.isDirectory()) {
                 Bundle bundle = new Bundle();
                 bundle.putString("Icon", myMusic[position]);
                 bundle.putString("Level", "LevelOne");
@@ -533,6 +533,7 @@ public class MainActivity extends AppCompatActivity {
             }else{
                 Toast.makeText(this, getString(R.string.no_language_data_avail), Toast.LENGTH_SHORT).show();
             }
+            langDir = null;
         }else {
             speakSpeech(myMusic[position]);
         }

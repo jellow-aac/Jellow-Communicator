@@ -179,8 +179,6 @@ public class LevelThreeActivity extends AppCompatActivity {
 
         back.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-
-
                 speakSpeech(below[1]);
                 ttsButton.setImageResource(R.drawable.speaker_button);
                 back.setImageResource(R.drawable.backpressed);
@@ -814,6 +812,8 @@ public class LevelThreeActivity extends AppCompatActivity {
             StringBuilder str = new StringBuilder();
             for(int i=0; i< count.length; ++i)
                 str.append(count[i]).append(",");
+            for(int i= count.length; i < 100; ++i)
+                str.append("0,");
             myDbHelper.setlevel(mLevelOneItemPos, mLevelTwoItemPos, str.toString());
         }
     }

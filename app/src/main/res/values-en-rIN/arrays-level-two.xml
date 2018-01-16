@@ -116,114 +116,114 @@
 
     <!--LEVEL TWO ENGLISH ADAPTER TEXT ARE HERE-->
     <string-array name="arrLevelTwoGreetFeelAdapterText">
-        <item>வாழ்த்துக்கள்…</item>
-        <item>உணர்வுகளை…</item>
-        <item>கோரிக்கைகளை…</item>
-        <item>கேள்விகள்…</item>
+        <item>Greetings…</item>
+        <item>Feelings…</item>
+        <item>Requests…</item>
+        <item>Questions…</item>
     </string-array>
     <string-array name="arrLevelTwoDailyActAdapterText">
-        <item>துலக்குதல்…</item>
-        <item>கழிவறை…</item>
-        <item>குளியல்…</item>
-        <item>உடைகள் &amp; மேலும்…</item>
-        <item>தயாராகிக்கொண்டு…</item>
-        <item>தூங்கு…</item>
-        <item>சிகிச்சை…</item>
-        <item>காலை வழக்கம்…</item>
-        <item>படுக்கை நேரம் வழக்கமான…</item>
+        <item>Brushing…</item>
+        <item>Toilet…</item>
+        <item>Bathing…</item>
+        <item>Clothes &amp; More…</item>
+        <item>Getting Ready…</item>
+        <item>Sleep…</item>
+        <item>Therapy…</item>
+        <item>Morning Routine…</item>
+        <item>Bed Time Routine…</item>
     </string-array>
     <string-array name="arrLevelTwoEatAdapterText">
-        <item>காலை உணவு…</item>
-        <item>மதிய உணவு இரவு உணவு…</item>
-        <item>இனிப்புகள்…</item>
-        <item>தின்பண்டங்கள்…</item>
-        <item>பழங்கள்…</item>
-        <item>பானங்கள்…</item>
-        <item>சமையலறைப்…</item>
-        <item>சேர்…</item>
+        <item>Breakfast…</item>
+        <item>Lunch/Dinner…</item>
+        <item>Sweets…</item>
+        <item>Snacks…</item>
+        <item>Fruits…</item>
+        <item>Drinks…</item>
+        <item>Cutlery…</item>
+        <item>Add-ons…</item>
     </string-array>
     <string-array name="arrLevelTwoFunAdapterText">
-        <item>உள்ளரங்க விளையாட்டு…</item>
-        <item>வெளிப்புற விளையாட்டுகள்…</item>
-        <item>விளையாட்டு…</item>
-        <item>டிவி…</item>
-        <item>இசை…</item>
-        <item>நடவடிக்கைகள்…</item>
+        <item>Indoor Games…</item>
+        <item>Outdoor Games…</item>
+        <item>Sports…</item>
+        <item>TV…</item>
+        <item>Music…</item>
+        <item>Activities…</item>
     </string-array>
     <string-array name="arrLevelTwoLearningAdapterText">
-        <item>விலங்குகள் &amp; பறவைகள்…</item>
-        <item>உடல்…</item>
-        <item>புத்தகங்கள்…</item>
-        <item>நிறங்கள்…</item>
-        <item>வடிவங்கள்…</item>
-        <item>காகிதம் முதலிய எழுது பொருள்கள்…</item>
-        <item>பள்ளி பொருட்கள்…</item>
-        <item>வீட்டு பொருட்கள்…</item>
-        <item>போக்குவரத்து முறைகள்…</item>
-        <item>பணம்…</item>
+        <item>Animals &amp; Birds…</item>
+        <item>Body…</item>
+        <item>Books…</item>
+        <item>Colors…</item>
+        <item>Shapes…</item>
+        <item>Stationery…</item>
+        <item>School objects…</item>
+        <item>Home objects…</item>
+        <item>Transport Modes…</item>
+        <item>Money…</item>
     </string-array>
     <string-array name="arrLevelTwoPeopleAdapterText">
-        <item>தாய்</item>
-        <item>அப்பா</item>
-        <item>சகோதரன்</item>
-        <item>சகோதரி</item>
-        <item>பாட்டன்</item>
-        <item>பாட்டி</item>
-        <item>மாமா</item>
-        <item>அத்தை</item>
-        <item>கசின்கசின்</item>
-        <item>பேபி</item>
-        <item>நண்பர்கள்</item>
-        <item>ஆசிரியர்</item>
-        <item>டாக்டர்</item>
-        <item>நர்ஸ்</item>
-        <item>பராமரிப்பாளர்</item>
-        <item>அந்நியன்</item>
-        <item>என்னை பற்றி</item>
+        <item>Mother</item>
+        <item>Father</item>
+        <item>Brother</item>
+        <item>Sister</item>
+        <item>Grandfather</item>
+        <item>Grandmother</item>
+        <item>Uncle</item>
+        <item>Aunt</item>
+        <item>Cousin</item>
+        <item>Baby</item>
+        <item>Friends</item>
+        <item>Teacher</item>
+        <item>Doctor</item>
+        <item>Nurse</item>
+        <item>Caregiver</item>
+        <item>Stranger</item>
+        <item>About Me</item>
     </string-array>
     <string-array name="arrLevelTwoPlacesAdapterText">
-        <item>என் வீடு</item>
-        <item>பள்ளி</item>
-        <item>மால்</item>
-        <item>அருங்காட்சியகம்</item>
-        <item>உணவகம்</item>
-        <item>திரையரங்கு</item>
-        <item>விளையாட்டு மைதானத்தின்</item>
-        <item>பார்க்</item>
-        <item>கடை</item>
-        <item>நண்பரின் வீடு</item>
-        <item>உறவினர் 'கள் வீடு</item>
-        <item>மருத்துவமனை</item>
-        <item>கிளினிக்</item>
-        <item>நூலகம்</item>
-        <item>மேல்தளம்</item>
+        <item>My House</item>
+        <item>School</item>
+        <item>Mall</item>
+        <item>Museum</item>
+        <item>Restaurant</item>
+        <item>Theatre</item>
+        <item>Playground</item>
+        <item>Park</item>
+        <item>Store</item>
+        <item>Friend\'s House</item>
+        <item>Relative\'s House</item>
+        <item>Hospital</item>
+        <item>Clinic</item>
+        <item>Library</item>
+        <item>Terrace</item>
     </string-array>
     <string-array name="arrLevelTwoTimeWeatherAdapterText">
-        <item>நேரம்…</item>
-        <item>தினம்…</item>
-        <item>மாதம்…</item>
-        <item>வானிலை…</item>
-        <item>பருவங்கள்…</item>
-        <item>திருவிழாக்கள் &amp; விடுமுறை…</item>
-        <item>பிறந்த நாள்…</item>
+        <item>Time…</item>
+        <item>Day…</item>
+        <item>Month…</item>
+        <item>Weather…</item>
+        <item>Seasons…</item>
+        <item>Festivals &amp; Holidays…</item>
+        <item>Birthdays…</item>
     </string-array>
     <string-array name="arrLevelTwoHelpAdapterText">
-        <item>அவசர</item>
-        <item>என்னை பற்றி</item>
-        <item>நான் காயப்பட்டேன்</item>
-        <item>நான் உடல்நிலை சரி இல்லாதது போன்று உணர்கிறேன்</item>
-        <item>நான் சோர்வாக உணர்கிறேன்</item>
-        <item>இதை செய்ய உதவுங்கள்</item>
-        <item>மருத்துவம்</item>
-        <item>பேண்டேஜ்</item>
-        <item>நீர்</item>
-        <item>கழிவறை</item>
-        <item>தவறான தொடர்பு</item>
-        <item>சுகாதார நாப்கின்கள்</item>
-        <item>அலர்ஜி</item>
-        <item>ஆபத்து</item>
-        <item>தீங்குகள்</item>
-        <item>பாதுகாப்பு</item>
+        <item>Emergency</item>
+        <item>About Me</item>
+        <item>I am hurt</item>
+        <item>I feel sick</item>
+        <item>I feel tired</item>
+        <item>Help me do this</item>
+        <item>Medicine</item>
+        <item>Bandage</item>
+        <item>Water</item>
+        <item>Toilet</item>
+        <item>Bad touch</item>
+        <item>Sanitary napkins</item>
+        <item>Allergy</item>
+        <item>Danger</item>
+        <item>Hazards</item>
+        <item>Safety</item>
     </string-array>
 
     <!--LEVEL TWO SPEECH TEXT ARE HERE-->

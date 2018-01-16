@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorIntro"
+    android:background="@drawable/dbg"
     tools:context="com.dsource.idc.jellowintl.LanguageDownloadActivity">
-    <ImageView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/dbg"/>
+        android:layout_height="match_parent"
+        android:background="#6000"/>
     <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
         android:id="@+id/pg"
         android:layout_width="match_parent"
