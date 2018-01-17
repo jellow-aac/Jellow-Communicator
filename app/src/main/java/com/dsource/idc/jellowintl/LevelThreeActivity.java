@@ -189,8 +189,8 @@ public class LevelThreeActivity extends AppCompatActivity {
                     mRecyclerView.setVisibility(View.VISIBLE);
                     ttsButton.setVisibility(View.INVISIBLE);
                     flag_keyboard = 0;
+                    changeTheActionButtons(!DISABLE_ACTION_BTNS);
                     if(mLevelThreeItemPos != -1) retainExpressiveButtonStates();
-                    else changeTheActionButtons(!DISABLE_ACTION_BTNS);
                 } else if (more_count > 0) {
                     more_count -= 1;
                     myMusic_function(mLevelOneItemPos, mLevelTwoItemPos);
@@ -229,8 +229,8 @@ public class LevelThreeActivity extends AppCompatActivity {
                     mRecyclerView.setVisibility(View.VISIBLE);
                     ttsButton.setVisibility(View.INVISIBLE);
                     flag_keyboard = 0;
+                    changeTheActionButtons(!DISABLE_ACTION_BTNS);
                     if(mLevelThreeItemPos != -1) retainExpressiveButtonStates();
-                    else changeTheActionButtons(!DISABLE_ACTION_BTNS);
                     showActionBarTitle(true);
                 } else {
                     keyboard.setImageResource(R.drawable.keyboardpressed);

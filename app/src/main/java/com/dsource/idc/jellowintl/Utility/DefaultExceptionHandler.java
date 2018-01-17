@@ -2,6 +2,7 @@ package com.dsource.idc.jellowintl.Utility;
 
 import android.app.Activity;
 import android.util.Log;
+import android.widget.Toast;
 
 import static com.dsource.idc.jellowintl.Utility.Analytics.reportException;
 
@@ -22,6 +23,7 @@ public class DefaultExceptionHandler implements Thread.UncaughtExceptionHandler 
     public void uncaughtException(Thread thread, Throwable ex) {
         reportException(ex);
         Log.e("Jellow","exception caught", ex);
+        Toast.makeText(activity, "Unfortunately, Jellow has stopped.", Toast.LENGTH_SHORT).show();
         //This will finish your activity manually
         activity.finish();
         //This will stop your application and take out from it.

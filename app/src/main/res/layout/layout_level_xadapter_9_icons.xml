@@ -29,6 +29,5 @@
         android:text="festivals &amp; hodidays"
         android:gravity="center"
         android:textSize="10sp"
-        android:textAlignment="center"
-        android:singleLine="true"/>
+        android:textAlignment="center"/>
 </LinearLayout>

@@ -10,9 +10,7 @@ import java.util.Locale;
  * Created by ekalpa on 11/27/2017.
  */
 public class ChangeAppLocale {
-    //private final int LANG_ENG = 0, LANG_HINDI = 1;
     private Context mContext;
-
     public ChangeAppLocale(Context context){
         mContext = context;
     }

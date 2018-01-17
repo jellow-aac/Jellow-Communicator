@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.dsource.idc.jellowintl.Utility.ChangeAppLocale;
-import com.dsource.idc.jellowintl.Utility.SessionManager;
 
 import static com.dsource.idc.jellowintl.Utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.Utility.Analytics.stopMeasuring;
@@ -26,12 +25,10 @@ public class TutorialActivity extends AppCompatActivity {
         new ChangeAppLocale(this).setLocale();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.menuTutorials)+"</font>"));
-        SessionManager mSession = new SessionManager(this);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
 
         ((TextView)findViewById(R.id.tv6)).setText(
                 getString(R.string.softwareVersion).concat(" " + String.valueOf(BuildConfig.VERSION_NAME)));
-
     }
 
     @Override
@@ -79,7 +76,6 @@ public class TutorialActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-
         super.onDestroy();
     }
 }

@@ -33,7 +33,6 @@ class LevelThreeAdapter extends android.support.v7.widget.RecyclerView.Adapter<L
         loadArraysFromResources(levelOneItemPos, levelTwoItemPos, sort);
         File en_dir = mContext.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
         path = en_dir.getAbsolutePath()+"/drawables";
-
     }
 
     @Override
@@ -270,7 +269,6 @@ class LevelThreeAdapter extends android.support.v7.widget.RecyclerView.Adapter<L
             Typeface font = Typeface.createFromAsset(mContext.getAssets(), "fonts/Mukta-Regular.ttf");
             menuItemBelowText.setTypeface(font);
             menuItemBelowText.setTextColor(Color.rgb(64, 64, 64));
-            menuItemBelowText.setSingleLine(false);
         }
     }
 }

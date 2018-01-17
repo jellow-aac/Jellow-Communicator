@@ -6,7 +6,7 @@
 
     <string name="Language">Language</string>
     <string name="ChangeLanguage">Change Language</string>
-    <string name="saveLanguage">Save</string>
+    <string name="saveLanguage">Change</string>
     <string name="addLanguage">Add Language</string>
     <string name="deleteLanguage">Delete Language</string>
 

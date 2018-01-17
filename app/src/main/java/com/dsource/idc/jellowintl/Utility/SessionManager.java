@@ -88,7 +88,6 @@ public class SessionManager {
         storePreferenceKeyWithValue(Integer.class.toString(), Blood, bloodGroup);
     }
 
-
     public int getBlood(){
         return (Integer) retrievePreferenceKeyWithValue(Integer.class.toString(), Blood);
     }
@@ -100,8 +99,6 @@ public class SessionManager {
     public void setRemoved(String lang) {
         storePreferenceKeyWithValue(Boolean.class.toString(), lang, false);
     }
-
-
 
     public Boolean isDownloaded(String lang){
         return (Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(), lang);

@@ -46,7 +46,7 @@ dependencies {
     compile 'com.liulishuo.filedownloader:library:1.6.8'
     compile 'com.github.rey5137:material:1.2.4'
     compile 'com.github.paolorotolo:appintro:4.0.0'
-    compile 'com.mcxiaoke.volley:library-aar:1.0.0'
+    //compile 'com.mcxiaoke.volley:library-aar:1.0.0'
     implementation 'com.hbb20:ccp:2.1.2'
 }
 
