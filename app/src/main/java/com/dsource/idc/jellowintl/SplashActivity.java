@@ -9,6 +9,7 @@ import com.dsource.idc.jellowintl.Utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.Utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.Utility.EvaluateDisplayMetricsUtils;
 import com.dsource.idc.jellowintl.Utility.JellowTTSService;
+import com.dsource.idc.jellowintl.Utility.SessionManager;
 
 import java.io.IOException;
 
@@ -27,10 +28,19 @@ public class SplashActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         startTTsService();
         PlayGifView pGif = findViewById(R.id.viewGif);
         pGif.setImageResource(R.drawable.jellow_j);
         new ChangeAppLocale(this).setLocale();
+        {
+            SessionManager sManager = new SessionManager(this);
+            if (sManager.isRequiredToPerformDbOperations()) {
+                performDatabaseOperations();
+                sManager.setCompletedDbOperations();
+            }
+            sManager = null;
+        }
         new CountDownTimer(5000, 1) {
             public void onTick(long millisUntilFinished) {}
             public void onFinish() {
@@ -41,6 +51,12 @@ public class SplashActivity extends AppCompatActivity {
         EvaluateDisplayMetricsUtils displayMetricsUtils = new EvaluateDisplayMetricsUtils(this);
         displayMetricsUtils.calculateStoreDeviceHeightWidth();
         displayMetricsUtils.calculateStoreShadowRadiusAndBorderWidth();
+    }
+
+    private void performDatabaseOperations() {
+        DataBaseHelper helper = new DataBaseHelper(this);
+        helper.openDataBase();
+        helper.addLanguageDataToDatabase();
     }
 
     private void startTTsService() {

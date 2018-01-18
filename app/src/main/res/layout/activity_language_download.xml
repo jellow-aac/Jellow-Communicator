@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/dbg"
+    android:background="#FFF"
     tools:context="com.dsource.idc.jellowintl.LanguageDownloadActivity">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -22,4 +22,10 @@
         app:rcRadius="10dp"
         app:rcReverse="false"
         app:rcSecondaryProgressColor="@color/colorIntro" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:text="@string/downloadErrorMsg"/>
 </RelativeLayout>

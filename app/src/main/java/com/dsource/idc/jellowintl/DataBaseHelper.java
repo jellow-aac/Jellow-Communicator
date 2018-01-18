@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 import static com.dsource.idc.jellowintl.Utility.Analytics.reportException;
 import static com.dsource.idc.jellowintl.Utility.Analytics.reportLog;
@@ -132,22 +133,64 @@ class DataBaseHelper extends SQLiteOpenHelper {
     }
     // Getting single contact
     public String getlevel(int layer_1_id, int layer_2_id) {
+        String userLang = "";
+        if(mSession.getLanguage().equals("en-rUS") || mSession.getLanguage().equals("en-rGB"))
+            userLang = "en-rUS,en-rGB";
+        else
+            userLang = "hi-rIN,en-rIN";
         if (layer_1_id == 7 && layer_2_id == 6 && mSession.getLanguage().equals(SessionManager.HI_IN))
             layer_2_id = layer_2_id+1;
-        Cursor cursor = myDataBase.query("three", new String[]{"_id", "layer_1_id", "layer_2_id", "layer_3"}, "layer_1_id='" + layer_1_id + "' AND layer_2_id='" + layer_2_id + "'", null, null, null, null);
-        if (cursor.getCount()>0){
+        Cursor cursor = myDataBase.query("three", new String[]{"_id", "layer_1_id", "layer_2_id", "layer_3", "language"}, "layer_1_id='" + layer_1_id + "' AND layer_2_id='" + layer_2_id + "' AND language ='"+userLang+"'", null, null, null, null);
+        if (cursor.getCount()>0) {
             cursor.moveToFirst();
-        String a = cursor.getString(3);
-        // return contact
-        return a;}
+            String a = cursor.getString(3);
+            return a;
+        }
         return "false";
     }
 
     public void setlevel(int layer_1_id, int layer_2_id, String n) {
+        String userLang = "";
+        if(mSession.getLanguage().equals("en-rUS") || mSession.getLanguage().equals("en-rGB"))
+            userLang = "en-rUS,en-rGB";
+        else
+            userLang = "hi-rIN,en-rIN";
         if (layer_1_id == 7 && layer_2_id == 6 && mSession.getLanguage().equals(SessionManager.HI_IN))
             layer_2_id = layer_2_id+1;
         ContentValues dataToInsert = new ContentValues();
         dataToInsert.put("layer_3", n);
-        myDataBase.update("three", dataToInsert, "layer_1_id='" + layer_1_id + "' AND layer_2_id='" + layer_2_id + "'", null);
+        myDataBase.update("three", dataToInsert, "layer_1_id='" + layer_1_id + "' AND layer_2_id='" + layer_2_id + "' AND language ='"+userLang+"'", null);
+    }
+
+    public boolean addLanguageDataToDatabase(){
+         myDataBase.execSQL("alter table three add \"language\" text;");
+         myDataBase.execSQL("update three set language =\"en-rUS,en-rGB\" where layer_1_id > -1;");
+
+         ArrayList<String> levelOneIds = new ArrayList<String>();
+            levelOneIds.add("0");levelOneIds.add("1");levelOneIds.add("2");
+            levelOneIds.add("3");levelOneIds.add("4");levelOneIds.add("7");
+
+        ArrayList<String> levelTwoIds = new ArrayList<>();
+            levelTwoIds.add("0,1,2,3"); levelTwoIds.add("3,4,5,6");levelTwoIds.add("0,1,2,3,4,5,6,7");
+            levelTwoIds.add("0,1,2,5"); levelTwoIds.add("0,1,2,3,4,5,6,7,8");levelTwoIds.add("5,6,7");
+
+        Long result = 0L;
+        for (int i=0; i< levelOneIds.size(); ++i) {
+            for (int j=0;j<levelTwoIds.size();++j) {
+                if(i != j) continue;
+                String ids[] = levelTwoIds.get(j).split(",");
+                for (int k = 0; k < ids.length; k++) {
+                    ContentValues cv = new ContentValues();
+                    cv.put("layer_1_id",levelOneIds.get(i));
+                    cv.put("layer_2_id",ids[k]);
+                    cv.put("layer_3","0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,");
+                    cv.put("language", "hi-rIN,en-rIN");
+                    result += myDataBase.insertOrThrow("three","",cv);
+                }
+                break;
+            }
+        }
+        levelOneIds = levelTwoIds = null;
+        return result >= 30;
     }
 }

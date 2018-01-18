@@ -223,7 +223,7 @@
     <string name="resetPrefPointOne">प्रयोगकर्ता के द्वारा सबसे अधिक इस्तेमाल किये गए पसंदीदा आइकॉन को जेलो अॅप्लिकेशन स्मरण में रखता हैं, और उन्हें स्क्रीन पर मुख्य पसंद के रूप में प्रदर्शित करता हैं।</string>
     <string name="resetPrefPointTwo">आइकॉन्स को रीसेट करके, सभी आइकॉन मूल क्रम में आ जायेंगे जैसे वे पहली बार अॅप्लिकेशन में प्रदर्शित किये गये थे।</string>
     <string name="resetPrefPointThree">आप आइकॉन्स को रीसेट करना चाहते हैं?</string>
-    <string name="updated_app_for_new_content">com.dsource.idc.jellow.updated_app_for_new_content</string>
+    <string name="perform_db_update">com.dsource.idc.jellow.perform_db_update</string>
     <string name="invalid_emailId">Invalid email address.</string>
     <string name="invalidContactNumber">Invalid contact number</string>
     <string name="checkInternetConn">Please check internet connection and try again</string>

@@ -239,18 +239,18 @@ public class SessionManager {
             return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.places_pref_count_eng));
     }
 
-    public void setUpdatedForNewContentV5() {
-        storePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.updated_app_for_new_content), true);
-    }
-
-    public boolean isUpdatedForNewContentV5() {
-        return (Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.updated_app_for_new_content));
-    }
-
     public void resetUserPeoplePlacesPreferences(){
         storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_eng), "");
         storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_hindi), "");
         storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.places_pref_count_eng), "");
+    }
+
+    public boolean isRequiredToPerformDbOperations() {
+        return !((Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.perform_db_update)));
+    }
+
+    public void setCompletedDbOperations() {
+        storePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.perform_db_update), true);
     }
 
     private void storePreferenceKeyWithValue(String classType, String key, Object val){
