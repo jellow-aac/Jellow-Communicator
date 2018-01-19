@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -218,6 +219,7 @@ public class SequenceActivity extends AppCompatActivity {
                             .dontAnimate()
                             .into(image3);
                 }
+                resetImageBorders();
             }
         });
 
@@ -271,6 +273,7 @@ public class SequenceActivity extends AppCompatActivity {
                     backward.setEnabled(false);
                     backward.setAlpha(.5f);
                 }
+                resetImageBorders();
             }
         });
 
@@ -424,7 +427,7 @@ public class SequenceActivity extends AppCompatActivity {
                     speakSpeech(et.getText().toString());
                     if(!et.getText().toString().equals("")) ttsButton.setImageResource(R.drawable.speaker_pressed);
                     reportLog(getLocalClassName()+", TtsSpeak: ", Log.INFO);
-                    hideActionBtn(true);
+                    //hideActionBtn(true);
                 }
         });
 
@@ -739,6 +742,7 @@ public class SequenceActivity extends AppCompatActivity {
             bt2.setVisibility(View.INVISIBLE);
             bt3.setVisibility(View.INVISIBLE);
         }
+        resetImageBorders();
     }
 
     private void speakSpeech(String speechText){
@@ -868,23 +872,27 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     private void setBorderToView(View borderView, int actionBtnIdx) {
-        switch(actionBtnIdx){
-            case 0: borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_yellow_1by3));
-                break;
-            case 1: borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_blue_1by3));
-                break;
-            case 2: borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_green_1by3));
-                break;
-            case 3: borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_red_1by3));
-                break;
-            case 4: borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_grey_light_1by3));
-                break;
-            case 5: borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_grey_dark_1by3));
-                break;
-            case 6: borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_brown_1by3));
-                break;
-            default:    borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_nocolor_1by3));
+        resetImageBorders();
+        GradientDrawable gd = (GradientDrawable) borderView.getBackground();
+        switch (actionBtnIdx) {
+            case 0: gd.setColor(ContextCompat.getColor(this, R.color.colorLike)); break;
+            case 1: gd.setColor(ContextCompat.getColor(this, R.color.colorDontLike)); break;
+            case 2: gd.setColor(ContextCompat.getColor(this, R.color.colorYes)); break;
+            case 3: gd.setColor(ContextCompat.getColor(this, R.color.colorNo)); break;
+            case 4: gd.setColor(ContextCompat.getColor(this, R.color.colorMore)); break;
+            case 5: gd.setColor(ContextCompat.getColor(this, R.color.colorLess)); break;
+            case 6: gd.setColor(ContextCompat.getColor(this, R.color.colorSelect)); break;
+            default: gd.setColor(ContextCompat.getColor(this, android.R.color.transparent));
         }
-        borderView.invalidate();
+    }
+
+    private void resetImageBorders() {
+        GradientDrawable gd;
+        gd = (GradientDrawable) findViewById(R.id.borderView1).getBackground();
+        gd.setColor(ContextCompat.getColor(this, android.R.color.transparent));
+        gd = (GradientDrawable) findViewById(R.id.borderView2).getBackground();
+        gd.setColor(ContextCompat.getColor(this, android.R.color.transparent));
+        gd = (GradientDrawable) findViewById(R.id.borderView3).getBackground();
+        gd.setColor(ContextCompat.getColor(this, android.R.color.transparent));
     }
 }

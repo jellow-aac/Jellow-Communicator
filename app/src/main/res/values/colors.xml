@@ -19,6 +19,14 @@
     <color name="colorAccentQuarter">#3300E5FF</color>
     <color name="colorAccentHalf">#9000E5FF</color>
 
+    <color name="colorSelect">#9E846D</color>
+    <color name="colorLike">#FFEB3B</color>
+    <color name="colorDontLike">#3F51B5</color>
+    <color name="colorYes">#8BC249</color>
+    <color name="colorNo">#CC322E</color>
+    <color name="colorMore">#788E96</color>
+    <color name="colorLess">#656451</color>
+
     <array name="progress_colors_light">
         <item>#FF03A9F4</item>
         <item>#FFD8433C</item>

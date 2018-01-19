@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,6 +77,8 @@ class MainActivityAdapter extends android.support.v7.widget.RecyclerView.Adapter
             Typeface font = Typeface.createFromAsset(mContext.getAssets(), "fonts/Mukta-Regular.ttf");
             menuItemBelowText.setTypeface(font);
             menuItemBelowText.setTextColor(Color.rgb(64, 64, 64));
+            GradientDrawable gd = (GradientDrawable) view.findViewById(R.id.borderView).getBackground();
+            gd.setColor(ContextCompat.getColor(mContext, android.R.color.transparent));
         }
     }
 }

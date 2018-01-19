@@ -37,7 +37,7 @@ public class SplashActivity extends AppCompatActivity {
             SessionManager sManager = new SessionManager(this);
             if (sManager.isRequiredToPerformDbOperations()) {
                 performDatabaseOperations();
-                sManager.setCompletedDbOperations();
+                sManager.setCompletedDbOperations(true);
             }
             sManager = null;
         }

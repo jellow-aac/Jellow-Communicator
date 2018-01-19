@@ -37,15 +37,15 @@
     <string name="change_language_line3">You can download new languages by clicking \'Add Language\' button and remove already downloaded languages by clicking \'Delete Language\' button </string>
     <string name="simple_ime">Jellow Keyboard</string>
     <string name="subtype_en_US">Serial ABC</string>
-    <string name="screen_width">com.dsource.idc.jellow.screen_width</string>
-    <string name="screen_height">com.dsource.idc.jellow.screen_height</string>
-    <string name="shadow_radius">com.dsource.idc.jellow.shadow_radius</string>
-    <string name="border_width">com.dsource.idc.jellow.border_width</string>
-    <string name="perform_db_update">com.dsource.idc.jellow.perform_db_update</string>
+    <string name="screen_width" translatable="false">com.dsource.idc.jellow.screen_width</string>
+    <string name="screen_height" translatable="false">com.dsource.idc.jellow.screen_height</string>
+    <string name="shadow_radius" translatable="false">com.dsource.idc.jellow.shadow_radius</string>
+    <string name="border_width" translatable="false">com.dsource.idc.jellow.border_width</string>
+    <string name="perform_db_update" translatable="false">com.dsource.idc.jellow.perform_db_update</string>
 
-    <string name="people_pref_count_eng">people_count</string>
-    <string name="people_pref_count_hindi">people_count_hindi</string>
-    <string name="places_pref_count_eng">places_count</string>
+    <string name="people_pref_count_eng" translatable="false">people_count</string>
+    <string name="people_pref_count_hindi" translatable="false">people_count_hindi</string>
+    <string name="places_pref_count_eng" translatable="false">places_count</string>
 
     <string name="action_bar_title">Home</string>
     <string name="txtLanguage">Language</string>
@@ -71,12 +71,12 @@
     <string name="menuResetPref">Reset Preferences</string>
     <string name="menuFeedback">Feedback</string>
 
-    <string name="endString"> </string>
+    <string name="endString" translatable="false"> </string>
 
-    <string name="locale_reg_IN">IN</string>
-    <string name="locale_lang_hi">hi</string>
-    <string name="locale_reg_us">US</string>
-    <string name="locale_lang_en">en</string>
+    <string name="locale_reg_IN" translatable="false">IN</string>
+    <string name="locale_lang_hi" translatable="false">hi</string>
+    <string name="locale_reg_us" translatable="false">US</string>
+    <string name="locale_lang_en" translatable="false">en</string>
 
     <string name="aPos">A Positive</string>
     <string name="aNeg">A Negative</string>
@@ -233,10 +233,11 @@
     <string name="resetPrefPointOne">Jellow remembers the user’s “most-used/preferred” icons and displays them as the top choices on the screen</string>
     <string name="resetPrefPointTwo">By resetting preferences, the icons will be set to the original order in which they were displayed the first time the application was opened</string>
     <string name="resetPrefPointThree">Do you want to reset preferences?</string>
-    <string name="bullet">\u25CF</string>
+    <string name="bullet" translatable="false">●</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="no_language_data_avail">Please download selected language data.</string>
-    <string name="downloadErrorMsg">Make sure you have active internet connection during the download. If progress stuck at a point consider restarting the app/download.</string>
+    <string name="downloadErrorMsg" translatable="false">Make sure you have an active internet connection during the download. If the progress stuck at any point, please consider restarting the app/download.</string>
+    <string name="default_lang_folder_name" translatable="false">com.dsource.idc.jellow.lang_folder_name</string>
 </resources>

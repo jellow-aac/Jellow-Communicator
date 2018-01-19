@@ -2,6 +2,7 @@ package com.dsource.idc.jellowintl;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -56,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
     private String[] myMusic, side, below;
     private String actionBarTitleTxt;
     private boolean mKeyChange;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -462,7 +462,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         sendBroadcast(new Intent("com.dsource.idc.jellowintl.STOP_SERVICE"));
         super.onDestroy();
-
     }
 
     @Override
@@ -643,63 +642,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setMenuImageBorder(View recyclerChildView, boolean setBorder) {
-        View borderView = recyclerChildView.findViewById(R.id.borderView);
-        if(new SessionManager(this).getGridSize() == 0) {
-            if (setBorder) {
-                if (mActionBtnClickCount > 0) {
-                    switch (image_flag) {
-                        case 0:
-                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_yellow_1by3));
-                            break;
-                        case 1:
-                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_blue_1by3));
-                            break;
-                        case 2:
-                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_green_1by3));
-                            break;
-                        case 3:
-                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_red_1by3));
-                            break;
-                        case 4:
-                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_grey_light_1by3));
-                            break;
-                        case 5:
-                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_grey_dark_1by3));
-                            break;
-                    }
-                } else
-                    borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_brown_1by3));
+        GradientDrawable gd = (GradientDrawable) recyclerChildView.findViewById(R.id.borderView).getBackground();
+        if(setBorder){
+            if (mActionBtnClickCount > 0) {
+                switch (image_flag) {
+                    case 0: gd.setColor(ContextCompat.getColor(this,R.color.colorLike)); break;
+                    case 1: gd.setColor(ContextCompat.getColor(this,R.color.colorDontLike)); break;
+                    case 2: gd.setColor(ContextCompat.getColor(this,R.color.colorYes)); break;
+                    case 3: gd.setColor(ContextCompat.getColor(this,R.color.colorNo)); break;
+                    case 4: gd.setColor(ContextCompat.getColor(this,R.color.colorMore)); break;
+                    case 5: gd.setColor(ContextCompat.getColor(this,R.color.colorLess)); break;
+                }
             } else
-                borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_nocolor_1by3));
-        }else{
-            if (setBorder) {
-                if (mActionBtnClickCount > 0) {
-                    switch (image_flag) {
-                        case 0:
-                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_yellow_3by3));
-                            break;
-                        case 1:
-                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_blue_3by3));
-                            break;
-                        case 2:
-                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_green_3by3));
-                            break;
-                        case 3:
-                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_red_3by3));
-                            break;
-                        case 4:
-                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_grey_light_3by3));
-                            break;
-                        case 5:
-                            borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_grey_dark_3by3));
-                            break;
-                    }
-                } else
-                    borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_brown_3by3));
-            } else
-                borderView.setBackground(ContextCompat.getDrawable(this, R.drawable.custom_drawable_nocolor_3by3));
-        }
-        borderView.invalidate();
+                gd.setColor(ContextCompat.getColor(this,R.color.colorSelect));
+        } else
+            gd.setColor(ContextCompat.getColor(this,android.R.color.transparent));
     }
 
     private void resetActionButtons(int image_flag) {

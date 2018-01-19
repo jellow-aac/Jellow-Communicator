@@ -249,8 +249,8 @@ public class SessionManager {
         return !((Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.perform_db_update)));
     }
 
-    public void setCompletedDbOperations() {
-        storePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.perform_db_update), true);
+    public void setCompletedDbOperations(boolean value) {
+        storePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.perform_db_update), value);
     }
 
     private void storePreferenceKeyWithValue(String classType, String key, Object val){

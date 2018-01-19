@@ -4,34 +4,30 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:gravity="center_horizontal"
-    android:layout_marginTop="112dp"
-    android:layout_marginBottom="112dp"
-    android:paddingTop="@dimen/activity_horizontal_margin"
-    android:paddingBottom="@dimen/activity_horizontal_margin">
+    android:gravity="center_horizontal">
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/icon1"
-            android:layout_width="195dp"
-            android:layout_height="195dp"
+            android:layout_width="94dp"
+            android:layout_height="94dp"
             android:layout_gravity="center_horizontal"
             android:background="@android:color/transparent"
             android:scaleType="centerInside" />
         <View
             android:id="@+id/borderView"
-            android:layout_width="195dp"
-            android:layout_height="195dp"
+            android:layout_width="94dp"
+            android:layout_height="94dp"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/custom_drawable_nocolor_1by3"/>
+            android:background="@drawable/custom_drawable_nocolor_3by3"/>
     </FrameLayout>
     <TextView
         android:id="@+id/te1"
-        android:layout_width="250dp"
+        android:layout_width="192dp"
         android:layout_height="wrap_content"
-        android:text="TIME AND WEATHER"
+        android:text="TIME AND WEATHER..."
         android:gravity="center"
-        android:textSize="22sp"
+        android:textSize="16sp"
         android:textAlignment="center"/>
 </LinearLayout>

@@ -47,14 +47,6 @@
 अॅप्लिकेशन में पहले से ही डाउनलोड की गई भाषाओं को हटाने के लिये “भाषा डिलीट करें” बटन पर क्लिक करें।</string>
     <string name="simple_ime">जेलो कीबोर्ड</string>
     <string name="subtype_en_US">सिरियल अबक</string>
-    <string name="screen_width">com.dsource.idc.jellow.screen_width</string>
-    <string name="screen_height">com.dsource.idc.jellow.screen_height</string>
-    <string name="shadow_radius">com.dsource.idc.jellow.shadow_radius</string>
-    <string name="border_width">com.dsource.idc.jellow.border_width</string>
-
-    <string name="people_pref_count_eng">people_count</string>
-    <string name="people_pref_count_hindi">people_count_hindi</string>
-    <string name="places_pref_count_eng" >places_count</string>
 
     <string name="action_bar_title">होम</string>
     <string name="txtLanguage">भाषा</string>
@@ -73,11 +65,6 @@
     <string name="menuKeyboardInput">आवाज़ एवं कीबोर्ड नियंत्रण</string>
     <string name="menuResetPref">आइकॉन रीसेट करें</string>
     <string name="menuFeedback">प्रतिक्रिया</string>
-
-    <string name="locale_lang_en">en</string>
-    <string name="locale_lang_hi">hi</string>
-    <string name="locale_reg_IN">IN</string>
-    <string name="locale_reg_us">US</string>
 
     <string name="endString" > है।</string>
     <string name="aPos">A Positive</string>
@@ -223,10 +210,8 @@
     <string name="resetPrefPointOne">प्रयोगकर्ता के द्वारा सबसे अधिक इस्तेमाल किये गए पसंदीदा आइकॉन को जेलो अॅप्लिकेशन स्मरण में रखता हैं, और उन्हें स्क्रीन पर मुख्य पसंद के रूप में प्रदर्शित करता हैं।</string>
     <string name="resetPrefPointTwo">आइकॉन्स को रीसेट करके, सभी आइकॉन मूल क्रम में आ जायेंगे जैसे वे पहली बार अॅप्लिकेशन में प्रदर्शित किये गये थे।</string>
     <string name="resetPrefPointThree">आप आइकॉन्स को रीसेट करना चाहते हैं?</string>
-    <string name="perform_db_update">com.dsource.idc.jellow.perform_db_update</string>
     <string name="invalid_emailId">Invalid email address.</string>
     <string name="invalidContactNumber">Invalid contact number</string>
     <string name="checkInternetConn">Please check internet connection and try again</string>
     <string name="customSpeakIcon">Press here to speak above text.</string>
-    <string name="bullet">\u25CF</string>
 </resources>

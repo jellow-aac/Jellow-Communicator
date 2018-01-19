@@ -42,6 +42,7 @@ public class ResetPreferencesActivity extends AppCompatActivity {
                 Toast.makeText(ResetPreferencesActivity.this, getString(R.string.iconsHasBeenReset), Toast.LENGTH_SHORT).show();
                 myDbHelper.delete();
                 session.resetUserPeoplePlacesPreferences();
+                session.setCompletedDbOperations(false);
                 Intent intentStartActivity = new Intent(ResetPreferencesActivity.this, SplashActivity.class);
                 intentStartActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intentStartActivity);
