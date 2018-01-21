@@ -8,6 +8,9 @@ A novel visual Emotional Language Protocol (ELP) was conceived in order to enhan
 Jellow is developed at the IDC School of Design at the Indian Institute of Technology Bombay located in Mumbai.
 
 
+
+
+
 ## License
 
 Copyright (c) NINAAD DIGITAL TECHNOLOGY PRIVATE LIMITED. All rights reserved.
