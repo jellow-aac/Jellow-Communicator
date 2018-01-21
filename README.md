@@ -10,11 +10,14 @@ Jellow is developed at the IDC School of Design at the Indian Institute of Techn
 [<img alt="Get it on Google Play" height="80" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png">](https://play.google.com/store/apps/details?id=com.dsource.idc.jellowintl&hl=en)
 
 
+Translators
+----
+Want to help translate Jellow Communicator to your language? Submit your requests [here](https://gitlab.com/JellowAppDevelopers/JellowCommunicator/issues).  
 
-
-
-## License
+License
+----
 
 Copyright (c) NINAAD DIGITAL TECHNOLOGY PRIVATE LIMITED. All rights reserved.
 
 Licensed under the [BSD](LICENSE.txt) License.
+See our [Privacy Policy](http://www.dsource.in/tool/jellow/privacypolicy/index.html).
