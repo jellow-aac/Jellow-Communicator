@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
+import android.widget.Toast;
 
 import com.dsource.idc.jellowintl.Utility.ChangeAppLocale;
 
@@ -127,13 +128,18 @@ public class FeedbackActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                String cs  = mEtComments.getText().toString();
-                Intent email = new Intent(Intent.ACTION_SEND);
-                email.putExtra(Intent.EXTRA_EMAIL, new String[]{"dsource.in@gmail.com"});
-                email.putExtra(Intent.EXTRA_SUBJECT, "Jellow Feedback");
-                email.putExtra(Intent.EXTRA_TEXT, "Easy to use: "+ strEaseOfUse +"\nClear Pictures: "+ mClearPicture +"\nClear Voices: "+ mClearVoice +"\nEasy to Navigate: "+ mEaseToNav + "\n\nComments and Suggestions:-\n"+cs);
-                email.setType("message/rfc822");
-                startActivity(Intent.createChooser(email, "Choose an Email client :"));
+                if((strEaseOfUse != null) && (mClearPicture != null) && (mClearVoice != null) && (mEaseToNav != null) &&
+                        (!strEaseOfUse.equals("0.0")) && (!mClearPicture.equals("0.0")) && (!mClearVoice.equals("0.0")) && (!mEaseToNav.equals("0.0"))) {
+                    String cs = mEtComments.getText().toString();
+                    Intent email = new Intent(Intent.ACTION_SEND);
+                    email.putExtra(Intent.EXTRA_EMAIL, new String[]{"dsource.in@gmail.com"});
+                    email.putExtra(Intent.EXTRA_SUBJECT, "Jellow Feedback");
+                    email.putExtra(Intent.EXTRA_TEXT, "Easy to use: " + strEaseOfUse + "\nClear Pictures: " + mClearPicture + "\nClear Voices: " + mClearVoice + "\nEasy to Navigate: " + mEaseToNav + "\n\nComments and Suggestions:-\n" + cs);
+                    email.setType("message/rfc822");
+                    startActivity(Intent.createChooser(email, "Choose an Email client :"));
+                }else{
+                    Toast.makeText(FeedbackActivity.this, getString(R.string.rate_jellow), Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

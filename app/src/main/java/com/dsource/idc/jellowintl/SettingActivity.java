@@ -173,7 +173,7 @@ public class SettingActivity extends AppCompatActivity {
             case R.id.keyboardinput: startActivity(new Intent(this, KeyboardInputActivity.class)); finish(); break;
             case R.id.reset: startActivity(new Intent(this, ResetPreferencesActivity.class)); finish(); break;
             case R.id.feedback: startActivity(new Intent(this, FeedbackActivity.class)); finish(); break;
-            case android.R.id.home: finish(); break;
+            case android.R.id.home: onBackPressed(); break;
             default: return super.onOptionsItemSelected(item);
         }
         return true;

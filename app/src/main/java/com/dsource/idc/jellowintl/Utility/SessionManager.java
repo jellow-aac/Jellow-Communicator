@@ -253,6 +253,22 @@ public class SessionManager {
         storePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.perform_db_update), value);
     }
 
+    public void setUserCountryCode(String selectedCountryCode) {
+        storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.user_country_code), selectedCountryCode);
+    }
+
+    public String getUserCountryCode() {
+        return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.user_country_code));
+    }
+
+    public boolean isCompletedIntro() {
+        return (boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.completed_intro));
+    }
+
+    public void setCompletedIntro(boolean value) {
+        storePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.completed_intro), value);
+    }
+
     private void storePreferenceKeyWithValue(String classType, String key, Object val){
         if (classType.equals(Integer.class.toString()))
             mEditor.putInt(key, (Integer) val).commit();

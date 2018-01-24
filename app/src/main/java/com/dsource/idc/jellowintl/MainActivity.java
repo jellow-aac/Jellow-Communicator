@@ -201,6 +201,7 @@ public class MainActivity extends AppCompatActivity {
                     back.setEnabled(true);
                     flag_keyboard = 1;
                     showActionBarTitle(false);
+                    getSupportActionBar().setTitle(getString(R.string.keyboard));
                 }
             }
         });

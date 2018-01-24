@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.view.View;
 
+import com.dsource.idc.jellowintl.Utility.SessionManager;
 import com.github.paolorotolo.appintro.AppIntro;
 
 /**
@@ -17,7 +19,7 @@ public class Intro extends AppIntro {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.intro_to_jellow)+"</font>"));
         // Add your slide's fragments here.
         // AppIntro will automatically generate the dots indicator and buttons.
         addSlide(SampleSlideFragment.newInstance(R.layout.intro));
@@ -75,6 +77,7 @@ public class Intro extends AppIntro {
     }
 
     public void getStarted(View view) {
+        {new SessionManager(this).setCompletedIntro(true);}
         startActivity(new Intent(Intro.this, SplashActivity.class));
         finish();
     }

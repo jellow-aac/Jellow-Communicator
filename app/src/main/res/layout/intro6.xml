@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="fonts/Mukta-Regular.ttf"
         android:textColor="#000"
-        android:text="Devices with active Google TTS engine: Please swipe to skip current step"
+        android:text="@string/txt_intro6_skipActiveTtsDesc"
         android:textSize="11sp"
         android:layout_gravity="center_horizontal"/>
     <LinearLayout
@@ -30,7 +30,7 @@
                 android:minLines="2"
                 android:textColor="#000"
                 android:textSize="11sp"
-                android:text="1.Activate Google TTS"/>
+                android:text="@string/txt_intro6_ttsStep1"/>
             <ImageView
                 android:layout_width="120dp"
                 android:layout_height="150dp"
@@ -47,7 +47,7 @@
                 android:textStyle="bold"
                 android:textSize="10sp"
                 android:onClick="getStarted1"
-                android:text="ACTIVATE"/>
+                android:text="@string/txt_intro6_activate"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -65,7 +65,7 @@
                 android:minLines="2"
                 android:textColor="#000"
                 android:textSize="11sp"
-                android:text="2. Change default language to Hindi"/>
+                android:text="@string/txt_intro6_step2"/>
             <ImageView
                 android:layout_width="120dp"
                 android:layout_height="150dp"
@@ -82,7 +82,7 @@
                 android:textStyle="bold"
                 android:textSize="10sp"
                 android:onClick="getStarted2"
-                android:text="CHANGE LANGUAGE"/>
+                android:text="@string/txt_intro6_changeLang"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -99,7 +99,7 @@
                 android:minLines="2"
                 android:textColor="#000"
                 android:textSize="11sp"
-                android:text="3. Download Hindi voice"/>
+                android:text="@string/txt_intro6_step3"/>
             <ImageView
                 android:layout_width="120dp"
                 android:layout_height="150dp"
@@ -116,7 +116,7 @@
                 android:textStyle="bold"
                 android:textSize="10sp"
                 android:onClick="getStarted3"
-                android:text="DOWNLOAD"/>
+                android:text="@string/txt_intro6_download"/>
         </LinearLayout>
     </LinearLayout>
     <TextView

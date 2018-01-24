@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.View;
@@ -55,26 +56,28 @@ public class UserRegistrationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_registration);
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.app_name)+"</font>"));
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
 
         mSession = new SessionManager(this);
 
         if(!mSession.getFather_no().equals(""))
         getAnalytics(this,mSession.getFather_no());
-
+        mSession.setBlood(-1);
 
 
 
         if (mSession.isUserLoggedIn())
         {
-            if(mSession.isDownloaded(mSession.getLanguage())) {
+            if(mSession.isDownloaded(mSession.getLanguage()) && mSession.isCompletedIntro()) {
                 startActivity(new Intent(this, SplashActivity.class));
-                finish();
+            }else if(mSession.isDownloaded(mSession.getLanguage()) && !mSession.isCompletedIntro()){
+                startActivity(new Intent(this, Intro.class));
             }else {
                 startActivity(new Intent(UserRegistrationActivity.this,
-                        LanguageDownloadActivity.class).putExtra(LCODE,mSession.getLanguage()));
-                finish();
+                        LanguageDownloadActivity.class).putExtra(LCODE,mSession.getLanguage()).putExtra(TUTORIAL,true));
             }
+            finish();
         }
 
         mDB = FirebaseDatabase.getInstance();
@@ -145,6 +148,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
                         if(selectedLanguage != null) {
                             mSession.setName(name);
                             mSession.setFather_no(emergencyContact);
+                            mSession.setUserCountryCode(mCcp.getSelectedCountryCode());
                             mSession.setEmailId(eMailId);
                             Calendar ca = Calendar.getInstance();
                             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

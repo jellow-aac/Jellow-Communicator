@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="For devices where Google Text-to-Speech (TTS) is already active, please swipe screen to skip this step"
+        android:text="@string/txt_intro6_skipActiveTtsDesc"
         android:fontFamily="fonts/Mukta-Regular.ttf"
         android:textColor="#000000"
         android:textStyle="bold"
@@ -32,7 +32,7 @@
             android:textColor="#000000"
             android:paddingRight="32dp"
             android:textSize="20dp"
-            android:text="1.Activate Google TTS"/>
+            android:text="@string/txt_intro6_ttsStep1"/>
         <TextView
             android:layout_width="400dp"
             android:layout_height="50dp"
@@ -44,7 +44,7 @@
             android:textColor="#000000"
             android:paddingRight="32dp"
             android:textSize="20dp"
-            android:text="2. Change default language to Hindi"/>
+            android:text="@string/txt_intro6_step2"/>
         <TextView
             android:layout_width="350dp"
             android:layout_height="50dp"
@@ -56,7 +56,7 @@
             android:textColor="#000000"
             android:paddingRight="32dp"
             android:textSize="20dp"
-            android:text="3. Download Hindi voice"/>
+            android:text="@string/txt_intro6_step3"/>
 
     </LinearLayout>
     <LinearLayout
@@ -105,7 +105,7 @@
             android:paddingLeft="64dp"
             android:paddingRight="64dp"
             android:textSize="20dp"
-            android:text="ACTIVATE"
+            android:text="@string/txt_intro6_activate"
             android:onClick="getStarted1"/>
         <TextView
             android:layout_margin="10dp"
@@ -119,7 +119,7 @@
             android:paddingLeft="64dp"
             android:paddingRight="64dp"
             android:textSize="20dp"
-            android:text="CHANGE LANGUAGE"
+            android:text="@string/txt_intro6_changeLang"
             android:onClick="getStarted2"/>
         <TextView
             android:layout_margin="10dp"
@@ -133,7 +133,7 @@
             android:paddingLeft="64dp"
             android:paddingRight="64dp"
             android:textSize="20dp"
-            android:text="DOWNLOAD"
+            android:text="@string/txt_intro6_download"
             android:onClick="getStarted3"/>
     </LinearLayout>
     <TextView

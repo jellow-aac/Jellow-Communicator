@@ -39,7 +39,9 @@
                     android:layout_marginBottom="12dp"
                     app:sl_minValue="10"
                     app:sl_maxValue="250"
-                    app:v_styleId="@array/slider_discrete"/>
+                    app:sl_stepValue="10"
+                    app:sl_primaryColor="@color/colorAccent"
+                    app:sl_secondaryColor="@color/colorLess"/>
                 <TextView
                     android:id="@+id/voicepitch"
                     android:layout_width="match_parent"
@@ -57,7 +59,9 @@
                     android:indeterminate="false"
                     app:sl_minValue="10"
                     app:sl_maxValue="250"
-                    app:v_styleId="@array/slider_discrete"/>
+                    app:sl_stepValue="10"
+                    app:sl_primaryColor="@color/colorAccent"
+                    app:sl_secondaryColor="@color/colorLess"/>
 
                 <TextView
                     android:id="@+id/tv3"

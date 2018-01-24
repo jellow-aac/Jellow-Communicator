@@ -25,6 +25,7 @@ import com.dsource.idc.jellowintl.Utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.Utility.SessionManager;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.hbb20.CountryCodePicker;
 
 import static com.dsource.idc.jellowintl.Utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.Utility.Analytics.stopMeasuring;
@@ -34,6 +35,7 @@ public class ProfileFormActivity extends AppCompatActivity {
     private EditText etName, etFatherContact, etFathername, etAddress, etEmailId;
     private SessionManager mSession;
     private String email;
+    private CountryCodePicker mCcp;
     FirebaseDatabase mDB;
     DatabaseReference mRef;
     
@@ -64,7 +66,10 @@ public class ProfileFormActivity extends AppCompatActivity {
 
 
         etName.setText(mSession.getName());
-        etFatherContact.setText(mSession.getFather_no());
+        mCcp = findViewById(R.id.ccp);
+        mCcp.setCountryForPhoneCode(Integer.valueOf(mSession.getUserCountryCode()));
+        mCcp.registerCarrierNumberEditText(etFatherContact);
+        etFatherContact.setText(mSession.getFather_no().replace("+".concat(mSession.getUserCountryCode()),""));
         etFathername.setText(mSession.getFather_name());
         etAddress.setText(mSession.getAddress());
         etEmailId.setText(mSession.getEmailId());
@@ -101,7 +106,7 @@ public class ProfileFormActivity extends AppCompatActivity {
                 email = etEmailId.getText().toString().trim();
                 if (etName.getText().toString().length() > 0) {
                         if (isValidEmail(email)) {
-                            if(etFatherContact.getText().toString().trim().equals(mSession.getFather_no()))
+                            if(mCcp.getFullNumberWithPlus().equals(mSession.getFather_no()))
                             {
                                 String emergencyContact = mSession.getFather_no();
                                 mRef.child(emergencyContact).child("email").setValue(email);
@@ -109,7 +114,7 @@ public class ProfileFormActivity extends AppCompatActivity {
 
                             }else {
 
-                                String emergencyContact = etFatherContact.getText().toString().trim();
+                                String emergencyContact = mCcp.getFullNumberWithPlus();
                                 mRef.child(emergencyContact).child("emergencyContact").setValue(emergencyContact);
                                 mRef.child(emergencyContact).child("email").setValue(email);
                                 mRef.child(emergencyContact).child("name").setValue(etName.getText().toString());
@@ -118,7 +123,8 @@ public class ProfileFormActivity extends AppCompatActivity {
                             mSession.setFather_name(etFathername.getText().toString());
                             mSession.setAddress(etAddress.getText().toString());
                             mSession.setName(etName.getText().toString());
-                            mSession.setFather_no(etFatherContact.getText().toString());
+                            mSession.setFather_no(mCcp.getFullNumberWithPlus());
+                            mSession.setUserCountryCode(mCcp.getSelectedCountryCode());
                             mSession.setEmailId(email);
                             Toast.makeText(ProfileFormActivity.this, getString(R.string.detailSaved), Toast.LENGTH_SHORT).show();
                             finish();

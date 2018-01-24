@@ -325,6 +325,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                     back.setEnabled(true);
                     flag_keyboard = 1;
                     showActionBarTitle(false);
+                    getSupportActionBar().setTitle(getString(R.string.keyboard));
                 }
             }
         });
@@ -904,6 +905,7 @@ public class LevelTwoActivity extends AppCompatActivity {
             case  5: mBloodGroup = getString(R.string.abNeg); break;
             case  6: mBloodGroup = getString(R.string.oPos); break;
             case  7: mBloodGroup = getString(R.string.oNeg); break;
+            default: mBloodGroup = ""; break;
         }
     }
 

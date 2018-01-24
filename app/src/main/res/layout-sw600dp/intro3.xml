@@ -18,7 +18,7 @@
         android:textColor="#000000"
         android:paddingRight="32dp"
         android:textSize="20dp"
-        android:text="By double-clicking on a category button, user can access further categories and sub-categories"/>
+        android:text="@string/txt_intro3_level2CatDesc"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/eatingcategory2"/>
+            android:src="@drawable/image4"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -49,7 +49,7 @@
             android:paddingLeft="64dp"
             android:paddingRight="64dp"
             android:textSize="20dp"
-            android:text="Navigating within Jellow"/>
+            android:text="@string/txt_intro3_navWithJellow"/>
     </LinearLayout>
     <TextView
         android:layout_width="fill_parent"

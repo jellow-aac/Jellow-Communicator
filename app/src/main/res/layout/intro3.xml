@@ -17,7 +17,7 @@
         android:textColor="#000000"
         android:paddingRight="32dp"
         android:textSize="12sp"
-        android:text="By double-clicking on a category button, user can access further categories and sub-categories"
+        android:text="@string/txt_intro3_level2CatDesc"
         android:id="@+id/tvtop"/>
 
     <LinearLayout
@@ -45,7 +45,7 @@
         android:id="@+id/tvbottom"
         android:fontFamily="fonts/Mukta-Regular.ttf"
         android:textSize="13sp"
-        android:text="Navigating within Jellow"/>
+        android:text="@string/txt_intro3_navWithJellow"/>
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="54dp" />

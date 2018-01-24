@@ -246,6 +246,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                     imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
                     flag_keyboard = 1;
                     showActionBarTitle(false);
+                    getSupportActionBar().setTitle(getString(R.string.keyboard));
                 }
                 back.setImageResource(R.drawable.back_button);
             }

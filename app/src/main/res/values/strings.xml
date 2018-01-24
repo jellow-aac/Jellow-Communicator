@@ -94,8 +94,8 @@
     <string name="submit">SUBMIT</string>
     <string name="appLoading">App is loading…</string>
     <string name="activateGoogleTts">1. Activate Google TTS</string>
-    <string name="changeDefaultToHindi">2. Change default language to Hindi</string>
-    <string name="downloadVoiceTts">3. Download Hindi voice</string>
+    <string name="changeDefaultToHindi">2. Make preferred language as default</string>
+    <string name="downloadVoiceTts">3. Download preferred language</string>
     <string name="activate">ACTIVATE</string>
     <string name="changeLanguage">CHANGE LANGUAGE</string>
     <string name="download">DOWNLOAD</string>
@@ -225,7 +225,7 @@
     <string name="seqActDesc">Jellow can also be used to teach children sequential steps of daily activities. By clicking on any individual step, the user may view the expressive buttons:</string>
     <string name="toiletSeq">Toilet sequence:</string>
     <string name="expBtnSeq">Expressive buttons in the sequence:</string>
-    <string name="ttsDesc">To use Jellow, please activate <b>\'Google text-to-speech (TTS)\'</b> within <b>\'Language\'</b> settings of your device. Within Google TTS settings, first change the <b>default language</b> to <b>\'Hindi (India)\'</b> and then <b>download \'Hindi (India)\' voice</b> through the <b>\'Install voice data\'</b> option</string>
+    <string name="ttsDesc">To use Jellow, please activate <b>\'Google text-to-speech (TTS)\'</b> within <b>\'Language\'</b> settings of your device. Within Google TTS settings, first change the <b>default language</b> to preferred language and then download voice for preferred language through the <b>\'Install voice data\'</b> option</string>
     <string name="softwareVersion">Software version: </string>
     <string name="customSpeakIcon">Press here to speak above text.</string>
     <string name="string_to_speak">Enter words here to speak.</string>
@@ -236,8 +236,32 @@
     <string name="bullet" translatable="false">●</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="no_language_data_avail">Please download selected language data.</string>
-    <string name="downloadErrorMsg" translatable="false">Make sure you have an active internet connection during the download. If the progress stuck at any point, please consider restarting the app/download.</string>
+    <string name="downloadErrorMsg" translatable="false">Please ensure an active internet connection during the entire download process. In case the progress bar is stalled, kindly restart the app or download.</string>
     <string name="default_lang_folder_name" translatable="false">com.dsource.idc.jellow.lang_folder_name</string>
+    <string name="intro_to_jellow">Introduction to Jellow</string>
+    <string name="rate_jellow">Kindly rate Jellow in all fields.</string>
+    <string name="keyboard">Keyboard</string>
+    <string name="user_country_code" translatable="false">com.dsource.idc.jellow.user_country_code</string>
+    <string name="txt_intro1_central9btn">Jellow has 9 central category buttons</string>
+    <string name="txt_intro1_categorybtn">Category buttons</string>
+    <string name="txt_intro5_jellowUsageDesc">The application also has 6 expressive side buttons</string>
+    <string name="txt_intro5_expressiveBtn">Expressive buttons</string>
+    <string name="txt_intro2_appUsageDesc">The user first clicks on a category button and then on an expressive button</string>
+    <string name="txt_intro2_speakUsingJellow">Speaking using Jellow</string>
+    <string name="txt_intro3_level2CatDesc">By double-clicking on a category button, user can access further categories and sub-categories</string>
+    <string name="txt_intro3_navWithJellow">Navigating within Jellow</string>
+    <string name="txt_intro4_customizeAppDesc">User can customize application settings by clicking on top right corner of the application</string>
+    <string name="txt_intro4_customizeJellow">Settings within Jellow</string>
+    <string name="txt_intro6_skipActiveTtsDesc">Devices with active Google TTS engine: Please swipe to skip current step</string>
+    <string name="txt_intro6_ttsStep1">1.Activate Google TTS</string>
+    <string name="txt_intro6_activate">ACTIVATE</string>
+    <string name="txt_intro6_step2">2. Make preferred language as default</string>
+    <string name="txt_intro6_changeLang">CHANGE LANGUAGE</string>
+    <string name="txt_intro6_step3">3. Download preferred language</string>
+    <string name="txt_intro6_download">DOWNLOAD</string>
+    <string name="txt_intro7_getStartedDesc">Now you are ready to get started with Jellow</string>
+    <string name="txt_intro7_getStarted">GET STARTED</string>
+    <string name="completed_intro" >com.dsource.idc.jellow.completed_intro</string>
 </resources>

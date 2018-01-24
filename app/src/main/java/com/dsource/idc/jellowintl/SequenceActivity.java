@@ -417,6 +417,7 @@ public class SequenceActivity extends AppCompatActivity {
                     forward.setVisibility(View.INVISIBLE);
                     flag_keyboard = 1;
                     showActionBarTitle(false);
+                    getSupportActionBar().setTitle(getString(R.string.keyboard));
                 }
                 back.setImageResource(R.drawable.back_button);
             }
@@ -427,7 +428,6 @@ public class SequenceActivity extends AppCompatActivity {
                     speakSpeech(et.getText().toString());
                     if(!et.getText().toString().equals("")) ttsButton.setImageResource(R.drawable.speaker_pressed);
                     reportLog(getLocalClassName()+", TtsSpeak: ", Log.INFO);
-                    //hideActionBtn(true);
                 }
         });
 

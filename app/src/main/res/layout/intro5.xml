@@ -17,7 +17,7 @@
         android:textColor="#000000"
         android:paddingRight="32dp"
         android:textSize="13dp"
-        android:text="The application also has 6 expressive side buttons"
+        android:text="@string/txt_intro5_jellowUsageDesc"
         android:id="@+id/tvtop"/>
 
     <LinearLayout
@@ -45,7 +45,7 @@
         android:id="@+id/tvbottom"
         android:fontFamily="fonts/Mukta-Regular.ttf"
         android:textSize="13dp"
-        android:text="Expressive buttons"/>
+        android:text="@string/txt_intro5_expressiveBtn"/>
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="54dp" />
