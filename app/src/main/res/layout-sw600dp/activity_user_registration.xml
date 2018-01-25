@@ -26,14 +26,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Child's Name"
+                android:text="@string/childName"
                 android:textColor="#000000"
                 android:textSize="19dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="(This is how Jellow calls you)"
+                android:text="@string/txt_registration_jellowCalluDesc"
                 android:textColor="#000000"
                 android:textSize="17dp"/>
 
@@ -49,14 +49,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Emergency Contact No."
+                android:text="@string/careGiverContact"
                 android:textColor="#000000"
                 android:textSize="19dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="(To be used for correspondence in case of an emergency involving the child)"
+                android:text="@string/txt_registration_emergencynoDesc"
                 android:textColor="#000000"
                 android:textSize="17dp"/>
 
@@ -84,14 +84,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email Id"
+                android:text="@string/emailAddress"
                 android:textColor="#000000"
                 android:textSize="19dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="(To notify you about the release of Jellow updates)"
+                android:text="@string/txt_registration_emailDesc"
                 android:textColor="#000000"
                 android:textSize="17dp"/>
 
@@ -107,7 +107,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Select a Language for Jellow"
+                android:text="@string/txt_registration_selectLangDesc"
                 android:textColor="#000000"
                 android:textSize="19dp" />
 
@@ -119,7 +119,7 @@
 
             <Button
                 android:id="@+id/bRegister"
-                android:text="REGISTER"
+                android:text="@string/txt_registration_registerBtn"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 android:textSize="18dp"

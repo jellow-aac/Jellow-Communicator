@@ -236,4 +236,9 @@
     <string name="txt_intro7_getStartedDesc">अब आप जेलो का इस्तमाल करने के लिए तैयार हैं।</string>
     <string name="txt_intro7_getStarted">शुरू करें</string>
     <string name="rate_jellow">कृपया प्रतिक्रिया के सभी क्षेत्र भरें।</string>
+    <string name="txt_registration_jellowCalluDesc">जेलो अॅप्लिकेशन आपको इस नाम से जानता है</string>
+    <string name="txt_registration_emergencynoDesc">आपात्कालीन स्थिति में आप के साथ संपर्क करने के लिए</string>
+    <string name="txt_registration_emailDesc">आपको जेलो अॅप्लिकेशन के नये संस्करण के बारे में सूचित करने के लिए</string>
+    <string name="txt_registration_selectLangDesc">जेलो के लिए भाषा चुनें</string>
+    <string name="txt_registration_registerBtn">रजिस्टर करें</string>
 </resources>

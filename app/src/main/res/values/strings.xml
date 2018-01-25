@@ -263,5 +263,10 @@
     <string name="txt_intro6_download">DOWNLOAD</string>
     <string name="txt_intro7_getStartedDesc">Now you are ready to get started with Jellow</string>
     <string name="txt_intro7_getStarted">GET STARTED</string>
-    <string name="completed_intro" >com.dsource.idc.jellow.completed_intro</string>
+    <string name="completed_intro" translatable="false">com.dsource.idc.jellow.completed_intro</string>
+    <string name="txt_registration_jellowCalluDesc">(This is how Jellow calls you)</string>
+    <string name="txt_registration_emergencynoDesc">(To be used for correspondence in case of an emergency involving the child)</string>
+    <string name="txt_registration_emailDesc">(To notify you about the release of Jellow updates)</string>
+    <string name="txt_registration_selectLangDesc">Select a Language for Jellow</string>
+    <string name="txt_registration_registerBtn">REGISTER</string>
 </resources>

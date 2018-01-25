@@ -38,7 +38,8 @@ public class ProfileFormActivity extends AppCompatActivity {
     private CountryCodePicker mCcp;
     FirebaseDatabase mDB;
     DatabaseReference mRef;
-    
+    private boolean mAutoSetBGSpinner = true, mUserSetTheBloodGroup = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,12 +55,11 @@ public class ProfileFormActivity extends AppCompatActivity {
         etFatherContact = findViewById(R.id.etFathercontact);
         etAddress = findViewById(R.id.etAddress);
         etEmailId = findViewById(R.id.etEmailId);
-        Spinner bloodgroup = findViewById(R.id.bloodgroup);
+        final Spinner bloodgroup = findViewById(R.id.bloodgroup);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.bloodgroup, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         bloodgroup.setAdapter(adapter);
         bSave = findViewById(R.id.bSave);
-        mSession = new SessionManager(getApplicationContext());
 
         mDB = FirebaseDatabase.getInstance();
         mRef = mDB.getReference(BuildConfig.DB_TYPE+"/users");
@@ -73,7 +73,8 @@ public class ProfileFormActivity extends AppCompatActivity {
         etFathername.setText(mSession.getFather_name());
         etAddress.setText(mSession.getAddress());
         etEmailId.setText(mSession.getEmailId());
-        bloodgroup.setSelection(mSession.getBlood());
+        if(mSession.getBlood() != -1 )
+            bloodgroup.setSelection(mSession.getBlood());
 
         etName.addTextChangedListener(new TextWatcher() {
             @Override   public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -94,10 +95,15 @@ public class ProfileFormActivity extends AppCompatActivity {
         bloodgroup.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mSession.setBlood(position);
+                if(mSession.getBlood() == -1 && position == 0 && mAutoSetBGSpinner)
+                    mAutoSetBGSpinner = false;
+                else
+                    mUserSetTheBloodGroup = true;
             }
 
-            @Override   public void onNothingSelected(AdapterView<?> parent) {  }
+            @Override   public void onNothingSelected(AdapterView<?> parent) {
+                Toast.makeText(ProfileFormActivity.this, "test", Toast.LENGTH_SHORT).show();
+            }
         });
 
         bSave.setOnClickListener(new View.OnClickListener() {
@@ -126,6 +132,7 @@ public class ProfileFormActivity extends AppCompatActivity {
                             mSession.setFather_no(mCcp.getFullNumberWithPlus());
                             mSession.setUserCountryCode(mCcp.getSelectedCountryCode());
                             mSession.setEmailId(email);
+                            if(mUserSetTheBloodGroup)mSession.setBlood(bloodgroup.getSelectedItemPosition());
                             Toast.makeText(ProfileFormActivity.this, getString(R.string.detailSaved), Toast.LENGTH_SHORT).show();
                             finish();
 
