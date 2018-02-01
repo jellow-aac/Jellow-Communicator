@@ -6,7 +6,7 @@
 
     <string name="Language">Language</string>
     <string name="ChangeLanguage">Change Language</string>
-    <string name="saveLanguage">Change</string>
+    <string name="saveLanguage">Apply Changes</string>
     <string name="addLanguage">Add Language</string>
     <string name="deleteLanguage">Delete Language</string>
 
@@ -33,8 +33,8 @@
     </string-array>
 
     <string name="change_language_line1">You can download upto 3 languages into the application</string>
-    <string name="change_language_line2">Select any downloaded language from the dropdown below: </string>
-    <string name="change_language_line3">You can download new languages by clicking \'Add Language\' button and remove already downloaded languages by clicking \'Delete Language\' button </string>
+    <string name="change_language_line2">Step 1: Select any downloaded language from the dropdown below: </string>
+    <string name="change_language_line3">You can download new languages by clicking the \'Add Language\' button and remove already downloaded languages by clicking the \'Delete Language\' button </string>
     <string name="simple_ime">Jellow Keyboard</string>
     <string name="subtype_en_US">Serial ABC</string>
     <string name="screen_width" translatable="false">com.dsource.idc.jellow.screen_width</string>
@@ -95,7 +95,7 @@
     <string name="appLoading">App is loading…</string>
     <string name="activateGoogleTts">1. Activate Google TTS</string>
     <string name="changeDefaultToHindi">2. Make preferred language as default</string>
-    <string name="downloadVoiceTts">3. Download preferred language</string>
+    <string name="downloadVoiceTts">3. Download voice in preferred language</string>
     <string name="activate">ACTIVATE</string>
     <string name="changeLanguage">CHANGE LANGUAGE</string>
     <string name="download">DOWNLOAD</string>
@@ -238,7 +238,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="no_language_data_avail">Please download selected language data.</string>
-    <string name="downloadErrorMsg" translatable="false">Please ensure an active internet connection during the entire download process. In case the progress bar is stalled, kindly restart the app or download.</string>
+    <string name="downloadErrorMsg" translatable="false">Please ensure an active internet connection during the entire download process. In case the progress bar is stalled, kindly restart the app or try again</string>
     <string name="default_lang_folder_name" translatable="false">com.dsource.idc.jellow.lang_folder_name</string>
     <string name="intro_to_jellow">Introduction to Jellow</string>
     <string name="rate_jellow">Kindly rate Jellow in all fields.</string>
@@ -259,7 +259,7 @@
     <string name="txt_intro6_activate">ACTIVATE</string>
     <string name="txt_intro6_step2">2. Make preferred language as default</string>
     <string name="txt_intro6_changeLang">CHANGE LANGUAGE</string>
-    <string name="txt_intro6_step3">3. Download preferred language</string>
+    <string name="txt_intro6_step3">3. Download voice in preferred language</string>
     <string name="txt_intro6_download">DOWNLOAD</string>
     <string name="txt_intro7_getStartedDesc">Now you are ready to get started with Jellow</string>
     <string name="txt_intro7_getStarted">GET STARTED</string>
@@ -269,4 +269,12 @@
     <string name="txt_registration_emailDesc">(To notify you about the release of Jellow updates)</string>
     <string name="txt_registration_selectLangDesc">Select a Language for Jellow</string>
     <string name="txt_registration_registerBtn">REGISTER</string>
+    <string name="enternonemptycontact">Please enter the contact number</string>
+    <string name="change_tts_lang">Set TTS engine language</string>
+    <string name="set_engine_language">Set speech engine language first</string>
+    <string name="change_language_line4">Step 2: Set selected language as default for the <b>\'Google Text-to-speech (TTS) Engine\'</b></string>
+    <string name="txtEditLanguage">Edit Languages:</string>
+    <string name="txtChangeLanguage">Change Default Language:</string>
+    <string name="txtApplyChanges">Step 3: Click \'Apply changes\' to set new language as default</string>
+    <string name="change_language_line6">You can follow the steps listed below to set a newly added language as the default for Jellow</string>
 </resources>

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.IBinder;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.Nullable;
@@ -25,9 +26,11 @@ public class JellowTTSService extends Service{
         new BackgroundSpeechOperationsAsync().execute(this);
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_TEXT");
+        filter.addAction("com.dsource.idc.jellowintl.SPEECH_STOP");
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_PITCH");
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_SPEED");
-        filter.addAction("com.dsource.idc.jellowintl.SPEECH_STOP");
+        filter.addAction("com.dsource.idc.jellowintl.SPEECH_LANG");
+        filter.addAction("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_REQ");
         filter.addAction("com.dsource.idc.jellowintl.STOP_SERVICE");
         registerReceiver(receiver, filter);
         return START_STICKY;
@@ -59,8 +62,8 @@ public class JellowTTSService extends Service{
         mTts.setPitch(pitch);
     }
 
-    private void changeTtsLanguage() {
-        switch (new SessionManager(this).getLanguage()){
+    private void changeTtsLanguage(String language) {
+        switch (language){
                 case SessionManager.ENG_UK:
                     mTts.setLanguage(Locale.UK);
                     break;
@@ -81,7 +84,7 @@ public class JellowTTSService extends Service{
 
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(final Context context, Intent intent) {
             switch (intent.getAction()){
                 case "com.dsource.idc.jellowintl.SPEECH_TEXT":
                     say(intent.getStringExtra("speechText")); break;
@@ -89,6 +92,31 @@ public class JellowTTSService extends Service{
                     setPitch(intent.getFloatExtra("speechPitch", new SessionManager(context).getPitch())); break;
                 case "com.dsource.idc.jellowintl.SPEECH_SPEED":
                     setSpeechRate(intent.getFloatExtra("speechSpeed", new SessionManager(context).getSpeed())); break;
+                case "com.dsource.idc.jellowintl.SPEECH_LANG":
+                    changeTtsLanguage(intent.getStringExtra("speechLanguage")); break;
+                case "com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_REQ":
+                    Intent broadcastIntent = new Intent("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES");
+                    String lang="", country="";
+                    if(Build.VERSION.SDK_INT < 18) {
+                        lang = mTts.getLanguage().getLanguage();
+                        country = mTts.getLanguage().getCountry();
+                    }else if(Build.VERSION.SDK_INT > 17 && Build.VERSION.SDK_INT < 21) {
+                        lang = mTts.getDefaultLanguage().getLanguage().substring(0,2);
+                        country = mTts.getDefaultLanguage().getCountry().substring(0,2);
+                    }else if(Build.VERSION.SDK_INT > 21) {
+                        lang = mTts.getDefaultVoice().getLocale().getLanguage();
+                        country = mTts.getDefaultVoice().getLocale().getCountry();
+                    }
+                    broadcastIntent.putExtra("systemTtsRegion", lang.concat("-r".concat(country)));
+                    if(lang.concat("-r".concat(country)).equals("hi-rIN") && intent.getStringExtra("saveSelectedLanguage").equals("en-rIN"))
+                        broadcastIntent.putExtra("saveUserLanguage", true);
+                    else if(intent.getStringExtra("saveSelectedLanguage").equals(lang.concat("-r".concat(country))))
+                        broadcastIntent.putExtra("saveUserLanguage", true);
+                    else broadcastIntent.putExtra("saveUserLanguage", false);
+                    if(!intent.getStringExtra("saveSelectedLanguage").equals(""))
+                        broadcastIntent.putExtra("showError", true);
+                    sendBroadcast(broadcastIntent);
+                    break;
                 case "com.dsource.idc.jellowintl.SPEECH_STOP":
                     stopTtsSay(); break;
                 case "com.dsource.idc.jellowintl.STOP_SERVICE":
@@ -107,7 +135,7 @@ public class JellowTTSService extends Service{
                 public void onInit(int status) {
                     try {
                         mTts.setEngineByPackageName("com.google.android.tts");
-                        changeTtsLanguage();
+                        changeTtsLanguage(new SessionManager(context).getLanguage());
                         mTts.setSpeechRate((float) session.getSpeed()/100);
                         mTts.setPitch((float) session.getPitch()/100);
                     } catch (Exception e) {

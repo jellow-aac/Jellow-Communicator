@@ -14,12 +14,15 @@ import android.view.ViewGroup;
 public class SampleSlideFragment extends Fragment {
 
     private static final String ARG_LAYOUT_RES_ID = "layoutResId";
+    private static final String ARG_LAYOUT_NAME = "layoutName";
+    private String mLayoutName;
 
-    public static SampleSlideFragment newInstance(int layoutResId) {
+    public static SampleSlideFragment newInstance(int layoutResId, String layoutName) {
         SampleSlideFragment sampleSlide = new SampleSlideFragment();
 
         Bundle args = new Bundle();
         args.putInt(ARG_LAYOUT_RES_ID, layoutResId);
+        args.putString(ARG_LAYOUT_NAME, layoutName);
         sampleSlide.setArguments(args);
 
         return sampleSlide;
@@ -33,9 +36,10 @@ public class SampleSlideFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(getArguments() != null && getArguments().containsKey(ARG_LAYOUT_RES_ID))
+        if(getArguments() != null && getArguments().containsKey(ARG_LAYOUT_RES_ID) && getArguments().containsKey(ARG_LAYOUT_NAME)) {
             layoutResId = getArguments().getInt(ARG_LAYOUT_RES_ID);
-
+            mLayoutName = getArguments().getString(ARG_LAYOUT_NAME);
+        }
     }
 
     @Nullable
@@ -44,4 +48,7 @@ public class SampleSlideFragment extends Fragment {
         return inflater.inflate(layoutResId, container, false);
     }
 
+    public String getLayoutName() {
+        return mLayoutName;
+    }
 }

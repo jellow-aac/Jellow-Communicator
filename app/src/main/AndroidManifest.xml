@@ -52,7 +52,6 @@
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -117,10 +116,8 @@
             android:name="com.dsource.idc.jellowintl.LanguageDownloadActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-
         <activity android:name="com.dsource.idc.jellowintl.LanguageSelectActivity"
-            android:screenOrientation="landscape">
-        </activity>
+            android:screenOrientation="landscape"/>
     </application>
 
 </manifest>

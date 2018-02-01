@@ -7,7 +7,7 @@
 
     <string name="Language">भाषा</string>
     <string name="ChangeLanguage">भाषा बदलो</string>
-    <string name="saveLanguage">रक्षित करें</string>
+    <string name="saveLanguage">भाषा बदलो</string>
     <string name="addLanguage">भाषा जोड़ें</string>
     <string name="deleteLanguage">भाषा डिलीट करें</string>
     <string name="languageChanged">भाषा रक्षित की गई हैं</string>

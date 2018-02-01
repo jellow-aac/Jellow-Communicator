@@ -741,10 +741,10 @@
         <item>shop_transport</item>
     </string-array>
     <string-array name="arrLevelThreeLearningMoneyIconAdapter">
-        <item>rupees500</item>
-        <item>rupees10</item>
-        <item>rupees20</item>
-        <item>rupees50</item>
+        <item>fivepound</item>
+        <item>tenpound</item>
+        <item>twentypound</item>
+        <item>fiftypound</item>
         <item>moneychange</item>
     </string-array>
 

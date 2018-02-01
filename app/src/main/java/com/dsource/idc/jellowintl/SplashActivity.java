@@ -1,5 +1,7 @@
 package com.dsource.idc.jellowintl;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -29,7 +31,8 @@ public class SplashActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        startTTsService();
+        if(!isMyServiceRunning(JellowTTSService.class))
+            startTTsService();
         PlayGifView pGif = findViewById(R.id.viewGif);
         pGif.setImageResource(R.drawable.jellow_j);
         new ChangeAppLocale(this).setLocale();
@@ -61,5 +64,15 @@ public class SplashActivity extends AppCompatActivity {
 
     private void startTTsService() {
         startService(new Intent(getApplication(), JellowTTSService.class));
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

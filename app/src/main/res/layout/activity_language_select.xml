@@ -6,26 +6,29 @@
     android:orientation="vertical"
     android:background="#F7F3C6"
     tools:context="com.dsource.idc.jellowintl.LanguageSelectActivity">
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="19dp"
         android:fadeScrollbars="false"
         android:fillViewport="true">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/txtEditLanguage"
+                android:fontFamily="fonts/Mukta-Regular.ttf"
+                android:textColor="#000000"
+                android:layout_marginBottom="10dp"
+                android:textStyle="bold"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="19dp"
                 android:orientation="horizontal">
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -35,72 +38,6 @@
                     android:scaleY=".7"
                     android:text="@string/bullet"
                     android:textColor="#000" />
-
-                <TextView
-                    android:id="@+id/tv2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/change_language_line2"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <Spinner
-                android:id="@+id/selectDownloadedLanguageSpinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:id="@+id/saveBut"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_margin="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:background="#FFBEBCB6"
-                android:text="@string/saveLanguage" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="4dp"
-                    android:layout_marginRight="4dp"
-                    android:scaleX=".7"
-                    android:scaleY=".7"
-                    android:text="@string/bullet"
-                    android:textColor="#000" />
-
-                <TextView
-                    android:id="@+id/tv1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLines="2"
-                    android:text="@string/change_language_line1"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="4dp"
-                    android:layout_marginRight="4dp"
-                    android:scaleX=".7"
-                    android:scaleY=".7"
-                    android:text="@string/bullet"
-                    android:textColor="#000" />
-
                 <TextView
                     android:id="@+id/tv3"
                     android:layout_width="match_parent"
@@ -110,49 +47,184 @@
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textSize="14sp" />
             </LinearLayout>
-            <View
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginRight="4dp"
+                    android:scaleX=".7"
+                    android:scaleY=".7"
+                    android:text="@string/bullet"
+                    android:textColor="#000" />
+                <TextView
+                    android:id="@+id/tv1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"
+                    android:text="@string/change_language_line1"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14sp" />
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"/>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
+                <Button
+                    android:id="@+id/addBut"
+                    android:layout_width="230dp"
+                    android:layout_height="30dp"
+                    android:background="#FFBEBCB6"
+                    android:text="@string/addLanguage" />
+                <Button
+                    android:id="@+id/delBut"
+                    android:layout_width="230dp"
+                    android:layout_height="30dp"
+                    android:background="#FFBEBCB6"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/deleteLanguage" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginRight="4dp"
+                    android:scaleX=".7"
+                    android:scaleY=".7"
+                    android:text="@string/bullet"
+                    android:textColor="#000" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"
+                    android:text="@string/change_language_line6"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14sp" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/txtChangeLanguage"
+                android:fontFamily="fonts/Mukta-Regular.ttf"
+                android:textColor="#000000"
+                android:layout_marginBottom="10dp"
+                android:textStyle="bold"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginRight="4dp"
+                    android:scaleX=".7"
+                    android:scaleY=".7"
+                    android:text="@string/bullet"
+                    android:textColor="#000" />
+                <TextView
+                    android:id="@+id/tv2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/change_language_line2"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14sp" />
+            </LinearLayout>
+            <Spinner
+                android:id="@+id/selectDownloadedLanguageSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginRight="4dp"
+                    android:scaleX=".7"
+                    android:scaleY=".7"
+                    android:text="@string/bullet"
+                    android:textColor="#000" />
+                <TextView
+                    android:id="@+id/tv4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/change_language_line4"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="120dp"
+                    android:layout_height="150dp"
+                    android:src="@drawable/gtts2"/>
+                <ImageView
+                    android:id="@+id/arrow2"
+                    android:layout_width="55dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/arrow"
+                    android:layout_gravity="center_vertical"/>
+                <ImageView
+                    android:layout_width="120dp"
+                    android:layout_height="150dp"
+                    android:src="@drawable/gtts4"/>
+            </LinearLayout>
+            <Button
+                android:id="@+id/changeTtsLangBut"
+                android:layout_width="230dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="10dp"
+                android:background="#FFBEBCB6"
+                android:text="@string/change_tts_lang"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginRight="4dp"
+                    android:scaleX=".7"
+                    android:scaleY=".7"
+                    android:text="@string/bullet"
+                    android:textColor="#000" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txtApplyChanges"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
+            </LinearLayout>
+            <Button
+                android:id="@+id/saveBut"
+                android:layout_width="230dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="10dp"
+                android:background="#FFBEBCB6"
+                android:text="@string/saveLanguage" />
         </LinearLayout>
     </ScrollView>
-
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        android:background="#F7E2AC">
-
-
-
-        <Button
-            android:id="@+id/addBut"
-            android:layout_width="230dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="20dp"
-            android:background="#FFBEBCB6"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:text="@string/addLanguage" />
-
-        <Button
-            android:id="@+id/delBut"
-            android:layout_width="230dp"
-            android:layout_height="30dp"
-            android:background="#FFBEBCB6"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:text="@string/deleteLanguage" />
-
-    </LinearLayout>
-
-
-
-
-
 </RelativeLayout>

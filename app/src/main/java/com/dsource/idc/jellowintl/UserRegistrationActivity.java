@@ -4,7 +4,11 @@ package com.dsource.idc.jellowintl;
  * Created by user on 5/25/2016.
  */
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +34,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.hbb20.CountryCodePicker;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -142,25 +150,28 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 String name, emergencyContact, eMailId, formattedDate;
                 name  = etName.getText().toString();
                 emergencyContact = mCcp.getFullNumberWithPlus();
-                if (etName.getText().length()>0){
-                    eMailId = etEmailId.getText().toString().trim();
-                    if (isValidEmail(eMailId)){
-                        if(selectedLanguage != null) {
-                            mSession.setName(name);
-                            mSession.setFather_no(emergencyContact);
-                            mSession.setUserCountryCode(mCcp.getSelectedCountryCode());
-                            mSession.setEmailId(eMailId);
-                            Calendar ca = Calendar.getInstance();
-                            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                            formattedDate = df.format(ca.getTime());
-                            bRegister.setEnabled(false);
-                            createUser(name, emergencyContact, eMailId, formattedDate);
-                        } else
-                            Toast.makeText(getBaseContext(),"Please Select a Language", Toast.LENGTH_SHORT).show();
-                    }else
-                        Toast.makeText(getBaseContext(),getString(R.string.invalid_emailId), Toast.LENGTH_SHORT).show();
-                }else
+                bRegister.setEnabled(false);
+                if (etName.getText().toString().equals("")) {
+                    bRegister.setEnabled(true);
                     Toast.makeText(getBaseContext(), getString(R.string.enterTheName), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(etEmergencyContact.getText().toString().equals("")){
+                    bRegister.setEnabled(true);
+                    Toast.makeText(getBaseContext(), getString(R.string.enternonemptycontact), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                eMailId = etEmailId.getText().toString().trim();
+                if (!isValidEmail(eMailId)){
+                    bRegister.setEnabled(true);
+                    Toast.makeText(getBaseContext(),getString(R.string.invalid_emailId), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(selectedLanguage == null) return;
+                Calendar ca = Calendar.getInstance();
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                formattedDate = df.format(ca.getTime());
+                new NetworkConnectionTest(UserRegistrationActivity.this, name, emergencyContact, eMailId, formattedDate).execute();
             }
         });
     }
@@ -209,5 +220,61 @@ public class UserRegistrationActivity extends AppCompatActivity {
         }
     }
 
-}
+    private class NetworkConnectionTest extends AsyncTask<Void, Void, Boolean>{
+        private Context mContext;
+        private String mName, mEmergencyContact, mEmailId, mFormattedDate;
+        private SessionManager mSession;
 
+        public NetworkConnectionTest(Context context, String name, String emergencyContact, String eMailId, String formattedDate) {
+            mContext = context;
+            mName = name;
+            mEmergencyContact = emergencyContact;
+            mEmailId = eMailId;
+            mFormattedDate = formattedDate;
+            mSession = new SessionManager(mContext);
+        }
+
+        boolean isConnectedToNetwork(){
+            final ConnectivityManager connMgr = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo activeNetworkInfo = connMgr.getActiveNetworkInfo();
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            if(!isConnectedToNetwork())
+                return false;
+            try {
+                URL url = new URL("http://www.google.com");
+                HttpURLConnection urlc = (HttpURLConnection) url.openConnection();
+                urlc.setConnectTimeout(3000);
+                urlc.connect();
+                if (urlc.getResponseCode() == HttpURLConnection.HTTP_OK)
+                    return true;
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean isConnected) {
+            super.onPostExecute(isConnected);
+            if(isConnected){
+                mSession.setName(mName);
+                mSession.setFather_no(mEmergencyContact);
+                mSession.setUserCountryCode(mCcp.getSelectedCountryCode());
+                mSession.setEmailId(mEmailId);
+                Calendar ca = Calendar.getInstance();
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                mFormattedDate = df.format(ca.getTime());
+                createUser(mName, mEmergencyContact, mEmailId, mFormattedDate);
+            }else{
+                bRegister.setEnabled(true);
+                Toast.makeText(UserRegistrationActivity.this, getString(R.string.checkInternetConn), Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+}
