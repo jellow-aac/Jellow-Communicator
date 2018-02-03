@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private final boolean DISABLE_ACTION_BTNS = true;
 
     private int mCk = 0, mCy = 0, mCm = 0, mCd = 0, mCn = 0, mCl = 0;
-    private int image_flag = -1, flag_keyboard = 0;
+    private int image_flag = -1, flag_keyboard = 0, flagTtsNotWorking = 0;
     private ImageView like, dislike, add, minus, yes, no, home, keyboard, ttsButton, back;
     private EditText et;
     private TextView actionBarTitle;
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<ArrayList<String>> mLayerOneSpeech;
     private String[] myMusic, side, below;
     private String actionBarTitleTxt;
-    private boolean mKeyChange;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -457,6 +457,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        /*IntentFilter filter = new IntentFilter();
+        filter.addAction("com.dsource.idc.jellowintl.SPEECH_IS_TTS_SPEAKING_RES");
+        registerReceiver(receiver, filter);*/
     }
 
     @Override
@@ -539,6 +543,7 @@ public class MainActivity extends AppCompatActivity {
         }
         mLevelOneItemPos = mRecyclerView.getChildLayoutPosition(view);
         mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
+        //checkTtsEngineWorking();
         reportLog(getLocalClassName()+" "+mLevelOneItemPos, Log.INFO);
     }
 
@@ -685,4 +690,26 @@ public class MainActivity extends AppCompatActivity {
             setMenuImageBorder(mRecyclerView.getChildAt(i), false);
         }
     }
+
+    /*private final BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(final Context context, Intent intent) {
+            switch (intent.getAction()){
+                case "com.dsource.idc.jellowintl.SPEECH_IS_TTS_SPEAKING_RES":
+                    boolean ttsEngineWorking = intent.getBooleanExtra("isSpeaking",false);
+                    if(!ttsEngineWorking)
+                        ++flagTtsNotWorking;
+                    else
+                        flagTtsNotWorking = 0;
+                    if(flagTtsNotWorking > 5) {
+                        Toast.makeText(context, getString(R.string.tts_not_init), Toast.LENGTH_SHORT).show();
+                        flagTtsNotWorking = 0;
+                    }
+                    break;
+            }
+        }
+    };
+    void checkTtsEngineWorking(){
+        sendBroadcast(new Intent("com.dsource.idc.jellowintl.SPEECH_IS_TTS_SPEAKING_REQ"));
+    }*/
 }

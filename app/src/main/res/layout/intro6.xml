@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg">
     <TextView
+        android:id="@+id/tx_downloadMsg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="fonts/Mukta-Regular.ttf"

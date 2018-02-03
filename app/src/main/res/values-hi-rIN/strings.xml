@@ -7,7 +7,7 @@
 
     <string name="Language">भाषा</string>
     <string name="ChangeLanguage">भाषा बदलो</string>
-    <string name="saveLanguage">भाषा बदलो</string>
+    <string name="saveLanguage">भाषा बदलें</string>
     <string name="addLanguage">भाषा जोड़ें</string>
     <string name="deleteLanguage">भाषा डिलीट करें</string>
     <string name="languageChanged">भाषा रक्षित की गई हैं</string>
@@ -241,4 +241,11 @@
     <string name="txt_registration_emailDesc">आपको जेलो अॅप्लिकेशन के नये संस्करण के बारे में सूचित करने के लिए</string>
     <string name="txt_registration_selectLangDesc">जेलो के लिए भाषा चुनें</string>
     <string name="txt_registration_registerBtn">रजिस्टर करें</string>
+    <string name="txtEditLanguage">भाषा संपादित करें:</string>
+    <string name="change_language_line6">डाउनलोड की गई नई भाषा को डिफ़ॉल्ट बनाने के लिये नीचे दिये गये चरणोंका पालन करें</string>
+    <string name="txtChangeLanguage">डिफ़ॉल्ट भाषा बदलें:</string>
+    <string name="change_language_line4">चरण २: चुने हुए भाषा को <b>\'गूगल टेक्स्ट-टू-स्पीच इंजन\'</b> में डिफ़ॉल्ट बनाएँ</string>
+    <string name="change_tts_lang">टेक्स्ट-टू-स्पीच की  भाषा को रक्षित करें</string>
+    <string name="txtApplyChanges">चरण ३: नई भाषा को डिफ़ॉल्ट बनाने के लिये \'भाषा बदलें\' पर क्लिक करें</string>
+    <string name="enternonemptycontact">कृपया संपर्क नंबर दर्ज करें</string>
 </resources>

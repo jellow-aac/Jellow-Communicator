@@ -31,6 +31,7 @@ public class JellowTTSService extends Service{
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_SPEED");
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_LANG");
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_REQ");
+        filter.addAction("com.dsource.idc.jellowintl.SPEECH_IS_TTS_SPEAKING_REQ");
         filter.addAction("com.dsource.idc.jellowintl.STOP_SERVICE");
         registerReceiver(receiver, filter);
         return START_STICKY;
@@ -116,6 +117,11 @@ public class JellowTTSService extends Service{
                     if(!intent.getStringExtra("saveSelectedLanguage").equals(""))
                         broadcastIntent.putExtra("showError", true);
                     sendBroadcast(broadcastIntent);
+                    break;
+                case "com.dsource.idc.jellowintl.SPEECH_IS_TTS_SPEAKING_REQ":
+                    /*Intent speakTestIntent = new Intent("com.dsource.idc.jellowintl.SPEECH_IS_TTS_SPEAKING_RES");
+                    speakTestIntent.putExtra("isSpeaking", mTts.isSpeaking());
+                    sendBroadcast(speakTestIntent);*/
                     break;
                 case "com.dsource.idc.jellowintl.SPEECH_STOP":
                     stopTtsSay(); break;

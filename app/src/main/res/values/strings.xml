@@ -33,8 +33,8 @@
     </string-array>
 
     <string name="change_language_line1">You can download upto 3 languages into the application</string>
-    <string name="change_language_line2">Step 1: Select any downloaded language from the dropdown below: </string>
-    <string name="change_language_line3">You can download new languages by clicking the \'Add Language\' button and remove already downloaded languages by clicking the \'Delete Language\' button </string>
+    <string name="change_language_line2">Step 1: Select any downloaded language from the dropdown below:</string>
+    <string name="change_language_line3">You can download new languages by clicking the \'Add Language\' button and remove already downloaded languages by clicking the \'Delete Language\' button</string>
     <string name="simple_ime">Jellow Keyboard</string>
     <string name="subtype_en_US">Serial ABC</string>
     <string name="screen_width" translatable="false">com.dsource.idc.jellow.screen_width</string>
@@ -254,7 +254,7 @@
     <string name="txt_intro3_navWithJellow">Navigating within Jellow</string>
     <string name="txt_intro4_customizeAppDesc">User can customize application settings by clicking on top right corner of the application</string>
     <string name="txt_intro4_customizeJellow">Settings within Jellow</string>
-    <string name="txt_intro6_skipActiveTtsDesc">Devices with active Google TTS engine: Please swipe to skip current step</string>
+    <string name="txt_intro6_skipActiveTtsDesc">Set Google Tts as default speech engine then set language as</string>
     <string name="txt_intro6_ttsStep1">1.Activate Google TTS</string>
     <string name="txt_intro6_activate">ACTIVATE</string>
     <string name="txt_intro6_step2">2. Make preferred language as default</string>
@@ -277,4 +277,7 @@
     <string name="txtChangeLanguage">Change Default Language:</string>
     <string name="txtApplyChanges">Step 3: Click \'Apply changes\' to set new language as default</string>
     <string name="change_language_line6">You can follow the steps listed below to set a newly added language as the default for Jellow</string>
+    <string name="txt_set_tts_setup">Please complete Text-to-Speech engine setup</string>
+    <string name="tts_not_init">Please make sure Tts engine settings is correct or Tts data is downloaded.</string>
+    <string name="txt_save_same_lang_def">Selected language is already default language.</string>
 </resources>

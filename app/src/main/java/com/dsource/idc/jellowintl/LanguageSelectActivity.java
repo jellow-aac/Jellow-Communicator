@@ -104,18 +104,12 @@ public class LanguageSelectActivity extends AppCompatActivity{
             public void onClick(View v) {
                 if(selectedLanguage != null)
                 {
-                    if (mSession.getLanguage().equals(LangMap.get(selectedLanguage))) return;
+                    if (mSession.getLanguage().equals(LangMap.get(selectedLanguage))){
+                        Toast.makeText(LanguageSelectActivity.this, getString(R.string.txt_save_same_lang_def), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     getSpeechLanguage(LangMap.get(selectedLanguage));
-                    /*if(mSession.getLanguage().equals(LangMap.get(selectedLanguage))) return;
-                    mSession.setLanguage(LangMap.get(selectedLanguage));
-                    ChangeAppLocale changeAppLocale = new ChangeAppLocale(getBaseContext());
-                    changeAppLocale.setLocale();
-                    Toast.makeText(LanguageSelectActivity.this,getString(R.string.languageChanged),Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(), SplashActivity.class));
-                    finishAffinity();*/
-
-                } else
-                    Toast.makeText(getBaseContext(),"Please Select a Language",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

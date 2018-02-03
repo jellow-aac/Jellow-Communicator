@@ -64,9 +64,16 @@ public class AboutJellowActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        new ChangeAppLocale(this).setLocale();
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
         new ChangeAppLocale(this).setLocale();
+        stopSpeech();
     }
 
     @Override
