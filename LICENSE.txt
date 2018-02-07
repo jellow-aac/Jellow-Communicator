@@ -1,4 +1,4 @@
-The 3-Clause BSD License
+BSD 3-Clause License
 This license has also been called the "New BSD License" or "Modified BSD License"
 
 Copyright (c) 2015 - present NINAAD DIGITAL TECHNOLOGY PRIVATE LIMITED.
