@@ -154,6 +154,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="19dp"/>
             <LinearLayout
+                android:id="@+id/llStep2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="19dp"
@@ -176,6 +177,7 @@
                     android:textSize="18sp" />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/llImg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="19dp"
@@ -203,6 +205,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/change_tts_lang"/>
             <LinearLayout
+                android:id="@+id/llStep3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="19dp">

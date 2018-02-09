@@ -1,8 +1,11 @@
 package com.dsource.idc.jellowintl;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -42,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private final boolean DISABLE_ACTION_BTNS = true;
 
     private int mCk = 0, mCy = 0, mCm = 0, mCd = 0, mCn = 0, mCl = 0;
-    private int image_flag = -1, flag_keyboard = 0, flagTtsNotWorking = 0;
+    private int image_flag = -1, flag_keyboard = 0, flagTtsNotWorking = -1;
     private ImageView like, dislike, add, minus, yes, no, home, keyboard, ttsButton, back;
     private EditText et;
     private TextView actionBarTitle;
@@ -55,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private Analytics mAnalytics;
     private ArrayList<ArrayList<String>> mLayerOneSpeech;
     private String[] myMusic, side, below;
-    private String actionBarTitleTxt;
+    private String actionBarTitleTxt, mSysTtsReg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -457,10 +460,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-        /*IntentFilter filter = new IntentFilter();
-        filter.addAction("com.dsource.idc.jellowintl.SPEECH_IS_TTS_SPEAKING_RES");
-        registerReceiver(receiver, filter);*/
+        if(Build.VERSION.SDK_INT < 23)
+            getSpeechLanguage("");
     }
 
     @Override
@@ -503,6 +504,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         startMeasuring();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES");
+        filter.addAction("com.dsource.idc.jellowintl.SPEECH_TTS_ERROR");
+        registerReceiver(receiver, filter);
         new ChangeAppLocale(this).setLocale();
     }
 
@@ -510,6 +515,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         stopMeasuring("LevelOneActivity");
+        unregisterReceiver(receiver);
         new ChangeAppLocale(this).setLocale();
     }
 
@@ -543,7 +549,6 @@ public class MainActivity extends AppCompatActivity {
         }
         mLevelOneItemPos = mRecyclerView.getChildLayoutPosition(view);
         mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
-        //checkTtsEngineWorking();
         reportLog(getLocalClassName()+" "+mLevelOneItemPos, Log.INFO);
     }
 
@@ -691,25 +696,32 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /*private final BroadcastReceiver receiver = new BroadcastReceiver() {
+    private void getSpeechLanguage(String saveLanguage){
+        Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_REQ");
+        intent.putExtra("saveSelectedLanguage", saveLanguage);
+        sendBroadcast(intent);
+    }
+
+    private final BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(final Context context, Intent intent) {
             switch (intent.getAction()){
-                case "com.dsource.idc.jellowintl.SPEECH_IS_TTS_SPEAKING_RES":
-                    boolean ttsEngineWorking = intent.getBooleanExtra("isSpeaking",false);
-                    if(!ttsEngineWorking)
-                        ++flagTtsNotWorking;
-                    else
-                        flagTtsNotWorking = 0;
-                    if(flagTtsNotWorking > 5) {
-                        Toast.makeText(context, getString(R.string.tts_not_init), Toast.LENGTH_SHORT).show();
-                        flagTtsNotWorking = 0;
+                case "com.dsource.idc.jellowintl.SPEECH_TTS_ERROR":
+                    if(++flagTtsNotWorking > 2)
+                        Toast.makeText(context, getString(R.string.speech_engin_lang_sam), Toast.LENGTH_LONG).show();
+                    break;
+                case "com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES":
+                    SessionManager session = new SessionManager(MainActivity.this);
+                    String userLang = session.getLanguage();
+                    session.setLangSettingIsCorrect(true);
+                    mSysTtsReg = intent.getStringExtra("systemTtsRegion");
+                    if((userLang.equals("en-rIN") && !mSysTtsReg.equals("hi-rIN"))
+                            || (!userLang.equals("en-rIN") && !userLang.equals(mSysTtsReg))) {
+                        Toast.makeText(context, getString(R.string.speech_engin_lang_sam), Toast.LENGTH_LONG).show();
+                        session.setLangSettingIsCorrect(false);
                     }
                     break;
             }
         }
     };
-    void checkTtsEngineWorking(){
-        sendBroadcast(new Intent("com.dsource.idc.jellowintl.SPEECH_IS_TTS_SPEAKING_REQ"));
-    }*/
 }

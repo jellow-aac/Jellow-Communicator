@@ -3,6 +3,7 @@
 
 
     <string-array name="bloodgroup">
+        <item>not selected</item>
         <item>A+ve</item>
         <item>A-ve</item>
         <item>B+ve</item>

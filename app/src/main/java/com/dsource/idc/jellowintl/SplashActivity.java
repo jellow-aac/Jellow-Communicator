@@ -31,8 +31,9 @@ public class SplashActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        if(!isMyServiceRunning(JellowTTSService.class))
-            startTTsService();
+        if(isMyServiceRunning(JellowTTSService.class))
+            stopTTsService();
+        startTTsService();
         PlayGifView pGif = findViewById(R.id.viewGif);
         pGif.setImageResource(R.drawable.jellow_j);
         new ChangeAppLocale(this).setLocale();
@@ -64,6 +65,11 @@ public class SplashActivity extends AppCompatActivity {
 
     private void startTTsService() {
         startService(new Intent(getApplication(), JellowTTSService.class));
+    }
+
+    private void stopTTsService() {
+        Intent intent = new Intent("com.dsource.idc.jellowintl.STOP_SERVICE");
+        sendBroadcast(intent);
     }
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {

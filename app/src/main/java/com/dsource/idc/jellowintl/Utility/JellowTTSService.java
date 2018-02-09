@@ -9,8 +9,10 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.IBinder;
 import android.speech.tts.TextToSpeech;
+import android.speech.tts.UtteranceProgressListener;
 import android.support.annotation.Nullable;
 
+import java.util.HashMap;
 import java.util.Locale;
 
 import static com.dsource.idc.jellowintl.Utility.Analytics.reportException;
@@ -20,9 +22,13 @@ import static com.dsource.idc.jellowintl.Utility.Analytics.reportException;
  */
 public class JellowTTSService extends Service{
     private TextToSpeech mTts;
+    HashMap<String, String> map;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        map = new HashMap<String, String>();
+        String UTTERANCE_ID = "com.dsource.idc.jellowintl.utterence.id";
+        map.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, UTTERANCE_ID);
         new BackgroundSpeechOperationsAsync().execute(this);
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_TEXT");
@@ -31,7 +37,6 @@ public class JellowTTSService extends Service{
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_SPEED");
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_LANG");
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_REQ");
-        filter.addAction("com.dsource.idc.jellowintl.SPEECH_IS_TTS_SPEAKING_REQ");
         filter.addAction("com.dsource.idc.jellowintl.STOP_SERVICE");
         registerReceiver(receiver, filter);
         return START_STICKY;
@@ -52,7 +57,7 @@ public class JellowTTSService extends Service{
     }
 
     private void say(String speechText){
-        mTts.speak(speechText, TextToSpeech.QUEUE_FLUSH, null);
+        mTts.speak(speechText, TextToSpeech.QUEUE_FLUSH, map);
     }
 
     private void setSpeechRate(float rate){
@@ -111,17 +116,13 @@ public class JellowTTSService extends Service{
                     broadcastIntent.putExtra("systemTtsRegion", lang.concat("-r".concat(country)));
                     if(lang.concat("-r".concat(country)).equals("hi-rIN") && intent.getStringExtra("saveSelectedLanguage").equals("en-rIN"))
                         broadcastIntent.putExtra("saveUserLanguage", true);
-                    else if(intent.getStringExtra("saveSelectedLanguage").equals(lang.concat("-r".concat(country))))
+                    else if(!intent.getStringExtra("saveSelectedLanguage").equals("en-rIN") &&
+                            intent.getStringExtra("saveSelectedLanguage").equals(lang.concat("-r".concat(country))))
                         broadcastIntent.putExtra("saveUserLanguage", true);
                     else broadcastIntent.putExtra("saveUserLanguage", false);
                     if(!intent.getStringExtra("saveSelectedLanguage").equals(""))
                         broadcastIntent.putExtra("showError", true);
                     sendBroadcast(broadcastIntent);
-                    break;
-                case "com.dsource.idc.jellowintl.SPEECH_IS_TTS_SPEAKING_REQ":
-                    /*Intent speakTestIntent = new Intent("com.dsource.idc.jellowintl.SPEECH_IS_TTS_SPEAKING_RES");
-                    speakTestIntent.putExtra("isSpeaking", mTts.isSpeaking());
-                    sendBroadcast(speakTestIntent);*/
                     break;
                 case "com.dsource.idc.jellowintl.SPEECH_STOP":
                     stopTtsSay(); break;
@@ -147,6 +148,22 @@ public class JellowTTSService extends Service{
                     } catch (Exception e) {
                         reportException(e);
                     }
+                }
+            });
+            mTts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
+                @Override
+                public void onStart(String utteranceId) {
+                    String s = utteranceId;
+                }
+
+                @Override
+                public void onDone(String utteranceId) {
+                    String s = utteranceId;
+                }
+
+                @Override
+                public void onError(String utteranceId) {
+                    sendBroadcast(new Intent("com.dsource.idc.jellowintl.SPEECH_TTS_ERROR"));
                 }
             });
             return null;

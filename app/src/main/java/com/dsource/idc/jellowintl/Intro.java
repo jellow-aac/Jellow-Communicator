@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.Nullable;
@@ -85,22 +86,31 @@ public class Intro extends AppIntro {
     @Override
     public void onSlideChanged(@Nullable Fragment oldFragment, @Nullable Fragment newFragment) {
         super.onSlideChanged(oldFragment, newFragment);
-        if(((SampleSlideFragment) newFragment).getLayoutName().equals("intro6") ||
+        if (((SampleSlideFragment) newFragment).getLayoutName().equals("intro6") ||
                 ((SampleSlideFragment) newFragment).getLayoutName().equals("intro7")) {
-            getSpeechLanguage("");
-            ((TextView) findViewById(R.id.tx_downloadMsg)).setText(selectedLanguage);
+            if(Build.VERSION.SDK_INT < 23) {
+                getSpeechLanguage("");
+                ((TextView) findViewById(R.id.tx_downloadMsg)).setText(selectedLanguage);
+            }else
+                ((TextView) findViewById(R.id.tx_downloadMsg)).setText(getString(R.string.txt_intro6_skipTtsSetup));
         }
     }
 
     public void getStarted(View view) {
         SessionManager session = new SessionManager(this);
-        if(session.getLanguage().equals(mSysTtsLang) ||
-                (session.getLanguage().equals("en-rIN") && mSysTtsLang.equals("hi-rIN")) ) {
+        if(Build.VERSION.SDK_INT < 23) {
+            if ((session.getLanguage().equals("en-rIN") && mSysTtsLang.equals("hi-rIN")) ||
+                    (!session.getLanguage().equals("en-rIN") && session.getLanguage().equals(mSysTtsLang))) {
+                session.setCompletedIntro(true);
+                startActivity(new Intent(Intro.this, SplashActivity.class));
+                finish();
+            } else
+                Toast.makeText(this, getString(R.string.txt_set_tts_setup), Toast.LENGTH_LONG).show();
+        }else {
             session.setCompletedIntro(true);
             startActivity(new Intent(Intro.this, SplashActivity.class));
             finish();
-        }else
-            Toast.makeText(this, getString(R.string.txt_set_tts_setup), Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void getStarted1(View view){

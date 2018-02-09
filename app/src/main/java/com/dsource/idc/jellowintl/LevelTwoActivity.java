@@ -2,8 +2,11 @@ package com.dsource.idc.jellowintl;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -17,12 +20,14 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.dsource.idc.jellowintl.Models.LevelTwoVerbiageModel;
 import com.dsource.idc.jellowintl.Utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.Utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.Utility.IndexSorter;
 import com.dsource.idc.jellowintl.Utility.SessionManager;
+import com.dsource.idc.jellowintl.Utility.ToastWithCustomTime;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -36,6 +41,7 @@ import static com.dsource.idc.jellowintl.Utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.Utility.Analytics.stopMeasuring;
 
 public class LevelTwoActivity extends AppCompatActivity {
+    private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 0;
     private final int REQ_HOME = 0, MENU_ITEM_DAILY_ACT = 1, MENU_ITEM_PEOPLE = 5, MENU_ITEM_PLACES = 6, MENU_ITEM_HELP = 8;
     private final boolean DISABLE_ACTION_BTNS = true;
 
@@ -834,9 +840,12 @@ public class LevelTwoActivity extends AppCompatActivity {
         if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 1)
             setActionButtonToAboutMe(-1);
         if(mLevelOneItemPos == MENU_ITEM_HELP &&
-                ((mLevelTwoItemPos == 0) ||(mLevelTwoItemPos == 2) || (mLevelTwoItemPos == 3) || (mLevelTwoItemPos == 4) ||(mLevelTwoItemPos == 5) ||(mLevelTwoItemPos == 12) ||(mLevelTwoItemPos == 13) ||(mLevelTwoItemPos == 14)))
+                ((mLevelTwoItemPos == 2) || (mLevelTwoItemPos == 3) || (mLevelTwoItemPos == 4) ||(mLevelTwoItemPos == 5) ||(mLevelTwoItemPos == 12) ||(mLevelTwoItemPos == 13) ||(mLevelTwoItemPos == 14)))
             changeTheActionButtons(DISABLE_ACTION_BTNS);
-        else if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 10)
+        else if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 0) {
+            changeTheActionButtons(DISABLE_ACTION_BTNS);
+            //showCallPreview();
+        }else if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 10)
             badTouchDisableActionButtons();
         else if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 15)
             safetyDisableActionButtons();
@@ -897,14 +906,14 @@ public class LevelTwoActivity extends AppCompatActivity {
 
     private void setBloodGroup() {
         switch(mSession.getBlood()){
-            case  0: mBloodGroup = getString(R.string.aPos); break;
-            case  1: mBloodGroup = getString(R.string.aNeg); break;
-            case  2: mBloodGroup = getString(R.string.bPos); break;
-            case  3: mBloodGroup = getString(R.string.bNeg); break;
-            case  4: mBloodGroup = getString(R.string.abPos); break;
-            case  5: mBloodGroup = getString(R.string.abNeg); break;
-            case  6: mBloodGroup = getString(R.string.oPos); break;
-            case  7: mBloodGroup = getString(R.string.oNeg); break;
+            case  1: mBloodGroup = getString(R.string.aPos); break;
+            case  2: mBloodGroup = getString(R.string.aNeg); break;
+            case  3: mBloodGroup = getString(R.string.bPos); break;
+            case  4: mBloodGroup = getString(R.string.bNeg); break;
+            case  5: mBloodGroup = getString(R.string.abPos); break;
+            case  6: mBloodGroup = getString(R.string.abNeg); break;
+            case  7: mBloodGroup = getString(R.string.oPos); break;
+            case  8: mBloodGroup = getString(R.string.oNeg); break;
             default: mBloodGroup = ""; break;
         }
     }
@@ -1093,6 +1102,41 @@ public class LevelTwoActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onRequestPermissionsResult (int requestCode, String Permissions[], int[] grantResults)
+    {
+        if (requestCode == MY_PERMISSIONS_REQUEST_CALL_PHONE){
+            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                startCall("tel:" + mSession.getFather_no());
+            } else {
+                Toast.makeText(this, "Call permission was denied.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void showCallPreview(){
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED){
+            startCall("tel:" + mSession.getFather_no());
+        } else {
+            requestCallPermission();
+        }
+    }
+
+    private void requestCallPermission(){
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.CALL_PHONE)){
+            new ToastWithCustomTime(this,"Call permission is not available. Requesting permission for making a call in case of an emergency.", 10000);
+        } else {
+            new ToastWithCustomTime(this,"Call access is required to make an emergency call. Please enable call permission from app settings.", 10000);
+        }
+        ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CALL_PHONE}, MY_PERMISSIONS_REQUEST_CALL_PHONE);
+    }
+
+    public void startCall(String contact){
+        Intent callintent = new Intent(Intent.ACTION_CALL);
+        callintent.setData(Uri.parse(contact));
+        startActivity(callintent);
+    }
+
     private class ArrayIndexComparator implements Comparator<Integer>{
         private final Integer[] array;
         ArrayIndexComparator(Integer[] array)
@@ -1102,14 +1146,13 @@ public class LevelTwoActivity extends AppCompatActivity {
         Integer[] createIndexArray(){
             Integer[] indexes = new Integer[array.length];
             for (int i = 0; i < array.length; i++){
-                indexes[i] = i; // Autoboxing
+                indexes[i] = i;
             }
             return indexes;
         }
 
         @Override
         public int compare(Integer index1, Integer index2){
-            // Autounbox from Integer to int to use as array indexes
             return array[index2].compareTo(array[index1]);
         }
     }

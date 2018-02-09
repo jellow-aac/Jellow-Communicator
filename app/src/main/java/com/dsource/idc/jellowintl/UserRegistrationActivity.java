@@ -6,11 +6,13 @@ package com.dsource.idc.jellowintl;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.Html;
@@ -27,6 +29,7 @@ import android.widget.Toast;
 
 import com.dsource.idc.jellowintl.Utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.Utility.SessionManager;
+import com.dsource.idc.jellowintl.Utility.ToastWithCustomTime;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
@@ -49,6 +52,8 @@ import static com.dsource.idc.jellowintl.Utility.SessionManager.LangMap;
 public class UserRegistrationActivity extends AppCompatActivity {
     public static final String LCODE = "lcode";
     public static final String TUTORIAL = "tutorial";
+    private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 0;
+
     final int GRID_3BY3 = 1;
     private Button bRegister;
     private EditText etName, etEmergencyContact, etEmailId;
@@ -59,6 +64,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
     Spinner languageSelect;
     String[] languagesCodes = new String[4], languageNames = new String[4];
     String selectedLanguage;
+    String name, emergencyContact, eMailId, formattedDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +77,6 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
         if(!mSession.getFather_no().equals(""))
         getAnalytics(this,mSession.getFather_no());
-        mSession.setBlood(-1);
 
 
 
@@ -86,7 +91,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
                         LanguageDownloadActivity.class).putExtra(LCODE,mSession.getLanguage()).putExtra(TUTORIAL,true));
             }
             finish();
-        }
+        }else
+            mSession.setBlood(-1);
 
         mDB = FirebaseDatabase.getInstance();
         mRef = mDB.getReference(BuildConfig.DB_TYPE+"/users");
@@ -147,7 +153,6 @@ public class UserRegistrationActivity extends AppCompatActivity {
         bRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name, emergencyContact, eMailId, formattedDate;
                 name  = etName.getText().toString();
                 emergencyContact = mCcp.getFullNumberWithPlus();
                 bRegister.setEnabled(false);
@@ -171,9 +176,27 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 Calendar ca = Calendar.getInstance();
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 formattedDate = df.format(ca.getTime());
+                //showCallPreview();
                 new NetworkConnectionTest(UserRegistrationActivity.this, name, emergencyContact, eMailId, formattedDate).execute();
             }
         });
+    }
+
+    private void showCallPreview(){
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED){
+            new NetworkConnectionTest(UserRegistrationActivity.this, name, emergencyContact, eMailId, formattedDate).execute();
+        } else {
+            requestCallPermission();
+        }
+    }
+
+    private void requestCallPermission(){
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.CALL_PHONE)){
+            new ToastWithCustomTime(this,"Call permission is not available. Requesting permission for making a call in case of an emergency. Go to app setting and enable phone permission", 15000);
+        } else {
+            new ToastWithCustomTime(this,"Call permission is not available. Requesting permission for making a call in case of an emergency.", 5000);
+        }
+        ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CALL_PHONE}, MY_PERMISSIONS_REQUEST_CALL_PHONE);
     }
 
     public final static boolean isValidEmail(CharSequence target) {
@@ -184,7 +207,18 @@ public class UserRegistrationActivity extends AppCompatActivity {
         }
     }
 
-    private void createUser(final String name,final String emergencyContact, String eMailId, String formattedDate)
+    @Override
+    public void onRequestPermissionsResult (int requestCode, String Permissions[], int[] grantResults) {
+        if (requestCode == MY_PERMISSIONS_REQUEST_CALL_PHONE) {
+            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(UserRegistrationActivity.this, "Call permission was allowed. Starting preview.", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(UserRegistrationActivity.this, "Call permission was denied.", Toast.LENGTH_LONG).show();
+            }
+            new NetworkConnectionTest(UserRegistrationActivity.this, name, emergencyContact, eMailId, formattedDate).execute();
+        }
+    }
+        private void createUser(final String name,final String emergencyContact, String eMailId, String formattedDate)
     {
         try {
             getAnalytics(UserRegistrationActivity.this,emergencyContact);

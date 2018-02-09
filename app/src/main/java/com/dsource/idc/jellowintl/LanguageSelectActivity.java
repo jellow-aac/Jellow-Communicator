@@ -2,10 +2,12 @@ package com.dsource.idc.jellowintl;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
@@ -43,7 +45,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
     String selectedLanguage, systemTtsLang;
     Button save,add,delete, changeTtsLang;
     ArrayAdapter<String> adapter_lan;
-    boolean isOpenedTtsSett = false;
+    boolean isOpenedTtsSett = false, isTtsLangChanged = false, shouldSaveLang = false;
     private int mSelectedItem = -1;
 
     @Override
@@ -57,11 +59,16 @@ public class LanguageSelectActivity extends AppCompatActivity{
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
 
         mSession = new SessionManager(this);
+        if(Build.VERSION.SDK_INT >= 23){
+            findViewById(R.id.llStep2).setVisibility(View.GONE);
+            findViewById(R.id.llImg).setVisibility(View.GONE);
+            findViewById(R.id.changeTtsLangBut).setVisibility(View.GONE);
+            findViewById(R.id.llStep3).setVisibility(View.GONE);
+        }
 
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES");
         registerReceiver(receiver, filter);
-
 
         getSpeechLanguage("");
         offlineLanguages = getOfflineLanguages();
@@ -104,7 +111,12 @@ public class LanguageSelectActivity extends AppCompatActivity{
             public void onClick(View v) {
                 if(selectedLanguage != null)
                 {
-                    if (mSession.getLanguage().equals(LangMap.get(selectedLanguage))){
+                    if(Build.VERSION.SDK_INT >= 23 || shouldSaveLang) {
+                        saveLanguage();
+                        mSession.setLangSettingIsCorrect(true);
+                        return;
+                    }
+                    else if (mSession.getLanguage().equals(LangMap.get(selectedLanguage)) && !shouldSaveLang){
                         Toast.makeText(LanguageSelectActivity.this, getString(R.string.txt_save_same_lang_def), Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -118,13 +130,15 @@ public class LanguageSelectActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 try {
-                    new MaterialDialog.Builder(LanguageSelectActivity.this)
+                    delete.setEnabled(false);
+                     new MaterialDialog.Builder(LanguageSelectActivity.this)
                             .title("Downloadable Languages")
                             .items(onlineLanguages)
                             .itemsCallbackSingleChoice(
                                     0, new MaterialDialog.ListCallbackSingleChoice() {
                                         @Override
                                         public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
+                                            delete.setEnabled(true);
                                             ConnectivityManager cm =
                                                     (ConnectivityManager)LanguageSelectActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -157,6 +171,12 @@ public class LanguageSelectActivity extends AppCompatActivity{
                                         }
                                     })
                             .positiveText("Download")
+                            .cancelListener(new DialogInterface.OnCancelListener() {
+                                @Override
+                                public void onCancel(DialogInterface dialog) {
+                                    delete.setEnabled(true);
+                                }
+                            })
                             .show();
                 } catch (Exception e)
                 {
@@ -172,6 +192,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 try {
+                    add.setEnabled(false);
                     new MaterialDialog.Builder(LanguageSelectActivity.this)
                             .title("Downloaded Languages")
                             .items(offlineLanguages)
@@ -179,6 +200,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
                                     0, new MaterialDialog.ListCallbackSingleChoice() {
                                         @Override
                                         public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
+                                            add.setEnabled(true);
                                             String locale = LangMap.get(offlineLanguages[which]);
                                             if(mSession.getLanguage().equals(locale))
                                             {
@@ -204,6 +226,12 @@ public class LanguageSelectActivity extends AppCompatActivity{
                                         }
                                     })
                             .positiveText("Remove")
+                            .cancelListener(new DialogInterface.OnCancelListener() {
+                                @Override
+                                public void onCancel(DialogInterface dialog) {
+                                    add.setEnabled(true);
+                                }
+                            })
                             .show();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -284,6 +312,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
         if(isOpenedTtsSett) getSpeechLanguage("");
         if(mSelectedItem != -1)
             languageSelect.setSelection(mSelectedItem);
+        //isOpenedTtsSett = false;
     }
 
 
@@ -327,21 +356,32 @@ public class LanguageSelectActivity extends AppCompatActivity{
         public void onReceive(final Context context, Intent intent) {
             switch (intent.getAction()){
                 case "com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES":
+                    isTtsLangChanged = systemTtsLang != null && !systemTtsLang.equals(intent.getStringExtra("systemTtsRegion"));
+
                     systemTtsLang = intent.getStringExtra("systemTtsRegion");
-                    if(intent.getBooleanExtra("saveUserLanguage",false)){
-                        mSession.setLanguage(LangMap.get(selectedLanguage));
-                        ChangeAppLocale changeAppLocale = new ChangeAppLocale(getBaseContext());
-                        changeAppLocale.setLocale();
-                        Toast.makeText(LanguageSelectActivity.this, getString(R.string.languageChanged), Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getApplicationContext(), SplashActivity.class));
-                        finishAffinity();
+                    if(intent.getBooleanExtra("saveUserLanguage",false)/* || shouldSaveLang*/){
+                        saveLanguage();
                     }else if(intent.getBooleanExtra("showError",false))
                         Toast.makeText(context, getString(R.string.set_engine_language), Toast.LENGTH_LONG).show();
+
+                    if(isOpenedTtsSett && isTtsLangChanged && !mSession.getLangSettingIsCorrect())
+                        if((mSession.getLanguage().equals("en-rIN") && systemTtsLang.equals("hi-rIN")) ||
+                                (!mSession.getLanguage().equals("en-rIN") && mSession.getLanguage().equals(systemTtsLang)))
+                            shouldSaveLang = true;
+                    isOpenedTtsSett = isTtsLangChanged = false;
                     break;
             }
         }
     };
 
+    private void saveLanguage() {
+        mSession.setLanguage(LangMap.get(selectedLanguage));
+        ChangeAppLocale changeAppLocale = new ChangeAppLocale(getBaseContext());
+        changeAppLocale.setLocale();
+        Toast.makeText(LanguageSelectActivity.this, getString(R.string.languageChanged), Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(getApplicationContext(), SplashActivity.class));
+        finishAffinity();
+    }
 
     private void setSpeechLanguage(String speechLang){
         Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_LANG");
@@ -355,9 +395,9 @@ public class LanguageSelectActivity extends AppCompatActivity{
         sendBroadcast(intent);
     }
 
-    private void getSpeechLanguage(String saveLanguage){
+    private void getSpeechLanguage(String saveLang){
         Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_REQ");
-        intent.putExtra("saveSelectedLanguage", saveLanguage);
+        intent.putExtra("saveSelectedLanguage", saveLang);
         sendBroadcast(intent);
     }
 }

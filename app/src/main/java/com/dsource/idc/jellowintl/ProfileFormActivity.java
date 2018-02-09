@@ -14,7 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -73,8 +72,7 @@ public class ProfileFormActivity extends AppCompatActivity {
         etFathername.setText(mSession.getFather_name());
         etAddress.setText(mSession.getAddress());
         etEmailId.setText(mSession.getEmailId());
-        if(mSession.getBlood() != -1 )
-            bloodgroup.setSelection(mSession.getBlood());
+        if(mSession.getBlood() != -1) bloodgroup.setSelection(mSession.getBlood());
 
         etName.addTextChangedListener(new TextWatcher() {
             @Override   public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -90,20 +88,6 @@ public class ProfileFormActivity extends AppCompatActivity {
                 }
             }
             @Override public void afterTextChanged(Editable s) {}
-        });
-
-        bloodgroup.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(mSession.getBlood() == -1 && position == 0 && mAutoSetBGSpinner)
-                    mAutoSetBGSpinner = false;
-                else
-                    mUserSetTheBloodGroup = true;
-            }
-
-            @Override   public void onNothingSelected(AdapterView<?> parent) {
-                Toast.makeText(ProfileFormActivity.this, "test", Toast.LENGTH_SHORT).show();
-            }
         });
 
         bSave.setOnClickListener(new View.OnClickListener() {
@@ -132,7 +116,11 @@ public class ProfileFormActivity extends AppCompatActivity {
                             mSession.setFather_no(mCcp.getFullNumberWithPlus());
                             mSession.setUserCountryCode(mCcp.getSelectedCountryCode());
                             mSession.setEmailId(email);
-                            if(mUserSetTheBloodGroup)mSession.setBlood(bloodgroup.getSelectedItemPosition());
+                            if(bloodgroup.getSelectedItemPosition() > 0)
+                                mSession.setBlood(bloodgroup.getSelectedItemPosition());
+                            else
+                                mSession.setBlood(-1);
+
                             Toast.makeText(ProfileFormActivity.this, getString(R.string.detailSaved), Toast.LENGTH_SHORT).show();
                             finish();
 

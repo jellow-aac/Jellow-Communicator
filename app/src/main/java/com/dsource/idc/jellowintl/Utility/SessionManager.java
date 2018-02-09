@@ -269,6 +269,15 @@ public class SessionManager {
         storePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.completed_intro), value);
     }
 
+    // This flag is only for device who doesnt support direct switching between devices.
+    public void setLangSettingIsCorrect(boolean settingStatus) {
+        storePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.lang_setting_status), settingStatus);
+    }
+
+    public boolean getLangSettingIsCorrect() {
+        return ((Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.lang_setting_status)));
+    }
+
     private void storePreferenceKeyWithValue(String classType, String key, Object val){
         if (classType.equals(Integer.class.toString()))
             mEditor.putInt(key, (Integer) val).commit();
