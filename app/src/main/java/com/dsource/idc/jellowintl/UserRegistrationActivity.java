@@ -32,9 +32,12 @@ import com.dsource.idc.jellowintl.Utility.SessionManager;
 import com.dsource.idc.jellowintl.Utility.ToastWithCustomTime;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
+import com.google.firebase.database.ValueEventListener;
 import com.hbb20.CountryCodePicker;
 
 import java.io.IOException;
@@ -176,8 +179,32 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 Calendar ca = Calendar.getInstance();
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 formattedDate = df.format(ca.getTime());
+                checkNetworkConnection();
                 //showCallPreview();
-                new NetworkConnectionTest(UserRegistrationActivity.this, name, emergencyContact, eMailId, formattedDate).execute();
+                //new NetworkConnectionTest(UserRegistrationActivity.this, name, emergencyContact, eMailId, formattedDate).execute();
+            }
+        });
+    }
+
+    private void checkNetworkConnection() {
+        DatabaseReference connectedRef = FirebaseDatabase.getInstance().getReference(".info/connected");
+        connectedRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (snapshot.getValue(Boolean.class)) {
+                    mSession.setName(name);
+                    mSession.setFather_no(emergencyContact);
+                    mSession.setUserCountryCode(mCcp.getSelectedCountryCode());
+                    mSession.setEmailId(eMailId);
+                    createUser(name, emergencyContact, eMailId, formattedDate);
+                    return;
+                }
+                Toast.makeText(UserRegistrationActivity.this, getString(R.string.checkInternetConn), Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                System.err.println("Listener was cancelled");
             }
         });
     }
@@ -215,7 +242,9 @@ public class UserRegistrationActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(UserRegistrationActivity.this, "Call permission was denied.", Toast.LENGTH_LONG).show();
             }
-            new NetworkConnectionTest(UserRegistrationActivity.this, name, emergencyContact, eMailId, formattedDate).execute();
+            checkNetworkConnection();
+            //new NetworkConnectionTest(UserRegistrationActivity.this, name, emergencyContact, eMailId, formattedDate).execute();
+
         }
     }
         private void createUser(final String name,final String emergencyContact, String eMailId, String formattedDate)

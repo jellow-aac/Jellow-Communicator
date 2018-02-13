@@ -88,7 +88,7 @@ public class Intro extends AppIntro {
         super.onSlideChanged(oldFragment, newFragment);
         if (((SampleSlideFragment) newFragment).getLayoutName().equals("intro6") ||
                 ((SampleSlideFragment) newFragment).getLayoutName().equals("intro7")) {
-            if(Build.VERSION.SDK_INT < 23) {
+            if(Build.VERSION.SDK_INT < 21) {
                 getSpeechLanguage("");
                 ((TextView) findViewById(R.id.tx_downloadMsg)).setText(selectedLanguage);
             }else
@@ -98,7 +98,7 @@ public class Intro extends AppIntro {
 
     public void getStarted(View view) {
         SessionManager session = new SessionManager(this);
-        if(Build.VERSION.SDK_INT < 23) {
+        if(Build.VERSION.SDK_INT < 21) {
             if ((session.getLanguage().equals("en-rIN") && mSysTtsLang.equals("hi-rIN")) ||
                     (!session.getLanguage().equals("en-rIN") && session.getLanguage().equals(mSysTtsLang))) {
                 session.setCompletedIntro(true);

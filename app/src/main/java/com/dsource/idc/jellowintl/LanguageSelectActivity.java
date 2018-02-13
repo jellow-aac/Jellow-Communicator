@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -59,11 +60,13 @@ public class LanguageSelectActivity extends AppCompatActivity{
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
 
         mSession = new SessionManager(this);
-        if(Build.VERSION.SDK_INT >= 23){
+        if(Build.VERSION.SDK_INT >= 21){
+            findViewById(R.id.llFollwStep).setVisibility(View.GONE);
             findViewById(R.id.llStep2).setVisibility(View.GONE);
             findViewById(R.id.llImg).setVisibility(View.GONE);
             findViewById(R.id.changeTtsLangBut).setVisibility(View.GONE);
             findViewById(R.id.llStep3).setVisibility(View.GONE);
+            ((TextView)findViewById(R.id.tv2)).setText(getString(R.string.change_language_line2).substring(7));
         }
 
         IntentFilter filter = new IntentFilter();
@@ -111,7 +114,10 @@ public class LanguageSelectActivity extends AppCompatActivity{
             public void onClick(View v) {
                 if(selectedLanguage != null)
                 {
-                    if(Build.VERSION.SDK_INT >= 23 || shouldSaveLang) {
+                    if(Build.VERSION.SDK_INT >= 21 && mSession.getLanguage().equals(LangMap.get(selectedLanguage))) {
+                        Toast.makeText(LanguageSelectActivity.this, getString(R.string.txt_save_same_lang_def), Toast.LENGTH_SHORT).show();
+                        return;
+                    }else if(Build.VERSION.SDK_INT >= 21 || shouldSaveLang) {
                         saveLanguage();
                         mSession.setLangSettingIsCorrect(true);
                         return;

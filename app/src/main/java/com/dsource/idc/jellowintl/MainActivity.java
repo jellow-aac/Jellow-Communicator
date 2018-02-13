@@ -460,7 +460,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        if(Build.VERSION.SDK_INT < 23)
+        if(Build.VERSION.SDK_INT < 21)
             getSpeechLanguage("");
     }
 
