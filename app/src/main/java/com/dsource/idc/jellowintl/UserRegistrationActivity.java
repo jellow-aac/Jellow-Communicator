@@ -81,8 +81,6 @@ public class UserRegistrationActivity extends AppCompatActivity {
         if(!mSession.getFather_no().equals(""))
         getAnalytics(this,mSession.getFather_no());
 
-
-
         if (mSession.isUserLoggedIn())
         {
             if(mSession.isDownloaded(mSession.getLanguage()) && mSession.isCompletedIntro()) {
@@ -112,7 +110,6 @@ public class UserRegistrationActivity extends AppCompatActivity {
         bRegister.setAlpha(0.5f);
         bRegister.setEnabled(true);
 
-
         etName.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override public void afterTextChanged(Editable s) {}
@@ -128,10 +125,6 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-
-
 
         languageSelect = findViewById(R.id.langSelectSpinner);
 
@@ -179,9 +172,9 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 Calendar ca = Calendar.getInstance();
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 formattedDate = df.format(ca.getTime());
-                checkNetworkConnection();
+                //checkNetworkConnection();
                 //showCallPreview();
-                //new NetworkConnectionTest(UserRegistrationActivity.this, name, emergencyContact, eMailId, formattedDate).execute();
+                new NetworkConnectionTest(UserRegistrationActivity.this, name, emergencyContact, eMailId, formattedDate).execute();
             }
         });
     }
@@ -199,9 +192,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
                     createUser(name, emergencyContact, eMailId, formattedDate);
                     return;
                 }
-                Toast.makeText(UserRegistrationActivity.this, getString(R.string.checkInternetConn), Toast.LENGTH_LONG).show();
+                Toast.makeText(UserRegistrationActivity.this, getString(R.string.checkConnectivity), Toast.LENGTH_LONG).show();
             }
-
             @Override
             public void onCancelled(DatabaseError error) {
                 System.err.println("Listener was cancelled");
@@ -242,8 +234,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(UserRegistrationActivity.this, "Call permission was denied.", Toast.LENGTH_LONG).show();
             }
-            checkNetworkConnection();
-            //new NetworkConnectionTest(UserRegistrationActivity.this, name, emergencyContact, eMailId, formattedDate).execute();
+            //checkNetworkConnection();
+            new NetworkConnectionTest(UserRegistrationActivity.this, name, emergencyContact, eMailId, formattedDate).execute();
 
         }
     }
@@ -273,7 +265,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
                         finish();
                     } else {
                         bRegister.setEnabled(true);
-                        Toast.makeText(UserRegistrationActivity.this, getString(R.string.checkInternetConn), Toast.LENGTH_LONG).show();
+                        Toast.makeText(UserRegistrationActivity.this, getString(R.string.checkConnectivity), Toast.LENGTH_LONG).show();
                     }
                 }
             });
@@ -336,7 +328,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 createUser(mName, mEmergencyContact, mEmailId, mFormattedDate);
             }else{
                 bRegister.setEnabled(true);
-                Toast.makeText(UserRegistrationActivity.this, getString(R.string.checkInternetConn), Toast.LENGTH_LONG).show();
+                Toast.makeText(UserRegistrationActivity.this, getString(R.string.checkConnectivity), Toast.LENGTH_LONG).show();
             }
         }
     }

@@ -782,7 +782,7 @@
     </string-array>
 
     <!--LEVEL THREE "DAILY ACTIVITIES" ADAPTER TEXT ARE HERE-->
-    <string-array name="arrLevelThreeDailyActBrushingAdapterText">
+    <!--<string-array name="arrLevelThreeDailyActBrushingAdapterText">
         <item>Rinse mouth</item>
         <item>Rinse toothbrush</item>
         <item>Put toothpaste on brush</item>
@@ -817,7 +817,7 @@
         <item>Dry body</item>
         <item>Put on clothes</item>
         <item>All done</item>
-    </string-array>
+    </string-array>-->
     <string-array name="arrLevelThreeDailyActClothesAccAdapterText">
         <item>टी-शर्ट बदलना </item>
         <item>फ्रॉक बदलना</item>
@@ -891,7 +891,7 @@
         <item>स्पीच थेरेपी</item>
         <item>ग्रुप थेरेपी</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActMorningScheAdapterText">
+    <!--<string-array name="arrLevelThreeDailyActMorningScheAdapterText">
         <item>Wake up</item>
         <item>Wash face</item>
         <item>Go to bathroom</item>
@@ -914,7 +914,7 @@
         <item>Say goodnight</item>
         <item>Say prayers</item>
         <item>Sweet dreams!</item>
-    </string-array>
+    </string-array>-->
 
     <!--LEVEL THREE "EATING" SPEECH TEXT ARE HERE-->
     <string-array name="arrLevelThreeFoodDrinksBreakfastAdapterText">
@@ -1499,7 +1499,7 @@
     </string-array>
 
     <!--LEVEL THREE "DAILY ACTIVITITES" SPEECH TEXT ARE HERE-->
-    <string-array name="arrLevelThreeDailyActBrushingSpeechText">
+    <!--<string-array name="arrLevelThreeDailyActBrushingSpeechText">
         <item>Rinse maauuthh</item>
         <item>Rinse toothbrush</item>
         <item>Put toothpaste on brush</item>
@@ -1534,7 +1534,7 @@
         <item>Dry body</item>
         <item>Put on clothes</item>
         <item>All done</item>
-    </string-array>
+    </string-array>-->
     <string-array name="arrLevelThreeDailyActClothesAccSpeechText">
         <item>टी-शर्ट बदलना</item>
         <item>फ्रॉक बदलना</item>
@@ -1608,7 +1608,7 @@
         <item>स्पीच थेरेपी</item>
         <item>ग्रुप थेरेपी</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActMorningScheSpeechText">
+    <!--<string-array name="arrLevelThreeDailyActMorningScheSpeechText">
         <item>Wake up</item>
         <item>Wash face</item>
         <item>Go to bathroom</item>
@@ -1631,7 +1631,7 @@
         <item>Say goodnight</item>
         <item>Say prayers</item>
         <item>Sweet dreams!</item>
-    </string-array>
+    </string-array>-->
 
     <!--LEVEL THREE "EATING" SPEECH TEXT ARE HERE-->
     <string-array name="arrLevelThreeFoodDrinksBreakfastSpeechText">

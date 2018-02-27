@@ -2,14 +2,18 @@ package com.dsource.idc.jellowintl;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 
 import com.dsource.idc.jellowintl.Utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.Utility.DefaultExceptionHandler;
@@ -83,6 +87,14 @@ public class KeyboardInputActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        SpannableString spannedStr = new SpannableString(getString(R.string.step1));
+        spannedStr.setSpan(new StyleSpan(Typeface.BOLD),0,7,0);
+        ((TextView)findViewById(R.id.t2)).setText(spannedStr);
+        spannedStr = new SpannableString(getString(R.string.step2));
+        spannedStr.setSpan(new StyleSpan(Typeface.BOLD),0,7,0);
+        ((TextView)findViewById(R.id.t3)).setText(spannedStr);
+        spannedStr = null;
     }
 
     @Override

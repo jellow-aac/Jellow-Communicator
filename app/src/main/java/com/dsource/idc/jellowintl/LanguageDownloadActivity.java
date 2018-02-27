@@ -62,7 +62,8 @@ public class LanguageDownloadActivity extends AppCompatActivity {
             @Override
             public void onComplete() {
                 mSession.setDownloaded(langCode);
-                Toast.makeText(LanguageDownloadActivity.this,LangValueMap.get(langCode)+" Language Downloaded",Toast.LENGTH_SHORT).show();
+                Toast.makeText(LanguageDownloadActivity.this, getString(R.string.language_downloaded)
+                        .replace("_", LangValueMap.get(langCode)), Toast.LENGTH_SHORT).show();
                 if(tutorial)
                     startActivity(new Intent(LanguageDownloadActivity.this,Intro.class));
                 else if(finish)
@@ -70,8 +71,8 @@ public class LanguageDownloadActivity extends AppCompatActivity {
                 finish();
             }
         };
-
-        Toast.makeText(LanguageDownloadActivity.this,"Downloading "+LangValueMap.get(langCode)+ " Language",Toast.LENGTH_SHORT).show();
+        Toast.makeText(LanguageDownloadActivity.this, getString(R.string.language_downloading)
+                .replace("_", LangValueMap.get(langCode)), Toast.LENGTH_SHORT).show();
 
         if(langCode != null) {
             try {

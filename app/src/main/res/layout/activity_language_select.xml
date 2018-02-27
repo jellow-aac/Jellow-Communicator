@@ -22,6 +22,7 @@
                 android:text="@string/txtEditLanguage"
                 android:fontFamily="fonts/Mukta-Regular.ttf"
                 android:textColor="#000000"
+                android:textSize="16sp"
                 android:layout_marginBottom="10dp"
                 android:textStyle="bold"/>
             <LinearLayout
@@ -118,7 +119,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/txtChangeLanguage"
                 android:fontFamily="fonts/Mukta-Regular.ttf"
+                android:textSize="16sp"
                 android:textColor="#000000"
+                android:layout_marginTop="28dp"
                 android:layout_marginBottom="10dp"
                 android:textStyle="bold"/>
 
@@ -148,6 +151,7 @@
                 android:id="@+id/selectDownloadedLanguageSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="#FFBEBCB6"
                 android:layout_marginBottom="10dp" />
             <LinearLayout
                 android:id="@+id/llStep2"
@@ -168,6 +172,43 @@
                     android:id="@+id/tv4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@string/change_language_line5"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14sp" />
+            </LinearLayout>
+            <ImageView
+                android:id="@+id/ivTtsVoiceDat"
+                android:layout_width="120dp"
+                android:layout_height="150dp"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/gtts3" />
+            <Button
+                android:id="@+id/btnDownloadVoiceData"
+                android:layout_width="230dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="10dp"
+                android:background="#FFBEBCB6"
+                android:text="@string/txt_actLangSel_downloadDat"/>
+
+            <LinearLayout
+                android:id="@+id/llStep3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginRight="4dp"
+                    android:scaleX=".7"
+                    android:scaleY=".7"
+                    android:text="@string/bullet"
+                    android:textColor="#000" />
+                <TextView
+                    android:id="@+id/tv5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:text="@string/change_language_line4"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textSize="14sp" />
@@ -176,6 +217,8 @@
                 android:id="@+id/llImg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="-14dp"
+                android:layout_marginStart="-14dp"
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
                 <ImageView
@@ -201,7 +244,7 @@
                 android:background="#FFBEBCB6"
                 android:text="@string/change_tts_lang"/>
             <LinearLayout
-                android:id="@+id/llStep3"
+                android:id="@+id/llStep4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp">
@@ -215,6 +258,7 @@
                     android:text="@string/bullet"
                     android:textColor="#000" />
                 <TextView
+                    android:id="@+id/tv6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/txtApplyChanges"

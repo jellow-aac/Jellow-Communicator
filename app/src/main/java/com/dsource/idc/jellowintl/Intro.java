@@ -46,7 +46,7 @@ public class Intro extends AppIntro {
         showSkipButton(false);
         setProgressButtonEnabled(false);
 
-        selectedLanguage = getString(R.string.txt_intro6_skipActiveTtsDesc)+" "+getTTsLanguage();
+        selectedLanguage = getString(R.string.txt_intro6_skipActiveTtsDesc).replace("_", getTTsLanguage());
         mSysTtsLang="";
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES");
@@ -62,8 +62,8 @@ public class Intro extends AppIntro {
                 return LangValueMap.get(SessionManager.ENG_UK);
             case SessionManager.ENG_US:
                 return LangValueMap.get(SessionManager.ENG_US);
+            default: return "";
         }
-        return null;
     }
 
     @Override

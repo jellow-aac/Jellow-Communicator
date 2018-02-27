@@ -59,7 +59,7 @@
     <string name="demoTtsSpeech">Hello! you are using Jellow Communicator.</string>
     <string name="savedSettingsMessage">Settings saved.</string>
     <string name="languageChanged">Language Changed</string>
-    <string name="checkConnectivity">Please check internet connectivity</string>
+    <string name="checkConnectivity">Please check Internet connectivity</string>
     <string name="languageCurrentlyInUse">Language is currently in use</string>
     <string name="languageRemoved">Language removed</string>
     <string name="languageLimitExceeded">Delete a language to add new language</string>
@@ -116,9 +116,9 @@
     <string name="emailAddress">Email Address *</string>
     <string name="bloodGroup">Blood Group</string>
     <string name="detailSaved">Details saved</string>
-    <string name="invalid_emailId">Invalid email address.</string>
+    <string name="invalid_emailId">Invalid email address</string>
     <string name="invalidContactNumber">Invalid contact number</string>
-    <string name="enterTheName">Please Enter the Name</string>
+    <string name="enterTheName">Please enter your Child\'s name</string>
     <string name="resetPreferenceMessage">
        <![CDATA[ <ul>
             <li>Jellow remembers the user\'s \"most-used/preferred\" icons and displays them as the top choices on the screen</li><br/>
@@ -129,7 +129,6 @@
     <string name="yes">yes</string>
     <string name="no">no</string>
     <string name="iconsHasBeenReset">Preferences have been reset.</string>
-    <string name="checkInternetConn">Please check internet connection and try again</string>
     <string name="about_jellow">
         <![CDATA[
         <head>
@@ -181,7 +180,7 @@
 
 <ul>
 <li><strong>Software Development: </strong></li>
-<font>Narayana Reddy, Rahul Rupchand Jidge, Sumeet Agrawal, Roop Sahoo, Shruti Gupta, Aastha Joshi, Dhairya Dand, Pritam Pebam</font>
+<font>Rahul Rupchand Jidge, Narayana Reddy, Sumeet Agrawal, Roop Sahoo, Shruti Gupta, Aastha Joshi, Dhairya Dand, Pritam Pebam</font>
 </ul>
 
 <ul>
@@ -236,10 +235,7 @@
     <string name="resetPrefPointThree">Do you want to reset preferences?</string>
     <string name="bullet" translatable="false">●</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
-    <string name="no_language_data_avail">Please download selected language data.</string>
-    <string name="downloadErrorMsg" translatable="false">Please ensure an active internet connection during the entire download process. In case the progress bar is stalled, kindly restart the app or try again</string>
+    <string name="downloadErrorMsg">Please ensure an active Internet connection during the entire download process. In case the progress bar is stalled, kindly restart the app or try again</string>
     <string name="default_lang_folder_name" translatable="false">com.dsource.idc.jellow.lang_folder_name</string>
     <string name="intro_to_jellow">Introduction to Jellow</string>
     <string name="rate_jellow">Kindly rate Jellow in all fields.</string>
@@ -255,7 +251,7 @@
     <string name="txt_intro3_navWithJellow">Navigating within Jellow</string>
     <string name="txt_intro4_customizeAppDesc">User can customize application settings by clicking on top right corner of the application</string>
     <string name="txt_intro4_customizeJellow">Settings within Jellow</string>
-    <string name="txt_intro6_skipActiveTtsDesc">Set Google Tts as default speech engine then set language as</string>
+    <string name="txt_intro6_skipActiveTtsDesc">Set Google Tts as default speech engine then set language as _</string>
     <string name="txt_intro6_ttsStep1">1.Activate Google TTS</string>
     <string name="txt_intro6_activate">ACTIVATE</string>
     <string name="txt_intro6_step2">2. Make preferred language as default</string>
@@ -273,14 +269,19 @@
     <string name="txt_registration_registerBtn">REGISTER</string>
     <string name="enternonemptycontact">Please enter the contact number</string>
     <string name="change_tts_lang">Set TTS engine language</string>
-    <string name="set_engine_language">Please complete step 2</string>
-    <string name="change_language_line4">Step 2: Set selected language as default for the <b>\'Google Text-to-speech (TTS) Engine\'</b></string>
+    <string name="set_engine_language">Please complete step 3</string>
+    <string name="change_language_line5">Step 2: Check if voice data for _ is available on your device. If not please download voice data for selected language.</string>
+    <string name="change_language_line4">Step 3: Set _ as default for the <b>\'Google Text-to-speech (TTS) Engine\'</b></string>
     <string name="txtEditLanguage">Edit Languages:</string>
     <string name="txtChangeLanguage">Change Default Language:</string>
-    <string name="txtApplyChanges">Step 3: Click \'Apply changes\' to set new language as default</string>
+    <string name="txtApplyChanges">Step 4: Click \'Apply changes\' to set new language as default</string>
     <string name="change_language_line6">You can follow the steps listed below to set a newly added language as the default for Jellow</string>
     <string name="txt_set_tts_setup">Please complete Text-to-Speech engine setup given in previous page</string>
-    <string name="txt_save_same_lang_def">Selected language is already default language.</string>
-    <string name="speech_engin_lang_sam">Please complete the step \'Change Default Language\' in language menu.</string>
+    <string name="txt_save_same_lang_def">Selected language is already default language</string>
+    <string name="speech_engin_lang_sam">Please check the \'Language\' settings of the app</string>
     <string name="txt_intro6_skipTtsSetup">Devices with active Google TTS engine: Please swipe to skip current step</string>
+    <string name="txt_actLangSel_downloadDat">Check voice data</string>
+    <string name="txt_actLangSel_completestep2">Voice data is unavailable. Please turn on the Internet to download voice data.</string>
+    <string name="language_downloaded">_ language downloaded</string>
+    <string name="language_downloading">Downloading _ language</string>
 </resources>

@@ -1107,7 +1107,7 @@ public class LevelTwoActivity extends AppCompatActivity {
     {
         if (requestCode == MY_PERMISSIONS_REQUEST_CALL_PHONE){
             if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                startCall("tel:" + mSession.getFather_no());
+                //startCall("tel:" + mSession.getFather_no());
             } else {
                 Toast.makeText(this, "Call permission was denied.", Toast.LENGTH_SHORT).show();
             }
@@ -1116,7 +1116,7 @@ public class LevelTwoActivity extends AppCompatActivity {
 
     private void showCallPreview(){
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED){
-            startCall("tel:" + mSession.getFather_no());
+            //startCall("tel:" + mSession.getFather_no());
         } else {
             requestCallPermission();
         }

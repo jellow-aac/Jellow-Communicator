@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private final boolean DISABLE_ACTION_BTNS = true;
 
     private int mCk = 0, mCy = 0, mCm = 0, mCd = 0, mCn = 0, mCl = 0;
-    private int image_flag = -1, flag_keyboard = 0, flagTtsNotWorking = -1;
+    private int image_flag = -1, flag_keyboard = 0, flagTtsNotWorking = 0;
     private ImageView like, dislike, add, minus, yes, no, home, keyboard, ttsButton, back;
     private EditText et;
     private TextView actionBarTitle;
@@ -540,8 +540,6 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("mLevelOneItemPos", position);
                 intent.putExtra("selectedMenuItemPath", title + "/");
                 startActivityForResult(intent, REQ_HOME);
-            }else{
-                Toast.makeText(this, getString(R.string.no_language_data_avail), Toast.LENGTH_SHORT).show();
             }
             langDir = null;
         }else {
@@ -708,7 +706,7 @@ public class MainActivity extends AppCompatActivity {
             switch (intent.getAction()){
                 case "com.dsource.idc.jellowintl.SPEECH_TTS_ERROR":
                     if(++flagTtsNotWorking > 2)
-                        Toast.makeText(context, getString(R.string.speech_engin_lang_sam), Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, getString(R.string.txt_actLangSel_completestep2), Toast.LENGTH_LONG).show();
                     break;
                 case "com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES":
                     SessionManager session = new SessionManager(MainActivity.this);

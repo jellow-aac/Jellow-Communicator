@@ -43,7 +43,7 @@
     </string-array>
 
     <string name="change_language_line1">आप अॅप्लिकेशन में अधिकतम ३ भाषाएँ डाउनलोड कर सकते हैं।</string>
-    <string name="change_language_line2">डाउनलोड की गई भाषाओं मे से एक चुने:</string>
+    <string name="change_language_line2">चरण १: डाउनलोड की गई भाषाओं मे से एक चुने:</string>
     <string name="change_language_line3">जेलो अॅप्लिकेशन में अधिक भाषाएँ डाउनलोड करने के लिये “भाषा जोड़ें” बटन पर क्लिक करें।
 अॅप्लिकेशन में पहले से ही डाउनलोड की गई भाषाओं को हटाने के लिये “भाषा डिलीट करें” बटन पर क्लिक करें।</string>
     <string name="simple_ime">जेलो कीबोर्ड</string>
@@ -108,7 +108,7 @@
     <string name="yes">हाँ</string>
     <string name="no">नहीं</string>
     <string name="resetPreferenceMessage"><ul> <li>प्रयोगकर्ता के द्वारा सबसे अधिक इस्तेमाल किये गए पसंदीदा आइकॉन को जेलो अॅप्लिकेशन स्मरण में रखता हैं, और उन्हें स्क्रीन पर मुख्य पसंद के रूप में प्रदर्शित करता हैं।</li> <li>आइकॉन्स को रीसेट करके , सभी आइकॉन मूल क्रम में आ जायेंगे जैसे वे पहली बार अॅप्लिकेशन में प्रदर्शित किये गये थे।</li> <li>आप आइकॉन्स को रीसेट करना चाहते हैं?</li> </ul></string>
-    <string name="enterTheName" >Please Enter the Name</string>
+    <string name="enterTheName">कृपया अपने बच्चे का नाम दर्ज करें</string>
     <string name="iconsHasBeenReset">आयकॉन रीसेट हो गये हैं</string>
     <string name="about_jellow">
         <![CDATA[
@@ -158,7 +158,7 @@
 
 <ul>
 <li><strong>सॉफ्टवेयर का विकास:</strong></li>
-<font>नारायना रेड्डी, राहूल रूपचंद जिडगे, सुमित अग्रवाल, रूप साहू, श्रुति गुप्ता, आस्था जोशी, धैर्य दण्ड, प्रीतम पेबम</font>
+<font>राहूल रूपचंद जिडगे, नारायना रेड्डी, सुमित अग्रवाल, रूप साहू, श्रुति गुप्ता, आस्था जोशी, धैर्य दण्ड, प्रीतम पेबम</font>
 </ul>
 
 <ul>
@@ -211,9 +211,8 @@
     <string name="resetPrefPointOne">प्रयोगकर्ता के द्वारा सबसे अधिक इस्तेमाल किये गए पसंदीदा आइकॉन को जेलो अॅप्लिकेशन स्मरण में रखता हैं, और उन्हें स्क्रीन पर मुख्य पसंद के रूप में प्रदर्शित करता हैं।</string>
     <string name="resetPrefPointTwo">आइकॉन्स को रीसेट करके, सभी आइकॉन मूल क्रम में आ जायेंगे जैसे वे पहली बार अॅप्लिकेशन में प्रदर्शित किये गये थे।</string>
     <string name="resetPrefPointThree">आप आइकॉन्स को रीसेट करना चाहते हैं?</string>
-    <string name="invalid_emailId">Invalid email address.</string>
+    <string name="invalid_emailId">यह  ईमेल पता गलत हैं</string>
     <string name="invalidContactNumber">Invalid contact number</string>
-    <string name="checkInternetConn">Please check internet connection and try again</string>
     <string name="customSpeakIcon">Press here to speak above text.</string>
     <string name="keyboard">कीबोर्ड</string>
     <string name="intro_to_jellow">जेलो का परिचय</string>
@@ -244,9 +243,20 @@
     <string name="txtEditLanguage">भाषा संपादित करें:</string>
     <string name="change_language_line6">डाउनलोड की गई नई भाषा को डिफ़ॉल्ट बनाने के लिये नीचे दिये गये चरणोंका पालन करें</string>
     <string name="txtChangeLanguage">डिफ़ॉल्ट भाषा बदलें:</string>
-    <string name="change_language_line4">चरण २: चुने हुए भाषा को <b>\'गूगल टेक्स्ट-टू-स्पीच इंजन\'</b> में डिफ़ॉल्ट बनाएँ</string>
+    <string name="change_language_line4">चरण ३: चुने हुए भाषा को <b>\'गूगल टेक्स्ट-टू-स्पीच इंजन \'</b> में डिफ़ॉल्ट बनाएँ</string>
     <string name="change_tts_lang">टेक्स्ट-टू-स्पीच की  भाषा को रक्षित करें</string>
-    <string name="txtApplyChanges">चरण ३: नई भाषा को डिफ़ॉल्ट बनाने के लिये \'भाषा बदलें\' पर क्लिक करें</string>
+    <string name="txtApplyChanges">चरण ४: नई भाषा को डिफ़ॉल्ट बनाने के लिये \'भाषा बदलें\' पर क्लिक करें</string>
     <string name="enternonemptycontact">कृपया संपर्क नंबर दर्ज करें</string>
     <string name="txt_intro6_skipTtsSetup">जिन उपकरणों में गूगल टेक्स्ट-टू-स्पीच पहले से ही सक्रिय है, प्रयोगकर्ता  इस स्क्रीन को स्वाइप करके आगे बढ़ सकते हैं।</string>
+    <string name="change_language_line5">चरण २: देखिये, _ के लिये वॉइस डेटा उपलब्ध है क्या ? अगर नहीं है तो डाउनलोड करें.</string>
+    <string name="txt_actLangSel_downloadDat">वॉयस डेटा की जांच करें</string>
+    <string name="language_downloaded">_ भाषा डाउनलोड हो गई हैं</string>
+    <string name="language_downloading">_ भाषा डाउनलोड हो रही हैं</string>
+    <string name="downloadErrorMsg">डाउनलोड प्रक्रिया के दौरान इंटरनेट कनेक्शन चालू रखें। यदि प्रोग्रेस बार रुक गया है, तो कृपया एप्लिकेशन को दोबारा शुरू करें या फिर से प्रयास करें</string>
+    <string name="txt_set_tts_setup">कृपया पिछले स्क्रीन पर दिए गए टेक्स्ट-टू-स्पीच इंजिन संबंधित चरणों को पूरा करें</string>
+    <string name="txt_intro6_skipActiveTtsDesc">गूगल टीटीएस को डिफ़ॉल्ट भाषा इंजन में सेट करें और फिर भाषा _ सेट करें</string>
+    <string name="txt_actLangSel_completestep2">वॉयस डेटा अनुपलब्ध है। वॉयस डाउनलोड करने के लिए कृपया इंटरनेट को चालू करें</string>
+    <string name="speech_engin_lang_sam">कृपया अॅप्लिकेशन की \'भाषा\' सेटिंग्स की जांच करें</string>
+    <string name="txt_save_same_lang_def">चुनी हुई भाषा पहले से ही डिफ़ॉल्ट भाषा है</string>
+    <string name="set_engine_language">कृपया पहले चरण ३ को पूरा  करें</string>
 </resources>

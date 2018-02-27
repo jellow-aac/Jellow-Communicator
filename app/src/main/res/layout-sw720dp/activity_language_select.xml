@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/txtEditLanguage"
                 android:layout_marginBottom="19dp"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:textColor="#000000"
                 android:textStyle="bold"/>
             <LinearLayout
@@ -100,7 +100,6 @@
                 android:id="@+id/llFollwStep"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="19dp"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="wrap_content"
@@ -123,8 +122,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/txtChangeLanguage"
+                android:layout_marginTop="57dp"
                 android:layout_marginBottom="19dp"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:textColor="#000000"
                 android:textStyle="bold"/>
             <LinearLayout
@@ -153,6 +153,7 @@
                 android:id="@+id/selectDownloadedLanguageSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="#FFBEBCB6"
                 android:layout_marginBottom="19dp"/>
             <LinearLayout
                 android:id="@+id/llStep2"
@@ -173,14 +174,54 @@
                     android:id="@+id/tv4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/change_language_line4"
+                    android:text="@string/change_language_line5"
                     android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="18sp" />
+            </LinearLayout>
+            <ImageView
+                android:id="@+id/ivTtsVoiceDat"
+                android:layout_width="280dp"
+                android:layout_height="386dp"
+                android:layout_marginStart="-22dp"
+                android:layout_marginLeft="-22dp"
+                android:layout_marginBottom="19dp"
+                android:src="@drawable/gtts3" />
+            <Button
+                android:id="@+id/btnDownloadVoiceData"
+                android:layout_width="230dp"
+                android:textSize="18sp"
+                android:background="#FFBEBCB6"
+                android:layout_marginBottom="19dp"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_actLangSel_downloadDat"/>
+            <LinearLayout
+                android:id="@+id/llStep3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="19dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginRight="4dp"
+                    android:textColor="#000"
+                    android:scaleX=".7"
+                    android:scaleY=".7"
+                    android:text="@string/bullet" />
+                <TextView
+                    android:id="@+id/tv5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/change_language_line4"
+                    android:textColor="#000000"
                     android:textSize="18sp" />
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/llImg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="-22dp"
+                android:layout_marginLeft="-22dp"
                 android:layout_marginBottom="19dp"
                 android:orientation="horizontal">
                 <ImageView
@@ -206,7 +247,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/change_tts_lang"/>
             <LinearLayout
-                android:id="@+id/llStep3"
+                android:id="@+id/llStep4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="19dp">
@@ -220,6 +261,7 @@
                     android:scaleY=".7"
                     android:text="@string/bullet" />
                 <TextView
+                    android:id="@+id/tv6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/txtApplyChanges"
