@@ -41,14 +41,20 @@ import static com.dsource.idc.jellowintl.Utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.Utility.Analytics.stopMeasuring;
 
 public class LevelTwoActivity extends AppCompatActivity {
-    private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 0;
-    private final int REQ_HOME = 0, MENU_ITEM_DAILY_ACT = 1, MENU_ITEM_PEOPLE = 5, MENU_ITEM_PLACES = 6, MENU_ITEM_HELP = 8;
+    private final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 0;
+    private final int REQ_HOME = 0;
+    private final int MENU_ITEM_DAILY_ACT = 1;
+    private final int MENU_ITEM_PEOPLE = 5;
+    private final int  MENU_ITEM_PLACES = 6;
+    private final int  MENU_ITEM_HELP = 8;
     private final boolean DISABLE_ACTION_BTNS = true;
 
-    private int mCk = 0, mCy = 0, mCm = 0, mCd = 0, mCn = 0, mCl = 0;
-    private int image_flag = -1, flag_keyboard = 0, mActionBtnClickCount;
-    private ImageView like, dislike, add, minus, yes, no, home, keyboard, ttsButton, back;
-    private EditText et;
+    private int mFlgLike = 0, mFlgYes = 0, mFlgMore = 0, mFlgDntLike = 0, mFlgNo = 0,
+            mFlgLess = 0;
+    private int mFlgImage = -1, mFlgKeyboard = 0, mActionBtnClickCount;
+    private ImageView mIvLike, mIvDontLike, mIvAdd, mIvMinus, mIvYes, mIvNo,
+            mIvHome, mIvKeyboard, mIvBack, mIvTts;
+    private EditText mEtTTs;
     private KeyListener originalKeyListener;
     private RecyclerView mRecyclerView;
     private LinearLayout mMenuItemLinearLayout;
@@ -60,10 +66,10 @@ public class LevelTwoActivity extends AppCompatActivity {
 
     private String[] mLevelTwoSpeechText, mLevelTwoAdapterText,side, below;
     private ArrayList<ArrayList<ArrayList<String>>> mLayerTwoSpeech;
-    private String[] myMusic, actionBarText;
+    private String[] mArrSpeechText, mArrAdapterTxt;
+
     private String[] temp = new String[100];
     private String[] image_temp = new String[100];
-
     private String[] new_people_adapter = new String[100];
     private String[] people = new String[100];
     private Integer[] count_people = new Integer[100];
@@ -77,13 +83,12 @@ public class LevelTwoActivity extends AppCompatActivity {
     private String[] new_places = new String[100];
     private Integer[] new_places_count = new Integer[15];
     private Integer[] sort_places = new Integer[15];
-    private String mBloodGroup, end, actionBarTitleTxt;
+    private String end, actionBarTitleTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_levelx_layout);
-
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
         mLevelOneItemPos = getIntent().getExtras().getInt("mLevelOneItemPos");
         getSupportActionBar().setTitle(getIntent().getExtras().getString("selectedMenuItemPath"));
@@ -91,82 +96,177 @@ public class LevelTwoActivity extends AppCompatActivity {
             getWindow().setFlags(
                 WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
                     WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
+        new ChangeAppLocale(this).setLocale();
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         loadArraysFromResources();
 
-
-        new ChangeAppLocale(this).setLocale();
         mSession = new SessionManager(this);
         initializeArrayListOfRecycler();
-        myMusic_function(mLevelOneItemPos);
+        initializeLayoutViews();
+        initializeRecyclerViewAdapter();
+        initializeViewListeners();
+    }
 
-        like = findViewById(R.id.ivlike);
-        like.setContentDescription(side[0]);
-        dislike = findViewById(R.id.ivdislike);
-        dislike.setContentDescription(side[6]);
-        add = findViewById(R.id.ivadd);
-        add.setContentDescription(side[4]);
-        minus = findViewById(R.id.ivminus);
-        minus.setContentDescription(side[10]);
-        yes = findViewById(R.id.ivyes);
-        yes.setContentDescription(side[2]);
-        no = findViewById(R.id.ivno);
-        no.setContentDescription(side[8]);
-        home = findViewById(R.id.ivhome);
-        home.setContentDescription(below[0]);
-        back = findViewById(R.id.ivback);
-        back.setContentDescription(below[1]);
-        back.setAlpha(1f);
-        keyboard = findViewById(R.id.keyboard);
-        keyboard.setContentDescription(below[2]);
-        et = findViewById(R.id.et);
-        et.setContentDescription(getString(R.string.string_to_speak));
-        et.setVisibility(View.INVISIBLE);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startMeasuring();
+        new ChangeAppLocale(this).setLocale();
+    }
 
-        ttsButton = findViewById(R.id.ttsbutton);
-        ttsButton.setContentDescription(getString(R.string.speak_written_text));
-        ttsButton.setVisibility(View.INVISIBLE);
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopMeasuring("LevelTwoActivity");
+        new ChangeAppLocale(this).setLocale();
+    }
 
-        originalKeyListener = et.getKeyListener();
+    @Override
+    protected void onDestroy() {
+        mRecyclerView = null;
+        mLayerTwoSpeech = null;
+        mRecyclerItemsViewList = null;
+        mMenuItemLinearLayout = null;
+        mLevelTwoSpeechText = null;
+        mLevelTwoAdapterText = null;
+        side = null; below = null;
+        temp = null;
+        image_temp = null;
+        new_people_adapter = null;
+        people  = null;
+        count_people = null;
+        new_people = null;
+        new_people_count = null;
+        sort = null;
+
+        places = null;
+        new_places_adapter = null;
+        count_places = null;
+        new_places = null;
+        new_places_count = null;
+        sort_places = null;
+
+        super.onDestroy();
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.languageSelect:
+                startActivity(new Intent(this, LanguageSelectActivity.class));
+                break;
+            case R.id.profile:
+                startActivity(new Intent(this, ProfileFormActivity.class));
+                break;
+            case R.id.info:
+                startActivity(new Intent(this, AboutJellowActivity.class));
+                break;
+            case R.id.usage:
+                startActivity(new Intent(this, TutorialActivity.class));
+                break;
+            case R.id.keyboardinput:
+                startActivity(new Intent(this, KeyboardInputActivity.class));
+                break;
+            case R.id.feedback:
+                startActivity(new Intent(this, FeedbackActivity.class));
+                break;
+            case R.id.settings:
+                startActivity(new Intent(this, SettingActivity.class));
+                break;
+            case R.id.reset:
+                startActivity(new Intent(this, ResetPreferencesActivity.class));
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQ_HOME && resultCode == RESULT_CANCELED)
+            finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+    @Override
+    public void onRequestPermissionsResult (int requestCode, String Permissions[], int[] grantResults){
+        if (requestCode == MY_PERMISSIONS_REQUEST_CALL_PHONE){
+            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                //startCall("tel:" + mSession.getFather_no());
+            } else {
+                Toast.makeText(this, "Call permission was denied.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    /**
+     * <p>This function will initialize the views that are populated on the activity layout.
+     * It also assigns content description to the views to enable speech in
+     * Talk-back feature. The Talk-back feature is not available to this version.</p>
+     * */
+    private void initializeLayoutViews() {
+        mIvLike = findViewById(R.id.ivlike);
+        mIvLike.setContentDescription(side[0]);
+        mIvDontLike = findViewById(R.id.ivdislike);
+        mIvDontLike.setContentDescription(side[6]);
+        mIvAdd = findViewById(R.id.ivadd);
+        mIvAdd.setContentDescription(side[4]);
+        mIvMinus = findViewById(R.id.ivminus);
+        mIvMinus.setContentDescription(side[10]);
+        mIvYes = findViewById(R.id.ivyes);
+        mIvYes.setContentDescription(side[2]);
+        mIvNo = findViewById(R.id.ivno);
+        mIvNo.setContentDescription(side[8]);
+        mIvHome = findViewById(R.id.ivhome);
+        mIvHome.setContentDescription(below[0]);
+        mIvBack = findViewById(R.id.ivback);
+        mIvBack.setContentDescription(below[1]);
+        mIvBack.setAlpha(1f);
+        mIvKeyboard = findViewById(R.id.keyboard);
+        mIvKeyboard.setContentDescription(below[2]);
+        mEtTTs = findViewById(R.id.et);
+        mEtTTs.setContentDescription(getString(R.string.string_to_speak));
+        mEtTTs.setVisibility(View.INVISIBLE);
+
+        mIvTts = findViewById(R.id.ttsbutton);
+        mIvTts.setContentDescription(getString(R.string.speak_written_text));
+        mIvTts.setVisibility(View.INVISIBLE);
+
+        originalKeyListener = mEtTTs.getKeyListener();
         // Set it to null - this will make the field non-editable
-        et.setKeyListener(null);
-
-
+        mEtTTs.setKeyListener(null);
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager( new GridLayoutManager(this, 3));
-        if (mLevelOneItemPos == MENU_ITEM_PEOPLE || mLevelOneItemPos == MENU_ITEM_PLACES) {}
-        else mRecyclerView.setAdapter(new LevelTwoAdapter(this, mLevelOneItemPos));
-
         mRecyclerView.setVerticalScrollBarEnabled(true);
         mRecyclerView.setScrollbarFadingEnabled(false);
-        mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), mRecyclerView, new RecyclerTouchListener.ClickListener() {
-            @Override
-            public void onClick(final View view, final int position) {
-                mMenuItemLinearLayout = view.findViewById(R.id.linearlayout_icon1);
-                mMenuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        tappedGridItemEvent(view, v, position);
-                    }
-                });
-            }
-            @Override   public void onLongClick(View view, int position) {}
-        }));
+    }
 
-        mRecyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
-            @Override
-            public void onChildViewAttachedToWindow(View view) {
-                mRecyclerItemsViewList.set(mRecyclerView.getChildLayoutPosition(view), view);
-                if(mRecyclerItemsViewList.contains(view) && mSelectedItemAdapterPos > -1 && mRecyclerView.getChildLayoutPosition(view) == mSelectedItemAdapterPos)
-                    setMenuImageBorder(view, true);
-            }
-
-            @Override
-            public void onChildViewDetachedFromWindow(View view) {
-                setMenuImageBorder(view, false);
-                mRecyclerItemsViewList.set(mRecyclerView.getChildLayoutPosition(view), null);
-            }
-        });
+    /**
+     * <p>This function will initialize the adapter for recycler view. In this level two
+     * types of adapter are used:
+     *      a) {@link PeoplePlacesAdapter}
+     *      b) {@link LevelTwoAdapter}
+     * As per the category icon selected in the {@link MainActivity}, an adapter is selected and hence
+     * category icons are populated in this level.</p>
+     * */
+    private void initializeRecyclerViewAdapter() {
+        if(mLevelOneItemPos != MENU_ITEM_PEOPLE && mLevelOneItemPos != MENU_ITEM_PLACES)
+            mRecyclerView.setAdapter(new LevelTwoAdapter(this, mLevelOneItemPos));
 
         end = getString(R.string.endString);
         if (mLevelOneItemPos == MENU_ITEM_PEOPLE) {
@@ -211,8 +311,8 @@ public class LevelTwoActivity extends AppCompatActivity {
             temp = Arrays.copyOfRange(new_people_adapter, 0, new_people_count.length);
             image_temp = Arrays.copyOfRange(new_people, 0, new_people_count.length);
             mRecyclerView.setAdapter(new PeoplePlacesAdapter(this, temp, image_temp));
-            myMusic = new String[temp.length];
-            myMusic = sortTtsSpeechArray(mLevelTwoSpeechText, MENU_ITEM_PEOPLE);
+            mArrSpeechText = new String[temp.length];
+            mArrSpeechText = sortTtsSpeechArray(mLevelTwoSpeechText, MENU_ITEM_PEOPLE);
         }else if (mLevelOneItemPos == MENU_ITEM_PLACES) {
             places = getResources().getStringArray(R.array.arrLevelTwoPlacesIcon);
             for (int j = 0; j < count_places.length; j++) {
@@ -240,159 +340,232 @@ public class LevelTwoActivity extends AppCompatActivity {
                 temp = Arrays.copyOfRange(new_places_adapter, 0, new_places_count.length);
                 image_temp = Arrays.copyOfRange(new_places, 0, new_places_count.length);
                 mRecyclerView.setAdapter(new PeoplePlacesAdapter(this, temp, image_temp));
-                myMusic = new String[temp.length];
-                myMusic = sortTtsSpeechArray(mLevelTwoSpeechText, MENU_ITEM_PLACES);
+                mArrSpeechText = new String[temp.length];
+                mArrSpeechText = sortTtsSpeechArray(mLevelTwoSpeechText, MENU_ITEM_PLACES);
             }
         }
+    }
 
-        back.setOnClickListener(new View.OnClickListener() {
+    /**
+     * <p>This function will initialize the action listeners to the views which are populated on
+     * on this activity.</p>
+     * */
+    private void initializeViewListeners() {
+        initRecyclerViewListeners();
+        initBackBtnListener();
+        initHomeBtnListener();
+        initKeyboardBtnListener();
+        initLikeBtnListener();
+        initDontLikeBtnListener();
+        initYesBtnListener();
+        initNoBtnListener();
+        initMoreBtnListener();
+        initLessBtnListener();
+        initTTsBtnListener();
+        initTTsEditTxtListener();
+    }
+
+    /**
+     * <p>This function initializes {@link RecyclerTouchListener} and
+     * {@link RecyclerView.OnChildAttachStateChangeListener} for recycler view.
+     * {@link RecyclerTouchListener} is custom defined Touch event listener class.
+     * {@link RecyclerView.OnChildAttachStateChangeListener} is defined to efficiently handle
+     * item state of recycler child, when attached to or detached from recycler view. </p>
+     * */
+    private void initRecyclerViewListeners() {
+        mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(),
+                mRecyclerView, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(final View view, final int position) {
+                mMenuItemLinearLayout = view.findViewById(R.id.linearlayout_icon1);
+                mMenuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        tappedGridItemEvent(view, v, position);
+                    }
+                });
+            }
+            @Override   public void onLongClick(View view, int position) {}
+        }));
+
+        mRecyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
+            @Override
+            public void onChildViewAttachedToWindow(View view) {
+                mRecyclerItemsViewList.set(mRecyclerView.getChildLayoutPosition(view), view);
+                if(mRecyclerItemsViewList.contains(view) && mSelectedItemAdapterPos > -1 &&
+                        mRecyclerView.getChildLayoutPosition(view) == mSelectedItemAdapterPos)
+                    setMenuImageBorder(view, true);
+            }
+
+            @Override
+            public void onChildViewDetachedFromWindow(View view) {
+                setMenuImageBorder(view, false);
+                mRecyclerItemsViewList.set(mRecyclerView.getChildLayoutPosition(view), null);
+            }
+        });
+    }
+
+    /**
+     * <p>This function will initialize the click listener to Navigation back button.
+     * When pressed navigation back button:
+     *  a) If keyboard is open, keyboard is closed.
+     *  b) If keyboard is not open, current level is closed returning successful
+     *  closure (RESULT_OK) of a screen. User will returned back to {@link MainActivity}.
+     * </p>
+     * */
+    private void initBackBtnListener() {
+        mIvBack.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 singleEvent("Navigation","Back");
                 speakSpeech(below[1]);
-                if (flag_keyboard == 1) {
-                    keyboard.setImageResource(R.drawable.keyboard_button);
-                    back.setImageResource(R.drawable.backpressed);
-                    et.setVisibility(View.INVISIBLE);
+                if (mFlgKeyboard == 1) {
+                    mIvKeyboard.setImageResource(R.drawable.keyboard_button);
+                    mIvBack.setImageResource(R.drawable.backpressed);
+                    mEtTTs.setVisibility(View.INVISIBLE);
                     mRecyclerView.setVisibility(View.VISIBLE);
-                    ttsButton.setVisibility(View.INVISIBLE);
-                    flag_keyboard = 0;
+                    mIvTts.setVisibility(View.INVISIBLE);
+                    mFlgKeyboard = 0;
                     if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 1) {
-                        setActionButtonToAboutMe(image_flag);
+                        setActionButtonToAboutMe(mFlgImage);
                         changeTheActionButtons(!DISABLE_ACTION_BTNS);
                     }else if(mLevelOneItemPos == MENU_ITEM_HELP &&
-                            ((mLevelTwoItemPos == 0) ||(mLevelTwoItemPos == 2) || (mLevelTwoItemPos == 3) || (mLevelTwoItemPos == 4) ||(mLevelTwoItemPos == 5) ||(mLevelTwoItemPos == 12) ||(mLevelTwoItemPos == 13) ||(mLevelTwoItemPos == 14)))
+                            ((mLevelTwoItemPos == 0) ||(mLevelTwoItemPos == 2) || (mLevelTwoItemPos == 3) ||
+                                    (mLevelTwoItemPos == 4) ||(mLevelTwoItemPos == 5) ||
+                                    (mLevelTwoItemPos == 12) ||(mLevelTwoItemPos == 13) ||
+                                    (mLevelTwoItemPos == 14)))
                         changeTheActionButtons(DISABLE_ACTION_BTNS);
                     else if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 10)
-                        badTouchDisableActionButtons();
+                        unsafeTouchDisableActionButtons();
                     else if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 15)
                         safetyDisableActionButtons();
                     else
                         changeTheActionButtons(!DISABLE_ACTION_BTNS);
                 } else {
-                    back.setImageResource(R.drawable.backpressed);
+                    mIvBack.setImageResource(R.drawable.backpressed);
                     setResult(RESULT_OK);
                     finish();
                 }
                 showActionBarTitle(true);
             }
         });
+    }
 
-        home.setOnClickListener(new View.OnClickListener() {
+    /**
+     * <p>This function will initialize the click listener to Navigation home button.
+     * When user press this button user navigated to {@link MainActivity} with
+     *  every state of views is like app launched as fresh. Action bar title is set
+     *  to 'home'</p>
+     * */
+    private void initHomeBtnListener() {
+        mIvHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 singleEvent("Navigation","Home");
-                home.setImageResource(R.drawable.homepressed);
-                keyboard.setImageResource(R.drawable.keyboard_button);
+                mIvHome.setImageResource(R.drawable.homepressed);
+                mIvKeyboard.setImageResource(R.drawable.keyboard_button);
                 speakSpeech(below[0]);
                 setResult(RESULT_CANCELED);
                 finish();
             }
         });
+    }
 
-        keyboard.setOnClickListener(new View.OnClickListener() {
+    /**
+     * <p>This function will initialize the click listener to Navigation keyboard button.
+     * {@link LevelTwoActivity} navigation keyboard button either enable or disable
+     * keyboard layout.
+     * When keyboard layout is enabled using keyboard button, it is visible to user and
+     * action bar title set to "keyboard".
+     * When keyboard layout is disabled using keyboard button, the state of the
+     * {@link LevelTwoActivity} retrieved as it was before opening keyboard layout.
+     * */
+    private void initKeyboardBtnListener() {
+        mIvKeyboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 speakSpeech(below[2]);
-                ttsButton.setImageResource(R.drawable.speaker_button);
-                if (flag_keyboard == 1) {
-                    keyboard.setImageResource(R.drawable.keyboard_button);
-                    back.setImageResource(R.drawable.back_button);
-                    et.setVisibility(View.INVISIBLE);
+                mIvTts.setImageResource(R.drawable.speaker_button);
+                if (mFlgKeyboard == 1) {
+                    mIvKeyboard.setImageResource(R.drawable.keyboard_button);
+                    mIvBack.setImageResource(R.drawable.back_button);
+                    mEtTTs.setVisibility(View.INVISIBLE);
                     mRecyclerView.setVisibility(View.VISIBLE);
-                    ttsButton.setVisibility(View.INVISIBLE);
+                    mIvTts.setVisibility(View.INVISIBLE);
                     if (mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 1){
-                        setActionButtonToAboutMe(image_flag);
+                        setActionButtonToAboutMe(mFlgImage);
                         changeTheActionButtons(!DISABLE_ACTION_BTNS);
                     }else if(mLevelOneItemPos == MENU_ITEM_HELP &&
-                            ((mLevelTwoItemPos == 0) ||(mLevelTwoItemPos == 2) || (mLevelTwoItemPos == 3) || (mLevelTwoItemPos == 4) ||(mLevelTwoItemPos == 5) ||(mLevelTwoItemPos == 12) ||(mLevelTwoItemPos == 13) ||(mLevelTwoItemPos == 14)))
+                            ((mLevelTwoItemPos == 0) ||(mLevelTwoItemPos == 2) || (mLevelTwoItemPos == 3) ||
+                                    (mLevelTwoItemPos == 4) ||(mLevelTwoItemPos == 5) ||
+                                    (mLevelTwoItemPos == 12) ||(mLevelTwoItemPos == 13) ||
+                                    (mLevelTwoItemPos == 14)))
                         changeTheActionButtons(DISABLE_ACTION_BTNS);
                     else if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 10)
-                        badTouchDisableActionButtons();
+                        unsafeTouchDisableActionButtons();
                     else if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 15)
                         safetyDisableActionButtons();
                     else
                         changeTheActionButtons(!DISABLE_ACTION_BTNS);
-                    flag_keyboard = 0;
+                    mFlgKeyboard = 0;
                     showActionBarTitle(true);
-                    } else {
-                    keyboard.setImageResource(R.drawable.keyboardpressed);
-                    et.setVisibility(View.VISIBLE);
-                    et.setKeyListener(originalKeyListener);
+                } else {
+                    mIvKeyboard.setImageResource(R.drawable.keyboardpressed);
+                    mEtTTs.setVisibility(View.VISIBLE);
+                    mEtTTs.setKeyListener(originalKeyListener);
                     // Focus the field.
                     mRecyclerView.setVisibility(View.INVISIBLE);
                     changeTheActionButtons(DISABLE_ACTION_BTNS);
-                    et.requestFocus();
-                    ttsButton.setVisibility(View.VISIBLE);
+                    mEtTTs.requestFocus();
+                    mIvTts.setVisibility(View.VISIBLE);
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
                     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-                    back.setImageResource(R.drawable.back_button);
-                    back.setAlpha(1f);
-                    back.setEnabled(true);
-                    flag_keyboard = 1;
+                    mIvBack.setImageResource(R.drawable.back_button);
+                    mIvBack.setAlpha(1f);
+                    mIvBack.setEnabled(true);
+                    mFlgKeyboard = 1;
                     showActionBarTitle(false);
                     getSupportActionBar().setTitle(getString(R.string.keyboard));
                 }
             }
         });
+    }
 
-        ttsButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                speakSpeech(et.getText().toString());
-                if(!et.getText().toString().equals("")) ttsButton.setImageResource(R.drawable.speaker_pressed);
-                //mAnalytics.reportLog(getLocalClassName()+", TtsSpeak", Log.INFO);
-                singleEvent("Keyboard",et.getText().toString());
-                like.setEnabled(false);
-                dislike.setEnabled(false);
-                add.setEnabled(false);
-                minus.setEnabled(false);
-                yes.setEnabled(false);
-                no.setEnabled(false);
-            }
-        });
-
-        et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                // If it loses focus...
-                if (!hasFocus) {
-                    // Hide soft keyboard.
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(et.getWindowToken(), 0);
-                    // Make it non-editable again.
-                    et.setKeyListener(null);
-                }
-            }
-        });
-
-        like.setOnClickListener(new View.OnClickListener() {
+    /**
+     * <p>This function will initialize the click listener to expressive like button.
+     * When expressive like button is pressed:
+     *  a. Single time, speech output is 'like'
+     *  b. twice, speech output is 'really like'
+     * When expressive like button in conjunction with category icon is pressed:
+     *  a. Single time, speech output is full sentence with 'like' expression
+     *  b. twice, speech output is full sentence with 'really like' expression </p>
+     * */
+    private void initLikeBtnListener() {
+        mIvLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCy = mCm = mCd = mCn = mCl = 0;
-                image_flag = 0;
+                mFlgYes = mFlgMore = mFlgDntLike = mFlgNo = mFlgLess = 0;
+                mFlgImage = 0;
                 if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
-                    setActionButtonToAboutMe(image_flag);
+                    setActionButtonToAboutMe(mFlgImage);
                 else
-                    resetActionButtons(image_flag);
+                    resetActionButtons(mFlgImage);
                 if (!mShouldReadFullSpeech) {
-                    if (mCk == 1) {
-                        speakSpeech(side[1]);                               //if pressing like for second time then says like very much
-                        mCk = 0;
+                    if (mFlgLike == 1) {
+                        speakSpeech(side[1]);                               //if pressing mIvLike for second time then says really like
+                        mFlgLike = 0;
                         singleEvent("ExpressiveIcon","ReallyLike");
                     } else {
-                        speakSpeech(side[0]);                               //if pressing like for first time says i like iin lang specified for mSession
-                        mCk = 1;
+                        speakSpeech(side[0]);                               //if pressing mIvLike for first time says like
+                        mFlgLike = 1;
                         singleEvent("ExpressiveIcon","Like");
                     }
                 } else {
-
-                    //mAnalytics.reportLog(getLocalClassName()+", like: "+mLevelOneItemPos+", "+ mLevelTwoItemPos , Log.INFO);
                     ++mActionBtnClickCount;
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
-                    if (mCk == 1) {
+                    if (mFlgLike == 1) {
                         singleEvent("ExpressiveIcon","ReallyLike");
-
                         if (mLevelOneItemPos == 5)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort[mLevelTwoItemPos]).get(1));
                         else if (mLevelOneItemPos == 6)
@@ -401,11 +574,9 @@ public class LevelTwoActivity extends AppCompatActivity {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(1) + mSession.getName()+end);
                         else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(1));
-                        mCk = 0;
-
+                        mFlgLike = 0;
                     } else {
                         singleEvent("ExpressiveIcon","Like");
-
                         if(mLevelOneItemPos == 5)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort[mLevelTwoItemPos]).get(0));
                         else if (mLevelOneItemPos == 6)
@@ -414,42 +585,50 @@ public class LevelTwoActivity extends AppCompatActivity {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(0)+ mSession.getName()+end);
                         else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(0));
-                        mCk = 1;
-
+                        mFlgLike = 1;
                     }
                 }
-                back.setImageResource(R.drawable.back_button);
+                mIvBack.setImageResource(R.drawable.back_button);
             }
         });
+    }
 
-        dislike.setOnClickListener(new View.OnClickListener() {
+    /**
+     * <p>This function will initialize the click listener to expressive don't like button.
+     * When expressive don't like button is pressed:
+     *  a. Single time, speech output is 'don't like'
+     *  b. twice, speech output is 'really don't like'
+     * When expressive don't like button in conjunction with category icon is pressed:
+     *  a. Single time, speech output is full sentence with 'don't like' expression
+     *  b. twice, speech output is full sentence with 'really don't like' expression </p>
+     * */
+    private void initDontLikeBtnListener() {
+        mIvDontLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCk = 0; mCy = 0; mCm = 0; mCn = 0; mCl = 0;
-                image_flag = 1;
-                resetActionButtons(image_flag);
+                mFlgLike = 0; mFlgYes = 0; mFlgMore = 0; mFlgNo = 0; mFlgLess = 0;
+                mFlgImage = 1;
+                resetActionButtons(mFlgImage);
                 if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
-                    setActionButtonToAboutMe(image_flag);
+                    setActionButtonToAboutMe(mFlgImage);
                 else
-                    resetActionButtons(image_flag);
+                    resetActionButtons(mFlgImage);
                 if (!mShouldReadFullSpeech) {
-                    if (mCd == 1) {
+                    if (mFlgDntLike == 1) {
                         speakSpeech(side[7]);
-                        mCd = 0;
+                        mFlgDntLike = 0;
                         singleEvent("ExpressiveIcon","ReallyDon'tLike");
                     } else {
                         speakSpeech(side[6]);
-                        mCd = 1;
+                        mFlgDntLike = 1;
                         singleEvent("ExpressiveIcon","Don'tLike");
                     }
                 } else {
-                    //mAnalytics.reportLog(getLocalClassName()+", dislike: "+mLevelOneItemPos+", "+ mLevelTwoItemPos , Log.INFO);
                     ++mActionBtnClickCount;
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
-                    if (mCd == 1) {
+                    if (mFlgDntLike == 1) {
                         singleEvent("ExpressiveIcon","ReallyDon'tLike");
-
                         if (mLevelOneItemPos == 5)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort[mLevelTwoItemPos]).get(7));
                         else if (mLevelOneItemPos == 6)
@@ -458,11 +637,9 @@ public class LevelTwoActivity extends AppCompatActivity {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(7)+ mSession.getFather_name()+end);
                         else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(7));
-                        mCd = 0;
-
+                        mFlgDntLike = 0;
                     } else {
                         singleEvent("ExpressiveIcon","Don'tLike");
-
                         if (mLevelOneItemPos == 5)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort[mLevelTwoItemPos]).get(6));
                         else if (mLevelOneItemPos == 6)
@@ -471,42 +648,50 @@ public class LevelTwoActivity extends AppCompatActivity {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(6)+ mSession.getFather_name()+end);
                         else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(6));
-                        mCd = 1;
-
+                        mFlgDntLike = 1;
                     }
                 }
-                back.setImageResource(R.drawable.back_button);
+                mIvBack.setImageResource(R.drawable.back_button);
             }
         });
+    }
 
-        yes.setOnClickListener(new View.OnClickListener() {
+    /**
+     * <p>This function will initialize the click listener to expressive yes button.
+     * When expressive yes button is pressed:
+     *  a. Single time, speech output is 'yes'
+     *  b. twice, speech output is 'really yes'
+     * When expressive yes button in conjunction with category icon is pressed:
+     *  a. Single time, speech output is full sentence with 'yes' expression
+     *  b. twice, speech output is full sentence with 'really yes' expression </p>
+     * */
+    private void initYesBtnListener() {
+        mIvYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCk = 0; mCm = 0; mCd = 0; mCn = 0; mCl = 0;
-                image_flag = 2;
-                resetActionButtons(image_flag);
+                mFlgLike = 0; mFlgMore = 0; mFlgDntLike = 0; mFlgNo = 0; mFlgLess = 0;
+                mFlgImage = 2;
+                resetActionButtons(mFlgImage);
                 if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
-                    setActionButtonToAboutMe(image_flag);
+                    setActionButtonToAboutMe(mFlgImage);
                 else
-                    resetActionButtons(image_flag);
+                    resetActionButtons(mFlgImage);
                 if (!mShouldReadFullSpeech) {
-                    if (mCy == 1) {
+                    if (mFlgYes == 1) {
                         speakSpeech(side[3]);
-                        mCy = 0;
+                        mFlgYes = 0;
                         singleEvent("ExpressiveIcon","ReallyYes");
                     } else {
                         speakSpeech(side[2]);
-                        mCy = 1;
+                        mFlgYes = 1;
                         singleEvent("ExpressiveIcon","Yes");
                     }
                 } else  {
-                    //mAnalytics.reportLog(getLocalClassName()+", yes: "+mLevelOneItemPos+", "+ mLevelTwoItemPos , Log.INFO);
                     ++mActionBtnClickCount;
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
-                    if (mCy == 1) {
+                    if (mFlgYes == 1) {
                         singleEvent("ExpressiveIcon","ReallyYes");
-
                         if (mLevelOneItemPos == 5)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort[mLevelTwoItemPos]).get(3));
                         else if (mLevelOneItemPos == 6)
@@ -515,11 +700,9 @@ public class LevelTwoActivity extends AppCompatActivity {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(3)+ mSession.getEmailId()+end);
                         else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(3));
-                        mCy = 0;
-                        //mAnalytics.recordGridItem("Tapped ".concat("ReallyYesVerbiage"));
+                        mFlgYes = 0;
                     } else {
                         singleEvent("ExpressiveIcon","Yes");
-
                         if (mLevelOneItemPos == 5)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort[mLevelTwoItemPos]).get(2));
                         else if (mLevelOneItemPos == 6)
@@ -528,42 +711,50 @@ public class LevelTwoActivity extends AppCompatActivity {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(2)+ mSession.getEmailId()+end);
                         else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(2));
-                        mCy = 1;
-                        //mAnalytics.recordGridItem("Tapped ".concat("YesVerbiage"));
+                        mFlgYes = 1;
                     }
                 }
-                back.setImageResource(R.drawable.back_button);
+                mIvBack.setImageResource(R.drawable.back_button);
             }
         });
+    }
 
-        no.setOnClickListener(new View.OnClickListener() {
+    /**
+     * <p>This function will initialize the click listener to expressive no button.
+     * When expressive no button is pressed:
+     *  a. Single time, speech output is 'no'
+     *  b. twice, speech output is 'really no'
+     * When expressive no button in conjunction with category icon is pressed:
+     *  a. Single time, speech output is full sentence with 'no' expression
+     *  b. twice, speech output is full sentence with 'really no' expression </p>
+     * */
+    private void initNoBtnListener() {
+        mIvNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCk = 0; mCy = 0; mCm = 0; mCd = 0; mCl = 0;
-                image_flag = 3;
-                resetActionButtons(image_flag);
+                mFlgLike = 0; mFlgYes = 0; mFlgMore = 0; mFlgDntLike = 0; mFlgLess = 0;
+                mFlgImage = 3;
+                resetActionButtons(mFlgImage);
                 if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
-                    setActionButtonToAboutMe(image_flag);
+                    setActionButtonToAboutMe(mFlgImage);
                 else
-                    resetActionButtons(image_flag);
+                    resetActionButtons(mFlgImage);
                 if (!mShouldReadFullSpeech) {
-                    if (mCn == 1) {
+                    if (mFlgNo == 1) {
                         speakSpeech(side[9]);
-                        mCn = 0;
+                        mFlgNo = 0;
                         singleEvent("ExpressiveIcon","ReallyNo");
                     } else {
                         speakSpeech(side[8]);
-                        mCn = 1;
+                        mFlgNo = 1;
                         singleEvent("ExpressiveIcon","No");
                     }
                 } else {
-                    //mAnalytics.reportLog(getLocalClassName()+", no: "+mLevelOneItemPos+", "+ mLevelTwoItemPos , Log.INFO);
                     ++mActionBtnClickCount;
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
-                    if (mCn == 1) {
+                    if (mFlgNo == 1) {
                         singleEvent("ExpressiveIcon","ReallyNo");
-
                         if (mLevelOneItemPos == 5)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort[mLevelTwoItemPos]).get(9));
                         else if (mLevelOneItemPos == 6)
@@ -572,11 +763,9 @@ public class LevelTwoActivity extends AppCompatActivity {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(9)+ mSession.getAddress()+end);
                         else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(9));
-                        mCn = 0;
-                        //mAnalytics.recordGridItem("Tapped ".concat("ReallyNoVerbiage"));
+                        mFlgNo = 0;
                     } else {
                         singleEvent("ExpressiveIcon","No");
-
                         if (mLevelOneItemPos == 5)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort[mLevelTwoItemPos]).get(8));
                         else if (mLevelOneItemPos == 6)
@@ -585,42 +774,50 @@ public class LevelTwoActivity extends AppCompatActivity {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(8)+ mSession.getAddress()+end);
                         else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(8));
-                        mCn = 1;
-                        //mAnalytics.recordGridItem("Tapped ".concat("NoVerbiage"));
+                        mFlgNo = 1;
                     }
                 }
-                back.setImageResource(R.drawable.back_button);
+                mIvBack.setImageResource(R.drawable.back_button);
             }
         });
+    }
 
-        add.setOnClickListener(new View.OnClickListener() {
+    /**
+     * <p>This function will initialize the click listener to expressive more button.
+     * When expressive more button is pressed:
+     *  a. Single time, speech output is 'more'
+     *  b. twice, speech output is 'some more'
+     * When expressive more button in conjunction with category icon is pressed:
+     *  a. Single time, speech output is full sentence with 'more' expression
+     *  b. twice, speech output is full sentence with 'some more' expression </p>
+     * */
+    private void initMoreBtnListener() {
+        mIvAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCk = 0; mCy = 0; mCd = 0; mCn = 0; mCl = 0;
-                image_flag = 4;
-                resetActionButtons(image_flag);
+                mFlgLike = 0; mFlgYes = 0; mFlgDntLike = 0; mFlgNo = 0; mFlgLess = 0;
+                mFlgImage = 4;
+                resetActionButtons(mFlgImage);
                 if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
-                    setActionButtonToAboutMe(image_flag);
+                    setActionButtonToAboutMe(mFlgImage);
                 else
-                    resetActionButtons(image_flag);
+                    resetActionButtons(mFlgImage);
                 if (!mShouldReadFullSpeech) {
-                    if (mCm == 1) {
+                    if (mFlgMore == 1) {
                         speakSpeech(side[5]);
-                        mCm = 0;
+                        mFlgMore = 0;
                         singleEvent("ExpressiveIcon","ReallyMore");
                     } else {
                         speakSpeech(side[4]);
-                        mCm = 1;
+                        mFlgMore = 1;
                         singleEvent("ExpressiveIcon","More");
                     }
                 } else {
-                    //mAnalytics.reportLog(getLocalClassName()+", add: "+mLevelOneItemPos+", "+ mLevelTwoItemPos , Log.INFO);
                     ++mActionBtnClickCount;
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
-                    if (mCm == 1) {
+                    if (mFlgMore == 1) {
                         singleEvent("ExpressiveIcon","ReallyMore");
-
                         if (mLevelOneItemPos == 5)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort[mLevelTwoItemPos]).get(5));
                         else if (mLevelOneItemPos == 6)
@@ -629,11 +826,9 @@ public class LevelTwoActivity extends AppCompatActivity {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(5)+ mSession.getFather_no().replaceAll("\\B", " ")+end);
                         else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(5));
-                        mCm = 0;
-                        //mAnalytics.recordGridItem("Tapped ".concat("ReallyAddVerbiage"));
+                        mFlgMore = 0;
                     } else {
                         singleEvent("ExpressiveIcon","More");
-
                         if (mLevelOneItemPos == 5)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort[mLevelTwoItemPos]).get(4));
                         else if (mLevelOneItemPos == 6)
@@ -642,154 +837,138 @@ public class LevelTwoActivity extends AppCompatActivity {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(5) + mSession.getFather_no().replaceAll("\\B", " ")+end);
                         else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(4));
-                        mCm = 1;
-                        //mAnalytics.recordGridItem("Tapped ".concat("AddVerbiage"));
+                        mFlgMore = 1;
                     }
                 }
-                back.setImageResource(R.drawable.back_button);
+                mIvBack.setImageResource(R.drawable.back_button);
             }
         });
+    }
 
-        minus.setOnClickListener(new View.OnClickListener() {
+    /**
+     * <p>This function will initialize the click listener to expressive less button.
+     * When expressive less button is pressed:
+     *  a. Single time, speech output is 'less'
+     *  b. twice, speech output is 'really less'
+     * When expressive less button in conjunction with category icon is pressed:
+     *  a. Single time, speech output is full sentence with 'less' expression
+     *  b. twice, speech output is full sentence with 'really less' expression </p>
+     * */
+    private void initLessBtnListener() {
+        mIvMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCk = 0; mCy = 0; mCm = 0; mCd = 0; mCn = 0;
-                image_flag = 5;
+                mFlgLike = 0; mFlgYes = 0; mFlgMore = 0; mFlgDntLike = 0; mFlgNo = 0;
+                mFlgImage = 5;
                 if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
-                    setActionButtonToAboutMe(image_flag);
+                    setActionButtonToAboutMe(mFlgImage);
                 else
-                    resetActionButtons(image_flag);
+                    resetActionButtons(mFlgImage);
                 if (!mShouldReadFullSpeech) {
-                    if (mCl == 1) {
+                    if (mFlgLess == 1) {
                         speakSpeech(side[11]);
-                        mCl = 0;
+                        mFlgLess = 0;
                         singleEvent("ExpressiveIcon","ReallyLess");
                     } else {
                         speakSpeech(side[10]);
-                        mCl = 1;
+                        mFlgLess = 1;
                         singleEvent("ExpressiveIcon","Less");
                     }
                 } else {
-                    //mAnalytics.reportLog(getLocalClassName()+",minus: "+mLevelOneItemPos+", "+ mLevelTwoItemPos , Log.INFO);
                     ++mActionBtnClickCount;
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
-                    if (mCl == 1) {
+                    if (mFlgLess == 1) {
                         singleEvent("ExpressiveIcon","ReallyLess");
-
                         if (mLevelOneItemPos == 5)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort[mLevelTwoItemPos]).get(11));
                         else if (mLevelOneItemPos == 6)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort_places[mLevelTwoItemPos]).get(11));
                         else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1){
-                            setBloodGroup();
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(10) + mBloodGroup+end);
+                            //getBloodGroup();
+                            //speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(10) + mBloodGroup+end);
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(10) + getBloodGroup() +end);
                         } else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(11));
-                        mCl = 0;
-                        //mAnalytics.recordGridItem("Tapped ".concat("ReallyMinusVerbiage"));
+                        mFlgLess = 0;
                     } else {
                         singleEvent("ExpressiveIcon","Less");
-
                         if (mLevelOneItemPos == 5)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort[mLevelTwoItemPos]).get(10));
                         else if (mLevelOneItemPos == 6)
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(sort_places[mLevelTwoItemPos]).get(10));
                         else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1){
-                            setBloodGroup();
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(10)+ mBloodGroup+end);
+                            //getBloodGroup();
+                            //speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(10)+ mBloodGroup+end);
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(10)+ getBloodGroup()+end);
                         } else
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(10));
-                        mCl = 1;
-                        //mAnalytics.recordGridItem("Tapped ".concat("MinusVerbiage"));
+                        mFlgLess = 1;
                     }
                 }
-                back.setImageResource(R.drawable.back_button);
+                mIvBack.setImageResource(R.drawable.back_button);
             }
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    /**
+     * <p>This function will initialize the click listener to Tts Speak button.
+     * When Tts speak button is pressed, broadcast speak request is sent to Text-to-speech service.
+     * Message typed in Text-to-speech input view, is synthesized by the service.</p>
+     * */
+    private void initTTsBtnListener() {
+        mIvTts.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                speakSpeech(mEtTTs.getText().toString());
+                if(!mEtTTs.getText().toString().equals(""))
+                    mIvTts.setImageResource(R.drawable.speaker_pressed);
+                singleEvent("Keyboard", mEtTTs.getText().toString());
+                mIvLike.setEnabled(false);
+                mIvDontLike.setEnabled(false);
+                mIvAdd.setEnabled(false);
+                mIvMinus.setEnabled(false);
+                mIvYes.setEnabled(false);
+                mIvNo.setEnabled(false);
+            }
+        });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        startMeasuring();
-        new ChangeAppLocale(this).setLocale();
+    /**
+     * <p>This function will initialize the click listener to EditText which is used by user to
+     * input custom strings.</p>
+     * */
+    private void initTTsEditTxtListener() {
+        mEtTTs.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                // If it loses focus...
+                if (!hasFocus) {
+                    // Hide soft mIvKeyboard.
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(mEtTTs.getWindowToken(), 0);
+                    // Make it non-editable again.
+                    mEtTTs.setKeyListener(null);
+                }
+            }
+        });
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.languageSelect: startActivity(new Intent(this, LanguageSelectActivity.class)); break;
-            case R.id.profile: startActivity(new Intent(this, ProfileFormActivity.class)); break;
-            case R.id.info: startActivity(new Intent(this, AboutJellowActivity.class)); break;
-            case R.id.usage: startActivity(new Intent(this, TutorialActivity.class)); break;
-            case R.id.keyboardinput: startActivity(new Intent(this, KeyboardInputActivity.class)); break;
-            case R.id.feedback: startActivity(new Intent(this, FeedbackActivity.class)); break;
-            case R.id.settings: startActivity(new Intent(this, SettingActivity.class)); break;
-            case R.id.reset: startActivity(new Intent(this, ResetPreferencesActivity.class)); break;
-            default: return super.onOptionsItemSelected(item);
-        }
-        return true;
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-          if(requestCode == REQ_HOME && resultCode == RESULT_CANCELED)
-            finish();
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        stopMeasuring("LevelTwoActivity");
-        new ChangeAppLocale(this).setLocale();
-    }
-
-    @Override
-    protected void onDestroy() {
-        mRecyclerView = null;
-        mLayerTwoSpeech = null;
-        mRecyclerItemsViewList = null;
-        mMenuItemLinearLayout = null;
-        mLevelTwoSpeechText = null;
-        mLevelTwoAdapterText = null;
-        side = null; below = null;
-        temp = null;
-        image_temp = null;
-        new_people_adapter = null;
-        people  = null;
-        count_people = null;
-        new_people = null;
-        new_people_count = null;
-        sort = null;
-
-        places = null;
-        new_places_adapter = null;
-        count_places = null;
-        new_places = null;
-        new_places_count = null;
-        sort_places = null;
-
-        super.onDestroy();
-
-    }
-
+    /**
+     * <p>This function will changes the category icons state as per user touch.
+     * @param view is parent view in selected RecyclerView.
+     * @param v is parent relative layout of category icon tapped,
+     * @param position is position of a tapped category icon in the RecyclerView.
+     * This function
+     *             a) Clear every expressive button flags
+     *             b) Reset expressive button icons
+     *             c) Reset category icon views
+     *             d) Set the border to selected category icon
+     *             e) If same category icon clicked twice that category will open up.
+     *             f) Set action bar title.
+     *             g) Increment preference count of tapped category icon.</p>
+     * */
     public void tappedGridItemEvent(View view, View v, int position) {
-        mCk = mCy = mCm = mCd = mCn = mCl = 0;
+        mFlgLike = mFlgYes = mFlgMore = mFlgDntLike = mFlgNo = mFlgLess = 0;
         resetActionButtons(-1);
         resetRecyclerAllItems();
         mActionBtnClickCount = 0;
@@ -797,81 +976,108 @@ public class LevelTwoActivity extends AppCompatActivity {
         mShouldReadFullSpeech = true;
         String title = getIntent().getExtras().getString("selectedMenuItemPath")+ " ";
         if (mLevelOneItemPos == MENU_ITEM_PEOPLE || mLevelOneItemPos == MENU_ITEM_PLACES) {
-            speakSpeech(myMusic[position]);
+            speakSpeech(mArrSpeechText[position]);
             Bundle bundle = new Bundle();
-            bundle.putString("Icon",myMusic[position]);
+            bundle.putString("Icon", mArrSpeechText[position]);
             bundle.putString("Level","Two");
             bundleEvent("Grid",bundle);
-            //mAnalytics.recordGridItem("Tapped ".concat(myMusic[position]));
         }else if(mLevelTwoItemPos == position && mLevelOneItemPos != MENU_ITEM_HELP){
             Intent intent = new Intent(LevelTwoActivity.this, LevelThreeActivity.class);
-            if(mLevelOneItemPos == MENU_ITEM_DAILY_ACT && ( mLevelTwoItemPos == 0 ||  mLevelTwoItemPos == 1 || mLevelTwoItemPos == 2 || mLevelTwoItemPos == 7 || mLevelTwoItemPos == 8 ))
+            if(mLevelOneItemPos == MENU_ITEM_DAILY_ACT &&
+                    ( mLevelTwoItemPos == 0 ||  mLevelTwoItemPos == 1 || mLevelTwoItemPos == 2 ||
+                            mLevelTwoItemPos == 7 || mLevelTwoItemPos == 8 ))
                 intent = new Intent(LevelTwoActivity.this, SequenceActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putString("Icon",myMusic[position]);
+            bundle.putString("Icon", mArrSpeechText[position]);
             bundle.putString("Level","LevelTwo");
             bundleEvent("Grid",bundle);
             intent.putExtra("mLevelOneItemPos", mLevelOneItemPos);
             intent.putExtra("mLevelTwoItemPos", mLevelTwoItemPos);
             intent.putExtra("selectedMenuItemPath", mActionBarTitle+ "/");
             startActivityForResult(intent, REQ_HOME);
-        }else if(mLevelOneItemPos == MENU_ITEM_PEOPLE || mLevelOneItemPos == MENU_ITEM_PLACES){
-            speakSpeech(myMusic[sort[mLevelTwoItemPos]]);
-            //mAnalytics.recordGridItem("Tapped ".concat(myMusic[position]));
         }else {
-            speakSpeech(myMusic[position]);
-            //mAnalytics.recordGridItem("Tapped ".concat(myMusic[position]));
+            speakSpeech(mArrSpeechText[position]);
         }
         mLevelTwoItemPos = mRecyclerView.getChildLayoutPosition(view);
         mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
+
         if(mLevelOneItemPos == MENU_ITEM_PEOPLE)
-            title += actionBarText[sort[mLevelTwoItemPos]];
+            title += mArrAdapterTxt[sort[mLevelTwoItemPos]];
         else if( mLevelOneItemPos == MENU_ITEM_PLACES)
-            title += actionBarText[sort_places[mLevelTwoItemPos]];
+            title += mArrAdapterTxt[sort_places[mLevelTwoItemPos]];
         else if( mLevelOneItemPos == MENU_ITEM_HELP)
-            title += actionBarText[mLevelTwoItemPos];
+            title += mArrAdapterTxt[mLevelTwoItemPos];
         else
-            title += actionBarText[mLevelTwoItemPos].substring(0, actionBarText[mLevelTwoItemPos].length()-1);
+            title += mArrAdapterTxt[mLevelTwoItemPos].substring
+                    (0, mArrAdapterTxt[mLevelTwoItemPos].length()-1);
         mActionBarTitle = title;
         getSupportActionBar().setTitle(mActionBarTitle);
+
         if(mLevelOneItemPos == MENU_ITEM_PEOPLE || mLevelOneItemPos == MENU_ITEM_PLACES)
             incrementTouchCountOfItem(mLevelTwoItemPos);
 
         if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 1)
             setActionButtonToAboutMe(-1);
         if(mLevelOneItemPos == MENU_ITEM_HELP &&
-                ((mLevelTwoItemPos == 2) || (mLevelTwoItemPos == 3) || (mLevelTwoItemPos == 4) ||(mLevelTwoItemPos == 5) ||(mLevelTwoItemPos == 12) ||(mLevelTwoItemPos == 13) ||(mLevelTwoItemPos == 14)))
+                ((mLevelTwoItemPos == 2) || (mLevelTwoItemPos == 3) || (mLevelTwoItemPos == 4) ||
+                        (mLevelTwoItemPos == 5) ||(mLevelTwoItemPos == 12) ||
+                        (mLevelTwoItemPos == 13) ||(mLevelTwoItemPos == 14)))
             changeTheActionButtons(DISABLE_ACTION_BTNS);
         else if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 0) {
             changeTheActionButtons(DISABLE_ACTION_BTNS);
             //showCallPreview();
         }else if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 10)
-            badTouchDisableActionButtons();
+            unsafeTouchDisableActionButtons();
         else if(mLevelOneItemPos == MENU_ITEM_HELP && mLevelTwoItemPos == 15)
             safetyDisableActionButtons();
         else
             changeTheActionButtons(!DISABLE_ACTION_BTNS);
-        //reportLog(getLocalClassName()+", "+mLevelOneItemPos+", "+ mLevelTwoItemPos , Log.INFO);
-        back.setImageResource(R.drawable.back_button);
+        mIvBack.setImageResource(R.drawable.back_button);
     }
 
+    /**
+     * <p>This function will set capacity of ArrayList holding RecyclerView items to the array size.
+     * Array is selected based on category icon opened in {@link MainActivity}</p>
+     * */
     private void initializeArrayListOfRecycler() {
         int size = -1;
         switch (mLevelOneItemPos) {
-            case 0: size = getResources().getStringArray(R.array.arrLevelTwoGreetFeelSpeechText).length; break;
-            case 1: size = getResources().getStringArray(R.array.arrLevelTwoEatSpeechText).length; break;
-            case 2: size = getResources().getStringArray(R.array.arrLevelTwoEatSpeechText).length; break;
-            case 3: size = getResources().getStringArray(R.array.arrLevelTwoFunSpeechText).length; break;
-            case 4: size = getResources().getStringArray(R.array.arrLevelTwoLearningSpeechText).length; break;
-            case 5: size = getResources().getStringArray(R.array.arrLevelTwoPeopleSpeechText).length; break;
-            case 6: size = getResources().getStringArray(R.array.arrLevelTwoPlacesSpeechText).length; break;
-            case 7: size = getResources().getStringArray(R.array.arrLevelTwoTimeWeatherSpeechText).length; break;
-            case 8: size = getResources().getStringArray(R.array.arrLevelTwoHelpSpeechText).length; break;
+            case 0:
+                size = getResources().getStringArray(R.array.arrLevelTwoGreetFeelSpeechText).length;
+                break;
+            case 1:
+                size = getResources().getStringArray(R.array.arrLevelTwoEatSpeechText).length;
+                break;
+            case 2:
+                size = getResources().getStringArray(R.array.arrLevelTwoEatSpeechText).length;
+                break;
+            case 3:
+                size = getResources().getStringArray(R.array.arrLevelTwoFunSpeechText).length;
+                break;
+            case 4:
+                size = getResources().getStringArray(R.array.arrLevelTwoLearningSpeechText).length;
+                break;
+            case 5:
+                size = getResources().getStringArray(R.array.arrLevelTwoPeopleSpeechText).length;
+                break;
+            case 6:
+                size = getResources().getStringArray(R.array.arrLevelTwoPlacesSpeechText).length;
+                break;
+            case 7:
+                size = getResources().getStringArray(R.array.arrLevelTwoTimeWeatherSpeechText).length;
+                break;
+            case 8:
+                size = getResources().getStringArray(R.array.arrLevelTwoHelpSpeechText).length;
+                break;
         }
         mRecyclerItemsViewList = new ArrayList<>(size);
         while(mRecyclerItemsViewList.size() <= size) mRecyclerItemsViewList.add(null);
     }
 
+    /**
+     * <p>This function will display/ hide action bar title.
+     * If {@param showTitle} is set then title is displayed otherwise not.</p>
+     * */
     private void showActionBarTitle(boolean showTitle){
         if (showTitle)
             getSupportActionBar().setTitle(actionBarTitleTxt);
@@ -881,12 +1087,25 @@ public class LevelTwoActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * <p>This function will send speech output request to
+     * {@link com.dsource.idc.jellowintl.Utility.JellowTTSService} Text-to-speech Engine.
+     * The string in {@param speechText} is speech output request string.</p>
+     * */
     private void speakSpeech(String speechText){
         Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_TEXT");
         intent.putExtra("speechText", speechText);
         sendBroadcast(intent);
     }
 
+    /**
+     * <p>This function will:
+     *     a) Read speech text from arrays for navigation buttons.
+     *     b) Read speech text from arrays for expressive buttons.
+     *     c) Read verbiage lines into {@link LevelTwoVerbiageModel} model.
+     *     d) Read speech and adapter text from arrays for category icons
+     *     for People/Places.</p>
+     * */
     private void loadArraysFromResources() {
         side = getResources().getStringArray(R.array.arrActionSpeech);
         below = getResources().getStringArray(R.array.arrNavigationSpeech);
@@ -902,87 +1121,115 @@ public class LevelTwoActivity extends AppCompatActivity {
             mLevelTwoSpeechText = getResources().getStringArray(R.array.arrLevelTwoPlacesSpeechText);
             mLevelTwoAdapterText = getResources().getStringArray(R.array.arrLevelTwoPlacesAdapterText);
         }
+        retrieveSpeechAndAdapterArrays(mLevelOneItemPos);
     }
 
-    private void setBloodGroup() {
+    /**
+     * <p>This function will provide the  blood group of user
+     * @return blood group of user.</p>
+     * */
+    private String getBloodGroup() {
         switch(mSession.getBlood()){
-            case  1: mBloodGroup = getString(R.string.aPos); break;
-            case  2: mBloodGroup = getString(R.string.aNeg); break;
-            case  3: mBloodGroup = getString(R.string.bPos); break;
-            case  4: mBloodGroup = getString(R.string.bNeg); break;
-            case  5: mBloodGroup = getString(R.string.abPos); break;
-            case  6: mBloodGroup = getString(R.string.abNeg); break;
-            case  7: mBloodGroup = getString(R.string.oPos); break;
-            case  8: mBloodGroup = getString(R.string.oNeg); break;
-            default: mBloodGroup = ""; break;
+            case  1: return getString(R.string.aPos);
+            case  2: return getString(R.string.aNeg);
+            case  3: return getString(R.string.bPos);
+            case  4: return getString(R.string.bNeg);
+            case  5: return getString(R.string.abPos);
+            case  6: return getString(R.string.abNeg);
+            case  7: return getString(R.string.oPos);
+            case  8: return getString(R.string.oNeg);
+            default: return "";
         }
     }
 
+    /**
+     * <p>Category icon "Help" -> "Safety" when selected, it needed to disable expressive
+     * no button. This function disables the No expressive button and keep
+     * enabled other buttons</p>
+     * */
     private void safetyDisableActionButtons() {
-        like.setAlpha(1f);
-        dislike.setAlpha(1f);
-        yes.setAlpha(1f);
-        no.setAlpha(0.5f);
-        add.setAlpha(1f);
-        minus.setAlpha(1f);
-        like.setEnabled(true);
-        dislike.setEnabled(true);
-        yes.setEnabled(true);
-        no.setEnabled(false);
-        add.setEnabled(true);
-        minus.setEnabled(true);
+        mIvLike.setAlpha(1f);
+        mIvDontLike.setAlpha(1f);
+        mIvYes.setAlpha(1f);
+        mIvNo.setAlpha(0.5f);
+        mIvAdd.setAlpha(1f);
+        mIvMinus.setAlpha(1f);
+        mIvLike.setEnabled(true);
+        mIvDontLike.setEnabled(true);
+        mIvYes.setEnabled(true);
+        mIvNo.setEnabled(false);
+        mIvAdd.setEnabled(true);
+        mIvMinus.setEnabled(true);
     }
 
-    private void badTouchDisableActionButtons() {
-        dislike.setAlpha(1f);
-        no.setAlpha(1f);
-        minus.setAlpha(1f);
-        dislike.setEnabled(true);
-        no.setEnabled(true);
-        minus.setEnabled(true);
-        like.setAlpha(0.5f);
-        yes.setAlpha(0.5f);
-        add.setAlpha(0.5f);
-        like.setEnabled(false);
-        yes.setEnabled(false);
-        add.setEnabled(false);
+    /**
+     * <p>Category icon "Help" -> "Unsafe touch" when selected, it needed to disable expressive
+     * buttons Like, Yes, More. This function disables the Like, Yes, More expressive buttons
+     * and keep enabled other buttons</p>
+     * */
+    private void unsafeTouchDisableActionButtons() {
+        mIvDontLike.setAlpha(1f);
+        mIvNo.setAlpha(1f);
+        mIvMinus.setAlpha(1f);
+        mIvDontLike.setEnabled(true);
+        mIvNo.setEnabled(true);
+        mIvMinus.setEnabled(true);
+        mIvLike.setAlpha(0.5f);
+        mIvYes.setAlpha(0.5f);
+        mIvAdd.setAlpha(0.5f);
+        mIvLike.setEnabled(false);
+        mIvYes.setEnabled(false);
+        mIvAdd.setEnabled(false);
     }
 
+    /**
+     * <p>This function enable or disable the expressive buttons using {@param setDisable}:
+     * {@param setDisable}, if setDisable = true, buttons are disabled otherwise
+     * enabled.</p>
+     * */
     private void changeTheActionButtons(boolean setDisable) {
         if(setDisable) {
-            like.setAlpha(0.5f);
-            dislike.setAlpha(0.5f);
-            yes.setAlpha(0.5f);
-            no.setAlpha(0.5f);
-            add.setAlpha(0.5f);
-            minus.setAlpha(0.5f);
-            like.setEnabled(false);
-            dislike.setEnabled(false);
-            yes.setEnabled(false);
-            no.setEnabled(false);
-            add.setEnabled(false);
-            minus.setEnabled(false);
+            mIvLike.setAlpha(0.5f);
+            mIvDontLike.setAlpha(0.5f);
+            mIvYes.setAlpha(0.5f);
+            mIvNo.setAlpha(0.5f);
+            mIvAdd.setAlpha(0.5f);
+            mIvMinus.setAlpha(0.5f);
+            mIvLike.setEnabled(false);
+            mIvDontLike.setEnabled(false);
+            mIvYes.setEnabled(false);
+            mIvNo.setEnabled(false);
+            mIvAdd.setEnabled(false);
+            mIvMinus.setEnabled(false);
         }else{
-            like.setAlpha(1f);
-            dislike.setAlpha(1f);
-            yes.setAlpha(1f);
-            no.setAlpha(1f);
-            add.setAlpha(1f);
-            minus.setAlpha(1f);
-            like.setEnabled(true);
-            dislike.setEnabled(true);
-            yes.setEnabled(true);
-            no.setEnabled(true);
-            add.setEnabled(true);
-            minus.setEnabled(true);
+            mIvLike.setAlpha(1f);
+            mIvDontLike.setAlpha(1f);
+            mIvYes.setAlpha(1f);
+            mIvNo.setAlpha(1f);
+            mIvAdd.setAlpha(1f);
+            mIvMinus.setAlpha(1f);
+            mIvLike.setEnabled(true);
+            mIvDontLike.setEnabled(true);
+            mIvYes.setEnabled(true);
+            mIvNo.setEnabled(true);
+            mIvAdd.setEnabled(true);
+            mIvMinus.setEnabled(true);
         }
     }
 
+    /**
+     * <p>This function set the border to category icons. This function first extracts the view to
+     * which border should applied then apply the border.
+     * {@param recyclerChildView} is a parent view extracted from recycler view when category icon is tapped.
+     * {@param setBorder} is set if category icon tapped and a color border should appear on the view other wise
+     *  transparent color is set to border.
+     * </p>
+     * */
     private void setMenuImageBorder(View recyclerChildView, boolean setBorder) {
         GradientDrawable gd = (GradientDrawable) recyclerChildView.findViewById(R.id.borderView).getBackground();
         if(setBorder){
             if (mActionBtnClickCount > 0) {
-                switch (image_flag) {
+                switch (mFlgImage) {
                     case 0: gd.setColor(ContextCompat.getColor(this,R.color.colorLike)); break;
                     case 1: gd.setColor(ContextCompat.getColor(this,R.color.colorDontLike)); break;
                     case 2: gd.setColor(ContextCompat.getColor(this,R.color.colorYes)); break;
@@ -996,31 +1243,46 @@ public class LevelTwoActivity extends AppCompatActivity {
             gd.setColor(ContextCompat.getColor(this,android.R.color.transparent));
     }
 
+    /**
+     * <p>This function first reset the all expressive button. Then set expressive button
+     * using mFlgImage.
+     * {@param mFlgImage} is a index of expressive button.
+     *  e.g. From top to bottom 0 - like button, 1 - don't like button likewise.</p>
+     * */
     private void resetActionButtons(int image_flag) {
-        like.setImageResource(R.drawable.ilikewithoutoutline);
-        dislike.setImageResource(R.drawable.idontlikewithout);
-        yes.setImageResource(R.drawable.iwantwithout);
-        no.setImageResource(R.drawable.idontwantwithout);
-        add.setImageResource(R.drawable.morewithout);
-        minus.setImageResource(R.drawable.lesswithout);
-        home.setImageResource(R.drawable.home);
+        mIvLike.setImageResource(R.drawable.ilikewithoutoutline);
+        mIvDontLike.setImageResource(R.drawable.idontlikewithout);
+        mIvYes.setImageResource(R.drawable.iwantwithout);
+        mIvNo.setImageResource(R.drawable.idontwantwithout);
+        mIvAdd.setImageResource(R.drawable.morewithout);
+        mIvMinus.setImageResource(R.drawable.lesswithout);
+        mIvHome.setImageResource(R.drawable.home);
         switch (image_flag){
-            case 0: like.setImageResource(R.drawable.ilikewithoutline); break;
-            case 1: dislike.setImageResource(R.drawable.idontlikewithoutline); break;
-            case 2: yes.setImageResource(R.drawable.iwantwithoutline); break;
-            case 3: no.setImageResource(R.drawable.idontwantwithoutline); break;
-            case 4: add.setImageResource(R.drawable.morewithoutline); break;
-            case 5: minus.setImageResource(R.drawable.lesswithoutline); break;
-            case 6: home.setImageResource(R.drawable.homepressed); break;
+            case 0: mIvLike.setImageResource(R.drawable.ilikewithoutline); break;
+            case 1: mIvDontLike.setImageResource(R.drawable.idontlikewithoutline); break;
+            case 2: mIvYes.setImageResource(R.drawable.iwantwithoutline); break;
+            case 3: mIvNo.setImageResource(R.drawable.idontwantwithoutline); break;
+            case 4: mIvAdd.setImageResource(R.drawable.morewithoutline); break;
+            case 5: mIvMinus.setImageResource(R.drawable.lesswithoutline); break;
+            case 6: mIvHome.setImageResource(R.drawable.homepressed); break;
             default: break;
         }
     }
 
+    /**
+     * <p>This function reset the border for all category icons that are populated
+     * in recycler view.</p>
+     * */
     private void resetRecyclerAllItems() {
         for(int i = 0; i< mRecyclerView.getChildCount(); ++i)
             setMenuImageBorder(mRecyclerView.getChildAt(i), false);
     }
 
+    /**
+     * <p>This function increment the touch count for the selected category icon.
+     * In {@link LevelTwoActivity}, only People and Places has preferences which stored
+     * directly into preferences using this function.</p>
+     * */
     private void incrementTouchCountOfItem(int levelTwoItemPosition) {
         StringBuilder stringBuilder = new StringBuilder();
         if(mLevelOneItemPos == MENU_ITEM_PEOPLE) {
@@ -1034,25 +1296,40 @@ public class LevelTwoActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * <p>This function first reset the all expressive buttons. Then set expressive button
+     * to About me category icon ("Help" -> "About Me"). Also, set expressive button to
+     * selected if {@param mFlgImage} is grater than -1.
+     * {@param mFlgImage} is a index of expressive button.
+     *  e.g. From top to bottom 0 - like button, 1 - don't like button likewise.</p>
+     * */
     private void setActionButtonToAboutMe(int image_flag){
-        like.setImageResource(R.drawable.mynameis);
-        dislike.setImageResource(R.drawable.caregiver);
-        yes.setImageResource(R.drawable.email);
-        no.setImageResource(R.drawable.address);
-        add.setImageResource(R.drawable.contact);
-        minus.setImageResource(R.drawable.bloodgroup);
+        mIvLike.setImageResource(R.drawable.mynameis);
+        mIvDontLike.setImageResource(R.drawable.caregiver);
+        mIvYes.setImageResource(R.drawable.email);
+        mIvNo.setImageResource(R.drawable.address);
+        mIvAdd.setImageResource(R.drawable.contact);
+        mIvMinus.setImageResource(R.drawable.bloodgroup);
         switch (image_flag){
-            case 0: like.setImageResource(R.drawable.mynameis_pressed); break;
-            case 1: dislike.setImageResource(R.drawable.caregiver_pressed); break;
-            case 2: yes.setImageResource(R.drawable.email_pressed); break;
-            case 3: no.setImageResource(R.drawable.address_pressed); break;
-            case 4: add.setImageResource(R.drawable.contact_pressed); break;
-            case 5: minus.setImageResource(R.drawable.blooedgroup_pressed); break;
-            case 6: home.setImageResource(R.drawable.homepressed); break;
+            case 0: mIvLike.setImageResource(R.drawable.mynameis_pressed); break;
+            case 1: mIvDontLike.setImageResource(R.drawable.caregiver_pressed); break;
+            case 2: mIvYes.setImageResource(R.drawable.email_pressed); break;
+            case 3: mIvNo.setImageResource(R.drawable.address_pressed); break;
+            case 4: mIvAdd.setImageResource(R.drawable.contact_pressed); break;
+            case 5: mIvMinus.setImageResource(R.drawable.blooedgroup_pressed); break;
+            case 6: mIvHome.setImageResource(R.drawable.homepressed); break;
             default: break;
         }
     }
 
+    /**
+     * <p>This function rearrange the speech array strings if category icons in
+     * {@link MainActivity} is People or Places. To rearrange the string in
+     * an array at index is derived in sort array.
+     * @param speechTextArray, array to be sorted.
+     * @param levelOnePos, category icon position in {@link MainActivity}
+     * @return temp, rearranged speechTextArray</p>
+     * */
     private String[] sortTtsSpeechArray(String[] speechTextArray, int levelOnePos) {
         String[] temp = new String[speechTextArray.length];
         if(levelOnePos == MENU_ITEM_PEOPLE) {
@@ -1065,52 +1342,48 @@ public class LevelTwoActivity extends AppCompatActivity {
         return temp;
     }
 
-    public void myMusic_function(int levelOneItemPos){
+    /**
+     * <p>This function retrieve speech text array and adapter text array from arrays
+     * resource using category icon index selected in {@link MainActivity}.
+     * @param levelOneItemPos is a index of category icon selected in
+     * {@link MainActivity}.</p>
+     * */
+    public void retrieveSpeechAndAdapterArrays(int levelOneItemPos){
         switch (levelOneItemPos){
             case 0:
-                myMusic = getResources().getStringArray(R.array.arrLevelTwoGreetFeelSpeechText);
-                actionBarText = getResources().getStringArray(R.array.arrLevelTwoGreetFeelAdapterText);
+                mArrSpeechText = getResources().getStringArray(R.array.arrLevelTwoGreetFeelSpeechText);
+                mArrAdapterTxt = getResources().getStringArray(R.array.arrLevelTwoGreetFeelAdapterText);
                 break;
             case 1:
-                myMusic = getResources().getStringArray(R.array.arrLevelTwoDailyActSpeechText);
-                actionBarText = getResources().getStringArray(R.array.arrLevelTwoDailyActAdapterText);
+                mArrSpeechText = getResources().getStringArray(R.array.arrLevelTwoDailyActSpeechText);
+                mArrAdapterTxt = getResources().getStringArray(R.array.arrLevelTwoDailyActAdapterText);
                 break;
             case 2:
-                myMusic = getResources().getStringArray(R.array.arrLevelTwoEatSpeechText);
-                actionBarText = getResources().getStringArray(R.array.arrLevelTwoEatAdapterText);
+                mArrSpeechText = getResources().getStringArray(R.array.arrLevelTwoEatSpeechText);
+                mArrAdapterTxt = getResources().getStringArray(R.array.arrLevelTwoEatAdapterText);
                 break;
             case 3:
-                myMusic = getResources().getStringArray(R.array.arrLevelTwoFunSpeechText);
-                actionBarText = getResources().getStringArray(R.array.arrLevelTwoFunAdapterText);
+                mArrSpeechText = getResources().getStringArray(R.array.arrLevelTwoFunSpeechText);
+                mArrAdapterTxt = getResources().getStringArray(R.array.arrLevelTwoFunAdapterText);
                 break;
             case 4:
-                myMusic = getResources().getStringArray(R.array.arrLevelTwoLearningSpeechText);
-                actionBarText = getResources().getStringArray(R.array.arrLevelTwoLearningAdapterText);
+                mArrSpeechText = getResources().getStringArray(R.array.arrLevelTwoLearningSpeechText);
+                mArrAdapterTxt = getResources().getStringArray(R.array.arrLevelTwoLearningAdapterText);
                 break;
             case 5:
-                actionBarText = getResources().getStringArray(R.array.arrLevelTwoPeopleAdapterText); break;
+                mArrAdapterTxt = getResources().getStringArray(R.array.arrLevelTwoPeopleAdapterText);
+                break;
             case 6:
-                actionBarText = getResources().getStringArray(R.array.arrLevelTwoPlacesAdapterText); break;
+                mArrAdapterTxt = getResources().getStringArray(R.array.arrLevelTwoPlacesAdapterText);
+                break;
             case 7:
-                myMusic = getResources().getStringArray(R.array.arrLevelTwoTimeWeatherSpeechText);
-                actionBarText = getResources().getStringArray(R.array.arrLevelTwoTimeWeatherAdapterText);
+                mArrSpeechText = getResources().getStringArray(R.array.arrLevelTwoTimeWeatherSpeechText);
+                mArrAdapterTxt = getResources().getStringArray(R.array.arrLevelTwoTimeWeatherAdapterText);
                 break;
             case 8:
-                myMusic = getResources().getStringArray(R.array.arrLevelTwoHelpSpeechText);
-                actionBarText = getResources().getStringArray(R.array.arrLevelTwoHelpAdapterText);
+                mArrSpeechText = getResources().getStringArray(R.array.arrLevelTwoHelpSpeechText);
+                mArrAdapterTxt = getResources().getStringArray(R.array.arrLevelTwoHelpAdapterText);
                 break;
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult (int requestCode, String Permissions[], int[] grantResults)
-    {
-        if (requestCode == MY_PERMISSIONS_REQUEST_CALL_PHONE){
-            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                //startCall("tel:" + mSession.getFather_no());
-            } else {
-                Toast.makeText(this, "Call permission was denied.", Toast.LENGTH_SHORT).show();
-            }
         }
     }
 
