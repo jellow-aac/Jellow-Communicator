@@ -40,12 +40,12 @@ import static com.dsource.idc.jellowintl.Utility.Analytics.stopMeasuring;
 
 public class MainActivity extends AppCompatActivity {
     private final int REQ_HOME = 0;
-    private final boolean DISABLE_ACTION_BTNS = true;
+    private final boolean DISABLE_EXPR_BTNS = true;
 
     private int mFlgLike = 0, mFlgYes = 0, mFlgMore = 0, mFlgDntLike = 0, mFlgNo = 0,
             mFlgLess = 0;
     private int mFlgImage = -1, mFlgTTsNotWorking = 0;
-    private ImageView mIvLike, mIvDontLike, mIvAdd, mIvMinus, mIvYes, mIvNo,
+    private ImageView mIvLike, mIvDontLike, mIvYes, mIvNo, mIvMore, mIvLess,
             mIvHome, mIvKeyboard, mIvBack, mIvTTs;
     private EditText mEtTTs;
     private KeyListener originalKeyListener;
@@ -153,17 +153,17 @@ public class MainActivity extends AppCompatActivity {
     /**
      * <p>This function will initialize the views that are populated on the activity layout.
      * It also assigns content description to the views to enable speech in
-     * Talk-back feature. The Talk-back feature is not available to this version.</p>
+     * Talk-back feature. The Talk-back feature is not available int this version.</p>
     * */
     private void initializeLayoutViews() {
         mIvLike = findViewById(R.id.ivlike);
         mIvLike.setContentDescription(mExprBtnTxt[0]);
         mIvDontLike = findViewById(R.id.ivdislike);
         mIvDontLike.setContentDescription(mExprBtnTxt[6]);
-        mIvAdd = findViewById(R.id.ivadd);
-        mIvAdd.setContentDescription(mExprBtnTxt[4]);
-        mIvMinus = findViewById(R.id.ivminus);
-        mIvMinus.setContentDescription(mExprBtnTxt[10]);
+        mIvMore = findViewById(R.id.ivadd);
+        mIvMore.setContentDescription(mExprBtnTxt[4]);
+        mIvLess = findViewById(R.id.ivminus);
+        mIvLess.setContentDescription(mExprBtnTxt[10]);
         mIvYes = findViewById(R.id.ivyes);
         mIvYes.setContentDescription(mExprBtnTxt[2]);
         mIvNo = findViewById(R.id.ivno);
@@ -217,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * <p>This function initializes {@link RecyclerTouchListener} and
      * {@link RecyclerView.OnChildAttachStateChangeListener} for recycler view.
-     * {@link RecyclerTouchListener} is custom defined Touch event listener class.
+     * {@link RecyclerTouchListener} is a custom defined Touch event listener class.
      * {@link RecyclerView.OnChildAttachStateChangeListener} is defined to efficiently handle
      * item state of recycler child, when attached to or detached from recycler view. </p>
      * */
@@ -230,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
                 menuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        tappedGridItemEvent(view, v, position);
+                        tappedCategoryItemEvent(view, v, position);
                     }
                 });
             }
@@ -271,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
                     mRecyclerView.setVisibility(View.VISIBLE);
                     mIvTTs.setVisibility(View.INVISIBLE);
                     mFlgKeyboardOpened = false;
-                    changeTheActionButtons(!DISABLE_ACTION_BTNS);
+                    changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
                     mIvBack.setEnabled(false);
                     mIvBack.setAlpha(.5f);
                     showActionBarTitle(true);
@@ -298,7 +298,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * <p>This function will initialize the click listener to Navigation keyboard button.
-     * {@link MainActivity} navigation keyboard button either enable or disable keyboard layout.
+     * {@link MainActivity} navigation keyboard button either enable or disable the keyboard layout.
      * This button enable the back button when keyboard is open.</p>
      * */
     private void initKeyboardBtnListener() {
@@ -314,7 +314,7 @@ public class MainActivity extends AppCompatActivity {
                     mRecyclerView.setVisibility(View.VISIBLE);
                     mIvTTs.setVisibility(View.INVISIBLE);
                     mFlgKeyboardOpened = false;
-                    changeTheActionButtons(!DISABLE_ACTION_BTNS);
+                    changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
                     mIvBack.setAlpha(.5f);
                     mIvBack.setEnabled(false);
                     showActionBarTitle(true);
@@ -327,7 +327,7 @@ public class MainActivity extends AppCompatActivity {
                     mEtTTs.setKeyListener(originalKeyListener);
                     // Focus the field.
                     mRecyclerView.setVisibility(View.INVISIBLE);
-                    changeTheActionButtons(DISABLE_ACTION_BTNS);
+                    changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
                     mEtTTs.requestFocus();
                     mIvTTs.setVisibility(View.VISIBLE);
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -349,8 +349,10 @@ public class MainActivity extends AppCompatActivity {
      *  a. Single time, speech output is 'like'
      *  b. twice, speech output is 'really like'
      * When expressive like button in conjunction with category icon is pressed:
-     *  a. Single time, speech output is full sentence with 'like' expression
-     *  b. twice, speech output is full sentence with 'really like' expression </p>
+     *  a. Single time, speech output is full sentence with 'like' expression.
+     *  b. twice, speech output is full sentence with 'really like' expression.
+     *  Also, it set image flag to 0. This flag is used when border is applied to
+     *  a category icon.</p>
      * */
     private void initLikeBtnListener() {
         mIvLike.setOnClickListener(new View.OnClickListener() {
@@ -358,7 +360,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mFlgYes = mFlgMore = mFlgDntLike = mFlgNo = mFlgLess = 0;
                 mFlgImage = 0;
-                resetActionButtons(mFlgImage);
+                resetExpressiveButtons(mFlgImage);
                 if (!mShouldReadFullSpeech) {
                     if (mFlgLike == 1) {
                         speakSpeech(mExprBtnTxt[1]);
@@ -395,8 +397,10 @@ public class MainActivity extends AppCompatActivity {
      *  a. Single time, speech output is 'don't like'
      *  b. twice, speech output is 'really don't like'
      * When expressive don't like button in conjunction with category icon is pressed:
-     *  a. Single time, speech output is full sentence with 'don't like' expression
-     *  b. twice, speech output is full sentence with 'really don't like' expression </p>
+     *  a. Single time, speech output is full sentence with 'don't like' expression.
+     *  b. twice, speech output is full sentence with 'really don't like' expression.
+     *  Also, it set image flag to 1. This flag is used when border is applied to
+     *  a category icon.</p>
      * */
     private void initDontLikeBtnListener() {
         mIvDontLike.setOnClickListener(new View.OnClickListener() {
@@ -404,7 +408,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mFlgLike = mFlgYes = mFlgMore = mFlgNo = mFlgLess = 0;
                 mFlgImage = 1;
-                resetActionButtons(mFlgImage);
+                resetExpressiveButtons(mFlgImage);
                 if (!mShouldReadFullSpeech) {
                     if (mFlgDntLike == 1) {
                         speakSpeech(mExprBtnTxt[7]);
@@ -442,8 +446,10 @@ public class MainActivity extends AppCompatActivity {
      *  a. Single time, speech output is 'yes'
      *  b. twice, speech output is 'really yes'
      * When expressive yes button in conjunction with category icon is pressed:
-     *  a. Single time, speech output is full sentence with 'yes' expression
-     *  b. twice, speech output is full sentence with 'really yes' expression </p>
+     *  a. Single time, speech output is full sentence with 'yes' expression.
+     *  b. twice, speech output is full sentence with 'really yes' expression.
+     *  Also, it set image flag to 2. This flag is used when border is applied to
+     *  a category icon.</p>
      * */
     private void initYesBtnListener() {
         mIvYes.setOnClickListener(new View.OnClickListener() {
@@ -451,7 +457,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mFlgLike = mFlgMore = mFlgDntLike = mFlgNo = mFlgLess = 0;
                 mFlgImage = 2;
-                resetActionButtons(mFlgImage);
+                resetExpressiveButtons(mFlgImage);
                 if (!mShouldReadFullSpeech) {
                     if (mFlgYes == 1) {
                         speakSpeech(mExprBtnTxt[3]);
@@ -491,8 +497,10 @@ public class MainActivity extends AppCompatActivity {
      *  a. Single time, speech output is 'no'
      *  b. twice, speech output is 'really no'
      * When expressive no button in conjunction with category icon is pressed:
-     *  a. Single time, speech output is full sentence with 'no' expression
-     *  b. twice, speech output is full sentence with 'really no' expression </p>
+     *  a. Single time, speech output is full sentence with 'no' expression.
+     *  b. twice, speech output is full sentence with 'really no' expression.
+     *  Also, it set image flag to 3. This flag is used when border is applied to
+     *  a category icon.</p>
      * */
     private void initNoBtnListener() {
         mIvNo.setOnClickListener(new View.OnClickListener() {
@@ -500,7 +508,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mFlgLike = mFlgYes = mFlgMore = mFlgDntLike = mFlgLess = 0;
                 mFlgImage = 3;
-                resetActionButtons(mFlgImage);
+                resetExpressiveButtons(mFlgImage);
                 if (!mShouldReadFullSpeech) {
                     if (mFlgNo == 1) {
                         speakSpeech(mExprBtnTxt[9]);
@@ -540,16 +548,18 @@ public class MainActivity extends AppCompatActivity {
      *  a. Single time, speech output is 'more'
      *  b. twice, speech output is 'some more'
      * When expressive more button in conjunction with category icon is pressed:
-     *  a. Single time, speech output is full sentence with 'more' expression
-     *  b. twice, speech output is full sentence with 'some more' expression </p>
+     *  a. Single time, speech output is full sentence with 'more' expression.
+     *  b. twice, speech output is full sentence with 'some more' expression.
+     *  Also, it set image flag to 4. This flag is used when border is applied to
+     *  a category icon.</p>
      * */
     private void initMoreBtnListener() {
-        mIvAdd.setOnClickListener(new View.OnClickListener() {
+        mIvMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mFlgLike = mFlgYes = mFlgDntLike = mFlgNo = mFlgLess = 0;
                 mFlgImage = 4;
-                resetActionButtons(mFlgImage);
+                resetExpressiveButtons(mFlgImage);
                 if (!mShouldReadFullSpeech) {
                     if (mFlgMore == 1) {
                         speakSpeech(mExprBtnTxt[5]);
@@ -561,7 +571,7 @@ public class MainActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","More");
                     }
                 } else {
-                    reportLog(getLocalClassName()+", mIvAdd: "+mLevelOneItemPos, Log.INFO);
+                    reportLog(getLocalClassName()+", mIvMore: "+mLevelOneItemPos, Log.INFO);
                     ++mActionBtnClickCount;
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
@@ -589,16 +599,18 @@ public class MainActivity extends AppCompatActivity {
      *  a. Single time, speech output is 'less'
      *  b. twice, speech output is 'really less'
      * When expressive less button in conjunction with category icon is pressed:
-     *  a. Single time, speech output is full sentence with 'less' expression
-     *  b. twice, speech output is full sentence with 'really less' expression </p>
+     *  a. Single time, speech output is full sentence with 'less' expression.
+     *  b. twice, speech output is full sentence with 'really less' expression.
+     *  Also, it set image flag to 5. This flag is used when border is applied to
+     *  a category icon.</p>
      * */
     private void initLessBtnListener() {
-        mIvMinus.setOnClickListener(new View.OnClickListener() {
+        mIvLess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mFlgLike = mFlgYes = mFlgMore = mFlgDntLike = mFlgNo = 0;
                 mFlgImage = 5;
-                resetActionButtons(mFlgImage);
+                resetExpressiveButtons(mFlgImage);
                 if (!mShouldReadFullSpeech) {
                     if (mFlgLess == 1) {
                         speakSpeech(mExprBtnTxt[11]);
@@ -610,7 +622,7 @@ public class MainActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","Less");
                     }
                 } else {
-                    reportLog(getLocalClassName()+", mIvMinus: "+mLevelOneItemPos, Log.INFO);
+                    reportLog(getLocalClassName()+", mIvLess: "+mLevelOneItemPos, Log.INFO);
                     ++mActionBtnClickCount;
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
@@ -647,8 +659,8 @@ public class MainActivity extends AppCompatActivity {
                 singleEvent("Keyboard", mEtTTs.getText().toString());
                 mIvLike.setEnabled(false);
                 mIvDontLike.setEnabled(false);
-                mIvAdd.setEnabled(false);
-                mIvMinus.setEnabled(false);
+                mIvMore.setEnabled(false);
+                mIvLess.setEnabled(false);
                 mIvYes.setEnabled(false);
                 mIvNo.setEnabled(false);
             }
@@ -688,9 +700,9 @@ public class MainActivity extends AppCompatActivity {
      *             e) If same category icon clicked twice that category will open up.
      *             f) Checks if, level two icons data set is available or not.</p>
      * */
-    public void tappedGridItemEvent(final View view, View v, int position) {
+    public void tappedCategoryItemEvent(final View view, View v, int position) {
         mFlgLike = mFlgYes = mFlgMore = mFlgDntLike = mFlgNo = mFlgLess = 0;
-        resetActionButtons(-1);
+        resetExpressiveButtons(-1);
         resetRecyclerAllItems();
         mActionBtnClickCount = 0;
         setMenuImageBorder(v, true);
@@ -721,10 +733,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will reset every category icons, expressive icons tapped.
+     * <p>This function will reset every category icons, expressive button tapped.
      * @param isHomePressed is set when user presses home from {@link MainActivity}
-     *                     and resets when user presses home from {@link LevelTwoActivity},
-     *                     {@link LevelThreeActivity}, {@link SequenceActivity}.</p>
+     * and resets when user presses home from {@link LevelTwoActivity},
+     * {@link LevelThreeActivity}, {@link SequenceActivity}.</p>
      * */
     private void gotoHome(boolean isHomePressed) {
         getSupportActionBar().setTitle(getString(R.string.action_bar_title));
@@ -733,8 +745,8 @@ public class MainActivity extends AppCompatActivity {
         mIvDontLike.setImageResource(R.drawable.idontlikewithout);
         mIvYes.setImageResource(R.drawable.iwantwithout);
         mIvNo.setImageResource(R.drawable.idontwantwithout);
-        mIvAdd.setImageResource(R.drawable.morewithout);
-        mIvMinus.setImageResource(R.drawable.lesswithout);
+        mIvMore.setImageResource(R.drawable.morewithout);
+        mIvLess.setImageResource(R.drawable.lesswithout);
         resetRecyclerMenuItemsAndFlags(6);
         mShouldReadFullSpeech = false;
         mFlgImage = -1;
@@ -745,7 +757,7 @@ public class MainActivity extends AppCompatActivity {
             mRecyclerView.setVisibility(View.VISIBLE);
             mIvTTs.setVisibility(View.INVISIBLE);
             mFlgKeyboardOpened = false;
-            changeTheActionButtons(!DISABLE_ACTION_BTNS);
+            changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
             mIvBack.setAlpha(.5f);
             mIvBack.setEnabled(false);
         }
@@ -771,6 +783,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * <p>This function will provide action bar title to be set.
+     * @param position, position of the cateogory icon pressed.
+     * @return the actionbarTitle string.</p>
+     * */
+    private String getActionBarTitle(int position) {
+        String[] tempTextArr = getResources().getStringArray(R.array.arrLevelOneActionBarTitle);
+        return tempTextArr[position];
+    }
+
+    /**
      * <p>This function will send speech output request to
      * {@link com.dsource.idc.jellowintl.Utility.JellowTTSService} Text-to-speech Engine.
      * The string in {@param speechText} is speech output request string.</p>
@@ -779,16 +801,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_TEXT");
         intent.putExtra("speechText", speechText);
         sendBroadcast(intent);
-    }
-
-    /**
-     * <p>This function will provide action bar title to be set.
-     * @param position, position of the cateogory icon pressed.
-     * @return the actionbarTitle string.</p>
-     * */
-    private String getActionBarTitle(int position) {
-            String[] tempTextArr = getResources().getStringArray(R.array.arrLevelOneActionBarTitle);
-        return tempTextArr[position];
     }
 
     /**
@@ -815,10 +827,20 @@ public class MainActivity extends AppCompatActivity {
      *     b) Reset category icons pressed.</p>
      * */
     private void resetRecyclerMenuItemsAndFlags(int setPressedIcon) {
-        resetActionButtons(setPressedIcon);
+        resetExpressiveButtons(setPressedIcon);
         mLevelOneItemPos = -1;
         resetRecyclerAllItems();
         mActionBtnClickCount = 0;
+    }
+
+    /**
+     * <p>This function reset the border for all category icons that are populated
+     * in recycler view.</p>
+     * */
+    private void resetRecyclerAllItems() {
+        for(int i = 0; i< mRecyclerView.getChildCount(); ++i){
+            setMenuImageBorder(mRecyclerView.getChildAt(i), false);
+        }
     }
 
     /**
@@ -826,33 +848,33 @@ public class MainActivity extends AppCompatActivity {
      * {@param setDisable}, if setDisable = true, buttons are disabled otherwise
      * enabled.</p>
      * */
-    private void changeTheActionButtons(boolean setDisable) {
+    private void changeTheExpressiveButtons(boolean setDisable) {
         if(setDisable) {
             mIvLike.setAlpha(0.5f);
             mIvDontLike.setAlpha(0.5f);
             mIvYes.setAlpha(0.5f);
             mIvNo.setAlpha(0.5f);
-            mIvAdd.setAlpha(0.5f);
-            mIvMinus.setAlpha(0.5f);
+            mIvMore.setAlpha(0.5f);
+            mIvLess.setAlpha(0.5f);
             mIvLike.setEnabled(false);
             mIvDontLike.setEnabled(false);
             mIvYes.setEnabled(false);
             mIvNo.setEnabled(false);
-            mIvAdd.setEnabled(false);
-            mIvMinus.setEnabled(false);
+            mIvMore.setEnabled(false);
+            mIvLess.setEnabled(false);
         }else{
             mIvLike.setAlpha(1f);
             mIvDontLike.setAlpha(1f);
             mIvYes.setAlpha(1f);
             mIvNo.setAlpha(1f);
-            mIvAdd.setAlpha(1f);
-            mIvMinus.setAlpha(1f);
+            mIvMore.setAlpha(1f);
+            mIvLess.setAlpha(1f);
             mIvLike.setEnabled(true);
             mIvDontLike.setEnabled(true);
             mIvYes.setEnabled(true);
             mIvNo.setEnabled(true);
-            mIvAdd.setEnabled(true);
-            mIvMinus.setEnabled(true);
+            mIvMore.setEnabled(true);
+            mIvLess.setEnabled(true);
         }
     }
 
@@ -888,42 +910,33 @@ public class MainActivity extends AppCompatActivity {
      * {@param image_flag} is a index of expressive button.
      *  e.g. From top to bottom 0 - like button, 1 - don't like button likewise.</p>
      * */
-    private void resetActionButtons(int image_flag) {
+    private void resetExpressiveButtons(int image_flag) {
         mIvLike.setImageResource(R.drawable.ilikewithoutoutline);
         mIvDontLike.setImageResource(R.drawable.idontlikewithout);
         mIvYes.setImageResource(R.drawable.iwantwithout);
         mIvNo.setImageResource(R.drawable.idontwantwithout);
-        mIvAdd.setImageResource(R.drawable.morewithout);
-        mIvMinus.setImageResource(R.drawable.lesswithout);
+        mIvMore.setImageResource(R.drawable.morewithout);
+        mIvLess.setImageResource(R.drawable.lesswithout);
         mIvHome.setImageResource(R.drawable.home);
         switch (image_flag){
             case 0: mIvLike.setImageResource(R.drawable.ilikewithoutline); break;
             case 1: mIvDontLike.setImageResource(R.drawable.idontlikewithoutline); break;
             case 2: mIvYes.setImageResource(R.drawable.iwantwithoutline); break;
             case 3: mIvNo.setImageResource(R.drawable.idontwantwithoutline); break;
-            case 4: mIvAdd.setImageResource(R.drawable.morewithoutline); break;
-            case 5: mIvMinus.setImageResource(R.drawable.lesswithoutline); break;
+            case 4: mIvMore.setImageResource(R.drawable.morewithoutline); break;
+            case 5: mIvLess.setImageResource(R.drawable.lesswithoutline); break;
             case 6: mIvHome.setImageResource(R.drawable.homepressed); break;
             default: break;
         }
     }
 
     /**
-     * <p>This function reset the border for all category icons that are populated
-     * in recycler view.</p>
-     * */
-    private void resetRecyclerAllItems() {
-        for(int i = 0; i< mRecyclerView.getChildCount(); ++i){
-            setMenuImageBorder(mRecyclerView.getChildAt(i), false);
-        }
-    }
-
-    /**
-     * <p>This function send the broadcast message to Text-to-speech engine about
-     * requesting current Text-to-speech engine language. This function is only used
-     * for devices below Lollipop (api less than 21).
-     * To get only, which TTs language is as a response, in {@param saveLanguage} param empty string is set.
-     * While to save selected user language, in {@param saveLanguage} param current app language is set.</p>
+     * <p>This function send the broadcast message to Text-to-speech service about
+     * requesting current Text-to-speech engine language. This function is only used in
+     * devices below Lollipop (api less than 21).
+     * To get only, which TTs language is as a broadcast response, in {@param saveLanguage}
+     * param empty string is set. While to save selected user language, in {@param saveLanguage}
+     * param current app language is set.</p>
      * */
     private void getSpeechLanguage(String saveLanguage){
         Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_REQ");

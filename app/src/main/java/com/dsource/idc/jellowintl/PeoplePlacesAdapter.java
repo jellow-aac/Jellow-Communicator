@@ -24,15 +24,15 @@ import java.io.File;
 class PeoplePlacesAdapter extends android.support.v7.widget.RecyclerView.Adapter<PeoplePlacesAdapter.MyViewHolder> {
     private Context mContext;
     private SessionManager mSession;
-    private String[] mThumbIds = new String[100];
-    private String[] belowText = new String[100];
+    private String[] mIconNameArray = new String[100];
+    private String[] mBelowTextArray = new String[100];
     private String path;
 
     PeoplePlacesAdapter(Context context, String[] temp, String[] image_temp) {
         mContext = context;
         mSession = new SessionManager(mContext);
-        mThumbIds = image_temp;
-        belowText = temp;
+        mIconNameArray = image_temp;
+        mBelowTextArray = temp;
         File en_dir = mContext.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
         path = en_dir.getAbsolutePath()+"/drawables";
     }
@@ -54,9 +54,9 @@ class PeoplePlacesAdapter extends android.support.v7.widget.RecyclerView.Adapter
 
         if (mSession.getPictureViewMode() == MODE_PICTURE_ONLY)
             holder.menuItemBelowText.setVisibility(View.INVISIBLE);
-        holder.menuItemBelowText.setText(belowText[position]);
+        holder.menuItemBelowText.setText(mBelowTextArray[position]);
         GlideApp.with(mContext)
-                .load(path+"/"+mThumbIds[position]+".png")
+                .load(path+"/"+ mIconNameArray[position]+".png")
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(false)
                 .centerCrop()
@@ -74,7 +74,7 @@ class PeoplePlacesAdapter extends android.support.v7.widget.RecyclerView.Adapter
 
     @Override
     public int getItemCount() {
-        return mThumbIds.length;
+        return mIconNameArray.length;
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
