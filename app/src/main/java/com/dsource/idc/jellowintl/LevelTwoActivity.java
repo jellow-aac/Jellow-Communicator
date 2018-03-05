@@ -31,7 +31,6 @@ import com.dsource.idc.jellowintl.Utility.ToastWithCustomTime;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 import static com.dsource.idc.jellowintl.Utility.Analytics.bundleEvent;
@@ -47,34 +46,54 @@ public class LevelTwoActivity extends AppCompatActivity {
     private final int CATEGORY_ICON_HELP = 8;
     private final boolean DISABLE_EXPR_BTNS = true;
 
+    /* This flags are used to identify respective expressive button is pressed either
+      once or twice. eg. mFlgLike used to identify Like expressive button pressed once or twice.*/
     private int mFlgLike = 0, mFlgYes = 0, mFlgMore = 0, mFlgDntLike = 0, mFlgNo = 0,
             mFlgLess = 0;
-    private int mFlgImage = -1, mFlgKeyboard = 0, mActionBtnClickCount;
+    /* This flag identifies which expressive button is pressed.*/
+    private int mFlgImage = -1;
+    /* This flag indicates keyboard is open or not, 0 indicates is not open.*/
+    private int mFlgKeyboard = 0;
+    /* This flag identifies that user is pressed a category icon and which border should appear
+      on pressed category icon. If flag value = 0, then brown (initial border) will appear.*/
+    private int mActionBtnClickCount;
+    /*Image views which are visible on the layout such as six expressive buttons, below navigation
+      buttons and speak button when keyboard is open.*/
     private ImageView mIvLike, mIvDontLike, mIvYes, mIvNo, mIvMore, mIvLess,
             mIvHome, mIvKeyboard, mIvBack, mIvTts;
+    /*Input text view to speak custom text.*/
     private EditText mEtTTs;
     private KeyListener originalKeyListener;
+    /*Recycler view which will populate category icons.*/
     private RecyclerView mRecyclerView;
+    /*This variable is used to hold parent view (linear layout) of pressed category icon.*/
     private LinearLayout mMenuItemLinearLayout;
-    private int mLevelOneItemPos, mLevelTwoItemPos = -1, mSelectedItemAdapterPos = -1;
+    /*This variable indicates index of category icon selected in level one and two respectively.*/
+    private int mLevelOneItemPos, mLevelTwoItemPos = -1;
+    /*This variable indicates index of category icon in adapter in level 2. This variable is
+     different than mLevelTwoItemPos. */
+    private int mSelectedItemAdapterPos = -1;
+    /*This flag is sets to true, when expressive button is pressed in conjunction with
+     category icon. It is useful to produce speech output either expression of a button or
+      full sentence verbiage.*/
     private boolean mShouldReadFullSpeech = false;
+    /*This variable hold the views populated in recycler view (category icon) list.*/
     private ArrayList<View> mRecyclerItemsViewList;
+    /*This variable store current action bar title.*/
     private String mActionBarTitle;
     private SessionManager mSession;
 
-    private String[] mLevelTwoSpeechText, mLevelTwoAdapterText,side, below;
+    /*Below list stores the verbiage that are spoken when category icon + expression buttons
+    pressed in conjunction*/
     private ArrayList<ArrayList<ArrayList<String>>> mLayerTwoSpeech;
-    private String[] mArrSpeechText, mArrAdapterTxt;
-
-    private String[] mAdapterTextArray = new String[100];
-
-    private String[] mIconArray = new String[100];
-    private Integer[] mIconTapCount = new Integer[100];
-    private String[] mIconArrayNew = new String[100];
-    private Integer[] mSortArray = new Integer[100];
-
-    /*private ArrayList<String> mIconList, mIconListNew;
-    private ArrayList<Integer> mIconTapCountList,mSortList;*/
+    /*Below array stores the speech text, below text, expressive button speech text,
+     navigation button speech text respectively.*/
+    private String[] mArrSpeechText, mArrAdapterTxt, mExprBtnTxt,
+            mNavigationBtnTxt;
+    /*Below array stores tap count and index sort array respectively. This variables are used
+     only, when in level one people or places category is
+      selected.*/
+    private Integer[] mArrPeoplePlaceTapCount, mArrSort;
 
     private String end, actionBarTitleTxt;
 
@@ -83,17 +102,23 @@ public class LevelTwoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_levelx_layout);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
+        // Get index of category icons selected in level one.
         mLevelOneItemPos = getIntent().getExtras().getInt("mLevelOneItemPos");
+        // Get and set title of category icons selected in level one.
         getSupportActionBar().setTitle(getIntent().getExtras().getString("selectedMenuItemPath"));
         if(findViewById(R.id.parent).getTag().toString().equals("large"))
             getWindow().setFlags(
                 WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
                     WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
+        // Set app locale which is set in settings by user.
         new ChangeAppLocale(this).setLocale();
+        // If any exception occurs during this activity usage,
+        // handle it using default exception handler.
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
-        loadArraysFromResources();
-
         mSession = new SessionManager(this);
+        // this is string mostly useful when user sets "Hindi" as app language.
+        end = getString(R.string.endString);
+        loadArraysFromResources();
         initializeArrayListOfRecycler();
         initializeLayoutViews();
         initializeRecyclerViewAdapter();
@@ -103,13 +128,17 @@ public class LevelTwoActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        // Start measuring user app screen timer .
         startMeasuring();
+        //After resume from other app if the locale is other than
+        // app locale, set it back to app locale.
         new ChangeAppLocale(this).setLocale();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        // Stop measuring user app screen timer .
         stopMeasuring("LevelTwoActivity");
         new ChangeAppLocale(this).setLocale();
     }
@@ -120,14 +149,8 @@ public class LevelTwoActivity extends AppCompatActivity {
         mLayerTwoSpeech = null;
         mRecyclerItemsViewList = null;
         mMenuItemLinearLayout = null;
-        mLevelTwoSpeechText = null;
-        mLevelTwoAdapterText = null;
-        side = null; below = null;
-        mAdapterTextArray = null;
-        mIconArray = null;
-        mIconTapCount = null;
-        mIconArrayNew = null;
-        mSortArray = null;
+        mExprBtnTxt = null;
+        mArrSort = null;
         super.onDestroy();
     }
 
@@ -174,6 +197,9 @@ public class LevelTwoActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        // If user pressed home button in level three, it indicate that user be redirected to level
+        // one (MainActivity). When this activity receives RESULT_CANCELED as resultCode it
+        // understands Home request is generated, so it closes itself.
         if(requestCode == REQ_HOME && resultCode == RESULT_CANCELED)
             finish();
     }
@@ -186,9 +212,10 @@ public class LevelTwoActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult (int requestCode, String Permissions[], int[] grantResults){
+        // Unused code in current version
         if (requestCode == MY_PERMISSIONS_REQUEST_CALL_PHONE){
             if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                //startCall("tel:" + mSession.getFather_no());
+                //startCall("tel:" + mSession.getCaregiverNumber());
             } else {
                 Toast.makeText(this, "Call permission was denied.", Toast.LENGTH_SHORT).show();
             }
@@ -202,24 +229,24 @@ public class LevelTwoActivity extends AppCompatActivity {
      * */
     private void initializeLayoutViews() {
         mIvLike = findViewById(R.id.ivlike);
-        mIvLike.setContentDescription(side[0]);
+        mIvLike.setContentDescription(mExprBtnTxt[0]);
         mIvDontLike = findViewById(R.id.ivdislike);
-        mIvDontLike.setContentDescription(side[6]);
+        mIvDontLike.setContentDescription(mExprBtnTxt[6]);
         mIvMore = findViewById(R.id.ivadd);
-        mIvMore.setContentDescription(side[4]);
+        mIvMore.setContentDescription(mExprBtnTxt[4]);
         mIvLess = findViewById(R.id.ivminus);
-        mIvLess.setContentDescription(side[10]);
+        mIvLess.setContentDescription(mExprBtnTxt[10]);
         mIvYes = findViewById(R.id.ivyes);
-        mIvYes.setContentDescription(side[2]);
+        mIvYes.setContentDescription(mExprBtnTxt[2]);
         mIvNo = findViewById(R.id.ivno);
-        mIvNo.setContentDescription(side[8]);
+        mIvNo.setContentDescription(mExprBtnTxt[8]);
         mIvHome = findViewById(R.id.ivhome);
-        mIvHome.setContentDescription(below[0]);
+        mIvHome.setContentDescription(mNavigationBtnTxt[0]);
         mIvBack = findViewById(R.id.ivback);
-        mIvBack.setContentDescription(below[1]);
+        mIvBack.setContentDescription(mNavigationBtnTxt[1]);
         mIvBack.setAlpha(1f);
         mIvKeyboard = findViewById(R.id.keyboard);
-        mIvKeyboard.setContentDescription(below[2]);
+        mIvKeyboard.setContentDescription(mNavigationBtnTxt[2]);
         mEtTTs = findViewById(R.id.et);
         mEtTTs.setContentDescription(getString(R.string.string_to_speak));
         mEtTTs.setVisibility(View.INVISIBLE);
@@ -232,6 +259,7 @@ public class LevelTwoActivity extends AppCompatActivity {
         // Set it to null - this will make the field non-editable
         mEtTTs.setKeyListener(null);
         mRecyclerView = findViewById(R.id.recycler_view);
+        // Initiate 3 columns in Recycler View.
         mRecyclerView.setLayoutManager( new GridLayoutManager(this, 3));
         mRecyclerView.setVerticalScrollBarEnabled(true);
         mRecyclerView.setScrollbarFadingEnabled(false);
@@ -248,57 +276,10 @@ public class LevelTwoActivity extends AppCompatActivity {
     private void initializeRecyclerViewAdapter() {
         if(mLevelOneItemPos != CATEGORY_ICON_PEOPLE && mLevelOneItemPos != CATEGORY_ICON_PLACES) {
             mRecyclerView.setAdapter(new LevelTwoAdapter(this, mLevelOneItemPos));
-            return;
+        }else{
+            mRecyclerView.setAdapter(new PeoplePlacesAdapter(this, mLevelOneItemPos,
+                    mArrAdapterTxt, mArrSort));
         }
-
-        end = getString(R.string.endString);
-        String savedString = "";
-        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE) {
-            savedString = mSession.getPeoplePreferences();
-            mIconArray = getResources().getStringArray(R.array.arrLevelTwoPeopleIcon);
-        }else if (mLevelOneItemPos == CATEGORY_ICON_PLACES) {
-            savedString = mSession.getPlacesPreferences();
-            mIconArray = getResources().getStringArray(R.array.arrLevelTwoPlacesIcon);
-        }
-
-        mIconTapCount = new Integer[mIconArray.length];     //mIconTapCountList
-        mIconArrayNew = new String[mIconArray.length];      //mIconListNew
-        mSortArray = new Integer[mIconArray.length];        //mSortList
-
-        /*mIconTapCountList = new ArrayList<>(Collections.nCopies(mIconArray.length, 0));
-        mIconListNew = new ArrayList<>(mIconArray.length);
-        mSortList = new ArrayList<>(mIconArray.length);*/
-
-        for (int j = 0; j < mIconArray.length; ++j) {
-            mIconTapCount[j] = 0;
-            mSortArray[j] = j;
-        }
-
-        if(!savedString.equals("")){
-            StringTokenizer st = new StringTokenizer(savedString, ",");
-            for (int j = 0; j < mIconArray.length; ++j)
-                mIconTapCount[j] = Integer.parseInt(st.nextToken());
-        }
-
-        IndexSorter<Integer> is = new IndexSorter<Integer>(mIconTapCount);
-        is.sort();
-        mSortArray =  new Integer[mLayerTwoSpeech.get(mLevelOneItemPos).size()];
-        int g = -1;
-        for (Integer ij : is.getIndexes()) {
-            mSortArray[++g] = ij;
-        }
-
-        for (int j = 0; j < mIconTapCount.length; ++j) {
-            mIconArrayNew[j] = mIconArray[mSortArray[j]];
-            mAdapterTextArray[j] = mLevelTwoAdapterText[mSortArray[j]];
-        }
-
-        mRecyclerView.setAdapter(new PeoplePlacesAdapter(this,
-                Arrays.copyOfRange(mAdapterTextArray, 0, mIconTapCount.length),
-                Arrays.copyOfRange(mIconArrayNew, 0, mIconTapCount.length)));
-        mArrSpeechText = new String[mIconTapCount.length];
-        for (int i = 0; i < mLevelTwoSpeechText.length; ++i)
-            mArrSpeechText[i] = mLevelTwoSpeechText[mSortArray[i]];
     }
 
     /**
@@ -343,6 +324,10 @@ public class LevelTwoActivity extends AppCompatActivity {
             @Override   public void onLongClick(View view, int position) {}
         }));
 
+        // When user scrolls the category icons, views in recycler are attached and detached from
+        // recycler view. As views are recycled, it may change its state. So, global list
+        // (local to activity) of recycler views is maintained which is stored in its correct state.
+        // Whenever, child is attached to recycler view if it is selected then its state is retained.
         mRecyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
             @Override
             public void onChildViewAttachedToWindow(View view) {
@@ -372,14 +357,17 @@ public class LevelTwoActivity extends AppCompatActivity {
         mIvBack.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 singleEvent("Navigation","Back");
-                speakSpeech(below[1]);
+                speakSpeech(mNavigationBtnTxt[1]);
                 if (mFlgKeyboard == 1) {
+                    // When keyboard is open, close it and retain expressive button,
+                    // category icon states as they are before keyboard opened.
                     mIvKeyboard.setImageResource(R.drawable.keyboard_button);
                     mIvBack.setImageResource(R.drawable.backpressed);
                     mEtTTs.setVisibility(View.INVISIBLE);
                     mRecyclerView.setVisibility(View.VISIBLE);
                     mIvTts.setVisibility(View.INVISIBLE);
                     mFlgKeyboard = 0;
+
                     if(mLevelOneItemPos == CATEGORY_ICON_HELP && mLevelTwoItemPos == 1) {
                         setExpressiveButtonToAboutMe(mFlgImage);
                         changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
@@ -396,6 +384,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                     else
                         changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
                 } else {
+                    // When keyboard is not open simply set result and close the activity.
                     mIvBack.setImageResource(R.drawable.backpressed);
                     setResult(RESULT_OK);
                     finish();
@@ -418,7 +407,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                 singleEvent("Navigation","Home");
                 mIvHome.setImageResource(R.drawable.homepressed);
                 mIvKeyboard.setImageResource(R.drawable.keyboard_button);
-                speakSpeech(below[0]);
+                speakSpeech(mNavigationBtnTxt[0]);
                 setResult(RESULT_CANCELED);
                 finish();
             }
@@ -438,9 +427,11 @@ public class LevelTwoActivity extends AppCompatActivity {
         mIvKeyboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                speakSpeech(below[2]);
+                speakSpeech(mNavigationBtnTxt[2]);
                 mIvTts.setImageResource(R.drawable.speaker_button);
                 if (mFlgKeyboard == 1) {
+                    // When keyboard is open, close it and retain expressive button,
+                    // category icon states as they are before keyboard opened.
                     mIvKeyboard.setImageResource(R.drawable.keyboard_button);
                     mIvBack.setImageResource(R.drawable.back_button);
                     mEtTTs.setVisibility(View.INVISIBLE);
@@ -464,6 +455,8 @@ public class LevelTwoActivity extends AppCompatActivity {
                     mFlgKeyboard = 0;
                     showActionBarTitle(true);
                 } else {
+                    // When keyboard is not open, open the keyboard. Hide category icons, show
+                    // custom speech input text, speak button and disable expressive buttons.
                     mIvKeyboard.setImageResource(R.drawable.keyboardpressed);
                     mEtTTs.setVisibility(View.VISIBLE);
                     mEtTTs.setKeyListener(originalKeyListener);
@@ -501,43 +494,79 @@ public class LevelTwoActivity extends AppCompatActivity {
         mIvLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // All expressive button speech flags (except like) are set to reset.
                 mFlgYes = mFlgMore = mFlgDntLike = mFlgNo = mFlgLess = 0;
+
+                //Value of mFlgImage = 0, indicates like expressive button is pressed
                 mFlgImage = 0;
+
+                // Sets expressive button to show about me icons if Help category chosen in level two
                 if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
                     setExpressiveButtonToAboutMe(mFlgImage);
                 else
                     resetExpressiveButtons(mFlgImage);
+
+                // if value of mShouldReadFullSpeech is false, then app should speak only expressive button name.
                 if (!mShouldReadFullSpeech) {
+                    // if value of mFlgLike is 1, then should speak "really like".
                     if (mFlgLike == 1) {
-                        speakSpeech(side[1]);                               //if pressing mIvLike for second time then says really like
+                        speakSpeech(mExprBtnTxt[1]);
                         mFlgLike = 0;
                         singleEvent("ExpressiveIcon","ReallyLike");
+                    // if value of mFlgLike is 0, then should speak "like".
                     } else {
-                        speakSpeech(side[0]);                               //if pressing mIvLike for first time says like
+                        speakSpeech(mExprBtnTxt[0]);
                         mFlgLike = 1;
                         singleEvent("ExpressiveIcon","Like");
                     }
                 } else {
+                    // if value of mShouldReadFullSpeech is true, then it should speak associated like
+                    // expression verbiage to selected category icon.
                     ++mActionBtnClickCount;
+
+                    // Set border to category icon, border color is applied using
+                    // mActionBtnClickCount and mFlgImage
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
+
+                    // if value of mFlgLike is 1, then should speak "really like" expression
+                    // verbiage associated to selected category icon.
                     if (mFlgLike == 1) {
                         singleEvent("ExpressiveIcon","ReallyLike");
-                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE || mLevelOneItemPos == CATEGORY_ICON_PLACES)
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mSortArray[mLevelTwoItemPos]).get(1));
+                        // People and places will have preferences. To get correct speech text sort
+                        // is applied.
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
+                                mLevelOneItemPos == CATEGORY_ICON_PLACES)
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mArrSort[mLevelTwoItemPos]).get(1));
+
+                        // If Help -> About me is selected, really like expression will speak child name
                         else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(1) + mSession.getName()+end);
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mLevelTwoItemPos).get(1) + mSession.getName()+end);
                         else
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(1));
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mLevelTwoItemPos).get(1));
+                        //reset mFlgLike to speak "like" expression
                         mFlgLike = 0;
                     } else {
+                        // if value of mFlgLike is 0, then should speak "like" expression
+                        // verbiage associated to selected category icon.
                         singleEvent("ExpressiveIcon","Like");
-                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE || mLevelOneItemPos == CATEGORY_ICON_PLACES)
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mSortArray[mLevelTwoItemPos]).get(0));
+                        // People and places will have preferences. To get correct speech text sort
+                        // is applied.
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
+                                mLevelOneItemPos == CATEGORY_ICON_PLACES)
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mArrSort[mLevelTwoItemPos]).get(0));
+                        // If Help -> About me is selected, like expression will speak child name
                         else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(0)+ mSession.getName()+end);
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mLevelTwoItemPos).get(0)+ mSession.getName()+end);
                         else
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(0));
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mLevelTwoItemPos).get(0));
+                        //reset mFlgLike to speak "really like" expression
                         mFlgLike = 1;
                     }
                 }
@@ -561,44 +590,81 @@ public class LevelTwoActivity extends AppCompatActivity {
         mIvDontLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // All expressive button speech flags (except dont like) are set to reset.
                 mFlgLike = 0; mFlgYes = 0; mFlgMore = 0; mFlgNo = 0; mFlgLess = 0;
+
+                //Value of mFlgImage = 1, indicates dont like expressive button is pressed
                 mFlgImage = 1;
+
+                // Sets expressive button to show about me icons if Help category chosen in level two
                 resetExpressiveButtons(mFlgImage);
                 if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
                     setExpressiveButtonToAboutMe(mFlgImage);
                 else
                     resetExpressiveButtons(mFlgImage);
+
+                // if value of mShouldReadFullSpeech is false, then app should speak only expressive button name.
                 if (!mShouldReadFullSpeech) {
+                    // if value of mFlgDntLike is 1, then should speak "really dont like".
                     if (mFlgDntLike == 1) {
-                        speakSpeech(side[7]);
+                        speakSpeech(mExprBtnTxt[7]);
                         mFlgDntLike = 0;
                         singleEvent("ExpressiveIcon","ReallyDon'tLike");
+                    // if value of mFlgDntLike is 0, then should speak " dont like".
                     } else {
-                        speakSpeech(side[6]);
+                        speakSpeech(mExprBtnTxt[6]);
                         mFlgDntLike = 1;
                         singleEvent("ExpressiveIcon","Don'tLike");
                     }
                 } else {
+                    // if value of mShouldReadFullSpeech is true, then it should speak associated
+                    // dont like expression verbiage to selected category icon.
                     ++mActionBtnClickCount;
+
+                    // Set border to category icon, border color is applied using
+                    // mActionBtnClickCount and mFlgImage
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
+
+                    // if value of mFlgDntLike is 1, then should speak "really don't like" expression
+                    // verbiage associated to selected category icon.
                     if (mFlgDntLike == 1) {
                         singleEvent("ExpressiveIcon","ReallyDon'tLike");
-                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE || mLevelOneItemPos == CATEGORY_ICON_PLACES)
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mSortArray[mLevelTwoItemPos]).get(7));
+                        // People and places will have preferences. To get correct speech text sort
+                        // is applied.
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
+                                mLevelOneItemPos == CATEGORY_ICON_PLACES)
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mArrSort[mLevelTwoItemPos]).get(7));
+                        // If Help -> About me is selected, don't like expression will speak
+                        // child's caregiver name
                         else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(7)+ mSession.getFather_name()+end);
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mLevelTwoItemPos).get(7)+ mSession.getCaregiverName()+end);
                         else
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(7));
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mLevelTwoItemPos).get(7));
+                        //reset mFlgDntLike to speak "don't like" expression
                         mFlgDntLike = 0;
                     } else {
+                        // if value of mFlgDntLike is 0, then should speak "dont like" expression
+                        // verbiage associated to selected category icon.
                         singleEvent("ExpressiveIcon","Don'tLike");
-                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE || mLevelOneItemPos == CATEGORY_ICON_PLACES)
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mSortArray[mLevelTwoItemPos]).get(6));
+                        // People and places will have preferences. To get correct speech text sort
+                        // is applied.
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
+                                mLevelOneItemPos == CATEGORY_ICON_PLACES)
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mArrSort[mLevelTwoItemPos]).get(6));
+                            // If Help -> About me is selected, dont like expression will speak
+                            // child's caregiver name
                         else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(6)+ mSession.getFather_name()+end);
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mLevelTwoItemPos).get(6)+ mSession.getCaregiverName()+end);
                         else
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(6));
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mLevelTwoItemPos).get(6));
+                        //reset mFlgDntLike to speak "really don't like" expression
                         mFlgDntLike = 1;
                     }
                 }
@@ -622,44 +688,81 @@ public class LevelTwoActivity extends AppCompatActivity {
         mIvYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // All expressive button speech flags (except yes) are set to reset.
                 mFlgLike = 0; mFlgMore = 0; mFlgDntLike = 0; mFlgNo = 0; mFlgLess = 0;
+
+                //Value of mFlgImage = 2, indicates yes expressive button is pressed
                 mFlgImage = 2;
+
+                // Sets expressive button to show about me icons if Help category chosen in level two
                 resetExpressiveButtons(mFlgImage);
                 if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
                     setExpressiveButtonToAboutMe(mFlgImage);
                 else
                     resetExpressiveButtons(mFlgImage);
+
+                // if value of mShouldReadFullSpeech is false, then app should speak only expressive button name.
                 if (!mShouldReadFullSpeech) {
+                    // if value of mFlgYes is 1, then should speak "really yes".
                     if (mFlgYes == 1) {
-                        speakSpeech(side[3]);
+                        speakSpeech(mExprBtnTxt[3]);
                         mFlgYes = 0;
                         singleEvent("ExpressiveIcon","ReallyYes");
+                    // if value of mFlgYes is 0, then should speak "yes".
                     } else {
-                        speakSpeech(side[2]);
+                        speakSpeech(mExprBtnTxt[2]);
                         mFlgYes = 1;
                         singleEvent("ExpressiveIcon","Yes");
                     }
                 } else  {
+                    // if value of mShouldReadFullSpeech is true, then app should speak associated yes
+                    // expression verbiage to selected category icon.
                     ++mActionBtnClickCount;
+
+                    // Set border to category icon, border color is applied using
+                    // mActionBtnClickCount and mFlgImage
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
+
+                    // if value of mFlgYes is 1, then should speak "really yes" expression
+                    // verbiage associated to selected category icon.
                     if (mFlgYes == 1) {
                         singleEvent("ExpressiveIcon","ReallyYes");
-                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE || mLevelOneItemPos == CATEGORY_ICON_PLACES)
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mSortArray[mLevelTwoItemPos]).get(3));
+                        // People and places will have preferences. To get correct speech text sort
+                        // is applied.
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
+                                mLevelOneItemPos == CATEGORY_ICON_PLACES)
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mArrSort[mLevelTwoItemPos]).get(3));
+                            // If Help -> About me is selected, really yes expression will speak
+                            // child's caregiver email id.
                         else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(3)+ mSession.getEmailId()+end);
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mLevelTwoItemPos).get(3)+ mSession.getEmailId()+end);
                         else
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(3));
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mLevelTwoItemPos).get(3));
+                        //reset mFlgYes to speak "yes" expression
                         mFlgYes = 0;
                     } else {
+                        // if value of mFlgYes is 0, then should speak "yes" expression
+                        // verbiage associated to selected category icon.
                         singleEvent("ExpressiveIcon","Yes");
-                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE || mLevelOneItemPos == CATEGORY_ICON_PLACES)
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mSortArray[mLevelTwoItemPos]).get(2));
+                        // People and places will have preferences. To get correct speech text sort
+                        // is applied.
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
+                                mLevelOneItemPos == CATEGORY_ICON_PLACES)
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mArrSort[mLevelTwoItemPos]).get(2));
+                            // If Help -> About me is selected, yes expression will speak
+                            // child's caregiver email id.
                         else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(2)+ mSession.getEmailId()+end);
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mLevelTwoItemPos).get(2)+ mSession.getEmailId()+end);
                         else
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(2));
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mLevelTwoItemPos).get(2));
+                        //reset mFlgYes to speak "really yes" expression
                         mFlgYes = 1;
                     }
                 }
@@ -683,44 +786,81 @@ public class LevelTwoActivity extends AppCompatActivity {
         mIvNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // All expressive button speech flags (except no) are set to reset.
                 mFlgLike = 0; mFlgYes = 0; mFlgMore = 0; mFlgDntLike = 0; mFlgLess = 0;
+
+                //Value of mFlgImage = 3, indicates no expressive button is pressed
                 mFlgImage = 3;
+
+                // Sets expressive button to show about me icons if Help category chosen in level two
                 resetExpressiveButtons(mFlgImage);
                 if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
                     setExpressiveButtonToAboutMe(mFlgImage);
                 else
                     resetExpressiveButtons(mFlgImage);
+
+                // if value of mShouldReadFullSpeech is false, then app should speak only expressive button name.
                 if (!mShouldReadFullSpeech) {
+                    // if value of mFlgNo is 1, then should speak "really no".
                     if (mFlgNo == 1) {
-                        speakSpeech(side[9]);
+                        speakSpeech(mExprBtnTxt[9]);
                         mFlgNo = 0;
                         singleEvent("ExpressiveIcon","ReallyNo");
+                    // if value of mFlgNo is 0, then should speak "no".
                     } else {
-                        speakSpeech(side[8]);
+                        speakSpeech(mExprBtnTxt[8]);
                         mFlgNo = 1;
                         singleEvent("ExpressiveIcon","No");
                     }
                 } else {
+                    // if value of mShouldReadFullSpeech is true, then it should speak associated no
+                    // expression verbiage to selected category icon.
                     ++mActionBtnClickCount;
+
+                    // Set border to category icon, border color is applied using
+                    // mActionBtnClickCount and mFlgImage
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
+
+                    // if value of mFlgNo is 1, then should speak "really no" expression
+                    // verbiage associated to selected category icon.
                     if (mFlgNo == 1) {
                         singleEvent("ExpressiveIcon","ReallyNo");
-                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE || mLevelOneItemPos == CATEGORY_ICON_PLACES)
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mSortArray[mLevelTwoItemPos]).get(9));
+                        // People and places will have preferences. To get correct speech text sort
+                        // is applied.
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
+                                mLevelOneItemPos == CATEGORY_ICON_PLACES)
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mArrSort[mLevelTwoItemPos]).get(9));
+                        // If Help -> About me is selected, really no expression will speak
+                            // child's address
                         else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(9)+ mSession.getAddress()+end);
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mLevelTwoItemPos).get(9)+ mSession.getAddress()+end);
                         else
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(9));
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mLevelTwoItemPos).get(9));
+                        //reset mFlgNo to speak "no" expression
                         mFlgNo = 0;
                     } else {
+                        // if value of mFlgNo is 0, then should speak "no" expression
+                        // verbiage associated to selected category icon.
                         singleEvent("ExpressiveIcon","No");
-                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE || mLevelOneItemPos == CATEGORY_ICON_PLACES)
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mSortArray[mLevelTwoItemPos]).get(8));
+                        // People and places will have preferences. To get correct speech text sort
+                        // is applied.
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
+                                mLevelOneItemPos == CATEGORY_ICON_PLACES)
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mArrSort[mLevelTwoItemPos]).get(8));
+                        // If Help -> About me is selected, no expression will speak child's
+                        // address
                         else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(8)+ mSession.getAddress()+end);
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mLevelTwoItemPos).get(8)+ mSession.getAddress()+end);
                         else
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(8));
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mLevelTwoItemPos).get(8));
+                        //reset mFlgLike to speak "really no" expression
                         mFlgNo = 1;
                     }
                 }
@@ -744,44 +884,83 @@ public class LevelTwoActivity extends AppCompatActivity {
         mIvMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // All expressive button speech flags (except more) are set to reset.
                 mFlgLike = 0; mFlgYes = 0; mFlgDntLike = 0; mFlgNo = 0; mFlgLess = 0;
+
+                //Value of mFlgImage = 4, indicates more expressive button is pressed
                 mFlgImage = 4;
+
+                // Sets expressive button to show about me icons if Help category chosen in level two
                 resetExpressiveButtons(mFlgImage);
                 if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
                     setExpressiveButtonToAboutMe(mFlgImage);
                 else
                     resetExpressiveButtons(mFlgImage);
+
+                // if value of mShouldReadFullSpeech is false, then app should speak only expressive button name.
                 if (!mShouldReadFullSpeech) {
+                    // if value of mFlgMore is 1, then should speak "really more".
                     if (mFlgMore == 1) {
-                        speakSpeech(side[5]);
+                        speakSpeech(mExprBtnTxt[5]);
                         mFlgMore = 0;
                         singleEvent("ExpressiveIcon","ReallyMore");
+                    // if value of mFlgMore is 0, then should speak "more".
                     } else {
-                        speakSpeech(side[4]);
+                        speakSpeech(mExprBtnTxt[4]);
                         mFlgMore = 1;
                         singleEvent("ExpressiveIcon","More");
                     }
                 } else {
+                    // if value of mShouldReadFullSpeech is true, then it should speak associated like
+                    // expression verbiage to selected category icon.
                     ++mActionBtnClickCount;
+
+                    // Set border to category icon, border color is applied using
+                    // mActionBtnClickCount and mFlgImage
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
+
+                    // if value of mFlgMore is 1, then should speak "really more" expression
+                    // verbiage associated to selected category icon.
                     if (mFlgMore == 1) {
                         singleEvent("ExpressiveIcon","ReallyMore");
-                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE || mLevelOneItemPos == CATEGORY_ICON_PLACES)
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mSortArray[mLevelTwoItemPos]).get(5));
+                        // People and places will have preferences. To get correct speech text sort
+                        // is applied.
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
+                                mLevelOneItemPos == CATEGORY_ICON_PLACES)
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mArrSort[mLevelTwoItemPos]).get(5));
+                        // If Help -> About me is selected, really like expression will speak
+                        //  caregivers number
                         else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(5)+ mSession.getFather_no().replaceAll("\\B", " ")+end);
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mLevelTwoItemPos).get(5)+mSession.getCaregiverNumber().
+                                    replaceAll("\\B", " ")+end);
                         else
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(5));
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mLevelTwoItemPos).get(5));
+                        //reset mFlgMore to speak "more" expression
                         mFlgMore = 0;
                     } else {
+                        // if value of mFlgMore is 0, then should speak "more" expression
+                        // verbiage associated to selected category icon.
                         singleEvent("ExpressiveIcon","More");
-                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE || mLevelOneItemPos == CATEGORY_ICON_PLACES)
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mSortArray[mLevelTwoItemPos]).get(4));
+                        // People and places will have preferences. To get correct speech text sort
+                        // is applied.
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
+                                mLevelOneItemPos == CATEGORY_ICON_PLACES)
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mArrSort[mLevelTwoItemPos]).get(4));
                         else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(5) + mSession.getFather_no().replaceAll("\\B", " ")+end);
+                        // If Help -> About me is selected, really like expression will speak
+                        //  caregivers number
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mLevelTwoItemPos).get(5) + mSession.getCaregiverNumber().
+                                    replaceAll("\\B", " ")+end);
                         else
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(4));
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mLevelTwoItemPos).get(4));
+                        //reset mFlgMore to speak "really more" expression
                         mFlgMore = 1;
                     }
                 }
@@ -805,47 +984,81 @@ public class LevelTwoActivity extends AppCompatActivity {
         mIvLess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // All expressive button speech flags (except less) are set to reset.
                 mFlgLike = 0; mFlgYes = 0; mFlgMore = 0; mFlgDntLike = 0; mFlgNo = 0;
+
+                //Value of mFlgImage = 5, indicates less expressive button is pressed
                 mFlgImage = 5;
+
+                // Sets expressive button to show about me icons if Help category chosen in level two
                 if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
                     setExpressiveButtonToAboutMe(mFlgImage);
                 else
                     resetExpressiveButtons(mFlgImage);
+
+                // if value of mShouldReadFullSpeech is false, then app should speak only expressive button name.
                 if (!mShouldReadFullSpeech) {
+                    // if value of mFlgLess is 1, then should speak "really less".
                     if (mFlgLess == 1) {
-                        speakSpeech(side[11]);
+                        speakSpeech(mExprBtnTxt[11]);
                         mFlgLess = 0;
                         singleEvent("ExpressiveIcon","ReallyLess");
+                    // if value of mFlgLess is 0, then should speak "less".
                     } else {
-                        speakSpeech(side[10]);
+                        speakSpeech(mExprBtnTxt[10]);
                         mFlgLess = 1;
                         singleEvent("ExpressiveIcon","Less");
                     }
                 } else {
+                    // if value of mShouldReadFullSpeech is true, then it should speak associated like
+                    // expression verbiage to selected category icon.
                     ++mActionBtnClickCount;
+
+                    // Set border to category icon, border color is applied using
+                    // mActionBtnClickCount and mFlgImage
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
+
+                    // if value of mFlgLess is 1, then should speak "really less" expression
+                    // verbiage associated to selected category icon.
                     if (mFlgLess == 1) {
                         singleEvent("ExpressiveIcon","ReallyLess");
-                        if (mLevelOneItemPos == 5)
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mSortArray[mLevelTwoItemPos]).get(11));
-                        else if (mLevelOneItemPos == 6)
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mSortArray[mLevelTwoItemPos]).get(11));
+                        // People and places will have preferences. To get correct speech text sort
+                        // is applied.
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
+                                mLevelOneItemPos == CATEGORY_ICON_PLACES)
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mArrSort[mLevelTwoItemPos]).get(11));
+
+                        // If Help -> About me is selected, really less expression will speak
+                        // child name
                         else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1){
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(10) + getBloodGroup() +end);
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mLevelTwoItemPos).get(10) + getBloodGroup() +end);
                         } else
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(11));
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mLevelTwoItemPos).get(11));
+                        //reset mFlgLess to speak "less" expression
                         mFlgLess = 0;
                     } else {
+                        // if value of mFlgLess is 0, then should speak "less" expression
+                        // verbiage associated to selected category icon.
                         singleEvent("ExpressiveIcon","Less");
-                        if (mLevelOneItemPos == 5)
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mSortArray[mLevelTwoItemPos]).get(10));
-                        else if (mLevelOneItemPos == 6)
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mSortArray[mLevelTwoItemPos]).get(10));
+                        // People and places will have preferences. To get correct speech text sort
+                        // is applied.
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
+                                mLevelOneItemPos == CATEGORY_ICON_PLACES)
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mArrSort[mLevelTwoItemPos]).get(10));
+                        // If Help -> About me is selected, less expression will speak
+                        // child name
                         else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1){
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(10)+ getBloodGroup()+end);
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mLevelTwoItemPos).get(10)+ getBloodGroup()+end);
                         } else
-                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).get(mLevelTwoItemPos).get(10));
+                            speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
+                                    get(mLevelTwoItemPos).get(10));
+                        //reset mFlgLess to speak "really less" expression
                         mFlgLess = 1;
                     }
                 }
@@ -912,12 +1125,17 @@ public class LevelTwoActivity extends AppCompatActivity {
      * */
     public void tappedCategoryItemEvent(View view, View v, int position) {
         mFlgLike = mFlgYes = mFlgMore = mFlgDntLike = mFlgNo = mFlgLess = 0;
+        // reset all expressive button.
         resetExpressiveButtons(-1);
+        // reset every populated category icon before setting the border to selected icon.
         resetRecyclerAllItems();
         mActionBtnClickCount = 0;
+        // set border to selected category icon
         setMenuImageBorder(v, true);
+        // set true to speak verbiage associated with category icon
         mShouldReadFullSpeech = true;
         String title = getIntent().getExtras().getString("selectedMenuItemPath")+ " ";
+
         if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE || mLevelOneItemPos == CATEGORY_ICON_PLACES) {
             speakSpeech(mArrSpeechText[position]);
             Bundle bundle = new Bundle();
@@ -925,9 +1143,10 @@ public class LevelTwoActivity extends AppCompatActivity {
             bundle.putString("Level","Two");
             bundleEvent("Grid",bundle);
         }else if(mLevelTwoItemPos == position && mLevelOneItemPos != CATEGORY_ICON_HELP){
+            // If category two icon other than People, Places or Help then open level three
             Intent intent = new Intent(LevelTwoActivity.this, LevelThreeActivity.class);
-            int MENU_ITEM_DAILY_ACT = 1;
-            if(mLevelOneItemPos == MENU_ITEM_DAILY_ACT &&
+            int CATEGORY_ICON_DAILY_ACT = 1;
+            if(mLevelOneItemPos == CATEGORY_ICON_DAILY_ACT &&
                     ( mLevelTwoItemPos == 0 ||  mLevelTwoItemPos == 1 || mLevelTwoItemPos == 2 ||
                             mLevelTwoItemPos == 7 || mLevelTwoItemPos == 8 ))
                 intent = new Intent(LevelTwoActivity.this, SequenceActivity.class);
@@ -945,11 +1164,10 @@ public class LevelTwoActivity extends AppCompatActivity {
         mLevelTwoItemPos = mRecyclerView.getChildLayoutPosition(view);
         mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
 
-        if(mLevelOneItemPos == CATEGORY_ICON_PEOPLE)
-            title += mArrAdapterTxt[mSortArray[mLevelTwoItemPos]];
-        else if( mLevelOneItemPos == CATEGORY_ICON_PLACES)
-            title += mArrAdapterTxt[mSortArray[mLevelTwoItemPos]];
-        else if( mLevelOneItemPos == CATEGORY_ICON_HELP)
+        // set title to breadcrumb (or actionbar) of activity.
+        if(mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
+                mLevelOneItemPos == CATEGORY_ICON_PLACES ||
+                mLevelOneItemPos == CATEGORY_ICON_HELP)
             title += mArrAdapterTxt[mLevelTwoItemPos];
         else
             title += mArrAdapterTxt[mLevelTwoItemPos].substring
@@ -957,9 +1175,11 @@ public class LevelTwoActivity extends AppCompatActivity {
         mActionBarTitle = title;
         getSupportActionBar().setTitle(mActionBarTitle);
 
+        // increment preference count an item if people or place category is selected in level one
         if(mLevelOneItemPos == CATEGORY_ICON_PEOPLE || mLevelOneItemPos == CATEGORY_ICON_PLACES)
             incrementTouchCountOfItem(mLevelTwoItemPos);
 
+        // set expressive buttons with respect to category icon selected in level two
         if(mLevelOneItemPos == CATEGORY_ICON_HELP && mLevelTwoItemPos == 1)
             setExpressiveButtonToAboutMe(-1);
         if(mLevelOneItemPos == CATEGORY_ICON_HELP &&
@@ -1048,26 +1268,19 @@ public class LevelTwoActivity extends AppCompatActivity {
      *     b) Read speech text from arrays for expressive buttons.
      *     c) Read verbiage lines into {@link LevelTwoVerbiageModel} model.
      *     d) Read speech and adapter text from arrays for category icons
-     *        for People/Places if in {@link MainActivity } mIconArray/places
+     *        for People/Places if in {@link MainActivity } mArrIcon/places
      *        category is selected.
      *     e) Read speech and adapter text from arrays for category icons
      *        other than People/Places.</p>
      * */
     private void loadArraysFromResources() {
-        side = getResources().getStringArray(R.array.arrActionSpeech);
-        below = getResources().getStringArray(R.array.arrNavigationSpeech);
+        mExprBtnTxt = getResources().getStringArray(R.array.arrActionSpeech);
+        mNavigationBtnTxt = getResources().getStringArray(R.array.arrNavigationSpeech);
 
         LevelTwoVerbiageModel verbiageModel = new Gson()
                 .fromJson(getString(R.string.levelTwoVerbiage), LevelTwoVerbiageModel.class);
         mLayerTwoSpeech = verbiageModel.getVerbiageModel();
-
-        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE) {
-            mLevelTwoSpeechText = getResources().getStringArray(R.array.arrLevelTwoPeopleSpeechText);
-            mLevelTwoAdapterText = getResources().getStringArray(R.array.arrLevelTwoPeopleAdapterText);
-        }else if (mLevelOneItemPos == CATEGORY_ICON_PLACES) {
-            mLevelTwoSpeechText = getResources().getStringArray(R.array.arrLevelTwoPlacesSpeechText);
-            mLevelTwoAdapterText = getResources().getStringArray(R.array.arrLevelTwoPlacesAdapterText);
-        }
+        // fill speech and adapter text arrays
         retrieveSpeechAndAdapterArrays(mLevelOneItemPos);
     }
 
@@ -1175,7 +1388,9 @@ public class LevelTwoActivity extends AppCompatActivity {
     private void setMenuImageBorder(View recyclerChildView, boolean setBorder) {
         GradientDrawable gd = (GradientDrawable) recyclerChildView.findViewById(R.id.borderView).getBackground();
         if(setBorder){
+            // mActionBtnClickCount = 0, brown color border is set.
             if (mActionBtnClickCount > 0) {
+                // mFlgImage define color of border.
                 switch (mFlgImage) {
                     case 0: gd.setColor(ContextCompat.getColor(this,R.color.colorLike)); break;
                     case 1: gd.setColor(ContextCompat.getColor(this,R.color.colorDontLike)); break;
@@ -1232,8 +1447,9 @@ public class LevelTwoActivity extends AppCompatActivity {
      * */
     private void incrementTouchCountOfItem(int levelTwoItemPosition) {
         StringBuilder stringBuilder = new StringBuilder();
-        mIconTapCount[mSortArray[levelTwoItemPosition]] += 1;
-        for (Integer countPeople : mIconTapCount) stringBuilder.append(countPeople).append(",");
+        mArrPeoplePlaceTapCount[mArrSort[levelTwoItemPosition]] += 1;
+        for (Integer countPeople : mArrPeoplePlaceTapCount)
+            stringBuilder.append(countPeople).append(",");
         if(mLevelOneItemPos == CATEGORY_ICON_PEOPLE) {
             mSession.setPeoplePreferences(stringBuilder.toString());
         }else {
@@ -1296,10 +1512,12 @@ public class LevelTwoActivity extends AppCompatActivity {
                 mArrAdapterTxt = getResources().getStringArray(R.array.arrLevelTwoLearningAdapterText);
                 break;
             case 5:
-                mArrAdapterTxt = getResources().getStringArray(R.array.arrLevelTwoPeopleAdapterText);
+                useSortToLoadArray(getResources().getStringArray(R.array.arrLevelTwoPeopleSpeechText),
+                        getResources().getStringArray(R.array.arrLevelTwoPeopleAdapterText));
                 break;
             case 6:
-                mArrAdapterTxt = getResources().getStringArray(R.array.arrLevelTwoPlacesAdapterText);
+                useSortToLoadArray(getResources().getStringArray(R.array.arrLevelTwoPlacesSpeechText),
+                                getResources().getStringArray(R.array.arrLevelTwoPlacesAdapterText));
                 break;
             case 7:
                 mArrSpeechText = getResources().getStringArray(R.array.arrLevelTwoTimeWeatherSpeechText);
@@ -1313,18 +1531,81 @@ public class LevelTwoActivity extends AppCompatActivity {
     }
 
     /**
-     * Unused code
-     * **/
+     * <p>This function is only called when user select either People or Places icon category in
+     * {@link MainActivity}. To arrange icons in {@link LevelTwoActivity} for above categories
+     * as per preferences (Most used icon first in the category).
+     * The function performs following steps:
+     *   1. Retrieves users stored preferences if exist.
+     *   2. Store preferences into preference array.
+     *   3. Creates index array, index array is descending integer array that stores indexes
+     *      of elements having greater value first. e.g. Consider preference array as
+     *      [5, 4, 9 , 2, 5] then its index array is [2, 0, 4, 1, 3].
+     *   4. Then speech and below text array elements are rearranged using index array. In this
+     *      step, Speech and below text array elements are arranged in such a way that most
+     *      used icon will appear first in the category.
+     * @param arrSpeechTxt, raw speech text array,  used to sort the speech elements.
+     * @param arrAdapterTxt, raw below text array,  used to sort the below text elements.</p>
+     * */
+    private void useSortToLoadArray(String[] arrSpeechTxt, String[] arrAdapterTxt) {
+        String savedString = "";
+        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE) {
+            savedString = mSession.getPeoplePreferences();
+        }else if (mLevelOneItemPos == CATEGORY_ICON_PLACES) {
+            savedString = mSession.getPlacesPreferences();
+        }
+
+        // Temporary array of user taps on category icons
+        Integer[]  mArrIconTapCount = new Integer[arrSpeechTxt.length];
+        mArrSort = new Integer[arrSpeechTxt.length];
+
+        for (int i = 0; i < arrSpeechTxt.length; ++i) {
+            mArrIconTapCount[i] = 0;
+            mArrSort[i] = i;
+        }
+
+        if(!savedString.equals("")){
+            StringTokenizer st = new StringTokenizer(savedString, ",");
+            for (int i = 0; i < arrSpeechTxt.length; ++i)
+                mArrIconTapCount[i] = Integer.parseInt(st.nextToken());
+        }
+
+        //Global to activity; category icon tapped array count for People and places category
+        mArrPeoplePlaceTapCount = new Integer[arrSpeechTxt.length];
+        for(int i = 0; i< arrSpeechTxt.length ; ++i)
+            mArrPeoplePlaceTapCount[i] = mArrIconTapCount[i];
+
+        IndexSorter<Integer> is = new IndexSorter<Integer>(mArrIconTapCount);
+        is.sort();
+        mArrSort =  new Integer[mLayerTwoSpeech.get(mLevelOneItemPos).size()];
+        int j = -1;
+        for (Integer i : is.getIndexes()) {
+            mArrSort[++j] = i;
+        }
+
+        mArrSpeechText = new String[mArrIconTapCount.length];
+        mArrAdapterTxt = new String[mArrIconTapCount.length];
+        int idx;
+        for (int i = 0; i < mArrIconTapCount.length; ++i) {
+            idx = mArrSort[i];
+            mArrSpeechText[i] = arrSpeechTxt[idx];
+            mArrAdapterTxt[i] = arrAdapterTxt[idx];
+        }
+    }
+
+    /**
+     * Unused code in current version
+     **/
     private void showCallPreview(){
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED){
-            //startCall("tel:" + mSession.getFather_no());
+            //startCall("tel:" + mSession.getCaregiverNumber());
         } else {
             //requestCallPermission();
         }
     }
 
     /**
-     * Unused code**/
+     * Unused code in current version
+     **/
     private void requestCallPermission(){
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.CALL_PHONE)){
             new ToastWithCustomTime(this,"Call permission is not available. Requesting permission for making a call in case of an emergency.", 10000);
@@ -1335,8 +1616,8 @@ public class LevelTwoActivity extends AppCompatActivity {
     }
 
     /**
-     * Unused code
-     * **/
+     * Unused code in current version
+     **/
     public void startCall(String contact){
         Intent callintent = new Intent(Intent.ACTION_CALL);
         callintent.setData(Uri.parse(contact));

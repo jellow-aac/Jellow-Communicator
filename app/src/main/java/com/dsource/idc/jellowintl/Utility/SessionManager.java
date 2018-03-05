@@ -112,19 +112,19 @@ public class SessionManager {
         return (String) retrievePreferenceKeyWithValue(String.class.toString(), EmailId);
     }
 
-    public void setFather_no(String father_no) {
+    public void setCaregiverNumber(String father_no) {
         storePreferenceKeyWithValue(String.class.toString(), EmergencyContact, father_no);
     }
 
-    public String getFather_no() {
+    public String getCaregiverNumber() {
         return (String) retrievePreferenceKeyWithValue(String.class.toString(), EmergencyContact);
     }
 
-    public void setFather_name(String fname){
+    public void setCaregiverName(String fname){
         storePreferenceKeyWithValue(String.class.toString(), Father_name, fname);
     }
 
-    public String getFather_name(){
+    public String getCaregiverName(){
         return (String) retrievePreferenceKeyWithValue(String.class.toString(), Father_name);
     }
 

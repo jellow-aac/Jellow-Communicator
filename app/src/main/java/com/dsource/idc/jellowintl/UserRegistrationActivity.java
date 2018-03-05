@@ -78,8 +78,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
         mSession = new SessionManager(this);
 
-        if(!mSession.getFather_no().equals(""))
-        getAnalytics(this,mSession.getFather_no());
+        if(!mSession.getCaregiverNumber().equals(""))
+        getAnalytics(this,mSession.getCaregiverNumber());
 
         if (mSession.isUserLoggedIn())
         {
@@ -186,7 +186,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot snapshot) {
                 if (snapshot.getValue(Boolean.class)) {
                     mSession.setName(name);
-                    mSession.setFather_no(emergencyContact);
+                    mSession.setCaregiverNumber(emergencyContact);
                     mSession.setUserCountryCode(mCcp.getSelectedCountryCode());
                     mSession.setEmailId(eMailId);
                     createUser(name, emergencyContact, eMailId, formattedDate);
@@ -319,7 +319,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
             super.onPostExecute(isConnected);
             if(isConnected){
                 mSession.setName(mName);
-                mSession.setFather_no(mEmergencyContact);
+                mSession.setCaregiverNumber(mEmergencyContact);
                 mSession.setUserCountryCode(mCcp.getSelectedCountryCode());
                 mSession.setEmailId(mEmailId);
                 Calendar ca = Calendar.getInstance();

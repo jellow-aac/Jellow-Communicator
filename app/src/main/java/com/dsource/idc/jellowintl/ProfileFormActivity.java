@@ -68,8 +68,8 @@ public class ProfileFormActivity extends AppCompatActivity {
         mCcp = findViewById(R.id.ccp);
         mCcp.setCountryForPhoneCode(Integer.valueOf(mSession.getUserCountryCode()));
         mCcp.registerCarrierNumberEditText(etFatherContact);
-        etFatherContact.setText(mSession.getFather_no().replace("+".concat(mSession.getUserCountryCode()),""));
-        etFathername.setText(mSession.getFather_name());
+        etFatherContact.setText(mSession.getCaregiverNumber().replace("+".concat(mSession.getUserCountryCode()),""));
+        etFathername.setText(mSession.getCaregiverName());
         etAddress.setText(mSession.getAddress());
         etEmailId.setText(mSession.getEmailId());
         if(mSession.getBlood() != -1) bloodgroup.setSelection(mSession.getBlood());
@@ -96,9 +96,9 @@ public class ProfileFormActivity extends AppCompatActivity {
                 email = etEmailId.getText().toString().trim();
                 if (etName.getText().toString().length() > 0) {
                         if (isValidEmail(email)) {
-                            if(mCcp.getFullNumberWithPlus().equals(mSession.getFather_no()))
+                            if(mCcp.getFullNumberWithPlus().equals(mSession.getCaregiverNumber()))
                             {
-                                String emergencyContact = mSession.getFather_no();
+                                String emergencyContact = mSession.getCaregiverNumber();
                                 mRef.child(emergencyContact).child("email").setValue(email);
                                 mRef.child(emergencyContact).child("name").setValue(etName.getText().toString());
 
@@ -110,10 +110,10 @@ public class ProfileFormActivity extends AppCompatActivity {
                                 mRef.child(emergencyContact).child("name").setValue(etName.getText().toString());
                             }
 
-                            mSession.setFather_name(etFathername.getText().toString());
+                            mSession.setCaregiverName(etFathername.getText().toString());
                             mSession.setAddress(etAddress.getText().toString());
                             mSession.setName(etName.getText().toString());
-                            mSession.setFather_no(mCcp.getFullNumberWithPlus());
+                            mSession.setCaregiverNumber(mCcp.getFullNumberWithPlus());
                             mSession.setUserCountryCode(mCcp.getSelectedCountryCode());
                             mSession.setEmailId(email);
                             if(bloodgroup.getSelectedItemPosition() > 0)

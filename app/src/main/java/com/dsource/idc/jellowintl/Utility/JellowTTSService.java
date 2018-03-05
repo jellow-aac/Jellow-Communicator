@@ -136,7 +136,6 @@ public class JellowTTSService extends Service{
                 case "com.dsource.idc.jellowintl.SPEECH_STOP":
                     stopTtsSay(); break;
                 case "com.dsource.idc.jellowintl.STOP_SERVICE":
-                    mTts.shutdown();
                     stopSelf(); break;
             }
         }
