@@ -77,6 +77,8 @@ public class LanguageSelectActivity extends AppCompatActivity{
         offlineLanguages = getOfflineLanguages();
         onlineLanguages = getOnlineLanguages();
         languageSelect = findViewById(R.id.selectDownloadedLanguageSpinner);
+        if(Build.VERSION.SDK_INT < 21)
+            languageSelect.setBackgroundResource(R.drawable.rounded_textview);
         adapter_lan = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, offlineLanguages);
 

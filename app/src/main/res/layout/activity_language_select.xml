@@ -80,13 +80,13 @@
                     android:id="@+id/addBut"
                     android:layout_width="230dp"
                     android:layout_height="30dp"
-                    android:background="#FFBEBCB6"
+                    android:background="@drawable/rounded_textview"
                     android:text="@string/addLanguage" />
                 <Button
                     android:id="@+id/delBut"
                     android:layout_width="230dp"
                     android:layout_height="30dp"
-                    android:background="#FFBEBCB6"
+                    android:background="@drawable/rounded_textview"
                     android:layout_marginLeft="20dp"
                     android:layout_marginStart="20dp"
                     android:text="@string/deleteLanguage" />
@@ -121,7 +121,7 @@
                 android:fontFamily="fonts/Mukta-Regular.ttf"
                 android:textSize="16sp"
                 android:textColor="#000000"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="19dp"
                 android:layout_marginBottom="10dp"
                 android:textStyle="bold"/>
 
@@ -151,8 +151,7 @@
                 android:id="@+id/selectDownloadedLanguageSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#FFBEBCB6"
-                android:layout_marginBottom="10dp" />
+                android:layout_marginBottom="10dp"/>
             <LinearLayout
                 android:id="@+id/llStep2"
                 android:layout_width="wrap_content"
@@ -187,7 +186,7 @@
                 android:layout_width="230dp"
                 android:layout_height="30dp"
                 android:layout_marginBottom="10dp"
-                android:background="#FFBEBCB6"
+                android:background="@drawable/rounded_textview"
                 android:text="@string/txt_actLangSel_downloadDat"/>
 
             <LinearLayout
@@ -241,7 +240,7 @@
                 android:layout_width="230dp"
                 android:layout_height="30dp"
                 android:layout_marginBottom="10dp"
-                android:background="#FFBEBCB6"
+                android:background="@drawable/rounded_textview"
                 android:text="@string/change_tts_lang"/>
             <LinearLayout
                 android:id="@+id/llStep4"
@@ -271,7 +270,7 @@
                 android:layout_width="230dp"
                 android:layout_height="30dp"
                 android:layout_marginBottom="10dp"
-                android:background="#FFBEBCB6"
+                android:background="@drawable/rounded_textview"
                 android:text="@string/saveLanguage" />
         </LinearLayout>
     </ScrollView>

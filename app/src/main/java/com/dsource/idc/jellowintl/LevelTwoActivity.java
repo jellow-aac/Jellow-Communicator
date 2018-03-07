@@ -249,10 +249,12 @@ public class LevelTwoActivity extends AppCompatActivity {
         mIvKeyboard.setContentDescription(mNavigationBtnTxt[2]);
         mEtTTs = findViewById(R.id.et);
         mEtTTs.setContentDescription(getString(R.string.string_to_speak));
+        //Initially custom input text is invisible
         mEtTTs.setVisibility(View.INVISIBLE);
 
         mIvTts = findViewById(R.id.ttsbutton);
         mIvTts.setContentDescription(getString(R.string.speak_written_text));
+        //Initially custom input text speak button is invisible
         mIvTts.setVisibility(View.INVISIBLE);
 
         originalKeyListener = mEtTTs.getKeyListener();
@@ -356,6 +358,7 @@ public class LevelTwoActivity extends AppCompatActivity {
     private void initBackBtnListener() {
         mIvBack.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                //Firebase event
                 singleEvent("Navigation","Back");
                 speakSpeech(mNavigationBtnTxt[1]);
                 if (mFlgKeyboard == 1) {
@@ -368,6 +371,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                     mIvTts.setVisibility(View.INVISIBLE);
                     mFlgKeyboard = 0;
 
+                    // after closing keyboard, then enable all expressive buttons
                     if(mLevelOneItemPos == CATEGORY_ICON_HELP && mLevelTwoItemPos == 1) {
                         setExpressiveButtonToAboutMe(mFlgImage);
                         changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
@@ -404,6 +408,7 @@ public class LevelTwoActivity extends AppCompatActivity {
         mIvHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Firebase event
                 singleEvent("Navigation","Home");
                 mIvHome.setImageResource(R.drawable.homepressed);
                 mIvKeyboard.setImageResource(R.drawable.keyboard_button);
@@ -437,6 +442,9 @@ public class LevelTwoActivity extends AppCompatActivity {
                     mEtTTs.setVisibility(View.INVISIBLE);
                     mRecyclerView.setVisibility(View.VISIBLE);
                     mIvTts.setVisibility(View.INVISIBLE);
+
+                    // after closing keyboard, then enable all expressive buttons as per category
+                    // selected in level one
                     if (mLevelOneItemPos == CATEGORY_ICON_HELP && mLevelTwoItemPos == 1){
                         setExpressiveButtonToAboutMe(mFlgImage);
                         changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
@@ -512,11 +520,13 @@ public class LevelTwoActivity extends AppCompatActivity {
                     if (mFlgLike == 1) {
                         speakSpeech(mExprBtnTxt[1]);
                         mFlgLike = 0;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyLike");
                     // if value of mFlgLike is 0, then should speak "like".
                     } else {
                         speakSpeech(mExprBtnTxt[0]);
                         mFlgLike = 1;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","Like");
                     }
                 } else {
@@ -532,6 +542,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                     // if value of mFlgLike is 1, then should speak "really like" expression
                     // verbiage associated to selected category icon.
                     if (mFlgLike == 1) {
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyLike");
                         // People and places will have preferences. To get correct speech text sort
                         // is applied.
@@ -552,6 +563,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                     } else {
                         // if value of mFlgLike is 0, then should speak "like" expression
                         // verbiage associated to selected category icon.
+                        //Firebase event
                         singleEvent("ExpressiveIcon","Like");
                         // People and places will have preferences. To get correct speech text sort
                         // is applied.
@@ -609,11 +621,13 @@ public class LevelTwoActivity extends AppCompatActivity {
                     if (mFlgDntLike == 1) {
                         speakSpeech(mExprBtnTxt[7]);
                         mFlgDntLike = 0;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyDon'tLike");
                     // if value of mFlgDntLike is 0, then should speak " dont like".
                     } else {
                         speakSpeech(mExprBtnTxt[6]);
                         mFlgDntLike = 1;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","Don'tLike");
                     }
                 } else {
@@ -629,6 +643,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                     // if value of mFlgDntLike is 1, then should speak "really don't like" expression
                     // verbiage associated to selected category icon.
                     if (mFlgDntLike == 1) {
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyDon'tLike");
                         // People and places will have preferences. To get correct speech text sort
                         // is applied.
@@ -649,6 +664,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                     } else {
                         // if value of mFlgDntLike is 0, then should speak "dont like" expression
                         // verbiage associated to selected category icon.
+                        //Firebase event
                         singleEvent("ExpressiveIcon","Don'tLike");
                         // People and places will have preferences. To get correct speech text sort
                         // is applied.
@@ -707,11 +723,13 @@ public class LevelTwoActivity extends AppCompatActivity {
                     if (mFlgYes == 1) {
                         speakSpeech(mExprBtnTxt[3]);
                         mFlgYes = 0;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyYes");
                     // if value of mFlgYes is 0, then should speak "yes".
                     } else {
                         speakSpeech(mExprBtnTxt[2]);
                         mFlgYes = 1;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","Yes");
                     }
                 } else  {
@@ -727,6 +745,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                     // if value of mFlgYes is 1, then should speak "really yes" expression
                     // verbiage associated to selected category icon.
                     if (mFlgYes == 1) {
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyYes");
                         // People and places will have preferences. To get correct speech text sort
                         // is applied.
@@ -747,6 +766,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                     } else {
                         // if value of mFlgYes is 0, then should speak "yes" expression
                         // verbiage associated to selected category icon.
+                        //Firebase event
                         singleEvent("ExpressiveIcon","Yes");
                         // People and places will have preferences. To get correct speech text sort
                         // is applied.
@@ -805,11 +825,13 @@ public class LevelTwoActivity extends AppCompatActivity {
                     if (mFlgNo == 1) {
                         speakSpeech(mExprBtnTxt[9]);
                         mFlgNo = 0;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyNo");
                     // if value of mFlgNo is 0, then should speak "no".
                     } else {
                         speakSpeech(mExprBtnTxt[8]);
                         mFlgNo = 1;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","No");
                     }
                 } else {
@@ -825,6 +847,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                     // if value of mFlgNo is 1, then should speak "really no" expression
                     // verbiage associated to selected category icon.
                     if (mFlgNo == 1) {
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyNo");
                         // People and places will have preferences. To get correct speech text sort
                         // is applied.
@@ -845,6 +868,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                     } else {
                         // if value of mFlgNo is 0, then should speak "no" expression
                         // verbiage associated to selected category icon.
+                        //Firebase event
                         singleEvent("ExpressiveIcon","No");
                         // People and places will have preferences. To get correct speech text sort
                         // is applied.
@@ -903,11 +927,13 @@ public class LevelTwoActivity extends AppCompatActivity {
                     if (mFlgMore == 1) {
                         speakSpeech(mExprBtnTxt[5]);
                         mFlgMore = 0;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyMore");
                     // if value of mFlgMore is 0, then should speak "more".
                     } else {
                         speakSpeech(mExprBtnTxt[4]);
                         mFlgMore = 1;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","More");
                     }
                 } else {
@@ -923,6 +949,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                     // if value of mFlgMore is 1, then should speak "really more" expression
                     // verbiage associated to selected category icon.
                     if (mFlgMore == 1) {
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyMore");
                         // People and places will have preferences. To get correct speech text sort
                         // is applied.
@@ -944,6 +971,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                     } else {
                         // if value of mFlgMore is 0, then should speak "more" expression
                         // verbiage associated to selected category icon.
+                        //Firebase event
                         singleEvent("ExpressiveIcon","More");
                         // People and places will have preferences. To get correct speech text sort
                         // is applied.
@@ -1002,11 +1030,13 @@ public class LevelTwoActivity extends AppCompatActivity {
                     if (mFlgLess == 1) {
                         speakSpeech(mExprBtnTxt[11]);
                         mFlgLess = 0;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyLess");
                     // if value of mFlgLess is 0, then should speak "less".
                     } else {
                         speakSpeech(mExprBtnTxt[10]);
                         mFlgLess = 1;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","Less");
                     }
                 } else {
@@ -1022,6 +1052,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                     // if value of mFlgLess is 1, then should speak "really less" expression
                     // verbiage associated to selected category icon.
                     if (mFlgLess == 1) {
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyLess");
                         // People and places will have preferences. To get correct speech text sort
                         // is applied.
@@ -1043,6 +1074,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                     } else {
                         // if value of mFlgLess is 0, then should speak "less" expression
                         // verbiage associated to selected category icon.
+                        //Firebase event
                         singleEvent("ExpressiveIcon","Less");
                         // People and places will have preferences. To get correct speech text sort
                         // is applied.
@@ -1078,7 +1110,9 @@ public class LevelTwoActivity extends AppCompatActivity {
                 speakSpeech(mEtTTs.getText().toString());
                 if(!mEtTTs.getText().toString().equals(""))
                     mIvTts.setImageResource(R.drawable.speaker_pressed);
+                //Firebase event
                 singleEvent("Keyboard", mEtTTs.getText().toString());
+                //if expressive buttons always disabled during custom text speech output
                 mIvLike.setEnabled(false);
                 mIvDontLike.setEnabled(false);
                 mIvMore.setEnabled(false);

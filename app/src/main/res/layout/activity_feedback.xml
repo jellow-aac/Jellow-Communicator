@@ -125,7 +125,7 @@
             android:textSize="14sp"
             android:text="@string/submit"
             android:layout_gravity="center_vertical"
-            android:background="#FFBEBCB6"
+            android:background="@drawable/rounded_textview"
             android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp" />
     </LinearLayout>

@@ -217,9 +217,11 @@ public class LevelThreeActivity extends AppCompatActivity {
         mIvKeyboard.setContentDescription(mNavigationBtnTxt[2]);
         mEtTTs = findViewById(R.id.et);
         mEtTTs.setContentDescription(getString(R.string.string_to_speak));
+        //Initially custom input text is invisible
         mEtTTs.setVisibility(View.INVISIBLE);
         mIvTTs = findViewById(R.id.ttsbutton);
         mIvTTs.setContentDescription(getString(R.string.speak_written_text));
+        //Initially custom input text speak button is invisible
         mIvTTs.setVisibility(View.INVISIBLE);
         originalKeyListener = mEtTTs.getKeyListener();
         // Set it to null - this will make to the field non-editable
@@ -373,14 +375,17 @@ public class LevelThreeActivity extends AppCompatActivity {
                     mRecyclerView.setVisibility(View.VISIBLE);
                     mIvTTs.setVisibility(View.INVISIBLE);
                     mFlgKeyboard = 0;
+                    // after closing keyboard, then enable all expressive buttons
                     changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
-                    if(mLevelThreeItemPos != -1) retainExpressiveButtonStates();
+                    if(mLevelThreeItemPos != -1)
+                        retainExpressiveButtonStates();
                 } else {
                     // When keyboard is not open simply set result and close the activity.
                     mIvBack.setImageResource(R.drawable.backpressed);
                     setResult(RESULT_OK);
                     finish();
                 }
+                //Firebase event
                 singleEvent("Navigation","Back");
                 showActionBarTitle(true);
             }
@@ -397,6 +402,7 @@ public class LevelThreeActivity extends AppCompatActivity {
         mIvHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Firebase event
                 singleEvent("Navigation","Home");
                 mIvHome.setImageResource(R.drawable.homepressed);
                 mIvKeyboard.setImageResource(R.drawable.keyboard_button);
@@ -482,11 +488,13 @@ public class LevelThreeActivity extends AppCompatActivity {
                     if (mFlgLike == 1) {
                         speakSpeech(mExprBtnTxt[1]);
                         mFlgLike = 0;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyLike");
                     // if value of mFlgLike is 0, then should speak "like".
                     } else {
                         speakSpeech(mExprBtnTxt[0]);
                         mFlgLike = 1;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","mIvLike");
                     }
                 } else {
@@ -501,6 +509,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                     // if value of mFlgLike is 1, then should speak "really like" expression
                     // verbiage associated to selected category icon.
                     if (mFlgLike == 1) {
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyLike");
 
                         if (count_flag == 1)
@@ -513,6 +522,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                     // if value of mFlgLike is 0, then should speak "like" expression
                     // verbiage associated to selected category icon.
                     } else {
+                        //Firebase event
                         singleEvent("ExpressiveIcon","mIvLike");
 
                         if (count_flag == 1)
@@ -557,11 +567,13 @@ public class LevelThreeActivity extends AppCompatActivity {
                     if (mFlgDntLike == 1) {
                         speakSpeech(mExprBtnTxt[7]);
                         mFlgDntLike = 0;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyDon'tLike");
                     // if value of mFlgDntLike is 0, then should speak " dont like".
                     } else {
                         speakSpeech(mExprBtnTxt[6]);
                         mFlgDntLike = 1;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","Don'tLike");
                     }
                 } else {
@@ -578,6 +590,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                     // if value of mFlgDntLike is 1, then should speak "really don't like" expression
                     // verbiage associated to selected category icon.
                     if (mFlgDntLike == 1) {
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyDon'tLike");
 
                         if (count_flag == 1)
@@ -589,6 +602,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                     // if value of mFlgDntLike is 0, then should speak "dont like" expression
                     //  verbiage associated to selected category icon.
                     } else {
+                        //Firebase event
                         singleEvent("ExpressiveIcon","Don'tLike");
 
                         if (count_flag == 1)
@@ -634,11 +648,13 @@ public class LevelThreeActivity extends AppCompatActivity {
                     if (mFlgYes == 1) {
                         speakSpeech(mExprBtnTxt[3]);
                         mFlgYes = 0;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyYes");
                     // if value of mFlgYes is 0, then should speak "yes".
                     } else {
                         speakSpeech(mExprBtnTxt[2]);
                         mFlgYes = 1;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","Yes");
                     }
                 // if value of mShouldReadFullSpeech is true, then app should speak associated yes
@@ -653,6 +669,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                     // if value of mFlgYes is 1, then should speak "really yes" expression
                     // verbiage associated to selected category icon.
                     if (mFlgYes == 1) {
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyYes");
 
                         if (count_flag == 1)
@@ -664,6 +681,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                     // if value of mFlgYes is 0, then should speak "yes" expression
                     // verbiage associated to selected category icon.
                     } else {
+                        //Firebase event
                         singleEvent("ExpressiveIcon","Yes");
 
                         if (count_flag == 1)
@@ -709,11 +727,13 @@ public class LevelThreeActivity extends AppCompatActivity {
                     if (mFlgNo == 1) {
                         speakSpeech(mExprBtnTxt[9]);
                         mFlgNo = 0;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyNo");
                     // if value of mFlgNo is 0, then should speak "no".
                     } else {
                         speakSpeech(mExprBtnTxt[8]);
                         mFlgNo = 1;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","No");
                     }
                 // if value of mShouldReadFullSpeech is true, then it should speak associated no
@@ -728,6 +748,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                     // if value of mFlgNo is 1, then should speak "really no" expression
                     // verbiage associated to selected category icon.
                     if (mFlgNo == 1) {
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyNo");
 
                         if (count_flag == 1)
@@ -739,6 +760,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                     // if value of mFlgNo is 0, then should speak "no" expression
                     // verbiage associated to selected category icon.
                     } else {
+                        //Firebase event
                         singleEvent("ExpressiveIcon","No");
 
                         if (count_flag == 1)
@@ -784,11 +806,13 @@ public class LevelThreeActivity extends AppCompatActivity {
                     if (mFlgMore == 1) {
                         speakSpeech(mExprBtnTxt[5]);
                         mFlgMore = 0;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyMore");
                     // if value of mFlgMore is 0, then should speak "more".
                     } else {
                         speakSpeech(mExprBtnTxt[4]);
                         mFlgMore = 1;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","More");
                     }
                 // if value of mShouldReadFullSpeech is true, then it should speak associated like
@@ -804,6 +828,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                     // if value of mFlgMore is 1, then should speak "really more" expression
                     // verbiage associated to selected category icon.
                     if (mFlgMore == 1) {
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyMore");
 
                         if (count_flag == 1)
@@ -815,6 +840,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                     // if value of mFlgMore is 0, then should speak "more" expression
                     // verbiage associated to selected category icon.
                     } else {
+                        //Firebase event
                         singleEvent("ExpressiveIcon","More");
 
                         if (count_flag == 1)
@@ -860,11 +886,13 @@ public class LevelThreeActivity extends AppCompatActivity {
                     if (mFlgLess == 1) {
                         speakSpeech(mExprBtnTxt[11]);
                         mFlgLess = 0;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyLess");
                     // if value of mFlgLess is 0, then should speak "less".
                     } else {
                         speakSpeech(mExprBtnTxt[10]);
                         mFlgLess = 1;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","Less");
                     }
                 } else {
@@ -879,6 +907,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                     // if value of mFlgLess is 1, then should speak "really less" expression
                     // verbiage associated to selected category icon.
                     if (mFlgLess == 1) {
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyLess");
 
                         if (count_flag == 1)
@@ -890,6 +919,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                     // if value of mFlgLess is 0, then should speak "less" expression
                     // verbiage associated to selected category icon.
                     } else {
+                        //Firebase event
                         singleEvent("ExpressiveIcon","Less");
 
                         if (count_flag == 1)
@@ -916,7 +946,9 @@ public class LevelThreeActivity extends AppCompatActivity {
                 speakSpeech(mEtTTs.getText().toString());
                 if(!mEtTTs.getText().toString().equals(""))
                     mIvTTs.setImageResource(R.drawable.speaker_pressed);
+                //Firebase event
                 singleEvent("Keyboard", mEtTTs.getText().toString());
+                //if expressive buttons always disabled during custom text speech output
                 mIvLike.setEnabled(false);
                 mIvDontLike.setEnabled(false);
                 mIvMore.setEnabled(false);

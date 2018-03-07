@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="57dp">
+                android:layout_marginBottom="19dp">
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
                         android:textSize="18sp"
                         android:onClick="getStarted1"
                         android:text="@string/activate"
-                        android:background="#FFBEBCB6"/>
+                        android:background="@drawable/rounded_textview"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -97,7 +97,7 @@
                         android:textSize="18sp"
                         android:onClick="getStarted2"
                         android:text="@string/changeLanguage"
-                        android:background="#FFBEBCB6"/>
+                        android:background="@drawable/rounded_textview"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -131,7 +131,7 @@
                         android:textSize="18sp"
                         android:onClick="getStarted3"
                         android:text="@string/download"
-                        android:background="#FFBEBCB6"/>
+                        android:background="@drawable/rounded_textview"/>
                 </LinearLayout>
             </LinearLayout>
             <TextView
@@ -188,7 +188,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/qwertyKeyboard"
                     android:textSize="18sp"
-                    android:background="#FFBEBCB6"/>
+                    android:background="@drawable/rounded_textview"/>
                 <Button
                     android:id="@+id/abc"
                     android:layout_width="230dp"
@@ -196,7 +196,7 @@
                     android:layout_marginLeft="90dp"
                     android:text="@string/serialKeyboard"
                     android:textSize="18sp"
-                    android:background="#FFBEBCB6"/>
+                    android:background="@drawable/rounded_textview"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -234,7 +234,7 @@
                     android:maxLines="4"
                     android:text="@string/saveAsDefault"
                     android:textSize="18sp"
-                    android:background="#FFBEBCB6"/>
+                    android:background="@drawable/rounded_textview"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

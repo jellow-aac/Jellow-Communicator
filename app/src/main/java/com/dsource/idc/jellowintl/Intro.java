@@ -104,8 +104,10 @@ public class Intro extends AppIntro {
                 session.setCompletedIntro(true);
                 startActivity(new Intent(Intro.this, SplashActivity.class));
                 finish();
-            } else
+            } else {
+                getPager().setCurrentItem(5, true);
                 Toast.makeText(this, getString(R.string.txt_set_tts_setup), Toast.LENGTH_LONG).show();
+            }
         }else {
             session.setCompletedIntro(true);
             startActivity(new Intent(Intro.this, SplashActivity.class));

@@ -214,10 +214,12 @@ public class MainActivity extends AppCompatActivity {
         mIvKeyboard.setContentDescription(mNavigationBtnTxt[2]);
         mEtTTs = findViewById(R.id.et);
         mEtTTs.setContentDescription(getString(R.string.string_to_speak));
+        //Initially custom input text is invisible
         mEtTTs.setVisibility(View.INVISIBLE);
 
         mIvTTs = findViewById(R.id.ttsbutton);
         mIvTTs.setContentDescription(getString(R.string.speak_written_text));
+        //Initially custom input text speak button is invisible
         mIvTTs.setVisibility(View.INVISIBLE);
 
         originalKeyListener = mEtTTs.getKeyListener();
@@ -314,10 +316,12 @@ public class MainActivity extends AppCompatActivity {
                     mRecyclerView.setVisibility(View.VISIBLE);
                     mIvTTs.setVisibility(View.INVISIBLE);
                     mFlgKeyboardOpened = false;
+                    // after closing keyboard, then enable all expressive buttons
                     changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
                     mIvBack.setEnabled(false);
                     mIvBack.setAlpha(.5f);
                     showActionBarTitle(true);
+                    //Firebase event
                     singleEvent("Navigation","Back");
                 }
             }
@@ -334,6 +338,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 gotoHome(true);
+                //Firebase event
                 singleEvent("Navigation","Home");
             }
         });
@@ -417,11 +422,13 @@ public class MainActivity extends AppCompatActivity {
                     if (mFlgLike == 1) {
                         speakSpeech(mExprBtnTxt[1]);
                         mFlgLike = 0;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyLike");
                     // if value of mFlgLike is 0, then should speak "like".
                     } else {
                         speakSpeech(mExprBtnTxt[0]);
                         mFlgLike = 1;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","Like");
                     }
                 } else {
@@ -439,6 +446,7 @@ public class MainActivity extends AppCompatActivity {
                     if (mFlgLike == 1) {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(1));
                         mFlgLike = 0;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyLike");
                         singleEvent("ExpressiveGridIcon",mLayerOneSpeech.
                                 get(mLevelOneItemPos).get(1));
@@ -446,6 +454,7 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(0));
                         mFlgLike = 1;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","Like");
                         singleEvent("ExpressiveGridIcon",mLayerOneSpeech.
                                 get(mLevelOneItemPos).get(0));
@@ -482,11 +491,13 @@ public class MainActivity extends AppCompatActivity {
                     if (mFlgDntLike == 1) {
                         speakSpeech(mExprBtnTxt[7]);
                         mFlgDntLike = 0;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyDon'tLike");
                         // if value of mFlgDntLike is 0, then should speak "don't like".
                     } else {
                         speakSpeech(mExprBtnTxt[6]);
                         mFlgDntLike = 1;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","Don'tLike");
                     }
                 } else {
@@ -503,6 +514,7 @@ public class MainActivity extends AppCompatActivity {
                     if (mFlgDntLike == 1) {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(7));
                         mFlgDntLike = 0;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyDon'tLike");
                         singleEvent("ExpressiveGridIcon",mLayerOneSpeech.
                                 get(mLevelOneItemPos).get(7));
@@ -510,6 +522,7 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(6));
                         mFlgDntLike = 1;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","Don'tLike");
                         singleEvent("ExpressiveGridIcon", mLayerOneSpeech.
                                 get(mLevelOneItemPos).get(6));
@@ -546,11 +559,13 @@ public class MainActivity extends AppCompatActivity {
                     if (mFlgYes == 1) {
                         speakSpeech(mExprBtnTxt[3]);
                         mFlgYes = 0;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyYes");
                     // if value of mFlgYes is 0, then should speak "yes".
                     } else {
                         speakSpeech(mExprBtnTxt[2]);
                         mFlgYes = 1;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","Yes");
                     }
                 } else {
@@ -567,16 +582,16 @@ public class MainActivity extends AppCompatActivity {
                     if (mFlgYes == 1) {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(3));
                         mFlgYes = 0;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyYes");
-
                         singleEvent("ExpressiveGridIcon",mLayerOneSpeech.
                                 get(mLevelOneItemPos).get(3));
                     // Speak associated yes expression verbiage to selected category icon.
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(2));
                         mFlgYes = 1;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","Yes");
-
                         singleEvent("ExpressiveGridIcon",mLayerOneSpeech.
                                 get(mLevelOneItemPos).get(2));
                     }
@@ -612,11 +627,13 @@ public class MainActivity extends AppCompatActivity {
                         // if value of mFlgNo is 1, then should speak "really no".
                         speakSpeech(mExprBtnTxt[9]);
                         mFlgNo = 0;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyNo");
                     } else {
                         // if value of mFlgNo is 0, then should speak "no".
                         speakSpeech(mExprBtnTxt[8]);
                         mFlgNo = 1;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","No");
                     }
                 } else {
@@ -633,16 +650,16 @@ public class MainActivity extends AppCompatActivity {
                     if (mFlgNo == 1) {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(9));
                         mFlgNo = 0;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyNo");
-
                         singleEvent("ExpressiveGridIcon",mLayerOneSpeech.
                                 get(mLevelOneItemPos).get(9));
                         // Speak associated no expression verbiage to selected category icon.
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(8));
                         mFlgNo = 1;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","No");
-
                         singleEvent("ExpressiveGridIcon",mLayerOneSpeech.
                                 get(mLevelOneItemPos).get(8));
                     }
@@ -678,11 +695,13 @@ public class MainActivity extends AppCompatActivity {
                     if (mFlgMore == 1) {
                         speakSpeech(mExprBtnTxt[5]);
                         mFlgMore = 0;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyMore");
                     // if value of mFlgMore is 0, then should speak "more".
                     } else {
                         speakSpeech(mExprBtnTxt[4]);
                         mFlgMore = 1;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","More");
                     }
                 } else {
@@ -699,16 +718,16 @@ public class MainActivity extends AppCompatActivity {
                     if (mFlgMore == 1) {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(5));
                         mFlgMore = 0;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyMore");
-
                         singleEvent("ExpressiveGridIcon",mLayerOneSpeech.
                                 get(mLevelOneItemPos).get(5));
                         // Speak associated more expression verbiage to selected category icon.
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(4));
                         mFlgMore = 1;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","More");
-
                         singleEvent("ExpressiveGridIcon",mLayerOneSpeech.
                                 get(mLevelOneItemPos).get(4));
                     }
@@ -744,11 +763,13 @@ public class MainActivity extends AppCompatActivity {
                     if (mFlgLess == 1) {
                         speakSpeech(mExprBtnTxt[11]);
                         mFlgLess = 0;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyLess");
                     // if value of mFlgLess is 0, then should speak "less".
                     } else {
                         speakSpeech(mExprBtnTxt[10]);
                         mFlgLess = 1;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","Less");
                     }
                 } else {
@@ -765,16 +786,16 @@ public class MainActivity extends AppCompatActivity {
                     if (mFlgLess == 1) {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(11));
                         mFlgLess = 0;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","ReallyLess");
-
                         singleEvent("ExpressiveGridIcon",mLayerOneSpeech.
                                 get(mLevelOneItemPos).get(11));
                     // Speak associated less expression verbiage to selected category icon.
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(10));
                         mFlgLess = 1;
+                        //Firebase event
                         singleEvent("ExpressiveIcon","Less");
-
                         singleEvent("ExpressiveGridIcon",mLayerOneSpeech.
                                 get(mLevelOneItemPos).get(10));
                     }
@@ -794,8 +815,11 @@ public class MainActivity extends AppCompatActivity {
                 speakSpeech(mEtTTs.getText().toString());
                 if(!mEtTTs.getText().toString().equals(""))
                     mIvTTs.setImageResource(R.drawable.speaker_pressed);
+                //Firebase get log
                 reportLog(getLocalClassName()+", TtsSpeak", Log.INFO);
+                //Firebase event
                 singleEvent("Keyboard", mEtTTs.getText().toString());
+                //if expressive buttons always disabled during custom text speech output
                 mIvLike.setEnabled(false);
                 mIvDontLike.setEnabled(false);
                 mIvMore.setEnabled(false);
@@ -873,6 +897,7 @@ public class MainActivity extends AppCompatActivity {
         }
         mLevelOneItemPos = mRecyclerView.getChildLayoutPosition(view);
         mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
+        //Firebase get log
         reportLog(getLocalClassName()+" "+mLevelOneItemPos, Log.INFO);
     }
 
@@ -900,6 +925,8 @@ public class MainActivity extends AppCompatActivity {
         mFlgImage = -1;
         // close the keyboard is open
         if (mFlgKeyboardOpened){
+            // When keyboard is open, close it and retain expressive button,
+            // category icon states as they are before keyboard opened.
             mIvKeyboard.setImageResource(R.drawable.keyboard_button);
             mIvBack.setImageResource(R.drawable.back_button);
             mEtTTs.setVisibility(View.INVISIBLE);
@@ -912,6 +939,7 @@ public class MainActivity extends AppCompatActivity {
         }
         if(isHomePressed) {
             speakSpeech(mNavigationBtnTxt[0]);
+            //Firebase event
             singleEvent("Navigation","Home");
             mIvHome.setImageResource(R.drawable.homepressed);
         }else
@@ -963,6 +991,7 @@ public class MainActivity extends AppCompatActivity {
         LevelOneVerbiageModel verbiageModel = new Gson()
                 .fromJson(getString(R.string.levelOneVerbiage), LevelOneVerbiageModel.class);
         mLayerOneSpeech = verbiageModel.getVerbiageModel();
+        //Firebase get log
         reportLog("Activity created", Log.INFO);
         mSpeechTxt = getResources().getStringArray(R.array.arrLevelOneActionBarTitle);
         mExprBtnTxt = getResources().getStringArray(R.array.arrActionSpeech);
