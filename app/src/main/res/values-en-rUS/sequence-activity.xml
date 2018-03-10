@@ -103,7 +103,7 @@
     <item>7. All done</item>
 </string-array>
 
-<array name="arrSeqActivityBathingBelowText">
+<string-array name="arrSeqActivityBathingBelowText">
     <item>1. Remove clothes</item>
     <item>2. Turn on water</item>
     <item>3. Get in shower</item>
@@ -119,7 +119,7 @@
     <item>13. Dry body</item>
     <item>14. Put on clothes</item>
     <item>15. All done</item>
-</array>
+</string-array>
 
 <string-array name="arrSeqActivityMorningRoutineBelowText">
     <item>1. Wake up</item>
@@ -170,7 +170,7 @@
     <item>All done</item>
 </string-array>
 
-<array name="arrSeqActivityBathingSpeechText">
+<string-array name="arrSeqActivityBathingSpeechText">
     <item>Remove clothes</item>
     <item>Turn on water</item>
     <item>Get in the shower</item>
@@ -186,7 +186,7 @@
     <item>Dry body</item>
     <item>Put on clothes</item>
     <item>All done</item>
-</array>
+</string-array>
 
 <string-array name="arrSeqActivityMorningRoutineSpeechText">
     <item>Wake up</item>

@@ -348,22 +348,22 @@
                         android:gravity="center"
                         android:weightSum="3">
                         <ImageView
+                            android:id="@+id/gtts1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:src="@drawable/gtts1"
                             android:layout_weight="1"/>
                         <ImageView
+                            android:id="@+id/gtts2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:src="@drawable/gtts2"
                             android:layout_weight="1"/>
                         <ImageView
+                            android:id="@+id/gtts3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:src="@drawable/gtts3"
                             android:layout_weight="1"/>
                     </LinearLayout>
 

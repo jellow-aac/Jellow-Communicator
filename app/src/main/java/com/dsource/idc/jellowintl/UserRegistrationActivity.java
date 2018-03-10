@@ -80,8 +80,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
         if(!mSession.getCaregiverNumber().equals(""))
         getAnalytics(this,mSession.getCaregiverNumber());
-
-        if (mSession.isUserLoggedIn())
+        if (mSession.isUserLoggedIn() && !mSession.getLanguage().isEmpty())
         {
             if(mSession.isDownloaded(mSession.getLanguage()) && mSession.isCompletedIntro()) {
                 startActivity(new Intent(this, SplashActivity.class));
@@ -92,8 +91,9 @@ public class UserRegistrationActivity extends AppCompatActivity {
                         LanguageDownloadActivity.class).putExtra(LCODE,mSession.getLanguage()).putExtra(TUTORIAL,true));
             }
             finish();
-        }else
+        }else {
             mSession.setBlood(-1);
+        }
 
         mDB = FirebaseDatabase.getInstance();
         mRef = mDB.getReference(BuildConfig.DB_TYPE+"/users");
@@ -177,6 +177,12 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 new NetworkConnectionTest(UserRegistrationActivity.this, name, emergencyContact, eMailId, formattedDate).execute();
             }
         });
+
+        if(!mSession.getName().isEmpty()){
+            etName.setText(mSession.getName());
+            etEmergencyContact.setText(mSession.getCaregiverNumber());
+            etEmailId.setText(mSession.getEmailId());
+        }
     }
 
     private void checkNetworkConnection() {

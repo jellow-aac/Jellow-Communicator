@@ -48,7 +48,7 @@ public class SequenceActivity extends AppCompatActivity {
       once or twice. eg. mFlgLike used to identify Like expressive button pressed once or twice.*/
     private int mFlgLike = 0, mFlgYes = 0, mFlgMore = 0, mFlgDontLike = 0, mFlgNo = 0,
             mFlgLess = 0;
-    /* This flag identifies either hide / show expressive buttons.*/
+    /* This flag identifies either hide/show expressive buttons.*/
     private int mFlgHideExpBtn = -1;
     /* This flag indicates keyboard is open or not, 0 indicates is not open.*/
     private int mFlgKeyboard = 0;
@@ -67,7 +67,7 @@ public class SequenceActivity extends AppCompatActivity {
     private ImageView mIvArrowLeft, mIvArrowRight;
     /*Category icon parent view*/
     private RelativeLayout mRelativeLayCategory;
-    /*navigation next, nack button in category*/
+    /*navigation next, back button in category*/
     private Button mBtnNext, mBtnBack;
     private String mStrPath, mStrNext, mStrBack, mActionBarTitleTxt;
     String[] mCategoryIconText;
@@ -89,6 +89,7 @@ public class SequenceActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setBackgroundDrawable(getResources()
                 .getDrawable(R.drawable.yellow_bg));
+        // set bread crumb title from extra data from level two
         getSupportActionBar().setTitle(getIntent().getExtras()
                 .getString("selectedMenuItemPath"));
 
@@ -97,6 +98,9 @@ public class SequenceActivity extends AppCompatActivity {
         mLevelTwoItemPos = getIntent().getExtras().getInt("mLevelTwoItemPos");
         // Set app locale which is set in settings by user.
         new ChangeAppLocale(this).setLocale();
+        // Initialize default exception handler for this activity.
+        // If any exception occurs during this activity usage,
+        // handle it using default exception handler.
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
 
         /* Sequence activity Morning Routine (original index is 7 in level 2) has new index 3, and
@@ -106,14 +110,16 @@ public class SequenceActivity extends AppCompatActivity {
         else if(mLevelTwoItemPos == 8)
             mLevelTwoItemPos = 4;
 
+        // Get icon set directory path
         File en_dir = this.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
         mStrPath = en_dir.getAbsolutePath()+"/drawables";
+
         loadArraysFromResources();
         initializeLayoutViews();
         initializeViewListeners();
         setValueToViews();
         resetCategoryIconBorders();
-        /*In sequence, expressive buttons are invisible at initial*/
+        /*In sequence, expressive buttons are invisible initially*/
         hideExpressiveBtn(true);
     }
 
@@ -147,7 +153,6 @@ public class SequenceActivity extends AppCompatActivity {
         mExprBtnTxt = null;
         mNavigationBtnTxt = null;
         mCategoryNav = null;
-
     }
 
     @Override
@@ -215,7 +220,7 @@ public class SequenceActivity extends AppCompatActivity {
         mIvTTs.setVisibility(View.INVISIBLE);
         mEtTTs = findViewById(R.id.et);
         originalKeyListener = mEtTTs.getKeyListener();
-        // Set it to null - this will make the field non-editable
+        // Initially make this field non-editable
         mEtTTs.setKeyListener(null);
         //Initially custom input text is invisible
         mEtTTs.setVisibility(View.INVISIBLE);
@@ -257,12 +262,18 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to Navigation next button for
+     * <p>This function will initialize the click listener to Navigation "next" button for
      * category icons.
-     * When pressed the button, next sequence of images are loaded into all three category icons.
-     * If next sequence has available images less than 3 to load then available images are
-     * loaded into category icons and category icons in which images are not loaded are changed to
-     * invisible.</p>
+     * When this button is pressed, the next sequence of images are loaded into all three category icons.
+     * If the number of available images in the next sequence of images is less than 3 then available
+     * images in sequence are loaded and remaining category icons are changed to invisible.
+     * When next button is pressed following task are performed:
+     * a) enable back button
+     * b) hide expressive buttons
+     * c) reset expressive buttons
+     * d) next sequence of category icons is loaded
+     * e) if sequence is reached to end it disables the next button
+     * f) reset category icons</p>
      * */
     private void initCategoryNavNextListener() {
         mBtnNext.setOnClickListener(new View.OnClickListener() {
@@ -272,9 +283,9 @@ public class SequenceActivity extends AppCompatActivity {
                 mBtnBack.setEnabled(true);
                 mBtnBack.setAlpha(1f);
                 count = count + 3;
-                //hide expressive button
+                // On every next sequence load, all expressive buttons are
+                // reset and hidden.
                 hideExpressiveBtn(true);
-                //reset expressive button
                 resetExpressiveButton();
                 mFlgHideExpBtn = 0;
                 //if reached to end of sequence disable next button
@@ -282,9 +293,10 @@ public class SequenceActivity extends AppCompatActivity {
                     mBtnNext.setAlpha(.5f);
                     mBtnNext.setEnabled(false);
                 }
-                //if next items to be loaded int category are less than 3
+                //if the next set of category items to be loaded are less than 3
                 if (mCategoryIconText.length < count + 3) {
-                    // If activity sequence is "Brushing", then only 2 items needed to load
+                    // If activity sequence is "Brushing", then in its last sequences
+                    // only 2 items needed to load
                     if (mLevelTwoItemPos == 0) {
                         setImageUsingGlide(mStrPath +"/"+ mCategoryIconText[count]+".png",
                                 mIvCategoryIcon1);
@@ -292,21 +304,21 @@ public class SequenceActivity extends AppCompatActivity {
                                 mIvCategoryIcon2);
 
                         // only first two category icons are populated so third icon and its
-                        // caption set to invisible and therefore second arrow is set to invisible.
+                        // caption set to invisible and therefore second arrow also set to invisible.
                         mIvArrowRight.setVisibility(View.INVISIBLE);
                         mIvCategoryIcon3.setVisibility(View.INVISIBLE);
                         mTvCategory3Caption.setVisibility(View.INVISIBLE);
                         mTvCategory1Caption.setText(mCategoryIconBelowText[count]);
                         mTvCategory2Caption.setText(mCategoryIconBelowText[count + 1]);
 
-                    // If activity sequence is "Toilet", "Morning routine" or "Betime routine"
-                    // then only 1 category item needed to load
+                    // If activity sequence is "Toilet", "Morning routine" or "Bedtime routine"
+                    // then in its last sequences only 1 category item needs to be loaded
                     } else if (mLevelTwoItemPos == 1 || mLevelTwoItemPos == 4 || mLevelTwoItemPos == 3) {
                         setImageUsingGlide(mStrPath +"/"+ mCategoryIconText[count]+".png",
                                 mIvCategoryIcon1);
 
-                        // only only one category icon is populated so second, third icons and their
-                        // caption set to invisible and hence all arrows are set to invisible.
+                        // only one category icon is populated so second & third icons and their
+                        // captions are set to invisible and hence all arrows are set to invisible.
                         mTvCategory1Caption.setText(mCategoryIconBelowText[count]);
                         mIvCategoryIcon2.setVisibility(View.INVISIBLE);
                         mIvCategoryIcon3.setVisibility(View.INVISIBLE);
@@ -317,7 +329,7 @@ public class SequenceActivity extends AppCompatActivity {
                     }
                     mBtnNext.setAlpha(.5f);
                     mBtnNext.setEnabled(false);
-                // if next items to be loaded are 3 or more then load next three items directly.
+                // if next items to be loaded are 3 or more then load next 3 icons in the sequence.
                 } else {
                     mTvCategory1Caption.setText(mCategoryIconBelowText[count]);
                     mTvCategory2Caption.setText(mCategoryIconBelowText[count + 1]);
@@ -332,17 +344,26 @@ public class SequenceActivity extends AppCompatActivity {
                     setImageUsingGlide(mStrPath +"/"+ mCategoryIconText[count+2]+".png",
                             mIvCategoryIcon3);
                 }
+                // once sequence is loaded, initially all category icons have no border/ no category
+                // icon in sequence have initial border
                 resetCategoryIconBorders();
             }
         });
     }
 
     /**
-     * <p>This function will initialize the click listener to Navigation previous (back) button for
+     * <p>This function will initialize the click listener to Navigation "previous" (back) button for
      * category icons.
-     * When pressed the button, previous sequence of images are loaded into all three category icons.
-     * If previous sequence of images is unavailable then button is unavailable
-     * (enabled false).</p>
+     * When this button is pressed, previous sequence of images are loaded into all three category icons.
+     * If previous sequence of images is unavailable then previous button is unavailable
+     * (enabled false).
+     * When previous button is pressed following task are performed:
+     * a) enable next button
+     * b) hide expressive buttons
+     * c) reset expressive buttons
+     * d) previous sequence of category icons is loaded
+     * e) if sequence is reached to the beginning it disables the back button
+     * f) reset category icons</p>
      * */
     private void initCategoryNavBackListener() {
         mBtnBack.setOnClickListener(new View.OnClickListener() {
@@ -352,9 +373,9 @@ public class SequenceActivity extends AppCompatActivity {
                 mBtnNext.setEnabled(true);
                 mBtnNext.setAlpha(1f);
                 count = count - 3;
-                //hide expressive button
+                // On every previous sequence load, all expressive buttons are
+                // reset and hidden.
                 hideExpressiveBtn(true);
-                //reset expressive button
                 resetExpressiveButton();
                 mFlgHideExpBtn = 0;
                 // loading previous sequence will always have all category icons populated
@@ -387,6 +408,8 @@ public class SequenceActivity extends AppCompatActivity {
                     mBtnBack.setEnabled(false);
                     mBtnBack.setAlpha(.5f);
                 }
+                // once sequence is loaded, initially all category icons have no border/no category
+                // icon in sequence have initial border
                 resetCategoryIconBorders();
             }
         });
@@ -394,24 +417,31 @@ public class SequenceActivity extends AppCompatActivity {
 
     /**
      * <p>This function will initialize the click listener to category Icon 1 button.
-     * When expressive button is pressed it:
-     *  a. Set/remove border for category icon 1.
-     *  b. Clears every expressive button flags
-     *  c. Produces speech output with respect to Icon.
-     *  d. Show/hide expressive buttons</p>
+     * a. If category 1 icon button is pressed once, expressive buttons appear.
+     * b. If category 1 icon pressed twice, expressive buttons disappear and category
+     *    icon 1 border disappears.
+     * c. If category icon 2/3 is already in a pressed state and then category 1 icon
+     *    is pressed, border on category 2/3 icon disappears (expressive buttons are
+     *    visible/enabled at this time).
+     * d. If category icon 2/3 is already pressed along with any expressive button
+     *    and then category 1 icon is pressed, flags on the expressive buttons are reset
+     *    and the border on category 2/3 icon disappears (expressive buttons are
+     *    visible/enabled at this time).</p>
      * */
     private void initCategoryIcon1Listener() {
         mIvCategoryIcon1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // All expressive button speech flag (except like) are set to reset.
+                // All expressive button speech flag are set to reset.
                 mFlgLike = mFlgYes = mFlgMore = mFlgDontLike = mFlgNo = mFlgLess = 0;
-                // hide expressive icon and reset the border of category icon 1
+                // If expressive buttons are visible or category icon 1 is in pressed state then
+                // reset the border of category icon 1 and hide expressive buttons
                 if (mFlgHideExpBtn == 1) {
                     hideExpressiveBtn(true);
                     setBorderToView(findViewById(R.id.borderView1),-1);
                     mFlgHideExpBtn = 0;
-                // show expressive icon and set brown border to category icon 1
+                // If expressive buttons are hidden or category icon 1 is in unpressed state then
+                // set the border of category icon 1 and show expressive buttons
                 } else {
                     //Firebase event
                     singleEvent("SequenceActivity", mCategoryIconSpeechText[count]);
@@ -419,6 +449,10 @@ public class SequenceActivity extends AppCompatActivity {
                     reportLog(getLocalClassName()+", firstIcon: "+
                             mCategoryIconSpeechText[count], Log.INFO);
                     mFlgHideExpBtn = 1;
+                    // If new current sequence is the last sequence and category icon 1 is
+                    // last item in sequence then hide expressive buttons.
+                    // The last item in sequence do not have any expression (so all expressive
+                    // buttons are hidden).
                     if (count + mFlgHideExpBtn == mCategoryIconText.length)
                         hideExpressiveBtn(true);
                     else
@@ -427,31 +461,38 @@ public class SequenceActivity extends AppCompatActivity {
                     resetExpressiveButton();
                     setBorderToView(findViewById(R.id.borderView1), 6);
                 }
-                mIvBack.setImageResource(R.drawable.back_button);
+                mIvBack.setImageResource(R.drawable.back);
             }
         });
     }
 
     /**
      * <p>This function will initialize the click listener to category Icon 2 button.
-     * When expressive button is pressed it:
-     *  a. Set/remove border for category icon 2.
-     *  b. Clears every expressive button flags
-     *  c. Produces speech output with respect to Icon.
-     *  d. Show/hide expressive buttons</p>
+     * a. If category 2 icon button is pressed once, expressive buttons appear.
+     * b. If category 2 icon pressed twice, expressive buttons disappear and category
+     *    icon 2 border disappears.
+     * c. If category icon 1/3 is already in a pressed state and then category 2 icon
+     *    is pressed, border on category 1/3 icon disappears (expressive buttons are
+     *    visible/enabled at this time).
+     * d. If category icon 1/3 is already pressed along with any expressive button
+     *    and then category 2 icon is pressed, flags on the expressive buttons are reset
+     *    and the border on category 1/3 icon disappears (expressive buttons are
+     *    visible/enabled at this time).</p>
      * */
     private void initCategoryIcon2Listener() {
         mIvCategoryIcon2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // All expressive button speech flag (except like) are set to reset.
+                // All expressive button speech flag are set to reset.
                 mFlgLike = mFlgYes = mFlgMore = mFlgDontLike = mFlgNo = mFlgLess = 0;
-                // hide expressive icon and reset the border of category icon 2
+                // If expressive buttons are visible or category icon 2 is in pressed state then
+                // reset the border of category icon 2 and hide expressive buttons
                 if (mFlgHideExpBtn == 2) {
                     hideExpressiveBtn(true);setBorderToView(findViewById(R.id.borderView2),
                             -1);
                     mFlgHideExpBtn = 0;
-                // show expressive icon and set brown border to category icon 2
+                    // If expressive buttons are hidden or category icon 2 is in unpressed state then
+                    // set the border of category icon 2 and show expressive buttons
                 } else {
                     //Firebase event
                     singleEvent("SequenceActivity", mCategoryIconSpeechText[count+1]);
@@ -459,6 +500,10 @@ public class SequenceActivity extends AppCompatActivity {
                     reportLog(getLocalClassName()+", secondIcon: "+
                             mCategoryIconSpeechText[count + 1], Log.INFO);
                     mFlgHideExpBtn = 2;
+                    // If new current sequence is the last sequence and category icon 2 is
+                    // last item in sequence then hide expressive buttons.
+                    // The last item in sequence do not have any expression (so all expressive
+                    // buttons are hidden).
                     if (count + mFlgHideExpBtn == mCategoryIconText.length)
                         hideExpressiveBtn(true);
                     else
@@ -467,31 +512,38 @@ public class SequenceActivity extends AppCompatActivity {
                     resetExpressiveButton();
                     setBorderToView(findViewById(R.id.borderView2),6);
                 }
-                mIvBack.setImageResource(R.drawable.back_button);
+                mIvBack.setImageResource(R.drawable.back);
             }
         });
     }
 
     /**
      * <p>This function will initialize the click listener to category Icon 3 button.
-     * When expressive button is pressed it:
-     *  a. Set/remove border for category icon 3.
-     *  b. Clears every expressive button flags
-     *  c. Produces speech output with respect to Icon.
-     *  d. Show/hide expressive buttons</p>
+     * a. If category 3 icon button is pressed once, expressive buttons appear.
+     * b. If category 3 icon pressed twice, expressive buttons disappear and category
+     *    icon 3 border disappears.
+     * c. If category icon 1/2 is already in a pressed state and then category 3 icon
+     *    is pressed, border on category 1/2 icon disappears (expressive buttons are
+     *    visible/enabled at this time).
+     * d. If category icon 1/2 is already pressed along with any expressive button
+     *    and then category 3 icon is pressed, flags on the expressive buttons are reset
+     *    and the border on category 1/2 icon disappears (expressive buttons are
+     *    visible/enabled at this time).</p>
      * */
     private void initCategoryIcon3Listener() {
         mIvCategoryIcon3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // All expressive button speech flag (except like) are set to reset.
+                // All expressive button speech flag are set to reset.
                 mFlgLike = mFlgYes = mFlgMore = mFlgDontLike = mFlgNo = mFlgLess = 0;
-                // hide expressive icon and reset the border of category icon 2
+                // If expressive buttons are visible or category icon 3 is in pressed state then
+                // reset the border of category icon 3 and hide expressive buttons
                 if (mFlgHideExpBtn == 3) {
                     hideExpressiveBtn(true);
                     setBorderToView(findViewById(R.id.borderView3), -1);
                     mFlgHideExpBtn = 0;
-                // show expressive icon and set brown border to category icon 2
+                    // If expressive buttons are hidden or category icon 3 is in unpressed state then
+                    // set the border of category icon 3 and show expressive buttons
                 } else {
                     //Firebase event
                     singleEvent("SequenceActivity", mCategoryIconSpeechText[count+2]);
@@ -499,6 +551,10 @@ public class SequenceActivity extends AppCompatActivity {
                     reportLog(getLocalClassName()+", thirdIcon: "+
                             mCategoryIconSpeechText[count + 2], Log.INFO);
                     mFlgHideExpBtn = 3;
+                    // If new current sequence is the last sequence and category icon 3 is
+                    // last item in sequence then hide expressive buttons.
+                    // The last item in sequence do not have any expression (so all expressive
+                    // buttons are hidden).
                     if (count + mFlgHideExpBtn == mCategoryIconText.length)
                         hideExpressiveBtn(true);
                     else
@@ -507,18 +563,19 @@ public class SequenceActivity extends AppCompatActivity {
                     resetExpressiveButton();
                     setBorderToView(findViewById(R.id.borderView3), 6);
                 }
-                mIvBack.setImageResource(R.drawable.back_button);
+                mIvBack.setImageResource(R.drawable.back);
             }
         });
     }
 
     /**
      * <p>This function will initialize the click listener to Navigation back button.
-     * When pressed navigation back button:
-     *  a) If keyboard is open, keyboard is closed.
-     *  b) If keyboard is not open, current level is closed returning with successful
-     *  closure (RESULT_OK) of a screen. User will returned back
-     *  to {@link LevelTwoActivity}.</p>
+     * When user pressed navigation back button and :
+     *  a) Custom keyboard input text is open, user intends to close custom keyboard input
+     *  text. Hence custom keyboard input text is set to close.
+     *  b) custom keyboard input text is not open, user intends to close the current level.
+     *   Hence current level is closed with successful closure result (RESULT_OK).
+     *   The user will returned back to {@link LevelTwoActivity}.</p>
      * */
     private void initBackBtnListener() {
         mIvBack.setOnClickListener(new View.OnClickListener() {
@@ -528,8 +585,8 @@ public class SequenceActivity extends AppCompatActivity {
                 if (mFlgKeyboard == 1) {
                     // When keyboard is open, close it and retain expressive button,
                     // category icon states as they are before keyboard opened.
-                    mIvKeyboard.setImageResource(R.drawable.keyboard_button);
-                    mIvBack.setImageResource(R.drawable.backpressed);
+                    mIvKeyboard.setImageResource(R.drawable.keyboard);
+                    mIvBack.setImageResource(R.drawable.back_pressed);
                     mEtTTs.setVisibility(View.INVISIBLE);
                     mRelativeLayCategory.setVisibility(View.VISIBLE);
                     mIvTTs.setVisibility(View.INVISIBLE);
@@ -541,7 +598,7 @@ public class SequenceActivity extends AppCompatActivity {
                     mBtnBack.setVisibility(View.VISIBLE);
                 } else {
                     // When keyboard is not open simply set result and close the activity.
-                    mIvBack.setImageResource(R.drawable.backpressed);
+                    mIvBack.setImageResource(R.drawable.back_pressed);
                     setResult(RESULT_OK);
                     finish();
                 }
@@ -560,9 +617,11 @@ public class SequenceActivity extends AppCompatActivity {
         mIvHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mIvHome.setImageResource(R.drawable.homepressed);
-                mIvKeyboard.setImageResource(R.drawable.keyboard_button);
+                mIvHome.setImageResource(R.drawable.home_pressed);
+                mIvKeyboard.setImageResource(R.drawable.keyboard);
                 speakSpeech(mNavigationBtnTxt[0]);
+                //setting up result code to RESULT_CANCELED, is used in returning activity.
+                // This imply that user pressed the home button in level three activity.
                 setResult(RESULT_CANCELED);
                 finish();
             }
@@ -584,10 +643,17 @@ public class SequenceActivity extends AppCompatActivity {
             public void onClick(View v) {
                 speakSpeech(mNavigationBtnTxt[2]);
                 mIvTTs.setImageResource(R.drawable.speaker_button);
-                // When keyboard is open, close it and retain expressive button,
-                // category icon states as they are before keyboard opened.
+                //when mFlgKeyboard is set to 1, it means user is using custom keyboard input
+                // text and system keyboard is visible.
                 if (mFlgKeyboard == 1) {
-                    mIvKeyboard.setImageResource(R.drawable.keyboard_button);
+                    // As user is using custom keyboard input text and then press the keyboard button,
+                    // user intent to close custom keyboard input text so below steps will follow:
+                    // a) set keyboard button to unpressed state.
+                    // b) hide custom input text and speak button views
+                    // c) show category icons
+                    // d) enable expressive button
+                    // e) set category icon next and back button visible
+                    mIvKeyboard.setImageResource(R.drawable.keyboard);
                     mEtTTs.setVisibility(View.INVISIBLE);
                     mRelativeLayCategory.setVisibility(View.VISIBLE);
                     mIvTTs.setVisibility(View.INVISIBLE);
@@ -596,10 +662,15 @@ public class SequenceActivity extends AppCompatActivity {
                     mBtnBack.setVisibility(View.VISIBLE);
                     mBtnNext.setVisibility(View.VISIBLE);
                     showActionBarTitle(true);
+                //when mFlgKeyboard is set to 0, it means user intent to use custom
+                //keyboard input text so below steps will follow:
                 } else {
-                    // When keyboard is not open, open the keyboard. Hide category icons, show
-                    // custom speech input text, speak button and disable expressive buttons.
-                    mIvKeyboard.setImageResource(R.drawable.keyboardpressed);
+                    // a) keyboard button to press
+                    // b) show custom keyboard input text and speak button view
+                    // c) hide category icons
+                    // d) disable expressive buttons
+                    // e) hide category icon next and back buttons
+                    mIvKeyboard.setImageResource(R.drawable.keyboard_pressed);
                     mEtTTs.setVisibility(View.VISIBLE);
                     mEtTTs.setKeyListener(originalKeyListener);
                     // Focus the field.
@@ -607,6 +678,9 @@ public class SequenceActivity extends AppCompatActivity {
                     changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
                     mEtTTs.requestFocus();
                     mIvTTs.setVisibility(View.VISIBLE);
+                    // when user intend to use custom keyboard input text system keyboard should
+                    // only appear when user taps on custom keyboard input view. Setting
+                    // InputMethodManager to InputMethodManager.HIDE_NOT_ALWAYS does this task.
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
                     mBtnBack.setVisibility(View.INVISIBLE);
@@ -615,21 +689,23 @@ public class SequenceActivity extends AppCompatActivity {
                     showActionBarTitle(false);
                     getSupportActionBar().setTitle(getString(R.string.keyboard));
                 }
-                mIvBack.setImageResource(R.drawable.back_button);
+                mIvBack.setImageResource(R.drawable.back);
             }
         });
     }
 
     /**
-     * <p>This function will initialize the click listener to expressive like button.
-     * When expressive like button is pressed:
-     *  a. Single time, speech output is 'like'
-     *  b. twice, speech output is 'really like'
-     * When expressive like button in conjunction with category icon is pressed:
-     *  a. Single time, speech output is full sentence with 'like' expression.
-     *  b. twice, speech output is full sentence with 'really like' expression.
-     *  Also, it set image flag to 0. This flag is used when border is applied to
-     *  a category icon.</p>
+     * <p>This function will initialize the click listener for expressive "like" button.
+     * Expressive like button is works in four ways:
+     *  a) press expressive like button once
+     *  b) press expressive like button twice
+     *  c) press category icon first then press expressive like button once
+     *  d) press category icon first then press expressive like button twice
+     * This function execute task as follows:
+     *  a) reset the all expressive button speech flag except like button
+     *  b) reset all expressive buttons
+     *  c) produce speech using output for like
+     *  d) set border to category icon of color associated with like button</p>
      * */
     private void initLikeBtnListener() {
         mIvLike.setOnClickListener(new View.OnClickListener() {
@@ -672,21 +748,23 @@ public class SequenceActivity extends AppCompatActivity {
                         mFlgLike = 1;
                     }
                 }
-                mIvBack.setImageResource(R.drawable.back_button);
+                mIvBack.setImageResource(R.drawable.back);
             }
         });
     }
 
     /**
-     * <p>This function will initialize the click listener to expressive don't like button.
-     * When expressive don't like button is pressed:
-     *  a. Single time, speech output is 'don't like'
-     *  b. twice, speech output is 'really don't like'
-     * When expressive don't like button in conjunction with category icon is pressed:
-     *  a. Single time, speech output is full sentence with 'don't like' expression.
-     *  b. twice, speech output is full sentence with 'really don't like' expression.
-     *  Also, it set image flag to 1. This flag is used when border is applied to
-     *  a category icon.</p>
+     * <p>This function will initialize the click listener for expressive "don't like" button.
+     * Expressive don't like button is works in four ways:
+     *  a) press expressive don't like button once
+     *  b) press expressive don't like button twice
+     *  c) press category icon first then press expressive don't like button once
+     *  d) press category icon first then press expressive don't like button twice
+     * This function execute task as follows:
+     *  a) reset the all expressive button speech flag except don't like button
+     *  b) reset all expressive buttons
+     *  c) produce speech using output for like
+     *  d) set border to category icon of color associated with don't like button</p>
      * */
     private void initDontLikeBtnListener() {
         mIvDontLike.setOnClickListener(new View.OnClickListener() {
@@ -729,22 +807,24 @@ public class SequenceActivity extends AppCompatActivity {
                         mFlgDontLike = 1;
                     }
                 }
-                mIvBack.setImageResource(R.drawable.back_button);
+                mIvBack.setImageResource(R.drawable.back);
             }
         });
 
     }
 
     /**
-     * <p>This function will initialize the click listener to expressive yes button.
-     * When expressive yes button is pressed:
-     *  a. Single time, speech output is 'yes'
-     *  b. twice, speech output is 'really yes'
-     * When expressive yes button in conjunction with category icon is pressed:
-     *  a. Single time, speech output is full sentence with 'yes' expression.
-     *  b. twice, speech output is full sentence with 'really yes' expression.
-     *  Also, it set image flag to 2. This flag is used when border is applied to
-     *  a category icon.</p>
+     * <p>This function will initialize the click listener for expressive "yes" button.
+     * Expressive yes button is works in four ways:
+     *  a) press expressive yes button once
+     *  b) press expressive yes button twice
+     *  c) press category icon first then press expressive yes button once
+     *  d) press category icon first then press expressive yes button twice
+     * This function execute task as follows:
+     *  a) reset the all expressive button speech flag except yes button
+     *  b) reset all expressive buttons
+     *  c) produce speech using output for yes
+     *  d) set border to category icon of color associated with yes button</p>
      * */
     private void initYesBtnListener() {
         mIvYes.setOnClickListener(new View.OnClickListener() {
@@ -787,21 +867,23 @@ public class SequenceActivity extends AppCompatActivity {
                         mFlgYes = 1;
                     }
                 }
-                mIvBack.setImageResource(R.drawable.back_button);
+                mIvBack.setImageResource(R.drawable.back);
             }
         });
     }
 
     /**
-     * <p>This function will initialize the click listener to expressive no button.
-     * When expressive no button is pressed:
-     *  a. Single time, speech output is 'no'
-     *  b. twice, speech output is 'really no'
-     * When expressive no button in conjunction with category icon is pressed:
-     *  a. Single time, speech output is full sentence with 'no' expression.
-     *  b. twice, speech output is full sentence with 'really no' expression.
-     *  Also, it set image flag to 3. This flag is used when border is applied to
-     *  a category icon.</p>
+     * <p>This function will initialize the click listener for expressive "no" button.
+     * Expressive no button is works in four ways:
+     *  a) press expressive no button once
+     *  b) press expressive no button twice
+     *  c) press category icon first then press expressive no button once
+     *  d) press category icon first then press expressive no button twice
+     * This function execute task as follows:
+     *  a) reset the all expressive button speech flag except no button
+     *  b) reset all expressive buttons
+     *  c) produce speech using output for no
+     *  d) set border to category icon of color associated with no button</p>
      * */
     private void initNoBtnListener() {
         mIvNo.setOnClickListener(new View.OnClickListener() {
@@ -844,21 +926,23 @@ public class SequenceActivity extends AppCompatActivity {
                         mFlgNo = 1;
                     }
                 }
-                mIvBack.setImageResource(R.drawable.back_button);
+                mIvBack.setImageResource(R.drawable.back);
             }
         });
     }
 
     /**
-     * <p>This function will initialize the click listener to expressive more button.
-     * When expressive more button is pressed:
-     *  a. Single time, speech output is 'more'
-     *  b. twice, speech output is 'some more'
-     * When expressive more button in conjunction with category icon is pressed:
-     *  a. Single time, speech output is full sentence with 'more' expression.
-     *  b. twice, speech output is full sentence with 'some more' expression.
-     *  Also, it set image flag to 4. This flag is used when border is applied to
-     *  a category icon.</p>
+     * <p>This function will initialize the click listener for expressive "more" button.
+     * Expressive more button is works in four ways:
+     *  a) press expressive more button once
+     *  b) press expressive more button twice
+     *  c) press category icon first then press expressive more button once
+     *  d) press category icon first then press expressive more button twice
+     * This function execute task as follows:
+     *  a) reset the all expressive button speech flag except more button
+     *  b) reset all expressive buttons
+     *  c) produce speech using output for more
+     *  d) set border to category icon of color associated with more button</p>
      * */
     private void initMoreBtnListener() {
         mIvMore.setOnClickListener(new View.OnClickListener() {
@@ -901,21 +985,23 @@ public class SequenceActivity extends AppCompatActivity {
                         mFlgMore = 1;
                     }
                 }
-                mIvBack.setImageResource(R.drawable.back_button);
+                mIvBack.setImageResource(R.drawable.back);
             }
         });
     }
 
     /**
-     * <p>This function will initialize the click listener to expressive less button.
-     * When expressive less button is pressed:
-     *  a. Single time, speech output is 'less'
-     *  b. twice, speech output is 'really less'
-     * When expressive less button in conjunction with category icon is pressed:
-     *  a. Single time, speech output is full sentence with 'less' expression.
-     *  b. twice, speech output is full sentence with 'really less' expression.
-     *  Also, it set image flag to 5. This flag is used when border is applied to
-     *  a category icon.</p>
+     * <p>This function will initialize the click listener for expressive "less" button.
+     * Expressive less button is works in four ways:
+     *  a) press expressive less button once
+     *  b) press expressive less button twice
+     *  c) press category icon first then press expressive less button once
+     *  d) press category icon first then press expressive less button twice
+     * This function execute task as follows:
+     *  a) reset the all expressive button speech flag except less button
+     *  b) reset all expressive buttons
+     *  c) produce speech using output for less
+     *  d) set border to category icon of color associated with less button</p>
      * */
     private void initLessBtnListener() {
         mIvLess.setOnClickListener(new View.OnClickListener() {
@@ -958,7 +1044,7 @@ public class SequenceActivity extends AppCompatActivity {
                         mFlgLess = 1;
                     }
                 }
-                mIvBack.setImageResource(R.drawable.back_button);
+                mIvBack.setImageResource(R.drawable.back);
             }
         });
     }
@@ -1002,7 +1088,7 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will display/ hide action bar title.
+     * <p>This function will show/hide action bar title.
      * If {@param showTitle} is set then title is displayed otherwise not.</p>
      * */
     private void showActionBarTitle(boolean showTitle){
@@ -1155,7 +1241,7 @@ public class SequenceActivity extends AppCompatActivity {
     /**
      * <p>This function will show/hide expressive buttons.
      * @param  hideBtn, is set then expressive buttons visibility is changed to invisible
-     * otherwise to visible.</p>
+     * otherwise the buttons are visible.</p>
      * */
     private void hideExpressiveBtn(boolean hideBtn) {
         if(hideBtn) {
@@ -1177,8 +1263,8 @@ public class SequenceActivity extends AppCompatActivity {
 
     /**
      * <p>This function will enable/disable expressive buttons.
-     * @param  setDisable, is set then expressive buttons are changed to disabled
-     * otherwise to enabled.</p>
+     * @param  setDisable, is set then expressive buttons are disabled
+     * otherwise they remain enabled.</p>
      * */
     private void changeTheExpressiveButtons(boolean setDisable) {
         if(setDisable) {
@@ -1216,17 +1302,17 @@ public class SequenceActivity extends AppCompatActivity {
      * */
     private void resetExpressiveButton() {
         resetCategoryIconBorders();
-        mIvLike.setImageResource(R.drawable.ilikewithoutoutline);
-        mIvDontLike.setImageResource(R.drawable.idontlikewithout);
-        mIvYes.setImageResource(R.drawable.iwantwithout);
-        mIvNo.setImageResource(R.drawable.idontwantwithout);
-        mIvMore.setImageResource(R.drawable.morewithout);
-        mIvLess.setImageResource(R.drawable.lesswithout);
+        mIvLike.setImageResource(R.drawable.like);
+        mIvDontLike.setImageResource(R.drawable.dontlike);
+        mIvYes.setImageResource(R.drawable.yes);
+        mIvNo.setImageResource(R.drawable.no);
+        mIvMore.setImageResource(R.drawable.more);
+        mIvLess.setImageResource(R.drawable.less);
     }
 
     /**
-     * <p>This function select category icon to which border should apply. Also, it will
-     * apply selected image to expressive button using {@param actionBtnIdx}
+     * <p>This function selects the category icon for which the border needs to be set. Also, it will
+     * apply selected 'pressed' image to the selected expressive button using {@param actionBtnIdx}
      * {@param actionBtnIdx} is a index of expressive button.
      *  e.g. From top to bottom 0 - like button, 1 - don't like button likewise.</p>
      * */
@@ -1239,19 +1325,19 @@ public class SequenceActivity extends AppCompatActivity {
             setBorderToView(findViewById(R.id.borderView3), actionBtnIdx);
         }
         switch (actionBtnIdx){
-            case 0: mIvLike.setImageResource(R.drawable.ilikewithoutline); break;
-            case 1: mIvDontLike.setImageResource(R.drawable.idontlikewithoutline); break;
-            case 2: mIvYes.setImageResource(R.drawable.iwantwithoutline); break;
-            case 3: mIvNo.setImageResource(R.drawable.idontwantwithoutline); break;
-            case 4: mIvMore.setImageResource(R.drawable.morewithoutline); break;
-            case 5: mIvLess.setImageResource(R.drawable.lesswithoutline); break;
-            case 6: mIvHome.setImageResource(R.drawable.homepressed); break;
+            case 0: mIvLike.setImageResource(R.drawable.like_pressed); break;
+            case 1: mIvDontLike.setImageResource(R.drawable.dontlike_pressed); break;
+            case 2: mIvYes.setImageResource(R.drawable.yes_pressed); break;
+            case 3: mIvNo.setImageResource(R.drawable.no_pressed); break;
+            case 4: mIvMore.setImageResource(R.drawable.more_pressed); break;
+            case 5: mIvLess.setImageResource(R.drawable.less_pressed); break;
+            case 6: mIvHome.setImageResource(R.drawable.home_pressed); break;
             default: break;
         }
     }
 
     /**
-     * <p>This function set the border of a color to selected category icon view
+     * <p>This function sets the border color to the selected category icon view
      * {@param borderView}.
      * {@param borderView} is category icon to which border should be applied.
      * {@param actionBtnIdx} is a index of expressive button.
@@ -1276,7 +1362,9 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will reset category icon 1,2 and 3 border.</p>
+     * <p>This function will reset category icon 1,2 and 3 border.
+     * Transparent border is applied to the view which indicates no border to
+     * a view.</p>
      * */
     private void resetCategoryIconBorders() {
         GradientDrawable gd;

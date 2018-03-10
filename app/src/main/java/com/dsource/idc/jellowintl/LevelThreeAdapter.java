@@ -96,7 +96,7 @@ class LevelThreeAdapter extends android.support.v7.widget.RecyclerView.Adapter<L
             }
         } else if (levelOneItemPos == 1) {
             switch(levelTwoItemPos){
-                case 0: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActBrushingIconAdapter),
+                /*case 0: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActBrushingIconAdapter),
                         mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActBrushingAdapterText), sort);
                     break;
                 case 1: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActToiletIconAdapter),
@@ -104,7 +104,7 @@ class LevelThreeAdapter extends android.support.v7.widget.RecyclerView.Adapter<L
                     break;
                 case 2: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActBathingIconAdapter),
                         mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActBathingAdapterText), sort);
-                    break;
+                    break;*/
                 case 3: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActClothesIconAdapter),
                         mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActClothesAccAdapterText), sort);
                     break;
@@ -117,12 +117,12 @@ class LevelThreeAdapter extends android.support.v7.widget.RecyclerView.Adapter<L
                 case 6: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActTherapyIconAdapter),
                         mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActTherapyAdapterText), sort);
                     break;
-                case 7: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActMorningScheIconAdapter),
+                /*case 7: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActMorningScheIconAdapter),
                         mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActMorningScheAdapterText), sort);
                     break;
                 case 8: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActBedTimeScheIconAdapter),
                         mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActMorningBedTimScheAdapterText), sort);
-                    break;
+                    break;*/
             }
         } else if (levelOneItemPos == 2) {
             switch(levelTwoItemPos) {

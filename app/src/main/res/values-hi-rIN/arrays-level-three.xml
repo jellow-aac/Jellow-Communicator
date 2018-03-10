@@ -67,7 +67,7 @@
     </string-array>
 
     <!--LEVEL THREE "DAILY ACTIVITIES" ADAPTER TEXT ARE HERE-->
-    <string-array name="arrLevelThreeDailyActBrushingIconAdapter">
+    <!--<string-array name="arrLevelThreeDailyActBrushingIconAdapter">
         <item>gradient</item>
         <item>gradient</item>
         <item>gradient</item>
@@ -102,7 +102,7 @@
         <item>gradient</item>
         <item>gradient</item>
         <item>gradient</item>
-    </string-array>
+    </string-array>-->
     <string-array name="arrLevelThreeDailyActClothesIconAdapter">
         <item>tshirt_clothing</item>
         <item>dress_clothing</item>
@@ -176,7 +176,7 @@
         <item>speechtherapy</item>
         <item>grouptherapy</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActMorningScheIconAdapter">
+    <!--<string-array name="arrLevelThreeDailyActMorningScheIconAdapter">
         <item>wakeup</item>
         <item>washface</item>
         <item>gototoilet</item>
@@ -199,7 +199,7 @@
         <item>saygoodnight</item>
         <item>sayprayres</item>
         <item>sweetdreams</item>
-    </string-array>
+    </string-array>-->
 
     <!--LEVEL THREE "EATING" ADAPTER TEXT ARE HERE-->
     <string-array name="arrLevelThreeFoodDrinksBreakfastIconAdapter">

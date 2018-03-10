@@ -67,7 +67,7 @@
     </string-array>
 
     <!--LEVEL THREE "DAILY ACTIVITIES" ADAPTER TEXT ARE HERE-->
-    <string-array name="arrLevelThreeDailyActBrushingIconAdapter">
+    <!--<string-array name="arrLevelThreeDailyActBrushingIconAdapter">
         <item>gradient</item>
         <item>gradient</item>
         <item>gradient</item>
@@ -102,7 +102,7 @@
         <item>gradient</item>
         <item>gradient</item>
         <item>gradient</item>
-    </string-array>
+    </string-array>-->
     <string-array name="arrLevelThreeDailyActClothesIconAdapter">
         <item>tshirt_clothing</item>
         <item>dress_clothing</item>
@@ -176,7 +176,7 @@
         <item>speechtherapy</item>
         <item>grouptherapy</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActMorningScheIconAdapter">
+    <!--<string-array name="arrLevelThreeDailyActMorningScheIconAdapter">
         <item>wakeup</item>
         <item>washface</item>
         <item>gototoilet</item>
@@ -199,7 +199,7 @@
         <item>saygoodnight</item>
         <item>sayprayres</item>
         <item>sweetdreams</item>
-    </string-array>
+    </string-array>-->
 
     <!--LEVEL THREE "EATING" ADAPTER TEXT ARE HERE-->
     <string-array name="arrLevelThreeFoodDrinksBreakfastIconAdapter">
@@ -773,7 +773,7 @@
     </string-array>
 
     <!--LEVEL THREE "DAILY ACTIVITIES" ADAPTER TEXT ARE HERE-->
-    <string-array name="arrLevelThreeDailyActBrushingAdapterText">
+    <!--<string-array name="arrLevelThreeDailyActBrushingAdapterText">
         <item>Rinse mouth</item>
         <item>Rinse toothbrush</item>
         <item>Put toothpaste on brush</item>
@@ -808,7 +808,7 @@
         <item>Dry body</item>
         <item>Put on clothes</item>
         <item>All done</item>
-    </string-array>
+    </string-array>-->
     <string-array name="arrLevelThreeDailyActClothesAccAdapterText">
         <item>Change t-shirt</item>
         <item>Change frock</item>
@@ -882,7 +882,7 @@
         <item>Speech therapy</item>
         <item>Group therapy</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActMorningScheAdapterText">
+    <!--<string-array name="arrLevelThreeDailyActMorningScheAdapterText">
         <item>Wake up</item>
         <item>Wash face</item>
         <item>Go to bathroom</item>
@@ -905,7 +905,7 @@
         <item>Say goodnight</item>
         <item>Say prayers</item>
         <item>Sweet dreams!</item>
-    </string-array>
+    </string-array>-->
 
     <!--LEVEL THREE "EATING" SPEECH TEXT ARE HERE-->
     <string-array name="arrLevelThreeFoodDrinksBreakfastAdapterText">
@@ -1479,7 +1479,7 @@
     </string-array>
 
     <!--LEVEL THREE "DAILY ACTIVITITES" SPEECH TEXT ARE HERE-->
-    <string-array name="arrLevelThreeDailyActBrushingSpeechText">
+    <!--<string-array name="arrLevelThreeDailyActBrushingSpeechText">
         <item>Rinse mouth</item>
         <item>Rinse toothbrush</item>
         <item>Put toothpaste on brush</item>
@@ -1514,7 +1514,7 @@
         <item>Dry body</item>
         <item>Put on clothes</item>
         <item>All done</item>
-    </string-array>
+    </string-array>-->
     <string-array name="arrLevelThreeDailyActClothesAccSpeechText">
         <item>Change t-shirt</item>
         <item>Change frock</item>
@@ -1588,7 +1588,7 @@
         <item>Speech therapy</item>
         <item>Group therapy</item>
     </string-array>
-    <string-array name="arrLevelThreeDailyActMorningScheSpeechText">
+    <!--<string-array name="arrLevelThreeDailyActMorningScheSpeechText">
         <item>Wake up</item>
         <item>Wash face</item>
         <item>Go to bathroom</item>
@@ -1611,7 +1611,7 @@
         <item>Say goodnight</item>
         <item>Say prayers</item>
         <item>Sweet dreams!</item>
-    </string-array>
+    </string-array>-->
 
     <!--LEVEL THREE "EATING" SPEECH TEXT ARE HERE-->
     <string-array name="arrLevelThreeFoodDrinksBreakfastSpeechText">

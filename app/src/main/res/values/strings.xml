@@ -72,7 +72,7 @@
     <string name="menuResetPref">Reset Preferences</string>
     <string name="menuFeedback">Feedback</string>
 
-    <string name="endString" translatable="false"> </string>
+    <string name="endString"> </string>
 
     <string name="locale_reg_IN" translatable="false">IN</string>
     <string name="locale_lang_hi" translatable="false">hi</string>

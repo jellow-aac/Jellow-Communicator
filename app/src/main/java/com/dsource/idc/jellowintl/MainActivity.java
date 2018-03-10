@@ -67,9 +67,10 @@ public class MainActivity extends AppCompatActivity {
     /* This flag identifies that user is pressed a category icon and which border should appear
       on pressed category icon. If flag value = 0, then brown (initial border) will appear.*/
     private int mActionBtnClickCount = -1;
-    /*This flag is sets to true, when expressive button is pressed in conjunction with
-     category icon. It is useful to produce speech output either expression of a button or
-      full sentence verbiage.*/
+    /* This flag is set to true, when user press the category icon and reset when user press the home
+     button. When user presses expressive button and mShouldReadFullSpeech = true, it means that user
+     is already selected a category icon and user intend to speak full sentence verbiage for a
+     selected icon.*/
     private boolean mShouldReadFullSpeech = false;
     /* This flag indicates keyboard is open or not, true indicates is not open.*/
     private boolean mFlgKeyboardOpened = false;
@@ -93,10 +94,13 @@ public class MainActivity extends AppCompatActivity {
 
         // Set app locale which is set in settings by user.
         new ChangeAppLocale(this).setLocale();
+        // Initialize default exception handler for this activity.
         // If any exception occurs during this activity usage,
         // handle it using default exception handler.
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         loadArraysFromResources();
+        // Set the capacity of mRecyclerItemsViewList list to total number of category icons to be
+        // populated on the screen.
         mRecyclerItemsViewList = new ArrayList<>(mSpeechTxt.length);
         while (mRecyclerItemsViewList.size() < mSpeechTxt.length)
             mRecyclerItemsViewList.add(null);
@@ -118,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES");
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_TTS_ERROR");
         registerReceiver(receiver, filter);
-        //After resume from other app if the locale is other than
+        // After resume from other app if the locale is other than
         // app locale, set it back to app locale.
         new ChangeAppLocale(this).setLocale();
     }
@@ -134,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        // Stop Jellow  Test-to-speech service.
+        // Stop Jellow Test-to-speech service.
         sendBroadcast(new Intent("com.dsource.idc.jellowintl.STOP_SERVICE"));
         super.onDestroy();
     }
@@ -208,6 +212,7 @@ public class MainActivity extends AppCompatActivity {
         mIvHome.setContentDescription(mNavigationBtnTxt[0]);
         mIvBack = findViewById(R.id.ivback);
         mIvBack.setContentDescription(mNavigationBtnTxt[1]);
+        //on this screen initially back button is disabled.
         mIvBack.setAlpha(.5f);
         mIvBack.setEnabled(false);
         mIvKeyboard = findViewById(R.id.keyboard);
@@ -222,8 +227,8 @@ public class MainActivity extends AppCompatActivity {
         //Initially custom input text speak button is invisible
         mIvTTs.setVisibility(View.INVISIBLE);
 
-        originalKeyListener = mEtTTs.getKeyListener();
         // Set it to null - this will make the field non-editable
+        originalKeyListener = mEtTTs.getKeyListener();
         mEtTTs.setKeyListener(null);
         mRecyclerView = findViewById(R.id.recycler_view);
         // Initiate 3 columns in Recycler View.
@@ -257,8 +262,9 @@ public class MainActivity extends AppCompatActivity {
      * <p>This function initializes {@link RecyclerTouchListener} and
      * {@link RecyclerView.OnChildAttachStateChangeListener} for recycler view.
      * {@link RecyclerTouchListener} is a custom defined Touch event listener class.
-     * {@link RecyclerView.OnChildAttachStateChangeListener} is defined to efficiently handle
-     * item state of recycler child, when attached to or detached from recycler view. </p>
+     * {@link RecyclerView.OnChildAttachStateChangeListener} is defined to manage view state of
+     * recycler child view. It is useful to retain current state of child, when recycler view is scrolled
+     * and recycler child views are recycled for memory usage optimization.</p>
      * */
     private void initRecyclerViewListeners() {
         mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(this,
@@ -276,10 +282,26 @@ public class MainActivity extends AppCompatActivity {
             @Override   public void onLongClick(View view, int position) {}
         }));
 
-        // When user scrolls the category icons, views in recycler are attached and detached from
-        // recycler view. As views are recycled, it may change its state. So, global list
-        // (local to activity) of recycler views is maintained which is stored in its correct state.
-        // Whenever, child is attached to recycler view if it is selected then its state is retained.
+        // When user scrolls into category, the child views are attached and detached from
+        // recycler view. Also, the child views in recycler view have scrolled
+        // off-screen are kept for reuse. Many times the reused view is assigned to
+        // on-screen view. In our app this behaviour be can seen as follows:
+        // When user scrolls into category, the child views are attached and detached from
+        // recycler view. Also, the child views in recycler view have scrolled
+        // off-screen are kept for reuse. Many times the reused view is assigned to
+        // on-screen view. In our app this behaviour be can seen as follows:
+        // Select "Dog" category icon in "Learning -> Animals & birds" then scrolled it off-screen
+        // you will see selection border is appeared to another on-screen child of recycler view.
+        // To overcome this situation a global list of state to every child of recycler view
+        // is maintained.
+        // When view is detached from recycler view it is removed from global list (mRecyclerItemsViewList)
+        // and when child is attached to recycler view it is added to global list.
+        // If a category icon is selected and it is scrolled off-screen, other on-screen view reusing
+        // same view will get selection border so its border is removed first before removing from
+        // global list.
+        // When recycler view is scrolled, every newly attached child is checked if it is selected
+        // previously or not. If the child is selected and it is reattached to recycler view then
+        // set its border.
         mRecyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
             @Override
             public void onChildViewAttachedToWindow(View view) {
@@ -298,17 +320,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to Navigation back button.
-     * {@link MainActivity} navigation back button enabled only if keyboard is opened.</p>
+     * <p>This function will initialize the click listener to Navigation "back" button.
+     * {@link MainActivity} navigation back button enabled when user using custom keyboard input
+     * and keyboard is opened.</p>
      * */
     private void initBackBtnListener() {
         mIvBack.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
+                //when mFlgKeyboardOpened is set to true, it means user is using custom keyboard input
+                // text and system keyboard is visible.
                 if (mFlgKeyboardOpened){
-                    // When keyboard is open, close it and retain expressive button,
-                    // category icon states as they are before keyboard opened.
-                    mIvKeyboard.setImageResource(R.drawable.keyboard_button);
-                    mIvBack.setImageResource(R.drawable.back_button);
+                    // As user is using custom keyboard input text and then back button is pressed,
+                    // user intent to close custom keyboard input text so below steps will follow:
+                    // a) hide custom input text and speak button views
+                    // b) show category icons
+                    // c) set back button to pressed state
+                    // d) set flag mFlgKeyboardOpened = false, as user not using custom keyboard input
+                    // anymore.
+                    // e) disable back button as no more back process available in this level.
+                    mIvKeyboard.setImageResource(R.drawable.keyboard);
+                    mIvBack.setImageResource(R.drawable.back);
                     mIvHome.setImageResource(R.drawable.home);
                     mIvTTs.setImageResource(R.drawable.speaker_button);
                     speakSpeech(mNavigationBtnTxt[1]);
@@ -329,9 +360,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to Navigation home button.
-     * {@link MainActivity} navigation home button when clicked it clears, every state of view like
-     * app launched as fresh.</p>
+     * <p>This function will initialize the click listener to Navigation "home" button.
+     * {@link MainActivity} navigation home button when clicked it clears, every state of view as
+     * like app is launched as fresh.</p>
      * */
     private void initHomeBtnListener() {
         mIvHome.setOnClickListener(new View.OnClickListener() {
@@ -345,7 +376,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to Navigation keyboard button.
+     * <p>This function will initialize the click listener to Navigation "keyboard" button.
      * {@link MainActivity} navigation keyboard button either enable or disable the keyboard layout.
      * This button enable the back button when keyboard is open.</p>
      * */
@@ -355,11 +386,20 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 speakSpeech(mNavigationBtnTxt[2]);
                 mIvTTs.setImageResource(R.drawable.speaker_button);
+                //when mFlgKeyboardOpened is set to true, it means user is using custom keyboard input
+                // text and system keyboard is visible.
                 if (mFlgKeyboardOpened){
-                    // When keyboard is open, close it and retain expressive button,
-                    // category icon states as they are before keyboard opened.
-                    mIvKeyboard.setImageResource(R.drawable.keyboard_button);
-                    mIvBack.setImageResource(R.drawable.back_button);
+                    // As user is using custom keyboard input text and then press the keyboard button,
+                    // user intent to close custom keyboard input text so below steps will follow:
+                    // a) set keyboard button to unpressed state.
+                    // b) disable back button
+                    // c) show category icons
+                    // d) hide custom keyboard input text and speak button views
+                    // e) set flag mFlgKeyboardOpened = false, as user not using custom keyboard input
+                    //    anymore.
+                    // f) disable back button as no more back process available in this level.
+                    mIvKeyboard.setImageResource(R.drawable.keyboard);
+                    mIvBack.setImageResource(R.drawable.back);
                     mEtTTs.setVisibility(View.INVISIBLE);
                     mRecyclerView.setVisibility(View.VISIBLE);
                     mIvTTs.setVisibility(View.INVISIBLE);
@@ -368,11 +408,15 @@ public class MainActivity extends AppCompatActivity {
                     mIvBack.setAlpha(.5f);
                     mIvBack.setEnabled(false);
                     showActionBarTitle(true);
+                //when mFlgKeyboardOpened is set to false, it means user intent to use custom
+                //keyboard input text so below steps will follow:
                 }else {
-                    // When keyboard is not open, open the keyboard. Hide category icons, show
-                    // custom speech input text, speak button and disable expressive buttons.
-                    mIvKeyboard.setImageResource(R.drawable.keyboardpressed);
-                    mIvBack.setImageResource(R.drawable.back_button);
+                    // a) keyboard button to press
+                    // b) set back button unpressed state
+                    // c) show custom keyboard input text and speak button view
+                    // d) hide category icons
+                    mIvKeyboard.setImageResource(R.drawable.keyboard_pressed);
+                    mIvBack.setImageResource(R.drawable.back);
                     mIvHome.setImageResource(R.drawable.home);
                     mEtTTs.setVisibility(View.VISIBLE);
 
@@ -382,8 +426,13 @@ public class MainActivity extends AppCompatActivity {
                     changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
                     mEtTTs.requestFocus();
                     mIvTTs.setVisibility(View.VISIBLE);
+                    // when user intend to use custom keyboard input text system keyboard should
+                    // only appear when user taps on custom keyboard input view. Setting
+                    // InputMethodManager to InputMethodManager.HIDE_NOT_ALWAYS does this task.
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
+                    // when user is typing in custom keyboard input text it is necessary
+                    // for user to see input text. The function setSoftInputMode() does this task.
                     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
                     mIvBack.setAlpha(1f);
                     mIvBack.setEnabled(true);
@@ -396,29 +445,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to expressive like button.
-     * When expressive like button is pressed:
-     *  a. Single time, speech output is 'like'
-     *  b. twice, speech output is 'really like'
-     * When expressive like button in conjunction with category icon is pressed:
-     *  a. Single time, speech output is full sentence with 'like' expression.
-     *  b. twice, speech output is full sentence with 'really like' expression.
-     *  Also, it set image flag to 0. This flag is used when border is applied to
-     *  a category icon.</p>
+     * <p>This function will initialize the click listener for expressive "like" button.
+     * Expressive like button is works in four ways:
+     *  a) press expressive like button once
+     *  b) press expressive like button twice
+     *  c) press category icon first then press expressive like button once
+     *  d) press category icon first then press expressive like button twice
+     * This function execute task as follows:
+     *  a) reset the all expressive button speech flag except like button
+     *  b) set pressed icon to like button
+     *  c) produce speech using output for like
+     *  d) set border to category icon of color associated with like button</p>
      * */
     private void initLikeBtnListener() {
         mIvLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // All expressive button speech flag (except like) are set to reset.
+                // When user press the like button all expressive button speech flag (except like)
+                // are set to reset.
                 mFlgYes = mFlgMore = mFlgDntLike = mFlgNo = mFlgLess = 0;
                 //Value of mFlgImage = 0, indicates like expressive button is pressed
                 mFlgImage = 0;
-                // Sets expressive button
+                // Set like button icon to pressed using mFlgImage.
                 resetExpressiveButtons(mFlgImage);
-                // if value of mShouldReadFullSpeech is false, then app should speak only expressive button name.
+                // if value of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
                 if (!mShouldReadFullSpeech) {
-                    // if value of mFlgLike is 1, then should speak "really like".
+                    // if value of mFlgLike is 1 then should speak "really like".
                     if (mFlgLike == 1) {
                         speakSpeech(mExprBtnTxt[1]);
                         mFlgLike = 0;
@@ -431,18 +483,19 @@ public class MainActivity extends AppCompatActivity {
                         //Firebase event
                         singleEvent("ExpressiveIcon","Like");
                     }
+                // if value of mShouldReadFullSpeech is true, then speak associated like
+                // expression verbiage to selected category icon.
                 } else {
-                    // if value of mShouldReadFullSpeech is true, then it should speak associated like
-                    // expression verbiage to selected category icon.
                     reportLog(getLocalClassName()+", mIvLike: "+mLevelOneItemPos, Log.INFO);
                     ++mActionBtnClickCount;
-                    // Set border to category icon, border color is applied using
-                    // mActionBtnClickCount and mFlgImage
+                    // Set like button color border to selected category icon.
+                    // border color is applied using mActionBtnClickCount and mFlgImage.
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null){
                         setMenuImageBorder(mRecyclerItemsViewList.
                                 get(mSelectedItemAdapterPos), true);
                     }
-                    // Speak associated really like expression verbiage to selected category icon.
+                    // if value of mFlgLike is 1 then speak associated really like expression
+                    // verbiage for selected category icon.
                     if (mFlgLike == 1) {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(1));
                         mFlgLike = 0;
@@ -450,7 +503,8 @@ public class MainActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","ReallyLike");
                         singleEvent("ExpressiveGridIcon",mLayerOneSpeech.
                                 get(mLevelOneItemPos).get(1));
-                    // Speak associated like expression verbiage to selected category icon.
+                    // if value of mFlgLike is 0 then Speak associated like expression
+                    // verbiage to selected category icon.
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(0));
                         mFlgLike = 1;
@@ -465,52 +519,56 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to expressive don't like button.
-     * When expressive don't like button is pressed:
-     *  a. Single time, speech output is 'don't like'
-     *  b. twice, speech output is 'really don't like'
-     * When expressive don't like button in conjunction with category icon is pressed:
-     *  a. Single time, speech output is full sentence with 'don't like' expression.
-     *  b. twice, speech output is full sentence with 'really don't like' expression.
-     *  Also, it set image flag to 1. This flag is used when border is applied to
-     *  a category icon.</p>
+     * <p>This function will initialize the click listener for expressive "don't like" button.
+     * Expressive don't like button is works in four ways:
+     *  a) press expressive don't like button once
+     *  b) press expressive don't like button twice
+     *  c) press category icon first then press expressive don't like button once
+     *  d) press category icon first then press expressive don't like button twice
+     * This function execute task as follows:
+     *  a) reset the all expressive button speech flag except don't like button
+     *  b) set pressed icon to don't like button
+     *  c) produce speech using output for don't like
+     *  d) set border to category icon of color associated with don't like button</p>
      * */
     private void initDontLikeBtnListener() {
         mIvDontLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // All expressive button speech flag (except don't like) are set to reset.
+                // When user press the don't like button all expressive button speech flag (except don't like)
+                // are set to reset.
                 mFlgLike = mFlgYes = mFlgMore = mFlgNo = mFlgLess = 0;
                 //Value of mFlgImage = 1, indicates don't like expressive button is pressed
                 mFlgImage = 1;
-                // Sets expressive button
+                // Set don't like button icon to pressed using mFlgImage.
                 resetExpressiveButtons(mFlgImage);
-                // if value of mShouldReadFullSpeech is false, then app should speak only expressive button name.
+                // if value of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
                 if (!mShouldReadFullSpeech) {
-                    // if value of mFlgDntLike is 1, then should speak "really don't like".
+                // if value of mFlgDntLike is 1 then should speak "really don't like".
                     if (mFlgDntLike == 1) {
                         speakSpeech(mExprBtnTxt[7]);
                         mFlgDntLike = 0;
                         //Firebase event
                         singleEvent("ExpressiveIcon","ReallyDon'tLike");
-                        // if value of mFlgDntLike is 0, then should speak "don't like".
+                    // if value of mFlgDntLike is 0, then should speak "don't like".
                     } else {
                         speakSpeech(mExprBtnTxt[6]);
                         mFlgDntLike = 1;
                         //Firebase event
                         singleEvent("ExpressiveIcon","Don'tLike");
                     }
+                // if value of mShouldReadFullSpeech is true, then speak associated don't like
+                // expression verbiage to selected category icon.
                 } else {
-                    // if value of mShouldReadFullSpeech is true, then it should speak associated
-                    // don't like expression verbiage to selected category icon.
                     reportLog(getLocalClassName()+", mIvDontLike: "+mLevelOneItemPos, Log.INFO);
                     ++mActionBtnClickCount;
-                    // Set border to category icon, border color is applied using
-                    // mActionBtnClickCount and mFlgImage
+                    // Set don't like button color border to selected category icon.
+                    // border color is applied using mActionBtnClickCount and mFlgImage
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.
                                 get(mSelectedItemAdapterPos), true);
-                    // speak associated really don't like expression verbiage to selected category icon.
+                    // if value of mFlgDntLike is 1 then speak associated really don't like expression
+                    // verbiage for selected category icon.
                     if (mFlgDntLike == 1) {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(7));
                         mFlgDntLike = 0;
@@ -518,7 +576,8 @@ public class MainActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","ReallyDon'tLike");
                         singleEvent("ExpressiveGridIcon",mLayerOneSpeech.
                                 get(mLevelOneItemPos).get(7));
-                    // speak associated don't like expression verbiage to selected category icon.
+                    // if value of mFlgDntLike is 0 then Speak associated don't like expression
+                    // verbiage to selected category icon.
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(6));
                         mFlgDntLike = 1;
@@ -533,27 +592,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to expressive yes button.
-     * When expressive yes button is pressed:
-     *  a. Single time, speech output is 'yes'
-     *  b. twice, speech output is 'really yes'
-     * When expressive yes button in conjunction with category icon is pressed:
-     *  a. Single time, speech output is full sentence with 'yes' expression.
-     *  b. twice, speech output is full sentence with 'really yes' expression.
-     *  Also, it set image flag to 2. This flag is used when border is applied to
-     *  a category icon.</p>
+     * <p>This function will initialize the click listener for expressive "yes" button.
+     * Expressive yes button is works in four ways:
+     *  a) press expressive yes button once
+     *  b) press expressive yes button twice
+     *  c) press category icon first then press expressive yes button once
+     *  d) press category icon first then press expressive yes button twice
+     * This function execute task as follows:
+     *  a) reset the all expressive button speech flag except yes button
+     *  b) set pressed icon to yes button
+     *  c) produce speech using output for yes
+     *  d) set border to category icon of color associated with yes button</p>
      * */
     private void initYesBtnListener() {
         mIvYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // All expressive button speech flag (except yes) are set to reset.
+                // When user press the yes button all expressive button speech flag (except yes)
+                // are set to reset.
                 mFlgLike = mFlgMore = mFlgDntLike = mFlgNo = mFlgLess = 0;
                 //Value of mFlgImage = 2, indicates yes expressive button is pressed
                 mFlgImage = 2;
-                // Sets expressive button
+                // Set yes button icon to pressed using mFlgImage.
                 resetExpressiveButtons(mFlgImage);
-                // if value of mShouldReadFullSpeech is false, then app should speak only expressive button name.
+                // if value of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
                 if (!mShouldReadFullSpeech) {
                     // if value of mFlgYes is 1, then should speak "really yes".
                     if (mFlgYes == 1) {
@@ -568,17 +630,18 @@ public class MainActivity extends AppCompatActivity {
                         //Firebase event
                         singleEvent("ExpressiveIcon","Yes");
                     }
+                // if value of mShouldReadFullSpeech is true, then speak associated yes
+                // expression verbiage to selected category icon.
                 } else {
-                    // if value of mShouldReadFullSpeech is true, then it should speak associated like
-                    // expression verbiage to selected category icon.
                     reportLog(getLocalClassName()+", mIvYes: "+mLevelOneItemPos, Log.INFO);
                     ++mActionBtnClickCount;
-                    // Set border to category icon, border color is applied using
-                    // mActionBtnClickCount and mFlgImage
+                    // Set yes button color border to selected category icon.
+                    // border color is applied using mActionBtnClickCount and mFlgImage
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.
                                 get(mSelectedItemAdapterPos), true);
-                    // Speak associated really yes expression verbiage to selected category icon.
+                    // if value of mFlgYes is 1 then speak associated really yes expression
+                    // verbiage for selected category icon.
                     if (mFlgYes == 1) {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(3));
                         mFlgYes = 0;
@@ -586,7 +649,8 @@ public class MainActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","ReallyYes");
                         singleEvent("ExpressiveGridIcon",mLayerOneSpeech.
                                 get(mLevelOneItemPos).get(3));
-                    // Speak associated yes expression verbiage to selected category icon.
+                    // if value of mFlgYes is 0 then speak associated yes expression
+                    // verbiage for selected category icon.
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(2));
                         mFlgYes = 1;
@@ -601,27 +665,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to expressive no button.
-     * When expressive no button is pressed:
-     *  a. Single time, speech output is 'no'
-     *  b. twice, speech output is 'really no'
-     * When expressive no button in conjunction with category icon is pressed:
-     *  a. Single time, speech output is full sentence with 'no' expression.
-     *  b. twice, speech output is full sentence with 'really no' expression.
-     *  Also, it set image flag to 3. This flag is used when border is applied to
-     *  a category icon.</p>
+     * <p>This function will initialize the click listener for expressive "no" button.
+     * Expressive no button is works in four ways:
+     *  a) press expressive no button once
+     *  b) press expressive no button twice
+     *  c) press category icon first then press expressive no button once
+     *  d) press category icon first then press expressive no button twice
+     * This function execute task as follows:
+     *  a) reset the all expressive button speech flag except no button
+     *  b) set pressed icon to no button
+     *  c) produce speech using output for no
+     *  d) set border to category icon of color associated with no button</p>
      * */
     private void initNoBtnListener() {
         mIvNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // All expressive button speech flag (except no) are set to reset.
+                // When user press the no button all expressive button speech flag (except no)
+                // are set to reset.
                 mFlgLike = mFlgYes = mFlgMore = mFlgDntLike = mFlgLess = 0;
-                //Value of mFlgImage = 3, indicates like expressive button is pressed
+                //Value of mFlgImage = 3, indicates no expressive button is pressed
                 mFlgImage = 3;
-                // Sets expressive button
+                // Sets no button icon to pressed using mFlgImage.
                 resetExpressiveButtons(mFlgImage);
-                // if value of mShouldReadFullSpeech is false, then app should speak only expressive button name.
+                // if value of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
                 if (!mShouldReadFullSpeech) {
                     if (mFlgNo == 1) {
                         // if value of mFlgNo is 1, then should speak "really no".
@@ -636,17 +703,18 @@ public class MainActivity extends AppCompatActivity {
                         //Firebase event
                         singleEvent("ExpressiveIcon","No");
                     }
+                // if value of mShouldReadFullSpeech is true, then it should speak associated no
+                // expression verbiage to selected category icon.
                 } else {
-                    // if value of mShouldReadFullSpeech is true, then it should speak associated like
-                    // expression verbiage to selected category icon.
                     reportLog(getLocalClassName()+", mIvNo: "+mLevelOneItemPos, Log.INFO);
                     ++mActionBtnClickCount;
-                    // Set border to category icon, border color is applied using
-                    // mActionBtnClickCount and mFlgImage
+                    // Set no button color border to selected category icon.
+                    // border color is applied using mActionBtnClickCount and mFlgImage.
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.
                                 get(mSelectedItemAdapterPos), true);
-                    // Speak associated really no expression verbiage to selected category icon.
+                    // if value of mFlgNo is 1 then speak associated really no expression
+                    // verbiage for selected category icon.
                     if (mFlgNo == 1) {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(9));
                         mFlgNo = 0;
@@ -654,7 +722,8 @@ public class MainActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","ReallyNo");
                         singleEvent("ExpressiveGridIcon",mLayerOneSpeech.
                                 get(mLevelOneItemPos).get(9));
-                        // Speak associated no expression verbiage to selected category icon.
+                    // if value of mFlgNo is 0 then Speak associated no expression
+                    // verbiage to selected category icon.
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(8));
                         mFlgNo = 1;
@@ -669,27 +738,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to expressive more button.
-     * When expressive more button is pressed:
-     *  a. Single time, speech output is 'more'
-     *  b. twice, speech output is 'some more'
-     * When expressive more button in conjunction with category icon is pressed:
-     *  a. Single time, speech output is full sentence with 'more' expression.
-     *  b. twice, speech output is full sentence with 'some more' expression.
-     *  Also, it set image flag to 4. This flag is used when border is applied to
-     *  a category icon.</p>
+     * <p>This function will initialize the click listener for expressive "more" button.
+     * Expressive more button is works in four ways:
+     *  a) press expressive more button once
+     *  b) press expressive more button twice
+     *  c) press category icon first then press expressive more button once
+     *  d) press category icon first then press expressive more button twice
+     * This function execute task as follows:
+     *  a) reset the all expressive button speech flag except more button
+     *  b) reset all expressive buttons
+     *  c) produce speech using output for more
+     *  d) set border to category icon of color associated with more button</p>
      * */
     private void initMoreBtnListener() {
         mIvMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // All expressive button speech flag (except more) are set to reset.
+                // When user press the more button all expressive button speech flag (except more)
+                // are set to reset.
                 mFlgLike = mFlgYes = mFlgDntLike = mFlgNo = mFlgLess = 0;
-                //Value of mFlgImage = 4, indicates like expressive button is pressed
+                //Value of mFlgImage = 4, indicates more expressive button is pressed
                 mFlgImage = 4;
-                // Sets expressive button
+                // Sets more button icon to pressed using mFlgImage.
                 resetExpressiveButtons(mFlgImage);
-                // if value of mShouldReadFullSpeech is false, then app should speak only expressive button name.
+                // if value of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
                 if (!mShouldReadFullSpeech) {
                     // if value of mFlgMore is 1, then should speak "really more".
                     if (mFlgMore == 1) {
@@ -704,9 +776,9 @@ public class MainActivity extends AppCompatActivity {
                         //Firebase event
                         singleEvent("ExpressiveIcon","More");
                     }
+                // if value of mShouldReadFullSpeech is true, then it should speak associated more
+                // expression verbiage to selected category icon.
                 } else {
-                    // if value of mShouldReadFullSpeech is true, then it should speak associated like
-                    // expression verbiage to selected category icon.
                     reportLog(getLocalClassName()+", mIvMore: "+mLevelOneItemPos, Log.INFO);
                     ++mActionBtnClickCount;
                     // Set border to category icon, border color is applied using
@@ -714,7 +786,8 @@ public class MainActivity extends AppCompatActivity {
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.
                                 get(mSelectedItemAdapterPos), true);
-                    // Speak associated really more expression verbiage to selected category icon.
+                    // if value of mFlgMore is 1, then should speak "really more" expression
+                    // verbiage associated to selected category icon.
                     if (mFlgMore == 1) {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(5));
                         mFlgMore = 0;
@@ -722,7 +795,8 @@ public class MainActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","ReallyMore");
                         singleEvent("ExpressiveGridIcon",mLayerOneSpeech.
                                 get(mLevelOneItemPos).get(5));
-                        // Speak associated more expression verbiage to selected category icon.
+                    // if value of mFlgMore is 0, then should speak "more" expression
+                    // verbiage associated to selected category icon.
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(4));
                         mFlgMore = 1;
@@ -737,27 +811,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to expressive less button.
-     * When expressive less button is pressed:
-     *  a. Single time, speech output is 'less'
-     *  b. twice, speech output is 'really less'
-     * When expressive less button in conjunction with category icon is pressed:
-     *  a. Single time, speech output is full sentence with 'less' expression.
-     *  b. twice, speech output is full sentence with 'really less' expression.
-     *  Also, it set image flag to 5. This flag is used when border is applied to
-     *  a category icon.</p>
+     * <p>This function will initialize the click listener for expressive "less" button.
+     * Expressive less button is works in four ways:
+     *  a) press expressive less button once
+     *  b) press expressive less button twice
+     *  c) press category icon first then press expressive less button once
+     *  d) press category icon first then press expressive less button twice
+     * This function execute task as follows:
+     *  a) reset the all expressive button speech flag except less button
+     *  b) reset all expressive buttons
+     *  c) produce speech using output for less
+     *  d) set border to category icon of color associated with less button</p>
      * */
     private void initLessBtnListener() {
         mIvLess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // All expressive button speech flag (except less) are set to reset.
+                // When user press the less button all expressive button speech flag (except less)
+                // are set to reset.
                 mFlgLike = mFlgYes = mFlgMore = mFlgDntLike = mFlgNo = 0;
-                //Value of mFlgImage = 5, indicates  less expressive button is pressed
+                //Value of mFlgImage = 5, indicates less expressive button is pressed
                 mFlgImage = 5;
-                // Sets expressive button
+                // Sets less button icon to pressed using mFlgImage.
                 resetExpressiveButtons(mFlgImage);
-                // if value of mShouldReadFullSpeech is false, then app should speak only expressive button name.
+                // if value of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
                 if (!mShouldReadFullSpeech) {
                     // if value of mFlgLess is 1, then should speak "really less".
                     if (mFlgLess == 1) {
@@ -772,17 +849,18 @@ public class MainActivity extends AppCompatActivity {
                         //Firebase event
                         singleEvent("ExpressiveIcon","Less");
                     }
+                // if value of mShouldReadFullSpeech is true, then speak associated less
+                // expression verbiage to selected category icon.
                 } else {
-                    // if value of mShouldReadFullSpeech is true, then it should speak associated like
-                    // expression verbiage to selected category icon.
                     reportLog(getLocalClassName()+", mIvLess: "+mLevelOneItemPos, Log.INFO);
                     ++mActionBtnClickCount;
-                    // Set border to category icon, border color is applied using
-                    // mActionBtnClickCount and mFlgImage
+                    // Set less button color border to selected category icon.
+                    // border color is applied using mActionBtnClickCount and mFlgImage.
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.
                                 get(mSelectedItemAdapterPos), true);
-                    // Speak associated really less expression verbiage to selected category icon.
+                    // if value of mFlgLess is 1 then speak associated really less expression
+                    // verbiage for selected category icon.
                     if (mFlgLess == 1) {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(11));
                         mFlgLess = 0;
@@ -790,7 +868,8 @@ public class MainActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","ReallyLess");
                         singleEvent("ExpressiveGridIcon",mLayerOneSpeech.
                                 get(mLevelOneItemPos).get(11));
-                    // Speak associated less expression verbiage to selected category icon.
+                    // if value of mFlgLess is 0 then Speak associated less expression
+                    // verbiage to selected category icon.
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(10));
                         mFlgLess = 1;
@@ -838,12 +917,12 @@ public class MainActivity extends AppCompatActivity {
         mEtTTs.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                // If it loses focus...
+                // If custom keyboard input text loses focus.
                 if (!hasFocus) {
-                    // Hide soft mIvKeyboard.
+                    // Hide system keyboard.
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(mEtTTs.getWindowToken(), 0);
-                    // Make it non-editable again.
+                    // Make it non-editable.
                     mEtTTs.setKeyListener(null);
                 }
             }
@@ -851,9 +930,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will changes the category icons state as per user touch.
+     * <p>This function is called when user taps a category icon. It will change the state of
+     * category icon pressed. Also, it set the flag for app speak full verbiage sentence.
      * @param view is parent view in selected RecyclerView.
-     * @param v is parent relative layout of category icon tapped,
+     * @param v is parent relative layout of category icon tapped.
      * @param position is position of a tapped category icon in the RecyclerView.
      * This function
      *             a) Clear every expressive button flags
@@ -876,16 +956,22 @@ public class MainActivity extends AppCompatActivity {
         mShouldReadFullSpeech = true;
         String title = getActionBarTitle(position);
         getSupportActionBar().setTitle(title);
+        // below condition is true when user tap same category icon twice.
+        // i.e. user intends to open a sub-category of selected category icon.
         if (mLevelOneItemPos == position) {
-            // If icon sets are available for level two then open selected category in level two
             SessionManager session = new SessionManager(this);
+            // Get icon set directory path
             File langDir = new File("/data/data/com.dsource.idc.jellowintl/app_"+
                     session.getLanguage()+"/drawables");
+            // If icon sets are available for level two then open selected category in level two
             if(langDir.exists() && langDir.isDirectory()) {
+                // create event bundle for firebase
                 Bundle bundle = new Bundle();
                 bundle.putString("Icon", mSpeechTxt[position]);
                 bundle.putString("Level", "LevelOne");
                 bundleEvent("Grid", bundle);
+                // send current position in recycler view of selected category icon and bread
+                // crumb path as extra intent data to LevelTwoActivity.
                 Intent intent = new Intent(MainActivity.this, LevelTwoActivity.class);
                 intent.putExtra("mLevelOneItemPos", position);
                 intent.putExtra("selectedMenuItemPath", title + "/");
@@ -902,7 +988,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will reset every category icons, expressive button tapped.
+     * <p>When home button is pressed it is needed to make app state as it is started fresh.
+     * This function will reset every category icons, expressive button tapped.
      * @param isHomePressed is set when user presses home from {@link MainActivity}
      * and resets when user presses home from {@link LevelTwoActivity},
      * {@link LevelThreeActivity}, {@link SequenceActivity}.</p>
@@ -912,23 +999,32 @@ public class MainActivity extends AppCompatActivity {
         // reset all expressive button flags.
         mFlgLike = mFlgYes = mFlgMore = mFlgDntLike = mFlgNo = mFlgLess = 0;
         // reset expressive buttons
-        mIvLike.setImageResource(R.drawable.ilikewithoutoutline);
-        mIvDontLike.setImageResource(R.drawable.idontlikewithout);
-        mIvYes.setImageResource(R.drawable.iwantwithout);
-        mIvNo.setImageResource(R.drawable.idontwantwithout);
-        mIvMore.setImageResource(R.drawable.morewithout);
-        mIvLess.setImageResource(R.drawable.lesswithout);
+        mIvLike.setImageResource(R.drawable.like);
+        mIvDontLike.setImageResource(R.drawable.dontlike);
+        mIvYes.setImageResource(R.drawable.yes);
+        mIvNo.setImageResource(R.drawable.no);
+        mIvMore.setImageResource(R.drawable.more);
+        mIvLess.setImageResource(R.drawable.less);
         // reset category items
-        resetRecyclerMenuItemsAndFlags(6);
+        resetRecyclerMenuItemsAndFlags();
         // clear verbiage speak (mShouldReadFullSpeech), border color flag (mFlgImage)
         mShouldReadFullSpeech = false;
         mFlgImage = -1;
-        // close the keyboard is open
+        //when mFlgKeyboardOpened is set to true, it means user is using custom keyboard input
+        // text and system keyboard is visible.
         if (mFlgKeyboardOpened){
-            // When keyboard is open, close it and retain expressive button,
-            // category icon states as they are before keyboard opened.
-            mIvKeyboard.setImageResource(R.drawable.keyboard_button);
-            mIvBack.setImageResource(R.drawable.back_button);
+            // As user is using custom keyboard input text and then press the home button,
+            // user is either intent to close custom keyboard input text or
+            // want to go home so below steps will follow:
+            // a) set keyboard button to unpressed state.
+            // b) disable back button
+            // c) hide custom input text and speak button views
+            // d) show category icons
+            // e) set flag mFlgKeyboardOpened = false, as user not using custom keyboard input
+            //    anymore.
+            // f) disable back button as no more back process available in this level.
+            mIvKeyboard.setImageResource(R.drawable.keyboard);
+            mIvBack.setImageResource(R.drawable.back);
             mEtTTs.setVisibility(View.INVISIBLE);
             mRecyclerView.setVisibility(View.VISIBLE);
             mIvTTs.setVisibility(View.INVISIBLE);
@@ -941,13 +1037,13 @@ public class MainActivity extends AppCompatActivity {
             speakSpeech(mNavigationBtnTxt[0]);
             //Firebase event
             singleEvent("Navigation","Home");
-            mIvHome.setImageResource(R.drawable.homepressed);
+            mIvHome.setImageResource(R.drawable.home_pressed);
         }else
             mIvHome.setImageResource(R.drawable.home);
     }
 
     /**
-     * <p>This function will set / reset action bar title depending on {@param showTitle} flag.
+     * <p>This function will set/reset action bar title depending on {@param showTitle} flag.
      * @param showTitle is set action bar title is set other wise empty title</p>
      * */
     private void showActionBarTitle(boolean showTitle){
@@ -961,7 +1057,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * <p>This function will provide action bar title to be set.
-     * @param position, position of the cateogory icon pressed.
+     * @param position, position of the category icon pressed.
      * @return the actionbarTitle string.</p>
      * */
     private String getActionBarTitle(int position) {
@@ -1000,12 +1096,13 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * <p>This function will reset :
-     *     a) Set expressive button pressed. {@param setPressedIcon} define the index of
-     *     expressive button. e.g from top to bottom 0 - like button, 1 - don't like button
-     *     b) Reset category icons pressed.</p>
+     *     a) Reset expressive button pressed if any. To set home button to pressed
+     *        6 value is sent to resetExpressiveButtons(6).
+     *     b) Reset category icons pressed if any.
+     *     c) Setting mLevelOneItemPos = -1 means, no category icon is selected.</p>
      * */
-    private void resetRecyclerMenuItemsAndFlags(int setPressedIcon) {
-        resetExpressiveButtons(setPressedIcon);
+    private void resetRecyclerMenuItemsAndFlags() {
+        resetExpressiveButtons(6);
         mLevelOneItemPos = -1;
         resetRecyclerAllItems();
         mActionBtnClickCount = 0;
@@ -1058,7 +1155,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * <p>This function set the border to category icons. This function first extracts the view to
-     * which border should applied then apply the border.
+     * which border is applied then apply the border.
      * {@param recyclerChildView} is a parent view extracted from recycler view when category icon is tapped.
      * {@param setBorder} is set if category icon tapped and a color border should appear on the view other wise
      *  transparent color is set to border.
@@ -1085,27 +1182,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function first reset the all expressive button. Then set expressive button
-     * using image_flag.
+     * <p>This function first reset if any expressive button is pressed. Then set an
+     * expressive button to pressed. {@param image_flag} identifies which expressive button
+     * is pressed.
+     * If user had previously pressed any expressive button (i.e. state of any expressive
+     * button is pressed) and then user presses some other expressive button, it is needed to
+     * clear previously pressed expressive button state and home button state (if pressed).
      * {@param image_flag} is a index of expressive button.
-     *  e.g. From top to bottom 0 - like button, 1 - don't like button likewise.</p>
+     *  e.g. From top to bottom 0 - like button, 1 - don't like button likewise.
+     *  To set home button to pressed state image_flag value must be 6</p>
      * */
     private void resetExpressiveButtons(int image_flag) {
-        mIvLike.setImageResource(R.drawable.ilikewithoutoutline);
-        mIvDontLike.setImageResource(R.drawable.idontlikewithout);
-        mIvYes.setImageResource(R.drawable.iwantwithout);
-        mIvNo.setImageResource(R.drawable.idontwantwithout);
-        mIvMore.setImageResource(R.drawable.morewithout);
-        mIvLess.setImageResource(R.drawable.lesswithout);
+        // clear previously selected any expressive button or home button
+        mIvLike.setImageResource(R.drawable.like);
+        mIvDontLike.setImageResource(R.drawable.dontlike);
+        mIvYes.setImageResource(R.drawable.yes);
+        mIvNo.setImageResource(R.drawable.no);
+        mIvMore.setImageResource(R.drawable.more);
+        mIvLess.setImageResource(R.drawable.less);
         mIvHome.setImageResource(R.drawable.home);
+        // set expressive button or home button to pressed state
         switch (image_flag){
-            case 0: mIvLike.setImageResource(R.drawable.ilikewithoutline); break;
-            case 1: mIvDontLike.setImageResource(R.drawable.idontlikewithoutline); break;
-            case 2: mIvYes.setImageResource(R.drawable.iwantwithoutline); break;
-            case 3: mIvNo.setImageResource(R.drawable.idontwantwithoutline); break;
-            case 4: mIvMore.setImageResource(R.drawable.morewithoutline); break;
-            case 5: mIvLess.setImageResource(R.drawable.lesswithoutline); break;
-            case 6: mIvHome.setImageResource(R.drawable.homepressed); break;
+            case 0: mIvLike.setImageResource(R.drawable.like_pressed); break;
+            case 1: mIvDontLike.setImageResource(R.drawable.dontlike_pressed); break;
+            case 2: mIvYes.setImageResource(R.drawable.yes_pressed); break;
+            case 3: mIvNo.setImageResource(R.drawable.no_pressed); break;
+            case 4: mIvMore.setImageResource(R.drawable.more_pressed); break;
+            case 5: mIvLess.setImageResource(R.drawable.less_pressed); break;
+            case 6: mIvHome.setImageResource(R.drawable.home_pressed); break;
             default: break;
         }
     }
