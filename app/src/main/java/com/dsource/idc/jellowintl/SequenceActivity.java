@@ -1107,7 +1107,7 @@ public class SequenceActivity extends AppCompatActivity {
      * */
     private void speakSpeech(String speechText){
         Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_TEXT");
-        intent.putExtra("speechText", speechText);
+        intent.putExtra("speechText", speechText.toLowerCase());
         sendBroadcast(intent);
     }
 

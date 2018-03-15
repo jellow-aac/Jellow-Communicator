@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.SpannableString;
@@ -30,40 +29,10 @@ public class KeyboardInputActivity extends AppCompatActivity {
         new ChangeAppLocale(this).setLocale();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.getVoiceControl)+"</font>"));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.getKeyboardControl)+"</font>"));
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
 
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
-        findViewById(R.id.tvbottom).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction("com.android.settings.TTS_SETTINGS");
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            }
-        });
-
-        findViewById(R.id.tvbottom1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction("com.android.settings.TTS_SETTINGS");
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            }
-        });
-
-        (findViewById(R.id.tvbottom2)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent installIntent = new Intent();
-                installIntent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
-                installIntent.setPackage("com.google.android.tts");
-                startActivity(installIntent);
-            }
-        });
-
         findViewById(R.id.abc).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

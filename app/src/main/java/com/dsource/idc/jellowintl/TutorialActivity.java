@@ -32,14 +32,27 @@ public class TutorialActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.tv6)).setText(
                 getString(R.string.softwareVersion).concat(" " + String.valueOf(BuildConfig.VERSION_NAME)));
 
+        setImagesToImageViewUsingGlide();
+    }
+
+    private void setImagesToImageViewUsingGlide() {
+        setImageUsingGlide(R.drawable.categorybuttons, ((ImageView)findViewById(R.id.pic1)));
+        setImageUsingGlide(R.drawable.expressivebuttons, ((ImageView)findViewById(R.id.pic2)));
+        setImageUsingGlide(R.drawable.speakingwithjellowimage2, ((ImageView)findViewById(R.id.pic4)));
+        setImageUsingGlide(R.drawable.eatingcategory1, ((ImageView)findViewById(R.id.pic5)));
+        setImageUsingGlide(R.drawable.eatingcategory2, ((ImageView)findViewById(R.id.pic6)));
+        setImageUsingGlide(R.drawable.eatingcategory3, ((ImageView)findViewById(R.id.pic7)));
+        setImageUsingGlide(R.drawable.settings, ((ImageView)findViewById(R.id.pic8)));
+        setImageUsingGlide(R.drawable.sequencewithoutexpressivebuttons, ((ImageView)findViewById(R.id.pic9)));
+        setImageUsingGlide(R.drawable.sequencewithexpressivebuttons, ((ImageView)findViewById(R.id.pic10)));
         setImageUsingGlide(R.drawable.gtts1, ((ImageView)findViewById(R.id.gtts1)));
         setImageUsingGlide(R.drawable.gtts2, ((ImageView)findViewById(R.id.gtts2)));
         setImageUsingGlide(R.drawable.gtts3, ((ImageView)findViewById(R.id.gtts3)));
     }
 
-    private void setImageUsingGlide(int path, ImageView imgView) {
+    private void setImageUsingGlide(int image, ImageView imgView) {
         GlideApp.with(this)
-                .load(path)
+                .load(image)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(false)
                 .dontAnimate()

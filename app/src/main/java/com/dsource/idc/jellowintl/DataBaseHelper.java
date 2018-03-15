@@ -2,6 +2,7 @@ package com.dsource.idc.jellowintl;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 import static com.dsource.idc.jellowintl.Utility.Analytics.reportException;
 import static com.dsource.idc.jellowintl.Utility.Analytics.reportLog;
@@ -132,7 +134,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
         myContext.deleteDatabase(DB_NAME);
     }
     // Getting single contact
-    public String getlevel(int layer_1_id, int layer_2_id) {
+    public String getLevel(int layer_1_id, int layer_2_id) {
         String userLang = "";
         if(mSession.getLanguage().equals("en-rUS") || mSession.getLanguage().equals("en-rGB"))
             userLang = "en-rUS,en-rGB";
@@ -163,20 +165,61 @@ class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean addLanguageDataToDatabase(){
-         myDataBase.execSQL("alter table three add \"language\" text;");
-         myDataBase.execSQL("update three set language =\"en-rUS,en-rGB\" where layer_1_id > -1;");
+        removeMoreFromDatabasePreferences(0, 0);
+        removeMoreFromDatabasePreferences(0, 1);
+        removeMoreFromDatabasePreferences(0, 2);
+        removeMoreFromDatabasePreferences(0, 3);
 
-         ArrayList<String> levelOneIds = new ArrayList<String>();
-            levelOneIds.add("0");levelOneIds.add("1");levelOneIds.add("2");
-            levelOneIds.add("3");levelOneIds.add("4");levelOneIds.add("7");
+        removeMoreFromDatabasePreferences(1, 3);
+        removeMoreFromDatabasePreferences(1, 4);
+        removeMoreFromDatabasePreferences(1, 5);
+        removeMoreFromDatabasePreferences(1, 6);
+
+        removeMoreFromDatabasePreferences(2, 0);
+        removeMoreFromDatabasePreferences(2, 1);
+        removeMoreFromDatabasePreferences(2, 2);
+        removeMoreFromDatabasePreferences(2, 3);
+        removeMoreFromDatabasePreferences(2, 4);
+        removeMoreFromDatabasePreferences(2, 5);
+        removeMoreFromDatabasePreferences(2, 6);
+        removeMoreFromDatabasePreferences(2, 7);
+
+        removeMoreFromDatabasePreferences(3, 0);
+        removeMoreFromDatabasePreferences(3, 1);
+        removeMoreFromDatabasePreferences(3, 2);
+        removeMoreFromDatabasePreferences(3, 5);
+
+        removeMoreFromDatabasePreferences(4, 0);
+        removeMoreFromDatabasePreferences(4, 1);
+        removeMoreFromDatabasePreferences(4, 2);
+        removeMoreFromDatabasePreferences(4, 3);
+        removeMoreFromDatabasePreferences(4, 4);
+        removeMoreFromDatabasePreferences(4, 5);
+        removeMoreFromDatabasePreferences(4, 6);
+        removeMoreFromDatabasePreferences(4, 7);
+        removeMoreFromDatabasePreferences(4, 8);
+
+        removeMoreFromDatabasePreferences(7, 5);
+        removeMoreFromDatabasePreferences(7, 7);
+
+        // play store version only places preferences stored.
+        retrievePlacesPreferencesIfExist();
+
+        ArrayList<String> levelOneIds = new ArrayList<String>();
+        levelOneIds.add("0");levelOneIds.add("1");levelOneIds.add("2");
+        levelOneIds.add("3");levelOneIds.add("4");levelOneIds.add("7");
 
         ArrayList<String> levelTwoIds = new ArrayList<>();
-            levelTwoIds.add("0,1,2,3"); levelTwoIds.add("3,4,5,6");levelTwoIds.add("0,1,2,3,4,5,6,7");
-            levelTwoIds.add("0,1,2,5"); levelTwoIds.add("0,1,2,3,4,5,6,7,8");levelTwoIds.add("5,6,7");
+        levelTwoIds.add("0,1,2,3"); levelTwoIds.add("3,4,5,6");levelTwoIds.add("0,1,2,3,4,5,6,7");
+        levelTwoIds.add("0,1,2,5"); levelTwoIds.add("0,1,2,3,4,5,6,7,8");levelTwoIds.add("5,6,7");
+
+        myDataBase.execSQL("alter table three add \"language\" text;");
+        myDataBase.execSQL("update three set language =\"en-rUS,en-rGB\" where layer_1_id > -1;");
+
 
         Long result = 0L;
-        for (int i=0; i< levelOneIds.size(); ++i) {
-            for (int j=0;j<levelTwoIds.size();++j) {
+        for (int i = 0; i < levelOneIds.size(); i++) {
+            for (int j = 0; j < levelTwoIds.size(); j++) {
                 if(i != j) continue;
                 String ids[] = levelTwoIds.get(j).split(",");
                 for (int k = 0; k < ids.length; k++) {
@@ -192,5 +235,68 @@ class DataBaseHelper extends SQLiteOpenHelper {
         }
         levelOneIds = levelTwoIds = null;
         return result >= 30;
+    }
+
+    private void removeMoreFromDatabasePreferences(int layer_1_id, int layer_2_id) {
+        String prefString = getRawPrefString(layer_1_id, layer_2_id);
+        // The preferences for Time & Weather -> Birthday's in database are stored to 7,7 place
+        // instead of 7,6.
+        if(layer_1_id == 7 && layer_2_id == 7)
+            layer_2_id = 6;
+        StringTokenizer token = new StringTokenizer(prefString, ",");
+        Integer[] arr = new Integer[prefString.split(",").length];
+        for (int i = 0; i < prefString.split(",").length; i++) {
+            arr[i] = Integer.parseInt(token.nextToken());
+        }
+        StringBuilder newPrefString = new StringBuilder();
+        int skipCount = 0;
+        for (int i = 0; i < arr.length; i++) {
+            skipCount++;
+            if(skipCount != 9 || i == arr.length - 1)
+                newPrefString.append(String.valueOf(arr[i]).concat(","));
+            else skipCount = 0;
+        }
+        for(int i = arr.length; i < 100; ++i)
+            newPrefString.append("0,");
+        setCorrectedRawPrefString(layer_1_id,layer_2_id, newPrefString.toString());
+    }
+
+    private String getRawPrefString(int layer_1_id, int layer_2_id) {
+        Cursor cursor = myDataBase.query("three", new String[]{"_id", "layer_1_id", "layer_2_id", "layer_3"}, "layer_1_id='" + layer_1_id + "' AND layer_2_id='" + layer_2_id + "'", null, null, null, null);
+        if (cursor.getCount()>0) {
+            cursor.moveToFirst();
+            String prefString = cursor.getString(3);
+            return prefString;
+        }
+        return  "";
+    }
+
+    private void setCorrectedRawPrefString(int layer_1_id, int layer_2_id, String prefString) {
+        ContentValues dataToInsert = new ContentValues();
+        dataToInsert.put("layer_3", prefString);
+        myDataBase.update("three", dataToInsert, "layer_1_id='" + layer_1_id + "' AND layer_2_id='" + layer_2_id + "'", null);
+    }
+
+    private void retrievePlacesPreferencesIfExist() {
+        SharedPreferences pref = myContext.getSharedPreferences("places_count", Context.MODE_PRIVATE);
+        String prefString = pref.getString("places_count", "");
+        if(!prefString.isEmpty()){
+            StringTokenizer token = new StringTokenizer(prefString, ",");
+            Integer[] arr = new Integer[prefString.split(",").length];
+            for (int i = 0; i < prefString.split(",").length; i++) {
+                arr[i] = Integer.parseInt(token.nextToken());
+            }
+            StringBuilder newPrefString = new StringBuilder();
+            int skipCount = 0;
+            for (int i = 0; i < arr.length; i++) {
+                skipCount++;
+                if(skipCount != 9 || i == arr.length - 1)
+                    newPrefString.append(String.valueOf(arr[i]).concat(","));
+                else skipCount = 0;
+            }
+            mSession.setPlacesPreferences(newPrefString.toString());
+            pref.edit().remove("places_count").apply();
+            arr = null;
+        }
     }
 }

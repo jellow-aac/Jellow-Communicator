@@ -24,6 +24,7 @@
         android:weightSum="3">
 
         <TextView
+            android:id="@+id/tvtop"
             android:layout_width="420dp"
             android:layout_height="60dp"
             android:layout_gravity="center"
@@ -36,6 +37,7 @@
             android:textSize="20dp"
             android:text="@string/txt_intro6_ttsStep1"/>
         <TextView
+            android:id="@+id/tvtop1"
             android:layout_width="420dp"
             android:layout_height="60dp"
             android:layout_gravity="center"
@@ -48,6 +50,7 @@
             android:textSize="20dp"
             android:text="@string/txt_intro6_step2"/>
         <TextView
+            android:id="@+id/tvtop2"
             android:layout_width="420dp"
             android:layout_height="60dp"
             android:layout_gravity="center"

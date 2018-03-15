@@ -68,7 +68,7 @@
     <string name="menuProfile">Profile</string>
     <string name="menuAbout">About Jellow</string>
     <string name="menuTutorials">Tutorial</string>
-    <string name="menuKeyboardInput">Voice and Keyboard Control</string>
+    <string name="menuKeyboardInput">Keyboard Control</string>
     <string name="menuResetPref">Reset Preferences</string>
     <string name="menuFeedback">Feedback</string>
 
@@ -108,7 +108,7 @@
     <string name="step2">Step 2: Save Keyboard as default option</string>
     <string name="saveAsDefault">SAVE AS DEFAULT</string>
     <string name="voiceControl">Voice Control:</string>
-    <string name="getVoiceControl">Voice and Keyboard Control</string>
+    <string name="getKeyboardControl">Keyboard Control</string>
     <string name="childName">Child\'s Name *</string>
     <string name="careGiveName">Caregiver\'s Name</string>
     <string name="careGiverContact">Caregiver\'s Contact No. *</string>
@@ -251,12 +251,13 @@
     <string name="txt_intro3_navWithJellow">Navigating within Jellow</string>
     <string name="txt_intro4_customizeAppDesc">User can customize application settings by clicking on top right corner of the application</string>
     <string name="txt_intro4_customizeJellow">Settings within Jellow</string>
-    <string name="txt_intro6_skipActiveTtsDesc">Set Google Tts as default speech engine then set language as _</string>
+    <!--<string name="txt_intro6_skipActiveTtsDesc">Set Google Tts as default speech engine then set language as _</string>-->
+    <string name="txt_intro6_skipActiveTtsDesc">For - accent set language as _.</string>
     <string name="txt_intro6_ttsStep1">1.Activate Google TTS</string>
     <string name="txt_intro6_activate">ACTIVATE</string>
-    <string name="txt_intro6_step2">2. Make preferred language as default</string>
+    <string name="txt_intro6_step2">2. Set _ language as default</string>
     <string name="txt_intro6_changeLang">CHANGE LANGUAGE</string>
-    <string name="txt_intro6_step3">3. Download voice in preferred language</string>
+    <string name="txt_intro6_step3">3. Download _ voice</string>
     <string name="txt_intro6_download">DOWNLOAD</string>
     <string name="txt_intro7_getStartedDesc">Now you are ready to get started with Jellow</string>
     <string name="txt_intro7_getStarted">GET STARTED</string>
@@ -271,12 +272,12 @@
     <string name="change_tts_lang">Set TTS engine language</string>
     <string name="set_engine_language">Please complete step 3</string>
     <string name="change_language_line5">Step 2: Check if voice data for _ is available on your device. If not please download voice data for selected language.</string>
-    <string name="change_language_line4">Step 3: Set _ as default for the <b>\'Google Text-to-speech (TTS) Engine\'</b></string>
+    <string name="change_language_line4">Step 3: Set \'Google Text-to-speech (TTS)\' as default TTS engine and set _ as default language of the engine.</string>
     <string name="txtEditLanguage">Edit Languages:</string>
     <string name="txtChangeLanguage">Change Default Language:</string>
     <string name="txtApplyChanges">Step 4: Click \'Apply changes\' to set new language as default</string>
     <string name="change_language_line6">You can follow the steps listed below to set a newly added language as the default for Jellow</string>
-    <string name="txt_set_tts_setup">Please complete Text-to-Speech engine setup given in previous page</string>
+    <string name="txt_set_tts_setup">Please complete Text-to-Speech engine setup given in this page</string>
     <string name="txt_save_same_lang_def">Selected language is already default language</string>
     <string name="speech_engin_lang_sam">Please check the \'Language\' settings of the app</string>
     <string name="txt_intro6_skipTtsSetup">Devices with active Google TTS engine: Please swipe to skip current step</string>
@@ -284,4 +285,5 @@
     <string name="txt_actLangSel_completestep2">Voice data is unavailable. Please turn on the Internet to download voice data.</string>
     <string name="language_downloaded">_ language downloaded</string>
     <string name="language_downloading">Downloading _ language</string>
+    <string name="welcome_msg">Hi</string>
 </resources>

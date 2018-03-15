@@ -116,12 +116,14 @@ public class JellowTTSService extends Service{
                         country = mTts.getDefaultVoice().getLocale().getCountry();
                     }
                     broadcastIntent.putExtra("systemTtsRegion", lang.concat("-r".concat(country)));
+
                     if(lang.concat("-r".concat(country)).equals("hi-rIN") && intent.getStringExtra("saveSelectedLanguage").equals("en-rIN"))
                         broadcastIntent.putExtra("saveUserLanguage", true);
                     else if(!intent.getStringExtra("saveSelectedLanguage").equals("en-rIN") &&
                             intent.getStringExtra("saveSelectedLanguage").equals(lang.concat("-r".concat(country))))
                         broadcastIntent.putExtra("saveUserLanguage", true);
                     else broadcastIntent.putExtra("saveUserLanguage", false);
+
                     if(!intent.getStringExtra("saveSelectedLanguage").equals(""))
                         broadcastIntent.putExtra("showError", true);
                     sendBroadcast(broadcastIntent);
@@ -162,16 +164,15 @@ public class JellowTTSService extends Service{
                 @Override
                 public void onInit(int status) {
                     try {
-                        mTts.setEngineByPackageName("com.google.android.tts");
                         changeTtsLanguage(session.getLanguage());
-                        mTts.setSpeechRate((float) session.getSpeed()/100);
-                        mTts.setPitch((float) session.getPitch()/100);
+                        mTts.setSpeechRate((float) session.getSpeed()/50);
+                        mTts.setPitch((float) session.getPitch()/50);
                         sendBroadcast(new Intent("com.dsource.idc.jellowintl.INIT_SERVICE"));
                     } catch (Exception e) {
                         reportException(e);
                     }
                 }
-            });
+            }, "com.google.android.tts");
             mTts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
                 @Override
                 public void onStart(String utteranceId) {

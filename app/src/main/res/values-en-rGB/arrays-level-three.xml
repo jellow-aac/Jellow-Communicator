@@ -67,42 +67,6 @@
     </string-array>
 
     <!--LEVEL THREE "DAILY ACTIVITIES" ADAPTER TEXT ARE HERE-->
-    <!--<string-array name="arrLevelThreeDailyActBrushingIconAdapter">
-        <item>gradient</item>
-        <item>gradient</item>
-        <item>gradient</item>
-        <item>gradient</item>
-        <item>gradient</item>
-        <item>gradient</item>
-        <item>gradient</item>
-        <item>gradient</item>
-    </string-array>
-    <string-array name="arrLevelThreeDailyActToiletIconAdapter">
-        <item>gradient</item>
-        <item>gradient</item>
-        <item>gradient</item>
-        <item>gradient</item>
-        <item>gradient</item>
-        <item>gradient</item>
-        <item>gradient</item>
-    </string-array>
-    <string-array name="arrLevelThreeDailyActBathingIconAdapter">
-        <item>gradient</item>
-        <item>gradient</item>
-        <item>gradient</item>
-        <item>gradient</item>
-        <item>gradient</item>
-        <item>gradient</item>
-        <item>gradient</item>
-        <item>gradient</item>
-        <item>gradient</item>
-        <item>gradient</item>
-        <item>gradient</item>
-        <item>gradient</item>
-        <item>gradient</item>
-        <item>gradient</item>
-        <item>gradient</item>
-    </string-array>-->
     <string-array name="arrLevelThreeDailyActClothesIconAdapter">
         <item>tshirt_clothing</item>
         <item>top</item>
@@ -182,30 +146,6 @@
         <item>speechtherapy</item>
         <item>grouptherapy</item>
     </string-array>
-    <!--<string-array name="arrLevelThreeDailyActMorningScheIconAdapter">
-        <item>wakeup</item>
-        <item>washface</item>
-        <item>gototoilet</item>
-        <item>brushteeth</item>
-        <item>removeclothes</item>
-        <item>haveabath</item>
-        <item>getdressed</item>
-        <item>combhair</item>
-        <item>eatbreakfast</item>
-        <item>packlunch</item>
-        <item>packbagpack</item>
-        <item>gradient</item>
-        <item>haveagreatday</item>
-    </string-array>
-    <string-array name="arrLevelThreeDailyActBedTimeScheIconAdapter">
-        <item>eatdinner</item>
-        <item>wearnightsuit</item>
-        <item>brushteeth</item>
-        <item>readstory</item>
-        <item>saygoodnight</item>
-        <item>sayprayres</item>
-        <item>sweetdreams</item>
-    </string-array>-->
 
     <!--LEVEL THREE "EATING" ADAPTER TEXT ARE HERE-->
     <string-array name="arrLevelThreeFoodDrinksBreakfastIconAdapter">
@@ -906,42 +846,6 @@
     </string-array>
 
     <!--LEVEL THREE "DAILY ACTIVITIES" ADAPTER TEXT ARE HERE-->
-    <!--<string-array name="arrLevelThreeDailyActBrushingAdapterText">
-        <item>Rinse mouth</item>
-        <item>Rinse toothbrush</item>
-        <item>Put toothpaste on brush</item>
-        <item>Brush front teeth</item>
-        <item>Brush back teeth</item>
-        <item>Brush tongue</item>
-        <item>Rinse mouth</item>
-        <item>All done</item>
-    </string-array>
-    <string-array name="arrLevelThreeDailyActToiletAdapterText">
-        <item>Pull pants down</item>
-        <item>Sit on toilet</item>
-        <item>Wash bottom</item>
-        <item>Flush toilet</item>
-        <item>Pull pants up</item>
-        <item>Wash hands</item>
-        <item>All done</item>
-    </string-array>
-    <string-array name="arrLevelThreeDailyActBathingAdapterText">
-        <item>Remove clothes</item>
-        <item>Turn on water</item>
-        <item>Get in the shower</item>
-        <item>Wet body</item>
-        <item>Put soap</item>
-        <item>Shampoo hair</item>
-        <item>Put face wash</item>
-        <item>Wash hair</item>
-        <item>Wash body</item>
-        <item>Turn off water</item>
-        <item>Dry hair</item>
-        <item>Dry face</item>
-        <item>Dry body</item>
-        <item>Put on clothes</item>
-        <item>All done</item>
-    </string-array>-->
     <string-array name="arrLevelThreeDailyActClothesAccAdapterText">
         <item>Change t-shirt</item>
         <item>Change top</item>
@@ -1021,30 +925,6 @@
         <item>Speech therapy</item>
         <item>Group therapy</item>
     </string-array>
-    <!--<string-array name="arrLevelThreeDailyActMorningScheAdapterText">
-        <item>Wake up</item>
-        <item>Wash face</item>
-        <item>Go to bathroom</item>
-        <item>Brush teeth</item>
-        <item>Remove clothes</item>
-        <item>Have a bath</item>
-        <item>Get dressed</item>
-        <item>Comb hair</item>
-        <item>Eat breakfast</item>
-        <item>Pack lunchbox</item>
-        <item>Pack school bag</item>
-        <item>Go to school</item>
-        <item>Have a great day!</item>
-    </string-array>
-    <string-array name="arrLevelThreeDailyActMorningBedTimScheAdapterText">
-        <item>Eat dinner</item>
-        <item>Wear night clothes</item>
-        <item>Brush teeth</item>
-        <item>Read story</item>
-        <item>Say goodnight</item>
-        <item>Say prayers</item>
-        <item>Sweet dreams!</item>
-    </string-array>-->
 
     <!--LEVEL THREE "EATING" SPEECH TEXT ARE HERE-->
     <string-array name="arrLevelThreeFoodDrinksBreakfastAdapterText">
@@ -1745,42 +1625,6 @@
     </string-array>
 
     <!--LEVEL THREE "DAILY ACTIVITITES" SPEECH TEXT ARE HERE-->
-    <!--<string-array name="arrLevelThreeDailyActBrushingSpeechText">
-        <item>Rinse mouth</item>
-        <item>Rinse toothbrush</item>
-        <item>Put toothpaste on brush</item>
-        <item>Brush front teeth</item>
-        <item>Brush back teeth</item>
-        <item>Brush tongue</item>
-        <item>Rinse mouth</item>
-        <item>All done</item>
-    </string-array>
-    <string-array name="arrLevelThreeDailyActToiletSpeechText">
-        <item>Pull pants down</item>
-        <item>Sit on toilet</item>
-        <item>wash bottom</item>
-        <item>Flush toilet</item>
-        <item>Pull pants up</item>
-        <item>wash hands</item>
-        <item>All done</item>
-    </string-array>
-    <string-array name="arrLevelThreeDailyActBathingSpeechText">
-        <item>Remove clothes</item>
-        <item>Turn on water</item>
-        <item>Get in the shower</item>
-        <item>Wet body</item>
-        <item>Put soap</item>
-        <item>Shampoo hair</item>
-        <item>Put face wash</item>
-        <item>wash hair</item>
-        <item>wash body</item>
-        <item>Turn off water</item>
-        <item>Dry hair</item>
-        <item>Dry face</item>
-        <item>Dry body</item>
-        <item>Put on clothes</item>
-        <item>All done</item>
-    </string-array>-->
     <string-array name="arrLevelThreeDailyActClothesAccSpeechText">
         <item>Change t-shirt</item>
         <item>Change top</item>
@@ -1860,31 +1704,7 @@
         <item>Speech therapy</item>
         <item>Group therapy</item>
     </string-array>
-    <!--<string-array name="arrLevelThreeDailyActMorningScheSpeechText">
-        <item>Wake up</item>
-        <item>wash face</item>
-        <item>Go to bathroom</item>
-        <item>Brush teeth</item>
-        <item>Remove clothes</item>
-        <item>Have a bath</item>
-        <item>Get dressed</item>
-        <item>Comb hair</item>
-        <item>Eat breakfast</item>
-        <item>Pack lunch box</item>
-        <item>Pack school bag</item>
-        <item>Go to school</item>
-        <item>Have a great day!</item>
-    </string-array>
-    <string-array name="arrLevelThreeDailyActBedTimeScheSpeechText">
-        <item>Eat dinner</item>
-        <item>wear night dress</item>
-        <item>Brush teeth</item>
-        <item>Read story</item>
-        <item>Say goodnight</item>
-        <item>Say prayers</item>
-        <item>Sweet dreams!</item>
-    </string-array>
--->
+
     <!--LEVEL THREE "EATING" SPEECH TEXT ARE HERE-->
     <string-array name="arrLevelThreeFoodDrinksBreakfastSpeechText">
         <item>Bread</item>
@@ -2493,7 +2313,7 @@
         <item>Good Friday</item>
         <item>Diwali</item>
         <item>Labour day</item>
-        <item>US Independence day</item>
+        <item>U S Independence day</item>
         <item>Halloween</item>
         <item>Columbus day</item>
         <item>Veteran\'s day</item>

@@ -73,16 +73,16 @@ public class SettingActivity extends AppCompatActivity {
         mSliderSpeed.setOnPositionChangeListener(new Slider.OnPositionChangeListener() {
             @Override
             public void onPositionChanged(Slider view, boolean fromUser, float oldPos, float newPos, int oldValue, int newValue) {
-                setSpeechRate((float) newValue / 100);
-                mTxtViewSpeechSpeed.setText(getString(R.string.txtSpeechSpeed).concat(": " + String.valueOf(newValue / 10)));
+                setSpeechRate((float) newValue / 50);
+                mTxtViewSpeechSpeed.setText(getString(R.string.txtSpeechSpeed).concat(": " + String.valueOf(newValue / 5)));
             }
         });
 
         mSliderPitch.setOnPositionChangeListener(new Slider.OnPositionChangeListener() {
             @Override
             public void onPositionChanged(Slider view, boolean fromUser, float oldPos, float newPos, int oldValue, int newValue) {
-                setSpeechPitch((float) newValue / 100);
-                mTxtViewVoicePitch.setText(getString(R.string.txtVoiceSpeech).concat(": " + String.valueOf(newValue / 10)));
+                setSpeechPitch((float) newValue / 50);
+                mTxtViewVoicePitch.setText(getString(R.string.txtVoiceSpeech).concat(": " + String.valueOf(newValue / 5)));
             }
         });
 
@@ -122,11 +122,11 @@ public class SettingActivity extends AppCompatActivity {
                     finishAffinity();
                 }
                 if(mSession.getSpeed() != mSliderSpeed.getValue()) {
-                    setSpeechRate(mSliderSpeed.getValue()/100);
+                    setSpeechRate(mSliderSpeed.getValue()/50);
                     mSession.setSpeed(mSliderSpeed.getValue());
                 }
                 if(mSession.getPitch() != mSliderPitch.getValue()) {
-                    setSpeechPitch(mSliderPitch.getValue()/ 100);
+                    setSpeechPitch(mSliderPitch.getValue()/ 50);
                     mSession.setPitch(mSliderPitch.getValue());
                 }
                 Toast.makeText(SettingActivity.this, getString(R.string.savedSettingsMessage), Toast.LENGTH_SHORT).show();

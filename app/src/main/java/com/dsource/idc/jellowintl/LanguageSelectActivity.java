@@ -360,7 +360,8 @@ public class LanguageSelectActivity extends AppCompatActivity{
         adapter_lan = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, offlineLanguages);
         languageSelect.setAdapter(adapter_lan);
-        if(isOpenedTtsSett) getSpeechLanguage("");
+        if(isOpenedTtsSett)
+            getSpeechLanguage("");
         if(mSelectedItem != -1)
             languageSelect.setSelection(mSelectedItem);
         //isOpenedTtsSett = false;

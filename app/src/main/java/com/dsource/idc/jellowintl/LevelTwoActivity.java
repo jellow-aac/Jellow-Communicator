@@ -704,7 +704,6 @@ public class LevelTwoActivity extends AppCompatActivity {
                 // If selected category icon is Help -> About me, then show
                 // expressive icons of About me category.
                 // and set don't like button icon to pressed using mFlgImage.
-                resetExpressiveButtons(mFlgImage);
                 if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
                     setExpressiveButtonToAboutMe(mFlgImage);
                 else
@@ -807,7 +806,6 @@ public class LevelTwoActivity extends AppCompatActivity {
                 // If selected category icon is Help -> About me, then show
                 // expressive icons of About me category.
                 // and set yes button icon to pressed using mFlgImage.
-                resetExpressiveButtons(mFlgImage);
                 if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
                     setExpressiveButtonToAboutMe(mFlgImage);
                 else
@@ -909,7 +907,6 @@ public class LevelTwoActivity extends AppCompatActivity {
                 // If selected category icon is Help -> About me, then show
                 // expressive icons of About me category.
                 // and set no button icon to pressed using mFlgImage.
-                resetExpressiveButtons(mFlgImage);
                 if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
                     setExpressiveButtonToAboutMe(mFlgImage);
                 else
@@ -1011,7 +1008,6 @@ public class LevelTwoActivity extends AppCompatActivity {
                 // If selected category icon is Help -> About me, then show
                 // expressive icons of About me category.
                 // and set more button icon to pressed using mFlgImage.
-                resetExpressiveButtons(mFlgImage);
                 if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
                     setExpressiveButtonToAboutMe(mFlgImage);
                 else
@@ -1421,7 +1417,7 @@ public class LevelTwoActivity extends AppCompatActivity {
      * */
     private void speakSpeech(String speechText){
         Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_TEXT");
-        intent.putExtra("speechText", speechText);
+        intent.putExtra("speechText", speechText.toLowerCase());
         sendBroadcast(intent);
     }
 

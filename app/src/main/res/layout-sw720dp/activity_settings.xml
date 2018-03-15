@@ -38,9 +38,9 @@
                     android:layout_width="370dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="19dp"
-                    app:sl_minValue="10"
-                    app:sl_maxValue="250"
-                    app:sl_stepValue="10"
+                    app:sl_minValue="0"
+                    app:sl_maxValue="100"
+                    app:sl_stepValue="1"
                     app:sl_primaryColor="@color/colorAccent"
                     app:sl_secondaryColor="@color/colorLess"/>
                 <TextView
@@ -59,9 +59,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="19dp"
                     android:indeterminate="false"
-                    app:sl_minValue="10"
-                    app:sl_maxValue="250"
-                    app:sl_stepValue="10"
+                    app:sl_minValue="1"
+                    app:sl_maxValue="100"
+                    app:sl_stepValue="1"
                     app:sl_primaryColor="@color/colorAccent"
                     app:sl_secondaryColor="@color/colorLess"/>
 

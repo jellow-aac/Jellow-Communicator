@@ -57,10 +57,7 @@
                         android:id="@+id/pic1"
                         android:layout_width="wrap_content"
                         android:layout_height="200dp"
-                        android:layout_below="@+id/tv7"
-                        android:layout_marginLeft="-50dp"
-                        android:layout_marginStart="-50dp"
-                        android:src="@drawable/categorybuttons"/>
+                        android:layout_below="@+id/tv7"/>
                     <TextView
                         android:id="@+id/tv8"
                         android:layout_width="wrap_content"
@@ -76,9 +73,7 @@
                         android:id="@+id/pic2"
                         android:layout_width="wrap_content"
                         android:layout_height="200dp"
-                        android:layout_below="@+id/tv8"
-                        android:layout_marginLeft="-50dp"
-                        android:src="@drawable/expressivebuttons"/>
+                        android:layout_below="@+id/tv8"/>
                 </RelativeLayout>
             </LinearLayout>
 
@@ -114,9 +109,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="200dp"
                         android:layout_below="@+id/tv2"
-                        android:layout_marginLeft="-50dp"
-                        android:layout_marginTop="19dp"
-                        android:src="@drawable/speakingwithjellowimage2"/>
+                        android:layout_marginTop="19dp"/>
                 </RelativeLayout>
             </LinearLayout>
 
@@ -163,9 +156,7 @@
                         android:id="@+id/pic5"
                         android:layout_width="wrap_content"
                         android:layout_height="200dp"
-                        android:layout_below="@+id/tv9"
-                        android:layout_marginLeft="-50dp"
-                        android:src="@drawable/eatingcategory1"/>
+                        android:layout_below="@+id/tv9"/>
                     <TextView
                         android:id="@+id/tv10"
                         android:layout_width="wrap_content"
@@ -181,9 +172,7 @@
                         android:id="@+id/pic6"
                         android:layout_width="wrap_content"
                         android:layout_height="200dp"
-                        android:layout_below="@+id/tv10"
-                        android:layout_marginLeft="-50dp"
-                        android:src="@drawable/eatingcategory2"/>
+                        android:layout_below="@+id/tv10"/>
                     <TextView
                         android:id="@+id/tv11"
                         android:layout_width="wrap_content"
@@ -199,9 +188,7 @@
                         android:id="@+id/pic7"
                         android:layout_width="wrap_content"
                         android:layout_height="200dp"
-                        android:layout_below="@+id/tv11"
-                        android:layout_marginLeft="-50dp"
-                        android:src="@drawable/eatingcategory3"/>
+                        android:layout_below="@+id/tv11"/>
                 </RelativeLayout>
             </LinearLayout>
 
@@ -237,9 +224,7 @@
                         android:id="@+id/pic8"
                         android:layout_width="wrap_content"
                         android:layout_height="200dp"
-                        android:layout_below="@+id/tv4"
-                        android:layout_marginLeft="-50dp"
-                        android:src="@drawable/settings"/>
+                        android:layout_below="@+id/tv4"/>
                 </RelativeLayout>
             </LinearLayout>
 
@@ -285,9 +270,7 @@
                         android:id="@+id/pic9"
                         android:layout_width="wrap_content"
                         android:layout_height="200dp"
-                        android:layout_below="@id/tv12"
-                        android:layout_marginLeft="-50dp"
-                        android:src="@drawable/sequencewithoutexpressivebuttons"/>
+                        android:layout_below="@id/tv12"/>
                     <TextView
                         android:id="@+id/tv13"
                         android:layout_width="wrap_content"
@@ -303,9 +286,7 @@
                         android:id="@+id/pic10"
                         android:layout_width="wrap_content"
                         android:layout_height="200dp"
-                        android:layout_below="@+id/tv13"
-                        android:layout_marginLeft="-50dp"
-                        android:src="@drawable/sequencewithexpressivebuttons"/>
+                        android:layout_below="@+id/tv13"/>
                 </RelativeLayout>
             </LinearLayout>
 

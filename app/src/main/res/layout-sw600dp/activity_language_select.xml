@@ -77,7 +77,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="19dp"
                 android:orientation="horizontal">
                 <Button
                     android:id="@+id/addBut"
@@ -102,6 +101,7 @@
                 android:id="@+id/llFollwStep"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="19dp"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="wrap_content"
@@ -124,7 +124,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/txtChangeLanguage"
-                android:layout_marginTop="19dp"
+                android:layout_marginTop="57dp"
                 android:layout_marginBottom="19dp"
                 android:textSize="20sp"
                 android:textColor="#000000"
@@ -227,6 +227,15 @@
                 android:layout_marginStart="-8dp"
                 android:layout_marginBottom="19dp"
                 android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="200dp"
+                    android:layout_height="300dp"
+                    android:src="@drawable/gtts1"/>
+                <ImageView
+                    android:layout_width="55dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/arrow"
+                    android:layout_gravity="center_vertical"/>
                 <ImageView
                     android:layout_width="200dp"
                     android:layout_height="300dp"

@@ -278,7 +278,7 @@ public class LevelThreeActivity extends AppCompatActivity {
         // Retrieve preference string stored in SQlite db for given category using category icons
         // selected in level one and level two. Database will return preference string if exist
         // otherwise it will return value "false".
-        String savedString = myDbHelper.getlevel(mLevelOneItemPos, mLevelTwoItemPos);
+        String savedString = myDbHelper.getLevel(mLevelOneItemPos, mLevelTwoItemPos);
         // savedString is equal to "false" then load level three category icons without any sort/preferences
         if (!savedString.equals("false")) {
             count_flag = 1;
@@ -322,7 +322,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                 || (mLevelOneItemPos == 4 && mLevelTwoItemPos == 9)) {
             retrieveSpeechArrays(mLevelOneItemPos, mLevelTwoItemPos);
 
-            // create sort array to sequentially arrange icon
+            // create sort array to sequentially arrange icons without any preferences
             for (int i=0; i< mNewVerbTxt.size();i++)
                 mArrSort[i] = i;
             //setup adapter
@@ -522,7 +522,8 @@ public class LevelThreeActivity extends AppCompatActivity {
                     mIvTTs.setVisibility(View.INVISIBLE);
                     mFlgKeyboard = 0;
                     changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
-                    if(mLevelThreeItemPos != -1) retainExpressiveButtonStates();
+                    if(mLevelThreeItemPos != -1)
+                        retainExpressiveButtonStates();
                     showActionBarTitle(true);
                 //when mFlgKeyboardOpened is set to 0, it means user intent to use custom
                 //keyboard input text so below steps will follow:
@@ -609,11 +610,9 @@ public class LevelThreeActivity extends AppCompatActivity {
                         //Firebase event
                         singleEvent("ExpressiveIcon","ReallyLike");
 
-                        if (count_flag == 1)
-                            speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(1));
-                        else {
-                            speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(1));
-                        }
+                        speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(1));
+
+
                         //reset mFlgLike to speak "like" expression
                         mFlgLike = 0;
                     // if value of mFlgLike is 0 then Speak associated like expression
@@ -622,10 +621,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                         //Firebase event
                         singleEvent("ExpressiveIcon","mIvLike");
 
-                        if (count_flag == 1)
-                            speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(0));
-                        else
-                            speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(0));
+                        speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(0));
                         //reset mFlgLike to speak "really like" expression
                         mFlgLike = 1;
                     }
@@ -690,10 +686,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                         //Firebase event
                         singleEvent("ExpressiveIcon","ReallyDon'tLike");
 
-                        if (count_flag == 1)
-                            speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(7));
-                        else
-                            speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(7));
+                        speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(7));
                         //reset mFlgDntLike to speak "dont like" expression
                         mFlgDntLike = 0;
                     // if value of mFlgDntLike is 0 then Speak associated don't like expression
@@ -702,10 +695,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                         //Firebase event
                         singleEvent("ExpressiveIcon","Don'tLike");
 
-                        if (count_flag == 1)
-                            speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(6));
-                        else
-                            speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(6));
+                        speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(6));
                         //reset mFlgDntLike to speak "really don't like" expression
                         mFlgDntLike = 1;
                     }
@@ -769,10 +759,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                         //Firebase event
                         singleEvent("ExpressiveIcon","ReallyYes");
 
-                        if (count_flag == 1)
-                            speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(3));
-                        else
-                            speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(3));
+                        speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(3));
                         //reset mFlgYes to speak "yes" expression
                         mFlgYes = 0;
                     // if value of mFlgYes is 0 then speak associated really yes expression
@@ -781,10 +768,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                         //Firebase event
                         singleEvent("ExpressiveIcon","Yes");
 
-                        if (count_flag == 1)
-                            speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(2));
-                        else
-                            speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(2));
+                        speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(2));
                         //reset mFlgYes to speak "really yes" expression
                         mFlgYes = 1;
                     }
@@ -848,10 +832,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                         //Firebase event
                         singleEvent("ExpressiveIcon","ReallyNo");
 
-                        if (count_flag == 1)
-                            speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(9));
-                        else
-                            speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(9));
+                        speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(9));
                         //reset mFlgNo to speak "no" expression
                         mFlgNo = 0;
                     // if value of mFlgNo is 0 then Speak associated no expression
@@ -860,10 +841,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                         //Firebase event
                         singleEvent("ExpressiveIcon","No");
 
-                        if (count_flag == 1)
-                            speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(8));
-                        else
-                            speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(8));
+                        speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(8));
                         //reset mFlgLike to speak "really no" expression
                         mFlgNo = 1;
                     }
@@ -925,10 +903,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                         //Firebase event
                         singleEvent("ExpressiveIcon","ReallyMore");
 
-                        if (count_flag == 1)
-                            speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(5));
-                        else
-                            speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(5));
+                        speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(5));
                         //reset mFlgMore to speak "more" expression
                         mFlgMore = 0;
                     // if value of mFlgMore is 0, then should speak "more" expression
@@ -937,10 +912,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                         //Firebase event
                         singleEvent("ExpressiveIcon","More");
 
-                        if (count_flag == 1)
-                            speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(4));
-                        else
-                            speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(4));
+                        speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(4));
                         //reset mFlgMore to speak "really more" expression
                         mFlgMore = 1;
                     }
@@ -1004,10 +976,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                         //Firebase event
                         singleEvent("ExpressiveIcon","ReallyLess");
 
-                        if (count_flag == 1)
-                            speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(11));
-                        else
-                            speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(11));
+                        speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(11));
                         //reset mFlgLess to speak "less" expression
                         mFlgLess = 0;
                     // if value of mFlgLess is 0 then Speak associated less expression
@@ -1016,10 +985,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                         //Firebase event
                         singleEvent("ExpressiveIcon","Less");
 
-                        if (count_flag == 1)
-                            speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(10));
-                        else
-                            speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(10));
+                        speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(10));
                         //reset mFlgLess to speak "really less" expression
                         mFlgLess = 1;
                     }
@@ -1146,7 +1112,7 @@ public class LevelThreeActivity extends AppCompatActivity {
      * */
     private void speakSpeech(String speechText){
         Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_TEXT");
-        intent.putExtra("speechText", speechText);
+        intent.putExtra("speechText", speechText.toLowerCase());
         sendBroadcast(intent);
     }
 
@@ -1403,15 +1369,6 @@ public class LevelThreeActivity extends AppCompatActivity {
             }
         } else if (levelOneItemPos == 1) {
             switch(levelTwoItemPos){
-                /*case 0:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeDailyActBrushingSpeechText);
-                    break;
-                case 1:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeDailyActToiletSpeechText);
-                    break;
-                case 2:
-                    mSpeechTxt =  getResources().getStringArray(R.array.arrLevelThreeDailyActBathingSpeechText);
-                    break;*/
                 case 3:
                     mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeDailyActClothesAccSpeechText);
                     break;
@@ -1424,12 +1381,6 @@ public class LevelThreeActivity extends AppCompatActivity {
                 case 6:
                     mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeDailyActTherapySpeechText);
                     break;
-               /* case 7:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeDailyActMorningScheSpeechText);
-                    break;
-                case 8:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeDailyActBedTimeScheSpeechText);
-                    break;*/
             }
         } else if (levelOneItemPos == 2) {
             switch(levelTwoItemPos){
