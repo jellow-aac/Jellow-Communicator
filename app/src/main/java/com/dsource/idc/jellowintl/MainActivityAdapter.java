@@ -22,13 +22,13 @@ import com.dsource.idc.jellowintl.Utility.SessionManager;
 class MainActivityAdapter extends android.support.v7.widget.RecyclerView.Adapter<MainActivityAdapter.MyViewHolder> {
     private Context mContext;
     private SessionManager mSession;
-    private TypedArray mThumbId;
-    private String[] mBelowText;
+    private TypedArray mIconArray;
+    private String[] mBelowTextArray;
     MainActivityAdapter(Context context) {
         mContext = context;
         mSession = new SessionManager(mContext);
-        mThumbId = mContext.getResources().obtainTypedArray(R.array.arrLevelOneIconAdapter);
-        mBelowText = mContext.getResources().getStringArray(R.array.arrLevelOneBelowText);
+        mIconArray = mContext.getResources().obtainTypedArray(R.array.arrLevelOneIconAdapter);
+        mBelowTextArray = mContext.getResources().getStringArray(R.array.arrLevelOneBelowText);
     }
 
     @Override
@@ -49,19 +49,19 @@ class MainActivityAdapter extends android.support.v7.widget.RecyclerView.Adapter
             holder.menuItemBelowText.setVisibility(View.INVISIBLE);
 
         holder.menuItemBelowText.setAllCaps(true);
-        holder.menuItemBelowText.setText(mBelowText[position]);
-        holder.menuItemImage.setImageDrawable(mThumbId.getDrawable(position));
-        holder.menuItemLinearLayout.setContentDescription(mBelowText[position]);
+        holder.menuItemBelowText.setText(mBelowTextArray[position]);
+        holder.menuItemImage.setImageDrawable(mIconArray.getDrawable(position));
+        holder.menuItemLinearLayout.setContentDescription(mBelowTextArray[position]);
         holder.menuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                ((MainActivity)mContext).tappedGridItemEvent(holder.menuItemLinearLayout, v, position);
+                ((MainActivity)mContext).tappedCategoryItemEvent(holder.menuItemLinearLayout, v, position);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return mThumbId.length();
+        return mIconArray.length();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {

@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     buildToolsVersion '26.0.2'
 
     defaultConfig {
         applicationId "com.dsource.idc.jellowintl"
         minSdkVersion 16
-        targetSdkVersion 25
-        versionCode 15
-        versionName "5.0"
+        targetSdkVersion 27
+        versionCode 3
+        versionName "1.2"
     }
     buildTypes {
         debug {
@@ -46,7 +46,6 @@ dependencies {
     compile 'com.liulishuo.filedownloader:library:1.6.8'
     compile 'com.github.rey5137:material:1.2.4'
     compile 'com.github.paolorotolo:appintro:4.0.0'
-    //compile 'com.mcxiaoke.volley:library-aar:1.0.0'
     implementation 'com.hbb20:ccp:2.1.2'
 }
 

@@ -218,7 +218,7 @@
         <item>Bandage</item>
         <item>Water</item>
         <item>Toilet</item>
-        <item>Bad touch</item>
+        <item>Unsafe touch</item>
         <item>Sanitary napkins</item>
         <item>Allergy</item>
         <item>Danger</item>
@@ -331,7 +331,7 @@
         <item>Bandage</item>
         <item>Water</item>
         <item>Toilet</item>
-        <item>Bad touch</item>
+        <item>Unsafe touch</item>
         <item>Sanitary napkins</item>
         <item>I have an allergy</item>
         <item>I am in danger! Please help</item>

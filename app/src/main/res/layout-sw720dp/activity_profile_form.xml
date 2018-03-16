@@ -159,7 +159,7 @@
             android:text="@string/txtSave"
             android:textSize="18sp"
             android:layout_gravity="center_vertical"
-            android:background="#FFBEBCB6"
+            android:background="@drawable/rounded_textview"
             android:layout_marginLeft="32dp"
             android:layout_marginStart="32dp" />
     </LinearLayout>

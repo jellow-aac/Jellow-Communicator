@@ -59,7 +59,7 @@
     <string name="demoTtsSpeech">Hello! you are using Jellow Communicator.</string>
     <string name="savedSettingsMessage">Settings saved.</string>
     <string name="languageChanged">Language Changed</string>
-    <string name="checkConnectivity">Please check internet connectivity</string>
+    <string name="checkConnectivity">Please check Internet connectivity</string>
     <string name="languageCurrentlyInUse">Language is currently in use</string>
     <string name="languageRemoved">Language removed</string>
     <string name="languageLimitExceeded">Delete a language to add new language</string>
@@ -68,11 +68,11 @@
     <string name="menuProfile">Profile</string>
     <string name="menuAbout">About Jellow</string>
     <string name="menuTutorials">Tutorial</string>
-    <string name="menuKeyboardInput">Voice and Keyboard Control</string>
+    <string name="menuKeyboardInput">Keyboard Control</string>
     <string name="menuResetPref">Reset Preferences</string>
     <string name="menuFeedback">Feedback</string>
 
-    <string name="endString" translatable="false"> </string>
+    <string name="endString"> </string>
 
     <string name="locale_reg_IN" translatable="false">IN</string>
     <string name="locale_lang_hi" translatable="false">hi</string>
@@ -108,7 +108,7 @@
     <string name="step2">Step 2: Save Keyboard as default option</string>
     <string name="saveAsDefault">SAVE AS DEFAULT</string>
     <string name="voiceControl">Voice Control:</string>
-    <string name="getVoiceControl">Voice and Keyboard Control</string>
+    <string name="getKeyboardControl">Keyboard Control</string>
     <string name="childName">Child\'s Name *</string>
     <string name="careGiveName">Caregiver\'s Name</string>
     <string name="careGiverContact">Caregiver\'s Contact No. *</string>
@@ -116,9 +116,9 @@
     <string name="emailAddress">Email Address *</string>
     <string name="bloodGroup">Blood Group</string>
     <string name="detailSaved">Details saved</string>
-    <string name="invalid_emailId">Invalid email address.</string>
+    <string name="invalid_emailId">Invalid email address</string>
     <string name="invalidContactNumber">Invalid contact number</string>
-    <string name="enterTheName">Please Enter the Name</string>
+    <string name="enterTheName">Please enter your Child\'s name</string>
     <string name="resetPreferenceMessage">
        <![CDATA[ <ul>
             <li>Jellow remembers the user\'s \"most-used/preferred\" icons and displays them as the top choices on the screen</li><br/>
@@ -129,7 +129,6 @@
     <string name="yes">yes</string>
     <string name="no">no</string>
     <string name="iconsHasBeenReset">Preferences have been reset.</string>
-    <string name="checkInternetConn">Please check internet connection and try again</string>
     <string name="about_jellow">
         <![CDATA[
         <head>
@@ -152,10 +151,10 @@
 </ul>
 
 </ul>
-<p><strong>&nbsp;Software Version: 5.0</strong></p>
+<p><strong>&nbsp;Software Version: 1.2</strong></p>
 
 <ul>
-<li>The current version of Jellow is 5.0. The application is under further development. Therefore, if you have any suggestions for us, please submit it under the feedback tab.</li><br/>
+<li>The current version of Jellow is 1.2. The application is under further development. Therefore, if you have any suggestions for us, please submit it under the feedback tab.</li><br/>
 </ul>
 
 <p><strong>&nbsp;Terms of Use</strong></p>
@@ -181,7 +180,7 @@
 
 <ul>
 <li><strong>Software Development: </strong></li>
-<font>Narayana Reddy, Rahul Rupchand Jidge, Sumeet Agrawal, Roop Sahoo, Shruti Gupta, Aastha Joshi, Dhairya Dand, Pritam Pebam</font>
+<font>Rahul Rupchand Jidge, Narayana Reddy, Sumeet Agrawal, Roop Sahoo, Shruti Gupta, Aastha Joshi, Dhairya Dand, Pritam Pebam</font>
 </ul>
 
 <ul>
@@ -213,7 +212,7 @@
     </string>
     <string name="speak">Speak</string>
     <string name="stop">Stop</string>
-    <string name="about_jellow_speech">Jellow is a communicator using icons to enable speech and can be used by those learning to speak or those who have difficulty with speech. It is developed at IDC School of Design at the Indian Institute of Technology Bombay located in Mumbai. A novel Visual Emotional Language Proto call or VELP was conceived and developed by the project investigators in order to enhance the language ability of Jellow. VELP represents the 6 expressive icons that form the core of the interface. Using these core icons, the child can communicate their likes, dislikes, and needs with others. Jellow is conceived as children-friendly with an easy-to-learn interface. The application is optimized for Android tablets.Jellow is currently available in English and Hindi. The current version of Jellow is 5.0. The application is under further development. Therefore, if you have any suggestions for us, please submit it under the feedback tab.  Jellow is licensed under a Creative Commons Attribution Non-commercial Share Alike 4.0 International License. Work on Jellow is attributed to the Indian Institute of Technology Bombay. The content in this application comprising icons, layout, architecture, visual identity, translation, and the software codes can be shared and adopted but cannot be used for commercial purposes. When the content is used, we request you to acknowledge Indian Institute of Technology Bombay. Jellow is available for download at www dot d source.in/tool/jellow. If interested in further developing the code, please write to Professor Ravi Poovaiah at ravi @ i i t b dot a c.in</string>
+    <string name="about_jellow_speech">Jellow is a communicator using icons to enable speech and can be used by those learning to speak or those who have difficulty with speech. It is developed at IDC School of Design at the Indian Institute of Technology Bombay located in Mumbai. A novel Visual Emotional Language Proto call or VELP was conceived and developed by the project investigators in order to enhance the language ability of Jellow. VELP represents the 6 expressive icons that form the core of the interface. Using these core icons, the child can communicate their likes, dislikes, and needs with others. Jellow is conceived as children-friendly with an easy-to-learn interface. The application is optimized for Android tablets.Jellow is currently available in English and Hindi. The current version of Jellow is 1.2. The application is under further development. Therefore, if you have any suggestions for us, please submit it under the feedback tab.  Jellow is licensed under a Creative Commons Attribution Non-commercial Share Alike 4.0 International License. Work on Jellow is attributed to the Indian Institute of Technology Bombay. The content in this application comprising icons, layout, architecture, visual identity, translation, and the software codes can be shared and adopted but cannot be used for commercial purposes. When the content is used, we request you to acknowledge Indian Institute of Technology Bombay. Jellow is available for download at www dot d source.in/tool/jellow. If interested in further developing the code, please write to Professor Ravi Poovaiah at ravi @ i i t b dot a c.in</string>
     <string name="catBtnDesc">Jellow has 9 central category buttons and 6 expressive side buttons:</string>
     <string name="catBtn">Category buttons:</string>
     <string name="expBtn">Expressive buttons:</string>
@@ -236,10 +235,7 @@
     <string name="resetPrefPointThree">Do you want to reset preferences?</string>
     <string name="bullet" translatable="false">●</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
-    <string name="no_language_data_avail">Please download selected language data.</string>
-    <string name="downloadErrorMsg" translatable="false">Please ensure an active internet connection during the entire download process. In case the progress bar is stalled, kindly restart the app or try again</string>
+    <string name="downloadErrorMsg">Please ensure an active Internet connection during the entire download process. In case the progress bar is stalled, kindly restart the app or try again</string>
     <string name="default_lang_folder_name" translatable="false">com.dsource.idc.jellow.lang_folder_name</string>
     <string name="intro_to_jellow">Introduction to Jellow</string>
     <string name="rate_jellow">Kindly rate Jellow in all fields.</string>
@@ -255,12 +251,13 @@
     <string name="txt_intro3_navWithJellow">Navigating within Jellow</string>
     <string name="txt_intro4_customizeAppDesc">User can customize application settings by clicking on top right corner of the application</string>
     <string name="txt_intro4_customizeJellow">Settings within Jellow</string>
-    <string name="txt_intro6_skipActiveTtsDesc">Set Google Tts as default speech engine then set language as</string>
+    <!--<string name="txt_intro6_skipActiveTtsDesc">Set Google Tts as default speech engine then set language as _</string>-->
+    <string name="txt_intro6_skipActiveTtsDesc">For - accent set language as _.</string>
     <string name="txt_intro6_ttsStep1">1.Activate Google TTS</string>
     <string name="txt_intro6_activate">ACTIVATE</string>
-    <string name="txt_intro6_step2">2. Make preferred language as default</string>
+    <string name="txt_intro6_step2">2. Set _ language as default</string>
     <string name="txt_intro6_changeLang">CHANGE LANGUAGE</string>
-    <string name="txt_intro6_step3">3. Download voice in preferred language</string>
+    <string name="txt_intro6_step3">3. Download _ voice</string>
     <string name="txt_intro6_download">DOWNLOAD</string>
     <string name="txt_intro7_getStartedDesc">Now you are ready to get started with Jellow</string>
     <string name="txt_intro7_getStarted">GET STARTED</string>
@@ -273,14 +270,20 @@
     <string name="txt_registration_registerBtn">REGISTER</string>
     <string name="enternonemptycontact">Please enter the contact number</string>
     <string name="change_tts_lang">Set TTS engine language</string>
-    <string name="set_engine_language">Please complete step 2</string>
-    <string name="change_language_line4">Step 2: Set selected language as default for the <b>\'Google Text-to-speech (TTS) Engine\'</b></string>
+    <string name="set_engine_language">Please complete step 3</string>
+    <string name="change_language_line5">Step 2: Check if voice data for _ is available on your device. If not please download voice data for selected language.</string>
+    <string name="change_language_line4">Step 3: Set \'Google Text-to-speech (TTS)\' as default TTS engine and set _ as default language of the engine.</string>
     <string name="txtEditLanguage">Edit Languages:</string>
     <string name="txtChangeLanguage">Change Default Language:</string>
-    <string name="txtApplyChanges">Step 3: Click \'Apply changes\' to set new language as default</string>
+    <string name="txtApplyChanges">Step 4: Click \'Apply changes\' to set new language as default</string>
     <string name="change_language_line6">You can follow the steps listed below to set a newly added language as the default for Jellow</string>
-    <string name="txt_set_tts_setup">Please complete Text-to-Speech engine setup given in previous page</string>
-    <string name="txt_save_same_lang_def">Selected language is already default language.</string>
-    <string name="speech_engin_lang_sam">Please complete the step \'Change Default Language\' in language menu.</string>
+    <string name="txt_set_tts_setup">Please complete Text-to-Speech engine setup given in this page</string>
+    <string name="txt_save_same_lang_def">Selected language is already default language</string>
+    <string name="speech_engin_lang_sam">Please check the \'Language\' settings of the app</string>
     <string name="txt_intro6_skipTtsSetup">Devices with active Google TTS engine: Please swipe to skip current step</string>
+    <string name="txt_actLangSel_downloadDat">Check voice data</string>
+    <string name="txt_actLangSel_completestep2">Voice data is unavailable. Please turn on the Internet to download voice data.</string>
+    <string name="language_downloaded">_ language downloaded</string>
+    <string name="language_downloading">Downloading _ language</string>
+    <string name="welcome_msg">Hi</string>
 </resources>

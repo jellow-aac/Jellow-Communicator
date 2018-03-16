@@ -49,10 +49,10 @@
 </ul>
 
 </ul>
-<p><strong>&nbsp;Software Version: 5.0</strong></p>
+<p><strong>&nbsp;Software Version: 1.2</strong></p>
 
 <ul>
-<li>The current version of Jellow is 5.0. The application is under further development. Therefore, if you have any suggestions for us, please submit it under the feedback tab.</li><br/>
+<li>The current version of Jellow is 1.2. The application is under further development. Therefore, if you have any suggestions for us, please submit it under the feedback tab.</li><br/>
 </ul>
 
 <p><strong>&nbsp;Terms of Use</strong></p>
@@ -78,7 +78,7 @@
 
 <ul>
 <li><strong>Software Development: </strong></li>
-<font>Narayana Reddy, Rahul Rupchand Jidge, Sumeet Agrawal, Roop Sahoo, Shruti Gupta, Aastha Joshi, Dhairya Dand, Pritam Pebam</font>
+<font>Rahul Rupchand Jidge, Narayana Reddy, Sumeet Agrawal, Roop Sahoo, Shruti Gupta, Aastha Joshi, Dhairya Dand, Pritam Pebam</font>
 </ul>
 
 <ul>
@@ -108,6 +108,4 @@
 </body>
 ]]>
     </string>
-
-    <!-- TODO: Remove or change this placeholder text -->
 </resources>

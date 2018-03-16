@@ -1,10 +1,11 @@
 package com.dsource.idc.jellowintl;
 
 import android.app.ActivityManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 
 import com.dsource.idc.jellowintl.Utility.ChangeAppLocale;
@@ -45,16 +46,29 @@ public class SplashActivity extends AppCompatActivity {
             }
             sManager = null;
         }
-        new CountDownTimer(5000, 1) {
-            public void onTick(long millisUntilFinished) {}
-            public void onFinish() {
-                startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                finish();
-            }
-        }.start();
         EvaluateDisplayMetricsUtils displayMetricsUtils = new EvaluateDisplayMetricsUtils(this);
         displayMetricsUtils.calculateStoreDeviceHeightWidth();
         displayMetricsUtils.calculateStoreShadowRadiusAndBorderWidth();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.dsource.idc.jellowintl.INIT_SERVICE");
+        registerReceiver(receiver, filter);
+    }
+
+    private final BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(final Context context, Intent intent) {
+            switch (intent.getAction()){
+                case "com.dsource.idc.jellowintl.INIT_SERVICE":
+                    startJellow();
+                    break;
+            }
+        }
+    };
+
+    private void startJellow() {
+        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+        unregisterReceiver(receiver);
+        finish();
     }
 
     private void performDatabaseOperations() {
@@ -69,6 +83,17 @@ public class SplashActivity extends AppCompatActivity {
 
     private void stopTTsService() {
         Intent intent = new Intent("com.dsource.idc.jellowintl.STOP_SERVICE");
+        sendBroadcast(intent);
+    }
+
+    /**
+     * <p>This function will send speech output request to
+     * {@link com.dsource.idc.jellowintl.Utility.JellowTTSService} Text-to-speech Engine.
+     * The string in {@param speechText} is speech output request string.</p>
+     * */
+    private void speakSpeech(String speechText){
+        Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_TEXT");
+        intent.putExtra("speechText", speechText.toLowerCase());
         sendBroadcast(intent);
     }
 

@@ -25,8 +25,8 @@ import java.util.ArrayList;
 class LevelThreeAdapter extends android.support.v7.widget.RecyclerView.Adapter<LevelThreeAdapter.MyViewHolder>{
     private Context mContext;
     private SessionManager mSession;
-    private ArrayList<String> mThumbIds = new ArrayList<>();
-    private ArrayList<String> belowText = new ArrayList<>();
+    private ArrayList<String> mIconList = new ArrayList<>();
+    private ArrayList<String> mBelowTextList = new ArrayList<>();
     private String path;
 
     LevelThreeAdapter(Context context, int levelOneItemPos, int levelTwoItemPos, int sort[]){
@@ -53,9 +53,9 @@ class LevelThreeAdapter extends android.support.v7.widget.RecyclerView.Adapter<L
         final int MODE_PICTURE_ONLY = 1;
         if (mSession.getPictureViewMode() == MODE_PICTURE_ONLY)
             holder.menuItemBelowText.setVisibility(View.INVISIBLE);
-        holder.menuItemBelowText.setText(belowText.get(position));
+        holder.menuItemBelowText.setText(mBelowTextList.get(position));
         GlideApp.with(mContext)
-                .load(path+"/"+mThumbIds.get(position)+".png")
+                .load(path+"/"+ mIconList.get(position)+".png")
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(false)
                 .centerCrop()
@@ -63,7 +63,7 @@ class LevelThreeAdapter extends android.support.v7.widget.RecyclerView.Adapter<L
                 .into(holder.menuItemImage);
         holder.menuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                ((LevelThreeActivity)mContext).tappedGridItemEvent(holder.menuItemLinearLayout, v, position);
+                ((LevelThreeActivity)mContext).tappedCategoryItemEvent(holder.menuItemLinearLayout, v, position);
             }
         });
     }
@@ -75,7 +75,7 @@ class LevelThreeAdapter extends android.support.v7.widget.RecyclerView.Adapter<L
 
     @Override
     public int getItemCount() {
-        return mThumbIds.size();
+        return mIconList.size();
     }
 
     private void loadArraysFromResources(int levelOneItemPos, int levelTwoItemPos, int[] sort) {
@@ -96,15 +96,6 @@ class LevelThreeAdapter extends android.support.v7.widget.RecyclerView.Adapter<L
             }
         } else if (levelOneItemPos == 1) {
             switch(levelTwoItemPos){
-                case 0: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActBrushingIconAdapter),
-                        mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActBrushingAdapterText), sort);
-                    break;
-                case 1: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActToiletIconAdapter),
-                        mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActToiletAdapterText), sort);
-                    break;
-                case 2: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActBathingIconAdapter),
-                        mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActBathingAdapterText), sort);
-                    break;
                 case 3: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActClothesIconAdapter),
                         mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActClothesAccAdapterText), sort);
                     break;
@@ -116,12 +107,6 @@ class LevelThreeAdapter extends android.support.v7.widget.RecyclerView.Adapter<L
                     break;
                 case 6: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActTherapyIconAdapter),
                         mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActTherapyAdapterText), sort);
-                    break;
-                case 7: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActMorningScheIconAdapter),
-                        mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActMorningScheAdapterText), sort);
-                    break;
-                case 8: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActBedTimeScheIconAdapter),
-                        mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActMorningBedTimScheAdapterText), sort);
                     break;
             }
         } else if (levelOneItemPos == 2) {
@@ -241,8 +226,8 @@ class LevelThreeAdapter extends android.support.v7.widget.RecyclerView.Adapter<L
             tempIconArr.add(typeIconArray[j]);
             tempBelowTextArr.add(stringBelowTextArray[j]);
         }
-        mThumbIds = tempIconArr;
-        belowText = tempBelowTextArr;
+        mIconList = tempIconArr;
+        mBelowTextList = tempBelowTextArr;
     }
 
     private void loadAdapterMenuTextIconsWithSort(String[] typeIconArray, String[] stringBelowTextArray, int[] sort) {
@@ -254,8 +239,8 @@ class LevelThreeAdapter extends android.support.v7.widget.RecyclerView.Adapter<L
             tempIconArr.add(typeIconArray[sort[j]]);
             tempBelowTextArr.add(stringBelowTextArray[sort[j]]);
         }
-        mThumbIds = tempIconArr;
-        belowText = tempBelowTextArr;
+        mIconList = tempIconArr;
+        mBelowTextList = tempBelowTextArr;
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder  {

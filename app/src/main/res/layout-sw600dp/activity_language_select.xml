@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/txtEditLanguage"
                 android:layout_marginBottom="19dp"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:textColor="#000000"
                 android:textStyle="bold"/>
             <LinearLayout
@@ -77,31 +77,31 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="19dp"
                 android:orientation="horizontal">
                 <Button
                     android:id="@+id/addBut"
                     android:layout_width="230dp"
                     android:textSize="18sp"
                     android:layout_gravity="center_vertical"
-                    android:background="#FFBEBCB6"
-                    android:layout_height="40dp"
+                    android:background="@drawable/rounded_textview"
+                    android:layout_height="wrap_content"
                     android:text="@string/addLanguage" />
                 <Button
                     android:id="@+id/delBut"
                     android:layout_width="230dp"
                     android:textSize="18sp"
                     android:layout_gravity="center_vertical"
-                    android:background="#FFBEBCB6"
-                    android:layout_height="40dp"
+                    android:background="@drawable/rounded_textview"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_marginStart="30dp"
                     android:text="@string/deleteLanguage" />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/llFollwStep"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="19dp"
+                android:layout_marginTop="19dp"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="wrap_content"
@@ -124,8 +124,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/txtChangeLanguage"
+                android:layout_marginTop="57dp"
                 android:layout_marginBottom="19dp"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:textColor="#000000"
                 android:textStyle="bold"/>
 
@@ -175,39 +176,26 @@
                     android:id="@+id/tv4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/change_language_line4"
+                    android:text="@string/change_language_line5"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textSize="18sp" />
             </LinearLayout>
-            <LinearLayout
-                android:id="@+id/llImg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/ivTtsVoiceDat"
+                android:layout_width="200dp"
+                android:layout_height="300dp"
+                android:layout_marginLeft="-8dp"
+                android:layout_marginStart="-8dp"
                 android:layout_marginBottom="19dp"
-                android:orientation="horizontal">
-                <ImageView
-                    android:layout_width="200dp"
-                    android:layout_height="300dp"
-                    android:src="@drawable/gtts2"/>
-                <ImageButton
-                    android:layout_width="55dp"
-                    android:layout_height="80dp"
-                    android:clickable="false"
-                    android:background="@drawable/arrow"
-                    android:layout_gravity="center_vertical"/>
-                <ImageView
-                    android:layout_width="200dp"
-                    android:layout_height="300dp"
-                    android:src="@drawable/gtts4"/>
-            </LinearLayout>
+                android:src="@drawable/gtts3"/>
             <Button
-                android:id="@+id/changeTtsLangBut"
+                android:id="@+id/btnDownloadVoiceData"
                 android:layout_width="230dp"
-                android:textSize="18sp"
-                android:background="#FFBEBCB6"
-                android:layout_marginBottom="19dp"
                 android:layout_height="wrap_content"
-                android:text="@string/change_tts_lang"/>
+                android:textSize="18sp"
+                android:background="@drawable/rounded_textview"
+                android:layout_marginBottom="19dp"
+                android:text="@string/txt_actLangSel_downloadDat"/>
             <LinearLayout
                 android:id="@+id/llStep3"
                 android:layout_width="wrap_content"
@@ -224,6 +212,69 @@
                     android:scaleY=".7"
                     android:text="@string/bullet" />
                 <TextView
+                    android:id="@+id/tv5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/change_language_line4"
+                    android:textColor="#000000"
+                    android:textSize="18sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/llImg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="-8dp"
+                android:layout_marginStart="-8dp"
+                android:layout_marginBottom="19dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="200dp"
+                    android:layout_height="300dp"
+                    android:src="@drawable/gtts1"/>
+                <ImageView
+                    android:layout_width="55dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/arrow"
+                    android:layout_gravity="center_vertical"/>
+                <ImageView
+                    android:layout_width="200dp"
+                    android:layout_height="300dp"
+                    android:src="@drawable/gtts2"/>
+                <ImageView
+                    android:layout_width="55dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/arrow"
+                    android:layout_gravity="center_vertical"/>
+                <ImageView
+                    android:layout_width="200dp"
+                    android:layout_height="300dp"
+                    android:src="@drawable/gtts4"/>
+            </LinearLayout>
+            <Button
+                android:id="@+id/changeTtsLangBut"
+                android:layout_width="230dp"
+                android:textSize="18sp"
+                android:background="@drawable/rounded_textview"
+                android:layout_marginBottom="19dp"
+                android:layout_height="wrap_content"
+                android:text="@string/change_tts_lang"/>
+            <LinearLayout
+                android:id="@+id/llStep4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="19dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginRight="4dp"
+                    android:textColor="#000"
+                    android:scaleX=".7"
+                    android:scaleY=".7"
+                    android:text="@string/bullet" />
+                <TextView
+                    android:id="@+id/tv6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/txtApplyChanges"
@@ -235,7 +286,7 @@
                 android:layout_width="230dp"
                 android:textSize="18sp"
                 android:layout_marginBottom="19dp"
-                android:background="#FFBEBCB6"
+                android:background="@drawable/rounded_textview"
                 android:layout_height="wrap_content"
                 android:text="@string/saveLanguage" />
         </LinearLayout>

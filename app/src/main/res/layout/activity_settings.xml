@@ -34,9 +34,9 @@
                     android:layout_width="370dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    app:sl_minValue="10"
-                    app:sl_maxValue="250"
-                    app:sl_stepValue="10"
+                    app:sl_minValue="0"
+                    app:sl_maxValue="100"
+                    app:sl_stepValue="1"
                     app:sl_primaryColor="@color/colorAccent"
                     app:sl_secondaryColor="@color/colorLess"/>
                 <TextView
@@ -54,9 +54,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:indeterminate="false"
-                    app:sl_minValue="10"
-                    app:sl_maxValue="250"
-                    app:sl_stepValue="10"
+                    app:sl_minValue="0"
+                    app:sl_maxValue="100"
+                    app:sl_stepValue="1"
                     app:sl_primaryColor="@color/colorAccent"
                     app:sl_secondaryColor="@color/colorLess"/>
 
@@ -106,7 +106,7 @@
             android:text="@string/txtDemo"
             android:textSize="14sp"
             android:layout_gravity="center_vertical"
-            android:background="#FFBEBCB6"
+            android:background="@drawable/rounded_textview"
             android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp"/>
         <Button
@@ -116,7 +116,7 @@
             android:text="@string/txtSave"
             android:textSize="14sp"
             android:layout_gravity="center_vertical"
-            android:background="#FFBEBCB6"
+            android:background="@drawable/rounded_textview"
             android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp"/>
     </LinearLayout>

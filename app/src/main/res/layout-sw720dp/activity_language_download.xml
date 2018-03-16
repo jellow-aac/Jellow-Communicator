@@ -9,9 +9,9 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="96dp"
-        android:layout_marginRight="96dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginLeft="192dp"
+        android:layout_marginRight="192dp"
+        android:layout_marginBottom="56dp"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:orientation="vertical">
@@ -19,7 +19,7 @@
             android:id="@+id/pg"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="56dp"
             app:rcBackgroundColor="@color/colorPrimary"
             app:rcBackgroundPadding="2dp"
             app:rcProgressColor="@color/colorIntro"
@@ -29,7 +29,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:textSize="18sp"
             android:textColor="#404040"
             android:text="@string/downloadErrorMsg"/>
     </LinearLayout>

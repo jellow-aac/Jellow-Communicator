@@ -32,9 +32,12 @@ import com.dsource.idc.jellowintl.Utility.SessionManager;
 import com.dsource.idc.jellowintl.Utility.ToastWithCustomTime;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
+import com.google.firebase.database.ValueEventListener;
 import com.hbb20.CountryCodePicker;
 
 import java.io.IOException;
@@ -75,12 +78,9 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
         mSession = new SessionManager(this);
 
-        if(!mSession.getFather_no().equals(""))
-        getAnalytics(this,mSession.getFather_no());
-
-
-
-        if (mSession.isUserLoggedIn())
+        if(!mSession.getCaregiverNumber().equals(""))
+        getAnalytics(this,mSession.getCaregiverNumber());
+        if (mSession.isUserLoggedIn() && !mSession.getLanguage().isEmpty())
         {
             if(mSession.isDownloaded(mSession.getLanguage()) && mSession.isCompletedIntro()) {
                 startActivity(new Intent(this, SplashActivity.class));
@@ -91,8 +91,9 @@ public class UserRegistrationActivity extends AppCompatActivity {
                         LanguageDownloadActivity.class).putExtra(LCODE,mSession.getLanguage()).putExtra(TUTORIAL,true));
             }
             finish();
-        }else
+        }else {
             mSession.setBlood(-1);
+        }
 
         mDB = FirebaseDatabase.getInstance();
         mRef = mDB.getReference(BuildConfig.DB_TYPE+"/users");
@@ -109,7 +110,6 @@ public class UserRegistrationActivity extends AppCompatActivity {
         bRegister.setAlpha(0.5f);
         bRegister.setEnabled(true);
 
-
         etName.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override public void afterTextChanged(Editable s) {}
@@ -125,10 +125,6 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-
-
 
         languageSelect = findViewById(R.id.langSelectSpinner);
 
@@ -176,8 +172,37 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 Calendar ca = Calendar.getInstance();
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 formattedDate = df.format(ca.getTime());
+                //checkNetworkConnection();
                 //showCallPreview();
                 new NetworkConnectionTest(UserRegistrationActivity.this, name, emergencyContact, eMailId, formattedDate).execute();
+            }
+        });
+
+        if(!mSession.getName().isEmpty()){
+            etName.setText(mSession.getName());
+            etEmergencyContact.setText(mSession.getCaregiverNumber());
+            etEmailId.setText(mSession.getEmailId());
+        }
+    }
+
+    private void checkNetworkConnection() {
+        DatabaseReference connectedRef = FirebaseDatabase.getInstance().getReference(".info/connected");
+        connectedRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (snapshot.getValue(Boolean.class)) {
+                    mSession.setName(name);
+                    mSession.setCaregiverNumber(emergencyContact);
+                    mSession.setUserCountryCode(mCcp.getSelectedCountryCode());
+                    mSession.setEmailId(eMailId);
+                    createUser(name, emergencyContact, eMailId, formattedDate);
+                    return;
+                }
+                Toast.makeText(UserRegistrationActivity.this, getString(R.string.checkConnectivity), Toast.LENGTH_LONG).show();
+            }
+            @Override
+            public void onCancelled(DatabaseError error) {
+                System.err.println("Listener was cancelled");
             }
         });
     }
@@ -215,7 +240,9 @@ public class UserRegistrationActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(UserRegistrationActivity.this, "Call permission was denied.", Toast.LENGTH_LONG).show();
             }
+            //checkNetworkConnection();
             new NetworkConnectionTest(UserRegistrationActivity.this, name, emergencyContact, eMailId, formattedDate).execute();
+
         }
     }
         private void createUser(final String name,final String emergencyContact, String eMailId, String formattedDate)
@@ -244,7 +271,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
                         finish();
                     } else {
                         bRegister.setEnabled(true);
-                        Toast.makeText(UserRegistrationActivity.this, getString(R.string.checkInternetConn), Toast.LENGTH_LONG).show();
+                        Toast.makeText(UserRegistrationActivity.this, getString(R.string.checkConnectivity), Toast.LENGTH_LONG).show();
                     }
                 }
             });
@@ -298,7 +325,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
             super.onPostExecute(isConnected);
             if(isConnected){
                 mSession.setName(mName);
-                mSession.setFather_no(mEmergencyContact);
+                mSession.setCaregiverNumber(mEmergencyContact);
                 mSession.setUserCountryCode(mCcp.getSelectedCountryCode());
                 mSession.setEmailId(mEmailId);
                 Calendar ca = Calendar.getInstance();
@@ -307,7 +334,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 createUser(mName, mEmergencyContact, mEmailId, mFormattedDate);
             }else{
                 bRegister.setEnabled(true);
-                Toast.makeText(UserRegistrationActivity.this, getString(R.string.checkInternetConn), Toast.LENGTH_LONG).show();
+                Toast.makeText(UserRegistrationActivity.this, getString(R.string.checkConnectivity), Toast.LENGTH_LONG).show();
             }
         }
     }

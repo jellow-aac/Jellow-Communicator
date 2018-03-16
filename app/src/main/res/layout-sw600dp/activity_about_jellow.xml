@@ -40,7 +40,7 @@
             android:text="@string/speak"
             android:textSize="18sp"
             android:layout_gravity="center_vertical"
-            android:background="#FFBEBCB6"
+            android:background="@drawable/rounded_textview"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"/>
         <Button
@@ -50,7 +50,7 @@
             android:text="@string/stop"
             android:textSize="18sp"
             android:layout_gravity="center_vertical"
-            android:background="#FFBEBCB6"
+            android:background="@drawable/rounded_textview"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"/>
     </LinearLayout>
