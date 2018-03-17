@@ -1,10 +1,10 @@
-package com.dsource.idc.jellowintl.Utility;
+package com.dsource.idc.jellowintl.utility;
 
 import android.app.Activity;
 import android.util.Log;
 import android.widget.Toast;
 
-import static com.dsource.idc.jellowintl.Utility.Analytics.reportException;
+import static com.dsource.idc.jellowintl.utility.Analytics.reportException;
 
 /**
  * Created by ekalpa on 12/4/2017.

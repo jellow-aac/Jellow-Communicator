@@ -19,7 +19,7 @@ import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.Toast;
 
-import com.dsource.idc.jellowintl.Utility.ChangeAppLocale;
+import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 
 public class FeedbackActivity extends AppCompatActivity {
     private RatingBar mRatingEasyToUse;

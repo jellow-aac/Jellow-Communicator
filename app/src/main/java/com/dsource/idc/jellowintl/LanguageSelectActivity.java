@@ -26,19 +26,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.dsource.idc.jellowintl.Utility.ChangeAppLocale;
-import com.dsource.idc.jellowintl.Utility.DefaultExceptionHandler;
-import com.dsource.idc.jellowintl.Utility.SessionManager;
+import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
+import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
+import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.LCODE;
-import static com.dsource.idc.jellowintl.Utility.Analytics.startMeasuring;
-import static com.dsource.idc.jellowintl.Utility.Analytics.stopMeasuring;
-import static com.dsource.idc.jellowintl.Utility.SessionManager.LangMap;
-import static com.dsource.idc.jellowintl.Utility.SessionManager.LangValueMap;
+import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
+import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
+import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
+import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
+import static com.dsource.idc.jellowintl.utility.SessionManager.LangValueMap;
 
 public class LanguageSelectActivity extends AppCompatActivity{
 
@@ -58,6 +60,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_language_select);
+        new ChangeAppLocale(this).setLocale();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.Language)+"</font>"));
@@ -347,6 +350,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
     @Override
     protected void onPause() {
         super.onPause();
+        new ChangeAppLocale(this).setLocale();
         stopMeasuring("ChangeLanguageActivity");
     }
 
@@ -354,7 +358,8 @@ public class LanguageSelectActivity extends AppCompatActivity{
     protected void onResume() {
         super.onResume();
         startMeasuring();
-        new ChangeAppLocale(this).setLocale();
+        ///new ChangeAppLocale(this).setLocale();
+        //((RelativeLayout) findViewById(R.id.parentView)).invalidate();
         onlineLanguages = getOnlineLanguages();
         offlineLanguages = getOfflineLanguages();
         adapter_lan = new ArrayAdapter<String>(this,
@@ -445,7 +450,10 @@ public class LanguageSelectActivity extends AppCompatActivity{
     };
 
     private void saveLanguage() {
-        mSession.setLanguage(LangMap.get(selectedLanguage));
+        mSession.setLanguage(LangMap.get(selectedLanguage));Bundle bundle = new Bundle();
+        bundle.putString("NewLanguageSetFromSettings",LangMap.get(selectedLanguage));
+        bundleEvent("Language",bundle);
+        setUserProperty("UserLanguage", LangMap.get(selectedLanguage));
         ChangeAppLocale changeAppLocale = new ChangeAppLocale(getBaseContext());
         changeAppLocale.setLocale();
         Toast.makeText(LanguageSelectActivity.this, getString(R.string.languageChanged), Toast.LENGTH_SHORT).show();

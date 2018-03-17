@@ -10,10 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.dsource.idc.jellowintl.Utility.ChangeAppLocale;
+import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 
-import static com.dsource.idc.jellowintl.Utility.Analytics.startMeasuring;
-import static com.dsource.idc.jellowintl.Utility.Analytics.stopMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
 
 /**
  * Created by user on 6/6/2016.

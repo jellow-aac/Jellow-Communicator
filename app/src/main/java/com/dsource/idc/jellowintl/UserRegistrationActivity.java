@@ -27,10 +27,13 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.dsource.idc.jellowintl.Utility.DefaultExceptionHandler;
-import com.dsource.idc.jellowintl.Utility.SessionManager;
-import com.dsource.idc.jellowintl.Utility.ToastWithCustomTime;
+import com.dsource.idc.jellowintl.models.SecureKeys;
+import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
+import com.dsource.idc.jellowintl.utility.SessionManager;
+import com.dsource.idc.jellowintl.utility.ToastWithCustomTime;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,19 +41,26 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.gson.Gson;
 import com.hbb20.CountryCodePicker;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import static com.dsource.idc.jellowintl.Utility.Analytics.bundleEvent;
-import static com.dsource.idc.jellowintl.Utility.Analytics.getAnalytics;
-import static com.dsource.idc.jellowintl.Utility.Analytics.setUserProperty;
-import static com.dsource.idc.jellowintl.Utility.SessionManager.LangMap;
+import se.simbio.encryption.Encryption;
+
+import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
+import static com.dsource.idc.jellowintl.utility.Analytics.getAnalytics;
+import static com.dsource.idc.jellowintl.utility.Analytics.reportException;
+import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
+import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
 
 public class UserRegistrationActivity extends AppCompatActivity {
     public static final String LCODE = "lcode";
@@ -245,7 +255,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
         }
     }
-        private void createUser(final String name,final String emergencyContact, String eMailId, String formattedDate)
+
+    private void createUser(final String name,final String emergencyContact, String eMailId, String formattedDate)
     {
         try {
             getAnalytics(UserRegistrationActivity.this,emergencyContact);
@@ -261,7 +272,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
                         mSession.setGridSize(GRID_3BY3);
                         Bundle bundle = new Bundle();
                         bundle.putString("First Run Selected Language",LangMap.get(selectedLanguage));
-                        setUserProperty("UserId",emergencyContact);
+                        setUserProperty("UserId", emergencyContact);
+                        setUserProperty("UserLanguage", LangMap.get(selectedLanguage));
                         bundleEvent("Language",bundle);
                         bundle.clear();
                         bundle.putString(LCODE,LangMap.get(selectedLanguage));
@@ -331,11 +343,42 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 Calendar ca = Calendar.getInstance();
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 mFormattedDate = df.format(ca.getTime());
-                createUser(mName, mEmergencyContact, mEmailId, mFormattedDate);
+                encryptStoreUserInfo(mName, emergencyContact, eMailId, mFormattedDate);
             }else{
                 bRegister.setEnabled(true);
                 Toast.makeText(UserRegistrationActivity.this, getString(R.string.checkConnectivity), Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    private void encryptStoreUserInfo(final String name, final String contact,
+                                      final String email, final String formattedDate) {
+        FirebaseStorage storage =  FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+        StorageReference pathReference = storageRef.child("jellow-json.json");
+        final long ONE_MEGABYTE = 1024 * 1024;
+        pathReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                try {
+                    String jsonData = new String(bytes, "UTF-8");
+                    SecureKeys secureKey = new Gson().fromJson(jsonData, SecureKeys.class);
+                    createUser(encrypt(name, secureKey), encrypt(email, secureKey),
+                            encrypt(contact, secureKey), formattedDate);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                reportException(exception);
+            }
+        });
+    }
+
+    private String encrypt(String plainText, SecureKeys secureKey) {
+        Encryption encryption = Encryption.getDefault(secureKey.getKey(), secureKey.getSalt(), new byte[16]);
+        return encryption.encryptOrNull(plainText).trim();
     }
 }

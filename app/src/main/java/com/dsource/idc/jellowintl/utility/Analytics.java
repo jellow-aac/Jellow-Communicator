@@ -1,4 +1,4 @@
-package com.dsource.idc.jellowintl.Utility;
+package com.dsource.idc.jellowintl.utility;
 
 import android.content.Context;
 import android.os.Bundle;
