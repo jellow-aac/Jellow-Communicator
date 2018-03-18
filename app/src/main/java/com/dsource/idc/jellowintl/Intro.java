@@ -14,8 +14,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dsource.idc.jellowintl.Utility.JellowTTSService;
-import com.dsource.idc.jellowintl.Utility.SessionManager;
+import com.dsource.idc.jellowintl.utility.JellowTTSService;
+import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.github.paolorotolo.appintro.AppIntro;
 /**
  * Created by Shruti on 09-08-2016.

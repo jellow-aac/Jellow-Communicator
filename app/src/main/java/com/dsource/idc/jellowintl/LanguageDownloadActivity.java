@@ -11,14 +11,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
-import com.dsource.idc.jellowintl.Utility.DefaultExceptionHandler;
-import com.dsource.idc.jellowintl.Utility.DownloadManager;
-import com.dsource.idc.jellowintl.Utility.SessionManager;
+import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
+import com.dsource.idc.jellowintl.utility.DownloadManager;
+import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import static com.dsource.idc.jellowintl.LanguageSelectActivity.FINISH;
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.LCODE;
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.TUTORIAL;
-import static com.dsource.idc.jellowintl.Utility.SessionManager.LangValueMap;
+import static com.dsource.idc.jellowintl.utility.SessionManager.LangValueMap;
 
 public class LanguageDownloadActivity extends AppCompatActivity {
     DownloadManager manager;

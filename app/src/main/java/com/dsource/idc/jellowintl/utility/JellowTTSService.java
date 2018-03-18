@@ -1,4 +1,4 @@
-package com.dsource.idc.jellowintl.Utility;
+package com.dsource.idc.jellowintl.utility;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -16,7 +16,7 @@ import android.support.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Locale;
 
-import static com.dsource.idc.jellowintl.Utility.Analytics.reportException;
+import static com.dsource.idc.jellowintl.utility.Analytics.reportException;
 
 /**
  * Created by ekalpa on 7/4/2017.

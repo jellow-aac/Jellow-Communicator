@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.KeyListener;
@@ -22,19 +23,21 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.dsource.idc.jellowintl.Models.SeqActivityVerbiageModel;
-import com.dsource.idc.jellowintl.Utility.ChangeAppLocale;
-import com.dsource.idc.jellowintl.Utility.DefaultExceptionHandler;
-import com.dsource.idc.jellowintl.Utility.SessionManager;
+import com.dsource.idc.jellowintl.models.SeqActivityVerbiageModel;
+import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
+import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
+import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.google.gson.Gson;
 
 import java.io.File;
 import java.util.ArrayList;
 
-import static com.dsource.idc.jellowintl.Utility.Analytics.reportLog;
-import static com.dsource.idc.jellowintl.Utility.Analytics.singleEvent;
-import static com.dsource.idc.jellowintl.Utility.Analytics.startMeasuring;
-import static com.dsource.idc.jellowintl.Utility.Analytics.stopMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
+import static com.dsource.idc.jellowintl.utility.Analytics.getAnalytics;
+import static com.dsource.idc.jellowintl.utility.Analytics.reportLog;
+import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
+import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
 
 
 /**
@@ -127,6 +130,7 @@ public class SequenceActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         // Start measuring user app screen timer .
+        getAnalytics(this, mSession.getCaregiverName());
         startMeasuring();
         //After resume from other app if the locale is other than
         // app locale, set it back to app locale.
@@ -440,14 +444,17 @@ public class SequenceActivity extends AppCompatActivity {
                     hideExpressiveBtn(true);
                     setBorderToView(findViewById(R.id.borderView1),-1);
                     mFlgHideExpBtn = 0;
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Icon", mCategoryIconSpeechText[count]);
+                    bundle.putString("Category", mHeading[mLevelTwoItemPos].toLowerCase());
+                    bundleEvent("Grid",bundle);
                 // If expressive buttons are hidden or category icon 1 is in unpressed state then
                 // set the border of category icon 1 and show expressive buttons
                 } else {
-                    //Firebase event
-                    singleEvent("SequenceActivity", mCategoryIconSpeechText[count]);
-                    //Firebase get log
-                    reportLog(getLocalClassName()+", firstIcon: "+
-                            mCategoryIconSpeechText[count], Log.INFO);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Icon", "VisibleExpr " + mCategoryIconSpeechText[count]);
+                    bundle.putString("Category", mHeading[mLevelTwoItemPos].toLowerCase());
+                    bundleEvent("Grid",bundle);
                     mFlgHideExpBtn = 1;
                     // If new current sequence is the last sequence and category icon 1 is
                     // last item in sequence then hide expressive buttons.
@@ -491,14 +498,17 @@ public class SequenceActivity extends AppCompatActivity {
                     hideExpressiveBtn(true);setBorderToView(findViewById(R.id.borderView2),
                             -1);
                     mFlgHideExpBtn = 0;
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Icon", mCategoryIconSpeechText[count+1]);
+                    bundle.putString("Category", mHeading[mLevelTwoItemPos].toLowerCase());
+                    bundleEvent("Grid",bundle);
                     // If expressive buttons are hidden or category icon 2 is in unpressed state then
                     // set the border of category icon 2 and show expressive buttons
                 } else {
-                    //Firebase event
-                    singleEvent("SequenceActivity", mCategoryIconSpeechText[count+1]);
-                    //Firebase get log
-                    reportLog(getLocalClassName()+", secondIcon: "+
-                            mCategoryIconSpeechText[count + 1], Log.INFO);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Icon", "VisibleExpr " + mCategoryIconSpeechText[count+1]);
+                    bundle.putString("Category", mHeading[mLevelTwoItemPos].toLowerCase());
+                    bundleEvent("Grid",bundle);
                     mFlgHideExpBtn = 2;
                     // If new current sequence is the last sequence and category icon 2 is
                     // last item in sequence then hide expressive buttons.
@@ -542,14 +552,16 @@ public class SequenceActivity extends AppCompatActivity {
                     hideExpressiveBtn(true);
                     setBorderToView(findViewById(R.id.borderView3), -1);
                     mFlgHideExpBtn = 0;
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Icon", mCategoryIconSpeechText[count+2]);
+                    bundle.putString("Category", mHeading[mLevelTwoItemPos].toLowerCase());
+                    bundleEvent("Grid",bundle);
                     // If expressive buttons are hidden or category icon 3 is in unpressed state then
                     // set the border of category icon 3 and show expressive buttons
                 } else {
-                    //Firebase event
-                    singleEvent("SequenceActivity", mCategoryIconSpeechText[count+2]);
-                    //Firebase get log
-                    reportLog(getLocalClassName()+", thirdIcon: "+
-                            mCategoryIconSpeechText[count + 2], Log.INFO);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Icon", "VisibleExpr " + mCategoryIconSpeechText[count+2]);
+                    bundle.putString("Category", mHeading[mLevelTwoItemPos].toLowerCase());
                     mFlgHideExpBtn = 3;
                     // If new current sequence is the last sequence and category icon 3 is
                     // last item in sequence then hide expressive buttons.
@@ -581,6 +593,8 @@ public class SequenceActivity extends AppCompatActivity {
         mIvBack.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 speakSpeech(mNavigationBtnTxt[1]);
+                //Firebase event
+                singleEvent("Navigation","Back");
                 mIvTTs.setImageResource(R.drawable.speaker_button);
                 if (mFlgKeyboard == 1) {
                     // When keyboard is open, close it and retain expressive button,
@@ -617,6 +631,8 @@ public class SequenceActivity extends AppCompatActivity {
         mIvHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Firebase event
+                singleEvent("Navigation","Home");
                 mIvHome.setImageResource(R.drawable.home_pressed);
                 mIvKeyboard.setImageResource(R.drawable.keyboard);
                 speakSpeech(mNavigationBtnTxt[0]);
@@ -642,6 +658,8 @@ public class SequenceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 speakSpeech(mNavigationBtnTxt[2]);
+                //Firebase event
+                singleEvent("Navigation","Keyboard");
                 mIvTTs.setImageResource(R.drawable.speaker_button);
                 //when mFlgKeyboard is set to 1, it means user is using custom keyboard input
                 // text and system keyboard is visible.
@@ -725,24 +743,26 @@ public class SequenceActivity extends AppCompatActivity {
                         speakSpeech(mExprBtnTxt[0]);
                         mFlgLike = 1;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","mIvLike");
+                        singleEvent("ExpressiveIcon","Like");
                     }
                 //if expressive buttons are visible then speak category icon verbiage + like expression
                 } else {
                     setBorderToIcon(0);
                     if (mFlgLike == 1) {
-                        //Firebase get log
-                        reportLog(getLocalClassName()+", mIvLike: "+
+                        //Firebase event
+                        singleEvent("ExpressiveIcon","ReallyLike");
+                        singleEvent("ExpressiveGridIcon",
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(1), Log.INFO);
+                                        .get(1));
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
                                 .get(1));
                         mFlgLike = 0;
                     } else {
-                        //Firebase get log
-                        reportLog(getLocalClassName()+", mIvLike: "+
+                        //Firebase event
+                        singleEvent("ExpressiveIcon","Like");
+                        singleEvent("ExpressiveGridIcon",
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(0), Log.INFO);
+                                        .get(0));
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
                                 .get(0));
                         mFlgLike = 1;
@@ -779,29 +799,31 @@ public class SequenceActivity extends AppCompatActivity {
                         speakSpeech(mExprBtnTxt[7]);
                         mFlgDontLike = 0;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","ReallyDislike");
+                        singleEvent("ExpressiveIcon","ReallyDon'tLike");
                     } else {
                         speakSpeech(mExprBtnTxt[6]);
                         mFlgDontLike = 1;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","Dislike");
+                        singleEvent("ExpressiveIcon","Don'tLike");
                     }
                 //if expressive buttons are visible then speak category icon verbiage + don't like expression
                 } else {
                     setBorderToIcon(1);
                     if (mFlgDontLike == 1) {
-                        //Firebase get log
-                        reportLog(getLocalClassName()+", mIvDontLike: "+
+                        //Firebase event
+                        singleEvent("ExpressiveIcon","ReallyDon'tLike");
+                        singleEvent("ExpressiveGridIcon",
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(7), Log.INFO);
+                                        .get(7));
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
                                 .get(7));
                         mFlgDontLike = 0;
                     } else {
-                        //Firebase get log
-                        reportLog(getLocalClassName()+", mIvDontLike: "+
+                        //Firebase event
+                        singleEvent("ExpressiveIcon","Don'tLike");
+                        singleEvent("ExpressiveGridIcon",
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(6), Log.INFO);
+                                        .get(6));
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
                                 .get(6));
                         mFlgDontLike = 1;
@@ -850,18 +872,20 @@ public class SequenceActivity extends AppCompatActivity {
                 } else {
                     setBorderToIcon(2);
                     if (mFlgYes == 1) {
-                        //Firebase get log
-                        reportLog(getLocalClassName()+", mIvYes: "+
+                        //Firebase event
+                        singleEvent("ExpressiveIcon","ReallyYes");
+                        singleEvent("ExpressiveGridIcon",
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(3), Log.INFO);
+                                        .get(3));
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
                                 .get(3));
                         mFlgYes = 0;
                     } else {
-                        //Firebase get log
-                        reportLog(getLocalClassName()+", mIvYes: "+
+                        //Firebase event
+                        singleEvent("ExpressiveIcon","Yes");
+                        singleEvent("ExpressiveGridIcon",
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(2), Log.INFO);
+                                        .get(2));
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
                                 .get(2));
                         mFlgYes = 1;
@@ -909,18 +933,20 @@ public class SequenceActivity extends AppCompatActivity {
                 } else {
                     setBorderToIcon(3);
                     if (mFlgNo == 1) {
-                        //Firebase get log
-                        reportLog(getLocalClassName()+", mIvNo: "+
+                        //Firebase event
+                        singleEvent("ExpressiveIcon","ReallyNo");
+                        singleEvent("ExpressiveGridIcon",
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(9), Log.INFO);
+                                        .get(9));
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
                                 .get(9));
                         mFlgNo = 0;
                     } else {
-                        //Firebase get log
-                        reportLog(getLocalClassName()+", mIvNo: "+
+                        //Firebase event
+                        singleEvent("ExpressiveIcon","No");
+                        singleEvent("ExpressiveGridIcon",
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(8), Log.INFO);
+                                        .get(8));
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
                                 .get(8));
                         mFlgNo = 1;
@@ -968,18 +994,20 @@ public class SequenceActivity extends AppCompatActivity {
                 } else {
                     setBorderToIcon(4);
                     if (mFlgMore == 1) {
-                        //Firebase get log
-                        reportLog(getLocalClassName()+", mIvMore: "+
+                        //Firebase event
+                        singleEvent("ExpressiveIcon","ReallyMore");
+                        singleEvent("ExpressiveGridIcon",
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(5), Log.INFO);
+                                        .get(5));
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
                                 .get(5));
                         mFlgMore = 0;
                     } else {
-                        //Firebase get log
-                        reportLog(getLocalClassName()+", mIvMore: "+
+                        //Firebase event
+                        singleEvent("ExpressiveIcon","More");
+                        singleEvent("ExpressiveGridIcon",
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(4), Log.INFO);
+                                        .get(4));
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
                                 .get(4));
                         mFlgMore = 1;
@@ -1027,18 +1055,20 @@ public class SequenceActivity extends AppCompatActivity {
                 } else {
                     setBorderToIcon(5);
                     if (mFlgLess == 1) {
-                        //Firebase get log
-                        reportLog(getLocalClassName()+", mIvLess: "+
+                        //Firebase event
+                        singleEvent("ExpressiveIcon","ReallyLess");
+                        singleEvent("ExpressiveGridIcon",
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(11), Log.INFO);
+                                        .get(11));
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
                                 .get(11));
                         mFlgLess = 0;
                     } else {
-                        //Firebase get log
-                        reportLog(getLocalClassName()+", mIvLess: "+
+                        //Firebase event
+                        singleEvent("ExpressiveIcon","Less");
+                        singleEvent("ExpressiveGridIcon",
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(10), Log.INFO);
+                                        .get(10));
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
                                 .get(10));
                         mFlgLess = 1;
@@ -1062,6 +1092,13 @@ public class SequenceActivity extends AppCompatActivity {
                     mIvTTs.setImageResource(R.drawable.speaker_pressed);
                 //Firebase get log
                 reportLog(getLocalClassName()+", TtsSpeak: ", Log.INFO);
+                //Firebase event
+                Bundle bundle = new Bundle();
+                bundle.putString("InputName", Settings.Secure.getString(getContentResolver(),
+                        Settings.Secure.DEFAULT_INPUT_METHOD));
+                bundle.putString("utterence", mEtTTs.getText().toString());
+                bundleEvent("Keyboard", bundle);
+                //singleEvent("Keyboard", mEtTTs.getText().toString());
             }
         });
     }
@@ -1102,7 +1139,7 @@ public class SequenceActivity extends AppCompatActivity {
 
     /**
      * <p>This function will send speech output request to
-     * {@link com.dsource.idc.jellowintl.Utility.JellowTTSService} Text-to-speech Engine.
+     * {@link com.dsource.idc.jellowintl.utility.JellowTTSService} Text-to-speech Engine.
      * The string in {@param speechText} is speech output request string.</p>
      * */
     private void speakSpeech(String speechText){

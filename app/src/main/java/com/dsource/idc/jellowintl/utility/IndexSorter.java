@@ -1,4 +1,4 @@
-package com.dsource.idc.jellowintl.Utility;
+package com.dsource.idc.jellowintl.utility;
 
 import java.util.Arrays;
 import java.util.Comparator;

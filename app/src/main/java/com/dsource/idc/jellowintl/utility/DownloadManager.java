@@ -1,4 +1,4 @@
-package com.dsource.idc.jellowintl.Utility;
+package com.dsource.idc.jellowintl.utility;
 
 import android.content.Context;
 import android.net.Uri;
@@ -19,7 +19,7 @@ import java.io.File;
 
 import ir.mahdi.mzip.zip.ZipArchive;
 
-import static com.dsource.idc.jellowintl.Utility.Analytics.bundleEvent;
+import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 
 /**
  * Created by ravipoovaiah on 14/12/17.
@@ -160,7 +160,7 @@ public class DownloadManager {
         File zip = new File(en_dir.getPath(),localeCode+".zip");
         if(zip.exists()) zip.delete();
 
-        registerEvent();
+        //registerEvent();
 
 
     }

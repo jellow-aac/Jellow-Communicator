@@ -1,4 +1,4 @@
-package com.dsource.idc.jellowintl.Models;
+package com.dsource.idc.jellowintl.models;
 
 import com.google.gson.annotations.SerializedName;
 

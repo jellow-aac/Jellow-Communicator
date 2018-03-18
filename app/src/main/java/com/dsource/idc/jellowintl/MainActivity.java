@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -23,20 +24,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.dsource.idc.jellowintl.Models.LevelOneVerbiageModel;
-import com.dsource.idc.jellowintl.Utility.ChangeAppLocale;
-import com.dsource.idc.jellowintl.Utility.DefaultExceptionHandler;
-import com.dsource.idc.jellowintl.Utility.SessionManager;
+import com.dsource.idc.jellowintl.models.LevelOneVerbiageModel;
+import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
+import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
+import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.google.gson.Gson;
 
 import java.io.File;
 import java.util.ArrayList;
 
-import static com.dsource.idc.jellowintl.Utility.Analytics.bundleEvent;
-import static com.dsource.idc.jellowintl.Utility.Analytics.reportLog;
-import static com.dsource.idc.jellowintl.Utility.Analytics.singleEvent;
-import static com.dsource.idc.jellowintl.Utility.Analytics.startMeasuring;
-import static com.dsource.idc.jellowintl.Utility.Analytics.stopMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
+import static com.dsource.idc.jellowintl.utility.Analytics.getAnalytics;
+import static com.dsource.idc.jellowintl.utility.Analytics.reportLog;
+import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
+import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
 
 public class MainActivity extends AppCompatActivity {
     private final int REQ_HOME = 0;
@@ -116,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         // Start measuring user app screen timer .
+        getAnalytics(this,new SessionManager(this).getCaregiverName());
         startMeasuring();
         // broadcast receiver to get response messages from JellowTTsService.
         IntentFilter filter = new IntentFilter();
@@ -385,6 +388,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 speakSpeech(mNavigationBtnTxt[2]);
+                //Firebase event
+                singleEvent("Navigation","Keyboard");
                 mIvTTs.setImageResource(R.drawable.speaker_button);
                 //when mFlgKeyboardOpened is set to true, it means user is using custom keyboard input
                 // text and system keyboard is visible.
@@ -897,7 +902,14 @@ public class MainActivity extends AppCompatActivity {
                 //Firebase get log
                 reportLog(getLocalClassName()+", TtsSpeak", Log.INFO);
                 //Firebase event
-                singleEvent("Keyboard", mEtTTs.getText().toString());
+
+                Bundle bundle = new Bundle();
+                bundle.putString("InputName", Settings.Secure.getString(getContentResolver(),
+                        Settings.Secure.DEFAULT_INPUT_METHOD));
+                bundle.putString("utterence", mEtTTs.getText().toString());
+                bundleEvent("Keyboard", bundle);
+
+                //singleEvent("Keyboard", mEtTTs.getText().toString());
                 //if expressive buttons always disabled during custom text speech output
                 mIvLike.setEnabled(false);
                 mIvDontLike.setEnabled(false);
@@ -967,8 +979,7 @@ public class MainActivity extends AppCompatActivity {
             if(langDir.exists() && langDir.isDirectory()) {
                 // create event bundle for firebase
                 Bundle bundle = new Bundle();
-                bundle.putString("Icon", mSpeechTxt[position]);
-                bundle.putString("Level", "LevelOne");
+                bundle.putString("Icon", "Opened " + mSpeechTxt[position]);
                 bundleEvent("Grid", bundle);
                 // send current position in recycler view of selected category icon and bread
                 // crumb path as extra intent data to LevelTwoActivity.
@@ -980,6 +991,10 @@ public class MainActivity extends AppCompatActivity {
             langDir = null;
         }else {
             speakSpeech(mSpeechTxt[position]);
+            // create event bundle for firebase
+            Bundle bundle = new Bundle();
+            bundle.putString("Icon", mSpeechTxt[position]);
+            bundleEvent("Grid", bundle);
         }
         mLevelOneItemPos = mRecyclerView.getChildLayoutPosition(view);
         mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
@@ -1067,7 +1082,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * <p>This function will send speech output request to
-     * {@link com.dsource.idc.jellowintl.Utility.JellowTTSService} Text-to-speech Engine.
+     * {@link com.dsource.idc.jellowintl.utility.JellowTTSService} Text-to-speech Engine.
      * The string in {@param speechText} is speech output request string.</p>
      * */
     private void speakSpeech(String speechText){

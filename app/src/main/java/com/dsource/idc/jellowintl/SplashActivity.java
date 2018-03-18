@@ -8,11 +8,11 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.dsource.idc.jellowintl.Utility.ChangeAppLocale;
-import com.dsource.idc.jellowintl.Utility.DefaultExceptionHandler;
-import com.dsource.idc.jellowintl.Utility.EvaluateDisplayMetricsUtils;
-import com.dsource.idc.jellowintl.Utility.JellowTTSService;
-import com.dsource.idc.jellowintl.Utility.SessionManager;
+import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
+import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
+import com.dsource.idc.jellowintl.utility.EvaluateDisplayMetricsUtils;
+import com.dsource.idc.jellowintl.utility.JellowTTSService;
+import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.io.IOException;
 
@@ -83,17 +83,6 @@ public class SplashActivity extends AppCompatActivity {
 
     private void stopTTsService() {
         Intent intent = new Intent("com.dsource.idc.jellowintl.STOP_SERVICE");
-        sendBroadcast(intent);
-    }
-
-    /**
-     * <p>This function will send speech output request to
-     * {@link com.dsource.idc.jellowintl.Utility.JellowTTSService} Text-to-speech Engine.
-     * The string in {@param speechText} is speech output request string.</p>
-     * */
-    private void speakSpeech(String speechText){
-        Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_TEXT");
-        intent.putExtra("speechText", speechText.toLowerCase());
         sendBroadcast(intent);
     }
 

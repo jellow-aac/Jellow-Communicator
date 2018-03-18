@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.dsource.idc.jellowintl.Utility.SessionManager;
+import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -19,8 +19,8 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-import static com.dsource.idc.jellowintl.Utility.Analytics.reportException;
-import static com.dsource.idc.jellowintl.Utility.Analytics.reportLog;
+import static com.dsource.idc.jellowintl.utility.Analytics.reportException;
+import static com.dsource.idc.jellowintl.utility.Analytics.reportLog;
 
 /**
  * Created by ekalpa on 6/27/2016.

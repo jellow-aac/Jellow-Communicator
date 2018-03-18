@@ -1,4 +1,4 @@
-package com.dsource.idc.jellowintl.Utility;
+package com.dsource.idc.jellowintl.utility;
 
 /**
  * Created by ekalpa on 23-Jun-16.

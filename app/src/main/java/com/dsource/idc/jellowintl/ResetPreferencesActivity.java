@@ -9,9 +9,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.dsource.idc.jellowintl.Utility.ChangeAppLocale;
-import com.dsource.idc.jellowintl.Utility.DefaultExceptionHandler;
-import com.dsource.idc.jellowintl.Utility.SessionManager;
+import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
+import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
+import com.dsource.idc.jellowintl.utility.SessionManager;
 
 /**
  * Created by ekalpa on 15-Jun-16.

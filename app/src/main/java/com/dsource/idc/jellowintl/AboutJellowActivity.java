@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 
-import com.dsource.idc.jellowintl.Utility.ChangeAppLocale;
+import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 
 /**
  * Created by user on 5/27/2016.

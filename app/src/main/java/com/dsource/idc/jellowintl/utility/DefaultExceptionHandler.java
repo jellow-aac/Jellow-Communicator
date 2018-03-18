@@ -1,10 +1,10 @@
-package com.dsource.idc.jellowintl.Utility;
+package com.dsource.idc.jellowintl.utility;
 
 import android.app.Activity;
 import android.util.Log;
 import android.widget.Toast;
 
-import static com.dsource.idc.jellowintl.Utility.Analytics.reportException;
+import static com.dsource.idc.jellowintl.utility.Analytics.reportException;
 
 /**
  * Created by ekalpa on 12/4/2017.
@@ -25,7 +25,7 @@ public class DefaultExceptionHandler implements Thread.UncaughtExceptionHandler 
         Log.e("Jellow","exception caught", ex);
         Toast.makeText(activity, "Unfortunately, Jellow has stopped.", Toast.LENGTH_SHORT).show();
         //This will finish your activity manually
-        activity.finish();
+        activity.finishAffinity();
         //This will stop your application and take out from it.
         System.exit(2);
     }

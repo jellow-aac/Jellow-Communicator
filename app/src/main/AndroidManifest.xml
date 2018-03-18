@@ -110,13 +110,15 @@
             android:name="com.dsource.idc.jellowintl.LevelThreeActivity"
             android:screenOrientation="landscape" />
 
-        <service android:name="com.dsource.idc.jellowintl.Utility.JellowTTSService" />
+        <service android:name="com.dsource.idc.jellowintl.utility.JellowTTSService" />
 
         <activity
             android:name="com.dsource.idc.jellowintl.LanguageDownloadActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name="com.dsource.idc.jellowintl.LanguageSelectActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"/>
     </application>
 
