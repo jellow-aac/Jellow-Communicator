@@ -34,6 +34,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
+import static com.dsource.idc.jellowintl.utility.Analytics.getAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.reportLog;
 import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
@@ -117,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         // Start measuring user app screen timer .
+        getAnalytics(this,new SessionManager(this).getCaregiverName());
         startMeasuring();
         // broadcast receiver to get response messages from JellowTTsService.
         IntentFilter filter = new IntentFilter();
@@ -978,7 +980,6 @@ public class MainActivity extends AppCompatActivity {
                 // create event bundle for firebase
                 Bundle bundle = new Bundle();
                 bundle.putString("Icon", "Opened " + mSpeechTxt[position]);
-                bundle.putString("Level", "LevelOne");
                 bundleEvent("Grid", bundle);
                 // send current position in recycler view of selected category icon and bread
                 // crumb path as extra intent data to LevelTwoActivity.
@@ -993,7 +994,6 @@ public class MainActivity extends AppCompatActivity {
             // create event bundle for firebase
             Bundle bundle = new Bundle();
             bundle.putString("Icon", mSpeechTxt[position]);
-            bundle.putString("Level", "LevelOne");
             bundleEvent("Grid", bundle);
         }
         mLevelOneItemPos = mRecyclerView.getChildLayoutPosition(view);

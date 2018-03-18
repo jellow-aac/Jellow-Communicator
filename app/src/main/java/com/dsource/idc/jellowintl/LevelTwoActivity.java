@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
+import static com.dsource.idc.jellowintl.utility.Analytics.getAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
@@ -137,6 +138,7 @@ public class LevelTwoActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         // Start measuring user app screen timer .
+        getAnalytics(this, mSession.getCaregiverName());
         startMeasuring();
         //After resume from other app if the locale is other than
         // app locale, set it back to app locale.
@@ -1394,7 +1396,6 @@ public class LevelTwoActivity extends AppCompatActivity {
             speakSpeech(mArrSpeechText[position]);
             Bundle bundle = new Bundle();
             bundle.putString("Icon", mArrSpeechText[position]);
-            bundle.putString("Level","Two");
             bundleEvent("Grid",bundle);
         // In below if category icon selected in level one is neither people/places nor help.
         // Also, mLevelTwoItemPos == position is true it means user taps twice on same category icon.
@@ -1417,7 +1418,6 @@ public class LevelTwoActivity extends AppCompatActivity {
                 intent = new Intent(LevelTwoActivity.this, SequenceActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString("Icon", "Opened " + mArrSpeechText[position]);
-            bundle.putString("Level","LevelTwo");
             bundleEvent("Grid",bundle);
             //intent to open new activity have extra data such position of level one category icon,
             // level two category icon and action bar title (bread crumb)
@@ -1429,7 +1429,6 @@ public class LevelTwoActivity extends AppCompatActivity {
             speakSpeech(mArrSpeechText[position]);
             Bundle bundle = new Bundle();
             bundle.putString("Icon", mArrSpeechText[position]);
-            bundle.putString("Level","Two");
             bundleEvent("Grid",bundle);
         }
         mLevelTwoItemPos = mRecyclerView.getChildLayoutPosition(view);

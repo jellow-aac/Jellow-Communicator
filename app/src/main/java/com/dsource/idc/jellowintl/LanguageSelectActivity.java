@@ -451,7 +451,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
 
     private void saveLanguage() {
         mSession.setLanguage(LangMap.get(selectedLanguage));Bundle bundle = new Bundle();
-        bundle.putString("NewLanguageSetFromSettings",LangMap.get(selectedLanguage));
+        bundle.putString("LanguageSet", "Switched to "+ LangMap.get(selectedLanguage));
         bundleEvent("Language",bundle);
         setUserProperty("UserLanguage", LangMap.get(selectedLanguage));
         ChangeAppLocale changeAppLocale = new ChangeAppLocale(getBaseContext());

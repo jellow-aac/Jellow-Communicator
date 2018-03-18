@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
+import static com.dsource.idc.jellowintl.utility.Analytics.getAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.reportException;
 import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
@@ -130,6 +131,7 @@ public class LevelThreeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         // Start measuring user app screen timer .
+        getAnalytics(this,new SessionManager(this).getCaregiverName());
         startMeasuring();
         //After resume from other app if the locale is other than
         // app locale, set it back to app locale.
@@ -1117,7 +1119,6 @@ public class LevelThreeActivity extends AppCompatActivity {
         retainExpressiveButtonStates();
         Bundle bundle = new Bundle();
         bundle.putString("Icon", mSpeechTxt[position]);
-        bundle.putString("Level","LevelThree");
         bundleEvent("Grid",bundle);
 
         mIvBack.setImageResource(R.drawable.back);

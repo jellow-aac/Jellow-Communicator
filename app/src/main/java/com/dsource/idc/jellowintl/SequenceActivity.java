@@ -33,6 +33,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
+import static com.dsource.idc.jellowintl.utility.Analytics.getAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.reportLog;
 import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
@@ -129,6 +130,7 @@ public class SequenceActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         // Start measuring user app screen timer .
+        getAnalytics(this, mSession.getCaregiverName());
         startMeasuring();
         //After resume from other app if the locale is other than
         // app locale, set it back to app locale.
@@ -445,7 +447,6 @@ public class SequenceActivity extends AppCompatActivity {
                     Bundle bundle = new Bundle();
                     bundle.putString("Icon", mCategoryIconSpeechText[count]);
                     bundle.putString("Category", mHeading[mLevelTwoItemPos].toLowerCase());
-                    bundle.putString("Level","Sequence");
                     bundleEvent("Grid",bundle);
                 // If expressive buttons are hidden or category icon 1 is in unpressed state then
                 // set the border of category icon 1 and show expressive buttons
@@ -453,7 +454,6 @@ public class SequenceActivity extends AppCompatActivity {
                     Bundle bundle = new Bundle();
                     bundle.putString("Icon", "VisibleExpr " + mCategoryIconSpeechText[count]);
                     bundle.putString("Category", mHeading[mLevelTwoItemPos].toLowerCase());
-                    bundle.putString("Level","Sequence");
                     bundleEvent("Grid",bundle);
                     mFlgHideExpBtn = 1;
                     // If new current sequence is the last sequence and category icon 1 is
@@ -501,7 +501,6 @@ public class SequenceActivity extends AppCompatActivity {
                     Bundle bundle = new Bundle();
                     bundle.putString("Icon", mCategoryIconSpeechText[count+1]);
                     bundle.putString("Category", mHeading[mLevelTwoItemPos].toLowerCase());
-                    bundle.putString("Level","Sequence");
                     bundleEvent("Grid",bundle);
                     // If expressive buttons are hidden or category icon 2 is in unpressed state then
                     // set the border of category icon 2 and show expressive buttons
@@ -509,7 +508,6 @@ public class SequenceActivity extends AppCompatActivity {
                     Bundle bundle = new Bundle();
                     bundle.putString("Icon", "VisibleExpr " + mCategoryIconSpeechText[count+1]);
                     bundle.putString("Category", mHeading[mLevelTwoItemPos].toLowerCase());
-                    bundle.putString("Level","Sequence");
                     bundleEvent("Grid",bundle);
                     mFlgHideExpBtn = 2;
                     // If new current sequence is the last sequence and category icon 2 is
@@ -557,7 +555,6 @@ public class SequenceActivity extends AppCompatActivity {
                     Bundle bundle = new Bundle();
                     bundle.putString("Icon", mCategoryIconSpeechText[count+2]);
                     bundle.putString("Category", mHeading[mLevelTwoItemPos].toLowerCase());
-                    bundle.putString("Level","Sequence");
                     bundleEvent("Grid",bundle);
                     // If expressive buttons are hidden or category icon 3 is in unpressed state then
                     // set the border of category icon 3 and show expressive buttons
@@ -565,7 +562,6 @@ public class SequenceActivity extends AppCompatActivity {
                     Bundle bundle = new Bundle();
                     bundle.putString("Icon", "VisibleExpr " + mCategoryIconSpeechText[count+2]);
                     bundle.putString("Category", mHeading[mLevelTwoItemPos].toLowerCase());
-                    bundle.putString("Level","Sequence");
                     mFlgHideExpBtn = 3;
                     // If new current sequence is the last sequence and category icon 3 is
                     // last item in sequence then hide expressive buttons.

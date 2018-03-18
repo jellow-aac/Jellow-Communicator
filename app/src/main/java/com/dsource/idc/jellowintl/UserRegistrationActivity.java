@@ -271,7 +271,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
                         mSession.setLanguage(LangMap.get(selectedLanguage));
                         mSession.setGridSize(GRID_3BY3);
                         Bundle bundle = new Bundle();
-                        bundle.putString("First Run Selected Language",LangMap.get(selectedLanguage));
+                        bundle.putString("LanguageSet", "First time "+ LangMap.get(selectedLanguage));
                         setUserProperty("UserId", emergencyContact);
                         setUserProperty("UserLanguage", LangMap.get(selectedLanguage));
                         bundleEvent("Language",bundle);

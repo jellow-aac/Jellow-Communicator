@@ -25,7 +25,7 @@ public class DefaultExceptionHandler implements Thread.UncaughtExceptionHandler 
         Log.e("Jellow","exception caught", ex);
         Toast.makeText(activity, "Unfortunately, Jellow has stopped.", Toast.LENGTH_SHORT).show();
         //This will finish your activity manually
-        activity.finish();
+        activity.finishAffinity();
         //This will stop your application and take out from it.
         System.exit(2);
     }
