@@ -37,7 +37,7 @@ New icons in "help", "safety", "therapy", "money" and "requests"
 
 Translators
 ----
-Want to help translate Jellow Communicator to your language? Submit your requests [here](https://gitlab.com/JellowAppDevelopers/JellowCommunicator/issues).  
+Want to help translate Jellow Communicator to your language? Submit your requests at jellowcommunicator@gmail.com or dsource.in@gmail.com.  
 
 License
 ----
