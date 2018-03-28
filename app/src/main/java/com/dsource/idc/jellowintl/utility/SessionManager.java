@@ -261,6 +261,22 @@ public class SessionManager {
         storePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.completed_intro), value);
     }
 
+    public void setUniqueId(String contact) {
+        storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.unique_identifier), contact);
+    }
+
+    public String getUniqueId() {
+        return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.unique_identifier));
+    }
+
+    public void setEncryptionData(String encryptData) {
+        storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.encrypt_data), encryptData);
+    }
+
+    public String getEncryptedData() {
+        return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.encrypt_data));
+    }
+
     // This flag is only for device who doesnt support direct switching between devices.
     public void setLangSettingIsCorrect(boolean settingStatus) {
         storePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.lang_setting_status), settingStatus);

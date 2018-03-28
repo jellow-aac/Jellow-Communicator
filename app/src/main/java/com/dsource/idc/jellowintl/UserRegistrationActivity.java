@@ -51,8 +51,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.UUID;
 
 import se.simbio.encryption.Encryption;
 
@@ -77,7 +76,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
     Spinner languageSelect;
     String[] languagesCodes = new String[4], languageNames = new String[4];
     String selectedLanguage;
-    String name, emergencyContact, eMailId, formattedDate;
+    String name, emergencyContact, eMailId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +88,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
         mSession = new SessionManager(this);
 
         if(!mSession.getCaregiverNumber().equals(""))
-        getAnalytics(this,mSession.getCaregiverNumber());
+        getAnalytics(this,mSession.getUniqueId());
         if (mSession.isUserLoggedIn() && !mSession.getLanguage().isEmpty())
         {
             if(mSession.isDownloaded(mSession.getLanguage()) && mSession.isCompletedIntro()) {
@@ -118,7 +117,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
         etEmailId= findViewById(R.id.etEmailId);
         bRegister = findViewById(R.id.bRegister);
         bRegister.setAlpha(0.5f);
-        bRegister.setEnabled(true);
+        bRegister.setEnabled(false);
 
         etName.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -179,12 +178,9 @@ public class UserRegistrationActivity extends AppCompatActivity {
                     return;
                 }
                 if(selectedLanguage == null) return;
-                Calendar ca = Calendar.getInstance();
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                formattedDate = df.format(ca.getTime());
                 //checkNetworkConnection();
                 //showCallPreview();
-                new NetworkConnectionTest(UserRegistrationActivity.this, name, emergencyContact, eMailId, formattedDate).execute();
+                new NetworkConnectionTest(UserRegistrationActivity.this, name, emergencyContact, eMailId).execute();
             }
         });
 
@@ -205,7 +201,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
                     mSession.setCaregiverNumber(emergencyContact);
                     mSession.setUserCountryCode(mCcp.getSelectedCountryCode());
                     mSession.setEmailId(eMailId);
-                    createUser(name, emergencyContact, eMailId, formattedDate);
+                    createUser(name, emergencyContact, eMailId);
                     return;
                 }
                 Toast.makeText(UserRegistrationActivity.this, getString(R.string.checkConnectivity), Toast.LENGTH_LONG).show();
@@ -219,7 +215,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
     private void showCallPreview(){
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED){
-            new NetworkConnectionTest(UserRegistrationActivity.this, name, emergencyContact, eMailId, formattedDate).execute();
+            new NetworkConnectionTest(UserRegistrationActivity.this, name, emergencyContact, eMailId).execute();
         } else {
             requestCallPermission();
         }
@@ -251,59 +247,21 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 Toast.makeText(UserRegistrationActivity.this, "Call permission was denied.", Toast.LENGTH_LONG).show();
             }
             //checkNetworkConnection();
-            new NetworkConnectionTest(UserRegistrationActivity.this, name, emergencyContact, eMailId, formattedDate).execute();
+            new NetworkConnectionTest(UserRegistrationActivity.this, name, emergencyContact, eMailId).execute();
 
-        }
-    }
-
-    private void createUser(final String name,final String emergencyContact, String eMailId, String formattedDate)
-    {
-        try {
-            getAnalytics(UserRegistrationActivity.this,emergencyContact);
-            mRef.child(emergencyContact).child("email").setValue(eMailId);
-            mRef.child(emergencyContact).child("emergencyContact").setValue(emergencyContact);
-            mRef.child(emergencyContact).child("name").setValue(name);
-            mRef.child(emergencyContact).child("joinedOn").setValue(ServerValue.TIMESTAMP).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
-                        mSession.setUserLoggedIn(true);
-                        mSession.setLanguage(LangMap.get(selectedLanguage));
-                        mSession.setGridSize(GRID_3BY3);
-                        Bundle bundle = new Bundle();
-                        bundle.putString("LanguageSet", "First time "+ LangMap.get(selectedLanguage));
-                        setUserProperty("UserId", emergencyContact);
-                        setUserProperty("UserLanguage", LangMap.get(selectedLanguage));
-                        bundleEvent("Language",bundle);
-                        bundle.clear();
-                        bundle.putString(LCODE,LangMap.get(selectedLanguage));
-                        bundle.putBoolean(TUTORIAL,true);
-                        startActivity(new Intent(UserRegistrationActivity.this,
-                                LanguageDownloadActivity.class).putExtras(bundle));
-                        finish();
-                    } else {
-                        bRegister.setEnabled(true);
-                        Toast.makeText(UserRegistrationActivity.this, getString(R.string.checkConnectivity), Toast.LENGTH_LONG).show();
-                    }
-                }
-            });
-        } catch (Exception e)
-        {
-            e.printStackTrace();
         }
     }
 
     private class NetworkConnectionTest extends AsyncTask<Void, Void, Boolean>{
         private Context mContext;
-        private String mName, mEmergencyContact, mEmailId, mFormattedDate;
+        private String mName, mEmergencyContact, mEmailId;
         private SessionManager mSession;
 
-        public NetworkConnectionTest(Context context, String name, String emergencyContact, String eMailId, String formattedDate) {
+        public NetworkConnectionTest(Context context, String name, String emergencyContact, String eMailId) {
             mContext = context;
             mName = name;
             mEmergencyContact = emergencyContact;
             mEmailId = eMailId;
-            mFormattedDate = formattedDate;
             mSession = new SessionManager(mContext);
         }
 
@@ -340,10 +298,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 mSession.setCaregiverNumber(mEmergencyContact);
                 mSession.setUserCountryCode(mCcp.getSelectedCountryCode());
                 mSession.setEmailId(mEmailId);
-                Calendar ca = Calendar.getInstance();
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                mFormattedDate = df.format(ca.getTime());
-                encryptStoreUserInfo(mName, emergencyContact, eMailId, mFormattedDate);
+                encryptStoreUserInfo(mName, emergencyContact, eMailId);
             }else{
                 bRegister.setEnabled(true);
                 Toast.makeText(UserRegistrationActivity.this, getString(R.string.checkConnectivity), Toast.LENGTH_LONG).show();
@@ -352,7 +307,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
     }
 
     private void encryptStoreUserInfo(final String name, final String contact,
-                                      final String email, final String formattedDate) {
+                                      final String email) {
         FirebaseStorage storage =  FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
         StorageReference pathReference = storageRef.child("jellow-json.json");
@@ -362,9 +317,11 @@ public class UserRegistrationActivity extends AppCompatActivity {
             public void onSuccess(byte[] bytes) {
                 try {
                     String jsonData = new String(bytes, "UTF-8");
-                    SecureKeys secureKey = new Gson().fromJson(jsonData, SecureKeys.class);
-                    createUser(encrypt(name, secureKey), encrypt(email, secureKey),
-                            encrypt(contact, secureKey), formattedDate);
+                    mSession.setEncryptionData(jsonData);
+                    SecureKeys secureKey = new Gson().
+                            fromJson(mSession.getEncryptedData(), SecureKeys.class);
+                    createUser(encrypt(name, secureKey), encrypt(contact, secureKey),
+                            encrypt(email, secureKey));
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
@@ -380,5 +337,44 @@ public class UserRegistrationActivity extends AppCompatActivity {
     private String encrypt(String plainText, SecureKeys secureKey) {
         Encryption encryption = Encryption.getDefault(secureKey.getKey(), secureKey.getSalt(), new byte[16]);
         return encryption.encryptOrNull(plainText).trim();
+    }
+
+    private void createUser(final String name,final String emergencyContact, String eMailId)
+    {
+        try {
+            final String userId = UUID.randomUUID().toString();
+            mSession.setUniqueId(userId);
+            getAnalytics(UserRegistrationActivity.this, userId);
+            mRef.child(userId).child("email").setValue(eMailId);
+            mRef.child(userId).child("emergencyContact").setValue(emergencyContact);
+            mRef.child(userId).child("name").setValue(name);
+            mRef.child(userId).child("joinedOn").setValue(ServerValue.TIMESTAMP).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        mSession.setUserLoggedIn(true);
+                        mSession.setLanguage(LangMap.get(selectedLanguage));
+                        mSession.setGridSize(GRID_3BY3);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("LanguageSet", "First time "+ LangMap.get(selectedLanguage));
+                        setUserProperty("UserId", userId);
+                        setUserProperty("UserLanguage", LangMap.get(selectedLanguage));
+                        bundleEvent("Language", bundle);
+                        bundle.clear();
+                        bundle.putString(LCODE,LangMap.get(selectedLanguage));
+                        bundle.putBoolean(TUTORIAL,true);
+                        startActivity(new Intent(UserRegistrationActivity.this,
+                                LanguageDownloadActivity.class).putExtras(bundle));
+                        finish();
+                    } else {
+                        bRegister.setEnabled(true);
+                        Toast.makeText(UserRegistrationActivity.this, getString(R.string.checkConnectivity), Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }

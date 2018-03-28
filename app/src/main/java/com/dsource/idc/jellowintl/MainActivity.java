@@ -34,7 +34,6 @@ import java.io.File;
 import java.util.ArrayList;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
-import static com.dsource.idc.jellowintl.utility.Analytics.getAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.reportLog;
 import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
@@ -117,8 +116,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // Start measuring user app screen timer .
-        getAnalytics(this,new SessionManager(this).getCaregiverName());
+        // Start measuring user app screen timer.
         startMeasuring();
         // broadcast receiver to get response messages from JellowTTsService.
         IntentFilter filter = new IntentFilter();

@@ -42,12 +42,14 @@
         android:layout_gravity="center"
         android:layout_weight="7"
 >
-        <TextView
+        <Button
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_weight="3"
             android:layout_height="40dp"
-            android:background="@drawable/rounded_textview"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/custom_txt_view"
             android:gravity="center"
             android:fontFamily="fonts/Mukta-Regular.ttf"
             android:textColor="#000000"

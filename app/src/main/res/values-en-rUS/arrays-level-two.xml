@@ -196,7 +196,7 @@
         <item>Hospital</item>
         <item>Clinic</item>
         <item>Library</item>
-        <item>Terrace</item>
+        <item>Balcony</item>
     </string-array>
     <string-array name="arrLevelTwoTimeWeatherAdapterText">
         <item>Time…</item>
@@ -309,7 +309,7 @@
         <item>Hospital</item>
         <item>Clinic</item>
         <item>Library</item>
-        <item>Terrace</item>
+        <item>balcony</item>
     </string-array>
     <string-array name="arrLevelTwoTimeWeatherSpeechText">
         <item>Time</item>
@@ -1231,18 +1231,18 @@
             \"I don\'t want to go to the library again\",
             \"I really don\'t want to go to the library again\"
 
-    ],[\"I like to go to the terrace\",
-            \"I really like to go to the terrace\",
-            \"I want to go to the terrace\",
-            \"I really want to go to the terrace\",
-            \"I want to go to the terrace again\",
-            \"I really want to go to the terrace again\",
-            \"I don\'t like to go to the terrace\",
-            \"I really don\'t like to go to the terrace\",
-            \"I don\'t want to go to the terrace\",
-            \"I really don\'t want to go to the terrace\",
-            \"I don\'t want to go to the terrace again\",
-            \"I really don\'t want to go to the terrace again\"
+    ],[\"I like to go to the balcony\",
+            \"I really like to go to the balcony\",
+            \"I want to go to the balcony\",
+            \"I really want to go to the balcony\",
+            \"I want to go to the balcony again\",
+            \"I really want to go to the balcony again\",
+            \"I don\'t like to go to the balcony\",
+            \"I really don\'t like to go to the balcony\",
+            \"I don\'t want to go to the balcony\",
+            \"I really don\'t want to go to the balcony\",
+            \"I don\'t want to go to the balcony again\",
+            \"I really don\'t want to go to the balcony again\"
 
 
     ]],[[\"I like to be on time\",

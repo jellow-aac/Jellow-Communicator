@@ -45,23 +45,28 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="8dp">
+                android:orientation="horizontal" >
                 <Button
                     android:id="@+id/qwerty"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:text="@string/qwertyKeyboard"
                     android:textSize="14sp"
-                    android:background="@drawable/rounded_textview"/>
+                    android:background="@drawable/custom_txt_view"/>
                 <Button
                     android:id="@+id/abc"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:layout_marginLeft="90dp"
                     android:text="@string/serialKeyboard"
                     android:textSize="14sp"
-                    android:background="@drawable/rounded_textview"/>
+                    android:background="@drawable/custom_txt_view"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -91,15 +96,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="8dp">
+                android:layout_marginBottom="4dp">
                 <Button
                     android:id="@+id/default_button"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
                     android:maxLines="4"
                     android:text="@string/saveAsDefault"
                     android:textSize="14sp"
-                    android:background="@drawable/rounded_textview"/>
+                    android:background="@drawable/custom_txt_view"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

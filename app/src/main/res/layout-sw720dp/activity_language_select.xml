@@ -81,16 +81,22 @@
                 <Button
                     android:id="@+id/addBut"
                     android:layout_width="230dp"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:textSize="18sp"
-                    android:background="@drawable/rounded_textview"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/custom_txt_view"
                     android:text="@string/addLanguage" />
                 <Button
                     android:id="@+id/delBut"
                     android:layout_width="230dp"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:textSize="18sp"
-                    android:background="@drawable/rounded_textview"
+                    android:background="@drawable/custom_txt_view"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:layout_marginLeft="32dp"
                     android:layout_marginStart="32dp"
                     android:text="@string/deleteLanguage" />
@@ -153,6 +159,7 @@
                 android:id="@+id/selectDownloadedLanguageSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/custom_txt_view"
                 android:layout_marginBottom="19dp"/>
             <LinearLayout
                 android:id="@+id/llStep2"
@@ -189,7 +196,8 @@
                 android:id="@+id/btnDownloadVoiceData"
                 android:layout_width="230dp"
                 android:textSize="18sp"
-                android:background="@drawable/rounded_textview"
+                android:background="@drawable/custom_txt_view"
+                android:layout_gravity="center_vertical"
                 android:layout_marginBottom="19dp"
                 android:layout_height="wrap_content"
                 android:text="@string/txt_actLangSel_downloadDat"/>
@@ -250,7 +258,9 @@
                 android:id="@+id/changeTtsLangBut"
                 android:layout_width="230dp"
                 android:textSize="18sp"
-                android:background="@drawable/rounded_textview"
+                android:background="@drawable/custom_txt_view"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="8dp"
                 android:layout_marginBottom="19dp"
                 android:layout_height="wrap_content"
                 android:text="@string/change_tts_lang"/>
@@ -281,7 +291,7 @@
                 android:layout_width="230dp"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
-                android:background="@drawable/rounded_textview"
+                android:background="@drawable/custom_txt_view"
                 android:layout_marginBottom="19dp"
                 android:text="@string/saveLanguage" />
         </LinearLayout>

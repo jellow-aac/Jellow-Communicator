@@ -79,7 +79,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:ccpDialog_showCloseIcon="true"
-                    app:ccp_countryPreference="US,GB,IN"
+                    app:ccp_countryPreference="IN,US,GB"
                     app:ccp_autoDetectCountry="true"
                     app:ccpDialog_keyboardAutoPopup="false"
                     app:ccpDialog_backgroundColor="@color/colorIntro"/>
@@ -162,7 +162,7 @@
             android:textSize="14sp"
             android:text="@string/txtSave"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/rounded_textview"
+            android:background="@drawable/custom_txt_view"
             android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp" />
     </LinearLayout>

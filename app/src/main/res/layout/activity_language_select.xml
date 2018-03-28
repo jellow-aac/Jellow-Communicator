@@ -79,13 +79,19 @@
                     android:id="@+id/addBut"
                     android:layout_width="230dp"
                     android:layout_height="30dp"
-                    android:background="@drawable/rounded_textview"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/custom_txt_view"
                     android:text="@string/addLanguage" />
                 <Button
                     android:id="@+id/delBut"
                     android:layout_width="230dp"
                     android:layout_height="30dp"
-                    android:background="@drawable/rounded_textview"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/custom_txt_view"
                     android:layout_marginLeft="20dp"
                     android:layout_marginStart="20dp"
                     android:text="@string/deleteLanguage" />
@@ -151,6 +157,7 @@
                 android:id="@+id/selectDownloadedLanguageSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/custom_txt_view"
                 android:layout_marginBottom="10dp"/>
             <LinearLayout
                 android:id="@+id/llStep2"
@@ -186,7 +193,9 @@
                 android:layout_width="230dp"
                 android:layout_height="30dp"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/rounded_textview"
+                android:background="@drawable/custom_txt_view"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="8dp"
                 android:text="@string/txt_actLangSel_downloadDat"/>
 
             <LinearLayout
@@ -248,7 +257,9 @@
                 android:layout_width="230dp"
                 android:layout_height="30dp"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/rounded_textview"
+                android:background="@drawable/custom_txt_view"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="8dp"
                 android:text="@string/change_tts_lang"/>
             <LinearLayout
                 android:id="@+id/llStep4"
@@ -278,7 +289,7 @@
                 android:layout_width="230dp"
                 android:layout_height="30dp"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/rounded_textview"
+                android:background="@drawable/custom_txt_view"
                 android:text="@string/saveLanguage" />
         </LinearLayout>
     </ScrollView>

@@ -190,13 +190,13 @@
         <item>Theatre</item>
         <item>Playground</item>
         <item>Park</item>
-        <item>Store</item>
+        <item>Shop</item>
         <item>Friend\'s House</item>
         <item>Relative\'s House</item>
         <item>Hospital</item>
         <item>Clinic</item>
         <item>Library</item>
-        <item>Terrace</item>
+        <item>Balcony</item>
     </string-array>
     <string-array name="arrLevelTwoTimeWeatherAdapterText">
         <item>Time…</item>
@@ -303,13 +303,13 @@
         <item>Theatre</item>
         <item>Playground</item>
         <item>Park</item>
-        <item>store</item>
+        <item>Shop</item>
         <item>Friend\'s House</item>
         <item>Relative\'s House</item>
         <item>Hospital</item>
         <item>Clinic</item>
         <item>Library</item>
-        <item>Terrace</item>
+        <item>Balcony</item>
     </string-array>
     <string-array name="arrLevelTwoTimeWeatherSpeechText">
         <item>Time</item>
@@ -1153,18 +1153,18 @@
             \"I don\'t want to go to the park again\",
             \"I really don\'t want to go to the park again\"
 
-    ],[\"I like to go to the store\",
-            \"I really like to go to the store\",
-            \"I want to go to the store\",
-            \"I really want to go to the store\",
-            \"I want to go to the store again\",
-            \"I really want to go to the store again\",
-            \"I don\'t like to go to the store\",
-            \"I really don\'t like to go to the store\",
-            \"I don\'t want to go to the store\",
-            \"I really don\'t want to go to the store\",
-            \"I don\'t want to go to the store again\",
-            \"I really don\'t want to go to the store again\"
+    ],[\"I like to go to the shop\",
+            \"I really like to go to the shop\",
+            \"I want to go to the shop\",
+            \"I really want to go to the shop\",
+            \"I want to go to that shop again\",
+            \"I really want to go to that shop again\",
+            \"I don\'t like to go to the shop\",
+            \"I really don\'t like to go to the shop\",
+            \"I don\'t want to go to the shop\",
+            \"I really don\'t want to go to the shop\",
+            \"I don\'t want to go to that shop again\",
+            \"I really don\'t want to go to that shop again\"
 
     ],[\"I like to go to my friend\'s house\",
             \"I really like to go to my friend\'s house\",
@@ -1231,18 +1231,18 @@
             \"I don\'t want to go to the library again\",
             \"I really don\'t want to go to the library again\"
 
-    ],[\"I like to go to the terrace\",
-            \"I really like to go to the terrace\",
-            \"I want to go to the terrace\",
-            \"I really want to go to the terrace\",
-            \"I want to go to the terrace again\",
-            \"I really want to go to the terrace again\",
-            \"I don\'t like to go to the terrace\",
-            \"I really don\'t like to go to the terrace\",
-            \"I don\'t want to go to the terrace\",
-            \"I really don\'t want to go to the terrace\",
-            \"I don\'t want to go to the terrace again\",
-            \"I really don\'t want to go to the terrace again\"
+    ],[\"I like to go to the balcony\",
+            \"I really like to go to the balcony\",
+            \"I want to go to the balcony\",
+            \"I really want to go to the balcony\",
+            \"I want to go to the balcony again\",
+            \"I really want to go to the balcony again\",
+            \"I don\'t like to go to the balcony\",
+            \"I really don\'t like to go to the balcony\",
+            \"I don\'t want to go to the balcony\",
+            \"I really don\'t want to go to the balcony\",
+            \"I don\'t want to go to the balcony again\",
+            \"I really don\'t want to go to the balcony again\"
 
 
     ]],[[\"I like to be on time\",

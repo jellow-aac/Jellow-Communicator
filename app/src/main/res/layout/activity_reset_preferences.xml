@@ -95,7 +95,7 @@
             android:layout_height="30dp"
             android:text="@string/yes"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/rounded_textview"
+            android:background="@drawable/custom_txt_view"
             android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp" />
         <Button
@@ -104,7 +104,7 @@
             android:layout_height="30dp"
             android:text="@string/no"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/rounded_textview"
+            android:background="@drawable/custom_txt_view"
             android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp" />
     </LinearLayout>

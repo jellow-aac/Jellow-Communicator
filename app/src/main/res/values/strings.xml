@@ -263,6 +263,8 @@
     <string name="txt_intro7_getStarted">GET STARTED</string>
     <string name="completed_intro" translatable="false">com.dsource.idc.jellow.completed_intro</string>
     <string name="lang_setting_status" translatable="false">com.dsource.idc.jellow.lang_setting_status</string>
+    <string name="unique_identifier" translatable="false">com.dsource.idc.jellow.unique_identifier</string>
+    <string name="encrypt_data" translatable="false">com.dsource.idc.jellow.encrypt_data</string>
     <string name="txt_registration_jellowCalluDesc">(This is how Jellow calls you)</string>
     <string name="txt_registration_emergencynoDesc">(To be used for correspondence in case of an emergency involving the child)</string>
     <string name="txt_registration_emailDesc">(To notify you about the release of Jellow updates)</string>
