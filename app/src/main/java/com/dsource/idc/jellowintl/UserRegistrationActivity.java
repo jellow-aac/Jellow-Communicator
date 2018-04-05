@@ -5,15 +5,19 @@ package com.dsource.idc.jellowintl;
  */
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
@@ -30,7 +34,6 @@ import android.widget.Toast;
 import com.dsource.idc.jellowintl.models.SecureKeys;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.SessionManager;
-import com.dsource.idc.jellowintl.utility.ToastWithCustomTime;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -97,7 +100,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 startActivity(new Intent(this, Intro.class));
             }else {
                 startActivity(new Intent(UserRegistrationActivity.this,
-                        LanguageDownloadActivity.class).putExtra(LCODE,mSession.getLanguage()).putExtra(TUTORIAL,true));
+                        LanguageDownloadActivity.class)
+                        .putExtra(LCODE,mSession.getLanguage()).putExtra(TUTORIAL,true));
             }
             finish();
         }else {
@@ -163,24 +167,42 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 bRegister.setEnabled(false);
                 if (etName.getText().toString().equals("")) {
                     bRegister.setEnabled(true);
-                    Toast.makeText(getBaseContext(), getString(R.string.enterTheName), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), getString(R.string.enterTheName),
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(etEmergencyContact.getText().toString().equals("")){
                     bRegister.setEnabled(true);
-                    Toast.makeText(getBaseContext(), getString(R.string.enternonemptycontact), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), getString(R.string.enternonemptycontact),
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
                 eMailId = etEmailId.getText().toString().trim();
                 if (!isValidEmail(eMailId)){
                     bRegister.setEnabled(true);
-                    Toast.makeText(getBaseContext(),getString(R.string.invalid_emailId), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(),getString(R.string.invalid_emailId),
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(selectedLanguage == null) return;
                 //checkNetworkConnection();
-                //showCallPreview();
-                new NetworkConnectionTest(UserRegistrationActivity.this, name, emergencyContact, eMailId).execute();
+                // If user device Android os is above Lollipop and user is not denied Call
+                // permission once and app do not have the call permission and
+                // user device is not wifi only then show Dialog about
+                // Call permission usage.
+                TelephonyManager tm = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+                if(Build.VERSION.SDK_INT > 22 &&
+                        !ActivityCompat.shouldShowRequestPermissionRationale
+                                (UserRegistrationActivity.this,
+                                    android.Manifest.permission.CALL_PHONE) &&
+                        ActivityCompat.checkSelfPermission(UserRegistrationActivity.this,
+                                android.Manifest.permission.CALL_PHONE)
+                                    != PackageManager.PERMISSION_GRANTED &&
+                        (tm != null && tm.getPhoneType() != TelephonyManager.PHONE_TYPE_NONE))
+                    showPermissionRequestDialog();
+                else
+                    new NetworkConnectionTest(UserRegistrationActivity.this, name,
+                            emergencyContact, eMailId).execute();
             }
         });
 
@@ -213,41 +235,51 @@ public class UserRegistrationActivity extends AppCompatActivity {
         });
     }
 
+    private void showPermissionRequestDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Add the buttons
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+                showCallPreview();
+            }
+        });
+        // Set other dialog properties
+        builder.setCancelable(false);
+        builder.setMessage(getString(R.string.call_permission_info));
+        // Create the AlertDialog
+        AlertDialog dialog = builder.create();
+        // Show the AlertDialog
+        dialog.show();
+    }
+
     private void showCallPreview(){
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED){
-            new NetworkConnectionTest(UserRegistrationActivity.this, name, emergencyContact, eMailId).execute();
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE)
+                == PackageManager.PERMISSION_GRANTED){
+            new NetworkConnectionTest(UserRegistrationActivity.this,
+                    name, emergencyContact, eMailId).execute();
         } else {
-            requestCallPermission();
+            ActivityCompat.requestPermissions(this, new String[]
+                    {android.Manifest.permission.CALL_PHONE}, MY_PERMISSIONS_REQUEST_CALL_PHONE);
         }
     }
 
-    private void requestCallPermission(){
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.CALL_PHONE)){
-            new ToastWithCustomTime(this,"Call permission is not available. Requesting permission for making a call in case of an emergency. Go to app setting and enable phone permission", 15000);
-        } else {
-            new ToastWithCustomTime(this,"Call permission is not available. Requesting permission for making a call in case of an emergency.", 5000);
-        }
-        ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CALL_PHONE}, MY_PERMISSIONS_REQUEST_CALL_PHONE);
-    }
-
-    public final static boolean isValidEmail(CharSequence target) {
-        if (target == null) {
-            return false;
-        } else {
-            return Patterns.EMAIL_ADDRESS.matcher(target).matches();
-        }
+    private boolean isValidEmail(CharSequence target) {
+        return target != null && Patterns.EMAIL_ADDRESS.matcher(target).matches();
     }
 
     @Override
     public void onRequestPermissionsResult (int requestCode, String Permissions[], int[] grantResults) {
         if (requestCode == MY_PERMISSIONS_REQUEST_CALL_PHONE) {
             if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(UserRegistrationActivity.this, "Call permission was allowed. Starting preview.", Toast.LENGTH_LONG).show();
+                Toast.makeText(UserRegistrationActivity.this,
+                        getString(R.string.granted_call_permission_req), Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(UserRegistrationActivity.this, "Call permission was denied.", Toast.LENGTH_LONG).show();
+                Toast.makeText(UserRegistrationActivity.this,
+                        R.string.rejected_call_permission_req, Toast.LENGTH_SHORT).show();
             }
-            //checkNetworkConnection();
-            new NetworkConnectionTest(UserRegistrationActivity.this, name, emergencyContact, eMailId).execute();
+            new NetworkConnectionTest(UserRegistrationActivity.this,
+                    name, emergencyContact, eMailId).execute();
 
         }
     }
@@ -301,7 +333,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 encryptStoreUserInfo(mName, emergencyContact, eMailId);
             }else{
                 bRegister.setEnabled(true);
-                Toast.makeText(UserRegistrationActivity.this, getString(R.string.checkConnectivity), Toast.LENGTH_LONG).show();
+                Toast.makeText(UserRegistrationActivity.this,
+                        getString(R.string.checkConnectivity), Toast.LENGTH_LONG).show();
             }
         }
     }

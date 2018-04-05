@@ -288,4 +288,10 @@
     <string name="language_downloaded">_ language downloaded</string>
     <string name="language_downloading">Downloading _ language</string>
     <string name="welcome_msg">Hi</string>
+    <string name="ok">OK</string>
+    <string name="call_permission_info">Call permission is not available. Call permission is required to make a call in case of an emergency.</string>
+    <string name="granted_call_permission_req">Call permission is granted.</string>
+    <string name="rejected_call_permission_req">Call permission is denied.</string>
+    <string name="grant_permission_from_settings">Enable call permission from settings.</string>
+    <string name="request">Request</string>
 </resources>
