@@ -37,9 +37,11 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
+import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 
 public class LevelTwoActivity extends AppCompatActivity {
     private final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 0;
@@ -138,6 +140,9 @@ public class LevelTwoActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if(!isAnalyticsActive()){
+            throw new Error("unableToResume");
+        }
         // Start measuring user app screen timer .
         startMeasuring();
         //After resume from other app if the locale is other than
@@ -148,6 +153,13 @@ public class LevelTwoActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        ///Check if pushId is older than 24 hours (86400000 millisecond).
+        // If yes then create new pushId (user session)
+        // If no then do not create new pushId instead user existing and
+        // current session time is saved.
+        long sessionTime = validatePushId(mSession.getSessionCreatedAt());
+        mSession.setSessionCreatedAt(sessionTime);
+
         // Stop measuring user app screen timer .
         stopMeasuring("LevelTwoActivity");
         new ChangeAppLocale(this).setLocale();

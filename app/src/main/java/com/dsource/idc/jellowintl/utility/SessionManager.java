@@ -261,14 +261,6 @@ public class SessionManager {
         storePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.completed_intro), value);
     }
 
-    public void setUniqueId(String contact) {
-        storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.unique_identifier), contact);
-    }
-
-    public String getUniqueId() {
-        return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.unique_identifier));
-    }
-
     public void setEncryptionData(String encryptData) {
         storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.encrypt_data), encryptData);
     }
@@ -286,9 +278,19 @@ public class SessionManager {
         return ((Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.lang_setting_status)));
     }
 
+    public void setSessionCreatedAt(long timeStamp) {
+        storePreferenceKeyWithValue(Long.class.toString(), mContext.getString(R.string.last_session_created), timeStamp);
+    }
+
+    public Long getSessionCreatedAt() {
+        return ((Long) retrievePreferenceKeyWithValue(Long.class.toString(), mContext.getString(R.string.last_session_created)));
+    }
+
     private void storePreferenceKeyWithValue(String classType, String key, Object val){
         if (classType.equals(Integer.class.toString()))
             mEditor.putInt(key, (Integer) val).commit();
+        else if(classType.equals(Long.class.toString()))
+            mEditor.putLong(key, (Long) val).commit();
         else if(classType.equals(Float.class.toString()))
             mEditor.putFloat(key, (Float) val).commit();
         else if(classType.equals(Boolean.class.toString()))
@@ -301,6 +303,8 @@ public class SessionManager {
         Object valueOfKey = null;
         if(classType.equals(Integer.class.toString()))
             valueOfKey = mPreferences.getInt(key, 0);
+        else if(classType.equals(Long.class.toString()))
+            valueOfKey = mPreferences.getLong(key, 0L);
         else if(classType.equals(Float.class.toString()))
             valueOfKey = mPreferences.getFloat(key, 0.0f);
         else if(classType.equals(Boolean.class.toString()))

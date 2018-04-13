@@ -36,9 +36,11 @@ import java.util.List;
 
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.LCODE;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
+import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangValueMap;
 
@@ -351,12 +353,22 @@ public class LanguageSelectActivity extends AppCompatActivity{
     protected void onPause() {
         super.onPause();
         new ChangeAppLocale(this).setLocale();
+        ///Check if pushId is older than 24 hours (86400000 millisecond).
+        // If yes then create new pushId (user session)
+        // If no then do not create new pushId instead user existing and
+        // current session time is saved.
+        long sessionTime = validatePushId(mSession.getSessionCreatedAt());
+        mSession.setSessionCreatedAt(sessionTime);
+
         stopMeasuring("ChangeLanguageActivity");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        if(!isAnalyticsActive()){
+            throw new Error("unableToResume");
+        }
         startMeasuring();
         ///new ChangeAppLocale(this).setLocale();
         //((RelativeLayout) findViewById(R.id.parentView)).invalidate();

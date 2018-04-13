@@ -33,10 +33,12 @@ import java.io.File;
 import java.util.ArrayList;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
+import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.reportLog;
 import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 
 
 /**
@@ -128,6 +130,9 @@ public class SequenceActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if(!isAnalyticsActive()){
+            throw new Error("unableToResume");
+        }
         // Start measuring user app screen timer .
         startMeasuring();
         //After resume from other app if the locale is other than
@@ -138,6 +143,13 @@ public class SequenceActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        ///Check if pushId is older than 24 hours (86400000 millisecond).
+        // If yes then create new pushId (user session)
+        // If no then do not create new pushId instead user existing and
+        // current session time is saved.
+        long sessionTime = validatePushId(mSession.getSessionCreatedAt());
+        mSession.setSessionCreatedAt(sessionTime);
+
         // Stop measuring user app screen timer .
         stopMeasuring("SequenceActivity");
         new ChangeAppLocale(this).setLocale();
@@ -493,8 +505,8 @@ public class SequenceActivity extends AppCompatActivity {
                 // If expressive buttons are visible or category icon 2 is in pressed state then
                 // reset the border of category icon 2 and hide expressive buttons
                 if (mFlgHideExpBtn == 2) {
-                    hideExpressiveBtn(true);setBorderToView(findViewById(R.id.borderView2),
-                            -1);
+                    hideExpressiveBtn(true);
+                    setBorderToView(findViewById(R.id.borderView2),-1);
                     mFlgHideExpBtn = 0;
                     Bundle bundle = new Bundle();
                     bundle.putString("Icon", mCategoryIconSpeechText[count+1]);
@@ -560,6 +572,7 @@ public class SequenceActivity extends AppCompatActivity {
                     Bundle bundle = new Bundle();
                     bundle.putString("Icon", "VisibleExpr " + mCategoryIconSpeechText[count+2]);
                     bundle.putString("Category", mHeading[mLevelTwoItemPos].toLowerCase());
+                    bundleEvent("Grid",bundle);
                     mFlgHideExpBtn = 3;
                     // If new current sequence is the last sequence and category icon 3 is
                     // last item in sequence then hide expressive buttons.

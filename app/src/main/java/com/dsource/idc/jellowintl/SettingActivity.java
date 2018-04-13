@@ -19,9 +19,11 @@ import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.rey.material.widget.Slider;
 
+import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 
 public class SettingActivity extends AppCompatActivity {
     private Spinner mSpinnerViewMode, mSpinnerGridSize;
@@ -122,11 +124,11 @@ public class SettingActivity extends AppCompatActivity {
                     finishAffinity();
                 }
                 if(mSession.getSpeed() != mSliderSpeed.getValue()) {
-                    setSpeechRate(mSliderSpeed.getValue()/50);
+                    setSpeechRate((float)mSliderSpeed.getValue()/50);
                     mSession.setSpeed(mSliderSpeed.getValue());
                 }
                 if(mSession.getPitch() != mSliderPitch.getValue()) {
-                    setSpeechPitch(mSliderPitch.getValue()/ 50);
+                    setSpeechPitch((float)mSliderPitch.getValue()/ 50);
                     mSession.setPitch(mSliderPitch.getValue());
                 }
                 Toast.makeText(SettingActivity.this, getString(R.string.savedSettingsMessage), Toast.LENGTH_SHORT).show();
@@ -138,6 +140,13 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        ///Check if pushId is older than 24 hours (86400000 millisecond).
+        // If yes then create new pushId (user session)
+        // If no then do not create new pushId instead user existing and
+        // current session time is saved.
+        long sessionTime = validatePushId(mSession.getSessionCreatedAt());
+        mSession.setSessionCreatedAt(sessionTime);
+
         stopMeasuring("SettingsActivity");
         mChangeAppLocale.setLocale();
     }
@@ -145,6 +154,9 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if(!isAnalyticsActive()){
+            throw new Error("unableToResume");
+        }
         mChangeAppLocale.setLocale();
         startMeasuring();
     }
@@ -182,8 +194,8 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        setSpeechPitch(mSession.getPitch()/100);
-        setSpeechRate(mSession.getSpeed()/100);
+        setSpeechPitch(mSession.getPitch()/50);
+        setSpeechRate(mSession.getSpeed()/50);
         finish();
     }
 

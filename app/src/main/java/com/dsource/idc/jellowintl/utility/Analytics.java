@@ -2,6 +2,7 @@ package com.dsource.idc.jellowintl.utility;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.dsource.idc.jellowintl.BuildConfig;
@@ -10,6 +11,8 @@ import com.google.firebase.crash.FirebaseCrash;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
+
+import java.util.Date;
 
 /**
  * Created by ekalpa on 6/14/2017.
@@ -29,27 +32,21 @@ public class Analytics {
 
 
     // should be called only once at the start of the app
-
     public static void getAnalytics(Context context,String contact) {
 
         mDb = FirebaseDatabase.getInstance();
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
         mFirebaseAnalytics.setMinimumSessionDuration(5*60*1000);
-        mRef = mDb.getReference(BuildConfig.DB_TYPE+"/users/"+contact+"/sessions");
+        mRef = mDb.getReference(BuildConfig.DB_TYPE+"/users/"+maskNumber(contact)+"/sessions");
         pushId = mRef.push().getKey();
         bundle = new Bundle();
-
     }
-
 
     // should be called on onResume() of any Activity
     public static void startMeasuring()
     {
         start = System.currentTimeMillis();
     }
-
-
-
 
 
     // should be called on onPause() of any Activity
@@ -65,6 +62,9 @@ public class Analytics {
         }
 
     }
+
+
+
 
 
     public static void bundleEvent(String itemName, Bundle bundle)
@@ -93,7 +93,35 @@ public class Analytics {
             FirebaseCrash.logcat(Log.INFO, TAG, message);
     }
 
+
     public static void reportException(Throwable error){
         FirebaseCrash.report(error);
+    }
+
+    // if last pushId is older than 24hours (86400000 milliseconds) then create new pushId.
+    public static long validatePushId(long previousTimeStamp){
+        long curTimeStamp = new Date().getTime();
+        //Current time is equal to or more than 24 hours when previous pushId is created then
+        // create new pushId.
+        if(curTimeStamp >= previousTimeStamp + 86400000L) {
+            pushId = mRef.push().getKey();
+            return curTimeStamp;
+        }
+        return previousTimeStamp;
+    }
+
+    public static String maskNumber(@NonNull String number) {
+        Long maskedNumber = Long.valueOf(number);
+        return Long.toOctalString(maskedNumber);
+        // decrypt = Long.valueOf(maskedNumber,8)
+    }
+
+    public static void updateSessionRef(String contact){
+        mRef = mDb.getReference(BuildConfig.DB_TYPE+"/users/"+maskNumber(contact)+"/sessions");
+    }
+
+    public static boolean isAnalyticsActive(){
+        return mFirebaseAnalytics != null && mDb != null &&
+                mRef != null && bundle != null;
     }
 }

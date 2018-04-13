@@ -34,10 +34,12 @@ import java.io.File;
 import java.util.ArrayList;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
+import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.reportLog;
 import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 
 public class MainActivity extends AppCompatActivity {
     private final int REQ_HOME = 0;
@@ -116,6 +118,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if(!isAnalyticsActive()){
+            throw new Error("unableToResume");
+        }
         // Start measuring user app screen timer.
         startMeasuring();
         // broadcast receiver to get response messages from JellowTTsService.
@@ -131,6 +136,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        ///Check if pushId is older than 24 hours (86400000 millisecond).
+        // If yes then create new pushId (user session)
+        // If no then do not create new pushId instead user existing and
+        // current session time is saved.
+        SessionManager session = new SessionManager(this);
+        long sessionTime = validatePushId(session.getSessionCreatedAt());
+        session.setSessionCreatedAt(sessionTime);
+
         // Stop measuring user app screen timer .
         stopMeasuring("LevelOneActivity");
         unregisterReceiver(receiver);
@@ -1048,8 +1061,6 @@ public class MainActivity extends AppCompatActivity {
         }
         if(isHomePressed) {
             speakSpeech(mNavigationBtnTxt[0]);
-            //Firebase event
-            singleEvent("Navigation","Home");
             mIvHome.setImageResource(R.drawable.home_pressed);
         }else
             mIvHome.setImageResource(R.drawable.home);

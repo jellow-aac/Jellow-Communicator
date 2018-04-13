@@ -50,6 +50,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name="com.dsource.idc.jellowintl.UserRegistrationActivity"
+            android:configChanges="keyboardHidden|orientation|screenLayout"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

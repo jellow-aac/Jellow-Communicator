@@ -54,12 +54,13 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.UUID;
+import java.util.Date;
 
 import se.simbio.encryption.Encryption;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.getAnalytics;
+import static com.dsource.idc.jellowintl.utility.Analytics.maskNumber;
 import static com.dsource.idc.jellowintl.utility.Analytics.reportException;
 import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
@@ -89,9 +90,10 @@ public class UserRegistrationActivity extends AppCompatActivity {
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
 
         mSession = new SessionManager(this);
-
-        if(!mSession.getCaregiverNumber().equals(""))
-        getAnalytics(this,mSession.getUniqueId());
+        if(!mSession.getCaregiverNumber().equals("")) {
+            getAnalytics(this, mSession.getCaregiverNumber().substring(1));
+            mSession.setSessionCreatedAt(new Date().getTime());
+        }
         if (mSession.isUserLoggedIn() && !mSession.getLanguage().isEmpty())
         {
             if(mSession.isDownloaded(mSession.getLanguage()) && mSession.isCompletedIntro()) {
@@ -163,7 +165,9 @@ public class UserRegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 name  = etName.getText().toString();
-                emergencyContact = mCcp.getFullNumberWithPlus();
+                //emergency contact of child. The contact with country code without preceding '+'
+                // is used as unique identifier.
+                emergencyContact = mCcp.getFullNumber();
                 bRegister.setEnabled(false);
                 if (etName.getText().toString().equals("")) {
                     bRegister.setEnabled(true);
@@ -223,7 +227,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
                     mSession.setCaregiverNumber(emergencyContact);
                     mSession.setUserCountryCode(mCcp.getSelectedCountryCode());
                     mSession.setEmailId(eMailId);
-                    createUser(name, emergencyContact, eMailId);
+                    createUser(name, emergencyContact, eMailId,
+                            mCcp.getSelectedCountryEnglishName(), selectedLanguage);
                     return;
                 }
                 Toast.makeText(UserRegistrationActivity.this, getString(R.string.checkConnectivity), Toast.LENGTH_LONG).show();
@@ -327,14 +332,13 @@ public class UserRegistrationActivity extends AppCompatActivity {
             super.onPostExecute(isConnected);
             if(isConnected){
                 mSession.setName(mName);
-                mSession.setCaregiverNumber(mEmergencyContact);
+                mSession.setCaregiverNumber("+".concat(emergencyContact));
                 mSession.setUserCountryCode(mCcp.getSelectedCountryCode());
                 mSession.setEmailId(mEmailId);
                 encryptStoreUserInfo(mName, emergencyContact, eMailId);
             }else{
                 bRegister.setEnabled(true);
-                Toast.makeText(UserRegistrationActivity.this,
-                        getString(R.string.checkConnectivity), Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, getString(R.string.checkConnectivity), Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -353,8 +357,10 @@ public class UserRegistrationActivity extends AppCompatActivity {
                     mSession.setEncryptionData(jsonData);
                     SecureKeys secureKey = new Gson().
                             fromJson(mSession.getEncryptedData(), SecureKeys.class);
-                    createUser(encrypt(name, secureKey), encrypt(contact, secureKey),
-                            encrypt(email, secureKey));
+                    createUser(encrypt(name, secureKey), contact,
+                            encrypt(email, secureKey),
+                            encrypt(mCcp.getSelectedCountryEnglishName(), secureKey),
+                            encrypt(selectedLanguage, secureKey));
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
@@ -372,15 +378,18 @@ public class UserRegistrationActivity extends AppCompatActivity {
         return encryption.encryptOrNull(plainText).trim();
     }
 
-    private void createUser(final String name,final String emergencyContact, String eMailId)
+    private void createUser(final String name,final String emergencyContact,
+                            String eMailId, String country, String firstLang)
     {
         try {
-            final String userId = UUID.randomUUID().toString();
-            mSession.setUniqueId(userId);
-            getAnalytics(UserRegistrationActivity.this, userId);
+            final String userId = maskNumber(emergencyContact);
+            getAnalytics(UserRegistrationActivity.this, emergencyContact);
+            mSession.setSessionCreatedAt(new Date().getTime());
             mRef.child(userId).child("email").setValue(eMailId);
-            mRef.child(userId).child("emergencyContact").setValue(emergencyContact);
+            mRef.child(userId).child("emergencyContact").setValue(userId);
             mRef.child(userId).child("name").setValue(name);
+            mRef.child(userId).child("country").setValue(country);
+            mRef.child(userId).child("firstLanguage").setValue(firstLang);
             mRef.child(userId).child("joinedOn").setValue(ServerValue.TIMESTAMP).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
