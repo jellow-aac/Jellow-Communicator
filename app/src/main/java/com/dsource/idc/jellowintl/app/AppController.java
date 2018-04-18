@@ -6,13 +6,10 @@ import android.content.Context;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.FirebaseDatabase;
 
-/**
+/**.
  * Created by ekalpa on 8/19/2016.
  */
 public class AppController extends Application {
-    private static AppController mInstance;
-    private static Context mContext;
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -23,8 +20,6 @@ public class AppController extends Application {
         {
             e.printStackTrace();
         }
-        mContext = getApplicationContext();
-        mInstance = this;
     }
 
     @Override

@@ -5,13 +5,19 @@ package com.dsource.idc.jellowintl;
  */
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
@@ -27,6 +33,7 @@ import android.widget.Toast;
 
 import com.dsource.idc.jellowintl.models.SecureKeys;
 import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
+import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -58,14 +65,16 @@ import static com.dsource.idc.jellowintl.utility.Analytics.updateSessionRef;
 import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 
 public class ProfileFormActivity extends AppCompatActivity {
+    private final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 0;
     private Button bSave;
     private EditText etName, etFatherContact, etFathername, etAddress, etEmailId;
     private SessionManager mSession;
     private String email;
     private CountryCodePicker mCcp;
     private Spinner mBloodGroup;
-    FirebaseDatabase mDB;
-    DatabaseReference mRef;
+    private FirebaseDatabase mDB;
+    private DatabaseReference mRef;
+    private boolean emergencyContactChanged = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +84,7 @@ public class ProfileFormActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.menuProfile)+"</font>"));
         mSession = new SessionManager(this);
+        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         etName = findViewById(R.id.etName);
@@ -125,6 +135,7 @@ public class ProfileFormActivity extends AppCompatActivity {
                 email = etEmailId.getText().toString().trim();
                 if (etName.getText().toString().length() > 0) {
                         if (isValidEmail(email)) {
+                            bSave.setEnabled(false);
                             new NetworkConnectionTest(ProfileFormActivity.this,
                                     etName.getText().toString(),
                                     mCcp.getFullNumber(),
@@ -183,11 +194,7 @@ public class ProfileFormActivity extends AppCompatActivity {
     }
 
     public static boolean isValidEmail(CharSequence target) {
-        if (target == null) {
-            return false;
-        } else {
-            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
-        }
+        return target != null && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
     }
 
     private String getBloodGroup() {
@@ -233,6 +240,20 @@ public class ProfileFormActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public void onRequestPermissionsResult (int requestCode, String Permissions[], int[] grantResults){
+        if (requestCode == MY_PERMISSIONS_REQUEST_CALL_PHONE){
+            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                Toast.makeText(this, R.string.granted_call_permission_req,
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, R.string.rejected_call_permission_req,
+                        Toast.LENGTH_SHORT).show();
+            }
+            finish();
+        }
     }
 
     private void encryptStoreUserInfo(final String name, final String contact,
@@ -301,7 +322,22 @@ public class ProfileFormActivity extends AppCompatActivity {
             mSession.setBlood(-1);
 
         Toast.makeText(this, getString(R.string.detailSaved), Toast.LENGTH_SHORT).show();
-        finish();
+
+        // User device is above Lollipop and user changed, saved contact and app does not have call
+        // permission then ask user for call permission.
+        if(Build.VERSION.SDK_INT > 22 && emergencyContactChanged &&
+                ActivityCompat.checkSelfPermission(this,
+                android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            // If user device is not wifi-only device, only then request call permission.
+            TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+            if (tm != null && tm.getPhoneType() != TelephonyManager.PHONE_TYPE_NONE) {
+                showPermissionRequestDialog();
+                //showCallPreview();
+                bSave.setEnabled(true);
+            }else
+                finish();
+        }else
+            finish();
     }
 
     public void moveFirebaseRecord(DatabaseReference fromPath, final DatabaseReference toPath)
@@ -314,6 +350,7 @@ public class ProfileFormActivity extends AppCompatActivity {
                     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                         mRef.setValue(null);
                         mSession.setCaregiverNumber(mCcp.getFullNumberWithPlus());
+                        emergencyContactChanged = true;
                         mRef = mDB.getReference(BuildConfig.DB_TYPE + "/users/"+
                                 maskNumber(mSession.getCaregiverNumber().substring(1)));
                         updateSessionRef(mCcp.getFullNumber());
@@ -332,6 +369,25 @@ public class ProfileFormActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void showPermissionRequestDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Add the buttons
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                ActivityCompat.requestPermissions(ProfileFormActivity.this, new String[]
+                    {android.Manifest.permission.CALL_PHONE}, MY_PERMISSIONS_REQUEST_CALL_PHONE);
+                dialog.dismiss();
+            }
+        });
+        // Set other dialog properties
+        builder.setCancelable(false);
+        builder.setMessage(getString(R.string.call_permission_info));
+        // Create the AlertDialog
+        AlertDialog dialog = builder.create();
+        // Show the AlertDialog
+        dialog.show();
     }
 
     private class NetworkConnectionTest extends AsyncTask<Void, Void, Boolean> {
@@ -389,6 +445,7 @@ public class ProfileFormActivity extends AppCompatActivity {
                             getBloodGroup());
                 }
             }else{
+                bSave.setEnabled(true);
                 Toast.makeText(mContext, getString(R.string.checkConnectivity), Toast.LENGTH_LONG).show();
             }
         }

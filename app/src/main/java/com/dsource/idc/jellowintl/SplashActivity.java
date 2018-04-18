@@ -16,6 +16,8 @@ import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.io.IOException;
 
+import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
+
 /**
  * Created by ekalpa on 7/12/2016.
  */
@@ -52,6 +54,14 @@ public class SplashActivity extends AppCompatActivity {
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.dsource.idc.jellowintl.INIT_SERVICE");
         registerReceiver(receiver, filter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!isAnalyticsActive()) {
+            throw new Error("unableToResume");
+        }
     }
 
     private final BroadcastReceiver receiver = new BroadcastReceiver() {

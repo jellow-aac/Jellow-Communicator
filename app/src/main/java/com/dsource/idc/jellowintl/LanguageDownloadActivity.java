@@ -18,6 +18,7 @@ import com.dsource.idc.jellowintl.utility.SessionManager;
 import static com.dsource.idc.jellowintl.LanguageSelectActivity.FINISH;
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.LCODE;
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.TUTORIAL;
+import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangValueMap;
 
 public class LanguageDownloadActivity extends AppCompatActivity {
@@ -114,6 +115,9 @@ public class LanguageDownloadActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if(!isAnalyticsActive()) {
+            throw new Error("unableToResume");
+        }
         isConnected = isConnected();
         if(isConnected) {
             if (manager != null)

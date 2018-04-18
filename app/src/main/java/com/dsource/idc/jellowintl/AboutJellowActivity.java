@@ -10,6 +10,9 @@ import android.view.View;
 import android.webkit.WebView;
 
 import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
+import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
+
+import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 
 /**
  * Created by user on 5/27/2016.
@@ -20,6 +23,10 @@ public class AboutJellowActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_jellow);
+        // Initialize default exception handler for this activity.
+        // If any exception occurs during this activity usage,
+        // handle it using default exception handler.
+        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         new ChangeAppLocale(this).setLocale();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+ getString(R.string.menuAbout)+"</font>"));
@@ -66,6 +73,9 @@ public class AboutJellowActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if(!isAnalyticsActive()) {
+            throw new Error("unableToResume");
+        }
         new ChangeAppLocale(this).setLocale();
     }
 

@@ -17,6 +17,8 @@ import android.widget.TextView;
 import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 
+import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
+
 /**
  * Created by user on 5/27/2016.
  */
@@ -52,7 +54,6 @@ public class KeyboardInputActivity extends AppCompatActivity {
             public void onClick(View v) {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.showInputMethodPicker();
-                startActivity(new Intent(KeyboardInputActivity.this, MainActivity.class));
                 finish();
             }
         });
@@ -87,6 +88,14 @@ public class KeyboardInputActivity extends AppCompatActivity {
             default: return super.onOptionsItemSelected(item);
         }
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!isAnalyticsActive()) {
+            throw new Error("unableToResume");
+        }
     }
 
     @Override

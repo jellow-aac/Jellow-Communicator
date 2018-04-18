@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.github.paolorotolo.appintro.AppIntro;
@@ -26,6 +27,10 @@ public class Intro extends AppIntro {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.intro_to_jellow)+"</font>"));
+        // Initialize default exception handler for this activity.
+        // If any exception occurs during this activity usage,
+        // handle it using default exception handler.
+        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         startService(new Intent(getApplication(), JellowTTSService.class));
         addSlide(SampleSlideFragment.newInstance(R.layout.intro, "intro"));
         addSlide(SampleSlideFragment.newInstance(R.layout.intro5, "intro5"));
@@ -50,21 +55,6 @@ public class Intro extends AppIntro {
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES");
         registerReceiver(receiver, filter);
-    }
-
-    private String getSelectedLanguage(String replaceChar) {
-        switch (new SessionManager(this).getLanguage()){
-            case SessionManager.ENG_IN:
-                if(replaceChar.equals("-"))
-                    return SessionManager.LangValueMap.get(SessionManager.ENG_IN);
-            case SessionManager.HI_IN:
-                return "Hindi (India)";
-            case SessionManager.ENG_UK:
-                return SessionManager.LangValueMap.get(SessionManager.ENG_UK);
-            case SessionManager.ENG_US:
-                return SessionManager.LangValueMap.get(SessionManager.ENG_US);
-            default: return "";
-        }
     }
 
     @Override
@@ -100,6 +90,21 @@ public class Intro extends AppIntro {
             }else if(((SampleSlideFragment) newFragment).getLayoutName().equals("intro7")){
                 getTextToSpeechEngineLanguage("");
                 ((TextView) findViewById(R.id.tx_downloadMsg)).setText(selectedLanguage);
+        }
+    }
+
+    private String getSelectedLanguage(String replaceChar) {
+        switch (new SessionManager(this).getLanguage()){
+            case SessionManager.ENG_IN:
+                if(replaceChar.equals("-"))
+                    return SessionManager.LangValueMap.get(SessionManager.ENG_IN);
+            case SessionManager.HI_IN:
+                return "Hindi (India)";
+            case SessionManager.ENG_UK:
+                return SessionManager.LangValueMap.get(SessionManager.ENG_UK);
+            case SessionManager.ENG_US:
+                return SessionManager.LangValueMap.get(SessionManager.ENG_US);
+            default: return "";
         }
     }
 
