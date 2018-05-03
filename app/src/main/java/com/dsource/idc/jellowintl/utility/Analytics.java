@@ -3,11 +3,9 @@ package com.dsource.idc.jellowintl.utility;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.dsource.idc.jellowintl.BuildConfig;
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.google.firebase.crash.FirebaseCrash;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
@@ -83,19 +81,6 @@ public class Analytics {
     public static void setUserProperty(String name,String value)
     {
         mFirebaseAnalytics.setUserProperty(name,value);
-    }
-
-
-    public static void reportLog(String message, int msgCode){
-        if(msgCode == Log.ERROR)
-            FirebaseCrash.logcat(Log.ERROR, TAG, message);
-        else
-            FirebaseCrash.logcat(Log.INFO, TAG, message);
-    }
-
-
-    public static void reportException(Throwable error){
-        FirebaseCrash.report(error);
     }
 
     // if last pushId is older than 24hours (86400000 milliseconds) then create new pushId.

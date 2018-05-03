@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 
+import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 
@@ -36,6 +37,7 @@ public class AboutJellowActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 speakSpeech(getString(R.string.about_jellow_speech));
+                Crashlytics.log("About Speak");
             }
         });
 
@@ -43,6 +45,7 @@ public class AboutJellowActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 stopSpeech();
+                Crashlytics.log("About Stop");
             }
         });
     }

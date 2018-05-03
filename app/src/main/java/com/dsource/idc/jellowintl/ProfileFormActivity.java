@@ -31,6 +31,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.models.SecureKeys;
 import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
@@ -58,7 +59,6 @@ import se.simbio.encryption.Encryption;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.maskNumber;
-import static com.dsource.idc.jellowintl.utility.Analytics.reportException;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.updateSessionRef;
@@ -132,6 +132,7 @@ public class ProfileFormActivity extends AppCompatActivity {
         bSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Crashlytics.log("Profile Save");
                 email = etEmailId.getText().toString().trim();
                 if (etName.getText().toString().length() > 0) {
                         if (isValidEmail(email)) {
@@ -273,13 +274,13 @@ public class ProfileFormActivity extends AppCompatActivity {
                         encryptStoreUserInfoUsingSecureKey(name, contact, email,
                                 caregiverName, address, bloodGroup, secureKey);
                     } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
+                        Crashlytics.logException(e);
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
-                    reportException(exception);
+                    Crashlytics.logException(exception);
                 }
             });
         }else {
@@ -332,7 +333,6 @@ public class ProfileFormActivity extends AppCompatActivity {
             TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
             if (tm != null && tm.getPhoneType() != TelephonyManager.PHONE_TYPE_NONE) {
                 showPermissionRequestDialog();
-                //showCallPreview();
                 bSave.setEnabled(true);
             }else
                 finish();
@@ -345,23 +345,22 @@ public class ProfileFormActivity extends AppCompatActivity {
         fromPath.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                toPath.setValue(dataSnapshot.getValue(), new DatabaseReference.CompletionListener() {
-                    @Override
-                    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                        mRef.setValue(null);
-                        mSession.setCaregiverNumber(mCcp.getFullNumberWithPlus());
-                        emergencyContactChanged = true;
-                        mRef = mDB.getReference(BuildConfig.DB_TYPE + "/users/"+
-                                maskNumber(mSession.getCaregiverNumber().substring(1)));
-                        updateSessionRef(mCcp.getFullNumber());
-                        encryptStoreUserInfo(etName.getText().toString(),
-                                mCcp.getFullNumber(),
-                                email,
-                                etFathername.getText().toString(),
-                                etAddress.getText().toString(),
-                                getBloodGroup());
-                    }
-                });
+                // remove the listener to avoid any 'intermediate' updates while working in the same node
+                mRef.removeEventListener(this);
+                processPreviousRecordsNode(dataSnapshot,toPath);
+                mRef.setValue(null);
+
+                mSession.setCaregiverNumber(mCcp.getFullNumberWithPlus());
+                mRef = mDB.getReference(BuildConfig.DB_TYPE + "/users/" + maskNumber(mSession.getCaregiverNumber()));
+                mRef.removeEventListener(this);
+                emergencyContactChanged = true;
+                updateSessionRef(mCcp.getFullNumber());
+                encryptStoreUserInfo(etName.getText().toString(),
+                        mCcp.getFullNumber(),
+                        email,
+                        etFathername.getText().toString(),
+                        etAddress.getText().toString(),
+                        getBloodGroup());
             }
 
             @Override
@@ -369,6 +368,26 @@ public class ProfileFormActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void processPreviousRecordsNode(DataSnapshot snapshot, DatabaseReference mNewRef){
+
+        if(snapshot.hasChild("previousRecords")){
+
+            // get the previous records node of the old number
+            Object o = snapshot.child("previousRecords").getValue();
+            // set the entire 'old number -> previous records node' value to 'new number -> prevrecords node'
+            mNewRef.getParent().setValue(o);
+            // set the entire value of 'old number' node to 'new number -> prevrecords node'
+            mNewRef.setValue(snapshot.getValue());
+            // remove the 'prevRecords' node from the copied 'old number' node in the 'new number -> prevrecords -> old number'
+            mNewRef.child("previousRecords").setValue(null);
+
+        } else {
+
+            // if old number doesn't have previous records then just copy it into 'new number -> prevrecords node'
+            mNewRef.setValue(snapshot.getValue());
+        }
     }
 
     private void showPermissionRequestDialog() {

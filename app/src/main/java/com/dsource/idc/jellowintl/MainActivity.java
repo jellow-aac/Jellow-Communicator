@@ -13,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.KeyListener;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,14 +31,16 @@ import com.google.gson.Gson;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
-import static com.dsource.idc.jellowintl.utility.Analytics.reportLog;
 import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
+import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
+import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
 
 public class MainActivity extends AppCompatActivity {
     private final int REQ_HOME = 0;
@@ -502,7 +503,6 @@ public class MainActivity extends AppCompatActivity {
                 // if value of mShouldReadFullSpeech is true, then speak associated like
                 // expression verbiage to selected category icon.
                 } else {
-                    reportLog(getLocalClassName()+", mIvLike: "+mLevelOneItemPos, Log.INFO);
                     ++mActionBtnClickCount;
                     // Set like button color border to selected category icon.
                     // border color is applied using mActionBtnClickCount and mFlgImage.
@@ -514,6 +514,7 @@ public class MainActivity extends AppCompatActivity {
                     // verbiage for selected category icon.
                     if (mFlgLike == 1) {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(1));
+                        playAudio(getFilePath( "01"));
                         mFlgLike = 0;
                         //Firebase event
                         singleEvent("ExpressiveIcon","ReallyLike");
@@ -523,6 +524,7 @@ public class MainActivity extends AppCompatActivity {
                     // verbiage to selected category icon.
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(0));
+                        playAudio(getFilePath("00"));
                         mFlgLike = 1;
                         //Firebase event
                         singleEvent("ExpressiveIcon","Like");
@@ -576,7 +578,6 @@ public class MainActivity extends AppCompatActivity {
                 // if value of mShouldReadFullSpeech is true, then speak associated don't like
                 // expression verbiage to selected category icon.
                 } else {
-                    reportLog(getLocalClassName()+", mIvDontLike: "+mLevelOneItemPos, Log.INFO);
                     ++mActionBtnClickCount;
                     // Set don't like button color border to selected category icon.
                     // border color is applied using mActionBtnClickCount and mFlgImage
@@ -587,6 +588,7 @@ public class MainActivity extends AppCompatActivity {
                     // verbiage for selected category icon.
                     if (mFlgDntLike == 1) {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(7));
+                        playAudio(getFilePath("07"));
                         mFlgDntLike = 0;
                         //Firebase event
                         singleEvent("ExpressiveIcon","ReallyDon'tLike");
@@ -596,6 +598,7 @@ public class MainActivity extends AppCompatActivity {
                     // verbiage to selected category icon.
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(6));
+                        playAudio(getFilePath("06"));
                         mFlgDntLike = 1;
                         //Firebase event
                         singleEvent("ExpressiveIcon","Don'tLike");
@@ -649,7 +652,6 @@ public class MainActivity extends AppCompatActivity {
                 // if value of mShouldReadFullSpeech is true, then speak associated yes
                 // expression verbiage to selected category icon.
                 } else {
-                    reportLog(getLocalClassName()+", mIvYes: "+mLevelOneItemPos, Log.INFO);
                     ++mActionBtnClickCount;
                     // Set yes button color border to selected category icon.
                     // border color is applied using mActionBtnClickCount and mFlgImage
@@ -660,6 +662,7 @@ public class MainActivity extends AppCompatActivity {
                     // verbiage for selected category icon.
                     if (mFlgYes == 1) {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(3));
+                        playAudio(getFilePath("03"));
                         mFlgYes = 0;
                         //Firebase event
                         singleEvent("ExpressiveIcon","ReallyYes");
@@ -669,6 +672,7 @@ public class MainActivity extends AppCompatActivity {
                     // verbiage for selected category icon.
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(2));
+                        playAudio(getFilePath("02"));
                         mFlgYes = 1;
                         //Firebase event
                         singleEvent("ExpressiveIcon","Yes");
@@ -722,7 +726,6 @@ public class MainActivity extends AppCompatActivity {
                 // if value of mShouldReadFullSpeech is true, then it should speak associated no
                 // expression verbiage to selected category icon.
                 } else {
-                    reportLog(getLocalClassName()+", mIvNo: "+mLevelOneItemPos, Log.INFO);
                     ++mActionBtnClickCount;
                     // Set no button color border to selected category icon.
                     // border color is applied using mActionBtnClickCount and mFlgImage.
@@ -733,6 +736,7 @@ public class MainActivity extends AppCompatActivity {
                     // verbiage for selected category icon.
                     if (mFlgNo == 1) {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(9));
+                        playAudio(getFilePath("09"));
                         mFlgNo = 0;
                         //Firebase event
                         singleEvent("ExpressiveIcon","ReallyNo");
@@ -742,6 +746,7 @@ public class MainActivity extends AppCompatActivity {
                     // verbiage to selected category icon.
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(8));
+                        playAudio(getFilePath("08"));
                         mFlgNo = 1;
                         //Firebase event
                         singleEvent("ExpressiveIcon","No");
@@ -795,7 +800,6 @@ public class MainActivity extends AppCompatActivity {
                 // if value of mShouldReadFullSpeech is true, then it should speak associated more
                 // expression verbiage to selected category icon.
                 } else {
-                    reportLog(getLocalClassName()+", mIvMore: "+mLevelOneItemPos, Log.INFO);
                     ++mActionBtnClickCount;
                     // Set border to category icon, border color is applied using
                     // mActionBtnClickCount and mFlgImage
@@ -806,6 +810,7 @@ public class MainActivity extends AppCompatActivity {
                     // verbiage associated to selected category icon.
                     if (mFlgMore == 1) {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(5));
+                        playAudio(getFilePath("05"));
                         mFlgMore = 0;
                         //Firebase event
                         singleEvent("ExpressiveIcon","ReallyMore");
@@ -815,6 +820,7 @@ public class MainActivity extends AppCompatActivity {
                     // verbiage associated to selected category icon.
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(4));
+                        playAudio(getFilePath("04"));
                         mFlgMore = 1;
                         //Firebase event
                         singleEvent("ExpressiveIcon","More");
@@ -868,7 +874,6 @@ public class MainActivity extends AppCompatActivity {
                 // if value of mShouldReadFullSpeech is true, then speak associated less
                 // expression verbiage to selected category icon.
                 } else {
-                    reportLog(getLocalClassName()+", mIvLess: "+mLevelOneItemPos, Log.INFO);
                     ++mActionBtnClickCount;
                     // Set less button color border to selected category icon.
                     // border color is applied using mActionBtnClickCount and mFlgImage.
@@ -879,6 +884,7 @@ public class MainActivity extends AppCompatActivity {
                     // verbiage for selected category icon.
                     if (mFlgLess == 1) {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(11));
+                        playAudio(getFilePath("11"));
                         mFlgLess = 0;
                         //Firebase event
                         singleEvent("ExpressiveIcon","ReallyLess");
@@ -888,6 +894,7 @@ public class MainActivity extends AppCompatActivity {
                     // verbiage to selected category icon.
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(10));
+                        playAudio(getFilePath("10"));
                         mFlgLess = 1;
                         //Firebase event
                         singleEvent("ExpressiveIcon","Less");
@@ -910,10 +917,7 @@ public class MainActivity extends AppCompatActivity {
                 speakSpeech(mEtTTs.getText().toString());
                 if(!mEtTTs.getText().toString().equals(""))
                     mIvTTs.setImageResource(R.drawable.speaker_pressed);
-                //Firebase get log
-                reportLog(getLocalClassName()+", TtsSpeak", Log.INFO);
                 //Firebase event
-
                 Bundle bundle = new Bundle();
                 bundle.putString("InputName", Settings.Secure.getString(getContentResolver(),
                         Settings.Secure.DEFAULT_INPUT_METHOD));
@@ -981,10 +985,10 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(title);
         // below condition is true when user tap same category icon twice.
         // i.e. user intends to open a sub-category of selected category icon.
-        if (mLevelOneItemPos == position) {
+        if (mLevelOneItemPos == position){
             SessionManager session = new SessionManager(this);
             // Get icon set directory path
-            File langDir = new File("/data/data/com.dsource.idc.jellowintl/app_"+
+            File langDir = new File(getApplicationInfo().dataDir + "/app_"+
                     session.getLanguage()+"/drawables");
             // If icon sets are available for level two then open selected category in level two
             if(langDir.exists() && langDir.isDirectory()) {
@@ -1009,8 +1013,6 @@ public class MainActivity extends AppCompatActivity {
         }
         mLevelOneItemPos = mRecyclerView.getChildLayoutPosition(view);
         mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
-        //Firebase get log
-        reportLog(getLocalClassName()+" "+mLevelOneItemPos, Log.INFO);
     }
 
     /**
@@ -1090,6 +1092,55 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * <p>This function provide create filename using app current language, current level,
+     * selected category icon and expressive button tapped.
+     * @param verbiageNumber, position of the verbiage.
+     * @return the full filename string.</p>
+     * */
+    private String getFilePath(String verbiageNumber) {
+        String filePath = "";
+        SessionManager session = new SessionManager(this);
+        // Add file path
+        filePath += getApplicationInfo().dataDir + "/app_" + session.getLanguage() + "/audio/";
+        // Add country specific code to filename
+        if(filePath.contains(MR_IN))
+            filePath += "04";
+        else
+            //TODO add more non-tts language code here.
+            filePath = "";
+        // Add level in filename
+        filePath += "-00-";
+        // Add selected icon position in filename.
+        filePath += String.valueOf(mLevelOneItemPos).length() != 2 ?
+                0 + String.valueOf(mLevelOneItemPos) :
+                String.valueOf(mLevelOneItemPos);
+        // Add selected category icon verbiage index if it is non empty.
+        // Like, really like expression are at 0,1 resp.
+        // Yes, really yes expression are at 2,3 resp.
+        // more, really more expression are at 4,5 resp.
+        // don't like, really don't like expression are at 6,7 resp.
+        // no, really no expression are at 8,9 resp.
+        // less, really less expression are at 10,11 resp.
+        if(!verbiageNumber.isEmpty())
+            filePath += "-" + verbiageNumber;
+
+        //Add file name extension
+        filePath += ".mp3";
+        return filePath;
+    }
+
+    /**
+     * <p>This function checks if current app language is supported by tts or not.
+     *  currently, MR_IN only language which does not have tts support.
+     * @return If tts support the current language then true otherwise false.</p>
+     * */
+    private boolean isTtsAvailForLang(){
+        SessionManager session = new SessionManager(this);
+        //TODO add more non-tts language code here.
+        return !session.getLanguage().equals(MR_IN);
+    }
+
+    /**
      * <p>This function will send speech output request to
      * {@link com.dsource.idc.jellowintl.utility.JellowTTSService} Text-to-speech Engine.
      * The string in {@param speechText} is speech output request string.</p>
@@ -1097,6 +1148,21 @@ public class MainActivity extends AppCompatActivity {
     private void speakSpeech(String speechText){
         Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_TEXT");
         intent.putExtra("speechText", speechText.toLowerCase());
+        sendBroadcast(intent);
+    }
+
+    /**
+     * <p>This function send the broadcast message to Text-to-speech service about
+     * requesting to play recorded audio stream given in {@param audioPath}. For a given language
+     * if text-to-speech engine is available then do not play recorded audio stream.
+     * @param audioPath is path of recorded audio file.</p>
+     * */
+    private void playAudio(String audioPath) {
+        //If text-to-speech is available for language then do not play recorded audio stream.
+        if(isTtsAvailForLang())
+            return;
+        Intent intent = new Intent("com.dsource.idc.jellowintl.AUDIO_PATH");
+        intent.putExtra("audioPath", audioPath);
         sendBroadcast(intent);
     }
 
@@ -1111,11 +1177,14 @@ public class MainActivity extends AppCompatActivity {
         LevelOneVerbiageModel verbiageModel = new Gson()
                 .fromJson(getString(R.string.levelOneVerbiage), LevelOneVerbiageModel.class);
         mLayerOneSpeech = verbiageModel.getVerbiageModel();
-        //Firebase get log
-        reportLog("Activity created", Log.INFO);
         mSpeechTxt = getResources().getStringArray(R.array.arrLevelOneActionBarTitle);
         mExprBtnTxt = getResources().getStringArray(R.array.arrActionSpeech);
         mNavigationBtnTxt = getResources().getStringArray(R.array.arrNavigationSpeech);
+
+        if(!isTtsAvailForLang()) {
+            ArrayList<String> emptyList = new ArrayList<>(Collections.nCopies(12, ""));            // 12 # of verbiage for each category icon
+            mLayerOneSpeech = new ArrayList<ArrayList<String>>(Collections.nCopies(9, emptyList));  // 9 # of category icons in current level
+        }
     }
 
     /**
@@ -1263,13 +1332,22 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.LENGTH_LONG).show();
                     break;
                 case "com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES":
-                    SessionManager session = new SessionManager(MainActivity.this);
+                    SessionManager session = new SessionManager(context);
                     String userLang = session.getLanguage();
                     session.setLangSettingIsCorrect(true);
                     String mSysTtsReg = intent.getStringExtra("systemTtsRegion");
-                    // If App language and Text-to-speech language are different then show error toast.
-                    if((userLang.equals("en-rIN") && !mSysTtsReg.equals("hi-rIN"))
-                            || (!userLang.equals("en-rIN") && !userLang.equals(mSysTtsReg))) {
+                    // If app language is not marathi as it do not require to complete setting from
+                    // Language screen.
+                    //Below if is true when
+                    //      1) app language is not marathi
+                    //          and
+                    //      2) app language is english India and tts language is hindi India
+                    // or   3) app language is not english India and
+                    //         app language and Text-to-speech language are different then
+                    //         show error toast.
+                    if(!session.getLanguage().equals(LangMap.get("मराठी")) &&
+                            ((userLang.equals("en-rIN") && !mSysTtsReg.equals("hi-rIN"))
+                            || (!userLang.equals("en-rIN") && !userLang.equals(mSysTtsReg)))) {
                         Toast.makeText(context, getString(R.string.speech_engin_lang_sam),
                                 Toast.LENGTH_LONG).show();
                         session.setLangSettingIsCorrect(false);

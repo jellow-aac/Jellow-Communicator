@@ -11,7 +11,6 @@ import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.KeyListener;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.models.SeqActivityVerbiageModel;
 import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
@@ -34,7 +34,6 @@ import java.util.ArrayList;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
-import static com.dsource.idc.jellowintl.utility.Analytics.reportLog;
 import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
@@ -290,6 +289,7 @@ public class SequenceActivity extends AppCompatActivity {
      * f) reset category icons</p>
      * */
     private void initCategoryNavNextListener() {
+        Crashlytics.log("Sequence category next");
         mBtnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -380,6 +380,7 @@ public class SequenceActivity extends AppCompatActivity {
      * f) reset category icons</p>
      * */
     private void initCategoryNavBackListener() {
+        Crashlytics.log("Sequence category back");
         mBtnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1101,8 +1102,6 @@ public class SequenceActivity extends AppCompatActivity {
                 speakSpeech(mEtTTs.getText().toString());
                 if(!mEtTTs.getText().toString().equals(""))
                     mIvTTs.setImageResource(R.drawable.speaker_pressed);
-                //Firebase get log
-                reportLog(getLocalClassName()+", TtsSpeak: ", Log.INFO);
                 //Firebase event
                 Bundle bundle = new Bundle();
                 bundle.putString("InputName", Settings.Secure.getString(getContentResolver(),

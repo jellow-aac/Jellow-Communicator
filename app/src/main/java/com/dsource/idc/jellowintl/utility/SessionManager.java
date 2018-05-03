@@ -18,22 +18,25 @@ public class SessionManager {
     public final static String ENG_UK = "en-rGB";
     public final static String ENG_IN = "en-rIN";
     public final static String HI_IN = "hi-rIN";
+    public final static String MR_IN = "mr-rIN";
 
     public final static HashMap<String,String> LangMap = new HashMap<String,String>(){
         {
             put("English (India)", ENG_IN);
-            put("English (United States)", ENG_US);
-            put("English (United Kingdom)", ENG_UK);
             put("हिंदी", HI_IN);
+            put("मराठी", MR_IN);
+            put("English (United Kingdom)", ENG_UK);
+            put("English (United States)", ENG_US);
         }
     };
 
     public final static HashMap<String,String> LangValueMap = new HashMap<String,String>(){
         {
             put(ENG_IN,"English (India)");
-            put(ENG_US,"English (United States)");
-            put(ENG_UK,"English (United Kingdom)");
             put(HI_IN,"हिंदी");
+            put(MR_IN,"मराठी");
+            put(ENG_UK,"English (United Kingdom)");
+            put(ENG_US,"English (United States)");
         }
     };
 

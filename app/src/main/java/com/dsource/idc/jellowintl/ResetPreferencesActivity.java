@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.SessionManager;
@@ -51,6 +52,7 @@ public class ResetPreferencesActivity extends AppCompatActivity {
                 Intent intentStartActivity = new Intent(ResetPreferencesActivity.this, SplashActivity.class);
                 intentStartActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intentStartActivity);
+                Crashlytics.log("ResetPref Yes");
                 finish();
             }
         });
