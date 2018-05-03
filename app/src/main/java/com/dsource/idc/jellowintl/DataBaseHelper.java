@@ -8,8 +8,8 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.io.FileOutputStream;
@@ -19,9 +19,6 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-import static com.dsource.idc.jellowintl.utility.Analytics.reportException;
-import static com.dsource.idc.jellowintl.utility.Analytics.reportLog;
-
 /**
  * Created by ekalpa on 6/27/2016.
  */
@@ -29,7 +26,10 @@ import static com.dsource.idc.jellowintl.utility.Analytics.reportLog;
 class DataBaseHelper extends SQLiteOpenHelper {
 
     //The Android's default system path of your application database.
-    private static String DB_PATH = "/data/data/com.dsource.idc.jellowintl/databases/";
+    //private static String DB_PATH = "/data/data/com.dsource.idc.jellowintl/databases/";
+
+    private static String DB_PATH = BuildConfig.DEBUG ? "/data/data/com.dsource.idc.jellowintl.debug/databases/" :
+                                                        "/data/data/com.dsource.idc.jellowintl/databases/";
     private static String DB_NAME = "level3.db";
     private SQLiteDatabase myDataBase;
     private final Context myContext;
@@ -49,7 +49,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
     /**
      * Creates a empty database on the system and rewrites it with your own database.
      * */
-    public void createDataBase() throws IOException {
+    public void createDataBase() {
         boolean dbExist = checkDataBase();
         if(dbExist){
             //do nothing - database already exist
@@ -60,8 +60,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
             try {
                 copyDataBase();
             } catch (IOException e) {
-               reportLog("Error copying database.", Log.ERROR);
-               reportException(e);
+                Crashlytics.logException(new Exception("Failed to copy database"));
             }
         }
     }
@@ -77,8 +76,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
             checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
 
         }catch(SQLiteException e){
-            reportLog("database does't exist yet.", Log.ERROR);
-            reportException(e);
+            Crashlytics.log("Database do not exist yet");
         }
         if(checkDB != null){
             checkDB.close();
@@ -151,7 +149,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
         return "false";
     }
 
-    public void setlevel(int layer_1_id, int layer_2_id, String n) {
+    public void setLevel(int layer_1_id, int layer_2_id, String n) {
         String userLang = "";
         if(mSession.getLanguage().equals("en-rUS") || mSession.getLanguage().equals("en-rGB"))
             userLang = "en-rUS,en-rGB";
@@ -234,9 +232,17 @@ class DataBaseHelper extends SQLiteOpenHelper {
             }
         }
         levelOneIds = levelTwoIds = null;
+        Crashlytics.log("addLanguageDataToDatabase");
         return result >= 30;
     }
 
+    /**
+     * <p>In older version of Jellow app. It has "more" icon at index 8 in category icon. It will
+     *  load next 8 cateogry icons when pressed. In later version, more button is removed with
+     *  scroll function. But, the old installations has older data strings. In old data string
+     *  every 9th value represent more. When scroll is added, the removal of "more" values from
+     *  database is must. The following function will remove the values.</p>
+     * */
     private void removeMoreFromDatabasePreferences(int layer_1_id, int layer_2_id) {
         String prefString = getRawPrefString(layer_1_id, layer_2_id);
         // The preferences for Time & Weather -> Birthday's in database are stored to 7,7 place

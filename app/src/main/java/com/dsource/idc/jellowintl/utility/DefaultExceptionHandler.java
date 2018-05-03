@@ -5,9 +5,8 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.UserRegistrationActivity;
-
-import static com.dsource.idc.jellowintl.utility.Analytics.reportException;
 
 /**
  * Created by ekalpa on 12/4/2017.
@@ -23,7 +22,7 @@ public class DefaultExceptionHandler implements Thread.UncaughtExceptionHandler 
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
         Log.e("Jellow","exception caught", ex);
-        reportException(ex);
+        Crashlytics.logException(ex);
 
         if(ex.getMessage().equals("unableToResume")){
             Intent intent = new Intent(activity, UserRegistrationActivity.class);

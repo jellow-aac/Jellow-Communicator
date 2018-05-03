@@ -31,6 +31,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.models.SecureKeys;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.SessionManager;
@@ -61,7 +62,6 @@ import se.simbio.encryption.Encryption;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.getAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.maskNumber;
-import static com.dsource.idc.jellowintl.utility.Analytics.reportException;
 import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
 
@@ -78,7 +78,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
     private DatabaseReference mRef;
     private CountryCodePicker mCcp;
     Spinner languageSelect;
-    String[] languagesCodes = new String[4], languageNames = new String[4];
+    String[] languagesCodes = new String[5], languageNames = new String[5];
     String selectedLanguage;
     String name, emergencyContact, eMailId;
 
@@ -218,6 +218,12 @@ public class UserRegistrationActivity extends AppCompatActivity {
             etEmergencyContact.setText(mSession.getCaregiverNumber());
             etEmailId.setText(mSession.getEmailId());
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Crashlytics.log("Paused "+getLocalClassName());
     }
 
     private void checkNetworkConnection() {
@@ -360,18 +366,19 @@ public class UserRegistrationActivity extends AppCompatActivity {
                     mSession.setEncryptionData(jsonData);
                     SecureKeys secureKey = new Gson().
                             fromJson(mSession.getEncryptedData(), SecureKeys.class);
+                    Crashlytics.log("Created secure key.");
                     createUser(encrypt(name, secureKey), contact,
                             encrypt(email, secureKey),
                             encrypt(mCcp.getSelectedCountryEnglishName(), secureKey),
                             encrypt(selectedLanguage, secureKey));
                 } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
+                    Crashlytics.logException(e);
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
-                reportException(exception);
+                Crashlytics.logException(exception);
             }
         });
     }
@@ -413,6 +420,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
                         finish();
                     } else {
                         bRegister.setEnabled(true);
+                        Crashlytics.log("User data not added.");
                         Toast.makeText(UserRegistrationActivity.this, getString(R.string.checkConnectivity), Toast.LENGTH_LONG).show();
                     }
                 }

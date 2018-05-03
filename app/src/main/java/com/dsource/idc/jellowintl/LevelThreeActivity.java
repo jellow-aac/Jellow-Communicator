@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.models.LevelThreeVerbiageModel;
 import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
@@ -32,7 +33,6 @@ import java.util.StringTokenizer;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
-import static com.dsource.idc.jellowintl.utility.Analytics.reportException;
 import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
@@ -116,7 +116,7 @@ public class LevelThreeActivity extends AppCompatActivity {
         try {
             myDbHelper.openDataBase();
         } catch (SQLException e) {
-            reportException(e);
+            Crashlytics.logException(e);
         }
 
         // Set the capacity of mRecyclerItemsViewList list to total number of category icons to be
@@ -1380,7 +1380,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                 str.append("0,");
 
             // store preference string of category into database.
-            myDbHelper.setlevel(mLevelOneItemPos, mLevelTwoItemPos, str.toString());
+            myDbHelper.setLevel(mLevelOneItemPos, mLevelTwoItemPos, str.toString());
         }
     }
 

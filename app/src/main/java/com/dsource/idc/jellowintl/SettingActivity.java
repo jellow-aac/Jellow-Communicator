@@ -14,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.SessionManager;
@@ -68,6 +69,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 speakSpeech(getString(R.string.demoTtsSpeech));
+                Crashlytics.log("SettingAct Demo");
             }
         });
 
@@ -132,6 +134,7 @@ public class SettingActivity extends AppCompatActivity {
                     mSession.setPitch(mSliderPitch.getValue());
                 }
                 Toast.makeText(SettingActivity.this, getString(R.string.savedSettingsMessage), Toast.LENGTH_SHORT).show();
+                Crashlytics.log("SettingAct Save");
                 finish();
             }
         });

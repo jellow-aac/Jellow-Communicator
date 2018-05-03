@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 
@@ -38,6 +39,7 @@ public class KeyboardInputActivity extends AppCompatActivity {
         findViewById(R.id.abc).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Crashlytics.log("KeyboardAct SerialABC");
                 startActivity(new Intent(android.provider.Settings.ACTION_INPUT_METHOD_SETTINGS));
             }
         });
@@ -45,6 +47,7 @@ public class KeyboardInputActivity extends AppCompatActivity {
         findViewById(R.id.qwerty).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Crashlytics.log("KeyboardAct Qwerty");
                 startActivity(new Intent(android.provider.Settings.ACTION_INPUT_METHOD_SETTINGS));
             }
         });
@@ -52,6 +55,7 @@ public class KeyboardInputActivity extends AppCompatActivity {
         findViewById(R.id.default_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Crashlytics.log("KeyboardAct Save");
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.showInputMethodPicker();
                 finish();
