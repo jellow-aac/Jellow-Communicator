@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
+import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.BuildConfig;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.DatabaseReference;
@@ -108,5 +109,9 @@ public class Analytics {
     public static boolean isAnalyticsActive(){
         return mFirebaseAnalytics != null && mDb != null &&
                 mRef != null && bundle != null;
+    }
+
+    public static void setCrashlyticsCustomKey(String key, String value){
+        Crashlytics.setString(key, value);
     }
 }

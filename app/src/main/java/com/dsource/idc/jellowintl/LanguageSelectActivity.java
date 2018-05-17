@@ -1,5 +1,6 @@
 package com.dsource.idc.jellowintl;
 
+import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -29,22 +30,24 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
+import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.LCODE;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
+import static com.dsource.idc.jellowintl.utility.Analytics.setCrashlyticsCustomKey;
 import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangValueMap;
-import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
 
 public class LanguageSelectActivity extends AppCompatActivity{
 
@@ -97,9 +100,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 selectedLanguage = offlineLanguages[i];
                 mSelectedItem = i;
-                if(mSession.getLanguage().equals(MR_IN))
-                    setupViewsForNonTtsLanguages();
-                else if(Build.VERSION.SDK_INT < 21)
+                if(Build.VERSION.SDK_INT < 21)
                     setupViewsForBelowLollipopDevices();
             }
 
@@ -127,13 +128,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 Crashlytics.log("LanguageSelect Apply");
-                //if current user language is not marathi and user want to change current language
-                // to marathi.
-                if (!mSession.getLanguage().equals(LangMap.get("मराठी"))
-                        && selectedLanguage != null && selectedLanguage.equals("मराठी")){
-                    saveLanguage();
-                    mSession.setLangSettingIsCorrect(true);
-                }else if(selectedLanguage != null)
+                if(selectedLanguage != null)
                 {
                     if(Build.VERSION.SDK_INT >= 21 &&
                             mSession.getLanguage().equals(LangMap.get(selectedLanguage))) {
@@ -275,10 +270,6 @@ public class LanguageSelectActivity extends AppCompatActivity{
         });
     }
 
-    private void setupViewsForNonTtsLanguages() {
-        //TODO Hide views to when user selected non tts language.
-    }
-
     private void setupViewsForBelowLollipopDevices() {
         SpannableString spannedStr = new SpannableString(getString(R.string.change_language_line5).replace("_", getTTsLanguage()));
         spannedStr.setSpan(new StyleSpan(Typeface.BOLD),0,7,0);
@@ -349,10 +340,6 @@ public class LanguageSelectActivity extends AppCompatActivity{
         if( mSession.isDownloaded(SessionManager.HI_IN) &&
                 !current.equals(SessionManager.HI_IN))
             lang.add(LangValueMap.get(SessionManager.HI_IN));
-
-        if( mSession.isDownloaded(SessionManager.MR_IN) &&
-                !current.equals(SessionManager.MR_IN))
-            lang.add(LangValueMap.get(SessionManager.MR_IN));
         return lang.toArray(new String[lang.size()]);
     }
 
@@ -369,9 +356,6 @@ public class LanguageSelectActivity extends AppCompatActivity{
             lang.add(LangValueMap.get(SessionManager.ENG_UK));
         if( !mSession.isDownloaded(SessionManager.HI_IN))
             lang.add(LangValueMap.get(SessionManager.HI_IN));
-        if( !mSession.isDownloaded(SessionManager.MR_IN))
-            lang.add(LangValueMap.get(SessionManager.MR_IN));
-
         return lang.toArray(new String[lang.size()]);
     }
 
@@ -394,6 +378,10 @@ public class LanguageSelectActivity extends AppCompatActivity{
         super.onResume();
         if(!isAnalyticsActive()){
             throw new Error("unableToResume");
+        }
+        if(Build.VERSION.SDK_INT > 25 &&
+                !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
+            startService(new Intent(getApplication(), JellowTTSService.class));
         }
         startMeasuring();
         onlineLanguages = getOnlineLanguages();
@@ -491,6 +479,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
         bundle.putString("LanguageSet", "Switched to "+ LangMap.get(selectedLanguage));
         bundleEvent("Language",bundle);
         setUserProperty("UserLanguage", LangMap.get(selectedLanguage));
+        setCrashlyticsCustomKey("UserLanguage",  LangMap.get(selectedLanguage));
         ChangeAppLocale changeAppLocale = new ChangeAppLocale(getBaseContext());
         changeAppLocale.setLocale();
         Toast.makeText(LanguageSelectActivity.this, getString(R.string.languageChanged), Toast.LENGTH_SHORT).show();

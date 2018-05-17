@@ -28,9 +28,6 @@ public class ChangeAppLocale {
             case SessionManager.HI_IN:
                 locale = new Locale("hi","IN");
                 break;
-            case SessionManager.MR_IN:
-                locale = new Locale("mr","IN");
-                break;
             case SessionManager.ENG_IN:
             default:
                 locale = new Locale("en","IN");

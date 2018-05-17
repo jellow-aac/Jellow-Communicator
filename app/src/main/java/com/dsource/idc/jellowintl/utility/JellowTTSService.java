@@ -5,8 +5,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.IBinder;
@@ -17,7 +15,6 @@ import android.support.annotation.Nullable;
 
 import com.crashlytics.android.Crashlytics;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -30,7 +27,6 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
  * Created by ekalpa on 7/4/2017.
  */
 public class JellowTTSService extends Service{
-    private MediaPlayer mMediaPlayer;
     private TextToSpeech mTts;
     HashMap<String, String> map;
 
@@ -49,7 +45,6 @@ public class JellowTTSService extends Service{
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_REQ");
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_VOICE_AVAIL_REQ");
         filter.addAction("com.dsource.idc.jellowintl.STOP_SERVICE");
-        filter.addAction("com.dsource.idc.jellowintl.AUDIO_PATH");
 
         registerReceiver(receiver, filter);
         return START_STICKY;
@@ -64,9 +59,14 @@ public class JellowTTSService extends Service{
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(receiver);
-        mTts.shutdown();
-        startService(new Intent(getApplication(), JellowTTSService.class));
+        try{
+            mTts.shutdown();
+            unregisterReceiver(receiver);
+            if(Build.VERSION.SDK_INT < 26)
+                startService(new Intent(getApplication(), JellowTTSService.class));
+        } catch(IllegalArgumentException | NullPointerException | IllegalStateException e) {
+            e.printStackTrace();
+        }
     }
 
     private void say(String speechText){
@@ -123,35 +123,9 @@ public class JellowTTSService extends Service{
                     stopTtsSay(); break;
                 case "com.dsource.idc.jellowintl.STOP_SERVICE":
                     stopSelf(); break;
-                case "com.dsource.idc.jellowintl.AUDIO_PATH":
-                    stopAudio();
-                    playAudio(intent.getStringExtra("audioPath"));
-                    break;
             }
         }
     };
-
-    public synchronized void playAudio(String audioPath) {
-        try {
-            mMediaPlayer = new MediaPlayer();
-            mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            mMediaPlayer.setDataSource(audioPath);
-            mMediaPlayer.prepare();
-            mMediaPlayer.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public synchronized void stopAudio() {
-        if (mMediaPlayer != null) {
-            if (mMediaPlayer.isPlaying()) {
-                mMediaPlayer.stop();
-            }
-            mMediaPlayer.release();
-            mMediaPlayer = null;
-        }
-    }
 
     private void broadcastTtsData(TextToSpeech tts, Intent intent) {
         Intent dataIntent = new Intent("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES");
@@ -223,6 +197,7 @@ public class JellowTTSService extends Service{
                     }
                 }
             }, getTTsEngineName(mSession.getLanguage()));
+
             mTts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
                 @Override
                 public void onStart(String utteranceId) {

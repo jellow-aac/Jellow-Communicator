@@ -1,11 +1,13 @@
 package com.dsource.idc.jellowintl;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
@@ -26,12 +28,14 @@ import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.models.SeqActivityVerbiageModel;
 import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
+import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.google.gson.Gson;
 
 import java.io.File;
 import java.util.ArrayList;
 
+import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
@@ -132,11 +136,15 @@ public class SequenceActivity extends AppCompatActivity {
         if(!isAnalyticsActive()){
             throw new Error("unableToResume");
         }
-        // Start measuring user app screen timer .
-        startMeasuring();
+        if(Build.VERSION.SDK_INT > 25 &&
+                !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
+            startService(new Intent(getApplication(), JellowTTSService.class));
+        }
         //After resume from other app if the locale is other than
         // app locale, set it back to app locale.
         new ChangeAppLocale(this).setLocale();
+        // Start measuring user app screen timer .
+        startMeasuring();
     }
 
     @Override
@@ -1172,10 +1180,10 @@ public class SequenceActivity extends AppCompatActivity {
         mHeading = getResources().getStringArray(R.array.arrSeqActivityHeadingText);
         mStrBack = mCategoryNav[0].substring(2, mCategoryNav[0].length());
         mStrNext = mCategoryNav[1].substring(0, mCategoryNav[1].length()-2);
-
+        String verbString = getString(R.string.sequenceActVerbiage1) +
+                getString(R.string.sequenceActVerbiage2);
         SeqActivityVerbiageModel verbiageModel = new Gson()
-                .fromJson(getString(R.string.sequenceActVerbiage),
-                        SeqActivityVerbiageModel.class);
+                .fromJson(verbString, SeqActivityVerbiageModel.class);
         mSeqActSpeech = verbiageModel.getVerbiageModel();
 
         switch(mLevelTwoItemPos){

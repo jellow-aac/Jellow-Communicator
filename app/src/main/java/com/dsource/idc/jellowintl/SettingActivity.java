@@ -1,6 +1,9 @@
 package com.dsource.idc.jellowintl;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
@@ -17,10 +20,13 @@ import android.widget.Toast;
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
+import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.rey.material.widget.Slider;
 
+import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
+import static com.dsource.idc.jellowintl.utility.Analytics.setCrashlyticsCustomKey;
 import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
@@ -93,7 +99,6 @@ public class SettingActivity extends AppCompatActivity {
         mSpinnerViewMode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                setUserProperty("PictureViewMode", position == 0 ? "PictureText": "PictureOnly");
             }
             @Override public void onNothingSelected(AdapterView<?> parent) {}
         });
@@ -101,7 +106,6 @@ public class SettingActivity extends AppCompatActivity {
         mSpinnerGridSize.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                setUserProperty("GridSize", position == 0 ? "3": "9");
             }
             @Override public void onNothingSelected(AdapterView<?> parent) {}
         });
@@ -115,11 +119,17 @@ public class SettingActivity extends AppCompatActivity {
 
 
                     if(mSession.getPictureViewMode() != mSpinnerViewMode.getSelectedItemPosition()) {
-                        setUserProperty("PictureViewMode", mSpinnerViewMode.getSelectedItemPosition() == 0 ? "PictureText": "PictureOnly");
+                        setUserProperty("PictureViewMode",
+                                mSpinnerViewMode.getSelectedItemPosition() == 0 ? "PictureText": "PictureOnly");
+                        setCrashlyticsCustomKey("PictureViewMode",
+                                mSpinnerViewMode.getSelectedItemPosition() == 0 ? "PictureText": "PictureOnly");
                         mSession.setPictureViewMode(mSpinnerViewMode.getSelectedItemPosition());
                     }
                     if(mSession.getGridSize() != mSpinnerGridSize.getSelectedItemPosition()) {
-                        setUserProperty("GridSize", mSpinnerGridSize.getSelectedItemPosition() == 0 ? "3" : "9");
+                        setUserProperty("GridSize",
+                                mSpinnerGridSize.getSelectedItemPosition() == 0 ? "3" : "9");
+                        setCrashlyticsCustomKey("GridSize",
+                                mSpinnerGridSize.getSelectedItemPosition() == 0 ? "3" : "9");
                         mSession.setGridSize(mSpinnerGridSize.getSelectedItemPosition());
                     }
                     startActivity(new Intent(getApplicationContext(), SplashActivity.class));
@@ -159,6 +169,10 @@ public class SettingActivity extends AppCompatActivity {
         super.onResume();
         if(!isAnalyticsActive()){
             throw new Error("unableToResume");
+        }
+        if(Build.VERSION.SDK_INT > 25 &&
+                !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
+            startService(new Intent(getApplication(), JellowTTSService.class));
         }
         mChangeAppLocale.setLocale();
         startMeasuring();
@@ -219,7 +233,4 @@ public class SettingActivity extends AppCompatActivity {
         intent.putExtra("speechPitch", speechPitch);
         sendBroadcast(intent);
     }
-
-
-
 }

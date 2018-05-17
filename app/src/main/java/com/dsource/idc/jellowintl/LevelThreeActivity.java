@@ -1,9 +1,11 @@
 package com.dsource.idc.jellowintl;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.SQLException;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
@@ -25,12 +27,14 @@ import com.dsource.idc.jellowintl.models.LevelThreeVerbiageModel;
 import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.IndexSorter;
+import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
@@ -134,11 +138,15 @@ public class LevelThreeActivity extends AppCompatActivity {
         if(!isAnalyticsActive()){
             throw new Error("unableToResume");
         }
-        // Start measuring user app screen timer .
-        startMeasuring();
+        if(Build.VERSION.SDK_INT > 25 &&
+                !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
+            startService(new Intent(getApplication(), JellowTTSService.class));
+        }
         //After resume from other app if the locale is other than
         // app locale, set it back to app locale.
         new ChangeAppLocale(this).setLocale();
+        // Start measuring user app screen timer .
+        startMeasuring();
     }
 
     @Override
@@ -1167,9 +1175,28 @@ public class LevelThreeActivity extends AppCompatActivity {
     private void loadArraysFromResources() {
         mExprBtnTxt = getResources().getStringArray(R.array.arrActionSpeech);
         mNavigationBtnTxt = getResources().getStringArray(R.array.arrNavigationSpeech);
-        String str = getResources().getString(R.string.levelThreeVerbiage);
+        String verbString = getString(R.string.levelThreeVerbiage1) +
+                getString(R.string.levelThreeVerbiage2) +
+                getString(R.string.levelThreeVerbiage3)+
+                getString(R.string.levelThreeVerbiage4) +
+                getString(R.string.levelThreeVerbiage5) +
+                getString(R.string.levelThreeVerbiage6) +
+                getString(R.string.levelThreeVerbiage7) +
+                getString(R.string.levelThreeVerbiage8) +
+                getString(R.string.levelThreeVerbiage9) +
+                getString(R.string.levelThreeVerbiage10) +
+                getString(R.string.levelThreeVerbiage11) +
+                getString(R.string.levelThreeVerbiage12) +
+                getString(R.string.levelThreeVerbiage13) +
+                getString(R.string.levelThreeVerbiage14) +
+                getString(R.string.levelThreeVerbiage15) +
+                getString(R.string.levelThreeVerbiage16) +
+                getString(R.string.levelThreeVerbiage17) +
+                getString(R.string.levelThreeVerbiage18) +
+                getString(R.string.levelThreeVerbiage19) +
+                getString(R.string.levelThreeVerbiage20);
         LevelThreeVerbiageModel mLevelThreeVerbiageModel = new Gson().
-                fromJson(str, LevelThreeVerbiageModel.class);
+                fromJson(verbString, LevelThreeVerbiageModel.class);
         mNewVerbTxt = mLevelThreeVerbiageModel.getVerbiageModel()
                                          .get(mLevelOneItemPos).get(mLevelTwoItemPos);
     }

@@ -1,5 +1,6 @@
 package com.dsource.idc.jellowintl;
 
+import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -20,12 +21,12 @@ import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.github.paolorotolo.appintro.AppIntro;
 
+import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_UK;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_US;
 import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangValueMap;
-import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
 
 /**
  * Created by Shruti on 09-08-2016.
@@ -46,8 +47,7 @@ public class Intro extends AppIntro {
         addSlide(SampleSlideFragment.newInstance(R.layout.intro2, "intro2"));
         addSlide(SampleSlideFragment.newInstance(R.layout.intro3, "intro3"));
         addSlide(SampleSlideFragment.newInstance(R.layout.intro4, "intro4"));
-        if(Build.VERSION.SDK_INT < 21
-                && !(new SessionManager(this).getLanguage().equals(MR_IN))) {
+        if(Build.VERSION.SDK_INT < 21) {
             addSlide(SampleSlideFragment.newInstance(R.layout.intro6, "intro6"));
         }
         addSlide(SampleSlideFragment.newInstance(R.layout.intro7, "intro7"));
@@ -65,6 +65,14 @@ public class Intro extends AppIntro {
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES");
         registerReceiver(receiver, filter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(Build.VERSION.SDK_INT > 25 &&
+                !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE)))
+            startService(new Intent(getApplication(), JellowTTSService.class));
     }
 
     @Override
@@ -90,8 +98,7 @@ public class Intro extends AppIntro {
     public void onSlideChanged(@Nullable Fragment oldFragment, @Nullable Fragment newFragment) {
         super.onSlideChanged(oldFragment, newFragment);
         Crashlytics.log("Slide visible:"+((SampleSlideFragment) newFragment).getLayoutName());
-        if (Build.VERSION.SDK_INT < 21
-                && !(new SessionManager(this).getLanguage().equals(MR_IN)))
+        if (Build.VERSION.SDK_INT < 21)
             if(((SampleSlideFragment) newFragment).getLayoutName().equals("intro6")){
                 ((TextView) findViewById(R.id.tvtop1)).setText(getString(R.string.txt_intro6_step2)
                         .replace("_",getSelectedLanguage("_")));
@@ -124,8 +131,7 @@ public class Intro extends AppIntro {
             SessionManager session = new SessionManager(this);
             if(Build.VERSION.SDK_INT < 21) {
                 if ((session.getLanguage().equals(ENG_IN) && mTTsDefaultLanguage.equals(HI_IN)) ||
-                    (!session.getLanguage().equals(ENG_IN) && session.getLanguage().equals(mTTsDefaultLanguage))
-                        || session.getLanguage().equals(MR_IN)) {
+                    (!session.getLanguage().equals(ENG_IN) && session.getLanguage().equals(mTTsDefaultLanguage))) {
                     session.setCompletedIntro(true);
                     startActivity(new Intent(Intro.this, SplashActivity.class));
                     finish();

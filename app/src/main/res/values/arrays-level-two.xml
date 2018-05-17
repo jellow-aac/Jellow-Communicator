@@ -339,7 +339,7 @@
         <item>Safety</item>
     </string-array>
 
-    <string name="levelTwoVerbiage">
+    <string name="levelTwoVerbiage1">
         {\"arrays\":[[[
             \"I like to greet others\",
             \"I really like to greet others\",
@@ -642,7 +642,6 @@
             \"I really don\'t want to play outdoor games\",
             \"I don\'t want to play any more outdoor games\",
             \"I really don\'t want to play outdoor games any more\"
-
     ],[\"I like sports\",
             \"I really like sports\",
             \"I want to play sports\",
@@ -826,6 +825,8 @@
             \"I don’t want any more money\",
             \"I really don’t want any more money at all\"
 
+    </string>
+    <string name="levelTwoVerbiage2">
 
     ]],[[\"I love my mother\",
             \"I really love my mother\",
@@ -1354,7 +1355,7 @@
                     \"I want a medicine\",
                     \"I really want a medicine\",
                     \"I want more medicines\",
-                    \"I want some more medicines\",
+                    \"I really want some more medicines\",
                     \"I don\'t like to take medicines\",
                     \"I really don\'t like to take medicines\",
                     \"I don\'t want a medicine\",
@@ -1435,4 +1436,6 @@
             \"I really don’t feel very safe\"
     ]]]}
     </string>
+    <string name="levelTwoVerbiage3"/>
+    <string name="levelTwoVerbiage4"/>
 </resources>

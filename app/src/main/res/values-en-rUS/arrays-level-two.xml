@@ -339,7 +339,7 @@
         <item>Safety</item>
     </string-array>
 
-    <string name="levelTwoVerbiage">
+    <string name="levelTwoVerbiage1">
         {\"arrays\":[[[
             \"I like to greet others\",
             \"I really like to greet others\",
@@ -826,6 +826,8 @@
             \"I don’t want any more money\",
             \"I really don’t want any more money at all\"
 
+    </string>
+    <string name="levelTwoVerbiage2">
 
     ]],[[\"I love my mother\",
             \"I really love my mother\",
@@ -1336,19 +1338,7 @@
             \"I don\'t want to celebrate more birthdays\",
             \"I really don\'t want to celebrate any more birthdays\"
 
-    ]], [[\"I like\",
-            \"I really like\",
-            \"I want\",
-            \"I really want\",
-            \"I want more\",
-            \"I really want more\",
-            \"I don’t like\",
-            \"I really don’t like\",
-            \"I don’t want\",
-            \"I really don’t want\",
-            \"I don’t want more\",
-            \"I really don’t want more\"
-    ],[\"My name is \",
+    ]], [[],[\"My name is \",
             \"My name is \",
             \"My caregiver\'s email address is \",
             \"My caregiver\'s email address is \",
@@ -1366,7 +1356,7 @@
                     \"I want a medicine\",
                     \"I really want a medicine\",
                     \"I want more medicines\",
-                    \"I want some more medicines\",
+                    \"I really want some more medicines\",
                     \"I don\'t like medicines\",
                     \"I really don\'t like medicines\",
                     \"I don\'t want a medicine\",
@@ -1410,11 +1400,11 @@
             \"I don\'t want to go to the toilet again\",
             \"I really don\'t want to go to the toilet again\"
     ],[\"I like\",
-            \"I really like\",
-            \"I want\",
-            \"I really want\",
-            \"I want more\",
-            \"I really want more\",
+            \"\",
+            \"\",
+            \"\",
+            \"\",
+            \"\",
             \"I don\'t like this touch\",
             \"I really don\'t like this touch\",
             \"I don\'t want this touch\",
@@ -1433,43 +1423,7 @@
             \"I really don’t want a sanitary napkin\",
             \"I don’t want another sanitary napkin\",
             \"I really don’t want any more sanitary napkins\"
-    ],[\"I like\",
-            \"I really like\",
-            \"I want\",
-            \"I really want\",
-            \"I want more\",
-            \"I really want more\",
-            \"I don’t like\",
-            \"I really don’t like\",
-            \"I don’t want\",
-            \"I really don’t want\",
-            \"I don’t want more\",
-            \"I really don’t want more\"
-    ],[\"I like\",
-            \"I really like\",
-            \"I want\",
-            \"I really want\",
-            \"I want more\",
-            \"I really want more\",
-            \"I don’t like\",
-            \"I really don’t like\",
-            \"I don’t want\",
-            \"I really don’t want\",
-            \"I don’t want more\",
-            \"I really don’t want more\"
-    ],[\"I like\",
-            \"I really like\",
-            \"I want\",
-            \"I really want\",
-            \"I want more\",
-            \"I really want more\",
-            \"I don’t like\",
-            \"I really don’t like\",
-            \"I don’t want\",
-            \"I really don’t want\",
-            \"I don’t want more\",
-            \"I really don’t want more\"
-    ],[\"I feel safe\",
+    ],[],[],[],[\"I feel safe\",
             \"I really feel safe\",
             \"I want to feel safe\",
             \"I really want to feel safe\",
@@ -1483,4 +1437,6 @@
             \"I really don’t feel very safe\"
     ]]]}
     </string>
+    <string name="levelTwoVerbiage3"/>
+    <string name="levelTwoVerbiage4"/>
 </resources>

@@ -205,7 +205,7 @@
 
 <ul>
 <li><strong>Support:</strong></li>
-<font>E-kalpa project sponsored under NMEICT by MHRD and Microsoft Design Expo 2004</font>
+<font>E-kalpa project sponsored under NMEICT by MHRD, Microsoft Design Expo 2004 and a 1-year seed grant through the UNICEF Innovation Fund</font>
 </ul>
 </body>
 ]]>
@@ -266,6 +266,7 @@
     <string name="unique_identifier" translatable="false">com.dsource.idc.jellow.unique_identifier</string>
     <string name="encrypt_data" translatable="false">com.dsource.idc.jellow.encrypt_data</string>
     <string name="last_session_created" translatable="false">com.dsource.idc.jellow.last_session_created</string>
+    <string name="user_group" translatable="false">com.dsource.idc.jellow.user_group</string>
     <string name="txt_registration_jellowCalluDesc">(This is how Jellow calls you)</string>
     <string name="txt_registration_emergencynoDesc">(To be used for correspondence in case of an emergency involving the child)</string>
     <string name="txt_registration_emailDesc">(To notify you about the release of Jellow updates)</string>
@@ -295,4 +296,8 @@
     <string name="rejected_call_permission_req">Call permission is denied.</string>
     <string name="grant_permission_from_settings">Enable call permission from settings.</string>
     <string name="request">Request</string>
+    <string name="userGroup">User Group *</string>
+    <string name="groupTeacher">Therapist/Teacher</string>
+    <string name="groupParent">Parent/Caregiver</string>
+    <string name="invalid_usergroup">Please choose user group.</string>
 </resources>

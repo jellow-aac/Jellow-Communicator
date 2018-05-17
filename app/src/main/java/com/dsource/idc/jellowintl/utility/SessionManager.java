@@ -18,13 +18,11 @@ public class SessionManager {
     public final static String ENG_UK = "en-rGB";
     public final static String ENG_IN = "en-rIN";
     public final static String HI_IN = "hi-rIN";
-    public final static String MR_IN = "mr-rIN";
 
     public final static HashMap<String,String> LangMap = new HashMap<String,String>(){
         {
             put("English (India)", ENG_IN);
             put("हिंदी", HI_IN);
-            put("मराठी", MR_IN);
             put("English (United Kingdom)", ENG_UK);
             put("English (United States)", ENG_US);
         }
@@ -34,7 +32,6 @@ public class SessionManager {
         {
             put(ENG_IN,"English (India)");
             put(HI_IN,"हिंदी");
-            put(MR_IN,"मराठी");
             put(ENG_UK,"English (United Kingdom)");
             put(ENG_US,"English (United States)");
         }
@@ -50,7 +47,6 @@ public class SessionManager {
 
     private final String PREF_NAME = "AndroidHiveLogin";
     private final String KEY_IS_LOGGEDIN = "isLoggedIn";
-    private final String KEY_IS_LOGGEDIN1 = "isLoggedIn1";
     public final String Name = "name";
     private final String EmergencyContact = "number";
     private final String Blood = "blood" ;
@@ -60,7 +56,6 @@ public class SessionManager {
     private final String Language = "lang";
     private final String Speed = "speechspeed";
     private final String Pitch = "voicepitch";
-    private final String Keyboard = "Keyboard";
     private final String PictureViewMode = "PictureViewMode";
     private final String GridSize = "GridSize";
 
@@ -287,6 +282,14 @@ public class SessionManager {
 
     public Long getSessionCreatedAt() {
         return ((Long) retrievePreferenceKeyWithValue(Long.class.toString(), mContext.getString(R.string.last_session_created)));
+    }
+
+    public void setUserGroup(String userGroup) {
+        storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.user_group), userGroup);
+    }
+
+    public String getUserGroup() {
+        return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.user_group));
     }
 
     private void storePreferenceKeyWithValue(String classType, String key, Object val){

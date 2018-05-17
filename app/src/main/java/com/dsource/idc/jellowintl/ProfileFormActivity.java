@@ -4,6 +4,7 @@ package com.dsource.idc.jellowintl;
  * Created by user on 5/25/2016.
  */
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -28,6 +29,8 @@ import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -35,6 +38,7 @@ import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.models.SecureKeys;
 import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
+import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -57,8 +61,10 @@ import java.net.URL;
 
 import se.simbio.encryption.Encryption;
 
+import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.maskNumber;
+import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.updateSessionRef;
@@ -69,7 +75,7 @@ public class ProfileFormActivity extends AppCompatActivity {
     private Button bSave;
     private EditText etName, etFatherContact, etFathername, etAddress, etEmailId;
     private SessionManager mSession;
-    private String email;
+    private String email, mUserGroup;
     private CountryCodePicker mCcp;
     private Spinner mBloodGroup;
     private FirebaseDatabase mDB;
@@ -113,6 +119,12 @@ public class ProfileFormActivity extends AppCompatActivity {
         if(mSession.getBlood() != -1)
             mBloodGroup.setSelection(mSession.getBlood());
 
+        if (!mSession.getUserGroup().isEmpty() &&
+                mSession.getUserGroup().equals(getString(R.string.groupParent).split("/")[0]))
+            ((RadioButton)findViewById(R.id.radioParent)).setChecked(true);
+        else
+            ((RadioButton)findViewById(R.id.radioTherapist)).setChecked(true);
+
         etName.addTextChangedListener(new TextWatcher() {
             @Override   public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
@@ -133,20 +145,32 @@ public class ProfileFormActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Crashlytics.log("Profile Save");
+                bSave.setEnabled(false);
+                if (etName.getText().toString().isEmpty()) {
+                    Toast.makeText(getBaseContext(), getString(R.string.enterTheName),
+                            Toast.LENGTH_SHORT).show();
+                    bSave.setEnabled(true);
+                    return;
+                }
                 email = etEmailId.getText().toString().trim();
-                if (etName.getText().toString().length() > 0) {
-                        if (isValidEmail(email)) {
-                            bSave.setEnabled(false);
-                            new NetworkConnectionTest(ProfileFormActivity.this,
-                                    etName.getText().toString(),
-                                    mCcp.getFullNumber(),
-                                    email,
-                                    etFathername.getText().toString(),
-                                    etAddress.getText().toString()).execute();
-                        } else
-                            Toast.makeText(getApplicationContext(), getString(R.string.invalid_emailId), Toast.LENGTH_SHORT).show();
-                }else
-                    Toast.makeText(ProfileFormActivity.this, getString(R.string.enterTheName), Toast.LENGTH_SHORT).show();
+                if (!isValidEmail(email)) {
+                    Toast.makeText(getBaseContext(), getString(R.string.invalid_emailId),
+                            Toast.LENGTH_SHORT).show();
+                    bSave.setEnabled(true);
+                    return;
+                }
+                RadioGroup radioGroup = findViewById(R.id.radioUserGroup);
+                mUserGroup = (radioGroup.getCheckedRadioButtonId() == R.id.radioParent) ?
+                        getString(R.string.groupParent).split("/")[0] :
+                        getString(R.string.groupTeacher).split("/")[0];
+
+                new NetworkConnectionTest(ProfileFormActivity.this,
+                        etName.getText().toString(),
+                        mCcp.getFullNumber(),
+                        email,
+                        etFathername.getText().toString(),
+                        etAddress.getText().toString(),
+                        mUserGroup).execute();
             }
         });
     }
@@ -235,7 +259,11 @@ public class ProfileFormActivity extends AppCompatActivity {
         if(!isAnalyticsActive()){
             throw new Error("unableToResume");
         }
-         startMeasuring();
+        if(Build.VERSION.SDK_INT > 25 &&
+                !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
+            startService(new Intent(getApplication(), JellowTTSService.class));
+        }
+        startMeasuring();
     }
 
     @Override
@@ -259,7 +287,8 @@ public class ProfileFormActivity extends AppCompatActivity {
 
     private void encryptStoreUserInfo(final String name, final String contact,
                                       final String email, final String caregiverName,
-                                      final String address, final String bloodGroup) {
+                                      final String address, final String bloodGroup,
+                                      final String userGroup) {
         if(mSession.getEncryptedData().isEmpty()) {
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageRef = storage.getReference();
@@ -272,7 +301,7 @@ public class ProfileFormActivity extends AppCompatActivity {
                         String jsonData = new String(bytes, "UTF-8");
                         SecureKeys secureKey = new Gson().fromJson(jsonData, SecureKeys.class);
                         encryptStoreUserInfoUsingSecureKey(name, contact, email,
-                                caregiverName, address, bloodGroup, secureKey);
+                                caregiverName, address, bloodGroup, userGroup, secureKey);
                     } catch (UnsupportedEncodingException e) {
                         Crashlytics.logException(e);
                     }
@@ -286,12 +315,13 @@ public class ProfileFormActivity extends AppCompatActivity {
         }else {
             SecureKeys secureKey = new Gson().fromJson(mSession.getEncryptedData(), SecureKeys.class);
             encryptStoreUserInfoUsingSecureKey(name, contact, email,
-                        caregiverName, address, bloodGroup, secureKey);
+                        caregiverName, address, bloodGroup, userGroup, secureKey);
         }
     }
 
     private void encryptStoreUserInfoUsingSecureKey(String name, String contact, String email,
-                String caregiverName, String address, String bloodGroup, SecureKeys secureKey) {
+                String caregiverName, String address, String bloodGroup,
+                        String userGroup, SecureKeys secureKey) {
         mRef.child("emergencyContact").setValue(maskNumber(contact));
         mRef.child("name").setValue(encrypt(name, secureKey));
         mRef.child("email").setValue(encrypt(email, secureKey));
@@ -300,8 +330,9 @@ public class ProfileFormActivity extends AppCompatActivity {
         if(!address.isEmpty())
             mRef.child("address").setValue(encrypt(address, secureKey));
         mRef.child("bloodGroup").setValue(encrypt(bloodGroup, secureKey));
+        mRef.child("userGroup").setValue(encrypt(userGroup, secureKey));
         mRef.child("updatedOn").setValue(ServerValue.TIMESTAMP);
-        savedProfileDetails();
+        savedProfileDetails(userGroup);
     }
 
     private String encrypt(String plainText, SecureKeys secureKey) {
@@ -310,7 +341,7 @@ public class ProfileFormActivity extends AppCompatActivity {
         return encryption.encryptOrNull(plainText).trim();
     }
 
-    private void savedProfileDetails() {
+    private void savedProfileDetails(String userGroup) {
         mSession.setCaregiverName(etFathername.getText().toString());
         mSession.setAddress(etAddress.getText().toString());
         mSession.setName(etName.getText().toString());
@@ -321,6 +352,8 @@ public class ProfileFormActivity extends AppCompatActivity {
             mSession.setBlood(mBloodGroup.getSelectedItemPosition());
         else
             mSession.setBlood(-1);
+        mSession.setUserGroup(userGroup);
+        setUserProperty("userGroup", userGroup);
 
         Toast.makeText(this, getString(R.string.detailSaved), Toast.LENGTH_SHORT).show();
 
@@ -351,16 +384,18 @@ public class ProfileFormActivity extends AppCompatActivity {
                 mRef.setValue(null);
 
                 mSession.setCaregiverNumber(mCcp.getFullNumberWithPlus());
-                mRef = mDB.getReference(BuildConfig.DB_TYPE + "/users/" + maskNumber(mSession.getCaregiverNumber()));
+                mRef = mDB.getReference(BuildConfig.DB_TYPE + "/users/" +
+                        maskNumber(mSession.getCaregiverNumber().substring(1)));
                 mRef.removeEventListener(this);
                 emergencyContactChanged = true;
+                Crashlytics.setUserIdentifier(maskNumber(mSession.getCaregiverNumber().substring(1)));
                 updateSessionRef(mCcp.getFullNumber());
                 encryptStoreUserInfo(etName.getText().toString(),
                         mCcp.getFullNumber(),
                         email,
                         etFathername.getText().toString(),
                         etAddress.getText().toString(),
-                        getBloodGroup());
+                        getBloodGroup(), mUserGroup);
             }
 
             @Override
@@ -411,17 +446,19 @@ public class ProfileFormActivity extends AppCompatActivity {
 
     private class NetworkConnectionTest extends AsyncTask<Void, Void, Boolean> {
         private Context mContext;
-        private String mName, mContact, mEmailId, mCaregiverName, mAddress;
+        private String mName, mContact, mEmailId, mCaregiverName, mAddress, mUserGroup;
         private SessionManager mSession;
 
         public NetworkConnectionTest(Context context, String name, String contact,
-                                     String email, String caregiverName, String address) {
+                                     String email, String caregiverName, String address,
+                                     String userGroup) {
             mContext = context;
             mName = name;
             mContact = contact;
             mEmailId = email;
             mCaregiverName = caregiverName;
             mAddress = address;
+            mUserGroup = userGroup;
             mSession = new SessionManager(mContext);
         }
 
@@ -461,7 +498,7 @@ public class ProfileFormActivity extends AppCompatActivity {
                     moveFirebaseRecord(mRef, mNewRef);
                 }else {
                     encryptStoreUserInfo(mName, mContact, mEmailId, mCaregiverName, mAddress,
-                            getBloodGroup());
+                            getBloodGroup(), mUserGroup);
                 }
             }else{
                 bSave.setEnabled(true);

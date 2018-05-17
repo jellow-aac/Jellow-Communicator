@@ -1,5 +1,6 @@
 package com.dsource.idc.jellowintl;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -30,12 +31,14 @@ import com.dsource.idc.jellowintl.models.LevelTwoVerbiageModel;
 import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.IndexSorter;
+import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
@@ -143,11 +146,15 @@ public class LevelTwoActivity extends AppCompatActivity {
         if(!isAnalyticsActive()){
             throw new Error("unableToResume");
         }
-        // Start measuring user app screen timer .
-        startMeasuring();
+        if(Build.VERSION.SDK_INT > 25 &&
+                !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
+            startService(new Intent(getApplication(), JellowTTSService.class));
+        }
         //After resume from other app if the locale is other than
         // app locale, set it back to app locale.
         new ChangeAppLocale(this).setLocale();
+        // Start measuring user app screen timer .
+        startMeasuring();
     }
 
     @Override
@@ -1581,9 +1588,12 @@ public class LevelTwoActivity extends AppCompatActivity {
     private void loadArraysFromResources() {
         mExprBtnTxt = getResources().getStringArray(R.array.arrActionSpeech);
         mNavigationBtnTxt = getResources().getStringArray(R.array.arrNavigationSpeech);
-
-        LevelTwoVerbiageModel verbiageModel = new Gson()
-                .fromJson(getString(R.string.levelTwoVerbiage), LevelTwoVerbiageModel.class);
+        String verbString = getString(R.string.levelTwoVerbiage1) +
+                getString(R.string.levelTwoVerbiage2) +
+                getString(R.string.levelTwoVerbiage3) +
+                getString(R.string.levelTwoVerbiage4);
+        LevelTwoVerbiageModel verbiageModel = new Gson().
+                fromJson(verbString, LevelTwoVerbiageModel.class);
         mLayerTwoSpeech = verbiageModel.getVerbiageModel();
         // fill speech and adapter text arrays
         retrieveSpeechAndAdapterArrays(mLevelOneItemPos);

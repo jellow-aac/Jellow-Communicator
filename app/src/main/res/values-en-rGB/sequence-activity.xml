@@ -214,7 +214,7 @@
     <item>Sweet dreams!</item>
 </string-array>
 
-<string name="sequenceActVerbiage">
+<string name="sequenceActVerbiage1">
         {\"arrays\":[[[\"I like to rinse my mouth\",
             \"I really like to rinse my mouth\",
             \"I want to rinse my mouth\",
@@ -800,4 +800,5 @@
             \"I really don\'t want to say my prayers again\"
     ]]]}
     </string>
+    <string name="sequenceActVerbiage2"/>
 </resources>

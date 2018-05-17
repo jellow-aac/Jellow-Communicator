@@ -50,10 +50,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
      * Creates a empty database on the system and rewrites it with your own database.
      * */
     public void createDataBase() {
-        boolean dbExist = checkDataBase();
-        if(dbExist){
-            //do nothing - database already exist
-        }else{
+        if(!checkDataBase()){
             //By calling this method and empty database will be created into the default system path
             //of your application so we are gonna be able to overwrite that database with our database.
             this.getReadableDatabase();

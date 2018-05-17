@@ -1,5 +1,6 @@
 package com.dsource.idc.jellowintl;
 
+import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -26,12 +27,12 @@ import android.widget.Toast;
 import com.dsource.idc.jellowintl.models.LevelOneVerbiageModel;
 import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
+import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.google.gson.Gson;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
@@ -39,8 +40,6 @@ import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
-import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
-import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
 
 public class MainActivity extends AppCompatActivity {
     private final int REQ_HOME = 0;
@@ -122,16 +121,20 @@ public class MainActivity extends AppCompatActivity {
         if(!isAnalyticsActive()){
             throw new Error("unableToResume");
         }
-        // Start measuring user app screen timer.
-        startMeasuring();
+        if(Build.VERSION.SDK_INT > 25 &&
+                !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
+            startService(new Intent(getApplication(), JellowTTSService.class));
+        }
+        // After resume from other app if the locale is other than
+        // app locale, set it back to app locale.
+        new ChangeAppLocale(this).setLocale();
         // broadcast receiver to get response messages from JellowTTsService.
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES");
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_TTS_ERROR");
         registerReceiver(receiver, filter);
-        // After resume from other app if the locale is other than
-        // app locale, set it back to app locale.
-        new ChangeAppLocale(this).setLocale();
+        // Start measuring user app screen timer.
+        startMeasuring();
     }
 
     @Override
@@ -145,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
         long sessionTime = validatePushId(session.getSessionCreatedAt());
         session.setSessionCreatedAt(sessionTime);
 
-        // Stop measuring user app screen timer .
+        // Stop measuring user app screen timer.
         stopMeasuring("LevelOneActivity");
         unregisterReceiver(receiver);
         new ChangeAppLocale(this).setLocale();
@@ -514,7 +517,6 @@ public class MainActivity extends AppCompatActivity {
                     // verbiage for selected category icon.
                     if (mFlgLike == 1) {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(1));
-                        playAudio(getFilePath( "01"));
                         mFlgLike = 0;
                         //Firebase event
                         singleEvent("ExpressiveIcon","ReallyLike");
@@ -524,7 +526,6 @@ public class MainActivity extends AppCompatActivity {
                     // verbiage to selected category icon.
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(0));
-                        playAudio(getFilePath("00"));
                         mFlgLike = 1;
                         //Firebase event
                         singleEvent("ExpressiveIcon","Like");
@@ -588,7 +589,6 @@ public class MainActivity extends AppCompatActivity {
                     // verbiage for selected category icon.
                     if (mFlgDntLike == 1) {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(7));
-                        playAudio(getFilePath("07"));
                         mFlgDntLike = 0;
                         //Firebase event
                         singleEvent("ExpressiveIcon","ReallyDon'tLike");
@@ -598,7 +598,6 @@ public class MainActivity extends AppCompatActivity {
                     // verbiage to selected category icon.
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(6));
-                        playAudio(getFilePath("06"));
                         mFlgDntLike = 1;
                         //Firebase event
                         singleEvent("ExpressiveIcon","Don'tLike");
@@ -662,7 +661,6 @@ public class MainActivity extends AppCompatActivity {
                     // verbiage for selected category icon.
                     if (mFlgYes == 1) {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(3));
-                        playAudio(getFilePath("03"));
                         mFlgYes = 0;
                         //Firebase event
                         singleEvent("ExpressiveIcon","ReallyYes");
@@ -672,7 +670,6 @@ public class MainActivity extends AppCompatActivity {
                     // verbiage for selected category icon.
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(2));
-                        playAudio(getFilePath("02"));
                         mFlgYes = 1;
                         //Firebase event
                         singleEvent("ExpressiveIcon","Yes");
@@ -736,7 +733,6 @@ public class MainActivity extends AppCompatActivity {
                     // verbiage for selected category icon.
                     if (mFlgNo == 1) {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(9));
-                        playAudio(getFilePath("09"));
                         mFlgNo = 0;
                         //Firebase event
                         singleEvent("ExpressiveIcon","ReallyNo");
@@ -746,7 +742,6 @@ public class MainActivity extends AppCompatActivity {
                     // verbiage to selected category icon.
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(8));
-                        playAudio(getFilePath("08"));
                         mFlgNo = 1;
                         //Firebase event
                         singleEvent("ExpressiveIcon","No");
@@ -810,7 +805,6 @@ public class MainActivity extends AppCompatActivity {
                     // verbiage associated to selected category icon.
                     if (mFlgMore == 1) {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(5));
-                        playAudio(getFilePath("05"));
                         mFlgMore = 0;
                         //Firebase event
                         singleEvent("ExpressiveIcon","ReallyMore");
@@ -820,7 +814,6 @@ public class MainActivity extends AppCompatActivity {
                     // verbiage associated to selected category icon.
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(4));
-                        playAudio(getFilePath("04"));
                         mFlgMore = 1;
                         //Firebase event
                         singleEvent("ExpressiveIcon","More");
@@ -884,7 +877,6 @@ public class MainActivity extends AppCompatActivity {
                     // verbiage for selected category icon.
                     if (mFlgLess == 1) {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(11));
-                        playAudio(getFilePath("11"));
                         mFlgLess = 0;
                         //Firebase event
                         singleEvent("ExpressiveIcon","ReallyLess");
@@ -894,7 +886,6 @@ public class MainActivity extends AppCompatActivity {
                     // verbiage to selected category icon.
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(10));
-                        playAudio(getFilePath("10"));
                         mFlgLess = 1;
                         //Firebase event
                         singleEvent("ExpressiveIcon","Less");
@@ -1092,55 +1083,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function provide create filename using app current language, current level,
-     * selected category icon and expressive button tapped.
-     * @param verbiageNumber, position of the verbiage.
-     * @return the full filename string.</p>
-     * */
-    private String getFilePath(String verbiageNumber) {
-        String filePath = "";
-        SessionManager session = new SessionManager(this);
-        // Add file path
-        filePath += getApplicationInfo().dataDir + "/app_" + session.getLanguage() + "/audio/";
-        // Add country specific code to filename
-        if(filePath.contains(MR_IN))
-            filePath += "04";
-        else
-            //TODO add more non-tts language code here.
-            filePath = "";
-        // Add level in filename
-        filePath += "-00-";
-        // Add selected icon position in filename.
-        filePath += String.valueOf(mLevelOneItemPos).length() != 2 ?
-                0 + String.valueOf(mLevelOneItemPos) :
-                String.valueOf(mLevelOneItemPos);
-        // Add selected category icon verbiage index if it is non empty.
-        // Like, really like expression are at 0,1 resp.
-        // Yes, really yes expression are at 2,3 resp.
-        // more, really more expression are at 4,5 resp.
-        // don't like, really don't like expression are at 6,7 resp.
-        // no, really no expression are at 8,9 resp.
-        // less, really less expression are at 10,11 resp.
-        if(!verbiageNumber.isEmpty())
-            filePath += "-" + verbiageNumber;
-
-        //Add file name extension
-        filePath += ".mp3";
-        return filePath;
-    }
-
-    /**
-     * <p>This function checks if current app language is supported by tts or not.
-     *  currently, MR_IN only language which does not have tts support.
-     * @return If tts support the current language then true otherwise false.</p>
-     * */
-    private boolean isTtsAvailForLang(){
-        SessionManager session = new SessionManager(this);
-        //TODO add more non-tts language code here.
-        return !session.getLanguage().equals(MR_IN);
-    }
-
-    /**
      * <p>This function will send speech output request to
      * {@link com.dsource.idc.jellowintl.utility.JellowTTSService} Text-to-speech Engine.
      * The string in {@param speechText} is speech output request string.</p>
@@ -1148,21 +1090,6 @@ public class MainActivity extends AppCompatActivity {
     private void speakSpeech(String speechText){
         Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_TEXT");
         intent.putExtra("speechText", speechText.toLowerCase());
-        sendBroadcast(intent);
-    }
-
-    /**
-     * <p>This function send the broadcast message to Text-to-speech service about
-     * requesting to play recorded audio stream given in {@param audioPath}. For a given language
-     * if text-to-speech engine is available then do not play recorded audio stream.
-     * @param audioPath is path of recorded audio file.</p>
-     * */
-    private void playAudio(String audioPath) {
-        //If text-to-speech is available for language then do not play recorded audio stream.
-        if(isTtsAvailForLang())
-            return;
-        Intent intent = new Intent("com.dsource.idc.jellowintl.AUDIO_PATH");
-        intent.putExtra("audioPath", audioPath);
         sendBroadcast(intent);
     }
 
@@ -1180,11 +1107,6 @@ public class MainActivity extends AppCompatActivity {
         mSpeechTxt = getResources().getStringArray(R.array.arrLevelOneActionBarTitle);
         mExprBtnTxt = getResources().getStringArray(R.array.arrActionSpeech);
         mNavigationBtnTxt = getResources().getStringArray(R.array.arrNavigationSpeech);
-
-        if(!isTtsAvailForLang()) {
-            ArrayList<String> emptyList = new ArrayList<>(Collections.nCopies(12, ""));            // 12 # of verbiage for each category icon
-            mLayerOneSpeech = new ArrayList<ArrayList<String>>(Collections.nCopies(9, emptyList));  // 9 # of category icons in current level
-        }
     }
 
     /**
@@ -1339,14 +1261,11 @@ public class MainActivity extends AppCompatActivity {
                     // If app language is not marathi as it do not require to complete setting from
                     // Language screen.
                     //Below if is true when
-                    //      1) app language is not marathi
-                    //          and
-                    //      2) app language is english India and tts language is hindi India
-                    // or   3) app language is not english India and
+                    //      1) app language is english India and tts language is hindi India
+                    // or   2) app language is not english India and
                     //         app language and Text-to-speech language are different then
                     //         show error toast.
-                    if(!session.getLanguage().equals(LangMap.get("मराठी")) &&
-                            ((userLang.equals("en-rIN") && !mSysTtsReg.equals("hi-rIN"))
+                    if(((userLang.equals("en-rIN") && !mSysTtsReg.equals("hi-rIN"))
                             || (!userLang.equals("en-rIN") && !userLang.equals(mSysTtsReg)))) {
                         Toast.makeText(context, getString(R.string.speech_engin_lang_sam),
                                 Toast.LENGTH_LONG).show();
@@ -1356,4 +1275,19 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
+
+
+    /**
+     * <p>This function check whether Text-to-speech service is running? It will
+     * return true if service is running else false is service is closed.</p>
+     * */
+    public static boolean isTTSServiceRunning(ActivityManager manager) {
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            // JellowTTSService is name of TTS service class.
+            if (JellowTTSService.class.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
