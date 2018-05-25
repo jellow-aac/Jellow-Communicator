@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '26.0.2'
 
     defaultConfig {
         applicationId "com.dsource.idc.jellowintl"
@@ -13,6 +12,7 @@ android {
     }
     buildTypes {
         debug {
+            applicationIdSuffix ".debug"
             buildConfigField "String", "DB_TYPE", '"testing"'
         }
         release {
@@ -25,28 +25,28 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    implementation 'com.android.support:support-v4:26.1.0'
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:27.0.2'
-    compile 'com.android.support:recyclerview-v7:26.1.0'
-    compile 'com.android.support:design:26.1.0'
-    compile 'com.google.code.gson:gson:2.7'
-    compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'
-    compile 'com.google.firebase:firebase-analytics:11.0.1'
-    compile 'com.google.firebase:firebase-appindexing:11.0.1'
-    compile 'com.google.firebase:firebase-crash:11.0.1'
-    compile 'com.google.firebase:firebase-storage:11.0.1'
-    compile 'com.google.firebase:firebase-auth:11.0.1'
-    compile 'com.google.firebase:firebase-database:11.0.1'
-    compile 'com.github.simbiose:Encryption:2.0.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'com.android.support:support-v4:27.1.1'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.google.code.gson:gson:2.8.0'
+    implementation 'com.akexorcist:RoundCornerProgressBar:2.0.3'
+    implementation 'com.google.firebase:firebase-analytics:15.0.2'
+    implementation 'com.google.firebase:firebase-appindexing:15.0.1'
+    implementation 'com.google.firebase:firebase-storage:15.0.2'
+    implementation 'com.google.firebase:firebase-auth:15.1.0'
+    implementation 'com.google.firebase:firebase-database:15.0.1'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.2'
+    implementation 'com.github.simbiose:Encryption:2.0.1'
     implementation 'com.github.bumptech.glide:glide:4.4.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.4.0'
-    compile 'com.afollestad.material-dialogs:core:0.9.6.0'
-    compile 'com.github.ghost1372:Mzip-Android:0.4.0'
-    compile 'com.liulishuo.filedownloader:library:1.6.8'
-    compile 'com.github.rey5137:material:1.2.4'
-    compile 'com.github.paolorotolo:appintro:4.0.0'
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
+    implementation 'com.github.ghost1372:Mzip-Android:0.4.0'
+    implementation 'com.liulishuo.filedownloader:library:1.6.8'
+    implementation 'com.github.rey5137:material:1.2.4'
+    implementation 'com.github.paolorotolo:appintro:4.1.0'
     implementation 'com.hbb20:ccp:2.1.2'
 }
 
@@ -54,3 +54,4 @@ dependencies {
 
 
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'io.fabric'

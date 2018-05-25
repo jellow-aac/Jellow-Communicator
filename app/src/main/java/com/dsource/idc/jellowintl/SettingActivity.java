@@ -1,6 +1,9 @@
 package com.dsource.idc.jellowintl;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
@@ -14,14 +17,20 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
+import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.rey.material.widget.Slider;
 
+import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
+import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
+import static com.dsource.idc.jellowintl.utility.Analytics.setCrashlyticsCustomKey;
 import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 
 public class SettingActivity extends AppCompatActivity {
     private Spinner mSpinnerViewMode, mSpinnerGridSize;
@@ -66,6 +75,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 speakSpeech(getString(R.string.demoTtsSpeech));
+                Crashlytics.log("SettingAct Demo");
             }
         });
 
@@ -89,7 +99,6 @@ public class SettingActivity extends AppCompatActivity {
         mSpinnerViewMode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                setUserProperty("PictureViewMode", position == 0 ? "PictureText": "PictureOnly");
             }
             @Override public void onNothingSelected(AdapterView<?> parent) {}
         });
@@ -97,7 +106,6 @@ public class SettingActivity extends AppCompatActivity {
         mSpinnerGridSize.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                setUserProperty("GridSize", position == 0 ? "3": "9");
             }
             @Override public void onNothingSelected(AdapterView<?> parent) {}
         });
@@ -111,25 +119,32 @@ public class SettingActivity extends AppCompatActivity {
 
 
                     if(mSession.getPictureViewMode() != mSpinnerViewMode.getSelectedItemPosition()) {
-                        setUserProperty("PictureViewMode", mSpinnerViewMode.getSelectedItemPosition() == 0 ? "PictureText": "PictureOnly");
+                        setUserProperty("PictureViewMode",
+                                mSpinnerViewMode.getSelectedItemPosition() == 0 ? "PictureText": "PictureOnly");
+                        setCrashlyticsCustomKey("PictureViewMode",
+                                mSpinnerViewMode.getSelectedItemPosition() == 0 ? "PictureText": "PictureOnly");
                         mSession.setPictureViewMode(mSpinnerViewMode.getSelectedItemPosition());
                     }
                     if(mSession.getGridSize() != mSpinnerGridSize.getSelectedItemPosition()) {
-                        setUserProperty("GridSize", mSpinnerGridSize.getSelectedItemPosition() == 0 ? "3" : "9");
+                        setUserProperty("GridSize",
+                                mSpinnerGridSize.getSelectedItemPosition() == 0 ? "3" : "9");
+                        setCrashlyticsCustomKey("GridSize",
+                                mSpinnerGridSize.getSelectedItemPosition() == 0 ? "3" : "9");
                         mSession.setGridSize(mSpinnerGridSize.getSelectedItemPosition());
                     }
                     startActivity(new Intent(getApplicationContext(), SplashActivity.class));
                     finishAffinity();
                 }
                 if(mSession.getSpeed() != mSliderSpeed.getValue()) {
-                    setSpeechRate(mSliderSpeed.getValue()/50);
+                    setSpeechRate((float)mSliderSpeed.getValue()/50);
                     mSession.setSpeed(mSliderSpeed.getValue());
                 }
                 if(mSession.getPitch() != mSliderPitch.getValue()) {
-                    setSpeechPitch(mSliderPitch.getValue()/ 50);
+                    setSpeechPitch((float)mSliderPitch.getValue()/ 50);
                     mSession.setPitch(mSliderPitch.getValue());
                 }
                 Toast.makeText(SettingActivity.this, getString(R.string.savedSettingsMessage), Toast.LENGTH_SHORT).show();
+                Crashlytics.log("SettingAct Save");
                 finish();
             }
         });
@@ -138,6 +153,13 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        ///Check if pushId is older than 24 hours (86400000 millisecond).
+        // If yes then create new pushId (user session)
+        // If no then do not create new pushId instead user existing and
+        // current session time is saved.
+        long sessionTime = validatePushId(mSession.getSessionCreatedAt());
+        mSession.setSessionCreatedAt(sessionTime);
+
         stopMeasuring("SettingsActivity");
         mChangeAppLocale.setLocale();
     }
@@ -145,6 +167,13 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if(!isAnalyticsActive()){
+            throw new Error("unableToResume");
+        }
+        if(Build.VERSION.SDK_INT > 25 &&
+                !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
+            startService(new Intent(getApplication(), JellowTTSService.class));
+        }
         mChangeAppLocale.setLocale();
         startMeasuring();
     }
@@ -182,8 +211,8 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        setSpeechPitch(mSession.getPitch()/100);
-        setSpeechRate(mSession.getSpeed()/100);
+        setSpeechPitch(mSession.getPitch()/50);
+        setSpeechRate(mSession.getSpeed()/50);
         finish();
     }
 
@@ -204,7 +233,4 @@ public class SettingActivity extends AppCompatActivity {
         intent.putExtra("speechPitch", speechPitch);
         sendBroadcast(intent);
     }
-
-
-
 }

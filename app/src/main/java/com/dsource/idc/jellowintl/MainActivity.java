@@ -1,5 +1,6 @@
 package com.dsource.idc.jellowintl;
 
+import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.KeyListener;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.dsource.idc.jellowintl.models.LevelOneVerbiageModel;
 import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
+import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.google.gson.Gson;
 
@@ -34,10 +35,11 @@ import java.io.File;
 import java.util.ArrayList;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
-import static com.dsource.idc.jellowintl.utility.Analytics.reportLog;
+import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 
 public class MainActivity extends AppCompatActivity {
     private final int REQ_HOME = 0;
@@ -116,22 +118,37 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // Start measuring user app screen timer.
-        startMeasuring();
+        if(!isAnalyticsActive()){
+            throw new Error("unableToResume");
+        }
+        if(Build.VERSION.SDK_INT > 25 &&
+                !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
+            startService(new Intent(getApplication(), JellowTTSService.class));
+        }
+        // After resume from other app if the locale is other than
+        // app locale, set it back to app locale.
+        new ChangeAppLocale(this).setLocale();
         // broadcast receiver to get response messages from JellowTTsService.
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES");
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_TTS_ERROR");
         registerReceiver(receiver, filter);
-        // After resume from other app if the locale is other than
-        // app locale, set it back to app locale.
-        new ChangeAppLocale(this).setLocale();
+        // Start measuring user app screen timer.
+        startMeasuring();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        // Stop measuring user app screen timer .
+        ///Check if pushId is older than 24 hours (86400000 millisecond).
+        // If yes then create new pushId (user session)
+        // If no then do not create new pushId instead user existing and
+        // current session time is saved.
+        SessionManager session = new SessionManager(this);
+        long sessionTime = validatePushId(session.getSessionCreatedAt());
+        session.setSessionCreatedAt(sessionTime);
+
+        // Stop measuring user app screen timer.
         stopMeasuring("LevelOneActivity");
         unregisterReceiver(receiver);
         new ChangeAppLocale(this).setLocale();
@@ -489,7 +506,6 @@ public class MainActivity extends AppCompatActivity {
                 // if value of mShouldReadFullSpeech is true, then speak associated like
                 // expression verbiage to selected category icon.
                 } else {
-                    reportLog(getLocalClassName()+", mIvLike: "+mLevelOneItemPos, Log.INFO);
                     ++mActionBtnClickCount;
                     // Set like button color border to selected category icon.
                     // border color is applied using mActionBtnClickCount and mFlgImage.
@@ -563,7 +579,6 @@ public class MainActivity extends AppCompatActivity {
                 // if value of mShouldReadFullSpeech is true, then speak associated don't like
                 // expression verbiage to selected category icon.
                 } else {
-                    reportLog(getLocalClassName()+", mIvDontLike: "+mLevelOneItemPos, Log.INFO);
                     ++mActionBtnClickCount;
                     // Set don't like button color border to selected category icon.
                     // border color is applied using mActionBtnClickCount and mFlgImage
@@ -636,7 +651,6 @@ public class MainActivity extends AppCompatActivity {
                 // if value of mShouldReadFullSpeech is true, then speak associated yes
                 // expression verbiage to selected category icon.
                 } else {
-                    reportLog(getLocalClassName()+", mIvYes: "+mLevelOneItemPos, Log.INFO);
                     ++mActionBtnClickCount;
                     // Set yes button color border to selected category icon.
                     // border color is applied using mActionBtnClickCount and mFlgImage
@@ -709,7 +723,6 @@ public class MainActivity extends AppCompatActivity {
                 // if value of mShouldReadFullSpeech is true, then it should speak associated no
                 // expression verbiage to selected category icon.
                 } else {
-                    reportLog(getLocalClassName()+", mIvNo: "+mLevelOneItemPos, Log.INFO);
                     ++mActionBtnClickCount;
                     // Set no button color border to selected category icon.
                     // border color is applied using mActionBtnClickCount and mFlgImage.
@@ -782,7 +795,6 @@ public class MainActivity extends AppCompatActivity {
                 // if value of mShouldReadFullSpeech is true, then it should speak associated more
                 // expression verbiage to selected category icon.
                 } else {
-                    reportLog(getLocalClassName()+", mIvMore: "+mLevelOneItemPos, Log.INFO);
                     ++mActionBtnClickCount;
                     // Set border to category icon, border color is applied using
                     // mActionBtnClickCount and mFlgImage
@@ -855,7 +867,6 @@ public class MainActivity extends AppCompatActivity {
                 // if value of mShouldReadFullSpeech is true, then speak associated less
                 // expression verbiage to selected category icon.
                 } else {
-                    reportLog(getLocalClassName()+", mIvLess: "+mLevelOneItemPos, Log.INFO);
                     ++mActionBtnClickCount;
                     // Set less button color border to selected category icon.
                     // border color is applied using mActionBtnClickCount and mFlgImage.
@@ -897,10 +908,7 @@ public class MainActivity extends AppCompatActivity {
                 speakSpeech(mEtTTs.getText().toString());
                 if(!mEtTTs.getText().toString().equals(""))
                     mIvTTs.setImageResource(R.drawable.speaker_pressed);
-                //Firebase get log
-                reportLog(getLocalClassName()+", TtsSpeak", Log.INFO);
                 //Firebase event
-
                 Bundle bundle = new Bundle();
                 bundle.putString("InputName", Settings.Secure.getString(getContentResolver(),
                         Settings.Secure.DEFAULT_INPUT_METHOD));
@@ -968,10 +976,10 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(title);
         // below condition is true when user tap same category icon twice.
         // i.e. user intends to open a sub-category of selected category icon.
-        if (mLevelOneItemPos == position) {
+        if (mLevelOneItemPos == position){
             SessionManager session = new SessionManager(this);
             // Get icon set directory path
-            File langDir = new File("/data/data/com.dsource.idc.jellowintl/app_"+
+            File langDir = new File(getApplicationInfo().dataDir + "/app_"+
                     session.getLanguage()+"/drawables");
             // If icon sets are available for level two then open selected category in level two
             if(langDir.exists() && langDir.isDirectory()) {
@@ -996,8 +1004,6 @@ public class MainActivity extends AppCompatActivity {
         }
         mLevelOneItemPos = mRecyclerView.getChildLayoutPosition(view);
         mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
-        //Firebase get log
-        reportLog(getLocalClassName()+" "+mLevelOneItemPos, Log.INFO);
     }
 
     /**
@@ -1048,8 +1054,6 @@ public class MainActivity extends AppCompatActivity {
         }
         if(isHomePressed) {
             speakSpeech(mNavigationBtnTxt[0]);
-            //Firebase event
-            singleEvent("Navigation","Home");
             mIvHome.setImageResource(R.drawable.home_pressed);
         }else
             mIvHome.setImageResource(R.drawable.home);
@@ -1100,8 +1104,6 @@ public class MainActivity extends AppCompatActivity {
         LevelOneVerbiageModel verbiageModel = new Gson()
                 .fromJson(getString(R.string.levelOneVerbiage), LevelOneVerbiageModel.class);
         mLayerOneSpeech = verbiageModel.getVerbiageModel();
-        //Firebase get log
-        reportLog("Activity created", Log.INFO);
         mSpeechTxt = getResources().getStringArray(R.array.arrLevelOneActionBarTitle);
         mExprBtnTxt = getResources().getStringArray(R.array.arrActionSpeech);
         mNavigationBtnTxt = getResources().getStringArray(R.array.arrNavigationSpeech);
@@ -1252,13 +1254,19 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.LENGTH_LONG).show();
                     break;
                 case "com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES":
-                    SessionManager session = new SessionManager(MainActivity.this);
+                    SessionManager session = new SessionManager(context);
                     String userLang = session.getLanguage();
                     session.setLangSettingIsCorrect(true);
                     String mSysTtsReg = intent.getStringExtra("systemTtsRegion");
-                    // If App language and Text-to-speech language are different then show error toast.
-                    if((userLang.equals("en-rIN") && !mSysTtsReg.equals("hi-rIN"))
-                            || (!userLang.equals("en-rIN") && !userLang.equals(mSysTtsReg))) {
+                    // If app language is not marathi as it do not require to complete setting from
+                    // Language screen.
+                    //Below if is true when
+                    //      1) app language is english India and tts language is hindi India
+                    // or   2) app language is not english India and
+                    //         app language and Text-to-speech language are different then
+                    //         show error toast.
+                    if(((userLang.equals("en-rIN") && !mSysTtsReg.equals("hi-rIN"))
+                            || (!userLang.equals("en-rIN") && !userLang.equals(mSysTtsReg)))) {
                         Toast.makeText(context, getString(R.string.speech_engin_lang_sam),
                                 Toast.LENGTH_LONG).show();
                         session.setLangSettingIsCorrect(false);
@@ -1267,4 +1275,19 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
+
+
+    /**
+     * <p>This function check whether Text-to-speech service is running? It will
+     * return true if service is running else false is service is closed.</p>
+     * */
+    public static boolean isTTSServiceRunning(ActivityManager manager) {
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            // JellowTTSService is name of TTS service class.
+            if (JellowTTSService.class.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

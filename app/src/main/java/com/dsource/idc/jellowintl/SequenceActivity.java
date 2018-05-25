@@ -1,17 +1,18 @@
 package com.dsource.idc.jellowintl;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.KeyListener;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,20 +24,24 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.models.SeqActivityVerbiageModel;
 import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
+import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.google.gson.Gson;
 
 import java.io.File;
 import java.util.ArrayList;
 
+import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
-import static com.dsource.idc.jellowintl.utility.Analytics.reportLog;
+import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 
 
 /**
@@ -128,16 +133,30 @@ public class SequenceActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // Start measuring user app screen timer .
-        startMeasuring();
+        if(!isAnalyticsActive()){
+            throw new Error("unableToResume");
+        }
+        if(Build.VERSION.SDK_INT > 25 &&
+                !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
+            startService(new Intent(getApplication(), JellowTTSService.class));
+        }
         //After resume from other app if the locale is other than
         // app locale, set it back to app locale.
         new ChangeAppLocale(this).setLocale();
+        // Start measuring user app screen timer .
+        startMeasuring();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        ///Check if pushId is older than 24 hours (86400000 millisecond).
+        // If yes then create new pushId (user session)
+        // If no then do not create new pushId instead user existing and
+        // current session time is saved.
+        long sessionTime = validatePushId(mSession.getSessionCreatedAt());
+        mSession.setSessionCreatedAt(sessionTime);
+
         // Stop measuring user app screen timer .
         stopMeasuring("SequenceActivity");
         new ChangeAppLocale(this).setLocale();
@@ -278,6 +297,7 @@ public class SequenceActivity extends AppCompatActivity {
      * f) reset category icons</p>
      * */
     private void initCategoryNavNextListener() {
+        Crashlytics.log("Sequence category next");
         mBtnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -368,6 +388,7 @@ public class SequenceActivity extends AppCompatActivity {
      * f) reset category icons</p>
      * */
     private void initCategoryNavBackListener() {
+        Crashlytics.log("Sequence category back");
         mBtnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -493,8 +514,8 @@ public class SequenceActivity extends AppCompatActivity {
                 // If expressive buttons are visible or category icon 2 is in pressed state then
                 // reset the border of category icon 2 and hide expressive buttons
                 if (mFlgHideExpBtn == 2) {
-                    hideExpressiveBtn(true);setBorderToView(findViewById(R.id.borderView2),
-                            -1);
+                    hideExpressiveBtn(true);
+                    setBorderToView(findViewById(R.id.borderView2),-1);
                     mFlgHideExpBtn = 0;
                     Bundle bundle = new Bundle();
                     bundle.putString("Icon", mCategoryIconSpeechText[count+1]);
@@ -560,6 +581,7 @@ public class SequenceActivity extends AppCompatActivity {
                     Bundle bundle = new Bundle();
                     bundle.putString("Icon", "VisibleExpr " + mCategoryIconSpeechText[count+2]);
                     bundle.putString("Category", mHeading[mLevelTwoItemPos].toLowerCase());
+                    bundleEvent("Grid",bundle);
                     mFlgHideExpBtn = 3;
                     // If new current sequence is the last sequence and category icon 3 is
                     // last item in sequence then hide expressive buttons.
@@ -1088,8 +1110,6 @@ public class SequenceActivity extends AppCompatActivity {
                 speakSpeech(mEtTTs.getText().toString());
                 if(!mEtTTs.getText().toString().equals(""))
                     mIvTTs.setImageResource(R.drawable.speaker_pressed);
-                //Firebase get log
-                reportLog(getLocalClassName()+", TtsSpeak: ", Log.INFO);
                 //Firebase event
                 Bundle bundle = new Bundle();
                 bundle.putString("InputName", Settings.Secure.getString(getContentResolver(),
@@ -1160,10 +1180,10 @@ public class SequenceActivity extends AppCompatActivity {
         mHeading = getResources().getStringArray(R.array.arrSeqActivityHeadingText);
         mStrBack = mCategoryNav[0].substring(2, mCategoryNav[0].length());
         mStrNext = mCategoryNav[1].substring(0, mCategoryNav[1].length()-2);
-
+        String verbString = getString(R.string.sequenceActVerbiage1) +
+                getString(R.string.sequenceActVerbiage2);
         SeqActivityVerbiageModel verbiageModel = new Gson()
-                .fromJson(getString(R.string.sequenceActVerbiage),
-                        SeqActivityVerbiageModel.class);
+                .fromJson(verbString, SeqActivityVerbiageModel.class);
         mSeqActSpeech = verbiageModel.getVerbiageModel();
 
         switch(mLevelTwoItemPos){

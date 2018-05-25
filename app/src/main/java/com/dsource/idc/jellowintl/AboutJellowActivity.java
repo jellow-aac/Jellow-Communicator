@@ -1,6 +1,9 @@
 package com.dsource.idc.jellowintl;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
@@ -9,7 +12,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 
+import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
+import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
+import com.dsource.idc.jellowintl.utility.JellowTTSService;
+
+import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
+import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 
 /**
  * Created by user on 5/27/2016.
@@ -20,6 +29,10 @@ public class AboutJellowActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_jellow);
+        // Initialize default exception handler for this activity.
+        // If any exception occurs during this activity usage,
+        // handle it using default exception handler.
+        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         new ChangeAppLocale(this).setLocale();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+ getString(R.string.menuAbout)+"</font>"));
@@ -29,6 +42,7 @@ public class AboutJellowActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 speakSpeech(getString(R.string.about_jellow_speech));
+                Crashlytics.log("About Speak");
             }
         });
 
@@ -36,6 +50,7 @@ public class AboutJellowActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 stopSpeech();
+                Crashlytics.log("About Stop");
             }
         });
     }
@@ -66,6 +81,13 @@ public class AboutJellowActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if(!isAnalyticsActive()) {
+            throw new Error("unableToResume");
+        }
+        if(Build.VERSION.SDK_INT > 25 &&
+                !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
+            startService(new Intent(getApplication(), JellowTTSService.class));
+        }
         new ChangeAppLocale(this).setLocale();
     }
 

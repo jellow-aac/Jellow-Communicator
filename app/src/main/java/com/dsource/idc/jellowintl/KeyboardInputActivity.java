@@ -1,8 +1,10 @@
 package com.dsource.idc.jellowintl;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
@@ -14,8 +16,13 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
+import com.dsource.idc.jellowintl.utility.JellowTTSService;
+
+import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
+import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 
 /**
  * Created by user on 5/27/2016.
@@ -36,6 +43,7 @@ public class KeyboardInputActivity extends AppCompatActivity {
         findViewById(R.id.abc).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Crashlytics.log("KeyboardAct SerialABC");
                 startActivity(new Intent(android.provider.Settings.ACTION_INPUT_METHOD_SETTINGS));
             }
         });
@@ -43,6 +51,7 @@ public class KeyboardInputActivity extends AppCompatActivity {
         findViewById(R.id.qwerty).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Crashlytics.log("KeyboardAct Qwerty");
                 startActivity(new Intent(android.provider.Settings.ACTION_INPUT_METHOD_SETTINGS));
             }
         });
@@ -50,9 +59,9 @@ public class KeyboardInputActivity extends AppCompatActivity {
         findViewById(R.id.default_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Crashlytics.log("KeyboardAct Save");
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.showInputMethodPicker();
-                startActivity(new Intent(KeyboardInputActivity.this, MainActivity.class));
                 finish();
             }
         });
@@ -87,6 +96,18 @@ public class KeyboardInputActivity extends AppCompatActivity {
             default: return super.onOptionsItemSelected(item);
         }
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!isAnalyticsActive()) {
+            throw new Error("unableToResume");
+        }
+        if(Build.VERSION.SDK_INT > 25 &&
+                !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
+            startService(new Intent(getApplication(), JellowTTSService.class));
+        }
     }
 
     @Override

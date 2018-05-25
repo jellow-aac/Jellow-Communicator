@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="levelThreeVerbiage">{\"arrays\":[[[[],[],[],[],[],[],[],[],[],[],[],[
+    <string name="levelThreeVerbiage1">{\"arrays\":[[[[],[],[],[],[],[],[],[],[],[],[],[
 	]],[[\"I feel happy\",
 		\"I really feel happy\",
 		\"I want to be happy \",
@@ -224,396 +224,10 @@
 
 	],[[],[],[],[],[],[],[],[],[],[] , [],[],[],[],[],[],[]],[[],[],[],[],[],[],[],[],[
 
-	]]],[[[		\"I like to rinse my mouth\",
-		\"I really like to rinse my mouth\",
-		\"I want to rinse my mouth\",
-		\"I really want to rinse my mouth\",
-		\"I want to rinse my mouth some more\",
-		\"I really want to rinse my mouth some more\",
-		\"I don\'t like to rinse my mouth\",
-		\"I really don\'t like to rinse my mouth\",
-		\"I don\'t want to rinse my mouth\",
-		\"I really don\'t want to rinse my mouth\",
-		\"I don\'t want to rinse my mouth more\",
-		\"I really don\'t want to rinse my mouth any more\"
+	]]],[[[],[],[],[],[],[],[],[]],[[],[],[],[],[],[],[]],[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[
 
-	],[\"I like to rinse my toothbrush\",
-		\"I really like to rinse my toothbrush\",
-		\"I want to rinse my toothbrush\",
-		\"I really want to rinse my toothbrush\",
-		\"I want to rinse my toothbrush some more\",
-		\"I really want to rinse my toothbrush some more\",
-		\"I don\'t like to rinse my toothbrush\",
-		\"I really don\'t like to rinse my toothbrush\",
-		\"I don\'t want to rinse my toothbrush\",
-		\"I really don\'t want to rinse my toothbrush\",
-		\"I don\'t want to rinse my toothbrush more\",
-		\"I really don\'t want to rinse my toothbrush any more\"
-
-	],[\"I like to put toothpaste on my brush\",
-		\"I really like to put toothpaste on my brush\",
-		\"I want to put toothpaste on my brush\",
-		\"I really want to put toothpaste on my brush\",
-		\"I want to put some more toothpaste on my brush\",
-		\"I really want to put some more toothpaste on my brush\",
-		\"I don\'t like to put toothpaste on my brush\",
-		\"I really don\'t like to put toothpaste on my brush\",
-		\"I don\'t want to put toothpaste on my brush\",
-		\"I really don\'t want to put toothpaste on my brush\",
-		\"I don\'t want to put more toothpaste on my brush\",
-		\"I really don\'t want to put any more toothpaste on my brush\"
-
-	],[\"I like to brush my front teeth\",
-		\"I really like to brush my front teeth\",
-		\"I want to brush my front teeth\",
-		\"I really want to brush my front teeth\",
-		\"I want to brush my front teeth some more\",
-		\"I really want to brush my front teeth a bit longer\",
-		\"I don\'t like to brush my front teeth\",
-		\"I really don\'t like to brush my front teeth\",
-		\"I don\'t want to brush my front teeth\",
-		\"I really don\'t want to brush my front teeth\",
-		\"I don\'t want to brush my front teeth more\",
-		\"I really don\'t want to brush my front teeth any more\"
-
-	],[\"I like to brush my back teeth\",
-		\"I really like to brush my back teeth\",
-		\"I want to brush my back teeth\",
-		\"I really want to brush my back teeth\",
-		\"I want to brush my back teeth some more\",
-		\"I really want to brush my back teeth a little longer\",
-		\"I don\'t like to brush my back teeth\",
-		\"I really don\'t like to brush my back teeth\",
-		\"I don\'t want to brush my back teeth\",
-		\"I really don\'t want to brush my back teeth\",
-		\"I don\'t want to brush my back teeth more\",
-		\"I really don\'t want to brush my back teeth any more\"
-
-	],[\"I like to brush my tongue\",
-		\"I really like to brush my tongue\",
-		\"I want to brush my tongue\",
-		\"I really want to brush my tongue\",
-		\"I want to brush my tongue some more\",
-		\"I really want to brush my tongue a little longer\",
-		\"I don\'t like to brush my tongue\",
-		\"I really don\'t like to brush my tongue\",
-		\"I don\'t want to brush my tongue\",
-		\"I really don\'t want to brush my tongue\",
-		\"I don\'t want to brush my tongue more\",
-		\"I really don\'t want to brush my tongue any more\"
-
-	],[\"I like to rinse my mouth\",
-		\"I really like to rinse my mouth\",
-		\"I want to rinse my mouth\",
-		\"I really want to rinse my mouth\",
-		\"I want to rinse my mouth some more\",
-		\"I really want to rinse my mouth some more\",
-		\"I don\'t like to rinse my mouth\",
-		\"I really don\'t like to rinse my mouth\",
-		\"I don\'t want to rinse my mouth\",
-		\"I really don\'t want to rinse my mouth\",
-		\"I don\'t want to rinse my mouth more\",
-		\"I really don\'t want to rinse my mouth any more\"
-
-	],[\"I like to be all done\",
-		\"I really like to be all done\",
-		\"I want to be all done\",
-		\"I really want to be all done\",
-		\"I want to be all done again\",
-		\"I really want to be all done again\",
-		\"I don\'t like to be all done\",
-		\"I really don\'t like to be all done\",
-		\"I don\'t want to be all done\",
-		\"I really don\'t want to be all done\",
-		\"I don\'t want to be all done again\",
-		\"I really don\'t want to be all done again\"
-
-
-	]],[[\"I have to pull my pants down\",
-		\"I really have to pull my pants down\",
-		\"I want to pull my pants down\",
-		\"I really want to pull my pants down\",
-		\"I want to pull my pants down again\",
-		\"I really want to pull my pants down again\",
-		\"I don\'t have to pull my pants down\",
-		\"I really don\'t have to pull my pants down\",
-		\"I don\'t want to pull my pants down\",
-		\"I really don\'t want to pull my pants down\",
-		\"I don\'t want to pull my pants down again\",
-		\"I really don\'t want to pull my pants down again\"
-
-	],[\"I have to sit on the toilet\",
-		\"I really have to sit on the toilet\",
-		\"I want to sit on the toilet\",
-		\"I really want to sit on the toilet\",
-		\"I want to sit on the toilet again\",
-		\"I really want to sit on the toilet again\",
-		\"I don\'t have to sit on the toilet\",
-		\"I really don\'t have to sit on the toilet\",
-		\"I don\'t want to sit on the toilet\",
-		\"I really don\'t want to sit on the toilet\",
-		\"I don\'t want to sit on the toilet again\",
-		\"I really don\'t want to sit on the toilet again\"
-
-	],[\"I have to wash my bottom\",
-		\"I really have to wash my bottom\",
-		\"I want to wash my bottom\",
-		\"I really want to wash my bottom\",
-		\"I want to wash my bottom again\",
-		\"I really want to wash my bottom again\",
-		\"I don\'t have to wash my bottom\",
-		\"I really don\'t have to wash my bottom\",
-		\"I don\'t want to wash my bottom\",
-		\"I really don\'t want to wash my bottom\",
-		\"I don\'t want to wash my bottom again\",
-		\"I really don\'t want to wash my bottom again\"
-
-	],[\"I have to flush the toilet\",
-		\"I really have to flush the toilet\",
-		\"I want to flush the toilet\",
-		\"I really want to flush the toilet\",
-		\"I want to flush the toilet again\",
-		\"I really want to flush the toilet again\",
-		\"I don\'t have to flush the toilet\",
-		\"I really don\'t have to flush the toilet\",
-		\"I don\'t want to flush the toilet\",
-		\"I really don\'t want to flush the toilet\",
-		\"I don\'t want to flush the toilet again\",
-		\"I really don\'t want to flush the toilet again\"
-
-	],[\"I have to pull my pants up\",
-		\"I really have to pull my pants up\",
-		\"I want to pull my pants up\",
-		\"I really want to pull my pants up\",
-		\"I want to pull my pants up again\",
-		\"I really want to pull my pants up again\",
-		\"I don\'t have to pull my pants up\",
-		\"I really don\'t have to pull my pants up\",
-		\"I don\'t want to pull my pants up\",
-		\"I really don\'t want to pull my pants up\",
-		\"I don\'t want to pull my pants up again\",
-		\"I really don\'t want to pull my pants up again\"
-
-	],[\"I have to wash my hands\",
-		\"I really have to wash my hands\",
-		\"I want to wash my hands\",
-		\"I really want to wash my hands\",
-		\"I want to wash my hands again\",
-		\"I really want to wash my hands again\",
-		\"I don\'t have to wash my hands\",
-		\"I really don\'t have to wash my hands\",
-		\"I don\'t want to wash my hands\",
-		\"I really don\'t want to wash my hands\",
-		\"I don\'t want to wash my hands again\",
-		\"I really don\'t want to wash my hands again\"
-
-	],[\"I like to be all done\",
-		\"I really like to be all done\",
-		\"I want to be all done\",
-		\"I really want to be all done\",
-		\"I want to be all done again\",
-		\"I really want to be all done again\",
-		\"I don\'t like to be all done\",
-		\"I really don\'t like to be all done\",
-		\"I don\'t want to be all done\",
-		\"I really don\'t want to be all done\",
-		\"I don\'t want to be all done again\",
-		\"I really don\'t want to be all done again\"
-
-	]],[[\"I have to remove my clothes\",
-		\"I really have to remove my clothes\",
-		\"I want to remove my clothes\",
-		\"I really want to remove my clothes\",
-		\"I want to remove my clothes again\",
-		\"I really want to remove my clothes again\",
-		\"I don\'t have to remove my clothes\",
-		\"I really don\'t have to remove my clothes\",
-		\"I don\'t want to remove my clothes\",
-		\"I really don\'t want to remove my clothes\",
-		\"I don\'t want to remove my clothes again\",
-		\"I really don\'t want to remove my clothes again\"
-
-	],[\"I have to turn on the water\",
-		\"I really have to turn on the water\",
-		\"I want to turn on the water\",
-		\"I really want to turn on the water\",
-		\"I want to turn on the water again\",
-		\"I really want to turn on the water again\",
-		\"I don\'t have to turn on the water\",
-		\"I really don\'t have to turn on the water\",
-		\"I don\'t want to turn on the water\",
-		\"I really don\'t want to turn on the water\",
-		\"I don\'t want to turn on the water again\",
-		\"I really don\'t want to turn on the water again\"
-
-	],[\"I have to get in the shower\",
-		\"I really have to get in the shower\",
-		\"I want to get in the shower\",
-		\"I really want to get in the shower\",
-		\"I want to get in the shower again\",
-		\"I really want to get in the shower again\",
-		\"I don\'t have to get in the shower\",
-		\"I really don\'t have to get in the shower\",
-		\"I don\'t want to get in the shower\",
-		\"I really don\'t want to get in the shower\",
-		\"I don\'t want to get in the shower again\",
-		\"I really don\'t want to get in the shower again\"
-
-	],[\"I like to wet my body\",
-		\"I really like to wet my body\",
-		\"I want to wet my body\",
-		\"I really want to wet my body\",
-		\"I want to wet my body again\",
-		\"I really want to wet my body again\",
-		\"I don\'t like to wet my body\",
-		\"I really don\'t like to wet my body\",
-		\"I don\'t want to wet my body\",
-		\"I really don\'t want to wet my body\",
-		\"I don\'t want to wet my body again\",
-		\"I really don\'t want to wet my body again\"
-
-	],[\"I like to put soap on my body\",
-		\"I really like to put soap on my body\",
-		\"I want to put soap on my body\",
-		\"I really want to put soap on my body\",
-		\"I want to put some more soap on my body\",
-		\"I really want to put some more soap on my body\",
-		\"I don\'t like to put soap on my body\",
-		\"I really don\'t like to put soap on my body\",
-		\"I don\'t want to put soap on my body\",
-		\"I really don\'t want to put soap on my body\",
-		\"I don\'t want to put more soap on my body\",
-		\"I really don\'t want to put any more soap on my body\"
-
-	],[\"I like to shampoo my hair\",
-		\"I really like to shampoo my hair\",
-		\"I want to shampoo my hair\",
-		\"I really want to shampoo my hair\",
-		\"I want to shampoo my hair again\",
-		\"I really want to shampoo my hair again\",
-		\"I don\'t like to shampoo my hair\",
-		\"I really don\'t like to shampoo my hair\",
-		\"I don\'t want to shampoo my hair\",
-		\"I really don\'t want to shampoo my hair\",
-		\"I don\'t want to shampoo my hair again\",
-		\"I really don\'t want to shampoo my hair again\"
-
-	],[\"I like to use face wash\",
-		\"I really like to use face wash\",
-		\"I want to use some face wash\",
-		\"I really want to use some face wash\",
-		\"I want to use face wash again\",
-		\"I really want to use face wash again\",
-		\"I don\'t like to use face wash\",
-		\"I really don\'t like to use face wash\",
-		\"I don\'t want to use face wash\",
-		\"I really don\'t want to use face wash\",
-		\"I don\'t want to use face wash again\",
-		\"I really don\'t want to use face wash again\"
-
-	],[\"I like to wash my hair\",
-		\"I really like to wash my hair\",
-		\"I want to wash my hair\",
-		\"I really want to wash my hair\",
-		\"I want to wash my hair again\",
-		\"I really want to wash my hair again\",
-		\"I don\'t like to wash my hair\",
-		\"I really don\'t like to wash my hair\",
-		\"I don\'t want to wash my hair\",
-		\"I really don\'t want to wash my hair\",
-		\"I don\'t want to wash my hair again\",
-		\"I really don\'t want to wash my hair again\"
-
-	],[\"I like to wash my body\",
-		\"I really like to wash my body\",
-		\"I want to wash my body\",
-		\"I really want to wash my body\",
-		\"I want to wash my body again\",
-		\"I really want to wash my body again\",
-		\"I don\'t like to wash my body\",
-		\"I really don\'t like to wash my body\",
-		\"I don\'t want to wash my body\",
-		\"I really don\'t want to wash my body\",
-		\"I don\'t want to wash my body again\",
-		\"I really don\'t want to wash my body again\"
-
-	],[\"I have to turn off the water\",
-		\"I really have to turn off the water\",
-		\"I want to turn off the water\",
-		\"I really want to turn off the water\",
-		\"I want to turn off the water again\",
-		\"I really want to turn off the water again\",
-		\"I don\'t have to turn off the water\",
-		\"I really don\'t have to turn off the water\",
-		\"I don\'t want to turn off the water\",
-		\"I really don\'t want to turn off the water\",
-		\"I don\'t want to turn off the water again\",
-		\"I really don\'t want to turn off the water again\"
-
-	],[\"I like to dry my hair\",
-		\"I really like to dry my hair\",
-		\"I want to dry my hair\",
-		\"I really want to dry my hair\",
-		\"I want to dry my hair again\",
-		\"I really want to dry my hair again\",
-		\"I don\'t like to dry my hair\",
-		\"I really don\'t like to dry my hair\",
-		\"I don\'t want to dry my hair\",
-		\"I really don\'t want to dry my hair\",
-		\"I don\'t want to dry my hair again\",
-		\"I really don\'t want to dry my hair again\"
-
-	],[\"I like to dry my face\",
-		\"I really like to dry my face\",
-		\"I want to dry my face\",
-		\"I really want to dry my face\",
-		\"I want to dry my face again\",
-		\"I really want to dry my face again\",
-		\"I don\'t like to dry my face\",
-		\"I really don\'t like to dry my face\",
-		\"I don\'t want to dry my face\",
-		\"I really don\'t want to dry my face\",
-		\"I don\'t want to dry my face again\",
-		\"I really don\'t want to dry my face again\"
-
-	],[\"I like to dry my body\",
-		\"I really like to dry my body\",
-		\"I want to dry my body\",
-		\"I really want to dry my body\",
-		\"I want to dry my body again\",
-		\"I really want to dry my body again\",
-		\"I don\'t like to dry my body\",
-		\"I really don\'t like to dry my body\",
-		\"I don\'t want to dry my body\",
-		\"I really don\'t want to dry my body\",
-		\"I don\'t want to dry my body again\",
-		\"I really don\'t want to dry my body again\"
-
-	],[\"I have to put my clothes on\",
-		\"I really have to put my clothes on\",
-		\"I want to put my clothes on\",
-		\"I really want to put my clothes on\",
-		\"I want to put my clothes on again\",
-		\"I really want to put my clothes on again\",
-		\"I don\'t have to put my clothes on\",
-		\"I really don\'t have to put my clothes on\",
-		\"I don\'t want to put my clothes on\",
-		\"I really don\'t want to put my clothes on\",
-		\"I don\'t want to put my clothes on again\",
-		\"I really don\'t want to put my clothes on again\"
-
-	],[\"I like to be all done\",
-		\"I really like to be all done\",
-		\"I want to be all done\",
-		\"I really want to be all done\",
-		\"I want to be all done again\",
-		\"I really want to be all done again\",
-		\"I don\'t like to be all done\",
-		\"I really don\'t like to be all done\",
-		\"I don\'t want to be all done\",
-		\"I really don\'t want to be all done\",
-		\"I don\'t want to be all done again\",
-		\"I really don\'t want to be all done again\"
+	</string>
+	<string name="levelThreeVerbiage2">
 
 	]],[[\"I like to change my t-shirt\",
 		\"I really like to change my t-shirt\",
@@ -1213,6 +827,9 @@
 		\"I don\'t want another sanitary napkin\",
 		\"I really don\'t want any more sanitary napkins\"
 
+	</string>
+	<string name="levelThreeVerbiage3">
+
 	]],[[\"I like to use the door\",
 		\"I really like to use the door\",
 		\"I want to open the door\",
@@ -1486,238 +1103,11 @@
 		\"I don\'t want to go for group therapy again\",
 		\"I really don\'t want to go for group therapy again\"
 
-	]],[[\"I like to wake up\",
-		\"I really like to wake up\",
-		\"I want to wake up\",
-		\"I really want to wake up\",
-		\"I want to wake up again\",
-		\"I really want to wake up again\",
-		\"I don\'t like to wake up\",
-		\"I really don\'t like to wake up\",
-		\"I don\'t want to wake up\",
-		\"I really don\'t want to wake up\",
-		\"I don\'t want to wake up again\",
-		\"I really don\'t want to wake up again\"
+	]],[[],[],[],[],[],[],[],[],[],[],[],[],[
+	]],[[],[],[],[],[],[
 
-	],[\"I like to wash my face\",
-		\"I really like to wash my face\",
-		\"I want to wash my face\",
-		\"I really want to wash my face\",
-		\"I want to wash my face again\",
-		\"I really want to wash my face again\",
-		\"I don\'t like to wash my face\",
-		\"I really don\'t like to wash my face\",
-		\"I don\'t want to wash my face\",
-		\"I really don\'t want to wash my face\",
-		\"I don\'t want to wash my face again\",
-		\"I really don\'t want to wash my face again\"
-
-	],[\"I like to go to the bathroom\",
-		\"I really like to go to the bathroom\",
-		\"I want to go to the bathroom\",
-		\"I really want to go to the bathroom\",
-		\"I want to go to the bathroom again\",
-		\"I really want to go to the bathroom again\",
-		\"I don\'t like to go to the bathroom\",
-		\"I really don\'t like to go to the bathroom\",
-		\"I don\'t want to go to the bathroom\",
-		\"I really don\'t want to go to the bathroom\",
-		\"I don\'t want to go to the bathroom again\",
-		\"I really don\'t want to go to the bathroom again\"
-
-	],[\"I like to brush my teeth\",
-		\"I really like to brush my teeth\",
-		\"I want to brush my teeth\",
-		\"I really want to brush my teeth\",
-		\"I want to brush my teeth again\",
-		\"I really want to brush my teeth again\",
-		\"I don\'t like to brush my teeth\",
-		\"I really don\'t like to brush my teeth\",
-		\"I don\'t want to brush my teeth\",
-		\"I really don\'t want to brush my teeth\",
-		\"I don\'t want to brush my teeth again\",
-		\"I really don\'t want to brush my teeth again\"
-
-	],[\"I have to remove my clothes\",
-		\"I really have to remove my clothes\",
-		\"I want to remove my clothes\",
-		\"I really want to remove my clothes\",
-		\"I want to remove my clothes again\",
-		\"I really want to remove my clothes again\",
-		\"I don\'t have to remove my clothes\",
-		\"I really don\'t have to remove my clothes\",
-		\"I don\'t want to remove my clothes\",
-		\"I really don\'t want to remove my clothes\",
-		\"I don\'t want to remove my clothes again\",
-		\"I really don\'t want to remove my clothes again\"
-
-	],[\"I like to have a bath\",
-		\"I really like to have a bath\",
-		\"I want to have a bath\",
-		\"I really want to have a bath\",
-		\"I want to have a bath again\",
-		\"I really want to have a bath again\",
-		\"I don\'t like to have a bath\",
-		\"I really don\'t like to have a bath\",
-		\"I don\'t want to have a bath\",
-		\"I really don\'t want to have a bath\",
-		\"I don\'t want to have a bath again\",
-		\"I really don\'t want to have a bath again\"
-
-	],[\"I like to get dressed\",
-		\"I really like to get dressed\",
-		\"I want to get dressed\",
-		\"I really want to get dressed\",
-		\"I want to get dressed again\",
-		\"I really want to get dressed again\",
-		\"I don\'t like to get dressed\",
-		\"I really don\'t like to get dressed\",
-		\"I don\'t want to get dressed\",
-		\"I really don\'t want to get dressed\",
-		\"I don\'t want to get dressed again\",
-		\"I really don\'t want to get dressed again\"
-
-	],[\"I like to comb my hair\",
-		\"I really like to comb my hair\",
-		\"I want to comb my hair\",
-		\"I really want to comb my hair\",
-		\"I want to comb my hair again\",
-		\"I really want to comb my hair again\",
-		\"I don\'t like to comb my hair\",
-		\"I really don\'t like to comb my hair\",
-		\"I don\'t want to comb my hair\",
-		\"I really don\'t want to comb my hair\",
-		\"I don\'t want to comb my hair again\",
-		\"I really don\'t want to comb my hair again\"
-
-	],[\"I like to eat breakfast\",
-		\"I really like to eat breakfast\",
-		\"I want to eat breakfast\",
-		\"I really want to eat breakfast\",
-		\"I want to eat more breakfast\",
-		\"I really want to eat some more breakfast\",
-		\"I don\'t like to eat breakfast\",
-		\"I really don\'t like to eat breakfast\",
-		\"I don\'t want to eat breakfast\",
-		\"I really don\'t want to eat breakfast\",
-		\"I don\'t want to eat more breakfast\",
-		\"I really don\'t want to eat any more breakfast\"
-
-	],[\"I like to pack my lunch box\",
-		\"I really like to pack my lunch box\",
-		\"I want to pack my lunch box\",
-		\"I really want to pack my lunch box\",
-		\"I want to pack my lunch box again\",
-		\"I really want to pack my lunch box again\",
-		\"I don\'t like to pack my lunch box\",
-		\"I really don\'t like to pack my lunch box\",
-		\"I don\'t want to pack my lunch box\",
-		\"I really don\'t want to pack my lunch box\",
-		\"I don\'t want to pack my lunch box again\",
-		\"I really don\'t want to pack my lunch box again\"
-
-	],[\"I like to pack my school bag\",
-		\"I really like to pack my school bag\",
-		\"I want to pack my school bag\",
-		\"I really want to pack my school bag\",
-		\"I want to pack my school bag again\",
-		\"I really want to pack my school bag again\",
-		\"I don\'t like to pack my school bag\",
-		\"I really don\'t like to pack my school bag\",
-		\"I don\'t want to pack my school bag\",
-		\"I really don\'t want to pack my school bag\",
-		\"I don\'t want to pack my school bag again\",
-		\"I really don\'t want to pack my school bag again\"
-
-	],[\"I like to go to school\",
-		\"I really like to go to school\",
-		\"I want to go to school\",
-		\"I really want to go to school\",
-		\"I want to go to school again\",
-		\"I really want to go to school again\",
-		\"I don\'t like to go to school\",
-		\"I really don\'t like to go to school\",
-		\"I don\'t want to go to school\",
-		\"I really don\'t want to go to school\",
-		\"I don\'t want to go to school again\",
-		\"I really don\'t want to go to school again\"],[
-	]],[[\"I like to eat dinner\",
-		\"I really like to eat dinner\",
-		\"I want to eat dinner\",
-		\"I really want to eat dinner\",
-		\"I want to eat more dinner\",
-		\"I really want to eat some more dinner\",
-		\"I don\'t like to eat dinner\",
-		\"I really don\'t like to eat dinner\",
-		\"I don\'t want to eat dinner\",
-		\"I really don\'t want to eat dinner\",
-		\"I don\'t want to eat more dinner\",
-		\"I really don\'t want to eat any more dinner\"
-
-	],[\"I like to Wear night clothes\",
-		\"I really like to Wear night clothes\",
-		\"I want to Wear night clothes\",
-		\"I really want to Wear night clothes\",
-		\"I want to Wear night clothes again\",
-		\"I really want to Wear night clothes again\",
-		\"I don\'t like to Wear night clothes\",
-		\"I really don\'t like to Wear night clothes\",
-		\"I don\'t want to Wear night clothes\",
-		\"I really don\'t want to Wear night clothes\",
-		\"I don\'t want to Wear night clothes again\",
-		\"I really don\'t want to Wear night clothes again\"
-
-	],[\"I like to brush my teeth\",
-		\"I really like to brush my teeth\",
-		\"I want to brush my teeth\",
-		\"I really want to brush my teeth\",
-		\"I want to brush my teeth again\",
-		\"I really want to brush my teeth again\",
-		\"I don\'t like to brush my teeth\",
-		\"I really don\'t like to brush my teeth\",
-		\"I don\'t want to brush my teeth\",
-		\"I really don\'t want to brush my teeth\",
-		\"I don\'t want to brush my teeth again\",
-		\"I really don\'t want to brush my teeth again\"
-
-	],[\"I like to read stories\",
-		\"I really like to read stories\",
-		\"I want to read a story\",
-		\"I really want to read a story\",
-		\"I want more stories\",
-		\"I want to read many more stories\",
-		\"I don\'t like to read stories\",
-		\"I really don\'t like to read stories\",
-		\"I don\'t want to read a story\",
-		\"I really don\'t want to read a story\",
-		\"I don\'t want to read more stories\",
-		\"I really don\'t want to read any more stories\"
-
-	],[\"I like to say goodnight to every1\",
-		\"I really like to say goodnight to every1\",
-		\"I want to say goodnight to every1\",
-		\"I really want to say goodnight to every1\",
-		\"I want to say goodnight to every1 again\",
-		\"I really want to say goodnight to every1 again\",
-		\"I don\'t like to say goodnight to every1\",
-		\"I really don\'t like to say goodnight to every1\",
-		\"I don\'t want to say goodnight to every1\",
-		\"I really don\'t want to say goodnight to every1\",
-		\"I don\'t want to say goodnight to every1 again\",
-		\"I really don\'t want to say goodnight to every1 again\"
-
-	],[\"I like to say my prayers\",
-		\"I really like to say my prayers\",
-		\"I want to say my prayers\",
-		\"I really want to say my prayers\",
-		\"I want to say my prayers again\",
-		\"I really want to say my prayers again\",
-		\"I don\'t like to say my prayers\",
-		\"I really don\'t like to say my prayers\",
-		\"I don\'t want to say my prayers\",
-		\"I really don\'t want to say my prayers\",
-		\"I don\'t want to say my prayers again\",
-		\"I really don\'t want to say my prayers again\"
+	</string>
+	<string name="levelThreeVerbiage4">
 
 	],[]]],[[[\"I like bread\",
 		\"I really like bread\",
@@ -2473,6 +1863,9 @@
 		\"I don\'t want more fritters\",
 		\"I really don\'t want any more fritters\"
 
+	</string>
+	<string name="levelThreeVerbiage5">
+
 	],[\"I like shepherd\'s pie\",
 		\"I really like shepherd\'s pie\",
 		\"I want some shepherd\'s pie\",
@@ -3185,6 +2578,9 @@
 		\"I really don\'t want a chocolate\",
 		\"I don\'t want more chocolates\",
 		\"I really don\'t want any more chocolates\"
+
+	</string>
+	<string name="levelThreeVerbiage6">
 
 	],[\"I like chips\",
 		\"I really like chips \",
@@ -3992,6 +3388,9 @@
 		\"I don\'t want more flavored milk\",
 		\"I really don\'t want any more flavored milk\"
 
+	</string>
+	<string name="levelThreeVerbiage7">
+
 	]],[[\"I like to use a bowl to eat\",
 		\"I really like to use a bowl to eat\",
 		\"I want a bowl\",
@@ -4641,6 +4040,9 @@
 		\"I really don\'t want to play with you\",
 		\"I don\'t want to play with you any more\",
 		\"I really don\'t want to play with you any more\"
+
+	</string>
+	<string name="levelThreeVerbiage8">
 
 	]],[[\"I like to go to the playground\",
 		\"I really like to go to the playground\",
@@ -5305,6 +4707,9 @@
 		\"I don\'t want the volume to be turned down more\",
 		\"I really don\'t want the volume to be turned down any more\"
 
+	</string>
+	<string name="levelThreeVerbiage9">
+
 	]],[[\"I like to draw\",
 		\"I really like to draw\",
 		\"I want to draw\",
@@ -5915,6 +5320,9 @@
 		\"I really don\'t want to learn about dolphins\",
 		\"I don\'t want to learn more about dolphins\",
 		\"I really don\'t want to learn any more about dolphins\"
+
+	</string>
+	<string name="levelThreeVerbiage10">
 
 	],[\"I like whales\",
 		\"I really like whales\",
@@ -6605,6 +6013,9 @@
 		\"I don\'t want more school notebooks\",
 		\"I really don\'t want any more school notebooks\"
 
+	</string>
+	<string name="levelThreeVerbiage11">
+
 	],[\"I like to learn maths\",
 		\"I really like to learn maths\",
 		\"I want my maths book\",
@@ -6972,7 +6383,7 @@
 	],[\"I like to draw stars\",
 		\"I really like to draw stars\",
 		\"I want to draw a star\",
-		\"I really want a star\",
+		\"I really want to draw a star\",
 		\"I want to draw more stars\",
 		\"I really want to draw some more stars\",
 		\"I don\'t like to draw stars\",
@@ -7306,6 +6717,9 @@
 		\"I really don\'t want my pencil case\",
 		\"I don\'t want to use my pencil case again\",
 		\"I really don\'t want another pencil case\"
+
+	</string>
+	<string name="levelThreeVerbiage12">
 
 	]],[[\"I like my school bag\",
 		\"I really like my school bag\",
@@ -7983,6 +7397,9 @@
 		\"I don\'t want to sail on a ship again\",
 		\"I really don\'t want to sail on a ship again\"
 
+	</string>
+	<string name="levelThreeVerbiage13">
+
 	]],[[\"I like to use 5 pound notes\",
 		\"I really like to use 5 pound notes\",
 		\"I want 5 pounds\",
@@ -8568,6 +7985,9 @@
 		\"I don\'t want it to get colder\",
 		\"I really don\'t want it to get any colder\"
 
+	</string>
+	<string name="levelThreeVerbiage14">
+
 	]],[[\"I like the Martin Luther King day holiday\",
 		\"I really like to celebrate the Martin Luther King day holiday\",
 		\"I want to enjoy the Martin Luther King day holiday\",
@@ -8960,4 +8380,10 @@
 
     ]]],[[[]]]]}
     </string>
+	<string name="levelThreeVerbiage15"/>
+	<string name="levelThreeVerbiage16"/>
+	<string name="levelThreeVerbiage17"/>
+	<string name="levelThreeVerbiage18"/>
+	<string name="levelThreeVerbiage19"/>
+	<string name="levelThreeVerbiage20"/>
 </resources>

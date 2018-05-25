@@ -1,6 +1,9 @@
 package com.dsource.idc.jellowintl;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
@@ -9,9 +12,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
+import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.SessionManager;
+
+import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
+import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 
 /**
  * Created by ekalpa on 15-Jun-16.
@@ -25,10 +33,13 @@ public class ResetPreferencesActivity extends AppCompatActivity {
         new ChangeAppLocale(this).setLocale();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+ getString(R.string.menuResetPref) +"</font>"));
+        // Initialize default exception handler for this activity.
+        // If any exception occurs during this activity usage,
+        // handle it using default exception handler.
+        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         final SessionManager session = new SessionManager(this);
         final DataBaseHelper myDbHelper = new DataBaseHelper(this);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
 
         findViewById(R.id.no).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +57,7 @@ public class ResetPreferencesActivity extends AppCompatActivity {
                 Intent intentStartActivity = new Intent(ResetPreferencesActivity.this, SplashActivity.class);
                 intentStartActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intentStartActivity);
+                Crashlytics.log("ResetPref Yes");
                 finish();
             }
         });
@@ -72,6 +84,18 @@ public class ResetPreferencesActivity extends AppCompatActivity {
             default: return super.onOptionsItemSelected(item);
         }
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!isAnalyticsActive()) {
+            throw new Error("unableToResume");
+        }
+        if(Build.VERSION.SDK_INT > 25 &&
+                !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
+            startService(new Intent(getApplication(), JellowTTSService.class));
+        }
     }
 
     @Override

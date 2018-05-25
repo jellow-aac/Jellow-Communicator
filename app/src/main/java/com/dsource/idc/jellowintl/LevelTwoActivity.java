@@ -1,17 +1,21 @@
 package com.dsource.idc.jellowintl;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.telephony.TelephonyManager;
 import android.text.method.KeyListener;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,17 +31,20 @@ import com.dsource.idc.jellowintl.models.LevelTwoVerbiageModel;
 import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.IndexSorter;
+import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.SessionManager;
-import com.dsource.idc.jellowintl.utility.ToastWithCustomTime;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
+import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 
 public class LevelTwoActivity extends AppCompatActivity {
     private final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 0;
@@ -136,16 +143,30 @@ public class LevelTwoActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // Start measuring user app screen timer .
-        startMeasuring();
+        if(!isAnalyticsActive()){
+            throw new Error("unableToResume");
+        }
+        if(Build.VERSION.SDK_INT > 25 &&
+                !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
+            startService(new Intent(getApplication(), JellowTTSService.class));
+        }
         //After resume from other app if the locale is other than
         // app locale, set it back to app locale.
         new ChangeAppLocale(this).setLocale();
+        // Start measuring user app screen timer .
+        startMeasuring();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        ///Check if pushId is older than 24 hours (86400000 millisecond).
+        // If yes then create new pushId (user session)
+        // If no then do not create new pushId instead user existing and
+        // current session time is saved.
+        long sessionTime = validatePushId(mSession.getSessionCreatedAt());
+        mSession.setSessionCreatedAt(sessionTime);
+
         // Stop measuring user app screen timer .
         stopMeasuring("LevelTwoActivity");
         new ChangeAppLocale(this).setLocale();
@@ -220,12 +241,12 @@ public class LevelTwoActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult (int requestCode, String Permissions[], int[] grantResults){
-        // Unused code in current version
         if (requestCode == MY_PERMISSIONS_REQUEST_CALL_PHONE){
             if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                //startCall("tel:" + mSession.getCaregiverNumber());
+                startCall("tel:" + mSession.getCaregiverNumber());
             } else {
-                Toast.makeText(this, "Call permission was denied.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.rejected_call_permission_req,
+                        Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -477,6 +498,7 @@ public class LevelTwoActivity extends AppCompatActivity {
             }
         });
     }
+
     /**
      * <p>This function will initialize the click listener to Navigation "keyboard" button.
      * {@link LevelThreeActivity} navigation keyboard button either enable or disable
@@ -1471,7 +1493,10 @@ public class LevelTwoActivity extends AppCompatActivity {
         // if category icon Help -> Emergency is selected, then disable all expressive icons
         else if(mLevelOneItemPos == CATEGORY_ICON_HELP && mLevelTwoItemPos == 0) {
             changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
-            //showCallPreview();
+            // If user device is not wifi-only device, only then request call permission.
+            TelephonyManager tm = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+            if(tm != null && tm.getPhoneType() != TelephonyManager.PHONE_TYPE_NONE)
+                showCallPreview();
         // if category icon Help -> Unsafe touch is selected, then disable like, yes, more
         // expressive icons
         }else if(mLevelOneItemPos == CATEGORY_ICON_HELP && mLevelTwoItemPos == 10)
@@ -1563,9 +1588,12 @@ public class LevelTwoActivity extends AppCompatActivity {
     private void loadArraysFromResources() {
         mExprBtnTxt = getResources().getStringArray(R.array.arrActionSpeech);
         mNavigationBtnTxt = getResources().getStringArray(R.array.arrNavigationSpeech);
-
-        LevelTwoVerbiageModel verbiageModel = new Gson()
-                .fromJson(getString(R.string.levelTwoVerbiage), LevelTwoVerbiageModel.class);
+        String verbString = getString(R.string.levelTwoVerbiage1) +
+                getString(R.string.levelTwoVerbiage2) +
+                getString(R.string.levelTwoVerbiage3) +
+                getString(R.string.levelTwoVerbiage4);
+        LevelTwoVerbiageModel verbiageModel = new Gson().
+                fromJson(verbString, LevelTwoVerbiageModel.class);
         mLayerTwoSpeech = verbiageModel.getVerbiageModel();
         // fill speech and adapter text arrays
         retrieveSpeechAndAdapterArrays(mLevelOneItemPos);
@@ -1929,34 +1957,81 @@ public class LevelTwoActivity extends AppCompatActivity {
     }
 
     /**
-     * Unused code in current version
-     **/
+     * <p> This function will checks user device os version.
+     *   - If user device is Lollipop or below then it directly send user to make call from app.
+     *   - If user device is greater than Lollipop then it checks for does app call permission
+     *     granted or not.
+     *   - If call permission is granted then it directly send user to make call from app.
+     *   - If call permission is not granted then it opens up dialog message showing why call
+     *     permission is required to app.</p>
+     * */
     private void showCallPreview(){
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED){
-            //startCall("tel:" + mSession.getCaregiverNumber());
-        } else {
-            //requestCallPermission();
+        if(Build.VERSION.SDK_INT > 22 ) {
+            if (ActivityCompat.checkSelfPermission(this,
+                    android.Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+                sendBroadcast(new Intent("com.dsource.idc.jellowintl.SPEECH_STOP"));
+                startCall("tel:" + mSession.getCaregiverNumber());
+            } else if (ActivityCompat.shouldShowRequestPermissionRationale(
+                            this, android.Manifest.permission.CALL_PHONE)){
+                showPermissionRequestSnackBar();
+            }else
+                showSettingRequestSnackBar();
+        }else{
+            startCall("tel:" + mSession.getCaregiverNumber());
         }
     }
 
     /**
-     * Unused code in current version
-     **/
-    private void requestCallPermission(){
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.CALL_PHONE)){
-            new ToastWithCustomTime(this,"Call permission is not available. Requesting permission for making a call in case of an emergency.", 10000);
-        } else {
-            new ToastWithCustomTime(this,"Call access is required to make an emergency call. Please enable call permission from app settings.", 10000);
-        }
-        ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CALL_PHONE}, MY_PERMISSIONS_REQUEST_CALL_PHONE);
+     * <p> This function will create and display SnackBar with "Request" action button. It will
+     *  display message about why app requires the Call permission.</p>
+     * */
+    private void showPermissionRequestSnackBar() {
+        Snackbar
+            .make(findViewById(R.id.parent),
+                getString(R.string.call_permission_info), Snackbar.LENGTH_LONG)
+            .setAction(R.string.request, new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ActivityCompat.requestPermissions(LevelTwoActivity.this,
+                            new String[]{android.Manifest.permission.CALL_PHONE},
+                            MY_PERMISSIONS_REQUEST_CALL_PHONE);
+                }
+            })
+            .show();
     }
 
     /**
-     * Unused code in current version
-     **/
+     * <p> This function will create and display SnackBar with "Settings" action button. The
+     * "Settings" action button will redirect user app setting screen.</p>
+     * */
+    private void showSettingRequestSnackBar() {
+        Snackbar
+            .make(findViewById(R.id.parent),getString(R.string.grant_permission_from_settings),
+                    Snackbar.LENGTH_LONG)
+            .setAction(R.string.action_settings, new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    intent.setData(Uri.fromParts("package", getPackageName(), null));
+                    startActivity(intent);
+                }
+            })
+            .show();
+    }
+
+    /**
+     * <p>This function places the call to child's caregiver number provided
+     * in User profile.
+     * If device is Lollipop or below version then this function is directly called.
+     * If device is MarshMellow or above then after getting the user permission this function
+     * is called.
+     * @param contact has the contact number of child's caregiver.
+     * {@link MainActivity}.</p>
+     * */
     public void startCall(String contact){
-        Intent callintent = new Intent(Intent.ACTION_CALL);
-        callintent.setData(Uri.parse(contact));
-        startActivity(callintent);
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setData(Uri.parse(contact));
+        startActivity(callIntent);
     }
 }

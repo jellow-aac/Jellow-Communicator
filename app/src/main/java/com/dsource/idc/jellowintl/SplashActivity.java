@@ -14,7 +14,8 @@ import com.dsource.idc.jellowintl.utility.EvaluateDisplayMetricsUtils;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
-import java.io.IOException;
+import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
+import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 
 /**
  * Created by ekalpa on 7/12/2016.
@@ -26,13 +27,9 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         getSupportActionBar().hide();
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
-        try {
-            new DataBaseHelper(this).createDataBase();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        new DataBaseHelper(this).createDataBase();
 
-        if(isMyServiceRunning(JellowTTSService.class))
+        if(isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE)))
             stopTTsService();
         startTTsService();
         PlayGifView pGif = findViewById(R.id.viewGif);
@@ -52,6 +49,14 @@ public class SplashActivity extends AppCompatActivity {
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.dsource.idc.jellowintl.INIT_SERVICE");
         registerReceiver(receiver, filter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!isAnalyticsActive()) {
+            throw new Error("unableToResume");
+        }
     }
 
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -84,15 +89,5 @@ public class SplashActivity extends AppCompatActivity {
     private void stopTTsService() {
         Intent intent = new Intent("com.dsource.idc.jellowintl.STOP_SERVICE");
         sendBroadcast(intent);
-    }
-
-    private boolean isMyServiceRunning(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                return true;
-            }
-        }
-        return false;
     }
 }

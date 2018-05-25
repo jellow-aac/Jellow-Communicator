@@ -89,7 +89,10 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:layout_centerVertical="true">
-                        <FrameLayout
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <FrameLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
                             <ImageView
@@ -106,32 +109,33 @@
                                 android:layout_gravity="center_horizontal"
                                 android:background="@drawable/custom_drawable_nocolor_1by3"/>
                         </FrameLayout>
+                            <ImageButton
+                                android:id="@+id/arrow1"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:layout_gravity="center_vertical"
+                                android:clickable="false"
+                                android:background="@drawable/arrow"/>
+                        </LinearLayout>
                         <TextView
                             android:id="@+id/bt1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
                             android:text="ddadasdasd"
                             android:textSize="12sp"/>
                     </LinearLayout>
-                    <ImageButton
-                        android:id="@+id/arrow1"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:clickable="false"
-                        android:layout_centerVertical="true"
-                        android:layout_toRightOf="@+id/linearLayoutOne"
-                        android:background="@drawable/arrow"
-                        android:layout_toEndOf="@+id/linearLayoutOne" />
                     <LinearLayout
                         android:id="@+id/linearLayoutTwo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:layout_toRightOf="@+id/arrow1"
+                        android:layout_toRightOf="@+id/linearLayoutOne"
                         android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/arrow1">
-                        <FrameLayout
+                        android:layout_toEndOf="@+id/linearLayoutOne">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <FrameLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
                             <ImageView
@@ -148,31 +152,29 @@
                                 android:layout_gravity="center_horizontal"
                                 android:background="@drawable/custom_drawable_nocolor_1by3"/>
                         </FrameLayout>
+                            <ImageButton
+                                android:id="@+id/arrow2"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:layout_gravity="center_vertical"
+                                android:clickable="false"
+                                android:background="@drawable/arrow"/>
+                        </LinearLayout>
                         <TextView
                             android:id="@+id/bt2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
                             android:text="ddadasdasd"
                             android:textSize="12sp"/>
                     </LinearLayout>
-                    <ImageButton
-                        android:id="@+id/arrow2"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:clickable="false"
-                        android:layout_centerVertical="true"
-                        android:layout_toRightOf="@+id/linearLayoutTwo"
-                        android:background="@drawable/arrow"
-                        android:layout_toEndOf="@+id/linearLayoutTwo" />
                     <LinearLayout
                         android:id="@+id/linearLayoutThree"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:layout_toRightOf="@+id/arrow2"
+                        android:layout_toRightOf="@+id/linearLayoutTwo"
                         android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/arrow2">
+                        android:layout_toEndOf="@+id/linearLayoutTwo">
                         <FrameLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
@@ -194,7 +196,6 @@
                             android:id="@+id/bt3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
                             android:text="ddadasdasd"
                             android:textSize="12sp"/>
                     </LinearLayout>
