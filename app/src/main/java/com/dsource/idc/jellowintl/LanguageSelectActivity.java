@@ -28,9 +28,9 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.crashlytics.android.Crashlytics;
-import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
+import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.io.File;
@@ -57,7 +57,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
     String[] offlineLanguages;
     String[] onlineLanguages;
     Spinner languageSelect;
-    String selectedLanguage, systemTtsLang;
+    String selectedLanguage, systemTtsLang, mLangChanged;
     Button save,add,delete, changeTtsLang;
     ArrayAdapter<String> adapter_lan;
     boolean isOpenedTtsSett = false, isTtsLangChanged = false, shouldSaveLang = false;
@@ -67,7 +67,6 @@ public class LanguageSelectActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_language_select);
-        new ChangeAppLocale(this).setLocale();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.Language)+"</font>"));
@@ -124,6 +123,10 @@ public class LanguageSelectActivity extends AppCompatActivity{
         });
 
         save = findViewById(R.id.saveBut);
+        //The variables below are defined because android os fall back to default locale
+        // after activity restart. These variable will hold the value for variables initialized using
+        // user preferred locale.
+        final String strDefaultLangEr = getString(R.string.txt_save_same_lang_def);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,7 +136,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
                     if(Build.VERSION.SDK_INT >= 21 &&
                             mSession.getLanguage().equals(LangMap.get(selectedLanguage))) {
                         Toast.makeText(LanguageSelectActivity.this,
-                                getString(R.string.txt_save_same_lang_def), Toast.LENGTH_SHORT).show();
+                                strDefaultLangEr, Toast.LENGTH_SHORT).show();
                         return;
                     }else if(Build.VERSION.SDK_INT >= 21){
                         checkIfVoiceAvail(LangMap.get(selectedLanguage));
@@ -145,7 +148,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
                     }
                     else if (mSession.getLanguage().equals(LangMap.get(selectedLanguage)) && !shouldSaveLang){
                         Toast.makeText(LanguageSelectActivity.this,
-                                getString(R.string.txt_save_same_lang_def), Toast.LENGTH_SHORT).show();
+                                strDefaultLangEr, Toast.LENGTH_SHORT).show();
                         return;
                     }
                     getSpeechLanguage(LangMap.get(selectedLanguage));
@@ -154,6 +157,13 @@ public class LanguageSelectActivity extends AppCompatActivity{
         });
 
         add = findViewById(R.id.addBut);
+        //The variables below are defined because android os fall back to default locale
+        // after activity restart. These variable will hold the value for variables initialized using
+        // user preferred locale.
+        final String strLangLimitExceeded = getString(R.string.languageLimitExceeded);
+        final String strCheckConnectivity = getString(R.string.checkConnectivity);
+        final String strDownloadableLang = getString(R.string.downloadableLang);
+        final String strDownload = getString(R.string.download);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -161,7 +171,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
                 try {
                     delete.setEnabled(false);
                      new MaterialDialog.Builder(LanguageSelectActivity.this)
-                            .title("Downloadable Languages")
+                            .title(strDownloadableLang)
                             .items(onlineLanguages)
                             .itemsCallbackSingleChoice(
                                     0, new MaterialDialog.ListCallbackSingleChoice() {
@@ -188,18 +198,18 @@ public class LanguageSelectActivity extends AppCompatActivity{
                                                     startActivity(new Intent(getBaseContext(),LanguageDownloadActivity.class).putExtras(bundle));
                                                     dialog.dismiss();
                                                 } else {
-                                                    Toast.makeText(LanguageSelectActivity.this,getString(R.string.languageLimitExceeded),Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(LanguageSelectActivity.this, strLangLimitExceeded,Toast.LENGTH_SHORT).show();
                                                 }
 
                                             }else {
 
-                                                Toast.makeText(LanguageSelectActivity.this,getString(R.string.checkConnectivity),Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(LanguageSelectActivity.this, strCheckConnectivity,Toast.LENGTH_SHORT).show();
                                             }
 
                                             return true;
                                         }
                                     })
-                            .positiveText("Download")
+                            .positiveText(strDownload)
                             .cancelListener(new DialogInterface.OnCancelListener() {
                                 @Override
                                 public void onCancel(DialogInterface dialog) {
@@ -216,7 +226,13 @@ public class LanguageSelectActivity extends AppCompatActivity{
         });
 
         delete = findViewById(R.id.delBut);
-
+        //The variables below are defined because android os fall back to default locale
+        // after activity restart. These variable will hold the value for variables initialized using
+        // user preferred locale.
+        final String strLangCurrentlyInUse = getString(R.string.languageCurrentlyInUse);
+        final String strLangRemoved = getString(R.string.languageRemoved);
+        final String strDownloadedLang = getString(R.string.downloadedLang);
+        final String strRemove = getString(R.string.remove);
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -224,7 +240,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
                 try {
                     add.setEnabled(false);
                     new MaterialDialog.Builder(LanguageSelectActivity.this)
-                            .title("Downloaded Languages")
+                            .title(strDownloadedLang)
                             .items(offlineLanguages)
                             .itemsCallbackSingleChoice(
                                     0, new MaterialDialog.ListCallbackSingleChoice() {
@@ -234,7 +250,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
                                             String locale = LangMap.get(offlineLanguages[which]);
                                             if(mSession.getLanguage().equals(locale))
                                             {
-                                                Toast.makeText(getBaseContext(),getString(R.string.languageCurrentlyInUse),Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(getBaseContext(), strLangCurrentlyInUse,Toast.LENGTH_SHORT).show();
                                                 dialog.dismiss();
                                                 return true;
                                             }
@@ -251,11 +267,11 @@ public class LanguageSelectActivity extends AppCompatActivity{
                                                     android.R.layout.simple_spinner_item, offlineLanguages);
                                             languageSelect.setAdapter(adapter_lan);
                                             dialog.dismiss();
-                                            Toast.makeText(getBaseContext(),getString(R.string.languageRemoved),Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getBaseContext(),strLangRemoved,Toast.LENGTH_SHORT).show();
                                             return true;
                                         }
                                     })
-                            .positiveText("Remove")
+                            .positiveText(strRemove)
                             .cancelListener(new DialogInterface.OnCancelListener() {
                                 @Override
                                 public void onCancel(DialogInterface dialog) {
@@ -268,6 +284,12 @@ public class LanguageSelectActivity extends AppCompatActivity{
                 }
             }
         });
+        mLangChanged = getString(R.string.languageChanged);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext((LanguageHelper.onAttach(newBase)));
     }
 
     private void setupViewsForBelowLollipopDevices() {
@@ -362,7 +384,6 @@ public class LanguageSelectActivity extends AppCompatActivity{
     @Override
     protected void onPause() {
         super.onPause();
-        new ChangeAppLocale(this).setLocale();
         ///Check if pushId is older than 24 hours (86400000 millisecond).
         // If yes then create new pushId (user session)
         // If no then do not create new pushId instead user existing and
@@ -466,7 +487,8 @@ public class LanguageSelectActivity extends AppCompatActivity{
                         saveLanguage();
                     else {
                         setSpeechLanguage(mSession.getLanguage());
-                        Toast.makeText(LanguageSelectActivity.this, getString(R.string.txt_actLangSel_completestep2), Toast.LENGTH_LONG).show();
+                        Toast.makeText(LanguageSelectActivity.this,
+                                getString(R.string.txt_actLangSel_completestep2), Toast.LENGTH_LONG).show();
                     }
                     break;
             }
@@ -480,9 +502,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
         bundleEvent("Language",bundle);
         setUserProperty("UserLanguage", LangMap.get(selectedLanguage));
         setCrashlyticsCustomKey("UserLanguage",  LangMap.get(selectedLanguage));
-        ChangeAppLocale changeAppLocale = new ChangeAppLocale(getBaseContext());
-        changeAppLocale.setLocale();
-        Toast.makeText(LanguageSelectActivity.this, getString(R.string.languageChanged), Toast.LENGTH_SHORT).show();
+        Toast.makeText(LanguageSelectActivity.this, mLangChanged, Toast.LENGTH_SHORT).show();
         startActivity(new Intent(getApplicationContext(), SplashActivity.class));
         finishAffinity();
     }

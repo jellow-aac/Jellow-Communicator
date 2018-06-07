@@ -45,7 +45,6 @@ public class JellowTTSService extends Service{
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_REQ");
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_VOICE_AVAIL_REQ");
         filter.addAction("com.dsource.idc.jellowintl.STOP_SERVICE");
-
         registerReceiver(receiver, filter);
         return START_STICKY;
     }
@@ -62,8 +61,7 @@ public class JellowTTSService extends Service{
         try{
             mTts.shutdown();
             unregisterReceiver(receiver);
-            if(Build.VERSION.SDK_INT < 26)
-                startService(new Intent(getApplication(), JellowTTSService.class));
+            startService(new Intent(getApplication(), JellowTTSService.class));
         } catch(IllegalArgumentException | NullPointerException | IllegalStateException e) {
             e.printStackTrace();
         }

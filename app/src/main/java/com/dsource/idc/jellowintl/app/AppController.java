@@ -3,6 +3,7 @@ package com.dsource.idc.jellowintl.app;
 import android.app.Application;
 import android.content.Context;
 
+import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -25,5 +26,10 @@ public class AppController extends Application {
     @Override
     public Context getApplicationContext() {
         return super.getApplicationContext();
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LanguageHelper.onAttach(base));
     }
 }

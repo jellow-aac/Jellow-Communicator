@@ -79,14 +79,14 @@
     <string name="locale_reg_us" translatable="false">US</string>
     <string name="locale_lang_en" translatable="false">en</string>
 
-    <string name="aPos">A Positive</string>
-    <string name="aNeg">A Negative</string>
-    <string name="bPos">B Positive</string>
-    <string name="bNeg">B Negative</string>
-    <string name="abPos">A B Positive</string>
-    <string name="abNeg">A B Negative</string>
-    <string name="oPos">O Positive</string>
-    <string name="oNeg">O Negative</string>
+    <string name="aPos" translatable="false">A Positive</string>
+    <string name="aNeg" translatable="false">A Negative</string>
+    <string name="bPos" translatable="false">B Positive</string>
+    <string name="bNeg" translatable="false">B Negative</string>
+    <string name="abPos" translatable="false">A B Positive</string>
+    <string name="abNeg" translatable="false">A B Negative</string>
+    <string name="oPos" translatable="false">O Positive</string>
+    <string name="oNeg" translatable="false">O Negative</string>
     <string name="easyToUse">Easy to Use</string>
     <string name="clearPictures">Clear Pictures</string>
     <string name="clearVoice">Clear Voice</string>
@@ -251,7 +251,6 @@
     <string name="txt_intro3_navWithJellow">Navigating within Jellow</string>
     <string name="txt_intro4_customizeAppDesc">User can customize application settings by clicking on top right corner of the application</string>
     <string name="txt_intro4_customizeJellow">Settings within Jellow</string>
-    <!--<string name="txt_intro6_skipActiveTtsDesc">Set Google Tts as default speech engine then set language as _</string>-->
     <string name="txt_intro6_skipActiveTtsDesc">For - accent set language as _.</string>
     <string name="txt_intro6_ttsStep1">1.Activate Google TTS</string>
     <string name="txt_intro6_activate">ACTIVATE</string>
@@ -267,6 +266,7 @@
     <string name="encrypt_data" translatable="false">com.dsource.idc.jellow.encrypt_data</string>
     <string name="last_session_created" translatable="false">com.dsource.idc.jellow.last_session_created</string>
     <string name="user_group" translatable="false">com.dsource.idc.jellow.user_group</string>
+    <string name="enable_calling" translatable="false">com.dsource.idc.jellow.enable_calling</string>
     <string name="txt_registration_jellowCalluDesc">(This is how Jellow calls you)</string>
     <string name="txt_registration_emergencynoDesc">(To be used for correspondence in case of an emergency involving the child)</string>
     <string name="txt_registration_emailDesc">(To notify you about the release of Jellow updates)</string>
@@ -299,5 +299,11 @@
     <string name="userGroup">User Group *</string>
     <string name="groupTeacher">Therapist/Teacher</string>
     <string name="groupParent">Parent/Caregiver</string>
+    <string name="groupParentOnly" translatable="false">Parent</string>
+    <string name="groupTeacherOnly" translatable="false">Therapist</string>
     <string name="invalid_usergroup">Please choose user group.</string>
+    <string name="txtEnableBuiltInCalling">Enable calling from Jellow</string>
+    <string name="downloadableLang">Downloadable Languages</string>
+    <string name="downloadedLang">Downloaded Languages</string>
+    <string name="remove">Remove</string>
 </resources>

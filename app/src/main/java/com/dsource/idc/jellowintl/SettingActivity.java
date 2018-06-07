@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.TelephonyManager;
 import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,12 +19,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
-import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
+import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.rey.material.widget.Slider;
+import com.rey.material.widget.Switch;
 
+import static com.dsource.idc.jellowintl.MainActivity.isDeviceReadyToCall;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.setCrashlyticsCustomKey;
@@ -37,25 +40,41 @@ public class SettingActivity extends AppCompatActivity {
     private SessionManager mSession;
     private TextView mTxtViewSpeechSpeed, mTxtViewVoicePitch;
     private Slider mSliderSpeed, mSliderPitch;
-    private  ChangeAppLocale mChangeAppLocale;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.action_settings)+"</font>"));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+
+                getString(R.string.action_settings)+"</font>"));
         mSession = new SessionManager(this);
-        mChangeAppLocale = new ChangeAppLocale(this);
-        mChangeAppLocale.setLocale();
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
 
 
         mSpinnerViewMode = findViewById(R.id.spinner3);
         mSpinnerGridSize = findViewById(R.id.spinner4);
-        mSpinnerViewMode.setAdapter(ArrayAdapter.createFromResource(this, R.array.picture_view_mode, android.R.layout.simple_spinner_item));
-        mSpinnerGridSize.setAdapter(ArrayAdapter.createFromResource(this, R.array.grid_size, android.R.layout.simple_spinner_item));
+        mSpinnerViewMode.setAdapter(ArrayAdapter.createFromResource
+                (this, R.array.picture_view_mode, android.R.layout.simple_spinner_item));
+        mSpinnerGridSize.setAdapter(ArrayAdapter.createFromResource
+                (this, R.array.grid_size, android.R.layout.simple_spinner_item));
+
+        // If user have sim device and ready to call, only then show "enable call switch".
+        if(isDeviceReadyToCall((TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE))) {
+            ((Switch) findViewById(R.id.switchEnableCall)).setChecked(mSession.getEnableCalling());
+            ((Switch) findViewById(R.id.switchEnableCall)).setOnCheckedChangeListener
+                    (new Switch.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(Switch view, boolean enableCall) {
+                            mSession.setEnableCalling(enableCall);
+                        }
+                    });
+        }else{
+            findViewById(R.id.tv5).setVisibility(View.GONE);
+            findViewById(R.id.switchEnableCall).setVisibility(View.GONE);
+        }
+
 
         Button btnSave = findViewById(R.id.button4);
         Button btnDemo = findViewById(R.id.demo);
@@ -71,20 +90,26 @@ public class SettingActivity extends AppCompatActivity {
         mSpinnerViewMode.setSelection(mSession.getPictureViewMode());
         mSpinnerGridSize.setSelection(mSession.getGridSize());
 
+        //The variables below are defined because android os fall back to default locale
+        // after activity restart. These variable will hold the value for variables initialized using
+        // user preferred locale.
+        final String strSpeechSpeed = getString(R.string.txtSpeechSpeed);
+        final String strDemoSpeech = getString(R.string.demoTtsSpeech);
+        final String strSpeechPitch = getString(R.string.txtVoiceSpeech);
+        final String strSettingSaved = getString(R.string.savedSettingsMessage);
         btnDemo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                speakSpeech(getString(R.string.demoTtsSpeech));
+                speakSpeech(strDemoSpeech);
                 Crashlytics.log("SettingAct Demo");
             }
         });
-
 
         mSliderSpeed.setOnPositionChangeListener(new Slider.OnPositionChangeListener() {
             @Override
             public void onPositionChanged(Slider view, boolean fromUser, float oldPos, float newPos, int oldValue, int newValue) {
                 setSpeechRate((float) newValue / 50);
-                mTxtViewSpeechSpeed.setText(getString(R.string.txtSpeechSpeed).concat(": " + String.valueOf(newValue / 5)));
+                mTxtViewSpeechSpeed.setText(strSpeechSpeed.concat(": " + String.valueOf(newValue / 5)));
             }
         });
 
@@ -92,7 +117,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onPositionChanged(Slider view, boolean fromUser, float oldPos, float newPos, int oldValue, int newValue) {
                 setSpeechPitch((float) newValue / 50);
-                mTxtViewVoicePitch.setText(getString(R.string.txtVoiceSpeech).concat(": " + String.valueOf(newValue / 5)));
+                mTxtViewVoicePitch.setText(strSpeechPitch.concat(": " + String.valueOf(newValue / 5)));
             }
         });
 
@@ -143,11 +168,16 @@ public class SettingActivity extends AppCompatActivity {
                     setSpeechPitch((float)mSliderPitch.getValue()/ 50);
                     mSession.setPitch(mSliderPitch.getValue());
                 }
-                Toast.makeText(SettingActivity.this, getString(R.string.savedSettingsMessage), Toast.LENGTH_SHORT).show();
+                Toast.makeText(SettingActivity.this, strSettingSaved, Toast.LENGTH_SHORT).show();
                 Crashlytics.log("SettingAct Save");
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext((LanguageHelper.onAttach(newBase)));
     }
 
     @Override
@@ -161,7 +191,6 @@ public class SettingActivity extends AppCompatActivity {
         mSession.setSessionCreatedAt(sessionTime);
 
         stopMeasuring("SettingsActivity");
-        mChangeAppLocale.setLocale();
     }
 
     @Override
@@ -174,7 +203,6 @@ public class SettingActivity extends AppCompatActivity {
                 !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
             startService(new Intent(getApplication(), JellowTTSService.class));
         }
-        mChangeAppLocale.setLocale();
         startMeasuring();
     }
 
@@ -195,14 +223,37 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.languageSelect: startActivity(new Intent(this, LanguageSelectActivity.class)); finish(); break;
-            case R.id.profile: startActivity(new Intent(this, ProfileFormActivity.class)); finish(); break;
-            case R.id.info: startActivity(new Intent(this, AboutJellowActivity.class)); finish(); break;
-            case R.id.usage: startActivity(new Intent(this, TutorialActivity.class)); finish(); break;
-            case R.id.keyboardinput: startActivity(new Intent(this, KeyboardInputActivity.class)); finish(); break;
-            case R.id.reset: startActivity(new Intent(this, ResetPreferencesActivity.class)); finish(); break;
-            case R.id.feedback: startActivity(new Intent(this, FeedbackActivity.class)); finish(); break;
-            case android.R.id.home: onBackPressed(); break;
+            case R.id.languageSelect:
+                startActivity(new Intent(this, LanguageSelectActivity.class));
+                finish();
+                break;
+            case R.id.profile:
+                startActivity(new Intent(this, ProfileFormActivity.class));
+                finish();
+                break;
+            case R.id.info:
+                startActivity(new Intent(this, AboutJellowActivity.class));
+                finish();
+                break;
+            case R.id.usage:
+                startActivity(new Intent(this, TutorialActivity.class));
+                finish();
+                break;
+            case R.id.keyboardinput:
+                startActivity(new Intent(this, KeyboardInputActivity.class));
+                finish();
+                break;
+            case R.id.reset:
+                startActivity(new Intent(this, ResetPreferencesActivity.class));
+                finish();
+                break;
+            case R.id.feedback:
+                startActivity(new Intent(this, FeedbackActivity.class));
+                finish();
+                break;
+            case android.R.id.home:
+                onBackPressed();
+                break;
             default: return super.onOptionsItemSelected(item);
         }
         return true;

@@ -36,9 +36,9 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.models.SecureKeys;
-import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
+import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -61,6 +61,7 @@ import java.net.URL;
 
 import se.simbio.encryption.Encryption;
 
+import static com.dsource.idc.jellowintl.MainActivity.isDeviceReadyToCall;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.maskNumber;
@@ -81,12 +82,12 @@ public class ProfileFormActivity extends AppCompatActivity {
     private FirebaseDatabase mDB;
     private DatabaseReference mRef;
     private boolean emergencyContactChanged = false;
+    private String mDetailSaved, mCallPermissionInfo,mCheckCon, mOk, mPerGranted, mPerRejected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_form);
-        new ChangeAppLocale(this).setLocale();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.menuProfile)+"</font>"));
         mSession = new SessionManager(this);
@@ -120,7 +121,7 @@ public class ProfileFormActivity extends AppCompatActivity {
             mBloodGroup.setSelection(mSession.getBlood());
 
         if (!mSession.getUserGroup().isEmpty() &&
-                mSession.getUserGroup().equals(getString(R.string.groupParent).split("/")[0]))
+                mSession.getUserGroup().equals(getString(R.string.groupParentOnly)))
             ((RadioButton)findViewById(R.id.radioParent)).setChecked(true);
         else
             ((RadioButton)findViewById(R.id.radioTherapist)).setChecked(true);
@@ -141,28 +142,27 @@ public class ProfileFormActivity extends AppCompatActivity {
             @Override public void afterTextChanged(Editable s) {}
         });
 
+        final String strEnterName = getString(R.string.enterTheName);
+        final String strInvalidEmail = getString(R.string.invalid_emailId);
         bSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Crashlytics.log("Profile Save");
                 bSave.setEnabled(false);
                 if (etName.getText().toString().isEmpty()) {
-                    Toast.makeText(getBaseContext(), getString(R.string.enterTheName),
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), strEnterName, Toast.LENGTH_SHORT).show();
                     bSave.setEnabled(true);
                     return;
                 }
                 email = etEmailId.getText().toString().trim();
                 if (!isValidEmail(email)) {
-                    Toast.makeText(getBaseContext(), getString(R.string.invalid_emailId),
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), strInvalidEmail, Toast.LENGTH_SHORT).show();
                     bSave.setEnabled(true);
                     return;
                 }
                 RadioGroup radioGroup = findViewById(R.id.radioUserGroup);
                 mUserGroup = (radioGroup.getCheckedRadioButtonId() == R.id.radioParent) ?
-                        getString(R.string.groupParent).split("/")[0] :
-                        getString(R.string.groupTeacher).split("/")[0];
+                        getString(R.string.groupParentOnly): getString(R.string.groupTeacherOnly);
 
                 new NetworkConnectionTest(ProfileFormActivity.this,
                         etName.getText().toString(),
@@ -173,6 +173,20 @@ public class ProfileFormActivity extends AppCompatActivity {
                         mUserGroup).execute();
             }
         });
+        //The variables below are defined because android os fall back to default locale
+        // after activity restart. These variable will hold the value for variables initialized using
+        // user preferred locale.
+        mDetailSaved = getString(R.string.detailSaved);
+        mCallPermissionInfo = getString(R.string.call_permission_info);
+        mCheckCon = getString(R.string.checkConnectivity);
+        mOk = getString(R.string.ok);
+        mPerGranted = getString(R.string.granted_call_permission_req);
+        mPerRejected = getString(R.string.rejected_call_permission_req);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext((LanguageHelper.onAttach(newBase)));
     }
 
     @Override
@@ -209,7 +223,6 @@ public class ProfileFormActivity extends AppCompatActivity {
         mSession.setSessionCreatedAt(sessionTime);
 
         stopMeasuring("ProfileFormActivity");
-        new ChangeAppLocale(this).setLocale();
     }
 
     @Override
@@ -267,19 +280,12 @@ public class ProfileFormActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
     public void onRequestPermissionsResult (int requestCode, String Permissions[], int[] grantResults){
         if (requestCode == MY_PERMISSIONS_REQUEST_CALL_PHONE){
             if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                Toast.makeText(this, R.string.granted_call_permission_req,
-                        Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, mPerGranted, Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, R.string.rejected_call_permission_req,
-                        Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, mPerRejected, Toast.LENGTH_SHORT).show();
             }
             finish();
         }
@@ -355,16 +361,15 @@ public class ProfileFormActivity extends AppCompatActivity {
         mSession.setUserGroup(userGroup);
         setUserProperty("userGroup", userGroup);
 
-        Toast.makeText(this, getString(R.string.detailSaved), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, mDetailSaved, Toast.LENGTH_SHORT).show();
 
         // User device is above Lollipop and user changed, saved contact and app does not have call
         // permission then ask user for call permission.
         if(Build.VERSION.SDK_INT > 22 && emergencyContactChanged &&
                 ActivityCompat.checkSelfPermission(this,
                 android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            // If user device is not wifi-only device, only then request call permission.
-            TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-            if (tm != null && tm.getPhoneType() != TelephonyManager.PHONE_TYPE_NONE) {
+            // If user have sim device and ready to call, only then request call permission.
+            if (isDeviceReadyToCall((TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE))) {
                 showPermissionRequestDialog();
                 bSave.setEnabled(true);
             }else
@@ -428,7 +433,7 @@ public class ProfileFormActivity extends AppCompatActivity {
     private void showPermissionRequestDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         // Add the buttons
-        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(mOk, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 ActivityCompat.requestPermissions(ProfileFormActivity.this, new String[]
                     {android.Manifest.permission.CALL_PHONE}, MY_PERMISSIONS_REQUEST_CALL_PHONE);
@@ -437,7 +442,7 @@ public class ProfileFormActivity extends AppCompatActivity {
         });
         // Set other dialog properties
         builder.setCancelable(false);
-        builder.setMessage(getString(R.string.call_permission_info));
+        builder.setMessage(mCallPermissionInfo);
         // Create the AlertDialog
         AlertDialog dialog = builder.create();
         // Show the AlertDialog
@@ -502,7 +507,7 @@ public class ProfileFormActivity extends AppCompatActivity {
                 }
             }else{
                 bSave.setEnabled(true);
-                Toast.makeText(mContext, getString(R.string.checkConnectivity), Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, mCheckCon, Toast.LENGTH_LONG).show();
             }
         }
     }

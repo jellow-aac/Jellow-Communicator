@@ -24,10 +24,10 @@ import android.widget.LinearLayout;
 
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.models.LevelThreeVerbiageModel;
-import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.IndexSorter;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
+import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.google.gson.Gson;
 
@@ -107,7 +107,6 @@ public class LevelThreeActivity extends AppCompatActivity {
                         WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
 
         // set app locale which is set in settings by user.
-        new ChangeAppLocale(this).setLocale();
         myDbHelper = new DataBaseHelper(this);
         mLevelOneItemPos = getIntent().getExtras().getInt("mLevelOneItemPos");
         mLevelTwoItemPos = getIntent().getExtras().getInt("mLevelTwoItemPos");
@@ -133,6 +132,11 @@ public class LevelThreeActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext((LanguageHelper.onAttach(newBase)));
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         if(!isAnalyticsActive()){
@@ -142,9 +146,6 @@ public class LevelThreeActivity extends AppCompatActivity {
                 !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
             startService(new Intent(getApplication(), JellowTTSService.class));
         }
-        //After resume from other app if the locale is other than
-        // app locale, set it back to app locale.
-        new ChangeAppLocale(this).setLocale();
         // Start measuring user app screen timer .
         startMeasuring();
     }
@@ -161,7 +162,6 @@ public class LevelThreeActivity extends AppCompatActivity {
         session.setSessionCreatedAt(sessionTime);
         // Stop measuring user app screen timer .
         stopMeasuring("LevelThreeActivity");
-        new ChangeAppLocale(this).setLocale();
     }
 
     @Override
@@ -227,29 +227,18 @@ public class LevelThreeActivity extends AppCompatActivity {
      * */
     private void initializeLayoutViews() {
         mIvLike = findViewById(R.id.ivlike);
-        mIvLike.setContentDescription(mExprBtnTxt[0]);
         mIvDontLike = findViewById(R.id.ivdislike);
-        mIvDontLike.setContentDescription(mExprBtnTxt[6]);
         mIvMore = findViewById(R.id.ivadd);
-        mIvMore.setContentDescription(mExprBtnTxt[4]);
         mIvLess = findViewById(R.id.ivminus);
-        mIvLess.setContentDescription(mExprBtnTxt[10]);
         mIvYes = findViewById(R.id.ivyes);
-        mIvYes.setContentDescription(mExprBtnTxt[2]);
         mIvNo = findViewById(R.id.ivno);
-        mIvNo.setContentDescription(mExprBtnTxt[8]);
         mIvHome = findViewById(R.id.ivhome);
-        mIvHome.setContentDescription(mNavigationBtnTxt[0]);
         mIvBack = findViewById(R.id.ivback);
-        mIvBack.setContentDescription(mNavigationBtnTxt[1]);
         mIvKeyboard = findViewById(R.id.keyboard);
-        mIvKeyboard.setContentDescription(mNavigationBtnTxt[2]);
         mEtTTs = findViewById(R.id.et);
-        mEtTTs.setContentDescription(getString(R.string.string_to_speak));
         //Initially custom input text is invisible
         mEtTTs.setVisibility(View.INVISIBLE);
         mIvTTs = findViewById(R.id.ttsbutton);
-        mIvTTs.setContentDescription(getString(R.string.speak_written_text));
         //Initially custom input text speak button is invisible
         mIvTTs.setVisibility(View.INVISIBLE);
         originalKeyListener = mEtTTs.getKeyListener();
@@ -523,6 +512,10 @@ public class LevelThreeActivity extends AppCompatActivity {
      * input text layout.
      * */
     private void initKeyboardBtnListener() {
+        //The variables below are defined because android os fall back to default locale
+        // after activity restart. These variable will hold the value for variables initialized using
+        // user preferred locale.
+        final String strKeyboard = getString(R.string.keyboard);
         mIvKeyboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -571,7 +564,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                     imm.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
                     mFlgKeyboard = 1;
                     showActionBarTitle(false);
-                    getSupportActionBar().setTitle(getString(R.string.keyboard));
+                    getSupportActionBar().setTitle(strKeyboard);
                 }
                 mIvBack.setImageResource(R.drawable.back);
             }
@@ -1259,9 +1252,11 @@ public class LevelThreeActivity extends AppCompatActivity {
             // have index (default position in recycler view) 39, 40, 41, 42 in English (US, UK).
             // So to disable expressive buttons for above category icon it required to check the
             // user language and index (default position in recycler view) of category icon.
-            if ((!lang.equals("en-rUS") && (tmp == 34 || tmp == 35 || tmp == 36 || tmp == 37))||
-                    ((lang.equals("en-rUS") || lang.equals("en-rGB")) && (tmp == 39 || tmp == 40 ||
-                            tmp == 41 || tmp == 42) ))
+            if ((!lang.equals("en-rUS") && !lang.equals("en-rGB") &&
+                    (tmp == 34 || tmp == 35 || tmp == 36 || tmp == 37))
+                    ||
+                    ((lang.equals("en-rUS") || lang.equals("en-rGB")) &&
+                            (tmp == 39 || tmp == 40 || tmp == 41 || tmp == 42) ))
                 changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
             else
                 changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);

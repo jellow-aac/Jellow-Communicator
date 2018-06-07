@@ -28,16 +28,17 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.dsource.idc.jellowintl.models.LevelTwoVerbiageModel;
-import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.IndexSorter;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
+import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+import static com.dsource.idc.jellowintl.MainActivity.isDeviceReadyToCall;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
@@ -103,7 +104,8 @@ public class LevelTwoActivity extends AppCompatActivity {
       selected.*/
     private Integer[] mArrPeoplePlaceTapCount, mArrSort;
 
-    private String end, actionBarTitleTxt;
+    private String end, actionBarTitleTxt, mCallPerInfo,
+            mCallPermissionSetting, mCallReq, mJump2CallSet, mCallPermDeny;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,8 +124,6 @@ public class LevelTwoActivity extends AppCompatActivity {
             getWindow().setFlags(
                 WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
                     WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
-        // Set app locale which is set in settings by user.
-        new ChangeAppLocale(this).setLocale();
         // Initialize default exception handler for this activity.
         // If any exception occurs during this activity usage,
         // handle it using default exception handler.
@@ -132,12 +132,25 @@ public class LevelTwoActivity extends AppCompatActivity {
         // The below string has value "" in english (all regions) and "है।" in Hindi (India).
         // It is used when user select category "Help" -> "About me".
         // To complete full sentence verbiage in Hindi below text is used.
-        end = getString(R.string.endString);
         loadArraysFromResources();
         initializeArrayListOfRecycler();
         initializeLayoutViews();
         initializeRecyclerViewAdapter();
         initializeViewListeners();
+        end = getString(R.string.endString);
+        //The variables below are defined because android os fall back to default locale
+        // after activity restart. These variable will hold the value for variables initialized using
+        // user preferred locale.
+        mCallPerInfo = getString(R.string.call_permission_info);
+        mCallPermissionSetting = getString(R.string.grant_permission_from_settings);
+        mCallReq = getString(R.string.request);
+        mJump2CallSet = getString(R.string.action_settings);
+        mCallPermDeny = getString(R.string.rejected_call_permission_req);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext((LanguageHelper.onAttach(newBase)));
     }
 
     @Override
@@ -150,9 +163,6 @@ public class LevelTwoActivity extends AppCompatActivity {
                 !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
             startService(new Intent(getApplication(), JellowTTSService.class));
         }
-        //After resume from other app if the locale is other than
-        // app locale, set it back to app locale.
-        new ChangeAppLocale(this).setLocale();
         // Start measuring user app screen timer .
         startMeasuring();
     }
@@ -169,7 +179,6 @@ public class LevelTwoActivity extends AppCompatActivity {
 
         // Stop measuring user app screen timer .
         stopMeasuring("LevelTwoActivity");
-        new ChangeAppLocale(this).setLocale();
     }
 
     @Override
@@ -245,8 +254,7 @@ public class LevelTwoActivity extends AppCompatActivity {
             if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 startCall("tel:" + mSession.getCaregiverNumber());
             } else {
-                Toast.makeText(this, R.string.rejected_call_permission_req,
-                        Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, mCallPermDeny, Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -258,31 +266,20 @@ public class LevelTwoActivity extends AppCompatActivity {
      * */
     private void initializeLayoutViews() {
         mIvLike = findViewById(R.id.ivlike);
-        mIvLike.setContentDescription(mExprBtnTxt[0]);
         mIvDontLike = findViewById(R.id.ivdislike);
-        mIvDontLike.setContentDescription(mExprBtnTxt[6]);
         mIvMore = findViewById(R.id.ivadd);
-        mIvMore.setContentDescription(mExprBtnTxt[4]);
         mIvLess = findViewById(R.id.ivminus);
-        mIvLess.setContentDescription(mExprBtnTxt[10]);
         mIvYes = findViewById(R.id.ivyes);
-        mIvYes.setContentDescription(mExprBtnTxt[2]);
         mIvNo = findViewById(R.id.ivno);
-        mIvNo.setContentDescription(mExprBtnTxt[8]);
         mIvHome = findViewById(R.id.ivhome);
-        mIvHome.setContentDescription(mNavigationBtnTxt[0]);
         mIvBack = findViewById(R.id.ivback);
-        mIvBack.setContentDescription(mNavigationBtnTxt[1]);
         mIvBack.setAlpha(1f);
         mIvKeyboard = findViewById(R.id.keyboard);
-        mIvKeyboard.setContentDescription(mNavigationBtnTxt[2]);
         mEtTTs = findViewById(R.id.et);
-        mEtTTs.setContentDescription(getString(R.string.string_to_speak));
         //Initially custom input text is invisible
         mEtTTs.setVisibility(View.INVISIBLE);
 
         mIvTts = findViewById(R.id.ttsbutton);
-        mIvTts.setContentDescription(getString(R.string.speak_written_text));
         //Initially custom input text speak button is invisible
         mIvTts.setVisibility(View.INVISIBLE);
 
@@ -510,6 +507,7 @@ public class LevelTwoActivity extends AppCompatActivity {
      * input text layout.
      * */
     private void initKeyboardBtnListener() {
+        final String strKeyboard = getString(R.string.keyboard);
         mIvKeyboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -597,7 +595,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                     mIvBack.setEnabled(true);
                     mFlgKeyboard = 1;
                     showActionBarTitle(false);
-                    getSupportActionBar().setTitle(getString(R.string.keyboard));
+                    getSupportActionBar().setTitle(strKeyboard);
                 }
             }
         });
@@ -1446,7 +1444,15 @@ public class LevelTwoActivity extends AppCompatActivity {
             intent.putExtra("selectedMenuItemPath", mActionBarTitle+ "/");
             startActivityForResult(intent, REQ_HOME);
         }else {
-            speakSpeech(mArrSpeechText[position]);
+            //If user tapped the Help -> Emergency category icon and
+            // user enabled the calling from app and
+            // if user have sim device and ready to call then
+            // skip speaking speech or else speak speech to every category icons
+            if(mLevelOneItemPos == CATEGORY_ICON_HELP && position == 0 &&
+                    mSession.getEnableCalling() &&
+                    isDeviceReadyToCall((TelephonyManager)getSystemService
+                            (Context.TELEPHONY_SERVICE))){}
+            else speakSpeech(mArrSpeechText[position]);
             Bundle bundle = new Bundle();
             bundle.putString("Icon", mArrSpeechText[position]);
             bundleEvent("Grid",bundle);
@@ -1493,9 +1499,9 @@ public class LevelTwoActivity extends AppCompatActivity {
         // if category icon Help -> Emergency is selected, then disable all expressive icons
         else if(mLevelOneItemPos == CATEGORY_ICON_HELP && mLevelTwoItemPos == 0) {
             changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
-            // If user device is not wifi-only device, only then request call permission.
-            TelephonyManager tm = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
-            if(tm != null && tm.getPhoneType() != TelephonyManager.PHONE_TYPE_NONE)
+            // If user have sim device and ready to call, only then request call permission.
+            if(mSession.getEnableCalling() &&
+                isDeviceReadyToCall((TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE)))
                 showCallPreview();
         // if category icon Help -> Unsafe touch is selected, then disable like, yes, more
         // expressive icons
@@ -1987,9 +1993,8 @@ public class LevelTwoActivity extends AppCompatActivity {
      * */
     private void showPermissionRequestSnackBar() {
         Snackbar
-            .make(findViewById(R.id.parent),
-                getString(R.string.call_permission_info), Snackbar.LENGTH_LONG)
-            .setAction(R.string.request, new View.OnClickListener() {
+            .make(findViewById(R.id.parent), mCallPerInfo, Snackbar.LENGTH_LONG)
+            .setAction(mCallReq, new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     ActivityCompat.requestPermissions(LevelTwoActivity.this,
@@ -2006,9 +2011,8 @@ public class LevelTwoActivity extends AppCompatActivity {
      * */
     private void showSettingRequestSnackBar() {
         Snackbar
-            .make(findViewById(R.id.parent),getString(R.string.grant_permission_from_settings),
-                    Snackbar.LENGTH_LONG)
-            .setAction(R.string.action_settings, new View.OnClickListener() {
+            .make(findViewById(R.id.parent), mCallPermissionSetting, Snackbar.LENGTH_LONG)
+            .setAction(mJump2CallSet, new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent();

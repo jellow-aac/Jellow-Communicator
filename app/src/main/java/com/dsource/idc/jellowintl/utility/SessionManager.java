@@ -292,6 +292,14 @@ public class SessionManager {
         return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.user_group));
     }
 
+    public void setEnableCalling(boolean enableCalling) {
+        storePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.enable_calling), enableCalling);
+    }
+
+    public boolean getEnableCalling() {
+        return ((Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.enable_calling)));
+    }
+
     private void storePreferenceKeyWithValue(String classType, String key, Object val){
         if (classType.equals(Integer.class.toString()))
             mEditor.putInt(key, (Integer) val).commit();

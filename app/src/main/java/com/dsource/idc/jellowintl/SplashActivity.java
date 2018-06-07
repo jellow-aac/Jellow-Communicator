@@ -8,10 +8,10 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.EvaluateDisplayMetricsUtils;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
+import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
@@ -34,7 +34,6 @@ public class SplashActivity extends AppCompatActivity {
         startTTsService();
         PlayGifView pGif = findViewById(R.id.viewGif);
         pGif.setImageResource(R.drawable.jellow_j);
-        new ChangeAppLocale(this).setLocale();
         {
             SessionManager sManager = new SessionManager(this);
             if (sManager.isRequiredToPerformDbOperations()) {
@@ -49,6 +48,11 @@ public class SplashActivity extends AppCompatActivity {
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.dsource.idc.jellowintl.INIT_SERVICE");
         registerReceiver(receiver, filter);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext((LanguageHelper.onAttach(newBase)));
     }
 
     @Override

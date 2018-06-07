@@ -15,6 +15,7 @@ import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.DownloadManager;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
+import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import static com.dsource.idc.jellowintl.LanguageSelectActivity.FINISH;
@@ -29,6 +30,7 @@ public class LanguageDownloadActivity extends AppCompatActivity {
     RoundCornerProgressBar progressBar;
     private SessionManager mSession;
     String langCode;
+    private String mCheckConn;
     Boolean tutorial = false;
     Boolean finish = true;
     Boolean isConnected;
@@ -57,6 +59,9 @@ public class LanguageDownloadActivity extends AppCompatActivity {
 
         mSession = new SessionManager(this);
 
+        final String strLanguageDownloaded = getString(R.string.language_downloaded);
+        final String strLanguageDownloading = getString(R.string.language_downloading);
+        mCheckConn = getString(R.string.checkConnectivity);
         DownloadManager.ProgressReciever progressReciever = new DownloadManager.ProgressReciever() {
             @Override
             public void onprogress(int soFarBytes, int totalBytes) {
@@ -66,7 +71,7 @@ public class LanguageDownloadActivity extends AppCompatActivity {
             @Override
             public void onComplete() {
                 mSession.setDownloaded(langCode);
-                Toast.makeText(LanguageDownloadActivity.this, getString(R.string.language_downloaded)
+                Toast.makeText(LanguageDownloadActivity.this, strLanguageDownloaded
                         .replace("_", LangValueMap.get(langCode)), Toast.LENGTH_SHORT).show();
                 if(tutorial)
                     startActivity(new Intent(LanguageDownloadActivity.this,Intro.class));
@@ -75,7 +80,8 @@ public class LanguageDownloadActivity extends AppCompatActivity {
                 finish();
             }
         };
-        Toast.makeText(LanguageDownloadActivity.this, getString(R.string.language_downloading)
+
+        Toast.makeText(LanguageDownloadActivity.this, strLanguageDownloading
                 .replace("_", LangValueMap.get(langCode)), Toast.LENGTH_SHORT).show();
 
         if(langCode != null) {
@@ -87,7 +93,7 @@ public class LanguageDownloadActivity extends AppCompatActivity {
                     manager.start();
                 }else {
 
-                    Toast.makeText(this,getString(R.string.checkConnectivity),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,mCheckConn,Toast.LENGTH_SHORT).show();
                 }
 
             }catch (Exception e)
@@ -98,6 +104,11 @@ public class LanguageDownloadActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext((LanguageHelper.onAttach(newBase)));
     }
 
 
@@ -130,7 +141,7 @@ public class LanguageDownloadActivity extends AppCompatActivity {
             if (manager != null)
                 manager.resume();
         } else {
-            Toast.makeText(this,getString(R.string.checkConnectivity),Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,mCheckConn,Toast.LENGTH_SHORT).show();
         }
     }
 

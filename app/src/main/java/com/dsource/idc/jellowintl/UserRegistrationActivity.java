@@ -34,7 +34,6 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.models.SecureKeys;
-import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -57,6 +56,7 @@ import java.util.Date;
 
 import se.simbio.encryption.Encryption;
 
+import static com.dsource.idc.jellowintl.MainActivity.isDeviceReadyToCall;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.getAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.maskNumber;
@@ -86,10 +86,6 @@ public class UserRegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_registration);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.app_name)+"</font>"));
-        // Initialize default exception handler for this activity.
-        // If any exception occurs during this activity usage,
-        // handle it using default exception handler.
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
 
         mSession = new SessionManager(this);
         if(!mSession.getCaregiverNumber().equals("")) {
@@ -204,14 +200,12 @@ public class UserRegistrationActivity extends AppCompatActivity {
                     return;
 
                 mUserGroup = (radioGroup.getCheckedRadioButtonId() == R.id.radioParent) ?
-                        getString(R.string.groupParent).split("/")[0] :
-                            getString(R.string.groupTeacher).split("/")[0];
+                        getString(R.string.groupParentOnly): getString(R.string.groupTeacherOnly);
 
                 // If user device Android os is above Lollipop and user is not denied Call
                 // permission once and app do not have the call permission and
-                // user device is not wifi only then show Dialog about
+                // if user have sim device and ready to call, then show Dialog about
                 // Call permission usage.
-                TelephonyManager tm = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
                 if(Build.VERSION.SDK_INT > 22 &&
                         !ActivityCompat.shouldShowRequestPermissionRationale
                                 (UserRegistrationActivity.this,
@@ -219,7 +213,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
                         ActivityCompat.checkSelfPermission(UserRegistrationActivity.this,
                                 android.Manifest.permission.CALL_PHONE)
                                     != PackageManager.PERMISSION_GRANTED &&
-                        (tm != null && tm.getPhoneType() != TelephonyManager.PHONE_TYPE_NONE))
+                        (isDeviceReadyToCall((TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE))))
                     showPermissionRequestDialog();
                 else
                     new NetworkConnectionTest(UserRegistrationActivity.this, name,

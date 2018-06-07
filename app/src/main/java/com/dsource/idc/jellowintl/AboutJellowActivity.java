@@ -13,9 +13,9 @@ import android.view.View;
 import android.webkit.WebView;
 
 import com.crashlytics.android.Crashlytics;
-import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
+import com.dsource.idc.jellowintl.utility.LanguageHelper;
 
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
@@ -33,15 +33,18 @@ public class AboutJellowActivity extends AppCompatActivity {
         // If any exception occurs during this activity usage,
         // handle it using default exception handler.
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
-        new ChangeAppLocale(this).setLocale();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+ getString(R.string.menuAbout)+"</font>"));
         ((WebView)findViewById(R.id.webAboutJellow)).loadData(getString(R.string.about_jellow),  "text/html; charset=utf-8","UTF-8");
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
+        //The variables below are defined because android os fall back to default locale
+        // after activity restart. These variable will hold the value for variables initialized using
+        // user preferred locale.
+        final String speechStr = getString(R.string.about_jellow_speech);
         findViewById(R.id.speak).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                speakSpeech(getString(R.string.about_jellow_speech));
+                speakSpeech(speechStr);
                 Crashlytics.log("About Speak");
             }
         });
@@ -53,6 +56,11 @@ public class AboutJellowActivity extends AppCompatActivity {
                 Crashlytics.log("About Stop");
             }
         });
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext((LanguageHelper.onAttach(newBase)));
     }
 
     @Override
@@ -88,13 +96,11 @@ public class AboutJellowActivity extends AppCompatActivity {
                 !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
             startService(new Intent(getApplication(), JellowTTSService.class));
         }
-        new ChangeAppLocale(this).setLocale();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        new ChangeAppLocale(this).setLocale();
         stopSpeech();
     }
 
@@ -102,7 +108,7 @@ public class AboutJellowActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         stopSpeech();
-        finish();
+        //finish();
     }
 
     private void speakSpeech(String speechText){

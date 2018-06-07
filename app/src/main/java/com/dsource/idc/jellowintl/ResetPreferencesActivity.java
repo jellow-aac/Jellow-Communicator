@@ -13,9 +13,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
-import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
+import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
@@ -30,7 +30,6 @@ public class ResetPreferencesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_preferences);
-        new ChangeAppLocale(this).setLocale();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+ getString(R.string.menuResetPref) +"</font>"));
         // Initialize default exception handler for this activity.
@@ -47,20 +46,27 @@ public class ResetPreferencesActivity extends AppCompatActivity {
                 finish();
             }
         });
+        //The variables below are defined because android os fall back to default locale
+        // after activity restart. These variable will hold the value for variables initialized using
+        // user preferred locale.
+        final String strIconsResetMsg = getString(R.string.iconsHasBeenReset);
         findViewById(R.id.yes).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ResetPreferencesActivity.this, getString(R.string.iconsHasBeenReset), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ResetPreferencesActivity.this, strIconsResetMsg, Toast.LENGTH_SHORT).show();
                 myDbHelper.delete();
                 session.resetUserPeoplePlacesPreferences();
                 session.setCompletedDbOperations(false);
-                Intent intentStartActivity = new Intent(ResetPreferencesActivity.this, SplashActivity.class);
-                intentStartActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intentStartActivity);
+                startActivity(new Intent(getApplicationContext(), SplashActivity.class));
                 Crashlytics.log("ResetPref Yes");
-                finish();
+                finishAffinity();
             }
         });
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext((LanguageHelper.onAttach(newBase)));
     }
 
     @Override
@@ -96,12 +102,6 @@ public class ResetPreferencesActivity extends AppCompatActivity {
                 !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
             startService(new Intent(getApplication(), JellowTTSService.class));
         }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        new ChangeAppLocale(this).setLocale();
     }
 
     @Override

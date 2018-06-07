@@ -13,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.telephony.TelephonyManager;
 import android.text.method.KeyListener;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,9 +26,9 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.dsource.idc.jellowintl.models.LevelOneVerbiageModel;
-import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
+import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.google.gson.Gson;
 
@@ -84,8 +85,9 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<ArrayList<String>> mLayerOneSpeech;
     /*Below array stores the speech text, below text, expressive button speech text,
      navigation button speech text respectively.*/
-    private String[] mSpeechTxt, mExprBtnTxt, mNavigationBtnTxt;
+    private String[] mSpeechTxt, mExprBtnTxt, mNavigationBtnTxt, mActionBartitle;
     private String mActionBarTitleTxt;
+    private String mCheckVoiceData, mHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,8 +97,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
         getSupportActionBar().setTitle(getString(R.string.action_bar_title));
 
-        // Set app locale which is set in settings by user.
-        new ChangeAppLocale(this).setLocale();
         // Initialize default exception handler for this activity.
         // If any exception occurs during this activity usage,
         // handle it using default exception handler.
@@ -107,12 +107,23 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerItemsViewList = new ArrayList<>(mSpeechTxt.length);
         while (mRecyclerItemsViewList.size() < mSpeechTxt.length)
             mRecyclerItemsViewList.add(null);
+        //The variables below are defined because android os fall back to default locale
+        // after activity restart. These variable will hold the value for variables initialized using
+        // user preferred locale.
+        mHome = getString(R.string.action_bar_title);
+        mCheckVoiceData = getString(R.string.txt_actLangSel_completestep2);
+
         initializeLayoutViews();
         initializeViewListeners();
 
         // If device has android version below Lollipop get Text-to-speech language
         if(Build.VERSION.SDK_INT < 21)
             getSpeechLanguage("");
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext((LanguageHelper.onAttach(newBase)));
     }
 
     @Override
@@ -125,9 +136,6 @@ public class MainActivity extends AppCompatActivity {
                 !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
             startService(new Intent(getApplication(), JellowTTSService.class));
         }
-        // After resume from other app if the locale is other than
-        // app locale, set it back to app locale.
-        new ChangeAppLocale(this).setLocale();
         // broadcast receiver to get response messages from JellowTTsService.
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES");
@@ -151,7 +159,6 @@ public class MainActivity extends AppCompatActivity {
         // Stop measuring user app screen timer.
         stopMeasuring("LevelOneActivity");
         unregisterReceiver(receiver);
-        new ChangeAppLocale(this).setLocale();
     }
 
     @Override
@@ -215,33 +222,23 @@ public class MainActivity extends AppCompatActivity {
     * */
     private void initializeLayoutViews() {
         mIvLike = findViewById(R.id.ivlike);
-        mIvLike.setContentDescription(mExprBtnTxt[0]);
         mIvDontLike = findViewById(R.id.ivdislike);
-        mIvDontLike.setContentDescription(mExprBtnTxt[6]);
         mIvMore = findViewById(R.id.ivadd);
-        mIvMore.setContentDescription(mExprBtnTxt[4]);
         mIvLess = findViewById(R.id.ivminus);
-        mIvLess.setContentDescription(mExprBtnTxt[10]);
         mIvYes = findViewById(R.id.ivyes);
-        mIvYes.setContentDescription(mExprBtnTxt[2]);
         mIvNo = findViewById(R.id.ivno);
-        mIvNo.setContentDescription(mExprBtnTxt[8]);
         mIvHome = findViewById(R.id.ivhome);
-        mIvHome.setContentDescription(mNavigationBtnTxt[0]);
         mIvBack = findViewById(R.id.ivback);
-        mIvBack.setContentDescription(mNavigationBtnTxt[1]);
         //on this screen initially back button is disabled.
         mIvBack.setAlpha(.5f);
         mIvBack.setEnabled(false);
         mIvKeyboard = findViewById(R.id.keyboard);
-        mIvKeyboard.setContentDescription(mNavigationBtnTxt[2]);
+
         mEtTTs = findViewById(R.id.et);
-        mEtTTs.setContentDescription(getString(R.string.string_to_speak));
         //Initially custom input text is invisible
         mEtTTs.setVisibility(View.INVISIBLE);
 
         mIvTTs = findViewById(R.id.ttsbutton);
-        mIvTTs.setContentDescription(getString(R.string.speak_written_text));
         //Initially custom input text speak button is invisible
         mIvTTs.setVisibility(View.INVISIBLE);
 
@@ -399,6 +396,7 @@ public class MainActivity extends AppCompatActivity {
      * This button enable the back button when keyboard is open.</p>
      * */
     private void initKeyboardBtnListener() {
+        final String strKeyboard = getString(R.string.keyboard);
         mIvKeyboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -458,7 +456,7 @@ public class MainActivity extends AppCompatActivity {
                     mIvBack.setEnabled(true);
                     mFlgKeyboardOpened = true;
                     showActionBarTitle(false);
-                    getSupportActionBar().setTitle(getString(R.string.keyboard));
+                    getSupportActionBar().setTitle(strKeyboard);
                 }
             }
         });
@@ -972,7 +970,7 @@ public class MainActivity extends AppCompatActivity {
         setMenuImageBorder(v, true);
         // set true to speak verbiage associated with category icon
         mShouldReadFullSpeech = true;
-        String title = getActionBarTitle(position);
+        String title = mActionBartitle[position];
         getSupportActionBar().setTitle(title);
         // below condition is true when user tap same category icon twice.
         // i.e. user intends to open a sub-category of selected category icon.
@@ -1014,7 +1012,7 @@ public class MainActivity extends AppCompatActivity {
      * {@link LevelThreeActivity}, {@link SequenceActivity}.</p>
      * */
     private void gotoHome(boolean isHomePressed) {
-        getSupportActionBar().setTitle(getString(R.string.action_bar_title));
+        getSupportActionBar().setTitle(mHome);
         // reset all expressive button flags.
         mFlgLike = mFlgYes = mFlgMore = mFlgDntLike = mFlgNo = mFlgLess = 0;
         // reset expressive buttons
@@ -1073,16 +1071,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will provide action bar title to be set.
-     * @param position, position of the category icon pressed.
-     * @return the actionbarTitle string.</p>
-     * */
-    private String getActionBarTitle(int position) {
-        String[] tempTextArr = getResources().getStringArray(R.array.arrLevelOneActionBarTitle);
-        return tempTextArr[position];
-    }
-
-    /**
      * <p>This function will send speech output request to
      * {@link com.dsource.idc.jellowintl.utility.JellowTTSService} Text-to-speech Engine.
      * The string in {@param speechText} is speech output request string.</p>
@@ -1107,6 +1095,7 @@ public class MainActivity extends AppCompatActivity {
         mSpeechTxt = getResources().getStringArray(R.array.arrLevelOneActionBarTitle);
         mExprBtnTxt = getResources().getStringArray(R.array.arrActionSpeech);
         mNavigationBtnTxt = getResources().getStringArray(R.array.arrNavigationSpeech);
+        mActionBartitle = getResources().getStringArray(R.array.arrLevelOneActionBarTitle);
     }
 
     /**
@@ -1250,16 +1239,13 @@ public class MainActivity extends AppCompatActivity {
                 case "com.dsource.idc.jellowintl.SPEECH_TTS_ERROR":
                     // Text synthesize process failed third time then show TTs error.
                     if(++mTTsNotWorkingCount > 2)
-                        Toast.makeText(context, getString(R.string.txt_actLangSel_completestep2),
-                                Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, mCheckVoiceData, Toast.LENGTH_LONG).show();
                     break;
                 case "com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES":
                     SessionManager session = new SessionManager(context);
                     String userLang = session.getLanguage();
                     session.setLangSettingIsCorrect(true);
                     String mSysTtsReg = intent.getStringExtra("systemTtsRegion");
-                    // If app language is not marathi as it do not require to complete setting from
-                    // Language screen.
                     //Below if is true when
                     //      1) app language is english India and tts language is hindi India
                     // or   2) app language is not english India and
@@ -1276,7 +1262,6 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-
     /**
      * <p>This function check whether Text-to-speech service is running? It will
      * return true if service is running else false is service is closed.</p>
@@ -1289,5 +1274,15 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return false;
+    }
+
+
+    /**
+     * <p>This function check whether user device has sim card insterted into SIM slot
+     * and user can make call.
+     * @return true if device can able to make phone calls.</p>
+     * */
+    public static boolean isDeviceReadyToCall(TelephonyManager tm){
+        return tm != null && tm.getSimState() == TelephonyManager.SIM_STATE_READY;
     }
 }

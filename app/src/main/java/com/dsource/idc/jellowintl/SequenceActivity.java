@@ -26,9 +26,9 @@ import android.widget.TextView;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.models.SeqActivityVerbiageModel;
-import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
+import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.google.gson.Gson;
 
@@ -103,8 +103,6 @@ public class SequenceActivity extends AppCompatActivity {
         mSession = new SessionManager(this);
         /*get position of category icon selected in level two*/
         mLevelTwoItemPos = getIntent().getExtras().getInt("mLevelTwoItemPos");
-        // Set app locale which is set in settings by user.
-        new ChangeAppLocale(this).setLocale();
         // Initialize default exception handler for this activity.
         // If any exception occurs during this activity usage,
         // handle it using default exception handler.
@@ -131,6 +129,11 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext((LanguageHelper.onAttach(newBase)));
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         if(!isAnalyticsActive()){
@@ -140,9 +143,6 @@ public class SequenceActivity extends AppCompatActivity {
                 !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
             startService(new Intent(getApplication(), JellowTTSService.class));
         }
-        //After resume from other app if the locale is other than
-        // app locale, set it back to app locale.
-        new ChangeAppLocale(this).setLocale();
         // Start measuring user app screen timer .
         startMeasuring();
     }
@@ -159,7 +159,6 @@ public class SequenceActivity extends AppCompatActivity {
 
         // Stop measuring user app screen timer .
         stopMeasuring("SequenceActivity");
-        new ChangeAppLocale(this).setLocale();
     }
 
     @Override
@@ -674,6 +673,10 @@ public class SequenceActivity extends AppCompatActivity {
      * {@link SequenceActivity} retrieved as it was before opening keyboard layout.
      * */
     private void initKeyboardBtnListener() {
+        //The variables below are defined because android os fall back to default locale
+        // after activity restart. These variable will hold the value for variables initialized using
+        // user preferred locale.
+        final String strKeyboard = getString(R.string.keyboard);
         mIvKeyboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -725,7 +728,7 @@ public class SequenceActivity extends AppCompatActivity {
                     mBtnNext.setVisibility(View.INVISIBLE);
                     mFlgKeyboard = 1;
                     showActionBarTitle(false);
-                    getSupportActionBar().setTitle(getString(R.string.keyboard));
+                    getSupportActionBar().setTitle(strKeyboard);
                 }
                 mIvBack.setImageResource(R.drawable.back);
             }

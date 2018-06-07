@@ -10,15 +10,15 @@
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/icon1"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:layout_gravity="center_horizontal"
             android:background="@android:color/transparent"
             android:scaleType="centerInside" />
         <View
             android:id="@+id/borderView"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/custom_drawable_nocolor_3by3"/>
     </FrameLayout>
@@ -28,6 +28,6 @@
         android:layout_height="wrap_content"
         android:text="festivals &amp; hodidays"
         android:gravity="center"
-        android:textSize="12sp"
+        android:textSize="10sp"
         android:textAlignment="center"/>
 </LinearLayout>

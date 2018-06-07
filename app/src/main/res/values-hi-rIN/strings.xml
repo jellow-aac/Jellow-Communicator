@@ -68,14 +68,6 @@
     <string name="menuFeedback">प्रतिक्रिया</string>
 
     <string name="endString" > है।</string>
-    <string name="aPos">A Positive</string>
-    <string name="aNeg">A Negative</string>
-    <string name="bPos">B Positive</string>
-    <string name="bNeg">B Negative</string>
-    <string name="abPos">A B Positive</string>
-    <string name="abNeg">A B Negative</string>
-    <string name="oPos">O Positive</string>
-    <string name="oNeg">O Negative</string>
     <string name="easyToUse">इस्तेमाल में आसान</string>
     <string name="clearPictures">स्पष्ट चित्र</string>
     <string name="clearVoice">स्पष्ट आवाज़</string>
@@ -266,4 +258,12 @@
     <string name="rejected_call_permission_req">कॉल करने की अनुमति नहीं हैं।</string>
     <string name="grant_permission_from_settings">सेटिंग्स में जाकर कॉल करने की अनुमति दें।</string>
     <string name="request">अनुमति दें</string>
+    <string name="userGroup">प्रयोगकर्ता का वर्ग *</string>
+    <string name="groupTeacher">थेरपिस्ट/शिक्षक</string>
+    <string name="groupParent">पालक/केयर गिवर</string>
+    <string name="invalid_usergroup">कृपया प्रयोगकर्ता का वर्ग चुनें।</string>
+    <string name="txtEnableBuiltInCalling">जेलो से कॉल करने की अनुमति दें</string>
+    <string name="downloadableLang">उपलब्ध भाषाएँ</string>
+    <string name="downloadedLang">डाउनलोड की गई भाषाएँ</string>
+    <string name="remove">डिलीट करें</string>
 </resources>

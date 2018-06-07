@@ -86,7 +86,23 @@
                 <Spinner
                     android:id="@+id/spinner4"
                     android:layout_width="190dp"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp" />
+                <TextView
+                    android:id="@+id/tv5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txtEnableBuiltInCalling"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#000000"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+                <com.rey.material.widget.Switch
+                    android:id="@+id/switchEnableCall"
+                    style="@style/Material.Widget.Switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:sw_thumbRadius="10dp" />
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="48dp" />

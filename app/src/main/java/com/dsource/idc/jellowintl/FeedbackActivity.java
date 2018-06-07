@@ -21,9 +21,9 @@ import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.Toast;
 
-import com.dsource.idc.jellowintl.utility.ChangeAppLocale;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
+import com.dsource.idc.jellowintl.utility.LanguageHelper;
 
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
@@ -42,7 +42,6 @@ public class FeedbackActivity extends AppCompatActivity {
         // If any exception occurs during this activity usage,
         // handle it using default exception handler.
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
-        new ChangeAppLocale(this).setLocale();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>" + getString(R.string.menuFeedback) + "</font>"));
@@ -53,6 +52,11 @@ public class FeedbackActivity extends AppCompatActivity {
         mBtnSubmit = findViewById(R.id.bSubmit);
         addListenerOnRatingBar();
         addListenerOnButton();
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext((LanguageHelper.onAttach(newBase)));
     }
 
     @Override
@@ -88,12 +92,6 @@ public class FeedbackActivity extends AppCompatActivity {
                 !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
             startService(new Intent(getApplication(), JellowTTSService.class));
         }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        new ChangeAppLocale(this).setLocale();
     }
 
     @Override
@@ -147,6 +145,10 @@ public class FeedbackActivity extends AppCompatActivity {
         mRatingEasyToUse = findViewById(R.id.easy_to_use);
         mEtComments = findViewById(R.id.comments);
         mBtnSubmit = findViewById(R.id.bSubmit);
+        //The variables below are defined because android os fall back to default locale
+        // after activity restart. These variable will hold the value for variables initialized using
+        // user preferred locale.
+        final String strRateJellow = getString(R.string.rate_jellow);
         mBtnSubmit.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -161,7 +163,7 @@ public class FeedbackActivity extends AppCompatActivity {
                     email.setType("message/rfc822");
                     startActivity(Intent.createChooser(email, "Choose an Email client :"));
                 }else{
-                    Toast.makeText(FeedbackActivity.this, getString(R.string.rate_jellow), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FeedbackActivity.this, strRateJellow, Toast.LENGTH_SHORT).show();
                 }
             }
         });
