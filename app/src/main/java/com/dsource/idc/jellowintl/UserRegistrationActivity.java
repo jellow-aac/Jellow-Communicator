@@ -77,7 +77,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
     private CountryCodePicker mCcp;
     private String mUserGroup;
     Spinner languageSelect;
-    String[] languagesCodes = new String[4], languageNames = new String[4];
+    String[] languagesCodes = new String[5], languageNames = new String[5];
     String selectedLanguage;
     String name, emergencyContact, eMailId;
 
