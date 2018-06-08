@@ -362,6 +362,10 @@ public class LanguageSelectActivity extends AppCompatActivity{
         if( mSession.isDownloaded(SessionManager.HI_IN) &&
                 !current.equals(SessionManager.HI_IN))
             lang.add(LangValueMap.get(SessionManager.HI_IN));
+
+        if( mSession.isDownloaded(SessionManager.BN_IN) &&
+                !current.equals(SessionManager.BN_IN))
+            lang.add(LangValueMap.get(SessionManager.BN_IN));
         return lang.toArray(new String[lang.size()]);
     }
 
@@ -378,6 +382,8 @@ public class LanguageSelectActivity extends AppCompatActivity{
             lang.add(LangValueMap.get(SessionManager.ENG_UK));
         if( !mSession.isDownloaded(SessionManager.HI_IN))
             lang.add(LangValueMap.get(SessionManager.HI_IN));
+        if( !mSession.isDownloaded(SessionManager.BN_IN))
+            lang.add(LangValueMap.get(SessionManager.BN_IN));
         return lang.toArray(new String[lang.size()]);
     }
 
