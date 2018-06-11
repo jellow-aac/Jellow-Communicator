@@ -53,6 +53,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
+import java.util.Random;
 
 import se.simbio.encryption.Encryption;
 
@@ -172,10 +173,17 @@ public class UserRegistrationActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                     return;
                 }
-                //emergency contact of child. The contact with country code without preceding '+'
-                // is used as unique identifier.
-                emergencyContact = mCcp.getFullNumber();
-                if(etEmergencyContact.getText().toString().equals("")){
+                // Emergency contact is contact number of a caregiver/teacher/parent/therapist.
+                // of a child. The contact with country code without preceding '+' and succeding
+                // extra 5 random digits are added to emergency contact and is used as unique
+                // identifier. Extra 5 digits are added to surpass Firebase behavior.
+                // Random number generator logic:
+                // max = 100000 and min = 10000
+                // num = new Random().nextInt((max - min)+1) + min
+                // This will ensure 5 digit random number.
+                mSession.setExtraValToContact(String.valueOf(new Random().nextInt(90001) + 10000));
+                emergencyContact = mCcp.getFullNumber().concat(mSession.getExtraValToContact());
+                if(etEmergencyContact.getText().toString().isEmpty()){
                     bRegister.setEnabled(true);
                     Toast.makeText(getBaseContext(), getString(R.string.enternonemptycontact),
                             Toast.LENGTH_SHORT).show();

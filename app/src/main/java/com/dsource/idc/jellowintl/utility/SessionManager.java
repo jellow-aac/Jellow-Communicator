@@ -300,6 +300,14 @@ public class SessionManager {
         return ((Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.enable_calling)));
     }
 
+    public void setExtraValToContact(String val){
+        storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.random_val), val);
+    }
+
+    public String getExtraValToContact(){
+        return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.random_val));
+    }
+
     private void storePreferenceKeyWithValue(String classType, String key, Object val){
         if (classType.equals(Integer.class.toString()))
             mEditor.putInt(key, (Integer) val).commit();

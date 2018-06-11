@@ -267,6 +267,7 @@
     <string name="last_session_created" translatable="false">com.dsource.idc.jellow.last_session_created</string>
     <string name="user_group" translatable="false">com.dsource.idc.jellow.user_group</string>
     <string name="enable_calling" translatable="false">com.dsource.idc.jellow.enable_calling</string>
+    <string name="random_val" translatable="false">com.dsource.idc.jellow.random_val</string>
     <string name="txt_registration_jellowCalluDesc">(This is how Jellow calls you)</string>
     <string name="txt_registration_emergencynoDesc">(To be used for correspondence in case of an emergency involving the child)</string>
     <string name="txt_registration_emailDesc">(To notify you about the release of Jellow updates)</string>

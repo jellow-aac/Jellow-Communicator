@@ -58,6 +58,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Random;
 
 import se.simbio.encryption.Encryption;
 
@@ -100,20 +101,26 @@ public class ProfileFormActivity extends AppCompatActivity {
         etAddress = findViewById(R.id.etAddress);
         etEmailId = findViewById(R.id.etEmailId);
         mBloodGroup = findViewById(R.id.bloodgroup);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.bloodgroup, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this, R.array.bloodgroup, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mBloodGroup.setAdapter(adapter);
         bSave = findViewById(R.id.bSave);
 
         mDB = FirebaseDatabase.getInstance();
-        mRef = mDB.getReference(BuildConfig.DB_TYPE+"/users/" + maskNumber(mSession.getCaregiverNumber().substring(1)));
+        mRef = mDB.getReference(BuildConfig.DB_TYPE+"/users/" +
+                maskNumber(mSession.getCaregiverNumber().substring(1)));
 
 
         etName.setText(mSession.getName());
         mCcp = findViewById(R.id.ccp);
         mCcp.setCountryForPhoneCode(Integer.valueOf(mSession.getUserCountryCode()));
         mCcp.registerCarrierNumberEditText(etFatherContact);
-        etFatherContact.setText(mSession.getCaregiverNumber().replace("+".concat(mSession.getUserCountryCode()),""));
+        String contact = mSession.getCaregiverNumber().replace(
+                "+".concat(mSession.getUserCountryCode()),"");
+        //Extra 5 digits are taken out from contact.
+        contact = contact.substring(0,contact.length()-5);
+        etFatherContact.setText(contact);
         etFathername.setText(mSession.getCaregiverName());
         etAddress.setText(mSession.getAddress());
         etEmailId.setText(mSession.getEmailId());
@@ -351,7 +358,7 @@ public class ProfileFormActivity extends AppCompatActivity {
         mSession.setCaregiverName(etFathername.getText().toString());
         mSession.setAddress(etAddress.getText().toString());
         mSession.setName(etName.getText().toString());
-        mSession.setCaregiverNumber(mCcp.getFullNumberWithPlus());
+        mSession.setCaregiverNumber(mCcp.getFullNumberWithPlus() + mSession.getExtraValToContact());
         mSession.setUserCountryCode(mCcp.getSelectedCountryCode());
         mSession.setEmailId(email);
         if(mBloodGroup.getSelectedItemPosition() > 0)
@@ -388,15 +395,16 @@ public class ProfileFormActivity extends AppCompatActivity {
                 processPreviousRecordsNode(dataSnapshot,toPath);
                 mRef.setValue(null);
 
-                mSession.setCaregiverNumber(mCcp.getFullNumberWithPlus());
+                mSession.setCaregiverNumber(mCcp.getFullNumberWithPlus() +
+                                    mSession.getExtraValToContact());
                 mRef = mDB.getReference(BuildConfig.DB_TYPE + "/users/" +
                         maskNumber(mSession.getCaregiverNumber().substring(1)));
                 mRef.removeEventListener(this);
                 emergencyContactChanged = true;
                 Crashlytics.setUserIdentifier(maskNumber(mSession.getCaregiverNumber().substring(1)));
-                updateSessionRef(mCcp.getFullNumber());
+                updateSessionRef(mSession.getCaregiverNumber().substring(1));
                 encryptStoreUserInfo(etName.getText().toString(),
-                        mCcp.getFullNumber(),
+                        mSession.getCaregiverNumber().substring(1),
                         email,
                         etFathername.getText().toString(),
                         etAddress.getText().toString(),
@@ -496,9 +504,13 @@ public class ProfileFormActivity extends AppCompatActivity {
         protected void onPostExecute(Boolean isConnected) {
             super.onPostExecute(isConnected);
             if(isConnected){
-                if(!mCcp.getFullNumberWithPlus().equals(mSession.getCaregiverNumber())){
+                String extraValContact = mCcp.getFullNumberWithPlus() +
+                        mSession.getExtraValToContact();
+                if(!extraValContact.equals(mSession.getCaregiverNumber())){
+                    mSession.setExtraValToContact(String.valueOf(new Random().nextInt(90001) + 10000));
+                    String newContact = mContact.concat(mSession.getExtraValToContact());
                     DatabaseReference mNewRef = mDB.getReference(BuildConfig.DB_TYPE
-                            + "/users/" + maskNumber(mContact)
+                            + "/users/" + maskNumber(newContact)
                             + "/previousRecords/" + maskNumber(mSession.getCaregiverNumber().substring(1)));
                     moveFirebaseRecord(mRef, mNewRef);
                 }else {
