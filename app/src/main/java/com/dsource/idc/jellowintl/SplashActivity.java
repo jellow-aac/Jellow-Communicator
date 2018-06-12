@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.EvaluateDisplayMetricsUtils;
+import com.dsource.idc.jellowintl.utility.IconDataBaseHelper;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
@@ -48,6 +49,44 @@ public class SplashActivity extends AppCompatActivity {
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.dsource.idc.jellowintl.INIT_SERVICE");
         registerReceiver(receiver, filter);
+        //This is to create database for the JellowIcon
+        iconDatabaseAction();
+
+    }
+    /**
+     * <p>
+     * This function is added to check whether the intent is fired from Language change activity or
+     * Intro activity, if so then icon database is set up for the first time.
+     * and create the icon table in the database accordingly.
+     * @Author AyazAlam
+     * </p>
+     * */
+    void iconDatabaseAction()
+    {
+
+        if(getIntent().getStringExtra(getString(R.string.lang_change_code))!=null)
+        {
+            IconDataBaseHelper iconDatabase=new IconDataBaseHelper(this);
+            //When language is changed drop current table and create new
+            if(getIntent().getStringExtra
+                    (getString(R.string.lang_change_code)).equals(getString(R.string.lang_change))) {
+                iconDatabase.dropTable(new DataBaseHelper(this).getWritableDatabase());
+                iconDatabase.createTable(new DataBaseHelper(this).getWritableDatabase());
+
+                /*
+                iconDatabase.dropTable(new DataBaseHelper(this).getWritableDatabase());
+                iconDatabase.onCreate(new DataBaseHelper(this).getWritableDatabase());
+                */
+            }
+            //When user logs in for the first time create the database for the first time
+            else if((getIntent().getStringExtra
+                    (getString(R.string.lang_change_code)).equals(getString(R.string.first_time_login))))
+            {
+                iconDatabase.createTable(new DataBaseHelper(this).getWritableDatabase());
+                //
+                // iconDatabase.onCreate(new DataBaseHelper(this).getWritableDatabase());
+            }
+        }
     }
 
     @Override

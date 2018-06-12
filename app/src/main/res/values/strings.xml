@@ -119,6 +119,7 @@
     <string name="invalid_emailId">Invalid email address</string>
     <string name="invalidContactNumber">Invalid contact number</string>
     <string name="enterTheName">Please enter your Child\'s name</string>
+    <string name="search_act_title">Search Icons in Jellow</string>
     <string name="resetPreferenceMessage">
        <![CDATA[ <ul>
             <li>Jellow remembers the user\'s \"most-used/preferred\" icons and displays them as the top choices on the screen</li><br/>
@@ -180,7 +181,7 @@
 
 <ul>
 <li><strong>Software Development: </strong></li>
-<font>Rahul Rupchand Jidge, Narayana Reddy, Sumeet Agrawal, Roop Sahoo, Shruti Gupta, Aastha Joshi, Dhairya Dand, Pritam Pebam</font>
+<font>Rahul Rupchand Jidge, Narayana Reddy, Ayaz Alam, Sumeet Agrawal, Roop Sahoo, Shruti Gupta, Aastha Joshi, Dhairya Dand, Pritam Pebam</font>
 </ul>
 
 <ul>
@@ -307,4 +308,26 @@
     <string name="downloadableLang">Downloadable Languages</string>
     <string name="downloadedLang">Downloaded Languages</string>
     <string name="remove">Remove</string>
+
+    <string name="lang_change_code" translatable="false">Language_change</string>
+    <string name="lang_change" translatable="false">lang_change</string>
+    <string name="level_one_intent_pos_tag" translatable="false">mLevelOneItemPos</string>
+    <string name="intent_menu_path_tag" translatable="false">selectedMenuItemPath</string>
+    <string name="level_2_item_pos_tag" translatable="false">mLevelTwoItemPos</string>
+    <string name="first_time_login" translatable="false">create_database</string>
+
+
+    <!--Strings related to the Searching capability
+    @AyazAlam
+    -->
+    <string name="search_title">Search Icon...</string>
+    <string name="search_hint">Search icon....</string>
+    <string name="search_parent_0" translatable="false">parent_0</string>
+    <string name="search_parent_1" translatable="false">parent_1</string>
+    <string name="search_parent_2" translatable="false">parent_2</string>
+    <string name="home">Home</string>
+    <string name="from_search" translatable="false">FROM_SEARCH</string>
+    <string name="search_tag" translatable="false">SEARCH</string>
+    <string name="icon_not_found">Icon not found</string>
+    <string name="not_found" translatable="false">NOT_FOUND</string>
 </resources>

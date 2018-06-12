@@ -98,11 +98,11 @@ public class SequenceActivity extends AppCompatActivity {
                 .getDrawable(R.drawable.yellow_bg));
         // set bread crumb title from extra data from level two
         getSupportActionBar().setTitle(getIntent().getExtras()
-                .getString("selectedMenuItemPath"));
+                .getString(getString(R.string.intent_menu_path_tag)));
 
         mSession = new SessionManager(this);
         /*get position of category icon selected in level two*/
-        mLevelTwoItemPos = getIntent().getExtras().getInt("mLevelTwoItemPos");
+        mLevelTwoItemPos = getIntent().getExtras().getInt(getString(R.string.level_2_item_pos_tag));
         // Initialize default exception handler for this activity.
         // If any exception occurs during this activity usage,
         // handle it using default exception handler.
@@ -185,6 +185,7 @@ public class SequenceActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
+            case R.id.search: startActivity(new Intent(this, SearchActivity.class));break;
             case R.id.languageSelect:
                 startActivity(new Intent(this, LanguageSelectActivity.class));
                 break;
@@ -282,7 +283,7 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to Navigation "next" button for
+     * <p>This function will initialize the click scrollListener to Navigation "next" button for
      * category icons.
      * When this button is pressed, the next sequence of images are loaded into all three category icons.
      * If the number of available images in the next sequence of images is less than 3 then available
@@ -373,7 +374,7 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to Navigation "previous" (back) button for
+     * <p>This function will initialize the click scrollListener to Navigation "previous" (back) button for
      * category icons.
      * When this button is pressed, previous sequence of images are loaded into all three category icons.
      * If previous sequence of images is unavailable then previous button is unavailable
@@ -438,7 +439,7 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to category Icon 1 button.
+     * <p>This function will initialize the click scrollListener to category Icon 1 button.
      * a. If category 1 icon button is pressed once, expressive buttons appear.
      * b. If category 1 icon pressed twice, expressive buttons disappear and category
      *    icon 1 border disappears.
@@ -492,7 +493,7 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to category Icon 2 button.
+     * <p>This function will initialize the click scrollListener to category Icon 2 button.
      * a. If category 2 icon button is pressed once, expressive buttons appear.
      * b. If category 2 icon pressed twice, expressive buttons disappear and category
      *    icon 2 border disappears.
@@ -546,7 +547,7 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to category Icon 3 button.
+     * <p>This function will initialize the click scrollListener to category Icon 3 button.
      * a. If category 3 icon button is pressed once, expressive buttons appear.
      * b. If category 3 icon pressed twice, expressive buttons disappear and category
      *    icon 3 border disappears.
@@ -600,7 +601,7 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to Navigation back button.
+     * <p>This function will initialize the click scrollListener to Navigation back button.
      * When user pressed navigation back button and :
      *  a) Custom keyboard input text is open, user intends to close custom keyboard input
      *  text. Hence custom keyboard input text is set to close.
@@ -641,7 +642,7 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to Navigation home button.
+     * <p>This function will initialize the click scrollListener to Navigation home button.
      * When user press this button user navigated to {@link MainActivity} with
      *  every state of views is like app launched as fresh. Action bar title is set
      *  to 'home'</p>
@@ -664,7 +665,7 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to Navigation keyboard button.
+     * <p>This function will initialize the click scrollListener to Navigation keyboard button.
      * {@link SequenceActivity} navigation keyboard button either enable or disable
      * the keyboard layout.
      * When keyboard layout is enabled using keyboard button, it is visible to user and
@@ -736,7 +737,7 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "like" button.
+     * <p>This function will initialize the click scrollListener for expressive "like" button.
      * Expressive like button is works in four ways:
      *  a) press expressive like button once
      *  b) press expressive like button twice
@@ -797,7 +798,7 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "don't like" button.
+     * <p>This function will initialize the click scrollListener for expressive "don't like" button.
      * Expressive don't like button is works in four ways:
      *  a) press expressive don't like button once
      *  b) press expressive don't like button twice
@@ -859,7 +860,7 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "yes" button.
+     * <p>This function will initialize the click scrollListener for expressive "yes" button.
      * Expressive yes button is works in four ways:
      *  a) press expressive yes button once
      *  b) press expressive yes button twice
@@ -920,7 +921,7 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "no" button.
+     * <p>This function will initialize the click scrollListener for expressive "no" button.
      * Expressive no button is works in four ways:
      *  a) press expressive no button once
      *  b) press expressive no button twice
@@ -981,7 +982,7 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "more" button.
+     * <p>This function will initialize the click scrollListener for expressive "more" button.
      * Expressive more button is works in four ways:
      *  a) press expressive more button once
      *  b) press expressive more button twice
@@ -1042,7 +1043,7 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "less" button.
+     * <p>This function will initialize the click scrollListener for expressive "less" button.
      * Expressive less button is works in four ways:
      *  a) press expressive less button once
      *  b) press expressive less button twice
@@ -1103,7 +1104,7 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to Tts Speak button.
+     * <p>This function will initialize the click scrollListener to Tts Speak button.
      * When Tts speak button is pressed, broadcast speak request is sent to Text-to-speech service.
      * Message typed in Text-to-speech input view, is synthesized by the service.</p>
      * */
@@ -1125,7 +1126,7 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to EditText which is used by user to
+     * <p>This function will initialize the click scrollListener to EditText which is used by user to
      * input custom strings.</p>
      * */
     private void initTTsEditTxtListener() {
