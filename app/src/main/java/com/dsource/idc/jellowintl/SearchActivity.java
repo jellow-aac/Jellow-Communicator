@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dsource.idc.jellowintl.utility.IconDataBaseHelper;
@@ -53,6 +54,12 @@ public class SearchActivity extends AppCompatActivity {
     //This variable holds the text that user has searched
     private String notFoundIconText="Null";
 
+    private int beforeTextChanged;
+    private int afterTextChanged;
+    private boolean firedEvent=false;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,12 +90,30 @@ public class SearchActivity extends AppCompatActivity {
         SearchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                beforeTextChanged=s.length();
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //Reset Icon not found tag
                 iconNotFound=false;
+
+                afterTextChanged=s.length();
+
+                if(beforeTextChanged>afterTextChanged)
+                {
+                    if(!firedEvent&&iconNotFound) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("NotFoundName", notFoundIconText);
+                        bundleEvent("IconNotFound", bundle);
+                        firedEvent = true;
+                    }
+                }
+                else
+                {
+                    firedEvent=false;
+                }
+
+
                 //Getting the string to search in the database
                 String query=s.toString().trim();
                 /**
@@ -121,6 +146,7 @@ public class SearchActivity extends AppCompatActivity {
 
             }
         });
+
 
 
 
