@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/translucent"
+    android:id="@+id/search_layout"
+    >
+    <RelativeLayout
+        android:layout_width="@dimen/search_bar_width"
+        android:background="@drawable/search_list_back"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="right"
+
+        >
+    <EditText
+
+        android:padding="@dimen/searchView_padding"
+        android:layout_marginLeft="@dimen/search_edit_margin_left"
+        android:layout_marginTop="@dimen/search_edit_text_top_margin"
+        android:layout_marginBottom="@dimen/search_edit_text_margin_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/search_hint"
+        android:textColor="@color/black_80"
+        android:maxLines="1"
+        android:inputType="text"
+        android:textSize="@dimen/search_edit_text_size"
+        android:background="@drawable/rounded_back"
+        android:layout_centerHorizontal="true"
+        android:textColorHint="@color/black_80"
+        android:drawableLeft="@drawable/ic_search_small"
+        android:drawablePadding="@dimen/search_drawable_padding"
+        android:id="@+id/search_auto_complete"
+        />
+    <android.support.v7.widget.RecyclerView
+        android:layout_margin="@dimen/search_recycler_margin"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/search_auto_complete"
+        android:layout_width="match_parent"
+        android:scrollbars="vertical"
+        android:scrollbarThumbVertical="@android:color/darker_gray"
+        android:scrollbarSize="2dp"
+        android:fadeScrollbars="false"
+        android:id="@+id/icon_search_recycler_view"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.RecyclerView>
+
+    </RelativeLayout>
+</RelativeLayout>
