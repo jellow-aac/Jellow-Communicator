@@ -18,6 +18,7 @@ import android.text.method.KeyListener;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -93,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_levelx_layout);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
         getSupportActionBar().setTitle(getString(R.string.action_bar_title));
@@ -119,6 +121,104 @@ public class MainActivity extends AppCompatActivity {
         // If device has android version below Lollipop get Text-to-speech language
         if(Build.VERSION.SDK_INT < 21)
             getSpeechLanguage("");
+
+        //This method is invoked when the activity is launched from the SearchActivity
+        try {
+            String s = getIntent().getExtras().getString(getString(R.string.from_search));
+            if (s != null)
+                if (s.equals(getString(R.string.search_tag))) {
+                    highlightSearchedItem();
+                }
+        }
+        catch (NullPointerException e)
+        {
+            //Not from Search Activity
+        }
+    }
+    /**
+     * This function is responsible for the Highlighting of the searched item from the
+     * search activity
+     * @Author Ayaz Alam
+     * **/
+    RecyclerView.OnScrollListener scrollListener;
+    private void highlightSearchedItem() {
+        //Referring to the Intent that invoked the activity
+        final int iconIndex = getIntent().getExtras().getInt(getString(R.string.search_parent_0));
+        int gridCode=new SessionManager(this).getGridSize();
+        int gridSize;
+        if(gridCode==1)
+            gridSize=8;
+        else gridSize=2;
+        //Scroll to the position if the icon is not present in first grid
+        if(iconIndex>gridSize)
+        {
+            scrollListener =null;
+            scrollListener = getListener(iconIndex);
+            mRecyclerView.addOnScrollListener(scrollListener);
+            mRecyclerView.getLayoutManager().smoothScrollToPosition(mRecyclerView,null,iconIndex);
+
+        }
+        else
+            {
+            setSearchHighlight(iconIndex);
+            }
+
+    }
+    /**
+     * This functions returns a scroll scrollListener which triggers the setHighlight function
+     * when the scrolling is done
+     * @Author Ayaz Alam
+     * */
+
+    private RecyclerView.OnScrollListener getListener(final int index) {
+        scrollListener =new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(newState==RecyclerView.SCROLL_STATE_DRAGGING)
+                {
+                    //Wait untill the scrolling is complete
+                }
+                else if(newState==RecyclerView.SCROLL_STATE_IDLE) //Try highlighting if scrolling is done
+                    setSearchHighlight(index);
+            }
+        };
+        return scrollListener;
+    }
+    /**
+     * This function is responsible for highlighting the view
+     * @param pos
+     *
+     *
+     * */
+    ViewTreeObserver.OnGlobalLayoutListener populationDoneListener;
+    public void setSearchHighlight(final int pos)
+    {
+        mRecyclerView.getAdapter().notifyDataSetChanged();
+        populationDoneListener=new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                //At this point the layout is complete and the
+                //dimensions of recyclerView and any child views are known.
+                View searchedView = mRecyclerItemsViewList.get(pos);
+                if(searchedView==null) {
+                    //Try re-scrolling if the view is not present in the current recycler view child
+                    mRecyclerView.getLayoutManager().smoothScrollToPosition(mRecyclerView,null,pos );
+                    mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(populationDoneListener);
+                    return;
+                }
+                //When view is found remove the scrollListener and highlight the background
+                GradientDrawable gd = (GradientDrawable) searchedView.findViewById(R.id.borderView).getBackground();
+                gd.setColor(ContextCompat.getColor(getApplicationContext(), R.color.search_highlight));
+                mRecyclerView.removeOnScrollListener(scrollListener);
+                mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(populationDoneListener);
+            }
+        };
+        mRecyclerView.getViewTreeObserver().addOnGlobalLayoutListener(populationDoneListener);
+
+
+
+
     }
 
     @Override
@@ -178,6 +278,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.search:
+                startActivity(new Intent(this, SearchActivity.class));
+                break;
             case R.id.languageSelect:
                 startActivity(new Intent(this, LanguageSelectActivity.class));
                 break;
@@ -276,7 +379,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * <p>This function initializes {@link RecyclerTouchListener} and
      * {@link RecyclerView.OnChildAttachStateChangeListener} for recycler view.
-     * {@link RecyclerTouchListener} is a custom defined Touch event listener class.
+     * {@link RecyclerTouchListener} is a custom defined Touch event scrollListener class.
      * {@link RecyclerView.OnChildAttachStateChangeListener} is defined to manage view state of
      * recycler child view. It is useful to retain current state of child, when recycler view is scrolled
      * and recycler child views are recycled for memory usage optimization.</p>
@@ -335,7 +438,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to Navigation "back" button.
+     * <p>This function will initialize the click scrollListener to Navigation "back" button.
      * {@link MainActivity} navigation back button enabled when user using custom keyboard input
      * and keyboard is opened.</p>
      * */
@@ -375,7 +478,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to Navigation "home" button.
+     * <p>This function will initialize the click scrollListener to Navigation "home" button.
      * {@link MainActivity} navigation home button when clicked it clears, every state of view as
      * like app is launched as fresh.</p>
      * */
@@ -391,7 +494,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to Navigation "keyboard" button.
+     * <p>This function will initialize the click scrollListener to Navigation "keyboard" button.
      * {@link MainActivity} navigation keyboard button either enable or disable the keyboard layout.
      * This button enable the back button when keyboard is open.</p>
      * */
@@ -463,7 +566,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "like" button.
+     * <p>This function will initialize the click scrollListener for expressive "like" button.
      * Expressive like button is works in four ways:
      *  a) press expressive like button once
      *  b) press expressive like button twice
@@ -536,7 +639,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "don't like" button.
+     * <p>This function will initialize the click scrollListener for expressive "don't like" button.
      * Expressive don't like button is works in four ways:
      *  a) press expressive don't like button once
      *  b) press expressive don't like button twice
@@ -608,7 +711,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "yes" button.
+     * <p>This function will initialize the click scrollListener for expressive "yes" button.
      * Expressive yes button is works in four ways:
      *  a) press expressive yes button once
      *  b) press expressive yes button twice
@@ -680,7 +783,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "no" button.
+     * <p>This function will initialize the click scrollListener for expressive "no" button.
      * Expressive no button is works in four ways:
      *  a) press expressive no button once
      *  b) press expressive no button twice
@@ -752,7 +855,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "more" button.
+     * <p>This function will initialize the click scrollListener for expressive "more" button.
      * Expressive more button is works in four ways:
      *  a) press expressive more button once
      *  b) press expressive more button twice
@@ -824,7 +927,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "less" button.
+     * <p>This function will initialize the click scrollListener for expressive "less" button.
      * Expressive less button is works in four ways:
      *  a) press expressive less button once
      *  b) press expressive less button twice
@@ -896,7 +999,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to Tts Speak button.
+     * <p>This function will initialize the click scrollListener to Tts Speak button.
      * When Tts speak button is pressed, broadcast speak request is sent to Text-to-speech service.
      * Message typed in Text-to-speech input view is speech out by service.</p>
      * */
@@ -926,7 +1029,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to EditText which is used by user to
+     * <p>This function will initialize the click scrollListener to EditText which is used by user to
      * input custom strings.</p>
      * */
     private void initTTsEditTxtListener() {
@@ -988,8 +1091,8 @@ public class MainActivity extends AppCompatActivity {
                 // send current position in recycler view of selected category icon and bread
                 // crumb path as extra intent data to LevelTwoActivity.
                 Intent intent = new Intent(MainActivity.this, LevelTwoActivity.class);
-                intent.putExtra("mLevelOneItemPos", position);
-                intent.putExtra("selectedMenuItemPath", title + "/");
+                intent.putExtra(getString(R.string.level_one_intent_pos_tag), position);
+                intent.putExtra(getString(R.string.intent_menu_path_tag), title + "/");
                 startActivityForResult(intent, REQ_HOME);
             }
             langDir = null;

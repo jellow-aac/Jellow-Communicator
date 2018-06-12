@@ -206,6 +206,7 @@ public class ProfileFormActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
+            case R.id.search: startActivity(new Intent(this, SearchActivity.class));break;
             case R.id.languageSelect: startActivity(new Intent(this, LanguageSelectActivity.class)); finish(); break;
             case R.id.info: startActivity(new Intent(this, AboutJellowActivity.class)); finish(); break;
             case R.id.usage: startActivity(new Intent(this, TutorialActivity.class)); finish(); break;
@@ -390,7 +391,7 @@ public class ProfileFormActivity extends AppCompatActivity {
         fromPath.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // remove the listener to avoid any 'intermediate' updates while working in the same node
+                // remove the scrollListener to avoid any 'intermediate' updates while working in the same node
                 mRef.removeEventListener(this);
                 processPreviousRecordsNode(dataSnapshot,toPath);
                 mRef.setValue(null);

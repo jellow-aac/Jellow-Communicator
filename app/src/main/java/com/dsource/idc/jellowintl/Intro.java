@@ -139,7 +139,10 @@ public class Intro extends AppIntro {
                 if ((session.getLanguage().equals(ENG_IN) && mTTsDefaultLanguage.equals(HI_IN)) ||
                     (!session.getLanguage().equals(ENG_IN) && session.getLanguage().equals(mTTsDefaultLanguage))) {
                     session.setCompletedIntro(true);
-                    startActivity(new Intent(Intro.this, SplashActivity.class));
+                    //Create the iconset database as we know the it doesn't exists
+                    Intent intent=new Intent(Intro.this, SplashActivity.class);
+                    intent.putExtra(getString(R.string.lang_change_code),getString(R.string.first_time_login));
+                    startActivity(intent);
                     finish();
                 } else {
                     Toast.makeText(this, getString(R.string.txt_set_tts_setup), Toast.LENGTH_LONG).show();
@@ -147,7 +150,9 @@ public class Intro extends AppIntro {
                 }
             }else {
                 session.setCompletedIntro(true);
-                startActivity(new Intent(Intro.this, SplashActivity.class));
+                Intent intent=new Intent(Intro.this, SplashActivity.class);
+                intent.putExtra(getString(R.string.lang_change_code),getString(R.string.first_time_login));
+                startActivity(intent);
                 finish();
             }
     }

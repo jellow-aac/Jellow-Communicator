@@ -223,6 +223,9 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
+            case R.id.search:
+				startActivity(new Intent(this, SearchActivity.class));
+				break;
             case R.id.languageSelect:
                 startActivity(new Intent(this, LanguageSelectActivity.class));
                 finish();

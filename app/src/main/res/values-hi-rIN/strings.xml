@@ -17,6 +17,13 @@
     <string name="languageLimitExceeded">नई भाषा जोडने के लिये पहले से मौजूद एक भाषा को डिलीट करें</string>
 
 
+    <string name="search_hint">आइकन खोजें...</string>
+    <string name="search_title">आइकन खोजें</string>
+    <string name="home">होम</string>
+    <string name="search_act_title">जेलो में आइकन खोजे</string>
+    <string name="icon_not_found">आइकन नहीं मिला</string>
+
+
 
 
 
@@ -150,7 +157,7 @@
 
 <ul>
 <li><strong>सॉफ्टवेयर का विकास:</strong></li>
-<font>राहूल रूपचंद जिडगे, नारायना रेड्डी, सुमित अग्रवाल, रूप साहू, श्रुति गुप्ता, आस्था जोशी, धैर्य दण्ड, प्रीतम पेबम</font>
+<font>राहूल रूपचंद जिडगे, नारायना रेड्डी, अयाज़ आलम, सुमित अग्रवाल, रूप साहू, श्रुति गुप्ता, आस्था जोशी, धैर्य दण्ड, प्रीतम पेबम</font>
 </ul>
 
 <ul>
