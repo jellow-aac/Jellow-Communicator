@@ -101,7 +101,8 @@ public class SearchActivity extends AppCompatActivity {
 
                 if(beforeTextChanged>afterTextChanged)
                 {
-                    if(!firedEvent&&iconNotFound) {
+                    if((!firedEvent)&&iconNotFound) {
+
                         Bundle bundle = new Bundle();
                         bundle.putString("NotFoundName", notFoundIconText);
                         bundleEvent("IconNotFound", bundle);
