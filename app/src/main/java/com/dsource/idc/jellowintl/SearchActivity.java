@@ -17,14 +17,12 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dsource.idc.jellowintl.utility.IconDataBaseHelper;
 import com.dsource.idc.jellowintl.utility.JellowIcon;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptionsExtension;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -99,20 +97,6 @@ public class SearchActivity extends AppCompatActivity {
 
                 afterTextChanged=s.length();
 
-                if(beforeTextChanged>afterTextChanged)
-                {
-                    if((!firedEvent)&&iconNotFound) {
-
-                        Bundle bundle = new Bundle();
-                        bundle.putString("NotFoundName", notFoundIconText);
-                        bundleEvent("IconNotFound", bundle);
-                        firedEvent = true;
-                    }
-                }
-                else
-                {
-                    firedEvent=false;
-                }
 
 
                 //Getting the string to search in the database
@@ -136,6 +120,23 @@ public class SearchActivity extends AppCompatActivity {
                     JellowIcon noIconFound=new JellowIcon(getString(R.string.not_found),"NULL",-1,-1,-1);
                     iconList.add(noIconFound);
                 }
+
+                if(beforeTextChanged>afterTextChanged)
+                {
+                    if((!firedEvent)&&iconNotFound) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("NotFoundName", notFoundIconText);
+                        bundleEvent("IconNotFound", bundle);
+                        firedEvent = true;
+                    }
+                }
+                else
+                {
+                    firedEvent=false;
+                }
+
+
+
 
                 //List should have atleast one Item
                 if(iconList.size()>0)
