@@ -601,6 +601,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                     if (getIntent().getExtras().getString(getString(R.string.from_search)).
                             equals(getString(R.string.search_tag))) {
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        finish();
                     }
                 }
                     else {

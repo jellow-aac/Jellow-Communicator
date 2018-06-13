@@ -94,13 +94,10 @@ public class SearchActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //Reset Icon not found tag
                 iconNotFound=false;
-
                 afterTextChanged=s.length();
-
-
-
                 //Getting the string to search in the database
                 String query=s.toString().trim();
+
                 /**
                  * {@link IconDataBaseHelper.query(String)} returns a {@link ArrayList< JellowIcon >}  object
                  * having all the JellowIcon matching the database
@@ -165,14 +162,12 @@ public class SearchActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext((LanguageHelper.onAttach(newBase)));
     }
 
 }
-
 
 /**
  * This is a different class namde {@link SearchViewIconAdapter}
@@ -220,7 +215,7 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
                 Bundle bundle = new Bundle();
                 bundle.putString("IconSearched", icon.IconTitle);
                 bundleEvent("SearchedIcons", bundle);
-
+                target.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 mContext.startActivity(target);
             }
         }
