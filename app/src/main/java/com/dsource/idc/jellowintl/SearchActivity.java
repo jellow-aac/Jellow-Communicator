@@ -64,6 +64,9 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
         getWindow().setGravity(Gravity.LEFT);
 
+        // Reference to the icon database to get access to the Icon list.
+        final IconDataBaseHelper iconDatabase=new IconDataBaseHelper(this);
+
         // To Close on touch outside
         (findViewById(R.id.search_layout)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,10 +80,7 @@ public class SearchActivity extends AppCompatActivity {
                 finish();
             }
         });
-        /*
-        * Reference to the icon database to get access to the Icon list.
-        */
-        final IconDataBaseHelper iconDatabase=new IconDataBaseHelper(this);
+
         EditText SearchEditText=findViewById(R.id.search_auto_complete);
         //Initialising the fields
         initFields();
@@ -220,7 +220,7 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
                 Bundle bundle = new Bundle();
                 bundle.putString("IconSearched", icon.IconTitle);
                 bundleEvent("SearchedIcons", bundle);
-                target.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
                 mContext.startActivity(target);
             }
         }

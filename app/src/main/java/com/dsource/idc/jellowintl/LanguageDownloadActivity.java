@@ -78,7 +78,6 @@ public class LanguageDownloadActivity extends AppCompatActivity {
                 else if(finish)
                 {
                     Intent intent=new Intent(LanguageDownloadActivity.this,SplashActivity.class);
-                    intent.putExtra(getString(R.string.lang_change_code),getString(R.string.lang_change));
                     startActivity(intent);
                 }
                 finish();

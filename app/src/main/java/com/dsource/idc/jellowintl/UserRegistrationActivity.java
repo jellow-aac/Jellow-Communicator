@@ -46,6 +46,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
 import com.hbb20.CountryCodePicker;
+import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -81,6 +82,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
     String[] languagesCodes = new String[4], languageNames = new String[4];
     String selectedLanguage;
     String name, emergencyContact, eMailId;
+    SweetAlertDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,9 +163,13 @@ public class UserRegistrationActivity extends AppCompatActivity {
             }
         });
 
+        progressDialog =new SweetAlertDialog(this,SweetAlertDialog.PROGRESS_TYPE)
+                .setTitleText(getString(R.string.wait_text));
+        progressDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.colorPrimary));
         bRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog.show();
                 bRegister.setEnabled(false);
 
                 name  = etName.getText().toString();
@@ -171,6 +177,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
                     bRegister.setEnabled(true);
                     Toast.makeText(getBaseContext(), getString(R.string.enterTheName),
                             Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
                     return;
                 }
                 // Emergency contact is contact number of a caregiver/teacher/parent/therapist.
@@ -187,6 +194,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
                     bRegister.setEnabled(true);
                     Toast.makeText(getBaseContext(), getString(R.string.enternonemptycontact),
                             Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
                     return;
                 }
                 eMailId = etEmailId.getText().toString().trim();
@@ -194,6 +202,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
                     bRegister.setEnabled(true);
                     Toast.makeText(getBaseContext(),getString(R.string.invalid_emailId),
                             Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
                     return;
                 }
                 RadioGroup radioGroup = findViewById(R.id.radioUserGroup);
@@ -201,11 +210,15 @@ public class UserRegistrationActivity extends AppCompatActivity {
                     bRegister.setEnabled(true);
                     Toast.makeText(getBaseContext(),getString(R.string.invalid_usergroup),
                             Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
                     return;
                 }
 
                 if(selectedLanguage == null)
+                {
+                    progressDialog.dismiss();
                     return;
+                }
 
                 mUserGroup = (radioGroup.getCheckedRadioButtonId() == R.id.radioParent) ?
                         getString(R.string.groupParentOnly): getString(R.string.groupTeacherOnly);
@@ -366,7 +379,14 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 encryptStoreUserInfo(mName, emergencyContact, eMailId, mUserGroup);
             }else{
                 bRegister.setEnabled(true);
-                Toast.makeText(mContext, getString(R.string.checkConnectivity), Toast.LENGTH_LONG).show();
+                {
+                    progressDialog.dismiss();
+
+                    new SweetAlertDialog(mContext,SweetAlertDialog.WARNING_TYPE).setContentText(getString(R.string.checkConnectivity))
+                            .setTitleText(getString(R.string.no_internet))
+                    .show();
+                    Toast.makeText(mContext, getString(R.string.checkConnectivity), Toast.LENGTH_LONG).show();
+                }
             }
         }
     }
