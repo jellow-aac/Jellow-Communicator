@@ -22,9 +22,8 @@
     <string name="home">होम</string>
     <string name="search_act_title">जेलो में आइकन खोजे</string>
     <string name="icon_not_found">आइकन नहीं मिला</string>
-
-
-
+    <string name="please_wait">कृपया प्रतीक्षा करें...</string>
+    <string name="no_internet">इंटरनेट नहीं है</string>
 
 
     <string-array name="bloodgroup">
@@ -157,7 +156,7 @@
 
 <ul>
 <li><strong>सॉफ्टवेयर का विकास:</strong></li>
-<font>राहूल रूपचंद जिडगे, नारायना रेड्डी, अयाज़ आलम, सुमित अग्रवाल, रूप साहू, श्रुति गुप्ता, आस्था जोशी, धैर्य दण्ड, प्रीतम पेबम</font>
+<font>राहूल रूपचंद जिडगे, नारायना रेड्डी, अयाज़ आलम, हर्षित बुध्दराजा, सुमित अग्रवाल, रूप साहू, श्रुति गुप्ता, आस्था जोशी, धैर्य दण्ड, प्रीतम पेबम</font>
 </ul>
 
 <ul>

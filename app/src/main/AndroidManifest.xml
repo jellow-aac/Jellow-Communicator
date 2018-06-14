@@ -113,6 +113,11 @@
             android:screenOrientation="landscape" />
 
         <service android:name="com.dsource.idc.jellowintl.utility.JellowTTSService" />
+        <service android:name=".utility.JellowFirebaseMessageService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
 
         <activity
             android:name="com.dsource.idc.jellowintl.LanguageDownloadActivity"

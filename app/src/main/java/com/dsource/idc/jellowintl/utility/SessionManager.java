@@ -308,6 +308,42 @@ public class SessionManager {
         return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.random_val));
     }
 
+
+ /**
+  * Ayaz
+  * */
+    public void setLanguageChange(int code)
+    {
+        final int CHANGED=1;
+        final int CREATE_DATABASE=0;
+        final int NO_CHANGE=2;
+        if(code==CHANGED)
+            storePreferenceKeyWithValue(String.class.toString(),mContext.getString(R.string.lang_change_code),"Yes");
+        else if(code==CREATE_DATABASE)
+            storePreferenceKeyWithValue(String.class.toString(),mContext.getString(R.string.lang_change_code),"Create");
+        else if(code==NO_CHANGE)
+            storePreferenceKeyWithValue(String.class.toString(),mContext.getString(R.string.lang_change_code),"No");
+
+
+
+    }
+
+    public int isLanguageChanged()
+    {
+        final int CHANGED=1;
+        final int CREATE_DATABASE=0;
+        final int NO_CHANGE=2;
+
+        String lang_change=(String)retrievePreferenceKeyWithValue(String.class.toString(),mContext.getString(R.string.lang_change_code));
+        if(lang_change.equals("Yes"))
+            return CHANGED;
+        else if(lang_change.equals("Create"))
+            return CREATE_DATABASE;
+        else return NO_CHANGE;
+
+    }
+
+
     private void storePreferenceKeyWithValue(String classType, String key, Object val){
         if (classType.equals(Integer.class.toString()))
             mEditor.putInt(key, (Integer) val).commit();
@@ -335,4 +371,5 @@ public class SessionManager {
             valueOfKey = mPreferences.getString(key, "");
         return valueOfKey;
     }
+
 }

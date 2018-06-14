@@ -1,11 +1,12 @@
 package com.dsource.idc.jellowintl;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
-import android.provider.Settings;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -21,14 +22,19 @@ import android.widget.TextView;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dsource.idc.jellowintl.utility.IconDataBaseHelper;
 import com.dsource.idc.jellowintl.utility.JellowIcon;
+import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptionsExtension;
 
 import java.io.File;
 import java.util.ArrayList;
 
+import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
+import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
+import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 
 
 /*
@@ -53,11 +59,20 @@ public class SearchActivity extends AppCompatActivity {
     //This variable holds the text that user has searched
     private String notFoundIconText="Null";
 
+    private int beforeTextChanged;
+    private int afterTextChanged;
+    private boolean firedEvent=false;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         getWindow().setGravity(Gravity.LEFT);
+
+        // Reference to the icon database to get access to the Icon list.
+        final IconDataBaseHelper iconDatabase=new IconDataBaseHelper(this);
 
         // To Close on touch outside
         (findViewById(R.id.search_layout)).setOnClickListener(new View.OnClickListener() {
@@ -72,10 +87,7 @@ public class SearchActivity extends AppCompatActivity {
                 finish();
             }
         });
-        /*
-        * Reference to the icon database to get access to the Icon list.
-        */
-        final IconDataBaseHelper iconDatabase=new IconDataBaseHelper(this);
+
         EditText SearchEditText=findViewById(R.id.search_auto_complete);
         //Initialising the fields
         initFields();
@@ -83,14 +95,16 @@ public class SearchActivity extends AppCompatActivity {
         SearchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                beforeTextChanged=s.length();
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //Reset Icon not found tag
                 iconNotFound=false;
+                afterTextChanged=s.length();
                 //Getting the string to search in the database
                 String query=s.toString().trim();
+
                 /**
                  * {@link IconDataBaseHelper.query(String)} returns a {@link ArrayList< JellowIcon >}  object
                  * having all the JellowIcon matching the database
@@ -111,6 +125,23 @@ public class SearchActivity extends AppCompatActivity {
                     iconList.add(noIconFound);
                 }
 
+                if(beforeTextChanged>afterTextChanged)
+                {
+                    if((!firedEvent)&&iconNotFound) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("NotFoundName", notFoundIconText);
+                        bundleEvent("IconNotFound", bundle);
+                        firedEvent = true;
+                    }
+                }
+                else
+                {
+                    firedEvent=false;
+                }
+
+
+
+
                 //List should have atleast one Item
                 if(iconList.size()>0)
                 adapter.notifyDataSetChanged();
@@ -126,6 +157,36 @@ public class SearchActivity extends AppCompatActivity {
 
 
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!isAnalyticsActive()){
+            throw new Error("unableToResume");
+        }
+        if(Build.VERSION.SDK_INT > 25 &&
+                !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
+            startService(new Intent(getApplication(), JellowTTSService.class));
+        }
+        // Start measuring user app screen timer.
+        startMeasuring();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        ///Check if pushId is older than 24 hours (86400000 millisecond).
+        // If yes then create new pushId (user session)
+        // If no then do not create new pushId instead user existing and
+        // current session time is saved.
+        SessionManager session = new SessionManager(this);
+        long sessionTime = validatePushId(session.getSessionCreatedAt());
+        session.setSessionCreatedAt(sessionTime);
+
+        // Stop measuring user app screen timer.
+        stopMeasuring("SearchActivity");
     }
 
     private void initFields() {
@@ -137,14 +198,12 @@ public class SearchActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext((LanguageHelper.onAttach(newBase)));
     }
 
 }
-
 
 /**
  * This is a different class namde {@link SearchViewIconAdapter}
@@ -172,6 +231,9 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
                 @Override
                 public void onClick(View v) {
                     speakSpeech(mDataSource.get(getAdapterPosition()).IconTitle);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("SearchGridIconClicked",mDataSource.get(getAdapterPosition()).IconTitle);
+                    bundleEvent("SearchGridIcon", bundle);
                 }
             });
             v.setOnClickListener(this);
@@ -194,6 +256,7 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
                 bundleEvent("SearchedIcons", bundle);
                 target.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 mContext.startActivity(target);
+                
             }
         }
     }

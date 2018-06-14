@@ -25,11 +25,11 @@ import android.widget.LinearLayout;
 
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.models.LevelThreeVerbiageModel;
+import com.dsource.idc.jellowintl.utility.CustomGridLayoutManager;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.IndexSorter;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
-import com.dsource.idc.jellowintl.utility.CustomGridLayoutManager;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.google.gson.Gson;
 
@@ -264,7 +264,7 @@ public class LevelThreeActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_main_with_search, menu);
         return true;
     }
 
@@ -601,6 +601,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                     if (getIntent().getExtras().getString(getString(R.string.from_search)).
                             equals(getString(R.string.search_tag))) {
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        finish();
                     }
                 }
                     else {

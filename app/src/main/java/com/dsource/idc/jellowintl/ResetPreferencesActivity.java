@@ -57,6 +57,7 @@ public class ResetPreferencesActivity extends AppCompatActivity {
                 myDbHelper.delete();
                 session.resetUserPeoplePlacesPreferences();
                 session.setCompletedDbOperations(false);
+                session.setLanguageChange(0);
                 startActivity(new Intent(getApplicationContext(), SplashActivity.class));
                 Crashlytics.log("ResetPref Yes");
                 finishAffinity();
@@ -79,7 +80,6 @@ public class ResetPreferencesActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.search: startActivity(new Intent(this, SearchActivity.class));break;
             case R.id.languageSelect: startActivity(new Intent(this, LanguageSelectActivity.class)); finish(); break;
             case R.id.profile: startActivity(new Intent(this, ProfileFormActivity.class)); finish(); break;
             case R.id.info: startActivity(new Intent(this, AboutJellowActivity.class)); finish(); break;

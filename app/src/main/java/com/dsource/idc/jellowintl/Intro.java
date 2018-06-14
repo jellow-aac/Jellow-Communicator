@@ -38,6 +38,8 @@ public class Intro extends AppIntro {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.intro_to_jellow)+"</font>"));
+        //Set the language database create preference
+        new SessionManager(this).setLanguageChange(0);
         // Initialize default exception handler for this activity.
         // If any exception occurs during this activity usage,
         // handle it using default exception handler.
@@ -139,9 +141,7 @@ public class Intro extends AppIntro {
                 if ((session.getLanguage().equals(ENG_IN) && mTTsDefaultLanguage.equals(HI_IN)) ||
                     (!session.getLanguage().equals(ENG_IN) && session.getLanguage().equals(mTTsDefaultLanguage))) {
                     session.setCompletedIntro(true);
-                    //Create the iconset database as we know the it doesn't exists
                     Intent intent=new Intent(Intro.this, SplashActivity.class);
-                    intent.putExtra(getString(R.string.lang_change_code),getString(R.string.first_time_login));
                     startActivity(intent);
                     finish();
                 } else {
@@ -151,7 +151,6 @@ public class Intro extends AppIntro {
             }else {
                 session.setCompletedIntro(true);
                 Intent intent=new Intent(Intro.this, SplashActivity.class);
-                intent.putExtra(getString(R.string.lang_change_code),getString(R.string.first_time_login));
                 startActivity(intent);
                 finish();
             }

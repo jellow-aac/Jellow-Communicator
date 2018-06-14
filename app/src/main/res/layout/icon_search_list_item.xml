@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="@dimen/search_list_margin"
+    android:layout_marginRight="4dp"
+    >
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:id="@+id/container"
+        android:layout_height="wrap_content">
+    <ImageView
+        android:layout_centerVertical="true"
+        android:layout_width="@dimen/search_list_icon_size"
+        android:layout_height="@dimen/search_list_icon_size"
+        android:id="@+id/search_icon_drawable"
+        android:layout_margin="@dimen/search_list_margin"
+        />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_toRightOf="@id/search_icon_drawable"
+        android:layout_centerVertical="true"
+        android:layout_margin="@dimen/search_list_margin"
+        >
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/search_icon_title"
+        android:textSize="@dimen/search_list_title_text_size"
+        android:text="Query Result"
+        android:textColor="@color/black_80"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/parent_directory"
+        android:text="parent directory"
+        android:textSize="@dimen/search_list_dir_text_size"
+        android:maxWidth="@dimen/search_dir_width"
+        android:textColor="@color/search_list_dir_hint"
+        android:layout_marginLeft="@dimen/search_list_margin"
+        android:layout_marginBottom="@dimen/search_list_margin"
+        />
+    </LinearLayout>
+    <ImageView
+        android:layout_width="@dimen/search_list_icon_size"
+        android:foregroundGravity="center"
+        android:elevation="4dp"
+        android:padding="2dp"
+        android:layout_height="@dimen/search_list_icon_size"
+        android:src="@drawable/ic_search_list_speaker"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="@dimen/search_list_margin"
+        android:id="@+id/speak_button"
+        />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_marginTop="@dimen/divider_margin"
+        android:layout_below="@id/container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:background="@color/search_list_divider" />
+
+</RelativeLayout>

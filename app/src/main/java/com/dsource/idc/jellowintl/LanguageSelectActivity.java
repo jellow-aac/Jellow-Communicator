@@ -432,7 +432,6 @@ public class LanguageSelectActivity extends AppCompatActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.search: startActivity(new Intent(this, SearchActivity.class));break;
             case R.id.settings: startActivity(new Intent(getApplication(), SettingActivity.class)); finish(); break;
             case R.id.profile: startActivity(new Intent(this, ProfileFormActivity.class)); finish(); break;
             case R.id.info: startActivity(new Intent(this, AboutJellowActivity.class)); finish(); break;
@@ -504,8 +503,8 @@ public class LanguageSelectActivity extends AppCompatActivity{
         setUserProperty("UserLanguage", LangMap.get(selectedLanguage));
         setCrashlyticsCustomKey("UserLanguage",  LangMap.get(selectedLanguage));
         Toast.makeText(LanguageSelectActivity.this, mLangChanged, Toast.LENGTH_SHORT).show();
-        Intent intent=new Intent(getApplicationContext(),SplashActivity.class);
-        intent.putExtra(getString(R.string.lang_change_code),getString(R.string.lang_change));
+        Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
+        mSession.setLanguageChange(1);
         startActivity(intent);
         finishAffinity();
     }

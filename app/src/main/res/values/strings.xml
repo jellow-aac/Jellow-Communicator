@@ -181,7 +181,7 @@
 
 <ul>
 <li><strong>Software Development: </strong></li>
-<font>Rahul Rupchand Jidge, Narayana Reddy, Ayaz Alam, Sumeet Agrawal, Roop Sahoo, Shruti Gupta, Aastha Joshi, Dhairya Dand, Pritam Pebam</font>
+<font>Rahul Rupchand Jidge, Narayana Reddy, Ayaz Alam, Harshit Budhraja, Sumeet Agrawal, Roop Sahoo, Shruti Gupta, Aastha Joshi, Dhairya Dand, Pritam Pebam</font>
 </ul>
 
 <ul>
@@ -330,4 +330,9 @@
     <string name="search_tag" translatable="false">SEARCH</string>
     <string name="icon_not_found">Icon not found</string>
     <string name="not_found" translatable="false">NOT_FOUND</string>
+    <string name="wait_text">Please wait...</string>
+    <string name="no_internet">No Internet</string>
+    <string name="please_wait">Please wait...</string>
+
+
 </resources>

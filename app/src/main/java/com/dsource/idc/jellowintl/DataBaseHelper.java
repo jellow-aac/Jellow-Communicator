@@ -23,11 +23,9 @@ import java.util.StringTokenizer;
  * Created by ekalpa on 6/27/2016.
  */
 
-class DataBaseHelper extends SQLiteOpenHelper {
+public class DataBaseHelper extends SQLiteOpenHelper {
 
     //The Android's default system path of your application database.
-    //private static String DB_PATH = "/data/data/com.dsource.idc.jellowintl/databases/";
-
     private static String DB_PATH = BuildConfig.DEBUG ? "/data/data/com.dsource.idc.jellowintl.debug/databases/" :
                                                         "/data/data/com.dsource.idc.jellowintl/databases/";
     private static String DB_NAME = "level3.db";
