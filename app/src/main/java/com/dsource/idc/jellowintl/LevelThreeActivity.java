@@ -1187,7 +1187,8 @@ public class LevelThreeActivity extends AppCompatActivity {
                 getString(R.string.levelThreeVerbiage17) +
                 getString(R.string.levelThreeVerbiage18) +
                 getString(R.string.levelThreeVerbiage19) +
-                getString(R.string.levelThreeVerbiage20);
+                getString(R.string.levelThreeVerbiage20) +
+                getString(R.string.levelThreeVerbiage21);
         LevelThreeVerbiageModel mLevelThreeVerbiageModel = new Gson().
                 fromJson(verbString, LevelThreeVerbiageModel.class);
         mNewVerbTxt = mLevelThreeVerbiageModel.getVerbiageModel()
