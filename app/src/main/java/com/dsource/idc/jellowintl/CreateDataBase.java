@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 
 import com.dsource.idc.jellowintl.utility.IconDataBaseHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
-import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class CreateDataBase extends AsyncTask {
     Context mContext;

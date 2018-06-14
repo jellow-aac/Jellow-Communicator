@@ -3,9 +3,8 @@ package com.dsource.idc.jellowintl;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
-import android.provider.Settings;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -195,6 +194,9 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
                 @Override
                 public void onClick(View v) {
                     speakSpeech(mDataSource.get(getAdapterPosition()).IconTitle);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("SearchGridIconClicked",mDataSource.get(getAdapterPosition()).IconTitle);
+                    bundleEvent("SearchGridIcon", bundle);
                 }
             });
             v.setOnClickListener(this);
@@ -217,6 +219,7 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
                 bundleEvent("SearchedIcons", bundle);
                 target.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 mContext.startActivity(target);
+                
             }
         }
     }

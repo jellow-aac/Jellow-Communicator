@@ -52,7 +52,6 @@ dependencies {
     implementation 'com.github.paolorotolo:appintro:4.1.0'
     implementation 'com.hbb20:ccp:2.1.2'
 
-    implementation "com.github.thomper:sweet-alert-dialog:v1.4.0"
 }
 
 
