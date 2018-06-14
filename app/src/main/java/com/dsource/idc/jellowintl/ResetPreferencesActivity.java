@@ -57,6 +57,7 @@ public class ResetPreferencesActivity extends AppCompatActivity {
                 myDbHelper.delete();
                 session.resetUserPeoplePlacesPreferences();
                 session.setCompletedDbOperations(false);
+                session.setLanguageChange(0);
                 startActivity(new Intent(getApplicationContext(), SplashActivity.class));
                 Crashlytics.log("ResetPref Yes");
                 finishAffinity();

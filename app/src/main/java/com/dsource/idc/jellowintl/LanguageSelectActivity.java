@@ -504,8 +504,8 @@ public class LanguageSelectActivity extends AppCompatActivity{
         setUserProperty("UserLanguage", LangMap.get(selectedLanguage));
         setCrashlyticsCustomKey("UserLanguage",  LangMap.get(selectedLanguage));
         Toast.makeText(LanguageSelectActivity.this, mLangChanged, Toast.LENGTH_SHORT).show();
-        Intent intent=new Intent(getApplicationContext(),SplashActivity.class);
-        intent.putExtra(getString(R.string.lang_change_code),getString(R.string.lang_change));
+        Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
+        mSession.setLanguageChange(1);
         startActivity(intent);
         finishAffinity();
     }

@@ -7,7 +7,6 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.dsource.idc.jellowintl.R;
 
@@ -36,7 +35,7 @@ public class IconDataBaseHelper extends SQLiteOpenHelper {
             {ICON_ID, ICON_TITLE,ICON_DRAWABLE,KEY_P1,KEY_P2,KEY_P3};
     // Build the SQL query that creates the table.
     private static final String ICON_LIST_TABLE_CREATE =
-            "CREATE TABLE IF NOT EXISTS " + ICON_LIST_TABLE + " (" + ICON_ID + " INTEGER PRIMARY KEY, "
+            "CREATE TABLE " + ICON_LIST_TABLE + " (" + ICON_ID + " INTEGER PRIMARY KEY, "
                     + ICON_TITLE + " TEXT," //Icon Title
                     + ICON_DRAWABLE + " TEXT,"//Icon's Drawable resource
                     + KEY_P1 + " INTERGER,"//Level 1 parent
@@ -50,7 +49,6 @@ public class IconDataBaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(ICON_LIST_TABLE_CREATE);
     }
 
 
@@ -69,55 +67,51 @@ public class IconDataBaseHelper extends SQLiteOpenHelper {
         // Create a container for the data.
         ContentValues values = new ContentValues();
         //Filling the database for level 1 JellowIcon
-        String[] levelOneIcon=context.getResources().getStringArray(R.array.arrLevelOneIconAdapter);
-        String[] levelOneTitles=context.getResources().getStringArray(R.array.arrLevelOneActionBarTitle);
+        String[] levelOneIcon = context.getResources().getStringArray(R.array.arrLevelOneIconAdapter);
+        String[] levelOneTitles = context.getResources().getStringArray(R.array.arrLevelOneActionBarTitle);
         //Level 1 JellowIcon
-        for (int i=0; i < levelOneIcon.length;i++) {
+        for (int i = 0; i < levelOneIcon.length; i++) {
             // Put column/value pairs into the container. put() overwrites existing values.
             values.put(ICON_TITLE, levelOneTitles[i]);
-            values.put(ICON_DRAWABLE,levelOneIcon[i]);
-            values.put(KEY_P1,i);
-            values.put(KEY_P2,-1);
-            values.put(KEY_P3,-1);
+            values.put(ICON_DRAWABLE, levelOneIcon[i]);
+            values.put(KEY_P1, i);
+            values.put(KEY_P2, -1);
+            values.put(KEY_P3, -1);
             db.insert(ICON_LIST_TABLE, null, values);
         }
         //Filling the database for Level 2
-        for(int i=0;i<levelOneIcon.length;i++)
-        {
-            String[] levelTwoIcons=getIconLevel2(i);
-            String[] levelTwoTitles=getIconTitleLevel2(i);
-            for(int j=0;j<levelTwoIcons.length;j++)
-            {
+        for (int i = 0; i < levelOneIcon.length; i++) {
+            String[] levelTwoIcons = getIconLevel2(i);
+            String[] levelTwoTitles = getIconTitleLevel2(i);
+            for (int j = 0; j < levelTwoIcons.length; j++) {
                 // Put column/value pairs into the container. put() overwrites existing values.
                 values.put(ICON_TITLE, levelTwoTitles[j]);
-                values.put(ICON_DRAWABLE,levelTwoIcons[j]);
-                values.put(KEY_P1,i);
-                values.put(KEY_P2,j);
-                values.put(KEY_P3,-1);
+                values.put(ICON_DRAWABLE, levelTwoIcons[j]);
+                values.put(KEY_P1, i);
+                values.put(KEY_P2, j);
+                values.put(KEY_P3, -1);
                 db.insert(ICON_LIST_TABLE, null, values);
-              }
+            }
         }
         //Filling the database for Level Three
-        for(int i=0;i<levelOneIcon.length;i++)
-        {
-            String[] levelTwoIcons=getIconLevel2(i);
-            for(int j=0;j<levelTwoIcons.length;j++)
-            {
-                noChildInThird =false;
-                if(loadArraysFromResources(i,j)) {
+        for (int i = 0; i < levelOneIcon.length; i++) {
+            String[] levelTwoIcons = getIconLevel2(i);
+            for (int j = 0; j < levelTwoIcons.length; j++) {
+                noChildInThird = false;
+                if (loadArraysFromResources(i, j)) {
                     if (thirdLevelTitles != null) {
                         String[] levelThreeIcons = thirdLevelIcons;
                         String[] levelThreeTitle = thirdLevelTitles;
                         for (int k = 0; k < thirdLevelTitles.length; k++) {
-                         // Put column/value pairs into the container. put() overwrites existing values.
-                         if(noChildInThird)
-                             break;
-                         values.put(ICON_TITLE, levelThreeTitle[k]);
-                         values.put(ICON_DRAWABLE, levelThreeIcons[k]);
-                         values.put(KEY_P1, i);
-                         values.put(KEY_P2, j);
-                         values.put(KEY_P3, k);
-                         db.insert(ICON_LIST_TABLE, null, values);
+                            // Put column/value pairs into the container. put() overwrites existing values.
+                            if (noChildInThird)
+                                break;
+                            values.put(ICON_TITLE, levelThreeTitle[k]);
+                            values.put(ICON_DRAWABLE, levelThreeIcons[k]);
+                            values.put(KEY_P1, i);
+                            values.put(KEY_P2, j);
+                            values.put(KEY_P3, k);
+                            db.insert(ICON_LIST_TABLE, null, values);
                         }
 
                     }
@@ -125,6 +119,8 @@ public class IconDataBaseHelper extends SQLiteOpenHelper {
 
             }
         }
+        //Reset the language code
+        new SessionManager(context).setLanguageChange(2);
     }
 
     /**
@@ -229,6 +225,7 @@ public class IconDataBaseHelper extends SQLiteOpenHelper {
             //Catch Query Exception
         } finally {
             // Must close cursor and db now that we are done with it.
+            if (cursor!=null)
             cursor.close();
             return iconList;
         }

@@ -241,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES");
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_TTS_ERROR");
         registerReceiver(receiver, filter);
-        // Start measuring user app screen timer.
+       // Start measuring user app screen timer.
         startMeasuring();
     }
 
