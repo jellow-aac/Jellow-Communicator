@@ -1,8 +1,10 @@
 package com.dsource.idc.jellowintl;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,13 +22,19 @@ import android.widget.TextView;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dsource.idc.jellowintl.utility.IconDataBaseHelper;
 import com.dsource.idc.jellowintl.utility.JellowIcon;
+import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.io.File;
 import java.util.ArrayList;
 
+import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
+import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
+import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
+import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 
 
 /*
@@ -150,6 +158,35 @@ public class SearchActivity extends AppCompatActivity {
 
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!isAnalyticsActive()){
+            throw new Error("unableToResume");
+        }
+        if(Build.VERSION.SDK_INT > 25 &&
+                !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
+            startService(new Intent(getApplication(), JellowTTSService.class));
+        }
+        // Start measuring user app screen timer.
+        startMeasuring();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        ///Check if pushId is older than 24 hours (86400000 millisecond).
+        // If yes then create new pushId (user session)
+        // If no then do not create new pushId instead user existing and
+        // current session time is saved.
+        SessionManager session = new SessionManager(this);
+        long sessionTime = validatePushId(session.getSessionCreatedAt());
+        session.setSessionCreatedAt(sessionTime);
+
+        // Stop measuring user app screen timer.
+        stopMeasuring("SearchActivity");
     }
 
     private void initFields() {

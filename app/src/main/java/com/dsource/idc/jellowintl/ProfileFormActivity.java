@@ -119,7 +119,7 @@ public class ProfileFormActivity extends AppCompatActivity {
         String contact = mSession.getCaregiverNumber().replace(
                 "+".concat(mSession.getUserCountryCode()),"");
         //Extra 5 digits are taken out from contact.
-        contact = contact.substring(0,contact.length()-5);
+        contact = contact.substring(0,contact.length()-3);
         etFatherContact.setText(contact);
         etFathername.setText(mSession.getCaregiverName());
         etAddress.setText(mSession.getAddress());
@@ -206,7 +206,6 @@ public class ProfileFormActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.search: startActivity(new Intent(this, SearchActivity.class));break;
             case R.id.languageSelect: startActivity(new Intent(this, LanguageSelectActivity.class)); finish(); break;
             case R.id.info: startActivity(new Intent(this, AboutJellowActivity.class)); finish(); break;
             case R.id.usage: startActivity(new Intent(this, TutorialActivity.class)); finish(); break;
@@ -508,7 +507,7 @@ public class ProfileFormActivity extends AppCompatActivity {
                 String extraValContact = mCcp.getFullNumberWithPlus() +
                         mSession.getExtraValToContact();
                 if(!extraValContact.equals(mSession.getCaregiverNumber())){
-                    mSession.setExtraValToContact(String.valueOf(new Random().nextInt(90001) + 10000));
+                    mSession.setExtraValToContact(String.valueOf(new Random().nextInt(900) + 100));
                     String newContact = mContact.concat(mSession.getExtraValToContact());
                     DatabaseReference mNewRef = mDB.getReference(BuildConfig.DB_TYPE
                             + "/users/" + maskNumber(newContact)

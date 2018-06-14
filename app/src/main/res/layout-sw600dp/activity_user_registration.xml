@@ -71,14 +71,16 @@
                     app:ccpDialog_showCloseIcon="true"
                     app:ccp_countryPreference="IN,US,GB"
                     app:ccp_autoDetectCountry="true"
+                    app:ccp_autoFormatNumber="false"
                     app:ccpDialog_keyboardAutoPopup="false"
                     app:ccpDialog_backgroundColor="@color/colorIntro"/>
                 <EditText
+                    android:id="@+id/etEmergencyContact"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:inputType="phone"
-                    android:id="@+id/etEmergencyContact"
+                    android:maxLength="12"
                     android:imeOptions="actionDone"/>
             </LinearLayout>
             <TextView

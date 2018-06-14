@@ -81,6 +81,7 @@
                     app:ccpDialog_showCloseIcon="true"
                     app:ccp_countryPreference="IN,US,GB"
                     app:ccp_autoDetectCountry="true"
+                    app:ccp_autoFormatNumber="false"
                     app:ccpDialog_keyboardAutoPopup="false"
                     app:ccpDialog_backgroundColor="@color/colorIntro"/>
                 <EditText
@@ -89,6 +90,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="phone"
                     android:textSize="14sp"
+                    android:maxLength="12"
                     android:imeOptions="actionDone" />
             </LinearLayout>
                 <TextView
