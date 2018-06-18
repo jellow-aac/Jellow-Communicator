@@ -111,7 +111,7 @@
         <item>level2_places_hospital</item>
         <item>level2_places_clinic</item>
         <item>level2_places_library</item>
-        <item>level2_places_terr</item>
+        <item>balcony</item>
     </string-array>
 
     <!--LEVEL TWO ENGLISH ADAPTER TEXT ARE HERE-->

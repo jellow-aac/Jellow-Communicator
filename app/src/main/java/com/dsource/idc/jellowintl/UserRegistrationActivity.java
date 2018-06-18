@@ -42,6 +42,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
@@ -86,6 +87,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_registration);
+        FirebaseMessaging.getInstance().subscribeToTopic("jellow_aac");
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.app_name)+"</font>"));
 
         mSession = new SessionManager(this);
@@ -178,10 +180,10 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 // extra 5 random digits are added to emergency contact and is used as unique
                 // identifier. Extra 5 digits are added to surpass Firebase behavior.
                 // Random number generator logic:
-                // max = 100000 and min = 10000
+                // max = 1000 and min = 100
                 // num = new Random().nextInt((max - min)+1) + min
-                // This will ensure 5 digit random number.
-                mSession.setExtraValToContact(String.valueOf(new Random().nextInt(90001) + 10000));
+                // This will ensure 3 digit random number.
+                mSession.setExtraValToContact(String.valueOf(new Random().nextInt(900) + 100));
                 emergencyContact = mCcp.getFullNumber().concat(mSession.getExtraValToContact());
                 if(etEmergencyContact.getText().toString().isEmpty()){
                     bRegister.setEnabled(true);

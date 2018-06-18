@@ -28,11 +28,11 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.dsource.idc.jellowintl.models.LevelTwoVerbiageModel;
+import com.dsource.idc.jellowintl.utility.CustomGridLayoutManager;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.IndexSorter;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
-import com.dsource.idc.jellowintl.utility.CustomGridLayoutManager;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.google.gson.Gson;
 
@@ -291,7 +291,7 @@ public class LevelTwoActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_main_with_search, menu);
         return true;
     }
 
@@ -2177,6 +2177,9 @@ public class LevelTwoActivity extends AppCompatActivity {
      * {@link MainActivity}.</p>
      * */
     public void startCall(String contact){
+        //removing extra digits (these digits are added to make mobile number unique)
+        // stored during registration.
+        contact = contact.substring(0, contact.length()-3);
         Intent callIntent = new Intent(Intent.ACTION_CALL);
         callIntent.setData(Uri.parse(contact));
         startActivity(callIntent);
