@@ -71,11 +71,14 @@ public class LanguageDownloadActivity extends AppCompatActivity {
             @Override
             public void onComplete() {
                 mSession.setDownloaded(langCode);
-                Toast.makeText(LanguageDownloadActivity.this, strLanguageDownloaded
-                        .replace("_", LangValueMap.get(langCode)), Toast.LENGTH_SHORT).show();
-                if(tutorial)
-                    startActivity(new Intent(LanguageDownloadActivity.this,Intro.class));
-                else if(finish)
+                if(!tutorial)
+                    mSession.setToastMessage(strLanguageDownloaded
+                        .replace("_", LangValueMap.get(langCode)));
+                if(tutorial) {
+                    Toast.makeText(LanguageDownloadActivity.this, strLanguageDownloaded
+                            .replace("_", LangValueMap.get(langCode)), Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(LanguageDownloadActivity.this, Intro.class));
+                }else if(finish)
                 {
                     Intent intent=new Intent(LanguageDownloadActivity.this,SplashActivity.class);
                     startActivity(intent);

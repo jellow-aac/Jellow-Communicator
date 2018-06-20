@@ -177,15 +177,16 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 }
                 // Emergency contact is contact number of a caregiver/teacher/parent/therapist.
                 // of a child. The contact with country code without preceding '+' and succeding
-                // extra 5 random digits are added to emergency contact and is used as unique
-                // identifier. Extra 5 digits are added to surpass Firebase behavior.
+                // extra 3 random digits are added to emergency contact and is used as unique
+                // identifier. Extra 3 digits are added to surpass Firebase behavior.
                 // Random number generator logic:
                 // max = 1000 and min = 100
                 // num = new Random().nextInt((max - min)+1) + min
                 // This will ensure 3 digit random number.
                 mSession.setExtraValToContact(String.valueOf(new Random().nextInt(900) + 100));
                 emergencyContact = mCcp.getFullNumber().concat(mSession.getExtraValToContact());
-                if(etEmergencyContact.getText().toString().isEmpty()){
+                if(etEmergencyContact.getText().toString().isEmpty() ||
+                        !etEmergencyContact.getText().toString().matches("[0-9]*")){
                     bRegister.setEnabled(true);
                     Toast.makeText(getBaseContext(), getString(R.string.enternonemptycontact),
                             Toast.LENGTH_SHORT).show();

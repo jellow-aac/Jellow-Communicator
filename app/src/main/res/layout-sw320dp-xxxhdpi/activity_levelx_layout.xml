@@ -103,6 +103,7 @@
         android:orientation="vertical">
         <EditText
             android:id="@+id/et"
+            android:imeOptions="flagNoExtractUi"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:textSize="20sp"/>

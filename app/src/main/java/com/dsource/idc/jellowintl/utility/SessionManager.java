@@ -308,6 +308,14 @@ public class SessionManager {
         return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.random_val));
     }
 
+    public void setToastMessage(String message) {
+        storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.string_msg), message);
+    }
+
+    public String getToastMessage(){
+        return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.string_msg));
+    }
+
 
  /**
   * Ayaz
@@ -371,5 +379,4 @@ public class SessionManager {
             valueOfKey = mPreferences.getString(key, "");
         return valueOfKey;
     }
-
 }

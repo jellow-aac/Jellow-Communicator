@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.crashlytics.android.Crashlytics;
@@ -145,6 +146,11 @@ public class SequenceActivity extends AppCompatActivity {
         }
         // Start measuring user app screen timer .
         startMeasuring();
+        if(!mSession.getToastMessage().isEmpty()) {
+            Toast.makeText(getApplicationContext(),
+                    mSession.getToastMessage(), Toast.LENGTH_SHORT).show();
+            mSession.setToastMessage("");
+        }
     }
 
     @Override
@@ -651,15 +657,16 @@ public class SequenceActivity extends AppCompatActivity {
         mIvHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Firebase event
-                singleEvent("Navigation","Home");
+                speakSpeech(mNavigationBtnTxt[0]);
+                //When home is tapped in this activity it will close all other activities and
+                // user is redirected/navigated to MainActivity and gotoHome() method is called.
+                // As Firebase home event is defined in gotoHome() function of mainActivity.
                 mIvHome.setImageResource(R.drawable.home_pressed);
                 mIvKeyboard.setImageResource(R.drawable.keyboard);
-                speakSpeech(mNavigationBtnTxt[0]);
-                //setting up result code to RESULT_CANCELED, is used in returning activity.
-                // This imply that user pressed the home button in level three activity.
-                setResult(RESULT_CANCELED);
-                finish();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra(getString(R.string.goto_home), true);
+                startActivity(intent);
+                finishAffinity();
             }
         });
     }

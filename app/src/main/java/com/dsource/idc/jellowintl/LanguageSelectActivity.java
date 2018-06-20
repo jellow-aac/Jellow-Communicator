@@ -414,6 +414,12 @@ public class LanguageSelectActivity extends AppCompatActivity{
             getSpeechLanguage("");
         if(mSelectedItem != -1)
             languageSelect.setSelection(mSelectedItem);
+
+        if(!mSession.getToastMessage().isEmpty()) {
+            Toast.makeText(getApplicationContext(),
+                    mSession.getToastMessage(), Toast.LENGTH_SHORT).show();
+            mSession.setToastMessage("");
+        }
     }
 
     @Override

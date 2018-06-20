@@ -1,7 +1,37 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.2]
+## [1.2.1]  -  20th, June 2018
+### Added
+- Search a category icon from level 1,2,3 and activity sequence screens in the app.
+- Search events.
+- Added notification to inform user about app updates on play store, Jellow workshop schedules and other relevant information.
+- In app call request from Help -> Emergency, wifi only devices will speak icon speech only.
+- Switch to enable or disable call feature in settings.
+- Added new icons in Level Two "People", Level Three
+  "Time and Weather -> Birthdays" and "Places"
+- Added tap response to buttons.
+- Added Firebase Crashlytics.
+
+###Removed
+- Firebase crash reporting tool
+
+###Fixed
+- In profile screen, now user details are encrypted and then stored to Firebase.
+  User can now store all profile details excluding contact offline. User can change contact
+  number when he/she has active Internet connection only.
+- Screen automatically rotated in following cases:
+   1) Home button pressed in LevelThreeActivity or SequenceActivity
+   2) Save button pressed in ProfileFromActivity or SettingsActivity
+   3) Language download finished
+- Firebase user session are not getting stored to respective user data node.
+- Locale of app changed if user locks screen or switches from app to other app and returns back.
+   1) User set Hindi (India) language to app and when user is in AboutJellow screen and locks screen
+    then unlocked screen presses "Speak" button then app speaks english verbiage.
+- Crash after Oreo 8.0 1st April security update.
+- Other issues reported in Firebase crash reporter.
+
+## [1.2.0]    -   19th, March 2018
 ### Added
 - Major additions.
 - New content, verbiage, icons into categories Greet and Feel-> Requests, Daily Activities-> Therapy,

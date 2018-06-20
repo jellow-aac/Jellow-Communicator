@@ -105,6 +105,7 @@
             android:id="@+id/et"
             android:layout_width="match_parent"
             android:layout_height="80dp"
+            android:imeOptions="flagNoExtractUi"
             android:textSize="20sp"/>
         <ImageView
             android:id="@+id/ttsbutton"

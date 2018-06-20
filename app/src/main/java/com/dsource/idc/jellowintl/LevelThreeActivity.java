@@ -22,6 +22,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.models.LevelThreeVerbiageModel;
@@ -165,7 +166,14 @@ public class LevelThreeActivity extends AppCompatActivity {
         }
         // Start measuring user app screen timer .
         startMeasuring();
+        SessionManager session = new SessionManager(this);
+        if(!session.getToastMessage().isEmpty()) {
+            Toast.makeText(getApplicationContext(),
+                    session.getToastMessage(), Toast.LENGTH_SHORT).show();
+            session.setToastMessage("");
+        }
     }
+
     /**
      * This function is responsible for the Highlighting of the searched item from the
      * search activity
@@ -585,33 +593,16 @@ public class LevelThreeActivity extends AppCompatActivity {
         mIvHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Firebase event
-                singleEvent("Navigation","Home");
+                speakSpeech(mNavigationBtnTxt[0]);
+                //When home is tapped in this activity it will close all other activities and
+                // user is redirected/navigated to MainActivity and gotoHome() method is called.
+                // As Firebase home event is defined in gotoHome() function of mainActivity.
                 mIvHome.setImageResource(R.drawable.home_pressed);
                 mIvKeyboard.setImageResource(R.drawable.keyboard);
-                speakSpeech(mNavigationBtnTxt[0]);
-
-
-                /**
-                 * If the intent is fired from the {@link SearchActivity} then do not finish the activity
-                 * because if activity is finished the app will close, inspite of that the {@link MainActivity}
-                 * is launched.
-                 * */
-                if(getIntent().getExtras().getString(getString(R.string.from_search))!=null) {
-                    if (getIntent().getExtras().getString(getString(R.string.from_search)).
-                            equals(getString(R.string.search_tag))) {
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        finish();
-                    }
-                }
-                    else {
-                        //setting up result code to RESULT_CANCELED, is used in returning activity.
-                        // This imply that user pressed the home button in level three activity.
-                        setResult(RESULT_CANCELED);
-                        finish();
-                    }
-
-
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra(getString(R.string.goto_home), true);
+                startActivity(intent);
+                finishAffinity();
             }
         });
     }

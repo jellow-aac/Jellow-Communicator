@@ -60,7 +60,7 @@
     <string name="txtSpeechSpeed">भाषण गति</string>
     <string name="txtVoiceSpeech">आवाज का स्तर</string>
     <string name="txtDisplayMode">प्रदर्शन प्रकार</string>
-    <string name="txtNumOfPerPerScr">प्रति स्क्रीन आइकनों की गिनती</string>
+    <string name="txtNumOfPerPerScr">प्रति स्क्रीन मुख्य वर्ग के आइकनों की गिनती</string>
     <string name="txtDemo">डेमो</string>
     <string name="txtSave">रक्षित करें</string>
     <string name="demoTtsSpeech">नमस्तें! आप जेलो कम्युनिकेटर का उपयोग कर रहे हैं.</string>
@@ -156,12 +156,12 @@
 
 <ul>
 <li><strong>सॉफ्टवेयर का विकास:</strong></li>
-<font>राहूल रूपचंद जिडगे, नारायना रेड्डी, अयाज़ आलम, हर्षित बुध्दराजा, सुमित अग्रवाल, रूप साहू, श्रुति गुप्ता, आस्था जोशी, धैर्य दण्ड, प्रीतम पेबम</font>
+<font>राहूल रूपचंद जिडगे, नारायना रेड्डी, अयाज़ आलम, हर्षित बुध्दराजा, सुमित अग्रवाल, रूप नारायन साहू, श्रुति गुप्ता, आस्था जोशी, धैर्य दण्ड, प्रीतम पेबम</font>
 </ul>
 
 <ul>
 <li><strong>वेबसाइट डिज़ाइन:</strong></li>
-<font>प्राध्यापक. रवि पूवैया, योगेश मासये, सुमेध गरुड़, रूप साहू</font>
+<font>प्राध्यापक. रवि पूवैया, योगेश मासये, सुमेध गरुड़, रूप नारायन साहू</font>
 </ul>
 
 <ul>
@@ -244,7 +244,7 @@
     <string name="change_language_line4">चरण ३: \'गूगल टेक्स्ट-टू-स्पीच इंजन \' को डिफ़ॉल्ट इंजन बनाएँ और _ भाषा को इंजन की डिफ़ॉल्ट भाषा बनाएँ</string>
     <string name="change_tts_lang">टेक्स्ट-टू-स्पीच की  भाषा को रक्षित करें</string>
     <string name="txtApplyChanges">चरण ४: नई भाषा को डिफ़ॉल्ट बनाने के लिये \'भाषा बदलें\' पर क्लिक करें</string>
-    <string name="enternonemptycontact">कृपया संपर्क नंबर दर्ज करें</string>
+    <string name="enternonemptycontact">कृपया संपर्क सही नंबर दर्ज करें</string>
     <string name="txt_intro6_skipTtsSetup">जिन उपकरणों में गूगल टेक्स्ट-टू-स्पीच पहले से ही सक्रिय है, प्रयोगकर्ता इस स्क्रीन को स्वाइप करके आगे बढ़ सकते हैं।</string>
     <string name="change_language_line5">चरण २: देखिये, _ के लिये वॉइस डेटा उपलब्ध है क्या ? अगर नहीं है तो डाउनलोड करें.</string>
     <string name="txt_actLangSel_downloadDat">वॉयस डेटा की जांच करें</string>
