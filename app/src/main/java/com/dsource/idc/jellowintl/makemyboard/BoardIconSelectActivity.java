@@ -45,7 +45,7 @@ public class BoardIconSelectActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         utilF=new UtilFunctions();
         selectionCheckBox=findViewById(R.id.select_deselect_check_box);
-        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
+        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_background));
         initViews();
         prepareLevelSelectPane();
         prepareIconPane(0,-1);
@@ -252,8 +252,9 @@ public class BoardIconSelectActivity extends AppCompatActivity {
 
     private void setSelection(int position) {
         if(previousSelection!=-1)
-        levelSelecterRecycler.getChildAt(previousSelection).setBackground(getResources().getDrawable(R.color.colorIntroSelected));
+        /*levelSelecterRecycler.getChildAt(previousSelection).setBackground(getResources().getDrawable(R.color.colorIntroSelected));
         levelSelecterRecycler.getChildAt(position).setBackground(getResources().getDrawable(R.color.colorIntro));
+        */
         previousSelection =position;
 
     }

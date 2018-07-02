@@ -5,10 +5,10 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
-        android:name="com.dsource.idc.jellowintl.app.AppController"
+        android:name=".app.AppController"
         android:allowBackup="true"
         android:fullBackupContent="@null"
         android:hardwareAccelerated="false"
@@ -17,7 +17,7 @@
         android:largeHeap="true"
         android:theme="@style/AppTheme">
         <service
-            android:name="com.dsource.idc.jellowintl.SimpleIME"
+            android:name=".SimpleIME"
             android:label="@string/simple_ime"
             android:permission="android.permission.BIND_INPUT_METHOD">
             <meta-data
@@ -106,32 +106,39 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name="com.dsource.idc.jellowintl.LevelTwoActivity"
+            android:name=".LevelTwoActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.dsource.idc.jellowintl.LevelThreeActivity"
+            android:name=".LevelThreeActivity"
             android:screenOrientation="landscape" />
 
-        <service android:name="com.dsource.idc.jellowintl.utility.JellowTTSService" />
-        <service android:name=".utility.JellowFirebaseMessageService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-            </intent-filter>
-        </service>
+        <service android:name=".utility.JellowTTSService" />
 
         <activity
-            android:name="com.dsource.idc.jellowintl.LanguageDownloadActivity"
+            android:name=".LanguageDownloadActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name="com.dsource.idc.jellowintl.LanguageSelectActivity"
+        <activity
+            android:name=".LanguageSelectActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="landscape"/>
-            <activity android:name=".SearchActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".SearchActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/search_act_title"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:theme="@style/Theme.AppCompat.Translucent"
-            />
+            android:theme="@style/Theme.AppCompat.Translucent" />
+        <activity
+            android:name=".makemyboard.MyBoards"
+            android:label="@string/my_boards"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".makemyboard.BoardIconSelectActivity"
+            android:label="Select your icons"
+            android:screenOrientation="landscape" />
+        <activity android:name=".makemyboard.EditBoard" />
+        <activity android:name=".JsonConverter.ConverterActivity" />
+        <activity android:name=".NewJellow.NewJellow"></activity>
     </application>
 
 </manifest>

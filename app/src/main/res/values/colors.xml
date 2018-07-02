@@ -70,4 +70,5 @@
 
     <color name="search_highlight">#74dac6</color>
     <color name="green">#289702</color>
+    <color name="dark_base">#EDD99F</color>
 </resources>
