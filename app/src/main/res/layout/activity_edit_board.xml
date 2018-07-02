@@ -6,10 +6,6 @@
     android:background="@color/colorIntro"
     tools:context="com.dsource.idc.jellowintl.makemyboard.EditBoard">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_toRightOf="@id/icon_edit_recycler"
-        android:layout_height="match_parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -133,9 +129,5 @@
                 android:layout_above="@id/relativeLayoutNavigation"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
         </RelativeLayout>
-
-
-
-    </RelativeLayout>
 
 </RelativeLayout>

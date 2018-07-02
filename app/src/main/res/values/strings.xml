@@ -12,6 +12,7 @@
 
 
     <string-array name="bloodgroup">
+
         <item>not selected</item>
         <item>A+ve</item>
         <item>A-ve</item>
@@ -336,6 +337,11 @@
     <string name="please_wait">Please wait...</string>
     <string name="my_boards">My Boards</string>
     <string name="filter_text">Filter</string>
+    <string name="base_ref">jellow-3a90b</string>
+    <string name="testing">testing</string>
+    <string name="verbiage_ref">verbiage_data</string>
+    <string name="lang">En-IN</string>
+    <string name="goto_home">home</string>
 
 
 </resources>

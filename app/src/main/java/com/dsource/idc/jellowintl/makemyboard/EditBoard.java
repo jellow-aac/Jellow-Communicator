@@ -3,7 +3,6 @@ package com.dsource.idc.jellowintl.makemyboard;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -29,10 +28,6 @@ public class EditBoard extends AppCompatActivity {
 
     ArrayList<LeftIconPane> list;
     private void tempRec() {
-
-        RecyclerView recyclerView=findViewById(R.id.icon_edit_recycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
     }
 
 
