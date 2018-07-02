@@ -53,7 +53,7 @@
     <string name="txtSpeechSpeed">Speech Speed</string>
     <string name="txtVoiceSpeech">Voice Pitch</string>
     <string name="txtDisplayMode">Display Mode</string>
-    <string name="txtNumOfPerPerScr">Number of category icons per screen</string>
+    <string name="txtNumOfPerPerScr">Number of icons per screen</string>
     <string name="txtDemo">DEMO</string>
     <string name="txtSave">SAVE</string>
     <string name="demoTtsSpeech">Hello! you are using Jellow Communicator.</string>
@@ -79,8 +79,8 @@
     <string name="locale_reg_us" translatable="false">US</string>
     <string name="locale_lang_en" translatable="false">en</string>
 
-    <string name="aPos" translatable="false">\'A\' Positive</string>
-    <string name="aNeg" translatable="false">\'A\' Negative</string>
+    <string name="aPos" translatable="false">A Positive</string>
+    <string name="aNeg" translatable="false">A Negative</string>
     <string name="bPos" translatable="false">B Positive</string>
     <string name="bNeg" translatable="false">B Negative</string>
     <string name="abPos" translatable="false">A B Positive</string>
@@ -181,12 +181,12 @@
 
 <ul>
 <li><strong>Software Development: </strong></li>
-<font>Rahul Rupchand Jidge, Narayana Reddy, Ayaz Alam, Harshit Budhraja, Sumeet Agrawal, Roopa Narayan Sahoo, Shruti Gupta, Aastha Joshi, Dhairya Dand, Pritam Pebam</font>
+<font>Rahul Rupchand Jidge, Narayana Reddy, Ayaz Alam, Harshit Budhraja, Sumeet Agrawal, Roop Sahoo, Shruti Gupta, Aastha Joshi, Dhairya Dand, Pritam Pebam</font>
 </ul>
 
 <ul>
 <li><strong>Website Design:</strong></li>
-<font>Prof. Ravi Poovaiah, Yogesh Masaye, Sumedh Garud, Roopa Narayan Sahoo</font>
+<font>Prof. Ravi Poovaiah, Yogesh Masaye, Sumedh Garud, Roop Sahoo</font>
 </ul>
 
 <ul>
@@ -275,7 +275,7 @@
     <string name="txt_registration_emailDesc">(To notify you about the release of Jellow updates)</string>
     <string name="txt_registration_selectLangDesc">Select a Language for Jellow</string>
     <string name="txt_registration_registerBtn">REGISTER</string>
-    <string name="enternonemptycontact">Please enter valid contact number</string>
+    <string name="enternonemptycontact">Please enter the contact number</string>
     <string name="change_tts_lang">Set TTS engine language</string>
     <string name="set_engine_language">Please complete step 3</string>
     <string name="change_language_line5">Step 2: Check if voice data for _ is available on your device. If not please download voice data for selected language.</string>
@@ -331,9 +331,11 @@
     <string name="search_tag" translatable="false">SEARCH</string>
     <string name="icon_not_found">Icon not found</string>
     <string name="not_found" translatable="false">NOT_FOUND</string>
+    <string name="wait_text">Please wait...</string>
     <string name="no_internet">No Internet</string>
     <string name="please_wait">Please wait...</string>
-    <string name="goto_home" translatable="false">goto_home</string>
+    <string name="my_boards">My Boards</string>
+    <string name="filter_text">Filter</string>
 
 
 </resources>

@@ -26,6 +26,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.dsource.idc.jellowintl.JsonConverter.ConverterActivity;
+import com.dsource.idc.jellowintl.makemyboard.MyBoards;
 import com.dsource.idc.jellowintl.models.LevelOneVerbiageModel;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
@@ -121,8 +123,7 @@ public class MainActivity extends AppCompatActivity {
         // If device has android version below Lollipop get Text-to-speech language
         if(Build.VERSION.SDK_INT < 21)
             getSpeechLanguage("");
-        if(getIntent().hasExtra(getString(R.string.goto_home)))
-            gotoHome(true);
+
         //This method is invoked when the activity is launched from the SearchActivity
         try {
             String s = getIntent().getExtras().getString(getString(R.string.from_search));
@@ -288,6 +289,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.search:
                 startActivity(new Intent(this, SearchActivity.class));
                 break;
+            case R.id.my_boards:
+                startActivity(new Intent(this, MyBoards.class));
+                break;
             case R.id.languageSelect:
                 startActivity(new Intent(this, LanguageSelectActivity.class));
                 break;
@@ -310,7 +314,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, ResetPreferencesActivity.class));
                 break;
             case R.id.feedback:
-                startActivity(new Intent(this, FeedbackActivity.class));
+                startActivity(new Intent(this, ConverterActivity.class));
                 break;
             default:
                 return super.onOptionsItemSelected(item);
