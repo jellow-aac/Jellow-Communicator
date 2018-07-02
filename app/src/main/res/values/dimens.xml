@@ -24,4 +24,32 @@
     <dimen name="recycler_margin_right">4dp</dimen>
     <dimen name="search_dir_width">120dp</dimen>
     <dimen name="divider_height">1dp</dimen>
+
+    <!--Dimensions related to the icon select in my board-->
+    <dimen name="icon_select_grid_size">70dp</dimen>
+    <dimen name="icon_select_icon_size">60dp</dimen>
+    <dimen name="my_board_button_width">70dp</dimen>
+    <dimen name="my_board_button_height">28dp</dimen>
+    <dimen name="level_select_pane_min_width">200dp</dimen>
+    <dimen name="drop_down_width">100dp</dimen>
+    <dimen name="bottom_nav_bar_padding">10dp</dimen>
+    <dimen name="nav_bar_button_padding">4dp</dimen>
+    <dimen name="icon_title_text_size">11sp</dimen>
+
+    <dimen name="check_box_size">16dp</dimen>
+    <dimen name="level_select_pain_width">140dp</dimen>
+    <dimen name="level_select_pane_text_padding_left">8dp</dimen>
+    <dimen name="level_select_pain_padding_top_bottom">7dp</dimen>
+    <dimen name="level_select_pane_text_size">14sp</dimen>
+    <dimen name="demo_mar">28dp</dimen>
+    <dimen name="extra_mar">40dp</dimen>
+    <dimen name="icon_edit_grid_size">120dp</dimen>
+    <dimen name="icon_edit_icon_size">100dp</dimen>
+    <dimen name="icon_edit_text_size">16sp</dimen>
+    <dimen name="exp_icon_margin_bottom">24dp</dimen>
+    <dimen name="exp_icon_bottom_margin">36dp</dimen>
+    <dimen name="nav_bar_icons_width">90dp</dimen>
+    <dimen name="nav_bar_icon_height">80dp</dimen>
+
+
 </resources>
