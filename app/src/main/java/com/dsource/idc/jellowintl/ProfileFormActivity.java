@@ -118,7 +118,7 @@ public class ProfileFormActivity extends AppCompatActivity {
         mCcp.registerCarrierNumberEditText(etFatherContact);
         String contact = mSession.getCaregiverNumber().replace(
                 "+".concat(mSession.getUserCountryCode()),"");
-        //Extra 5 digits are taken out from contact.
+        //Extra 3 digits are taken out from contact.
         contact = contact.substring(0,contact.length()-3);
         etFatherContact.setText(contact);
         etFathername.setText(mSession.getCaregiverName());
@@ -159,6 +159,13 @@ public class ProfileFormActivity extends AppCompatActivity {
                 if (etName.getText().toString().isEmpty()) {
                     Toast.makeText(getBaseContext(), strEnterName, Toast.LENGTH_SHORT).show();
                     bSave.setEnabled(true);
+                    return;
+                }
+                if(etFatherContact.getText().toString().isEmpty() ||
+                        !etFatherContact.getText().toString().matches("[0-9]*")){
+                    bSave.setEnabled(true);
+                    Toast.makeText(getBaseContext(), getString(R.string.enternonemptycontact),
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
                 email = etEmailId.getText().toString().trim();
@@ -368,8 +375,7 @@ public class ProfileFormActivity extends AppCompatActivity {
         mSession.setUserGroup(userGroup);
         setUserProperty("userGroup", userGroup);
 
-        Toast.makeText(this, mDetailSaved, Toast.LENGTH_SHORT).show();
-
+        mSession.setToastMessage(mDetailSaved);
         // User device is above Lollipop and user changed, saved contact and app does not have call
         // permission then ask user for call permission.
         if(Build.VERSION.SDK_INT > 22 && emergencyContactChanged &&
@@ -503,21 +509,48 @@ public class ProfileFormActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean isConnected) {
             super.onPostExecute(isConnected);
-            if(isConnected){
-                String extraValContact = mCcp.getFullNumberWithPlus() +
-                        mSession.getExtraValToContact();
-                if(!extraValContact.equals(mSession.getCaregiverNumber())){
-                    mSession.setExtraValToContact(String.valueOf(new Random().nextInt(900) + 100));
-                    String newContact = mContact.concat(mSession.getExtraValToContact());
-                    DatabaseReference mNewRef = mDB.getReference(BuildConfig.DB_TYPE
-                            + "/users/" + maskNumber(newContact)
-                            + "/previousRecords/" + maskNumber(mSession.getCaregiverNumber().substring(1)));
-                    moveFirebaseRecord(mRef, mNewRef);
-                }else {
-                    encryptStoreUserInfo(mName, mContact, mEmailId, mCaregiverName, mAddress,
-                            getBloodGroup(), mUserGroup);
-                }
-            }else{
+            String extraValContact = mCcp.getFullNumberWithPlus() +
+                    mSession.getExtraValToContact();
+            //If user not changed the mobile number and encryption data is
+            // available then directly encrypt the data and store it to firebase
+            if(extraValContact.equals(mSession.getCaregiverNumber()) &&
+                !mSession.getEncryptedData().isEmpty()) {
+                encryptStoreUserInfo(etName.getText().toString(),
+                        mSession.getCaregiverNumber().substring(1),
+                        email,
+                        etFathername.getText().toString(),
+                        etAddress.getText().toString(),
+                        getBloodGroup(), mUserGroup);
+            //If user not changed the mobile number and encryption data is
+            // unavailable and user is connected to Internet then
+            // download encryption data and then encrypt the data and store it to firebase
+            }else if(extraValContact.equals(mSession.getCaregiverNumber()) &&
+                        mSession.getEncryptedData().isEmpty() && isConnected){
+                encryptStoreUserInfo(etName.getText().toString(),
+                        mSession.getCaregiverNumber().substring(1),
+                        email,
+                        etFathername.getText().toString(),
+                        etAddress.getText().toString(),
+                        getBloodGroup(), mUserGroup);
+            //If user not changed the mobile number and encryption data is
+            // unavailable and user is not connected to Internet then
+            // show error message.
+            }else if(extraValContact.equals(mSession.getCaregiverNumber()) &&
+                    mSession.getEncryptedData().isEmpty() && !isConnected){
+                bSave.setEnabled(true);
+                Toast.makeText(mContext, mCheckCon, Toast.LENGTH_LONG).show();
+            //If user changed the mobile number user is connected to Internet then
+            // then encrypt the data and store it to firebase
+            }else if(!extraValContact.equals(mSession.getCaregiverNumber()) && isConnected){
+                mSession.setExtraValToContact(String.valueOf(new Random().nextInt(900) + 100));
+                String newContact = mContact.concat(mSession.getExtraValToContact());
+                DatabaseReference mNewRef = mDB.getReference(BuildConfig.DB_TYPE
+                        + "/users/" + maskNumber(newContact)
+                        + "/previousRecords/" + maskNumber(mSession.getCaregiverNumber().substring(1)));
+                moveFirebaseRecord(mRef, mNewRef);
+            //If user changed the mobile number user is not connected to Internet then
+            // show error message.
+            }else if(!extraValContact.equals(mSession.getCaregiverNumber()) && !isConnected){
                 bSave.setEnabled(true);
                 Toast.makeText(mContext, mCheckCon, Toast.LENGTH_LONG).show();
             }

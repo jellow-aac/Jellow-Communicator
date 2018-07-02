@@ -43,6 +43,7 @@ import static com.dsource.idc.jellowintl.MainActivity.isDeviceReadyToCall;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
+import static com.dsource.idc.jellowintl.utility.Analytics.maskNumber;
 import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
@@ -261,6 +262,11 @@ public class LevelTwoActivity extends AppCompatActivity {
         }
         // Start measuring user app screen timer .
         startMeasuring();
+        if(!mSession.getToastMessage().isEmpty()) {
+            Toast.makeText(getApplicationContext(),
+                    mSession.getToastMessage(), Toast.LENGTH_SHORT).show();
+            mSession.setToastMessage("");
+        }
     }
 
     @Override
@@ -593,33 +599,16 @@ public class LevelTwoActivity extends AppCompatActivity {
         mIvHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Firebase event
-                singleEvent("Navigation","Home");
+                speakSpeech(mNavigationBtnTxt[0]);
+                //When home is tapped in this activity it will close all other activities and
+                // user is redirected/navigated to MainActivity and gotoHome() method is called.
+                // As Firebase home event is defined in gotoHome() function of mainActivity.
                 mIvHome.setImageResource(R.drawable.home_pressed);
                 mIvKeyboard.setImageResource(R.drawable.keyboard);
-                speakSpeech(mNavigationBtnTxt[0]);
-
-                /**
-                 * <p>
-                 *     If the intent is fired from the {@link SearchActivity} then do not finish the activity
-                 * because if activity is finished the app will close, inspite of that the {@link MainActivity}
-                 * is launched.
-                 * </p> {@Author Ayaz Alam}
-                 * */
-                if (getIntent().getExtras().getString(getString(R.string.from_search)) != null)
-                {
-                    if (getIntent().getExtras().getString(getString(R.string.from_search)).
-                            equals(getString(R.string.search_tag))) {
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        finish();
-                    }
-                }
-                else {
-                    //setting up result code to RESULT_CANCELED, is used in returning activity.
-                    // This imply that user pressed the home button in level three activity.
-                    setResult(RESULT_CANCELED);
-                    finish();
-                }
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra(getString(R.string.goto_home), true);
+                startActivity(intent);
+                finishAffinity();
             }
         });
     }
@@ -1283,13 +1272,15 @@ public class LevelTwoActivity extends AppCompatActivity {
                         // If Help -> About me category icon is selected,
                         // "really more" expression will speak caregivers number
                         }else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1) {
+                            String contact = mSession.getCaregiverNumber();
+                            contact = contact.substring(0, contact.length()-3);
+                            contact = contact.replaceAll("\\B", " ");
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
-                                    get(mLevelTwoItemPos).get(5) + mSession.getCaregiverNumber().
-                                    replaceAll("\\B", " ") + end);
+                                get(mLevelTwoItemPos).get(5) + contact + end);
                             singleEvent("ExpressiveGridIcon",
                                 mLayerTwoSpeech.get(mLevelOneItemPos).
-                                    get(mLevelTwoItemPos).get(5) + mSession.getCaregiverNumber().
-                                        replaceAll("\\B", " ") + end);
+                                    get(mLevelTwoItemPos).get(5) +
+                                    maskNumber(mSession.getCaregiverNumber().substring(1)) + end);
                         }else {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
                                     get(mLevelTwoItemPos).get(5));
@@ -1316,13 +1307,15 @@ public class LevelTwoActivity extends AppCompatActivity {
                         }else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1) {
                             // If Help -> About me category icon is selected,
                             // "really more" expression will speak caregivers number
+                            String contact = mSession.getCaregiverNumber();
+                            contact = contact.substring(0, contact.length()-3);
+                            contact = contact.replaceAll("\\B", " ");
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
-                                    get(mLevelTwoItemPos).get(5) + mSession.getCaregiverNumber().
-                                    replaceAll("\\B", " ") + end);
+                                    get(mLevelTwoItemPos).get(5) + contact + end);
                             singleEvent("ExpressiveGridIcon",
                                 mLayerTwoSpeech.get(mLevelOneItemPos).
-                                    get(mLevelTwoItemPos).get(5) + mSession.getCaregiverNumber().
-                                        replaceAll("\\B", " ") + end);
+                                    get(mLevelTwoItemPos).get(5) +
+                                        maskNumber(mSession.getCaregiverNumber().substring(1)) + end);
                         }else {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
                                     get(mLevelTwoItemPos).get(4));

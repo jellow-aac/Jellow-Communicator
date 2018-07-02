@@ -1,6 +1,6 @@
 # Jellow 
 
-[Jellow Communicator](http://www.dsource.in/tool/jellow/) is a friendly Augmentative and Alternative Communication (AAC) app that uses icons/images to enable speech. This freely downloadable Android app can be used for communication by those learning to speak or those having difficulty with speech. 
+[Jellow Communicator](http://jellow.org/) is a friendly Augmentative and Alternative Communication (AAC) app that uses icons/images to enable speech. This freely downloadable Android app can be used for communication by those learning to speak or those having difficulty with speech. 
                                                           
 Jellow has a simple, visually appealing and easy-to-learn interface consisting central 'category' buttons and 'expressive' side buttons. The content of the app is organized into basic category buttons that make it easy for the user to access and find desired icons. The user can make the app speak out sentences by simply clicking on any of the category buttons followed by any of the expressive buttons. 
                                                           
@@ -44,5 +44,10 @@ License
 
 Copyright (c) NINAAD DIGITAL TECHNOLOGY PRIVATE LIMITED. All rights reserved.
 
-Licensed under the [BSD](LICENSE.txt) License.
-See our [Privacy Policy](http://www.dsource.in/tool/jellow/privacypolicy/index.html).
+The Jellow Communicator application's code is licensed under the [BSD](LICENSE.txt) License.
+
+The Jellow Communicator application's contents
+including its interface, visual identity, icons and their associated vocabulary are licensed under a [Creative Commons Attribution-Non-Commercial-ShareAlike 4.0
+International](https://creativecommons.org/licenses/by-nc-sa/4.0/)  License.
+
+See our [Privacy Policy](http://jellow.org/privacypolicy/index.html).

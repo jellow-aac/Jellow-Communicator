@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<ArrayList<String>> mLayerOneSpeech;
     /*Below array stores the speech text, below text, expressive button speech text,
      navigation button speech text respectively.*/
-    private String[] mSpeechTxt, mExprBtnTxt, mNavigationBtnTxt, mActionBartitle;
+    private String[] mSpeechTxt, mExprBtnTxt, mNavigationBtnTxt, mActionBarTitle;
     private String mActionBarTitleTxt;
     private String mCheckVoiceData, mHome;
 
@@ -121,7 +121,8 @@ public class MainActivity extends AppCompatActivity {
         // If device has android version below Lollipop get Text-to-speech language
         if(Build.VERSION.SDK_INT < 21)
             getSpeechLanguage("");
-
+        if(getIntent().hasExtra(getString(R.string.goto_home)))
+            gotoHome(true);
         //This method is invoked when the activity is launched from the SearchActivity
         try {
             String s = getIntent().getExtras().getString(getString(R.string.from_search));
@@ -243,6 +244,12 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(receiver, filter);
        // Start measuring user app screen timer.
         startMeasuring();
+        SessionManager session = new SessionManager(this);
+        if(!session.getToastMessage().isEmpty()) {
+            Toast.makeText(getApplicationContext(),
+                    session.getToastMessage(), Toast.LENGTH_SHORT).show();
+            session.setToastMessage("");
+        }
     }
 
     @Override
@@ -309,13 +316,6 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
         return true;
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQ_HOME && resultCode == RESULT_CANCELED)
-            gotoHome(false);
     }
 
     /**
@@ -486,9 +486,7 @@ public class MainActivity extends AppCompatActivity {
         mIvHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gotoHome(true);
-                //Firebase event
-                singleEvent("Navigation","Home");
+                gotoHome(false);
             }
         });
     }
@@ -1073,7 +1071,7 @@ public class MainActivity extends AppCompatActivity {
         setMenuImageBorder(v, true);
         // set true to speak verbiage associated with category icon
         mShouldReadFullSpeech = true;
-        String title = mActionBartitle[position];
+        String title = mActionBarTitle[position];
         getSupportActionBar().setTitle(title);
         // below condition is true when user tap same category icon twice.
         // i.e. user intends to open a sub-category of selected category icon.
@@ -1110,11 +1108,11 @@ public class MainActivity extends AppCompatActivity {
     /**
      * <p>When home button is pressed it is needed to make app state as it is started fresh.
      * This function will reset every category icons, expressive button tapped.
-     * @param isHomePressed is set when user presses home from {@link MainActivity}
-     * and resets when user presses home from {@link LevelTwoActivity},
-     * {@link LevelThreeActivity}, {@link SequenceActivity}.</p>
+     * @param isUserRedirected is set when user presses home from {@link LevelTwoActivity},
+     * {@link LevelThreeActivity}, {@link SequenceActivity} and resets when user presses home
+     * {@link MainActivity}.</p>
      * */
-    private void gotoHome(boolean isHomePressed) {
+    private void gotoHome(boolean isUserRedirected) {
         getSupportActionBar().setTitle(mHome);
         // reset all expressive button flags.
         mFlgLike = mFlgYes = mFlgMore = mFlgDntLike = mFlgNo = mFlgLess = 0;
@@ -1153,11 +1151,11 @@ public class MainActivity extends AppCompatActivity {
             mIvBack.setAlpha(.5f);
             mIvBack.setEnabled(false);
         }
-        if(isHomePressed) {
+        mIvHome.setImageResource(R.drawable.home_pressed);
+        //Firebase event
+        singleEvent("Navigation","Home");
+        if(!isUserRedirected)
             speakSpeech(mNavigationBtnTxt[0]);
-            mIvHome.setImageResource(R.drawable.home_pressed);
-        }else
-            mIvHome.setImageResource(R.drawable.home);
     }
 
     /**
@@ -1198,7 +1196,7 @@ public class MainActivity extends AppCompatActivity {
         mSpeechTxt = getResources().getStringArray(R.array.arrLevelOneActionBarTitle);
         mExprBtnTxt = getResources().getStringArray(R.array.arrActionSpeech);
         mNavigationBtnTxt = getResources().getStringArray(R.array.arrNavigationSpeech);
-        mActionBartitle = getResources().getStringArray(R.array.arrLevelOneActionBarTitle);
+        mActionBarTitle = getResources().getStringArray(R.array.arrLevelOneActionBarTitle);
     }
 
     /**

@@ -26,6 +26,7 @@
         android:maxLines="1"
         android:inputType="text"
         android:textSize="@dimen/search_edit_text_size"
+        android:imeOptions="flagNoExtractUi"
         android:background="@drawable/rounded_back"
         android:layout_centerHorizontal="true"
         android:textColorHint="@color/black_80"

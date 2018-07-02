@@ -79,10 +79,13 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(iconNotFound&&!(notFoundIconText.equals("Null"))) {
-                    //Firebase event to log the "Icon not found Event"
+                    //Firebase event to log the "SearchBar" event with
+                    // "IconNotFound" parameter.
                     Bundle bundle = new Bundle();
-                    bundle.putString("NotFoundName", notFoundIconText);
-                    bundleEvent("IconNotFound", bundle);
+                    bundle.putString("IconSpeak", "");
+                    bundle.putString("IconOpened", "");
+                    bundle.putString("IconNotFound", notFoundIconText);
+                    bundleEvent("SearchBar", bundle);
                 }
                 finish();
             }
@@ -128,9 +131,13 @@ public class SearchActivity extends AppCompatActivity {
                 if(beforeTextChanged>afterTextChanged)
                 {
                     if((!firedEvent)&&iconNotFound) {
+                        //Firebase event to log the "SearchBar" event with
+                        // "IconNotFound" parameter.
                         Bundle bundle = new Bundle();
-                        bundle.putString("NotFoundName", notFoundIconText);
-                        bundleEvent("IconNotFound", bundle);
+                        bundle.putString("IconSpeak", "");
+                        bundle.putString("IconOpened", "");
+                        bundle.putString("IconNotFound", notFoundIconText);
+                        bundleEvent("SearchBar", bundle);
                         firedEvent = true;
                     }
                 }
@@ -231,9 +238,13 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
                 @Override
                 public void onClick(View v) {
                     speakSpeech(mDataSource.get(getAdapterPosition()).IconTitle);
+                    //Firebase event to log the "SearchBar" event with
+                    // "IconSpeak" parameter.
                     Bundle bundle = new Bundle();
-                    bundle.putString("SearchGridIconClicked",mDataSource.get(getAdapterPosition()).IconTitle);
-                    bundleEvent("SearchGridIcon", bundle);
+                    bundle.putString("IconSpeak",mDataSource.get(getAdapterPosition()).IconTitle);
+                    bundle.putString("IconOpened", "");
+                    bundle.putString("IconNotFound", "");
+                    bundleEvent("SearchBar", bundle);
                 }
             });
             v.setOnClickListener(this);
@@ -250,10 +261,13 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
             else {
                 //Open the activity when icon is found
                 Intent target = getActivityFromIcon(icon);
-                //Firebase Event
+                //Firebase event to log the "SearchBar" event with
+                // "IconOpened" parameter.
                 Bundle bundle = new Bundle();
-                bundle.putString("IconSearched", icon.IconTitle);
-                bundleEvent("SearchedIcons", bundle);
+                bundle.putString("IconSpeak", "");
+                bundle.putString("IconOpened", icon.IconTitle);
+                bundle.putString("IconNotFound", "");
+                bundleEvent("SearchBar", bundle);
                 target.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 mContext.startActivity(target);
                 

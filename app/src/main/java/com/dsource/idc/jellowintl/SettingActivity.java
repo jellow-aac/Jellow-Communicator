@@ -16,7 +16,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
@@ -168,7 +167,7 @@ public class SettingActivity extends AppCompatActivity {
                     setSpeechPitch((float)mSliderPitch.getValue()/ 50);
                     mSession.setPitch(mSliderPitch.getValue());
                 }
-                Toast.makeText(SettingActivity.this, strSettingSaved, Toast.LENGTH_SHORT).show();
+                mSession.setToastMessage(strSettingSaved);
                 Crashlytics.log("SettingAct Save");
                 finish();
             }
