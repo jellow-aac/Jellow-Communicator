@@ -32,12 +32,12 @@
     <dimen name="my_board_button_height">28dp</dimen>
     <dimen name="level_select_pane_min_width">200dp</dimen>
     <dimen name="drop_down_width">100dp</dimen>
-    <dimen name="bottom_nav_bar_padding">10dp</dimen>
+    <dimen name="bottom_nav_bar_padding">6dp</dimen>
     <dimen name="nav_bar_button_padding">4dp</dimen>
     <dimen name="icon_title_text_size">11sp</dimen>
 
     <dimen name="check_box_size">16dp</dimen>
-    <dimen name="level_select_pain_width">140dp</dimen>
+    <dimen name="level_select_pain_width">150dp</dimen>
     <dimen name="level_select_pane_text_padding_left">8dp</dimen>
     <dimen name="level_select_pain_padding_top_bottom">7dp</dimen>
     <dimen name="level_select_pane_text_size">14sp</dimen>

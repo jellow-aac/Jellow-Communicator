@@ -26,6 +26,7 @@ public class MyBoards extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
 
+
         initFields();
         prepareBoardList();
 

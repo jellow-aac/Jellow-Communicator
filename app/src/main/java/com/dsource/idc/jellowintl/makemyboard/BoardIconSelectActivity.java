@@ -72,7 +72,7 @@ public class BoardIconSelectActivity extends AppCompatActivity {
                 selectedIconList.clear();
                 selectionCheckBox.setChecked(false);
                 iconSelecterAdapter.notifyDataSetChanged();
-                ((TextView)(findViewById(R.id.icon_count))).setText(""+selectedIconList.size());
+                ((TextView)(findViewById(R.id.icon_count))).setText("("+selectedIconList.size()+")");
             }
         });
 
@@ -125,9 +125,8 @@ public class BoardIconSelectActivity extends AppCompatActivity {
     /**
      * Initializes all the views of the layout
      */
-    TextView iconCount;
     private void initViews() {
-        iconCount=findViewById(R.id.icon_count);
+
         iconList=new ArrayList<>();
         iconRecycler =findViewById(R.id.icon_select_pane_recycler);
         iconSelecterAdapter =new IconSelecterAdapter(this,iconList);
@@ -174,7 +173,7 @@ public class BoardIconSelectActivity extends AppCompatActivity {
                 removeIconFromList(iconList.get(i));
 
         iconSelecterAdapter.notifyDataSetChanged();
-        ((TextView)(findViewById(R.id.icon_count))).setText(""+selectedIconList.size());
+        ((TextView)(findViewById(R.id.icon_count))).setText("("+selectedIconList.size()+")");
 
     }
 
@@ -215,7 +214,7 @@ public class BoardIconSelectActivity extends AppCompatActivity {
         else
             removeIconFromList(iconList.get(position));
 
-        iconCount.setText(selectedIconList.size()+"");
+        ((TextView)(findViewById(R.id.icon_count))).setText("("+selectedIconList.size()+")");
         Log.d("Selection: ","Selection List: "+selectedIconList.size()+" IconList: "+iconList.size()+" Selection: "+utilF.getSelection(selectedIconList,iconList));
         selectionCheckBox.setChecked(utilF.getSelection(selectedIconList,iconList));
     }
@@ -252,9 +251,10 @@ public class BoardIconSelectActivity extends AppCompatActivity {
 
     private void setSelection(int position) {
         if(previousSelection!=-1)
-        /*levelSelecterRecycler.getChildAt(previousSelection).setBackground(getResources().getDrawable(R.color.colorIntroSelected));
-        levelSelecterRecycler.getChildAt(position).setBackground(getResources().getDrawable(R.color.colorIntro));
-        */
+        levelSelecterRecycler.getChildAt(previousSelection).setBackground(getResources().getDrawable(R.color.colorIntroSelected));
+        levelSelecterRecycler.getChildAt(position).setBackground(getResources().getDrawable(R.color.colorIntroSelected));
+        levelSelecterRecycler.getChildAt(previousSelection).setBackgroundColor(getResources().getColor(R.color.colorIntro));
+
         previousSelection =position;
 
     }

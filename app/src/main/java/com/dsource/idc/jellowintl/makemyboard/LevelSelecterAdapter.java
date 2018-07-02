@@ -24,11 +24,11 @@ public class LevelSelecterAdapter extends RecyclerView.Adapter<LevelSelecterAdap
         //each data item is just a string in this case
         public TextView levelTitle;
 
+        View holder;
         public ViewHolder(View v) {
             super(v);
             levelTitle =v.findViewById(R.id.icon_title);
-            if(getAdapterPosition()==0)
-                v.setBackground(mContext.getResources().getDrawable(R.color.colorIntro));
+            holder=v;
             v.setOnClickListener(this);
         }
 
@@ -37,6 +37,11 @@ public class LevelSelecterAdapter extends RecyclerView.Adapter<LevelSelecterAdap
            mItemClickListener.onItemClick(view,getAdapterPosition());
            selectedPosition=getAdapterPosition();
         }
+        public void toggleSelection(int pos)
+        {
+
+        }
+
     }
 
 
@@ -66,14 +71,12 @@ public class LevelSelecterAdapter extends RecyclerView.Adapter<LevelSelecterAdap
 
         itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.level_select_card, parent, false);
-
-
         return new LevelSelecterAdapter.ViewHolder(itemView);
     }
 
-
     @Override
     public void onBindViewHolder(LevelSelecterAdapter.ViewHolder holder, int position) {
+
         String title = mDataSource.get(position);
         holder.levelTitle.setText(title);
     }
