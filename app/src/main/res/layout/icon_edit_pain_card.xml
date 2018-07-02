@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_marginLeft="24dp"
+    android:layout_marginRight="24dp"
+    android:layout_width="@dimen/icon_edit_grid_size"
+    android:background="@android:color/transparent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    app:cardCornerRadius="4dp"
+    android:layout_margin="4dp"
+    >
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_marginTop="6dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="@dimen/icon_edit_icon_size"
+        android:layout_height="@dimen/icon_edit_icon_size"
+        android:id="@+id/icon_image_view"
+        android:src="@drawable/level1_daily_300"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Speech_Label"
+        android:id="@+id/icon_title"
+        android:textAlignment="center"
+        android:textColor="@color/black_80"
+        android:textSize="@dimen/icon_edit_text_size"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/icon_image_view"
+        />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/icon_remove_button"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="4dp"
+        android:visibility="gone"
+        android:src="@drawable/ic_remove"
+        android:gravity="top"
+        />
+
+</RelativeLayout>
+</RelativeLayout>

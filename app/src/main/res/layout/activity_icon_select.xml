@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.dsource.idc.jellowintl.makemyboard.BoardIconSelectActivity">
+
+    <RelativeLayout
+        android:id="@+id/left_level_select_pane"
+        android:layout_width="@dimen/level_select_pain_width"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:background="@color/colorIntro">
+
+        <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/level_select_pane_recycler"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:minWidth="@dimen/level_select_pane_min_width"
+            android:scrollbars="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/right_icon_select_pane"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorIntro"
+        android:layout_toEndOf="@+id/left_level_select_pane"
+        android:layout_toRightOf="@+id/left_level_select_pane">
+
+        <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/icon_select_pane_recycler"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@id/bottom_navigation_pane"
+            android:clipToPadding="false"
+            android:fadeScrollbars="false"
+            android:scrollbarSize="2dp"
+            android:scrollbarThumbVertical="@android:color/darker_gray"
+            android:scrollbars="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        <ListView
+            android:id="@+id/filter_menu"
+            android:layout_width="@dimen/drop_down_width"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:visibility="gone"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:background="@color/colorIntro"
+            android:id="@+id/bottom_navigation_pane"
+            android:padding="@dimen/bottom_nav_bar_padding"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/reset_selection"
+                android:layout_width="wrap_content"
+                android:minWidth="@dimen/my_board_button_width"
+                android:paddingLeft="@dimen/nav_bar_button_padding"
+                android:paddingRight="@dimen/nav_bar_button_padding"
+                android:layout_height="@dimen/my_board_button_height"
+                android:textSize="14sp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/custom_txt_view"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/save_normally"
+                android:layout_marginLeft="8dp"
+                android:text="Reset Selection" />
+
+            <Button
+                android:id="@+id/save_normally"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:paddingLeft="@dimen/nav_bar_button_padding"
+                android:paddingRight="@dimen/nav_bar_button_padding"
+                android:minWidth="@dimen/my_board_button_width"
+                android:layout_height="@dimen/my_board_button_height"
+                android:textSize="14sp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/custom_txt_view"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:text="Save" />
+
+            <CheckBox
+                android:id="@+id/select_deselect_check_box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/reset_selection"
+                android:layout_marginRight="16dp"
+                android:background="@color/colorIntro"
+                android:text="Select All"
+                android:visibility="visible" />
+
+
+
+                <TextView
+                    android:id="@+id/icon_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/green"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

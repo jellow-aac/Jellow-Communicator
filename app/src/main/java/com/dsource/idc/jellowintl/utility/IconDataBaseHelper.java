@@ -230,6 +230,236 @@ public class IconDataBaseHelper extends SQLiteOpenHelper {
             return iconList;
         }
     }
+    /**
+     * A function to return list of icon matching with query
+     * Queries the database for an entry at a given position.
+     *
+     * @param level_0 The Nth row in the table.
+     * @return a JellowIcon class object ArrayList with the requested database entry.
+     */
+    @Nullable
+    public JellowIcon fetchIcon(int level_0,int level_1,int level_3)
+    {
+        String selectQuery;
+        selectQuery="SELECT * FROM "+ICON_LIST_TABLE +" WHERE "+KEY_P1+" = " + level_0 + " AND "+KEY_P2+" = "+level_1+ " AND "+KEY_P3+" = "+level_3;
+        Cursor cursor = null;
+        JellowIcon thisIcon=null;
+        try {
+            if (mReadableDB == null) {mReadableDB = getReadableDatabase();}
+            cursor = mReadableDB.rawQuery(selectQuery, null);
+            if(cursor.getCount()>0) {
+                cursor.moveToFirst();
+
+                    if (cursor != null) {
+                        String iconName = cursor.getString(cursor.getColumnIndex(ICON_TITLE));
+                        String icon_drawable = cursor.getString(cursor.getColumnIndex(ICON_DRAWABLE));
+                        int iconP1 = cursor.getInt(cursor.getColumnIndex(KEY_P1));
+                        int iconP2 = cursor.getInt(cursor.getColumnIndex(KEY_P2));
+                        int iconP3 = cursor.getInt(cursor.getColumnIndex(KEY_P3));
+                        thisIcon = new JellowIcon(iconName, icon_drawable, iconP1, iconP2, iconP3);
+                    }
+
+            }
+        } catch (Exception e) {
+            //Catch Query Exception
+        } finally {
+            // Must close cursor and db now that we are done with it.
+            if (cursor!=null)
+                cursor.close();
+            return thisIcon;
+        }
+    }
+    /**
+     * A function to return list of icon matching with query
+     * Queries the database for an entry at a given position.
+     *
+     * @param level_0 The Nth row in the table.
+     * @return a JellowIcon class object ArrayList with the requested database entry.
+     */
+    @Nullable
+    public ArrayList<JellowIcon> myBoardQuery(int level_0,int level_1)
+    {
+        String selectQuery;
+        if(level_1==-1)
+            selectQuery= "SELECT * FROM "+ICON_LIST_TABLE +" WHERE "+KEY_P1+" = " + level_0 + "";
+        else
+            selectQuery="SELECT * FROM "+ICON_LIST_TABLE +" WHERE "+KEY_P1+" = " + level_0 + " AND "+KEY_P2+" = "+level_1;
+        Cursor cursor = null;
+        JellowIcon thisIcon=null;
+        ArrayList<JellowIcon> iconList=new ArrayList<>();
+        try {
+            if (mReadableDB == null) {mReadableDB = getReadableDatabase();}
+            cursor = mReadableDB.rawQuery(selectQuery, null);
+            if(cursor.getCount()>0) {
+                cursor.moveToFirst();
+                iconList.clear();
+                for (int i = 0; i < cursor.getCount(); i++) {
+                    if (cursor != null) {
+                        String iconName = cursor.getString(cursor.getColumnIndex(ICON_TITLE));
+                        String icon_drawable = cursor.getString(cursor.getColumnIndex(ICON_DRAWABLE));
+                        int iconP1 = cursor.getInt(cursor.getColumnIndex(KEY_P1));
+                        int iconP2 = cursor.getInt(cursor.getColumnIndex(KEY_P2));
+                        int iconP3 = cursor.getInt(cursor.getColumnIndex(KEY_P3));
+                        thisIcon = new JellowIcon(iconName, icon_drawable, iconP1, iconP2, iconP3);
+                        iconList.add(thisIcon);
+                        cursor.moveToNext();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            //Catch Query Exception
+        } finally {
+            // Must close cursor and db now that we are done with it.
+            if (cursor!=null)
+                cursor.close();
+            return iconList;
+        }
+    }
+
+    @Nullable
+    public ArrayList<JellowIcon> getAllIcons()
+    {
+        String selectQuery = "SELECT * FROM "+ICON_LIST_TABLE +"";
+
+        Cursor cursor = null;
+        JellowIcon thisIcon=null;
+        ArrayList<JellowIcon> iconList=new ArrayList<>();
+        try {
+            if (mReadableDB == null) {mReadableDB = getReadableDatabase();}
+            cursor = mReadableDB.rawQuery(selectQuery, null);
+            if(cursor.getCount()>0) {
+                cursor.moveToFirst();
+                iconList.clear();
+                for (int i = 0; i < cursor.getCount(); i++) {
+                    if (cursor != null) {
+                        String iconName = cursor.getString(cursor.getColumnIndex(ICON_TITLE));
+                        String icon_drawable = cursor.getString(cursor.getColumnIndex(ICON_DRAWABLE));
+                        int iconP1 = cursor.getInt(cursor.getColumnIndex(KEY_P1));
+                        int iconP2 = cursor.getInt(cursor.getColumnIndex(KEY_P2));
+                        int iconP3 = cursor.getInt(cursor.getColumnIndex(KEY_P3));
+                        thisIcon = new JellowIcon(iconName, icon_drawable, iconP1, iconP2, iconP3);
+                        iconList.add(thisIcon);
+                        cursor.moveToNext();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            //Catch Query Exception
+        } finally {
+            // Must close cursor and db now that we are done with it.
+            if (cursor!=null)
+                cursor.close();
+            return iconList;
+        }
+    }
+    @Nullable
+    public ArrayList<JellowIcon> getLevelOneIcons()
+    {
+        String selectQuery = "SELECT * FROM "+ICON_LIST_TABLE +" WHERE "+KEY_P2+" = -1 "+" AND "+KEY_P3 +" = -1 ";
+
+        Cursor cursor = null;
+        JellowIcon thisIcon=null;
+        ArrayList<JellowIcon> iconList=new ArrayList<>();
+        try {
+            if (mReadableDB == null) {mReadableDB = getReadableDatabase();}
+            cursor = mReadableDB.rawQuery(selectQuery, null);
+            if(cursor.getCount()>0) {
+                cursor.moveToFirst();
+                iconList.clear();
+                for (int i = 0; i < cursor.getCount(); i++) {
+                    if (cursor != null) {
+                        String iconName = cursor.getString(cursor.getColumnIndex(ICON_TITLE));
+                        String icon_drawable = cursor.getString(cursor.getColumnIndex(ICON_DRAWABLE));
+                        int iconP1 = cursor.getInt(cursor.getColumnIndex(KEY_P1));
+                        int iconP2 = cursor.getInt(cursor.getColumnIndex(KEY_P2));
+                        int iconP3 = cursor.getInt(cursor.getColumnIndex(KEY_P3));
+                        thisIcon = new JellowIcon(iconName, icon_drawable, iconP1, iconP2, iconP3);
+                        iconList.add(thisIcon);
+                        cursor.moveToNext();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            //Catch Query Exception
+        } finally {
+            // Must close cursor and db now that we are done with it.
+            if (cursor!=null)
+                cursor.close();
+            return iconList;
+        }
+    }
+    @Nullable
+    public ArrayList<JellowIcon> getLevelTwoIcons()
+    {
+        String selectQuery = "SELECT * FROM "+ICON_LIST_TABLE +" WHERE "+KEY_P3 +" = -1 "+" AND "+KEY_P2 +" != -1 ";
+
+        Cursor cursor = null;
+        JellowIcon thisIcon=null;
+        ArrayList<JellowIcon> iconList=new ArrayList<>();
+        try {
+            if (mReadableDB == null) {mReadableDB = getReadableDatabase();}
+            cursor = mReadableDB.rawQuery(selectQuery, null);
+            if(cursor.getCount()>0) {
+                cursor.moveToFirst();
+                iconList.clear();
+                for (int i = 0; i < cursor.getCount(); i++) {
+                    if (cursor != null) {
+                        String iconName = cursor.getString(cursor.getColumnIndex(ICON_TITLE));
+                        String icon_drawable = cursor.getString(cursor.getColumnIndex(ICON_DRAWABLE));
+                        int iconP1 = cursor.getInt(cursor.getColumnIndex(KEY_P1));
+                        int iconP2 = cursor.getInt(cursor.getColumnIndex(KEY_P2));
+                        int iconP3 = cursor.getInt(cursor.getColumnIndex(KEY_P3));
+                        thisIcon = new JellowIcon(iconName, icon_drawable, iconP1, iconP2, iconP3);
+                        iconList.add(thisIcon);
+                        cursor.moveToNext();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            //Catch Query Exception
+        } finally {
+            // Must close cursor and db now that we are done with it.
+            if (cursor!=null)
+                cursor.close();
+            return iconList;
+        }
+    }
+    @Nullable
+    public ArrayList<JellowIcon> getLevelThreeIcons()
+    {
+        String selectQuery = "SELECT * FROM "+ICON_LIST_TABLE +" WHERE "+KEY_P1 +" != -1 "+" AND "+KEY_P2 +" != -1 "+" AND "+KEY_P3 +" != -1 ";
+
+        Cursor cursor = null;
+        JellowIcon thisIcon=null;
+        ArrayList<JellowIcon> iconList=new ArrayList<>();
+        try {
+            if (mReadableDB == null) {mReadableDB = getReadableDatabase();}
+            cursor = mReadableDB.rawQuery(selectQuery, null);
+            if(cursor.getCount()>0) {
+                cursor.moveToFirst();
+                iconList.clear();
+                for (int i = 0; i < cursor.getCount(); i++) {
+                    if (cursor != null) {
+                        String iconName = cursor.getString(cursor.getColumnIndex(ICON_TITLE));
+                        String icon_drawable = cursor.getString(cursor.getColumnIndex(ICON_DRAWABLE));
+                        int iconP1 = cursor.getInt(cursor.getColumnIndex(KEY_P1));
+                        int iconP2 = cursor.getInt(cursor.getColumnIndex(KEY_P2));
+                        int iconP3 = cursor.getInt(cursor.getColumnIndex(KEY_P3));
+                        thisIcon = new JellowIcon(iconName, icon_drawable, iconP1, iconP2, iconP3);
+                        iconList.add(thisIcon);
+                        cursor.moveToNext();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            //Catch Query Exception
+        } finally {
+            // Must close cursor and db now that we are done with it.
+            if (cursor!=null)
+                cursor.close();
+            return iconList;
+        }
+    }
 
     /**
      *  Function to Drop Table
