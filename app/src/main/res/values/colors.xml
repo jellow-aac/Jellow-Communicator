@@ -8,6 +8,7 @@
     <color name="bg">#4aea00</color>
 
     <color name="colorIntro">#F7F3C6</color>
+    <color name="colorIntroSelected">#dc5252</color>
     <color name="colorControlNormal">#FF78909C</color>
     <color name="colorControlActivated">#FF03A9F4</color>
     <color name="colorSwitchThumbNormal">#FF78909C</color>
@@ -68,4 +69,5 @@
 
 
     <color name="search_highlight">#74dac6</color>
+    <color name="green">#289702</color>
 </resources>

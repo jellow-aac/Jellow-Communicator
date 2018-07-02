@@ -6,21 +6,6 @@
     android:background="@color/colorIntro"
     tools:context="com.dsource.idc.jellowintl.makemyboard.EditBoard">
 
-    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/icon_edit_recycler"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:minWidth="200dp"
-        android:clipToPadding="false"
-        android:layout_alignParentLeft="true"
-        android:fadeScrollbars="false"
-        android:scrollbarSize="2dp"
-        android:scrollbarThumbVertical="@android:color/darker_gray"
-        android:scrollbars="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_toRightOf="@id/icon_edit_recycler"
