@@ -50,6 +50,10 @@
     <dimen name="exp_icon_bottom_margin">36dp</dimen>
     <dimen name="nav_bar_icons_width">90dp</dimen>
     <dimen name="nav_bar_icon_height">80dp</dimen>
+    <dimen name="my_board_eight_grid_icon_size">100dp</dimen>
+    <dimen name="my_board_four_grid_icon_size">200dp</dimen>
+    <dimen name="my_board_text_size">18sp</dimen>
+    <dimen name="my_board_edit_icon_size">18dp</dimen>
 
 
 </resources>

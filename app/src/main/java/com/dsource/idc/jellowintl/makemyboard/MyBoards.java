@@ -1,12 +1,10 @@
 package com.dsource.idc.jellowintl.makemyboard;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.dsource.idc.jellowintl.R;
@@ -24,7 +22,7 @@ public class MyBoards extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_boards);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
+        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_background));
 
 
         initFields();
@@ -42,13 +40,13 @@ public class MyBoards extends AppCompatActivity {
         adapter=new BoardAdapter(this,boardList);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this,4));
         mRecyclerView.setAdapter(adapter);
-        addBoard=findViewById(R.id.add_board_image);
+        /*addBoard=findViewById(R.id.add_board_image);
         addBoard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MyBoards.this,BoardIconSelectActivity.class));
             }
-        });
+        });*/
 
     }
 
@@ -57,6 +55,10 @@ public class MyBoards extends AppCompatActivity {
      */
     private void prepareBoardList() {
         boardList.add(new Board("Board 1",1,5));
+        boardList.add(new Board("Board 2",1,5));
+        boardList.add(new Board("Board 3",1,5));
+
+        boardList.add(new Board("NULL",-1,-1));
         adapter.notifyDataSetChanged();
 
     }

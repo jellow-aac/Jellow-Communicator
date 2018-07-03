@@ -41,7 +41,7 @@
         android:id="@+id/icon_selection_checkbox"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:buttonTint="@color/green"
+        android:buttonTint="@color/light_grey"
         android:gravity="top"
         />
 

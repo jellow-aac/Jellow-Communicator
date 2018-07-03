@@ -1,38 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/card_view"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    app:cardCornerRadius="20dp"
-    android:layout_margin="8dp"
-    >
+    android:layout_margin="2dp">
 <RelativeLayout
-    android:padding="16dp"
+    android:padding="8dp"
     android:background="@color/colorIntro"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
     <ImageView
-        android:layout_width="400dp"
-        android:layout_height="400dp"
-        android:src="@color/dark_base"
+        android:layout_width="@dimen/my_board_eight_grid_icon_size"
+        android:padding="16dp"
+        android:layout_height="@dimen/my_board_eight_grid_icon_size"
+        android:src="@drawable/ic_person"
         android:id="@+id/board_icon"
+        android:background="@drawable/board_list_back"
         />
+
     <TextView
-        android:layout_marginTop="6dp"
-        android:layout_below="@id/board_icon"
+        android:id="@+id/board_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="40sp"
-        android:textColor="@color/colorPrimary"
-        android:id="@+id/board_title"
-        android:layout_centerInParent="true"
-        android:textAlignment="center"
+        android:layout_below="@+id/board_icon"
+        android:layout_centerHorizontal="true"
         android:text="Board Name"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/my_board_text_size"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="@dimen/my_board_edit_icon_size"
+        android:layout_height="@dimen/my_board_edit_icon_size"
+        android:src="@drawable/ic_mode_edit"
+        android:id="@+id/edit_board"
+        android:padding="4dp"
+        android:background="@drawable/circular_background_red"
         />
 </RelativeLayout>
 </android.support.v7.widget.CardView>
