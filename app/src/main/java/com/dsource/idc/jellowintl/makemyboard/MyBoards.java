@@ -5,7 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.dsource.idc.jellowintl.R;
 
@@ -38,16 +40,32 @@ public class MyBoards extends AppCompatActivity {
         boardList=new ArrayList<>();
         mRecyclerView=findViewById(R.id.board_recycer_view);
         adapter=new BoardAdapter(this,boardList);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(this,4));
-        mRecyclerView.setAdapter(adapter);
-        /*addBoard=findViewById(R.id.add_board_image);
-        addBoard.setOnClickListener(new View.OnClickListener() {
+        adapter.SetOnItemClickListner(new BoardAdapter.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MyBoards.this,BoardIconSelectActivity.class));
-            }
-        });*/
+            public void onItemClick(View view, int Position) {
+                if(Position==(boardList.size()-1))
+                {
+                    boardList.add(new Board("Board 1",1,5));
+                    adapter.notifyDataSetChanged();
+                }
+                else
+                Toast.makeText(MyBoards.this,"Open "+boardList.get(Position),Toast.LENGTH_SHORT).show();
 
+            }
+        });
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this,3));
+        notifyGridSizeChange(boardList.size());
+        mRecyclerView.setAdapter(adapter);
+
+
+    }
+    void notifyGridSizeChange(int listSize)
+    {
+        if(listSize<4)
+            listSize=3;
+        else if(listSize>3)
+            listSize=4;
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this,listSize));
     }
 
     /**
@@ -55,8 +73,6 @@ public class MyBoards extends AppCompatActivity {
      */
     private void prepareBoardList() {
         boardList.add(new Board("Board 1",1,5));
-        boardList.add(new Board("Board 2",1,5));
-        boardList.add(new Board("Board 3",1,5));
 
         boardList.add(new Board("NULL",-1,-1));
         adapter.notifyDataSetChanged();

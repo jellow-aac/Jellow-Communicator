@@ -34,8 +34,8 @@
         android:textStyle="bold" />
 
     <ImageView
-        android:layout_width="@dimen/my_board_edit_icon_size"
-        android:layout_height="@dimen/my_board_edit_icon_size"
+        android:layout_width="@dimen/my_board_4_edit_icon_size"
+        android:layout_height="@dimen/my_board_4_edit_icon_size"
         android:src="@drawable/ic_mode_edit"
         android:id="@+id/edit_board"
         android:padding="4dp"

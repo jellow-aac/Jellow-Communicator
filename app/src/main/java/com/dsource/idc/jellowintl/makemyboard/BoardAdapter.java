@@ -3,7 +3,6 @@ package com.dsource.idc.jellowintl.makemyboard;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +21,9 @@ private Context mContext;
 // private LayoutInflater mInflater;
 private ArrayList<Board> mDataSource;
 private int size=-1;
+    private OnItemClickListener mItemClickListener;
 
-public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     //each data item is just a string in this case
     public TextView boardTitle;
@@ -37,17 +37,25 @@ public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickL
         boardIcon.setOnClickListener(this);
         editBoard=v.findViewById(R.id.edit_board);
         editBoard.setOnClickListener(this);
-        final float scale = mContext.getResources().getDisplayMetrics().density;
-        float pixel=mContext.getResources().getDimension(R.dimen.my_board_four_grid_icon_size);
-        int size=(int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, mContext.getResources().getDisplayMetrics());
-        //int pixels = (int) (dps * scale + 0.5f);
+
         if(mDataSource.size()<5)
+        {
+            int pixel=(int)mContext.getResources().getDimension(R.dimen.my_board_four_grid_icon_size);
+            int editBoardSize=(int)mContext.getResources().getDimension(R.dimen.my_board_4_edit_icon_size);
             boardIcon.setLayoutParams(new RelativeLayout.LayoutParams(
-                    size,//Width
-                    size//Height
+                    pixel,//Width
+                    pixel//Height
             ));
+            editBoard.setLayoutParams(new RelativeLayout.LayoutParams(
+                    editBoardSize,//Width
+                    editBoardSize//Height
+            ));
+
+
+        }
         v.setOnClickListener(this);
     }
+
 
     @Override
     public void onClick(View view) {
@@ -55,14 +63,26 @@ public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickL
         {
             Toast.makeText(mContext, "Edit board clicked", Toast.LENGTH_SHORT).show();
         }
+        else if(view==boardIcon)
+        {
+            mItemClickListener.onItemClick(view,getAdapterPosition());
+        }
     }
 }
 
+    public interface OnItemClickListener {
+        void onItemClick(View view, int Position);
+    }
+
+    public void SetOnItemClickListner(final BoardAdapter.OnItemClickListener mItemClickListener) {
+        this.mItemClickListener = mItemClickListener;
+    }
     /**
      * public constructor
      * @param context
      * @param items
      */
+
     public BoardAdapter(Context context, ArrayList<Board> items) {
         mContext = context;
         mDataSource = items;

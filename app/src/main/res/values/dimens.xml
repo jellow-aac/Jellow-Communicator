@@ -53,7 +53,8 @@
     <dimen name="my_board_eight_grid_icon_size">100dp</dimen>
     <dimen name="my_board_four_grid_icon_size">200dp</dimen>
     <dimen name="my_board_text_size">18sp</dimen>
-    <dimen name="my_board_edit_icon_size">18dp</dimen>
+    <dimen name="my_board_8_edit_icon_size">18dp</dimen>
+    <dimen name="my_board_4_edit_icon_size">36dp</dimen>
 
 
 </resources>
