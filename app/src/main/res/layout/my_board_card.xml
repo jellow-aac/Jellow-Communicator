@@ -5,7 +5,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:layout_margin="2dp">
+    android:layout_margin="2dp"
+    android:background="@color/colorIntro">
 <RelativeLayout
     android:padding="8dp"
     android:background="@color/colorIntro"
@@ -25,6 +26,7 @@
         android:id="@+id/board_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:maxWidth="@dimen/my_board_eight_grid_icon_size"
         android:layout_below="@+id/board_icon"
         android:layout_centerHorizontal="true"
         android:text="Board Name"
@@ -34,8 +36,8 @@
         android:textStyle="bold" />
 
     <ImageView
-        android:layout_width="@dimen/my_board_4_edit_icon_size"
-        android:layout_height="@dimen/my_board_4_edit_icon_size"
+        android:layout_width="@dimen/my_board_edit_icon_size"
+        android:layout_height="@dimen/my_board_edit_icon_size"
         android:src="@drawable/ic_mode_edit"
         android:id="@+id/edit_board"
         android:padding="4dp"

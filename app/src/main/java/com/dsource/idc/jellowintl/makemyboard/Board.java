@@ -1,16 +1,24 @@
 package com.dsource.idc.jellowintl.makemyboard;
 
+import android.graphics.Bitmap;
 import android.support.annotation.Keep;
 
-public class Board {
+import java.io.Serializable;
+
+/**
+ * This class is for storing the instance of the Board object
+ */
+
+public class Board implements Serializable {
     @Keep
     public String boardTitle;
     @Keep
-    public int boardID,totalIcons;
+    public String boardID;
+    private Bitmap boardIcon;
 
-    public Board(String boardTitle, int boardID, int totalIcons) {
+    public Board(String Uid,String boardTitle,Bitmap boardIcon) {
         this.boardTitle = boardTitle;
         this.boardID = boardID;
-        this.totalIcons = totalIcons;
+        this.boardIcon=boardIcon;
     }
 }

@@ -48,6 +48,10 @@
         <item name="android:height">@dimen/bar_height</item>
         <item name="height">@dimen/bar_height</item>
     </style>
+    <style name="MyDialogBox" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:color">@color/colorIntroSelected</item>
+
+    </style>
 
     <style name="Material.Widget.Slider">
         <item name="sl_trackSize">2dp</item>
@@ -79,7 +83,7 @@
 
     <color name="yellow_silhouette">#ffcc14</color>
     <color name="white">#FFFFFF</color>
-
+    <color name="transparent">#00ffffff</color>
 
 
     <style name="Theme.AppCompat.Translucent">

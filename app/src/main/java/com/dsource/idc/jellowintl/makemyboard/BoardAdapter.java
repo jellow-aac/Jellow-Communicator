@@ -1,7 +1,7 @@
 package com.dsource.idc.jellowintl.makemyboard;
 
 import android.content.Context;
-import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,29 +33,19 @@ private int size=-1;
     public ViewHolder(View v) {
         super(v);
         boardTitle =v.findViewById(R.id.board_title);
+
         boardIcon=v.findViewById(R.id.board_icon);
         boardIcon.setOnClickListener(this);
+
         editBoard=v.findViewById(R.id.edit_board);
         editBoard.setOnClickListener(this);
-
         if(mDataSource.size()<5)
-        {
-            int pixel=(int)mContext.getResources().getDimension(R.dimen.my_board_four_grid_icon_size);
-            int editBoardSize=(int)mContext.getResources().getDimension(R.dimen.my_board_4_edit_icon_size);
             boardIcon.setLayoutParams(new RelativeLayout.LayoutParams(
-                    pixel,//Width
-                    pixel//Height
+                    mContext.getResources().getDimensionPixelSize(R.dimen.my_board_four_grid_icon_size),//Width
+                    mContext.getResources().getDimensionPixelSize(R.dimen.my_board_four_grid_icon_size)//Height
             ));
-            editBoard.setLayoutParams(new RelativeLayout.LayoutParams(
-                    editBoardSize,//Width
-                    editBoardSize//Height
-            ));
-
-
-        }
         v.setOnClickListener(this);
     }
-
 
     @Override
     public void onClick(View view) {
@@ -69,20 +59,19 @@ private int size=-1;
         }
     }
 }
-
     public interface OnItemClickListener {
         void onItemClick(View view, int Position);
     }
 
-    public void SetOnItemClickListner(final BoardAdapter.OnItemClickListener mItemClickListener) {
+    public void setOnItemClickListner(final BoardAdapter.OnItemClickListener mItemClickListener) {
         this.mItemClickListener = mItemClickListener;
     }
+
     /**
      * public constructor
      * @param context
      * @param items
      */
-
     public BoardAdapter(Context context, ArrayList<Board> items) {
         mContext = context;
         mDataSource = items;
@@ -107,13 +96,6 @@ private int size=-1;
         if(position==(size-1))
         {
             holder.boardIcon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_plus));
-            holder.boardTitle.setText("Add board");
-            holder.boardIcon.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mContext.startActivity(new Intent(mContext,BoardIconSelectActivity.class));
-                }
-            });
             holder.editBoard.setVisibility(View.GONE);
         }
         else
@@ -122,6 +104,12 @@ private int size=-1;
             Board board = mDataSource.get(position);
             holder.boardTitle.setText(board.boardTitle);
             }
+
+
+    }
+
+    @Override
+    public void onViewAttachedToWindow(@NonNull ViewHolder holder) {
 
 
     }

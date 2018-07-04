@@ -35,4 +35,9 @@
     <item>@drawable/back</item>
     <item>@drawable/keyboard</item>
 </string-array>
+    <string-array name="add_photo_option" >
+        <item>@drawable/ic_photo_camera</item>
+        <item>@drawable/ic_photo_library</item>
+        <item>@drawable/ic_jellow</item>
+    </string-array>
 </resources>

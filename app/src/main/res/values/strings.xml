@@ -342,6 +342,11 @@
     <string name="verbiage_ref">verbiage_data</string>
     <string name="lang">En-IN</string>
     <string name="goto_home">home</string>
+    <string-array name="entries" >
+        <item>Camera</item>
+        <item>Gallery</item>
+        <item>Library</item>
+    </string-array>
 
 
 </resources>

@@ -8,6 +8,7 @@
     tools:context="com.dsource.idc.jellowintl.makemyboard.MyBoards">
     <android.support.v7.widget.RecyclerView
         android:layout_centerInParent="true"
+        android:background="@color/colorIntro"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/board_recycer_view"

@@ -53,8 +53,17 @@
     <dimen name="my_board_eight_grid_icon_size">100dp</dimen>
     <dimen name="my_board_four_grid_icon_size">200dp</dimen>
     <dimen name="my_board_text_size">18sp</dimen>
-    <dimen name="my_board_8_edit_icon_size">18dp</dimen>
-    <dimen name="my_board_4_edit_icon_size">36dp</dimen>
+    <dimen name="my_board_edit_icon_size">18dp</dimen>
+    <dimen name="edit_baord_dialog_side_margin">28dp</dimen>
+    <dimen name="board_edit_icon_size">150dp</dimen>
+    <dimen name="board_edit_edittext_size">170dp</dimen>
+    <dimen name="edit_baord_dialog_margin_bottom">12dp</dimen>
+    <dimen name="edit_board_button_width">60dp</dimen>
+    <dimen name="edit_board_button_margin_top">8dp</dimen>
+    <dimen name="edit_board_button_side_margin">10dp</dimen>
+    <dimen name="list_item_padding">6dp</dimen>
+    <dimen name="dialog_width">400dp</dimen>
+    <dimen name="dialog_height">500dp</dimen>
 
 
 </resources>

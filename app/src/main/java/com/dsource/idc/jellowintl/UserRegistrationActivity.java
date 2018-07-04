@@ -65,6 +65,7 @@ import static com.dsource.idc.jellowintl.utility.Analytics.maskNumber;
 import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
 
+
 public class UserRegistrationActivity extends AppCompatActivity {
     public static final String LCODE = "lcode";
     public static final String TUTORIAL = "tutorial";
@@ -83,6 +84,10 @@ public class UserRegistrationActivity extends AppCompatActivity {
     String selectedLanguage;
     String name, emergencyContact, eMailId;
 
+    static
+    {
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -237,6 +242,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
             etEmergencyContact.setText(mSession.getCaregiverNumber());
             etEmailId.setText(mSession.getEmailId());
         }
+
     }
 
     @Override
