@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/card_view"
+
+<RelativeLayout android:padding="8dp"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:layout_margin="2dp"
-    android:background="@color/colorIntro">
-<RelativeLayout
-    android:padding="8dp"
     android:background="@color/colorIntro"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ImageView
-        android:layout_width="@dimen/my_board_eight_grid_icon_size"
+        android:layout_width="@dimen/my_board_four_grid_icon_size"
         android:padding="16dp"
-        android:layout_height="@dimen/my_board_eight_grid_icon_size"
+        android:layout_height="@dimen/my_board_four_grid_icon_size"
         android:src="@drawable/ic_person"
         android:id="@+id/board_icon"
         android:background="@drawable/board_list_back"
@@ -40,8 +34,7 @@
         android:layout_height="@dimen/my_board_edit_icon_size"
         android:src="@drawable/ic_mode_edit"
         android:id="@+id/edit_board"
-        android:padding="4dp"
+        android:padding="6dp"
         android:background="@drawable/circular_background_red"
         />
 </RelativeLayout>
-</android.support.v7.widget.CardView>

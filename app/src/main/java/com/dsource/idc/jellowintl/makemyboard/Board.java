@@ -18,7 +18,31 @@ public class Board implements Serializable {
 
     public Board(String Uid,String boardTitle,Bitmap boardIcon) {
         this.boardTitle = boardTitle;
-        this.boardID = boardID;
+        this.boardID = Uid;
         this.boardIcon=boardIcon;
+    }
+
+    public String getBoardTitle() {
+        return boardTitle;
+    }
+
+    public void setBoardTitle(String boardTitle) {
+        this.boardTitle = boardTitle;
+    }
+
+    public String getBoardID() {
+        return boardID;
+    }
+
+    public void setBoardID(String boardID) {
+        this.boardID = boardID;
+    }
+
+    public Bitmap getBoardIcon() {
+        return boardIcon;
+    }
+
+    public void setBoardIcon(Bitmap boardIcon) {
+        this.boardIcon = boardIcon;
     }
 }

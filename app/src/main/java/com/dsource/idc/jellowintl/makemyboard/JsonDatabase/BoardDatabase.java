@@ -7,9 +7,12 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.dsource.idc.jellowintl.makemyboard.Board;
 import com.google.gson.Gson;
+
+import java.util.ArrayList;
 
 /**
  * Created by Ayaz Alam on 31/05/2018.
@@ -26,16 +29,14 @@ public class BoardDatabase extends SQLiteOpenHelper {
     public static final String BOARD_ID = "_id";//Icon Primary key ID
     public static final String BOARD_TITLE = "board_title";//Icon Title
     public static final String BOARD_JSON = "icon_p1";//First Level Parent
-    public static final String KEY_P2 = "icon_p2";//Second Level Parent
-    public static final String KEY_P3 = "icon_p3";//Third Level Parent
-    // ... and a string array of columns.
+
     private static final String[] COLUMNS =
-            {BOARD_ID, BOARD_TITLE, BOARD_JSON,KEY_P2,KEY_P3};
+            {BOARD_ID, BOARD_TITLE, BOARD_JSON};
     // Build the SQL query that creates the table.
     private static final String ICON_LIST_TABLE_CREATE =
-            "CREATE TABLE " + BOARD_TABLE + " (" + BOARD_ID + " INTEGER PRIMARY KEY, "
+            "CREATE TABLE IF NOT EXISTS " + BOARD_TABLE + " (" + BOARD_ID + " INTEGER PRIMARY KEY, "
                     + BOARD_TITLE + " TEXT," //Board Title
-                    + BOARD_JSON + " INTERGER  );";//Board Json
+                    + BOARD_JSON + " TEXT  );";//Board Json
     private SQLiteDatabase mReadableDB;
     public BoardDatabase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -123,9 +124,10 @@ public class BoardDatabase extends SQLiteOpenHelper {
         }
     }
     @Nullable
-    public void getAllBoards(String BoardTitle)
+    public ArrayList<Board> getAllBoards()
     {
 
+        ArrayList<Board> boardList=new ArrayList<>();
         //TODO Write logic to fetch the Boards
         String selectQuery = "SELECT * FROM "+ BOARD_TABLE;
         Cursor cursor = null;
@@ -136,8 +138,9 @@ public class BoardDatabase extends SQLiteOpenHelper {
                 cursor.moveToFirst();
                 for (int i = 0; i < cursor.getCount(); i++) {
                     if (cursor != null) {
-
-                        //Browse over the database
+                        String Json=cursor.getString(cursor.getColumnIndex(BOARD_JSON));
+                        Board board=new Gson().fromJson(Json,Board.class);
+                        boardList.add(board);
                         cursor.moveToNext();
                     }
                 }
@@ -150,6 +153,7 @@ public class BoardDatabase extends SQLiteOpenHelper {
                 cursor.close();
 
         }
+    return boardList;
     }
 
     /**
@@ -186,6 +190,13 @@ public class BoardDatabase extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public void updateBoardIntoDatabase(SQLiteDatabase db,Board board) {
+        String json=new Gson().toJson(board);
+
+        String selectQuery = "UPDATE "+ BOARD_TABLE +" SET "+ BOARD_TITLE +" = '"+board.boardTitle+"', "+BOARD_JSON+" = '"+json+"' WHERE "+BOARD_ID+" = '"+board.boardID+"'";
+        Log.d("UpdateQuery",selectQuery);
+        db.execSQL(selectQuery);
+    }
 }
 
 //END

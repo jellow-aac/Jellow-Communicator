@@ -203,7 +203,7 @@ public class Verbiage {
         JELLOW_ICON thisIcon=new JELLOW_ICON(icon.IconTitle,SpeechLable,v.get(0),v.get(1),v.get(2),v.get(3),v.get(4),v.get(5),
                 v.get(6),v.get(7),v.get(8),v.get(9),v.get(10),v.get(11));
         String s=new Gson().toJson(thisIcon);
-        return s;
+        return  s;
     }
     private String getJsonForLevel2(JellowIcon icon) {
         mLayerTwoSpeech= getVerbiageModelLevel2();

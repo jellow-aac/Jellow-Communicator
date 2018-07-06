@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dsource.idc.jellowintl.R;
 
@@ -17,7 +16,9 @@ import java.util.ArrayList;
 
 public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> {
 
-private Context mContext;
+    public static final int OPEN_ADD_BOARD = 121;
+    public static final int EDIT_BOARD = 212;
+    private Context mContext;
 // private LayoutInflater mInflater;
 private ArrayList<Board> mDataSource;
 private int size=-1;
@@ -39,11 +40,11 @@ private int size=-1;
 
         editBoard=v.findViewById(R.id.edit_board);
         editBoard.setOnClickListener(this);
-        if(mDataSource.size()<5)
+      /*  if(mDataSource.size()<5)
             boardIcon.setLayoutParams(new RelativeLayout.LayoutParams(
                     mContext.getResources().getDimensionPixelSize(R.dimen.my_board_four_grid_icon_size),//Width
                     mContext.getResources().getDimensionPixelSize(R.dimen.my_board_four_grid_icon_size)//Height
-            ));
+            ));*/
         v.setOnClickListener(this);
     }
 
@@ -51,19 +52,19 @@ private int size=-1;
     public void onClick(View view) {
         if(view==editBoard)
         {
-            Toast.makeText(mContext, "Edit board clicked", Toast.LENGTH_SHORT).show();
+            mItemClickListener.onItemClick(view,getAdapterPosition(),EDIT_BOARD);
         }
         else if(view==boardIcon)
         {
-            mItemClickListener.onItemClick(view,getAdapterPosition());
+            mItemClickListener.onItemClick(view,getAdapterPosition(),OPEN_ADD_BOARD);
         }
     }
 }
     public interface OnItemClickListener {
-        void onItemClick(View view, int Position);
+        void onItemClick(View view, int Position, int code);
     }
 
-    public void setOnItemClickListner(final BoardAdapter.OnItemClickListener mItemClickListener) {
+    public void setOnItemClickListener(final BoardAdapter.OnItemClickListener mItemClickListener) {
         this.mItemClickListener = mItemClickListener;
     }
 
@@ -96,6 +97,7 @@ private int size=-1;
         if(position==(size-1))
         {
             holder.boardIcon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_plus));
+            holder.boardTitle.setText(mDataSource.get(position).boardTitle);
             holder.editBoard.setVisibility(View.GONE);
         }
         else
