@@ -42,5 +42,15 @@ public class JellowIcon implements Serializable{
 
     }
 
+    public void setParent0(int parent0) {
+        this.parent0 = parent0;
+    }
 
+    public void setParent1(int parent1) {
+        this.parent1 = parent1;
+    }
+
+    public void setParent2(int parent2) {
+        this.parent2 = parent2;
+    }
 }

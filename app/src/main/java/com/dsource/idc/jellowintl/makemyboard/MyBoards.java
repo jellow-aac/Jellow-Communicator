@@ -2,6 +2,7 @@ package com.dsource.idc.jellowintl.makemyboard;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -44,7 +45,8 @@ public class MyBoards extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_boards);
-        checkDatabase();
+        startActivity(new Intent(this,BoardIconSelectActivity.class));
+        /*checkDatabase();
         boardHashMap =new HashMap<>();
         ctx=MyBoards.this;
         getSupportActionBar().setDisplayShowTitleEnabled(true);
@@ -52,6 +54,7 @@ public class MyBoards extends AppCompatActivity {
         db=new DataBaseHelper(this).getWritableDatabase();
         initFields();
         prepareBoardList();
+        */
 
 
     }
