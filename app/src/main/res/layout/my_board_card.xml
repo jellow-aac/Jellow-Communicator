@@ -11,7 +11,7 @@
         android:layout_width="@dimen/my_board_four_grid_icon_size"
         android:padding="16dp"
         android:layout_height="@dimen/my_board_four_grid_icon_size"
-        android:src="@drawable/ic_person"
+        android:src="@drawable/ic_board_person"
         android:id="@+id/board_icon"
         android:background="@drawable/board_list_back"
         />
@@ -32,9 +32,17 @@
     <ImageView
         android:layout_width="@dimen/my_board_edit_icon_size"
         android:layout_height="@dimen/my_board_edit_icon_size"
-        android:src="@drawable/ic_mode_edit"
+        android:src="@drawable/ic_edit_board"
         android:id="@+id/edit_board"
-        android:padding="6dp"
+        android:padding="4dp"
         android:background="@drawable/circular_background_red"
         />
+    <ImageView
+        android:layout_width="@dimen/my_board_edit_icon_size"
+        android:layout_height="@dimen/my_board_edit_icon_size"
+        android:src="@drawable/ic_delete_board_cross"
+        android:layout_toRightOf="@id/board_icon"
+        android:layout_marginLeft="-16dp"
+        android:id="@+id/remove_board"
+         />
 </RelativeLayout>

@@ -7,6 +7,7 @@ import android.content.res.TypedArray;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -14,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -22,8 +24,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dsource.idc.jellowintl.AboutJellowActivity;
 import com.dsource.idc.jellowintl.DataBaseHelper;
+import com.dsource.idc.jellowintl.JsonConverter.ConverterActivity;
+import com.dsource.idc.jellowintl.KeyboardInputActivity;
+import com.dsource.idc.jellowintl.LanguageSelectActivity;
+import com.dsource.idc.jellowintl.ProfileFormActivity;
 import com.dsource.idc.jellowintl.R;
+import com.dsource.idc.jellowintl.ResetPreferencesActivity;
+import com.dsource.idc.jellowintl.SearchActivity;
+import com.dsource.idc.jellowintl.SettingActivity;
+import com.dsource.idc.jellowintl.TutorialActivity;
 import com.dsource.idc.jellowintl.makemyboard.JsonDatabase.BoardDatabase;
 import com.rey.material.app.Dialog;
 
@@ -33,6 +44,8 @@ import java.util.HashMap;
 
 public class MyBoards extends AppCompatActivity {
 
+    public static final int DELETE_MODE =333;
+    public static final int NORMAL_MODE =444;
     RecyclerView mRecyclerView;
     BoardAdapter adapter;
     ArrayList<Board> boardList;
@@ -56,7 +69,7 @@ public class MyBoards extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_background));
         db=new DataBaseHelper(this).getWritableDatabase();
         initFields();
-        prepareBoardList();
+        prepareBoardList(NORMAL_MODE);
 
 
     }
@@ -71,7 +84,7 @@ public class MyBoards extends AppCompatActivity {
     private void initFields() {
         boardList=new ArrayList<>();
         mRecyclerView=findViewById(R.id.board_recycer_view);
-        adapter=new BoardAdapter(this,boardList);
+        adapter=new BoardAdapter(this,boardList,NORMAL_MODE);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this,3));
         mRecyclerView.setAdapter(adapter);
     }
@@ -80,49 +93,57 @@ public class MyBoards extends AppCompatActivity {
      * prepares the board list `
      *
      */
-    private void prepareBoardList() {
+    private void prepareBoardList(int mode) {
         boardList.clear();
         boardList=loadBoardsFromDataBase();
-        boardList.add(new Board("-1","Add Board",null));
-        adapter=new BoardAdapter(this,boardList);
-        adapter.setOnItemClickListener(new BoardAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int Position, int openAddBoard) {
-                if(openAddBoard==BoardAdapter.EDIT_BOARD)
-                {
-                    initBoardEditAddDialog(EDIT_BOARD,Position);
-                }
-                else if(openAddBoard==BoardAdapter.OPEN_ADD_BOARD)
-                {
-                    if(Position==(boardList.size()-1)) {
-                        initBoardEditAddDialog(NEW_BOARD, -1);
-                    }
-                    else
-                    {
-                        if(true)
-                        {
-                            Intent intent =new Intent(ctx,BoardIconSelectActivity.class);
-                            intent.putExtra(BOARD_ID,boardList.get(Position).getBoardID());
-                            startActivity(intent);
+        if(mode==NORMAL_MODE) {
+            boardList.add(new Board("-1", "Add Board", null));
+            adapter = new BoardAdapter(this, boardList,NORMAL_MODE);
+            adapter.setOnItemClickListener(new BoardAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int Position, int openAddBoard) {
+                    if (openAddBoard == BoardAdapter.EDIT_BOARD) {
+                        initBoardEditAddDialog(EDIT_BOARD, Position);
+                    } else if (openAddBoard == BoardAdapter.OPEN_ADD_BOARD) {
+                        if (Position == (boardList.size() - 1)) {
+                            initBoardEditAddDialog(NEW_BOARD, -1);
+                        } else {
+                            if (true) {
+                                Intent intent = new Intent(ctx, BoardIconSelectActivity.class);
+                                intent.putExtra(BOARD_ID, boardList.get(Position).getBoardID());
+                                startActivity(intent);
+                            } else {
+                                //TODO when the board is already created completely
+                            }
                         }
-                        else
-                        {
-                            //TODO when the board is already created completely
-                        }
-                    }
 
+                    }
                 }
-            }
-        });
+            });
+        }
+        else if(mode==DELETE_MODE)
+        {
+            adapter = new BoardAdapter(this, boardList,DELETE_MODE);
+            adapter.setOnItemClickListener(new BoardAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int Position, int code) {
+                    if(code==DELETE_MODE) {
+
+                        Board boardToDelete = boardList.get(Position);
+                        database.deleteBoard(boardToDelete.boardID,new DataBaseHelper(MyBoards.this).getReadableDatabase());
+                        boardList.remove(Position);
+                        prepareBoardList(DELETE_MODE);
+                    }
+                }
+            });
+
+        }
+
+
         mRecyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        return true;
-    }
 
 
 
@@ -133,6 +154,7 @@ public class MyBoards extends AppCompatActivity {
         final LayoutInflater dialogLayout = LayoutInflater.from(this);
         View dialogContainerView = dialogLayout.inflate(R.layout.edit_board_dialog, null);
         final Dialog dialogForBoardEditAdd = new Dialog(this,R.style.MyDialogBox);
+        dialogForBoardEditAdd.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         //List on the dialog.
         final ListView listView=dialogContainerView.findViewById(R.id.camera_list);
         final EditText boardTitleEditText=dialogContainerView.findViewById(R.id.board_name);
@@ -217,7 +239,7 @@ public class MyBoards extends AppCompatActivity {
             board.setBoardTitle(name);
             board.setBoardIcon(boardIcon);
             database.updateBoardIntoDatabase(new DataBaseHelper(this).getReadableDatabase(),board);
-            prepareBoardList();
+            prepareBoardList(NORMAL_MODE);
         }
     }
     private ArrayList<Board> loadBoardsFromDataBase()
@@ -232,6 +254,40 @@ public class MyBoards extends AppCompatActivity {
         boardList.add(newBoard);
         database.addBoardToDatabase(new DataBaseHelper(this).getWritableDatabase(),newBoard);
         Log.d("Board : ",""+database.getBoard(newBoard.boardTitle).boardTitle);
-        prepareBoardList();
+        prepareBoardList(NORMAL_MODE);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.boards_activity_menu, menu);
+        super.onCreateOptionsMenu(menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.delete_boards:
+               activateDeleteMode();
+                break;
+            case R.id.option:
+                 break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
+
+    boolean deleteModeOpen=false;
+    private void activateDeleteMode() {
+        if(boardList.size()>1)
+        {
+            if (!deleteModeOpen)
+                prepareBoardList(DELETE_MODE);
+            else prepareBoardList(NORMAL_MODE);
+            deleteModeOpen = !deleteModeOpen;
+        }
+        else Toast.makeText(ctx, R.string.no_board_to_delete,Toast.LENGTH_SHORT).show();
     }
 }

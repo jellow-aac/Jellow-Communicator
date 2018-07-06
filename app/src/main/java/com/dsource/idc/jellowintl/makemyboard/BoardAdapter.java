@@ -19,6 +19,7 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> 
     public static final int OPEN_ADD_BOARD = 121;
     public static final int EDIT_BOARD = 212;
     private Context mContext;
+    private int mode;
 // private LayoutInflater mInflater;
 private ArrayList<Board> mDataSource;
 private int size=-1;
@@ -30,21 +31,25 @@ private int size=-1;
     public TextView boardTitle;
     public ImageView boardIcon;
     public ImageView editBoard;
+    public ImageView deleteBoard;
 
     public ViewHolder(View v) {
         super(v);
         boardTitle =v.findViewById(R.id.board_title);
-
         boardIcon=v.findViewById(R.id.board_icon);
+        deleteBoard=v.findViewById(R.id.remove_board);
         boardIcon.setOnClickListener(this);
-
-        editBoard=v.findViewById(R.id.edit_board);
-        editBoard.setOnClickListener(this);
-      /*  if(mDataSource.size()<5)
-            boardIcon.setLayoutParams(new RelativeLayout.LayoutParams(
-                    mContext.getResources().getDimensionPixelSize(R.dimen.my_board_four_grid_icon_size),//Width
-                    mContext.getResources().getDimensionPixelSize(R.dimen.my_board_four_grid_icon_size)//Height
-            ));*/
+        editBoard = v.findViewById(R.id.edit_board);
+        if(mode==MyBoards.NORMAL_MODE) {
+            editBoard.setOnClickListener(this);
+            deleteBoard.setVisibility(View.GONE);
+        }
+         if(mode==MyBoards.DELETE_MODE)
+        {
+            editBoard.setVisibility(View.GONE);
+            deleteBoard.setVisibility(View.VISIBLE);
+            deleteBoard.setOnClickListener(this);
+        }
         v.setOnClickListener(this);
     }
 
@@ -57,6 +62,10 @@ private int size=-1;
         else if(view==boardIcon)
         {
             mItemClickListener.onItemClick(view,getAdapterPosition(),OPEN_ADD_BOARD);
+        }
+        else if(view==deleteBoard)
+        {
+            mItemClickListener.onItemClick(view,getAdapterPosition(),MyBoards.DELETE_MODE);
         }
     }
 }
@@ -73,20 +82,18 @@ private int size=-1;
      * @param context
      * @param items
      */
-    public BoardAdapter(Context context, ArrayList<Board> items) {
+    public BoardAdapter(Context context, ArrayList<Board> items,int mode) {
         mContext = context;
         mDataSource = items;
+        this.mode=mode;
     }
 
 
     @Override
     public BoardAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView;
-
         itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.my_board_card, parent, false);
-
-
         return new BoardAdapter.ViewHolder(itemView);
     }
 
@@ -94,17 +101,17 @@ private int size=-1;
     @Override
     public void onBindViewHolder(BoardAdapter.ViewHolder holder, int position) {
         size=mDataSource.size();
-        if(position==(size-1))
-        {
-            holder.boardIcon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_plus));
-            holder.boardTitle.setText(mDataSource.get(position).boardTitle);
-            holder.editBoard.setVisibility(View.GONE);
-        }
+        Board board=mDataSource.get(position);
+        if(board.boardID.equals("-1")&&mode==MyBoards.NORMAL_MODE)
+             {
+                     holder.boardIcon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_plus));
+                     holder.boardTitle.setText(mDataSource.get(position).boardTitle);
+                     holder.editBoard.setVisibility(View.GONE);
+             }
         else
             {
 
-            Board board = mDataSource.get(position);
-            holder.boardTitle.setText(board.boardTitle);
+                    holder.boardTitle.setText(board.boardTitle);
             }
 
 

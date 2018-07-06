@@ -342,6 +342,8 @@
     <string name="verbiage_ref">verbiage_data</string>
     <string name="lang">En-IN</string>
     <string name="goto_home">home</string>
+    <string name="delete_board">Delete Board</string>
+    <string name="no_board_to_delete">There are no board to delete</string>
     <string-array name="entries" >
         <item>Camera</item>
         <item>Gallery</item>

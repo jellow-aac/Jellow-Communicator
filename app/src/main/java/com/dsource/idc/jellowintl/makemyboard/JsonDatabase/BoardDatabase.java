@@ -193,9 +193,17 @@ public class BoardDatabase extends SQLiteOpenHelper {
     public void updateBoardIntoDatabase(SQLiteDatabase db,Board board) {
         String json=new Gson().toJson(board);
 
-        String selectQuery = "UPDATE "+ BOARD_TABLE +" SET "+ BOARD_TITLE +" = '"+board.boardTitle+"', "+BOARD_JSON+" = '"+json+"' WHERE "+BOARD_ID+" = '"+board.boardID+"'";
-        Log.d("UpdateQuery",selectQuery);
-        db.execSQL(selectQuery);
+        String deletingQuery = "UPDATE "+ BOARD_TABLE +" SET "+ BOARD_TITLE +" = '"+board.boardTitle+"', "+BOARD_JSON+" = '"+json+"' WHERE "+BOARD_ID+" = '"+board.boardID+"'";
+        Log.d("UpdateQuery",deletingQuery);
+        db.execSQL(deletingQuery);
+    }
+
+    public void deleteBoard(String boardID,SQLiteDatabase db) {
+
+        String deletingQuery ="DELETE FROM "+BOARD_TABLE+" WHERE "+BOARD_ID+" = '"+boardID+"'";
+        Log.d("Delete Query",deletingQuery);
+        db.execSQL(deletingQuery);
+
     }
 }
 
