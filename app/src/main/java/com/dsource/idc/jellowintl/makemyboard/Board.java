@@ -15,6 +15,7 @@ public class Board implements Serializable {
     @Keep
     public String boardID;
     private Bitmap boardIcon;
+    private boolean boardCompleted=false;
 
     public Board(String Uid,String boardTitle,Bitmap boardIcon) {
         this.boardTitle = boardTitle;
@@ -44,5 +45,14 @@ public class Board implements Serializable {
 
     public void setBoardIcon(Bitmap boardIcon) {
         this.boardIcon = boardIcon;
+    }
+
+    public void setBoardCompleted()
+    {
+        boardCompleted=true;
+    }
+    public boolean getBoardCompleteStatus()
+    {
+        return boardCompleted;
     }
 }

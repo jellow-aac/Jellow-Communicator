@@ -17,7 +17,6 @@ public class LevelSelecterAdapter extends RecyclerView.Adapter<LevelSelecterAdap
     // private LayoutInflater mInflater;
     private ArrayList<String> mDataSource;
     LevelSelecterAdapter.OnItemClickListener mItemClickListener=null;
-    int selectedPosition=-1;
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -35,13 +34,7 @@ public class LevelSelecterAdapter extends RecyclerView.Adapter<LevelSelecterAdap
         @Override
         public void onClick(View view) {
            mItemClickListener.onItemClick(view,getAdapterPosition());
-           selectedPosition=getAdapterPosition();
         }
-        public void toggleSelection(int pos)
-        {
-
-        }
-
     }
 
 

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
@@ -35,13 +36,24 @@ public class BoardIconSelectActivity extends AppCompatActivity {
     public static ArrayList<JellowIcon> selectedIconList;
     LevelSelecterAdapter levelSelecterAdapter;
     CheckBox selectionCheckBox;
-    int previousSelection=0;
+    int previousSelection=-1;
     UtilFunctions utilF;
+    String boardId;
+    public static final String BOARD_ID="Board_Id";
+    ViewTreeObserver.OnGlobalLayoutListener tempListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_icon_select);
+        try{
+            boardId =getIntent().getExtras().getString(BOARD_ID);
+        }
+        catch (NullPointerException e)
+        {
+            Log.d("No board id found", boardId);
+        }
+
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         utilF=new UtilFunctions();
         selectionCheckBox=findViewById(R.id.select_deselect_check_box);
@@ -50,6 +62,7 @@ public class BoardIconSelectActivity extends AppCompatActivity {
         prepareLevelSelectPane();
         prepareIconPane(0,-1);
         dropDownList=getCurrentChildrens();
+
         initNavBarButtons();
 
 
@@ -62,6 +75,7 @@ public class BoardIconSelectActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(BoardIconSelectActivity.this,EditBoard.class);
                 intent.putExtra("IconList",selectedIconList);
+                intent.putExtra(BOARD_ID, boardId);
                 startActivity(intent);
             }
         });
@@ -234,10 +248,18 @@ public class BoardIconSelectActivity extends AppCompatActivity {
         levelSelecterRecycler.hasFixedSize();
         levelSelecterAdapter =new LevelSelecterAdapter(this,levelSelectList);
         levelSelecterRecycler.setAdapter(levelSelecterAdapter);
+        tempListener=new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                setSelection(0,null);
+            }
+        };
+
+        levelSelecterRecycler.getViewTreeObserver().addOnGlobalLayoutListener(tempListener);
         levelSelecterAdapter.setOnItemClickListner(new LevelSelecterAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                setSelection(position);
+                setSelection(position,view);
                 prepareIconPane(position,-1);
                 dropDownList=getCurrentChildrens();
                 if(dropDown.getVisibility()==View.VISIBLE)
@@ -249,12 +271,27 @@ public class BoardIconSelectActivity extends AppCompatActivity {
 
     }
 
-    private void setSelection(int position) {
-        if(previousSelection!=-1)
-        levelSelecterRecycler.getChildAt(previousSelection).setBackground(getResources().getDrawable(R.color.colorIntroSelected));
-        levelSelecterRecycler.getChildAt(position).setBackground(getResources().getDrawable(R.color.colorIntroSelected));
-        levelSelecterRecycler.getChildAt(previousSelection).setBackgroundColor(getResources().getColor(R.color.colorIntro));
+    private void setSelection(int position,View view) {
 
+        if(view!=null) {
+
+            View newSelection=levelSelecterRecycler.getChildAt(position);
+
+            ((TextView)newSelection.findViewById(R.id.icon_title)).setTextColor(getResources().getColor(R.color.colorIntro));
+            view.setBackgroundColor(getResources().getColor(R.color.colorIntroSelected));
+
+            View prevSelection=levelSelecterRecycler.getChildAt(previousSelection);
+            Log.d("Previons location","Loc: "+previousSelection+ "new "+position);
+            prevSelection.setBackgroundColor(getResources().getColor(R.color.colorIntro));
+            ((TextView)prevSelection.findViewById(R.id.icon_title)).setTextColor(getResources().getColor(R.color.light_grey));
+
+        }
+        else {
+            View s=levelSelecterRecycler.getChildAt(0);
+            s.setBackgroundColor(getResources().getColor(R.color.colorIntroSelected));
+            ((TextView)s.findViewById(R.id.icon_title)).setTextColor(getResources().getColor(R.color.colorIntro));
+            levelSelecterRecycler.getViewTreeObserver().removeOnGlobalLayoutListener(tempListener);
+        }
         previousSelection =position;
 
     }
@@ -317,7 +354,6 @@ public class BoardIconSelectActivity extends AppCompatActivity {
                 break;
             if(icon.parent0==previousSelection&&icon.parent2==-1&&icon.parent1!=-1)
                 list.add(icon.IconTitle);
-
         }
 
         return list;

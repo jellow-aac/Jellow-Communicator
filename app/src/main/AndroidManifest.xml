@@ -30,7 +30,7 @@
         </service>
 
         <activity
-            android:name="com.dsource.idc.jellowintl.MainActivity"
+            android:name=".MainActivity"
             android:configChanges="keyboardHidden|orientation|screenLayout"
             android:label="@string/app_name"
             android:screenOrientation="landscape">
@@ -39,63 +39,64 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity
-            android:name="com.dsource.idc.jellowintl.Intro"
+            android:name=".Intro"
             android:configChanges="keyboardHidden|orientation|screenLayout"
             android:label="Introduction to Jellow"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.dsource.idc.jellowintl.SequenceActivity"
+            android:name=".SequenceActivity"
             android:configChanges="keyboardHidden|orientation|screenLayout"
             android:label="@string/app_name"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.dsource.idc.jellowintl.UserRegistrationActivity"
+            android:name=".UserRegistrationActivity"
             android:configChanges="keyboardHidden|orientation|screenLayout"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.dsource.idc.jellowintl.SettingActivity"
+            android:name=".SettingActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="Settings"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.dsource.idc.jellowintl.KeyboardInputActivity"
+            android:name=".KeyboardInputActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="Keyboard Input"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.dsource.idc.jellowintl.AboutJellowActivity"
+            android:name=".AboutJellowActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="About Jellow"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.dsource.idc.jellowintl.ProfileFormActivity"
+            android:name=".ProfileFormActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="Profile"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.dsource.idc.jellowintl.FeedbackActivity"
+            android:name=".FeedbackActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="Feedback"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.dsource.idc.jellowintl.TutorialActivity"
+            android:name=".TutorialActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="Tutorial"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.dsource.idc.jellowintl.ResetPreferencesActivity"
+            android:name=".ResetPreferencesActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="Reset Preferences"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.dsource.idc.jellowintl.SplashActivity"
+            android:name=".SplashActivity"
             android:screenOrientation="landscape" />
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
@@ -138,7 +139,6 @@
             android:screenOrientation="landscape" />
         <activity android:name=".makemyboard.EditBoard" />
         <activity android:name=".JsonConverter.ConverterActivity" />
-        <activity android:name=".NewJellow.NewJellow"></activity>
     </application>
 
 </manifest>

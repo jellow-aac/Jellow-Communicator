@@ -53,7 +53,7 @@ public class MyBoards extends AppCompatActivity {
     private final int EDIT_BOARD=22;
     HashMap<String,Board> boardHashMap;
     SQLiteDatabase db;
-    String BOARD_ID="Board_Id";
+    public static final String BOARD_ID="Board_Id";
     Context ctx;
     BoardDatabase database;
     @Override
@@ -154,7 +154,9 @@ public class MyBoards extends AppCompatActivity {
         final LayoutInflater dialogLayout = LayoutInflater.from(this);
         View dialogContainerView = dialogLayout.inflate(R.layout.edit_board_dialog, null);
         final Dialog dialogForBoardEditAdd = new Dialog(this,R.style.MyDialogBox);
-        dialogForBoardEditAdd.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialogForBoardEditAdd.applyStyle(R.style.MyDialogBox);
+        dialogForBoardEditAdd.backgroundColor(getResources().getColor(R.color.transparent));
+
         //List on the dialog.
         final ListView listView=dialogContainerView.findViewById(R.id.camera_list);
         final EditText boardTitleEditText=dialogContainerView.findViewById(R.id.board_name);
@@ -201,7 +203,7 @@ public class MyBoards extends AppCompatActivity {
                     String BoardId=Calendar.getInstance().getTime().getTime()+"";
                     saveNewBoard(name,boardIcon,BoardId);
                     Intent intent=new Intent(ctx,BoardIconSelectActivity.class);
-                    intent.putExtra("Board_ID",BoardId);
+                    intent.putExtra(BOARD_ID,BoardId);
                     startActivity(intent);
                 }
                 else if(code==EDIT_BOARD)
@@ -221,10 +223,10 @@ public class MyBoards extends AppCompatActivity {
         editBoardIconButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              /*  if(isVisible)
+                if(isVisible)
                 listView.setVisibility(View.GONE);
                 else listView.setVisibility(View.VISIBLE);
-                isVisible=!isVisible;*/
+                isVisible=!isVisible;
             }
         });
         dialogForBoardEditAdd.setContentView(dialogContainerView);

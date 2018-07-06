@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/dialog_width"
+    android:layout_width="@dimen/board_edit_dialog_width"
     android:orientation="vertical"
+    style="@style/MyDialogBox"
+    android:background="@drawable/white_rounded_back"
     android:layout_height="wrap_content">
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -30,6 +32,15 @@
         android:padding="4dp"
         android:background="@drawable/circular_background_red"
         />
+        <ListView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_board"
+            android:layout_marginTop="-6dp"
+            android:layout_marginLeft="12dp"
+            android:divider="@drawable/divider"
+            android:id="@+id/camera_list"
+            />
 
     </RelativeLayout>
     <EditText
@@ -95,11 +106,6 @@
         android:textColor="@color/white"
         />
     </LinearLayout>
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:divider="@drawable/divider"
-        android:id="@+id/camera_list"
-        />
+
 
 </RelativeLayout>

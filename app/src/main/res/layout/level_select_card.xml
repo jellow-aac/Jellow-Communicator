@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:background="@color/colorIntro"
     android:layout_margin="1dp"
     android:layout_height="wrap_content">
@@ -9,7 +10,8 @@
         android:layout_height="wrap_content"
         android:text="Title"
         android:id="@+id/icon_title"
-        android:textStyle="bold"
+        android:textColor="@color/light_grey"
+        android:textSize="@dimen/level_select_pane_text_size"
         android:layout_centerInParent="true"
         android:paddingTop="6dp"
         android:paddingBottom="6dp"
