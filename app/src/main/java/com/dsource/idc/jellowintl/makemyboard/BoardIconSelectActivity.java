@@ -18,7 +18,9 @@ import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.dsource.idc.jellowintl.DataBaseHelper;
 import com.dsource.idc.jellowintl.R;
+import com.dsource.idc.jellowintl.makemyboard.JsonDatabase.BoardDatabase;
 import com.dsource.idc.jellowintl.utility.IconDataBaseHelper;
 import com.dsource.idc.jellowintl.utility.JellowIcon;
 
@@ -27,6 +29,7 @@ import java.util.ArrayList;
 public class BoardIconSelectActivity extends AppCompatActivity {
 
 
+    private static final int SEARCH_CODE = 121;
     RecyclerView levelSelecterRecycler;
     RecyclerView iconRecycler;
     IconSelecterAdapter iconSelecterAdapter;
@@ -73,10 +76,16 @@ public class BoardIconSelectActivity extends AppCompatActivity {
         (findViewById(R.id.save_normally)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(BoardIconSelectActivity.this,EditBoard.class);
-                intent.putExtra("IconList",selectedIconList);
-                intent.putExtra(BOARD_ID, boardId);
-                startActivity(intent);
+                BoardDatabase database=new BoardDatabase(BoardIconSelectActivity.this);
+                Board board=database.getBoardById(boardId);
+                if(board!=null) {
+                    board.setIconList(selectedIconList);
+                    database.updateBoardIntoDatabase(new DataBaseHelper(BoardIconSelectActivity.this).getReadableDatabase(),board);
+                    Intent intent = new Intent(BoardIconSelectActivity.this, EditBoard.class);
+                    intent.putExtra(getString(R.string.icon_list), selectedIconList);
+                    intent.putExtra(BOARD_ID, boardId);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -307,21 +316,6 @@ public class BoardIconSelectActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.my_board_menu, menu);
         return true;
     }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.search:
-                setContentView(R.layout.activity_search
-                );
-                break;
-            case R.id.filter:
-                showSecondLevelMenu();
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return true;
-    }
 
     private void showSecondLevelMenu() {
 
@@ -330,7 +324,6 @@ public class BoardIconSelectActivity extends AppCompatActivity {
             dropDown.setVisibility(View.GONE);
             return;
         }
-
         dropDown.setBackground(getResources().getDrawable(R.color.white));
         dropDown.setVisibility(View.VISIBLE);
         dropDown.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -352,13 +345,36 @@ public class BoardIconSelectActivity extends AppCompatActivity {
             JellowIcon icon=iconList.get(i);
             if(icon.parent2!=-1)
                 break;
-            if(icon.parent0==previousSelection&&icon.parent2==-1&&icon.parent1!=-1)
+            if(icon.parent0==previousSelection&&icon.parent1!=-1)
                 list.add(icon.IconTitle);
         }
 
         return list;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.search:
+                startActivityForResult(new Intent(this, BoardSearch.class),SEARCH_CODE);
+                break;
+            case R.id.filter:
+                showSecondLevelMenu();
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode==SEARCH_CODE&&resultCode==RESULT_OK)
+        {
+            JellowIcon icon=(JellowIcon)data.getExtras().getSerializable(getString(R.string.search_result));
+            if(icon!=null)
+            selectedIconList.add(icon);
+        }
 
+    }
 }

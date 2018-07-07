@@ -139,6 +139,11 @@
             android:screenOrientation="landscape" />
         <activity android:name=".makemyboard.EditBoard" />
         <activity android:name=".JsonConverter.ConverterActivity" />
+
+        <activity android:name=".makemyboard.BoardSearch"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/search_act_title"
+            android:theme="@style/Theme.AppCompat.Translucent"></activity>
     </application>
 
 </manifest>

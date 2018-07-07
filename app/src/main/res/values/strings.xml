@@ -344,6 +344,8 @@
     <string name="goto_home">home</string>
     <string name="delete_board">Delete Board</string>
     <string name="no_board_to_delete">There are no board to delete</string>
+    <string name="icon_list">IconList</string>
+    <string name="search_result">search_result</string>
     <string-array name="entries">
         <item>Camera</item>
         <item>Gallery</item>

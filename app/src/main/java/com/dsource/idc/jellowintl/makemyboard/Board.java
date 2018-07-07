@@ -3,7 +3,10 @@ package com.dsource.idc.jellowintl.makemyboard;
 import android.graphics.Bitmap;
 import android.support.annotation.Keep;
 
+import com.dsource.idc.jellowintl.utility.JellowIcon;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * This class is for storing the instance of the Board object
@@ -16,8 +19,10 @@ public class Board implements Serializable {
     public String boardID;
     private Bitmap boardIcon;
     private boolean boardCompleted=false;
+    private boolean boardIconsSelected=false;
+    private ArrayList<JellowIcon> iconList;
 
-    public Board(String Uid,String boardTitle,Bitmap boardIcon) {
+    public Board(String Uid, String boardTitle, Bitmap boardIcon) {
         this.boardTitle = boardTitle;
         this.boardID = Uid;
         this.boardIcon=boardIcon;
@@ -55,4 +60,21 @@ public class Board implements Serializable {
     {
         return boardCompleted;
     }
+    public boolean isBoardIconsSelected() {
+        return boardIconsSelected;
+    }
+
+    private void setBoardIconsSelected(boolean boardIconsSelected) {
+        this.boardIconsSelected = boardIconsSelected;
+    }
+    public ArrayList<JellowIcon> getIconList() {
+        return iconList;
+    }
+
+    public void setIconList(ArrayList<JellowIcon> iconList) {
+        this.iconList = iconList;
+        if(iconList.size()>0)
+        setBoardIconsSelected(true);
+    }
+
 }

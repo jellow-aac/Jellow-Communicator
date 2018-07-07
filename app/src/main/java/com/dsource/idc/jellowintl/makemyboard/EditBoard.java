@@ -26,7 +26,7 @@ public class EditBoard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_board);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
-        icons=(ArrayList<JellowIcon>)getIntent().getSerializableExtra("IconList");
+        icons=(ArrayList<JellowIcon>)getIntent().getSerializableExtra(getString(R.string.icon_list));
         icons=sortList(icons);
         sorter=new Sorter(icons);
         leftRec();

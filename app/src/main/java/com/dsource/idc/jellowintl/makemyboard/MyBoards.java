@@ -7,7 +7,6 @@ import android.content.res.TypedArray;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -24,18 +23,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dsource.idc.jellowintl.AboutJellowActivity;
 import com.dsource.idc.jellowintl.DataBaseHelper;
-import com.dsource.idc.jellowintl.JsonConverter.ConverterActivity;
-import com.dsource.idc.jellowintl.KeyboardInputActivity;
-import com.dsource.idc.jellowintl.LanguageSelectActivity;
-import com.dsource.idc.jellowintl.ProfileFormActivity;
 import com.dsource.idc.jellowintl.R;
-import com.dsource.idc.jellowintl.ResetPreferencesActivity;
-import com.dsource.idc.jellowintl.SearchActivity;
-import com.dsource.idc.jellowintl.SettingActivity;
-import com.dsource.idc.jellowintl.TutorialActivity;
 import com.dsource.idc.jellowintl.makemyboard.JsonDatabase.BoardDatabase;
+import com.dsource.idc.jellowintl.makemyboard.JsonDatabase.CustomDialog;
 import com.rey.material.app.Dialog;
 
 import java.util.ArrayList;
@@ -60,7 +51,7 @@ public class MyBoards extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_boards);
-        //new BoardDatabase(this).dropTable(new DataBaseHelper(this).getReadableDatabase());
+        new BoardDatabase(this).dropTable(new DataBaseHelper(this).getWritableDatabase());
         checkDatabase();
         boardHashMap =new HashMap<>();
         ctx=MyBoards.this;
@@ -126,13 +117,30 @@ public class MyBoards extends AppCompatActivity {
             adapter = new BoardAdapter(this, boardList,DELETE_MODE);
             adapter.setOnItemClickListener(new BoardAdapter.OnItemClickListener() {
                 @Override
-                public void onItemClick(View view, int Position, int code) {
+                public void onItemClick(View view, final int Position, int code) {
                     if(code==DELETE_MODE) {
+                        CustomDialog customDialog=new CustomDialog(ctx);
+                        customDialog.setText("Are you sure that you want to delete "+boardList.get(Position).boardTitle+" ?");
+                        customDialog.show();
 
-                        Board boardToDelete = boardList.get(Position);
-                        database.deleteBoard(boardToDelete.boardID,new DataBaseHelper(MyBoards.this).getReadableDatabase());
-                        boardList.remove(Position);
-                        prepareBoardList(DELETE_MODE);
+                        customDialog.setOnNegativeClickListener(new CustomDialog.onNegativeClickListener() {
+                            @Override
+                            public void onNegativeClickListener() {
+
+                            }
+                        });
+                        customDialog.setOnPositiveClickListener(new CustomDialog.onPositiveClickListener() {
+                            @Override
+                            public void onPositiveClickListener() {
+                                Board boardToDelete = boardList.get(Position);
+                                database.deleteBoard(boardToDelete.boardID,new DataBaseHelper(MyBoards.this).getReadableDatabase());
+                                boardList.remove(Position);
+                                prepareBoardList(DELETE_MODE);
+                            }
+                        });
+
+
+
                     }
                 }
             });
@@ -254,7 +262,7 @@ public class MyBoards extends AppCompatActivity {
         Board newBoard=new Board(boardID,boardName,boardIcon);
         database=new BoardDatabase(this);
         boardList.add(newBoard);
-        database.addBoardToDatabase(new DataBaseHelper(this).getWritableDatabase(),newBoard);
+        database.updateBoardIntoDatabase(new DataBaseHelper(this).getWritableDatabase(),newBoard);
         Log.d("Board : ",""+database.getBoard(newBoard.boardTitle).boardTitle);
         prepareBoardList(NORMAL_MODE);
     }
@@ -283,13 +291,15 @@ public class MyBoards extends AppCompatActivity {
 
     boolean deleteModeOpen=false;
     private void activateDeleteMode() {
-        if(boardList.size()>1)
+        if (!deleteModeOpen)
         {
-            if (!deleteModeOpen)
-                prepareBoardList(DELETE_MODE);
+            if(boardList.size()<1)
+                Toast.makeText(ctx,"There's no board to delete",Toast.LENGTH_SHORT).show();
+            else
+            prepareBoardList(DELETE_MODE);
+        }
             else prepareBoardList(NORMAL_MODE);
             deleteModeOpen = !deleteModeOpen;
-        }
-        else Toast.makeText(ctx, R.string.no_board_to_delete,Toast.LENGTH_SHORT).show();
+
     }
 }

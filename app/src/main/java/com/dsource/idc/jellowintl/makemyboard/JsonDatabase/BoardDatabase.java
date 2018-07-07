@@ -98,22 +98,20 @@ public class BoardDatabase extends SQLiteOpenHelper {
 
 
     @Nullable
-    public void query(String BoardTitle)
+    public Board getBoardById(String boardID)
     {
-        String selectQuery = "SELECT * FROM "+ BOARD_TABLE +" WHERE "+ BOARD_TITLE +" LIKE '" + BoardTitle + "%' LIMIT 20";
+        Board board=null;
+        String selectQuery = "SELECT * FROM "+ BOARD_TABLE +" WHERE "+ BOARD_ID +" = '" + boardID + "' ";
         Cursor cursor = null;
         try {
             if (mReadableDB == null) {mReadableDB = getReadableDatabase();}
             cursor = mReadableDB.rawQuery(selectQuery, null);
-            if(cursor.getCount()>0) {
-                cursor.moveToFirst();
-                for (int i = 0; i < cursor.getCount(); i++) {
-                    if (cursor != null) {
-                        //Browse over the database
-                        cursor.moveToNext();
+
+                    if (cursor != null)
+                    {
+                        if(cursor.getCount()>0)
+                        board=new Gson().fromJson(cursor.getString(cursor.getColumnIndex(BOARD_JSON)),Board.class);
                     }
-                }
-            }
         } catch (Exception e) {
             //Catch Query Exception
         } finally {
@@ -122,6 +120,7 @@ public class BoardDatabase extends SQLiteOpenHelper {
                 cursor.close();
 
         }
+        return board;
     }
     @Nullable
     public ArrayList<Board> getAllBoards()
@@ -193,9 +192,9 @@ public class BoardDatabase extends SQLiteOpenHelper {
     public void updateBoardIntoDatabase(SQLiteDatabase db,Board board) {
         String json=new Gson().toJson(board);
 
-        String deletingQuery = "UPDATE "+ BOARD_TABLE +" SET "+ BOARD_TITLE +" = '"+board.boardTitle+"', "+BOARD_JSON+" = '"+json+"' WHERE "+BOARD_ID+" = '"+board.boardID+"'";
-        Log.d("UpdateQuery",deletingQuery);
-        db.execSQL(deletingQuery);
+        String updateQuery = "UPDATE "+ BOARD_TABLE +" SET "+ BOARD_TITLE +" = '"+board.boardTitle+"', "+BOARD_JSON+" = '"+json+"' WHERE "+BOARD_ID+" = '"+board.boardID+"'";
+        Log.d("UpdateQuery",updateQuery);
+        db.execSQL(updateQuery);
     }
 
     public void deleteBoard(String boardID,SQLiteDatabase db) {
