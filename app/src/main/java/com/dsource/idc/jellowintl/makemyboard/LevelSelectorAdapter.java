@@ -11,12 +11,12 @@ import com.dsource.idc.jellowintl.R;
 
 import java.util.ArrayList;
 
-public class LevelSelecterAdapter extends RecyclerView.Adapter<LevelSelecterAdapter.ViewHolder>{
+public class LevelSelectorAdapter extends RecyclerView.Adapter<LevelSelectorAdapter.ViewHolder>{
 
     private Context mContext;
     // private LayoutInflater mInflater;
     private ArrayList<String> mDataSource;
-    LevelSelecterAdapter.OnItemClickListener mItemClickListener=null;
+    LevelSelectorAdapter.OnItemClickListener mItemClickListener=null;
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -43,7 +43,7 @@ public class LevelSelecterAdapter extends RecyclerView.Adapter<LevelSelecterAdap
          void onItemClick(View view, int position);
     }
 
-    public void setOnItemClickListner(final LevelSelecterAdapter.OnItemClickListener mItemClickListener) {
+    public void setOnItemClickListner(final LevelSelectorAdapter.OnItemClickListener mItemClickListener) {
         this.mItemClickListener = mItemClickListener;
     }
 
@@ -52,23 +52,23 @@ public class LevelSelecterAdapter extends RecyclerView.Adapter<LevelSelecterAdap
      * @param context
      * @param items
      */
-    public LevelSelecterAdapter(Context context, ArrayList<String> items) {
+    public LevelSelectorAdapter(Context context, ArrayList<String> items) {
         mContext = context;
         mDataSource = items;
     }
 
 
     @Override
-    public LevelSelecterAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public LevelSelectorAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView;
 
         itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.level_select_card, parent, false);
-        return new LevelSelecterAdapter.ViewHolder(itemView);
+        return new LevelSelectorAdapter.ViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(LevelSelecterAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(LevelSelectorAdapter.ViewHolder holder, int position) {
 
         String title = mDataSource.get(position);
         holder.levelTitle.setText(title);

@@ -134,16 +134,17 @@
             android:label="@string/my_boards"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".makemyboard.BoardIconSelectActivity"
+            android:name=".makemyboard.IconSelectActivity"
             android:label="Select your icons"
             android:screenOrientation="landscape" />
         <activity android:name=".makemyboard.EditBoard" />
         <activity android:name=".JsonConverter.ConverterActivity" />
-
-        <activity android:name=".makemyboard.BoardSearch"
+        <activity
+            android:name=".makemyboard.BoardSearch"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/search_act_title"
-            android:theme="@style/Theme.AppCompat.Translucent"></activity>
+            android:theme="@style/Theme.AppCompat.Translucent" />
+        <activity android:name=".makemyboard.JsonDatabase.JustATry"></activity>
     </application>
 
 </manifest>

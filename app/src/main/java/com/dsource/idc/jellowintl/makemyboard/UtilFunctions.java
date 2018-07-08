@@ -78,6 +78,28 @@ public class UtilFunctions {
     }
 
     /**
+     * Here using SQL to sort the list
+     * @param list
+     * @param context
+     * @return
+     */
+    public ArrayList<JellowIcon>sortUsingSQL(ArrayList<JellowIcon> list, Context context)
+    {
+        ArrayList<JellowIcon> levelList=new IconDataBaseHelper(context).getAllIcons();
+        ArrayList<JellowIcon> sortedList=new ArrayList<>();
+        for(int i=0;i<levelList.size();i++)
+        {
+            if(listContainsIcon(levelList.get(i),list))
+                sortedList.add(levelList.get(i));
+
+            if(sortedList.size()==list.size())
+                break;
+        }
+
+        return sortedList;
+    }
+
+    /**
      * This functions returns the list of second level parents, even if the level two parents are not selected but the level three of that icon is selected.
      * @param populatedList Current populated list
      * @param parent_1_pos  Level 1 parent

@@ -62,7 +62,6 @@ public class Sorter {
         ArrayList<JellowIcon> l1Icons=new ArrayList<>();
         l1Icons.addAll(levelOneIcons);
         l1Icons.addAll(getLevel2Icons());
-        l1Icons.addAll(getL3Icons());
 
 
         /*
@@ -103,28 +102,25 @@ public class Sorter {
 
     private ArrayList<JellowIcon> getLevel2Icons() {
         ArrayList<JellowIcon> subList=new ArrayList<>();
-        ArrayList<Integer> level2;
-        
+        ArrayList<Integer> level2=new ArrayList<>();
+
 
         for(int i=0;i<levelTwoIcons.size();i++)
         {
             JellowIcon icon=levelTwoIcons.get(i);
-            if(levelOneIndex.contains(icon.parent0))
-            ;
-            else subList.add(icon);
+            if(!levelOneIndex.contains(icon.parent0))
+            {
+                subList.add(icon);
+                level2.add(icon.parent1);
+            }
         }
 
         for(int i=0;i<levelThreeIcons.size();i++)
         {
 
-            JellowIcon icon=levelThreeIcons.get(i);
-            Log.d("Sorter","Icon Index:  Level 1: "+icon.parent0+" Level 2: "+icon.parent1+" Contains: 1."+levelOneIndex.contains(icon.parent0)+"   2. "+levelTwoIndex.contains(icon.parent1) );
-            if(levelOneIndex.contains(icon.parent0))
-                continue;
-            if(levelTwoIndex.contains(icon.parent1))
-                continue;
 
-            Log.d("Sorter","Item Added");
+            JellowIcon icon=levelThreeIcons.get(i);
+            if(!levelOneIndex.contains(icon.parent0)&&!level2.contains(icon.parent1))
             subList.add(icon);
         }
 

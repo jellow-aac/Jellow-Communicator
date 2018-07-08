@@ -26,18 +26,18 @@ import com.dsource.idc.jellowintl.utility.JellowIcon;
 
 import java.util.ArrayList;
 
-public class BoardIconSelectActivity extends AppCompatActivity {
+public class IconSelectActivity extends AppCompatActivity {
 
 
     private static final int SEARCH_CODE = 121;
     RecyclerView levelSelecterRecycler;
     RecyclerView iconRecycler;
-    IconSelecterAdapter iconSelecterAdapter;
+    IconSelectorAdapter iconSelectorAdapter;
     ArrayList<JellowIcon> iconList;
     ListView dropDown;
     ArrayList<String> dropDownList;
     public static ArrayList<JellowIcon> selectedIconList;
-    LevelSelecterAdapter levelSelecterAdapter;
+    LevelSelectorAdapter levelSelectorAdapter;
     CheckBox selectionCheckBox;
     int previousSelection=-1;
     UtilFunctions utilF;
@@ -64,8 +64,7 @@ public class BoardIconSelectActivity extends AppCompatActivity {
         initViews();
         prepareLevelSelectPane();
         prepareIconPane(0,-1);
-        dropDownList=getCurrentChildrens();
-
+        dropDownList= getCurrentChildren();
         initNavBarButtons();
 
 
@@ -76,13 +75,12 @@ public class BoardIconSelectActivity extends AppCompatActivity {
         (findViewById(R.id.save_normally)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BoardDatabase database=new BoardDatabase(BoardIconSelectActivity.this);
+                BoardDatabase database=new BoardDatabase(IconSelectActivity.this);
                 Board board=database.getBoardById(boardId);
                 if(board!=null) {
                     board.setIconList(selectedIconList);
-                    database.updateBoardIntoDatabase(new DataBaseHelper(BoardIconSelectActivity.this).getReadableDatabase(),board);
-                    Intent intent = new Intent(BoardIconSelectActivity.this, EditBoard.class);
-                    //intent.putExtra(getString(R.string.icon_list), selectedIconList);
+                    database.updateBoardIntoDatabase(new DataBaseHelper(IconSelectActivity.this).getReadableDatabase(),board);
+                    Intent intent = new Intent(IconSelectActivity.this, EditBoard.class);
                     intent.putExtra(BOARD_ID, boardId);
                     startActivity(intent);
                 }
@@ -94,7 +92,7 @@ public class BoardIconSelectActivity extends AppCompatActivity {
             public void onClick(View v) {
                 selectedIconList.clear();
                 selectionCheckBox.setChecked(false);
-                iconSelecterAdapter.notifyDataSetChanged();
+                iconSelectorAdapter.notifyDataSetChanged();
                 ((TextView)(findViewById(R.id.icon_count))).setText("("+selectedIconList.size()+")");
             }
         });
@@ -152,10 +150,10 @@ public class BoardIconSelectActivity extends AppCompatActivity {
 
         iconList=new ArrayList<>();
         iconRecycler =findViewById(R.id.icon_select_pane_recycler);
-        iconSelecterAdapter =new IconSelecterAdapter(this,iconList);
+        iconSelectorAdapter =new IconSelectorAdapter(this,iconList);
         dropDown= findViewById(R.id.filter_menu);
         iconRecycler.setLayoutManager(new GridLayoutManager(this,gridSize()));
-        iconRecycler.setAdapter(iconSelecterAdapter);
+        iconRecycler.setAdapter(iconSelectorAdapter);
         levelSelecterRecycler=findViewById(R.id.level_select_pane_recycler);
         levelSelecterRecycler.setLayoutManager(new LinearLayoutManager(this));
         selectedIconList=new ArrayList<>();
@@ -195,7 +193,7 @@ public class BoardIconSelectActivity extends AppCompatActivity {
             for(int i=0;i<iconList.size();i++)
                 removeIconFromList(iconList.get(i));
 
-        iconSelecterAdapter.notifyDataSetChanged();
+        iconSelectorAdapter.notifyDataSetChanged();
         ((TextView)(findViewById(R.id.icon_count))).setText("("+selectedIconList.size()+")");
 
     }
@@ -208,11 +206,11 @@ public class BoardIconSelectActivity extends AppCompatActivity {
      */
     private void prepareIconPane(int level_1,int level_2) {
         iconList=new IconDataBaseHelper(this).myBoardQuery(level_1,level_2);
-        iconSelecterAdapter=new IconSelecterAdapter(this,iconList);
-        iconRecycler.setAdapter(iconSelecterAdapter);
-        iconSelecterAdapter.notifyDataSetChanged();
+        iconSelectorAdapter =new IconSelectorAdapter(this,iconList);
+        iconRecycler.setAdapter(iconSelectorAdapter);
+        iconSelectorAdapter.notifyDataSetChanged();
         selectionCheckBox.setChecked(utilF.getSelection(selectedIconList,iconList));
-        iconSelecterAdapter.setOnItemClickListner(new IconSelecterAdapter.OnItemClickListener() {
+        iconSelectorAdapter.setOnItemClickListner(new IconSelectorAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position, boolean checked) {
                 updateSelectionList(view,position,checked);
@@ -255,8 +253,8 @@ public class BoardIconSelectActivity extends AppCompatActivity {
             levelSelectList.add(levelOne[i]);
 
         levelSelecterRecycler.hasFixedSize();
-        levelSelecterAdapter =new LevelSelecterAdapter(this,levelSelectList);
-        levelSelecterRecycler.setAdapter(levelSelecterAdapter);
+        levelSelectorAdapter =new LevelSelectorAdapter(this,levelSelectList);
+        levelSelecterRecycler.setAdapter(levelSelectorAdapter);
         tempListener=new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -265,12 +263,12 @@ public class BoardIconSelectActivity extends AppCompatActivity {
         };
 
         levelSelecterRecycler.getViewTreeObserver().addOnGlobalLayoutListener(tempListener);
-        levelSelecterAdapter.setOnItemClickListner(new LevelSelecterAdapter.OnItemClickListener() {
+        levelSelectorAdapter.setOnItemClickListner(new LevelSelectorAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 setSelection(position,view);
                 prepareIconPane(position,-1);
-                dropDownList=getCurrentChildrens();
+                dropDownList= getCurrentChildren();
                 if(dropDown.getVisibility()==View.VISIBLE)
                     dropDown.setVisibility(View.GONE);
 
@@ -338,7 +336,7 @@ public class BoardIconSelectActivity extends AppCompatActivity {
 
     }
 
-    private ArrayList<String> getCurrentChildrens() {
+    private ArrayList<String> getCurrentChildren() {
         ArrayList<String> list=new ArrayList<>();
         for(int i=0;i<iconList.size();i++)
         {
@@ -367,18 +365,24 @@ public class BoardIconSelectActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * This function holds the onActivityResult from {@link BoardSearch} activity.
+     * If user selects Icon that is already present in the list, then the list is not updated
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode==SEARCH_CODE&&resultCode==RESULT_OK)
         {
             JellowIcon icon=(JellowIcon)data.getExtras().getSerializable(getString(R.string.search_result));
-            if(icon!=null)
-            selectedIconList.add(icon);
-            ((TextView)(findViewById(R.id.icon_count))).setText("("+selectedIconList.size()+")");
-            selectionCheckBox.setChecked(utilF.getSelection(selectedIconList,iconList));
-            iconSelecterAdapter.notifyDataSetChanged();
-
-
+            if(icon!=null&&!utilF.listContainsIcon(icon,selectedIconList)) {
+                selectedIconList.add(icon);
+                ((TextView) (findViewById(R.id.icon_count))).setText("(" + selectedIconList.size() + ")");
+                selectionCheckBox.setChecked(utilF.getSelection(selectedIconList, iconList));
+                iconSelectorAdapter.notifyDataSetChanged();
+            }
         }
 
     }

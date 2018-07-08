@@ -80,7 +80,7 @@ public class MyBoards extends AppCompatActivity {
     }
 
     /**
-     * prepares the board list `
+     * Prepares the board list `
      *
      */
     private void prepareBoardList(int mode) {
@@ -99,7 +99,7 @@ public class MyBoards extends AppCompatActivity {
                             initBoardEditAddDialog(NEW_BOARD, -1);
                         } else {
                             if (true) {
-                                Intent intent = new Intent(ctx, BoardIconSelectActivity.class);
+                                Intent intent = new Intent(ctx, IconSelectActivity.class);
                                 intent.putExtra(BOARD_ID, boardList.get(Position).getBoardID());
                                 startActivity(intent);
                             } else {
@@ -209,7 +209,7 @@ public class MyBoards extends AppCompatActivity {
                 {
                     String BoardId=Calendar.getInstance().getTime().getTime()+"";
                     saveNewBoard(name,boardIcon,BoardId);
-                    Intent intent=new Intent(ctx,BoardIconSelectActivity.class);
+                    Intent intent=new Intent(ctx,IconSelectActivity.class);
                     intent.putExtra(BOARD_ID,BoardId);
                     startActivity(intent);
                 }

@@ -10,20 +10,24 @@ import android.view.View;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.JsonDatabase.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.JsonDatabase.Sorter;
+import com.dsource.idc.jellowintl.makemyboard.JsonDatabase.TheNode;
 import com.dsource.idc.jellowintl.utility.IconDataBaseHelper;
 import com.dsource.idc.jellowintl.utility.JellowIcon;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
 public class EditBoard extends AppCompatActivity {
 
-    ArrayList<JellowIcon> icons;
+    ArrayList<JellowIcon> mainList;
+    ArrayList<JellowIcon> displayList;
     EditBoardAdapter adapter;
     RecyclerView mRecyclerView;
     private Sorter sorter;
     private String boardId;
     public static final String BOARD_ID="Board_Id";
     private BoardDatabase database;
+    private TheNode parentNode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +43,24 @@ public class EditBoard extends AppCompatActivity {
             Log.d("No board id found", boardId);
         }
         Board thisBoard=database.getBoardById(boardId);
-        icons=thisBoard.getIconList();
+        mainList =thisBoard.getIconList();
+        parentNode=new TheNode(new JellowIcon("","",-1,-1,-1));
 
 
-        icons=sortList(icons);
-        sorter=new Sorter(icons);
+        mainList =sortList(mainList);
+        prepareModel();
+        sorter=new Sorter(mainList);
         leftRec();
+    }
+
+    private void prepareModel() {
+        ArrayList<JellowIcon> temp=sorter.getLevelOneIcons();
+        for(int i=0;i<temp.size();i++)
+        parentNode.addChild(temp.get(i));
+        Log.d("FirstLevelNode",new Gson().toJson(parentNode));
+
+
+
     }
 
     ArrayList<JellowIcon> sortList(ArrayList<JellowIcon> iconsList)
@@ -54,11 +70,8 @@ public class EditBoard extends AppCompatActivity {
 
         for(int i=0;i<listOfAllIcon.size();i++)
         {
-            if(listContainsIcon(listOfAllIcon.get(i),iconsList)) {
+            if(listContainsIcon(listOfAllIcon.get(i),iconsList))
                 sortedList.add(listOfAllIcon.get(i));
-                Log.d("List:","List has "+listOfAllIcon.get(i).IconTitle);
-            }
-
             if(sortedList.size()==iconsList.size())
                 break;
         }
@@ -87,8 +100,8 @@ public class EditBoard extends AppCompatActivity {
     private void leftRec(){
         mRecyclerView=findViewById(R.id.icon_recycler);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this,3));
-        for(int i=0;i<icons.size();i++)
-            Log.d("List:","FinalList "+icons.get(i).IconTitle);
+        for(int i = 0; i< mainList.size(); i++)
+            Log.d("List:","FinalList "+ mainList.get(i).IconTitle);
         RightPainIconAdapter adapterRight=new RightPainIconAdapter(mRecyclerView,sorter.getLevelOneIcons(),this);
         mRecyclerView.setAdapter(adapterRight);
         adapterRight.notifyDataSetChanged();

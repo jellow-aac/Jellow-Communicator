@@ -19,19 +19,19 @@ import com.dsource.idc.jellowintl.utility.SessionManager;
 import java.io.File;
 import java.util.ArrayList;
 
-public class IconSelecterAdapter  extends RecyclerView.Adapter<IconSelecterAdapter.ViewHolder>{
+public class IconSelectorAdapter extends RecyclerView.Adapter<IconSelectorAdapter.ViewHolder>{
 
     private Context mContext;
     // private LayoutInflater mInflater;
     private ArrayList<JellowIcon> mDataSource;
-    IconSelecterAdapter.OnItemClickListener mItemClickListener;
+    IconSelectorAdapter.OnItemClickListener mItemClickListener;
 
     /**
      * public constructor
      * @param context
      * @param items
      */
-    public IconSelecterAdapter(Context context, ArrayList<JellowIcon> items) {
+    public IconSelectorAdapter(Context context, ArrayList<JellowIcon> items) {
         mContext = context;
         mDataSource = items;
     }
@@ -67,7 +67,7 @@ public class IconSelecterAdapter  extends RecyclerView.Adapter<IconSelecterAdapt
         void onItemClick(View view, int position, boolean checked);
     }
 
-    public void setOnItemClickListner(final IconSelecterAdapter.OnItemClickListener mItemClickListener) {
+    public void setOnItemClickListner(final IconSelectorAdapter.OnItemClickListener mItemClickListener) {
         this.mItemClickListener = mItemClickListener;
     }
 
@@ -76,19 +76,19 @@ public class IconSelecterAdapter  extends RecyclerView.Adapter<IconSelecterAdapt
 
 
     @Override
-    public IconSelecterAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public IconSelectorAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView;
 
         itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.icon_card, parent, false);
 
 
-        return new IconSelecterAdapter.ViewHolder(itemView);
+        return new IconSelectorAdapter.ViewHolder(itemView);
     }
 
 
     @Override
-    public void onBindViewHolder(IconSelecterAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(IconSelectorAdapter.ViewHolder holder, int position) {
 
         JellowIcon thisIcon = mDataSource.get(position);
         holder.iconTitle.setText(thisIcon.IconTitle);
@@ -96,9 +96,9 @@ public class IconSelecterAdapter  extends RecyclerView.Adapter<IconSelecterAdapt
 
         //Some logic to regain the check
         boolean found=false;
-        for(int i=0;i<BoardIconSelectActivity.selectedIconList.size();i++)
+        for(int i = 0; i< IconSelectActivity.selectedIconList.size(); i++)
         {
-            JellowIcon selIcon=BoardIconSelectActivity.selectedIconList.get(i);
+            JellowIcon selIcon= IconSelectActivity.selectedIconList.get(i);
             if(thisIcon.isEqual(selIcon))
             {
              found=true;
