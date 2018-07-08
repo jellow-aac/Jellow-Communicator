@@ -61,49 +61,69 @@ public class Sorter {
     {
         ArrayList<JellowIcon> l1Icons=new ArrayList<>();
         l1Icons.addAll(levelOneIcons);
-        l1Icons.addAll(getLevel2Icons());
-
-
-        /*
-        ArrayList<Integer> level0Parents=new ArrayList<>();
-        ArrayList<Integer> level1Parents=new ArrayList<>();
-        for(int i=0;i<mailIconList.size();i++)
-        {
-            JellowIcon icon=mailIconList.get(i);
-            if(icon.parent1==-1)//Level 0
-            {
-                level0Parents.add(icon.parent0);
-                l1Icons.add(icon);
-            }
-            else if(level0Parents.contains(icon.parent0))//Any child of existing leveloneParent will not be added into the list
-            {
-                continue;
-            }
-            else if(icon.parent2!=-1)//get All levelTwoIcons with no level one parent
-            {
-                level1Parents.add(icon.parent1);
-                l1Icons.add(icon);
-            }
-            else if(level1Parents.contains(icon.parent1))//Skip those level 3 elements which have  level 2 parent
-            {
-                continue;
-            }
-            else if(icon.parent2!=-1)// Add level 3 icons to the list
-            {
-                l1Icons.add(icon);
-            }
-
-
-
-        }
-*/
+        l1Icons.addAll(getOtherLevelOneIcons());
         return l1Icons;
     }
 
-    private ArrayList<JellowIcon> getLevel2Icons() {
+    /**
+     * This function returns the level two children of any level one item which could be of Level 1, 2 or 3
+     * it will return level 2 and 3 child if the level 3 items without the level two parent are also added into the list.
+     * if the icon is of level 3 then an empty list is returned
+     * if the icon is of level 2 then all the level three elements of that icon is returned
+     * if the icon is of level 1 then all the level two and level three(with no level two parent) is returned
+     * @param icon
+     * @return
+     */
+    public ArrayList<JellowIcon> getLevelTwoIcons(JellowIcon icon)
+    {
+
+        ArrayList<JellowIcon> subList=new ArrayList<>();
+        if(icon.parent2==-1)//if the icon is of level two then the child can be only of level three
+            for(int i=0;i<levelThreeIcons.size();i++) {
+                if (levelThreeIcons.get(i).parent1 == icon.parent1)
+                    subList.add(levelThreeIcons.get(i));
+            }
+            else if(icon.parent1==-1)//if the Icon is of level one then it could have both level two icons and level three icons
+            {
+                ArrayList<Integer> levelTwoParents=new ArrayList<>();
+                for(int i=0;i<levelTwoIcons.size();i++)
+                    {
+                        if(levelTwoIcons.get(i).parent0==icon.parent0)
+                            {
+                                subList.add(levelOneIcons.get(i));
+                                levelTwoParents.add(icon.parent1);
+                            }
+
+                    }
+
+                for(int i=0;i<levelThreeIcons.size();i++)
+                    {
+                        if(!levelTwoParents.contains(levelThreeIcons.get(i).parent1)&&levelThreeIcons.get(i).parent0==icon.parent0)
+                            subList.add(levelThreeIcons.get(i));
+
+                    }
+        }
+
+        return subList;
+    }
+
+    /**
+     * @param icon
+     * @return
+     */
+    public ArrayList<JellowIcon> getLevelThreeIcons(JellowIcon icon)
+    {
+        ArrayList<JellowIcon> subList=new ArrayList<>();
+        for(int i=0;i<levelThreeIcons.size();i++)
+            if(levelThreeIcons.get(i).parent0==icon.parent0&&levelThreeIcons.get(i).parent1==icon.parent1)
+                subList.add(levelThreeIcons.get(i));
+
+        return subList;
+    }
+
+    private ArrayList<JellowIcon> getOtherLevelOneIcons() {
         ArrayList<JellowIcon> subList=new ArrayList<>();
         ArrayList<Integer> level2=new ArrayList<>();
-
 
         for(int i=0;i<levelTwoIcons.size();i++)
         {
@@ -127,25 +147,7 @@ public class Sorter {
 
         return subList;
     }
-    private  ArrayList<JellowIcon> getL3Icons()
-    {
-        ArrayList<JellowIcon> subList=new ArrayList<>();
-        for(int i=0;i<levelThreeIcons.size();i++)
-        {
 
-            JellowIcon icon=levelThreeIcons.get(i);
-            Log.d("Sorter","Icon Index:  Level 1: "+icon.parent0+" Level 2: "+icon.parent1+" Contains: 1."+levelOneIndex.contains(icon.parent0)+"   2. "+levelTwoIndex.contains(icon.parent1) );
-            if(levelOneIndex.contains(icon.parent0))
-                continue;
-            if(levelTwoIndex.contains(icon.parent1))
-                continue;
-
-            Log.d("Sorter","Item Added");
-            subList.add(icon);
-        }
-
-        return subList;
-    }
 
 
 }

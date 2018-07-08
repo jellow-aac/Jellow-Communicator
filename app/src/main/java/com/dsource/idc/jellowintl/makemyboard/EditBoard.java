@@ -48,16 +48,33 @@ public class EditBoard extends AppCompatActivity {
 
 
         mainList =sortList(mainList);
-        prepareModel();
         sorter=new Sorter(mainList);
+        prepareModel();
         leftRec();
     }
 
     private void prepareModel() {
-        ArrayList<JellowIcon> temp=sorter.getLevelOneIcons();
-        for(int i=0;i<temp.size();i++)
-        parentNode.addChild(temp.get(i));
+
+        parentNode.addAllChild(sorter.getLevelOneIcons());
         Log.d("FirstLevelNode",new Gson().toJson(parentNode));
+        for(int i=0;i<parentNode.getChildren().size();i++)
+        {
+            JellowIcon icon = parentNode.getChildren().get(i).getIcon();
+            ArrayList<JellowIcon> thisList=sorter.getLevelTwoIcons(icon);
+            parentNode.getChildren().get(i).addAllChild(thisList);
+        }
+        for(int i=0;i<parentNode.getChildren().size();i++)
+        {
+            for(int j=0;j<parentNode.getChildren().get(i).getChildren().size();j++)
+            {
+                JellowIcon icon = parentNode.getChildren().get(i).getChildren().get(j).getIcon();
+                ArrayList<JellowIcon> thisList=sorter.getLevelThreeIcons(icon);
+                parentNode.getChildren().get(i).getChildren().get(j).addAllChild(thisList);
+
+            }
+        }
+
+        Log.d("parentNode",new Gson().toJson(parentNode));
 
 
 

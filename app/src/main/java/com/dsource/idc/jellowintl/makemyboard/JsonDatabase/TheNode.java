@@ -33,6 +33,12 @@ public class TheNode {
             return children.size() > 0;
         }
 
+        public void addAllChild(ArrayList<JellowIcon> subList)
+        {
+            for(int i=0;i<subList.size();i++)
+                children.add(new TheNode(subList.get(i)));
+        }
+
 
 
 }
