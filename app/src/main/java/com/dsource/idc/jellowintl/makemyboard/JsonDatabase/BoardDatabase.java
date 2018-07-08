@@ -109,6 +109,7 @@ public class BoardDatabase extends SQLiteOpenHelper {
 
                     if (cursor != null)
                     {
+                        cursor.moveToFirst();
                         if(cursor.getCount()>0)
                         board=new Gson().fromJson(cursor.getString(cursor.getColumnIndex(BOARD_JSON)),Board.class);
                     }
@@ -191,6 +192,7 @@ public class BoardDatabase extends SQLiteOpenHelper {
 
     public void updateBoardIntoDatabase(SQLiteDatabase db,Board board) {
         String json=new Gson().toJson(board);
+        Log.d("NewBoard","Board: "+board+"  "+json);
 
         String updateQuery = "UPDATE "+ BOARD_TABLE +" SET "+ BOARD_TITLE +" = '"+board.boardTitle+"', "+BOARD_JSON+" = '"+json+"' WHERE "+BOARD_ID+" = '"+board.boardID+"'";
         Log.d("UpdateQuery",updateQuery);

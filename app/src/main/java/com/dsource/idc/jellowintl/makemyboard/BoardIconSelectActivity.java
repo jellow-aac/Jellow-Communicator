@@ -82,7 +82,7 @@ public class BoardIconSelectActivity extends AppCompatActivity {
                     board.setIconList(selectedIconList);
                     database.updateBoardIntoDatabase(new DataBaseHelper(BoardIconSelectActivity.this).getReadableDatabase(),board);
                     Intent intent = new Intent(BoardIconSelectActivity.this, EditBoard.class);
-                    intent.putExtra(getString(R.string.icon_list), selectedIconList);
+                    //intent.putExtra(getString(R.string.icon_list), selectedIconList);
                     intent.putExtra(BOARD_ID, boardId);
                     startActivity(intent);
                 }
@@ -374,6 +374,11 @@ public class BoardIconSelectActivity extends AppCompatActivity {
             JellowIcon icon=(JellowIcon)data.getExtras().getSerializable(getString(R.string.search_result));
             if(icon!=null)
             selectedIconList.add(icon);
+            ((TextView)(findViewById(R.id.icon_count))).setText("("+selectedIconList.size()+")");
+            selectionCheckBox.setChecked(utilF.getSelection(selectedIconList,iconList));
+            iconSelecterAdapter.notifyDataSetChanged();
+
+
         }
 
     }

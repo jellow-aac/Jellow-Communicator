@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.dsource.idc.jellowintl.R;
+import com.dsource.idc.jellowintl.makemyboard.JsonDatabase.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.JsonDatabase.Sorter;
 import com.dsource.idc.jellowintl.utility.IconDataBaseHelper;
 import com.dsource.idc.jellowintl.utility.JellowIcon;
@@ -20,13 +21,27 @@ public class EditBoard extends AppCompatActivity {
     EditBoardAdapter adapter;
     RecyclerView mRecyclerView;
     private Sorter sorter;
+    private String boardId;
+    public static final String BOARD_ID="Board_Id";
+    private BoardDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_board);
+        database=new BoardDatabase(this);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
-        icons=(ArrayList<JellowIcon>)getIntent().getSerializableExtra(getString(R.string.icon_list));
+        try{
+            boardId =getIntent().getExtras().getString(BOARD_ID);
+        }
+        catch (NullPointerException e)
+        {
+            Log.d("No board id found", boardId);
+        }
+        Board thisBoard=database.getBoardById(boardId);
+        icons=thisBoard.getIconList();
+
+
         icons=sortList(icons);
         sorter=new Sorter(icons);
         leftRec();

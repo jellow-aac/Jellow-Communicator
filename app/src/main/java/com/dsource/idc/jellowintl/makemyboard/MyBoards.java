@@ -51,7 +51,6 @@ public class MyBoards extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_boards);
-        new BoardDatabase(this).dropTable(new DataBaseHelper(this).getWritableDatabase());
         checkDatabase();
         boardHashMap =new HashMap<>();
         ctx=MyBoards.this;
@@ -262,8 +261,8 @@ public class MyBoards extends AppCompatActivity {
         Board newBoard=new Board(boardID,boardName,boardIcon);
         database=new BoardDatabase(this);
         boardList.add(newBoard);
-        database.updateBoardIntoDatabase(new DataBaseHelper(this).getWritableDatabase(),newBoard);
-        Log.d("Board : ",""+database.getBoard(newBoard.boardTitle).boardTitle);
+        database.addBoardToDatabase(new DataBaseHelper(this).getWritableDatabase(),newBoard);
+        Log.d("NewBoard",""+database.count());
         prepareBoardList(NORMAL_MODE);
     }
 

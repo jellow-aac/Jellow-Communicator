@@ -1,6 +1,7 @@
 package com.dsource.idc.jellowintl.makemyboard;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,9 +9,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.dsource.idc.jellowintl.GlideApp;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.utility.JellowIcon;
+import com.dsource.idc.jellowintl.utility.SessionManager;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class BoardSearchAdapter extends RecyclerView.Adapter<BoardSearchAdapter.ViewHolder>{
@@ -76,11 +81,98 @@ public interface OnItemClickListener {
 
 
     @Override
-    public void onBindViewHolder(BoardSearchAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         JellowIcon icon = mDataSource.get(position);
+        holder.iconTitle.setText(icon.IconTitle);
+        //If the "No icon found" condition comes the remove speaker
+        if(icon.IconDrawable.equals("NULL")&&icon.IconTitle.equals(mContext.getString(R.string.not_found)))
+        {
+            holder.iconTitle.setText(R.string.icon_not_found);
+            holder.iconDir.setVisibility(View.GONE);
+            holder.iconImage.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_icon_not_found));
+            return;
+        }
+
+
+        holder.iconDir.setVisibility(View.VISIBLE);
+        holder.iconTitle.setText(icon.IconTitle);
+        if(icon.parent1==-1)
+        {
+            TypedArray mArray=mContext.getResources().obtainTypedArray(R.array.arrLevelOneIconAdapter);
+            holder.iconImage.setImageDrawable(mArray.getDrawable(icon.parent0));
+        }
+        else
+        {
+            SessionManager mSession = new SessionManager(mContext);
+            File en_dir = mContext.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
+            String path = en_dir.getAbsolutePath() + "/drawables";
+            GlideApp.with(mContext)
+                    .load(path+"/"+ icon.IconDrawable+".png")
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(false)
+                    .centerCrop()
+                    .dontAnimate()
+                    .into(holder.iconImage);
+        }
+
+        /*
+         * Adding the directory hint in the search list item
+         * To this, we are using the function same as in menuSelected path used
+         * */
+
+        String[] arr=mContext.getResources().getStringArray(R.array.arrLevelOneActionBarTitle);
+        String dir="";
+        if(icon.parent1==-1)
+        {
+            dir=mContext.getResources().getString(R.string.home);
+        }
+        else if(icon.parent2==-1)
+        {
+            dir=arr[icon.parent0];
+        }
+        else {
+            dir=arr[icon.parent0] + "->" + getIconTitleLevel2(icon.parent0)[icon.parent1];
+
+        }
+        holder.iconDir.setText(dir);
 
 
     }
+
+    /**
+     * A function to return array of Titles of level 2
+     *
+     * */
+    private String[] getIconTitleLevel2(int pos)
+    {
+        String arr[]=null;
+        switch (pos)
+        {
+            case 0:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoGreetFeelSpeechText);
+                break;
+            case 1:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoDailyActSpeechText);
+                break;
+            case 2:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoEatSpeechText);
+                break;
+            case 3:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoFunSpeechText);
+                break;
+            case 4:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoLearningSpeechText);
+                break;
+            case 5:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoPeopleSpeechText);
+                break;
+            case 6:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoPlacesSpeechText);
+                break;
+            case 7:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoTimeWeatherSpeechText);
+                break;
+            case 8:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoHelpSpeechText);
+                break;
+            default:
+        }
+
+
+        return arr;
+    }
+
 
     @Override
     public int getItemCount() {
