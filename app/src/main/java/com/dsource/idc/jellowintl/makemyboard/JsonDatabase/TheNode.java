@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class TheNode {
 
         private JellowIcon icon;
-        private ArrayList<com.dsource.idc.jellowintl.makemyboard.JsonDatabase.TheNode> children;
+        private ArrayList<TheNode> children;
 
         public TheNode(JellowIcon icon)
         {
@@ -17,14 +17,14 @@ public class TheNode {
 
         public void addChild(JellowIcon childIcon)
         {
-            children.add(new com.dsource.idc.jellowintl.makemyboard.JsonDatabase.TheNode(childIcon));
+            children.add(new TheNode(childIcon));
         }
 
         public JellowIcon getIcon()
         {
             return icon;
         }
-        public ArrayList<com.dsource.idc.jellowintl.makemyboard.JsonDatabase.TheNode> getChildren()
+        public ArrayList<TheNode> getChildren()
         {
             return children;
         }

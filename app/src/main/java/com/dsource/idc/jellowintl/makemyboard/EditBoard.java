@@ -57,10 +57,12 @@ public class EditBoard extends AppCompatActivity {
 
         parentNode.addAllChild(sorter.getLevelOneIcons());
         Log.d("FirstLevelNode",new Gson().toJson(parentNode));
+        Log.d("Level 2 Size",""+parentNode.getChildren().size());
         for(int i=0;i<parentNode.getChildren().size();i++)
         {
             JellowIcon icon = parentNode.getChildren().get(i).getIcon();
             ArrayList<JellowIcon> thisList=sorter.getLevelTwoIcons(icon);
+            Log.d("Level 2 Size",""+thisList.size());
             parentNode.getChildren().get(i).addAllChild(thisList);
         }
         for(int i=0;i<parentNode.getChildren().size();i++)
