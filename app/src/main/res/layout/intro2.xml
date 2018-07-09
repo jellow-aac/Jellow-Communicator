@@ -13,8 +13,7 @@
         android:gravity="center"
         android:paddingLeft="32dp"
         android:layout_weight="2"
-        android:fontFamily="fonts/Mukta-Regular.ttf"
-        android:textColor="#000000"
+        style="@style/defaultTextViewStyle"
         android:paddingRight="32dp"
         android:textSize="13dp"
         android:text="@string/txt_intro2_appUsageDesc"
@@ -39,11 +38,10 @@
         android:layout_weight="2"
         android:layout_gravity="center"
         android:gravity="center"
-        android:textColor="#000000"
+        style="@style/defaultTextViewStyle"
         android:paddingLeft="64dp"
         android:paddingRight="64dp"
         android:id="@+id/tvbottom"
-        android:fontFamily="fonts/Mukta-Regular.ttf"
         android:textSize="13dp"
         android:text="@string/txt_intro2_speakUsingJellow"/>
     <TextView

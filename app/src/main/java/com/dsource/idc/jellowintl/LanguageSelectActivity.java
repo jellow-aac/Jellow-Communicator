@@ -86,10 +86,9 @@ public class LanguageSelectActivity extends AppCompatActivity{
         offlineLanguages = getOfflineLanguages();
         onlineLanguages = getOnlineLanguages();
         languageSelect = findViewById(R.id.selectDownloadedLanguageSpinner);
-        if(Build.VERSION.SDK_INT < 21)
-            languageSelect.setBackgroundResource(R.drawable.custom_txt_view);
+
         adapter_lan = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, offlineLanguages);
+                R.layout.simple_spinner_item, shortLangNameForDisplay(offlineLanguages));
 
         adapter_lan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -172,7 +171,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
                     delete.setEnabled(false);
                      new MaterialDialog.Builder(LanguageSelectActivity.this)
                             .title(strDownloadableLang)
-                            .items(onlineLanguages)
+                            .items(shortLangNameForDisplay(onlineLanguages))
                             .itemsCallbackSingleChoice(
                                     0, new MaterialDialog.ListCallbackSingleChoice() {
                                         @Override
@@ -241,7 +240,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
                     add.setEnabled(false);
                     new MaterialDialog.Builder(LanguageSelectActivity.this)
                             .title(strDownloadedLang)
-                            .items(offlineLanguages)
+                            .items(shortLangNameForDisplay(offlineLanguages))
                             .itemsCallbackSingleChoice(
                                     0, new MaterialDialog.ListCallbackSingleChoice() {
                                         @Override
@@ -264,7 +263,8 @@ public class LanguageSelectActivity extends AppCompatActivity{
                                             onlineLanguages = getOnlineLanguages();
                                             offlineLanguages = getOfflineLanguages();
                                             adapter_lan = new ArrayAdapter<String>(getBaseContext(),
-                                                    android.R.layout.simple_spinner_item, offlineLanguages);
+                                                    R.layout.simple_spinner_item, shortLangNameForDisplay(offlineLanguages));
+                                            adapter_lan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                             languageSelect.setAdapter(adapter_lan);
                                             dialog.dismiss();
                                             Toast.makeText(getBaseContext(),strLangRemoved,Toast.LENGTH_SHORT).show();
@@ -408,7 +408,8 @@ public class LanguageSelectActivity extends AppCompatActivity{
         onlineLanguages = getOnlineLanguages();
         offlineLanguages = getOfflineLanguages();
         adapter_lan = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, offlineLanguages);
+                R.layout.simple_spinner_item, shortLangNameForDisplay(offlineLanguages));
+        adapter_lan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         languageSelect.setAdapter(adapter_lan);
         if(isOpenedTtsSett)
             getSpeechLanguage("");
@@ -544,5 +545,26 @@ public class LanguageSelectActivity extends AppCompatActivity{
         if(language.equals("English (India)") || language.equals("हिंदी"))
             return  "Hindi (India)";
         return selectedLanguage;
+    }
+
+    private String[] shortLangNameForDisplay(String[] langNameToBeShorten) {
+        String[] shortenLanguageNames = new String[langNameToBeShorten.length];
+        for (int i=0; i < langNameToBeShorten.length; i++){
+            switch (langNameToBeShorten[i]){
+                case "English (India)":
+                    shortenLanguageNames[i] = "English (IN)";
+                    break;
+                case "English (United Kingdom)":
+                    shortenLanguageNames[i] = "English (UK)";
+                    break;
+                case "English (United States)":
+                    shortenLanguageNames[i] = "English (US)";
+                    break;
+                default:
+                    shortenLanguageNames[i] = langNameToBeShorten[i];
+                    break;
+            }
+        }
+        return shortenLanguageNames;
     }
 }

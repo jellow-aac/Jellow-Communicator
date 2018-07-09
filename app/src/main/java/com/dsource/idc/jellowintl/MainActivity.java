@@ -459,7 +459,7 @@ public class MainActivity extends AppCompatActivity {
                     mIvKeyboard.setImageResource(R.drawable.keyboard);
                     mIvBack.setImageResource(R.drawable.back);
                     mIvHome.setImageResource(R.drawable.home);
-                    mIvTTs.setImageResource(R.drawable.speaker_button);
+                    mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
                     speakSpeech(mNavigationBtnTxt[1]);
                     mEtTTs.setVisibility(View.INVISIBLE);
                     mRecyclerView.setVisibility(View.VISIBLE);
@@ -504,7 +504,7 @@ public class MainActivity extends AppCompatActivity {
                 speakSpeech(mNavigationBtnTxt[2]);
                 //Firebase event
                 singleEvent("Navigation","Keyboard");
-                mIvTTs.setImageResource(R.drawable.speaker_button);
+                mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
                 //when mFlgKeyboardOpened is set to true, it means user is using custom keyboard input
                 // text and system keyboard is visible.
                 if (mFlgKeyboardOpened){
@@ -1005,8 +1005,6 @@ public class MainActivity extends AppCompatActivity {
         mIvTTs.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 speakSpeech(mEtTTs.getText().toString());
-                if(!mEtTTs.getText().toString().equals(""))
-                    mIvTTs.setImageResource(R.drawable.speaker_pressed);
                 //Firebase event
                 Bundle bundle = new Bundle();
                 bundle.putString("InputName", Settings.Secure.getString(getContentResolver(),
@@ -1377,13 +1375,14 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-
     /**
-     * <p>This function check whether user device has sim card insterted into SIM slot
-     * and user can make call.
+     * <p>This function check whether user device is not wifi only and
+     * has sim card inserted into SIM slot and user can make a call.
      * @return true if device can able to make phone calls.</p>
      * */
     public static boolean isDeviceReadyToCall(TelephonyManager tm){
-        return tm != null && tm.getSimState() == TelephonyManager.SIM_STATE_READY;
+        return tm != null
+            && tm.getPhoneType() != TelephonyManager.PHONE_TYPE_NONE
+                && tm.getSimState() == TelephonyManager.SIM_STATE_READY;
     }
 }

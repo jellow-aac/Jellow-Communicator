@@ -58,9 +58,10 @@ public class Intro extends AppIntro {
         setBarColor(getResources().getColor(R.color.colorIntro));
         setSeparatorColor(getResources().getColor(R.color.colorIntro));
         setIndicatorColor(getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorPrimary));
-
         showSkipButton(false);
-        setProgressButtonEnabled(false);
+        setProgressButtonEnabled(true);
+        setNextArrowColor(getResources().getColor(R.color.colorPrimary));
+        //setImageNextButton(getResources().getDrawable(R.drawable.arrow));
 
         selectedLanguage = getString(R.string.txt_intro6_skipActiveTtsDesc)
                                 .replace("-", getSelectedLanguage("-"))
@@ -118,6 +119,10 @@ public class Intro extends AppIntro {
                 getTextToSpeechEngineLanguage("");
                 ((TextView) findViewById(R.id.tx_downloadMsg)).setText(selectedLanguage);
         }
+        if(((SampleSlideFragment) newFragment).getLayoutName().equals("intro7")){
+            setProgressButtonEnabled(false);
+        }else
+            setProgressButtonEnabled(true);
     }
 
     private String getSelectedLanguage(String replaceChar) {
@@ -136,24 +141,24 @@ public class Intro extends AppIntro {
     }
 
     public void getStarted(View view) {
-            SessionManager session = new SessionManager(this);
-            if(Build.VERSION.SDK_INT < 21) {
-                if ((session.getLanguage().equals(ENG_IN) && mTTsDefaultLanguage.equals(HI_IN)) ||
-                    (!session.getLanguage().equals(ENG_IN) && session.getLanguage().equals(mTTsDefaultLanguage))) {
-                    session.setCompletedIntro(true);
-                    Intent intent=new Intent(Intro.this, SplashActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    Toast.makeText(this, getString(R.string.txt_set_tts_setup), Toast.LENGTH_LONG).show();
-                    getPager().setCurrentItem(5, true);
-                }
-            }else {
+        SessionManager session = new SessionManager(this);
+        if(Build.VERSION.SDK_INT < 21) {
+            if ((session.getLanguage().equals(ENG_IN) && mTTsDefaultLanguage.equals(HI_IN)) ||
+                (!session.getLanguage().equals(ENG_IN) && session.getLanguage().equals(mTTsDefaultLanguage))) {
                 session.setCompletedIntro(true);
                 Intent intent=new Intent(Intro.this, SplashActivity.class);
                 startActivity(intent);
                 finish();
+            } else {
+                Toast.makeText(this, getString(R.string.txt_set_tts_setup), Toast.LENGTH_LONG).show();
+                getPager().setCurrentItem(5, true);
             }
+        }else {
+            session.setCompletedIntro(true);
+            Intent intent=new Intent(Intro.this, SplashActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     public void getStarted1(View view){

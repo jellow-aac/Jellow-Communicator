@@ -316,6 +316,16 @@ public class SessionManager {
         return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.string_msg));
     }
 
+    public void setUpdatedFirebase(boolean updateFlag) {
+        storePreferenceKeyWithValue(Boolean.class.toString(),
+                mContext.getString(R.string.updated_user_data_on_firebase), updateFlag);
+    }
+
+    public boolean getUpdatedFirebase() {
+        return ((Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(),
+                mContext.getString(R.string.updated_user_data_on_firebase)));
+    }
+
 
  /**
   * Ayaz

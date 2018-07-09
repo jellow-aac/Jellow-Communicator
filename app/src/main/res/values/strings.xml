@@ -53,6 +53,7 @@
     <string name="txtSpeechSpeed">Speech Speed</string>
     <string name="txtVoiceSpeech">Voice Pitch</string>
     <string name="txtDisplayMode">Display Mode</string>
+    <string name="txtVoiceVolume">Speech Volume</string>
     <string name="txtNumOfPerPerScr">Number of category icons per screen</string>
     <string name="txtDemo">DEMO</string>
     <string name="txtSave">SAVE</string>
@@ -111,7 +112,7 @@
     <string name="getKeyboardControl">Keyboard Control</string>
     <string name="childName">Child\'s Name *</string>
     <string name="careGiveName">Caregiver\'s Name</string>
-    <string name="careGiverContact">Caregiver\'s Contact No. *</string>
+    <string name="careGiverContact">Caregiver\'s Contact No. other than this device\'s sim no.* </string>
     <string name="homeAddress">Home Address</string>
     <string name="emailAddress">Email Address *</string>
     <string name="bloodGroup">Blood Group</string>
@@ -134,11 +135,11 @@
         <![CDATA[
         <head>
             <style>
-                    li,p,font  {    font-size: 100%; }
+                    li,p,font  {    font-size: 2.2vw; }
                     ul { padding-left:20px; }
             </style>
         </head>
-        <body bgcolor="#F7F3C6">
+        <body bgcolor="#F7F3C6" text="#414042">
 
 <p><strong>&nbsp;General Information</strong></p>
 <ul>
@@ -270,10 +271,11 @@
     <string name="enable_calling" translatable="false">com.dsource.idc.jellow.enable_calling</string>
     <string name="random_val" translatable="false">com.dsource.idc.jellow.random_val</string>
     <string name="string_msg" translatable="false">com.dsource.idc.jellow.string_message</string>
+    <string name="updated_user_data_on_firebase" >com.dsource.idc.jellow.update_on_fb</string>
     <string name="txt_registration_jellowCalluDesc">(This is how Jellow calls you)</string>
-    <string name="txt_registration_emergencynoDesc">(To be used for correspondence in case of an emergency involving the child)</string>
+    <string name="txt_registration_emergencynoDesc">(To be used for correspondence in case of an emergency involving the child.)</string>
     <string name="txt_registration_emailDesc">(To notify you about the release of Jellow updates)</string>
-    <string name="txt_registration_selectLangDesc">Select a Language for Jellow</string>
+    <string name="txt_registration_selectLangDesc">Select a Language for Jellow *</string>
     <string name="txt_registration_registerBtn">REGISTER</string>
     <string name="enternonemptycontact">Please enter valid contact number</string>
     <string name="change_tts_lang">Set TTS engine language</string>
@@ -321,7 +323,7 @@
     <!--Strings related to the Searching capability
     @AyazAlam
     -->
-    <string name="search_title">Search Icon...</string>
+    <string name="search_title">Search Icon…</string>
     <string name="search_hint">Search icon....</string>
     <string name="search_parent_0" translatable="false">parent_0</string>
     <string name="search_parent_1" translatable="false">parent_1</string>
@@ -332,8 +334,11 @@
     <string name="icon_not_found">Icon not found</string>
     <string name="not_found" translatable="false">NOT_FOUND</string>
     <string name="no_internet">No Internet</string>
-    <string name="please_wait">Please wait...</string>
+    <string name="please_wait">Please wait…</string>
     <string name="goto_home" translatable="false">goto_home</string>
-
+    <string name="dismiss">Dismiss</string>
+    <string name="mukta_regular" translatable="false">Mukta-Regular.ttf</string>
+    <string name="register_user">Please wait registration is in process…</string>
+    <string name="check_tts_engine">Text-to-speech engine is failed to start.</string>
 
 </resources>

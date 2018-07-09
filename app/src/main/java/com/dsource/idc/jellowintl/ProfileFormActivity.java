@@ -6,19 +6,14 @@ package com.dsource.idc.jellowintl;
 
 import android.app.ActivityManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
@@ -62,7 +57,6 @@ import java.util.Random;
 
 import se.simbio.encryption.Encryption;
 
-import static com.dsource.idc.jellowintl.MainActivity.isDeviceReadyToCall;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.maskNumber;
@@ -73,7 +67,6 @@ import static com.dsource.idc.jellowintl.utility.Analytics.updateSessionRef;
 import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 
 public class ProfileFormActivity extends AppCompatActivity {
-    private final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 0;
     private Button bSave;
     private EditText etName, etFatherContact, etFathername, etAddress, etEmailId;
     private SessionManager mSession;
@@ -82,8 +75,7 @@ public class ProfileFormActivity extends AppCompatActivity {
     private Spinner mBloodGroup;
     private FirebaseDatabase mDB;
     private DatabaseReference mRef;
-    private boolean emergencyContactChanged = false;
-    private String mDetailSaved, mCallPermissionInfo,mCheckCon, mOk, mPerGranted, mPerRejected;
+    private String mDetailSaved, mCheckCon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +86,7 @@ public class ProfileFormActivity extends AppCompatActivity {
         mSession = new SessionManager(this);
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         etName = findViewById(R.id.etName);
         etFathername = findViewById(R.id.etFathername);
@@ -102,7 +95,7 @@ public class ProfileFormActivity extends AppCompatActivity {
         etEmailId = findViewById(R.id.etEmailId);
         mBloodGroup = findViewById(R.id.bloodgroup);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                this, R.array.bloodgroup, android.R.layout.simple_spinner_item);
+                this, R.array.bloodgroup, R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mBloodGroup.setAdapter(adapter);
         bSave = findViewById(R.id.bSave);
@@ -191,11 +184,7 @@ public class ProfileFormActivity extends AppCompatActivity {
         // after activity restart. These variable will hold the value for variables initialized using
         // user preferred locale.
         mDetailSaved = getString(R.string.detailSaved);
-        mCallPermissionInfo = getString(R.string.call_permission_info);
         mCheckCon = getString(R.string.checkConnectivity);
-        mOk = getString(R.string.ok);
-        mPerGranted = getString(R.string.granted_call_permission_req);
-        mPerRejected = getString(R.string.rejected_call_permission_req);
     }
 
     @Override
@@ -293,18 +282,6 @@ public class ProfileFormActivity extends AppCompatActivity {
         startMeasuring();
     }
 
-    @Override
-    public void onRequestPermissionsResult (int requestCode, String Permissions[], int[] grantResults){
-        if (requestCode == MY_PERMISSIONS_REQUEST_CALL_PHONE){
-            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                Toast.makeText(this, mPerGranted, Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, mPerRejected, Toast.LENGTH_SHORT).show();
-            }
-            finish();
-        }
-    }
-
     private void encryptStoreUserInfo(final String name, final String contact,
                                       final String email, final String caregiverName,
                                       final String address, final String bloodGroup,
@@ -376,19 +353,7 @@ public class ProfileFormActivity extends AppCompatActivity {
         setUserProperty("userGroup", userGroup);
 
         mSession.setToastMessage(mDetailSaved);
-        // User device is above Lollipop and user changed, saved contact and app does not have call
-        // permission then ask user for call permission.
-        if(Build.VERSION.SDK_INT > 22 && emergencyContactChanged &&
-                ActivityCompat.checkSelfPermission(this,
-                android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            // If user have sim device and ready to call, only then request call permission.
-            if (isDeviceReadyToCall((TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE))) {
-                showPermissionRequestDialog();
-                bSave.setEnabled(true);
-            }else
-                finish();
-        }else
-            finish();
+        finish();
     }
 
     public void moveFirebaseRecord(DatabaseReference fromPath, final DatabaseReference toPath)
@@ -406,7 +371,6 @@ public class ProfileFormActivity extends AppCompatActivity {
                 mRef = mDB.getReference(BuildConfig.DB_TYPE + "/users/" +
                         maskNumber(mSession.getCaregiverNumber().substring(1)));
                 mRef.removeEventListener(this);
-                emergencyContactChanged = true;
                 Crashlytics.setUserIdentifier(maskNumber(mSession.getCaregiverNumber().substring(1)));
                 updateSessionRef(mSession.getCaregiverNumber().substring(1));
                 encryptStoreUserInfo(etName.getText().toString(),
@@ -442,25 +406,6 @@ public class ProfileFormActivity extends AppCompatActivity {
             // if old number doesn't have previous records then just copy it into 'new number -> prevrecords node'
             mNewRef.setValue(snapshot.getValue());
         }
-    }
-
-    private void showPermissionRequestDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        // Add the buttons
-        builder.setPositiveButton(mOk, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                ActivityCompat.requestPermissions(ProfileFormActivity.this, new String[]
-                    {android.Manifest.permission.CALL_PHONE}, MY_PERMISSIONS_REQUEST_CALL_PHONE);
-                dialog.dismiss();
-            }
-        });
-        // Set other dialog properties
-        builder.setCancelable(false);
-        builder.setMessage(mCallPermissionInfo);
-        // Create the AlertDialog
-        AlertDialog dialog = builder.create();
-        // Show the AlertDialog
-        dialog.show();
     }
 
     private class NetworkConnectionTest extends AsyncTask<Void, Void, Boolean> {

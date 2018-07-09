@@ -37,21 +37,19 @@
     </LinearLayout>
 
     <Button
-        android:layout_width="213dp"
-        android:layout_height="0dp"
-        android:background="@drawable/custom_txt_view"
+        android:id="@+id/tvbottom"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:background="@drawable/custom_btn_view"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:layout_weight="3"
         android:layout_gravity="center"
         android:gravity="center"
-        android:textColor="#000000"
-        android:paddingLeft="64dp"
-        android:paddingRight="64dp"
-        android:id="@+id/tvbottom"
-        android:fontFamily="fonts/Mukta-Regular.ttf"
-        android:textStyle="bold"
-        android:textSize="13dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        style="@style/defaultTextViewStyle"
+        android:textColor="@color/app_background"
+        android:textSize="13sp"
         android:onClick="getStarted"
         android:text="@string/txt_intro7_getStarted"/>
 

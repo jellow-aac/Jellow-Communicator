@@ -13,7 +13,9 @@
         android:layout_marginTop="19dp"
         android:layout_marginBottom="19dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp">
+        android:layout_marginStart="32dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -23,9 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/easyToUse"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#000000"
-                android:textSize="18sp"/>
+                style="@style/defaultTextViewStyle"/>
             <RatingBar
                 android:id="@+id/easy_to_use"
                 android:layout_width="wrap_content"
@@ -42,9 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/clearPictures"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#000000"
-                android:textSize="18sp" />
+                style="@style/defaultTextViewStyle"/>
             <RatingBar
                 android:id="@+id/pictures"
                 android:layout_width="wrap_content"
@@ -61,9 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/clearVoice"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#000000"
-                android:textSize="18sp" />
+                style="@style/defaultTextViewStyle"/>
             <RatingBar
                 android:id="@+id/voice"
                 android:layout_width="wrap_content"
@@ -79,10 +75,8 @@
                 android:id="@+id/tv4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/easyToNavigate"
-                android:textColor="#000000"
-                android:textSize="18sp" />
+                style="@style/defaultTextViewStyle"/>
             <RatingBar
                 android:id="@+id/navigate"
                 android:layout_width="wrap_content"
@@ -98,10 +92,8 @@
                 android:id="@+id/tv5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/commentSuggestions"
-                android:textColor="#000000"
-                android:textSize="18sp" />
+                style="@style/defaultTextViewStyle"/>
             <EditText
                 android:id="@+id/comments"
                 android:layout_width="match_parent"
@@ -110,7 +102,7 @@
                 android:layout_marginStart="-2dp"
                 android:ems="10"
                 android:inputType="textMultiLine"
-                android:textSize="18sp"/>
+                style="@style/defaultTextViewStyle"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="48dp">
@@ -126,12 +118,13 @@
         android:gravity="center_vertical">
         <Button
             android:id="@+id/bSubmit"
-            android:layout_width="230dp"
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:text="@string/submit"
-            android:textSize="18sp"
+            android:textSize="22sp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/custom_txt_view"
             android:layout_marginLeft="32dp"
             android:layout_marginStart="32dp"/>
     </LinearLayout>

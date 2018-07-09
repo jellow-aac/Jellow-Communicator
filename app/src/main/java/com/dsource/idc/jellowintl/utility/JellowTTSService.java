@@ -186,6 +186,10 @@ public class JellowTTSService extends Service{
                 @Override
                 public void onInit(int status) {
                     try {
+                        if(status == TextToSpeech.ERROR){
+                            sendBroadcast(new Intent("com.dsource.idc.jellowintl.INIT_SERVICE_ERR"));
+                            return;
+                        }
                         changeTtsLanguage(mTts, mSession.getLanguage());
                         mTts.setSpeechRate(getTTsSpeed(mSession.getLanguage()));
                         mTts.setPitch(getTTsPitch(mSession.getLanguage()));

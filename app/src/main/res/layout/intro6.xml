@@ -8,8 +8,8 @@
         android:id="@+id/tx_downloadMsg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="fonts/Mukta-Regular.ttf"
-        android:textColor="#000"
+        style="@style/defaultTextViewStyle"
+        android:fontFamily="@font/mukta_semibold"
         android:text="@string/txt_intro6_skipActiveTtsDesc"
         android:textSize="11sp"
         android:layout_gravity="center_horizontal"/>
@@ -27,9 +27,8 @@
                 android:id="@+id/tvtop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="fonts/Mukta-Regular.ttf"
+                style="@style/defaultTextViewStyle"
                 android:minLines="2"
-                android:textColor="#000"
                 android:textSize="11sp"
                 android:text="@string/txt_intro6_ttsStep1"/>
             <ImageView
@@ -39,13 +38,14 @@
                 android:src="@drawable/gtts1"/>
             <TextView
                 android:id="@+id/tvbottom"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:background="@drawable/custom_txt_view"
+                android:background="@drawable/custom_btn_view"
                 android:gravity="center"
-                android:textColor="#000"
-                android:fontFamily="fonts/Mukta-Regular.ttf"
-                android:textStyle="bold"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                style="@style/defaultTextViewStyle"
+                android:textColor="@color/app_background"
                 android:textSize="10sp"
                 android:onClick="getStarted1"
                 android:text="@string/txt_intro6_activate"/>
@@ -62,9 +62,8 @@
                 android:id="@+id/tvtop1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="fonts/Mukta-Regular.ttf"
+                style="@style/defaultTextViewStyle"
                 android:minLines="2"
-                android:textColor="#000"
                 android:textSize="11sp"
                 android:text="@string/txt_intro6_step2"/>
             <ImageView
@@ -74,13 +73,14 @@
                 android:src="@drawable/gtts2"/>
             <TextView
                 android:id="@+id/tvbottom1"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:background="@drawable/custom_txt_view"
+                android:background="@drawable/custom_btn_view"
                 android:gravity="center"
-                android:textColor="#000"
-                android:fontFamily="fonts/Mukta-Regular.ttf"
-                android:textStyle="bold"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                style="@style/defaultTextViewStyle"
+                android:textColor="@color/app_background"
                 android:textSize="10sp"
                 android:onClick="getStarted2"
                 android:text="@string/txt_intro6_changeLang"/>
@@ -96,9 +96,8 @@
                 android:id="@+id/tvtop2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="fonts/Mukta-Regular.ttf"
+                style="@style/defaultTextViewStyle"
                 android:minLines="2"
-                android:textColor="#000"
                 android:textSize="11sp"
                 android:text="@string/txt_intro6_step3"/>
             <ImageView
@@ -108,13 +107,14 @@
                 android:src="@drawable/gtts3"/>
             <TextView
                 android:id="@+id/tvbottom3"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:background="@drawable/custom_txt_view"
+                android:background="@drawable/custom_btn_view"
                 android:gravity="center"
-                android:textColor="#000"
-                android:fontFamily="fonts/Mukta-Regular.ttf"
-                android:textStyle="bold"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                style="@style/defaultTextViewStyle"
+                android:textColor="@color/app_background"
                 android:textSize="10sp"
                 android:onClick="getStarted3"
                 android:text="@string/txt_intro6_download"/>

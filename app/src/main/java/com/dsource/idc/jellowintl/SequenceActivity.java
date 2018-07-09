@@ -5,10 +5,10 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -621,7 +621,7 @@ public class SequenceActivity extends AppCompatActivity {
                 speakSpeech(mNavigationBtnTxt[1]);
                 //Firebase event
                 singleEvent("Navigation","Back");
-                mIvTTs.setImageResource(R.drawable.speaker_button);
+                mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
                 if (mFlgKeyboard == 1) {
                     // When keyboard is open, close it and retain expressive button,
                     // category icon states as they are before keyboard opened.
@@ -657,7 +657,12 @@ public class SequenceActivity extends AppCompatActivity {
         mIvHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                speakSpeech(mNavigationBtnTxt[0]);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        speakSpeech(mNavigationBtnTxt[0]);
+                    }
+                }).start();
                 //When home is tapped in this activity it will close all other activities and
                 // user is redirected/navigated to MainActivity and gotoHome() method is called.
                 // As Firebase home event is defined in gotoHome() function of mainActivity.
@@ -666,7 +671,12 @@ public class SequenceActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.putExtra(getString(R.string.goto_home), true);
                 startActivity(intent);
-                finishAffinity();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        finishAffinity();
+                    }
+                },100);
             }
         });
     }
@@ -691,7 +701,7 @@ public class SequenceActivity extends AppCompatActivity {
                 speakSpeech(mNavigationBtnTxt[2]);
                 //Firebase event
                 singleEvent("Navigation","Keyboard");
-                mIvTTs.setImageResource(R.drawable.speaker_button);
+                mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
                 //when mFlgKeyboard is set to 1, it means user is using custom keyboard input
                 // text and system keyboard is visible.
                 if (mFlgKeyboard == 1) {
@@ -1119,8 +1129,6 @@ public class SequenceActivity extends AppCompatActivity {
         mIvTTs.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 speakSpeech(mEtTTs.getText().toString());
-                if(!mEtTTs.getText().toString().equals(""))
-                    mIvTTs.setImageResource(R.drawable.speaker_pressed);
                 //Firebase event
                 Bundle bundle = new Bundle();
                 bundle.putString("InputName", Settings.Secure.getString(getContentResolver(),
@@ -1249,27 +1257,19 @@ public class SequenceActivity extends AppCompatActivity {
      *     c) Hides category icon captions if picture only mode is enabled.</p>
      * */
     private void setValueToViews() {
-        Typeface fontMuktaRegular = Typeface.createFromAsset(getApplicationContext()
-                .getAssets(), "fonts/Mukta-Regular.ttf");
-        Typeface fontMuktaBold = Typeface.createFromAsset(getApplicationContext()
-                .getAssets(), "fonts/Mukta-Bold.ttf");
         mBtnNext.setText(mCategoryNav[1]);
         mBtnBack.setText(mCategoryNav[0]);
         mBtnBack.setEnabled(false);
         mBtnBack.setAlpha(.5f);
 
-        mTvHeading.setTypeface(fontMuktaBold);
         mTvHeading.setAllCaps(true);
         mTvHeading.setTextColor(Color.rgb(64, 64, 64));
         mTvHeading.setText(mHeading[mLevelTwoItemPos].toLowerCase());
 
-        mTvCategory1Caption.setTypeface(fontMuktaRegular);
         mTvCategory1Caption.setTextColor(Color.rgb(64, 64, 64));
 
-        mTvCategory2Caption.setTypeface(fontMuktaRegular);
         mTvCategory2Caption.setTextColor(Color.rgb(64, 64, 64));
 
-        mTvCategory3Caption.setTypeface(fontMuktaRegular);
         mTvCategory3Caption.setTextColor(Color.rgb(64, 64, 64));
 
         mTvCategory1Caption.setText(mCategoryIconBelowText[0]);

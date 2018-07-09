@@ -21,8 +21,7 @@
                 android:layout_marginBottom="19dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/keyboardControlTxt"
-                android:textColor="#000000"
-                android:textSize="18sp" />
+                style="@style/defaultTextViewStyle"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -33,7 +32,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
-                    android:textColor="#000"
+                    android:textColor="@color/black_eighty"
                     android:scaleX=".7"
                     android:scaleY=".7"
                     android:text="@string/bullet" />
@@ -44,8 +43,7 @@
                     android:layout_marginBottom="19dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/step1"
-                    android:textColor="#000000"
-                    android:textSize="18sp"/>
+                    style="@style/defaultTextViewStyle"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -54,25 +52,28 @@
                 android:layout_marginBottom="9dp">
                 <Button
                     android:id="@+id/qwerty"
-                    android:layout_width="230dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
                     android:text="@string/qwertyKeyboard"
-                    android:textSize="18sp"
-                    android:background="@drawable/custom_txt_view"/>
+                    android:textSize="20sp"/>
                 <Button
                     android:id="@+id/abc"
-                    android:layout_width="230dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:layout_marginLeft="90dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginStart="32dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
                     android:text="@string/serialKeyboard"
-                    android:textSize="18sp"
-                    android:background="@drawable/custom_txt_view"/>
+                    android:textSize="20sp"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -84,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
-                    android:textColor="#000"
+                    android:textColor="@color/black_eighty"
                     android:scaleX=".7"
                     android:scaleY=".7"
                     android:text="@string/bullet" />
@@ -93,10 +94,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="19dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/step2"
-                    android:textColor="#000000"
-                    android:textSize="18sp"/>
+                    style="@style/defaultTextViewStyle"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -105,15 +104,16 @@
                 android:layout_marginBottom="8dp">
                 <Button
                     android:id="@+id/default_button"
-                    android:layout_width="230dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxLines="4"
                     android:text="@string/saveAsDefault"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:background="@drawable/custom_txt_view"/>
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

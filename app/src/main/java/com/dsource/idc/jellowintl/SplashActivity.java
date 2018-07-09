@@ -5,9 +5,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.EvaluateDisplayMetricsUtils;
@@ -47,6 +51,10 @@ public class SplashActivity extends AppCompatActivity {
                 performDatabaseOperations();
                 sManager.setCompletedDbOperations(true);
             }
+            if((Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) &&
+                (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE)
+                    != PackageManager.PERMISSION_GRANTED))
+                sManager.setEnableCalling(false);
             sManager = null;
         }
         EvaluateDisplayMetricsUtils displayMetricsUtils = new EvaluateDisplayMetricsUtils(this);
@@ -54,6 +62,7 @@ public class SplashActivity extends AppCompatActivity {
         displayMetricsUtils.calculateStoreShadowRadiusAndBorderWidth();
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.dsource.idc.jellowintl.INIT_SERVICE");
+        filter.addAction("com.dsource.idc.jellowintl.INIT_SERVICE_ERR");
         registerReceiver(receiver, filter);
         iconDatabase=new CreateDataBase(this);
         iconDatabase.execute();
@@ -78,6 +87,9 @@ public class SplashActivity extends AppCompatActivity {
             switch (intent.getAction()){
                 case "com.dsource.idc.jellowintl.INIT_SERVICE":
                     checkIfDatabaseCreated();
+                    break;
+                case "com.dsource.idc.jellowintl.INIT_SERVICE_ERR":
+                    Toast.makeText(context, getString(R.string.check_tts_engine), Toast.LENGTH_SHORT).show();
                     break;
             }
         }

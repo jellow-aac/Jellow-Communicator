@@ -81,6 +81,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="25sp"
                     android:text="brushing"
+                    android:fontFamily="@font/mukta_semibold"
                     android:layout_alignParentTop="true"
                     android:fontFeatureSettings="smcp"/>
                 <RelativeLayout
@@ -218,8 +219,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.3"
-                        android:textSize="16sp"
-                        android:background="@drawable/custom_txt_view"
+                        android:textSize="20sp"
+                        style="@style/customNavButtonStyle"
                         android:layout_marginLeft="64dp"
                         android:layout_marginRight="64dp"
                         android:text="&lt;&lt;  Previous"/>
@@ -228,8 +229,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.3"
-                        android:textSize="16sp"
-                        android:background="@drawable/custom_txt_view"
+                        android:textSize="20sp"
+                        style="@style/customNavButtonStyle"
                         android:layout_marginLeft="64dp"
                         android:layout_marginRight="64dp"
                         android:text="Next &gt;&gt; "/>
@@ -264,23 +265,21 @@
     </RelativeLayout>
     <LinearLayout
         android:layout_width="836dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_marginTop="?attr/actionBarSize">
         <EditText
             android:id="@+id/et"
-            android:layout_width="match_parent"
+            android:layout_width="736dp"
             android:layout_height="80dp"
             android:textSize="20sp"/>
         <ImageView
             android:id="@+id/ttsbutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleX=".6"
-            android:scaleY=".6"
-            android:src="@drawable/speaker_button"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:src="@drawable/ic_search_list_speaker"
+            android:layout_gravity="center_vertical"/>
     </LinearLayout>
     <ImageView
         android:layout_width="168dp"

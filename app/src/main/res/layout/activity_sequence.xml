@@ -77,6 +77,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
                     android:text="brushing"
+                    android:fontFamily="@font/mukta_semibold"
                     android:layout_alignParentTop="true"
                     android:fontFeatureSettings="smcp"/>
                 <RelativeLayout
@@ -218,7 +219,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="12sp"
-                        android:background="@drawable/custom_txt_view"
+                        style="@style/customNavButtonStyle"
                         android:layout_marginLeft="12dp"
                         android:layout_marginRight="12dp"
                         android:text="&lt;&lt;  Previous"/>
@@ -228,7 +229,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="12sp"
-                        android:background="@drawable/custom_txt_view"
+                        style="@style/customNavButtonStyle"
                         android:layout_marginLeft="12dp"
                         android:layout_marginRight="12dp"
                         android:text="Next &gt;&gt; "/>
@@ -263,23 +264,21 @@
     </RelativeLayout>
     <LinearLayout
         android:layout_width="375dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:orientation="vertical">
+        android:orientation="horizontal">
         <EditText
             android:id="@+id/et"
-            android:layout_width="match_parent"
+            android:layout_width="320dp"
             android:layout_height="80dp"
             android:imeOptions="flagNoExtractUi"
             android:textSize="20sp"/>
         <ImageView
             android:id="@+id/ttsbutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleX=".35"
-            android:scaleY=".35"
-            android:src="@drawable/speaker_button"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_search_list_speaker"
+            android:layout_gravity="center_vertical"/>
     </LinearLayout>
     <ImageView
         android:layout_width="100dp"

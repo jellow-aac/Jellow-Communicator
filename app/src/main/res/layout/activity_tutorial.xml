@@ -10,7 +10,12 @@
         android:layout_height="wrap_content"
         android:fillViewport="true"
         android:fadeScrollbars="false"
-        android:layout_margin="19dp">
+        android:layout_marginLeft="19dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginBottom="19dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,7 +34,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="4dp"
                         android:layout_marginRight="4dp"
-                        android:textColor="#000"
+                        android:textColor="@color/black_eighty"
                         android:scaleX=".7"
                         android:scaleY=".7"
                         android:text="@string/bullet" />
@@ -39,9 +44,8 @@
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@+id/bullet1"
                         android:layout_toRightOf="@+id/bullet1"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="@string/catBtnDesc"
-                        android:textSize="14sp"
+                        style="@style/defaultTextViewStyle"
                         android:paddingBottom="4dp"/>
                     <TextView
                         android:id="@+id/tv7"
@@ -51,10 +55,9 @@
                         android:layout_marginBottom="19dp"
                         android:layout_marginTop="19dp"
                         android:paddingBottom="4dp"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="@string/catBtn"
-                        android:textSize="14sp"
-                        android:textStyle="bold"/>
+                        android:fontFamily="@font/mukta_semibold"
+                        style="@style/defaultTextViewStyle"/>
                     <ImageView
                         android:id="@+id/pic1"
                         android:layout_width="wrap_content"
@@ -68,10 +71,9 @@
                         android:layout_marginBottom="19dp"
                         android:layout_marginTop="19dp"
                         android:paddingBottom="4dp"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="@string/expBtn"
-                        android:textSize="14sp"
-                        android:textStyle="bold"/>
+                        android:fontFamily="@font/mukta_semibold"
+                        style="@style/defaultTextViewStyle"/>
                     <ImageView
                         android:id="@+id/pic2"
                         android:layout_width="wrap_content"
@@ -94,7 +96,7 @@
                         android:layout_height="50dp"
                         android:layout_marginEnd="4dp"
                         android:layout_marginRight="4dp"
-                        android:textColor="#000"
+                        android:textColor="@color/black_eighty"
                         android:scaleX=".7"
                         android:scaleY=".7"
                         android:text="@string/bullet" />
@@ -105,9 +107,8 @@
                         android:layout_toEndOf="@+id/bullet2"
                         android:layout_toRightOf="@+id/bullet2"
                         android:paddingBottom="4dp"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="@string/jellowUsageDesc"
-                        android:textSize="14sp"/>
+                        style="@style/defaultTextViewStyle"/>
                     <ImageView
                         android:id="@+id/pic4"
                         android:layout_width="wrap_content"
@@ -132,7 +133,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="4dp"
                         android:layout_marginRight="4dp"
-                        android:textColor="#000"
+                        android:textColor="@color/black_eighty"
                         android:scaleX=".7"
                         android:scaleY=".7"
                         android:text="@string/bullet" />
@@ -143,9 +144,8 @@
                         android:layout_toEndOf="@+id/bullet3"
                         android:layout_toRightOf="@+id/bullet3"
                         android:paddingBottom="4dp"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="@string/jellowUsageSubCat"
-                        android:textSize="14sp"/>
+                        style="@style/defaultTextViewStyle"/>
                     <TextView
                         android:id="@+id/tv9"
                         android:layout_width="wrap_content"
@@ -154,10 +154,9 @@
                         android:layout_marginBottom="19dp"
                         android:layout_marginTop="19dp"
                         android:paddingBottom="4dp"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="@string/levelOneCat"
-                        android:textSize="14sp"
-                        android:textStyle="bold"/>
+                        android:fontFamily="@font/mukta_semibold"
+                        style="@style/defaultTextViewStyle"/>
                     <ImageView
                         android:id="@+id/pic5"
                         android:layout_width="wrap_content"
@@ -171,10 +170,9 @@
                         android:layout_marginBottom="19dp"
                         android:layout_marginTop="19dp"
                         android:paddingBottom="4dp"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="@string/levelTwoCat"
-                        android:textSize="14sp"
-                        android:textStyle="bold"/>
+                        android:fontFamily="@font/mukta_semibold"
+                        style="@style/defaultTextViewStyle"/>
                     <ImageView
                         android:id="@+id/pic6"
                         android:layout_width="wrap_content"
@@ -188,10 +186,9 @@
                         android:layout_marginBottom="19dp"
                         android:layout_marginTop="19dp"
                         android:paddingBottom="4dp"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="@string/levelThreeCat"
-                        android:textSize="14sp"
-                        android:textStyle="bold"/>
+                        android:fontFamily="@font/mukta_semibold"
+                        style="@style/defaultTextViewStyle"/>
                     <ImageView
                         android:id="@+id/pic7"
                         android:layout_width="wrap_content"
@@ -215,7 +212,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="4dp"
                         android:layout_marginRight="4dp"
-                        android:textColor="#000"
+                        android:textColor="@color/black_eighty"
                         android:scaleX=".7"
                         android:scaleY=".7"
                         android:text="@string/bullet" />
@@ -226,9 +223,8 @@
                         android:layout_toEndOf="@+id/bullet4"
                         android:layout_toRightOf="@+id/bullet4"
                         android:paddingBottom="4dp"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="@string/settingDesc"
-                        android:textSize="14sp"/>
+                        style="@style/defaultTextViewStyle"/>
                     <ImageView
                         android:id="@+id/pic8"
                         android:layout_width="wrap_content"
@@ -251,7 +247,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="4dp"
                         android:layout_marginRight="4dp"
-                        android:textColor="#000"
+                        android:textColor="@color/black_eighty"
                         android:scaleX=".7"
                         android:scaleY=".7"
                         android:text="@string/bullet" />
@@ -262,9 +258,8 @@
                         android:layout_toEndOf="@+id/bullet5"
                         android:layout_toRightOf="@+id/bullet5"
                         android:paddingBottom="4dp"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="@string/seqActDesc"
-                        android:textSize="14sp"/>
+                        style="@style/defaultTextViewStyle"/>
                     <TextView
                         android:id="@+id/tv12"
                         android:layout_width="wrap_content"
@@ -273,10 +268,9 @@
                         android:layout_marginBottom="19dp"
                         android:layout_marginTop="19dp"
                         android:paddingBottom="4dp"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="@string/toiletSeq"
-                        android:textSize="14sp"
-                        android:textStyle="bold"/>
+                        android:fontFamily="@font/mukta_semibold"
+                        style="@style/defaultTextViewStyle"/>
                     <ImageView
                         android:id="@+id/pic9"
                         android:layout_width="wrap_content"
@@ -290,10 +284,9 @@
                         android:layout_marginBottom="19dp"
                         android:layout_marginTop="19dp"
                         android:paddingBottom="4dp"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="@string/expBtnSeq"
-                        android:textSize="14sp"
-                        android:textStyle="bold"/>
+                        android:fontFamily="@font/mukta_semibold"
+                        style="@style/defaultTextViewStyle"/>
                     <ImageView
                         android:id="@+id/pic10"
                         android:layout_width="wrap_content"
@@ -318,7 +311,7 @@
                         android:layout_marginTop="19dp"
                         android:layout_marginEnd="4dp"
                         android:layout_marginRight="4dp"
-                        android:textColor="#000"
+                        android:textColor="@color/black_eighty"
                         android:scaleX=".7"
                         android:scaleY=".7"
                         android:text="@string/bullet" />
@@ -331,9 +324,8 @@
                         android:layout_marginBottom="19dp"
                         android:layout_marginTop="19dp"
                         android:paddingBottom="4dp"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="@string/ttsDesc"
-                        android:textSize="14sp"/>
+                        style="@style/defaultTextViewStyle"/>
                     <LinearLayout
                         android:layout_below="@+id/tvtts"
                         android:layout_width="fill_parent"
@@ -373,7 +365,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
-                    android:textColor="#000"
+                    android:textColor="@color/black_eighty"
                     android:scaleX=".7"
                     android:scaleY=".7"
                     android:text="@string/bullet" />
@@ -384,10 +376,9 @@
                     android:layout_toEndOf="@+id/bullet7"
                     android:layout_toRightOf="@+id/bullet7"
                     android:paddingBottom="4dp"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="@string/softwareVersion"
-                    android:textSize="14sp"
-                    android:textStyle="bold"/>
+                    android:fontFamily="@font/mukta_semibold"
+                    style="@style/defaultTextViewStyle"/>
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
