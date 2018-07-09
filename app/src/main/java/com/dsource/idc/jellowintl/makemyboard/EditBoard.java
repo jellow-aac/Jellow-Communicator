@@ -6,14 +6,14 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.JsonDatabase.BoardDatabase;
+import com.dsource.idc.jellowintl.makemyboard.JsonDatabase.CustomDialog;
 import com.dsource.idc.jellowintl.makemyboard.JsonDatabase.Sorter;
-import com.dsource.idc.jellowintl.makemyboard.JsonDatabase.TheNode;
 import com.dsource.idc.jellowintl.utility.IconDataBaseHelper;
 import com.dsource.idc.jellowintl.utility.JellowIcon;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -21,13 +21,14 @@ public class EditBoard extends AppCompatActivity {
 
     ArrayList<JellowIcon> mainList;
     ArrayList<JellowIcon> displayList;
-    EditBoardAdapter adapter;
     RecyclerView mRecyclerView;
     private Sorter sorter;
     private String boardId;
     public static final String BOARD_ID="Board_Id";
     private BoardDatabase database;
-    private TheNode parentNode;
+    AdapterEditBoard adapterRight;
+    private int Level=0;
+    private int LevelOneParent=-1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,45 +43,17 @@ public class EditBoard extends AppCompatActivity {
         {
             Log.d("No board id found", boardId);
         }
+
         Board thisBoard=database.getBoardById(boardId);
         mainList =thisBoard.getIconList();
-        parentNode=new TheNode(new JellowIcon("","",-1,-1,-1));
-
-
         mainList =sortList(mainList);
-        sorter=new Sorter(mainList);
-        prepareModel();
-        leftRec();
+        sorter=new Sorter(mainList,EditBoard.this);
+        displayList=sorter.getLevelOneFromModel();
+        initFields();
+        updateList();
     }
 
-    private void prepareModel() {
 
-        parentNode.addAllChild(sorter.getLevelOneIcons());
-        Log.d("FirstLevelNode",new Gson().toJson(parentNode));
-        Log.d("Level 2 Size",""+parentNode.getChildren().size());
-        for(int i=0;i<parentNode.getChildren().size();i++)
-        {
-            JellowIcon icon = parentNode.getChildren().get(i).getIcon();
-            ArrayList<JellowIcon> thisList=sorter.getLevelTwoIcons(icon);
-            Log.d("Level 2 Size",""+thisList.size());
-            parentNode.getChildren().get(i).addAllChild(thisList);
-        }
-        for(int i=0;i<parentNode.getChildren().size();i++)
-        {
-            for(int j=0;j<parentNode.getChildren().get(i).getChildren().size();j++)
-            {
-                JellowIcon icon = parentNode.getChildren().get(i).getChildren().get(j).getIcon();
-                ArrayList<JellowIcon> thisList=sorter.getLevelThreeIcons(icon);
-                parentNode.getChildren().get(i).getChildren().get(j).addAllChild(thisList);
-
-            }
-        }
-
-        Log.d("parentNode",new Gson().toJson(parentNode));
-
-
-
-    }
 
     ArrayList<JellowIcon> sortList(ArrayList<JellowIcon> iconsList)
     {
@@ -114,37 +87,108 @@ public class EditBoard extends AppCompatActivity {
         return present;
     }
 
-
-
-    private void leftRec(){
-        mRecyclerView=findViewById(R.id.icon_recycler);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(this,3));
-        for(int i = 0; i< mainList.size(); i++)
-            Log.d("List:","FinalList "+ mainList.get(i).IconTitle);
-        RightPainIconAdapter adapterRight=new RightPainIconAdapter(mRecyclerView,sorter.getLevelOneIcons(),this);
+    private void updateList()
+    {
+        adapterRight=new AdapterEditBoard(mRecyclerView,displayList,this);
         mRecyclerView.setAdapter(adapterRight);
         adapterRight.notifyDataSetChanged();
-
-
+        adapterRight.setOnItemClickListener(new AdapterEditBoard.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Log.d("ItemClicked","Item: "+position);
+                notifyItemClicked(position);
+            }
+        });
+    }
+    private void initFields(){
+        mRecyclerView=findViewById(R.id.icon_recycler);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this,3));
         (findViewById(R.id.ivback)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                onBackPressed();
             }
         });
         (findViewById(R.id.ivhome)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                displayList=sorter.getLevelOneFromModel();
+                updateList();
+                Level=0;
+                LevelOneParent=-1;
             }
         });
 
+
+
+
+    }
+
+    private void notifyItemClicked(int position) {
+        if(Level==0)//Level one Item clicked
+        {
+            ArrayList<JellowIcon> temp=sorter.getLevelTwoFromModel(position);
+            if(temp.size()>0) {
+                displayList = temp;
+                LevelOneParent = position;
+                Level++;
+                updateList();
+            }
+            else Toast.makeText(EditBoard.this,"No sub category",Toast.LENGTH_SHORT).show();
+        }
+        else if(Level==1){
+
+            if(LevelOneParent!=-1) {
+                ArrayList<JellowIcon> temp = sorter.getLevelThreeFromModel(LevelOneParent, position);
+                if (temp.size() > 0) {
+                    displayList = temp;
+                    Level++;
+                    updateList();
+                } else Toast.makeText(EditBoard.this, "No sub category", Toast.LENGTH_SHORT).show();
+
+            } else Log.d("LevelOneParentNotSet","Icon"+LevelOneParent+" "+position);
+        }
+        else if(Level==2)
+        {
+            Toast.makeText(EditBoard.this,"No sub category",Toast.LENGTH_SHORT).show();
+        }
 
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+
+        if(Level==2)
+        {
+            if(LevelOneParent!=-1) {
+                displayList = sorter.getLevelTwoFromModel(LevelOneParent);
+                updateList();
+                Level--;
+            }
+
+        }
+        else if(Level==1)
+        {
+            displayList=sorter.getLevelOneFromModel();
+            LevelOneParent=-1;
+            updateList();
+            Level--;
+        }
+        else if(Level==0)
+        {
+            CustomDialog dialog=new CustomDialog(this);
+            dialog.setText("Are you sure you want to exit");
+            dialog.setOnPositiveClickListener(new CustomDialog.onPositiveClickListener() {
+                @Override
+                public void onPositiveClickListener() {
+                    finish();
+                }
+            });
+            dialog.show();
+        }
+
     }
+
 }
 
 //TODO Now what we need to do is think what we need to do

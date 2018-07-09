@@ -346,6 +346,7 @@
     <string name="no_board_to_delete">There are no board to delete</string>
     <string name="icon_list">IconList</string>
     <string name="search_result">search_result</string>
+    <string name="icon_select_mode">icon_select_mode</string>
     <string-array name="entries">
         <item>Camera</item>
         <item>Gallery</item>

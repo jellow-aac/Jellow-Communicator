@@ -41,6 +41,7 @@ public class CustomDialog extends Dialog{
         postiveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(mPositiveClickListener!=null)
                 mPositiveClickListener.onPositiveClickListener();
                 dialog.dismiss();
             }
@@ -48,6 +49,7 @@ public class CustomDialog extends Dialog{
         negativeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(mNegativeClickListener!=null)
                 mNegativeClickListener.onNegativeClickListener();
                 dialog.dismiss();
             }

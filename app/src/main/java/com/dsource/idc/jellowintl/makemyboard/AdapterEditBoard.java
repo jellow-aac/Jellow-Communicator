@@ -22,14 +22,14 @@ import com.makeramen.dragsortadapter.NoForegroundShadowBuilder;
 import java.io.File;
 import java.util.List;
 
-public class RightPainIconAdapter extends DragSortAdapter<RightPainIconAdapter.ViewHolder> {
+public class AdapterEditBoard extends DragSortAdapter<AdapterEditBoard.ViewHolder> {
 
-    public static final String TAG = RightPainIconAdapter.class.getSimpleName();
 
     private final List<JellowIcon> data;
     private Context mContext;
+    public OnItemClickListener mItemClickListener;
 
-    public RightPainIconAdapter(RecyclerView recyclerView, List<JellowIcon> data,Context context) {
+    public AdapterEditBoard(RecyclerView recyclerView, List<JellowIcon> data, Context context) {
         super(recyclerView);
         this.data = data;
         mContext=context;
@@ -39,10 +39,11 @@ public class RightPainIconAdapter extends DragSortAdapter<RightPainIconAdapter.V
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.icon_edit_pain_card, parent, false);
         ViewHolder holder = new ViewHolder(this, view);
-        view.setOnClickListener(holder);
         view.setOnLongClickListener(holder);
         return holder;
     }
+
+
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
@@ -100,8 +101,17 @@ public class RightPainIconAdapter extends DragSortAdapter<RightPainIconAdapter.V
 
 
 
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+    }
 
-    static class ViewHolder extends DragSortAdapter.ViewHolder implements
+    public void setOnItemClickListener(final AdapterEditBoard.OnItemClickListener mItemClickListener) {
+        this.mItemClickListener = mItemClickListener;
+
+    }
+
+
+   class ViewHolder extends DragSortAdapter.ViewHolder implements
             View.OnClickListener, View.OnLongClickListener {
 
 
@@ -109,18 +119,21 @@ public class RightPainIconAdapter extends DragSortAdapter<RightPainIconAdapter.V
         public TextView iconTitle;
         public ImageView removeIcom;
         public View holder;
+
+
         public ViewHolder(DragSortAdapter adapter, View itemView) {
             super(adapter, itemView);
             iconImage=itemView.findViewById(R.id.icon_image_view);
             iconTitle=itemView.findViewById(R.id.icon_title);
             removeIcom=itemView.findViewById(R.id.icon_remove_button);
             holder=itemView;
+            itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
 
         }
 
         @Override public void onClick(@NonNull View v) {
-
+            mItemClickListener.onItemClick(v,getAdapterPosition());
         }
 
         @Override public boolean onLongClick(@NonNull View v) {

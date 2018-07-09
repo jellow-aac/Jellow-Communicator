@@ -9,16 +9,6 @@ public class JellowIcon implements Serializable{
     public String IconDrawable,IconTitle;
     @Keep
     public int parent0, parent1, parent2;
-    @Keep
-    boolean isChecked=false;
-
-    public boolean isChecked() {
-        return isChecked;
-    }
-
-    public void setChecked(boolean checked) {
-        isChecked = checked;
-    }
 
     public JellowIcon(String iconTitle, String iconDrawable, int p1, int p2, int p3) {
         IconDrawable = iconDrawable;
@@ -40,17 +30,5 @@ public class JellowIcon implements Serializable{
     {
         return parent0 == icon.parent0 && parent1 == icon.parent1 && parent2 == icon.parent2;
 
-    }
-
-    public void setParent0(int parent0) {
-        this.parent0 = parent0;
-    }
-
-    public void setParent1(int parent1) {
-        this.parent1 = parent1;
-    }
-
-    public void setParent2(int parent2) {
-        this.parent2 = parent2;
     }
 }

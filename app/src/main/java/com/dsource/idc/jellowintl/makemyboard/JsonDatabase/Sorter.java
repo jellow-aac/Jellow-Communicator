@@ -1,9 +1,16 @@
 package com.dsource.idc.jellowintl.makemyboard.JsonDatabase;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.dsource.idc.jellowintl.utility.JellowIcon;
+import com.google.gson.Gson;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 public class Sorter {
@@ -11,19 +18,21 @@ public class Sorter {
     private ArrayList<JellowIcon> levelOneIcons;
     private ArrayList<Integer> levelOneIndex;
     private ArrayList<JellowIcon> levelTwoIcons;
-    private ArrayList<Integer> levelTwoIndex;
     private ArrayList<JellowIcon> levelThreeIcons;
-    private ArrayList<Integer> levelThreeIndex;
+    private TheNode parentNode;
+    private Context context;
 
-    public Sorter(ArrayList<JellowIcon> mailIconList) {
+    public Sorter(ArrayList<JellowIcon> mailIconList,Context context)
+    {
         this.mailIconList = mailIconList;
+        this.context=context;
         levelOneIcons=new ArrayList<>();
         levelOneIndex=new ArrayList<>();
         levelTwoIcons=new ArrayList<>();
-        levelTwoIndex=new ArrayList<>();
         levelThreeIcons=new ArrayList<>();
-        levelThreeIndex=new ArrayList<>();
+        parentNode=new TheNode(new JellowIcon("","",-1,-1,-1));
         prepareLevels();
+        prepareModel();
     }
 
     private void prepareLevels() {
@@ -39,12 +48,10 @@ public class Sorter {
             else if(icon.parent2==-1)//level two
             {
                 levelTwoIcons.add(icon);
-                levelTwoIndex.add(icon.parent1);
             }
             else //level three
             {
                 levelThreeIcons.add(icon);
-                levelThreeIndex.add(icon.parent2);
             }
         }
 
@@ -77,32 +84,54 @@ public class Sorter {
     public ArrayList<JellowIcon> getLevelTwoIcons(JellowIcon icon)
     {
 
+        Log.d("LevelTwoIcon: ",""+icon.IconTitle);
         ArrayList<JellowIcon> subList=new ArrayList<>();
-        if(icon.parent2==-1)//if the icon is of level two then the child can be only of level three
-            for(int i=0;i<levelThreeIcons.size();i++) {
-                if (levelThreeIcons.get(i).parent1 == icon.parent1)
-                    subList.add(levelThreeIcons.get(i));
-            }
-            else if(icon.parent1==-1)//if the Icon is of level one then it could have both level two icons and level three icons
+        if(icon.parent2!=-1)
+            return subList;
+        if(icon.parent1==-1)//if the Icon is of level one then it could have both level two icons and level three icons
             {
+                Log.d("LevelTwo-2","Came in here");
                 ArrayList<Integer> levelTwoParents=new ArrayList<>();
                 for(int i=0;i<levelTwoIcons.size();i++)
                     {
                         if(levelTwoIcons.get(i).parent0==icon.parent0)
                             {
-                                subList.add(levelOneIcons.get(i));
-                                levelTwoParents.add(icon.parent1);
+                                subList.add(levelTwoIcons.get(i));
+                                levelTwoParents.add(levelTwoIcons.get(i).parent1);
                             }
 
                     }
-
+                Log.d("LevelTwo-2","init size "+subList.size());
+                for(int i=0;i<levelTwoParents.size();i++)
+                    Log.d("LevelTwoParents",levelTwoParents.get(i)+"");
                 for(int i=0;i<levelThreeIcons.size();i++)
                     {
-                        if(!levelTwoParents.contains(levelThreeIcons.get(i).parent1)&&levelThreeIcons.get(i).parent0==icon.parent0)
+
+                        if((!levelTwoParents.contains(levelThreeIcons.get(i).parent1))&&levelThreeIcons.get(i).parent0==icon.parent0)
+                        {
+
+                            Log.d("LevelThree","Added Icon is "+levelThreeIcons.get(i).IconTitle);
                             subList.add(levelThreeIcons.get(i));
 
+                        }
+
+
                     }
+                Log.d("LevelTwo-2","final Size "+subList.size());
         }
+        else
+        if(icon.parent2==-1)//if the icon is of level two then the child can be only of level three
+        {
+            Log.d("LevelOneIcons","Came in for: "+icon.IconTitle);
+            for(int i=0;i<levelThreeIcons.size();i++) {
+
+
+                if (levelThreeIcons.get(i).parent1 == icon.parent1)
+                    subList.add(levelThreeIcons.get(i));
+            }
+            Log.d("LevelOneIcons","List size is "+subList.size());
+        }
+
 
         return subList;
     }
@@ -113,7 +142,10 @@ public class Sorter {
      */
     public ArrayList<JellowIcon> getLevelThreeIcons(JellowIcon icon)
     {
+
         ArrayList<JellowIcon> subList=new ArrayList<>();
+        if (icon.parent2!=-1)
+            return subList;
         for(int i=0;i<levelThreeIcons.size();i++)
             if(levelThreeIcons.get(i).parent0==icon.parent0&&levelThreeIcons.get(i).parent1==icon.parent1)
                 subList.add(levelThreeIcons.get(i));
@@ -146,6 +178,117 @@ public class Sorter {
 
 
         return subList;
+    }
+
+    private void prepareModel() {
+
+        if(levelOneIcons.size()>0) {
+            parentNode.addAllChild(this.getLevelOneIcons());
+            Log.d("WhichLevel","One");
+            for (int i = 0; i < parentNode.getChildren().size(); i++) {
+                JellowIcon icon = parentNode.getChildren().get(i).getIcon();
+                ArrayList<JellowIcon> thisList = this.getLevelTwoIcons(icon);
+                Log.d("LevelL2forL1Size " + icon.IconTitle, "" + thisList.size());
+                parentNode.getChildren().get(i).addAllChild(thisList);
+            }
+            for (int i = 0; i < parentNode.getChildren().size(); i++) {
+                for (int j = 0; j < parentNode.getChildren().get(i).getChildren().size(); j++) {
+                    Log.d("LevelThreeChildren", "L1 " + parentNode.getChildren().get(i).getIcon().IconTitle
+                            + " L2 " + parentNode.getChildren().get(i).getChildren().size()
+                    );
+                    JellowIcon icon = parentNode.getChildren().get(i).getChildren().get(j).getIcon();
+                    ArrayList<JellowIcon> thisList = this.getLevelThreeIcons(icon);
+                    parentNode.getChildren().get(i).getChildren().get(j).addAllChild(thisList);
+
+                }
+            }
+        }
+        else if(levelTwoIcons.size()>0)//if there is no level one parent then the base node will be the level 2 node
+        {
+            Log.d("WhichLevel","Two");
+            parentNode.addAllChild(this.getOtherLevelOneIcons());
+            for(int i=0;i<parentNode.getChildren().size();i++)
+            {
+                JellowIcon icon = parentNode.getChildren().get(i).getIcon();
+                ArrayList<JellowIcon> thisList = this.getLevelThreeIcons(icon);
+                parentNode.getChildren().get(i).addAllChild(thisList);
+            }
+
+        }
+        else {
+            Log.d("WhichLevel","Three");
+            parentNode.addAllChild(levelThreeIcons);
+        }
+
+
+        Log.d("parentNode",new Gson().toJson(parentNode));
+        writeJsonStringToFile(new Gson().toJson(parentNode),context );
+
+
+
+    }
+
+    public TheNode getModel()
+    {
+        return parentNode;
+    }
+
+    public ArrayList<JellowIcon> getLevelOneFromModel()
+    {
+        return parentNode.getSubList();
+    }
+    public ArrayList<JellowIcon> getLevelTwoFromModel(int parent1)
+    {
+        return parentNode.getChildren().get(parent1).getSubList();
+    }
+    public ArrayList<JellowIcon> getLevelThreeFromModel(int parent1,int parent2)
+    {
+        return parentNode.getChildren().get(parent1).getChildren().get(parent2).getSubList();
+    }
+
+
+    /**
+     * This function is to write string data to the file
+     * @param data
+     * @param context
+     */
+    private void writeJsonStringToFile(String data, Context context) {
+        File path = context.getExternalFilesDir(null);
+        File file = new File(path, "Model.json");
+        Log.d("Path",path.getAbsolutePath());
+        FileOutputStream stream = null;
+        try {
+            stream = new FileOutputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            stream.write(data.getBytes());
+            Log.d("Verbiage:","Written Successfully");
+
+        }
+        catch (IOException e)
+        {
+
+        }
+        finally {
+            try {
+                stream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+
+        try {
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput("Jellow.json", Context.MODE_PRIVATE));
+            outputStreamWriter.write(data);
+            outputStreamWriter.close();
+        }
+        catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
     }
 
 

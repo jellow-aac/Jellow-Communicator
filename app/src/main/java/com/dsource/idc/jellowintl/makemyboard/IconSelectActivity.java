@@ -45,10 +45,12 @@ public class IconSelectActivity extends AppCompatActivity {
     public static final String BOARD_ID="Board_Id";
     ViewTreeObserver.OnGlobalLayoutListener tempListener;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_icon_select);
+
         try{
             boardId =getIntent().getExtras().getString(BOARD_ID);
         }
@@ -57,7 +59,8 @@ public class IconSelectActivity extends AppCompatActivity {
             Log.d("No board id found", boardId);
         }
 
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
+
+
         utilF=new UtilFunctions();
         selectionCheckBox=findViewById(R.id.select_deselect_check_box);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_background));

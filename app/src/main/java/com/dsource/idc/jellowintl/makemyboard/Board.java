@@ -1,6 +1,5 @@
 package com.dsource.idc.jellowintl.makemyboard;
 
-import android.graphics.Bitmap;
 import android.support.annotation.Keep;
 
 import com.dsource.idc.jellowintl.utility.JellowIcon;
@@ -17,12 +16,12 @@ public class Board implements Serializable {
     public String boardTitle;
     @Keep
     public String boardID;
-    private Bitmap boardIcon;
+    private byte[] boardIcon;
     private boolean boardCompleted=false;
     private boolean boardIconsSelected=false;
     private ArrayList<JellowIcon> iconList;
 
-    public Board(String Uid, String boardTitle, Bitmap boardIcon) {
+    public Board(String Uid, String boardTitle, byte[] boardIcon) {
         this.boardTitle = boardTitle;
         this.boardID = Uid;
         this.boardIcon=boardIcon;
@@ -44,11 +43,11 @@ public class Board implements Serializable {
         this.boardID = boardID;
     }
 
-    public Bitmap getBoardIcon() {
+    public byte[] getBoardIcon() {
         return boardIcon;
     }
 
-    public void setBoardIcon(Bitmap boardIcon) {
+    public void setBoardIcon(byte[] boardIcon) {
         this.boardIcon = boardIcon;
     }
 

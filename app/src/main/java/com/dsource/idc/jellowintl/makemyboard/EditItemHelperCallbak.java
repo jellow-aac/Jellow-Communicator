@@ -5,9 +5,9 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 
 public class EditItemHelperCallbak extends ItemTouchHelper.Callback {
 
-    private final RightPainIconAdapter mAdapter;
+    private final AdapterEditBoard mAdapter;
 
-    public EditItemHelperCallbak(RightPainIconAdapter adapter) {
+    public EditItemHelperCallbak(AdapterEditBoard adapter) {
         mAdapter = adapter;
     }
 

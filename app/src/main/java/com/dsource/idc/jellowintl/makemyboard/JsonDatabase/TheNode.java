@@ -2,9 +2,10 @@ package com.dsource.idc.jellowintl.makemyboard.JsonDatabase;
 
 import com.dsource.idc.jellowintl.utility.JellowIcon;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class TheNode {
+public class TheNode implements Serializable{
 
         private JellowIcon icon;
         private ArrayList<TheNode> children;
@@ -38,6 +39,17 @@ public class TheNode {
             for(int i=0;i<subList.size();i++)
                 children.add(new TheNode(subList.get(i)));
         }
+        public ArrayList<JellowIcon> getSubList()
+        {
+            ArrayList<JellowIcon> list=new ArrayList<>();
+            for(int i=0;i<children.size();i++)
+            {
+                list.add(children.get(i).getIcon());
+            }
+
+            return list;
+        }
+
 
 
 

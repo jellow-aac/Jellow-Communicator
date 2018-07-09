@@ -1,13 +1,19 @@
 package com.dsource.idc.jellowintl.makemyboard;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,6 +35,8 @@ import com.dsource.idc.jellowintl.makemyboard.JsonDatabase.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.JsonDatabase.CustomDialog;
 import com.rey.material.app.Dialog;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -37,12 +45,17 @@ public class MyBoards extends AppCompatActivity {
 
     public static final int DELETE_MODE =333;
     public static final int NORMAL_MODE =444;
+    public static final int CAMERA_REQUEST=211;
+    public static final int GALLERY_REQUEST=311;
+    public static final int LIBRARY_REQUEST=411;
+    private static final int PERMISSION_REQUESTS = 1212;
     RecyclerView mRecyclerView;
     BoardAdapter adapter;
     ArrayList<Board> boardList;
     private final int NEW_BOARD=11;
     private final int EDIT_BOARD=22;
     HashMap<String,Board> boardHashMap;
+    PhotoIntentResult mPhotoIntentResult;
     SQLiteDatabase db;
     public static final String BOARD_ID="Board_Id";
     Context ctx;
@@ -65,7 +78,7 @@ public class MyBoards extends AppCompatActivity {
     }
 
     private void checkDatabase() {
-            new BoardDatabase(this).createTable(new DataBaseHelper(this).getReadableDatabase());
+        new BoardDatabase(this).createTable(new DataBaseHelper(this).getReadableDatabase());
     }
 
     /**
@@ -86,6 +99,8 @@ public class MyBoards extends AppCompatActivity {
     private void prepareBoardList(int mode) {
         boardList.clear();
         boardList=loadBoardsFromDataBase();
+        Log.d("BoardCount","Total Number of boards in database: "+database.count());
+        Log.d("BoardCount","Total Number of boards: "+boardList.size());
         if(mode==NORMAL_MODE) {
             boardList.add(new Board("-1", "Add Board", null));
             adapter = new BoardAdapter(this, boardList,NORMAL_MODE);
@@ -181,16 +196,42 @@ public class MyBoards extends AppCompatActivity {
         list.add(new ListItem("Library ",mArray.getDrawable(2)));
         SimpleListAdapter adapter=new SimpleListAdapter(this,list);
         listView.setAdapter(adapter);
+        setOnPhotoSelectListener(new PhotoIntentResult() {
+            @Override
+            public void onPhotoIntentResult(Bitmap bitmap, int code) {
+                BoardIcon.setImageBitmap(bitmap);
+            }
+        });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                listView.setVisibility(View.GONE);
                 if(position==0)
                 {
-                    Toast.makeText(MyBoards.this,"Camera Clicked",Toast.LENGTH_SHORT).show();
+                    if(checkPermissionForCamera()) {
+                        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        startActivityForResult(takePictureIntent, CAMERA_REQUEST);
+                    }
+                    else
+                    {
+                        final String [] permissions=new String []{ Manifest.permission.CAMERA};
+                        ActivityCompat.requestPermissions(MyBoards.this, permissions, PERMISSION_REQUESTS);
+                    }
+
                 }
                 else if(position==1)
                 {
-                    Toast.makeText(MyBoards.this,"Gallery Clicked",Toast.LENGTH_SHORT).show();
+                    if(checkPermissionForStorageRead()) {
+                        Intent selectFromGalleryIntent = new Intent();
+                        selectFromGalleryIntent.setType("image/*");
+                        selectFromGalleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+                        startActivityForResult(selectFromGalleryIntent, GALLERY_REQUEST);
+                    }
+                    else {
+                        final String [] permissions=new String []{ Manifest.permission.READ_EXTERNAL_STORAGE};
+                        ActivityCompat.requestPermissions(MyBoards.this, permissions, PERMISSION_REQUESTS);
+
+                    }
                 }
                 else if(position==2)
                 {
@@ -199,12 +240,16 @@ public class MyBoards extends AppCompatActivity {
             }
         });
 
+
         saveBoard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MyBoards.this,"Save board",Toast.LENGTH_SHORT).show();
                 String name=boardTitleEditText.getText().toString();
                 Bitmap boardIcon=((BitmapDrawable)BoardIcon.getDrawable()).getBitmap();
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                boardIcon.compress(Bitmap.CompressFormat.PNG, 100, bos);
+                byte[] bitmapArray = bos.toByteArray();
                 if(code==NEW_BOARD)
                 {
                     String BoardId=Calendar.getInstance().getTime().getTime()+"";
@@ -215,7 +260,7 @@ public class MyBoards extends AppCompatActivity {
                 }
                 else if(code==EDIT_BOARD)
                 {
-                    updateBoardDetails(name,boardIcon,pos);
+                    updateBoardDetails(name,bitmapArray,pos);
                 }
 
                 dialogForBoardEditAdd.dismiss();
@@ -231,7 +276,7 @@ public class MyBoards extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(isVisible)
-                listView.setVisibility(View.GONE);
+                    listView.setVisibility(View.GONE);
                 else listView.setVisibility(View.VISIBLE);
                 isVisible=!isVisible;
             }
@@ -241,7 +286,29 @@ public class MyBoards extends AppCompatActivity {
 
     }
 
-    private void updateBoardDetails(String name, Bitmap boardIcon, int pos) {
+    private boolean checkPermissionForStorageRead() {
+        boolean okay=true;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                okay = false;
+            }
+        }
+
+        return okay;
+    }
+
+    private boolean checkPermissionForCamera() {
+        boolean okay=true;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                okay = false;
+            }
+        }
+
+        return okay;
+    }
+
+    private void updateBoardDetails(String name, byte[] boardIcon, int pos) {
         Board board=boardList.get(pos);
         if(board!=null)
         {
@@ -251,21 +318,24 @@ public class MyBoards extends AppCompatActivity {
             prepareBoardList(NORMAL_MODE);
         }
     }
+
     private ArrayList<Board> loadBoardsFromDataBase()
     {
         return database.getAllBoards();
     }
 
-
     private void saveNewBoard(String boardName , Bitmap boardIcon, String boardID) {
-        Board newBoard=new Board(boardID,boardName,boardIcon);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        boardIcon.compress(Bitmap.CompressFormat.PNG, 100, bos);
+        byte[] bArray = bos.toByteArray();
+
+        Board newBoard=new Board(boardID,boardName,bArray);
         database=new BoardDatabase(this);
         boardList.add(newBoard);
         database.addBoardToDatabase(new DataBaseHelper(this).getWritableDatabase(),newBoard);
         Log.d("NewBoard",""+database.count());
         prepareBoardList(NORMAL_MODE);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -278,10 +348,11 @@ public class MyBoards extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.delete_boards:
-               activateDeleteMode();
+                activateDeleteMode();
                 break;
             case R.id.option:
-                 break;
+                database.dropTable(new DataBaseHelper(this).getWritableDatabase());
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -295,10 +366,49 @@ public class MyBoards extends AppCompatActivity {
             if(boardList.size()<1)
                 Toast.makeText(ctx,"There's no board to delete",Toast.LENGTH_SHORT).show();
             else
-            prepareBoardList(DELETE_MODE);
+                prepareBoardList(DELETE_MODE);
         }
-            else prepareBoardList(NORMAL_MODE);
-            deleteModeOpen = !deleteModeOpen;
+        else prepareBoardList(NORMAL_MODE);
+        deleteModeOpen = !deleteModeOpen;
+
+    }
+
+    private void setOnPhotoSelectListener(PhotoIntentResult mPhotoIntentResult)
+    {
+        this.mPhotoIntentResult=mPhotoIntentResult;
+    }
+    private interface PhotoIntentResult
+    {
+        void onPhotoIntentResult(Bitmap bitmap,int code);
+
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+       Bitmap bitmap=null;
+        if(resultCode==RESULT_OK) {
+            if (requestCode == CAMERA_REQUEST) {
+                Bundle extras = data.getExtras();
+                if (extras != null) {
+                    bitmap = (Bitmap) extras.get("data");
+                }
+
+            } else if (requestCode == GALLERY_REQUEST) {
+                Uri uri = data.getData();
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            } else if (requestCode == LIBRARY_REQUEST) {
+
+            }
+
+            mPhotoIntentResult.onPhotoIntentResult(bitmap, requestCode);
+
+        }
 
     }
 }
