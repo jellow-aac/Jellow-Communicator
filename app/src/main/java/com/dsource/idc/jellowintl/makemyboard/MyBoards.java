@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -188,6 +189,13 @@ public class MyBoards extends AppCompatActivity {
         final ImageView BoardIcon=dialogContainerView.findViewById(R.id.board_icon);
         listView.setVisibility(View.GONE);
 
+        if(code==EDIT_BOARD)
+        {
+            byte[] bitmapdata=boardList.get(pos).getBoardIcon();
+            Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length);
+            BoardIcon.setImageBitmap(bitmap);
+        }
+
         //The list that will be shown with camera options
         final ArrayList<ListItem> list=new ArrayList<>();
         TypedArray mArray=getResources().obtainTypedArray(R.array.add_photo_option);
@@ -259,9 +267,8 @@ public class MyBoards extends AppCompatActivity {
                     startActivity(intent);
                 }
                 else if(code==EDIT_BOARD)
-                {
-                    updateBoardDetails(name,bitmapArray,pos);
-                }
+                updateBoardDetails(name,bitmapArray,pos);
+
 
                 dialogForBoardEditAdd.dismiss();
             }
@@ -312,6 +319,7 @@ public class MyBoards extends AppCompatActivity {
         Board board=boardList.get(pos);
         if(board!=null)
         {
+            if(!name.equals(""))
             board.setBoardTitle(name);
             board.setBoardIcon(boardIcon);
             database.updateBoardIntoDatabase(new DataBaseHelper(this).getReadableDatabase(),board);
