@@ -20,6 +20,7 @@ public class Board implements Serializable {
     private boolean boardCompleted=false;
     private boolean boardIconsSelected=false;
     private ArrayList<JellowIcon> iconList;
+    private int gridSize=3;
 
     public Board(String Uid, String boardTitle, byte[] boardIcon) {
         this.boardTitle = boardTitle;
@@ -76,4 +77,11 @@ public class Board implements Serializable {
         setBoardIconsSelected(true);
     }
 
+    public void setGridSize(int gridSize) {
+        this.gridSize = gridSize;
+    }
+
+    public int getGridSize() {
+        return gridSize;
+    }
 }

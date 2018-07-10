@@ -167,10 +167,6 @@ public class MyBoards extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-
-
-
-
     boolean isVisible=false;
     @SuppressLint("ResourceType")
     private void initBoardEditAddDialog(final int code, final int pos) {
@@ -194,6 +190,7 @@ public class MyBoards extends AppCompatActivity {
             byte[] bitmapdata=boardList.get(pos).getBoardIcon();
             Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length);
             BoardIcon.setImageBitmap(bitmap);
+            boardTitleEditText.setText(boardList.get(pos).boardTitle);
         }
 
         //The list that will be shown with camera options

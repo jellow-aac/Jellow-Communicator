@@ -80,13 +80,13 @@
                 android:background="@drawable/button_background"
                 android:textColor="@color/white"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@id/save_normally"
+                android:layout_toLeftOf="@id/next_step"
                 android:textAlignment="center"
                 android:layout_marginLeft="8dp"
                 android:text="Reset" />
 
             <Button
-                android:id="@+id/save_normally"
+                android:id="@+id/next_step"
                 android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
                 android:paddingTop="4dp"
@@ -103,7 +103,7 @@
                 android:background="@drawable/button_background"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="8dp"
-                android:text="Save" />
+                android:text="Next" />
 
             <CheckBox
                 android:id="@+id/select_deselect_check_box"

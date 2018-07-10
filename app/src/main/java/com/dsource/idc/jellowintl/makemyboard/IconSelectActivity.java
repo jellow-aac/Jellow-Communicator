@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.dsource.idc.jellowintl.DataBaseHelper;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.JsonDatabase.BoardDatabase;
+import com.dsource.idc.jellowintl.makemyboard.JsonDatabase.CustomDialog;
 import com.dsource.idc.jellowintl.utility.IconDataBaseHelper;
 import com.dsource.idc.jellowintl.utility.JellowIcon;
 
@@ -75,18 +76,28 @@ public class IconSelectActivity extends AppCompatActivity {
     }
 
     private void initNavBarButtons() {
-        (findViewById(R.id.save_normally)).setOnClickListener(new View.OnClickListener() {
+        (findViewById(R.id.next_step)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BoardDatabase database=new BoardDatabase(IconSelectActivity.this);
-                Board board=database.getBoardById(boardId);
-                if(board!=null) {
-                    board.setIconList(selectedIconList);
-                    database.updateBoardIntoDatabase(new DataBaseHelper(IconSelectActivity.this).getReadableDatabase(),board);
-                    Intent intent = new Intent(IconSelectActivity.this, EditBoard.class);
-                    intent.putExtra(BOARD_ID, boardId);
-                    startActivity(intent);
-                }
+                final BoardDatabase database=new BoardDatabase(IconSelectActivity.this);
+                final Board board=database.getBoardById(boardId);
+                CustomDialog dialog=new CustomDialog(IconSelectActivity.this,CustomDialog.GRID_SIZE);
+                dialog.show();
+                dialog.setGridSelectListener(new CustomDialog.GridSelectListener() {
+                    @Override
+                    public void onGridSelectListener(int size) {
+                        if(board!=null) {
+                            board.setIconList(selectedIconList);
+                            board.setGridSize(size);
+                            database.updateBoardIntoDatabase(new DataBaseHelper(IconSelectActivity.this).getReadableDatabase(),board);
+                            Intent intent = new Intent(IconSelectActivity.this, EditBoard.class);
+                            intent.putExtra(BOARD_ID, boardId);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+                });
+
             }
         });
 

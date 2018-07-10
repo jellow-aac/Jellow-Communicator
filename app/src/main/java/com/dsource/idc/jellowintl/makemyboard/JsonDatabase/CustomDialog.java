@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dsource.idc.jellowintl.R;
@@ -18,6 +19,10 @@ public class CustomDialog extends Dialog{
     private onNegativeClickListener mNegativeClickListener;
     private Button postiveButton, negativeButton;
     private TextView dialogText;
+    public static final int NORMAL=111;
+    public static final int GRID_SIZE=222;
+    public static final int ICON_EDIT=333;
+    public static final int BOARD_EDIT=444;
 
     public CustomDialog(Context context) {
         super(context);
@@ -31,6 +36,67 @@ public class CustomDialog extends Dialog{
         prepareDialog();
         setText(text);
     }
+    public CustomDialog(Context context,int Code){
+        super(context);
+        this.context=context;
+        if(Code==GRID_SIZE)
+        {
+            prepareGridDialog();
+
+
+
+        }
+
+    }
+
+    private void prepareGridDialog() {
+        final LayoutInflater dialogLayout = LayoutInflater.from(context);
+        View dialogContainerView = dialogLayout.inflate(R.layout.grid_dialog, null);
+        dialog = new Dialog(context,R.style.MyDialogBox);
+        dialog.applyStyle(R.style.MyDialogBox);
+        dialog.backgroundColor(context.getResources().getColor(R.color.transparent));
+        dialog.setContentView(dialogContainerView);
+        dialog.setCancelable(false);
+
+        final ImageView GridSize1=dialogContainerView.findViewById(R.id.grid_size_1);
+        final ImageView GridSize2=dialogContainerView.findViewById(R.id.grid_size_2);
+        final ImageView GridSize3=dialogContainerView.findViewById(R.id.grid_size_3);
+
+        GridSize1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                mGridSizeSelectListener.onGridSelectListener(1);
+            }
+        });
+        GridSize2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                mGridSizeSelectListener.onGridSelectListener(2);
+            }
+        });
+        GridSize3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                mGridSizeSelectListener.onGridSelectListener(3);
+            }
+        });
+
+    }
+
+    private GridSelectListener mGridSizeSelectListener;
+    public Dialog setGridSelectListener(GridSelectListener mListener)
+    {
+        this.mGridSizeSelectListener =mListener;
+        return dialog;
+    }
+    public interface GridSelectListener
+    {
+        void onGridSelectListener(int size);
+    }
+
 
     private void prepareDialog()
     {

@@ -75,7 +75,8 @@
     <dimen name="custom_dialog_button_width">100dp</dimen>
     <dimen name="dialog_box_text_size">22sp</dimen>
     <dimen name="custom_dialog_width">300dp</dimen>
-
+    <dimen name="grid_dialog_icon_size">120dp</dimen>
+    <dimen name="grid_dialog_width">410</dimen>
 
 
 </resources>
