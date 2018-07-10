@@ -83,14 +83,11 @@ public class Sorter {
      */
     public ArrayList<JellowIcon> getLevelTwoIcons(JellowIcon icon)
     {
-
-        Log.d("LevelTwoIcon: ",""+icon.IconTitle);
         ArrayList<JellowIcon> subList=new ArrayList<>();
         if(icon.parent2!=-1)
             return subList;
         if(icon.parent1==-1)//if the Icon is of level one then it could have both level two icons and level three icons
             {
-                Log.d("LevelTwo-2","Came in here");
                 ArrayList<Integer> levelTwoParents=new ArrayList<>();
                 for(int i=0;i<levelTwoIcons.size();i++)
                     {
@@ -101,38 +98,24 @@ public class Sorter {
                             }
 
                     }
-                Log.d("LevelTwo-2","init size "+subList.size());
-                for(int i=0;i<levelTwoParents.size();i++)
-                    Log.d("LevelTwoParents",levelTwoParents.get(i)+"");
+
                 for(int i=0;i<levelThreeIcons.size();i++)
                     {
 
                         if((!levelTwoParents.contains(levelThreeIcons.get(i).parent1))&&levelThreeIcons.get(i).parent0==icon.parent0)
                         {
-
-                            Log.d("LevelThree","Added Icon is "+levelThreeIcons.get(i).IconTitle);
                             subList.add(levelThreeIcons.get(i));
-
                         }
-
-
                     }
-                Log.d("LevelTwo-2","final Size "+subList.size());
         }
         else
         if(icon.parent2==-1)//if the icon is of level two then the child can be only of level three
         {
-            Log.d("LevelOneIcons","Came in for: "+icon.IconTitle);
             for(int i=0;i<levelThreeIcons.size();i++) {
-
-
-                if (levelThreeIcons.get(i).parent1 == icon.parent1)
+                if (levelThreeIcons.get(i).parent0 == icon.parent0&&levelThreeIcons.get(i).parent1==icon.parent1)
                     subList.add(levelThreeIcons.get(i));
             }
-            Log.d("LevelOneIcons","List size is "+subList.size());
         }
-
-
         return subList;
     }
 
@@ -142,40 +125,36 @@ public class Sorter {
      */
     public ArrayList<JellowIcon> getLevelThreeIcons(JellowIcon icon)
     {
-
         ArrayList<JellowIcon> subList=new ArrayList<>();
         if (icon.parent2!=-1)
             return subList;
         for(int i=0;i<levelThreeIcons.size();i++)
             if(levelThreeIcons.get(i).parent0==icon.parent0&&levelThreeIcons.get(i).parent1==icon.parent1)
                 subList.add(levelThreeIcons.get(i));
-
         return subList;
     }
 
     private ArrayList<JellowIcon> getOtherLevelOneIcons() {
         ArrayList<JellowIcon> subList=new ArrayList<>();
-        ArrayList<Integer> level2=new ArrayList<>();
-
+        ArrayList<holder> presentItemList=new ArrayList<>();
         for(int i=0;i<levelTwoIcons.size();i++)
         {
             JellowIcon icon=levelTwoIcons.get(i);
             if(!levelOneIndex.contains(icon.parent0))
             {
                 subList.add(icon);
-                level2.add(icon.parent1);
+                presentItemList.add(new holder(icon.parent0,icon.parent1));
             }
         }
 
         for(int i=0;i<levelThreeIcons.size();i++)
         {
-
-
             JellowIcon icon=levelThreeIcons.get(i);
-            if(!levelOneIndex.contains(icon.parent0)&&!level2.contains(icon.parent1))
-            subList.add(icon);
+            holder obj=new holder(icon.parent0,icon.parent1);
+            if(!levelOneIndex.contains(icon.parent0))
+                if(!obj.presentInList(presentItemList))
+                    subList.add(icon);
         }
-
 
         return subList;
     }
@@ -291,6 +270,32 @@ public class Sorter {
         }
     }
 
+    private class holder
+    {
+        int p0,p1;
+
+        public holder(int p0, int p1) {
+            this.p0 = p0;
+            this.p1 = p1;
+        }
+        public holder getObj()
+        {
+            return new holder(p0,p1);
+        }
+         public boolean equal(holder h)
+         {
+             return this.p0 == h.p0 && this.p1 == h.p1;
+         }
+         public boolean presentInList(ArrayList<holder> list)
+         {
+             holder obj=getObj();
+             for(int i=0;i<list.size();i++)
+                 if(list.get(i).equal(obj))
+                     return true;
+             return false;
+         }
+
+    }
 
 
 }

@@ -139,7 +139,10 @@
             android:name=".makemyboard.IconSelectActivity"
             android:label="Select your icons"
             android:screenOrientation="landscape" />
-        <activity android:name=".makemyboard.EditBoard" />
+        <activity
+            android:name=".makemyboard.EditBoard"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape"/>
         <activity android:name=".JsonConverter.ConverterActivity" />
         <activity
             android:name=".makemyboard.BoardSearch"

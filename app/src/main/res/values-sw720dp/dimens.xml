@@ -28,7 +28,7 @@
 
     <dimen name="demo_mar">28dp</dimen>
     <dimen name="extra_mar">40dp</dimen>
-    <dimen name="icon_edit_grid_size">120dp</dimen>
+    <dimen name="icon_edit_grid_size">140dp</dimen>
     <dimen name="icon_edit_icon_size">100dp</dimen>
     <dimen name="icon_edit_text_size">16sp</dimen>
     <dimen name="exp_icon_margin_bottom">24dp</dimen>

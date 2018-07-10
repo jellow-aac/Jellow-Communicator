@@ -126,9 +126,7 @@ public class BoardDatabase extends SQLiteOpenHelper {
     @Nullable
     public ArrayList<Board> getAllBoards()
     {
-
         ArrayList<Board> boardList=new ArrayList<>();
-        //TODO Write logic to fetch the Boards
         String selectQuery = "SELECT * FROM "+ BOARD_TABLE;
         Cursor cursor = null;
         try {

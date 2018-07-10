@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -29,6 +31,7 @@ public class EditBoard extends AppCompatActivity {
     AdapterEditBoard adapterRight;
     private int Level=0;
     private int LevelOneParent=-1;
+    private Board currentBoard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +47,8 @@ public class EditBoard extends AppCompatActivity {
             Log.d("No board id found", boardId);
         }
 
-        Board thisBoard=database.getBoardById(boardId);
-        mainList =thisBoard.getIconList();
+        currentBoard=database.getBoardById(boardId);
+        mainList =currentBoard.getIconList();
         mainList =sortList(mainList);
         sorter=new Sorter(mainList,EditBoard.this);
         displayList=sorter.getLevelOneFromModel();
@@ -189,6 +192,39 @@ public class EditBoard extends AppCompatActivity {
 
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.edit_board_menu, menu);
+        super.onCreateOptionsMenu(menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            //TODO add action
+            case R.id.delete_boards:
+                break;
+            case R.id.search:
+                break;
+            case R.id.grid_size:
+                showGridDialog();break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
+
+    private void showGridDialog() {
+        CustomDialog dialog=new CustomDialog(this,CustomDialog.GRID_SIZE);
+        dialog.setGridSelectListener(new CustomDialog.GridSelectListener() {
+            @Override
+            public void onGridSelectListener(int size) {
+                currentBoard.setGridSize(size);
+            }
+        });
+        dialog.show();
+    }
 }
 
-//TODO Now what we need to do is think what we need to do

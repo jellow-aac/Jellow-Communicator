@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorIntro"
+    android:background="@drawable/level1_bg"
     tools:context="com.dsource.idc.jellowintl.makemyboard.EditBoard">
 
 
@@ -24,7 +24,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginLeft="30dp"
                     android:layout_centerVertical="true"
                     android:layout_marginBottom="@dimen/exp_icon_bottom_margin"
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
@@ -60,7 +60,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginBottom="@dimen/exp_icon_bottom_margin"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginRight="30dp"
                     android:alpha=".5"
                     android:orientation="vertical">
 
@@ -89,8 +89,7 @@
             <RelativeLayout
                 android:id="@+id/relativeLayoutNavigation"
                 android:layout_width="match_parent"
-                android:layout_height="110dp"
-                android:background="@drawable/nav_background"
+                android:layout_height="100dp"
                 android:gravity="bottom"
                 android:layout_alignParentBottom="true"
                 android:paddingBottom="12dp"
@@ -107,10 +106,12 @@
 
                 <ImageView
                     android:id="@+id/ivback"
-                    android:layout_width="@dimen/nav_bar_icons_width"
-                    android:layout_height="@dimen/nav_bar_icon_height"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/ivhome"
                     android:src="@drawable/back"
-                    android:layout_toLeftOf="@+id/ivhome"/>
+                    android:layout_toLeftOf="@+id/ivhome" />
             </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
