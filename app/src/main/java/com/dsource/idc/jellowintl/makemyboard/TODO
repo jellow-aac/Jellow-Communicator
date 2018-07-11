@@ -1,10 +1,11 @@
 todo and issue list for Make my board
 
-1. Camera Dialog.
-2. Save -> Main Screen.
-3. Back Arrow.
-4. Filter.
-5. Remove search
-6. Reduce the size of the Image.
-7. Board is not being updated while going
+1. Camera Dialog have some issue, if a very large image is selected the whole database is being corrupted.
+   So, have a check to reduce the size.
+2. Save in the Dialog is directing the user to the IconSelect activity.
+3. Add back arrow thing.
+4. Filter crashed, see crash logs.
+5. Remove search from the Edit Icon Activity.
+6. Adjust the size of the Image when the grid size is changed.
+7. Board is not being updated while going.
 8.
