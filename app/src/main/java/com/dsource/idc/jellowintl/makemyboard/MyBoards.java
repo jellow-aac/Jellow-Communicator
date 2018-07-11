@@ -114,12 +114,15 @@ public class MyBoards extends AppCompatActivity {
                         if (Position == (boardList.size() - 1)) {
                             initBoardEditAddDialog(NEW_BOARD, -1);
                         } else {
-                            if (true) {
+                            if (!boardList.get(Position).isBoardIconsSelected()) {
                                 Intent intent = new Intent(ctx, IconSelectActivity.class);
                                 intent.putExtra(BOARD_ID, boardList.get(Position).getBoardID());
                                 startActivity(intent);
                             } else {
                                 //TODO when the board is already created completely
+                                Intent intent = new Intent(ctx, EditBoard.class);
+                                intent.putExtra(BOARD_ID, boardList.get(Position).getBoardID());
+                                startActivity(intent);
                             }
                         }
 

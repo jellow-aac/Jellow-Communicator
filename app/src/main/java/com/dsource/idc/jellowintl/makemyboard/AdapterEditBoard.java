@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Point;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,10 +29,15 @@ public class AdapterEditBoard extends DragSortAdapter<AdapterEditBoard.ViewHolde
     private final List<JellowIcon> data;
     private Context mContext;
     public OnItemClickListener mItemClickListener;
-
-    public AdapterEditBoard(RecyclerView recyclerView, List<JellowIcon> data, Context context) {
+    public final static int DELETE_MODE=112;
+    public final static int NORMAL_MODE=113;
+    public int Mode=112;
+    private OnItemDeleteListener mItemDeleteListener;
+    private OnItemMovedListener mItemMovedListener;
+    public AdapterEditBoard(RecyclerView recyclerView, List<JellowIcon> data, Context context,int Mode) {
         super(recyclerView);
         this.data = data;
+        this.Mode=Mode;
         mContext=context;
     }
 
@@ -42,8 +48,6 @@ public class AdapterEditBoard extends DragSortAdapter<AdapterEditBoard.ViewHolde
         view.setOnLongClickListener(holder);
         return holder;
     }
-
-
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
@@ -96,6 +100,7 @@ public class AdapterEditBoard extends DragSortAdapter<AdapterEditBoard.ViewHolde
     @Override
     public boolean move(int fromPosition, int toPosition) {
         data.add(toPosition, data.remove(fromPosition));
+        mItemMovedListener.onItemDelete(fromPosition,toPosition);
         return true;
     }
 
@@ -104,12 +109,27 @@ public class AdapterEditBoard extends DragSortAdapter<AdapterEditBoard.ViewHolde
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
     }
-
+    public interface OnItemDeleteListener {
+        void onItemDelete(View view, int position);
+    }
+    public interface OnItemMovedListener {
+        void onItemDelete(int fromPosition, int toPosition);
+    }
+    public void setOnItemDeleteListener(final AdapterEditBoard.OnItemDeleteListener mItemClickListener) { this.mItemDeleteListener = mItemClickListener; }
     public void setOnItemClickListener(final AdapterEditBoard.OnItemClickListener mItemClickListener) {
         this.mItemClickListener = mItemClickListener;
 
     }
+    public void setOnItemMovedListener(final AdapterEditBoard.OnItemMovedListener mItemMovedListener) {this.mItemMovedListener = mItemMovedListener; }
 
+    @Override
+    public void onViewAttachedToWindow(@NonNull ViewHolder holder) {
+        if(Mode==NORMAL_MODE)
+            holder.removeIcon.setVisibility(View.GONE);
+        else if(Mode==DELETE_MODE)
+            holder.removeIcon.setVisibility(View.VISIBLE);
+        super.onViewAttachedToWindow(holder);
+    }
 
    class ViewHolder extends DragSortAdapter.ViewHolder implements
             View.OnClickListener, View.OnLongClickListener {
@@ -117,7 +137,7 @@ public class AdapterEditBoard extends DragSortAdapter<AdapterEditBoard.ViewHolde
 
         public ImageView iconImage;
         public TextView iconTitle;
-        public ImageView removeIcom;
+        public ImageView removeIcon;
         public View holder;
 
 
@@ -125,10 +145,26 @@ public class AdapterEditBoard extends DragSortAdapter<AdapterEditBoard.ViewHolde
             super(adapter, itemView);
             iconImage=itemView.findViewById(R.id.icon_image_view);
             iconTitle=itemView.findViewById(R.id.icon_title);
-            removeIcom=itemView.findViewById(R.id.icon_remove_button);
+            removeIcon =itemView.findViewById(R.id.icon_remove_button);
+            if(Mode==NORMAL_MODE)
+            {
+                itemView.setOnClickListener(this);
+                itemView.setOnLongClickListener(this);
+                removeIcon.setVisibility(View.GONE);
+            }
+            else if(Mode==DELETE_MODE)
+            {
+                removeIcon.setVisibility(View.VISIBLE);
+                removeIcon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.d("Delete Mode","Adapter Set");
+                        mItemDeleteListener.onItemDelete(v,getAdapterPosition());
+                    }
+                });
+            }
             holder=itemView;
-            itemView.setOnClickListener(this);
-            itemView.setOnLongClickListener(this);
+
 
         }
 
@@ -144,5 +180,6 @@ public class AdapterEditBoard extends DragSortAdapter<AdapterEditBoard.ViewHolde
         @Override public View.DragShadowBuilder getShadowBuilder(View itemView, Point touchPoint) {
             return new NoForegroundShadowBuilder(itemView, touchPoint);
         }
+
     }
 }

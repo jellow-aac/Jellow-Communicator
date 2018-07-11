@@ -10,11 +10,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.dsource.idc.jellowintl.DataBaseHelper;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.CustomDialog;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.ModelManager;
-import com.dsource.idc.jellowintl.utility.IconDataBaseHelper;
 import com.dsource.idc.jellowintl.utility.JellowIcon;
 
 import java.util.ArrayList;
@@ -31,6 +31,7 @@ public class EditBoard extends AppCompatActivity {
     AdapterEditBoard adapterRight;
     private int Level=0;
     private int LevelOneParent=-1;
+    private int LevelTwoParent=-1;
     private Board currentBoard;
 
     @Override
@@ -48,49 +49,16 @@ public class EditBoard extends AppCompatActivity {
         }
 
         currentBoard=database.getBoardById(boardId);
+        getSupportActionBar().setTitle(currentBoard.boardTitle+"'s Board");
         modelManager =new ModelManager(this,currentBoard.getBoardIconModel());
         displayList= modelManager.getLevelOneFromModel();
         initFields();
-        updateList();
+        updateList(AdapterEditBoard.NORMAL_MODE);
     }
 
-    /**
-     * This function sorts the Icon list as they are present in the hierarchy
-     * @param iconsList
-     * @return
-     */
-    ArrayList<JellowIcon> sortList(ArrayList<JellowIcon> iconsList) {
-        ArrayList<JellowIcon> listOfAllIcon=new IconDataBaseHelper(this).getAllIcons();
-        ArrayList<JellowIcon> sortedList=new ArrayList<>();
 
-        for(int i=0;i<listOfAllIcon.size();i++)
-        {
-            if(listContainsIcon(listOfAllIcon.get(i),iconsList))
-                sortedList.add(listOfAllIcon.get(i));
-            if(sortedList.size()==iconsList.size())
-                break;
-        }
-
-        return sortedList;
-    }
-
-    /***
-     * This function checks whether a icon is present in the list or not
-     * @param icon
-     * @param list
-     * @return boolean
-     */
-    public boolean listContainsIcon(JellowIcon icon, ArrayList<JellowIcon> list) {
-        boolean present=false;
-        for(int i=0;i<list.size();i++)
-            if(list.get(i).isEqual(icon))
-                present=true;
-        Log.d("Selection: ","Present "+present);
-        return present;
-    }
-
-    private void updateList() {
-        adapterRight=new AdapterEditBoard(mRecyclerView,displayList,this);
+    private void updateList(int Mode) {
+        adapterRight=new AdapterEditBoard(mRecyclerView,displayList,this,Mode);
         mRecyclerView.setAdapter(adapterRight);
         adapterRight.notifyDataSetChanged();
         adapterRight.setOnItemClickListener(new AdapterEditBoard.OnItemClickListener() {
@@ -98,6 +66,32 @@ public class EditBoard extends AppCompatActivity {
             public void onItemClick(View view, int position) {
                 Log.d("ItemClicked","Item: "+position);
                 notifyItemClicked(position);
+            }
+        });
+        adapterRight.setOnItemMovedListener(new AdapterEditBoard.OnItemMovedListener() {
+            @Override
+            public void onItemDelete(int fromPosition, int toPosition) {
+                modelManager.updateItemMoved(Level,LevelOneParent,LevelTwoParent,fromPosition,toPosition,currentBoard);
+            }
+        });
+
+        if(Mode==AdapterEditBoard.DELETE_MODE)
+        adapterRight.setOnItemDeleteListener(new AdapterEditBoard.OnItemDeleteListener() {
+            @Override
+            public void onItemDelete(View view, final int position) {
+                CustomDialog dialog=new CustomDialog(EditBoard.this);
+                dialog.setText("Are your you want to delete "+displayList.get(position).IconTitle+" Icon");
+                dialog.setOnPositiveClickListener(new CustomDialog.onPositiveClickListener() {
+                    @Override
+                    public void onPositiveClickListener() {
+                        Log.d("Delete Mode","Callback");
+                        modelManager.deleteIconFromModel(Level,LevelOneParent,LevelTwoParent,position,currentBoard);
+                        displayList.remove(position);
+                        updateList(AdapterEditBoard.DELETE_MODE);
+                    }
+                });
+                dialog.show();
+
             }
         });
     }
@@ -115,7 +109,7 @@ public class EditBoard extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 displayList= modelManager.getLevelOneFromModel();
-                updateList();
+                updateList(AdapterEditBoard.NORMAL_MODE);
                 Level=0;
                 LevelOneParent=-1;
             }
@@ -134,7 +128,7 @@ public class EditBoard extends AppCompatActivity {
                 displayList = temp;
                 LevelOneParent = position;
                 Level++;
-                updateList();
+                updateList(AdapterEditBoard.NORMAL_MODE);
             }
             else Toast.makeText(EditBoard.this,"No sub category",Toast.LENGTH_SHORT).show();
         }
@@ -145,7 +139,8 @@ public class EditBoard extends AppCompatActivity {
                 if (temp.size() > 0) {
                     displayList = temp;
                     Level++;
-                    updateList();
+                    updateList(AdapterEditBoard.NORMAL_MODE);
+                    LevelTwoParent=position;
                 } else Toast.makeText(EditBoard.this, "No sub category", Toast.LENGTH_SHORT).show();
 
             } else Log.d("LevelOneParentNotSet","Icon"+LevelOneParent+" "+position);
@@ -164,7 +159,8 @@ public class EditBoard extends AppCompatActivity {
         {
             if(LevelOneParent!=-1) {
                 displayList = modelManager.getLevelTwoFromModel(LevelOneParent);
-                updateList();
+                LevelTwoParent=-1;
+                updateList(AdapterEditBoard.NORMAL_MODE);
                 Level--;
             }
 
@@ -173,13 +169,13 @@ public class EditBoard extends AppCompatActivity {
         {
             displayList= modelManager.getLevelOneFromModel();
             LevelOneParent=-1;
-            updateList();
+            updateList(AdapterEditBoard.NORMAL_MODE);
             Level--;
         }
         else if(Level==0)
         {
             CustomDialog dialog=new CustomDialog(this);
-            dialog.setText("Are you sure you want to exit");
+            dialog.setText("Are you sure you want to exit ?");
             dialog.setOnPositiveClickListener(new CustomDialog.onPositiveClickListener() {
                 @Override
                 public void onPositiveClickListener() {
@@ -202,7 +198,8 @@ public class EditBoard extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             //TODO add action
-            case R.id.delete_boards:
+            case R.id.delete_icons:
+                prepareIconDeleteMode();
                 break;
             case R.id.search:
                 break;
@@ -214,12 +211,17 @@ public class EditBoard extends AppCompatActivity {
         return true;
     }
 
+    private void prepareIconDeleteMode() {
+        updateList(AdapterEditBoard.DELETE_MODE);
+    }
+
     private void showGridDialog() {
         CustomDialog dialog=new CustomDialog(this,CustomDialog.GRID_SIZE);
         dialog.setGridSelectListener(new CustomDialog.GridSelectListener() {
             @Override
             public void onGridSelectListener(int size) {
                 currentBoard.setGridSize(size);
+                new BoardDatabase(EditBoard.this).updateBoardIntoDatabase(new DataBaseHelper(EditBoard.this).getWritableDatabase(),currentBoard);
                 initFields();
             }
         });

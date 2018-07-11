@@ -3,6 +3,8 @@ package com.dsource.idc.jellowintl.makemyboard.UtilityClasses;
 import android.content.Context;
 import android.util.Log;
 
+import com.dsource.idc.jellowintl.DataBaseHelper;
+import com.dsource.idc.jellowintl.makemyboard.Board;
 import com.dsource.idc.jellowintl.utility.JellowIcon;
 import com.google.gson.Gson;
 
@@ -141,21 +143,21 @@ public class ModelManager {
 
     private ArrayList<JellowIcon> getOtherLevelOneIcons() {
         ArrayList<JellowIcon> subList=new ArrayList<>();
-        ArrayList<holder> presentItemList=new ArrayList<>();
+        ArrayList<indexHolder> presentItemList=new ArrayList<>();
         for(int i=0;i<levelTwoIcons.size();i++)
         {
             JellowIcon icon=levelTwoIcons.get(i);
             if(!levelOneIndex.contains(icon.parent0))
             {
                 subList.add(icon);
-                presentItemList.add(new holder(icon.parent0,icon.parent1));
+                presentItemList.add(new indexHolder(icon.parent0,icon.parent1));
             }
         }
 
         for(int i=0;i<levelThreeIcons.size();i++)
         {
             JellowIcon icon=levelThreeIcons.get(i);
-            holder obj=new holder(icon.parent0,icon.parent1);
+            indexHolder obj=new indexHolder(icon.parent0,icon.parent1);
             if(!levelOneIndex.contains(icon.parent0))
                 if(!obj.presentInList(presentItemList))
                     subList.add(icon);
@@ -163,6 +165,69 @@ public class ModelManager {
 
         return subList;
     }
+
+    public void deleteIconFromModel(int level,int levelOnePos,int levelTwoPos,int pos,Board board)
+    {
+        Log.d("Delete Mode","Onto Database "+level);
+        boolean updated=false;
+        if(level==0)
+        {
+            updated=true;
+            Log.d("IconDeleted",""+parentNode.getChildren().get(pos).getIcon().IconTitle);
+            parentNode.getChildren().remove(pos);
+        }
+        else if(level==1)
+        {
+            updated=true;
+            Log.d("IconDeleted",""+parentNode.getChildren().get(levelOnePos).getChildren().get(pos).getIcon().IconTitle);
+            parentNode.getChildren().get(levelOnePos).getChildren().remove(pos);
+        }
+        else if(level==2)
+        {
+            updated=true;
+            Log.d("IconDeleted",""+
+            parentNode.getChildren().get(levelOnePos).getChildren().get(levelTwoPos).getChildren().get(pos).getIcon().IconTitle);
+            parentNode.getChildren().get(levelOnePos).getChildren().get(levelTwoPos).getChildren().remove(pos);
+        }
+
+        if(updated)
+        {
+            board.setBoardIconModel(parentNode);
+            new BoardDatabase(context).updateBoardIntoDatabase(new DataBaseHelper(context).getWritableDatabase(),board);
+        }
+
+    }
+    public void updateItemMoved(int level, int levelOneParent, int levelTwoParent, int fromPosition, int toPosition, Board currentBoard) {
+        Log.d("Delete Mode","Onto Database "+level);
+        boolean updated=false;
+        if(level==0)
+        {
+            updated=true;
+            parentNode.getChildren().add(toPosition, parentNode.getChildren().remove(fromPosition));
+        }
+        else if(level==1)
+        {
+            updated=true;
+            parentNode.getChildren().get(levelOneParent).getChildren().add(toPosition,
+                    parentNode.getChildren().get(levelOneParent).getChildren().remove(fromPosition));
+        }
+        else if(level==2)
+        {
+            updated=true;
+            parentNode.getChildren().get(levelOneParent).getChildren().get(levelTwoParent).getChildren().
+                    add(toPosition,
+                            parentNode.getChildren().get(levelOneParent).getChildren().get(levelTwoParent).getChildren().
+                                    remove(fromPosition));
+        }
+
+        if(updated)
+        {
+            currentBoard.setBoardIconModel(parentNode);
+            new BoardDatabase(context).updateBoardIntoDatabase(new DataBaseHelper(context).getWritableDatabase(),currentBoard);
+        }
+
+    }
+
 
     private void prepareModel() {
 
@@ -278,25 +343,26 @@ public class ModelManager {
         }
     }
 
-    private class holder
+
+    private class indexHolder
     {
         int p0,p1;
 
-        public holder(int p0, int p1) {
+        public indexHolder(int p0, int p1) {
             this.p0 = p0;
             this.p1 = p1;
         }
-        public holder getObj()
+        public indexHolder getObj()
         {
-            return new holder(p0,p1);
+            return new indexHolder(p0,p1);
         }
-         public boolean equal(holder h)
+         public boolean equal(indexHolder h)
          {
              return this.p0 == h.p0 && this.p1 == h.p1;
          }
-         public boolean presentInList(ArrayList<holder> list)
+         public boolean presentInList(ArrayList<indexHolder> list)
          {
-             holder obj=getObj();
+             indexHolder obj=getObj();
              for(int i=0;i<list.size();i++)
                  if(list.get(i).equal(obj))
                      return true;

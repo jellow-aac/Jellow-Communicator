@@ -90,7 +90,7 @@ public class IconSelectActivity extends AppCompatActivity {
                         if(board!=null) {
                             board.setGridSize(size);
                             board.setBoardIconModel(
-                                    new ModelManager(selectedIconList,IconSelectActivity.this).
+                                    new ModelManager(sortList(selectedIconList),IconSelectActivity.this).
                                             getModel());
                             database.updateBoardIntoDatabase(new DataBaseHelper(IconSelectActivity.this).getReadableDatabase(),board);
                             Intent intent = new Intent(IconSelectActivity.this, EditBoard.class);
@@ -114,6 +114,42 @@ public class IconSelectActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+
+    /**
+     * This function sorts the Icon list as they are present in the hierarchy
+     * @param iconsList
+     * @return
+     */
+    ArrayList<JellowIcon> sortList(ArrayList<JellowIcon> iconsList) {
+        ArrayList<JellowIcon> listOfAllIcon=new IconDataBaseHelper(this).getAllIcons();
+        ArrayList<JellowIcon> sortedList=new ArrayList<>();
+
+        for(int i=0;i<listOfAllIcon.size();i++)
+        {
+            if(listContainsIcon(listOfAllIcon.get(i),iconsList))
+                sortedList.add(listOfAllIcon.get(i));
+            if(sortedList.size()==iconsList.size())
+                break;
+        }
+
+        return sortedList;
+    }
+
+    /***
+     * This function checks whether a icon is present in the list or not
+     * @param icon
+     * @param list
+     * @return boolean
+     */
+    public boolean listContainsIcon(JellowIcon icon, ArrayList<JellowIcon> list) {
+        boolean present=false;
+        for(int i=0;i<list.size();i++)
+            if(list.get(i).isEqual(icon))
+                present=true;
+        Log.d("Selection: ","Present "+present);
+        return present;
     }
 
     private int gridSize()
