@@ -8,4 +8,4 @@ todo and issue list for Make my board
 5. Remove search from the Edit Icon Activity.
 6. Adjust the size of the Image when the grid size is changed.
 7. Board is not being updated while going.
-8.
+8. Make save board, update board AsyncTask so that the Icon save thing works.

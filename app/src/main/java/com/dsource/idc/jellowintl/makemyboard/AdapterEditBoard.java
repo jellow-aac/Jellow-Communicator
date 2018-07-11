@@ -19,9 +19,9 @@ import android.widget.Toast;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dsource.idc.jellowintl.GlideApp;
 import com.dsource.idc.jellowintl.R;
+import com.dsource.idc.jellowintl.makemyboard.dragsorter.DragSortAdapter;
 import com.dsource.idc.jellowintl.utility.JellowIcon;
 import com.dsource.idc.jellowintl.utility.SessionManager;
-import com.makeramen.dragsortadapter.DragSortAdapter;
 
 import java.io.File;
 import java.util.List;

@@ -50,8 +50,4 @@ public class IconModel implements Serializable{
             return list;
         }
 
-
-    public void addChild(IconModel newIconModel) {
-        children.add(newIconModel);
-    }
 }

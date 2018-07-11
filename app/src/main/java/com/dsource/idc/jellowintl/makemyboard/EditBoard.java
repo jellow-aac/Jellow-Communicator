@@ -19,6 +19,8 @@ import com.dsource.idc.jellowintl.utility.JellowIcon;
 
 import java.util.ArrayList;
 
+import static com.dsource.idc.jellowintl.makemyboard.AdapterEditBoard.NORMAL_MODE;
+
 public class EditBoard extends AppCompatActivity {
 
     ArrayList<JellowIcon> mainList;
@@ -54,15 +56,9 @@ public class EditBoard extends AppCompatActivity {
         modelManager =new ModelManager(this,currentBoard.getBoardIconModel());
         displayList= modelManager.getLevelOneFromModel();
         initFields();
-        updateList(AdapterEditBoard.NORMAL_MODE);
+        updateList(NORMAL_MODE);
     }
 
-    void updateListFromDatabase()
-    {
-        currentBoard=database.getBoardById(currentBoard.boardID);
-        modelManager.setModel(currentBoard.getBoardIconModel());
-        updateList(AdapterEditBoard.NORMAL_MODE);
-    }
 
     boolean draggedOut=false;
     int levelOneParent,levelTwoParent,levelThreeParent, fromLevel;
@@ -93,7 +89,6 @@ public class EditBoard extends AppCompatActivity {
                 dialog.setOnPositiveClickListener(new CustomDialog.onPositiveClickListener() {
                     @Override
                     public void onPositiveClickListener() {
-                        Log.d("Delete Mode","Callback");
                         modelManager.deleteIconFromModel(Level,LevelOneParent,LevelTwoParent,position,currentBoard);
                         displayList.remove(position);
                         updateList(AdapterEditBoard.DELETE_MODE);
@@ -138,11 +133,29 @@ public class EditBoard extends AppCompatActivity {
                     Log.d("ItemDroped","Item Droped "+fromLevel+" "+Level+" "+levelOneParent+" "+levelTwoParent+" "+levelThreeParent);
                     modelManager.moveIconToFrom(fromLevel,Level,levelOneParent,levelTwoParent,levelThreeParent,currentBoard);
                     draggedOut=!draggedOut;
+                    updateDisplayList();
                 }
-                updateListFromDatabase();
 
             }
         });
+    }
+
+    private void updateDisplayList() {
+        Log.d("ListUpdate","Called");
+        if(Level==0)
+        {
+            Log.d("ListUpdate","Previous :"+displayList.size());
+            displayList=modelManager.getLevelOneFromModel();
+            Log.d("ListUpdate","After :"+displayList.size());
+        }
+        else if(Level==1)
+        {
+            Log.d("ListUpdate","Previous :"+displayList.size());
+            displayList=modelManager.getLevelTwoFromModel(LevelOneParent);
+            Log.d("ListUpdate","After :"+displayList.size());
+        }
+        updateList(NORMAL_MODE);
+        mRecyclerView.getLayoutManager().smoothScrollToPosition(mRecyclerView,null,displayList.size()-1);
     }
 
     private void initFields(){
@@ -158,7 +171,7 @@ public class EditBoard extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 displayList= modelManager.getLevelOneFromModel();
-                updateList(AdapterEditBoard.NORMAL_MODE);
+                updateList(NORMAL_MODE);
                 Level=0;
                 LevelOneParent=-1;
             }
@@ -177,7 +190,7 @@ public class EditBoard extends AppCompatActivity {
                 displayList = temp;
                 LevelOneParent = position;
                 Level++;
-                updateList(AdapterEditBoard.NORMAL_MODE);
+                updateList(NORMAL_MODE);
             }
             else Toast.makeText(EditBoard.this,"No sub category",Toast.LENGTH_SHORT).show();
         }
@@ -188,7 +201,7 @@ public class EditBoard extends AppCompatActivity {
                 if (temp.size() > 0) {
                     displayList = temp;
                     Level++;
-                    updateList(AdapterEditBoard.NORMAL_MODE);
+                    updateList(NORMAL_MODE);
                     LevelTwoParent=position;
                 } else Toast.makeText(EditBoard.this, "No sub category", Toast.LENGTH_SHORT).show();
 
@@ -209,7 +222,7 @@ public class EditBoard extends AppCompatActivity {
             if(LevelOneParent!=-1) {
                 displayList = modelManager.getLevelTwoFromModel(LevelOneParent);
                 LevelTwoParent=-1;
-                updateList(AdapterEditBoard.NORMAL_MODE);
+                updateList(NORMAL_MODE);
                 Level--;
             }
 
@@ -218,7 +231,7 @@ public class EditBoard extends AppCompatActivity {
         {
             displayList= modelManager.getLevelOneFromModel();
             LevelOneParent=-1;
-            updateList(AdapterEditBoard.NORMAL_MODE);
+            updateList(NORMAL_MODE);
             Level--;
         }
         else if(Level==0)
@@ -264,7 +277,7 @@ public class EditBoard extends AppCompatActivity {
     private void prepareIconDeleteMode() {
         if(!isDeleteModeOn)
         updateList(AdapterEditBoard.DELETE_MODE);
-        else updateList(AdapterEditBoard.NORMAL_MODE);
+        else updateList(NORMAL_MODE);
         isDeleteModeOn=!isDeleteModeOn;
     }
 
