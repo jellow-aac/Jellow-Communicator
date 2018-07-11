@@ -20,8 +20,9 @@ import android.widget.TextView;
 
 import com.dsource.idc.jellowintl.DataBaseHelper;
 import com.dsource.idc.jellowintl.R;
-import com.dsource.idc.jellowintl.makemyboard.JsonDatabase.BoardDatabase;
-import com.dsource.idc.jellowintl.makemyboard.JsonDatabase.CustomDialog;
+import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.BoardDatabase;
+import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.CustomDialog;
+import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.ModelManager;
 import com.dsource.idc.jellowintl.utility.IconDataBaseHelper;
 import com.dsource.idc.jellowintl.utility.JellowIcon;
 
@@ -87,8 +88,10 @@ public class IconSelectActivity extends AppCompatActivity {
                     @Override
                     public void onGridSelectListener(int size) {
                         if(board!=null) {
-                            board.setIconList(selectedIconList);
                             board.setGridSize(size);
+                            board.setBoardIconModel(
+                                    new ModelManager(selectedIconList,IconSelectActivity.this).
+                                            getModel());
                             database.updateBoardIntoDatabase(new DataBaseHelper(IconSelectActivity.this).getReadableDatabase(),board);
                             Intent intent = new Intent(IconSelectActivity.this, EditBoard.class);
                             intent.putExtra(BOARD_ID, boardId);

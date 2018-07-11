@@ -11,9 +11,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.dsource.idc.jellowintl.R;
-import com.dsource.idc.jellowintl.makemyboard.JsonDatabase.BoardDatabase;
-import com.dsource.idc.jellowintl.makemyboard.JsonDatabase.CustomDialog;
-import com.dsource.idc.jellowintl.makemyboard.JsonDatabase.Sorter;
+import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.BoardDatabase;
+import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.CustomDialog;
+import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.ModelManager;
 import com.dsource.idc.jellowintl.utility.IconDataBaseHelper;
 import com.dsource.idc.jellowintl.utility.JellowIcon;
 
@@ -24,7 +24,7 @@ public class EditBoard extends AppCompatActivity {
     ArrayList<JellowIcon> mainList;
     ArrayList<JellowIcon> displayList;
     RecyclerView mRecyclerView;
-    private Sorter sorter;
+    private ModelManager modelManager;
     private String boardId;
     public static final String BOARD_ID="Board_Id";
     private BoardDatabase database;
@@ -38,7 +38,7 @@ public class EditBoard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_board);
         database=new BoardDatabase(this);
-        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
+        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_background));
         try{
             boardId =getIntent().getExtras().getString(BOARD_ID);
         }
@@ -48,18 +48,18 @@ public class EditBoard extends AppCompatActivity {
         }
 
         currentBoard=database.getBoardById(boardId);
-        mainList =currentBoard.getIconList();
-        mainList =sortList(mainList);
-        sorter=new Sorter(mainList,EditBoard.this);
-        displayList=sorter.getLevelOneFromModel();
+        modelManager =new ModelManager(this,currentBoard.getBoardIconModel());
+        displayList= modelManager.getLevelOneFromModel();
         initFields();
         updateList();
     }
 
-
-
-    ArrayList<JellowIcon> sortList(ArrayList<JellowIcon> iconsList)
-    {
+    /**
+     * This function sorts the Icon list as they are present in the hierarchy
+     * @param iconsList
+     * @return
+     */
+    ArrayList<JellowIcon> sortList(ArrayList<JellowIcon> iconsList) {
         ArrayList<JellowIcon> listOfAllIcon=new IconDataBaseHelper(this).getAllIcons();
         ArrayList<JellowIcon> sortedList=new ArrayList<>();
 
@@ -80,8 +80,7 @@ public class EditBoard extends AppCompatActivity {
      * @param list
      * @return boolean
      */
-    public boolean listContainsIcon(JellowIcon icon, ArrayList<JellowIcon> list)
-    {
+    public boolean listContainsIcon(JellowIcon icon, ArrayList<JellowIcon> list) {
         boolean present=false;
         for(int i=0;i<list.size();i++)
             if(list.get(i).isEqual(icon))
@@ -90,8 +89,7 @@ public class EditBoard extends AppCompatActivity {
         return present;
     }
 
-    private void updateList()
-    {
+    private void updateList() {
         adapterRight=new AdapterEditBoard(mRecyclerView,displayList,this);
         mRecyclerView.setAdapter(adapterRight);
         adapterRight.notifyDataSetChanged();
@@ -103,9 +101,10 @@ public class EditBoard extends AppCompatActivity {
             }
         });
     }
+
     private void initFields(){
         mRecyclerView=findViewById(R.id.icon_recycler);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(this,3));
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this,currentBoard.getGridSize()));
         (findViewById(R.id.ivback)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,7 +114,7 @@ public class EditBoard extends AppCompatActivity {
         (findViewById(R.id.ivhome)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                displayList=sorter.getLevelOneFromModel();
+                displayList= modelManager.getLevelOneFromModel();
                 updateList();
                 Level=0;
                 LevelOneParent=-1;
@@ -130,7 +129,7 @@ public class EditBoard extends AppCompatActivity {
     private void notifyItemClicked(int position) {
         if(Level==0)//Level one Item clicked
         {
-            ArrayList<JellowIcon> temp=sorter.getLevelTwoFromModel(position);
+            ArrayList<JellowIcon> temp= modelManager.getLevelTwoFromModel(position);
             if(temp.size()>0) {
                 displayList = temp;
                 LevelOneParent = position;
@@ -142,7 +141,7 @@ public class EditBoard extends AppCompatActivity {
         else if(Level==1){
 
             if(LevelOneParent!=-1) {
-                ArrayList<JellowIcon> temp = sorter.getLevelThreeFromModel(LevelOneParent, position);
+                ArrayList<JellowIcon> temp = modelManager.getLevelThreeFromModel(LevelOneParent, position);
                 if (temp.size() > 0) {
                     displayList = temp;
                     Level++;
@@ -164,7 +163,7 @@ public class EditBoard extends AppCompatActivity {
         if(Level==2)
         {
             if(LevelOneParent!=-1) {
-                displayList = sorter.getLevelTwoFromModel(LevelOneParent);
+                displayList = modelManager.getLevelTwoFromModel(LevelOneParent);
                 updateList();
                 Level--;
             }
@@ -172,7 +171,7 @@ public class EditBoard extends AppCompatActivity {
         }
         else if(Level==1)
         {
-            displayList=sorter.getLevelOneFromModel();
+            displayList= modelManager.getLevelOneFromModel();
             LevelOneParent=-1;
             updateList();
             Level--;
@@ -191,7 +190,6 @@ public class EditBoard extends AppCompatActivity {
         }
 
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -222,9 +220,12 @@ public class EditBoard extends AppCompatActivity {
             @Override
             public void onGridSelectListener(int size) {
                 currentBoard.setGridSize(size);
+                initFields();
             }
         });
         dialog.show();
+
+        //TODO Add some codes to resize the icons
     }
 }
 

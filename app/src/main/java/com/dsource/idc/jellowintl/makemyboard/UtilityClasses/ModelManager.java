@@ -1,4 +1,4 @@
-package com.dsource.idc.jellowintl.makemyboard.JsonDatabase;
+package com.dsource.idc.jellowintl.makemyboard.UtilityClasses;
 
 import android.content.Context;
 import android.util.Log;
@@ -13,16 +13,16 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
-public class Sorter {
+public class ModelManager {
     private ArrayList<JellowIcon> mailIconList;
     private ArrayList<JellowIcon> levelOneIcons;
     private ArrayList<Integer> levelOneIndex;
     private ArrayList<JellowIcon> levelTwoIcons;
     private ArrayList<JellowIcon> levelThreeIcons;
-    private TheNode parentNode;
+    private IconModel parentNode;
     private Context context;
 
-    public Sorter(ArrayList<JellowIcon> mailIconList,Context context)
+    public ModelManager(ArrayList<JellowIcon> mailIconList, Context context)
     {
         this.mailIconList = mailIconList;
         this.context=context;
@@ -30,9 +30,14 @@ public class Sorter {
         levelOneIndex=new ArrayList<>();
         levelTwoIcons=new ArrayList<>();
         levelThreeIcons=new ArrayList<>();
-        parentNode=new TheNode(new JellowIcon("","",-1,-1,-1));
+        parentNode=new IconModel(new JellowIcon("","",-1,-1,-1));
         prepareLevels();
         prepareModel();
+    }
+    public ModelManager(Context context,IconModel parentNode)
+    {
+        this.context=context;
+        this.parentNode=parentNode;
     }
 
     private void prepareLevels() {
@@ -207,7 +212,7 @@ public class Sorter {
 
     }
 
-    public TheNode getModel()
+    public IconModel getModel()
     {
         return parentNode;
     }
@@ -224,7 +229,10 @@ public class Sorter {
     {
         return parentNode.getChildren().get(parent1).getChildren().get(parent2).getSubList();
     }
-
+    public void setModel(IconModel model)
+    {
+        this.parentNode=model;
+    }
 
     /**
      * This function is to write string data to the file

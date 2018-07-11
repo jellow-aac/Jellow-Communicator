@@ -32,8 +32,8 @@ import android.widget.Toast;
 
 import com.dsource.idc.jellowintl.DataBaseHelper;
 import com.dsource.idc.jellowintl.R;
-import com.dsource.idc.jellowintl.makemyboard.JsonDatabase.BoardDatabase;
-import com.dsource.idc.jellowintl.makemyboard.JsonDatabase.CustomDialog;
+import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.BoardDatabase;
+import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.CustomDialog;
 import com.rey.material.app.Dialog;
 
 import java.io.ByteArrayOutputStream;

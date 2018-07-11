@@ -1,4 +1,4 @@
-package com.dsource.idc.jellowintl.makemyboard.JsonDatabase;
+package com.dsource.idc.jellowintl.makemyboard.UtilityClasses;
 
 import android.content.ContentValues;
 import android.content.Context;

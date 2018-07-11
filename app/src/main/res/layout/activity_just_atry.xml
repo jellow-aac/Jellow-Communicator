@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.dsource.idc.jellowintl.makemyboard.JsonDatabase.JustATry">
+    tools:context="com.dsource.idc.jellowintl.makemyboard.UtilityClasses.JustATry">
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:id="@+id/temp_recycler_view"

@@ -1,4 +1,4 @@
-package com.dsource.idc.jellowintl.makemyboard.JsonDatabase;
+package com.dsource.idc.jellowintl.makemyboard.UtilityClasses;
 
 import com.dsource.idc.jellowintl.utility.JellowIcon;
 
@@ -6,7 +6,7 @@ public class HierarchyTree  {
 
     public void getStarted(JellowIcon icon)
     {
-        TheNode s=new TheNode(icon);
+        IconModel s=new IconModel(icon);
     }
 }
 

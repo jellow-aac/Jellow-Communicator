@@ -1,16 +1,16 @@
-package com.dsource.idc.jellowintl.makemyboard.JsonDatabase;
+package com.dsource.idc.jellowintl.makemyboard.UtilityClasses;
 
 import com.dsource.idc.jellowintl.utility.JellowIcon;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class TheNode implements Serializable{
+public class IconModel implements Serializable{
 
         private JellowIcon icon;
-        private ArrayList<TheNode> children;
+        private ArrayList<IconModel> children;
 
-        public TheNode(JellowIcon icon)
+        public IconModel(JellowIcon icon)
         {
             this.icon=icon;
             children=new ArrayList<>();
@@ -18,14 +18,14 @@ public class TheNode implements Serializable{
 
         public void addChild(JellowIcon childIcon)
         {
-            children.add(new TheNode(childIcon));
+            children.add(new IconModel(childIcon));
         }
 
         public JellowIcon getIcon()
         {
             return icon;
         }
-        public ArrayList<TheNode> getChildren()
+        public ArrayList<IconModel> getChildren()
         {
             return children;
         }
@@ -37,7 +37,7 @@ public class TheNode implements Serializable{
         public void addAllChild(ArrayList<JellowIcon> subList)
         {
             for(int i=0;i<subList.size();i++)
-                children.add(new TheNode(subList.get(i)));
+                children.add(new IconModel(subList.get(i)));
         }
         public ArrayList<JellowIcon> getSubList()
         {

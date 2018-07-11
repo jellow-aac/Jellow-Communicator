@@ -149,7 +149,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/search_act_title"
             android:theme="@style/Theme.AppCompat.Translucent" />
-        <activity android:name=".makemyboard.JsonDatabase.JustATry"></activity>
+        <activity android:name=".makemyboard.UtilityClasses.JustATry"></activity>
     </application>
 
 </manifest>
