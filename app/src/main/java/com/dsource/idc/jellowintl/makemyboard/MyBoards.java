@@ -114,7 +114,7 @@ public class MyBoards extends AppCompatActivity {
                         if (Position == (boardList.size() - 1)) {
                             initBoardEditAddDialog(NEW_BOARD, -1);
                         } else {
-                            if (!boardList.get(Position).isBoardIconsSelected()) {
+                            if (!database.getBoardById(boardList.get(Position).boardID).isBoardIconsSelected()) {
                                 Intent intent = new Intent(ctx, IconSelectActivity.class);
                                 intent.putExtra(BOARD_ID, boardList.get(Position).getBoardID());
                                 startActivity(intent);
@@ -359,7 +359,8 @@ public class MyBoards extends AppCompatActivity {
                 activateDeleteMode();
                 break;
             case R.id.option:
-                database.dropTable(new DataBaseHelper(this).getWritableDatabase());
+                Toast.makeText(ctx,"Options",Toast.LENGTH_SHORT).show();
+                //database.dropTable(new DataBaseHelper(this).getWritableDatabase());
                 break;
             default:
                 return super.onOptionsItemSelected(item);
@@ -390,7 +391,6 @@ public class MyBoards extends AppCompatActivity {
         void onPhotoIntentResult(Bitmap bitmap,int code);
 
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

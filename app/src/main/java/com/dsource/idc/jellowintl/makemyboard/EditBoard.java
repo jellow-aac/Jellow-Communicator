@@ -28,6 +28,7 @@ public class EditBoard extends AppCompatActivity {
     private String boardId;
     public static final String BOARD_ID="Board_Id";
     private BoardDatabase database;
+    private View parent;
     AdapterEditBoard adapterRight;
     private int Level=0;
     private int LevelOneParent=-1;
@@ -47,7 +48,7 @@ public class EditBoard extends AppCompatActivity {
         {
             Log.d("No board id found", boardId);
         }
-
+        parent=findViewById(R.id.parent);
         currentBoard=database.getBoardById(boardId);
         getSupportActionBar().setTitle(currentBoard.boardTitle+"'s Board");
         modelManager =new ModelManager(this,currentBoard.getBoardIconModel());
@@ -56,9 +57,17 @@ public class EditBoard extends AppCompatActivity {
         updateList(AdapterEditBoard.NORMAL_MODE);
     }
 
+    void updateListFromDatabase()
+    {
+        currentBoard=database.getBoardById(currentBoard.boardID);
+        modelManager.setModel(currentBoard.getBoardIconModel());
+        updateList(AdapterEditBoard.NORMAL_MODE);
+    }
 
+    boolean draggedOut=false;
+    int levelOneParent,levelTwoParent,levelThreeParent, fromLevel;
     private void updateList(int Mode) {
-        adapterRight=new AdapterEditBoard(mRecyclerView,displayList,this,Mode);
+        adapterRight=new AdapterEditBoard(mRecyclerView,displayList,this,Mode,parent);
         mRecyclerView.setAdapter(adapterRight);
         adapterRight.notifyDataSetChanged();
         adapterRight.setOnItemClickListener(new AdapterEditBoard.OnItemClickListener() {
@@ -91,6 +100,46 @@ public class EditBoard extends AppCompatActivity {
                     }
                 });
                 dialog.show();
+
+            }
+        });
+
+        adapterRight.setmOnItemDraggedOutListener(new AdapterEditBoard.onItemDraggedOut() {
+
+
+            @Override
+            public void onIconDraggedOut(int position) {
+                Log.d("Item Moved",""+position);
+                draggedOut=true;
+                if(Level==1)
+                {
+                    levelOneParent=LevelOneParent;
+                    levelTwoParent=position;
+                    levelThreeParent=-1;
+                    fromLevel =Level;
+
+                }
+                else if(Level==2)
+                {
+                    levelOneParent=LevelOneParent;
+                    levelTwoParent=LevelTwoParent;
+                    levelThreeParent=position;
+                    fromLevel =Level;
+
+                }
+                if(Level!=0)
+                onBackPressed();
+            }
+
+            @Override
+            public void onIconDropped() {
+                if(draggedOut)
+                {
+                    Log.d("ItemDroped","Item Droped "+fromLevel+" "+Level+" "+levelOneParent+" "+levelTwoParent+" "+levelThreeParent);
+                    modelManager.moveIconToFrom(fromLevel,Level,levelOneParent,levelTwoParent,levelThreeParent,currentBoard);
+                    draggedOut=!draggedOut;
+                }
+                updateListFromDatabase();
 
             }
         });
@@ -211,8 +260,12 @@ public class EditBoard extends AppCompatActivity {
         return true;
     }
 
+    boolean isDeleteModeOn=false;
     private void prepareIconDeleteMode() {
+        if(!isDeleteModeOn)
         updateList(AdapterEditBoard.DELETE_MODE);
+        else updateList(AdapterEditBoard.NORMAL_MODE);
+        isDeleteModeOn=!isDeleteModeOn;
     }
 
     private void showGridDialog() {

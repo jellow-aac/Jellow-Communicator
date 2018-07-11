@@ -96,7 +96,7 @@ public class IconSelectActivity extends AppCompatActivity {
                             Intent intent = new Intent(IconSelectActivity.this, EditBoard.class);
                             intent.putExtra(BOARD_ID, boardId);
                             startActivity(intent);
-                            //TODO remove this comment before sending to anfinish();
+                            finish();
                         }
                     }
                 });

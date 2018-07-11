@@ -51,6 +51,7 @@ public class IconModel implements Serializable{
         }
 
 
-
-
+    public void addChild(IconModel newIconModel) {
+        children.add(newIconModel);
+    }
 }

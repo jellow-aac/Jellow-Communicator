@@ -4,20 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/level1_bg"
+    android:id="@+id/parent"
     tools:context="com.dsource.idc.jellowintl.makemyboard.EditBoard">
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="8dp"
-            >
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_above="@id/relativeLayoutNavigation"
-                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:id="@+id/expressiveOne"
@@ -85,7 +73,7 @@
                         android:layout_marginBottom="@dimen/exp_icon_margin_bottom"
                         android:src="@drawable/less" />
                 </LinearLayout>
-            </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/relativeLayoutNavigation"
                 android:layout_width="match_parent"
@@ -114,6 +102,24 @@
                     android:layout_toLeftOf="@+id/ivhome" />
             </RelativeLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Drag here to move out of the category"
+        android:id="@+id/move_out_hint"
+        android:layout_margin="8dp"
+        android:layout_centerHorizontal="true"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/expressiveOne"
+        android:layout_toLeftOf="@id/expressiveTwo"
+        android:id="@+id/recycler_view_container"
+        android:layout_above="@id/relativeLayoutNavigation"
+        android:layout_below="@id/move_out_hint"
+        android:layout_toEndOf="@id/expressiveOne"
+        android:layout_toStartOf="@id/expressiveTwo">
             <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/icon_recycler"
@@ -127,8 +133,8 @@
                 android:scrollbarThumbVertical="@android:color/darker_gray"
                 android:scrollbars="vertical"
                 android:layout_marginBottom="8dp"
-                android:layout_above="@id/relativeLayoutNavigation"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-        </RelativeLayout>
+    </RelativeLayout>
+
 
 </RelativeLayout>

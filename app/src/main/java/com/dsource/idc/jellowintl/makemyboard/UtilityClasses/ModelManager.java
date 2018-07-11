@@ -343,26 +343,55 @@ public class ModelManager {
         }
     }
 
+    public void moveIconToFrom(int fromLevel, int toLevel, int levelOneParent, int levelTwoParent, int levelThreeParent,Board board) {
+            IconModel IconToMove=null;
+            if(fromLevel==2)
+            {
+                IconToMove=parentNode.getChildren().get(levelOneParent).getChildren().get(levelTwoParent).getChildren().get(levelThreeParent);
+                parentNode.getChildren().get(levelOneParent).getChildren().get(levelTwoParent).getChildren().remove(levelThreeParent);
+
+            }
+            else if(fromLevel==1)
+            {
+                IconToMove=parentNode.getChildren().get(levelOneParent).getChildren().get(levelTwoParent);
+                parentNode.getChildren().get(levelOneParent).getChildren().remove(levelTwoParent);
+            }
+            if(IconToMove!=null)
+            {
+                if(toLevel==1)
+                {
+                    parentNode.getChildren().get(levelOneParent).getChildren().add(IconToMove);
+                }
+                else if(toLevel==0)
+                {
+                    parentNode.getChildren().add(IconToMove);
+                }
+                board.setBoardIconModel(parentNode);
+                new BoardDatabase(context).updateBoardIntoDatabase(new DataBaseHelper(context).getWritableDatabase(),board);
+            }
+
+    }
+
 
     private class indexHolder
     {
         int p0,p1;
 
-        public indexHolder(int p0, int p1) {
+        indexHolder(int p0, int p1) {
             this.p0 = p0;
             this.p1 = p1;
         }
-        public indexHolder getObj()
+        indexHolder getSelfObj()
         {
             return new indexHolder(p0,p1);
         }
-         public boolean equal(indexHolder h)
+         boolean equal(indexHolder h)
          {
              return this.p0 == h.p0 && this.p1 == h.p1;
          }
-         public boolean presentInList(ArrayList<indexHolder> list)
+         boolean presentInList(ArrayList<indexHolder> list)
          {
-             indexHolder obj=getObj();
+             indexHolder obj= getSelfObj();
              for(int i=0;i<list.size();i++)
                  if(list.get(i).equal(obj))
                      return true;

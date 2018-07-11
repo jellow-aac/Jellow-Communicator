@@ -26,7 +26,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.dsource.idc.jellowintl.JsonConverter.ConverterActivity;
 import com.dsource.idc.jellowintl.makemyboard.MyBoards;
 import com.dsource.idc.jellowintl.models.LevelOneVerbiageModel;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
@@ -314,7 +313,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, ResetPreferencesActivity.class));
                 break;
             case R.id.feedback:
-                startActivity(new Intent(this, ConverterActivity.class));
+                startActivity(new Intent(this, FeedbackActivity.class));
                 break;
             default:
                 return super.onOptionsItemSelected(item);

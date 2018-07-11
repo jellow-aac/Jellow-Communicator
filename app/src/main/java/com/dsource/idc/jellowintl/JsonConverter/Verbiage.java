@@ -50,7 +50,7 @@ public class Verbiage {
     private int nullCOunter=0;
     private  int co=0;
     private boolean noChildInThird =false;
-    private int LANG_CODE=1;
+    private int LANG_CODE=4;
 
 
     /**

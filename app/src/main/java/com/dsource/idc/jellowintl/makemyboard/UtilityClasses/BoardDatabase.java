@@ -204,6 +204,8 @@ public class BoardDatabase extends SQLiteOpenHelper {
         db.execSQL(deletingQuery);
 
     }
+
+
 }
 
 //END
