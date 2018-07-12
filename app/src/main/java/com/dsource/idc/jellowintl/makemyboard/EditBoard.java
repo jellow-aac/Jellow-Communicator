@@ -59,9 +59,16 @@ public class EditBoard extends AppCompatActivity {
 
     void updateListFromDatabase()
     {
-        currentBoard=database.getBoardById(currentBoard.boardID);
-        modelManager.setModel(currentBoard.getBoardIconModel());
+        if(Level==0)
+        {
+            displayList=modelManager.getLevelOneFromModel();
+        }
+        else if(Level==1)
+        {
+            displayList=modelManager.getLevelTwoFromModel(levelOneParent);
+        }
         updateList(AdapterEditBoard.NORMAL_MODE);
+        mRecyclerView.getLayoutManager().smoothScrollToPosition(mRecyclerView,null,displayList.size()-1);
     }
 
     boolean draggedOut=false;
@@ -88,18 +95,12 @@ public class EditBoard extends AppCompatActivity {
         adapterRight.setOnItemDeleteListener(new AdapterEditBoard.OnItemDeleteListener() {
             @Override
             public void onItemDelete(View view, final int position) {
-                CustomDialog dialog=new CustomDialog(EditBoard.this);
-                dialog.setText("Are your you want to delete "+displayList.get(position).IconTitle+" Icon");
-                dialog.setOnPositiveClickListener(new CustomDialog.onPositiveClickListener() {
-                    @Override
-                    public void onPositiveClickListener() {
                         Log.d("Delete Mode","Callback");
                         modelManager.deleteIconFromModel(Level,LevelOneParent,LevelTwoParent,position,currentBoard);
                         displayList.remove(position);
                         updateList(AdapterEditBoard.DELETE_MODE);
-                    }
-                });
-                dialog.show();
+
+
 
             }
         });
@@ -148,6 +149,15 @@ public class EditBoard extends AppCompatActivity {
     private void initFields(){
         mRecyclerView=findViewById(R.id.icon_recycler);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this,currentBoard.getGridSize()));
+
+        (findViewById(R.id.save_button)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentBoard.setBoardCompleted();
+
+            }
+        });
+
         (findViewById(R.id.ivback)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -279,6 +289,7 @@ public class EditBoard extends AppCompatActivity {
             }
         });
         dialog.show();
+        dialog.setCancelable(true);
 
         //TODO Add some codes to resize the icons
     }

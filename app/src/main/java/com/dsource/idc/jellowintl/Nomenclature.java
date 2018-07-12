@@ -12,7 +12,6 @@ import static com.dsource.idc.jellowintl.verbiage_model.Verbiage.ENG_UK;
 
 public class Nomenclature {
 
-
     public static String getIconName(JellowIcon icon,Context context) {
         String LC=getLanguageCode(context);
         String L1=getLevelOneCode(icon);
