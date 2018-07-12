@@ -271,7 +271,7 @@ public class ModelManager {
 
 
         Log.d("parentNode",new Gson().toJson(parentNode));
-        writeJsonStringToFile(new Gson().toJson(parentNode),context );
+        //writeJsonStringToFile(new Gson().toJson(parentNode),context );
 
 
 

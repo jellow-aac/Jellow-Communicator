@@ -1,4 +1,4 @@
-package com.dsource.idc.jellowintl.JsonConverter;
+package com.dsource.idc.jellowintl.verbiage_model;
 
 import android.Manifest;
 import android.content.Context;
@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.dsource.idc.jellowintl.DataBaseHelper;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.utility.IconDataBaseHelper;
 import com.dsource.idc.jellowintl.utility.JellowIcon;
@@ -44,11 +45,8 @@ public class ConverterActivity extends AppCompatActivity {
         (findViewById(R.id.create_json)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                thread.execute(ConverterActivity.this);
-                IconDataBaseHelper d=new IconDataBaseHelper(ConverterActivity.this);
-                final ArrayList<JellowIcon> levelOne=d.getLevelOneIcons();
-                new Verbiage(ConverterActivity.this).renameMiscellaneousIcons(imageView);
-                new Verbiage(ConverterActivity.this).renameLevelOneIcon(levelOne,imageView);
+                VerbiageDatabaseHelper databaseHelper=new VerbiageDatabaseHelper(ConverterActivity.this,new DataBaseHelper(ConverterActivity.this).getWritableDatabase());
+               databaseHelper.createTable();
             }
         });
 

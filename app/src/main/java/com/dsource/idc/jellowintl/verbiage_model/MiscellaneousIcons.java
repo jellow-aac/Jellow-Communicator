@@ -1,4 +1,4 @@
-package com.dsource.idc.jellowintl.JsonConverter;
+package com.dsource.idc.jellowintl.verbiage_model;
 
 public class MiscellaneousIcons {
     String Speech_Label,L,LL;

@@ -32,6 +32,7 @@ import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
+import com.dsource.idc.jellowintl.verbiage_model.ConverterActivity;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -313,7 +314,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, ResetPreferencesActivity.class));
                 break;
             case R.id.feedback:
-                startActivity(new Intent(this, FeedbackActivity.class));
+                startActivity(new Intent(this, ConverterActivity.class));
                 break;
             default:
                 return super.onOptionsItemSelected(item);

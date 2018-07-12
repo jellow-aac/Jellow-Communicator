@@ -143,13 +143,12 @@
             android:name=".makemyboard.EditBoard"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"/>
-        <activity android:name=".JsonConverter.ConverterActivity" />
+        <activity android:name=".verbiage_model.ConverterActivity" />
         <activity
             android:name=".makemyboard.BoardSearch"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/search_act_title"
             android:theme="@style/Theme.AppCompat.Translucent" />
-        <activity android:name=".makemyboard.UtilityClasses.JustATry"></activity>
     </application>
 
 </manifest>

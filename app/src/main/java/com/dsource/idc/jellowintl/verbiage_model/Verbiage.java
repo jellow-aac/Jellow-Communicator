@@ -1,4 +1,4 @@
-package com.dsource.idc.jellowintl.JsonConverter;
+package com.dsource.idc.jellowintl.verbiage_model;
 
 
 import android.content.Context;
@@ -50,7 +50,11 @@ public class Verbiage {
     private int nullCOunter=0;
     private  int co=0;
     private boolean noChildInThird =false;
-    private int LANG_CODE=4;
+    private static int LANG_CODE=4;
+    public final static String ENG_US = "en-rUS";
+    public final static String ENG_UK = "en-rGB";
+    public final static String ENG_IN = "en-rIN";
+    public final static String HI_IN = "hi-rIN";
 
 
     /**
@@ -200,7 +204,7 @@ public class Verbiage {
         String SpeechLable=levelOneSpeech(icon);
         if(SpeechLable.equals(null)||SpeechLable.equals(""))
             Log.d("Null","Icon: "+icon.IconTitle+" COunt"+nullCOunter++);
-        JELLOW_ICON thisIcon=new JELLOW_ICON(icon.IconTitle,SpeechLable,v.get(0),v.get(1),v.get(2),v.get(3),v.get(4),v.get(5),
+        JellowVerbiageModel thisIcon=new JellowVerbiageModel(icon.IconTitle,SpeechLable,v.get(0),v.get(1),v.get(2),v.get(3),v.get(4),v.get(5),
                 v.get(6),v.get(7),v.get(8),v.get(9),v.get(10),v.get(11));
         String s=new Gson().toJson(thisIcon);
         return  s;
@@ -224,7 +228,7 @@ public class Verbiage {
         if(speech_Label.equals(null))
             Log.d("Null_Speech","Icon: "+icon.IconTitle+" count"+nullCOunter++);
 
-        JELLOW_ICON thisIcon=new JELLOW_ICON(icon.IconTitle,speech_Label,v.get(0),v.get(1),v.get(2),v.get(3),v.get(4),v.get(5),
+        JellowVerbiageModel thisIcon=new JellowVerbiageModel(icon.IconTitle,speech_Label,v.get(0),v.get(1),v.get(2),v.get(3),v.get(4),v.get(5),
                 v.get(6),v.get(7),v.get(8),v.get(9),v.get(10),v.get(11));
         String s=new Gson().toJson(thisIcon);
         return s;
@@ -249,7 +253,7 @@ public class Verbiage {
         String speech_lable=levelThreeSpeech(icon);
         if(speech_lable.equals(null))
             Log.d("Null_Speech","Icon: "+icon.IconTitle+" count"+nullCOunter++);
-        JELLOW_ICON thisIcon=new JELLOW_ICON(icon.IconTitle,speech_lable,v.get(0),v.get(1),v.get(2),v.get(3),v.get(4),v.get(5),
+        JellowVerbiageModel thisIcon=new JellowVerbiageModel(icon.IconTitle,speech_lable,v.get(0),v.get(1),v.get(2),v.get(3),v.get(4),v.get(5),
                 v.get(6),v.get(7),v.get(8),v.get(9),v.get(10),v.get(11));
         String s=new Gson().toJson(thisIcon);
         return s;
@@ -282,7 +286,7 @@ public class Verbiage {
         if(speech_Label.equals(null))
             Log.d("Null_Speech","Icon: "+icon.IconTitle+" count"+nullCOunter++);
 
-        JELLOW_ICON thisIcon=new JELLOW_ICON(icon.IconTitle,speech_Label,v.get(0),v.get(1),v.get(2),v.get(3),v.get(4),v.get(5),
+        JellowVerbiageModel thisIcon=new JellowVerbiageModel(icon.IconTitle,speech_Label,v.get(0),v.get(1),v.get(2),v.get(3),v.get(4),v.get(5),
                 v.get(6),v.get(7),v.get(8),v.get(9),v.get(10),v.get(11));
         String s=new Gson().toJson(thisIcon);
         return s;
@@ -295,7 +299,7 @@ public class Verbiage {
      * @param icon
      * @return "String Name" of the verbiage and icon
      */
-    private String getIconName(JellowIcon icon,int iconType) {
+    public String getIconName(JellowIcon icon, int iconType) {
         String LC=getLanguageCode();
         String L1=getLevelOneCode(icon);
         String L2=getLevelTwoCode(icon);
@@ -337,9 +341,20 @@ public class Verbiage {
     private String getLevelOneCode(JellowIcon icon) {
         return String.format("%02d", (icon.parent0+1));
     }
+
     private String getLanguageCode() {
+        String lang=new SessionManager(context).getLanguage();
+        int lang_code=1;
+        if(lang.equals(ENG_IN))
+            lang_code=1;
+        else if(lang.equals(ENG_US))
+            lang_code=2;
+        else if(lang.equals(ENG_UK))
+            lang_code=3;
+        else if(lang.equals(HI_IN))
+            lang_code=4;
         //Calling this function because it generates two digit string
-        return String.format("%02d", LANG_CODE);//for English india
+        return String.format("%02d", lang_code);//for English india
     }
     private String getLevelMicellaneousCode(int i) {
         return String.format("%02d", (i+1));
