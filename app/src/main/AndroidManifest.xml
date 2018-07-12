@@ -7,7 +7,10 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera" android:required="true" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
 
     <application
         android:name=".app.AppController"
@@ -142,14 +145,14 @@
         <activity
             android:name=".makemyboard.EditBoard"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".JsonConverter.ConverterActivity" />
+            android:screenOrientation="landscape" />
+        <activity android:name=".verbiage_model.ConverterActivity" />
         <activity
             android:name=".makemyboard.BoardSearch"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/search_act_title"
             android:theme="@style/Theme.AppCompat.Translucent" />
-        <activity android:name=".makemyboard.UtilityClasses.JustATry"></activity>
+        <activity android:name=".makemyboard.BoardHome"></activity>
     </application>
 
 </manifest>

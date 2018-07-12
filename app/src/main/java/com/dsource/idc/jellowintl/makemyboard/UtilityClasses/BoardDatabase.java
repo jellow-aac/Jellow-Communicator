@@ -19,16 +19,16 @@ import java.util.ArrayList;
  */
 public class BoardDatabase extends SQLiteOpenHelper {
 
-    Context context;
+    private Context context;
     // Declaring all these as constants makes code a lot more readable, and looking like SQL.
     // Versions has to be 1 first time or app will crash.
     private static final int DATABASE_VERSION = 1;
     private static final String BOARD_TABLE = "board_table";
     private static final String DATABASE_NAME = "level3.db";
     // Column names...
-    public static final String BOARD_ID = "_id";//Icon Primary key ID
-    public static final String BOARD_TITLE = "board_title";//Icon Title
-    public static final String BOARD_JSON = "icon_p1";//First Level Parent
+    private static final String BOARD_ID = "_id";//Icon Primary key ID
+    private static final String BOARD_TITLE = "board_title";//Icon Title
+    private static final String BOARD_JSON = "icon_p1";//First Level Parent
 
     private static final String[] COLUMNS =
             {BOARD_ID, BOARD_TITLE, BOARD_JSON};

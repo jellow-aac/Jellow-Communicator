@@ -84,7 +84,7 @@ public interface OnItemClickListener {
     public void onBindViewHolder(ViewHolder holder, int position) {
         JellowIcon icon = mDataSource.get(position);
         holder.iconTitle.setText(icon.IconTitle);
-        //If the "No icon found" condition comes the remove speaker
+        //If the "No icon found" condition comes the remove speakButton
         if(icon.IconDrawable.equals("NULL")&&icon.IconTitle.equals(mContext.getString(R.string.not_found)))
         {
             holder.iconTitle.setText(R.string.icon_not_found);

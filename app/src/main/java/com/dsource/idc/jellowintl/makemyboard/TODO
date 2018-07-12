@@ -8,4 +8,35 @@ todo and issue list for Make my board
 5. Remove search from the Edit Icon Activity.
 6. Adjust the size of the Image when the grid size is changed.
 7. Board is not being updated while going.
-8. Make save board, update board AsyncTask so that the Icon save thing works.
+8. Figure out a way to use new verbiage json file thing.
+9. Design the database for the new Json file.
+10.Design functions for the database
+
+
+
+
+
+
+
+
+
+
+
+
+VERBIAGE DATABASE
+
+Verbiage database is for storing the data of verbiage according to the new verbiage model.
+
+Basic blueprint of the database should have following data.
+
+COLUMN:          ICON_ID         ICON_TITLE      ICON_VERBIAGE_OBJECT
+
+FUNCTIONS:
+1. getVerbiageById(Icon id);                                                        DONE
+2. getVerbiageByTitle(Icon title);                                                  DONE
+3. getVerbiageForLevelOne();
+4. getVerbiageForLevelTwo(int levelOneParent);
+5. getVerbiageForLevelThree(int levelOneParent, int levelTwoParent);
+6. createDatabase();                                                                DONE
+7. dropDatabase();                                                                  DONE
+8. updateDatabase();
