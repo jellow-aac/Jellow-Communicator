@@ -116,6 +116,7 @@ public class VerbiageDatabaseHelper extends SQLiteOpenHelper{
     public JellowVerbiageModel getVerbiageById(String IconID){
         JellowVerbiageModel verbiage=null;
         String selectQuery = "SELECT * FROM "+ TABLE_NAME +" WHERE "+ ICON_ID +" = '" + IconID + "' ";
+        Log.d("SelectQuery",selectQuery);
         Cursor cursor = null;
         try {
             if (db == null) {db = getReadableDatabase();}

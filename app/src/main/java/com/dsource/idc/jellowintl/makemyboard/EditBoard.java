@@ -1,5 +1,6 @@
 package com.dsource.idc.jellowintl.makemyboard;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -101,7 +102,6 @@ public class EditBoard extends AppCompatActivity {
                         updateList(AdapterEditBoard.DELETE_MODE);
 
 
-
             }
         });
 
@@ -154,6 +154,10 @@ public class EditBoard extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 currentBoard.setBoardCompleted();
+                Intent intent =new Intent(EditBoard.this,BoardHome.class);
+                intent.putExtra(BOARD_ID,boardId);
+                startActivity(intent);
+                finish();
 
             }
         });
