@@ -1,11 +1,10 @@
 package com.dsource.idc.jellowintl.makemyboard;
 
-import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -21,20 +20,13 @@ import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.CustomDialog;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.ModelManager;
 import com.dsource.idc.jellowintl.utility.JellowIcon;
-import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
-import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.dsource.idc.jellowintl.verbiage_model.JellowVerbiageModel;
 import com.dsource.idc.jellowintl.verbiage_model.VerbiageDatabaseHelper;
 
 import java.util.ArrayList;
 
-import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.makemyboard.MyBoards.BOARD_ID;
-import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
-import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
-import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
-import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 
 public class BoardHome extends AppCompatActivity {
 
@@ -83,22 +75,26 @@ public class BoardHome extends AppCompatActivity {
 
     private void updateList() {
         adapter=new HomeAdapter(displayList,this);
-        adapter.setOnItemClickListner(new HomeAdapter.OnItemClickListener() {
+        adapter.setOnItemClickListner(new HomeAdapter.onDoubleTapListener() {
             @Override
-            public void onItemClick(View view, int position) {
+            public void onItemDoubleTap(View view, int position) {
+                GradientDrawable shape = new GradientDrawable();
+                shape.setShape(GradientDrawable.RING);
+                shape.setStroke(2, mContext.getResources().getColor(R.color.colorAccent));
+                view.setForeground(shape);
                 notifyItemClicked(position);
             }
         });
         adapter.setOnItemSelectListner(new HomeAdapter.OnItemSelectListener() {
             @Override
-            public void onItemClick(View view, int position) {
-                view.setBackground(getResources().getDrawable(R.drawable.shape_droptarget));
+            public void onItemSelected(View view, int position) {
                 prepareSpeech(displayList.get(position));
             }
         });
         mRecycler.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
+
 
     private void prepareSpeech(JellowIcon jellowIcon) {
         selectedIconVerbiage=verbiageDatabase.getVerbiageById(Nomenclature.getIconName(jellowIcon,mContext));
@@ -236,6 +232,7 @@ public class BoardHome extends AppCompatActivity {
             clickedTime=0;
             else clickedTime++;
         }
+
         public void reset()
         {
             clickedTime=0;

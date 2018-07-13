@@ -1,33 +1,24 @@
 package com.dsource.idc.jellowintl.makemyboard;
 
 
-import android.content.ClipData;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.DragEvent;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dsource.idc.jellowintl.GlideApp;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.utility.JellowIcon;
 import com.dsource.idc.jellowintl.utility.SessionManager;
-import com.makeramen.dragsortadapter.DragSortAdapter;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
@@ -35,34 +26,46 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
     public final List<JellowIcon> data;
     public Context mContext;
-    public OnItemClickListener mItemClickListener;
-    private View parent;
-    private RecyclerView mRecyclerView;
-    public HomeAdapter(List<JellowIcon> data, Context context) {
+    public onDoubleTapListener onDoubleTapListener;
+    OnItemSelectListener onItemSelectListener;
+    public int selectedPosition=-1;
 
+    public HomeAdapter(List<JellowIcon> data, Context context) {
         this.data = data;
         mContext=context;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        //each data item is just a string in this case
+
         public TextView iconTitle;
         public ImageView iconImage;
-
-
 
         public ViewHolder(View v) {
             super(v);
             iconImage=v.findViewById(R.id.icon_image_view);
             iconTitle=v.findViewById(R.id.icon_title);
             v.findViewById(R.id.icon_remove_button).setVisibility(View.GONE);
-            v.setOnClickListener(this);
-            v.setOnLongClickListener(new View.OnLongClickListener() {
+            iconImage.setOnClickListener(this);
+            iconImage.setOnTouchListener(new View.OnTouchListener() {
+                private GestureDetector gestureDetector = new GestureDetector(mContext, new GestureDetector.SimpleOnGestureListener() {
+                    @Override
+                    public boolean onDoubleTap(MotionEvent e) {
+                        onDoubleTapListener.onItemDoubleTap(iconImage,getAdapterPosition());
+                        return super.onDoubleTap(e);
+                    }
+
+                    @Override
+                    public boolean onSingleTapUp(MotionEvent e) {
+                        onItemSelectListener.onItemSelected(iconImage,getAdapterPosition());
+                        return super.onSingleTapUp(e);
+                    }
+                });
+
                 @Override
-                public boolean onLongClick(View v) {
-                    mItemClickListener.onItemClick(v,getAdapterPosition());
-                    return false;
+                public boolean onTouch(View v, MotionEvent event) {
+                    gestureDetector.onTouchEvent(event);
+                    return true;
                 }
             });
 
@@ -70,22 +73,23 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
         @Override
         public void onClick(View view) {
-            onItemSelectListener.onItemClick(view,getAdapterPosition());
+            onItemSelectListener.onItemSelected(view,getAdapterPosition());
+            notifyDataSetChanged();
         }
     }
 
 
-    public interface OnItemClickListener {
-        void onItemClick(View view, int position);
+    public interface onDoubleTapListener {
+        void onItemDoubleTap(View view, int position);
     }
     public interface OnItemSelectListener {
-        void onItemClick(View view, int position);
+        void onItemSelected(View view, int position);
     }
-    OnItemSelectListener onItemSelectListener;
 
 
-    public void setOnItemClickListner(final HomeAdapter.OnItemClickListener mItemClickListener) {
-        this.mItemClickListener = mItemClickListener;
+
+    public void setOnItemClickListner(final onDoubleTapListener mItemClickListener) {
+        this.onDoubleTapListener = mItemClickListener;
     }
 
     public void setOnItemSelectListner(final HomeAdapter.OnItemSelectListener mItemClickListener) {
@@ -104,6 +108,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
         JellowIcon thisIcon = data.get(position);
         holder.iconTitle.setText(thisIcon.IconTitle);
+        //TODO Highlight the icon.
 
         if(thisIcon.parent1==-1)
         {
