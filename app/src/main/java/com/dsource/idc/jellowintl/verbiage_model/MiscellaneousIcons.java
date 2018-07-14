@@ -1,11 +1,15 @@
 package com.dsource.idc.jellowintl.verbiage_model;
 
 public class MiscellaneousIcons {
-    String Speech_Label,L,LL;
+    public  String Title,L,LL;
 
+    //TODO Change when making next Json File.
     public MiscellaneousIcons(String Speech_Label, String L, String LL) {
-        this.Speech_Label = Speech_Label;
+        this.Title = Speech_Label;
         this.L = L;
         this.LL = LL;
+    }
+
+    public MiscellaneousIcons(){
     }
 }

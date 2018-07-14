@@ -88,7 +88,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
 
 
-    public void setOnItemClickListner(final onDoubleTapListener mItemClickListener) {
+    public void setOnDoubleTapListner(final onDoubleTapListener mItemClickListener) {
         this.onDoubleTapListener = mItemClickListener;
     }
 

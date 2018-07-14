@@ -46,7 +46,8 @@ public class ConverterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 VerbiageDatabaseHelper databaseHelper=new VerbiageDatabaseHelper(ConverterActivity.this,new DataBaseHelper(ConverterActivity.this).getWritableDatabase());
-               databaseHelper.createTable();
+                databaseHelper.dropTable();
+                databaseHelper.createTable();
             }
         });
 

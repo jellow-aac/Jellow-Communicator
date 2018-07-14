@@ -2,7 +2,6 @@ package com.dsource.idc.jellowintl.makemyboard;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -18,10 +17,12 @@ import com.dsource.idc.jellowintl.Nomenclature;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.CustomDialog;
+import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.ExpressiveIconManager;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.ModelManager;
 import com.dsource.idc.jellowintl.utility.JellowIcon;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.verbiage_model.JellowVerbiageModel;
+import com.dsource.idc.jellowintl.verbiage_model.MiscellaneousIcons;
 import com.dsource.idc.jellowintl.verbiage_model.VerbiageDatabaseHelper;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ import static com.dsource.idc.jellowintl.makemyboard.MyBoards.BOARD_ID;
 public class BoardHome extends AppCompatActivity {
 
     RecyclerView mRecycler;
-    ImageView like,want,more,dontLike,dontWant,less,home,back,keyboardButton, speakButton;
+    ImageView home,back,keyboardButton, speakButton;
     EditText edittext;
     ModelManager modelManager;
     ArrayList<JellowIcon> displayList;
@@ -45,6 +46,8 @@ public class BoardHome extends AppCompatActivity {
     private Context mContext;
     private JellowVerbiageModel selectedIconVerbiage;
     private VerbiageDatabaseHelper verbiageDatabase;
+    private ExpressiveIconManager expIconManager;
+    private ArrayList<MiscellaneousIcons> expIconVerbiage;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,19 +72,51 @@ public class BoardHome extends AppCompatActivity {
         displayList= modelManager.getLevelOneFromModel();
         initViews();
         updateList();
+        expIconManager=new ExpressiveIconManager(this,findViewById(R.id.parent));
+        expIconManager.setClickListener(new ExpressiveIconManager.expIconClickListener() {
+            @Override
+            public void expressiveIconClicked(int expIconPos, int time) {
+                speakVerbiage(expIconPos,time);
+            }
+        });
+        loadExpressiveIconVerbiage();
+    }
 
+    private void loadExpressiveIconVerbiage() {
+        expIconVerbiage=new ArrayList<>();
+        for(int i=0;i<6;i++) {
+            expIconVerbiage.add(verbiageDatabase.getMiscellaneousIconsById(Nomenclature.getNameForExpressiveIcons(this, i)));
+            Log.d("ExpIcons","ID: "+expIconVerbiage.get(i).Title +" L: "+expIconVerbiage.get(i).L+" LL: "+expIconVerbiage.get(i).LL);
+        }
+    }
 
+    private void speakVerbiage(int expIconPos, int time) {
+        String verbiage="";
+        if(selectedIconVerbiage!=null)
+        switch (expIconPos)
+        {
+            case 0:if(time==0)verbiage=selectedIconVerbiage.L;else verbiage=selectedIconVerbiage.LL;break;
+            case 1:if(time==0)verbiage=selectedIconVerbiage.Y;else verbiage=selectedIconVerbiage.YY;break;
+            case 2:if(time==0)verbiage=selectedIconVerbiage.M;else verbiage=selectedIconVerbiage.MM;break;
+            case 3:if(time==0)verbiage=selectedIconVerbiage.D;else verbiage=selectedIconVerbiage.DD;break;
+            case 4:if(time==0)verbiage=selectedIconVerbiage.N;else verbiage=selectedIconVerbiage.NN;break;
+            case 5:if(time==0)verbiage=selectedIconVerbiage.S;else verbiage=selectedIconVerbiage.SS;break;
+
+        }
+        else
+        {
+            if(time==0)verbiage=expIconVerbiage.get(expIconPos).L;else verbiage=expIconVerbiage.get(expIconPos).LL;
+        }
+        if(!verbiage.equals("NA"))
+        speakSpeech(verbiage);
     }
 
     private void updateList() {
         adapter=new HomeAdapter(displayList,this);
-        adapter.setOnItemClickListner(new HomeAdapter.onDoubleTapListener() {
+        adapter.setOnDoubleTapListner(new HomeAdapter.onDoubleTapListener() {
             @Override
             public void onItemDoubleTap(View view, int position) {
-                GradientDrawable shape = new GradientDrawable();
-                shape.setShape(GradientDrawable.RING);
-                shape.setStroke(2, mContext.getResources().getColor(R.color.colorAccent));
-                view.setForeground(shape);
+                verbiageDatabase=null;
                 notifyItemClicked(position);
             }
         });
@@ -89,6 +124,7 @@ public class BoardHome extends AppCompatActivity {
             @Override
             public void onItemSelected(View view, int position) {
                 prepareSpeech(displayList.get(position));
+                resetButtons();
             }
         });
         mRecycler.setAdapter(adapter);
@@ -105,18 +141,12 @@ public class BoardHome extends AppCompatActivity {
     }
 
     private void resetButtons() {
-
+        expIconManager.resetSelection();
     }
 
     private void initViews(){
         mRecycler=findViewById(R.id.recycler_view);
         mRecycler.setLayoutManager(new GridLayoutManager(this,currentBoard.getGridSize()));
-        like=findViewById(R.id.ivlike);
-        want=findViewById(R.id.ivyes);
-        more=findViewById(R.id.ivadd);
-        dontLike=findViewById(R.id.ivdislike);
-        dontWant=findViewById(R.id.ivno);
-        less=findViewById(R.id.ivminus);
         home=findViewById(R.id.ivhome);
         back=findViewById(R.id.ivback);
         back.setOnClickListener(new View.OnClickListener() {
@@ -217,27 +247,6 @@ public class BoardHome extends AppCompatActivity {
         mContext.sendBroadcast(intent);
     }
 
-    private class ClickHolder
-    {
-        View button;
-        int clickedTime=0;
 
-        public ClickHolder(View button) {
-            this.button = button;
-        }
-
-        public void Clicked()
-        {
-            if(clickedTime==2)
-            clickedTime=0;
-            else clickedTime++;
-        }
-
-        public void reset()
-        {
-            clickedTime=0;
-        }
-
-    }
 
 }
