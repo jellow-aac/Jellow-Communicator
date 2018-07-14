@@ -355,4 +355,22 @@
     </string-array>
 
 
+    <array name="expressive_icon_pressed">
+        <item>@drawable/like_pressed</item>
+        <item>@drawable/yes_pressed</item>
+        <item>@drawable/more_pressed</item>
+        <item>@drawable/dontlike_pressed</item>
+        <item>@drawable/no_pressed</item>
+        <item>@drawable/less_pressed</item>
+    </array>
+    <array name="expressive_icon_unpressed">
+        <item>@drawable/like</item>
+        <item>@drawable/yes</item>
+        <item>@drawable/more</item>
+        <item>@drawable/dontlike</item>
+        <item>@drawable/no</item>
+        <item>@drawable/less</item>
+    </array>
+
+
 </resources>
