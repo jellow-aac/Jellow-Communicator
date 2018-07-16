@@ -73,6 +73,7 @@ public class AdapterEditBoard extends DragSortAdapter<AdapterEditBoard.ViewHolde
             }
             else if(Mode==DELETE_MODE)
             {
+                itemView.setOnClickListener(this);
                 removeIcon.setVisibility(View.VISIBLE);
                 removeIcon.setOnClickListener(new View.OnClickListener() {
                     @Override

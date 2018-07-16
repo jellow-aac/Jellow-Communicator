@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -50,11 +51,9 @@ public class EditBoard extends AppCompatActivity {
         }
         parent=findViewById(R.id.parent);
         currentBoard=database.getBoardById(boardId);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back
-        );
-        getSupportActionBar().setTitle("Drag and drop your icons" +
-                "");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#333333'>"+"Reposition icons"+"</font>"));
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_button_board);
         modelManager =new ModelManager(this,currentBoard.getBoardIconModel());
         displayList= modelManager.getLevelOneFromModel();
         initFields();
@@ -85,7 +84,7 @@ public class EditBoard extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 Log.d("ItemClicked","Item: "+position);
-                notifyItemClicked(position);
+                notifyItemClicked(position,AdapterEditBoard.NORMAL_MODE);
             }
         });
         adapterRight.setOnItemMovedListener(new AdapterEditBoard.OnItemMovedListener() {
@@ -154,6 +153,7 @@ public class EditBoard extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 currentBoard.setBoardCompleted();
+                database.updateBoardIntoDatabase(new DataBaseHelper(EditBoard.this).getWritableDatabase(),currentBoard);
                 Intent intent =new Intent(EditBoard.this,BoardHome.class);
                 intent.putExtra(BOARD_ID,boardId);
                 startActivity(intent);
@@ -171,10 +171,12 @@ public class EditBoard extends AppCompatActivity {
         (findViewById(R.id.ivhome)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                displayList= modelManager.getLevelOneFromModel();
-                updateList(AdapterEditBoard.NORMAL_MODE);
-                Level=0;
-                LevelOneParent=-1;
+                if(Level!=0) {
+                    displayList = modelManager.getLevelOneFromModel();
+                    updateList(AdapterEditBoard.NORMAL_MODE);
+                    Level = 0;
+                    LevelOneParent = -1;
+                }
             }
         });
 
@@ -183,7 +185,7 @@ public class EditBoard extends AppCompatActivity {
 
     }
 
-    private void notifyItemClicked(int position) {
+    private void notifyItemClicked(int position,int mode) {
         if(Level==0)//Level one Item clicked
         {
             ArrayList<JellowIcon> temp= modelManager.getLevelTwoFromModel(position);
@@ -191,7 +193,7 @@ public class EditBoard extends AppCompatActivity {
                 displayList = temp;
                 LevelOneParent = position;
                 Level++;
-                updateList(AdapterEditBoard.NORMAL_MODE);
+                updateList(mode);
             }
             //else Toast.makeText(EditBoard.this,"No sub category",Toast.LENGTH_SHORT).show();
         }
@@ -202,7 +204,7 @@ public class EditBoard extends AppCompatActivity {
                 if (temp.size() > 0) {
                     displayList = temp;
                     Level++;
-                    updateList(AdapterEditBoard.NORMAL_MODE);
+                    updateList(mode);
                     LevelTwoParent=position;
                 } //else Toast.makeText(EditBoard.this, "No sub category", Toast.LENGTH_SHORT).show();
 
@@ -268,6 +270,7 @@ public class EditBoard extends AppCompatActivity {
                 break;
             case R.id.grid_size:
                 showGridDialog();break;
+            case android.R.id.home: finish(); break;
             default:
                 return super.onOptionsItemSelected(item);
         }

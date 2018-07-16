@@ -8,7 +8,10 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -61,6 +64,9 @@ public class BoardHome extends AppCompatActivity {
 
         database=new BoardDatabase(this);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#333333'>"+"Home"+"</font>"));
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_button_board);
         try{
             boardId =getIntent().getExtras().getString(BOARD_ID);
         }
@@ -84,6 +90,8 @@ public class BoardHome extends AppCompatActivity {
             }
         });
         loadExpressiveIconVerbiage();
+        //ActivateView(home,false);
+        ActivateView(back,false);
     }
 
     private void loadExpressiveIconVerbiage() {
@@ -216,6 +224,8 @@ public class BoardHome extends AppCompatActivity {
     private void notifyItemClicked(int position) {
         if(Level==0)//Level one Item clicked
         {
+            ActivateView(home,true);
+            ActivateView(back,true);
             ArrayList<JellowIcon> temp= modelManager.getLevelTwoFromModel(position);
             if(temp.size()>0) {
                 displayList = temp;
@@ -226,7 +236,8 @@ public class BoardHome extends AppCompatActivity {
             //else Toast.makeText(BoardHome.this,"No sub category",Toast.LENGTH_SHORT).show();
         }
         else if(Level==1){
-
+            //ActivateView(home,true);
+            ActivateView(back,true);
             if(LevelOneParent!=-1) {
                 ArrayList<JellowIcon> temp = modelManager.getLevelThreeFromModel(LevelOneParent, position);
                 if (temp.size() > 0) {
@@ -264,20 +275,28 @@ public class BoardHome extends AppCompatActivity {
             LevelOneParent=-1;
             updateList();
             Level--;
+           // ActivateView(home,false);
+            ActivateView(back,false);
         }
         else if(Level==0)
         {
-            CustomDialog dialog=new CustomDialog(this);
-            dialog.setText("Are you sure you want to exit ?");
-            dialog.setOnPositiveClickListener(new CustomDialog.onPositiveClickListener() {
-                @Override
-                public void onPositiveClickListener() {
-                    finish();
-                }
-            });
-            dialog.show();
+            //ActivateView(home,false);
+            ActivateView(back,false);
         }
 
+    }
+
+    private void ActivateView(ImageView view, boolean activate) {
+        if(activate)
+        {
+            view.setAlpha(1f);
+            view.setClickable(true);
+        }
+        else
+        {
+            view.setAlpha(.5f);
+            view.setClickable(false);
+        }
     }
 
 
@@ -297,5 +316,40 @@ public class BoardHome extends AppCompatActivity {
         intent.putExtra("speechText", speechText.toLowerCase());
         mContext.sendBroadcast(intent);
     }
+
+    private void showGridDialog() {
+        CustomDialog dialog=new CustomDialog(this,CustomDialog.GRID_SIZE);
+        dialog.setGridSelectListener(new CustomDialog.GridSelectListener() {
+            @Override
+            public void onGridSelectListener(int size) {
+                currentBoard.setGridSize(size);
+                new BoardDatabase(BoardHome.this).updateBoardIntoDatabase(new DataBaseHelper(BoardHome.this).getWritableDatabase(),currentBoard);
+                //TODO init Fields
+            }
+        });
+        dialog.show();
+        dialog.setCancelable(true);
+
+        //TODO Add some codes to resize the icons
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home: finish(); break;
+            case R.id.grid_size:
+                showGridDialog();break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.board_home_menu, menu);
+        super.onCreateOptionsMenu(menu);
+        return true;
+    }
+
 
 }
