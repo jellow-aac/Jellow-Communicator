@@ -143,16 +143,15 @@ public class MyBoards extends AppCompatActivity {
                                 intent.putExtra(BOARD_ID, boardList.get(Position).getBoardID());
                                 startActivity(intent);
                             } else if(!database.getBoardById(boardList.get(Position).boardID).getBoardCompleteStatus()){
-                                Intent intent = new Intent(ctx, BoardHome.class);
+                                Intent intent = new Intent(ctx, EditBoard.class);
                                 intent.putExtra(BOARD_ID, boardList.get(Position).getBoardID());
                                 startActivity(intent);
                             }
                             else
                             {
-                                Intent intent = new Intent(ctx, EditBoard.class);
+                                Intent intent = new Intent(ctx, BoardHome.class);
                                 intent.putExtra(BOARD_ID, boardList.get(Position).getBoardID());
                                 startActivity(intent);
-
                             }
                         }
 
@@ -282,7 +281,7 @@ public class MyBoards extends AppCompatActivity {
         saveBoard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MyBoards.this,"Save board",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MyBoards.this,"Board saved",Toast.LENGTH_SHORT).show();
                 String name=boardTitleEditText.getText().toString();
                 Bitmap boardIcon=((BitmapDrawable)BoardIcon.getDrawable()).getBitmap();
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -366,7 +365,6 @@ public class MyBoards extends AppCompatActivity {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         boardIcon.compress(Bitmap.CompressFormat.PNG, 100, bos);
         byte[] bArray = bos.toByteArray();
-
         Board newBoard=new Board(boardID,boardName,bArray);
         database=new BoardDatabase(this);
         boardList.add(newBoard);

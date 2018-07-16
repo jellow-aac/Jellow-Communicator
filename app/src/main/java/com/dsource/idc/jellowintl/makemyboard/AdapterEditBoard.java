@@ -77,7 +77,6 @@ public class AdapterEditBoard extends DragSortAdapter<AdapterEditBoard.ViewHolde
                 removeIcon.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log.d("Delete Mode","Adapter Set");
                         mItemDeleteListener.onItemDelete(v,getAdapterPosition());
                     }
                 });
@@ -93,14 +92,13 @@ public class AdapterEditBoard extends DragSortAdapter<AdapterEditBoard.ViewHolde
         }
 
         @Override public boolean onLongClick(@NonNull View v) {
-            prepareDragListeners(v);
-            //startDrag();
+            //prepareDragListeners(v);
+            startDrag();
             return true;
         }
 
         void prepareDragListeners(View view)
         {
-            Toast.makeText(mContext,"Dragging Started",Toast.LENGTH_SHORT).show();
             ClipData data = ClipData.newPlainText("", "");
             View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
             view.startDrag(data, shadowBuilder, view, 0);
@@ -173,7 +171,7 @@ public class AdapterEditBoard extends DragSortAdapter<AdapterEditBoard.ViewHolde
             });
 
 */
-            final RelativeLayout layout=parent.findViewById(R.id.recycler_view_container);
+            /*final RelativeLayout layout=parent.findViewById(R.id.recycler_view_container);
             layout.setOnDragListener(new View.OnDragListener() {
                 @Override
                 public boolean onDrag(View v, DragEvent event) {
@@ -218,7 +216,7 @@ public class AdapterEditBoard extends DragSortAdapter<AdapterEditBoard.ViewHolde
                     }
                     return true;
                 }
-            });
+            });*/
 
 
 

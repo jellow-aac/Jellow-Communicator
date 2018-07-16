@@ -52,7 +52,8 @@ public class ExpressiveIconManager implements View.OnClickListener{
             buttonFlags.add(index,0);
         else buttonFlags.add(index,1);
         resetOther(index);
-        expIconList.get(index).setBackground(unPressed.getDrawable(index));
+        expIconList.get(index).setImageDrawable(pressed.getDrawable(index));
+        setSelection(index);
     }
 
     private void setSelection(int index) {
@@ -64,8 +65,7 @@ public class ExpressiveIconManager implements View.OnClickListener{
             }
             else {
                 expIconList.get(i).setImageDrawable(unPressed.getDrawable(i));
-
-               buttonFlags.add(i,-1);
+                buttonFlags.add(i,0);
             }
             Log.d("ButtonFlag","IndexAfter "+buttonFlags.get(i));
         }
@@ -74,9 +74,9 @@ public class ExpressiveIconManager implements View.OnClickListener{
     }
     public void resetOther(int index)
     {
+        Log.d("ExpIcon","indexx "+index);
         for(int i=0;i<expIconList.size();i++) {
             if(index!=i) {
-                expIconList.get(i).setBackground(unPressed.getDrawable(i));
                 buttonFlags.add(i,0);
             }
         }

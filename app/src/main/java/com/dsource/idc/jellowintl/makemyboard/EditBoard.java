@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.dsource.idc.jellowintl.DataBaseHelper;
 import com.dsource.idc.jellowintl.R;
@@ -39,7 +38,7 @@ public class EditBoard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_board);
+        setContentView(R.layout.edit_board_layout);
         database=new BoardDatabase(this);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_background));
         try{
@@ -54,7 +53,8 @@ public class EditBoard extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back
         );
-        getSupportActionBar().setTitle("Drag and re-position icons");
+        getSupportActionBar().setTitle("Drag and drop your icons" +
+                "");
         modelManager =new ModelManager(this,currentBoard.getBoardIconModel());
         displayList= modelManager.getLevelOneFromModel();
         initFields();
@@ -99,12 +99,9 @@ public class EditBoard extends AppCompatActivity {
         adapterRight.setOnItemDeleteListener(new AdapterEditBoard.OnItemDeleteListener() {
             @Override
             public void onItemDelete(View view, final int position) {
-                        Log.d("Delete Mode","Callback");
                         modelManager.deleteIconFromModel(Level,LevelOneParent,LevelTwoParent,position,currentBoard);
                         displayList.remove(position);
                         updateList(AdapterEditBoard.DELETE_MODE);
-
-
             }
         });
 
@@ -150,7 +147,7 @@ public class EditBoard extends AppCompatActivity {
     }
 
     private void initFields(){
-        mRecyclerView=findViewById(R.id.icon_recycler);
+        mRecyclerView=findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this,currentBoard.getGridSize()));
 
         (findViewById(R.id.save_button)).setOnClickListener(new View.OnClickListener() {
@@ -196,7 +193,7 @@ public class EditBoard extends AppCompatActivity {
                 Level++;
                 updateList(AdapterEditBoard.NORMAL_MODE);
             }
-            else Toast.makeText(EditBoard.this,"No sub category",Toast.LENGTH_SHORT).show();
+            //else Toast.makeText(EditBoard.this,"No sub category",Toast.LENGTH_SHORT).show();
         }
         else if(Level==1){
 
@@ -207,13 +204,13 @@ public class EditBoard extends AppCompatActivity {
                     Level++;
                     updateList(AdapterEditBoard.NORMAL_MODE);
                     LevelTwoParent=position;
-                } else Toast.makeText(EditBoard.this, "No sub category", Toast.LENGTH_SHORT).show();
+                } //else Toast.makeText(EditBoard.this, "No sub category", Toast.LENGTH_SHORT).show();
 
             } else Log.d("LevelOneParentNotSet","Icon"+LevelOneParent+" "+position);
         }
         else if(Level==2)
         {
-            Toast.makeText(EditBoard.this,"No sub category",Toast.LENGTH_SHORT).show();
+           // Toast.makeText(EditBoard.this,"No sub category",Toast.LENGTH_SHORT).show();
         }
 
     }

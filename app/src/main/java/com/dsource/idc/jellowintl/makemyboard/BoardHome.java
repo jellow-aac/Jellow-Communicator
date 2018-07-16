@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +12,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.dsource.idc.jellowintl.DataBaseHelper;
 import com.dsource.idc.jellowintl.Nomenclature;
@@ -79,6 +79,7 @@ public class BoardHome extends AppCompatActivity {
         expIconManager.setClickListener(new ExpressiveIconManager.expIconClickListener() {
             @Override
             public void expressiveIconClicked(int expIconPos, int time) {
+                Log.d("ExpIcons","Callback");
                 speakVerbiage(expIconPos,time);
             }
         });
@@ -137,15 +138,13 @@ public class BoardHome extends AppCompatActivity {
         mRecycler.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
             @Override
             public void onChildViewAttachedToWindow(View view) {
-                if(view==selectedView)
-                    highlightSelection(-1);
-                else highlightSelection(-2);
+
 
             }
 
             @Override
             public void onChildViewDetachedFromWindow(View view) {
-                highlightSelection(-2);
+
             }
         });
         mRecycler.setAdapter(adapter);
@@ -153,7 +152,7 @@ public class BoardHome extends AppCompatActivity {
     }
 
     private void highlightSelection(int colorCode) {
-        GradientDrawable gd = (GradientDrawable) selectedView.findViewById(R.id.borderView).getBackground();
+       /* GradientDrawable gd = (GradientDrawable) selectedView.findViewById(R.id.borderView).getBackground();
 
                 switch (colorCode) {
                     case -2:gd.setColor(ContextCompat.getColor(this,R.color.transparent)); break;
@@ -166,7 +165,7 @@ public class BoardHome extends AppCompatActivity {
                     case 5: gd.setColor(ContextCompat.getColor(this,R.color.colorLess)); break;
                 }
 
-
+*/
     }
 
 
@@ -174,7 +173,7 @@ public class BoardHome extends AppCompatActivity {
         selectedIconVerbiage=verbiageDatabase.getVerbiageById(Nomenclature.getIconName(jellowIcon,mContext));
         if(selectedIconVerbiage!=null)
         speakSpeech(selectedIconVerbiage.Speech_Label);
-        else Log.d("VirbiageNotFound","True "+jellowIcon);
+        else Log.d("VerbiageNotFound","True "+jellowIcon);
         resetButtons();
     }
 
@@ -206,6 +205,7 @@ public class BoardHome extends AppCompatActivity {
             }
         });
         keyboardButton=findViewById(R.id.keyboard);
+        keyboardButton.setAlpha(.5f);
         speakButton =findViewById(R.id.ttsbutton);
         edittext=findViewById(R.id.et);
         edittext.setVisibility(View.GONE);
@@ -223,7 +223,7 @@ public class BoardHome extends AppCompatActivity {
                 Level++;
                 updateList();
             }
-            else Toast.makeText(BoardHome.this,"No sub category",Toast.LENGTH_SHORT).show();
+            //else Toast.makeText(BoardHome.this,"No sub category",Toast.LENGTH_SHORT).show();
         }
         else if(Level==1){
 
@@ -234,13 +234,13 @@ public class BoardHome extends AppCompatActivity {
                     Level++;
                     updateList();
                     LevelTwoParent=position;
-                } else Toast.makeText(BoardHome.this, "No sub category", Toast.LENGTH_SHORT).show();
+                } //else Toast.makeText(BoardHome.this, "No sub category", Toast.LENGTH_SHORT).show();
 
             } else Log.d("LevelOneParentNotSet","Icon"+LevelOneParent+" "+position);
         }
         else if(Level==2)
         {
-            Toast.makeText(BoardHome.this,"No sub category",Toast.LENGTH_SHORT).show();
+           // Toast.makeText(BoardHome.this,"No sub category",Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -292,11 +292,10 @@ public class BoardHome extends AppCompatActivity {
      * */
 
     private void speakSpeech(String speechText){
+        Log.d("SpeakSpeech","Speech Called");
         Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_TEXT");
         intent.putExtra("speechText", speechText.toLowerCase());
         mContext.sendBroadcast(intent);
     }
-
-
 
 }

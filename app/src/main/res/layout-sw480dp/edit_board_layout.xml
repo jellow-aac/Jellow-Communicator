@@ -20,6 +20,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:alpha=".5"
                 android:orientation="vertical">
                 <ImageView
                     android:id="@+id/ivlike"
@@ -44,6 +45,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:alpha=".5"
                 android:orientation="vertical">
                 <ImageView
                     android:id="@+id/ivdislike"
@@ -88,6 +90,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/keyboard"
+            android:alpha=".5"
             android:layout_toRightOf="@+id/ivhome"/>
         <ImageView
             android:id="@+id/ivback"

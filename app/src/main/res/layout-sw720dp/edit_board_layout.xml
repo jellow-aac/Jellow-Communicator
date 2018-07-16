@@ -19,6 +19,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
+                android:alpha=".5"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:orientation="vertical">
                 <ImageView
@@ -45,6 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
+                android:alpha=".5"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:orientation="vertical">
                 <ImageView
@@ -92,6 +94,7 @@
             android:layout_width="170dp"
             android:layout_height="170dp"
             android:src="@drawable/keyboard"
+            android:alpha=".5"
             android:layout_toRightOf="@+id/ivhome"/>
         <ImageView
             android:id="@+id/ivback"
@@ -99,27 +102,20 @@
             android:layout_height="170dp"
             android:src="@drawable/back"
             android:layout_toLeftOf="@+id/ivhome"/>
-    </RelativeLayout>
-    <LinearLayout
-        android:layout_width="728dp"
-        android:layout_height="match_parent"
-        android:layout_centerHorizontal="true"
-        android:orientation="vertical"
-        android:layout_marginTop="?attr/actionBarSize">
-        <EditText
-            android:id="@+id/et"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:textSize="20sp"/>
-        <ImageView
-            android:id="@+id/ttsbutton"
+
+        <Button
+            android:id="@+id/save_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleX=".6"
-            android:scaleY=".6"
-            android:src="@drawable/speaker_button"
-            android:layout_gravity="center_horizontal"/>
-    </LinearLayout>
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="24dp"
+            android:background="@drawable/edit_board_dialog_edit_text"
+            android:padding="4dp"
+            android:text="Save"
+            android:textColor="@color/colorIntroSelected" />
+    </RelativeLayout>
+
     <ImageView
         android:layout_width="168dp"
         android:layout_height="112dp"

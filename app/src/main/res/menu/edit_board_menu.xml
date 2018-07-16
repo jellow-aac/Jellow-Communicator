@@ -4,14 +4,6 @@
     <group android:id="@+id/menuGroupInfo">
 
         <item
-            android:id="@+id/search"
-            android:title="Option"
-            android:icon="@drawable/ic_search_large"
-            android:checked="true"
-            app:showAsAction="always"
-            android:orderInCategory="1"
-            />
-        <item
             android:id="@+id/grid_size"
             android:title="Grid size"
             android:icon="@drawable/ic_grid_size"
