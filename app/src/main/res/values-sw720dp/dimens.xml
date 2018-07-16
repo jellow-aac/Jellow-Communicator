@@ -35,7 +35,6 @@
     <dimen name="exp_icon_bottom_margin">36dp</dimen>
     <dimen name="nav_bar_icons_width">90dp</dimen>
     <dimen name="nav_bar_icon_height">80dp</dimen>
-
     <dimen name="icon_select_grid_size">90dp</dimen>
     <dimen name="icon_select_icon_size">60dp</dimen>
     <dimen name="my_board_button_width">70dp</dimen>

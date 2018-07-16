@@ -3,6 +3,20 @@ package com.dsource.idc.jellowintl.verbiage_model;
 import android.support.annotation.Keep;
 
 public class JellowVerbiageModel {
+    /**
+     * L: Like
+     * LL: Really Like
+     * Y: Yes
+     * YY: Really Yes
+     * M: More
+     * MM: Really More
+     * D: Don't Like
+     * DD: Really Don't Like
+     * N: No
+     * NN: Really No
+     * S: Less
+     * SS: Really Less
+     */
     @Keep
     public String Display_Label,Speech_Label,L,LL,Y,YY,M,MM,D,DD,N,NN,S,SS;
 

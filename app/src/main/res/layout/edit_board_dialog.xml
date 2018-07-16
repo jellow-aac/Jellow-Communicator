@@ -20,7 +20,7 @@
         android:layout_width="@dimen/board_edit_icon_size"
         android:padding="16dp"
         android:layout_height="@dimen/board_edit_icon_size"
-        android:src="@drawable/ic_person"
+        android:src="@drawable/ic_board_person"
         android:id="@+id/board_icon"
         android:background="@drawable/board_list_back"
         />
@@ -36,7 +36,7 @@
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/edit_board"
-            android:layout_marginTop="-6dp"
+            android:layout_marginTop="-12dp"
             android:layout_marginLeft="12dp"
             android:divider="@drawable/divider"
             android:id="@+id/camera_list"
@@ -48,7 +48,7 @@
         android:layout_marginLeft="@dimen/edit_baord_dialog_side_margin"
         android:padding="6dp"
         android:maxLength="20"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="16dp"
         android:layout_below="@id/icon_container"
         android:id="@+id/board_name"
         android:layout_centerHorizontal="true"
@@ -63,10 +63,10 @@
         android:ems="10"
         android:inputType="textPersonName"
          />
-    <LinearLayout
+    <RelativeLayout
         android:layout_marginBottom="@dimen/edit_baord_dialog_margin_bottom"
-        android:layout_marginTop="8dp"
-        android:layout_width="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_width="@dimen/board_edit_icon_size"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginLeft="@dimen/edit_baord_dialog_side_margin"
@@ -85,11 +85,12 @@
         android:paddingLeft="@dimen/edit_board_button_side_margin"
         android:paddingRight="@dimen/edit_board_button_side_margin"
         android:text="Save"
-        android:textSize="12sp"
+        android:textSize="15sp"
         android:textAlignment="center"
         android:background="@drawable/button_background"
-        android:textColor="@color/white"
+        android:textColor="@color/colorIntro"
         android:layout_marginRight="8dp"
+        android:layout_alignParentLeft="true"
         />
     <TextView
         android:layout_width="@dimen/edit_board_button_width"
@@ -100,12 +101,13 @@
         android:paddingBottom="@dimen/edit_board_button_margin_top"
         android:paddingLeft="@dimen/edit_board_button_side_margin"
         android:paddingRight="@dimen/edit_board_button_side_margin"
-        android:textSize="12sp"
+        android:textSize="15sp"
         android:textAlignment="center"
+        android:layout_alignParentRight="true"
         android:background="@drawable/button_background"
-        android:textColor="@color/white"
+        android:textColor="@color/colorIntro"
         />
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </RelativeLayout>

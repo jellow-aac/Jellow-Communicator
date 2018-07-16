@@ -3,6 +3,7 @@ package com.dsource.idc.jellowintl.makemyboard;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -37,6 +38,8 @@ private int size=-1;
     public ViewHolder(View v) {
         super(v);
         boardTitle =v.findViewById(R.id.board_title);
+    /*    Typeface font = Typeface.createFromAsset(mContext.getAssets(), "font/ekmukta_semibold.ttf");
+        boardTitle.setTypeface(font);*/
         boardIcon=v.findViewById(R.id.board_icon);
         deleteBoard=v.findViewById(R.id.remove_board);
         boardIcon.setOnClickListener(this);

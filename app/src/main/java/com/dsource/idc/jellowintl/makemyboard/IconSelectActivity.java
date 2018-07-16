@@ -84,6 +84,7 @@ public class IconSelectActivity extends AppCompatActivity {
                 final Board board=database.getBoardById(boardId);
                 CustomDialog dialog=new CustomDialog(IconSelectActivity.this,CustomDialog.GRID_SIZE);
                 dialog.show();
+                dialog.setCancelable(true);
                 dialog.setGridSelectListener(new CustomDialog.GridSelectListener() {
                     @Override
                     public void onGridSelectListener(int size) {

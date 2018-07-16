@@ -5,6 +5,9 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@color/colorIntro"
+    android:layout_marginTop="16dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ImageView
@@ -21,13 +24,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxWidth="@dimen/my_board_eight_grid_icon_size"
+        android:layout_marginTop="14dp"
         android:layout_below="@+id/board_icon"
         android:layout_centerHorizontal="true"
-        android:text="Board Name"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/my_board_text_size"
-        android:textStyle="bold" />
+        />
 
     <ImageView
         android:layout_width="@dimen/my_board_edit_icon_size"

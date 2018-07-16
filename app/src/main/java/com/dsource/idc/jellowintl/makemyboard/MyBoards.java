@@ -14,10 +14,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -34,6 +36,7 @@ import com.dsource.idc.jellowintl.DataBaseHelper;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.CustomDialog;
+import com.liulishuo.filedownloader.ITaskHunter;
 import com.rey.material.app.Dialog;
 
 import java.io.ByteArrayOutputStream;
@@ -57,6 +60,7 @@ public class MyBoards extends AppCompatActivity {
     private final int EDIT_BOARD=22;
     HashMap<String,Board> boardHashMap;
     PhotoIntentResult mPhotoIntentResult;
+    Menu menu;
     SQLiteDatabase db;
     public static final String BOARD_ID="Board_Id";
     Context ctx;
@@ -69,10 +73,12 @@ public class MyBoards extends AppCompatActivity {
         boardHashMap =new HashMap<>();
         ctx=MyBoards.this;
         database=new BoardDatabase(this);
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#333333'>"+"My Boards"+"</font>"));
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_button_board);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_background));
         db=new DataBaseHelper(this).getWritableDatabase();
-        initFields();
+        initFields(3);
         prepareBoardList(NORMAL_MODE);
 
 
@@ -84,12 +90,13 @@ public class MyBoards extends AppCompatActivity {
 
     /**
      * A function to instantiate all the fields
+     * @param i
      */
-    private void initFields() {
+    private void initFields(int i) {
         boardList=new ArrayList<>();
         mRecyclerView=findViewById(R.id.board_recycer_view);
         adapter=new BoardAdapter(this,boardList,NORMAL_MODE);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(this,3));
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this,i));
         mRecyclerView.setAdapter(adapter);
     }
 
@@ -100,6 +107,25 @@ public class MyBoards extends AppCompatActivity {
     private void prepareBoardList(int mode) {
         boardList.clear();
         boardList=loadBoardsFromDataBase();
+        if(boardList.size()<1)
+        {
+        /*    MenuItem item=menu.findItem(R.id.delete_boards);
+            item.setVisible(false);
+            this.invalidateOptionsMenu();*/
+            mRecyclerView.setLayoutManager(new GridLayoutManager(this,1));
+            adapter=new BoardAdapter(this,boardList,NORMAL_MODE);
+            mRecyclerView.setLayoutManager(new GridLayoutManager(this,1));
+            mRecyclerView.setAdapter(adapter);
+        }
+        else {
+          /*  mRecyclerView.setLayoutManager(new GridLayoutManager(this,3));
+            MenuItem item=menu.findItem(R.id.delete_boards);
+            item.setVisible(true);*/
+            this.invalidateOptionsMenu();
+            adapter=new BoardAdapter(this,boardList,NORMAL_MODE);
+            mRecyclerView.setLayoutManager(new GridLayoutManager(this,3));
+            mRecyclerView.setAdapter(adapter);
+        }
         Log.d("BoardCount","Total Number of boards in database: "+database.count());
         Log.d("BoardCount","Total Number of boards: "+boardList.size());
         if(mode==NORMAL_MODE) {
@@ -118,11 +144,17 @@ public class MyBoards extends AppCompatActivity {
                                 Intent intent = new Intent(ctx, IconSelectActivity.class);
                                 intent.putExtra(BOARD_ID, boardList.get(Position).getBoardID());
                                 startActivity(intent);
-                            } else {
-                                //TODO when the board is already created completely
+                            } else if(!database.getBoardById(boardList.get(Position).boardID).getBoardCompleteStatus()){
+                                Intent intent = new Intent(ctx, BoardHome.class);
+                                intent.putExtra(BOARD_ID, boardList.get(Position).getBoardID());
+                                startActivity(intent);
+                            }
+                            else
+                            {
                                 Intent intent = new Intent(ctx, EditBoard.class);
                                 intent.putExtra(BOARD_ID, boardList.get(Position).getBoardID());
                                 startActivity(intent);
+
                             }
                         }
 
@@ -138,7 +170,7 @@ public class MyBoards extends AppCompatActivity {
                 public void onItemClick(View view, final int Position, int code) {
                     if(code==DELETE_MODE) {
                         CustomDialog customDialog=new CustomDialog(ctx);
-                        customDialog.setText("Are you sure that you want to delete "+boardList.get(Position).boardTitle+" ?");
+                        customDialog.setText("Are you sure that you yes to delete "+boardList.get(Position).boardTitle+" ?");
                         customDialog.show();
 
                         customDialog.setOnNegativeClickListener(new CustomDialog.onNegativeClickListener() {
@@ -252,7 +284,7 @@ public class MyBoards extends AppCompatActivity {
         saveBoard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MyBoards.this,"Save board",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MyBoards.this,"Save board",Toast.LENGTH_SHORT).show();
                 String name=boardTitleEditText.getText().toString();
                 Bitmap boardIcon=((BitmapDrawable)BoardIcon.getDrawable()).getBitmap();
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -350,6 +382,7 @@ public class MyBoards extends AppCompatActivity {
 
         getMenuInflater().inflate(R.menu.boards_activity_menu, menu);
         super.onCreateOptionsMenu(menu);
+        this.menu=menu;
         return true;
     }
 
@@ -358,10 +391,7 @@ public class MyBoards extends AppCompatActivity {
             case R.id.delete_boards:
                 activateDeleteMode();
                 break;
-            case R.id.option:
-                Toast.makeText(ctx,"Options",Toast.LENGTH_SHORT).show();
-                //database.dropTable(new DataBaseHelper(this).getWritableDatabase());
-                break;
+            case android.R.id.home: finish(); break;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -389,6 +419,14 @@ public class MyBoards extends AppCompatActivity {
     private interface PhotoIntentResult
     {
         void onPhotoIntentResult(Bitmap bitmap,int code);
+
+    }
+
+    //TODO add codes to add photo directly
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
 
     }
 

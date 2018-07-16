@@ -10,6 +10,7 @@
         <item name="android:spinnerItemStyle">@style/spinnerItemStyle</item>
         <item name="android:spinnerDropDownItemStyle">@style/spinnerDropDownItemStyle</item>
         <item name="android:windowContentOverlay">@null</item>
+        <item name="android:fontFamily">@fonts/Mukta-Regular</item>
     </style>
 
 

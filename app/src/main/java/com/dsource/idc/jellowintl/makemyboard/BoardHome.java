@@ -2,8 +2,10 @@ package com.dsource.idc.jellowintl.makemyboard;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,10 +30,11 @@ import java.util.ArrayList;
 
 import static com.dsource.idc.jellowintl.makemyboard.MyBoards.BOARD_ID;
 
-public class BoardHome extends AppCompatActivity {
+public class BoardHome extends AppCompatActivity  implements View.OnClickListener{
 
     RecyclerView mRecycler;
-    ImageView like,want,more,dontLike,dontWant,less,home,back,keyboardButton, speakButton;
+    ImageView like, yes,more,dontLike,dontWant,less,home,back,keyboardButton, speakButton;
+    ClickHolder likeHolder, yesHolder,moreHolder,dontLikeHolder,dontWantHolder,lessHolder,homeHolder,backHolder,keyboardButtonHolder, speakButtonHolder;
     EditText edittext;
     ModelManager modelManager;
     ArrayList<JellowIcon> displayList;
@@ -45,6 +48,8 @@ public class BoardHome extends AppCompatActivity {
     private Context mContext;
     private JellowVerbiageModel selectedIconVerbiage;
     private VerbiageDatabaseHelper verbiageDatabase;
+    private View selectedIconBackground;
+    private ArrayList<View> mRecyclerItemsViewList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,7 +59,7 @@ public class BoardHome extends AppCompatActivity {
         verbiageDatabase=new VerbiageDatabaseHelper(this,new DataBaseHelper(this).getWritableDatabase());
 
         database=new BoardDatabase(this);
-        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_background));
+        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
         try{
             boardId =getIntent().getExtras().getString(BOARD_ID);
         }
@@ -75,19 +80,19 @@ public class BoardHome extends AppCompatActivity {
 
     private void updateList() {
         adapter=new HomeAdapter(displayList,this);
-        adapter.setOnItemClickListner(new HomeAdapter.onDoubleTapListener() {
+        adapter.setOnDoubleTapListner(new HomeAdapter.onDoubleTapListener() {
             @Override
             public void onItemDoubleTap(View view, int position) {
-                GradientDrawable shape = new GradientDrawable();
-                shape.setShape(GradientDrawable.RING);
-                shape.setStroke(2, mContext.getResources().getColor(R.color.colorAccent));
-                view.setForeground(shape);
                 notifyItemClicked(position);
+                resetButtons();
             }
         });
         adapter.setOnItemSelectListner(new HomeAdapter.OnItemSelectListener() {
             @Override
             public void onItemSelected(View view, int position) {
+
+                selectedIconBackground=view;
+                setSelectedIconBackground(-1);
                 prepareSpeech(displayList.get(position));
             }
         });
@@ -105,33 +110,89 @@ public class BoardHome extends AppCompatActivity {
     }
 
     private void resetButtons() {
-
+        likeHolder.reset();
+        yesHolder.reset();
+        moreHolder.reset();
+        dontWantHolder.reset();
+        dontLikeHolder.reset();
+        lessHolder.reset();
     }
 
     private void initViews(){
+
+
         mRecycler=findViewById(R.id.recycler_view);
+        mRecyclerItemsViewList=new ArrayList<>();
         mRecycler.setLayoutManager(new GridLayoutManager(this,currentBoard.getGridSize()));
         like=findViewById(R.id.ivlike);
-        want=findViewById(R.id.ivyes);
+        like.setOnClickListener(this);
+        yes =findViewById(R.id.ivyes);
+        yes.setOnClickListener(this);
         more=findViewById(R.id.ivadd);
+        more.setOnClickListener(this);
         dontLike=findViewById(R.id.ivdislike);
+        dontLike.setOnClickListener(this);
         dontWant=findViewById(R.id.ivno);
+        dontWant.setOnClickListener(this);
         less=findViewById(R.id.ivminus);
+        less.setOnClickListener(this);
+
         home=findViewById(R.id.ivhome);
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Level!=0) {
+                    LevelOneParent = -1;
+                    LevelTwoParent = -1;
+                    displayList = modelManager.getLevelOneFromModel();
+                    Level = 0;
+                    updateList();
+                }
+            }
+        });
         back=findViewById(R.id.ivback);
+        back.setOnClickListener(this);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
+
         keyboardButton=findViewById(R.id.keyboard);
+        keyboardButton.setOnClickListener(this);
         speakButton =findViewById(R.id.ttsbutton);
+        speakButton.setOnClickListener(this);
         edittext=findViewById(R.id.et);
         edittext.setVisibility(View.GONE);
         speakButton.setVisibility(View.GONE);
 
+        likeHolder=new ClickHolder(like,getResources().getDrawable(R.drawable.like_pressed),getResources().getDrawable(R.drawable.like));
+        yesHolder =new ClickHolder(yes,getResources().getDrawable(R.drawable.yes_pressed),getResources().getDrawable(R.drawable.yes));
+        moreHolder=new ClickHolder(more,getResources().getDrawable(R.drawable.more_pressed),getResources().getDrawable(R.drawable.more));
+        dontLikeHolder=new ClickHolder(dontLike,getResources().getDrawable(R.drawable.dontlike_pressed),getResources().getDrawable(R.drawable.dontlike));
+        dontWantHolder=new ClickHolder(dontWant,getResources().getDrawable(R.drawable.no_pressed),getResources().getDrawable(R.drawable.no));
+        lessHolder=new ClickHolder(less,getResources().getDrawable(R.drawable.less_pressed),getResources().getDrawable(R.drawable.less));
+
+        mRecycler.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
+            @Override
+            public void onChildViewAttachedToWindow(View view) {
+               /* mRecyclerItemsViewList.set(mRecycler.getChildLayoutPosition(view), view);
+                if(mRecyclerItemsViewList.contains(view) && selectedIconBackground!=null &&
+                        mRecycler.getChildAt(mRecycler.getChildLayoutPosition(view)) == selectedIconBackground)
+                    setSelectedIconBackground(-1);*/
+            }
+
+            @Override
+            public void onChildViewDetachedFromWindow(View view) {
+                /*setSelectedIconBackground(-2);
+                mRecyclerItemsViewList.set(mRecycler.getChildLayoutPosition(view), null);*/
+            }
+        });
+
+
     }
+
 
     private void notifyItemClicked(int position) {
         if(Level==0)//Level one Item clicked
@@ -188,7 +249,7 @@ public class BoardHome extends AppCompatActivity {
         else if(Level==0)
         {
             CustomDialog dialog=new CustomDialog(this);
-            dialog.setText("Are you sure you want to exit ?");
+            dialog.setText("Are you sure you yes to exit ?");
             dialog.setOnPositiveClickListener(new CustomDialog.onPositiveClickListener() {
                 @Override
                 public void onPositiveClickListener() {
@@ -200,11 +261,30 @@ public class BoardHome extends AppCompatActivity {
 
     }
 
+    private void setSelectedIconBackground(int i)
+    {
+        /*//When view is found remove the scrollListener and highlight the background
+        GradientDrawable gd = (GradientDrawable) selectedIconBackground.findViewById(R.id.borderView).getBackground();
+        switch (i)
+        {
+
+            case -1:gd.setColor(ContextCompat.getColor(this,R.color.colorSelect)); break;
+            case 0: gd.setColor(ContextCompat.getColor(this,R.color.colorLike)); break;
+            case 1: gd.setColor(ContextCompat.getColor(this,R.color.colorDontLike)); break;
+            case 2: gd.setColor(ContextCompat.getColor(this,R.color.colorYes)); break;
+            case 3: gd.setColor(ContextCompat.getColor(this,R.color.colorNo)); break;
+            case 4: gd.setColor(ContextCompat.getColor(this,R.color.colorMore)); break;
+            case 5: gd.setColor(ContextCompat.getColor(this,R.color.colorLess)); break;
+
+        }*/
+    }
+
 
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext((LanguageHelper.onAttach(newBase)));
     }
+
     /**
      * <p>This function will send speech output request to
      * {@link com.dsource.idc.jellowintl.utility.JellowTTSService} Text-to-speech Engine.
@@ -217,27 +297,108 @@ public class BoardHome extends AppCompatActivity {
         mContext.sendBroadcast(intent);
     }
 
+    @Override
+    public void onClick(View v) {
+        //resetButtons();
+        if(v==like){
+            if(selectedIconVerbiage!=null) {
+                if(likeHolder.clickedTime==0)
+                    speakSpeech(selectedIconVerbiage.L);
+                else speakSpeech(selectedIconVerbiage.LL);
+            } else {
+
+            }
+
+            likeHolder.Clicked();
+        }
+        else if(v== yes){
+            if(selectedIconVerbiage!=null) {
+                if(yesHolder.clickedTime==0)
+                    speakSpeech(selectedIconVerbiage.Y);
+                else speakSpeech(selectedIconVerbiage.YY);
+            } else {
+
+            }
+            yesHolder.Clicked();
+        }
+        else if(v==more){
+            if(selectedIconVerbiage!=null) {
+                if(moreHolder.clickedTime==0)
+                    speakSpeech(selectedIconVerbiage.M);
+                else speakSpeech(selectedIconVerbiage.MM);
+            } else {
+
+            }
+            moreHolder.Clicked();
+
+        }
+        else if(v==dontLike){
+            if(selectedIconVerbiage!=null) {
+                if(dontLikeHolder.clickedTime==0)
+                    speakSpeech(selectedIconVerbiage.D);
+                else speakSpeech(selectedIconVerbiage.DD);
+            } else {
+
+            }
+
+            dontLikeHolder.Clicked();
+        }
+        else if(v==dontWant){
+            if(selectedIconVerbiage!=null) {
+                if(dontWantHolder.clickedTime==0)
+                    speakSpeech(selectedIconVerbiage.N);
+                else speakSpeech(selectedIconVerbiage.NN);
+            } else {
+
+            }
+            dontWantHolder.Clicked();
+        }
+        else if(v==less){
+            if(selectedIconVerbiage!=null) {
+                if(lessHolder.clickedTime==0)
+                    speakSpeech(selectedIconVerbiage.S);
+                else speakSpeech(selectedIconVerbiage.SS);
+            } else {
+
+            }
+            lessHolder.Clicked();
+        }
+    }
+
     private class ClickHolder
     {
-        View button;
-        int clickedTime=0;
 
-        public ClickHolder(View button) {
+        ImageView button;
+        int clickedTime=0;
+        Drawable selectedBackground,notSelectedBackground;
+
+        public ClickHolder(ImageView button,Drawable selected,Drawable notSelected) {
             this.button = button;
+            this.selectedBackground=selected;
+            this.notSelectedBackground=notSelected;
         }
 
         public void Clicked()
         {
-            if(clickedTime==2)
+            setSelectionBackGround(true);
+            if(clickedTime==1)
             clickedTime=0;
             else clickedTime++;
         }
 
-        public void reset()
+        private void setSelectionBackGround(boolean selected)
         {
-            clickedTime=0;
+            if(selected)
+                button.setImageDrawable(selectedBackground);
+            else button.setImageDrawable(notSelectedBackground);
+
         }
 
+        public void reset()
+        {
+            setSelectionBackGround(false);
+            clickedTime=0;
+        }
     }
 
 }
