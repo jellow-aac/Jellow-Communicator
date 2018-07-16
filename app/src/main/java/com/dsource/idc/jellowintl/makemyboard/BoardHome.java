@@ -2,10 +2,8 @@ package com.dsource.idc.jellowintl.makemyboard;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,21 +18,22 @@ import com.dsource.idc.jellowintl.Nomenclature;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.CustomDialog;
+import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.ExpressiveIconManager;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.ModelManager;
 import com.dsource.idc.jellowintl.utility.JellowIcon;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.verbiage_model.JellowVerbiageModel;
+import com.dsource.idc.jellowintl.verbiage_model.MiscellaneousIcons;
 import com.dsource.idc.jellowintl.verbiage_model.VerbiageDatabaseHelper;
 
 import java.util.ArrayList;
 
 import static com.dsource.idc.jellowintl.makemyboard.MyBoards.BOARD_ID;
 
-public class BoardHome extends AppCompatActivity  implements View.OnClickListener{
+public class BoardHome extends AppCompatActivity {
 
     RecyclerView mRecycler;
-    ImageView like, yes,more,dontLike,dontWant,less,home,back,keyboardButton, speakButton;
-    ClickHolder likeHolder, yesHolder,moreHolder,dontLikeHolder,dontWantHolder,lessHolder,homeHolder,backHolder,keyboardButtonHolder, speakButtonHolder;
+    ImageView home,back,keyboardButton, speakButton;
     EditText edittext;
     ModelManager modelManager;
     ArrayList<JellowIcon> displayList;
@@ -48,8 +47,10 @@ public class BoardHome extends AppCompatActivity  implements View.OnClickListene
     private Context mContext;
     private JellowVerbiageModel selectedIconVerbiage;
     private VerbiageDatabaseHelper verbiageDatabase;
-    private View selectedIconBackground;
-    private ArrayList<View> mRecyclerItemsViewList;
+    private ExpressiveIconManager expIconManager;
+    private ArrayList<MiscellaneousIcons> expIconVerbiage;
+    private int expIconPosition;
+    private View selectedView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,8 +75,44 @@ public class BoardHome extends AppCompatActivity  implements View.OnClickListene
         displayList= modelManager.getLevelOneFromModel();
         initViews();
         updateList();
+        expIconManager=new ExpressiveIconManager(this,findViewById(R.id.parent));
+        expIconManager.setClickListener(new ExpressiveIconManager.expIconClickListener() {
+            @Override
+            public void expressiveIconClicked(int expIconPos, int time) {
+                speakVerbiage(expIconPos,time);
+            }
+        });
+        loadExpressiveIconVerbiage();
+    }
 
+    private void loadExpressiveIconVerbiage() {
+        expIconVerbiage=new ArrayList<>();
+        for(int i=0;i<6;i++) {
+            expIconVerbiage.add(verbiageDatabase.getMiscellaneousIconsById(Nomenclature.getNameForExpressiveIcons(this, i)));
+            Log.d("ExpIcons","ID: "+expIconVerbiage.get(i).Title +" L: "+expIconVerbiage.get(i).L+" LL: "+expIconVerbiage.get(i).LL);
+        }
+    }
 
+    private void speakVerbiage(int expIconPos, int time) {
+        String verbiage="";
+        expIconPosition=expIconPos;
+        if(selectedIconVerbiage!=null)
+        switch (expIconPos)
+        {
+            case 0:if(time==0)verbiage=selectedIconVerbiage.L;else verbiage=selectedIconVerbiage.LL;break;
+            case 1:if(time==0)verbiage=selectedIconVerbiage.Y;else verbiage=selectedIconVerbiage.YY;break;
+            case 2:if(time==0)verbiage=selectedIconVerbiage.M;else verbiage=selectedIconVerbiage.MM;break;
+            case 3:if(time==0)verbiage=selectedIconVerbiage.D;else verbiage=selectedIconVerbiage.DD;break;
+            case 4:if(time==0)verbiage=selectedIconVerbiage.N;else verbiage=selectedIconVerbiage.NN;break;
+            case 5:if(time==0)verbiage=selectedIconVerbiage.S;else verbiage=selectedIconVerbiage.SS;break;
+
+        }
+        else
+        {
+            if(time==0)verbiage=expIconVerbiage.get(expIconPos).L;else verbiage=expIconVerbiage.get(expIconPos).LL;
+        }
+        if(!verbiage.equals("NA"))
+        speakSpeech(verbiage);
     }
 
     private void updateList() {
@@ -83,21 +120,53 @@ public class BoardHome extends AppCompatActivity  implements View.OnClickListene
         adapter.setOnDoubleTapListner(new HomeAdapter.onDoubleTapListener() {
             @Override
             public void onItemDoubleTap(View view, int position) {
+                selectedIconVerbiage=null;
                 notifyItemClicked(position);
-                resetButtons();
             }
         });
         adapter.setOnItemSelectListner(new HomeAdapter.OnItemSelectListener() {
             @Override
             public void onItemSelected(View view, int position) {
-
-                selectedIconBackground=view;
-                setSelectedIconBackground(-1);
+                selectedView=view;
+                highlightSelection(-1);
                 prepareSpeech(displayList.get(position));
+                resetButtons();
+            }
+        });
+
+        mRecycler.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
+            @Override
+            public void onChildViewAttachedToWindow(View view) {
+                if(view==selectedView)
+                    highlightSelection(-1);
+                else highlightSelection(-2);
+
+            }
+
+            @Override
+            public void onChildViewDetachedFromWindow(View view) {
+                highlightSelection(-2);
             }
         });
         mRecycler.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+    }
+
+    private void highlightSelection(int colorCode) {
+        GradientDrawable gd = (GradientDrawable) selectedView.findViewById(R.id.borderView).getBackground();
+
+                switch (colorCode) {
+                    case -2:gd.setColor(ContextCompat.getColor(this,R.color.transparent)); break;
+                    case -1:gd.setColor(ContextCompat.getColor(this,R.color.colorSelect)); break;
+                    case 0: gd.setColor(ContextCompat.getColor(this,R.color.colorLike)); break;
+                    case 1: gd.setColor(ContextCompat.getColor(this,R.color.colorDontLike)); break;
+                    case 2: gd.setColor(ContextCompat.getColor(this,R.color.colorYes)); break;
+                    case 3: gd.setColor(ContextCompat.getColor(this,R.color.colorNo)); break;
+                    case 4: gd.setColor(ContextCompat.getColor(this,R.color.colorMore)); break;
+                    case 5: gd.setColor(ContextCompat.getColor(this,R.color.colorLess)); break;
+                }
+
+
     }
 
 
@@ -110,33 +179,12 @@ public class BoardHome extends AppCompatActivity  implements View.OnClickListene
     }
 
     private void resetButtons() {
-        likeHolder.reset();
-        yesHolder.reset();
-        moreHolder.reset();
-        dontWantHolder.reset();
-        dontLikeHolder.reset();
-        lessHolder.reset();
+        expIconManager.resetSelection();
     }
 
     private void initViews(){
-
-
         mRecycler=findViewById(R.id.recycler_view);
-        mRecyclerItemsViewList=new ArrayList<>();
         mRecycler.setLayoutManager(new GridLayoutManager(this,currentBoard.getGridSize()));
-        like=findViewById(R.id.ivlike);
-        like.setOnClickListener(this);
-        yes =findViewById(R.id.ivyes);
-        yes.setOnClickListener(this);
-        more=findViewById(R.id.ivadd);
-        more.setOnClickListener(this);
-        dontLike=findViewById(R.id.ivdislike);
-        dontLike.setOnClickListener(this);
-        dontWant=findViewById(R.id.ivno);
-        dontWant.setOnClickListener(this);
-        less=findViewById(R.id.ivminus);
-        less.setOnClickListener(this);
-
         home=findViewById(R.id.ivhome);
         home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,48 +199,19 @@ public class BoardHome extends AppCompatActivity  implements View.OnClickListene
             }
         });
         back=findViewById(R.id.ivback);
-        back.setOnClickListener(this);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
-
         keyboardButton=findViewById(R.id.keyboard);
-        keyboardButton.setOnClickListener(this);
         speakButton =findViewById(R.id.ttsbutton);
-        speakButton.setOnClickListener(this);
         edittext=findViewById(R.id.et);
         edittext.setVisibility(View.GONE);
         speakButton.setVisibility(View.GONE);
 
-        likeHolder=new ClickHolder(like,getResources().getDrawable(R.drawable.like_pressed),getResources().getDrawable(R.drawable.like));
-        yesHolder =new ClickHolder(yes,getResources().getDrawable(R.drawable.yes_pressed),getResources().getDrawable(R.drawable.yes));
-        moreHolder=new ClickHolder(more,getResources().getDrawable(R.drawable.more_pressed),getResources().getDrawable(R.drawable.more));
-        dontLikeHolder=new ClickHolder(dontLike,getResources().getDrawable(R.drawable.dontlike_pressed),getResources().getDrawable(R.drawable.dontlike));
-        dontWantHolder=new ClickHolder(dontWant,getResources().getDrawable(R.drawable.no_pressed),getResources().getDrawable(R.drawable.no));
-        lessHolder=new ClickHolder(less,getResources().getDrawable(R.drawable.less_pressed),getResources().getDrawable(R.drawable.less));
-
-        mRecycler.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
-            @Override
-            public void onChildViewAttachedToWindow(View view) {
-               /* mRecyclerItemsViewList.set(mRecycler.getChildLayoutPosition(view), view);
-                if(mRecyclerItemsViewList.contains(view) && selectedIconBackground!=null &&
-                        mRecycler.getChildAt(mRecycler.getChildLayoutPosition(view)) == selectedIconBackground)
-                    setSelectedIconBackground(-1);*/
-            }
-
-            @Override
-            public void onChildViewDetachedFromWindow(View view) {
-                /*setSelectedIconBackground(-2);
-                mRecyclerItemsViewList.set(mRecycler.getChildLayoutPosition(view), null);*/
-            }
-        });
-
-
     }
-
 
     private void notifyItemClicked(int position) {
         if(Level==0)//Level one Item clicked
@@ -249,7 +268,7 @@ public class BoardHome extends AppCompatActivity  implements View.OnClickListene
         else if(Level==0)
         {
             CustomDialog dialog=new CustomDialog(this);
-            dialog.setText("Are you sure you yes to exit ?");
+            dialog.setText("Are you sure you want to exit ?");
             dialog.setOnPositiveClickListener(new CustomDialog.onPositiveClickListener() {
                 @Override
                 public void onPositiveClickListener() {
@@ -261,30 +280,11 @@ public class BoardHome extends AppCompatActivity  implements View.OnClickListene
 
     }
 
-    private void setSelectedIconBackground(int i)
-    {
-        /*//When view is found remove the scrollListener and highlight the background
-        GradientDrawable gd = (GradientDrawable) selectedIconBackground.findViewById(R.id.borderView).getBackground();
-        switch (i)
-        {
-
-            case -1:gd.setColor(ContextCompat.getColor(this,R.color.colorSelect)); break;
-            case 0: gd.setColor(ContextCompat.getColor(this,R.color.colorLike)); break;
-            case 1: gd.setColor(ContextCompat.getColor(this,R.color.colorDontLike)); break;
-            case 2: gd.setColor(ContextCompat.getColor(this,R.color.colorYes)); break;
-            case 3: gd.setColor(ContextCompat.getColor(this,R.color.colorNo)); break;
-            case 4: gd.setColor(ContextCompat.getColor(this,R.color.colorMore)); break;
-            case 5: gd.setColor(ContextCompat.getColor(this,R.color.colorLess)); break;
-
-        }*/
-    }
-
 
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext((LanguageHelper.onAttach(newBase)));
     }
-
     /**
      * <p>This function will send speech output request to
      * {@link com.dsource.idc.jellowintl.utility.JellowTTSService} Text-to-speech Engine.
@@ -297,108 +297,6 @@ public class BoardHome extends AppCompatActivity  implements View.OnClickListene
         mContext.sendBroadcast(intent);
     }
 
-    @Override
-    public void onClick(View v) {
-        //resetButtons();
-        if(v==like){
-            if(selectedIconVerbiage!=null) {
-                if(likeHolder.clickedTime==0)
-                    speakSpeech(selectedIconVerbiage.L);
-                else speakSpeech(selectedIconVerbiage.LL);
-            } else {
 
-            }
-
-            likeHolder.Clicked();
-        }
-        else if(v== yes){
-            if(selectedIconVerbiage!=null) {
-                if(yesHolder.clickedTime==0)
-                    speakSpeech(selectedIconVerbiage.Y);
-                else speakSpeech(selectedIconVerbiage.YY);
-            } else {
-
-            }
-            yesHolder.Clicked();
-        }
-        else if(v==more){
-            if(selectedIconVerbiage!=null) {
-                if(moreHolder.clickedTime==0)
-                    speakSpeech(selectedIconVerbiage.M);
-                else speakSpeech(selectedIconVerbiage.MM);
-            } else {
-
-            }
-            moreHolder.Clicked();
-
-        }
-        else if(v==dontLike){
-            if(selectedIconVerbiage!=null) {
-                if(dontLikeHolder.clickedTime==0)
-                    speakSpeech(selectedIconVerbiage.D);
-                else speakSpeech(selectedIconVerbiage.DD);
-            } else {
-
-            }
-
-            dontLikeHolder.Clicked();
-        }
-        else if(v==dontWant){
-            if(selectedIconVerbiage!=null) {
-                if(dontWantHolder.clickedTime==0)
-                    speakSpeech(selectedIconVerbiage.N);
-                else speakSpeech(selectedIconVerbiage.NN);
-            } else {
-
-            }
-            dontWantHolder.Clicked();
-        }
-        else if(v==less){
-            if(selectedIconVerbiage!=null) {
-                if(lessHolder.clickedTime==0)
-                    speakSpeech(selectedIconVerbiage.S);
-                else speakSpeech(selectedIconVerbiage.SS);
-            } else {
-
-            }
-            lessHolder.Clicked();
-        }
-    }
-
-    private class ClickHolder
-    {
-
-        ImageView button;
-        int clickedTime=0;
-        Drawable selectedBackground,notSelectedBackground;
-
-        public ClickHolder(ImageView button,Drawable selected,Drawable notSelected) {
-            this.button = button;
-            this.selectedBackground=selected;
-            this.notSelectedBackground=notSelected;
-        }
-
-        public void Clicked()
-        {
-            setSelectionBackGround(true);
-            if(clickedTime==1)
-            clickedTime=0;
-            else clickedTime++;
-        }
-
-        private void setSelectionBackGround(boolean selected)
-        {
-            if(selected)
-                button.setImageDrawable(selectedBackground);
-            else button.setImageDrawable(notSelectedBackground);
-
-        }
-
-        public void reset()
-        {
-            setSelectionBackGround(false);
-            clickedTime=0;
-        }
-    }
 
 }

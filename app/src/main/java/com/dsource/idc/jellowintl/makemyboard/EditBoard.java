@@ -51,7 +51,10 @@ public class EditBoard extends AppCompatActivity {
         }
         parent=findViewById(R.id.parent);
         currentBoard=database.getBoardById(boardId);
-        getSupportActionBar().setTitle(currentBoard.boardTitle+"'s Board");
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back
+        );
+        getSupportActionBar().setTitle("Drag and re-position icons");
         modelManager =new ModelManager(this,currentBoard.getBoardIconModel());
         displayList= modelManager.getLevelOneFromModel();
         initFields();

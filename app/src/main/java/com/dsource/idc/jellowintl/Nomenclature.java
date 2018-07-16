@@ -48,4 +48,13 @@ public class Nomenclature {
         //Calling this function because it generates two digit string
         return String.format("%02d", lang_code);//for English india
     }
+    public static String getNameForExpressiveIcons(Context context,int code) {
+        String LangCode=getLanguageCode(context);
+        String IconCode=getLevelMicellaneousCode(code);
+        return  LangCode+IconCode+"EE";
+    }
+    private static String getLevelMicellaneousCode(int i) {
+        return String.format("%02d", (i+1));
+    }
+
 }

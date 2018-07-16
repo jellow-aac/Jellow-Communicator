@@ -36,7 +36,6 @@ import com.dsource.idc.jellowintl.DataBaseHelper;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.CustomDialog;
-import com.liulishuo.filedownloader.ITaskHunter;
 import com.rey.material.app.Dialog;
 
 import java.io.ByteArrayOutputStream;
@@ -60,7 +59,6 @@ public class MyBoards extends AppCompatActivity {
     private final int EDIT_BOARD=22;
     HashMap<String,Board> boardHashMap;
     PhotoIntentResult mPhotoIntentResult;
-    Menu menu;
     SQLiteDatabase db;
     public static final String BOARD_ID="Board_Id";
     Context ctx;
@@ -170,7 +168,7 @@ public class MyBoards extends AppCompatActivity {
                 public void onItemClick(View view, final int Position, int code) {
                     if(code==DELETE_MODE) {
                         CustomDialog customDialog=new CustomDialog(ctx);
-                        customDialog.setText("Are you sure that you yes to delete "+boardList.get(Position).boardTitle+" ?");
+                        customDialog.setText("Are you sure that you want to delete "+boardList.get(Position).boardTitle+" ?");
                         customDialog.show();
 
                         customDialog.setOnNegativeClickListener(new CustomDialog.onNegativeClickListener() {
@@ -284,7 +282,7 @@ public class MyBoards extends AppCompatActivity {
         saveBoard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(MyBoards.this,"Save board",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyBoards.this,"Save board",Toast.LENGTH_SHORT).show();
                 String name=boardTitleEditText.getText().toString();
                 Bitmap boardIcon=((BitmapDrawable)BoardIcon.getDrawable()).getBitmap();
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -382,7 +380,6 @@ public class MyBoards extends AppCompatActivity {
 
         getMenuInflater().inflate(R.menu.boards_activity_menu, menu);
         super.onCreateOptionsMenu(menu);
-        this.menu=menu;
         return true;
     }
 

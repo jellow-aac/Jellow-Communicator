@@ -57,10 +57,14 @@ public class VerbiageDatabaseHelper extends SQLiteOpenHelper{
 
     DatabaseReference mRef;
     ArrayList<JellowVerbiageModel> verbiageList;
+    ArrayList<MiscellaneousIcons> otherIconList;
+    ArrayList<String> otherIconKeyList;
     ArrayList<String> keyList;
     public void fillDatabase() {
         verbiageList=new ArrayList<>();
         keyList=new ArrayList<>();
+        otherIconList=new ArrayList<>();
+        otherIconKeyList=new ArrayList<>();
         mRef=FirebaseDatabase.getInstance().getReference("testing")
         .child("verbiage_data").child(new SessionManager(context).getLanguage());
         mRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -69,8 +73,14 @@ public class VerbiageDatabaseHelper extends SQLiteOpenHelper{
                 if(dataSnapshot.exists()) {
                     for(DataSnapshot d:dataSnapshot.getChildren()) {
                         try {
-                            verbiageList.add(d.getValue(JellowVerbiageModel.class));
-                            keyList.add(d.getKey());
+                            if(d.getKey().contains("EE")||d.getKey().contains("MS")) {
+                                otherIconList.add(d.getValue(MiscellaneousIcons.class));
+                                otherIconKeyList.add(d.getKey());
+                            }
+                            else {
+                                verbiageList.add(d.getValue(JellowVerbiageModel.class));
+                                keyList.add(d.getKey());
+                            }
                             Log.d("ICON_LIST_ADDED",""+d.getKey());
                         }
                         catch (Exception e)
@@ -81,6 +91,7 @@ public class VerbiageDatabaseHelper extends SQLiteOpenHelper{
                 } else Log.d("Task1","DataSnapshot does not exists | ");
                 Log.d("Task1","List size: "+verbiageList.size());
                 pushDataToDatabase(verbiageList);
+                pushOtherIconToDatabase();
             }
 
             @Override
@@ -93,6 +104,19 @@ public class VerbiageDatabaseHelper extends SQLiteOpenHelper{
 
     }
 
+    private void pushOtherIconToDatabase() {
+        for(int i=0;i<otherIconList.size();i++)
+        {
+            ContentValues values = new ContentValues();
+            values.put(ICON_ID,otherIconKeyList.get(i));
+            values.put(ICON_TITLE,otherIconList.get(i).Title);
+            values.put(ICON_VERBIAGE,new Gson().toJson(otherIconList.get(i)));
+            db.insert(TABLE_NAME, null, values);
+            Log.d("VerbiageDatabase","ExpressiveIconAdded"+otherIconList.get(i).Title+" "+otherIconList.get(i).L);
+        }
+
+    }
+
     private void pushDataToDatabase(ArrayList<JellowVerbiageModel> iconList) {
 
         VerbiageHolder holder;
@@ -102,6 +126,7 @@ public class VerbiageDatabaseHelper extends SQLiteOpenHelper{
             holder=new VerbiageHolder(keyList.get(i),model.Display_Label,model);
             addIconToDatabase(holder);
         }
+
     }
 
     private void addIconToDatabase(VerbiageHolder holder) {
@@ -184,4 +209,30 @@ public class VerbiageDatabaseHelper extends SQLiteOpenHelper{
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
     }
 
+    public MiscellaneousIcons getMiscellaneousIconsById(String IconID) {
+        MiscellaneousIcons verbiage=null;
+        String selectQuery = "SELECT * FROM "+ TABLE_NAME +" WHERE "+ ICON_ID +" LIKE '" + IconID + "%' LIMIT 1";
+        Log.d("SelectQuery",selectQuery);
+        Cursor cursor = null;
+        try {
+            if (db == null) {db = getReadableDatabase();}
+            cursor = db.rawQuery(selectQuery, null);
+
+            if (cursor != null)
+            {
+                cursor.moveToFirst();
+                if(cursor.getCount()>0)
+                    verbiage=new Gson().fromJson(cursor.getString(cursor.getColumnIndex(ICON_VERBIAGE)),MiscellaneousIcons.class);
+            }
+        } catch (Exception e) {
+            Log.d("ExceptionRaised",e.getMessage());
+            //Catch Query Exception
+        } finally {
+            // Must close cursor and db now that we are done with it.
+            if (cursor!=null)
+                cursor.close();
+
+        }
+        return verbiage;
+    }
 }

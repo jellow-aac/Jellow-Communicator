@@ -41,7 +41,7 @@ public class IconSelectActivity extends AppCompatActivity {
     public static ArrayList<JellowIcon> selectedIconList;
     LevelSelectorAdapter levelSelectorAdapter;
     CheckBox selectionCheckBox;
-    int previousSelection=-1;
+    int previousSelection=0;
     UtilFunctions utilF;
     String boardId;
     public static final String BOARD_ID="Board_Id";

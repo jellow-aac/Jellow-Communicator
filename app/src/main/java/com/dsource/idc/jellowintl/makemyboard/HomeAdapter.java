@@ -41,7 +41,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         public TextView iconTitle;
         public ImageView iconImage;
 
-        public ViewHolder(View v) {
+        public ViewHolder(final View v) {
             super(v);
             iconImage=v.findViewById(R.id.icon1);
             iconTitle=v.findViewById(R.id.te1);
@@ -50,13 +50,13 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                 private GestureDetector gestureDetector = new GestureDetector(mContext, new GestureDetector.SimpleOnGestureListener() {
                     @Override
                     public boolean onDoubleTap(MotionEvent e) {
-                        onDoubleTapListener.onItemDoubleTap(iconImage,getAdapterPosition());
+                        onDoubleTapListener.onItemDoubleTap(v,getAdapterPosition());
                         return super.onDoubleTap(e);
                     }
 
                     @Override
                     public boolean onSingleTapUp(MotionEvent e) {
-                        onItemSelectListener.onItemSelected(iconImage,getAdapterPosition());
+                        onItemSelectListener.onItemSelected(v,getAdapterPosition());
                         return super.onSingleTapUp(e);
                     }
                 });
