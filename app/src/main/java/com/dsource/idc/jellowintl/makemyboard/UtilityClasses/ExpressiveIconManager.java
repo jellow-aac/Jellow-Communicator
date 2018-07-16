@@ -2,6 +2,7 @@ package com.dsource.idc.jellowintl.makemyboard.UtilityClasses;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -9,6 +10,9 @@ import com.dsource.idc.jellowintl.R;
 
 import java.util.ArrayList;
 
+/**
+ * This class is for managing the clicks of expressive icons
+ */
 public class ExpressiveIconManager implements View.OnClickListener{
 
     private ArrayList<ImageView> expIconList;
@@ -47,17 +51,36 @@ public class ExpressiveIconManager implements View.OnClickListener{
         if(buttonFlags.get(index)==1)
             buttonFlags.add(index,0);
         else buttonFlags.add(index,1);
-        setSelection(index);
+        resetOther(index);
+        expIconList.get(index).setBackground(unPressed.getDrawable(index));
     }
 
     private void setSelection(int index) {
-        for(int i=0;i<expIconList.size();i++)
-            if(i==index)
+        for(int i=0;i<expIconList.size();i++) {
+            Log.d("ButtonFlag","Index: "+buttonFlags.get(i));
+            if(i==index) {
                 expIconList.get(i).setImageDrawable(pressed.getDrawable(i));
+
+            }
             else {
                 expIconList.get(i).setImageDrawable(unPressed.getDrawable(i));
+
+               buttonFlags.add(i,-1);
+            }
+            Log.d("ButtonFlag","IndexAfter "+buttonFlags.get(i));
+        }
+
+
+    }
+    public void resetOther(int index)
+    {
+        for(int i=0;i<expIconList.size();i++) {
+            if(index!=i) {
+                expIconList.get(i).setBackground(unPressed.getDrawable(i));
                 buttonFlags.add(i,0);
             }
+        }
+
     }
 
     public void resetSelection(){

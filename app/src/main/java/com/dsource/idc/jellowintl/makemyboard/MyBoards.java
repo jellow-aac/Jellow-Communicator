@@ -114,13 +114,18 @@ public class MyBoards extends AppCompatActivity {
                         if (Position == (boardList.size() - 1)) {
                             initBoardEditAddDialog(NEW_BOARD, -1);
                         } else {
-                            if (!database.getBoardById(boardList.get(Position).boardID).isBoardIconsSelected()) {
-                                Intent intent = new Intent(ctx, IconSelectActivity.class);
+                            if (database.getBoardById(boardList.get(Position).boardID).isBoardIconsSelected()) {
+                                Intent intent = new Intent(ctx, EditBoard.class);
                                 intent.putExtra(BOARD_ID, boardList.get(Position).getBoardID());
                                 startActivity(intent);
-                            } else {
+                            } else if(database.getBoardById(boardList.get(Position).boardID).getBoardCompleteStatus()){
                                 //TODO when the board is already created completely
-                                Intent intent = new Intent(ctx, EditBoard.class);
+                                Intent intent = new Intent(ctx, BoardHome.class);
+                                intent.putExtra(BOARD_ID, boardList.get(Position).getBoardID());
+                                startActivity(intent);
+                            }
+                            else {
+                                Intent intent = new Intent(ctx, IconSelectActivity.class);
                                 intent.putExtra(BOARD_ID, boardList.get(Position).getBoardID());
                                 startActivity(intent);
                             }

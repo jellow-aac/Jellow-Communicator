@@ -41,23 +41,22 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         public TextView iconTitle;
         public ImageView iconImage;
 
-        public ViewHolder(View v) {
+        public ViewHolder(final View v) {
             super(v);
-            iconImage=v.findViewById(R.id.icon_image_view);
-            iconTitle=v.findViewById(R.id.icon_title);
-            v.findViewById(R.id.icon_remove_button).setVisibility(View.GONE);
-            iconImage.setOnClickListener(this);
-            iconImage.setOnTouchListener(new View.OnTouchListener() {
+            iconImage=v.findViewById(R.id.icon1);
+            iconTitle=v.findViewById(R.id.te1);
+            v.setOnClickListener(this);
+            v.setOnTouchListener(new View.OnTouchListener() {
                 private GestureDetector gestureDetector = new GestureDetector(mContext, new GestureDetector.SimpleOnGestureListener() {
                     @Override
                     public boolean onDoubleTap(MotionEvent e) {
-                        onDoubleTapListener.onItemDoubleTap(iconImage,getAdapterPosition());
+                        onDoubleTapListener.onItemDoubleTap(v,getAdapterPosition());
                         return super.onDoubleTap(e);
                     }
 
                     @Override
                     public boolean onSingleTapUp(MotionEvent e) {
-                        onItemSelectListener.onItemSelected(iconImage,getAdapterPosition());
+                        onItemSelectListener.onItemSelected(v,getAdapterPosition());
                         return super.onSingleTapUp(e);
                     }
                 });
@@ -99,7 +98,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     public HomeAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView;
         itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.icon_edit_pain_card, parent, false);
+                .inflate(R.layout.layout_level_xadapter_9_icons, parent, false);
         return new HomeAdapter.ViewHolder(itemView);
     }
 

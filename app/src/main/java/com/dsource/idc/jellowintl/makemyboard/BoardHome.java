@@ -2,7 +2,9 @@ package com.dsource.idc.jellowintl.makemyboard;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -48,6 +50,8 @@ public class BoardHome extends AppCompatActivity {
     private VerbiageDatabaseHelper verbiageDatabase;
     private ExpressiveIconManager expIconManager;
     private ArrayList<MiscellaneousIcons> expIconVerbiage;
+    private int expIconPosition;
+    private View selectedView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -92,6 +96,7 @@ public class BoardHome extends AppCompatActivity {
 
     private void speakVerbiage(int expIconPos, int time) {
         String verbiage="";
+        expIconPosition=expIconPos;
         if(selectedIconVerbiage!=null)
         switch (expIconPos)
         {
@@ -116,19 +121,53 @@ public class BoardHome extends AppCompatActivity {
         adapter.setOnDoubleTapListner(new HomeAdapter.onDoubleTapListener() {
             @Override
             public void onItemDoubleTap(View view, int position) {
-                verbiageDatabase=null;
+                selectedIconVerbiage=null;
                 notifyItemClicked(position);
             }
         });
         adapter.setOnItemSelectListner(new HomeAdapter.OnItemSelectListener() {
             @Override
             public void onItemSelected(View view, int position) {
+                selectedView=view;
+                highlightSelection(-1);
                 prepareSpeech(displayList.get(position));
                 resetButtons();
             }
         });
+
+        mRecycler.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
+            @Override
+            public void onChildViewAttachedToWindow(View view) {
+                if(view==selectedView)
+                    highlightSelection(-1);
+                else highlightSelection(-2);
+
+            }
+
+            @Override
+            public void onChildViewDetachedFromWindow(View view) {
+                highlightSelection(-2);
+            }
+        });
         mRecycler.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+    }
+
+    private void highlightSelection(int colorCode) {
+        GradientDrawable gd = (GradientDrawable) selectedView.findViewById(R.id.borderView).getBackground();
+
+                switch (colorCode) {
+                    case -2:gd.setColor(ContextCompat.getColor(this,R.color.transparent)); break;
+                    case -1:gd.setColor(ContextCompat.getColor(this,R.color.colorSelect)); break;
+                    case 0: gd.setColor(ContextCompat.getColor(this,R.color.colorLike)); break;
+                    case 1: gd.setColor(ContextCompat.getColor(this,R.color.colorDontLike)); break;
+                    case 2: gd.setColor(ContextCompat.getColor(this,R.color.colorYes)); break;
+                    case 3: gd.setColor(ContextCompat.getColor(this,R.color.colorNo)); break;
+                    case 4: gd.setColor(ContextCompat.getColor(this,R.color.colorMore)); break;
+                    case 5: gd.setColor(ContextCompat.getColor(this,R.color.colorLess)); break;
+                }
+
+
     }
 
 
