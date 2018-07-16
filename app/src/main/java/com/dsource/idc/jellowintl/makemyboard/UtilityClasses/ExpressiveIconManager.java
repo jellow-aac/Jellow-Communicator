@@ -49,14 +49,14 @@ public class ExpressiveIconManager implements View.OnClickListener{
         int index=expIconList.indexOf(v);
         mExpIconClickListener.expressiveIconClicked(index,buttonFlags.get(index));
         if(buttonFlags.get(index)==1)
-            buttonFlags.set(index,0);
-        else buttonFlags.set(index,1);
+            buttonFlags.add(index,0);
+        else buttonFlags.add(index,1);
         expIconList.get(index).setImageDrawable(pressed.getDrawable(index));
         setSelection(index);
     }
 
     private void setSelection(int index) {
-        for(int i=0;i<buttonFlags.size();i++) {
+        for(int i=0;i<expIconList.size();i++) {
             if(i==index) {
                 Log.d("ButtonFlag","index: "+buttonFlags.get(i));
                 expIconList.get(i).setImageDrawable(pressed.getDrawable(i));
