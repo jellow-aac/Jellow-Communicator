@@ -49,32 +49,32 @@ public class ExpressiveIconManager implements View.OnClickListener{
         int index=expIconList.indexOf(v);
         mExpIconClickListener.expressiveIconClicked(index,buttonFlags.get(index));
         if(buttonFlags.get(index)==1)
-            buttonFlags.add(index,0);
-        else buttonFlags.add(index,1);
-        resetOther(index);
+            buttonFlags.set(index,0);
+        else buttonFlags.set(index,1);
         expIconList.get(index).setImageDrawable(pressed.getDrawable(index));
         setSelection(index);
     }
 
     private void setSelection(int index) {
-        for(int i=0;i<expIconList.size();i++) {
-            Log.d("ButtonFlag","Index: "+buttonFlags.get(i));
+        for(int i=0;i<buttonFlags.size();i++) {
             if(i==index) {
+                Log.d("ButtonFlag","index: "+buttonFlags.get(i));
                 expIconList.get(i).setImageDrawable(pressed.getDrawable(i));
-
             }
             else {
                 expIconList.get(i).setImageDrawable(unPressed.getDrawable(i));
-                buttonFlags.add(i,0);
+                Log.d("ButtonFlag","IndexBefore "+buttonFlags.get(i));
+                buttonFlags.set(i,0);
+                Log.d("ButtonFlag","IndexAfter "+buttonFlags.get(i));
             }
-            Log.d("ButtonFlag","IndexAfter "+buttonFlags.get(i));
+
         }
 
 
     }
     public void resetOther(int index)
     {
-        Log.d("ExpIcon","indexx "+index);
+        Log.d("ExpIcon","index "+index);
         for(int i=0;i<expIconList.size();i++) {
             if(index!=i) {
                 buttonFlags.add(i,0);

@@ -323,8 +323,8 @@ public class BoardHome extends AppCompatActivity {
             @Override
             public void onGridSelectListener(int size) {
                 currentBoard.setGridSize(size);
-                new BoardDatabase(BoardHome.this).updateBoardIntoDatabase(new DataBaseHelper(BoardHome.this).getWritableDatabase(),currentBoard);
-                //TODO init Fields
+                database.updateBoardIntoDatabase(new DataBaseHelper(BoardHome.this).getWritableDatabase(),currentBoard);
+                initViews();
             }
         });
         dialog.show();
