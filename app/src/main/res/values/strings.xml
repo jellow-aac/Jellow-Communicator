@@ -112,7 +112,7 @@
     <string name="getKeyboardControl">Keyboard Control</string>
     <string name="childName">Child\'s Name *</string>
     <string name="careGiveName">Caregiver\'s Name</string>
-    <string name="careGiverContact">Caregiver\'s Contact No. other than this device\'s sim no.* </string>
+    <string name="careGiverContact">Caregiver\'s Contact number other than this device\'s sim number *</string>
     <string name="homeAddress">Home Address</string>
     <string name="emailAddress">Email Address *</string>
     <string name="bloodGroup">Blood Group</string>
@@ -165,7 +165,7 @@
 <li>Work on Jellow is attributed to the Indian Institute of Technology Bombay.</li><br/>
 <li>The content in this application comprising icons, layout, architecture, visual identity, translation, and the software codes can be shared and adopted but cannot be used for commercial purposes.</li><br/>
 <li>When the content is used, we request you to acknowledge Indian Institute of Technology Bombay.</li><br/>
-<li>Jellow is available for download at <a href="http://www.dsource.in/tool/jellow">www.dsource.in/tool/jellow</a></li><br/>
+<li>Jellow is available for download at <a href="http://www.jellow.org">http://www.jellow.org</a></li><br/>
 <li>If interested in further developing the code, please write to Professor Ravi Poovaiah at <span style="color: #ff6600;"><a href="mailto:ravi@iitb.ac.in">ravi@iitb.ac.in</a></span></li><br/>
 </ul>
 
@@ -311,6 +311,12 @@
     <string name="downloadableLang">Downloadable Languages</string>
     <string name="downloadedLang">Downloaded Languages</string>
     <string name="remove">Remove</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="mukta_regular" translatable="false">Mukta-Regular.ttf</string>
+    <string name="register_user">Please wait registration is in process…</string>
+    <string name="exit">Exit</string>
+    <string name="err_dialog_msg">Google TTS engine is not installed on your device. Do you want to install TTS engine?</string>
+    <string name="exit_dialog_msg">Jellow will not work without Google Text-to-speech engine. Do you really want to exit?</string>
 
     <string name="lang_change_code" translatable="false">Language_change</string>
     <string name="lang_change" translatable="false">lang_change</string>
@@ -336,9 +342,5 @@
     <string name="no_internet">No Internet</string>
     <string name="please_wait">Please wait…</string>
     <string name="goto_home" translatable="false">goto_home</string>
-    <string name="dismiss">Dismiss</string>
-    <string name="mukta_regular" translatable="false">Mukta-Regular.ttf</string>
-    <string name="register_user">Please wait registration is in process…</string>
-    <string name="check_tts_engine">Text-to-speech engine is failed to start.</string>
 
 </resources>

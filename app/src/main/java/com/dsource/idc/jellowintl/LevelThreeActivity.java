@@ -28,7 +28,6 @@ import android.widget.Toast;
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.models.LevelThreeVerbiageModel;
 import com.dsource.idc.jellowintl.utility.CustomGridLayoutManager;
-import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.IndexSorter;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
@@ -41,6 +40,7 @@ import java.util.StringTokenizer;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
+import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
@@ -115,10 +115,6 @@ public class LevelThreeActivity extends AppCompatActivity {
         myDbHelper = new DataBaseHelper(this);
         mLevelOneItemPos = getIntent().getExtras().getInt(getString(R.string.level_one_intent_pos_tag));
         mLevelTwoItemPos = getIntent().getExtras().getInt(getString(R.string.level_2_item_pos_tag));
-        // Initialize default exception handler for this activity.
-        // If any exception occurs during this activity usage,
-        // handle it using default exception handler.
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         loadArraysFromResources();
 
         try {
@@ -158,8 +154,9 @@ public class LevelThreeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        SessionManager session = new SessionManager(this);
         if(!isAnalyticsActive()){
-            throw new Error("unableToResume");
+            resetAnalytics(this, session.getCaregiverNumber().substring(1));
         }
         if(Build.VERSION.SDK_INT > 25 &&
                 !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
@@ -167,7 +164,6 @@ public class LevelThreeActivity extends AppCompatActivity {
         }
         // Start measuring user app screen timer .
         startMeasuring();
-        SessionManager session = new SessionManager(this);
         if(!session.getToastMessage().isEmpty()) {
             Toast.makeText(getApplicationContext(),
                     session.getToastMessage(), Toast.LENGTH_SHORT).show();

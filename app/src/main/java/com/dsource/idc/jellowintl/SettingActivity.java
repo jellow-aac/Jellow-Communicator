@@ -27,7 +27,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
-import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
@@ -37,6 +36,7 @@ import com.rey.material.widget.Switch;
 import static com.dsource.idc.jellowintl.MainActivity.isDeviceReadyToCall;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
+import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.setCrashlyticsCustomKey;
 import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
@@ -61,7 +61,6 @@ public class SettingActivity extends AppCompatActivity {
                 getString(R.string.action_settings)+"</font>"));
         mSession = new SessionManager(this);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
 
         mOpenSetting = false;
         mSpinnerViewMode = findViewById(R.id.spinner3);
@@ -290,21 +289,6 @@ public class SettingActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         // Show the AlertDialog
         dialog.show();
-
-        /*Snackbar
-            .make(findViewById(android.R.id.content), mCalPerMsg,
-                Snackbar.LENGTH_LONG)
-            .setAction(mSettings, new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mOpenSetting = true;
-                    Intent intent = new Intent();
-                    intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                    intent.setData(Uri.fromParts("package", getPackageName(), null));
-                    startActivity(intent);
-                }
-            })
-            .show();*/
     }
 
     @Override
@@ -340,7 +324,7 @@ public class SettingActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if(!isAnalyticsActive()){
-            throw new Error("unableToResume");
+            resetAnalytics(this, mSession.getCaregiverNumber().substring(1));
         }
         if(Build.VERSION.SDK_INT > 25 &&
                 !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {

@@ -28,7 +28,6 @@ import android.widget.Toast;
 
 import com.dsource.idc.jellowintl.models.LevelTwoVerbiageModel;
 import com.dsource.idc.jellowintl.utility.CustomGridLayoutManager;
-import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.IndexSorter;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
@@ -43,6 +42,7 @@ import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.maskNumber;
+import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
@@ -105,7 +105,7 @@ public class LevelTwoActivity extends AppCompatActivity {
       selected.*/
     private Integer[] mArrPeoplePlaceTapCount, mArrSort;
 
-    private String end, actionBarTitleTxt, mCallPerInfo,mCallPermissionSetting, mCallReq, mJump2CallSet, mCallPermDeny;
+    private String end, actionBarTitleTxt, mCallPermDeny;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,10 +125,6 @@ public class LevelTwoActivity extends AppCompatActivity {
             getWindow().setFlags(
                 WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
                     WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
-        // Initialize default exception handler for this activity.
-        // If any exception occurs during this activity usage,
-        // handle it using default exception handler.
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         mSession = new SessionManager(this);
         // The below string has value "" in english (all regions) and "है।" in Hindi (India).
         // It is used when user select category "Help" -> "About me".
@@ -142,10 +138,6 @@ public class LevelTwoActivity extends AppCompatActivity {
         //The variables below are defined because android os fall back to default locale
         // after activity restart. These variable will hold the value for variables initialized using
         // user preferred locale.
-        mCallPerInfo = getString(R.string.call_permission_info);
-        mCallPermissionSetting = getString(R.string.grant_permission_from_settings);
-        mCallReq = getString(R.string.request);
-        mJump2CallSet = getString(R.string.action_settings);
         mCallPermDeny = getString(R.string.rejected_call_permission_req);
         /**
          * If the intent is fired from the {@link SearchActivity} then disable the back button
@@ -253,7 +245,7 @@ public class LevelTwoActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if(!isAnalyticsActive()){
-            throw new Error("unableToResume");
+            resetAnalytics(this, mSession.getCaregiverNumber().substring(1));
         }
         if(Build.VERSION.SDK_INT > 25 &&
                 !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {

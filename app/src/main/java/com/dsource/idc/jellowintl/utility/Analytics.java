@@ -114,4 +114,17 @@ public class Analytics {
     public static void setCrashlyticsCustomKey(String key, String value){
         Crashlytics.setString(key, value);
     }
+
+    public static void resetAnalytics(Context context, String contact){
+        mFirebaseAnalytics = null;
+        mDb = null;
+        mRef = null;
+        bundle = null;
+        mDb = FirebaseDatabase.getInstance();
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
+        mFirebaseAnalytics.setMinimumSessionDuration(5*60*1000);
+        mRef = mDb.getReference(BuildConfig.DB_TYPE+"/users/"+maskNumber(contact)+"/sessions");
+        pushId = mRef.push().getKey();
+        bundle = new Bundle();
+    }
 }

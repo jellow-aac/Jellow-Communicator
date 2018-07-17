@@ -134,9 +134,15 @@ public class JellowTTSService extends Service{
         }else if(Build.VERSION.SDK_INT < 21) {
             infoLang = tts.getDefaultLanguage().getLanguage().substring(0,2);
             infoCountry = tts.getDefaultLanguage().getCountry().substring(0,2);
-        }else if(Build.VERSION.SDK_INT > 21) {
-            infoLang = tts.getDefaultVoice().getLocale().getLanguage();
-            infoCountry = tts.getDefaultVoice().getLocale().getCountry();
+        }else {
+        //When below if case is false then variables infoLang & infoCountry are empty.
+        //Keeping infoLang & infoCountry variables empty and sending them with broadcast have no
+        //impact. Whenever they are empty, the broadcast is sent only to {@LanguageSelectActivity}
+        //class. And these broadcast intent response is not used when api is Lollipop or above.
+            if(tts.getDefaultVoice() != null){
+                infoLang = tts.getDefaultVoice().getLocale().getLanguage();
+                infoCountry = tts.getDefaultVoice().getLocale().getCountry();
+            }
         }
         dataIntent.putExtra("systemTtsRegion", infoLang.concat("-r".concat(infoCountry)));
         if(infoLang.concat("-r".concat(infoCountry)).equals(HI_IN) &&
@@ -203,12 +209,10 @@ public class JellowTTSService extends Service{
             mTts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
                 @Override
                 public void onStart(String utteranceId) {
-                    String s = utteranceId;
                 }
 
                 @Override
                 public void onDone(String utteranceId) {
-                    String s = utteranceId;
                 }
 
                 @Override

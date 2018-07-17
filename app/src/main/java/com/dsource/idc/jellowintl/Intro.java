@@ -16,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
-import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
@@ -27,7 +26,6 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_UK;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_US;
 import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
-import static com.dsource.idc.jellowintl.utility.SessionManager.LangValueMap;
 
 /**
  * Created by Shruti on 09-08-2016.
@@ -40,10 +38,6 @@ public class Intro extends AppIntro {
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.intro_to_jellow)+"</font>"));
         //Set the language database create preference
         new SessionManager(this).setLanguageChange(0);
-        // Initialize default exception handler for this activity.
-        // If any exception occurs during this activity usage,
-        // handle it using default exception handler.
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         startService(new Intent(getApplication(), JellowTTSService.class));
         addSlide(SampleSlideFragment.newInstance(R.layout.intro, "intro"));
         addSlide(SampleSlideFragment.newInstance(R.layout.intro5, "intro5"));
@@ -59,9 +53,7 @@ public class Intro extends AppIntro {
         setSeparatorColor(getResources().getColor(R.color.colorIntro));
         setIndicatorColor(getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorPrimary));
         showSkipButton(false);
-        setProgressButtonEnabled(true);
-        setNextArrowColor(getResources().getColor(R.color.colorPrimary));
-        //setImageNextButton(getResources().getDrawable(R.drawable.arrow));
+        setProgressButtonEnabled(false);
 
         selectedLanguage = getString(R.string.txt_intro6_skipActiveTtsDesc)
                                 .replace("-", getSelectedLanguage("-"))
@@ -119,23 +111,19 @@ public class Intro extends AppIntro {
                 getTextToSpeechEngineLanguage("");
                 ((TextView) findViewById(R.id.tx_downloadMsg)).setText(selectedLanguage);
         }
-        if(((SampleSlideFragment) newFragment).getLayoutName().equals("intro7")){
-            setProgressButtonEnabled(false);
-        }else
-            setProgressButtonEnabled(true);
     }
 
     private String getSelectedLanguage(String replaceChar) {
         switch (new SessionManager(this).getLanguage()){
             case ENG_IN:
                 if(replaceChar.equals("-"))
-                    return LangValueMap.get(ENG_IN);
+                    return "English (IN)";
             case HI_IN:
-                return "Hindi (India)";
+                return "Hindi (IN)";
             case ENG_UK:
-                return LangValueMap.get(ENG_UK);
+                return "English (UK)";
             case ENG_US:
-                return LangValueMap.get(ENG_US);
+                return "English (US)";
             default: return "";
         }
     }
@@ -159,6 +147,14 @@ public class Intro extends AppIntro {
             startActivity(intent);
             finish();
         }
+    }
+
+    public void changeDemoScreen(View view){
+        if (view.getId() == R.id.btnMoveLeft)
+            getPager().setCurrentItem(getPager().getCurrentItem()-1, true);
+        else
+            getPager().setCurrentItem(getPager().getCurrentItem()+1, true);
+
     }
 
     public void getStarted1(View view){
