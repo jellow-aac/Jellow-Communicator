@@ -19,6 +19,7 @@ public class SessionManager {
     public final static String ENG_IN = "en-rIN";   // ENG_IN -> English (India)
     public final static String HI_IN = "hi-rIN";    // HI_IN -> Hindi
     public final static String BN_IN = "bn-rIN";    // BN_IN -> Bengali
+    public final static String BE_IN = "be-rIN";    // BE_IN -> Bengali (for some old API devices which return be-rIN)
 
     public final static HashMap<String,String> LangMap = new HashMap<String,String>(){
         {

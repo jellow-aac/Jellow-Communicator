@@ -51,6 +51,8 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.LangValueMap;
 
 public class LanguageSelectActivity extends AppCompatActivity{
 
+    private static final String TAG = "LanguageSelectActivity";
+
     public static final String FINISH = "finish";
     private final int ACT_CHECK_TTS_DATA = 1;
     SessionManager mSession;
@@ -363,8 +365,9 @@ public class LanguageSelectActivity extends AppCompatActivity{
                 !current.equals(SessionManager.HI_IN))
             lang.add(LangValueMap.get(SessionManager.HI_IN));
 
-        if( mSession.isDownloaded(SessionManager.BN_IN) &&
-                !current.equals(SessionManager.BN_IN))
+        if(( mSession.isDownloaded(SessionManager.BN_IN) &&
+                !current.equals(SessionManager.BN_IN)) || (mSession.isDownloaded(SessionManager.BE_IN) &&
+                !current.equals(SessionManager.BE_IN)))
             lang.add(LangValueMap.get(SessionManager.BN_IN));
         return lang.toArray(new String[lang.size()]);
     }
@@ -382,7 +385,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
             lang.add(LangValueMap.get(SessionManager.ENG_UK));
         if( !mSession.isDownloaded(SessionManager.HI_IN))
             lang.add(LangValueMap.get(SessionManager.HI_IN));
-        if( !mSession.isDownloaded(SessionManager.BN_IN))
+        if( !mSession.isDownloaded(SessionManager.BN_IN) || !mSession.isDownloaded(SessionManager.BE_IN))
             lang.add(LangValueMap.get(SessionManager.BN_IN));
         return lang.toArray(new String[lang.size()]);
     }

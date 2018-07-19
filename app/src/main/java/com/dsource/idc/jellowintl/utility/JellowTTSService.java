@@ -12,12 +12,14 @@ import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.speech.tts.Voice;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
 
 import java.util.HashMap;
 import java.util.Locale;
 
+import static com.dsource.idc.jellowintl.utility.SessionManager.BE_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_UK;
@@ -30,6 +32,7 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
 public class JellowTTSService extends Service{
     private TextToSpeech mTts;
     HashMap<String, String> map;
+    private static final String TAG = "JellowTTSService";
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -91,6 +94,9 @@ public class JellowTTSService extends Service{
                 case SessionManager.BN_IN:
                     tts.setLanguage(new Locale("bn", "IN"));
                     break;
+                case SessionManager.BE_IN:
+                    tts.setLanguage(new Locale("be", "IN"));
+                    break;
                 case SessionManager.HI_IN:
                 case ENG_IN:
                 default:
@@ -138,13 +144,18 @@ public class JellowTTSService extends Service{
         }else if(Build.VERSION.SDK_INT < 21) {
             infoLang = tts.getDefaultLanguage().getLanguage().substring(0,2);
             infoCountry = tts.getDefaultLanguage().getCountry().substring(0,2);
-        }else if(Build.VERSION.SDK_INT > 21) {
+        }else {
             infoLang = tts.getDefaultVoice().getLocale().getLanguage();
             infoCountry = tts.getDefaultVoice().getLocale().getCountry();
         }
+        Log.d(TAG, "broadcastTtsData: harshit/TTS Language = " + infoLang.concat("-r".concat(infoCountry)));
+        Log.d(TAG, "broadcastTtsData: harshit/User Selected Language = " + intent.getStringExtra("saveSelectedLanguage"));
         dataIntent.putExtra("systemTtsRegion", infoLang.concat("-r".concat(infoCountry)));
         if(infoLang.concat("-r".concat(infoCountry)).equals(HI_IN) &&
                 intent.getStringExtra("saveSelectedLanguage").equals(ENG_IN))
+            dataIntent.putExtra("saveUserLanguage", true);
+        else if(infoLang.concat("-r".concat(infoCountry)).equals(BE_IN) &&
+                intent.getStringExtra("saveSelectedLanguage").equals(BN_IN))
             dataIntent.putExtra("saveUserLanguage", true);
         else if(!intent.getStringExtra("saveSelectedLanguage").equals(ENG_IN) &&
                 intent.getStringExtra("saveSelectedLanguage").
@@ -226,6 +237,7 @@ public class JellowTTSService extends Service{
                 case HI_IN:
                 case ENG_IN:
                 case BN_IN:
+                case BE_IN:
                 default:
                     return (float) mSession.getPitch()/50;
             }
@@ -238,6 +250,7 @@ public class JellowTTSService extends Service{
                 case HI_IN:
                 case ENG_IN:
                 case BN_IN:
+                case BE_IN:
                 default:
                     return (float) (mSession.getSpeed()/50);
             }
@@ -250,6 +263,7 @@ public class JellowTTSService extends Service{
                 case HI_IN:
                 case ENG_IN:
                 case BN_IN:
+                case BE_IN:
                 default:
                     return "com.google.android.tts";
             }
