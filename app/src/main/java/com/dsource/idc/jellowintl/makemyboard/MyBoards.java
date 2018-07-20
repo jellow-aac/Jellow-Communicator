@@ -20,6 +20,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -113,7 +114,6 @@ public class MyBoards extends AppCompatActivity {
             mRecyclerView.setAdapter(adapter);
         }
         else {
-            this.invalidateOptionsMenu();
             adapter=new BoardAdapter(this,boardList,NORMAL_MODE);
             mRecyclerView.setLayoutManager(new GridLayoutManager(this,3));
             mRecyclerView.setAdapter(adapter);
@@ -361,6 +361,7 @@ public class MyBoards extends AppCompatActivity {
         database=new BoardDatabase(this);
         boardList.add(newBoard);
         database.addBoardToDatabase(new DataBaseHelper(this).getWritableDatabase(),newBoard);
+        Log.d("BoardDatabase","BoardCount"+database.countEntries()+"  BoardList "+database.getAllBoards().size()+"");
         prepareBoardList(NORMAL_MODE);
     }
 

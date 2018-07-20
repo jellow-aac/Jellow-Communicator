@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:id="@+id/icon_container"
-        android:layout_marginTop="@dimen/edit_baord_dialog_margin_bottom"
+        android:layout_marginTop="@dimen/edit_baord_dialog_side_margin"
         android:layout_marginLeft="@dimen/edit_baord_dialog_side_margin"
         android:layout_marginRight="@dimen/edit_baord_dialog_side_margin"
         >
@@ -48,7 +48,7 @@
         android:layout_marginLeft="@dimen/edit_baord_dialog_side_margin"
         android:padding="6dp"
         android:maxLength="20"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/edit_board_dialog_internal_margin_top"
         android:layout_below="@id/icon_container"
         android:id="@+id/board_name"
         android:layout_centerHorizontal="true"
@@ -64,8 +64,8 @@
         android:inputType="textPersonName"
          />
     <RelativeLayout
-        android:layout_marginBottom="@dimen/edit_baord_dialog_margin_bottom"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="@dimen/edit_baord_dialog_side_margin"
+        android:layout_marginTop="@dimen/edit_board_dialog_internal_margin_top"
         android:layout_width="@dimen/board_edit_icon_size"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -76,7 +76,7 @@
         >
 
 
-    <TextView
+    <Button
         android:layout_width="@dimen/edit_board_button_width"
         android:layout_height="wrap_content"
         android:id="@+id/save_baord"
@@ -85,14 +85,14 @@
         android:paddingLeft="@dimen/edit_board_button_side_margin"
         android:paddingRight="@dimen/edit_board_button_side_margin"
         android:text="Save"
-        android:textSize="15sp"
+        android:textSize="@dimen/edit_board_dialog_button_text_size"
         android:textAlignment="center"
         android:background="@drawable/button_background"
         android:textColor="@color/colorIntro"
         android:layout_marginRight="8dp"
         android:layout_alignParentLeft="true"
         />
-    <TextView
+    <Button
         android:layout_width="@dimen/edit_board_button_width"
         android:layout_height="wrap_content"
         android:id="@+id/cancel_save_baord"
@@ -101,7 +101,7 @@
         android:paddingBottom="@dimen/edit_board_button_margin_top"
         android:paddingLeft="@dimen/edit_board_button_side_margin"
         android:paddingRight="@dimen/edit_board_button_side_margin"
-        android:textSize="15sp"
+        android:textSize="@dimen/edit_board_dialog_button_text_size"
         android:textAlignment="center"
         android:layout_alignParentRight="true"
         android:background="@drawable/button_background"

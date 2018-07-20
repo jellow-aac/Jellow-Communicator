@@ -48,6 +48,15 @@
     <dimen name="nav_bar_button_padding">10dp</dimen>
     <dimen name="icon_title_text_size">14sp</dimen>
 
+    <dimen name="board_edit_icon_size">200dp</dimen>
+    <dimen name="board_edit_dialog_width">240dp</dimen>
+    <dimen name="edit_baord_dialog_margin_bottom">28dp</dimen>
+    <dimen name="edit_board_button_margin_top">8dp</dimen>
+    <dimen name="edit_board_button_side_margin">10dp</dimen>
+    <dimen name="edit_board_button_width">86dp</dimen>
+    <dimen name="edit_board_dialog_button_text_size">15sp</dimen>
+    <dimen name="edit_board_dialog_internal_margin_top">16dp</dimen>
+
 
 
 </resources>
