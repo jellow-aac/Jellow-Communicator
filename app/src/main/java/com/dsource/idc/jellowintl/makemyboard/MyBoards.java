@@ -20,7 +20,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -105,27 +104,20 @@ public class MyBoards extends AppCompatActivity {
     private void prepareBoardList(int mode) {
         boardList.clear();
         boardList=loadBoardsFromDataBase();
+        invalidateOptionsMenu();
         if(boardList.size()<1)
         {
-        /*    MenuItem item=menu.findItem(R.id.delete_boards);
-            item.setVisible(false);
-            this.invalidateOptionsMenu();*/
             mRecyclerView.setLayoutManager(new GridLayoutManager(this,1));
             adapter=new BoardAdapter(this,boardList,NORMAL_MODE);
             mRecyclerView.setLayoutManager(new GridLayoutManager(this,1));
             mRecyclerView.setAdapter(adapter);
         }
         else {
-          /*  mRecyclerView.setLayoutManager(new GridLayoutManager(this,3));
-            MenuItem item=menu.findItem(R.id.delete_boards);
-            item.setVisible(true);*/
             this.invalidateOptionsMenu();
             adapter=new BoardAdapter(this,boardList,NORMAL_MODE);
             mRecyclerView.setLayoutManager(new GridLayoutManager(this,3));
             mRecyclerView.setAdapter(adapter);
         }
-        Log.d("BoardCount","Total Number of boards in database: "+database.count());
-        Log.d("BoardCount","Total Number of boards: "+boardList.size());
         if(mode==NORMAL_MODE) {
             boardList.add(new Board("-1", "Add Board", null));
             adapter = new BoardAdapter(this, boardList,NORMAL_MODE);
@@ -252,7 +244,7 @@ public class MyBoards extends AppCompatActivity {
                     else
                     {
                         final String [] permissions=new String []{ Manifest.permission.CAMERA};
-                        ActivityCompat.requestPermissions(MyBoards.this, permissions, PERMISSION_REQUESTS);
+                        ActivityCompat.requestPermissions(MyBoards.this, permissions, CAMERA_REQUEST);
                     }
 
                 }
@@ -266,7 +258,7 @@ public class MyBoards extends AppCompatActivity {
                     }
                     else {
                         final String [] permissions=new String []{ Manifest.permission.READ_EXTERNAL_STORAGE};
-                        ActivityCompat.requestPermissions(MyBoards.this, permissions, PERMISSION_REQUESTS);
+                        ActivityCompat.requestPermissions(MyBoards.this, permissions, GALLERY_REQUEST);
 
                     }
                 }
@@ -369,7 +361,6 @@ public class MyBoards extends AppCompatActivity {
         database=new BoardDatabase(this);
         boardList.add(newBoard);
         database.addBoardToDatabase(new DataBaseHelper(this).getWritableDatabase(),newBoard);
-        Log.d("NewBoard",""+database.count());
         prepareBoardList(NORMAL_MODE);
     }
 
@@ -377,6 +368,13 @@ public class MyBoards extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.boards_activity_menu, menu);
+        if(database==null)
+            database=new BoardDatabase(this);
+        if(database.getAllBoards()!=null&&database.getAllBoards().size()<1)
+        {
+            MenuItem item = menu.findItem(R.id.delete_boards);
+            item.setVisible(false);
+        }
         super.onCreateOptionsMenu(menu);
         return true;
     }
@@ -423,6 +421,28 @@ public class MyBoards extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
 
+        if(requestCode==CAMERA_REQUEST)
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(takePictureIntent, CAMERA_REQUEST);
+                } else {
+
+                    Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+                }
+
+         if(requestCode==GALLERY_REQUEST)
+             if (grantResults.length > 0
+                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                 //Gallery Permissions granted
+                 Intent selectFromGalleryIntent = new Intent();
+                 selectFromGalleryIntent.setType("image/*");
+                 selectFromGalleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+                 startActivityForResult(selectFromGalleryIntent, GALLERY_REQUEST);
+             } else {
+                        Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+             }
     }
 
     @Override

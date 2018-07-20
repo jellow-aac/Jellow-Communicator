@@ -49,8 +49,8 @@ public class Verbiage {
     private String[] mCategoryIconText;
     private int nullCOunter=0;
     private  int co=0;
-    private boolean noChildInThird =false;
-    private static int LANG_CODE=4;
+    private boolean noChildInThird = false;
+    private static int LANG_CODE = 4;
     public final static String ENG_US = "en-rUS";
     public final static String ENG_UK = "en-rGB";
     public final static String ENG_IN = "en-rIN";
