@@ -67,11 +67,12 @@
     <color name="black_80">#333333</color>
     <color name="search_bar_color">#dedab1</color>
 
-
+    <color name="white">#FFFFFF</color>
     <color name="search_highlight">#74dac6</color>
     <color name="green">#289702</color>
     <color name="dark_base">#EDD99F</color>
     <color name="light_black">#bf333333</color>
     <color name="light_grey">#d37b7878</color>
     <color name="transparent">#00d70202</color>
+    <color name="level_select_text_color">#767272</color>
 </resources>

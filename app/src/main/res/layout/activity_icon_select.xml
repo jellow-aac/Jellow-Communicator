@@ -54,11 +54,13 @@
         <ListView
             android:id="@+id/filter_menu"
             android:layout_width="@dimen/drop_down_width"
+            android:background="@color/transparent"
             android:paddingRight="4dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:foregroundGravity="top"
             android:visibility="gone"
+            android:layout_alignParentTop="true"
             />
 
         <RelativeLayout

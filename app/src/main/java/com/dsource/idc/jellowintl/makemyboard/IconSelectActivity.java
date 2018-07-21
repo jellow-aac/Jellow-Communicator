@@ -1,5 +1,6 @@
 package com.dsource.idc.jellowintl.makemyboard;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -9,9 +10,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -324,13 +327,13 @@ public class IconSelectActivity extends AppCompatActivity {
         levelSelectorAdapter.setOnItemClickListner(new LevelSelectorAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                setSelection(position,view);
-                prepareIconPane(position,-1);
-                dropDownList= getCurrentChildren();
-                if(dropDown.getVisibility()==View.VISIBLE)
-                    dropDown.setVisibility(View.GONE);
-
-
+                if(previousSelection!=position) {
+                    setSelection(position, view);
+                    prepareIconPane(position, -1);
+                    dropDownList = getCurrentChildren();
+                    if (dropDown.getVisibility() == View.VISIBLE)
+                        dropDown.setVisibility(View.GONE);
+                }
             }
         });
 
@@ -341,14 +344,11 @@ public class IconSelectActivity extends AppCompatActivity {
         if(view!=null) {
 
             View newSelection=levelSelecterRecycler.getChildAt(position);
-
             ((TextView)newSelection.findViewById(R.id.icon_title)).setTextColor(getResources().getColor(R.color.colorIntro));
             view.setBackgroundColor(getResources().getColor(R.color.colorIntroSelected));
-
             View prevSelection=levelSelecterRecycler.getChildAt(previousSelection);
-            Log.d("Previons location","Loc: "+previousSelection+ "new "+position);
             prevSelection.setBackgroundColor(getResources().getColor(R.color.colorIntro));
-            ((TextView)prevSelection.findViewById(R.id.icon_title)).setTextColor(getResources().getColor(R.color.light_grey));
+            ((TextView)prevSelection.findViewById(R.id.icon_title)).setTextColor(getResources().getColor(R.color.level_select_text_color));
 
         }
         else {
@@ -358,6 +358,7 @@ public class IconSelectActivity extends AppCompatActivity {
             levelSelecterRecycler.getViewTreeObserver().removeOnGlobalLayoutListener(tempListener);
         }
         previousSelection =position;
+        invalidateOptionsMenu();
 
     }
 
@@ -370,37 +371,44 @@ public class IconSelectActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.my_board_menu, menu);
+        if(previousSelection==5||previousSelection==6||previousSelection==8)
+            menu.findItem(R.id.filter).setVisible(false);
         return true;
     }
 
     private void showSecondLevelMenu() {
-
-        if(dropDown.getVisibility()==View.VISIBLE)
-        {
-            dropDown.setVisibility(View.GONE);
-            return;
-        }
-        dropDown.setBackground(getResources().getDrawable(R.color.white));
-        dropDown.setVisibility(View.VISIBLE);
-        dropDown.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                prepareIconPane(previousSelection,position);
+        if(!(dropDownList.size()<2))
+          {
+            if (dropDown.getVisibility() == View.VISIBLE) {
                 dropDown.setVisibility(View.GONE);
+                return;
             }
-        });
-        ArrayAdapter<String> dropDownAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, dropDownList);
-        dropDown.setAdapter(dropDownAdapter);
+            dropDown.setBackground(getResources().getDrawable(R.color.white));
+            dropDown.setVisibility(View.VISIBLE);
+            dropDown.bringToFront();
+            dropDown.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    prepareIconPane(previousSelection, position);
+                    dropDown.setVisibility(View.GONE);
+                }
+            });
+
+            simpleArrayAdapter simpleArrayAdapter=new simpleArrayAdapter(this,dropDownList);
+            ArrayAdapter<String> dropDownAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, dropDownList);
+            dropDown.setAdapter(simpleArrayAdapter);
+        }
 
     }
 
     private ArrayList<String> getCurrentChildren() {
         ArrayList<String> list=new ArrayList<>();
+        //This line is added to check for places/people and help
         for(int i=0;i<iconList.size();i++)
         {
             JellowIcon icon=iconList.get(i);
             if(icon.parent2!=-1)
-                break;
+                continue;
             if(icon.parent0==previousSelection&&icon.parent1!=-1)
                 list.add(icon.IconTitle);
         }
@@ -442,6 +450,39 @@ public class IconSelectActivity extends AppCompatActivity {
                 selectionCheckBox.setChecked(utilF.getSelection(selectedIconList, iconList));
                 iconSelectorAdapter.notifyDataSetChanged();
             }
+        }
+
+    }
+
+
+
+    private class simpleArrayAdapter extends ArrayAdapter<String>
+    {
+
+        // View lookup cache
+        private class ViewHolder {
+            TextView name;
+        }
+
+        public simpleArrayAdapter(Context context, ArrayList<String> StringList) {
+            super(context, R.layout.level_select_card, StringList);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            String title = getItem(position);
+            ViewHolder viewHolder; // view lookup cache stored in tag
+            if (convertView == null) {
+                viewHolder = new ViewHolder();
+                LayoutInflater inflater = LayoutInflater.from(getContext());
+                convertView = inflater.inflate(R.layout.level_select_card, parent, false);
+                viewHolder.name = convertView.findViewById(R.id.icon_title);
+                convertView.setTag(viewHolder);
+            } else {
+                viewHolder = (ViewHolder) convertView.getTag();
+            }
+            viewHolder.name.setText(title);
+            return convertView;
         }
 
     }
