@@ -3,12 +3,13 @@ package com.dsource.idc.jellowintl.makemyboard;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,17 +24,16 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> 
     private Context mContext;
     private int mode;
 // private LayoutInflater mInflater;
-private ArrayList<Board> mDataSource;
-private int size=-1;
+    private ArrayList<Board> mDataSource;
     private OnItemClickListener mItemClickListener;
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     //each data item is just a string in this case
-    public TextView boardTitle;
-    public ImageView boardIcon;
-    public ImageView editBoard;
-    public ImageView deleteBoard;
+    TextView boardTitle;
+    ImageView boardIcon;
+    ImageView editBoard;
+    ImageView deleteBoard;
 
     public ViewHolder(View v) {
         super(v);
@@ -104,7 +104,6 @@ private int size=-1;
 
     @Override
     public void onBindViewHolder(BoardAdapter.ViewHolder holder, int position) {
-        size=mDataSource.size();
         Board board=mDataSource.get(position);
         if(board.boardID.equals("-1")&&mode==MyBoards.NORMAL_MODE)
              {
@@ -126,8 +125,10 @@ private int size=-1;
 
     @Override
     public void onViewAttachedToWindow(@NonNull ViewHolder holder) {
-
-
+        if(mode==MyBoards.DELETE_MODE) {
+            Animation jiggle = AnimationUtils.loadAnimation(mContext, R.anim.jiggle);
+            holder.boardIcon.startAnimation(jiggle);
+        }
     }
 
     @Override

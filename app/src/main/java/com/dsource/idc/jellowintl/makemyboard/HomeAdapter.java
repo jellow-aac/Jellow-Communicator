@@ -24,15 +24,17 @@ import java.util.List;
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
 
-    public final List<JellowIcon> data;
+    public List<JellowIcon> data;
     public Context mContext;
-    public onDoubleTapListener onDoubleTapListener;
-    OnItemSelectListener onItemSelectListener;
+    private onDoubleTapListener onDoubleTapListener;
+    private OnItemSelectListener onItemSelectListener;
+    int GridSize;
     public int selectedPosition=-1;
 
-    public HomeAdapter(List<JellowIcon> data, Context context) {
+    public HomeAdapter(List<JellowIcon> data, Context context, int gridSize) {
         this.data = data;
         mContext=context;
+        this.GridSize=gridSize;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -96,8 +98,12 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     @Override
     public HomeAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView;
+        if(GridSize<4)
         itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.layout_level_xadapter_9_icons, parent, false);
+                .inflate(R.layout.layout_level_xadapter_3_icons, parent, false);
+        else
+            itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.layout_level_xadapter_9_icons, parent, false);
         return new HomeAdapter.ViewHolder(itemView);
     }
 

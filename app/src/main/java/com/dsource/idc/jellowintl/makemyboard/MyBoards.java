@@ -109,14 +109,10 @@ public class MyBoards extends AppCompatActivity {
         if(boardList.size()<1)
         {
             mRecyclerView.setLayoutManager(new GridLayoutManager(this,1));
-            adapter=new BoardAdapter(this,boardList,NORMAL_MODE);
-            mRecyclerView.setLayoutManager(new GridLayoutManager(this,1));
-            mRecyclerView.setAdapter(adapter);
+            mode=NORMAL_MODE;
         }
         else {
-            adapter=new BoardAdapter(this,boardList,NORMAL_MODE);
             mRecyclerView.setLayoutManager(new GridLayoutManager(this,3));
-            mRecyclerView.setAdapter(adapter);
         }
         if(mode==NORMAL_MODE) {
             boardList.add(new Board("-1", "Add Board", null));
@@ -174,7 +170,10 @@ public class MyBoards extends AppCompatActivity {
                                 Board boardToDelete = boardList.get(Position);
                                 database.deleteBoard(boardToDelete.boardID,new DataBaseHelper(MyBoards.this).getReadableDatabase());
                                 boardList.remove(Position);
-                                prepareBoardList(DELETE_MODE);
+                                if(boardList.size()<1)
+                                    prepareBoardList(NORMAL_MODE);
+                                else
+                                adapter.notifyDataSetChanged();
                             }
                         });
 

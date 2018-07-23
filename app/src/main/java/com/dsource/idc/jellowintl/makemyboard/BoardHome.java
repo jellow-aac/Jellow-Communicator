@@ -2,9 +2,7 @@ package com.dsource.idc.jellowintl.makemyboard;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -125,7 +123,7 @@ public class BoardHome extends AppCompatActivity {
     }
 
     private void updateList() {
-        adapter=new HomeAdapter(displayList,this);
+        changeGridSize();
         adapter.setOnDoubleTapListner(new HomeAdapter.onDoubleTapListener() {
             @Override
             public void onItemDoubleTap(View view, int position) {
@@ -191,7 +189,7 @@ public class BoardHome extends AppCompatActivity {
 
     private void initViews(){
         mRecycler=findViewById(R.id.recycler_view);
-        mRecycler.setLayoutManager(new GridLayoutManager(this,currentBoard.getGridSize()));
+        changeGridSize();
         home=findViewById(R.id.ivhome);
         home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -219,6 +217,24 @@ public class BoardHome extends AppCompatActivity {
         edittext.setVisibility(View.GONE);
         speakButton.setVisibility(View.GONE);
 
+    }
+
+    private void changeGridSize()
+    {
+        adapter=new HomeAdapter(displayList,this,currentBoard.getGridSize());
+        if(currentBoard.getGridSize()<4)
+        mRecycler.setLayoutManager(new GridLayoutManager(this,currentBoard.getGridSize()));
+        else
+        {
+            switch (currentBoard.getGridSize())
+            {
+                case 4:mRecycler.setLayoutManager(new GridLayoutManager(this,2));break;//2X2
+                case 5:break;//2X3
+                case 6:mRecycler.setLayoutManager(new GridLayoutManager(this,3));break;//3X3
+            }
+        }
+        mRecycler.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
     private void notifyItemClicked(int position) {
@@ -324,7 +340,7 @@ public class BoardHome extends AppCompatActivity {
             public void onGridSelectListener(int size) {
                 currentBoard.setGridSize(size);
                 database.updateBoardIntoDatabase(new DataBaseHelper(BoardHome.this).getWritableDatabase(),currentBoard);
-                initViews();
+                changeGridSize();
             }
         });
         dialog.show();

@@ -100,7 +100,7 @@ public class EditBoard extends AppCompatActivity {
             public void onItemDelete(View view, final int position) {
                         modelManager.deleteIconFromModel(Level,LevelOneParent,LevelTwoParent,position,currentBoard);
                         displayList.remove(position);
-                        updateList(AdapterEditBoard.DELETE_MODE);
+                        adapterRight.notifyDataSetChanged();
             }
         });
 
@@ -262,7 +262,6 @@ public class EditBoard extends AppCompatActivity {
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            //TODO add action
             case R.id.delete_icons:
                 prepareIconDeleteMode();
                 break;

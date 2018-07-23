@@ -101,7 +101,7 @@ public class IconSelectActivity extends AppCompatActivity {
                                     new ModelManager(sortList(selectedIconList),IconSelectActivity.this).
                                             getModel());
                             database.updateBoardIntoDatabase(new DataBaseHelper(IconSelectActivity.this).getReadableDatabase(),board);
-                            Intent intent = new Intent(IconSelectActivity.this, EditBoard.class);
+                            Intent intent = new Intent(IconSelectActivity.this, AddEditIconAndCategory.class);
                             intent.putExtra(BOARD_ID, boardId);
                             startActivity(intent);
                             finish();
@@ -211,7 +211,7 @@ public class IconSelectActivity extends AppCompatActivity {
 
         iconList=new ArrayList<>();
         iconRecycler =findViewById(R.id.icon_select_pane_recycler);
-        iconSelectorAdapter =new IconSelectorAdapter(this,iconList);
+        iconSelectorAdapter =new IconSelectorAdapter(this,iconList,IconSelectorAdapter.ICON_SELECT_MODE);
         dropDown= findViewById(R.id.filter_menu);
         iconRecycler.setLayoutManager(new GridLayoutManager(this,gridSize()));
         iconRecycler.setAdapter(iconSelectorAdapter);
@@ -267,7 +267,7 @@ public class IconSelectActivity extends AppCompatActivity {
      */
     private void prepareIconPane(int level_1,int level_2) {
         iconList=new IconDataBaseHelper(this).myBoardQuery(level_1,level_2);
-        iconSelectorAdapter =new IconSelectorAdapter(this,iconList);
+        iconSelectorAdapter =new IconSelectorAdapter(this,iconList,IconSelectorAdapter.ICON_SELECT_MODE);
         iconRecycler.setAdapter(iconSelectorAdapter);
         iconSelectorAdapter.notifyDataSetChanged();
         selectionCheckBox.setChecked(utilF.getSelection(selectedIconList,iconList));
