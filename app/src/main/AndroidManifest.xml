@@ -152,8 +152,14 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/search_act_title"
             android:theme="@style/Theme.AppCompat.Translucent" />
-        <activity android:name=".makemyboard.BoardHome" />
-        <activity android:name=".makemyboard.UtilityClasses.AddEditIconAndCategory"></activity>
+        <activity android:name=".makemyboard.BoardHome"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape"
+            />
+        <activity android:name=".makemyboard.AddEditIconAndCategory"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape"
+            />
     </application>
 
 </manifest>

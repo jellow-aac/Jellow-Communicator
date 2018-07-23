@@ -25,15 +25,19 @@ public class IconSelectorAdapter extends RecyclerView.Adapter<IconSelectorAdapte
     // private LayoutInflater mInflater;
     private ArrayList<JellowIcon> mDataSource;
     IconSelectorAdapter.OnItemClickListener mItemClickListener;
+    public static final int ICON_SELECT_MODE = 121;
+    public static final int ADD_EDIT_ICON_MODE = 211;
+    private int mode;
 
     /**
      * public constructor
      * @param context
      * @param items
      */
-    public IconSelectorAdapter(Context context, ArrayList<JellowIcon> items) {
+    public IconSelectorAdapter(Context context, ArrayList<JellowIcon> items,int mode) {
         mContext = context;
         mDataSource = items;
+        this.mode = mode;
     }
 
 

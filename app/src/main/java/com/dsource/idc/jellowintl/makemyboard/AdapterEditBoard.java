@@ -6,15 +6,13 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dsource.idc.jellowintl.GlideApp;
@@ -321,7 +319,11 @@ public class AdapterEditBoard extends DragSortAdapter<AdapterEditBoard.ViewHolde
         if(Mode==NORMAL_MODE)
             holder.removeIcon.setVisibility(View.GONE);
         else if(Mode==DELETE_MODE)
+        {
             holder.removeIcon.setVisibility(View.VISIBLE);
+            Animation jiggle = AnimationUtils.loadAnimation(mContext, R.anim.jiggle);
+            holder.iconImage.startAnimation(jiggle);
+        }
         super.onViewAttachedToWindow(holder);
     }
 
