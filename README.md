@@ -19,21 +19,13 @@ For further information on Jellow and FAQs, please visit www.dsource.in/tool/jel
 Whats new
 ----
 
-Integrated all-in-one app (International and Indian versions now unified!)
-
-Simple way of adding multiple languages into app
-
-App in 2 languages (English and Hindi) and multiple accents (Indian, American, and British)
- 
-Support for Android Nougat and Oreo
-
-Scroll feature for easy in-app navigation
-
-Customization options for icons (3 or 9 icons per screen) and text display ('Picture+Text' or 'Picture only' mode)
-
-Serial and QWERTY keyboard
-
-New icons in "help", "safety", "therapy", "money" and "requests"
+- Search feature to enable quick access to desired icons.
+- Notifications of new versions of app and updates on upcoming Jellow workshops.
+- Ability to place a call to caregiver in case of emergency in devices with sim cards.
+- Ability to enable or disable emergency call feature from app 'Settings'.
+- Brand new icons in "People", "Places", and "Time and Weather" categories.
+- Bug fixes for Android Oreo.
+- Fixed bug showing incompatibility for Wifi only devices.
 
 Translators
 ----

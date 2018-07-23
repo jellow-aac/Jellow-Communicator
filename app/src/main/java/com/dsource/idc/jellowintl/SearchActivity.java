@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
+import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
@@ -171,7 +172,7 @@ public class SearchActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if(!isAnalyticsActive()){
-            throw new Error("unableToResume");
+            resetAnalytics(this, new SessionManager(this).getCaregiverNumber().substring(1));
         }
         if(Build.VERSION.SDK_INT > 25 &&
                 !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
@@ -309,8 +310,9 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
             activityIntent.putExtra(mContext.getString(R.string.level_2_item_pos_tag),icon.parent1);
             //Level 3 Icon reference to be highlighted
             activityIntent.putExtra(mContext.getString(R.string.search_parent_2),icon.parent2);
+            String levelTitle = getIconTitleLevel2(icon.parent0)[icon.parent1].replace("…", "");
             //Bread crumb paths
-            activityIntent.putExtra(menuPath,getActionBarTitle(icon.parent0)+""+getIconTitleLevel2(icon.parent0)[icon.parent1]+"/");
+            activityIntent.putExtra(menuPath,getActionBarTitle(icon.parent0)+""+levelTitle+"/");
         }
         return activityIntent;
     }
@@ -358,7 +360,7 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
 
         holder.speakIcon.setVisibility(View.VISIBLE);
         holder.iconDir.setVisibility(View.VISIBLE);
-        holder.iconTitle.setText(thisIcon.IconTitle);
+        holder.iconTitle.setText(thisIcon.IconTitle.replace("…",""));
         if(thisIcon.parent1==-1)
         {
             TypedArray mArray=mContext.getResources().obtainTypedArray(R.array.arrLevelOneIconAdapter);
@@ -394,7 +396,9 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
             dir=arr[thisIcon.parent0];
         }
         else {
-            dir=arr[thisIcon.parent0] + "->" + getIconTitleLevel2(thisIcon.parent0)[thisIcon.parent1];
+            String levelTitle = getIconTitleLevel2(thisIcon.parent0)[thisIcon.parent1].
+                    replace("…", "");
+            dir=arr[thisIcon.parent0] + "->" + levelTitle;
 
         }
         holder.iconDir.setText(dir);
@@ -409,23 +413,23 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
         String arr[]=null;
         switch (pos)
         {
-            case 0:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoGreetFeelSpeechText);
+            case 0:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoGreetFeelAdapterText);
                 break;
-            case 1:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoDailyActSpeechText);
+            case 1:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoDailyActAdapterText);
                 break;
-            case 2:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoEatSpeechText);
+            case 2:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoEatAdapterText);
                 break;
-            case 3:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoFunSpeechText);
+            case 3:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoFunAdapterText);
                 break;
-            case 4:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoLearningSpeechText);
+            case 4:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoLearningAdapterText);
                 break;
-            case 5:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoPeopleSpeechText);
+            case 5:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoPeopleAdapterText);
                 break;
-            case 6:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoPlacesSpeechText);
+            case 6:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoPlacesAdapterText);
                 break;
-            case 7:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoTimeWeatherSpeechText);
+            case 7:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoTimeWeatherAdapterText);
                 break;
-            case 8:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoHelpSpeechText);
+            case 8:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoHelpAdapterText);
                 break;
             default:
         }

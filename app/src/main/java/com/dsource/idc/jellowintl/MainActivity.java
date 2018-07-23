@@ -27,7 +27,6 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.dsource.idc.jellowintl.models.LevelOneVerbiageModel;
-import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
@@ -38,6 +37,7 @@ import java.util.ArrayList;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
+import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
@@ -99,10 +99,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
         getSupportActionBar().setTitle(getString(R.string.action_bar_title));
 
-        // Initialize default exception handler for this activity.
-        // If any exception occurs during this activity usage,
-        // handle it using default exception handler.
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         loadArraysFromResources();
         // Set the capacity of mRecyclerItemsViewList list to total number of category icons to be
         // populated on the screen.
@@ -230,8 +226,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        SessionManager session = new SessionManager(this);
         if(!isAnalyticsActive()){
-            throw new Error("unableToResume");
+            resetAnalytics(this, session.getCaregiverNumber().substring(1));
         }
         if(Build.VERSION.SDK_INT > 25 &&
                 !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
@@ -244,7 +241,6 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(receiver, filter);
        // Start measuring user app screen timer.
         startMeasuring();
-        SessionManager session = new SessionManager(this);
         if(!session.getToastMessage().isEmpty()) {
             Toast.makeText(getApplicationContext(),
                     session.getToastMessage(), Toast.LENGTH_SHORT).show();
@@ -459,7 +455,7 @@ public class MainActivity extends AppCompatActivity {
                     mIvKeyboard.setImageResource(R.drawable.keyboard);
                     mIvBack.setImageResource(R.drawable.back);
                     mIvHome.setImageResource(R.drawable.home);
-                    mIvTTs.setImageResource(R.drawable.speaker_button);
+                    mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
                     speakSpeech(mNavigationBtnTxt[1]);
                     mEtTTs.setVisibility(View.INVISIBLE);
                     mRecyclerView.setVisibility(View.VISIBLE);
@@ -504,7 +500,7 @@ public class MainActivity extends AppCompatActivity {
                 speakSpeech(mNavigationBtnTxt[2]);
                 //Firebase event
                 singleEvent("Navigation","Keyboard");
-                mIvTTs.setImageResource(R.drawable.speaker_button);
+                mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
                 //when mFlgKeyboardOpened is set to true, it means user is using custom keyboard input
                 // text and system keyboard is visible.
                 if (mFlgKeyboardOpened){
@@ -1005,8 +1001,6 @@ public class MainActivity extends AppCompatActivity {
         mIvTTs.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 speakSpeech(mEtTTs.getText().toString());
-                if(!mEtTTs.getText().toString().equals(""))
-                    mIvTTs.setImageResource(R.drawable.speaker_pressed);
                 //Firebase event
                 Bundle bundle = new Bundle();
                 bundle.putString("InputName", Settings.Secure.getString(getContentResolver(),
@@ -1377,13 +1371,14 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-
     /**
-     * <p>This function check whether user device has sim card insterted into SIM slot
-     * and user can make call.
+     * <p>This function check whether user device is not wifi only and
+     * has sim card inserted into SIM slot and user can make a call.
      * @return true if device can able to make phone calls.</p>
      * */
     public static boolean isDeviceReadyToCall(TelephonyManager tm){
-        return tm != null && tm.getSimState() == TelephonyManager.SIM_STATE_READY;
+        return tm != null
+            && tm.getPhoneType() != TelephonyManager.PHONE_TYPE_NONE
+                && tm.getSimState() == TelephonyManager.SIM_STATE_READY;
     }
 }

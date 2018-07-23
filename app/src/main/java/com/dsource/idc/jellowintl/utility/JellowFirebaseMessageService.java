@@ -17,7 +17,6 @@ import com.google.firebase.messaging.RemoteMessage;
 import java.util.Random;
 
 public class JellowFirebaseMessageService extends FirebaseMessagingService {
-    private static final String TAG = "JellowFirebaseMessageSe";
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -55,6 +54,7 @@ public class JellowFirebaseMessageService extends FirebaseMessagingService {
             builder.setStyle(new NotificationCompat.BigTextStyle().bigText(remoteMessage.getData().get("body")));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 builder.setSmallIcon(R.drawable.ic_notif_small);
+                builder.setColor(getColor(R.color.colorAccent));
             } else {
                 builder.setSmallIcon(R.drawable.ic_launcher);
             }

@@ -28,7 +28,6 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.crashlytics.android.Crashlytics;
-import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
@@ -41,6 +40,7 @@ import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.LCODE;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
+import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.setCrashlyticsCustomKey;
 import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
@@ -71,7 +71,6 @@ public class LanguageSelectActivity extends AppCompatActivity{
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.Language)+"</font>"));
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
 
         mSession = new SessionManager(this);
         if(Build.VERSION.SDK_INT >= 21)
@@ -86,10 +85,9 @@ public class LanguageSelectActivity extends AppCompatActivity{
         offlineLanguages = getOfflineLanguages();
         onlineLanguages = getOnlineLanguages();
         languageSelect = findViewById(R.id.selectDownloadedLanguageSpinner);
-        if(Build.VERSION.SDK_INT < 21)
-            languageSelect.setBackgroundResource(R.drawable.custom_txt_view);
+
         adapter_lan = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, offlineLanguages);
+                R.layout.simple_spinner_item, shortLangNameForDisplay(offlineLanguages));
 
         adapter_lan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -172,7 +170,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
                     delete.setEnabled(false);
                      new MaterialDialog.Builder(LanguageSelectActivity.this)
                             .title(strDownloadableLang)
-                            .items(onlineLanguages)
+                            .items(shortLangNameForDisplay(onlineLanguages))
                             .itemsCallbackSingleChoice(
                                     0, new MaterialDialog.ListCallbackSingleChoice() {
                                         @Override
@@ -241,7 +239,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
                     add.setEnabled(false);
                     new MaterialDialog.Builder(LanguageSelectActivity.this)
                             .title(strDownloadedLang)
-                            .items(offlineLanguages)
+                            .items(shortLangNameForDisplay(offlineLanguages))
                             .itemsCallbackSingleChoice(
                                     0, new MaterialDialog.ListCallbackSingleChoice() {
                                         @Override
@@ -264,7 +262,8 @@ public class LanguageSelectActivity extends AppCompatActivity{
                                             onlineLanguages = getOnlineLanguages();
                                             offlineLanguages = getOfflineLanguages();
                                             adapter_lan = new ArrayAdapter<String>(getBaseContext(),
-                                                    android.R.layout.simple_spinner_item, offlineLanguages);
+                                                    R.layout.simple_spinner_item, shortLangNameForDisplay(offlineLanguages));
+                                            adapter_lan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                             languageSelect.setAdapter(adapter_lan);
                                             dialog.dismiss();
                                             Toast.makeText(getBaseContext(),strLangRemoved,Toast.LENGTH_SHORT).show();
@@ -398,7 +397,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
     protected void onResume() {
         super.onResume();
         if(!isAnalyticsActive()){
-            throw new Error("unableToResume");
+            resetAnalytics(this, mSession.getCaregiverNumber().substring(1));
         }
         if(Build.VERSION.SDK_INT > 25 &&
                 !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
@@ -408,7 +407,8 @@ public class LanguageSelectActivity extends AppCompatActivity{
         onlineLanguages = getOnlineLanguages();
         offlineLanguages = getOfflineLanguages();
         adapter_lan = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, offlineLanguages);
+                R.layout.simple_spinner_item, shortLangNameForDisplay(offlineLanguages));
+        adapter_lan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         languageSelect.setAdapter(adapter_lan);
         if(isOpenedTtsSett)
             getSpeechLanguage("");
@@ -472,8 +472,8 @@ public class LanguageSelectActivity extends AppCompatActivity{
         public void onReceive(final Context context, Intent intent) {
             switch (intent.getAction()){
                 case "com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES":
-                    isTtsLangChanged = systemTtsLang != null &&
-                            !systemTtsLang.equals(intent.getStringExtra("systemTtsRegion"));
+                    isTtsLangChanged = (systemTtsLang != null &&
+                            !systemTtsLang.equals(intent.getStringExtra("systemTtsRegion")));
 
                     systemTtsLang = intent.getStringExtra("systemTtsRegion");
                     if(intent.getBooleanExtra("saveUserLanguage",false)){
@@ -544,5 +544,26 @@ public class LanguageSelectActivity extends AppCompatActivity{
         if(language.equals("English (India)") || language.equals("हिंदी"))
             return  "Hindi (India)";
         return selectedLanguage;
+    }
+
+    private String[] shortLangNameForDisplay(String[] langNameToBeShorten) {
+        String[] shortenLanguageNames = new String[langNameToBeShorten.length];
+        for (int i=0; i < langNameToBeShorten.length; i++){
+            switch (langNameToBeShorten[i]){
+                case "English (India)":
+                    shortenLanguageNames[i] = "English (IN)";
+                    break;
+                case "English (United Kingdom)":
+                    shortenLanguageNames[i] = "English (UK)";
+                    break;
+                case "English (United States)":
+                    shortenLanguageNames[i] = "English (US)";
+                    break;
+                default:
+                    shortenLanguageNames[i] = langNameToBeShorten[i];
+                    break;
+            }
+        }
+        return shortenLanguageNames;
     }
 }

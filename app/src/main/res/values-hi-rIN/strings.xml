@@ -17,12 +17,12 @@
     <string name="languageLimitExceeded">नई भाषा जोडने के लिये पहले से मौजूद एक भाषा को डिलीट करें</string>
 
 
-    <string name="search_hint">आइकन खोजें...</string>
+    <string name="search_hint">आइकन खोजें…</string>
     <string name="search_title">आइकन खोजें</string>
     <string name="home">होम</string>
     <string name="search_act_title">जेलो में आइकन खोजे</string>
     <string name="icon_not_found">आइकन नहीं मिला</string>
-    <string name="please_wait">कृपया प्रतीक्षा करें...</string>
+    <string name="please_wait">कृपया प्रतीक्षा करें…</string>
     <string name="no_internet">इंटरनेट नहीं है</string>
 
 
@@ -59,6 +59,7 @@
     <string name="txtLanguage">भाषा</string>
     <string name="txtSpeechSpeed">भाषण गति</string>
     <string name="txtVoiceSpeech">आवाज का स्तर</string>
+    <string name="txtVoiceVolume">भाषण का स्तर</string>
     <string name="txtDisplayMode">प्रदर्शन प्रकार</string>
     <string name="txtNumOfPerPerScr">प्रति स्क्रीन मुख्य वर्ग के आइकनों की गिनती</string>
     <string name="txtDemo">डेमो</string>
@@ -98,7 +99,7 @@
     <string name="saveAsDefault">रक्षित करें</string>
     <string name="childName">बच्चे का नाम *</string>
     <string name="careGiveName">केयर गिवर का नाम</string>
-    <string name="careGiverContact">केयर गिवर का संपर्क नंबर *</string>
+    <string name="careGiverContact">केयर गिवर का संपर्क नंबर| यह डिवाईस से अलग सिम नंबर *</string>
     <string name="homeAddress">घर का पता</string>
     <string name="emailAddress">ई- मेल आयडी *</string>
     <string name="bloodGroup">रक्त वर्ग</string>
@@ -116,7 +117,7 @@
                     ul { padding-left:20px; }
             </style>
         </head>
-        <body bgcolor="#F7F3C6">
+        <body bgcolor="#F7F3C6" text="#414042">
 <p><strong>&nbsp;सामान्य जानकारी</strong></p>
 <ul>
 <li>जेलो एक संवाद सहायक अॅप्लिकेशन हैं, जो आइकनों एवं छवियों का उपयोग करके बातचीत करने में मदद करता हैं। जो बोलना सीख रहें हैं, या जिन्हें बोलने में तकलीफ हैं, वे जेलो का इस्तमाल कर सकते हैं।</li><br/>
@@ -139,7 +140,7 @@
 <li>जेलो अॅप्लिकेशन पर सभी अनुसंधान कार्यों का श्रेय भारतीय प्रौद्योगिकी संस्थान मुंबई (आई आई टी-बी) को दिया जाता हैं।</li><br/>
 <li>इस जेलो अॅप्लिकेशन के सभी कन्टेन्ट (समावेश किये गए चिह्न, लेआउट, वास्तुकला, विज्युअल आइडेन्टिटी, अनुवाद, और सॉफ्टवेयर कोड) को बाँटा और अपनाया जा सकता हैं, लेकिन वाणिज्यिक प्रयोजनों के लिए इनका उपयोग नहीं किया जा सकता हैं।</li><br/>
 <li>जब कन्टेन्ट का उपयोग किया जाता है, तो आपसे अनुरोध हैं की, आप भारतीय प्रौद्योगिकी संस्थान मुंबई (आई आई टी-बी) के प्रती आभार प्रकट करें।</li><br/>
-<li>जेलो अॅप्लिकेशन इस लिंक पर डाउनलोड करने के लिए उपलब्ध हैं। <a href="http://www.dsource.in/tool/jellow ">www.dsource.in/tool/jellow </a></li><br/>
+<li>जेलो अॅप्लिकेशन इस लिंक पर डाउनलोड करने के लिए उपलब्ध हैं। <a href="http://www.jellow.org">http://www.jellow.org</a></li><br/>
 <li>यदि कोई जेलो को आगे विकसित करना चाहें, तो उनसे अनुरोध हैं की, प्रमुख जांचकर्ता प्राध्यापक रवि पूवैया से <span style="color: #ff6600;"><a href="mailto:ravi@iitb.ac.in">ravi@iitb.ac.in</a></span> इस ई-मेल आयडी पर संपर्क करें।</li><br/>
 </ul>
 
@@ -209,9 +210,7 @@
     <string name="resetPrefPointOne">प्रयोगकर्ता के द्वारा सबसे अधिक इस्तेमाल किये गए पसंदीदा आइकॉन को जेलो अॅप्लिकेशन स्मरण में रखता हैं, और उन्हें स्क्रीन पर मुख्य पसंद के रूप में प्रदर्शित करता हैं।</string>
     <string name="resetPrefPointTwo">आइकॉन्स को रीसेट करके, सभी आइकॉन मूल क्रम में आ जायेंगे जैसे वे पहली बार अॅप्लिकेशन में प्रदर्शित किये गये थे।</string>
     <string name="resetPrefPointThree">आप आइकॉन्स को रीसेट करना चाहते हैं?</string>
-    <string name="invalid_emailId">यह  ईमेल पता गलत हैं</string>
-    <string name="invalidContactNumber">Invalid contact number</string>
-    <string name="customSpeakIcon">Press here to speak above text.</string>
+    <string name="invalid_emailId">यह ईमेल पता गलत हैं</string>
     <string name="keyboard">कीबोर्ड</string>
     <string name="intro_to_jellow">जेलो का परिचय</string>
     <string name="txt_intro1_central9btn">जेलो में ९ मुख्य वर्गों के बटन हैं।</string>
@@ -234,9 +233,10 @@
     <string name="txt_intro7_getStarted">शुरू करें</string>
     <string name="rate_jellow">कृपया प्रतिक्रिया के सभी क्षेत्र भरें।</string>
     <string name="txt_registration_jellowCalluDesc">जेलो अॅप्लिकेशन आपको इस नाम से जानता है</string>
-    <string name="txt_registration_emergencynoDesc">आपात्कालीन स्थिति में आप के साथ संपर्क करने के लिए</string>
+    <string name="txt_registration_emergencynoDesc">आपात्कालीन स्थिति में आप के साथ संपर्क करने के लिए|</string>
+
     <string name="txt_registration_emailDesc">आपको जेलो अॅप्लिकेशन के नये संस्करण के बारे में सूचित करने के लिए</string>
-    <string name="txt_registration_selectLangDesc">जेलो के लिए भाषा चुनें</string>
+    <string name="txt_registration_selectLangDesc">जेलो के लिए भाषा चुनें *</string>
     <string name="txt_registration_registerBtn">रजिस्टर करें</string>
     <string name="txtEditLanguage">भाषा संपादित करें:</string>
     <string name="change_language_line6">डाउनलोड की गई नई भाषा को डिफ़ॉल्ट बनाने के लिये नीचे दिये गये चरणोंका पालन करें</string>
@@ -259,7 +259,7 @@
     <string name="set_engine_language">कृपया पहले चरण ३ को पूरा  करें</string>
     <string name="welcome_msg">नमस्तें</string>
     <string name="ok">आगे बढें</string>
-    <string name="call_permission_info">कॉल करने की अनुमति फिलहाल उपलब्ध नहीं हैं। आपातकालीन स्थिति में कॉल करने के लिए अनुमति आवश्यक हैं।</string>
+    <string name="call_permission_info">कॉल करने की अनुमति फिलहाल उपलब्ध नहीं हैं। आपातकालीन स्थिति जेलो कॉल करने के लिए अनुमति आवश्यक हैं।</string>
     <string name="granted_call_permission_req">कॉल करने की अनुमति दी गई हैं।</string>
     <string name="rejected_call_permission_req">कॉल करने की अनुमति नहीं हैं।</string>
     <string name="grant_permission_from_settings">सेटिंग्स में जाकर कॉल करने की अनुमति दें।</string>
@@ -272,4 +272,9 @@
     <string name="downloadableLang">उपलब्ध भाषाएँ</string>
     <string name="downloadedLang">डाउनलोड की गई भाषाएँ</string>
     <string name="remove">डिलीट करें</string>
+    <string name="dismiss">बंद करें</string>
+    <string name="register_user">कृपया प्रतीक्षा करें, रजिस्ट्रेशन प्रक्रिया चालू हैं।</string>
+    <string name="exit">बंद करें</string>
+    <string name="err_dialog_msg">गूगल टीटीएस इंजन आपके डिवाईस में अनुपलब्ध है। क्या आप टीटीएस इंजन को डाउनलोड करना चाहते हैं?</string>
+    <string name="exit_dialog_msg">जेलो का उपयोग करने के लिये गूगल टेक्स्ट-टू-स्पीच इंजन आवश्यक हैं। क्या आप सच में जेलो को बंद करना चाहते हैं?</string>
 </resources>

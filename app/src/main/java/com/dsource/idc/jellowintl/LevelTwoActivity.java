@@ -8,9 +8,8 @@ import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -29,7 +28,6 @@ import android.widget.Toast;
 
 import com.dsource.idc.jellowintl.models.LevelTwoVerbiageModel;
 import com.dsource.idc.jellowintl.utility.CustomGridLayoutManager;
-import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.IndexSorter;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
@@ -44,6 +42,7 @@ import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.maskNumber;
+import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
@@ -106,7 +105,7 @@ public class LevelTwoActivity extends AppCompatActivity {
       selected.*/
     private Integer[] mArrPeoplePlaceTapCount, mArrSort;
 
-    private String end, actionBarTitleTxt, mCallPerInfo,mCallPermissionSetting, mCallReq, mJump2CallSet, mCallPermDeny;
+    private String end, actionBarTitleTxt, mCallPermDeny;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,10 +125,6 @@ public class LevelTwoActivity extends AppCompatActivity {
             getWindow().setFlags(
                 WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
                     WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
-        // Initialize default exception handler for this activity.
-        // If any exception occurs during this activity usage,
-        // handle it using default exception handler.
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         mSession = new SessionManager(this);
         // The below string has value "" in english (all regions) and "है।" in Hindi (India).
         // It is used when user select category "Help" -> "About me".
@@ -143,10 +138,6 @@ public class LevelTwoActivity extends AppCompatActivity {
         //The variables below are defined because android os fall back to default locale
         // after activity restart. These variable will hold the value for variables initialized using
         // user preferred locale.
-        mCallPerInfo = getString(R.string.call_permission_info);
-        mCallPermissionSetting = getString(R.string.grant_permission_from_settings);
-        mCallReq = getString(R.string.request);
-        mJump2CallSet = getString(R.string.action_settings);
         mCallPermDeny = getString(R.string.rejected_call_permission_req);
         /**
          * If the intent is fired from the {@link SearchActivity} then disable the back button
@@ -254,7 +245,7 @@ public class LevelTwoActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if(!isAnalyticsActive()){
-            throw new Error("unableToResume");
+            resetAnalytics(this, mSession.getCaregiverNumber().substring(1));
         }
         if(Build.VERSION.SDK_INT > 25 &&
                 !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
@@ -599,16 +590,32 @@ public class LevelTwoActivity extends AppCompatActivity {
         mIvHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                speakSpeech(mNavigationBtnTxt[0]);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        speakSpeech(mNavigationBtnTxt[0]);
+                    }
+                }).start();
                 //When home is tapped in this activity it will close all other activities and
                 // user is redirected/navigated to MainActivity and gotoHome() method is called.
                 // As Firebase home event is defined in gotoHome() function of mainActivity.
                 mIvHome.setImageResource(R.drawable.home_pressed);
                 mIvKeyboard.setImageResource(R.drawable.keyboard);
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.putExtra(getString(R.string.goto_home), true);
-                startActivity(intent);
-                finishAffinity();
+                if(getIntent().getExtras().getString(getString(R.string.from_search))!=null) {
+                    if (getIntent().getExtras().getString(getString(R.string.from_search))
+                            .equals(getString(R.string.search_tag))) {
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        intent.putExtra(getString(R.string.goto_home), true);
+                        startActivity(intent);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                finishAffinity();
+                            }
+                        },300);
+                    }
+                }else
+                    finish();
             }
         });
     }
@@ -628,10 +635,17 @@ public class LevelTwoActivity extends AppCompatActivity {
         mIvKeyboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(getIntent().getExtras().getString(getString(R.string.from_search))!=null) {
+                    if (getIntent().getExtras().getString(getString(R.string.from_search))
+                            .equals(getString(R.string.search_tag))) {
+                        mIvBack.setEnabled(false);
+                        mIvBack.setAlpha(.5f);
+                    }
+            }
                 speakSpeech(mNavigationBtnTxt[2]);
                 //Firebase event
                 singleEvent("Navigation","Keyboard");
-                mIvTts.setImageResource(R.drawable.speaker_button);
+                mIvTts.setImageResource(R.drawable.ic_search_list_speaker);
                 //when mFlgKeyboardOpened is set to 1, it means user is using custom keyboard input
                 // text and system keyboard is visible.
                 if (mFlgKeyboard == 1) {
@@ -643,7 +657,6 @@ public class LevelTwoActivity extends AppCompatActivity {
                     // d) show category icons
                     // e) hide custom keyboard input text speak button
                     mIvKeyboard.setImageResource(R.drawable.keyboard);
-                    mIvBack.setImageResource(R.drawable.back);
                     mEtTTs.setVisibility(View.INVISIBLE);
                     mRecyclerView.setVisibility(View.VISIBLE);
                     mIvTts.setVisibility(View.INVISIBLE);
@@ -707,13 +720,11 @@ public class LevelTwoActivity extends AppCompatActivity {
                     // when user is typing in custom keyboard input text it is necessary
                     // for user to see input text. The function setSoftInputMode() does this task.
                     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-                    mIvBack.setImageResource(R.drawable.back);
-                    mIvBack.setAlpha(1f);
-                    mIvBack.setEnabled(true);
                     mFlgKeyboard = 1;
                     showActionBarTitle(false);
                     getSupportActionBar().setTitle(strKeyboard);
                 }
+                mIvBack.setImageResource(R.drawable.back);
             }
         });
     }
@@ -1461,8 +1472,6 @@ public class LevelTwoActivity extends AppCompatActivity {
         mIvTts.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 speakSpeech(mEtTTs.getText().toString());
-                if(!mEtTTs.getText().toString().equals(""))
-                    mIvTts.setImageResource(R.drawable.speaker_pressed);
                 //Firebase event
                 Bundle bundle = new Bundle();
                 bundle.putString("InputName", Settings.Secure.getString(getContentResolver(),
@@ -1621,9 +1630,10 @@ public class LevelTwoActivity extends AppCompatActivity {
         else if(mLevelOneItemPos == CATEGORY_ICON_HELP && mLevelTwoItemPos == 0) {
             changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
             // If user have sim device and ready to call, only then request call permission.
-            if(mSession.getEnableCalling() &&
-                isDeviceReadyToCall((TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE)))
-                showCallPreview();
+                if(mSession.getEnableCalling()){
+                    sendBroadcast(new Intent("com.dsource.idc.jellowintl.SPEECH_STOP"));
+                    startCall("tel:" + mSession.getCaregiverNumber());
+                }
         // if category icon Help -> Unsafe touch is selected, then disable like, yes, more
         // expressive icons
         }else if(mLevelOneItemPos == CATEGORY_ICON_HELP && mLevelTwoItemPos == 10)
@@ -2096,68 +2106,6 @@ public class LevelTwoActivity extends AppCompatActivity {
         }
         return -1;
 
-    }
-
-    /**
-     * <p> This function will checks user device os version.
-     *   - If user device is Lollipop or below then it directly send user to make call from app.
-     *   - If user device is greater than Lollipop then it checks for does app call permission
-     *     granted or not.
-     *   - If call permission is granted then it directly send user to make call from app.
-     *   - If call permission is not granted then it opens up dialog message showing why call
-     *     permission is required to app.</p>
-     * */
-    private void showCallPreview(){
-        if(Build.VERSION.SDK_INT > 22 ) {
-            if (ActivityCompat.checkSelfPermission(this,
-                    android.Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
-                sendBroadcast(new Intent("com.dsource.idc.jellowintl.SPEECH_STOP"));
-                startCall("tel:" + mSession.getCaregiverNumber());
-            } else if (ActivityCompat.shouldShowRequestPermissionRationale(
-                            this, android.Manifest.permission.CALL_PHONE)){
-                showPermissionRequestSnackBar();
-            }else
-                showSettingRequestSnackBar();
-        }else{
-            startCall("tel:" + mSession.getCaregiverNumber());
-        }
-    }
-
-    /**
-     * <p> This function will create and display SnackBar with "Request" action button. It will
-     *  display message about why app requires the Call permission.</p>
-     * */
-    private void showPermissionRequestSnackBar() {
-        Snackbar
-            .make(findViewById(R.id.parent), mCallPerInfo, Snackbar.LENGTH_LONG)
-            .setAction(mCallReq, new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ActivityCompat.requestPermissions(LevelTwoActivity.this,
-                            new String[]{android.Manifest.permission.CALL_PHONE},
-                            MY_PERMISSIONS_REQUEST_CALL_PHONE);
-                }
-            })
-            .show();
-    }
-
-    /**
-     * <p> This function will create and display SnackBar with "Settings" action button. The
-     * "Settings" action button will redirect user app setting screen.</p>
-     * */
-    private void showSettingRequestSnackBar() {
-        Snackbar
-            .make(findViewById(R.id.parent), mCallPermissionSetting, Snackbar.LENGTH_LONG)
-            .setAction(mJump2CallSet, new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent();
-                    intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                    intent.setData(Uri.fromParts("package", getPackageName(), null));
-                    startActivity(intent);
-                }
-            })
-            .show();
     }
 
     /**

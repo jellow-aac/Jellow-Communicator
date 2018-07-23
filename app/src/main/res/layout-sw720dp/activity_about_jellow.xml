@@ -10,9 +10,9 @@
         android:layout_height="wrap_content"
         android:paddingTop="19dp"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-
-
+        android:paddingStart="20dp"
+        android:paddingRight="16dp"
+        android:paddingEnd="16dp"
         android:fadeScrollbars="false"
         tools:ignore="WebViewLayout">
         <LinearLayout
@@ -37,23 +37,21 @@
         android:layout_alignParentBottom="true">
         <Button
             android:id="@+id/speak"
-            android:layout_width="230dp"
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:text="@string/speak"
-            android:textSize="18sp"
+            android:textSize="22sp"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/custom_txt_view"
             android:layout_marginLeft="32dp"
-            android:layout_marginRight="32dp"/>
+            android:layout_marginStart="32dp" />
         <Button
             android:id="@+id/stop"
-            android:layout_width="230dp"
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:text="@string/stop"
-            android:textSize="18sp"
+            android:textSize="22sp"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/custom_txt_view"
             android:layout_marginLeft="32dp"
-            android:layout_marginRight="32dp"/>
+            android:layout_marginStart="32dp" />
     </LinearLayout>
 </RelativeLayout>

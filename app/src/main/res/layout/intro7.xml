@@ -1,61 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
-    android:layout_weight="10"
     android:id="@+id/main">
-
-    <TextView
+    <ImageView
+        android:id="@+id/btnMoveLeft"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:paddingLeft="32dp"
-        android:layout_weight="2"
-        android:fontFamily="fonts/Mukta-Regular.ttf"
-        android:textColor="#000000"
-        android:paddingRight="32dp"
-        android:textSize="12sp"
-        android:text="@string/txt_intro7_getStartedDesc"
-        android:id="@+id/tvtop"/>
-
+        android:layout_height="match_parent"
+        android:onClick="changeDemoScreen"
+        android:layout_gravity="start"
+        android:paddingLeft="8dp"
+        android:paddingStart="8dp"
+        android:src="@drawable/ic_chevron_left"
+        android:contentDescription="@null"
+        tools:ignore="RtlSymmetry" />
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center"
-        android:layout_weight="10">
-
-        <ImageView
+        android:layout_gravity="center_horizontal">
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_gravity="center"
-            android:src="@drawable/jellow_swipe"
-            android:scaleX="0.7"
-            android:scaleY="0.7"/>
+            android:gravity="center"
+            style="@style/defaultTextViewStyle"
+            android:paddingLeft="32dp"
+            android:layout_weight="1"
+            android:paddingRight="32dp"
+            android:textSize="12sp"
+            android:text="@string/txt_intro7_getStartedDesc"
+            android:id="@+id/tvtop"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_weight="10">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="190dp"
+                android:layout_gravity="center"
+                android:src="@drawable/jellow_swipe"
+                android:scaleX="0.4"
+                android:scaleY="0.4"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_weight="7">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:background="@drawable/custom_btn_view"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                style="@style/defaultTextViewStyle"
+                android:textColor="@color/app_background"
+                android:textSize="13sp"
+                android:onClick="getStarted"
+                android:text="@string/txt_intro7_getStarted"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="60dp" />
     </LinearLayout>
-
-    <Button
-        android:layout_width="213dp"
-        android:layout_height="0dp"
-        android:background="@drawable/custom_txt_view"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_weight="3"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:textColor="#000000"
-        android:paddingLeft="64dp"
-        android:paddingRight="64dp"
-        android:id="@+id/tvbottom"
-        android:fontFamily="fonts/Mukta-Regular.ttf"
-        android:textStyle="bold"
-        android:textSize="13dp"
-        android:onClick="getStarted"
-        android:text="@string/txt_intro7_getStarted"/>
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="60dp" />
-</LinearLayout>
+</FrameLayout>

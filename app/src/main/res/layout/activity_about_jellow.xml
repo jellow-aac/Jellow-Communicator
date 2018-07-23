@@ -33,22 +33,20 @@
         android:layout_alignParentBottom="true">
         <Button
             android:id="@+id/speak"
-            android:layout_width="230dp"
+            android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:text="@string/speak"
             android:textSize="14sp"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/custom_txt_view"
             android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp"/>
         <Button
             android:id="@+id/stop"
-            android:layout_width="230dp"
+            android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:text="@string/stop"
             android:textSize="14sp"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/custom_txt_view"
             android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp"/>
     </LinearLayout>

@@ -8,7 +8,12 @@
         android:layout_height="wrap_content"
         android:fillViewport="false"
         android:fadeScrollbars="false"
-        android:layout_margin="19dp">
+        android:layout_marginLeft="19dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginBottom="19dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,18 +27,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
-                    android:textColor="#000"
                     android:scaleX=".7"
                     android:scaleY=".7"
+                    style="@style/defaultTextViewStyle"
                     android:text="@string/bullet" />
                 <TextView
                     android:id="@+id/tv1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="@string/resetPrefPointOne"
-                    android:textSize="14sp"
-                    android:scrollHorizontally="true"/>
+                    style="@style/defaultTextViewStyle"
+                    android:text="@string/resetPrefPointOne"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -46,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
-                    android:textColor="#000"
+                    style="@style/defaultTextViewStyle"
                     android:scaleX=".7"
                     android:scaleY=".7"
                     android:text="@string/bullet" />
@@ -54,9 +57,8 @@
                     android:id="@+id/tv2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="@string/resetPrefPointTwo"
-                    android:textSize="14sp"/>
+                    style="@style/defaultTextViewStyle"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -67,7 +69,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
-                    android:textColor="#000"
+                    style="@style/defaultTextViewStyle"
                     android:scaleX=".7"
                     android:scaleY=".7"
                     android:text="@string/bullet" />
@@ -75,9 +77,8 @@
                     android:id="@+id/tv3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="@string/resetPrefPointThree"
-                    android:textSize="14sp"/>
+                    style="@style/defaultTextViewStyle"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
@@ -91,20 +92,18 @@
 
         <Button
             android:id="@+id/yes"
-            android:layout_width="230dp"
+            android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:text="@string/yes"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/custom_txt_view"
             android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp" />
         <Button
             android:id="@+id/no"
-            android:layout_width="230dp"
+            android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:text="@string/no"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/custom_txt_view"
             android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp" />
     </LinearLayout>

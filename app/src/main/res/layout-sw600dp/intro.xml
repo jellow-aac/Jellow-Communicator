@@ -1,57 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
-    android:layout_weight="10"
     android:id="@+id/main">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:paddingLeft="32dp"
-        android:layout_weight="6"
-        android:fontFamily="fonts/Mukta-Regular.ttf"
-        android:textColor="#000000"
-        android:paddingRight="32dp"
-        android:textSize="20dp"
-        android:text="@string/txt_intro1_central9btn"/>
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_weight="29">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/categorybuttons"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_weight="7">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal">
         <TextView
             android:layout_width="wrap_content"
-            android:layout_weight="3"
-            android:layout_height="64dp"
-            android:layout_gravity="top"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:gravity="center"
-            android:fontFamily="fonts/Mukta-Regular.ttf"
-            android:textColor="#000000"
-            android:paddingLeft="64dp"
-            android:paddingRight="64dp"
-            android:textSize="20dp"
-            android:text="@string/txt_intro1_categorybtn"/>
-    </LinearLayout>
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="64dp" />
-</LinearLayout>
+            style="@style/defaultTextViewStyle"
+            android:paddingLeft="32dp"
+            android:layout_weight="1"
+            android:paddingRight="32dp"
+            android:textSize="20sp"
+            android:text="@string/txt_intro1_central9btn"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_weight="29">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/categorybuttons"
+                tools:ignore="ContentDescription" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="64dp"
+                android:layout_gravity="top"
+                android:gravity="center"
+                style="@style/defaultTextViewStyle"
+                android:paddingLeft="64dp"
+                android:paddingRight="64dp"
+                android:textSize="20sp"
+                android:text="@string/txt_intro1_categorybtn"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="64dp" />
+        </LinearLayout>
+    <ImageView
+        android:id="@+id/btnMoveRight"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:onClick="changeDemoScreen"
+        android:layout_gravity="end"
+        android:paddingRight="32dp"
+        android:paddingEnd="32dp"
+        android:src="@drawable/ic_chevron_right"
+        android:contentDescription="@null"
+        tools:ignore="RtlSymmetry" />
+</FrameLayout>

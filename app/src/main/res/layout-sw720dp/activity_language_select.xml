@@ -14,7 +14,9 @@
         android:layout_marginTop="19dp"
         android:layout_marginBottom="19dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp">
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="16dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,9 +28,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/txtEditLanguage"
                 android:layout_marginBottom="19dp"
-                android:textSize="20sp"
-                android:textColor="#000000"
-                android:textStyle="bold"/>
+                style="@style/defaultTextViewStyle"
+                android:fontFamily="@font/mukta_semibold"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -39,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
-                    android:textColor="#000"
+                    android:textColor="@color/black_eighty"
                     android:scaleX=".7"
                     android:scaleY=".7"
                     android:text="@string/bullet" />
@@ -47,9 +48,8 @@
                     android:id="@+id/tv3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="@string/change_language_line3"
-                    android:textSize="18sp"/>
+                    style="@style/defaultTextViewStyle"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -61,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
-                    android:textColor="#000"
+                    android:textColor="@color/black_eighty"
                     android:scaleX=".7"
                     android:scaleY=".7"
                     android:text="@string/bullet" />
@@ -69,10 +69,8 @@
                     android:id="@+id/tv1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="@string/change_language_line1"
-                    android:textSize="18sp"
-                    android:scrollHorizontally="true"/>
+                    style="@style/defaultTextViewStyle"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -80,23 +78,25 @@
                 android:orientation="horizontal">
                 <Button
                     android:id="@+id/addBut"
-                    android:layout_width="230dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
+                    android:textSize="22sp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:background="@drawable/custom_txt_view"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
                     android:text="@string/addLanguage" />
                 <Button
                     android:id="@+id/delBut"
-                    android:layout_width="230dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:background="@drawable/custom_txt_view"
+                    android:textSize="22sp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
                     android:layout_marginLeft="32dp"
                     android:layout_marginStart="32dp"
                     android:text="@string/deleteLanguage" />
@@ -112,17 +112,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
-                    android:textColor="#000"
+                    android:textColor="@color/black_eighty"
                     android:scaleX=".7"
                     android:scaleY=".7"
                     android:text="@string/bullet" />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="@string/change_language_line6"
-                    android:textSize="18sp"
-                    android:scrollHorizontally="true"/>
+                    style="@style/defaultTextViewStyle"/>
             </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
@@ -130,9 +128,8 @@
                 android:text="@string/txtChangeLanguage"
                 android:layout_marginTop="57dp"
                 android:layout_marginBottom="19dp"
-                android:textSize="20sp"
-                android:textColor="#000000"
-                android:textStyle="bold"/>
+                style="@style/defaultTextViewStyle"
+                android:fontFamily="@font/mukta_semibold"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -143,7 +140,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
-                    android:textColor="#000"
+                    android:textColor="@color/black_eighty"
                     android:scaleX=".7"
                     android:scaleY=".7"
                     android:text="@string/bullet" />
@@ -151,16 +148,19 @@
                     android:id="@+id/tv2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="@string/change_language_line2"
-                    android:textSize="18sp"/>
+                    style="@style/defaultTextViewStyle"/>
             </LinearLayout>
             <Spinner
                 android:id="@+id/selectDownloadedLanguageSpinner"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/custom_txt_view"
-                android:layout_marginBottom="19dp"/>
+                android:layout_height="50dp"
+                android:paddingRight="35dp"
+                android:paddingEnd="35dp"
+                android:background="@drawable/custom_spinner_view"
+                android:textColor="@color/black_eighty"
+                android:layout_marginBottom="19dp"
+                tools:ignore="RtlSymmetry" />
             <LinearLayout
                 android:id="@+id/llStep2"
                 android:layout_width="wrap_content"
@@ -172,7 +172,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
-                    android:textColor="#000"
+                    android:textColor="@color/black_eighty"
                     android:scaleX=".7"
                     android:scaleY=".7"
                     android:text="@string/bullet" />
@@ -181,8 +181,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/change_language_line5"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textSize="18sp" />
+                    style="@style/defaultTextViewStyle"/>
             </LinearLayout>
             <ImageView
                 android:id="@+id/ivTtsVoiceDat"
@@ -194,12 +193,13 @@
                 android:src="@drawable/gtts3" />
             <Button
                 android:id="@+id/btnDownloadVoiceData"
-                android:layout_width="230dp"
-                android:textSize="18sp"
-                android:background="@drawable/custom_txt_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginBottom="19dp"
-                android:layout_height="wrap_content"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
                 android:text="@string/txt_actLangSel_downloadDat"/>
             <LinearLayout
                 android:id="@+id/llStep3"
@@ -211,7 +211,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
-                    android:textColor="#000"
+                    android:textColor="@color/black_eighty"
                     android:scaleX=".7"
                     android:scaleY=".7"
                     android:text="@string/bullet" />
@@ -220,8 +220,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/change_language_line4"
-                    android:textColor="#000000"
-                    android:textSize="18sp" />
+                    style="@style/defaultTextViewStyle"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/llImg"
@@ -256,13 +255,14 @@
             </LinearLayout>
             <Button
                 android:id="@+id/changeTtsLangBut"
-                android:layout_width="230dp"
-                android:textSize="18sp"
-                android:background="@drawable/custom_txt_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="19dp"
-                android:layout_height="wrap_content"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
                 android:text="@string/change_tts_lang"/>
             <LinearLayout
                 android:id="@+id/llStep4"
@@ -274,7 +274,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
-                    android:textColor="#000"
+                    android:textColor="@color/black_eighty"
                     android:scaleX=".7"
                     android:scaleY=".7"
                     android:text="@string/bullet" />
@@ -283,16 +283,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/txtApplyChanges"
-                    android:textColor="#000000"
-                    android:textSize="18sp" />
+                    style="@style/defaultTextViewStyle"/>
             </LinearLayout>
             <Button
                 android:id="@+id/saveBut"
-                android:layout_width="230dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:background="@drawable/custom_txt_view"
+                android:textSize="22sp"
                 android:layout_marginBottom="19dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
                 android:text="@string/saveLanguage" />
         </LinearLayout>
     </ScrollView>

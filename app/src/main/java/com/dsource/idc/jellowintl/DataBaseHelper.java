@@ -209,7 +209,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         myDataBase.execSQL("alter table three add \"language\" text;");
         myDataBase.execSQL("update three set language =\"en-rUS,en-rGB\" where layer_1_id > -1;");
 
-
         Long result = 0L;
         for (int i = 0; i < levelOneIds.size(); i++) {
             for (int j = 0; j < levelTwoIds.size(); j++) {
