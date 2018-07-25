@@ -49,6 +49,7 @@ import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
  * @Author AyazAlam
  * </p>
  */
+
 public class SearchActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;

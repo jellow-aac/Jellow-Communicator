@@ -29,23 +29,29 @@ public class CustomDialog extends Dialog{
         this.context = context;
         prepareDialog();
     }
-    public CustomDialog(Context context,String text)
-    {
-        super(context);
-        this.context=context;
-        prepareDialog();
-        setText(text);
-    }
     public CustomDialog(Context context,int Code){
         super(context);
         this.context=context;
         if(Code==GRID_SIZE)
         {
             prepareGridDialog();
-
-
-
         }
+        else if(Code==ICON_EDIT)
+        {
+            prepareIconEditDialog();
+        }
+
+    }
+
+    private void prepareIconEditDialog() {
+        final LayoutInflater dialogLayout = LayoutInflater.from(context);
+        View dialogContainerView = dialogLayout.inflate(R.layout.icon_edit_dialog, null);
+        dialog = new Dialog(context,R.style.MyDialogBox);
+        dialog.applyStyle(R.style.MyDialogBox);
+        dialog.backgroundColor(context.getResources().getColor(R.color.transparent));
+        dialog.setContentView(dialogContainerView);
+        dialog.setCancelable(true);
+
 
     }
 
@@ -56,7 +62,7 @@ public class CustomDialog extends Dialog{
         dialog.applyStyle(R.style.MyDialogBox);
         dialog.backgroundColor(context.getResources().getColor(R.color.transparent));
         dialog.setContentView(dialogContainerView);
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
 
         final ImageView GridSize1=dialogContainerView.findViewById(R.id.grid_size_1);
         final ImageView GridSize2=dialogContainerView.findViewById(R.id.grid_size_2);

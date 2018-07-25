@@ -9,8 +9,8 @@
         android:id="@+id/left_level_select_pane"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:background="@color/dark_base">
+        android:background="@color/colorIntro"
+        android:layout_alignParentLeft="true">
 
         <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:background="@color/colorIntro"
+        android:background="#f9f5d9"
         android:layout_marginRight="2dp"
         android:layout_toEndOf="@+id/left_level_select_pane"
         android:layout_toRightOf="@+id/left_level_select_pane">
@@ -62,6 +62,132 @@
             android:visibility="gone"
             android:layout_alignParentTop="true"
             />
+        <LinearLayout
+            android:id="@+id/add_edit_icon_option"
+            android:orientation="vertical"
+            android:layout_width="@dimen/edit_option_width"
+            android:layout_marginRight="20dp"
+            android:visibility="gone"
+            android:background="@color/white"
+            android:paddingRight="4dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:foregroundGravity="top"
+            android:layout_alignParentTop="true"
+            >
+
+            <RelativeLayout
+                android:id="@+id/add_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/list_item_padding"
+                android:paddingRight="@dimen/list_item_padding"
+                android:paddingTop="@dimen/list_item_padding">
+
+                <ImageView
+                    android:id="@+id/list_item_icon1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:clickable="false"
+                    android:src="@drawable/ic_add_icon" />
+
+                <TextView
+                    android:id="@+id/list_item_title1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/list_item_icon1"
+                    android:clickable="false"
+                    android:text="Add Category"
+                    android:textAlignment="center"
+                    android:textColor="@color/light_grey"
+                    android:textSize="@dimen/edit_option_text_size" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_below="@id/list_item_icon1"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:background="@color/light_grey"
+                    android:paddingTop="16dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/add_icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/list_item_padding"
+                android:paddingRight="@dimen/list_item_padding"
+                android:paddingTop="@dimen/list_item_padding">
+
+                <ImageView
+                    android:id="@+id/list_item_icon2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:clickable="false"
+                    android:src="@drawable/ic_add_icon" />
+
+                <TextView
+                    android:id="@+id/list_item_title2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/list_item_icon2"
+                    android:clickable="false"
+                    android:text="Add Icon"
+                    android:textAlignment="center"
+                    android:textColor="@color/light_grey"
+                    android:textSize="@dimen/edit_option_text_size" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_below="@id/list_item_icon2"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:background="@color/light_grey"
+                    android:paddingTop="16dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/edit_icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/list_item_padding">
+
+                <ImageView
+                    android:id="@+id/list_item_icon3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:clickable="false"
+                    android:src="@drawable/ic_edit_icon" />
+
+                <TextView
+                    android:id="@+id/list_item_title3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/list_item_icon3"
+                    android:clickable="false"
+                    android:text="Edit Icon"
+                    android:textAlignment="center"
+                    android:textColor="@color/light_grey"
+                    android:textSize="@dimen/edit_option_text_size" />
+
+            </RelativeLayout>
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"

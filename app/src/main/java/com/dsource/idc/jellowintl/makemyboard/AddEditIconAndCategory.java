@@ -13,10 +13,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.BoardDatabase;
+import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.CustomDialog;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.IconModel;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.ModelManager;
 import com.dsource.idc.jellowintl.utility.JellowIcon;
@@ -25,8 +27,11 @@ import java.util.ArrayList;
 
 import static com.dsource.idc.jellowintl.makemyboard.MyBoards.BOARD_ID;
 
-public class AddEditIconAndCategory extends AppCompatActivity {
+public class AddEditIconAndCategory extends AppCompatActivity implements View.OnClickListener {
 
+    private static final int ADD_CATEGORY = 212;
+    private static final int ADD_ICON = 210;
+    private static final int EDIT_ICON = 211;
     private String boardId;
     private BoardDatabase database;
     private Board currentBoard;
@@ -42,6 +47,7 @@ public class AddEditIconAndCategory extends AppCompatActivity {
     private ViewTreeObserver.OnGlobalLayoutListener layoutListener;
     private ArrayList<JellowIcon> iconList;
     private ViewTreeObserver.OnGlobalLayoutListener populationListener;
+    private RelativeLayout addCategory,addIcon,editIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +111,13 @@ public class AddEditIconAndCategory extends AppCompatActivity {
         });
         findViewById(R.id.select_deselect_check_box).setVisibility(View.GONE);
         findViewById(R.id.icon_count).setVisibility(View.GONE);
+
+        addCategory = findViewById(R.id.add_category);
+        addIcon = findViewById(R.id.add_icon);
+        editIcon = findViewById(R.id.edit_icon);
+        addCategory.setOnClickListener(this);
+        editIcon.setOnClickListener(this);
+        addIcon.setOnClickListener(this);
     }
 
 
@@ -145,9 +158,6 @@ public class AddEditIconAndCategory extends AppCompatActivity {
 
     private ViewTreeObserver.OnGlobalLayoutListener tempListener;
     private void setSelection(final int position, final View view) {
-        tempListener =new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
                 if(view!=null) {
 
                     View newSelection=categoryRecycler.getChildAt(position);
@@ -156,7 +166,6 @@ public class AddEditIconAndCategory extends AppCompatActivity {
                     View prevSelection=categoryRecycler.getChildAt(previousSelection);
                     prevSelection.setBackgroundColor(getResources().getColor(R.color.colorIntro));
                     ((TextView)prevSelection.findViewById(R.id.icon_title)).setTextColor(getResources().getColor(R.color.level_select_text_color));
-                    categoryRecycler.getViewTreeObserver().removeOnGlobalLayoutListener(tempListener);
 
                 }
                 else {
@@ -164,11 +173,9 @@ public class AddEditIconAndCategory extends AppCompatActivity {
                     s.setBackgroundColor(getResources().getColor(R.color.colorIntroSelected));
                     ((TextView)s.findViewById(R.id.icon_title)).setTextColor(getResources().getColor(R.color.colorIntro));
                     categoryRecycler.getViewTreeObserver().removeOnGlobalLayoutListener(layoutListener);
-                    categoryRecycler.getViewTreeObserver().removeOnGlobalLayoutListener(tempListener);
+
                 }
-            }
-        };
-        categoryRecycler.getViewTreeObserver().addOnGlobalLayoutListener(tempListener);
+
         previousSelection =position;
     }
 
@@ -192,7 +199,7 @@ public class AddEditIconAndCategory extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.my_board_menu, menu);
+        getMenuInflater().inflate(R.menu.add_edit_icon_screen_menu, menu);
         return true;
     }
 
@@ -200,9 +207,37 @@ public class AddEditIconAndCategory extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId())
         {
+            case R.id.add_edit_icons:
+                if(findViewById(R.id.add_edit_icon_option).getVisibility()==View.VISIBLE)
+                    findViewById(R.id.add_edit_icon_option).setVisibility(View.GONE);
+                else findViewById(R.id.add_edit_icon_option).setVisibility(View.VISIBLE);
+                break;
             case android.R.id.home: finish(); break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int mode = -1;
+        if(v ==addCategory)
+            mode = ADD_CATEGORY;
+        else if(v==addIcon)
+            mode = ADD_ICON;
+        else if(v==editIcon)
+            mode = EDIT_ICON;
+        showCustomDialog(mode);
+
+    }
+
+    private void showCustomDialog(int mode) {
+        if(mode!=-1)
+        {
+            CustomDialog customDialog = new CustomDialog(this);
+
+
+
+        }
     }
 
     private class CategoryManager

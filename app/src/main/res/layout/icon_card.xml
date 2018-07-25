@@ -13,7 +13,7 @@
     >
 <RelativeLayout
     android:layout_width="match_parent"
-    android:background="@color/colorIntro"
+    android:background="#f9f5d9"
     android:layout_height="match_parent">
 
     <ImageView

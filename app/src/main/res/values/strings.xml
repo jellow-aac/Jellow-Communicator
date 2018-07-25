@@ -348,6 +348,7 @@
     <string name="search_result">search_result</string>
     <string name="icon_select_mode">icon_select_mode</string>
     <string name="delete_icons">Delete Icons</string>
+    <string name="add_edit_icons">Add Edit Icons</string>
     <string-array name="entries">
         <item>Camera</item>
         <item>Gallery</item>

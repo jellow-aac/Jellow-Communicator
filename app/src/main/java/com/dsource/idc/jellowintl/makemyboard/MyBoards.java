@@ -207,6 +207,7 @@ public class MyBoards extends AppCompatActivity {
         ImageView editBoardIconButton=dialogContainerView.findViewById(R.id.edit_board);
         final ImageView BoardIcon=dialogContainerView.findViewById(R.id.board_icon);
         listView.setVisibility(View.GONE);
+       // Glide.with(context).load(url).apply(RequestOptions.circleCropTransform()).into(imageView);
 
         if(code==EDIT_BOARD)
         {

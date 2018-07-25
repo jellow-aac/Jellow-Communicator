@@ -54,6 +54,8 @@ public class IconSelectorAdapter extends RecyclerView.Adapter<IconSelectorAdapte
             iconTitle =v.findViewById(R.id.icon_title);
             iconImage=v.findViewById(R.id.icon_image_view);
             iconSelected=v.findViewById(R.id.icon_selection_checkbox);
+            if(mode==ADD_EDIT_ICON_MODE)
+                iconSelected.setVisibility(View.GONE);
             //Disable the click listener of the checkbox to ensure the full icon is clickable
             iconSelected.setClickable(false);
             v.setOnClickListener(this);
@@ -61,8 +63,10 @@ public class IconSelectorAdapter extends RecyclerView.Adapter<IconSelectorAdapte
 
         @Override
         public void onClick(View view) {
-            iconSelected.setChecked(!iconSelected.isChecked());
-            mItemClickListener.onItemClick(view,getAdapterPosition(),iconSelected.isChecked());
+            if(mode==ICON_SELECT_MODE) {
+                iconSelected.setChecked(!iconSelected.isChecked());
+                mItemClickListener.onItemClick(view, getAdapterPosition(), iconSelected.isChecked());
+            }
         }
     }
 
