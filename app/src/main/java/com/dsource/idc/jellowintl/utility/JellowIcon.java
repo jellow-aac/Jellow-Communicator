@@ -7,11 +7,20 @@ import java.io.Serializable;
 public class JellowIcon implements Serializable{
     @Keep
     public String IconDrawable,IconTitle;
+    @Keep public  byte[] IconImage;
     @Keep
     public int parent0, parent1, parent2;
 
+
     public JellowIcon(String iconTitle, String iconDrawable, int p1, int p2, int p3) {
         IconDrawable = iconDrawable;
+        IconTitle = iconTitle;
+        this.parent0 = p1;
+        this.parent1 = p2;
+        this.parent2 = p3;
+    }
+    public JellowIcon(String iconTitle, byte[] iconDrawable, int p1, int p2, int p3) {
+        IconImage = iconDrawable;
         IconTitle = iconTitle;
         this.parent0 = p1;
         this.parent1 = p2;

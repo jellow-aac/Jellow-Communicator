@@ -277,7 +277,7 @@ public class MyBoards extends AppCompatActivity {
                 String name=boardTitleEditText.getText().toString();
                 Bitmap boardIcon=((BitmapDrawable)BoardIcon.getDrawable()).getBitmap();
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                boardIcon.compress(Bitmap.CompressFormat.PNG, 100, bos);
+                boardIcon.compress(Bitmap.CompressFormat.PNG, 50, bos);
                 byte[] bitmapArray = bos.toByteArray();
                 if(code==NEW_BOARD)
                 {
@@ -410,7 +410,7 @@ public class MyBoards extends AppCompatActivity {
     {
         this.mPhotoIntentResult=mPhotoIntentResult;
     }
-    private interface PhotoIntentResult
+    public interface PhotoIntentResult
     {
         void onPhotoIntentResult(Bitmap bitmap,int code);
 

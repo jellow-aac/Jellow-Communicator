@@ -46,4 +46,22 @@ public class JellowVerbiageModel {
     //Empty constructor required | DO NOT REMOVE
     public JellowVerbiageModel() {
     }
+
+    //This constructor is used to generate default speech on the basis of the name | DO NOT REMOVE
+    public JellowVerbiageModel(String IconName) {
+        this.L = "I like "+IconName;
+        this.LL = "I really Like "+IconName;
+        this.Y = "I want "+IconName;
+        this.YY = "I really want "+IconName;
+        this.M = "I want more "+IconName;
+        this.MM = "I really want more "+IconName;
+        this.D = "I  don't like "+IconName;
+        this.DD = "I really don't like "+IconName;
+        this.N = "I don't want "+IconName;
+        this.NN = "I really don't want "+IconName;
+        this.S = "I don't want "+IconName+" anymore";
+        this.SS ="I really don't want "+IconName+" anymore";
+        this.Speech_Label = IconName.toLowerCase();
+        this.Display_Label = IconName;
+    }
 }

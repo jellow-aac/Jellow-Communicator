@@ -152,14 +152,20 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/search_act_title"
             android:theme="@style/Theme.AppCompat.Translucent" />
-        <activity android:name=".makemyboard.BoardHome"
+        <activity
+            android:name=".makemyboard.BoardHome"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".makemyboard.AddEditIconAndCategory"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
-            />
-        <activity android:name=".makemyboard.AddEditIconAndCategory"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="landscape"
-            />
+            android:theme="@style/Base.Theme.AppCompat"/>
+        <activity android:name=".utility.ImageHelper"/>
     </application>
 
 </manifest>

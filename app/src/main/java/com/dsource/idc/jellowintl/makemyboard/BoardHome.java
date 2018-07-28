@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.dsource.idc.jellowintl.DataBaseHelper;
 import com.dsource.idc.jellowintl.Nomenclature;
@@ -124,22 +125,6 @@ public class BoardHome extends AppCompatActivity {
 
     private void updateList() {
         changeGridSize();
-        adapter.setOnDoubleTapListner(new HomeAdapter.onDoubleTapListener() {
-            @Override
-            public void onItemDoubleTap(View view, int position) {
-                selectedIconVerbiage=null;
-                notifyItemClicked(position);
-            }
-        });
-        adapter.setOnItemSelectListner(new HomeAdapter.OnItemSelectListener() {
-            @Override
-            public void onItemSelected(View view, int position) {
-                selectedView=view;
-                highlightSelection(-1);
-                prepareSpeech(displayList.get(position));
-                resetButtons();
-            }
-        });
 
         mRecycler.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
             @Override
@@ -233,6 +218,23 @@ public class BoardHome extends AppCompatActivity {
                 case 6:mRecycler.setLayoutManager(new GridLayoutManager(this,3));break;//3X3
             }
         }
+        adapter.setOnDoubleTapListner(new HomeAdapter.onDoubleTapListener() {
+            @Override
+            public void onItemDoubleTap(View view, int position) {
+                selectedIconVerbiage=null;
+                notifyItemClicked(position);
+            }
+        });
+        adapter.setOnItemSelectListner(new HomeAdapter.OnItemSelectListener() {
+            @Override
+            public void onItemSelected(View view, int position) {
+                selectedView=view;
+                highlightSelection(-1);
+                prepareSpeech(displayList.get(position));
+                resetButtons();
+            }
+        });
+
         mRecycler.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
@@ -240,16 +242,17 @@ public class BoardHome extends AppCompatActivity {
     private void notifyItemClicked(int position) {
         if(Level==0)//Level one Item clicked
         {
-            ActivateView(home,true);
-            ActivateView(back,true);
+
             ArrayList<JellowIcon> temp= modelManager.getLevelTwoFromModel(position);
             if(temp.size()>0) {
+                ActivateView(home,true);
+                ActivateView(back,true);
                 displayList = temp;
                 LevelOneParent = position;
                 Level++;
                 updateList();
             }
-            //else Toast.makeText(BoardHome.this,"No sub category",Toast.LENGTH_SHORT).show();
+            else Toast.makeText(BoardHome.this,"No sub category",Toast.LENGTH_SHORT).show();
         }
         else if(Level==1){
             //ActivateView(home,true);
@@ -261,13 +264,13 @@ public class BoardHome extends AppCompatActivity {
                     Level++;
                     updateList();
                     LevelTwoParent=position;
-                } //else Toast.makeText(BoardHome.this, "No sub category", Toast.LENGTH_SHORT).show();
+                } else Toast.makeText(BoardHome.this, "No sub category", Toast.LENGTH_SHORT).show();
 
             } else Log.d("LevelOneParentNotSet","Icon"+LevelOneParent+" "+position);
         }
         else if(Level==2)
         {
-           // Toast.makeText(BoardHome.this,"No sub category",Toast.LENGTH_SHORT).show();
+            Toast.makeText(BoardHome.this,"No sub category",Toast.LENGTH_SHORT).show();
         }
 
     }

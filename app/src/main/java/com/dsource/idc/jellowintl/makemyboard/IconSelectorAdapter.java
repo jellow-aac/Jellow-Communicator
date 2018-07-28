@@ -2,6 +2,8 @@ package com.dsource.idc.jellowintl.makemyboard;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,12 +12,15 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.dsource.idc.jellowintl.GlideApp;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.utility.JellowIcon;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -115,8 +120,21 @@ public class IconSelectorAdapter extends RecyclerView.Adapter<IconSelectorAdapte
         }
         holder.iconSelected.setChecked(found);
 
-
-        if(thisIcon.parent1==-1)
+        if(thisIcon.parent0==-1)
+        {
+            byte[] bitmapData=thisIcon.IconImage;//;.getBytes();
+            Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.length);
+            //holder.iconImage.setImageBitmap(bitmap);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            Glide.with(mContext)
+                    .asBitmap()
+                    .load(stream.toByteArray())
+                    .apply(RequestOptions.
+                            circleCropTransform()).into(holder.iconImage);
+            holder.iconImage.setBackground(mContext.getResources().getDrawable(R.drawable.icon_back_grey));
+        }
+        else  if(thisIcon.parent1==-1)
         {
             TypedArray mArray=mContext.getResources().obtainTypedArray(R.array.arrLevelOneIconAdapter);
             holder.iconImage.setImageDrawable(mArray.getDrawable(thisIcon.parent0));
@@ -133,6 +151,7 @@ public class IconSelectorAdapter extends RecyclerView.Adapter<IconSelectorAdapte
                     .centerCrop()
                     .dontAnimate()
                     .into(holder.iconImage);
+
         }
 
 

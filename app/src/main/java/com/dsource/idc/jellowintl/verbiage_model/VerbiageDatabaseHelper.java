@@ -235,4 +235,15 @@ public class VerbiageDatabaseHelper extends SQLiteOpenHelper{
         }
         return verbiage;
     }
+
+    public void addNewVerbiage(String id, JellowVerbiageModel jellowVerbiageModel) {
+        VerbiageHolder holder = new VerbiageHolder(id+"",jellowVerbiageModel.Display_Label,jellowVerbiageModel);
+        ContentValues values = new ContentValues();
+        values.put(ICON_ID,holder.getIconID());
+        values.put(ICON_TITLE,holder.getIconName());
+        values.put(ICON_VERBIAGE,new Gson().toJson(holder.getIconVerbaige()));
+        db.insert(TABLE_NAME, null, values);
+        Log.d("VerbiageDatabase","Icon inserted into database "+holder.getIconName()+" ID "+holder.getIconID());
+
+    }
 }

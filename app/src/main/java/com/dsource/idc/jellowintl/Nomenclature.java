@@ -13,26 +13,35 @@ import static com.dsource.idc.jellowintl.verbiage_model.Verbiage.ENG_UK;
 public class Nomenclature {
 
     public static String getIconName(JellowIcon icon,Context context) {
-        String LC=getLanguageCode(context);
-        String L1=getLevelOneCode(icon);
-        String L2=getLevelTwoCode(icon);
-        String L3=getLevelThreeCode(icon);
-        return LC+L1+L2+L3;
+
+            String LC = getLanguageCode(context);
+            String L1 = getLevelOneCode(icon);
+            String L2 = getLevelTwoCode(icon);
+            String L3 = getLevelThreeCode(icon);
+            if(icon.parent0!=-1)
+            return LC+L1+L2+L3;
+            else return LC+L1+L2+L3+"CC";
     }
     private static String getLevelThreeCode(JellowIcon icon) {
+        if(icon.parent0==-1)
+            return icon.parent2+"";
         if(icon.parent2==-1)
             return String.format("%04d", 0);
 
         return String.format("%04d", (icon.parent2+1));
     }
     private static String getLevelTwoCode(JellowIcon icon) {
+        if(icon.parent0==-1)
+            return "";
         if(icon.parent1==-1)
             return String.format("%02d", 0);
 
         return String.format("%02d", (icon.parent1+1));
     }
     private static String getLevelOneCode(JellowIcon icon) {
+        if(icon.parent0!=-1)
         return String.format("%02d", (icon.parent0+1));
+        else return "";
     }
     private static String getLanguageCode(Context context) {
         String lang=new SessionManager(context).getLanguage();

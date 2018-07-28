@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -50,6 +51,7 @@ public class IconSelectActivity extends AppCompatActivity {
     String boardId;
     public static final String BOARD_ID="Board_Id";
     ViewTreeObserver.OnGlobalLayoutListener tempListener;
+    private Button nextButton;
 
 
     @Override
@@ -78,13 +80,14 @@ public class IconSelectActivity extends AppCompatActivity {
         prepareIconPane(0,-1);
         dropDownList= getCurrentChildren();
         initNavBarButtons();
-
-
-
+        nextButton.setEnabled(false);
+        nextButton.setAlpha(.5f);
     }
 
     private void initNavBarButtons() {
-        (findViewById(R.id.next_step)).setOnClickListener(new View.OnClickListener() {
+
+        nextButton = findViewById(R.id.next_step);
+        nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final BoardDatabase database=new BoardDatabase(IconSelectActivity.this);
@@ -118,6 +121,8 @@ public class IconSelectActivity extends AppCompatActivity {
                 selectedIconList.clear();
                 selectionCheckBox.setChecked(false);
                 iconSelectorAdapter.notifyDataSetChanged();
+                nextButton.setAlpha(.5f);
+                nextButton.setEnabled(false);
                 ((TextView)(findViewById(R.id.icon_count))).setText("("+selectedIconList.size()+")");
             }
         });
@@ -226,7 +231,15 @@ public class IconSelectActivity extends AppCompatActivity {
                 if(selectionCheckBox.isChecked())
                     selectAll(0);
                 else selectAll(1);
-
+                if(selectedIconList.size()>0)
+                {
+                    nextButton.setAlpha(1f);
+                    nextButton.setEnabled(true);
+                }
+                else {
+                    nextButton.setEnabled(false);
+                    nextButton.setAlpha(.5f);
+                }
             }
         });
     }
@@ -276,6 +289,7 @@ public class IconSelectActivity extends AppCompatActivity {
             public void onItemClick(View view, int position, boolean checked) {
                 updateSelectionList(view,position,checked);
 
+
             }
         });
     }
@@ -297,8 +311,19 @@ public class IconSelectActivity extends AppCompatActivity {
             removeIconFromList(iconList.get(position));
 
         ((TextView)(findViewById(R.id.icon_count))).setText("("+selectedIconList.size()+")");
+
         Log.d("Selection: ","Selection List: "+selectedIconList.size()+" IconList: "+iconList.size()+" Selection: "+utilF.getSelection(selectedIconList,iconList));
         selectionCheckBox.setChecked(utilF.getSelection(selectedIconList,iconList));
+
+        if (selectedIconList.size()>0)
+        {
+            nextButton.setAlpha(1f);
+            nextButton.setEnabled(true);
+        }
+        else {
+            nextButton.setEnabled(false);
+            nextButton.setAlpha(.5f);
+        }
     }
 
 
@@ -446,6 +471,11 @@ public class IconSelectActivity extends AppCompatActivity {
             JellowIcon icon=(JellowIcon)data.getExtras().getSerializable(getString(R.string.search_result));
             if(icon!=null&&!utilF.listContainsIcon(icon,selectedIconList)) {
                 selectedIconList.add(icon);
+                if(selectedIconList.size()>0)
+                {
+                    nextButton.setEnabled(true);
+                    nextButton.setAlpha(1.0f);
+                }
                 ((TextView) (findViewById(R.id.icon_count))).setText("(" + selectedIconList.size() + ")");
                 selectionCheckBox.setChecked(utilF.getSelection(selectedIconList, iconList));
                 iconSelectorAdapter.notifyDataSetChanged();
