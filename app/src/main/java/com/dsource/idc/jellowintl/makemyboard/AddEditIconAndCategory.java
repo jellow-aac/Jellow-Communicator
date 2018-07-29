@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -137,8 +138,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
                 finish();
             }
         });
-        ((TextView)findViewById(R.id.next_step)).setText("Skip");
-        findViewById(R.id.reset_selection).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.next_step).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 database.updateBoardIntoDatabase(new DataBaseHelper(AddEditIconAndCategory.this).getWritableDatabase(),currentBoard);
@@ -260,7 +260,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
             else if(mode==ADD_CATEGORY)
                 initBoardEditAddDialog(mode,-1,"Category Name");
             else if(mode==EDIT_ICON)
-                initBoardEditAddDialog(mode,-1,"Icon name");
+                Toast.makeText(this,"Not implemented yet",Toast.LENGTH_SHORT).show();
 
         }
     }
@@ -358,7 +358,9 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
                 }
                 else if(position==2)
                 {
-                    Toast.makeText(AddEditIconAndCategory.this,"Library clicked",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(AddEditIconAndCategory.this,BoardSearch.class);
+                    intent.putExtra(BoardSearch.SEARCH_MODE,BoardSearch.ICON_SEARCH);
+                    startActivityForResult(intent,LIBRARY_REQUEST);
                 }
             }
         });
@@ -499,12 +501,16 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
                 Uri uri = data.getData();
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                    mPhotoIntentResult.onPhotoIntentResult(bitmap,requestCode);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
             } else if (requestCode == LIBRARY_REQUEST) {
 
+                byte[] resultImage = data.getByteArrayExtra(getString(R.string.search_result));
+                bitmap = BitmapFactory.decodeByteArray(resultImage, 0, resultImage.length);
+                mPhotoIntentResult.onPhotoIntentResult(bitmap,requestCode);
             }
 
            //

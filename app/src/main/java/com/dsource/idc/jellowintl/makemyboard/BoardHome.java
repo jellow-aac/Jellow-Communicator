@@ -11,6 +11,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -34,6 +37,7 @@ import static com.dsource.idc.jellowintl.makemyboard.MyBoards.BOARD_ID;
 
 public class BoardHome extends AppCompatActivity {
 
+    private static final int SEARCH = 1221;
     RecyclerView mRecycler;
     ImageView home,back,keyboardButton, speakButton;
     EditText edittext;
@@ -53,6 +57,7 @@ public class BoardHome extends AppCompatActivity {
     private ArrayList<MiscellaneousIcons> expIconVerbiage;
     private int expIconPosition;
     private View selectedView;
+    private RecyclerView.OnScrollListener scrollListener;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -162,10 +167,10 @@ public class BoardHome extends AppCompatActivity {
 
     private void prepareSpeech(JellowIcon jellowIcon) {
         selectedIconVerbiage=verbiageDatabase.getVerbiageById(Nomenclature.getIconName(jellowIcon,mContext));
+        expIconManager.setAccordingVerbiage(selectedIconVerbiage);
         if(selectedIconVerbiage!=null)
         speakSpeech(selectedIconVerbiage.Speech_Label);
         else Log.d("VerbiageNotFound","True "+jellowIcon);
-        resetButtons();
     }
 
     private void resetButtons() {
@@ -231,7 +236,7 @@ public class BoardHome extends AppCompatActivity {
                 selectedView=view;
                 highlightSelection(-1);
                 prepareSpeech(displayList.get(position));
-                resetButtons();
+
             }
         });
 
@@ -278,6 +283,8 @@ public class BoardHome extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
+        expIconManager.resetSelection();
+        selectedIconVerbiage = null;
         if(Level==2)
         {
             if(LevelOneParent!=-1) {
@@ -357,6 +364,7 @@ public class BoardHome extends AppCompatActivity {
             case android.R.id.home: finish(); break;
             case R.id.grid_size:
                 showGridDialog();break;
+            case R.id.search:searchInBoard();break;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -369,6 +377,142 @@ public class BoardHome extends AppCompatActivity {
         super.onCreateOptionsMenu(menu);
         return true;
     }
+    private void searchInBoard() {
+        Intent searchIntent = new Intent(this,BoardSearch.class);
+        searchIntent.putExtra(BoardSearch.SEARCH_MODE,BoardSearch.SEARCH_IN_BOARD);
+        searchIntent.putExtra(BOARD_ID,currentBoard.getBoardID());
+        startActivityForResult(searchIntent,SEARCH);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode==SEARCH)
+        {
+            if(resultCode==RESULT_OK)
+            {
+                JellowIcon icon  = (JellowIcon)data.getSerializableExtra(getString(R.string.search_result));
+                ArrayList<Integer> iconPos = modelManager.getIconPositionInModel(icon);
+                if(!(iconPos.size()<1))
+                    highlightIcon(iconPos);
+
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+    ViewTreeObserver.OnGlobalLayoutListener tempListener;
+    private void highlightIcon(final ArrayList<Integer> iconPos) {
+        if(iconPos.get(1)==-1)
+        {//Level One
+            Level = 0;
+            displayList.clear();
+            displayList =modelManager.getLevelOneFromModel();
+            updateList();
+            // mRecyclerView.addOnScrollListener(getListener(iconPos.get(0)));
+            mRecycler.getLayoutManager().smoothScrollToPosition(mRecycler,null,iconPos.get(0));
+           /*  tempListener= new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    View v = mRecyclerView.getChildAt(iconPos.get(0));
+                    if (v != null) {
+                        Animation wiggle = AnimationUtils.loadAnimation(EditBoard.this,R.anim.jiggle_determinate);
+                        v.startAnimation(wiggle);
+                        mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(tempListener);
+                    }
+                    else
+                    {
+                        mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(tempListener);
+
+                    }
+                }
+            };
+            mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    mRecyclerView.getViewTreeObserver().addOnGlobalLayoutListener(tempListener);
+                }
+
+                @Override
+                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                    super.onScrollStateChanged(recyclerView, newState);
+                }
+            });
+*/
+
+
+        }
+        else if(iconPos.get(2)==-1)
+        {
+            //Level Two
+            Level = 1;
+            displayList.clear();
+            displayList =modelManager.getLevelTwoFromModel(iconPos.get(0));
+            updateList();
+            mRecycler.getLayoutManager().smoothScrollToPosition(mRecycler,null,iconPos.get(1));
+
+        }
+        else {
+            // LevelThree
+            Level = 2;
+            displayList.clear();
+            displayList =modelManager.getLevelThreeFromModel(iconPos.get(0),iconPos.get(1));
+            updateList();
+            mRecycler.getLayoutManager().smoothScrollToPosition(mRecycler,null,iconPos.get(2));
+
+        }
+    }
+
+    /**
+     * This functions returns a scroll scrollListener which triggers the setHighlight function
+     * when the scrolling is done
+     * @Author Ayaz Alam
+     * */
+    private RecyclerView.OnScrollListener getListener(final int index) {
+        scrollListener =new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(newState==RecyclerView.SCROLL_STATE_DRAGGING)
+                    ;//Wait untill scrolling
+                else if(newState==RecyclerView.SCROLL_STATE_IDLE)
+                    setSearchHighlight(index);//Try highlighting the view after scrolling
+            }};
+        return scrollListener;
+    }
+
+    /**
+     * This function is responsible for highlighting the view
+     * @param pos is the postion of view to be highlighted
+     * */
+    ViewTreeObserver.OnGlobalLayoutListener populationDoneListener;
+    public void setSearchHighlight(final int pos)
+    {
+        mRecycler.getAdapter().notifyDataSetChanged();
+        populationDoneListener=new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                View searchedView = mRecycler.getChildAt(pos);
+                if(searchedView==null) {
+                    mRecycler.getViewTreeObserver().removeOnGlobalLayoutListener(populationDoneListener);
+                    mRecycler.getLayoutManager().smoothScrollToPosition(mRecycler,null,pos );
+                    return;
+                }
+
+
+                Animation wiggle = AnimationUtils.loadAnimation(BoardHome.this,R.anim.jiggle_determinate);
+                searchedView.startAnimation(wiggle);
+                /*
+                GradientDrawable gd = (GradientDrawable) searchedView.findViewById(R.id.borderView).getBackground();
+                gd.setColor(ContextCompat.getColor(getApplicationContext(), R.color.search_highlight));*/
+                Log.d("Ayaz", "Step 4: Background is set and removing the scrollListener");
+                mRecycler.removeOnScrollListener(scrollListener);
+                mRecycler.getViewTreeObserver().removeOnGlobalLayoutListener(populationDoneListener);
+            }
+        };
+        //Adding the scrollListener to the mRecycler to listen onPopulated callBack
+        mRecycler.getViewTreeObserver().addOnGlobalLayoutListener(populationDoneListener);
+    }
+
 
 
 }

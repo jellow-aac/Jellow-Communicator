@@ -137,6 +137,7 @@
         <activity
             android:name=".makemyboard.MyBoards"
             android:label="@string/my_boards"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape" />
         <activity
             android:name=".makemyboard.IconSelectActivity"

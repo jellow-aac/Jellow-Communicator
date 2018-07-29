@@ -372,6 +372,83 @@ public class ModelManager {
 
     }
 
+    public ArrayList<JellowIcon> searchIconsForText(String s) {
+        ArrayList<JellowIcon> list = new ArrayList<>();
+        for(int i=0;i<parentNode.getChildren().size();i++)
+            if(parentNode.getChildren().get(i).getIcon().IconTitle.toLowerCase().contains(s.toLowerCase()))
+                list.add(parentNode.getChildren().get(i).getIcon());
+
+        for(int i= 0;i<parentNode.getChildren().size();i++)
+        {
+            IconModel levelTwo = parentNode.getChildren().get(i);
+            for(int j = 0;j < levelTwo.getChildren().size();j++)
+                if(levelTwo.getChildren().get(j).getIcon().IconTitle.toLowerCase().contains(s.toLowerCase()))
+                    list.add(levelTwo.getChildren().get(j).getIcon());
+
+        }
+
+        for(int i= 0;i<parentNode.getChildren().size();i++)
+        {
+            IconModel levelTwo = parentNode.getChildren().get(i);
+            for(int j = 0;j < levelTwo.getChildren().size();j++)
+            {
+                IconModel levelThree = levelTwo.getChildren().get(j);
+                for(int k = 0;k < levelThree.getChildren().size();k++)
+                    if(levelThree.getChildren().get(k).getIcon().IconTitle.toLowerCase().contains(s.toLowerCase()))
+                         list.add(levelThree.getChildren().get(k).getIcon());
+            }
+
+        }
+
+
+        return list;
+    }
+
+    public ArrayList<Integer> getIconPositionInModel(JellowIcon icon)
+    {
+        ArrayList<Integer> position= new ArrayList<>();
+        for(int i=0;i<parentNode.getChildren().size();i++)
+            if(parentNode.getChildren().get(i).getIcon().isEqual(icon)) {
+                position.add(i);
+                position.add(-1);
+                position.add(-1);
+                return position;
+            }
+
+        for(int i= 0;i<parentNode.getChildren().size();i++)
+        {
+            IconModel levelTwo = parentNode.getChildren().get(i);
+            for(int j = 0;j < levelTwo.getChildren().size();j++)
+                if(levelTwo.getChildren().get(j).getIcon().isEqual(icon)) {
+                    position.add(i);
+                    position.add(j);
+                    position.add(-1);
+                    return position;
+                }
+
+        }
+
+        for(int i= 0;i<parentNode.getChildren().size();i++)
+        {
+            IconModel levelTwo = parentNode.getChildren().get(i);
+            for(int j = 0;j < levelTwo.getChildren().size();j++)
+            {
+                IconModel levelThree = levelTwo.getChildren().get(j);
+                for(int k = 0;k < levelThree.getChildren().size();k++)
+                    if(levelThree.getChildren().get(k).getIcon().isEqual(icon))
+                    {
+                        position.add(i);
+                        position.add(j);
+                        position.add(k);
+                        return position;
+                    }
+            }
+
+        }
+
+    return position;
+    }
+
 
     private class indexHolder
     {

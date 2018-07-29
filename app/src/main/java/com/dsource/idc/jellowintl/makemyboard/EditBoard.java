@@ -3,25 +3,29 @@ package com.dsource.idc.jellowintl.makemyboard;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.dsource.idc.jellowintl.DataBaseHelper;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.CustomDialog;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.ModelManager;
+import com.dsource.idc.jellowintl.utility.CustomGridLayoutManager;
 import com.dsource.idc.jellowintl.utility.JellowIcon;
 
 import java.util.ArrayList;
 
 public class EditBoard extends AppCompatActivity {
 
+    private static final int SEARCH = 123;
     ArrayList<JellowIcon> mainList;
     ArrayList<JellowIcon> displayList;
     RecyclerView mRecyclerView;
@@ -35,6 +39,7 @@ public class EditBoard extends AppCompatActivity {
     private int LevelOneParent=-1;
     private int LevelTwoParent=-1;
     private Board currentBoard;
+    private RecyclerView.OnScrollListener scrollListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,7 +152,7 @@ public class EditBoard extends AppCompatActivity {
 
     private void initFields(){
         mRecyclerView=findViewById(R.id.recycler_view);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(this,currentBoard.getGridSize()));
+        mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this,currentBoard.getGridSize(),3));
 
         (findViewById(R.id.save_button)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -266,6 +271,7 @@ public class EditBoard extends AppCompatActivity {
                 prepareIconDeleteMode();
                 break;
             case R.id.search:
+                searchInBoard();
                 break;
             case R.id.grid_size:
                 showGridDialog();break;
@@ -274,6 +280,13 @@ public class EditBoard extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
         return true;
+    }
+
+    private void searchInBoard() {
+        Intent searchIntent = new Intent(this,BoardSearch.class);
+        searchIntent.putExtra(BoardSearch.SEARCH_MODE,BoardSearch.SEARCH_IN_BOARD);
+        searchIntent.putExtra(BOARD_ID,currentBoard.getBoardID());
+        startActivityForResult(searchIntent,SEARCH);
     }
 
     boolean isDeleteModeOn=false;
@@ -299,5 +312,136 @@ public class EditBoard extends AppCompatActivity {
 
         //TODO Add some codes to resize the icons
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode==SEARCH)
+        {
+            if(resultCode==RESULT_OK)
+            {
+                JellowIcon icon  = (JellowIcon)data.getSerializableExtra(getString(R.string.search_result));
+                ArrayList<Integer> iconPos = modelManager.getIconPositionInModel(icon);
+                if(!(iconPos.size()<1))
+                    highlightIcon(iconPos);
+
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+    ViewTreeObserver.OnGlobalLayoutListener tempListener;
+    private void highlightIcon(final ArrayList<Integer> iconPos) {
+        if(iconPos.get(1)==-1)
+        {//Level One
+            Level = 0;
+            displayList.clear();
+            displayList =modelManager.getLevelOneFromModel();
+            updateList(AdapterEditBoard.NORMAL_MODE);
+           // mRecyclerView.addOnScrollListener(getListener(iconPos.get(0)));
+            mRecyclerView.getLayoutManager().smoothScrollToPosition(mRecyclerView,null,iconPos.get(0));
+           /*  tempListener= new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    View v = mRecyclerView.getChildAt(iconPos.get(0));
+                    if (v != null) {
+                        Animation wiggle = AnimationUtils.loadAnimation(EditBoard.this,R.anim.jiggle_determinate);
+                        v.startAnimation(wiggle);
+                        mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(tempListener);
+                    }
+                    else
+                    {
+                        mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(tempListener);
+
+                    }
+                }
+            };
+            mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    mRecyclerView.getViewTreeObserver().addOnGlobalLayoutListener(tempListener);
+                }
+
+                @Override
+                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                    super.onScrollStateChanged(recyclerView, newState);
+                }
+            });
+*/
+
+
+        }
+        else if(iconPos.get(2)==-1)
+        {
+            //Level Two
+            Level = 1;
+            displayList.clear();
+            displayList =modelManager.getLevelTwoFromModel(iconPos.get(0));
+            updateList(AdapterEditBoard.NORMAL_MODE);
+            mRecyclerView.getLayoutManager().smoothScrollToPosition(mRecyclerView,null,iconPos.get(1));
+
+        }
+        else {
+           // LevelThree
+            Level = 2;
+            displayList.clear();
+            displayList =modelManager.getLevelThreeFromModel(iconPos.get(0),iconPos.get(1));
+            updateList(AdapterEditBoard.NORMAL_MODE);
+            mRecyclerView.getLayoutManager().smoothScrollToPosition(mRecyclerView,null,iconPos.get(2));
+
+        }
+    }
+
+    /**
+     * This functions returns a scroll scrollListener which triggers the setHighlight function
+     * when the scrolling is done
+     * @Author Ayaz Alam
+     * */
+    private RecyclerView.OnScrollListener getListener(final int index) {
+        scrollListener =new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(newState==RecyclerView.SCROLL_STATE_DRAGGING)
+                    ;//Wait untill scrolling
+                else if(newState==RecyclerView.SCROLL_STATE_IDLE)
+                    setSearchHighlight(index);//Try highlighting the view after scrolling
+            }};
+        return scrollListener;
+    }
+
+    /**
+     * This function is responsible for highlighting the view
+     * @param pos is the postion of view to be highlighted
+     * */
+    ViewTreeObserver.OnGlobalLayoutListener populationDoneListener;
+    public void setSearchHighlight(final int pos)
+    {
+        mRecyclerView.getAdapter().notifyDataSetChanged();
+        populationDoneListener=new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                View searchedView = mRecyclerView.getChildAt(pos);
+                if(searchedView==null) {
+                    mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(populationDoneListener);
+                    mRecyclerView.getLayoutManager().smoothScrollToPosition(mRecyclerView,null,pos );
+                    return;
+                }
+
+
+                Animation wiggle = AnimationUtils.loadAnimation(EditBoard.this,R.anim.jiggle_determinate);
+                searchedView.startAnimation(wiggle);
+                /*
+                GradientDrawable gd = (GradientDrawable) searchedView.findViewById(R.id.borderView).getBackground();
+                gd.setColor(ContextCompat.getColor(getApplicationContext(), R.color.search_highlight));*/
+                Log.d("Ayaz", "Step 4: Background is set and removing the scrollListener");
+                mRecyclerView.removeOnScrollListener(scrollListener);
+                mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(populationDoneListener);
+            }
+        };
+        //Adding the scrollListener to the mRecycler to listen onPopulated callBack
+        mRecyclerView.getViewTreeObserver().addOnGlobalLayoutListener(populationDoneListener);
+    }
+
+
 }
 

@@ -288,8 +288,6 @@ public class IconSelectActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position, boolean checked) {
                 updateSelectionList(view,position,checked);
-
-
             }
         });
     }
@@ -445,7 +443,9 @@ public class IconSelectActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.search:
-                startActivityForResult(new Intent(this, BoardSearch.class),SEARCH_CODE);
+                Intent searchIntent  =  new Intent(this,BoardSearch.class);
+                searchIntent.putExtra(BoardSearch.SEARCH_MODE,BoardSearch.NORMAL_SEARCH);
+                startActivityForResult(searchIntent,SEARCH_CODE);
                 break;
             case R.id.filter:
                 showSecondLevelMenu();

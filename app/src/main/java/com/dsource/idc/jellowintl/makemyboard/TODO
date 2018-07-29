@@ -3,14 +3,41 @@ todo and issue list for Make my board
 1. Camera Dialog have some issue, if a very large image is selected the whole database is being corrupted.
    So, have a check to reduce the size.
 2. Save in the Dialog is directing the user to the IconSelect activity.
-3. Add back arrow thing.
-4. Filter crashed, see crash logs.
-5. Remove search from the Edit Icon Activity.
+3. Add back arrow thing.                                                                            DONE
+4. Filter crashed, see crash logs.                                                                  DONE
+5. Add search from the Edit Icon Activity.                                                          DONE
 6. Adjust the size of the Image when the grid size is changed.
-7. Board is not being updated while going.
-8. Figure out a way to use new verbiage json file thing.
-9. Design the database for the new Json file.
-10.Design functions for the database
+7. Grid Size 2X3 is not implemented yet.
+8. Add library search in board and add icon/category;                                               DONE
+9. Boards editBoard Icon issue fix.
+10.Highlighting issue in Board Home               (Must fix)
+11.Error in highlighting icons in category items. (Must fix)
+12.
+
+
+
+
+//ISSUES
+
+1. Camera Intent result rotating the screen, thus all data is being lost.                           MUST-FIX
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//TEMP CHANGES
+
+1. Putting create verbiage database at My Board activity
 
 
 
@@ -29,14 +56,17 @@ Verbiage database is for storing the data of verbiage according to the new verbi
 
 Basic blueprint of the database should have following data.
 
+
+=====================================================================
 COLUMN:          ICON_ID         ICON_TITLE      ICON_VERBIAGE_OBJECT
+=====================================================================
 
 FUNCTIONS:
 1. getVerbiageById(Icon id);                                                        DONE
 2. getVerbiageByTitle(Icon title);                                                  DONE
-3. getVerbiageForLevelOne();
-4. getVerbiageForLevelTwo(int levelOneParent);
-5. getVerbiageForLevelThree(int levelOneParent, int levelTwoParent);
+3. getVerbiageForLevelOne();                                                        DEPRECATED
+4. getVerbiageForLevelTwo(int levelOneParent);                                      DEPRECATED
+5. getVerbiageForLevelThree(int levelOneParent, int levelTwoParent);                DEPRECATED
 6. createDatabase();                                                                DONE
 7. dropDatabase();                                                                  DONE
 8. updateDatabase();

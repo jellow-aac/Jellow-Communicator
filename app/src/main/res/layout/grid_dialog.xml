@@ -34,7 +34,7 @@
                 android:layout_width="@dimen/grid_dialog_icon_size"
                 android:layout_marginBottom="@dimen/grid_dialog_text_margin"
                 android:layout_marginTop="@dimen/grid_dialog_text_margin"
-                android:src="@drawable/dots_01"
+                android:src="@drawable/grid_1x1"
                 android:padding="4dp"
                 android:layout_height="@dimen/grid_dialog_icon_size" />
             <TextView
@@ -59,7 +59,7 @@
             android:layout_width="@dimen/grid_dialog_icon_size"
             android:layout_marginBottom="@dimen/grid_dialog_text_margin"
             android:layout_marginTop="@dimen/grid_dialog_text_margin"
-            android:src="@drawable/dots_02"
+            android:src="@drawable/grid_1x2"
             android:layout_height="@dimen/grid_dialog_icon_size" />
         <TextView
             android:layout_below="@id/grid_size_2"
@@ -82,7 +82,7 @@
                 android:layout_width="@dimen/grid_dialog_icon_size"
                 android:layout_marginBottom="@dimen/grid_dialog_text_margin"
                 android:layout_marginTop="@dimen/grid_dialog_text_margin"
-                android:src="@drawable/dots_03"
+                android:src="@drawable/grid_1x3"
                 android:padding="4dp"
                 android:layout_height="@dimen/grid_dialog_icon_size" />
             <TextView
@@ -96,7 +96,6 @@
 
         </RelativeLayout>
         <RelativeLayout
-
             android:layout_width="wrap_content"
             android:layout_marginRight="@dimen/grid_dialog_icon_margin"
             android:layout_height="wrap_content">
@@ -106,7 +105,7 @@
                 android:layout_width="@dimen/grid_dialog_icon_size"
                 android:layout_marginBottom="@dimen/grid_dialog_text_margin"
                 android:layout_marginTop="@dimen/grid_dialog_text_margin"
-                android:src="@drawable/dots_01"
+                android:src="@drawable/grid_2x2"
                 android:padding="4dp"
                 android:layout_height="@dimen/grid_dialog_icon_size" />
             <TextView
@@ -131,7 +130,7 @@
                 android:layout_width="@dimen/grid_dialog_icon_size"
                 android:layout_marginBottom="@dimen/grid_dialog_text_margin"
                 android:layout_marginTop="@dimen/grid_dialog_text_margin"
-                android:src="@drawable/dots_02"
+                android:src="@drawable/grid_2x3"
                 android:layout_height="@dimen/grid_dialog_icon_size" />
             <TextView
                 android:layout_below="@id/grid_size_2X3"
@@ -154,7 +153,7 @@
                 android:layout_width="@dimen/grid_dialog_icon_size"
                 android:layout_marginBottom="@dimen/grid_dialog_text_margin"
                 android:layout_marginTop="@dimen/grid_dialog_text_margin"
-                android:src="@drawable/dots_03"
+                android:src="@drawable/grid_3x3"
                 android:padding="4dp"
                 android:layout_height="@dimen/grid_dialog_icon_size" />
             <TextView

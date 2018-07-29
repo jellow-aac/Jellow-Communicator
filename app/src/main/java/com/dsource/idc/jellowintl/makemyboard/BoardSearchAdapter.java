@@ -3,6 +3,7 @@ package com.dsource.idc.jellowintl.makemyboard;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,6 +85,7 @@ public interface OnItemClickListener {
     public void onBindViewHolder(ViewHolder holder, int position) {
         JellowIcon icon = mDataSource.get(position);
         holder.iconTitle.setText(icon.IconTitle);
+        Log.d("Adapter","IconAdaper: "+icon.IconTitle);
         //If the "No icon found" condition comes the remove speakButton
         if(icon.IconDrawable.equals("NULL")&&icon.IconTitle.equals(mContext.getString(R.string.not_found)))
         {

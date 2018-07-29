@@ -15,11 +15,7 @@ import android.widget.Toast;
 
 import com.dsource.idc.jellowintl.DataBaseHelper;
 import com.dsource.idc.jellowintl.R;
-import com.dsource.idc.jellowintl.utility.IconDataBaseHelper;
-import com.dsource.idc.jellowintl.utility.JellowIcon;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
-
-import java.util.ArrayList;
 
 public class ConverterActivity extends AppCompatActivity {
 
@@ -45,9 +41,7 @@ public class ConverterActivity extends AppCompatActivity {
         (findViewById(R.id.create_json)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                VerbiageDatabaseHelper databaseHelper=new VerbiageDatabaseHelper(ConverterActivity.this,new DataBaseHelper(ConverterActivity.this).getWritableDatabase());
-                databaseHelper.dropTable();
-                databaseHelper.createTable();
+                thread.execute(ConverterActivity.this);
             }
         });
 
@@ -58,7 +52,7 @@ public class ConverterActivity extends AppCompatActivity {
         super.attachBaseContext((LanguageHelper.onAttach(newBase)));
     }
 
-    private class MyNewThread extends AsyncTask {
+    public class MyNewThread extends AsyncTask {
 
 
         @Override
@@ -73,13 +67,19 @@ public class ConverterActivity extends AppCompatActivity {
         protected Object doInBackground(Object[] objects) {
             Context context=(Context)objects[0];
             this.context=context;
-            IconDataBaseHelper d=new IconDataBaseHelper(context);
+
+            VerbiageDatabaseHelper databaseHelper=new VerbiageDatabaseHelper(context,new DataBaseHelper(context).getWritableDatabase());
+            databaseHelper.createTable();
+
+
+            //CODES TO CREATE JSON
+/*            IconDataBaseHelper d=new IconDataBaseHelper(context);
             final ArrayList<JellowIcon> levelOne=d.getLevelOneIcons();
             final ArrayList<JellowIcon> levelTwo=d.getLevelTwoIcons();
             final ArrayList<JellowIcon> levelThree=d.getLevelThreeIcons();
             final Verbiage verbiage=new Verbiage(context);
             ts=verbiage.createJson(levelOne,levelTwo,levelThree);
-            new Verbiage(ConverterActivity.this).createNomenclatureDrawables();
+            new Verbiage(ConverterActivity.this).createNomenclatureDrawables();*/
 
             return null;
         }

@@ -32,8 +32,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dsource.idc.jellowintl.AboutJellowActivity;
 import com.dsource.idc.jellowintl.DataBaseHelper;
+import com.dsource.idc.jellowintl.FeedbackActivity;
+import com.dsource.idc.jellowintl.KeyboardInputActivity;
+import com.dsource.idc.jellowintl.LanguageSelectActivity;
+import com.dsource.idc.jellowintl.ProfileFormActivity;
 import com.dsource.idc.jellowintl.R;
+import com.dsource.idc.jellowintl.ResetPreferencesActivity;
+import com.dsource.idc.jellowintl.SettingActivity;
+import com.dsource.idc.jellowintl.TutorialActivity;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.CustomDialog;
 import com.rey.material.app.Dialog;
@@ -51,6 +59,7 @@ public class MyBoards extends AppCompatActivity {
     public static final int CAMERA_REQUEST=211;
     public static final int GALLERY_REQUEST=311;
     public static final int LIBRARY_REQUEST=411;
+    public int currentMode =-1;
     private static final int PERMISSION_REQUESTS = 1212;
     RecyclerView mRecyclerView;
     BoardAdapter adapter;
@@ -78,6 +87,7 @@ public class MyBoards extends AppCompatActivity {
         db=new DataBaseHelper(this).getWritableDatabase();
         initFields(3);
         prepareBoardList(NORMAL_MODE);
+        currentMode  =NORMAL_MODE;
 
 
     }
@@ -264,7 +274,9 @@ public class MyBoards extends AppCompatActivity {
                 }
                 else if(position==2)
                 {
-                    Toast.makeText(MyBoards.this,"Library Clicked",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MyBoards.this,BoardSearch.class);
+                    intent.putExtra(BoardSearch.SEARCH_MODE,BoardSearch.ICON_SEARCH);
+                    startActivityForResult(intent,LIBRARY_REQUEST);
                 }
             }
         });
@@ -274,6 +286,8 @@ public class MyBoards extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(MyBoards.this,"Board saved",Toast.LENGTH_SHORT).show();
+                currentMode = NORMAL_MODE;
+                invalidateOptionsMenu();
                 String name=boardTitleEditText.getText().toString();
                 Bitmap boardIcon=((BitmapDrawable)BoardIcon.getDrawable()).getBitmap();
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -369,6 +383,7 @@ public class MyBoards extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.boards_activity_menu, menu);
+
         if(database==null)
             database=new BoardDatabase(this);
         if(database.getAllBoards()!=null&&database.getAllBoards().size()<1)
@@ -376,6 +391,13 @@ public class MyBoards extends AppCompatActivity {
             MenuItem item = menu.findItem(R.id.delete_boards);
             item.setVisible(false);
         }
+        else if(currentMode == DELETE_MODE)
+        {
+            MenuItem item = menu.findItem(R.id.delete_boards);
+            item.setIcon(R.drawable.ic_done);
+            item.setVisible(true);
+        }
+
         super.onCreateOptionsMenu(menu);
         return true;
     }
@@ -386,6 +408,30 @@ public class MyBoards extends AppCompatActivity {
                 activateDeleteMode();
                 break;
             case android.R.id.home: finish(); break;
+            case R.id.languageSelect:
+                startActivity(new Intent(this, LanguageSelectActivity.class));
+                break;
+            case R.id.profile:
+                startActivity(new Intent(this, ProfileFormActivity.class));
+                break;
+            case R.id.info:
+                startActivity(new Intent(this, AboutJellowActivity.class));
+                break;
+            case R.id.usage:
+                startActivity(new Intent(this, TutorialActivity.class));
+                break;
+            case R.id.keyboardinput:
+                startActivity(new Intent(this, KeyboardInputActivity.class));
+                break;
+            case R.id.settings:
+                startActivity(new Intent(getApplication(), SettingActivity.class));
+                break;
+            case R.id.reset:
+                startActivity(new Intent(this, ResetPreferencesActivity.class));
+                break;
+            case R.id.feedback:
+                startActivity(new Intent(this,FeedbackActivity.class));
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -394,16 +440,23 @@ public class MyBoards extends AppCompatActivity {
 
     boolean deleteModeOpen=false;
     private void activateDeleteMode() {
+
+
         if (!deleteModeOpen)
         {
             if(boardList.size()<1)
                 Toast.makeText(ctx,"There's no board to delete",Toast.LENGTH_SHORT).show();
-            else
+            else {
                 prepareBoardList(DELETE_MODE);
+                currentMode = DELETE_MODE;
+            }
         }
-        else prepareBoardList(NORMAL_MODE);
+        else {
+            prepareBoardList(NORMAL_MODE);
+            currentMode = NORMAL_MODE;
+        }
         deleteModeOpen = !deleteModeOpen;
-
+        invalidateOptionsMenu();
     }
 
     private void setOnPhotoSelectListener(PhotoIntentResult mPhotoIntentResult)
@@ -465,7 +518,9 @@ public class MyBoards extends AppCompatActivity {
                 }
 
             } else if (requestCode == LIBRARY_REQUEST) {
-
+                byte[] resultImage = data.getByteArrayExtra(getString(R.string.search_result));
+                bitmap = BitmapFactory.decodeByteArray(resultImage, 0, resultImage.length);
+                mPhotoIntentResult.onPhotoIntentResult(bitmap,requestCode);
             }
 
             mPhotoIntentResult.onPhotoIntentResult(bitmap, requestCode);

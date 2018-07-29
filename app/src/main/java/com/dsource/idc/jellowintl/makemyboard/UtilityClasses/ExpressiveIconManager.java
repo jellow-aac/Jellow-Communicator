@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.dsource.idc.jellowintl.R;
+import com.dsource.idc.jellowintl.verbiage_model.JellowVerbiageModel;
 
 import java.util.ArrayList;
 
@@ -86,12 +87,49 @@ public class ExpressiveIconManager implements View.OnClickListener{
     public void resetSelection(){
         for(int i=0;i<expIconList.size();i++) {
             expIconList.get(i).setImageDrawable(unPressed.getDrawable(i));
+            expIconList.get(i).setAlpha(1f);
+            expIconList.get(i).setEnabled(true);
             buttonFlags.set(i,0);
         }
     }
 
     public void setClickListener(expIconClickListener expIconClickListener){
         this.mExpIconClickListener=expIconClickListener;
+    }
+
+    public void setAccordingVerbiage(JellowVerbiageModel selectedIconVerbiage) {
+        resetSelection();
+        if(selectedIconVerbiage.L.equals("NA"))
+            disableButton(expIconList.get(0),true);
+        else disableButton(expIconList.get(0),false);
+        if(selectedIconVerbiage.Y.equals("NA"))
+            disableButton(expIconList.get(1),true);
+        else disableButton(expIconList.get(1),false);
+        if(selectedIconVerbiage.M.equals("NA"))
+            disableButton(expIconList.get(2),true);
+        else disableButton(expIconList.get(2),false);
+        if(selectedIconVerbiage.D.equals("NA"))
+            disableButton(expIconList.get(3),true);
+        else disableButton(expIconList.get(3),false);
+        if(selectedIconVerbiage.N.equals("NA"))
+            disableButton(expIconList.get(4),true);
+        else disableButton(expIconList.get(4),false);
+        if(selectedIconVerbiage.S.equals("NA"))
+            disableButton(expIconList.get(5),true);
+        else disableButton(expIconList.get(5),false);
+    }
+
+    private void disableButton(ImageView imageView,boolean disable) {
+        if(disable)
+        {
+            imageView.setEnabled(false);
+            imageView.setAlpha(.5f);
+        }
+        else
+        {
+            imageView.setEnabled(true);
+            imageView.setAlpha(1f);
+        }
     }
 
     public interface expIconClickListener{ void expressiveIconClicked(int expIconPos, int time);}
