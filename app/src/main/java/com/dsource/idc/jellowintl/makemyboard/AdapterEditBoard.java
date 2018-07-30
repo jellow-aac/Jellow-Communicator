@@ -8,7 +8,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -63,14 +65,35 @@ public class AdapterEditBoard extends DragSortAdapter<AdapterEditBoard.ViewHolde
         public View holder;
 
 
-        public ViewHolder(DragSortAdapter adapter, View itemView) {
+        public ViewHolder(DragSortAdapter adapter, final View itemView) {
             super(adapter, itemView);
             iconImage=itemView.findViewById(R.id.icon_image_view);
             iconTitle=itemView.findViewById(R.id.icon_title);
             removeIcon =itemView.findViewById(R.id.icon_remove_button);
             if(Mode==NORMAL_MODE)
             {
-                itemView.setOnClickListener(this);
+
+                itemView.setOnTouchListener(new View.OnTouchListener() {
+                    private GestureDetector gestureDetector = new GestureDetector(mContext, new GestureDetector.SimpleOnGestureListener() {
+                        @Override
+                        public boolean onDoubleTap(MotionEvent e) {
+                            mItemClickListener.onItemClick(itemView,getAdapterPosition());
+                            return super.onDoubleTap(e);
+                        }
+
+                        @Override
+                        public boolean onSingleTapUp(MotionEvent e) {
+
+                            return super.onSingleTapUp(e);
+                        }
+                    });
+
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        gestureDetector.onTouchEvent(event);
+                        return true;
+                    }
+                });
                 itemView.setOnLongClickListener(this);
                 removeIcon.setVisibility(View.GONE);
             }

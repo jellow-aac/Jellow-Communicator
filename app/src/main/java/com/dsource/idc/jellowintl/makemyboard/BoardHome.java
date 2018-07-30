@@ -173,10 +173,6 @@ public class BoardHome extends AppCompatActivity {
         else Log.d("VerbiageNotFound","True "+jellowIcon);
     }
 
-    private void resetButtons() {
-        expIconManager.resetSelection();
-    }
-
     private void initViews(){
         mRecycler=findViewById(R.id.recycler_view);
         changeGridSize();
@@ -185,6 +181,8 @@ public class BoardHome extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(Level!=0) {
+                    ActivateView(home,false);
+                    ActivateView(back,false);
                     LevelOneParent = -1;
                     LevelTwoParent = -1;
                     displayList = modelManager.getLevelOneFromModel();

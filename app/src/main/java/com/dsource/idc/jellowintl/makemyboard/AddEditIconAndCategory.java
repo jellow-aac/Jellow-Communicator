@@ -330,6 +330,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
                                 .setGuidelines(CropImageView.Guidelines.ON)
                                 .setFixAspectRatio(true)
                                 .start(AddEditIconAndCategory.this);
+
                       /*
                      Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                      startActivityForResult(takePictureIntent, CAMERA_REQUEST);
@@ -558,6 +559,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
                 toggleOptionLayout();
                 break;
             case android.R.id.home: finish(); break;
+            case R.id.delete_icons: Toast.makeText(this,"Still working on it",Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }

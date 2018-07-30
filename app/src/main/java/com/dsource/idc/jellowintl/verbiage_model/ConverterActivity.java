@@ -41,7 +41,21 @@ public class ConverterActivity extends AppCompatActivity {
         (findViewById(R.id.create_json)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                thread.execute(ConverterActivity.this);
+                VerbiageDatabaseHelper databaseHelper = new VerbiageDatabaseHelper(ConverterActivity.this,new DataBaseHelper(ConverterActivity.this).getWritableDatabase());
+                databaseHelper.createTable();
+            }
+        });
+        (findViewById(R.id.delete_database)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new VerbiageDatabaseHelper(ConverterActivity.this,new DataBaseHelper(ConverterActivity.this).getWritableDatabase()).dropTable();
+            }
+        });
+        (findViewById(R.id.re_create_database)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new VerbiageDatabaseHelper(ConverterActivity.this,new DataBaseHelper(ConverterActivity.this).getWritableDatabase()).dropTable();
+                new VerbiageDatabaseHelper(ConverterActivity.this,new DataBaseHelper(ConverterActivity.this).getWritableDatabase()).createTable();
             }
         });
 

@@ -11,7 +11,7 @@
             android:checked="true"
             android:orderInCategory="1"
             />
-        <item
+   <!--     <item
             android:id="@+id/grid_size"
             android:title="Grid size"
             android:icon="@drawable/ic_grid_size"
@@ -20,7 +20,8 @@
             android:orderInCategory="1"
             />
 
-
+-->
+        <!--TODO Uncomment and solve the problemO-->
 
         <item
             android:id="@+id/delete_icons"

@@ -13,8 +13,13 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.dsource.idc.jellowintl.R;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> {
@@ -116,8 +121,15 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> 
 
                     byte[] bitmapdata=board.getBoardIcon();
                     Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length);
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                Glide.with(mContext).load(stream.toByteArray())
+                        .apply(new RequestOptions().
+                                transform(new RoundedCorners(50)).
+                                error(R.drawable.ic_board_person).skipMemoryCache(true).
+                                diskCacheStrategy(DiskCacheStrategy.NONE))
+                        .into(holder.boardIcon);
                     holder.boardTitle.setText(board.boardTitle);
-                    holder.boardIcon.setImageBitmap(bitmap);
             }
 
 

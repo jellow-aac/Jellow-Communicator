@@ -470,6 +470,7 @@ public class IconSelectActivity extends AppCompatActivity {
         {
             JellowIcon icon=(JellowIcon)data.getExtras().getSerializable(getString(R.string.search_result));
             if(icon!=null&&!utilF.listContainsIcon(icon,selectedIconList)) {
+                moveToIconPosition(icon);
                 selectedIconList.add(icon);
                 if(selectedIconList.size()>0)
                 {
@@ -484,6 +485,9 @@ public class IconSelectActivity extends AppCompatActivity {
 
     }
 
+    private void moveToIconPosition(JellowIcon icon) {
+
+    }
 
 
     private class simpleArrayAdapter extends ArrayAdapter<String>

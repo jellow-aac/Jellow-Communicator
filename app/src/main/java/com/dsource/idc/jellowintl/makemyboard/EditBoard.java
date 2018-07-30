@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Toast;
 
 import com.dsource.idc.jellowintl.DataBaseHelper;
 import com.dsource.idc.jellowintl.R;
@@ -152,7 +153,7 @@ public class EditBoard extends AppCompatActivity {
 
     private void initFields(){
         mRecyclerView=findViewById(R.id.recycler_view);
-        mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this,currentBoard.getGridSize(),3));
+        mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this,3,3));
 
         (findViewById(R.id.save_button)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -274,6 +275,7 @@ public class EditBoard extends AppCompatActivity {
                 searchInBoard();
                 break;
             case R.id.grid_size:
+                Toast.makeText(this,"Have some issue",Toast.LENGTH_SHORT).show();
                 showGridDialog();break;
             case android.R.id.home: finish(); break;
             default:

@@ -32,6 +32,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.dsource.idc.jellowintl.AboutJellowActivity;
 import com.dsource.idc.jellowintl.DataBaseHelper;
 import com.dsource.idc.jellowintl.FeedbackActivity;
@@ -238,7 +242,16 @@ public class MyBoards extends AppCompatActivity {
         setOnPhotoSelectListener(new PhotoIntentResult() {
             @Override
             public void onPhotoIntentResult(Bitmap bitmap, int code) {
-                BoardIcon.setImageBitmap(bitmap);
+
+                bitmap = cropToSquare(bitmap);
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 50, stream);
+                Glide.with(MyBoards.this).load(stream.toByteArray())
+                        .apply(new RequestOptions().
+                                transform(new RoundedCorners(50)).
+                                error(R.drawable.ic_board_person).skipMemoryCache(true).
+                                diskCacheStrategy(DiskCacheStrategy.NONE))
+                        .into(BoardIcon);
             }
         });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -249,7 +262,7 @@ public class MyBoards extends AppCompatActivity {
                 {
                     if(checkPermissionForCamera()) {
                         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        startActivityForResult(takePictureIntent, CAMERA_REQUEST);
+                        startActivityForResult(takePictureIntent,CAMERA_REQUEST);
                     }
                     else
                     {
@@ -328,6 +341,19 @@ public class MyBoards extends AppCompatActivity {
 
     }
 
+    public static Bitmap cropToSquare(Bitmap bitmap){
+        int width  = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        int newWidth = (height > width) ? width : height;
+        int newHeight = (height > width)? height - ( height - width) : height;
+        int cropW = (width - height) / 2;
+        cropW = (cropW < 0)? 0: cropW;
+        int cropH = (height - width) / 2;
+        cropH = (cropH < 0)? 0: cropH;
+        Bitmap cropImg = Bitmap.createBitmap(bitmap, cropW, cropH, newWidth, newHeight);
+
+        return cropImg;
+    }
     private boolean checkPermissionForStorageRead() {
         boolean okay=true;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
