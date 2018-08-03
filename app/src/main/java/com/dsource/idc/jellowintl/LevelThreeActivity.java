@@ -139,8 +139,6 @@ public class LevelThreeActivity extends AppCompatActivity {
       if(getIntent().getExtras().getString(getString(R.string.from_search))!=null) {
             if (getIntent().getExtras().getString(getString(R.string.from_search))
                     .equals(getString(R.string.search_tag))) {
-                mIvBack.setEnabled(false);
-                mIvBack.setAlpha(.5f);
                 highlightSearchedItem();
             }
         }
@@ -165,8 +163,7 @@ public class LevelThreeActivity extends AppCompatActivity {
         // Start measuring user app screen timer .
         startMeasuring();
         if(!session.getToastMessage().isEmpty()) {
-            Toast.makeText(getApplicationContext(),
-                    session.getToastMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, session.getToastMessage(), Toast.LENGTH_SHORT).show();
             session.setToastMessage("");
         }
     }
@@ -391,6 +388,14 @@ public class LevelThreeActivity extends AppCompatActivity {
         // selected in level one and level two. Database will return preference string if exist
         // otherwise it will return value "false".
         String savedString = myDbHelper.getLevel(mLevelOneItemPos, mLevelTwoItemPos);
+
+        if(savedString.equals("false") &&
+                checkNewIfNewCategory(mLevelOneItemPos+"," + mLevelTwoItemPos)) {
+            savedString = "";
+            for (int i = 0; i < 100; ++i)
+                savedString = savedString.concat("0,");
+        }
+
         // savedString is equal to "false" then load level three category icons without any sort/preferences
         if (!savedString.equals("false")) {
             count_flag = 1;
@@ -432,7 +437,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                 (mLevelOneItemPos == 7 && (mLevelTwoItemPos == 0 || mLevelTwoItemPos == 1 ||
                         mLevelTwoItemPos == 2 || mLevelTwoItemPos == 3 || mLevelTwoItemPos == 4))
                 || (mLevelOneItemPos == 4 && mLevelTwoItemPos == 9)) {
-            retrieveSpeechArrays(mLevelOneItemPos, mLevelTwoItemPos);
+              retrieveSpeechArrays(mLevelOneItemPos, mLevelTwoItemPos);
 
             // create sort array to sequentially arrange icons without any preferences
             for (int i=0; i< mNewVerbTxt.size();i++)
@@ -443,6 +448,31 @@ public class LevelThreeActivity extends AppCompatActivity {
         } else {
             count_flag = 0;
             retrieveSpeechArrays(mLevelOneItemPos, mLevelTwoItemPos);
+        }
+    }
+
+    private boolean checkNewIfNewCategory(String newCatIndices) {
+        switch(newCatIndices){
+            case"1,9":
+            case"6,0":
+            case"6,1":
+            case"6,2":
+            case"6,3":
+            case"6,4":
+            case"6,5":
+            case"6,6":
+            case"6,7":
+            case"6,8":
+            case"6,9":
+            case"6,10":
+            case"6,11":
+            case"6,12":
+            case"6,13":
+            case"6,14":
+            case"6,15":
+             return true;
+            default:
+                return false;
         }
     }
 
@@ -570,8 +600,19 @@ public class LevelThreeActivity extends AppCompatActivity {
                 // to identify for returning activity that user is returned by pressing "back" button.
                 } else {
                     mIvBack.setImageResource(R.drawable.back_pressed);
-                    setResult(RESULT_OK);
-                    finish();
+                    String str = getIntent().getExtras().getString(getString(R.string.from_search));
+                    if(str != null && !str.isEmpty() && str.equals(getString(R.string.search_tag))){
+                        Intent intent = new Intent(LevelThreeActivity.this, LevelTwoActivity.class);
+                        intent.putExtra(getString(R.string.level_one_intent_pos_tag), mLevelOneItemPos);
+                        intent.putExtra("search_and_back", true);
+                        intent.putExtra(getString(R.string.intent_menu_path_tag), getIntent().
+                                getExtras().getString(getString(R.string.intent_menu_path_tag)));
+                        startActivity(intent);
+                        finish();
+                    }else {
+                        setResult(RESULT_OK);
+                        finish();
+                    }
                 }
                 //Firebase event
                 singleEvent("Navigation","Back");
@@ -607,6 +648,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        setResult(RESULT_CANCELED);
                         finishAffinity();
                     }
                 },100);
@@ -1298,7 +1340,12 @@ public class LevelThreeActivity extends AppCompatActivity {
                 getString(R.string.levelThreeVerbiage17) +
                 getString(R.string.levelThreeVerbiage18) +
                 getString(R.string.levelThreeVerbiage19) +
-                getString(R.string.levelThreeVerbiage20);
+                getString(R.string.levelThreeVerbiage20) +
+                getString(R.string.levelThreeVerbiage21) +
+                getString(R.string.levelThreeVerbiage22) +
+                getString(R.string.levelThreeVerbiage23) +
+                getString(R.string.levelThreeVerbiage24) +
+                getString(R.string.levelThreeVerbiage25);
         LevelThreeVerbiageModel mLevelThreeVerbiageModel = new Gson().
                 fromJson(verbString, LevelThreeVerbiageModel.class);
         mNewVerbTxt = mLevelThreeVerbiageModel.getVerbiageModel()
@@ -1313,22 +1360,22 @@ public class LevelThreeActivity extends AppCompatActivity {
      * */
     private void retainExpressiveButtonStates() {
         //if category Greet and feel -> feelings is selected
-        if(mLevelOneItemPos == 0 && mLevelTwoItemPos == 1){
+        if(mLevelOneItemPos == 0 && mLevelTwoItemPos == 1) {
             int tmp = mArrSort[mLevelThreeItemPos];
             // if in feeling category icon having index (default position in recycler view)
             // "tmp" = 0 (category icon is Happy) then disable no expressive button and keep all
             // other expressive button enabled.
-            if(tmp == 0){
+            if (tmp == 0) {
                 mIvNo.setAlpha(0.5f);
                 mIvNo.setEnabled(false);
                 mIvYes.setAlpha(1f);
                 mIvYes.setEnabled(true);
-            // if in feeling category icon having index (default position in recycler view)
-            // "tmp" = 1 (Sad), 2 (Angry), 3 (Afraid), 5 (Irritated)
-            //         6 (Confused), 7 (Ashamed), 8 (Disappointed),
-            //         9 (Bored), 10 (Worried), 11 (Stressed),
-            //         12 (Tired), 15 (Sick) & 16 (Hurt)
-            // then disable yes expressive button and keep all other expressive button enabled.
+                // if in feeling category icon having index (default position in recycler view)
+                // "tmp" = 1 (Sad), 2 (Angry), 3 (Afraid), 5 (Irritated)
+                //         6 (Confused), 7 (Ashamed), 8 (Disappointed),
+                //         9 (Bored), 10 (Worried), 11 (Stressed),
+                //         12 (Tired), 15 (Sick) & 16 (Hurt)
+                // then disable yes expressive button and keep all other expressive button enabled.
             } else if (tmp == 1 || tmp == 2 || tmp == 3 || tmp == 5 || tmp == 6 || tmp == 7 ||
                     tmp == 8 || tmp == 9 || tmp == 10 || tmp == 11 || tmp == 12 || tmp == 15 ||
                     tmp == 16) {
@@ -1336,17 +1383,28 @@ public class LevelThreeActivity extends AppCompatActivity {
                 mIvYes.setEnabled(false);
                 mIvNo.setAlpha(1f);
                 mIvNo.setEnabled(true);
-            // if in feeling category icon having index (default position in recycler view)
-            // other than "tmp" enable all expressive buttons
+                // if in feeling category icon having index (default position in recycler view)
+                // other than "tmp" enable all expressive buttons
             } else
                 changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
 
-        // if in feeling -> greetings,
-        //       feeling -> requests
-        //       feeling -> questions
+        //If in Places -> Hospital -> I am hurt
+        //      Places -> Hospital -> I feel sick
         // all expressive buttons are disabled as they are simple expressions
-        }else if(mLevelOneItemPos == 0 && (mLevelTwoItemPos == 0 || mLevelTwoItemPos == 2 ||
-                mLevelTwoItemPos == 3))
+        // otherwise all expressive buttons are enabled.
+        }else if(mLevelOneItemPos == 6 && (mLevelTwoItemPos == 11)){
+            if (mArrSort[mLevelThreeItemPos] == 0 || mArrSort[mLevelThreeItemPos] == 1)
+                changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
+            else
+                changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
+        //If in feeling -> greetings,
+        //      feeling -> requests
+        //      feeling -> questions
+        //      Daily Activities -> Habits
+        // all expressive buttons are disabled as they are simple expressions
+        }else if((mLevelOneItemPos == 0 && (mLevelTwoItemPos == 0 || mLevelTwoItemPos == 2 ||
+                mLevelTwoItemPos == 3)) ||
+                (mLevelOneItemPos == 1 && mLevelTwoItemPos == 9))
             changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
         // Daily activities -> clothes and more
         else if(mLevelOneItemPos == 1 && mLevelTwoItemPos == 3){
@@ -1556,6 +1614,9 @@ public class LevelThreeActivity extends AppCompatActivity {
                 case 6:
                     mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeDailyActTherapySpeechText);
                     break;
+                case 9:
+                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeDailyActHabitsSpeechText);
+                    break;
             }
         } else if (levelOneItemPos == 2) {
             switch(levelTwoItemPos){
@@ -1636,6 +1697,57 @@ public class LevelThreeActivity extends AppCompatActivity {
                     break;
                 case 9:
                     mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeLearningMoneySpeechText);
+                    break;
+            }
+        } else if (levelOneItemPos == 6) {
+            switch(levelTwoItemPos){
+                case 0:
+                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesMyHouseSpeechText);
+                    break;
+                case 1:
+                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesSchoolSpeechText);
+                    break;
+                case 2:
+                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesMallSpeechText);
+                    break;
+                case 3:
+                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesMuseumSpeechText);
+                    break;
+                case 4:
+                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesRestaurantSpeechText);
+                    break;
+                case 5:
+                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesTheatreSpeechText);
+                    break;
+                case 6:
+                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesPlaygroundSpeechText);
+                    break;
+                case 7:
+                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesParkSpeechText);
+                    break;
+                case 8:
+                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesStoreSpeechText);
+                    break;
+                case 9:
+                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesFriendHouseSpeechText);
+                    break;
+                case 10:
+                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesRelativeHouseSpeechText);
+                    break;
+                case 11:
+                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesHospitalSpeechText);
+                    break;
+                case 12:
+                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesClinicSpeechText);
+                    break;
+                case 13:
+                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesLibrarySpeechText);
+                    break;
+                case 14:
+                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesZooSpeechText);
+                    break;
+                case 15:
+                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesWorshipSpeechText);
                     break;
             }
         } else if (levelOneItemPos == 7) {

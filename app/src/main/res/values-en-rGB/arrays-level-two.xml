@@ -17,6 +17,7 @@
         <item>level2_dailyact_therapy</item>
         <item>level2_dailyact_morning1</item>
         <item>level2_dailyact_evening</item>
+        <item>habits-01</item>
     </string-array>
     <string-array name="arrLevelTwoEatingIconAdapter">
         <item>level2_eat_breakfast</item>
@@ -65,7 +66,7 @@
         <item>level2_help_feelsick</item>
         <item>level2_help_feeltired</item>
         <item>level2_help_helpmedo1</item>
-        <item>level2_help_medicine</item>
+        <item>medicalshop-01</item>
         <item>level2_help_bandaid</item>
         <item>water</item>
         <item>toilet</item>
@@ -75,6 +76,13 @@
         <item>danger</item>
         <item>hazards</item>
         <item>safety</item>
+        <item>iaminpain-01</item>
+        <item>iwaspinched-01</item>
+        <item>iwaspushed-01-01</item>
+        <item>iwasscolded-01-01</item>
+        <item>iwashit-01-01</item>
+        <item>iwastouched-01-01</item>
+        <item>iwasmadefunof-01</item>
     </string-array>
 
     <string-array name="arrLevelTwoPeopleIcon">
@@ -92,6 +100,7 @@
         <item>teacher01</item>
         <item>level2_people_doctor</item>
         <item>level2_people_nurse</item>
+        <item>therapist-01</item>
         <item>caregiver1</item>
         <item>level2_people_stranger</item>
         <item>level2_people_aboutme</item>
@@ -111,7 +120,8 @@
         <item>level2_places_hospital</item>
         <item>level2_places_clinic</item>
         <item>level2_places_library</item>
-        <item>balcony</item>
+        <item>zoo-01</item>
+        <item>church-01</item>
     </string-array>
 
     <!--LEVEL TWO ENGLISH ADAPTER TEXT ARE HERE-->
@@ -131,6 +141,7 @@
         <item>Therapy…</item>
         <item>Morning routine…</item>
         <item>Bed Time routine…</item>
+        <item>Habits…</item>
     </string-array>
     <string-array name="arrLevelTwoEatAdapterText">
         <item>Breakfast…</item>
@@ -177,26 +188,28 @@
         <item>Teacher</item>
         <item>Doctor</item>
         <item>Nurse</item>
+        <item>Therapist</item>
         <item>Caregiver</item>
         <item>Stranger</item>
         <item>About Me</item>
     </string-array>
     <string-array name="arrLevelTwoPlacesAdapterText">
-        <item>My House</item>
-        <item>School</item>
-        <item>Mall</item>
-        <item>Museum</item>
-        <item>Restaurant</item>
-        <item>Theatre</item>
-        <item>Playground</item>
-        <item>Park</item>
-        <item>Store</item>
-        <item>Friend\'s House</item>
-        <item>Relative\'s House</item>
-        <item>Hospital</item>
-        <item>Clinic</item>
-        <item>Library</item>
-        <item>Balcony</item>
+        <item>My House…</item>
+        <item>School…</item>
+        <item>Mall…</item>
+        <item>Museum…</item>
+        <item>Restaurant…</item>
+        <item>Theatre…</item>
+        <item>Playground…</item>
+        <item>Park…</item>
+        <item>Store…</item>
+        <item>Friend\'s House…</item>
+        <item>Relative\'s House…</item>
+        <item>Hospital…</item>
+        <item>Clinic…</item>
+        <item>Library…</item>
+        <item>Zoo…</item>
+        <item>Worship…</item>
     </string-array>
     <string-array name="arrLevelTwoTimeWeatherAdapterText">
         <item>Time…</item>
@@ -224,6 +237,13 @@
         <item>Danger</item>
         <item>Hazards</item>
         <item>Safety</item>
+        <item>I am in pain</item>
+        <item>I was pinched</item>
+        <item>I was pushed</item>
+        <item>I was scolded</item>
+        <item>I was hit</item>
+        <item>I was touched inappropriately</item>
+        <item>I was made fun of</item>
     </string-array>
 
     <!--LEVEL TWO SPEECH TEXT ARE HERE-->
@@ -244,6 +264,7 @@
         <item>Therapy</item>
         <item>Morning Routine</item>
         <item>Bedtime Routine</item>
+        <item>Habits</item>
     </string-array>
     <string-array name="arrLevelTwoEatSpeechText">
         <item>Breakfast</item>
@@ -290,6 +311,7 @@
         <item>Teacher</item>
         <item>Doctor</item>
         <item>Nurse</item>
+        <item>Therapist</item>
         <item>Caregiver</item>
         <item>Stranger</item>
         <item>About Me</item>
@@ -309,7 +331,8 @@
         <item>Hospital</item>
         <item>Clinic</item>
         <item>Library</item>
-        <item>balcony</item>
+        <item>Zoo</item>
+        <item>Places of worship</item>
     </string-array>
     <string-array name="arrLevelTwoTimeWeatherSpeechText">
         <item>Time</item>
@@ -337,6 +360,13 @@
         <item>I am in danger! Please help</item>
         <item>Hazard! Please don’t touch</item>
         <item>Safety</item>
+        <item>I am in pain</item>
+        <item>I was pinched</item>
+        <item>I was pushed</item>
+        <item>I was scolded</item>
+        <item>I was hit</item>
+        <item>I was touched inappropriately</item>
+        <item>I was made fun of</item>
     </string-array>
 
     <string name="levelTwoVerbiage1">
@@ -510,6 +540,19 @@
             \"I really don\'t want to know my bedtime routine\",
             \"I don\'t want to know more about my bedtime routine\",
             \"I really don\'t want to know any more about my bedtime routine\"
+
+    ],[\"I like to follow habits\",
+            \"I really like to follow habits\",
+            \"I want to follow habits\",
+            \"I really want to follow habits\",
+            \"I want to learn some more good habits\",
+            \"I really want to learn some more good habits\",
+            \"I don\'t like to follow habits\",
+            \"I really don\'t like to follow habits\",
+            \"I don\'t want to follow habits\",
+            \"I really don\'t want to follow habits\",
+            \"I don\'t want to learn more habits\",
+            \"I really don\'t want to learn more habits\"
 
 
     ]],[[\"I like to have breakfast\",
@@ -1011,6 +1054,19 @@
             \"I don\'t want to spend more time with the nurse\",
             \"I really don\'t want to spend any more time with the nurse\"
 
+    ],[\"I like my therapist\",
+            \"I really like my therapist\",
+            \"I want to go to the therapist\",
+            \"I really want to go to the therapist\",
+            \"I want to spend more time with the therapist\",
+            \"I really want to spend some more time with the therapist\",
+            \"I don\'t like my therapist\",
+            \"I really don’t like my therapist\",
+            \"I don\'t want to go to the therapist\",
+            \"I really don\'t want to go to the therapist\",
+            \"I don\'t want to spend more time with the therapist\",
+            \"I really don\'t want to spend any more time with the therapist\"
+
     ],[\"I like my caregiver\",
             \"I really like my caregiver\",
             \"I want my caregiver\",
@@ -1233,18 +1289,31 @@
             \"I don\'t want to go to the library again\",
             \"I really don\'t want to go to the library again\"
 
-    ],[\"I like to go to the balcony\",
-            \"I really like to go to the balcony\",
-            \"I want to go to the balcony\",
-            \"I really want to go to the balcony\",
-            \"I want to go to the balcony again\",
-            \"I really want to go to the balcony again\",
-            \"I don\'t like to go to the balcony\",
-            \"I really don\'t like to go to the balcony\",
-            \"I don\'t want to go to the balcony\",
-            \"I really don\'t want to go to the balcony\",
-            \"I don\'t want to go to the balcony again\",
-            \"I really don\'t want to go to the balcony again\"
+    ],[\"I like to go to the zoo\",
+            \"I really like to go to the zoo\",
+            \"I want to go to the zoo \",
+            \"I really want to go to the zoo\",
+            \"I want to go to the zoo again\",
+            \"I really want to go to the zoo again\",
+            \"I don\'t like to go to the zoo\",
+            \"I really don\'t like to go to the zoo\",
+            \"I don\'t want to go to the zoo\",
+            \"I really don\'t want to go to the zoo\",
+            \"I don\'t want to go to the zoo again\",
+            \"I really don\'t want to go to the zoo again\"
+
+    ],[\"I like to visit places of worship\",
+            \"I really like to visit places of worship\",
+            \"I want to visit places of worship\",
+            \"I really want to visit places of worship\",
+            \"I want to visit some more places of worship\",
+            \"I really want to visit some more places of worship\",
+            \"I don\'t like to visit places of worship\",
+            \"I really don\'t like to visit places of worship\",
+            \"I don\'t want to visit places of worship\",
+            \"I really don\'t want to visit places of worship\",
+            \"I don\'t want to visit some more places of worship\",
+            \"I really don\'t want to visit some more places of worship\"
 
 
     ]],[[\"I like to be on time\",
@@ -1435,7 +1504,7 @@
             \"I really don’t want\",
             \"I don’t feel very safe\",
             \"I really don’t feel very safe\"
-    ]]]}
+    ],[],[],[],[],[],[],[]]]}
     </string>
     <string name="levelTwoVerbiage3"/>
     <string name="levelTwoVerbiage4"/>

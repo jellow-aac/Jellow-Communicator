@@ -154,7 +154,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             layer_2_id = layer_2_id+1;
         ContentValues dataToInsert = new ContentValues();
         dataToInsert.put("layer_3", n);
-        myDataBase.update("three", dataToInsert, "layer_1_id='" + layer_1_id + "' AND layer_2_id='" + layer_2_id + "' AND language ='"+userLang+"'", null);
+        int result = myDataBase.update("three", dataToInsert, "layer_1_id='" + layer_1_id + "' AND layer_2_id='" + layer_2_id + "' AND language ='"+userLang+"'", null);
+        if (result == 0){
+            ContentValues cv = new ContentValues();
+            cv.put("layer_1_id",layer_1_id);
+            cv.put("layer_2_id",layer_2_id);
+            cv.put("layer_3",n);
+            cv.put("language", userLang);
+            myDataBase.insertOrThrow("three","",cv);
+        }
     }
 
     public boolean addLanguageDataToDatabase(){

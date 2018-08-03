@@ -143,8 +143,7 @@ public class SequenceActivity extends AppCompatActivity {
         // Start measuring user app screen timer .
         startMeasuring();
         if(!mSession.getToastMessage().isEmpty()) {
-            Toast.makeText(getApplicationContext(),
-                    mSession.getToastMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, mSession.getToastMessage(), Toast.LENGTH_SHORT).show();
             mSession.setToastMessage("");
         }
     }
@@ -319,9 +318,9 @@ public class SequenceActivity extends AppCompatActivity {
                 }
                 //if the next set of category items to be loaded are less than 3
                 if (mCategoryIconText.length < count + 3) {
-                    // If activity sequence is "Brushing", then in its last sequences
+                    // If activity sequence is "Brushing" or "Bathing", then in its last sequences
                     // only 2 items needed to load
-                    if (mLevelTwoItemPos == 0) {
+                    if (mLevelTwoItemPos == 0 || mLevelTwoItemPos == 2) {
                         setImageUsingGlide(mStrPath +"/"+ mCategoryIconText[count]+".png",
                                 mIvCategoryIcon1);
                         setImageUsingGlide(mStrPath +"/"+ mCategoryIconText[count+1]+".png",

@@ -127,6 +127,7 @@
                             android:layout_width="195dp"
                             android:layout_height="wrap_content"
                             android:minLines="2"
+                            android:textAlignment="center"
                             android:text="ddadasdasd"
                             android:textSize="22sp"/>
                     </LinearLayout>
@@ -171,20 +172,24 @@
                             android:layout_width="195dp"
                             android:layout_height="wrap_content"
                             android:minLines="2"
+                            android:textAlignment="center"
                             android:text="ddadasdasd"
                             android:textSize="22sp"/>
                     </LinearLayout>
+
                     <LinearLayout
                         android:id="@+id/linearLayoutThree"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_toRightOf="@+id/linearLayoutTwo"
                         android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/linearLayoutTwo">
+                        android:layout_toEndOf="@+id/linearLayoutTwo"
+                        android:layout_toRightOf="@+id/linearLayoutTwo"
+                        android:orientation="vertical">
+
                         <FrameLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
+
                             <ImageView
                                 android:id="@+id/image3"
                                 android:layout_width="195dp"
@@ -192,20 +197,24 @@
                                 android:layout_gravity="center_horizontal"
                                 android:background="@android:color/transparent"
                                 android:scaleType="centerInside" />
+
                             <View
                                 android:id="@+id/borderView3"
                                 android:layout_width="195dp"
                                 android:layout_height="195dp"
                                 android:layout_gravity="center_horizontal"
-                                android:background="@drawable/custom_drawable_nocolor_1by3"/>
+                                android:background="@drawable/custom_drawable_nocolor_1by3" />
                         </FrameLayout>
+
                         <TextView
                             android:id="@+id/bt3"
                             android:layout_width="195dp"
                             android:layout_height="wrap_content"
+                            android:baselineAligned="false"
                             android:minLines="2"
                             android:text="ddadasdasd"
-                            android:textSize="22sp"/>
+                            android:textAlignment="center"
+                            android:textSize="22sp" />
                     </LinearLayout>
                 </RelativeLayout>
                 <LinearLayout

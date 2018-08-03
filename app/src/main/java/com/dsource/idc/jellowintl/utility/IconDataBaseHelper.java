@@ -35,7 +35,7 @@ public class IconDataBaseHelper extends SQLiteOpenHelper {
             {ICON_ID, ICON_TITLE,ICON_DRAWABLE,KEY_P1,KEY_P2,KEY_P3};
     // Build the SQL query that creates the table.
     private static final String ICON_LIST_TABLE_CREATE =
-            "CREATE TABLE " + ICON_LIST_TABLE + " (" + ICON_ID + " INTEGER PRIMARY KEY, "
+            "CREATE TABLE IF NOT EXISTS " + ICON_LIST_TABLE + " (" + ICON_ID + " INTEGER PRIMARY KEY, "
                     + ICON_TITLE + " TEXT," //Icon Title
                     + ICON_DRAWABLE + " TEXT,"//Icon's Drawable resource
                     + KEY_P1 + " INTERGER,"//Level 1 parent
@@ -91,6 +91,7 @@ public class IconDataBaseHelper extends SQLiteOpenHelper {
                 values.put(KEY_P2, j);
                 values.put(KEY_P3, -1);
                 db.insert(ICON_LIST_TABLE, null, values);
+
             }
         }
         //Filling the database for Level Three
@@ -265,7 +266,7 @@ public class IconDataBaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    boolean noChildInThird =false;
+    private boolean noChildInThird =false;
     private boolean loadArraysFromResources(int levelOneItemPos, int levelTwoItemPos)
     {
         if (levelOneItemPos == 0) {
@@ -307,6 +308,9 @@ public class IconDataBaseHelper extends SQLiteOpenHelper {
                     noChildInThird =true;break;
                 case 8:
                     noChildInThird =true;break;
+                case 9: loadAdapterMenuTextIconsWithoutSort(context.getResources().getStringArray(R.array.arrLevelThreeDailyActHabitsIconAdapter),
+                        context.getResources().getStringArray(R.array.arrLevelThreeDailyActHabitsAdapterText));
+                    break;
             }
         } else if (levelOneItemPos == 2) {
             switch(levelTwoItemPos) {
@@ -394,9 +398,57 @@ public class IconDataBaseHelper extends SQLiteOpenHelper {
         {
             noChildInThird =true;
         }
-        else if(levelOneItemPos==6)
-        {
-            noChildInThird =true;
+        else if(levelOneItemPos==6){
+            switch(levelTwoItemPos) {
+                case 0: thirdLevelIcons=context.getResources().getStringArray(R.array.arrLevelThreePlacesMyHouseIconAdapter);
+                    thirdLevelTitles=context.getResources().getStringArray(R.array.arrLevelThreePlacesMyHouseAdapterText);
+                    break;
+                case 1: thirdLevelIcons=context.getResources().getStringArray(R.array.arrLevelThreePlacesSchoolIconAdapter);
+                    thirdLevelTitles=context.getResources().getStringArray(R.array.arrLevelThreePlacesSchoolAdapterText);
+                    break;
+                case 2: thirdLevelIcons=context.getResources().getStringArray(R.array.arrLevelThreePlacesMallIconAdapter);
+                    thirdLevelTitles=context.getResources().getStringArray(R.array.arrLevelThreePlacesMallAdapterText);
+                    break;
+                case 3: thirdLevelIcons=context.getResources().getStringArray(R.array.arrLevelThreePlacesMuseumIconAdapter);
+                    thirdLevelTitles=context.getResources().getStringArray(R.array.arrLevelThreePlacesMuseumAdapterText);
+                    break;
+                case 4: thirdLevelIcons=context.getResources().getStringArray(R.array.arrLevelThreePlacesRestaurantIconAdapter);
+                    thirdLevelTitles=context.getResources().getStringArray(R.array.arrLevelThreePlacesRestaurantAdapterText);
+                    break;
+                case 5: thirdLevelIcons=context.getResources().getStringArray(R.array.arrLevelThreePlacesTheatreIconAdapter);
+                    thirdLevelTitles=context.getResources().getStringArray(R.array.arrLevelThreePlacesTheatreAdapterText);
+                    break;
+                case 6: thirdLevelIcons=context.getResources().getStringArray(R.array.arrLevelThreePlacesPlaygroundIconAdapter);
+                        thirdLevelTitles=context.getResources().getStringArray(R.array.arrLevelThreePlacesPlaygroundAdapterText);
+                    break;
+                case 7: thirdLevelIcons=context.getResources().getStringArray(R.array.arrLevelThreePlacesParkIconAdapter);
+                    thirdLevelTitles=context.getResources().getStringArray(R.array.arrLevelThreePlacesParkAdapterText);
+                    break;
+                case 8: thirdLevelIcons=context.getResources().getStringArray(R.array.arrLevelThreePlacesStoreIconAdapter);
+                    thirdLevelTitles=context.getResources().getStringArray(R.array.arrLevelThreePlacesStoreAdapterText);
+                    break;
+                case 9: thirdLevelIcons=context.getResources().getStringArray(R.array.arrLevelThreePlacesFriendHouseIconAdapter);
+                    thirdLevelTitles=context.getResources().getStringArray(R.array.arrLevelThreePlacesFriendHouseAdapterText);
+                    break;
+                case 10: thirdLevelIcons=context.getResources().getStringArray(R.array.arrLevelThreePlacesRelativeHouseIconAdapter);
+                    thirdLevelTitles=context.getResources().getStringArray(R.array.arrLevelThreePlacesRelativeHouseAdapterText);
+                    break;
+                case 11: thirdLevelIcons=context.getResources().getStringArray(R.array.arrLevelThreePlacesHospitalIconAdapter);
+                    thirdLevelTitles=context.getResources().getStringArray(R.array.arrLevelThreePlacesHospitalAdapterText);
+                    break;
+                case 12: thirdLevelIcons=context.getResources().getStringArray(R.array.arrLevelThreePlacesClinicIconAdapter);
+                    thirdLevelTitles=context.getResources().getStringArray(R.array.arrLevelThreePlacesClinicAdapterText);
+                    break;
+                case 13: thirdLevelIcons=context.getResources().getStringArray(R.array.arrLevelThreePlacesLibraryIconAdapter);
+                    thirdLevelTitles=context.getResources().getStringArray(R.array.arrLevelThreePlacesLibraryAdapterText);
+                    break;
+                case 14: thirdLevelIcons=context.getResources().getStringArray(R.array.arrLevelThreePlacesZooIconAdapter);
+                    thirdLevelTitles=context.getResources().getStringArray(R.array.arrLevelThreePlacesZooAdapterText);
+                    break;
+                case 15: thirdLevelIcons=context.getResources().getStringArray(R.array.arrLevelThreePlacesWorshipIconAdapter);
+                    thirdLevelTitles=context.getResources().getStringArray(R.array.arrLevelThreePlacesWorshipAdapterText);
+                    break;
+            }
         }
         else if (levelOneItemPos == 7) {
             switch(levelTwoItemPos) {

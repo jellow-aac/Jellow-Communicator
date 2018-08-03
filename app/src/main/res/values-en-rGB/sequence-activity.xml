@@ -14,16 +14,19 @@
 </string-array>
 
 <string-array name="arrSeqActivityToiletIcon">
+    <item>closedoor-01</item>
     <item>pullpantsdown</item>
     <item>sitonthetoilet</item>
     <item>washyourbottom</item>
     <item>flushtoilet</item>
     <item>pullpantsup</item>
     <item>washhands</item>
+    <item>opendoor-01</item>
     <item>iamalldone</item>
 </string-array>
 
 <string-array name="arrSeqActivityBathingIcon">
+    <item>closedoor-01</item>
     <item>removeclothes</item>
     <item>turnonwater</item>
     <item>getinshower</item>
@@ -38,6 +41,7 @@
     <item>dryface</item>
     <item>drybody</item>
     <item>putonclothes</item>
+    <item>opendoor-01</item>
     <item>iamalldone</item>
 </string-array>
 
@@ -94,31 +98,35 @@
 </string-array>
 
 <string-array name="arrSeqActivityToiletBelowText">
-    <item>1. Pull pants down</item>
-    <item>2. Sit on toilet</item>
-    <item>3. Wash bottom</item>
-    <item>4. Flush toilet</item>
-    <item>5. Pull pants up</item>
-    <item>6. Wash hands</item>
-    <item>7. All done</item>
+    <item>1. Close door</item>
+    <item>2. Pull pants down</item>
+    <item>3. Sit on toilet</item>
+    <item>4. Wash bottom</item>
+    <item>5. Flush toilet</item>
+    <item>6. Pull pants up</item>
+    <item>7. Wash hands</item>
+    <item>8. Open door</item>
+    <item>9. All done</item>
 </string-array>
 
 <string-array name="arrSeqActivityBathingBelowText">
-    <item>1. Remove clothes</item>
-    <item>2. Turn on water</item>
-    <item>3. Get in shower</item>
-    <item>4. Wet body</item>
-    <item>5. Put soap</item>
-    <item>6. Shampoo hair</item>
-    <item>7. Put face wash</item>
-    <item>8. Wash hair</item>
-    <item>9. Wash body</item>
-    <item>10. Turn off water</item>
-    <item>11. Dry hair</item>
-    <item>12. Dry face</item>
-    <item>13. Dry body</item>
-    <item>14. Put on clothes</item>
-    <item>15. All done</item>
+    <item>1. Close door</item>
+    <item>2. Remove clothes</item>
+    <item>3. Turn on water</item>
+    <item>4. Get in shower</item>
+    <item>5. Wet body</item>
+    <item>6. Put soap</item>
+    <item>7. Shampoo hair</item>
+    <item>8. Put face wash</item>
+    <item>9. Wash hair</item>
+    <item>10. Wash body</item>
+    <item>11. Turn off water</item>
+    <item>12. Dry hair</item>
+    <item>13. Dry face</item>
+    <item>14. Dry body</item>
+    <item>15. Put on clothes</item>
+    <item>16. Open door</item>
+    <item>17. All done</item>
 </string-array>
 
 <string-array name="arrSeqActivityMorningRoutineBelowText">
@@ -161,16 +169,19 @@
 </string-array>
 
 <string-array name="arrSeqActivityToiletSpeechText">
+    <item>Close the door</item>
     <item>Pull pants down</item>
     <item>Sit on toilet</item>
     <item>Wash bottom</item>
     <item>Flush toilet</item>
     <item>Pull pants up</item>
     <item>Wash hands</item>
+    <item>Open the door</item>
     <item>All done</item>
 </string-array>
 
 <string-array name="arrSeqActivityBathingSpeechText">
+    <item>Close the door</item>
     <item>Remove clothes</item>
     <item>Turn on water</item>
     <item>Get in the shower</item>
@@ -185,6 +196,7 @@
     <item>Dry face</item>
     <item>Dry body</item>
     <item>Put on clothes</item>
+    <item>Open the door</item>
     <item>All done</item>
 </string-array>
 
@@ -307,6 +319,20 @@
             \"I really don\'t want to rinse my mouth any more\"
 
     ]],[[
+            \"I have to close the door\",
+            \"I really have to close the door\",
+            \"I want to close the door\",
+            \"I really want to close the door\",
+            \"I want to close the door again\",
+            \"I really want to close the door again\",
+            \"I don\'t have to close the door\",
+            \"I really don\'t have to close the door\",
+            \"I don\'t want to close the door\",
+            \"I really don\'t want to close the door\",
+            \"I don\'t want to close the door again\",
+            \"I really don\'t want to close the door again\"
+
+    ],[
             \"I have to pull my pants down\",
             \"I really have to pull my pants down\",
             \"I want to pull my pants down\",
@@ -384,7 +410,35 @@
             \"I really don\'t want to wash my hands\",
             \"I don\'t want to wash my hands again\",
             \"I really don\'t want to wash my hands again\"
-    ]],[[\"I have to remove my clothes\",
+    ],[
+            \"I have to open the door\",
+            \"I really have to open the door\",
+            \"I want to open the door\",
+            \"I really want to open the door\",
+            \"I want to open the door again\",
+            \"I really want to open the door again\",
+            \"I don\'t have to open the door\",
+            \"I really don\'t have to open the door\",
+            \"I don\'t want to open the door\",
+            \"I really don\'t want to open the door\",
+            \"I don\'t want to open the door again\",
+            \"I really don\'t want to open the door again\"
+
+    ]],[[
+            \"I have to close the door\",
+            \"I really have to close the door\",
+            \"I want to close the door\",
+            \"I really want to close the door\",
+            \"I want to close the door again\",
+            \"I really want to close the door again\",
+            \"I don\'t have to close the door\",
+            \"I really don\'t have to close the door\",
+            \"I don\'t want to close the door\",
+            \"I really don\'t want to close the door\",
+            \"I don\'t want to close the door again\",
+            \"I really don\'t want to close the door again\"
+
+    ],[\"I have to remove my clothes\",
             \"I really have to remove my clothes\",
             \"I want to remove my clothes\",
             \"I really want to remove my clothes\",
@@ -565,6 +619,20 @@
             \"I really don\'t want to put my clothes on\",
             \"I don\'t want to put my clothes on again\",
             \"I really don\'t want to put my clothes on again\"
+
+    ],[\"I have to open the door\",
+            \"I really have to open the door\",
+            \"I want to open the door\",
+            \"I really want to open the door\",
+            \"I want to open the door again\",
+            \"I really want to open the door again\",
+            \"I don\'t have to open the door\",
+            \"I really don\'t have to open the door\",
+            \"I don\'t want to open the door\",
+            \"I really don\'t want to open the door\",
+            \"I don\'t want to open the door again\",
+            \"I really don\'t want to open the door again\"
+
     ]],[[\"I like to wake up early in the morning\",
             \"I really like to wake up early in the morning\",
             \"I want to wake up early in the morning\",

@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_toRightOf="@id/search_icon_drawable"
+        android:paddingRight="@dimen/search_list_icon_size"
         android:layout_centerVertical="true"
         android:layout_margin="@dimen/search_list_margin"
         >

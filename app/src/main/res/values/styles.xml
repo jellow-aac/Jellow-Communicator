@@ -29,7 +29,7 @@
     <style name="OverFlow" parent="Widget.AppCompat.ActionButton.Overflow">
         <item name="android:src">@drawable/ic_action_image_dehaze</item>
         <item name="android:scaleX">.75</item>
-        <item name="android:scaleY">.75</item>
+        <item name="android:scaleY">.95</item>
         <item name="android:layout_marginTop">-50dp</item>
         <item name="android:paddingTop">-50dp</item>
         <item name="android:layout_marginBottom">30dp</item>

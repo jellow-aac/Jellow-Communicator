@@ -62,7 +62,7 @@
     <string name="txtVoiceVolume">भाषण का स्तर</string>
     <string name="txtDisplayMode">प्रदर्शन प्रकार</string>
     <string name="txtNumOfPerPerScr">प्रति स्क्रीन मुख्य वर्ग के आइकनों की गिनती</string>
-    <string name="txtDemo">डेमो</string>
+    <string name="txtDemo">आवाज डेमो</string>
     <string name="txtSave">रक्षित करें</string>
     <string name="demoTtsSpeech">नमस्तें! आप जेलो कम्युनिकेटर का उपयोग कर रहे हैं.</string>
     <string name="savedSettingsMessage">सेटिंग्स रक्षित हो गये हैं</string>

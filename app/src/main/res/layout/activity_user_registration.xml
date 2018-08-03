@@ -149,10 +149,8 @@
 
             <Spinner
                 android:id="@+id/langSelectSpinner"
-                android:layout_width="wrap_content"
+                android:layout_width="112dp"
                 android:layout_height="30dp"
-                android:paddingEnd="20dp"
-                android:paddingRight="20dp"
                 android:background="@drawable/custom_spinner_view"
                 android:layout_marginBottom="10dp"/>
 

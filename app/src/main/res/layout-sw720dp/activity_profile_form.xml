@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
@@ -167,13 +166,10 @@
                     android:fontFamily="@font/mukta_semibold"/>
                 <Spinner
                     android:id="@+id/bloodgroup"
-                    android:layout_width="wrap_content"
+                    android:layout_width="175dp"
                     android:layout_height="40dp"
-                    android:paddingRight="35dp"
-                    android:paddingEnd="35dp"
                     android:background="@drawable/custom_spinner_view"
-                    android:textColor="@color/black_eighty"
-                    tools:ignore="RtlSymmetry" />
+                    android:textColor="@color/black_eighty"/>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="58dp" />

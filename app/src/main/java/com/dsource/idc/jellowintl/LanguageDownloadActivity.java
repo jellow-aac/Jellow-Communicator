@@ -87,8 +87,8 @@ public class LanguageDownloadActivity extends AppCompatActivity {
             }
         };
 
-        Toast.makeText(LanguageDownloadActivity.this, strLanguageDownloading
-                .replace("_", getShortenLangName(LangValueMap.get(langCode))), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, strLanguageDownloading.replace("_",
+                getShortenLangName(LangValueMap.get(langCode))), Toast.LENGTH_SHORT).show();
 
         if(langCode != null) {
             try {
