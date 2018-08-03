@@ -107,6 +107,9 @@ class LevelThreeAdapter extends android.support.v7.widget.RecyclerView.Adapter<L
                 case 6: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActTherapyIconAdapter),
                         mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActTherapyAdapterText), sort);
                     break;
+                case 9: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActHabitsIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActHabitsAdapterText), sort);
+                    break;
             }
         } else if (levelOneItemPos == 2) {
             switch(levelTwoItemPos) {
@@ -187,6 +190,57 @@ class LevelThreeAdapter extends android.support.v7.widget.RecyclerView.Adapter<L
                     break;
                 case 9: loadAdapterMenuTextIconsWithoutSort(mContext.getResources().getStringArray(R.array.arrLevelThreeLearningMoneyIconAdapter),
                         mContext.getResources().getStringArray(R.array.arrLevelThreeLearningMoneyAdapterText));
+                    break;
+            }
+        }else if (levelOneItemPos == 6) {
+            switch(levelTwoItemPos) {
+                case 0: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreePlacesMyHouseIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreePlacesMyHouseAdapterText), sort);
+                    break;
+                case 1: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreePlacesSchoolIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreePlacesSchoolAdapterText), sort);
+                    break;
+                case 2: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreePlacesMallIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreePlacesMallAdapterText), sort);
+                    break;
+                case 3: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreePlacesMuseumIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreePlacesMuseumAdapterText), sort);
+                    break;
+                case 4: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreePlacesRestaurantIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreePlacesRestaurantAdapterText), sort);
+                    break;
+                case 5: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreePlacesTheatreIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreePlacesTheatreAdapterText), sort);
+                    break;
+                case 6: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreePlacesPlaygroundIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreePlacesPlaygroundAdapterText), sort);
+                    break;
+                case 7: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreePlacesParkIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreePlacesParkAdapterText), sort);
+                    break;
+                case 8: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreePlacesStoreIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreePlacesStoreAdapterText), sort);
+                    break;
+                case 9: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreePlacesFriendHouseIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreePlacesFriendHouseAdapterText), sort);
+                    break;
+                case 10: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreePlacesRelativeHouseIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreePlacesRelativeHouseAdapterText), sort);
+                    break;
+                case 11: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreePlacesHospitalIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreePlacesHospitalAdapterText), sort);
+                    break;
+                case 12: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreePlacesClinicIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreePlacesClinicAdapterText), sort);
+                    break;
+                case 13: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreePlacesLibraryIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreePlacesLibraryAdapterText), sort);
+                    break;
+                case 14: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreePlacesZooIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreePlacesZooAdapterText), sort);
+                    break;
+                case 15: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreePlacesWorshipIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreePlacesWorshipAdapterText), sort);
                     break;
             }
         } else if (levelOneItemPos == 7) {

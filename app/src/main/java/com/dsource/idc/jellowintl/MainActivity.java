@@ -27,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.dsource.idc.jellowintl.models.LevelOneVerbiageModel;
+import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
@@ -99,6 +100,10 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
         getSupportActionBar().setTitle(getString(R.string.action_bar_title));
 
+        // Initialize default exception handler for this activity.
+        // If any exception occurs during this activity usage,
+        // handle it using default exception handler.
+        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         loadArraysFromResources();
         // Set the capacity of mRecyclerItemsViewList list to total number of category icons to be
         // populated on the screen.
@@ -242,8 +247,7 @@ public class MainActivity extends AppCompatActivity {
        // Start measuring user app screen timer.
         startMeasuring();
         if(!session.getToastMessage().isEmpty()) {
-            Toast.makeText(getApplicationContext(),
-                    session.getToastMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, session.getToastMessage(), Toast.LENGTH_SHORT).show();
             session.setToastMessage("");
         }
     }

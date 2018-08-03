@@ -55,7 +55,7 @@
     <string name="txtDisplayMode">Display Mode</string>
     <string name="txtVoiceVolume">Speech Volume</string>
     <string name="txtNumOfPerPerScr">Number of category icons per screen</string>
-    <string name="txtDemo">DEMO</string>
+    <string name="txtDemo">SPEECH DEMO</string>
     <string name="txtSave">SAVE</string>
     <string name="demoTtsSpeech">Hello! you are using Jellow Communicator.</string>
     <string name="savedSettingsMessage">Settings saved.</string>

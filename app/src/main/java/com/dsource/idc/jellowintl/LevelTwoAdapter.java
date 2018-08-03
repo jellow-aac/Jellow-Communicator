@@ -87,7 +87,10 @@ class LevelTwoAdapter extends android.support.v7.widget.RecyclerView.Adapter<Lev
         } else if (levelTwoItemPos == 4) {
             mIconArray = mContext.getResources().getStringArray(R.array.arrLevelTwoLearningIconAdapter);
             mBelowTextArray = mContext.getResources().getStringArray(R.array.arrLevelTwoLearningAdapterText);
-        } else if (levelTwoItemPos == 7) {
+        }  else if (levelTwoItemPos == 6) {
+            mIconArray = mContext.getResources().getStringArray(R.array.arrLevelTwoPlacesIcon);
+            mBelowTextArray = mContext.getResources().getStringArray(R.array.arrLevelTwoPlacesAdapterText);
+        }else if (levelTwoItemPos == 7) {
             mIconArray = mContext.getResources().getStringArray(R.array.arrLevelTwoTimeIconAdapter);
             mBelowTextArray = mContext.getResources().getStringArray(R.array.arrLevelTwoTimeWeatherAdapterText);
         } else if (levelTwoItemPos == 8) {

@@ -248,7 +248,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
                                             String locale = LangMap.get(offlineLanguages[which]);
                                             if(mSession.getLanguage().equals(locale))
                                             {
-                                                Toast.makeText(getBaseContext(), strLangCurrentlyInUse,Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(LanguageSelectActivity.this, strLangCurrentlyInUse,Toast.LENGTH_SHORT).show();
                                                 dialog.dismiss();
                                                 return true;
                                             }
@@ -266,7 +266,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
                                             adapter_lan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                             languageSelect.setAdapter(adapter_lan);
                                             dialog.dismiss();
-                                            Toast.makeText(getBaseContext(),strLangRemoved,Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(LanguageSelectActivity.this,strLangRemoved,Toast.LENGTH_SHORT).show();
                                             return true;
                                         }
                                     })
@@ -416,8 +416,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
             languageSelect.setSelection(mSelectedItem);
 
         if(!mSession.getToastMessage().isEmpty()) {
-            Toast.makeText(getApplicationContext(),
-                    mSession.getToastMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, mSession.getToastMessage(), Toast.LENGTH_SHORT).show();
             mSession.setToastMessage("");
         }
     }
@@ -489,12 +488,13 @@ public class LanguageSelectActivity extends AppCompatActivity{
                     isOpenedTtsSett = isTtsLangChanged = false;
                     break;
                 case "com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_VOICE_AVAIL_RES":
-                    if(intent.hasExtra("isVoiceAvail") && intent.getBooleanExtra("isVoiceAvail", false))
+                    if(intent.hasExtra("isVoiceAvail") &&
+                            intent.getBooleanExtra("isVoiceAvail", false))
                         saveLanguage();
                     else {
                         setSpeechLanguage(mSession.getLanguage());
-                        Toast.makeText(LanguageSelectActivity.this,
-                                getString(R.string.txt_actLangSel_completestep2), Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, getString(R.string.txt_actLangSel_completestep2),
+                                Toast.LENGTH_LONG).show();
                     }
                     break;
             }
@@ -508,7 +508,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
         bundleEvent("Language",bundle);
         setUserProperty("UserLanguage", LangMap.get(selectedLanguage));
         setCrashlyticsCustomKey("UserLanguage",  LangMap.get(selectedLanguage));
-        Toast.makeText(LanguageSelectActivity.this, mLangChanged, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, mLangChanged, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
         mSession.setLanguageChange(1);
         startActivity(intent);

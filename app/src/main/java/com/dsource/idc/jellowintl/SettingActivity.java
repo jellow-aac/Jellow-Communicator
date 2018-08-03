@@ -215,14 +215,14 @@ public class SettingActivity extends AppCompatActivity {
             if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 mSession.setEnableCalling(true);
                 ((Switch) findViewById(R.id.switchEnableCall)).setChecked(true);
-                Toast.makeText(getApplicationContext(), mCalPerGranted , Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, mCalPerGranted , Toast.LENGTH_SHORT).show();
             } else {
                 if(!ActivityCompat.shouldShowRequestPermissionRationale(
                         this, android.Manifest.permission.CALL_PHONE)){
                     showSettingRequestDialog();
                 }else{
                     mSession.setEnableCalling(false);
-                    Toast.makeText(getApplicationContext(), mCalPerRejected, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, mCalPerRejected, Toast.LENGTH_SHORT).show();
                 }
                 ((Switch) findViewById(R.id.switchEnableCall)).setChecked(false);
             }

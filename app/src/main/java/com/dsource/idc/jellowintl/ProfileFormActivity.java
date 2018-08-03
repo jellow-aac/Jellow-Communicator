@@ -149,20 +149,22 @@ public class ProfileFormActivity extends AppCompatActivity {
                 Crashlytics.log("Profile Save");
                 bSave.setEnabled(false);
                 if (etName.getText().toString().isEmpty()) {
-                    Toast.makeText(getBaseContext(), strEnterName, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProfileFormActivity.this,
+                            strEnterName, Toast.LENGTH_SHORT).show();
                     bSave.setEnabled(true);
                     return;
                 }
                 if(etFatherContact.getText().toString().isEmpty() ||
                         !etFatherContact.getText().toString().matches("[0-9]*")){
                     bSave.setEnabled(true);
-                    Toast.makeText(getBaseContext(), getString(R.string.enternonemptycontact),
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProfileFormActivity.this,
+                            getString(R.string.enternonemptycontact), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 email = etEmailId.getText().toString().trim();
                 if (!isValidEmail(email)) {
-                    Toast.makeText(getBaseContext(), strInvalidEmail, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProfileFormActivity.this,
+                            strInvalidEmail, Toast.LENGTH_SHORT).show();
                     bSave.setEnabled(true);
                     return;
                 }

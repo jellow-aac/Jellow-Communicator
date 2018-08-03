@@ -138,7 +138,6 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
         languageSelect = findViewById(R.id.langSelectSpinner);
 
-
         ArrayAdapter<String> adapter_lan = new ArrayAdapter<String>(this,
                 R.layout.simple_spinner_item, shortLangNameForDisplay(languageNames));
 
@@ -165,8 +164,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 name  = etName.getText().toString();
                 if (etName.getText().toString().equals("")) {
                     bRegister.setEnabled(true);
-                    Toast.makeText(getBaseContext(), getString(R.string.enterTheName),
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserRegistrationActivity.this,
+                            getString(R.string.enterTheName), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 // Emergency contact is contact number of a caregiver/teacher/parent/therapist.
@@ -182,22 +181,22 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 if(etEmergencyContact.getText().toString().isEmpty() ||
                         !etEmergencyContact.getText().toString().matches("[0-9]*")){
                     bRegister.setEnabled(true);
-                    Toast.makeText(getBaseContext(), getString(R.string.enternonemptycontact),
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserRegistrationActivity.this,
+                            getString(R.string.enternonemptycontact), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 eMailId = etEmailId.getText().toString().trim();
                 if (!isValidEmail(eMailId)){
                     bRegister.setEnabled(true);
-                    Toast.makeText(getBaseContext(),getString(R.string.invalid_emailId),
+                    Toast.makeText(UserRegistrationActivity.this,getString(R.string.invalid_emailId),
                             Toast.LENGTH_SHORT).show();
                     return;
                 }
                 RadioGroup radioGroup = findViewById(R.id.radioUserGroup);
                 if(radioGroup.getCheckedRadioButtonId() == -1){
                     bRegister.setEnabled(true);
-                    Toast.makeText(getBaseContext(),getString(R.string.invalid_usergroup),
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserRegistrationActivity.this,
+                            getString(R.string.invalid_usergroup), Toast.LENGTH_SHORT).show();
                     return;
                 }
 

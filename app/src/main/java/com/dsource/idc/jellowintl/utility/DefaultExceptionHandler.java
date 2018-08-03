@@ -13,7 +13,7 @@ import com.dsource.idc.jellowintl.UserRegistrationActivity;
  */
 
 public class DefaultExceptionHandler implements Thread.UncaughtExceptionHandler {
-    Activity activity;
+    private Activity activity;
 
     public DefaultExceptionHandler(Activity activity) {
         this.activity = activity;
@@ -23,23 +23,25 @@ public class DefaultExceptionHandler implements Thread.UncaughtExceptionHandler 
     public void uncaughtException(Thread thread, Throwable ex) {
         Log.e("Jellow","exception caught", ex);
         Crashlytics.logException(ex);
-
-        if(ex.getMessage().equals("unableToResume")){
-            Intent intent = new Intent(activity, UserRegistrationActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    | Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    | Intent.FLAG_ACTIVITY_NEW_TASK);
-            activity.startActivity(intent);
-            //This will finish your activity manually
+        SessionManager session = new SessionManager(activity);
+        if(session.getAppRestarted()){
+            session.setAppRestarted(false);
+            Toast.makeText(activity, "Unfortunately, Jellow has stopped.", Toast.LENGTH_SHORT).show();
             activity.finish();
-            //This will stop your application and take out from it.
+            //This will stop your application and take you out from it.
             System.exit(2);
         }
 
-        Toast.makeText(activity, "Unfortunately, Jellow has stopped.", Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(activity, UserRegistrationActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                | Intent.FLAG_ACTIVITY_NEW_TASK);
+        activity.startActivity(intent);
+        session.setAppRestarted(true);
         //This will finish your activity manually
-        activity.finishAffinity();
-        //This will stop your application and take out from it.
+        activity.finish();
+        //This will stop your application and take you out from it.
         System.exit(2);
     }
 }

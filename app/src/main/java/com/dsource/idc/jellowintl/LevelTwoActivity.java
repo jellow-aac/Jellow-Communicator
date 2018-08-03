@@ -52,7 +52,6 @@ public class LevelTwoActivity extends AppCompatActivity {
     private final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 0;
     private final int REQ_HOME = 0;
     private final int CATEGORY_ICON_PEOPLE = 5;
-    private final int CATEGORY_ICON_PLACES = 6;
     private final int CATEGORY_ICON_HELP = 8;
     private final boolean DISABLE_EXPR_BTNS = true;
 
@@ -148,8 +147,6 @@ public class LevelTwoActivity extends AppCompatActivity {
         if(getIntent().getExtras().getString(getString(R.string.from_search))!=null) {
             if (getIntent().getExtras().getString(getString(R.string.from_search))
                     .equals(getString(R.string.search_tag))) {
-                mIvBack.setEnabled(false);
-                mIvBack.setAlpha(.5f);
                 highlightSearchedItem();
             }
         }
@@ -166,8 +163,8 @@ public class LevelTwoActivity extends AppCompatActivity {
             if(gridCode==1)
             gridSize=8;
             else gridSize=2;
-            //Case with sorting is people and places which needs sorting
-            if(p1==5||p1==6)
+            //Case with sorting is people which needs sorting.
+            if(p1==5)
             {
                 final int sortedIndex=getSortedIndex(s);
                 if(sortedIndex>gridSize) {
@@ -254,8 +251,7 @@ public class LevelTwoActivity extends AppCompatActivity {
         // Start measuring user app screen timer .
         startMeasuring();
         if(!mSession.getToastMessage().isEmpty()) {
-            Toast.makeText(getApplicationContext(),
-                    mSession.getToastMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, mSession.getToastMessage(), Toast.LENGTH_SHORT).show();
             mSession.setToastMessage("");
         }
     }
@@ -409,7 +405,7 @@ public class LevelTwoActivity extends AppCompatActivity {
      * category icons are populated in this level.</p>
      * */
     private void initializeRecyclerViewAdapter() {
-        if(mLevelOneItemPos != CATEGORY_ICON_PEOPLE && mLevelOneItemPos != CATEGORY_ICON_PLACES) {
+        if(mLevelOneItemPos != CATEGORY_ICON_PEOPLE) {
             mRecyclerView.setAdapter(new LevelTwoAdapter(this, mLevelOneItemPos));
         }else{
             mRecyclerView.setAdapter(new PeoplePlacesAdapter(this, mLevelOneItemPos,
@@ -572,8 +568,16 @@ public class LevelTwoActivity extends AppCompatActivity {
                 // to identify for returning activity that user is returned by pressing "back" button.
                 } else {
                     mIvBack.setImageResource(R.drawable.back_pressed);
-                    setResult(RESULT_OK);
-                    finish();
+                    String str = getIntent().getExtras().getString(getString(R.string.from_search));
+                    boolean close =getIntent().getExtras().getBoolean("search_and_back");
+                    if((str != null && !str.isEmpty() && str.equals(getString(R.string.search_tag)))
+                            || close){
+                        startActivity(new Intent(LevelTwoActivity.this, MainActivity.class));
+                        finish();
+                    }else {
+                        setResult(RESULT_OK);
+                        finish();
+                    }
                 }
                 showActionBarTitle(true);
             }
@@ -635,13 +639,6 @@ public class LevelTwoActivity extends AppCompatActivity {
         mIvKeyboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(getIntent().getExtras().getString(getString(R.string.from_search))!=null) {
-                    if (getIntent().getExtras().getString(getString(R.string.from_search))
-                            .equals(getString(R.string.search_tag))) {
-                        mIvBack.setEnabled(false);
-                        mIvBack.setAlpha(.5f);
-                    }
-            }
                 speakSpeech(mNavigationBtnTxt[2]);
                 //Firebase event
                 singleEvent("Navigation","Keyboard");
@@ -788,8 +785,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","ReallyLike");
                         // People and places will have preferences. To speak the correct speech text
                         // preference sort array is used.
-                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
-                                mLevelOneItemPos == CATEGORY_ICON_PLACES) {
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE) {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
                                     get(mArrSort[mLevelTwoItemPos]).get(1));
                             singleEvent("ExpressiveGridIcon",
@@ -819,8 +815,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","Like");
                         // People and places will have preferences. To speak the correct speech text
                         // preference sort array is used.
-                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
-                                mLevelOneItemPos == CATEGORY_ICON_PLACES) {
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE) {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
                                     get(mArrSort[mLevelTwoItemPos]).get(0));
                             singleEvent("ExpressiveGridIcon",
@@ -910,8 +905,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","ReallyDon'tLike");
                         // People and places will have preferences. To speak the correct speech text
                         // preference sort array is used.
-                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
-                                mLevelOneItemPos == CATEGORY_ICON_PLACES) {
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE) {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
                                     get(mArrSort[mLevelTwoItemPos]).get(7));
                             singleEvent("ExpressiveGridIcon",
@@ -941,8 +935,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon", "Don'tLike");
                         // People and places will have preferences. To get correct speech text sort
                         // is applied.
-                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
-                                mLevelOneItemPos == CATEGORY_ICON_PLACES){
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE){
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
                                     get(mArrSort[mLevelTwoItemPos]).get(6));
                             singleEvent("ExpressiveGridIcon",
@@ -1031,8 +1024,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","ReallyYes");
                         // People and places will have preferences. To speak the correct speech text
                         // preference sort array is used.
-                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
-                                mLevelOneItemPos == CATEGORY_ICON_PLACES) {
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE) {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
                                     get(mArrSort[mLevelTwoItemPos]).get(3));
                             singleEvent("ExpressiveGridIcon",
@@ -1062,8 +1054,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","Yes");
                         // People and places will have preferences. To speak the correct speech text
                         // preference sort array is used.
-                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
-                                mLevelOneItemPos == CATEGORY_ICON_PLACES) {
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE) {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
                                     get(mArrSort[mLevelTwoItemPos]).get(2));
                             singleEvent("ExpressiveGridIcon",
@@ -1152,8 +1143,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","ReallyNo");
                         // People and places will have preferences. To speak the correct speech text
                         // preference sort array is used.
-                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
-                                mLevelOneItemPos == CATEGORY_ICON_PLACES) {
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE) {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
                                     get(mArrSort[mLevelTwoItemPos]).get(9));
                             singleEvent("ExpressiveGridIcon",
@@ -1183,8 +1173,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","No");
                         // People and places will have preferences. To speak the correct speech text
                         // preference sort array is used.
-                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
-                                mLevelOneItemPos == CATEGORY_ICON_PLACES) {
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE) {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
                                     get(mArrSort[mLevelTwoItemPos]).get(8));
                             singleEvent("ExpressiveGridIcon",
@@ -1273,8 +1262,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","ReallyMore");
                         // People and places will have preferences. To speak the correct speech text
                         // preference sort array is used.
-                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
-                                mLevelOneItemPos == CATEGORY_ICON_PLACES) {
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE) {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
                                     get(mArrSort[mLevelTwoItemPos]).get(5));
                             singleEvent("ExpressiveGridIcon",
@@ -1308,8 +1296,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","More");
                         // People and places will have preferences. To speak the correct speech text
                         // preference sort array is used.
-                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
-                                mLevelOneItemPos == CATEGORY_ICON_PLACES) {
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE) {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
                                     get(mArrSort[mLevelTwoItemPos]).get(4));
                             singleEvent("ExpressiveGridIcon",
@@ -1403,8 +1390,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","ReallyLess");
                         // People and places will have preferences. To speak the correct speech text
                         // preference sort array is used.
-                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
-                                mLevelOneItemPos == CATEGORY_ICON_PLACES) {
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE) {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
                                     get(mArrSort[mLevelTwoItemPos]).get(11));
                             singleEvent("ExpressiveGridIcon",
@@ -1433,8 +1419,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","Less");
                         // People and places will have preferences. To speak the correct speech text
                         // preference sort array is used.
-                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
-                                mLevelOneItemPos == CATEGORY_ICON_PLACES) {
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE) {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
                                     get(mArrSort[mLevelTwoItemPos]).get(10));
                             singleEvent("ExpressiveGridIcon",
@@ -1540,7 +1525,7 @@ public class LevelTwoActivity extends AppCompatActivity {
         // if user is in people or places category and user pressed any of the category icon then
         // create bundle for firebase event.
         // bundle has values category icon position (index), "level two"
-        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE || mLevelOneItemPos == CATEGORY_ICON_PLACES) {
+        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE) {
             speakSpeech(mArrSpeechText[position]);
             Bundle bundle = new Bundle();
             bundle.putString("Icon", mArrSpeechText[position]);
@@ -1592,7 +1577,6 @@ public class LevelTwoActivity extends AppCompatActivity {
 
         // set title to breadcrumb (or actionbar) of activity.
         if(mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
-                mLevelOneItemPos == CATEGORY_ICON_PLACES ||
                 mLevelOneItemPos == CATEGORY_ICON_HELP)
             title += mArrAdapterTxt[mLevelTwoItemPos];
         else
@@ -1602,7 +1586,7 @@ public class LevelTwoActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(mActionBarTitle);
 
         // increment preference count an item if people or place category is selected in level one
-        if(mLevelOneItemPos == CATEGORY_ICON_PEOPLE || mLevelOneItemPos == CATEGORY_ICON_PLACES)
+        if(mLevelOneItemPos == CATEGORY_ICON_PEOPLE)
             incrementTouchCountOfItem(mLevelTwoItemPos);
 
         // Help -> About me category have different set of expressive buttons. If user selected
@@ -1619,12 +1603,23 @@ public class LevelTwoActivity extends AppCompatActivity {
         // Help -> Help me do this,
         // Help -> Allergy,
         // Help -> Danger,
-        // Help -> Hazard
+        // Help -> Hazard,
+        // Help -> I am in pain,
+        // Help -> I was pinched,
+        // Help -> I was pushed,
+        // Help -> I was scolded,
+        // Help -> I was hit,
+        // Help -> I was touched inappropriately,
+        // Help -> I was made fun of,
         // If it is from above category then disable all expressive icons
         if(mLevelOneItemPos == CATEGORY_ICON_HELP &&
                 ((mLevelTwoItemPos == 2) || (mLevelTwoItemPos == 3) || (mLevelTwoItemPos == 4) ||
                         (mLevelTwoItemPos == 5) ||(mLevelTwoItemPos == 12) ||
-                        (mLevelTwoItemPos == 13) ||(mLevelTwoItemPos == 14)))
+                        (mLevelTwoItemPos == 13) ||(mLevelTwoItemPos == 14) ||
+                        (mLevelTwoItemPos == 16) ||(mLevelTwoItemPos == 17) ||
+                        (mLevelTwoItemPos == 18) ||(mLevelTwoItemPos == 19) ||
+                        (mLevelTwoItemPos == 20) ||(mLevelTwoItemPos == 21) ||
+                        (mLevelTwoItemPos == 22)))
             changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
         // if category icon Help -> Emergency is selected, then disable all expressive icons
         else if(mLevelOneItemPos == CATEGORY_ICON_HELP && mLevelTwoItemPos == 0) {
@@ -1657,7 +1652,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                 size = getResources().getStringArray(R.array.arrLevelTwoGreetFeelSpeechText).length;
                 break;
             case 1:
-                size = getResources().getStringArray(R.array.arrLevelTwoEatSpeechText).length;
+                size = getResources().getStringArray(R.array.arrLevelTwoDailyActSpeechText).length;
                 break;
             case 2:
                 size = getResources().getStringArray(R.array.arrLevelTwoEatSpeechText).length;
@@ -1986,10 +1981,8 @@ public class LevelTwoActivity extends AppCompatActivity {
                         getResources().getStringArray(R.array.arrLevelTwoPeopleAdapterText));
                 break;
             case 6:
-                // As People category uses preferences, speech and text arrays are sorted using
-                // preference algorithm.
-                useSortToLoadArray(getResources().getStringArray(R.array.arrLevelTwoPlacesSpeechText),
-                                getResources().getStringArray(R.array.arrLevelTwoPlacesAdapterText));
+                mArrSpeechText = getResources().getStringArray(R.array.arrLevelTwoPlacesSpeechText);
+                mArrAdapterTxt = getResources().getStringArray(R.array.arrLevelTwoPlacesAdapterText);
                 break;
             case 7:
                 mArrSpeechText = getResources().getStringArray(R.array.arrLevelTwoTimeWeatherSpeechText);
@@ -2041,8 +2034,13 @@ public class LevelTwoActivity extends AppCompatActivity {
         String savedString = "";
         if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE) {
             savedString = mSession.getPeoplePreferences();
-        }else if (mLevelOneItemPos == CATEGORY_ICON_PLACES) {
-            savedString = mSession.getPlacesPreferences();
+        }
+
+        // Extra 0's are concat ed at the end of "savedString" variable. This
+        // will make length of array and length of savedString to equal to load category.
+        if(!savedString.isEmpty() && savedString.split(",").length != arrSpeechTxt.length){
+            while (savedString.split(",").length != arrSpeechTxt.length)
+                savedString = savedString.concat("0,");
         }
 
         // Create temporary array of user taps on category icons
@@ -2096,7 +2094,6 @@ public class LevelTwoActivity extends AppCompatActivity {
     /**<p> This function will returns the index of the item searched item in the sorted list
      * it takes default index of the searched item and returns the actual sorted index of the element.
      * .</p>**/
-
     private int getSortedIndex(int index)
     {
         for(int i=0;i<mArrSort.length;i++)

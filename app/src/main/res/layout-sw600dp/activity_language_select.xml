@@ -154,14 +154,11 @@
             </LinearLayout>
             <Spinner
                 android:id="@+id/selectDownloadedLanguageSpinner"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:paddingEnd="28dp"
-                android:paddingRight="28dp"
+                android:layout_width="160dp"
+                android:layout_height="40dp"
                 android:background="@drawable/custom_spinner_view"
                 android:textColor="@color/black_eighty"
-                android:layout_marginBottom="19dp"
-                tools:ignore="RtlSymmetry" />
+                android:layout_marginBottom="19dp"/>
             <LinearLayout
                 android:id="@+id/llStep2"
                 android:layout_width="wrap_content"
