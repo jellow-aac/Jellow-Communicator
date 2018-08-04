@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -93,10 +94,22 @@ public class ProfileFormActivity extends AppCompatActivity {
         etAddress = findViewById(R.id.etAddress);
         etEmailId = findViewById(R.id.etEmailId);
         mBloodGroup = findViewById(R.id.bloodgroup);
+        AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
+        boolean isAccessibilityEnabled = am.isEnabled();
+        boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
+        if(isAccessibilityEnabled && isExploreByTouchEnabled) {
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                    R.array.bloodgroup_talkback, android.R.layout.simple_spinner_item);
+            //adapter.getView(1,null,mBloodGroup).setContentDescription("A positive");
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            mBloodGroup.setAdapter(adapter);
+        }
+        else{
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this, R.array.bloodgroup, R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mBloodGroup.setAdapter(adapter);
+        }
         bSave = findViewById(R.id.bSave);
 
         mDB = FirebaseDatabase.getInstance();
@@ -209,8 +222,17 @@ public class ProfileFormActivity extends AppCompatActivity {
             case R.id.keyboardinput: startActivity(new Intent(this, KeyboardInputActivity.class)); finish(); break;
             case R.id.settings: startActivity(new Intent(getApplication(), SettingActivity.class)); finish(); break;
             case R.id.reset: startActivity(new Intent(this, ResetPreferencesActivity.class)); finish(); break;
-            case R.id.feedback: startActivity(new Intent(this, FeedbackActivity.class)); finish(); break;
-            case android.R.id.home: finish(); break;
+            case R.id.feedback:
+                AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
+                boolean isAccessibilityEnabled = am.isEnabled();
+                boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
+                if(isAccessibilityEnabled && isExploreByTouchEnabled) {
+                    startActivity(new Intent(this, FeedbackActivityTalkback.class));
+                }
+                else {
+                    startActivity(new Intent(this, FeedbackActivity.class));
+                }
+                break;            case android.R.id.home: finish(); break;
             default: return super.onOptionsItemSelected(item);
         }
         return true;

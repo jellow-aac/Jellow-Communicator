@@ -15,6 +15,11 @@
         <item name="android:textAppearanceLargePopupMenu">@style/defaultTextViewStyle</item>
     </style>
 
+    <style name="CustomSeekbar" parent="Widget.AppCompat.SeekBar">
+        <item name="colorAccent">#dc5252</item>
+        <item name="android:width">30dp</item>
+        <item name="android:height">30dp</item>
+    </style>
 
     <style name="spinnerDropDownItemStyle">
         <item name="android:padding">8dp</item>

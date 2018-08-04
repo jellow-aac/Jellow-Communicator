@@ -19,9 +19,11 @@ import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +32,6 @@ import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
-import com.rey.material.widget.Slider;
 import com.rey.material.widget.Switch;
 
 import static com.dsource.idc.jellowintl.MainActivity.isDeviceReadyToCall;
@@ -48,7 +49,7 @@ public class SettingActivity extends AppCompatActivity {
     private Spinner mSpinnerViewMode, mSpinnerGridSize;
     private SessionManager mSession;
     private TextView mTxtViewSpeechSpeed, mTxtViewVoicePitch;
-    private Slider mSliderSpeed, mSliderPitch, mSliderVolume;
+    private SeekBar mSliderSpeed, mSliderPitch, mSliderVolume;
     private boolean mOpenSetting;
     private String  mCalPerMsg, mCalPerGranted,mCalPerRejected, mSettings, mDismiss;
 
@@ -102,8 +103,8 @@ public class SettingActivity extends AppCompatActivity {
         mTxtViewSpeechSpeed = findViewById(R.id.speechspeed);
         mTxtViewVoicePitch = findViewById(R.id.voicepitch);
 
-        mSliderSpeed.setValue(mSession.getSpeed(),true);
-        mSliderPitch.setValue(mSession.getPitch(),true);
+        mSliderSpeed.setProgress(mSession.getSpeed());
+        mSliderPitch.setProgress(mSession.getPitch());
         mSpinnerViewMode.setSelection(mSession.getPictureViewMode());
         mSpinnerGridSize.setSelection(mSession.getGridSize());
 
@@ -122,28 +123,61 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
-        mSliderSpeed.setOnPositionChangeListener(new Slider.OnPositionChangeListener() {
-            @Override
-            public void onPositionChanged(Slider view, boolean fromUser, float oldPos, float newPos, int oldValue, int newValue) {
-                setSpeechRate((float) newValue / 50);
-                mTxtViewSpeechSpeed.setText(strSpeechSpeed.concat(": " + String.valueOf(newValue / 5)));
-            }
-        });
 
-        mSliderPitch.setOnPositionChangeListener(new Slider.OnPositionChangeListener() {
+       mSliderSpeed.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+           @Override
+           public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+               setSpeechRate((float) i / 50);
+               mTxtViewSpeechSpeed.setText(strSpeechSpeed.concat(": "+ String.valueOf(i / 5)));
+           }
+
+           @Override
+           public void onStartTrackingTouch(SeekBar seekBar) {
+
+           }
+
+           @Override
+           public void onStopTrackingTouch(SeekBar seekBar) {
+
+           }
+       });
+
+        mSliderPitch.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onPositionChanged(Slider view, boolean fromUser, float oldPos, float newPos, int oldValue, int newValue) {
-                setSpeechPitch((float) newValue / 50);
-                mTxtViewVoicePitch.setText(strSpeechPitch.concat(": " + String.valueOf(newValue / 5)));
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                setSpeechPitch((float) i / 50);
+                mTxtViewVoicePitch.setText(strSpeechPitch.concat(": "+ String.valueOf(i / 5)));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
             }
         });
         final AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        mSliderVolume.setOnPositionChangeListener(new Slider.OnPositionChangeListener() {
+
+        mSliderVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onPositionChanged(Slider view, boolean fromUser, float oldPos, float newPos, int oldValue, int newValue) {
-               if(fromUser && audio != null)
-                   audio.setStreamVolume(AudioManager.STREAM_MUSIC, newValue,
-                       AudioManager.FLAG_PLAY_SOUND | AudioManager.FLAG_SHOW_UI);
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                if(b && audio != null)
+                    audio.setStreamVolume(AudioManager.STREAM_MUSIC, i,
+                            AudioManager.FLAG_PLAY_SOUND | AudioManager.FLAG_SHOW_UI);
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
             }
         });
 
@@ -186,13 +220,13 @@ public class SettingActivity extends AppCompatActivity {
                     startActivity(new Intent(getApplicationContext(), SplashActivity.class));
                     finishAffinity();
                 }
-                if(mSession.getSpeed() != mSliderSpeed.getValue()) {
-                    setSpeechRate((float)mSliderSpeed.getValue()/50);
-                    mSession.setSpeed(mSliderSpeed.getValue());
+                if(mSession.getSpeed() != mSliderSpeed.getProgress()) {
+                    setSpeechRate((float)mSliderSpeed.getProgress()/50);
+                    mSession.setSpeed(mSliderSpeed.getProgress());
                 }
-                if(mSession.getPitch() != mSliderPitch.getValue()) {
-                    setSpeechPitch((float)mSliderPitch.getValue()/ 50);
-                    mSession.setPitch(mSliderPitch.getValue());
+                if(mSession.getPitch() != mSliderPitch.getProgress()) {
+                    setSpeechPitch((float)mSliderPitch.getProgress()/ 50);
+                    mSession.setPitch(mSliderPitch.getProgress());
                 }
                 mSession.setToastMessage(strSettingSaved);
                 Crashlytics.log("SettingAct Save");
@@ -342,7 +376,7 @@ public class SettingActivity extends AppCompatActivity {
         }
         AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         if(audio != null)
-            mSliderVolume.setValue(audio.getStreamVolume(AudioManager.STREAM_MUSIC), true);
+            mSliderVolume.setProgress(audio.getStreamVolume(AudioManager.STREAM_MUSIC));
     }
 
     @Override
@@ -386,8 +420,15 @@ public class SettingActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.feedback:
-                startActivity(new Intent(this, FeedbackActivity.class));
-                finish();
+                AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
+                boolean isAccessibilityEnabled = am.isEnabled();
+                boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
+                if(isAccessibilityEnabled && isExploreByTouchEnabled) {
+                    startActivity(new Intent(this, FeedbackActivityTalkback.class));
+                }
+                else {
+                    startActivity(new Intent(this, FeedbackActivity.class));
+                }
                 break;
             case android.R.id.home:
                 onBackPressed();

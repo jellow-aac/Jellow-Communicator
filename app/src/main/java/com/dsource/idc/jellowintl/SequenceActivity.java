@@ -11,11 +11,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.KeyListener;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.accessibility.AccessibilityManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +29,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.crashlytics.android.Crashlytics;
+import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_DoubleClick;
+import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
 import com.dsource.idc.jellowintl.models.SeqActivityVerbiageModel;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
@@ -202,7 +207,15 @@ public class SequenceActivity extends AppCompatActivity {
                 startActivity(new Intent(this, KeyboardInputActivity.class));
                 break;
             case R.id.feedback:
-                startActivity(new Intent(this, FeedbackActivity.class));
+                AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
+                boolean isAccessibilityEnabled = am.isEnabled();
+                boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
+                if(isAccessibilityEnabled && isExploreByTouchEnabled) {
+                    startActivity(new Intent(this, FeedbackActivityTalkback.class));
+                }
+                else {
+                    startActivity(new Intent(this, FeedbackActivity.class));
+                }
                 break;
             case R.id.settings:
                 startActivity(new Intent(this, SettingActivity.class));
@@ -258,6 +271,26 @@ public class SequenceActivity extends AppCompatActivity {
         mIvCategoryIcon3 = findViewById(R.id.image3);
         mIvArrowLeft = findViewById(R.id.arrow1);
         mIvArrowRight = findViewById(R.id.arrow2);
+
+        mIvCategoryIcon1.setContentDescription(mCategoryIconBelowText[count]);
+        mIvCategoryIcon2.setContentDescription(mCategoryIconBelowText[count + 1]);
+        mIvCategoryIcon3.setContentDescription(mCategoryIconBelowText[count + 2]);
+
+        ViewCompat.setAccessibilityDelegate(mIvLike, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvYes, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvMore, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvDontLike, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvNo, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvLess, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvKeyboard, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvHome, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvBack, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvTTs, new TalkbackHints_SingleClick());
+
+        ViewCompat.setAccessibilityDelegate(mIvCategoryIcon1, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvCategoryIcon2, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvCategoryIcon3, new TalkbackHints_DoubleClick());
+
     }
 
     /**
@@ -326,6 +359,9 @@ public class SequenceActivity extends AppCompatActivity {
                         setImageUsingGlide(mStrPath +"/"+ mCategoryIconText[count+1]+".png",
                                 mIvCategoryIcon2);
 
+                        mIvCategoryIcon1.setContentDescription(mCategoryIconBelowText[count]);
+                        mIvCategoryIcon2.setContentDescription(mCategoryIconBelowText[count + 1]);
+
                         // only first two category icons are populated so third icon and its
                         // caption set to invisible and therefore second arrow also set to invisible.
                         mIvArrowRight.setVisibility(View.INVISIBLE);
@@ -339,6 +375,8 @@ public class SequenceActivity extends AppCompatActivity {
                     } else if (mLevelTwoItemPos == 1 || mLevelTwoItemPos == 4 || mLevelTwoItemPos == 3) {
                         setImageUsingGlide(mStrPath +"/"+ mCategoryIconText[count]+".png",
                                 mIvCategoryIcon1);
+
+                        mIvCategoryIcon1.setContentDescription(mCategoryIconBelowText[count]);
 
                         // only one category icon is populated so second & third icons and their
                         // captions are set to invisible and hence all arrows are set to invisible.
@@ -366,6 +404,11 @@ public class SequenceActivity extends AppCompatActivity {
 
                     setImageUsingGlide(mStrPath +"/"+ mCategoryIconText[count+2]+".png",
                             mIvCategoryIcon3);
+
+                    mIvCategoryIcon1.setContentDescription(mCategoryIconBelowText[count]);
+                    mIvCategoryIcon2.setContentDescription(mCategoryIconBelowText[count + 1]);
+                    mIvCategoryIcon3.setContentDescription(mCategoryIconBelowText[count + 2]);
+                    Log.d("CONTENT", "SET");
                 }
                 // once sequence is loaded, initially all category icons have no border/ no category
                 // icon in sequence have initial border
@@ -427,6 +470,11 @@ public class SequenceActivity extends AppCompatActivity {
 
                 setImageUsingGlide(mStrPath +"/"+ mCategoryIconText[count+2]+".png",
                         mIvCategoryIcon3);
+
+                mIvCategoryIcon1.setContentDescription(mCategoryIconBelowText[count]);
+                mIvCategoryIcon2.setContentDescription(mCategoryIconBelowText[count + 1]);
+                mIvCategoryIcon3.setContentDescription(mCategoryIconBelowText[count + 2]);
+
                 // previous items to be loaded are less = 0 then disable back button
                 if (count == 0) {
                     mBtnBack.setEnabled(false);

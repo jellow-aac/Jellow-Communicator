@@ -35,7 +35,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/childName"
                     android:fontFamily="@font/mukta_semibold"
-                    style="@style/defaultTextViewStyle"/>
+                    style="@style/defaultTextViewStyle"
+                    android:contentDescription="child's name"/>
                 <EditText
                     android:id="@+id/etName"
                     android:layout_width="match_parent"
@@ -69,7 +70,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/careGiverContact"
                     android:fontFamily="@font/mukta_semibold"
-                    style="@style/defaultTextViewStyle"/>
+                    style="@style/defaultTextViewStyle"
+                    android:contentDescription="caregiver's contact number"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -118,7 +120,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/emailAddress"
                     style="@style/defaultTextViewStyle"
-                    android:fontFamily="@font/mukta_semibold"/>
+                    android:fontFamily="@font/mukta_semibold"
+                    android:contentDescription="email address"/>
                 <EditText
                     android:id="@+id/etEmailId"
                     android:layout_width="match_parent"
@@ -137,7 +140,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/userGroup"
                     style="@style/defaultTextViewStyle"
-                    android:fontFamily="@font/mukta_semibold"/>
+                    android:fontFamily="@font/mukta_semibold"
+                    android:contentDescription="user's group"/>
 
                 <RadioGroup
                     android:id="@+id/radioUserGroup"

@@ -3,7 +3,6 @@ package com.dsource.idc.jellowintl.utility;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.UserRegistrationActivity;
@@ -24,13 +23,13 @@ public class DefaultExceptionHandler implements Thread.UncaughtExceptionHandler 
         Log.e("Jellow","exception caught", ex);
         Crashlytics.logException(ex);
         SessionManager session = new SessionManager(activity);
-        if(session.getAppRestarted()){
+        /*if(session.getAppRestarted()){
             session.setAppRestarted(false);
             Toast.makeText(activity, "Unfortunately, Jellow has stopped.", Toast.LENGTH_SHORT).show();
             activity.finish();
             //This will stop your application and take you out from it.
             System.exit(2);
-        }
+        }*/
 
 
         Intent intent = new Intent(activity, UserRegistrationActivity.class);
@@ -38,7 +37,7 @@ public class DefaultExceptionHandler implements Thread.UncaughtExceptionHandler 
                 | Intent.FLAG_ACTIVITY_CLEAR_TASK
                 | Intent.FLAG_ACTIVITY_NEW_TASK);
         activity.startActivity(intent);
-        session.setAppRestarted(true);
+        //session.setAppRestarted(true);
         //This will finish your activity manually
         activity.finish();
         //This will stop your application and take you out from it.

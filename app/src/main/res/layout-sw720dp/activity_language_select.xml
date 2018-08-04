@@ -43,7 +43,8 @@
                     android:textColor="@color/black_eighty"
                     android:scaleX=".7"
                     android:scaleY=".7"
-                    android:text="@string/bullet" />
+                    android:text="@string/bullet"
+                    android:importantForAccessibility="no"/>
                 <TextView
                     android:id="@+id/tv3"
                     android:layout_width="match_parent"
@@ -64,7 +65,8 @@
                     android:textColor="@color/black_eighty"
                     android:scaleX=".7"
                     android:scaleY=".7"
-                    android:text="@string/bullet" />
+                    android:text="@string/bullet" 
+                    android:importantForAccessibility="no"/>
                 <TextView
                     android:id="@+id/tv1"
                     android:layout_width="match_parent"
@@ -86,7 +88,8 @@
                     android:layout_marginBottom="8dp"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
-                    android:text="@string/addLanguage" />
+                    android:text="@string/addLanguage" 
+                    android:contentDescription="Add language"/>
                 <Button
                     android:id="@+id/delBut"
                     android:layout_width="wrap_content"
@@ -120,7 +123,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/change_language_line6"
-                    style="@style/defaultTextViewStyle"/>
+                    style="@style/defaultTextViewStyle"
+                    android:importantForAccessibility="no"/>
             </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
@@ -149,7 +153,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/change_language_line2"
-                    style="@style/defaultTextViewStyle"/>
+                    style="@style/defaultTextViewStyle"
+                    android:importantForAccessibility="no"/>
             </LinearLayout>
             <Spinner
                 android:id="@+id/selectDownloadedLanguageSpinner"
@@ -172,7 +177,8 @@
                     android:textColor="@color/black_eighty"
                     android:scaleX=".7"
                     android:scaleY=".7"
-                    android:text="@string/bullet" />
+                    android:text="@string/bullet"
+                    android:importantForAccessibility="no" />
                 <TextView
                     android:id="@+id/tv4"
                     android:layout_width="match_parent"
@@ -211,7 +217,8 @@
                     android:textColor="@color/black_eighty"
                     android:scaleX=".7"
                     android:scaleY=".7"
-                    android:text="@string/bullet" />
+                    android:text="@string/bullet"
+                    android:importantForAccessibility="no" />
                 <TextView
                     android:id="@+id/tv5"
                     android:layout_width="match_parent"
@@ -274,7 +281,8 @@
                     android:textColor="@color/black_eighty"
                     android:scaleX=".7"
                     android:scaleY=".7"
-                    android:text="@string/bullet" />
+                    android:text="@string/bullet"
+                    android:importantForAccessibility="no" />
                 <TextView
                     android:id="@+id/tv6"
                     android:layout_width="match_parent"

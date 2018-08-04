@@ -133,6 +133,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/Theme.AppCompat.Translucent"
             />
+         <activity android:name=".SettingsTalkbackActivity"/>
     </application>
 
 </manifest>
