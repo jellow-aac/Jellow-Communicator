@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
-    android:id="@+id/main">
+    android:id="@+id/main"
+    android:importantForAccessibility="yes">
     <ImageView
         android:id="@+id/btnMoveLeft"
         android:layout_width="wrap_content"
@@ -33,6 +34,9 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:textSize="20sp"
+        android:importantForAccessibility="yes"
+        android:contentDescription="User can customize application settings by clicking on top right corner of the application.
+Swipe with single finger to go to image below.Swipe with two fingers to switch page."
             android:text="@string/txt_intro4_customizeAppDesc"/>
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,7 +47,9 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/settings"/>
+                android:src="@drawable/settings"
+            android:contentDescription="This image shows the home screen of Jellow with a drop-down at the top right corner of Jellow. This drop-down shows options of “Profile”, “About Jellow”, “Tutorial”, “Keyboard Control”, “Language”, “Settings”, “Reset preferences”, and “Feedback”. By clicking on any of these options the user can customize the app’s settings to their needs.
+Swipe with two fingers to switch page."/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,6 +66,7 @@
                 android:paddingLeft="64dp"
                 android:paddingRight="64dp"
                 android:textSize="20sp"
+            android:importantForAccessibility="no"
                 android:text="@string/txt_intro4_customizeJellow"/>
         </LinearLayout>
         <TextView

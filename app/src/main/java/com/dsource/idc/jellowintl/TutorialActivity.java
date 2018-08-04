@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -88,7 +89,16 @@ public class TutorialActivity extends AppCompatActivity {
             case R.id.keyboardinput: startActivity(new Intent(this, KeyboardInputActivity.class)); finish(); break;
             case R.id.settings: startActivity(new Intent(getApplication(), SettingActivity.class)); finish(); break;
             case R.id.reset: startActivity(new Intent(this, ResetPreferencesActivity.class)); finish(); break;
-            case R.id.feedback: startActivity(new Intent(this, FeedbackActivity.class)); finish(); break;
+            case R.id.feedback:
+                AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
+                boolean isAccessibilityEnabled = am.isEnabled();
+                boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
+                if (isAccessibilityEnabled && isExploreByTouchEnabled) {
+                    startActivity(new Intent(this, FeedbackActivityTalkback.class));
+                } else {
+                    startActivity(new Intent(this, FeedbackActivity.class));
+                }
+                break;
             case android.R.id.home: finish(); break;
             default: return super.onOptionsItemSelected(item);
         }

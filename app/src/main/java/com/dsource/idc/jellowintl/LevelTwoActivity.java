@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.telephony.TelephonyManager;
@@ -20,12 +21,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.view.accessibility.AccessibilityManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_DoubleClick;
+import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
 import com.dsource.idc.jellowintl.models.LevelTwoVerbiageModel;
 import com.dsource.idc.jellowintl.utility.CustomGridLayoutManager;
 import com.dsource.idc.jellowintl.utility.IndexSorter;
@@ -310,7 +314,15 @@ public class LevelTwoActivity extends AppCompatActivity {
                 startActivity(new Intent(this, KeyboardInputActivity.class));
                 break;
             case R.id.feedback:
-                startActivity(new Intent(this, FeedbackActivity.class));
+                AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
+                boolean isAccessibilityEnabled = am.isEnabled();
+                boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
+                if(isAccessibilityEnabled && isExploreByTouchEnabled) {
+                    startActivity(new Intent(this, FeedbackActivityTalkback.class));
+                }
+                else {
+                    startActivity(new Intent(this, FeedbackActivity.class));
+                }
                 break;
             case R.id.settings:
                 startActivity(new Intent(this, SettingActivity.class));
@@ -374,6 +386,17 @@ public class LevelTwoActivity extends AppCompatActivity {
         mIvTts = findViewById(R.id.ttsbutton);
         //Initially custom input text speak button is invisible
         mIvTts.setVisibility(View.INVISIBLE);
+
+        ViewCompat.setAccessibilityDelegate(mIvLike, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvYes, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvMore, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvDontLike, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvNo, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvLess, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvLess, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvKeyboard, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvHome, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvBack, new TalkbackHints_SingleClick());
 
         originalKeyListener = mEtTTs.getKeyListener();
         // Set it to null - this will make the field non-editable

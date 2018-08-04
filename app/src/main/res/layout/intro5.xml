@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg"
     android:layout_weight="10"
+    android:importantForAccessibility="yes"
     android:id="@+id/main">
     <ImageView
         android:id="@+id/btnMoveLeft"
@@ -34,7 +35,9 @@
             android:layout_weight="1"
             android:paddingRight="32dp"
             android:textSize="13sp"
-            android:text="@string/txt_intro5_jellowUsageDesc"/>
+            android:text="@string/txt_intro5_jellowUsageDesc"
+        android:importantForAccessibility="yes"
+        android:contentDescription="Jellow has 9 central category buttons. Swipe with single finger to go to image below. Swipe with two fingers to switch page."/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="0dp"
@@ -46,7 +49,8 @@
                 android:layout_height="190dp"
                 android:layout_gravity="center"
                 android:src="@drawable/expressivebuttons"
-                tools:ignore="ContentDescription" />
+            android:contentDescription="This image again shows the screenshot of the home page of Jellow. In this image, the 6 expressive buttons arranged as 3 each of either side of the central category buttons have been highlighted with all other buttons faded out. To the left of the central grid of category buttons, arranged from top to bottom are the 3 expressive buttons of “Like” represented by a “Smiley face” icon, “Yes” represented by a “check mark” icon, and “More” represented by a “Plus sign” icon. To the right of the category buttons, arranged from top to bottom are the expressive icons of “Don’t like” represented by a sad face” icon, “No” represented by the “cross” icon and “Less” represented by the “Minus sign” icon. Also labeled in the image are the 3 navigational buttons at the bottom of the screen. From left to right these are “Back”, “Home”, and “Keyboard”
+Swipe with two fingers to switch page " />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -61,6 +65,7 @@
                 android:paddingLeft="64dp"
                 android:paddingRight="64dp"
                 android:textSize="13sp"
+                android:importantForAccessibility="no"
                 android:text="@string/txt_intro5_expressiveBtn"/>
         </LinearLayout>
         <TextView

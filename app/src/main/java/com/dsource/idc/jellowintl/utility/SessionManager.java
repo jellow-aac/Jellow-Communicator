@@ -58,12 +58,19 @@ public class SessionManager {
     private final String Pitch = "voicepitch";
     private final String PictureViewMode = "PictureViewMode";
     private final String GridSize = "GridSize";
+    public static final String ChangeLanguageNeverAsk = "ChangeLang";
 
 
     public SessionManager(Context context) {
         this.mContext = context;
         mPreferences = mContext.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         mEditor = mPreferences.edit();
+    }
+    public void setChangeLanguageNeverAsk(boolean ChangeLang){
+        storePreferenceKeyWithValue(Boolean.class.toString(), ChangeLanguageNeverAsk, ChangeLang);
+    }
+    public boolean isChangeLanguageNeverAsk(){
+        return (Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(), ChangeLanguageNeverAsk);
     }
 
     public void setUserLoggedIn(boolean isLoggedIn) {

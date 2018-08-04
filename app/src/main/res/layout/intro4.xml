@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg"
     android:layout_weight="10"
+    android:importantForAccessibility="yes"
     android:id="@+id/main">
     <ImageView
         android:id="@+id/btnMoveLeft"
@@ -34,6 +35,10 @@
             android:layout_weight="1"
             android:paddingRight="32dp"
             android:textSize="13sp"
+        android:importantForAccessibility="yes"
+        android:contentDescription="User can customize application settings by clicking on top right corner of the application.
+Swipe with single finger to go to image below.
+Swipe with two fingers to switch page."
             android:text="@string/txt_intro4_customizeAppDesc"/>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -61,6 +66,7 @@
                 android:paddingLeft="64dp"
                 android:paddingRight="64dp"
                 android:textSize="13sp"
+        android:importantForAccessibility="no"
                 android:text="@string/txt_intro4_customizeJellow"/>
         </LinearLayout>
         <TextView

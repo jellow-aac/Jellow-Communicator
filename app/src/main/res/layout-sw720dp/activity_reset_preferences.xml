@@ -32,7 +32,8 @@
                     android:scaleX=".7"
                     android:scaleY=".7"
                     style="@style/defaultTextViewStyle"
-                    android:text="@string/bullet" />
+                    android:text="@string/bullet"
+                    android:importantForAccessibility="no" />
                 <TextView
                     android:id="@+id/tv1"
                     android:layout_width="match_parent"
@@ -54,7 +55,8 @@
                     style="@style/defaultTextViewStyle"
                     android:scaleX=".7"
                     android:scaleY=".7"
-                    android:text="@string/bullet" />
+                    android:text="@string/bullet" 
+                    android:importantForAccessibility="no"/>
                 <TextView
                     android:id="@+id/tv2"
                     android:layout_width="match_parent"
@@ -74,7 +76,8 @@
                     style="@style/defaultTextViewStyle"
                     android:scaleX=".7"
                     android:scaleY=".7"
-                    android:text="@string/bullet" />
+                    android:text="@string/bullet"
+                    android:importantForAccessibility="no" />
                 <TextView
                     android:id="@+id/tv3"
                     android:layout_width="match_parent"

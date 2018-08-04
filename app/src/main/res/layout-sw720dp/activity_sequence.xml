@@ -28,19 +28,22 @@
                         android:id="@+id/ivlike"
                         android:layout_width="132dp"
                         android:layout_height="126dp"
-                        android:src="@drawable/like"/>
+                        android:src="@drawable/like"
+                        android:contentDescription="Like"/>
                     <ImageView
                         android:id="@+id/ivyes"
                         android:layout_width="132dp"
                         android:layout_height="126dp"
                         android:layout_marginTop="@dimen/activity_horizontal_margin"
                         android:layout_marginBottom="@dimen/activity_horizontal_margin"
-                        android:src="@drawable/yes"/>
+                        android:src="@drawable/yes"
+                        android:contentDescription="Yes"/>
                     <ImageView
                         android:id="@+id/ivadd"
                         android:layout_width="132dp"
                         android:layout_height="126dp"
-                        android:src="@drawable/more"/>
+                        android:src="@drawable/more"
+                        android:contentDescription="More"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/expressiveTwo"
@@ -54,19 +57,22 @@
                         android:id="@+id/ivdislike"
                         android:layout_width="132dp"
                         android:layout_height="126dp"
-                        android:src="@drawable/dontlike"/>
+                        android:src="@drawable/dontlike"
+                        android:contentDescription="Don't Like"/>
                     <ImageView
                         android:id="@+id/ivno"
                         android:layout_width="132dp"
                         android:layout_height="126dp"
                         android:layout_marginTop="@dimen/activity_horizontal_margin"
                         android:layout_marginBottom="@dimen/activity_horizontal_margin"
-                        android:src="@drawable/no"/>
+                        android:src="@drawable/no"
+                        android:contentDescription="No"/>
                     <ImageView
                         android:id="@+id/ivminus"
                         android:layout_width="132dp"
                         android:layout_height="126dp"
-                        android:src="@drawable/less"/>
+                        android:src="@drawable/less"
+                        android:contentDescription="Less"/>
                 </LinearLayout>
             </RelativeLayout>
             <RelativeLayout
@@ -120,7 +126,8 @@
                                 android:layout_height="125dp"
                                 android:layout_gravity="center_vertical"
                                 android:clickable="false"
-                                android:background="@drawable/arrow"/>
+                                android:background="@drawable/arrow"
+                                android:importantForAccessibility="no"/>
                         </LinearLayout>
                         <TextView
                             android:id="@+id/bt1"
@@ -129,7 +136,8 @@
                             android:minLines="2"
                             android:textAlignment="center"
                             android:text="ddadasdasd"
-                            android:textSize="22sp"/>
+                            android:textSize="22sp"
+                            android:importantForAccessibility="no"/>
                     </LinearLayout>
                     <LinearLayout
                         android:id="@+id/linearLayoutTwo"
@@ -165,7 +173,8 @@
                                 android:layout_height="125dp"
                                 android:layout_gravity="center_vertical"
                                 android:clickable="false"
-                                android:background="@drawable/arrow"/>
+                                android:background="@drawable/arrow"
+                                android:importantForAccessibility="no"/>
                         </LinearLayout>
                         <TextView
                             android:id="@+id/bt2"
@@ -174,7 +183,8 @@
                             android:minLines="2"
                             android:textAlignment="center"
                             android:text="ddadasdasd"
-                            android:textSize="22sp"/>
+                            android:textSize="22sp"
+                            android:importantForAccessibility="no"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -214,7 +224,8 @@
                             android:minLines="2"
                             android:text="ddadasdasd"
                             android:textAlignment="center"
-                            android:textSize="22sp" />
+                            android:textSize="22sp"
+                            android:importantForAccessibility="no" />
                     </LinearLayout>
                 </RelativeLayout>
                 <LinearLayout
@@ -258,19 +269,22 @@
             android:layout_width="160dp"
             android:layout_height="168dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/home"/>
+            android:src="@drawable/home"
+            android:contentDescription="Home"/>
         <ImageView
             android:id="@+id/keyboard"
             android:layout_width="170dp"
             android:layout_height="170dp"
             android:src="@drawable/keyboard"
-            android:layout_toRightOf="@+id/ivhome"/>
+            android:layout_toRightOf="@+id/ivhome"
+            android:contentDescription="Open Keyboard"/>
         <ImageView
             android:id="@+id/ivback"
             android:layout_width="170dp"
             android:layout_height="170dp"
             android:src="@drawable/back"
-            android:layout_toLeftOf="@+id/ivhome"/>
+            android:layout_toLeftOf="@+id/ivhome"
+            android:contentDescription="Back"/>
     </RelativeLayout>
     <LinearLayout
         android:layout_width="836dp"
@@ -282,13 +296,15 @@
             android:id="@+id/et"
             android:layout_width="736dp"
             android:layout_height="80dp"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:contentDescription="Custom speech"/>
         <ImageView
             android:id="@+id/ttsbutton"
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:src="@drawable/ic_search_list_speaker"
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical"
+            android:contentDescription="Speak"/>
     </LinearLayout>
     <ImageView
         android:layout_width="168dp"
@@ -298,5 +314,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="8dp"/>
+        android:layout_marginBottom="8dp"
+        android:importantForAccessibility="no"/>
 </RelativeLayout>

@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="ratings">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
     <string name="app_name">Jellow</string>
     <string name="action_settings">Settings</string>
     <string name="Profile">Profile</string>
@@ -21,6 +28,18 @@
         <item>AB-ve</item>
         <item>O+ve</item>
         <item>O-ve</item>
+    </string-array>
+
+    <string-array name="bloodgroup_talkback">
+        <item>not selected</item>
+        <item>A positive</item>
+        <item>A negative</item>
+        <item>B positive</item>
+        <item>B negative</item>
+        <item>AB positive</item>
+        <item>AB negative</item>
+        <item>O positive</item>
+        <item>O negative</item>
     </string-array>
 
     <string-array name="picture_view_mode">
@@ -324,6 +343,7 @@
     <string name="intent_menu_path_tag" translatable="false">selectedMenuItemPath</string>
     <string name="level_2_item_pos_tag" translatable="false">mLevelTwoItemPos</string>
     <string name="first_time_login" translatable="false">create_database</string>
+    <string name="less">less</string>
 
 
     <!--Strings related to the Searching capability
@@ -342,5 +362,6 @@
     <string name="no_internet">No Internet</string>
     <string name="please_wait">Please wait…</string>
     <string name="goto_home" translatable="false">goto_home</string>
+    <string name="info">General Information</string>
 
 </resources>

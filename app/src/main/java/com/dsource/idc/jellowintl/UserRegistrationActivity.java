@@ -7,6 +7,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.Html;
@@ -23,6 +24,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_DropDownMenu;
 import com.dsource.idc.jellowintl.models.SecureKeys;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -114,6 +116,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
         etName = findViewById(R.id.etName);
         etEmergencyContact = findViewById(R.id.etEmergencyContact);
         mCcp = findViewById(R.id.ccp);
+        ViewCompat.setAccessibilityDelegate(mCcp, new TalkbackHints_DropDownMenu());
         mCcp.registerCarrierNumberEditText(etEmergencyContact);
         etEmailId= findViewById(R.id.etEmailId);
         bRegister = findViewById(R.id.bRegister);

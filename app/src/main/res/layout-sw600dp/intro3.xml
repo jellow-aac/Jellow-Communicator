@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
+    android:importantForAccessibility="yes"
     android:id="@+id/main">
     <ImageView
         android:id="@+id/btnMoveLeft"
@@ -33,7 +34,11 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:textSize="20sp"
-            android:text="@string/txt_intro3_level2CatDesc"/>
+        android:importantForAccessibility="yes"
+            android:text="@string/txt_intro3_level2CatDesc"
+        android:contentDescription="By double clickling on a category button, user can acess further categories and
+sub categories. Swipe with single finger to go to image below.
+Swipe with two fingers to switch page."/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -43,7 +48,9 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/image4"/>
+                android:src="@drawable/image4"
+            android:contentDescription="This image shows a screenshot of Jellow sub-categories within the “Eating” category. The icons visible in the central grid arranged in a 3 by 3 grid format are “Breakfast”, “Lunch/Dinner”, “Sweets”, “Snacks”, “Fruits”, “Drinks”, “Cutlery”, and “Add-ons”. The image shows the user’s finger double-clicking on “Breakfast” icon to access further sub-options.
+Swipe with two fingers to switch page."/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,6 +67,7 @@
                 android:paddingLeft="64dp"
                 android:paddingRight="64dp"
                 android:textSize="20sp"
+            android:importantForAccessibility="no"
                 android:text="@string/txt_intro3_navWithJellow"/>
         </LinearLayout>
         <TextView

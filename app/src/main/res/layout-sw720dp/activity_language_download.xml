@@ -25,7 +25,8 @@
             app:rcProgressColor="@color/colorIntro"
             app:rcRadius="10dp"
             app:rcReverse="false"
-            app:rcSecondaryProgressColor="@color/colorIntro" />
+            app:rcSecondaryProgressColor="@color/colorIntro" 
+            android:contentDescription="Language download in process"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

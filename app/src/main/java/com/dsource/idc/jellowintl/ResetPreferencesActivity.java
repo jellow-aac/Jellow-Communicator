@@ -10,6 +10,7 @@ import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
@@ -82,7 +83,16 @@ public class ResetPreferencesActivity extends AppCompatActivity {
             case R.id.usage: startActivity(new Intent(this, TutorialActivity.class)); finish(); break;
             case R.id.keyboardinput: startActivity(new Intent(this, KeyboardInputActivity.class)); finish(); break;
             case R.id.settings: startActivity(new Intent(getApplication(), SettingActivity.class)); finish(); break;
-            case R.id.feedback: startActivity(new Intent(this, FeedbackActivity.class)); finish(); break;
+            case R.id.feedback:
+                AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
+                boolean isAccessibilityEnabled = am.isEnabled();
+                boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
+                if (isAccessibilityEnabled && isExploreByTouchEnabled) {
+                    startActivity(new Intent(this, FeedbackActivityTalkback.class));
+                } else {
+                    startActivity(new Intent(this, FeedbackActivity.class));
+                }
+                break;
             case android.R.id.home: finish(); break;
             default: return super.onOptionsItemSelected(item);
         }

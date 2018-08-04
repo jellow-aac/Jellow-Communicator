@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg"
     android:layout_weight="10"
-    android:id="@+id/main">
+    android:id="@+id/main"
+    android:importantForAccessibility="yes">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,7 +23,9 @@
             android:layout_weight="1"
             android:paddingRight="32dp"
             android:textSize="13sp"
-            android:text="@string/txt_intro1_central9btn"/>
+            android:text="@string/txt_intro1_central9btn"
+        android:importantForAccessibility="yes"
+        android:contentDescription="Jellow has 9 central category buttons. Swipe with single finger to go to image below. Swipe with two fingers to switch page."/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -33,7 +36,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="190dp"
                 android:src="@drawable/categorybuttons"
-                tools:ignore="ContentDescription" />
+            android:contentDescription="The image shows a screenshot of the home page of Jellow. The home page contains a central grid of 9 icons called category buttons that are arranged in 3 rows and 3 columns. The 9 category buttons are “Greet and feel”, “Daily activities”, “Eating”, “Fin”, “Learning”, “People”, “Places, “Time and weather”, and “Help”. Below the category buttons are 3 navigation buttons of “Back”, “Home” and “keyboard” arranged in that order at the bottom of the home screen. On the right and left sides of the central category icons are 3 expressive icons each. To the left of the central grid are 3 expressive buttons of “Like”, “Yes” and “More” arranged from top to bottom in that order. To the right of the central grid, are the remaining 3 expressive buttons of “Don’t like”, “No” and “Less” arranged from top to bottom. On the top right corner of the home screen is visible a settings icon. In this image the central grid of 9 icons has been highlighted with all other buttons faded out.
+            Swipe with two fingers to switch page"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -48,7 +52,8 @@
                 android:paddingLeft="64dp"
                 android:paddingRight="64dp"
                 android:textSize="13sp"
-                android:text="@string/txt_intro1_categorybtn"/>
+                android:text="@string/txt_intro1_categorybtn"
+                android:importantForAccessibility="no"/>
         </LinearLayout>
         <TextView
             android:layout_width="match_parent"

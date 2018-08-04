@@ -14,6 +14,12 @@
         <item name="android:fontFamily">@font/mukta_regular</item>
         <item name="android:textAppearanceLargePopupMenu">@style/defaultTextViewStyle</item>
     </style>
+    <style name="CustomSeekbar" parent="Widget.AppCompat.SeekBar">
+        <item name="colorAccent">#dc5252</item>
+        <item name="android:width">30dp</item>
+        <item name="android:height">30dp</item>
+    </style>
+
 
     <style name="spinnerDropDownItemStyle">
         <item name="android:padding">8dp</item>
@@ -107,5 +113,15 @@
     <style name="customNavButtonStyle" parent="Widget.AppCompat.Button">
         <item name="android:background">@drawable/custom_seq_btn_view</item>
         <item name="android:textColor">@color/black_eighty</item>
+    </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_left</item>
+        <item name="android:windowExitAnimation">@anim/slide_right</item>
+    </style>
+
+    <style name="DialogAnimation_2">
+        <item name="android:windowEnterAnimation">@anim/slide_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_bottom</item>
     </style>
 </resources>

@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg"
     android:layout_weight="10"
-    android:id="@+id/main">
+    android:id="@+id/main"
+    android:importantForAccessibility="yes">
     <ImageView
         android:id="@+id/btnMoveLeft"
         android:layout_width="wrap_content"
@@ -34,7 +35,9 @@
             android:layout_weight="1"
             android:paddingRight="32dp"
             android:textSize="13sp"
-            android:text="@string/txt_intro2_appUsageDesc"/>
+            android:text="@string/txt_intro2_appUsageDesc"
+        android:importantForAccessibility="yes"
+        android:contentDescription="The user first clicks on a category button and then on an expressive button.Swipe with single finger to go to image below. Swipe with two fingers to switch page."/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -46,7 +49,8 @@
                 android:layout_height="190dp"
                 android:layout_gravity="center"
                 android:src="@drawable/speakingwithjellowimage2"
-                tools:ignore="ContentDescription" />
+            android:contentDescription="This image has the home screen of Jellow with only 2 icons of “Eating” and “Yes” highlighted. The rest of the buttons are faded out. The image shows that to speak using Jellow, user has to first click on any category button, for instance, “Eating” and then on an expressive button, for example, “Yes”. In this way the user can speak using Jellow.
+Swipe with two fingers to switch page."/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -61,6 +65,7 @@
                 android:paddingLeft="64dp"
                 android:paddingRight="64dp"
                 android:textSize="13sp"
+                android:importantForAccessibility="no"
                 android:text="@string/txt_intro2_speakUsingJellow"/>
         </LinearLayout>
         <TextView
