@@ -42,4 +42,22 @@
         android:layout_marginBottom="114dp"
         android:text="Re-Crete Database" />
 
+    <Button
+        android:id="@+id/print_new_database"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="174dp"
+        android:text="print_new_jellow_database" />
+
+    <Button
+        android:id="@+id/create_new_jellowdatabase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="238dp"
+        android:text="create_new_jellowdatabase" />
+
 </RelativeLayout>

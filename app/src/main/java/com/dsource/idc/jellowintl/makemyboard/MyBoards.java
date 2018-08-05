@@ -48,6 +48,7 @@ import com.dsource.idc.jellowintl.SettingActivity;
 import com.dsource.idc.jellowintl.TutorialActivity;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.CustomDialog;
+import com.dsource.idc.jellowintl.verbiage_model.VerbiageDatabaseHelper;
 import com.rey.material.app.Dialog;
 
 import java.io.ByteArrayOutputStream;
@@ -92,6 +93,11 @@ public class MyBoards extends AppCompatActivity {
         initFields(3);
         prepareBoardList(NORMAL_MODE);
         currentMode  =NORMAL_MODE;
+        VerbiageDatabaseHelper verbiageDatabaseHelper = new VerbiageDatabaseHelper(this,new DataBaseHelper(this).getWritableDatabase());
+        Log.d("Level 1",verbiageDatabaseHelper.getLevelOneIconCount()+"");
+        Log.d("Level 2",verbiageDatabaseHelper.getLevelTwoIconCount(2)+"");
+        Log.d("Level 3",verbiageDatabaseHelper.getLevelThreeIconCount(3,3)+"");
+
 
 
     }
@@ -354,6 +360,7 @@ public class MyBoards extends AppCompatActivity {
 
         return cropImg;
     }
+
     private boolean checkPermissionForStorageRead() {
         boolean okay=true;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -401,7 +408,6 @@ public class MyBoards extends AppCompatActivity {
         database=new BoardDatabase(this);
         boardList.add(newBoard);
         database.addBoardToDatabase(new DataBaseHelper(this).getWritableDatabase(),newBoard);
-        Log.d("BoardDatabase","BoardCount"+database.countEntries()+"  BoardList "+database.getAllBoards().size()+"");
         prepareBoardList(NORMAL_MODE);
     }
 

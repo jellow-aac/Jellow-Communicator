@@ -102,8 +102,7 @@ public class BoardHome extends AppCompatActivity {
         expIconVerbiage=new ArrayList<>();
         for(int i=0;i<6;i++) {
             expIconVerbiage.add(verbiageDatabase.getMiscellaneousIconsById(Nomenclature.getNameForExpressiveIcons(this, i)));
-            Log.d("ExpIcons","ID: "+expIconVerbiage.get(i).Title +" L: "+expIconVerbiage.get(i).L+" LL: "+expIconVerbiage.get(i).LL);
-        }
+           }
     }
 
     private void speakVerbiage(int expIconPos, int time) {
@@ -170,7 +169,6 @@ public class BoardHome extends AppCompatActivity {
         expIconManager.setAccordingVerbiage(selectedIconVerbiage);
         if(selectedIconVerbiage!=null)
         speakSpeech(selectedIconVerbiage.Speech_Label);
-        else Log.d("VerbiageNotFound","True "+jellowIcon);
     }
 
     private void initViews(){
@@ -269,7 +267,7 @@ public class BoardHome extends AppCompatActivity {
                     LevelTwoParent=position;
                 } else Toast.makeText(BoardHome.this, "No sub category", Toast.LENGTH_SHORT).show();
 
-            } else Log.d("LevelOneParentNotSet","Icon"+LevelOneParent+" "+position);
+            }
         }
         else if(Level==2)
         {
@@ -335,7 +333,6 @@ public class BoardHome extends AppCompatActivity {
      * */
 
     private void speakSpeech(String speechText){
-        Log.d("SpeakSpeech","Speech Called");
         Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_TEXT");
         intent.putExtra("speechText", speechText.toLowerCase());
         mContext.sendBroadcast(intent);
@@ -502,7 +499,6 @@ public class BoardHome extends AppCompatActivity {
                 /*
                 GradientDrawable gd = (GradientDrawable) searchedView.findViewById(R.id.borderView).getBackground();
                 gd.setColor(ContextCompat.getColor(getApplicationContext(), R.color.search_highlight));*/
-                Log.d("Ayaz", "Step 4: Background is set and removing the scrollListener");
                 mRecycler.removeOnScrollListener(scrollListener);
                 mRecycler.getViewTreeObserver().removeOnGlobalLayoutListener(populationDoneListener);
             }

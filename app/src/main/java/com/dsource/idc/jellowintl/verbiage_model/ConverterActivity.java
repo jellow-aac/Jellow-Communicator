@@ -15,7 +15,11 @@ import android.widget.Toast;
 
 import com.dsource.idc.jellowintl.DataBaseHelper;
 import com.dsource.idc.jellowintl.R;
+import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.IconDatabase;
+import com.dsource.idc.jellowintl.utility.JellowIcon;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
+
+import java.util.ArrayList;
 
 public class ConverterActivity extends AppCompatActivity {
 
@@ -56,6 +60,40 @@ public class ConverterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 new VerbiageDatabaseHelper(ConverterActivity.this,new DataBaseHelper(ConverterActivity.this).getWritableDatabase()).dropTable();
                 new VerbiageDatabaseHelper(ConverterActivity.this,new DataBaseHelper(ConverterActivity.this).getWritableDatabase()).createTable();
+                Toast.makeText(ConverterActivity.this,"Created",Toast.LENGTH_SHORT).show();
+            }
+        });
+        (findViewById(R.id.delete_database)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new VerbiageDatabaseHelper(ConverterActivity.this,new DataBaseHelper(ConverterActivity.this).getWritableDatabase()).dropTable();
+            }
+        });
+        (findViewById(R.id.re_create_database)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new VerbiageDatabaseHelper(ConverterActivity.this,new DataBaseHelper(ConverterActivity.this).getWritableDatabase()).dropTable();
+                new VerbiageDatabaseHelper(ConverterActivity.this,new DataBaseHelper(ConverterActivity.this).getWritableDatabase()).createTable();
+                Toast.makeText(ConverterActivity.this,"Created",Toast.LENGTH_SHORT).show();
+            }
+        });
+        (findViewById(R.id.create_new_jellowdatabase)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                IconDatabase dataBaseHelper = new IconDatabase(ConverterActivity.this,new DataBaseHelper(ConverterActivity.this).getWritableDatabase());
+                dataBaseHelper.dropTable();
+                dataBaseHelper.createTable();
+            }
+        });
+        (findViewById(R.id.print_new_database)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ArrayList<JellowIcon> list =new IconDatabase(ConverterActivity.this).getAllIcons();
+                for(int i=0;i<list.size();i++) {
+                    Log.d("Icon "+i,""+list.get(i).IconTitle);
+                }
+                Toast.makeText(ConverterActivity.this,"Created",Toast.LENGTH_SHORT).show();
             }
         });
 

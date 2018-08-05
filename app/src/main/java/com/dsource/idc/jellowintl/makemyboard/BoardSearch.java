@@ -1,12 +1,10 @@
 package com.dsource.idc.jellowintl.makemyboard;
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,19 +23,12 @@ import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.IconModel;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.ModelManager;
 import com.dsource.idc.jellowintl.utility.IconDataBaseHelper;
 import com.dsource.idc.jellowintl.utility.JellowIcon;
-import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
-import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
-import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.makemyboard.EditBoard.BOARD_ID;
-import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
-import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
-import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
-import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 
 public class BoardSearch extends AppCompatActivity {
     private RecyclerView mRecyclerView;
@@ -131,7 +122,7 @@ public class BoardSearch extends AppCompatActivity {
                     iconList.add(noIconFound);
                 }
 
-                //List should have atleast one Item
+                //List should have at least one Item
                 if(iconList.size()>0)
                     adapter.notifyDataSetChanged();
             }
@@ -152,7 +143,7 @@ public class BoardSearch extends AppCompatActivity {
                     ImageView iconImage = view.findViewById(R.id.search_icon_drawable);
                     Bitmap bitmap = ((BitmapDrawable)iconImage.getDrawable()).getBitmap();
                     ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 50, bos);
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos);
                     byte[] bitmapArray = bos.toByteArray();
                     returnIntent.putExtra(getString(R.string.search_result),bitmapArray);
                     setResult(Activity.RESULT_OK, returnIntent);
@@ -298,36 +289,7 @@ public class BoardSearch extends AppCompatActivity {
 
     }
 
-    @Override
-        public void onResume() {
-            super.onResume();
-            if(!isAnalyticsActive()){
-                throw new Error("unableToResume");
-            }
-            if(Build.VERSION.SDK_INT > 25 &&
-                    !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
-                startService(new Intent(getApplication(), JellowTTSService.class));
-            }
-            // Start measuring user app screen timer.
-            startMeasuring();
-        }
-
-        @Override
-        public void onPause() {
-            super.onPause();
-            ///Check if pushId is older than 24 hours (86400000 millisecond).
-            // If yes then create new pushId (user session)
-            // If no then do not create new pushId instead user existing and
-            // current session time is saved.
-            SessionManager session = new SessionManager(this);
-            long sessionTime = validatePushId(session.getSessionCreatedAt());
-            session.setSessionCreatedAt(sessionTime);
-
-            // Stop measuring user app screen timer.
-            stopMeasuring("SearchActivity");
-        }
-
-        private void initFields() {
+    private void initFields() {
             searchBox = findViewById(R.id.search_auto_complete);
             iconList=new ArrayList<>();
             adapter=new BoardSearchAdapter(this,iconList);
@@ -335,7 +297,7 @@ public class BoardSearch extends AppCompatActivity {
             mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             mRecyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
-        }
+    }
 
         @Override
         public void attachBaseContext(Context newBase) {

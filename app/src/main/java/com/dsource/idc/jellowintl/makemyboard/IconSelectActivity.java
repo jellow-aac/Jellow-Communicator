@@ -27,8 +27,8 @@ import com.dsource.idc.jellowintl.DataBaseHelper;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.CustomDialog;
+import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.IconDatabase;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.ModelManager;
-import com.dsource.idc.jellowintl.utility.IconDataBaseHelper;
 import com.dsource.idc.jellowintl.utility.JellowIcon;
 
 import java.util.ArrayList;
@@ -136,7 +136,8 @@ public class IconSelectActivity extends AppCompatActivity {
      * @return
      */
     ArrayList<JellowIcon> sortList(ArrayList<JellowIcon> iconsList) {
-        ArrayList<JellowIcon> listOfAllIcon=new IconDataBaseHelper(this).getAllIcons();
+        //ArrayList<JellowIcon> listOfAllIcon=new IconDataBaseHelper(this).getAllIcons();
+        ArrayList<JellowIcon> listOfAllIcon=new IconDatabase(this).getAllIcons();
         ArrayList<JellowIcon> sortedList=new ArrayList<>();
 
         for(int i=0;i<listOfAllIcon.size();i++)
@@ -279,7 +280,7 @@ public class IconSelectActivity extends AppCompatActivity {
      * @param level_2
      */
     private void prepareIconPane(int level_1,int level_2) {
-        iconList=new IconDataBaseHelper(this).myBoardQuery(level_1,level_2);
+        iconList=new IconDatabase(this).myBoardQuery(level_1,level_2);
         iconSelectorAdapter =new IconSelectorAdapter(this,iconList,IconSelectorAdapter.ICON_SELECT_MODE);
         iconRecycler.setAdapter(iconSelectorAdapter);
         iconSelectorAdapter.notifyDataSetChanged();

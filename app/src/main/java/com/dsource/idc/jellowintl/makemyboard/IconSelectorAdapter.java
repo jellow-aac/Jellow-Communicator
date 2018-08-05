@@ -1,7 +1,6 @@
 package com.dsource.idc.jellowintl.makemyboard;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
@@ -133,11 +132,6 @@ public class IconSelectorAdapter extends RecyclerView.Adapter<IconSelectorAdapte
                     .apply(RequestOptions.
                             circleCropTransform()).into(holder.iconImage);
             holder.iconImage.setBackground(mContext.getResources().getDrawable(R.drawable.icon_back_grey));
-        }
-        else  if(thisIcon.parent1==-1)
-        {
-            TypedArray mArray=mContext.getResources().obtainTypedArray(R.array.arrLevelOneIconAdapter);
-            holder.iconImage.setImageDrawable(mArray.getDrawable(thisIcon.parent0));
         }
         else
         {

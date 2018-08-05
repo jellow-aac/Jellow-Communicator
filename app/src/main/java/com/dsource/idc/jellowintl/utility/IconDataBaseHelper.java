@@ -24,12 +24,12 @@ public class IconDataBaseHelper extends SQLiteOpenHelper {
     private static final String ICON_LIST_TABLE = "icons";
     private static final String DATABASE_NAME = "level3.db";
     // Column names...
-    public static final String ICON_ID = "_id";//Icon Primary key ID
-    public static final String ICON_TITLE = "icon_title";//Icon Title
-    public static final String ICON_DRAWABLE = "icon_drawable";//Icon Drawable
-    public static final String KEY_P1 = "icon_p1";//First Level Parent
-    public static final String KEY_P2 = "icon_p2";//Second Level Parent
-    public static final String KEY_P3 = "icon_p3";//Third Level Parent
+    private static final String ICON_ID = "_id";//Icon Primary key ID
+    private static final String ICON_TITLE = "icon_title";//Icon Title
+    private static final String ICON_DRAWABLE = "icon_drawable";//Icon Drawable
+    private static final String KEY_P1 = "icon_p1";//First Level Parent
+    private static final String KEY_P2 = "icon_p2";//Second Level Parent
+    private static final String KEY_P3 = "icon_p3";//Third Level Parent
     // ... and a string array of columns.
     private static final String[] COLUMNS =
             {ICON_ID, ICON_TITLE,ICON_DRAWABLE,KEY_P1,KEY_P2,KEY_P3};
@@ -352,6 +352,7 @@ public class IconDataBaseHelper extends SQLiteOpenHelper {
             return iconList;
         }
     }
+
     @Nullable
     public ArrayList<JellowIcon> getLevelOneIcons()
     {

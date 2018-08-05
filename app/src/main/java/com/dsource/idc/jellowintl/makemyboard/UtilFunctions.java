@@ -4,7 +4,7 @@ package com.dsource.idc.jellowintl.makemyboard;
 import android.content.Context;
 import android.util.Log;
 
-import com.dsource.idc.jellowintl.utility.IconDataBaseHelper;
+import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.IconDatabase;
 import com.dsource.idc.jellowintl.utility.JellowIcon;
 
 import java.util.ArrayList;
@@ -63,7 +63,7 @@ public class UtilFunctions {
      */
     public ArrayList<JellowIcon>sortUsingSQL(ArrayList<JellowIcon> list, int Level, Context context)
     {
-        ArrayList<JellowIcon> levelList=new IconDataBaseHelper(context).myBoardQuery(Level,-1);
+        ArrayList<JellowIcon> levelList=new IconDatabase(context).myBoardQuery(Level,-1);
         ArrayList<JellowIcon> sortedList=new ArrayList<>();
         for(int i=0;i<levelList.size();i++)
         {
@@ -85,7 +85,7 @@ public class UtilFunctions {
      */
     public ArrayList<JellowIcon>sortUsingSQL(ArrayList<JellowIcon> list, Context context)
     {
-        ArrayList<JellowIcon> levelList=new IconDataBaseHelper(context).getAllIcons();
+        ArrayList<JellowIcon> levelList=new IconDatabase(context).getAllIcons();
         ArrayList<JellowIcon> sortedList=new ArrayList<>();
         for(int i=0;i<levelList.size();i++)
         {
@@ -118,7 +118,7 @@ public class UtilFunctions {
             if(level2IconPresent.indexOf(par)==-1)
                 level2IconPresent.add(par);
         }
-        IconDataBaseHelper data=new IconDataBaseHelper(mContext);
+        IconDatabase data=new IconDatabase(mContext);
 
         for(int i=0;i<level2IconPresent.size();i++)
         {

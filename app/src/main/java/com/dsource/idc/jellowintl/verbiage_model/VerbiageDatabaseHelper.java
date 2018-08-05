@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.dsource.idc.jellowintl.Nomenclature;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -67,6 +68,7 @@ public class VerbiageDatabaseHelper extends SQLiteOpenHelper{
         otherIconKeyList=new ArrayList<>();
         mRef=FirebaseDatabase.getInstance().getReference("testing")
         .child("verbiage_data").child(new SessionManager(context).getLanguage());
+        mRef.keepSynced(false);
         mRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -141,7 +143,7 @@ public class VerbiageDatabaseHelper extends SQLiteOpenHelper{
     public JellowVerbiageModel getVerbiageById(String IconID){
         JellowVerbiageModel verbiage=null;
         String selectQuery = "SELECT * FROM "+ TABLE_NAME +" WHERE "+ ICON_ID +" LIKE '" + IconID + "%' LIMIT 1";
-        Log.d("SelectQuery",selectQuery);
+       // Log.d("SelectQuery",selectQuery);
         Cursor cursor = null;
         try {
             if (db == null) {db = getReadableDatabase();}
@@ -245,5 +247,51 @@ public class VerbiageDatabaseHelper extends SQLiteOpenHelper{
         db.insert(TABLE_NAME, null, values);
         Log.d("VerbiageDatabase","Icon inserted into database "+holder.getIconName()+" ID "+holder.getIconID());
 
+    }
+
+    public int getLevelOneIconCount()
+    {
+        String lang_code = Nomenclature.getLanguageCode(context);
+        String query  = "SELECT * FROM "+TABLE_NAME+" WHERE "+ICON_ID+" LIKE '" +lang_code+"__000000%'";
+       // Log.d("Query 1",query);
+        Cursor cursor =  db.rawQuery(query,null);
+        if(cursor!=null) {
+            int count = cursor.getCount();
+            cursor.close();
+            return count;
+        }
+        return -1;
+    }
+    public int getLevelTwoIconCount(int p1)
+    {
+
+        String lang_code = Nomenclature.getLanguageCode(context);
+        String L1Parent = String.format("%02d", (p1+1));
+        String query  = "SELECT * FROM "+TABLE_NAME+" WHERE "+ICON_ID+" LIKE '" +lang_code+L1Parent+"__0000%'";
+        //
+        Cursor cursor =  db.rawQuery(query,null);
+        if(cursor!=null)
+        {
+            int count = cursor.getCount();
+            cursor.close();
+            return --count;
+        }
+        return -1;
+    }
+    public int getLevelThreeIconCount(int p1,int p2)
+    {
+        String L1Parent = String.format("%02d", (p1+1));
+        String L2Parent = String.format("%02d", (p2+1));
+        String lang_code = Nomenclature.getLanguageCode(context);
+        String query  = "SELECT * FROM "+TABLE_NAME+" WHERE "+ICON_ID+" LIKE '" +lang_code+L1Parent+L2Parent+"%'";
+       // Log.d("Query 3",query);
+        Cursor cursor =  db.rawQuery(query,null);
+        if(cursor!=null)
+        {
+            int count = cursor.getCount();
+            cursor.close();
+            return --count;
+        }
+        return -1;
     }
 }
