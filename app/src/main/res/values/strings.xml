@@ -291,6 +291,7 @@
     <string name="random_val" translatable="false">com.dsource.idc.jellow.random_val</string>
     <string name="string_msg" translatable="false">com.dsource.idc.jellow.string_message</string>
     <string name="updated_user_data_on_firebase" >com.dsource.idc.jellow.update_on_fb</string>
+    <string name="last_crash_reported" >com.dsource.idc.jellow.last_crash_reported</string>
     <string name="txt_registration_jellowCalluDesc">(This is how Jellow calls you)</string>
     <string name="txt_registration_emergencynoDesc">(To be used for correspondence in case of an emergency involving the child.)</string>
     <string name="txt_registration_emailDesc">(To notify you about the release of Jellow updates)</string>

@@ -111,16 +111,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Initialize default exception handler for this activity.
+        // If any exception occurs during this activity usage,
+        // handle it using default exception handler.
+        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         setContentView(R.layout.activity_levelx_layout);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
         getSupportActionBar().setTitle(getString(R.string.action_bar_title));
-
-        // Initialize default exception handler for this activity.
-        // If any exception occurs during this activity usage,
-        // handle it using default exception handler.
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         loadArraysFromResources();
         // Set the capacity of mRecyclerItemsViewList list to total number of category icons to be
         // populated on the screen.
@@ -1237,26 +1236,26 @@ public class MainActivity extends AppCompatActivity {
                 showAlertDialog(position, title);
             } else  //talkback off
             {
-            SessionManager session = new SessionManager(this);
-            // Get icon set directory path
-            File langDir = new File(getApplicationInfo().dataDir + "/app_"+
-                    session.getLanguage()+"/drawables");
-            // If icon sets are available for level two then open selected category in level two
-            if(langDir.exists() && langDir.isDirectory()) {
-                // create event bundle for firebase
-                Bundle bundle = new Bundle();
-                bundle.putString("Icon", "Opened " + mSpeechTxt[position]);
-                bundleEvent("Grid", bundle);
-                // send current position in recycler view of selected category icon and bread
-                // crumb path as extra intent data to LevelTwoActivity.
-                Intent intent = new Intent(MainActivity.this, LevelTwoActivity.class);
-                intent.putExtra(getString(R.string.level_one_intent_pos_tag), position);
-                intent.putExtra(getString(R.string.intent_menu_path_tag), title + "/");
-                startActivityForResult(intent, REQ_HOME);
+                SessionManager session = new SessionManager(this);
+                // Get icon set directory path
+                File langDir = new File(getApplicationInfo().dataDir + "/app_"+
+                        session.getLanguage()+"/drawables");
+                // If icon sets are available for level two then open selected category in level two
+                if(langDir.exists() && langDir.isDirectory()) {
+                    // create event bundle for firebase
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Icon", "Opened " + mSpeechTxt[position]);
+                    bundleEvent("Grid", bundle);
+                    // send current position in recycler view of selected category icon and bread
+                    // crumb path as extra intent data to LevelTwoActivity.
+                    Intent intent = new Intent(MainActivity.this, LevelTwoActivity.class);
+                    intent.putExtra(getString(R.string.level_one_intent_pos_tag), position);
+                    intent.putExtra(getString(R.string.intent_menu_path_tag), title + "/");
+                    startActivityForResult(intent, REQ_HOME);
+                }
+                langDir = null;
             }
-            langDir = null;
-        }
-      }else {
+        }else {
             speakSpeech(mSpeechTxt[position]);
             // create event bundle for firebase
             Bundle bundle = new Bundle();

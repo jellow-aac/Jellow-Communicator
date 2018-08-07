@@ -2043,10 +2043,10 @@
     <string-array name="arrLevelThreeFunTvSpeechText">
         <item>Switch on the TV</item>
         <item>Switch off the TV</item>
-        <item>Volume down</item>
         <item>Next channel</item>
         <item>Previous channel</item>
         <item>Volume up</item>
+        <item>Volume down</item>
     </string-array>
     <string-array name="arrLevelThreeFunMusicSpeechText">
         <item>Change music</item>

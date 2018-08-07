@@ -333,6 +333,14 @@ public class SessionManager {
                 mContext.getString(R.string.updated_user_data_on_firebase)));
     }
 
+    public void setLastCrashReported(long timeStamp) {
+        storePreferenceKeyWithValue(Long.class.toString(), mContext.getString(R.string.last_crash_reported), timeStamp);
+    }
+
+    public Long getLastCrashReported() {
+        return ((Long) retrievePreferenceKeyWithValue(Long.class.toString(), mContext.getString(R.string.last_crash_reported)));
+    }
+
 
  /**
   * Ayaz

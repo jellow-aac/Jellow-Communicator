@@ -18,6 +18,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.crashlytics.android.Crashlytics;
+import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
@@ -34,6 +35,10 @@ public class KeyboardInputActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Initialize default exception handler for this activity.
+        // If any exception occurs during this activity usage,
+        // handle it using default exception handler.
+        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         setContentView(R.layout.activity_keyboard_input);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -106,6 +111,7 @@ public class KeyboardInputActivity extends AppCompatActivity {
                 else {
                     startActivity(new Intent(this, FeedbackActivity.class));
                 }
+                finish();
                 break;            case android.R.id.home: finish(); break;
             default: return super.onOptionsItemSelected(item);
         }
