@@ -1,30 +1,40 @@
 package com.dsource.idc.jellowintl;
 
 import android.app.ActivityManager;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.speech.tts.TextToSpeech;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.telephony.TelephonyManager;
 import android.text.method.KeyListener;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.view.accessibility.AccessibilityManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_DoubleClick;
+import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
 import com.dsource.idc.jellowintl.models.LevelOneVerbiageModel;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
@@ -34,15 +44,18 @@ import com.google.gson.Gson;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
+import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 
 public class MainActivity extends AppCompatActivity {
+    boolean isAccessibilityEnabled, isExploreByTouchEnabled;
     private final int REQ_HOME = 0;
     private final boolean DISABLE_EXPR_BTNS = true;
 
@@ -85,22 +98,28 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<ArrayList<String>> mLayerOneSpeech;
     /*Below array stores the speech text, below text, expressive button speech text,
      navigation button speech text respectively.*/
-    private String[] mSpeechTxt, mExprBtnTxt, mNavigationBtnTxt, mActionBartitle;
+    private String[] mSpeechTxt, mExprBtnTxt, mNavigationBtnTxt, mActionBarTitle;
     private String mActionBarTitleTxt;
     private String mCheckVoiceData, mHome;
+    TextToSpeech tts;
+    String current_lang, deviceLangCode;
+    boolean isLanguageSame = true;
+    String jellow_lang;
+    Locale deviceLangLocale;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_levelx_layout);
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
-        getSupportActionBar().setTitle(getString(R.string.action_bar_title));
-
         // Initialize default exception handler for this activity.
         // If any exception occurs during this activity usage,
         // handle it using default exception handler.
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
+        setContentView(R.layout.activity_levelx_layout);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
+        getSupportActionBar().setTitle(getString(R.string.action_bar_title));
         loadArraysFromResources();
         // Set the capacity of mRecyclerItemsViewList list to total number of category icons to be
         // populated on the screen.
@@ -119,6 +138,140 @@ public class MainActivity extends AppCompatActivity {
         // If device has android version below Lollipop get Text-to-speech language
         if(Build.VERSION.SDK_INT < 21)
             getSpeechLanguage("");
+        if(getIntent().hasExtra(getString(R.string.goto_home)))
+            gotoHome(true);
+        //This method is invoked when the activity is launched from the SearchActivity
+        try {
+            String s = getIntent().getExtras().getString(getString(R.string.from_search));
+            if (s != null)
+                if (s.equals(getString(R.string.search_tag))) {
+                    highlightSearchedItem();
+                }
+        }
+        catch (NullPointerException e)
+        {
+            //Not from Search Activity
+        }
+    }
+    /**
+     * This function is responsible for the Highlighting of the searched item from the
+     * search activity
+     * @Author Ayaz Alam
+     * **/
+    RecyclerView.OnScrollListener scrollListener;
+    private void highlightSearchedItem() {
+        //Referring to the Intent that invoked the activity
+        final int iconIndex = getIntent().getExtras().getInt(getString(R.string.search_parent_0));
+        int gridCode=new SessionManager(this).getGridSize();
+        int gridSize;
+        if(gridCode==1)
+            gridSize=8;
+        else gridSize=2;
+        //Scroll to the position if the icon is not present in first grid
+        if(iconIndex>gridSize)
+        {
+            scrollListener =null;
+            scrollListener = getListener(iconIndex);
+            mRecyclerView.addOnScrollListener(scrollListener);
+            mRecyclerView.getLayoutManager().smoothScrollToPosition(mRecyclerView,null,iconIndex);
+
+        }
+        else
+            {
+            setSearchHighlight(iconIndex);
+            }
+
+    }
+    /**
+     * This functions returns a scroll scrollListener which triggers the setHighlight function
+     * when the scrolling is done
+     * @Author Ayaz Alam
+     * */
+
+    private RecyclerView.OnScrollListener getListener(final int index) {
+        scrollListener =new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(newState==RecyclerView.SCROLL_STATE_DRAGGING)
+                {
+                    //Wait untill the scrolling is complete
+                }
+                else if(newState==RecyclerView.SCROLL_STATE_IDLE) //Try highlighting if scrolling is done
+                    setSearchHighlight(index);
+            }
+        };
+        return scrollListener;
+    }
+    /**
+     * This function is responsible for highlighting the view
+     * @param pos
+     *
+     *
+     * */
+    ViewTreeObserver.OnGlobalLayoutListener populationDoneListener;
+    public void setSearchHighlight(final int pos)
+    {
+        mRecyclerView.getAdapter().notifyDataSetChanged();
+        populationDoneListener=new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                //At this point the layout is complete and the
+                //dimensions of recyclerView and any child views are known.
+                View searchedView = mRecyclerItemsViewList.get(pos);
+                if(searchedView==null) {
+                    //Try re-scrolling if the view is not present in the current recycler view child
+                    mRecyclerView.getLayoutManager().smoothScrollToPosition(mRecyclerView,null,pos );
+                    mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(populationDoneListener);
+                    return;
+                }
+                //When view is found remove the scrollListener and highlight the background
+                GradientDrawable gd = (GradientDrawable) searchedView.findViewById(R.id.borderView).getBackground();
+                gd.setColor(ContextCompat.getColor(getApplicationContext(), R.color.search_highlight));
+                mRecyclerView.removeOnScrollListener(scrollListener);
+                mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(populationDoneListener);
+            }
+        };
+        mRecyclerView.getViewTreeObserver().addOnGlobalLayoutListener(populationDoneListener);
+
+
+
+
+    }
+
+    private void showChangeLanguageDialog() {
+        Log.d("isLanguageSame", "hello from showChangeLangDialog()");
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        final SessionManager sessionManager = new SessionManager(MainActivity.this);
+        boolean s = sessionManager.isChangeLanguageNeverAsk();
+        builder.setMessage("Language selected in Jellow is different from that of your device output language. " +
+                "Would you like to change your device language ?")
+                .setTitle("CHANGE LANGUAGE ")
+                .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intent = new Intent();
+                        intent.setAction("com.android.settings.TTS_SETTINGS");
+                        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        dialogInterface.dismiss();
+                    }
+                })
+                .setNeutralButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+            builder.setNegativeButton("Never Show Again", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int i) {
+                    sessionManager.setChangeLanguageNeverAsk(true);
+                }
+            });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     @Override
@@ -129,8 +282,28 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
+        isAccessibilityEnabled = am.isEnabled();
+        isExploreByTouchEnabled = am.isTouchExplorationEnabled();
+
+        //String jlang = sessionManager.getLanguage();
+        //Log.d("getLang", jlang);
+
+        tts = new TextToSpeech(MainActivity.this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+                if (i == TextToSpeech.SUCCESS) {
+                    checkLanguages(isAccessibilityEnabled, isExploreByTouchEnabled);
+                } else {
+                    Toast.makeText(MainActivity.this, "unsuccessful", Toast.LENGTH_LONG)
+                            .show();
+                }
+            }
+        });
+
+        SessionManager session = new SessionManager(this);
         if(!isAnalyticsActive()){
-            throw new Error("unableToResume");
+            resetAnalytics(this, session.getCaregiverNumber().substring(1));
         }
         if(Build.VERSION.SDK_INT > 25 &&
                 !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
@@ -141,8 +314,68 @@ public class MainActivity extends AppCompatActivity {
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES");
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_TTS_ERROR");
         registerReceiver(receiver, filter);
-        // Start measuring user app screen timer.
+       // Start measuring user app screen timer.
         startMeasuring();
+        if(!session.getToastMessage().isEmpty()) {
+            Toast.makeText(this, session.getToastMessage(), Toast.LENGTH_SHORT).show();
+            session.setToastMessage("");
+        }
+    }
+
+
+    private void checkLanguages(boolean isAccessibilityEnabled, boolean isExploreByTouchEnabled) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            deviceLangLocale = tts.getDefaultVoice().getLocale();
+            Log.d("isLanguageSame D_Locale", String.valueOf(deviceLangLocale));
+            //Log.d("DEVICE LANG ", String.valueOf(deviceLangLocale));
+        } else {
+            deviceLangLocale = (tts.getLanguage());
+            Log.d("isLanguageSame D_Locale", String.valueOf(deviceLangLocale));
+        }
+        Locale en_in = new Locale("en", "in");
+        Locale en_us = new Locale("en", "us");
+        Locale en_uk = new Locale("en", "gb");
+        Locale hi_in = new Locale("hi", "in");
+        if (deviceLangLocale.equals(en_us)) {
+            //Toast.makeText(getApplicationContext(), "Lang Eng US", Toast.LENGTH_LONG).show();
+            deviceLangCode = "en".concat("-r" + "US");
+            Log.d("isLanguageSame D_LCode", deviceLangCode);
+        } else if (deviceLangLocale.equals(en_in)) {
+            //Toast.makeText(getApplicationContext(), "Lang Eng IN", Toast.LENGTH_LONG).show();
+            deviceLangCode = "en".concat("-r" + "IN");
+            Log.d("isLanguageSame D_LCode", deviceLangCode);
+
+        } else if (deviceLangLocale.equals(en_uk)) {
+            //Toast.makeText(getApplicationContext(), "Lang Eng UK", Toast.LENGTH_LONG).show();
+            //deviceLangCode = Locale.UK.getLanguage().concat("-r" + Locale.UK.getCountry());
+            deviceLangCode = "en".concat("-r" + "GB");
+            Log.d(" isLanguageSame D_LCode", deviceLangCode);
+        } else if (deviceLangLocale.equals(hi_in)) {
+            //Toast.makeText(getApplicationContext(), "Lang hindi IN", Toast.LENGTH_LONG).show();
+            deviceLangCode = "hi".concat("-r" + "IN");
+            Log.d("isLanguageSame D_LCode", deviceLangCode);
+        }
+
+        //String s = Locale.UK.getLanguage().concat("-r"+Locale.UK.getCountry());
+        // sessionManager.getLanguage().equals(s)
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        jellow_lang = sessionManager.getLanguage();
+        boolean never_ask = sessionManager.isChangeLanguageNeverAsk();
+        Log.d("isLanguageSame J_LCode", jellow_lang);
+        Log.d("never ask", String.valueOf(never_ask));
+        if (jellow_lang.equals(deviceLangCode)) {
+            isLanguageSame = true;
+            Log.d("isLanguageSame", String.valueOf(isLanguageSame));
+        } else {
+            isLanguageSame = false;
+            Log.d("isLanguageSame", String.valueOf(isLanguageSame));
+            if (isAccessibilityEnabled && isExploreByTouchEnabled) {
+                if (!never_ask) {
+                    showChangeLanguageDialog();
+                }
+            }
+        }
+
     }
 
     @Override
@@ -171,13 +404,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_main_with_search, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.search:
+                startActivity(new Intent(this, SearchActivity.class));
+                break;
             case R.id.languageSelect:
                 startActivity(new Intent(this, LanguageSelectActivity.class));
                 break;
@@ -200,19 +436,19 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, ResetPreferencesActivity.class));
                 break;
             case R.id.feedback:
-                startActivity(new Intent(this, FeedbackActivity.class));
+                AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
+                boolean isAccessibilityEnabled = am.isEnabled();
+                boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
+                if (isAccessibilityEnabled && isExploreByTouchEnabled) {
+                    startActivity(new Intent(this, FeedbackActivityTalkback.class));
+                } else {
+                    startActivity(new Intent(this, FeedbackActivity.class));
+                }
                 break;
             default:
                 return super.onOptionsItemSelected(item);
         }
         return true;
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQ_HOME && resultCode == RESULT_CANCELED)
-            gotoHome(false);
     }
 
     /**
@@ -242,6 +478,16 @@ public class MainActivity extends AppCompatActivity {
         //Initially custom input text speak button is invisible
         mIvTTs.setVisibility(View.INVISIBLE);
 
+        ViewCompat.setAccessibilityDelegate(mIvLike, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvYes, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvMore, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvDontLike, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvNo, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvLess, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvKeyboard, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvHome, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvBack, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvTTs, new TalkbackHints_SingleClick());
         // Set it to null - this will make the field non-editable
         originalKeyListener = mEtTTs.getKeyListener();
         mEtTTs.setKeyListener(null);
@@ -276,7 +522,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * <p>This function initializes {@link RecyclerTouchListener} and
      * {@link RecyclerView.OnChildAttachStateChangeListener} for recycler view.
-     * {@link RecyclerTouchListener} is a custom defined Touch event listener class.
+     * {@link RecyclerTouchListener} is a custom defined Touch event scrollListener class.
      * {@link RecyclerView.OnChildAttachStateChangeListener} is defined to manage view state of
      * recycler child view. It is useful to retain current state of child, when recycler view is scrolled
      * and recycler child views are recycled for memory usage optimization.</p>
@@ -335,7 +581,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to Navigation "back" button.
+     * <p>This function will initialize the click scrollListener to Navigation "back" button.
      * {@link MainActivity} navigation back button enabled when user using custom keyboard input
      * and keyboard is opened.</p>
      * */
@@ -356,7 +602,7 @@ public class MainActivity extends AppCompatActivity {
                     mIvKeyboard.setImageResource(R.drawable.keyboard);
                     mIvBack.setImageResource(R.drawable.back);
                     mIvHome.setImageResource(R.drawable.home);
-                    mIvTTs.setImageResource(R.drawable.speaker_button);
+                    mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
                     speakSpeech(mNavigationBtnTxt[1]);
                     mEtTTs.setVisibility(View.INVISIBLE);
                     mRecyclerView.setVisibility(View.VISIBLE);
@@ -369,13 +615,20 @@ public class MainActivity extends AppCompatActivity {
                     showActionBarTitle(true);
                     //Firebase event
                     singleEvent("Navigation","Back");
+
+                    mIvLike.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
+                    mIvDontLike.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
+                    mIvMore.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
+                    mIvYes.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
+                    mIvNo.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
+                    mIvLess.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
                 }
             }
         });
     }
 
     /**
-     * <p>This function will initialize the click listener to Navigation "home" button.
+     * <p>This function will initialize the click scrollListener to Navigation "home" button.
      * {@link MainActivity} navigation home button when clicked it clears, every state of view as
      * like app is launched as fresh.</p>
      * */
@@ -383,15 +636,13 @@ public class MainActivity extends AppCompatActivity {
         mIvHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gotoHome(true);
-                //Firebase event
-                singleEvent("Navigation","Home");
+                gotoHome(false);
             }
         });
     }
 
     /**
-     * <p>This function will initialize the click listener to Navigation "keyboard" button.
+     * <p>This function will initialize the click scrollListener to Navigation "keyboard" button.
      * {@link MainActivity} navigation keyboard button either enable or disable the keyboard layout.
      * This button enable the back button when keyboard is open.</p>
      * */
@@ -403,7 +654,7 @@ public class MainActivity extends AppCompatActivity {
                 speakSpeech(mNavigationBtnTxt[2]);
                 //Firebase event
                 singleEvent("Navigation","Keyboard");
-                mIvTTs.setImageResource(R.drawable.speaker_button);
+                mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
                 //when mFlgKeyboardOpened is set to true, it means user is using custom keyboard input
                 // text and system keyboard is visible.
                 if (mFlgKeyboardOpened){
@@ -457,13 +708,20 @@ public class MainActivity extends AppCompatActivity {
                     mFlgKeyboardOpened = true;
                     showActionBarTitle(false);
                     getSupportActionBar().setTitle(strKeyboard);
+
+                    mIvLike.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+                    mIvDontLike.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+                    mIvMore.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+                    mIvYes.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+                    mIvNo.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+                    mIvLess.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
                 }
             }
         });
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "like" button.
+     * <p>This function will initialize the click scrollListener for expressive "like" button.
      * Expressive like button is works in four ways:
      *  a) press expressive like button once
      *  b) press expressive like button twice
@@ -536,7 +794,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "don't like" button.
+     * <p>This function will initialize the click scrollListener for expressive "don't like" button.
      * Expressive don't like button is works in four ways:
      *  a) press expressive don't like button once
      *  b) press expressive don't like button twice
@@ -608,7 +866,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "yes" button.
+     * <p>This function will initialize the click scrollListener for expressive "yes" button.
      * Expressive yes button is works in four ways:
      *  a) press expressive yes button once
      *  b) press expressive yes button twice
@@ -680,7 +938,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "no" button.
+     * <p>This function will initialize the click scrollListener for expressive "no" button.
      * Expressive no button is works in four ways:
      *  a) press expressive no button once
      *  b) press expressive no button twice
@@ -752,7 +1010,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "more" button.
+     * <p>This function will initialize the click scrollListener for expressive "more" button.
      * Expressive more button is works in four ways:
      *  a) press expressive more button once
      *  b) press expressive more button twice
@@ -824,7 +1082,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "less" button.
+     * <p>This function will initialize the click scrollListener for expressive "less" button.
      * Expressive less button is works in four ways:
      *  a) press expressive less button once
      *  b) press expressive less button twice
@@ -896,7 +1154,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to Tts Speak button.
+     * <p>This function will initialize the click scrollListener to Tts Speak button.
      * When Tts speak button is pressed, broadcast speak request is sent to Text-to-speech service.
      * Message typed in Text-to-speech input view is speech out by service.</p>
      * */
@@ -904,8 +1162,6 @@ public class MainActivity extends AppCompatActivity {
         mIvTTs.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 speakSpeech(mEtTTs.getText().toString());
-                if(!mEtTTs.getText().toString().equals(""))
-                    mIvTTs.setImageResource(R.drawable.speaker_pressed);
                 //Firebase event
                 Bundle bundle = new Bundle();
                 bundle.putString("InputName", Settings.Secure.getString(getContentResolver(),
@@ -926,7 +1182,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to EditText which is used by user to
+     * <p>This function will initialize the click scrollListener to EditText which is used by user to
      * input custom strings.</p>
      * */
     private void initTTsEditTxtListener() {
@@ -970,29 +1226,35 @@ public class MainActivity extends AppCompatActivity {
         setMenuImageBorder(v, true);
         // set true to speak verbiage associated with category icon
         mShouldReadFullSpeech = true;
-        String title = mActionBartitle[position];
+        String title = mActionBarTitle[position];
         getSupportActionBar().setTitle(title);
         // below condition is true when user tap same category icon twice.
         // i.e. user intends to open a sub-category of selected category icon.
         if (mLevelOneItemPos == position){
-            SessionManager session = new SessionManager(this);
-            // Get icon set directory path
-            File langDir = new File(getApplicationInfo().dataDir + "/app_"+
-                    session.getLanguage()+"/drawables");
-            // If icon sets are available for level two then open selected category in level two
-            if(langDir.exists() && langDir.isDirectory()) {
-                // create event bundle for firebase
-                Bundle bundle = new Bundle();
-                bundle.putString("Icon", "Opened " + mSpeechTxt[position]);
-                bundleEvent("Grid", bundle);
-                // send current position in recycler view of selected category icon and bread
-                // crumb path as extra intent data to LevelTwoActivity.
-                Intent intent = new Intent(MainActivity.this, LevelTwoActivity.class);
-                intent.putExtra("mLevelOneItemPos", position);
-                intent.putExtra("selectedMenuItemPath", title + "/");
-                startActivityForResult(intent, REQ_HOME);
+            if (isAccessibilityEnabled && isExploreByTouchEnabled) //talkback on
+            {
+                showAlertDialog(position, title);
+            } else  //talkback off
+            {
+                SessionManager session = new SessionManager(this);
+                // Get icon set directory path
+                File langDir = new File(getApplicationInfo().dataDir + "/app_"+
+                        session.getLanguage()+"/drawables");
+                // If icon sets are available for level two then open selected category in level two
+                if(langDir.exists() && langDir.isDirectory()) {
+                    // create event bundle for firebase
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Icon", "Opened " + mSpeechTxt[position]);
+                    bundleEvent("Grid", bundle);
+                    // send current position in recycler view of selected category icon and bread
+                    // crumb path as extra intent data to LevelTwoActivity.
+                    Intent intent = new Intent(MainActivity.this, LevelTwoActivity.class);
+                    intent.putExtra(getString(R.string.level_one_intent_pos_tag), position);
+                    intent.putExtra(getString(R.string.intent_menu_path_tag), title + "/");
+                    startActivityForResult(intent, REQ_HOME);
+                }
+                langDir = null;
             }
-            langDir = null;
         }else {
             speakSpeech(mSpeechTxt[position]);
             // create event bundle for firebase
@@ -1004,14 +1266,109 @@ public class MainActivity extends AppCompatActivity {
         mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
     }
 
+    private void showAlertDialog(final int position, final String title) {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
+        View mView = getLayoutInflater().inflate(R.layout.dialog_layout, null);
+
+        Button enterCategory = mView.findViewById(R.id.enterCategory);
+        ImageView ivLike = mView.findViewById(R.id.ivlike);
+        ImageView ivYes = mView.findViewById(R.id.ivyes);
+        ImageView ivAdd = mView.findViewById(R.id.ivadd);
+        ImageView ivDisLike = mView.findViewById(R.id.ivdislike);
+        ImageView ivNo = mView.findViewById(R.id.ivno);
+        ImageView ivMinus = mView.findViewById(R.id.ivminus);
+        ImageView ivBack = mView.findViewById(R.id.back);
+        ImageView ivHome = mView.findViewById(R.id.home);
+        ImageView ivKeyboard = mView.findViewById(R.id.keyboard);
+        ViewCompat.setAccessibilityDelegate(enterCategory, new TalkbackHints_SingleClick());
+        ImageView[] btns = {ivLike, ivYes, ivAdd, ivDisLike, ivNo, ivMinus, ivBack, ivHome, ivKeyboard};
+        for (ImageView btn : btns) {
+            ViewCompat.setAccessibilityDelegate(btn, new TalkbackHints_SingleClick());
+        }
+        mBuilder.setView(mView);
+        final AlertDialog dialog = mBuilder.create();
+
+        enterCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LevelTwoActivity.class);
+                intent.putExtra("mLevelOneItemPos", position);
+                intent.putExtra("selectedMenuItemPath", title + "/");
+                startActivityForResult(intent, REQ_HOME);
+                dialog.dismiss();
+            }
+        });
+        ivLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mIvLike.performClick();
+            }
+        });
+        ivYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mIvYes.performClick();
+            }
+        });
+        ivAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mIvMore.performClick();
+            }
+        });
+        ivDisLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mIvDontLike.performClick();
+            }
+        });
+        ivNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mIvNo.performClick();
+            }
+        });
+        ivMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mIvLess.performClick();
+            }
+        });
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mIvBack.performClick();
+                dialog.dismiss();
+            }
+        });
+        ivHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mIvHome.performClick();
+                dialog.dismiss();
+            }
+        });
+        ivKeyboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mIvKeyboard.performClick();
+                dialog.dismiss();
+            }
+        });
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation_2; //style id
+        dialog.show();
+        dialog.getWindow().setLayout(1800,1000);
+
+    }
+
     /**
      * <p>When home button is pressed it is needed to make app state as it is started fresh.
      * This function will reset every category icons, expressive button tapped.
-     * @param isHomePressed is set when user presses home from {@link MainActivity}
-     * and resets when user presses home from {@link LevelTwoActivity},
-     * {@link LevelThreeActivity}, {@link SequenceActivity}.</p>
+     * @param isUserRedirected is set when user presses home from {@link LevelTwoActivity},
+     * {@link LevelThreeActivity}, {@link SequenceActivity} and resets when user presses home
+     * {@link MainActivity}.</p>
      * */
-    private void gotoHome(boolean isHomePressed) {
+    private void gotoHome(boolean isUserRedirected) {
         getSupportActionBar().setTitle(mHome);
         // reset all expressive button flags.
         mFlgLike = mFlgYes = mFlgMore = mFlgDntLike = mFlgNo = mFlgLess = 0;
@@ -1050,11 +1407,11 @@ public class MainActivity extends AppCompatActivity {
             mIvBack.setAlpha(.5f);
             mIvBack.setEnabled(false);
         }
-        if(isHomePressed) {
+        mIvHome.setImageResource(R.drawable.home_pressed);
+        //Firebase event
+        singleEvent("Navigation","Home");
+        if(!isUserRedirected)
             speakSpeech(mNavigationBtnTxt[0]);
-            mIvHome.setImageResource(R.drawable.home_pressed);
-        }else
-            mIvHome.setImageResource(R.drawable.home);
     }
 
     /**
@@ -1095,7 +1452,7 @@ public class MainActivity extends AppCompatActivity {
         mSpeechTxt = getResources().getStringArray(R.array.arrLevelOneActionBarTitle);
         mExprBtnTxt = getResources().getStringArray(R.array.arrActionSpeech);
         mNavigationBtnTxt = getResources().getStringArray(R.array.arrNavigationSpeech);
-        mActionBartitle = getResources().getStringArray(R.array.arrLevelOneActionBarTitle);
+        mActionBarTitle = getResources().getStringArray(R.array.arrLevelOneActionBarTitle);
     }
 
     /**
@@ -1276,13 +1633,14 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-
     /**
-     * <p>This function check whether user device has sim card insterted into SIM slot
-     * and user can make call.
+     * <p>This function check whether user device is not wifi only and
+     * has sim card inserted into SIM slot and user can make a call.
      * @return true if device can able to make phone calls.</p>
      * */
     public static boolean isDeviceReadyToCall(TelephonyManager tm){
-        return tm != null && tm.getSimState() == TelephonyManager.SIM_STATE_READY;
+        return tm != null
+            && tm.getPhoneType() != TelephonyManager.PHONE_TYPE_NONE
+                && tm.getSimState() == TelephonyManager.SIM_STATE_READY;
     }
 }

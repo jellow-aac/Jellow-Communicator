@@ -5,26 +5,32 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.KeyListener;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.accessibility.AccessibilityManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.crashlytics.android.Crashlytics;
+import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_DoubleClick;
+import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
 import com.dsource.idc.jellowintl.models.SeqActivityVerbiageModel;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
@@ -38,6 +44,7 @@ import java.util.ArrayList;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
+import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
@@ -91,6 +98,10 @@ public class SequenceActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Initialize default exception handler for this activity.
+        // If any exception occurs during this activity usage,
+        // handle it using default exception handler.
+        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         setContentView(R.layout.activity_sequence);
 
         getSupportActionBar().setDisplayShowTitleEnabled(true);
@@ -98,15 +109,11 @@ public class SequenceActivity extends AppCompatActivity {
                 .getDrawable(R.drawable.yellow_bg));
         // set bread crumb title from extra data from level two
         getSupportActionBar().setTitle(getIntent().getExtras()
-                .getString("selectedMenuItemPath"));
+                .getString(getString(R.string.intent_menu_path_tag)));
 
         mSession = new SessionManager(this);
         /*get position of category icon selected in level two*/
-        mLevelTwoItemPos = getIntent().getExtras().getInt("mLevelTwoItemPos");
-        // Initialize default exception handler for this activity.
-        // If any exception occurs during this activity usage,
-        // handle it using default exception handler.
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
+        mLevelTwoItemPos = getIntent().getExtras().getInt(getString(R.string.level_2_item_pos_tag));
 
         /* Sequence activity Morning Routine (original index is 7 in level 2) has new index 3, and
         * Bed time Routine (original index is 8 in level 2) has new index 4 */
@@ -137,7 +144,7 @@ public class SequenceActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if(!isAnalyticsActive()){
-            throw new Error("unableToResume");
+            resetAnalytics(this, mSession.getCaregiverNumber().substring(1));
         }
         if(Build.VERSION.SDK_INT > 25 &&
                 !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
@@ -145,6 +152,10 @@ public class SequenceActivity extends AppCompatActivity {
         }
         // Start measuring user app screen timer .
         startMeasuring();
+        if(!mSession.getToastMessage().isEmpty()) {
+            Toast.makeText(this, mSession.getToastMessage(), Toast.LENGTH_SHORT).show();
+            mSession.setToastMessage("");
+        }
     }
 
     @Override
@@ -178,13 +189,14 @@ public class SequenceActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_main_with_search, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
+            case R.id.search: startActivity(new Intent(this, SearchActivity.class));break;
             case R.id.languageSelect:
                 startActivity(new Intent(this, LanguageSelectActivity.class));
                 break;
@@ -200,7 +212,15 @@ public class SequenceActivity extends AppCompatActivity {
                 startActivity(new Intent(this, KeyboardInputActivity.class));
                 break;
             case R.id.feedback:
-                startActivity(new Intent(this, FeedbackActivity.class));
+                AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
+                boolean isAccessibilityEnabled = am.isEnabled();
+                boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
+                if(isAccessibilityEnabled && isExploreByTouchEnabled) {
+                    startActivity(new Intent(this, FeedbackActivityTalkback.class));
+                }
+                else {
+                    startActivity(new Intent(this, FeedbackActivity.class));
+                }
                 break;
             case R.id.settings:
                 startActivity(new Intent(this, SettingActivity.class));
@@ -256,6 +276,26 @@ public class SequenceActivity extends AppCompatActivity {
         mIvCategoryIcon3 = findViewById(R.id.image3);
         mIvArrowLeft = findViewById(R.id.arrow1);
         mIvArrowRight = findViewById(R.id.arrow2);
+
+        mIvCategoryIcon1.setContentDescription(mCategoryIconBelowText[count]);
+        mIvCategoryIcon2.setContentDescription(mCategoryIconBelowText[count + 1]);
+        mIvCategoryIcon3.setContentDescription(mCategoryIconBelowText[count + 2]);
+
+        ViewCompat.setAccessibilityDelegate(mIvLike, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvYes, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvMore, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvDontLike, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvNo, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvLess, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvKeyboard, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvHome, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvBack, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvTTs, new TalkbackHints_SingleClick());
+
+        ViewCompat.setAccessibilityDelegate(mIvCategoryIcon1, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvCategoryIcon2, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvCategoryIcon3, new TalkbackHints_DoubleClick());
+
     }
 
     /**
@@ -282,7 +322,7 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to Navigation "next" button for
+     * <p>This function will initialize the click scrollListener to Navigation "next" button for
      * category icons.
      * When this button is pressed, the next sequence of images are loaded into all three category icons.
      * If the number of available images in the next sequence of images is less than 3 then available
@@ -316,13 +356,16 @@ public class SequenceActivity extends AppCompatActivity {
                 }
                 //if the next set of category items to be loaded are less than 3
                 if (mCategoryIconText.length < count + 3) {
-                    // If activity sequence is "Brushing", then in its last sequences
+                    // If activity sequence is "Brushing" or "Bathing", then in its last sequences
                     // only 2 items needed to load
-                    if (mLevelTwoItemPos == 0) {
+                    if (mLevelTwoItemPos == 0 || mLevelTwoItemPos == 2) {
                         setImageUsingGlide(mStrPath +"/"+ mCategoryIconText[count]+".png",
                                 mIvCategoryIcon1);
                         setImageUsingGlide(mStrPath +"/"+ mCategoryIconText[count+1]+".png",
                                 mIvCategoryIcon2);
+
+                        mIvCategoryIcon1.setContentDescription(mCategoryIconBelowText[count]);
+                        mIvCategoryIcon2.setContentDescription(mCategoryIconBelowText[count + 1]);
 
                         // only first two category icons are populated so third icon and its
                         // caption set to invisible and therefore second arrow also set to invisible.
@@ -337,6 +380,8 @@ public class SequenceActivity extends AppCompatActivity {
                     } else if (mLevelTwoItemPos == 1 || mLevelTwoItemPos == 4 || mLevelTwoItemPos == 3) {
                         setImageUsingGlide(mStrPath +"/"+ mCategoryIconText[count]+".png",
                                 mIvCategoryIcon1);
+
+                        mIvCategoryIcon1.setContentDescription(mCategoryIconBelowText[count]);
 
                         // only one category icon is populated so second & third icons and their
                         // captions are set to invisible and hence all arrows are set to invisible.
@@ -364,6 +409,11 @@ public class SequenceActivity extends AppCompatActivity {
 
                     setImageUsingGlide(mStrPath +"/"+ mCategoryIconText[count+2]+".png",
                             mIvCategoryIcon3);
+
+                    mIvCategoryIcon1.setContentDescription(mCategoryIconBelowText[count]);
+                    mIvCategoryIcon2.setContentDescription(mCategoryIconBelowText[count + 1]);
+                    mIvCategoryIcon3.setContentDescription(mCategoryIconBelowText[count + 2]);
+                    Log.d("CONTENT", "SET");
                 }
                 // once sequence is loaded, initially all category icons have no border/ no category
                 // icon in sequence have initial border
@@ -373,7 +423,7 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to Navigation "previous" (back) button for
+     * <p>This function will initialize the click scrollListener to Navigation "previous" (back) button for
      * category icons.
      * When this button is pressed, previous sequence of images are loaded into all three category icons.
      * If previous sequence of images is unavailable then previous button is unavailable
@@ -425,6 +475,11 @@ public class SequenceActivity extends AppCompatActivity {
 
                 setImageUsingGlide(mStrPath +"/"+ mCategoryIconText[count+2]+".png",
                         mIvCategoryIcon3);
+
+                mIvCategoryIcon1.setContentDescription(mCategoryIconBelowText[count]);
+                mIvCategoryIcon2.setContentDescription(mCategoryIconBelowText[count + 1]);
+                mIvCategoryIcon3.setContentDescription(mCategoryIconBelowText[count + 2]);
+
                 // previous items to be loaded are less = 0 then disable back button
                 if (count == 0) {
                     mBtnBack.setEnabled(false);
@@ -438,7 +493,7 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to category Icon 1 button.
+     * <p>This function will initialize the click scrollListener to category Icon 1 button.
      * a. If category 1 icon button is pressed once, expressive buttons appear.
      * b. If category 1 icon pressed twice, expressive buttons disappear and category
      *    icon 1 border disappears.
@@ -492,7 +547,7 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to category Icon 2 button.
+     * <p>This function will initialize the click scrollListener to category Icon 2 button.
      * a. If category 2 icon button is pressed once, expressive buttons appear.
      * b. If category 2 icon pressed twice, expressive buttons disappear and category
      *    icon 2 border disappears.
@@ -546,7 +601,7 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to category Icon 3 button.
+     * <p>This function will initialize the click scrollListener to category Icon 3 button.
      * a. If category 3 icon button is pressed once, expressive buttons appear.
      * b. If category 3 icon pressed twice, expressive buttons disappear and category
      *    icon 3 border disappears.
@@ -600,7 +655,7 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to Navigation back button.
+     * <p>This function will initialize the click scrollListener to Navigation back button.
      * When user pressed navigation back button and :
      *  a) Custom keyboard input text is open, user intends to close custom keyboard input
      *  text. Hence custom keyboard input text is set to close.
@@ -614,7 +669,7 @@ public class SequenceActivity extends AppCompatActivity {
                 speakSpeech(mNavigationBtnTxt[1]);
                 //Firebase event
                 singleEvent("Navigation","Back");
-                mIvTTs.setImageResource(R.drawable.speaker_button);
+                mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
                 if (mFlgKeyboard == 1) {
                     // When keyboard is open, close it and retain expressive button,
                     // category icon states as they are before keyboard opened.
@@ -641,7 +696,7 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to Navigation home button.
+     * <p>This function will initialize the click scrollListener to Navigation home button.
      * When user press this button user navigated to {@link MainActivity} with
      *  every state of views is like app launched as fresh. Action bar title is set
      *  to 'home'</p>
@@ -650,21 +705,33 @@ public class SequenceActivity extends AppCompatActivity {
         mIvHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Firebase event
-                singleEvent("Navigation","Home");
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        speakSpeech(mNavigationBtnTxt[0]);
+                    }
+                }).start();
+                //When home is tapped in this activity it will close all other activities and
+                // user is redirected/navigated to MainActivity and gotoHome() method is called.
+                // As Firebase home event is defined in gotoHome() function of mainActivity.
                 mIvHome.setImageResource(R.drawable.home_pressed);
                 mIvKeyboard.setImageResource(R.drawable.keyboard);
-                speakSpeech(mNavigationBtnTxt[0]);
-                //setting up result code to RESULT_CANCELED, is used in returning activity.
-                // This imply that user pressed the home button in level three activity.
-                setResult(RESULT_CANCELED);
-                finish();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra(getString(R.string.goto_home), true);
+                startActivity(intent);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        setResult(RESULT_CANCELED);
+                        finishAffinity();
+                    }
+                },100);
             }
         });
     }
 
     /**
-     * <p>This function will initialize the click listener to Navigation keyboard button.
+     * <p>This function will initialize the click scrollListener to Navigation keyboard button.
      * {@link SequenceActivity} navigation keyboard button either enable or disable
      * the keyboard layout.
      * When keyboard layout is enabled using keyboard button, it is visible to user and
@@ -683,7 +750,7 @@ public class SequenceActivity extends AppCompatActivity {
                 speakSpeech(mNavigationBtnTxt[2]);
                 //Firebase event
                 singleEvent("Navigation","Keyboard");
-                mIvTTs.setImageResource(R.drawable.speaker_button);
+                mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
                 //when mFlgKeyboard is set to 1, it means user is using custom keyboard input
                 // text and system keyboard is visible.
                 if (mFlgKeyboard == 1) {
@@ -736,7 +803,7 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "like" button.
+     * <p>This function will initialize the click scrollListener for expressive "like" button.
      * Expressive like button is works in four ways:
      *  a) press expressive like button once
      *  b) press expressive like button twice
@@ -797,7 +864,7 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "don't like" button.
+     * <p>This function will initialize the click scrollListener for expressive "don't like" button.
      * Expressive don't like button is works in four ways:
      *  a) press expressive don't like button once
      *  b) press expressive don't like button twice
@@ -859,7 +926,7 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "yes" button.
+     * <p>This function will initialize the click scrollListener for expressive "yes" button.
      * Expressive yes button is works in four ways:
      *  a) press expressive yes button once
      *  b) press expressive yes button twice
@@ -920,7 +987,7 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "no" button.
+     * <p>This function will initialize the click scrollListener for expressive "no" button.
      * Expressive no button is works in four ways:
      *  a) press expressive no button once
      *  b) press expressive no button twice
@@ -981,7 +1048,7 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "more" button.
+     * <p>This function will initialize the click scrollListener for expressive "more" button.
      * Expressive more button is works in four ways:
      *  a) press expressive more button once
      *  b) press expressive more button twice
@@ -1042,7 +1109,7 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "less" button.
+     * <p>This function will initialize the click scrollListener for expressive "less" button.
      * Expressive less button is works in four ways:
      *  a) press expressive less button once
      *  b) press expressive less button twice
@@ -1103,7 +1170,7 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to Tts Speak button.
+     * <p>This function will initialize the click scrollListener to Tts Speak button.
      * When Tts speak button is pressed, broadcast speak request is sent to Text-to-speech service.
      * Message typed in Text-to-speech input view, is synthesized by the service.</p>
      * */
@@ -1111,8 +1178,6 @@ public class SequenceActivity extends AppCompatActivity {
         mIvTTs.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 speakSpeech(mEtTTs.getText().toString());
-                if(!mEtTTs.getText().toString().equals(""))
-                    mIvTTs.setImageResource(R.drawable.speaker_pressed);
                 //Firebase event
                 Bundle bundle = new Bundle();
                 bundle.putString("InputName", Settings.Secure.getString(getContentResolver(),
@@ -1125,7 +1190,7 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to EditText which is used by user to
+     * <p>This function will initialize the click scrollListener to EditText which is used by user to
      * input custom strings.</p>
      * */
     private void initTTsEditTxtListener() {
@@ -1241,27 +1306,19 @@ public class SequenceActivity extends AppCompatActivity {
      *     c) Hides category icon captions if picture only mode is enabled.</p>
      * */
     private void setValueToViews() {
-        Typeface fontMuktaRegular = Typeface.createFromAsset(getApplicationContext()
-                .getAssets(), "fonts/Mukta-Regular.ttf");
-        Typeface fontMuktaBold = Typeface.createFromAsset(getApplicationContext()
-                .getAssets(), "fonts/Mukta-Bold.ttf");
         mBtnNext.setText(mCategoryNav[1]);
         mBtnBack.setText(mCategoryNav[0]);
         mBtnBack.setEnabled(false);
         mBtnBack.setAlpha(.5f);
 
-        mTvHeading.setTypeface(fontMuktaBold);
         mTvHeading.setAllCaps(true);
         mTvHeading.setTextColor(Color.rgb(64, 64, 64));
         mTvHeading.setText(mHeading[mLevelTwoItemPos].toLowerCase());
 
-        mTvCategory1Caption.setTypeface(fontMuktaRegular);
         mTvCategory1Caption.setTextColor(Color.rgb(64, 64, 64));
 
-        mTvCategory2Caption.setTypeface(fontMuktaRegular);
         mTvCategory2Caption.setTextColor(Color.rgb(64, 64, 64));
 
-        mTvCategory3Caption.setTypeface(fontMuktaRegular);
         mTvCategory3Caption.setTextColor(Color.rgb(64, 64, 64));
 
         mTvCategory1Caption.setText(mCategoryIconBelowText[0]);

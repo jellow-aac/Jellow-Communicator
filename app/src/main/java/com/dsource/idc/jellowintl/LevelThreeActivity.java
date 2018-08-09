@@ -7,23 +7,31 @@ import android.database.SQLException;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.KeyListener;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.view.accessibility.AccessibilityManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_DoubleClick;
+import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
 import com.dsource.idc.jellowintl.models.LevelThreeVerbiageModel;
+import com.dsource.idc.jellowintl.utility.CustomGridLayoutManager;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.IndexSorter;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
@@ -37,6 +45,7 @@ import java.util.StringTokenizer;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
+import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
@@ -94,9 +103,14 @@ public class LevelThreeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Initialize default exception handler for this activity.
+        // If any exception occurs during this activity usage,
+        // handle it using default exception handler.
+        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         setContentView(R.layout.activity_levelx_layout);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
-        getSupportActionBar().setTitle(getIntent().getExtras().getString("selectedMenuItemPath"));
+        getSupportActionBar().setTitle(getIntent().getExtras().getString(getString(R.string.intent_menu_path_tag)));
         // when layout is loaded on activity, using the tag attribute of a parent view in layout
         // the device size is identified. If device size is large (10' tablets) enable the
         // hardware acceleration. As seen in testing device, scrolling recycler items on 10' tab
@@ -108,12 +122,8 @@ public class LevelThreeActivity extends AppCompatActivity {
 
         // set app locale which is set in settings by user.
         myDbHelper = new DataBaseHelper(this);
-        mLevelOneItemPos = getIntent().getExtras().getInt("mLevelOneItemPos");
-        mLevelTwoItemPos = getIntent().getExtras().getInt("mLevelTwoItemPos");
-        // Initialize default exception handler for this activity.
-        // If any exception occurs during this activity usage,
-        // handle it using default exception handler.
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
+        mLevelOneItemPos = getIntent().getExtras().getInt(getString(R.string.level_one_intent_pos_tag));
+        mLevelTwoItemPos = getIntent().getExtras().getInt(getString(R.string.level_2_item_pos_tag));
         loadArraysFromResources();
 
         try {
@@ -129,6 +139,18 @@ public class LevelThreeActivity extends AppCompatActivity {
         initializeLayoutViews();
         initializeRecyclerViewAdapter();
         initializeViewListeners();
+        /**
+       * If the intent is fired from the {@link SearchActivity} then disable the back button
+       * because back button will close the app (as Search Activity clears the back stack)
+       * and the highlight function will highlight the required icon.
+       * @Author Ayaz Alam
+       * */
+      if(getIntent().getExtras().getString(getString(R.string.from_search))!=null) {
+            if (getIntent().getExtras().getString(getString(R.string.from_search))
+                    .equals(getString(R.string.search_tag))) {
+                highlightSearchedItem();
+            }
+        }
     }
 
     @Override
@@ -139,8 +161,9 @@ public class LevelThreeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        SessionManager session = new SessionManager(this);
         if(!isAnalyticsActive()){
-            throw new Error("unableToResume");
+            resetAnalytics(this, session.getCaregiverNumber().substring(1));
         }
         if(Build.VERSION.SDK_INT > 25 &&
                 !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
@@ -148,6 +171,81 @@ public class LevelThreeActivity extends AppCompatActivity {
         }
         // Start measuring user app screen timer .
         startMeasuring();
+        if(!session.getToastMessage().isEmpty()) {
+            Toast.makeText(this, session.getToastMessage(), Toast.LENGTH_SHORT).show();
+            session.setToastMessage("");
+        }
+    }
+
+    /**
+     * This function is responsible for the Highlighting of the searched item from the
+     * search activity
+     * @Author Ayaz Alam
+     * **/
+    RecyclerView.OnScrollListener scrollListener;
+    private void highlightSearchedItem() {
+
+        //Getting the sorted index of the icon from intent extra of the invoked activity
+        final int sortedIndex=getSortedIndex(getIntent().getExtras().getInt(getString(R.string.search_parent_2)));
+        //To get gridSize
+                int gridSize;
+                if(new SessionManager(this).getGridSize()==1)
+                    gridSize=8;
+                else gridSize=2;
+                //Scroll to the position if the icon is not present in first grid
+                if(sortedIndex>gridSize) {
+                    scrollListener =null;
+                    scrollListener = getListener(sortedIndex);
+                    mRecyclerView.addOnScrollListener(scrollListener);
+                    mRecyclerView.getLayoutManager().smoothScrollToPosition(mRecyclerView,null,sortedIndex);
+                }
+                else
+                    setSearchHighlight(sortedIndex);
+    }
+    /**
+     * This functions returns a scroll scrollListener which triggers the setHighlight function
+     * when the scrolling is done
+     * @Author Ayaz Alam
+     * */
+    private RecyclerView.OnScrollListener getListener(final int index) {
+        scrollListener =new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(newState==RecyclerView.SCROLL_STATE_DRAGGING)
+                ;//Wait untill scrolling
+                else if(newState==RecyclerView.SCROLL_STATE_IDLE)
+                    setSearchHighlight(index);//Try highlighting the view after scrolling
+                }};
+        return scrollListener;
+    }
+
+    /**
+     * This function is responsible for highlighting the view
+     * @param pos is the postion of view to be highlighted
+     * */
+    ViewTreeObserver.OnGlobalLayoutListener populationDoneListener;
+    public void setSearchHighlight(final int pos)
+    {
+        mRecyclerView.getAdapter().notifyDataSetChanged();
+        populationDoneListener=new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                View searchedView = mRecyclerItemsViewList.get(pos);
+                if(searchedView==null) {
+                    mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(populationDoneListener);
+                    mRecyclerView.getLayoutManager().smoothScrollToPosition(mRecyclerView,null,pos );
+                    return;
+                    }
+                GradientDrawable gd = (GradientDrawable) searchedView.findViewById(R.id.borderView).getBackground();
+                gd.setColor(ContextCompat.getColor(getApplicationContext(), R.color.search_highlight));
+                Log.d("Ayaz", "Step 4: Background is set and removing the scrollListener");
+                mRecyclerView.removeOnScrollListener(scrollListener);
+                mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(populationDoneListener);
+            }
+        };
+        //Adding the scrollListener to the mRecycler to listen onPopulated callBack
+        mRecyclerView.getViewTreeObserver().addOnGlobalLayoutListener(populationDoneListener);
     }
 
     @Override
@@ -177,13 +275,16 @@ public class LevelThreeActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_main_with_search, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
+            case R.id.search:
+                startActivity(new Intent(this, SearchActivity.class));
+                break;
             case R.id.languageSelect:
                 startActivity(new Intent(this, LanguageSelectActivity.class));
                 break;
@@ -200,7 +301,15 @@ public class LevelThreeActivity extends AppCompatActivity {
                 startActivity(new Intent(this, KeyboardInputActivity.class));
                 break;
             case R.id.feedback:
-                startActivity(new Intent(this, FeedbackActivity.class));
+                AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
+                boolean isAccessibilityEnabled = am.isEnabled();
+                boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
+                if(isAccessibilityEnabled && isExploreByTouchEnabled) {
+                    startActivity(new Intent(this, FeedbackActivityTalkback.class));
+                }
+                else {
+                    startActivity(new Intent(this, FeedbackActivity.class));
+                }
                 break;
             case R.id.settings:
                 startActivity(new Intent(this, SettingActivity.class));
@@ -241,13 +350,32 @@ public class LevelThreeActivity extends AppCompatActivity {
         mIvTTs = findViewById(R.id.ttsbutton);
         //Initially custom input text speak button is invisible
         mIvTTs.setVisibility(View.INVISIBLE);
+
+        ViewCompat.setAccessibilityDelegate(mIvLike, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvYes, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvMore, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvDontLike, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvNo, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvLess, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvLess, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvKeyboard, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvHome, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvBack, new TalkbackHints_SingleClick());
+
         originalKeyListener = mEtTTs.getKeyListener();
         // Set it to null - this will make to the field non-editable
         mEtTTs.setKeyListener(null);
 
         mRecyclerView = findViewById(R.id.recycler_view);
         // Initiate 3 columns in Recycler View.
-        mRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        //This code is to decide the speed of the Scrolling
+        // which grid size is 3 then scrolling is fast as compared to the 9 .
+        SessionManager sessionManager=new SessionManager(this);
+        int iconCount=sessionManager.getGridSize();
+        if(iconCount!=0)
+        mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this, 3,iconCount));
+        else //Default speed is 3 icons speed
+            mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this, 3,3));
         mRecyclerView.setVerticalScrollBarEnabled(true);
         mRecyclerView.setScrollbarFadingEnabled(false);
     }
@@ -289,6 +417,14 @@ public class LevelThreeActivity extends AppCompatActivity {
         // selected in level one and level two. Database will return preference string if exist
         // otherwise it will return value "false".
         String savedString = myDbHelper.getLevel(mLevelOneItemPos, mLevelTwoItemPos);
+
+        if(savedString.equals("false") &&
+                checkNewIfNewCategory(mLevelOneItemPos+"," + mLevelTwoItemPos)) {
+            savedString = "";
+            for (int i = 0; i < 100; ++i)
+                savedString = savedString.concat("0,");
+        }
+
         // savedString is equal to "false" then load level three category icons without any sort/preferences
         if (!savedString.equals("false")) {
             count_flag = 1;
@@ -330,7 +466,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                 (mLevelOneItemPos == 7 && (mLevelTwoItemPos == 0 || mLevelTwoItemPos == 1 ||
                         mLevelTwoItemPos == 2 || mLevelTwoItemPos == 3 || mLevelTwoItemPos == 4))
                 || (mLevelOneItemPos == 4 && mLevelTwoItemPos == 9)) {
-            retrieveSpeechArrays(mLevelOneItemPos, mLevelTwoItemPos);
+              retrieveSpeechArrays(mLevelOneItemPos, mLevelTwoItemPos);
 
             // create sort array to sequentially arrange icons without any preferences
             for (int i=0; i< mNewVerbTxt.size();i++)
@@ -341,6 +477,31 @@ public class LevelThreeActivity extends AppCompatActivity {
         } else {
             count_flag = 0;
             retrieveSpeechArrays(mLevelOneItemPos, mLevelTwoItemPos);
+        }
+    }
+
+    private boolean checkNewIfNewCategory(String newCatIndices) {
+        switch(newCatIndices){
+            case"1,9":
+            case"6,0":
+            case"6,1":
+            case"6,2":
+            case"6,3":
+            case"6,4":
+            case"6,5":
+            case"6,6":
+            case"6,7":
+            case"6,8":
+            case"6,9":
+            case"6,10":
+            case"6,11":
+            case"6,12":
+            case"6,13":
+            case"6,14":
+            case"6,15":
+             return true;
+            default:
+                return false;
         }
     }
 
@@ -366,7 +527,7 @@ public class LevelThreeActivity extends AppCompatActivity {
     /**
      * <p>This function initializes {@link RecyclerTouchListener} and
      * {@link RecyclerView.OnChildAttachStateChangeListener} for recycler view.
-     * {@link RecyclerTouchListener} is a custom defined Touch event listener class.
+     * {@link RecyclerTouchListener} is a custom defined Touch event scrollListener class.
      * {@link RecyclerView.OnChildAttachStateChangeListener} is defined to manage view state of
      * recycler child view. It is useful to retain current state of child, when recycler view is scrolled
      * and recycler child views are recycled for memory usage optimization.</p>
@@ -425,7 +586,7 @@ public class LevelThreeActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to Navigation "back" button.
+     * <p>This function will initialize the click scrollListener to Navigation "back" button.
      * When pressed navigation back button:
      *  a) If user is using custom keyboard input text then custom keyboard input text layout
      *     is closed.
@@ -437,7 +598,7 @@ public class LevelThreeActivity extends AppCompatActivity {
         mIvBack.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 speakSpeech(mNavigationBtnTxt[1]);
-                mIvTTs.setImageResource(R.drawable.speaker_button);
+                mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
                 mIvBack.setImageResource(R.drawable.back_pressed);
                 //when mFlgKeyboardOpened is set to 1, it means user is using custom keyboard input
                 // text and system keyboard is visible.
@@ -468,8 +629,19 @@ public class LevelThreeActivity extends AppCompatActivity {
                 // to identify for returning activity that user is returned by pressing "back" button.
                 } else {
                     mIvBack.setImageResource(R.drawable.back_pressed);
-                    setResult(RESULT_OK);
-                    finish();
+                    String str = getIntent().getExtras().getString(getString(R.string.from_search));
+                    if(str != null && !str.isEmpty() && str.equals(getString(R.string.search_tag))){
+                        Intent intent = new Intent(LevelThreeActivity.this, LevelTwoActivity.class);
+                        intent.putExtra(getString(R.string.level_one_intent_pos_tag), mLevelOneItemPos);
+                        intent.putExtra("search_and_back", true);
+                        intent.putExtra(getString(R.string.intent_menu_path_tag), getIntent().
+                                getExtras().getString(getString(R.string.intent_menu_path_tag)));
+                        startActivity(intent);
+                        finish();
+                    }else {
+                        setResult(RESULT_OK);
+                        finish();
+                    }
                 }
                 //Firebase event
                 singleEvent("Navigation","Back");
@@ -479,7 +651,7 @@ public class LevelThreeActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to Navigation home button.
+     * <p>This function will initialize the click scrollListener to Navigation home button.
      * When user press this button user navigated to {@link MainActivity} with
      *  every state of views is like app launched as fresh. Action bar title is set
      *  to "home"</p>
@@ -488,21 +660,33 @@ public class LevelThreeActivity extends AppCompatActivity {
         mIvHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Firebase event
-                singleEvent("Navigation","Home");
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        speakSpeech(mNavigationBtnTxt[0]);
+                    }
+                }).start();
+                //When home is tapped in this activity it will close all other activities and
+                // user is redirected/navigated to MainActivity and gotoHome() method is called.
+                // As Firebase home event is defined in gotoHome() function of mainActivity.
                 mIvHome.setImageResource(R.drawable.home_pressed);
                 mIvKeyboard.setImageResource(R.drawable.keyboard);
-                speakSpeech(mNavigationBtnTxt[0]);
-                //setting up result code to RESULT_CANCELED, is used in returning activity.
-                // This imply that user pressed the home button in level three activity.
-                setResult(RESULT_CANCELED);
-                finish();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra(getString(R.string.goto_home), true);
+                startActivity(intent);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        setResult(RESULT_CANCELED);
+                        finishAffinity();
+                    }
+                },100);
             }
         });
     }
 
     /**
-     * <p>This function will initialize the click listener to Navigation "keyboard" button.
+     * <p>This function will initialize the click scrollListener to Navigation "keyboard" button.
      * {@link LevelThreeActivity} navigation keyboard button either enable or disable
      * the custom keyboard input text layout.
      * When custom keyboard input text layout is enabled using keyboard button, is visible to user
@@ -522,7 +706,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                 speakSpeech(mNavigationBtnTxt[2]);
                 //Firebase event
                 singleEvent("Navigation","Keyboard");
-                mIvTTs.setImageResource(R.drawable.speaker_button);
+                mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
                 //when mFlgKeyboardOpened is set to 1, it means user is using custom keyboard input
                 // text and system keyboard is visible.
                 if (mFlgKeyboard == 1) {
@@ -572,7 +756,7 @@ public class LevelThreeActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "like" button.
+     * <p>This function will initialize the click scrollListener for expressive "like" button.
      * Expressive like button is works in four ways:
      *  a) press expressive like button once
      *  b) press expressive like button twice
@@ -651,7 +835,7 @@ public class LevelThreeActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "don't like" button.
+     * <p>This function will initialize the click scrollListener for expressive "don't like" button.
      * Expressive don't like button is works in four ways:
      *  a) press expressive don't like button once
      *  b) press expressive don't like button twice
@@ -729,7 +913,7 @@ public class LevelThreeActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "yes" button.
+     * <p>This function will initialize the click scrollListener for expressive "yes" button.
      * Expressive yes button is works in four ways:
      *  a) press expressive yes button once
      *  b) press expressive yes button twice
@@ -806,7 +990,7 @@ public class LevelThreeActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "no" button.
+     * <p>This function will initialize the click scrollListener for expressive "no" button.
      * Expressive no button is works in four ways:
      *  a) press expressive no button once
      *  b) press expressive no button twice
@@ -883,7 +1067,7 @@ public class LevelThreeActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to expressive more button.
+     * <p>This function will initialize the click scrollListener to expressive more button.
      * When expressive more button is pressed:
      *  a. Single time, speech output is 'more'
      *  b. twice, speech output is 'some more'
@@ -958,7 +1142,7 @@ public class LevelThreeActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "less" button.
+     * <p>This function will initialize the click scrollListener for expressive "less" button.
      * Expressive less button is works in four ways:
      *  a) press expressive less button once
      *  b) press expressive less button twice
@@ -1035,7 +1219,7 @@ public class LevelThreeActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to Tts Speak button.
+     * <p>This function will initialize the click scrollListener to Tts Speak button.
      * When Tts speak button is pressed, broadcast speak request is sent to Text-to-speech service.
      * Message typed in Text-to-speech input view, is synthesized by the service.</p>
      * */
@@ -1043,8 +1227,6 @@ public class LevelThreeActivity extends AppCompatActivity {
         mIvTTs.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 speakSpeech(mEtTTs.getText().toString());
-                if(!mEtTTs.getText().toString().equals(""))
-                    mIvTTs.setImageResource(R.drawable.speaker_pressed);
                 //Firebase event
                 Bundle bundle = new Bundle();
                 bundle.putString("InputName", Settings.Secure.getString(getContentResolver(),
@@ -1064,7 +1246,7 @@ public class LevelThreeActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to EditText which is used by user to
+     * <p>This function will initialize the click scrollListener to EditText which is used by user to
      * input custom strings.</p>
      * */
     private void initTTsEditTxtListener() {
@@ -1191,7 +1373,8 @@ public class LevelThreeActivity extends AppCompatActivity {
                 getString(R.string.levelThreeVerbiage21) +
                 getString(R.string.levelThreeVerbiage22) +
                 getString(R.string.levelThreeVerbiage23) +
-                getString(R.string.levelThreeVerbiage24);
+                getString(R.string.levelThreeVerbiage24) +
+                getString(R.string.levelThreeVerbiage25);
         LevelThreeVerbiageModel mLevelThreeVerbiageModel = new Gson().
                 fromJson(verbString, LevelThreeVerbiageModel.class);
         mNewVerbTxt = mLevelThreeVerbiageModel.getVerbiageModel()
@@ -1206,22 +1389,22 @@ public class LevelThreeActivity extends AppCompatActivity {
      * */
     private void retainExpressiveButtonStates() {
         //if category Greet and feel -> feelings is selected
-        if(mLevelOneItemPos == 0 && mLevelTwoItemPos == 1){
+        if(mLevelOneItemPos == 0 && mLevelTwoItemPos == 1) {
             int tmp = mArrSort[mLevelThreeItemPos];
             // if in feeling category icon having index (default position in recycler view)
             // "tmp" = 0 (category icon is Happy) then disable no expressive button and keep all
             // other expressive button enabled.
-            if(tmp == 0){
+            if (tmp == 0) {
                 mIvNo.setAlpha(0.5f);
                 mIvNo.setEnabled(false);
                 mIvYes.setAlpha(1f);
                 mIvYes.setEnabled(true);
-            // if in feeling category icon having index (default position in recycler view)
-            // "tmp" = 1 (Sad), 2 (Angry), 3 (Afraid), 5 (Irritated)
-            //         6 (Confused), 7 (Ashamed), 8 (Disappointed),
-            //         9 (Bored), 10 (Worried), 11 (Stressed),
-            //         12 (Tired), 15 (Sick) & 16 (Hurt)
-            // then disable yes expressive button and keep all other expressive button enabled.
+                // if in feeling category icon having index (default position in recycler view)
+                // "tmp" = 1 (Sad), 2 (Angry), 3 (Afraid), 5 (Irritated)
+                //         6 (Confused), 7 (Ashamed), 8 (Disappointed),
+                //         9 (Bored), 10 (Worried), 11 (Stressed),
+                //         12 (Tired), 15 (Sick) & 16 (Hurt)
+                // then disable yes expressive button and keep all other expressive button enabled.
             } else if (tmp == 1 || tmp == 2 || tmp == 3 || tmp == 5 || tmp == 6 || tmp == 7 ||
                     tmp == 8 || tmp == 9 || tmp == 10 || tmp == 11 || tmp == 12 || tmp == 15 ||
                     tmp == 16) {
@@ -1229,17 +1412,28 @@ public class LevelThreeActivity extends AppCompatActivity {
                 mIvYes.setEnabled(false);
                 mIvNo.setAlpha(1f);
                 mIvNo.setEnabled(true);
-            // if in feeling category icon having index (default position in recycler view)
-            // other than "tmp" enable all expressive buttons
+                // if in feeling category icon having index (default position in recycler view)
+                // other than "tmp" enable all expressive buttons
             } else
                 changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
 
-        // if in feeling -> greetings,
-        //       feeling -> requests
-        //       feeling -> questions
+        //If in Places -> Hospital -> I am hurt
+        //      Places -> Hospital -> I feel sick
         // all expressive buttons are disabled as they are simple expressions
-        }else if(mLevelOneItemPos == 0 && (mLevelTwoItemPos == 0 || mLevelTwoItemPos == 2 ||
-                mLevelTwoItemPos == 3))
+        // otherwise all expressive buttons are enabled.
+        }else if(mLevelOneItemPos == 6 && (mLevelTwoItemPos == 11)){
+            if (mArrSort[mLevelThreeItemPos] == 0 || mArrSort[mLevelThreeItemPos] == 1)
+                changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
+            else
+                changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
+        //If in feeling -> greetings,
+        //      feeling -> requests
+        //      feeling -> questions
+        //      Daily Activities -> Habits
+        // all expressive buttons are disabled as they are simple expressions
+        }else if((mLevelOneItemPos == 0 && (mLevelTwoItemPos == 0 || mLevelTwoItemPos == 2 ||
+                mLevelTwoItemPos == 3)) ||
+                (mLevelOneItemPos == 1 && mLevelTwoItemPos == 9))
             changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
         // Daily activities -> clothes and more
         else if(mLevelOneItemPos == 1 && mLevelTwoItemPos == 3){
@@ -1449,6 +1643,9 @@ public class LevelThreeActivity extends AppCompatActivity {
                 case 6:
                     mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeDailyActTherapySpeechText);
                     break;
+                case 9:
+                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeDailyActHabitsSpeechText);
+                    break;
             }
         } else if (levelOneItemPos == 2) {
             switch(levelTwoItemPos){
@@ -1531,6 +1728,57 @@ public class LevelThreeActivity extends AppCompatActivity {
                     mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeLearningMoneySpeechText);
                     break;
             }
+        } else if (levelOneItemPos == 6) {
+            switch(levelTwoItemPos){
+                case 0:
+                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesMyHouseSpeechText);
+                    break;
+                case 1:
+                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesSchoolSpeechText);
+                    break;
+                case 2:
+                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesMallSpeechText);
+                    break;
+                case 3:
+                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesMuseumSpeechText);
+                    break;
+                case 4:
+                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesRestaurantSpeechText);
+                    break;
+                case 5:
+                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesTheatreSpeechText);
+                    break;
+                case 6:
+                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesPlaygroundSpeechText);
+                    break;
+                case 7:
+                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesParkSpeechText);
+                    break;
+                case 8:
+                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesStoreSpeechText);
+                    break;
+                case 9:
+                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesFriendHouseSpeechText);
+                    break;
+                case 10:
+                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesRelativeHouseSpeechText);
+                    break;
+                case 11:
+                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesHospitalSpeechText);
+                    break;
+                case 12:
+                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesClinicSpeechText);
+                    break;
+                case 13:
+                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesLibrarySpeechText);
+                    break;
+                case 14:
+                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesZooSpeechText);
+                    break;
+                case 15:
+                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesWorshipSpeechText);
+                    break;
+            }
         } else if (levelOneItemPos == 7) {
             switch(levelTwoItemPos){
                 case 0:
@@ -1556,5 +1804,23 @@ public class LevelThreeActivity extends AppCompatActivity {
                     break;
             }
         }
+    }
+
+
+    /**<p> This function will returns the index of the item searched item in the sorted list
+     * it takes default index of the searched item and returns the actual sorted index of the element.
+     * @Author AyazAlam</p>
+     *
+     **/
+
+    private int getSortedIndex(int index)
+    {
+        for(int i=0;i<mArrSort.length;i++)
+        {
+            if(index==mArrSort[i])
+                return i;
+        }
+        return -1;
+
     }
 }

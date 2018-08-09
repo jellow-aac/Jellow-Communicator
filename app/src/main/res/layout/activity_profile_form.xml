@@ -10,7 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_margin="19dp">
+        android:layout_marginLeft="19dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginBottom="19dp">
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -29,9 +34,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/childName"
-                    android:textColor="#000000"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/mukta_semibold"
+                    style="@style/defaultTextViewStyle"
+                    android:contentDescription="child's name"/>
                 <EditText
                     android:id="@+id/etName"
                     android:layout_width="match_parent"
@@ -41,16 +46,15 @@
                     android:layout_marginStart="-4dp"
                     android:ems="10"
                     android:imeOptions="actionDone"
-                    android:inputType="textPersonName"
-                    android:textSize="14sp" />
+                    style="@style/defaultTextViewStyle"
+                    android:inputType="textPersonName"/>
                 <TextView
                     android:id="@+id/tvCaregiverName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/careGiveName"
-                    android:textColor="#000"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/mukta_semibold"
+                    style="@style/defaultTextViewStyle"/>
                 <EditText
                     android:id="@+id/etFathername"
                     android:layout_width="match_parent"
@@ -59,17 +63,17 @@
                     android:layout_marginLeft="-4dp"
                     android:layout_marginStart="-4dp"
                     android:ems="10"
+                    style="@style/defaultTextViewStyle"
                     android:imeOptions="actionDone"
-                    android:inputType="textPersonName"
-                    android:textSize="14sp" />
+                    android:inputType="textPersonName"/>
                 <TextView
                     android:id="@+id/tvCaregiverNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/careGiverContact"
-                    android:textColor="#000000"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/mukta_semibold"
+                    style="@style/defaultTextViewStyle"
+                    android:contentDescription="caregiver's contact number"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -78,17 +82,23 @@
                     android:id="@+id/ccp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:ccp_textSize="14dp"
+                    app:ccpDialog_textColor="@color/black_eighty"
                     app:ccpDialog_showCloseIcon="true"
                     app:ccp_countryPreference="IN,US,GB"
                     app:ccp_autoDetectCountry="true"
+                    app:ccp_autoFormatNumber="false"
                     app:ccpDialog_keyboardAutoPopup="false"
-                    app:ccpDialog_backgroundColor="@color/colorIntro"/>
+                    app:ccpDialog_backgroundColor="@color/colorIntro"
+                    android:contentDescription="select country code"/>
                 <EditText
                     android:id="@+id/etFathercontact"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="phone"
                     android:textSize="14sp"
+                    android:maxLength="12"
+                    style="@style/defaultTextViewStyle"
                     android:imeOptions="actionDone" />
             </LinearLayout>
                 <TextView
@@ -96,9 +106,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/homeAddress"
-                    android:textColor="#000000"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/mukta_semibold"
+                    style="@style/defaultTextViewStyle"/>
                 <EditText
                     android:id="@+id/etAddress"
                     android:layout_width="match_parent"
@@ -107,17 +116,17 @@
                     android:layout_marginLeft="-4dp"
                     android:layout_marginStart="-4dp"
                     android:ems="10"
+                    style="@style/defaultTextViewStyle"
                     android:imeOptions="actionDone"
-                    android:inputType="textPostalAddress"
-                    android:textSize="14sp" />
+                    android:inputType="textPostalAddress"/>
                 <TextView
                     android:id="@+id/tvEmailAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/emailAddress"
-                    android:textColor="#000000"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/mukta_semibold"
+                    style="@style/defaultTextViewStyle"
+                    android:contentDescription="email address"/>
                 <EditText
                     android:id="@+id/etEmailId"
                     android:layout_width="match_parent"
@@ -125,34 +134,37 @@
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="-4dp"
                     android:layout_marginStart="-4dp"
+                    style="@style/defaultTextViewStyle"
                     android:imeOptions="actionDone"
-                    android:inputType="textEmailAddress"
-                    android:textSize="14sp" />
+                    android:inputType="textEmailAddress"/>
 
                 <TextView
+                    android:id="@+id/tvUserGroup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/userGroup"
-                    android:textColor="#000000"
-                    android:textSize="14sp"
-                    android:textStyle="bold"/>
+                    android:fontFamily="@font/mukta_semibold"
+                    style="@style/defaultTextViewStyle"/>
 
                 <RadioGroup
                     android:id="@+id/radioUserGroup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp">
+                    android:layout_marginBottom="10dp"
+                    android:contentDescription="user's group">
                     <RadioButton
                         android:id="@+id/radioTherapist"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="14sp"
+                        style="@style/defaultTextViewStyle"
                         android:text="@string/groupTeacher"/>
                     <RadioButton
                         android:id="@+id/radioParent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="14sp"
+                        style="@style/defaultTextViewStyle"
                         android:text="@string/groupParent"/>
                 </RadioGroup>
 
@@ -161,16 +173,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/bloodGroup"
-                    android:textColor="#000000"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/mukta_semibold"
+                    style="@style/defaultTextViewStyle"/>
                 <Spinner
                     android:id="@+id/bloodgroup"
-                    android:layout_width="190dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="-4dp"
-                    android:layout_marginStart="-4dp"
-                    android:textSize="14sp" />
+                    android:layout_width="115dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/custom_spinner_view"
+                    android:textColor="@color/black_eighty"/>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="48dp" />
@@ -185,12 +195,11 @@
         android:layout_alignParentBottom="true">
         <Button
             android:id="@+id/bSave"
-            android:layout_width="230dp"
+            android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:textSize="14sp"
             android:text="@string/txtSave"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/custom_txt_view"
             android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp" />
     </LinearLayout>

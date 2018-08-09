@@ -23,6 +23,7 @@ import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.LCODE;
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.TUTORIAL;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
+import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangValueMap;
 
 public class LanguageDownloadActivity extends AppCompatActivity {
@@ -37,11 +38,14 @@ public class LanguageDownloadActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Initialize default exception handler for this activity.
+        // If any exception occurs during this activity usage,
+        // handle it using default exception handler.
+        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         setContentView(R.layout.activity_language_download);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.colorPrimary));
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
 
         try {
 
@@ -71,18 +75,25 @@ public class LanguageDownloadActivity extends AppCompatActivity {
             @Override
             public void onComplete() {
                 mSession.setDownloaded(langCode);
-                Toast.makeText(LanguageDownloadActivity.this, strLanguageDownloaded
-                        .replace("_", LangValueMap.get(langCode)), Toast.LENGTH_SHORT).show();
-                if(tutorial)
-                    startActivity(new Intent(LanguageDownloadActivity.this,Intro.class));
-                else if(finish)
-                    startActivity(new Intent(LanguageDownloadActivity.this,SplashActivity.class));
+                if(!tutorial)
+                    mSession.setToastMessage(strLanguageDownloaded
+                        .replace("_", getShortenLangName(LangValueMap.get(langCode))));
+                if(tutorial) {
+                    Toast.makeText(LanguageDownloadActivity.this, strLanguageDownloaded
+                            .replace("_", getShortenLangName(LangValueMap.get(langCode))),
+                            Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(LanguageDownloadActivity.this, Intro.class));
+                }else if(finish)
+                {
+                    Intent intent=new Intent(LanguageDownloadActivity.this,SplashActivity.class);
+                    startActivity(intent);
+                }
                 finish();
             }
         };
 
-        Toast.makeText(LanguageDownloadActivity.this, strLanguageDownloading
-                .replace("_", LangValueMap.get(langCode)), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, strLanguageDownloading.replace("_",
+                getShortenLangName(LangValueMap.get(langCode))), Toast.LENGTH_SHORT).show();
 
         if(langCode != null) {
             try {
@@ -130,7 +141,7 @@ public class LanguageDownloadActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if(!isAnalyticsActive()) {
-            throw new Error("unableToResume");
+            resetAnalytics(this, mSession.getCaregiverNumber().substring(1));
         }
         if(Build.VERSION.SDK_INT > 25 &&
                 !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
@@ -150,5 +161,18 @@ public class LanguageDownloadActivity extends AppCompatActivity {
         super.onPause();
         if(manager != null)
             manager.pause();
+    }
+
+    private String getShortenLangName(String langFullName) {
+        switch(langFullName){
+            case "English (India)":
+                return "English (IN)";
+            case "English (United Kingdom)":
+                return "English (UK)";
+            case "English (United States)":
+                return "English (US)";
+            default:
+                return  langFullName;
+        }
     }
 }

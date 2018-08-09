@@ -8,26 +8,30 @@ import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.telephony.TelephonyManager;
 import android.text.method.KeyListener;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.view.accessibility.AccessibilityManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_DoubleClick;
+import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
 import com.dsource.idc.jellowintl.models.LevelTwoVerbiageModel;
+import com.dsource.idc.jellowintl.utility.CustomGridLayoutManager;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.IndexSorter;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
@@ -42,6 +46,8 @@ import static com.dsource.idc.jellowintl.MainActivity.isDeviceReadyToCall;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
+import static com.dsource.idc.jellowintl.utility.Analytics.maskNumber;
+import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
@@ -51,7 +57,6 @@ public class LevelTwoActivity extends AppCompatActivity {
     private final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 0;
     private final int REQ_HOME = 0;
     private final int CATEGORY_ICON_PEOPLE = 5;
-    private final int CATEGORY_ICON_PLACES = 6;
     private final int CATEGORY_ICON_HELP = 8;
     private final boolean DISABLE_EXPR_BTNS = true;
 
@@ -104,18 +109,22 @@ public class LevelTwoActivity extends AppCompatActivity {
       selected.*/
     private Integer[] mArrPeoplePlaceTapCount, mArrSort;
 
-    private String end, actionBarTitleTxt, mCallPerInfo,
-            mCallPermissionSetting, mCallReq, mJump2CallSet, mCallPermDeny;
+    private String end, actionBarTitleTxt, mCallPermDeny;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Initialize default exception handler for this activity.
+        // If any exception occurs during this activity usage,
+        // handle it using default exception handler.
+        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         setContentView(R.layout.activity_levelx_layout);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
         // Get index of category icons (position in recycler view) selected in level one.
-        mLevelOneItemPos = getIntent().getExtras().getInt("mLevelOneItemPos");
+        mLevelOneItemPos = getIntent().getExtras().getInt(getString(R.string.level_one_intent_pos_tag));
         // Get and set title of category icons selected in level one.
-        getSupportActionBar().setTitle(getIntent().getExtras().getString("selectedMenuItemPath"));
+        getSupportActionBar().setTitle(getIntent().getExtras().getString(getString(R.string.intent_menu_path_tag)));
         // when layout is loaded on activity, using the tag attribute of a parent view in layout
         // the device size is identified. If device size is large (10' tablets) enable the
         // hardware acceleration. As seen in testing device, scrolling recycler items on 10' tab
@@ -124,10 +133,6 @@ public class LevelTwoActivity extends AppCompatActivity {
             getWindow().setFlags(
                 WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
                     WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
-        // Initialize default exception handler for this activity.
-        // If any exception occurs during this activity usage,
-        // handle it using default exception handler.
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         mSession = new SessionManager(this);
         // The below string has value "" in english (all regions) and "है।" in Hindi (India).
         // It is used when user select category "Help" -> "About me".
@@ -141,11 +146,100 @@ public class LevelTwoActivity extends AppCompatActivity {
         //The variables below are defined because android os fall back to default locale
         // after activity restart. These variable will hold the value for variables initialized using
         // user preferred locale.
-        mCallPerInfo = getString(R.string.call_permission_info);
-        mCallPermissionSetting = getString(R.string.grant_permission_from_settings);
-        mCallReq = getString(R.string.request);
-        mJump2CallSet = getString(R.string.action_settings);
         mCallPermDeny = getString(R.string.rejected_call_permission_req);
+        /**
+         * If the intent is fired from the {@link SearchActivity} then disable the back button
+         * because back button will close the app (as Search Activity clears the back stack)
+         * and the highlight function will highlight the required icon.
+         * @Author Ayaz Alam
+         * */
+        if(getIntent().getExtras().getString(getString(R.string.from_search))!=null) {
+            if (getIntent().getExtras().getString(getString(R.string.from_search))
+                    .equals(getString(R.string.search_tag))) {
+                highlightSearchedItem();
+            }
+        }
+    }
+    //A scrollListener field to listen when recycler view have done populating the data
+    RecyclerView.OnScrollListener scrollListener;
+    private void highlightSearchedItem() {
+        //Referring to the Intent that invoked the activity
+            final int p1 = getIntent().getExtras().getInt(getString(R.string.level_one_intent_pos_tag));
+            final int s = getIntent().getExtras().getInt(getString(R.string.search_parent_1));
+            final int gridCode=new SessionManager(this).getGridSize();
+            //Deciding the gridSize according to the gridCode
+            int gridSize;
+            if(gridCode==1)
+            gridSize=8;
+            else gridSize=2;
+            //Case with sorting is people which needs sorting.
+            if(p1==5)
+            {
+                final int sortedIndex=getSortedIndex(s);
+                if(sortedIndex>gridSize) {
+                    scrollListener =null;
+                    scrollListener = getListener(sortedIndex);
+                    mRecyclerView.addOnScrollListener(scrollListener);
+                    mRecyclerView.smoothScrollToPosition(sortedIndex);
+                }
+                else
+                    setSearchHighlight(sortedIndex);
+
+            }
+            else // if not person and place then there's no need of scrolling
+            {
+                if(s>gridSize) {
+                    scrollListener =null;
+                    scrollListener = getListener(s);
+                    mRecyclerView.addOnScrollListener(scrollListener);
+                    mRecyclerView.getLayoutManager().smoothScrollToPosition(mRecyclerView,null,s);
+                    //scrollListener.onScrollStateChanged(mRecyclerView,1);
+                }
+                else
+                    setSearchHighlight(s);
+            }
+    }//End of highlightSearch
+
+    private RecyclerView.OnScrollListener getListener(final int index) {
+        scrollListener =new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(newState==RecyclerView.SCROLL_STATE_DRAGGING)
+                {//Wait untill the scrolling is done
+                }
+                else if(newState==RecyclerView.SCROLL_STATE_IDLE) //Try highlighting when the scrolling is done
+                    setSearchHighlight(index);
+            }
+        };
+        return scrollListener;
+    }
+    //This scrollListener fields listens the callback from recycler finished laying out the views
+    ViewTreeObserver.OnGlobalLayoutListener populationDoneListener;
+    public void setSearchHighlight(final int pos)
+    {
+        mRecyclerView.getAdapter().notifyDataSetChanged();
+        populationDoneListener=new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                //At this point the layout is complete and the
+                //dimensions of recyclerView and any child views are known.
+                View searchedView = mRecyclerItemsViewList.get(pos);
+                if(searchedView==null) {
+                    //if the searched view is null then try scrolling again
+                    mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(populationDoneListener);
+                    mRecyclerView.getLayoutManager().smoothScrollToPosition(mRecyclerView,null,pos );
+                    return;
+                }
+                //Setting the background of the  View
+                GradientDrawable gd = (GradientDrawable) searchedView.findViewById(R.id.borderView).getBackground();
+                gd.setColor(ContextCompat.getColor(getApplicationContext(), R.color.search_highlight));
+                mRecyclerView.removeOnScrollListener(scrollListener);
+                mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(populationDoneListener);
+              }
+        };
+        //Adding the scrollListener to the recycler view
+        mRecyclerView.getViewTreeObserver().addOnGlobalLayoutListener(populationDoneListener);
     }
 
     @Override
@@ -157,7 +251,7 @@ public class LevelTwoActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if(!isAnalyticsActive()){
-            throw new Error("unableToResume");
+            resetAnalytics(this, mSession.getCaregiverNumber().substring(1));
         }
         if(Build.VERSION.SDK_INT > 25 &&
                 !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
@@ -165,6 +259,10 @@ public class LevelTwoActivity extends AppCompatActivity {
         }
         // Start measuring user app screen timer .
         startMeasuring();
+        if(!mSession.getToastMessage().isEmpty()) {
+            Toast.makeText(this, mSession.getToastMessage(), Toast.LENGTH_SHORT).show();
+            mSession.setToastMessage("");
+        }
     }
 
     @Override
@@ -195,13 +293,16 @@ public class LevelTwoActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_main_with_search, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
+            case R.id.search:
+                startActivity(new Intent(this, SearchActivity.class));
+                break;
             case R.id.languageSelect:
                 startActivity(new Intent(this, LanguageSelectActivity.class));
                 break;
@@ -218,7 +319,15 @@ public class LevelTwoActivity extends AppCompatActivity {
                 startActivity(new Intent(this, KeyboardInputActivity.class));
                 break;
             case R.id.feedback:
-                startActivity(new Intent(this, FeedbackActivity.class));
+                AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
+                boolean isAccessibilityEnabled = am.isEnabled();
+                boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
+                if(isAccessibilityEnabled && isExploreByTouchEnabled) {
+                    startActivity(new Intent(this, FeedbackActivityTalkback.class));
+                }
+                else {
+                    startActivity(new Intent(this, FeedbackActivity.class));
+                }
                 break;
             case R.id.settings:
                 startActivity(new Intent(this, SettingActivity.class));
@@ -283,12 +392,34 @@ public class LevelTwoActivity extends AppCompatActivity {
         //Initially custom input text speak button is invisible
         mIvTts.setVisibility(View.INVISIBLE);
 
+        ViewCompat.setAccessibilityDelegate(mIvLike, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvYes, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvMore, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvDontLike, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvNo, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvLess, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvLess, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvKeyboard, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvHome, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvBack, new TalkbackHints_SingleClick());
+
         originalKeyListener = mEtTTs.getKeyListener();
         // Set it to null - this will make the field non-editable
         mEtTTs.setKeyListener(null);
         mRecyclerView = findViewById(R.id.recycler_view);
         // Initiate 3 columns in Recycler View.
-        mRecyclerView.setLayoutManager( new GridLayoutManager(this, 3));
+        //This code is to decide the speed of the Scrolling
+     /**
+      * if GridSize is 3 then scroll faster than GridSize 9
+      * */
+        SessionManager sessionManager=new SessionManager(this);
+        int iconCount=sessionManager.getGridSize();
+        if(iconCount!=0)
+            mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this, 3,iconCount));
+        else //Default speed is 3 icons speed
+            mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this, 3,3));
+
+
         mRecyclerView.setVerticalScrollBarEnabled(true);
         mRecyclerView.setScrollbarFadingEnabled(false);
     }
@@ -302,7 +433,7 @@ public class LevelTwoActivity extends AppCompatActivity {
      * category icons are populated in this level.</p>
      * */
     private void initializeRecyclerViewAdapter() {
-        if(mLevelOneItemPos != CATEGORY_ICON_PEOPLE && mLevelOneItemPos != CATEGORY_ICON_PLACES) {
+        if(mLevelOneItemPos != CATEGORY_ICON_PEOPLE) {
             mRecyclerView.setAdapter(new LevelTwoAdapter(this, mLevelOneItemPos));
         }else{
             mRecyclerView.setAdapter(new PeoplePlacesAdapter(this, mLevelOneItemPos,
@@ -332,7 +463,7 @@ public class LevelTwoActivity extends AppCompatActivity {
     /**
      * <p>This function initializes {@link RecyclerTouchListener} and
      * {@link RecyclerView.OnChildAttachStateChangeListener} for recycler view.
-     * {@link RecyclerTouchListener} is a custom defined Touch event listener class.
+     * {@link RecyclerTouchListener} is a custom defined Touch event scrollListener class.
      * {@link RecyclerView.OnChildAttachStateChangeListener} is defined to manage view state of
      * recycler child view. It is useful to retain current state of child, when recycler view is scrolled
      * and recycler child views are recycled for memory usage optimization.</p>
@@ -391,7 +522,7 @@ public class LevelTwoActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to Navigation "back" button.
+     * <p>This function will initialize the click scrollListener to Navigation "back" button.
      * When pressed navigation back button:
      *  a) If user is using custom keyboard input text then custom keyboard input text layout
      *     is closed.
@@ -465,8 +596,16 @@ public class LevelTwoActivity extends AppCompatActivity {
                 // to identify for returning activity that user is returned by pressing "back" button.
                 } else {
                     mIvBack.setImageResource(R.drawable.back_pressed);
-                    setResult(RESULT_OK);
-                    finish();
+                    String str = getIntent().getExtras().getString(getString(R.string.from_search));
+                    boolean close =getIntent().getExtras().getBoolean("search_and_back");
+                    if((str != null && !str.isEmpty() && str.equals(getString(R.string.search_tag)))
+                            || close){
+                        startActivity(new Intent(LevelTwoActivity.this, MainActivity.class));
+                        finish();
+                    }else {
+                        setResult(RESULT_OK);
+                        finish();
+                    }
                 }
                 showActionBarTitle(true);
             }
@@ -474,7 +613,7 @@ public class LevelTwoActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to Navigation home button.
+     * <p>This function will initialize the click scrollListener to Navigation home button.
      * When user press this button user navigated to {@link MainActivity} with
      *  every state of views is like app launched as fresh. Action bar title is set
      *  to 'home'</p>
@@ -483,21 +622,38 @@ public class LevelTwoActivity extends AppCompatActivity {
         mIvHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Firebase event
-                singleEvent("Navigation","Home");
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        speakSpeech(mNavigationBtnTxt[0]);
+                    }
+                }).start();
+                //When home is tapped in this activity it will close all other activities and
+                // user is redirected/navigated to MainActivity and gotoHome() method is called.
+                // As Firebase home event is defined in gotoHome() function of mainActivity.
                 mIvHome.setImageResource(R.drawable.home_pressed);
                 mIvKeyboard.setImageResource(R.drawable.keyboard);
-                speakSpeech(mNavigationBtnTxt[0]);
-                //setting up result code to RESULT_CANCELED, is used in returning activity.
-                // This imply that user pressed the home button in level three activity.
-                setResult(RESULT_CANCELED);
-                finish();
+                if(getIntent().getExtras().getString(getString(R.string.from_search))!=null) {
+                    if (getIntent().getExtras().getString(getString(R.string.from_search))
+                            .equals(getString(R.string.search_tag))) {
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        intent.putExtra(getString(R.string.goto_home), true);
+                        startActivity(intent);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                finishAffinity();
+                            }
+                        },300);
+                    }
+                }else
+                    finish();
             }
         });
     }
 
     /**
-     * <p>This function will initialize the click listener to Navigation "keyboard" button.
+     * <p>This function will initialize the click scrollListener to Navigation "keyboard" button.
      * {@link LevelThreeActivity} navigation keyboard button either enable or disable
      * the custom keyboard input text layout.
      * When custom keyboard input text layout is enabled using keyboard button, it is visible to user
@@ -514,7 +670,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                 speakSpeech(mNavigationBtnTxt[2]);
                 //Firebase event
                 singleEvent("Navigation","Keyboard");
-                mIvTts.setImageResource(R.drawable.speaker_button);
+                mIvTts.setImageResource(R.drawable.ic_search_list_speaker);
                 //when mFlgKeyboardOpened is set to 1, it means user is using custom keyboard input
                 // text and system keyboard is visible.
                 if (mFlgKeyboard == 1) {
@@ -526,7 +682,6 @@ public class LevelTwoActivity extends AppCompatActivity {
                     // d) show category icons
                     // e) hide custom keyboard input text speak button
                     mIvKeyboard.setImageResource(R.drawable.keyboard);
-                    mIvBack.setImageResource(R.drawable.back);
                     mEtTTs.setVisibility(View.INVISIBLE);
                     mRecyclerView.setVisibility(View.VISIBLE);
                     mIvTts.setVisibility(View.INVISIBLE);
@@ -590,19 +745,17 @@ public class LevelTwoActivity extends AppCompatActivity {
                     // when user is typing in custom keyboard input text it is necessary
                     // for user to see input text. The function setSoftInputMode() does this task.
                     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-                    mIvBack.setImageResource(R.drawable.back);
-                    mIvBack.setAlpha(1f);
-                    mIvBack.setEnabled(true);
                     mFlgKeyboard = 1;
                     showActionBarTitle(false);
                     getSupportActionBar().setTitle(strKeyboard);
                 }
+                mIvBack.setImageResource(R.drawable.back);
             }
         });
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "like" button.
+     * <p>This function will initialize the click scrollListener for expressive "like" button.
      * Expressive like button is works in four ways:
      *  a) press expressive like button once
      *  b) press expressive like button twice
@@ -660,8 +813,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","ReallyLike");
                         // People and places will have preferences. To speak the correct speech text
                         // preference sort array is used.
-                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
-                                mLevelOneItemPos == CATEGORY_ICON_PLACES) {
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE) {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
                                     get(mArrSort[mLevelTwoItemPos]).get(1));
                             singleEvent("ExpressiveGridIcon",
@@ -691,8 +843,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","Like");
                         // People and places will have preferences. To speak the correct speech text
                         // preference sort array is used.
-                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
-                                mLevelOneItemPos == CATEGORY_ICON_PLACES) {
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE) {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
                                     get(mArrSort[mLevelTwoItemPos]).get(0));
                             singleEvent("ExpressiveGridIcon",
@@ -723,7 +874,7 @@ public class LevelTwoActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "don't like" button.
+     * <p>This function will initialize the click scrollListener for expressive "don't like" button.
      * Expressive don't like button is works in four ways:
      *  a) press expressive don't like button once
      *  b) press expressive don't like button twice
@@ -782,8 +933,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","ReallyDon'tLike");
                         // People and places will have preferences. To speak the correct speech text
                         // preference sort array is used.
-                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
-                                mLevelOneItemPos == CATEGORY_ICON_PLACES) {
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE) {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
                                     get(mArrSort[mLevelTwoItemPos]).get(7));
                             singleEvent("ExpressiveGridIcon",
@@ -813,8 +963,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon", "Don'tLike");
                         // People and places will have preferences. To get correct speech text sort
                         // is applied.
-                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
-                                mLevelOneItemPos == CATEGORY_ICON_PLACES){
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE){
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
                                     get(mArrSort[mLevelTwoItemPos]).get(6));
                             singleEvent("ExpressiveGridIcon",
@@ -845,7 +994,7 @@ public class LevelTwoActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "yes" button.
+     * <p>This function will initialize the click scrollListener for expressive "yes" button.
      * Expressive yes button is works in four ways:
      *  a) press expressive yes button once
      *  b) press expressive yes button twice
@@ -903,8 +1052,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","ReallyYes");
                         // People and places will have preferences. To speak the correct speech text
                         // preference sort array is used.
-                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
-                                mLevelOneItemPos == CATEGORY_ICON_PLACES) {
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE) {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
                                     get(mArrSort[mLevelTwoItemPos]).get(3));
                             singleEvent("ExpressiveGridIcon",
@@ -934,8 +1082,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","Yes");
                         // People and places will have preferences. To speak the correct speech text
                         // preference sort array is used.
-                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
-                                mLevelOneItemPos == CATEGORY_ICON_PLACES) {
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE) {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
                                     get(mArrSort[mLevelTwoItemPos]).get(2));
                             singleEvent("ExpressiveGridIcon",
@@ -966,7 +1113,7 @@ public class LevelTwoActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "no" button.
+     * <p>This function will initialize the click scrollListener for expressive "no" button.
      * Expressive no button is works in four ways:
      *  a) press expressive no button once
      *  b) press expressive no button twice
@@ -1024,8 +1171,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","ReallyNo");
                         // People and places will have preferences. To speak the correct speech text
                         // preference sort array is used.
-                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
-                                mLevelOneItemPos == CATEGORY_ICON_PLACES) {
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE) {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
                                     get(mArrSort[mLevelTwoItemPos]).get(9));
                             singleEvent("ExpressiveGridIcon",
@@ -1055,8 +1201,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","No");
                         // People and places will have preferences. To speak the correct speech text
                         // preference sort array is used.
-                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
-                                mLevelOneItemPos == CATEGORY_ICON_PLACES) {
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE) {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
                                     get(mArrSort[mLevelTwoItemPos]).get(8));
                             singleEvent("ExpressiveGridIcon",
@@ -1087,7 +1232,7 @@ public class LevelTwoActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "more" button.
+     * <p>This function will initialize the click scrollListener for expressive "more" button.
      * Expressive more button is works in four ways:
      *  a) press expressive more button once
      *  b) press expressive more button twice
@@ -1145,8 +1290,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","ReallyMore");
                         // People and places will have preferences. To speak the correct speech text
                         // preference sort array is used.
-                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
-                                mLevelOneItemPos == CATEGORY_ICON_PLACES) {
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE) {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
                                     get(mArrSort[mLevelTwoItemPos]).get(5));
                             singleEvent("ExpressiveGridIcon",
@@ -1155,13 +1299,15 @@ public class LevelTwoActivity extends AppCompatActivity {
                         // If Help -> About me category icon is selected,
                         // "really more" expression will speak caregivers number
                         }else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1) {
+                            String contact = mSession.getCaregiverNumber();
+                            contact = contact.substring(0, contact.length()-3);
+                            contact = contact.replaceAll("\\B", " ");
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
-                                    get(mLevelTwoItemPos).get(5) + mSession.getCaregiverNumber().
-                                    replaceAll("\\B", " ") + end);
+                                get(mLevelTwoItemPos).get(5) + contact + end);
                             singleEvent("ExpressiveGridIcon",
                                 mLayerTwoSpeech.get(mLevelOneItemPos).
-                                    get(mLevelTwoItemPos).get(5) + mSession.getCaregiverNumber().
-                                        replaceAll("\\B", " ") + end);
+                                    get(mLevelTwoItemPos).get(5) +
+                                    maskNumber(mSession.getCaregiverNumber().substring(1)) + end);
                         }else {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
                                     get(mLevelTwoItemPos).get(5));
@@ -1178,8 +1324,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","More");
                         // People and places will have preferences. To speak the correct speech text
                         // preference sort array is used.
-                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
-                                mLevelOneItemPos == CATEGORY_ICON_PLACES) {
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE) {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
                                     get(mArrSort[mLevelTwoItemPos]).get(4));
                             singleEvent("ExpressiveGridIcon",
@@ -1188,13 +1333,15 @@ public class LevelTwoActivity extends AppCompatActivity {
                         }else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1) {
                             // If Help -> About me category icon is selected,
                             // "really more" expression will speak caregivers number
+                            String contact = mSession.getCaregiverNumber();
+                            contact = contact.substring(0, contact.length()-3);
+                            contact = contact.replaceAll("\\B", " ");
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
-                                    get(mLevelTwoItemPos).get(5) + mSession.getCaregiverNumber().
-                                    replaceAll("\\B", " ") + end);
+                                    get(mLevelTwoItemPos).get(5) + contact + end);
                             singleEvent("ExpressiveGridIcon",
                                 mLayerTwoSpeech.get(mLevelOneItemPos).
-                                    get(mLevelTwoItemPos).get(5) + mSession.getCaregiverNumber().
-                                        replaceAll("\\B", " ") + end);
+                                    get(mLevelTwoItemPos).get(5) +
+                                        maskNumber(mSession.getCaregiverNumber().substring(1)) + end);
                         }else {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
                                     get(mLevelTwoItemPos).get(4));
@@ -1212,7 +1359,7 @@ public class LevelTwoActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener for expressive "less" button.
+     * <p>This function will initialize the click scrollListener for expressive "less" button.
      * Expressive less button is works in four ways:
      *  a) press expressive less button once
      *  b) press expressive less button twice
@@ -1271,8 +1418,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","ReallyLess");
                         // People and places will have preferences. To speak the correct speech text
                         // preference sort array is used.
-                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
-                                mLevelOneItemPos == CATEGORY_ICON_PLACES) {
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE) {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
                                     get(mArrSort[mLevelTwoItemPos]).get(11));
                             singleEvent("ExpressiveGridIcon",
@@ -1301,8 +1447,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                         singleEvent("ExpressiveIcon","Less");
                         // People and places will have preferences. To speak the correct speech text
                         // preference sort array is used.
-                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
-                                mLevelOneItemPos == CATEGORY_ICON_PLACES) {
+                        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE) {
                             speakSpeech(mLayerTwoSpeech.get(mLevelOneItemPos).
                                     get(mArrSort[mLevelTwoItemPos]).get(10));
                             singleEvent("ExpressiveGridIcon",
@@ -1332,7 +1477,7 @@ public class LevelTwoActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to Tts Speak button.
+     * <p>This function will initialize the click scrollListener to Tts Speak button.
      * When Tts speak button is pressed, broadcast speak request is sent to Text-to-speech service.
      * Message typed in Text-to-speech input view, is synthesized by the service.</p>
      * */
@@ -1340,8 +1485,6 @@ public class LevelTwoActivity extends AppCompatActivity {
         mIvTts.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 speakSpeech(mEtTTs.getText().toString());
-                if(!mEtTTs.getText().toString().equals(""))
-                    mIvTts.setImageResource(R.drawable.speaker_pressed);
                 //Firebase event
                 Bundle bundle = new Bundle();
                 bundle.putString("InputName", Settings.Secure.getString(getContentResolver(),
@@ -1361,7 +1504,7 @@ public class LevelTwoActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will initialize the click listener to EditText which is used by user to
+     * <p>This function will initialize the click scrollListener to EditText which is used by user to
      * input custom strings.</p>
      * */
     private void initTTsEditTxtListener() {
@@ -1406,11 +1549,11 @@ public class LevelTwoActivity extends AppCompatActivity {
         setMenuImageBorder(v, true);
         // set true to speak verbiage associated with category icon
         mShouldReadFullSpeech = true;
-        String title = getIntent().getExtras().getString("selectedMenuItemPath")+ " ";
+        String title = getIntent().getExtras().getString(getString(R.string.intent_menu_path_tag))+ " ";
         // if user is in people or places category and user pressed any of the category icon then
         // create bundle for firebase event.
         // bundle has values category icon position (index), "level two"
-        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE || mLevelOneItemPos == CATEGORY_ICON_PLACES) {
+        if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE) {
             speakSpeech(mArrSpeechText[position]);
             Bundle bundle = new Bundle();
             bundle.putString("Icon", mArrSpeechText[position]);
@@ -1439,9 +1582,9 @@ public class LevelTwoActivity extends AppCompatActivity {
             bundleEvent("Grid",bundle);
             //intent to open new activity have extra data such position of level one category icon,
             // level two category icon and action bar title (bread crumb)
-            intent.putExtra("mLevelOneItemPos", mLevelOneItemPos);
-            intent.putExtra("mLevelTwoItemPos", mLevelTwoItemPos);
-            intent.putExtra("selectedMenuItemPath", mActionBarTitle+ "/");
+            intent.putExtra(getString(R.string.level_one_intent_pos_tag), mLevelOneItemPos);
+            intent.putExtra(getString(R.string.level_2_item_pos_tag), mLevelTwoItemPos);
+            intent.putExtra(getString(R.string.intent_menu_path_tag), mActionBarTitle+ "/");
             startActivityForResult(intent, REQ_HOME);
         }else {
             //If user tapped the Help -> Emergency category icon and
@@ -1462,7 +1605,6 @@ public class LevelTwoActivity extends AppCompatActivity {
 
         // set title to breadcrumb (or actionbar) of activity.
         if(mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
-                mLevelOneItemPos == CATEGORY_ICON_PLACES ||
                 mLevelOneItemPos == CATEGORY_ICON_HELP)
             title += mArrAdapterTxt[mLevelTwoItemPos];
         else
@@ -1472,7 +1614,7 @@ public class LevelTwoActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(mActionBarTitle);
 
         // increment preference count an item if people or place category is selected in level one
-        if(mLevelOneItemPos == CATEGORY_ICON_PEOPLE || mLevelOneItemPos == CATEGORY_ICON_PLACES)
+        if(mLevelOneItemPos == CATEGORY_ICON_PEOPLE)
             incrementTouchCountOfItem(mLevelTwoItemPos);
 
         // Help -> About me category have different set of expressive buttons. If user selected
@@ -1489,20 +1631,32 @@ public class LevelTwoActivity extends AppCompatActivity {
         // Help -> Help me do this,
         // Help -> Allergy,
         // Help -> Danger,
-        // Help -> Hazard
+        // Help -> Hazard,
+        // Help -> I am in pain,
+        // Help -> I was pinched,
+        // Help -> I was pushed,
+        // Help -> I was scolded,
+        // Help -> I was hit,
+        // Help -> I was touched inappropriately,
+        // Help -> I was made fun of,
         // If it is from above category then disable all expressive icons
         if(mLevelOneItemPos == CATEGORY_ICON_HELP &&
                 ((mLevelTwoItemPos == 2) || (mLevelTwoItemPos == 3) || (mLevelTwoItemPos == 4) ||
                         (mLevelTwoItemPos == 5) ||(mLevelTwoItemPos == 12) ||
-                        (mLevelTwoItemPos == 13) ||(mLevelTwoItemPos == 14)))
+                        (mLevelTwoItemPos == 13) ||(mLevelTwoItemPos == 14) ||
+                        (mLevelTwoItemPos == 16) ||(mLevelTwoItemPos == 17) ||
+                        (mLevelTwoItemPos == 18) ||(mLevelTwoItemPos == 19) ||
+                        (mLevelTwoItemPos == 20) ||(mLevelTwoItemPos == 21) ||
+                        (mLevelTwoItemPos == 22)))
             changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
         // if category icon Help -> Emergency is selected, then disable all expressive icons
         else if(mLevelOneItemPos == CATEGORY_ICON_HELP && mLevelTwoItemPos == 0) {
             changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
             // If user have sim device and ready to call, only then request call permission.
-            if(mSession.getEnableCalling() &&
-                isDeviceReadyToCall((TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE)))
-                showCallPreview();
+                if(mSession.getEnableCalling()){
+                    sendBroadcast(new Intent("com.dsource.idc.jellowintl.SPEECH_STOP"));
+                    startCall("tel:" + mSession.getCaregiverNumber());
+                }
         // if category icon Help -> Unsafe touch is selected, then disable like, yes, more
         // expressive icons
         }else if(mLevelOneItemPos == CATEGORY_ICON_HELP && mLevelTwoItemPos == 10)
@@ -1526,7 +1680,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                 size = getResources().getStringArray(R.array.arrLevelTwoGreetFeelSpeechText).length;
                 break;
             case 1:
-                size = getResources().getStringArray(R.array.arrLevelTwoEatSpeechText).length;
+                size = getResources().getStringArray(R.array.arrLevelTwoDailyActSpeechText).length;
                 break;
             case 2:
                 size = getResources().getStringArray(R.array.arrLevelTwoEatSpeechText).length;
@@ -1855,10 +2009,8 @@ public class LevelTwoActivity extends AppCompatActivity {
                         getResources().getStringArray(R.array.arrLevelTwoPeopleAdapterText));
                 break;
             case 6:
-                // As People category uses preferences, speech and text arrays are sorted using
-                // preference algorithm.
-                useSortToLoadArray(getResources().getStringArray(R.array.arrLevelTwoPlacesSpeechText),
-                                getResources().getStringArray(R.array.arrLevelTwoPlacesAdapterText));
+                mArrSpeechText = getResources().getStringArray(R.array.arrLevelTwoPlacesSpeechText);
+                mArrAdapterTxt = getResources().getStringArray(R.array.arrLevelTwoPlacesAdapterText);
                 break;
             case 7:
                 mArrSpeechText = getResources().getStringArray(R.array.arrLevelTwoTimeWeatherSpeechText);
@@ -1910,8 +2062,13 @@ public class LevelTwoActivity extends AppCompatActivity {
         String savedString = "";
         if (mLevelOneItemPos == CATEGORY_ICON_PEOPLE) {
             savedString = mSession.getPeoplePreferences();
-        }else if (mLevelOneItemPos == CATEGORY_ICON_PLACES) {
-            savedString = mSession.getPlacesPreferences();
+        }
+
+        // Extra 0's are concat ed at the end of "savedString" variable. This
+        // will make length of array and length of savedString to equal to load category.
+        if(!savedString.isEmpty() && savedString.split(",").length != arrSpeechTxt.length){
+            while (savedString.split(",").length != arrSpeechTxt.length)
+                savedString = savedString.concat("0,");
         }
 
         // Create temporary array of user taps on category icons
@@ -1962,66 +2119,18 @@ public class LevelTwoActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * <p> This function will checks user device os version.
-     *   - If user device is Lollipop or below then it directly send user to make call from app.
-     *   - If user device is greater than Lollipop then it checks for does app call permission
-     *     granted or not.
-     *   - If call permission is granted then it directly send user to make call from app.
-     *   - If call permission is not granted then it opens up dialog message showing why call
-     *     permission is required to app.</p>
-     * */
-    private void showCallPreview(){
-        if(Build.VERSION.SDK_INT > 22 ) {
-            if (ActivityCompat.checkSelfPermission(this,
-                    android.Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
-                sendBroadcast(new Intent("com.dsource.idc.jellowintl.SPEECH_STOP"));
-                startCall("tel:" + mSession.getCaregiverNumber());
-            } else if (ActivityCompat.shouldShowRequestPermissionRationale(
-                            this, android.Manifest.permission.CALL_PHONE)){
-                showPermissionRequestSnackBar();
-            }else
-                showSettingRequestSnackBar();
-        }else{
-            startCall("tel:" + mSession.getCaregiverNumber());
+    /**<p> This function will returns the index of the item searched item in the sorted list
+     * it takes default index of the searched item and returns the actual sorted index of the element.
+     * .</p>**/
+    private int getSortedIndex(int index)
+    {
+        for(int i=0;i<mArrSort.length;i++)
+        {
+            if(index==mArrSort[i])
+                return i;
         }
-    }
+        return -1;
 
-    /**
-     * <p> This function will create and display SnackBar with "Request" action button. It will
-     *  display message about why app requires the Call permission.</p>
-     * */
-    private void showPermissionRequestSnackBar() {
-        Snackbar
-            .make(findViewById(R.id.parent), mCallPerInfo, Snackbar.LENGTH_LONG)
-            .setAction(mCallReq, new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ActivityCompat.requestPermissions(LevelTwoActivity.this,
-                            new String[]{android.Manifest.permission.CALL_PHONE},
-                            MY_PERMISSIONS_REQUEST_CALL_PHONE);
-                }
-            })
-            .show();
-    }
-
-    /**
-     * <p> This function will create and display SnackBar with "Settings" action button. The
-     * "Settings" action button will redirect user app setting screen.</p>
-     * */
-    private void showSettingRequestSnackBar() {
-        Snackbar
-            .make(findViewById(R.id.parent), mCallPermissionSetting, Snackbar.LENGTH_LONG)
-            .setAction(mJump2CallSet, new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent();
-                    intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                    intent.setData(Uri.fromParts("package", getPackageName(), null));
-                    startActivity(intent);
-                }
-            })
-            .show();
     }
 
     /**
@@ -2034,6 +2143,9 @@ public class LevelTwoActivity extends AppCompatActivity {
      * {@link MainActivity}.</p>
      * */
     public void startCall(String contact){
+        //removing extra digits (these digits are added to make mobile number unique)
+        // stored during registration.
+        contact = contact.substring(0, contact.length()-3);
         Intent callIntent = new Intent(Intent.ACTION_CALL);
         callIntent.setData(Uri.parse(contact));
         startActivity(callIntent);

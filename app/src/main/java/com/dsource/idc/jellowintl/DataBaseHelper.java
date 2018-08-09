@@ -23,11 +23,9 @@ import java.util.StringTokenizer;
  * Created by ekalpa on 6/27/2016.
  */
 
-class DataBaseHelper extends SQLiteOpenHelper {
+public class DataBaseHelper extends SQLiteOpenHelper {
 
     //The Android's default system path of your application database.
-    //private static String DB_PATH = "/data/data/com.dsource.idc.jellowintl/databases/";
-
     private static String DB_PATH = BuildConfig.DEBUG ? "/data/data/com.dsource.idc.jellowintl.debug/databases/" :
                                                         "/data/data/com.dsource.idc.jellowintl/databases/";
     private static String DB_NAME = "level3.db";
@@ -156,7 +154,15 @@ class DataBaseHelper extends SQLiteOpenHelper {
             layer_2_id = layer_2_id+1;
         ContentValues dataToInsert = new ContentValues();
         dataToInsert.put("layer_3", n);
-        myDataBase.update("three", dataToInsert, "layer_1_id='" + layer_1_id + "' AND layer_2_id='" + layer_2_id + "' AND language ='"+userLang+"'", null);
+        int result = myDataBase.update("three", dataToInsert, "layer_1_id='" + layer_1_id + "' AND layer_2_id='" + layer_2_id + "' AND language ='"+userLang+"'", null);
+        if (result == 0){
+            ContentValues cv = new ContentValues();
+            cv.put("layer_1_id",layer_1_id);
+            cv.put("layer_2_id",layer_2_id);
+            cv.put("layer_3",n);
+            cv.put("language", userLang);
+            myDataBase.insertOrThrow("three","",cv);
+        }
     }
 
     public boolean addLanguageDataToDatabase(){
@@ -210,7 +216,6 @@ class DataBaseHelper extends SQLiteOpenHelper {
 
         myDataBase.execSQL("alter table three add \"language\" text;");
         myDataBase.execSQL("update three set language =\"en-rUS,en-rGB\" where layer_1_id > -1;");
-
 
         Long result = 0L;
         for (int i = 0; i < levelOneIds.size(); i++) {

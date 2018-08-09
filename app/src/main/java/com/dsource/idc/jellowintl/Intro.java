@@ -27,7 +27,6 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_UK;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_US;
 import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
-import static com.dsource.idc.jellowintl.utility.SessionManager.LangValueMap;
 
 /**
  * Created by Shruti on 09-08-2016.
@@ -37,11 +36,13 @@ public class Intro extends AppIntro {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.intro_to_jellow)+"</font>"));
         // Initialize default exception handler for this activity.
         // If any exception occurs during this activity usage,
         // handle it using default exception handler.
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.intro_to_jellow)+"</font>"));
+        //Set the language database create preference
+        new SessionManager(this).setLanguageChange(0);
         startService(new Intent(getApplication(), JellowTTSService.class));
         addSlide(SampleSlideFragment.newInstance(R.layout.intro, "intro"));
         addSlide(SampleSlideFragment.newInstance(R.layout.intro5, "intro5"));
@@ -56,7 +57,6 @@ public class Intro extends AppIntro {
         setBarColor(getResources().getColor(R.color.colorIntro));
         setSeparatorColor(getResources().getColor(R.color.colorIntro));
         setIndicatorColor(getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorPrimary));
-
         showSkipButton(false);
         setProgressButtonEnabled(false);
 
@@ -122,34 +122,44 @@ public class Intro extends AppIntro {
         switch (new SessionManager(this).getLanguage()){
             case ENG_IN:
                 if(replaceChar.equals("-"))
-                    return LangValueMap.get(ENG_IN);
+                    return "English (IN)";
             case HI_IN:
-                return "Hindi (India)";
+                return "Hindi (IN)";
             case ENG_UK:
-                return LangValueMap.get(ENG_UK);
+                return "English (UK)";
             case ENG_US:
-                return LangValueMap.get(ENG_US);
+                return "English (US)";
             default: return "";
         }
     }
 
     public void getStarted(View view) {
-            SessionManager session = new SessionManager(this);
-            if(Build.VERSION.SDK_INT < 21) {
-                if ((session.getLanguage().equals(ENG_IN) && mTTsDefaultLanguage.equals(HI_IN)) ||
-                    (!session.getLanguage().equals(ENG_IN) && session.getLanguage().equals(mTTsDefaultLanguage))) {
-                    session.setCompletedIntro(true);
-                    startActivity(new Intent(Intro.this, SplashActivity.class));
-                    finish();
-                } else {
-                    Toast.makeText(this, getString(R.string.txt_set_tts_setup), Toast.LENGTH_LONG).show();
-                    getPager().setCurrentItem(5, true);
-                }
-            }else {
+        SessionManager session = new SessionManager(this);
+        if(Build.VERSION.SDK_INT < 21) {
+            if ((session.getLanguage().equals(ENG_IN) && mTTsDefaultLanguage.equals(HI_IN)) ||
+                (!session.getLanguage().equals(ENG_IN) && session.getLanguage().equals(mTTsDefaultLanguage))) {
                 session.setCompletedIntro(true);
-                startActivity(new Intent(Intro.this, SplashActivity.class));
+                Intent intent=new Intent(Intro.this, SplashActivity.class);
+                startActivity(intent);
                 finish();
+            } else {
+                Toast.makeText(this, getString(R.string.txt_set_tts_setup), Toast.LENGTH_LONG).show();
+                getPager().setCurrentItem(5, true);
             }
+        }else {
+            session.setCompletedIntro(true);
+            Intent intent=new Intent(Intro.this, SplashActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    public void changeDemoScreen(View view){
+        if (view.getId() == R.id.btnMoveLeft)
+            getPager().setCurrentItem(getPager().getCurrentItem()-1, true);
+        else
+            getPager().setCurrentItem(getPager().getCurrentItem()+1, true);
+
     }
 
     public void getStarted1(View view){

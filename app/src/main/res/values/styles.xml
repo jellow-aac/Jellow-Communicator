@@ -10,24 +10,32 @@
         <item name="android:spinnerItemStyle">@style/spinnerItemStyle</item>
         <item name="android:spinnerDropDownItemStyle">@style/spinnerDropDownItemStyle</item>
         <item name="android:windowContentOverlay">@null</item>
+        <item name="buttonStyle">@style/customButtonStyle</item>
+        <item name="android:fontFamily">@font/mukta_regular</item>
+        <item name="android:textAppearanceLargePopupMenu">@style/defaultTextViewStyle</item>
+    </style>
+    <style name="CustomSeekbar" parent="Widget.AppCompat.SeekBar">
+        <item name="colorAccent">#dc5252</item>
+        <item name="android:width">30dp</item>
+        <item name="android:height">30dp</item>
     </style>
 
 
     <style name="spinnerDropDownItemStyle">
         <item name="android:padding">8dp</item>
-        <item name="android:textSize">13dp</item>
+        <item name="android:textSize">13sp</item>
     </style>
 
     <style name="spinnerItemStyle">
         <item name="android:padding">8dp</item>
-        <item name="android:textSize">13dp</item>
+        <item name="android:textSize">13sp</item>
         <item name="android:textColor">#000000</item>
     </style>
 
     <style name="OverFlow" parent="Widget.AppCompat.ActionButton.Overflow">
         <item name="android:src">@drawable/ic_action_image_dehaze</item>
-        <item name="android:scaleX">.45</item>
-        <item name="android:scaleY">.45</item>
+        <item name="android:scaleX">.75</item>
+        <item name="android:scaleY">.95</item>
         <item name="android:layout_marginTop">-50dp</item>
         <item name="android:paddingTop">-50dp</item>
         <item name="android:layout_marginBottom">30dp</item>
@@ -44,9 +52,15 @@
     </style>
 
     <style name="MyTitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="android:textColor">#404040</item>
+        <item name="android:textColor">@color/black_eighty</item>
+        <item name="android:fontFamily">@font/mukta_semibold</item>
         <item name="android:height">@dimen/bar_height</item>
         <item name="height">@dimen/bar_height</item>
+    </style>
+
+    <style name="defaultTextViewStyle" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/black_eighty</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="Material.Widget.Slider">
@@ -73,9 +87,41 @@
     </style>
 
     <style name="RatingBar" parent="Theme.AppCompat">
-        <item name="colorControlNormal">#000</item>
-        <item name="colorControlActivated">@color/yellow_silhouette</item>
+        <item name="colorControlNormal">#C69C47</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
     </style>
 
-    <color name="yellow_silhouette">#ffcc14</color>
+    <style name="Theme.AppCompat.Translucent">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out</item>
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in</item>
+    </style>
+
+    <style name="customButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/custom_btn_view</item>
+        <item name="android:textColor">@color/app_background</item>
+        <item name="android:fontFamily">@font/mukta_regular</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+    </style>
+
+    <style name="customNavButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/custom_seq_btn_view</item>
+        <item name="android:textColor">@color/black_eighty</item>
+    </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_left</item>
+        <item name="android:windowExitAnimation">@anim/slide_right</item>
+    </style>
+
+    <style name="DialogAnimation_2">
+        <item name="android:windowEnterAnimation">@anim/slide_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_bottom</item>
+    </style>
 </resources>

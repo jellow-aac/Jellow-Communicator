@@ -14,16 +14,19 @@
     </string-array>
 
     <string-array name="arrSeqActivityToiletIcon">
+        <item>closedoor-01</item>
         <item>pullpantsdown</item>
         <item>sitonthetoilet</item>
         <item>washyourbottom</item>
         <item>flushtoilet</item>
         <item>pullpantsup</item>
         <item>washhands</item>
+        <item>opendoor-01</item>
         <item>iamalldone</item>
     </string-array>
 
     <string-array name="arrSeqActivityBathingIcon">
+        <item>closedoor-01</item>
         <item>removeclothes</item>
         <item>turnonwater</item>
         <item>getinshower</item>
@@ -38,6 +41,7 @@
         <item>dryface</item>
         <item>drybody</item>
         <item>putonclothes</item>
+        <item>opendoor-01</item>
         <item>iamalldone</item>
     </string-array>
 
@@ -81,6 +85,76 @@
         <item>आगे &gt;&gt;</item>
     </string-array>
 
+    <!--SEQUENCE ACTIVITY BELOW TEXT ARE HERE-->
+    <string-array name="arrSeqActivityBrushingBelowText">
+        <item>१. मुँह पानी से धोना</item>
+        <item>२. टूथ ब्रश पानी से धोना</item>
+        <item>३. टूथपेस्ट लगाना</item>
+        <item>४. सामने के दांत साफ़</item>
+        <item>५. पीछे के दांत साफ़</item>
+        <item>६. जीभ साफ़</item>
+        <item>७. मुँह पानी से धोना</item>
+        <item>८. मैंने ख़त्म कर दिया</item>
+    </string-array>
+
+    <string-array name="arrSeqActivityToiletBelowText">
+        <item>१.दरवाजा बंद करें</item>
+        <item>२. पैन्ट नीचे खींचना</item>
+        <item>३. शौचालय में बैठना</item>
+        <item>४. पिछला हिस्सा धोना</item>
+        <item>५. टॉयलेट फ़्लश करना</item>
+        <item>६. पैन्ट ऊपर खींचना</item>
+        <item>७. हाथ धोना</item>
+        <item>८. दरवाजा खोलें</item>
+        <item>९. मैंने ख़त्म कर दिया</item>
+    </string-array>
+
+    <string-array name="arrSeqActivityBathingBelowText">
+        <item>१. दरवाजा बंद करें</item>
+        <item>२. कपड़े निकालना</item>
+        <item>३. पानी चालू करना</item>
+        <item>४. शावर लेना</item>
+        <item>५. शरीर को भिगोना</item>
+        <item>६. साबुन लगाना</item>
+        <item>७. शाम्पू लगाना </item>
+        <item>८. फेस वॉश लगाना</item>
+        <item>९. बाल धोना</item>
+        <item>१०. शरीर धोना</item>
+        <item>११. पानी बंद करना</item>
+        <item>१२. बाल सुखाना</item>
+        <item>१३. चेहरा पोंछना</item>
+        <item>१४. शरीर पोंछना</item>
+        <item>१५. कपड़े पैहनना</item>
+        <item>१६. दरवाजा खोलें</item>
+        <item>१७. मैंने ख़त्म कर दिया</item>
+    </string-array>
+
+    <string-array name="arrSeqActivityMorningRoutineBelowText">
+        <item>१. उठना</item>
+        <item>२. चेहरा धोना</item>
+        <item>३. शौचालय जाना</item>
+        <item>४. दांत साफ़ करना</item>
+        <item>५. कपड़े उतारना</item>
+        <item>६. नहाना</item>
+        <item>७. कपड़े पैहनना</item>
+        <item>८. कंघी करना</item>
+        <item>९. नाश्ता खाना</item>
+        <item>१०. डिब्बा भरना</item>
+        <item>११. पाठशाला की बॅग भरना</item>
+        <item>१२. पाठशाला जाना</item>
+        <item>१३. आपका दिन अच्छा रहे</item>
+    </string-array>
+
+    <string-array name="arrSeqActivityBedtimeRoutineBelowText">
+        <item>१. रात का भोजन</item>
+        <item>२. रात के कपड़े पहनना</item>
+        <item>३. दांत साफ़ करना</item>
+        <item>४. कहानियाँ पढ़ना</item>
+        <item>५. शुभ रात्रि बोलना</item>
+        <item>६. प्रार्थना करना</item>
+        <item>७. प्यारे सपने देखो</item>
+    </string-array>
+
     <!--SEQUENCE ACTIVITY SPEECH TEXT ARE HERE-->
     <string-array name="arrSeqActivityBrushingSpeechText">
         <item>मुँह पानी से धोना</item>
@@ -94,16 +168,19 @@
     </string-array>
 
     <string-array name="arrSeqActivityToiletSpeechText">
+        <item>दरवाज़ा बंद करें</item>
         <item>पैन्ट नीचे खींचना</item>
         <item>शौचालय में बैठना</item>
         <item>पिछला हिस्सा धोना</item>
         <item>टॉयलेट फ़्लश करना</item>
         <item>पैन्ट ऊपर खींचना</item>
         <item>हाथ धोना</item>
+        <item>दरवाज़ा खोलें</item>
         <item>मैंने ख़त्म कर दिया</item>
     </string-array>
 
     <string-array name="arrSeqActivityBathingSpeechText">
+        <item>दरवाज़ा बंद करें</item>
         <item>कपड़े निकालना</item>
         <item>पानी चालू करना</item>
         <item>शावर लेना</item>
@@ -118,6 +195,7 @@
         <item>चेहरा पोंछना"</item>
         <item>शरीर पोंछना</item>
         <item>कपड़े पैहनना</item>
+        <item>दरवाज़ा खोलें</item>
         <item>मैंने ख़त्म कर दिया</item>
     </string-array>
 
@@ -145,72 +223,6 @@
         <item>शुभ रात्रि बोलना</item>
         <item>प्रार्थना करना</item>
         <item>प्यारे सपने देखो</item>
-    </string-array>
-
-    <!--SEQUENCE ACTIVITY BELOW TEXT ARE HERE-->
-    <string-array name="arrSeqActivityBrushingBelowText">
-        <item>१. मुँह पानी से धोना</item>
-        <item>२. टूथ ब्रश पानी से धोना</item>
-        <item>३. टूथपेस्ट लगाना</item>
-        <item>४. सामने के दांत साफ़</item>
-        <item>५. पीछे के दांत साफ़</item>
-        <item>६. जीभ साफ़</item>
-        <item>७. मुँह पानी से धोना</item>
-        <item>८. मैंने ख़त्म कर दिया</item>
-    </string-array>
-
-    <string-array name="arrSeqActivityToiletBelowText">
-        <item>१. पैन्ट नीचे खींचना</item>
-        <item>२. शौचालय में बैठना</item>
-        <item>३. पिछला हिस्सा धोना</item>
-        <item>४. टॉयलेट फ़्लश करना</item>
-        <item>५. पैन्ट ऊपर खींचना</item>
-        <item>६. हाथ धोना</item>
-        <item>७. मैंने ख़त्म कर दिया</item>
-    </string-array>
-
-    <string-array name="arrSeqActivityBathingBelowText">
-        <item>१. कपड़े निकालना</item>
-        <item>२.पानी चालू करना</item>
-        <item>३. शावर लेना</item>
-        <item>४. शरीर को भिगोना</item>
-        <item>५. साबुन लगाना</item>
-        <item>६. शाम्पू लगाना </item>
-        <item>७. फेस वॉश लगाना</item>
-        <item>८. बाल धोना</item>
-        <item>९. शरीर धोना</item>
-        <item>१०. पानी बंद करना</item>
-        <item>११. बाल सुखाना</item>
-        <item>१२. चेहरा पोंछना"</item>
-        <item>१३. शरीर पोंछना</item>
-        <item>१४. कपड़े पैहनना</item>
-        <item>१५. मैंने ख़त्म कर दिया</item>
-    </string-array>
-
-    <string-array name="arrSeqActivityMorningRoutineBelowText">
-        <item>१. उठना</item>
-        <item>२. चेहरा धोना</item>
-        <item>३. शौचालय जाना</item>
-        <item>४. दांत साफ़ करना</item>
-        <item>५. कपड़े उतारना</item>
-        <item>६. नहाना</item>
-        <item>७. कपड़े पैहनना</item>
-        <item>८. कंघी करना</item>
-        <item>९. नाश्ता खाना</item>
-        <item>१०. डिब्बा भरना</item>
-        <item>११. पाठशाला की बॅग भरना</item>
-        <item>१२. पाठशाला जाना</item>
-        <item>१३. आपका दिन अच्छा रहे</item>
-    </string-array>
-
-    <string-array name="arrSeqActivityBedtimeRoutineBelowText">
-        <item>१. रात का भोजन</item>
-        <item>२. रात के कपड़े पहनना</item>
-        <item>३. दांत साफ़ करना</item>
-        <item>४. कहानियाँ पढ़ना</item>
-        <item>५. शुभ रात्रि बोलना</item>
-        <item>६. प्रार्थना करना</item>
-        <item>७. प्यारे सपने देखो</item>
     </string-array>
 
     <string name="sequenceActVerbiage1">
@@ -305,7 +317,21 @@
             \"मुझे अपना मुँह पानी से और नहीं धोना हैं\",
             \"मुझे सच में अपना मुँह पानी से और नहीं धोना हैं\"
 
-    ]],[[\"मुझे अपनी पैन्ट नीचे खींचनी हैं\",
+    ]],[[
+            \"मुझे दरवाज़ा बंद करना हैं\",
+            \"मुझे सच में दरवाज़ा बंद करना हैं\",
+            \"मुझे दरवाज़ा बंद करना हैं\",
+            \"मुझे सच में दरवाज़ा बंद करना हैं\",
+            \"मुझे फिर से दरवाज़ा बंद करना हैं\",
+            \"मुझे सच में फिर से दरवाज़ा बंद करना हैं\",
+            \"मुझे दरवाज़ा बंद नहीं करना हैं\",
+            \"मुझे सच में दरवाज़ा बंद नहीं करना हैं\",
+            \"मुझे दरवाज़ा बंद नहीं करना हैं\",
+            \"मुझे सच में दरवाज़ा बंद नहीं करना हैं\",
+            \"मुझे फिर से दरवाज़ा बंद नहीं करना हैं\",
+            \"मुझे सच में फिर से दरवाज़ा बंद नहीं करना हैं\"
+
+        ],[\"मुझे अपनी पैन्ट नीचे खींचनी हैं\",
             \"मुझे सच में अपनी पैन्ट नीचे खींचनी हैं\",
             \"मुझे अपनी पैन्ट नीचे खींचनी हैं\",
             \"मुझे सच में अपनी पैन्ट नीचे खींचनी हैं\",
@@ -383,7 +409,35 @@
             \"मुझे फिर से अपने हाथ नहीं धोने हैं\",
             \"मुझे सच में फिर से अपने हाथ नहीं धोने हैं\"
 
-    ]],[[\"मुझे अपने कपड़े निकालने हैं\",
+    ],[
+            \"मुझे दरवाज़ा खोलना हैं\",
+            \"मुझे सच में दरवाज़ा खोलना हैं\",
+            \"मुझे दरवाज़ा खोलना हैं\",
+            \"मुझे सच में दरवाज़ा खोलना हैं\",
+            \"मुझे फिर से दरवाज़ा खोलना हैं\",
+            \"मुझे सच में फिर से दरवाज़ा खोलना हैं\",
+            \"मुझे दरवाज़ा नहीं खोलना हैं\",
+            \"मुझे सच में दरवाज़ा नहीं खोलना हैं\",
+            \"मुझे दरवाज़ा नहीं खोलना हैं\",
+            \"मुझे सच में दरवाज़ा नहीं खोलना हैं\",
+            \"मुझे फिर से दरवाज़ा नहीं खोलना हैं\",
+            \"मुझे सच में फिर से दरवाज़ा नहीं खोलना हैं\"
+
+    ]],[[
+            \"मुझे दरवाज़ा बंद करना हैं\",
+            \"मुझे सच में दरवाज़ा बंद करना हैं\",
+            \"मुझे दरवाज़ा बंद करना हैं\",
+            \"मुझे सच में दरवाज़ा बंद करना हैं\",
+            \"मुझे फिर से दरवाज़ा बंद करना हैं\",
+            \"मुझे सच में फिर से दरवाज़ा बंद करना हैं\",
+            \"मुझे दरवाज़ा बंद नहीं करना हैं\",
+            \"मुझे सच में दरवाज़ा बंद नहीं करना हैं\",
+            \"मुझे दरवाज़ा बंद नहीं करना हैं\",
+            \"मुझे सच में दरवाज़ा बंद नहीं करना हैं\",
+            \"मुझे फिर से दरवाज़ा बंद नहीं करना हैं\",
+            \"मुझे सच में फिर से दरवाज़ा बंद नहीं करना हैं\"
+
+        ],[\"मुझे अपने कपड़े निकालने हैं\",
             \"मुझे सच में अपने कपड़े निकालने हैं\",
             \"मुझे अपने कपड़े निकालने हैं\",
             \"मुझे सच में अपने कपड़े निकालने हैं\",
@@ -567,6 +621,20 @@
             \"मुझे सच में अपने कपड़े नहीं पहनने हैं\",
             \"मुझे अपने कपड़े फिर से नहीं पहनने हैं\",
             \"मुझे सच में अपने कपड़े फिर से नहीं पहनने हैं\"
+
+    ],[
+            \"मुझे दरवाज़ा खोलना हैं\",
+            \"मुझे सच में दरवाज़ा खोलना हैं\",
+            \"मुझे दरवाज़ा खोलना हैं\",
+            \"मुझे सच में दरवाज़ा खोलना हैं\",
+            \"मुझे फिर से दरवाज़ा खोलना हैं\",
+            \"मुझे सच में फिर से दरवाज़ा खोलना हैं\",
+            \"मुझे दरवाज़ा नहीं खोलना हैं\",
+            \"मुझे सच में दरवाज़ा नहीं खोलना हैं\",
+            \"मुझे दरवाज़ा नहीं खोलना हैं\",
+            \"मुझे सच में दरवाज़ा नहीं खोलना हैं\",
+            \"मुझे फिर से दरवाज़ा नहीं खोलना हैं\",
+            \"मुझे सच में फिर से दरवाज़ा नहीं खोलना हैं\"
 
     ]],[[\"मुझे सुबह जल्दी उठना अच्छा लगता हैं\",
             \"मुझे सच में सुबह जल्दी उठना अच्छा लगता हैं\",

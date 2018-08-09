@@ -15,8 +15,8 @@
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:fadeScrollbars="false"
-        android:layout_marginRight="30dp"
-        >
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -27,14 +27,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/childName"
-                android:textColor="#000000"
-                android:textSize="20dp"/>
+                android:fontFamily="@font/mukta_semibold"
+                style="@style/defaultTextViewStyle"
+                android:contentDescription="Child's name"
+                android:importantForAccessibility="yes"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/txt_registration_jellowCalluDesc"
-                android:textColor="#000000"
-                android:textSize="15dp"/>
+                style="@style/defaultTextViewStyle"
+                android:textSize="16sp"/>
 
             <EditText
                 android:id="@+id/etName"
@@ -43,21 +45,24 @@
                 android:layout_marginBottom="10dp"
                 android:inputType="textPersonName"
                 android:ems="10"
-                android:imeOptions="actionDone"/>
+                android:imeOptions="actionDone"
+                style="@style/defaultTextViewStyle"
+                android:contentDescription="enter your name"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/careGiverContact"
-                android:textColor="#000000"
-                android:textSize="20dp"/>
+                android:fontFamily="@font/mukta_semibold"
+                style="@style/defaultTextViewStyle"
+                android:contentDescription="caregiver's contact number"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/txt_registration_emergencynoDesc"
-                android:textColor="#000000"
-                android:textSize="15dp"/>
+                style="@style/defaultTextViewStyle"
+                android:textSize="16sp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -67,32 +72,40 @@
                     android:id="@+id/ccp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:ccp_textSize="22sp"
+                    app:ccpDialog_textColor="@color/black_eighty"
                     app:ccpDialog_showCloseIcon="true"
                     app:ccp_countryPreference="IN,US,GB"
                     app:ccp_autoDetectCountry="true"
+                    app:ccp_autoFormatNumber="false"
                     app:ccpDialog_keyboardAutoPopup="false"
-                    app:ccpDialog_backgroundColor="@color/colorIntro"/>
+                    app:ccpDialog_backgroundColor="@color/colorIntro"
+                    android:contentDescription="select country code"/>
                 <EditText
+                    android:id="@+id/etEmergencyContact"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:inputType="phone"
-                    android:id="@+id/etEmergencyContact"
-                    android:imeOptions="actionDone"/>
+                    android:maxLength="12"
+                    android:imeOptions="actionDone"
+                    style="@style/defaultTextViewStyle"
+                    android:contentDescription="enter caregiver's contact number"/>
             </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/emailAddress"
-                android:textColor="#000000"
-                android:textSize="20dp"/>
+                android:fontFamily="@font/mukta_semibold"
+                style="@style/defaultTextViewStyle"
+                android:contentDescription="email address"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/txt_registration_emailDesc"
-                android:textColor="#000000"
-                android:textSize="15dp"/>
+                style="@style/defaultTextViewStyle"
+                android:textSize="16sp"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -101,14 +114,17 @@
                 android:ems="10"
                 android:id="@+id/etEmailId"
                 android:inputType="textEmailAddress"
-                android:imeOptions="actionDone"/>
+                android:imeOptions="actionDone"
+                style="@style/defaultTextViewStyle"
+                android:contentDescription="enter email address"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/userGroup"
-                android:textColor="#000000"
-                android:textSize="20sp"/>
+                android:fontFamily="@font/mukta_semibold"
+                style="@style/defaultTextViewStyle"
+                android:contentDescription="User Group"/>
 
             <RadioGroup
                 android:id="@+id/radioUserGroup"
@@ -119,39 +135,42 @@
                     android:id="@+id/radioTherapist"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="17sp"
-                    android:text="@string/groupTeacher"/>
+                    android:text="@string/groupTeacher"
+                    style="@style/defaultTextViewStyle"/>
                 <RadioButton
                     android:id="@+id/radioParent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="17sp"
-                    android:text="@string/groupParent"/>
+                    android:text="@string/groupParent"
+                    style="@style/defaultTextViewStyle"/>
             </RadioGroup>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/txt_registration_selectLangDesc"
-                android:textColor="#000000"
-                android:textSize="20dp" />
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/mukta_semibold"
+                style="@style/defaultTextViewStyle"/>
 
             <Spinner
                 android:id="@+id/langSelectSpinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="160dp"
+                android:layout_height="40dp"
+                android:background="@drawable/custom_spinner_view"
                 android:layout_marginBottom="10dp"/>
 
             <Button
                 android:id="@+id/bRegister"
                 android:text="@string/txt_registration_registerBtn"
-                android:layout_width="240dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textSize="22sp"
                 android:layout_marginTop="50dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/custom_txt_view"/>
+                android:layout_marginBottom="8dp"/>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

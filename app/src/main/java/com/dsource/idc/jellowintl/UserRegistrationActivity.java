@@ -1,23 +1,14 @@
 package com.dsource.idc.jellowintl;
 
-/**
- * Created by user on 5/25/2016.
- */
-
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AlertDialog;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
@@ -33,7 +24,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_DropDownMenu;
 import com.dsource.idc.jellowintl.models.SecureKeys;
+import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -42,6 +35,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
@@ -53,20 +47,22 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
+import java.util.Random;
 
 import se.simbio.encryption.Encryption;
 
-import static com.dsource.idc.jellowintl.MainActivity.isDeviceReadyToCall;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.getAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.maskNumber;
 import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
 
+/**
+ * Created by user on 5/25/2016.
+ */
 public class UserRegistrationActivity extends AppCompatActivity {
     public static final String LCODE = "lcode";
     public static final String TUTORIAL = "tutorial";
-    private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 0;
 
     final int GRID_3BY3 = 1;
     private Button bRegister;
@@ -84,7 +80,12 @@ public class UserRegistrationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Initialize default exception handler for this activity.
+        // If any exception occurs during this activity usage,
+        // handle it using default exception handler.
+        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         setContentView(R.layout.activity_user_registration);
+        FirebaseMessaging.getInstance().subscribeToTopic("jellow_aac");
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.app_name)+"</font>"));
 
         mSession = new SessionManager(this);
@@ -96,6 +97,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
         if (mSession.isUserLoggedIn() && !mSession.getLanguage().isEmpty())
         {
             if(mSession.isDownloaded(mSession.getLanguage()) && mSession.isCompletedIntro()) {
+                if(!mSession.getUpdatedFirebase())
+                    updateFirebaseDatabase();
                 startActivity(new Intent(this, SplashActivity.class));
             }else if(mSession.isDownloaded(mSession.getLanguage()) && !mSession.isCompletedIntro()){
                 startActivity(new Intent(this, Intro.class));
@@ -118,6 +121,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
         etName = findViewById(R.id.etName);
         etEmergencyContact = findViewById(R.id.etEmergencyContact);
         mCcp = findViewById(R.id.ccp);
+        ViewCompat.setAccessibilityDelegate(mCcp, new TalkbackHints_DropDownMenu());
         mCcp.registerCarrierNumberEditText(etEmergencyContact);
         etEmailId= findViewById(R.id.etEmailId);
         bRegister = findViewById(R.id.bRegister);
@@ -143,7 +147,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
         languageSelect = findViewById(R.id.langSelectSpinner);
 
         ArrayAdapter<String> adapter_lan = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, languageNames);
+                R.layout.simple_spinner_item, shortLangNameForDisplay(languageNames));
 
         adapter_lan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -168,31 +172,39 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 name  = etName.getText().toString();
                 if (etName.getText().toString().equals("")) {
                     bRegister.setEnabled(true);
-                    Toast.makeText(getBaseContext(), getString(R.string.enterTheName),
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserRegistrationActivity.this,
+                            getString(R.string.enterTheName), Toast.LENGTH_SHORT).show();
                     return;
                 }
-                //emergency contact of child. The contact with country code without preceding '+'
-                // is used as unique identifier.
-                emergencyContact = mCcp.getFullNumber();
-                if(etEmergencyContact.getText().toString().equals("")){
+                // Emergency contact is contact number of a caregiver/teacher/parent/therapist.
+                // of a child. The contact with country code without preceding '+' and succeding
+                // extra 3 random digits are added to emergency contact and is used as unique
+                // identifier. Extra 3 digits are added to surpass Firebase behavior.
+                // Random number generator logic:
+                // max = 1000 and min = 100
+                // num = new Random().nextInt((max - min)+1) + min
+                // This will ensure 3 digit random number.
+                mSession.setExtraValToContact(String.valueOf(new Random().nextInt(900) + 100));
+                emergencyContact = mCcp.getFullNumber().concat(mSession.getExtraValToContact());
+                if(etEmergencyContact.getText().toString().isEmpty() ||
+                        !etEmergencyContact.getText().toString().matches("[0-9]*")){
                     bRegister.setEnabled(true);
-                    Toast.makeText(getBaseContext(), getString(R.string.enternonemptycontact),
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserRegistrationActivity.this,
+                            getString(R.string.enternonemptycontact), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 eMailId = etEmailId.getText().toString().trim();
                 if (!isValidEmail(eMailId)){
                     bRegister.setEnabled(true);
-                    Toast.makeText(getBaseContext(),getString(R.string.invalid_emailId),
+                    Toast.makeText(UserRegistrationActivity.this,getString(R.string.invalid_emailId),
                             Toast.LENGTH_SHORT).show();
                     return;
                 }
                 RadioGroup radioGroup = findViewById(R.id.radioUserGroup);
                 if(radioGroup.getCheckedRadioButtonId() == -1){
                     bRegister.setEnabled(true);
-                    Toast.makeText(getBaseContext(),getString(R.string.invalid_usergroup),
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserRegistrationActivity.this,
+                            getString(R.string.invalid_usergroup), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -201,23 +213,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
                 mUserGroup = (radioGroup.getCheckedRadioButtonId() == R.id.radioParent) ?
                         getString(R.string.groupParentOnly): getString(R.string.groupTeacherOnly);
-
-                // If user device Android os is above Lollipop and user is not denied Call
-                // permission once and app do not have the call permission and
-                // if user have sim device and ready to call, then show Dialog about
-                // Call permission usage.
-                if(Build.VERSION.SDK_INT > 22 &&
-                        !ActivityCompat.shouldShowRequestPermissionRationale
-                                (UserRegistrationActivity.this,
-                                    android.Manifest.permission.CALL_PHONE) &&
-                        ActivityCompat.checkSelfPermission(UserRegistrationActivity.this,
-                                android.Manifest.permission.CALL_PHONE)
-                                    != PackageManager.PERMISSION_GRANTED &&
-                        (isDeviceReadyToCall((TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE))))
-                    showPermissionRequestDialog();
-                else
-                    new NetworkConnectionTest(UserRegistrationActivity.this, name,
-                            emergencyContact, eMailId, mUserGroup).execute();
+                new NetworkConnectionTest(UserRegistrationActivity.this, name,
+                    emergencyContact, eMailId, mUserGroup).execute();
             }
         });
 
@@ -228,83 +225,36 @@ public class UserRegistrationActivity extends AppCompatActivity {
         }
     }
 
+    private void updateFirebaseDatabase() {
+        String userId = maskNumber(mSession.getCaregiverNumber().substring(1));
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference ref = db.getReference(BuildConfig.DB_TYPE+"/users/" + userId);
+        SecureKeys secureKey = new Gson().
+                fromJson(mSession.getEncryptedData(), SecureKeys.class);
+        if (secureKey == null)
+            return;
+        ref.child("email").setValue(encrypt(mSession.getEmailId(),secureKey));
+        ref.child("emergencyContact").setValue(userId);
+        ref.child("name").setValue(encrypt(mSession.getName(), secureKey));
+        ref.child("userGroup").setValue(encrypt(mSession.getUserGroup(), secureKey));
+        ref.child("bloodGroup").setValue(encrypt(getBloodGroup(mSession.getBlood()), secureKey));
+        if(!mSession.getCaregiverNumber().isEmpty())
+            ref.child("caregiverName").setValue(encrypt(mSession.getCaregiverName(), secureKey));
+
+        if(!mSession.getAddress().isEmpty())
+            ref.child("address").setValue(encrypt(mSession.getAddress(), secureKey));
+        ref.child("updatedOn").setValue(ServerValue.TIMESTAMP);
+        mSession.setUpdatedFirebase(true);
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
         Crashlytics.log("Paused "+getLocalClassName());
     }
 
-    /*private void checkNetworkConnection() {
-        DatabaseReference connectedRef = FirebaseDatabase.getInstance().getReference(".info/connected");
-        connectedRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                if (snapshot.getValue(Boolean.class)) {
-                    mSession.setName(name);
-                    mSession.setCaregiverNumber(emergencyContact);
-                    mSession.setUserCountryCode(mCcp.getSelectedCountryCode());
-                    mSession.setEmailId(eMailId);
-                    createUser(name, emergencyContact, eMailId,
-                            mCcp.getSelectedCountryEnglishName(), selectedLanguage,
-                             mUserGroup, mUserGroup);
-                    return;
-                }
-                Toast.makeText(UserRegistrationActivity.this, getString(R.string.checkConnectivity), Toast.LENGTH_LONG).show();
-            }
-            @Override
-            public void onCancelled(DatabaseError error) {
-                System.err.println("Listener was cancelled");
-            }
-        });
-    }*/
-
-    private void showPermissionRequestDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        // Add the buttons
-        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.dismiss();
-                showCallPreview();
-            }
-        });
-        // Set other dialog properties
-        builder.setCancelable(false);
-        builder.setMessage(getString(R.string.call_permission_info));
-        // Create the AlertDialog
-        AlertDialog dialog = builder.create();
-        // Show the AlertDialog
-        dialog.show();
-    }
-
-    private void showCallPreview(){
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE)
-                == PackageManager.PERMISSION_GRANTED){
-            new NetworkConnectionTest(UserRegistrationActivity.this,
-                    name, emergencyContact, eMailId, mUserGroup).execute();
-        } else {
-            ActivityCompat.requestPermissions(this, new String[]
-                    {android.Manifest.permission.CALL_PHONE}, MY_PERMISSIONS_REQUEST_CALL_PHONE);
-        }
-    }
-
     private boolean isValidEmail(CharSequence target) {
         return target != null && Patterns.EMAIL_ADDRESS.matcher(target).matches();
-    }
-
-    @Override
-    public void onRequestPermissionsResult (int requestCode, String Permissions[], int[] grantResults) {
-        if (requestCode == MY_PERMISSIONS_REQUEST_CALL_PHONE) {
-            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(UserRegistrationActivity.this,
-                        getString(R.string.granted_call_permission_req), Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(UserRegistrationActivity.this,
-                        R.string.rejected_call_permission_req, Toast.LENGTH_SHORT).show();
-            }
-            new NetworkConnectionTest(UserRegistrationActivity.this,
-                    name, emergencyContact, eMailId, mUserGroup).execute();
-
-        }
     }
 
     private class NetworkConnectionTest extends AsyncTask<Void, Void, Boolean>{
@@ -356,6 +306,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 mSession.setUserCountryCode(mCcp.getSelectedCountryCode());
                 mSession.setEmailId(mEmailId);
                 encryptStoreUserInfo(mName, emergencyContact, eMailId, mUserGroup);
+                Toast.makeText(mContext, getString(R.string.register_user), Toast.LENGTH_SHORT).show();
             }else{
                 bRegister.setEnabled(true);
                 Toast.makeText(mContext, getString(R.string.checkConnectivity), Toast.LENGTH_LONG).show();
@@ -445,6 +396,41 @@ public class UserRegistrationActivity extends AppCompatActivity {
         } catch (Exception e)
         {
             e.printStackTrace();
+        }
+    }
+
+    private String[] shortLangNameForDisplay(String[] langNameToBeShorten) {
+        String[] shortenLanguageNames = new String[langNameToBeShorten.length];
+        for (int i=0; i < langNameToBeShorten.length; i++){
+            switch (langNameToBeShorten[i]){
+                case "English (India)":
+                    shortenLanguageNames[i] = "English (IN)";
+                    break;
+                case "English (United Kingdom)":
+                    shortenLanguageNames[i] = "English (UK)";
+                    break;
+                case "English (United States)":
+                    shortenLanguageNames[i] = "English (US)";
+                    break;
+                default:
+                    shortenLanguageNames[i] = langNameToBeShorten[i];
+                    break;
+            }
+        }
+        return shortenLanguageNames;
+    }
+
+    private String getBloodGroup(int bloodGroup) {
+        switch(bloodGroup){
+            case 1: return "A+ve";
+            case 2: return "A-ve";
+            case 3: return "B+ve";
+            case 4: return "B-ve";
+            case 5: return "AB+ve";
+            case 6: return "AB-ve";
+            case 7: return "O+ve";
+            case 8: return "O-ve";
+            default: return "not selected";
         }
     }
 }

@@ -59,4 +59,23 @@
     <color name="et_divider_focused">@color/colorControlActivated</color>
     <color name="et_divider_not_focused">#FF6D6D6D</color>
     <color name="et_divider_disable">#FFC1C1C1</color>
+    <color name="search_list_divider">#e1dedbdb</color>
+
+    <color name="search_list_dir_hint">#d0868383</color>
+    <color name="translucent">#90000000</color>
+    <color name="black_80">#333333</color>
+    <color name="search_bar_color">#dedab1</color>
+
+
+    <color name="search_highlight">#74dac6</color>
+    <color name="pressed_btn">#E17C6F</color>
+    <color name="app_background">#F7F3C6</color>
+    <color name="text_color">#404040</color>
+    <color name="black_eighty">#414042</color>
+
+    <color name="yellow_silhouette">#ffcc14</color>
+    <color name="white">#FFFFFF</color>
+    <color name="seq_btn_background_unpressed">#FFBEBCB6</color>
+    <color name="seq_btn_background_pressed">#93918C</color>
+
 </resources>

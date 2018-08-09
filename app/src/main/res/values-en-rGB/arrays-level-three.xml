@@ -15,6 +15,8 @@
         <item>howareyou</item>
         <item>howwasyourday</item>
         <item>howareyou</item>
+        <item>goodjob-01</item>
+        <item>awesome-01</item>
     </string-array>
     <string-array name="arrLevelThreeGreetFeelFeelingIconAdapter">
         <item>happy</item>
@@ -53,6 +55,8 @@
         <item>comehere</item>
         <item>takeme</item>
         <item>ineedmoretime</item>
+        <item>iwanttobealone-01</item>
+        <item>idontwantanysound-01</item>
     </string-array>
     <string-array name="arrLevelThreeGreetFeelQuestionsIconAdapter">
         <item>how</item>
@@ -143,8 +147,41 @@
         <item>handmovements</item>
         <item>legexercises</item>
         <item>bodyvest</item>
+        <item>sensoryobjects-01</item>
         <item>speechtherapy</item>
         <item>grouptherapy</item>
+        <item>dancing</item>
+        <item>musictherapy-01</item>
+        <item>arttherapy-01</item>
+        <item>handmovements</item>
+        <item>exercise</item>
+        <item>playwithme</item>
+        <item>remidialobjects-01-01</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActHabitsIconAdapter">
+        <item>calmdown-01</item>
+        <item>redlight-01</item>
+        <item>greenlight-01</item>
+        <item>walkonsideways-01</item>
+        <item>watchoutforcars-01-01-01</item>
+        <item>lookleftrightbeforecrossing-01</item>
+        <item>donttalkwhilefoodinmouth-01-01</item>
+        <item>eaysmallbites-01</item>
+        <item>throwgarbageinbin-01</item>
+        <item>donotspit-01</item>
+        <item>dontpickyournose-01</item>
+        <item>dontpinchothers-01</item>
+        <item>dontpushothers-01-01</item>
+        <item>donthit-01</item>
+        <item>dontbite-01-01</item>
+        <item>dontkick-01</item>
+        <item>dontplaywithmmatchsticks-01</item>
+        <item>dontplaywithpointedobjects-01</item>
+        <item>waitforyourturn-01-01</item>
+        <item>nohandsinunderpants-01</item>
+        <item>onearmdistance-01</item>
+        <item>donttouchothers-01-01</item>
+        <item>dontgooutwithstrangers-01-01-01</item>
     </string-array>
 
     <!--LEVEL THREE "EATING" ADAPTER TEXT ARE HERE-->
@@ -441,6 +478,8 @@
         <item>cricket_activities</item>
     </string-array>
     <string-array name="arrLevelThreeFunTvIconAdapter">
+        <item>switchon-01</item>
+        <item>swithcoff-01</item>
         <item>nextchannel</item>
         <item>previouschannel</item>
         <item>volumeup</item>
@@ -688,6 +727,164 @@
         <item>moneychange</item>
     </string-array>
 
+    <!--LEVEL THREE "PLACES" ICON TEXT ARE HERE-->
+
+    <string-array name="arrLevelThreePlacesMyHouseIconAdapter">
+        <item>livingroom</item>
+        <item>bedroom</item>
+        <item>kitchen</item>
+        <item>studyroom</item>
+        <item>playroom</item>
+        <item>bathroom</item>
+        <item>balcony</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesSchoolIconAdapter">
+        <item>teacher01</item>
+        <item>classroom-01</item>
+        <item>laboratory-01</item>
+        <item>staffroom-01</item>
+        <item>level2_places_library</item>
+        <item>level2_places_playground</item>
+        <item>level2_eat_cutlery</item>
+        <item>computer</item>
+        <item>arttherapy-01</item>
+        <item>musictherapy-01</item>
+        <item>exercise</item>
+        <item>maths</item>
+        <item>science_books</item>
+        <item>geography_books</item>
+        <item>history</item>
+        <item>socialscience</item>
+        <item>languageclasses-01</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesMallIconAdapter">
+        <item>escalor-01</item>
+        <item>foodcourt-01</item>
+        <item>level2_places_theatre</item>
+        <item>funzone-01-01-01</item>
+        <item>store-01</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesMuseumIconAdapter">
+        <item>sciencemuseum-01</item>
+        <item>artmuseum-01</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesRestaurantIconAdapter">
+        <item>level2_eat_snacks</item>
+        <item>level2_eat_cutlery</item>
+        <item>menucard-01</item>
+        <item>drinks-01</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesTheatreIconAdapter">
+        <item>popcorn-01</item>
+        <item>icecream</item>
+        <item>nachos-01</item>
+        <item>soda</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesPlaygroundIconAdapter">
+        <item>swing</item>
+        <item>slide</item>
+        <item>merrygoround</item>
+        <item>seesaw</item>
+        <item>junglegyhm-01</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesParkIconAdapter">
+        <item>batandball</item>
+        <item>tag</item>
+        <item>iceskating</item>
+        <item>frisbee</item>
+        <item>holahoop</item>
+        <item>hopskotch</item>
+        <item>jumprope</item>
+        <item>walking</item>
+        <item>running</item>
+        <item>rollerskates</item>
+        <item>cycle_transport</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesStoreIconAdapter">
+        <item>medicalshop-01</item>
+        <item>groceryshop-01</item>
+        <item>toyshop-01</item>
+        <item>clothesshop-01</item>
+        <item>turkey</item>
+        <item>vegetableshop-01</item>
+        <item>level2_eat_fruits</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesFriendHouseIconAdapter">
+        <item>playwithfriends-01</item>
+        <item>level2_fun_indoor_games1</item>
+        <item>level2_eat_snacks</item>
+        <item>drinks-01</item>
+        <item>toilet</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesRelativeHouseIconAdapter">
+        <item>level2_people_aunt</item>
+        <item>level2_eat_snacks</item>
+        <item>drinks-01</item>
+        <item>toilet</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesHospitalIconAdapter">
+        <item>level2_help_feelsick</item>
+        <item>level2_help_feelhurt</item>
+        <item>level2_people_doctor</item>
+        <item>level2_people_nurse</item>
+        <item>medicalshop-01</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesClinicIconAdapter">
+        <item>therapist-01</item>
+        <item>swissball</item>
+        <item>trampoline</item>
+        <item>swing</item>
+        <item>blanket</item>
+        <item>ballpit</item>
+        <item>exercise</item>
+        <item>handmovements</item>
+        <item>legexercises</item>
+        <item>bodyvest</item>
+        <item>sensoryobjects-01</item>
+        <item>grouptherapy</item>
+        <item>speechtherapy</item>
+        <item>playwithme</item>
+        <item>exercise</item>
+        <item>handmovements</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesLibraryIconAdapter">
+        <item>level2_learn_books</item>
+        <item>comics_books</item>
+        <item>rhymebook</item>
+        <item>storybook</item>
+        <item>picturebook</item>
+        <item>mysterybook</item>
+        <item>adventurebook</item>
+        <item>wordbook</item>
+        <item>favouritebook</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesZooIconAdapter">
+        <item>animals</item>
+        <item>birds-01</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesWorshipIconAdapter">
+        <item>temple-01</item>
+        <item>church-01</item>
+        <item>gurudwara-01</item>
+        <item>mosue-01</item>
+        <item>synalogue-01</item>
+    </string-array>
+
     <!--LEVEL THREE "TIME AND WEATHER" ADAPTER TEXT ARE HERE-->
     <string-array name="arrLevelThreeTimeWeaTimeIconAdapter">
         <item>currenttime</item>
@@ -794,6 +991,8 @@
         <item>How are you?</item>
         <item>How was your day?</item>
         <item>How do you do?</item>
+        <item>Great job!!!</item>
+        <item>Awesome!</item>
     </string-array>
     <string-array name="arrLevelThreeGreetFeelFeelingsAdapterText">
         <item>Happy</item>
@@ -843,6 +1042,8 @@
         <item>Please come here</item>
         <item>Please take me</item>
         <item>I need more time</item>
+        <item>Be alone</item>
+        <item>Quiet please!</item>
     </string-array>
 
     <!--LEVEL THREE "DAILY ACTIVITIES" ADAPTER TEXT ARE HERE-->
@@ -922,8 +1123,41 @@
         <item>Hand activities</item>
         <item>Leg exercises</item>
         <item>Body vests</item>
+        <item>Sensory toys</item>
         <item>Speech therapy</item>
         <item>Group therapy</item>
+        <item>Dance therapy</item>
+        <item>Music therapy</item>
+        <item>Art therapy</item>
+        <item>Occupational therapy</item>
+        <item>Physiotherapy</item>
+        <item>Play therapy</item>
+        <item>Remedial class</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActHabitsAdapterText">
+        <item>Calm body</item>
+        <item>Red light: Wait</item>
+        <item>Green light: Go</item>
+        <item>Walk on sidewalk</item>
+        <item>Cars: Watch out!</item>
+        <item>Look and cross</item>
+        <item>No talking while eating!</item>
+        <item>Eat with small bites</item>
+        <item>Garbage in the bin</item>
+        <item>No spitting please</item>
+        <item>No picking nose please</item>
+        <item>No pinching please</item>
+        <item>No pushing please</item>
+        <item>No hitting please</item>
+        <item>No biting please</item>
+        <item>No kicking please</item>
+        <item>Matchsticks: Don\'t touch!</item>
+        <item>Please don\'t touch!</item>
+        <item>Wait for turn</item>
+        <item>No hands in underpants</item>
+        <item>Keep distance while talking</item>
+        <item>No inappropriate touch</item>
+        <item>Strangers: Beware!</item>
     </string-array>
 
     <!--LEVEL THREE "EATING" SPEECH TEXT ARE HERE-->
@@ -1190,7 +1424,7 @@
         <item>Hula hooping</item>
         <item>Hopskotch</item>
         <item>Paintball</item>
-        <item>Jump rope</item>
+        <item>Skipping</item>
         <item>Walk</item>
         <item>Cycle</item>
         <item>Run</item>
@@ -1220,6 +1454,8 @@
         <item>Cricket</item>
     </string-array>
     <string-array name="arrLevelThreeFunTvAdapterText">
+        <item>Switch on TV</item>
+        <item>Switch off TV</item>
         <item>Next channel</item>
         <item>Previous channel</item>
         <item>Volume up</item>
@@ -1467,6 +1703,163 @@
         <item>Change</item>
     </string-array>
 
+    <!--LEVEL THREE "PLACES" ADAPTER TEXT ARE HERE-->
+    <string-array name="arrLevelThreePlacesMyHouseAdapterText">
+        <item>Living room</item>
+        <item>Bedroom</item>
+        <item>Kitchen</item>
+        <item>Study room</item>
+        <item>Play room</item>
+        <item>Bathroom</item>
+        <item>Balcony</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesSchoolAdapterText">
+        <item>Teacher</item>
+        <item>Classroom</item>
+        <item>Laboratory</item>
+        <item>Staffroom</item>
+        <item>Library</item>
+        <item>Playground</item>
+        <item>Cafeteria</item>
+        <item>Computer lab</item>
+        <item>Art class</item>
+        <item>Music class</item>
+        <item>Physical Education class</item>
+        <item>Mathematics class</item>
+        <item>Science class</item>
+        <item>Geography class</item>
+        <item>History class</item>
+        <item>Social Studies class</item>
+        <item>Language class</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesMallAdapterText">
+        <item>Escalator</item>
+        <item>Food court</item>
+        <item>Theater</item>
+        <item>Fun zone</item>
+        <item>Store</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesMuseumAdapterText">
+        <item>Science museum</item>
+        <item>Art museum</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesRestaurantAdapterText">
+        <item>Food</item>
+        <item>Cutlery</item>
+        <item>Menu</item>
+        <item>Drinks</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesTheatreAdapterText">
+        <item>Popcorn</item>
+        <item>Ice cream</item>
+        <item>Nachos</item>
+        <item>Soft drinks</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesPlaygroundAdapterText">
+        <item>Swing</item>
+        <item>Slide</item>
+        <item>Merry-go-round</item>
+        <item>See-saw</item>
+        <item>Jungle gym</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesParkAdapterText">
+        <item>Bat and ball</item>
+        <item>Tag</item>
+        <item>Skateboarding</item>
+        <item>Frisbee</item>
+        <item>Hula-hoop</item>
+        <item>Hopskotch</item>
+        <item>Skipping</item>
+        <item>Walk</item>
+        <item>Run</item>
+        <item>Roller skating</item>
+        <item>Cycle</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesStoreAdapterText">
+        <item>Chemist</item>
+        <item>Grocery</item>
+        <item>Toy</item>
+        <item>Clothes</item>
+        <item>Meat</item>
+        <item>Vegetable</item>
+        <item>Fruit</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesFriendHouseAdapterText">
+        <item>Play with friend</item>
+        <item>Indoor games</item>
+        <item>Food</item>
+        <item>Drinks</item>
+        <item>Toilet</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesRelativeHouseAdapterText">
+        <item>Meet relatives</item>
+        <item>Food</item>
+        <item>Drinks</item>
+        <item>Toilet</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesHospitalAdapterText">
+        <item>I feel sick</item>
+        <item>I am hurt</item>
+        <item>Doctor</item>
+        <item>Nurse</item>
+        <item>Medicine</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesClinicAdapterText">
+        <item>Therapist</item>
+        <item>Swiss ball</item>
+        <item>Trampoline</item>
+        <item>Swing</item>
+        <item>Blanket</item>
+        <item>Ball pit</item>
+        <item>Exercise</item>
+        <item>Hand activities</item>
+        <item>Leg exercises</item>
+        <item>Body vests</item>
+        <item>Sensory toys</item>
+        <item>Group therapy</item>
+        <item>Speech therapy</item>
+        <item>Play therapy</item>
+        <item>Physiotherapy</item>
+        <item>Occupational therapy</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesLibraryAdapterText">
+        <item>Book</item>
+        <item>Comic book</item>
+        <item>Rhymes book</item>
+        <item>Story book</item>
+        <item>Picture book</item>
+        <item>Mystery book</item>
+        <item>Adventure book</item>
+        <item>Textbook</item>
+        <item>Favorite book</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesZooAdapterText">
+        <item>Animals</item>
+        <item>Birds</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesWorshipAdapterText">
+        <item>Temple</item>
+        <item>Church</item>
+        <item>Gurudwara</item>
+        <item>Mosque</item>
+        <item>Synagogue</item>
+    </string-array>
+
     <!--LEVEL THREE "TIME WEATHER" ADAPTER TEXT ARE HERE-->
     <string-array name="arrLevelThreeTimeWeaTimeAdapterText">
         <item>Current time?</item>
@@ -1573,6 +1966,8 @@
         <item>How are you?</item>
         <item>How was your day?</item>
         <item>How do you do?</item>
+        <item>Great job</item>
+        <item>Awesome</item>
     </string-array>
     <string-array name="arrLevelThreeGreetFeelFeelingsSpeechText">
         <item>Happy</item>
@@ -1622,6 +2017,8 @@
         <item>Please come here</item>
         <item>Please take me</item>
         <item>I need more time</item>
+        <item>I want to be alone</item>
+        <item>I don\'t want any sound</item>
     </string-array>
 
     <!--LEVEL THREE "DAILY ACTIVITITES" SPEECH TEXT ARE HERE-->
@@ -1701,8 +2098,41 @@
         <item>Hand activities</item>
         <item>Leg exercises</item>
         <item>Body vests</item>
+        <item>Sensory toys</item>
         <item>Speech therapy</item>
         <item>Group therapy</item>
+        <item>Dance therapy</item>
+        <item>Music therapy</item>
+        <item>Art therapy</item>
+        <item>Occupational therapy</item>
+        <item>Physiotherapy</item>
+        <item>Play therapy</item>
+        <item>Remedial class</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActHabitsSpeechText">
+        <item>Please calm down</item>
+        <item>Please wait at the red light</item>
+        <item>Please walk only on the green light</item>
+        <item>Please walk only on the sidewalk</item>
+        <item>Please watch out for cars on the road</item>
+        <item>Please look to the left and right before crossing</item>
+        <item>Please do not talk with food in your mouth</item>
+        <item>Please eat with small bites</item>
+        <item>Please put garbage in the bin</item>
+        <item>Please do not spit</item>
+        <item>Please do not pick your nose</item>
+        <item>Please do not pinch others</item>
+        <item>Please do not push others</item>
+        <item>Please do not hit others</item>
+        <item>Please do not bite yourself or others</item>
+        <item>Please do not kick others</item>
+        <item>Please do not play with matchsticks</item>
+        <item>Please do not play with pointed objects</item>
+        <item>Please wait for your turn</item>
+        <item>Please do not put your hands in your underpants</item>
+        <item>Please keep one arm distance while talking to others</item>
+        <item>Please do not touch others inappropriately</item>
+        <item>Please do not go out with strangers</item>
     </string-array>
 
     <!--LEVEL THREE "EATING" SPEECH TEXT ARE HERE-->
@@ -1969,7 +2399,7 @@
         <item>Hula hooping</item>
         <item>Hopskotch</item>
         <item>Paintball</item>
-        <item>Jump rope</item>
+        <item>Skipping</item>
         <item>Walk</item>
         <item>Cycle</item>
         <item>Run</item>
@@ -1999,6 +2429,8 @@
         <item>Cricket</item>
     </string-array>
     <string-array name="arrLevelThreeFunTvSpeechText">
+        <item>Switch on the TV</item>
+        <item>Switch off the TV</item>
         <item>Next channel</item>
         <item>Previous channel</item>
         <item>Volume up</item>
@@ -2244,6 +2676,163 @@
         <item>Twenty pounds</item>
         <item>Fifty pounds</item>
         <item>Change</item>
+    </string-array>
+
+    <!--LEVEL THREE "PLACES" SPEECH TEXT ARE HERE-->
+    <string-array name="arrLevelThreePlacesMyHouseSpeechText">
+        <item>Living room</item>
+        <item>Bedroom</item>
+        <item>Kitchen</item>
+        <item>Study room</item>
+        <item>Play room</item>
+        <item>Bathroom</item>
+        <item>Balcony</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesSchoolSpeechText">
+        <item>Teacher</item>
+        <item>Classroom</item>
+        <item>Laboratory</item>
+        <item>Staffroom</item>
+        <item>Library</item>
+        <item>Playground</item>
+        <item>Cafeteria</item>
+        <item>Computer lab</item>
+        <item>Art class</item>
+        <item>Music class</item>
+        <item>Physical Education class</item>
+        <item>Mathematics class</item>
+        <item>Science class</item>
+        <item>Geography class</item>
+        <item>History class</item>
+        <item>Social Studies class</item>
+        <item>Language class</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesMallSpeechText">
+        <item>Escalator</item>
+        <item>Food court</item>
+        <item>Theater</item>
+        <item>Fun zone</item>
+        <item>Store</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesMuseumSpeechText">
+        <item>Science museum</item>
+        <item>Art museum</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesRestaurantSpeechText">
+        <item>Food</item>
+        <item>Cutlery</item>
+        <item>Menu</item>
+        <item>Drinks</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesTheatreSpeechText">
+        <item>Popcorn</item>
+        <item>Ice cream</item>
+        <item>Nachos</item>
+        <item>Soft drinks</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesPlaygroundSpeechText">
+        <item>Swing</item>
+        <item>Slide</item>
+        <item>Merry-go-round</item>
+        <item>See-saw</item>
+        <item>Jungle gym</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesParkSpeechText">
+        <item>Bat and ball</item>
+        <item>Tag</item>
+        <item>Skate boarding</item>
+        <item>Frisbee</item>
+        <item>Hula-hoop</item>
+        <item>Hopskotch</item>
+        <item>Skipping</item>
+        <item>Walk</item>
+        <item>Run</item>
+        <item>Roller skating</item>
+        <item>Cycle</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesStoreSpeechText">
+        <item>Chemist\'s shop</item>
+        <item>Grocery store</item>
+        <item>Toy shop</item>
+        <item>Clothes shop</item>
+        <item>Meat shop</item>
+        <item>Vegetable shop</item>
+        <item>Fruit shop</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesFriendHouseSpeechText">
+        <item>Play with friend</item>
+        <item>Indoor games</item>
+        <item>Food</item>
+        <item>Drinks</item>
+        <item>Toilet</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesRelativeHouseSpeechText">
+        <item>Meet relatives</item>
+        <item>Food</item>
+        <item>Drinks</item>
+        <item>Toilet</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesHospitalSpeechText">
+        <item>I feel sick</item>
+        <item>I am hurt</item>
+        <item>Doctor</item>
+        <item>Nurse</item>
+        <item>Medicine</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesClinicSpeechText">
+        <item>Therapist</item>
+        <item>Swiss ball</item>
+        <item>Trampoline</item>
+        <item>Swing</item>
+        <item>Blanket</item>
+        <item>Ball pit</item>
+        <item>Exercise</item>
+        <item>Hand activities</item>
+        <item>Leg exercises</item>
+        <item>Body vests</item>
+        <item>Sensory toys</item>
+        <item>Group therapy</item>
+        <item>Speech therapy</item>
+        <item>Play therapy</item>
+        <item>Physiotherapy</item>
+        <item>Occupational therapy</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesLibrarySpeechText">
+        <item>Book</item>
+        <item>Comic book</item>
+        <item>Rhymes book</item>
+        <item>Story book</item>
+        <item>Picture book</item>
+        <item>Mystery book</item>
+        <item>Adventure book</item>
+        <item>Textbook</item>
+        <item>Favorite book</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesZooSpeechText">
+        <item>Animals</item>
+        <item>Birds</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesWorshipSpeechText">
+        <item>Temple</item>
+        <item>Church</item>
+        <item>Gurudwara</item>
+        <item>Mosque</item>
+        <item>Synagogue</item>
     </string-array>
 
     <!--LEVEL THREE "TIME WEATHER" SPEECH TEXT ARE HERE-->

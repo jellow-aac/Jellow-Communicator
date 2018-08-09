@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="ratings">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
     <string name="app_name">Jellow</string>
     <string name="action_settings">Settings</string>
     <string name="Profile">Profile</string>
@@ -21,6 +28,18 @@
         <item>AB-ve</item>
         <item>O+ve</item>
         <item>O-ve</item>
+    </string-array>
+
+    <string-array name="bloodgroup_talkback">
+        <item>not selected</item>
+        <item>A positive</item>
+        <item>A negative</item>
+        <item>B positive</item>
+        <item>B negative</item>
+        <item>AB positive</item>
+        <item>AB negative</item>
+        <item>O positive</item>
+        <item>O negative</item>
     </string-array>
 
     <string-array name="picture_view_mode">
@@ -53,8 +72,9 @@
     <string name="txtSpeechSpeed">Speech Speed</string>
     <string name="txtVoiceSpeech">Voice Pitch</string>
     <string name="txtDisplayMode">Display Mode</string>
-    <string name="txtNumOfPerPerScr">Number of icons per screen</string>
-    <string name="txtDemo">DEMO</string>
+    <string name="txtVoiceVolume">Speech Volume</string>
+    <string name="txtNumOfPerPerScr">Number of category icons per screen</string>
+    <string name="txtDemo">SPEECH DEMO</string>
     <string name="txtSave">SAVE</string>
     <string name="demoTtsSpeech">Hello! you are using Jellow Communicator.</string>
     <string name="savedSettingsMessage">Settings saved.</string>
@@ -79,8 +99,8 @@
     <string name="locale_reg_us" translatable="false">US</string>
     <string name="locale_lang_en" translatable="false">en</string>
 
-    <string name="aPos" translatable="false">A Positive</string>
-    <string name="aNeg" translatable="false">A Negative</string>
+    <string name="aPos" translatable="false">\'A\' Positive</string>
+    <string name="aNeg" translatable="false">\'A\' Negative</string>
     <string name="bPos" translatable="false">B Positive</string>
     <string name="bNeg" translatable="false">B Negative</string>
     <string name="abPos" translatable="false">A B Positive</string>
@@ -111,7 +131,7 @@
     <string name="getKeyboardControl">Keyboard Control</string>
     <string name="childName">Child\'s Name *</string>
     <string name="careGiveName">Caregiver\'s Name</string>
-    <string name="careGiverContact">Caregiver\'s Contact No. *</string>
+    <string name="careGiverContact">Caregiver\'s Contact number other than this device\'s sim number *</string>
     <string name="homeAddress">Home Address</string>
     <string name="emailAddress">Email Address *</string>
     <string name="bloodGroup">Blood Group</string>
@@ -119,6 +139,7 @@
     <string name="invalid_emailId">Invalid email address</string>
     <string name="invalidContactNumber">Invalid contact number</string>
     <string name="enterTheName">Please enter your Child\'s name</string>
+    <string name="search_act_title">Search Icons in Jellow</string>
     <string name="resetPreferenceMessage">
        <![CDATA[ <ul>
             <li>Jellow remembers the user\'s \"most-used/preferred\" icons and displays them as the top choices on the screen</li><br/>
@@ -133,11 +154,11 @@
         <![CDATA[
         <head>
             <style>
-                    li,p,font  {    font-size: 100%; }
+                    li,p,font  {    font-size: 2.2vw; }
                     ul { padding-left:20px; }
             </style>
         </head>
-        <body bgcolor="#F7F3C6">
+        <body bgcolor="#F7F3C6" text="#414042">
 
 <p><strong>&nbsp;General Information</strong></p>
 <ul>
@@ -163,7 +184,7 @@
 <li>Work on Jellow is attributed to the Indian Institute of Technology Bombay.</li><br/>
 <li>The content in this application comprising icons, layout, architecture, visual identity, translation, and the software codes can be shared and adopted but cannot be used for commercial purposes.</li><br/>
 <li>When the content is used, we request you to acknowledge Indian Institute of Technology Bombay.</li><br/>
-<li>Jellow is available for download at <a href="http://www.dsource.in/tool/jellow">www.dsource.in/tool/jellow</a></li><br/>
+<li>Jellow is available for download at <a href="http://www.jellow.org">http://www.jellow.org</a></li><br/>
 <li>If interested in further developing the code, please write to Professor Ravi Poovaiah at <span style="color: #ff6600;"><a href="mailto:ravi@iitb.ac.in">ravi@iitb.ac.in</a></span></li><br/>
 </ul>
 
@@ -180,12 +201,12 @@
 
 <ul>
 <li><strong>Software Development: </strong></li>
-<font>Rahul Rupchand Jidge, Narayana Reddy, Sumeet Agrawal, Roop Sahoo, Shruti Gupta, Aastha Joshi, Dhairya Dand, Pritam Pebam</font>
+<font>Rahul Rupchand Jidge, Narayana Reddy, Ayaz Alam, Harshit Budhraja, Sumeet Agrawal, Roopa Narayan Sahoo, Shruti Gupta, Aastha Joshi, Dhairya Dand, Pritam Pebam</font>
 </ul>
 
 <ul>
 <li><strong>Website Design:</strong></li>
-<font>Prof. Ravi Poovaiah, Yogesh Masaye, Sumedh Garud, Roop Sahoo</font>
+<font>Prof. Ravi Poovaiah, Yogesh Masaye, Sumedh Garud, Roopa Narayan Sahoo</font>
 </ul>
 
 <ul>
@@ -267,12 +288,16 @@
     <string name="last_session_created" translatable="false">com.dsource.idc.jellow.last_session_created</string>
     <string name="user_group" translatable="false">com.dsource.idc.jellow.user_group</string>
     <string name="enable_calling" translatable="false">com.dsource.idc.jellow.enable_calling</string>
+    <string name="random_val" translatable="false">com.dsource.idc.jellow.random_val</string>
+    <string name="string_msg" translatable="false">com.dsource.idc.jellow.string_message</string>
+    <string name="updated_user_data_on_firebase" >com.dsource.idc.jellow.update_on_fb</string>
+    <string name="last_crash_reported" >com.dsource.idc.jellow.last_crash_reported</string>
     <string name="txt_registration_jellowCalluDesc">(This is how Jellow calls you)</string>
-    <string name="txt_registration_emergencynoDesc">(To be used for correspondence in case of an emergency involving the child)</string>
+    <string name="txt_registration_emergencynoDesc">(To be used for correspondence in case of an emergency involving the child.)</string>
     <string name="txt_registration_emailDesc">(To notify you about the release of Jellow updates)</string>
-    <string name="txt_registration_selectLangDesc">Select a Language for Jellow</string>
+    <string name="txt_registration_selectLangDesc">Select a Language for Jellow *</string>
     <string name="txt_registration_registerBtn">REGISTER</string>
-    <string name="enternonemptycontact">Please enter the contact number</string>
+    <string name="enternonemptycontact">Please enter valid contact number</string>
     <string name="change_tts_lang">Set TTS engine language</string>
     <string name="set_engine_language">Please complete step 3</string>
     <string name="change_language_line5">Step 2: Check if voice data for _ is available on your device. If not please download voice data for selected language.</string>
@@ -306,4 +331,38 @@
     <string name="downloadableLang">Downloadable Languages</string>
     <string name="downloadedLang">Downloaded Languages</string>
     <string name="remove">Remove</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="mukta_regular" translatable="false">Mukta-Regular.ttf</string>
+    <string name="register_user">Please wait registration is in process…</string>
+    <string name="exit">Exit</string>
+    <string name="err_dialog_msg">Google TTS engine is not installed on your device. Do you want to install TTS engine?</string>
+    <string name="exit_dialog_msg">Jellow will not work without Google Text-to-speech engine. Do you really want to exit?</string>
+
+    <string name="lang_change_code" translatable="false">Language_change</string>
+    <string name="lang_change" translatable="false">lang_change</string>
+    <string name="level_one_intent_pos_tag" translatable="false">mLevelOneItemPos</string>
+    <string name="intent_menu_path_tag" translatable="false">selectedMenuItemPath</string>
+    <string name="level_2_item_pos_tag" translatable="false">mLevelTwoItemPos</string>
+    <string name="first_time_login" translatable="false">create_database</string>
+    <string name="less">less</string>
+
+
+    <!--Strings related to the Searching capability
+    @AyazAlam
+    -->
+    <string name="search_title">Search Icon…</string>
+    <string name="search_hint">Search icon....</string>
+    <string name="search_parent_0" translatable="false">parent_0</string>
+    <string name="search_parent_1" translatable="false">parent_1</string>
+    <string name="search_parent_2" translatable="false">parent_2</string>
+    <string name="home">Home</string>
+    <string name="from_search" translatable="false">FROM_SEARCH</string>
+    <string name="search_tag" translatable="false">SEARCH</string>
+    <string name="icon_not_found">Icon not found</string>
+    <string name="not_found" translatable="false">NOT_FOUND</string>
+    <string name="no_internet">No Internet</string>
+    <string name="please_wait">Please wait…</string>
+    <string name="goto_home" translatable="false">goto_home</string>
+    <string name="info">General Information</string>
+
 </resources>

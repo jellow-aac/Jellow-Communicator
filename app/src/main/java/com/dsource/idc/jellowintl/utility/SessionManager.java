@@ -62,12 +62,19 @@ public class SessionManager {
     private final String Pitch = "voicepitch";
     private final String PictureViewMode = "PictureViewMode";
     private final String GridSize = "GridSize";
+    public static final String ChangeLanguageNeverAsk = "ChangeLang";
 
 
     public SessionManager(Context context) {
         this.mContext = context;
         mPreferences = mContext.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         mEditor = mPreferences.edit();
+    }
+    public void setChangeLanguageNeverAsk(boolean ChangeLang){
+        storePreferenceKeyWithValue(Boolean.class.toString(), ChangeLanguageNeverAsk, ChangeLang);
+    }
+    public boolean isChangeLanguageNeverAsk(){
+        return (Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(), ChangeLanguageNeverAsk);
     }
 
     public void setUserLoggedIn(boolean isLoggedIn) {
@@ -303,6 +310,76 @@ public class SessionManager {
     public boolean getEnableCalling() {
         return ((Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.enable_calling)));
     }
+
+    public void setExtraValToContact(String val){
+        storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.random_val), val);
+    }
+
+    public String getExtraValToContact(){
+        return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.random_val));
+    }
+
+    public void setToastMessage(String message) {
+        storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.string_msg), message);
+    }
+
+    public String getToastMessage(){
+        return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.string_msg));
+    }
+
+    public void setUpdatedFirebase(boolean updateFlag) {
+        storePreferenceKeyWithValue(Boolean.class.toString(),
+                mContext.getString(R.string.updated_user_data_on_firebase), updateFlag);
+    }
+
+    public boolean getUpdatedFirebase() {
+        return ((Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(),
+                mContext.getString(R.string.updated_user_data_on_firebase)));
+    }
+
+    public void setLastCrashReported(long timeStamp) {
+        storePreferenceKeyWithValue(Long.class.toString(), mContext.getString(R.string.last_crash_reported), timeStamp);
+    }
+
+    public Long getLastCrashReported() {
+        return ((Long) retrievePreferenceKeyWithValue(Long.class.toString(), mContext.getString(R.string.last_crash_reported)));
+    }
+
+
+ /**
+  * Ayaz
+  * */
+    public void setLanguageChange(int code)
+    {
+        final int CHANGED=1;
+        final int CREATE_DATABASE=0;
+        final int NO_CHANGE=2;
+        if(code==CHANGED)
+            storePreferenceKeyWithValue(String.class.toString(),mContext.getString(R.string.lang_change_code),"Yes");
+        else if(code==CREATE_DATABASE)
+            storePreferenceKeyWithValue(String.class.toString(),mContext.getString(R.string.lang_change_code),"Create");
+        else if(code==NO_CHANGE)
+            storePreferenceKeyWithValue(String.class.toString(),mContext.getString(R.string.lang_change_code),"No");
+
+
+
+    }
+
+    public int isLanguageChanged()
+    {
+        final int CHANGED=1;
+        final int CREATE_DATABASE=0;
+        final int NO_CHANGE=2;
+
+        String lang_change=(String)retrievePreferenceKeyWithValue(String.class.toString(),mContext.getString(R.string.lang_change_code));
+        if(lang_change.equals("Yes"))
+            return CHANGED;
+        else if(lang_change.equals("Create"))
+            return CREATE_DATABASE;
+        else return NO_CHANGE;
+
+    }
+
 
     private void storePreferenceKeyWithValue(String classType, String key, Object val){
         if (classType.equals(Integer.class.toString()))

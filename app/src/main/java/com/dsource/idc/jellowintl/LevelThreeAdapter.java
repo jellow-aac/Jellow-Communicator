@@ -2,9 +2,9 @@ package com.dsource.idc.jellowintl;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.io.File;
@@ -50,6 +51,10 @@ class LevelThreeAdapter extends android.support.v7.widget.RecyclerView.Adapter<L
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
+
+        ViewCompat.setAccessibilityDelegate(holder.menuItemLinearLayout,
+                new TalkbackHints_SingleClick());
+
         final int MODE_PICTURE_ONLY = 1;
         if (mSession.getPictureViewMode() == MODE_PICTURE_ONLY)
             holder.menuItemBelowText.setVisibility(View.INVISIBLE);
@@ -107,6 +112,9 @@ class LevelThreeAdapter extends android.support.v7.widget.RecyclerView.Adapter<L
                     break;
                 case 6: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActTherapyIconAdapter),
                         mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActTherapyAdapterText), sort);
+                    break;
+                case 9: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActHabitsIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreeDailyActHabitsAdapterText), sort);
                     break;
             }
         } else if (levelOneItemPos == 2) {
@@ -190,6 +198,57 @@ class LevelThreeAdapter extends android.support.v7.widget.RecyclerView.Adapter<L
                         mContext.getResources().getStringArray(R.array.arrLevelThreeLearningMoneyAdapterText));
                     break;
             }
+        }else if (levelOneItemPos == 6) {
+            switch(levelTwoItemPos) {
+                case 0: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreePlacesMyHouseIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreePlacesMyHouseAdapterText), sort);
+                    break;
+                case 1: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreePlacesSchoolIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreePlacesSchoolAdapterText), sort);
+                    break;
+                case 2: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreePlacesMallIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreePlacesMallAdapterText), sort);
+                    break;
+                case 3: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreePlacesMuseumIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreePlacesMuseumAdapterText), sort);
+                    break;
+                case 4: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreePlacesRestaurantIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreePlacesRestaurantAdapterText), sort);
+                    break;
+                case 5: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreePlacesTheatreIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreePlacesTheatreAdapterText), sort);
+                    break;
+                case 6: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreePlacesPlaygroundIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreePlacesPlaygroundAdapterText), sort);
+                    break;
+                case 7: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreePlacesParkIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreePlacesParkAdapterText), sort);
+                    break;
+                case 8: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreePlacesStoreIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreePlacesStoreAdapterText), sort);
+                    break;
+                case 9: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreePlacesFriendHouseIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreePlacesFriendHouseAdapterText), sort);
+                    break;
+                case 10: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreePlacesRelativeHouseIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreePlacesRelativeHouseAdapterText), sort);
+                    break;
+                case 11: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreePlacesHospitalIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreePlacesHospitalAdapterText), sort);
+                    break;
+                case 12: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreePlacesClinicIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreePlacesClinicAdapterText), sort);
+                    break;
+                case 13: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreePlacesLibraryIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreePlacesLibraryAdapterText), sort);
+                    break;
+                case 14: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreePlacesZooIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreePlacesZooAdapterText), sort);
+                    break;
+                case 15: loadAdapterMenuTextIconsWithSort(mContext.getResources().getStringArray(R.array.arrLevelThreePlacesWorshipIconAdapter),
+                        mContext.getResources().getStringArray(R.array.arrLevelThreePlacesWorshipAdapterText), sort);
+                    break;
+            }
         } else if (levelOneItemPos == 7) {
             switch(levelTwoItemPos) {
                 case 0: loadAdapterMenuTextIconsWithoutSort(mContext.getResources().getStringArray(R.array.arrLevelThreeTimeWeaTimeIconAdapter),
@@ -253,8 +312,6 @@ class LevelThreeAdapter extends android.support.v7.widget.RecyclerView.Adapter<L
             menuItemImage = view.findViewById(R.id.icon1);
             menuItemLinearLayout = view.findViewById(R.id.linearlayout_icon1);
             menuItemBelowText = view.findViewById(R.id.te1);
-            Typeface font = Typeface.createFromAsset(mContext.getAssets(), "fonts/Mukta-Regular.ttf");
-            menuItemBelowText.setTypeface(font);
             menuItemBelowText.setTextColor(Color.rgb(64, 64, 64));
             GradientDrawable gd = (GradientDrawable) view.findViewById(R.id.borderView).getBackground();
             gd.setColor(ContextCompat.getColor(mContext, android.R.color.transparent));

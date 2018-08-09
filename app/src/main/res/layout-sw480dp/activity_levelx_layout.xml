@@ -25,17 +25,20 @@
                     android:id="@+id/ivlike"
                     android:layout_width="106dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/like"/>
+                    android:src="@drawable/like"
+                    android:contentDescription="like"/>
                 <ImageView
                     android:id="@+id/ivyes"
                     android:layout_width="106dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/yes"/>
+                    android:src="@drawable/yes"
+                    android:contentDescription="yes"/>
                 <ImageView
                     android:id="@+id/ivadd"
                     android:layout_width="106dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/more"/>
+                    android:src="@drawable/more"
+                    android:contentDescription="add"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/expressiveTwo"
@@ -49,17 +52,20 @@
                     android:id="@+id/ivdislike"
                     android:layout_width="106dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/dontlike"/>
+                    android:src="@drawable/dontlike"
+                    android:contentDescription="dont like"/>
                 <ImageView
                     android:id="@+id/ivno"
                     android:layout_width="106dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/no"/>
+                    android:src="@drawable/no"
+                    android:contentDescription="no"/>
                 <ImageView
                     android:id="@+id/ivminus"
                     android:layout_width="106dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/less"/>
+                    android:src="@drawable/less"
+                    android:contentDescription="less"/>
             </LinearLayout>
         </RelativeLayout>
         <android.support.v7.widget.RecyclerView
@@ -82,38 +88,42 @@
             android:layout_width="100dp"
             android:layout_height="108dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/home"/>
+            android:src="@drawable/home"
+            android:contentDescription="@string/home"/>
         <ImageView
             android:id="@+id/keyboard"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/keyboard"
-            android:layout_toRightOf="@+id/ivhome"/>
+            android:layout_toRightOf="@+id/ivhome"
+            android:contentDescription="keyboard"/>
         <ImageView
             android:id="@+id/ivback"
             android:layout_width="100dp"
             android:layout_height="108dp"
             android:src="@drawable/back"
-            android:layout_toLeftOf="@+id/ivhome"/>
+            android:layout_toLeftOf="@+id/ivhome"
+            android:contentDescription="back"/>
     </RelativeLayout>
     <LinearLayout
         android:layout_width="460dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:orientation="vertical">
+        android:orientation="horizontal">
         <EditText
             android:id="@+id/et"
-            android:layout_width="match_parent"
+            android:layout_width="410dp"
             android:layout_height="80dp"
-            android:textSize="20sp"/>
+            android:imeOptions="flagNoExtractUi"
+            android:textSize="20sp"
+            android:contentDescription="custom speech"/>
         <ImageView
             android:id="@+id/ttsbutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleX=".35"
-            android:scaleY=".35"
-            android:src="@drawable/speaker_button"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_search_list_speaker"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="speak"/>
     </LinearLayout>
     <ImageView
         android:layout_width="100dp"

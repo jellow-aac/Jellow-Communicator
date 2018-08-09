@@ -10,6 +10,7 @@ import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
@@ -20,6 +21,7 @@ import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
+import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 
 /**
  * Created by ekalpa on 15-Jun-16.
@@ -29,13 +31,13 @@ public class ResetPreferencesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reset_preferences);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+ getString(R.string.menuResetPref) +"</font>"));
         // Initialize default exception handler for this activity.
         // If any exception occurs during this activity usage,
         // handle it using default exception handler.
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
+        setContentView(R.layout.activity_reset_preferences);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+ getString(R.string.menuResetPref) +"</font>"));
         final SessionManager session = new SessionManager(this);
         final DataBaseHelper myDbHelper = new DataBaseHelper(this);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
@@ -57,6 +59,7 @@ public class ResetPreferencesActivity extends AppCompatActivity {
                 myDbHelper.delete();
                 session.resetUserPeoplePlacesPreferences();
                 session.setCompletedDbOperations(false);
+                session.setLanguageChange(0);
                 startActivity(new Intent(getApplicationContext(), SplashActivity.class));
                 Crashlytics.log("ResetPref Yes");
                 finishAffinity();
@@ -85,7 +88,17 @@ public class ResetPreferencesActivity extends AppCompatActivity {
             case R.id.usage: startActivity(new Intent(this, TutorialActivity.class)); finish(); break;
             case R.id.keyboardinput: startActivity(new Intent(this, KeyboardInputActivity.class)); finish(); break;
             case R.id.settings: startActivity(new Intent(getApplication(), SettingActivity.class)); finish(); break;
-            case R.id.feedback: startActivity(new Intent(this, FeedbackActivity.class)); finish(); break;
+            case R.id.feedback:
+                AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
+                boolean isAccessibilityEnabled = am.isEnabled();
+                boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
+                if (isAccessibilityEnabled && isExploreByTouchEnabled) {
+                    startActivity(new Intent(this, FeedbackActivityTalkback.class));
+                } else {
+                    startActivity(new Intent(this, FeedbackActivity.class));
+                }
+                finish();
+                break;
             case android.R.id.home: finish(); break;
             default: return super.onOptionsItemSelected(item);
         }
@@ -96,7 +109,7 @@ public class ResetPreferencesActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if(!isAnalyticsActive()) {
-            throw new Error("unableToResume");
+            resetAnalytics(this, new SessionManager(this).getCaregiverNumber().substring(1));
         }
         if(Build.VERSION.SDK_INT > 25 &&
                 !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {

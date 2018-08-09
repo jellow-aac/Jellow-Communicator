@@ -6,19 +6,14 @@ package com.dsource.idc.jellowintl;
 
 import android.app.ActivityManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
@@ -26,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -58,13 +54,14 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Random;
 
 import se.simbio.encryption.Encryption;
 
-import static com.dsource.idc.jellowintl.MainActivity.isDeviceReadyToCall;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.maskNumber;
+import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
@@ -72,7 +69,6 @@ import static com.dsource.idc.jellowintl.utility.Analytics.updateSessionRef;
 import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 
 public class ProfileFormActivity extends AppCompatActivity {
-    private final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 0;
     private Button bSave;
     private EditText etName, etFatherContact, etFathername, etAddress, etEmailId;
     private SessionManager mSession;
@@ -81,18 +77,21 @@ public class ProfileFormActivity extends AppCompatActivity {
     private Spinner mBloodGroup;
     private FirebaseDatabase mDB;
     private DatabaseReference mRef;
-    private boolean emergencyContactChanged = false;
-    private String mDetailSaved, mCallPermissionInfo,mCheckCon, mOk, mPerGranted, mPerRejected;
+    private String mDetailSaved, mCheckCon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Initialize default exception handler for this activity.
+        // If any exception occurs during this activity usage,
+        // handle it using default exception handler.
+        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         setContentView(R.layout.activity_profile_form);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.menuProfile)+"</font>"));
         mSession = new SessionManager(this);
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         etName = findViewById(R.id.etName);
         etFathername = findViewById(R.id.etFathername);
@@ -100,20 +99,38 @@ public class ProfileFormActivity extends AppCompatActivity {
         etAddress = findViewById(R.id.etAddress);
         etEmailId = findViewById(R.id.etEmailId);
         mBloodGroup = findViewById(R.id.bloodgroup);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.bloodgroup, android.R.layout.simple_spinner_item);
+        AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
+        boolean isAccessibilityEnabled = am.isEnabled();
+        boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
+        if(isAccessibilityEnabled && isExploreByTouchEnabled) {
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                    R.array.bloodgroup_talkback, android.R.layout.simple_spinner_item);
+            //adapter.getView(1,null,mBloodGroup).setContentDescription("A positive");
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            mBloodGroup.setAdapter(adapter);
+        }
+        else{
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this, R.array.bloodgroup, R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mBloodGroup.setAdapter(adapter);
+        }
         bSave = findViewById(R.id.bSave);
 
         mDB = FirebaseDatabase.getInstance();
-        mRef = mDB.getReference(BuildConfig.DB_TYPE+"/users/" + maskNumber(mSession.getCaregiverNumber().substring(1)));
+        mRef = mDB.getReference(BuildConfig.DB_TYPE+"/users/" +
+                maskNumber(mSession.getCaregiverNumber().substring(1)));
 
 
         etName.setText(mSession.getName());
         mCcp = findViewById(R.id.ccp);
         mCcp.setCountryForPhoneCode(Integer.valueOf(mSession.getUserCountryCode()));
         mCcp.registerCarrierNumberEditText(etFatherContact);
-        etFatherContact.setText(mSession.getCaregiverNumber().replace("+".concat(mSession.getUserCountryCode()),""));
+        String contact = mSession.getCaregiverNumber().replace(
+                "+".concat(mSession.getUserCountryCode()),"");
+        //Extra 3 digits are taken out from contact.
+        contact = contact.substring(0,contact.length()-3);
+        etFatherContact.setText(contact);
         etFathername.setText(mSession.getCaregiverName());
         etAddress.setText(mSession.getAddress());
         etEmailId.setText(mSession.getEmailId());
@@ -150,13 +167,22 @@ public class ProfileFormActivity extends AppCompatActivity {
                 Crashlytics.log("Profile Save");
                 bSave.setEnabled(false);
                 if (etName.getText().toString().isEmpty()) {
-                    Toast.makeText(getBaseContext(), strEnterName, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProfileFormActivity.this,
+                            strEnterName, Toast.LENGTH_SHORT).show();
                     bSave.setEnabled(true);
+                    return;
+                }
+                if(etFatherContact.getText().toString().isEmpty() ||
+                        !etFatherContact.getText().toString().matches("[0-9]*")){
+                    bSave.setEnabled(true);
+                    Toast.makeText(ProfileFormActivity.this,
+                            getString(R.string.enternonemptycontact), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 email = etEmailId.getText().toString().trim();
                 if (!isValidEmail(email)) {
-                    Toast.makeText(getBaseContext(), strInvalidEmail, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProfileFormActivity.this,
+                            strInvalidEmail, Toast.LENGTH_SHORT).show();
                     bSave.setEnabled(true);
                     return;
                 }
@@ -177,11 +203,7 @@ public class ProfileFormActivity extends AppCompatActivity {
         // after activity restart. These variable will hold the value for variables initialized using
         // user preferred locale.
         mDetailSaved = getString(R.string.detailSaved);
-        mCallPermissionInfo = getString(R.string.call_permission_info);
         mCheckCon = getString(R.string.checkConnectivity);
-        mOk = getString(R.string.ok);
-        mPerGranted = getString(R.string.granted_call_permission_req);
-        mPerRejected = getString(R.string.rejected_call_permission_req);
     }
 
     @Override
@@ -205,8 +227,18 @@ public class ProfileFormActivity extends AppCompatActivity {
             case R.id.keyboardinput: startActivity(new Intent(this, KeyboardInputActivity.class)); finish(); break;
             case R.id.settings: startActivity(new Intent(getApplication(), SettingActivity.class)); finish(); break;
             case R.id.reset: startActivity(new Intent(this, ResetPreferencesActivity.class)); finish(); break;
-            case R.id.feedback: startActivity(new Intent(this, FeedbackActivity.class)); finish(); break;
-            case android.R.id.home: finish(); break;
+            case R.id.feedback:
+                AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
+                boolean isAccessibilityEnabled = am.isEnabled();
+                boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
+                if(isAccessibilityEnabled && isExploreByTouchEnabled) {
+                    startActivity(new Intent(this, FeedbackActivityTalkback.class));
+                }
+                else {
+                    startActivity(new Intent(this, FeedbackActivity.class));
+                }
+                finish();
+                break;            case android.R.id.home: finish(); break;
             default: return super.onOptionsItemSelected(item);
         }
         return true;
@@ -270,25 +302,13 @@ public class ProfileFormActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if(!isAnalyticsActive()){
-            throw new Error("unableToResume");
+            resetAnalytics(this, mSession.getCaregiverNumber().substring(1));
         }
         if(Build.VERSION.SDK_INT > 25 &&
                 !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
             startService(new Intent(getApplication(), JellowTTSService.class));
         }
         startMeasuring();
-    }
-
-    @Override
-    public void onRequestPermissionsResult (int requestCode, String Permissions[], int[] grantResults){
-        if (requestCode == MY_PERMISSIONS_REQUEST_CALL_PHONE){
-            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                Toast.makeText(this, mPerGranted, Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, mPerRejected, Toast.LENGTH_SHORT).show();
-            }
-            finish();
-        }
     }
 
     private void encryptStoreUserInfo(final String name, final String contact,
@@ -351,7 +371,7 @@ public class ProfileFormActivity extends AppCompatActivity {
         mSession.setCaregiverName(etFathername.getText().toString());
         mSession.setAddress(etAddress.getText().toString());
         mSession.setName(etName.getText().toString());
-        mSession.setCaregiverNumber(mCcp.getFullNumberWithPlus());
+        mSession.setCaregiverNumber(mCcp.getFullNumberWithPlus() + mSession.getExtraValToContact());
         mSession.setUserCountryCode(mCcp.getSelectedCountryCode());
         mSession.setEmailId(email);
         if(mBloodGroup.getSelectedItemPosition() > 0)
@@ -361,21 +381,8 @@ public class ProfileFormActivity extends AppCompatActivity {
         mSession.setUserGroup(userGroup);
         setUserProperty("userGroup", userGroup);
 
-        Toast.makeText(this, mDetailSaved, Toast.LENGTH_SHORT).show();
-
-        // User device is above Lollipop and user changed, saved contact and app does not have call
-        // permission then ask user for call permission.
-        if(Build.VERSION.SDK_INT > 22 && emergencyContactChanged &&
-                ActivityCompat.checkSelfPermission(this,
-                android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            // If user have sim device and ready to call, only then request call permission.
-            if (isDeviceReadyToCall((TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE))) {
-                showPermissionRequestDialog();
-                bSave.setEnabled(true);
-            }else
-                finish();
-        }else
-            finish();
+        mSession.setToastMessage(mDetailSaved);
+        finish();
     }
 
     public void moveFirebaseRecord(DatabaseReference fromPath, final DatabaseReference toPath)
@@ -383,20 +390,20 @@ public class ProfileFormActivity extends AppCompatActivity {
         fromPath.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // remove the listener to avoid any 'intermediate' updates while working in the same node
+                // remove the scrollListener to avoid any 'intermediate' updates while working in the same node
                 mRef.removeEventListener(this);
                 processPreviousRecordsNode(dataSnapshot,toPath);
                 mRef.setValue(null);
 
-                mSession.setCaregiverNumber(mCcp.getFullNumberWithPlus());
+                mSession.setCaregiverNumber(mCcp.getFullNumberWithPlus() +
+                                    mSession.getExtraValToContact());
                 mRef = mDB.getReference(BuildConfig.DB_TYPE + "/users/" +
                         maskNumber(mSession.getCaregiverNumber().substring(1)));
                 mRef.removeEventListener(this);
-                emergencyContactChanged = true;
                 Crashlytics.setUserIdentifier(maskNumber(mSession.getCaregiverNumber().substring(1)));
-                updateSessionRef(mCcp.getFullNumber());
+                updateSessionRef(mSession.getCaregiverNumber().substring(1));
                 encryptStoreUserInfo(etName.getText().toString(),
-                        mCcp.getFullNumber(),
+                        mSession.getCaregiverNumber().substring(1),
                         email,
                         etFathername.getText().toString(),
                         etAddress.getText().toString(),
@@ -428,25 +435,6 @@ public class ProfileFormActivity extends AppCompatActivity {
             // if old number doesn't have previous records then just copy it into 'new number -> prevrecords node'
             mNewRef.setValue(snapshot.getValue());
         }
-    }
-
-    private void showPermissionRequestDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        // Add the buttons
-        builder.setPositiveButton(mOk, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                ActivityCompat.requestPermissions(ProfileFormActivity.this, new String[]
-                    {android.Manifest.permission.CALL_PHONE}, MY_PERMISSIONS_REQUEST_CALL_PHONE);
-                dialog.dismiss();
-            }
-        });
-        // Set other dialog properties
-        builder.setCancelable(false);
-        builder.setMessage(mCallPermissionInfo);
-        // Create the AlertDialog
-        AlertDialog dialog = builder.create();
-        // Show the AlertDialog
-        dialog.show();
     }
 
     private class NetworkConnectionTest extends AsyncTask<Void, Void, Boolean> {
@@ -495,17 +483,48 @@ public class ProfileFormActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean isConnected) {
             super.onPostExecute(isConnected);
-            if(isConnected){
-                if(!mCcp.getFullNumberWithPlus().equals(mSession.getCaregiverNumber())){
-                    DatabaseReference mNewRef = mDB.getReference(BuildConfig.DB_TYPE
-                            + "/users/" + maskNumber(mContact)
-                            + "/previousRecords/" + maskNumber(mSession.getCaregiverNumber().substring(1)));
-                    moveFirebaseRecord(mRef, mNewRef);
-                }else {
-                    encryptStoreUserInfo(mName, mContact, mEmailId, mCaregiverName, mAddress,
-                            getBloodGroup(), mUserGroup);
-                }
-            }else{
+            String extraValContact = mCcp.getFullNumberWithPlus() +
+                    mSession.getExtraValToContact();
+            //If user not changed the mobile number and encryption data is
+            // available then directly encrypt the data and store it to firebase
+            if(extraValContact.equals(mSession.getCaregiverNumber()) &&
+                !mSession.getEncryptedData().isEmpty()) {
+                encryptStoreUserInfo(etName.getText().toString(),
+                        mSession.getCaregiverNumber().substring(1),
+                        email,
+                        etFathername.getText().toString(),
+                        etAddress.getText().toString(),
+                        getBloodGroup(), mUserGroup);
+            //If user not changed the mobile number and encryption data is
+            // unavailable and user is connected to Internet then
+            // download encryption data and then encrypt the data and store it to firebase
+            }else if(extraValContact.equals(mSession.getCaregiverNumber()) &&
+                        mSession.getEncryptedData().isEmpty() && isConnected){
+                encryptStoreUserInfo(etName.getText().toString(),
+                        mSession.getCaregiverNumber().substring(1),
+                        email,
+                        etFathername.getText().toString(),
+                        etAddress.getText().toString(),
+                        getBloodGroup(), mUserGroup);
+            //If user not changed the mobile number and encryption data is
+            // unavailable and user is not connected to Internet then
+            // show error message.
+            }else if(extraValContact.equals(mSession.getCaregiverNumber()) &&
+                    mSession.getEncryptedData().isEmpty() && !isConnected){
+                bSave.setEnabled(true);
+                Toast.makeText(mContext, mCheckCon, Toast.LENGTH_LONG).show();
+            //If user changed the mobile number user is connected to Internet then
+            // then encrypt the data and store it to firebase
+            }else if(!extraValContact.equals(mSession.getCaregiverNumber()) && isConnected){
+                mSession.setExtraValToContact(String.valueOf(new Random().nextInt(900) + 100));
+                String newContact = mContact.concat(mSession.getExtraValToContact());
+                DatabaseReference mNewRef = mDB.getReference(BuildConfig.DB_TYPE
+                        + "/users/" + maskNumber(newContact)
+                        + "/previousRecords/" + maskNumber(mSession.getCaregiverNumber().substring(1)));
+                moveFirebaseRecord(mRef, mNewRef);
+            //If user changed the mobile number user is not connected to Internet then
+            // show error message.
+            }else if(!extraValContact.equals(mSession.getCaregiverNumber()) && !isConnected){
                 bSave.setEnabled(true);
                 Toast.makeText(mContext, mCheckCon, Toast.LENGTH_LONG).show();
             }
