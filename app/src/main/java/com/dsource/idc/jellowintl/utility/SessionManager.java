@@ -380,15 +380,10 @@ public class SessionManager {
         return valueOfKey;
     }
 
-    public int isBoardDatabaseCreated() {
-     final int DatabaseCreated=1;
-     final int DatabaseNotCreated=-1;
+    public boolean
+    isBoardDatabaseCreated() {
         String board_code=(String)retrievePreferenceKeyWithValue(String.class.toString(),"Board_Database");
-        if(board_code.equals("Yes"))
-            return DatabaseCreated;
-        else if(board_code.equals("No"))
-            return DatabaseNotCreated;
-        else return 0;
+        return board_code.equals("Yes");
     }
     /**
      * Ayaz
@@ -402,8 +397,5 @@ public class SessionManager {
             storePreferenceKeyWithValue(String.class.toString(),Tag,"Yes");
         else if(code==DatabaseNotCreated)
             storePreferenceKeyWithValue(String.class.toString(),Tag,"No");
-
-
-
     }
 }

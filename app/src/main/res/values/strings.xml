@@ -349,6 +349,10 @@
     <string name="icon_select_mode">icon_select_mode</string>
     <string name="delete_icons">Delete Icons</string>
     <string name="add_edit_icons">Add Edit Icons</string>
+    <string name="icon_select_exit_warning">Are you sure you want to exit board ? \n Your selection will be lost.</string>
+    <string name="icon_select_text">Select Icons</string>
+    <string name="exit_warning">Are you sure you want to exit ?</string>
+    <string name="next">Next</string>
     <string-array name="entries">
         <item>Camera</item>
         <item>Gallery</item>

@@ -27,7 +27,7 @@ public class CustomDialog extends Dialog{
     public CustomDialog(Context context) {
         super(context);
         this.context = context;
-        prepareDialog();
+
     }
     public CustomDialog(Context context,int Code){
         super(context);
@@ -40,6 +40,11 @@ public class CustomDialog extends Dialog{
         {
             prepareIconEditDialog();
         }
+        else if(Code==NORMAL)
+        {
+            prepareDialog();
+        }
+
 
     }
 

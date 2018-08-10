@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="icon_select_text">Select Icons</string>
+    <string name="exit_warning">Are you sure you want to exit ?</string>
+</resources>

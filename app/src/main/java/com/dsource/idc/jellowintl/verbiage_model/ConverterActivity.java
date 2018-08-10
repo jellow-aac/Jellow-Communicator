@@ -45,8 +45,7 @@ public class ConverterActivity extends AppCompatActivity {
         (findViewById(R.id.create_json)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                VerbiageDatabaseHelper databaseHelper = new VerbiageDatabaseHelper(ConverterActivity.this,new DataBaseHelper(ConverterActivity.this).getWritableDatabase());
-                databaseHelper.createTable();
+               thread.execute(ConverterActivity.this);
             }
         });
         (findViewById(R.id.delete_database)).setOnClickListener(new View.OnClickListener() {
@@ -74,7 +73,6 @@ public class ConverterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 new VerbiageDatabaseHelper(ConverterActivity.this,new DataBaseHelper(ConverterActivity.this).getWritableDatabase()).dropTable();
                 new VerbiageDatabaseHelper(ConverterActivity.this,new DataBaseHelper(ConverterActivity.this).getWritableDatabase()).createTable();
-                Toast.makeText(ConverterActivity.this,"Created",Toast.LENGTH_SHORT).show();
             }
         });
         (findViewById(R.id.create_new_jellowdatabase)).setOnClickListener(new View.OnClickListener() {
@@ -93,7 +91,6 @@ public class ConverterActivity extends AppCompatActivity {
                 for(int i=0;i<list.size();i++) {
                     Log.d("Icon "+i,""+list.get(i).IconTitle);
                 }
-                Toast.makeText(ConverterActivity.this,"Created",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -114,25 +111,12 @@ public class ConverterActivity extends AppCompatActivity {
         }
 
         Context context;
-        public String ts;
         @Override
         protected Object doInBackground(Object[] objects) {
             Context context=(Context)objects[0];
             this.context=context;
-
             VerbiageDatabaseHelper databaseHelper=new VerbiageDatabaseHelper(context,new DataBaseHelper(context).getWritableDatabase());
             databaseHelper.createTable();
-
-
-            //CODES TO CREATE JSON
-/*            IconDataBaseHelper d=new IconDataBaseHelper(context);
-            final ArrayList<JellowIcon> levelOne=d.getLevelOneIcons();
-            final ArrayList<JellowIcon> levelTwo=d.getLevelTwoIcons();
-            final ArrayList<JellowIcon> levelThree=d.getLevelThreeIcons();
-            final Verbiage verbiage=new Verbiage(context);
-            ts=verbiage.createJson(levelOne,levelTwo,levelThree);
-            new Verbiage(ConverterActivity.this).createNomenclatureDrawables();*/
-
             return null;
         }
 

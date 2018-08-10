@@ -136,8 +136,8 @@
             android:theme="@style/Theme.AppCompat.Translucent" />
         <activity
             android:name=".makemyboard.MyBoards"
-            android:label="@string/my_boards"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/my_boards"
             android:screenOrientation="landscape" />
         <activity
             android:name=".makemyboard.IconSelectActivity"
@@ -165,8 +165,11 @@
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
-            android:theme="@style/Base.Theme.AppCompat"/>
-        <activity android:name=".utility.ImageHelper"/>
+            android:theme="@style/Base.Theme.AppCompat" />
+        <activity android:name=".utility.ImageHelper" />
+        <activity android:name=".SetupMMB"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape" ></activity>
     </application>
 
 </manifest>

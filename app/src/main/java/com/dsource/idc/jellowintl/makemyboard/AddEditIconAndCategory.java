@@ -90,7 +90,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         setContentView(R.layout.activity_icon_select);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#333333'>"+"Select icons"+"</font>"));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#333333'>"+"Add/Edit Icons"+"</font>"));
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_button_board);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_background));
         verbiageDatbase = new VerbiageDatabaseHelper(this,new DataBaseHelper(this).getWritableDatabase());

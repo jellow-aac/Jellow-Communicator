@@ -87,6 +87,10 @@ public class IconDatabase extends SQLiteOpenHelper {
         //Level 1 JellowIcon
         VerbiageDatabaseHelper databaseHelper  = new VerbiageDatabaseHelper(context,new DataBaseHelper(context).getWritableDatabase());
 
+        int max  = databaseHelper.count();
+        int current  = 0;
+        if(onProgressChangedListener!=null)
+            onProgressChangedListener.onProgressChanged(0,max);
         for (int i = 0; i < databaseHelper.getLevelOneIconCount(); i++) {
             // Put column/value pairs into the container. put() overwrites existing values.
             String ID = Nomenclature.getIconName(i,-1,-1,context);
@@ -96,7 +100,8 @@ public class IconDatabase extends SQLiteOpenHelper {
             values.put(KEY_P2, -1);
             values.put(KEY_P3, -1);
             db.insert(TABLE, null, values);
-            Log.d(" L1 Icon Inserted",ID);
+            if(onProgressChangedListener!=null)
+                onProgressChangedListener.onProgressChanged(++current,max);
         }
         //Filling the database for Level 2
         for (int i = 0; i < databaseHelper.getLevelOneIconCount(); i++) {
@@ -110,7 +115,8 @@ public class IconDatabase extends SQLiteOpenHelper {
                 values.put(KEY_P2, j);
                 values.put(KEY_P3, -1);
                 db.insert(TABLE, null, values);
-                Log.d(" L2 Icon Inserted",j+"");
+                if(onProgressChangedListener!=null)
+                    onProgressChangedListener.onProgressChanged(++current,max);
             }
         }
         //Filling the database for Level Three
@@ -120,20 +126,20 @@ public class IconDatabase extends SQLiteOpenHelper {
                         for (int k = 0; k < databaseHelper.getLevelThreeIconCount(i,j); k++) {
 
                             String ID = Nomenclature.getIconName(i,j,k,context);
-                            Log.d("ID",""+ID);
-                            if (ID.equals("0107020004GG"))
-                                continue;
                             values.put(ICON_TITLE, databaseHelper.getVerbiageById(ID).Display_Label);
                             values.put(ICON_DRAWABLE, ID);
                             values.put(KEY_P1, i);
                             values.put(KEY_P2, j);
                             values.put(KEY_P3, k);
                             db.insert(TABLE, null, values);
-                            Log.d(" L3 Icon Inserted",ICON_TITLE);
+                            if(onProgressChangedListener!=null)
+                                onProgressChangedListener.onProgressChanged(++current,max);
                         }
             }
         }
         //Reset the language code
+        if(onProgressChangedListener!=null)
+            onProgressChangedListener.onComplete();
         new SessionManager(context).setLanguageChange(2);
     }
 
@@ -309,5 +315,16 @@ public class IconDatabase extends SQLiteOpenHelper {
                 cursor.close();
             return iconList;
         }
+    }
+
+    private ProgressListener onProgressChangedListener;
+    public interface ProgressListener
+    {
+        void onProgressChanged(int progress,int max);
+        void onComplete();
+    }
+    public void setOnProgressChangeListener(ProgressListener onProgressChangedListener)
+    {
+        this.onProgressChangedListener  =onProgressChangedListener;
     }
 }//END

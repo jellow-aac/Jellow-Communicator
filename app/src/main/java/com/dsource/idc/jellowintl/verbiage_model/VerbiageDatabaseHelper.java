@@ -61,6 +61,8 @@ public class VerbiageDatabaseHelper extends SQLiteOpenHelper{
     ArrayList<MiscellaneousIcons> otherIconList;
     ArrayList<String> otherIconKeyList;
     ArrayList<String> keyList;
+    int max=0;
+    int current=0;
     public void fillDatabase() {
         verbiageList=new ArrayList<>();
         keyList=new ArrayList<>();
@@ -73,7 +75,11 @@ public class VerbiageDatabaseHelper extends SQLiteOpenHelper{
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {
+                    max = (int)dataSnapshot.getChildrenCount();
+                    if(onProgressChangedListener!=null)
+                        onProgressChangedListener.onProgressChanged(0,max);
                     for(DataSnapshot d:dataSnapshot.getChildren()) {
+
                         try {
                             if(d.getKey().contains("EE")||d.getKey().contains("MS")) {
                                 otherIconList.add(d.getValue(MiscellaneousIcons.class));
@@ -89,6 +95,7 @@ public class VerbiageDatabaseHelper extends SQLiteOpenHelper{
                         {
                             Log.d("Task1","Exception : "+d.getKey()+" Exception "+e.getMessage());
                         }
+
                     }
                 } else Log.d("Task1","DataSnapshot does not exists | ");
                 Log.d("Task1","List size: "+verbiageList.size());
@@ -114,8 +121,12 @@ public class VerbiageDatabaseHelper extends SQLiteOpenHelper{
             values.put(ICON_TITLE,otherIconList.get(i).Title);
             values.put(ICON_VERBIAGE,new Gson().toJson(otherIconList.get(i)));
             db.insert(TABLE_NAME, null, values);
+            if(onProgressChangedListener!=null)
+                onProgressChangedListener.onProgressChanged(++current,max);
             Log.d("VerbiageDatabase","ExpressiveIconAdded"+otherIconList.get(i).Title+" "+otherIconList.get(i).L);
         }
+        if(onProgressChangedListener!=null)
+            onProgressChangedListener.onComplete();
 
     }
 
@@ -293,5 +304,25 @@ public class VerbiageDatabaseHelper extends SQLiteOpenHelper{
             return --count;
         }
         return -1;
+    }
+
+    public int count() {
+
+        String Query = "SELECT * FROM "+TABLE_NAME;
+        Cursor cursor = db.rawQuery(Query,null);
+        if (cursor!=null)
+            return cursor.getCount();
+        else return 0;
+    }
+
+    private ProgressListener onProgressChangedListener;
+    public interface ProgressListener
+    {
+        void onProgressChanged(int progress,int max);
+        void onComplete();
+    }
+    public void setOnProgressChangeListener(ProgressListener onProgressChangedListener)
+    {
+        this.onProgressChangedListener  =onProgressChangedListener;
     }
 }

@@ -26,7 +26,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.dsource.idc.jellowintl.makemyboard.MyBoards;
 import com.dsource.idc.jellowintl.models.LevelOneVerbiageModel;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
@@ -290,7 +289,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, SearchActivity.class));
                 break;
             case R.id.my_boards:
-                startActivity(new Intent(this, MyBoards.class));
+                startActivity(new Intent(this, SetupMMB.class));
                 break;
             case R.id.languageSelect:
                 startActivity(new Intent(this, LanguageSelectActivity.class));

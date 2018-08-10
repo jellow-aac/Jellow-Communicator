@@ -72,7 +72,7 @@ public class IconSelectActivity extends AppCompatActivity {
         utilF=new UtilFunctions();
         selectionCheckBox=findViewById(R.id.select_deselect_check_box);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#333333'>"+"Select icons"+"</font>"));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#333333'>"+getString(R.string.icon_select_text)+"</font>"));
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_button_board);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_background));
         initViews();
@@ -451,7 +451,7 @@ public class IconSelectActivity extends AppCompatActivity {
             case R.id.filter:
                 showSecondLevelMenu();
                 break;
-            case android.R.id.home: finish(); break;
+            case android.R.id.home: onBackPressed(); break;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -471,7 +471,6 @@ public class IconSelectActivity extends AppCompatActivity {
         {
             JellowIcon icon=(JellowIcon)data.getExtras().getSerializable(getString(R.string.search_result));
             if(icon!=null&&!utilF.listContainsIcon(icon,selectedIconList)) {
-                moveToIconPosition(icon);
                 selectedIconList.add(icon);
                 if(selectedIconList.size()>0)
                 {
@@ -486,10 +485,26 @@ public class IconSelectActivity extends AppCompatActivity {
 
     }
 
-    private void moveToIconPosition(JellowIcon icon) {
+    @Override
+    public void onBackPressed() {
+        final CustomDialog dialog = new CustomDialog(this,CustomDialog.NORMAL);
+        dialog.setText(getString(R.string.icon_select_exit_warning));
+        dialog.setOnPositiveClickListener(new CustomDialog.onPositiveClickListener() {
+            @Override
+            public void onPositiveClickListener() {
+                finish();
+            }
+        });
+        dialog.setOnNegativeClickListener(new CustomDialog.onNegativeClickListener() {
+            @Override
+            public void onNegativeClickListener() {
+                dialog.cancel();
+            }
+        });
+        dialog.show();
+
 
     }
-
 
     private class simpleArrayAdapter extends ArrayAdapter<String>
     {
@@ -521,4 +536,5 @@ public class IconSelectActivity extends AppCompatActivity {
         }
 
     }
+
 }

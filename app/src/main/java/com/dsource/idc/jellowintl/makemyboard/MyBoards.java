@@ -20,7 +20,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -48,7 +47,6 @@ import com.dsource.idc.jellowintl.SettingActivity;
 import com.dsource.idc.jellowintl.TutorialActivity;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.CustomDialog;
-import com.dsource.idc.jellowintl.verbiage_model.VerbiageDatabaseHelper;
 import com.rey.material.app.Dialog;
 
 import java.io.ByteArrayOutputStream;
@@ -93,13 +91,7 @@ public class MyBoards extends AppCompatActivity {
         initFields(3);
         prepareBoardList(NORMAL_MODE);
         currentMode  =NORMAL_MODE;
-        VerbiageDatabaseHelper verbiageDatabaseHelper = new VerbiageDatabaseHelper(this,new DataBaseHelper(this).getWritableDatabase());
-        Log.d("Level 1",verbiageDatabaseHelper.getLevelOneIconCount()+"");
-        Log.d("Level 2",verbiageDatabaseHelper.getLevelTwoIconCount(2)+"");
-        Log.d("Level 3",verbiageDatabaseHelper.getLevelThreeIconCount(3,3)+"");
-
-
-
+     
     }
 
     private void checkDatabase() {
@@ -224,6 +216,8 @@ public class MyBoards extends AppCompatActivity {
         final EditText boardTitleEditText=dialogContainerView.findViewById(R.id.board_name);
         TextView saveBoard=dialogContainerView.findViewById(R.id.save_baord);
         TextView cancelSaveBoard=dialogContainerView.findViewById(R.id.cancel_save_baord);
+        if(code==EDIT_BOARD)
+            cancelSaveBoard.setText(getString(R.string.next));
         ImageView editBoardIconButton=dialogContainerView.findViewById(R.id.edit_board);
         final ImageView BoardIcon=dialogContainerView.findViewById(R.id.board_icon);
         listView.setVisibility(View.GONE);
@@ -322,14 +316,20 @@ public class MyBoards extends AppCompatActivity {
                 }
                 else if(code==EDIT_BOARD)
                 updateBoardDetails(name,bitmapArray,pos);
-
-
                 dialogForBoardEditAdd.dismiss();
             }
         });
         cancelSaveBoard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(code==EDIT_BOARD) {
+                    String boardID = boardList.get(pos).boardID;
+                    Intent intent = new Intent(MyBoards.this,AddEditIconAndCategory.class);
+                    if(!boardList.get(pos).isBoardIconsSelected())
+                        intent = new Intent(MyBoards.this,IconSelectActivity.class);
+                    intent.putExtra(BOARD_ID,boardID);
+                    startActivity(intent);
+                }
                 dialogForBoardEditAdd.dismiss();
             }
         });

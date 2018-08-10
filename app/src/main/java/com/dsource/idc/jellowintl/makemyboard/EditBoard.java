@@ -82,15 +82,19 @@ public class EditBoard extends AppCompatActivity {
 
     boolean draggedOut=false;
     int levelOneParent,levelTwoParent,levelThreeParent, fromLevel;
+
     private void updateList(int Mode) {
+        invalidateOptionsMenu();
         adapterRight=new AdapterEditBoard(mRecyclerView,displayList,this,Mode,parent);
         mRecyclerView.setAdapter(adapterRight);
         adapterRight.notifyDataSetChanged();
         adapterRight.setOnItemClickListener(new AdapterEditBoard.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Log.d("ItemClicked","Item: "+position);
-                notifyItemClicked(position,AdapterEditBoard.NORMAL_MODE);
+                if(isDeleteModeOn)
+                notifyItemClicked(position,AdapterEditBoard.DELETE_MODE);
+                else
+                    notifyItemClicked(position,AdapterEditBoard.NORMAL_MODE);
             }
         });
         adapterRight.setOnItemMovedListener(new AdapterEditBoard.OnItemMovedListener() {
@@ -111,8 +115,6 @@ public class EditBoard extends AppCompatActivity {
         });
 
         adapterRight.setmOnItemDraggedOutListener(new AdapterEditBoard.onItemDraggedOut() {
-
-
             @Override
             public void onIconDraggedOut(int position) {
                 Log.d("Item Moved",""+position);
@@ -201,7 +203,7 @@ public class EditBoard extends AppCompatActivity {
                 Level++;
                 updateList(mode);
             }
-            //else Toast.makeText(EditBoard.this,"No sub category",Toast.LENGTH_SHORT).show();
+            else Toast.makeText(EditBoard.this,"No sub category",Toast.LENGTH_SHORT).show();
         }
         else if(Level==1){
 
@@ -212,13 +214,13 @@ public class EditBoard extends AppCompatActivity {
                     Level++;
                     updateList(mode);
                     LevelTwoParent=position;
-                } //else Toast.makeText(EditBoard.this, "No sub category", Toast.LENGTH_SHORT).show();
+                } else Toast.makeText(EditBoard.this, "No sub category", Toast.LENGTH_SHORT).show();
 
             } else Log.d("LevelOneParentNotSet","Icon"+LevelOneParent+" "+position);
         }
         else if(Level==2)
         {
-           // Toast.makeText(EditBoard.this,"No sub category",Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditBoard.this,"No sub category",Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -231,7 +233,10 @@ public class EditBoard extends AppCompatActivity {
             if(LevelOneParent!=-1) {
                 displayList = modelManager.getLevelTwoFromModel(LevelOneParent);
                 LevelTwoParent=-1;
-                updateList(AdapterEditBoard.NORMAL_MODE);
+                if(isDeleteModeOn)
+                    updateList(AdapterEditBoard.DELETE_MODE);
+                else
+                    updateList(AdapterEditBoard.NORMAL_MODE);
                 Level--;
             }
 
@@ -240,13 +245,16 @@ public class EditBoard extends AppCompatActivity {
         {
             displayList= modelManager.getLevelOneFromModel();
             LevelOneParent=-1;
-            updateList(AdapterEditBoard.NORMAL_MODE);
+            if(isDeleteModeOn)
+                updateList(AdapterEditBoard.DELETE_MODE);
+            else
+                updateList(AdapterEditBoard.NORMAL_MODE);
             Level--;
         }
         else if(Level==0)
         {
             CustomDialog dialog=new CustomDialog(this);
-            dialog.setText("Are you sure you want to exit ?");
+            dialog.setText(getString(R.string.exit_warning));
             dialog.setOnPositiveClickListener(new CustomDialog.onPositiveClickListener() {
                 @Override
                 public void onPositiveClickListener() {
@@ -262,6 +270,12 @@ public class EditBoard extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.edit_board_menu, menu);
+
+        if(isDeleteModeOn)
+        {
+            MenuItem item = menu.findItem(R.id.delete_boards);
+            item.setIcon(R.drawable.ic_done);
+        }
         super.onCreateOptionsMenu(menu);
         return true;
     }

@@ -31,6 +31,7 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textColor="#404040"
+            android:id="@+id/progress_text"
             android:text="@string/downloadErrorMsg"/>
     </LinearLayout>
 </RelativeLayout>

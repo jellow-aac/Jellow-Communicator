@@ -16,6 +16,10 @@
             android:id="@+id/profile"
             android:title="@string/menuProfile"
             app:showAsAction="never"/>
+        <item android:id="@+id/my_boards"
+            android:title="@string/my_boards"
+            app:showAsAction="never"
+            />
         <item
             android:id="@+id/info"
             android:title="@string/menuAbout"
