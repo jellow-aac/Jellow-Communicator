@@ -74,5 +74,19 @@
     <dimen name="grid_dialog_icon_margin">16dp</dimen>
     <dimen name="grid_dialog_text_margin">8dp</dimen>
 
+    <!--generalized Jellow dimensions-->
+    <dimen name="exp_icon_width">132dp</dimen>
+    <dimen name="exp_icon_height">126dp</dimen>
+    <dimen name="recycler_view_width">728dp</dimen>
+    <dimen name="recycler_view_margin_bottom">165dp</dimen>
+    <dimen name="nav_bar_margin_bottom" >-16dp</dimen>>
+    <dimen name="nav_bar_height">90dp</dimen>
+    <dimen name="home_icon_width">160dp</dimen>
+    <dimen name="home_icon_height">168dp</dimen>
+    <dimen name="keyboard_icon_width">170dp</dimen>
+    <dimen name="keyboard_icon_height">170dp</dimen>
+    <dimen name="jellow_icon_width">168dp</dimen>
+    <dimen name="jellow_icon_height">112dp</dimen>
+    <dimen name="jellow_icon_margin_bottom">8dp</dimen>
 
 </resources>

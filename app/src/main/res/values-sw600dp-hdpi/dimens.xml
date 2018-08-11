@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--generalized Jellow dimensions-->
+    <dimen name="exp_icon_width">128dp</dimen>
+    <dimen name="exp_icon_height">122dp</dimen>
+    <dimen name="recycler_view_width">600dp</dimen>
+    <dimen name="recycler_view_margin_bottom">112dp</dimen>
+    <dimen name="nav_bar_margin_bottom" >-26dp</dimen>>
+    <dimen name="nav_bar_height">90dp</dimen>
+    <dimen name="home_icon_width">132dp</dimen>
+    <dimen name="home_icon_height">140dp</dimen>
+    <dimen name="keyboard_icon_width">142dp</dimen>
+    <dimen name="keyboard_icon_height">142dp</dimen>
+    <dimen name="jellow_icon_width">150dp</dimen>
+    <dimen name="jellow_icon_height">100dp</dimen>
+    <dimen name="jellow_icon_margin_bottom">-8dp</dimen>
+
+</resources>

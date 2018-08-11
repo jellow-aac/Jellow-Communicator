@@ -92,25 +92,14 @@ public class IconSelectActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final BoardDatabase database=new BoardDatabase(IconSelectActivity.this);
                 final Board board=database.getBoardById(boardId);
-                CustomDialog dialog=new CustomDialog(IconSelectActivity.this,CustomDialog.GRID_SIZE);
-                dialog.show();
-                dialog.setCancelable(true);
-                dialog.setGridSelectListener(new CustomDialog.GridSelectListener() {
-                    @Override
-                    public void onGridSelectListener(int size) {
-                        if(board!=null) {
-                            board.setGridSize(size);
-                            board.setBoardIconModel(
-                                    new ModelManager(sortList(selectedIconList),IconSelectActivity.this).
-                                            getModel());
-                            database.updateBoardIntoDatabase(new DataBaseHelper(IconSelectActivity.this).getReadableDatabase(),board);
-                            Intent intent = new Intent(IconSelectActivity.this, AddEditIconAndCategory.class);
-                            intent.putExtra(BOARD_ID, boardId);
-                            startActivity(intent);
-                            finish();
-                        }
-                    }
-                });
+                board.setBoardIconModel(
+                        new ModelManager(sortList(selectedIconList),IconSelectActivity.this).
+                                getModel());
+                database.updateBoardIntoDatabase(new DataBaseHelper(IconSelectActivity.this).getReadableDatabase(),board);
+                Intent intent =new Intent(IconSelectActivity.this,AddEditIconAndCategory.class);
+                intent.putExtra(BOARD_ID,boardId);
+                startActivity(intent);
+                finish();
 
             }
         });
@@ -502,8 +491,6 @@ public class IconSelectActivity extends AppCompatActivity {
             }
         });
         dialog.show();
-
-
     }
 
     private class simpleArrayAdapter extends ArrayAdapter<String>

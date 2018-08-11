@@ -40,6 +40,7 @@ import com.dsource.idc.jellowintl.DataBaseHelper;
 import com.dsource.idc.jellowintl.Nomenclature;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.BoardDatabase;
+import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.CustomDialog;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.IconModel;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.ModelManager;
 import com.dsource.idc.jellowintl.utility.JellowIcon;
@@ -141,11 +142,21 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         findViewById(R.id.next_step).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                database.updateBoardIntoDatabase(new DataBaseHelper(AddEditIconAndCategory.this).getWritableDatabase(),currentBoard);
-                Intent intent = new Intent(AddEditIconAndCategory.this,EditBoard.class);
-                intent.putExtra(BOARD_ID,boardId);
-                startActivity(intent);
-                finish();
+                CustomDialog dialog=new CustomDialog(AddEditIconAndCategory.this,CustomDialog.GRID_SIZE);
+                dialog.show();
+                dialog.setCancelable(true);
+                dialog.setGridSelectListener(new CustomDialog.GridSelectListener() {
+                    @Override
+                    public void onGridSelectListener(int size) {
+                            currentBoard.setGridSize(size);
+                            database.updateBoardIntoDatabase(new DataBaseHelper(AddEditIconAndCategory.this).getWritableDatabase(),currentBoard);
+                            Intent intent = new Intent(AddEditIconAndCategory.this,EditBoard.class);
+                            intent.putExtra(BOARD_ID,boardId);
+                            startActivity(intent);
+                            finish();
+                    }
+                });
+
             }
         });
         findViewById(R.id.select_deselect_check_box).setVisibility(View.GONE);

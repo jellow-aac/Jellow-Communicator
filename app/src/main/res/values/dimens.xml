@@ -95,4 +95,22 @@
     <dimen name="edit_option_text_size">16sp</dimen>
     <dimen name="edit_option_width">170dp</dimen>
 
+
+    <!--generalized Jellow dimensions-->
+    <dimen name="exp_icon_width">82dp</dimen>
+    <dimen name="exp_icon_height">76dp</dimen>
+    <dimen name="recycler_view_width">375dp</dimen>
+    <dimen name="recycler_view_margin_bottom">64dp</dimen>
+    <dimen name="nav_bar_height">90dp</dimen>
+    <dimen name="nav_bar_margin_bottom">-16dp</dimen>
+    <dimen name="home_icon_height">80dp</dimen>
+    <dimen name="home_icon_width">88dp</dimen>
+    <dimen name="keyboard_icon_height">90dp</dimen>
+    <dimen name="keyboard_icon_width">90dp</dimen>
+    <dimen name="back_icon_width">90dp</dimen>
+    <dimen name="back_icon_height">90dp</dimen>
+    <dimen name="jellow_icon_width">100dp</dimen>
+    <dimen name="jellow_icon_height">50dp</dimen>
+    <dimen name="jellow_icon_margin_bottom">8dp</dimen>
+
 </resources>
