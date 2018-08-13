@@ -747,13 +747,13 @@
 <item>বেল্ট</item>
 <item>রেনকোট</item>
 <item>চশমা</item>
-<item>হাতঘড়ি</item>
+<item>হাতঘোড়ি</item>
 <item>কানের দুল</item>
 <item>হাতের বালা</item>
 <item>হার</item>
 <item>টিপ</item>
 <item>চপ্পল</item>
-<item>আমার জামাকাপড় আঁটসাঁট</item>
+<item>আমার জামাকাপড় আঁটোসাঁটো</item>
 <item>আমার জামাকাপড় আলগা</item>
 <item>জামাকাপড় খুলতে সাহায্য করা</item>
 <item>জামাকাপড় পরতে  সাহায্য করা</item>
@@ -821,13 +821,13 @@
 <item>ভাত</item>
 <item>ডাল</item>
 <item>ডালখিচুড়ি</item>
-<item>রায়তা</item>
+<item>রাইতা</item>
 <item>পরোটা</item>
 <item>দই</item>
 <item>মাছ</item>
 <item>চিকেন</item>
 <item>পর্ক</item>
-<item>মটন</item>
+<item>মাটন</item>
 <item>কাঁকড়ার মাংস</item>
 <item>টার্কি</item>
 <item>পিৎজা</item>
@@ -887,7 +887,7 @@
 <string-array name="arrLevelThreeFoodDrinksDrinksAdapterText">
 <item>জল</item>
 <item>দুধ</item>
-<item>বোর্নভিটা</item>
+<item>বোর্ন ভিটা</item>
 <item>আমের রস</item>
 <item>আপেলের রস</item>
 <item>কমলালেবুর রস</item>
@@ -1035,7 +1035,7 @@
 <item>নেকড়ে</item>
 <item>শেয়াল</item>
 <item>ভালুক</item>
-<item>ভেড়া</item>
+<item>ভ্যাড়া</item>
 <item>ছাগল</item>
 <item>শুয়োর</item>
 <item>মাছি</item>
@@ -1119,13 +1119,13 @@
 <item>সোনালি</item>
 <item>গোলাপি</item>
 <item>কমলা</item>
-<item>রক্তবর্ণ</item>
+<item>বেগুনি</item>
 <item>ধূসর</item>
 </string-array>
 
 <string-array name="arrLevelThreeLearningShapesAdapterText">
 <item>খাঁড়া রেখা</item>
-<item>বেঁকানো রেখা</item>
+<item>ব্যাঁকানো রেখা</item>
 <item>ঢালু রেখা</item>
 <item>বৃত্ত</item>
 <item>আয়তক্ষেত্র</item>
@@ -1148,10 +1148,10 @@
 <item>পেন</item>
 <item>স্কেল</item>
 <item>রবার</item>
-<item>শার্পনার</item>
-<item>রঙ্গিন চক</item>
+<item>শার্প নার</item>
+<item>রঙিন চক</item>
 <item>ফাঁকা কাগজ</item>
-<item>রঙ্গিন কাগজ</item>
+<item>রঙিন কাগজ</item>
 <item>কাঁচি</item>
 <item>সিসা</item>
 <item>কম্পাস</item>
@@ -1177,7 +1177,7 @@
 <item>পেন</item>
 <item>স্কেল</item>
 <item>রবার</item>
-<item>শার্পনার</item>
+<item>শার্প নার</item>
 <item>চক</item>
 </string-array>
 
@@ -1190,7 +1190,7 @@
 <item>আলমারি</item>
 <item>টেবিল</item>
 <item>চেয়ার</item>
-<item>টয়লেট</item>
+<item>টইলেট</item>
 <item>রান্নাঘর</item>
 <item>বসার ঘর</item>
 <item>শোয়ার ঘর</item>
@@ -1238,10 +1238,10 @@
 <item>আজ</item>
 <item>গতকাল</item>
 <item>আগামিকাল</item>
-<item>সকালবেলা</item>
+<item>সকালব্যালা</item>
 <item>বিকেলবেলা</item>
-<item>সন্ধেবেলা</item>
-<item>রাত্রিবেলা</item>
+<item>সন্ধেব্যালা</item>
+<item>রাত্রিব্যালা</item>
 </string-array>
 
 <string-array name="arrLevelThreeTimeWeaDayAdapterText">
@@ -1319,7 +1319,7 @@
 <item>কাকুর জন্মদিন</item>
 <item>কাকিমার জন্মদিন</item>
 <item>মামাতো/ কাকাতো ভাইবোনের জন্মদিন</item>
-<item>বন্ধুর জন্মদিন</item>
+<item>মামাতো ভাইবোনের জন্মদিন</item>
 <item>শিক্ষকের জন্মদিন</item>
 </string-array>
 
@@ -1428,13 +1428,13 @@
 <item>বেল্ট</item>
 <item>রেনকোট</item>
 <item>চশমা</item>
-<item>হাতঘড়ি</item>
+<item>হাতঘোড়ি</item>
 <item>কানের দুল</item>
 <item>হাতের বালা</item>
 <item>হার</item>
 <item>টিপ</item>
 <item>চপ্পল</item>
-<item>আমার জামাকাপড় আঁটসাঁট</item>
+<item>আমার জামাকাপড় আঁটোসাঁটো</item>
 <item>আমার জামাকাপড় আলগা</item>
 <item>জামাকাপড় খুলতে সাহায্য করা</item>
 <item>জামাকাপড় পরতে  সাহায্য করা</item>
@@ -1502,13 +1502,13 @@
 <item>ভাত</item>
 <item>ডাল</item>
 <item>ডালখিচুড়ি</item>
-<item>রায়তা</item>
+<item>রাইতা</item>
 <item>পরোটা</item>
 <item>দই</item>
 <item>মাছ</item>
 <item>চিকেন</item>
 <item>পর্ক</item>
-<item>মটন</item>
+<item>মাটন</item>
 <item>কাঁকড়ার মাংস</item>
 <item>টার্কি</item>
 <item>পিৎজা</item>
@@ -1568,7 +1568,7 @@
 <string-array name="arrLevelThreeFoodDrinksDrinksSpeechText">
 <item>জল</item>
 <item>দুধ</item>
-<item>বোর্নভিটা</item>
+<item>বোর্ন ভিটা</item>
 <item>আমের রস</item>
 <item>আপেলের রস</item>
 <item>কমলালেবুর রস</item>
@@ -1716,7 +1716,7 @@
 <item>নেকড়ে</item>
 <item>শেয়াল</item>
 <item>ভালুক</item>
-<item>ভেড়া</item>
+<item>ভ্যাড়া</item>
 <item>ছাগল</item>
 <item>শুয়োর</item>
 <item>মাছি</item>
@@ -1737,7 +1737,7 @@
 <item>তিমি</item>
 <item>হাঙ্গর</item>
 <item>কচ্ছপ</item>
-<item>চড়ুইপাখি</item>
+<item>চোড়ুইপাখি</item>
 <item>ইগল</item>
 <item>বাজপাখি</item>
 <item>শকুন</item>
@@ -1800,13 +1800,13 @@
 <item>সোনালি</item>
 <item>গোলাপি</item>
 <item>কমলা</item>
-<item>রক্তবর্ণ</item>
+<item>বেগুনি</item>
 <item>ধূসর</item>
 </string-array>
 
 <string-array name="arrLevelThreeLearningShapesSpeechText">
 <item>খাঁড়া রেখা</item>
-<item>বেঁকানো রেখা</item>
+<item>ব্যাঁকানো রেখা</item>
 <item>ঢালু রেখা</item>
 <item>বৃত্ত</item>
 <item>আয়তক্ষেত্র</item>
@@ -1829,10 +1829,10 @@
 <item>পেন</item>
 <item>স্কেল</item>
 <item>রবার</item>
-<item>শার্পনার</item>
-<item>রঙ্গিন চক</item>
+<item>শার্প নার</item>
+<item>রঙিন চক</item>
 <item>ফাঁকা কাগজ</item>
-<item>রঙ্গিন কাগজ</item>
+<item>রঙিন কাগজ</item>
 <item>কাঁচি</item>
 <item>সিসা</item>
 <item>কম্পাস</item>
@@ -1858,7 +1858,7 @@
 <item>পেন</item>
 <item>স্কেল</item>
 <item>রবার</item>
-<item>শার্পনার</item>
+<item>শার্প নার</item>
 <item>চক</item>
 </string-array>
 
@@ -1871,7 +1871,7 @@
 <item>আলমারি</item>
 <item>টেবিল</item>
 <item>চেয়ার</item>
-<item>টয়লেট</item>
+<item>টইলেট</item>
 <item>রান্নাঘর</item>
 <item>বসার ঘর</item>
 <item>শোয়ার ঘর</item>
@@ -1919,10 +1919,10 @@
 <item>আজ</item>
 <item>গতকাল</item>
 <item>আগামিকাল</item>
-<item>সকালবেলা</item>
+<item>সকালব্যালা</item>
 <item>বিকেলবেলা</item>
-<item>সন্ধেবেলা</item>
-<item>রাত্রিবেলা</item>
+<item>সন্ধেব্যালা</item>
+<item>রাত্রিব্যালা</item>
 </string-array>
 
 <string-array name="arrLevelThreeTimeWeaDaySpeechText">
@@ -2000,7 +2000,7 @@
 <item>কাকুর জন্মদিন</item>
 <item>কাকিমার জন্মদিন</item>
 <item>মামাতো/ কাকাতো ভাইবোনের জন্মদিন</item>
-<item>বন্ধুর জন্মদিন</item>
+<item>মামাতো ভাইবোনের জন্মদিন</item>
 <item>শিক্ষকের জন্মদিন</item>
 </string-array>
 
