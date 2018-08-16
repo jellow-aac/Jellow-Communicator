@@ -307,6 +307,9 @@ public class LevelTwoActivity extends AppCompatActivity {
             case R.id.search:
                 startActivity(new Intent(this, SearchActivity.class));
                 break;
+            case R.id.my_boards:
+                startActivity(new Intent(this, SetupMMB.class));
+                break;
             case R.id.languageSelect:
                 startActivity(new Intent(this, LanguageSelectActivity.class));
                 break;

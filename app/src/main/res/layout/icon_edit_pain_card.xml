@@ -37,20 +37,24 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/icon_image_view"
         />
+
     <ImageView
-        android:layout_width="@dimen/my_board_edit_icon_size"
-        android:layout_height="@dimen/my_board_edit_icon_size"
-        android:padding="4dp"
-        android:background="@drawable/circular_background_red"
-        android:src="@drawable/ic_cross_icon"
-        android:layout_toRightOf="@id/board_icon"
         android:id="@+id/icon_remove_button"
+        android:layout_width="28dp"
+        android:layout_height="@dimen/my_board_edit_icon_size"
         android:layout_alignParentRight="true"
-        android:layout_marginLeft="-12dp"
         android:layout_alignParentTop="true"
-        android:layout_margin="4dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_toRightOf="@id/board_icon"
+        android:background="@drawable/circular_background_red"
         android:gravity="top"
-        />
+        android:padding="4dp"
+        android:src="@drawable/ic_cross_icon" />
 
 </RelativeLayout>
 </RelativeLayout>

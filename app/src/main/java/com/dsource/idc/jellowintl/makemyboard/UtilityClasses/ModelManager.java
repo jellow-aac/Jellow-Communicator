@@ -35,6 +35,7 @@ public class ModelManager {
         parentNode=new IconModel(new JellowIcon("","",-1,-1,-1));
         prepareLevels();
         prepareModel();
+        refreshModel();
     }
     public ModelManager(Context context,IconModel parentNode)
     {
@@ -173,20 +174,16 @@ public class ModelManager {
         if(level==0)
         {
             updated=true;
-            Log.d("IconDeleted",""+parentNode.getChildren().get(pos).getIcon().IconTitle);
             parentNode.getChildren().remove(pos);
         }
         else if(level==1)
         {
             updated=true;
-            Log.d("IconDeleted",""+parentNode.getChildren().get(levelOnePos).getChildren().get(pos).getIcon().IconTitle);
             parentNode.getChildren().get(levelOnePos).getChildren().remove(pos);
         }
         else if(level==2)
         {
             updated=true;
-            Log.d("IconDeleted",""+
-            parentNode.getChildren().get(levelOnePos).getChildren().get(levelTwoPos).getChildren().get(pos).getIcon().IconTitle);
             parentNode.getChildren().get(levelOnePos).getChildren().get(levelTwoPos).getChildren().remove(pos);
         }
 
@@ -195,6 +192,7 @@ public class ModelManager {
             board.setBoardIconModel(parentNode);
             new BoardDatabase(context).updateBoardIntoDatabase(new DataBaseHelper(context).getWritableDatabase(),board);
         }
+        refreshModel();
 
     }
     public void updateItemMoved(int level, int levelOneParent, int levelTwoParent, int fromPosition, int toPosition, Board currentBoard) {
@@ -225,9 +223,8 @@ public class ModelManager {
             currentBoard.setBoardIconModel(parentNode);
             new BoardDatabase(context).updateBoardIntoDatabase(new DataBaseHelper(context).getWritableDatabase(),currentBoard);
         }
-
+        refreshModel();
     }
-
 
     private void prepareModel() {
 
@@ -297,6 +294,7 @@ public class ModelManager {
     public void setModel(IconModel model)
     {
         this.parentNode=model;
+        refreshModel();
     }
 
     /**
@@ -369,6 +367,7 @@ public class ModelManager {
                 board.setBoardIconModel(parentNode);
                 new BoardDatabase(context).updateBoardIntoDatabase(new DataBaseHelper(context).getWritableDatabase(),board);
             }
+            refreshModel();
 
     }
 
@@ -449,6 +448,51 @@ public class ModelManager {
     return position;
     }
 
+    public boolean moveIconIntoCategory(int level, int levelOneParent, int levelTwoParent, int fromPosition, int position, Board board) {
+        IconModel iconModel = null;
+
+        if(level==0)
+        {
+            try {
+                iconModel = parentNode.getChildren().get(fromPosition);
+                parentNode.getChildren().remove(fromPosition);
+            }
+            catch (IndexOutOfBoundsException e)
+            {
+             return false;
+            }
+        }
+        else if(level==1)
+        {
+            try {
+                iconModel = parentNode.getChildren().get(levelOneParent).getChildren().get(position);
+                parentNode.getChildren().get(levelOneParent).getChildren().remove(position);
+            }
+            catch (IndexOutOfBoundsException e)
+            {
+                return false;
+            }
+        }
+
+        if(iconModel!=null)
+        {
+            if(level==0)
+            {
+                parentNode.getChildren().get(position).getChildren().add(iconModel);
+            }
+            else
+            {
+                parentNode.getChildren().get(levelOneParent).getChildren().get(position).getChildren().add(iconModel);
+            }
+
+            board.setBoardIconModel(parentNode);
+            new BoardDatabase(context).updateBoardIntoDatabase(new DataBaseHelper(context).getWritableDatabase(),board);
+            return true;
+        }
+        refreshModel();
+        return false;
+    }
+
 
     private class indexHolder
     {
@@ -477,5 +521,73 @@ public class ModelManager {
 
     }
 
+    public void refreshModel()
+    {
+        //Level One
+        for(int i= 0;i<parentNode.getChildren().size();i++)
+        {
+            if(parentNode.getChildren().get(i).getChildren().size()>0)
+            {
+                String iconTitle = parentNode.getChildren().get(i).getIcon().IconTitle;
+                if(!iconTitle.contains("…"))
+                    parentNode.getChildren().get(i).getIcon().setIconTitle(iconTitle+"…");
 
+            }
+            else
+            {
+                String iconTitle = parentNode.getChildren().get(i).getIcon().IconTitle;
+                iconTitle = iconTitle.replaceAll("…","");
+                parentNode.getChildren().get(i).getIcon().setIconTitle(iconTitle);
+            }
+        }
+
+        //LevelTwo
+        for(int i=0;i<parentNode.getChildren().size();i++)
+        {
+            IconModel levelTwoModel = parentNode.getChildren().get(i);
+            for(int j=0;j<levelTwoModel.getChildren().size();j++)
+            {
+                if(levelTwoModel.getChildren().get(j).getChildren().size()>0)
+                {
+                    String iconTitle = levelTwoModel.getChildren().get(j).getIcon().IconTitle;
+                    if(!iconTitle.contains("…"))
+                        levelTwoModel.getChildren().get(j).getIcon().setIconTitle(iconTitle+"…");
+                }
+                else
+                {
+                    String iconTitle = levelTwoModel.getChildren().get(j).getIcon().IconTitle;
+                    iconTitle = iconTitle.replaceAll("…","");
+                    levelTwoModel.getChildren().get(j).getIcon().setIconTitle(iconTitle);
+                }
+
+            }
+        }
+
+        //LevelThree
+        for(int i=0;i<parentNode.getChildren().size();i++)
+        {
+            IconModel levelTwoModel = parentNode.getChildren().get(i);
+            for(int j=0;j<levelTwoModel.getChildren().size();j++)
+            {
+                IconModel levelThreeModel = levelTwoModel.getChildren().get(j);
+                for(int k = 0; k<levelThreeModel.getChildren().size();k++)
+                {
+                    if(levelThreeModel.getChildren().get(k).getChildren().size()>0)
+                    {
+                        String iconTitle = levelThreeModel.getChildren().get(k).getIcon().IconTitle;
+                        if(!iconTitle.contains("…"))
+                            levelThreeModel.getChildren().get(k).getIcon().setIconTitle(iconTitle+"…");
+                    }
+                    else
+                    {
+                        String iconTitle = levelThreeModel.getChildren().get(k).getIcon().IconTitle;
+                        iconTitle = iconTitle.replaceAll("…","");
+                        levelThreeModel.getChildren().get(k).getIcon().setIconTitle(iconTitle);
+                    }
+                }
+
+            }
+        }
+
+    }
 }

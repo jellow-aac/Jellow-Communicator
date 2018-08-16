@@ -10,8 +10,7 @@ public class JellowIcon implements Serializable{
     @Keep public  byte[] IconImage;
     @Keep
     public int parent0, parent1, parent2;
-
-
+    
     public JellowIcon(String iconTitle, String iconDrawable, int p1, int p2, int p3) {
         IconDrawable = iconDrawable;
         IconTitle = iconTitle;
@@ -39,5 +38,9 @@ public class JellowIcon implements Serializable{
     {
         return parent0 == icon.parent0 && parent1 == icon.parent1 && parent2 == icon.parent2;
 
+    }
+
+    public void setIconTitle(String iconTitle) {
+        this.IconTitle = iconTitle;
     }
 }

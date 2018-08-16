@@ -103,12 +103,13 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     @Override
     public HomeAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView;
+
         if(GridSize<4)
         itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.layout_level_xadapter_3_icons, parent, false);
+                .inflate(R.layout.layout_3_icons, parent, false);
         else
             itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.layout_level_xadapter_9_icons, parent, false);
+                    .inflate(R.layout.layout_9_icons, parent, false);
         return new HomeAdapter.ViewHolder(itemView);
     }
 

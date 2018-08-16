@@ -47,7 +47,7 @@ public class EditBoard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_board_layout);
         database=new BoardDatabase(this);
-        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_background));
+        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
         try{
             boardId =getIntent().getExtras().getString(BOARD_ID);
         }
@@ -99,7 +99,7 @@ public class EditBoard extends AppCompatActivity {
         });
         adapterRight.setOnItemMovedListener(new AdapterEditBoard.OnItemMovedListener() {
             @Override
-            public void onItemDelete(int fromPosition, int toPosition) {
+            public void onItemMoved(int fromPosition, int toPosition) {
                 modelManager.updateItemMoved(Level,LevelOneParent,LevelTwoParent,fromPosition,toPosition,currentBoard);
             }
         });
@@ -148,6 +148,28 @@ public class EditBoard extends AppCompatActivity {
                     draggedOut=!draggedOut;
                 }
                 updateListFromDatabase();
+
+            }
+        });
+
+        adapterRight.setOnItemMovedInListener(new AdapterEditBoard.OnItemMovedInListener() {
+
+            @Override
+            public void itemDraggedIn(int fromPosition,int position) {
+
+                if (Level!=2) {
+                    if (modelManager.moveIconIntoCategory(Level, LevelOneParent, LevelTwoParent, fromPosition, position, currentBoard))
+                    {
+                        adapterRight.notifyDataSetChanged();
+                        Toast.makeText(EditBoard.this, "Icon moved", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+                else Toast.makeText(EditBoard.this,"Can't move in",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void itemDroped() {
 
             }
         });
@@ -273,7 +295,7 @@ public class EditBoard extends AppCompatActivity {
 
         if(isDeleteModeOn)
         {
-            MenuItem item = menu.findItem(R.id.delete_boards);
+            MenuItem item = menu.findItem(R.id.delete_icons);
             item.setIcon(R.drawable.ic_done);
         }
         super.onCreateOptionsMenu(menu);

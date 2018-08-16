@@ -92,6 +92,16 @@
     <dimen name="jellow_icon_height">100dp</dimen>
     <dimen name="jellow_icon_margin_bottom">-8dp</dimen>
 
+    <!--9 icons levelx dimensions generalization-->
+    <dimen name="nine_icon_size">103dp</dimen>
+    <dimen name="nine_icon_textview_width">192dp</dimen>
+    <dimen name="nine_icon_textview_textsize">16sp</dimen>
 
+    <!--3 icons levelx dimensions generalization-->
+    <dimen name="three_icon_margin_top">64dp</dimen>
+    <dimen name="three_icon_padding">32dp</dimen>
+    <dimen name="three_icon_size">156dp</dimen>
+    <dimen name="three_icon_textview_width">324dp</dimen>
+    <dimen name="three_icon_textview_textsize">20sp</dimen>
 
 </resources>

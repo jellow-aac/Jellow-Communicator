@@ -8,6 +8,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.DragEvent;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -17,6 +19,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -43,8 +46,12 @@ public class AdapterEditBoard extends DragSortAdapter<AdapterEditBoard.ViewHolde
     private OnItemDeleteListener mItemDeleteListener;
     private OnItemMovedListener mItemMovedListener;
     private onItemDraggedOut mOnItemDraggedOutListener;
+    private OnItemMovedInListener movedInListener;
     private View parent;
     private RecyclerView mRecyclerView;
+    private int dragPosition = -1;
+    private View targetView = null;
+
     public AdapterEditBoard(RecyclerView recyclerView, List<JellowIcon> data, Context context,int Mode,View parent) {
         super(recyclerView);
         this.data = data;
@@ -86,6 +93,12 @@ public class AdapterEditBoard extends DragSortAdapter<AdapterEditBoard.ViewHolde
 
                             return super.onSingleTapUp(e);
                         }
+
+                        @Override
+                        public void onLongPress(MotionEvent e) {
+                            prepareDragListeners(itemView);
+                            super.onLongPress(e);
+                        }
                     });
 
                     @Override
@@ -104,12 +117,15 @@ public class AdapterEditBoard extends DragSortAdapter<AdapterEditBoard.ViewHolde
                 removeIcon.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mItemDeleteListener.onItemDelete(v,getAdapterPosition());
+                        int pos = getAdapterPosition();
+                        if(pos!=-1)
+                        mItemDeleteListener.onItemDelete(v,pos);
                     }
                 });
             }
             holder=itemView;
             drop(itemView);
+
 
 
         }
@@ -120,7 +136,7 @@ public class AdapterEditBoard extends DragSortAdapter<AdapterEditBoard.ViewHolde
 
         @Override public boolean onLongClick(@NonNull View v) {
             //prepareDragListeners(v);
-            startDrag();
+            //startDrag();
             return true;
         }
 
@@ -129,12 +145,12 @@ public class AdapterEditBoard extends DragSortAdapter<AdapterEditBoard.ViewHolde
             ClipData data = ClipData.newPlainText("", "");
             View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
             view.startDrag(data, shadowBuilder, view, 0);
-            //view.setVisibility(View.GONE);
+            view.setVisibility(View.GONE);
         }
 
         boolean draggedOut=false;
         boolean insideLayout=true;
-        void drop(final View view)
+        void drop(final View itemView)
         {
 
 
@@ -143,13 +159,10 @@ public class AdapterEditBoard extends DragSortAdapter<AdapterEditBoard.ViewHolde
                     R.drawable.shape_droptarget);
             final Drawable normalShape = mContext.getResources().getDrawable(R.drawable.shape);
 
-
-
-    /*        final RecyclerView iconContainer=mRecyclerView;//parent.findViewById(R.id.recycler_view_container);
+            final RecyclerView iconContainer=mRecyclerView;//parent.findViewById(R.id.recycler_view_container);
             iconContainer.setOnDragListener(new View.OnDragListener() {
                 @Override
                 public boolean onDrag(View v, DragEvent event) {
-                    int action = event.getAction();
                     switch (event.getAction()) {
                         case DragEvent.ACTION_DRAG_STARTED:
                             // do nothing
@@ -159,17 +172,28 @@ public class AdapterEditBoard extends DragSortAdapter<AdapterEditBoard.ViewHolde
                             break;
                         case DragEvent.ACTION_DRAG_EXITED:
                             //iconContainer.setBackground(normalShape);
+                            mOnItemDraggedOutListener.onIconDraggedOut(getAdapterPosition());
                             Toast.makeText(mContext,"Dragged out!!",Toast.LENGTH_SHORT).show();
                             break;
                         case DragEvent.ACTION_DROP:
 
-                            *//*
-                            ViewGroup owner = (ViewGroup) view.getParent();
-                            owner.removeView(view);
-                            LinearLayout container = (LinearLayout) v;
-                            container.addView(view);
-                            view.setVisibility(View.VISIBLE);
-                            *//*
+                            if(targetView==null) {
+                                ViewGroup owner = (ViewGroup) itemView.getParent();
+                                owner.removeView(itemView);
+                                mRecyclerView.addView(itemView);
+                                itemView.setVisibility(View.VISIBLE);
+                                movedInListener.itemDroped();
+                            }
+                            else
+                            {
+                                int fromPosition = mRecyclerView.getChildAdapterPosition(itemView);
+                                if(fromPosition!=-1&&dragPosition!=-1)
+                                movedInListener.itemDraggedIn(fromPosition,dragPosition);
+
+                            }
+                            targetView.setBackground(normalShape);
+                            itemView.setVisibility(View.VISIBLE);
+
                             break;
                         case DragEvent.ACTION_DRAG_LOCATION:
                             float x = event.getX();
@@ -178,74 +202,30 @@ public class AdapterEditBoard extends DragSortAdapter<AdapterEditBoard.ViewHolde
 
                             View child = mRecyclerView.findChildViewUnder(event.getX(), event.getY());
                             if (child != null) {
-
                                 toPosition = mRecyclerView.getChildViewHolder(child).getAdapterPosition();
                                 Log.d("Childfound",data.get(toPosition).IconTitle);
+                                dragPosition = toPosition;
+                                targetView = child;
+                                child.setBackground(enterShape);
                             }
                             else {
+                                dragPosition = -1;
+                                if(targetView!=null)
+                                    targetView.setBackground(normalShape);
+                                targetView = null;
                                 Log.d("Childfound","Child is null");
                             }
-
 
                             break;
                         case DragEvent.ACTION_DRAG_ENDED:
                             iconContainer.setBackground(normalShape);
+                            itemView.setVisibility(View.VISIBLE);
                         default:
                             break;
                     }
                     return true;
                 }
             });
-
-*/
-            /*final RelativeLayout layout=parent.findViewById(R.id.recycler_view_container);
-            layout.setOnDragListener(new View.OnDragListener() {
-                @Override
-                public boolean onDrag(View v, DragEvent event) {
-                    int action = event.getAction();
-
-                    switch (event.getAction()) {
-                        case DragEvent.ACTION_DRAG_STARTED:
-                            // do nothing
-                            break;
-                        case DragEvent.ACTION_DRAG_ENTERED:
-                            draggedOut=false;
-                            layout.setBackgroundColor(mContext.getResources().getColor(R.color.dark_base));
-                            insideLayout=true;
-                            break;
-                        case DragEvent.ACTION_DRAG_EXITED:
-                            insideLayout=false;
-                            View vd = (View) event.getLocalState();
-                            if(!draggedOut) {
-                                mOnItemDraggedOutListener.onIconDraggedOut(mRecyclerView.getChildLayoutPosition(vd));
-                                Toast.makeText(mContext, "Dragged Out", Toast.LENGTH_SHORT).show();
-                                draggedOut=!draggedOut;
-                            }
-
-                            break;
-                        case DragEvent.ACTION_DRAG_LOCATION:
-                            break;
-
-                        case DragEvent.ACTION_DROP:
-                            insideLayout=false;
-                            layout.setBackground(normalShape);
-                            view.setBackground(normalShape);
-                            mOnItemDraggedOutListener.onIconDropped();
-                            break;
-
-                        case DragEvent.ACTION_DRAG_ENDED:
-                            view.setBackground(normalShape);
-                            layout.setBackground(normalShape);
-
-                            insideLayout=false;
-                        default:
-                            break;
-                    }
-                    return true;
-                }
-            });*/
-
-
 
         }
 
@@ -255,7 +235,7 @@ public class AdapterEditBoard extends DragSortAdapter<AdapterEditBoard.ViewHolde
 
     @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.icon_edit_pain_card, parent, false);
+        View view = inflater.inflate(R.layout.custom_layout_3_icons, parent, false);
         ViewHolder holder = new ViewHolder(this, view);
         view.setOnLongClickListener(holder);
         return holder;
@@ -326,7 +306,7 @@ public class AdapterEditBoard extends DragSortAdapter<AdapterEditBoard.ViewHolde
     @Override
     public boolean move(int fromPosition, int toPosition) {
         data.add(toPosition, data.remove(fromPosition));
-        mItemMovedListener.onItemDelete(fromPosition,toPosition);
+        mItemMovedListener.onItemMoved(fromPosition,toPosition);
         return true;
     }
 
@@ -342,8 +322,13 @@ public class AdapterEditBoard extends DragSortAdapter<AdapterEditBoard.ViewHolde
     public interface OnItemDeleteListener {
         void onItemDelete(View view, int position);
     }
+    public interface OnItemMovedInListener
+    {
+        void itemDraggedIn(int from,int position);
+        void itemDroped();
+    }
     public interface OnItemMovedListener {
-        void onItemDelete(int fromPosition, int toPosition);
+        void onItemMoved(int fromPosition, int toPosition);
     }
     public void setOnItemDeleteListener(final AdapterEditBoard.OnItemDeleteListener mItemClickListener) { this.mItemDeleteListener = mItemClickListener; }
     public void setOnItemClickListener(final AdapterEditBoard.OnItemClickListener mItemClickListener) {
@@ -354,6 +339,10 @@ public class AdapterEditBoard extends DragSortAdapter<AdapterEditBoard.ViewHolde
     public void setmOnItemDraggedOutListener(final AdapterEditBoard.onItemDraggedOut mItemMovedListener) {
         this.mOnItemDraggedOutListener = mItemMovedListener;
 
+    }
+
+    public void setOnItemMovedInListener(OnItemMovedInListener movedInListener) {
+        this.movedInListener = movedInListener;
     }
 
     @Override

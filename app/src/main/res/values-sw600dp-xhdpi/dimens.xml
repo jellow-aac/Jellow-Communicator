@@ -16,4 +16,9 @@
     <dimen name="jellow_icon_height">100dp</dimen>
     <dimen name="jellow_icon_margin_bottom">-8dp</dimen>
 
+    <!--9 icons levelx dimensions generalization-->
+    <dimen name="nine_icon_size">94dp</dimen>
+    <dimen name="nine_icon_textview_width">192dp</dimen>
+    <dimen name="nine_icon_textview_textsize">16sp</dimen>
+
 </resources>

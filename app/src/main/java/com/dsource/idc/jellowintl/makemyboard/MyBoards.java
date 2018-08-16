@@ -166,7 +166,7 @@ public class MyBoards extends AppCompatActivity {
                 @Override
                 public void onItemClick(View view, final int Position, int code) {
                     if(code==DELETE_MODE) {
-                        CustomDialog customDialog=new CustomDialog(ctx);
+                        CustomDialog customDialog=new CustomDialog(ctx,CustomDialog.NORMAL);
                         customDialog.setText("Are you sure that you want to delete "+boardList.get(Position).boardTitle+" ?");
                         customDialog.show();
 

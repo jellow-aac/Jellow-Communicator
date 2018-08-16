@@ -3,6 +3,7 @@ package com.dsource.idc.jellowintl.makemyboard.dragsorter;
 import android.graphics.PointF;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.DragEvent;
 import android.view.View;
 
@@ -32,6 +33,7 @@ final class DragManager implements View.OnDragListener {
     final long itemId = dragInfo.itemId();
 
     switch (event.getAction()) {
+
       case DragEvent.ACTION_DRAG_STARTED:
         draggingId = itemId;
           adapter.notifyItemChanged(recyclerView.findViewHolderForItemId(itemId).getAdapterPosition());
@@ -64,10 +66,12 @@ final class DragManager implements View.OnDragListener {
 
                 View child = recyclerView
                     .findChildViewUnder(nextMoveTouchPoint.x, nextMoveTouchPoint.y);
+
                 if (child != null) {
                   final int toPosition =
                       recyclerView.getChildViewHolder(child).getAdapterPosition();
-                  if (adapter.move(fromPosition, toPosition)) {
+                    Log.d("ThisPosition",toPosition+"");
+                 /* if (adapter.move(fromPosition, toPosition)) {
 
                     if (fromPosition == 0 || toPosition == 0) {
                       // fix for weird scrolling when animating first item
@@ -80,6 +84,7 @@ final class DragManager implements View.OnDragListener {
                       }
                     });
                   }
+                  */
                 }
 
                 // reset so we know to schedule listener again next time

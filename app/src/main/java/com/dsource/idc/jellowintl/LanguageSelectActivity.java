@@ -438,6 +438,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
+            case R.id.my_boards: startActivity(new Intent(this, SetupMMB.class));break;
             case R.id.settings: startActivity(new Intent(getApplication(), SettingActivity.class)); finish(); break;
             case R.id.profile: startActivity(new Intent(this, ProfileFormActivity.class)); finish(); break;
             case R.id.info: startActivity(new Intent(this, AboutJellowActivity.class)); finish(); break;

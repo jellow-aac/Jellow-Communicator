@@ -423,7 +423,8 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         categoryManager = new CategoryManager(boardModel);
         categories = categoryManager.getAllCategories();
         verbiageDatbase.addNewVerbiage( Nomenclature.getIconName(icon,this),new JellowVerbiageModel(name));
-        currentBoard.setBoardIconModel(boardModel);
+        modelManager.setModel(boardModel);
+        currentBoard.setBoardIconModel(modelManager.getModel());
 
       //  database.updateBoardIntoDatabase(new DataBaseHelper(this).getWritableDatabase(),currentBoard);
         prepareLevelSelectPane();
@@ -435,7 +436,8 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         boardModel.getChildren().get(selectedPosition).addChild(icon);
         categoryManager = new CategoryManager(boardModel);
         prepareIconPane(selectedPosition);
-        currentBoard.setBoardIconModel(boardModel);
+        modelManager.setModel(boardModel);
+        currentBoard.setBoardIconModel(modelManager.getModel());
         verbiageDatbase.addNewVerbiage(Nomenclature.getIconName(icon,this),new JellowVerbiageModel(name));
         //database.updateBoardIntoDatabase(new DataBaseHelper(this).getWritableDatabase(),currentBoard);
     }
