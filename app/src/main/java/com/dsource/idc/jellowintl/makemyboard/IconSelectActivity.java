@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -22,6 +21,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dsource.idc.jellowintl.DataBaseHelper;
 import com.dsource.idc.jellowintl.R;
@@ -29,6 +29,7 @@ import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.CustomDialog;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.IconDatabase;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.ModelManager;
+import com.dsource.idc.jellowintl.utility.CustomGridLayoutManager;
 import com.dsource.idc.jellowintl.utility.JellowIcon;
 
 import java.util.ArrayList;
@@ -51,7 +52,9 @@ public class IconSelectActivity extends AppCompatActivity {
     String boardId;
     public static final String BOARD_ID="Board_Id";
     ViewTreeObserver.OnGlobalLayoutListener tempListener;
+    ViewTreeObserver.OnGlobalLayoutListener iconLayoutPopulationLister;
     private Button nextButton;
+    private RecyclerView.OnScrollListener scrollListener;
 
 
     @Override
@@ -208,7 +211,7 @@ public class IconSelectActivity extends AppCompatActivity {
         iconRecycler =findViewById(R.id.icon_select_pane_recycler);
         iconSelectorAdapter =new IconSelectorAdapter(this,iconList,IconSelectorAdapter.ICON_SELECT_MODE);
         dropDown= findViewById(R.id.filter_menu);
-        iconRecycler.setLayoutManager(new GridLayoutManager(this,gridSize()));
+        iconRecycler.setLayoutManager(new CustomGridLayoutManager(this,gridSize(),9));
         iconRecycler.setAdapter(iconSelectorAdapter);
         levelSelecterRecycler=findViewById(R.id.level_select_pane_recycler);
         levelSelecterRecycler.setLayoutManager(new LinearLayoutManager(this));
@@ -329,19 +332,16 @@ public class IconSelectActivity extends AppCompatActivity {
         levelSelecterRecycler.hasFixedSize();
         levelSelectorAdapter =new LevelSelectorAdapter(this,levelSelectList);
         levelSelecterRecycler.setAdapter(levelSelectorAdapter);
-        tempListener=new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                setSelection(0,null);
-            }
-        };
-
-        levelSelecterRecycler.getViewTreeObserver().addOnGlobalLayoutListener(tempListener);
         levelSelectorAdapter.setOnItemClickListner(new LevelSelectorAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 if(previousSelection!=position) {
-                    setSelection(position, view);
+                    if(scrollingPopulationListener!=null)
+                        iconRecycler.getViewTreeObserver().removeOnGlobalLayoutListener(scrollingPopulationListener);
+                    if(scrollListener!=null)
+                        iconRecycler.removeOnScrollListener(scrollListener);
+                    scrollListener=null;
+                    scrollingPopulationListener=null;
                     prepareIconPane(position, -1);
                     dropDownList = getCurrentChildren();
                     if (dropDown.getVisibility() == View.VISIBLE)
@@ -349,29 +349,6 @@ public class IconSelectActivity extends AppCompatActivity {
                 }
             }
         });
-
-    }
-
-    private void setSelection(int position,View view) {
-
-        if(view!=null) {
-
-            View newSelection=levelSelecterRecycler.getChildAt(position);
-            ((TextView)newSelection.findViewById(R.id.icon_title)).setTextColor(getResources().getColor(R.color.colorIntro));
-            view.setBackgroundColor(getResources().getColor(R.color.colorIntroSelected));
-            View prevSelection=levelSelecterRecycler.getChildAt(previousSelection);
-            prevSelection.setBackgroundColor(getResources().getColor(R.color.colorIntro));
-            ((TextView)prevSelection.findViewById(R.id.icon_title)).setTextColor(getResources().getColor(R.color.level_select_text_color));
-
-        }
-        else {
-            View s=levelSelecterRecycler.getChildAt(0);
-            s.setBackgroundColor(getResources().getColor(R.color.colorIntroSelected));
-            ((TextView)s.findViewById(R.id.icon_title)).setTextColor(getResources().getColor(R.color.colorIntro));
-            levelSelecterRecycler.getViewTreeObserver().removeOnGlobalLayoutListener(tempListener);
-        }
-        previousSelection =position;
-        invalidateOptionsMenu();
 
     }
 
@@ -433,6 +410,14 @@ public class IconSelectActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.search:
+                //Remove listener if already present
+                if(scrollListener!=null)
+                iconRecycler.removeOnScrollListener(scrollListener);
+                scrollListener = null;
+                if(scrollingPopulationListener!=null)
+                iconRecycler.getViewTreeObserver().removeOnGlobalLayoutListener(scrollingPopulationListener);
+                scrollingPopulationListener = null;
+                //Starting search Activity
                 Intent searchIntent  =  new Intent(this,BoardSearch.class);
                 searchIntent.putExtra(BoardSearch.SEARCH_MODE,BoardSearch.NORMAL_SEARCH);
                 startActivityForResult(searchIntent,SEARCH_CODE);
@@ -460,19 +445,108 @@ public class IconSelectActivity extends AppCompatActivity {
         {
             JellowIcon icon=(JellowIcon)data.getExtras().getSerializable(getString(R.string.search_result));
             if(icon!=null&&!utilF.listContainsIcon(icon,selectedIconList)) {
-                selectedIconList.add(icon);
-                if(selectedIconList.size()>0)
-                {
-                    nextButton.setEnabled(true);
-                    nextButton.setAlpha(1.0f);
-                }
-                ((TextView) (findViewById(R.id.icon_count))).setText("(" + selectedIconList.size() + ")");
-                selectionCheckBox.setChecked(utilF.getSelection(selectedIconList, iconList));
-                iconSelectorAdapter.notifyDataSetChanged();
-            }
+                    addSearchedIcon(icon);
+            }else if(utilF.listContainsIcon(icon,selectedIconList))
+                Toast.makeText(this,"Icon already selected",Toast.LENGTH_SHORT).show();
         }
 
     }
+
+    private void addSearchedIcon(final JellowIcon icon) {
+        int category = icon.parent0;
+        prepareIconPane(category,-1);
+        levelSelectorAdapter.selectedPosition = icon.parent0;
+        levelSelectorAdapter.notifyDataSetChanged();
+        selectedIconList.add(icon);
+        if(selectedIconList.size()>0)
+        {
+            nextButton.setEnabled(true);
+            nextButton.setAlpha(1.0f);
+        }
+
+        ((TextView) (findViewById(R.id.icon_count))).setText("(" + selectedIconList.size() + ")");
+        selectionCheckBox.setChecked(utilF.getSelection(selectedIconList, iconList));
+        scrollListener =null;
+        int position = getPosition(icon);
+        Log.d("PositionToScroll",position+"");
+        if(position>(gridSize()*numberOfRows())) {
+            Log.d("Search","Step 1: scrolling");
+            scrollListener = getListener(position);
+            iconRecycler.addOnScrollListener(scrollListener);
+            iconRecycler.getLayoutManager().smoothScrollToPosition(iconRecycler, null, position);
+        }
+        iconSelectorAdapter.notifyDataSetChanged();
+    }
+
+    //TODO Make it screen dependent
+    private int numberOfRows() {
+        return 2;
+    }
+
+    private int getPosition(JellowIcon icon) {
+        for(int i=0;i<iconList.size();i++)
+            if(iconList.get(i).isEqual(icon))
+                return i;
+        return -1;
+    }
+
+    private RecyclerView.OnScrollListener getListener(final int index) {
+        Log.d("Search","Step 2: Scroll listener attached");
+        scrollListener =new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(newState==RecyclerView.SCROLL_STATE_DRAGGING)
+                    ;//Wait untill scrolling
+                else if(newState==RecyclerView.SCROLL_STATE_IDLE)
+                {
+                    Log.d("Search","Step 3: scrolling stopped");
+                    setSearchHighlight(index);//Try highlighting the view after scrolling
+                }
+            }};
+
+        return scrollListener;
+    }
+
+    private ViewTreeObserver.OnGlobalLayoutListener scrollingPopulationListener;
+    private void setSearchHighlight(final int index) {
+        Log.d("Search","Step 4: Trying to highlight : (Attaching layout listener)");
+        scrollingPopulationListener = new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+
+                iconRecycler.getViewTreeObserver().removeOnGlobalLayoutListener(scrollingPopulationListener);
+                scrollingPopulationListener = null;
+                Log.d("Search","Step 5: Inside Global layout");
+                if(itemDisplayed(index)) {
+                    iconRecycler.removeOnScrollListener(scrollListener);
+                    scrollListener=null;
+                    Log.d("Search","Step 6: Completed");
+                }
+                else {
+                    iconRecycler.getLayoutManager().smoothScrollToPosition(iconRecycler,null,index);
+                    Log.d("Search","Step 0: Not found, scrolling again");
+                }
+            }
+        };
+        iconRecycler.getViewTreeObserver().addOnGlobalLayoutListener(scrollingPopulationListener);
+    }
+
+    /**
+     * This function checks whether the searched item is present on the current screen,
+     * for this we're just using current and last visible item and returning true and false regarding the position
+     * @param index
+     * @return
+     */
+    private boolean itemDisplayed(int index) {
+        int firstVisiblePos = ((CustomGridLayoutManager)iconRecycler.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
+        int lastVisiblePos = ((CustomGridLayoutManager)iconRecycler.getLayoutManager()).findLastCompletelyVisibleItemPosition();
+        if(lastVisiblePos==(index-1))
+            return true;
+        Log.d("TagScreen","First Pos: "+firstVisiblePos+" Last Pos: "+lastVisiblePos+" Pos "+index);
+        return index >= firstVisiblePos && index <= lastVisiblePos;
+    }
+
 
     @Override
     public void onBackPressed() {

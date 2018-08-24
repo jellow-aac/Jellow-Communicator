@@ -1,7 +1,9 @@
 package com.dsource.idc.jellowintl.makemyboard;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -26,14 +28,19 @@ import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.CustomDialog;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.ExpressiveIconManager;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.ModelManager;
 import com.dsource.idc.jellowintl.utility.JellowIcon;
+import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
+import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.dsource.idc.jellowintl.verbiage_model.JellowVerbiageModel;
 import com.dsource.idc.jellowintl.verbiage_model.MiscellaneousIcons;
 import com.dsource.idc.jellowintl.verbiage_model.VerbiageDatabaseHelper;
 
 import java.util.ArrayList;
 
+import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.makemyboard.MyBoards.BOARD_ID;
+import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
+import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 
 public class BoardHome extends AppCompatActivity {
 
@@ -304,6 +311,7 @@ public class BoardHome extends AppCompatActivity {
         {
             //ActivateView(home,false);
             ActivateView(back,false);
+            super.onBackPressed();
         }
 
     }
@@ -507,6 +515,26 @@ public class BoardHome extends AppCompatActivity {
         mRecycler.getViewTreeObserver().addOnGlobalLayoutListener(populationDoneListener);
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!isAnalyticsActive()){
+            throw new Error("unableToResume");
+        }
+        if(Build.VERSION.SDK_INT > 25 &&
+                !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
+            startService(new Intent(getApplication(), JellowTTSService.class));
+        }
+        // Start measuring user app screen timer .
+        startMeasuring();
+        SessionManager session = new SessionManager(this);
+        if(!session.getToastMessage().isEmpty()) {
+            Toast.makeText(getApplicationContext(),
+                    session.getToastMessage(), Toast.LENGTH_SHORT).show();
+            session.setToastMessage("");
+        }
+    }
 
 
 }

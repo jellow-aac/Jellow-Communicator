@@ -25,7 +25,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -77,9 +76,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
     private LevelSelectorAdapter categoryAdapter;
     private IconSelectorAdapter iconAdapter;
     private int previousSelection = 0;
-    private ViewTreeObserver.OnGlobalLayoutListener layoutListener;
     private ArrayList<JellowIcon> iconList;
-    private ViewTreeObserver.OnGlobalLayoutListener populationListener;
     private RelativeLayout addCategory,addIcon,editIcon;
     private MyBoards.PhotoIntentResult mPhotoIntentResult;
     private int selectedPosition=0;
@@ -190,19 +187,11 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
 
         categoryAdapter =new LevelSelectorAdapter(this,categories);
         categoryRecycler.setAdapter(categoryAdapter);
-        layoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                setSelection(previousSelection, null);
-            }
-        };
-        categoryRecycler.getViewTreeObserver().addOnGlobalLayoutListener(layoutListener);
         categoryAdapter.setOnItemClickListner(new LevelSelectorAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(final View view, final int position) {
                 if(previousSelection!=position) {
                             selectedPosition = position;
-                            setSelection(position, view);
                             prepareIconPane(position);
                 }
             }
@@ -217,30 +206,6 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         iconAdapter.notifyDataSetChanged();
     }
 
-    private ViewTreeObserver.OnGlobalLayoutListener tempListener;
-
-    private void setSelection(final int position, final View view) {
-                if(view!=null) {
-
-                    View newSelection=categoryRecycler.getChildAt(position);
-                    ((TextView)newSelection.findViewById(R.id.icon_title)).setTextColor(getResources().getColor(R.color.colorIntro));
-                    view.setBackgroundColor(getResources().getColor(R.color.colorIntroSelected));
-                    View prevSelection=categoryRecycler.getChildAt(previousSelection);
-                    prevSelection.setBackgroundColor(getResources().getColor(R.color.colorIntro));
-                    ((TextView)prevSelection.findViewById(R.id.icon_title)).setTextColor(getResources().getColor(R.color.level_select_text_color));
-
-                }
-                else {
-                    View s=categoryRecycler.getChildAt(0);
-                    s.setBackgroundColor(getResources().getColor(R.color.colorIntroSelected));
-                    ((TextView)s.findViewById(R.id.icon_title)).setTextColor(getResources().getColor(R.color.colorIntro));
-                    categoryRecycler.getViewTreeObserver().removeOnGlobalLayoutListener(layoutListener);
-
-                }
-
-        previousSelection =position;
-    }
-
     private int gridSize() {
         int gridSize=6;
         if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
@@ -252,7 +217,6 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         else if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_SMALL) {
             gridSize=4;
         }
-
         return gridSize;
     }
 
@@ -272,7 +236,6 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
                 initBoardEditAddDialog(mode,-1,"Category Name");
             else if(mode==EDIT_ICON)
                 Toast.makeText(this,"Not implemented yet",Toast.LENGTH_SHORT).show();
-
         }
     }
 

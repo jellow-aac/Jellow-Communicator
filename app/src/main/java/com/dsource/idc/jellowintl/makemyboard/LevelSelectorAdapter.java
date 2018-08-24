@@ -17,23 +17,25 @@ public class LevelSelectorAdapter extends RecyclerView.Adapter<LevelSelectorAdap
     // private LayoutInflater mInflater;
     private ArrayList<String> mDataSource;
     LevelSelectorAdapter.OnItemClickListener mItemClickListener=null;
+    public int selectedPosition = 0 ;
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        //each data item is just a string in this case
-        public TextView levelTitle;
-
+        //Each data item is just a string in this case
+        TextView levelTitle;
         View holder;
         public ViewHolder(View v) {
             super(v);
-            levelTitle =v.findViewById(R.id.icon_title);
+            levelTitle = v.findViewById(R.id.icon_title);
             holder=v;
             v.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-           mItemClickListener.onItemClick(view,getAdapterPosition());
+            mItemClickListener.onItemClick(view,getAdapterPosition());
+            selectedPosition = getAdapterPosition();
+            notifyDataSetChanged();
         }
     }
 
@@ -71,6 +73,16 @@ public class LevelSelectorAdapter extends RecyclerView.Adapter<LevelSelectorAdap
     public void onBindViewHolder(LevelSelectorAdapter.ViewHolder holder, int position) {
 
         String title = mDataSource.get(position);
+        if(position==selectedPosition)
+        {
+            ((TextView)holder.holder.findViewById(R.id.icon_title)).setTextColor(mContext.getResources().getColor(R.color.colorIntro));
+            holder.holder.setBackgroundColor(mContext.getResources().getColor(R.color.colorIntroSelected));
+        }
+        else
+        {
+            ((TextView)holder.holder.findViewById(R.id.icon_title)).setTextColor(mContext.getResources().getColor(R.color.level_select_text_color));
+            holder.holder.setBackgroundColor(mContext.getResources().getColor(R.color.colorIntro));
+        }
         holder.levelTitle.setText(title);
     }
 
