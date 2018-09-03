@@ -143,8 +143,7 @@ public class LanguageDownloadActivity extends AppCompatActivity {
         if(!isAnalyticsActive()) {
             resetAnalytics(this, mSession.getCaregiverNumber().substring(1));
         }
-        if(Build.VERSION.SDK_INT > 25 &&
-                !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
+        if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
             startService(new Intent(getApplication(), JellowTTSService.class));
         }
         isConnected = isConnected();

@@ -7,7 +7,7 @@ android {
         applicationId "com.dsource.idc.jellowintl"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 8
+        versionCode 11
         versionName "1.2.3"
     }
     buildTypes {
@@ -40,9 +40,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics:16.0.1'
     implementation 'com.google.firebase:firebase-appindexing:16.0.1'
     implementation 'com.google.firebase:firebase-storage:16.0.1'
-    implementation 'com.google.firebase:firebase-auth:16.0.2'
+    implementation 'com.google.firebase:firebase-auth:16.0.3'
     implementation 'com.google.firebase:firebase-database:16.0.1'
-    implementation 'com.google.firebase:firebase-messaging:17.1.0'
+    implementation 'com.google.firebase:firebase-messaging:17.3.0'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.4'
     implementation 'com.github.simbiose:Encryption:2.0.1'
     implementation 'com.github.bumptech.glide:glide:4.4.0'

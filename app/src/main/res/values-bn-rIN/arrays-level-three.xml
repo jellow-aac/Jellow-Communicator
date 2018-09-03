@@ -15,6 +15,8 @@
         <item>howareyou</item>
         <item>howwasyourday</item>
         <item>howareyou</item>
+        <item>goodjob-01</item>
+        <item>awesome-01</item>
     </string-array>
     <string-array name="arrLevelThreeGreetFeelFeelingIconAdapter">
         <item>happy</item>
@@ -53,6 +55,8 @@
         <item>comehere</item>
         <item>takeme</item>
         <item>ineedmoretime</item>
+        <item>iwanttobealone-01</item>
+        <item>idontwantanysound-01</item>
     </string-array>
     <string-array name="arrLevelThreeGreetFeelQuestionsIconAdapter">
         <item>how</item>
@@ -137,8 +141,41 @@
         <item>handmovements</item>
         <item>legexercises</item>
         <item>bodyvest</item>
+        <item>sensoryobjects-01</item>
         <item>speechtherapy</item>
         <item>grouptherapy</item>
+        <item>dancing</item>
+        <item>musictherapy-01</item>
+        <item>arttherapy-01</item>
+        <item>handmovements</item>
+        <item>exercise</item>
+        <item>playwithme</item>
+        <item>remidialobjects-01-01</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActHabitsIconAdapter">
+    <item>calmdown-01</item>
+    <item>redlight-01</item>
+    <item>greenlight-01</item>
+    <item>walkonsideways-01</item>
+    <item>watchoutforcars-01-01-01</item>
+    <item>lookleftrightbeforecrossing-01</item>
+    <item>donttalkwhilefoodinmouth-01-01</item>
+    <item>eaysmallbites-01</item>
+    <item>throwgarbageinbin-01</item>
+    <item>donotspit-01</item>
+    <item>dontpickyournose-01</item>
+    <item>dontpinchothers-01</item>
+    <item>dontpushothers-01-01</item>
+    <item>donthit-01</item>
+    <item>dontbite-01-01</item>
+    <item>dontkick-01</item>
+    <item>dontplaywithmmatchsticks-01</item>
+    <item>dontplaywithpointedobjects-01</item>
+    <item>waitforyourturn-01-01</item>
+    <item>nohandsinunderpants-01</item>
+    <item>onearmdistance-01</item>
+    <item>donttouchothers-01-01</item>
+    <item>dontgooutwithstrangers-01-01-01</item>
     </string-array>
 
     <!--LEVEL THREE "EATING" ADAPTER TEXT ARE HERE-->
@@ -327,6 +364,8 @@
         <item>swimming</item>
     </string-array>
     <string-array name="arrLevelThreeFunTvIconAdapter">
+        <item>switchon-01</item>
+        <item>swithcoff-01</item>
         <item>nextchannel</item>
         <item>previouschannel</item>
         <item>volumeup</item>
@@ -561,6 +600,161 @@
         <item>moneychange</item>
     </string-array>
 
+    <!--LEVEL THREE "PLACES" ICON TEXT ARE HERE-->
+
+    <string-array name="arrLevelThreePlacesMyHouseIconAdapter">
+        <item>livingroom</item>
+        <item>bedroom</item>
+        <item>kitchen</item>
+        <item>studyroom</item>
+        <item>playroom</item>
+        <item>bathroom</item>
+        <item>balcony</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesSchoolIconAdapter">
+        <item>level2_people_teacher</item>
+        <item>classroom-01</item>
+        <item>laboratory-01</item>
+        <item>staffroom-01</item>
+        <item>level2_places_library</item>
+        <item>level2_places_playground</item>
+        <item>level2_eat_cutlery</item>
+        <item>computer</item>
+        <item>arttherapy-01</item>
+        <item>musictherapy-01</item>
+        <item>exercise</item>
+        <item>maths</item>
+        <item>science_books</item>
+        <item>geography_books</item>
+        <item>history</item>
+        <item>socialscience</item>
+        <item>languageclasses-01</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesMallIconAdapter">
+        <item>escalor-01</item>
+        <item>foodcourt-01</item>
+        <item>level2_places_theatre</item>
+        <item>funzone-01-01-01</item>
+        <item>store-01</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesMuseumIconAdapter">
+        <item>sciencemuseum-01</item>
+        <item>artmuseum-01</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesRestaurantIconAdapter">
+        <item>level2_eat_snacks</item>
+        <item>level2_eat_cutlery</item>
+        <item>menucard-01</item>
+        <item>drinks-01</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesTheatreIconAdapter">
+        <item>popcorn-01</item>
+        <item>icecream</item>
+        <item>nachos-01</item>
+        <item>cocacola</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesPlaygroundIconAdapter">
+        <item>swing</item>
+        <item>slide</item>
+        <item>merrygoround</item>
+        <item>seesaw</item>
+        <item>junglegyhm-01</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesParkIconAdapter">
+        <item>batandball</item>
+        <item>lockandkey</item>
+        <item>hideandseek</item>
+        <item>choorpolice</item>
+        <item>walking</item>
+        <item>running</item>
+        <item>catchcatch</item>
+        <item>kite</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesStoreIconAdapter">
+        <item>medicalshop-01</item>
+        <item>groceryshop-01</item>
+        <item>toyshop-01</item>
+        <item>clothesshop-01</item>
+        <item>turkey</item>
+        <item>vegetableshop-01</item>
+        <item>level2_eat_fruits</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesFriendHouseIconAdapter">
+        <item>playwithfriends-01</item>
+        <item>level2_fun_indoor_games1</item>
+        <item>level2_eat_snacks</item>
+        <item>drinks-01</item>
+        <item>toilet</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesRelativeHouseIconAdapter">
+        <item>level2_people_aunt</item>
+        <item>level2_eat_snacks</item>
+        <item>drinks-01</item>
+        <item>toilet</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesHospitalIconAdapter">
+        <item>level2_help_feelsick</item>
+        <item>level2_help_feelhurt</item>
+        <item>level2_people_doctor</item>
+        <item>level2_people_nurse</item>
+        <item>medicalshop-01</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesClinicIconAdapter">
+        <item>therapist-01</item>
+        <item>swissball</item>
+        <item>trampoline</item>
+        <item>swing</item>
+        <item>blanket</item>
+        <item>ballpit</item>
+        <item>exercise</item>
+        <item>handmovements</item>
+        <item>legexercises</item>
+        <item>bodyvest</item>
+        <item>sensoryobjects-01</item>
+        <item>grouptherapy</item>
+        <item>speechtherapy</item>
+        <item>playwithme</item>
+        <item>exercise</item>
+        <item>handmovements</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesLibraryIconAdapter">
+        <item>level2_learn_books</item>
+        <item>comics_books</item>
+        <item>rhymebook</item>
+        <item>storybook</item>
+        <item>picturebook</item>
+        <item>mysterybook</item>
+        <item>adventurebook</item>
+        <item>wordbook</item>
+        <item>favouritebook</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesZooIconAdapter">
+        <item>animals</item>
+        <item>birds-01</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesWorshipIconAdapter">
+        <item>temple-01</item>
+        <item>church-01</item>
+        <item>gurudwara-01</item>
+        <item>mosue-01</item>
+        <item>synalogue-01</item>
+    </string-array>
+
     <!--LEVEL THREE "TIME AND WEATHER" ADAPTER TEXT ARE HERE-->
     <string-array name="arrLevelThreeTimeWeaTimeIconAdapter">
         <item>currenttime</item>
@@ -651,7 +845,8 @@
 
 
 
-<!-- ADAPTER TEXTS --><string-array name="arrLevelThreeGreetFeelGreetingAdapterText">
+<!-- ADAPTER TEXTS -->
+<string-array name="arrLevelThreeGreetFeelGreetingAdapterText">
 <item>নমস্কার</item>
 <item>নমস্কার</item>
 <item>বিদায়</item>
@@ -664,6 +859,8 @@
 <item>তুমি কেমন আছ?</item>
 <item>তোমার দিন কেমন কাটল?</item>
 <item>তুমি কেমন আছ?</item>
+<item>দারুণ কাজ!!!</item>
+<item>অপূর্ব!</item>
 </string-array>
 
 <string-array name="arrLevelThreeGreetFeelFeelingsAdapterText">
@@ -716,6 +913,8 @@
 <item>দয়া করে এখানে আসুন</item>
 <item>দয়া করে আমায় নিন</item>
 <item>আমার আরও সময় চাই</item>
+<item>একা থাকো</item>
+<item>দয়া করে চুপ করো!</item>
 </string-array>
 
 <string-array name="arrLevelThreeDailyActClothesAccAdapterText">
@@ -747,13 +946,13 @@
 <item>বেল্ট</item>
 <item>রেনকোট</item>
 <item>চশমা</item>
-<item>হাতঘড়ি</item>
+<item>হাতঘোড়ি</item>
 <item>কানের দুল</item>
 <item>হাতের বালা</item>
 <item>হার</item>
 <item>টিপ</item>
 <item>চপ্পল</item>
-<item>আমার জামাকাপড় আঁটসাঁট</item>
+<item>আমার জামাকাপড় আঁটোসাঁটো</item>
 <item>আমার জামাকাপড় আলগা</item>
 <item>জামাকাপড় খুলতে সাহায্য করা</item>
 <item>জামাকাপড় পরতে  সাহায্য করা</item>
@@ -791,8 +990,41 @@
 <item>হাতের কাজ</item>
 <item>পায়ের ব্যায়াম</item>
 <item>হাতকাটা গেঞ্জি</item>
+<item>কথা-বলা পুতুল</item>
 <item>স্পিচ থেরাপি</item>
 <item>গ্রুপ থেরাপি</item>
+<item>ডান্স থেরাপি</item>
+<item>মিউজিক থেরাপি</item>
+<item>আর্ট থেরাপি</item>
+<item>অকুপেশানাল থেরাপি</item>
+<item>ফিজিওথেরাপি</item>
+<item>প্লে থেরাপি</item>
+<item>প্রতিকারমূলক ক্লাস</item>
+</string-array>
+<string-array name="arrLevelThreeDailyActHabitsAdapterText">
+    <item>শান্ত শরীর</item>
+    <item>লাল আলোঃ অপেক্ষা করো</item>
+    <item>সবুজ আলোঃ চলো</item>
+    <item>ফুটপাথে হাঁটো</item>
+    <item>গাড়িঃ সামলে</item>
+    <item>দেখো এবং পার হও</item>
+    <item>দয়া করে খাওয়ার সময় কোনো কথা নয়</item>
+    <item>ছোটো কামড় দিয়ে খাও</item>
+    <item>ময়লা ঝুড়িতে ফ্যালো</item>
+    <item>দয়া করে থুতু ফেলো না</item>
+    <item>দয়া করে নাক খুঁটো না</item>
+    <item>দয়া করে চিমটি কেটো না</item>
+    <item>দয়া করে ঠেলো না</item>
+    <item>দয়া করে মেরো না</item>
+    <item>দয়া করে কামড়িও না</item>
+    <item>দয়া করে লাথি মেরো না</item>
+    <item>দেশলাইঃ স্পর্শ কোরো না</item>
+    <item>ছুঁচোলো জিনিসঃ স্পর্শ কোরো না</item>
+    <item>ঘোরার জন্য অপেক্ষা করো</item>
+    <item>আন্ডারপ্যান্টে হাত দিও না</item>
+    <item>কথা বলার সময় দূরত্ব বজায় রাখো</item>
+    <item>কোনো বেঠিক স্পর্শ কোরো না</item>
+    <item>অচেনাঃ সাবধান!</item>
 </string-array>
 
 <string-array name="arrLevelThreeFoodDrinksBreakfastAdapterText">
@@ -821,13 +1053,13 @@
 <item>ভাত</item>
 <item>ডাল</item>
 <item>ডালখিচুড়ি</item>
-<item>রায়তা</item>
+<item>রাইতা</item>
 <item>পরোটা</item>
 <item>দই</item>
 <item>মাছ</item>
 <item>চিকেন</item>
 <item>পর্ক</item>
-<item>মটন</item>
+<item>মাটন</item>
 <item>কাঁকড়ার মাংস</item>
 <item>টার্কি</item>
 <item>পিৎজা</item>
@@ -887,7 +1119,7 @@
 <string-array name="arrLevelThreeFoodDrinksDrinksAdapterText">
 <item>জল</item>
 <item>দুধ</item>
-<item>বোর্নভিটা</item>
+<item>বোর্ন ভিটা</item>
 <item>আমের রস</item>
 <item>আপেলের রস</item>
 <item>কমলালেবুর রস</item>
@@ -989,6 +1221,8 @@
 </string-array>
 
 <string-array name="arrLevelThreeFunTvAdapterText">
+<item>টিভি চালাও</item>
+<item>টিভি বন্ধ করুন</item>
 <item>পরের চ্যানেল</item>
 <item>আগের চ্যানেল</item>
 <item>জোরে আওয়াজ</item>
@@ -1035,7 +1269,7 @@
 <item>নেকড়ে</item>
 <item>শেয়াল</item>
 <item>ভালুক</item>
-<item>ভেড়া</item>
+<item>ভ্যাড়া</item>
 <item>ছাগল</item>
 <item>শুয়োর</item>
 <item>মাছি</item>
@@ -1119,13 +1353,13 @@
 <item>সোনালি</item>
 <item>গোলাপি</item>
 <item>কমলা</item>
-<item>রক্তবর্ণ</item>
+<item>বেগুনি</item>
 <item>ধূসর</item>
 </string-array>
 
 <string-array name="arrLevelThreeLearningShapesAdapterText">
 <item>খাঁড়া রেখা</item>
-<item>বেঁকানো রেখা</item>
+<item>ব্যাঁকানো রেখা</item>
 <item>ঢালু রেখা</item>
 <item>বৃত্ত</item>
 <item>আয়তক্ষেত্র</item>
@@ -1148,10 +1382,10 @@
 <item>পেন</item>
 <item>স্কেল</item>
 <item>রবার</item>
-<item>শার্পনার</item>
-<item>রঙ্গিন চক</item>
+<item>শার্প নার</item>
+<item>রঙিন চক</item>
 <item>ফাঁকা কাগজ</item>
-<item>রঙ্গিন কাগজ</item>
+<item>রঙিন কাগজ</item>
 <item>কাঁচি</item>
 <item>সিসা</item>
 <item>কম্পাস</item>
@@ -1177,7 +1411,7 @@
 <item>পেন</item>
 <item>স্কেল</item>
 <item>রবার</item>
-<item>শার্পনার</item>
+<item>শার্প নার</item>
 <item>চক</item>
 </string-array>
 
@@ -1190,7 +1424,7 @@
 <item>আলমারি</item>
 <item>টেবিল</item>
 <item>চেয়ার</item>
-<item>টয়লেট</item>
+<item>টইলেট</item>
 <item>রান্নাঘর</item>
 <item>বসার ঘর</item>
 <item>শোয়ার ঘর</item>
@@ -1233,15 +1467,169 @@
 <item>খুচরো</item>
 </string-array>
 
+    <!--LEVEL THREE "PLACES" ADAPTER TEXT ARE HERE-->
+    <string-array name="arrLevelThreePlacesMyHouseAdapterText">
+        <item>বসার ঘর</item>
+        <item>শোয়ার ঘর</item>
+        <item>রান্নাঘর</item>
+        <item>পড়ার ঘর</item>
+        <item>খেলার ঘর</item>
+        <item>বাথরুম</item>
+        <item>ব্যালকনি</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesSchoolAdapterText">
+        <item>শিক্ষক</item>
+        <item>শ্রেণিকক্ষ</item>
+        <item>ল্যাবরেটরি</item>
+        <item>স্টাফ রুম</item>
+        <item>লাইব্রেরি</item>
+        <item>খেলার মাঠ</item>
+        <item>ক্যান্টিন</item>
+        <item>কম্পিউটার ল্যাব</item>
+        <item>আঁকার ক্লাস</item>
+        <item>গানের ক্লাস</item>
+        <item>শারীরশিক্ষার ক্লাস</item>
+        <item>অংকের ক্লাস</item>
+        <item>বিজ্ঞানের ক্লাস</item>
+        <item>ভূগোলের ক্লাস</item>
+        <item>ইতিহাসের ক্লাস</item>
+        <item>সমাজবিজ্ঞানের ক্লাস</item>
+        <item>ভাষার ক্লাস</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesMallAdapterText">
+        <item>সিঁড়ি</item>
+        <item>ফুড কোর্ট</item>
+        <item>থিয়েটার</item>
+        <item>ফান জোন</item>
+        <item>দোকান</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesMuseumAdapterText">
+        <item>বিজ্ঞানের জাদুঘর</item>
+        <item>ছবির জাদুঘর</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesRestaurantAdapterText">
+        <item>খাবার</item>
+        <item>ছুরি-চামচ</item>
+        <item>মেনু</item>
+        <item>ড্রিঙ্কস/পানীয়</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesTheatreAdapterText">
+        <item>পপকর্ন</item>
+        <item>আইসক্রিম</item>
+        <item>নাচোস্‌</item>
+        <item>কোল্ড ড্রিঙ্ক</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesPlaygroundAdapterText">
+        <item>দোলনা</item>
+        <item>স্লাইড </item>
+        <item>নাগরদোলা</item>
+        <item>সী-সও</item>
+        <item>জাঙ্গল জিম</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesParkAdapterText">
+        <item>ব্যাটবল</item>
+        <item>তালাচাবি</item>
+        <item>লুকোচুরি</item>
+        <item>চোর-পুলিশ</item>
+        <item>হাঁটা</item>
+        <item>দৌড়নো</item>
+        <item>ক্যাচ-ক্যাচ</item>
+        <item>ঘুড়ি</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesStoreAdapterText">
+        <item>ওষুধ বিষয়ক</item>
+        <item>মুদিখানা</item>
+        <item>পুতুল</item>
+        <item>কাপড়</item>
+        <item>মাংশ</item>
+        <item>সবজি</item>
+        <item>ফল</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesFriendHouseAdapterText">
+        <item>বন্ধুদের সঙ্গে খ্যালো</item>
+        <item>ঘরের খেলাধুলো</item>
+        <item>খাবার</item>
+        <item>ড্রিঙ্কস/পানীয়</item>
+        <item>টয়লেট</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesRelativeHouseAdapterText">
+        <item>আত্মীয়দের সঙ্গে মেশো</item>
+        <item>খাবার</item>
+        <item>ড্রিঙ্কস/পানীয়</item>
+        <item>টয়লেট</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesHospitalAdapterText">
+        <item>আমি অসুস্থ</item>
+        <item>আমি আহত</item>
+        <item>ডাক্তার</item>
+        <item>নার্স</item>
+        <item>ওষুধ</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesClinicAdapterText">
+        <item>থেরাপিস্ট</item>
+        <item>সুইস বল</item>
+        <item>ট্রাম্পোলিন</item>
+        <item>দোলনা</item>
+        <item>কম্বল</item>
+        <item>বল পিট</item>
+        <item>ব্যায়াম</item>
+        <item>হাতের কাজ</item>
+        <item>পায়ের ব্যায়াম</item>
+        <item>হাতকাটা গেঞ্জি </item>
+        <item>কথা-বলা পুতুল</item>
+        <item>গ্রুপ থেরাপি</item>
+        <item>স্পিচ থেরাপি</item>
+        <item>প্লে থেরাপি</item>
+        <item>ফিজিওথেরাপি</item>
+        <item>অকুপেশানাল থেরাপি</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesLibraryAdapterText">
+        <item>বই</item>
+        <item>মজার বই</item>
+        <item>ছড়ার বই</item>
+        <item>গল্পের বই</item>
+        <item>ছবির বই</item>
+        <item>রহস্যের বই</item>
+        <item>অভিযানের বই</item>
+        <item>পড়ার বই</item>
+        <item>পছন্দের বই</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesZooAdapterText">
+        <item>জন্তু</item>
+        <item>পাখি</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesWorshipAdapterText">
+        <item>মন্দির</item>
+        <item>চার্চ</item>
+        <item>গুরুদ্বোয়ারা</item>
+        <item>মসজিদ</item>
+        <item>সমাজগৃহ</item>
+    </string-array>
+
 <string-array name="arrLevelThreeTimeWeaTimeAdapterText">
 <item>কটা বাজে?</item>
 <item>আজ</item>
 <item>গতকাল</item>
 <item>আগামিকাল</item>
-<item>সকালবেলা</item>
+<item>সকালব্যালা</item>
 <item>বিকেলবেলা</item>
-<item>সন্ধেবেলা</item>
-<item>রাত্রিবেলা</item>
+<item>সন্ধেব্যালা</item>
+<item>রাত্রিব্যালা</item>
 </string-array>
 
 <string-array name="arrLevelThreeTimeWeaDayAdapterText">
@@ -1319,7 +1707,7 @@
 <item>কাকুর জন্মদিন</item>
 <item>কাকিমার জন্মদিন</item>
 <item>মামাতো/ কাকাতো ভাইবোনের জন্মদিন</item>
-<item>বন্ধুর জন্মদিন</item>
+<item>মামাতো ভাইবোনের জন্মদিন</item>
 <item>শিক্ষকের জন্মদিন</item>
 </string-array>
 
@@ -1345,6 +1733,8 @@
 <item>তুমি কেমন আছ?</item>
 <item>তোমার দিন কেমন কাটল?</item>
 <item>তুমি কেমন আছ?</item>
+<item>দারুণ কাজ</item>
+<item>অপূর্ব</item>
 </string-array>
 
 <string-array name="arrLevelThreeGreetFeelFeelingsSpeechText">
@@ -1397,6 +1787,8 @@
 <item>দয়া করে এখানে আসুন</item>
 <item>দয়া করে আমায় নিন</item>
 <item>আমার আরও সময় চাই</item>
+<item>আমি একা থাকতে চাই</item>
+<item>আমি কোনো শব্দ চাই না</item>
 </string-array>
 
 <string-array name="arrLevelThreeDailyActClothesAccSpeechText">
@@ -1428,13 +1820,13 @@
 <item>বেল্ট</item>
 <item>রেনকোট</item>
 <item>চশমা</item>
-<item>হাতঘড়ি</item>
+<item>হাতঘোড়ি</item>
 <item>কানের দুল</item>
 <item>হাতের বালা</item>
 <item>হার</item>
 <item>টিপ</item>
 <item>চপ্পল</item>
-<item>আমার জামাকাপড় আঁটসাঁট</item>
+<item>আমার জামাকাপড় আঁটোসাঁটো</item>
 <item>আমার জামাকাপড় আলগা</item>
 <item>জামাকাপড় খুলতে সাহায্য করা</item>
 <item>জামাকাপড় পরতে  সাহায্য করা</item>
@@ -1472,8 +1864,41 @@
 <item>হাতের কাজ</item>
 <item>পায়ের ব্যায়াম</item>
 <item>হাতকাটা গেঞ্জি</item>
+<item>কথা-বলা পুতুল</item>
 <item>স্পিচ থেরাপি</item>
 <item>গ্রুপ থেরাপি</item>
+<item>ডান্স থেরাপি</item>
+<item>মিউজিক থেরাপি</item>
+<item>আর্ট থেরাপি</item>
+<item>অকুপেশানাল থেরাপি</item>
+<item>ফিজিওথেরাপি</item>
+<item>প্লে থেরাপি</item>
+<item>প্রতিকারমূলক ক্লাস</item>
+</string-array>
+<string-array name="arrLevelThreeDailyActHabitsSpeechText">
+    <item>দয়া করে শান্ত হও</item>
+    <item>দয়া করে লাল আলো জ্বললে অপেক্ষা করো</item>
+    <item>দয়া করে কেবলমাত্র সবুজ আলো জ্বললে তখন পা ফ্যালো</item>
+    <item>দয়া করে ফুটপাথে হাঁটো</item>
+    <item>দয়া করে রাস্তার গাড়িঘোড়া থেকে সামলে</item>
+    <item>পার হওয়ার সময় ডান দিক এবং বাঁদিক দেখে নেবে</item>
+    <item>মুখে খাবার নিয়ে দয়া করে কথা বোলো না</item>
+    <item>দয়া করে ছোটো কামড় দিয়ে খাও</item>
+    <item>দয়া করে ময়লা ঝুড়িতে ফ্যালো</item>
+    <item>দয়া করে থুতু ফেলো না</item>
+    <item>দয়া করে নাক খুঁটো না</item>
+    <item>দয়া করে অন্যদের চিমটি কেটো না</item>
+    <item>দয়া করে অন্যদের ঠেলো না</item>
+    <item>দয়া করে অন্যদের মেরো না</item>
+    <item>দয়া করে নিজেকে কিংবা অন্যদের কামড়িও না</item>
+    <item>দয়া করে অন্যদের লাথি মেরো না</item>
+    <item>দয়া করে দেশলাই নিয়ে খেলা কোরো না</item>
+    <item>দয়া করে ছুঁচোলো জিনিস নিয়ে খেলা কোরো না</item>
+    <item>দয়া করে ঘোরার জন্য অপেক্ষা করো</item>
+    <item>দয়া করে তোমার আন্ডারপ্যান্টে হাত দিও না</item>
+    <item>দয়া করে অন্যদের সঙ্গে কথা বলার সময় এক হাত দূরত্ব বজায় রাখো</item>
+    <item>দয়া করে অন্যদের বেঠিকভাবে স্পর্শ কোরো না</item>
+    <item>দয়া করে অচেনা ব্যক্তিদের সঙ্গে যাবে না</item>
 </string-array>
 
 <string-array name="arrLevelThreeFoodDrinksBreakfastSpeechText">
@@ -1502,13 +1927,13 @@
 <item>ভাত</item>
 <item>ডাল</item>
 <item>ডালখিচুড়ি</item>
-<item>রায়তা</item>
+<item>রাইতা</item>
 <item>পরোটা</item>
 <item>দই</item>
 <item>মাছ</item>
 <item>চিকেন</item>
 <item>পর্ক</item>
-<item>মটন</item>
+<item>মাটন</item>
 <item>কাঁকড়ার মাংস</item>
 <item>টার্কি</item>
 <item>পিৎজা</item>
@@ -1568,7 +1993,7 @@
 <string-array name="arrLevelThreeFoodDrinksDrinksSpeechText">
 <item>জল</item>
 <item>দুধ</item>
-<item>বোর্নভিটা</item>
+<item>বোর্ন ভিটা</item>
 <item>আমের রস</item>
 <item>আপেলের রস</item>
 <item>কমলালেবুর রস</item>
@@ -1670,6 +2095,8 @@
 </string-array>
 
 <string-array name="arrLevelThreeFunTvSpeechText">
+<item>টিভি চালাও</item>
+<item>টিভি বন্ধ করুন</item>
 <item>পরের চ্যানেল</item>
 <item>আগের চ্যানেল</item>
 <item>জোরে আওয়াজ</item>
@@ -1716,7 +2143,7 @@
 <item>নেকড়ে</item>
 <item>শেয়াল</item>
 <item>ভালুক</item>
-<item>ভেড়া</item>
+<item>ভ্যাড়া</item>
 <item>ছাগল</item>
 <item>শুয়োর</item>
 <item>মাছি</item>
@@ -1737,7 +2164,7 @@
 <item>তিমি</item>
 <item>হাঙ্গর</item>
 <item>কচ্ছপ</item>
-<item>চড়ুইপাখি</item>
+<item>চোড়ুইপাখি</item>
 <item>ইগল</item>
 <item>বাজপাখি</item>
 <item>শকুন</item>
@@ -1800,13 +2227,13 @@
 <item>সোনালি</item>
 <item>গোলাপি</item>
 <item>কমলা</item>
-<item>রক্তবর্ণ</item>
+<item>বেগুনি</item>
 <item>ধূসর</item>
 </string-array>
 
 <string-array name="arrLevelThreeLearningShapesSpeechText">
 <item>খাঁড়া রেখা</item>
-<item>বেঁকানো রেখা</item>
+<item>ব্যাঁকানো রেখা</item>
 <item>ঢালু রেখা</item>
 <item>বৃত্ত</item>
 <item>আয়তক্ষেত্র</item>
@@ -1829,10 +2256,10 @@
 <item>পেন</item>
 <item>স্কেল</item>
 <item>রবার</item>
-<item>শার্পনার</item>
-<item>রঙ্গিন চক</item>
+<item>শার্প নার</item>
+<item>রঙিন চক</item>
 <item>ফাঁকা কাগজ</item>
-<item>রঙ্গিন কাগজ</item>
+<item>রঙিন কাগজ</item>
 <item>কাঁচি</item>
 <item>সিসা</item>
 <item>কম্পাস</item>
@@ -1858,7 +2285,7 @@
 <item>পেন</item>
 <item>স্কেল</item>
 <item>রবার</item>
-<item>শার্পনার</item>
+<item>শার্প নার</item>
 <item>চক</item>
 </string-array>
 
@@ -1871,7 +2298,7 @@
 <item>আলমারি</item>
 <item>টেবিল</item>
 <item>চেয়ার</item>
-<item>টয়লেট</item>
+<item>টইলেট</item>
 <item>রান্নাঘর</item>
 <item>বসার ঘর</item>
 <item>শোয়ার ঘর</item>
@@ -1914,15 +2341,169 @@
 <item>খুচরো</item>
 </string-array>
 
-<string-array name="arrLevelThreeTimeWeaTimeSpeechText">
+    <!--LEVEL THREE "PLACES" SPEECH TEXT ARE HERE-->
+    <string-array name="arrLevelThreePlacesMyHouseSpeechText">
+        <item>বসার ঘর</item>
+        <item>শোয়ার ঘর</item>
+        <item>রান্নাঘর</item>
+        <item>পড়ার ঘর</item>
+        <item>খেলার ঘর</item>
+        <item>বাথরুম</item>
+        <item>ব্যালকনি</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesSchoolSpeechText">
+        <item>শিক্ষক</item>
+        <item>শ্রেণিকক্ষ</item>
+        <item>ল্যাবরেটরি</item>
+        <item>স্টাফ রুম</item>
+        <item>লাইব্রেরি</item>
+        <item>খেলার মাঠ</item>
+        <item>ক্যান্টিন</item>
+        <item>কম্পিউটার ল্যাব</item>
+        <item>আঁকার ক্লাস</item>
+        <item>গানের ক্লাস</item>
+        <item>শারীরশিক্ষার ক্লাস</item>
+        <item>অংকের ক্লাস</item>
+        <item>বিজ্ঞানের ক্লাস</item>
+        <item>ভূগোলের ক্লাস</item>
+        <item>ইতিহাসের ক্লাস</item>
+        <item>সমাজবিজ্ঞানের ক্লাস</item>
+        <item>ভাষার ক্লাস</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesMallSpeechText">
+        <item>সিঁড়ি</item>
+        <item>ফুড কোর্ট</item>
+        <item>থিয়েটার</item>
+        <item>ফান জোন</item>
+        <item>দোকান</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesMuseumSpeechText">
+        <item>বিজ্ঞানের জাদুঘর</item>
+        <item>ছবির জাদুঘর</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesRestaurantSpeechText">
+        <item>খাবার</item>
+        <item>ছুরি-চামচ</item>
+        <item>মেনু</item>
+        <item>ড্রিঙ্কস/পানীয়</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesTheatreSpeechText">
+        <item>পপকর্ন</item>
+        <item>আইসক্রিম</item>
+        <item>নাচোস্‌</item>
+        <item>কোল্ড ড্রিঙ্ক</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesPlaygroundSpeechText">
+        <item>দোলনা</item>
+        <item>স্লাইড </item>
+        <item>নাগরদোলা</item>
+        <item>সী-সও</item>
+        <item>জাঙ্গল জিম</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesParkSpeechText">
+        <item>ব্যাটবল</item>
+        <item>তালাচাবি</item>
+        <item>লুকোচুরি</item>
+        <item>চোর-পুলিশ</item>
+        <item>হাঁটা</item>
+        <item>দৌড়নো</item>
+        <item>ক্যাচ-ক্যাচ</item>
+        <item>ঘুড়ি</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesStoreSpeechText">
+        <item>ওষুধের দোকান</item>
+        <item>মুদির দোকান</item>
+        <item>পুতুলের দোকান</item>
+        <item>কাপড়ের দোকান</item>
+        <item>মাংশের দোকান</item>
+        <item>সবজির দোকান</item>
+        <item>ফলের দোকান</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesFriendHouseSpeechText">
+        <item>বন্ধুদের সঙ্গে খ্যালো</item>
+        <item>ঘরের খেলাধুলো</item>
+        <item>খাবার</item>
+        <item>ড্রিঙ্কস/পানীয়</item>
+        <item>টয়লেট</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesRelativeHouseSpeechText">
+        <item>আত্মীয়দের সঙ্গে মেশো</item>
+        <item>খাবার</item>
+        <item>ড্রিঙ্কস/পানীয়</item>
+        <item>টয়লেট</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesHospitalSpeechText">
+        <item>আমি অসুস্থ</item>
+        <item>আমি আহত</item>
+        <item>ডাক্তার</item>
+        <item>নার্স</item>
+        <item>ওষুধ</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesClinicSpeechText">
+        <item>থেরাপিস্ট</item>
+        <item>সুইস বল</item>
+        <item>ট্রাম্পোলিন</item>
+        <item>দোলনা</item>
+        <item>কম্বল</item>
+        <item>বল পিট</item>
+        <item>ব্যায়াম</item>
+        <item>হাতের কাজ</item>
+        <item>পায়ের ব্যায়াম</item>
+        <item>হাতকাটা গেঞ্জি </item>
+        <item>কথা-বলা পুতুল</item>
+        <item>গ্রুপ থেরাপি</item>
+        <item>স্পিচ থেরাপি</item>
+        <item>প্লে থেরাপি</item>
+        <item>ফিজিওথেরাপি</item>
+        <item>অকুপেশানাল থেরাপি</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesLibrarySpeechText">
+        <item>বই</item>
+        <item>মজার বই</item>
+        <item>ছড়ার বই</item>
+        <item>গল্পের বই</item>
+        <item>ছবির বই</item>
+        <item>রহস্যের বই</item>
+        <item>অভিযানের বই</item>
+        <item>পড়ার বই</item>
+        <item>পছন্দের বই</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesZooSpeechText">
+        <item>জন্তু</item>
+        <item>পাখি</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesWorshipSpeechText">
+        <item>মন্দির</item>
+        <item>চার্চ</item>
+        <item>গুরুদ্বোয়ারা</item>
+        <item>মসজিদ</item>
+        <item>সমাজগৃহ</item>
+    </string-array>
+
+    <string-array name="arrLevelThreeTimeWeaTimeSpeechText">
 <item>কটা বাজে?</item>
 <item>আজ</item>
 <item>গতকাল</item>
 <item>আগামিকাল</item>
-<item>সকালবেলা</item>
+<item>সকালব্যালা</item>
 <item>বিকেলবেলা</item>
-<item>সন্ধেবেলা</item>
-<item>রাত্রিবেলা</item>
+<item>সন্ধেব্যালা</item>
+<item>রাত্রিব্যালা</item>
 </string-array>
 
 <string-array name="arrLevelThreeTimeWeaDaySpeechText">
@@ -2000,7 +2581,7 @@
 <item>কাকুর জন্মদিন</item>
 <item>কাকিমার জন্মদিন</item>
 <item>মামাতো/ কাকাতো ভাইবোনের জন্মদিন</item>
-<item>বন্ধুর জন্মদিন</item>
+<item>মামাতো ভাইবোনের জন্মদিন</item>
 <item>শিক্ষকের জন্মদিন</item>
 </string-array>
 

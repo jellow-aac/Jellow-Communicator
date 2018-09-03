@@ -14,7 +14,6 @@
         android:paddingLeft="8dp"
         android:paddingStart="8dp"
         android:src="@drawable/ic_chevron_left"
-        android:contentDescription="@null"
         tools:ignore="RtlSymmetry" />
     <LinearLayout
         android:layout_width="wrap_content"
@@ -52,7 +51,7 @@
                     android:layout_height="150dp"
                     android:layout_marginBottom="8dp"
                     android:src="@drawable/gtts1"
-                    tools:ignore="ContentDescription" />
+                    android:contentDescription="@string/intro6_1_cd" />
                 <Button
                     android:id="@+id/tvbottom"
                     android:layout_width="wrap_content"
@@ -85,7 +84,8 @@
                     android:layout_width="120dp"
                     android:layout_height="150dp"
                     android:layout_marginBottom="8dp"
-                    android:src="@drawable/gtts2"/>
+                    android:src="@drawable/gtts2"
+                    android:contentDescription="@string/intro6_2_cd"/>
                 <Button
                     android:id="@+id/tvbottom1"
                     android:layout_width="wrap_content"
@@ -117,7 +117,8 @@
                     android:layout_width="120dp"
                     android:layout_height="150dp"
                     android:layout_marginBottom="8dp"
-                    android:src="@drawable/gtts3"/>
+                    android:src="@drawable/gtts3"
+                    android:contentDescription="@string/intro6_3_cd"/>
                 <Button
                     android:id="@+id/tvbottom3"
                     android:layout_width="wrap_content"
@@ -140,6 +141,5 @@
         android:paddingRight="8dp"
         android:paddingEnd="8dp"
         android:src="@drawable/ic_chevron_right"
-        android:contentDescription="@null"
         tools:ignore="RtlSymmetry" />
 </FrameLayout>

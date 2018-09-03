@@ -18,7 +18,6 @@
         android:paddingStart="8dp"
         android:src="@drawable/ic_chevron_left"
         android:clickable="false"
-        android:contentDescription="@null"
         tools:ignore="RtlSymmetry" />
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,9 +35,6 @@
             android:paddingRight="32dp"
             android:textSize="13sp"
         android:importantForAccessibility="yes"
-        android:contentDescription="User can customize application settings by clicking on top right corner of the application.
-Swipe with single finger to go to image below.
-Swipe with two fingers to switch page."
             android:text="@string/txt_intro4_customizeAppDesc"/>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -51,7 +47,7 @@ Swipe with two fingers to switch page."
                 android:layout_height="190dp"
                 android:layout_gravity="center"
                 android:src="@drawable/settings"
-                tools:ignore="ContentDescription" />
+                android:contentDescription="@string/intro4_cd"  />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -82,6 +78,5 @@ Swipe with two fingers to switch page."
         android:paddingRight="8dp"
         android:paddingEnd="8dp"
         android:src="@drawable/ic_chevron_right"
-        android:contentDescription="@null"
         tools:ignore="RtlSymmetry" />
 </FrameLayout>

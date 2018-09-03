@@ -19,7 +19,6 @@ import android.text.style.StyleSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.accessibility.AccessibilityManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -48,12 +47,11 @@ import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
+import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangValueMap;
 
 public class LanguageSelectActivity extends AppCompatActivity{
-
-    private static final String TAG = "LanguageSelectActivity";
 
     public static final String FINISH = "finish";
     private final int ACT_CHECK_TTS_DATA = 1;
@@ -166,15 +164,21 @@ public class LanguageSelectActivity extends AppCompatActivity{
         //The variables below are defined because android os fall back to default locale
         // after activity restart. These variable will hold the value for variables initialized using
         // user preferred locale.
-        final String strLangLimitExceeded = getString(R.string.languageLimitExceeded);
+        final String strNoMoreLang2Add = getString(R.string.no_more_lang_2_add);
         final String strCheckConnectivity = getString(R.string.checkConnectivity);
         final String strDownloadableLang = getString(R.string.downloadableLang);
         final String strDownload = getString(R.string.download);
+        final String strCancel = getString(R.string.cancel);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Crashlytics.log("LanguageSelect Add");
                 try {
+                    if (onlineLanguages.length == 0) {
+                        Toast.makeText(LanguageSelectActivity.this, strNoMoreLang2Add,
+                                Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     delete.setEnabled(false);
                      new MaterialDialog.Builder(LanguageSelectActivity.this)
                             .title(strDownloadableLang)
@@ -193,20 +197,14 @@ public class LanguageSelectActivity extends AppCompatActivity{
 
                                             if(isConnected)
                                             {
-                                                if(offlineLanguages.length < 3)
-                                                {
-                                                    Bundle bundle = new Bundle();
-                                                    bundle.putString(LCODE,LangMap.get(onlineLanguages[which]));
-                                                    bundle.putBoolean(FINISH,false);
-                                                    setSpeechLanguage(LangMap.get(onlineLanguages[which])); //To start TTS voice package download automatically.
-                                                    setSpeechLanguage(mSession.getLanguage());              //To switch TTS voice package back.
-                                                    speakSpeech("");                              // Send empty string to TTS Engine to eliminate voice lag after user goes back without changing the language.
-                                                    startActivity(new Intent(getBaseContext(),LanguageDownloadActivity.class).putExtras(bundle));
-                                                    dialog.dismiss();
-                                                } else {
-                                                    Toast.makeText(LanguageSelectActivity.this, strLangLimitExceeded,Toast.LENGTH_SHORT).show();
-                                                }
-
+                                                Bundle bundle = new Bundle();
+                                                bundle.putString(LCODE,LangMap.get(onlineLanguages[which]));
+                                                bundle.putBoolean(FINISH,false);
+                                                setSpeechLanguage(LangMap.get(onlineLanguages[which])); //To start TTS voice package download automatically.
+                                                setSpeechLanguage(mSession.getLanguage());              //To switch TTS voice package back.
+                                                speakSpeech("");                              // Send empty string to TTS Engine to eliminate voice lag after user goes back without changing the language.
+                                                startActivity(new Intent(getBaseContext(),LanguageDownloadActivity.class).putExtras(bundle));
+                                                dialog.dismiss();
                                             }else {
 
                                                 Toast.makeText(LanguageSelectActivity.this, strCheckConnectivity,Toast.LENGTH_SHORT).show();
@@ -216,6 +214,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
                                         }
                                     })
                             .positiveText(strDownload)
+                            .negativeText(strCancel)
                             .cancelListener(new DialogInterface.OnCancelListener() {
                                 @Override
                                 public void onCancel(DialogInterface dialog) {
@@ -279,6 +278,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
                                         }
                                     })
                             .positiveText(strRemove)
+                            .negativeText(strCancel)
                             .cancelListener(new DialogInterface.OnCancelListener() {
                                 @Override
                                 public void onCancel(DialogInterface dialog) {
@@ -300,11 +300,18 @@ public class LanguageSelectActivity extends AppCompatActivity{
     }
 
     private void setupViewsForBelowLollipopDevices() {
-        SpannableString spannedStr = new SpannableString(getString(R.string.change_language_line5).replace("_", getTTsLanguage()));
-        spannedStr.setSpan(new StyleSpan(Typeface.BOLD),0,7,0);
+        int boldTxtLen = 7;
+        SpannableString spannedStr =
+                new SpannableString(getString(R.string.change_language_line5).
+                        replace("_", getTTsLanguage()));
+        if(mSession.getLanguage().equals(BN_IN)) boldTxtLen = 12;
+        spannedStr.setSpan(new StyleSpan(Typeface.BOLD),0,boldTxtLen,0);
         ((TextView)findViewById(R.id.tv4)).setText(spannedStr);
-        spannedStr = new SpannableString(getString(R.string.change_language_line4).replace("_", getTTsLanguage()));
-        spannedStr.setSpan(new StyleSpan(Typeface.BOLD),0,7,0);
+        spannedStr =
+                new SpannableString(getString(R.string.change_language_line4).
+                        replace("_", getTTsLanguage()));
+        if(mSession.getLanguage().equals(BN_IN)) boldTxtLen = 12;
+        spannedStr.setSpan(new StyleSpan(Typeface.BOLD),0,boldTxtLen,0);
         ((TextView)findViewById(R.id.tv5)).setText(spannedStr);
         findViewById(R.id.btnDownloadVoiceData).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -316,10 +323,12 @@ public class LanguageSelectActivity extends AppCompatActivity{
             }
         });
         spannedStr = new SpannableString(getString(R.string.change_language_line2));
-        spannedStr.setSpan(new StyleSpan(Typeface.BOLD),0,7,0);
+        if(mSession.getLanguage().equals(BN_IN)) boldTxtLen = 10;
+        spannedStr.setSpan(new StyleSpan(Typeface.BOLD),0,boldTxtLen,0);
         ((TextView)findViewById(R.id.tv2)).setText(spannedStr);
         spannedStr = new SpannableString(getString(R.string.txtApplyChanges));
-        spannedStr.setSpan(new StyleSpan(Typeface.BOLD),0,7,0);
+        if(mSession.getLanguage().equals(BN_IN)) boldTxtLen = 12;
+        spannedStr.setSpan(new StyleSpan(Typeface.BOLD),0,boldTxtLen,0);
         ((TextView)findViewById(R.id.tv6)).setText(spannedStr);
         spannedStr = null;
     }
@@ -334,7 +343,9 @@ public class LanguageSelectActivity extends AppCompatActivity{
         findViewById(R.id.changeTtsLangBut).setVisibility(View.GONE);
         int subStrLen = 8;
         if(mSession.getLanguage().equals(SessionManager.HI_IN))subStrLen = 7;
+        else if(mSession.getLanguage().equals(SessionManager.BN_IN))subStrLen = 11;
         ((TextView)findViewById(R.id.tv2)).setText(getString(R.string.change_language_line2).substring(subStrLen));
+        if(mSession.getLanguage().equals(SessionManager.BN_IN))subStrLen = 12;
         ((TextView)findViewById(R.id.tv6)).setText(getString(R.string.txtApplyChanges).substring(subStrLen));
     }
 
@@ -371,8 +382,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
             lang.add(LangValueMap.get(SessionManager.HI_IN));
 
         if(( mSession.isDownloaded(SessionManager.BN_IN) &&
-                !current.equals(SessionManager.BN_IN)) || (mSession.isDownloaded(SessionManager.BE_IN) &&
-                !current.equals(SessionManager.BE_IN)))
+                !current.equals(SessionManager.BN_IN)))
             lang.add(LangValueMap.get(SessionManager.BN_IN));
         return lang.toArray(new String[lang.size()]);
     }
@@ -380,8 +390,6 @@ public class LanguageSelectActivity extends AppCompatActivity{
     private String[] getOnlineLanguages()
     {
         List<String> lang = new ArrayList<>();
-
-
         if( !mSession.isDownloaded(SessionManager.ENG_IN))
             lang.add(LangValueMap.get(SessionManager.ENG_IN));
         if( !mSession.isDownloaded(SessionManager.ENG_US))
@@ -390,7 +398,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
             lang.add(LangValueMap.get(SessionManager.ENG_UK));
         if( !mSession.isDownloaded(SessionManager.HI_IN))
             lang.add(LangValueMap.get(SessionManager.HI_IN));
-        if( !mSession.isDownloaded(SessionManager.BN_IN) || !mSession.isDownloaded(SessionManager.BE_IN))
+        if( !mSession.isDownloaded(SessionManager.BN_IN))
             lang.add(LangValueMap.get(SessionManager.BN_IN));
         return lang.toArray(new String[lang.size()]);
     }
@@ -414,8 +422,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
         if(!isAnalyticsActive()){
             resetAnalytics(this, mSession.getCaregiverNumber().substring(1));
         }
-        if(Build.VERSION.SDK_INT > 25 &&
-                !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
+        if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
             startService(new Intent(getApplication(), JellowTTSService.class));
         }
         startMeasuring();
@@ -446,31 +453,40 @@ public class LanguageSelectActivity extends AppCompatActivity{
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        if(mSession.getLanguage().equals(BN_IN))
+            menu.findItem(R.id.keyboardinput).setVisible(false);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.settings: startActivity(new Intent(getApplication(), SettingActivity.class)); finish(); break;
-            case R.id.profile: startActivity(new Intent(this, ProfileFormActivity.class)); finish(); break;
-            case R.id.info: startActivity(new Intent(this, AboutJellowActivity.class)); finish(); break;
-            case R.id.usage: startActivity(new Intent(this, TutorialActivity.class)); finish(); break;
-            case R.id.keyboardinput: startActivity(new Intent(this, KeyboardInputActivity.class)); finish(); break;
-            case R.id.reset: startActivity(new Intent(this, ResetPreferencesActivity.class)); finish(); break;
+            case R.id.settings:
+                startActivity(new Intent(this, SettingActivity.class));
+                finish(); break;
+            case R.id.profile:
+                startActivity(new Intent(this, ProfileFormActivity.class));
+                finish(); break;
+            case R.id.info:
+                startActivity(new Intent(this, AboutJellowActivity.class));
+                finish(); break;
+            case R.id.usage:
+                startActivity(new Intent(this, TutorialActivity.class));
+                finish(); break;
+            case R.id.keyboardinput:
+                startActivity(new Intent(this, KeyboardInputActivity.class));
+                finish(); break;
+            case R.id.reset:
+                startActivity(new Intent(this, ResetPreferencesActivity.class));
+                finish(); break;
             case R.id.feedback:
-                AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
-                boolean isAccessibilityEnabled = am.isEnabled();
-                boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
-                if (isAccessibilityEnabled && isExploreByTouchEnabled) {
-                    startActivity(new Intent(this, FeedbackActivityTalkback.class));
-                } else {
-                    startActivity(new Intent(this, FeedbackActivity.class));
-                }
+                startActivity(new Intent(this, FeedbackActivity.class));
                 finish();
                 break;
-            case android.R.id.home: onBackPressed(); break;
-            default: return super.onOptionsItemSelected(item);
+            case android.R.id.home:
+                onBackPressed(); break;
+            default:
+                return super.onOptionsItemSelected(item);
         }
         return true;
     }

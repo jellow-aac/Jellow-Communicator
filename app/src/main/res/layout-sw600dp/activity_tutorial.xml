@@ -38,6 +38,7 @@
                         android:textColor="@color/black_eighty"
                         android:scaleX=".7"
                         android:scaleY=".7"
+                        android:importantForAccessibility="no"
                         android:text="@string/bullet" />
                     <TextView
                         android:id="@+id/tv1"
@@ -60,7 +61,8 @@
                         android:id="@+id/pic1"
                         android:layout_width="wrap_content"
                         android:layout_height="500dp"
-                        android:layout_below="@+id/tv7"/>
+                        android:layout_below="@+id/tv7"
+                        android:contentDescription="@string/category_cd"/>
                     <TextView
                         android:id="@+id/tv8"
                         android:layout_width="wrap_content"
@@ -73,7 +75,8 @@
                         android:id="@+id/pic2"
                         android:layout_width="wrap_content"
                         android:layout_height="500dp"
-                        android:layout_below="@+id/tv8"/>
+                        android:layout_below="@+id/tv8"
+                        android:contentDescription="@string/expressive_cd"/>
                 </RelativeLayout>
             </LinearLayout>
 
@@ -95,6 +98,7 @@
                         android:scaleX=".7"
                         android:scaleY=".7"
                         android:text="@string/bullet"
+                        android:importantForAccessibility="no"
                         android:textColor="@color/black_eighty" />
                     <TextView
                         android:id="@+id/tv2"
@@ -109,7 +113,8 @@
                         android:id="@+id/pic4"
                         android:layout_width="wrap_content"
                         android:layout_height="500dp"
-                        android:layout_below="@+id/tv2"/>
+                        android:layout_below="@+id/tv2"
+                        android:contentDescription="@string/pic4"/>
                 </RelativeLayout>
             </LinearLayout>
 
@@ -131,7 +136,8 @@
                         android:textColor="@color/black_eighty"
                         android:scaleX=".7"
                         android:scaleY=".7"
-                        android:text="@string/bullet" />
+                        android:text="@string/bullet"
+                        android:importantForAccessibility="no"/>
                     <TextView
                         android:id="@+id/tv3"
                         android:layout_width="wrap_content"
@@ -153,7 +159,8 @@
                         android:id="@+id/pic5"
                         android:layout_width="wrap_content"
                         android:layout_height="500dp"
-                        android:layout_below="@+id/tv9"/>
+                        android:layout_below="@+id/tv9"
+                        android:contentDescription="@string/pic5"/>
                     <TextView
                         android:id="@+id/tv10"
                         android:layout_width="wrap_content"
@@ -166,7 +173,8 @@
                         android:id="@+id/pic6"
                         android:layout_width="wrap_content"
                         android:layout_height="500dp"
-                        android:layout_below="@+id/tv10"/>
+                        android:layout_below="@+id/tv10"
+                        android:contentDescription="@string/pic6"/>
                     <TextView
                         android:id="@+id/tv11"
                         android:layout_width="wrap_content"
@@ -179,7 +187,8 @@
                         android:id="@+id/pic7"
                         android:layout_width="wrap_content"
                         android:layout_height="500dp"
-                        android:layout_below="@+id/tv11"/>
+                        android:layout_below="@+id/tv11"
+                        android:contentDescription="@string/pic7"/>
                 </RelativeLayout>
             </LinearLayout>
 
@@ -201,7 +210,8 @@
                         android:textColor="@color/black_eighty"
                         android:scaleX=".7"
                         android:scaleY=".7"
-                        android:text="@string/bullet" />
+                        android:text="@string/bullet"
+                        android:importantForAccessibility="no"/>
                     <TextView
                         android:id="@+id/tv4"
                         android:layout_width="wrap_content"
@@ -214,7 +224,8 @@
                         android:id="@+id/pic8"
                         android:layout_width="wrap_content"
                         android:layout_height="500dp"
-                        android:layout_below="@+id/tv4"/>
+                        android:layout_below="@+id/tv4"
+                        android:contentDescription="@string/pic8"/>
                 </RelativeLayout>
             </LinearLayout>
 
@@ -236,7 +247,8 @@
                         android:textColor="@color/black_eighty"
                         android:scaleX=".7"
                         android:scaleY=".7"
-                        android:text="@string/bullet" />
+                        android:text="@string/bullet"
+                        android:importantForAccessibility="no"/>
                     <TextView
                         android:id="@+id/tv5"
                         android:layout_width="wrap_content"
@@ -258,7 +270,8 @@
                         android:id="@+id/pic9"
                         android:layout_width="wrap_content"
                         android:layout_height="500dp"
-                        android:layout_below="@id/tv12"/>
+                        android:layout_below="@id/tv12"
+                        android:contentDescription="@string/pic9"/>
                     <TextView
                         android:id="@+id/tv13"
                         android:layout_width="wrap_content"
@@ -271,7 +284,8 @@
                         android:id="@+id/pic10"
                         android:layout_width="wrap_content"
                         android:layout_height="500dp"
-                        android:layout_below="@+id/tv13"/>
+                        android:layout_below="@+id/tv13"
+                        android:contentDescription="@string/pic10"/>
                 </RelativeLayout>
             </LinearLayout>
 
@@ -294,7 +308,8 @@
                         android:textColor="@color/black_eighty"
                         android:scaleX=".7"
                         android:scaleY=".7"
-                        android:text="@string/bullet" />
+                        android:text="@string/bullet"
+                        android:importantForAccessibility="no"/>
                     <TextView
                         android:id="@+id/tvtts"
                         android:layout_width="wrap_content"
@@ -317,19 +332,22 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_weight="1"/>
+                            android:layout_weight="1"
+                            android:contentDescription="@string/gtts1"/>
                         <ImageView
                             android:id="@+id/gtts2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_weight="1"/>
+                            android:layout_weight="1"
+                            android:contentDescription="@string/gtts2"/>
                         <ImageView
                             android:id="@+id/gtts3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_weight="1"/>
+                            android:layout_weight="1"
+                            android:contentDescription="@string/gtts3"/>
                     </LinearLayout>
 
                 </RelativeLayout>
@@ -350,6 +368,7 @@
                     android:textColor="@color/black_eighty"
                     android:scaleX=".7"
                     android:scaleY=".7"
+                    android:importantForAccessibility="no"
                     android:text="@string/bullet" />
 
                 <TextView

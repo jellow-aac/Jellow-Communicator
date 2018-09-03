@@ -53,28 +53,6 @@
                     style="@style/defaultTextViewStyle"/>
             </LinearLayout>
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="19dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="4dp"
-                    android:layout_marginRight="4dp"
-                    android:textColor="@color/black_eighty"
-                    android:scaleX=".7"
-                    android:scaleY=".7"
-                    android:text="@string/bullet" 
-                    android:importantForAccessibility="no"/>
-                <TextView
-                    android:id="@+id/tv1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/change_language_line1"
-                    style="@style/defaultTextViewStyle"/>
-            </LinearLayout>
-            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -193,7 +171,8 @@
                 android:layout_marginStart="-22dp"
                 android:layout_marginLeft="-22dp"
                 android:layout_marginBottom="19dp"
-                android:src="@drawable/gtts3" />
+                android:src="@drawable/gtts3"
+                android:contentDescription="This image shows the “Google TTS voice data” screen. This screen provides multiple voice options including “French (France)”, “German (Germany)”, “Hindi (India)”, “Hungarian (Hungary)”, and “Indonesian (Indonesia)”. The “Hindi (India) voice” option is highlighted and shows an option of “Voice set 1” with a size of 19MB that is available for download. The user’s finger is seen to click on the download icon for the voice set 1 for the “Hindi (India) voice”." />
             <Button
                 android:id="@+id/btnDownloadVoiceData"
                 android:layout_width="wrap_content"
@@ -237,7 +216,8 @@
                 <ImageView
                     android:layout_width="280dp"
                     android:layout_height="386dp"
-                    android:src="@drawable/gtts1"/>
+                    android:src="@drawable/gtts1"
+                    android:contentDescription="The image is made up of 3 screenshots of the “Text to speech output” and “Google TTS voice data” settings within a user’s device. In the first image corresponding to “Text-to-speech output”, there are 2 preferred engines visible, first, the “Samsung Text-to-Speech engine” and second, the “Google Text-to-Speech engine”. The user is seen to select the “Google Text-to-Speech engine” as the first step." />
                 <ImageView
                     android:layout_width="55dp"
                     android:layout_height="80dp"
@@ -246,7 +226,8 @@
                 <ImageView
                     android:layout_width="280dp"
                     android:layout_height="386dp"
-                    android:src="@drawable/gtts2"/>
+                    android:src="@drawable/gtts2"
+                    android:contentDescription="The second image corresponds to the second step in this process where the user is seen to now click on the “Gear” symbol corresponding to the “Settings” of the “Google Text-to-Speech engine”" />
                 <ImageView
                     android:layout_width="55dp"
                     android:layout_height="80dp"
@@ -255,7 +236,8 @@
                 <ImageView
                     android:layout_width="280dp"
                     android:layout_height="386dp"
-                    android:src="@drawable/gtts4"/>
+                    android:src="@drawable/gtts4"
+                    android:contentDescription="The third image is the third step in this process where now the user is at the “Google TTS voice data” screen. There are 3 settings visible on this screen, namely, language, settings for Google Text-to-Speech engine, and Install voice" />
             </LinearLayout>
             <Button
                 android:id="@+id/changeTtsLangBut"

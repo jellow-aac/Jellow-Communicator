@@ -6,19 +6,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.KeyListener;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.accessibility.AccessibilityManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,13 +26,12 @@ import android.widget.Toast;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.crashlytics.android.Crashlytics;
-import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_DoubleClick;
-import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
 import com.dsource.idc.jellowintl.models.SeqActivityVerbiageModel;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
+import com.dsource.idc.jellowintl.utility.UserEventCollector;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -49,6 +45,7 @@ import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
+import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
 
 
 /**
@@ -83,7 +80,7 @@ public class SequenceActivity extends AppCompatActivity {
     private RelativeLayout mRelativeLayCategory;
     /*navigation next, back button in category*/
     private Button mBtnNext, mBtnBack;
-    private String mStrPath, mStrNext, mStrBack, mActionBarTitleTxt;
+    private String mStrPath, mStrNext, mStrBack, mActionBarTitleTxt, accessDialogBtnTxt;
     String[] mCategoryIconText;
     /*Below array stores the speech text, below text, expressive button speech text, heading,
      navigation button speech text, category navigation text respectively.*/
@@ -93,6 +90,9 @@ public class SequenceActivity extends AppCompatActivity {
     pressed in conjunction*/
     private ArrayList<ArrayList<ArrayList<String>>> mSeqActSpeech;
     private SessionManager mSession;
+
+    /*Firebase event Collector class instance.*/
+    private UserEventCollector mUec;
 
     @SuppressLint("ResourceType")
     @Override
@@ -112,6 +112,7 @@ public class SequenceActivity extends AppCompatActivity {
                 .getString(getString(R.string.intent_menu_path_tag)));
 
         mSession = new SessionManager(this);
+        mUec = new UserEventCollector();
         /*get position of category icon selected in level two*/
         mLevelTwoItemPos = getIntent().getExtras().getInt(getString(R.string.level_2_item_pos_tag));
 
@@ -146,8 +147,7 @@ public class SequenceActivity extends AppCompatActivity {
         if(!isAnalyticsActive()){
             resetAnalytics(this, mSession.getCaregiverNumber().substring(1));
         }
-        if(Build.VERSION.SDK_INT > 25 &&
-                !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
+        if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
             startService(new Intent(getApplication(), JellowTTSService.class));
         }
         // Start measuring user app screen timer .
@@ -190,13 +190,17 @@ public class SequenceActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_main_with_search, menu);
+        SessionManager session = new SessionManager(this);
+        if(session.getLanguage().equals(BN_IN))
+            menu.findItem(R.id.keyboardinput).setVisible(false);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.search: startActivity(new Intent(this, SearchActivity.class));break;
+            case R.id.search:
+                startActivity(new Intent(this, SearchActivity.class));break;
             case R.id.languageSelect:
                 startActivity(new Intent(this, LanguageSelectActivity.class));
                 break;
@@ -212,15 +216,7 @@ public class SequenceActivity extends AppCompatActivity {
                 startActivity(new Intent(this, KeyboardInputActivity.class));
                 break;
             case R.id.feedback:
-                AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
-                boolean isAccessibilityEnabled = am.isEnabled();
-                boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
-                if(isAccessibilityEnabled && isExploreByTouchEnabled) {
-                    startActivity(new Intent(this, FeedbackActivityTalkback.class));
-                }
-                else {
-                    startActivity(new Intent(this, FeedbackActivity.class));
-                }
+                startActivity(new Intent(this, FeedbackActivity.class));
                 break;
             case R.id.settings:
                 startActivity(new Intent(this, SettingActivity.class));
@@ -280,22 +276,6 @@ public class SequenceActivity extends AppCompatActivity {
         mIvCategoryIcon1.setContentDescription(mCategoryIconBelowText[count]);
         mIvCategoryIcon2.setContentDescription(mCategoryIconBelowText[count + 1]);
         mIvCategoryIcon3.setContentDescription(mCategoryIconBelowText[count + 2]);
-
-        ViewCompat.setAccessibilityDelegate(mIvLike, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvYes, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvMore, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvDontLike, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvNo, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvLess, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvKeyboard, new TalkbackHints_SingleClick());
-        ViewCompat.setAccessibilityDelegate(mIvHome, new TalkbackHints_SingleClick());
-        ViewCompat.setAccessibilityDelegate(mIvBack, new TalkbackHints_SingleClick());
-        ViewCompat.setAccessibilityDelegate(mIvTTs, new TalkbackHints_SingleClick());
-
-        ViewCompat.setAccessibilityDelegate(mIvCategoryIcon1, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvCategoryIcon2, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvCategoryIcon3, new TalkbackHints_DoubleClick());
-
     }
 
     /**
@@ -517,17 +497,22 @@ public class SequenceActivity extends AppCompatActivity {
                     hideExpressiveBtn(true);
                     setBorderToView(findViewById(R.id.borderView1),-1);
                     mFlgHideExpBtn = 0;
-                    Bundle bundle = new Bundle();
+                    /*Bundle bundle = new Bundle();
                     bundle.putString("Icon", mCategoryIconSpeechText[count]);
                     bundle.putString("Category", mHeading[mLevelTwoItemPos].toLowerCase());
-                    bundleEvent("Grid",bundle);
+                    bundleEvent("Grid",bundle);*/
+                    mUec.createSendFbEventFromTappedView(12, mCategoryIconSpeechText[count],
+                            mHeading[mLevelTwoItemPos].toLowerCase());
                 // If expressive buttons are hidden or category icon 1 is in unpressed state then
                 // set the border of category icon 1 and show expressive buttons
                 } else {
-                    Bundle bundle = new Bundle();
+                    mUec.createSendFbEventFromTappedView(12, "VisibleExpr " +
+                        mCategoryIconSpeechText[count], mHeading[mLevelTwoItemPos].toLowerCase());
+
+                    /*Bundle bundle = new Bundle();
                     bundle.putString("Icon", "VisibleExpr " + mCategoryIconSpeechText[count]);
                     bundle.putString("Category", mHeading[mLevelTwoItemPos].toLowerCase());
-                    bundleEvent("Grid",bundle);
+                    bundleEvent("Grid",bundle);*/
                     mFlgHideExpBtn = 1;
                     // If new current sequence is the last sequence and category icon 1 is
                     // last item in sequence then hide expressive buttons.
@@ -571,17 +556,21 @@ public class SequenceActivity extends AppCompatActivity {
                     hideExpressiveBtn(true);
                     setBorderToView(findViewById(R.id.borderView2),-1);
                     mFlgHideExpBtn = 0;
-                    Bundle bundle = new Bundle();
+                    mUec.createSendFbEventFromTappedView(12,
+                        mCategoryIconSpeechText[count+1], mHeading[mLevelTwoItemPos].toLowerCase());
+                    /*Bundle bundle = new Bundle();
                     bundle.putString("Icon", mCategoryIconSpeechText[count+1]);
                     bundle.putString("Category", mHeading[mLevelTwoItemPos].toLowerCase());
-                    bundleEvent("Grid",bundle);
+                    bundleEvent("Grid",bundle);*/
                     // If expressive buttons are hidden or category icon 2 is in unpressed state then
                     // set the border of category icon 2 and show expressive buttons
                 } else {
-                    Bundle bundle = new Bundle();
+                    mUec.createSendFbEventFromTappedView(12, "VisibleExpr " +
+                            mCategoryIconSpeechText[count+1], mHeading[mLevelTwoItemPos].toLowerCase());
+                    /*Bundle bundle = new Bundle();
                     bundle.putString("Icon", "VisibleExpr " + mCategoryIconSpeechText[count+1]);
                     bundle.putString("Category", mHeading[mLevelTwoItemPos].toLowerCase());
-                    bundleEvent("Grid",bundle);
+                    bundleEvent("Grid",bundle);*/
                     mFlgHideExpBtn = 2;
                     // If new current sequence is the last sequence and category icon 2 is
                     // last item in sequence then hide expressive buttons.
@@ -625,17 +614,21 @@ public class SequenceActivity extends AppCompatActivity {
                     hideExpressiveBtn(true);
                     setBorderToView(findViewById(R.id.borderView3), -1);
                     mFlgHideExpBtn = 0;
-                    Bundle bundle = new Bundle();
+                    mUec.createSendFbEventFromTappedView(12,
+                        mCategoryIconSpeechText[count+2], mHeading[mLevelTwoItemPos].toLowerCase());
+                    /*Bundle bundle = new Bundle();
                     bundle.putString("Icon", mCategoryIconSpeechText[count+2]);
                     bundle.putString("Category", mHeading[mLevelTwoItemPos].toLowerCase());
-                    bundleEvent("Grid",bundle);
+                    bundleEvent("Grid",bundle);*/
                     // If expressive buttons are hidden or category icon 3 is in unpressed state then
                     // set the border of category icon 3 and show expressive buttons
                 } else {
-                    Bundle bundle = new Bundle();
+                    mUec.createSendFbEventFromTappedView(12, "VisibleExpr " +
+                            mCategoryIconSpeechText[count+2], mHeading[mLevelTwoItemPos].toLowerCase());
+                    /*Bundle bundle = new Bundle();
                     bundle.putString("Icon", "VisibleExpr " + mCategoryIconSpeechText[count+2]);
                     bundle.putString("Category", mHeading[mLevelTwoItemPos].toLowerCase());
-                    bundleEvent("Grid",bundle);
+                    bundleEvent("Grid",bundle);*/
                     mFlgHideExpBtn = 3;
                     // If new current sequence is the last sequence and category icon 3 is
                     // last item in sequence then hide expressive buttons.
@@ -645,7 +638,7 @@ public class SequenceActivity extends AppCompatActivity {
                         hideExpressiveBtn(true);
                     else
                         hideExpressiveBtn(false);
-                    speakSpeech(mCategoryIconSpeechText[count + 2]);
+                        speakSpeech(mCategoryIconSpeechText[count + 2]);
                     resetExpressiveButton();
                     setBorderToView(findViewById(R.id.borderView3), 6);
                 }
@@ -686,6 +679,7 @@ public class SequenceActivity extends AppCompatActivity {
                     mBtnBack.setVisibility(View.VISIBLE);
                 } else {
                     // When keyboard is not open simply set result and close the activity.
+                    mUec.createSendFbEventFromTappedView(27, "", "");
                     mIvBack.setImageResource(R.drawable.back_pressed);
                     setResult(RESULT_OK);
                     finish();
@@ -705,6 +699,7 @@ public class SequenceActivity extends AppCompatActivity {
         mIvHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mUec.createSendFbEventFromTappedView(26, "", "");
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -828,31 +823,34 @@ public class SequenceActivity extends AppCompatActivity {
                         speakSpeech(mExprBtnTxt[1]);
                         mFlgLike = 0;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","ReallyLike");
+                        mUec.createSendFbEventFromTappedView(1, "", "");
                     } else {
                         speakSpeech(mExprBtnTxt[0]);
                         mFlgLike = 1;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","Like");
+                        mUec.createSendFbEventFromTappedView(0, "", "");
                     }
                 //if expressive buttons are visible then speak category icon verbiage + like expression
                 } else {
                     setBorderToIcon(0);
                     if (mFlgLike == 1) {
                         //Firebase event
-                        singleEvent("ExpressiveIcon","ReallyLike");
-                        singleEvent("ExpressiveGridIcon",
+                        mUec.createSendFbEventFromTappedView(14, getPrefixMsg()
+                                +"_"+mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
+                                .get(1), "");
+                        /*singleEvent("ExpressiveGridIcon",
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(1));
+                                        .get(1));*/
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
                                 .get(1));
                         mFlgLike = 0;
                     } else {
                         //Firebase event
-                        singleEvent("ExpressiveIcon","Like");
-                        singleEvent("ExpressiveGridIcon",
-                                mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(0));
+                        mUec.createSendFbEventFromTappedView(13, getPrefixMsg()
+                                +"_"+mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
+                                .get(0), "");
+                        /*singleEvent("ExpressiveGridIcon", mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
+                                .get(0));*/
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
                                 .get(0));
                         mFlgLike = 1;
@@ -889,31 +887,35 @@ public class SequenceActivity extends AppCompatActivity {
                         speakSpeech(mExprBtnTxt[7]);
                         mFlgDontLike = 0;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","ReallyDon'tLike");
+                        mUec.createSendFbEventFromTappedView(7, "", "");
                     } else {
                         speakSpeech(mExprBtnTxt[6]);
                         mFlgDontLike = 1;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","Don'tLike");
+                        mUec.createSendFbEventFromTappedView(6, "", "");
                     }
                 //if expressive buttons are visible then speak category icon verbiage + don't like expression
                 } else {
                     setBorderToIcon(1);
                     if (mFlgDontLike == 1) {
                         //Firebase event
-                        singleEvent("ExpressiveIcon","ReallyDon'tLike");
-                        singleEvent("ExpressiveGridIcon",
+                        mUec.createSendFbEventFromTappedView(20, getPrefixMsg()
+                                +"_"+mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
+                                .get(7), "");
+                        /*singleEvent("ExpressiveGridIcon",
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(7));
+                                        .get(7));*/
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
                                 .get(7));
                         mFlgDontLike = 0;
                     } else {
                         //Firebase event
-                        singleEvent("ExpressiveIcon","Don'tLike");
-                        singleEvent("ExpressiveGridIcon",
+                        mUec.createSendFbEventFromTappedView(19, getPrefixMsg()
+                                +"_"+mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
+                                .get(6), "");
+                        /*singleEvent("ExpressiveGridIcon",
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(6));
+                                        .get(6));*/
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
                                 .get(6));
                         mFlgDontLike = 1;
@@ -951,31 +953,35 @@ public class SequenceActivity extends AppCompatActivity {
                         speakSpeech(mExprBtnTxt[3]);
                         mFlgYes = 0;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","ReallyYes");
+                        mUec.createSendFbEventFromTappedView(3, "", "");
                     } else {
                         speakSpeech(mExprBtnTxt[2]);
                         mFlgYes = 1;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","Yes");
+                        mUec.createSendFbEventFromTappedView(2, "", "");
                     }
                 //if expressive buttons are visible then speak category icon verbiage + yes expression
                 } else {
                     setBorderToIcon(2);
                     if (mFlgYes == 1) {
                         //Firebase event
-                        singleEvent("ExpressiveIcon","ReallyYes");
-                        singleEvent("ExpressiveGridIcon",
+                        mUec.createSendFbEventFromTappedView(16, getPrefixMsg()
+                                +"_"+mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
+                                .get(3), "");
+                        /*singleEvent("ExpressiveGridIcon",
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(3));
+                                        .get(3));*/
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
                                 .get(3));
                         mFlgYes = 0;
                     } else {
                         //Firebase event
-                        singleEvent("ExpressiveIcon","Yes");
-                        singleEvent("ExpressiveGridIcon",
+                        mUec.createSendFbEventFromTappedView(15, getPrefixMsg()
+                                +"_"+mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
+                                .get(2), "");
+                        /*singleEvent("ExpressiveGridIcon",
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(2));
+                                        .get(2));*/
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
                                 .get(2));
                         mFlgYes = 1;
@@ -1012,31 +1018,35 @@ public class SequenceActivity extends AppCompatActivity {
                         speakSpeech(mExprBtnTxt[9]);
                         mFlgNo = 0;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","ReallyNo");
+                        mUec.createSendFbEventFromTappedView(9, "", "");
                     } else {
                         speakSpeech(mExprBtnTxt[8]);
                         mFlgNo = 1;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","No");
+                        mUec.createSendFbEventFromTappedView(8, "", "");
                     }
                 //if expressive buttons are visible then speak category icon verbiage + no expression
                 } else {
                     setBorderToIcon(3);
                     if (mFlgNo == 1) {
                         //Firebase event
-                        singleEvent("ExpressiveIcon","ReallyNo");
-                        singleEvent("ExpressiveGridIcon",
+                        mUec.createSendFbEventFromTappedView(22, getPrefixMsg()
+                                +"_"+mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
+                                .get(9), "");
+                        /*singleEvent("ExpressiveGridIcon",
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(9));
+                                        .get(9));*/
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
                                 .get(9));
                         mFlgNo = 0;
                     } else {
                         //Firebase event
-                        singleEvent("ExpressiveIcon","No");
-                        singleEvent("ExpressiveGridIcon",
+                        mUec.createSendFbEventFromTappedView(21, getPrefixMsg()
+                                +"_"+mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
+                                .get(8), "");
+                        /*singleEvent("ExpressiveGridIcon",
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(8));
+                                        .get(8));*/
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
                                 .get(8));
                         mFlgNo = 1;
@@ -1073,31 +1083,35 @@ public class SequenceActivity extends AppCompatActivity {
                         speakSpeech(mExprBtnTxt[5]);
                         mFlgMore = 0;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","ReallyMore");
+                        mUec.createSendFbEventFromTappedView(5, "", "");
                     } else {
                         speakSpeech(mExprBtnTxt[4]);
                         mFlgMore = 1;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","More");
+                        mUec.createSendFbEventFromTappedView(4, "", "");
                     }
                     //if expressive buttons are visible then speak category icon verbiage + more expression
                 } else {
                     setBorderToIcon(4);
                     if (mFlgMore == 1) {
                         //Firebase event
-                        singleEvent("ExpressiveIcon","ReallyMore");
-                        singleEvent("ExpressiveGridIcon",
+                        mUec.createSendFbEventFromTappedView(18, getPrefixMsg()
+                                +"_"+mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
+                                .get(5), "");
+                        /*singleEvent("ExpressiveGridIcon",
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(5));
+                                        .get(5));*/
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
                                 .get(5));
                         mFlgMore = 0;
                     } else {
                         //Firebase event
-                        singleEvent("ExpressiveIcon","More");
-                        singleEvent("ExpressiveGridIcon",
+                        mUec.createSendFbEventFromTappedView(17, getPrefixMsg()
+                                +"_"+mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
+                                .get(4), "");
+                        /*singleEvent("ExpressiveGridIcon",
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(4));
+                                        .get(4));*/
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
                                 .get(4));
                         mFlgMore = 1;
@@ -1134,31 +1148,35 @@ public class SequenceActivity extends AppCompatActivity {
                         speakSpeech(mExprBtnTxt[11]);
                         mFlgLess = 0;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","ReallyLess");
+                        mUec.createSendFbEventFromTappedView(11, "", "");
                     } else {
                         speakSpeech(mExprBtnTxt[10]);
                         mFlgLess = 1;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","Less");
+                        mUec.createSendFbEventFromTappedView(10, "", "");
                     }
                 //if expressive buttons are visible then speak category icon verbiage + less expression
                 } else {
                     setBorderToIcon(5);
                     if (mFlgLess == 1) {
                         //Firebase event
-                        singleEvent("ExpressiveIcon","ReallyLess");
-                        singleEvent("ExpressiveGridIcon",
+                        mUec.createSendFbEventFromTappedView(24, getPrefixMsg()
+                                +"_"+mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
+                                .get(11), "");
+                        /*singleEvent("ExpressiveGridIcon",
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(11));
+                                        .get(11));*/
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
                                 .get(11));
                         mFlgLess = 0;
                     } else {
                         //Firebase event
-                        singleEvent("ExpressiveIcon","Less");
-                        singleEvent("ExpressiveGridIcon",
+                        mUec.createSendFbEventFromTappedView(23, getPrefixMsg()
+                                +"_"+mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
+                                .get(10), "");
+                        /*singleEvent("ExpressiveGridIcon",
                                 mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(10));
+                                        .get(10));*/
                         speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
                                 .get(10));
                         mFlgLess = 1;
@@ -1167,6 +1185,16 @@ public class SequenceActivity extends AppCompatActivity {
                 mIvBack.setImageResource(R.drawable.back);
             }
         });
+    }
+
+    private String getPrefixMsg() {
+        if (mFlgHideExpBtn == 1)
+            return mCategoryIconSpeechText[count];
+        else if (mFlgHideExpBtn == 2)
+            return mCategoryIconSpeechText[count+1];
+        else if (mFlgHideExpBtn == 3)
+            return mCategoryIconSpeechText[count+2];
+        else return "";
     }
 
     /**

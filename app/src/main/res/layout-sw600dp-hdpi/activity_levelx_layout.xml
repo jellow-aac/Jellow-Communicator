@@ -103,7 +103,7 @@
             android:layout_height="142dp"
             android:src="@drawable/back"
             android:layout_toLeftOf="@+id/ivhome"
-            android:contentDescription="back"/>
+            android:contentDescription="@string/back"/>
     </RelativeLayout>
     <LinearLayout
         android:layout_width="600dp"

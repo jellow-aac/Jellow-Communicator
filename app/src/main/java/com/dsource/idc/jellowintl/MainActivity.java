@@ -1,50 +1,41 @@
 package com.dsource.idc.jellowintl;
 
 import android.app.ActivityManager;
-import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.speech.tts.TextToSpeech;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.telephony.TelephonyManager;
 import android.text.method.KeyListener;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
-import android.view.accessibility.AccessibilityManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_DoubleClick;
-import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
 import com.dsource.idc.jellowintl.models.LevelOneVerbiageModel;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
+import com.dsource.idc.jellowintl.utility.UserEventCollector;
 import com.google.gson.Gson;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Locale;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
@@ -53,9 +44,12 @@ import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
+import static com.dsource.idc.jellowintl.utility.SessionManager.BE_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
 
 public class MainActivity extends AppCompatActivity {
-    boolean isAccessibilityEnabled, isExploreByTouchEnabled;
     private final int REQ_HOME = 0;
     private final boolean DISABLE_EXPR_BTNS = true;
 
@@ -101,12 +95,9 @@ public class MainActivity extends AppCompatActivity {
     private String[] mSpeechTxt, mExprBtnTxt, mNavigationBtnTxt, mActionBarTitle;
     private String mActionBarTitleTxt;
     private String mCheckVoiceData, mHome;
-    TextToSpeech tts;
-    String current_lang, deviceLangCode;
-    boolean isLanguageSame = true;
-    String jellow_lang;
-    Locale deviceLangLocale;
 
+    /*Firebase event Collector class instance.*/
+    private UserEventCollector mUec;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
         getSupportActionBar().setTitle(getString(R.string.action_bar_title));
+        mUec = new UserEventCollector();
         loadArraysFromResources();
         // Set the capacity of mRecyclerItemsViewList list to total number of category icons to be
         // populated on the screen.
@@ -135,9 +127,6 @@ public class MainActivity extends AppCompatActivity {
         initializeLayoutViews();
         initializeViewListeners();
 
-        // If device has android version below Lollipop get Text-to-speech language
-        if(Build.VERSION.SDK_INT < 21)
-            getSpeechLanguage("");
         if(getIntent().hasExtra(getString(R.string.goto_home)))
             gotoHome(true);
         //This method is invoked when the activity is launched from the SearchActivity
@@ -153,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
             //Not from Search Activity
         }
     }
+
     /**
      * This function is responsible for the Highlighting of the searched item from the
      * search activity
@@ -182,12 +172,12 @@ public class MainActivity extends AppCompatActivity {
             }
 
     }
+
     /**
      * This functions returns a scroll scrollListener which triggers the setHighlight function
      * when the scrolling is done
      * @Author Ayaz Alam
      * */
-
     private RecyclerView.OnScrollListener getListener(final int index) {
         scrollListener =new RecyclerView.OnScrollListener() {
             @Override
@@ -203,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
         };
         return scrollListener;
     }
+
     /**
      * This function is responsible for highlighting the view
      * @param pos
@@ -233,45 +224,6 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         mRecyclerView.getViewTreeObserver().addOnGlobalLayoutListener(populationDoneListener);
-
-
-
-
-    }
-
-    private void showChangeLanguageDialog() {
-        Log.d("isLanguageSame", "hello from showChangeLangDialog()");
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        final SessionManager sessionManager = new SessionManager(MainActivity.this);
-        boolean s = sessionManager.isChangeLanguageNeverAsk();
-        builder.setMessage("Language selected in Jellow is different from that of your device output language. " +
-                "Would you like to change your device language ?")
-                .setTitle("CHANGE LANGUAGE ")
-                .setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Intent intent = new Intent();
-                        intent.setAction("com.android.settings.TTS_SETTINGS");
-                        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                        dialogInterface.dismiss();
-                    }
-                })
-                .setNeutralButton("NO", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                });
-            builder.setNegativeButton("Never Show Again", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int i) {
-                    sessionManager.setChangeLanguageNeverAsk(true);
-                }
-            });
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
     }
 
     @Override
@@ -282,31 +234,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
-        isAccessibilityEnabled = am.isEnabled();
-        isExploreByTouchEnabled = am.isTouchExplorationEnabled();
-
-        //String jlang = sessionManager.getLanguage();
-        //Log.d("getLang", jlang);
-
-        tts = new TextToSpeech(MainActivity.this, new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int i) {
-                if (i == TextToSpeech.SUCCESS) {
-                    checkLanguages(isAccessibilityEnabled, isExploreByTouchEnabled);
-                } else {
-                    Toast.makeText(MainActivity.this, "unsuccessful", Toast.LENGTH_LONG)
-                            .show();
-                }
-            }
-        });
-
         SessionManager session = new SessionManager(this);
         if(!isAnalyticsActive()){
             resetAnalytics(this, session.getCaregiverNumber().substring(1));
         }
-        if(Build.VERSION.SDK_INT > 25 &&
-                !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
+        if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
             startService(new Intent(getApplication(), JellowTTSService.class));
         }
         // broadcast receiver to get response messages from JellowTTsService.
@@ -314,68 +246,14 @@ public class MainActivity extends AppCompatActivity {
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES");
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_TTS_ERROR");
         registerReceiver(receiver, filter);
-       // Start measuring user app screen timer.
+        // Start measuring user app screen timer.
         startMeasuring();
+
         if(!session.getToastMessage().isEmpty()) {
             Toast.makeText(this, session.getToastMessage(), Toast.LENGTH_SHORT).show();
             session.setToastMessage("");
         }
-    }
-
-
-    private void checkLanguages(boolean isAccessibilityEnabled, boolean isExploreByTouchEnabled) {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            deviceLangLocale = tts.getDefaultVoice().getLocale();
-            Log.d("isLanguageSame D_Locale", String.valueOf(deviceLangLocale));
-            //Log.d("DEVICE LANG ", String.valueOf(deviceLangLocale));
-        } else {
-            deviceLangLocale = (tts.getLanguage());
-            Log.d("isLanguageSame D_Locale", String.valueOf(deviceLangLocale));
-        }
-        Locale en_in = new Locale("en", "in");
-        Locale en_us = new Locale("en", "us");
-        Locale en_uk = new Locale("en", "gb");
-        Locale hi_in = new Locale("hi", "in");
-        if (deviceLangLocale.equals(en_us)) {
-            //Toast.makeText(getApplicationContext(), "Lang Eng US", Toast.LENGTH_LONG).show();
-            deviceLangCode = "en".concat("-r" + "US");
-            Log.d("isLanguageSame D_LCode", deviceLangCode);
-        } else if (deviceLangLocale.equals(en_in)) {
-            //Toast.makeText(getApplicationContext(), "Lang Eng IN", Toast.LENGTH_LONG).show();
-            deviceLangCode = "en".concat("-r" + "IN");
-            Log.d("isLanguageSame D_LCode", deviceLangCode);
-
-        } else if (deviceLangLocale.equals(en_uk)) {
-            //Toast.makeText(getApplicationContext(), "Lang Eng UK", Toast.LENGTH_LONG).show();
-            //deviceLangCode = Locale.UK.getLanguage().concat("-r" + Locale.UK.getCountry());
-            deviceLangCode = "en".concat("-r" + "GB");
-            Log.d(" isLanguageSame D_LCode", deviceLangCode);
-        } else if (deviceLangLocale.equals(hi_in)) {
-            //Toast.makeText(getApplicationContext(), "Lang hindi IN", Toast.LENGTH_LONG).show();
-            deviceLangCode = "hi".concat("-r" + "IN");
-            Log.d("isLanguageSame D_LCode", deviceLangCode);
-        }
-
-        //String s = Locale.UK.getLanguage().concat("-r"+Locale.UK.getCountry());
-        // sessionManager.getLanguage().equals(s)
-        SessionManager sessionManager = new SessionManager(getApplicationContext());
-        jellow_lang = sessionManager.getLanguage();
-        boolean never_ask = sessionManager.isChangeLanguageNeverAsk();
-        Log.d("isLanguageSame J_LCode", jellow_lang);
-        Log.d("never ask", String.valueOf(never_ask));
-        if (jellow_lang.equals(deviceLangCode)) {
-            isLanguageSame = true;
-            Log.d("isLanguageSame", String.valueOf(isLanguageSame));
-        } else {
-            isLanguageSame = false;
-            Log.d("isLanguageSame", String.valueOf(isLanguageSame));
-            if (isAccessibilityEnabled && isExploreByTouchEnabled) {
-                if (!never_ask) {
-                    showChangeLanguageDialog();
-                }
-            }
-        }
-
+        getSpeechLanguage("");
     }
 
     @Override
@@ -405,6 +283,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_main_with_search, menu);
+        SessionManager session = new SessionManager(this);
+        if(session.getLanguage().equals(BN_IN))
+            menu.findItem(R.id.keyboardinput).setVisible(false);
         return true;
     }
 
@@ -430,20 +311,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, KeyboardInputActivity.class));
                 break;
             case R.id.settings:
-                startActivity(new Intent(getApplication(), SettingActivity.class));
+                startActivity(new Intent(this, SettingActivity.class));
                 break;
             case R.id.reset:
                 startActivity(new Intent(this, ResetPreferencesActivity.class));
                 break;
             case R.id.feedback:
-                AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
-                boolean isAccessibilityEnabled = am.isEnabled();
-                boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
-                if (isAccessibilityEnabled && isExploreByTouchEnabled) {
-                    startActivity(new Intent(this, FeedbackActivityTalkback.class));
-                } else {
                     startActivity(new Intent(this, FeedbackActivity.class));
-                }
                 break;
             default:
                 return super.onOptionsItemSelected(item);
@@ -477,17 +351,6 @@ public class MainActivity extends AppCompatActivity {
         mIvTTs = findViewById(R.id.ttsbutton);
         //Initially custom input text speak button is invisible
         mIvTTs.setVisibility(View.INVISIBLE);
-
-        ViewCompat.setAccessibilityDelegate(mIvLike, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvYes, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvMore, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvDontLike, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvNo, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvLess, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvKeyboard, new TalkbackHints_SingleClick());
-        ViewCompat.setAccessibilityDelegate(mIvHome, new TalkbackHints_SingleClick());
-        ViewCompat.setAccessibilityDelegate(mIvBack, new TalkbackHints_SingleClick());
-        ViewCompat.setAccessibilityDelegate(mIvTTs, new TalkbackHints_SingleClick());
         // Set it to null - this will make the field non-editable
         originalKeyListener = mEtTTs.getKeyListener();
         mEtTTs.setKeyListener(null);
@@ -636,6 +499,7 @@ public class MainActivity extends AppCompatActivity {
         mIvHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mUec.createSendFbEventFromTappedView(26, "", "");
                 gotoHome(false);
             }
         });
@@ -751,13 +615,13 @@ public class MainActivity extends AppCompatActivity {
                         speakSpeech(mExprBtnTxt[1]);
                         mFlgLike = 0;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","ReallyLike");
+                        mUec.createSendFbEventFromTappedView(1, "", "");
                     // if value of mFlgLike is 0, then should speak "like".
                     } else {
                         speakSpeech(mExprBtnTxt[0]);
                         mFlgLike = 1;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","Like");
+                        mUec.createSendFbEventFromTappedView(0, "", "");
                     }
                 // if value of mShouldReadFullSpeech is true, then speak associated like
                 // expression verbiage to selected category icon.
@@ -775,18 +639,16 @@ public class MainActivity extends AppCompatActivity {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(1));
                         mFlgLike = 0;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","ReallyLike");
-                        singleEvent("ExpressiveGridIcon",mLayerOneSpeech.
-                                get(mLevelOneItemPos).get(1));
+                        mUec.createSendFbEventFromTappedView(14, mSpeechTxt[mLevelOneItemPos]
+                            +"_"+mLayerOneSpeech.get(mLevelOneItemPos).get(1), "");
                     // if value of mFlgLike is 0 then Speak associated like expression
                     // verbiage to selected category icon.
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(0));
                         mFlgLike = 1;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","Like");
-                        singleEvent("ExpressiveGridIcon",mLayerOneSpeech.
-                                get(mLevelOneItemPos).get(0));
+                        mUec.createSendFbEventFromTappedView(13, mSpeechTxt[mLevelOneItemPos]
+                                +"_"+mLayerOneSpeech.get(mLevelOneItemPos).get(0), "");
                     }
                 }
             }
@@ -824,13 +686,13 @@ public class MainActivity extends AppCompatActivity {
                         speakSpeech(mExprBtnTxt[7]);
                         mFlgDntLike = 0;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","ReallyDon'tLike");
+                        mUec.createSendFbEventFromTappedView(7, "", "");
                     // if value of mFlgDntLike is 0, then should speak "don't like".
                     } else {
                         speakSpeech(mExprBtnTxt[6]);
                         mFlgDntLike = 1;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","Don'tLike");
+                        mUec.createSendFbEventFromTappedView(6, "", "");
                     }
                 // if value of mShouldReadFullSpeech is true, then speak associated don't like
                 // expression verbiage to selected category icon.
@@ -846,19 +708,19 @@ public class MainActivity extends AppCompatActivity {
                     if (mFlgDntLike == 1) {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(7));
                         mFlgDntLike = 0;
+
                         //Firebase event
-                        singleEvent("ExpressiveIcon","ReallyDon'tLike");
-                        singleEvent("ExpressiveGridIcon",mLayerOneSpeech.
-                                get(mLevelOneItemPos).get(7));
+                        mUec.createSendFbEventFromTappedView(20, mSpeechTxt[mLevelOneItemPos]
+                                +"_"+mLayerOneSpeech.get(mLevelOneItemPos).get(7), "");
                     // if value of mFlgDntLike is 0 then Speak associated don't like expression
                     // verbiage to selected category icon.
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(6));
                         mFlgDntLike = 1;
+
                         //Firebase event
-                        singleEvent("ExpressiveIcon","Don'tLike");
-                        singleEvent("ExpressiveGridIcon", mLayerOneSpeech.
-                                get(mLevelOneItemPos).get(6));
+                        mUec.createSendFbEventFromTappedView(19, mSpeechTxt[mLevelOneItemPos]
+                                +"_"+mLayerOneSpeech.get(mLevelOneItemPos).get(6), "");
                     }
                 }
             }
@@ -896,13 +758,13 @@ public class MainActivity extends AppCompatActivity {
                         speakSpeech(mExprBtnTxt[3]);
                         mFlgYes = 0;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","ReallyYes");
+                        mUec.createSendFbEventFromTappedView(3, "", "");
                     // if value of mFlgYes is 0, then should speak "yes".
                     } else {
                         speakSpeech(mExprBtnTxt[2]);
                         mFlgYes = 1;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","Yes");
+                        mUec.createSendFbEventFromTappedView(2, "", "");
                     }
                 // if value of mShouldReadFullSpeech is true, then speak associated yes
                 // expression verbiage to selected category icon.
@@ -919,18 +781,16 @@ public class MainActivity extends AppCompatActivity {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(3));
                         mFlgYes = 0;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","ReallyYes");
-                        singleEvent("ExpressiveGridIcon",mLayerOneSpeech.
-                                get(mLevelOneItemPos).get(3));
+                        mUec.createSendFbEventFromTappedView(16, mSpeechTxt[mLevelOneItemPos]
+                                +"_"+mLayerOneSpeech.get(mLevelOneItemPos).get(3), "");
                     // if value of mFlgYes is 0 then speak associated yes expression
                     // verbiage for selected category icon.
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(2));
                         mFlgYes = 1;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","Yes");
-                        singleEvent("ExpressiveGridIcon",mLayerOneSpeech.
-                                get(mLevelOneItemPos).get(2));
+                        mUec.createSendFbEventFromTappedView(15, mSpeechTxt[mLevelOneItemPos]
+                                +"_"+mLayerOneSpeech.get(mLevelOneItemPos).get(2), "");
                     }
                 }
             }
@@ -968,13 +828,13 @@ public class MainActivity extends AppCompatActivity {
                         speakSpeech(mExprBtnTxt[9]);
                         mFlgNo = 0;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","ReallyNo");
+                        mUec.createSendFbEventFromTappedView(9, "", "");
                     } else {
                         // if value of mFlgNo is 0, then should speak "no".
                         speakSpeech(mExprBtnTxt[8]);
                         mFlgNo = 1;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","No");
+                        mUec.createSendFbEventFromTappedView(8, "", "");
                     }
                 // if value of mShouldReadFullSpeech is true, then it should speak associated no
                 // expression verbiage to selected category icon.
@@ -991,18 +851,16 @@ public class MainActivity extends AppCompatActivity {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(9));
                         mFlgNo = 0;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","ReallyNo");
-                        singleEvent("ExpressiveGridIcon",mLayerOneSpeech.
-                                get(mLevelOneItemPos).get(9));
+                        mUec.createSendFbEventFromTappedView(22, mSpeechTxt[mLevelOneItemPos]
+                                +"_"+mLayerOneSpeech.get(mLevelOneItemPos).get(9), "");
                     // if value of mFlgNo is 0 then Speak associated no expression
                     // verbiage to selected category icon.
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(8));
                         mFlgNo = 1;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","No");
-                        singleEvent("ExpressiveGridIcon",mLayerOneSpeech.
-                                get(mLevelOneItemPos).get(8));
+                        mUec.createSendFbEventFromTappedView(21, mSpeechTxt[mLevelOneItemPos]
+                                +"_"+mLayerOneSpeech.get(mLevelOneItemPos).get(8), "");
                     }
                 }
             }
@@ -1040,13 +898,13 @@ public class MainActivity extends AppCompatActivity {
                         speakSpeech(mExprBtnTxt[5]);
                         mFlgMore = 0;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","ReallyMore");
+                        mUec.createSendFbEventFromTappedView(5, "", "");
                     // if value of mFlgMore is 0, then should speak "more".
                     } else {
                         speakSpeech(mExprBtnTxt[4]);
                         mFlgMore = 1;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","More");
+                        mUec.createSendFbEventFromTappedView(4, "", "");
                     }
                 // if value of mShouldReadFullSpeech is true, then it should speak associated more
                 // expression verbiage to selected category icon.
@@ -1063,18 +921,16 @@ public class MainActivity extends AppCompatActivity {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(5));
                         mFlgMore = 0;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","ReallyMore");
-                        singleEvent("ExpressiveGridIcon",mLayerOneSpeech.
-                                get(mLevelOneItemPos).get(5));
+                        mUec.createSendFbEventFromTappedView(18, mSpeechTxt[mLevelOneItemPos]
+                                +"_"+mLayerOneSpeech.get(mLevelOneItemPos).get(5), "");
                     // if value of mFlgMore is 0, then should speak "more" expression
                     // verbiage associated to selected category icon.
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(4));
                         mFlgMore = 1;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","More");
-                        singleEvent("ExpressiveGridIcon",mLayerOneSpeech.
-                                get(mLevelOneItemPos).get(4));
+                        mUec.createSendFbEventFromTappedView(17, mSpeechTxt[mLevelOneItemPos]
+                                +"_"+mLayerOneSpeech.get(mLevelOneItemPos).get(4), "");
                     }
                 }
             }
@@ -1112,13 +968,13 @@ public class MainActivity extends AppCompatActivity {
                         speakSpeech(mExprBtnTxt[11]);
                         mFlgLess = 0;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","ReallyLess");
+                        mUec.createSendFbEventFromTappedView(11, "", "");
                     // if value of mFlgLess is 0, then should speak "less".
                     } else {
                         speakSpeech(mExprBtnTxt[10]);
                         mFlgLess = 1;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","Less");
+                        mUec.createSendFbEventFromTappedView(10, "", "");
                     }
                 // if value of mShouldReadFullSpeech is true, then speak associated less
                 // expression verbiage to selected category icon.
@@ -1135,18 +991,16 @@ public class MainActivity extends AppCompatActivity {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(11));
                         mFlgLess = 0;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","ReallyLess");
-                        singleEvent("ExpressiveGridIcon",mLayerOneSpeech.
-                                get(mLevelOneItemPos).get(11));
+                        mUec.createSendFbEventFromTappedView(24, mSpeechTxt[mLevelOneItemPos]
+                                +"_"+mLayerOneSpeech.get(mLevelOneItemPos).get(11), "");
                     // if value of mFlgLess is 0 then Speak associated less expression
                     // verbiage to selected category icon.
                     } else {
                         speakSpeech(mLayerOneSpeech.get(mLevelOneItemPos).get(10));
                         mFlgLess = 1;
                         //Firebase event
-                        singleEvent("ExpressiveIcon","Less");
-                        singleEvent("ExpressiveGridIcon",mLayerOneSpeech.
-                                get(mLevelOneItemPos).get(10));
+                        mUec.createSendFbEventFromTappedView(23, mSpeechTxt[mLevelOneItemPos]
+                                +"_"+mLayerOneSpeech.get(mLevelOneItemPos).get(10), "");
                     }
                 }
             }
@@ -1223,7 +1077,7 @@ public class MainActivity extends AppCompatActivity {
         resetRecyclerAllItems();
         mActionBtnClickCount = 0;
         // set border to selected category icon
-        setMenuImageBorder(v, true);
+        setMenuImageBorder(view, true);
         // set true to speak verbiage associated with category icon
         mShouldReadFullSpeech = true;
         String title = mActionBarTitle[position];
@@ -1231,134 +1085,31 @@ public class MainActivity extends AppCompatActivity {
         // below condition is true when user tap same category icon twice.
         // i.e. user intends to open a sub-category of selected category icon.
         if (mLevelOneItemPos == position){
-            if (isAccessibilityEnabled && isExploreByTouchEnabled) //talkback on
-            {
-                showAlertDialog(position, title);
-            } else  //talkback off
-            {
-                SessionManager session = new SessionManager(this);
-                // Get icon set directory path
-                File langDir = new File(getApplicationInfo().dataDir + "/app_"+
-                        session.getLanguage()+"/drawables");
-                // If icon sets are available for level two then open selected category in level two
-                if(langDir.exists() && langDir.isDirectory()) {
-                    // create event bundle for firebase
-                    Bundle bundle = new Bundle();
-                    bundle.putString("Icon", "Opened " + mSpeechTxt[position]);
-                    bundleEvent("Grid", bundle);
-                    // send current position in recycler view of selected category icon and bread
-                    // crumb path as extra intent data to LevelTwoActivity.
-                    Intent intent = new Intent(MainActivity.this, LevelTwoActivity.class);
-                    intent.putExtra(getString(R.string.level_one_intent_pos_tag), position);
-                    intent.putExtra(getString(R.string.intent_menu_path_tag), title + "/");
-                    startActivityForResult(intent, REQ_HOME);
-                }
-                langDir = null;
+            SessionManager session = new SessionManager(this);
+            // Get icon set directory path
+            File langDir = new File(getApplicationInfo().dataDir + "/app_"+
+                    session.getLanguage()+"/drawables");
+            // If icon sets are available for level two then open selected category in level two
+            if(langDir.exists() && langDir.isDirectory()) {
+                // create event bundle for firebase
+                Bundle bundle = new Bundle();
+                bundle.putString("Icon", "Opened " + mSpeechTxt[position]);
+                bundleEvent("Grid", bundle);
+
+                // send current position in recycler view of selected category icon and bread
+                // crumb path as extra intent data to LevelTwoActivity.
+                Intent intent = new Intent(MainActivity.this, LevelTwoActivity.class);
+                intent.putExtra(getString(R.string.level_one_intent_pos_tag), position);
+                intent.putExtra(getString(R.string.intent_menu_path_tag), title + "/");
+                startActivityForResult(intent, REQ_HOME);
             }
         }else {
             speakSpeech(mSpeechTxt[position]);
             // create event bundle for firebase
-            Bundle bundle = new Bundle();
-            bundle.putString("Icon", mSpeechTxt[position]);
-            bundleEvent("Grid", bundle);
+            mUec.createSendFbEventFromTappedView(12, mSpeechTxt[position], "");
         }
         mLevelOneItemPos = mRecyclerView.getChildLayoutPosition(view);
         mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
-    }
-
-    private void showAlertDialog(final int position, final String title) {
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
-        View mView = getLayoutInflater().inflate(R.layout.dialog_layout, null);
-
-        Button enterCategory = mView.findViewById(R.id.enterCategory);
-        ImageView ivLike = mView.findViewById(R.id.ivlike);
-        ImageView ivYes = mView.findViewById(R.id.ivyes);
-        ImageView ivAdd = mView.findViewById(R.id.ivadd);
-        ImageView ivDisLike = mView.findViewById(R.id.ivdislike);
-        ImageView ivNo = mView.findViewById(R.id.ivno);
-        ImageView ivMinus = mView.findViewById(R.id.ivminus);
-        ImageView ivBack = mView.findViewById(R.id.back);
-        ImageView ivHome = mView.findViewById(R.id.home);
-        ImageView ivKeyboard = mView.findViewById(R.id.keyboard);
-        ViewCompat.setAccessibilityDelegate(enterCategory, new TalkbackHints_SingleClick());
-        ImageView[] btns = {ivLike, ivYes, ivAdd, ivDisLike, ivNo, ivMinus, ivBack, ivHome, ivKeyboard};
-        for (ImageView btn : btns) {
-            ViewCompat.setAccessibilityDelegate(btn, new TalkbackHints_SingleClick());
-        }
-        mBuilder.setView(mView);
-        final AlertDialog dialog = mBuilder.create();
-
-        enterCategory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, LevelTwoActivity.class);
-                intent.putExtra("mLevelOneItemPos", position);
-                intent.putExtra("selectedMenuItemPath", title + "/");
-                startActivityForResult(intent, REQ_HOME);
-                dialog.dismiss();
-            }
-        });
-        ivLike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mIvLike.performClick();
-            }
-        });
-        ivYes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mIvYes.performClick();
-            }
-        });
-        ivAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mIvMore.performClick();
-            }
-        });
-        ivDisLike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mIvDontLike.performClick();
-            }
-        });
-        ivNo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mIvNo.performClick();
-            }
-        });
-        ivMinus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mIvLess.performClick();
-            }
-        });
-        ivBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mIvBack.performClick();
-                dialog.dismiss();
-            }
-        });
-        ivHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mIvHome.performClick();
-                dialog.dismiss();
-            }
-        });
-        ivKeyboard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mIvKeyboard.performClick();
-                dialog.dismiss();
-            }
-        });
-        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation_2; //style id
-        dialog.show();
-        dialog.getWindow().setLayout(1800,1000);
-
     }
 
     /**
@@ -1523,7 +1274,7 @@ public class MainActivity extends AppCompatActivity {
      * </p>
      * */
     private void setMenuImageBorder(View recyclerChildView, boolean setBorder) {
-        GradientDrawable gd = (GradientDrawable) recyclerChildView.findViewById(R.id.borderView).getBackground();
+         GradientDrawable gd = (GradientDrawable) recyclerChildView.findViewById(R.id.borderView).getBackground();
         if(setBorder){
             // mActionBtnClickCount = 0, brown color border is set.
             if (mActionBtnClickCount > 0) {
@@ -1608,12 +1359,18 @@ public class MainActivity extends AppCompatActivity {
                     // or   2) app language is not english India and
                     //         app language and Text-to-speech language are different then
                     //         show error toast.
-                    if(((userLang.equals("en-rIN") && !mSysTtsReg.equals("hi-rIN"))
-                            || (!userLang.equals("en-rIN") && !userLang.equals(mSysTtsReg)))) {
+                    if((Build.VERSION.SDK_INT < 21) &&
+                            ((userLang.equals(ENG_IN) && !mSysTtsReg.equals(HI_IN))
+                        || (userLang.equals(BN_IN) && !mSysTtsReg.equals(BN_IN)
+                             && !(mSysTtsReg.equals(BE_IN) )
+                                || (!userLang.equals(ENG_IN) &&
+                            ! userLang.equals(BN_IN) && !userLang.equals(mSysTtsReg))))) {
+
                         Toast.makeText(context, getString(R.string.speech_engin_lang_sam),
                                 Toast.LENGTH_LONG).show();
                         session.setLangSettingIsCorrect(false);
                     }
+
                     break;
             }
         }

@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="ratings">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-    </string-array>
     <string name="app_name">Jellow</string>
     <string name="action_settings">Settings</string>
     <string name="Profile">Profile</string>
@@ -30,18 +23,6 @@
         <item>O-ve</item>
     </string-array>
 
-    <string-array name="bloodgroup_talkback">
-        <item>not selected</item>
-        <item>A positive</item>
-        <item>A negative</item>
-        <item>B positive</item>
-        <item>B negative</item>
-        <item>AB positive</item>
-        <item>AB negative</item>
-        <item>O positive</item>
-        <item>O negative</item>
-    </string-array>
-
     <string-array name="picture_view_mode">
         <item>Picture + Text</item>
         <item>Picture only</item>
@@ -52,7 +33,6 @@
         <item>9</item>
     </string-array>
 
-    <string name="change_language_line1">You can download upto 3 languages into the application</string>
     <string name="change_language_line2">Step 1: Select any downloaded language from the dropdown below:</string>
     <string name="change_language_line3">You can download new languages by clicking the \'Add Language\' button and remove already downloaded languages by clicking the \'Delete Language\' button</string>
     <string name="simple_ime">Jellow Keyboard</string>
@@ -79,10 +59,10 @@
     <string name="demoTtsSpeech">Hello! you are using Jellow Communicator.</string>
     <string name="savedSettingsMessage">Settings saved.</string>
     <string name="languageChanged">Language Changed</string>
+    <string name="no_more_lang_2_add">No more languages to add</string>
     <string name="checkConnectivity">Please check Internet connectivity</string>
     <string name="languageCurrentlyInUse">Language is currently in use</string>
     <string name="languageRemoved">Language removed</string>
-    <string name="languageLimitExceeded">Delete a language to add new language</string>
 
 
     <string name="menuProfile">Profile</string>
@@ -91,6 +71,7 @@
     <string name="menuKeyboardInput">Keyboard Control</string>
     <string name="menuResetPref">Reset Preferences</string>
     <string name="menuFeedback">Feedback</string>
+    <string name="menuUserRegistration">Registration Page</string>
 
     <string name="endString"> </string>
 
@@ -120,6 +101,7 @@
     <string name="activate">ACTIVATE</string>
     <string name="changeLanguage">CHANGE LANGUAGE</string>
     <string name="download">DOWNLOAD</string>
+    <string name="cancel">CANCEL</string>
     <string name="keyboardControl">Keyboard Control:</string>
     <string name="keyboardControlTxt">To enable a keyboard of your choice and make it as default, you need to complete 2 steps:</string>
     <string name="step1">Step 1: Enable Keyboard from device settings</string>
@@ -150,90 +132,9 @@
     <string name="yes">yes</string>
     <string name="no">no</string>
     <string name="iconsHasBeenReset">Preferences have been reset.</string>
-    <string name="about_jellow">
-        <![CDATA[
-        <head>
-            <style>
-                    li,p,font  {    font-size: 2.2vw; }
-                    ul { padding-left:20px; }
-            </style>
-        </head>
-        <body bgcolor="#F7F3C6" text="#414042">
-
-<p><strong>&nbsp;General Information</strong></p>
-<ul>
-<li>Jellow is a communicator using icons to enable speech and can be used by those learning to speak or those who have difficulty with speech.</li><br/>
-<li>It is developed at IDC School of Design at the Indian Institute of Technology Bombay located in Mumbai.</li><br/>
-<li>A novel Visual Emotional Language Protocol or VELP was conceived and developed by the project investigators in order to enhance the language ability of Jellow. VELP represents the 6 expressive icons that form the core of the interface.</li><br/>
-<li>Using these core icons, the child can communicate their likes, dislikes, and needs with others.</li><br/>
-<li>Jellow is conceived as children-friendly with an easy-to-learn interface.</li><br/>
-<li>The application is optimized for Android tablets.</li><br/>
-<li>Jellow is currently available in English and Hindi.</li><br/>
-</ul>
-
-</ul>
-<p><strong>&nbsp;Software Version: 1.2.1</strong></p>
-
-<ul>
-<li>The current version of Jellow is 1.2.1. The application is under further development. Therefore, if you have any suggestions for us, please submit it under the feedback tab.</li><br/>
-</ul>
-
-<p><strong>&nbsp;Terms of Use</strong></p>
-<ul>
-<li>Jellow is licensed under a Creative Commons Attribution Non-commercial Share Alike 4.0 International License.</li><br/>
-<li>Work on Jellow is attributed to the Indian Institute of Technology Bombay.</li><br/>
-<li>The content in this application comprising icons, layout, architecture, visual identity, translation, and the software codes can be shared and adopted but cannot be used for commercial purposes.</li><br/>
-<li>When the content is used, we request you to acknowledge Indian Institute of Technology Bombay.</li><br/>
-<li>Jellow is available for download at <a href="http://www.jellow.org">http://www.jellow.org</a></li><br/>
-<li>If interested in further developing the code, please write to Professor Ravi Poovaiah at <span style="color: #ff6600;"><a href="mailto:ravi@iitb.ac.in">ravi@iitb.ac.in</a></span></li><br/>
-</ul>
-
-<p><strong>&nbsp;Credits:</strong></p>
-<ul>
-<li><strong>Idea Conception, Project Investigation and Supervision:</strong></li>
-<font>Prof. Ravi Poovaiah and Dr. Ajanta Sen</font>
-</ul>
-
-<ul>
-<li><strong>Initial Concept Development :</strong></li>
-<font>Anchal Kumar, Samraat Sardesai, Peter Joseph, Antara Hazarika</font>
-</ul>
-
-<ul>
-<li><strong>Software Development: </strong></li>
-<font>Rahul Rupchand Jidge, Narayana Reddy, Ayaz Alam, Harshit Budhraja, Sumeet Agrawal, Roopa Narayan Sahoo, Shruti Gupta, Aastha Joshi, Dhairya Dand, Pritam Pebam</font>
-</ul>
-
-<ul>
-<li><strong>Website Design:</strong></li>
-<font>Prof. Ravi Poovaiah, Yogesh Masaye, Sumedh Garud, Roopa Narayan Sahoo</font>
-</ul>
-
-<ul>
-<li><strong>Icons and Visual Design:</strong></li>
-<font>Vinaya Tawde, Anisha Malhotra, Nikita Iyer, Ganesh Gajjela</font>
-</ul>
-
-<ul>
-<li><strong>Translation:</strong></li>
-<font>Sachin Sonawane, Dr. Sudha Srinivasan</font>
-</ul>
-
-<ul>
-<li><strong>Research, Vocabulary Development, and User Studies:</strong></li>
-<font>Dr. Sudha Srinivasan</font>
-</ul>
-
-<ul>
-<li><strong>Support:</strong></li>
-<font>E-kalpa project sponsored under NMEICT by MHRD, Microsoft Design Expo 2004 and a 1-year seed grant through the UNICEF Innovation Fund</font>
-</ul>
-</body>
-]]>
-    </string>
     <string name="speak">Speak</string>
     <string name="stop">Stop</string>
-    <string name="about_jellow_speech">Jellow is a communicator using icons to enable speech and can be used by those learning to speak or those who have difficulty with speech. It is developed at IDC School of Design at the Indian Institute of Technology Bombay located in Mumbai. A novel Visual Emotional Language Proto call or VELP was conceived and developed by the project investigators in order to enhance the language ability of Jellow. VELP represents the 6 expressive icons that form the core of the interface. Using these core icons, the child can communicate their likes, dislikes, and needs with others. Jellow is conceived as children-friendly with an easy-to-learn interface. The application is optimized for Android tablets.Jellow is currently available in English and Hindi. The current version of Jellow is 1 point 2 point 1. The application is under further development. Therefore, if you have any suggestions for us, please submit it under the feedback tab.  Jellow is licensed under a Creative Commons Attribution Non-commercial Share Alike 4.0 International License. Work on Jellow is attributed to the Indian Institute of Technology Bombay. The content in this application comprising icons, layout, architecture, visual identity, translation, and the software codes can be shared and adopted but cannot be used for commercial purposes. When the content is used, we request you to acknowledge Indian Institute of Technology Bombay. Jellow is available for download at www dot d source.in/tool/jellow. If interested in further developing the code, please write to Professor Ravi Poovaiah at ravi @ i i t b dot a c.in</string>
+    <string name="about_jellow_speech">Jellow is a communicator using icons to enable speech and can be used by those learning to speak or those who have difficulty with speech. It is developed at IDC School of Design at the Indian Institute of Technology Bombay located in Mumbai. A novel Visual Emotional Language Proto call or VELP was conceived and developed by the project investigators in order to enhance the language ability of Jellow. VELP represents the 6 expressive icons that form the core of the interface. Using these core icons, the child can communicate their likes, dislikes, and needs with others. Jellow is conceived as children-friendly with an easy-to-learn interface. The application is optimized for Android tablets.Jellow is currently available in English,Hindi and Bengali. The current version of Jellow is _. The application is under further development. Therefore, if you have any suggestions for us, please submit it under the feedback tab.  Jellow is licensed under a Creative Commons Attribution Non-commercial Share Alike 4.0 International License. Work on Jellow is attributed to the Indian Institute of Technology Bombay. The content in this application comprising icons, layout, architecture, visual identity, translation, and the software codes can be shared and adopted but cannot be used for commercial purposes. When the content is used, we request you to acknowledge Indian Institute of Technology Bombay. Jellow is available for download at www dot jellow dot o r g. If interested in further developing the code, please write to Professor Ravi Poovaiah at ravi @ i i t b dot a c.in</string>
     <string name="catBtnDesc">Jellow has 9 central category buttons and 6 expressive side buttons:</string>
     <string name="catBtn">Category buttons:</string>
     <string name="expBtn">Expressive buttons:</string>
@@ -248,7 +149,6 @@
     <string name="expBtnSeq">Expressive buttons in the sequence:</string>
     <string name="ttsDesc">To use Jellow, please activate <b>\'Google text-to-speech (TTS)\'</b> within <b>\'Language\'</b> settings of your device. Within Google TTS settings, first change the <b>default language</b> to preferred language and then download voice for preferred language through the <b>\'Install voice data\'</b> option</string>
     <string name="softwareVersion">Software version: </string>
-    <string name="customSpeakIcon">Press here to speak above text.</string>
     <string name="string_to_speak">Enter words here to speak.</string>
     <string name="speak_written_text">Speak written text</string>
     <string name="resetPrefPointOne">Jellow remembers the user’s “most-used/preferred” icons and displays them as the top choices on the screen</string>
@@ -290,8 +190,9 @@
     <string name="enable_calling" translatable="false">com.dsource.idc.jellow.enable_calling</string>
     <string name="random_val" translatable="false">com.dsource.idc.jellow.random_val</string>
     <string name="string_msg" translatable="false">com.dsource.idc.jellow.string_message</string>
-    <string name="updated_user_data_on_firebase" >com.dsource.idc.jellow.update_on_fb</string>
-    <string name="last_crash_reported" >com.dsource.idc.jellow.last_crash_reported</string>
+    <string name="updated_user_data_on_firebase"  translatable="false">com.dsource.idc.jellow.update_on_fb</string>
+    <string name="tts_default_name" translatable="false">com.dsource.idc.jellow.tts_default_lang_name</string>
+    <string name="last_crash_reported" translatable="false">com.dsource.idc.jellow.last_crash_reported</string>
     <string name="txt_registration_jellowCalluDesc">(This is how Jellow calls you)</string>
     <string name="txt_registration_emergencynoDesc">(To be used for correspondence in case of an emergency involving the child.)</string>
     <string name="txt_registration_emailDesc">(To notify you about the release of Jellow updates)</string>
@@ -327,7 +228,7 @@
     <string name="groupParentOnly" translatable="false">Parent</string>
     <string name="groupTeacherOnly" translatable="false">Therapist</string>
     <string name="invalid_usergroup">Please choose user group.</string>
-    <string name="txtEnableBuiltInCalling">Enable calling from Jellow</string>
+    <string name="txtEnableBuiltInCalling">Enable emergency calling from Jellow</string>
     <string name="downloadableLang">Downloadable Languages</string>
     <string name="downloadedLang">Downloaded Languages</string>
     <string name="remove">Remove</string>
@@ -345,7 +246,6 @@
     <string name="level_2_item_pos_tag" translatable="false">mLevelTwoItemPos</string>
     <string name="first_time_login" translatable="false">create_database</string>
     <string name="less">less</string>
-
 
     <!--Strings related to the Searching capability
     @AyazAlam
@@ -365,4 +265,91 @@
     <string name="goto_home" translatable="false">goto_home</string>
     <string name="info">General Information</string>
 
+
+    <!--About Jellow strings-->
+    <string name="about_je_intro1">Jellow is a communicator using icons to enable speech and can be used by those learning to speak or those who have difficulty with speech.</string>
+    <string name="about_je_intro2">It is developed at IDC School of Design at the Indian Institute of Technology Bombay located in Mumbai.</string>
+    <string name="about_je_intro3">A novel Visual Emotional Language Protocol or VELP was conceived and developed by the project investigators in order to enhance the language ability of Jellow. VELP represents the 6 expressive icons that form the core of the interface.</string>
+    <string name="about_je_intro4">Using these core icons, the child can communicate their likes, dislikes, and needs with others.</string>
+    <string name="about_je_intro5">Jellow is conceived as children-friendly with an easy-to-learn interface.</string>
+    <string name="about_je_intro6">The application is optimized for Android tablets.</string>
+    <string name="about_je_intro7">Jellow is currently available in English, Hindi and Bengali.</string>
+    <string name="software_info">Software Version: _</string>
+    <string name="about_je_intro8">The current version of Jellow is _. The application is under further development. Therefore, if you have any suggestions for us, please submit it under the feedback tab."</string>
+    <string name="terms_of_use">Terms of Use</string>
+    <string name="about_je_intro9">Jellow is licensed under a Creative Commons Attribution Non-commercial Share Alike 4.0 International License.</string>
+    <string name="about_je_intro10">Work on Jellow is attributed to the Indian Institute of Technology Bombay.</string>
+    <string name="about_je_intro11">The content in this application comprising icons, layout, architecture, visual identity, translation, and the software codes can be shared and adopted but cannot be used for commercial purposes.</string>
+    <string name="about_je_intro12">When the content is used, we request you to acknowledge Indian Institute of Technology Bombay.</string>
+    <string name="about_je_intro13">Jellow is available for download at</string>
+    <string name="about_je_link" translatable="false">http://www.jellow.org</string>
+    <string name="about_je_intro14">If interested in further developing the code, please write to Professor Ravi Poovaiah at</string>
+    <string name="credits">Credits:</string>
+    <string name="about_je_intro15">Idea Conception, Project Investigation and Supervision:</string>
+    <string name="about_je_intro16">Prof. Ravi Poovaiah and Dr. Ajanta Sen</string>
+    <string name="about_je_intro17">Initial Concept Development:</string>
+    <string name="about_je_intro18">Anchal Kumar, Samraat Sardesai, Peter Joseph, Antara Hazarika</string>
+    <string name="about_je_intro19">Software Development:</string>
+    <string name="about_je_intro20">Rahul Rupchand Jidge, Narayana Reddy, Nikhil Ahirrao, Ayaz Alam Harshit Budhraja, Sumeet Agrawal, Roopa Narayan Sahoo, Shruti Gupta, Aastha Joshi, Dhairya Dand, Pritam Pebam</string>
+    <string name="about_je_intro21">Website Design:</string>
+    <string name="about_je_intro22">Prof. Ravi Poovaiah, Yogesh Masaye, Sumedh Garud, Roopa Narayan Sahoo</string>
+    <string name="about_je_intro23">Icons, Visual Design and Voice:</string>
+    <string name="about_je_intro24">Vinaya Tawde, Anisha Malhotra, Simone Sen, Nikita Iyer, Ganesh Gajjela</string>
+    <string name="about_je_intro25">Translation:</string>
+    <string name="about_je_intro26">Rupak Misra, Sachin Sonawane, Dr. Sudha Srinivasan</string>
+    <string name="about_je_intro27">Research, Vocabulary Development, and User Studies:</string>
+    <string name="about_je_intro28">Dr. Sudha Srinivasan</string>
+    <string name="about_je_intro29">Support:</string>
+    <string name="about_je_intro30">E-kalpa project sponsored under NMEICT by MHRD, Microsoft Design Expo 2004 and a 1-year seed grant through the UNICEF Innovation Fund</string>
+
+    <!--Content description-->
+    <string name="language_download_in_process">Language download in process</string>
+    <string name="child_s_name">child\'s name</string>
+    <string name="caregiver_s_contact_number">caregiver\'s contact number</string>
+    <string name="user_s_group">user\'s group</string>
+    <string name="enter_caregiver_s_contact_number">enter caregiver\'s contact number</string>
+    <string name="enter_home_address">enter home address</string>
+    <string name="email_address">email address</string>
+    <string name="enter_caregiver_s_email_address">enter caregiver\'s email address</string>
+    <string name="please_wait_as_jellow_loads">please wait as jellow loads</string>
+    <string name="category_cd">The image shows a screenshot of the home page of Jellow. The home page contains a central grid of 9 icons called category buttons that are arranged in 3 rows and 3 columns. The 9 category buttons are “Greet and feel”, “Daily activities”, “Eating”, “Fun”, “Learning”, “People”, “Places, “Time and weather”, and “Help”. Below the category buttons are 3 navigation buttons of “Back”, “Home” and “keyboard” arranged in that order at the bottom of the home screen. On the right and left sides of the central category icons are 3 expressive icons each. To the left of the central grid are 3 expressive buttons of “Like”, “Yes” and “More” arranged from top to bottom in that order. To the right of the central grid, are the remaining 3 expressive buttons of “Don’t like”, “No” and “Less” arranged from top to bottom. On the top right corner of the home screen is visible a settings icon. In this image the central grid of 9 icons has been highlighted with all other buttons faded out.</string>
+    <string name="expressive_cd">This image again shows the screenshot of the home page of Jellow. In this image, the 6 expressive buttons arranged as 3 each of either side of the central category buttons have been highlighted with all other buttons faded out. To the left of the central grid of category buttons, arranged from top to bottom are the 3 expressive buttons of “Like” represented by a “Smiley face” icon, “Yes” represented by a “check mark” icon, and “More” represented by a “Plus sign” icon. To the right of the category buttons, arranged from top to bottom are the expressive icons of “Don’t like” represented by a sad face” icon, “No” represented by the “cross” icon and “Less” represented by the “Minus sign” icon. Also labeled in the image are the 3 navigational buttons at the bottom of the screen. From left to right these are “Back”, “Home”, and “Keyboard”.</string>
+    <string name="pic4">This image has the home screen of Jellow with only 2 icons of “Eating” and “Yes” highlighted. The rest of the buttons are faded out. The image shows that to speak using Jellow, user has to first click on any category button, for instance, “Eating” and then on an expressive button, for example, “Yes”. In this way the user can speak using Jellow</string>
+    <string name="pic5">This image has the home screen of Jellow with only the icon for “Eating” highlighted. The rest of the buttons on the level 1 screen are faded out. The image shows a finger double-clicking on the “Eating” icon to access sub-categories within this main category.</string>
+    <string name="pic6">This image shows a screenshot of Jellow sub-categories accessed by double-clicking on the “Eating” icon as shown in the image above. The Level 2 sub-category icons visible in the central grid arranged in a 3 by 3 grid format are “Breakfast”, “Lunch/Dinner”, “Sweets”, “Snacks”, “Fruits”, “Drinks”, “Cutlery”, and “Add-ons”. The image shows the user’s finger double-clicking on “Breakfast” icon to access further sub-options.</string>
+    <string name="pic7">This image shows a screenshot of the Level 3 screen accessed by clicking on the “Breakfast” sub-category icon within the main category of “Eating”. The central grid icons visible on this screen are “Bread”, “Cornflakes”, “Aaloo Poori”, “Eggs”, “Poha””, “Upma”, “Khichdi”, and “Idli”. In addition the expressive icons on either sides of the screen, the navigational buttons at the bottom of the screen, and settings icon on the top right corner of the screen are also visible.</string>
+    <string name="pic8">This image shows the home screen of Jellow with a drop-down at the top right corner of Jellow. This drop-down shows options of “Profile”, “About Jellow”, “Tutorial”, “Keyboard Control”, “Language”, “Settings”, “Reset preferences”, and “Feedback”. By clicking on any of these options the user can customize the app’s settings to their needs.</string>
+    <string name="pic9">This is a screenshot of a sequential activity within Jellow. The image specifically shows the “Toilet” sequence that can be accessed within the “Daily activities” main category. The screen shows icons of 3 sequential steps involved in going to the toilet. Step 1 is “Pulling pants down”, Step 2 is “Sit on toilet”, and Step 3 is “Wash bottom”. There are arrows between these individual icons to indicate the sequential nature of the process. Below the 3 sequence icons are 2 buttons of “Previous” and “Next”. The “Previous” button is disabled since this is the first screen of steps within the “Toilet” sequence. A finger is shown clicking on the “Next” button in order to move to the next screen depicting the next set of steps within this sequence. The expressive buttons are not visible in this image. The navigational buttons of “Back”, “Home”, and “Keyboard” are visible at the bottom of the screen.</string>
+    <string name="pic10">This image is the same as the one shown above depicting the first 3 steps within the “Toilet” sequence within “Daily activities”. However in this image, the user’s finger is seen clicking on the Step 2 icon corresponding to “Sit on toilet”. By clicking on this icon, the expressive buttons are now visible on either sides of the screen within the application.</string>
+    <string name="gtts1">The image is made up of 3 screenshots of the “Text to speech output” and “Google TTS voice data” settings within a user’s device. In the first image corresponding to “Text-to-speech output”, there are 2 preferred engines visible, first, the “Samsung Text-to-Speech engine” and second, the “Google Text-to-Speech engine”. The user is seen to select the “Google Text-to-Speech engine”as the first step.</string>
+    <string name="gtts2">The second image corresponds to the second step in this process where the user is seen to now click on the “Gear” symbol corresponding to the “Settings” of the “Google Text-to-Speech engine”</string>
+    <string name="gtts3">The third image is the third step in this process where now the user is at the “Google TTS voice data” screen. This screen provides multiple voice options including “French (France)”, “German (Germany)”, “Hindi (India)”, “Hungarian (Hungary)”, and “Indonesian (Indonesia)”. The “Hindi (India) voice” option is highlighted and shows an option of “Voice set 1” with a size of 19MB that is available for download. The user’s finger is seen to click on the download icon for the voice set 1 for the “Hindi (India)voice”.</string>
+    <string name="enter_child_s_name">Enter child\'s name</string>
+    <string name="caregiver_s_contact_number_other_than_this_device_s_sim_number">Caregiver\'s Contact number other than this device\'s sim number</string>
+    <string name="select_country_code">select country code</string>
+    <string name="caregiver_s_email_address">caregiver\'s email address</string>
+    <string name="like">like</string>
+    <string name="more">more</string>
+    <string name="dont_like">dont like</string>
+    <string name="back">back</string>
+    <string name="enter_category">ENTER CATEGORY</string>
+    <string name="intro_cd">The image shows a screenshot of the home page of Jellow. The home page contains a central grid of 9 icons called category buttons that are arranged in 3 rows and 3 columns. The 9 category buttons are “Greet and feel”, “Daily activities”, “Eating”, “Fun”, “Learning”, “People”, “Places, “Time and weather”, and “Help”. Below the category buttons are 3 navigation buttons of “Back”, “Home” and “keyboard” arranged in that order at the bottom of the home screen. On the right and left sides of the central category icons are 3 expressive icons each. To the left of the central grid are 3 expressive buttons of “Like”, “Yes” and “More” arranged from top to bottom in that order. To the right of the central grid, are the remaining 3 expressive buttons of “Don’t like”, “No” and “Less” arranged from top to bottom. On the top right corner of the home screen is visible a settings icon. In this image the central grid of 9 icons has been highlighted with all other buttons faded out.</string>
+    <string name="intro2_cd">This image has the home screen of Jellow with only 2 icons of “Eating” and “Yes” highlighted. The rest of the buttons are faded out. The image shows that to speak using Jellow, user has to first click on any category button, for instance, “Eating” and then on an expressive button, for example, “Yes”. In this way the user can speak using Jellow.</string>
+    <string name="intro3_cd">This image shows a screenshot of Jellow sub-categories within the “Eating” category. The icons visible in the central grid arranged in a 3 by 3 grid format are “Breakfast”, “Lunch/Dinner”, “Sweets”, “Snacks”, “Fruits”, “Drinks”, “Cutlery”, and “Add-ons”. The image shows the user’s finger double-clicking on “Breakfast” icon to access further sub-options.</string>
+    <string name="intro4_cd">This image shows the home screen of Jellow with a drop-down at the top right corner of Jellow. This drop-down shows options of “Profile”, “About Jellow”, “Tutorial”, “Keyboard Control”, “Language”, “Settings”, “Reset preferences”, and “Feedback”. By clicking on any of these options the user can customize the app’s settings to their needs.</string>
+    <string name="intro5_cd">This image again shows the screenshot of the home page of Jellow. In this image, the 6 expressive buttons arranged as 3 each of either side of the central category buttons have been highlighted with all other buttons faded out. To the left of the central grid of category buttons, arranged from top to bottom are the 3 expressive buttons of “Like” represented by a “Smiley face” icon, “Yes” represented by a “check mark” icon, and “More” represented by a “Plus sign” icon. To the right of the category buttons, arranged from top to bottom are the expressive icons of “Don’t like” represented by a sad face” icon, “No” represented by the “cross” icon and “Less” represented by the “Minus sign” icon. Also labeled in the image are the 3 navigational buttons at the bottom of the screen. From left to right these are “Back”, “Home”, and “Keyboard”</string>
+    <string name="intro6_1_cd">In the first image corresponding to “Text-to-speech output”, there are 2 preferred engines visible, first, the “Samsung Text-to-Speech engine” and second, the “Google Text-to-Speech engine”. The user is seen to select the “Google Text-to-Speech engine”as the first step.</string>
+    <string name="intro6_2_cd">The second image corresponds to the second step in this process where the user is seen to now click on the “Gear” symbol corresponding to the “Settings” of the “Google Text-to-Speech engine</string>
+    <string name="intro6_3_cd">The third image is the third step in this process where now the user is at the “Google TTS voice data” screen. This screen provides multiple voice options including “French (France)”, “German (Germany)”, “Hindi (India)”, “Hungarian (Hungary)”, and “Indonesian (Indonesia)”. The “Hindi (India) voice” option is highlighted and shows an option of “Voice set 1” with a size of 19MB that is available for download. The user’s finger is seen to click on the download icon for the voice set 1 for the “Hindi (India)voice”.</string>
+    <string name="change_language">Language selected in Jellow is different from that of your device output language. Would you like to change your device language ?</string>
+    <string name="talkback_lang_diag_disable">Never Show Again</string>
+    <string name="talkback_single_click">select</string>
+    <string name="talkback_recycler_view">select category. Tap again for more options</string>
+    <string name="talkback_dropdown_menu">access countries list</string>
+    <string name="talkback_double_click">single click. Tap again to double click</string>
+    <string name="close_dialog">close dialog.</string>
+    <string name="next">next</string>
+    <string name="previous">previous</string>
+    <string name="edttxt_msg">Type here to speak</string>
+    <string name="keyboard_open">open keyboard</string>
 </resources>

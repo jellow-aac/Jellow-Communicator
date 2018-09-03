@@ -31,7 +31,6 @@
                     android:layout_marginRight="4dp"
                     android:scaleX=".7"
                     android:scaleY=".7"
-                    style="@style/defaultTextViewStyle"
                     android:text="@string/bullet"
                     android:importantForAccessibility="no" />
                 <TextView
@@ -52,7 +51,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
-                    style="@style/defaultTextViewStyle"
                     android:scaleX=".7"
                     android:scaleY=".7"
                     android:text="@string/bullet" 
@@ -73,7 +71,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
-                    style="@style/defaultTextViewStyle"
                     android:scaleX=".7"
                     android:scaleY=".7"
                     android:text="@string/bullet"

@@ -14,10 +14,10 @@ import java.util.HashMap;
 
 public class SessionManager {
 
-    public final static String ENG_US = "en-rUS";   // ENG_US -> English (United States)
-    public final static String ENG_UK = "en-rGB";   // ENG_UK -> English (United Kingdom)
-    public final static String ENG_IN = "en-rIN";   // ENG_IN -> English (India)
-    public final static String HI_IN = "hi-rIN";    // HI_IN -> Hindi
+    public final static String ENG_US = "en-rUS";
+    public final static String ENG_UK = "en-rGB";
+    public final static String ENG_IN = "en-rIN";
+    public final static String HI_IN = "hi-rIN";
     public final static String BN_IN = "bn-rIN";    // BN_IN -> Bengali
     public final static String BE_IN = "be-rIN";    // BE_IN -> Bengali (for some old API devices which return be-rIN)
 
@@ -167,6 +167,10 @@ public class SessionManager {
 
     public int getGridSize(){
         return (Integer) retrievePreferenceKeyWithValue(Integer.class.toString(), GridSize);
+    }
+
+    public boolean isGridSizeKeyExist(){
+        return mPreferences.contains(GridSize);
     }
 
     public void setSpeed(int speed){
@@ -344,7 +348,6 @@ public class SessionManager {
     public Long getLastCrashReported() {
         return ((Long) retrievePreferenceKeyWithValue(Long.class.toString(), mContext.getString(R.string.last_crash_reported)));
     }
-
 
  /**
   * Ayaz

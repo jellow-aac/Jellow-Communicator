@@ -28,6 +28,8 @@ import java.util.TimerTask;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
+import static com.dsource.idc.jellowintl.utility.Analytics.setCrashlyticsCustomKey;
+import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
 
 /**
  * Created by ekalpa on 7/12/2016.
@@ -79,7 +81,34 @@ public class SplashActivity extends AppCompatActivity {
         mExit = getString(R.string.exit);
         mErrDialogMsg = getString(R.string.err_dialog_msg);
         mExitDialogMsg = getString(R.string.exit_dialog_msg);
+        setUserParameters();
      }
+
+    private void setUserParameters() {
+        SessionManager session = new SessionManager(this);
+        final int GRID_3BY3 = 1, PICTURE_TEXT = 0;
+        if(session.isGridSizeKeyExist()) {
+            if(session.getGridSize() == GRID_3BY3){
+                setUserProperty("GridSize", "9");
+                setCrashlyticsCustomKey("GridSize", "9");
+            }else{
+                setUserProperty("GridSize", "3");
+                setCrashlyticsCustomKey("GridSize", "3");
+            }
+        }else{
+            setUserProperty("GridSize", "9");
+            setCrashlyticsCustomKey("GridSize", "9");
+        }
+
+        if(session.getPictureViewMode() == PICTURE_TEXT) {
+            setUserProperty("PictureViewMode", "PictureText");
+            setCrashlyticsCustomKey("PictureViewMode", "PictureText");
+        }else{
+            setUserProperty("PictureViewMode", "PictureOnly");
+            setCrashlyticsCustomKey("PictureViewMode", "PictureOnly");
+        }
+
+    }
 
     @Override
     protected void attachBaseContext(Context newBase) {

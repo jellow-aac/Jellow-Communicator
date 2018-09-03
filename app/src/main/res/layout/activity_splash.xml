@@ -5,7 +5,8 @@
     android:layout_gravity="center_horizontal"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
-    android:layout_marginTop="-120dp">
+    android:layout_marginTop="-120dp"
+    android:contentDescription="@string/please_wait_as_jellow_loads">
 
     <com.dsource.idc.jellowintl.PlayGifView
         android:id="@+id/viewGif"

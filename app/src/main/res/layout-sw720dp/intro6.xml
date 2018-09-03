@@ -15,7 +15,6 @@
         android:paddingLeft="32dp"
         android:paddingStart="32dp"
         android:src="@drawable/ic_chevron_left"
-        android:contentDescription="@null"
         tools:ignore="RtlSymmetry" />
     <LinearLayout
         android:layout_width="wrap_content"
@@ -30,8 +29,8 @@
             android:text="@string/txt_intro6_skipActiveTtsDesc"
             style="@style/defaultTextViewStyle"
             android:fontFamily="@font/mukta_semibold"
-            android:paddingTop="20dp"/>
-        <LinearLayout
+            android:paddingTop="20dp"
+/>        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <LinearLayout
@@ -56,7 +55,7 @@
                     android:layout_gravity="center"
                     android:src="@drawable/gtts1"
                     android:layout_weight="1"
-                    tools:ignore="ContentDescription" />
+                    android:contentDescription="@string/intro6_1_cd"/>
                 <Button
                     android:layout_margin="10dp"
                     android:layout_width="wrap_content"
@@ -88,7 +87,7 @@
                     android:layout_height="410dp"
                     android:layout_gravity="center"
                     android:src="@drawable/gtts2"
-                    tools:ignore="ContentDescription" />
+                    android:contentDescription="@string/intro6_2_cd"/>
                 <Button
                     android:layout_margin="10dp"
                     android:layout_width="wrap_content"
@@ -119,7 +118,7 @@
                     android:layout_height="410dp"
                     android:layout_gravity="center"
                     android:src="@drawable/gtts3"
-                    tools:ignore="ContentDescription" />
+                    android:contentDescription="@string/intro6_3_cd"/>
                 <Button
                     android:layout_margin="10dp"
                     android:layout_width="wrap_content"
@@ -145,6 +144,5 @@
         android:paddingRight="32dp"
         android:paddingEnd="32dp"
         android:src="@drawable/ic_chevron_right"
-        android:contentDescription="@null"
         tools:ignore="RtlSymmetry" />
 </FrameLayout>

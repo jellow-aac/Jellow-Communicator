@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ll"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F7F3C6">
     <ScrollView
@@ -61,13 +62,13 @@
                         style="@style/defaultTextViewStyle"
                         android:fontFamily="@font/mukta_semibold"
                         android:importantForAccessibility="no"/>
-                    <ImageView
+                        <ImageView
                         android:id="@+id/pic1"
                         android:layout_width="wrap_content"
                         android:layout_height="500dp"
                         android:layout_marginBottom="16dp"
                         android:layout_below="@+id/tv7"
-                        android:contentDescription="HELLO"/>
+                        android:contentDescription="@string/category_cd" />
                     <TextView
                         android:id="@+id/tv8"
                         android:layout_width="wrap_content"
@@ -83,7 +84,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="500dp"
                         android:layout_below="@+id/tv8"
-                        android:importantForAccessibility="yes"/>
+                        android:importantForAccessibility="yes"
+                        android:contentDescription="@string/expressive_cd"/>
                 </RelativeLayout>
             </LinearLayout>
 
@@ -122,7 +124,8 @@
                         android:id="@+id/pic4"
                         android:layout_width="wrap_content"
                         android:layout_height="500dp"
-                        android:layout_below="@+id/tv2"/>
+                        android:layout_below="@+id/tv2"
+                        android:contentDescription="@string/pic4" />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -169,7 +172,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="500dp"
                         android:layout_below="@+id/tv9"
-                        android:layout_marginBottom="16dp"/>
+                        android:layout_marginBottom="16dp"
+                        android:contentDescription="@string/pic5" />
                     <TextView
                         android:id="@+id/tv10"
                         android:layout_width="wrap_content"
@@ -184,7 +188,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="500dp"
                         android:layout_below="@+id/tv10"
-                        android:layout_marginBottom="16dp"/>
+                        android:layout_marginBottom="16dp"
+                        android:contentDescription="@string/pic6"/>
                     <TextView
                         android:id="@+id/tv11"
                         android:layout_width="wrap_content"
@@ -198,7 +203,8 @@
                         android:id="@+id/pic7"
                         android:layout_width="wrap_content"
                         android:layout_height="500dp"
-                        android:layout_below="@+id/tv11"/>
+                        android:layout_below="@+id/tv11"
+                        android:contentDescription="@string/pic7"/>
                 </RelativeLayout>
             </LinearLayout>
 
@@ -236,7 +242,8 @@
                         android:id="@+id/pic8"
                         android:layout_width="wrap_content"
                         android:layout_height="500dp"
-                        android:layout_below="@+id/tv4"/>
+                        android:layout_below="@+id/tv4"
+                        android:contentDescription="@string/pic8"/>
                 </RelativeLayout>
             </LinearLayout>
 
@@ -284,7 +291,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="500dp"
                         android:layout_below="@id/tv12"
-                        android:layout_marginBottom="16dp"/>
+                        android:layout_marginBottom="16dp"
+                        android:contentDescription="@string/pic9"/>
                     <TextView
                         android:id="@+id/tv13"
                         android:layout_width="wrap_content"
@@ -298,7 +306,8 @@
                         android:id="@+id/pic10"
                         android:layout_width="wrap_content"
                         android:layout_height="500dp"
-                        android:layout_below="@+id/tv13"/>
+                        android:layout_below="@+id/tv13"
+                        android:contentDescription="@string/pic10"/>
                 </RelativeLayout>
             </LinearLayout>
 
@@ -345,19 +354,22 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_weight="1"/>
+                            android:layout_weight="1"
+                            android:contentDescription="@string/gtts1" />
                         <ImageView
                             android:id="@+id/gtts2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_weight="1"/>
+                            android:layout_weight="1"
+                            android:contentDescription="@string/gtts2" />
                         <ImageView
                             android:id="@+id/gtts3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_weight="1"/>
+                            android:layout_weight="1"
+                            android:contentDescription="@string/gtts3" />
                     </LinearLayout>
 
                 </RelativeLayout>

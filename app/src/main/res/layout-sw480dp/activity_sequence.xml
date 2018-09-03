@@ -118,7 +118,8 @@
                                 android:layout_height="32dp"
                                 android:layout_gravity="center_vertical"
                                 android:clickable="false"
-                                android:background="@drawable/arrow"/>
+                                android:background="@drawable/arrow"
+                                android:importantForAccessibility="no"/>
                         </LinearLayout>
                         <TextView
                             android:id="@+id/bt1"
@@ -160,7 +161,8 @@
                                 android:layout_height="32dp"
                                 android:layout_gravity="center_vertical"
                                 android:clickable="false"
-                                android:background="@drawable/arrow"/>
+                                android:background="@drawable/arrow"
+                                android:importantForAccessibility="no"/>
                         </LinearLayout>
                         <TextView
                             android:id="@+id/bt2"
@@ -218,7 +220,8 @@
                         style="@style/customNavButtonStyle"
                         android:layout_marginLeft="12dp"
                         android:layout_marginRight="12dp"
-                        android:text="&lt;&lt;  Previous"/>
+                        android:text="&lt;&lt;  Previous"
+                        android:contentDescription="@string/previous"/>
                     <Button
                         android:id="@+id/forward"
                         android:layout_width="match_parent"
@@ -228,7 +231,8 @@
                         style="@style/customNavButtonStyle"
                         android:layout_marginLeft="12dp"
                         android:layout_marginRight="12dp"
-                        android:text="Next &gt;&gt; "/>
+                        android:text="Next &gt;&gt; "
+                        android:contentDescription="@string/next"/>
                 </LinearLayout>
             </RelativeLayout>
         </RelativeLayout>
@@ -244,19 +248,22 @@
             android:layout_width="100dp"
             android:layout_height="108dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/home"/>
+            android:src="@drawable/home"
+            android:contentDescription="@string/home"/>
         <ImageView
             android:id="@+id/keyboard"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/keyboard"
-            android:layout_toRightOf="@+id/ivhome"/>
+            android:layout_toRightOf="@+id/ivhome"
+            android:contentDescription="@string/keyboard_open"/>
         <ImageView
             android:id="@+id/ivback"
             android:layout_width="100dp"
             android:layout_height="108dp"
             android:src="@drawable/back"
-            android:layout_toLeftOf="@+id/ivhome"/>
+            android:layout_toLeftOf="@+id/ivhome"
+            android:contentDescription="@string/back"/>
     </RelativeLayout>
     <LinearLayout
         android:layout_width="460dp"
@@ -268,13 +275,15 @@
             android:layout_width="410dp"
             android:layout_height="80dp"
             android:imeOptions="flagNoExtractUi"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:contentDescription="@string/edttxt_msg"/>
         <ImageView
             android:id="@+id/ttsbutton"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/ic_search_list_speaker"
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/speak"/>
     </LinearLayout>
     <ImageView
         android:layout_width="100dp"

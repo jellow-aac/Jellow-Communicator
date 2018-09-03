@@ -15,7 +15,6 @@
         android:paddingLeft="32dp"
         android:paddingStart="32dp"
         android:src="@drawable/ic_chevron_left"
-        android:contentDescription="@null"
         tools:ignore="RtlSymmetry" />
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,11 +33,8 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:textSize="20sp"
-        android:importantForAccessibility="yes"
-            android:text="@string/txt_intro3_level2CatDesc"
-        android:contentDescription="By double clickling on a category button, user can acess further categories and
-sub categories. Swipe with single finger to go to image below.
-Swipe with two fingers to switch page."/>
+            android:importantForAccessibility="yes"
+            android:text="@string/txt_intro3_level2CatDesc"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -49,8 +45,7 @@ Swipe with two fingers to switch page."/>
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:src="@drawable/image4"
-            android:contentDescription="This image shows a screenshot of Jellow sub-categories within the “Eating” category. The icons visible in the central grid arranged in a 3 by 3 grid format are “Breakfast”, “Lunch/Dinner”, “Sweets”, “Snacks”, “Fruits”, “Drinks”, “Cutlery”, and “Add-ons”. The image shows the user’s finger double-clicking on “Breakfast” icon to access further sub-options.
-Swipe with two fingers to switch page."/>
+                android:contentDescription="@string/intro3_cd"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -67,7 +62,7 @@ Swipe with two fingers to switch page."/>
                 android:paddingLeft="64dp"
                 android:paddingRight="64dp"
                 android:textSize="20sp"
-            android:importantForAccessibility="no"
+                android:importantForAccessibility="no"
                 android:text="@string/txt_intro3_navWithJellow"/>
         </LinearLayout>
         <TextView
@@ -83,6 +78,5 @@ Swipe with two fingers to switch page."/>
         android:paddingRight="32dp"
         android:paddingEnd="32dp"
         android:src="@drawable/ic_chevron_right"
-        android:contentDescription="@null"
         tools:ignore="RtlSymmetry" />
 </FrameLayout>

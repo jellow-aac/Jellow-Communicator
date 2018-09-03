@@ -3,14 +3,12 @@ package com.dsource.idc.jellowintl;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.accessibility.AccessibilityManager;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
@@ -22,6 +20,7 @@ import com.dsource.idc.jellowintl.utility.SessionManager;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
+import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
 
 /**
  * Created by ekalpa on 15-Jun-16.
@@ -76,30 +75,39 @@ public class ResetPreferencesActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        SessionManager session = new SessionManager(this);
+        if(session.getLanguage().equals(BN_IN))
+            menu.findItem(R.id.keyboardinput).setVisible(false);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.languageSelect: startActivity(new Intent(this, LanguageSelectActivity.class)); finish(); break;
-            case R.id.profile: startActivity(new Intent(this, ProfileFormActivity.class)); finish(); break;
-            case R.id.info: startActivity(new Intent(this, AboutJellowActivity.class)); finish(); break;
-            case R.id.usage: startActivity(new Intent(this, TutorialActivity.class)); finish(); break;
-            case R.id.keyboardinput: startActivity(new Intent(this, KeyboardInputActivity.class)); finish(); break;
-            case R.id.settings: startActivity(new Intent(getApplication(), SettingActivity.class)); finish(); break;
+            case R.id.languageSelect:
+                startActivity(new Intent(this, LanguageSelectActivity.class));
+                finish(); break;
+            case R.id.profile:
+                startActivity(new Intent(this, ProfileFormActivity.class));
+                finish(); break;
+            case R.id.info:
+                startActivity(new Intent(this, AboutJellowActivity.class));
+                finish(); break;
+            case R.id.usage:
+                startActivity(new Intent(this, TutorialActivity.class));
+                finish(); break;
+            case R.id.keyboardinput:
+                startActivity(new Intent(this, KeyboardInputActivity.class));
+                finish(); break;
+            case R.id.settings:
+                startActivity(new Intent(this, SettingActivity.class));
+                finish(); break;
             case R.id.feedback:
-                AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
-                boolean isAccessibilityEnabled = am.isEnabled();
-                boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
-                if (isAccessibilityEnabled && isExploreByTouchEnabled) {
-                    startActivity(new Intent(this, FeedbackActivityTalkback.class));
-                } else {
-                    startActivity(new Intent(this, FeedbackActivity.class));
-                }
+                startActivity(new Intent(this, FeedbackActivity.class));
                 finish();
                 break;
-            case android.R.id.home: finish(); break;
+            case android.R.id.home:
+                finish(); break;
             default: return super.onOptionsItemSelected(item);
         }
         return true;
@@ -111,8 +119,7 @@ public class ResetPreferencesActivity extends AppCompatActivity {
         if(!isAnalyticsActive()) {
             resetAnalytics(this, new SessionManager(this).getCaregiverNumber().substring(1));
         }
-        if(Build.VERSION.SDK_INT > 25 &&
-                !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
+        if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
             startService(new Intent(getApplication(), JellowTTSService.class));
         }
     }

@@ -36,7 +36,7 @@
                     android:text="@string/childName"
                     android:fontFamily="@font/mukta_semibold"
                     style="@style/defaultTextViewStyle"
-                    android:contentDescription="child's name"/>
+                    android:contentDescription="@string/child_s_name"/>
                 <EditText
                     android:id="@+id/etName"
                     android:layout_width="match_parent"
@@ -71,7 +71,7 @@
                     android:text="@string/careGiverContact"
                     android:fontFamily="@font/mukta_semibold"
                     style="@style/defaultTextViewStyle"
-                    android:contentDescription="caregiver's contact number"/>
+                    android:contentDescription="@string/caregiver_s_contact_number"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -141,7 +141,7 @@
                     android:text="@string/userGroup"
                     style="@style/defaultTextViewStyle"
                     android:fontFamily="@font/mukta_semibold"
-                    android:contentDescription="user's group"/>
+                    android:contentDescription="@string/user_s_group"/>
 
                 <RadioGroup
                     android:id="@+id/radioUserGroup"

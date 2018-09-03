@@ -41,6 +41,7 @@
                     android:textColor="@color/black_eighty"
                     android:scaleX=".7"
                     android:scaleY=".7"
+                    android:importantForAccessibility="no"
                     android:text="@string/bullet"/>
                 <TextView
                     android:id="@+id/tv3"
@@ -49,28 +50,6 @@
                     android:maxLines="5"
                     android:text="@string/change_language_line3"
                     style="@style/defaultTextViewStyle"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="4dp"
-                    android:layout_marginRight="4dp"
-                    android:textColor="@color/black_eighty"
-                    android:scaleX=".7"
-                    android:scaleY=".7"
-                    android:text="@string/bullet"/>
-                <TextView
-                    android:id="@+id/tv1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLines="2"
-                    android:text="@string/change_language_line1"
-                    style="@style/defaultTextViewStyle" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -117,6 +96,7 @@
                     android:textColor="@color/black_eighty"
                     android:scaleX=".7"
                     android:scaleY=".7"
+                    android:importantForAccessibility="no"
                     android:text="@string/bullet"/>
                 <TextView
                     android:layout_width="match_parent"
@@ -146,6 +126,7 @@
                     android:layout_marginRight="4dp"
                     android:textColor="@color/black_eighty"
                     android:scaleX=".7"
+                    android:importantForAccessibility="no"
                     android:scaleY=".7"
                     android:text="@string/bullet"/>
                 <TextView
@@ -175,6 +156,7 @@
                     android:textColor="@color/black_eighty"
                     android:scaleX=".7"
                     android:scaleY=".7"
+                    android:importantForAccessibility="no"
                     android:text="@string/bullet"/>
                 <TextView
                     android:id="@+id/tv4"
@@ -214,6 +196,7 @@
                     android:layout_marginRight="4dp"
                     android:textColor="@color/black_eighty"
                     android:scaleX=".7"
+                    android:importantForAccessibility="no"
                     android:scaleY=".7"
                     android:text="@string/bullet" />
                 <TextView
@@ -277,14 +260,14 @@
                     android:textColor="@color/black_eighty"
                     android:scaleX=".7"
                     android:scaleY=".7"
+                    android:importantForAccessibility="no"
                     android:text="@string/bullet"/>
                 <TextView
                     android:id="@+id/tv6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/txtApplyChanges"
-                    style="@style/defaultTextViewStyle"
-                    android:fontFamily="@font/mukta_semibold"/>
+                    style="@style/defaultTextViewStyle"/>
             </LinearLayout>
             <Button
                 android:id="@+id/saveBut"

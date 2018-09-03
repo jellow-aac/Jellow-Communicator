@@ -26,9 +26,9 @@
     </FrameLayout>
     <TextView
         android:id="@+id/te1"
-        android:layout_width="168dp"
+        android:layout_width="132dp"
         android:layout_height="wrap_content"
-        android:text="festivals &amp; hodidays"
+        android:text="TIME AND WEATHER..."
         android:gravity="center"
         android:textSize="12sp"
         android:textAlignment="center"/>

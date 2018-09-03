@@ -47,8 +47,8 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="elevation">0dp</item>
         <item name="titleTextStyle">@style/MyTitleTextStyle</item>
-        <item name="android:height">@dimen/bar_height</item>
-        <item name="height">@dimen/bar_height</item>
+        <item name="android:height">32dp</item>
+        <item name="height">32dp</item>
     </style>
 
     <style name="MyTitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
@@ -61,6 +61,7 @@
     <style name="defaultTextViewStyle" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/black_eighty</item>
         <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/mukta_regular</item>
     </style>
 
     <style name="Material.Widget.Slider">

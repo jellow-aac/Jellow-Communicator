@@ -23,6 +23,8 @@ import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.github.paolorotolo.appintro.AppIntro;
 
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
+import static com.dsource.idc.jellowintl.utility.SessionManager.BE_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_UK;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_US;
@@ -76,8 +78,7 @@ public class Intro extends AppIntro {
     @Override
     protected void onResume() {
         super.onResume();
-        if(Build.VERSION.SDK_INT > 25 &&
-                !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE)))
+        if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE)))
             startService(new Intent(getApplication(), JellowTTSService.class));
     }
 
@@ -129,6 +130,9 @@ public class Intro extends AppIntro {
                 return "English (UK)";
             case ENG_US:
                 return "English (US)";
+            case BE_IN:
+            case BN_IN:
+                return "Bengali (IN)";
             default: return "";
         }
     }
@@ -137,7 +141,9 @@ public class Intro extends AppIntro {
         SessionManager session = new SessionManager(this);
         if(Build.VERSION.SDK_INT < 21) {
             if ((session.getLanguage().equals(ENG_IN) && mTTsDefaultLanguage.equals(HI_IN)) ||
-                (!session.getLanguage().equals(ENG_IN) && session.getLanguage().equals(mTTsDefaultLanguage))) {
+                    (!session.getLanguage().equals(ENG_IN) && session.getLanguage().equals(mTTsDefaultLanguage)) ||
+                        (session.getLanguage().equals(BN_IN) &&
+                                ( mTTsDefaultLanguage.equals(BN_IN) || (mTTsDefaultLanguage.equals(BE_IN) )))) {
                 session.setCompletedIntro(true);
                 Intent intent=new Intent(Intro.this, SplashActivity.class);
                 startActivity(intent);

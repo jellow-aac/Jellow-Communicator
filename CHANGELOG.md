@@ -1,6 +1,23 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.2.3]  -  23th, August 2018
+- This is alpha version.
+
+### Added
+- Bengali language added.
+- Places is changed and now have sub category.
+- Added new content and new icons.
+
+##FIXED
+- Issues reported on firebase.
+
+
+## [1.2.2] -  22th, June 2018
+##FIXED
+- Wifi only devices are unable to download new version. 
+
+
 ## [1.2.1]  -  20th, June 2018
 ### Added
 - Search a category icon from level 1,2,3 and activity sequence screens in the app.

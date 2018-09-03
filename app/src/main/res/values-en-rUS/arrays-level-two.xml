@@ -202,7 +202,7 @@
         <item>Theatre…</item>
         <item>Playground…</item>
         <item>Park…</item>
-        <item>Store</item>
+        <item>Store…</item>
         <item>Friend\'s House…</item>
         <item>Relative\'s House…</item>
         <item>Hospital…</item>
@@ -1468,7 +1468,7 @@
             \"I really don\'t want to go to the toilet \",
             \"I don\'t want to go to the toilet again\",
             \"I really don\'t want to go to the toilet again\"
-    ],[\"I like\",
+    ],[\"\",
             \"\",
             \"\",
             \"\",
