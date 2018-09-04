@@ -51,14 +51,16 @@ public class AdapterEditBoard extends DragSortAdapter<AdapterEditBoard.ViewHolde
     private RecyclerView mRecyclerView;
     private int dragPosition = -1;
     private View targetView = null;
+    private int GridSize = 9;
 
-    public AdapterEditBoard(RecyclerView recyclerView, List<JellowIcon> data, Context context,int Mode,View parent) {
+    public AdapterEditBoard(RecyclerView recyclerView, List<JellowIcon> data, Context context,int Mode,View parent,int GridSize) {
         super(recyclerView);
         this.data = data;
         this.Mode=Mode;
         mContext=context;
         this.parent=parent;
         this.mRecyclerView=recyclerView;
+        this.GridSize = GridSize;
     }
 
 
@@ -235,9 +237,14 @@ public class AdapterEditBoard extends DragSortAdapter<AdapterEditBoard.ViewHolde
 
     @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.custom_layout_3_icons, parent, false);
-        ViewHolder holder = new ViewHolder(this, view);
-        view.setOnLongClickListener(holder);
+        View itemView = null;
+        if(GridSize<4)
+            itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.custom_layout_3_icons, parent, false);
+        else
+            itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.custom_layout_9_icons, parent, false);
+        ViewHolder holder = new ViewHolder(this, itemView);
         return holder;
     }
 

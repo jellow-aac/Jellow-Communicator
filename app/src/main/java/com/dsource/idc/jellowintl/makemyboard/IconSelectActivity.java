@@ -272,6 +272,7 @@ public class IconSelectActivity extends AppCompatActivity {
      * @param level_2
      */
     private void prepareIconPane(int level_1,int level_2) {
+        invalidateOptionsMenu();
         iconList=new IconDatabase(this).myBoardQuery(level_1,level_2);
         iconSelectorAdapter =new IconSelectorAdapter(this,iconList,IconSelectorAdapter.ICON_SELECT_MODE);
         iconRecycler.setAdapter(iconSelectorAdapter);
@@ -280,6 +281,7 @@ public class IconSelectActivity extends AppCompatActivity {
         iconSelectorAdapter.setOnItemClickListner(new IconSelectorAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position, boolean checked) {
+                scrollCount = 0;
                 updateSelectionList(view,position,checked);
             }
         });
@@ -336,12 +338,12 @@ public class IconSelectActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 if(previousSelection!=position) {
-                    if(scrollingPopulationListener!=null)
-                        iconRecycler.getViewTreeObserver().removeOnGlobalLayoutListener(scrollingPopulationListener);
-                    if(scrollListener!=null)
-                        iconRecycler.removeOnScrollListener(scrollListener);
+                    previousSelection = position;
+                    iconRecycler.getViewTreeObserver().removeOnGlobalLayoutListener(scrollingPopulationListener);
+                    iconRecycler.removeOnScrollListener(scrollListener);
                     scrollListener=null;
                     scrollingPopulationListener=null;
+                    scrollCount = 0;
                     prepareIconPane(position, -1);
                     dropDownList = getCurrentChildren();
                     if (dropDown.getVisibility() == View.VISIBLE)
@@ -361,7 +363,7 @@ public class IconSelectActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.my_board_menu, menu);
-        if(previousSelection==5||previousSelection==6||previousSelection==8)
+        if(previousSelection==5||previousSelection==8)
             menu.findItem(R.id.filter).setVisible(false);
         return true;
     }
@@ -454,6 +456,8 @@ public class IconSelectActivity extends AppCompatActivity {
 
     private void addSearchedIcon(final JellowIcon icon) {
         int category = icon.parent0;
+        scrollCount = 0;
+        previousSelection = category;
         prepareIconPane(category,-1);
         levelSelectorAdapter.selectedPosition = icon.parent0;
         levelSelectorAdapter.notifyDataSetChanged();
@@ -508,6 +512,7 @@ public class IconSelectActivity extends AppCompatActivity {
         return scrollListener;
     }
 
+    int scrollCount = 0;
     private ViewTreeObserver.OnGlobalLayoutListener scrollingPopulationListener;
     private void setSearchHighlight(final int index) {
         Log.d("Search","Step 4: Trying to highlight : (Attaching layout listener)");
@@ -524,8 +529,17 @@ public class IconSelectActivity extends AppCompatActivity {
                     Log.d("Search","Step 6: Completed");
                 }
                 else {
-                    iconRecycler.getLayoutManager().smoothScrollToPosition(iconRecycler,null,index);
-                    Log.d("Search","Step 0: Not found, scrolling again");
+                    if(scrollCount<5) {
+                        iconRecycler.getLayoutManager().smoothScrollToPosition(iconRecycler, null, index);
+                        scrollCount++;
+                        Log.d("Search", "Step 0: Not found, scrolling again");
+                    }
+                    else {
+                        iconRecycler.removeOnScrollListener(scrollListener);
+                        scrollListener = null;
+                        iconRecycler.getViewTreeObserver().removeOnGlobalLayoutListener(scrollingPopulationListener);
+                        scrollingPopulationListener = null;
+                    }
                 }
             }
         };

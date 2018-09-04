@@ -281,7 +281,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         listView.setAdapter(adapter);
         setOnPhotoSelectListener(new MyBoards.PhotoIntentResult() {
             @Override
-            public void onPhotoIntentResult(Bitmap bitmap, int code) {
+            public void onPhotoIntentResult(Bitmap bitmap, int code,String fileName) {
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 Glide.with(AddEditIconAndCategory.this)
@@ -307,7 +307,8 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
 
                       /*
                      Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                     startActivityForResult(takePictureIntent, CAMERA_REQUEST);
+                     startActivityForRe
+                     sult(takePictureIntent, CAMERA_REQUEST);
                      */
                     }
                     else
@@ -478,7 +479,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
                 Uri uri = data.getData();
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                    mPhotoIntentResult.onPhotoIntentResult(bitmap,requestCode);
+                    mPhotoIntentResult.onPhotoIntentResult(bitmap,requestCode,null);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -487,7 +488,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
 
                 byte[] resultImage = data.getByteArrayExtra(getString(R.string.search_result));
                 bitmap = BitmapFactory.decodeByteArray(resultImage, 0, resultImage.length);
-                mPhotoIntentResult.onPhotoIntentResult(bitmap,requestCode);
+                mPhotoIntentResult.onPhotoIntentResult(bitmap,requestCode,null);
             }
 
            //
@@ -500,11 +501,11 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
                 Uri resultUri = result.getUri();
                 Bitmap bitmap1 = result.getBitmap();
                 if(bitmap1!=null)
-                mPhotoIntentResult.onPhotoIntentResult(result.getBitmap(), requestCode);
+                mPhotoIntentResult.onPhotoIntentResult(result.getBitmap(), requestCode,null);
                 else {
                     try {
                         bitmap1 = MediaStore.Images.Media.getBitmap(getContentResolver(), resultUri);
-                        mPhotoIntentResult.onPhotoIntentResult(bitmap1,requestCode);
+                        mPhotoIntentResult.onPhotoIntentResult(bitmap1,requestCode,null);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

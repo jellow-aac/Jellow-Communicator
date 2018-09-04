@@ -24,6 +24,9 @@ import com.dsource.idc.jellowintl.utility.JellowIcon;
 
 import java.util.ArrayList;
 
+import static com.dsource.idc.jellowintl.makemyboard.AdapterEditBoard.DELETE_MODE;
+import static com.dsource.idc.jellowintl.makemyboard.AdapterEditBoard.NORMAL_MODE;
+
 public class EditBoard extends AppCompatActivity {
 
     private static final int SEARCH = 123;
@@ -63,7 +66,7 @@ public class EditBoard extends AppCompatActivity {
         modelManager =new ModelManager(this,currentBoard.getBoardIconModel());
         displayList= modelManager.getLevelOneFromModel();
         initFields();
-        updateList(AdapterEditBoard.NORMAL_MODE);
+        updateList(NORMAL_MODE);
     }
 
     void updateListFromDatabase()
@@ -76,7 +79,7 @@ public class EditBoard extends AppCompatActivity {
         {
             displayList=modelManager.getLevelTwoFromModel(levelOneParent);
         }
-        updateList(AdapterEditBoard.NORMAL_MODE);
+        updateList(NORMAL_MODE);
         mRecyclerView.getLayoutManager().smoothScrollToPosition(mRecyclerView,null,displayList.size()-1);
     }
 
@@ -85,16 +88,31 @@ public class EditBoard extends AppCompatActivity {
 
     private void updateList(int Mode) {
         invalidateOptionsMenu();
-        adapterRight=new AdapterEditBoard(mRecyclerView,displayList,this,Mode,parent);
+        mRecyclerView = findViewById(R.id.recycler_view);
+        int GridSize  = currentBoard.getGridSize();
+        if(GridSize<4)
+        {
+            mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this,currentBoard.getGridSize(),3));
+        }
+        else
+        {
+            switch (GridSize)
+            {
+                case 4:mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this,2,9));break;
+                case 5:mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this,2,9));break;
+                case 6:mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this,3,9));break;
+            }
+        }
+        adapterRight=new AdapterEditBoard(mRecyclerView,displayList,this,Mode,parent,currentBoard.getGridSize());
         mRecyclerView.setAdapter(adapterRight);
         adapterRight.notifyDataSetChanged();
         adapterRight.setOnItemClickListener(new AdapterEditBoard.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 if(isDeleteModeOn)
-                notifyItemClicked(position,AdapterEditBoard.DELETE_MODE);
+                notifyItemClicked(position, DELETE_MODE);
                 else
-                    notifyItemClicked(position,AdapterEditBoard.NORMAL_MODE);
+                    notifyItemClicked(position, NORMAL_MODE);
             }
         });
         adapterRight.setOnItemMovedListener(new AdapterEditBoard.OnItemMovedListener() {
@@ -104,12 +122,14 @@ public class EditBoard extends AppCompatActivity {
             }
         });
 
-        if(Mode==AdapterEditBoard.DELETE_MODE)
+        if(Mode== DELETE_MODE)
         adapterRight.setOnItemDeleteListener(new AdapterEditBoard.OnItemDeleteListener() {
             @Override
             public void onItemDelete(View view, final int position) {
                         modelManager.deleteIconFromModel(Level,LevelOneParent,LevelTwoParent,position,currentBoard);
                         displayList.remove(position);
+                        if(displayList.size()<1&&Level!=0)
+                            onBackPressed();
                         adapterRight.notifyDataSetChanged();
             }
         });
@@ -203,7 +223,7 @@ public class EditBoard extends AppCompatActivity {
             public void onClick(View v) {
                 if(Level!=0) {
                     displayList = modelManager.getLevelOneFromModel();
-                    updateList(AdapterEditBoard.NORMAL_MODE);
+                    updateList(NORMAL_MODE);
                     Level = 0;
                     LevelOneParent = -1;
                 }
@@ -256,9 +276,9 @@ public class EditBoard extends AppCompatActivity {
                 displayList = modelManager.getLevelTwoFromModel(LevelOneParent);
                 LevelTwoParent=-1;
                 if(isDeleteModeOn)
-                    updateList(AdapterEditBoard.DELETE_MODE);
+                    updateList(DELETE_MODE);
                 else
-                    updateList(AdapterEditBoard.NORMAL_MODE);
+                    updateList(NORMAL_MODE);
                 Level--;
             }
 
@@ -268,9 +288,9 @@ public class EditBoard extends AppCompatActivity {
             displayList= modelManager.getLevelOneFromModel();
             LevelOneParent=-1;
             if(isDeleteModeOn)
-                updateList(AdapterEditBoard.DELETE_MODE);
+                updateList(DELETE_MODE);
             else
-                updateList(AdapterEditBoard.NORMAL_MODE);
+                updateList(NORMAL_MODE);
             Level--;
         }
         else if(Level==0)
@@ -293,7 +313,7 @@ public class EditBoard extends AppCompatActivity {
 
         getMenuInflater().inflate(R.menu.edit_board_menu, menu);
 
-        if(isDeleteModeOn)
+        if(isDeleteModeOn&&displayList.size()>0)
         {
             MenuItem item = menu.findItem(R.id.delete_icons);
             item.setIcon(R.drawable.ic_done);
@@ -311,7 +331,6 @@ public class EditBoard extends AppCompatActivity {
                 searchInBoard();
                 break;
             case R.id.grid_size:
-                Toast.makeText(this,"Have some issue",Toast.LENGTH_SHORT).show();
                 showGridDialog();break;
             case android.R.id.home: finish(); break;
             default:
@@ -329,10 +348,12 @@ public class EditBoard extends AppCompatActivity {
 
     boolean isDeleteModeOn=false;
     private void prepareIconDeleteMode() {
-        if(!isDeleteModeOn)
-        updateList(AdapterEditBoard.DELETE_MODE);
-        else updateList(AdapterEditBoard.NORMAL_MODE);
-        isDeleteModeOn=!isDeleteModeOn;
+        if(displayList.size()>1) {
+            if (!isDeleteModeOn)
+                updateList(DELETE_MODE);
+            else updateList(NORMAL_MODE);
+            isDeleteModeOn = !isDeleteModeOn;
+        }
     }
 
     private void showGridDialog() {
@@ -342,7 +363,9 @@ public class EditBoard extends AppCompatActivity {
             public void onGridSelectListener(int size) {
                 currentBoard.setGridSize(size);
                 new BoardDatabase(EditBoard.this).updateBoardIntoDatabase(new DataBaseHelper(EditBoard.this).getWritableDatabase(),currentBoard);
-                initFields();
+                if(isDeleteModeOn)
+                updateList(DELETE_MODE);
+                else updateList(NORMAL_MODE);
             }
         });
         dialog.show();
@@ -367,46 +390,19 @@ public class EditBoard extends AppCompatActivity {
 
         super.onActivityResult(requestCode, resultCode, data);
     }
+
     ViewTreeObserver.OnGlobalLayoutListener tempListener;
     private void highlightIcon(final ArrayList<Integer> iconPos) {
+        Log.d("SearchHighlight","Step 1: OnActivityResult->highlightIcon");
         if(iconPos.get(1)==-1)
-        {//Level One
+        {
+            //Level One
             Level = 0;
             displayList.clear();
             displayList =modelManager.getLevelOneFromModel();
-            updateList(AdapterEditBoard.NORMAL_MODE);
-           // mRecyclerView.addOnScrollListener(getListener(iconPos.get(0)));
+            updateList(NORMAL_MODE);
+            mRecyclerView.addOnScrollListener(getListener(iconPos.get(0)));
             mRecyclerView.getLayoutManager().smoothScrollToPosition(mRecyclerView,null,iconPos.get(0));
-           /*  tempListener= new ViewTreeObserver.OnGlobalLayoutListener() {
-                @Override
-                public void onGlobalLayout() {
-                    View v = mRecyclerView.getChildAt(iconPos.get(0));
-                    if (v != null) {
-                        Animation wiggle = AnimationUtils.loadAnimation(EditBoard.this,R.anim.jiggle_determinate);
-                        v.startAnimation(wiggle);
-                        mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(tempListener);
-                    }
-                    else
-                    {
-                        mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(tempListener);
-
-                    }
-                }
-            };
-            mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                @Override
-                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                    mRecyclerView.getViewTreeObserver().addOnGlobalLayoutListener(tempListener);
-                }
-
-                @Override
-                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                    super.onScrollStateChanged(recyclerView, newState);
-                }
-            });
-*/
-
-
         }
         else if(iconPos.get(2)==-1)
         {
@@ -414,7 +410,8 @@ public class EditBoard extends AppCompatActivity {
             Level = 1;
             displayList.clear();
             displayList =modelManager.getLevelTwoFromModel(iconPos.get(0));
-            updateList(AdapterEditBoard.NORMAL_MODE);
+            updateList(NORMAL_MODE);
+            mRecyclerView.addOnScrollListener(getListener(iconPos.get(1)));
             mRecyclerView.getLayoutManager().smoothScrollToPosition(mRecyclerView,null,iconPos.get(1));
 
         }
@@ -423,7 +420,8 @@ public class EditBoard extends AppCompatActivity {
             Level = 2;
             displayList.clear();
             displayList =modelManager.getLevelThreeFromModel(iconPos.get(0),iconPos.get(1));
-            updateList(AdapterEditBoard.NORMAL_MODE);
+            updateList(NORMAL_MODE);
+            mRecyclerView.addOnScrollListener(getListener(iconPos.get(2)));
             mRecyclerView.getLayoutManager().smoothScrollToPosition(mRecyclerView,null,iconPos.get(2));
 
         }
@@ -438,11 +436,16 @@ public class EditBoard extends AppCompatActivity {
         scrollListener =new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+
+                Log.d("SearchHighlight","Step 2: Scroll Listener");
                 super.onScrollStateChanged(recyclerView, newState);
                 if(newState==RecyclerView.SCROLL_STATE_DRAGGING)
                     ;//Wait untill scrolling
                 else if(newState==RecyclerView.SCROLL_STATE_IDLE)
+                {
+                    Log.d("SearchHighlight","Step 3: Scrolling Stopped");
                     setSearchHighlight(index);//Try highlighting the view after scrolling
+                }
             }};
         return scrollListener;
     }
@@ -454,24 +457,25 @@ public class EditBoard extends AppCompatActivity {
     ViewTreeObserver.OnGlobalLayoutListener populationDoneListener;
     public void setSearchHighlight(final int pos)
     {
-        mRecyclerView.getAdapter().notifyDataSetChanged();
+
+        Log.d("SearchHighlight","Step 4: setSearch "+populationDoneListener);
         populationDoneListener=new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
+
+                Log.d("SearchHighlight","Step 5: Inside OnGlobleLayout");
                 View searchedView = mRecyclerView.getChildAt(pos);
                 if(searchedView==null) {
                     mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(populationDoneListener);
                     mRecyclerView.getLayoutManager().smoothScrollToPosition(mRecyclerView,null,pos );
+                    Log.d("SearchHighlight","Step -1: Null Starting again");
                     return;
                 }
 
 
                 Animation wiggle = AnimationUtils.loadAnimation(EditBoard.this,R.anim.jiggle_determinate);
                 searchedView.startAnimation(wiggle);
-                /*
-                GradientDrawable gd = (GradientDrawable) searchedView.findViewById(R.id.borderView).getBackground();
-                gd.setColor(ContextCompat.getColor(getApplicationContext(), R.color.search_highlight));*/
-                Log.d("Ayaz", "Step 4: Background is set and removing the scrollListener");
+                Log.d("Ayaz", "Step 6: Background is set and removing the scrollListener");
                 mRecyclerView.removeOnScrollListener(scrollListener);
                 mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(populationDoneListener);
             }

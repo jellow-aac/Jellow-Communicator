@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.dsource.idc.jellowintl.Nomenclature;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.IconModel;
@@ -138,6 +139,7 @@ public class BoardSearch extends AppCompatActivity {
             public void onItemClick(View view, int position) {
 
                 JellowIcon icon=iconList.get(position);
+                String name = Nomenclature.getIconName(icon.parent0,icon.parent1,icon.parent2,BoardSearch.this);
                 if(icon.parent0!=-1) {
                     Intent returnIntent = new Intent();
                     ImageView iconImage = view.findViewById(R.id.search_icon_drawable);
@@ -146,6 +148,8 @@ public class BoardSearch extends AppCompatActivity {
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos);
                     byte[] bitmapArray = bos.toByteArray();
                     returnIntent.putExtra(getString(R.string.search_result),bitmapArray);
+                    returnIntent.putExtra("result",name);
+                    Log.d("ResultOkay",name);
                     setResult(Activity.RESULT_OK, returnIntent);
                     finish();
                 }

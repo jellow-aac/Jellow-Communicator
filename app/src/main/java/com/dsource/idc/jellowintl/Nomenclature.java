@@ -2,7 +2,6 @@ package com.dsource.idc.jellowintl;
 
 import android.content.Context;
 
-import com.dsource.idc.jellowintl.utility.IconDataBaseHelper;
 import com.dsource.idc.jellowintl.utility.JellowIcon;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
@@ -113,14 +112,6 @@ public class Nomenclature {
     }
     private static String getLevelMicellaneousCode(int i) {
         return String.format("%02d", (i+1));
-    }
-
-    private static int getNumberofIconInLevelOne(Context context)
-    {
-        IconDataBaseHelper dataBaseHelper = new IconDataBaseHelper(context);
-        //new DataBaseHelper()
-
-        return 1;
     }
 
 

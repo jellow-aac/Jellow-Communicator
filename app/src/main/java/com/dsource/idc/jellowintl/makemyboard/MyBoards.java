@@ -38,6 +38,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.dsource.idc.jellowintl.AboutJellowActivity;
 import com.dsource.idc.jellowintl.DataBaseHelper;
 import com.dsource.idc.jellowintl.FeedbackActivity;
+import com.dsource.idc.jellowintl.GlideApp;
 import com.dsource.idc.jellowintl.KeyboardInputActivity;
 import com.dsource.idc.jellowintl.LanguageSelectActivity;
 import com.dsource.idc.jellowintl.ProfileFormActivity;
@@ -47,9 +48,11 @@ import com.dsource.idc.jellowintl.SettingActivity;
 import com.dsource.idc.jellowintl.TutorialActivity;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.CustomDialog;
+import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.rey.material.app.Dialog;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -241,17 +244,34 @@ public class MyBoards extends AppCompatActivity {
         listView.setAdapter(adapter);
         setOnPhotoSelectListener(new PhotoIntentResult() {
             @Override
-            public void onPhotoIntentResult(Bitmap bitmap, int code) {
+            public void onPhotoIntentResult(Bitmap bitmap, int code,String FileName) {
 
                 bitmap = cropToSquare(bitmap);
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 50, stream);
-                Glide.with(MyBoards.this).load(stream.toByteArray())
-                        .apply(new RequestOptions().
-                                transform(new RoundedCorners(50)).
-                                error(R.drawable.ic_board_person).skipMemoryCache(true).
-                                diskCacheStrategy(DiskCacheStrategy.NONE))
-                        .into(BoardIcon);
+                if(code!=LIBRARY_REQUEST)
+                {
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 50, stream);
+                    Glide.with(MyBoards.this).load(stream.toByteArray())
+                            .apply(new RequestOptions().
+                                    transform(new RoundedCorners(50)).
+                                    error(R.drawable.ic_board_person).skipMemoryCache(true).
+                                    diskCacheStrategy(DiskCacheStrategy.NONE))
+                            .into(BoardIcon);
+                }
+                else
+                {
+                    SessionManager mSession = new SessionManager(MyBoards.this);
+                    File en_dir = MyBoards.this.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
+                    String path = en_dir.getAbsolutePath() + "/drawables";
+                    GlideApp.with(MyBoards.this)
+                            .load(path+"/"+FileName+".png")
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .skipMemoryCache(false)
+                            .centerCrop()
+                            .dontAnimate()
+                            .into(BoardIcon);
+                }
+
             }
         });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -497,7 +517,7 @@ public class MyBoards extends AppCompatActivity {
     }
     public interface PhotoIntentResult
     {
-        void onPhotoIntentResult(Bitmap bitmap,int code);
+        void onPhotoIntentResult(Bitmap bitmap,int code,String fileName);
 
     }
 
@@ -550,12 +570,15 @@ public class MyBoards extends AppCompatActivity {
                 }
 
             } else if (requestCode == LIBRARY_REQUEST) {
+                String fileName = data.getStringExtra("result");
+                if(fileName!=null)
+                    ;
                 byte[] resultImage = data.getByteArrayExtra(getString(R.string.search_result));
                 bitmap = BitmapFactory.decodeByteArray(resultImage, 0, resultImage.length);
-                mPhotoIntentResult.onPhotoIntentResult(bitmap,requestCode);
+                mPhotoIntentResult.onPhotoIntentResult(bitmap,requestCode,fileName);
             }
-
-            mPhotoIntentResult.onPhotoIntentResult(bitmap, requestCode);
+            if(requestCode!=LIBRARY_REQUEST)
+            mPhotoIntentResult.onPhotoIntentResult(bitmap, requestCode,null);
 
         }
 

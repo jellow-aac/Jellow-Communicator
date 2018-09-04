@@ -45,6 +45,5 @@
         android:buttonTint="@color/light_grey"
         android:gravity="top"
         />
-
 </RelativeLayout>
 </android.support.v7.widget.CardView>
