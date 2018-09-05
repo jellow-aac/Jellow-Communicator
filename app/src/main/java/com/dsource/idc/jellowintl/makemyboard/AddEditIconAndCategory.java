@@ -307,8 +307,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
 
                       /*
                      Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                     startActivityForRe
-                     sult(takePictureIntent, CAMERA_REQUEST);
+                     startActivityForResult(takePictureIntent, CAMERA_REQUEST);
                      */
                     }
                     else
