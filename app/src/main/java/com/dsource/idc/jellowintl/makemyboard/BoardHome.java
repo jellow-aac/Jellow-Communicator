@@ -212,12 +212,9 @@ public class BoardHome extends AppCompatActivity {
         });
         keyboardButton=findViewById(R.id.keyboard);
         keyboardButton.setAlpha(.5f);
-        speakButton =findViewById(R.id.ttsbutton);
-        edittext=findViewById(R.id.et);
-        edittext.setVisibility(View.GONE);
-        speakButton.setVisibility(View.GONE);
 
     }
+
 
     private void changeGridSize()
     {
@@ -238,15 +235,15 @@ public class BoardHome extends AppCompatActivity {
             {
                 mRecycler.setLayoutParams(defaultRecyclerParams);
             }
-            mRecycler.setLayoutManager(new GridLayoutManager(this,currentBoard.getGridSize()));
+            mRecycler.setLayoutManager(new CustomGridLayoutManager(this,currentBoard.getGridSize(),3));
         }
         else
         {
             mRecycler.setLayoutParams(defaultRecyclerParams);
             switch (GridSize)
             {
-                case 4:mRecycler.setLayoutManager(new CustomGridLayoutManager(this,2,9));break;
-                case 5:mRecycler.setLayoutManager(new CustomGridLayoutManager(this,2,9));break;
+                case 4:mRecycler.setLayoutManager(new CustomGridLayoutManager(this,2,9));mRecycler.setLayoutParams(centeredRecyclerParams);break;
+                case 5:mRecycler.setLayoutManager(new CustomGridLayoutManager(this,2,9));mRecycler.setLayoutParams(centeredRecyclerParams);break;
                 case 6:mRecycler.setLayoutManager(new CustomGridLayoutManager(this,3,9));break;
             }
         }
