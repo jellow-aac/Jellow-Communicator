@@ -75,7 +75,6 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
     private CategoryManager categoryManager;
     private LevelSelectorAdapter categoryAdapter;
     private IconSelectorAdapter iconAdapter;
-    private int previousSelection = 0;
     private ArrayList<JellowIcon> iconList;
     private RelativeLayout addCategory,addIcon,editIcon;
     private MyBoards.PhotoIntentResult mPhotoIntentResult;
@@ -190,7 +189,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         categoryAdapter.setOnItemClickListner(new LevelSelectorAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(final View view, final int position) {
-                if(previousSelection!=position) {
+                if(selectedPosition!=position) {
                             selectedPosition = position;
                             prepareIconPane(position);
                 }
