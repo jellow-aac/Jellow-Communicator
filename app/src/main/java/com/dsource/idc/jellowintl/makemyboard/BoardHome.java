@@ -13,11 +13,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.dsource.idc.jellowintl.DataBaseHelper;
@@ -27,6 +29,7 @@ import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.CustomDialog;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.ExpressiveIconManager;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.ModelManager;
+import com.dsource.idc.jellowintl.utility.CustomGridLayoutManager;
 import com.dsource.idc.jellowintl.utility.JellowIcon;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
@@ -65,11 +68,14 @@ public class BoardHome extends AppCompatActivity {
     private int expIconPosition;
     private View selectedView;
     private RecyclerView.OnScrollListener scrollListener;
+    private ViewGroup.LayoutParams defaultRecyclerParams;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_levelx_layout);
+        setContentView(R.layout.edit_board_layout);
+        findViewById(R.id.save_button).setVisibility(View.GONE);
+
         mContext=this;
         verbiageDatabase=new VerbiageDatabaseHelper(this,new DataBaseHelper(this).getWritableDatabase());
 
@@ -85,6 +91,7 @@ public class BoardHome extends AppCompatActivity {
         {
             Log.d("No board id found", boardId);
         }
+        defaultRecyclerParams = findViewById(R.id.recycler_view).getLayoutParams();
 
         currentBoard=database.getBoardById(boardId);
         getSupportActionBar().setTitle("Home");
@@ -215,15 +222,32 @@ public class BoardHome extends AppCompatActivity {
     private void changeGridSize()
     {
         adapter=new HomeAdapter(displayList,this,currentBoard.getGridSize());
-        if(currentBoard.getGridSize()<4)
-        mRecycler.setLayoutManager(new GridLayoutManager(this,currentBoard.getGridSize()));
+        //Parameters for centering the recycler view in the layout.
+        RelativeLayout.LayoutParams centeredRecyclerParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        centeredRecyclerParams.addRule(RelativeLayout.ABOVE,findViewById(R.id.relativeLayoutNavigation).getId());
+        centeredRecyclerParams.addRule(RelativeLayout.CENTER_HORIZONTAL,RelativeLayout.TRUE);
+
+        int GridSize  = currentBoard.getGridSize();
+        if(GridSize<4)
+        {
+            if(GridSize<3)
+            {
+                mRecycler.setLayoutParams(centeredRecyclerParams);
+            }
+            else
+            {
+                mRecycler.setLayoutParams(defaultRecyclerParams);
+            }
+            mRecycler.setLayoutManager(new GridLayoutManager(this,currentBoard.getGridSize()));
+        }
         else
         {
-            switch (currentBoard.getGridSize())
+            mRecycler.setLayoutParams(defaultRecyclerParams);
+            switch (GridSize)
             {
-                case 4:mRecycler.setLayoutManager(new GridLayoutManager(this,2));break;//2X2
-                case 5:break;//2X3
-                case 6:mRecycler.setLayoutManager(new GridLayoutManager(this,3));break;//3X3
+                case 4:mRecycler.setLayoutManager(new CustomGridLayoutManager(this,2,9));break;
+                case 5:mRecycler.setLayoutManager(new CustomGridLayoutManager(this,2,9));break;
+                case 6:mRecycler.setLayoutManager(new CustomGridLayoutManager(this,3,9));break;
             }
         }
         adapter.setOnDoubleTapListner(new HomeAdapter.onDoubleTapListener() {
@@ -519,15 +543,11 @@ public class BoardHome extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(!isAnalyticsActive()){
-            throw new Error("unableToResume");
-        }
         if(Build.VERSION.SDK_INT > 25 &&
                 !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
             startService(new Intent(getApplication(), JellowTTSService.class));
         }
-        // Start measuring user app screen timer .
-        startMeasuring();
+
         SessionManager session = new SessionManager(this);
         if(!session.getToastMessage().isEmpty()) {
             Toast.makeText(getApplicationContext(),

@@ -26,9 +26,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.dsource.idc.jellowintl.GlideApp;
 import com.dsource.idc.jellowintl.R;
-import com.dsource.idc.jellowintl.makemyboard.dragsorter.DragSortAdapter;
 import com.dsource.idc.jellowintl.utility.JellowIcon;
 import com.dsource.idc.jellowintl.utility.SessionManager;
+import com.makeramen.dragsortadapter.DragSortAdapter;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -126,7 +126,7 @@ public class AdapterEditBoard extends DragSortAdapter<AdapterEditBoard.ViewHolde
                 });
             }
             holder=itemView;
-            drop(itemView);
+            //drop(itemView);
 
 
 
@@ -137,8 +137,8 @@ public class AdapterEditBoard extends DragSortAdapter<AdapterEditBoard.ViewHolde
         }
 
         @Override public boolean onLongClick(@NonNull View v) {
-            //prepareDragListeners(v);
-            //startDrag();
+           // prepareDragListeners(v);
+            startDrag();
             return true;
         }
 
@@ -152,8 +152,7 @@ public class AdapterEditBoard extends DragSortAdapter<AdapterEditBoard.ViewHolde
 
         boolean draggedOut=false;
         boolean insideLayout=true;
-        void drop(final View itemView)
-        {
+        /*void drop(final View itemView) {
 
 
 
@@ -229,7 +228,7 @@ public class AdapterEditBoard extends DragSortAdapter<AdapterEditBoard.ViewHolde
                 }
             });
 
-        }
+        }*/
 
 
     }
@@ -254,13 +253,12 @@ public class AdapterEditBoard extends DragSortAdapter<AdapterEditBoard.ViewHolde
         long itemId = data.get(position).getID();
         JellowIcon thisIcon = data.get(position);
         holder.iconTitle.setText(thisIcon.IconTitle);
-      //  holder.holder.setVisibility(getDraggingId() == itemId ? View.INVISIBLE : View.VISIBLE);
+        holder.holder.setVisibility(getDraggingId() == itemId ? View.INVISIBLE : View.VISIBLE);
 
         if(thisIcon.parent0==-1)
         {
-            byte[] bitmapData=thisIcon.IconImage;//.getBytes(Charset.defaultCharset());
+            byte[] bitmapData=thisIcon.IconImage;
             Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.length);
-            //holder.iconImage.setImageBitmap(bitmap);
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
             Glide.with(mContext)

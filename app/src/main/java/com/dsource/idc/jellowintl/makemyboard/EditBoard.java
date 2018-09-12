@@ -3,15 +3,18 @@ package com.dsource.idc.jellowintl.makemyboard;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.dsource.idc.jellowintl.DataBaseHelper;
@@ -44,11 +47,17 @@ public class EditBoard extends AppCompatActivity {
     private int LevelTwoParent=-1;
     private Board currentBoard;
     private RecyclerView.OnScrollListener scrollListener;
+    private RelativeLayout.LayoutParams defaultRecyclerParams;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_board_layout);
+        //Disable Expressive Icons for this activity
+        findViewById(R.id.expressiveOne).setAlpha(.5f);
+        findViewById(R.id.expressiveTwo).setAlpha(.5f);
+
+        //Instantiating the board database object
         database=new BoardDatabase(this);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
         try{
@@ -58,6 +67,7 @@ public class EditBoard extends AppCompatActivity {
         {
             Log.d("No board id found", boardId);
         }
+
         parent=findViewById(R.id.parent);
         currentBoard=database.getBoardById(boardId);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -65,6 +75,7 @@ public class EditBoard extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_button_board);
         modelManager =new ModelManager(this,currentBoard.getBoardIconModel());
         displayList= modelManager.getLevelOneFromModel();
+        defaultRecyclerParams =(RelativeLayout.LayoutParams)findViewById(R.id.recycler_view).getLayoutParams();
         initFields();
         updateList(NORMAL_MODE);
     }
@@ -89,13 +100,27 @@ public class EditBoard extends AppCompatActivity {
     private void updateList(int Mode) {
         invalidateOptionsMenu();
         mRecyclerView = findViewById(R.id.recycler_view);
+        //Parameters for centering the recycler view in the layout.
+        RelativeLayout.LayoutParams centeredRecyclerParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        centeredRecyclerParams.addRule(RelativeLayout.ABOVE,findViewById(R.id.relativeLayoutNavigation).getId());
+        centeredRecyclerParams.addRule(RelativeLayout.CENTER_HORIZONTAL,RelativeLayout.TRUE);
+
         int GridSize  = currentBoard.getGridSize();
         if(GridSize<4)
         {
-            mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this,currentBoard.getGridSize(),3));
+            if(GridSize<3)
+            {
+                mRecyclerView.setLayoutParams(centeredRecyclerParams);
+            }
+            else
+            {
+             mRecyclerView.setLayoutParams(defaultRecyclerParams);
+            }
+            mRecyclerView.setLayoutManager(new GridLayoutManager(this,currentBoard.getGridSize()));
         }
         else
         {
+            mRecyclerView.setLayoutParams(defaultRecyclerParams);
             switch (GridSize)
             {
                 case 4:mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this,2,9));break;
