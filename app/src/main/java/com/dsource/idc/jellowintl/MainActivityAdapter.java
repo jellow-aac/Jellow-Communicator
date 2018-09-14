@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 /**
@@ -51,7 +52,13 @@ class MainActivityAdapter extends android.support.v7.widget.RecyclerView.Adapter
 
         holder.menuItemBelowText.setAllCaps(true);
         holder.menuItemBelowText.setText(mBelowTextArray[position]);
-        holder.menuItemImage.setImageDrawable(mIconArray.getDrawable(position));
+        GlideApp.with(mContext)
+                .load(mIconArray.getDrawable(position))
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(false)
+                .centerCrop()
+                .dontAnimate()
+                .into(holder.menuItemImage);
         holder.menuItemLinearLayout.setContentDescription(mBelowTextArray[position]);
     }
 

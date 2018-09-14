@@ -47,6 +47,7 @@
                     android:textSize="11sp"
                     android:text="@string/txt_intro6_ttsStep1"/>
                 <ImageView
+                    android:id="@+id/img1_intro6"
                     android:layout_width="120dp"
                     android:layout_height="150dp"
                     android:layout_marginBottom="8dp"
@@ -81,6 +82,7 @@
                     android:textSize="11sp"
                     android:text="@string/txt_intro6_step2"/>
                 <ImageView
+                    android:id="@+id/img2_intro6"
                     android:layout_width="120dp"
                     android:layout_height="150dp"
                     android:layout_marginBottom="8dp"
@@ -114,6 +116,7 @@
                     android:textSize="11sp"
                     android:text="@string/txt_intro6_step3"/>
                 <ImageView
+                    android:id="@+id/img3_intro6"
                     android:layout_width="120dp"
                     android:layout_height="150dp"
                     android:layout_marginBottom="8dp"

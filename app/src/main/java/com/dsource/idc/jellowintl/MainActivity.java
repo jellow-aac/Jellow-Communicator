@@ -53,14 +53,15 @@ public class MainActivity extends AppCompatActivity {
     private final int REQ_HOME = 0;
     private final boolean DISABLE_EXPR_BTNS = true;
 
+    /* This variable counts Text-to-speech engine synthesize process failure.*/
+    public static int sTTsNotWorkingCount;
+    public static String sCheckVoiceData;
     /* This flags are used to identify respective expressive button is pressed either
       once or twice. eg. mFlgLike used to identify Like expressive button pressed once or twice.*/
     private int mFlgLike = 0, mFlgYes = 0, mFlgMore = 0, mFlgDntLike = 0, mFlgNo = 0,
-            mFlgLess = 0;
+    mFlgLess = 0;
     /* This flag identifies which expressive button is pressed.*/
     private int mFlgImage = -1;
-    /* This variable counts Text-to-speech engine synthesize process failure.*/
-    private int mTTsNotWorkingCount = 0;
     /*Image views which are visible on the layout such as six expressive buttons, below navigation
       buttons and speak button when keyboard is open.*/
     private ImageView mIvLike, mIvDontLike, mIvYes, mIvNo, mIvMore, mIvLess,
@@ -93,8 +94,7 @@ public class MainActivity extends AppCompatActivity {
     /*Below array stores the speech text, below text, expressive button speech text,
      navigation button speech text respectively.*/
     private String[] mSpeechTxt, mExprBtnTxt, mNavigationBtnTxt, mActionBarTitle;
-    private String mActionBarTitleTxt;
-    private String mCheckVoiceData, mHome;
+    private String mActionBarTitleTxt, mHome;
 
     /*Firebase event Collector class instance.*/
     private UserEventCollector mUec;
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         // after activity restart. These variable will hold the value for variables initialized using
         // user preferred locale.
         mHome = getString(R.string.action_bar_title);
-        mCheckVoiceData = getString(R.string.txt_actLangSel_completestep2);
+        sCheckVoiceData = getString(R.string.txt_actLangSel_complete_mainscreen_msg);
 
         initializeLayoutViews();
         initializeViewListeners();
@@ -269,7 +269,11 @@ public class MainActivity extends AppCompatActivity {
 
         // Stop measuring user app screen timer.
         stopMeasuring("LevelOneActivity");
-        unregisterReceiver(receiver);
+        try{
+            unregisterReceiver(receiver);
+        } catch(IllegalArgumentException | NullPointerException | IllegalStateException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -1345,9 +1349,11 @@ public class MainActivity extends AppCompatActivity {
         public void onReceive(final Context context, Intent intent) {
             switch (intent.getAction()){
                 case "com.dsource.idc.jellowintl.SPEECH_TTS_ERROR":
-                    // Text synthesize process failed third time then show TTs error.
-                    if(++mTTsNotWorkingCount > 2)
-                        Toast.makeText(context, mCheckVoiceData, Toast.LENGTH_LONG).show();
+                    //TODO: Add network check if exist ? if not found then show message "network error" or
+                    //TODO: if network exist then show message "redirect user to setting page."
+                    //Text synthesize process failed third time then show TTs error.
+                    if(++sTTsNotWorkingCount > 2)
+                        Toast.makeText(context, sCheckVoiceData, Toast.LENGTH_LONG).show();
                     break;
                 case "com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES":
                     SessionManager session = new SessionManager(context);
@@ -1370,7 +1376,6 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.LENGTH_LONG).show();
                         session.setLangSettingIsCorrect(false);
                     }
-
                     break;
             }
         }

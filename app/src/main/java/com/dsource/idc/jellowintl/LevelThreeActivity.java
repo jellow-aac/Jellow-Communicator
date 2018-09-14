@@ -1,8 +1,10 @@
 package com.dsource.idc.jellowintl;
 
 import android.app.ActivityManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.SQLException;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -169,6 +171,10 @@ public class LevelThreeActivity extends AppCompatActivity {
         if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
             startService(new Intent(getApplication(), JellowTTSService.class));
         }
+        // broadcast receiver to get response messages from JellowTTsService.
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.dsource.idc.jellowintl.SPEECH_TTS_ERROR");
+        registerReceiver(receiver, filter);
         // Start measuring user app screen timer .
         startMeasuring();
         if(!session.getToastMessage().isEmpty()) {
@@ -260,6 +266,11 @@ public class LevelThreeActivity extends AppCompatActivity {
         session.setSessionCreatedAt(sessionTime);
         // Stop measuring user app screen timer .
         stopMeasuring("LevelThreeActivity");
+        try{
+            unregisterReceiver(receiver);
+        } catch(IllegalArgumentException | NullPointerException | IllegalStateException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -1825,6 +1836,20 @@ public class LevelThreeActivity extends AppCompatActivity {
                 return i;
         }
         return -1;
-
     }
+
+    private final BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(final Context context, Intent intent) {
+            switch (intent.getAction()) {
+                case "com.dsource.idc.jellowintl.SPEECH_TTS_ERROR":
+                    //TODO: Add network check if exist ? if not found then show message "network error" or
+                    //TODO: if network exist then show message "redirect user to setting page."
+                    //Text synthesize process failed third time then show TTs error.
+                    if (++MainActivity.sTTsNotWorkingCount > 2)
+                        Toast.makeText(context, MainActivity.sCheckVoiceData, Toast.LENGTH_LONG).show();
+                    break;
+            }
+        }
+    };
 }

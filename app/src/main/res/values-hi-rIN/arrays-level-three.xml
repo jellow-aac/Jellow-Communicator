@@ -159,6 +159,7 @@
         <item>walkonsideways-01</item>
         <item>watchoutforcars-01-01-01</item>
         <item>lookleftrightbeforecrossing-01</item>
+        <item>holdhandswhilecrossing</item>
         <item>donttalkwhilefoodinmouth-01-01</item>
         <item>eaysmallbites-01</item>
         <item>throwgarbageinbin-01</item>
@@ -1010,6 +1011,7 @@
         <item>फुटपाथ पर चलिये</item>
         <item>सावधान! गाडीयाँ आ रहीं हैं!</item>
         <item>रास्ता देखें और पार करें</item>
+        <item>हाथ पकड़के रास्ता पार करें</item>
         <item>खाने के दौरान कोई बात न करें!</item>
         <item>खाना अच्छा चबाकर खाएँ</item>
         <item>कचरा डिब्बे में डालें</item>
@@ -1860,6 +1862,7 @@
         <item>कृपया  फुटपाथ पर ही चलिये</item>
         <item>कृपया रास्ते पर गाडीयों से सावधान रहीये</item>
         <item>कृपया दोनो तरफ देखके रास्ता पार करें </item>
+        <item>कृपया हाथ पकड़के रास्ता पार करें</item>
         <item>कृपया खाते समय बात न करें</item>
         <item>कृपया खाना अच्छे से चबाकर खाएँ</item>
         <item>कृपया कचरा डिब्बे में डालें</item>

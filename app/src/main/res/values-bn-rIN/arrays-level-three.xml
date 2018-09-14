@@ -159,6 +159,7 @@
     <item>walkonsideways-01</item>
     <item>watchoutforcars-01-01-01</item>
     <item>lookleftrightbeforecrossing-01</item>
+    <item>holdhandswhilecrossing</item>
     <item>donttalkwhilefoodinmouth-01-01</item>
     <item>eaysmallbites-01</item>
     <item>throwgarbageinbin-01</item>
@@ -832,8 +833,8 @@
         <item>brothersbirthday</item>
         <item>sistersbirthday</item>
         <item>friendsbirthday</item>
-        <item>grandmomsbirthday</item>
         <item>grandfathersbirthday</item>
+        <item>grandmomsbirthday</item>
         <item>unclesbirthday</item>
         <item>auntsbirthday</item>
         <item>cousinsbirthday</item>
@@ -1008,6 +1009,7 @@
     <item>ফুটপাথে হাঁটো</item>
     <item>গাড়িঃ সামলে</item>
     <item>দেখো এবং পার হও</item>
+    <item>ক্রসিং যখন হাত ধরে</item>
     <item>দয়া করে খাওয়ার সময় কোনো কথা নয়</item>
     <item>ছোটো কামড় দিয়ে খাও</item>
     <item>ময়লা ঝুড়িতে ফ্যালো</item>
@@ -1515,7 +1517,7 @@
         <item>খাবার</item>
         <item>ছুরি-চামচ</item>
         <item>মেনু</item>
-        <item>ড্রিঙ্কস/পানীয়</item>
+        <item>পানীয়</item>
     </string-array>
 
     <string-array name="arrLevelThreePlacesTheatreAdapterText">
@@ -1558,14 +1560,14 @@
         <item>বন্ধুদের সঙ্গে খ্যালো</item>
         <item>ঘরের খেলাধুলো</item>
         <item>খাবার</item>
-        <item>ড্রিঙ্কস/পানীয়</item>
+        <item>পানীয়</item>
         <item>টয়লেট</item>
     </string-array>
 
     <string-array name="arrLevelThreePlacesRelativeHouseAdapterText">
         <item>আত্মীয়দের সঙ্গে মেশো</item>
         <item>খাবার</item>
-        <item>ড্রিঙ্কস/পানীয়</item>
+        <item>পানীয়</item>
         <item>টয়লেট</item>
     </string-array>
 
@@ -1702,11 +1704,11 @@
 <item>বাবার জন্মদিন</item>
 <item>ভাইয়ের জন্মদিন</item>
 <item>বোনের জন্মদিন</item>
-<item>দিদিমার জন্মদিন</item>
+<item>বন্ধুর জন্মদিন</item>
 <item>দাদুর জন্মদিন</item>
+<item>দিদিমার জন্মদিন</item>
 <item>কাকুর জন্মদিন</item>
 <item>কাকিমার জন্মদিন</item>
-<item>মামাতো/ কাকাতো ভাইবোনের জন্মদিন</item>
 <item>মামাতো ভাইবোনের জন্মদিন</item>
 <item>শিক্ষকের জন্মদিন</item>
 </string-array>
@@ -1882,6 +1884,7 @@
     <item>দয়া করে ফুটপাথে হাঁটো</item>
     <item>দয়া করে রাস্তার গাড়িঘোড়া থেকে সামলে</item>
     <item>পার হওয়ার সময় ডান দিক এবং বাঁদিক দেখে নেবে</item>
+    <item>ক্রস করার সময় হাত ধরে রাখুন</item>
     <item>মুখে খাবার নিয়ে দয়া করে কথা বোলো না</item>
     <item>দয়া করে ছোটো কামড় দিয়ে খাও</item>
     <item>দয়া করে ময়লা ঝুড়িতে ফ্যালো</item>
@@ -2044,7 +2047,7 @@
 <string-array name="arrLevelThreeFunInDGamesSpeechText">
 <item>ধাঁধা</item>
 <item>বোর্ড গেম</item>
-<item>ব্লকস্‌</item>
+<item>ব্লক্স</item>
 <item>লেগো</item>
 <item>দাবা</item>
 <item>সাপ-সিঁড়ি</item>
@@ -2389,7 +2392,7 @@
         <item>খাবার</item>
         <item>ছুরি-চামচ</item>
         <item>মেনু</item>
-        <item>ড্রিঙ্কস/পানীয়</item>
+        <item>পানীয়</item>
     </string-array>
 
     <string-array name="arrLevelThreePlacesTheatreSpeechText">
@@ -2432,14 +2435,14 @@
         <item>বন্ধুদের সঙ্গে খ্যালো</item>
         <item>ঘরের খেলাধুলো</item>
         <item>খাবার</item>
-        <item>ড্রিঙ্কস/পানীয়</item>
+        <item>পানীয়</item>
         <item>টয়লেট</item>
     </string-array>
 
     <string-array name="arrLevelThreePlacesRelativeHouseSpeechText">
         <item>আত্মীয়দের সঙ্গে মেশো</item>
         <item>খাবার</item>
-        <item>ড্রিঙ্কস/পানীয়</item>
+        <item>পানীয়</item>
         <item>টয়লেট</item>
     </string-array>
 
@@ -2576,11 +2579,11 @@
 <item>বাবার জন্মদিন</item>
 <item>ভাইয়ের জন্মদিন</item>
 <item>বোনের জন্মদিন</item>
-<item>দিদিমার জন্মদিন</item>
+<item>বন্ধুর জন্মদিন</item>
 <item>দাদুর জন্মদিন</item>
+<item>দিদিমার জন্মদিন</item>
 <item>কাকুর জন্মদিন</item>
 <item>কাকিমার জন্মদিন</item>
-<item>মামাতো/ কাকাতো ভাইবোনের জন্মদিন</item>
 <item>মামাতো ভাইবোনের জন্মদিন</item>
 <item>শিক্ষকের জন্মদিন</item>
 </string-array>

@@ -221,7 +221,8 @@ public class AboutJellowActivity extends AppCompatActivity {
         mAppLink = getString(R.string.about_je_link);
         mIntro14 = getString(R.string.about_je_intro14);
         mIntro14 = mIntro14.concat(" "+
-                Html.fromHtml("<a href=\"mailto:ravi@iitb.ac.in\">ravi@iitb.ac.in</a>"));
+                Html.fromHtml("<a href=\"mailto:ravi@iitb.ac.in\">ravi@iitb.ac.in</a>") +
+                " / "+ Html.fromHtml("<a href=\"mailto:jellowcommunicator@gmail.com\">jellowcommunicator@gmail.com</a>"));
         mCredits = getString(R.string.credits);
         mIntro15 = getString(R.string.about_je_intro15);
         mIntro16 = getString(R.string.about_je_intro16);

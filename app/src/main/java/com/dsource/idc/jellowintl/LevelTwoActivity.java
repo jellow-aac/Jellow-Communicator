@@ -1,8 +1,10 @@
 package com.dsource.idc.jellowintl;
 
 import android.app.ActivityManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
@@ -259,6 +261,11 @@ public class LevelTwoActivity extends AppCompatActivity {
         if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
             startService(new Intent(getApplication(), JellowTTSService.class));
         }
+        // broadcast receiver to get response messages from JellowTTsService.
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.dsource.idc.jellowintl.SPEECH_TTS_ERROR");
+        registerReceiver(receiver, filter);
+
         // Start measuring user app screen timer .
         startMeasuring();
         if(!mSession.getToastMessage().isEmpty()) {
@@ -279,6 +286,11 @@ public class LevelTwoActivity extends AppCompatActivity {
 
         // Stop measuring user app screen timer .
         stopMeasuring("LevelTwoActivity");
+        try{
+            unregisterReceiver(receiver);
+        } catch(IllegalArgumentException | NullPointerException | IllegalStateException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -1991,11 +2003,7 @@ public class LevelTwoActivity extends AppCompatActivity {
         for (Integer countPeople : mArrPeoplePlaceTapCount)
             stringBuilder.append(countPeople).append(",");
         // store preference string in session preferences.
-        if(mLevelOneItemPos == CATEGORY_ICON_PEOPLE) {
-            mSession.setPeoplePreferences(stringBuilder.toString());
-        }else {
-            mSession.setPlacesPreferences(stringBuilder.toString());
-        }
+        mSession.setPeoplePreferences(stringBuilder.toString());
     }
 
     /**
@@ -2206,4 +2214,19 @@ public class LevelTwoActivity extends AppCompatActivity {
         callIntent.setData(Uri.parse(contact));
         startActivity(callIntent);
     }
+
+    private final BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(final Context context, Intent intent) {
+            switch (intent.getAction()) {
+                case "com.dsource.idc.jellowintl.SPEECH_TTS_ERROR":
+                    //TODO: Add network check if exist ? if not found then show message "network error" or
+                    //TODO: if network exist then show message "redirect user to setting page."
+                    //Text synthesize process failed third time then show TTs error.
+                    if (++MainActivity.sTTsNotWorkingCount > 2)
+                        Toast.makeText(context, MainActivity.sCheckVoiceData, Toast.LENGTH_LONG).show();
+                    break;
+            }
+        }
+    };
 }

@@ -223,31 +223,22 @@ public class SessionManager {
     }
 
     public void setPeoplePreferences(String peoplePreferences) {
-        if(getLanguage().contains("en"))
+        if(getLanguage().contains("en") || getLanguage().contains("bn"))
             storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_eng), peoplePreferences);
         else
             storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_hindi), peoplePreferences);
     }
 
     public String getPeoplePreferences() {
-        if(getLanguage().contains("en"))
+        if(getLanguage().contains("en") || getLanguage().contains("bn"))
             return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_eng));
         else
             return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_hindi));
     }
 
-    public void setPlacesPreferences(String placesPreferences) {
-        storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.places_pref_count_eng), placesPreferences);
-    }
-
-    public String getPlacesPreferences() {
-            return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.places_pref_count_eng));
-    }
-
     public void resetUserPeoplePlacesPreferences(){
         storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_eng), "");
         storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_hindi), "");
-        storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.places_pref_count_eng), "");
     }
 
     public boolean isRequiredToPerformDbOperations() {
@@ -347,6 +338,33 @@ public class SessionManager {
 
     public Long getLastCrashReported() {
         return ((Long) retrievePreferenceKeyWithValue(Long.class.toString(), mContext.getString(R.string.last_crash_reported)));
+    }
+
+    public void setLanguagePackageUpdated(boolean updateFlag) {
+        storePreferenceKeyWithValue(Boolean.class.toString(),
+                mContext.getString(R.string.updated_locale_package_from_firebase), updateFlag);
+    }
+    public boolean isLanguagePackageUpdated() {
+        return ((Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(),
+                mContext.getString(R.string.updated_locale_package_from_firebase)));
+    }
+
+    public void setWifiOnlyBtnPressedOnce(boolean isPressed) {
+        storePreferenceKeyWithValue(Boolean.class.toString(),
+            mContext.getString(R.string.wifi_only_pressed_in_LangSettings), isPressed);
+    }
+
+    public boolean isWifiOnlyBtnPressedOnce() {
+        return ((Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(),
+                mContext.getString(R.string.wifi_only_pressed_in_LangSettings)));
+    }
+
+    public void packages2Update(String packages2Download) {
+        storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.package_name_comma_separated), packages2Download);
+    }
+
+    public String getPackages2Update(){
+        return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.package_name_comma_separated));
     }
 
  /**

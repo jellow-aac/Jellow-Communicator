@@ -9,6 +9,7 @@
     <string name="saveLanguage">Apply Changes</string>
     <string name="addLanguage">Add Language</string>
     <string name="deleteLanguage">Delete Language</string>
+    <string name="editLanguage">1) Add/delete Language(s)</string>
 
 
     <string-array name="bloodgroup">
@@ -34,7 +35,7 @@
     </string-array>
 
     <string name="change_language_line2">Step 1: Select any downloaded language from the dropdown below:</string>
-    <string name="change_language_line3">You can download new languages by clicking the \'Add Language\' button and remove already downloaded languages by clicking the \'Delete Language\' button</string>
+
     <string name="simple_ime">Jellow Keyboard</string>
     <string name="subtype_en_US">Serial ABC</string>
     <string name="screen_width" translatable="false">com.dsource.idc.jellow.screen_width</string>
@@ -60,6 +61,7 @@
     <string name="savedSettingsMessage">Settings saved.</string>
     <string name="languageChanged">Language Changed</string>
     <string name="no_more_lang_2_add">No more languages to add</string>
+    <string name="no_more_lang_2_del">No more languages to delete</string>
     <string name="checkConnectivity">Please check Internet connectivity</string>
     <string name="languageCurrentlyInUse">Language is currently in use</string>
     <string name="languageRemoved">Language removed</string>
@@ -134,7 +136,7 @@
     <string name="iconsHasBeenReset">Preferences have been reset.</string>
     <string name="speak">Speak</string>
     <string name="stop">Stop</string>
-    <string name="about_jellow_speech">Jellow is a communicator using icons to enable speech and can be used by those learning to speak or those who have difficulty with speech. It is developed at IDC School of Design at the Indian Institute of Technology Bombay located in Mumbai. A novel Visual Emotional Language Proto call or VELP was conceived and developed by the project investigators in order to enhance the language ability of Jellow. VELP represents the 6 expressive icons that form the core of the interface. Using these core icons, the child can communicate their likes, dislikes, and needs with others. Jellow is conceived as children-friendly with an easy-to-learn interface. The application is optimized for Android tablets.Jellow is currently available in English,Hindi and Bengali. The current version of Jellow is _. The application is under further development. Therefore, if you have any suggestions for us, please submit it under the feedback tab.  Jellow is licensed under a Creative Commons Attribution Non-commercial Share Alike 4.0 International License. Work on Jellow is attributed to the Indian Institute of Technology Bombay. The content in this application comprising icons, layout, architecture, visual identity, translation, and the software codes can be shared and adopted but cannot be used for commercial purposes. When the content is used, we request you to acknowledge Indian Institute of Technology Bombay. Jellow is available for download at www dot jellow dot o r g. If interested in further developing the code, please write to Professor Ravi Poovaiah at ravi @ i i t b dot a c.in</string>
+    <string name="about_jellow_speech">Jellow is a communicator using icons to enable speech and can be used by those learning to speak or those who have difficulty with speech.  Jellow can also be used by toddlers and early learners to learn words and categories frequently used in their daily lives. Jellow\'s colourful and friendly icons can help children develop an association between pictures and their corresponding word labels. It is developed at IDC School of Design at the Indian Institute of Technology Bombay located in Mumbai. A novel Visual Emotional Language Proto call or VELP was conceived and developed by the project investigators in order to enhance the language ability of Jellow. VELP represents the 6 expressive icons that form the core of the interface. Using these core icons, the child can communicate their likes, dislikes, and needs with others. Jellow is conceived as children-friendly with an easy-to-learn interface. The application is optimized for Android tablets.Jellow is currently available in English,Hindi and Bengali. The current version of Jellow is _. The application is under further development. Therefore, if you have any suggestions for us, please submit it under the feedback tab.  Jellow is licensed under a Creative Commons Attribution Non-commercial Share Alike 4.0 International License. Work on Jellow is attributed to the Indian Institute of Technology Bombay. The content in this application comprising icons, layout, architecture, visual identity, translation, and the software codes can be shared and adopted but cannot be used for commercial purposes. When the content is used, we request you to acknowledge Indian Institute of Technology Bombay. Jellow is available for download at www dot jellow dot o r g. If interested in further developing the code, please write to Professor Ravi Poovaiah at ravi @ i i t b dot a c.in or,! j e l l o w c o m m u n i c a t o r @ g m a i l . c o m</string>
     <string name="catBtnDesc">Jellow has 9 central category buttons and 6 expressive side buttons:</string>
     <string name="catBtn">Category buttons:</string>
     <string name="expBtn">Expressive buttons:</string>
@@ -193,6 +195,9 @@
     <string name="updated_user_data_on_firebase"  translatable="false">com.dsource.idc.jellow.update_on_fb</string>
     <string name="tts_default_name" translatable="false">com.dsource.idc.jellow.tts_default_lang_name</string>
     <string name="last_crash_reported" translatable="false">com.dsource.idc.jellow.last_crash_reported</string>
+    <string name="updated_locale_package_from_firebase" translatable="false">com.dsource.idc.jellow.locale_package_updated</string>
+    <string name="package_name_comma_separated" translatable="false">com.dsource.idc.jellow.comma_separated_pkg_names</string>
+    <string name="wifi_only_pressed_in_LangSettings" translatable="false">com.dsource.idc.jellow.wifi_only_pressed_in_LangSettings</string>
     <string name="txt_registration_jellowCalluDesc">(This is how Jellow calls you)</string>
     <string name="txt_registration_emergencynoDesc">(To be used for correspondence in case of an emergency involving the child.)</string>
     <string name="txt_registration_emailDesc">(To notify you about the release of Jellow updates)</string>
@@ -200,11 +205,10 @@
     <string name="txt_registration_registerBtn">REGISTER</string>
     <string name="enternonemptycontact">Please enter valid contact number</string>
     <string name="change_tts_lang">Set TTS engine language</string>
-    <string name="set_engine_language">Please complete step 3</string>
-    <string name="change_language_line5">Step 2: Check if voice data for _ is available on your device. If not please download voice data for selected language.</string>
+    <string name="txt_actLangSel_completestep3">Please turn on internet and complete Step 3</string>
+    <string name="change_language_line5">Step 2: Check if voice data for _ is available on your device. If not please turn on internet and download voice data for selected language. In case process is stalled please check your internet connection and retry</string>
     <string name="change_language_line4">Step 3: Set \'Google Text-to-speech (TTS)\' as default TTS engine and set _ as default language of the engine.</string>
-    <string name="txtEditLanguage">Edit Languages:</string>
-    <string name="txtChangeLanguage">Change Default Language:</string>
+    <string name="txtChangeLanguage">2) Change Default Language:</string>
     <string name="txtApplyChanges">Step 4: Click \'Apply changes\' to set new language as default</string>
     <string name="change_language_line6">You can follow the steps listed below to set a newly added language as the default for Jellow</string>
     <string name="txt_set_tts_setup">Please complete Text-to-Speech engine setup given in this page</string>
@@ -212,7 +216,7 @@
     <string name="speech_engin_lang_sam">Please check the \'Language\' settings of the app</string>
     <string name="txt_intro6_skipTtsSetup">Devices with active Google TTS engine: Please swipe to skip current step</string>
     <string name="txt_actLangSel_downloadDat">Check voice data</string>
-    <string name="txt_actLangSel_completestep2">Voice data is unavailable. Please turn on the Internet to download voice data.</string>
+    <string name="txt_actLangSel_complete_mainscreen_msg">Voice data not available. Please turn on internet and go to language settings of app.</string>
     <string name="language_downloaded">_ language downloaded</string>
     <string name="language_downloading">Downloading _ language</string>
     <string name="welcome_msg">Hi</string>
@@ -267,7 +271,7 @@
 
 
     <!--About Jellow strings-->
-    <string name="about_je_intro1">Jellow is a communicator using icons to enable speech and can be used by those learning to speak or those who have difficulty with speech.</string>
+    <string name="about_je_intro1">Jellow is a communicator using icons to enable speech and can be used by those learning to speak or those who have difficulty with speech. Jellow can also be used by toddlers and early learners to learn words and categories frequently used in their daily lives. Jellow’s colourful and friendly icons can help children develop an association between pictures and their corresponding word labels.</string>
     <string name="about_je_intro2">It is developed at IDC School of Design at the Indian Institute of Technology Bombay located in Mumbai.</string>
     <string name="about_je_intro3">A novel Visual Emotional Language Protocol or VELP was conceived and developed by the project investigators in order to enhance the language ability of Jellow. VELP represents the 6 expressive icons that form the core of the interface.</string>
     <string name="about_je_intro4">Using these core icons, the child can communicate their likes, dislikes, and needs with others.</string>
@@ -352,4 +356,17 @@
     <string name="previous">previous</string>
     <string name="edttxt_msg">Type here to speak</string>
     <string name="keyboard_open">open keyboard</string>
+
+    <string name="intro8_step2">Turn off \"Use Wi-Fi only\"</string>
+    <string name="txt_tts_stting">TTS SETTINGS</string>
+    <string name="txt_intro8_step1">1. Open Google TTS Engine</string>
+    <string name="txt_intro8_step2">2. Go to \"Settings\" for Google TTS Engine</string>
+    <string name="txt_intro8_step3">3. Turn off \"Use Wi-Fi only\"</string>
+    <string name="change_language_tts_wifi">Go to settings of Google TTS and turn off \'Use Wi-Fi only\'. If option is already disabled, please skip this step.</string>
+    <string name="icon_update_msg">Updating icons for existing language(s):</string>
+    <string name="add_new_language">Select a language to add/delete</string>
+    <string name="disable_wifi_only">Please complete previous step to turn off \'Use Wi-Fi only\' option</string>
+    <string name="step3">Step 3:</string>
+    <string name="txt_intro8_txtTitle">Please follow the steps below to setup Text-to-speech engine</string>
+    <string name="txt_actLangSel_completestep2">Voice data not available. Please turn on internet and complete Step 2</string>
 </resources>

@@ -34,7 +34,6 @@
     </string-array>
 
     <string name="change_language_line2">প্রথম ধাপঃ নীচের ডাউনলোড করা ভাষাগুলি থেকে যে-কোনো একটি ভাষা নির্বাচন করো</string>
-    <string name="change_language_line3">তুমি \'ভাষা যুক্ত করো\' বাটনে ক্লিক করে কোনো ভাষা ডাউনলোড করতে পারো  এবং \'ভাষা মুছে ফেল\' বাটনে ক্লিক করে এর আগে ডাউনলোড করা ভাষা মুছে ফেলতে পারো</string>
     <string name="simple_ime">জেলো কীবোর্ড</string>
     <string name="subtype_en_US">সিরিয়াল এবিসি</string>
 
@@ -50,7 +49,8 @@
     <string name="demoTtsSpeech">নমস্কার! তুমি জেলো কমিউনিকেটর ব্যবহার করছ।</string>
     <string name="savedSettingsMessage">সেটিংস সেভ করা হল</string>
     <string name="languageChanged">ভাষা সেভ করা হল</string>
-    <string name="no_more_lang_2_add">যোগ করার জন্য আর কোন ভাষা নেই</string>
+    <string name="no_more_lang_2_add">যোগ করার জন্য আর কোনো ভাষা নেই</string>
+    <string name="no_more_lang_2_del">আর কোন ভাষা মুছে ফেলা হয় না</string>
     <string name="checkConnectivity">দয়া করে ইন্টারনেট সংযোগ যাচাই করো</string>
     <string name="languageCurrentlyInUse">ভাষা বর্তমানে ব্যবহার করা হচ্ছে</string>
     <string name="languageRemoved">ভাষা মুছে ফেলা হয়েছে</string>
@@ -112,7 +112,7 @@
     <string name="iconsHasBeenReset">পছন্দগুলি পুনরায় সাজানো হয়েছে</string>
     <string name="speak">বলা</string>
     <string name="stop">থামা</string>
-    <string name="about_jellow_speech">জেলো যোগাযোগ তৈরিতে উপযোগী একটি অ্যাপ্লিকেশন যা আইকন ব্যবহার করে আওয়াজ সক্রিয় করে এবং এটি যারা সদ্য কথা বলতে শিখছে কিংবা যারা কথা বলতে অসুবিধার মুখে পড়ে তারা ব্যবহার করতে পারে। অ্যাপ্লিকেশনটি বিকশিত হয়েছে ইন্ডিয়ান ইন্সটিটিউট অব টেকনোলোজি বোম্বে-র আই ডি সি স্কুল অফ ডিজাইন ( মুম্বই )-তে। জেলো-র ভাষাগত সক্ষমতা বৃদ্ধির জন্য প্রকল্পের তত্ত্বাবধায়কেরা নভেল ভিসুয়াল ইমোশনাল ল্যাংগুয়েজ প্রোটোকল অথবা VELP তৈরি করে তাকে বিকশিত করেছিলেন। VELP ছ-টি ভাবমূলক আইকনকে প্রকাশ করে যেগুলি ইন্টারফেসের মূল অংশ নির্মাণ করে থাকে। এই মূল আইকনগুলি ব্যবহার করে শিশুরা তাদের ইচ্ছে, অনিচ্ছে, চাহিদা বিষয়ে অন্যদের সাথে যোগাযোগ তৈরি করতে সমর্থ হবে। শিশুদের উপযোগী এবং সহজেই শেখা যায় — এমন ইন্টারফেস হিসেবে জেলো নির্মিত হয়েছে। এই অ্যাপ্লিকেশনটি অ্যান্ড্রয়েড ট্যাবলেটে ব্যবহারের জন্য নির্মিত। জেলো আপাতত ইংরেজি, হিন্দিতে এবং বাঙালি ব্যবহারযোগ্য। জেলো-র সাম্প্রতিক সফটওয়্যার ভার্সানঃ ৫.০। বর্তমানে এই অ্যাপ্লিকেশনটি উন্নততর করার লক্ষ্যে পরীক্ষার অধীনে রয়েছে। তাই আপনার যদি আমাদের উদ্দেশে কোনো পরামর্শ থাকে, তাহলে দয়া করে তা ফিডব্যাক ট্যাব-এ সাবমিট করুন। জেলো ৪.০ আন্তর্জাতিক লাইসেন্সের মতোই সৃজনমূলক, সদৃশ্যবাচক অবাণিজ্যিক শেয়ার হিসেবে নথিভুক্ত করা হয়েছে। জেলো নিয়ে গবেষণার কাজ সম্পন্ন হয়েছে ইন্ডিয়ান ইন্সটিটিউট অব টেকনোলোজি বম্বে-তে। অ্যাপ্লিকেশনের অন্তর্গত বিষয়, যথা — আইকন, নকশা, নির্মাণকৌশল, দৃশ্যগত উপস্থাপনা, অনুবাদ এবং সফটওয়্যার কোডগুলি গ্রহণ কিংবা প্রচার করা যাবে কিন্তু এগুলি কোনো বাণিজ্যিক স্বার্থে ব্যবহার করা যাবে না। যখন বিষয়বস্তু ব্যবহার করবেন, আমাদের অনুরোধ রইল, তখন দয়া করে ইন্ডিয়ান ইন্সটিটিউট অব টেকনোলোজি বম্বে-র ঋণ স্বীকার করবেন। কোডটিকে আরও উন্নত করতে চাইলে দয়া করে যোগাযোগ করুন অধ্যাপক রবি পুভেয়ার সঙ্গে এই ঠিকানায়ঃ ravi @ i i t b dot a  c.in</string>
+    <string name="about_jellow_speech">জেলো যোগাযোগ তৈরিতে উপযোগী একটি অ্যাপ্লিকেশন যা আইকন ব্যবহার করে আওয়াজ সক্রিয় করে এবং এটি যারা সদ্য কথা বলতে শিখছে কিংবা যারা কথা বলতে অসুবিধার মুখে পড়ে তারা ব্যবহার করতে পারে। অ্যাপ্লিকেশনটি বিকশিত হয়েছে ইন্ডিয়ান ইন্সটিটিউট অব টেকনোলোজি বোম্বে-র আই ডি সি স্কুল অফ ডিজাইন ( মুম্বই )-তে। জেলো-র ভাষাগত সক্ষমতা বৃদ্ধির জন্য প্রকল্পের তত্ত্বাবধায়কেরা নভেল ভিসুয়াল ইমোশনাল ল্যাংগুয়েজ প্রোটোকল অথবা VELP তৈরি করে তাকে বিকশিত করেছিলেন। VELP ছ-টি ভাবমূলক আইকনকে প্রকাশ করে যেগুলি ইন্টারফেসের মূল অংশ নির্মাণ করে থাকে। এই মূল আইকনগুলি ব্যবহার করে শিশুরা তাদের ইচ্ছে, অনিচ্ছে, চাহিদা বিষয়ে অন্যদের সাথে যোগাযোগ তৈরি করতে সমর্থ হবে। শিশুদের উপযোগী এবং সহজেই শেখা যায় — এমন ইন্টারফেস হিসেবে জেলো নির্মিত হয়েছে। এই অ্যাপ্লিকেশনটি অ্যান্ড্রয়েড ট্যাবলেটে ব্যবহারের জন্য নির্মিত। জেলো আপাতত ইংরেজি, হিন্দিতে এবং বাঙালি ব্যবহারযোগ্য। জেলো-র সাম্প্রতিক সফটওয়্যার ভার্সানঃ ৫.০। বর্তমানে এই অ্যাপ্লিকেশনটি উন্নততর করার লক্ষ্যে পরীক্ষার অধীনে রয়েছে। তাই আপনার যদি আমাদের উদ্দেশে কোনো পরামর্শ থাকে, তাহলে দয়া করে তা ফিডব্যাক ট্যাব-এ সাবমিট করুন। জেলো ৪.০ আন্তর্জাতিক লাইসেন্সের মতোই সৃজনমূলক, সদৃশ্যবাচক অবাণিজ্যিক শেয়ার হিসেবে নথিভুক্ত করা হয়েছে। জেলো নিয়ে গবেষণার কাজ সম্পন্ন হয়েছে ইন্ডিয়ান ইন্সটিটিউট অব টেকনোলোজি বম্বে-তে। অ্যাপ্লিকেশনের অন্তর্গত বিষয়, যথা — আইকন, নকশা, নির্মাণকৌশল, দৃশ্যগত উপস্থাপনা, অনুবাদ এবং সফটওয়্যার কোডগুলি গ্রহণ কিংবা প্রচার করা যাবে কিন্তু এগুলি কোনো বাণিজ্যিক স্বার্থে ব্যবহার করা যাবে না। যখন বিষয়বস্তু ব্যবহার করবেন, আমাদের অনুরোধ রইল, তখন দয়া করে ইন্ডিয়ান ইন্সটিটিউট অব টেকনোলোজি বম্বে-র ঋণ স্বীকার করবেন। কোডটিকে আরও উন্নত করতে চাইলে দয়া করে যোগাযোগ করুন অধ্যাপক রবি পুভেয়ার সঙ্গে এই ঠিকানায়ঃ ravi @ i i t b dot a  c.in অথবা, j e l l o w c o m m u n i c a t o r @ g m a i l . c o m</string>
     <string name="catBtnDesc">জেলো-তে ৯টি কেন্দ্রীয় শ্রেণিগত বটন এবং ৬টি ভাবপ্রকাশক পার্শ্ববর্তী বটন রয়েছেঃ</string>
     <string name="catBtn">শ্রেণিগত বটনঃ</string>
     <string name="expBtn">ভাবপ্রকাশক বটনঃ</string>
@@ -161,13 +161,12 @@
     <string name="txt_registration_emailDesc">( জেলো-র আপডেট সম্পর্কে আপনাকে অবহিত করতে )</string>
     <string name="txt_registration_selectLangDesc">জেলো-র জন্য একটি ভাষা বেছে নিন *</string>
     <string name="txt_registration_registerBtn">নথিভুক্ত করুন</string>
-    <string name="enternonemptycontact">Please enter valid contact number</string>
+    <string name="enternonemptycontact">কার্যকরী যোগাযোগের নাম্বার দিন</string>
     <string name="change_tts_lang">টেক্সট-টু-স্পীচ প্রয়োগ করুন।</string>
-    <string name="set_engine_language">দয়া করে তৃতীয় ধাপ সম্পূর্ণ করুন।</string>
-    <string name="change_language_line5">দ্বিতীয় ধাপঃ যাচাই করে দেখুন _-র জন্য ভয়েস ডেটা আপনার যন্ত্রে মজুত আছে কি না। যদি তা না থাকে, তাহলে দয়া করে নির্বাচিত ভাষার জন্য ভয়েস ডেটা ডাউনলোড করুন।</string>
-    <string name="change_language_line4">তৃতীয় ধাপঃ \'Google Text-to-speech (TTS)\'-কে default TTS engine এবং _ default language of the engine হিসেবে নির্বাচন করুন</string>
-    <string name="txtEditLanguage">ভাষা সম্পাদনা করুনঃ</string>
-    <string name="txtChangeLanguage">মূল ভাষা বদল করুনঃ</string>
+    <string name="txt_actLangSel_completestep3">দয়া করে ইন্টারনেট চালু করুন এবং তৃতীয় ধাপ সম্পূর্ণ করুন।</string>
+    <string name="change_language_line5">দ্বিতীয় ধাপঃ যাচাই করে দেখুন _-র জন্য ভয়েস ডেটা আপনার যন্ত্রে মজুত আছে কি না। ইন্টারনেটে তীর্থযাত্রী চালু করুন এবং নির্বাচিত ভাষাতে ভয়েস ডেটা ডাউনলোড করুন। প্রক্রিয়াটি স্থগিত হলে দয়া করে আপনার ইন্টারনেট সংযোগ চেক করুন এবং পুনরায় চেষ্টা করুন।</string>
+    <string name="change_language_line4">তৃতীয় ধাপঃ \'গুগল টেক্সট-টু-স্পীচ ইঞ্জিনের\'-কে টেক্সট-টু-স্পীচ ইঞ্জিনের হিসেবে নির্বাচন করুন এবং ইঞ্জিনের ডিফল্ট ভাষা হিসাবে _ সেট করুন</string>
+    <string name="txtChangeLanguage">২) মূল ভাষা বদল করুনঃ</string>
     <string name="txtApplyChanges">চতুর্থ ধাপঃ নতুন ভাষাকে মূল ভাষা হিসেবে প্রয়োগ করতে \'বদলগুলি প্রয়োগ করুন\' বাটনটি ক্লিক করুন।</string>
     <string name="change_language_line6">নতুন যুক্ত হওয়া ভাষা মূল ভাষা হিসেবে প্রয়োগ করতে আপনি নিম্নলিখিত ধাপগুলি অনুসরণ করতে পারেন।</string>
     <string name="txt_set_tts_setup">দয়া করে টেক্সট-টু-স্পীচ ইঞ্জিনের সেট আপ, যা আগের পাতায় দেওয়া রয়েছে, তা সমাপ্ত করুন।</string>
@@ -175,29 +174,29 @@
     <string name="speech_engin_lang_sam">দয়া করে অ্যাপের \'ভাষা\' সেটিং-টি পরীক্ষা করুন</string>
     <string name="txt_intro6_skipTtsSetup">যে-সমস্ত যন্ত্রে গুগল টিটিএস ইঞ্জিন সক্রিয় রয়েছেঃ দয়া করে বর্তমান ধাপটি অগ্রাহ্য করুন।</string>
     <string name="txt_actLangSel_downloadDat">ভয়েস ডেটা পরীক্ষা করুন।</string>
-    <string name="txt_actLangSel_completestep2">ভয়েস ডেটা প্রাপ্ত হয়নি। দয়া করে ভয়েস ডেটা ডাউনলোড করার জন্য ইন্টারনেট চালু করুন।</string>
+    <string name="txt_actLangSel_complete_mainscreen_msg">ভয়েস ডেটা প্রাপ্ত হয়নি। ইন্টারনেট চালু করুন এবং অ্যাপ্লিকেশন ভাষা সেটিংস যান।</string>
     <string name="language_downloaded">_ ভাষা ডাউনলোড করা হল</string>
     <string name="language_downloading">_  ভাষা ডাউনলোড করা হচ্ছে</string>
     <string name="welcome_msg">হাই</string>
     <string name="ok">ঠিক আছে</string>
     <string name="call_permission_info">কথা বলার অনুমতি উপলব্ধ নয়। আপৎকালীন প্রয়োজনে কথা বলার জন্য অনুমতি জরুরি</string>
     <string name="granted_call_permission_req">কথা বলার অনুমতি প্রদত্ত হল</string>
-        <string name="rejected_call_permission_req">কথা বলার অনুমতি অস্বীকৃত হল</string>
+    <string name="rejected_call_permission_req">কথা বলার অনুমতি অস্বীকৃত হল</string>
     <string name="grant_permission_from_settings">সেটিংস-এ গিয়ে কথা বলার অনুমতি সক্রিয় করুন</string>
     <string name="request">অনুরোধ</string>
     <string name="userGroup">ব্যবহারকারী গোষ্ঠী *</string>
     <string name="groupTeacher">থেরাপিস্ট/ শিক্ষক</string>
     <string name="groupParent">অভিভাবক/ কেয়ারগিভার</string>
     <string name="invalid_usergroup">ব্যবহারকারী গোষ্ঠীকে নির্বাচন করুন</string>
-    <string name="txtEnableBuiltInCalling">জেলো থেকে জরুরি অবস্থা কল গ্রহণ সক্রিয় করুন</string>
+    <string name="txtEnableBuiltInCalling">জেলো থেকে জরুরি অবস্থায় কল গ্রহণ সক্রিয় করুন</string>
     <string name="downloadableLang">ডাউনলোড উপযোগী ভাষা</string>
     <string name="downloadedLang">ডাউনলোড করা ভাষা</string>
     <string name="remove">অপসারণ করুন</string>
     <string name="dismiss">বাদ দিন</string>
     <string name="register_user">রেজিস্ট্রেশন চলাকালীন দয়া করে অপেক্ষা করুন…</string>
     <string name="exit">প্রস্থান</string>
-    <string name="err_dialog_msg">Google TTS engine তোমার যন্ত্রে ইন্সটল করা নেই। আপনি কি TTS engine ইন্সটল করতে চান।</string>
-    <string name="exit_dialog_msg">জেলো Google Text-to-speech engine ছাড়া কাজ করে না। তুমি কি সত্যিই প্রস্থান করতে চাও?</string>
+    <string name="err_dialog_msg">গুগল টেক্সট-টু-স্পীচ ইঞ্জিনের তোমার যন্ত্রে ইন্সটল করা নেই। আপনি কি টেক্সট-টু-স্পীচ ইঞ্জিনের ইন্সটল করতে চান।</string>
+    <string name="exit_dialog_msg">জেলো গুগল টেক্সট-টু-স্পীচ ইঞ্জিনের ছাড়া কাজ করে না। তুমি কি সত্যিই প্রস্থান করতে চাও?</string>
     <string name="less">কম</string>
 
 
@@ -270,7 +269,7 @@
     <string name="pic10">এই ছবি পূর্ববর্তী ছবির অনুরূপ যেখানে  টয়লেট-এর কার্যক্রমের সজ্জা এবং দৈনন্দিন কাজকর্মের সজ্জার প্রথম তিনটি ধাপ বর্ণনা করা হয়েছে। যদিও এই ছবিতে ব্যবহারকারীর আঙুল দ্বিতীয় ধাপ আইকন " টয়লেটে বসো "-তে ক্লিক করে। এই আইকনে ক্লিক করার পর অভিব্যক্তিসূচক বাটনগুলি এখন অ্যাপ্লিকেশনের মধ্যে স্ক্রিনের অন্য দিকগুলিতে দেখা যাচ্ছে।</string>
     <string name="gtts1">এই ছবিটি ব্যবহারকারীর যন্ত্রের সেটিংস অংশের " text to speech output " এবং " google TTS voice data "-এর তিনটি স্ক্রিনশট দিয়ে তৈরি। প্রথম ছবি " text to speech " সংক্রান্ত, যেখানে দুটি পছন্দসই ইঞ্জিন দৃশ্যমান। প্রথমটি " samsung text to speech engine " এবং দ্বিতীয় " google text to speech engine "। ব্যবহারকারী দ্বিতীয় ইঞ্জিনটিকে প্রথম ধাপ হিসেবে নির্বাচন করেন।</string>
     <string name="gtts2">দ্বিতীয় ছবিটি এই প্রক্রিয়ার দ্বিতীয় ধাপ সংক্রান্ত, যেখানে ব্যবহারকারীকে দেখা যায় " গিয়ার " চিহ্নে ক্লিক করতে, যা আসলে " google text to speech " -এর " সেটিংস " সংক্রান্ত।</string>
-    <string name="gtts3">তৃতীয় ছবিটি হচ্ছে প্রক্রিয়ার তৃতীয় ধাপ, যখন ব্যবহারকারী রয়েছে " google TTS voice data " স্ক্রিনে। এই স্ক্রিনে রয়েছে একাধিক স্বর নির্বাচনের সু্যোগ, যেমন - “French (France)”, “German (Germany)”, “Hindi (India)”, “Hungarian (Hungary)”, and “Indonesian (Indonesia)”। " hindi ( india)  " অপশনটি রঙিন রয়েছে, যা দেখাচ্ছে ১৯ এমবি-র  " voice set 1 " নামক অপশনটি ডাউনলোডের জন্য লভ্য। ব্যবহারকারীর আঙুল উক্ত অপশনে ক্লিক করতে দেখা যায়।</string>
+    <string name="gtts3">তৃতীয় ছবিটি হচ্ছে প্রক্রিয়ার তৃতীয় ধাপ, যখন ব্যবহারকারী রয়েছে "google TTS voice data" স্ক্রিনে। এই স্ক্রিনে রয়েছে একাধিক স্বর নির্বাচনের সু্যোগ, যেমন - “French (France)”, “German (Germany)”, “Hindi (India)”, “Hungarian (Hungary)”, and “Indonesian (Indonesia)”। " hindi ( india)  " অপশনটি রঙিন রয়েছে, যা দেখাচ্ছে ১৯ এমবি-র  " voice set 1 " নামক অপশনটি ডাউনলোডের জন্য লভ্য। ব্যবহারকারীর আঙুল উক্ত অপশনে ক্লিক করতে দেখা যায়।</string>
     <string name="enter_child_s_name">শিশুর নাম লিখুন</string>
     <string name="caregiver_s_contact_number_other_than_this_device_s_sim_number">এই ডিভাইসের সিম নম্বর ছাড়া অন্যের তত্ত্বাবধানকারীর যোগাযোগ নম্বর দিন</string>
     <string name="select_country_code">দেশের কোড লিখুন</string>
@@ -299,4 +298,20 @@
     <string name="previous">আগে</string>
     <string name="edttxt_msg">কথা বলতে এখানে লিখুন।</string>
     <string name="keyboard_open">কীবোর্ড খুলুন।</string>
+    <!--end content description-->
+
+
+    <string name="intro8_step2">বন্ধ করো \"কেবল ওয়াই-ফাই ব্যবহার করো\" </string>
+    <string name="txt_tts_stting">টেক্সট-টু-স্পীচ সেটিংস</string>
+    <string name="txt_intro8_step1">১. গুগল টেক্সট-টু-স্পীচ ইঞ্জিনের খোলো</string>
+    <string name="txt_intro8_step2">২. গুগল টেক্সট-টু-স্পীচ ইঞ্জিনের-এর জন্য সেটিংস-এ যাও</string>
+    <string name="txt_intro8_step3">৩. \"কেবল ওয়াই-ফাই ব্যবহার করো\" বন্ধ করো</string>
+    <string name="change_language_tts_wifi">গুগল টেক্সট-টু-স্পীচ- এর সেটিংস-এ যাও এবং \'কেবল ওয়াই-ফাই ব্যবহার করো\' বন্ধ করো। যদি অপশনটি ইতিমধ্যে নিস্ক্রিয় করা হয়ে থাকে তাহলে এই ধাপটি অগ্রাহ্য করো।</string>
+    <string name="icon_update_msg">বর্তমান ভাষার আইকনগুলির সংযোজন:</string>
+    <string name="editLanguage">১) ভাষা যুক্ত করো/মুছে দাওঃ</string>
+    <string name="add_new_language">যোগ / মুছতে একটি ভাষা নির্বাচন করুন</string>
+    <string name="disable_wifi_only">গুগল টেক্সট-টু-স্পীচ- এর সেটিংস-এ যাও এবং \'কেবল ওয়াই-ফাই ব্যবহার করো\' বন্ধ করো।</string>
+    <string name="step3">তৃতীয় ধাপঃ</string>
+    <string name="txt_intro8_txtTitle">নীচের পদক্ষেপগুলি সম্পন্ন করুনঃ</string>
+    <string name="txt_actLangSel_completestep2">ভয়েস ডেটা প্রাপ্ত হয়নি। দয়া করে ইন্টারনেট চালু করুন এবং দ্বিতীয় ধাপ সম্পূর্ণ করুন।</string>
 </resources>

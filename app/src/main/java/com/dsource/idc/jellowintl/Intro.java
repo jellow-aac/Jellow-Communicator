@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +36,13 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
  */
 public class Intro extends AppIntro {
     private String mTTsDefaultLanguage, selectedLanguage;
+    private boolean isOpenedSettingFromIntro8 = false;
+    private String toastMsg,intro_title, intro_caption,
+        intro2_title, intro2_caption, intro3_title, intro3_caption, intro4_title, intro4_caption,
+        intro5_title, intro5_caption, intro7title, intro6_imgTxt1, intro6_imgTxt2,
+        intro6_imgTxt3, intro8title, intro8_imgTxt1, intro8_imgTxt2, intro8_imgTxt3, intro8_btn,
+        intro6_btn_bottom, intro6_btn_bottom1,intro6_btn_bottom3, intro7_btn_getStarted;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +59,7 @@ public class Intro extends AppIntro {
         addSlide(SampleSlideFragment.newInstance(R.layout.intro2, "intro2"));
         addSlide(SampleSlideFragment.newInstance(R.layout.intro3, "intro3"));
         addSlide(SampleSlideFragment.newInstance(R.layout.intro4, "intro4"));
+        addSlide(SampleSlideFragment.newInstance(R.layout.intro8, "intro8"));
         if(Build.VERSION.SDK_INT < 21) {
             addSlide(SampleSlideFragment.newInstance(R.layout.intro6, "intro6"));
         }
@@ -61,10 +70,7 @@ public class Intro extends AppIntro {
         setIndicatorColor(getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorPrimary));
         showSkipButton(false);
         setProgressButtonEnabled(false);
-
-        selectedLanguage = getString(R.string.txt_intro6_skipActiveTtsDesc)
-                                .replace("-", getSelectedLanguage("-"))
-                                    .replace("_", getSelectedLanguage("_"));
+        getViewResource();
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES");
         registerReceiver(receiver, filter);
@@ -106,17 +112,11 @@ public class Intro extends AppIntro {
         super.onSlideChanged(oldFragment, newFragment);
         Crashlytics.log("Slide visible:"+((SampleSlideFragment) newFragment).getLayoutName());
         if (Build.VERSION.SDK_INT < 21)
-            if(((SampleSlideFragment) newFragment).getLayoutName().equals("intro6")){
-                ((TextView) findViewById(R.id.tvtop1)).setText(getString(R.string.txt_intro6_step2)
-                        .replace("_",getSelectedLanguage("_")));
-                ((TextView) findViewById(R.id.tvtop2)).setText(getString(R.string.txt_intro6_step3)
-                        .replace("_",getSelectedLanguage("_")));
+            if(((SampleSlideFragment) newFragment).getLayoutName().equals("intro6") ||
+                    ((SampleSlideFragment) newFragment).getLayoutName().equals("intro7")){
                 getTextToSpeechEngineLanguage("");
-                ((TextView) findViewById(R.id.tx_downloadMsg)).setText(selectedLanguage);
-            }else if(((SampleSlideFragment) newFragment).getLayoutName().equals("intro7")){
-                getTextToSpeechEngineLanguage("");
-                ((TextView) findViewById(R.id.tx_downloadMsg)).setText(selectedLanguage);
         }
+        setStringsNextForSlide((SampleSlideFragment) newFragment);
     }
 
     private String getSelectedLanguage(String replaceChar) {
@@ -139,7 +139,10 @@ public class Intro extends AppIntro {
 
     public void getStarted(View view) {
         SessionManager session = new SessionManager(this);
-        if(Build.VERSION.SDK_INT < 21) {
+        if(!isOpenedSettingFromIntro8) {
+            Toast.makeText(Intro.this, toastMsg, Toast.LENGTH_LONG).show();
+            getPager().setCurrentItem(5, true);
+        }else if(Build.VERSION.SDK_INT < 21) {
             if ((session.getLanguage().equals(ENG_IN) && mTTsDefaultLanguage.equals(HI_IN)) ||
                     (!session.getLanguage().equals(ENG_IN) && session.getLanguage().equals(mTTsDefaultLanguage)) ||
                         (session.getLanguage().equals(BN_IN) &&
@@ -149,8 +152,8 @@ public class Intro extends AppIntro {
                 startActivity(intent);
                 finish();
             } else {
-                Toast.makeText(this, getString(R.string.txt_set_tts_setup), Toast.LENGTH_LONG).show();
-                getPager().setCurrentItem(5, true);
+                Toast.makeText(Intro.this, toastMsg, Toast.LENGTH_LONG).show();
+                getPager().setCurrentItem(6, true);
             }
         }else {
             session.setCompletedIntro(true);
@@ -165,7 +168,6 @@ public class Intro extends AppIntro {
             getPager().setCurrentItem(getPager().getCurrentItem()-1, true);
         else
             getPager().setCurrentItem(getPager().getCurrentItem()+1, true);
-
     }
 
     public void getStarted1(View view){
@@ -183,6 +185,11 @@ public class Intro extends AppIntro {
         intent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    public void openedTTsSetting(View view){
+        isOpenedSettingFromIntro8 = true;
+        getStarted1(view);
     }
 
     /**
@@ -205,5 +212,89 @@ public class Intro extends AppIntro {
         Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_REQ");
         intent.putExtra("saveSelectedLanguage", saveLanguage);
         sendBroadcast(intent);
+    }
+
+    private void getViewResource() {
+        selectedLanguage = getString(R.string.txt_intro6_skipActiveTtsDesc)
+                .replace("-", getSelectedLanguage("-"))
+                .replace("_", getSelectedLanguage("_"));
+        toastMsg = getString(R.string.txt_set_tts_setup);
+        intro_title = getString(R.string.txt_intro1_central9btn);
+        intro_caption = getString(R.string.txt_intro1_categorybtn);
+
+        intro2_title = getString(R.string.txt_intro2_appUsageDesc);
+        intro2_caption = getString(R.string.txt_intro2_speakUsingJellow);
+
+        intro3_title = getString(R.string.txt_intro3_level2CatDesc);
+        intro3_caption = getString(R.string.txt_intro3_navWithJellow);
+
+        intro4_title = getString(R.string.txt_intro4_customizeAppDesc);
+        intro4_caption = getString(R.string.txt_intro4_customizeJellow);
+
+        intro5_title = getString(R.string.txt_intro5_jellowUsageDesc);
+        intro5_caption = getString(R.string.txt_intro5_expressiveBtn);
+
+        intro6_imgTxt1 = getString(R.string.txt_intro6_ttsStep1);
+        intro6_btn_bottom = getString(R.string.txt_intro6_activate);
+        intro6_imgTxt2 = getString(R.string.txt_intro6_step2)
+                .replace("_",getSelectedLanguage("_"));
+        intro6_btn_bottom1 = getString(R.string.txt_intro6_changeLang);
+        intro6_imgTxt3 = getString(R.string.txt_intro6_step3)
+                .replace("_",getSelectedLanguage("_"));
+        intro6_btn_bottom3 = getString(R.string.txt_intro6_download);
+
+        intro7title = getString(R.string.txt_intro7_getStartedDesc);
+        intro7_btn_getStarted = getString(R.string.txt_intro7_getStarted);
+
+        intro8title = getString(R.string.txt_intro8_txtTitle);
+        intro8_imgTxt1 = getString(R.string.txt_intro8_step1);
+        intro8_imgTxt2 = getString(R.string.txt_intro8_step2);
+        intro8_imgTxt3 = getString(R.string.txt_intro8_step3);
+        intro8_btn = getString(R.string.txt_tts_stting);
+    }
+
+    public void setStringsNextForSlide(SampleSlideFragment newFragment) {
+        switch(newFragment.getLayoutName()){
+            case "intro":
+                ((TextView)findViewById(R.id.tv_intro_title)).setText(intro_title);
+                ((TextView)findViewById(R.id.tv_intro_caption)).setText(intro_caption);
+                break;
+            case "intro2":
+                ((TextView)findViewById(R.id.tv_intro2_title)).setText(intro2_title);
+                ((TextView)findViewById(R.id.tv_intro2_caption)).setText(intro2_caption);
+                break;
+            case "intro3":
+                ((TextView)findViewById(R.id.tv_intro3_title)).setText(intro3_title);
+                ((TextView)findViewById(R.id.tv_intro3_caption)).setText(intro3_caption);
+                break;
+            case "intro4":
+                ((TextView)findViewById(R.id.tv_intro4_title)).setText(intro4_title);
+                ((TextView)findViewById(R.id.tv_intro4_caption)).setText(intro4_caption);
+                break;
+            case "intro5":
+                ((TextView)findViewById(R.id.tv_intro5_title)).setText(intro5_title);
+                ((TextView)findViewById(R.id.tv_intro5_caption)).setText(intro5_caption);
+                break;
+            case "intro6":
+                ((TextView) findViewById(R.id.tx_downloadMsg)).setText(selectedLanguage);
+                ((TextView)findViewById(R.id.tvtop)).setText(intro6_imgTxt1);
+                ((Button)findViewById(R.id.tvbottom)).setText(intro6_btn_bottom);
+                ((TextView)findViewById(R.id.tvtop1)).setText(intro6_imgTxt2);
+                ((Button)findViewById(R.id.tvbottom1)).setText(intro6_btn_bottom1);
+                ((TextView)findViewById(R.id.tvtop2)).setText(intro6_imgTxt3);
+                ((Button)findViewById(R.id.tvbottom3)).setText(intro6_btn_bottom3);
+                break;
+            case "intro7":
+                ((TextView)findViewById(R.id.intro7_tvtop)).setText(intro7title);
+                ((Button)findViewById(R.id.btn_getStarted)).setText(intro7_btn_getStarted);
+                break;
+            case "intro8":
+                ((TextView)findViewById(R.id.tv_intro8_title)).setText(intro8title);
+                ((TextView)findViewById(R.id.tv_intro8_imgTxt1)).setText(intro8_imgTxt1);
+                ((TextView)findViewById(R.id.tv_intro8_imgTxt2)).setText(intro8_imgTxt2);
+                ((TextView)findViewById(R.id.tv_intro8_imgTxt3)).setText(intro8_imgTxt3);
+                ((TextView)findViewById(R.id.btnTTsSetting)).setText(intro8_btn);
+                break;
+        }
     }
 }

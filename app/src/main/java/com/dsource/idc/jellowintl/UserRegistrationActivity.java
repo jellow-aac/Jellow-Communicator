@@ -99,7 +99,10 @@ public class UserRegistrationActivity extends AppCompatActivity {
             if(mSession.isDownloaded(mSession.getLanguage()) && mSession.isCompletedIntro()) {
                 if(!mSession.getUpdatedFirebase())
                     updateFirebaseDatabase();
-                startActivity(new Intent(this, SplashActivity.class));
+                if(!mSession.isLanguagePackageUpdated())
+                    startActivity(new Intent(this, LanguagePackageUpdateActivity.class));
+                else
+                    startActivity(new Intent(this, SplashActivity.class));
             }else if(mSession.isDownloaded(mSession.getLanguage()) && !mSession.isCompletedIntro()){
                 startActivity(new Intent(this, Intro.class));
             }else {

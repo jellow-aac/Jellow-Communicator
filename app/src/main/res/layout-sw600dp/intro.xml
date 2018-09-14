@@ -12,6 +12,7 @@
         android:orientation="vertical"
         android:layout_gravity="center_horizontal">
         <TextView
+            android:id="@+id/tv_intro_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -20,6 +21,8 @@
             android:paddingLeft="32dp"
             android:layout_weight="1"
             android:paddingRight="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:textSize="20sp"
             android:importantForAccessibility="yes"
             android:text="@string/txt_intro1_central9btn"/>
@@ -30,6 +33,7 @@
             android:gravity="center"
             android:layout_weight="29">
             <ImageView
+                android:id="@+id/intro_img"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:src="@drawable/categorybuttons"
@@ -41,6 +45,7 @@
             android:orientation="horizontal"
             android:gravity="center">
             <TextView
+                android:id="@+id/tv_intro_caption"
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="64dp"
