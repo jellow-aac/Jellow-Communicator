@@ -21,7 +21,6 @@
         android:layout_marginBottom="@dimen/search_edit_text_margin_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/search_hint"
         android:textColor="@color/black_80"
         android:maxLines="1"
         android:inputType="text"

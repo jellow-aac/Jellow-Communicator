@@ -58,6 +58,7 @@
         android:layout_centerVertical="true"
         android:layout_margin="@dimen/search_list_margin"
         android:id="@+id/speak_button"
+        android:contentDescription="@string/speak"
         />
     </RelativeLayout>
 

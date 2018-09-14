@@ -26,7 +26,16 @@
             app:rcRadius="10dp"
             app:rcReverse="false"
             app:rcSecondaryProgressColor="@color/colorIntro"
-            android:contentDescription="Language download in process" />
+            android:contentDescription="@string/language_download_in_process" />
+        <TextView
+            android:id="@+id/txtDownloadCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="-26dp"
+            android:layout_marginBottom="32dp"
+            android:visibility="gone"
+            style="@style/defaultTextViewStyle"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

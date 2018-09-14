@@ -131,9 +131,12 @@
             <activity android:name=".SearchActivity"
             android:label="@string/search_act_title"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:theme="@style/Theme.AppCompat.Translucent"
-            />
-         <activity android:name=".SettingsTalkbackActivity"/>
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity
+            android:name="com.dsource.idc.jellowintl.LanguagePackageUpdateActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
     </application>
 
 </manifest>

@@ -29,9 +29,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
-                    style="@style/defaultTextViewStyle"
                     android:scaleX=".7"
                     android:scaleY=".7"
+                    android:importantForAccessibility="no"
                     android:text="@string/bullet" />
                 <TextView
                     android:id="@+id/tv1"
@@ -51,9 +51,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
-                    style="@style/defaultTextViewStyle"
                     android:scaleX=".7"
                     android:scaleY=".7"
+                    android:importantForAccessibility="no"
                     android:text="@string/bullet" />
                 <TextView
                     android:id="@+id/tv2"
@@ -71,9 +71,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
-                    style="@style/defaultTextViewStyle"
                     android:scaleX=".7"
                     android:scaleY=".7"
+                    android:importantForAccessibility="no"
                     android:text="@string/bullet" />
                 <TextView
                     android:id="@+id/tv3"

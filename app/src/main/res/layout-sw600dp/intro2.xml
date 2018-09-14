@@ -15,7 +15,6 @@
         android:paddingLeft="32dp"
         android:paddingStart="32dp"
         android:src="@drawable/ic_chevron_left"
-        android:contentDescription="@null"
         tools:ignore="RtlSymmetry" />
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,6 +22,7 @@
         android:orientation="vertical"
         android:layout_gravity="center_horizontal">
         <TextView
+            android:id="@+id/tv_intro2_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -35,7 +35,6 @@
             android:layout_marginBottom="16dp"
             android:textSize="20sp"
         android:importantForAccessibility="yes"
-        android:contentDescription="The user first clicks on a category button and then on an expressive button.Swipe with single finger to go to image below. Swipe with two fingers to switch page."
             android:text="@string/txt_intro2_appUsageDesc"/>
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,11 +43,11 @@
             android:gravity="center"
             android:layout_weight="29">
             <ImageView
+                android:id="@+id/intro2_img"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-            android:contentDescription="This image has the home screen of Jellow with only 2 icons of “Eating” and “Yes” highlighted. The rest of the buttons are faded out. The image shows that to speak using Jellow, user has to first click on any category button, for instance, “Eating” and then on an expressive button, for example, “Yes”. In this way the user can speak using Jellow.
-Swipe with two fingers to switch page."
-                android:src="@drawable/speakingwithjellowimage2"/>
+                android:contentDescription="@string/intro2_cd"
+                android:src="@drawable/speakingwithjellowimage2" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -56,6 +55,7 @@ Swipe with two fingers to switch page."
             android:orientation="horizontal"
             android:gravity="center">
             <TextView
+                android:id="@+id/tv_intro2_caption"
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="64dp"
@@ -81,6 +81,5 @@ Swipe with two fingers to switch page."
         android:paddingRight="32dp"
         android:paddingEnd="32dp"
         android:src="@drawable/ic_chevron_right"
-        android:contentDescription="@null"
         tools:ignore="RtlSymmetry" />
 </FrameLayout>

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_RecyclerView;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.io.File;
@@ -50,8 +48,6 @@ class LevelTwoAdapter extends android.support.v7.widget.RecyclerView.Adapter<Lev
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        ViewCompat.setAccessibilityDelegate(holder.menuItemLinearLayout,
-                new TalkbackHints_RecyclerView());
         final int MODE_PICTURE_ONLY = 1;
         if (mSession.getPictureViewMode() == MODE_PICTURE_ONLY)
             holder.menuItemBelowText.setVisibility(View.INVISIBLE);
@@ -63,11 +59,6 @@ class LevelTwoAdapter extends android.support.v7.widget.RecyclerView.Adapter<Lev
                 .centerCrop()
                 .dontAnimate()
                 .into(holder.menuItemImage);
-        holder.menuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
-                ((LevelTwoActivity)mContext).tappedCategoryItemEvent(holder.menuItemLinearLayout, v, position);
-            }
-        });
     }
 
     @Override

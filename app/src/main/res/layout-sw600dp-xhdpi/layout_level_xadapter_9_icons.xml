@@ -4,7 +4,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    android:background="#Fa0">
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -24,7 +25,7 @@
     </FrameLayout>
     <TextView
         android:id="@+id/te1"
-        android:layout_width="192dp"
+        android:layout_width="172dp"
         android:layout_height="wrap_content"
         android:text="TIME AND WEATHER..."
         android:gravity="center"

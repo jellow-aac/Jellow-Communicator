@@ -15,7 +15,6 @@
         android:paddingLeft="32dp"
         android:paddingStart="32dp"
         android:src="@drawable/ic_chevron_left"
-        android:contentDescription="@null"
         tools:ignore="RtlSymmetry"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,6 +22,7 @@
         android:orientation="vertical"
         android:layout_gravity="center_horizontal">
         <TextView
+            android:id="@+id/tv_intro4_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -35,21 +35,18 @@
             android:layout_marginBottom="16dp"
             android:text="@string/txt_intro4_customizeAppDesc"
         android:importantForAccessibility="yes"
-        android:contentDescription="User can customize application settings by clicking on top right corner of the application.
-Swipe with single finger to go to image below.
-Swipe with two fingers to switch page."/>
-        <LinearLayout
+/>        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:orientation="horizontal"
             android:layout_gravity="center_horizontal"
             android:layout_weight="32">
             <ImageView
+                android:id="@+id/intro4_img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/settings"
-            android:contentDescription="This image shows the home screen of Jellow with a drop-down at the top right corner of Jellow. This drop-down shows options of “Profile”, “About Jellow”, “Tutorial”, “Keyboard Control”, “Language”, “Settings”, “Reset preferences”, and “Feedback”. By clicking on any of these options the user can customize the app’s settings to their needs.
-Swipe with two fingers to switch page." />
+            android:contentDescription="@string/intro4_cd" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,6 +54,7 @@ Swipe with two fingers to switch page." />
             android:orientation="horizontal"
             android:gravity="center_horizontal">
             <TextView
+                android:id="@+id/tv_intro4_caption"
                 android:layout_width="0dp"
                 android:layout_weight="3"
                 android:layout_height="64dp"
@@ -81,6 +79,5 @@ Swipe with two fingers to switch page." />
         android:paddingRight="32dp"
         android:paddingEnd="32dp"
         android:src="@drawable/ic_chevron_right"
-        android:contentDescription="@null"
         tools:ignore="RtlSymmetry" />
 </FrameLayout>

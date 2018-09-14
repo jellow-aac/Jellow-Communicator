@@ -16,6 +16,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
+import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.EvaluateDisplayMetricsUtils;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
@@ -27,6 +28,8 @@ import java.util.TimerTask;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
+import static com.dsource.idc.jellowintl.utility.Analytics.setCrashlyticsCustomKey;
+import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
 
 /**
  * Created by ekalpa on 7/12/2016.
@@ -39,6 +42,10 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Initialize default exception handler for this activity.
+        // If any exception occurs during this activity usage,
+        // handle it using default exception handler.
+        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         setContentView(R.layout.activity_splash);
         getSupportActionBar().hide();
         new DataBaseHelper(this).createDataBase();
@@ -74,7 +81,34 @@ public class SplashActivity extends AppCompatActivity {
         mExit = getString(R.string.exit);
         mErrDialogMsg = getString(R.string.err_dialog_msg);
         mExitDialogMsg = getString(R.string.exit_dialog_msg);
+        setUserParameters();
      }
+
+    private void setUserParameters() {
+        SessionManager session = new SessionManager(this);
+        final int GRID_3BY3 = 1, PICTURE_TEXT = 0;
+        if(session.isGridSizeKeyExist()) {
+            if(session.getGridSize() == GRID_3BY3){
+                setUserProperty("GridSize", "9");
+                setCrashlyticsCustomKey("GridSize", "9");
+            }else{
+                setUserProperty("GridSize", "3");
+                setCrashlyticsCustomKey("GridSize", "3");
+            }
+        }else{
+            setUserProperty("GridSize", "9");
+            setCrashlyticsCustomKey("GridSize", "9");
+        }
+
+        if(session.getPictureViewMode() == PICTURE_TEXT) {
+            setUserProperty("PictureViewMode", "PictureText");
+            setCrashlyticsCustomKey("PictureViewMode", "PictureText");
+        }else{
+            setUserProperty("PictureViewMode", "PictureOnly");
+            setCrashlyticsCustomKey("PictureViewMode", "PictureOnly");
+        }
+
+    }
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -197,7 +231,11 @@ public class SplashActivity extends AppCompatActivity {
 
     private void startJellow() {
         startActivity(new Intent(SplashActivity.this, MainActivity.class));
-        unregisterReceiver(receiver);
+        try{
+            unregisterReceiver(receiver);
+        } catch(IllegalArgumentException | NullPointerException | IllegalStateException e) {
+            e.printStackTrace();
+        }
         finish();
     }
 

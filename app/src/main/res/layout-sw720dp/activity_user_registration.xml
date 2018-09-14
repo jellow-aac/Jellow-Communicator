@@ -19,17 +19,18 @@
         android:layout_marginEnd="16dp">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingLeft="7dp">
 
             <TextView
+                android:id="@+id/childName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/childName"
                 android:fontFamily="@font/mukta_semibold"
                 style="@style/defaultTextViewStyle"
-                android:contentDescription="Child's name"
+                android:contentDescription="@string/child_s_name"
                 android:importantForAccessibility="yes"/>
             <TextView
                 android:layout_width="match_parent"
@@ -47,7 +48,7 @@
                 android:ems="10"
                 android:imeOptions="actionDone"
                 style="@style/defaultTextViewStyle"
-                android:contentDescription="enter your name"/>
+                android:contentDescription="@string/enter_child_s_name"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -55,7 +56,7 @@
                 android:text="@string/careGiverContact"
                 android:fontFamily="@font/mukta_semibold"
                 style="@style/defaultTextViewStyle"
-                android:contentDescription="caregiver's contact number"/>
+                android:contentDescription="@string/caregiver_s_contact_number_other_than_this_device_s_sim_number"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -80,7 +81,7 @@
                     app:ccp_autoFormatNumber="false"
                     app:ccpDialog_keyboardAutoPopup="false"
                     app:ccpDialog_backgroundColor="@color/colorIntro"
-                    android:contentDescription="select country code"/>
+                    android:contentDescription="@string/select_country_code"/>
                 <EditText
                     android:id="@+id/etEmergencyContact"
                     android:layout_width="match_parent"
@@ -90,7 +91,7 @@
                     android:maxLength="12"
                     android:imeOptions="actionDone"
                     style="@style/defaultTextViewStyle"
-                    android:contentDescription="enter caregiver's contact number"/>
+                    android:contentDescription="@string/caregiver_s_contact_number"/>
             </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
@@ -98,7 +99,7 @@
                 android:text="@string/emailAddress"
                 android:fontFamily="@font/mukta_semibold"
                 style="@style/defaultTextViewStyle"
-                android:contentDescription="email address"/>
+                android:contentDescription="@string/caregiver_s_email_address"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -116,7 +117,7 @@
                 android:inputType="textEmailAddress"
                 android:imeOptions="actionDone"
                 style="@style/defaultTextViewStyle"
-                android:contentDescription="enter email address"/>
+                android:contentDescription="@string/caregiver_s_email_address"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -124,7 +125,7 @@
                 android:text="@string/userGroup"
                 android:fontFamily="@font/mukta_semibold"
                 style="@style/defaultTextViewStyle"
-                android:contentDescription="User Group"/>
+                android:contentDescription="@string/user_s_group"/>
 
             <RadioGroup
                 android:id="@+id/radioUserGroup"

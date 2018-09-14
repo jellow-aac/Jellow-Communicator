@@ -4,7 +4,6 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,11 +14,13 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.IconDataBaseHelper;
 import com.dsource.idc.jellowintl.utility.JellowIcon;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
@@ -69,7 +70,20 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Initialize default exception handler for this activity.
+        // If any exception occurs during this activity usage,
+        // handle it using default exception handler.
+        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         setContentView(R.layout.activity_search);
+        EditText SearchEditText = findViewById(R.id.search_auto_complete);
+        AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
+        boolean isAccessibilityEnabled = am.isEnabled();
+        boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
+        if (isAccessibilityEnabled && isExploreByTouchEnabled) {
+            SearchEditText.setContentDescription("Enter to search");
+        } else {
+            SearchEditText.setHint("Search icon....");
+        }
         getWindow().setGravity(Gravity.LEFT);
 
         // Reference to the icon database to get access to the Icon list.
@@ -92,7 +106,6 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        EditText SearchEditText=findViewById(R.id.search_auto_complete);
         //Initialising the fields
         initFields();
         //Adding text watcher so that we can address dynamic text changes
@@ -174,8 +187,7 @@ public class SearchActivity extends AppCompatActivity {
         if(!isAnalyticsActive()){
             resetAnalytics(this, new SessionManager(this).getCaregiverNumber().substring(1));
         }
-        if(Build.VERSION.SDK_INT > 25 &&
-                !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
+        if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
             startService(new Intent(getApplication(), JellowTTSService.class));
         }
         // Start measuring user app screen timer.

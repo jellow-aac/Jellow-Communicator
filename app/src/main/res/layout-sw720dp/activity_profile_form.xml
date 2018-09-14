@@ -37,6 +37,7 @@
                     android:text="@string/childName"
                     android:fontFamily="@font/mukta_semibold"
                     style="@style/defaultTextViewStyle"
+                    android:contentDescription="@string/child_s_name"
                     android:importantForAccessibility="yes"/>
                 <EditText
                     android:id="@+id/etName"
@@ -47,7 +48,8 @@
                     android:layout_marginStart="-4dp"
                     android:imeOptions="actionDone"
                     style="@style/defaultTextViewStyle"
-                    android:inputType="textPersonName"/>
+                    android:inputType="textPersonName"
+                    android:contentDescription="Enter child's name"/>
                 <TextView
                     android:id="@+id/tvCaregiverName"
                     android:layout_width="wrap_content"
@@ -64,7 +66,8 @@
                     android:layout_marginStart="-4dp"
                     style="@style/defaultTextViewStyle"
                     android:imeOptions="actionDone"
-                    android:inputType="textPersonName"/>
+                    android:inputType="textPersonName"
+                    android:contentDescription="Enter Caregiver's name"/>
                 <TextView
                     android:id="@+id/tvCaregiverNo"
                     android:layout_width="wrap_content"
@@ -72,7 +75,7 @@
                     android:text="@string/careGiverContact"
                     style="@style/defaultTextViewStyle"
                     android:fontFamily="@font/mukta_semibold"
-                    android:contentDescription="caregiver's contact number"/>
+                    android:contentDescription="@string/caregiver_s_contact_number"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -89,7 +92,7 @@
                     app:ccp_autoFormatNumber="false"
                     app:ccpDialog_keyboardAutoPopup="false"
                     app:ccpDialog_backgroundColor="@color/colorIntro"
-                    android:contentDescription="select country code"/>
+                    android:contentDescription="@string/select_country_code"/>
                 <EditText
                     android:id="@+id/etFathercontact"
                     android:layout_width="match_parent"
@@ -97,7 +100,8 @@
                     android:inputType="phone"
                     android:maxLength="12"
                     style="@style/defaultTextViewStyle"
-                    android:imeOptions="actionDone"/>
+                    android:imeOptions="actionDone"
+                    android:contentDescription="@string/enter_caregiver_s_contact_number"/>
             </LinearLayout>
                 <TextView
                     android:id="@+id/tvHomeAddress"
@@ -115,7 +119,8 @@
                     android:layout_marginStart="-4dp"
                     style="@style/defaultTextViewStyle"
                     android:imeOptions="actionDone"
-                    android:inputType="textPostalAddress"/>
+                    android:inputType="textPostalAddress"
+                    android:contentDescription="@string/enter_home_address"/>
                 <TextView
                     android:id="@+id/tvEmailAddress"
                     android:layout_width="wrap_content"
@@ -123,7 +128,7 @@
                     android:text="@string/emailAddress"
                     style="@style/defaultTextViewStyle"
                     android:fontFamily="@font/mukta_semibold"
-                    android:contentDescription="email address"/>
+                    android:contentDescription="@string/email_address"/>
                 <EditText
                     android:id="@+id/etEmailId"
                     android:layout_width="match_parent"
@@ -133,7 +138,8 @@
                     android:layout_marginStart="-4dp"
                     style="@style/defaultTextViewStyle"
                     android:imeOptions="actionDone"
-                    android:inputType="textEmailAddress"/>
+                    android:inputType="textEmailAddress"
+                    android:contentDescription="@string/enter_caregiver_s_email_address"/>
 
                 <TextView
                     android:id="@+id/tvUserGroup"
@@ -142,7 +148,7 @@
                     android:text="@string/userGroup"
                     style="@style/defaultTextViewStyle"
                     android:fontFamily="@font/mukta_semibold"
-                    android:contentDescription="user group"/>
+                    android:contentDescription="@string/user_s_group"/>
 
                 <RadioGroup
                     android:id="@+id/radioUserGroup"

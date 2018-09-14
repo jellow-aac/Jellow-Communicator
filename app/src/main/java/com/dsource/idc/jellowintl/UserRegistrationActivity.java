@@ -7,7 +7,6 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.Html;
@@ -24,8 +23,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
-import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_DropDownMenu;
 import com.dsource.idc.jellowintl.models.SecureKeys;
+import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -53,6 +52,7 @@ import se.simbio.encryption.Encryption;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.getAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.maskNumber;
+import static com.dsource.idc.jellowintl.utility.Analytics.setCrashlyticsCustomKey;
 import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
 
@@ -72,16 +72,21 @@ public class UserRegistrationActivity extends AppCompatActivity {
     private CountryCodePicker mCcp;
     private String mUserGroup;
     Spinner languageSelect;
-    String[] languagesCodes = new String[4], languageNames = new String[4];
+    String[] languagesCodes = new String[5], languageNames = new String[5];
     String selectedLanguage;
     String name, emergencyContact, eMailId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Initialize default exception handler for this activity.
+        // If any exception occurs during this activity usage,
+        // handle it using default exception handler.
+        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         setContentView(R.layout.activity_user_registration);
         FirebaseMessaging.getInstance().subscribeToTopic("jellow_aac");
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.app_name)+"</font>"));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"
+                + getString(R.string.menuUserRegistration)+"</font>"));
 
         mSession = new SessionManager(this);
         if(!mSession.getCaregiverNumber().equals("")) {
@@ -94,7 +99,10 @@ public class UserRegistrationActivity extends AppCompatActivity {
             if(mSession.isDownloaded(mSession.getLanguage()) && mSession.isCompletedIntro()) {
                 if(!mSession.getUpdatedFirebase())
                     updateFirebaseDatabase();
-                startActivity(new Intent(this, SplashActivity.class));
+                if(!mSession.isLanguagePackageUpdated())
+                    startActivity(new Intent(this, LanguagePackageUpdateActivity.class));
+                else
+                    startActivity(new Intent(this, SplashActivity.class));
             }else if(mSession.isDownloaded(mSession.getLanguage()) && !mSession.isCompletedIntro()){
                 startActivity(new Intent(this, Intro.class));
             }else {
@@ -114,15 +122,16 @@ public class UserRegistrationActivity extends AppCompatActivity {
         LangMap.keySet().toArray(languageNames);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         etName = findViewById(R.id.etName);
+        etName.clearFocus();
         etEmergencyContact = findViewById(R.id.etEmergencyContact);
         mCcp = findViewById(R.id.ccp);
-        ViewCompat.setAccessibilityDelegate(mCcp, new TalkbackHints_DropDownMenu());
         mCcp.registerCarrierNumberEditText(etEmergencyContact);
         etEmailId= findViewById(R.id.etEmailId);
         bRegister = findViewById(R.id.bRegister);
         bRegister.setAlpha(0.5f);
         bRegister.setEnabled(false);
-
+        findViewById(R.id.childName).setFocusableInTouchMode(true);
+        findViewById(R.id.childName).setFocusable(true);
         etName.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override public void afterTextChanged(Editable s) {}
@@ -239,6 +248,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
         if(!mSession.getAddress().isEmpty())
             ref.child("address").setValue(encrypt(mSession.getAddress(), secureKey));
         ref.child("updatedOn").setValue(ServerValue.TIMESTAMP);
+        setUserProperty("GridSize", "9");
+        setUserProperty("PictureViewMode", "PictureText");
         mSession.setUpdatedFirebase(true);
     }
 
@@ -373,8 +384,12 @@ public class UserRegistrationActivity extends AppCompatActivity {
                         setUserProperty("UserId", userId);
                         setUserProperty("UserLanguage", LangMap.get(selectedLanguage));
                         setUserProperty("UserGroup", decUserGroup);
+                        setUserProperty("GridSize", "9");
+                        setUserProperty("PictureViewMode", "PictureText");
                         bundleEvent("Language", bundle);
                         Crashlytics.setUserIdentifier(userId);
+                        setCrashlyticsCustomKey("GridSize", "9");
+                        setCrashlyticsCustomKey("PictureViewMode", "PictureText");
                         bundle.clear();
                         bundle.putString(LCODE,LangMap.get(selectedLanguage));
                         bundle.putBoolean(TUTORIAL,true);

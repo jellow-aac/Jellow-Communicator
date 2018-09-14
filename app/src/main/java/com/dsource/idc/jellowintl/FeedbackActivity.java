@@ -21,6 +21,7 @@ import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.Toast;
 
+import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
@@ -28,6 +29,7 @@ import com.dsource.idc.jellowintl.utility.SessionManager;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
+import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
 
 public class FeedbackActivity extends AppCompatActivity {
     private RatingBar mRatingEasyToUse;
@@ -38,6 +40,10 @@ public class FeedbackActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Initialize default exception handler for this activity.
+        // If any exception occurs during this activity usage,
+        // handle it using default exception handler.
+        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         setContentView(R.layout.activity_feedback);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -60,20 +66,37 @@ public class FeedbackActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        SessionManager session = new SessionManager(this);
+        if(session.getLanguage().equals(BN_IN))
+            menu.findItem(R.id.keyboardinput).setVisible(false);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.languageSelect: startActivity(new Intent(this, LanguageSelectActivity.class)); finish(); break;
-            case R.id.profile: startActivity(new Intent(FeedbackActivity.this, ProfileFormActivity.class)); finish(); break;
-            case R.id.info: startActivity(new Intent(FeedbackActivity.this, AboutJellowActivity.class)); finish(); break;
-            case R.id.usage: startActivity(new Intent(FeedbackActivity.this, TutorialActivity.class)); finish(); break;
-            case R.id.keyboardinput: startActivity(new Intent(FeedbackActivity.this, KeyboardInputActivity.class)); finish(); break;
-            case R.id.settings: startActivity(new Intent(FeedbackActivity.this, SettingActivity.class)); finish(); break;
-            case R.id.reset: startActivity(new Intent(FeedbackActivity.this, ResetPreferencesActivity.class)); finish(); break;
-            case android.R.id.home: finish(); break;
+            case R.id.languageSelect:
+                startActivity(new Intent(this, LanguageSelectActivity.class));
+                finish(); break;
+            case R.id.profile:
+                startActivity(new Intent(this, ProfileFormActivity.class));
+                finish(); break;
+            case R.id.info:
+                startActivity(new Intent(this, AboutJellowActivity.class));
+                finish(); break;
+            case R.id.usage:
+                startActivity(new Intent(this, TutorialActivity.class));
+                finish(); break;
+            case R.id.keyboardinput:
+                startActivity(new Intent(this, KeyboardInputActivity.class));
+                finish(); break;
+            case R.id.settings: startActivity(new Intent(this, SettingActivity.class));
+                finish(); break;
+            case R.id.reset:
+                startActivity(new Intent(this, ResetPreferencesActivity.class));
+                finish(); break;
+            case android.R.id.home:
+                finish(); break;
             default: return super.onOptionsItemSelected(item);
         }
         return true;
@@ -85,8 +108,7 @@ public class FeedbackActivity extends AppCompatActivity {
         if(!isAnalyticsActive()) {
             resetAnalytics(this, new SessionManager(this).getCaregiverNumber().substring(1));
         }
-        if(Build.VERSION.SDK_INT > 25 &&
-                !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
+        if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
             startService(new Intent(getApplication(), JellowTTSService.class));
         }
     }

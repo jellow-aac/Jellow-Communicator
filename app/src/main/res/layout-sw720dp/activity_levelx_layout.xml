@@ -55,7 +55,7 @@
                     android:layout_width="132dp"
                     android:layout_height="126dp"
                     android:src="@drawable/dontlike"
-                    android:contentDescription="DONT LIKE"/>
+                    android:contentDescription="dont like"/>
                 <ImageView
                     android:id="@+id/ivno"
                     android:layout_width="132dp"
@@ -93,21 +93,21 @@
             android:layout_height="168dp"
             android:layout_centerHorizontal="true"
             android:src="@drawable/home"
-            android:contentDescription="HOME"/>
+            android:contentDescription="home"/>
         <ImageView
             android:id="@+id/keyboard"
             android:layout_width="170dp"
             android:layout_height="170dp"
             android:src="@drawable/keyboard"
             android:layout_toRightOf="@+id/ivhome"
-            android:contentDescription="OPEN KEYBOARD"/>
+            android:contentDescription="open keyboard"/>
         <ImageView
             android:id="@+id/ivback"
             android:layout_width="170dp"
             android:layout_height="170dp"
             android:src="@drawable/back"
             android:layout_toLeftOf="@+id/ivhome"
-            android:contentDescription="BACK"/>
+            android:contentDescription="back"/>
     </RelativeLayout>
     <LinearLayout
         android:layout_width="728dp"
@@ -120,13 +120,14 @@
             android:layout_width="628dp"
             android:layout_height="80dp"
             android:textSize="20sp"
-            android:contentDescription="Custom speech"/>
+            android:contentDescription="Type here to speak"/>
         <ImageView
             android:id="@+id/ttsbutton"
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:src="@drawable/ic_search_list_speaker"
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical"
+            android:contentDescription="speak"/>
     </LinearLayout>
     <ImageView
         android:layout_width="168dp"

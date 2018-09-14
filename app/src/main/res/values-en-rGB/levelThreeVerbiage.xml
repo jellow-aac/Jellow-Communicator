@@ -9,15 +9,15 @@
 		\"I really feel very happy\",
 		\"I don\'t feel happy\",
 		\"I really don\'t feel happy\",
-		\"I don\'t want to be happy\",
-		\"I really don\'t want to be happy\",
+		\"\",
+		\"\",
 		\"I don\'t feel very happy\",
 		\"I really don\'t feel happy any more\"
 
 	],[\"I feel sad\",
 		\"I really feel sad\",
-		\"I want to be sad\",
-		\"I really want to be sad\",
+		\"\",
+		\"\",
 		\"I feel very sad\",
 		\"I really feel very sad\",
 		\"I don\'t feel sad\",
@@ -29,8 +29,8 @@
 
 	],[\"I feel angry\",
 		\"I really feel angry\",
-		\"I want to be angry\",
-		\"I really want to be angry\",
+		\"\",
+		\"\",
 		\"I feel very angry\",
 		\"I really feel very angry\",
 		\"I don\'t feel angry\",
@@ -42,8 +42,8 @@
 
 	],[\"I feel afraid\",
 		\"I really feel afraid\",
-		\"I want to be afraid\",
-		\"I really want to be afraid\",
+		\"\",
+		\"\",
 		\"I feel very afraid\",
 		\"I really feel very afraid\",
 		\"I don\'t feel afraid\",
@@ -68,8 +68,8 @@
 
 	],[\"I feel irritated\",
 		\"I really feel irritated\",
-		\"I want to be irritated\",
-		\"I really want to be irritated\",
+		\"\",
+		\"\",
 		\"I feel very irritated\",
 		\"I really feel very irritated\",
 		\"I don\'t feel irritated\",
@@ -81,8 +81,8 @@
 
 	],[\"I feel confused\",
 		\"I really feel confused\",
-		\"I want to be confused\",
-		\"I really want to be confused\",
+		\"\",
+		\"\",
 		\"I feel very confused\",
 		\"I really feel very confused\",
 		\"I don\'t feel confused\",
@@ -94,8 +94,8 @@
 
 	],[\"I feel ashamed\",
 		\"I really feel ashamed\",
-		\"I want to feel ashamed\",
-		\"I really want to feel ashamed\",
+		\"\",
+		\"\",
 		\"I feel very ashamed\",
 		\"I really feel very ashamed\",
 		\"I don\'t feel ashamed\",
@@ -107,8 +107,8 @@
 
 	],[\"I feel disappointed\",
 		\"I really feel disappointed\",
-		\"I want to be disappointed\",
-		\"I really want to be disappointed\",
+		\"\",
+		\"\",
 		\"I feel very disappointed\",
 		\"I really feel very disappointed\",
 		\"I don\'t feel disappointed\",
@@ -120,8 +120,8 @@
 
 	],[\"I feel bored\",
 		\"I really feel bored\",
-		\"I want to be bored\",
-		\"I really want to be bored\",
+		\"\",
+		\"\",
 		\"I feel very bored\",
 		\"I really feel very bored\",
 		\"I don\'t feel bored\",
@@ -133,8 +133,8 @@
 
 	],[\"I feel worried\",
 		\"I really feel worried\",
-		\"I want to be worried\",
-		\"I really want to be worried\",
+		\"\",
+		\"\",
 		\"I feel very worried\",
 		\"I really feel very worried\",
 		\"I don\'t feel worried\",
@@ -146,8 +146,8 @@
 
 	],[\"I feel stressed\",
 		\"I really feel stressed\",
-		\"I want to be stressed\",
-		\"I really want to be stressed\",
+		\"\",
+		\"\",
 		\"I feel very stressed\",
 		\"I really feel very stressed\",
 		\"I don\'t feel stressed\",
@@ -159,8 +159,8 @@
 
 	],[\"I feel tired\",
 		\"I really feel tired\",
-		\"I want to be tired\",
-		\"I really want to be tired\",
+		\"\",
+		\"\",
 		\"I feel very tired\",
 		\"I really feel very tired\",
 		\"I don\'t feel tired\",
@@ -198,8 +198,8 @@
 
 	],[\"I feel sick\",
 		\"I really feel sick\",
-		\"I want to be sick\",
-		\"I really want to be sick\",
+		\"\",
+		\"\",
 		\"I feel very sick\",
 		\"I really feel very sick\",
 		\"I don\'t feel sick\",
@@ -211,8 +211,8 @@
 
 	],[\"I feel hurt\",
 		\"I really feel hurt\",
-		\"I want to be hurt\",
-		\"I really want to be hurt\",
+		\"\",
+		\"\",
 		\"I feel very hurt\",
 		\"I really feel very hurt\",
 		\"I don\'t feel hurt\",
@@ -1214,7 +1214,7 @@
 	</string>
 	<string name="levelThreeVerbiage4">
 
-	]],[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[
+	]],[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[
 
     ]]],[[[\"I like bread\",
 		\"I really like bread\",

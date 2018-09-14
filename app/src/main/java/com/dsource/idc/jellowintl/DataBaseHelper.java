@@ -2,7 +2,6 @@ package com.dsource.idc.jellowintl;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -203,9 +202,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         removeMoreFromDatabasePreferences(7, 5);
         removeMoreFromDatabasePreferences(7, 7);
 
-        // play store version only places preferences stored.
-        retrievePlacesPreferencesIfExist();
-
         ArrayList<String> levelOneIds = new ArrayList<String>();
         levelOneIds.add("0");levelOneIds.add("1");levelOneIds.add("2");
         levelOneIds.add("3");levelOneIds.add("4");levelOneIds.add("7");
@@ -283,28 +279,5 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         ContentValues dataToInsert = new ContentValues();
         dataToInsert.put("layer_3", prefString);
         myDataBase.update("three", dataToInsert, "layer_1_id='" + layer_1_id + "' AND layer_2_id='" + layer_2_id + "'", null);
-    }
-
-    private void retrievePlacesPreferencesIfExist() {
-        SharedPreferences pref = myContext.getSharedPreferences("places_count", Context.MODE_PRIVATE);
-        String prefString = pref.getString("places_count", "");
-        if(!prefString.isEmpty()){
-            StringTokenizer token = new StringTokenizer(prefString, ",");
-            Integer[] arr = new Integer[prefString.split(",").length];
-            for (int i = 0; i < prefString.split(",").length; i++) {
-                arr[i] = Integer.parseInt(token.nextToken());
-            }
-            StringBuilder newPrefString = new StringBuilder();
-            int skipCount = 0;
-            for (int i = 0; i < arr.length; i++) {
-                skipCount++;
-                if(skipCount != 9 || i == arr.length - 1)
-                    newPrefString.append(String.valueOf(arr[i]).concat(","));
-                else skipCount = 0;
-            }
-            mSession.setPlacesPreferences(newPrefString.toString());
-            pref.edit().remove("places_count").apply();
-            arr = null;
-        }
     }
 }

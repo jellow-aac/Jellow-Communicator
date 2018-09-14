@@ -28,7 +28,7 @@
     </FrameLayout>
     <TextView
         android:id="@+id/te1"
-        android:layout_width="324dp"
+        android:layout_width="210dp"
         android:layout_height="wrap_content"
         android:text="TIME AND WEATHER"
         android:gravity="center"

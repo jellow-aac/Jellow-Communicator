@@ -36,7 +36,7 @@
                     android:text="@string/childName"
                     android:fontFamily="@font/mukta_semibold"
                     style="@style/defaultTextViewStyle"
-                    android:contentDescription="child's name"/>
+                    android:contentDescription="@string/child_s_name"/>
                 <EditText
                     android:id="@+id/etName"
                     android:layout_width="match_parent"
@@ -73,7 +73,7 @@
                     android:text="@string/careGiverContact"
                     android:fontFamily="@font/mukta_semibold"
                     style="@style/defaultTextViewStyle"
-                    android:contentDescription="caregiver's contact number"/>
+                    android:contentDescription="@string/caregiver_s_contact_number"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -90,7 +90,7 @@
                     app:ccp_autoFormatNumber="false"
                     app:ccpDialog_keyboardAutoPopup="false"
                     app:ccpDialog_backgroundColor="@color/colorIntro"
-                    android:contentDescription="select country code"/>
+                    android:contentDescription="@string/select_country_code"/>
                 <EditText
                     android:id="@+id/etFathercontact"
                     android:layout_width="match_parent"
@@ -126,7 +126,7 @@
                     android:text="@string/emailAddress"
                     android:fontFamily="@font/mukta_semibold"
                     style="@style/defaultTextViewStyle"
-                    android:contentDescription="email address"/>
+                    android:contentDescription="@string/email_address"/>
                 <EditText
                     android:id="@+id/etEmailId"
                     android:layout_width="match_parent"
@@ -144,14 +144,15 @@
                     android:layout_height="wrap_content"
                     android:text="@string/userGroup"
                     android:fontFamily="@font/mukta_semibold"
-                    style="@style/defaultTextViewStyle"/>
+                    style="@style/defaultTextViewStyle"
+                    android:contentDescription="@string/user_s_group"/>
 
                 <RadioGroup
                     android:id="@+id/radioUserGroup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:contentDescription="user's group">
+                    android:contentDescription="@string/user_s_group">
                     <RadioButton
                         android:id="@+id/radioTherapist"
                         android:layout_width="wrap_content"

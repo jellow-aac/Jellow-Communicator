@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -71,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="19dp"
                     android:min="1"
-                    android:max="100"
+                    android:max="15"
                     android:theme="@style/CustomSeekbar"/>
                 <TextView
                     android:id="@+id/tv3"
@@ -110,12 +109,12 @@
                     android:text="@string/txtEnableBuiltInCalling"
                     style="@style/defaultTextViewStyle"
                     android:fontFamily="@font/mukta_semibold"/>
-                <com.rey.material.widget.Switch
+                <Switch
                     android:id="@+id/switchEnableCall"
                     style="@style/Material.Widget.Switch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:sw_thumbRadius="13dp" />
+                    android:importantForAccessibility="yes" />
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="58dp" />

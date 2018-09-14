@@ -19,20 +19,21 @@ import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.accessibility.AccessibilityManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
-import com.rey.material.widget.Switch;
 
 import static com.dsource.idc.jellowintl.MainActivity.isDeviceReadyToCall;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
@@ -43,6 +44,7 @@ import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
+import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
 
 public class SettingActivity extends AppCompatActivity {
     private final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 0;
@@ -56,6 +58,10 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Initialize default exception handler for this activity.
+        // If any exception occurs during this activity usage,
+        // handle it using default exception handler.
+        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         setContentView(R.layout.activity_settings);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+
@@ -79,10 +85,11 @@ public class SettingActivity extends AppCompatActivity {
         if(isDeviceReadyToCall((TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE))) {
             if(mSession.getEnableCalling())
                 ((Switch) findViewById(R.id.switchEnableCall)).setChecked(true);
+
             ((Switch) findViewById(R.id.switchEnableCall)).setOnCheckedChangeListener
-                    (new Switch.OnCheckedChangeListener() {
+                    (new CompoundButton.OnCheckedChangeListener() {
                         @Override
-                        public void onCheckedChanged(Switch view, boolean enableCall) {
+                        public void onCheckedChanged(CompoundButton compoundButton, boolean enableCall) {
                             if(enableCall)
                                 //request call permission here.
                                 requestCallPermissionToUser();
@@ -323,6 +330,10 @@ public class SettingActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         // Show the AlertDialog
         dialog.show();
+        Button positive = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        positive.setTextColor(SettingActivity.this.getResources().getColor(R.color.colorAccent));
+        Button negative = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+        negative.setTextColor(SettingActivity.this.getResources().getColor(R.color.colorAccent));
     }
 
     @Override
@@ -360,8 +371,7 @@ public class SettingActivity extends AppCompatActivity {
         if(!isAnalyticsActive()){
             resetAnalytics(this, mSession.getCaregiverNumber().substring(1));
         }
-        if(Build.VERSION.SDK_INT > 25 &&
-                !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
+        if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
             startService(new Intent(getApplication(), JellowTTSService.class));
         }
         startMeasuring();
@@ -389,6 +399,8 @@ public class SettingActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        if(mSession.getLanguage().equals(BN_IN))
+            menu.findItem(R.id.keyboardinput).setVisible(false);
         return true;
     }
 
@@ -420,15 +432,8 @@ public class SettingActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.feedback:
-                AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
-                boolean isAccessibilityEnabled = am.isEnabled();
-                boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
-                if(isAccessibilityEnabled && isExploreByTouchEnabled) {
-                    startActivity(new Intent(this, FeedbackActivityTalkback.class));
-                }
-                else {
-                    startActivity(new Intent(this, FeedbackActivity.class));
-                }
+                startActivity(new Intent(this, FeedbackActivity.class));
+                finish();
                 break;
             case android.R.id.home:
                 onBackPressed();

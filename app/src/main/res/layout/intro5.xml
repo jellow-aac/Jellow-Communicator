@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
-    android:layout_weight="10"
     android:importantForAccessibility="yes"
     android:id="@+id/main">
     <ImageView
@@ -18,7 +17,6 @@
         android:paddingStart="8dp"
         android:src="@drawable/ic_chevron_left"
         android:clickable="false"
-        android:contentDescription="@null"
         tools:ignore="RtlSymmetry" />
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,41 +24,38 @@
         android:orientation="vertical"
         android:layout_gravity="center_horizontal">
         <TextView
+            android:id="@+id/tv_intro5_title"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_gravity="center"
             android:gravity="center"
             style="@style/defaultTextViewStyle"
             android:paddingLeft="32dp"
-            android:layout_weight="1"
             android:paddingRight="32dp"
             android:textSize="13sp"
             android:text="@string/txt_intro5_jellowUsageDesc"
-        android:importantForAccessibility="yes"
-        android:contentDescription="Jellow has 9 central category buttons. Swipe with single finger to go to image below. Swipe with two fingers to switch page."/>
+        android:importantForAccessibility="yes"/>
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_weight="10">
+            android:gravity="center">
             <ImageView
+                android:id="@+id/intro5_img"
                 android:layout_width="wrap_content"
                 android:layout_height="190dp"
                 android:layout_gravity="center"
                 android:src="@drawable/expressivebuttons"
-            android:contentDescription="This image again shows the screenshot of the home page of Jellow. In this image, the 6 expressive buttons arranged as 3 each of either side of the central category buttons have been highlighted with all other buttons faded out. To the left of the central grid of category buttons, arranged from top to bottom are the 3 expressive buttons of “Like” represented by a “Smiley face” icon, “Yes” represented by a “check mark” icon, and “More” represented by a “Plus sign” icon. To the right of the category buttons, arranged from top to bottom are the expressive icons of “Don’t like” represented by a sad face” icon, “No” represented by the “cross” icon and “Less” represented by the “Minus sign” icon. Also labeled in the image are the 3 navigational buttons at the bottom of the screen. From left to right these are “Back”, “Home”, and “Keyboard”
-Swipe with two fingers to switch page " />
+                android:contentDescription="@string/intro5_cd"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
             <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:id="@+id/tv_intro5_caption"
+                android:layout_width="wrap_content"
                 android:layout_height="20dp"
-                android:layout_gravity="top"
-                android:gravity="center"
                 style="@style/defaultTextViewStyle"
                 android:paddingLeft="64dp"
                 android:paddingRight="64dp"
@@ -81,6 +76,5 @@ Swipe with two fingers to switch page " />
         android:paddingRight="8dp"
         android:paddingEnd="8dp"
         android:src="@drawable/ic_chevron_right"
-        android:contentDescription="@null"
         tools:ignore="RtlSymmetry" />
 </FrameLayout>

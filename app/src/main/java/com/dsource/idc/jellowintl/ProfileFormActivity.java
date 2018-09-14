@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -32,6 +31,7 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.models.SecureKeys;
+import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
@@ -66,6 +66,7 @@ import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.updateSessionRef;
 import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
+import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
 
 public class ProfileFormActivity extends AppCompatActivity {
     private Button bSave;
@@ -81,12 +82,15 @@ public class ProfileFormActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Initialize default exception handler for this activity.
+        // If any exception occurs during this activity usage,
+        // handle it using default exception handler.
+        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         setContentView(R.layout.activity_profile_form);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.menuProfile)+"</font>"));
         mSession = new SessionManager(this);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         etName = findViewById(R.id.etName);
         etFathername = findViewById(R.id.etFathername);
@@ -99,7 +103,7 @@ public class ProfileFormActivity extends AppCompatActivity {
         boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
         if(isAccessibilityEnabled && isExploreByTouchEnabled) {
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                    R.array.bloodgroup_talkback, android.R.layout.simple_spinner_item);
+                    R.array.bloodgroup, android.R.layout.simple_spinner_item);
             //adapter.getView(1,null,mBloodGroup).setContentDescription("A positive");
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             mBloodGroup.setAdapter(adapter);
@@ -210,30 +214,40 @@ public class ProfileFormActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        if(mSession.getLanguage().equals(BN_IN))
+            menu.findItem(R.id.keyboardinput).setVisible(false);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.languageSelect: startActivity(new Intent(this, LanguageSelectActivity.class)); finish(); break;
-            case R.id.info: startActivity(new Intent(this, AboutJellowActivity.class)); finish(); break;
-            case R.id.usage: startActivity(new Intent(this, TutorialActivity.class)); finish(); break;
-            case R.id.keyboardinput: startActivity(new Intent(this, KeyboardInputActivity.class)); finish(); break;
-            case R.id.settings: startActivity(new Intent(getApplication(), SettingActivity.class)); finish(); break;
-            case R.id.reset: startActivity(new Intent(this, ResetPreferencesActivity.class)); finish(); break;
+            case R.id.languageSelect:
+                startActivity(new Intent(this, LanguageSelectActivity.class));
+                finish(); break;
+            case R.id.info:
+                startActivity(new Intent(this, AboutJellowActivity.class));
+                finish(); break;
+            case R.id.usage:
+                startActivity(new Intent(this, TutorialActivity.class));
+                finish(); break;
+            case R.id.keyboardinput:
+                startActivity(new Intent(this, KeyboardInputActivity.class));
+                finish(); break;
+            case R.id.settings:
+                startActivity(new Intent(this, SettingActivity.class));
+                finish(); break;
+            case R.id.reset:
+                startActivity(new Intent(this, ResetPreferencesActivity.class));
+                finish(); break;
             case R.id.feedback:
-                AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
-                boolean isAccessibilityEnabled = am.isEnabled();
-                boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
-                if(isAccessibilityEnabled && isExploreByTouchEnabled) {
-                    startActivity(new Intent(this, FeedbackActivityTalkback.class));
-                }
-                else {
-                    startActivity(new Intent(this, FeedbackActivity.class));
-                }
-                break;            case android.R.id.home: finish(); break;
-            default: return super.onOptionsItemSelected(item);
+                startActivity(new Intent(this, FeedbackActivity.class));
+                finish();
+                break;
+            case android.R.id.home:
+                finish(); break;
+            default:
+                return super.onOptionsItemSelected(item);
         }
         return true;
     }
@@ -298,8 +312,7 @@ public class ProfileFormActivity extends AppCompatActivity {
         if(!isAnalyticsActive()){
             resetAnalytics(this, mSession.getCaregiverNumber().substring(1));
         }
-        if(Build.VERSION.SDK_INT > 25 &&
-                !isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
+        if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
             startService(new Intent(getApplication(), JellowTTSService.class));
         }
         startMeasuring();

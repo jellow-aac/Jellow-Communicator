@@ -165,6 +165,7 @@
         <item>walkonsideways-01</item>
         <item>watchoutforcars-01-01-01</item>
         <item>lookleftrightbeforecrossing-01</item>
+        <item>holdhandswhilecrossing</item>
         <item>donttalkwhilefoodinmouth-01-01</item>
         <item>eaysmallbites-01</item>
         <item>throwgarbageinbin-01</item>
@@ -1141,6 +1142,7 @@
         <item>Walk on sidewalk</item>
         <item>Cars: Watch out!</item>
         <item>Look and cross</item>
+        <item>Hold hands while crossing</item>
         <item>No talking while eating!</item>
         <item>Eat with small bites</item>
         <item>Garbage in the bin</item>
@@ -2116,6 +2118,7 @@
         <item>Please walk only on the sidewalk</item>
         <item>Please watch out for cars on the road</item>
         <item>Please look to the left and right before crossing</item>
+        <item>Please hold hands while crossing</item>
         <item>Please do not talk with food in your mouth</item>
         <item>Please eat with small bites</item>
         <item>Please put garbage in the bin</item>

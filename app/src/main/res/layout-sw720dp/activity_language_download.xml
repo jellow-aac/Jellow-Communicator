@@ -26,11 +26,22 @@
             app:rcRadius="10dp"
             app:rcReverse="false"
             app:rcSecondaryProgressColor="@color/colorIntro" 
-            android:contentDescription="Language download in process"/>
+            android:contentDescription="@string/language_download_in_process"/>
+        <TextView
+            android:id="@+id/txtDownloadCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="-50dp"
+            android:layout_marginBottom="56dp"
+            android:visibility="gone"
+            android:text="Updating icons for existing language 2/3"
+            style="@style/defaultTextViewStyle"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/defaultTextViewStyle"
+            android:paddingBottom="4dp"
             android:text="@string/downloadErrorMsg"/>
     </LinearLayout>
 </RelativeLayout>

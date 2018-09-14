@@ -18,6 +18,8 @@ import com.crashlytics.android.Crashlytics;
 import java.util.HashMap;
 import java.util.Locale;
 
+import static com.dsource.idc.jellowintl.utility.SessionManager.BE_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_UK;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_US;
@@ -87,6 +89,10 @@ public class JellowTTSService extends Service{
                 case ENG_US:
                     tts.setLanguage(Locale.US);
                     break;
+                case BN_IN:
+                case BE_IN:
+                    tts.setLanguage(new Locale("bn", "IN"));
+                    break;
                 case SessionManager.HI_IN:
                 case ENG_IN:
                 default:
@@ -147,6 +153,12 @@ public class JellowTTSService extends Service{
         dataIntent.putExtra("systemTtsRegion", infoLang.concat("-r".concat(infoCountry)));
         if(infoLang.concat("-r".concat(infoCountry)).equals(HI_IN) &&
                 intent.getStringExtra("saveSelectedLanguage").equals(ENG_IN))
+            dataIntent.putExtra("saveUserLanguage", true);
+        else if(infoLang.concat("-r".concat(infoCountry)).equals(BE_IN) &&
+                intent.getStringExtra("saveSelectedLanguage").equals(BN_IN))
+            dataIntent.putExtra("saveUserLanguage", true);
+        else if(infoLang.concat("-r".concat(infoCountry)).equals(BN_IN) &&
+                intent.getStringExtra("saveSelectedLanguage").equals(BN_IN))
             dataIntent.putExtra("saveUserLanguage", true);
         else if(!intent.getStringExtra("saveSelectedLanguage").equals(ENG_IN) &&
                 intent.getStringExtra("saveSelectedLanguage").
@@ -229,6 +241,8 @@ public class JellowTTSService extends Service{
                 case ENG_US:
                 case HI_IN:
                 case ENG_IN:
+                case BN_IN:
+                case BE_IN:
                 default:
                     return (float) mSession.getPitch()/50;
             }
@@ -240,6 +254,8 @@ public class JellowTTSService extends Service{
                 case ENG_US:
                 case HI_IN:
                 case ENG_IN:
+                case BN_IN:
+                case BE_IN:
                 default:
                     return (float) (mSession.getSpeed()/50);
             }
@@ -251,6 +267,8 @@ public class JellowTTSService extends Service{
                 case ENG_US:
                 case HI_IN:
                 case ENG_IN:
+                case BN_IN:
+                case BE_IN:
                 default:
                     return "com.google.android.tts";
             }

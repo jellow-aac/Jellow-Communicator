@@ -15,7 +15,6 @@
         android:paddingLeft="8dp"
         android:paddingStart="8dp"
         android:src="@drawable/ic_chevron_left"
-        android:contentDescription="@null"
         tools:ignore="RtlSymmetry" />
     <LinearLayout
         android:layout_width="wrap_content"
@@ -23,6 +22,7 @@
         android:orientation="vertical"
         android:layout_gravity="center_horizontal">
         <TextView
+            android:id="@+id/intro7_tvtop"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_gravity="center"
@@ -32,8 +32,7 @@
             android:layout_weight="1"
             android:paddingRight="32dp"
             android:textSize="12sp"
-            android:text="@string/txt_intro7_getStartedDesc"
-            android:id="@+id/tvtop"/>
+            android:text="@string/txt_intro7_getStartedDesc"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -56,6 +55,7 @@
             android:layout_gravity="center"
             android:layout_weight="7">
             <Button
+                android:id="@+id/btn_getStarted"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:background="@drawable/custom_btn_view"

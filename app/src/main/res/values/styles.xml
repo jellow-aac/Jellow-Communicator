@@ -61,6 +61,7 @@
     <style name="defaultTextViewStyle" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/black_eighty</item>
         <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/mukta_regular</item>
     </style>
 
     <style name="Material.Widget.Slider">
