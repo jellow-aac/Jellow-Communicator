@@ -374,14 +374,14 @@ public class ModelManager {
     public ArrayList<JellowIcon> searchIconsForText(String s) {
         ArrayList<JellowIcon> list = new ArrayList<>();
         for(int i=0;i<parentNode.getChildren().size();i++)
-            if(parentNode.getChildren().get(i).getIcon().IconTitle.toLowerCase().contains(s.toLowerCase()))
+            if(parentNode.getChildren().get(i).getIcon().IconTitle.toLowerCase().startsWith(s.toLowerCase()))
                 list.add(parentNode.getChildren().get(i).getIcon());
 
         for(int i= 0;i<parentNode.getChildren().size();i++)
         {
             IconModel levelTwo = parentNode.getChildren().get(i);
             for(int j = 0;j < levelTwo.getChildren().size();j++)
-                if(levelTwo.getChildren().get(j).getIcon().IconTitle.toLowerCase().contains(s.toLowerCase()))
+                if(levelTwo.getChildren().get(j).getIcon().IconTitle.toLowerCase().startsWith(s.toLowerCase()))
                     list.add(levelTwo.getChildren().get(j).getIcon());
 
         }
@@ -393,7 +393,7 @@ public class ModelManager {
             {
                 IconModel levelThree = levelTwo.getChildren().get(j);
                 for(int k = 0;k < levelThree.getChildren().size();k++)
-                    if(levelThree.getChildren().get(k).getIcon().IconTitle.toLowerCase().contains(s.toLowerCase()))
+                    if(levelThree.getChildren().get(k).getIcon().IconTitle.toLowerCase().startsWith(s.toLowerCase()))
                          list.add(levelThree.getChildren().get(k).getIcon());
             }
 
