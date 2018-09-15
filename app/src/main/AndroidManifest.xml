@@ -17,8 +17,8 @@
         android:allowBackup="true"
         android:fullBackupContent="@null"
         android:hardwareAccelerated="false"
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
+        android:icon="@drawable/jellow_board"
+        android:label="Jellow Board"
         android:largeHeap="true"
         android:theme="@style/AppTheme">
         <service
