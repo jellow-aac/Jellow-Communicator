@@ -29,9 +29,11 @@ public class IconSelectorAdapter extends RecyclerView.Adapter<IconSelectorAdapte
     // private LayoutInflater mInflater;
     private ArrayList<JellowIcon> mDataSource;
     IconSelectorAdapter.OnItemClickListener mItemClickListener;
-    public static final int ICON_SELECT_MODE = 121;
-    public static final int ADD_EDIT_ICON_MODE = 211;
+    public static final int ICON_SELECT_MODE = 111;
+    public static final int ADD_EDIT_ICON_MODE = 222;
+    public static final int EDIT_ICON_MODE = 333;
     private int mode;
+    private OnIconEditListener mIconEditListener;
 
     /**
      * public constructor
@@ -51,6 +53,7 @@ public class IconSelectorAdapter extends RecyclerView.Adapter<IconSelectorAdapte
         public TextView iconTitle;
         public ImageView iconImage;
         public CheckBox iconSelected;
+        public ImageView editIcon;
 
 
         public ViewHolder(View v) {
@@ -58,11 +61,19 @@ public class IconSelectorAdapter extends RecyclerView.Adapter<IconSelectorAdapte
             iconTitle =v.findViewById(R.id.icon_title);
             iconImage=v.findViewById(R.id.icon_image_view);
             iconSelected=v.findViewById(R.id.icon_selection_checkbox);
+            editIcon = v.findViewById(R.id.edit_icon);
             if(mode==ADD_EDIT_ICON_MODE)
                 iconSelected.setVisibility(View.GONE);
+            else if(mode == EDIT_ICON_MODE)
+            {
+                iconSelected.setVisibility(View.GONE);
+                editIcon.setVisibility(View.VISIBLE);
+                editIcon.setOnClickListener(this);
+            }
             //Disable the click listener of the checkbox to ensure the full icon is clickable
             iconSelected.setClickable(false);
             v.setOnClickListener(this);
+
         }
 
         @Override
@@ -71,17 +82,22 @@ public class IconSelectorAdapter extends RecyclerView.Adapter<IconSelectorAdapte
                 iconSelected.setChecked(!iconSelected.isChecked());
                 mItemClickListener.onItemClick(view, getAdapterPosition(), iconSelected.isChecked());
             }
+            else if(mode == EDIT_ICON_MODE)
+            {
+                if(mIconEditListener!=null)
+                    mIconEditListener.onIconEdit(getAdapterPosition());
+            }
         }
     }
 
+    //Callback for item click
+    public interface OnItemClickListener { void onItemClick(View view, int position, boolean checked);}
+    public void setOnItemClickListner(final IconSelectorAdapter.OnItemClickListener mItemClickListener) { this.mItemClickListener = mItemClickListener; }
+    //Callback for when icon is edit.
+    public interface OnIconEditListener { void onIconEdit(int pos);}
+    public void setOnIconEditListener(OnIconEditListener onIconEditListener){this.mIconEditListener = onIconEditListener;}
 
-    public interface OnItemClickListener {
-        void onItemClick(View view, int position, boolean checked);
-    }
 
-    public void setOnItemClickListner(final IconSelectorAdapter.OnItemClickListener mItemClickListener) {
-        this.mItemClickListener = mItemClickListener;
-    }
 
 
 

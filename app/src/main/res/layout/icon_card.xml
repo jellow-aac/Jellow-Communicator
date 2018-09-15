@@ -45,5 +45,19 @@
         android:buttonTint="@color/light_grey"
         android:gravity="top"
         />
+    <ImageView
+        android:layout_width="@dimen/add_edit_screen_edit_icon_size"
+        android:layout_height="@dimen/add_edit_screen_edit_icon_size"
+        android:src="@drawable/ic_edit_board"
+        android:padding="4dp"
+        android:background="@drawable/circular_background_red"
+        android:id="@+id/edit_icon"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:buttonTint="@color/light_grey"
+        android:gravity="top"
+        android:visibility="gone"
+
+        />
 </RelativeLayout>
 </android.support.v7.widget.CardView>

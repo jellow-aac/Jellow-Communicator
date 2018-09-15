@@ -50,4 +50,7 @@ public class IconModel implements Serializable{
             return list;
         }
 
+    public void setIcon(JellowIcon icon) {
+        this.icon = icon;
+    }
 }

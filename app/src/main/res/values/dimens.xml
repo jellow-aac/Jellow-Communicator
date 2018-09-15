@@ -125,4 +125,7 @@
     <dimen name="three_icon_textview_width">112dp</dimen>
     <dimen name="three_icon_textview_textsize">12sp</dimen>
 
+    <!--Add Edit Screen dimensions-->
+    <dimen name="add_edit_screen_edit_icon_size">20dp</dimen>
+
 </resources>
