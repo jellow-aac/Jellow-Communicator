@@ -128,6 +128,7 @@ public class ModelManager {
     }
 
     /**
+     * This function returns the level Three Icon from the manager.
      * @param icon
      * @return
      */
@@ -169,7 +170,6 @@ public class ModelManager {
 
     public void deleteIconFromModel(int level,int levelOnePos,int levelTwoPos,int pos,Board board)
     {
-        Log.d("Delete Mode","Onto Database "+level);
         boolean updated=false;
         if(level==0)
         {
@@ -196,7 +196,7 @@ public class ModelManager {
 
     }
     public void updateItemMoved(int level, int levelOneParent, int levelTwoParent, int fromPosition, int toPosition, Board currentBoard) {
-        Log.d("Delete Mode","Onto Database "+level);
+
         boolean updated=false;
         if(level==0)
         {
@@ -230,28 +230,23 @@ public class ModelManager {
 
         if(levelOneIcons.size()>0) {
             parentNode.addAllChild(this.getLevelOneIcons());
-            Log.d("WhichLevel","One");
+
             for (int i = 0; i < parentNode.getChildren().size(); i++) {
                 JellowIcon icon = parentNode.getChildren().get(i).getIcon();
                 ArrayList<JellowIcon> thisList = this.getLevelTwoIcons(icon);
-                Log.d("LevelL2forL1Size " + icon.IconTitle, "" + thisList.size());
                 parentNode.getChildren().get(i).addAllChild(thisList);
             }
+
             for (int i = 0; i < parentNode.getChildren().size(); i++) {
                 for (int j = 0; j < parentNode.getChildren().get(i).getChildren().size(); j++) {
-                    Log.d("LevelThreeChildren", "L1 " + parentNode.getChildren().get(i).getIcon().IconTitle
-                            + " L2 " + parentNode.getChildren().get(i).getChildren().size()
-                    );
                     JellowIcon icon = parentNode.getChildren().get(i).getChildren().get(j).getIcon();
                     ArrayList<JellowIcon> thisList = this.getLevelThreeIcons(icon);
                     parentNode.getChildren().get(i).getChildren().get(j).addAllChild(thisList);
-
                 }
             }
         }
         else if(levelTwoIcons.size()>0)//if there is no level one parent then the base node will be the level 2 node
         {
-            Log.d("WhichLevel","Two");
             parentNode.addAllChild(this.getOtherLevelOneIcons());
             for(int i=0;i<parentNode.getChildren().size();i++)
             {
@@ -262,16 +257,8 @@ public class ModelManager {
 
         }
         else {
-            Log.d("WhichLevel","Three");
             parentNode.addAllChild(levelThreeIcons);
         }
-
-
-        Log.d("parentNode",new Gson().toJson(parentNode));
-        //writeJsonStringToFile(new Gson().toJson(parentNode),context );
-
-
-
     }
 
     public IconModel getModel()
@@ -295,50 +282,6 @@ public class ModelManager {
     {
         this.parentNode=model;
         refreshModel();
-    }
-
-    /**
-     * This function is to write string data to the file
-     * @param data
-     * @param context
-     */
-    private void writeJsonStringToFile(String data, Context context) {
-        File path = context.getExternalFilesDir(null);
-        File file = new File(path, "Model.json");
-        Log.d("Path",path.getAbsolutePath());
-        FileOutputStream stream = null;
-        try {
-            stream = new FileOutputStream(file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        try {
-            stream.write(data.getBytes());
-            Log.d("Verbiage:","Written Successfully");
-
-        }
-        catch (IOException e)
-        {
-
-        }
-        finally {
-            try {
-                stream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-
-
-        try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput("Jellow.json", Context.MODE_PRIVATE));
-            outputStreamWriter.write(data);
-            outputStreamWriter.close();
-        }
-        catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
     }
 
     public void moveIconToFrom(int fromLevel, int toLevel, int levelOneParent, int levelTwoParent, int levelThreeParent,Board board) {
@@ -371,6 +314,11 @@ public class ModelManager {
 
     }
 
+    /**
+     * Returns the list of icon matching icon in BoardModel
+     * @param s | Search string
+     * @return List of matching Icon
+     */
     public ArrayList<JellowIcon> searchIconsForText(String s) {
         ArrayList<JellowIcon> list = new ArrayList<>();
         for(int i=0;i<parentNode.getChildren().size();i++)
@@ -403,6 +351,11 @@ public class ModelManager {
         return list;
     }
 
+    /**
+     * This returns position of any icon position in the model
+     * @param icon | Icon whose position is to be searched
+     * @return  Position of the Icon
+     */
     public ArrayList<Integer> getIconPositionInModel(JellowIcon icon)
     {
         ArrayList<Integer> position= new ArrayList<>();
@@ -493,34 +446,9 @@ public class ModelManager {
         return false;
     }
 
-
-    private class indexHolder
-    {
-        int p0,p1;
-
-        indexHolder(int p0, int p1) {
-            this.p0 = p0;
-            this.p1 = p1;
-        }
-        indexHolder getSelfObj()
-        {
-            return new indexHolder(p0,p1);
-        }
-         boolean equal(indexHolder h)
-         {
-             return this.p0 == h.p0 && this.p1 == h.p1;
-         }
-         boolean presentInList(ArrayList<indexHolder> list)
-         {
-             indexHolder obj= getSelfObj();
-             for(int i=0;i<list.size();i++)
-                 if(list.get(i).equal(obj))
-                     return true;
-             return false;
-         }
-
-    }
-
+    /**
+     * This function is responsible for putting the 3-dots in the icon's title.
+     */
     public void refreshModel()
     {
         //Level One
@@ -588,6 +516,36 @@ public class ModelManager {
 
             }
         }
+
+    }
+
+    /**
+     * A simple class to hold the index of the icon to be returned by the function.
+     */
+    private class indexHolder
+    {
+        int p0,p1;
+
+        indexHolder(int p0, int p1) {
+            this.p0 = p0;
+            this.p1 = p1;
+        }
+        indexHolder getSelfObj()
+        {
+            return new indexHolder(p0,p1);
+        }
+         boolean equal(indexHolder h)
+         {
+             return this.p0 == h.p0 && this.p1 == h.p1;
+         }
+         boolean presentInList(ArrayList<indexHolder> list)
+         {
+             indexHolder obj= getSelfObj();
+             for(int i=0;i<list.size();i++)
+                 if(list.get(i).equal(obj))
+                     return true;
+             return false;
+         }
 
     }
 }
