@@ -92,9 +92,6 @@ public class EditBoard extends AppCompatActivity {
 
     }
 
-    boolean draggedOut=false;
-    int levelOneParent,levelTwoParent,levelThreeParent, fromLevel;
-
     private void updateList(int Mode) {
         invalidateOptionsMenu();
 
@@ -102,6 +99,7 @@ public class EditBoard extends AppCompatActivity {
         //Parameters for centering the recycler view in the layout.
         RelativeLayout.LayoutParams centeredRecyclerParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         centeredRecyclerParams.addRule(RelativeLayout.ABOVE,findViewById(R.id.relativeLayoutNavigation).getId());
+        centeredRecyclerParams.addRule(RelativeLayout.ALIGN_PARENT_TOP,RelativeLayout.TRUE);
         centeredRecyclerParams.addRule(RelativeLayout.CENTER_HORIZONTAL,RelativeLayout.TRUE);
 
         int GridSize  = currentBoard.getGridSize();
