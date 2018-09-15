@@ -31,9 +31,9 @@ import java.util.ArrayList;
 
 
 /**
- * Created by Shinhyo on 2016. 6. 10..
+ * Created by Ayaz Alam 1/8/2018
  */
-public class AdapterEditBoard_2 extends DragAdapter {
+public class EditBoardAdapter extends DragAdapter {
 
     private final int mode;
     private final int gridSize;
@@ -45,7 +45,7 @@ public class AdapterEditBoard_2 extends DragAdapter {
     private OnItemDeleteListener mItemDeleteListener;
 
 
-    AdapterEditBoard_2(Context context, ArrayList<JellowIcon> data,int mode,int gridSize) {
+    EditBoardAdapter(Context context, ArrayList<JellowIcon> data, int mode, int gridSize) {
         super(context, data);
         this.context  =context;
         this.dataSource = data;
@@ -79,9 +79,11 @@ public class AdapterEditBoard_2 extends DragAdapter {
 
     @Override
     public DragRecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View itemView = null;
-        if(gridSize<4)
+        View itemView;
+        if(gridSize==2)
+            itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.custom_layout_2x1_icons, parent, false);
+        else if(gridSize<4)
             itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.custom_layout_3_icons, parent, false);
         else

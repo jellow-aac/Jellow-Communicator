@@ -228,13 +228,12 @@ public class BoardHome extends AppCompatActivity {
         int GridSize  = currentBoard.getGridSize();
         if(GridSize<4)
         {
-            if(GridSize<3)
+
+            switch (GridSize)
             {
-                mRecycler.setLayoutParams(centeredRecyclerParams);
-            }
-            else
-            {
-                mRecycler.setLayoutParams(defaultRecyclerParams);
+                case 1:mRecycler.setLayoutParams(centeredRecyclerParams);break;
+                case 2:mRecycler.setLayoutParams(centeredRecyclerParams);break;
+                case 3:mRecycler.setLayoutParams(defaultRecyclerParams);break;
             }
             mRecycler.setLayoutManager(new CustomGridLayoutManager(this,currentBoard.getGridSize(),3));
         }

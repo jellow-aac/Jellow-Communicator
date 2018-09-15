@@ -50,8 +50,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
         public ViewHolder(final View v) {
             super(v);
-            iconImage=v.findViewById(R.id.icon1);
-            iconTitle=v.findViewById(R.id.te1);
+            iconImage=v.findViewById(R.id.icon_image_view);
+            iconTitle=v.findViewById(R.id.icon_title);
             v.setOnClickListener(this);
             v.setOnTouchListener(new View.OnTouchListener() {
                 private GestureDetector gestureDetector = new GestureDetector(mContext, new GestureDetector.SimpleOnGestureListener() {
@@ -101,16 +101,18 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         this.onItemSelectListener = mItemClickListener;
     }
     @Override
-    public HomeAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView;
-
-        if(GridSize<4)
-        itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.layout_3_icons, parent, false);
+        if(GridSize==2)
+            itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.custom_layout_2x1_icons, parent, false);
+        else if(GridSize<4)
+            itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.custom_layout_3_icons, parent, false);
         else
             itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.layout_9_icons, parent, false);
-        return new HomeAdapter.ViewHolder(itemView);
+                    .inflate(R.layout.custom_layout_9_icons, parent, false);
+        return new ViewHolder(itemView);
     }
 
     @Override

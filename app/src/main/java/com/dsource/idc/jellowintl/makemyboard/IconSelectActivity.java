@@ -15,6 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -500,9 +502,7 @@ public class IconSelectActivity extends AppCompatActivity {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if(newState==RecyclerView.SCROLL_STATE_DRAGGING)
-                    ;//Wait untill scrolling
-                else if(newState==RecyclerView.SCROLL_STATE_IDLE)
+                if(newState==RecyclerView.SCROLL_STATE_IDLE)
                 {
                     Log.d("Search","Step 3: scrolling stopped");
                     setSearchHighlight(index);//Try highlighting the view after scrolling
@@ -525,7 +525,12 @@ public class IconSelectActivity extends AppCompatActivity {
                 Log.d("Search","Step 5: Inside Global layout");
                 if(itemDisplayed(index)) {
                     iconRecycler.removeOnScrollListener(scrollListener);
-                    scrollListener=null;
+                    scrollListener=null;/*
+                    View v = iconRecycler.getChildAt(index);
+                    Animation jiggleOnce = AnimationUtils.loadAnimation(IconSelectActivity.this,R.anim.jiggle_determinate);
+                    if(v!=null)
+                    v.startAnimation(jiggleOnce);
+                    else Toast.makeText(IconSelectActivity.this,"Cannot Jiggle",Toast.LENGTH_SHORT).show();*/
                     Log.d("Search","Step 6: Completed");
                 }
                 else {

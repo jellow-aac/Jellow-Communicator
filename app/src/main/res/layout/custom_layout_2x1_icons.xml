@@ -5,9 +5,12 @@
     android:id="@+id/card_view"
     android:gravity="center"
     android:layout_marginTop="@dimen/three_icon_margin_top"
+    android:layout_marginLeft="50dp"
+    android:layout_marginRight="50dp"
     android:layout_marginBottom="@dimen/three_icon_margin_top"
     android:paddingTop="@dimen/three_icon_padding"
-    android:paddingBottom="@dimen/three_icon_padding">
+    android:paddingBottom="@dimen/three_icon_padding"
+    >
     <ImageView
         android:layout_width="@dimen/my_board_edit_icon_size"
         android:layout_height="@dimen/my_board_edit_icon_size"
@@ -15,8 +18,8 @@
         android:background="@drawable/circular_background_red"
         android:src="@drawable/ic_cross_icon"
         android:id="@+id/icon_remove_button"
-        android:layout_toRightOf="@id/icon_container"
         android:visibility="gone"
+        android:layout_toRightOf="@id/icon_container"
         android:layout_marginLeft="16dp"/>
     <FrameLayout
         android:id="@+id/icon_container"

@@ -22,7 +22,6 @@ import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.CustomDialog;
 import com.dsource.idc.jellowintl.makemyboard.UtilityClasses.ModelManager;
-import com.dsource.idc.jellowintl.utility.CustomGridLayoutManager;
 import com.dsource.idc.jellowintl.utility.JellowIcon;
 import com.wonshinhyo.dragrecyclerview.DragRecyclerView;
 import com.wonshinhyo.dragrecyclerview.SimpleClickListener;
@@ -30,8 +29,8 @@ import com.wonshinhyo.dragrecyclerview.SimpleDragListener;
 
 import java.util.ArrayList;
 
-import static com.dsource.idc.jellowintl.makemyboard.AdapterEditBoard_2.DELETE_MODE;
-import static com.dsource.idc.jellowintl.makemyboard.AdapterEditBoard_2.NORMAL_MODE;
+import static com.dsource.idc.jellowintl.makemyboard.EditBoardAdapter.DELETE_MODE;
+import static com.dsource.idc.jellowintl.makemyboard.EditBoardAdapter.NORMAL_MODE;
 
 public class EditBoard extends AppCompatActivity {
 
@@ -55,7 +54,7 @@ public class EditBoard extends AppCompatActivity {
     private int previousSelection = -1;
     private int currentMode;
     DragRecyclerView recyclerView;
-    AdapterEditBoard_2 adapter;
+    EditBoardAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,7 +124,7 @@ public class EditBoard extends AppCompatActivity {
                 case 6:recyclerView.setLayoutManager(new GridLayoutManager(this,3));break;
             }
         }
-        adapter=new AdapterEditBoard_2(this,displayList,Mode,currentBoard.getGridSize());
+        adapter=new EditBoardAdapter(this,displayList,Mode,currentBoard.getGridSize());
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         adapter.setHandleDragEnabled(true); // default true
@@ -159,7 +158,7 @@ public class EditBoard extends AppCompatActivity {
 
         });
 
-        adapter.setOnItemDeleteListener(new AdapterEditBoard_2.OnItemDeleteListener() {
+        adapter.setOnItemDeleteListener(new EditBoardAdapter.OnItemDeleteListener() {
             @Override
             public void onItemDelete(View view, int position) {
                 modelManager.deleteIconFromModel(Level,LevelOneParent,LevelTwoParent,position,currentBoard);
