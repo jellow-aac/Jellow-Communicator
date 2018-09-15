@@ -219,7 +219,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
             public void onIconEdit(int pos) {
                 JellowIcon icon = iconList.get(pos);
                 int[] posOfIconInModel = categoryManager.getPostionOfIcon(selectedPosition,icon);
-                initBoardEditAddDialog(EDIT_ICON,selectedPosition,posOfIconInModel[0],posOfIconInModel[1],icon);
+                initEditModeDialog(EDIT_ICON,selectedPosition,posOfIconInModel[0],posOfIconInModel[1],icon);
             }
         });
         iconRecycler.setAdapter(iconAdapter);
@@ -235,7 +235,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
      * @param parent3 level Three parent
      * @param thisIcon  Icon to be edited
      */
-    private void initBoardEditAddDialog(final int mode, final int parent1, final int parent2, final int parent3, final JellowIcon thisIcon) {
+    private void initEditModeDialog(final int mode, final int parent1, final int parent2, final int parent3, final JellowIcon thisIcon) {
         View dialogContainerView = LayoutInflater.from(this).inflate(R.layout.edit_board_dialog, null);
         final Dialog dialogForBoardEditAdd = new Dialog(this,R.style.MyDialogBox);
         dialogForBoardEditAdd.applyStyle(R.style.MyDialogBox);
@@ -252,7 +252,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         IconImage.setBackground(getResources().getDrawable(R.drawable.icon_back_grey));
         listView.setVisibility(View.GONE);
 
-        if(thisIcon.isCustomIcon())//Is a custom Icon
+        if(thisIcon.parent0==-1)//Is a custom Icon
         {
             byte[] bitmapData=thisIcon.IconImage;
             Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.length);
