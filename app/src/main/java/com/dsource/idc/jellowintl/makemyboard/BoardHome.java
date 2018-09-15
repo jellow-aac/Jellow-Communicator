@@ -3,6 +3,7 @@ package com.dsource.idc.jellowintl.makemyboard;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.icu.text.UnicodeSetSpanner;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -355,12 +356,12 @@ public class BoardHome extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext((LanguageHelper.onAttach(newBase)));
     }
+
     /**
      * <p>This function will send speech output request to
      * {@link com.dsource.idc.jellowintl.utility.JellowTTSService} Text-to-speech Engine.
      * The string in {@param speechText} is speech output request string.</p>
      * */
-
     private void speakSpeech(String speechText){
         Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_TEXT");
         intent.putExtra("speechText", speechText.toLowerCase());
@@ -379,8 +380,6 @@ public class BoardHome extends AppCompatActivity {
         });
         dialog.show();
         dialog.setCancelable(true);
-
-        //TODO Add some codes to resize the icons
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -388,7 +387,7 @@ public class BoardHome extends AppCompatActivity {
             case android.R.id.home: finish(); break;
             case R.id.grid_size:
                 showGridDialog();break;
-            case R.id.search:searchInBoard();break;
+            case R.id.search:Toast.makeText(this,"Not implemented yet", Toast.LENGTH_SHORT).show();//searchInBoard();break;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -509,8 +508,7 @@ public class BoardHome extends AppCompatActivity {
      * @param pos is the postion of view to be highlighted
      * */
     ViewTreeObserver.OnGlobalLayoutListener populationDoneListener;
-    public void setSearchHighlight(final int pos)
-    {
+    public void setSearchHighlight(final int pos) {
         mRecycler.getAdapter().notifyDataSetChanged();
         populationDoneListener=new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -535,7 +533,6 @@ public class BoardHome extends AppCompatActivity {
         //Adding the scrollListener to the mRecycler to listen onPopulated callBack
         mRecycler.getViewTreeObserver().addOnGlobalLayoutListener(populationDoneListener);
     }
-
 
     @Override
     protected void onResume() {

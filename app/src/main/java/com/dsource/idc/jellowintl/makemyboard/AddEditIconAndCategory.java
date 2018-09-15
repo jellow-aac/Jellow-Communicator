@@ -282,7 +282,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         //The list that will be shown with camera options
         final ArrayList<ListItem> list=new ArrayList<>();
         TypedArray mArray=getResources().obtainTypedArray(R.array.add_photo_option);
-        list.add(new ListItem("Camera/Gallery",mArray.getDrawable(0)));
+        list.add(new ListItem("Photos",mArray.getDrawable(0)));
         list.add(new ListItem("Library ",mArray.getDrawable(2)));
         SimpleListAdapter adapter=new SimpleListAdapter(this,list);
         listView.setAdapter(adapter);
