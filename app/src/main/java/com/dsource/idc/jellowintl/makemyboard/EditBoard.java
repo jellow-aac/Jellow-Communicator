@@ -91,6 +91,7 @@ public class EditBoard extends AppCompatActivity {
 
     }
 
+
     private void updateList(int Mode) {
         invalidateOptionsMenu();
 
@@ -266,7 +267,7 @@ public class EditBoard extends AppCompatActivity {
         }
         else if(Level==0)
         {
-            CustomDialog dialog=new CustomDialog(this);
+            CustomDialog dialog=new CustomDialog(this,CustomDialog.NORMAL);
             dialog.setText(getString(R.string.exit_warning));
             dialog.setOnPositiveClickListener(new CustomDialog.onPositiveClickListener() {
                 @Override
@@ -303,7 +304,17 @@ public class EditBoard extends AppCompatActivity {
                 break;
             case R.id.grid_size:
                 showGridDialog();break;
-            case android.R.id.home: finish(); break;
+            case android.R.id.home:
+                CustomDialog dialog=new CustomDialog(this,CustomDialog.NORMAL);
+                dialog.setText(getString(R.string.exit_warning));
+                dialog.setOnPositiveClickListener(new CustomDialog.onPositiveClickListener() {
+                    @Override
+                    public void onPositiveClickListener() {
+                        finish();
+                    }
+                });
+                dialog.show();
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }

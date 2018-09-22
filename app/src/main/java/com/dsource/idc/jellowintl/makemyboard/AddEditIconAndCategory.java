@@ -244,7 +244,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         //List on the dialog.
         final ListView listView=dialogContainerView.findViewById(R.id.camera_list);
         final EditText boardTitleEditText=dialogContainerView.findViewById(R.id.board_name);
-        boardTitleEditText.setHint(thisIcon.IconTitle);
+        boardTitleEditText.setText(thisIcon.IconTitle);
         TextView saveBoard=dialogContainerView.findViewById(R.id.save_baord);
         TextView cancelSaveBoard=dialogContainerView.findViewById(R.id.cancel_save_baord);
         ImageView editBoardIconButton=dialogContainerView.findViewById(R.id.edit_board);

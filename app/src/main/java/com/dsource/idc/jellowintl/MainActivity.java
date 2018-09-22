@@ -313,7 +313,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, ResetPreferencesActivity.class));
                 break;
             case R.id.feedback:
-                startActivity(new Intent(this, ConverterActivity.class));
+                startActivity(new Intent(this, FeedbackActivity.class));
                 break;
             default:
                 return super.onOptionsItemSelected(item);

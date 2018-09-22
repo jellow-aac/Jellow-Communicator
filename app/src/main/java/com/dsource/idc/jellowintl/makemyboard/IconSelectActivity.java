@@ -389,7 +389,6 @@ public class IconSelectActivity extends AppCompatActivity {
             });
 
             simpleArrayAdapter simpleArrayAdapter=new simpleArrayAdapter(this,dropDownList);
-            ArrayAdapter<String> dropDownAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, dropDownList);
             dropDown.setAdapter(simpleArrayAdapter);
         }
 
@@ -464,6 +463,7 @@ public class IconSelectActivity extends AppCompatActivity {
         levelSelectorAdapter.selectedPosition = icon.parent0;
         levelSelectorAdapter.notifyDataSetChanged();
         selectedIconList.add(icon);
+        dropDownList = getCurrentChildren();
         if(selectedIconList.size()>0)
         {
             nextButton.setEnabled(true);
@@ -588,7 +588,6 @@ public class IconSelectActivity extends AppCompatActivity {
 
     private class simpleArrayAdapter extends ArrayAdapter<String>
     {
-
         // View lookup cache
         private class ViewHolder {
             TextView name;
