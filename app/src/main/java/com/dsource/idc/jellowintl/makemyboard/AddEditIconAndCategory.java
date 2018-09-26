@@ -205,7 +205,28 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         });
 
     }
+    /**
+     * Creates and fetches the left pane for icon select
+     */
+    private void targetLevelSelectPane() {
 
+        categoryAdapter =new LevelSelectorAdapter(this,categories);
+        categoryRecycler.setAdapter(categoryAdapter);
+        categoryAdapter.selectedPosition = (categories.size()-1);
+        selectedPosition = categoryAdapter.selectedPosition;
+        categoryAdapter.notifyDataSetChanged();
+        categoryAdapter.setOnItemClickListner(new LevelSelectorAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(final View view, final int position) {
+                if(selectedPosition!=position) {
+                    selectedPosition = position;
+                    prepareIconPane(position,currentMode);
+                }
+            }
+        });
+        prepareIconPane(categoryAdapter.selectedPosition,currentMode);
+
+    }
     private void prepareIconPane(int position,int mode) {
         iconList = categoryManager.getAllChildOfCategory(position);
         if(mode==ADD_EDIT_ICON_MODE)
@@ -213,13 +234,12 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         else if(mode ==EDIT_ICON_MODE)
             iconAdapter = new IconSelectorAdapter(this,iconList,EDIT_ICON_MODE);
 
-
         iconAdapter.setOnIconEditListener(new IconSelectorAdapter.OnIconEditListener() {
             @Override
             public void onIconEdit(int pos) {
                 JellowIcon icon = iconList.get(pos);
                 int[] posOfIconInModel = categoryManager.getPostionOfIcon(selectedPosition,icon);
-                initEditModeDialog(EDIT_ICON,selectedPosition,posOfIconInModel[0],posOfIconInModel[1],icon);
+                initEditModeDialog(selectedPosition,posOfIconInModel[0],posOfIconInModel[1],icon);
             }
         });
         iconRecycler.setAdapter(iconAdapter);
@@ -227,15 +247,8 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
     }
 
 
-    /**
-     * Dialog for Edit Icon
-     * @param mode EDIT MODE
-     * @param parent1  level parent
-     * @param parent2 level two parent
-     * @param parent3 level Three parent
-     * @param thisIcon  Icon to be edited
-     */
-    private void initEditModeDialog(final int mode, final int parent1, final int parent2, final int parent3, final JellowIcon thisIcon) {
+
+    private void initEditModeDialog(final int parent1, final int parent2, final int parent3, final JellowIcon thisIcon) {
         View dialogContainerView = LayoutInflater.from(this).inflate(R.layout.edit_board_dialog, null);
         final Dialog dialogForBoardEditAdd = new Dialog(this,R.style.MyDialogBox);
         dialogForBoardEditAdd.applyStyle(R.style.MyDialogBox);
@@ -465,7 +478,11 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
             else if(mode==ADD_CATEGORY)
                 initBoardEditAddDialog(mode,-1,"Category Name");
             else if(mode==EDIT_ICON)
+            {
                 prepareIconPane(selectedPosition,EDIT_ICON_MODE);
+                currentMode = EDIT_ICON_MODE;
+                invalidateOptionsMenu();
+            }
         }
     }
 
@@ -580,9 +597,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
                 icon.compress(Bitmap.CompressFormat.PNG, 50, bos);
                 byte[] bitmapArray = bos.toByteArray();
 
-                if(mode==EDIT_ICON)
-                    startEditIconMode();
-                else if(mode==ADD_CATEGORY)
+                if(mode==ADD_CATEGORY)
                     addNewCategory(name,bitmapArray);
                 else if(mode==ADD_ICON)
                     addNewIcon(name,bitmapArray,selectedPosition);
@@ -618,9 +633,8 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         verbiageDatbase.addNewVerbiage( Nomenclature.getIconName(icon,this),new JellowVerbiageModel(name));
         modelManager.setModel(boardModel);
         currentBoard.setBoardIconModel(modelManager.getModel());
-
-      //  database.updateBoardIntoDatabase(new DataBaseHelper(this).getWritableDatabase(),currentBoard);
-        prepareLevelSelectPane();
+        database.updateBoardIntoDatabase(new DataBaseHelper(this).getWritableDatabase(),currentBoard);
+        targetLevelSelectPane();
     }
 
     private void addNewIcon(String name, byte[] bitmapArray, int selectedPosition) {
@@ -633,10 +647,6 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         currentBoard.setBoardIconModel(modelManager.getModel());
         verbiageDatbase.addNewVerbiage(Nomenclature.getIconName(icon,this),new JellowVerbiageModel(name));
         //database.updateBoardIntoDatabase(new DataBaseHelper(this).getWritableDatabase(),currentBoard);
-    }
-
-    private void startEditIconMode() {
-        Toast.makeText(this,"Yet to implement", Toast.LENGTH_SHORT).show();
     }
 
     private void setOnPhotoSelectListener(MyBoards.PhotoIntentResult mPhotoIntentResult) {
@@ -716,15 +726,12 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
                     e.printStackTrace();
                 }
 
-            } else if (requestCode == LIBRARY_REQUEST) {
+            }else if (requestCode == LIBRARY_REQUEST) {
 
                 byte[] resultImage = data.getByteArrayExtra(getString(R.string.search_result));
                 bitmap = BitmapFactory.decodeByteArray(resultImage, 0, resultImage.length);
-                mPhotoIntentResult.onPhotoIntentResult(bitmap,requestCode,null);
+                mPhotoIntentResult.onPhotoIntentResult(bitmap, requestCode, null);
             }
-
-           //
-
         }
 
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
@@ -753,6 +760,17 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.add_edit_icon_screen_menu, menu);
+        MenuItem item = menu.findItem(R.id.done);
+        MenuItem showOption = menu.findItem(R.id.add_edit_icons);
+        if(currentMode!=EDIT_ICON_MODE) {
+            item.setVisible(false);
+            showOption.setVisible(true);
+        }
+        else
+        {
+            item.setVisible(true);
+            showOption.setVisible(false);
+        }
         return true;
     }
 
@@ -763,8 +781,9 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
             case R.id.add_edit_icons:
                 toggleOptionLayout();
                 break;
+            case R.id.done:currentMode=ADD_EDIT_ICON_MODE;prepareIconPane(selectedPosition,ADD_EDIT_ICON_MODE);invalidateOptionsMenu();break;
             case android.R.id.home: finish(); break;
-            case R.id.delete_icons: Toast.makeText(this,"Still working on it",Toast.LENGTH_SHORT).show();
+
         }
         return super.onOptionsItemSelected(item);
     }

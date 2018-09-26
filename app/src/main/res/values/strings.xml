@@ -353,6 +353,7 @@
     <string name="icon_select_text">Select Icons</string>
     <string name="exit_warning">Are you sure you want to exit ?</string>
     <string name="next">Next</string>
+    <string name="done">Done</string>
     <string-array name="entries">
         <item>Camera</item>
         <item>Gallery</item>

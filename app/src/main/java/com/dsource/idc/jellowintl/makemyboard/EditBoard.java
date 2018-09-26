@@ -35,22 +35,18 @@ import static com.dsource.idc.jellowintl.makemyboard.EditBoardAdapter.NORMAL_MOD
 public class EditBoard extends AppCompatActivity {
 
     private static final int SEARCH = 123;
-    ArrayList<JellowIcon> mainList;
     ArrayList<JellowIcon> displayList;
     //RecyclerView mRecyclerView;
     private ModelManager modelManager;
     private String boardId;
     public static final String BOARD_ID="Board_Id";
     private BoardDatabase database;
-    private View parent;
-   // AdapterEditBoard adapterRight;
     private int Level=0;
     private int LevelOneParent=-1;
     private int LevelTwoParent=-1;
     private Board currentBoard;
     private RecyclerView.OnScrollListener scrollListener;
     private RelativeLayout.LayoutParams defaultRecyclerParams;
-    private int clickCounter = 0;
     private int previousSelection = -1;
     private int currentMode;
     DragRecyclerView recyclerView;
@@ -77,7 +73,6 @@ public class EditBoard extends AppCompatActivity {
             Log.d("No board id found", boardId);
         }
 
-        parent=findViewById(R.id.parent);
         currentMode = NORMAL_MODE;
         currentBoard=database.getBoardById(boardId);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -197,7 +192,7 @@ public class EditBoard extends AppCompatActivity {
             public void onClick(View v) {
                 if(Level!=0) {
                     displayList = modelManager.getLevelOneFromModel();
-                    updateList(NORMAL_MODE);
+                    updateList(currentMode);
                     Level = 0;
                     LevelOneParent = -1;
                 }
@@ -247,10 +242,7 @@ public class EditBoard extends AppCompatActivity {
             if(LevelOneParent!=-1) {
                 displayList = modelManager.getLevelTwoFromModel(LevelOneParent);
                 LevelTwoParent=-1;
-                if(isDeleteModeOn)
-                    updateList(DELETE_MODE);
-                else
-                    updateList(NORMAL_MODE);
+                updateList(currentMode);
                 Level--;
             }
 
@@ -259,10 +251,7 @@ public class EditBoard extends AppCompatActivity {
         {
             displayList= modelManager.getLevelOneFromModel();
             LevelOneParent=-1;
-            if(isDeleteModeOn)
-                updateList(DELETE_MODE);
-            else
-                updateList(NORMAL_MODE);
+            updateList(currentMode);
             Level--;
         }
         else if(Level==0)
@@ -332,8 +321,14 @@ public class EditBoard extends AppCompatActivity {
     private void prepareIconDeleteMode() {
         if(displayList.size()>1) {
             if (!isDeleteModeOn)
+            {
                 updateList(DELETE_MODE);
-            else updateList(NORMAL_MODE);
+                currentMode = DELETE_MODE;
+            }
+            else {
+                updateList(NORMAL_MODE);
+                currentMode =NORMAL_MODE;
+            }
             isDeleteModeOn = !isDeleteModeOn;
         }
     }

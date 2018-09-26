@@ -12,6 +12,13 @@
             android:checked="true"
             android:orderInCategory="1"
             />
+        <item android:id="@+id/done"
+            android:icon="@drawable/ic_done"
+            android:title="@string/done"
+            android:visible="false"
+            app:showAsAction="always"
+            />
+
     </group>
 
 </menu>
