@@ -106,5 +106,6 @@
 
     <!--Add Edit Screen dimensions-->
     <dimen name="add_edit_screen_edit_icon_size">26dp</dimen>
+    <dimen name="camera_drop_down_width">140dp</dimen>
 
 </resources>

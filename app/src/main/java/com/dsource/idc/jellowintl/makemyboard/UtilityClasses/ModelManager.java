@@ -1,6 +1,7 @@
 package com.dsource.idc.jellowintl.makemyboard.UtilityClasses;
 
 import android.content.Context;
+import android.support.annotation.Keep;
 import android.util.Log;
 
 import com.dsource.idc.jellowintl.DataBaseHelper;
@@ -21,9 +22,10 @@ public class ModelManager {
     private ArrayList<Integer> levelOneIndex;
     private ArrayList<JellowIcon> levelTwoIcons;
     private ArrayList<JellowIcon> levelThreeIcons;
-    private IconModel parentNode;
+    @Keep public IconModel parentNode;
     private Context context;
 
+    @Keep
     public ModelManager(ArrayList<JellowIcon> mailIconList, Context context)
     {
         this.mailIconList = mailIconList;
@@ -37,13 +39,13 @@ public class ModelManager {
         prepareModel();
         refreshModel();
     }
-    public ModelManager(Context context,IconModel parentNode)
+    @Keep public ModelManager(Context context,IconModel parentNode)
     {
         this.context=context;
         this.parentNode=parentNode;
     }
 
-    private void prepareLevels() {
+    @Keep private void prepareLevels() {
 
         for(int i=0;i<mailIconList.size();i++)
         {
@@ -72,7 +74,7 @@ public class ModelManager {
      * 2. Get all the level two parents with no level one parents
      * 3. Get all the level three icons with no parents
      */
-    public ArrayList<JellowIcon> getLevelOneIcons()
+    @Keep public ArrayList<JellowIcon> getLevelOneIcons()
     {
         ArrayList<JellowIcon> l1Icons=new ArrayList<>();
         l1Icons.addAll(levelOneIcons);
@@ -89,7 +91,7 @@ public class ModelManager {
      * @param icon
      * @return
      */
-    public ArrayList<JellowIcon> getLevelTwoIcons(JellowIcon icon)
+    @Keep public ArrayList<JellowIcon> getLevelTwoIcons(JellowIcon icon)
     {
         ArrayList<JellowIcon> subList=new ArrayList<>();
         if(icon.parent2!=-1)
@@ -132,7 +134,7 @@ public class ModelManager {
      * @param icon
      * @return
      */
-    public ArrayList<JellowIcon> getLevelThreeIcons(JellowIcon icon)
+    @Keep public ArrayList<JellowIcon> getLevelThreeIcons(JellowIcon icon)
     {
         ArrayList<JellowIcon> subList=new ArrayList<>();
         if (icon.parent2!=-1)
@@ -143,7 +145,7 @@ public class ModelManager {
         return subList;
     }
 
-    private ArrayList<JellowIcon> getOtherLevelOneIcons() {
+    @Keep private ArrayList<JellowIcon> getOtherLevelOneIcons() {
         ArrayList<JellowIcon> subList=new ArrayList<>();
         ArrayList<indexHolder> presentItemList=new ArrayList<>();
         for(int i=0;i<levelTwoIcons.size();i++)
@@ -168,7 +170,7 @@ public class ModelManager {
         return subList;
     }
 
-    public void deleteIconFromModel(int level,int levelOnePos,int levelTwoPos,int pos,Board board)
+    @Keep public void deleteIconFromModel(int level,int levelOnePos,int levelTwoPos,int pos,Board board)
     {
         boolean updated=false;
         if(level==0)
@@ -195,7 +197,7 @@ public class ModelManager {
         refreshModel();
 
     }
-    public void updateItemMoved(int level, int levelOneParent, int levelTwoParent, int fromPosition, int toPosition, Board currentBoard) {
+    @Keep public void updateItemMoved(int level, int levelOneParent, int levelTwoParent, int fromPosition, int toPosition, Board currentBoard) {
 
         boolean updated=false;
         if(level==0)
@@ -261,30 +263,33 @@ public class ModelManager {
         }
     }
 
-    public IconModel getModel()
+    @Keep public IconModel getModel()
     {
         return parentNode;
     }
 
-    public ArrayList<JellowIcon> getLevelOneFromModel()
-    {
-        return parentNode.getSubList();
-    }
-    public ArrayList<JellowIcon> getLevelTwoFromModel(int parent1)
-    {
-        return parentNode.getChildren().get(parent1).getSubList();
-    }
-    public ArrayList<JellowIcon> getLevelThreeFromModel(int parent1,int parent2)
-    {
-        return parentNode.getChildren().get(parent1).getChildren().get(parent2).getSubList();
-    }
-    public void setModel(IconModel model)
+    @Keep public void setModel(IconModel model)
     {
         this.parentNode=model;
         refreshModel();
     }
 
-    public void moveIconToFrom(int fromLevel, int toLevel, int levelOneParent, int levelTwoParent, int levelThreeParent,Board board) {
+    @Keep public ArrayList<JellowIcon> getLevelOneFromModel()
+    {
+        return parentNode.getSubList();
+    }
+
+    @Keep public ArrayList<JellowIcon> getLevelTwoFromModel(int parent1)
+    {
+        return parentNode.getChildren().get(parent1).getSubList();
+    }
+
+    @Keep public ArrayList<JellowIcon> getLevelThreeFromModel(int parent1,int parent2)
+    {
+        return parentNode.getChildren().get(parent1).getChildren().get(parent2).getSubList();
+    }
+
+    @Keep public void moveIconToFrom(int fromLevel, int toLevel, int levelOneParent, int levelTwoParent, int levelThreeParent,Board board) {
             IconModel IconToMove=null;
             if(fromLevel==2)
             {
@@ -319,7 +324,7 @@ public class ModelManager {
      * @param s | Search string
      * @return List of matching Icon
      */
-    public ArrayList<JellowIcon> searchIconsForText(String s) {
+    @Keep public ArrayList<JellowIcon> searchIconsForText(String s) {
         ArrayList<JellowIcon> list = new ArrayList<>();
         for(int i=0;i<parentNode.getChildren().size();i++)
             if(parentNode.getChildren().get(i).getIcon().IconTitle.toLowerCase().startsWith(s.toLowerCase()))
@@ -356,7 +361,7 @@ public class ModelManager {
      * @param icon | Icon whose position is to be searched
      * @return  Position of the Icon
      */
-    public ArrayList<Integer> getIconPositionInModel(JellowIcon icon)
+    @Keep public ArrayList<Integer> getIconPositionInModel(JellowIcon icon)
     {
         ArrayList<Integer> position= new ArrayList<>();
         for(int i=0;i<parentNode.getChildren().size();i++)
@@ -401,7 +406,7 @@ public class ModelManager {
     return position;
     }
 
-    public boolean moveIconIntoCategory(int level, int levelOneParent, int levelTwoParent, int fromPosition, int position, Board board) {
+    @Keep public boolean moveIconIntoCategory(int level, int levelOneParent, int levelTwoParent, int fromPosition, int position, Board board) {
         IconModel iconModel = null;
 
         if(level==0)
@@ -449,7 +454,7 @@ public class ModelManager {
     /**
      * This function is responsible for putting the 3-dots in the icon's title.
      */
-    public void refreshModel()
+    @Keep public void refreshModel()
     {
         //Level One
         for(int i= 0;i<parentNode.getChildren().size();i++)
@@ -522,7 +527,7 @@ public class ModelManager {
     /**
      * A simple class to hold the index of the icon to be returned by the function.
      */
-    private class indexHolder
+    @Keep private class indexHolder
     {
         int p0,p1;
 

@@ -21,6 +21,7 @@ public class Board implements Serializable {
     private IconModel boardIconModel;
     private int gridSize=3;
 
+    @Keep
     public Board(String Uid, String boardTitle, byte[] boardIcon) {
         this.boardTitle = boardTitle;
         this.boardID = Uid;
@@ -66,10 +67,11 @@ public class Board implements Serializable {
     private void setBoardIconsSelected(boolean boardIconsSelected) {
         this.boardIconsSelected = boardIconsSelected;
     }
+    @Keep
     public IconModel getBoardIconModel() {
         return boardIconModel;
     }
-
+    @Keep
     public void setBoardIconModel(IconModel boardIconModel) {
         this.boardIconModel = boardIconModel;
         if(boardIconModel.getChildren().size()>0)

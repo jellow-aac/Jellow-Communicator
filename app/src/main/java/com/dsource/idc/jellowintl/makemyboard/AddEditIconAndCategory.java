@@ -319,7 +319,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
                 listView.setVisibility(View.GONE);
                 if(position==0)
                 {
-                    if(checkPermissionForCamera()) {
+                    if(checkPermissionForCamera()&&checkPermissionForStorageRead()) {
                         CropImage.activity()
                                 .setAspectRatio(1,1)
                                 .setGuidelines(CropImageView.Guidelines.ON)
@@ -334,20 +334,6 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
 
                 }
                 else if(position==1)
-                {
-                    if(checkPermissionForStorageRead()) {
-                        Intent selectFromGalleryIntent = new Intent();
-                        selectFromGalleryIntent.setType("image/*");
-                        selectFromGalleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-                        startActivityForResult(selectFromGalleryIntent, GALLERY_REQUEST);
-                    }
-                    else {
-                        final String [] permissions=new String []{ Manifest.permission.READ_EXTERNAL_STORAGE};
-                        ActivityCompat.requestPermissions(AddEditIconAndCategory.this, permissions, GALLERY_REQUEST);
-
-                    }
-                }
-                else if(position==2)
                 {
                     Intent intent = new Intent(AddEditIconAndCategory.this,BoardSearch.class);
                     intent.putExtra(BoardSearch.SEARCH_MODE,BoardSearch.ICON_SEARCH);
@@ -505,24 +491,10 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         final ImageView IconImage=dialogContainerView.findViewById(R.id.board_icon);
         IconImage.setBackground(getResources().getDrawable(R.drawable.icon_back_grey));
         listView.setVisibility(View.GONE);
-
-        // Glide.with(context).load(url).apply(RequestOptions.circleCropTransform()).into(imageView);
-/*
-
-        if(code==EDIT_BOARD)
-        {
-            byte[] bitmapdata=boardList.get(pos).getBoardIcon();
-            Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length);
-            BoardIcon.setImageBitmap(bitmap);
-            boardTitleEditText.setText(boardList.get(pos).boardTitle);
-        }
-*/
-
         //The list that will be shown with camera options
         final ArrayList<ListItem> list=new ArrayList<>();
         TypedArray mArray=getResources().obtainTypedArray(R.array.add_photo_option);
-        list.add(new ListItem("Camera",mArray.getDrawable(0)));
-        list.add(new ListItem("Gallery ",mArray.getDrawable(1)));
+        list.add(new ListItem("Photos",mArray.getDrawable(0)));
         list.add(new ListItem("Library ",mArray.getDrawable(2)));
         SimpleListAdapter adapter=new SimpleListAdapter(this,list);
         listView.setAdapter(adapter);
@@ -545,40 +517,21 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
                 listView.setVisibility(View.GONE);
                 if(position==0)
                 {
-                    if(checkPermissionForCamera()) {
+                    if(checkPermissionForCamera()&&checkPermissionForStorageRead()) {
                         CropImage.activity()
                                 .setAspectRatio(1,1)
                                 .setGuidelines(CropImageView.Guidelines.ON)
                                 .setFixAspectRatio(true)
                                 .start(AddEditIconAndCategory.this);
-
-                      /*
-                     Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                     startActivityForResult(takePictureIntent, CAMERA_REQUEST);
-                     */
                     }
                     else
                     {
-                        final String [] permissions=new String []{ Manifest.permission.CAMERA};
+                        final String [] permissions=new String []{ Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE};
                         ActivityCompat.requestPermissions(AddEditIconAndCategory.this, permissions, CAMERA_REQUEST);
                     }
 
                 }
                 else if(position==1)
-                {
-                    if(checkPermissionForStorageRead()) {
-                        Intent selectFromGalleryIntent = new Intent();
-                        selectFromGalleryIntent.setType("image/*");
-                        selectFromGalleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-                        startActivityForResult(selectFromGalleryIntent, GALLERY_REQUEST);
-                    }
-                    else {
-                        final String [] permissions=new String []{ Manifest.permission.READ_EXTERNAL_STORAGE};
-                        ActivityCompat.requestPermissions(AddEditIconAndCategory.this, permissions, GALLERY_REQUEST);
-
-                    }
-                }
-                else if(position==2)
                 {
                     Intent intent = new Intent(AddEditIconAndCategory.this,BoardSearch.class);
                     intent.putExtra(BoardSearch.SEARCH_MODE,BoardSearch.ICON_SEARCH);
@@ -646,7 +599,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         modelManager.setModel(boardModel);
         currentBoard.setBoardIconModel(modelManager.getModel());
         verbiageDatbase.addNewVerbiage(Nomenclature.getIconName(icon,this),new JellowVerbiageModel(name));
-        //database.updateBoardIntoDatabase(new DataBaseHelper(this).getWritableDatabase(),currentBoard);
+        database.updateBoardIntoDatabase(new DataBaseHelper(this).getWritableDatabase(),currentBoard);
     }
 
     private void setOnPhotoSelectListener(MyBoards.PhotoIntentResult mPhotoIntentResult) {
@@ -683,7 +636,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         if(requestCode==CAMERA_REQUEST)
             // If request is cancelled, the result arrays are empty.
             if (grantResults.length > 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED&&grantResults[1]==PackageManager.PERMISSION_GRANTED) {
                 CropImage.activity()
                         .setAspectRatio(1,1)
                         .setGuidelines(CropImageView.Guidelines.ON)

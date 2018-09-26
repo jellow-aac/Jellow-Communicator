@@ -33,7 +33,7 @@
         android:background="@drawable/circular_background_red"
         />
         <ListView
-            android:layout_width="160dp"
+            android:layout_width="@dimen/camera_drop_down_width"
             android:layout_height="wrap_content"
             android:layout_below="@id/edit_board"
             android:layout_marginTop="-12dp"

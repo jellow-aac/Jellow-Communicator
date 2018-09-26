@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="160dp"
+    android:layout_width="@dimen/camera_drop_down_width"
     android:orientation="horizontal"
     android:background="@color/colorIntro"
     android:padding="@dimen/list_item_padding"
@@ -24,7 +24,7 @@
         android:layout_centerVertical="true"
         android:textColor="@color/light_grey"
         android:id="@+id/list_item_title"
-        android:textSize="22sp"
+        android:textSize="@dimen/list_item_text_size"
         />
 
 </RelativeLayout>

@@ -20,5 +20,7 @@
     <dimen name="nine_icon_size">94dp</dimen>
     <dimen name="nine_icon_textview_width">192dp</dimen>
     <dimen name="nine_icon_textview_textsize">16sp</dimen>
+    <dimen name="list_item_gallery_width">140dp</dimen>
+    <dimen name="list_item_text_size">18sp</dimen>
 
 </resources>

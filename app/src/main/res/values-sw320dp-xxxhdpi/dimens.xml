@@ -17,4 +17,6 @@
     <dimen name="nine_icon_size">64dp</dimen>
     <dimen name="nine_icon_textview_width">168dp</dimen>
     <dimen name="nine_icon_textview_textsize">10sp</dimen>
+    <dimen name="list_item_text_size">18sp</dimen>
+    <dimen name="camera_drop_down_width">130dp</dimen>
 </resources>
