@@ -219,8 +219,8 @@ public class MyBoards extends AppCompatActivity {
         final EditText boardTitleEditText=dialogContainerView.findViewById(R.id.board_name);
         TextView saveBoard=dialogContainerView.findViewById(R.id.save_baord);
         TextView cancelSaveBoard=dialogContainerView.findViewById(R.id.cancel_save_baord);
-        if(code==EDIT_BOARD)
-            cancelSaveBoard.setText(getString(R.string.next));
+        /*if(code==EDIT_BOARD)
+            cancelSaveBoard.setText(getString(R.string.next));*/
         ImageView editBoardIconButton=dialogContainerView.findViewById(R.id.edit_board);
         final ImageView BoardIcon=dialogContainerView.findViewById(R.id.board_icon);
         listView.setVisibility(View.GONE);
@@ -342,14 +342,14 @@ public class MyBoards extends AppCompatActivity {
         cancelSaveBoard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(code==EDIT_BOARD) {
+               /* if(code==EDIT_BOARD) {
                     String boardID = boardList.get(pos).boardID;
                     Intent intent = new Intent(MyBoards.this,AddEditIconAndCategory.class);
                     if(!boardList.get(pos).isBoardIconsSelected())
                         intent = new Intent(MyBoards.this,IconSelectActivity.class);
                     intent.putExtra(BOARD_ID,boardID);
                     startActivity(intent);
-                }
+                }*/
                 dialogForBoardEditAdd.dismiss();
             }
         });
