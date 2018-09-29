@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
 
     defaultConfig {
-        applicationId "com.dsource.idc.jellowintl"
+        applicationId "com.dsource.idc.jellowboard"
         minSdkVersion 16
         targetSdkVersion 27
         versionCode 4
@@ -45,6 +45,7 @@ dependencies {
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.4'
     implementation 'com.github.simbiose:Encryption:2.0.1'
     implementation 'com.github.bumptech.glide:glide:4.4.0'
+    implementation 'com.google.android.gms:play-services-maps:15.0.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.4.0'
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
     implementation 'com.github.ghost1372:Mzip-Android:0.4.0'
@@ -58,7 +59,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2'
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.0'
-    implementation'com.wonshinhyo:dragrecyclerview:1.0.5'
+    implementation 'com.wonshinhyo:dragrecyclerview:1.0.5'
 
 }
 

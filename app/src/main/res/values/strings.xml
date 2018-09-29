@@ -377,6 +377,7 @@
         <item>@drawable/no</item>
         <item>@drawable/less</item>
     </array>
+    <string name="title_activity_maps">Map</string>
 
 
 </resources>
