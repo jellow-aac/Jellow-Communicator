@@ -74,7 +74,7 @@
     <!--Dimensions related to the My Board Card-->
     <dimen name="my_board_four_grid_icon_size">160dp</dimen>
     <dimen name="my_board_text_size">16sp</dimen>
-    <dimen name="my_board_edit_icon_size">24dp</dimen>
+    <dimen name="my_board_edit_icon_size">36dp</dimen>
     <dimen name="board_edit_edittext_size">170dp</dimen>
     <dimen name="list_item_padding">6dp</dimen>
     <dimen name="dialog_width">400dp</dimen>

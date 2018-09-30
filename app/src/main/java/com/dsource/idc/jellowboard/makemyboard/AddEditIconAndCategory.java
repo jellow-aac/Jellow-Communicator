@@ -36,6 +36,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.dsource.idc.jellowboard.GlideApp;
 import com.dsource.idc.jellowboard.Nomenclature;
@@ -96,6 +97,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#333333'>"+"Add/Edit Icons"+"</font>"));
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_button_board);
+
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_background));
         verbiageDatbase = new VerbiageDatabaseHelper(this);
 
@@ -502,13 +504,35 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         setOnPhotoSelectListener(new MyBoards.PhotoIntentResult() {
             @Override
             public void onPhotoIntentResult(Bitmap bitmap, int code,String fileName) {
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                Glide.with(AddEditIconAndCategory.this)
-                        .asBitmap()
-                        .load(stream.toByteArray())
-                        .apply(RequestOptions.
-                                circleCropTransform()).into(IconImage);
+
+                if(code!=LIBRARY_REQUEST)
+                {
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 50, stream);
+                    GlideApp.with(AddEditIconAndCategory.this).load(stream.toByteArray())
+                            .apply(RequestOptions.
+                                    circleCropTransform().error(R.drawable.ic_board_person))
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .skipMemoryCache(false)
+                            .centerCrop()
+                            .dontAnimate()
+                            .into(IconImage);
+                }
+                else //When request code is  Library
+                {
+                    SessionManager mSession = new SessionManager(AddEditIconAndCategory.this);
+                    File en_dir = AddEditIconAndCategory.this.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
+                    String path = en_dir.getAbsolutePath() + "/drawables";
+                    GlideApp.with(AddEditIconAndCategory.this)
+                            .load(path+"/"+fileName+".png").
+                            apply(RequestOptions.
+                            circleCropTransform().error(R.drawable.ic_board_person))
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .skipMemoryCache(false)
+                            .centerCrop()
+                            .dontAnimate()
+                            .into(IconImage);
+                }
 
             }
         });
@@ -595,7 +619,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         int id  = (int)Calendar.getInstance().getTime().getTime();
         JellowIcon icon = new JellowIcon(name,bitmapArray,-1,-1,id);
         boardModel.getChildren().get(selectedPosition).addChild(icon);
-        iconRecycler.getLayoutManager().smoothScrollToPosition(iconRecycler,null,selectedPosition);
+        iconRecycler.getLayoutManager().smoothScrollToPosition(iconRecycler,null,(boardModel.getChildren().get(selectedPosition).getChildren().size()-1));
         categoryManager = new CategoryManager(boardModel);
         prepareIconPane(selectedPosition,ADD_EDIT_ICON_MODE);
         modelManager.setModel(boardModel);
@@ -648,44 +672,16 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
 
                 Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
             }
-
-        if(requestCode==GALLERY_REQUEST)
-            if (grantResults.length > 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //Gallery Permissions granted
-                Intent selectFromGalleryIntent = new Intent();
-                selectFromGalleryIntent.setType("image/*");
-                selectFromGalleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(selectFromGalleryIntent, GALLERY_REQUEST);
-            } else {
-                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
-            }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Bitmap bitmap=null;
         if(resultCode==RESULT_OK) {
-            if (requestCode == CAMERA_REQUEST) {
-                Bundle extras = data.getExtras();
-                if (extras != null) {
-                    bitmap = (Bitmap) extras.get("data");
-                }
-
-            } else if (requestCode == GALLERY_REQUEST) {
-                Uri uri = data.getData();
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                    mPhotoIntentResult.onPhotoIntentResult(bitmap,requestCode,null);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }else if (requestCode == LIBRARY_REQUEST) {
-
-                byte[] resultImage = data.getByteArrayExtra(getString(R.string.search_result));
-                bitmap = BitmapFactory.decodeByteArray(resultImage, 0, resultImage.length);
-                mPhotoIntentResult.onPhotoIntentResult(bitmap, requestCode, null);
+            if (requestCode == LIBRARY_REQUEST) {
+                String fileName = data.getStringExtra("result");
+                if(fileName!=null)
+                    mPhotoIntentResult.onPhotoIntentResult(null, requestCode, fileName);
             }
         }
 

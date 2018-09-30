@@ -50,6 +50,8 @@ import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.BoardDatabase;
 import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.CustomDialog;
 import com.dsource.idc.jellowboard.utility.SessionManager;
 import com.rey.material.app.Dialog;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -237,8 +239,7 @@ public class MyBoards extends AppCompatActivity {
         //The list that will be shown with camera options
         final ArrayList<ListItem> list=new ArrayList<>();
         TypedArray mArray=getResources().obtainTypedArray(R.array.add_photo_option);
-        list.add(new ListItem("Camera",mArray.getDrawable(0)));
-        list.add(new ListItem("Gallery ",mArray.getDrawable(1)));
+        list.add(new ListItem("Photos",mArray.getDrawable(0)));
         list.add(new ListItem("Library ",mArray.getDrawable(2)));
         SimpleListAdapter adapter=new SimpleListAdapter(this,list);
         listView.setAdapter(adapter);
@@ -246,10 +247,11 @@ public class MyBoards extends AppCompatActivity {
             @Override
             public void onPhotoIntentResult(Bitmap bitmap, int code,String FileName) {
 
-                bitmap = cropToSquare(bitmap);
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
                 if(code!=LIBRARY_REQUEST)
                 {
+                    bitmap = cropToSquare(bitmap);
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.PNG, 50, stream);
                     Glide.with(MyBoards.this).load(stream.toByteArray())
                             .apply(new RequestOptions().
@@ -280,32 +282,21 @@ public class MyBoards extends AppCompatActivity {
                 listView.setVisibility(View.GONE);
                 if(position==0)
                 {
-                    if(checkPermissionForCamera()) {
-                        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        startActivityForResult(takePictureIntent,CAMERA_REQUEST);
+                    if(checkPermissionForCamera()&&checkPermissionForStorageRead()) {
+                        CropImage.activity()
+                                .setAspectRatio(1,1)
+                                .setGuidelines(CropImageView.Guidelines.ON)
+                                .setFixAspectRatio(true)
+                                .start(MyBoards.this);
                     }
                     else
                     {
-                        final String [] permissions=new String []{ Manifest.permission.CAMERA};
+                        final String [] permissions=new String []{ Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE};
                         ActivityCompat.requestPermissions(MyBoards.this, permissions, CAMERA_REQUEST);
                     }
 
                 }
                 else if(position==1)
-                {
-                    if(checkPermissionForStorageRead()) {
-                        Intent selectFromGalleryIntent = new Intent();
-                        selectFromGalleryIntent.setType("image/*");
-                        selectFromGalleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-                        startActivityForResult(selectFromGalleryIntent, GALLERY_REQUEST);
-                    }
-                    else {
-                        final String [] permissions=new String []{ Manifest.permission.READ_EXTERNAL_STORAGE};
-                        ActivityCompat.requestPermissions(MyBoards.this, permissions, GALLERY_REQUEST);
-
-                    }
-                }
-                else if(position==2)
                 {
                     Intent intent = new Intent(MyBoards.this,BoardSearch.class);
                     intent.putExtra(BoardSearch.SEARCH_MODE,BoardSearch.ICON_SEARCH);
@@ -528,58 +519,54 @@ public class MyBoards extends AppCompatActivity {
 
 
         if(requestCode==CAMERA_REQUEST)
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(takePictureIntent, CAMERA_REQUEST);
-                } else {
-
-                    Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
-                }
-
-         if(requestCode==GALLERY_REQUEST)
-             if (grantResults.length > 0
-                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                 //Gallery Permissions granted
-                 Intent selectFromGalleryIntent = new Intent();
-                 selectFromGalleryIntent.setType("image/*");
-                 selectFromGalleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-                 startActivityForResult(selectFromGalleryIntent, GALLERY_REQUEST);
-             } else {
-                        Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
-             }
+            // If request is cancelled, the result arrays are empty.
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED&&grantResults[1]==PackageManager.PERMISSION_GRANTED) {
+                CropImage.activity()
+                        .setAspectRatio(1,1)
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .setFixAspectRatio(true)
+                        .start(MyBoards.this);
+            } else {
+                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+            }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-       Bitmap bitmap=null;
+
+
+        Bitmap bitmap=null;
         if(resultCode==RESULT_OK) {
-            if (requestCode == CAMERA_REQUEST) {
-                Bundle extras = data.getExtras();
-                if (extras != null) {
-                    bitmap = (Bitmap) extras.get("data");
-                }
 
-            } else if (requestCode == GALLERY_REQUEST) {
-                Uri uri = data.getData();
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            } else if (requestCode == LIBRARY_REQUEST) {
-                String fileName = data.getStringExtra("result");
-                if(fileName!=null)
-                    ;
-                byte[] resultImage = data.getByteArrayExtra(getString(R.string.search_result));
-                bitmap = BitmapFactory.decodeByteArray(resultImage, 0, resultImage.length);
-                mPhotoIntentResult.onPhotoIntentResult(bitmap,requestCode,fileName);
+            /**
+             * In this, we are collecting the name of the icon clicked on the search bar and using that to fetch the icon from the database.
+             * */
+           if (requestCode == LIBRARY_REQUEST) {
+               String fileName = data.getStringExtra("result");
+               if(fileName!=null)
+                   mPhotoIntentResult.onPhotoIntentResult(null, requestCode, fileName);
             }
-            if(requestCode!=LIBRARY_REQUEST)
-            mPhotoIntentResult.onPhotoIntentResult(bitmap, requestCode,null);
+            else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+                CropImage.ActivityResult result = CropImage.getActivityResult(data);
+                if (resultCode == RESULT_OK) {
+                    Uri resultUri = result.getUri();
+                    Bitmap bitmap1 = result.getBitmap();
+                    if (bitmap1 != null)
+                        mPhotoIntentResult.onPhotoIntentResult(result.getBitmap(), requestCode, null);
+                    else {
+                        try {
+                            bitmap1 = MediaStore.Images.Media.getBitmap(getContentResolver(), resultUri);
+                            mPhotoIntentResult.onPhotoIntentResult(bitmap1, requestCode, null);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                    Exception error = result.getError();
+                }
 
+            }
         }
 
     }
