@@ -216,6 +216,7 @@ public class MyBoards extends AppCompatActivity {
         dialogForBoardEditAdd.applyStyle(R.style.MyDialogBox);
         dialogForBoardEditAdd.backgroundColor(getResources().getColor(R.color.transparent));
 
+        dialogForBoardEditAdd.setCancelable(false);
         //List on the dialog.
         final ListView listView=dialogContainerView.findViewById(R.id.camera_list);
         final EditText boardTitleEditText=dialogContainerView.findViewById(R.id.board_name);

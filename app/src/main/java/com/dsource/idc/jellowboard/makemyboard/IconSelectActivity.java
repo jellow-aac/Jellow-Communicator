@@ -53,6 +53,7 @@ public class IconSelectActivity extends AppCompatActivity {
     ViewTreeObserver.OnGlobalLayoutListener tempListener;
     ViewTreeObserver.OnGlobalLayoutListener iconLayoutPopulationLister;
     private Button nextButton;
+    private Button resetButton;
     private RecyclerView.OnScrollListener scrollListener;
 
 
@@ -120,6 +121,8 @@ public class IconSelectActivity extends AppCompatActivity {
                 iconSelectorAdapter.notifyDataSetChanged();
                 nextButton.setAlpha(.5f);
                 nextButton.setEnabled(false);
+                resetButton.setEnabled(false);
+                resetButton.setAlpha(.5f);
                 ((TextView)(findViewById(R.id.icon_count))).setText("("+selectedIconList.size()+")");
             }
         });
@@ -221,7 +224,9 @@ public class IconSelectActivity extends AppCompatActivity {
         levelSelecterRecycler=findViewById(R.id.level_select_pane_recycler);
         levelSelecterRecycler.setLayoutManager(new LinearLayoutManager(this));
         selectedIconList=new ArrayList<>();
-
+        resetButton = findViewById(R.id.reset_selection);
+        resetButton.setEnabled(false);
+        resetButton.setAlpha(.5f);
         selectionCheckBox.setOnCheckedChangeListener(null);
         selectionCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -233,10 +238,15 @@ public class IconSelectActivity extends AppCompatActivity {
                 {
                     nextButton.setAlpha(1f);
                     nextButton.setEnabled(true);
+                    resetButton.setEnabled(true);
+                    resetButton.setAlpha(1f);
+
                 }
                 else {
                     nextButton.setEnabled(false);
                     nextButton.setAlpha(.5f);
+                    resetButton.setEnabled(false);
+                    resetButton.setAlpha(.5f);
                 }
             }
         });
@@ -317,10 +327,14 @@ public class IconSelectActivity extends AppCompatActivity {
         {
             nextButton.setAlpha(1f);
             nextButton.setEnabled(true);
+            resetButton.setEnabled(true);
+            resetButton.setAlpha(1f);
         }
         else {
             nextButton.setEnabled(false);
             nextButton.setAlpha(.5f);
+            resetButton.setEnabled(false);
+            resetButton.setAlpha(.5f);
         }
     }
 
@@ -471,6 +485,8 @@ public class IconSelectActivity extends AppCompatActivity {
         {
             nextButton.setEnabled(true);
             nextButton.setAlpha(1.0f);
+            resetButton.setEnabled(true);
+            resetButton.setAlpha(1f);
         }
 
         ((TextView) (findViewById(R.id.icon_count))).setText("(" + selectedIconList.size() + ")");

@@ -267,6 +267,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         final ImageView IconImage=dialogContainerView.findViewById(R.id.board_icon);
         IconImage.setBackground(getResources().getDrawable(R.drawable.icon_back_grey));
         listView.setVisibility(View.GONE);
+        dialogForBoardEditAdd.setCancelable(false);
 
         if(thisIcon.parent0==-1)//Is a custom Icon
         {
@@ -483,6 +484,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         final Dialog dialogForBoardEditAdd = new Dialog(this,R.style.MyDialogBox);
         dialogForBoardEditAdd.applyStyle(R.style.MyDialogBox);
         dialogForBoardEditAdd.backgroundColor(getResources().getColor(R.color.transparent));
+        dialogForBoardEditAdd.setCancelable(false);
 
         //List on the dialog.
         final ListView listView=dialogContainerView.findViewById(R.id.camera_list);

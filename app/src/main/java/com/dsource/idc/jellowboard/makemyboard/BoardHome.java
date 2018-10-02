@@ -61,8 +61,6 @@ public class BoardHome extends AppCompatActivity {
     private VerbiageDatabaseHelper verbiageDatabase;
     private ExpressiveIconManager expIconManager;
     private ArrayList<MiscellaneousIcons> expIconVerbiage;
-    private int expIconPosition;
-    private View selectedView;
     private RecyclerView.OnScrollListener scrollListener;
     private ViewGroup.LayoutParams defaultRecyclerParams;
 
@@ -99,7 +97,8 @@ public class BoardHome extends AppCompatActivity {
         expIconManager.setClickListener(new ExpressiveIconManager.expIconClickListener() {
             @Override
             public void expressiveIconClicked(int expIconPos, int time) {
-                Log.d("ExpIcons","Callback");
+                adapter.expIconPos = expIconPos;
+                adapter.notifyDataSetChanged();
                 speakVerbiage(expIconPos,time);
             }
         });
@@ -117,7 +116,6 @@ public class BoardHome extends AppCompatActivity {
 
     private void speakVerbiage(int expIconPos, int time) {
         String verbiage="";
-        expIconPosition=expIconPos;
         if(selectedIconVerbiage!=null)
         switch (expIconPos)
         {
@@ -156,24 +154,6 @@ public class BoardHome extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    private void highlightSelection(int colorCode) {
-       /* GradientDrawable gd = (GradientDrawable) selectedView.findViewById(R.id.borderView).getBackground();
-
-                switch (colorCode) {
-                    case -2:gd.setColor(ContextCompat.getColor(this,R.color.transparent)); break;
-                    case -1:gd.setColor(ContextCompat.getColor(this,R.color.colorSelect)); break;
-                    case 0: gd.setColor(ContextCompat.getColor(this,R.color.colorLike)); break;
-                    case 1: gd.setColor(ContextCompat.getColor(this,R.color.colorDontLike)); break;
-                    case 2: gd.setColor(ContextCompat.getColor(this,R.color.colorYes)); break;
-                    case 3: gd.setColor(ContextCompat.getColor(this,R.color.colorNo)); break;
-                    case 4: gd.setColor(ContextCompat.getColor(this,R.color.colorMore)); break;
-                    case 5: gd.setColor(ContextCompat.getColor(this,R.color.colorLess)); break;
-                }
-
-*/
-    }
-
-
     private void prepareSpeech(JellowIcon jellowIcon) {
         selectedIconVerbiage=verbiageDatabase.getVerbiageById(Nomenclature.getIconName(jellowIcon,mContext));
         expIconManager.setAccordingVerbiage(selectedIconVerbiage);
@@ -188,11 +168,14 @@ public class BoardHome extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                speakSpeech(getString(R.string.home));
                 if(Level!=0) {
                     ActivateView(home,false);
                     ActivateView(back,false);
                     LevelOneParent = -1;
                     LevelTwoParent = -1;
+                    adapter.selectedPosition = -1;
+                    adapter.expIconPos = -1;
                     displayList = modelManager.getLevelOneFromModel();
                     Level = 0;
                     updateList();
@@ -203,7 +186,7 @@ public class BoardHome extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                speakSpeech("Back");onBackPressed();
             }
         });
         keyboardButton=findViewById(R.id.keyboard);
@@ -247,14 +230,16 @@ public class BoardHome extends AppCompatActivity {
             @Override
             public void onItemDoubleTap(View view, int position) {
                 selectedIconVerbiage=null;
+                adapter.notifyDataSetChanged();
                 notifyItemClicked(position);
             }
         });
         adapter.setOnItemSelectListner(new HomeAdapter.OnItemSelectListener() {
             @Override
             public void onItemSelected(View view, int position) {
-                selectedView=view;
-                highlightSelection(-1);
+                adapter.expIconPos =-1;
+                adapter.selectedPosition = position;
+                adapter.notifyDataSetChanged();
                 prepareSpeech(displayList.get(position));
 
             }
@@ -272,6 +257,8 @@ public class BoardHome extends AppCompatActivity {
             if(temp.size()>0) {
                 ActivateView(home,true);
                 ActivateView(back,true);
+                adapter.expIconPos =-1;
+                adapter.selectedPosition = -1;
                 displayList = temp;
                 LevelOneParent = position;
                 Level++;
@@ -285,6 +272,8 @@ public class BoardHome extends AppCompatActivity {
             if(LevelOneParent!=-1) {
                 ArrayList<JellowIcon> temp = modelManager.getLevelThreeFromModel(LevelOneParent, position);
                 if (temp.size() > 0) {
+                    adapter.expIconPos =-1;
+                    adapter.selectedPosition = -1;
                     displayList = temp;
                     Level++;
                     updateList();
@@ -304,11 +293,14 @@ public class BoardHome extends AppCompatActivity {
     public void onBackPressed() {
 
         expIconManager.resetSelection();
+        adapter.selectedPosition = -1;
+        adapter.expIconPos = -1;
         selectedIconVerbiage = null;
         if(Level==2)
         {
             if(LevelOneParent!=-1) {
                 displayList = modelManager.getLevelTwoFromModel(LevelOneParent);
+                adapter.selectedPosition = LevelOneParent;
                 LevelTwoParent=-1;
                 updateList();
                 Level--;

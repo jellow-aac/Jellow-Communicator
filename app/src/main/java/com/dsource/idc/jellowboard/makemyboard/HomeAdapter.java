@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.GradientDrawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -35,6 +37,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     private OnItemSelectListener onItemSelectListener;
     int GridSize;
     public int selectedPosition=-1;
+    public int expIconPos = -1;
 
     public HomeAdapter(List<JellowIcon> data, Context context, int gridSize) {
         this.data = data;
@@ -42,85 +45,14 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         this.GridSize=gridSize;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-
-        public TextView iconTitle;
-        public ImageView iconImage;
-
-        public ViewHolder(final View v) {
-            super(v);
-            iconImage=v.findViewById(R.id.icon_image_view);
-            iconTitle=v.findViewById(R.id.icon_title);
-            v.setOnClickListener(this);
-            v.setOnTouchListener(new View.OnTouchListener() {
-                private GestureDetector gestureDetector = new GestureDetector(mContext, new GestureDetector.SimpleOnGestureListener() {
-                    @Override
-                    public boolean onDoubleTap(MotionEvent e) {
-                        onDoubleTapListener.onItemDoubleTap(v,getAdapterPosition());
-                        return super.onDoubleTap(e);
-                    }
-
-                    @Override
-                    public boolean onSingleTapUp(MotionEvent e) {
-                        onItemSelectListener.onItemSelected(v,getAdapterPosition());
-                        return super.onSingleTapUp(e);
-                    }
-                });
-
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    gestureDetector.onTouchEvent(event);
-                    return true;
-                }
-            });
-
-        }
-
-        @Override
-        public void onClick(View view) {
-            onItemSelectListener.onItemSelected(view,getAdapterPosition());
-        }
-    }
-
-
-    public interface onDoubleTapListener {
-        void onItemDoubleTap(View view, int position);
-    }
-    public interface OnItemSelectListener {
-        void onItemSelected(View view, int position);
-    }
-
-
-
-    public void setOnDoubleTapListner(final onDoubleTapListener mItemClickListener) {
-        this.onDoubleTapListener = mItemClickListener;
-    }
-
-    public void setOnItemSelectListner(final HomeAdapter.OnItemSelectListener mItemClickListener) {
-        this.onItemSelectListener = mItemClickListener;
-    }
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView;
-        if(GridSize==2)
-            itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.custom_layout_2x1_icons, parent, false);
-        else if(GridSize<4)
-            itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.custom_layout_3_icons, parent, false);
-        else
-            itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.custom_layout_9_icons, parent, false);
-        return new ViewHolder(itemView);
-    }
-
     @Override
     public void onBindViewHolder(HomeAdapter.ViewHolder holder, int position) {
 
         JellowIcon thisIcon = data.get(position);
         holder.iconTitle.setText(thisIcon.IconTitle);
-        //TODO Highlight the icon.
+        setMenuImageBorder(holder.backGround,false,-1);
+        if(position==this.selectedPosition)
+        setMenuImageBorder(holder.backGround,true,expIconPos);
 
         if(thisIcon.parent0==-1)
         {
@@ -158,6 +90,82 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
 
     }
+
+
+    public interface onDoubleTapListener {
+        void onItemDoubleTap(View view, int position);
+    }
+    public interface OnItemSelectListener {
+        void onItemSelected(View view, int position);
+    }
+
+
+
+    public void setOnDoubleTapListner(final onDoubleTapListener mItemClickListener) {
+        this.onDoubleTapListener = mItemClickListener;
+    }
+
+    public void setOnItemSelectListner(final HomeAdapter.OnItemSelectListener mItemClickListener) {
+        this.onItemSelectListener = mItemClickListener;
+    }
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView;
+        if(GridSize==2)
+            itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.custom_layout_2x1_icons, parent, false);
+        else if(GridSize<4)
+            itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.custom_layout_3_icons, parent, false);
+        else
+            itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.custom_layout_9_icons, parent, false);
+        return new ViewHolder(itemView);
+    }
+
+    private void setMenuImageBorder(GradientDrawable gd, boolean setBorder,int pos) {
+
+        if(setBorder){
+            // mActionBtnClickCount = 0, brown color border is set.
+                // mFlgImage define color of border.
+            if(pos==-1) gd.setColor(ContextCompat.getColor(mContext,R.color.colorSelect));
+            else switch (pos) {
+                    case 0: gd.setColor(ContextCompat.getColor(mContext,R.color.colorLike)); break;
+                    case 1: gd.setColor(ContextCompat.getColor(mContext,R.color.colorYes)); break;
+                    case 2: gd.setColor(ContextCompat.getColor(mContext,R.color.colorMore)); break;
+                    case 3: gd.setColor(ContextCompat.getColor(mContext,R.color.colorDontLike)); break;
+                    case 4: gd.setColor(ContextCompat.getColor(mContext,R.color.colorNo)); break;
+                    case 5: gd.setColor(ContextCompat.getColor(mContext,R.color.colorLess)); break;
+                }
+        } else
+            gd.setColor(ContextCompat.getColor(mContext,android.R.color.transparent));
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+
+        public TextView iconTitle;
+        public ImageView iconImage;
+        public GradientDrawable backGround;
+
+        public ViewHolder(final View v) {
+            super(v);
+            iconImage=v.findViewById(R.id.icon_image_view);
+            iconTitle=v.findViewById(R.id.icon_title);
+            backGround = (GradientDrawable)v.findViewById(R.id.borderView).getBackground();
+            v.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            if(getAdapterPosition()!=selectedPosition)
+                onItemSelectListener.onItemSelected(view,getAdapterPosition());
+            else
+                onDoubleTapListener.onItemDoubleTap(view,getAdapterPosition());
+
+        }
+    }
+
 
     @Override
     public int getItemCount() {
