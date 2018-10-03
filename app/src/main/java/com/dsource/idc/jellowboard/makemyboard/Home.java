@@ -41,7 +41,7 @@ import java.util.ArrayList;
 import static com.dsource.idc.jellowboard.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowboard.makemyboard.MyBoards.BOARD_ID;
 
-public class BoardHome extends AppCompatActivity {
+public class Home extends AppCompatActivity {
 
     private static final int SEARCH = 1221;
     RecyclerView mRecycler;
@@ -264,7 +264,7 @@ public class BoardHome extends AppCompatActivity {
                 Level++;
                 updateList();
             }
-            else Toast.makeText(BoardHome.this,"No sub category",Toast.LENGTH_SHORT).show();
+            else Toast.makeText(Home.this,"No sub category",Toast.LENGTH_SHORT).show();
         }
         else if(Level==1){
             //ActivateView(home,true);
@@ -278,13 +278,13 @@ public class BoardHome extends AppCompatActivity {
                     Level++;
                     updateList();
                     LevelTwoParent=position;
-                } else Toast.makeText(BoardHome.this, "No sub category", Toast.LENGTH_SHORT).show();
+                } else Toast.makeText(Home.this, "No sub category", Toast.LENGTH_SHORT).show();
 
             }
         }
         else if(Level==2)
         {
-            Toast.makeText(BoardHome.this,"No sub category",Toast.LENGTH_SHORT).show();
+            Toast.makeText(Home.this,"No sub category",Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -508,7 +508,7 @@ public class BoardHome extends AppCompatActivity {
                 }
 
 
-                Animation wiggle = AnimationUtils.loadAnimation(BoardHome.this,R.anim.jiggle_determinate);
+                Animation wiggle = AnimationUtils.loadAnimation(Home.this,R.anim.jiggle_determinate);
                 searchedView.startAnimation(wiggle);
                 /*
                 GradientDrawable gd = (GradientDrawable) searchedView.findViewById(R.id.borderView).getBackground();

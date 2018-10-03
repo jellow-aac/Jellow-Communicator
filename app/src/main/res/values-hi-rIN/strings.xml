@@ -272,4 +272,5 @@
     <string name="downloadableLang">उपलब्ध भाषाएँ</string>
     <string name="downloadedLang">डाउनलोड की गई भाषाएँ</string>
     <string name="remove">डिलीट करें</string>
+    <string name="skip">Skip</string>
 </resources>

@@ -144,7 +144,7 @@ public class MyBoards extends AppCompatActivity {
                             initBoardEditAddDialog(NEW_BOARD, -1);
                         } else {
                             if(database.getBoardById(boardList.get(Position).boardID).getBoardCompleteStatus()){
-                                Intent intent = new Intent(ctx, BoardHome.class);
+                                Intent intent = new Intent(ctx, Home.class);
                                 intent.putExtra(BOARD_ID, boardList.get(Position).getBoardID());
                                 startActivity(intent);
                             }

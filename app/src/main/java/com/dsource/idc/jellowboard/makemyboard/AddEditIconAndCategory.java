@@ -36,7 +36,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.dsource.idc.jellowboard.GlideApp;
 import com.dsource.idc.jellowboard.Nomenclature;
@@ -63,7 +62,6 @@ import static com.dsource.idc.jellowboard.makemyboard.IconSelectorAdapter.ADD_ED
 import static com.dsource.idc.jellowboard.makemyboard.IconSelectorAdapter.EDIT_ICON_MODE;
 import static com.dsource.idc.jellowboard.makemyboard.MyBoards.BOARD_ID;
 import static com.dsource.idc.jellowboard.makemyboard.MyBoards.CAMERA_REQUEST;
-import static com.dsource.idc.jellowboard.makemyboard.MyBoards.GALLERY_REQUEST;
 import static com.dsource.idc.jellowboard.makemyboard.MyBoards.LIBRARY_REQUEST;
 
 public class AddEditIconAndCategory extends AppCompatActivity implements View.OnClickListener {
@@ -93,7 +91,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_icon_select);
-
+        if(getSupportActionBar()!=null)
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#333333'>"+"Add/Edit Icons"+"</font>"));
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_button_board);
@@ -102,21 +100,24 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         verbiageDatbase = new VerbiageDatabaseHelper(this);
 
         try{
+            if(getIntent().getExtras()!=null)
             boardId =getIntent().getExtras().getString(BOARD_ID);
+            database=new BoardDatabase(this);
+            currentBoard=database.getBoardById(boardId);
+            if(currentBoard!=null)
+            boardModel = currentBoard.getBoardIconModel();
+            modelManager =new ModelManager(this,boardModel);
+            iconList = new ArrayList<>();
+            categoryManager = new CategoryManager(boardModel);
+            categories = categoryManager.getAllCategories();
+            iconList = categoryManager.getAllChildOfCategory(0);
+            initViews();
         }
         catch (NullPointerException e)
         {
             Log.d("No board id found", boardId);
+            Toast.makeText(this,"Some error occured",Toast.LENGTH_LONG).show();
         }
-        database=new BoardDatabase(this);
-        currentBoard=database.getBoardById(boardId);
-        boardModel = currentBoard.getBoardIconModel();
-        modelManager =new ModelManager(this,boardModel);
-        iconList = new ArrayList<>();
-        categoryManager = new CategoryManager(boardModel);
-        categories = categoryManager.getAllCategories();
-        iconList = categoryManager.getAllChildOfCategory(0);
-        initViews();
     }
 
     private void initViews() {
@@ -134,7 +135,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         /*
             Hiding unwanted views of the layout
          */
-        ((TextView)findViewById(R.id.reset_selection)).setText("Skip");
+        ((TextView)findViewById(R.id.reset_selection)).setText(R.string.skip);
         findViewById(R.id.reset_selection).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -252,7 +253,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
 
     @SuppressLint("ResourceType")
     private void initEditModeDialog(final int parent1, final int parent2, final int parent3, final JellowIcon thisIcon) {
-        View dialogContainerView = LayoutInflater.from(this).inflate(R.layout.edit_board_dialog, null);
+        @SuppressLint("InflateParams") View dialogContainerView = LayoutInflater.from(this).inflate(R.layout.edit_board_dialog, null);
         final Dialog dialogForBoardEditAdd = new Dialog(this,R.style.MyDialogBox);
         dialogForBoardEditAdd.applyStyle(R.style.MyDialogBox);
         dialogForBoardEditAdd.backgroundColor(getResources().getColor(R.color.transparent));
@@ -298,11 +299,11 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
 
         //The list that will be shown with camera options
         final ArrayList<ListItem> list=new ArrayList<>();
-        TypedArray mArray=getResources().obtainTypedArray(R.array.add_photo_option);
+        @SuppressLint("Recycle") TypedArray mArray=getResources().obtainTypedArray(R.array.add_photo_option);
         list.add(new ListItem("Photos",mArray.getDrawable(0)));
         list.add(new ListItem("Library ",mArray.getDrawable(2)));
         SimpleListAdapter adapter=new SimpleListAdapter(this,list);
-        listView.setAdapter(adapter);
+        listView.setAdapter(adapter); 
 
         setOnPhotoSelectListener(new MyBoards.PhotoIntentResult() {
             @Override
@@ -380,12 +381,12 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
 
     /**
      * This function will save the edited Icon
-     * @param name
-     * @param bitmapArray
-     * @param p1
-     * @param p2
-     * @param p3
-     * @param prevIcon
+     * @param name Name of the Icon
+     * @param bitmapArray image of the Icon
+     * @param p1 parent 1
+     * @param p2 parent 2
+     * @param p3 parent 3
+     * @param prevIcon previous jellow Icon
      */
     private void saveEditedIcon(String name, byte[] bitmapArray, int p1, int p2,int p3, JellowIcon prevIcon) {
         int id  = (int)Calendar.getInstance().getTime().getTime();
@@ -464,9 +465,9 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         if(mode!=-1)
         {
             if(mode==ADD_ICON)
-                initBoardEditAddDialog(mode,-1,"Icon Name");
+                initBoardEditAddDialog(mode,"Icon Name");
             else if(mode==ADD_CATEGORY)
-                initBoardEditAddDialog(mode,-1,"Category Name");
+                initBoardEditAddDialog(mode,"Category Name");
             else if(mode==EDIT_ICON)
             {
                 prepareIconPane(selectedPosition,EDIT_ICON_MODE);
@@ -478,9 +479,9 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
 
     boolean isVisible=false;
     @SuppressLint("ResourceType")
-    private void initBoardEditAddDialog(final int mode, final int pos,String editTextHint) {
+    private void initBoardEditAddDialog(final int mode,String editTextHint) {
 
-        View dialogContainerView = LayoutInflater.from(this).inflate(R.layout.edit_board_dialog, null);
+        @SuppressLint("InflateParams") View dialogContainerView = LayoutInflater.from(this).inflate(R.layout.edit_board_dialog, null);
         final Dialog dialogForBoardEditAdd = new Dialog(this,R.style.MyDialogBox);
         dialogForBoardEditAdd.applyStyle(R.style.MyDialogBox);
         dialogForBoardEditAdd.backgroundColor(getResources().getColor(R.color.transparent));
@@ -498,7 +499,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         listView.setVisibility(View.GONE);
         //The list that will be shown with camera options
         final ArrayList<ListItem> list=new ArrayList<>();
-        TypedArray mArray=getResources().obtainTypedArray(R.array.add_photo_option);
+        @SuppressLint("Recycle") TypedArray mArray=getResources().obtainTypedArray(R.array.add_photo_option);
         list.add(new ListItem("Photos",mArray.getDrawable(0)));
         list.add(new ListItem("Library ",mArray.getDrawable(2)));
         SimpleListAdapter adapter=new SimpleListAdapter(this,list);
@@ -617,6 +618,13 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         targetLevelSelectPane();
     }
 
+    /**
+     * This funtion takes name and bitmap array of a icon to be added and generates
+     * an icon for it and adds it to the postion and scrolls to it.
+     * @param name Name of the Icon
+     * @param bitmapArray bitmap array holding the image
+     * @param selectedPosition postion on which new icon is to be added.
+     */
     private void addNewIcon(String name, byte[] bitmapArray, int selectedPosition) {
         int id  = (int)Calendar.getInstance().getTime().getTime();
         JellowIcon icon = new JellowIcon(name,bitmapArray,-1,-1,id);
@@ -678,7 +686,6 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Bitmap bitmap=null;
         if(resultCode==RESULT_OK) {
             if (requestCode == LIBRARY_REQUEST) {
                 String fileName = data.getStringExtra("result");
@@ -704,6 +711,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
                 }
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
+                Log.d("CROP_IMAGE_ERROR",error.getMessage());
             }
         }
 

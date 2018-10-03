@@ -172,7 +172,7 @@ public class EditBoard extends AppCompatActivity {
             public void onClick(View v) {
                 currentBoard.setBoardCompleted();
                 database.updateBoardIntoDatabase(currentBoard);
-                Intent intent =new Intent(EditBoard.this,BoardHome.class);
+                Intent intent =new Intent(EditBoard.this,Home.class);
                 intent.putExtra(BOARD_ID,boardId);
                 startActivity(intent);
                 finish();
