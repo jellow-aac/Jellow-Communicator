@@ -12,7 +12,7 @@ android {
     }
     buildTypes {
         debug {
-            applicationIdSuffix ".debug"
+            //applicationIdSuffix ".debug"
             buildConfigField "String", "DB_TYPE", '"testing"'
         }
         release {

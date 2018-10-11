@@ -41,6 +41,7 @@ import com.dsource.idc.jellowboard.FeedbackActivity;
 import com.dsource.idc.jellowboard.GlideApp;
 import com.dsource.idc.jellowboard.KeyboardInputActivity;
 import com.dsource.idc.jellowboard.LanguageSelectActivity;
+import com.dsource.idc.jellowboard.MainActivity;
 import com.dsource.idc.jellowboard.ProfileFormActivity;
 import com.dsource.idc.jellowboard.R;
 import com.dsource.idc.jellowboard.ResetPreferencesActivity;
@@ -121,7 +122,10 @@ public class MyBoards extends AppCompatActivity {
      */
     private void prepareBoardList(int mode) {
         boardList.clear();
-        boardList=loadBoardsFromDataBase();
+        if(mode==NORMAL_MODE)
+            boardList.add(new Board("-1", "Add Board", null));
+        ArrayList<Board> list  = loadBoardsFromDataBase();
+        boardList.addAll(list);
         invalidateOptionsMenu();
         if(boardList.size()<1)
         {
@@ -132,25 +136,37 @@ public class MyBoards extends AppCompatActivity {
             mRecyclerView.setLayoutManager(new GridLayoutManager(this,3));
         }
         if(mode==NORMAL_MODE) {
-            boardList.add(new Board("-1", "Add Board", null));
             adapter = new BoardAdapter(this, boardList,NORMAL_MODE);
             adapter.setOnItemClickListener(new BoardAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int Position, int openAddBoard) {
+
+
                     if (openAddBoard == BoardAdapter.EDIT_BOARD) {
                         initBoardEditAddDialog(EDIT_BOARD, Position);
                     } else if (openAddBoard == BoardAdapter.OPEN_ADD_BOARD) {
-                        if (Position == (boardList.size() - 1)) {
+                        //Open the ADD_NEW_BOARD Dialog if position is '0'
+                        if (Position == 0) {
                             initBoardEditAddDialog(NEW_BOARD, -1);
                         } else {
+                            /*
+                             * Board can have four tstages.
+                             * 1. Created but no icon selected -> IconSelectActivity Opens
+                             * 2. Icon selected and closed, didn't pass ADD_EDIT_SCREEN
+                             * 3. Passed ADD_EDIT_ICON_SCREEN but repositions screen is not pass
+                             * 4. Board Setup completed.
+                             */
                             if(database.getBoardById(boardList.get(Position).boardID).getBoardCompleteStatus()){
                                 Intent intent = new Intent(ctx, Home.class);
                                 intent.putExtra(BOARD_ID, boardList.get(Position).getBoardID());
                                 startActivity(intent);
-                            }
-                            else
-                            if (database.getBoardById(boardList.get(Position).boardID).isBoardIconsSelected()) {
+                            }else if (database.getBoardById(boardList.get(Position).boardID).isAddEditIconScreenPassed()) {
                                 Intent intent = new Intent(ctx, EditBoard.class);
+                                intent.putExtra(BOARD_ID, boardList.get(Position).getBoardID());
+                                startActivity(intent);
+                            }
+                            else if (database.getBoardById(boardList.get(Position).boardID).isBoardIconsSelected()) {
+                                Intent intent = new Intent(ctx, AddEditIconAndCategory.class);
                                 intent.putExtra(BOARD_ID, boardList.get(Position).getBoardID());
                                 startActivity(intent);
                             } else {
@@ -451,7 +467,7 @@ public class MyBoards extends AppCompatActivity {
             case R.id.delete_boards:
                 activateDeleteMode();
                 break;
-            case android.R.id.home: finish(); break;
+            case android.R.id.home: startActivity(new Intent(this, MainActivity.class));finish(); break;
             case R.id.languageSelect:
                 startActivity(new Intent(this, LanguageSelectActivity.class));
                 break;

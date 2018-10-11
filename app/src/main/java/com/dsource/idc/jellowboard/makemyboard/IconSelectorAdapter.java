@@ -32,7 +32,8 @@ public class IconSelectorAdapter extends RecyclerView.Adapter<IconSelectorAdapte
     public static final int ICON_SELECT_MODE = 111;
     public static final int ADD_EDIT_ICON_MODE = 222;
     public static final int EDIT_ICON_MODE = 333;
-    private int mode;
+    public int mode;
+    private IconSelectActivity activity;
     private OnIconEditListener mIconEditListener;
 
     /**
@@ -44,6 +45,8 @@ public class IconSelectorAdapter extends RecyclerView.Adapter<IconSelectorAdapte
         mContext = context;
         mDataSource = items;
         this.mode = mode;
+        if(mode==ICON_SELECT_MODE)
+        activity = (IconSelectActivity)context;
     }
 
 
@@ -124,9 +127,10 @@ public class IconSelectorAdapter extends RecyclerView.Adapter<IconSelectorAdapte
 
         //Some logic to regain the check
         boolean found=false;
-        for(int i = 0; i< IconSelectActivity.selectedIconList.size(); i++)
+        if(mode==ICON_SELECT_MODE)
+        for(int i = 0; i< activity.selectedIconList.size(); i++)
         {
-            JellowIcon selIcon= IconSelectActivity.selectedIconList.get(i);
+            JellowIcon selIcon= activity.selectedIconList.get(i);
             if(thisIcon.isEqual(selIcon))
             {
              found=true;

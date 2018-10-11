@@ -18,7 +18,7 @@
     <ImageView
         android:layout_centerHorizontal="true"
         android:layout_width="@dimen/board_edit_icon_size"
-        android:padding="16dp"
+        android:padding="4dp"
         android:layout_height="@dimen/board_edit_icon_size"
         android:src="@drawable/ic_board_person"
         android:id="@+id/board_icon"

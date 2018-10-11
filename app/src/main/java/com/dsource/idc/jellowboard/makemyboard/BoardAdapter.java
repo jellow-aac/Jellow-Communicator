@@ -43,8 +43,6 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> 
     public ViewHolder(View v) {
         super(v);
         boardTitle =v.findViewById(R.id.board_title);
-    /*    Typeface font = Typeface.createFromAsset(mContext.getAssets(), "font/ekmukta_semibold.ttf");
-        boardTitle.setTypeface(font);*/
         boardIcon=v.findViewById(R.id.board_icon);
         deleteBoard=v.findViewById(R.id.remove_board);
         boardIcon.setOnClickListener(this);

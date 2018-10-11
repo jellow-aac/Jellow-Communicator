@@ -21,11 +21,9 @@ public class ExpressiveIconManager implements View.OnClickListener{
     private expIconClickListener mExpIconClickListener;
     private TypedArray pressed;
     private TypedArray unPressed;
-    private Context context;
 
     public ExpressiveIconManager(Context context,View parent) {
 
-        this.context=context;
         expIconList=new ArrayList<>();
         expIconList.add((ImageView)parent.findViewById(R.id.ivlike));
         expIconList.add((ImageView)parent.findViewById(R.id.ivyes));
@@ -73,16 +71,7 @@ public class ExpressiveIconManager implements View.OnClickListener{
 
 
     }
-    public void resetOther(int index)
-    {
-        Log.d("ExpIcon","index "+index);
-        for(int i=0;i<expIconList.size();i++) {
-            if(index!=i) {
-                buttonFlags.set(i,0);
-            }
-        }
 
-    }
 
     public void resetSelection(){
         for(int i=0;i<expIconList.size();i++) {
@@ -118,6 +107,7 @@ public class ExpressiveIconManager implements View.OnClickListener{
             disableButton(expIconList.get(5),true);
         else disableButton(expIconList.get(5),false);
     }
+
 
     private void disableButton(ImageView imageView,boolean disable) {
         if(disable)

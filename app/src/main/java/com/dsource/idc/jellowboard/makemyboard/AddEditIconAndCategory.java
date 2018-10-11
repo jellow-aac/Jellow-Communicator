@@ -86,6 +86,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
     private int selectedPosition=0;
     private VerbiageDatabaseHelper verbiageDatbase;
     private int currentMode = ADD_EDIT_ICON_MODE;
+    private TextView noSubMsg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +125,8 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
 
         categoryRecycler = findViewById(R.id.level_select_pane_recycler);
         categoryRecycler.setLayoutManager(new LinearLayoutManager(this));
+        noSubMsg = findViewById(R.id.no_sub_category);
+        noSubMsg.setVisibility(View.GONE);
         prepareLevelSelectPane();
         iconRecycler = findViewById(R.id.icon_select_pane_recycler);
         iconRecycler.setLayoutManager(new GridLayoutManager(this,gridSize()));
@@ -135,16 +138,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         /*
             Hiding unwanted views of the layout
          */
-        ((TextView)findViewById(R.id.reset_selection)).setText(R.string.skip);
-        findViewById(R.id.reset_selection).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AddEditIconAndCategory.this,EditBoard.class);
-                intent.putExtra(BOARD_ID,boardId);
-                startActivity(intent);
-                finish();
-            }
-        });
+        findViewById(R.id.reset_selection).setVisibility(View.GONE);
         findViewById(R.id.next_step).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,6 +149,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
                     @Override
                     public void onGridSelectListener(int size) {
                             currentBoard.setGridSize(size);
+                            currentBoard.setAddEditIconScreenPassed();
                             database.updateBoardIntoDatabase(currentBoard);
                             Intent intent = new Intent(AddEditIconAndCategory.this,EditBoard.class);
                             intent.putExtra(BOARD_ID,boardId);
@@ -232,6 +227,10 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
     }
     private void prepareIconPane(int position,int mode) {
         iconList = categoryManager.getAllChildOfCategory(position);
+        if(iconList!=null)
+            if(iconList.size()<1)
+                noSubMsg.setVisibility(View.VISIBLE);
+            else noSubMsg.setVisibility(View.GONE);
         if(mode==ADD_EDIT_ICON_MODE)
             iconAdapter = new IconSelectorAdapter(this,iconList, ADD_EDIT_ICON_MODE);
         else if(mode ==EDIT_ICON_MODE)
@@ -240,9 +239,13 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         iconAdapter.setOnIconEditListener(new IconSelectorAdapter.OnIconEditListener() {
             @Override
             public void onIconEdit(int pos) {
-                JellowIcon icon = iconList.get(pos);
-                int[] posOfIconInModel = categoryManager.getPostionOfIcon(selectedPosition,icon);
-                initEditModeDialog(selectedPosition,posOfIconInModel[0],posOfIconInModel[1],icon);
+                if(pos==0)
+                    initEditModeDialog(selectedPosition,-1,-1,boardModel.getChildren().get(selectedPosition).getIcon());
+                else {
+                    JellowIcon icon = iconList.get(pos);
+                    int[] posOfIconInModel = categoryManager.getPositionOfIcon(selectedPosition, icon);
+                    initEditModeDialog(selectedPosition, posOfIconInModel[0], posOfIconInModel[1], icon);
+                }
             }
         });
         iconRecycler.setAdapter(iconAdapter);
@@ -279,8 +282,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
             Glide.with(this)
                     .asBitmap()
                     .load(stream.toByteArray())
-                    .apply(RequestOptions.
-                            circleCropTransform()).into(IconImage);
+                    .apply(RequestOptions.circleCropTransform()).into(IconImage);
             IconImage.setBackground(getResources().getDrawable(R.drawable.icon_back_grey));
         }
         else
@@ -391,9 +393,11 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
     private void saveEditedIcon(String name, byte[] bitmapArray, int p1, int p2,int p3, JellowIcon prevIcon) {
         int id  = (int)Calendar.getInstance().getTime().getTime();
         JellowIcon icon = new JellowIcon(name,bitmapArray,-1,-1,id);
-        if(p3==-10)//If level two icon is being editted
+        if(p2==-1&&p3==-1)//if level one icon is being edited.
+            boardModel.getChildren().get(p1).setIcon(icon);
+        else if(p3==-10)//If level two icon is being edited
             boardModel.getChildren().get(p1).getChildren().get(p2).setIcon(icon);
-        else
+        else // if level three icon is being deleted
             boardModel.getChildren().get(p1).getChildren().get(p2).getChildren().get(p3).setIcon(icon);
 
         categoryManager = new CategoryManager(boardModel);
@@ -512,14 +516,11 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
                 {
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.PNG, 50, stream);
-                    GlideApp.with(AddEditIconAndCategory.this).load(stream.toByteArray())
+                    Glide.with(AddEditIconAndCategory.this)
+                            .asBitmap()
+                            .load(stream.toByteArray())
                             .apply(RequestOptions.
-                                    circleCropTransform().error(R.drawable.ic_board_person))
-                            .diskCacheStrategy(DiskCacheStrategy.NONE)
-                            .skipMemoryCache(false)
-                            .centerCrop()
-                            .dontAnimate()
-                            .into(IconImage);
+                                    circleCropTransform()).into(IconImage);
                 }
                 else //When request code is  Library
                 {
@@ -767,6 +768,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
 
         private ArrayList<JellowIcon> getAllChildOfCategory(int categoryIndex) {
             ArrayList<JellowIcon> iconList  = new ArrayList<>();
+            iconList.add(model.getChildren().get(categoryIndex).getIcon());
             IconModel thisCategory =  model.getChildren().get(categoryIndex);
             //LevelTwo Icons
             ArrayList<IconModel> list = new ArrayList<>(thisCategory.getChildren());
@@ -780,7 +782,8 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
             return iconList;
         }
 
-        private int[] getPostionOfIcon(int selectedPosition, JellowIcon icon) {
+        private int[] getPositionOfIcon(int selectedPosition, JellowIcon icon) {
+
             IconModel catModel = model.getChildren().get(selectedPosition);
 
             for(int i=0;i<catModel.getChildren().size();i++)//To traverse second level

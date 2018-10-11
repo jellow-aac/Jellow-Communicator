@@ -22,7 +22,6 @@ import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.dsource.idc.jellowboard.R;
 import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.BoardDatabase;
 import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.CustomDialog;
@@ -30,11 +29,9 @@ import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.IconDatabase;
 import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.ModelManager;
 import com.dsource.idc.jellowboard.utility.CustomGridLayoutManager;
 import com.dsource.idc.jellowboard.utility.JellowIcon;
-
 import java.util.ArrayList;
 
 public class IconSelectActivity extends AppCompatActivity {
-
 
     private static final int SEARCH_CODE = 121;
     RecyclerView levelSelecterRecycler;
@@ -43,15 +40,13 @@ public class IconSelectActivity extends AppCompatActivity {
     ArrayList<JellowIcon> iconList;
     ListView dropDown;
     ArrayList<String> dropDownList;
-    public static ArrayList<JellowIcon> selectedIconList;
+    public ArrayList<JellowIcon> selectedIconList;
     LevelSelectorAdapter levelSelectorAdapter;
     CheckBox selectionCheckBox;
     int previousSelection=0;
     UtilFunctions utilF;
     String boardId;
     public static final String BOARD_ID="Board_Id";
-    ViewTreeObserver.OnGlobalLayoutListener tempListener;
-    ViewTreeObserver.OnGlobalLayoutListener iconLayoutPopulationLister;
     private Button nextButton;
     private Button resetButton;
     private RecyclerView.OnScrollListener scrollListener;
@@ -132,8 +127,8 @@ public class IconSelectActivity extends AppCompatActivity {
 
     /**
      * This function sorts the Icon list as they are present in the hierarchy
-     * @param iconsList
-     * @return
+     * @param iconsList list of the icon to be sorted.
+     * @return returns the sorted list
      */
     ArrayList<JellowIcon> sortList(ArrayList<JellowIcon> iconsList) {
 
@@ -283,8 +278,8 @@ public class IconSelectActivity extends AppCompatActivity {
     /**
      * This function fetches the icon list matching the level postion and displays it to the
      * screen
-     * @param level_1
-     * @param level_2
+     * @param level_1 Level one parent
+     * @param level_2 Level two parent
      */
     private void prepareIconPane(int level_1,int level_2) {
         invalidateOptionsMenu();

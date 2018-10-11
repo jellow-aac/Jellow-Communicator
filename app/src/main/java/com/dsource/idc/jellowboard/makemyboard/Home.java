@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.dsource.idc.jellowboard.MainActivity;
 import com.dsource.idc.jellowboard.Nomenclature;
 import com.dsource.idc.jellowboard.R;
 import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.BoardDatabase;
@@ -371,7 +372,7 @@ public class Home extends AppCompatActivity {
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home: finish(); break;
+            case android.R.id.home: startActivity(new Intent(this, MainActivity.class));finish(); break;
             case R.id.grid_size:
                 showGridDialog();break;
             case R.id.search:Toast.makeText(this,"Not implemented yet", Toast.LENGTH_SHORT).show();//searchInBoard();break;

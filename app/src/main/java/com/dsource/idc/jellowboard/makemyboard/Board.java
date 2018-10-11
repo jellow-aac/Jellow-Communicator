@@ -20,6 +20,7 @@ public class Board implements Serializable {
     private boolean boardIconsSelected=false;
     private IconModel boardIconModel;
     private int gridSize=3;
+    private boolean passedAddEditIconScreen=false;
 
     @Keep
     public Board(String Uid, String boardTitle, byte[] boardIcon) {
@@ -63,6 +64,15 @@ public class Board implements Serializable {
     public boolean isBoardIconsSelected() {
         return boardIconsSelected;
     }
+    public boolean isAddEditIconScreenPassed()
+    {
+        return passedAddEditIconScreen;
+    }
+    public void setAddEditIconScreenPassed()
+    {
+         passedAddEditIconScreen=true;
+    }
+
 
     private void setBoardIconsSelected(boolean boardIconsSelected) {
         this.boardIconsSelected = boardIconsSelected;
