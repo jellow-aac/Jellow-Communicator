@@ -1,9 +1,11 @@
 package com.dsource.idc.jellowboard.makemyboard;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -30,10 +32,13 @@ import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.ModelManager;
 import com.dsource.idc.jellowboard.utility.CustomGridLayoutManager;
 import com.dsource.idc.jellowboard.utility.JellowIcon;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class IconSelectActivity extends AppCompatActivity {
 
     private static final int SEARCH_CODE = 121;
+    private static final String LIST_OF_ICON = "selected_icon_list";
+    private static final String CURRENT_POSITION = "current_postion";
     RecyclerView levelSelecterRecycler;
     RecyclerView iconRecycler;
     IconSelectorAdapter iconSelectorAdapter;
@@ -58,17 +63,27 @@ public class IconSelectActivity extends AppCompatActivity {
         setContentView(R.layout.activity_icon_select);
 
         try{
+            if(getIntent().getExtras()!=null)
             boardId =getIntent().getExtras().getString(BOARD_ID);
         }
         catch (NullPointerException e)
         {
             Log.d("No board id found", boardId);
         }
-
-
-
+        Toast.makeText(this,"onCreate Called",Toast.LENGTH_LONG).show();
+        if(savedInstanceState!=null)
+        {
+            selectedIconList  = (ArrayList<JellowIcon>) savedInstanceState.getSerializable(LIST_OF_ICON);
+            previousSelection = savedInstanceState.getInt(CURRENT_POSITION);
+        }
+        else {
+            Toast.makeText(this,"Saved Instance is null",Toast.LENGTH_LONG).show();
+            selectedIconList=new ArrayList<>();
+        }
+        ((TextView)(findViewById(R.id.icon_count))).setText("("+selectedIconList.size()+")");
         utilF=new UtilFunctions();
         selectionCheckBox=findViewById(R.id.select_deselect_check_box);
+        if(getSupportActionBar()!=null)
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#333333'>"+getString(R.string.icon_select_text)+"</font>"));
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_button_board);
@@ -108,7 +123,8 @@ public class IconSelectActivity extends AppCompatActivity {
             }
         });
 
-        (findViewById(R.id.reset_selection)).setOnClickListener(new View.OnClickListener() {
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
                 selectedIconList.clear();
@@ -134,7 +150,7 @@ public class IconSelectActivity extends AppCompatActivity {
 
         ArrayList<JellowIcon> listOfAllIcon=new IconDatabase(this).getAllIcons();
         ArrayList<JellowIcon> sortedList=new ArrayList<>();
-
+        if(listOfAllIcon!=null)
         for(int i=0;i<listOfAllIcon.size();i++)
         {
             if(listContainsIcon(listOfAllIcon.get(i),iconsList))
@@ -148,8 +164,8 @@ public class IconSelectActivity extends AppCompatActivity {
 
     /***
      * This function checks whether a icon is present in the list or not
-     * @param icon
-     * @param list
+     * @param icon Icon that is being checked
+     * @param list list of all icons
      * @return boolean
      */
     public boolean listContainsIcon(JellowIcon icon, ArrayList<JellowIcon> list) {
@@ -157,7 +173,6 @@ public class IconSelectActivity extends AppCompatActivity {
         for(int i=0;i<list.size();i++)
             if(list.get(i).isEqual(icon))
                 present=true;
-        Log.d("Selection: ","Present "+present);
         return present;
     }
 
@@ -179,7 +194,7 @@ public class IconSelectActivity extends AppCompatActivity {
 
     /**
      * Add the icon to the list if not already present
-     * @param icon
+     * @param icon Icon to be added to the list
      */
     private void addIconToList(JellowIcon icon)
     {
@@ -192,8 +207,8 @@ public class IconSelectActivity extends AppCompatActivity {
     }
 
     /**
-     * removes the element from the current list
-     * @param icon
+     * Removes the element from the current list
+     * @param icon to be removed
      */
     private void removeIconFromList(JellowIcon icon)
     {
@@ -218,10 +233,11 @@ public class IconSelectActivity extends AppCompatActivity {
         iconRecycler.setAdapter(iconSelectorAdapter);
         levelSelecterRecycler=findViewById(R.id.level_select_pane_recycler);
         levelSelecterRecycler.setLayoutManager(new LinearLayoutManager(this));
-        selectedIconList=new ArrayList<>();
         resetButton = findViewById(R.id.reset_selection);
-        resetButton.setEnabled(false);
-        resetButton.setAlpha(.5f);
+        if(selectedIconList.size()<1) {
+            resetButton.setEnabled(false);
+            resetButton.setAlpha(.5f);
+        }
         selectionCheckBox.setOnCheckedChangeListener(null);
         selectionCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -249,7 +265,7 @@ public class IconSelectActivity extends AppCompatActivity {
 
     /**
      * Code to implement select all/Deselect all capability
-     * @param code
+     * @param code this will decide whether to selectall-or deselect all
      */
     private void selectAll(int code) {
         if(code==0)
@@ -292,18 +308,17 @@ public class IconSelectActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position, boolean checked) {
                 scrollCount = 0;
-                updateSelectionList(view,position,checked);
+                updateSelectionList(position,checked);
             }
         });
     }
 
     /**
      * This section updates the selection of the Icon
-     * @param view
-     * @param position
-     * @param checked
+     * @param position position of the icon
+     * @param checked isChecked?
      */
-    private void updateSelectionList(View view, int position, boolean checked) {
+    private void updateSelectionList(int position, boolean checked) {
 
         if(dropDown.getVisibility()==View.VISIBLE)
             dropDown.setVisibility(View.GONE);
@@ -342,12 +357,12 @@ public class IconSelectActivity extends AppCompatActivity {
     private void prepareLevelSelectPane() {
         ArrayList<String> levelSelectList=new ArrayList<>();
         String levelOne[]=getResources().getStringArray(R.array.arrLevelOneActionBarTitle);
-        for(int i=0;i<levelOne.length;i++)
-            levelSelectList.add(levelOne[i]);
+        Collections.addAll(levelSelectList, levelOne);
 
         levelSelecterRecycler.hasFixedSize();
         levelSelectorAdapter =new LevelSelectorAdapter(this,levelSelectList);
         levelSelecterRecycler.setAdapter(levelSelectorAdapter);
+        levelSelectorAdapter.selectedPosition = previousSelection;
         levelSelectorAdapter.setOnItemClickListner(new LevelSelectorAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -365,14 +380,10 @@ public class IconSelectActivity extends AppCompatActivity {
                 }
             }
         });
+        levelSelectorAdapter.notifyDataSetChanged();
 
     }
 
-    /**
-     * To inflate menu
-     * @param menu
-     * @return
-     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -450,19 +461,18 @@ public class IconSelectActivity extends AppCompatActivity {
     /**
      * This function holds the onActivityResult from {@link BoardSearch} activity.
      * If user selects Icon that is already present in the list, then the list is not updated
-     * @param requestCode
-     * @param resultCode
-     * @param data
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode==SEARCH_CODE&&resultCode==RESULT_OK)
         {
-            JellowIcon icon=(JellowIcon)data.getExtras().getSerializable(getString(R.string.search_result));
-            if(icon!=null&&!utilF.listContainsIcon(icon,selectedIconList)) {
+            if(data.getExtras()!=null) {
+                JellowIcon icon = (JellowIcon) data.getExtras().getSerializable(getString(R.string.search_result));
+                if (icon != null && !utilF.listContainsIcon(icon, selectedIconList)) {
                     addSearchedIcon(icon);
-            }else if(utilF.listContainsIcon(icon,selectedIconList))
-                Toast.makeText(this,"Icon already selected",Toast.LENGTH_SHORT).show();
+                } else if (utilF.listContainsIcon(icon, selectedIconList))
+                    Toast.makeText(this, "Icon already selected", Toast.LENGTH_SHORT).show();
+            }
         }
 
     }
@@ -509,6 +519,7 @@ public class IconSelectActivity extends AppCompatActivity {
                 return i;
         return -1;
     }
+
 
     private RecyclerView.OnScrollListener getListener(final int index) {
         Log.d("Search","Step 2: Scroll listener attached");
@@ -568,8 +579,6 @@ public class IconSelectActivity extends AppCompatActivity {
     /**
      * This function checks whether the searched item is present on the current screen,
      * for this we're just using current and last visible item and returning true and false regarding the position
-     * @param index
-     * @return
      */
     private boolean itemDisplayed(int index) {
         int firstVisiblePos = ((CustomGridLayoutManager)iconRecycler.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
@@ -600,6 +609,18 @@ public class IconSelectActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    /**
+     * This function saves the current state of the application, including list of Icon Selected and previous position,
+     * this prevents the loss of data during screen orientation change and device lock.
+     * @param outState current state of the activity
+     */
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putSerializable(LIST_OF_ICON,selectedIconList);
+        outState.putInt(CURRENT_POSITION,previousSelection);
+        super.onSaveInstanceState(outState);
+    }
+
     private class simpleArrayAdapter extends ArrayAdapter<String>
     {
         // View lookup cache
@@ -607,12 +628,13 @@ public class IconSelectActivity extends AppCompatActivity {
             TextView name;
         }
 
-        public simpleArrayAdapter(Context context, ArrayList<String> StringList) {
+        simpleArrayAdapter(Context context, ArrayList<String> StringList) {
             super(context, R.layout.level_select_card, StringList);
         }
 
+        @NonNull
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(int position, View convertView, @NonNull ViewGroup parent) {
             String title = getItem(position);
             ViewHolder viewHolder; // view lookup cache stored in tag
             if (convertView == null) {
@@ -629,5 +651,4 @@ public class IconSelectActivity extends AppCompatActivity {
         }
 
     }
-
 }
