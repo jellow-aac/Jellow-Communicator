@@ -66,10 +66,8 @@ public class MyBoards extends AppCompatActivity {
     public static final int DELETE_MODE =333;
     public static final int NORMAL_MODE =444;
     public static final int CAMERA_REQUEST=211;
-    public static final int GALLERY_REQUEST=311;
     public static final int LIBRARY_REQUEST=411;
     public int currentMode =-1;
-    private static final int PERMISSION_REQUESTS = 1212;
     RecyclerView mRecyclerView;
     BoardAdapter adapter;
     ArrayList<Board> boardList;
@@ -81,6 +79,22 @@ public class MyBoards extends AppCompatActivity {
     public static final String BOARD_ID="Board_Id";
     Context ctx;
     BoardDatabase database;
+    public static Bitmap cropToSquare(Bitmap bitmap){
+        int width  = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        int newWidth = (height > width) ? width : height;
+        int newHeight = (height > width)? height - ( height - width) : height;
+        int cropW = (width - height) / 2;
+        cropW = (cropW < 0)? 0: cropW;
+        int cropH = (height - width) / 2;
+        cropH = (cropH < 0)? 0: cropH;
+        return Bitmap.createBitmap(bitmap, cropW, cropH, newWidth, newHeight);
+    }
+
+    private void checkDatabase() {
+        new BoardDatabase(this).createTable();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,32 +103,30 @@ public class MyBoards extends AppCompatActivity {
         boardHashMap =new HashMap<>();
         ctx=MyBoards.this;
         database=new BoardDatabase(this);
+        if(getSupportActionBar()!=null)
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#333333'>"+"My Boards"+"</font>"));
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_button_board);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_background));
         db=new DataBaseHelper(this).getWritableDatabase();
-        initFields(3);
+        initFields();
         prepareBoardList(NORMAL_MODE);
         currentMode  =NORMAL_MODE;
-     
-    }
 
-    private void checkDatabase() {
-        new BoardDatabase(this).createTable();
     }
 
     /**
      * A function to instantiate all the fields
-     * @param i
      */
-    private void initFields(int i) {
+    private void initFields() {
         boardList=new ArrayList<>();
         mRecyclerView=findViewById(R.id.board_recycer_view);
         adapter=new BoardAdapter(this,boardList,NORMAL_MODE);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(this,i));
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         mRecyclerView.setAdapter(adapter);
     }
+
+    boolean isVisible=false;
 
     /**
      * Prepares the board list `
@@ -127,7 +139,7 @@ public class MyBoards extends AppCompatActivity {
         ArrayList<Board> list  = loadBoardsFromDataBase();
         boardList.addAll(list);
         invalidateOptionsMenu();
-        if(boardList.size()<1)
+        if(list.size()<1)
         {
             mRecyclerView.setLayoutManager(new GridLayoutManager(this,1));
             mode=NORMAL_MODE;
@@ -150,30 +162,34 @@ public class MyBoards extends AppCompatActivity {
                             initBoardEditAddDialog(NEW_BOARD, -1);
                         } else {
                             /*
-                             * Board can have four tstages.
+                             * Board can have four stages.
                              * 1. Created but no icon selected -> IconSelectActivity Opens
                              * 2. Icon selected and closed, didn't pass ADD_EDIT_SCREEN
                              * 3. Passed ADD_EDIT_ICON_SCREEN but repositions screen is not pass
                              * 4. Board Setup completed.
                              */
-                            if(database.getBoardById(boardList.get(Position).boardID).getBoardCompleteStatus()){
-                                Intent intent = new Intent(ctx, Home.class);
-                                intent.putExtra(BOARD_ID, boardList.get(Position).getBoardID());
-                                startActivity(intent);
-                            }else if (database.getBoardById(boardList.get(Position).boardID).isAddEditIconScreenPassed()) {
-                                Intent intent = new Intent(ctx, EditBoard.class);
-                                intent.putExtra(BOARD_ID, boardList.get(Position).getBoardID());
-                                startActivity(intent);
+                            Board board = database.getBoardById(boardList.get(Position).boardID);
+                            if(board!=null) {
+                                if (board.getBoardCompleteStatus()) {
+                                    Intent intent = new Intent(ctx, Home.class);
+                                    intent.putExtra(BOARD_ID, boardList.get(Position).getBoardID());
+                                    startActivity(intent);
+                                } else if (board.isAddEditIconScreenPassed()) {
+                                    Intent intent = new Intent(ctx, EditBoard.class);
+                                    intent.putExtra(BOARD_ID, boardList.get(Position).getBoardID());
+                                    startActivity(intent);
+                                } else if (board.isBoardIconsSelected()) {
+                                    Intent intent = new Intent(ctx, AddEditIconAndCategory.class);
+                                    intent.putExtra(BOARD_ID, boardList.get(Position).getBoardID());
+                                    startActivity(intent);
+                                } else {
+                                    Intent intent = new Intent(ctx, IconSelectActivity.class);
+                                    intent.putExtra(BOARD_ID, boardList.get(Position).getBoardID());
+                                    startActivity(intent);
+                                }
                             }
-                            else if (database.getBoardById(boardList.get(Position).boardID).isBoardIconsSelected()) {
-                                Intent intent = new Intent(ctx, AddEditIconAndCategory.class);
-                                intent.putExtra(BOARD_ID, boardList.get(Position).getBoardID());
-                                startActivity(intent);
-                            } else {
-                                Intent intent = new Intent(ctx, IconSelectActivity.class);
-                                intent.putExtra(BOARD_ID, boardList.get(Position).getBoardID());
-                                startActivity(intent);
-                            }
+                            else
+                            Toast.makeText(getApplicationContext(),"Some error occured",Toast.LENGTH_LONG).show();
                         }
 
                     }
@@ -190,7 +206,6 @@ public class MyBoards extends AppCompatActivity {
                         CustomDialog customDialog=new CustomDialog(ctx,CustomDialog.NORMAL);
                         customDialog.setText("Are you sure that you want to delete "+boardList.get(Position).boardTitle+" ?");
                         customDialog.show();
-
                         customDialog.setOnNegativeClickListener(new CustomDialog.onNegativeClickListener() {
                             @Override
                             public void onNegativeClickListener() {
@@ -223,11 +238,10 @@ public class MyBoards extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    boolean isVisible=false;
     @SuppressLint("ResourceType")
     private void initBoardEditAddDialog(final int code, final int pos) {
         final LayoutInflater dialogLayout = LayoutInflater.from(this);
-        View dialogContainerView = dialogLayout.inflate(R.layout.edit_board_dialog, null);
+        @SuppressLint("InflateParams") View dialogContainerView = dialogLayout.inflate(R.layout.edit_board_dialog, null);
         final Dialog dialogForBoardEditAdd = new Dialog(this,R.style.MyDialogBox);
         dialogForBoardEditAdd.applyStyle(R.style.MyDialogBox);
         dialogForBoardEditAdd.backgroundColor(getResources().getColor(R.color.transparent));
@@ -255,7 +269,7 @@ public class MyBoards extends AppCompatActivity {
 
         //The list that will be shown with camera options
         final ArrayList<ListItem> list=new ArrayList<>();
-        TypedArray mArray=getResources().obtainTypedArray(R.array.add_photo_option);
+        @SuppressLint("Recycle") TypedArray mArray=getResources().obtainTypedArray(R.array.add_photo_option);
         list.add(new ListItem("Photos",mArray.getDrawable(0)));
         list.add(new ListItem("Library ",mArray.getDrawable(2)));
         SimpleListAdapter adapter=new SimpleListAdapter(this,list);
@@ -326,10 +340,15 @@ public class MyBoards extends AppCompatActivity {
         saveBoard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(MyBoards.this,"Board saved",Toast.LENGTH_SHORT).show();
+
+                String name=boardTitleEditText.getText().toString();
+                if(name.equals(""))
+                {
+                    Toast.makeText(MyBoards.this,"Please enter name",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 currentMode = NORMAL_MODE;
                 invalidateOptionsMenu();
-                String name=boardTitleEditText.getText().toString();
                 Bitmap boardIcon=((BitmapDrawable)BoardIcon.getDrawable()).getBitmap();
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
                 boardIcon.compress(Bitmap.CompressFormat.PNG, 50, bos);
@@ -373,20 +392,6 @@ public class MyBoards extends AppCompatActivity {
         dialogForBoardEditAdd.setContentView(dialogContainerView);
         dialogForBoardEditAdd.show();
 
-    }
-
-    public static Bitmap cropToSquare(Bitmap bitmap){
-        int width  = bitmap.getWidth();
-        int height = bitmap.getHeight();
-        int newWidth = (height > width) ? width : height;
-        int newHeight = (height > width)? height - ( height - width) : height;
-        int cropW = (width - height) / 2;
-        cropW = (cropW < 0)? 0: cropW;
-        int cropH = (height - width) / 2;
-        cropH = (cropH < 0)? 0: cropH;
-        Bitmap cropImg = Bitmap.createBitmap(bitmap, cropW, cropH, newWidth, newHeight);
-
-        return cropImg;
     }
 
     private boolean checkPermissionForStorageRead() {
@@ -552,21 +557,18 @@ public class MyBoards extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-
-        Bitmap bitmap=null;
         if(resultCode==RESULT_OK) {
 
-            /**
+            /*
              * In this, we are collecting the name of the icon clicked on the search bar and using that to fetch the icon from the database.
-             * */
+             */
            if (requestCode == LIBRARY_REQUEST) {
                String fileName = data.getStringExtra("result");
                if(fileName!=null)
                    mPhotoIntentResult.onPhotoIntentResult(null, requestCode, fileName);
-            }
-            else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+
+           } else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
                 CropImage.ActivityResult result = CropImage.getActivityResult(data);
-                if (resultCode == RESULT_OK) {
                     Uri resultUri = result.getUri();
                     Bitmap bitmap1 = result.getBitmap();
                     if (bitmap1 != null)
@@ -579,10 +581,6 @@ public class MyBoards extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
-                } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                    Exception error = result.getError();
-                }
-
             }
         }
 
