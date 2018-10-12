@@ -189,7 +189,7 @@ public class MyBoards extends AppCompatActivity {
                                 }
                             }
                             else
-                            Toast.makeText(getApplicationContext(),"Some error occured",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(),"Some error occurred",Toast.LENGTH_LONG).show();
                         }
 
                     }
@@ -252,12 +252,9 @@ public class MyBoards extends AppCompatActivity {
         final EditText boardTitleEditText=dialogContainerView.findViewById(R.id.board_name);
         TextView saveBoard=dialogContainerView.findViewById(R.id.save_baord);
         TextView cancelSaveBoard=dialogContainerView.findViewById(R.id.cancel_save_baord);
-        /*if(code==EDIT_BOARD)
-            cancelSaveBoard.setText(getString(R.string.next));*/
         ImageView editBoardIconButton=dialogContainerView.findViewById(R.id.edit_board);
         final ImageView BoardIcon=dialogContainerView.findViewById(R.id.board_icon);
         listView.setVisibility(View.GONE);
-       // Glide.with(context).load(url).apply(RequestOptions.circleCropTransform()).into(imageView);
 
         if(code==EDIT_BOARD)
         {
@@ -534,7 +531,6 @@ public class MyBoards extends AppCompatActivity {
 
     }
 
-    //TODO add codes to add photo directly
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
