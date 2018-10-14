@@ -36,6 +36,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.dsource.idc.jellowboard.GlideApp;
 import com.dsource.idc.jellowboard.Nomenclature;
@@ -310,14 +311,30 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         setOnPhotoSelectListener(new MyBoards.PhotoIntentResult() {
             @Override
             public void onPhotoIntentResult(Bitmap bitmap, int code,String fileName) {
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                Glide.with(AddEditIconAndCategory.this)
-                        .asBitmap()
-                        .load(stream.toByteArray())
-                        .apply(RequestOptions.
-                                circleCropTransform()).into(IconImage);
 
+                if(code!=LIBRARY_REQUEST)
+                {
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                    Glide.with(AddEditIconAndCategory.this)
+                            .asBitmap()
+                            .load(stream.toByteArray())
+                            .apply(RequestOptions.
+                                    circleCropTransform()).into(IconImage);
+                }
+                else
+                {
+                    SessionManager mSession = new SessionManager(AddEditIconAndCategory.this);
+                    File en_dir = AddEditIconAndCategory.this.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
+                    String path = en_dir.getAbsolutePath() + "/drawables";
+                    GlideApp.with(AddEditIconAndCategory.this)
+                            .load(path+"/"+fileName+".png")
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .skipMemoryCache(false)
+                            .centerCrop()
+                            .dontAnimate()
+                            .into(IconImage);
+                }
             }
         });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -354,12 +371,15 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
             @Override
             public void onClick(View v) {
                 String name=boardTitleEditText.getText().toString();
-                Bitmap icon=((BitmapDrawable)IconImage.getDrawable()).getBitmap();
-                ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                icon.compress(Bitmap.CompressFormat.PNG, 100, bos);
-                byte[] bitmapArray = bos.toByteArray();
-                saveEditedIcon(name,bitmapArray,parent1,parent2,parent3,thisIcon);
-                dialogForBoardEditAdd.dismiss();
+                if(name.equals("")) Toast.makeText(getApplicationContext(),"Please enter name",Toast.LENGTH_SHORT).show();
+                else {
+                    Bitmap icon = ((BitmapDrawable) IconImage.getDrawable()).getBitmap();
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                    icon.compress(Bitmap.CompressFormat.PNG, 100, bos);
+                    byte[] bitmapArray = bos.toByteArray();
+                    saveEditedIcon(name, bitmapArray, parent1, parent2, parent3, thisIcon);
+                    dialogForBoardEditAdd.dismiss();
+                }
             }
         });
         cancelSaveBoard.setOnClickListener(new View.OnClickListener() {
@@ -574,16 +594,18 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
             @Override
             public void onClick(View v) {
                 String name=boardTitleEditText.getText().toString();
-                Bitmap icon=((BitmapDrawable)IconImage.getDrawable()).getBitmap();
-                ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                icon.compress(Bitmap.CompressFormat.PNG, 50, bos);
-                byte[] bitmapArray = bos.toByteArray();
-
-                if(mode==ADD_CATEGORY)
-                    addNewCategory(name,bitmapArray);
-                else if(mode==ADD_ICON)
-                    addNewIcon(name,bitmapArray,selectedPosition);
-                dialogForBoardEditAdd.dismiss();
+                if(name.equals("")) Toast.makeText(getApplicationContext(),"Please enter name", Toast.LENGTH_SHORT).show();
+                else {
+                    Bitmap icon = ((BitmapDrawable) IconImage.getDrawable()).getBitmap();
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                    icon.compress(Bitmap.CompressFormat.PNG, 50, bos);
+                    byte[] bitmapArray = bos.toByteArray();
+                    if (mode == ADD_CATEGORY)
+                        addNewCategory(name, bitmapArray);
+                    else if (mode == ADD_ICON)
+                        addNewIcon(name, bitmapArray, selectedPosition);
+                    dialogForBoardEditAdd.dismiss();
+                }
             }
         });
         cancelSaveBoard.setOnClickListener(new View.OnClickListener() {

@@ -79,22 +79,6 @@ public class MyBoards extends AppCompatActivity {
     public static final String BOARD_ID="Board_Id";
     Context ctx;
     BoardDatabase database;
-    public static Bitmap cropToSquare(Bitmap bitmap){
-        int width  = bitmap.getWidth();
-        int height = bitmap.getHeight();
-        int newWidth = (height > width) ? width : height;
-        int newHeight = (height > width)? height - ( height - width) : height;
-        int cropW = (width - height) / 2;
-        cropW = (cropW < 0)? 0: cropW;
-        int cropH = (height - width) / 2;
-        cropH = (cropH < 0)? 0: cropH;
-        return Bitmap.createBitmap(bitmap, cropW, cropH, newWidth, newHeight);
-    }
-
-    private void checkDatabase() {
-        new BoardDatabase(this).createTable();
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,6 +97,22 @@ public class MyBoards extends AppCompatActivity {
         prepareBoardList(NORMAL_MODE);
         currentMode  =NORMAL_MODE;
 
+    }
+
+    public static Bitmap cropToSquare(Bitmap bitmap){
+        int width  = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        int newWidth = (height > width) ? width : height;
+        int newHeight = (height > width)? height - ( height - width) : height;
+        int cropW = (width - height) / 2;
+        cropW = (cropW < 0)? 0: cropW;
+        int cropH = (height - width) / 2;
+        cropH = (cropH < 0)? 0: cropH;
+        return Bitmap.createBitmap(bitmap, cropW, cropH, newWidth, newHeight);
+    }
+
+    private void checkDatabase() {
+        new BoardDatabase(this).createTable();
     }
 
     /**
@@ -366,14 +366,6 @@ public class MyBoards extends AppCompatActivity {
         cancelSaveBoard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               /* if(code==EDIT_BOARD) {
-                    String boardID = boardList.get(pos).boardID;
-                    Intent intent = new Intent(MyBoards.this,AddEditIconAndCategory.class);
-                    if(!boardList.get(pos).isBoardIconsSelected())
-                        intent = new Intent(MyBoards.this,IconSelectActivity.class);
-                    intent.putExtra(BOARD_ID,boardID);
-                    startActivity(intent);
-                }*/
                 dialogForBoardEditAdd.dismiss();
             }
         });

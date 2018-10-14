@@ -70,14 +70,12 @@ public class IconSelectActivity extends AppCompatActivity {
         {
             Log.d("No board id found", boardId);
         }
-        Toast.makeText(this,"onCreate Called",Toast.LENGTH_LONG).show();
         if(savedInstanceState!=null)
         {
             selectedIconList  = (ArrayList<JellowIcon>) savedInstanceState.getSerializable(LIST_OF_ICON);
             previousSelection = savedInstanceState.getInt(CURRENT_POSITION);
         }
         else {
-            Toast.makeText(this,"Saved Instance is null",Toast.LENGTH_LONG).show();
             selectedIconList=new ArrayList<>();
         }
         ((TextView)(findViewById(R.id.icon_count))).setText("("+selectedIconList.size()+")");

@@ -19,7 +19,7 @@
     <ImageView
         android:layout_marginTop="6dp"
         android:layout_centerHorizontal="true"
-        android:padding="4dp"
+        android:padding="1dp"
         android:layout_width="@dimen/icon_select_icon_size"
         android:layout_height="@dimen/icon_select_icon_size"
         android:id="@+id/icon_image_view"

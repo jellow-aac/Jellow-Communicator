@@ -27,10 +27,9 @@
     <ImageView
         android:layout_width="@dimen/my_board_edit_icon_size"
         android:layout_height="@dimen/my_board_edit_icon_size"
-        android:src="@drawable/ic_edit_board"
+        android:layout_marginLeft="-6dp"
         android:id="@+id/edit_board"
-        android:padding="10dp"
-        android:background="@drawable/circular_background_red"
+        android:src="@drawable/ic_edit_icon_red_back"
         />
         <ListView
             android:layout_width="@dimen/camera_drop_down_width"
@@ -58,7 +57,6 @@
         android:textAlignment="center"
         android:textColorHint="@color/dark_base"
         android:layout_height="wrap_content"
-        android:drawablePadding="4dp"
         android:textColor="@color/light_grey"
         android:ems="10"
         android:inputType="textPersonName"
