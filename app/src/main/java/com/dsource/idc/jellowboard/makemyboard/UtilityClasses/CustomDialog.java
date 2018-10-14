@@ -69,11 +69,9 @@ public class CustomDialog extends Dialog{
         dialog.setContentView(dialogContainerView);
         dialog.setCancelable(true);
 
-        final ImageView GridSize1=dialogContainerView.findViewById(R.id.grid_size_1);
-        final ImageView GridSize2=dialogContainerView.findViewById(R.id.grid_size_2);
-        final ImageView GridSize3=dialogContainerView.findViewById(R.id.grid_size_3);
-        final ImageView GridSize4=dialogContainerView.findViewById(R.id.grid_size_2X2);
-        final ImageView GridSize5=dialogContainerView.findViewById(R.id.grid_size_2X3);
+        final ImageView GridSize1=dialogContainerView.findViewById(R.id.grid_size_1x1);
+        final ImageView GridSize2=dialogContainerView.findViewById(R.id.grid_size_1X2);
+        final ImageView GridSize3=dialogContainerView.findViewById(R.id.grid_size_1X3);
         final ImageView GridSize6=dialogContainerView.findViewById(R.id.grid_size_3X3);
 
 
@@ -96,21 +94,6 @@ public class CustomDialog extends Dialog{
             public void onClick(View v) {
                 dialog.dismiss();
                 mGridSizeSelectListener.onGridSelectListener(3);
-            }
-        });
-
-        GridSize4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                mGridSizeSelectListener.onGridSelectListener(4);
-            }
-        });
-        GridSize5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                mGridSizeSelectListener.onGridSelectListener(5);
             }
         });
         GridSize6.setOnClickListener(new View.OnClickListener() {

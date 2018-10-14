@@ -114,8 +114,6 @@ public class EditBoard extends AppCompatActivity {
             recyclerView.setLayoutParams(defaultRecyclerParams);
             switch (GridSize)
             {
-                case 4:recyclerView.setLayoutManager(new GridLayoutManager(this,2));recyclerView.setLayoutParams(centeredRecyclerParams);break;
-                case 5:recyclerView.setLayoutManager(new GridLayoutManager(this,2));recyclerView.setLayoutParams(centeredRecyclerParams);break;
                 case 6:recyclerView.setLayoutManager(new GridLayoutManager(this,3));break;
             }
         }

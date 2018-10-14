@@ -84,11 +84,11 @@
 
     <!--Dimensions Related to the Grid DialogBox-->
     <dimen name="grid_dialog_padding">4dp</dimen>
-    <dimen name="grid_dialog_title_textsize">14sp</dimen>
+    <dimen name="grid_dialog_title_textsize">18sp</dimen>
     <dimen name="grid_dialog_title_bottom_margin">8dp</dimen>
     <dimen name="grid_dialog_icon_size">70dp</dimen>
     <dimen name="grid_dialog_width">600dp</dimen>
-    <dimen name="grid_dialog_icon_margin">4dp</dimen>
+    <dimen name="grid_dialog_icon_margin">10dp</dimen>
     <dimen name="grid_dialog_text_margin">4dp</dimen>
 
 

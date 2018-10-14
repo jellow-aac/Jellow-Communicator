@@ -21,7 +21,9 @@
     <GridLayout
         android:layout_below="@id/text_heading"
         android:layout_width="wrap_content"
-        android:columnCount="3"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:columnCount="2"
         android:layout_height="wrap_content">
         <RelativeLayout
 
@@ -30,7 +32,7 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:background="@drawable/base_color_rounded_back"
-                android:id="@+id/grid_size_1"
+                android:id="@+id/grid_size_1x1"
                 android:layout_width="@dimen/grid_dialog_icon_size"
                 android:layout_marginBottom="@dimen/grid_dialog_text_margin"
                 android:layout_marginTop="@dimen/grid_dialog_text_margin"
@@ -38,23 +40,22 @@
                 android:padding="4dp"
                 android:layout_height="@dimen/grid_dialog_icon_size" />
             <TextView
-                android:layout_below="@id/grid_size_1"
+                android:layout_below="@id/grid_size_1x1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="1X1"
+                android:text="1 X 1"
                 android:textSize="@dimen/grid_dialog_title_textsize"
                 />
 
         </RelativeLayout>
         <RelativeLayout
-
-        android:layout_width="wrap_content"
+            android:layout_width="wrap_content"
             android:layout_marginRight="@dimen/grid_dialog_icon_margin"
-        android:layout_height="wrap_content">
+            android:layout_height="wrap_content">
         <ImageView
             android:background="@drawable/base_color_rounded_back"
-            android:id="@+id/grid_size_2"
+            android:id="@+id/grid_size_1X2"
             android:padding="4dp"
             android:layout_width="@dimen/grid_dialog_icon_size"
             android:layout_marginBottom="@dimen/grid_dialog_text_margin"
@@ -62,23 +63,22 @@
             android:src="@drawable/grid_1x2"
             android:layout_height="@dimen/grid_dialog_icon_size" />
         <TextView
-            android:layout_below="@id/grid_size_2"
+            android:layout_below="@id/grid_size_1X2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="1X2"
+            android:text="1 X 2"
             android:textSize="@dimen/grid_dialog_title_textsize"
             />
 
     </RelativeLayout>
         <RelativeLayout
-
             android:layout_width="wrap_content"
             android:layout_marginRight="@dimen/grid_dialog_icon_margin"
             android:layout_height="wrap_content">
             <ImageView
                 android:background="@drawable/base_color_rounded_back"
-                android:id="@+id/grid_size_3"
+                android:id="@+id/grid_size_1X3"
                 android:layout_width="@dimen/grid_dialog_icon_size"
                 android:layout_marginBottom="@dimen/grid_dialog_text_margin"
                 android:layout_marginTop="@dimen/grid_dialog_text_margin"
@@ -86,64 +86,17 @@
                 android:padding="4dp"
                 android:layout_height="@dimen/grid_dialog_icon_size" />
             <TextView
-                android:layout_below="@id/grid_size_3"
+                android:layout_below="@id/grid_size_1X3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="1X3"
+                android:text="1 X 3"
                 android:textSize="@dimen/grid_dialog_title_textsize"
                 />
 
         </RelativeLayout>
+
         <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_marginRight="@dimen/grid_dialog_icon_margin"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:background="@drawable/base_color_rounded_back"
-                android:id="@+id/grid_size_2X2"
-                android:layout_width="@dimen/grid_dialog_icon_size"
-                android:layout_marginBottom="@dimen/grid_dialog_text_margin"
-                android:layout_marginTop="@dimen/grid_dialog_text_margin"
-                android:src="@drawable/grid_2x2"
-                android:padding="4dp"
-                android:layout_height="@dimen/grid_dialog_icon_size" />
-            <TextView
-                android:layout_below="@id/grid_size_2X2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="2X2"
-                android:textSize="@dimen/grid_dialog_title_textsize"
-                />
-
-        </RelativeLayout>
-        <RelativeLayout
-
-            android:layout_width="wrap_content"
-            android:layout_marginRight="@dimen/grid_dialog_icon_margin"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:background="@drawable/base_color_rounded_back"
-                android:id="@+id/grid_size_2X3"
-                android:padding="4dp"
-                android:layout_width="@dimen/grid_dialog_icon_size"
-                android:layout_marginBottom="@dimen/grid_dialog_text_margin"
-                android:layout_marginTop="@dimen/grid_dialog_text_margin"
-                android:src="@drawable/grid_2x3"
-                android:layout_height="@dimen/grid_dialog_icon_size" />
-            <TextView
-                android:layout_below="@id/grid_size_2X3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="2X3"
-                android:textSize="@dimen/grid_dialog_title_textsize"
-                />
-
-        </RelativeLayout>
-        <RelativeLayout
-
             android:layout_width="wrap_content"
             android:layout_marginRight="@dimen/grid_dialog_icon_margin"
             android:layout_height="wrap_content">
@@ -161,7 +114,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="3X3"
+                android:text="3 X 3"
                 android:textSize="@dimen/grid_dialog_title_textsize"
                 />
 
