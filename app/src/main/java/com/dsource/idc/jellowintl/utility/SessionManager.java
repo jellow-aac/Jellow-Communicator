@@ -19,12 +19,14 @@ public class SessionManager {
     public final static String ENG_IN = "en-rIN";
     public final static String HI_IN = "hi-rIN";
     public final static String BN_IN = "bn-rIN";    // BN_IN -> Bengali
-    public final static String BE_IN = "be-rIN";    // BE_IN -> Bengali (for some old API devices which return be-rIN)
+    public final static String BE_IN = "be-rIN";
+    public final static String MR_IN = "mr-rIN";    // BE_IN -> Bengali (for some old API devices which return be-rIN)
 
     public final static HashMap<String,String> LangMap = new HashMap<String,String>(){
         {
             put("English (India)", ENG_IN);
             put("हिंदी", HI_IN);
+            put("मराठी", MR_IN);
             put("English (United Kingdom)", ENG_UK);
             put("English (United States)", ENG_US);
             put("বাঙালি", BN_IN);
@@ -35,6 +37,7 @@ public class SessionManager {
         {
             put(ENG_IN,"English (India)");
             put(HI_IN,"हिंदी");
+            put(MR_IN,"मराठी");
             put(ENG_UK,"English (United Kingdom)");
             put(ENG_US,"English (United States)");
             put(BN_IN,"বাঙালি");
@@ -225,20 +228,26 @@ public class SessionManager {
     public void setPeoplePreferences(String peoplePreferences) {
         if(getLanguage().contains("en") || getLanguage().contains("bn"))
             storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_eng), peoplePreferences);
-        else
+        else if(getLanguage().contains("hi"))
             storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_hindi), peoplePreferences);
+        else if(getLanguage().contains("mr"))
+            storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_marathi), peoplePreferences);
     }
 
     public String getPeoplePreferences() {
         if(getLanguage().contains("en") || getLanguage().contains("bn"))
             return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_eng));
-        else
+        else if(getLanguage().contains("hi"))
             return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_hindi));
+        else if(getLanguage().contains("mr"))
+            return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_marathi));
+        return "";
     }
 
     public void resetUserPeoplePlacesPreferences(){
         storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_eng), "");
         storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_hindi), "");
+        storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_marathi), "");
     }
 
     public boolean isRequiredToPerformDbOperations() {
@@ -339,7 +348,7 @@ public class SessionManager {
     public Long getLastCrashReported() {
         return ((Long) retrievePreferenceKeyWithValue(Long.class.toString(), mContext.getString(R.string.last_crash_reported)));
     }
-
+    //This flag is used for v1.2.3
     public void setLanguagePackageUpdated(boolean updateFlag) {
         storePreferenceKeyWithValue(Boolean.class.toString(),
                 mContext.getString(R.string.updated_locale_package_from_firebase), updateFlag);
@@ -347,6 +356,16 @@ public class SessionManager {
     public boolean isLanguagePackageUpdated() {
         return ((Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(),
                 mContext.getString(R.string.updated_locale_package_from_firebase)));
+    }
+
+    public void setPackageUpdate(boolean updateFlag) {
+        storePreferenceKeyWithValue(Boolean.class.toString(),
+                mContext.getString(R.string.locale_package_update_from_firebase), updateFlag);
+    }
+
+    public boolean isPackageUpdateIsSet() {
+        return ((Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(),
+                mContext.getString(R.string.locale_package_update_from_firebase)));
     }
 
     public void setWifiOnlyBtnPressedOnce(boolean isPressed) {

@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="text_size">12dp</dimen>
-    <dimen name="text_size_2">10dp</dimen>
-    <dimen name="layout_height">120dp</dimen>
-    <dimen name="layout_width">120dp</dimen>
 </resources>

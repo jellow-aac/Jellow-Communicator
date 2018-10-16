@@ -46,7 +46,6 @@ class MainActivityAdapter extends android.support.v7.widget.RecyclerView.Adapter
     public void onBindViewHolder(final MainActivityAdapter.MyViewHolder holder, final int position) {
         final int MODE_PICTURE_ONLY = 1;
 
-
         if (mSession.getPictureViewMode() == MODE_PICTURE_ONLY)
             holder.menuItemBelowText.setVisibility(View.INVISIBLE);
 

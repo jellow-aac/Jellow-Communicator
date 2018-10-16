@@ -32,6 +32,7 @@ import com.dsource.idc.jellowintl.models.SeqActivityVerbiageModel;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
+import com.dsource.idc.jellowintl.utility.MediaPlayerUtils;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.dsource.idc.jellowintl.utility.UserEventCollector;
 import com.google.gson.Gson;
@@ -90,11 +91,14 @@ public class SequenceActivity extends AppCompatActivity {
             mNavigationBtnTxt, mCategoryNav;
     /*Below list stores the verbiage that are spoken when category icon + expression buttons
     pressed in conjunction*/
-    private ArrayList<ArrayList<ArrayList<String>>> mSeqActSpeech;
+    private ArrayList<ArrayList<String>> mSeqActSpeech;
     private SessionManager mSession;
 
     /*Firebase event Collector class instance.*/
     private UserEventCollector mUec;
+
+    /*Media Player playback Utility class for non-tts languages.*/
+    private MediaPlayerUtils mMpu;
 
     @SuppressLint("ResourceType")
     @Override
@@ -115,15 +119,9 @@ public class SequenceActivity extends AppCompatActivity {
 
         mSession = new SessionManager(this);
         mUec = new UserEventCollector();
+        mMpu = new MediaPlayerUtils(this);
         /*get position of category icon selected in level two*/
         mLevelTwoItemPos = getIntent().getExtras().getInt(getString(R.string.level_2_item_pos_tag));
-
-        /* Sequence activity Morning Routine (original index is 7 in level 2) has new index 3, and
-        * Bed time Routine (original index is 8 in level 2) has new index 4 */
-        if(mLevelTwoItemPos == 7)
-            mLevelTwoItemPos = 3;
-        else if(mLevelTwoItemPos == 8)
-            mLevelTwoItemPos = 4;
 
         // Get icon set directory path
         File en_dir = this.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
@@ -333,6 +331,7 @@ public class SequenceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 speakSpeech(mStrNext);
+                mMpu.playAudio(mMpu.getFilePath( "MIS_05MSTT"));
                 mBtnBack.setEnabled(true);
                 mBtnBack.setAlpha(1f);
                 count = count + 3;
@@ -369,7 +368,7 @@ public class SequenceActivity extends AppCompatActivity {
 
                     // If activity sequence is "Toilet", "Morning routine" or "Bedtime routine"
                     // then in its last sequences only 1 category item needs to be loaded
-                    } else if (mLevelTwoItemPos == 1 || mLevelTwoItemPos == 4 || mLevelTwoItemPos == 3) {
+                    } else if (mLevelTwoItemPos == 1 || mLevelTwoItemPos == 7 || mLevelTwoItemPos == 8) {
                         setImageUsingGlide(mStrPath +"/"+ mCategoryIconText[count]+".png",
                                 mIvCategoryIcon1);
 
@@ -434,6 +433,7 @@ public class SequenceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 speakSpeech(mStrBack);
+                mMpu.playAudio(mMpu.getFilePath( "MIS_04MSTT"));
                 mBtnNext.setEnabled(true);
                 mBtnNext.setAlpha(1f);
                 count = count - 3;
@@ -509,22 +509,13 @@ public class SequenceActivity extends AppCompatActivity {
                     hideExpressiveBtn(true);
                     setBorderToView(findViewById(R.id.borderView1),-1);
                     mFlgHideExpBtn = 0;
-                    /*Bundle bundle = new Bundle();
-                    bundle.putString("Icon", mCategoryIconSpeechText[count]);
-                    bundle.putString("Category", mHeading[mLevelTwoItemPos].toLowerCase());
-                    bundleEvent("Grid",bundle);*/
-                    mUec.createSendFbEventFromTappedView(12, mCategoryIconSpeechText[count],
+                    mUec.createSendFbEventFromTappedView(12, mCategoryIconBelowText[count],
                             mHeading[mLevelTwoItemPos].toLowerCase());
                 // If expressive buttons are hidden or category icon 1 is in unpressed state then
                 // set the border of category icon 1 and show expressive buttons
                 } else {
                     mUec.createSendFbEventFromTappedView(12, "VisibleExpr " +
-                        mCategoryIconSpeechText[count], mHeading[mLevelTwoItemPos].toLowerCase());
-
-                    /*Bundle bundle = new Bundle();
-                    bundle.putString("Icon", "VisibleExpr " + mCategoryIconSpeechText[count]);
-                    bundle.putString("Category", mHeading[mLevelTwoItemPos].toLowerCase());
-                    bundleEvent("Grid",bundle);*/
+                            mCategoryIconBelowText[count], mHeading[mLevelTwoItemPos].toLowerCase());
                     mFlgHideExpBtn = 1;
                     // If new current sequence is the last sequence and category icon 1 is
                     // last item in sequence then hide expressive buttons.
@@ -535,6 +526,8 @@ public class SequenceActivity extends AppCompatActivity {
                     else
                         hideExpressiveBtn(false);
                     speakSpeech(mCategoryIconSpeechText[count]);
+                    mMpu.playAudio(mMpu.getFilePath( "CATSQ_"+ mLevelTwoItemPos+"_" +
+                            (count+1)));
                     resetExpressiveButton();
                     setBorderToView(findViewById(R.id.borderView1), 6);
                 }
@@ -569,20 +562,12 @@ public class SequenceActivity extends AppCompatActivity {
                     setBorderToView(findViewById(R.id.borderView2),-1);
                     mFlgHideExpBtn = 0;
                     mUec.createSendFbEventFromTappedView(12,
-                        mCategoryIconSpeechText[count+1], mHeading[mLevelTwoItemPos].toLowerCase());
-                    /*Bundle bundle = new Bundle();
-                    bundle.putString("Icon", mCategoryIconSpeechText[count+1]);
-                    bundle.putString("Category", mHeading[mLevelTwoItemPos].toLowerCase());
-                    bundleEvent("Grid",bundle);*/
+                            mCategoryIconBelowText[count+1], mHeading[mLevelTwoItemPos].toLowerCase());
                     // If expressive buttons are hidden or category icon 2 is in unpressed state then
                     // set the border of category icon 2 and show expressive buttons
                 } else {
                     mUec.createSendFbEventFromTappedView(12, "VisibleExpr " +
-                            mCategoryIconSpeechText[count+1], mHeading[mLevelTwoItemPos].toLowerCase());
-                    /*Bundle bundle = new Bundle();
-                    bundle.putString("Icon", "VisibleExpr " + mCategoryIconSpeechText[count+1]);
-                    bundle.putString("Category", mHeading[mLevelTwoItemPos].toLowerCase());
-                    bundleEvent("Grid",bundle);*/
+                            mCategoryIconBelowText[count+1], mHeading[mLevelTwoItemPos].toLowerCase());
                     mFlgHideExpBtn = 2;
                     // If new current sequence is the last sequence and category icon 2 is
                     // last item in sequence then hide expressive buttons.
@@ -593,6 +578,8 @@ public class SequenceActivity extends AppCompatActivity {
                     else
                         hideExpressiveBtn(false);
                     speakSpeech(mCategoryIconSpeechText[count + 1]);
+                    mMpu.playAudio(mMpu.getFilePath( "CATSQ_"+ mLevelTwoItemPos+"_" +
+                            (count+2)));
                     resetExpressiveButton();
                     setBorderToView(findViewById(R.id.borderView2),6);
                 }
@@ -627,20 +614,12 @@ public class SequenceActivity extends AppCompatActivity {
                     setBorderToView(findViewById(R.id.borderView3), -1);
                     mFlgHideExpBtn = 0;
                     mUec.createSendFbEventFromTappedView(12,
-                        mCategoryIconSpeechText[count+2], mHeading[mLevelTwoItemPos].toLowerCase());
-                    /*Bundle bundle = new Bundle();
-                    bundle.putString("Icon", mCategoryIconSpeechText[count+2]);
-                    bundle.putString("Category", mHeading[mLevelTwoItemPos].toLowerCase());
-                    bundleEvent("Grid",bundle);*/
+                            mCategoryIconBelowText[count+2], mHeading[mLevelTwoItemPos].toLowerCase());
                     // If expressive buttons are hidden or category icon 3 is in unpressed state then
                     // set the border of category icon 3 and show expressive buttons
                 } else {
                     mUec.createSendFbEventFromTappedView(12, "VisibleExpr " +
-                            mCategoryIconSpeechText[count+2], mHeading[mLevelTwoItemPos].toLowerCase());
-                    /*Bundle bundle = new Bundle();
-                    bundle.putString("Icon", "VisibleExpr " + mCategoryIconSpeechText[count+2]);
-                    bundle.putString("Category", mHeading[mLevelTwoItemPos].toLowerCase());
-                    bundleEvent("Grid",bundle);*/
+                            mCategoryIconBelowText[count+2], mHeading[mLevelTwoItemPos].toLowerCase());
                     mFlgHideExpBtn = 3;
                     // If new current sequence is the last sequence and category icon 3 is
                     // last item in sequence then hide expressive buttons.
@@ -650,7 +629,9 @@ public class SequenceActivity extends AppCompatActivity {
                         hideExpressiveBtn(true);
                     else
                         hideExpressiveBtn(false);
-                        speakSpeech(mCategoryIconSpeechText[count + 2]);
+                    speakSpeech(mCategoryIconSpeechText[count + 2]);
+                    mMpu.playAudio(mMpu.getFilePath( "CATSQ_"+ mLevelTwoItemPos+"_" +
+                            (count+3)));
                     resetExpressiveButton();
                     setBorderToView(findViewById(R.id.borderView3), 6);
                 }
@@ -672,6 +653,7 @@ public class SequenceActivity extends AppCompatActivity {
         mIvBack.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 speakSpeech(mNavigationBtnTxt[1]);
+                mMpu.playAudio(mMpu.getFilePath( "MIS_02MSTT"));
                 //Firebase event
                 singleEvent("Navigation","Back");
                 mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
@@ -716,6 +698,7 @@ public class SequenceActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         speakSpeech(mNavigationBtnTxt[0]);
+                        mMpu.playAudio(mMpu.getFilePath( "MIS_01MSTT"));
                     }
                 }).start();
                 //When home is tapped in this activity it will close all other activities and
@@ -755,6 +738,7 @@ public class SequenceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 speakSpeech(mNavigationBtnTxt[2]);
+                mMpu.playAudio(mMpu.getFilePath( "MIS_03MSTT"));
                 //Firebase event
                 singleEvent("Navigation","Keyboard");
                 mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
@@ -833,11 +817,13 @@ public class SequenceActivity extends AppCompatActivity {
                 if (mFlgHideExpBtn == 0) {
                     if (mFlgLike == 1) {
                         speakSpeech(mExprBtnTxt[1]);
+                        mMpu.playAudio(mMpu.getFilePath( "EXP_01EELL"));
                         mFlgLike = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(1, "", "");
                     } else {
                         speakSpeech(mExprBtnTxt[0]);
+                        mMpu.playAudio(mMpu.getFilePath( "EXP_01EEL0"));
                         mFlgLike = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(0, "", "");
@@ -848,23 +834,19 @@ public class SequenceActivity extends AppCompatActivity {
                     if (mFlgLike == 1) {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(14, getPrefixMsg()
-                                +"_"+mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                .get(1), "");
-                        /*singleEvent("ExpressiveGridIcon",
-                                mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(1));*/
-                        speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                .get(1));
+                            +"_"+mMpu.getIconCodeSeq(mLevelTwoItemPos,(count + mFlgHideExpBtn),"LL"), "");
+                        speakSpeech(mSeqActSpeech.get(count + mFlgHideExpBtn - 1).get(1));
+                        mMpu.playAudio(mMpu.getFilePath( "GRXSQ_"+mLevelTwoItemPos
+                                +"_"+(count + mFlgHideExpBtn) +"_LL"));
+
                         mFlgLike = 0;
                     } else {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(13, getPrefixMsg()
-                                +"_"+mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                .get(0), "");
-                        /*singleEvent("ExpressiveGridIcon", mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                .get(0));*/
-                        speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                .get(0));
+                            +"_"+mMpu.getIconCodeSeq(mLevelTwoItemPos,(count + mFlgHideExpBtn),"L0"), "");
+                        speakSpeech(mSeqActSpeech.get(count + mFlgHideExpBtn - 1).get(0));
+                        mMpu.playAudio(mMpu.getFilePath( "GRXSQ_"+mLevelTwoItemPos
+                                +"_"+(count + mFlgHideExpBtn) +"_L0"));
                         mFlgLike = 1;
                     }
                 }
@@ -897,11 +879,13 @@ public class SequenceActivity extends AppCompatActivity {
                 if (mFlgHideExpBtn == 0) {
                     if (mFlgDontLike == 1) {
                         speakSpeech(mExprBtnTxt[7]);
+                        mMpu.playAudio(mMpu.getFilePath( "EXP_04EELL"));
                         mFlgDontLike = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(7, "", "");
                     } else {
                         speakSpeech(mExprBtnTxt[6]);
+                        mMpu.playAudio(mMpu.getFilePath( "EXP_04EEL0"));
                         mFlgDontLike = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(6, "", "");
@@ -912,24 +896,18 @@ public class SequenceActivity extends AppCompatActivity {
                     if (mFlgDontLike == 1) {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(20, getPrefixMsg()
-                                +"_"+mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                .get(7), "");
-                        /*singleEvent("ExpressiveGridIcon",
-                                mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(7));*/
-                        speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                .get(7));
+                            +"_"+mMpu.getIconCodeSeq(mLevelTwoItemPos,(count + mFlgHideExpBtn),"DD"), "");
+                        speakSpeech(mSeqActSpeech.get(count + mFlgHideExpBtn - 1).get(7));
+                        mMpu.playAudio(mMpu.getFilePath( "GRXSQ_"+mLevelTwoItemPos
+                                +"_"+(count + mFlgHideExpBtn) +"_DD"));
                         mFlgDontLike = 0;
                     } else {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(19, getPrefixMsg()
-                                +"_"+mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                .get(6), "");
-                        /*singleEvent("ExpressiveGridIcon",
-                                mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(6));*/
-                        speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                .get(6));
+                            +"_"+mMpu.getIconCodeSeq(mLevelTwoItemPos,(count + mFlgHideExpBtn),"D0"), "");
+                        speakSpeech(mSeqActSpeech.get(count + mFlgHideExpBtn - 1).get(6));
+                        mMpu.playAudio(mMpu.getFilePath( "GRXSQ_"+mLevelTwoItemPos
+                                +"_"+(count + mFlgHideExpBtn) +"_D0"));
                         mFlgDontLike = 1;
                     }
                 }
@@ -963,11 +941,13 @@ public class SequenceActivity extends AppCompatActivity {
                 if (mFlgHideExpBtn == 0) {
                     if (mFlgYes == 1) {
                         speakSpeech(mExprBtnTxt[3]);
+                        mMpu.playAudio(mMpu.getFilePath( "EXP_02EELL"));
                         mFlgYes = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(3, "", "");
                     } else {
                         speakSpeech(mExprBtnTxt[2]);
+                        mMpu.playAudio(mMpu.getFilePath( "EXP_02EEL0"));
                         mFlgYes = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(2, "", "");
@@ -978,24 +958,18 @@ public class SequenceActivity extends AppCompatActivity {
                     if (mFlgYes == 1) {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(16, getPrefixMsg()
-                                +"_"+mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                .get(3), "");
-                        /*singleEvent("ExpressiveGridIcon",
-                                mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(3));*/
-                        speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                .get(3));
+                            +"_"+mMpu.getIconCodeSeq(mLevelTwoItemPos,(count + mFlgHideExpBtn),"YY"), "");
+                        speakSpeech(mSeqActSpeech.get(count + mFlgHideExpBtn - 1).get(3));
+                        mMpu.playAudio(mMpu.getFilePath( "GRXSQ_"+mLevelTwoItemPos
+                                +"_"+(count + mFlgHideExpBtn) +"_YY"));
                         mFlgYes = 0;
                     } else {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(15, getPrefixMsg()
-                                +"_"+mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                .get(2), "");
-                        /*singleEvent("ExpressiveGridIcon",
-                                mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(2));*/
-                        speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                .get(2));
+                            +"_"+mMpu.getIconCodeSeq(mLevelTwoItemPos,(count + mFlgHideExpBtn),"Y0"), "");
+                        speakSpeech(mSeqActSpeech.get(count + mFlgHideExpBtn - 1).get(2));
+                        mMpu.playAudio(mMpu.getFilePath( "GRXSQ_"+mLevelTwoItemPos
+                                +"_"+(count + mFlgHideExpBtn) +"_Y0"));
                         mFlgYes = 1;
                     }
                 }
@@ -1028,11 +1002,13 @@ public class SequenceActivity extends AppCompatActivity {
                 if (mFlgHideExpBtn == 0) {
                     if (mFlgNo == 1) {
                         speakSpeech(mExprBtnTxt[9]);
+                        mMpu.playAudio(mMpu.getFilePath( "EXP_05EELL"));
                         mFlgNo = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(9, "", "");
                     } else {
                         speakSpeech(mExprBtnTxt[8]);
+                        mMpu.playAudio(mMpu.getFilePath( "EXP_05EEL0"));
                         mFlgNo = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(8, "", "");
@@ -1043,24 +1019,18 @@ public class SequenceActivity extends AppCompatActivity {
                     if (mFlgNo == 1) {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(22, getPrefixMsg()
-                                +"_"+mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                .get(9), "");
-                        /*singleEvent("ExpressiveGridIcon",
-                                mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(9));*/
-                        speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                .get(9));
+                            +"_"+mMpu.getIconCodeSeq(mLevelTwoItemPos,(count + mFlgHideExpBtn),"NN"), "");
+                        speakSpeech(mSeqActSpeech.get(count + mFlgHideExpBtn - 1).get(9));
+                        mMpu.playAudio(mMpu.getFilePath( "GRXSQ_"+mLevelTwoItemPos
+                                +"_"+(count + mFlgHideExpBtn) +"_NN"));
                         mFlgNo = 0;
                     } else {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(21, getPrefixMsg()
-                                +"_"+mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                .get(8), "");
-                        /*singleEvent("ExpressiveGridIcon",
-                                mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(8));*/
-                        speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                .get(8));
+                            +"_"+mMpu.getIconCodeSeq(mLevelTwoItemPos,(count + mFlgHideExpBtn),"N0"), "");
+                        speakSpeech(mSeqActSpeech.get(count + mFlgHideExpBtn - 1).get(8));
+                        mMpu.playAudio(mMpu.getFilePath( "GRXSQ_"+mLevelTwoItemPos
+                                +"_"+(count + mFlgHideExpBtn) +"_N0"));
                         mFlgNo = 1;
                     }
                 }
@@ -1093,11 +1063,13 @@ public class SequenceActivity extends AppCompatActivity {
                 if (mFlgHideExpBtn == 0) {
                     if (mFlgMore == 1) {
                         speakSpeech(mExprBtnTxt[5]);
+                        mMpu.playAudio(mMpu.getFilePath( "EXP_03EELL"));
                         mFlgMore = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(5, "", "");
                     } else {
                         speakSpeech(mExprBtnTxt[4]);
+                        mMpu.playAudio(mMpu.getFilePath( "EXP_03EEL0"));
                         mFlgMore = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(4, "", "");
@@ -1108,24 +1080,18 @@ public class SequenceActivity extends AppCompatActivity {
                     if (mFlgMore == 1) {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(18, getPrefixMsg()
-                                +"_"+mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                .get(5), "");
-                        /*singleEvent("ExpressiveGridIcon",
-                                mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(5));*/
-                        speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                .get(5));
+                            +"_"+mMpu.getIconCodeSeq(mLevelTwoItemPos,(count + mFlgHideExpBtn),"MM"), "");
+                        speakSpeech(mSeqActSpeech.get(count + mFlgHideExpBtn - 1).get(5));
+                        mMpu.playAudio(mMpu.getFilePath( "GRXSQ_"+mLevelTwoItemPos
+                                +"_"+(count + mFlgHideExpBtn) +"_MM"));
                         mFlgMore = 0;
                     } else {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(17, getPrefixMsg()
-                                +"_"+mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                .get(4), "");
-                        /*singleEvent("ExpressiveGridIcon",
-                                mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(4));*/
-                        speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                .get(4));
+                            +"_"+mMpu.getIconCodeSeq(mLevelTwoItemPos,(count + mFlgHideExpBtn),"M0"), "");
+                        mMpu.playAudio(mMpu.getFilePath( "GRXSQ_"+mLevelTwoItemPos
+                                +"_"+(count + mFlgHideExpBtn) +"_M0"));
+                        speakSpeech(mSeqActSpeech.get(count + mFlgHideExpBtn - 1).get(4));
                         mFlgMore = 1;
                     }
                 }
@@ -1158,11 +1124,13 @@ public class SequenceActivity extends AppCompatActivity {
                 if (mFlgHideExpBtn == 0) {
                     if (mFlgLess == 1) {
                         speakSpeech(mExprBtnTxt[11]);
+                        mMpu.playAudio(mMpu.getFilePath( "EXP_06EELL"));
                         mFlgLess = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(11, "", "");
                     } else {
                         speakSpeech(mExprBtnTxt[10]);
+                        mMpu.playAudio(mMpu.getFilePath( "EXP_06EEL0"));
                         mFlgLess = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(10, "", "");
@@ -1173,24 +1141,18 @@ public class SequenceActivity extends AppCompatActivity {
                     if (mFlgLess == 1) {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(24, getPrefixMsg()
-                                +"_"+mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                .get(11), "");
-                        /*singleEvent("ExpressiveGridIcon",
-                                mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(11));*/
-                        speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                .get(11));
+                            +"_"+mMpu.getIconCodeSeq(mLevelTwoItemPos,(count + mFlgHideExpBtn),"SS"), "");
+                        speakSpeech(mSeqActSpeech.get(count + mFlgHideExpBtn - 1).get(11));
+                        mMpu.playAudio(mMpu.getFilePath( "GRXSQ_"+mLevelTwoItemPos
+                                +"_"+(count + mFlgHideExpBtn) +"_SS"));
                         mFlgLess = 0;
                     } else {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(23, getPrefixMsg()
-                                +"_"+mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                .get(10), "");
-                        /*singleEvent("ExpressiveGridIcon",
-                                mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                        .get(10));*/
-                        speakSpeech(mSeqActSpeech.get(mLevelTwoItemPos).get(count + mFlgHideExpBtn - 1)
-                                .get(10));
+                            +"_"+mMpu.getIconCodeSeq(mLevelTwoItemPos,(count + mFlgHideExpBtn),"S0"), "");
+                        speakSpeech(mSeqActSpeech.get(count + mFlgHideExpBtn - 1).get(10));
+                        mMpu.playAudio(mMpu.getFilePath( "GRXSQ_"+mLevelTwoItemPos
+                                +"_"+(count + mFlgHideExpBtn) +"_S0"));
                         mFlgLess = 1;
                     }
                 }
@@ -1201,11 +1163,11 @@ public class SequenceActivity extends AppCompatActivity {
 
     private String getPrefixMsg() {
         if (mFlgHideExpBtn == 1)
-            return mCategoryIconSpeechText[count];
+            return mUec.getEtTag(count);
         else if (mFlgHideExpBtn == 2)
-            return mCategoryIconSpeechText[count+1];
+            return mUec.getEtTag(count+1);
         else if (mFlgHideExpBtn == 3)
-            return mCategoryIconSpeechText[count+2];
+            return mUec.getEtTag(count+2);
         else return "";
     }
 
@@ -1217,7 +1179,7 @@ public class SequenceActivity extends AppCompatActivity {
     private void initTTsBtnListener() {
         mIvTTs.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                speakSpeech(mEtTTs.getText().toString());
+                speakSpeech(mEtTTs.getText().toString(), true);
                 //Firebase event
                 Bundle bundle = new Bundle();
                 bundle.putString("InputName", Settings.Secure.getString(getContentResolver(),
@@ -1269,9 +1231,19 @@ public class SequenceActivity extends AppCompatActivity {
      * The string in {@param speechText} is speech output request string.</p>
      * */
     private void speakSpeech(String speechText){
-        Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_TEXT");
-        intent.putExtra("speechText", speechText.toLowerCase());
-        sendBroadcast(intent);
+        if(mMpu.isTtsAvailForLang()) {
+            Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_TEXT");
+            intent.putExtra("speechText", speechText.toLowerCase());
+            sendBroadcast(intent);
+        }
+    }
+
+    private void speakSpeech(String speechText, boolean skipSpeech) {
+        if(skipSpeech) {
+            Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_TEXT");
+            intent.putExtra("speechText", speechText.toLowerCase());
+            sendBroadcast(intent);
+        }
     }
 
     /**
@@ -1292,7 +1264,7 @@ public class SequenceActivity extends AppCompatActivity {
                 getString(R.string.sequenceActVerbiage2);
         SeqActivityVerbiageModel verbiageModel = new Gson()
                 .fromJson(verbString, SeqActivityVerbiageModel.class);
-        mSeqActSpeech = verbiageModel.getVerbiageModel();
+        mSeqActSpeech = verbiageModel.getVerbiageModel(mLevelTwoItemPos);
 
         switch(mLevelTwoItemPos){
             case 0:
@@ -1319,7 +1291,7 @@ public class SequenceActivity extends AppCompatActivity {
                 mCategoryIconText = getResources().getStringArray
                         (R.array.arrSeqActivityBathingIcon);
                 break;
-            case 3:
+            case 7:
                 mCategoryIconBelowText = getResources().getStringArray
                         (R.array.arrSeqActivityMorningRoutineBelowText);
                 mCategoryIconSpeechText = getResources().getStringArray
@@ -1327,7 +1299,7 @@ public class SequenceActivity extends AppCompatActivity {
                 mCategoryIconText = getResources().getStringArray
                         (R.array.arrSeqActivityMorningRoutineIcon);
                 break;
-            case 4:
+            case 8:
                 mCategoryIconBelowText = getResources().getStringArray
                         (R.array.arrSeqActivityBedtimeRoutineBelowText);
                 mCategoryIconSpeechText = getResources().getStringArray
@@ -1336,6 +1308,9 @@ public class SequenceActivity extends AppCompatActivity {
                         (R.array.arrSeqActivityBedtimeRoutineIcon);
                 break;
         }
+        mUec.setEventTag(this, new SessionManager(this).getLanguage(),1, mLevelTwoItemPos);
+        if(!mMpu.isTtsAvailForLang())
+            mSeqActSpeech = mMpu.getEmptyList(mCategoryIconBelowText.length);
     }
 
     /**

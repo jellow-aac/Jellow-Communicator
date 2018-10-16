@@ -20,10 +20,6 @@ import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
@@ -50,17 +46,15 @@ public class LanguagePackageUpdateActivity extends AppCompatActivity {
         // If any exception occurs during this activity usage,
         // handle it using default exception handler.
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
+        String packageNames = getIntent().getStringExtra("packageList");
         mSession = new SessionManager(this);
-        if(mSession.getPackages2Update().isEmpty())
-            langList2Update = getLanguageList2UpdatePackage(getOfflineLanguages());
-        else
-            langList2Update = mSession.getPackages2Update().split(",");
-
+        langList2Update = packageNames.split(",");
         if(langList2Update.length == 0) {
-            mSession.setLanguagePackageUpdated(true);
+            mSession.setPackageUpdate(false);
             startActivity(new Intent(this, SplashActivity.class));
             finish();
         }
+
         setContentView(R.layout.activity_language_download);
         langDownCount  = 0;
         findViewById(R.id.txtDownloadCount).setVisibility(View.VISIBLE);
@@ -80,10 +74,8 @@ public class LanguagePackageUpdateActivity extends AppCompatActivity {
             @Override
             public void onComplete() {
                 if(++langDownCount == langList2Update.length) {
-                    Intent intent = new Intent(LanguagePackageUpdateActivity.this, SplashActivity.class);
-                    mSession.setLanguagePackageUpdated(true);
-                    mSession.packages2Update("");
-                    startActivity(intent);
+                    mSession.setPackageUpdate(false);
+                    startActivity(new Intent(LanguagePackageUpdateActivity.this, SplashActivity.class));
                     finish();
                 }else {
                     String packages2Download = "";
@@ -123,6 +115,10 @@ public class LanguagePackageUpdateActivity extends AppCompatActivity {
             manager.pause();
     }
 
+    @Override
+    public void onBackPressed() {
+    }
+
     private void updateNextPackage(String[] langList2Update) {
         try {
             progressBar.setProgress(0);
@@ -142,23 +138,6 @@ public class LanguagePackageUpdateActivity extends AppCompatActivity {
         }
     }
 
-    //Further development condition for specific icons for specific package. Download only new content and
-    // add to existing package.
-    private String[] getLanguageList2UpdatePackage(String[] offlineLanguages) {
-        List<String> lang = new ArrayList<>();
-        for (String ofLang : offlineLanguages) {
-            File fileOne = new File(getBaseContext().getDir(ofLang, Context.MODE_PRIVATE).
-                    getPath() + "/drawables/habits-01.png");
-            File fileTwo = new File(getBaseContext().getDir(ofLang, Context.MODE_PRIVATE).
-                    getPath() + "/drawables/idontwantanysound-01.png");
-            File fileThree = new File(getBaseContext().getDir(ofLang, Context.MODE_PRIVATE).
-                    getPath() + "/drawables/holdhandswhilecrossing.png");
-            if (!fileOne.exists() || !fileTwo.exists() || !fileThree.exists())
-                lang.add(ofLang);
-        }
-        return lang.toArray(new String[lang.size()]);
-    }
-
     private boolean isConnected()
     {
         ConnectivityManager cm =
@@ -168,18 +147,5 @@ public class LanguagePackageUpdateActivity extends AppCompatActivity {
         boolean isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
         return isConnected;
-    }
-
-    private String[] getOfflineLanguages(){
-        List<String> lang = new ArrayList<>();
-        if(mSession.isDownloaded(SessionManager.ENG_IN))
-            lang.add(SessionManager.ENG_IN);
-        if(mSession.isDownloaded(SessionManager.ENG_US))
-            lang.add(SessionManager.ENG_US);
-        if(mSession.isDownloaded(SessionManager.ENG_UK))
-            lang.add(SessionManager.ENG_UK);
-        if(mSession.isDownloaded(SessionManager.HI_IN))
-            lang.add(SessionManager.HI_IN);
-        return lang.toArray(new String[lang.size()]);
     }
 }

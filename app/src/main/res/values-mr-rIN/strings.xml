@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">जेलो</string>
+    <string name="action_settings">सेटिंग्स</string>
+    <string name="Profile">प्रोफाइल</string>
+
+    <string name="Language">भाषा</string>
+    <string name="ChangeLanguage">भाषा बदला</string>
+    <string name="saveLanguage">भाषा बदला</string>
+    <string name="addLanguage">भाषा जोडा</string>
+    <string name="deleteLanguage">भाषा डिलीट करा</string>
+    <string name="editLanguage">१) भाषा जोडा/डिलीट करा</string>
+
+
+    <string-array name="bloodgroup">
+        <item>सेट नाही</item>
+        <item>अ +</item>
+        <item>अ -</item>
+        <item>ब +</item>
+        <item>ब -</item>
+        <item>अब +</item>
+        <item>अब -</item>
+        <item>ओ +</item>
+        <item>ओ -</item>
+    </string-array>
+
+    <string-array name="picture_view_mode">
+        <item>चित्र आणि वर्णन</item>
+        <item>फक्त चित्र</item>
+    </string-array>
+
+    <string-array name="grid_size">
+        <item>३</item>
+        <item>९</item>
+    </string-array>
+
+    <string name="change_language_line2">चरण १: डाउनलोड केलेल्या भाषांपैकी एक भाषा निवडा:</string>
+
+    <string name="simple_ime">जेलो कीबोर्ड</string>
+    <string name="subtype_en_US">क्रमिक \'कखग\' कीबोर्ड</string>
+
+    <string name="action_bar_title">होम</string>
+    <string name="txtLanguage">भाषा</string>
+    <string name="txtSpeechSpeed">भाषण गति</string>
+    <string name="txtVoiceSpeech">आवाजाचा स्तर</string>
+    <string name="txtDisplayMode">प्रदर्शन प्रकार</string>
+    <string name="txtVoiceVolume">आवाजाचा स्तर</string>
+    <string name="txtNumOfPerPerScr">प्रति स्क्रीन आइकॉन संख्या</string>
+    <string name="txtDemo">स्पीच डेमो</string>
+    <string name="txtSave">सेट करा</string>
+    <string name="demoTtsSpeech">नमस्कार! आपण जेलो कम्युनिकेटर अॅप्लिकेशनचा वापर करत आहात.</string>
+    <string name="savedSettingsMessage">सेटिंग्स सेव झाल्या आहेत.</string>
+    <string name="languageChanged">भाषा बदलली आहे.</string>
+    <string name="no_more_lang_2_add">जेलो अॅप्लिकेशन मध्ये आणखी भाषा उपलब्ध नाहीत.</string>
+    <string name="no_more_lang_2_del">डिलीट करण्यासाठी भाषा उपलब्ध नाहीत.</string>
+    <string name="checkConnectivity">कृपया आपले इंटरनेट कनेक्शन तपासा </string>
+    <string name="languageCurrentlyInUse">भाषा सध्या वापरात आहे.</string>
+    <string name="languageRemoved">भाषा डिलीट झाली आहे.</string>
+
+
+    <string name="menuProfile">प्रोफाइल</string>
+    <string name="menuAbout">जेलोची माहिती</string>
+    <string name="menuTutorials">ट्यूटोरियल</string>
+    <string name="menuKeyboardInput">कीबोर्ड नियंत्रण</string>
+    <string name="menuResetPref">आइकॉन रीसेट करा</string>
+    <string name="menuFeedback">प्रतिक्रिया</string>
+    <string name="menuUserRegistration">रजिस्ट्रेशन स्क्रीन</string>
+
+    <string name="endString"> </string>
+    <string name="easyToUse">वापरण्यास सोपे</string>
+    <string name="clearPictures">स्पष्ट चित्र</string>
+    <string name="clearVoice">स्पष्ट आवाज</string>
+    <string name="easyToNavigate">मार्गनिर्देशन करण्यास सोपे</string>
+    <string name="commentSuggestions">टिप्पणी/सल्ले</string>
+    <string name="submit">सबमिट करा</string>
+    <string name="appLoading">अॅप चालू होत आहे…</string>
+    <string name="activateGoogleTts">१. गूगल टेक्स्ट-टू-स्पीच इंजिन निवडा</string>
+    <string name="changeDefaultToHindi">२. आवडीची भाषा डिफ़ॉल्ट बनवा</string>
+    <string name="downloadVoiceTts">३. आवडीच्या भाषेचा व्हॉइस डेटा डाउनलोड करा</string>
+    <string name="activate">सक्रिय करा</string>
+    <string name="changeLanguage">डिफ़ॉल्ट बनवा</string>
+    <string name="download">डाउनलोड करा</string>
+    <string name="cancel">बंद करा</string>
+    <string name="keyboardControl">कीबोर्ड नियंत्रण:</string>
+    <string name="keyboardControlTxt">आपल्या पसंतीचा कीबोर्ड निवडण्यासाठी आणि त्याला डिफ़ॉल्ट बनविण्यासाठी तुम्हाला २ चरण पूर्ण करावे लागतील:</string>
+    <string name="step1">चरण १: टैबलेट/मोबाइल च्या सेटिंग्स मधून कीबोर्ड सक्रिय करा</string>
+    <string name="qwertyKeyboard">डिफ़ॉल्ट देवनागरी कीबोर्ड</string>
+    <string name="serialKeyboard">क्रमिक \'कखग\' कीबोर्ड</string>
+    <string name="step2">चरण २: निवडलेला कीबोर्ड डिफ़ॉल्ट बनवा</string>
+    <string name="saveAsDefault">सेट करा</string>
+    <string name="voiceControl">आवाज नियंत्रण:</string>
+    <string name="getKeyboardControl">कीबोर्ड नियंत्रण</string>
+    <string name="childName">मुलाचे नाव *</string>
+    <string name="careGiveName">काळजी घेणाऱ्या व्यक्तीचे नाव</string>
+    <string name="careGiverContact">केयर गिवरचा संपर्क नंबर| या डिवाईसच्या सिम नंबर पेक्षा वेगळा असावा *</string>
+    <string name="homeAddress">घरचा पत्ता</string>
+    <string name="emailAddress">ई- मेल आयडी *</string>
+    <string name="bloodGroup">रक्त गट</string>
+    <string name="detailSaved">माहिती सेव केली आहे</string>
+    <string name="invalid_emailId"> हा ई- मेल आयडी चुकीचा आहे</string>
+    <string name="invalidContactNumber">कृपया बरोबर संपर्क नंबरची नोंदणी करा</string>
+    <string name="enterTheName">कृपया आपल्या मुलाचे नाव दाखिल करा</string>
+    <string name="search_act_title">जेलो अॅप्लिकेशन मध्ये आइकॉन्स शोधा</string>
+    <string name="resetPreferenceMessage">
+       <![CDATA[ <ul>
+            <li>वापरकर्त्याने सर्वात जास्त वापरलेले आवडते आइकॉन जेलो अॅप्लिकेशन लक्षात ठेवते, आणि ते आइकॉन स्क्रीन वरती सर्वात पहिल्यांदा प्रदर्शित करते.</li><br/>
+            <li>आइकॉन्सला रीसेट केल्यावर, सर्व आइकॉन मुळ क्रमामध्ये येतील जसे ते पहिल्या वेळेस अॅप्लिकेशनमध्ये प्रदर्शित होते.</li><br/>
+            <li>आपल्याला आइकॉन्स रीसेट करायचे आहेत का?</li><br/><br/>
+       </ul>]]>
+    </string>
+    <string name="yes">हो</string>
+    <string name="no">नाही</string>
+    <string name="iconsHasBeenReset">आयकॉन रीसेट झाले आहेत.</string>
+    <string name="speak">बोला</string>
+    <string name="stop">थांबा</string>
+    <string name="about_jellow_speech">जेलो अॅप्लिकेशन आइकॉन आणि चिञ वापरुन संवाद साधण्यास मदत करते. जे बोलायला शिकत आहेत, किंवा ज्यांना बोलायला अडचण येत आहे, ते जेलोचा वापर करुन इतरांशी संवाद साधू शकतात. जेलो चा विकास, इंडियन इंस्टिट्यूट ऑफ टेक्नॉलॉजी बॉम्बे, मुंबई (आई आई टी-बी), च्या आईडीसी स्कूल ऑफ डिझाइन येथे झाला आहे. जेलो अॅप्लिकेशनची भाषा क्षमता वाढवण्यासाठी या प्रोजेक्टच्या प्रमुख संशोधकांनी एका नवीन विज्युअल इमोशनल लैंगग्विज प्रोटोकॉल (VELP) ची संकल्पना केली आहे. विज्युअल इमोशनल लैंगग्विज प्रोटोकॉल संकल्पनेत ६ भाववाहक आइकॉन आहेत, जे इंटरफेसचे मूलभूत भाग आहेत. या प्रमुख भाववाहक आइकॉनांच्या मदतीने जेलोचे वापरकर्ते त्यांच्या आवडी-निवडी आणि गरजा इतरांना सांगू शकतात. जेलो चा वापर मुले अत्यंत सहजपणे शिकु शकतात. जेलो अॅप्लिकेशन एंड्रॉयड टैबलेटसाठी अनुकूलित आहे. जेलो अॅप्लिकेशन सध्या इंग्रजी आणि हिंदी मध्ये उपलब्ध आहे. जेलो अॅप्लिकेशनची वर्तमान आवृत्ती _ आहे. जेलो अॅप्लिकेशनचा विकास सध्या चालू आहे. या संदर्भात आपले काही सल्ले असल्यास, कृपया \"अभिप्राय\" टॅब मध्ये सबमिट करा. जेलो अॅप्लिकेशनचे लाइसेंस क्रिएटिव कॉमन्स एटट्रिब्यूशन-नॉन-कमर्शियल- शेयर-ए-लाइक ४.० लाइसेंन्सच्या खाली प्राप्त आहे. जेलो अॅप्लिकेशन सबंधित सर्व कार्यांचे श्रेय इंडियन इंस्टिट्यूट ऑफ टेक्नॉलॉजी बॉम्बे यांना दिले जाते. जेलो अॅप्लिकेशनचे सर्व कन्टेन्ट (समाविष्ट केलेले चिन्ह, लेआउट, आर्किटेक्चर, व्हिज्युअल आइडेन्टिटी, भाषांतर आणि सॉफ्टवेयर कोड) शेयर किंवा समावून घेतला जाऊ शकतो परंतु व्यावसायिक उद्देशांसाठी वापरला जाऊ शकत नाही. जेंव्हा कन्टेन्टचा वापर केला जाईल तेंव्हा तुम्हाला विनंती आहे की, तुम्ही इंडियन इंस्टिट्यूट ऑफ टेक्नॉलॉजी बॉम्बे (आयआयटी-बी) प्रति आभार व्यक्त करा. जेलो अॅप्लिकेशन येथे डाउनलोड करण्यासाठी उपलब्ध आहे: http://www.jellow.org ! जर कोणाला जेलोचा विकास करायचा असेल तर, त्यांना विंनती आहे की, जेलो प्रोजेक्टचे प्रमुख संशोधक प्राध्यापक रवि पूवैया यांना r a v i @ i i t b . a c . i n ! किंवा ! j e l l o w c o m m u n i c a t o r @ g m a i l . c o m या ई-मेल आयडीवर संपर्क करा."Jellow is a communicator using icons to enable speech and can be used by those learning to speak or those who have difficulty with speech.  Jellow can also be used by toddlers and early learners to learn words and categories frequently used in their daily lives. Jellow\'s colourful and friendly icons can help children develop an association between pictures and their corresponding word labels. It is developed at IDC School of Design at the Indian Institute of Technology Bombay located in Mumbai. A novel Visual Emotional Language Proto call or VELP was conceived and developed by the project investigators in order to enhance the language ability of Jellow. VELP represents the 6 expressive icons that form the core of the interface. Using these core icons, the child can communicate their likes, dislikes, and needs with others. Jellow is conceived as children-friendly with an easy-to-learn interface. The application is optimized for Android tablets.Jellow is currently available in English,Hindi and Bengali. The current version of Jellow is _. The application is under further development. Therefore, if you have any suggestions for us, please submit it under the feedback tab.  Jellow is licensed under a Creative Commons Attribution Non-commercial Share Alike 4.0 International License. Work on Jellow is attributed to the Indian Institute of Technology Bombay. The content in this application comprising icons, layout, architecture, visual identity, translation, and the software codes can be shared and adopted but cannot be used for commercial purposes. When the content is used, we request you to acknowledge Indian Institute of Technology Bombay. Jellow is available for download at www dot jellow dot o r g. If interested in further developing the code, please write to Professor Ravi Poovaiah at ravi @ i i t b dot a c.in or,! j e l l o w c o m m u n i c a t o r @ g m a i l . c o m</string>
+    <string name="catBtnDesc">जेलो अॅप्लिकेशनच्या स्क्रीनच्या मध्यभागी मुख्य वर्गांचे ९ बटन आहेत आणि दोन्ही बाजूंना ६ भाववाहक बटन आहेत.</string>
+    <string name="catBtn">मुख्य वर्गांचे बटन:</string>
+    <string name="expBtn">भाववाहक बटन:</string>
+    <string name="jellowUsageDesc">जेलोचा वापर करून बोलण्यासाठी प्रथम, मुख्य श्रेणीतील एक बटण निवडा आणि नंतर कोणतेही भाववाहक बटण निवडा. उदाहरणार्थ, खाली दाखवलेले बटण दाबल्यावर, जेलो म्हणेल - \"मला खायचं आहे\".</string>
+    <string name="jellowUsageSubCat">कोणत्याही मुख्य वर्गाच्या बटनावर डबल क्लिक करुन वापरकर्ते पुढील उप-श्रेणींमध्ये प्रवेश करू शकतात.</string>
+    <string name="levelOneCat">श्रेणी स्तर १:</string>
+    <string name="levelTwoCat">श्रेणी स्तर २:</string>
+    <string name="levelThreeCat">श्रेणी स्तर ३:</string>
+    <string name="settingDesc">अॅप्लिकेशनच्या वरच्या उजव्या कोपऱ्यावर क्लिक करून, वापरकर्ते त्यांची प्रोफाइल तयार करू शकतात आणि अॅप्लिकेशनचे मुख्य सेटिंग्स बदलू शकतात.</string>
+    <string name="seqActDesc">जेलोचा वापर मुलांना रोजची कामे क्रमानुसार शिकवण्यासाठी केला जाऊ शकतो. जेलोचा वापर या प्रकारे करताना कोणत्याही क्रमाच्या बटनावर क्लिक करुन वापरकर्ता स्क्रीनच्या दोन्ही बाजूंचे भाववाहक बटन बघू शकतात.</string>
+    <string name="toiletSeq">शौचालय क्रमाचे चरण:</string>
+    <string name="expBtnSeq">क्रमामधील भाववाहक बटन:</string>
+    <string name="ttsDesc">जेलोचा वापर इंग्रजी, हिंदी आणि बंगाली मध्ये करण्यासाठी कृपया आपल्या डिव्हाइसच्या \'भाषा\' सेटिंग्समध्ये जाऊन गूगल टेक्सट टू स्पीच सक्रिय करा. गूगल टेक्सट टू स्पीच च्या सेटिंग्स मध्ये, प्रथम पसंतीच्या भाषेला डीफॉल्ट बनवा आणि नंतर पसंतीच्या भाषेचा व्हॉइस डेटा डाउनलोड करा.</string>
+    <string name="softwareVersion">सॉफ्टवेयर संस्करण:</string>
+    <string name="string_to_speak">बोलण्यासाठी येथे शब्द लिहा</string>
+    <string name="speak_written_text">लिखित शब्द बोला</string>
+    <string name="resetPrefPointOne">वापरकर्त्याने सर्वात जास्त वापरलेले आवडते आइकॉन जेलो अॅप्लिकेशन लक्षात ठेवते, आणि ते आइकॉन स्क्रीन वरती सर्वात पहिल्यांदा प्रदर्शित करते.</string>
+    <string name="resetPrefPointTwo">आइकॉन्सला रीसेट केल्यावर, सर्व आइकॉन मुळ क्रमामध्ये येतील जसे ते पहिल्या वेळेस अॅप्लिकेशनमध्ये प्रदर्शित होते.</string>
+    <string name="resetPrefPointThree">आपल्याला आइकॉन्स रीसेट करायचे आहेत का?</string>
+
+    <string name="downloadErrorMsg">डाउनलोड प्रक्रियेदरम्यान इंटरनेट कनेक्शन चालू ठेवा. प्रोग्रेस बार थांबला असल्यास, कृपया अॅप्लिकेशन पुन्हा सुरू करा किंवा पुन्हा प्रयत्न करा.</string>
+    <string name="intro_to_jellow">जेलोचा परिचय</string>
+    <string name="rate_jellow">कृपया सर्व क्षेत्र भरा.</string>
+    <string name="keyboard">कीबोर्ड</string>
+    <string name="txt_intro1_central9btn">जेलो मध्ये ९ मुख्य श्रेणीचे बटन आहेत</string>
+    <string name="txt_intro1_categorybtn">मुख्य श्रेणी बटन</string>
+    <string name="txt_intro5_jellowUsageDesc">अॅप्लिकेशनमध्ये बाजूला ६ भाववाहक बटन देखील आहेत.</string>
+    <string name="txt_intro5_expressiveBtn">भाववाहक बटन</string>
+    <string name="txt_intro2_appUsageDesc">अॅप्लिकेशनचा वापर करण्यासाठी प्रथम मुख्य श्रेणीतील बटन निवडा आणि नंतर कोणतेही एक भाववाहक बटन निवडा.</string>
+    <string name="txt_intro2_speakUsingJellow">जेलोचा वापर</string>
+    <string name="txt_intro3_level2CatDesc">वापरकर्ते कोणत्याही मुख्य श्रेणीच्या बटनावर डबल क्लिक करून त्यांच्या उपश्रेणींवर जाऊ शकतात.</string>
+    <string name="txt_intro3_navWithJellow">जेलो अॅप्लिकेशनमध्ये मार्गनिर्देशन</string>
+    <string name="txt_intro4_customizeAppDesc">अॅप्लिकेशनच्या वरच्या उजव्या कोपऱ्यावर क्लिक करून, वापरकर्ते अॅप्लिकेशनचे मुख्य सेटिंग्स बदलू शकतात.</string>
+    <string name="txt_intro4_customizeJellow">जेलोचे सेटिंग्स</string>
+    <string name="txt_intro6_skipActiveTtsDesc">गूगल टीटीएस ला डीफॉल्ट भाषा इंजिन सेट करा आणि नंतर भाषा _ सेट करा.</string>
+    <string name="txt_intro6_ttsStep1">१.गूगल टेक्स्ट-टू-स्पीच इंजिन निवडा</string>
+    <string name="txt_intro6_activate">सक्रिय करा</string>
+    <string name="txt_intro6_step2">२. _ भाषा डीफॉल्ट बनवा</string>
+    <string name="txt_intro6_changeLang">डीफॉल्ट बनवा</string>
+    <string name="txt_intro6_step3">३. _ आवाज डाउनलोड करा</string>
+    <string name="txt_intro6_download">डाउनलोड करा</string>
+    <string name="txt_intro7_getStartedDesc">आपण आता जेलो अॅप्लिकेशन वापरण्यासाठी तयार आहात.</string>
+    <string name="txt_intro7_getStarted">सुरू करा</string>
+    <string name="txt_registration_jellowCalluDesc">(जेलो अॅप्लिकेशन आपल्याला या नावाने ओळखते)</string>
+    <string name="txt_registration_emergencynoDesc">(संकटकालीन स्थितिमध्ये आपल्याबरोबर संपर्क करण्यासाठी)</string>
+    <string name="txt_registration_emailDesc">(आपल्याला जेलो अॅप्लिकेशनच्या नवीन आवृत्तीबद्दल माहिती देण्यासाठी)</string>
+    <string name="txt_registration_selectLangDesc">जेलो साठी भाषा निवडा *</string>
+    <string name="txt_registration_registerBtn">नोदंणी करा</string>
+    <string name="enternonemptycontact">कृपया संपर्क नंबर नोदंवा</string>
+    <string name="change_tts_lang">टेक्स्ट-टू-स्पीच इंजिनची भाषा सेट करा</string>
+    <string name="txt_actLangSel_completestep3">कृपया इंटरनेट चालू करा आणि चरण ३ पूर्ण करा.</string>
+    <string name="change_language_line5">चरण २: आपल्या डिव्हाइसवर _ साठी व्हॉइस डेटा उपलब्ध आहे का हे तपासा. नसल्यास व्हॉइस डेटा डाउनलोड करा. व्हॉइस डेटा उपलब्ध नसल्यास, कृपया इंटरनेट चालू करा आणि निवडलेल्या भाषेसाठी व्हॉइस डेटा डाउनलोड करा. प्रक्रिया थांबली असेल तर, कृपया आपले इंटरनेट कनेक्शन तपासा आणि पुन्हा प्रयत्न करा.</string>
+    <string name="change_language_line4">चरण ३: \'गूगल टेक्स्ट-टू-स्पीच इंजन \' ला डीफॉल्ट इंजिन बनवा आणि _ भाषेला इंजनची डीफॉल्ट भाषा सेट करा</string>
+    <string name="txtChangeLanguage">2) डिफॉल्ट भाषा बदला:</string>
+    <string name="txtApplyChanges">चरण ४: नवीन भाषा डीफॉल्ट बनविण्यासाठी \'भाषा बदला\' बटनावर क्लिक करा</string>
+    <string name="change_language_line6">डाउनलोड केलेली नवीन भाषा डिफॉल्ट बनविण्यासाठी खालील चरण पूर्ण करा</string>
+    <string name="txt_set_tts_setup">कृपया या स्क्रीनवरील टेक्स्ट-टू-स्पीच इंजिन संबंधित चरण पूर्ण करा</string>
+    <string name="txt_save_same_lang_def">निवडलेली भाषा आधीपासूनच डिफॉल्ट भाषा आहे</string>
+    <string name="speech_engin_lang_sam">कृपया अॅप्लिकेशनचे \'भाषा\' सेटिंग्स तपासा</string>
+    <string name="txt_intro6_skipTtsSetup">ज्या उपकरणांमध्ये गूगल टेक्स्ट-टू-स्पीच इंजिन आधीपासूनच सक्रिय आहे, अशा उपकरणांमध्ये वापरकर्ते या स्क्रीनला स्वाइप करुन पुढे जाऊ शकतात.</string>
+    <string name="txt_actLangSel_downloadDat">व्हॉइस डेटा तपासा</string>
+    <string name="txt_actLangSel_complete_mainscreen_msg">वॉयस डेटा उपलब्ध नाही. कृपया इंटरनेट चालू करा आणि अॅप्लिकेशनच्या भाषा सेटिंग्स मध्ये जा.</string>
+    <string name="language_downloaded">_ भाषा डाउनलोड झाली आहे</string>
+    <string name="language_downloading">_ भाषा डाउनलोड होत आहे</string>
+    <string name="ok">पुढे जा</string>
+    <string name="call_permission_info">कॉल करण्यासाठी सध्या परवानगी उपलब्ध नाही। कोणत्याही संकटाच्या वेळी जेलो अॅप्लिकेशन मधून कॉल करण्यासाठी परवानगी आवश्यक आहे.</string>
+    <string name="granted_call_permission_req">कॉल करण्याची परवानगी दिली आहे.</string>
+    <string name="rejected_call_permission_req">कॉल करण्याची परवानगी नाही.</string>
+    <string name="grant_permission_from_settings">सेटिंग्स मध्ये जा आणि कॉल करण्याची परवानगी द्या.</string>
+    <string name="request">परवानगी द्या</string>
+    <string name="userGroup">वापरकर्ता वर्ग *</string>
+    <string name="groupTeacher">थेरपिस्ट/शिक्षक</string>
+    <string name="groupParent">पालक/केयर गिवर</string>
+    <string name="invalid_usergroup">कृपया वापरकर्त्याचा वर्ग निवडा.</string>
+    <string name="txtEnableBuiltInCalling">संकटाच्या वेळी जेलो अॅप्लिकेशन मधून कॉल करण्याची परवानगी द्या</string>
+    <string name="downloadableLang">उपलब्ध भाषा</string>
+    <string name="downloadedLang">डाउनलोड केलेल्या भाषा</string>
+    <string name="remove">डिलीट करा</string>
+    <string name="dismiss">बंद करा</string>
+    <string name="register_user">कृपया थांबा, नोंदणी प्रक्रिया चालू आहे…</string>
+    <string name="exit">बंद करा</string>
+    <string name="err_dialog_msg">गूगल टीटीएस इंजन आपल्या डिव्हाइसमध्ये उपलब्ध नाही. आपल्याला गूगल टीटीएस इंजिन डाउनलोड करायचे आहे का?</string>
+    <string name="exit_dialog_msg">जेलो अॅप्लिकेशनचा वापर करण्यासाठी गुगल टेक्स्ट-टू-स्पीच इंजिन आवश्यक आहे. आपल्याला ही प्रक्रिया खरोखर बंद करायची आहे का?</string>
+
+    <string name="less">less</string>
+
+    <!--Strings related to the Searching capability
+    @AyazAlam
+    -->
+    <string name="search_title">आइकॉन्स शोधा…</string>
+    <string name="search_hint">आइकॉन्स शोधा....</string>
+    <string name="home">Home</string>
+    <string name="icon_not_found">आइकॉन सापडला नाही</string>
+    <string name="no_internet">इंटरनेट कनेक्शन नाही</string>
+    <string name="please_wait">कृपया प्रतीक्षा करा…</string>
+
+    <!--About Jellow strings-->
+    <string name="info">सामान्य माहिती</string>
+    <string name="about_je_intro1">जेलो अॅप्लिकेशन आइकॉन आणि चिञ वापरुन संवाद साधण्यास मदत करते.  जे बोलायला शिकत आहेत, किंवा ज्यांना बोलायला अडचण येत आहे,  ते जेलोचा वापर करुन इतरांशी संवाद साधू शकतात.  रोजच्या जीवनात वापरले जाणारे शब्द आणि श्रेणी शिकण्यासाठी जेलो अॅप्लिकेशनचा वापर केला जाऊ शकतो. अशाप्रकारे, लहान मुले आणि नवीन भाषा शिकणारे लोक जेलो अॅप्लिकेशनचा लाभ घेऊ शकतात. याशिवाय, जेलोच्या रंगीबिरंगी आणि आकर्षक आइकॉन्सच्या मदतीने मुले चित्र आणि त्यांच्या नावांमधील संबंध शिकु शकतात</string>
+    <string name="about_je_intro2">जेलो चा विकास,  इंडियन इंस्टिट्यूट ऑफ टेक्नॉलॉजी बॉम्बे, मुंबई (आई आई टी-बी), येथील आईडीसी स्कूल ऑफ डिझाइन मध्ये झाला आहे.</string>
+    <string name="about_je_intro3">जेलो अॅप्लिकेशनची भाषा क्षमता वाढवण्यासाठी या प्रोजेक्टच्या प्रमुख संशोधकांनी एका नवीन विज्युअल इमोशनल लैंगग्विज प्रोटोकॉल (VELP) ची संकल्पना केली आहे.  विज्युअल इमोशनल लैंगग्विज प्रोटोकॉल संकल्पनेत ६ भाववाहक आइकॉन आहेत, जे  इंटरफेसचे मूलभूत भाग आहेत.</string>
+    <string name="about_je_intro4">या प्रमुख भाववाहक आइकॉनांच्या मदतीने जेलोचे वापरकर्ते त्यांच्या आवडी-निवडी आणि गरजा इतरांना सांगू शकतात.</string>
+    <string name="about_je_intro5">जेलो चा वापर मुले अत्यंत सहजपणे शिकु शकतात.</string>
+    <string name="about_je_intro6">जेलो अॅप्लिकेशन एंड्रॉयड टैबलेटसाठी अनुकूलित आहे.</string>
+    <string name="about_je_intro7">जेलो अॅप्लिकेशन सध्या इंग्रजी, हिंदी, बंगाली आणि मराठी मध्ये उपलब्ध आहे.</string>
+    <string name="software_info">सॉफ्टवेयर आवृत्ती: _</string>
+    <string name="about_je_intro8">जेलो अॅप्लिकेशनची वर्तमान आवृत्ती _ आहे. जेलो अॅप्लिकेशनचा विकास सध्या चालू आहे. या संदर्भात आपले काही सल्ले असल्यास, कृपया "अभिप्राय" टॅब मध्ये सबमिट करा.</string>
+    <string name="terms_of_use">वापरण्याच्या अटी आणि नियम</string>
+    <string name="about_je_intro9">जेलो अॅप्लिकेशनचे लाइसेंस क्रिएटिव कॉमन्स एटट्रिब्यूशन-नॉन-कमर्शियल- शेयर-ए-लाइक ४.० लाइसेंन्सच्या खाली प्राप्त आहे.</string>
+    <string name="about_je_intro10">जेलो अॅप्लिकेशन सबंधित सर्व कार्यांचे श्रेय इंडियन इंस्टिट्यूट ऑफ टेक्नॉलॉजी बॉम्बे यांना दिले जाते.</string>
+    <string name="about_je_intro11">जेलो अॅप्लिकेशनचे सर्व कन्टेन्ट (समाविष्ट केलेले चिन्ह, लेआउट, आर्किटेक्चर, व्हिज्युअल आइडेन्टिटी, भाषांतर आणि सॉफ्टवेयर कोड) शेयर किंवा समावून घेतला जाऊ शकतो परंतु व्यावसायिक उद्देशांसाठी वापरला जाऊ शकत नाही.</string>
+    <string name="about_je_intro12">जेंव्हा कन्टेन्टचा वापर केला जाईल तेंव्हा तुम्हाला विनंती आहे की, तुम्ही इंडियन इंस्टिट्यूट ऑफ टेक्नॉलॉजी बॉम्बे (आयआयटी-बी) प्रति आभार व्यक्त करा.</string>
+    <string name="about_je_intro13">जेलो अॅप्लिकेशन येथे डाउनलोड करण्यासाठी उपलब्ध आहे:</string>
+    <string name="about_je_intro14">जर कोणाला जेलोचा विकास करायचा असेल तर, त्यांना विंनती आहे की, जेलो प्रोजेक्टचे प्रमुख संशोधक प्राध्यापक रवि पूवैया यांना संपर्क करा.</string>
+    <string name="credits">आभार सूची:</string>
+    <string name="about_je_intro15"> प्रोजेक्ट अन्वेषण, संकल्पना आणि पर्यवेक्षण:</string>
+    <string name="about_je_intro16">प्राध्यापक रवि पूवैया और डॉ. अजंता सेन</string>
+    <string name="about_je_intro17">आरंभिक संकल्पना विकास:</string>
+    <string name="about_je_intro18">आँचल कुमार, सम्राट सरदेसाई, पीटर जोसेफ, अंतरा हजारिका</string>
+    <string name="about_je_intro19">सॉफ्टवेयरचा विकास:</string>
+    <string name="about_je_intro20">राहूल रूपचंद जिडगे, नारायना रेड्डी, निखील अहिरराव, अयाज़ आलम, हर्षित बुध्दराजा, सुमित अग्रवाल, रूप नारायन साहू, श्रुति गुप्ता, आस्था जोशी, धैर्य दण्ड, प्रीतम पेबम</string>
+    <string name="about_je_intro21">वेबसाइट डिजाइन:</string>
+    <string name="about_je_intro22">प्राध्यापक. रवि पूवैया, योगेश मासये, सुमेध गरुड़, रूप नारायन साहू</string>
+    <string name="about_je_intro23">आइकॉन, विज्युअल डिज़ाइन आणि आवाज:</string>
+    <string name="about_je_intro24">विनया तावड़े, अनीषा मल्होत्रा, निकिता अय्यर,  सिमोन सेन, गणेश गज्जेला</string>
+    <string name="about_je_intro25">भाषांतर:</string>
+    <string name="about_je_intro26">रूपक मिश्रा, सचिन सोनावणे, डॉ. सुधा श्रीनिवासन</string>
+    <string name="about_je_intro27">संशोधन, शब्दसंग्रह विकास आणि वापरकर्ता अभ्यास:</string>
+    <string name="about_je_intro28">डॉ. सुधा श्रीनिवासन</string>
+    <string name="about_je_intro29">समर्थन:</string>
+    <string name="about_je_intro30">ई-कालपा प्रोजेक्ट NMEICT च्या अंतर्गत मानव संसाधन विकास मंत्रालय,  माइक्रोसॉफ्ट डिजाईन एक्सपो २००४ आणि यूनिसेफ इनोवेशन फंड (UNICEF) द्वारे प्रायोजित</string>
+
+    <!--Content description-->
+    <string name="language_download_in_process">Language download in process</string>
+    <string name="child_s_name">child\'s name</string>
+    <string name="caregiver_s_contact_number">caregiver\'s contact number</string>
+    <string name="user_s_group">user\'s group</string>
+    <string name="enter_caregiver_s_contact_number">enter caregiver\'s contact number</string>
+    <string name="enter_home_address">enter home address</string>
+    <string name="email_address">email address</string>
+    <string name="enter_caregiver_s_email_address">enter caregiver\'s email address</string>
+    <string name="please_wait_as_jellow_loads">please wait as jellow loads</string>
+    <string name="category_cd">The image shows a screenshot of the home page of Jellow. The home page contains a central grid of 9 icons called category buttons that are arranged in 3 rows and 3 columns. The 9 category buttons are “Greet and feel”, “Daily activities”, “Eating”, “Fun”, “Learning”, “People”, “Places, “Time and weather”, and “Help”. Below the category buttons are 3 navigation buttons of “Back”, “Home” and “keyboard” arranged in that order at the bottom of the home screen. On the right and left sides of the central category icons are 3 expressive icons each. To the left of the central grid are 3 expressive buttons of “Like”, “Yes” and “More” arranged from top to bottom in that order. To the right of the central grid, are the remaining 3 expressive buttons of “Don’t like”, “No” and “Less” arranged from top to bottom. On the top right corner of the home screen is visible a settings icon. In this image the central grid of 9 icons has been highlighted with all other buttons faded out.</string>
+    <string name="expressive_cd">This image again shows the screenshot of the home page of Jellow. In this image, the 6 expressive buttons arranged as 3 each of either side of the central category buttons have been highlighted with all other buttons faded out. To the left of the central grid of category buttons, arranged from top to bottom are the 3 expressive buttons of “Like” represented by a “Smiley face” icon, “Yes” represented by a “check mark” icon, and “More” represented by a “Plus sign” icon. To the right of the category buttons, arranged from top to bottom are the expressive icons of “Don’t like” represented by a sad face” icon, “No” represented by the “cross” icon and “Less” represented by the “Minus sign” icon. Also labeled in the image are the 3 navigational buttons at the bottom of the screen. From left to right these are “Back”, “Home”, and “Keyboard”.</string>
+    <string name="pic4">This image has the home screen of Jellow with only 2 icons of “Eating” and “Yes” highlighted. The rest of the buttons are faded out. The image shows that to speak using Jellow, user has to first click on any category button, for instance, “Eating” and then on an expressive button, for example, “Yes”. In this way the user can speak using Jellow</string>
+    <string name="pic5">This image has the home screen of Jellow with only the icon for “Eating” highlighted. The rest of the buttons on the level 1 screen are faded out. The image shows a finger double-clicking on the “Eating” icon to access sub-categories within this main category.</string>
+    <string name="pic6">This image shows a screenshot of Jellow sub-categories accessed by double-clicking on the “Eating” icon as shown in the image above. The Level 2 sub-category icons visible in the central grid arranged in a 3 by 3 grid format are “Breakfast”, “Lunch/Dinner”, “Sweets”, “Snacks”, “Fruits”, “Drinks”, “Cutlery”, and “Add-ons”. The image shows the user’s finger double-clicking on “Breakfast” icon to access further sub-options.</string>
+    <string name="pic7">This image shows a screenshot of the Level 3 screen accessed by clicking on the “Breakfast” sub-category icon within the main category of “Eating”. The central grid icons visible on this screen are “Bread”, “Cornflakes”, “Aaloo Poori”, “Eggs”, “Poha””, “Upma”, “Khichdi”, and “Idli”. In addition the expressive icons on either sides of the screen, the navigational buttons at the bottom of the screen, and settings icon on the top right corner of the screen are also visible.</string>
+    <string name="pic8">This image shows the home screen of Jellow with a drop-down at the top right corner of Jellow. This drop-down shows options of “Profile”, “About Jellow”, “Tutorial”, “Keyboard Control”, “Language”, “Settings”, “Reset preferences”, and “Feedback”. By clicking on any of these options the user can customize the app’s settings to their needs.</string>
+    <string name="pic9">This is a screenshot of a sequential activity within Jellow. The image specifically shows the “Toilet” sequence that can be accessed within the “Daily activities” main category. The screen shows icons of 3 sequential steps involved in going to the toilet. Step 1 is “Pulling pants down”, Step 2 is “Sit on toilet”, and Step 3 is “Wash bottom”. There are arrows between these individual icons to indicate the sequential nature of the process. Below the 3 sequence icons are 2 buttons of “Previous” and “Next”. The “Previous” button is disabled since this is the first screen of steps within the “Toilet” sequence. A finger is shown clicking on the “Next” button in order to move to the next screen depicting the next set of steps within this sequence. The expressive buttons are not visible in this image. The navigational buttons of “Back”, “Home”, and “Keyboard” are visible at the bottom of the screen.</string>
+    <string name="pic10">This image is the same as the one shown above depicting the first 3 steps within the “Toilet” sequence within “Daily activities”. However in this image, the user’s finger is seen clicking on the Step 2 icon corresponding to “Sit on toilet”. By clicking on this icon, the expressive buttons are now visible on either sides of the screen within the application.</string>
+    <string name="gtts1">The image is made up of 3 screenshots of the “Text to speech output” and “Google TTS voice data” settings within a user’s device. In the first image corresponding to “Text-to-speech output”, there are 2 preferred engines visible, first, the “Samsung Text-to-Speech engine” and second, the “Google Text-to-Speech engine”. The user is seen to select the “Google Text-to-Speech engine”as the first step.</string>
+    <string name="gtts2">The second image corresponds to the second step in this process where the user is seen to now click on the “Gear” symbol corresponding to the “Settings” of the “Google Text-to-Speech engine”</string>
+    <string name="gtts3">The third image is the third step in this process where now the user is at the “Google TTS voice data” screen. This screen provides multiple voice options including “French (France)”, “German (Germany)”, “Hindi (India)”, “Hungarian (Hungary)”, and “Indonesian (Indonesia)”. The “Hindi (India) voice” option is highlighted and shows an option of “Voice set 1” with a size of 19MB that is available for download. The user’s finger is seen to click on the download icon for the voice set 1 for the “Hindi (India)voice”.</string>
+    <string name="enter_child_s_name">Enter child\'s name</string>
+    <string name="caregiver_s_contact_number_other_than_this_device_s_sim_number">Caregiver\'s Contact number other than this device\'s sim number</string>
+    <string name="select_country_code">select country code</string>
+    <string name="caregiver_s_email_address">caregiver\'s email address</string>
+    <string name="like">like</string>
+    <string name="more">more</string>
+    <string name="dont_like">dont like</string>
+    <string name="back">back</string>
+    <string name="enter_category">ENTER CATEGORY</string>
+    <string name="intro_cd">The image shows a screenshot of the home page of Jellow. The home page contains a central grid of 9 icons called category buttons that are arranged in 3 rows and 3 columns. The 9 category buttons are “Greet and feel”, “Daily activities”, “Eating”, “Fun”, “Learning”, “People”, “Places, “Time and weather”, and “Help”. Below the category buttons are 3 navigation buttons of “Back”, “Home” and “keyboard” arranged in that order at the bottom of the home screen. On the right and left sides of the central category icons are 3 expressive icons each. To the left of the central grid are 3 expressive buttons of “Like”, “Yes” and “More” arranged from top to bottom in that order. To the right of the central grid, are the remaining 3 expressive buttons of “Don’t like”, “No” and “Less” arranged from top to bottom. On the top right corner of the home screen is visible a settings icon. In this image the central grid of 9 icons has been highlighted with all other buttons faded out.</string>
+    <string name="intro2_cd">This image has the home screen of Jellow with only 2 icons of “Eating” and “Yes” highlighted. The rest of the buttons are faded out. The image shows that to speak using Jellow, user has to first click on any category button, for instance, “Eating” and then on an expressive button, for example, “Yes”. In this way the user can speak using Jellow.</string>
+    <string name="intro3_cd">This image shows a screenshot of Jellow sub-categories within the “Eating” category. The icons visible in the central grid arranged in a 3 by 3 grid format are “Breakfast”, “Lunch/Dinner”, “Sweets”, “Snacks”, “Fruits”, “Drinks”, “Cutlery”, and “Add-ons”. The image shows the user’s finger double-clicking on “Breakfast” icon to access further sub-options.</string>
+    <string name="intro4_cd">This image shows the home screen of Jellow with a drop-down at the top right corner of Jellow. This drop-down shows options of “Profile”, “About Jellow”, “Tutorial”, “Keyboard Control”, “Language”, “Settings”, “Reset preferences”, and “Feedback”. By clicking on any of these options the user can customize the app’s settings to their needs.</string>
+    <string name="intro5_cd">This image again shows the screenshot of the home page of Jellow. In this image, the 6 expressive buttons arranged as 3 each of either side of the central category buttons have been highlighted with all other buttons faded out. To the left of the central grid of category buttons, arranged from top to bottom are the 3 expressive buttons of “Like” represented by a “Smiley face” icon, “Yes” represented by a “check mark” icon, and “More” represented by a “Plus sign” icon. To the right of the category buttons, arranged from top to bottom are the expressive icons of “Don’t like” represented by a sad face” icon, “No” represented by the “cross” icon and “Less” represented by the “Minus sign” icon. Also labeled in the image are the 3 navigational buttons at the bottom of the screen. From left to right these are “Back”, “Home”, and “Keyboard”</string>
+    <string name="intro6_1_cd">In the first image corresponding to “Text-to-speech output”, there are 2 preferred engines visible, first, the “Samsung Text-to-Speech engine” and second, the “Google Text-to-Speech engine”. The user is seen to select the “Google Text-to-Speech engine”as the first step.</string>
+    <string name="intro6_2_cd">The second image corresponds to the second step in this process where the user is seen to now click on the “Gear” symbol corresponding to the “Settings” of the “Google Text-to-Speech engine</string>
+    <string name="intro6_3_cd">The third image is the third step in this process where now the user is at the “Google TTS voice data” screen. This screen provides multiple voice options including “French (France)”, “German (Germany)”, “Hindi (India)”, “Hungarian (Hungary)”, and “Indonesian (Indonesia)”. The “Hindi (India) voice” option is highlighted and shows an option of “Voice set 1” with a size of 19MB that is available for download. The user’s finger is seen to click on the download icon for the voice set 1 for the “Hindi (India)voice”.</string>
+    <string name="change_language">Language selected in Jellow is different from that of your device output language. Would you like to change your device language ?</string>
+    <string name="talkback_lang_diag_disable">Never Show Again</string>
+    <string name="talkback_single_click">select</string>
+    <string name="talkback_recycler_view">select category. Tap again for more options</string>
+    <string name="talkback_dropdown_menu">access countries list</string>
+    <string name="talkback_double_click">single click. Tap again to double click</string>
+    <string name="close_dialog">close dialog.</string>
+    <string name="next">next</string>
+    <string name="previous">previous</string>
+    <string name="edttxt_msg">Type here to speak</string>
+    <string name="keyboard_open">open keyboard</string>
+
+    <string name="intro8_step2">\"केवळ वाय-फाय चा वापर करा\" ला बंद करा</string>
+    <string name="txt_tts_stting">टेक्स्ट-टू-स्पीच सेटिंग्स</string>
+    <string name="txt_intro8_step1">१. गूगल टेक्स्ट-टू-स्पीच उघडा</string>
+    <string name="txt_intro8_step2">२. गूगल टेक्स्ट-टू-स्पीच \"सेटिंग्स\" वर जा</string>
+    <string name="txt_intro8_step3">३. \"केवळ वाय-फाय चा वापर करा\" या बटनाला बंद करा</string>
+    <string name="change_language_tts_wifi">गूगल टेक्स्ट-टू-स्पीच च्या सेटिंग्स वर जा आणि \"केवळ वाय-फाय चा वापर करा\" या बटनाला बंद करा. जर हे बटण सेटिंग्समध्ये आधीपासूनच बंद केले असेल तर, कृपया पुढे जा.</string>
+    <string name="icon_update_msg">अॅप्लिकेशनमधील भाषांसाठी आइकॉन्स अपडेट होत आहेत :</string>
+    <string name="add_new_language">नवीन भाषा डाउनलोड करा किंवा उपस्थित भाषा डिलीट करा.</string>
+    <string name="disable_wifi_only">कृपया मागील चरणात \"केवळ वाय-फाय चा वापर करा\" या बटनाला बंद करा.</string>
+    <string name="step3">चरण ३:</string>
+    <string name="txt_intro8_txtTitle">कृपया टेक्स्ट-टू-स्पीच इंजिन सक्रिय करण्यासाठी खालील चरण पूर्ण करा.</string>
+    <string name="txt_actLangSel_completestep2">वॉयस डेटा उपलब्ध नाही. कृपया इंटरनेट चालू करा आणि चरण २ पूर्ण करा.</string>
+    <string name="txtStep2">चरण २:</string>
+</resources>

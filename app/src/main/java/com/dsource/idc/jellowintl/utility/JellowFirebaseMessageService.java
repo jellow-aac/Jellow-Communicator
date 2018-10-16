@@ -9,6 +9,7 @@ import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 
+import com.dsource.idc.jellowintl.BuildConfig;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.UserRegistrationActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -25,7 +26,8 @@ public class JellowFirebaseMessageService extends FirebaseMessagingService {
     }
 
     public void showNotification(RemoteMessage remoteMessage) {
-        if (remoteMessage.getData().get("packageName").equals(getPackageName())) {
+        if (remoteMessage.getData().get("packageName").equals(getPackageName()) &&
+                remoteMessage.getData().get("versionCode").equals(String.valueOf(BuildConfig.VERSION_CODE))) {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "jellow_aac");
             builder.setContentTitle(remoteMessage.getData().get("title"));
             builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));

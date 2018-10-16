@@ -125,7 +125,7 @@
     <string name="seqActDesc">শিশুদের দৈনন্দিন কাজকর্মের ধারাবাহিক স্তরগুলি শেখানোর কাজেও জেলো ব্যবহার করা যেতে পারে। প্রতিটি স্তরে ক্লিক করে ব্যবহারকারী ভাবপ্রকাশক বটন দেখতে পারেঃ</string>
     <string name="toiletSeq">টইলেটের ধারাবাহিক ক্রমঃ</string>
     <string name="expBtnSeq">একপ্রেসিভ বটনের ধারাবাহিক ক্রমঃ</string>
-    <string name="ttsDesc">জেলো ব্যবহার করার জন্য আপনার যন্ত্রের \'<b>ভাষা</b>\' সেটিংস-এ গিয়ে \'<b>গুগল টেক্সট-টু-স্পীচ\</b>' সক্রিয় করুন</string>
+    <string name="ttsDesc">ইংরেজি, হিন্দি এবং বাংলাতে জেলো ব্যবহার করুন জন্য আপনার যন্ত্রের \'<b>ভাষা</b>\' সেটিংস-এ গিয়ে \'<b>গুগল টেক্সট-টু-স্পীচ</b>\' সক্রিয় করুন</string>
     <string name="softwareVersion">সফটওয়্যার সংস্করণঃ</string>
     <string name="string_to_speak">বলার জন্য শব্দ লিখুন</string>
     <string name="speak_written_text">লিখিত বাক্য পড়া</string>
@@ -314,4 +314,5 @@
     <string name="step3">তৃতীয় ধাপঃ</string>
     <string name="txt_intro8_txtTitle">নীচের পদক্ষেপগুলি সম্পন্ন করুনঃ</string>
     <string name="txt_actLangSel_completestep2">ভয়েস ডেটা প্রাপ্ত হয়নি। দয়া করে ইন্টারনেট চালু করুন এবং দ্বিতীয় ধাপ সম্পূর্ণ করুন।</string>
+    <string name="txtStep2">দ্বিতীয় ধাপঃ</string>
 </resources>

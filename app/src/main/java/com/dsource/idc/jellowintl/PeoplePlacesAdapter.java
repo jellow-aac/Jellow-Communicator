@@ -78,12 +78,8 @@ class PeoplePlacesAdapter extends android.support.v7.widget.RecyclerView.Adapter
     private void loadArraysFromResources(int levelOneItemPos, String[] mArrAdapterTxt, Integer[] arrSort) {
         ArrayList<String> tempIconList = new ArrayList<>();
         mBelowTextList.addAll(Arrays.asList(mArrAdapterTxt));
-        if(levelOneItemPos == 5)                    //levelOneItemPos is either 5(People) or 6 (Places)
             tempIconList.addAll(Arrays.asList(mContext.getResources().getStringArray(
                     R.array.arrLevelTwoPeopleIcon)));
-        else
-            tempIconList.addAll(Arrays.asList(mContext.getResources().getStringArray(
-                    R.array.arrLevelTwoPlacesIcon)));
 
         for (int i = 0; i < tempIconList.size(); i++) {
             mIconNameList.add(tempIconList.get(arrSort[i]));

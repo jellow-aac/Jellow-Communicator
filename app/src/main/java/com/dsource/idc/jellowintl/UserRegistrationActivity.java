@@ -72,7 +72,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
     private CountryCodePicker mCcp;
     private String mUserGroup;
     Spinner languageSelect;
-    String[] languagesCodes = new String[5], languageNames = new String[5];
+    String[] languagesCodes = new String[6], languageNames = new String[6];
     String selectedLanguage;
     String name, emergencyContact, eMailId;
 
@@ -99,16 +99,16 @@ public class UserRegistrationActivity extends AppCompatActivity {
             if(mSession.isDownloaded(mSession.getLanguage()) && mSession.isCompletedIntro()) {
                 if(!mSession.getUpdatedFirebase())
                     updateFirebaseDatabase();
-                if(!mSession.isLanguagePackageUpdated())
-                    startActivity(new Intent(this, LanguagePackageUpdateActivity.class));
-                else
-                    startActivity(new Intent(this, SplashActivity.class));
+                mSession.setPackageUpdate(true);
+                startActivity(new Intent(this, SplashActivity.class));
             }else if(mSession.isDownloaded(mSession.getLanguage()) && !mSession.isCompletedIntro()){
                 startActivity(new Intent(this, Intro.class));
+                mSession.setPackageUpdate(false);
             }else {
                 startActivity(new Intent(UserRegistrationActivity.this,
                         LanguageDownloadActivity.class)
                         .putExtra(LCODE,mSession.getLanguage()).putExtra(TUTORIAL,true));
+                mSession.setPackageUpdate(false);
             }
             finish();
         }else {
@@ -402,10 +402,17 @@ public class UserRegistrationActivity extends AppCompatActivity {
                         Toast.makeText(UserRegistrationActivity.this, getString(R.string.checkConnectivity), Toast.LENGTH_LONG).show();
                     }
                 }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Crashlytics.log("User data not added.");
+                    Crashlytics.logException(e);
+                    bRegister.setEnabled(true);
+                    Toast.makeText(UserRegistrationActivity.this, getString(R.string.error_in_registration), Toast.LENGTH_SHORT).show();
+                }
             });
-        } catch (Exception e)
-        {
-            e.printStackTrace();
+        } catch (Exception e){
+            Crashlytics.logException(e);
         }
     }
 

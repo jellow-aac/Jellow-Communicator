@@ -389,7 +389,6 @@
         <item>musicalinstrument_activities</item>
     </string-array>
 
-    <!--LEVEL THREE "LEARNING" ADAPTER TEXT ARE HERE-->
     <string-array name="arrLevelThreeLearningAnimBirdsIconAdapter">
         <item>dog_animals</item>
         <item>cat_animals</item>
@@ -1018,7 +1017,6 @@
         <item>Strangers: Beware!</item>
     </string-array>
 
-    <!--LEVEL THREE "EATING" SPEECH TEXT ARE HERE-->
     <string-array name="arrLevelThreeFoodDrinksBreakfastAdapterText">
         <item>Bread</item>
         <item>Cornflakes</item>

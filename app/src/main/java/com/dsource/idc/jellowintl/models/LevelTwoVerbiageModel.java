@@ -11,7 +11,7 @@ public class LevelTwoVerbiageModel {
     @SerializedName("arrays")
     private ArrayList<ArrayList<ArrayList<String>>> mVerbiageModel;
 
-    public ArrayList<ArrayList<ArrayList<String>>> getVerbiageModel() {
-        return mVerbiageModel;
+    public ArrayList<ArrayList<String>> getVerbiageModel(int itemPosition) {
+        return mVerbiageModel.size() != 0 ? mVerbiageModel.get(itemPosition) : null;
     }
 }

@@ -1,27 +1,38 @@
 package com.dsource.idc.jellowintl;
 
+import android.Manifest;
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Button;
 
+import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.EvaluateDisplayMetricsUtils;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
+import com.dsource.idc.jellowintl.utility.TextToSpeechErrorUtils;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -35,10 +46,10 @@ import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
  * Created by ekalpa on 7/12/2016.
  */
 public class SplashActivity extends AppCompatActivity {
-
-    private String mYes, mNO, mExit, mErrDialogMsg, mExitDialogMsg;
     //Field to create IconDatabase
     CreateDataBase iconDatabase;
+    SessionManager mSession;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +59,11 @@ public class SplashActivity extends AppCompatActivity {
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         setContentView(R.layout.activity_splash);
         getSupportActionBar().hide();
+        mSession = new SessionManager(this);
+        if(mSession.isPackageUpdateIsSet()) {
+            updateLangPackagesIfUpdateAvail();
+            mSession.setPackageUpdate(false);
+        }
         new DataBaseHelper(this).createDataBase();
 
         if(isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE)))
@@ -55,18 +71,16 @@ public class SplashActivity extends AppCompatActivity {
         startTTsService();
         PlayGifView pGif = findViewById(R.id.viewGif);
         pGif.setImageResource(R.drawable.jellow_j);
-        {
-            SessionManager sManager = new SessionManager(this);
-            if (sManager.isRequiredToPerformDbOperations()) {
-                performDatabaseOperations();
-                sManager.setCompletedDbOperations(true);
-            }
-            if((Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) &&
-                (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE)
-                    != PackageManager.PERMISSION_GRANTED))
-                sManager.setEnableCalling(false);
-            sManager = null;
+
+        if (mSession.isRequiredToPerformDbOperations()) {
+            performDatabaseOperations();
+            mSession.setCompletedDbOperations(true);
         }
+        if((Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) &&
+            (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
+                != PackageManager.PERMISSION_GRANTED))
+            mSession.setEnableCalling(false);
+
         EvaluateDisplayMetricsUtils displayMetricsUtils = new EvaluateDisplayMetricsUtils(this);
         displayMetricsUtils.calculateStoreDeviceHeightWidth();
         displayMetricsUtils.calculateStoreShadowRadiusAndBorderWidth();
@@ -76,11 +90,6 @@ public class SplashActivity extends AppCompatActivity {
         registerReceiver(receiver, filter);
         iconDatabase=new CreateDataBase(this);
         iconDatabase.execute();
-        mYes = getString(R.string.yes);
-        mNO = getString(R.string.no);
-        mExit = getString(R.string.exit);
-        mErrDialogMsg = getString(R.string.err_dialog_msg);
-        mExitDialogMsg = getString(R.string.exit_dialog_msg);
         setUserParameters();
      }
 
@@ -131,81 +140,12 @@ public class SplashActivity extends AppCompatActivity {
                     checkIfDatabaseCreated();
                     break;
                 case "com.dsource.idc.jellowintl.INIT_SERVICE_ERR":
-                    showErrorDialog();
+                    new TextToSpeechErrorUtils(SplashActivity.this)
+                            .showErrorDialog();
                     break;
             }
         }
     };
-
-    private void showErrorDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        // Add the buttons
-        builder
-            .setPositiveButton(mYes, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("https://play.google.com/store/apps/details?id=com.google.android.tts")));
-                    dialog.dismiss();
-                    finish();
-                }
-            })
-            .setNegativeButton(mNO, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int i) {
-                    dialog.dismiss();
-                    showExitDialog();
-                }
-            })
-            // Set other dialog properties
-            .setCancelable(false)
-            .setMessage(mErrDialogMsg);
-
-        // Create the AlertDialog
-        AlertDialog dialog = builder.create();
-        // Show the AlertDialog
-        dialog.show();
-        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-        positiveButton.setTextColor(getResources().getColor(R.color.colorAccent));
-        positiveButton.setTextSize(18f);
-        Button negativeButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
-        negativeButton.setTextColor(getResources().getColor(R.color.colorAccent));
-        negativeButton.setTextSize(18f);
-    }
-
-    private void showExitDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        // Add the buttons
-        builder
-            .setPositiveButton(mNO, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("https://play.google.com/store/apps/details?id=com.google.android.tts")));
-                    dialog.dismiss();
-                    finish();
-                }
-            })
-            .setNegativeButton(mExit, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int i) {
-                    dialog.dismiss();
-                    finish();
-                }
-            })
-            // Set other dialog properties
-            .setCancelable(false)
-            .setMessage(mExitDialogMsg);
-
-        // Create the AlertDialog
-        AlertDialog dialog = builder.create();
-        // Show the AlertDialog
-        dialog.show();
-        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-        positiveButton.setTextColor(getResources().getColor(R.color.colorAccent));
-        positiveButton.setTextSize(18f);
-        Button negativeButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
-        negativeButton.setTextColor(getResources().getColor(R.color.colorAccent));
-        negativeButton.setTextSize(18f);
-    }
 
     private void checkIfDatabaseCreated()
     {
@@ -236,7 +176,7 @@ public class SplashActivity extends AppCompatActivity {
         } catch(IllegalArgumentException | NullPointerException | IllegalStateException e) {
             e.printStackTrace();
         }
-        finish();
+        finishAffinity();
     }
 
     private void performDatabaseOperations() {
@@ -252,5 +192,73 @@ public class SplashActivity extends AppCompatActivity {
     private void stopTTsService() {
         Intent intent = new Intent("com.dsource.idc.jellowintl.STOP_SERVICE");
         sendBroadcast(intent);
+    }
+
+    private void updateLangPackagesIfUpdateAvail() {
+        //This function will check if any language package is updated at Firebase. Then
+        // user required to download that package.
+        final FirebaseRemoteConfig frc = FirebaseRemoteConfig.getInstance();
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .setDeveloperModeEnabled(BuildConfig.DEBUG)
+                .build();
+        frc.setConfigSettings(configSettings);
+        frc.setDefaults(R.xml.remote_config_default);
+        frc.fetch(1)
+            .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        // After config data is successfully fetched, it must be activated before
+                        // newly fetched values are returned.
+                        frc.activateFetched();
+                        String updateLangPackageData = frc.getString("updateLangPackages");
+                        if(updateLangPackageData.isEmpty())
+                            return;
+                        StringBuilder lang = new StringBuilder();
+                        //1)Get local packages list.
+                        //2)Compare which package from local list has updates.
+                        //3)Add language name to update list.
+                        try {
+                            JSONObject jObj = new JSONObject(updateLangPackageData);
+                            for (String langName: getOfflineLanguages()) {
+                                try {
+                                    JSONArray jArray = jObj.getJSONArray(langName);
+                                    String path = getBaseContext().getDir(langName, Context.MODE_PRIVATE).getPath();
+                                    for (int i = 0; i < jArray.length(); i++) {
+                                        if (!(new File(path + jArray.get(i))).exists()) {
+                                            lang.append(langName+",");
+                                            break;
+                                        }
+                                    }
+                                }catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        if (lang.toString().isEmpty())
+                            return;
+                        startActivity(new Intent(SplashActivity.this,
+                                LanguagePackageUpdateActivity.class).putExtra("packageList", lang.toString()));
+                        finish();
+                    } else {
+                        Crashlytics.log("RemoteConfigFetchFailed");
+                    }
+                }
+            });
+    }
+
+    private String[] getOfflineLanguages(){
+        List<String> lang = new ArrayList<>();
+        if(mSession.isDownloaded(SessionManager.ENG_IN))
+            lang.add(SessionManager.ENG_IN);
+        if(mSession.isDownloaded(SessionManager.ENG_US))
+            lang.add(SessionManager.ENG_US);
+        if(mSession.isDownloaded(SessionManager.ENG_UK))
+            lang.add(SessionManager.ENG_UK);
+        if(mSession.isDownloaded(SessionManager.HI_IN))
+            lang.add(SessionManager.HI_IN);
+        return lang.toArray(new String[lang.size()]);
     }
 }
