@@ -1,6 +1,26 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+##[1.2.4]  - 16, October 2018
+- Addition of new language: Marathi (India)
+- Support for Android 9 devices (enable clear text traffic, disabled multi windows support)
+- Unified parameter value for Firebase event
+- Added Firebase Remote Config to update user local icon packages.
+- Sequence buttons next and previous too close fixed
+- User can receive notification if version code of app matches with payload version code
+- Handled failures during User Registration
+- Added scroll to intro screen
+- Added Google text-to-speech engine availability in Intro
+
+##[1.2.3]  - 12, September 2018
+- Addition of new language: Bengali (India)
+- All items in the ‘Places’ category now have context-appropriate sub-categories.
+- Addition of new content/icons pertaining to good and bad habits, socially appropriate behaviors and reporting of abuse.
+- Improved and colorful interface
+- Clear, step-wise instructions to enable users to add/delete and change default languages within the app
+- Bug fixes in Emergency call functionality
+- Fixed other issues.
+
 ## [1.2.3]  -  23th, August 2018
 - This is alpha version.
 

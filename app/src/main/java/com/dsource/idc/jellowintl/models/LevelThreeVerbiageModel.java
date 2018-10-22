@@ -11,7 +11,7 @@ public class LevelThreeVerbiageModel {
     @SerializedName("arrays")
     private ArrayList<ArrayList<ArrayList <ArrayList <String>>>> mVerbiageModel;
 
-    public ArrayList<ArrayList<ArrayList <ArrayList <String>>>> getVerbiageModel() {
-        return mVerbiageModel;
+    public ArrayList<ArrayList<String>> getVerbiageModel(int levelOnePos, int levelTwoPos) {
+        return mVerbiageModel.size() != 0 ? mVerbiageModel.get(levelOnePos).get(levelTwoPos) : null;
     }
 }

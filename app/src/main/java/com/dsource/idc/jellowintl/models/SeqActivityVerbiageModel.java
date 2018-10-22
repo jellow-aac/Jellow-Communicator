@@ -11,7 +11,7 @@ public class SeqActivityVerbiageModel {
     @SerializedName("arrays")
     private ArrayList<ArrayList<ArrayList<String>>> mVerbiageModel;
 
-    public ArrayList<ArrayList<ArrayList<String>>> getVerbiageModel() {
-        return mVerbiageModel;
+    public ArrayList<ArrayList<String>> getVerbiageModel(int mLevelTwoItemPos) {
+        return mVerbiageModel.size() != 0 ? mVerbiageModel.get(mLevelTwoItemPos) : null;
     }
 }

@@ -50,6 +50,7 @@ import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangValueMap;
+import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
 
 public class LanguageSelectActivity extends AppCompatActivity{
 
@@ -66,7 +67,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
     private int mSelectedItem = -1;
     // Variable hold strings from regional string.xml file.
     private String mStep1, mStep2, mStep3, mStep4, mTitleEditLang,
-            mTitleChgLang, mRawStr4Step3, mCompleteStep2, mCompleteStep3;
+            mTitleChgLang, mRawStr4Step3, mCompleteStep2, mCompleteStep3, mRawStrStep2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +92,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
         mRawStr4Step3 = getString(R.string.step3);
         mCompleteStep2 = getString(R.string.txt_actLangSel_completestep2);
         mCompleteStep3 = getString(R.string.txt_actLangSel_completestep3);
+        mRawStrStep2 = getString(R.string.txtStep2);
         if(Build.VERSION.SDK_INT >= 21) {
             findViewById(R.id.tv5).setVisibility(View.GONE);
             findViewById(R.id.llImg).setVisibility(View.GONE);
@@ -117,7 +119,13 @@ public class LanguageSelectActivity extends AppCompatActivity{
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 selectedLanguage = offlineLanguages[i];
                 mSelectedItem = i;
-                updateViewsForNewLangSelect();
+                if(selectedLanguage.equals(LangValueMap.get(MR_IN))) {
+                    hideViewsForNonTtsLang(true);
+                    setViewsForNonTtsLang();
+                }else {
+                    hideViewsForNonTtsLang(false);
+                    updateViewsForNewLangSelect();
+                }
             }
 
             @Override
@@ -148,7 +156,13 @@ public class LanguageSelectActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 Crashlytics.log("LanguageSelect Apply");
-                if(selectedLanguage != null)
+                //if current user language is not marathi and user want to change current language
+                // to marathi.
+                if (!mSession.getLanguage().equals(LangMap.get("मराठी"))
+                        && selectedLanguage != null && selectedLanguage.equals("मराठी")){
+                    saveLanguage();
+                    mSession.setLangSettingIsCorrect(true);
+                }else if(selectedLanguage != null)
                 {
                     if(Build.VERSION.SDK_INT >= 21 &&
                             mSession.getLanguage().equals(LangMap.get(selectedLanguage))) {
@@ -324,7 +338,43 @@ public class LanguageSelectActivity extends AppCompatActivity{
         super.attachBaseContext((LanguageHelper.onAttach(newBase)));
     }
 
+    private void hideViewsForNonTtsLang(boolean disableViews) {
+        //TODO Hide views to when user selected non tts language.
+        if(disableViews) {
+            findViewById(R.id.tv4).setVisibility(View.GONE);
+            findViewById(R.id.ivTtsVoiceDat).setVisibility(View.GONE);
+            findViewById(R.id.btnDownloadVoiceData).setVisibility(View.GONE);
+            findViewById(R.id.tv5).setVisibility(View.GONE);
+            findViewById(R.id.llImg).setVisibility(View.GONE);
+            findViewById(R.id.changeTtsLangBut).setVisibility(View.GONE);
+        }else{
+            findViewById(R.id.tv4).setVisibility(View.VISIBLE);
+            findViewById(R.id.ivTtsVoiceDat).setVisibility(View.VISIBLE);
+            findViewById(R.id.btnDownloadVoiceData).setVisibility(View.VISIBLE);
+            findViewById(R.id.tv5).setVisibility(View.VISIBLE);
+            findViewById(R.id.llImg).setVisibility(View.VISIBLE);
+            findViewById(R.id.changeTtsLangBut).setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void setViewsForNonTtsLang() {
+        int subStrLen = 7;
+        if(mSession.getLanguage().equals(SessionManager.BN_IN))subStrLen = 12;
+        String stepStr = mRawStrStep2 +" "+ mStep4.substring(subStrLen);
+        SpannableString spannedStr = new SpannableString(stepStr);
+        int boldTxtLen = 7;
+        if(mSession.getLanguage().equals(SessionManager.BN_IN))boldTxtLen = 14;
+        spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, boldTxtLen, 0);
+        ((TextView) findViewById(R.id.tv6)).setText(spannedStr);
+    }
+
     private void updateViewsForNewLangSelect() {
+        if(Build.VERSION.SDK_INT >= 21) {
+            findViewById(R.id.tv5).setVisibility(View.GONE);
+            findViewById(R.id.llImg).setVisibility(View.GONE);
+            findViewById(R.id.changeTtsLangBut).setVisibility(View.GONE);
+        }
+
         if(mSession.getLanguage().equals(BN_IN))
             boldTitleOnScreen();
 
@@ -353,6 +403,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
             int subStrLen = 8;
             if(mSession.getLanguage().equals(SessionManager.BN_IN))subStrLen = 12;
             else if(mSession.getLanguage().equals(SessionManager.HI_IN))subStrLen = 7;
+            else if(mSession.getLanguage().equals(SessionManager.MR_IN))subStrLen = 6;
             String stepStr = mRawStr4Step3 +" "+ mStep4.substring(subStrLen);
             spannedStr = new SpannableString(stepStr);
             if (mSession.getLanguage().equals(BN_IN)) boldTxtLen = 12;
@@ -416,6 +467,10 @@ public class LanguageSelectActivity extends AppCompatActivity{
                 !current.equals(SessionManager.BN_IN)))
             lang.add(LangValueMap.get(SessionManager.BN_IN));
 
+        if( mSession.isDownloaded(SessionManager.MR_IN) &&
+                !current.equals(SessionManager.MR_IN))
+            lang.add(LangValueMap.get(SessionManager.MR_IN));
+
         lang.add(LangValueMap.get(current));
 
         return lang.toArray(new String[lang.size()]);
@@ -434,6 +489,8 @@ public class LanguageSelectActivity extends AppCompatActivity{
             lang.add(LangValueMap.get(SessionManager.HI_IN));
         if( !mSession.isDownloaded(SessionManager.BN_IN))
             lang.add(LangValueMap.get(SessionManager.BN_IN));
+        if( !mSession.isDownloaded(SessionManager.MR_IN))
+            lang.add(LangValueMap.get(SessionManager.MR_IN));
         return lang.toArray(new String[lang.size()]);
     }
 

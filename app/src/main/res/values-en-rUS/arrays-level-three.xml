@@ -442,7 +442,7 @@
         <item>batandball</item>
         <item>tag</item>
         <item>marbles</item>
-        <item>iceskating</item>
+        <item>skateboard</item>
         <item>rollerskates</item>
         <item>hiking</item>
         <item>frisbee</item>
@@ -801,7 +801,7 @@
     <string-array name="arrLevelThreePlacesParkIconAdapter">
         <item>batandball</item>
         <item>tag</item>
-        <item>iceskating</item>
+        <item>skateboard</item>
         <item>frisbee</item>
         <item>holahoop</item>
         <item>hopskotch</item>
@@ -1051,42 +1051,6 @@
     </string-array>
 
     <!--LEVEL THREE "DAILY ACTIVITIES" ADAPTER TEXT ARE HERE-->
-<!--    <string-array name="arrLevelThreeDailyActBrushingAdapterText">
-        <item>Rinse mouth</item>
-        <item>Rinse toothbrush</item>
-        <item>Put toothpaste on brush</item>
-        <item>Brush front teeth</item>
-        <item>Brush back teeth</item>
-        <item>Brush tongue</item>
-        <item>Rinse mouth</item>
-        <item>All done</item>
-    </string-array>
-    <string-array name="arrLevelThreeDailyActToiletAdapterText">
-        <item>Pull pants down</item>
-        <item>Sit on toilet</item>
-        <item>Wash bottom</item>
-        <item>Flush toilet</item>
-        <item>Pull pants up</item>
-        <item>Wash hands</item>
-        <item>All done</item>
-    </string-array>
-    <string-array name="arrLevelThreeDailyActBathingAdapterText">
-        <item>Remove clothes</item>
-        <item>Turn on water</item>
-        <item>Get in the shower</item>
-        <item>Wet body</item>
-        <item>Put soap</item>
-        <item>Shampoo hair</item>
-        <item>Put face wash</item>
-        <item>Wash hair</item>
-        <item>Wash body</item>
-        <item>Turn off water</item>
-        <item>Dry hair</item>
-        <item>Dry face</item>
-        <item>Dry body</item>
-        <item>Put on clothes</item>
-        <item>All done</item>
-    </string-array>-->
     <string-array name="arrLevelThreeDailyActClothesAccAdapterText">
         <item>Change t-shirt</item>
         <item>Change top</item>
@@ -1201,7 +1165,6 @@
         <item>Strangers: Beware!</item>
     </string-array>
 
-    <!--LEVEL THREE "EATING" SPEECH TEXT ARE HERE-->
     <string-array name="arrLevelThreeFoodDrinksBreakfastAdapterText">
         <item>Bread</item>
         <item>Cornflakes</item>

@@ -123,6 +123,7 @@
                             android:id="@+id/bt1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textAlignment="center"
                             android:text="ddadasdasd"
                             android:textSize="12sp"/>
                     </LinearLayout>
@@ -167,6 +168,7 @@
                             android:id="@+id/bt2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textAlignment="center"
                             android:text="ddadasdasd"
                             android:textSize="12sp"/>
                     </LinearLayout>
@@ -199,6 +201,7 @@
                             android:id="@+id/bt3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textAlignment="center"
                             android:text="ddadasdasd"
                             android:textSize="12sp"/>
                     </LinearLayout>

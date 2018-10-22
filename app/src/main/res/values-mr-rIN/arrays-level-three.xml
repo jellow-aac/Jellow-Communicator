@@ -1,0 +1,1691 @@
+<resources>
+<!--LEVEL THREE ARRAYS ARE HERE-->
+    <!--LEVEL THREE ADAPTER DRAWABLE ARE HERE-->
+    <!--LEVEL THREE "GREET AND FEEL" ADAPTER TEXT ARE HERE-->
+    <string-array name="arrLevelThreeGreetFeelGreetingIconAdapter">
+        <item>thankyou</item>
+        <item>thankyou</item>
+        <item>bye</item>
+        <item>goodmorning</item>
+        <item>goodafternoon</item>
+        <item>goodevening</item>
+        <item>goodnight</item>
+        <item>highfive</item>
+        <item>nicetomeetyou</item>
+        <item>howareyou</item>
+        <item>howwasyourday</item>
+        <item>howareyou</item>
+        <item>goodjob-01</item>
+        <item>awesome-01</item>
+    </string-array>
+    <string-array name="arrLevelThreeGreetFeelFeelingIconAdapter">
+        <item>happy</item>
+        <item>sad</item>
+        <item>angry</item>
+        <item>scared</item>
+        <item>surprised</item>
+        <item>irritated</item>
+        <item>confused</item>
+        <item>ashamed</item>
+        <item>disappointed</item>
+        <item>bored</item>
+        <item>worried</item>
+        <item>stressed</item>
+        <item>tired</item>
+        <item>hot</item>
+        <item>cold</item>
+        <item>sick</item>
+        <item>hurt</item>
+    </string-array>
+    <string-array name="arrLevelThreeGreetFeelRequestsIconAdapter">
+        <item>please</item>
+        <item>thankyou</item>
+        <item>welcome</item>
+        <item>pleasegiveme</item>
+        <item>pleasetellmeagain</item>
+        <item>pleaseshowme</item>
+        <item>ineedabreak</item>
+        <item>iamalldone</item>
+        <item>excuseme</item>
+        <item>iamsorry</item>
+        <item>idontunderstand</item>
+        <item>pleaseshare</item>
+        <item>pleaseslowdown</item>
+        <item>ineedhelp</item>
+        <item>comehere</item>
+        <item>takeme</item>
+        <item>ineedmoretime</item>
+        <item>iwanttobealone-01</item>
+        <item>idontwantanysound-01</item>
+    </string-array>
+    <string-array name="arrLevelThreeGreetFeelQuestionsIconAdapter">
+        <item>how</item>
+        <item>when</item>
+        <item>where</item>
+        <item>why</item>
+        <item>what</item>
+        <item>who</item>
+        <item>howmuch</item>
+        <item>howmany</item>
+        <item>howlong</item>
+    </string-array>
+
+    <!--LEVEL THREE "DAILY ACTIVITIES" ADAPTER TEXT ARE HERE-->
+    <string-array name="arrLevelThreeDailyActClothesIconAdapter">
+        <item>tshirt_clothing</item>
+        <item>dress_clothing</item>
+        <item>skirt_clothing</item>
+        <item>jeans_clothing</item>
+        <item>pants_clothing</item>
+        <item>leggings</item>
+        <item>slacks_clothing</item>
+        <item>shorts</item>
+        <item>underwear_clothing</item>
+        <item>slippers_clothing</item>
+        <item>shoes_clothing</item>
+        <item>socks_school</item>
+        <item>nightwear_clothing</item>
+        <item>shirt</item>
+        <item>tshirt_clothing</item>
+        <item>dress_clothing</item>
+        <item>pants_clothing</item>
+        <item>slacks_clothing</item>
+        <item>leggings</item>
+        <item>shorts</item>
+        <item>salwarkhamez_clothing</item>
+        <item>sweater_clothing</item>
+        <item>jcket_clothing</item>
+        <item>scarf_clothing</item>
+        <item>cap_clothing</item>
+        <item>belt_clothing</item>
+        <item>raincoat_clothing</item>
+        <item>spectacles_clothing</item>
+        <item>watch_clothing</item>
+        <item>earings_clothing</item>
+        <item>bracelet_clothing</item>
+        <item>necklace_clothing</item>
+        <item>bindi</item>
+        <item>slippers_clothing</item>
+        <item>myclothesaretight</item>
+        <item>myclothesareloose</item>
+        <item>ineedhelpremovingclothes</item>
+        <item>ineedhelpputtingclotheson</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActGetReadyIconAdapter">
+        <item>combhair</item>
+        <item>facewash</item>
+        <item>cuttingnails</item>
+        <item>blowingnose</item>
+        <item>soap</item>
+        <item>shampoo</item>
+        <item>sanitarynapkin</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActSleepIconAdapter">
+        <item>door_homeobjects</item>
+        <item>fan</item>
+        <item>light</item>
+        <item>window</item>
+        <item>bed</item>
+        <item>pilllow</item>
+        <item>blanket</item>
+        <item>feelinghot</item>
+        <item>feelingcold</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActTherapyIconAdapter">
+        <item>exercise</item>
+        <item>swing</item>
+        <item>trampoline</item>
+        <item>swissball</item>
+        <item>blanket</item>
+        <item>ballpit</item>
+        <item>handmovements</item>
+        <item>legexercises</item>
+        <item>bodyvest</item>
+        <item>sensoryobjects-01</item>
+        <item>speechtherapy</item>
+        <item>grouptherapy</item>
+        <item>dancing</item>
+        <item>musictherapy-01</item>
+        <item>arttherapy-01</item>
+        <item>handmovements</item>
+        <item>exercise</item>
+        <item>playwithme</item>
+        <item>remidialobjects-01-01</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActHabitsIconAdapter">
+        <item>calmdown-01</item>
+        <item>redlight-01</item>
+        <item>greenlight-01</item>
+        <item>walkonsideways-01</item>
+        <item>watchoutforcars-01-01-01</item>
+        <item>lookleftrightbeforecrossing-01</item>
+        <item>holdhandswhilecrossing</item>
+        <item>donttalkwhilefoodinmouth-01-01</item>
+        <item>eaysmallbites-01</item>
+        <item>throwgarbageinbin-01</item>
+        <item>donotspit-01</item>
+        <item>dontpickyournose-01</item>
+        <item>dontpinchothers-01</item>
+        <item>dontpushothers-01-01</item>
+        <item>donthit-01</item>
+        <item>dontbite-01-01</item>
+        <item>dontkick-01</item>
+        <item>dontplaywithmmatchsticks-01</item>
+        <item>dontplaywithpointedobjects-01</item>
+        <item>waitforyourturn-01-01</item>
+        <item>nohandsinunderpants-01</item>
+        <item>onearmdistance-01</item>
+        <item>donttouchothers-01-01</item>
+        <item>dontgooutwithstrangers-01-01-01</item>
+    </string-array>
+
+    <!--LEVEL THREE "EATING" ADAPTER TEXT ARE HERE-->
+    <string-array name="arrLevelThreeFoodDrinksBreakfastIconAdapter">
+        <item>bread</item>
+        <item>cornflakes</item>
+        <item>aloopuri</item>
+        <item>eggs</item>
+        <item>poha</item>
+        <item>upma</item>
+        <item>khichdi</item>
+        <item>idli</item>
+        <item>dosa</item>
+        <item>paratha</item>
+        <item>omelette</item>
+        <item>meduvada</item>
+        <item>porriage</item>
+        <item>sandwich</item>
+        <item>chutney</item>
+        <item>sambar</item>
+        <item>uttapam</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksLunchDinIconAdapter">
+        <item>roti</item>
+        <item>sabzi</item>
+        <item>rice</item>
+        <item>dal</item>
+        <item>dalkhichdi</item>
+        <item>raita</item>
+        <item>paratha</item>
+        <item>curd</item>
+        <item>fish</item>
+        <item>chicken</item>
+        <item>pork</item>
+        <item>mutton</item>
+        <item>crab</item>
+        <item>turkey</item>
+        <item>pizza</item>
+        <item>salad</item>
+        <item>soup</item>
+        <item>pasta</item>
+        <item>noodles</item>
+        <item>italian</item>
+        <item>pavbhaji</item>
+        <item>bhakri</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksSweetsIconAdapter">
+        <item>cake</item>
+        <item>icecream</item>
+        <item>gajarhalwa</item>
+        <item>gulabjamun</item>
+        <item>ladoo</item>
+        <item>barfi</item>
+        <item>jalebi</item>
+        <item>fruitsalad</item>
+        <item>rasgulla</item>
+        <item>sheera</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksSnacksIconAdapter">
+        <item>biscuits</item>
+        <item>chaat</item>
+        <item>chocolate</item>
+        <item>chips</item>
+        <item>sandwich</item>
+        <item>noodles</item>
+        <item>cheese</item>
+        <item>peanuts</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksFruitsIconAdapter">
+        <item>apple</item>
+        <item>banana</item>
+        <item>grapes</item>
+        <item>guaua</item>
+        <item>mango</item>
+        <item>orange</item>
+        <item>pineapple</item>
+        <item>strawberry</item>
+        <item>blueberry</item>
+        <item>pomogranate</item>
+        <item>watermelon</item>
+        <item>pear</item>
+        <item>papaya</item>
+        <item>muskmelon</item>
+        <item>chikoo</item>
+        <item>jackfruit</item>
+        <item>cherry</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksDrinksIconAdapter">
+        <item>water</item>
+        <item>milk</item>
+        <item>bournvita</item>
+        <item>mangojuice</item>
+        <item>applejuice</item>
+        <item>orangejuice</item>
+        <item>lemonjuice</item>
+        <item>pineapplejuice</item>
+        <item>pepsi</item>
+        <item>cocacola</item>
+        <item>mirinda</item>
+        <item>fanta</item>
+        <item>mazzaa</item>
+        <item>sprite</item>
+        <item>mountaindew</item>
+        <item>milkshakes</item>
+        <item>chocolatemilkshake</item>
+        <item>strawberrymilkshake</item>
+        <item>bananamilkshake</item>
+        <item>mangomilkshake</item>
+        <item>chikoomilkshake</item>
+        <item>tea</item>
+        <item>coffee</item>
+        <item>coldcoffee</item>
+        <item>energydrink</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksCutleryIconAdapter">
+        <item>bowl_cutlery</item>
+        <item>plate_cutlery</item>
+        <item>spoon_cutlery</item>
+        <item>fork_cutlery</item>
+        <item>knife_cutlery</item>
+        <item>mug_cutlery</item>
+        <item>cup_cutlery</item>
+        <item>glass_cutlery</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksAddonsIconAdapter">
+        <item>butter_addons</item>
+        <item>jam_addons</item>
+        <item>salt_addons</item>
+        <item>pepper_addons</item>
+        <item>sugar_addons</item>
+        <item>ketchup_addons</item>
+        <item>pickle</item>
+        <item>papad_addons</item>
+        <item>masala_addons</item>
+    </string-array>
+
+    <!--LEVEL THREE "FUN" ADAPTER TEXT ARE HERE-->
+    <string-array name="arrLevelThreeFunInDGamesIconAdapter">
+        <item>puzzles</item>
+        <item>boradgames</item>
+        <item>blocks</item>
+        <item>lego</item>
+        <item>chess</item>
+        <item>snakesandladders</item>
+        <item>scrabble</item>
+        <item>videogames</item>
+        <item>doll</item>
+        <item>actionfigure</item>
+        <item>teddy</item>
+        <item>cars</item>
+        <item>truck</item>
+        <item>artandcraft_activities</item>
+        <item>playwithme</item>
+    </string-array>
+    <string-array name="arrLevelThreeFunOutDGamesIconAdapter">
+        <item>level2_places_playground</item>
+        <item>level2_places_park</item>
+        <item>swing</item>
+        <item>slide</item>
+        <item>seesaw</item>
+        <item>merrygoround</item>
+        <item>hideandseek</item>
+        <item>batandball</item>
+        <item>statue</item>
+        <item>lockandkey</item>
+        <item>catchcatch</item>
+        <item>kite</item>
+        <item>choorpolice</item>
+        <item>marbles</item>
+        <item>walking</item>
+        <item>cycle_transport</item>
+        <item>running</item>
+        <item>swimming</item>
+    </string-array>
+    <string-array name="arrLevelThreeFunSportsIconAdapter">
+        <item>cricket_activities</item>
+        <item>badminton_activities</item>
+        <item>tennis_activities</item>
+        <item>basketball_activities</item>
+        <item>dodgeball_activities</item>
+        <item>vollyball_activities</item>
+        <item>khokho</item>
+        <item>football_activities</item>
+        <item>kabaddi</item>
+        <item>gymnastics</item>
+        <item>swimming</item>
+    </string-array>
+    <string-array name="arrLevelThreeFunTvIconAdapter">
+        <item>switchon-01</item>
+        <item>swithcoff-01</item>
+        <item>nextchannel</item>
+        <item>previouschannel</item>
+        <item>volumeup</item>
+        <item>volumedown</item>
+    </string-array>
+    <string-array name="arrLevelThreeFunMusicIconAdapter">
+        <item>changemusic</item>
+        <item>dancing</item>
+        <item>volumeup</item>
+        <item>volumedown</item>
+    </string-array>
+    <string-array name="arrLevelThreeFunActivitiesIconAdapter">
+        <item>draw_activities</item>
+        <item>painting_activities</item>
+        <item>read_activities</item>
+        <item>write_activities</item>
+        <item>artandcraft_activities</item>
+        <item>drama_activities</item>
+        <item>dancing</item>
+        <item>musicalinstrument_activities</item>
+    </string-array>
+
+    <!--LEVEL THREE "LEARNING" ADAPTER TEXT ARE HERE-->
+    <string-array name="arrLevelThreeLearningAnimBirdsIconAdapter">
+        <item>dog_animals</item>
+        <item>cat_animals</item>
+        <item>elephant_animals</item>
+        <item>lion_animals</item>
+        <item>parrot</item>
+        <item>rabbit_animals</item>
+        <item>cow_animals</item>
+        <item>duck_animals</item>
+        <item>donkey</item>
+        <item>ant</item>
+        <item>tiger</item>
+        <item>monkey</item>
+        <item>pigeon</item>
+        <item>cockroach</item>
+        <item>crow</item>
+        <item>horse</item>
+        <item>deer</item>
+        <item>owl</item>
+        <item>wolf</item>
+        <item>fox</item>
+        <item>bear</item>
+        <item>sheep</item>
+        <item>goat</item>
+        <item>pig</item>
+        <item>fly</item>
+        <item>giraffee</item>
+        <item>zebra</item>
+        <item>mosquito</item>
+        <item>buffallo</item>
+        <item>mouse</item>
+        <item>snake</item>
+        <item>crocodile</item>
+        <item>honeybee</item>
+        <item>hippo</item>
+        <item>rhino</item>
+        <item>fish</item>
+        <item>penguin</item>
+        <item>seal</item>
+        <item>dolphin</item>
+        <item>whale</item>
+        <item>shark</item>
+        <item>tortoise</item>
+        <item>sparrow</item>
+        <item>eagle</item>
+        <item>hawk</item>
+        <item>vulture</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningBodyPartsIconAdapter">
+        <item>head</item>
+        <item>hair_bodyparts</item>
+        <item>eye_bodyparts</item>
+        <item>nose_bodyparts</item>
+        <item>ear_bodyparts</item>
+        <item>mouth_bodyparts</item>
+        <item>tongue</item>
+        <item>neck</item>
+        <item>shoulder</item>
+        <item>elbow</item>
+        <item>wrist</item>
+        <item>hand_bodyparts</item>
+        <item>fingers</item>
+        <item>back</item>
+        <item>stomach_bodyparts</item>
+        <item>hips</item>
+        <item>knee_bodyparts</item>
+        <item>ankle</item>
+        <item>legs</item>
+        <item>toes</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningBooksIconAdapter">
+        <item>bedtimebook</item>
+        <item>comics_books</item>
+        <item>rhymebook</item>
+        <item>drawingbook_books</item>
+        <item>storybook</item>
+        <item>picturebook</item>
+        <item>mysterybook</item>
+        <item>adventurebook</item>
+        <item>notebook_books</item>
+        <item>maths</item>
+        <item>science_books</item>
+        <item>history</item>
+        <item>geography_books</item>
+        <item>socialscience</item>
+        <item>english</item>
+        <item>hindi_books</item>
+        <item>marathi_books</item>
+        <item>wordbook</item>
+        <item>favouritebook</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningColorsIconAdapter">
+        <item>black_colour</item>
+        <item>blue_colour</item>
+        <item>brown_colour</item>
+        <item>greem_colour</item>
+        <item>redcolour</item>
+        <item>silvercolour</item>
+        <item>white_colour</item>
+        <item>yellow_colour</item>
+        <item>golden_colour</item>
+        <item>pink_colour</item>
+        <item>orange_colour</item>
+        <item>purple_colour</item>
+        <item>grey_colour</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningShapesIconAdapter">
+        <item>standingline_shapes</item>
+        <item>sleepingline_shapes</item>
+        <item>slantingline_shapes</item>
+        <item>circle_shapes</item>
+        <item>rectangle_shapes</item>
+        <item>square_shapes</item>
+        <item>triangle_shapes</item>
+        <item>star_shapes</item>
+        <item>heart_shape</item>
+        <item>trapezium_shapes</item>
+        <item>cube_shapes</item>
+        <item>rhombus_shapes</item>
+        <item>hexagon_shapes</item>
+        <item>oval_shapes</item>
+        <item>diamond_shapes</item>
+        <item>pentagon_shapes</item>
+        <item>freeform_shapes</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningStationaryIconAdapter">
+        <item>pencil_stationary</item>
+        <item>pen_stationary</item>
+        <item>ruler_stationary</item>
+        <item>eraser_stationary</item>
+        <item>sharpner_stationary</item>
+        <item>crayon_stationary</item>
+        <item>blankpaper_stationary</item>
+        <item>colouredpaper_stationary</item>
+        <item>sissors</item>
+        <item>pencillead</item>
+        <item>compass</item>
+        <item>divider</item>
+        <item>stapler</item>
+        <item>upin</item>
+        <item>cellotape</item>
+        <item>pencilbox</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningSchoolIconAdapter">
+        <item>bag_school</item>
+        <item>lunchbox</item>
+        <item>waterbottle_school</item>
+        <item>pencilbox</item>
+        <item>homework_school</item>
+        <item>notebook_books</item>
+        <item>textbooks_school</item>
+        <item>uniform_school</item>
+        <item>shoes_school</item>
+        <item>socks_school</item>
+        <item>pencil_stationary</item>
+        <item>pen_stationary</item>
+        <item>ruler_stationary</item>
+        <item>eraser_stationary</item>
+        <item>sharpner_stationary</item>
+        <item>chalk</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningHomeIconAdapter">
+        <item>window</item>
+        <item>door_homeobjects</item>
+        <item>fan</item>
+        <item>lamp_homeobjects</item>
+        <item>desk_homeobjects</item>
+        <item>cupboard</item>
+        <item>table</item>
+        <item>chair_homeobjects</item>
+        <item>toilet</item>
+        <item>kitchen</item>
+        <item>livingroom</item>
+        <item>bedroom</item>
+        <item>playroom</item>
+        <item>bathroom</item>
+        <item>balcony</item>
+        <item>studyroom</item>
+        <item>bed</item>
+        <item>level2_fun_tv</item>
+        <item>computer</item>
+        <item>sofa</item>
+        <item>fridge</item>
+        <item>microwave</item>
+        <item>washingmachie</item>
+        <item>vaccumcleaner</item>
+        <item>clock_homeobjects</item>
+        <item>tubelight</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningTransportationIconAdapter">
+        <item>bus_transport</item>
+        <item>schoolbus_transport</item>
+        <item>car_transport</item>
+        <item>cycle_transport</item>
+        <item>train_transport</item>
+        <item>rickshaw_transport</item>
+        <item>motorbike_transport</item>
+        <item>plane_transport</item>
+        <item>shop_transport</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningMoneyIconAdapter">
+        <item>rupees10</item>
+        <item>rupees20</item>
+        <item>rupees50</item>
+        <item>rupees100</item>
+        <item>rupees200</item>
+        <item>rupees500</item>
+        <item>rupees2000</item>
+        <item>moneychange</item>
+    </string-array>
+
+    <!--LEVEL THREE "PLACES" ICON TEXT ARE HERE-->
+
+    <string-array name="arrLevelThreePlacesMyHouseIconAdapter">
+        <item>livingroom</item>
+        <item>bedroom</item>
+        <item>kitchen</item>
+        <item>studyroom</item>
+        <item>playroom</item>
+        <item>bathroom</item>
+        <item>balcony</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesSchoolIconAdapter">
+        <item>level2_people_teacher</item>
+        <item>classroom-01</item>
+        <item>laboratory-01</item>
+        <item>staffroom-01</item>
+        <item>level2_places_library</item>
+        <item>level2_places_playground</item>
+        <item>level2_eat_cutlery</item>
+        <item>computer</item>
+        <item>arttherapy-01</item>
+        <item>musictherapy-01</item>
+        <item>exercise</item>
+        <item>maths</item>
+        <item>science_books</item>
+        <item>geography_books</item>
+        <item>history</item>
+        <item>socialscience</item>
+        <item>languageclasses-01</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesMallIconAdapter">
+        <item>escalor-01</item>
+        <item>foodcourt-01</item>
+        <item>level2_places_theatre</item>
+        <item>funzone-01-01-01</item>
+        <item>store-01</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesMuseumIconAdapter">
+        <item>sciencemuseum-01</item>
+        <item>artmuseum-01</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesRestaurantIconAdapter">
+        <item>level2_eat_snacks</item>
+        <item>level2_eat_cutlery</item>
+        <item>menucard-01</item>
+        <item>drinks-01</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesTheatreIconAdapter">
+        <item>popcorn-01</item>
+        <item>icecream</item>
+        <item>nachos-01</item>
+        <item>cocacola</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesPlaygroundIconAdapter">
+        <item>swing</item>
+        <item>slide</item>
+        <item>merrygoround</item>
+        <item>seesaw</item>
+        <item>junglegyhm-01</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesParkIconAdapter">
+        <item>batandball</item>
+        <item>lockandkey</item>
+        <item>hideandseek</item>
+        <item>choorpolice</item>
+        <item>walking</item>
+        <item>running</item>
+        <item>catchcatch</item>
+        <item>kite</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesStoreIconAdapter">
+        <item>medicalshop-01</item>
+        <item>groceryshop-01</item>
+        <item>toyshop-01</item>
+        <item>clothesshop-01</item>
+        <item>turkey</item>
+        <item>vegetableshop-01</item>
+        <item>level2_eat_fruits</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesFriendHouseIconAdapter">
+        <item>playwithfriends-01</item>
+        <item>level2_fun_indoor_games1</item>
+        <item>level2_eat_snacks</item>
+        <item>drinks-01</item>
+        <item>toilet</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesRelativeHouseIconAdapter">
+        <item>level2_people_aunt</item>
+        <item>level2_eat_snacks</item>
+        <item>drinks-01</item>
+        <item>toilet</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesHospitalIconAdapter">
+        <item>level2_help_feelsick</item>
+        <item>level2_help_feelhurt</item>
+        <item>level2_people_doctor</item>
+        <item>level2_people_nurse</item>
+        <item>medicalshop-01</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesClinicIconAdapter">
+        <item>therapist-01</item>
+        <item>swissball</item>
+        <item>trampoline</item>
+        <item>swing</item>
+        <item>blanket</item>
+        <item>ballpit</item>
+        <item>exercise</item>
+        <item>handmovements</item>
+        <item>legexercises</item>
+        <item>bodyvest</item>
+        <item>sensoryobjects-01</item>
+        <item>grouptherapy</item>
+        <item>speechtherapy</item>
+        <item>playwithme</item>
+        <item>exercise</item>
+        <item>handmovements</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesLibraryIconAdapter">
+        <item>level2_learn_books</item>
+        <item>comics_books</item>
+        <item>rhymebook</item>
+        <item>storybook</item>
+        <item>picturebook</item>
+        <item>mysterybook</item>
+        <item>adventurebook</item>
+        <item>wordbook</item>
+        <item>favouritebook</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesZooIconAdapter">
+        <item>animals</item>
+        <item>birds-01</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesWorshipIconAdapter">
+        <item>temple-01</item>
+        <item>church-01</item>
+        <item>gurudwara-01</item>
+        <item>mosue-01</item>
+        <item>synalogue-01</item>
+    </string-array>
+
+    <!--LEVEL THREE "TIME AND WEATHER" ADAPTER TEXT ARE HERE-->
+    <string-array name="arrLevelThreeTimeWeaTimeIconAdapter">
+        <item>currenttime</item>
+        <item>today</item>
+        <item>yesterday</item>
+        <item>tomorrow</item>
+        <item>morning</item>
+        <item>afternoon</item>
+        <item>goodevening</item>
+        <item>night</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaDayIconAdapter">
+        <item>currentday</item>
+        <item>monday</item>
+        <item>tuesday</item>
+        <item>wednesday</item>
+        <item>thursday</item>
+        <item>friday</item>
+        <item>saturday</item>
+        <item>sunday</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaMonthIconAdapter">
+        <item>whatisthemonth</item>
+        <item>january</item>
+        <item>february</item>
+        <item>march</item>
+        <item>april</item>
+        <item>may</item>
+        <item>june</item>
+        <item>july</item>
+        <item>august</item>
+        <item>september</item>
+        <item>october</item>
+        <item>november</item>
+        <item>december</item>
+        <item>may</item>
+        <item>previousmonthmarathi</item>
+        <item>nextmonthmarathi</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaWeatherIconAdapter">
+        <item>todaysweather</item>
+        <item>afternoon</item>
+        <item>rainy</item>
+        <item>cloudy</item>
+        <item>windy</item>
+        <item>foggy</item>
+        <item>snowy</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaSeasonsIconAdapter">
+        <item>currentseason</item>
+        <item>spring</item>
+        <item>afternoon</item>
+        <item>rainy</item>
+        <item>autumn</item>
+        <item>winter</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaHoliFestIconAdapter">
+        <item>diwali</item>
+        <item>ganeshchaturthi</item>
+        <item>christmas</item>
+        <item>duserra</item>
+        <item>mararsankranti</item>
+        <item>holi</item>
+        <item>eid</item>
+        <item>goodfriday</item>
+        <item>gudipadwa</item>
+        <item>republicday</item>
+        <item>independance</item>
+        <item>newyear</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaBirthdaysIconAdapter">
+        <item>mybirthday</item>
+        <item>momsbirthday</item>
+        <item>dadsbirthday</item>
+        <item>brothersbirthday</item>
+        <item>sistersbirthday</item>
+        <item>grandfathersbirthday</item>
+        <item>grandmomsbirthday</item>
+        <item>badepapa</item>
+        <item>badimummy</item>
+        <item>mama</item>
+        <item>mami</item>
+        <item>bua</item>
+        <item>fufaji</item>
+        <item>mausi</item>
+        <item>mausa</item>
+        <item>friendsbirthday</item>
+        <item>teachersbirthday</item>
+    </string-array>
+
+<!--LEVEL THREE ADAPTER ADAPTER TEXT ARE HERE-->
+    <!--LEVEL THREE "GREET AND FEEL" ADAPTER TEXT ARE HERE-->
+    <string-array name="arrLevelThreeGreetFeelGreetingAdapterText">
+        <item>नमस्ते</item>
+        <item>नमस्कार</item>
+        <item>अच्छा - पुन्हा भेटूया</item>
+        <item>शुभ प्रभात</item>
+        <item>शुभ दिवस</item>
+        <item>शुभ संध्या</item>
+        <item>शुभ रात्रि</item>
+        <item>टाळी द्या</item>
+        <item>तुम्हाला भेटुन छान वाटले</item>
+        <item>तुम्ही कसे आहात?</item>
+        <item>तुमचा दिवस कसा होता?</item>
+        <item>तुम्ही ठीक आहात ना?</item>
+        <item>तुम्ही खूप छान काम केलं!!!</item>
+        <item>अप्रतिम!</item>
+    </string-array>
+    <string-array name="arrLevelThreeGreetFeelFeelingsAdapterText">
+        <item>खुश</item>
+        <item>उदास</item>
+        <item>राग</item>
+        <item>भय</item>
+        <item>आश्चर्यचकित</item>
+        <item>चिडचिड</item>
+        <item>गोंधळलेला</item>
+        <item>लज्जित</item>
+        <item>निराश</item>
+        <item>कंटाळलेला</item>
+        <item>काळजी</item>
+        <item>ताण</item>
+        <item>थकवा</item>
+        <item>गरम</item>
+        <item>थंड</item>
+        <item>आजारी</item>
+        <item>दुःखी</item>
+    </string-array>
+    <string-array name="arrLevelThreeGreetFeelQuestionsAdapterText">
+        <item>कसे?</item>
+        <item>कधी?</item>
+        <item>कुठे?</item>
+        <item>का?</item>
+        <item>काय?</item>
+        <item>कोण?</item>
+        <item>किती?</item>
+        <item>किती लांब?</item>
+        <item>किती वेळ?</item>
+    </string-array>
+    <string-array name="arrLevelThreeGreetFeelRequestsAdapterText">
+        <item>कृपया</item>
+        <item>धन्यवाद</item>
+        <item>आपले स्वागत आहे</item>
+        <item>कृपया मला द्या</item>
+        <item>कृपया मला पुन्हा सांगा</item>
+        <item>कृपया मला दाखवा</item>
+        <item>मला एक ब्रेक पाहिजे</item>
+        <item>मी सर्व पूर्ण केले</item>
+        <item>माफ करा</item>
+        <item>मला माफ करा</item>
+        <item>मला समजले नाही</item>
+        <item>कृपया मला पण द्या</item>
+        <item>कृपया हळू जावा</item>
+        <item>मला मदत पाहिजे</item>
+        <item>कृपया इकडे या</item>
+        <item>कृपया मला घेऊन चला</item>
+        <item>मला जास्त वेळ पाहिजे</item>
+        <item>मला एकटं राहायचे आहे</item>
+        <item>कृपया शांत राहा!</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActClothesAccAdapterText">
+        <item>टी-शर्ट बदलणे</item>
+        <item>फ्रॉक बदलणे</item>
+        <item>स्कर्ट बदलणे</item>
+        <item>जीन्स बदलणे</item>
+        <item>पॅन्ट बदलणे</item>
+        <item>लेगिंग्ज बदलणे</item>
+        <item>स्लॅक्स बदलणे</item>
+        <item>शॉर्ट्स बदलणे</item>
+        <item>इनरवियर बदलणे</item>
+        <item>चप्पल बदलणे</item>
+        <item>बूट बदलणे</item>
+        <item>मोजे बदलणे</item>
+        <item>नाईट ड्रेस घालणे</item>
+        <item>शर्ट</item>
+        <item>टी-शर्ट</item>
+        <item>फ्रॉक</item>
+        <item>पॅन्ट</item>
+        <item>स्लॅक्स</item>
+        <item>लेगिंग्ज</item>
+        <item>शॉर्ट्स</item>
+        <item>सलवार कमीज</item>
+        <item>स्वेटर</item>
+        <item>जॅकेट</item>
+        <item>दुपट्टा</item>
+        <item>टोपी</item>
+        <item>बेल्ट</item>
+        <item>रेनकोट</item>
+        <item>चष्मा</item>
+        <item>घड्याळ</item>
+        <item>कानातले</item>
+        <item>बांगडी</item>
+        <item>हार</item>
+        <item>टिकली</item>
+        <item>चप्पल</item>
+        <item>माझे कपडे टाइट आहेत</item>
+        <item>माझे कपडे ढीले आहेत</item>
+        <item>कपडे काढण्याठी मदत करा</item>
+        <item>कपडे घालण्याठी मदत करा</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActGetReadyAdapterText">
+        <item>केस विचंरणे</item>
+        <item>फेस वॉश</item>
+        <item>नखे कापणे</item>
+        <item>नाक साफ करणे</item>
+        <item>साबण</item>
+        <item>शाम्पू</item>
+        <item>सॅनिटरी नॅपकिन</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActSleepAdapterText">
+        <item>दरवाजा</item>
+        <item>पंखा</item>
+        <item>लाईट</item>
+        <item>खिडकी</item>
+        <item>पलंग</item>
+        <item>उशी</item>
+        <item>गोधडी</item>
+        <item>गर्मी</item>
+        <item>गारवा</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActTherapyAdapterText">
+        <item>व्यायाम</item>
+        <item>झोपाळा</item>
+        <item>ट्रॅम्पोलिन</item>
+        <item>स्विस बॉल</item>
+        <item>गोधडी</item>
+        <item>बॉल पिट</item>
+        <item>हाताचा व्यायाम</item>
+        <item>पायाचा व्यायाम</item>
+        <item>बॉडी वेस्ट</item>
+        <item>सेंसरी टॉयज</item>
+        <item>स्पीच थेरपी</item>
+        <item>ग्रुप थेरपी</item>
+        <item>डान्स थेरपी</item>
+        <item>म्युझिक थेरपी</item>
+        <item>आर्ट थेरपी</item>
+        <item>ऑक्युपेशनल थेरपी</item>
+        <item>फिजीओथेरपी</item>
+        <item>प्ले थेरपी</item>
+        <item>विशेष अभ्यास वर्ग</item>
+    </string-array>
+    <string-array name="arrLevelThreeDailyActHabitsAdapterText">
+        <item>शांत शरीर</item>
+        <item>लाल सिग्नल: थांबा</item>
+        <item>हिरवा सिग्नल: पुढे जा</item>
+        <item>फुटपाथ वर चाला</item>
+        <item>सावधान! गाड्या येत आहेत!</item>
+        <item>रस्ता पहा आणि क्रॉस करा</item>
+        <item>हात धरून रस्ता ओंलाडा</item>
+        <item>कृपया जेवण करताना बोलू नका!</item>
+        <item>जेवण करतांना छोटे घास घ्या</item>
+        <item>कचरा डब्यात टाका</item>
+        <item>थुंकू नका</item>
+        <item>कृपया नाकात बोट घालू नका</item>
+        <item>कृपया चिमटा काढू नका</item>
+        <item>कृपया धक्का देऊ नका</item>
+        <item>कृपया मारू नका</item>
+        <item>कृपया चावू नका</item>
+        <item>कृपया लाथ मारू नका</item>
+        <item>माचिसला हाथ लावू नका</item>
+        <item>टोकदार वस्तूंना हाथ लावू नका</item>
+        <item>तुमच्या पाळीसाठी थांबा</item>
+        <item>पॅन्टमध्ये हाथ घालू नका</item>
+        <item>बोलत असताना अंतर ठेवा</item>
+        <item>कृपया अनुचित प्रकारे हात लावू नका</item>
+        <item>अनोळखी व्यक्ती: सावध रहा!</item>
+    </string-array>
+
+    <!--LEVEL THREE "EATING" ADAPTER TEXT ARE HERE-->
+    <string-array name="arrLevelThreeFoodDrinksBreakfastAdapterText">
+        <item>ब्रेड</item>
+        <item>कॉर्नफ्लेक्स</item>
+        <item>पुरी भाजी</item>
+        <item>अंडी</item>
+        <item>पोहे</item>
+        <item>उपमा</item>
+        <item>खिचडी</item>
+        <item>इडली</item>
+        <item>डोसा</item>
+        <item>पराठा</item>
+        <item>ऑमलेट</item>
+        <item>मेदु वडा</item>
+        <item>लापशी</item>
+        <item>सँडविच</item>
+        <item>चटणी</item>
+        <item>सांबर</item>
+        <item>उत्तपा</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksLunchDinnerAdapterText">
+        <item>चपाती</item>
+        <item>भाजी</item>
+        <item>भात</item>
+        <item>डाळ</item>
+        <item>डाळखिचडी</item>
+        <item>रायता</item>
+        <item>पराठा</item>
+        <item>दही</item>
+        <item>मासे</item>
+        <item>चिकन</item>
+        <item>पोर्क</item>
+        <item>मटन</item>
+        <item>खेकड्याचे मांस</item>
+        <item>टर्की</item>
+        <item>पिझ्झा</item>
+        <item>सलाड</item>
+        <item>सूप</item>
+        <item>पास्ता</item>
+        <item>नूडल्स</item>
+        <item>इटालियन जेवण</item>
+        <item>पाव भाजी</item>
+        <item>भाकरी</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksSweetsAdapterText">
+        <item>केक</item>
+        <item>आइसक्रीम</item>
+        <item>गाजराचा हलवा</item>
+        <item>गुलाब जाम</item>
+        <item>लाडू</item>
+        <item>बर्फी</item>
+        <item>जिलबी</item>
+        <item>फळांचे सलाड</item>
+        <item>रसगुल्ला</item>
+        <item>शीरा</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksSnacksAdapterText">
+        <item>बिस्किट</item>
+        <item>चाट</item>
+        <item>चॉकलेट</item>
+        <item>वेफर्स</item>
+        <item>सँडंविच</item>
+        <item>नूडल्स</item>
+        <item>चीज</item>
+        <item>नट्स</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksFruitsAdapterText">
+        <item>सफरचंद</item>
+        <item>केळी</item>
+        <item>द्राक्षे</item>
+        <item>पेरु</item>
+        <item>आंबा</item>
+        <item>संत्रे</item>
+        <item>अननस</item>
+        <item>स्ट्रॉबेरी</item>
+        <item>ब्लूबेरी</item>
+        <item>डाळिंब</item>
+        <item>कलिंगड</item>
+        <item>पेर</item>
+        <item>पपई</item>
+        <item>खरबूज</item>
+        <item>चिक्कू</item>
+        <item>फणस</item>
+        <item>चेरी</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksDrinksAdapterText">
+        <item>पाणी</item>
+        <item>दूध</item>
+        <item>बोर्नविटा</item>
+        <item>आब्यांचा ज्यूस</item>
+        <item>सफरचंदाचा ज्यूस</item>
+        <item>संञ्याचा ज्यूस</item>
+        <item>लिंबू सरबत</item>
+        <item>अननसचा ज्यूस</item>
+        <item>पेप्सी</item>
+        <item>कोका कोला</item>
+        <item>मिरिंडा</item>
+        <item>फँटा</item>
+        <item>माझा</item>
+        <item>स्प्राइट</item>
+        <item>माउंटेन ड्यू</item>
+        <item>मिल्कशेक</item>
+        <item>चॉकलेट मिल्कशेक</item>
+        <item>स्ट्रॉबेरी मिल्कशेक</item>
+        <item>केळ्याचे मिल्कशेक</item>
+        <item>आंबा मिल्कशेक</item>
+        <item>चिक्कू मिल्कशेक</item>
+        <item>चहा</item>
+        <item>कॉफी</item>
+        <item>कोल्ड कॉफी</item>
+        <item>एनर्जी ड्रिंक्स</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksCutleryAdapterText">
+        <item>वाटी</item>
+        <item>ताट</item>
+        <item>चमचा</item>
+        <item>काटा</item>
+        <item>चाकू</item>
+        <item>मग</item>
+        <item>कप</item>
+        <item>ग्लास</item>
+    </string-array>
+    <string-array name="arrLevelThreeFoodDrinksAddonAdapterText">
+        <item>लोणी</item>
+        <item>जॅम</item>
+        <item>मीठ</item>
+        <item>काळी मिरी</item>
+        <item>साखर</item>
+        <item>सॉस</item>
+        <item>लोणचं</item>
+        <item>पापड</item>
+        <item>मसाला</item>
+    </string-array>
+
+    <!--LEVEL THREE "FUN" ADAPTER TEXT ARE HERE-->
+    <string-array name="arrLevelThreeFunInDGamesAdapterText">
+        <item>कोडी</item>
+        <item>बोर्ड खेळ</item>
+        <item>ब्लॉक्स</item>
+        <item>लेगो</item>
+        <item>चेस</item>
+        <item>सापशीडी</item>
+        <item>स्क्रॅबल</item>
+        <item>व्हिडिओ गेम</item>
+        <item>बाहुली</item>
+        <item>ऍक्शन फिगर्स</item>
+        <item>सॉफ्ट टॉयज</item>
+        <item>कार</item>
+        <item>ट्रक</item>
+        <item>कला व हस्तकला</item>
+        <item>माझ्याबरोबर खेळा</item>
+    </string-array>
+    <string-array name="arrLevelThreeFunOutDGamesAdapterText">
+        <item>खेळाचे मैदान</item>
+        <item>पार्क</item>
+        <item>झोपाळा</item>
+        <item>घसरगुंडी</item>
+        <item>सी-सॉ</item>
+        <item>मेरी-गो-राउंड</item>
+        <item>लपाछपी</item>
+        <item>बॅट आणि बॉल</item>
+        <item>स्टॅच्यु</item>
+        <item>कुलूप आणि चावी</item>
+        <item>पकडा-पकडी</item>
+        <item>पतंग</item>
+        <item>चोर-पोलिस</item>
+        <item>गोट्या</item>
+        <item>चालणे</item>
+        <item>सायकल चालवणे</item>
+        <item>धावणे</item>
+        <item>पोहणे</item>
+    </string-array>
+    <string-array name="arrLevelThreeFunSportsAdapterText">
+        <item>क्रिकेट</item>
+        <item>बैडमिंटन</item>
+        <item>टेनिस</item>
+        <item>बास्केटबॉल</item>
+        <item>डॉजबॉल</item>
+        <item>वॉलीबॉल</item>
+        <item>खो-खो</item>
+        <item>फुटबॉल</item>
+        <item>कबड्डी</item>
+        <item>जिमनास्टिक्स</item>
+        <item>पोहणे</item>
+    </string-array>
+    <string-array name="arrLevelThreeFunTvAdapterText">
+        <item>टीव्ही चालू करा</item>
+        <item>टीव्ही बंद करा</item>
+        <item>पुढचा चैनल</item>
+        <item>आधीचा चैनल</item>
+        <item>मोठा आवाज</item>
+        <item>आवाज कमी</item>
+    </string-array>
+    <string-array name="arrLevelThreeFunMusicAdapterText">
+        <item>गाणी बदलणे</item>
+        <item>नाचणे</item>
+        <item>मोठा आवाज</item>
+        <item>आवाज कमी</item>
+    </string-array>
+    <string-array name="arrLevelThreeFunActivitiesAdapterText">
+        <item>चित्र काढणे</item>
+        <item>चित्र रंगवणे</item>
+        <item>वाचणे</item>
+        <item>लिहिणे</item>
+        <item>कला व हस्तकला</item>
+        <item>नाटक</item>
+        <item>नाचणे</item>
+        <item>वाद्य वाजवणे</item>
+    </string-array>
+
+    <!--LEVEL THREE "LEARNING" ADAPTER TEXT ARE HERE-->
+    <string-array name="arrLevelThreeLearningAnimBirdsAdapterText">
+        <item>कुत्रा</item>
+        <item>मांजर</item>
+        <item>हत्ती</item>
+        <item>सिंह</item>
+        <item>पोपट</item>
+        <item>ससा</item>
+        <item>गाय</item>
+        <item>बदक</item>
+        <item>गाढव</item>
+        <item>मुंगी</item>
+        <item>वाघ</item>
+        <item>माकड</item>
+        <item>कबूतर</item>
+        <item>झूरळ</item>
+        <item>कावळा</item>
+        <item>घोडा</item>
+        <item>हरीण</item>
+        <item>घुबड</item>
+        <item>लांडगा</item>
+        <item>कोल्हा</item>
+        <item>अस्वल</item>
+        <item>मेंढी</item>
+        <item>शेळी</item>
+        <item>डुक्कर</item>
+        <item>माशी</item>
+        <item>जिराफ</item>
+        <item>झेब्रा</item>
+        <item>डास</item>
+        <item>म्हैस</item>
+        <item>उंदीर</item>
+        <item>साप</item>
+        <item>मगर</item>
+        <item>मधमाशी</item>
+        <item>पाणघोडा</item>
+        <item>गेंडा</item>
+        <item>मासा</item>
+        <item>पेंग्विन</item>
+        <item>सील</item>
+        <item>डॉल्फिन</item>
+        <item>व्हेल</item>
+        <item>शार्क</item>
+        <item>कासव</item>
+        <item>चिमणी</item>
+        <item>गरुड</item>
+        <item>हॉक</item>
+        <item>गिधाड</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningBodyPartsAdapterText">
+        <item>डोकं</item>
+        <item>केस</item>
+        <item>डोळे</item>
+        <item>नाक</item>
+        <item>कान</item>
+        <item>तोंड</item>
+        <item>जीभ</item>
+        <item>मान</item>
+        <item>खांदा</item>
+        <item>कोपर</item>
+        <item>मनगट</item>
+        <item>हात</item>
+        <item>बोटं</item>
+        <item>पाठ</item>
+        <item>पोट</item>
+        <item>मांडीचा सांधा</item>
+        <item>गुडघा</item>
+        <item>घोटा</item>
+        <item>पाय</item>
+        <item>पायांची बोटं</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningBooksAdapterText">
+        <item>झोपायच्या वेळेच्या गोष्टी</item>
+        <item>चित्रकथांची पुस्तके</item>
+        <item>कवितेची पुस्तके</item>
+        <item>चित्रकलेची पुस्तके</item>
+        <item>गोष्टींची पुस्तके</item>
+        <item>चित्रांची पुस्तके</item>
+        <item>रहस्यमय पुस्तके</item>
+        <item>साहसी पुस्तके</item>
+        <item>शाळेची वही</item>
+        <item>गणिताचे पुस्तक</item>
+        <item>विज्ञानाचे पुस्तक</item>
+        <item>इतिहासाचे पुस्तक</item>
+        <item>भूगोलाचे पुस्तक</item>
+        <item>सामाजिक अभ्यासांचे पुस्तक</item>
+        <item>इंग्रजीचे पुस्तक</item>
+        <item>हिंदीचे पुस्तक</item>
+        <item>मराठीचे पुस्तक</item>
+        <item>पाठ्यपुस्तके</item>
+        <item>आवडते पुस्तक</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningColorsAdapterText">
+        <item>काळा</item>
+        <item>निळा</item>
+        <item>तपकिरी</item>
+        <item>हिरवा</item>
+        <item>लाल</item>
+        <item>चंदेरी</item>
+        <item>पांढरा</item>
+        <item>पिवळा</item>
+        <item>सोनेरी</item>
+        <item>गुलाबी</item>
+        <item>नारंगी</item>
+        <item>जांभळा</item>
+        <item>भुरा</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningShapesAdapterText">
+        <item>सरळ रेघ</item>
+        <item>आडवी रेघ</item>
+        <item>तिरपी रेघ</item>
+        <item>गोल</item>
+        <item>आयत</item>
+        <item>चौकोन</item>
+        <item>त्रिकोण</item>
+        <item>तारा</item>
+        <item>हृदयाचा आकार</item>
+        <item>असमांतरभुज चौकोन</item>
+        <item>घनाकार</item>
+        <item>समभुज चौकोन</item>
+        <item>षट्कोन</item>
+        <item>अंडाकृती</item>
+        <item>डायमंड</item>
+        <item>पंचकोन</item>
+        <item>मुक्ताकार</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningStationaryAdapterText">
+        <item>पेन्सिल</item>
+        <item>पेन</item>
+        <item>स्केल</item>
+        <item>खोडरबर</item>
+        <item>शार्पनर</item>
+        <item>क्रेयॉन</item>
+        <item>कोरा कागद</item>
+        <item>रंगीत कागद</item>
+        <item>कात्री</item>
+        <item>शीसा</item>
+        <item>कम्पास</item>
+        <item>विभाजक</item>
+        <item>स्टेप्लर</item>
+        <item>यू-पिन</item>
+        <item>चिकटपट्टी</item>
+        <item>कम्पास बॉक्स</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningSchoolObjAdapterText">
+        <item>बॅग</item>
+        <item>जेवणाचा डबा</item>
+        <item>पाण्याची बाटली</item>
+        <item>कम्पास बॉक्स</item>
+        <item>गृहपाठ</item>
+        <item>शाळेची वही</item>
+        <item>पाठ्यपुस्तके</item>
+        <item>गणवेश</item>
+        <item>बूट</item>
+        <item>मोजे</item>
+        <item>पेन्सिल</item>
+        <item>पेन</item>
+        <item>स्केल</item>
+        <item>खोडरबर</item>
+        <item>शार्पनर</item>
+        <item>खडू</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningHomeObjAdapterText">
+        <item>खिडकी</item>
+        <item>दरवाजा</item>
+        <item>पंखा</item>
+        <item>दिवा</item>
+        <item>डेस्क</item>
+        <item>कपाट</item>
+        <item>टेबल</item>
+        <item>खुर्ची</item>
+        <item>टॉयलेट</item>
+        <item>स्वयंपाकघर</item>
+        <item>हॉल</item>
+        <item>बेडरूम</item>
+        <item>खेळण्याची खोली</item>
+        <item>बाथरूम</item>
+        <item>बालकनी</item>
+        <item>अभ्यासाची खोली</item>
+        <item>पलंग</item>
+        <item>टीव्ही</item>
+        <item>कंप्यूटर</item>
+        <item>सोफा</item>
+        <item>फ्रिज</item>
+        <item>माइक्रोवेव</item>
+        <item>वॉशिंग मशीन</item>
+        <item>व्हॅक्यूम क्लीनर</item>
+        <item>घड्याळ</item>
+        <item>ट्यूब लाइट</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningTransportAdapterText">
+        <item>बस</item>
+        <item>शाळेची बस</item>
+        <item>कार</item>
+        <item>सायकल</item>
+        <item>ट्रेन</item>
+        <item>रिक्शा</item>
+        <item>मोटर सायकल </item>
+        <item>विमान</item>
+        <item>बोट</item>
+    </string-array>
+    <string-array name="arrLevelThreeLearningMoneyAdapterText">
+        <item>१० रूपये</item>
+        <item>२० रूपये</item>
+        <item>५० रूपये</item>
+        <item>१०० रूपये</item>
+        <item>२०० रूपये</item>
+        <item>५०० रूपये</item>
+        <item>२००० रूपये</item>
+        <item>सुट्टे पैसे</item>
+    </string-array>
+
+    <!--LEVEL THREE "PLACES" ADAPTER TEXT ARE HERE-->
+    <string-array name="arrLevelThreePlacesMyHouseAdapterText">
+        <item>हॉल</item>
+        <item>बेडरूम</item>
+        <item>स्वयंपाकघर</item>
+        <item>अभ्यासाची खोली</item>
+        <item>खेळायची खोली</item>
+        <item>बाथरूम</item>
+        <item>बालकनी</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesSchoolAdapterText">
+        <item>शिक्षक</item>
+        <item>वर्ग</item>
+        <item>प्रयोगशाळा</item>
+        <item>स्टाफ रूम</item>
+        <item>ग्रंथालय</item>
+        <item>खेळाचे मैदान</item>
+        <item>कॅंन्टीन</item>
+        <item>कंप्यूटर लॅब</item>
+        <item>कला वर्ग</item>
+        <item>संगीत वर्ग</item>
+        <item>शारीरिक शिक्षणाचा वर्ग</item>
+        <item>गणिताचा वर्ग</item>
+        <item>विज्ञानाचा वर्ग</item>
+        <item>भूगोलाचा वर्ग</item>
+        <item>इतिहासाचा वर्ग</item>
+        <item>समाजिक अध्ययनाचा वर्ग</item>
+        <item>भाषेचा वर्ग</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesMallAdapterText">
+        <item>एस्कलेटर</item>
+        <item>फूड कोर्ट</item>
+        <item>थिएटर</item>
+        <item>फन झोन</item>
+        <item>दुकान</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesMuseumAdapterText">
+        <item>विज्ञान संग्रहालय</item>
+        <item>कला संग्रहालय</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesRestaurantAdapterText">
+        <item>खाणे</item>
+        <item>कटलरी</item>
+        <item>मेनू</item>
+        <item>ड्रिंक्स</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesTheatreAdapterText">
+        <item>पॉपकॉर्न</item>
+        <item>आईसक्रीम</item>
+        <item>नाचोस</item>
+        <item>कोल्ड ड्रिंक्स</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesPlaygroundAdapterText">
+        <item>झोपाळा</item>
+        <item>घसरगुंडी</item>
+        <item>मेरी-गो-राउंड</item>
+        <item>सी-सॉ</item>
+        <item>जंगल जिम</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesParkAdapterText">
+        <item>बॅट आणि बॉल</item>
+        <item>कुलूप आणि चावी</item>
+        <item>लपाछपी</item>
+        <item>चोर-पोलिस</item>
+        <item>चालणे</item>
+        <item>धावणे</item>
+        <item>पकडा-पकडी</item>
+        <item>पतंग</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesStoreAdapterText">
+        <item>मेडिकल</item>
+        <item>किराणा</item>
+        <item>खेळणी</item>
+        <item>कपडे</item>
+        <item>मांस-मछी</item>
+        <item>भाजी</item>
+        <item>फळं</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesFriendHouseAdapterText">
+        <item>मित्राबरोबर खेळा</item>
+        <item>घरचे खेळ</item>
+        <item>खाणे</item>
+        <item>ड्रिंक्स</item>
+        <item>टॉयलेट</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesRelativeHouseAdapterText">
+        <item>नातेवाईकांना भेटा</item>
+        <item>खाणे</item>
+        <item>ड्रिंक्स</item>
+        <item>टॉयलेट</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesHospitalAdapterText">
+        <item>मला बरे वाटत नाही</item>
+        <item>मी जखमी आहे</item>
+        <item>डॉक्टर</item>
+        <item>नर्स</item>
+        <item>औषध</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesClinicAdapterText">
+        <item>थेरापिस्ट</item>
+        <item>स्विस बॉल</item>
+        <item>ट्रेम्पोलिन</item>
+        <item>झोपाळा</item>
+        <item>गोधडी</item>
+        <item>बॉल पिट</item>
+        <item>व्यायाम</item>
+        <item>हाताचा व्यायाम</item>
+        <item>पायाचा व्यायाम</item>
+        <item>बॉडी वेस्ट</item>
+        <item>सेंसरी टॉयज</item>
+        <item>ग्रुप थेरेपी</item>
+        <item>स्पीच थेरेपी</item>
+        <item>प्ले थेरेपी</item>
+        <item>फिजीओथेरपी</item>
+        <item>ऑक्युपेशनल थेरेपी</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesLibraryAdapterText">
+        <item>पुस्तके</item>
+        <item>चित्रकथांची पुस्तके</item>
+        <item>कवितेची पुस्तके</item>
+        <item>गोष्टींची पुस्तके</item>
+        <item>चिञकलेची पुस्तके</item>
+        <item>रहस्यमय पुस्तके</item>
+        <item>साहसी पुस्तके</item>
+        <item>पाठ्यपुस्तके</item>
+        <item>आवडते पुस्तक</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesZooAdapterText">
+        <item>प्राणी</item>
+        <item>पक्षी</item>
+    </string-array>
+
+    <string-array name="arrLevelThreePlacesWorshipAdapterText">
+        <item>मंदिर</item>
+        <item>चर्च</item>
+        <item>गुरुद्वारा</item>
+        <item>मस्जिद</item>
+        <item>यहूदी मंदिर</item>
+    </string-array>
+
+    <!--LEVEL THREE "TIME WEATHER" ADAPTER TEXT ARE HERE-->
+    <string-array name="arrLevelThreeTimeWeaTimeAdapterText">
+        <item>वर्तमान वेळ?</item>
+        <item>आज</item>
+        <item>काल</item>
+        <item>उद्या</item>
+        <item>सकाळ</item>
+        <item>दुपार</item>
+        <item>संध्याकाळ</item>
+        <item>रात्र</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaDayAdapterText">
+        <item>आजचा दिवस कोणता आहे?</item>
+        <item>सोमवार</item>
+        <item>मंगळवार</item>
+        <item>बुधवार</item>
+        <item>गुरूवार</item>
+        <item>शुक्रवार</item>
+        <item>शनिवार</item>
+        <item>रविवार</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaMonthAdapterText">
+        <item>वर्तमान महिना कोणता आहे?</item>
+        <item>जानेवारी</item>
+        <item>फेब्रुवारी</item>
+        <item>मार्च</item>
+        <item>एप्रिल</item>
+        <item>मे</item>
+        <item>जून</item>
+        <item>जुलै</item>
+        <item>ऑगस्ट</item>
+        <item>सप्टेंबर</item>
+        <item>ऑक्टोबर</item>
+        <item>नोव्हेंबर</item>
+        <item>डिसेंबर</item>
+        <item>हा महिना</item>
+        <item>मागचा महिना</item>
+        <item>पुढचा महिना</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaWeatherAdapterText">
+        <item>आजचे हवामान कसे आहे?</item>
+        <item>गरम</item>
+        <item>पावसाळी</item>
+        <item>ढगाळ</item>
+        <item>वादळी</item>
+        <item>अंधूक</item>
+        <item>बर्फाळ</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaSeasonsAdapterText">
+        <item>वर्तमान ऋतु कोणता आहे?</item>
+        <item>वसंत ऋतु</item>
+        <item>उन्हाळा</item>
+        <item>पावसाळा</item>
+        <item>शरद ऋतू</item>
+        <item>हिवाळी ऋतु</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaHoliFestAdapterText">
+        <item>दिवाळी</item>
+        <item>गणेश चतुर्थी</item>
+        <item>क्रिसमस</item>
+        <item>दसरा</item>
+        <item>मकर संक्रांति</item>
+        <item>होळी</item>
+        <item>ईद</item>
+        <item>गुड फ्राइडे</item>
+        <item>गुडी पाडवा</item>
+        <item>प्रजासत्ताक दिन</item>
+        <item>स्वातंत्र्य दिवस</item>
+        <item>नवीन वर्ष</item>
+    </string-array>
+    <string-array name="arrLevelThreeTimeWeaBirthdaysAdapterText">
+        <item>माझा वाढदिवस</item>
+        <item>आईचा वाढदिवस</item>
+        <item>वडिलांचा वाढदिवस</item>
+        <item>भावाचा वाढदिवस</item>
+        <item>बहिणीचा वाढदिवस</item>
+        <item>आजोबांचा वाढदिवस</item>
+        <item>आजीचा वाढदिवस</item>
+        <item>काकांचा वाढदिवस</item>
+        <item>काकूंचा वाढदिवस</item>
+        <item>मामाचा वाढदिवस</item>
+        <item>मामीचा वाढदिवस</item>
+        <item>आत्याचा वाढदिवस</item>
+        <item>काकांचा वाढदिवस</item>
+        <item>मावशीचा वाढदिवस</item>
+        <item>काकांचा वाढदिवस</item>
+        <item>मित्रांचा वाढदिवस</item>
+        <item>शिक्षकांचा वाढदिवस</item>
+    </string-array>
+</resources>

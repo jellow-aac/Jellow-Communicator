@@ -47,6 +47,7 @@
     <string name="people_pref_count_eng" translatable="false">people_count</string>
     <string name="people_pref_count_hindi" translatable="false">people_count_hindi</string>
     <string name="places_pref_count_eng" translatable="false">places_count</string>
+    <string name="people_pref_count_marathi" translatable="false">people_count_marathi</string>
 
     <string name="action_bar_title">Home</string>
     <string name="txtLanguage">Language</string>
@@ -149,7 +150,7 @@
     <string name="seqActDesc">Jellow can also be used to teach children sequential steps of daily activities. By clicking on any individual step, the user may view the expressive buttons:</string>
     <string name="toiletSeq">Toilet sequence:</string>
     <string name="expBtnSeq">Expressive buttons in the sequence:</string>
-    <string name="ttsDesc">To use Jellow, please activate <b>\'Google text-to-speech (TTS)\'</b> within <b>\'Language\'</b> settings of your device. Within Google TTS settings, first change the <b>default language</b> to preferred language and then download voice for preferred language through the <b>\'Install voice data\'</b> option</string>
+    <string name="ttsDesc">To use Jellow in English, Hindi and Bengali, please activate <b>\'Google text-to-speech (TTS)\'</b> within <b>\'Language\'</b> settings of your device. Within Google TTS settings, first change the <b>default language</b> to preferred language and then download voice for preferred language through the <b>\'Install voice data\'</b> option</string>
     <string name="softwareVersion">Software version: </string>
     <string name="string_to_speak">Enter words here to speak.</string>
     <string name="speak_written_text">Speak written text</string>
@@ -198,6 +199,7 @@
     <string name="updated_locale_package_from_firebase" translatable="false">com.dsource.idc.jellow.locale_package_updated</string>
     <string name="package_name_comma_separated" translatable="false">com.dsource.idc.jellow.comma_separated_pkg_names</string>
     <string name="wifi_only_pressed_in_LangSettings" translatable="false">com.dsource.idc.jellow.wifi_only_pressed_in_LangSettings</string>
+    <string name="locale_package_update_from_firebase" translatable="false">com.dsource.idc.jellow.update_local_packages</string>
     <string name="txt_registration_jellowCalluDesc">(This is how Jellow calls you)</string>
     <string name="txt_registration_emergencynoDesc">(To be used for correspondence in case of an emergency involving the child.)</string>
     <string name="txt_registration_emailDesc">(To notify you about the release of Jellow updates)</string>
@@ -267,10 +269,10 @@
     <string name="no_internet">No Internet</string>
     <string name="please_wait">Please wait…</string>
     <string name="goto_home" translatable="false">goto_home</string>
-    <string name="info">General Information</string>
 
 
     <!--About Jellow strings-->
+    <string name="info">General Information</string>
     <string name="about_je_intro1">Jellow is a communicator using icons to enable speech and can be used by those learning to speak or those who have difficulty with speech. Jellow can also be used by toddlers and early learners to learn words and categories frequently used in their daily lives. Jellow’s colourful and friendly icons can help children develop an association between pictures and their corresponding word labels.</string>
     <string name="about_je_intro2">It is developed at IDC School of Design at the Indian Institute of Technology Bombay located in Mumbai.</string>
     <string name="about_je_intro3">A novel Visual Emotional Language Protocol or VELP was conceived and developed by the project investigators in order to enhance the language ability of Jellow. VELP represents the 6 expressive icons that form the core of the interface.</string>
@@ -369,4 +371,7 @@
     <string name="step3">Step 3:</string>
     <string name="txt_intro8_txtTitle">Please follow the steps below to setup Text-to-speech engine</string>
     <string name="txt_actLangSel_completestep2">Voice data not available. Please turn on internet and complete Step 2</string>
+    <string name="error_in_registration">Registration process is failed, please retry.</string>
+    <string name="txtStep2">Step 2:</string>
+
 </resources>

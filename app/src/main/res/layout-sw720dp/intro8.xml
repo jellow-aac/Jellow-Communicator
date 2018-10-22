@@ -15,6 +15,11 @@
         android:paddingStart="32dp"
         android:src="@drawable/ic_chevron_left"
         tools:ignore="RtlSymmetry" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        android:fadeScrollbars="false">
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -103,10 +108,12 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:textSize="22sp"
+            android:layout_marginBottom="76dp"
             android:layout_gravity="center_horizontal"
             android:onClick="openedTTsSetting"
             android:text="@string/txt_tts_stting"/>
     </LinearLayout>
+    </ScrollView>
     <ImageView
         android:id="@+id/btnMoveRight"
         android:layout_width="wrap_content"

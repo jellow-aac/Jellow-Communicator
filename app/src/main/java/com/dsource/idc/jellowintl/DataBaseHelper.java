@@ -23,14 +23,11 @@ import java.util.StringTokenizer;
  */
 
 public class DataBaseHelper extends SQLiteOpenHelper {
-
-    //The Android's default system path of your application database.
-    private static String DB_PATH = BuildConfig.DEBUG ? "/data/data/com.dsource.idc.jellowintl.debug/databases/" :
-                                                        "/data/data/com.dsource.idc.jellowintl/databases/";
     private static String DB_NAME = "level3.db";
-    private SQLiteDatabase myDataBase;
-    private final Context myContext;
+    private SQLiteDatabase mSqlDB;
+    private final Context mContext;
     private SessionManager mSession;
+    private String mDbPath;
 
     /**
      * Constructor
@@ -39,8 +36,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
      */
     DataBaseHelper(Context context) {
         super(context, DB_NAME, null, 1);
-        this.myContext = context;
-        mSession = new SessionManager(this.myContext);
+        this.mContext = context;
+        mSession = new SessionManager(this.mContext);
+        mDbPath = mContext.getDatabasePath("level3.db").getAbsolutePath();
+    }
+
+    @Override
+    public void onOpen(SQLiteDatabase db) {
+        super.onOpen(db);
+        db.disableWriteAheadLogging();
     }
 
     /**
@@ -66,9 +70,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     private boolean checkDataBase(){
         SQLiteDatabase checkDB = null;
         try{
-            String myPath = DB_PATH + DB_NAME;
-            checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
-
+            checkDB = SQLiteDatabase.openDatabase(mDbPath, null, SQLiteDatabase.OPEN_READWRITE);
         }catch(SQLiteException e){
             Crashlytics.log("Database do not exist yet");
         }
@@ -85,11 +87,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
      * */
     private void copyDataBase() throws IOException{
         //Open your local db as the input stream
-        InputStream myInput = myContext.getAssets().open(DB_NAME);
-        // Path to the just created empty db
-        String outFileName = DB_PATH + DB_NAME;
+        InputStream myInput = mContext.getAssets().open(DB_NAME);
         //Open the empty db as the output stream
-        OutputStream myOutput = new FileOutputStream(outFileName);
+        OutputStream myOutput = new FileOutputStream(mDbPath);
         //transfer bytes from the inputfile to the outputfile
         byte[] buffer = new byte[1024];
         int length;
@@ -104,15 +104,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     public void openDataBase() throws SQLException {
-        //Open the database
-        String myPath = DB_PATH + DB_NAME;
-        myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
+        mSqlDB = SQLiteDatabase.openDatabase(mDbPath, null, SQLiteDatabase.OPEN_READWRITE);
     }
 
     @Override
     public synchronized void close() {
-        if(myDataBase != null)
-            myDataBase.close();
+        if(mSqlDB != null)
+            mSqlDB.close();
             super.close();
     }
 
@@ -123,7 +121,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {}
 
     public void delete() {
-        myContext.deleteDatabase(DB_NAME);
+        mContext.deleteDatabase(DB_NAME);
     }
     // Getting single contact
     public String getLevel(int layer_1_id, int layer_2_id) {
@@ -134,7 +132,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             userLang = "hi-rIN,en-rIN";
         if (layer_1_id == 7 && layer_2_id == 6 && mSession.getLanguage().equals(SessionManager.HI_IN))
             layer_2_id = layer_2_id+1;
-        Cursor cursor = myDataBase.query("three", new String[]{"_id", "layer_1_id", "layer_2_id", "layer_3", "language"}, "layer_1_id='" + layer_1_id + "' AND layer_2_id='" + layer_2_id + "' AND language ='"+userLang+"'", null, null, null, null);
+        Cursor cursor = mSqlDB.query("three", new String[]{"_id", "layer_1_id", "layer_2_id", "layer_3", "language"}, "layer_1_id='" + layer_1_id + "' AND layer_2_id='" + layer_2_id + "' AND language ='"+userLang+"'", null, null, null, null);
         if (cursor.getCount()>0) {
             cursor.moveToFirst();
             String a = cursor.getString(3);
@@ -153,14 +151,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             layer_2_id = layer_2_id+1;
         ContentValues dataToInsert = new ContentValues();
         dataToInsert.put("layer_3", n);
-        int result = myDataBase.update("three", dataToInsert, "layer_1_id='" + layer_1_id + "' AND layer_2_id='" + layer_2_id + "' AND language ='"+userLang+"'", null);
+        int result = mSqlDB.update("three", dataToInsert, "layer_1_id='" + layer_1_id + "' AND layer_2_id='" + layer_2_id + "' AND language ='"+userLang+"'", null);
         if (result == 0){
             ContentValues cv = new ContentValues();
             cv.put("layer_1_id",layer_1_id);
             cv.put("layer_2_id",layer_2_id);
             cv.put("layer_3",n);
             cv.put("language", userLang);
-            myDataBase.insertOrThrow("three","",cv);
+            mSqlDB.insertOrThrow("three","",cv);
         }
     }
 
@@ -210,8 +208,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         levelTwoIds.add("0,1,2,3"); levelTwoIds.add("3,4,5,6");levelTwoIds.add("0,1,2,3,4,5,6,7");
         levelTwoIds.add("0,1,2,5"); levelTwoIds.add("0,1,2,3,4,5,6,7,8");levelTwoIds.add("5,6,7");
 
-        myDataBase.execSQL("alter table three add \"language\" text;");
-        myDataBase.execSQL("update three set language =\"en-rUS,en-rGB\" where layer_1_id > -1;");
+        mSqlDB.execSQL("alter table three add \"language\" text;");
+        mSqlDB.execSQL("update three set language =\"en-rUS,en-rGB\" where layer_1_id > -1;");
 
         Long result = 0L;
         for (int i = 0; i < levelOneIds.size(); i++) {
@@ -224,7 +222,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     cv.put("layer_2_id",ids[k]);
                     cv.put("layer_3","0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,");
                     cv.put("language", "hi-rIN,en-rIN");
-                    result += myDataBase.insertOrThrow("three","",cv);
+                    result += mSqlDB.insertOrThrow("three","",cv);
                 }
                 break;
             }
@@ -266,7 +264,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     private String getRawPrefString(int layer_1_id, int layer_2_id) {
-        Cursor cursor = myDataBase.query("three", new String[]{"_id", "layer_1_id", "layer_2_id", "layer_3"}, "layer_1_id='" + layer_1_id + "' AND layer_2_id='" + layer_2_id + "'", null, null, null, null);
+        Cursor cursor = mSqlDB.query("three", new String[]{"_id", "layer_1_id", "layer_2_id", "layer_3"}, "layer_1_id='" + layer_1_id + "' AND layer_2_id='" + layer_2_id + "'", null, null, null, null);
         if (cursor.getCount()>0) {
             cursor.moveToFirst();
             String prefString = cursor.getString(3);
@@ -278,6 +276,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     private void setCorrectedRawPrefString(int layer_1_id, int layer_2_id, String prefString) {
         ContentValues dataToInsert = new ContentValues();
         dataToInsert.put("layer_3", prefString);
-        myDataBase.update("three", dataToInsert, "layer_1_id='" + layer_1_id + "' AND layer_2_id='" + layer_2_id + "'", null);
+        mSqlDB.update("three", dataToInsert, "layer_1_id='" + layer_1_id + "' AND layer_2_id='" + layer_2_id + "'", null);
     }
 }

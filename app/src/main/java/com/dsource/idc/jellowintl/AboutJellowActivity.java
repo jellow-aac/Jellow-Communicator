@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
+import com.dsource.idc.jellowintl.utility.MediaPlayerUtils;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.util.HashMap;
@@ -40,6 +41,9 @@ public class AboutJellowActivity extends AppCompatActivity {
             mIntro18, mIntro19, mIntro20, mIntro21, mIntro22, mIntro23, mIntro24, mIntro25, mIntro26,
             mIntro27, mIntro28, mIntro29, mIntro30, mSpeak, mStop;
 
+    /*Media Player playback Utility class for non-tts languages.*/
+    private MediaPlayerUtils mMpu;
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext((LanguageHelper.onAttach(newBase)));
@@ -59,11 +63,13 @@ public class AboutJellowActivity extends AppCompatActivity {
         initializeViews();
         loadStrings();
         setTextToTextViews();
+        mMpu = new MediaPlayerUtils(this);
 
         mBtnSpeak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 speakSpeech(mSpeechTxt);
+                mMpu.playAudio(mMpu.getFilePath("MIS_06MSTT"));
             }
         });
 
@@ -71,6 +77,7 @@ public class AboutJellowActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 stopSpeech();
+                stopAudio();
             }
         });
     }
@@ -79,6 +86,7 @@ public class AboutJellowActivity extends AppCompatActivity {
     protected void onPause(){
         super.onPause();
         stopSpeech();
+        stopAudio();
     }
 
     @Override
@@ -146,12 +154,14 @@ public class AboutJellowActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         stopSpeech();
+        stopAudio();
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         stopSpeech();
+        stopAudio();
         finish();
     }
 
@@ -325,10 +335,21 @@ public class AboutJellowActivity extends AppCompatActivity {
         mBtnStop.setText(mStop);
     }
 
+    /**
+     * <p>This function will send speech output request to
+     * {@link com.dsource.idc.jellowintl.utility.JellowTTSService} Text-to-speech Engine.
+     * The string in {@param speechText} is speech output request string.</p>
+     * */
     private void speakSpeech(String speechText){
-        Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_TEXT");
-        intent.putExtra("speechText", speechText);
-        sendBroadcast(intent);
+        if(mMpu.isTtsAvailForLang()) {
+            Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_TEXT");
+            intent.putExtra("speechText", speechText.toLowerCase());
+            sendBroadcast(intent);
+        }
+    }
+
+    private void stopAudio() {
+        sendBroadcast(new Intent("com.dsource.idc.jellowintl.AUDIO_STOP"));
     }
 
     private void stopSpeech() {

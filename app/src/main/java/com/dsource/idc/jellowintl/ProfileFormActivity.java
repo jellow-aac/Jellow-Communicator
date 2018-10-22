@@ -5,8 +5,10 @@ package com.dsource.idc.jellowintl;
  */
 
 import android.app.ActivityManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -67,6 +69,7 @@ import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.updateSessionRef;
 import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
 
 public class ProfileFormActivity extends AppCompatActivity {
     private Button bSave;
@@ -203,6 +206,9 @@ public class ProfileFormActivity extends AppCompatActivity {
         // user preferred locale.
         mDetailSaved = getString(R.string.detailSaved);
         mCheckCon = getString(R.string.checkConnectivity);
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.dsource.idc.jellowintl.CREATE_ABOUT_ME_RECORDING_RES");
+        registerReceiver(receiver, filter);
     }
 
     @Override
@@ -387,8 +393,11 @@ public class ProfileFormActivity extends AppCompatActivity {
             mSession.setBlood(-1);
         mSession.setUserGroup(userGroup);
         setUserProperty("userGroup", userGroup);
-
         mSession.setToastMessage(mDetailSaved);
+        if(mSession.getLanguage().endsWith(MR_IN)) {
+            sendBroadcast(new Intent("com.dsource.idc.jellowintl.CREATE_ABOUT_ME_RECORDING_REQ"));
+            return;
+        }
         finish();
     }
 
@@ -443,6 +452,23 @@ public class ProfileFormActivity extends AppCompatActivity {
             mNewRef.setValue(snapshot.getValue());
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(receiver);
+    }
+
+    private final BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(final Context context, Intent intent) {
+            switch (intent.getAction()){
+                case "com.dsource.idc.jellowintl.CREATE_ABOUT_ME_RECORDING_RES":
+                    finish();
+                    break;
+            }
+        }
+    };
 
     private class NetworkConnectionTest extends AsyncTask<Void, Void, Boolean> {
         private Context mContext;

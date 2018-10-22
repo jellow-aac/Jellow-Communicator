@@ -5,6 +5,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.IBinder;
@@ -12,9 +14,13 @@ import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.speech.tts.Voice;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
+import com.dsource.idc.jellowintl.R;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -24,18 +30,20 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_UK;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_US;
 import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
 
 /**
  * Created by ekalpa on 7/4/2017.
  */
 public class JellowTTSService extends Service{
+    private final String UTTERANCE_ID = "com.dsource.idc.jellowintl.utterence.id";
+    private MediaPlayer mMediaPlayer;
     private TextToSpeech mTts;
     HashMap<String, String> map;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         map = new HashMap<String, String>();
-        String UTTERANCE_ID = "com.dsource.idc.jellowintl.utterence.id";
         map.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, UTTERANCE_ID);
         new BackgroundSpeechOperationsAsync(this).execute();
         IntentFilter filter = new IntentFilter();
@@ -47,6 +55,10 @@ public class JellowTTSService extends Service{
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_REQ");
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_VOICE_AVAIL_REQ");
         filter.addAction("com.dsource.idc.jellowintl.STOP_SERVICE");
+        filter.addAction("com.dsource.idc.jellowintl.AUDIO_PATH");
+        filter.addAction("com.dsource.idc.jellowintl.AUDIO_IN_QUEUE");
+        filter.addAction("com.dsource.idc.jellowintl.CREATE_ABOUT_ME_RECORDING_REQ");
+        filter.addAction("com.dsource.idc.jellowintl.AUDIO_STOP");
         registerReceiver(receiver, filter);
         return START_STICKY;
     }
@@ -83,21 +95,22 @@ public class JellowTTSService extends Service{
 
     private void changeTtsLanguage(TextToSpeech tts, String language) {
         switch (language){
-                case ENG_UK:
-                    tts.setLanguage(Locale.UK);
-                    break;
-                case ENG_US:
-                    tts.setLanguage(Locale.US);
-                    break;
-                case BN_IN:
-                case BE_IN:
-                    tts.setLanguage(new Locale("bn", "IN"));
-                    break;
-                case SessionManager.HI_IN:
-                case ENG_IN:
-                default:
-                    tts.setLanguage(new Locale("hi","IN"));
-                    break;
+            case ENG_UK:
+                tts.setLanguage(Locale.UK);
+                break;
+            case ENG_US:
+                tts.setLanguage(Locale.US);
+                break;
+            case BN_IN:
+            case BE_IN:
+                tts.setLanguage(new Locale("bn", "IN"));
+                break;
+            case SessionManager.HI_IN:
+            case ENG_IN:
+            case MR_IN:
+            default:
+                tts.setLanguage(new Locale("hi","IN"));
+                break;
         }
     }
 
@@ -127,9 +140,137 @@ public class JellowTTSService extends Service{
                     stopTtsSay(); break;
                 case "com.dsource.idc.jellowintl.STOP_SERVICE":
                     stopSelf(); break;
+                case "com.dsource.idc.jellowintl.AUDIO_PATH":
+                    stopAudio();
+                    playAudio(intent.getStringExtra("audioPath"));
+                    break;
+                case "com.dsource.idc.jellowintl.CREATE_ABOUT_ME_RECORDING_REQ":
+                    createUserProfileRecordingsUsingTTS();
+                    break;
+                case "com.dsource.idc.jellowintl.AUDIO_IN_QUEUE":
+                    stopAudio();
+                    playInQueue(intent.getStringExtra("speechTextInQueue"));
+                    break;
+                case "com.dsource.idc.jellowintl.AUDIO_STOP":
+                    stopAudio();
+                    break;
             }
         }
     };
+
+    private void createUserProfileRecordingsUsingTTS() {
+        SessionManager session = new SessionManager(this);
+        final String path = getDir("mr-rIN", Context.MODE_PRIVATE).getAbsolutePath() + "/audio/";
+        mTts.setLanguage(new Locale("hi", "IN"));
+        try {
+            String emailId = session.getEmailId().replaceAll(".", "$0 ").replace(".", "dot");
+            String contactNo = session.getCaregiverNumber();
+            contactNo = contactNo.substring(0, contactNo.length()-3);
+            contactNo = contactNo.replaceAll(".", "$0 ").replace("+", "plus");
+            if(Build.VERSION.SDK_INT >= 21) {
+                File name = new File(path+ "name.mp3");
+                Log.e("File : ", String.valueOf(name.createNewFile()));
+                File email = new File(path+ "email.mp3");
+                Log.e("File : ", String.valueOf(email.createNewFile()));
+                File contact = new File(path+ "contact.mp3");
+                Log.e("File : ", String.valueOf(contact.createNewFile()));
+                File caregiverName = new File(path+ "caregiverName.mp3");
+                Log.e("File : ", String.valueOf(caregiverName.createNewFile()));
+                File address = new File(path+ "address.mp3");
+                Log.e("File : ", String.valueOf(address.createNewFile()));
+                File bloodGroup = new File(path+ "bloodGroup.mp3");
+                Log.e("File : ", String.valueOf(bloodGroup.createNewFile()));
+                mTts.synthesizeToFile(session.getName(), null, name, UTTERANCE_ID);
+                mTts.synthesizeToFile(emailId, null, email, UTTERANCE_ID);
+                mTts.synthesizeToFile(contactNo, null, contact, UTTERANCE_ID);
+                mTts.synthesizeToFile(session.getCaregiverName(), null, caregiverName, UTTERANCE_ID);
+                mTts.synthesizeToFile(session.getAddress(), null, address, UTTERANCE_ID);
+                mTts.synthesizeToFile(getBloodGroup(session.getBlood()), null, bloodGroup, UTTERANCE_ID);
+            }else {
+                mTts.synthesizeToFile(session.getName(), null, path + "name.mp3");
+                mTts.synthesizeToFile(emailId, null, path + "email.mp3");
+                mTts.synthesizeToFile(contactNo, null, path + "contact.mp3");
+                mTts.synthesizeToFile(session.getCaregiverName(), null, path + "caregiverName.mp3");
+                mTts.synthesizeToFile(session.getAddress(), null, path + "address.mp3");
+                mTts.synthesizeToFile(getBloodGroup(session.getBlood()), null, path + "bloodGroup.mp3");
+            }
+            changeTtsLanguage(mTts, session.getLanguage());
+            sendBroadcast(new Intent("com.dsource.idc.jellowintl.CREATE_ABOUT_ME_RECORDING_RES"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * <p>This function will find and return the blood group of user
+     * @return blood group of user.</p>
+     * */
+    private String getBloodGroup(int blood) {
+        switch(blood){
+            case  1: return getString(R.string.aPos);
+            case  2: return getString(R.string.aNeg);
+            case  3: return getString(R.string.bPos);
+            case  4: return getString(R.string.bNeg);
+            case  5: return getString(R.string.abPos);
+            case  6: return getString(R.string.abNeg);
+            case  7: return getString(R.string.oPos);
+            case  8: return getString(R.string.oNeg);
+            default: return "";
+        }
+    }
+
+    public synchronized void playAudio(String audioPath) {
+        try {
+            mMediaPlayer = new MediaPlayer();
+            mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mMediaPlayer.setDataSource(audioPath);
+            mMediaPlayer.prepare();
+            mMediaPlayer.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void playInQueue(final String speechTextInQueue) {
+        try {
+            final int[] count = {0};
+            mMediaPlayer = new MediaPlayer();
+            mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mMediaPlayer.setDataSource(speechTextInQueue.split(",")[0]);
+            mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    if (count[0] < 2){
+                        mMediaPlayer.release();
+                        mMediaPlayer = null;mMediaPlayer = new MediaPlayer();
+                        try {
+                            mMediaPlayer.setDataSource(speechTextInQueue.split(",")[1]);
+                            mMediaPlayer.prepare();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        mMediaPlayer.start();
+                        count[0]++;
+                    }
+                }
+            });
+            mMediaPlayer.prepare();
+            mMediaPlayer.start();
+            count[0]++;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public synchronized void stopAudio() {
+        if (mMediaPlayer != null) {
+            if (mMediaPlayer.isPlaying()) {
+                mMediaPlayer.stop();
+            }
+            mMediaPlayer.release();
+            mMediaPlayer = null;
+        }
+    }
 
     private void broadcastTtsData(TextToSpeech tts, Intent intent) {
         Intent dataIntent = new Intent("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES");
@@ -204,13 +345,16 @@ public class JellowTTSService extends Service{
                 @Override
                 public void onInit(int status) {
                     try {
-                        if(status == TextToSpeech.ERROR){
+                        if(status == TextToSpeech.ERROR || (mTts != null &&
+                                !mTts.getEngines().toString().contains(getTTsEngineName("")))){
                             sendBroadcast(new Intent("com.dsource.idc.jellowintl.INIT_SERVICE_ERR"));
                             return;
                         }
                         changeTtsLanguage(mTts, mSession.getLanguage());
                         mTts.setSpeechRate(getTTsSpeed(mSession.getLanguage()));
                         mTts.setPitch(getTTsPitch(mSession.getLanguage()));
+                        if (mSession.getLanguage().endsWith(MR_IN))
+                            createUserProfileRecordingsUsingTTS();
                         sendBroadcast(new Intent("com.dsource.idc.jellowintl.INIT_SERVICE"));
                     } catch (Exception e) {
                         Crashlytics.logException(e);
@@ -243,6 +387,7 @@ public class JellowTTSService extends Service{
                 case ENG_IN:
                 case BN_IN:
                 case BE_IN:
+                case MR_IN:
                 default:
                     return (float) mSession.getPitch()/50;
             }
@@ -256,6 +401,7 @@ public class JellowTTSService extends Service{
                 case ENG_IN:
                 case BN_IN:
                 case BE_IN:
+                case MR_IN:
                 default:
                     return (float) (mSession.getSpeed()/50);
             }
@@ -269,6 +415,7 @@ public class JellowTTSService extends Service{
                 case ENG_IN:
                 case BN_IN:
                 case BE_IN:
+                case MR_IN:
                 default:
                     return "com.google.android.tts";
             }

@@ -76,6 +76,10 @@
         <item>brushing</item>
         <item>toilet</item>
         <item>bathing</item>
+        <item>\"\"</item>
+        <item>\"\"</item>
+        <item>\"\"</item>
+        <item>\"\"</item>
         <item>\tmorning routine</item>
         <item>\tbed time routine</item>
     </string-array>
@@ -632,7 +636,7 @@
             \"I don\'t want to open the door again\",
             \"I really don\'t want to open the door again\"
 
-    ]],[[\"I like to wake up early in the morning\",
+    ]],[[]],[[]],[[]],[[]],[[\"I like to wake up early in the morning\",
             \"I really like to wake up early in the morning\",
             \"I want to wake up early in the morning\",
             \"I really want to wake up early in the morning\",

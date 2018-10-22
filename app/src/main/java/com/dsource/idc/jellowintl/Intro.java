@@ -20,7 +20,9 @@ import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
+import com.dsource.idc.jellowintl.utility.MediaPlayerUtils;
 import com.dsource.idc.jellowintl.utility.SessionManager;
+import com.dsource.idc.jellowintl.utility.TextToSpeechErrorUtils;
 import com.github.paolorotolo.appintro.AppIntro;
 
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
@@ -30,6 +32,7 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_UK;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_US;
 import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
 
 /**
  * Created by Shruti on 09-08-2016.
@@ -52,15 +55,21 @@ public class Intro extends AppIntro {
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.intro_to_jellow)+"</font>"));
         //Set the language database create preference
-        new SessionManager(this).setLanguageChange(0);
+        SessionManager manager = new SessionManager(this);
+        manager.setLanguageChange(0);
         startService(new Intent(getApplication(), JellowTTSService.class));
         addSlide(SampleSlideFragment.newInstance(R.layout.intro, "intro"));
         addSlide(SampleSlideFragment.newInstance(R.layout.intro5, "intro5"));
         addSlide(SampleSlideFragment.newInstance(R.layout.intro2, "intro2"));
         addSlide(SampleSlideFragment.newInstance(R.layout.intro3, "intro3"));
         addSlide(SampleSlideFragment.newInstance(R.layout.intro4, "intro4"));
-        addSlide(SampleSlideFragment.newInstance(R.layout.intro8, "intro8"));
-        if(Build.VERSION.SDK_INT < 21) {
+        MediaPlayerUtils mpu = new MediaPlayerUtils(this);
+        if(mpu.isTtsAvailForLang())
+            addSlide(SampleSlideFragment.newInstance(R.layout.intro8, "intro8"));
+        else
+            isOpenedSettingFromIntro8 = true;
+        if(Build.VERSION.SDK_INT < 21
+                && !(manager.getLanguage().equals(MR_IN))) {
             addSlide(SampleSlideFragment.newInstance(R.layout.intro6, "intro6"));
         }
         addSlide(SampleSlideFragment.newInstance(R.layout.intro7, "intro7"));
@@ -73,6 +82,7 @@ public class Intro extends AppIntro {
         getViewResource();
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES");
+        filter.addAction("com.dsource.idc.jellowintl.INIT_SERVICE_ERR");
         registerReceiver(receiver, filter);
     }
 
@@ -101,7 +111,9 @@ public class Intro extends AppIntro {
                 case "com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES":
                     mTTsDefaultLanguage = intent.getStringExtra("systemTtsRegion");
                     break;
-                case "com.dsource.idc.jellowintl.TTS_ENGINE_NAME_RES":
+                case "com.dsource.idc.jellowintl.INIT_SERVICE_ERR":
+                    new TextToSpeechErrorUtils(Intro.this)
+                            .showErrorDialog();
                     break;
             }
         }
@@ -111,7 +123,8 @@ public class Intro extends AppIntro {
     public void onSlideChanged(@Nullable Fragment oldFragment, @Nullable Fragment newFragment) {
         super.onSlideChanged(oldFragment, newFragment);
         Crashlytics.log("Slide visible:"+((SampleSlideFragment) newFragment).getLayoutName());
-        if (Build.VERSION.SDK_INT < 21)
+        if (Build.VERSION.SDK_INT < 21
+                && !(new SessionManager(this).getLanguage().equals(MR_IN)))
             if(((SampleSlideFragment) newFragment).getLayoutName().equals("intro6") ||
                     ((SampleSlideFragment) newFragment).getLayoutName().equals("intro7")){
                 getTextToSpeechEngineLanguage("");
@@ -146,7 +159,8 @@ public class Intro extends AppIntro {
             if ((session.getLanguage().equals(ENG_IN) && mTTsDefaultLanguage.equals(HI_IN)) ||
                     (!session.getLanguage().equals(ENG_IN) && session.getLanguage().equals(mTTsDefaultLanguage)) ||
                         (session.getLanguage().equals(BN_IN) &&
-                                ( mTTsDefaultLanguage.equals(BN_IN) || (mTTsDefaultLanguage.equals(BE_IN) )))) {
+                                ( mTTsDefaultLanguage.equals(BN_IN) || (mTTsDefaultLanguage.equals(BE_IN) ))) ||
+                                    session.getLanguage().equals(MR_IN)) {
                 session.setCompletedIntro(true);
                 Intent intent=new Intent(Intro.this, SplashActivity.class);
                 startActivity(intent);
@@ -157,7 +171,7 @@ public class Intro extends AppIntro {
             }
         }else {
             session.setCompletedIntro(true);
-            Intent intent=new Intent(Intro.this, SplashActivity.class);
+            Intent intent = new Intent(Intro.this, SplashActivity.class);
             startActivity(intent);
             finish();
         }
