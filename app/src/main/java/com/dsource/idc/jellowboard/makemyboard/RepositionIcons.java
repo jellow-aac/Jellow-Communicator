@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import static com.dsource.idc.jellowboard.makemyboard.EditBoardAdapter.DELETE_MODE;
 import static com.dsource.idc.jellowboard.makemyboard.EditBoardAdapter.NORMAL_MODE;
 
-public class EditBoard extends AppCompatActivity {
+public class RepositionIcons extends AppCompatActivity {
 
     private static final int SEARCH = 123;
     ArrayList<JellowIcon> displayList;
@@ -129,7 +129,7 @@ public class EditBoard extends AppCompatActivity {
             @Override
             public void onItemLongClick(View v, int pos) {
                 super.onItemClick(v, pos);
-                Toast.makeText(EditBoard.this, "Drag Start", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RepositionIcons.this, "Drag Start", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -170,7 +170,7 @@ public class EditBoard extends AppCompatActivity {
             public void onClick(View v) {
                 currentBoard.setBoardCompleted();
                 database.updateBoardIntoDatabase(currentBoard);
-                Intent intent =new Intent(EditBoard.this,Home.class);
+                Intent intent =new Intent(RepositionIcons.this,Home.class);
                 intent.putExtra(BOARD_ID,boardId);
                 startActivity(intent);
                 finish();
@@ -209,7 +209,7 @@ public class EditBoard extends AppCompatActivity {
                 Level++;
                 updateList(mode);
             }
-            else Toast.makeText(EditBoard.this,"No sub category",Toast.LENGTH_SHORT).show();
+            else Toast.makeText(RepositionIcons.this,"No sub category",Toast.LENGTH_SHORT).show();
         }
         else if(Level==1){
 
@@ -220,13 +220,13 @@ public class EditBoard extends AppCompatActivity {
                     Level++;
                     updateList(mode);
                     LevelTwoParent=position;
-                } else Toast.makeText(EditBoard.this, "No sub category", Toast.LENGTH_SHORT).show();
+                } else Toast.makeText(RepositionIcons.this, "No sub category", Toast.LENGTH_SHORT).show();
 
             } else Log.d("LevelOneParentNotSet","Icon"+LevelOneParent+" "+position);
         }
         else if(Level==2)
         {
-            Toast.makeText(EditBoard.this,"No sub category",Toast.LENGTH_SHORT).show();
+            Toast.makeText(RepositionIcons.this,"No sub category",Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -336,7 +336,7 @@ public class EditBoard extends AppCompatActivity {
             @Override
             public void onGridSelectListener(int size) {
                 currentBoard.setGridSize(size);
-                new BoardDatabase(EditBoard.this).updateBoardIntoDatabase(currentBoard);
+                new BoardDatabase(RepositionIcons.this).updateBoardIntoDatabase(currentBoard);
                 if(isDeleteModeOn)
                 updateList(DELETE_MODE);
                 else updateList(NORMAL_MODE);
@@ -447,7 +447,7 @@ public class EditBoard extends AppCompatActivity {
                 }
 
 
-                Animation wiggle = AnimationUtils.loadAnimation(EditBoard.this,R.anim.jiggle_determinate);
+                Animation wiggle = AnimationUtils.loadAnimation(RepositionIcons.this,R.anim.jiggle_determinate);
                 searchedView.startAnimation(wiggle);
                 Log.d("Ayaz", "Step 6: Background is set and removing the scrollListener");
                 recyclerView.removeOnScrollListener(scrollListener);
