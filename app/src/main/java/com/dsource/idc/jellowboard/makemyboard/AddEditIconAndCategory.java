@@ -36,7 +36,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.dsource.idc.jellowboard.GlideApp;
 import com.dsource.idc.jellowboard.Nomenclature;
@@ -143,6 +142,9 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         findViewById(R.id.next_step).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(findViewById(R.id.add_edit_icon_option).getVisibility()==View.VISIBLE)
+                    findViewById(R.id.add_edit_icon_option).setVisibility(View.GONE);
+
                 CustomDialog dialog=new CustomDialog(AddEditIconAndCategory.this,CustomDialog.GRID_SIZE);
                 dialog.show();
                 dialog.setCancelable(true);
@@ -152,7 +154,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
                             currentBoard.setGridSize(size);
                             currentBoard.setAddEditIconScreenPassed();
                             database.updateBoardIntoDatabase(currentBoard);
-                            Intent intent = new Intent(AddEditIconAndCategory.this,EditBoard.class);
+                            Intent intent = new Intent(AddEditIconAndCategory.this,RepositionIcons.class);
                             intent.putExtra(BOARD_ID,boardId);
                             startActivity(intent);
                             finish();
@@ -198,6 +200,8 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
                 if(selectedPosition!=position) {
                             selectedPosition = position;
                             prepareIconPane(position,currentMode);
+                            if(findViewById(R.id.add_edit_icon_option).getVisibility()==View.VISIBLE)
+                                findViewById(R.id.add_edit_icon_option).setVisibility(View.GONE);
                 }
             }
         });
@@ -220,6 +224,9 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
                     selectedPosition = position;
                     prepareIconPane(position,currentMode);
                 }
+                
+                if(findViewById(R.id.add_edit_icon_option).getVisibility()==View.VISIBLE)
+                    findViewById(R.id.add_edit_icon_option).setVisibility(View.GONE);
             }
         });
         categoryRecycler.getLayoutManager().smoothScrollToPosition(categoryRecycler,null,(categories.size()-1));
