@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import com.dsource.idc.jellowboard.Nomenclature;
 import com.dsource.idc.jellowboard.R;
 import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.BoardDatabase;
+import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.IconDatabase;
 import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.IconModel;
 import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.ModelManager;
 import com.dsource.idc.jellowboard.utility.IconDataBaseHelper;
@@ -29,7 +30,7 @@ import com.dsource.idc.jellowboard.utility.LanguageHelper;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
-import static com.dsource.idc.jellowboard.makemyboard.EditBoard.BOARD_ID;
+import static com.dsource.idc.jellowboard.makemyboard.RepositionIcons.BOARD_ID;
 
 public class BoardSearch extends AppCompatActivity {
     private RecyclerView mRecyclerView;
@@ -227,7 +228,7 @@ public class BoardSearch extends AppCompatActivity {
 
     private void normalSearch() {
         // Reference to the icon database to get access to the Icon list.
-        final IconDataBaseHelper iconDatabase=new IconDataBaseHelper(this);
+        final IconDatabase iconDatabase=new IconDatabase(this);
 
 
         EditText searchEditText
@@ -247,7 +248,7 @@ public class BoardSearch extends AppCompatActivity {
                 String query=s.toString().trim();
 
                 /**
-                 * {@link IconDataBaseHelper.query(String)} returns a {@link ArrayList< JellowIcon >}  object
+                 * {@link IconDatabase.query(String)} returns a {@link ArrayList< JellowIcon >}  object
                  * having all the JellowIcon matching the database
                  * */
                 ArrayList<JellowIcon> icon  =iconDatabase.query(query);

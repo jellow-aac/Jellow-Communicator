@@ -151,7 +151,7 @@
             android:label="Select your icons"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".makemyboard.EditBoard"
+            android:name=".makemyboard.RepositionIcons"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape" />
         <activity
