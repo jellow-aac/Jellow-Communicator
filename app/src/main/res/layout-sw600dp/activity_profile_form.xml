@@ -147,19 +147,22 @@
                     android:id="@+id/radioUserGroup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="19dp">
+                    android:layout_marginBottom="19dp"
+                    android:importantForAccessibility="no">
                     <RadioButton
                         android:id="@+id/radioTherapist"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/defaultTextViewStyle"
-                        android:text="@string/groupTeacher"/>
+                        android:text="@string/groupTeacher"
+                        android:importantForAccessibility="yes"/>
                     <RadioButton
                         android:id="@+id/radioParent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/defaultTextViewStyle"
-                        android:text="@string/groupParent"/>
+                        android:text="@string/groupParent"
+                        android:importantForAccessibility="yes"/>
                 </RadioGroup>
 
                 <TextView
@@ -173,8 +176,7 @@
                     android:id="@+id/bloodgroup"
                     android:layout_width="175dp"
                     android:layout_height="40dp"
-                    android:background="@drawable/custom_spinner_view"
-                    android:textColor="@color/black_eighty"/>
+                    android:background="@drawable/custom_spinner_view"/>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="58dp" />
@@ -186,7 +188,8 @@
         android:layout_width="match_parent"
         android:layout_height="58dp"
         android:background="#F7E2AC"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:importantForAccessibility="yes">
         <Button
             android:id="@+id/bSave"
             android:layout_width="wrap_content"

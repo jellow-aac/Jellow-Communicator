@@ -15,12 +15,14 @@
         android:paddingLeft="32dp"
         android:paddingStart="32dp"
         android:src="@drawable/ic_chevron_left"
-        tools:ignore="RtlSymmetry"/>
+        tools:ignore="RtlSymmetry"
+        android:contentDescription="@string/previous_slide"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="2dp">
         <TextView
             android:id="@+id/tv_intro5_title"
             android:layout_width="wrap_content"
@@ -33,8 +35,7 @@
             android:paddingRight="32dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
-            android:text="@string/txt_intro5_jellowUsageDesc"
-        android:importantForAccessibility="yes"/>
+            android:text="@string/txt_intro5_jellowUsageDesc"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="0dp"
@@ -63,8 +64,7 @@
                 style="@style/defaultTextViewStyle"
                 android:paddingLeft="64dp"
                 android:paddingRight="64dp"
-                android:text="@string/txt_intro5_expressiveBtn"
-            android:importantForAccessibility="no"/>
+                android:text="@string/txt_intro5_expressiveBtn"/>
         </LinearLayout>
         <TextView
             android:layout_width="match_parent"
@@ -79,5 +79,6 @@
         android:paddingRight="32dp"
         android:paddingEnd="32dp"
         android:src="@drawable/ic_chevron_right"
-        tools:ignore="RtlSymmetry" />
+        tools:ignore="RtlSymmetry"
+        android:contentDescription="@string/next_slide" />
 </FrameLayout>

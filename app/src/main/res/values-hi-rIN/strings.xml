@@ -105,8 +105,6 @@
     <string name="emailAddress">ई- मेल आयडी *</string>
     <string name="bloodGroup">रक्त वर्ग</string>
     <string name="detailSaved">जानकारी रक्षित हो गई हैं</string>
-    <string name="yes">हाँ</string>
-    <string name="no">नहीं</string>
     <string name="resetPreferenceMessage"><ul> <li>प्रयोगकर्ता के द्वारा सबसे अधिक इस्तेमाल किये गए पसंदीदा आइकॉन को जेलो ऍप्लिकेशन स्मरण में रखता हैं, और उन्हें स्क्रीन पर मुख्य पसंद के रूप में प्रदर्शित करता हैं।</li> <li>आइकॉन्स को रीसेट करके , सभी आइकॉन मूल क्रम में आ जायेंगे जैसे वे पहली बार ऍप्लिकेशन में प्रदर्शित किये गये थे।</li> <li>आप आइकॉन्स को रीसेट करना चाहते हैं?</li> </ul></string>
     <string name="enterTheName">कृपया अपने बच्चे का नाम दर्ज करें</string>
     <string name="iconsHasBeenReset">आयकॉन रीसेट हो गये हैं</string>
@@ -160,6 +158,7 @@
 
     <string name="txt_registration_emailDesc">आपको जेलो ऍप्लिकेशन के नये संस्करण के बारे में सूचित करने के लिए</string>
     <string name="txt_registration_selectLangDesc">जेलो के लिए भाषा चुनें *</string>
+    <string name="txt_registration_selectLangDesc_contentDesc">जेलो के लिए भाषा चुनें</string>
     <string name="txt_registration_registerBtn">रजिस्टर करें</string>
     <string name="change_language_line6">डाउनलोड की गई नई भाषा को डिफ़ॉल्ट बनाने के लिये नीचे दिये गये चरणोंका पालन करें</string>
     <string name="txtChangeLanguage">२) डिफ़ॉल्ट भाषा बदलें:</string>
@@ -209,7 +208,7 @@
     <string name="about_je_intro4">इन मूल भाववाहक आइकॉनों की सहायता से जेलो के प्रयोगकर्ता अपनी पसंद-नापसंद तथा आवश्यकताएँ दूसरों को बता सकते हैं।</string>
     <string name="about_je_intro5">जेलो का इस्तमाल बच्चें बहुत आसानी से सीख सकते हैं।</string>
     <string name="about_je_intro6">जेलो ऍप्लिकेशन एंड्रॉयड टैबलेट के लिए उपयुक्त किया गया हैं।</string>
-    <string name="about_je_intro7">फिलहाल जेलो ऍप्लिकेशन अंग्रेजी, हिन्दी और बंगाली भाषाओं में उपलब्ध हैं।</string>
+    <string name="about_je_intro7">फिलहाल जेलो ऍप्लिकेशन अंग्रेजी, हिन्दी, बंगाली और मराठी भाषाओं में उपलब्ध हैं।</string>
     <string name="software_info">सॉफ्टवेयर संस्करण: _</string>
     <string name="about_je_intro8">जेलो का वर्तमान संस्करण _ हैं। जेलो का विकास फिलहाल जारी हैं। इस ऍप्लिकेशन के सुधार से संबंधित यदि आप के कोई सुझाव हैं, तो कृपया उन्हें \"प्रतिक्रिया\" टैब में सबमिट करें।</string>
     <string name="terms_of_use">उपयोग के नियम एवं शर्तें:</string>
@@ -264,8 +263,11 @@
     <string name="select_country_code">अपने देश का कोड चुने</string>
     <string name="caregiver_s_email_address">केयर गिवर का ई-मेल आयडी</string>
     <string name="like">अच्छा लगता हैं</string>
+    <string name="yes">हाँ</string>
     <string name="more">ज़्यादा</string>
     <string name="dont_like">अच्छा नहीं लगता हैं</string>
+    <string name="no">नहीं</string>
+    <string name="less">कम</string>
     <string name="back">वापस</string>
     <string name="enter_category">वर्ग दर्ज करें</string>
     <string name="intro_cd">यह चित्र जेलो ऍप्लिकेशन के होमपेज का स्क्रीनशॉट दिखाता हैं। होम पेज के मध्य में ९ आयकॉन हैं, जो मुख्य़ वर्गों के बटन हैं, जिन्हें 3 पंक्तियों और 3 कॉलम में दिखाया गया हैं। ९ श्रेणी के बटन "शुभकामना और भावना", "रोज के काम", "खाना", "मजे", "सीखना", "लोग", "जगह," समय और मौसम" और " मदद"  इस प्रकार से हैं। मुख्य़ वर्गों के बटनों के नीचे "बॅक", "होम" और "कीबोर्ड"  यह ३ नेविगेशन बटन हैं, जिन्हें स्क्रीन के नीचे की तरफ दिखाया गया हैं । मुख्य़ श्रेणी आइकॉन के दाहिने तरफ ३, और बाएँ तरफ ३ भाववाहक आइकॉन हैं। बाएँ तरफ के ३ भाववाहक बटन "अच्छा लगता हैं" ,"हाँ" , और "ज्यादा"  इस प्रकार हैं। दाहिने तरफ के भाववाहक आयकॉन "अच्छा नही लगता हैं" , "नही" और "कम"  इस प्रकार हैं। होमपेज के शीर्ष दाहिने कोने में "सेंटिग्स" का आइकॉन हैं। इस चित्र में ९ मुख्य़ वर्गों के बटनों को हाइलाइट किया गया हैं,  तथा बाकी के बटन धुंधले हैं।</string>
@@ -279,7 +281,7 @@
     <string name="change_language">जोलो ऍप्लिकेशन में चुनी गई भाषा आपके डिवाइस के आउटपुट भाषा से अलग है। क्या आप अपने डिवाइस की भाषा बदलना चाहेंगे?</string>
     <string name="talkback_lang_diag_disable">फिर से कभी न दिखाएँ</string>
     <string name="talkback_single_click">चुनने के लिए टैप करें</string>
-    <string name="talkback_recycler_view">श्रेणी चुनने के लिए टैप करें। अधिक ऑप्शन के लिए फिर से टैप करें</string>
+    <string name="talkback_recycler_view">श्रेणी चुनने के लिए और अधिक ऑप्शन के लिए टैप करें</string>
     <string name="talkback_dropdown_menu">देशों की सूची देखने के लिए टैप करें</string>
     <string name="talkback_double_click">क्लिक करने के लिए एक बार छुएँ। सक्रीय करने के लिए दो बार छुएँ</string>
     <string name="close_dialog">dialog बंद करे</string>
@@ -288,7 +290,6 @@
     <string name="edttxt_msg">बोलने के लिए यहाँ टाइप करें</string>
     <string name="keyboard_open">कीबोर्ड खोलें</string>
     <string name="invalidContactNumber">कृपया सही संपर्क नंबर दर्ज करें</string>
-    <string name="less">कम</string>
     <string name="txt_tts_stting">टेक्स्ट-टू-स्पीच सेटिंग्स</string>
     <string name="txt_intro8_step1">१. गूगल टेक्स्ट-टू-स्पीच खोले</string>
     <string name="txt_intro8_step2">२. गूगल टेक्स्ट-टू-स्पीच \"सेटिंग्स\" पर जाएँ।</string>

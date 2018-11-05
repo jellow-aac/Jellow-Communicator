@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.text.util.Linkify;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -20,6 +22,7 @@ import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.util.HashMap;
 
+import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
@@ -127,7 +130,14 @@ public class AboutJellowActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.feedback:
-                startActivity(new Intent(this, FeedbackActivity.class));
+                AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
+                boolean isAccessibilityEnabled = am.isEnabled();
+                boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
+                if (isAccessibilityEnabled && isExploreByTouchEnabled) {
+                    startActivity(new Intent(this, FeedbackActivityTalkback.class));
+                } else {
+                    startActivity(new Intent(this, FeedbackActivity.class));
+                }
                 finish();
                 break;
             case R.id.usage: startActivity(new Intent(this, TutorialActivity.class)); finish(); break;
@@ -203,6 +213,10 @@ public class AboutJellowActivity extends AppCompatActivity {
         tv35= findViewById(R.id.tv35);
         mBtnSpeak = findViewById(R.id.speak);
         mBtnStop = findViewById(R.id.stop);
+
+        if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+            findViewById(R.id.bottomControls).setVisibility(View.GONE);
+        }
     }
 
     private void loadStrings() {
@@ -262,35 +276,60 @@ public class AboutJellowActivity extends AppCompatActivity {
 
     private String prepareRegionalVersionCode(String language, String[] versionStArr) {
         StringBuilder newVsnStr = new StringBuilder();
-        switch (language) {
-            case HI_IN:
-                HashMap<String, String> eng2hindi = new HashMap<String, String>() {
-                    {
-                        put("0","०");put("1","१");put("2","२");put("3","३");put("4","४");
-                        put("5","५");put("6","६");put("7","७");put("8","८");put("9","९");
-                    }
-                };
-                newVsnStr.append(eng2hindi.get(versionStArr[0]));
-                newVsnStr.append(".");
-                newVsnStr.append(eng2hindi.get(versionStArr[1]));
-                newVsnStr.append(".");
-                newVsnStr.append(eng2hindi.get(versionStArr[2]));
-                break;
-            case BN_IN:
-                HashMap<String, String> eng2bangla = new HashMap<String, String>() {
-                    {
-                        put("0","০");put("1","১");put("2","২");put("3","৩");put("4","৪");
-                        put("5","৫");put("6","৬");put("7","৭");put("8","৮");put("9","৯");
-                    }
-                };
-                newVsnStr.append(eng2bangla.get(versionStArr[0]));
-                newVsnStr.append(".");
-                newVsnStr.append(eng2bangla.get(versionStArr[1]));
-                newVsnStr.append(".");
-                newVsnStr.append(eng2bangla.get(versionStArr[2]));
-                break;
-            default:
-                return BuildConfig.VERSION_NAME;
+        boolean isTalkbackOn = isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE));
+        if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+            newVsnStr.append(versionStArr[0]);
+            newVsnStr.append(" dot ");
+            newVsnStr.append(versionStArr[1]);
+            newVsnStr.append(" dot ");
+            newVsnStr.append(versionStArr[2]);
+        }else{
+            switch (language) {
+                case HI_IN:
+                    HashMap<String, String> eng2hindi = new HashMap<String, String>() {
+                        {
+                            put("0", "०");
+                            put("1", "१");
+                            put("2", "२");
+                            put("3", "३");
+                            put("4", "४");
+                            put("5", "५");
+                            put("6", "६");
+                            put("7", "७");
+                            put("8", "८");
+                            put("9", "९");
+                        }
+                    };
+                    newVsnStr.append(eng2hindi.get(versionStArr[0]));
+                    newVsnStr.append(".");
+                    newVsnStr.append(eng2hindi.get(versionStArr[1]));
+                    newVsnStr.append(".");
+                    newVsnStr.append(eng2hindi.get(versionStArr[2]));
+                    break;
+                case BN_IN:
+                    HashMap<String, String> eng2bangla = new HashMap<String, String>() {
+                        {
+                            put("0", "০");
+                            put("1", "১");
+                            put("2", "২");
+                            put("3", "৩");
+                            put("4", "৪");
+                            put("5", "৫");
+                            put("6", "৬");
+                            put("7", "৭");
+                            put("8", "৮");
+                            put("9", "৯");
+                        }
+                    };
+                    newVsnStr.append(eng2bangla.get(versionStArr[0]));
+                    newVsnStr.append(".");
+                    newVsnStr.append(eng2bangla.get(versionStArr[1]));
+                    newVsnStr.append(".");
+                    newVsnStr.append(eng2bangla.get(versionStArr[2]));
+                    break;
+                default:
+                    return BuildConfig.VERSION_NAME;
+            }
         }
         return newVsnStr.toString();
     }
@@ -329,7 +368,14 @@ public class AboutJellowActivity extends AppCompatActivity {
         tv31.setText(mIntro28);
         tv32.setText(mIntro29);
         tv33.setText(mIntro30);
-        tv34.setText(mAppLink);
+        if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+            mIntro13 = mIntro13.concat(" "+ mAppLink);
+            tv15.setText(mIntro13);
+            tv34.setVisibility(View.GONE);
+        }else {
+            tv34.setText(mAppLink);
+            Linkify.addLinks(tv16, Linkify.EMAIL_ADDRESSES);
+        }
         tv35.setText(mIntro6);
         mBtnSpeak.setText(mSpeak);
         mBtnStop.setText(mStop);

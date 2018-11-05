@@ -367,7 +367,8 @@
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal">
+                                android:orientation="horizontal"
+                                android:importantForAccessibility="no">
                                 <TextView
                                     android:id="@+id/tv15"
                                     android:layout_width="wrap_content"
@@ -376,7 +377,8 @@
                                     style="@style/defaultTextViewStyle"
                                     android:layout_marginTop="8dp"
                                     android:layout_marginLeft="8dp"
-                                    android:layout_marginStart="8dp"/>
+                                    android:layout_marginStart="8dp"
+                                    android:importantForAccessibility="yes"/>
                                 <TextView
                                     android:id="@+id/tv34"
                                     android:layout_width="wrap_content"
@@ -386,13 +388,15 @@
                                     style="@style/defaultTextViewStyle"
                                     android:layout_marginTop="8dp"
                                     android:layout_marginLeft="8dp"
-                                    android:layout_marginStart="8dp"/>
+                                    android:layout_marginStart="8dp"
+                                    android:importantForAccessibility="no"/>
                             </LinearLayout>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:importantForAccessibility="no">
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -409,10 +413,10 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/about_je_intro14"
                                 style="@style/defaultTextViewStyle"
-                                android:autoLink="email"
                                 android:layout_marginTop="8dp"
                                 android:layout_marginLeft="8dp"
-                                android:layout_marginStart="8dp"/>
+                                android:layout_marginStart="8dp"
+                                android:importantForAccessibility="yes"/>
                         </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
@@ -741,6 +745,7 @@
         </ScrollView>
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/bottomControls"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="#F7E2AC"

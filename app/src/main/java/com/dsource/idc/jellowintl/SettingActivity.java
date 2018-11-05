@@ -19,6 +19,7 @@ import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -313,7 +314,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     /**
-     * <p> This function will create and display SnackBar with "Request" action button. It will
+     * <p> This function will create and display Dialog with "Request" action button. It will
      *  display message about why app requires the Call permission.</p>
      * */
     private void showSettingRequestDialog() {
@@ -446,7 +447,15 @@ public class SettingActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.feedback:
-                startActivity(new Intent(this, FeedbackActivity.class));
+                AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
+                boolean isAccessibilityEnabled = am.isEnabled();
+                boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
+                if(isAccessibilityEnabled && isExploreByTouchEnabled) {
+                    startActivity(new Intent(this, FeedbackActivityTalkback.class));
+                }
+                else {
+                    startActivity(new Intent(this, FeedbackActivity.class));
+                }
                 finish();
                 break;
             case android.R.id.home:

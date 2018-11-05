@@ -59,6 +59,7 @@ import java.util.Random;
 
 import se.simbio.encryption.Encryption;
 
+import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.maskNumber;
@@ -106,8 +107,7 @@ public class ProfileFormActivity extends AppCompatActivity {
         boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
         if(isAccessibilityEnabled && isExploreByTouchEnabled) {
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                    R.array.bloodgroup, android.R.layout.simple_spinner_item);
-            //adapter.getView(1,null,mBloodGroup).setContentDescription("A positive");
+                    R.array.bloodgroup_talkback, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             mBloodGroup.setAdapter(adapter);
         }
@@ -122,7 +122,6 @@ public class ProfileFormActivity extends AppCompatActivity {
         mDB = FirebaseDatabase.getInstance();
         mRef = mDB.getReference(BuildConfig.DB_TYPE+"/users/" +
                 maskNumber(mSession.getCaregiverNumber().substring(1)));
-
 
         etName.setText(mSession.getName());
         mCcp = findViewById(R.id.ccp);
@@ -206,6 +205,25 @@ public class ProfileFormActivity extends AppCompatActivity {
         // user preferred locale.
         mDetailSaved = getString(R.string.detailSaved);
         mCheckCon = getString(R.string.checkConnectivity);
+        if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+            /*etFatherContact.setAccessibilityDelegate(new View.AccessibilityDelegate() {
+                @Override
+                public void onInitializeAccessibilityNodeInfo(View host, AccessibilityNodeInfo info) {
+                    super.onInitializeAccessibilityNodeInfo(host, info);
+                    info.setContentDescription(etFatherContact.getText().toString().
+                            replaceAll(".", "$0 "));
+                }
+
+                @Override
+                public void onPopulateAccessibilityEvent(View host, AccessibilityEvent event) {
+                    AccessibilityNodeInfo source = host.createAccessibilityNodeInfo();
+                    onInitializeAccessibilityNodeInfo(host, source);
+                }
+            });*/
+            findViewById(R.id.tvName).setFocusableInTouchMode(true);
+            findViewById(R.id.tvName).setFocusable(true);
+            mCcp.setCountryPreference(null);
+        }
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.dsource.idc.jellowintl.CREATE_ABOUT_ME_RECORDING_RES");
         registerReceiver(receiver, filter);
@@ -247,7 +265,15 @@ public class ProfileFormActivity extends AppCompatActivity {
                 startActivity(new Intent(this, ResetPreferencesActivity.class));
                 finish(); break;
             case R.id.feedback:
-                startActivity(new Intent(this, FeedbackActivity.class));
+                AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
+                boolean isAccessibilityEnabled = am.isEnabled();
+                boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
+                if(isAccessibilityEnabled && isExploreByTouchEnabled) {
+                    startActivity(new Intent(this, FeedbackActivityTalkback.class));
+                }
+                else {
+                    startActivity(new Intent(this, FeedbackActivity.class));
+                }
                 finish();
                 break;
             case android.R.id.home:

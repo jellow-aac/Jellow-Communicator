@@ -15,12 +15,14 @@
         android:paddingLeft="32dp"
         android:paddingStart="32dp"
         android:src="@drawable/ic_chevron_left"
-        tools:ignore="RtlSymmetry" />
+        tools:ignore="RtlSymmetry"
+        android:contentDescription="@string/previous_slide" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="2dp">
         <TextView
             android:id="@+id/tv_intro4_title"
             android:layout_width="wrap_content"
@@ -34,7 +36,6 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:textSize="20sp"
-            android:importantForAccessibility="yes"
             android:text="@string/txt_intro4_customizeAppDesc"/>
         <LinearLayout
             android:layout_width="match_parent"
@@ -65,7 +66,6 @@
                 android:paddingLeft="64dp"
                 android:paddingRight="64dp"
                 android:textSize="20sp"
-            android:importantForAccessibility="no"
                 android:text="@string/txt_intro4_customizeJellow"/>
         </LinearLayout>
         <TextView
@@ -81,5 +81,6 @@
         android:paddingRight="32dp"
         android:paddingEnd="32dp"
         android:src="@drawable/ic_chevron_right"
-        tools:ignore="RtlSymmetry" />
+        tools:ignore="RtlSymmetry" 
+        android:contentDescription="@string/next_slide"/>
 </FrameLayout>

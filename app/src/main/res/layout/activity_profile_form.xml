@@ -152,6 +152,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
+                    android:importantForAccessibility="no"
                     android:contentDescription="@string/user_s_group">
                     <RadioButton
                         android:id="@+id/radioTherapist"
@@ -159,14 +160,17 @@
                         android:layout_height="wrap_content"
                         android:textSize="14sp"
                         style="@style/defaultTextViewStyle"
-                        android:text="@string/groupTeacher"/>
+                        android:text="@string/groupTeacher"
+                        android:importantForAccessibility="yes"/>
                     <RadioButton
                         android:id="@+id/radioParent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="14sp"
+                        android:layout_marginBottom="10dp"
                         style="@style/defaultTextViewStyle"
-                        android:text="@string/groupParent"/>
+                        android:text="@string/groupParent"
+                        android:importantForAccessibility="yes"/>
                 </RadioGroup>
 
                 <TextView
@@ -179,9 +183,8 @@
                 <Spinner
                     android:id="@+id/bloodgroup"
                     android:layout_width="115dp"
-                    android:layout_height="30dp"
-                    android:background="@drawable/custom_spinner_view"
-                    android:textColor="@color/black_eighty"/>
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/custom_spinner_view"/>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="48dp" />
@@ -193,7 +196,8 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="#F7E2AC"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:importantForAccessibility="yes">
         <Button
             android:id="@+id/bSave"
             android:layout_width="wrap_content"
@@ -202,6 +206,6 @@
             android:text="@string/txtSave"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp" />
+            android:layout_marginStart="20dp"/>
     </LinearLayout>
 </RelativeLayout>

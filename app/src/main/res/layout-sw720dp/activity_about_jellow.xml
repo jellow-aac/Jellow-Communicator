@@ -412,7 +412,6 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/about_je_intro14"
                                 style="@style/defaultTextViewStyle"
-                                android:autoLink="email"
                                 android:layout_marginTop="8dp"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginStart="8dp"/>
@@ -751,6 +750,7 @@
         </ScrollView>
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/bottomControls"
         android:layout_width="match_parent"
         android:layout_height="58dp"
         android:background="#F7E2AC"

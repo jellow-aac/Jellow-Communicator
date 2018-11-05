@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
+    android:importantForAccessibility="yes"
     android:id="@+id/main">
     <ImageView
         android:id="@+id/btnMoveLeft"
@@ -14,7 +15,8 @@
         android:paddingLeft="32dp"
         android:paddingStart="32dp"
         android:src="@drawable/ic_chevron_left"
-        tools:ignore="RtlSymmetry" />
+        tools:ignore="RtlSymmetry"
+        android:contentDescription="@string/previous_slide" />
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

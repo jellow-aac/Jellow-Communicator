@@ -3,6 +3,7 @@ package com.dsource.idc.jellowintl;
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.SQLException;
@@ -11,6 +12,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.KeyListener;
@@ -20,13 +23,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_DoubleClick;
+import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
 import com.dsource.idc.jellowintl.models.LevelThreeVerbiageModel;
 import com.dsource.idc.jellowintl.utility.CustomGridLayoutManager;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
@@ -41,6 +50,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
@@ -98,7 +108,7 @@ public class LevelThreeActivity extends AppCompatActivity {
     /*Below list stores the verbiage that are spoken when category icon + expression buttons
     pressed in conjunction*/
 	ArrayList <ArrayList <String>> mNewVerbTxt;
-    private String actionBarTitleTxt;
+    private String actionBarTitleTxt, mSpeak;
 
     /*Firebase event Collector class instance.*/
     private UserEventCollector mUec;
@@ -159,6 +169,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                 highlightSearchedItem();
             }
         }
+        mSpeak = getString(R.string.speak);
     }
 
     @Override
@@ -253,6 +264,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                 Log.d("Ayaz", "Step 4: Background is set and removing the scrollListener");
                 mRecyclerView.removeOnScrollListener(scrollListener);
                 mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(populationDoneListener);
+                searchedView.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
             }
         };
         //Adding the scrollListener to the mRecycler to listen onPopulated callBack
@@ -320,7 +332,15 @@ public class LevelThreeActivity extends AppCompatActivity {
                 startActivity(new Intent(this, KeyboardInputActivity.class));
                 break;
             case R.id.feedback:
-                startActivity(new Intent(this, FeedbackActivity.class));
+                AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
+                boolean isAccessibilityEnabled = am.isEnabled();
+                boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
+                if(isAccessibilityEnabled && isExploreByTouchEnabled) {
+                    startActivity(new Intent(this, FeedbackActivityTalkback.class));
+                }
+                else {
+                    startActivity(new Intent(this, FeedbackActivity.class));
+                }
                 break;
             case R.id.settings:
                 startActivity(new Intent(this, SettingActivity.class));
@@ -361,6 +381,17 @@ public class LevelThreeActivity extends AppCompatActivity {
         mIvTTs = findViewById(R.id.ttsbutton);
         //Initially custom input text speak button is invisible
         mIvTTs.setVisibility(View.INVISIBLE);
+
+        ViewCompat.setAccessibilityDelegate(mIvLike, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvYes, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvMore, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvDontLike, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvNo, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvLess, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvLess, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvKeyboard, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvHome, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvBack, new TalkbackHints_SingleClick());
 
         originalKeyListener = mEtTTs.getKeyListener();
         // Set it to null - this will make to the field non-editable
@@ -1326,26 +1357,31 @@ public class LevelThreeActivity extends AppCompatActivity {
         mShouldReadFullSpeech = true;
         mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
         mLevelThreeItemPos = mRecyclerView.getChildLayoutPosition(view);
-        // Below categories which does not have preferences enabled, their speech text directly
-        // retained from speech array otherwise speech text is retained using preference sort array
-        // and then text is sent to synthesis.
-        // Categories not using preference sort in below if are stated respectively:
-        // Fun -> (Tv and Music)
-        // Time ans weather -> (Time, Day, Month, Weather, Season)
-        // Learning -> (Money) .
-        if ((mLevelOneItemPos == 3 && (mLevelTwoItemPos == 3 || mLevelTwoItemPos == 4)) ||
-                (mLevelOneItemPos == 7 && (mLevelTwoItemPos == 0 || mLevelTwoItemPos == 1 ||
-                        mLevelTwoItemPos == 2 || mLevelTwoItemPos == 3 || mLevelTwoItemPos == 4)) ||
-                (mLevelOneItemPos == 4 && mLevelTwoItemPos == 9)){
-            speakSpeech(mSpeechTxt[mLevelThreeItemPos]);
-            mMpu.playAudio(mMpu.getFilePath( "CATL3_"+ (mLevelOneItemPos+1) + "_" +
-                    + (mLevelTwoItemPos+1) + "_" + (mLevelThreeItemPos+1)));
-        }else {
-            speakSpeech(mSpeechTxt[mArrSort[mLevelThreeItemPos]]);
-            mMpu.playAudio(mMpu.getFilePath( "CATL3_"+ (mLevelOneItemPos+1) + "_" +
-                    + (mLevelTwoItemPos+1) + "_" + (mArrSort[mLevelThreeItemPos]+1)));
-        }
 
+        if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))){
+            showAccessibleDialog(view);
+            view.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+        }else {
+            // Below categories which does not have preferences enabled, their speech text directly
+            // retained from speech array otherwise speech text is retained using preference sort array
+            // and then text is sent to synthesis.
+            // Categories not using preference sort in below if are stated respectively:
+            // Fun -> (Tv and Music)
+            // Time ans weather -> (Time, Day, Month, Weather, Season)
+            // Learning -> (Money) .
+            if ((mLevelOneItemPos == 3 && (mLevelTwoItemPos == 3 || mLevelTwoItemPos == 4)) ||
+                    (mLevelOneItemPos == 7 && (mLevelTwoItemPos == 0 || mLevelTwoItemPos == 1 ||
+                            mLevelTwoItemPos == 2 || mLevelTwoItemPos == 3 || mLevelTwoItemPos == 4)) ||
+                    (mLevelOneItemPos == 4 && mLevelTwoItemPos == 9)) {
+                speakSpeech(mSpeechTxt[mLevelThreeItemPos]);
+                mMpu.playAudio(mMpu.getFilePath("CATL3_" + (mLevelOneItemPos + 1) + "_" +
+                        +(mLevelTwoItemPos + 1) + "_" + (mLevelThreeItemPos + 1)));
+            } else {
+                speakSpeech(mSpeechTxt[mArrSort[mLevelThreeItemPos]]);
+                mMpu.playAudio(mMpu.getFilePath("CATL3_" + (mLevelOneItemPos + 1) + "_" +
+                        +(mLevelTwoItemPos + 1) + "_" + (mArrSort[mLevelThreeItemPos] + 1)));
+            }
+        }
         // increment category item touch count
         incrementTouchCountOfItem(mLevelThreeItemPos);
         // retain state of expressive button when particular type category icon pressed
@@ -1433,8 +1469,6 @@ public class LevelThreeActivity extends AppCompatActivity {
             // Speech array is non-tts language used for loading the below text.
             mSpeechTxt = mMpu.getSizeForCode(mLevelOneItemPos, mLevelTwoItemPos);
             mNewVerbTxt = mMpu.getEmptyList(mSpeechTxt.length);
-            /*mNewVerbTxt = mMpu.getVerbiageCodesForIconL3(mLevelOneItemPos, mLevelTwoItemPos,
-                    mSpeechTxt.length);*/
         }
     }
 
@@ -1528,6 +1562,167 @@ public class LevelThreeActivity extends AppCompatActivity {
                 changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
         }else
             changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
+    }
+
+    private void showAccessibleDialog(final View disabledView) {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(LevelThreeActivity.this);
+        final View mView = getLayoutInflater().inflate(R.layout.dialog_layout, null);
+
+        Button enterCategory = mView.findViewById(R.id.enterCategory);
+        Button closeDialog = mView.findViewById(R.id.btnClose);
+        ImageView ivLike = mView.findViewById(R.id.ivlike);
+        ImageView ivYes = mView.findViewById(R.id.ivyes);
+        ImageView ivAdd = mView.findViewById(R.id.ivadd);
+        ImageView ivDisLike = mView.findViewById(R.id.ivdislike);
+        ImageView ivNo = mView.findViewById(R.id.ivno);
+        ImageView ivMinus = mView.findViewById(R.id.ivminus);
+        ImageView ivBack = mView.findViewById(R.id.back);
+        ImageView ivHome = mView.findViewById(R.id.home);
+        ImageView ivKeyboard = mView.findViewById(R.id.keyboard);
+        ViewCompat.setAccessibilityDelegate(enterCategory, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(closeDialog, new TalkbackHints_SingleClick());
+        ImageView[] btns = {ivLike, ivYes, ivAdd, ivDisLike, ivNo, ivMinus, ivBack, ivHome, ivKeyboard};
+        for (ImageView btn : btns) {
+            ViewCompat.setAccessibilityDelegate(btn, new TalkbackHints_SingleClick());
+        }
+        mBuilder.setView(mView);
+        final AlertDialog dialog = mBuilder.create();
+        dialog.setCanceledOnTouchOutside(false);
+
+        enterCategory.setText(mSpeak);
+        enterCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                speakSpeech(mSpeechTxt[getTagPos()]);
+            }
+        });
+        closeDialog.setAccessibilityDelegate(new View.AccessibilityDelegate(){
+            @Override
+            public void onPopulateAccessibilityEvent(View host, AccessibilityEvent event) {
+                super.onPopulateAccessibilityEvent(host, event);
+                if(event.getEventType() != AccessibilityEvent.TYPE_VIEW_ACCESSIBILITY_FOCUSED)
+                    ((TextView)mView.findViewById(R.id.txTitleHidden)).
+                            setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+
+            }
+        });
+        closeDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //clear all selection
+                clearSelectionAfterAccessibilityDialogClose();
+                disabledView.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
+                //dismiss dialog
+                dialog.dismiss();
+            }
+        });
+
+        ivLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mIvLike.performClick();
+            }
+        });
+        ivYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mIvYes.performClick();
+            }
+        });
+        ivAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mIvMore.performClick();
+            }
+        });
+        ivDisLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mIvDontLike.performClick();
+            }
+        });
+        ivNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mIvNo.performClick();
+            }
+        });
+        ivMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mIvLess.performClick();
+            }
+        });
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mIvBack.performClick();
+                dialog.dismiss();
+            }
+        });
+        ivHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mIvHome.performClick();
+                dialog.dismiss();
+            }
+        });
+        ivKeyboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mIvKeyboard.performClick();
+                dialog.dismiss();
+            }
+        });
+
+        if(mNewVerbTxt.get(getTagPos()).size() == 0) {
+            for (int i = 0; i < 6; i++) {
+                btns[i].setEnabled(false);
+                btns[i].setAlpha(0.5f);
+                btns[i].setOnClickListener(null);
+            }
+        }else {
+            int j=0;
+            for (int i = 0; i < mNewVerbTxt.get(getTagPos()).size()-1; i = i + 2) {
+                if( mNewVerbTxt.get(getTagPos()).get(i).isEmpty()) {
+                    btns[j].setEnabled(false);
+                    btns[j].setAlpha(0.5f);
+                    btns[j].setOnClickListener(null);
+                }
+                j++;
+            }
+        }
+
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                clearSelectionAfterAccessibilityDialogClose();
+            }
+        });
+
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                disabledView.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
+            }
+        });
+
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation_2; //style id
+        dialog.show();
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+        dialog.getWindow().setAttributes(lp);
+    }
+
+    private void clearSelectionAfterAccessibilityDialogClose() {
+        resetExpressiveButtons(-1);
+        mLevelThreeItemPos= -1;
+        changeTheExpressiveButtons(false);
+        resetRecyclerAllItems();
+        mShouldReadFullSpeech = false;
+        mFlgImage = -1;
     }
 
     /**
@@ -1862,7 +2057,6 @@ public class LevelThreeActivity extends AppCompatActivity {
             }
         }
     }
-
 
     /**<p> This function will returns the index of the item searched item in the sorted list
      * it takes default index of the searched item and returns the actual sorted index of the element.

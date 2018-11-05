@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="ratings">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
     <string name="app_name">Jellow</string>
     <string name="action_settings">Settings</string>
     <string name="Profile">Profile</string>
@@ -22,6 +29,18 @@
         <item>AB-ve</item>
         <item>O+ve</item>
         <item>O-ve</item>
+    </string-array>
+
+    <string-array name="bloodgroup_talkback">
+        <item>not selected</item>
+        <item>A positive</item>
+        <item>A negative</item>
+        <item>B positive</item>
+        <item>B negative</item>
+        <item>A B positive</item>
+        <item>A B negative</item>
+        <item>O positive</item>
+        <item>O negative</item>
     </string-array>
 
     <string-array name="picture_view_mode">
@@ -132,8 +151,6 @@
             <li>Do you want to reset preferences?</li><br/><br/>
        </ul>]]>
     </string>
-    <string name="yes">yes</string>
-    <string name="no">no</string>
     <string name="iconsHasBeenReset">Preferences have been reset.</string>
     <string name="speak">Speak</string>
     <string name="stop">Stop</string>
@@ -152,6 +169,7 @@
     <string name="expBtnSeq">Expressive buttons in the sequence:</string>
     <string name="ttsDesc">To use Jellow in English, Hindi and Bengali, please activate <b>\'Google text-to-speech (TTS)\'</b> within <b>\'Language\'</b> settings of your device. Within Google TTS settings, first change the <b>default language</b> to preferred language and then download voice for preferred language through the <b>\'Install voice data\'</b> option</string>
     <string name="softwareVersion">Software version: </string>
+    <string name="customSpeakIcon">Press here to speak above text.</string>
     <string name="string_to_speak">Enter words here to speak.</string>
     <string name="speak_written_text">Speak written text</string>
     <string name="resetPrefPointOne">Jellow remembers the user’s “most-used/preferred” icons and displays them as the top choices on the screen</string>
@@ -204,6 +222,7 @@
     <string name="txt_registration_emergencynoDesc">(To be used for correspondence in case of an emergency involving the child.)</string>
     <string name="txt_registration_emailDesc">(To notify you about the release of Jellow updates)</string>
     <string name="txt_registration_selectLangDesc">Select a Language for Jellow *</string>
+    <string name="txt_registration_selectLangDesc_contentDesc">Select a Language for Jellow</string>
     <string name="txt_registration_registerBtn">REGISTER</string>
     <string name="enternonemptycontact">Please enter valid contact number</string>
     <string name="change_tts_lang">Set TTS engine language</string>
@@ -251,7 +270,9 @@
     <string name="intent_menu_path_tag" translatable="false">selectedMenuItemPath</string>
     <string name="level_2_item_pos_tag" translatable="false">mLevelTwoItemPos</string>
     <string name="first_time_login" translatable="false">create_database</string>
-    <string name="less">less</string>
+
+    <string name="next_slide">Next slide</string>
+    <string name="previous_slide">Previous slide</string>
 
     <!--Strings related to the Searching capability
     @AyazAlam
@@ -279,7 +300,7 @@
     <string name="about_je_intro4">Using these core icons, the child can communicate their likes, dislikes, and needs with others.</string>
     <string name="about_je_intro5">Jellow is conceived as children-friendly with an easy-to-learn interface.</string>
     <string name="about_je_intro6">The application is optimized for Android tablets.</string>
-    <string name="about_je_intro7">Jellow is currently available in English, Hindi and Bengali.</string>
+    <string name="about_je_intro7">Jellow is currently available in English, Hindi,Bengali and Marathi.</string>
     <string name="software_info">Software Version: _</string>
     <string name="about_je_intro8">The current version of Jellow is _. The application is under further development. Therefore, if you have any suggestions for us, please submit it under the feedback tab."</string>
     <string name="terms_of_use">Terms of Use</string>
@@ -292,27 +313,28 @@
     <string name="about_je_intro14">If interested in further developing the code, please write to Professor Ravi Poovaiah at</string>
     <string name="credits">Credits:</string>
     <string name="about_je_intro15">Idea Conception, Project Investigation and Supervision:</string>
-    <string name="about_je_intro16">Prof. Ravi Poovaiah and Dr. Ajanta Sen</string>
+    <string name="about_je_intro16">Professor Ravi Poovaiah and Dr Ajanta Sen</string>
     <string name="about_je_intro17">Initial Concept Development:</string>
     <string name="about_je_intro18">Anchal Kumar, Samraat Sardesai, Peter Joseph, Antara Hazarika</string>
     <string name="about_je_intro19">Software Development:</string>
-    <string name="about_je_intro20">Rahul Rupchand Jidge, Narayana Reddy, Nikhil Ahirrao, Ayaz Alam Harshit Budhraja, Sumeet Agrawal, Roopa Narayan Sahoo, Shruti Gupta, Aastha Joshi, Dhairya Dand, Pritam Pebam</string>
+    <string name="about_je_intro20">Rahul Rupchand Jidge, Narayana Reddy, Nikhil Ahirrao, Ayaz Alam, Harshit Budhraja, Sumeet Agrawal, Roopa Narayan Sahoo, Shruti Gupta, Aastha Joshi, Dhairya Dand, Pritam Pebam</string>
     <string name="about_je_intro21">Website Design:</string>
-    <string name="about_je_intro22">Prof. Ravi Poovaiah, Yogesh Masaye, Sumedh Garud, Roopa Narayan Sahoo</string>
-    <string name="about_je_intro23">Icons, Visual Design and Voice:</string>
+    <string name="about_je_intro22">ProfessorProfessor Ravi Poovaiah, Yogesh Masaye, Sumedh Garud, Roopa Narayan Sahoo</string>
+    <string name="about_je_intro23">Icons, Sound and Visual Design:</string>
     <string name="about_je_intro24">Vinaya Tawde, Anisha Malhotra, Simone Sen, Nikita Iyer, Ganesh Gajjela</string>
     <string name="about_je_intro25">Translation:</string>
-    <string name="about_je_intro26">Rupak Misra, Sachin Sonawane, Dr. Sudha Srinivasan</string>
+    <string name="about_je_intro26">Rupak Misra, Sachin Sonawane, Dr Sudha Srinivasan</string>
     <string name="about_je_intro27">Research, Vocabulary Development, and User Studies:</string>
-    <string name="about_je_intro28">Dr. Sudha Srinivasan</string>
+    <string name="about_je_intro28">Dr Sudha Srinivasan</string>
     <string name="about_je_intro29">Support:</string>
     <string name="about_je_intro30">E-kalpa project sponsored under NMEICT by MHRD, Microsoft Design Expo 2004 and a 1-year seed grant through the UNICEF Innovation Fund</string>
-
+    <string name="feedback_talkback_heading">On a scale of 1 to 5, please rate the following</string>
+    
     <!--Content description-->
     <string name="language_download_in_process">Language download in process</string>
     <string name="child_s_name">child\'s name</string>
     <string name="caregiver_s_contact_number">caregiver\'s contact number</string>
-    <string name="user_s_group">user\'s group</string>
+    <string name="user_s_group">user group</string>
     <string name="enter_caregiver_s_contact_number">enter caregiver\'s contact number</string>
     <string name="enter_home_address">enter home address</string>
     <string name="email_address">email address</string>
@@ -335,10 +357,13 @@
     <string name="select_country_code">select country code</string>
     <string name="caregiver_s_email_address">caregiver\'s email address</string>
     <string name="like">like</string>
+    <string name="yes">yes</string>
     <string name="more">more</string>
     <string name="dont_like">dont like</string>
+    <string name="no">no</string>
+    <string name="less">less</string>
     <string name="back">back</string>
-    <string name="enter_category">ENTER CATEGORY</string>
+    <string name="enter_category">enter category</string>
     <string name="intro_cd">The image shows a screenshot of the home page of Jellow. The home page contains a central grid of 9 icons called category buttons that are arranged in 3 rows and 3 columns. The 9 category buttons are “Greet and feel”, “Daily activities”, “Eating”, “Fun”, “Learning”, “People”, “Places, “Time and weather”, and “Help”. Below the category buttons are 3 navigation buttons of “Back”, “Home” and “keyboard” arranged in that order at the bottom of the home screen. On the right and left sides of the central category icons are 3 expressive icons each. To the left of the central grid are 3 expressive buttons of “Like”, “Yes” and “More” arranged from top to bottom in that order. To the right of the central grid, are the remaining 3 expressive buttons of “Don’t like”, “No” and “Less” arranged from top to bottom. On the top right corner of the home screen is visible a settings icon. In this image the central grid of 9 icons has been highlighted with all other buttons faded out.</string>
     <string name="intro2_cd">This image has the home screen of Jellow with only 2 icons of “Eating” and “Yes” highlighted. The rest of the buttons are faded out. The image shows that to speak using Jellow, user has to first click on any category button, for instance, “Eating” and then on an expressive button, for example, “Yes”. In this way the user can speak using Jellow.</string>
     <string name="intro3_cd">This image shows a screenshot of Jellow sub-categories within the “Eating” category. The icons visible in the central grid arranged in a 3 by 3 grid format are “Breakfast”, “Lunch/Dinner”, “Sweets”, “Snacks”, “Fruits”, “Drinks”, “Cutlery”, and “Add-ons”. The image shows the user’s finger double-clicking on “Breakfast” icon to access further sub-options.</string>
@@ -350,7 +375,7 @@
     <string name="change_language">Language selected in Jellow is different from that of your device output language. Would you like to change your device language ?</string>
     <string name="talkback_lang_diag_disable">Never Show Again</string>
     <string name="talkback_single_click">select</string>
-    <string name="talkback_recycler_view">select category. Tap again for more options</string>
+    <string name="talkback_recycler_view">select category and more options</string>
     <string name="talkback_dropdown_menu">access countries list</string>
     <string name="talkback_double_click">single click. Tap again to double click</string>
     <string name="close_dialog">close dialog.</string>
@@ -373,5 +398,8 @@
     <string name="txt_actLangSel_completestep2">Voice data not available. Please turn on internet and complete Step 2</string>
     <string name="error_in_registration">Registration process is failed, please retry.</string>
     <string name="txtStep2">Step 2:</string>
+    <string name="retry">RETRY</string>
+    <string name="close">close</string>
+    <string name="access_dialog_title">dialog with options.</string>
 
 </resources>

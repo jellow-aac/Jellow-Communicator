@@ -90,7 +90,8 @@
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:background="#f7e2ac"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:importantForAccessibility="yes">
         <Button
             android:id="@+id/yes"
             android:layout_width="wrap_content"

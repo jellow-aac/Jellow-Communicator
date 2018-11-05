@@ -14,7 +14,8 @@
         android:paddingLeft="8dp"
         android:paddingStart="8dp"
         android:src="@drawable/ic_chevron_left"
-        tools:ignore="RtlSymmetry" />
+        tools:ignore="RtlSymmetry"
+        android:contentDescription="@string/previous_slide" />
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -121,5 +122,6 @@
         android:paddingRight="8dp"
         android:paddingEnd="8dp"
         android:src="@drawable/ic_chevron_right"
-        tools:ignore="RtlSymmetry" />
+        tools:ignore="RtlSymmetry"
+        android:contentDescription="@string/next_slide" />
 </FrameLayout>

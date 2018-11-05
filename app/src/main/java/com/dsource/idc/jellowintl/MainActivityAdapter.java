@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_CategoryIcon;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
@@ -45,6 +47,9 @@ class MainActivityAdapter extends android.support.v7.widget.RecyclerView.Adapter
     @Override
     public void onBindViewHolder(final MainActivityAdapter.MyViewHolder holder, final int position) {
         final int MODE_PICTURE_ONLY = 1;
+        ViewCompat.setAccessibilityDelegate(holder.menuItemLinearLayout,
+                new TalkbackHints_CategoryIcon());
+
 
         if (mSession.getPictureViewMode() == MODE_PICTURE_ONLY)
             holder.menuItemBelowText.setVisibility(View.INVISIBLE);

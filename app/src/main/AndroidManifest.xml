@@ -141,6 +141,11 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".FeedbackActivityTalkback"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="Feedback"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan" />
     </application>
 
 </manifest>

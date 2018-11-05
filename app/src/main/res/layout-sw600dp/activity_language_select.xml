@@ -48,7 +48,8 @@
                     android:layout_width="55dp"
                     android:layout_height="80dp"
                     android:background="@drawable/arrow"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical"
+                    android:importantForAccessibility="no"/>
                 <ImageView
                     android:layout_width="210dp"
                     android:layout_height="270dp"
@@ -57,7 +58,8 @@
                     android:layout_width="55dp"
                     android:layout_height="80dp"
                     android:background="@drawable/arrow"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical"
+                    android:importantForAccessibility="no"/>
                 <ImageView
                     android:layout_width="210dp"
                     android:layout_height="270dp"
@@ -137,6 +139,9 @@
                 android:layout_height="40dp"
                 android:background="@drawable/custom_spinner_view"
                 android:textColor="@color/black_eighty"
+                android:minWidth="98dp"
+                android:paddingRight="28dp"
+                android:paddingEnd="28dp"
                 android:layout_marginBottom="19dp"/>
             <TextView
                 android:id="@+id/tv4"

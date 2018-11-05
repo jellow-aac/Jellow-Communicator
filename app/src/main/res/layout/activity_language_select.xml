@@ -46,7 +46,8 @@
                     android:layout_width="55dp"
                     android:layout_height="80dp"
                     android:src="@drawable/arrow"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical"
+                    android:importantForAccessibility="no"/>
                 <ImageView
                     android:layout_width="120dp"
                     android:layout_height="150dp"
@@ -55,7 +56,8 @@
                     android:layout_width="55dp"
                     android:layout_height="80dp"
                     android:src="@drawable/arrow"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical"
+                    android:importantForAccessibility="no"/>
                 <ImageView
                     android:layout_width="120dp"
                     android:layout_height="150dp"
@@ -134,9 +136,12 @@
                 style="@style/defaultTextViewStyle"/>
             <Spinner
                 android:id="@+id/selectDownloadedLanguageSpinner"
-                android:layout_width="112dp"
+                android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:background="@drawable/custom_spinner_view"
+                android:minWidth="98dp"
+                android:paddingRight="28dp"
+                android:paddingEnd="28dp"
                 android:layout_marginBottom="10dp"/>
             <TextView
                 android:id="@+id/tv4"

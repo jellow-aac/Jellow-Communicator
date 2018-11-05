@@ -26,7 +26,7 @@
                     android:layout_width="132dp"
                     android:layout_height="126dp"
                     android:src="@drawable/like"
-                    android:contentDescription="Like"/>
+                    android:contentDescription="@string/like"/>
                 <ImageView
                     android:id="@+id/ivyes"
                     android:layout_width="132dp"
@@ -34,13 +34,13 @@
                     android:layout_marginTop="@dimen/activity_horizontal_margin"
                     android:layout_marginBottom="@dimen/activity_horizontal_margin"
                     android:src="@drawable/yes"
-                    android:contentDescription="yes"/>
+                    android:contentDescription="@string/yes"/>
                 <ImageView
                     android:id="@+id/ivadd"
                     android:layout_width="132dp"
                     android:layout_height="126dp"
                     android:src="@drawable/more"
-                    android:contentDescription="more"/>
+                    android:contentDescription="@string/more"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/expressiveTwo"
@@ -55,7 +55,7 @@
                     android:layout_width="132dp"
                     android:layout_height="126dp"
                     android:src="@drawable/dontlike"
-                    android:contentDescription="dont like"/>
+                    android:contentDescription="@string/dont_like"/>
                 <ImageView
                     android:id="@+id/ivno"
                     android:layout_width="132dp"
@@ -63,7 +63,7 @@
                     android:layout_marginTop="@dimen/activity_horizontal_margin"
                     android:layout_marginBottom="@dimen/activity_horizontal_margin"
                     android:src="@drawable/no"
-                    android:contentDescription="no"/>
+                    android:contentDescription="@string/no"/>
                 <ImageView
                     android:id="@+id/ivminus"
                     android:layout_width="132dp"
@@ -93,21 +93,21 @@
             android:layout_height="168dp"
             android:layout_centerHorizontal="true"
             android:src="@drawable/home"
-            android:contentDescription="home"/>
+            android:contentDescription="@string/home"/>
         <ImageView
             android:id="@+id/keyboard"
             android:layout_width="170dp"
             android:layout_height="170dp"
             android:src="@drawable/keyboard"
             android:layout_toRightOf="@+id/ivhome"
-            android:contentDescription="open keyboard"/>
+            android:contentDescription="@string/keyboard_open"/>
         <ImageView
             android:id="@+id/ivback"
             android:layout_width="170dp"
             android:layout_height="170dp"
             android:src="@drawable/back"
             android:layout_toLeftOf="@+id/ivhome"
-            android:contentDescription="back"/>
+            android:contentDescription="@string/back"/>
     </RelativeLayout>
     <LinearLayout
         android:layout_width="728dp"
@@ -120,6 +120,7 @@
             android:layout_width="628dp"
             android:layout_height="80dp"
             android:textSize="20sp"
+            android:imeOptions="actionDone|flagNoExtractUi"
             android:contentDescription="Type here to speak"/>
         <ImageView
             android:id="@+id/ttsbutton"

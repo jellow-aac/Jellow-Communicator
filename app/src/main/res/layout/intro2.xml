@@ -18,6 +18,7 @@
         android:paddingStart="8dp"
         android:src="@drawable/ic_chevron_left"
         android:clickable="false"
+        android:contentDescription="@string/previous_slide"
         tools:ignore="RtlSymmetry" />
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,9 +36,8 @@
             android:layout_weight="1"
             android:paddingRight="32dp"
             android:textSize="13sp"
-            android:text="@string/txt_intro2_appUsageDesc"
-        android:importantForAccessibility="yes"
-/>        <LinearLayout
+            android:text="@string/txt_intro2_appUsageDesc"/>
+       <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="horizontal"
@@ -65,7 +65,6 @@
                 android:paddingLeft="64dp"
                 android:paddingRight="64dp"
                 android:textSize="13sp"
-                android:importantForAccessibility="no"
                 android:text="@string/txt_intro2_speakUsingJellow"/>
         </LinearLayout>
         <TextView
@@ -81,5 +80,6 @@
         android:paddingRight="8dp"
         android:paddingEnd="8dp"
         android:src="@drawable/ic_chevron_right"
+        android:contentDescription="@string/next_slide"
         tools:ignore="RtlSymmetry" />
 </FrameLayout>

@@ -19,6 +19,7 @@ import android.text.style.StyleSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -37,6 +38,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.LCODE;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
@@ -571,7 +573,14 @@ public class LanguageSelectActivity extends AppCompatActivity{
                 startActivity(new Intent(this, ResetPreferencesActivity.class));
                 finish(); break;
             case R.id.feedback:
-                startActivity(new Intent(this, FeedbackActivity.class));
+                AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
+                boolean isAccessibilityEnabled = am.isEnabled();
+                boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
+                if (isAccessibilityEnabled && isExploreByTouchEnabled) {
+                    startActivity(new Intent(this, FeedbackActivityTalkback.class));
+                } else {
+                    startActivity(new Intent(this, FeedbackActivity.class));
+                }
                 finish();
                 break;
             case android.R.id.home:
@@ -679,20 +688,39 @@ public class LanguageSelectActivity extends AppCompatActivity{
 
     private String[] shortLangNameForDisplay(String[] langNameToBeShorten) {
         String[] shortenLanguageNames = new String[langNameToBeShorten.length];
-        for (int i=0; i < langNameToBeShorten.length; i++){
-            switch (langNameToBeShorten[i]){
-                case "English (India)":
-                    shortenLanguageNames[i] = "English (IN)";
-                    break;
-                case "English (United Kingdom)":
-                    shortenLanguageNames[i] = "English (UK)";
-                    break;
-                case "English (United States)":
-                    shortenLanguageNames[i] = "English (US)";
-                    break;
-                default:
-                    shortenLanguageNames[i] = langNameToBeShorten[i];
-                    break;
+        if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+            for (int i = 0; i < langNameToBeShorten.length; i++) {
+                switch (langNameToBeShorten[i]) {
+                    case "मराठी":
+                        shortenLanguageNames[i] = "Marathi (India)";
+                        break;
+                    case "हिंदी":
+                        shortenLanguageNames[i] = "Hindi (India)";
+                        break;
+                    case "বাঙালি":
+                        shortenLanguageNames[i] = "Bengali (India)";
+                        break;
+                    default:
+                        shortenLanguageNames[i] = langNameToBeShorten[i];
+                        break;
+                }
+            }
+        }else {
+            for (int i = 0; i < langNameToBeShorten.length; i++) {
+                switch (langNameToBeShorten[i]) {
+                    case "English (India)":
+                        shortenLanguageNames[i] = "English (IN)";
+                        break;
+                    case "English (United Kingdom)":
+                        shortenLanguageNames[i] = "English (UK)";
+                        break;
+                    case "English (United States)":
+                        shortenLanguageNames[i] = "English (US)";
+                        break;
+                    default:
+                        shortenLanguageNames[i] = langNameToBeShorten[i];
+                        break;
+                }
             }
         }
         return shortenLanguageNames;

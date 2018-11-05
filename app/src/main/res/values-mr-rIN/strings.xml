@@ -108,8 +108,6 @@
             <li>आपल्याला आइकॉन्स रीसेट करायचे आहेत का?</li><br/><br/>
        </ul>]]>
     </string>
-    <string name="yes">हो</string>
-    <string name="no">नाही</string>
     <string name="iconsHasBeenReset">आयकॉन रीसेट झाले आहेत.</string>
     <string name="speak">बोला</string>
     <string name="stop">थांबा</string>
@@ -161,6 +159,7 @@
     <string name="txt_registration_emergencynoDesc">(संकटकालीन स्थितिमध्ये आपल्याबरोबर संपर्क करण्यासाठी)</string>
     <string name="txt_registration_emailDesc">(आपल्याला जेलो अॅप्लिकेशनच्या नवीन आवृत्तीबद्दल माहिती देण्यासाठी)</string>
     <string name="txt_registration_selectLangDesc">जेलो साठी भाषा निवडा *</string>
+    <string name="txt_registration_selectLangDesc_contentDesc">जेलो साठी भाषा निवडा</string>
     <string name="txt_registration_registerBtn">नोदंणी करा</string>
     <string name="enternonemptycontact">कृपया संपर्क नंबर नोदंवा</string>
     <string name="change_tts_lang">टेक्स्ट-टू-स्पीच इंजिनची भाषा सेट करा</string>
@@ -198,7 +197,7 @@
     <string name="err_dialog_msg">गूगल टीटीएस इंजन आपल्या डिव्हाइसमध्ये उपलब्ध नाही. आपल्याला गूगल टीटीएस इंजिन डाउनलोड करायचे आहे का?</string>
     <string name="exit_dialog_msg">जेलो अॅप्लिकेशनचा वापर करण्यासाठी गुगल टेक्स्ट-टू-स्पीच इंजिन आवश्यक आहे. आपल्याला ही प्रक्रिया खरोखर बंद करायची आहे का?</string>
 
-    <string name="less">less</string>
+
 
     <!--Strings related to the Searching capability
     @AyazAlam
@@ -272,10 +271,13 @@
     <string name="caregiver_s_contact_number_other_than_this_device_s_sim_number">Caregiver\'s Contact number other than this device\'s sim number</string>
     <string name="select_country_code">select country code</string>
     <string name="caregiver_s_email_address">caregiver\'s email address</string>
-    <string name="like">like</string>
-    <string name="more">more</string>
-    <string name="dont_like">dont like</string>
-    <string name="back">back</string>
+    <string name="like">आवडते</string>
+    <string name="yes">हो</string>
+    <string name="more">जास्तं</string>
+    <string name="dont_like">आवडत नाही</string>
+    <string name="no">नाही</string>
+    <string name="less">कमी</string>
+    <string name="back">मागे</string>
     <string name="enter_category">ENTER CATEGORY</string>
     <string name="intro_cd">The image shows a screenshot of the home page of Jellow. The home page contains a central grid of 9 icons called category buttons that are arranged in 3 rows and 3 columns. The 9 category buttons are “Greet and feel”, “Daily activities”, “Eating”, “Fun”, “Learning”, “People”, “Places, “Time and weather”, and “Help”. Below the category buttons are 3 navigation buttons of “Back”, “Home” and “keyboard” arranged in that order at the bottom of the home screen. On the right and left sides of the central category icons are 3 expressive icons each. To the left of the central grid are 3 expressive buttons of “Like”, “Yes” and “More” arranged from top to bottom in that order. To the right of the central grid, are the remaining 3 expressive buttons of “Don’t like”, “No” and “Less” arranged from top to bottom. On the top right corner of the home screen is visible a settings icon. In this image the central grid of 9 icons has been highlighted with all other buttons faded out.</string>
     <string name="intro2_cd">This image has the home screen of Jellow with only 2 icons of “Eating” and “Yes” highlighted. The rest of the buttons are faded out. The image shows that to speak using Jellow, user has to first click on any category button, for instance, “Eating” and then on an expressive button, for example, “Yes”. In this way the user can speak using Jellow.</string>
@@ -288,7 +290,7 @@
     <string name="change_language">Language selected in Jellow is different from that of your device output language. Would you like to change your device language ?</string>
     <string name="talkback_lang_diag_disable">Never Show Again</string>
     <string name="talkback_single_click">select</string>
-    <string name="talkback_recycler_view">select category. Tap again for more options</string>
+    <string name="talkback_recycler_view">select category and for more options</string>
     <string name="talkback_dropdown_menu">access countries list</string>
     <string name="talkback_double_click">single click. Tap again to double click</string>
     <string name="close_dialog">close dialog.</string>

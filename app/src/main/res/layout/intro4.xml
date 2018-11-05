@@ -18,7 +18,8 @@
         android:paddingStart="8dp"
         android:src="@drawable/ic_chevron_left"
         android:clickable="false"
-        tools:ignore="RtlSymmetry" />
+        tools:ignore="RtlSymmetry" 
+        android:contentDescription="@string/previous_slide"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -65,7 +66,6 @@
                 android:paddingLeft="64dp"
                 android:paddingRight="64dp"
                 android:textSize="13sp"
-        android:importantForAccessibility="no"
                 android:text="@string/txt_intro4_customizeJellow"/>
         </LinearLayout>
         <TextView
@@ -81,5 +81,6 @@
         android:paddingRight="8dp"
         android:paddingEnd="8dp"
         android:src="@drawable/ic_chevron_right"
-        tools:ignore="RtlSymmetry" />
+        tools:ignore="RtlSymmetry" 
+        android:contentDescription="@string/next_slide"/>
 </FrameLayout>
