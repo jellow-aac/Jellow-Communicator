@@ -71,190 +71,65 @@
             android:visibility="gone"
             android:layout_alignParentTop="true"
             />
-        <LinearLayout
-            android:id="@+id/add_edit_icon_option"
-            android:orientation="vertical"
-            android:layout_width="@dimen/edit_option_width"
-            android:layout_marginRight="20dp"
-            android:visibility="gone"
-            android:background="@color/white"
-            android:paddingRight="4dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:foregroundGravity="top"
-            android:layout_alignParentTop="true"
-            >
 
-            <RelativeLayout
-                android:id="@+id/add_category"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/list_item_padding"
-                android:paddingRight="@dimen/list_item_padding"
-                android:paddingTop="@dimen/list_item_padding">
-
-                <ImageView
-                    android:id="@+id/list_item_icon1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:clickable="false"
-                    android:src="@drawable/ic_add_icon" />
-
-                <TextView
-                    android:id="@+id/list_item_title1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@id/list_item_icon1"
-                    android:clickable="false"
-                    android:text="Add Category"
-                    android:textAlignment="center"
-                    android:textColor="@color/light_grey"
-                    android:textSize="@dimen/edit_option_text_size" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_below="@id/list_item_icon1"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/light_grey"
-                    android:paddingTop="16dp" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/add_icon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/list_item_padding"
-                android:paddingRight="@dimen/list_item_padding"
-                android:paddingTop="@dimen/list_item_padding">
-
-                <ImageView
-                    android:id="@+id/list_item_icon2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:clickable="false"
-                    android:src="@drawable/ic_add_icon" />
-
-                <TextView
-                    android:id="@+id/list_item_title2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@id/list_item_icon2"
-                    android:clickable="false"
-                    android:text="Add Icon"
-                    android:textAlignment="center"
-                    android:textColor="@color/light_grey"
-                    android:textSize="@dimen/edit_option_text_size" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_below="@id/list_item_icon2"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/light_grey"
-                    android:paddingTop="16dp" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/edit_icon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/list_item_padding">
-
-                <ImageView
-                    android:id="@+id/list_item_icon3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:clickable="false"
-                    android:src="@drawable/ic_edit_icon" />
-
-                <TextView
-                    android:id="@+id/list_item_title3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@id/list_item_icon3"
-                    android:clickable="false"
-                    android:text="Edit Icon"
-                    android:textAlignment="center"
-                    android:textColor="@color/light_grey"
-                    android:textSize="@dimen/edit_option_text_size" />
-
-            </RelativeLayout>
-        </LinearLayout>
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:background="@color/dark_base"
             android:id="@+id/bottom_navigation_pane"
-            android:padding="@dimen/bottom_nav_bar_padding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_height="wrap_content">
+            android:background="@color/dark_base"
+            android:padding="@dimen/bottom_nav_bar_padding">
             <Button
                 android:id="@+id/reset_selection"
                 android:layout_width="wrap_content"
+                android:layout_height="@dimen/my_board_button_height"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="8dp"
+                android:layout_toLeftOf="@id/next_step"
+                android:background="@drawable/button_background"
                 android:minWidth="@dimen/my_board_button_width"
-                android:paddingTop="4dp"
                 android:paddingBottom="4dp"
                 android:paddingLeft="@dimen/nav_bar_button_padding"
                 android:paddingRight="@dimen/nav_bar_button_padding"
-                android:layout_height="@dimen/my_board_button_height"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/button_background"
-                android:textColor="@color/colorIntro"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@id/next_step"
+                android:paddingTop="4dp"
+                android:text="Reset"
                 android:textAlignment="center"
-                android:layout_marginLeft="8dp"
-                android:text="Reset" />
+                android:textColor="@color/colorIntro"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/next_step"
-                android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
-                android:paddingTop="4dp"
+                android:layout_height="@dimen/my_board_button_height"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="8dp"
+                android:background="@drawable/button_background"
+                android:minWidth="@dimen/my_board_button_width"
                 android:paddingBottom="4dp"
                 android:paddingLeft="@dimen/nav_bar_button_padding"
                 android:paddingRight="12dp"
-                android:minWidth="@dimen/my_board_button_width"
-                android:layout_height="@dimen/my_board_button_height"
-                android:textStyle="bold"
-                android:textSize="14sp"
-                android:textColor="@color/colorIntro"
+                android:paddingTop="4dp"
+                android:text="Next"
                 android:textAlignment="center"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/button_background"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="8dp"
-                android:text="Next" />
+                android:textColor="@color/colorIntro"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
             <CheckBox
                 android:id="@+id/select_deselect_check_box"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:textColor="@color/light_black"
                 android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
                 android:layout_marginRight="4dp"
-                android:text="Select All"
                 android:buttonTint="@color/light_grey"
+                android:text="Select All"
+                android:textColor="@color/light_black"
                 android:visibility="visible" />
 
 
@@ -263,14 +138,14 @@
                     android:id="@+id/icon_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="(0)"
-                    android:layout_toRightOf="@id/select_deselect_check_box"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="8dp"
+                    android:layout_toRightOf="@id/select_deselect_check_box"
+                    android:alpha=".8"
+                    android:text="(0)"
                     android:textAlignment="center"
                     android:textColor="@color/light_black"
                     android:textSize="14sp"
-                    android:alpha=".8"
                     android:textStyle="bold" />
 
         </RelativeLayout>
@@ -279,6 +154,137 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/touch_area"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        >
+    <LinearLayout
+        android:id="@+id/add_edit_icon_option"
+        android:layout_width="@dimen/edit_option_width"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="20dp"
+        android:background="@color/white"
+        android:foregroundGravity="top"
+        android:orientation="vertical"
+        android:paddingRight="4dp"
+        android:visibility="gone"
+        >
 
+        <RelativeLayout
+            android:id="@+id/add_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/list_item_padding"
+            android:paddingRight="@dimen/list_item_padding"
+            android:paddingTop="@dimen/list_item_padding">
 
+            <ImageView
+                android:id="@+id/list_item_icon1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:clickable="false"
+                android:src="@drawable/ic_add_icon" />
+
+            <TextView
+                android:id="@+id/list_item_title1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/list_item_icon1"
+                android:clickable="false"
+                android:text="Add Category"
+                android:textAlignment="center"
+                android:textColor="@color/light_grey"
+                android:textSize="@dimen/edit_option_text_size" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@id/list_item_icon1"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:background="@color/light_grey"
+                android:paddingTop="16dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/add_icon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/list_item_padding"
+            android:paddingRight="@dimen/list_item_padding"
+            android:paddingTop="@dimen/list_item_padding">
+
+            <ImageView
+                android:id="@+id/list_item_icon2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:clickable="false"
+                android:src="@drawable/ic_add_icon" />
+
+            <TextView
+                android:id="@+id/list_item_title2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/list_item_icon2"
+                android:clickable="false"
+                android:text="Add Icon"
+                android:textAlignment="center"
+                android:textColor="@color/light_grey"
+                android:textSize="@dimen/edit_option_text_size" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@id/list_item_icon2"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:background="@color/light_grey"
+                android:paddingTop="16dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/edit_icon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/list_item_padding">
+
+            <ImageView
+                android:id="@+id/list_item_icon3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:clickable="false"
+                android:src="@drawable/ic_edit_icon" />
+
+            <TextView
+                android:id="@+id/list_item_title3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/list_item_icon3"
+                android:clickable="false"
+                android:text="Edit Icon"
+                android:textAlignment="center"
+                android:textColor="@color/light_grey"
+                android:textSize="@dimen/edit_option_text_size" />
+
+        </RelativeLayout>
+    </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>

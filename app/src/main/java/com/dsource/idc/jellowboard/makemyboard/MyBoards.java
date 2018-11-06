@@ -175,7 +175,7 @@ public class MyBoards extends AppCompatActivity {
                                     intent.putExtra(BOARD_ID, boardList.get(Position).getBoardID());
                                     startActivity(intent);
                                 } else if (board.isAddEditIconScreenPassed()) {
-                                    Intent intent = new Intent(ctx, EditBoard.class);
+                                    Intent intent = new Intent(ctx, RepositionIcons.class);
                                     intent.putExtra(BOARD_ID, boardList.get(Position).getBoardID());
                                     startActivity(intent);
                                 } else if (board.isBoardIconsSelected()) {
@@ -187,6 +187,7 @@ public class MyBoards extends AppCompatActivity {
                                     intent.putExtra(BOARD_ID, boardList.get(Position).getBoardID());
                                     startActivity(intent);
                                 }
+                                finish();
                             }
                             else
                             Toast.makeText(getApplicationContext(),"Some error occurred",Toast.LENGTH_LONG).show();
@@ -357,9 +358,15 @@ public class MyBoards extends AppCompatActivity {
                     Intent intent=new Intent(ctx,IconSelectActivity.class);
                     intent.putExtra(BOARD_ID,BoardId);
                     startActivity(intent);
+                    finish();
                 }
-                else if(code==EDIT_BOARD)
-                updateBoardDetails(name,bitmapArray,pos);
+                else if(code==EDIT_BOARD) {
+                    updateBoardDetails(name, bitmapArray, pos);
+                    Intent intent = new Intent(MyBoards.this,AddEditIconAndCategory.class);
+                    intent.putExtra(BOARD_ID,boardList.get(pos).boardID);
+                    startActivity(intent);
+                    finish();
+                }
                 dialogForBoardEditAdd.dismiss();
             }
         });

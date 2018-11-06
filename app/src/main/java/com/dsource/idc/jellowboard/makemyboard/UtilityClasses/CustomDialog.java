@@ -24,11 +24,6 @@ public class CustomDialog extends Dialog{
     public static final int ICON_EDIT=333;
     public static final int BOARD_EDIT=444;
 
-    public CustomDialog(Context context) {
-        super(context);
-        this.context = context;
-
-    }
     public CustomDialog(Context context,int Code){
         super(context);
         this.context=context;

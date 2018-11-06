@@ -24,6 +24,7 @@ import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.dsource.idc.jellowboard.MainActivity;
 import com.dsource.idc.jellowboard.R;
 import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.BoardDatabase;
 import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.CustomDialog;
@@ -116,8 +117,6 @@ public class IconSelectActivity extends AppCompatActivity {
                 else{
                     Toast.makeText(IconSelectActivity.this,"Some error occurred",Toast.LENGTH_LONG).show();
                 }
-
-
             }
         });
 
@@ -595,6 +594,7 @@ public class IconSelectActivity extends AppCompatActivity {
         dialog.setOnPositiveClickListener(new CustomDialog.onPositiveClickListener() {
             @Override
             public void onPositiveClickListener() {
+                startActivity(new Intent(IconSelectActivity.this, MainActivity.class));
                 finish();
             }
         });

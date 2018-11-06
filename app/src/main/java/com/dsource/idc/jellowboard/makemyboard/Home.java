@@ -16,12 +16,9 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
-import com.dsource.idc.jellowboard.MainActivity;
 import com.dsource.idc.jellowboard.Nomenclature;
 import com.dsource.idc.jellowboard.R;
 import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.BoardDatabase;
@@ -46,8 +43,7 @@ public class Home extends AppCompatActivity {
 
     private static final int SEARCH = 1221;
     RecyclerView mRecycler;
-    ImageView home,back,keyboardButton, speakButton;
-    EditText edittext;
+    ImageView home,back,keyboardButton;
     ModelManager modelManager;
     ArrayList<JellowIcon> displayList;
     int Level=0;
@@ -75,11 +71,13 @@ public class Home extends AppCompatActivity {
         verbiageDatabase=new VerbiageDatabaseHelper(this);
 
         database=new BoardDatabase(this);
+        if(getSupportActionBar()!=null)
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#333333'>"+"Home"+"</font>"));
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_button_board);
         try{
+            if(getIntent().getExtras()!=null)
             boardId =getIntent().getExtras().getString(BOARD_ID);
         }
         catch (NullPointerException e)
@@ -220,12 +218,13 @@ public class Home extends AppCompatActivity {
         else
         {
             mRecycler.setLayoutParams(defaultRecyclerParams);
-            switch (GridSize)
+            mRecycler.setLayoutManager(new CustomGridLayoutManager(this,3,9));
+            /*switch (GridSize)
             {
-                case 4:mRecycler.setLayoutManager(new CustomGridLayoutManager(this,2,9));mRecycler.setLayoutParams(centeredRecyclerParams);break;
-                case 5:mRecycler.setLayoutManager(new CustomGridLayoutManager(this,2,9));mRecycler.setLayoutParams(centeredRecyclerParams);break;
-                case 6:mRecycler.setLayoutManager(new CustomGridLayoutManager(this,3,9));break;
-            }
+                //case 4:mRecycler.setLayoutManager(new CustomGridLayoutManager(this,2,9));mRecycler.setLayoutParams(centeredRecyclerParams);break;
+                //case 5:mRecycler.setLayoutManager(new CustomGridLayoutManager(this,2,9));mRecycler.setLayoutParams(centeredRecyclerParams);break;
+                case 6:
+            }*/
         }
         adapter.setOnDoubleTapListner(new HomeAdapter.onDoubleTapListener() {
             @Override
@@ -372,7 +371,7 @@ public class Home extends AppCompatActivity {
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home: startActivity(new Intent(this, MainActivity.class));finish(); break;
+            case android.R.id.home:startActivity(new Intent(this,MyBoards.class));finish(); break;
             case R.id.grid_size:
                 showGridDialog();break;
             case R.id.search:Toast.makeText(this,"Not implemented yet", Toast.LENGTH_SHORT).show();//searchInBoard();break;
@@ -426,7 +425,7 @@ public class Home extends AppCompatActivity {
                 public void onGlobalLayout() {
                     View v = mRecyclerView.getChildAt(iconPos.get(0));
                     if (v != null) {
-                        Animation wiggle = AnimationUtils.loadAnimation(EditBoard.this,R.anim.jiggle_determinate);
+                        Animation wiggle = AnimationUtils.loadAnimation(RepositionIcons.this,R.anim.jiggle_determinate);
                         v.startAnimation(wiggle);
                         mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(tempListener);
                     }

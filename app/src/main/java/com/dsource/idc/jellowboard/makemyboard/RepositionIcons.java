@@ -17,6 +17,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.dsource.idc.jellowboard.MainActivity;
 import com.dsource.idc.jellowboard.R;
 import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.BoardDatabase;
 import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.CustomDialog;
@@ -286,7 +287,8 @@ public class RepositionIcons extends AppCompatActivity {
                 prepareIconDeleteMode();
                 break;
             case R.id.search:
-                searchInBoard();
+                Toast.makeText(this,"Not Implemented Yet",Toast.LENGTH_SHORT).show();
+                //searchInBoard();
                 break;
             case R.id.grid_size:
                 showGridDialog();break;
@@ -296,7 +298,7 @@ public class RepositionIcons extends AppCompatActivity {
                 dialog.setOnPositiveClickListener(new CustomDialog.onPositiveClickListener() {
                     @Override
                     public void onPositiveClickListener() {
-                        finish();
+                        startActivity(new Intent(RepositionIcons.this, MainActivity.class));finish();
                     }
                 });
                 dialog.show();

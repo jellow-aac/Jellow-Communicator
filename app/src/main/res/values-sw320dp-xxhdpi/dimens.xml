@@ -20,4 +20,22 @@
     <dimen name="nine_icon_textview_textsize">10sp</dimen>
     <dimen name="list_item_text_size">18sp</dimen>
     <dimen name="camera_drop_down_width">130dp</dimen>
+
+    <!--1by1 configuration-->
+    <dimen name="oneByOne_parentHorizontal">56dp</dimen>
+    <dimen name="oneByOne_parentVertical">30dp</dimen>
+    <dimen name="oneByOne_crossMargin">16dp</dimen>
+    <dimen name="oneByOne_width">144dp</dimen>
+    <dimen name="oneByOne_textSize">18sp</dimen>
+    <dimen name="oneByOne_borderThickness">9dp</dimen>
+    <dimen name="oneByOne_inerRadius">63dp</dimen>
+
+    <!--1by2 configuration-->
+    <dimen name="oneByTwo_parentHorizontal">30dp</dimen>
+    <dimen name="oneByTwo_parentVertical">48dp</dimen>
+    <dimen name="oneByTwo_crossMargin">28dp</dimen>
+    <dimen name="oneByTwo_width">94dp</dimen>
+    <dimen name="oneByTwo_textSize">16sp</dimen>
+    <dimen name="oneByTwo_borderThickness">7dp</dimen>
+    <dimen name="oneByTwo_inerRadius">40dp</dimen>
 </resources>

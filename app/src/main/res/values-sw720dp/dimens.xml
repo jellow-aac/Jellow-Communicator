@@ -106,4 +106,22 @@
     <dimen name="list_item_gallery_width">160dp</dimen>
     <dimen name="list_item_text_size">22sp</dimen>
 
+
+    <!--1by1 configuration-->
+    <dimen name="oneByOne_parentHorizontal">196dp</dimen>
+    <dimen name="oneByOne_parentVertical">96dp</dimen>
+    <dimen name="oneByOne_crossMargin">0dp</dimen>
+    <dimen name="oneByOne_width">234dp</dimen>
+    <dimen name="oneByOne_textSize">28sp</dimen>
+    <dimen name="oneByOne_borderThickness">12dp</dimen>
+    <dimen name="oneByOne_inerRadius">105dp</dimen>
+
+    <!--1by2 configuration-->
+    <dimen name="oneByTwo_parentHorizontal">60dp</dimen>
+    <dimen name="oneByTwo_parentVertical">132dp</dimen>
+    <dimen name="oneByTwo_width">168dp</dimen>
+    <dimen name="oneByTwo_textSize">24sp</dimen>
+    <dimen name="oneByTwo_borderThickness">10dp</dimen>
+    <dimen name="oneByTwo_inerRadius">73.5dp</dimen>
+    <dimen name="oneByTwo_crossMargin">16dp</dimen>
 </resources>

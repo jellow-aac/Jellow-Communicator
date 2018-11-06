@@ -110,16 +110,25 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView;
-        if(GridSize==2)
-            itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.custom_layout_2x1_icons, parent, false);
-        else if(GridSize<4)
-            itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.custom_layout_3_icons, parent, false);
-        else
-            itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.custom_layout_9_icons, parent, false);
+        View itemView;  switch (GridSize){
+            case 1: //1 by 1
+                itemView = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.custom_layout_1x1_icons, parent, false);
+                break;
+            case 2: // 1 by 2
+                itemView = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.custom_layout_1x2_icons, parent, false);
+                break;
+            case 3: // 1 by 3
+                itemView = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.custom_layout_3_icons, parent, false);break;
+            case 6:// 3 by 3
+                itemView = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.custom_layout_9_icons, parent, false);
+            default:
+                itemView = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.custom_layout_9_icons, parent, false);
+        }
         return new ViewHolder(itemView);
     }
 

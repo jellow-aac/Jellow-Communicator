@@ -38,6 +38,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.dsource.idc.jellowboard.GlideApp;
+import com.dsource.idc.jellowboard.MainActivity;
 import com.dsource.idc.jellowboard.Nomenclature;
 import com.dsource.idc.jellowboard.R;
 import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.BoardDatabase;
@@ -86,7 +87,6 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
     private int selectedPosition=0;
     private VerbiageDatabaseHelper verbiageDatbase;
     private int currentMode = ADD_EDIT_ICON_MODE;
-    private TextView noSubMsg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,8 +125,6 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
 
         categoryRecycler = findViewById(R.id.level_select_pane_recycler);
         categoryRecycler.setLayoutManager(new LinearLayoutManager(this));
-        noSubMsg = findViewById(R.id.no_sub_category);
-        noSubMsg.setVisibility(View.GONE);
         prepareLevelSelectPane();
         iconRecycler = findViewById(R.id.icon_select_pane_recycler);
         iconRecycler.setLayoutManager(new GridLayoutManager(this,gridSize()));
@@ -142,29 +140,49 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         findViewById(R.id.next_step).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(findViewById(R.id.add_edit_icon_option).getVisibility()==View.VISIBLE)
-                    findViewById(R.id.add_edit_icon_option).setVisibility(View.GONE);
 
-                CustomDialog dialog=new CustomDialog(AddEditIconAndCategory.this,CustomDialog.GRID_SIZE);
-                dialog.show();
-                dialog.setCancelable(true);
-                dialog.setGridSelectListener(new CustomDialog.GridSelectListener() {
-                    @Override
-                    public void onGridSelectListener(int size) {
+                if(findViewById(R.id.add_edit_icon_option).getVisibility()==View.VISIBLE) {
+                    findViewById(R.id.add_edit_icon_option).setVisibility(View.GONE);
+                    findViewById(R.id.touch_area).setVisibility(View.GONE);
+                }
+
+
+                if(currentMode==EDIT_ICON_MODE)
+                    Toast.makeText(AddEditIconAndCategory.this,"Please exit the Edit Mode first",Toast.LENGTH_SHORT).show();
+                else {
+                    CustomDialog dialog = new CustomDialog(AddEditIconAndCategory.this, CustomDialog.GRID_SIZE);
+                    dialog.show();
+                    dialog.setCancelable(true);
+                    dialog.setGridSelectListener(new CustomDialog.GridSelectListener() {
+                        @Override
+                        public void onGridSelectListener(int size) {
                             currentBoard.setGridSize(size);
                             currentBoard.setAddEditIconScreenPassed();
                             database.updateBoardIntoDatabase(currentBoard);
-                            Intent intent = new Intent(AddEditIconAndCategory.this,RepositionIcons.class);
-                            intent.putExtra(BOARD_ID,boardId);
+                            Intent intent = new Intent(AddEditIconAndCategory.this, RepositionIcons.class);
+                            intent.putExtra(BOARD_ID, boardId);
                             startActivity(intent);
                             finish();
-                    }
-                });
+                        }
+                    });
+                }
 
             }
         });
         findViewById(R.id.select_deselect_check_box).setVisibility(View.GONE);
         findViewById(R.id.icon_count).setVisibility(View.GONE);
+        findViewById(R.id.touch_area).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(findViewById(R.id.add_edit_icon_option).getVisibility()==View.VISIBLE)
+                {
+                    findViewById(R.id.add_edit_icon_option).setVisibility(View.GONE);
+                    findViewById(R.id.touch_area).setVisibility(View.GONE);
+                }
+            }
+        });
+
         addCategory = findViewById(R.id.add_category);
         addIcon = findViewById(R.id.add_icon);
         editIcon = findViewById(R.id.edit_icon);
@@ -200,8 +218,6 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
                 if(selectedPosition!=position) {
                             selectedPosition = position;
                             prepareIconPane(position,currentMode);
-                            if(findViewById(R.id.add_edit_icon_option).getVisibility()==View.VISIBLE)
-                                findViewById(R.id.add_edit_icon_option).setVisibility(View.GONE);
                 }
             }
         });
@@ -224,9 +240,6 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
                     selectedPosition = position;
                     prepareIconPane(position,currentMode);
                 }
-                
-                if(findViewById(R.id.add_edit_icon_option).getVisibility()==View.VISIBLE)
-                    findViewById(R.id.add_edit_icon_option).setVisibility(View.GONE);
             }
         });
         categoryRecycler.getLayoutManager().smoothScrollToPosition(categoryRecycler,null,(categories.size()-1));
@@ -235,10 +248,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
     }
     private void prepareIconPane(int position,int mode) {
         iconList = categoryManager.getAllChildOfCategory(position);
-        if(iconList!=null)
-            if(iconList.size()<1)
-                noSubMsg.setVisibility(View.VISIBLE);
-            else noSubMsg.setVisibility(View.GONE);
+        if(iconList.size()>0)
         if(mode==ADD_EDIT_ICON_MODE)
             iconAdapter = new IconSelectorAdapter(this,iconList, ADD_EDIT_ICON_MODE);
         else if(mode ==EDIT_ICON_MODE)
@@ -487,9 +497,15 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
 
     private void toggleOptionLayout() {
         if(findViewById(R.id.add_edit_icon_option).getVisibility()==View.VISIBLE)
+        {
             findViewById(R.id.add_edit_icon_option).setVisibility(View.GONE);
-        else
+            findViewById(R.id.touch_area).setVisibility(View.GONE);
+        }
+        else {
             findViewById(R.id.add_edit_icon_option).setVisibility(View.VISIBLE);
+            findViewById(R.id.touch_area).setVisibility(View.VISIBLE);
+
+        }
     }
 
     private void showCustomDialog(int mode) {
@@ -773,7 +789,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
                 toggleOptionLayout();
                 break;
             case R.id.done:currentMode=ADD_EDIT_ICON_MODE;prepareIconPane(selectedPosition,ADD_EDIT_ICON_MODE);invalidateOptionsMenu();break;
-            case android.R.id.home: finish(); break;
+            case android.R.id.home: startActivity(new Intent(this, MainActivity.class));finish(); break;
 
         }
         return super.onOptionsItemSelected(item);

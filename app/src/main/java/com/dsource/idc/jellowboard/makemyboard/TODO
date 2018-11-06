@@ -10,12 +10,12 @@ todo and issue list for Make my board
 7. Grid Size 2X3 is not implemented yet.
 8. Add library search in board and add icon/category;                                               DONE
 9. Boards editBoard Icon issue fix.
-10.Highlighting issue in Board Home               (Must fix)
-11.Error in highlighting icons in category items. (Must fix)
-12.Fix the Grid Size inconsistency in Edit Board.
-13.There are some crashes in the app, maybe due to verbiage.
-14.Work on drag and drop.
-15.Jellow Library icons are blurred.
+10.Highlighting issue in Board Home               (Must fix)                                        DONE
+11.Error in highlighting icons in category items. (Must fix)                                        DONE
+12.Fix the Grid Size inconsistency in Edit Board.                                                   DONE
+13.There are some crashes in the app, maybe due to verbiage.                                        DONE
+14.Work on drag and drop.                                                                           MUST-FIX
+15.Jellow Library icons are blurred.                                                                DONE
 
 
 
@@ -40,7 +40,16 @@ todo and issue list for Make my board
 
 //TEMP CHANGES
 
-1. Putting create verbiage database at My Board activity
+ Trying to implement Edit Board Functionality into the Make My Board.
+ So, for that making some changes into the IconSelectActivity :
+ Initial Approach:
+ 1. Send a token to IconSelectActivity from MyBoard screen to Identify the Board Edit mode.
+ 2. Use the token and set a global variable | EDIT_MODE = TRUE /FALSE
+ 3. Fetch Board from the database and store all the present Icons into list current board list.
+ 4. In left-hand-side category pane, start the list by showing current board icons.
+ 5. There should be no Icon Selected and every icons is treated as a different icon with no linkage with already present icons,
+    So, the newly added Icon will be just appended into the already present IconModel.
+ 6. Merge both models and start AddEditScreen with newly added icons.
 
 
 

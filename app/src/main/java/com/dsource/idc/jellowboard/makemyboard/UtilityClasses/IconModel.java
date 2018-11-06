@@ -55,4 +55,37 @@ public class IconModel implements Serializable{
 
             return list;
         }
+
+        @Keep public ArrayList<JellowIcon> getAllIcons()
+        {
+            ArrayList<JellowIcon> list=new ArrayList<>();
+            for(int i=0;i<children.size();i++)
+            {
+                list.add(children.get(i).getIcon());
+            }
+
+            for(int i=0;i<children.size();i++)
+            {
+                for(int j=0;j<children.get(i).getChildren().size();j++)
+                {
+                    list.add(children.get(i).getChildren().get(j).getIcon());
+                }
+            }
+
+            for(int i=0;i<children.size();i++)
+            {
+                IconModel levelTwo = children.get(i);
+                for(int j=0;j<levelTwo.getChildren().size();j++)
+                {
+                    IconModel levelThree = levelTwo.getChildren().get(j);
+                    for(int k=0;k<levelThree.getChildren().size();k++)
+                    {
+                        list.add(levelThree.getChildren().get(k).getIcon());
+                    }
+
+                }
+            }
+
+            return list;
+        }
 }
