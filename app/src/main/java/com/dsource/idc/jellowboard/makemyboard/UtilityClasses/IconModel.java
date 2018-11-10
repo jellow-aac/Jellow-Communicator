@@ -88,4 +88,10 @@ public class IconModel implements Serializable{
 
             return list;
         }
+
+        @Keep public void appendNewModelToPrevious(IconModel newIconModel)
+        {
+            children.addAll(newIconModel.getChildren());
+        }
+
 }

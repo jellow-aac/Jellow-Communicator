@@ -29,11 +29,14 @@ import com.dsource.idc.jellowboard.R;
 import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.BoardDatabase;
 import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.CustomDialog;
 import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.IconDatabase;
+import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.IconModel;
 import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.ModelManager;
 import com.dsource.idc.jellowboard.utility.CustomGridLayoutManager;
 import com.dsource.idc.jellowboard.utility.JellowIcon;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import static com.dsource.idc.jellowboard.makemyboard.MyBoards.IS_EDIT_MODE;
 
 public class IconSelectActivity extends AppCompatActivity {
 
@@ -56,6 +59,8 @@ public class IconSelectActivity extends AppCompatActivity {
     private Button nextButton;
     private Button resetButton;
     private RecyclerView.OnScrollListener scrollListener;
+    private boolean isEditMode =false;
+    private Board currentBoard;
 
 
     @Override
@@ -66,10 +71,14 @@ public class IconSelectActivity extends AppCompatActivity {
         try{
             if(getIntent().getExtras()!=null)
             boardId =getIntent().getExtras().getString(BOARD_ID);
+            if(getIntent().getExtras().getString(IS_EDIT_MODE)!=null)
+                if(getIntent().getExtras().getString(IS_EDIT_MODE).equals("YES"))
+                    isEditMode  = true;
         }
         catch (NullPointerException e)
         {
             Log.d("No board id found", boardId);
+            return;
         }
         if(savedInstanceState!=null)
         {
@@ -79,6 +88,7 @@ public class IconSelectActivity extends AppCompatActivity {
         else {
             selectedIconList=new ArrayList<>();
         }
+        currentBoard = new BoardDatabase(this).getBoardById(boardId);
         ((TextView)(findViewById(R.id.icon_count))).setText("("+selectedIconList.size()+")");
         utilF=new UtilFunctions();
         selectionCheckBox=findViewById(R.id.select_deselect_check_box);
@@ -92,8 +102,9 @@ public class IconSelectActivity extends AppCompatActivity {
         prepareIconPane(0,-1);
         dropDownList= getCurrentChildren();
         initNavBarButtons();
-        nextButton.setEnabled(false);
-        nextButton.setAlpha(.5f);
+        if(!isEditMode)
+            disableNextAndResetButtons(true);
+        else disableNextAndResetButtons(false);
     }
 
     private void initNavBarButtons() {
@@ -104,7 +115,7 @@ public class IconSelectActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final BoardDatabase database=new BoardDatabase(IconSelectActivity.this);
                 final Board board=database.getBoardById(boardId);
-                if (board != null) {
+                if (board != null&&!isEditMode) {
                     board.setBoardIconModel(
                             new ModelManager(sortList(selectedIconList),IconSelectActivity.this).
                                     getModel());
@@ -114,9 +125,20 @@ public class IconSelectActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }
-                else{
-                    Toast.makeText(IconSelectActivity.this,"Some error occurred",Toast.LENGTH_LONG).show();
+                else if(isEditMode){
+                    IconModel newModel = new ModelManager(sortList(selectedIconList),IconSelectActivity.this).getModel();
+                    IconModel currentBoardModel = currentBoard.getBoardIconModel();
+                    currentBoardModel.appendNewModelToPrevious(newModel);
+                    currentBoard.setBoardIconModel(currentBoardModel);
+                    database.updateBoardIntoDatabase(currentBoard);
+                    Intent intent =new Intent(IconSelectActivity.this,AddEditIconAndCategory.class);
+                    intent.putExtra(BOARD_ID,boardId);
+                    startActivity(intent);
+                    finish();
+
+
                 }
+                else Toast.makeText(IconSelectActivity.this,"Some error occurred",Toast.LENGTH_LONG).show();
             }
         });
 
@@ -127,10 +149,7 @@ public class IconSelectActivity extends AppCompatActivity {
                 selectedIconList.clear();
                 selectionCheckBox.setChecked(false);
                 iconSelectorAdapter.notifyDataSetChanged();
-                nextButton.setAlpha(.5f);
-                nextButton.setEnabled(false);
-                resetButton.setEnabled(false);
-                resetButton.setAlpha(.5f);
+                disableNextAndResetButtons(true);
                 ((TextView)(findViewById(R.id.icon_count))).setText("("+selectedIconList.size()+")");
             }
         });
@@ -243,19 +262,8 @@ public class IconSelectActivity extends AppCompatActivity {
                     selectAll(0);
                 else selectAll(1);
                 if(selectedIconList.size()>0)
-                {
-                    nextButton.setAlpha(1f);
-                    nextButton.setEnabled(true);
-                    resetButton.setEnabled(true);
-                    resetButton.setAlpha(1f);
-
-                }
-                else {
-                    nextButton.setEnabled(false);
-                    nextButton.setAlpha(.5f);
-                    resetButton.setEnabled(false);
-                    resetButton.setAlpha(.5f);
-                }
+                disableNextAndResetButtons(false);
+                else disableNextAndResetButtons(true);
             }
         });
     }
@@ -296,18 +304,38 @@ public class IconSelectActivity extends AppCompatActivity {
      */
     private void prepareIconPane(int level_1,int level_2) {
         invalidateOptionsMenu();
-        iconList=new IconDatabase(this).myBoardQuery(level_1,level_2);
-        iconSelectorAdapter =new IconSelectorAdapter(this,iconList,IconSelectorAdapter.ICON_SELECT_MODE);
-        iconRecycler.setAdapter(iconSelectorAdapter);
-        iconSelectorAdapter.notifyDataSetChanged();
-        selectionCheckBox.setChecked(utilF.getSelection(selectedIconList,iconList));
-        iconSelectorAdapter.setOnItemClickListner(new IconSelectorAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position, boolean checked) {
-                scrollCount = 0;
-                updateSelectionList(position,checked);
-            }
-        });
+        if(isEditMode&&level_1==0) {
+            iconList = new ModelManager(this,currentBoard.getBoardIconModel()).getAllIconsOfModel();
+            iconSelectorAdapter = new IconSelectorAdapter(this, iconList, IconSelectorAdapter.ICON_SELECT_MODE);
+            iconRecycler.setAdapter(iconSelectorAdapter);
+            iconSelectorAdapter.notifyDataSetChanged();
+            selectionCheckBox.setChecked(utilF.getSelection(selectedIconList, iconList));
+            iconSelectorAdapter.setOnItemClickListner(new IconSelectorAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position, boolean checked) {
+                    scrollCount = 0;
+                    updateSelectionList(position, checked);
+                }
+            });
+
+        }
+        else{
+            if(isEditMode)
+                level_1--;
+            iconList = new IconDatabase(this).myBoardQuery(level_1, level_2);
+            iconSelectorAdapter = new IconSelectorAdapter(this, iconList, IconSelectorAdapter.ICON_SELECT_MODE);
+            iconRecycler.setAdapter(iconSelectorAdapter);
+            iconSelectorAdapter.notifyDataSetChanged();
+            selectionCheckBox.setChecked(utilF.getSelection(selectedIconList, iconList));
+            iconSelectorAdapter.setOnItemClickListner(new IconSelectorAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position, boolean checked) {
+                    scrollCount = 0;
+                    updateSelectionList(position, checked);
+                }
+            });
+        }
+
     }
 
     /**
@@ -331,6 +359,13 @@ public class IconSelectActivity extends AppCompatActivity {
         selectionCheckBox.setChecked(utilF.getSelection(selectedIconList,iconList));
 
         if (selectedIconList.size()>0)
+            disableNextAndResetButtons(false);
+        else disableNextAndResetButtons(true);
+    }
+
+    private void disableNextAndResetButtons(boolean disable)
+    {
+        if(!disable)
         {
             nextButton.setAlpha(1f);
             nextButton.setEnabled(true);
@@ -338,13 +373,14 @@ public class IconSelectActivity extends AppCompatActivity {
             resetButton.setAlpha(1f);
         }
         else {
+
             nextButton.setEnabled(false);
             nextButton.setAlpha(.5f);
             resetButton.setEnabled(false);
             resetButton.setAlpha(.5f);
         }
-    }
 
+    }
 
 
 
@@ -353,6 +389,8 @@ public class IconSelectActivity extends AppCompatActivity {
      */
     private void prepareLevelSelectPane() {
         ArrayList<String> levelSelectList=new ArrayList<>();
+        if(isEditMode)
+            levelSelectList.add("Current Board");
         String levelOne[]=getResources().getStringArray(R.array.arrLevelOneActionBarTitle);
         Collections.addAll(levelSelectList, levelOne);
 
@@ -385,6 +423,8 @@ public class IconSelectActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.my_board_menu, menu);
+        if(isEditMode&&previousSelection==0)
+                menu.findItem(R.id.filter).setVisible(false);
         if(previousSelection==5||previousSelection==8)
             menu.findItem(R.id.filter).setVisible(false);
         return true;
@@ -484,12 +524,7 @@ public class IconSelectActivity extends AppCompatActivity {
         selectedIconList.add(icon);
         dropDownList = getCurrentChildren();
         if(selectedIconList.size()>0)
-        {
-            nextButton.setEnabled(true);
-            nextButton.setAlpha(1.0f);
-            resetButton.setEnabled(true);
-            resetButton.setAlpha(1f);
-        }
+        disableNextAndResetButtons(false);
 
         ((TextView) (findViewById(R.id.icon_count))).setText("(" + selectedIconList.size() + ")");
         selectionCheckBox.setChecked(utilF.getSelection(selectedIconList, iconList));
@@ -505,7 +540,7 @@ public class IconSelectActivity extends AppCompatActivity {
         iconSelectorAdapter.notifyDataSetChanged();
     }
 
-    //TODO Make it screen dependent
+    //TODO Make it screen independent
     private int numberOfRows() {
         return 2;
     }

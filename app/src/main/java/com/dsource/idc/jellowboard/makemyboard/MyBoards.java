@@ -67,6 +67,7 @@ public class MyBoards extends AppCompatActivity {
     public static final int NORMAL_MODE =444;
     public static final int CAMERA_REQUEST=211;
     public static final int LIBRARY_REQUEST=411;
+    public static final String IS_EDIT_MODE = "is_edit_mode";
     public int currentMode =-1;
     RecyclerView mRecyclerView;
     BoardAdapter adapter;
@@ -362,8 +363,9 @@ public class MyBoards extends AppCompatActivity {
                 }
                 else if(code==EDIT_BOARD) {
                     updateBoardDetails(name, bitmapArray, pos);
-                    Intent intent = new Intent(MyBoards.this,AddEditIconAndCategory.class);
+                    Intent intent = new Intent(MyBoards.this,IconSelectActivity.class);
                     intent.putExtra(BOARD_ID,boardList.get(pos).boardID);
+                    intent.putExtra(IS_EDIT_MODE,"YES");
                     startActivity(intent);
                     finish();
                 }

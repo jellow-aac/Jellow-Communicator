@@ -37,6 +37,33 @@ public class ModelManager {
         this.context=context;
         this.parentNode=parentNode;
     }
+    @Keep public ArrayList<JellowIcon> getAllIconsOfModel(){
+        ArrayList<JellowIcon> list = new ArrayList<>();
+        //LevelOne Icons
+        for(int i = 0 ;i  < parentNode.getChildren().size();i++)
+            list.add(parentNode.getChildren().get(i).getIcon());
+        //LevelTwo Icons
+        for(int i = 0 ;i  < parentNode.getChildren().size();i++)
+        {
+            IconModel levelTwo =  parentNode.getChildren().get(i);
+            for(int j = 0 ;j  < levelTwo.getChildren().size();j++)
+                list.add(levelTwo.getChildren().get(j).getIcon());
+        }
+        //Level Three
+        for(int i = 0 ;i  < parentNode.getChildren().size();i++)
+        {
+            IconModel levelTwo =  parentNode.getChildren().get(i);
+            for(int j = 0 ;j  < levelTwo.getChildren().size();j++)
+            {
+                IconModel levelThree = levelTwo.getChildren().get(j);
+                for(int k = 0; k<levelThree.getChildren().size();k++)
+                    list.add(levelThree.getChildren().get(k).getIcon());
+            }
+        }
+
+
+        return list;
+    }
 
     @Keep private void prepareLevels() {
 
