@@ -57,7 +57,7 @@
                     android:src="@drawable/less"/>
             </LinearLayout>
 
-        <com.wonshinhyo.dragrecyclerview.DragRecyclerView
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/drag_recycler_view"
             android:layout_toLeftOf="@id/expressiveTwo"
             android:layout_toRightOf="@id/expressiveOne"

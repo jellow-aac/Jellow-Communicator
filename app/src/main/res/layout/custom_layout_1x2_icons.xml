@@ -31,12 +31,10 @@
         android:layout_width="@dimen/my_board_edit_icon_size"
         android:layout_height="@dimen/my_board_edit_icon_size"
         android:layout_alignTop="@+id/icon_container"
-        android:layout_marginLeft="-16dp"
+        android:src="@drawable/ic_delete_icon_red_back"
         android:layout_toEndOf="@id/icon_container"
         android:layout_toRightOf="@id/icon_container"
-        android:background="@drawable/circular_background_red"
-        android:padding="4dp"
-        android:src="@drawable/ic_cross_icon" />
+        android:visibility="gone" />
     <TextView
         android:id="@+id/icon_title"
         android:layout_width="wrap_content"

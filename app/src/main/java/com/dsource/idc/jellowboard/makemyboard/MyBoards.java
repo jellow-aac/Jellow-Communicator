@@ -264,6 +264,7 @@ public class MyBoards extends AppCompatActivity {
             Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length);
             BoardIcon.setImageBitmap(bitmap);
             boardTitleEditText.setText(boardList.get(pos).boardTitle);
+            saveBoard.setText("Next");
         }
 
         //The list that will be shown with camera options

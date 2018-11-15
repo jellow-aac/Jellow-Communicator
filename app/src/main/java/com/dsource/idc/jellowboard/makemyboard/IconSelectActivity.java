@@ -306,7 +306,7 @@ public class IconSelectActivity extends AppCompatActivity {
         invalidateOptionsMenu();
         if(isEditMode&&level_1==0) {
             iconList = new ModelManager(this,currentBoard.getBoardIconModel()).getAllIconsOfModel();
-            iconSelectorAdapter = new IconSelectorAdapter(this, iconList, IconSelectorAdapter.ICON_SELECT_MODE);
+            iconSelectorAdapter = new IconSelectorAdapter(this, iconList, IconSelectorAdapter.ADD_EDIT_ICON_MODE);
             iconRecycler.setAdapter(iconSelectorAdapter);
             iconSelectorAdapter.notifyDataSetChanged();
             selectionCheckBox.setChecked(utilF.getSelection(selectedIconList, iconList));
@@ -517,6 +517,8 @@ public class IconSelectActivity extends AppCompatActivity {
     private void addSearchedIcon(final JellowIcon icon) {
         int category = icon.parent0;
         scrollCount = 0;
+        if(isEditMode)
+            category++;
         previousSelection = category;
         prepareIconPane(category,-1);
         levelSelectorAdapter.selectedPosition = icon.parent0;
