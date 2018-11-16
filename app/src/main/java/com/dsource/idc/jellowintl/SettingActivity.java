@@ -20,7 +20,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.accessibility.AccessibilityManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -37,6 +36,7 @@ import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.MediaPlayerUtils;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
+import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
 import static com.dsource.idc.jellowintl.MainActivity.isDeviceReadyToCall;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
@@ -82,8 +82,13 @@ public class SettingActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinnerViewMode.setAdapter(adapter);
         mSpinnerGridSize = findViewById(R.id.spinner4);
-        adapter = ArrayAdapter.createFromResource
-                (this, R.array.grid_size, R.layout.simple_spinner_item);
+        if(!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+            adapter = ArrayAdapter.createFromResource
+                    (this, R.array.grid_size, R.layout.simple_spinner_item);
+        }else {
+            adapter = ArrayAdapter.createFromResource
+                    (this, R.array.acc_grid_size, R.layout.simple_spinner_item);
+        }
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinnerGridSize.setAdapter(adapter);
 
@@ -201,20 +206,6 @@ public class SettingActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
 
             }
-        });
-
-        mSpinnerViewMode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            }
-            @Override public void onNothingSelected(AdapterView<?> parent) {}
-        });
-
-        mSpinnerGridSize.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            }
-            @Override public void onNothingSelected(AdapterView<?> parent) {}
         });
 
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -416,6 +407,9 @@ public class SettingActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         if(mSession.getLanguage().equals(BN_IN))
             menu.findItem(R.id.keyboardinput).setVisible(false);
+        if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+            menu.findItem(R.id.closePopup).setVisible(false);
+        }
         return true;
     }
 

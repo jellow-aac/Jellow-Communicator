@@ -206,20 +206,6 @@ public class ProfileFormActivity extends AppCompatActivity {
         mDetailSaved = getString(R.string.detailSaved);
         mCheckCon = getString(R.string.checkConnectivity);
         if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-            /*etFatherContact.setAccessibilityDelegate(new View.AccessibilityDelegate() {
-                @Override
-                public void onInitializeAccessibilityNodeInfo(View host, AccessibilityNodeInfo info) {
-                    super.onInitializeAccessibilityNodeInfo(host, info);
-                    info.setContentDescription(etFatherContact.getText().toString().
-                            replaceAll(".", "$0 "));
-                }
-
-                @Override
-                public void onPopulateAccessibilityEvent(View host, AccessibilityEvent event) {
-                    AccessibilityNodeInfo source = host.createAccessibilityNodeInfo();
-                    onInitializeAccessibilityNodeInfo(host, source);
-                }
-            });*/
             findViewById(R.id.tvName).setFocusableInTouchMode(true);
             findViewById(R.id.tvName).setFocusable(true);
             mCcp.setCountryPreference(null);
@@ -240,6 +226,9 @@ public class ProfileFormActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         if(mSession.getLanguage().equals(BN_IN))
             menu.findItem(R.id.keyboardinput).setVisible(false);
+        if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+            menu.findItem(R.id.closePopup).setVisible(false);
+        }
         return true;
     }
 

@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.dsource.idc.jellowintl.TalkBack.TalkBackHints_CategoryIconLastLevel;
 import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_CategoryIcon;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
@@ -28,11 +29,13 @@ class LevelTwoAdapter extends android.support.v7.widget.RecyclerView.Adapter<Lev
     private String[] mIconArray;
     private String[] mBelowTextArray;
     private String path;
+    private int mLevel1ItemPos;
 
-    LevelTwoAdapter(Context context, int levelTwoItemPos){
+    LevelTwoAdapter(Context context, int levelOneItemPos){
         mContext = context;
         mSession = new SessionManager(mContext);
-        loadArraysFromResources(levelTwoItemPos);
+        loadArraysFromResources(levelOneItemPos);
+        mLevel1ItemPos = levelOneItemPos;
         File en_dir = mContext.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
         path = en_dir.getAbsolutePath()+"/drawables";
     }
@@ -50,9 +53,14 @@ class LevelTwoAdapter extends android.support.v7.widget.RecyclerView.Adapter<Lev
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        ViewCompat.setAccessibilityDelegate(holder.menuItemLinearLayout,
-                new TalkbackHints_CategoryIcon());
-        final int MODE_PICTURE_ONLY = 1;
+        final int MODE_PICTURE_ONLY = 1, CATEGORY_HELP = 8;
+        if(mLevel1ItemPos != CATEGORY_HELP) {
+            ViewCompat.setAccessibilityDelegate(holder.menuItemLinearLayout,
+                    new TalkbackHints_CategoryIcon());
+        }else{
+            ViewCompat.setAccessibilityDelegate(holder.menuItemLinearLayout,
+                    new TalkBackHints_CategoryIconLastLevel());
+        }
         if (mSession.getPictureViewMode() == MODE_PICTURE_ONLY)
             holder.menuItemBelowText.setVisibility(View.INVISIBLE);
         holder.menuItemBelowText.setText(mBelowTextArray[position]);
@@ -63,6 +71,7 @@ class LevelTwoAdapter extends android.support.v7.widget.RecyclerView.Adapter<Lev
                 .centerCrop()
                 .dontAnimate()
                 .into(holder.menuItemImage);
+        holder.menuItemLinearLayout.setContentDescription(mBelowTextArray[position]);
     }
 
     @Override

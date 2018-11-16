@@ -18,6 +18,7 @@ import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
+import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
@@ -42,10 +43,17 @@ public class TutorialActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.menuTutorials)+"</font>"));
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
-
-        ((TextView)findViewById(R.id.tv6)).setText(
-                getString(R.string.softwareVersion).concat(" " + String.valueOf(BuildConfig.VERSION_NAME)));
-
+        if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))){
+            ((TextView) findViewById(R.id.tv6)).setText(
+                    getString(R.string.softwareVersion).concat(" " + String.valueOf(BuildConfig.VERSION_NAME)));
+        }else {
+            String versionName = String.valueOf(BuildConfig.VERSION_NAME).replace(".","@").split("@")[0] +
+                    " dot " +
+                    String.valueOf(BuildConfig.VERSION_NAME).replace(".","@").split("@")[1] +
+                    " dot " +
+                    String.valueOf(BuildConfig.VERSION_NAME).replace(".","@").split("@")[2];
+            ((TextView) findViewById(R.id.tv6)).setText(getString(R.string.softwareVersion).concat(" " + versionName));
+        }
         setImagesToImageViewUsingGlide();
     }
 
@@ -85,6 +93,9 @@ public class TutorialActivity extends AppCompatActivity {
         SessionManager session = new SessionManager(this);
         if(session.getLanguage().equals(BN_IN))
             menu.findItem(R.id.keyboardinput).setVisible(false);
+        if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+            menu.findItem(R.id.closePopup).setVisible(false);
+        }
         return true;
     }
 

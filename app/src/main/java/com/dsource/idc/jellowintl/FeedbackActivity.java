@@ -67,6 +67,7 @@ public class FeedbackActivity extends AppCompatActivity {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_main, menu);
         SessionManager session = new SessionManager(this);
+        menu.findItem(R.id.closePopup).setVisible(false);
         if(session.getLanguage().equals(BN_IN))
             menu.findItem(R.id.keyboardinput).setVisible(false);
         return true;

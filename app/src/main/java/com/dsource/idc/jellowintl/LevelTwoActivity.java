@@ -30,7 +30,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_DoubleClick;
@@ -323,6 +322,9 @@ public class LevelTwoActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main_with_search, menu);
         if(mSession.getLanguage().equals(BN_IN))
             menu.findItem(R.id.keyboardinput).setVisible(false);
+        if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+            menu.findItem(R.id.closePopup).setVisible(false);
+        }
         return true;
     }
 
@@ -424,10 +426,10 @@ public class LevelTwoActivity extends AppCompatActivity {
         ViewCompat.setAccessibilityDelegate(mIvDontLike, new TalkbackHints_DoubleClick());
         ViewCompat.setAccessibilityDelegate(mIvNo, new TalkbackHints_DoubleClick());
         ViewCompat.setAccessibilityDelegate(mIvLess, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvLess, new TalkbackHints_DoubleClick());
         ViewCompat.setAccessibilityDelegate(mIvKeyboard, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(mIvHome, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(mIvBack, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvTts, new TalkbackHints_SingleClick());
 
         originalKeyListener = mEtTTs.getKeyListener();
         // Set it to null - this will make the field non-editable
@@ -453,7 +455,7 @@ public class LevelTwoActivity extends AppCompatActivity {
     /**
      * <p>This function will initialize the adapter for recycler view. In this level two
      * types of adapter are used:
-     *      a) {@link PeoplePlacesAdapter}
+     *      a) {@link PeopleAdapter}
      *      b) {@link LevelTwoAdapter}
      * As per the category icon selected in the {@link MainActivity}, an adapter is selected and hence
      * category icons are populated in this level.</p>
@@ -462,7 +464,7 @@ public class LevelTwoActivity extends AppCompatActivity {
         if(mLevelOneItemPos != CATEGORY_ICON_PEOPLE) {
             mRecyclerView.setAdapter(new LevelTwoAdapter(this, mLevelOneItemPos));
         }else{
-            mRecyclerView.setAdapter(new PeoplePlacesAdapter(this, mLevelOneItemPos,
+            mRecyclerView.setAdapter(new PeopleAdapter(this, mLevelOneItemPos,
                     mArrAdapterTxt, mArrSort));
         }
     }
@@ -1832,7 +1834,7 @@ public class LevelTwoActivity extends AppCompatActivity {
         final View mView = getLayoutInflater().inflate(R.layout.dialog_layout, null);
 
         Button enterCategory = mView.findViewById(R.id.enterCategory);
-        Button closeDialog = mView.findViewById(R.id.btnClose);
+        final Button closeDialog = mView.findViewById(R.id.btnClose);
         ImageView ivLike = mView.findViewById(R.id.ivlike);
         ImageView ivYes = mView.findViewById(R.id.ivyes);
         ImageView ivAdd = mView.findViewById(R.id.ivadd);
@@ -1842,12 +1844,17 @@ public class LevelTwoActivity extends AppCompatActivity {
         ImageView ivBack = mView.findViewById(R.id.back);
         ImageView ivHome = mView.findViewById(R.id.home);
         ImageView ivKeyboard = mView.findViewById(R.id.keyboard);
+        ViewCompat.setAccessibilityDelegate(ivLike, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(ivYes, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(ivAdd, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(ivDisLike, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(ivNo, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(ivMinus, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(ivBack, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(ivHome, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(ivKeyboard, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(enterCategory, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(closeDialog, new TalkbackHints_SingleClick());
-        ImageView[] btns = {ivLike, ivYes, ivAdd, ivDisLike, ivNo, ivMinus, ivBack, ivHome, ivKeyboard};
-        for (ImageView btn : btns) {
-            ViewCompat.setAccessibilityDelegate(btn, new TalkbackHints_SingleClick());
-        }
         mBuilder.setView(mView);
         final AlertDialog dialog = mBuilder.create();
         dialog.setCanceledOnTouchOutside(false);
@@ -1924,9 +1931,16 @@ public class LevelTwoActivity extends AppCompatActivity {
                 ivNo.setImageResource(R.drawable.address);
                 ivAdd.setImageResource(R.drawable.contact);
                 ivMinus.setImageResource(R.drawable.bloodgroup);
+                /*ivLike.setContentDescription(getString(R.string.child_s_name));
+                ivDisLike.setContentDescription(getString(R.string.caregiverName));
+                ivYes.setContentDescription(getString(R.string.caregiver_s_email_address));
+                ivNo.setContentDescription(getString(R.string.homeAddress));
+                ivAdd.setContentDescription(getString(R.string.caregiver_s_contact_number));
+                ivMinus.setContentDescription(getString(R.string.bloodGroup));*/
             }else if(mLevelOneItemPos == 8){
+                ImageView[] btns = {ivLike, ivYes, ivAdd, ivDisLike, ivNo, ivMinus};
                 if(mLayerTwoSpeech.get(position).size() == 0) {
-                    for (int i = 0; i < 6; i++) {
+                    for (int i = 0; i < btns.length; i++) {
                         btns[i].setEnabled(false);
                         btns[i].setAlpha(0.5f);
                         btns[i].setOnClickListener(null);
@@ -1967,16 +1981,20 @@ public class LevelTwoActivity extends AppCompatActivity {
                 }
             });
         }
-        closeDialog.setAccessibilityDelegate(new View.AccessibilityDelegate(){
+
+        enterCategory.setAccessibilityDelegate(new View.AccessibilityDelegate(){
             @Override
             public void onPopulateAccessibilityEvent(View host, AccessibilityEvent event) {
                 super.onPopulateAccessibilityEvent(host, event);
-                if(event.getEventType() != AccessibilityEvent.TYPE_VIEW_ACCESSIBILITY_FOCUSED)
-                    ((TextView)mView.findViewById(R.id.txTitleHidden)).
+                if(event.getEventType() != AccessibilityEvent.TYPE_VIEW_ACCESSIBILITY_FOCUSED) {
+                    mView.findViewById(R.id.txTitleHidden).
                             setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-
+                }else {
+                    closeDialog.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
+                }
             }
         });
+        closeDialog.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
         closeDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

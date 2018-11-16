@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
+import com.dsource.idc.jellowintl.TalkBack.TalkBackHints_CategoryIconLastLevel;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.io.File;
@@ -51,9 +51,8 @@ class LevelThreeAdapter extends android.support.v7.widget.RecyclerView.Adapter<L
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-
         ViewCompat.setAccessibilityDelegate(holder.menuItemLinearLayout,
-                new TalkbackHints_SingleClick());
+                new TalkBackHints_CategoryIconLastLevel());
 
         final int MODE_PICTURE_ONLY = 1;
         if (mSession.getPictureViewMode() == MODE_PICTURE_ONLY)
@@ -66,6 +65,7 @@ class LevelThreeAdapter extends android.support.v7.widget.RecyclerView.Adapter<L
                 .centerCrop()
                 .dontAnimate()
                 .into(holder.menuItemImage);
+        holder.menuItemLinearLayout.setContentDescription(mBelowTextList.get(position));
     }
 
     @Override

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/parent"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorIntro"
@@ -14,14 +15,14 @@
         android:importantForAccessibility="yes"/>
     <Button
         android:id="@+id/btnClose"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         android:background="@android:drawable/ic_menu_close_clear_cancel"
         android:contentDescription="@string/close"/>
     <Button
         android:id="@+id/enterCategory"
         android:layout_width="wrap_content"
-        android:layout_height="56dp"
+        android:layout_height="wrap_content"
         android:fontFamily="@fonts/EkMukta-SemiBold"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"

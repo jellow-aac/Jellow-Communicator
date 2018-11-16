@@ -548,6 +548,9 @@ public class LanguageSelectActivity extends AppCompatActivity{
         getMenuInflater().inflate(R.menu.menu_main, menu);
         if(mSession.getLanguage().equals(BN_IN))
             menu.findItem(R.id.keyboardinput).setVisible(false);
+        if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+            menu.findItem(R.id.closePopup).setVisible(false);
+        }
         return true;
     }
 
@@ -692,13 +695,22 @@ public class LanguageSelectActivity extends AppCompatActivity{
             for (int i = 0; i < langNameToBeShorten.length; i++) {
                 switch (langNameToBeShorten[i]) {
                     case "मराठी":
-                        shortenLanguageNames[i] = "Marathi (India)";
+                        shortenLanguageNames[i] = getString(R.string.acc_lang_marathi);
                         break;
                     case "हिंदी":
-                        shortenLanguageNames[i] = "Hindi (India)";
+                        shortenLanguageNames[i] = getString(R.string.acc_lang_hindi);
                         break;
                     case "বাঙালি":
-                        shortenLanguageNames[i] = "Bengali (India)";
+                        shortenLanguageNames[i] = getString(R.string.acc_lang_bengali);
+                        break;
+                    case "English (India)":
+                        shortenLanguageNames[i] = getString(R.string.acc_lang_eng_in);
+                        break;
+                    case "English (United Kingdom)":
+                        shortenLanguageNames[i] = getString(R.string.acc_lang_eng_gb);
+                        break;
+                    case "English (United States)":
+                        shortenLanguageNames[i] = getString(R.string.acc_lang_eng_us);
                         break;
                     default:
                         shortenLanguageNames[i] = langNameToBeShorten[i];

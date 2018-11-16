@@ -7,7 +7,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.dsource.idc.jellowintl.R;
 
-public class TalkbackHints_SingleClick extends AccessibilityDelegateCompat {
+public class TalkBackHints_CategoryIconLastLevel extends AccessibilityDelegateCompat {
     @Override
     public void onInitializeAccessibilityNodeInfo(View host, AccessibilityNodeInfoCompat
             info) {
@@ -15,8 +15,7 @@ public class TalkbackHints_SingleClick extends AccessibilityDelegateCompat {
         AccessibilityNodeInfoCompat.AccessibilityActionCompat click =
                 new AccessibilityNodeInfoCompat.AccessibilityActionCompat
                         (AccessibilityNodeInfo.ACTION_CLICK,
-                                host.getContext().getString(R.string.talkback_single_click));
+                                host.getContext().getString(R.string.talkback_single_click_cat_last_level));
         info.addAction(click);
     }
 }
-

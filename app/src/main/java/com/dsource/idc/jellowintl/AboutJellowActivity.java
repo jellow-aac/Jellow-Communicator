@@ -110,6 +110,9 @@ public class AboutJellowActivity extends AppCompatActivity {
         SessionManager session = new SessionManager(this);
         if(session.getLanguage().equals(BN_IN))
             menu.findItem(R.id.keyboardinput).setVisible(false);
+        if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+            menu.findItem(R.id.closePopup).setVisible(false);
+        }
         return true;
     }
 
@@ -118,15 +121,14 @@ public class AboutJellowActivity extends AppCompatActivity {
         switch(item.getItemId()) {
             case R.id.languageSelect:
                 startActivity(new Intent(this, LanguageSelectActivity.class));
+                finish();
                 break;
             case R.id.settings:
-                Intent intent = new Intent(AboutJellowActivity.this, SettingActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(AboutJellowActivity.this, SettingActivity.class));
                 finish();
                 break;
             case R.id.profile:
-                Intent intent1 = new Intent(AboutJellowActivity.this, ProfileFormActivity.class);
-                startActivity(intent1);
+                startActivity(new Intent(AboutJellowActivity.this, ProfileFormActivity.class));
                 finish();
                 break;
             case R.id.feedback:
@@ -140,19 +142,21 @@ public class AboutJellowActivity extends AppCompatActivity {
                 }
                 finish();
                 break;
-            case R.id.usage: startActivity(new Intent(this, TutorialActivity.class)); finish(); break;
+            case R.id.usage:
+                startActivity(new Intent(this, TutorialActivity.class));
+                finish();
+                break;
             case R.id.reset:
-                Intent intent4 = new Intent(AboutJellowActivity.this, ResetPreferencesActivity.class);
-                startActivity(intent4);
+                startActivity(new Intent(AboutJellowActivity.this, ResetPreferencesActivity.class));
                 finish();
                 break;
             case android.R.id.home:
-                Intent intent5 = new Intent(AboutJellowActivity.this, MainActivity.class);
-                startActivity(intent5);
+                startActivity(new Intent(AboutJellowActivity.this, MainActivity.class));
+                finish();
                 break;
             case R.id.keyboardinput:
-                Intent intent6 = new Intent(AboutJellowActivity.this, KeyboardInputActivity.class);
-                startActivity(intent6);
+                startActivity(new Intent(AboutJellowActivity.this, KeyboardInputActivity.class));
+                finish();
                 break;
             default:
                 return super.onOptionsItemSelected(item);

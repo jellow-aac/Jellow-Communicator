@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
+import com.dsource.idc.jellowintl.TalkBack.TalkBackHints_CategoryIconLastLevel;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.io.File;
@@ -24,14 +24,14 @@ import java.util.Arrays;
 /**
  * Created by HP on 22/01/2017.
  */
-class PeoplePlacesAdapter extends android.support.v7.widget.RecyclerView.Adapter<PeoplePlacesAdapter.MyViewHolder> {
+class PeopleAdapter extends android.support.v7.widget.RecyclerView.Adapter<PeopleAdapter.MyViewHolder> {
     private Context mContext;
     private SessionManager mSession;
     private ArrayList<String> mIconNameList = new ArrayList<>();
     private ArrayList<String> mBelowTextList = new ArrayList<>();
     private String path;
 
-    PeoplePlacesAdapter(Context context, int levelOneItemPos, String[] mArrAdapterTxt, Integer[] arrSort) {
+    PeopleAdapter(Context context, int levelOneItemPos, String[] mArrAdapterTxt, Integer[] arrSort) {
         mContext = context;
         mSession = new SessionManager(mContext);
         loadArraysFromResources(levelOneItemPos, mArrAdapterTxt, arrSort);
@@ -40,21 +40,21 @@ class PeoplePlacesAdapter extends android.support.v7.widget.RecyclerView.Adapter
     }
 
     @Override
-    public PeoplePlacesAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public PeopleAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final int GRID_1BY3 = 0;
         View rowView;
         if (mSession.getGridSize() == GRID_1BY3)
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_3_icons, parent, false);
         else
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_9_icons, parent, false);
-        return new PeoplePlacesAdapter.MyViewHolder(rowView);
+        return new PeopleAdapter.MyViewHolder(rowView);
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
 
         ViewCompat.setAccessibilityDelegate(holder.menuItemLinearLayout,
-                new TalkbackHints_SingleClick());
+                new TalkBackHints_CategoryIconLastLevel());
 
         final int MODE_PICTURE_ONLY = 1;
 
@@ -68,6 +68,7 @@ class PeoplePlacesAdapter extends android.support.v7.widget.RecyclerView.Adapter
                 .centerCrop()
                 .dontAnimate()
                 .into(holder.menuItemImage);
+        holder.menuItemLinearLayout.setContentDescription(mBelowTextList.get(position));
     }
 
     @Override

@@ -120,15 +120,15 @@
             android:layout_width="628dp"
             android:layout_height="80dp"
             android:textSize="20sp"
-            android:imeOptions="actionDone|flagNoExtractUi"
-            android:contentDescription="Type here to speak"/>
+            android:imeOptions="actionDone"
+            android:contentDescription="@string/edttxt_msg"/>
         <ImageView
             android:id="@+id/ttsbutton"
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:src="@drawable/ic_search_list_speaker"
             android:layout_gravity="center_vertical"
-            android:contentDescription="speak"/>
+            android:contentDescription="@string/speak"/>
     </LinearLayout>
     <ImageView
         android:layout_width="168dp"

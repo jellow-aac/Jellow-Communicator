@@ -30,7 +30,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
@@ -307,6 +306,9 @@ public class LevelThreeActivity extends AppCompatActivity {
         SessionManager session = new SessionManager(this);
         if(session.getLanguage().equals(BN_IN))
             menu.findItem(R.id.keyboardinput).setVisible(false);
+        if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+            menu.findItem(R.id.closePopup).setVisible(false);
+        }
         return true;
     }
 
@@ -388,10 +390,10 @@ public class LevelThreeActivity extends AppCompatActivity {
         ViewCompat.setAccessibilityDelegate(mIvDontLike, new TalkbackHints_DoubleClick());
         ViewCompat.setAccessibilityDelegate(mIvNo, new TalkbackHints_DoubleClick());
         ViewCompat.setAccessibilityDelegate(mIvLess, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvLess, new TalkbackHints_DoubleClick());
         ViewCompat.setAccessibilityDelegate(mIvKeyboard, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(mIvHome, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(mIvBack, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvTTs, new TalkbackHints_SingleClick());
 
         originalKeyListener = mEtTTs.getKeyListener();
         // Set it to null - this will make to the field non-editable
@@ -1569,7 +1571,7 @@ public class LevelThreeActivity extends AppCompatActivity {
         final View mView = getLayoutInflater().inflate(R.layout.dialog_layout, null);
 
         Button enterCategory = mView.findViewById(R.id.enterCategory);
-        Button closeDialog = mView.findViewById(R.id.btnClose);
+        final Button closeDialog = mView.findViewById(R.id.btnClose);
         ImageView ivLike = mView.findViewById(R.id.ivlike);
         ImageView ivYes = mView.findViewById(R.id.ivyes);
         ImageView ivAdd = mView.findViewById(R.id.ivadd);
@@ -1579,12 +1581,18 @@ public class LevelThreeActivity extends AppCompatActivity {
         ImageView ivBack = mView.findViewById(R.id.back);
         ImageView ivHome = mView.findViewById(R.id.home);
         ImageView ivKeyboard = mView.findViewById(R.id.keyboard);
+        ViewCompat.setAccessibilityDelegate(ivLike, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(ivYes, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(ivAdd, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(ivDisLike, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(ivNo, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(ivMinus, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(ivBack, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(ivHome, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(ivKeyboard, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(enterCategory, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(closeDialog, new TalkbackHints_SingleClick());
-        ImageView[] btns = {ivLike, ivYes, ivAdd, ivDisLike, ivNo, ivMinus, ivBack, ivHome, ivKeyboard};
-        for (ImageView btn : btns) {
-            ViewCompat.setAccessibilityDelegate(btn, new TalkbackHints_SingleClick());
-        }
+
         mBuilder.setView(mView);
         final AlertDialog dialog = mBuilder.create();
         dialog.setCanceledOnTouchOutside(false);
@@ -1596,16 +1604,19 @@ public class LevelThreeActivity extends AppCompatActivity {
                 speakSpeech(mSpeechTxt[getTagPos()]);
             }
         });
-        closeDialog.setAccessibilityDelegate(new View.AccessibilityDelegate(){
+        enterCategory.setAccessibilityDelegate(new View.AccessibilityDelegate(){
             @Override
             public void onPopulateAccessibilityEvent(View host, AccessibilityEvent event) {
                 super.onPopulateAccessibilityEvent(host, event);
-                if(event.getEventType() != AccessibilityEvent.TYPE_VIEW_ACCESSIBILITY_FOCUSED)
-                    ((TextView)mView.findViewById(R.id.txTitleHidden)).
+                if(event.getEventType() != AccessibilityEvent.TYPE_VIEW_ACCESSIBILITY_FOCUSED) {
+                    mView.findViewById(R.id.txTitleHidden).
                             setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-
+                }else {
+                    closeDialog.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
+                }
             }
         });
+        closeDialog.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
         closeDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1674,9 +1685,9 @@ public class LevelThreeActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-
+        ImageView[] btns = {ivLike, ivYes, ivAdd, ivDisLike, ivNo, ivMinus};
         if(mNewVerbTxt.get(getTagPos()).size() == 0) {
-            for (int i = 0; i < 6; i++) {
+            for (int i = 0; i < btns.length; i++) {
                 btns[i].setEnabled(false);
                 btns[i].setAlpha(0.5f);
                 btns[i].setOnClickListener(null);

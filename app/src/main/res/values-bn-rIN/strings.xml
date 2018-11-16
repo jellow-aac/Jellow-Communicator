@@ -30,6 +30,18 @@
         <item>ও-</item>
     </string-array>
 
+    <string-array name="bloodgroup_talkback">
+        <item>নির্বাচিত হয়নি</item>
+        <item>এ+</item>
+        <item>এ-</item>
+        <item>বি+</item>
+        <item>বি-</item>
+        <item>এবি+</item>
+        <item>এবি-</item>
+        <item>ও+</item>
+        <item>ও-</item>
+    </string-array>
+
     <string-array name="picture_view_mode">
         <item>ছবি এবং লেখা</item>
         <item>কেবল ছবি</item>
@@ -38,6 +50,11 @@
     <string-array name="grid_size">
         <item>৩</item>
         <item>৯</item>
+    </string-array>
+
+    <string-array name="acc_grid_size">
+        <item>তিন</item>
+        <item>নয়</item>
     </string-array>
 
     <string name="change_language_line2">প্রথম ধাপঃ নীচের ডাউনলোড করা ভাষাগুলি থেকে যে-কোনো একটি ভাষা নির্বাচন করো</string>
@@ -70,10 +87,12 @@
     <string name="menuResetPref">পছন্দগুলি রিসেট করো</string>
     <string name="menuFeedback">প্রতিক্রিয়া</string>
     <string name="menuUserRegistration">নিবন্ধন পৃষ্ঠা</string>
+    <string name="menuClosePopup">বন্ধ মেনু</string>
 
     <string name="endString"> </string>
 
     <string name="easyToUse">সহজেই ব্যবহৃত</string>
+    <string name="feedback_talkback_heading">১ থেকে ৫ স্কেলে, অনুগ্রহ করে অনুসরণ করুন</string>
     <string name="clearPictures">স্পষ্ট ছবি</string>
     <string name="clearVoice">স্পষ্ট আওয়াজ</string>
     <string name="easyToNavigate">সহজেই সঠিক পথ খুঁজে পাওয়া</string>
@@ -84,7 +103,6 @@
     <string name="changeDefaultToHindi">২। পছন্দের ভাষাকে ডিফল্ট করা</string>
     <string name="downloadVoiceTts">৩। পছন্দের ভাষার আওয়াজ ডাউনলোড করা</string>
     <string name="activate">সক্রিয় করা</string>
-    <string name="changeLanguage">ভাষা বদল করা</string>
     <string name="download">ডাউনলোড করা</string>
     <string name="cancel">বাতিল করা</string>
     <string name="keyboardControl">কীবোর্ড নিয়ন্ত্রণঃ</string>
@@ -97,7 +115,7 @@
     <string name="voiceControl">আওয়াজ নিয়ন্ত্রণ</string>
     <string name="getKeyboardControl">কীবোর্ড নিয়ন্ত্রণ</string>
     <string name="childName">শিশুর নাম *</string>
-    <string name="careGiveName">কেয়ারগিভারের নাম *</string>
+    <string name="caregiverName">কেয়ারগিভারের নাম </string>
     <string name="careGiverContact">এই ডিভাইসের সিম নম্বর ছাড়া অন্যের তত্ত্বাবধানকারীর যোগাযোগ নম্বর দিন *</string>
     <string name="homeAddress">বাড়ির ঠিকানা</string>
     <string name="emailAddress">ই-মেলের ঠিকানা *</string>
@@ -205,6 +223,9 @@
     <string name="exit_dialog_msg">জেলো গুগল টেক্সট-টু-স্পীচ ইঞ্জিনের ছাড়া কাজ করে না। তুমি কি সত্যিই প্রস্থান করতে চাও?</string>
 
 
+    <string name="next_slide">পরবর্তী পর্দা</string>
+    <string name="previous_slide">পূর্ববর্তী পর্দা</string>
+
     <!--Strings related to the Searching capability
     @AyazAlam
     -->
@@ -256,7 +277,7 @@
     <!--Content description-->
     <string name="language_download_in_process">ভাষা ডাউনলোড করা হচ্ছে</string>
     <string name="child_s_name">শিশুর নাম</string>
-    <string name="caregiver_s_contact_number">কেয়ারগিভারের যোগাযোগের নাম্বার</string>
+    <string name="caregiver_s_contact_number">এই ডিভাইসের সিম নম্বর ছাড়া অন্যের তত্ত্বাবধানকারীর যোগাযোগ নম্বর দিন </string>
     <string name="user_s_group">ব্যবহারকারীর গ্রুপ</string>
     <string name="enter_caregiver_s_contact_number">কেয়ারগিভারের যোগাযোগের নাম্বার লিখুন</string>
     <string name="enter_home_address">বাড়ির ঠিকানা লিখুন</string>
@@ -280,10 +301,8 @@
     <string name="select_country_code">দেশের কোড লিখুন</string>
     <string name="caregiver_s_email_address">কেয়ারগিভারের ইমেলের ঠিকানা</string>
     <string name="like">পছন্দ করি</string>
-    <string name="yes">হ্যাঁ</string>
     <string name="more">আরও</string>
     <string name="dont_like">পছন্দ করি না</string>
-    <string name="no">না</string>
     <string name="less">কম</string>
     <string name="back">পিছনে</string>
     <string name="enter_category">বিভাগ প্রবেশ করান</string>
@@ -295,9 +314,9 @@
     <string name="intro6_1_cd">প্রথম ছবি " text to speech " সংক্রান্ত, যেখানে দুটি পছন্দসই ইঞ্জিন দৃশ্যমান। প্রথমটি " samsung text to speech engine " এবং দ্বিতীয় " google text to speech engine "। ব্যবহারকারী দ্বিতীয় ইঞ্জিনটিকে প্রথম ধাপ হিসেবে নির্বাচন করেন।</string>
     <string name="intro6_2_cd">দ্বিতীয় ছবিটি এই প্রক্রিয়ার দ্বিতীয় ধাপ সংক্রান্ত, যেখানে ব্যবহারকারীকে দেখা যায় " গিয়ার " চিহ্নে ক্লিক করতে, যা আসলে " google text to speech " -এর " সেটিংস " সংক্রান্ত।</string>
     <string name="intro6_3_cd">তৃতীয় ছবিটি এই পদ্ধতির তৃতীয় ফহাও যেখানে ব্যবহারকারী রয়েছে " Google TTS voice data " স্ক্রিনে। তিন ধরনের সেটিংস স্ক্রিনে চোখে পড়ে, যথা - নামকরণ, google text-to-speech engine এবং install voice data. ব্যবহারকারীকে দেখা গেল ভাষার প্রথম অপশনটিকে নির্বাচন করে  TTS engine-এর মূল ভাষা হিন্দিকে প্রয়োগ করতে।</string>
-    <string name="change_language">জেলোতে নির্বাচিত ভাষা আপনার যন্ত্রের আউটপুট ভাষার থেকে আলাদা। আপনি কি যন্ত্রের ভাষা পরিবর্তন করতে চান?</string>
     <string name="talkback_lang_diag_disable">আর কখনও দেখাবে না</string>
     <string name="talkback_single_click">আলতো চাপুন</string>
+    <string name="talkback_single_click_cat_last_level">আলতো চাপুন</string>
     <string name="talkback_recycler_view">বিভাগ এবং আরও বিকল্প নির্বাচন করুন</string>
     <string name="talkback_dropdown_menu">দেশের তালিকা ব্যবহার করতে</string>
     <string name="talkback_double_click">ক্যাটাগরি নির্বাচন করতে। আরও অপশনের জন্য দীর্ঘক্ষণ ধরে রাখুন।</string>
@@ -323,4 +342,18 @@
     <string name="txt_intro8_txtTitle">নীচের পদক্ষেপগুলি সম্পন্ন করুনঃ</string>
     <string name="txt_actLangSel_completestep2">ভয়েস ডেটা প্রাপ্ত হয়নি। দয়া করে ইন্টারনেট চালু করুন এবং দ্বিতীয় ধাপ সম্পূর্ণ করুন।</string>
     <string name="txtStep2">দ্বিতীয় ধাপঃ</string>
+    <string name="close">বন্ধ ডায়ালগ</string>
+    <string name="access_dialog_title">অপশন সঙ্গে ডায়ালগ</string>
+
+    <string name="acc_lang_marathi">মারাঠি</string>
+    <string name="acc_lang_hindi">হিন্দি</string>
+    <string name="acc_lang_bengali">বাঙালি</string>
+    <string name="acc_lang_eng_in">ইংরেজি (ভারত)</string>
+    <string name="acc_lang_eng_gb">ইংরেজি (যুক্তরাজ্য)</string>
+    <string name="acc_lang_eng_us">ইংরেজি (মার্কিন যুক্তরাষ্ট্র)</string>
+
+    <string name="level_1_screen">স্তর এক</string>
+    <string name="level_2_screen">স্তর দুই</string>
+    <string name="level_3_screen">স্তর তিন</string>
+    <string name="sequence_screen">কার্যকলাপ ক্রম</string>
 </resources>

@@ -39,4 +39,10 @@
             android:title="@string/menuFeedback"
             app:showAsAction="never"/>
     </group>
+    <group android:id="@+id/menuClose">
+        <item
+            android:id="@+id/closePopup"
+            android:title="@string/menuClosePopup"
+            app:showAsAction="never"/>
+    </group>
 </menu>

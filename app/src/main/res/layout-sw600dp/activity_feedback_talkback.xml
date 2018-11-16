@@ -120,7 +120,9 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:text="@string/submit"
-            android:textSize="22sp"
+            android:textSize="20sp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="30dp"
             android:layout_marginStart="30dp"/>

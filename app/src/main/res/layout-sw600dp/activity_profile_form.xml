@@ -4,22 +4,21 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:background="#F7F3C6"
-    android:isScrollContainer="false">
+    android:background="#F7F3C6">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="19dp"
-        android:layout_marginBottom="19dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginEnd="16dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:fillViewport="true"
+            android:layout_marginTop="19dp"
+            android:layout_marginBottom="19dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
             android:fadeScrollbars="false"
             android:scrollbarStyle="outsideInset"
             android:scrollbarAlwaysDrawVerticalTrack="true"
@@ -46,12 +45,13 @@
                     android:layout_marginStart="-4dp"
                     android:imeOptions="actionDone"
                     android:inputType="textPersonName"
-                    style="@style/defaultTextViewStyle"/>
+                    style="@style/defaultTextViewStyle"
+                    android:contentDescription="@string/enter_child_s_name"/>
                 <TextView
                     android:id="@+id/tvCaregiverName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/careGiveName"
+                    android:text="@string/caregiverName"
                     android:fontFamily="@font/mukta_semibold"
                     style="@style/defaultTextViewStyle"/>
                 <EditText
@@ -63,7 +63,8 @@
                     android:layout_marginStart="-4dp"
                     style="@style/defaultTextViewStyle"
                     android:imeOptions="actionDone"
-                    android:inputType="textPersonName"/>
+                    android:inputType="textPersonName"
+                    android:contentDescription="@string/caregiverName"/>
                 <TextView
                     android:id="@+id/tvCaregiverNo"
                     android:layout_width="wrap_content"
@@ -95,7 +96,8 @@
                     android:inputType="phone"
                     android:maxLength="12"
                     style="@style/defaultTextViewStyle"
-                    android:imeOptions="actionDone"/>
+                    android:imeOptions="actionDone"
+                    android:contentDescription="@string/caregiver_s_contact_number"/>
             </LinearLayout>
                 <TextView
                     android:id="@+id/tvHomeAddress"
@@ -113,7 +115,8 @@
                     android:layout_marginStart="-4dp"
                     style="@style/defaultTextViewStyle"
                     android:imeOptions="actionDone"
-                    android:inputType="textPostalAddress"/>
+                    android:inputType="textPostalAddress"
+                    android:contentDescription="@string/enter_home_address"/>
                 <TextView
                     android:id="@+id/tvEmailAddress"
                     android:layout_width="wrap_content"
@@ -121,7 +124,7 @@
                     android:text="@string/emailAddress"
                     style="@style/defaultTextViewStyle"
                     android:fontFamily="@font/mukta_semibold"
-                    android:contentDescription="email address"/>
+                    android:contentDescription="@string/caregiver_s_email_address"/>
                 <EditText
                     android:id="@+id/etEmailId"
                     android:layout_width="match_parent"
@@ -198,6 +201,6 @@
             android:textSize="20sp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="30dp"
-            android:layout_marginStart="30dp" />
+            android:layout_marginStart="30dp"/>
     </LinearLayout>
 </RelativeLayout>

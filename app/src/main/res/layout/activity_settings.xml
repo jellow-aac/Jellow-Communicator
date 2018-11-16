@@ -78,7 +78,7 @@
                     android:fontFamily="@font/mukta_semibold"/>
                 <Spinner
                     android:id="@+id/spinner3"
-                    android:layout_width="130dp"
+                    android:layout_width="140dp"
                     android:layout_height="30dp"
                     android:background="@drawable/custom_spinner_view"
                     android:textColor="@color/black_eighty"

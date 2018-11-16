@@ -34,7 +34,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_DoubleClick;
@@ -155,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
         mChgLang = getString(R.string.changeLanguage);
         mStrYes = getString(R.string.yes);
         mStrNo = getString(R.string.no);
-        mNeverShowAgain = "Never Show Again";
+        mNeverShowAgain = getString(R.string.never_show_again);
 
         initializeLayoutViews();
         initializeViewListeners();
@@ -381,6 +380,9 @@ public class MainActivity extends AppCompatActivity {
         SessionManager session = new SessionManager(this);
         if(session.getLanguage().equals(BN_IN))
             menu.findItem(R.id.keyboardinput).setVisible(false);
+        if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+            menu.findItem(R.id.closePopup).setVisible(false);
+        }
         return true;
     }
 
@@ -1253,7 +1255,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQ_HOME);
             }
         }else {
-            if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) //talkback on
+            if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE)))
             {
                 showAccessibleDialog(position, title, view);
                 view.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
@@ -1274,7 +1276,7 @@ public class MainActivity extends AppCompatActivity {
         final View mView = getLayoutInflater().inflate(R.layout.dialog_layout, null);
 
         Button enterCategory = mView.findViewById(R.id.enterCategory);
-        Button closeDialog = mView.findViewById(R.id.btnClose);
+        final Button closeDialog = mView.findViewById(R.id.btnClose);
         ImageView ivLike = mView.findViewById(R.id.ivlike);
         ImageView ivYes = mView.findViewById(R.id.ivyes);
         ImageView ivAdd = mView.findViewById(R.id.ivadd);
@@ -1284,12 +1286,18 @@ public class MainActivity extends AppCompatActivity {
         ImageView ivBack = mView.findViewById(R.id.back);
         ImageView ivHome = mView.findViewById(R.id.home);
         ImageView ivKeyboard = mView.findViewById(R.id.keyboard);
+        ViewCompat.setAccessibilityDelegate(ivLike, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(ivYes, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(ivAdd, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(ivDisLike, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(ivNo, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(ivMinus, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(ivBack, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(ivHome, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(ivKeyboard, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(enterCategory, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(closeDialog, new TalkbackHints_SingleClick());
-        ImageView[] btns = {ivLike, ivYes, ivAdd, ivDisLike, ivNo, ivMinus, ivBack, ivHome, ivKeyboard};
-        for (ImageView btn : btns) {
-            ViewCompat.setAccessibilityDelegate(btn, new TalkbackHints_SingleClick());
-        }
+
         mBuilder.setView(mView);
         final AlertDialog dialog = mBuilder.create();
         dialog.setCanceledOnTouchOutside(false);
@@ -1359,17 +1367,21 @@ public class MainActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-        closeDialog.setAccessibilityDelegate(new View.AccessibilityDelegate(){
+
+        enterCategory.setAccessibilityDelegate(new View.AccessibilityDelegate(){
             @Override
             public void onPopulateAccessibilityEvent(View host, AccessibilityEvent event) {
                 super.onPopulateAccessibilityEvent(host, event);
-                if(event.getEventType() != AccessibilityEvent.TYPE_VIEW_ACCESSIBILITY_FOCUSED)
-                    ((TextView)mView.findViewById(R.id.txTitleHidden)).
+                if(event.getEventType() != AccessibilityEvent.TYPE_VIEW_ACCESSIBILITY_FOCUSED) {
+                    mView.findViewById(R.id.txTitleHidden).
                             setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-
+                }else {
+                    closeDialog.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
+                }
             }
         });
 
+        closeDialog.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
         closeDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
