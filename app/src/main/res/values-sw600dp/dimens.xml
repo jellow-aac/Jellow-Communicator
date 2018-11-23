@@ -60,7 +60,7 @@
     <!--Dimensions related to the My Board Card-->
     <dimen name="my_board_four_grid_icon_size">200dp</dimen>
     <dimen name="my_board_text_size">24sp</dimen>
-    <dimen name="my_board_edit_icon_size">48dp</dimen>
+    <dimen name="my_board_edit_icon_size">40dp</dimen>
     <dimen name="board_edit_edittext_size">170dp</dimen>
     <dimen name="list_item_padding">6dp</dimen>
     <dimen name="dialog_width">400dp</dimen>
@@ -108,9 +108,8 @@
     <dimen name="add_edit_screen_edit_icon_size">26dp</dimen>
     <dimen name="camera_drop_down_width">140dp</dimen>
 
-
     <!--1by1 configuration-->
-    <dimen name="oneByOne_parentHorizontal">112dp</dimen>
+    <dimen name="oneByOne_parentHorizontal">184dp</dimen>
     <dimen name="oneByOne_parentVertical">30dp</dimen>
     <dimen name="oneByOne_crossMargin">0dp</dimen>
     <dimen name="oneByOne_width">195dp</dimen>
@@ -119,7 +118,7 @@
     <dimen name="oneByOne_inerRadius">88dp</dimen>
 
     <!--1by2 configuration-->
-    <dimen name="oneByTwo_parentHorizontal">45dp</dimen>
+    <dimen name="oneByTwo_parentHorizontal">42dp</dimen>
     <dimen name="oneByTwo_parentVertical">112dp</dimen>
     <dimen name="oneByTwo_width">142dp</dimen>
     <dimen name="oneByTwo_textSize">24sp</dimen>

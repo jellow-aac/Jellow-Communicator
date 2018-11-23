@@ -74,7 +74,7 @@
     <!--Dimensions related to the My Board Card-->
     <dimen name="my_board_four_grid_icon_size">160dp</dimen>
     <dimen name="my_board_text_size">16sp</dimen>
-    <dimen name="my_board_edit_icon_size">44dp</dimen>
+    <dimen name="my_board_edit_icon_size">36dp</dimen>
     <dimen name="board_edit_edittext_size">170dp</dimen>
     <dimen name="list_item_padding">6dp</dimen>
     <dimen name="dialog_width">400dp</dimen>
@@ -84,11 +84,11 @@
 
     <!--Dimensions Related to the Grid DialogBox-->
     <dimen name="grid_dialog_padding">4dp</dimen>
-    <dimen name="grid_dialog_title_textsize">18sp</dimen>
+    <dimen name="grid_dialog_title_textsize">14sp</dimen>
     <dimen name="grid_dialog_title_bottom_margin">8dp</dimen>
     <dimen name="grid_dialog_icon_size">70dp</dimen>
     <dimen name="grid_dialog_width">600dp</dimen>
-    <dimen name="grid_dialog_icon_margin">10dp</dimen>
+    <dimen name="grid_dialog_icon_margin">4dp</dimen>
     <dimen name="grid_dialog_text_margin">4dp</dimen>
 
 
@@ -131,9 +131,8 @@
     <dimen name="list_item_text_size">18sp</dimen>
     <dimen name="camera_drop_down_width">160dp</dimen>
 
-
     <!--1by1 configuration-->
-    <dimen name="oneByOne_parentHorizontal">56dp</dimen>
+    <dimen name="oneByOne_parentHorizontal">88dp</dimen>
     <dimen name="oneByOne_parentVertical">30dp</dimen>
     <dimen name="oneByOne_crossMargin">16dp</dimen>
     <dimen name="oneByOne_width">144dp</dimen>
@@ -142,12 +141,11 @@
     <dimen name="oneByOne_inerRadius">63dp</dimen>
 
     <!--1by2 configuration-->
-    <dimen name="oneByTwo_parentHorizontal">30dp</dimen>
+    <dimen name="oneByTwo_parentHorizontal">12dp</dimen>
     <dimen name="oneByTwo_parentVertical">48dp</dimen>
     <dimen name="oneByTwo_crossMargin">28dp</dimen>
     <dimen name="oneByTwo_width">94dp</dimen>
     <dimen name="oneByTwo_textSize">16sp</dimen>
     <dimen name="oneByTwo_borderThickness">7dp</dimen>
     <dimen name="oneByTwo_inerRadius">40dp</dimen>
-
 </resources>

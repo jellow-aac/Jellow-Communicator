@@ -24,7 +24,7 @@
     <dimen name="list_item_text_size">18sp</dimen>
 
     <!--1by1 Configuration-->
-    <dimen name="oneByOne_parentHorizontal">96dp</dimen>
+    <dimen name="oneByOne_parentHorizontal">184dp</dimen>
     <dimen name="oneByOne_parentVertical">96dp</dimen>
     <dimen name="oneByOne_crossMargin">0dp</dimen>
     <dimen name="oneByOne_width">195dp</dimen>
@@ -33,7 +33,7 @@
     <dimen name="oneByOne_inerRadius">89dp</dimen>
 
     <!--1by2 Configuration-->
-    <dimen name="oneByTwo_parentHorizontal">45dp</dimen>
+    <dimen name="oneByTwo_parentHorizontal">42dp</dimen>
     <dimen name="oneByTwo_parentVertical">94dp</dimen>
     <dimen name="oneByTwo_width">142dp</dimen>
     <dimen name="oneByTwo_textSize">22sp</dimen>

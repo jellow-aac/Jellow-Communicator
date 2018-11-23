@@ -52,7 +52,11 @@ todo and issue list for Make my board
  6. Merge both models and start AddEditScreen with newly added icons.
 
 
+//23rd November | Step to solve the Save problem
 
+ * Trying to remove the Icon Image that I've added to the SQLite database, Instead of that try to save the image locally
+   then fetch as all the other Icons.
+ STEP 1: Initially, changing the board option only.
 
 
 

@@ -11,6 +11,16 @@ public class JellowIcon implements Serializable{
     @Keep
     public int parent0, parent1, parent2;
     @Keep private boolean isCustomIcon = false;
+
+    @Keep int IconID;
+
+    public int getIconID() {
+        return IconID;
+    }
+
+    public void setIconID(int iconID) {
+        IconID = iconID;
+    }
     
     public JellowIcon(String iconTitle, String iconDrawable, int p1, int p2, int p3) {
         IconDrawable = iconDrawable;

@@ -75,4 +75,5 @@
     <color name="light_grey">#d37b7878</color>
     <color name="transparent">#00d70202</color>
     <color name="level_select_text_color">#767272</color>
+    <color name="indigo_500">#FF23FF</color>
 </resources>

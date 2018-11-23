@@ -22,7 +22,7 @@
     <dimen name="camera_drop_down_width">130dp</dimen>
 
     <!--1by1 configuration-->
-    <dimen name="oneByOne_parentHorizontal">56dp</dimen>
+    <dimen name="oneByOne_parentHorizontal">88dp</dimen>
     <dimen name="oneByOne_parentVertical">30dp</dimen>
     <dimen name="oneByOne_crossMargin">16dp</dimen>
     <dimen name="oneByOne_width">144dp</dimen>
@@ -31,7 +31,7 @@
     <dimen name="oneByOne_inerRadius">63dp</dimen>
 
     <!--1by2 configuration-->
-    <dimen name="oneByTwo_parentHorizontal">30dp</dimen>
+    <dimen name="oneByTwo_parentHorizontal">12dp</dimen>
     <dimen name="oneByTwo_parentVertical">48dp</dimen>
     <dimen name="oneByTwo_crossMargin">28dp</dimen>
     <dimen name="oneByTwo_width">94dp</dimen>
