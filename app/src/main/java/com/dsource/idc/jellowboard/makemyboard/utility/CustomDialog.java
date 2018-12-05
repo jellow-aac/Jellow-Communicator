@@ -1,4 +1,4 @@
-package com.dsource.idc.jellowboard.makemyboard.UtilityClasses;
+package com.dsource.idc.jellowboard.makemyboard.utility;
 
 
 import android.content.Context;

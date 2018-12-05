@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.dsource.idc.jellowboard.makemyboard.MyBoards;
-import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.IconDatabase;
+import com.dsource.idc.jellowboard.makemyboard.utility.IconDatabase;
 import com.dsource.idc.jellowboard.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowboard.utility.LanguageHelper;
 import com.dsource.idc.jellowboard.utility.SessionManager;

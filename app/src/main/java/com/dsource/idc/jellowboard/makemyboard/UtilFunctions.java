@@ -4,7 +4,7 @@ package com.dsource.idc.jellowboard.makemyboard;
 import android.content.Context;
 import android.util.Log;
 
-import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.IconDatabase;
+import com.dsource.idc.jellowboard.makemyboard.utility.IconDatabase;
 import com.dsource.idc.jellowboard.utility.JellowIcon;
 
 import java.util.ArrayList;

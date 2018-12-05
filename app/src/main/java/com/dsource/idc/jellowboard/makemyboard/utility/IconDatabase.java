@@ -1,4 +1,4 @@
-package com.dsource.idc.jellowboard.makemyboard.UtilityClasses;
+package com.dsource.idc.jellowboard.makemyboard.utility;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.dsource.idc.jellowboard.DataBaseHelper;
 import com.dsource.idc.jellowboard.Nomenclature;
 import com.dsource.idc.jellowboard.utility.JellowIcon;
 import com.dsource.idc.jellowboard.utility.SessionManager;
