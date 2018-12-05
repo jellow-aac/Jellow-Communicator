@@ -34,6 +34,7 @@ import com.dsource.idc.jellowboard.makemyboard.adapters.LevelSelectorAdapter;
 import com.dsource.idc.jellowboard.makemyboard.models.Board;
 import com.dsource.idc.jellowboard.makemyboard.models.IconModel;
 import com.dsource.idc.jellowboard.makemyboard.utility.ModelManager;
+import com.dsource.idc.jellowboard.makemyboard.utility.UtilFunctions;
 import com.dsource.idc.jellowboard.utility.CustomGridLayoutManager;
 import com.dsource.idc.jellowboard.utility.JellowIcon;
 import java.util.ArrayList;
