@@ -1,4 +1,4 @@
-package com.dsource.idc.jellowboard.makemyboard.UtilityClasses;
+package com.dsource.idc.jellowboard.makemyboard.models;
 
 import android.support.annotation.Keep;
 

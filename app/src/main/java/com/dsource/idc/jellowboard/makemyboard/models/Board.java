@@ -1,8 +1,8 @@
-package com.dsource.idc.jellowboard.makemyboard;
+package com.dsource.idc.jellowboard.makemyboard.models;
 
 import android.support.annotation.Keep;
 
-import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.IconModel;
+import com.dsource.idc.jellowboard.makemyboard.models.IconModel;
 
 import java.io.Serializable;
 
@@ -15,7 +15,6 @@ public class Board implements Serializable {
     public String boardTitle;
     @Keep
     public String boardID;
-    private byte[] boardIcon;
     private boolean boardCompleted=false;
     private boolean boardIconsSelected=false;
     private IconModel boardIconModel;
@@ -23,10 +22,9 @@ public class Board implements Serializable {
     private boolean passedAddEditIconScreen=false;
 
     @Keep
-    public Board(String Uid, String boardTitle, byte[] boardIcon) {
+    public Board(String Uid, String boardTitle) {
         this.boardTitle = boardTitle;
         this.boardID = Uid;
-        this.boardIcon=boardIcon;
     }
 
     public String getBoardTitle() {
@@ -43,14 +41,6 @@ public class Board implements Serializable {
 
     public void setBoardID(String boardID) {
         this.boardID = boardID;
-    }
-
-    public byte[] getBoardIcon() {
-        return boardIcon;
-    }
-
-    public void setBoardIcon(byte[] boardIcon) {
-        this.boardIcon = boardIcon;
     }
 
     public void setBoardCompleted()

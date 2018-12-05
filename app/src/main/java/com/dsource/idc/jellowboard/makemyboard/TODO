@@ -1,4 +1,4 @@
-todo and issue list for Make my board
+Todo and issue list for Make my board
 
 1. Camera Dialog have some issue, if a very large image is selected the whole database is being corrupted.
    So, have a check to reduce the size.
@@ -57,6 +57,17 @@ todo and issue list for Make my board
  * Trying to remove the Icon Image that I've added to the SQLite database, Instead of that try to save the image locally
    then fetch as all the other Icons.
  STEP 1: Initially, changing the board option only.
+   * Store the image into local storage /boardicon/boardID.png
+   * Replace the image when board is editing, first delete then again save with same name
+   * On deleting the board delete the image from database
+   * Keep track of all such images, and upload to firebase when needed.
+
+
+
+   //5 December 2018 || Trying to fix the Reposition Icon
+
+   * Removed previous
+   *
 
 
 

@@ -1,4 +1,4 @@
-package com.dsource.idc.jellowboard.makemyboard;
+package com.dsource.idc.jellowboard.makemyboard.adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -16,6 +16,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.dsource.idc.jellowboard.GlideApp;
 import com.dsource.idc.jellowboard.R;
+import com.dsource.idc.jellowboard.makemyboard.IconSelectActivity;
 import com.dsource.idc.jellowboard.utility.JellowIcon;
 import com.dsource.idc.jellowboard.utility.SessionManager;
 

@@ -24,13 +24,16 @@ import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.dsource.idc.jellowboard.MainActivity;
+
 import com.dsource.idc.jellowboard.R;
-import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.BoardDatabase;
-import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.CustomDialog;
-import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.IconDatabase;
-import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.IconModel;
-import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.ModelManager;
+import com.dsource.idc.jellowboard.makemyboard.utility.BoardDatabase;
+import com.dsource.idc.jellowboard.makemyboard.utility.CustomDialog;
+import com.dsource.idc.jellowboard.makemyboard.utility.IconDatabase;
+import com.dsource.idc.jellowboard.makemyboard.adapters.IconSelectorAdapter;
+import com.dsource.idc.jellowboard.makemyboard.adapters.LevelSelectorAdapter;
+import com.dsource.idc.jellowboard.makemyboard.models.Board;
+import com.dsource.idc.jellowboard.makemyboard.models.IconModel;
+import com.dsource.idc.jellowboard.makemyboard.utility.ModelManager;
 import com.dsource.idc.jellowboard.utility.CustomGridLayoutManager;
 import com.dsource.idc.jellowboard.utility.JellowIcon;
 import java.util.ArrayList;
@@ -631,7 +634,7 @@ public class IconSelectActivity extends AppCompatActivity {
         dialog.setOnPositiveClickListener(new CustomDialog.onPositiveClickListener() {
             @Override
             public void onPositiveClickListener() {
-                startActivity(new Intent(IconSelectActivity.this, MainActivity.class));
+                startActivity(new Intent(IconSelectActivity.this, MyBoards.class));
                 finish();
             }
         });

@@ -1,11 +1,16 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/card_view"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/oneByOne_parentVertical"
     android:layout_marginLeft="@dimen/oneByOne_parentHorizontal"
     android:layout_marginRight="@dimen/oneByOne_parentHorizontal"
-    android:layout_marginTop="@dimen/oneByOne_parentVertical">
+    android:layout_marginTop="@dimen/oneByOne_parentVertical"
+    >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_view"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+   >
     <ImageView
         android:id="@+id/icon_remove_button"
         android:layout_width="@dimen/my_board_edit_icon_size"
@@ -42,3 +47,4 @@
         android:text="TIME AND WEATHER"
         android:textSize="@dimen/oneByOne_textSize"/>
 </RelativeLayout>
+</FrameLayout>

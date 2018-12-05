@@ -17,20 +17,24 @@ import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.dsource.idc.jellowboard.MainActivity;
 import com.dsource.idc.jellowboard.R;
-import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.BoardDatabase;
-import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.CustomDialog;
-import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.ModelManager;
+import com.dsource.idc.jellowboard.makemyboard.utility.BoardDatabase;
+import com.dsource.idc.jellowboard.makemyboard.utility.CustomDialog;
+import com.dsource.idc.jellowboard.makemyboard.utility.ModelManager;
+import com.dsource.idc.jellowboard.makemyboard.adapters.RepositionIconAdapter;
+import com.dsource.idc.jellowboard.makemyboard.interfaces.onRecyclerItemClick;
+import com.dsource.idc.jellowboard.makemyboard.models.Board;
+import com.dsource.idc.jellowboard.makemyboard.models.DataProvider;
 import com.dsource.idc.jellowboard.utility.JellowIcon;
-import com.wonshinhyo.dragrecyclerview.DragRecyclerView;
-import com.wonshinhyo.dragrecyclerview.SimpleClickListener;
-import com.wonshinhyo.dragrecyclerview.SimpleDragListener;
+import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
+import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator;
+import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager;
+import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils;
 
 import java.util.ArrayList;
 
-import static com.dsource.idc.jellowboard.makemyboard.EditBoardAdapter.DELETE_MODE;
-import static com.dsource.idc.jellowboard.makemyboard.EditBoardAdapter.NORMAL_MODE;
+import static com.dsource.idc.jellowboard.makemyboard.adapters.RepositionIconAdapter.DELETE_MODE;
+import static com.dsource.idc.jellowboard.makemyboard.adapters.RepositionIconAdapter.NORMAL_MODE;
 
 public class RepositionIcons extends AppCompatActivity {
 
@@ -49,8 +53,12 @@ public class RepositionIcons extends AppCompatActivity {
     private RelativeLayout.LayoutParams defaultRecyclerParams;
     private int previousSelection = -1;
     private int currentMode;
-    DragRecyclerView recyclerView;
-    EditBoardAdapter adapter;
+    RecyclerView recyclerView;
+    RepositionIconAdapter adapter;
+
+    private RecyclerView.LayoutManager mLayoutManager;
+    private RecyclerView.Adapter mWrappedAdapter;
+    private RecyclerViewDragDropManager mRecyclerViewDragDropManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,9 +67,6 @@ public class RepositionIcons extends AppCompatActivity {
         //Disable Expressive Icons for this activity
         findViewById(R.id.expressiveOne).setAlpha(.5f);
         findViewById(R.id.expressiveTwo).setAlpha(.5f);
-        findViewById(R.id.recycler_view).setVisibility(View.GONE);
-        findViewById(R.id.drag_recycler_view).setVisibility(View.VISIBLE);
-
         //Instantiating the board database object
         database=new BoardDatabase(this);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
@@ -81,16 +86,30 @@ public class RepositionIcons extends AppCompatActivity {
         modelManager =new ModelManager(this,currentBoard.getBoardIconModel());
         displayList= modelManager.getLevelOneFromModel();
         initFields();
-        defaultRecyclerParams =(RelativeLayout.LayoutParams)findViewById(R.id.drag_recycler_view).getLayoutParams();
+        defaultRecyclerParams =(RelativeLayout.LayoutParams)findViewById(R.id.recycler_view).getLayoutParams();
         updateList(NORMAL_MODE);
-
+        prepareRecyclerView();
     }
 
 
     private void updateList(int Mode) {
         invalidateOptionsMenu();
-
-        recyclerView = findViewById(R.id.drag_recycler_view);
+        adapter=new RepositionIconAdapter(new DataProvider(displayList),this,Mode,currentBoard.getGridSize());
+        recyclerView = findViewById(R.id.recycler_view);
+        mLayoutManager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
+        mRecyclerViewDragDropManager = new RecyclerViewDragDropManager();
+        mRecyclerViewDragDropManager.setInitiateOnLongPress(true);
+        mRecyclerViewDragDropManager.setInitiateOnMove(false);
+        mRecyclerViewDragDropManager.setLongPressTimeout(750);
+        mRecyclerViewDragDropManager.setDragStartItemAnimationDuration(250);
+        mRecyclerViewDragDropManager.setDraggingItemAlpha(0.8f);
+        mRecyclerViewDragDropManager.setDraggingItemScale(1.3f);
+        mWrappedAdapter = mRecyclerViewDragDropManager.createWrappedAdapter(adapter);
+        GeneralItemAnimator animator = new RefactoredDefaultItemAnimator();//DraggableItemAnimator();
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setAdapter(mWrappedAdapter);
+        recyclerView.setItemAnimator(animator);
+        mRecyclerViewDragDropManager.attachRecyclerView(recyclerView);
         //Parameters for centering the recycler view in the layout.
         RelativeLayout.LayoutParams centeredRecyclerParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         centeredRecyclerParams.addRule(RelativeLayout.ABOVE,findViewById(R.id.relativeLayoutNavigation).getId());
@@ -108,51 +127,35 @@ public class RepositionIcons extends AppCompatActivity {
             {
              recyclerView.setLayoutParams(defaultRecyclerParams);
             }
-            recyclerView.setLayoutManager(new GridLayoutManager(this,currentBoard.getGridSize()));
+            recyclerView.setLayoutManager(new GridLayoutManager(this,currentBoard.getGridSize(),GridLayoutManager.VERTICAL, false));
         }
         else
         {
             recyclerView.setLayoutParams(defaultRecyclerParams);
             switch (GridSize)
             {
-                case 6:recyclerView.setLayoutManager(new GridLayoutManager(this,3));break;
+                case 6:recyclerView.setLayoutManager(new GridLayoutManager(this,3, GridLayoutManager.VERTICAL, false));break;
             }
         }
-        adapter=new EditBoardAdapter(this,displayList,Mode,currentBoard.getGridSize());
-        recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-        adapter.setHandleDragEnabled(true); // default true
-        adapter.setLongPressDragEnabled(true); // default true
-        adapter.setSwipeEnabled(false); // default true
-
-
-        adapter.setOnItemClickListener(new SimpleClickListener() {
+        adapter.setOnItemClickListener(new onRecyclerItemClick() {
             @Override
-            public void onItemLongClick(View v, int pos) {
-                super.onItemClick(v, pos);
-                Toast.makeText(RepositionIcons.this, "Drag Start", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onItemClick(View v, int position) {
-                if(previousSelection==position) {
-                    notifyItemClicked(position,currentMode);
+            public void onClick(int pos) {
+                if(previousSelection==pos) {
+                    notifyItemClicked(pos,currentMode);
                 }
-                else previousSelection =position;
+                else previousSelection =pos;
             }
         });
 
-        adapter.setOnItemDragListener(new SimpleDragListener() {
-
-            @Override
-            public void onDrop(int fromPosition, int toPosition) {  // single callback
-                super.onDrop(fromPosition, toPosition);
-                modelManager.updateItemMoved(Level,LevelOneParent,LevelTwoParent,fromPosition,toPosition,currentBoard);
-            }
-
+        adapter.setOnItemMoveListener(
+                new RepositionIconAdapter.onItemMoveListener() {
+                    @Override
+                    public void onItemMove(int to, int from) {
+                        modelManager.updateItemMoved(Level, LevelOneParent, LevelTwoParent, from, to, currentBoard);
+                    }
         });
 
-        adapter.setOnItemDeleteListener(new EditBoardAdapter.OnItemDeleteListener() {
+        adapter.setOnItemDeleteListener(new RepositionIconAdapter.OnItemDeleteListener() {
             @Override
             public void onItemDelete(View view, int position) {
                 modelManager.deleteIconFromModel(Level,LevelOneParent,LevelTwoParent,position,currentBoard);
@@ -162,6 +165,11 @@ public class RepositionIcons extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
             }
         });
+    }
+
+    void prepareRecyclerView()
+    {
+
     }
 
     private void initFields(){
@@ -298,7 +306,7 @@ public class RepositionIcons extends AppCompatActivity {
                 dialog.setOnPositiveClickListener(new CustomDialog.onPositiveClickListener() {
                     @Override
                     public void onPositiveClickListener() {
-                        startActivity(new Intent(RepositionIcons.this, MainActivity.class));finish();
+                        startActivity(new Intent(RepositionIcons.this,MyBoards.class));finish();
                     }
                 });
                 dialog.show();
@@ -338,7 +346,6 @@ public class RepositionIcons extends AppCompatActivity {
             @Override
             public void onGridSelectListener(int size) {
                 currentBoard.setGridSize(size);
-                new BoardDatabase(RepositionIcons.this).updateBoardIntoDatabase(currentBoard);
                 if(isDeleteModeOn)
                 updateList(DELETE_MODE);
                 else updateList(NORMAL_MODE);
@@ -346,8 +353,6 @@ public class RepositionIcons extends AppCompatActivity {
         });
         dialog.show();
         dialog.setCancelable(true);
-
-        //TODO Add some codes to resize the icons
     }
 
     @Override
@@ -459,6 +464,36 @@ public class RepositionIcons extends AppCompatActivity {
         //Adding the scrollListener to the mRecycler to listen onPopulated callBack
         recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(populationDoneListener);
     }
+
+    @Override
+    protected void onPause() {
+        mRecyclerViewDragDropManager.cancelDrag();
+        super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        if (mRecyclerViewDragDropManager != null) {
+            mRecyclerViewDragDropManager.release();
+            mRecyclerViewDragDropManager = null;
+        }
+
+        if (recyclerView != null) {
+            recyclerView.setItemAnimator(null);
+            recyclerView.setAdapter(null);
+            recyclerView = null;
+        }
+
+        if (mWrappedAdapter != null) {
+            WrapperAdapterUtils.releaseAll(mWrappedAdapter);
+            mWrappedAdapter = null;
+        }
+
+        mLayoutManager = null;
+
+        super.onDestroy();
+    }
+
 
 
 }

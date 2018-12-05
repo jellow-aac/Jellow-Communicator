@@ -1,4 +1,4 @@
-package com.dsource.idc.jellowboard.makemyboard;
+package com.dsource.idc.jellowboard.makemyboard.adapters;
 
 import android.content.Context;
 import android.content.res.TypedArray;

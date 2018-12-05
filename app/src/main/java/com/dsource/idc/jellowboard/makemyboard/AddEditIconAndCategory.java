@@ -38,13 +38,15 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.dsource.idc.jellowboard.GlideApp;
-import com.dsource.idc.jellowboard.MainActivity;
 import com.dsource.idc.jellowboard.Nomenclature;
 import com.dsource.idc.jellowboard.R;
-import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.BoardDatabase;
-import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.CustomDialog;
-import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.IconModel;
-import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.ModelManager;
+import com.dsource.idc.jellowboard.makemyboard.utility.BoardDatabase;
+import com.dsource.idc.jellowboard.makemyboard.utility.CustomDialog;
+import com.dsource.idc.jellowboard.makemyboard.adapters.IconSelectorAdapter;
+import com.dsource.idc.jellowboard.makemyboard.adapters.LevelSelectorAdapter;
+import com.dsource.idc.jellowboard.makemyboard.models.Board;
+import com.dsource.idc.jellowboard.makemyboard.models.IconModel;
+import com.dsource.idc.jellowboard.makemyboard.utility.ModelManager;
 import com.dsource.idc.jellowboard.utility.JellowIcon;
 import com.dsource.idc.jellowboard.utility.SessionManager;
 import com.dsource.idc.jellowboard.verbiage_model.JellowVerbiageModel;
@@ -59,8 +61,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import static com.dsource.idc.jellowboard.makemyboard.IconSelectorAdapter.ADD_EDIT_ICON_MODE;
-import static com.dsource.idc.jellowboard.makemyboard.IconSelectorAdapter.EDIT_ICON_MODE;
+import static com.dsource.idc.jellowboard.makemyboard.adapters.IconSelectorAdapter.ADD_EDIT_ICON_MODE;
+import static com.dsource.idc.jellowboard.makemyboard.adapters.IconSelectorAdapter.EDIT_ICON_MODE;
 import static com.dsource.idc.jellowboard.makemyboard.MyBoards.BOARD_ID;
 import static com.dsource.idc.jellowboard.makemyboard.MyBoards.CAMERA_REQUEST;
 import static com.dsource.idc.jellowboard.makemyboard.MyBoards.LIBRARY_REQUEST;
@@ -789,7 +791,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
                 toggleOptionLayout();
                 break;
             case R.id.done:currentMode=ADD_EDIT_ICON_MODE;prepareIconPane(selectedPosition,ADD_EDIT_ICON_MODE);invalidateOptionsMenu();break;
-            case android.R.id.home: startActivity(new Intent(this, MainActivity.class));finish(); break;
+            case android.R.id.home: startActivity(new Intent(this, MyBoards.class));finish(); break;
 
         }
         return super.onOptionsItemSelected(item);

@@ -8,11 +8,11 @@ import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -47,8 +47,10 @@ import com.dsource.idc.jellowboard.R;
 import com.dsource.idc.jellowboard.ResetPreferencesActivity;
 import com.dsource.idc.jellowboard.SettingActivity;
 import com.dsource.idc.jellowboard.TutorialActivity;
-import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.BoardDatabase;
-import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.CustomDialog;
+import com.dsource.idc.jellowboard.makemyboard.utility.BoardDatabase;
+import com.dsource.idc.jellowboard.makemyboard.utility.CustomDialog;
+import com.dsource.idc.jellowboard.makemyboard.adapters.BoardAdapter;
+import com.dsource.idc.jellowboard.makemyboard.models.Board;
 import com.dsource.idc.jellowboard.utility.SessionManager;
 import com.rey.material.app.Dialog;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -56,6 +58,7 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -129,6 +132,8 @@ public class MyBoards extends AppCompatActivity {
 
     boolean isVisible=false;
 
+    boolean iconImageSelected =false;
+
     /**
      * Prepares the board list `
      *
@@ -136,7 +141,7 @@ public class MyBoards extends AppCompatActivity {
     private void prepareBoardList(int mode) {
         boardList.clear();
         if(mode==NORMAL_MODE)
-            boardList.add(new Board("-1", "Add Board", null));
+            boardList.add(new Board("-1", "Add Board"));
         ArrayList<Board> list  = loadBoardsFromDataBase();
         boardList.addAll(list);
         invalidateOptionsMenu();
@@ -218,6 +223,7 @@ public class MyBoards extends AppCompatActivity {
                             @Override
                             public void onPositiveClickListener() {
                                 Board boardToDelete = boardList.get(Position);
+                                deleteImageFromStorage(boardToDelete.boardID);
                                 database.deleteBoard(boardToDelete.boardID);
                                 boardList.remove(Position);
                                 if(boardList.size()<1)
@@ -243,6 +249,7 @@ public class MyBoards extends AppCompatActivity {
     @SuppressLint("ResourceType")
     private void initBoardEditAddDialog(final int code, final int pos) {
         final LayoutInflater dialogLayout = LayoutInflater.from(this);
+
         @SuppressLint("InflateParams") View dialogContainerView = dialogLayout.inflate(R.layout.edit_board_dialog, null);
         final Dialog dialogForBoardEditAdd = new Dialog(this,R.style.MyDialogBox);
         dialogForBoardEditAdd.applyStyle(R.style.MyDialogBox);
@@ -260,9 +267,17 @@ public class MyBoards extends AppCompatActivity {
 
         if(code==EDIT_BOARD)
         {
-            byte[] bitmapdata=boardList.get(pos).getBoardIcon();
-            Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length);
-            BoardIcon.setImageBitmap(bitmap);
+            SessionManager mSession = new SessionManager(MyBoards.this);
+            File en_dir = MyBoards.this.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
+            String path = en_dir.getAbsolutePath() + "/boardicon";
+            GlideApp.with(MyBoards.this)
+                    .load(path+"/"+boardList.get(pos).getBoardID()+".png")
+                    .error(R.drawable.ic_board_person).skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(false)
+                    .centerCrop()
+                    .dontAnimate()
+                    .into(BoardIcon);
             boardTitleEditText.setText(boardList.get(pos).boardTitle);
             saveBoard.setText("Next");
         }
@@ -278,7 +293,7 @@ public class MyBoards extends AppCompatActivity {
             @Override
             public void onPhotoIntentResult(Bitmap bitmap, int code,String FileName) {
 
-
+                iconImageSelected =true;
                 if(code!=LIBRARY_REQUEST)
                 {
                     bitmap = cropToSquare(bitmap);
@@ -350,9 +365,6 @@ public class MyBoards extends AppCompatActivity {
                 currentMode = NORMAL_MODE;
                 invalidateOptionsMenu();
                 Bitmap boardIcon=((BitmapDrawable)BoardIcon.getDrawable()).getBitmap();
-                ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                boardIcon.compress(Bitmap.CompressFormat.PNG, 50, bos);
-                byte[] bitmapArray = bos.toByteArray();
                 if(code==NEW_BOARD)
                 {
                     String BoardId=Calendar.getInstance().getTime().getTime()+"";
@@ -363,7 +375,7 @@ public class MyBoards extends AppCompatActivity {
                     finish();
                 }
                 else if(code==EDIT_BOARD) {
-                    updateBoardDetails(name, bitmapArray, pos);
+                    updateBoardDetails(name, boardIcon, pos);
                     Intent intent = new Intent(MyBoards.this,IconSelectActivity.class);
                     intent.putExtra(BOARD_ID,boardList.get(pos).boardID);
                     intent.putExtra(IS_EDIT_MODE,"YES");
@@ -415,13 +427,14 @@ public class MyBoards extends AppCompatActivity {
         return okay;
     }
 
-    private void updateBoardDetails(String name, byte[] boardIcon, int pos) {
+    private void updateBoardDetails(String name, Bitmap boardIcon, int pos) {
         Board board=boardList.get(pos);
         if(board!=null)
         {
             if(!name.equals(""))
             board.setBoardTitle(name);
-            board.setBoardIcon(boardIcon);
+            if(iconImageSelected)
+            storeImageToStorage(boardIcon,board.boardID);
             database.updateBoardIntoDatabase(board);
             prepareBoardList(NORMAL_MODE);
         }
@@ -433,14 +446,61 @@ public class MyBoards extends AppCompatActivity {
     }
 
     private void saveNewBoard(String boardName , Bitmap boardIcon, String boardID) {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        boardIcon.compress(Bitmap.CompressFormat.PNG, 100, bos);
-        byte[] bArray = bos.toByteArray();
-        Board newBoard=new Board(boardID,boardName,bArray);
+        if(iconImageSelected)
+        storeImageToStorage(boardIcon,boardID);
+        Board newBoard=new Board(boardID,boardName);
         database=new BoardDatabase(this);
         boardList.add(newBoard);
         database.addBoardToDatabase(newBoard);
         prepareBoardList(NORMAL_MODE);
+        iconImageSelected = false;
+    }
+
+    public String storeImageToStorage(Bitmap bitmap, String fileID) {
+        FileOutputStream fos = null;
+        File en_dir = MyBoards.this.getDir(new SessionManager(this).getLanguage(), Context.MODE_PRIVATE);
+        String path = en_dir.getAbsolutePath() + "/boardicon";
+        String status = Environment.getExternalStorageState();
+        if (status.equals(Environment.MEDIA_MOUNTED)) {
+            File root = new File(path);
+            if (!root.exists()) {
+                root.mkdirs();
+            }
+            Toast.makeText(this,""+root.getAbsolutePath(),Toast.LENGTH_LONG).show();
+            File file = new File(root, fileID+ ".png");
+
+            try {
+                if(file.exists())
+                {
+                    file.delete();//Delete the previous image if image is a replace
+                    file = new File(root,fileID+".png");
+                }
+                fos = new FileOutputStream(file);
+                if (fos != null) {
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 70, fos);
+                    fos.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            Uri muri = Uri.fromFile(file);
+            return muri.getPath();
+        }
+        return null;
+    }
+    public void deleteImageFromStorage(String fileID) {
+        FileOutputStream fos = null;
+        File en_dir = MyBoards.this.getDir(new SessionManager(this).getLanguage(), Context.MODE_PRIVATE);
+        String path = en_dir.getAbsolutePath() + "/boardicon";
+        String status = Environment.getExternalStorageState();
+        if (status.equals(Environment.MEDIA_MOUNTED)) {
+            File root = new File(path);
+            File file = new File(root, fileID+ ".png");
+            if(file.exists())
+                 file.delete();//Delete the previous image
+        }
+
     }
 
     @Override

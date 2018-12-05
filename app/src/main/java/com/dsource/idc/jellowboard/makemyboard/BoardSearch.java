@@ -19,10 +19,12 @@ import android.widget.ImageView;
 
 import com.dsource.idc.jellowboard.Nomenclature;
 import com.dsource.idc.jellowboard.R;
-import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.BoardDatabase;
-import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.IconDatabase;
-import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.IconModel;
-import com.dsource.idc.jellowboard.makemyboard.UtilityClasses.ModelManager;
+import com.dsource.idc.jellowboard.makemyboard.utility.BoardDatabase;
+import com.dsource.idc.jellowboard.makemyboard.utility.IconDatabase;
+import com.dsource.idc.jellowboard.makemyboard.adapters.BoardSearchAdapter;
+import com.dsource.idc.jellowboard.makemyboard.models.Board;
+import com.dsource.idc.jellowboard.makemyboard.models.IconModel;
+import com.dsource.idc.jellowboard.makemyboard.utility.ModelManager;
 import com.dsource.idc.jellowboard.utility.IconDataBaseHelper;
 import com.dsource.idc.jellowboard.utility.JellowIcon;
 import com.dsource.idc.jellowboard.utility.LanguageHelper;

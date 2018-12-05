@@ -1,8 +1,6 @@
-package com.dsource.idc.jellowboard.makemyboard;
+package com.dsource.idc.jellowboard.makemyboard.adapters;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,13 +11,16 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.dsource.idc.jellowboard.GlideApp;
 import com.dsource.idc.jellowboard.R;
+import com.dsource.idc.jellowboard.makemyboard.MyBoards;
+import com.dsource.idc.jellowboard.makemyboard.models.Board;
+import com.dsource.idc.jellowboard.utility.SessionManager;
 
-import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.ArrayList;
 
 import static android.view.View.GONE;
@@ -38,7 +39,7 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> 
     public void onBindViewHolder(BoardAdapter.ViewHolder holder, int position) {
         Board board=mDataSource.get(position);
         //To control visibility of the icons according to the mode
-        if(mode==MyBoards.NORMAL_MODE)
+        if(mode== MyBoards.NORMAL_MODE)
         {
             holder.editBoard.setVisibility(View.VISIBLE);
             holder.deleteBoard.setVisibility(GONE);
@@ -57,17 +58,19 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> 
         else
             {
 
-                    byte[] bitmapdata=board.getBoardIcon();
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length);
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                Glide.with(mContext).load(stream.toByteArray())
-                        .apply(new RequestOptions().
-                                transform(new RoundedCorners(50)).
-                                error(R.drawable.ic_board_person).skipMemoryCache(true).
-                                diskCacheStrategy(DiskCacheStrategy.NONE))
+                SessionManager mSession = new SessionManager(mContext);
+                File en_dir =mContext.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
+                String path = en_dir.getAbsolutePath() + "/boardicon";
+                GlideApp.with(mContext)
+                        .load(path+"/"+board.getBoardID()+".png")
+                        .apply(new RequestOptions().transform(new RoundedCorners(50)))
+                        .error(R.drawable.ic_board_person)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true)
+                        .centerCrop()
+                        .dontAnimate()
                         .into(holder.boardIcon);
-                    holder.boardTitle.setText(board.boardTitle);
+                holder.boardTitle.setText(board.boardTitle);
             }
 
 

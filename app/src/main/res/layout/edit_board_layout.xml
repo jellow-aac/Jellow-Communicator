@@ -56,20 +56,6 @@
                     android:layout_height="@dimen/exp_icon_height"
                     android:src="@drawable/less"/>
             </LinearLayout>
-
-        <com.wonshinhyo.dragrecyclerview.DragRecyclerView
-            android:id="@+id/drag_recycler_view"
-            android:layout_toLeftOf="@id/expressiveTwo"
-            android:layout_toRightOf="@id/expressiveOne"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:scrollbars="vertical"
-            android:scrollbarFadeDuration="0"
-            android:layout_marginBottom="@dimen/recycler_view_margin_bottom"
-            android:visibility="gone"
-            android:layout_toStartOf="@id/expressiveTwo"
-            android:layout_toEndOf="@id/expressiveOne" />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_toLeftOf="@id/expressiveTwo"
