@@ -140,21 +140,24 @@ public class IconSelectorAdapter extends RecyclerView.Adapter<IconSelectorAdapte
         }
         holder.iconSelected.setChecked(found);
 
+        //Load from boardicon folder in case of the custom icons
         if(thisIcon.parent0==-1)
         {
-            byte[] bitmapData=thisIcon.IconImage;//;.getBytes();
-            Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.length);
-            //holder.iconImage.setImageBitmap(bitmap);
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            Glide.with(mContext)
-                    .asBitmap()
-                    .load(stream.toByteArray())
+            SessionManager mSession = new SessionManager(mContext);
+            File en_dir = mContext.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
+            String path = en_dir.getAbsolutePath() + "/boardicon";
+            GlideApp.with(mContext)
+                    .load(path+"/"+ thisIcon.IconDrawable+".png")
                     .apply(RequestOptions.
-                            circleCropTransform()).into(holder.iconImage);
+                            circleCropTransform())
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(false)
+                    .centerCrop()
+                    .dontAnimate()
+                    .into(holder.iconImage);
             holder.iconImage.setBackground(mContext.getResources().getDrawable(R.drawable.icon_back_grey));
         }
-        else
+        else //load from drawables in case of the normal icons
         {
             SessionManager mSession = new SessionManager(mContext);
             File en_dir = mContext.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
@@ -166,7 +169,6 @@ public class IconSelectorAdapter extends RecyclerView.Adapter<IconSelectorAdapte
                     .centerCrop()
                     .dontAnimate()
                     .into(holder.iconImage);
-
         }
 
 

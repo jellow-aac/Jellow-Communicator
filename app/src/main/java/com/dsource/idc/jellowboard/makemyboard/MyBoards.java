@@ -47,6 +47,7 @@ import com.dsource.idc.jellowboard.R;
 import com.dsource.idc.jellowboard.ResetPreferencesActivity;
 import com.dsource.idc.jellowboard.SettingActivity;
 import com.dsource.idc.jellowboard.TutorialActivity;
+import com.dsource.idc.jellowboard.makemyboard.models.ListItem;
 import com.dsource.idc.jellowboard.makemyboard.utility.BoardDatabase;
 import com.dsource.idc.jellowboard.makemyboard.utility.CustomDialog;
 import com.dsource.idc.jellowboard.makemyboard.adapters.BoardAdapter;

@@ -1,6 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:id="@+id/frame_layout"
     android:layout_marginBottom="@dimen/oneByOne_parentVertical"
     android:layout_marginLeft="@dimen/oneByOne_parentHorizontal"
     android:layout_marginRight="@dimen/oneByOne_parentHorizontal"

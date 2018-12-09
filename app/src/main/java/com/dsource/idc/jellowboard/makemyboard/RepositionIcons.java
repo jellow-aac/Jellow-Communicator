@@ -25,6 +25,7 @@ import com.dsource.idc.jellowboard.makemyboard.adapters.RepositionIconAdapter;
 import com.dsource.idc.jellowboard.makemyboard.interfaces.onRecyclerItemClick;
 import com.dsource.idc.jellowboard.makemyboard.models.Board;
 import com.dsource.idc.jellowboard.makemyboard.models.DataProvider;
+import com.dsource.idc.jellowboard.utility.CustomGridLayoutManager;
 import com.dsource.idc.jellowboard.utility.JellowIcon;
 import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator;
@@ -119,23 +120,19 @@ public class RepositionIcons extends AppCompatActivity {
         int GridSize  = currentBoard.getGridSize();
         if(GridSize<4)
         {
-            if(GridSize<3)
+
+            switch (GridSize)
             {
-                recyclerView.setLayoutParams(centeredRecyclerParams);
+                case 1:recyclerView.setLayoutParams(centeredRecyclerParams);break;
+                case 2:recyclerView.setLayoutParams(centeredRecyclerParams);break;
+                case 3:recyclerView.setLayoutParams(defaultRecyclerParams);break;
             }
-            else
-            {
-             recyclerView.setLayoutParams(defaultRecyclerParams);
-            }
-            recyclerView.setLayoutManager(new GridLayoutManager(this,currentBoard.getGridSize(),GridLayoutManager.VERTICAL, false));
+            recyclerView.setLayoutManager(new CustomGridLayoutManager(this,currentBoard.getGridSize(),3));
         }
         else
         {
             recyclerView.setLayoutParams(defaultRecyclerParams);
-            switch (GridSize)
-            {
-                case 6:recyclerView.setLayoutManager(new GridLayoutManager(this,3, GridLayoutManager.VERTICAL, false));break;
-            }
+            recyclerView.setLayoutManager(new CustomGridLayoutManager(this,3,9));
         }
         adapter.setOnItemClickListener(new onRecyclerItemClick() {
             @Override

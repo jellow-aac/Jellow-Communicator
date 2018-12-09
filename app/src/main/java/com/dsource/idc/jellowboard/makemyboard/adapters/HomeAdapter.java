@@ -54,17 +54,19 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
         if(thisIcon.parent0==-1)
         {
-            byte[] bitmapData=thisIcon.IconImage;//.getBytes(Charset.defaultCharset());
-            Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.length);
-            holder.iconImage.setBackground(mContext.getResources().getDrawable(R.drawable.icon_back_grey));
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            Glide.with(mContext)
-                    .asBitmap()
-                    .load(stream.toByteArray())
+            SessionManager mSession = new SessionManager(mContext);
+            File en_dir = mContext.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
+            String path = en_dir.getAbsolutePath() + "/boardicon";
+            GlideApp.with(mContext)
+                    .load(path+"/"+ thisIcon.IconDrawable+".png")
                     .apply(RequestOptions.
-                            circleCropTransform()).into(holder.iconImage);
-
+                            circleCropTransform())
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(false)
+                    .centerCrop()
+                    .dontAnimate()
+                    .into(holder.iconImage);
+            holder.iconImage.setBackground(mContext.getResources().getDrawable(R.drawable.icon_back_grey));
         }
         else
         if(thisIcon.parent1==-1)
@@ -108,7 +110,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView;  switch (GridSize){
+        View itemView;
+        switch (GridSize){
             case 1: //1 by 1
                 itemView = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.custom_layout_1x1_icons, parent, false);

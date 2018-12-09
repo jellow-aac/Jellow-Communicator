@@ -127,15 +127,25 @@ public class RepositionIconAdapter extends RecyclerView.Adapter<RepositionIconAd
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView;
-        if(gridSize==2)
-            itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.custom_layout_2x1_icons, parent, false);
-        else if(gridSize<4)
-            itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.custom_layout_3_icons, parent, false);
-        else
-            itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.custom_layout_9_icons, parent, false);
+        switch (gridSize){
+            case 1: //1 by 1
+                itemView = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.custom_layout_1x1_icons, parent, false);
+                break;
+            case 2: // 1 by 2
+                itemView = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.custom_layout_1x2_icons, parent, false);
+                break;
+            case 3: // 1 by 3
+                itemView = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.custom_layout_3_icons, parent, false);break;
+            case 6:// 3 by 3
+                itemView = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.custom_layout_9_icons, parent, false);
+            default:
+                itemView = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.custom_layout_9_icons, parent, false);
+        }
         return new MyViewHolder(itemView);
     }
 
@@ -143,21 +153,23 @@ public class RepositionIconAdapter extends RecyclerView.Adapter<RepositionIconAd
     public void onBindViewHolder(MyViewHolder holder, int position) {
         final AbstractDataProvider.Data item = mProvider.getItem(position);
         holder.iconTitle.setText(mProvider.getItem(position).getText());
-        // set background resource (target view ID: container)
 
         JellowIcon thisIcon = (JellowIcon)mProvider.getItem(position);
         holder.iconTitle.setText(thisIcon.IconTitle);
         if(thisIcon.parent0==-1)
         {
-            byte[] bitmapData=thisIcon.IconImage;
-            Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.length);
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            Glide.with(mContext)
-                    .asBitmap()
-                    .load(stream.toByteArray())
+            SessionManager mSession = new SessionManager(mContext);
+            File en_dir = mContext.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
+            String path = en_dir.getAbsolutePath() + "/boardicon";
+            GlideApp.with(mContext)
+                    .load(path+"/"+ thisIcon.IconDrawable+".png")
                     .apply(RequestOptions.
-                            circleCropTransform()).into(holder.iconImage);
+                            circleCropTransform())
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(false)
+                    .centerCrop()
+                    .dontAnimate()
+                    .into(holder.iconImage);
             holder.iconImage.setBackground(mContext.getResources().getDrawable(R.drawable.icon_back_grey));
         }
         else if(thisIcon.parent1==-1)
@@ -219,8 +231,6 @@ public class RepositionIconAdapter extends RecyclerView.Adapter<RepositionIconAd
 
     @Override
     public void onMoveItem(int fromPosition, int toPosition) {
-        Log.d(TAG, "onMoveItem(fromPosition = " + fromPosition + ", toPosition = " + toPosition + ")");
-
         if (mItemMoveMode == RecyclerViewDragDropManager.ITEM_MOVE_MODE_DEFAULT) {
         mProvider.moveItem(fromPosition, toPosition);
         mOnItemMoveListener.onItemMove(toPosition,fromPosition);

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:id="@+id/card_view"
+    android:id="@+id/frame_layout"
     android:gravity="center"
     android:layout_marginTop="@dimen/three_icon_margin_top"
     android:layout_marginLeft="50dp"
@@ -10,6 +10,12 @@
     android:layout_marginBottom="@dimen/three_icon_margin_top"
     android:paddingTop="@dimen/three_icon_padding"
     android:paddingBottom="@dimen/three_icon_padding"
+    >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_view"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
     >
     <ImageView
         android:layout_width="@dimen/my_board_edit_icon_size"
@@ -50,3 +56,4 @@
         android:layout_below="@id/icon_container"
         android:textAlignment="center"/>
 </RelativeLayout>
+</FrameLayout>

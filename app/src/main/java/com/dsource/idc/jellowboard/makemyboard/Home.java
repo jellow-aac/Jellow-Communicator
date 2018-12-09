@@ -221,12 +221,6 @@ public class Home extends AppCompatActivity {
         {
             mRecycler.setLayoutParams(defaultRecyclerParams);
             mRecycler.setLayoutManager(new CustomGridLayoutManager(this,3,9));
-            /*switch (GridSize)
-            {
-                //case 4:mRecycler.setLayoutManager(new CustomGridLayoutManager(this,2,9));mRecycler.setLayoutParams(centeredRecyclerParams);break;
-                //case 5:mRecycler.setLayoutManager(new CustomGridLayoutManager(this,2,9));mRecycler.setLayoutParams(centeredRecyclerParams);break;
-                case 6:
-            }*/
         }
         adapter.setOnDoubleTapListner(new HomeAdapter.onDoubleTapListener() {
             @Override
