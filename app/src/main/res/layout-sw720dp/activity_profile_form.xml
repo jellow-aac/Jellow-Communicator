@@ -28,8 +28,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:importantForAccessibility="no">
+                android:orientation="vertical">
                 <TextView
                     android:id="@+id/tvName"
                     android:layout_width="wrap_content"
@@ -67,7 +66,7 @@
                     style="@style/defaultTextViewStyle"
                     android:imeOptions="actionDone"
                     android:inputType="textPersonName"
-                    android:contentDescription="@string/caregiverName"/>
+                    android:contentDescription="@string/enter_caregiver_s_name"/>
                 <TextView
                     android:id="@+id/tvCaregiverNo"
                     android:layout_width="wrap_content"
@@ -75,7 +74,7 @@
                     android:text="@string/careGiverContact"
                     style="@style/defaultTextViewStyle"
                     android:fontFamily="@font/mukta_semibold"
-                    android:contentDescription="@string/caregiver_s_contact_number"/>
+                    android:contentDescription="@string/caregiver_s_contact_number_other_than_this_device_s_sim_number"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -101,7 +100,7 @@
                     android:maxLength="12"
                     style="@style/defaultTextViewStyle"
                     android:imeOptions="actionDone"
-                    android:contentDescription="@string/caregiver_s_contact_number"/>
+                    android:contentDescription="@string/enter_caregiver_s_contact_number"/>
             </LinearLayout>
                 <TextView
                     android:id="@+id/tvHomeAddress"
@@ -139,8 +138,7 @@
                     style="@style/defaultTextViewStyle"
                     android:imeOptions="actionDone"
                     android:inputType="textEmailAddress"
-                    android:contentDescription="@string/caregiver_s_email_address"/>
-
+                    android:contentDescription="@string/enter_caregiver_s_email_address"/>
                 <TextView
                     android:id="@+id/tvUserGroup"
                     android:layout_width="wrap_content"
@@ -149,7 +147,6 @@
                     style="@style/defaultTextViewStyle"
                     android:fontFamily="@font/mukta_semibold"
                     android:contentDescription="@string/user_s_group"/>
-
                 <RadioGroup
                     android:id="@+id/radioUserGroup"
                     android:layout_width="match_parent"
@@ -162,6 +159,7 @@
                         android:layout_height="wrap_content"
                         style="@style/defaultTextViewStyle"
                         android:text="@string/groupTeacher"
+                        android:contentDescription="@string/therapist_or_teacher_cd"
                         android:importantForAccessibility="yes"/>
                     <RadioButton
                         android:id="@+id/radioParent"
@@ -169,9 +167,9 @@
                         android:layout_height="wrap_content"
                         style="@style/defaultTextViewStyle"
                         android:text="@string/groupParent"
+                        android:contentDescription="@string/parent_or_caregiver_cd"
                         android:importantForAccessibility="yes"/>
                 </RadioGroup>
-
                 <TextView
                     android:id="@+id/tvBloodGrp"
                     android:layout_width="wrap_content"

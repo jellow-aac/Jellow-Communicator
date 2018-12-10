@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
+    android:background="@color/colorSerialKeyboardBackground"
     android:keyPreviewLayout ="@layout/preview"
-    android:keyTextSize="60dp"
+    android:keyTextSize="50dp"
     android:labelTextSize="45dp"
-    android:keyTextColor="#000000"
-    android:keyBackground="@drawable/rectangle"
-    />
+    android:keyTextColor="@color/colorSeriaKeyboardKeyText"
+    android:keyBackground="@drawable/rectangle"/>

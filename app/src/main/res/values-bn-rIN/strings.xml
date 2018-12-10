@@ -87,6 +87,7 @@
     <string name="menuResetPref">পছন্দগুলি রিসেট করো</string>
     <string name="menuFeedback">প্রতিক্রিয়া</string>
     <string name="menuUserRegistration">নিবন্ধন পৃষ্ঠা</string>
+    <string name="labelSplash">জেলো লোড হচ্ছে। অনুগ্রহপূর্বক অপেক্ষা করুন!</string>
     <string name="menuClosePopup">বন্ধ মেনু</string>
 
     <string name="endString"> </string>
@@ -117,7 +118,7 @@
     <string name="childName">শিশুর নাম *</string>
     <string name="caregiverName">কেয়ারগিভারের নাম </string>
     <string name="careGiverContact">এই ডিভাইসের সিম নম্বর ছাড়া অন্যের তত্ত্বাবধানকারীর যোগাযোগ নম্বর দিন *</string>
-    <string name="homeAddress">বাড়ির ঠিকানা</string>
+<string name="homeAddress">বাড়ির ঠিকানা</string>
     <string name="emailAddress">ই-মেলের ঠিকানা *</string>
     <string name="bloodGroup">রক্তের গ্রুপ</string>
     <string name="detailSaved">খুঁটিনাটি তথ্যগুলি সেভ করা হল</string>
@@ -135,7 +136,7 @@
     <string name="iconsHasBeenReset">পছন্দগুলি পুনরায় সাজানো হয়েছে</string>
     <string name="speak">বলা</string>
     <string name="stop">থামা</string>
-    <string name="about_jellow_speech">জেলো যোগাযোগ তৈরিতে উপযোগী একটি অ্যাপ্লিকেশন যা আইকন ব্যবহার করে আওয়াজ সক্রিয় করে এবং এটি যারা সদ্য কথা বলতে শিখছে কিংবা যারা কথা বলতে অসুবিধার মুখে পড়ে তারা ব্যবহার করতে পারে। অ্যাপ্লিকেশনটি বিকশিত হয়েছে ইন্ডিয়ান ইন্সটিটিউট অব টেকনোলোজি বোম্বে-র আই ডি সি স্কুল অফ ডিজাইন ( মুম্বই )-তে। জেলো-র ভাষাগত সক্ষমতা বৃদ্ধির জন্য প্রকল্পের তত্ত্বাবধায়কেরা নভেল ভিসুয়াল ইমোশনাল ল্যাংগুয়েজ প্রোটোকল অথবা VELP তৈরি করে তাকে বিকশিত করেছিলেন। VELP ছ-টি ভাবমূলক আইকনকে প্রকাশ করে যেগুলি ইন্টারফেসের মূল অংশ নির্মাণ করে থাকে। এই মূল আইকনগুলি ব্যবহার করে শিশুরা তাদের ইচ্ছে, অনিচ্ছে, চাহিদা বিষয়ে অন্যদের সাথে যোগাযোগ তৈরি করতে সমর্থ হবে। শিশুদের উপযোগী এবং সহজেই শেখা যায় — এমন ইন্টারফেস হিসেবে জেলো নির্মিত হয়েছে। এই অ্যাপ্লিকেশনটি অ্যান্ড্রয়েড ট্যাবলেটে ব্যবহারের জন্য নির্মিত। জেলো আপাতত ইংরেজি, হিন্দিতে এবং বাঙালি ব্যবহারযোগ্য। জেলো-র সাম্প্রতিক সফটওয়্যার ভার্সানঃ ৫.০। বর্তমানে এই অ্যাপ্লিকেশনটি উন্নততর করার লক্ষ্যে পরীক্ষার অধীনে রয়েছে। তাই আপনার যদি আমাদের উদ্দেশে কোনো পরামর্শ থাকে, তাহলে দয়া করে তা ফিডব্যাক ট্যাব-এ সাবমিট করুন। জেলো ৪.০ আন্তর্জাতিক লাইসেন্সের মতোই সৃজনমূলক, সদৃশ্যবাচক অবাণিজ্যিক শেয়ার হিসেবে নথিভুক্ত করা হয়েছে। জেলো নিয়ে গবেষণার কাজ সম্পন্ন হয়েছে ইন্ডিয়ান ইন্সটিটিউট অব টেকনোলোজি বম্বে-তে। অ্যাপ্লিকেশনের অন্তর্গত বিষয়, যথা — আইকন, নকশা, নির্মাণকৌশল, দৃশ্যগত উপস্থাপনা, অনুবাদ এবং সফটওয়্যার কোডগুলি গ্রহণ কিংবা প্রচার করা যাবে কিন্তু এগুলি কোনো বাণিজ্যিক স্বার্থে ব্যবহার করা যাবে না। যখন বিষয়বস্তু ব্যবহার করবেন, আমাদের অনুরোধ রইল, তখন দয়া করে ইন্ডিয়ান ইন্সটিটিউট অব টেকনোলোজি বম্বে-র ঋণ স্বীকার করবেন। কোডটিকে আরও উন্নত করতে চাইলে দয়া করে যোগাযোগ করুন অধ্যাপক রবি পুভেয়ার সঙ্গে এই ঠিকানায়ঃ ravi @ i i t b dot a  c.in অথবা, j e l l o w c o m m u n i c a t o r @ g m a i l . c o m</string>
+    <string name="about_jellow_speech">জেলো যোগাযোগ তৈরিতে উপযোগী একটি অ্যাপ্লিকেশন যা আইকন ব্যবহার করে আওয়াজ সক্রিয় করে এবং এটি যারা সদ্য কথা বলতে শিখছে কিংবা যারা কথা বলতে অসুবিধার মুখে পড়ে তারা ব্যবহার করতে পারে। অ্যাপ্লিকেশনটি বিকশিত হয়েছে ইন্ডিয়ান ইন্সটিটিউট অব টেকনোলোজি বোম্বে-র আই ডি সি স্কুল অফ ডিজাইন ( মুম্বই )-তে। জেলো-র ভাষাগত সক্ষমতা বৃদ্ধির জন্য প্রকল্পের তত্ত্বাবধায়কেরা নভেল ইমোশনাল ল্যাংগুয়েজ প্রোটোকল অথবা ELP তৈরি করে তাকে বিকশিত করেছিলেন। ELP ছ-টি ভাবমূলক আইকনকে প্রকাশ করে যেগুলি ইন্টারফেসের মূল অংশ নির্মাণ করে থাকে। এই মূল আইকনগুলি ব্যবহার করে শিশুরা তাদের ইচ্ছে, অনিচ্ছে, চাহিদা বিষয়ে অন্যদের সাথে যোগাযোগ তৈরি করতে সমর্থ হবে। শিশুদের উপযোগী এবং সহজেই শেখা যায় — এমন ইন্টারফেস হিসেবে জেলো নির্মিত হয়েছে। এই অ্যাপ্লিকেশনটি অ্যান্ড্রয়েড ট্যাবলেটে ব্যবহারের জন্য নির্মিত। জেলো আপাতত ইংরেজি, হিন্দিতে এবং বাঙালি ব্যবহারযোগ্য। জেলো-র সাম্প্রতিক সফটওয়্যার ভার্সানঃ ৫.০। বর্তমানে এই অ্যাপ্লিকেশনটি উন্নততর করার লক্ষ্যে পরীক্ষার অধীনে রয়েছে। তাই আপনার যদি আমাদের উদ্দেশে কোনো পরামর্শ থাকে, তাহলে দয়া করে তা ফিডব্যাক ট্যাব-এ সাবমিট করুন। জেলো ৪.০ আন্তর্জাতিক লাইসেন্সের মতোই সৃজনমূলক, সদৃশ্যবাচক অবাণিজ্যিক শেয়ার হিসেবে নথিভুক্ত করা হয়েছে। জেলো নিয়ে গবেষণার কাজ সম্পন্ন হয়েছে ইন্ডিয়ান ইন্সটিটিউট অব টেকনোলোজি বম্বে-তে। অ্যাপ্লিকেশনের অন্তর্গত বিষয়, যথা — আইকন, নকশা, নির্মাণকৌশল, দৃশ্যগত উপস্থাপনা, অনুবাদ এবং সফটওয়্যার কোডগুলি গ্রহণ কিংবা প্রচার করা যাবে কিন্তু এগুলি কোনো বাণিজ্যিক স্বার্থে ব্যবহার করা যাবে না। যখন বিষয়বস্তু ব্যবহার করবেন, আমাদের অনুরোধ রইল, তখন দয়া করে ইন্ডিয়ান ইন্সটিটিউট অব টেকনোলোজি বম্বে-র ঋণ স্বীকার করবেন। কোডটিকে আরও উন্নত করতে চাইলে দয়া করে যোগাযোগ করুন অধ্যাপক রবি পুভেয়ার সঙ্গে এই ঠিকানায়ঃ ravi @ i i t b dot a  c.in অথবা, j e l l o w c o m m u n i c a t o r @ g m a i l . c o m</string>
     <string name="catBtnDesc">জেলো-তে ৯টি কেন্দ্রীয় শ্রেণিগত বটন এবং ৬টি ভাবপ্রকাশক পার্শ্ববর্তী বটন রয়েছেঃ</string>
     <string name="catBtn">শ্রেণিগত বটনঃ</string>
     <string name="expBtn">ভাবপ্রকাশক বটনঃ</string>
@@ -183,7 +184,7 @@
     <string name="txt_registration_emergencynoDesc">( শিশুর আপৎকালীন বিপদ সম্পর্কে অবহিত করতে )</string>
     <string name="txt_registration_emailDesc">( জেলো-র আপডেট সম্পর্কে আপনাকে অবহিত করতে )</string>
     <string name="txt_registration_selectLangDesc">জেলো-র জন্য একটি ভাষা বেছে নিন *</string>
-    <string name="txt_registration_selectLangDesc_contentDesc">জেলো-র জন্য একটি ভাষা বেছে নিন</string>
+    <string name="txt_registration_selectLangDesc_contentDesc">জেলো-র জন্য একটি ভাষা বেছে নিন। প্রয়োজনীয় ক্ষেত্র</string>
     <string name="txt_registration_registerBtn">নথিভুক্ত করুন</string>
     <string name="enternonemptycontact">কার্যকরী যোগাযোগের নাম্বার দিন</string>
     <string name="change_tts_lang">টেক্সট-টু-স্পীচ প্রয়োগ করুন।</string>
@@ -241,7 +242,7 @@
     <!--About Jellow strings-->
     <string name="about_je_intro1">জেলো হচ্ছে এমন একটি অ্যাপ্লিকেশন যার আইকনগুলি দ্বারা ভাষা সক্রিয় করা হয় এবং এটি সদ্য কথা বলতে শিখছে এমন শিশু কিংবা যাদের কথা বলার ক্ষেত্রে সমস্যা রয়েছে তারা ব্যবহার করতে পারে</string>
     <string name="about_je_intro2">অ্যাপ্লিকেশনটি বিকশিত হয়েছে ইন্ডিয়ান ইন্সটিটিউট অব টেকনোলোজি বোম্বে-র আই ডি সি স্কুল অফ ডিজাইন ( মুম্বই )-তে</string>
-    <string name="about_je_intro3">জেলো-র ভাষিক দক্ষতা বা ক্ষমতা বাড়াতে প্রোজেক্টের তত্ত্বাবধায়কদের দ্বারা একটি নভেল ভিসুয়াল ইমোশনাল ল্যাঙ্গুয়েজ প্রোটোকল ( VELP ) তৈরি ও তা বিকশিত করা হয়েছিল। VELP ছ-টি ভাবপূর্ণ আইকন, যা অ্যাপ্লিকেশনের ইন্টারফেসের মূল অংশটি গঠন করে, তার প্রকাশক।</string>
+    <string name="about_je_intro3">জেলো-র ভাষিক দক্ষতা বা ক্ষমতা বাড়াতে প্রোজেক্টের তত্ত্বাবধায়কদের দ্বারা একটি নভেল ইমোশনাল ল্যাঙ্গুয়েজ প্রোটোকল ( ELP ) তৈরি ও তা বিকশিত করা হয়েছিল। ELP ছ-টি ভাবপূর্ণ আইকন, যা অ্যাপ্লিকেশনের ইন্টারফেসের মূল অংশটি গঠন করে, তার প্রকাশক।</string>
     <string name="about_je_intro4">এই মূল আইকনগুলির সাহায্যে একজন শিশু তাদের পছন্দ, অপছন্দ এবং চাহিদা বিষয়ে অন্যদের সঙ্গে ভাবের আদানপ্রদান করতে পারে।</string>
     <string name="about_je_intro5">শিশুদের উপযোগী এবং সহজেই শেখা যায় — এমন ইন্টারফেস হিসেবে জেলো নির্মিত হয়েছে।</string>
     <string name="about_je_intro6">এই অ্যাপ্লিকেশনটি অ্যান্ড্রয়েড ট্যাবলেটে ব্যবহারের জন্য নির্মিত।</string>
@@ -262,12 +263,14 @@
     <string name="about_je_intro18">আঁচল কুমার, সম্রাট সারদেশাই, পিটার জোসেফ, অন্তরা হাজারিকা</string>
     <string name="about_je_intro19">সফটওয়্যারের বিকাশঃ</string>
     <string name="about_je_intro20">রাহুল রূপচাঁদ জিজ, নারায়ণ রেড্ডী, নিখিল অহিরাও, আয়াজ আলম, হারিশিত বুদ্রজা, সুমিত আগরওয়াল, রূপা নারায়ণ সাহু, শ্রুতি গুপ্ত, আস্থা জোশি, ধৈর্যদণ্ড, প্রীতম পিবাম</string>
+    <string name="about_je_intro31">সফটওয়্যারের এবং ব্যবহারযোগ্যতা পরীক্ষা:</string>
+    <string name="about_je_intro32">ড. সুধা শ্রীনিবাসন, বিনয় তৌদে, সচিন সোনাওয়ানে, রূপ সাহু</string>
     <string name="about_je_intro21">ওয়েবসাইট অলংকরণঃ</string>
     <string name="about_je_intro22">অধ্যাপক রবি পুভাইয়া, যোগেশ মাসায়ে, সুমেধ গারুর, রূপ সাহু</string>
     <string name="about_je_intro23">আইকন, দৃশ্যগত অলংকরণ এবং শব্দঃ</string>
     <string name="about_je_intro24">বিনয় তৌদে, অনিষা মলখো, সিমোন সেন, নিকিতা আয়ার, গণেশ গাজীলা</string>
     <string name="about_je_intro25">অনুবাদঃ</string>
-    <string name="about_je_intro26">রুপক মিসরা, সচিন সোনাওয়ানে, ড. সুধা শ্রীনিবাসন</string>
+    <string name="about_je_intro26">ড. রুপক মিসরা, সচিন সোনাওয়ানে, ড. সুধা শ্রীনিবাসন</string>
     <string name="about_je_intro27">গবেষণা, শব্দাবলির বিকাশসাধন এবং ব্যবহারিক বিশ্লেষণঃ</string>
     <string name="about_je_intro28">ড. সুধা শ্রীনিবাসন</string>
     <string name="about_je_intro29">সহায়তাঃ</string>
@@ -276,14 +279,13 @@
 
     <!--Content description-->
     <string name="language_download_in_process">ভাষা ডাউনলোড করা হচ্ছে</string>
-    <string name="child_s_name">শিশুর নাম</string>
-    <string name="caregiver_s_contact_number">এই ডিভাইসের সিম নম্বর ছাড়া অন্যের তত্ত্বাবধানকারীর যোগাযোগ নম্বর দিন </string>
-    <string name="user_s_group">ব্যবহারকারীর গ্রুপ</string>
+    <string name="child_s_name">শিশুর নাম। প্রয়োজনীয় ক্ষেত্র</string>
+    <string name="caregiver_s_contact_number">েয়ারগিভারের যোগাযোগের নাম্বার</string>
+    <string name="user_s_group">ব্যবহারকারীর গ্রুপ। প্রয়োজনীয় ক্ষেত্র</string>
     <string name="enter_caregiver_s_contact_number">কেয়ারগিভারের যোগাযোগের নাম্বার লিখুন</string>
     <string name="enter_home_address">বাড়ির ঠিকানা লিখুন</string>
     <string name="email_address">কেয়ারগিভারের ইমেলের ঠিকানা লিখুন</string>
     <string name="enter_caregiver_s_email_address">কেয়ারগিভারের ইমেলের ঠিকানা লিখুন</string>
-    <string name="please_wait_as_jellow_loads">দয়া করে অপেক্ষা করুন। জেলো লোড হচ্ছে।</string>
     <string name="category_cd">এই ছবি জেলোর মূল পাতার একটি স্ক্রিনশট। এই মূল পাতাটিতে রয়েছে নয়টি আইকন, যাদের বলা হয় ক্যাটাগরি বাটন এবং তা তিনটি রো ও তিনটি কলামে সজ্জিত। উল্লিখিত নয়টি ক্যাটাগরি বাটন হল - " অভিবাদন এবং অনুভূতি ", " দৈনন্দিন কাজ ", " খাওয়া ", " মজা ", " শেখা ", " লোকজন ", " জায়গা ", " সময় এবং আবহাওয়া " এবং " সাহায্য "। নীচে যে ক্যাটাগরি বাটন আছে সেগুলি আসলে তিনটি নেভিগেশন বাটন, যথা - ফেরা, মূল পাতা এবং কীবোর্ড। এগুলি মূল পাতায় নির্দিষ্ট ক্রমে সজ্জিত। মূল ক্যাটাগরির আইকনের ডান দিক এবং বাম দিকে রয়েছে তিনটি করে অনুভূতিসূচক আইকন। মূল সজ্জার বাম দিকে তিনটি অনুভূতিসূচক বাটন হচ্ছে - পছন্দ, হ্যাঁ এবং আরও, যেগুলি ওপর থেকে নীচ বরাবর সজ্জিত রয়েছে। মূল সজ্জার ডান দিকে রয়েছে বাকি তিনটি অনুভূতিসূচক বাটন - পছন্দ করি না, না এবং কম, যেগুলি ওপর থেকে নীচ বরাবর সাজানো। মূল স্ক্রিনের ওপরের ডান দিকের কোণে দেখতে পাবেন সেটিংস আইকন। এই ছবিতে নয়টি আইকনের সজ্জা রঙযুক্ত এবং বাদবাকি আইকনগুলি বিবর্ণ।</string>
     <string name="expressive_cd">এই ছবি জেলোর মূল পাতার স্ক্রিনশট। এই ছবিতে রয়েছে ছটি ভাবপ্রকাশক বাটন। মূল শ্রেণির বাটনগুলি রঙিন রূপে উভয়দিকে তিনটি করে সাজানো রয়েছে। বাকি বাটনগুলি রঙহীন। ওপর থেকে নীচে শ্রেণিগত বাটনের মূল সজ্জার বাম দিকে রয়েছে তিনটি ভাবপ্রকাশক বাটন, যথা - " হাসিমুখ " আইকন "। এটি " চিহ্ন পরীক্ষা করুন " দ্বারা প্রকাশ করা হয়েছে। একইভাবে " হ্যাঁ " সূচিত হয়েছে " যোগ চিহ্ন "-এর মাধ্যমে। শ্রেণিগত বাটনের ডান দিকে রয়েছে আরও কিছু ভাবপ্রকাশক আইকন, যথা - " পছন্দ করি না ", যা সূচিত হয়েছে দু:খিত মুখের দ্বারা। " না " প্রকাশিত হয়েছে " ক্রস " চিহ্নের দ্বারা। " কম " " বিয়োগ চিহ্নের " মাধ্যমে প্রকাশ পেয়েছে। ছবিতে তিনটি নেভিগেশন বাটন রয়েছে - স্ক্রিনের নীচে, বাম দিক থেকে ডান দিকে, যথা - " পেছনে ", " মূল পাতা " এবং " কীবোর্ড "।</string>
     <string name="pic4">এই ছবিতে জেলোর মূল পাতা ফুটে উঠেছে, যেখানে দুটি আইকন " খাওয়া " এবং " হ্যাঁ "-কে রঙিন করা হয়েছে। বাকি বাটনগুলি রংহীন। এই ছবিতে একথা স্পষ্ট যে, জেলোর মাধ্যমে কথা বলতে গেলে ব্যবহারকারীকে প্রথমে যে-কোনো শ্রেণির বাটনে ক্লিক করতে হবে। যেমন - প্রথমে " খাওয়া " এবং তারপর কোনো অভিব্যক্তিমূলক বাটন, ধরা যাক " হ্যাঁ "-এ ক্লিক করতে হবে। এইভাবে ব্যবহারকারী জেলোর মাধ্যমে কথা বলতে পারেন।</string>
@@ -297,9 +299,11 @@
     <string name="gtts2">দ্বিতীয় ছবিটি এই প্রক্রিয়ার দ্বিতীয় ধাপ সংক্রান্ত, যেখানে ব্যবহারকারীকে দেখা যায় " গিয়ার " চিহ্নে ক্লিক করতে, যা আসলে " google text to speech " -এর " সেটিংস " সংক্রান্ত।</string>
     <string name="gtts3">তৃতীয় ছবিটি হচ্ছে প্রক্রিয়ার তৃতীয় ধাপ, যখন ব্যবহারকারী রয়েছে "google TTS voice data" স্ক্রিনে। এই স্ক্রিনে রয়েছে একাধিক স্বর নির্বাচনের সু্যোগ, যেমন - “French (France)”, “German (Germany)”, “Hindi (India)”, “Hungarian (Hungary)”, and “Indonesian (Indonesia)”। " hindi ( india)  " অপশনটি রঙিন রয়েছে, যা দেখাচ্ছে ১৯ এমবি-র  " voice set 1 " নামক অপশনটি ডাউনলোডের জন্য লভ্য। ব্যবহারকারীর আঙুল উক্ত অপশনে ক্লিক করতে দেখা যায়।</string>
     <string name="enter_child_s_name">শিশুর নাম লিখুন</string>
-    <string name="caregiver_s_contact_number_other_than_this_device_s_sim_number">এই ডিভাইসের সিম নম্বর ছাড়া অন্যের তত্ত্বাবধানকারীর যোগাযোগ নম্বর দিন</string>
+    <string name="caregiver_s_contact_number_other_than_this_device_s_sim_number">এই ডিভাইসের সিম নম্বর ছাড়া অন্যের তত্ত্বাবধানকারীর যোগাযোগ নম্বর দিন। প্রয়োজনীয় ক্ষেত্র</string>
     <string name="select_country_code">দেশের কোড লিখুন</string>
-    <string name="caregiver_s_email_address">কেয়ারগিভারের ইমেলের ঠিকানা</string>
+    <string name="enter_caregiver_s_name">কেয়ারগিভারের লিখুন</string>
+    <string name="caregiver_s_email_address">কেয়ারগিভারের ইমেলের ঠিকানা। প্রয়োজনীয় ক্ষেত্র</string>
+    <string name="txt_registration_usergrp_desc">এই ডিভাইসে জেলো ব্যবহার করা হবে ব্যক্তি নির্বাচন করুন</string>
     <string name="like">পছন্দ করি</string>
     <string name="more">আরও</string>
     <string name="dont_like">পছন্দ করি না</string>
@@ -325,6 +329,22 @@
     <string name="previous">আগে</string>
     <string name="edttxt_msg">কথা বলতে এখানে লিখুন।</string>
     <string name="keyboard_open">কীবোর্ড খুলুন।</string>
+    <string name="therapist_or_teacher_cd">থেরাপিস্ট বা শিক্ষক</string>
+    <string name="parent_or_caregiver_cd">অভিভাবক বা কেয়ারগিভার</string>
+    <string name="child_s_name_dialog_btn">আমার নাম</string>
+    <string name="caregiverName_dialog_btn">কেয়ারগিভারের নাম</string>
+    <string name="caregiver_s_email_address_dialog_btn">কেয়ারগিভারের ইমেলের ঠিকানা</string>
+    <string name="homeAddress_dialog_btn">আমার বাড়ির ঠিকানা</string>
+    <string name="caregiver_s_contact_number_dialog_btn">কেয়ারগিভারের যোগাযোগের নম্বর</string>
+    <string name="bloodGroup_dialog_btn">আমার রক্তের গ্রুপ</string>
+    <string name="seekbar_speed_cd">Please use your device’s volume b uttons to change speech speed.</string>
+    <string name="seekbar_pitch_cd">Please use your device’s volume buttons to change voice pitch</string>
+    <string name="seekbar_volume_cd">Please use your device’s volume buttons to change speech volume</string>
+    <string name="lang_setting_option1_cd">“The image below shows the 3 steps involved in setting up the Google text-to-speech engine that is used by Jellow. The image is made up of 3 screenshots of the “Text to speech output” and “Google TTS settings” within a user’s device. In the first image corresponding to “Text-to-speech output”, there are 2 preferred engines visible, first, the “Samsung Text-to-Speech engine” and second, the “Google Text-to-Speech engine”. The user is seen to select the “Google Text-to-Speech engine” as the first step.</string>
+    <string name="lang_setting_option2_cd">The second image corresponds to the second step in this process where the user is seen to now click on the “Gear” symbol corresponding to the “Settings” of the “Google Text-to-Speech engine”</string>
+    <string name="lang_setting_option3_cd">The third image is the third step in this process where now the user is at the “Google TTS options” screen. The second item on this screen which is a toggle switch for “Use Wi-Fi only” has been highlighted in this image. The user is asked to turn off or disable this switch in this step.”</string>
+    <string name="checkTtsData_cd">This image shows the “Google TTS voice data” screen. This screen provides multiple voice options including “French (France)”, “German (Germany)”, “Hindi (India)”, “Hungarian (Hungary)”, and “Indonesian (Indonesia)”. The “Hindi (India) voice” option is highlighted and shows an option of “Voice set 1” with a size of 19MB that is available for download. The user’s finger is seen to click on the download icon for the voice set 1 for the “Hindi (India) voice”.</string>
+    <string name="lang_setting_option3_gtt3_cd">The third image corresponds to the third step  in this process where the user is seen to  now click on the “Language\" option on the  Google TTS voice data page. The user is seen to set  \"Hindi(India)\" as the default language of the  Google Text-to-Speech engine.</string>
     <!--end content description-->
 
 
@@ -351,9 +371,11 @@
     <string name="acc_lang_eng_in">ইংরেজি (ভারত)</string>
     <string name="acc_lang_eng_gb">ইংরেজি (যুক্তরাজ্য)</string>
     <string name="acc_lang_eng_us">ইংরেজি (মার্কিন যুক্তরাষ্ট্র)</string>
+    <string name="acc_lang_eng_au">ইংরেজি (অস্ট্রেলিয়া)</string>
 
     <string name="level_1_screen">স্তর এক</string>
     <string name="level_2_screen">স্তর দুই</string>
     <string name="level_3_screen">স্তর তিন</string>
     <string name="sequence_screen">কার্যকলাপ ক্রম</string>
+    <string name="close_searchbar">Close search bar</string>
 </resources>

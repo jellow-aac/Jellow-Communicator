@@ -29,6 +29,7 @@ import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,6 +42,7 @@ import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
 import com.dsource.idc.jellowintl.models.LevelOneVerbiageModel;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
+import com.dsource.idc.jellowintl.utility.KeyboardUtteranceDialogUtil;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.MediaPlayerUtils;
 import com.dsource.idc.jellowintl.utility.SessionManager;
@@ -177,13 +179,6 @@ public class MainActivity extends AppCompatActivity {
             sendBroadcast(new Intent("com.dsource.idc.jellowintl.SPEECH_SYSTEM_DEFAULT_LANG_REQ"));
     }
 
-    private void clearSelectionAfterAccessibilityDialogClose() {
-        resetRecyclerMenuItemsAndFlags();
-        resetExpressiveButtons(-1);
-        mShouldReadFullSpeech = false;
-        mFlgImage = -1;
-    }
-
     @Override
     public boolean dispatchPopulateAccessibilityEvent(AccessibilityEvent event) {
         return super.dispatchPopulateAccessibilityEvent(event);
@@ -267,7 +262,9 @@ public class MainActivity extends AppCompatActivity {
                 gd.setColor(ContextCompat.getColor(getApplicationContext(), R.color.search_highlight));
                 mRecyclerView.removeOnScrollListener(scrollListener);
                 mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(populationDoneListener);
-                searchedView.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
+                if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                    searchedView.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
+                }
             }
         };
         mRecyclerView.getViewTreeObserver().addOnGlobalLayoutListener(populationDoneListener);
@@ -378,8 +375,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_main_with_search, menu);
         SessionManager session = new SessionManager(this);
-        if(session.getLanguage().equals(BN_IN))
-            menu.findItem(R.id.keyboardinput).setVisible(false);
         if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
             menu.findItem(R.id.closePopup).setVisible(false);
         }
@@ -415,7 +410,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.feedback:
                 if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                    startActivity(new Intent(this, FeedbackActivityTalkback.class));
+                    startActivity(new Intent(this, FeedbackActivityTalkBack.class));
                 } else {
                     startActivity(new Intent(this, FeedbackActivity.class));
                 }
@@ -448,6 +443,8 @@ public class MainActivity extends AppCompatActivity {
         mEtTTs = findViewById(R.id.et);
         //Initially custom input text is invisible
         mEtTTs.setVisibility(View.INVISIBLE);
+        mEtTTs.setSingleLine();
+        mEtTTs.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
         mIvTTs = findViewById(R.id.ttsbutton);
         //Initially custom input text speak button is invisible
@@ -629,71 +626,75 @@ public class MainActivity extends AppCompatActivity {
         mIvKeyboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                speakSpeech(mNavigationBtnTxt[2]);
-                mMpu.playAudio(mMpu.getFilePath( "MIS_03MSTT"));
                 //Firebase event
                 singleEvent("Navigation","Keyboard");
-                mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
-                //when mFlgKeyboardOpened is set to true, it means user is using custom keyboard input
-                // text and system keyboard is visible.
-                if (mFlgKeyboardOpened){
-                    // As user is using custom keyboard input text and then press the keyboard button,
-                    // user intent to close custom keyboard input text so below steps will follow:
-                    // a) set keyboard button to unpressed state.
-                    // b) disable back button
-                    // c) show category icons
-                    // d) hide custom keyboard input text and speak button views
-                    // e) set flag mFlgKeyboardOpened = false, as user not using custom keyboard input
-                    //    anymore.
-                    // f) disable back button as no more back process available in this level.
-                    mIvKeyboard.setImageResource(R.drawable.keyboard);
-                    mIvBack.setImageResource(R.drawable.back);
-                    mEtTTs.setVisibility(View.INVISIBLE);
-                    mRecyclerView.setVisibility(View.VISIBLE);
-                    mIvTTs.setVisibility(View.INVISIBLE);
-                    mFlgKeyboardOpened = false;
-                    changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
-                    mIvBack.setAlpha(.5f);
-                    mIvBack.setEnabled(false);
-                    showActionBarTitle(true);
-                //when mFlgKeyboardOpened is set to false, it means user intent to use custom
-                //keyboard input text so below steps will follow:
+                if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))){
+                    new KeyboardUtteranceDialogUtil(MainActivity.this).show();
                 }else {
-                    // a) keyboard button to press
-                    // b) set back button unpressed state
-                    // c) show custom keyboard input text and speak button view
-                    // d) hide category icons
-                    mIvKeyboard.setImageResource(R.drawable.keyboard_pressed);
-                    mIvBack.setImageResource(R.drawable.back);
-                    mIvHome.setImageResource(R.drawable.home);
-                    mEtTTs.setVisibility(View.VISIBLE);
+                    speakSpeech(mNavigationBtnTxt[2]);
+                    mMpu.playAudio(mMpu.getFilePath( "MIS_03MSTT"));
+                    mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
+                    //when mFlgKeyboardOpened is set to true, it means user is using custom keyboard input
+                    // text and system keyboard is visible.
+                    if (mFlgKeyboardOpened) {
+                        // As user is using custom keyboard input text and then press the keyboard button,
+                        // user intent to close custom keyboard input text so below steps will follow:
+                        // a) set keyboard button to unpressed state.
+                        // b) disable back button
+                        // c) show category icons
+                        // d) hide custom keyboard input text and speak button views
+                        // e) set flag mFlgKeyboardOpened = false, as user not using custom keyboard input
+                        //    anymore.
+                        // f) disable back button as no more back process available in this level.
+                        mIvKeyboard.setImageResource(R.drawable.keyboard);
+                        mIvBack.setImageResource(R.drawable.back);
+                        mEtTTs.setVisibility(View.INVISIBLE);
+                        mRecyclerView.setVisibility(View.VISIBLE);
+                        mIvTTs.setVisibility(View.INVISIBLE);
+                        mFlgKeyboardOpened = false;
+                        changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
+                        mIvBack.setAlpha(.5f);
+                        mIvBack.setEnabled(false);
+                        showActionBarTitle(true);
+                        //when mFlgKeyboardOpened is set to false, it means user intent to use custom
+                        //keyboard input text so below steps will follow:
+                    } else {
+                        // a) keyboard button to press
+                        // b) set back button unpressed state
+                        // c) show custom keyboard input text and speak button view
+                        // d) hide category icons
+                        mIvKeyboard.setImageResource(R.drawable.keyboard_pressed);
+                        mIvBack.setImageResource(R.drawable.back);
+                        mIvHome.setImageResource(R.drawable.home);
+                        mEtTTs.setVisibility(View.VISIBLE);
 
-                    mEtTTs.setKeyListener(originalKeyListener);
-                    // Focus the field.
-                    mRecyclerView.setVisibility(View.INVISIBLE);
-                    changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
-                    mEtTTs.requestFocus();
-                    mIvTTs.setVisibility(View.VISIBLE);
-                    // when user intend to use custom keyboard input text system keyboard should
-                    // only appear when user taps on custom keyboard input view. Setting
-                    // InputMethodManager to InputMethodManager.HIDE_NOT_ALWAYS does this task.
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
-                    // when user is typing in custom keyboard input text it is necessary
-                    // for user to see input text. The function setSoftInputMode() does this task.
-                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-                    mIvBack.setAlpha(1f);
-                    mIvBack.setEnabled(true);
-                    mFlgKeyboardOpened = true;
-                    showActionBarTitle(false);
-                    getSupportActionBar().setTitle(strKeyboard);
+                        mEtTTs.setKeyListener(originalKeyListener);
+                        // Focus the field.
+                        mRecyclerView.setVisibility(View.INVISIBLE);
+                        changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
+                        mEtTTs.requestFocus();
+                        mIvTTs.setVisibility(View.VISIBLE);
+                        // when user intend to use custom keyboard input text system keyboard should
+                        // only appear when user taps on custom keyboard input view. Setting
+                        // InputMethodManager to InputMethodManager.HIDE_NOT_ALWAYS does this task.
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
+                        // when user is typing in custom keyboard input text it is necessary
+                        // for user to see input text. The function setSoftInputMode() does this task.
+                        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+                        mIvBack.setAlpha(1f);
+                        mIvBack.setEnabled(true);
+                        mFlgKeyboardOpened = true;
+                        showActionBarTitle(false);
+                        getSupportActionBar().setTitle(strKeyboard);
 
-                    mIvLike.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-                    mIvDontLike.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-                    mIvMore.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-                    mIvYes.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-                    mIvNo.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-                    mIvLess.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+                        mIvLike.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+                        mIvDontLike.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+                        mIvMore.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+                        mIvYes.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+                        mIvNo.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+                        mIvLess.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+                    }
                 }
             }
         });
@@ -1233,40 +1234,38 @@ public class MainActivity extends AppCompatActivity {
         mShouldReadFullSpeech = true;
         String title = mActionBarTitle[position];
         getSupportActionBar().setTitle(title);
-        // below condition is true when user tap same category icon twice.
-        // i.e. user intends to open a sub-category of selected category icon.
-        if (mLevelOneItemPos == position){
-            SessionManager session = new SessionManager(this);
-            // Get icon set directory path
-            File langDir = new File(getApplicationInfo().dataDir + "/app_" +
-                    session.getLanguage() + "/drawables");
-            // If icon sets are available for level two then open selected category in level two
-            if (langDir.exists() && langDir.isDirectory()) {
-                // create event bundle for firebase
-                Bundle bundle = new Bundle();
-                bundle.putString("Icon", "Opened " + mSpeechTxt[position]);
-                bundleEvent("Grid", bundle);
+        if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))){
+            // below condition is true when user tap same category icon twice.
+            // i.e. user intends to open a sub-category of selected category icon.
+            if (mLevelOneItemPos == position){
+                SessionManager session = new SessionManager(this);
+                // Get icon set directory path
+                File langDir = new File(getApplicationInfo().dataDir + "/app_" +
+                        session.getLanguage() + "/drawables");
+                // If icon sets are available for level two then open selected category in level two
+                if (langDir.exists() && langDir.isDirectory()) {
+                    // create event bundle for firebase
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Icon", "Opened " + mSpeechTxt[position]);
+                    bundleEvent("Grid", bundle);
 
-                // send current position in recycler view of selected category icon and bread
-                // crumb path as extra intent data to LevelTwoActivity.
-                Intent intent = new Intent(MainActivity.this, LevelTwoActivity.class);
-                intent.putExtra(getString(R.string.level_one_intent_pos_tag), position);
-                intent.putExtra(getString(R.string.intent_menu_path_tag), title + "/");
-                startActivityForResult(intent, REQ_HOME);
-            }
-        }else {
-            if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE)))
-            {
-                showAccessibleDialog(position, title, view);
-                view.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-            } else  //talkback off
-            {
+                    // send current position in recycler view of selected category icon and bread
+                    // crumb path as extra intent data to LevelTwoActivity.
+                    Intent intent = new Intent(MainActivity.this, LevelTwoActivity.class);
+                    intent.putExtra(getString(R.string.level_one_intent_pos_tag), position);
+                    intent.putExtra(getString(R.string.intent_menu_path_tag), title + "/");
+                    startActivityForResult(intent, REQ_HOME);
+                }
+            }else {
                 speakSpeech(mSpeechTxt[position]);
                 mMpu.playAudio(mMpu.getFilePath("CATL1_" + (position + 1)));
-                // create event bundle for firebase
-                mUec.createSendFbEventFromTappedView(12, mSpeechTxt[position], "");
             }
+        }else{
+            showAccessibleDialog(position, title, view);
+            view.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
         }
+        // create event bundle for firebase
+        mUec.createSendFbEventFromTappedView(12, mSpeechTxt[position], "");
         mLevelOneItemPos = mRecyclerView.getChildLayoutPosition(view);
         mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
     }
@@ -1275,7 +1274,7 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
         final View mView = getLayoutInflater().inflate(R.layout.dialog_layout, null);
 
-        Button enterCategory = mView.findViewById(R.id.enterCategory);
+        final Button enterCategory = mView.findViewById(R.id.enterCategory);
         final Button closeDialog = mView.findViewById(R.id.btnClose);
         ImageView ivLike = mView.findViewById(R.id.ivlike);
         ImageView ivYes = mView.findViewById(R.id.ivyes);
@@ -1297,9 +1296,9 @@ public class MainActivity extends AppCompatActivity {
         ViewCompat.setAccessibilityDelegate(ivKeyboard, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(enterCategory, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(closeDialog, new TalkbackHints_SingleClick());
-
         mBuilder.setView(mView);
         final AlertDialog dialog = mBuilder.create();
+        dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
         ivLike.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1338,10 +1337,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ivBack.setClickable(false);
         ivBack.setEnabled(false);
         ivBack.setAlpha(0.5f);
-        ivBack.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+        ivBack.setOnClickListener(null);
         ivHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1352,6 +1350,7 @@ public class MainActivity extends AppCompatActivity {
         ivKeyboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mUec.sendEventIfAny("");
                 mIvKeyboard.performClick();
                 dialog.dismiss();
             }
@@ -1360,6 +1359,11 @@ public class MainActivity extends AppCompatActivity {
         enterCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // create event bundle for firebase
+                Bundle bundle = new Bundle();
+                bundle.putString("Icon", "Opened " + mSpeechTxt[position]);
+                bundleEvent("Grid", bundle);
+
                 Intent intent = new Intent(MainActivity.this, LevelTwoActivity.class);
                 intent.putExtra("mLevelOneItemPos", position);
                 intent.putExtra("selectedMenuItemPath", title + "/");
@@ -1381,7 +1385,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        closeDialog.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+        /*mView.findViewById(R.id.txTitleHidden).setAccessibilityDelegate(new View.AccessibilityDelegate(){
+            @Override
+            public void onPopulateAccessibilityEvent(View host, AccessibilityEvent event) {
+                super.onPopulateAccessibilityEvent(host, event);
+                if(event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
+                    enterCategory.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
+                }
+            }
+        });*/
+
+        //closeDialog.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
         closeDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1389,13 +1403,6 @@ public class MainActivity extends AppCompatActivity {
                 clearSelectionAfterAccessibilityDialogClose();
                 //dismiss dialog
                 dialog.dismiss();
-            }
-        });
-
-        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                clearSelectionAfterAccessibilityDialogClose();
             }
         });
 
@@ -1413,6 +1420,15 @@ public class MainActivity extends AppCompatActivity {
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.MATCH_PARENT;
         dialog.getWindow().setAttributes(lp);
+    }
+
+    private void clearSelectionAfterAccessibilityDialogClose() {
+        resetRecyclerMenuItemsAndFlags();
+        //Send pending grid event
+        mUec.sendEventIfAny("");
+        resetExpressiveButtons(-1);
+        mShouldReadFullSpeech = false;
+        mFlgImage = -1;
     }
 
     /**
@@ -1672,7 +1688,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case "com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES":
                     SessionManager session = new SessionManager(context);
-                    String userLang = session.getLanguage();
+                    String appLang = session.getLanguage();
                     session.setLangSettingIsCorrect(true);
                     String mSysTtsReg = intent.getStringExtra("systemTtsRegion");
                     //Below if is true when
@@ -1681,26 +1697,29 @@ public class MainActivity extends AppCompatActivity {
                     //         app language and Text-to-speech language are different then
                     //         show error toast.
                     if((Build.VERSION.SDK_INT < 21) && !session.getLanguage().equals(LangMap.get("मराठी")) &&
-                            ((userLang.equals(ENG_IN) && !mSysTtsReg.equals(HI_IN))
-                        || (userLang.equals(BN_IN) && !mSysTtsReg.equals(BN_IN)
+                            ((appLang.equals(ENG_IN) && !mSysTtsReg.equals(HI_IN))
+                        || (appLang.equals(BN_IN) && !mSysTtsReg.equals(BN_IN)
                              && !(mSysTtsReg.equals(BE_IN) )
-                                || (!userLang.equals(ENG_IN) &&
-                            ! userLang.equals(BN_IN) && !userLang.equals(mSysTtsReg))))) {
+                                || (!appLang.equals(ENG_IN) &&
+                            ! appLang.equals(BN_IN) && !appLang.equals(mSysTtsReg))))) {
 
                         Toast.makeText(context, getString(R.string.speech_engin_lang_sam),
                                 Toast.LENGTH_LONG).show();
                         session.setLangSettingIsCorrect(false);
                     }
 
-                    if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))
-                            && !session.isChangeLanguageNeverAsk() &&
-                        (userLang.equals(ENG_IN) && !mSysTtsReg.equals(HI_IN))
-                            || (userLang.equals(BN_IN) && !mSysTtsReg.equals(BN_IN) &&
-                                !mSysTtsReg.equals(BE_IN))
-                            || (!userLang.equals(ENG_IN) && !userLang.equals(BN_IN) &&
-                                !userLang.equals(mSysTtsReg)))
-                        showChangeLanguageDialog();
-
+                    if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE)) &&
+                            !session.isChangeLanguageNeverAsk() ) {
+                        if (appLang.equals(ENG_IN) && mSysTtsReg.equals(HI_IN))
+                        {}
+                        else if(appLang.equals(BN_IN) &&(mSysTtsReg.equals(BN_IN) || mSysTtsReg.equals(BE_IN)))
+                        {}
+                        else if(!appLang.equals(ENG_IN) && !appLang.equals(BN_IN) && appLang.equals(mSysTtsReg))
+                        {}
+                        else {
+                            showChangeLanguageDialog();
+                        }
+                    }
                     break;
             }
         }

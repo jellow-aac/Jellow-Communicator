@@ -65,7 +65,8 @@
                 style="@style/defaultTextViewStyle"
                 android:paddingLeft="64dp"
                 android:paddingRight="64dp"
-                android:text="@string/txt_intro2_speakUsingJellow"/>
+                android:text="@string/txt_intro2_speakUsingJellow"
+                android:importantForAccessibility="no"/>
         </LinearLayout>
         <TextView
             android:layout_width="match_parent"

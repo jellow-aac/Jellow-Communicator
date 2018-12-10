@@ -63,7 +63,8 @@
             android:paddingLeft="64dp"
             android:paddingRight="64dp"
             android:textSize="13sp"
-            android:text="@string/txt_intro3_navWithJellow"/>
+            android:text="@string/txt_intro3_navWithJellow"
+            android:importantForAccessibility="no"/>
     </LinearLayout>
         <TextView
         android:layout_width="match_parent"

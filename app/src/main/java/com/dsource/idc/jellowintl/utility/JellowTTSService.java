@@ -26,6 +26,7 @@ import java.util.Locale;
 
 import static com.dsource.idc.jellowintl.utility.SessionManager.BE_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_AU;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_UK;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_US;
@@ -100,6 +101,9 @@ public class JellowTTSService extends Service{
                 break;
             case ENG_US:
                 tts.setLanguage(Locale.US);
+                break;
+            case ENG_AU:
+                tts.setLanguage(new Locale("en", "AU"));
                 break;
             case BN_IN:
             case BE_IN:
@@ -383,6 +387,7 @@ public class JellowTTSService extends Service{
             switch(language){
                 case ENG_UK:
                 case ENG_US:
+                case ENG_AU:
                 case HI_IN:
                 case ENG_IN:
                 case BN_IN:
@@ -397,6 +402,7 @@ public class JellowTTSService extends Service{
             switch(language){
                 case ENG_UK:
                 case ENG_US:
+                case ENG_AU:
                 case HI_IN:
                 case ENG_IN:
                 case BN_IN:
@@ -411,6 +417,7 @@ public class JellowTTSService extends Service{
             switch(language){
                 case ENG_UK:
                 case ENG_US:
+                case ENG_AU:
                 case HI_IN:
                 case ENG_IN:
                 case BN_IN:

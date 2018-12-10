@@ -12,6 +12,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.view.View;
+import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,9 +27,11 @@ import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.dsource.idc.jellowintl.utility.TextToSpeechErrorUtils;
 import com.github.paolorotolo.appintro.AppIntro;
 
+import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BE_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_AU;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_UK;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_US;
@@ -96,6 +100,10 @@ public class Intro extends AppIntro {
         super.onResume();
         if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE)))
             startService(new Intent(getApplication(), JellowTTSService.class));
+        if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))
+                && isOpenedSettingFromIntro8){
+            findViewById(R.id.btnMoveRight).sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
+        }
     }
 
     @Override
@@ -143,6 +151,8 @@ public class Intro extends AppIntro {
                 return "English (UK)";
             case ENG_US:
                 return "English (US)";
+            case ENG_AU:
+                return "English (AU)";
             case BE_IN:
             case BN_IN:
                 return "Bengali (IN)";

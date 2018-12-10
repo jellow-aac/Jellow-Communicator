@@ -18,6 +18,10 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_AU;
+import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_UK;
+import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_US;
+
 /**
  * Created by ekalpa on 6/27/2016.
  */
@@ -126,7 +130,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     // Getting single contact
     public String getLevel(int layer_1_id, int layer_2_id) {
         String userLang = "";
-        if(mSession.getLanguage().equals("en-rUS") || mSession.getLanguage().equals("en-rGB"))
+        if(mSession.getLanguage().equals(ENG_US) || mSession.getLanguage().equals(ENG_UK) ||
+                mSession.getLanguage().equals(ENG_AU))
             userLang = "en-rUS,en-rGB";
         else
             userLang = "hi-rIN,en-rIN";
@@ -143,7 +148,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public void setLevel(int layer_1_id, int layer_2_id, String n) {
         String userLang = "";
-        if(mSession.getLanguage().equals("en-rUS") || mSession.getLanguage().equals("en-rGB"))
+        if(mSession.getLanguage().equals(ENG_US) || mSession.getLanguage().equals(ENG_UK))
             userLang = "en-rUS,en-rGB";
         else
             userLang = "hi-rIN,en-rIN";

@@ -80,8 +80,8 @@
         <item>\"\"</item>
         <item>\"\"</item>
         <item>\"\"</item>
-        <item>\tmorning routine</item>
-        <item>\tbed time routine</item>
+        <item>morning routine</item>
+        <item>bed time routine</item>
     </string-array>
 
     <string-array name="arrSeqActivityNavigationText">

@@ -108,11 +108,8 @@ public class ResetPreferencesActivity extends AppCompatActivity {
                 startActivity(new Intent(this, SettingActivity.class));
                 finish(); break;
             case R.id.feedback:
-                AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
-                boolean isAccessibilityEnabled = am.isEnabled();
-                boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
-                if (isAccessibilityEnabled && isExploreByTouchEnabled) {
-                    startActivity(new Intent(this, FeedbackActivityTalkback.class));
+                if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                    startActivity(new Intent(this, FeedbackActivityTalkBack.class));
                 } else {
                     startActivity(new Intent(this, FeedbackActivity.class));
                 }

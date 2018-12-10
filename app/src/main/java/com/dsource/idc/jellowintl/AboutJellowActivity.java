@@ -37,12 +37,12 @@ public class AboutJellowActivity extends AppCompatActivity {
     private Button mBtnSpeak, mBtnStop;
     private TextView tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8, tv9, tv10, tv11, tv12, tv13, tv14, tv15, tv16,
             tv17, tv18, tv19, tv20, tv21, tv22, tv23, tv24, tv25, tv26, tv27, tv28, tv29, tv30, tv31,
-            tv32, tv33, tv34, tv35;
+            tv32, tv33, tv34, tv35, tv36, tv37;
     private String mSpeechTxt, mGenInfo, mSoftInfo, mTermofUse, mCredits,
             mAppLink, mIntro1, mIntro2, mIntro3, mIntro4, mIntro5, mIntro6, mIntro7, mIntro8,
             mIntro9, mIntro10, mIntro11, mIntro12, mIntro13, mIntro14, mIntro15, mIntro16, mIntro17,
             mIntro18, mIntro19, mIntro20, mIntro21, mIntro22, mIntro23, mIntro24, mIntro25, mIntro26,
-            mIntro27, mIntro28, mIntro29, mIntro30, mSpeak, mStop;
+            mIntro27, mIntro28, mIntro29, mIntro30, mIntro31, mIntro32, mSpeak, mStop;
 
     /*Media Player playback Utility class for non-tts languages.*/
     private MediaPlayerUtils mMpu;
@@ -132,11 +132,8 @@ public class AboutJellowActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.feedback:
-                AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
-                boolean isAccessibilityEnabled = am.isEnabled();
-                boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
-                if (isAccessibilityEnabled && isExploreByTouchEnabled) {
-                    startActivity(new Intent(this, FeedbackActivityTalkback.class));
+                if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                    startActivity(new Intent(this, FeedbackActivityTalkBack.class));
                 } else {
                     startActivity(new Intent(this, FeedbackActivity.class));
                 }
@@ -151,7 +148,6 @@ public class AboutJellowActivity extends AppCompatActivity {
                 finish();
                 break;
             case android.R.id.home:
-                startActivity(new Intent(AboutJellowActivity.this, MainActivity.class));
                 finish();
                 break;
             case R.id.keyboardinput:
@@ -215,6 +211,8 @@ public class AboutJellowActivity extends AppCompatActivity {
         tv33= findViewById(R.id.tv33);
         tv34= findViewById(R.id.tv34);
         tv35= findViewById(R.id.tv35);
+        tv36= findViewById(R.id.tv36);
+        tv37= findViewById(R.id.tv37);
         mBtnSpeak = findViewById(R.id.speak);
         mBtnStop = findViewById(R.id.stop);
 
@@ -250,7 +248,7 @@ public class AboutJellowActivity extends AppCompatActivity {
         mIntro14 = getString(R.string.about_je_intro14);
         mIntro14 = mIntro14.concat(" "+
                 Html.fromHtml("<a href=\"mailto:ravi@iitb.ac.in\">ravi@iitb.ac.in</a>") +
-                " / "+ Html.fromHtml("<a href=\"mailto:jellowcommunicator@gmail.com\">jellowcommunicator@gmail.com</a>"));
+                " or "+ Html.fromHtml("<a href=\"mailto:jellowcommunicator@gmail.com\">jellowcommunicator@gmail.com</a>"));
         mCredits = getString(R.string.credits);
         mIntro15 = getString(R.string.about_je_intro15);
         mIntro16 = getString(R.string.about_je_intro16);
@@ -268,6 +266,8 @@ public class AboutJellowActivity extends AppCompatActivity {
         mIntro28 = getString(R.string.about_je_intro28);
         mIntro29 = getString(R.string.about_je_intro29);
         mIntro30 = getString(R.string.about_je_intro30);
+        mIntro31 = getString(R.string.about_je_intro31);
+        mIntro32 = getString(R.string.about_je_intro32);
         mSpeak = getString(R.string.speak);
         mStop = getString(R.string.stop);
 
@@ -381,6 +381,8 @@ public class AboutJellowActivity extends AppCompatActivity {
             Linkify.addLinks(tv16, Linkify.EMAIL_ADDRESSES);
         }
         tv35.setText(mIntro6);
+        tv36.setText(mIntro31);
+        tv37.setText(mIntro32);
         mBtnSpeak.setText(mSpeak);
         mBtnStop.setText(mStop);
     }

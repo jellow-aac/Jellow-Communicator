@@ -2,9 +2,7 @@
     android:keyWidth="40%p"
     android:horizontalGap="0px"
     android:verticalGap="0px"
-    android:keyHeight="90dp"
-    >
-
+    android:keyHeight="90dp">
     <Row>
         <Key android:codes="49" android:keyLabel="1" android:keyEdgeFlags="left"/>
         <Key android:codes="50" android:keyLabel="2"/>
@@ -15,7 +13,6 @@
         <Key android:codes="55" android:keyLabel="7"/>
         <Key android:codes="56" android:keyLabel="8" android:keyEdgeFlags="right"/>
     </Row>
-
     <Row>
         <Key android:codes="57" android:keyLabel="9" android:keyEdgeFlags="left"/>
         <Key android:codes="48" android:keyLabel="0"/>
@@ -26,5 +23,4 @@
         <Key android:codes="-5" android:keyLabel="Del"/>
         <Key android:codes="-10" android:keyLabel="ABC" android:keyEdgeFlags="right"/>
     </Row>
-
 </Keyboard>

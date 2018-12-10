@@ -10,21 +10,40 @@ import android.view.inputmethod.InputConnection;
 
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
+import static com.dsource.idc.jellowintl.utility.SessionManager.BE_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_AU;
+import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_UK;
+import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_US;
+import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
+
 /**
  * Created by ekalpa on 11/22/2016.
  */
 public class SimpleIME extends InputMethodService
         implements KeyboardView.OnKeyboardActionListener {
+    final int ENG_KEY_123 = -0;
+    final int ENG_KEY_ABC = -10;
+    final int KEY_LANG_SWITCH = -11;
+    final int HI_KEY_SHIFT = -12;
+    final int HI_KEY_ABC = -13;
+    final int BN_KEY_SHIFT = -14;
+    final int BN_KEY_123 = -15;
+    final int BN_KEY_ABC = -16;
+    final int KEY_ENTER = -17;
 
-    private final int LANG_ENG = 0;
-    private Keyboard keyboard;  // private Keyboard defaultKeyboard;
-    private Keyboard keyboard1;
-    private Keyboard keyboard2; // private Keyboard charKeyboard;
-    private Keyboard ekeyboard;
-    private Keyboard e1keyboard;
-    //private boolean isCharKeyboard = false;
+    private Keyboard keyHindiConsonants;
+    private Keyboard keyHindiNumeric;
+    private Keyboard keyHindiVowels;
+    private Keyboard keyEnglishAlphabetSmallLetters;
+    private Keyboard keyEnglishNumeric;
+    private Keyboard keyBengaliConsonants;
+    private Keyboard keyBengaliNumeric;
+    private Keyboard keyBengaliVowels;
+    private int mkeyCount = -1;
     private KeyboardView kv;
-    private SessionManager mSession;
 
     private boolean caps = false;
 
@@ -36,17 +55,33 @@ public class SimpleIME extends InputMethodService
 
     @Override
     public View onCreateInputView() {
-        kv = (KeyboardView)getLayoutInflater().inflate(R.layout.keyboard, null); // 2130968601
-        keyboard = new Keyboard(this, R.xml.qwerty); //default
-        keyboard1 = new Keyboard(this, R.xml.qwerty1); //num
-        keyboard2 = new Keyboard(this, R.xml.qwerty2); //char
-        ekeyboard = new Keyboard(this, R.xml.eqwerty);
-        e1keyboard = new Keyboard(this, R.xml.eqwerty1);
-        mSession = new SessionManager(this);
-        if(mSession.getLanguage().contains("en"))
-            kv.setKeyboard(ekeyboard);
-        else
-            kv.setKeyboard(keyboard);
+        kv = (KeyboardView) getLayoutInflater().inflate(R.layout.keyboard, null);
+        keyEnglishAlphabetSmallLetters = new Keyboard(this, R.xml.serial_english_alphabet_small_letters);
+        keyEnglishNumeric = new Keyboard(this, R.xml.serial_english_numeric);
+        keyHindiConsonants = new Keyboard(this, R.xml.serial_hindi_consonants);
+        keyHindiVowels = new Keyboard(this, R.xml.serial_hindi_vowels);
+        keyHindiNumeric = new Keyboard(this, R.xml.serial_hindi_numeric);
+        keyBengaliConsonants = new Keyboard(this, R.xml.serial_bengali_consonants);
+        keyBengaliVowels = new Keyboard(this, R.xml.serial_bengali_vowels);
+        keyBengaliNumeric = new Keyboard(this, R.xml.serial_bengali_numeric);
+
+        switch (new SessionManager(this).getLanguage()){
+            case HI_IN:
+                kv.setKeyboard(keyHindiConsonants);
+                break;
+            case BN_IN:
+            case BE_IN:
+                kv.setKeyboard(keyBengaliConsonants);
+                break;
+            case ENG_US:
+            case ENG_UK:
+            case ENG_AU:
+            case ENG_IN:
+            case MR_IN:
+            default:
+                kv.setKeyboard(keyEnglishAlphabetSmallLetters);
+                break;
+        }
         kv.setOnKeyboardActionListener(this);
         kv.setPreviewEnabled(false);
         return kv;
@@ -59,6 +94,7 @@ public class SimpleIME extends InputMethodService
                 am.playSoundEffect(AudioManager.FX_KEYPRESS_SPACEBAR);
                 break;
             case Keyboard.KEYCODE_DONE:
+            case KEY_ENTER:
             case 10:
                 am.playSoundEffect(AudioManager.FX_KEYPRESS_RETURN);
                 break;
@@ -79,54 +115,59 @@ public class SimpleIME extends InputMethodService
                 break;
             case Keyboard.KEYCODE_SHIFT:
                 caps = !caps;
-                ekeyboard.setShifted(caps);
+                keyEnglishAlphabetSmallLetters.setShifted(caps);
                 kv.invalidateAllKeys();
                 break;
-            case Keyboard.KEYCODE_DONE:
+            case KEY_ENTER:
                 ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));
                 break;
             case -8:
-                System.out.println("keyboard1");
-            {
-                /*if (this.isCharKeyboard) break;
-                this.isCharKeyboard = true;*/
-                this.kv.setKeyboard(this.keyboard1);
-                return;
-            }
-            case -11:
-                System.out.println("keyboard");
-            {
-                /*if (this.isCharKeyboard) break;
-                this.isCharKeyboard = true;*/
-                this.kv.setKeyboard(this.keyboard);
-                return;
-            }
-
+                kv.setKeyboard(this.keyHindiNumeric);
+                break;
             case -9:
-                System.out.println("keyboard2");
-            {
-                /*if (this.isCharKeyboard) break;
-                this.isCharKeyboard = true;*/
-                this.kv.setKeyboard(this.keyboard2);
-                return;
-            }
-            case -10:
-                System.out.println("keyboarde");
-            {
-                /*if (this.isCharKeyboard) break;
-                this.isCharKeyboard = true;*/
-                this.kv.setKeyboard(this.ekeyboard);
-                return;
-            }
-            case -0:
-                System.out.println("keyboarde1");
-            {
-                /*if (this.isCharKeyboard) break;
-                this.isCharKeyboard = true;*/
-                this.kv.setKeyboard(this.e1keyboard);
-                return;
-            }
-
+                kv.setKeyboard(this.keyHindiVowels);
+                break;
+            case ENG_KEY_ABC:
+                kv.setKeyboard(keyEnglishAlphabetSmallLetters);
+                break;
+            case ENG_KEY_123:
+                kv.setKeyboard(this.keyEnglishNumeric);
+                break;
+            case HI_KEY_SHIFT:
+                if(kv.getKeyboard().equals(keyHindiVowels))
+                     kv.setKeyboard(keyHindiConsonants);
+                else
+                    kv.setKeyboard(keyHindiVowels);
+                break;
+            case HI_KEY_ABC:
+                kv.setKeyboard(keyHindiConsonants);
+                break;
+            case BN_KEY_SHIFT:
+                if(kv.getKeyboard().equals(keyBengaliVowels))
+                    kv.setKeyboard(keyBengaliConsonants);
+                else
+                    kv.setKeyboard(keyBengaliVowels);
+                break;
+            case BN_KEY_123:
+                kv.setKeyboard(keyBengaliNumeric);
+                break;
+            case BN_KEY_ABC:
+                kv.setKeyboard(keyBengaliConsonants);
+                break;
+            case KEY_LANG_SWITCH:
+                switch(++mkeyCount % 3){
+                    case 1:
+                        kv.setKeyboard(keyHindiConsonants);
+                        break;
+                    case 2:
+                        kv.setKeyboard(keyBengaliConsonants);
+                        break;
+                    case 0:
+                    default:
+                        kv.setKeyboard(keyEnglishAlphabetSmallLetters);
+                        break;
+                }
+                break;
             default:
                 char code = (char)primaryCode;
                 if(Character.isLetter(code) && caps){

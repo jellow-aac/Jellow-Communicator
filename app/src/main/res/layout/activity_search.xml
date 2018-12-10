@@ -10,33 +10,48 @@
         android:background="@drawable/search_list_back"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_gravity="right"
-
-        >
-    <EditText
-
-        android:padding="@dimen/searchView_padding"
-        android:layout_marginLeft="@dimen/search_edit_margin_left"
-        android:layout_marginTop="@dimen/search_edit_text_top_margin"
-        android:layout_marginBottom="@dimen/search_edit_text_margin_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black_80"
-        android:maxLines="1"
-        android:inputType="text"
-        android:textSize="@dimen/search_edit_text_size"
-        android:imeOptions="flagNoExtractUi"
-        android:background="@drawable/rounded_back"
-        android:layout_centerHorizontal="true"
-        android:textColorHint="@color/black_80"
-        android:drawableLeft="@drawable/ic_search_small"
-        android:drawablePadding="@dimen/search_drawable_padding"
-        android:id="@+id/search_auto_complete"
-        />
+        android:layout_gravity="right">
+        <LinearLayout
+            android:id="@+id/llSearchBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <EditText
+                android:padding="@dimen/searchView_padding"
+                android:layout_marginLeft="@dimen/search_edit_margin_left"
+                android:layout_marginTop="@dimen/search_edit_text_top_margin"
+                android:layout_marginBottom="@dimen/search_edit_text_margin_bottom"
+                android:layout_width="wrap_content"
+                android:layout_weight="4"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_80"
+                android:maxLines="1"
+                android:inputType="text"
+                android:textSize="@dimen/search_edit_text_size"
+                android:imeOptions="flagNoExtractUi"
+                android:background="@drawable/rounded_back"
+                android:textColorHint="@color/black_80"
+                android:drawableLeft="@drawable/ic_search_small"
+                android:drawablePadding="@dimen/search_drawable_padding"
+                android:id="@+id/search_auto_complete"
+                android:importantForAccessibility="yes"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/search_list_icon_size"
+                android:layout_weight=".1"
+                android:padding="2dp"
+                android:src="@android:drawable/ic_menu_close_clear_cancel"
+                android:layout_margin="@dimen/search_list_margin"
+                android:id="@+id/close_button"
+                android:onClick="closeActivity"
+                android:contentDescription="@string/close_searchbar"
+                android:importantForAccessibility="yes"
+                />
+        </LinearLayout>
     <android.support.v7.widget.RecyclerView
         android:layout_margin="@dimen/search_recycler_margin"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/search_auto_complete"
+        android:layout_below="@+id/llSearchBar"
         android:layout_width="match_parent"
         android:scrollbars="vertical"
         android:scrollbarThumbVertical="@android:color/darker_gray"

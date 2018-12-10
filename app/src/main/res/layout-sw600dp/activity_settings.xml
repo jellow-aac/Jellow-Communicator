@@ -38,7 +38,8 @@
                     android:layout_marginBottom="12dp"
                     android:min="1"
                     android:max="100"
-                    android:theme="@style/CustomSeekbar"/>
+                    android:theme="@style/CustomSeekbar"
+                    android:contentDescription="@string/seekbar_speed_cd"/>
                 <TextView
                     android:id="@+id/voicepitch"
                     android:layout_width="match_parent"
@@ -53,7 +54,8 @@
                     android:layout_marginBottom="12dp"
                     android:min="1"
                     android:max="100"
-                    android:theme="@style/CustomSeekbar"/>
+                    android:theme="@style/CustomSeekbar"
+                    android:contentDescription="@string/seekbar_pitch_cd"/>
                 <TextView
                     android:id="@+id/voiceVolume"
                     android:layout_width="match_parent"
@@ -68,7 +70,8 @@
                     android:layout_marginBottom="12dp"
                     android:min="1"
                     android:max="15"
-                    android:theme="@style/CustomSeekbar"/>
+                    android:theme="@style/CustomSeekbar"
+                    android:contentDescription="@string/seekbar_volume_cd"/>
                 <TextView
                     android:id="@+id/tv3"
                     android:layout_width="match_parent"

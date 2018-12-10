@@ -4,7 +4,8 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:background="#F7F3C6">
+    android:background="#F7F3C6"
+    android:isScrollContainer="false">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -64,7 +65,7 @@
                     style="@style/defaultTextViewStyle"
                     android:imeOptions="actionDone"
                     android:inputType="textPersonName"
-                    android:contentDescription="@string/caregiverName"/>
+                    android:contentDescription="@string/enter_caregiver_s_name"/>
                 <TextView
                     android:id="@+id/tvCaregiverNo"
                     android:layout_width="wrap_content"
@@ -72,7 +73,7 @@
                     android:text="@string/careGiverContact"
                     android:fontFamily="@font/mukta_semibold"
                     style="@style/defaultTextViewStyle"
-                    android:contentDescription="@string/caregiver_s_contact_number"/>
+                    android:contentDescription="@string/caregiver_s_contact_number_other_than_this_device_s_sim_number"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -97,7 +98,7 @@
                     android:maxLength="12"
                     style="@style/defaultTextViewStyle"
                     android:imeOptions="actionDone"
-                    android:contentDescription="@string/caregiver_s_contact_number"/>
+                    android:contentDescription="@string/enter_caregiver_s_contact_number"/>
             </LinearLayout>
                 <TextView
                     android:id="@+id/tvHomeAddress"
@@ -134,6 +135,7 @@
                     android:layout_marginStart="-4dp"
                     style="@style/defaultTextViewStyle"
                     android:imeOptions="actionDone"
+                    android:contentDescription="@string/enter_caregiver_s_email_address"
                     android:inputType="textEmailAddress"
                     android:textSize="18sp"/>
 
@@ -158,6 +160,7 @@
                         android:layout_height="wrap_content"
                         style="@style/defaultTextViewStyle"
                         android:text="@string/groupTeacher"
+                        android:contentDescription="@string/therapist_or_teacher_cd"
                         android:importantForAccessibility="yes"/>
                     <RadioButton
                         android:id="@+id/radioParent"
@@ -165,6 +168,7 @@
                         android:layout_height="wrap_content"
                         style="@style/defaultTextViewStyle"
                         android:text="@string/groupParent"
+                        android:contentDescription="@string/parent_or_caregiver_cd"
                         android:importantForAccessibility="yes"/>
                 </RadioGroup>
 

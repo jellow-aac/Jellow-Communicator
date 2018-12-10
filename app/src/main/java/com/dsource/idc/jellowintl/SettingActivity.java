@@ -19,6 +19,7 @@ import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -114,7 +115,7 @@ public class SettingActivity extends AppCompatActivity {
         }
 
         Button btnSave = findViewById(R.id.button4);
-        Button btnDemo = findViewById(R.id.demo);
+        final Button btnDemo = findViewById(R.id.demo);
         mSliderSpeed = findViewById(R.id.speed);
         mSliderPitch = findViewById(R.id.pitch);
         mSliderVolume = findViewById(R.id.volume);
@@ -150,15 +151,9 @@ public class SettingActivity extends AppCompatActivity {
                mTxtViewSpeechSpeed.setText(strSpeechSpeed.concat(": "+ String.valueOf(i / 5)));
            }
 
-           @Override
-           public void onStartTrackingTouch(SeekBar seekBar) {
+           @Override public void onStartTrackingTouch(SeekBar seekBar) {}
 
-           }
-
-           @Override
-           public void onStopTrackingTouch(SeekBar seekBar) {
-
-           }
+           @Override public void onStopTrackingTouch(SeekBar seekBar) {}
        });
 
         mSliderPitch.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -168,15 +163,9 @@ public class SettingActivity extends AppCompatActivity {
                 mTxtViewVoicePitch.setText(strSpeechPitch.concat(": "+ String.valueOf(i / 5)));
             }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
+            @Override public void onStartTrackingTouch(SeekBar seekBar) {}
 
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
+            @Override public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
         if(!(new MediaPlayerUtils(this).isTtsAvailForLang())){
@@ -197,15 +186,9 @@ public class SettingActivity extends AppCompatActivity {
 
             }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
+            @Override public void onStartTrackingTouch(SeekBar seekBar) {}
 
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
+            @Override public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -441,11 +424,8 @@ public class SettingActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.feedback:
-                AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
-                boolean isAccessibilityEnabled = am.isEnabled();
-                boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
-                if(isAccessibilityEnabled && isExploreByTouchEnabled) {
-                    startActivity(new Intent(this, FeedbackActivityTalkback.class));
+                if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                    startActivity(new Intent(this, FeedbackActivityTalkBack.class));
                 }
                 else {
                     startActivity(new Intent(this, FeedbackActivity.class));
@@ -466,6 +446,36 @@ public class SettingActivity extends AppCompatActivity {
         setSpeechPitch(mSession.getPitch()/50);
         setSpeechRate(mSession.getSpeed()/50);
         finish();
+    }
+
+    @Override
+    public void onUserInteraction() {
+        super.onUserInteraction();
+        addAccessibilityDelegateToSpinners();
+    }
+
+    private void addAccessibilityDelegateToSpinners() {
+        if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+            mSpinnerViewMode.setAccessibilityDelegate(new View.AccessibilityDelegate() {
+                @Override
+                public void onInitializeAccessibilityEvent(View host, AccessibilityEvent event) {
+                    super.onInitializeAccessibilityEvent(host, event);
+                    if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED) {
+                        findViewById(R.id.tv4).sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
+                    }
+                }
+            });
+
+            mSpinnerGridSize.setAccessibilityDelegate(new View.AccessibilityDelegate() {
+                @Override
+                public void onInitializeAccessibilityEvent(View host, AccessibilityEvent event) {
+                    super.onInitializeAccessibilityEvent(host, event);
+                    if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED) {
+                        findViewById(R.id.demo).sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
+                    }
+                }
+            });
+        }
     }
 
     private void speakSpeech(String speechText){

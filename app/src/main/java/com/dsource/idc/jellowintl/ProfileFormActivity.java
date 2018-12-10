@@ -22,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -254,11 +255,8 @@ public class ProfileFormActivity extends AppCompatActivity {
                 startActivity(new Intent(this, ResetPreferencesActivity.class));
                 finish(); break;
             case R.id.feedback:
-                AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
-                boolean isAccessibilityEnabled = am.isEnabled();
-                boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
-                if(isAccessibilityEnabled && isExploreByTouchEnabled) {
-                    startActivity(new Intent(this, FeedbackActivityTalkback.class));
+                if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                    startActivity(new Intent(this, FeedbackActivityTalkBack.class));
                 }
                 else {
                     startActivity(new Intent(this, FeedbackActivity.class));
@@ -290,6 +288,44 @@ public class ProfileFormActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!isAnalyticsActive()){
+            resetAnalytics(this, mSession.getCaregiverNumber().substring(1));
+        }
+        if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
+            startService(new Intent(getApplication(), JellowTTSService.class));
+        }
+        startMeasuring();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(receiver);
+    }
+
+    @Override
+    public void onUserInteraction() {
+        super.onUserInteraction();
+        addAccessibilityDelegateToSpinners();
+    }
+
+    private void addAccessibilityDelegateToSpinners() {
+        if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+            mBloodGroup.setAccessibilityDelegate(new View.AccessibilityDelegate() {
+                @Override
+                public void onInitializeAccessibilityEvent(View host, AccessibilityEvent event) {
+                    super.onInitializeAccessibilityEvent(host, event);
+                    if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED) {
+                        bSave.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
+                    }
+                }
+            });
+        }
     }
 
     public static boolean isValidEmail(CharSequence target) {
@@ -325,18 +361,6 @@ public class ProfileFormActivity extends AppCompatActivity {
             default:
                 return "not selected";
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if(!isAnalyticsActive()){
-            resetAnalytics(this, mSession.getCaregiverNumber().substring(1));
-        }
-        if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
-            startService(new Intent(getApplication(), JellowTTSService.class));
-        }
-        startMeasuring();
     }
 
     private void encryptStoreUserInfo(final String name, final String contact,
@@ -466,12 +490,6 @@ public class ProfileFormActivity extends AppCompatActivity {
             // if old number doesn't have previous records then just copy it into 'new number -> prevrecords node'
             mNewRef.setValue(snapshot.getValue());
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unregisterReceiver(receiver);
     }
 
     private final BroadcastReceiver receiver = new BroadcastReceiver() {

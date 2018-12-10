@@ -10,11 +10,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.accessibility.AccessibilityEvent;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
@@ -26,10 +26,9 @@ import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 
-public class FeedbackActivityTalkback extends AppCompatActivity {
+public class FeedbackActivityTalkBack extends AppCompatActivity{
 
     Spinner mEasyToUse, mClearPictures, mClearVoice, mNavigate;
-    EditText mComments ;
     Button mBtnSubmit;
     ArrayAdapter<CharSequence> adapter;
 
@@ -75,27 +74,27 @@ public class FeedbackActivityTalkback extends AppCompatActivity {
                 finish();
                 break;
             case R.id.profile:
-                startActivity(new Intent(FeedbackActivityTalkback.this, ProfileFormActivity.class));
+                startActivity(new Intent(FeedbackActivityTalkBack.this, ProfileFormActivity.class));
                 finish();
                 break;
             case R.id.info:
-                startActivity(new Intent(FeedbackActivityTalkback.this, AboutJellowActivity.class));
+                startActivity(new Intent(FeedbackActivityTalkBack.this, AboutJellowActivity.class));
                 finish();
                 break;
             case R.id.usage:
-                startActivity(new Intent(FeedbackActivityTalkback.this, TutorialActivity.class));
+                startActivity(new Intent(FeedbackActivityTalkBack.this, TutorialActivity.class));
                 finish();
                 break;
             case R.id.keyboardinput:
-                startActivity(new Intent(FeedbackActivityTalkback.this, KeyboardInputActivity.class));
+                startActivity(new Intent(FeedbackActivityTalkBack.this, KeyboardInputActivity.class));
                 finish();
                 break;
             case R.id.settings:
-                startActivity(new Intent(FeedbackActivityTalkback.this, SettingActivity.class));
+                startActivity(new Intent(FeedbackActivityTalkBack.this, SettingActivity.class));
                 finish();
                 break;
             case R.id.reset:
-                startActivity(new Intent(FeedbackActivityTalkback.this, ResetPreferencesActivity.class));
+                startActivity(new Intent(FeedbackActivityTalkBack.this, ResetPreferencesActivity.class));
                 finish();
                 break;
             case android.R.id.home:
@@ -124,17 +123,23 @@ public class FeedbackActivityTalkback extends AppCompatActivity {
         finish();
     }
 
+    @Override
+    public void onUserInteraction() {
+        super.onUserInteraction();
+        addAccessibilityDelegateToSpinners();
+    }
+
     public void addListenerOnSpinner() {
-        mEasyToUse = findViewById(R.id.easytouse);
-        mClearPictures = findViewById(R.id.clearpictures);
-        mClearVoice = findViewById(R.id.clearvoice);
-        mNavigate = findViewById(R.id.navigate);
         adapter = ArrayAdapter.createFromResource(this, R.array.ratings,
                 R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mEasyToUse = findViewById(R.id.easytouse);
         mEasyToUse.setAdapter(adapter);
+        mClearPictures = findViewById(R.id.clearpictures);
         mClearPictures.setAdapter(adapter);
+        mClearVoice = findViewById(R.id.clearvoice);
         mClearVoice.setAdapter(adapter);
+        mNavigate = findViewById(R.id.navigate);
         mNavigate.setAdapter(adapter);
     }
 
@@ -144,7 +149,7 @@ public class FeedbackActivityTalkback extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if ((mEasyToUse != null) && (mClearPictures != null) && (mClearVoice != null) && (mNavigate != null)) {
-                    String cs = ((TextView)findViewById(R.id.comments)).getText().toString();
+                    String cs = ((EditText)findViewById(R.id.comments)).getText().toString();
                     Intent email = new Intent(Intent.ACTION_SEND);
                     email.putExtra(Intent.EXTRA_EMAIL, new String[]{"dsource.in@gmail.com"});
                     email.putExtra(Intent.EXTRA_SUBJECT, "Jellow Feedback");
@@ -156,8 +161,47 @@ public class FeedbackActivityTalkback extends AppCompatActivity {
                     startActivity(Intent.createChooser(email, "Choose an Email client :"));
 
                 } else {
-                    Toast.makeText(FeedbackActivityTalkback.this,
+                    Toast.makeText(FeedbackActivityTalkBack.this,
                             strRateJellow, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void addAccessibilityDelegateToSpinners() {
+        mEasyToUse.setAccessibilityDelegate(new View.AccessibilityDelegate() {
+            @Override
+            public void onInitializeAccessibilityEvent(View host, AccessibilityEvent event) {
+                super.onInitializeAccessibilityEvent(host, event);
+                if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED) {
+                    findViewById(R.id.tv2).sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
+                }
+            }
+        });
+        mClearPictures.setAccessibilityDelegate(new View.AccessibilityDelegate() {
+            @Override
+            public void onInitializeAccessibilityEvent(View host, AccessibilityEvent event) {
+                super.onInitializeAccessibilityEvent(host, event);
+                if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED) {
+                    findViewById(R.id.tv3).sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
+                }
+            }
+        });
+        mClearVoice.setAccessibilityDelegate(new View.AccessibilityDelegate() {
+            @Override
+            public void onInitializeAccessibilityEvent(View host, AccessibilityEvent event) {
+                super.onInitializeAccessibilityEvent(host, event);
+                if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED) {
+                    findViewById(R.id.tv4).sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
+                }
+            }
+        });
+        mNavigate.setAccessibilityDelegate(new View.AccessibilityDelegate() {
+            @Override
+            public void onInitializeAccessibilityEvent(View host, AccessibilityEvent event) {
+                super.onInitializeAccessibilityEvent(host, event);
+                if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED) {
+                    findViewById(R.id.tv5).sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
                 }
             }
         });

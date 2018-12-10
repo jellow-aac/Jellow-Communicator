@@ -17,14 +17,13 @@
         tools:ignore="RtlSymmetry"
         android:contentDescription="@string/previous_slide" />
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="32dp">
+            android:orientation="vertical">
             <TextView
                 android:id="@+id/tv_intro8_title"
                 android:layout_width="wrap_content"
@@ -35,8 +34,7 @@
                 android:textSize="11sp"/>
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp">
+                android:layout_height="wrap_content">
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -44,18 +42,20 @@
                     android:gravity="center_horizontal">
                     <TextView
                         android:id="@+id/tv_intro8_imgTxt1"
-                        android:layout_width="140dp"
+                        android:layout_width="175dp"
                         android:layout_height="wrap_content"
                         style="@style/defaultTextViewStyle"
                         android:textAlignment="center"
-                        android:minLines="3"
+                        android:minLines="2"
                         android:textSize="11sp"
                         android:text="@string/txt_intro8_step1"/>
                     <ImageView
                         android:id="@+id/img1_intro8"
                         android:layout_width="120dp"
                         android:layout_height="135dp"
-                        android:src="@drawable/tts_wifi_1" />
+                        android:layout_marginTop="-8dp"
+                        android:src="@drawable/tts_wifi_1"
+                        android:contentDescription="@string/lang_setting_option1_cd" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -66,18 +66,20 @@
                     android:layout_marginRight="8dp">
                     <TextView
                         android:id="@+id/tv_intro8_imgTxt2"
-                        android:layout_width="140dp"
+                        android:layout_width="175dp"
                         android:layout_height="wrap_content"
                         style="@style/defaultTextViewStyle"
                         android:textAlignment="center"
-                        android:minLines="3"
+                        android:minLines="2"
                         android:textSize="11sp"
                         android:text="@string/txt_intro8_step2"/>
                     <ImageView
                         android:id="@+id/img2_intro8"
                         android:layout_width="120dp"
                         android:layout_height="135dp"
-                        android:src="@drawable/tts_wifi_2" />
+                        android:layout_marginTop="-8dp"
+                        android:src="@drawable/tts_wifi_2"
+                        android:contentDescription="@string/lang_setting_option2_cd" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -86,18 +88,20 @@
                     android:gravity="center_horizontal">
                     <TextView
                         android:id="@+id/tv_intro8_imgTxt3"
-                        android:layout_width="140dp"
+                        android:layout_width="175dp"
                         android:layout_height="wrap_content"
                         style="@style/defaultTextViewStyle"
                         android:textAlignment="center"
-                        android:minLines="3"
+                        android:minLines="2"
                         android:textSize="11sp"
                         android:text="@string/txt_intro8_step3"/>
                     <ImageView
                         android:id="@+id/img3_intro8"
                         android:layout_width="120dp"
                         android:layout_height="135dp"
-                        android:src="@drawable/tts_wifi_3"/>
+                        android:layout_marginTop="-8dp"
+                        android:src="@drawable/tts_wifi_3"
+                        android:contentDescription="@string/lang_setting_option3_cd"/>
                 </LinearLayout>
             </LinearLayout>
             <Button
@@ -111,6 +115,11 @@
                 android:layout_gravity="center_horizontal"
                 android:onClick="openedTTsSetting"
                 android:text="@string/txt_tts_stting"/>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="168dp"
+                android:importantForAccessibility="no"/>
         </LinearLayout>
     </ScrollView>
     <ImageView

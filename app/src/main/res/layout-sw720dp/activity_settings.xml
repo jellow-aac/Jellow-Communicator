@@ -39,7 +39,8 @@
                     android:layout_marginBottom="19dp"
                     android:min="1"
                     android:max="100"
-                    android:theme="@style/CustomSeekbar"/>
+                    android:theme="@style/CustomSeekbar"
+                    android:contentDescription="@string/seekbar_speed_cd"/>
                 <TextView
                     android:id="@+id/voicepitch"
                     android:layout_width="match_parent"
@@ -55,7 +56,8 @@
                     android:layout_marginBottom="19dp"
                     android:min="1"
                     android:max="100"
-                    android:theme="@style/CustomSeekbar"/>
+                    android:theme="@style/CustomSeekbar"
+                    android:contentDescription="@string/seekbar_pitch_cd"/>
                 <TextView
                     android:id="@+id/voiceVolume"
                     android:layout_width="match_parent"
@@ -71,7 +73,8 @@
                     android:layout_marginBottom="19dp"
                     android:min="1"
                     android:max="15"
-                    android:theme="@style/CustomSeekbar"/>
+                    android:theme="@style/CustomSeekbar"
+                    android:contentDescription="@string/seekbar_volume_cd"/>
                 <TextView
                     android:id="@+id/tv3"
                     android:layout_width="match_parent"
@@ -82,8 +85,11 @@
                     android:fontFamily="@font/mukta_semibold"/>
                 <Spinner
                     android:id="@+id/spinner3"
-                    android:layout_width="175dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="40dp"
+                    android:minWidth="98dp"
+                    android:paddingRight="28dp"
+                    android:paddingEnd="28dp"
                     android:background="@drawable/custom_spinner_view"
                     android:textColor="@color/black_eighty"
                     android:layout_marginBottom="19dp"/>

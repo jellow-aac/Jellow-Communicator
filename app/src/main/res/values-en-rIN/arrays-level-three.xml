@@ -855,7 +855,7 @@
         <item>How are you?</item>
         <item>How was your day?</item>
         <item>How do you do?</item>
-        <item>Great job!!!</item>
+        <item>Great job!</item>
         <item>Awesome!</item>
     </string-array>
     <string-array name="arrLevelThreeGreetFeelFeelingsAdapterText">

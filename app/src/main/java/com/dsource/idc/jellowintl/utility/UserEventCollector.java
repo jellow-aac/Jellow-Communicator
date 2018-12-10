@@ -11,6 +11,7 @@ import java.util.List;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
+import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_AU;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_UK;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_US;
 import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
@@ -96,26 +97,26 @@ public class UserEventCollector {
                 singleEvent("ExpressiveIcon",exprBtName);
                 mFirstEventNo = newEventNo;
 
-                //User tapped first {mFirstEventNo} expressive icon then tapped {newEventNo} grid icon second.
+            //User tapped first {mFirstEventNo} expressive icon then tapped {newEventNo} grid icon second.
             }else if (mFirstEventNo < 12 && newEventNo == 12) {
                 singleEvent("ExpressiveGridIcon", exprBtName+"_"+eventName);
                 mFirstEventNo = newEventNo;
                 mEventName = eventName;
 
-                //User tapped first {mFirstEventNo} expressive icon then tapped {newEventNo} navigation icon second.
+            //User tapped first {mFirstEventNo} expressive icon then tapped {newEventNo} navigation icon second.
             }else if (mFirstEventNo < 12 && newEventNo > 25) {
                 singleEvent("ExpressiveIcon",exprBtName);
                 mFirstEventNo = 99;
 
-                //User tapped first {mFirstEventNo} grid icon then tapped {newEventNo} expressive icon second.
+            //User tapped first {mFirstEventNo} grid icon then tapped {newEventNo} expressive icon second.
             }else if (mFirstEventNo == 12 && newEventNo > 12 && newEventNo < 25) {
                 singleEvent("GridExpressiveIcon", eventName);
                 isLastEventExprGrid = true;
 
-                //User tapped {mFirstEventNo} Grid Expression icon then tapped {newEventNo} navigation icon second.
+            //User tapped {mFirstEventNo} Grid Expression icon then tapped {newEventNo} navigation icon second.
             }else if (mFirstEventNo == 12 && isLastEventExprGrid && newEventNo > 25) {
 
-                //User tapped first {mFirstEventNo} grid icon then tapped {newEventNo} grid icon second.
+            //User tapped first {mFirstEventNo} grid icon then tapped {newEventNo} grid icon second.
             }else if (mFirstEventNo == 12 && newEventNo == 12) {
                 Bundle bundle = new Bundle();
                 bundle.putString("Icon", mEventName);
@@ -125,7 +126,7 @@ public class UserEventCollector {
                 mFirstEventNo = newEventNo;
                 mEventName = eventName;
 
-                //User tapped first {mFirstEventNo} grid icon then tapped {newEventNo} home icon second.
+            //User tapped first {mFirstEventNo} grid icon then tapped {newEventNo} home icon second.
             }else if (mFirstEventNo == 12 && (newEventNo == 26 || newEventNo == 27)) {
                 Bundle bundle = new Bundle();
                 bundle.putString("Icon", mEventName);
@@ -142,6 +143,36 @@ public class UserEventCollector {
                 isLastEventExprGrid = false;
             }
         }
+    }
+
+    public void sendEventIfAny(String category) {
+        Bundle bundle = new Bundle();
+        bundle.putString("Icon", mEventName);
+        if(!category.isEmpty())
+            bundle.putString("Category", category);
+        bundleEvent("Grid", bundle);
+        mFirstEventNo = 99;
+        mEventName = "";
+    }
+
+    /**
+     * This event sent only TalkBack accessibility is on and user open Accessibility
+     * dialog.**/
+    public void accessibilityPopupOpenedEvent(String eventName) {
+        singleEvent("AccessiblePopup", eventName);
+        // Create grid event base for up dialog. This base will help us to log subsequent
+        // grid events, expressiveGrid events aon Accessibility dialog.
+        mEventName = eventName;
+        mFirstEventNo = 12;
+    }
+
+    /**
+     * This function call only when Accessibility TalkBack popup is closed and it clears
+     * used variables.
+     * **/
+    public void clearPendingEvent() {
+        mFirstEventNo = 99;
+        mEventName = "";
     }
 
     public void setEventTag(Context context) {
@@ -192,6 +223,7 @@ public class UserEventCollector {
                 break;
             case ENG_US:
             case ENG_UK:
+            case ENG_AU:
                 ar[1][3] = R.array.arrLvlThreeTagClothAccessories_EN_RUS_RGB;
                 ar[1][5] = R.array.arrLvlThreeTagSleep_EN_RUS_RGB;
                 ar[2][0] = R.array.arrLvlThreeTagBreakfast_EN_RUS_RGB;

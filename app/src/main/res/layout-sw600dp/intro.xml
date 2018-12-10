@@ -55,7 +55,8 @@
                 android:paddingLeft="64dp"
                 android:paddingRight="64dp"
                 android:textSize="20sp"
-                android:text="@string/txt_intro1_categorybtn"/>
+                android:text="@string/txt_intro1_categorybtn"
+                android:importantForAccessibility="no"/>
         </LinearLayout>
         <TextView
             android:layout_width="match_parent"

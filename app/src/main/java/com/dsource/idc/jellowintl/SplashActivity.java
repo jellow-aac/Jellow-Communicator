@@ -16,7 +16,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
-import com.dsource.idc.jellowintl.utility.EvaluateDisplayMetricsUtils;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
@@ -81,9 +80,6 @@ public class SplashActivity extends AppCompatActivity {
                 != PackageManager.PERMISSION_GRANTED))
             mSession.setEnableCalling(false);
 
-        EvaluateDisplayMetricsUtils displayMetricsUtils = new EvaluateDisplayMetricsUtils(this);
-        displayMetricsUtils.calculateStoreDeviceHeightWidth();
-        displayMetricsUtils.calculateStoreShadowRadiusAndBorderWidth();
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.dsource.idc.jellowintl.INIT_SERVICE");
         filter.addAction("com.dsource.idc.jellowintl.INIT_SERVICE_ERR");
@@ -116,7 +112,6 @@ public class SplashActivity extends AppCompatActivity {
             setUserProperty("PictureViewMode", "PictureOnly");
             setCrashlyticsCustomKey("PictureViewMode", "PictureOnly");
         }
-
     }
 
     @Override
@@ -255,6 +250,8 @@ public class SplashActivity extends AppCompatActivity {
             lang.add(SessionManager.ENG_IN);
         if(mSession.isDownloaded(SessionManager.ENG_US))
             lang.add(SessionManager.ENG_US);
+        if(mSession.isDownloaded(SessionManager.ENG_AU))
+            lang.add(SessionManager.ENG_AU);
         if(mSession.isDownloaded(SessionManager.ENG_UK))
             lang.add(SessionManager.ENG_UK);
         if(mSession.isDownloaded(SessionManager.HI_IN))

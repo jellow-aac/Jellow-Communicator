@@ -1,0 +1,46 @@
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyWidth="40%p"
+    android:horizontalGap="0px"
+    android:verticalGap="0px"
+    android:keyHeight="100dp">
+    <Row>
+        <Key android:codes="0x0985" android:keyLabel="অ" android:keyEdgeFlags="left"/>
+        <Key android:codes="0x0986" android:keyLabel="আ"/>
+        <Key android:codes="0x0987" android:keyLabel="ই"/>
+        <Key android:codes="0x0988" android:keyLabel="ঈ"/>
+        <Key android:codes="0x0989" android:keyLabel="উ"/>
+        <Key android:codes="0x098A" android:keyLabel="ঊ"/>
+        <Key android:codes="0x098F" android:keyLabel="এ" android:keyEdgeFlags="right"/>
+    </Row>
+    <Row>
+        <Key android:codes="0x0993" android:keyLabel="ও" android:keyEdgeFlags="left" />
+        <Key android:codes="0x0994" android:keyLabel="ঔ"/>
+        <Key android:codes="0x09BE" android:keyLabel="া"/>
+        <Key android:codes="0x09BF" android:keyLabel="ি"/>
+        <Key android:codes="0x09C0" android:keyLabel="ী"/>
+        <Key android:codes="0x09C1" android:keyLabel="ু"  android:keyEdgeFlags="right"/>
+    </Row>
+    <Row>
+        <Key android:codes="0x09C2" android:keyLabel="ূূ"  android:keyEdgeFlags="left"/>
+        <Key android:codes="0x09C3" android:keyLabel="ৃ"/>
+        <Key android:codes="0x09C4" android:keyLabel="ৄ" />
+        <Key android:codes="0x09C7" android:keyLabel="ে"/>
+        <Key android:codes="0x09C8" android:keyLabel="ৈ"/>
+        <Key android:codes="0x09CB" android:keyLabel="ো"/>
+        <Key android:codes="0x09CC" android:keyLabel="ৌ"  android:keyEdgeFlags="right"/>
+    </Row>
+    <Row android:rowEdgeFlags="bottom">
+        <Key android:codes="0x0981" android:keyLabel="ঁ"  android:keyEdgeFlags="left"/>/>
+        <Key android:codes="0x0982" android:keyLabel="ं"/>
+        <Key android:codes="0x0983" android:keyLabel="ঃ"/>
+        <Key android:codes="0x09BC" android:keyLabel="়"/>
+        <Key android:codes="-5" android:keyLabel="Del" android:keyWidth="80%p" android:isRepeatable="true" android:keyEdgeFlags="right"/>
+    </Row>
+    <Row android:rowEdgeFlags="bottom">
+        <Key android:codes="-14" android:keyLabel="Shift" android:keyWidth="20%p" android:keyEdgeFlags="left"/>
+        <Key android:codes="-15" android:keyLabel="১২৩" android:keyWidth="20%p"/>
+        <Key android:codes="32" android:keyLabel=" " android:keyWidth="60%p" android:isRepeatable="true"/>
+        <Key android:codes="-11" android:keyLabel="ABC" android:keyWidth="20%p"/>
+        <Key android:codes="-17" android:keyLabel="Enter" android:keyWidth="20%p" android:keyEdgeFlags="right"/>
+    </Row>
+</Keyboard>

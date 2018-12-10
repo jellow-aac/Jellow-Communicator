@@ -101,7 +101,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name="com.dsource.idc.jellowintl.SplashActivity"
-            android:label="Splash"
+            android:label="@string/labelSplash"
             android:screenOrientation="landscape" />
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
@@ -131,6 +131,7 @@
             android:name="com.dsource.idc.jellowintl.LanguageDownloadActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
+            android:label="@string/language_download_screen"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name="com.dsource.idc.jellowintl.LanguageSelectActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -145,7 +146,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".FeedbackActivityTalkback"
+        <activity android:name=".FeedbackActivityTalkBack"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/menuFeedback"
             android:screenOrientation="landscape"

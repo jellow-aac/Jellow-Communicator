@@ -64,7 +64,8 @@
                 style="@style/defaultTextViewStyle"
                 android:paddingLeft="64dp"
                 android:paddingRight="64dp"
-                android:text="@string/txt_intro3_navWithJellow"/>
+                android:text="@string/txt_intro3_navWithJellow"
+                android:importantForAccessibility="no"/>
         </LinearLayout>
         <TextView
             android:layout_width="match_parent"
@@ -79,5 +80,6 @@
         android:paddingRight="32dp"
         android:paddingEnd="32dp"
         android:src="@drawable/ic_chevron_right"
-        tools:ignore="RtlSymmetry" />
+        tools:ignore="RtlSymmetry"
+        android:contentDescription="@string/next_slide" />
 </FrameLayout>

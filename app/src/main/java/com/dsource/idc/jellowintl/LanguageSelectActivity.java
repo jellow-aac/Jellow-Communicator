@@ -19,15 +19,18 @@ import android.text.style.StyleSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
@@ -95,10 +98,23 @@ public class LanguageSelectActivity extends AppCompatActivity{
         mCompleteStep2 = getString(R.string.txt_actLangSel_completestep2);
         mCompleteStep3 = getString(R.string.txt_actLangSel_completestep3);
         mRawStrStep2 = getString(R.string.txtStep2);
+
+        setImageUsingGlide(R.drawable.tts_wifi_1, ((ImageView)findViewById(R.id.ivAddLang1)));
+        setImageUsingGlide(R.drawable.tts_wifi_2, ((ImageView)findViewById(R.id.ivAddLang2)));
+        setImageUsingGlide(R.drawable.tts_wifi_3, ((ImageView)findViewById(R.id.ivAddLang3)));
+        setImageUsingGlide(R.drawable.gtts3, ((ImageView)findViewById(R.id.ivTtsVoiceDat)));
+        setImageUsingGlide(R.drawable.arrow, ((ImageView)findViewById(R.id.ivArrow1)));
+        setImageUsingGlide(R.drawable.arrow, ((ImageView)findViewById(R.id.ivArrow2)));
         if(Build.VERSION.SDK_INT >= 21) {
             findViewById(R.id.tv5).setVisibility(View.GONE);
             findViewById(R.id.llImg).setVisibility(View.GONE);
             findViewById(R.id.changeTtsLangBut).setVisibility(View.GONE);
+        }else{
+            setImageUsingGlide(R.drawable.gtts1, ((ImageView)findViewById(R.id.ivTtsSetting1)));
+            setImageUsingGlide(R.drawable.gtts2, ((ImageView)findViewById(R.id.ivTtsSetting2)));
+            setImageUsingGlide(R.drawable.gtts4, ((ImageView)findViewById(R.id.ivTtsSetting3)));
+            setImageUsingGlide(R.drawable.arrow, ((ImageView)findViewById(R.id.ivArrow3)));
+            setImageUsingGlide(R.drawable.arrow, ((ImageView)findViewById(R.id.ivArrow4)));
         }
 
         IntentFilter filter = new IntentFilter();
@@ -112,7 +128,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
         languageSelect = findViewById(R.id.selectDownloadedLanguageSpinner);
 
         adapter_lan = new ArrayAdapter<String>(this,
-                R.layout.simple_spinner_item, shortLangNameForDisplay(offlineLanguages));
+                R.layout.simple_spinner_item, populateCountryNameByUserType(offlineLanguages));
         adapter_lan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         languageSelect.setAdapter(adapter_lan);
@@ -215,40 +231,37 @@ public class LanguageSelectActivity extends AppCompatActivity{
                         return;
                     }
                     delete.setEnabled(false);
-                     new MaterialDialog.Builder(LanguageSelectActivity.this)
-                            .title(strDownloadableLang)
-                            .items(shortLangNameForDisplay(onlineLanguages))
-                            .itemsCallbackSingleChoice(
-                                    0, new MaterialDialog.ListCallbackSingleChoice() {
-                                        @Override
-                                        public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
-                                            delete.setEnabled(true);
-                                            ConnectivityManager cm =
-                                                    (ConnectivityManager)LanguageSelectActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-                                            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-                                            boolean isConnected = activeNetwork != null &&
-                                                    activeNetwork.isConnectedOrConnecting();
-
-                                            if(isConnected)
-                                            {
-                                                Bundle bundle = new Bundle();
-                                                bundle.putString(LCODE,LangMap.get(onlineLanguages[which]));
-                                                bundle.putBoolean(FINISH,false);
-                                                setSpeechLanguage(LangMap.get(onlineLanguages[which])); //To start TTS voice package download automatically.
-                                                setSpeechLanguage(mSession.getLanguage());              //To switch TTS voice package back.
-                                                speakSpeech("");                              // Send empty string to TTS Engine to eliminate voice lag after user goes back without changing the language.
-                                                startActivity(new Intent(getBaseContext(),LanguageDownloadActivity.class).putExtras(bundle));
-                                                dialog.dismiss();
-                                            }else {
-
-                                                Toast.makeText(LanguageSelectActivity.this, strCheckConnectivity,Toast.LENGTH_SHORT).show();
+                    if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                        new MaterialDialog.Builder(LanguageSelectActivity.this)
+                                .title(strDownloadableLang)
+                                .items(populateCountryNameByUserType(onlineLanguages))
+                                .itemsCallbackSingleChoice(
+                                        0, new MaterialDialog.ListCallbackSingleChoice() {
+                                            @Override
+                                            public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
+                                                showAddLangDialog(dialog, which, strCheckConnectivity);
+                                                return true;
                                             }
-
-                                            return true;
+                                        })
+                                .positiveText(strDownload)
+                                .negativeText(strCancel)
+                                .cancelListener(new DialogInterface.OnCancelListener() {
+                                    @Override
+                                    public void onCancel(DialogInterface dialog) {
+                                        delete.setEnabled(true);
+                                    }
+                                })
+                                .show();
+                    }else{
+                        new MaterialDialog.Builder(LanguageSelectActivity.this)
+                            .title(strDownloadableLang)
+                            .items(populateCountryNameByUserType(onlineLanguages))
+                            .itemsCallback(new MaterialDialog.ListCallback() {
+                                        @Override
+                                        public void onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
+                                            showAddLangDialog(dialog, which, strCheckConnectivity);
                                         }
                                     })
-                            .positiveText(strDownload)
                             .negativeText(strCancel)
                             .cancelListener(new DialogInterface.OnCancelListener() {
                                 @Override
@@ -257,11 +270,11 @@ public class LanguageSelectActivity extends AppCompatActivity{
                                 }
                             })
                             .show();
+                    }
                 } catch (Exception e)
                 {
                     e.printStackTrace();
                 }
-
             }
         });
 
@@ -285,54 +298,108 @@ public class LanguageSelectActivity extends AppCompatActivity{
                         return;
                     }
                     add.setEnabled(false);
-                    new MaterialDialog.Builder(LanguageSelectActivity.this)
-                            .title(strDownloadedLang)
-                            .items(shortLangNameForDisplay(removeCurrentLangFromList(offlineLanguages)))
-                            .itemsCallbackSingleChoice(
-                                    0, new MaterialDialog.ListCallbackSingleChoice() {
-                                        @Override
-                                        public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
-                                            add.setEnabled(true);
-                                            String locale = LangMap.get(offlineLanguages[which]);
-                                            if(mSession.getLanguage().equals(locale))
-                                            {
-                                                Toast.makeText(LanguageSelectActivity.this, strLangCurrentlyInUse,Toast.LENGTH_SHORT).show();
-                                                dialog.dismiss();
+                    if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                        new MaterialDialog.Builder(LanguageSelectActivity.this)
+                                .title(strDownloadedLang)
+                                .items(populateCountryNameByUserType(removeCurrentLangFromList(offlineLanguages)))
+                                .itemsCallbackSingleChoice(
+                                        0, new MaterialDialog.ListCallbackSingleChoice() {
+                                            @Override
+                                            public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
+                                                add.setEnabled(true);
+                                                String locale = LangMap.get(offlineLanguages[which]);
+                                                if (mSession.getLanguage().equals(locale)) {
+                                                    Toast.makeText(LanguageSelectActivity.this, strLangCurrentlyInUse, Toast.LENGTH_SHORT).show();
+                                                    dialog.dismiss();
+                                                    return true;
+                                                }
+                                                showDeleteLangDialog(dialog, itemView, which, text, strLangRemoved);
                                                 return true;
                                             }
-                                            File file = getBaseContext().getDir(locale, Context.MODE_PRIVATE);
-                                            if(file.exists())
-                                            {
-                                                deleteRecursive(file);
+                                        })
+                                .positiveText(strRemove)
+                                .negativeText(strCancel)
+                                .cancelListener(new DialogInterface.OnCancelListener() {
+                                    @Override
+                                    public void onCancel(DialogInterface dialog) {
+                                        add.setEnabled(true);
+                                    }
+                                })
+                                .show();
+                    }else{
+                        new MaterialDialog.Builder(LanguageSelectActivity.this)
+                                .title(strDownloadedLang)
+                                .items(populateCountryNameByUserType(removeCurrentLangFromList(offlineLanguages)))
+                                .itemsCallback( new MaterialDialog.ListCallback() {
+                                            @Override
+                                            public void onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
+                                                add.setEnabled(true);
+                                                String locale = LangMap.get(offlineLanguages[which]);
+                                                if (mSession.getLanguage().equals(locale)) {
+                                                    Toast.makeText(LanguageSelectActivity.this, strLangCurrentlyInUse, Toast.LENGTH_SHORT).show();
+                                                    dialog.dismiss();
+                                                    return;
+                                                }
+                                                showDeleteLangDialog(dialog, itemView, which, text, strLangRemoved);
                                             }
-                                            file.delete();
-                                            mSession.setRemoved(locale);
-                                            onlineLanguages = getOnlineLanguages();
-                                            offlineLanguages = getOfflineLanguages();
-                                            adapter_lan = new ArrayAdapter<String>(getBaseContext(),
-                                                    R.layout.simple_spinner_item, shortLangNameForDisplay(offlineLanguages));
-                                            adapter_lan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                            languageSelect.setAdapter(adapter_lan);
-                                            dialog.dismiss();
-                                            Toast.makeText(LanguageSelectActivity.this,strLangRemoved,Toast.LENGTH_SHORT).show();
-                                            return true;
-                                        }
-                                    })
-                            .positiveText(strRemove)
-                            .negativeText(strCancel)
-                            .cancelListener(new DialogInterface.OnCancelListener() {
-                                @Override
-                                public void onCancel(DialogInterface dialog) {
-                                    add.setEnabled(true);
-                                }
-                            })
-                            .show();
+                                        })
+                                .negativeText(strCancel)
+                                .cancelListener(new DialogInterface.OnCancelListener() {
+                                    @Override
+                                    public void onCancel(DialogInterface dialog) {
+                                        add.setEnabled(true);
+                                    }
+                                })
+                                .show();
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
         mLangChanged = getString(R.string.languageChanged);
+    }
+
+    private void showAddLangDialog(MaterialDialog dialog, int which, String strCheckConnectivity) {
+        delete.setEnabled(true);
+        ConnectivityManager cm =
+                (ConnectivityManager) LanguageSelectActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+
+        if (isConnected) {
+            Bundle bundle = new Bundle();
+            bundle.putString(LCODE, LangMap.get(onlineLanguages[which]));
+            bundle.putBoolean(FINISH, false);
+            setSpeechLanguage(LangMap.get(onlineLanguages[which])); //To start TTS voice package download automatically.
+            setSpeechLanguage(mSession.getLanguage());              //To switch TTS voice package back.
+            speakSpeech("");                              // Send empty string to TTS Engine to eliminate voice lag after user goes back without changing the language.
+            startActivity(new Intent(getBaseContext(), LanguageDownloadActivity.class).putExtras(bundle));
+            dialog.dismiss();
+        } else {
+
+            Toast.makeText(LanguageSelectActivity.this, strCheckConnectivity, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void showDeleteLangDialog(MaterialDialog dialog, View itemView, int which, CharSequence text, String strLangRemoved) {
+        String locale = LangMap.get(offlineLanguages[which]);
+        File file = getBaseContext().getDir(locale, Context.MODE_PRIVATE);
+        if (file.exists()) {
+            deleteRecursive(file);
+        }
+        file.delete();
+        mSession.setRemoved(locale);
+        onlineLanguages = getOnlineLanguages();
+        offlineLanguages = getOfflineLanguages();
+        adapter_lan = new ArrayAdapter<String>(getBaseContext(),
+                R.layout.simple_spinner_item, populateCountryNameByUserType(offlineLanguages));
+        adapter_lan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        languageSelect.setAdapter(adapter_lan);
+        dialog.dismiss();
+        Toast.makeText(LanguageSelectActivity.this, strLangRemoved, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -424,6 +491,15 @@ public class LanguageSelectActivity extends AppCompatActivity{
         ((TextView)findViewById(R.id.txt_title_chgLang)).setText(spannedStr);
     }
 
+    private void setImageUsingGlide(int image, ImageView imgView) {
+        GlideApp.with(this)
+                .load(image)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(false)
+                .dontAnimate()
+                .into(imgView);
+    }
+
     public void checkTTSVoiceDataAvailable(View view){
         Intent intent = new Intent();
         intent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
@@ -461,6 +537,10 @@ public class LanguageSelectActivity extends AppCompatActivity{
                 !current.equals(SessionManager.ENG_UK))
             lang.add(LangValueMap.get(SessionManager.ENG_UK));
 
+        if( mSession.isDownloaded(SessionManager.ENG_AU) &&
+                !current.equals(SessionManager.ENG_AU))
+            lang.add(LangValueMap.get(SessionManager.ENG_AU));
+
         if( mSession.isDownloaded(SessionManager.HI_IN) &&
                 !current.equals(SessionManager.HI_IN))
             lang.add(LangValueMap.get(SessionManager.HI_IN));
@@ -487,6 +567,8 @@ public class LanguageSelectActivity extends AppCompatActivity{
             lang.add(LangValueMap.get(SessionManager.ENG_US));
         if( !mSession.isDownloaded(SessionManager.ENG_UK))
             lang.add(LangValueMap.get(SessionManager.ENG_UK));
+        if( !mSession.isDownloaded(SessionManager.ENG_AU))
+            lang.add(LangValueMap.get(SessionManager.ENG_AU));
         if( !mSession.isDownloaded(SessionManager.HI_IN))
             lang.add(LangValueMap.get(SessionManager.HI_IN));
         if( !mSession.isDownloaded(SessionManager.BN_IN))
@@ -522,7 +604,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
         onlineLanguages = getOnlineLanguages();
         offlineLanguages = getOfflineLanguages();
         adapter_lan = new ArrayAdapter<String>(this,
-                R.layout.simple_spinner_item, shortLangNameForDisplay(offlineLanguages));
+                R.layout.simple_spinner_item, populateCountryNameByUserType(offlineLanguages));
         adapter_lan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         languageSelect.setAdapter(adapter_lan);
         if(isOpenedTtsSett)
@@ -576,11 +658,8 @@ public class LanguageSelectActivity extends AppCompatActivity{
                 startActivity(new Intent(this, ResetPreferencesActivity.class));
                 finish(); break;
             case R.id.feedback:
-                AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
-                boolean isAccessibilityEnabled = am.isEnabled();
-                boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
-                if (isAccessibilityEnabled && isExploreByTouchEnabled) {
-                    startActivity(new Intent(this, FeedbackActivityTalkback.class));
+                if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                    startActivity(new Intent(this, FeedbackActivityTalkBack.class));
                 } else {
                     startActivity(new Intent(this, FeedbackActivity.class));
                 }
@@ -644,6 +723,26 @@ public class LanguageSelectActivity extends AppCompatActivity{
         }
     };
 
+    @Override
+    public void onUserInteraction() {
+        super.onUserInteraction();
+        addAccessibilityDelegateToSpinners();
+    }
+
+    private void addAccessibilityDelegateToSpinners() {
+        if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))){
+            languageSelect.setAccessibilityDelegate(new View.AccessibilityDelegate() {
+                @Override
+                public void onInitializeAccessibilityEvent(View host, AccessibilityEvent event) {
+                    super.onInitializeAccessibilityEvent(host, event);
+                    if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED) {
+                        findViewById(R.id.tv4).sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
+                    }
+                }
+            });
+        }
+    }
+
     private void saveLanguage() {
         mSession.setLanguage(LangMap.get(selectedLanguage));
         Bundle bundle = new Bundle();
@@ -689,7 +788,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
         return selectedLanguage;
     }
 
-    private String[] shortLangNameForDisplay(String[] langNameToBeShorten) {
+    private String[] populateCountryNameByUserType(String[] langNameToBeShorten) {
         String[] shortenLanguageNames = new String[langNameToBeShorten.length];
         if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
             for (int i = 0; i < langNameToBeShorten.length; i++) {
@@ -712,6 +811,9 @@ public class LanguageSelectActivity extends AppCompatActivity{
                     case "English (United States)":
                         shortenLanguageNames[i] = getString(R.string.acc_lang_eng_us);
                         break;
+                    case "English (Australia)":
+                        shortenLanguageNames[i] = getString(R.string.acc_lang_eng_au);
+                        break;
                     default:
                         shortenLanguageNames[i] = langNameToBeShorten[i];
                         break;
@@ -728,6 +830,9 @@ public class LanguageSelectActivity extends AppCompatActivity{
                         break;
                     case "English (United States)":
                         shortenLanguageNames[i] = "English (US)";
+                        break;
+                    case "English (Australia)":
+                        shortenLanguageNames[i] = "English (AU)";
                         break;
                     default:
                         shortenLanguageNames[i] = langNameToBeShorten[i];

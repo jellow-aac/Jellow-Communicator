@@ -39,6 +39,7 @@ import com.dsource.idc.jellowintl.utility.CustomGridLayoutManager;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.IndexSorter;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
+import com.dsource.idc.jellowintl.utility.KeyboardUtteranceDialogUtil;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.MediaPlayerUtils;
 import com.dsource.idc.jellowintl.utility.SessionManager;
@@ -252,7 +253,9 @@ public class LevelTwoActivity extends AppCompatActivity {
                 gd.setColor(ContextCompat.getColor(getApplicationContext(), R.color.search_highlight));
                 mRecyclerView.removeOnScrollListener(scrollListener);
                 mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(populationDoneListener);
-                searchedView.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
+                if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                    searchedView.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
+                }
               }
         };
         //Adding the scrollListener to the recycler view
@@ -350,11 +353,8 @@ public class LevelTwoActivity extends AppCompatActivity {
                 startActivity(new Intent(this, KeyboardInputActivity.class));
                 break;
             case R.id.feedback:
-                AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
-                boolean isAccessibilityEnabled = am.isEnabled();
-                boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
-                if(isAccessibilityEnabled && isExploreByTouchEnabled) {
-                    startActivity(new Intent(this, FeedbackActivityTalkback.class));
+                if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                    startActivity(new Intent(this, FeedbackActivityTalkBack.class));
                 }
                 else {
                     startActivity(new Intent(this, FeedbackActivity.class));
@@ -415,6 +415,8 @@ public class LevelTwoActivity extends AppCompatActivity {
         mEtTTs = findViewById(R.id.et);
         //Initially custom input text is invisible
         mEtTTs.setVisibility(View.INVISIBLE);
+        mEtTTs.setVisibility(View.INVISIBLE);
+        mEtTTs.setSingleLine();
 
         mIvTts = findViewById(R.id.ttsbutton);
         //Initially custom input text speak button is invisible
@@ -703,90 +705,94 @@ public class LevelTwoActivity extends AppCompatActivity {
         mIvKeyboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                speakSpeech(mNavigationBtnTxt[2]);
-                mMpu.playAudio(mMpu.getFilePath( "MIS_03MSTT"));
                 //Firebase event
-                singleEvent("Navigation","Keyboard");
-                mIvTts.setImageResource(R.drawable.ic_search_list_speaker);
-                //when mFlgKeyboardOpened is set to 1, it means user is using custom keyboard input
-                // text and system keyboard is visible.
-                if (mFlgKeyboard == 1) {
-                    // As user is using custom keyboard input text and then press the keyboard button,
-                    // user intent to close custom keyboard input text so below steps will follow:
-                    // a) set keyboard button to unpressed state.
-                    // b) set back button to unpressed state
-                    // c) hide custom keyboard input text.
-                    // d) show category icons
-                    // e) hide custom keyboard input text speak button
-                    mIvKeyboard.setImageResource(R.drawable.keyboard);
-                    mEtTTs.setVisibility(View.INVISIBLE);
-                    mRecyclerView.setVisibility(View.VISIBLE);
-                    mIvTts.setVisibility(View.INVISIBLE);
-
-                    // after closing custom keyboard input text layout, retain expressive button
-                    // states as they were before opening custom keyboard input text layout
-                    //Below if identify that category icon Help -> About me is selected
-                    if (mLevelOneItemPos == CATEGORY_ICON_HELP && mLevelTwoItemPos == 1){
-                        setExpressiveButtonToAboutMe(mFlgImage);
-                        changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
-                    //Below if check that selected category icon
-                    // Help -> Emergency,
-                    // Help -> I am hurt,
-                    // Help -> I feel sick,
-                    // Help -> I feel tired
-                    // Help -> Help me do this,
-                    // Help -> Allergy,
-                    // Help -> Danger,
-                    // Help -> Hazard
-                    // respectively is selected or not. If selected then
-                    //disable all expressive buttons.
-                    }else if(mLevelOneItemPos == CATEGORY_ICON_HELP &&
-                            ((mLevelTwoItemPos == 0) ||(mLevelTwoItemPos == 2) || (mLevelTwoItemPos == 3) ||
-                                    (mLevelTwoItemPos == 4) ||(mLevelTwoItemPos == 5) ||
-                                    (mLevelTwoItemPos == 12) ||(mLevelTwoItemPos == 13) ||
-                                    (mLevelTwoItemPos == 14)))
-                        changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
-                    //Below if check that selected category icon is Help -> Unsafe touch.
-                    // If yes, then enable only don't like, no, less expressive buttons.
-                    else if(mLevelOneItemPos == CATEGORY_ICON_HELP && mLevelTwoItemPos == 10)
-                        unsafeTouchDisableExpressiveButtons();
-                        //Below if check that selected category icon is Help -> safety.
-                        // If yes, then disable only don't like expressive button
-                    else if(mLevelOneItemPos == CATEGORY_ICON_HELP && mLevelTwoItemPos == 15)
-                        safetyDisableExpressiveButtons();
-                    else
-                        changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
-                    mFlgKeyboard = 0;
-                    showActionBarTitle(true);
-                //when mFlgKeyboardOpened is set to 0, it means user intend to use custom
-                //keyboard input text so below steps will follow:
+                singleEvent("Navigation", "Keyboard");
+                if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                    new KeyboardUtteranceDialogUtil(LevelTwoActivity.this).show();
                 } else {
-                    // a) keyboard button to pressed state
-                    // c) show custom keyboard input text and speak button view
-                    // b) set back button unpressed state
-                    // d) hide category icons
-                    // e) disable expressive buttons
-                    mIvKeyboard.setImageResource(R.drawable.keyboard_pressed);
-                    mEtTTs.setVisibility(View.VISIBLE);
-                    mEtTTs.setKeyListener(originalKeyListener);
-                    // Focus the field.
-                    mRecyclerView.setVisibility(View.INVISIBLE);
-                    changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
-                    mEtTTs.requestFocus();
-                    mIvTts.setVisibility(View.VISIBLE);
-                    // when user intend to use custom keyboard input text system keyboard should
-                    // only appear when user taps on custom keyboard input view. Setting
-                    // InputMethodManager to InputMethodManager.HIDE_NOT_ALWAYS does this task.
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
-                    // when user is typing in custom keyboard input text it is necessary
-                    // for user to see input text. The function setSoftInputMode() does this task.
-                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-                    mFlgKeyboard = 1;
-                    showActionBarTitle(false);
-                    getSupportActionBar().setTitle(strKeyboard);
+                    speakSpeech(mNavigationBtnTxt[2]);
+                    mMpu.playAudio(mMpu.getFilePath("MIS_03MSTT"));
+                    mIvTts.setImageResource(R.drawable.ic_search_list_speaker);
+                    //when mFlgKeyboardOpened is set to 1, it means user is using custom keyboard input
+                    // text and system keyboard is visible.
+                    if (mFlgKeyboard == 1) {
+                        // As user is using custom keyboard input text and then press the keyboard button,
+                        // user intent to close custom keyboard input text so below steps will follow:
+                        // a) set keyboard button to unpressed state.
+                        // b) set back button to unpressed state
+                        // c) hide custom keyboard input text.
+                        // d) show category icons
+                        // e) hide custom keyboard input text speak button
+                        mIvKeyboard.setImageResource(R.drawable.keyboard);
+                        mEtTTs.setVisibility(View.INVISIBLE);
+                        mRecyclerView.setVisibility(View.VISIBLE);
+                        mIvTts.setVisibility(View.INVISIBLE);
+
+                        // after closing custom keyboard input text layout, retain expressive button
+                        // states as they were before opening custom keyboard input text layout
+                        //Below if identify that category icon Help -> About me is selected
+                        if (mLevelOneItemPos == CATEGORY_ICON_HELP && mLevelTwoItemPos == 1) {
+                            setExpressiveButtonToAboutMe(mFlgImage);
+                            changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
+                            //Below if check that selected category icon
+                            // Help -> Emergency,
+                            // Help -> I am hurt,
+                            // Help -> I feel sick,
+                            // Help -> I feel tired
+                            // Help -> Help me do this,
+                            // Help -> Allergy,
+                            // Help -> Danger,
+                            // Help -> Hazard
+                            // respectively is selected or not. If selected then
+                            //disable all expressive buttons.
+                        } else if (mLevelOneItemPos == CATEGORY_ICON_HELP &&
+                                ((mLevelTwoItemPos == 0) || (mLevelTwoItemPos == 2) || (mLevelTwoItemPos == 3) ||
+                                        (mLevelTwoItemPos == 4) || (mLevelTwoItemPos == 5) ||
+                                        (mLevelTwoItemPos == 12) || (mLevelTwoItemPos == 13) ||
+                                        (mLevelTwoItemPos == 14)))
+                            changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
+                            //Below if check that selected category icon is Help -> Unsafe touch.
+                            // If yes, then enable only don't like, no, less expressive buttons.
+                        else if (mLevelOneItemPos == CATEGORY_ICON_HELP && mLevelTwoItemPos == 10)
+                            unsafeTouchDisableExpressiveButtons();
+                            //Below if check that selected category icon is Help -> safety.
+                            // If yes, then disable only don't like expressive button
+                        else if (mLevelOneItemPos == CATEGORY_ICON_HELP && mLevelTwoItemPos == 15)
+                            safetyDisableExpressiveButtons();
+                        else
+                            changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
+                        mFlgKeyboard = 0;
+                        showActionBarTitle(true);
+                        //when mFlgKeyboardOpened is set to 0, it means user intend to use custom
+                        //keyboard input text so below steps will follow:
+                    } else {
+                        // a) keyboard button to pressed state
+                        // c) show custom keyboard input text and speak button view
+                        // b) set back button unpressed state
+                        // d) hide category icons
+                        // e) disable expressive buttons
+                        mIvKeyboard.setImageResource(R.drawable.keyboard_pressed);
+                        mEtTTs.setVisibility(View.VISIBLE);
+                        mEtTTs.setKeyListener(originalKeyListener);
+                        // Focus the field.
+                        mRecyclerView.setVisibility(View.INVISIBLE);
+                        changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
+                        mEtTTs.requestFocus();
+                        mIvTts.setVisibility(View.VISIBLE);
+                        // when user intend to use custom keyboard input text system keyboard should
+                        // only appear when user taps on custom keyboard input view. Setting
+                        // InputMethodManager to InputMethodManager.HIDE_NOT_ALWAYS does this task.
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
+                        // when user is typing in custom keyboard input text it is necessary
+                        // for user to see input text. The function setSoftInputMode() does this task.
+                        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+                        mFlgKeyboard = 1;
+                        showActionBarTitle(false);
+                        getSupportActionBar().setTitle(strKeyboard);
+                    }
+                    mIvBack.setImageResource(R.drawable.back);
                 }
-                mIvBack.setImageResource(R.drawable.back);
             }
         });
     }
@@ -1594,13 +1600,14 @@ public class LevelTwoActivity extends AppCompatActivity {
             if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))){
                 showAccessibleDialog(position, title, view);
                 view.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+                mUec.accessibilityPopupOpenedEvent(mArrSpeechText[position]);
             }else {
                 speakSpeech(mArrSpeechText[position]);
                 mMpu.playAudio(mMpu.getFilePath("CATL2_" + (mLevelOneItemPos + 1) + "_" +
                         (mArrSort[position] + 1)));
                 mUec.createSendFbEventFromTappedView(12, mArrAdapterTxt[position], "");
             }
-        // In below if category icon selected in level one is neither people/places nor help.
+        // In below if category icon selected in level one is neither people nor help.
         // Also, mLevelTwoItemPos == position is true it means user taps twice on same category icon.
         // If above both conditions are true then open category icon selected in level three.
         }else if(mLevelTwoItemPos == position && mLevelOneItemPos != CATEGORY_ICON_HELP){
@@ -1643,16 +1650,25 @@ public class LevelTwoActivity extends AppCompatActivity {
                     isDeviceReadyToCall((TelephonyManager)getSystemService
                             (Context.TELEPHONY_SERVICE))){}
             else {
-                if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))){
+                if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE)) &&
+                        mLevelOneItemPos == CATEGORY_ICON_HELP){
                     showAccessibleDialog(position, title, view);
                     view.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+                    mUec.accessibilityPopupOpenedEvent(mArrSpeechText[position]);
+                }else if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))){
+                    showAccessibleDialog(position, title, view);
+                    view.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+                    mUec.createSendFbEventFromTappedView(12, mArrAdapterTxt[position]
+                            .replace("…",""), "");
                 }else {
                     speakSpeech(mArrSpeechText[position]);
                     mMpu.playAudio(mMpu.getFilePath("CATL2_" + (mLevelOneItemPos + 1) + "_" +
                             (position + 1)));
+                    mUec.createSendFbEventFromTappedView(12, mArrAdapterTxt[position]
+                            .replace("…",""), "");
                 }
             }
-            mUec.createSendFbEventFromTappedView(12, mArrAdapterTxt[position].replace("…",""), "");
+            //mUec.createSendFbEventFromTappedView(12, mArrAdapterTxt[position].replace("…",""), "");
         }
         mLevelTwoItemPos = mRecyclerView.getChildLayoutPosition(view);
         mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
@@ -1857,6 +1873,7 @@ public class LevelTwoActivity extends AppCompatActivity {
         ViewCompat.setAccessibilityDelegate(closeDialog, new TalkbackHints_SingleClick());
         mBuilder.setView(mView);
         final AlertDialog dialog = mBuilder.create();
+        dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
         ivLike.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1897,6 +1914,11 @@ public class LevelTwoActivity extends AppCompatActivity {
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
+                        mLevelOneItemPos == CATEGORY_ICON_HELP){
+                    // clear pending Firebase events.
+                    mUec.clearPendingEvent();
+                }
                 mIvBack.performClick();
                 dialog.dismiss();
             }
@@ -1904,6 +1926,11 @@ public class LevelTwoActivity extends AppCompatActivity {
         ivHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
+                        mLevelOneItemPos == CATEGORY_ICON_HELP){
+                    // clear pending Firebase events.
+                    mUec.clearPendingEvent();
+                }
                 mIvHome.performClick();
                 dialog.dismiss();
             }
@@ -1911,19 +1938,25 @@ public class LevelTwoActivity extends AppCompatActivity {
         ivKeyboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
+                        mLevelOneItemPos == CATEGORY_ICON_HELP){
+                    // clear pending Firebase events.
+                    mUec.clearPendingEvent();
+                }
+                clearSelectionAfterAccessibilityDialogClose();
                 mIvKeyboard.performClick();
                 dialog.dismiss();
             }
         });
 
         //If user opened the People or Help category.
-        if(mLevelOneItemPos == 5 || mLevelOneItemPos == 8){
-            if(mLevelOneItemPos == 8 && position == 0){
+        if(mLevelOneItemPos == CATEGORY_ICON_PEOPLE || mLevelOneItemPos == CATEGORY_ICON_HELP){
+            if(mLevelOneItemPos == CATEGORY_ICON_HELP && position == 0){
                 enterCategory.setText(mArrAdapterTxt[position]);
             }else {
                 enterCategory.setText(mSpeak);
             }
-            if(mLevelOneItemPos == 8 && position == 1){
+            if(mLevelOneItemPos == CATEGORY_ICON_HELP && position == 1){
                 //change icon images of dialog expressive button to about me expressive button icons
                 ivLike.setImageResource(R.drawable.mynameis);
                 ivDisLike.setImageResource(R.drawable.caregiver);
@@ -1931,13 +1964,13 @@ public class LevelTwoActivity extends AppCompatActivity {
                 ivNo.setImageResource(R.drawable.address);
                 ivAdd.setImageResource(R.drawable.contact);
                 ivMinus.setImageResource(R.drawable.bloodgroup);
-                /*ivLike.setContentDescription(getString(R.string.child_s_name));
-                ivDisLike.setContentDescription(getString(R.string.caregiverName));
-                ivYes.setContentDescription(getString(R.string.caregiver_s_email_address));
-                ivNo.setContentDescription(getString(R.string.homeAddress));
-                ivAdd.setContentDescription(getString(R.string.caregiver_s_contact_number));
-                ivMinus.setContentDescription(getString(R.string.bloodGroup));*/
-            }else if(mLevelOneItemPos == 8){
+                ivLike.setContentDescription(getString(R.string.child_s_name_dialog_btn));
+                ivDisLike.setContentDescription(getString(R.string.caregiverName_dialog_btn));
+                ivYes.setContentDescription(getString(R.string.caregiver_s_email_address_dialog_btn));
+                ivNo.setContentDescription(getString(R.string.homeAddress_dialog_btn));
+                ivAdd.setContentDescription(getString(R.string.caregiver_s_contact_number_dialog_btn));
+                ivMinus.setContentDescription(getString(R.string.bloodGroup_dialog_btn));
+            }else if(mLevelOneItemPos == CATEGORY_ICON_HELP){
                 ImageView[] btns = {ivLike, ivYes, ivAdd, ivDisLike, ivNo, ivMinus};
                 if(mLayerTwoSpeech.get(position).size() == 0) {
                     for (int i = 0; i < btns.length; i++) {
@@ -1961,6 +1994,8 @@ public class LevelTwoActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     speakSpeech(mArrSpeechText[position]);
+                    //Send People and Help categories events directly to Firebase.
+                    mUec.createSendFbEventFromTappedView(12, mArrAdapterTxt[position].replace("…", ""), "");
                 }
             });
         }else {
@@ -1968,6 +2003,9 @@ public class LevelTwoActivity extends AppCompatActivity {
             enterCategory.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Icon", "Opened " + mArrAdapterTxt[position].replace("…", ""));
+                    bundleEvent("Grid", bundle);
                     Intent intent = new Intent(LevelTwoActivity.this, LevelThreeActivity.class);
                     if (mLevelOneItemPos == 1 &&
                             (position == 0 || position == 1 || position == 2 ||
@@ -2001,13 +2039,11 @@ public class LevelTwoActivity extends AppCompatActivity {
                 dialog.dismiss();
                 //clear all selection
                 clearSelectionAfterAccessibilityDialogClose();
-            }
-        });
-
-        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                clearSelectionAfterAccessibilityDialogClose();
+                if(mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
+                        mLevelOneItemPos == CATEGORY_ICON_HELP){
+                    //Firebase event
+                    singleEvent("Navigation","Back");
+                }
             }
         });
 

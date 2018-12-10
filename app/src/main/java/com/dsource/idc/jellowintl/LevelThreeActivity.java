@@ -40,6 +40,7 @@ import com.dsource.idc.jellowintl.utility.CustomGridLayoutManager;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.IndexSorter;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
+import com.dsource.idc.jellowintl.utility.KeyboardUtteranceDialogUtil;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.MediaPlayerUtils;
 import com.dsource.idc.jellowintl.utility.SessionManager;
@@ -59,6 +60,9 @@ import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_AU;
+import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_UK;
+import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_US;
 
 public class LevelThreeActivity extends AppCompatActivity {
     private final boolean DISABLE_EXPR_BTNS = true;
@@ -263,7 +267,9 @@ public class LevelThreeActivity extends AppCompatActivity {
                 Log.d("Ayaz", "Step 4: Background is set and removing the scrollListener");
                 mRecyclerView.removeOnScrollListener(scrollListener);
                 mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(populationDoneListener);
-                searchedView.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
+                if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                    searchedView.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
+                }
             }
         };
         //Adding the scrollListener to the mRecycler to listen onPopulated callBack
@@ -334,11 +340,8 @@ public class LevelThreeActivity extends AppCompatActivity {
                 startActivity(new Intent(this, KeyboardInputActivity.class));
                 break;
             case R.id.feedback:
-                AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
-                boolean isAccessibilityEnabled = am.isEnabled();
-                boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
-                if(isAccessibilityEnabled && isExploreByTouchEnabled) {
-                    startActivity(new Intent(this, FeedbackActivityTalkback.class));
+                if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                    startActivity(new Intent(this, FeedbackActivityTalkBack.class));
                 }
                 else {
                     startActivity(new Intent(this, FeedbackActivity.class));
@@ -380,6 +383,8 @@ public class LevelThreeActivity extends AppCompatActivity {
         mEtTTs = findViewById(R.id.et);
         //Initially custom input text is invisible
         mEtTTs.setVisibility(View.INVISIBLE);
+        mEtTTs.setVisibility(View.INVISIBLE);
+        mEtTTs.setSingleLine();
         mIvTTs = findViewById(R.id.ttsbutton);
         //Initially custom input text speak button is invisible
         mIvTTs.setVisibility(View.INVISIBLE);
@@ -740,55 +745,59 @@ public class LevelThreeActivity extends AppCompatActivity {
         mIvKeyboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                speakSpeech(mNavigationBtnTxt[2]);
-                mMpu.playAudio(mMpu.getFilePath( "MIS_03MSTT"));
                 //Firebase event
-                singleEvent("Navigation","Keyboard");
-                mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
-                //when mFlgKeyboardOpened is set to 1, it means user is using custom keyboard input
-                // text and system keyboard is visible.
-                if (mFlgKeyboard == 1) {
-                    // As user is using custom keyboard input text and then press the keyboard button,
-                    // user intent to close custom keyboard input text so below steps will follow:
-                    // a) set keyboard button to unpressed state.
-                    // b) hide custom keyboard input text.
-                    // c) show category icons
-                    // d) hide custom keyboard input text
-                    mIvKeyboard.setImageResource(R.drawable.keyboard);
-                    mEtTTs.setVisibility(View.INVISIBLE);
-                    mRecyclerView.setVisibility(View.VISIBLE);
-                    mIvTTs.setVisibility(View.INVISIBLE);
-                    mFlgKeyboard = 0;
-                    changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
-                    if(mLevelThreeItemPos != -1)
-                        retainExpressiveButtonStates();
-                    showActionBarTitle(true);
-                //when mFlgKeyboardOpened is set to 0, it means user intent to use custom
-                //keyboard input text so below steps will follow:
+                singleEvent("Navigation", "Keyboard");
+                if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                    new KeyboardUtteranceDialogUtil(LevelThreeActivity.this).show();
                 } else {
-                    // a) keyboard button to pressed state
-                    // c) show custom keyboard input text and speak button view
-                    // b) set back button unpressed state
-                    // d) hide category icons
-                    // e) disable expressive buttons
-                    mIvKeyboard.setImageResource(R.drawable.keyboard_pressed);
-                    mEtTTs.setVisibility(View.VISIBLE);
-                    // Focus to the field.
-                    mEtTTs.setKeyListener(originalKeyListener);
-                    mRecyclerView.setVisibility(View.INVISIBLE);
-                    changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
-                    mEtTTs.requestFocus();
-                    mIvTTs.setVisibility(View.VISIBLE);
-                    // when user intend to use custom keyboard input text system keyboard should
-                    // only appear when user taps on custom keyboard input view. Setting
-                    // InputMethodManager to InputMethodManager.HIDE_NOT_ALWAYS does this task.
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
-                    mFlgKeyboard = 1;
-                    showActionBarTitle(false);
-                    getSupportActionBar().setTitle(strKeyboard);
+                    speakSpeech(mNavigationBtnTxt[2]);
+                    mMpu.playAudio(mMpu.getFilePath("MIS_03MSTT"));
+                    mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
+                    //when mFlgKeyboardOpened is set to 1, it means user is using custom keyboard input
+                    // text and system keyboard is visible.
+                    if (mFlgKeyboard == 1) {
+                        // As user is using custom keyboard input text and then press the keyboard button,
+                        // user intent to close custom keyboard input text so below steps will follow:
+                        // a) set keyboard button to unpressed state.
+                        // b) hide custom keyboard input text.
+                        // c) show category icons
+                        // d) hide custom keyboard input text
+                        mIvKeyboard.setImageResource(R.drawable.keyboard);
+                        mEtTTs.setVisibility(View.INVISIBLE);
+                        mRecyclerView.setVisibility(View.VISIBLE);
+                        mIvTTs.setVisibility(View.INVISIBLE);
+                        mFlgKeyboard = 0;
+                        changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
+                        if (mLevelThreeItemPos != -1)
+                            retainExpressiveButtonStates();
+                        showActionBarTitle(true);
+                        //when mFlgKeyboardOpened is set to 0, it means user intent to use custom
+                        //keyboard input text so below steps will follow:
+                    } else {
+                        // a) keyboard button to pressed state
+                        // c) show custom keyboard input text and speak button view
+                        // b) set back button unpressed state
+                        // d) hide category icons
+                        // e) disable expressive buttons
+                        mIvKeyboard.setImageResource(R.drawable.keyboard_pressed);
+                        mEtTTs.setVisibility(View.VISIBLE);
+                        // Focus to the field.
+                        mEtTTs.setKeyListener(originalKeyListener);
+                        mRecyclerView.setVisibility(View.INVISIBLE);
+                        changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
+                        mEtTTs.requestFocus();
+                        mIvTTs.setVisibility(View.VISIBLE);
+                        // when user intend to use custom keyboard input text system keyboard should
+                        // only appear when user taps on custom keyboard input view. Setting
+                        // InputMethodManager to InputMethodManager.HIDE_NOT_ALWAYS does this task.
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
+                        mFlgKeyboard = 1;
+                        showActionBarTitle(false);
+                        getSupportActionBar().setTitle(strKeyboard);
+                    }
+                    mIvBack.setImageResource(R.drawable.back);
                 }
-                mIvBack.setImageResource(R.drawable.back);
             }
         });
     }
@@ -1361,6 +1370,7 @@ public class LevelThreeActivity extends AppCompatActivity {
         mLevelThreeItemPos = mRecyclerView.getChildLayoutPosition(view);
 
         if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))){
+            mUec.accessibilityPopupOpenedEvent(mSpeechTxt[getTagPos()]);
             showAccessibleDialog(view);
             view.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
         }else {
@@ -1383,13 +1393,14 @@ public class LevelThreeActivity extends AppCompatActivity {
                 mMpu.playAudio(mMpu.getFilePath("CATL3_" + (mLevelOneItemPos + 1) + "_" +
                         +(mLevelTwoItemPos + 1) + "_" + (mArrSort[mLevelThreeItemPos] + 1)));
             }
+            mUec.createSendFbEventFromTappedView(12, mSpeechTxt[getTagPos()], "");
         }
         // increment category item touch count
         incrementTouchCountOfItem(mLevelThreeItemPos);
         // retain state of expressive button when particular type category icon pressed
         retainExpressiveButtonStates();
 
-        mUec.createSendFbEventFromTappedView(12, mSpeechTxt[getTagPos()], "");
+
         mIvBack.setImageResource(R.drawable.back);
     }
 
@@ -1543,10 +1554,10 @@ public class LevelThreeActivity extends AppCompatActivity {
             // have index (default position in recycler view) 39, 40, 41, 42 in English (US, UK).
             // So to disable expressive buttons for above category icon it required to check the
             // user language and index (default position in recycler view) of category icon.
-            if ((!lang.equals("en-rUS") && !lang.equals("en-rGB") &&
+            if ((!lang.equals(ENG_US) && !lang.equals(ENG_UK) && !lang.equals(ENG_AU) &&
                     (tmp == 34 || tmp == 35 || tmp == 36 || tmp == 37))
                     ||
-                    ((lang.equals("en-rUS") || lang.equals("en-rGB")) &&
+                    ((lang.equals(ENG_US) || lang.equals(ENG_UK)) || lang.equals(ENG_AU) &&
                             (tmp == 39 || tmp == 40 || tmp == 41 || tmp == 42) ))
                 changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
             else
@@ -1592,9 +1603,9 @@ public class LevelThreeActivity extends AppCompatActivity {
         ViewCompat.setAccessibilityDelegate(ivKeyboard, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(enterCategory, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(closeDialog, new TalkbackHints_SingleClick());
-
         mBuilder.setView(mView);
         final AlertDialog dialog = mBuilder.create();
+        dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
 
         enterCategory.setText(mSpeak);
@@ -1602,6 +1613,7 @@ public class LevelThreeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 speakSpeech(mSpeechTxt[getTagPos()]);
+                mUec.createSendFbEventFromTappedView(12, mSpeechTxt[getTagPos()], "");
             }
         });
         enterCategory.setAccessibilityDelegate(new View.AccessibilityDelegate(){
@@ -1620,11 +1632,13 @@ public class LevelThreeActivity extends AppCompatActivity {
         closeDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //clear all selection
+                //clear all selection in current level
                 clearSelectionAfterAccessibilityDialogClose();
                 disabledView.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
                 //dismiss dialog
                 dialog.dismiss();
+                //Firebase event
+                singleEvent("Navigation","Back");
             }
         });
 
@@ -1667,6 +1681,8 @@ public class LevelThreeActivity extends AppCompatActivity {
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // clear pending Firebase events.
+                mUec.clearPendingEvent();
                 mIvBack.performClick();
                 dialog.dismiss();
             }
@@ -1674,6 +1690,8 @@ public class LevelThreeActivity extends AppCompatActivity {
         ivHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // clear pending Firebase events.
+                mUec.clearPendingEvent();
                 mIvHome.performClick();
                 dialog.dismiss();
             }
@@ -1681,6 +1699,8 @@ public class LevelThreeActivity extends AppCompatActivity {
         ivKeyboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // clear pending Firebase events.
+                mUec.clearPendingEvent();
                 mIvKeyboard.performClick();
                 dialog.dismiss();
             }

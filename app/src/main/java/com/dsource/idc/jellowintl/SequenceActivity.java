@@ -17,7 +17,6 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.KeyListener;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,6 +39,7 @@ import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
 import com.dsource.idc.jellowintl.models.SeqActivityVerbiageModel;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
+import com.dsource.idc.jellowintl.utility.KeyboardUtteranceDialogUtil;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.MediaPlayerUtils;
 import com.dsource.idc.jellowintl.utility.SessionManager;
@@ -242,11 +242,8 @@ public class SequenceActivity extends AppCompatActivity {
                 startActivity(new Intent(this, KeyboardInputActivity.class));
                 break;
             case R.id.feedback:
-                AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
-                boolean isAccessibilityEnabled = am.isEnabled();
-                boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
-                if(isAccessibilityEnabled && isExploreByTouchEnabled) {
-                    startActivity(new Intent(this, FeedbackActivityTalkback.class));
+                if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                    startActivity(new Intent(this, FeedbackActivityTalkBack.class));
                 }
                 else {
                     startActivity(new Intent(this, FeedbackActivity.class));
@@ -289,6 +286,8 @@ public class SequenceActivity extends AppCompatActivity {
         //Initially custom input text speak button is invisible
         mIvTTs.setVisibility(View.INVISIBLE);
         mEtTTs = findViewById(R.id.et);
+        mEtTTs.setVisibility(View.INVISIBLE);
+        mEtTTs.setSingleLine();
         originalKeyListener = mEtTTs.getKeyListener();
         // Initially make this field non-editable
         mEtTTs.setKeyListener(null);
@@ -445,8 +444,8 @@ public class SequenceActivity extends AppCompatActivity {
                     mIvCategoryIcon1.setContentDescription(mCategoryIconBelowText[count]);
                     mIvCategoryIcon2.setContentDescription(mCategoryIconBelowText[count + 1]);
                     mIvCategoryIcon3.setContentDescription(mCategoryIconBelowText[count + 2]);
-                    Log.d("CONTENT", "SET");
                 }
+                mIvCategoryIcon1.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
                 // once sequence is loaded, initially all category icons have no border/ no category
                 // icon in sequence have initial border
                 resetCategoryIconBorders();
@@ -512,6 +511,7 @@ public class SequenceActivity extends AppCompatActivity {
                 mIvCategoryIcon1.setContentDescription(mCategoryIconBelowText[count]);
                 mIvCategoryIcon2.setContentDescription(mCategoryIconBelowText[count + 1]);
                 mIvCategoryIcon3.setContentDescription(mCategoryIconBelowText[count + 2]);
+                mIvCategoryIcon1.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
 
                 // previous items to be loaded are less = 0 then disable back button
                 if (count == 0) {
@@ -550,13 +550,13 @@ public class SequenceActivity extends AppCompatActivity {
                     hideExpressiveBtn(true);
                     setBorderToView(findViewById(R.id.borderView1),-1);
                     mFlgHideExpBtn = 0;
-                    mUec.createSendFbEventFromTappedView(12, mCategoryIconBelowText[count],
-                            mHeading[mLevelTwoItemPos].toLowerCase());
+                    if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                        mUec.createSendFbEventFromTappedView(12, mCategoryIconBelowText[count],
+                                mHeading[mLevelTwoItemPos].toLowerCase());
+                    }
                 // If expressive buttons are hidden or category icon 1 is in unpressed state then
                 // set the border of category icon 1 and show expressive buttons
                 } else {
-                    mUec.createSendFbEventFromTappedView(12, "VisibleExpr " +
-                            mCategoryIconBelowText[count], mHeading[mLevelTwoItemPos].toLowerCase());
                     mFlgHideExpBtn = 1;
                     // If new current sequence is the last sequence and category icon 1 is
                     // last item in sequence then hide expressive buttons.
@@ -566,9 +566,13 @@ public class SequenceActivity extends AppCompatActivity {
                         hideExpressiveBtn(true);
                     else
                         hideExpressiveBtn(false);
-                    speakSpeech(mCategoryIconSpeechText[count]);
-                    mMpu.playAudio(mMpu.getFilePath( "CATSQ_"+ mLevelTwoItemPos+"_" +
-                            (count+1)));
+                    if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                        speakSpeech(mCategoryIconSpeechText[count]);
+                        mMpu.playAudio(mMpu.getFilePath("CATSQ_" + mLevelTwoItemPos + "_" +
+                                (count + 1)));
+                        mUec.createSendFbEventFromTappedView(12, "VisibleExpr " +
+                                mCategoryIconBelowText[count], mHeading[mLevelTwoItemPos].toLowerCase());
+                    }
                     resetExpressiveButton();
                     setBorderToView(findViewById(R.id.borderView1), 6);
                 }
@@ -576,6 +580,7 @@ public class SequenceActivity extends AppCompatActivity {
                 if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
                     showAccessibleDialog(count, v);
                     v.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+                    mUec.accessibilityPopupOpenedEvent(mCategoryIconSpeechText[count]);
                 }
             }
         });
@@ -606,13 +611,13 @@ public class SequenceActivity extends AppCompatActivity {
                     hideExpressiveBtn(true);
                     setBorderToView(findViewById(R.id.borderView2),-1);
                     mFlgHideExpBtn = 0;
-                    mUec.createSendFbEventFromTappedView(12,
-                            mCategoryIconBelowText[count+1], mHeading[mLevelTwoItemPos].toLowerCase());
+                    if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                        mUec.createSendFbEventFromTappedView(12,
+                                mCategoryIconBelowText[count + 1], mHeading[mLevelTwoItemPos].toLowerCase());
+                    }
                     // If expressive buttons are hidden or category icon 2 is in unpressed state then
                     // set the border of category icon 2 and show expressive buttons
                 } else {
-                    mUec.createSendFbEventFromTappedView(12, "VisibleExpr " +
-                            mCategoryIconBelowText[count+1], mHeading[mLevelTwoItemPos].toLowerCase());
                     mFlgHideExpBtn = 2;
                     // If new current sequence is the last sequence and category icon 2 is
                     // last item in sequence then hide expressive buttons.
@@ -622,9 +627,13 @@ public class SequenceActivity extends AppCompatActivity {
                         hideExpressiveBtn(true);
                     else
                         hideExpressiveBtn(false);
-                    speakSpeech(mCategoryIconSpeechText[count + 1]);
-                    mMpu.playAudio(mMpu.getFilePath( "CATSQ_"+ mLevelTwoItemPos+"_" +
-                            (count+2)));
+                    if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                        speakSpeech(mCategoryIconSpeechText[count + 1]);
+                        mMpu.playAudio(mMpu.getFilePath("CATSQ_" + mLevelTwoItemPos + "_" +
+                                (count + 2)));
+                        mUec.createSendFbEventFromTappedView(12, "VisibleExpr " +
+                                mCategoryIconBelowText[count+1], mHeading[mLevelTwoItemPos].toLowerCase());
+                    }
                     resetExpressiveButton();
                     setBorderToView(findViewById(R.id.borderView2),6);
                 }
@@ -632,6 +641,7 @@ public class SequenceActivity extends AppCompatActivity {
                 if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
                     showAccessibleDialog(count + 1, v);
                     v.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+                    mUec.accessibilityPopupOpenedEvent(mCategoryIconSpeechText[count+1]);
                 }
             }
         });
@@ -662,13 +672,13 @@ public class SequenceActivity extends AppCompatActivity {
                     hideExpressiveBtn(true);
                     setBorderToView(findViewById(R.id.borderView3), -1);
                     mFlgHideExpBtn = 0;
-                    mUec.createSendFbEventFromTappedView(12,
-                            mCategoryIconBelowText[count+2], mHeading[mLevelTwoItemPos].toLowerCase());
+                    if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                        mUec.createSendFbEventFromTappedView(12,
+                                mCategoryIconBelowText[count+2], mHeading[mLevelTwoItemPos].toLowerCase());
+                    }
                     // If expressive buttons are hidden or category icon 3 is in unpressed state then
                     // set the border of category icon 3 and show expressive buttons
                 } else {
-                    mUec.createSendFbEventFromTappedView(12, "VisibleExpr " +
-                            mCategoryIconBelowText[count+2], mHeading[mLevelTwoItemPos].toLowerCase());
                     mFlgHideExpBtn = 3;
                     // If new current sequence is the last sequence and category icon 3 is
                     // last item in sequence then hide expressive buttons.
@@ -678,9 +688,13 @@ public class SequenceActivity extends AppCompatActivity {
                         hideExpressiveBtn(true);
                     else
                         hideExpressiveBtn(false);
-                    speakSpeech(mCategoryIconSpeechText[count + 2]);
-                    mMpu.playAudio(mMpu.getFilePath( "CATSQ_"+ mLevelTwoItemPos+"_" +
-                            (count+3)));
+                    if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                        speakSpeech(mCategoryIconSpeechText[count + 2]);
+                        mMpu.playAudio(mMpu.getFilePath("CATSQ_" + mLevelTwoItemPos + "_" +
+                                (count + 3)));
+                        mUec.createSendFbEventFromTappedView(12, "VisibleExpr " +
+                                mCategoryIconBelowText[count+2], mHeading[mLevelTwoItemPos].toLowerCase());
+                    }
                     resetExpressiveButton();
                     setBorderToView(findViewById(R.id.borderView3), 6);
                 }
@@ -688,6 +702,7 @@ public class SequenceActivity extends AppCompatActivity {
                 if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
                     showAccessibleDialog(count + 2, v);
                     v.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+                    mUec.accessibilityPopupOpenedEvent(mCategoryIconSpeechText[count+2]);
                 }
             }
         });
@@ -790,58 +805,62 @@ public class SequenceActivity extends AppCompatActivity {
         mIvKeyboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                speakSpeech(mNavigationBtnTxt[2]);
-                mMpu.playAudio(mMpu.getFilePath( "MIS_03MSTT"));
                 //Firebase event
-                singleEvent("Navigation","Keyboard");
-                mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
-                //when mFlgKeyboard is set to 1, it means user is using custom keyboard input
-                // text and system keyboard is visible.
-                if (mFlgKeyboard == 1) {
-                    // As user is using custom keyboard input text and then press the keyboard button,
-                    // user intent to close custom keyboard input text so below steps will follow:
-                    // a) set keyboard button to unpressed state.
-                    // b) hide custom input text and speak button views
-                    // c) show category icons
-                    // d) enable expressive button
-                    // e) set category icon next and back button visible
-                    mIvKeyboard.setImageResource(R.drawable.keyboard);
-                    mEtTTs.setVisibility(View.INVISIBLE);
-                    mRelativeLayCategory.setVisibility(View.VISIBLE);
-                    mIvTTs.setVisibility(View.INVISIBLE);
-                    mFlgKeyboard = 0;
-                    changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
-                    mBtnBack.setVisibility(View.VISIBLE);
-                    mBtnNext.setVisibility(View.VISIBLE);
-                    showActionBarTitle(true);
-                //when mFlgKeyboard is set to 0, it means user intent to use custom
-                //keyboard input text so below steps will follow:
+                singleEvent("Navigation", "Keyboard");
+                if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                    new KeyboardUtteranceDialogUtil(SequenceActivity.this).show();
                 } else {
-                    // a) keyboard button to press
-                    // b) show custom keyboard input text and speak button view
-                    // c) hide category icons
-                    // d) disable expressive buttons
-                    // e) hide category icon next and back buttons
-                    mIvKeyboard.setImageResource(R.drawable.keyboard_pressed);
-                    mEtTTs.setVisibility(View.VISIBLE);
-                    mEtTTs.setKeyListener(originalKeyListener);
-                    // Focus the field.
-                    mRelativeLayCategory.setVisibility(View.INVISIBLE);
-                    changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
-                    mEtTTs.requestFocus();
-                    mIvTTs.setVisibility(View.VISIBLE);
-                    // when user intend to use custom keyboard input text system keyboard should
-                    // only appear when user taps on custom keyboard input view. Setting
-                    // InputMethodManager to InputMethodManager.HIDE_NOT_ALWAYS does this task.
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
-                    mBtnBack.setVisibility(View.INVISIBLE);
-                    mBtnNext.setVisibility(View.INVISIBLE);
-                    mFlgKeyboard = 1;
-                    showActionBarTitle(false);
-                    getSupportActionBar().setTitle(strKeyboard);
+                    speakSpeech(mNavigationBtnTxt[2]);
+                    mMpu.playAudio(mMpu.getFilePath("MIS_03MSTT"));
+                    mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
+                    //when mFlgKeyboard is set to 1, it means user is using custom keyboard input
+                    // text and system keyboard is visible.
+                    if (mFlgKeyboard == 1) {
+                        // As user is using custom keyboard input text and then press the keyboard button,
+                        // user intent to close custom keyboard input text so below steps will follow:
+                        // a) set keyboard button to unpressed state.
+                        // b) hide custom input text and speak button views
+                        // c) show category icons
+                        // d) enable expressive button
+                        // e) set category icon next and back button visible
+                        mIvKeyboard.setImageResource(R.drawable.keyboard);
+                        mEtTTs.setVisibility(View.INVISIBLE);
+                        mRelativeLayCategory.setVisibility(View.VISIBLE);
+                        mIvTTs.setVisibility(View.INVISIBLE);
+                        mFlgKeyboard = 0;
+                        changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
+                        mBtnBack.setVisibility(View.VISIBLE);
+                        mBtnNext.setVisibility(View.VISIBLE);
+                        showActionBarTitle(true);
+                        //when mFlgKeyboard is set to 0, it means user intent to use custom
+                        //keyboard input text so below steps will follow:
+                    } else {
+                        // a) keyboard button to press
+                        // b) show custom keyboard input text and speak button view
+                        // c) hide category icons
+                        // d) disable expressive buttons
+                        // e) hide category icon next and back buttons
+                        mIvKeyboard.setImageResource(R.drawable.keyboard_pressed);
+                        mEtTTs.setVisibility(View.VISIBLE);
+                        mEtTTs.setKeyListener(originalKeyListener);
+                        // Focus the field.
+                        mRelativeLayCategory.setVisibility(View.INVISIBLE);
+                        changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
+                        mEtTTs.requestFocus();
+                        mIvTTs.setVisibility(View.VISIBLE);
+                        // when user intend to use custom keyboard input text system keyboard should
+                        // only appear when user taps on custom keyboard input view. Setting
+                        // InputMethodManager to InputMethodManager.HIDE_NOT_ALWAYS does this task.
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
+                        mBtnBack.setVisibility(View.INVISIBLE);
+                        mBtnNext.setVisibility(View.INVISIBLE);
+                        mFlgKeyboard = 1;
+                        showActionBarTitle(false);
+                        getSupportActionBar().setTitle(strKeyboard);
+                    }
+                    mIvBack.setImageResource(R.drawable.back);
                 }
-                mIvBack.setImageResource(R.drawable.back);
             }
         });
     }
@@ -1327,7 +1346,9 @@ public class SequenceActivity extends AppCompatActivity {
         ViewCompat.setAccessibilityDelegate(closeDialog, new TalkbackHints_SingleClick());
         mBuilder.setView(mView);
         final AlertDialog dialog = mBuilder.create();
+        dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
+
         ivLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1367,6 +1388,8 @@ public class SequenceActivity extends AppCompatActivity {
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // clear pending Firebase events.
+                mUec.clearPendingEvent();
                 mIvBack.performClick();
                 dialog.dismiss();
             }
@@ -1374,6 +1397,8 @@ public class SequenceActivity extends AppCompatActivity {
         ivHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // clear pending Firebase events.
+                mUec.clearPendingEvent();
                 mIvHome.performClick();
                 dialog.dismiss();
             }
@@ -1381,6 +1406,8 @@ public class SequenceActivity extends AppCompatActivity {
         ivKeyboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // clear pending Firebase events.
+                mUec.clearPendingEvent();
                 mIvKeyboard.performClick();
                 dialog.dismiss();
             }
@@ -1399,6 +1426,8 @@ public class SequenceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 speakSpeech(mCategoryIconSpeechText[position]);
+                mUec.createSendFbEventFromTappedView(12, mCategoryIconBelowText[position],
+                        mHeading[mLevelTwoItemPos].toLowerCase());
             }
         });
         enterCategory.setAccessibilityDelegate(new View.AccessibilityDelegate(){
@@ -1417,23 +1446,18 @@ public class SequenceActivity extends AppCompatActivity {
         closeDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //clear all selection
-                resetExpressiveButton();
                 //dismiss dialog
                 dialog.dismiss();
-            }
-        });
-
-        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                resetExpressiveButton();
+                //Firebase event
+                singleEvent("Navigation","Back");
             }
         });
 
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
+                //clear all selection
+                resetExpressiveButton();
                 disabledView.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
             }
         });
@@ -1526,8 +1550,11 @@ public class SequenceActivity extends AppCompatActivity {
         mBtnBack.setText(mCategoryNav[0]);
         mBtnBack.setEnabled(false);
         mBtnBack.setAlpha(.5f);
-
-        mTvHeading.setAllCaps(true);
+        if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+            mTvHeading.setAllCaps(true);
+        }else{
+            mTvHeading.setAllCaps(false);
+        }
         mTvHeading.setTextColor(Color.rgb(64, 64, 64));
         mTvHeading.setText(mHeading[mLevelTwoItemPos].toLowerCase());
 

@@ -81,7 +81,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
     private CountryCodePicker mCcp;
     private String mUserGroup;
     Spinner languageSelect;
-    String[] languagesCodes = new String[6], languageNames = new String[6];
+    String[] languagesCodes = new String[7], languageNames = new String[7];
     String selectedLanguage;
     String name, emergencyContact, eMailId;
 
@@ -171,7 +171,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
         languageSelect = findViewById(R.id.langSelectSpinner);
 
         ArrayAdapter<String> adapter_lan = new ArrayAdapter<String>(this,
-                R.layout.simple_spinner_item, populateCountryNameByUser(languageNames));
+                R.layout.simple_spinner_item, populateCountryNameByUserType(languageNames));
 
         adapter_lan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -277,6 +277,26 @@ public class UserRegistrationActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         Crashlytics.log("Paused "+getLocalClassName());
+    }
+
+    @Override
+    public void onUserInteraction() {
+        super.onUserInteraction();
+        addAccessibilityDelegateToSpinners();
+    }
+
+    private void addAccessibilityDelegateToSpinners() {
+        if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+            languageSelect.setAccessibilityDelegate(new View.AccessibilityDelegate() {
+                @Override
+                public void onInitializeAccessibilityEvent(View host, AccessibilityEvent event) {
+                    super.onInitializeAccessibilityEvent(host, event);
+                    if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED) {
+                         bRegister.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
+                    }
+                }
+            });
+        }
     }
 
     private boolean isValidEmail(CharSequence target) {
@@ -448,7 +468,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
         }
     }
 
-    private String[] populateCountryNameByUser(String[] langNameToBeShorten) {
+    private String[] populateCountryNameByUserType(String[] langNameToBeShorten) {
         String[] shortenLanguageNames = new String[langNameToBeShorten.length];
         if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
             for (int i = 0; i < langNameToBeShorten.length; i++) {
@@ -471,6 +491,9 @@ public class UserRegistrationActivity extends AppCompatActivity {
                     case "English (United States)":
                         shortenLanguageNames[i] = getString(R.string.acc_lang_eng_us);
                         break;
+                    case "English (Australia)":
+                        shortenLanguageNames[i] = getString(R.string.acc_lang_eng_au);
+                        break;
                     default:
                         shortenLanguageNames[i] = langNameToBeShorten[i];
                         break;
@@ -487,6 +510,9 @@ public class UserRegistrationActivity extends AppCompatActivity {
                         break;
                     case "English (United States)":
                         shortenLanguageNames[i] = "English (US)";
+                        break;
+                    case "English (Australia)":
+                        shortenLanguageNames[i] = "English (AU)";
                         break;
                     default:
                         shortenLanguageNames[i] = langNameToBeShorten[i];

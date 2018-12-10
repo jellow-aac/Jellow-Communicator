@@ -30,6 +30,8 @@ import com.dsource.idc.jellowintl.utility.SessionManager;
 import java.io.File;
 import java.util.ArrayList;
 
+import static android.content.Context.ACCESSIBILITY_SERVICE;
+import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
@@ -76,13 +78,11 @@ public class SearchActivity extends AppCompatActivity {
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         setContentView(R.layout.activity_search);
         EditText SearchEditText = findViewById(R.id.search_auto_complete);
-        AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
-        boolean isAccessibilityEnabled = am.isEnabled();
-        boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
-        if (isAccessibilityEnabled && isExploreByTouchEnabled) {
+        if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
             SearchEditText.setContentDescription("Enter to search");
+            findViewById(R.id.close_button).setVisibility(View.GONE);
         } else {
-            SearchEditText.setHint("Search icon....");
+            SearchEditText.setHint("Search icon..");
         }
         getWindow().setGravity(Gravity.LEFT);
 
@@ -179,6 +179,10 @@ public class SearchActivity extends AppCompatActivity {
 
 
 
+    }
+
+    public void closeActivity(View v){
+        finish();
     }
 
     @Override
@@ -410,7 +414,10 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
         else {
             String levelTitle = getIconTitleLevel2(thisIcon.parent0)[thisIcon.parent1].
                     replace("…", "");
-            dir=arr[thisIcon.parent0] + "->" + levelTitle;
+            if (!isAccessibilityTalkBackOn((AccessibilityManager) mContext.getSystemService(ACCESSIBILITY_SERVICE))) {
+                dir = arr[thisIcon.parent0] + "->" + levelTitle;
+            }else
+                dir = arr[thisIcon.parent0] + "/ " + levelTitle;
 
         }
         holder.iconDir.setText(dir);

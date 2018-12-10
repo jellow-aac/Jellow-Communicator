@@ -1,0 +1,26 @@
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyWidth="40%p"
+    android:horizontalGap="0px"
+    android:verticalGap="0px"
+    android:keyHeight="90dp">
+    <Row>
+        <Key android:codes="0x09E7" android:keyLabel="১" android:keyEdgeFlags="left"/>
+        <Key android:codes="0x09E8" android:keyLabel="২"/>
+        <Key android:codes="0x09E9" android:keyLabel="৩"/>
+        <Key android:codes="0x09EA" android:keyLabel="৪"/>
+        <Key android:codes="0x09EB" android:keyLabel="৫"/>
+        <Key android:codes="0x09EC" android:keyLabel="৬"/>
+        <Key android:codes="0x09ED" android:keyLabel="৭"/>
+        <Key android:codes="0x09EE" android:keyLabel="৮" android:keyEdgeFlags="right"/>
+    </Row>
+    <Row>
+        <Key android:codes="0x09EF" android:keyLabel="৯" android:keyEdgeFlags="left"/>
+        <Key android:codes="0x09E6" android:keyLabel="০"/>
+        <Key android:codes="108" android:keyLabel="।"/>
+        <Key android:codes="44" android:keyLabel=","/>
+        <Key android:codes="33" android:keyLabel="!"/>
+        <Key android:codes="63" android:keyLabel="\?"/>
+        <Key android:codes="-5" android:keyLabel="Del"/>
+        <Key android:codes="-16" android:keyLabel="কখগ" android:keyEdgeFlags="right"/>
+    </Row>
+</Keyboard>

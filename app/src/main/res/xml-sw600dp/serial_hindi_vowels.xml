@@ -2,9 +2,7 @@
     android:keyWidth="40%p"
     android:horizontalGap="0px"
     android:verticalGap="0px"
-    android:keyHeight="100dp"
-    >
-
+    android:keyHeight="80dp">
     <Row>
         <Key android:codes="0x0905" android:keyLabel="अ" android:keyEdgeFlags="left"/>
         <Key android:codes="0x0906" android:keyLabel="आ"/>
@@ -14,7 +12,6 @@
         <Key android:codes="0x090A" android:keyLabel="ऊ"/>
         <Key android:codes="0x090F" android:keyLabel="ए" android:keyEdgeFlags="right"/>
     </Row>
-
     <Row>
         <Key android:codes="0x0910" android:keyLabel="ऐ" android:keyEdgeFlags="left"/>
         <Key android:codes="0x0913" android:keyLabel="ओ" />
@@ -24,7 +21,6 @@
         <Key android:codes="0x0940" android:keyLabel=" ी"/>
         <Key android:codes="0x0941" android:keyLabel=" ु"  android:keyEdgeFlags="right"/>
     </Row>
-
     <Row>
         <Key android:codes="0x0942" android:keyLabel=" ू"  android:keyEdgeFlags="left"/>
         <Key android:codes="0x094D" android:keyLabel=" ् "/>
@@ -34,7 +30,6 @@
         <Key android:codes="0x094B" android:keyLabel=" ो "/>
         <Key android:codes="0x094C" android:keyLabel=" ौ "  android:keyEdgeFlags="right"/>
     </Row>
-
     <Row android:rowEdgeFlags="bottom">
         <Key android:codes="0x0901" android:keyLabel=" ँ"  android:keyEdgeFlags="left"/>/>
         <Key android:codes="0x0902" android:keyLabel=" ं"/>
@@ -42,18 +37,12 @@
         <Key android:codes="0x093C" android:keyLabel=" ़ " />
         <Key android:codes="0x0945" android:keyLabel=" ॅ "/>
         <Key android:codes="-5" android:keyLabel="Del" android:keyWidth="80%p" android:isRepeatable="true" android:keyEdgeFlags="right"/>
-
     </Row>
-
-    <Row>
-        <Row android:rowEdgeFlags="bottom">
-            <Key android:codes="-11" android:keyLabel="Shift" android:keyWidth="20%p" android:keyEdgeFlags="left"/>
-            <Key android:codes="-8" android:keyLabel="१२३" android:keyWidth="20%p"/>
-            <Key android:codes="32" android:keyLabel=" " android:keyWidth="60%p" android:isRepeatable="true"/>
-            <Key android:codes="-10" android:keyLabel="ABC" android:keyWidth="20%p"/>
-            <Key android:codes="-4" android:keyLabel="Enter" android:keyWidth="20%p" android:keyEdgeFlags="right"/>
-        </Row>
-
+    <Row android:rowEdgeFlags="bottom">
+        <Key android:codes="-12" android:keyLabel="Shift" android:keyWidth="20%p" android:keyEdgeFlags="left"/>
+        <Key android:codes="-8" android:keyLabel="१२३" android:keyWidth="20%p"/>
+        <Key android:codes="32" android:keyLabel=" " android:keyWidth="60%p" android:isRepeatable="true"/>
+        <Key android:codes="-11" android:keyLabel="কখগ" android:keyWidth="20%p"/>
+        <Key android:codes="-17" android:keyLabel="Enter" android:keyWidth="20%p" android:keyEdgeFlags="right"/>
     </Row>
-
 </Keyboard>
