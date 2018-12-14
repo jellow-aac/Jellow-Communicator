@@ -1,7 +1,6 @@
 package com.dsource.idc.jellowboard.makemyboard;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dsource.idc.jellowboard.R;
+import com.dsource.idc.jellowboard.makemyboard.models.ListItem;
 
 import java.util.ArrayList;
 
@@ -56,13 +56,3 @@ public class SimpleListAdapter extends ArrayAdapter<ListItem> {
     }
 }
 
-class ListItem
-{
-    public String title;
-    public android.graphics.drawable.Drawable drawable;
-
-    public ListItem(String title, Drawable drawable) {
-        this.title = title;
-        this.drawable = drawable;
-    }
-}

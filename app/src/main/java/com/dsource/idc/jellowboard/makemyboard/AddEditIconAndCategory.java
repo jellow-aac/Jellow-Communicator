@@ -8,11 +8,11 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -40,6 +40,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.dsource.idc.jellowboard.GlideApp;
 import com.dsource.idc.jellowboard.Nomenclature;
 import com.dsource.idc.jellowboard.R;
+import com.dsource.idc.jellowboard.makemyboard.models.ListItem;
 import com.dsource.idc.jellowboard.makemyboard.utility.BoardDatabase;
 import com.dsource.idc.jellowboard.makemyboard.utility.CustomDialog;
 import com.dsource.idc.jellowboard.makemyboard.adapters.IconSelectorAdapter;
@@ -57,6 +58,7 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -295,14 +297,16 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
 
         if(thisIcon.parent0==-1)//Is a custom Icon
         {
-            byte[] bitmapData=thisIcon.IconImage;
-            Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.length);
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            Glide.with(this)
-                    .asBitmap()
-                    .load(stream.toByteArray())
-                    .apply(RequestOptions.circleCropTransform()).into(IconImage);
+            SessionManager mSession = new SessionManager(this);
+            File en_dir = getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
+            String path = en_dir.getAbsolutePath() + "/boardicon";
+            GlideApp.with(this)
+                    .load(path+"/"+ thisIcon.IconDrawable+".png")
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .centerCrop()
+                    .dontAnimate()
+                    .into(IconImage);
             IconImage.setBackground(getResources().getDrawable(R.drawable.icon_back_grey));
         }
         else
@@ -393,10 +397,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
                 if(name.equals("")) Toast.makeText(getApplicationContext(),"Please enter name",Toast.LENGTH_SHORT).show();
                 else {
                     Bitmap icon = ((BitmapDrawable) IconImage.getDrawable()).getBitmap();
-                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                    icon.compress(Bitmap.CompressFormat.PNG, 100, bos);
-                    byte[] bitmapArray = bos.toByteArray();
-                    saveEditedIcon(name, bitmapArray, parent1, parent2, parent3, thisIcon);
+                    saveEditedIcon(name, icon, parent1, parent2, parent3, thisIcon);
                     dialogForBoardEditAdd.dismiss();
                 }
             }
@@ -429,9 +430,10 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
      * @param p3 parent 3
      * @param prevIcon previous jellow Icon
      */
-    private void saveEditedIcon(String name, byte[] bitmapArray, int p1, int p2,int p3, JellowIcon prevIcon) {
+    private void saveEditedIcon(String name, Bitmap bitmapArray, int p1, int p2,int p3, JellowIcon prevIcon) {
         int id  = (int)Calendar.getInstance().getTime().getTime();
-        JellowIcon icon = new JellowIcon(name,bitmapArray,-1,-1,id);
+        JellowIcon icon = new JellowIcon(name,id+"",-1,-1,id);
+        storeImageToStorage(bitmapArray,id+"");
         if(p2==-1&&p3==-1)//if level one icon is being edited.
             boardModel.getChildren().get(p1).setIcon(icon);
         else if(p3==-10)//If level two icon is being edited
@@ -443,7 +445,6 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         prepareIconPane(selectedPosition,EDIT_ICON_MODE);
         modelManager.setModel(boardModel);
         currentBoard.setBoardIconModel(modelManager.getModel());
-        database.updateBoardIntoDatabase(currentBoard);
         JellowVerbiageModel verbiageModel = verbiageDatbase.getVerbiageById(Nomenclature.getIconName(prevIcon,this));
         verbiageDatbase.addNewVerbiage(Nomenclature.getIconName(icon,this),getNewVerbiage(verbiageModel,name,prevIcon.IconTitle));
 
@@ -622,13 +623,10 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
                 if(name.equals("")) Toast.makeText(getApplicationContext(),"Please enter name", Toast.LENGTH_SHORT).show();
                 else {
                     Bitmap icon = ((BitmapDrawable) IconImage.getDrawable()).getBitmap();
-                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                    icon.compress(Bitmap.CompressFormat.PNG, 50, bos);
-                    byte[] bitmapArray = bos.toByteArray();
                     if (mode == ADD_CATEGORY)
-                        addNewCategory(name, bitmapArray);
+                        addNewCategory(name, icon);
                     else if (mode == ADD_ICON)
-                        addNewIcon(name, bitmapArray, selectedPosition);
+                        addNewIcon(name, icon, selectedPosition);
                     dialogForBoardEditAdd.dismiss();
                 }
             }
@@ -653,16 +651,16 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
 
     }
 
-    private void addNewCategory(String name, byte[] bitmapArray) {
+    private void addNewCategory(String name, Bitmap bitmap) {
         int id  = (int)Calendar.getInstance().getTime().getTime();
-        JellowIcon icon = new JellowIcon(name,bitmapArray,-1,-1,id);
+        JellowIcon icon = new JellowIcon(name,""+id,-1,-1,id);
+        storeImageToStorage(bitmap,id+"");
         boardModel.addChild(icon);
         categoryManager = new CategoryManager(boardModel);
         categories = categoryManager.getAllCategories();
         verbiageDatbase.addNewVerbiage( Nomenclature.getIconName(icon,this),new JellowVerbiageModel(name));
         modelManager.setModel(boardModel);
         currentBoard.setBoardIconModel(modelManager.getModel());
-        database.updateBoardIntoDatabase(currentBoard);
         targetLevelSelectPane();
     }
 
@@ -670,12 +668,13 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
      * This funtion takes name and bitmap array of a icon to be added and generates
      * an icon for it and adds it to the postion and scrolls to it.
      * @param name Name of the Icon
-     * @param bitmapArray bitmap array holding the image
+     * @param bitmap bitmap array holding the image
      * @param selectedPosition postion on which new icon is to be added.
      */
-    private void addNewIcon(String name, byte[] bitmapArray, int selectedPosition) {
+    private void addNewIcon(String name, Bitmap bitmap, int selectedPosition) {
         int id  = (int)Calendar.getInstance().getTime().getTime();
-        JellowIcon icon = new JellowIcon(name,bitmapArray,-1,-1,id);
+        JellowIcon icon = new JellowIcon(name,id+"",-1,-1,id);
+        storeImageToStorage(bitmap,id+"");
         boardModel.getChildren().get(selectedPosition).addChild(icon);
         iconRecycler.getLayoutManager().smoothScrollToPosition(iconRecycler,null,(boardModel.getChildren().get(selectedPosition).getChildren().size()-1));
         categoryManager = new CategoryManager(boardModel);
@@ -683,7 +682,46 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         modelManager.setModel(boardModel);
         currentBoard.setBoardIconModel(modelManager.getModel());
         verbiageDatbase.addNewVerbiage(Nomenclature.getIconName(icon,this),new JellowVerbiageModel(name));
-        database.updateBoardIntoDatabase(currentBoard);
+    }
+
+    /**
+     * To store the bitmap Image into local storage
+     * @param bitmap image to be stored
+     * @param fileID id of the targetImage
+     * @return path of the stored Image
+     */
+    public String storeImageToStorage(Bitmap bitmap, String fileID) {
+        FileOutputStream fos = null;
+        File en_dir = this.getDir(new SessionManager(this).getLanguage(), Context.MODE_PRIVATE);
+        String path = en_dir.getAbsolutePath() + "/boardicon";
+        String status = Environment.getExternalStorageState();
+        if (status.equals(Environment.MEDIA_MOUNTED)) {
+            File root = new File(path);
+            if (!root.exists()) {
+                root.mkdirs();
+            }
+            Toast.makeText(this,""+root.getAbsolutePath(),Toast.LENGTH_LONG).show();
+            File file = new File(root, fileID+ ".png");
+
+            try {
+                if(file.exists())
+                {
+                    file.delete();//Delete the previous image if image is a replace
+                    file = new File(root,fileID+".png");
+                }
+                fos = new FileOutputStream(file);
+                if (fos != null) {
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 70, fos);
+                    fos.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            Uri muri = Uri.fromFile(file);
+            return muri.getPath();
+        }
+        return null;
     }
 
     private void setOnPhotoSelectListener(MyBoards.PhotoIntentResult mPhotoIntentResult) {
@@ -701,15 +739,13 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         return okay;
     }
 
-    private boolean checkPermissionForCamera() {
-        boolean okay=true;
+    public boolean checkPermissionForCamera() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                okay = false;
+                return false;
             }
         }
-
-        return okay;
+        return true;
     }
 
     @Override
