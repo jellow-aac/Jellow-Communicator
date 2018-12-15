@@ -225,7 +225,6 @@ public class Home extends AppCompatActivity {
         adapter.setOnDoubleTapListner(new HomeAdapter.onDoubleTapListener() {
             @Override
             public void onItemDoubleTap(View view, int position) {
-                selectedIconVerbiage=null;
                 adapter.notifyDataSetChanged();
                 notifyItemClicked(position);
             }
@@ -259,6 +258,7 @@ public class Home extends AppCompatActivity {
                 LevelOneParent = position;
                 Level++;
                 updateList();
+                selectedIconVerbiage=null;
             }
             else Toast.makeText(Home.this,"No sub category",Toast.LENGTH_SHORT).show();
         }
@@ -274,6 +274,7 @@ public class Home extends AppCompatActivity {
                     Level++;
                     updateList();
                     LevelTwoParent=position;
+                    selectedIconVerbiage=null;
                 } else Toast.makeText(Home.this, "No sub category", Toast.LENGTH_SHORT).show();
 
             }
