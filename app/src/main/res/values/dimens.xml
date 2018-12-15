@@ -148,4 +148,8 @@
     <dimen name="oneByTwo_textSize">16sp</dimen>
     <dimen name="oneByTwo_borderThickness">7dp</dimen>
     <dimen name="oneByTwo_inerRadius">40dp</dimen>
+
+
+
+    <dimen name="dialog_width_verbiage">220dp</dimen>
 </resources>

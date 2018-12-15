@@ -66,8 +66,11 @@ Todo and issue list for Make my board
 
    //5 December 2018 || Trying to fix the Reposition Icon
 
-   * Removed previous
-   *
+   * Changed the Library to "h6a..." and removed previous one
+
+   //5 December 2018 ||
+   //TODO Delete the image from storage of board icon which is deleted
+   //TODO Try to find a way to delete all the image of the custom icon of the board from the storage
 
 
 

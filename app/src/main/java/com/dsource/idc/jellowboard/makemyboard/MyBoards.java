@@ -457,7 +457,7 @@ public class MyBoards extends AppCompatActivity {
         iconImageSelected = false;
     }
 
-    public String storeImageToStorage(Bitmap bitmap, String fileID) {
+    public void storeImageToStorage(Bitmap bitmap, String fileID) {
         FileOutputStream fos = null;
         File en_dir = MyBoards.this.getDir(new SessionManager(this).getLanguage(), Context.MODE_PRIVATE);
         String path = en_dir.getAbsolutePath() + "/boardicon";
@@ -484,12 +484,9 @@ public class MyBoards extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-            Uri muri = Uri.fromFile(file);
-            return muri.getPath();
         }
-        return null;
     }
+
     public void deleteImageFromStorage(String fileID) {
         FileOutputStream fos = null;
         File en_dir = MyBoards.this.getDir(new SessionManager(this).getLanguage(), Context.MODE_PRIVATE);

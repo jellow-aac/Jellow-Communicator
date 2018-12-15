@@ -6,9 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.content.res.TypedArray;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,25 +20,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
-import com.dsource.idc.jellowboard.GlideApp;
 import com.dsource.idc.jellowboard.Nomenclature;
 import com.dsource.idc.jellowboard.R;
-import com.dsource.idc.jellowboard.makemyboard.models.ListItem;
+import com.dsource.idc.jellowboard.makemyboard.interfaces.VerbiageEditorInterface;
+import com.dsource.idc.jellowboard.makemyboard.interfaces.VerbiageEditorReverseInterface;
 import com.dsource.idc.jellowboard.makemyboard.utility.BoardDatabase;
 import com.dsource.idc.jellowboard.makemyboard.utility.CustomDialog;
 import com.dsource.idc.jellowboard.makemyboard.adapters.IconSelectorAdapter;
@@ -48,21 +36,18 @@ import com.dsource.idc.jellowboard.makemyboard.adapters.LevelSelectorAdapter;
 import com.dsource.idc.jellowboard.makemyboard.models.Board;
 import com.dsource.idc.jellowboard.makemyboard.models.IconModel;
 import com.dsource.idc.jellowboard.makemyboard.utility.ModelManager;
+import com.dsource.idc.jellowboard.makemyboard.utility.VerbiageEditor;
 import com.dsource.idc.jellowboard.utility.JellowIcon;
 import com.dsource.idc.jellowboard.utility.SessionManager;
 import com.dsource.idc.jellowboard.verbiage_model.JellowVerbiageModel;
 import com.dsource.idc.jellowboard.verbiage_model.VerbiageDatabaseHelper;
-import com.rey.material.app.Dialog;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
-
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
-
 import static com.dsource.idc.jellowboard.makemyboard.adapters.IconSelectorAdapter.ADD_EDIT_ICON_MODE;
 import static com.dsource.idc.jellowboard.makemyboard.adapters.IconSelectorAdapter.EDIT_ICON_MODE;
 import static com.dsource.idc.jellowboard.makemyboard.MyBoards.BOARD_ID;
@@ -87,10 +72,11 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
     private IconSelectorAdapter iconAdapter;
     private ArrayList<JellowIcon> iconList;
     private RelativeLayout addCategory,addIcon,editIcon;
-    private MyBoards.PhotoIntentResult mPhotoIntentResult;
     private int selectedPosition=0;
     private VerbiageDatabaseHelper verbiageDatbase;
     private int currentMode = ADD_EDIT_ICON_MODE;
+
+    public VerbiageEditorReverseInterface revListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -274,151 +260,24 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         iconAdapter.notifyDataSetChanged();
     }
 
-
-
-    @SuppressLint("ResourceType")
     private void initEditModeDialog(final int parent1, final int parent2, final int parent3, final JellowIcon thisIcon) {
-        @SuppressLint("InflateParams") View dialogContainerView = LayoutInflater.from(this).inflate(R.layout.edit_board_dialog, null);
-        final Dialog dialogForBoardEditAdd = new Dialog(this,R.style.MyDialogBox);
-        dialogForBoardEditAdd.applyStyle(R.style.MyDialogBox);
-        dialogForBoardEditAdd.backgroundColor(getResources().getColor(R.color.transparent));
+        new VerbiageEditor(this, new VerbiageEditorInterface() {
 
-        //List on the dialog.
-        final ListView listView=dialogContainerView.findViewById(R.id.camera_list);
-        final EditText boardTitleEditText=dialogContainerView.findViewById(R.id.board_name);
-        boardTitleEditText.setText(thisIcon.IconTitle);
-        TextView saveBoard=dialogContainerView.findViewById(R.id.save_baord);
-        TextView cancelSaveBoard=dialogContainerView.findViewById(R.id.cancel_save_baord);
-        ImageView editBoardIconButton=dialogContainerView.findViewById(R.id.edit_board);
-        final ImageView IconImage=dialogContainerView.findViewById(R.id.board_icon);
-        IconImage.setBackground(getResources().getDrawable(R.drawable.icon_back_grey));
-        listView.setVisibility(View.GONE);
-        dialogForBoardEditAdd.setCancelable(false);
-
-        if(thisIcon.parent0==-1)//Is a custom Icon
-        {
-            SessionManager mSession = new SessionManager(this);
-            File en_dir = getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
-            String path = en_dir.getAbsolutePath() + "/boardicon";
-            GlideApp.with(this)
-                    .load(path+"/"+ thisIcon.IconDrawable+".png")
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true)
-                    .centerCrop()
-                    .dontAnimate()
-                    .into(IconImage);
-            IconImage.setBackground(getResources().getDrawable(R.drawable.icon_back_grey));
-        }
-        else
-            {
-                SessionManager mSession = new SessionManager(this);
-                File en_dir = getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
-                String path = en_dir.getAbsolutePath() + "/drawables";
-                GlideApp.with(this)
-                        .load(path+"/"+ thisIcon.IconDrawable+".png")
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
-                        .skipMemoryCache(false)
-                        .centerCrop()
-                        .dontAnimate()
-                        .into(IconImage);
-        }
-
-        //The list that will be shown with camera options
-        final ArrayList<ListItem> list=new ArrayList<>();
-        @SuppressLint("Recycle") TypedArray mArray=getResources().obtainTypedArray(R.array.add_photo_option);
-        list.add(new ListItem("Photos",mArray.getDrawable(0)));
-        list.add(new ListItem("Library ",mArray.getDrawable(2)));
-        SimpleListAdapter adapter=new SimpleListAdapter(this,list);
-        listView.setAdapter(adapter); 
-
-        setOnPhotoSelectListener(new MyBoards.PhotoIntentResult() {
             @Override
-            public void onPhotoIntentResult(Bitmap bitmap, int code,String fileName) {
+            public void onSaveButtonClick(String name, Bitmap bitmap, JellowVerbiageModel verbiage) {
+                saveEditedIcon(name, bitmap, parent1, parent2, parent3, thisIcon, verbiage);
+            }
 
-                if(code!=LIBRARY_REQUEST)
-                {
-                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                    Glide.with(AddEditIconAndCategory.this)
-                            .asBitmap()
-                            .load(stream.toByteArray())
-                            .apply(RequestOptions.
-                                    circleCropTransform()).into(IconImage);
-                }
-                else
-                {
-                    SessionManager mSession = new SessionManager(AddEditIconAndCategory.this);
-                    File en_dir = AddEditIconAndCategory.this.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
-                    String path = en_dir.getAbsolutePath() + "/drawables";
-                    GlideApp.with(AddEditIconAndCategory.this)
-                            .load(path+"/"+fileName+".png")
-                            .diskCacheStrategy(DiskCacheStrategy.NONE)
-                            .skipMemoryCache(false)
-                            .centerCrop()
-                            .dontAnimate()
-                            .into(IconImage);
-                }
-            }
-        });
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                listView.setVisibility(View.GONE);
-                if(position==0)
-                {
-                    if(checkPermissionForCamera()&&checkPermissionForStorageRead()) {
-                        CropImage.activity()
-                                .setAspectRatio(1,1)
-                                .setGuidelines(CropImageView.Guidelines.ON)
-                                .setFixAspectRatio(true)
-                                .start(AddEditIconAndCategory.this);
-                    }
-                    else
-                    {
-                        final String [] permissions=new String []{ Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE};
-                        ActivityCompat.requestPermissions(AddEditIconAndCategory.this, permissions, CAMERA_REQUEST);
-                    }
+            public void onPhotoModeSelect(int position) {
+                firePhotoIntent(position);
+            }
 
-                }
-                else if(position==1)
-                {
-                    Intent intent = new Intent(AddEditIconAndCategory.this,BoardSearch.class);
-                    intent.putExtra(BoardSearch.SEARCH_MODE,BoardSearch.ICON_SEARCH);
-                    startActivityForResult(intent,LIBRARY_REQUEST);
-                }
-            }
-        });
-
-
-        saveBoard.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                String name=boardTitleEditText.getText().toString();
-                if(name.equals("")) Toast.makeText(getApplicationContext(),"Please enter name",Toast.LENGTH_SHORT).show();
-                else {
-                    Bitmap icon = ((BitmapDrawable) IconImage.getDrawable()).getBitmap();
-                    saveEditedIcon(name, icon, parent1, parent2, parent3, thisIcon);
-                    dialogForBoardEditAdd.dismiss();
-                }
+            public void initPhotoResultListener(VerbiageEditorReverseInterface verbiageEditorReverseInterface) {
+                    revListener = verbiageEditorReverseInterface;
             }
-        });
-        cancelSaveBoard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { dialogForBoardEditAdd.dismiss();
-            }
-        });
-        editBoardIconButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isVisible)
-                    listView.setVisibility(View.GONE);
-                else
-                    listView.setVisibility(View.VISIBLE);
-                isVisible=!isVisible;
-            }
-        });
-        dialogForBoardEditAdd.setContentView(dialogContainerView);
-        dialogForBoardEditAdd.show();
+        },thisIcon).initAddEditDialog(thisIcon.IconTitle);
     }
 
     /**
@@ -430,7 +289,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
      * @param p3 parent 3
      * @param prevIcon previous jellow Icon
      */
-    private void saveEditedIcon(String name, Bitmap bitmapArray, int p1, int p2,int p3, JellowIcon prevIcon) {
+    private void saveEditedIcon(String name, Bitmap bitmapArray, int p1, int p2,int p3, JellowIcon prevIcon,JellowVerbiageModel verbiage) {
         int id  = (int)Calendar.getInstance().getTime().getTime();
         JellowIcon icon = new JellowIcon(name,id+"",-1,-1,id);
         storeImageToStorage(bitmapArray,id+"");
@@ -445,8 +304,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         prepareIconPane(selectedPosition,EDIT_ICON_MODE);
         modelManager.setModel(boardModel);
         currentBoard.setBoardIconModel(modelManager.getModel());
-        JellowVerbiageModel verbiageModel = verbiageDatbase.getVerbiageById(Nomenclature.getIconName(prevIcon,this));
-        verbiageDatbase.addNewVerbiage(Nomenclature.getIconName(icon,this),getNewVerbiage(verbiageModel,name,prevIcon.IconTitle));
+        verbiageDatbase.addNewVerbiage(Nomenclature.getIconName(icon,this),getNewVerbiage(verbiage,name,prevIcon.IconTitle));
 
     }
 
@@ -527,138 +385,62 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         }
     }
 
-    boolean isVisible=false;
-    @SuppressLint("ResourceType")
     private void initBoardEditAddDialog(final int mode,String editTextHint) {
-
-        @SuppressLint("InflateParams") View dialogContainerView = LayoutInflater.from(this).inflate(R.layout.edit_board_dialog, null);
-        final Dialog dialogForBoardEditAdd = new Dialog(this,R.style.MyDialogBox);
-        dialogForBoardEditAdd.applyStyle(R.style.MyDialogBox);
-        dialogForBoardEditAdd.backgroundColor(getResources().getColor(R.color.transparent));
-        dialogForBoardEditAdd.setCancelable(false);
-
-        //List on the dialog.
-        final ListView listView=dialogContainerView.findViewById(R.id.camera_list);
-        final EditText boardTitleEditText=dialogContainerView.findViewById(R.id.board_name);
-        boardTitleEditText.setHint(editTextHint);
-        TextView saveBoard=dialogContainerView.findViewById(R.id.save_baord);
-        TextView cancelSaveBoard=dialogContainerView.findViewById(R.id.cancel_save_baord);
-        ImageView editBoardIconButton=dialogContainerView.findViewById(R.id.edit_board);
-        final ImageView IconImage=dialogContainerView.findViewById(R.id.board_icon);
-        IconImage.setBackground(getResources().getDrawable(R.drawable.icon_back_grey));
-        listView.setVisibility(View.GONE);
-        //The list that will be shown with camera options
-        final ArrayList<ListItem> list=new ArrayList<>();
-        @SuppressLint("Recycle") TypedArray mArray=getResources().obtainTypedArray(R.array.add_photo_option);
-        list.add(new ListItem("Photos",mArray.getDrawable(0)));
-        list.add(new ListItem("Library ",mArray.getDrawable(2)));
-        SimpleListAdapter adapter=new SimpleListAdapter(this,list);
-        listView.setAdapter(adapter);
-        setOnPhotoSelectListener(new MyBoards.PhotoIntentResult() {
+        new VerbiageEditor(this, new VerbiageEditorInterface() {
             @Override
-            public void onPhotoIntentResult(Bitmap bitmap, int code,String fileName) {
-
-                if(code!=LIBRARY_REQUEST)
-                {
-                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 50, stream);
-                    Glide.with(AddEditIconAndCategory.this)
-                            .asBitmap()
-                            .load(stream.toByteArray())
-                            .apply(RequestOptions.
-                                    circleCropTransform()).into(IconImage);
-                }
-                else //When request code is  Library
-                {
-                    SessionManager mSession = new SessionManager(AddEditIconAndCategory.this);
-                    File en_dir = AddEditIconAndCategory.this.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
-                    String path = en_dir.getAbsolutePath() + "/drawables";
-                    GlideApp.with(AddEditIconAndCategory.this)
-                            .load(path+"/"+fileName+".png").
-                            apply(RequestOptions.
-                            circleCropTransform().error(R.drawable.ic_board_person))
-                            .diskCacheStrategy(DiskCacheStrategy.NONE)
-                            .skipMemoryCache(false)
-                            .centerCrop()
-                            .dontAnimate()
-                            .into(IconImage);
-                }
-
+            public void onSaveButtonClick(String name, Bitmap bitmap, JellowVerbiageModel verbiageList) {
+                if (mode == ADD_CATEGORY)
+                    addNewCategory(name, bitmap,verbiageList);
+                else if (mode == ADD_ICON)
+                    addNewIcon(name, bitmap, selectedPosition,verbiageList);
             }
-        });
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                listView.setVisibility(View.GONE);
-                if(position==0)
-                {
-                    if(checkPermissionForCamera()&&checkPermissionForStorageRead()) {
-                        CropImage.activity()
-                                .setAspectRatio(1,1)
-                                .setGuidelines(CropImageView.Guidelines.ON)
-                                .setFixAspectRatio(true)
-                                .start(AddEditIconAndCategory.this);
-                    }
-                    else
-                    {
-                        final String [] permissions=new String []{ Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE};
-                        ActivityCompat.requestPermissions(AddEditIconAndCategory.this, permissions, CAMERA_REQUEST);
-                    }
-
-                }
-                else if(position==1)
-                {
-                    Intent intent = new Intent(AddEditIconAndCategory.this,BoardSearch.class);
-                    intent.putExtra(BoardSearch.SEARCH_MODE,BoardSearch.ICON_SEARCH);
-                    startActivityForResult(intent,LIBRARY_REQUEST);
-                }
+            public void onPhotoModeSelect(int position) {
+                firePhotoIntent(position);
             }
-        });
 
-
-        saveBoard.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                String name=boardTitleEditText.getText().toString();
-                if(name.equals("")) Toast.makeText(getApplicationContext(),"Please enter name", Toast.LENGTH_SHORT).show();
-                else {
-                    Bitmap icon = ((BitmapDrawable) IconImage.getDrawable()).getBitmap();
-                    if (mode == ADD_CATEGORY)
-                        addNewCategory(name, icon);
-                    else if (mode == ADD_ICON)
-                        addNewIcon(name, icon, selectedPosition);
-                    dialogForBoardEditAdd.dismiss();
-                }
+            public void initPhotoResultListener(VerbiageEditorReverseInterface verbiageEditorReverseInterface) {
+                        revListener = verbiageEditorReverseInterface;
             }
-        });
-        cancelSaveBoard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { dialogForBoardEditAdd.dismiss();
-            }
-        });
-        editBoardIconButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isVisible)
-                    listView.setVisibility(View.GONE);
-                else
-                    listView.setVisibility(View.VISIBLE);
-                isVisible=!isVisible;
-            }
-        });
-        dialogForBoardEditAdd.setContentView(dialogContainerView);
-        dialogForBoardEditAdd.show();
-
+        },null)
+                .initAddEditDialog(editTextHint);
     }
 
-    private void addNewCategory(String name, Bitmap bitmap) {
+    private void firePhotoIntent(int position) {
+        if(position==0)
+        {
+            if(checkPermissionForCamera()&&checkPermissionForStorageRead()) {
+                CropImage.activity()
+                        .setAspectRatio(1,1)
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .setFixAspectRatio(true)
+                        .start(AddEditIconAndCategory.this);
+            }
+            else
+            {
+                final String [] permissions=new String []{ Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE};
+                ActivityCompat.requestPermissions(AddEditIconAndCategory.this, permissions, CAMERA_REQUEST);
+            }
+
+        }
+        else if(position==1)
+        {
+            Intent intent = new Intent(AddEditIconAndCategory.this,BoardSearch.class);
+            intent.putExtra(BoardSearch.SEARCH_MODE,BoardSearch.ICON_SEARCH);
+            startActivityForResult(intent,LIBRARY_REQUEST);
+        }
+    }
+
+    private void addNewCategory(String name, Bitmap bitmap,JellowVerbiageModel verbiage) {
         int id  = (int)Calendar.getInstance().getTime().getTime();
         JellowIcon icon = new JellowIcon(name,""+id,-1,-1,id);
         storeImageToStorage(bitmap,id+"");
         boardModel.addChild(icon);
         categoryManager = new CategoryManager(boardModel);
         categories = categoryManager.getAllCategories();
-        verbiageDatbase.addNewVerbiage( Nomenclature.getIconName(icon,this),new JellowVerbiageModel(name));
+        verbiageDatbase.addNewVerbiage( Nomenclature.getIconName(icon,this),verbiage);
         modelManager.setModel(boardModel);
         currentBoard.setBoardIconModel(modelManager.getModel());
         targetLevelSelectPane();
@@ -671,7 +453,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
      * @param bitmap bitmap array holding the image
      * @param selectedPosition postion on which new icon is to be added.
      */
-    private void addNewIcon(String name, Bitmap bitmap, int selectedPosition) {
+    private void addNewIcon(String name, Bitmap bitmap, int selectedPosition,JellowVerbiageModel verbiage) {
         int id  = (int)Calendar.getInstance().getTime().getTime();
         JellowIcon icon = new JellowIcon(name,id+"",-1,-1,id);
         storeImageToStorage(bitmap,id+"");
@@ -681,17 +463,16 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         prepareIconPane(selectedPosition,ADD_EDIT_ICON_MODE);
         modelManager.setModel(boardModel);
         currentBoard.setBoardIconModel(modelManager.getModel());
-        verbiageDatbase.addNewVerbiage(Nomenclature.getIconName(icon,this),new JellowVerbiageModel(name));
+        verbiageDatbase.addNewVerbiage(Nomenclature.getIconName(icon,this),verbiage);
     }
 
     /**
      * To store the bitmap Image into local storage
      * @param bitmap image to be stored
      * @param fileID id of the targetImage
-     * @return path of the stored Image
      */
-    public String storeImageToStorage(Bitmap bitmap, String fileID) {
-        FileOutputStream fos = null;
+    public void storeImageToStorage(Bitmap bitmap, String fileID) {
+        FileOutputStream fos;
         File en_dir = this.getDir(new SessionManager(this).getLanguage(), Context.MODE_PRIVATE);
         String path = en_dir.getAbsolutePath() + "/boardicon";
         String status = Environment.getExternalStorageState();
@@ -700,14 +481,12 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
             if (!root.exists()) {
                 root.mkdirs();
             }
-            Toast.makeText(this,""+root.getAbsolutePath(),Toast.LENGTH_LONG).show();
-            File file = new File(root, fileID+ ".png");
+            File file = new File(root, fileID + ".png");
 
             try {
-                if(file.exists())
-                {
+                if (file.exists()) {
                     file.delete();//Delete the previous image if image is a replace
-                    file = new File(root,fileID+".png");
+                    file = new File(root, fileID + ".png");
                 }
                 fos = new FileOutputStream(file);
                 if (fos != null) {
@@ -717,35 +496,15 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-            Uri muri = Uri.fromFile(file);
-            return muri.getPath();
         }
-        return null;
-    }
-
-    private void setOnPhotoSelectListener(MyBoards.PhotoIntentResult mPhotoIntentResult) {
-        this.mPhotoIntentResult=mPhotoIntentResult;
     }
 
     private boolean checkPermissionForStorageRead() {
-        boolean okay=true;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                okay = false;
-            }
-        }
-
-        return okay;
+        return Build.VERSION.SDK_INT < Build.VERSION_CODES.M || checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
 
     public boolean checkPermissionForCamera() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                return false;
-            }
-        }
-        return true;
+        return Build.VERSION.SDK_INT < Build.VERSION_CODES.M || checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
     }
 
     @Override
@@ -774,7 +533,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
             if (requestCode == LIBRARY_REQUEST) {
                 String fileName = data.getStringExtra("result");
                 if(fileName!=null)
-                    mPhotoIntentResult.onPhotoIntentResult(null, requestCode, fileName);
+                    revListener.onPhotoResult(null,requestCode,fileName);//mPhotoIntentResult.onPhotoIntentResult(null, requestCode, fileName);
             }
         }
 
@@ -784,11 +543,11 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
                 Uri resultUri = result.getUri();
                 Bitmap bitmap1 = result.getBitmap();
                 if(bitmap1!=null)
-                mPhotoIntentResult.onPhotoIntentResult(result.getBitmap(), requestCode,null);
+                    revListener.onPhotoResult(result.getBitmap(),requestCode,null);//mPhotoIntentResult.onPhotoIntentResult(result.getBitmap(), requestCode,null);
                 else {
                     try {
                         bitmap1 = MediaStore.Images.Media.getBitmap(getContentResolver(), resultUri);
-                        mPhotoIntentResult.onPhotoIntentResult(bitmap1,requestCode,null);
+                        revListener.onPhotoResult(bitmap1,requestCode,null);// mPhotoIntentResult.onPhotoIntentResult(bitmap1,requestCode,null);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
