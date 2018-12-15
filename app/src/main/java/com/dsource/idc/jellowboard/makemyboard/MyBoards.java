@@ -1,14 +1,11 @@
 package com.dsource.idc.jellowboard.makemyboard;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.TypedArray;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,25 +17,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.bumptech.glide.request.RequestOptions;
 import com.dsource.idc.jellowboard.AboutJellowActivity;
 import com.dsource.idc.jellowboard.DataBaseHelper;
 import com.dsource.idc.jellowboard.FeedbackActivity;
-import com.dsource.idc.jellowboard.GlideApp;
 import com.dsource.idc.jellowboard.KeyboardInputActivity;
 import com.dsource.idc.jellowboard.LanguageSelectActivity;
 import com.dsource.idc.jellowboard.MainActivity;
@@ -47,17 +32,18 @@ import com.dsource.idc.jellowboard.R;
 import com.dsource.idc.jellowboard.ResetPreferencesActivity;
 import com.dsource.idc.jellowboard.SettingActivity;
 import com.dsource.idc.jellowboard.TutorialActivity;
-import com.dsource.idc.jellowboard.makemyboard.models.ListItem;
+import com.dsource.idc.jellowboard.makemyboard.interfaces.VerbiageEditorInterface;
+import com.dsource.idc.jellowboard.makemyboard.interfaces.VerbiageEditorReverseInterface;
 import com.dsource.idc.jellowboard.makemyboard.utility.BoardDatabase;
 import com.dsource.idc.jellowboard.makemyboard.utility.CustomDialog;
 import com.dsource.idc.jellowboard.makemyboard.adapters.BoardAdapter;
 import com.dsource.idc.jellowboard.makemyboard.models.Board;
+import com.dsource.idc.jellowboard.makemyboard.utility.VerbiageEditor;
 import com.dsource.idc.jellowboard.utility.SessionManager;
-import com.rey.material.app.Dialog;
+import com.dsource.idc.jellowboard.verbiage_model.JellowVerbiageModel;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -79,11 +65,12 @@ public class MyBoards extends AppCompatActivity {
     private final int NEW_BOARD=11;
     private final int EDIT_BOARD=22;
     HashMap<String,Board> boardHashMap;
-    PhotoIntentResult mPhotoIntentResult;
     SQLiteDatabase db;
     public static final String BOARD_ID="Board_Id";
     Context ctx;
     BoardDatabase database;
+    private VerbiageEditorReverseInterface revPhotoInterface;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -130,8 +117,6 @@ public class MyBoards extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         mRecyclerView.setAdapter(adapter);
     }
-
-    boolean isVisible=false;
 
     boolean iconImageSelected =false;
 
@@ -247,9 +232,54 @@ public class MyBoards extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    @SuppressLint("ResourceType")
+
     private void initBoardEditAddDialog(final int code, final int pos) {
-        final LayoutInflater dialogLayout = LayoutInflater.from(this);
+        VerbiageEditor boardEditDialog = new VerbiageEditor(this, VerbiageEditor.ADD_BOARD_MODE, new VerbiageEditorInterface() {
+            @Override
+            public void onSaveButtonClick(String name, Bitmap bitmap, JellowVerbiageModel verbiageList) {
+                currentMode = NORMAL_MODE;
+                invalidateOptionsMenu();
+                if(code==NEW_BOARD)
+                {
+                    String BoardId=Calendar.getInstance().getTime().getTime()+"";
+                    saveNewBoard(name,bitmap,BoardId);
+                    Intent intent=new Intent(ctx,IconSelectActivity.class);
+                    intent.putExtra(BOARD_ID,BoardId);
+                    startActivity(intent);
+                    finish();
+                }
+                else if(code==EDIT_BOARD) {
+                    updateBoardDetails(name, bitmap, pos);
+                    Intent intent = new Intent(MyBoards.this,IconSelectActivity.class);
+                    intent.putExtra(BOARD_ID,boardList.get(pos).boardID);
+                    intent.putExtra(IS_EDIT_MODE,"YES");
+                    startActivity(intent);
+                    finish();
+                }
+            }
+
+            @Override
+            public void onPhotoModeSelect(int position) {
+                firePhotoIntent(position);
+            }
+
+            @Override
+            public void initPhotoResultListener(VerbiageEditorReverseInterface verbiageEditorReverseInterface) {
+                MyBoards.this.revPhotoInterface = verbiageEditorReverseInterface;
+            }
+        });
+
+        boardEditDialog.initAddEditDialog(null);
+
+        if(code==EDIT_BOARD)
+        {
+            boardEditDialog.setBoardImage(boardList.get(pos).getBoardID());
+            boardEditDialog.setSaveButtonText("Next");
+        }
+
+        boardEditDialog.show();
+
+       /* final LayoutInflater dialogLayout = LayoutInflater.from(this);
 
         @SuppressLint("InflateParams") View dialogContainerView = dialogLayout.inflate(R.layout.edit_board_dialog, null);
         final Dialog dialogForBoardEditAdd = new Dialog(this,R.style.MyDialogBox);
@@ -402,30 +432,41 @@ public class MyBoards extends AppCompatActivity {
             }
         });
         dialogForBoardEditAdd.setContentView(dialogContainerView);
-        dialogForBoardEditAdd.show();
+        dialogForBoardEditAdd.show();*/
 
+    }
+
+    private void firePhotoIntent(int position) {
+        if(position==0)
+        {
+            if(checkPermissionForCamera()&&checkPermissionForStorageRead()) {
+                CropImage.activity()
+                        .setAspectRatio(1,1)
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .setFixAspectRatio(true)
+                        .start(MyBoards.this);
+            }
+            else
+            {
+                final String [] permissions=new String []{ Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE};
+                ActivityCompat.requestPermissions(MyBoards.this, permissions, CAMERA_REQUEST);
+            }
+
+        }
+        else if(position==1)
+        {
+            Intent intent = new Intent(MyBoards.this,BoardSearch.class);
+            intent.putExtra(BoardSearch.SEARCH_MODE,BoardSearch.ICON_SEARCH);
+            startActivityForResult(intent,LIBRARY_REQUEST);
+        }
     }
 
     private boolean checkPermissionForStorageRead() {
-        boolean okay=true;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                okay = false;
-            }
-        }
-
-        return okay;
+        return Build.VERSION.SDK_INT < Build.VERSION_CODES.M || checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
 
     private boolean checkPermissionForCamera() {
-        boolean okay=true;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                okay = false;
-            }
-        }
-
-        return okay;
+        return Build.VERSION.SDK_INT < Build.VERSION_CODES.M || checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
     }
 
     private void updateBoardDetails(String name, Bitmap boardIcon, int pos) {
@@ -581,16 +622,6 @@ public class MyBoards extends AppCompatActivity {
         invalidateOptionsMenu();
     }
 
-    private void setOnPhotoSelectListener(PhotoIntentResult mPhotoIntentResult)
-    {
-        this.mPhotoIntentResult=mPhotoIntentResult;
-    }
-    public interface PhotoIntentResult
-    {
-        void onPhotoIntentResult(Bitmap bitmap,int code,String fileName);
-
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -620,19 +651,27 @@ public class MyBoards extends AppCompatActivity {
              */
            if (requestCode == LIBRARY_REQUEST) {
                String fileName = data.getStringExtra("result");
-               if(fileName!=null)
-                   mPhotoIntentResult.onPhotoIntentResult(null, requestCode, fileName);
+               if(fileName!=null) {
+                   revPhotoInterface.onPhotoResult(null, requestCode, fileName);
+                   iconImageSelected =true;
+               }
 
            } else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
                 CropImage.ActivityResult result = CropImage.getActivityResult(data);
                     Uri resultUri = result.getUri();
                     Bitmap bitmap1 = result.getBitmap();
                     if (bitmap1 != null)
-                        mPhotoIntentResult.onPhotoIntentResult(result.getBitmap(), requestCode, null);
+                    {
+                        revPhotoInterface.onPhotoResult(result.getBitmap(), requestCode, null);
+                        iconImageSelected =true;
+                    }
                     else {
                         try {
                             bitmap1 = MediaStore.Images.Media.getBitmap(getContentResolver(), resultUri);
-                            mPhotoIntentResult.onPhotoIntentResult(bitmap1, requestCode, null);
+                            {
+                                revPhotoInterface.onPhotoResult(bitmap1, requestCode, null);
+                                iconImageSelected =true;
+                            }
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

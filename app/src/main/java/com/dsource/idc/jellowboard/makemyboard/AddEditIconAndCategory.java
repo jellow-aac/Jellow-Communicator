@@ -40,6 +40,7 @@ import com.dsource.idc.jellowboard.makemyboard.utility.VerbiageEditor;
 import com.dsource.idc.jellowboard.utility.JellowIcon;
 import com.dsource.idc.jellowboard.utility.SessionManager;
 import com.dsource.idc.jellowboard.verbiage_model.JellowVerbiageModel;
+import com.dsource.idc.jellowboard.verbiage_model.Verbiage;
 import com.dsource.idc.jellowboard.verbiage_model.VerbiageDatabaseHelper;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -261,7 +262,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
     }
 
     private void initEditModeDialog(final int parent1, final int parent2, final int parent3, final JellowIcon thisIcon) {
-        new VerbiageEditor(this, new VerbiageEditorInterface() {
+       VerbiageEditor dialog =  new VerbiageEditor(this,VerbiageEditor.ADD_EDIT_ICON_MODE,new VerbiageEditorInterface() {
 
             @Override
             public void onSaveButtonClick(String name, Bitmap bitmap, JellowVerbiageModel verbiage) {
@@ -277,7 +278,11 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
             public void initPhotoResultListener(VerbiageEditorReverseInterface verbiageEditorReverseInterface) {
                     revListener = verbiageEditorReverseInterface;
             }
-        },thisIcon).initAddEditDialog(thisIcon.IconTitle);
+        });
+
+       dialog.initAddEditDialog(thisIcon.IconTitle);
+        dialog.setAlreadyPresentIcon(thisIcon);
+       dialog.show();
     }
 
     /**
@@ -386,7 +391,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
     }
 
     private void initBoardEditAddDialog(final int mode,String editTextHint) {
-        new VerbiageEditor(this, new VerbiageEditorInterface() {
+        VerbiageEditor dialog = new VerbiageEditor(this, VerbiageEditor.ADD_EDIT_ICON_MODE, new VerbiageEditorInterface() {
             @Override
             public void onSaveButtonClick(String name, Bitmap bitmap, JellowVerbiageModel verbiageList) {
                 if (mode == ADD_CATEGORY)
@@ -404,8 +409,9 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
             public void initPhotoResultListener(VerbiageEditorReverseInterface verbiageEditorReverseInterface) {
                         revListener = verbiageEditorReverseInterface;
             }
-        },null)
-                .initAddEditDialog(editTextHint);
+        });
+        dialog.initAddEditDialog(editTextHint);
+        dialog.show();
     }
 
     private void firePhotoIntent(int position) {
