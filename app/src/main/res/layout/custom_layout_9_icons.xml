@@ -16,12 +16,11 @@
         android:id="@+id/icon_remove_button"
         android:layout_width="@dimen/my_board_edit_icon_size"
         android:layout_height="@dimen/my_board_edit_icon_size"
-        android:background="@drawable/circular_background_red"
         android:padding="4dp"
         android:layout_toRightOf="@id/icon_container"
         android:layout_marginLeft="42dp"
         android:visibility="gone"
-        android:src="@drawable/ic_cross_icon" />
+        android:src="@drawable/ic_delete_icon_red_back"/>
     <FrameLayout
         android:layout_width="wrap_content"
         android:id="@+id/icon_container"
@@ -32,7 +31,7 @@
             android:id="@+id/icon_image_view"
             android:layout_width="@dimen/nine_icon_size"
             android:layout_height="@dimen/nine_icon_size"
-            android:src="@drawable/ic_person"
+            android:src="@drawable/ic_board_person"
             android:layout_gravity="center_horizontal"
             android:background="@android:color/transparent"
             android:scaleType="centerInside" />

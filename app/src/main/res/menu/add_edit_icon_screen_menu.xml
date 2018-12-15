@@ -7,7 +7,7 @@
         <item
             android:id="@+id/add_edit_icons"
             android:title="@string/add_edit_icons"
-            android:icon="@drawable/ic_edit_option"
+            android:icon="@drawable/ic_edit_icon"
             app:showAsAction="ifRoom"
             android:checked="true"
             android:orderInCategory="1"
