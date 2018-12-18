@@ -19,7 +19,10 @@
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:scrollbarFadeDuration="0"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -53,7 +56,6 @@
                         android:id="@+id/img1_intro8"
                         android:layout_width="244dp"
                         android:layout_height="240dp"
-                        android:src="@drawable/tts_wifi_1"
                         android:contentDescription="@string/lang_setting_option1_cd" />
                 </LinearLayout>
                 <LinearLayout
@@ -75,7 +77,6 @@
                         android:id="@+id/img2_intro8"
                         android:layout_width="244dp"
                         android:layout_height="230dp"
-                        android:src="@drawable/tts_wifi_2"
                         android:contentDescription="@string/lang_setting_option2_cd" />
                 </LinearLayout>
                 <LinearLayout
@@ -95,7 +96,6 @@
                         android:id="@+id/img3_intro8"
                         android:layout_width="244dp"
                         android:layout_height="230dp"
-                        android:src="@drawable/tts_wifi_3"
                         android:contentDescription="@string/lang_setting_option3_cd"/>
                     <View
                         android:layout_width="1dp"

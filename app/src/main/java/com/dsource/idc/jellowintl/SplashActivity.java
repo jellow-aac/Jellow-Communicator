@@ -40,6 +40,11 @@ import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.setCrashlyticsCustomKey;
 import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
+import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_AU;
+import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_UK;
+import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_US;
+import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
 
 /**
  * Created by ekalpa on 7/12/2016.
@@ -86,33 +91,7 @@ public class SplashActivity extends AppCompatActivity {
         registerReceiver(receiver, filter);
         iconDatabase=new CreateDataBase(this);
         iconDatabase.execute();
-        setUserParameters();
      }
-
-    private void setUserParameters() {
-        SessionManager session = new SessionManager(this);
-        final int GRID_3BY3 = 1, PICTURE_TEXT = 0;
-        if(session.isGridSizeKeyExist()) {
-            if(session.getGridSize() == GRID_3BY3){
-                setUserProperty("GridSize", "9");
-                setCrashlyticsCustomKey("GridSize", "9");
-            }else{
-                setUserProperty("GridSize", "3");
-                setCrashlyticsCustomKey("GridSize", "3");
-            }
-        }else{
-            setUserProperty("GridSize", "9");
-            setCrashlyticsCustomKey("GridSize", "9");
-        }
-
-        if(session.getPictureViewMode() == PICTURE_TEXT) {
-            setUserProperty("PictureViewMode", "PictureText");
-            setCrashlyticsCustomKey("PictureViewMode", "PictureText");
-        }else{
-            setUserProperty("PictureViewMode", "PictureOnly");
-            setCrashlyticsCustomKey("PictureViewMode", "PictureOnly");
-        }
-    }
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -123,8 +102,9 @@ public class SplashActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if(!isAnalyticsActive()) {
-            resetAnalytics(this, new SessionManager(this).getCaregiverNumber().substring(1));
+            resetAnalytics(this, mSession.getCaregiverNumber().substring(1));
         }
+        setUserParameters();
     }
 
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -142,9 +122,33 @@ public class SplashActivity extends AppCompatActivity {
         }
     };
 
+    private void setUserParameters() {
+        final int GRID_3BY3 = 1, PICTURE_TEXT = 0;
+        if(mSession.isGridSizeKeyExist()) {
+            if(mSession.getGridSize() == GRID_3BY3){
+                setUserProperty("GridSize", "9");
+                setCrashlyticsCustomKey("GridSize", "9");
+            }else{
+                setUserProperty("GridSize", "3");
+                setCrashlyticsCustomKey("GridSize", "3");
+            }
+        }else{
+            setUserProperty("GridSize", "9");
+            setCrashlyticsCustomKey("GridSize", "9");
+        }
+
+        if(mSession.getPictureViewMode() == PICTURE_TEXT) {
+            setUserProperty("PictureViewMode", "PictureText");
+            setCrashlyticsCustomKey("PictureViewMode", "PictureText");
+        }else{
+            setUserProperty("PictureViewMode", "PictureOnly");
+            setCrashlyticsCustomKey("PictureViewMode", "PictureOnly");
+        }
+    }
+
     private void checkIfDatabaseCreated()
     {
-        if(!(new SessionManager(this).isLanguageChanged()==2))
+        if(!(mSession.isLanguageChanged()==2))
             startApp();//if changes are their in the app then check whether the data base is created or not
         else
             startJellow();//If no change in language then simply start the app.
@@ -246,16 +250,16 @@ public class SplashActivity extends AppCompatActivity {
 
     private String[] getOfflineLanguages(){
         List<String> lang = new ArrayList<>();
-        if(mSession.isDownloaded(SessionManager.ENG_IN))
-            lang.add(SessionManager.ENG_IN);
-        if(mSession.isDownloaded(SessionManager.ENG_US))
-            lang.add(SessionManager.ENG_US);
-        if(mSession.isDownloaded(SessionManager.ENG_AU))
-            lang.add(SessionManager.ENG_AU);
-        if(mSession.isDownloaded(SessionManager.ENG_UK))
-            lang.add(SessionManager.ENG_UK);
-        if(mSession.isDownloaded(SessionManager.HI_IN))
-            lang.add(SessionManager.HI_IN);
+        if(mSession.isDownloaded(ENG_IN))
+            lang.add(ENG_IN);
+        if(mSession.isDownloaded(ENG_US))
+            lang.add(ENG_US);
+        if(mSession.isDownloaded(ENG_AU))
+            lang.add(ENG_AU);
+        if(mSession.isDownloaded(ENG_UK))
+            lang.add(ENG_UK);
+        if(mSession.isDownloaded(HI_IN))
+            lang.add(HI_IN);
         return lang.toArray(new String[lang.size()]);
     }
 }

@@ -410,6 +410,7 @@ public class ProfileFormActivity extends AppCompatActivity {
         mRef.child("bloodGroup").setValue(encrypt(bloodGroup, secureKey));
         mRef.child("userGroup").setValue(encrypt(userGroup, secureKey));
         mRef.child("updatedOn").setValue(ServerValue.TIMESTAMP);
+        mRef.child("versionCode").setValue(BuildConfig.VERSION_CODE);
         savedProfileDetails(userGroup);
     }
 
@@ -468,7 +469,7 @@ public class ProfileFormActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
-            }
+                }
         });
     }
 

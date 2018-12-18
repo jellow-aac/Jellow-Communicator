@@ -320,10 +320,7 @@
     <string name="intro6_3_cd">তৃতীয় ছবিটি এই পদ্ধতির তৃতীয় ফহাও যেখানে ব্যবহারকারী রয়েছে " Google TTS voice data " স্ক্রিনে। তিন ধরনের সেটিংস স্ক্রিনে চোখে পড়ে, যথা - নামকরণ, google text-to-speech engine এবং install voice data. ব্যবহারকারীকে দেখা গেল ভাষার প্রথম অপশনটিকে নির্বাচন করে  TTS engine-এর মূল ভাষা হিন্দিকে প্রয়োগ করতে।</string>
     <string name="talkback_lang_diag_disable">আর কখনও দেখাবে না</string>
     <string name="talkback_single_click">আলতো চাপুন</string>
-    <string name="talkback_single_click_cat_last_level">আলতো চাপুন</string>
-    <string name="talkback_recycler_view">বিভাগ এবং আরও বিকল্প নির্বাচন করুন</string>
     <string name="talkback_dropdown_menu">দেশের তালিকা ব্যবহার করতে</string>
-    <string name="talkback_double_click">ক্যাটাগরি নির্বাচন করতে। আরও অপশনের জন্য দীর্ঘক্ষণ ধরে রাখুন।</string>
     <string name="close_dialog">বন্ধ ডায়ালগ</string>
     <string name="next">পরবর্তী</string>
     <string name="previous">আগে</string>

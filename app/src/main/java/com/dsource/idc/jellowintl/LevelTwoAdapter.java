@@ -2,23 +2,28 @@ package com.dsource.idc.jellowintl;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.dsource.idc.jellowintl.TalkBack.TalkBackHints_CategoryIconLastLevel;
-import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_CategoryIcon;
+import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.io.File;
+
+import static android.content.Context.ACCESSIBILITY_SERVICE;
+import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
 
 /**
  * Created by Sumeet on 19-04-2016.
@@ -53,14 +58,10 @@ class LevelTwoAdapter extends android.support.v7.widget.RecyclerView.Adapter<Lev
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        final int MODE_PICTURE_ONLY = 1, CATEGORY_HELP = 8;
-        if(mLevel1ItemPos != CATEGORY_HELP) {
-            ViewCompat.setAccessibilityDelegate(holder.menuItemLinearLayout,
-                    new TalkbackHints_CategoryIcon());
-        }else{
-            ViewCompat.setAccessibilityDelegate(holder.menuItemLinearLayout,
-                    new TalkBackHints_CategoryIconLastLevel());
-        }
+        final int MODE_PICTURE_ONLY = 1;
+        ViewCompat.setAccessibilityDelegate(holder.menuItemLinearLayout,
+                    new TalkbackHints_SingleClick());
+
         if (mSession.getPictureViewMode() == MODE_PICTURE_ONLY)
             holder.menuItemBelowText.setVisibility(View.INVISIBLE);
         holder.menuItemBelowText.setText(mBelowTextArray[position]);
@@ -119,6 +120,10 @@ class LevelTwoAdapter extends android.support.v7.widget.RecyclerView.Adapter<Lev
             menuItemLinearLayout = view.findViewById(R.id.linearlayout_icon1);
             menuItemBelowText = view.findViewById(R.id.te1);
             menuItemBelowText.setTextColor(Color.rgb(64, 64, 64));
+            if(isAccessibilityTalkBackOn((AccessibilityManager) mContext.getSystemService(ACCESSIBILITY_SERVICE))) {
+                Typeface tf = ResourcesCompat.getFont(mContext, R.font.mukta_semibold);
+                menuItemBelowText.setTypeface(tf);
+            }
             GradientDrawable gd = (GradientDrawable) view.findViewById(R.id.borderView).getBackground();
             gd.setColor(ContextCompat.getColor(mContext, android.R.color.transparent));
         }

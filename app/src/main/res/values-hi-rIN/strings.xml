@@ -301,10 +301,7 @@
     <string name="intro6_3_cd">तीसरा चित्र इस प्रक्रिया में तीसरा चरण हैं, जहाँ अब प्रयोगकर्ता "गूगल टेक्स्ट-टू-स्पीच वॉइस डेटा" स्क्रीन पर हैं। इस स्क्रीन पर 3 सेटिंग्स हैं जो हैं: भाषा, गूगल टेक्स्ट-टू-स्पीच इंजन के लिए सेटिंग्स, और इंस्टॉल वॉइस डेटा। प्रयोगकर्ता ने भाषा में से पहला विकल्प चुना हैं और गूगल टेक्स्ट-टू-स्पीच इंजन के डिफ़ॉल्ट भाषा को हिंदी (इंडिया) में सेट किया हैं।</string>
     <string name="talkback_lang_diag_disable">फिर से कभी न दिखाएँ</string>
     <string name="talkback_single_click">चुनने</string>
-    <string name="talkback_single_click_cat_last_level">बटन चुनने के लिए और अधिक ऑप्शन</string>
-    <string name="talkback_recycler_view">श्रेणी चुनने के लिए और अधिक ऑप्शन</string>
     <string name="talkback_dropdown_menu">देशों की सूची देखने के लिए टैप करें</string>
-    <string name="talkback_double_click">क्लिक करने के लिए एक बार छुएँ। सक्रीय करने</string>
     <string name="close_dialog">dialog बंद करे</string>
     <string name="next">आगे</string>
     <string name="previous">पिछे</string>

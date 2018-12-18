@@ -8,11 +8,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -33,8 +35,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.crashlytics.android.Crashlytics;
-import com.dsource.idc.jellowintl.TalkBack.TalkBackHints_CategoryIconLastLevel;
-import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_DoubleClick;
 import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
 import com.dsource.idc.jellowintl.models.SeqActivityVerbiageModel;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
@@ -300,6 +300,13 @@ public class SequenceActivity extends AppCompatActivity {
         mTvCategory1Caption = findViewById(R.id.bt1);
         mTvCategory2Caption = findViewById(R.id.bt2);
         mTvCategory3Caption = findViewById(R.id.bt3);
+
+        if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+            Typeface tf = ResourcesCompat.getFont(this, R.font.mukta_semibold);
+            mTvCategory1Caption.setTypeface(tf);
+            mTvCategory2Caption.setTypeface(tf);
+            mTvCategory3Caption.setTypeface(tf);
+        }
         mIvCategoryIcon1 = findViewById(R.id.image1);
         mIvCategoryIcon2 = findViewById(R.id.image2);
         mIvCategoryIcon3 = findViewById(R.id.image3);
@@ -310,20 +317,20 @@ public class SequenceActivity extends AppCompatActivity {
         mIvCategoryIcon2.setContentDescription(mCategoryIconBelowText[count + 1]);
         mIvCategoryIcon3.setContentDescription(mCategoryIconBelowText[count + 2]);
 
-        ViewCompat.setAccessibilityDelegate(mIvLike, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvYes, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvMore, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvDontLike, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvNo, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvLess, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvLike, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvYes, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvMore, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvDontLike, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvNo, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvLess, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(mIvKeyboard, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(mIvHome, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(mIvBack, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(mIvTTs, new TalkbackHints_SingleClick());
 
-        ViewCompat.setAccessibilityDelegate(mIvCategoryIcon1, new TalkBackHints_CategoryIconLastLevel());
-        ViewCompat.setAccessibilityDelegate(mIvCategoryIcon2, new TalkBackHints_CategoryIconLastLevel());
-        ViewCompat.setAccessibilityDelegate(mIvCategoryIcon3, new TalkBackHints_CategoryIconLastLevel());
+        ViewCompat.setAccessibilityDelegate(mIvCategoryIcon1, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvCategoryIcon2, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvCategoryIcon3, new TalkbackHints_SingleClick());
     }
 
     /**
@@ -1333,12 +1340,12 @@ public class SequenceActivity extends AppCompatActivity {
         ImageView ivBack = mView.findViewById(R.id.back);
         ImageView ivHome = mView.findViewById(R.id.home);
         ImageView ivKeyboard = mView.findViewById(R.id.keyboard);
-        ViewCompat.setAccessibilityDelegate(ivLike, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(ivYes, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(ivAdd, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(ivDisLike, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(ivNo, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(ivMinus, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(ivLike, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(ivYes, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(ivAdd, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(ivDisLike, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(ivNo, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(ivMinus, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(ivBack, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(ivHome, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(ivKeyboard, new TalkbackHints_SingleClick());
@@ -1430,6 +1437,7 @@ public class SequenceActivity extends AppCompatActivity {
                         mHeading[mLevelTwoItemPos].toLowerCase());
             }
         });
+
         enterCategory.setAccessibilityDelegate(new View.AccessibilityDelegate(){
             @Override
             public void onPopulateAccessibilityEvent(View host, AccessibilityEvent event) {
@@ -1437,12 +1445,9 @@ public class SequenceActivity extends AppCompatActivity {
                 if(event.getEventType() != AccessibilityEvent.TYPE_VIEW_ACCESSIBILITY_FOCUSED) {
                     mView.findViewById(R.id.txTitleHidden).
                             setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-                }else {
-                    closeDialog.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
                 }
             }
         });
-        closeDialog.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
         closeDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

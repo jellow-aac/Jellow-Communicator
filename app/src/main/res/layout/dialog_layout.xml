@@ -10,12 +10,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/transparent"
-        android:text="@string/access_dialog_title"
-        android:importantForAccessibility="yes"/>
+        android:text="@string/access_dialog_title"/>
     <Button
         android:id="@+id/btnClose"
         android:layout_width="28dp"
         android:layout_height="28dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:background="@android:drawable/ic_menu_close_clear_cancel"
         android:contentDescription="@string/close"/>
     <Button
@@ -111,7 +112,7 @@
                     android:layout_height="76dp"
                     android:layout_toRightOf="@+id/home"
                     android:layout_toEndOf="@+id/home"
-                    android:contentDescription="@string/keyboard"
+                    android:contentDescription="@string/keyboard_open"
                     android:src="@drawable/keyboard_no_padding"/>
                 <ImageView
                     android:id="@+id/back"

@@ -258,7 +258,7 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
                     //Firebase event to log the "SearchBar" event with
                     // "IconSpeak" parameter.
                     Bundle bundle = new Bundle();
-                    bundle.putString("IconSpeak",mDataSource.get(getAdapterPosition()).IconTitle);
+                    bundle.putString("IconSpeak",mDataSource.get(getAdapterPosition()).IconTitle.replace("…",""));
                     bundle.putString("IconOpened", "");
                     bundle.putString("IconNotFound", "");
                     bundleEvent("SearchBar", bundle);
@@ -282,7 +282,7 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
                 // "IconOpened" parameter.
                 Bundle bundle = new Bundle();
                 bundle.putString("IconSpeak", "");
-                bundle.putString("IconOpened", icon.IconTitle);
+                bundle.putString("IconOpened", icon.IconTitle.replace("…",""));
                 bundle.putString("IconNotFound", "");
                 bundleEvent("SearchBar", bundle);
                 target.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

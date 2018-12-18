@@ -32,7 +32,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_DoubleClick;
 import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
 import com.dsource.idc.jellowintl.models.LevelTwoVerbiageModel;
 import com.dsource.idc.jellowintl.utility.CustomGridLayoutManager;
@@ -63,7 +62,6 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
 
 public class LevelTwoActivity extends AppCompatActivity {
-    private final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 0;
     private final int REQ_HOME = 0;
     private final int CATEGORY_ICON_PEOPLE = 5;
     private final int CATEGORY_ICON_HELP = 8;
@@ -422,12 +420,12 @@ public class LevelTwoActivity extends AppCompatActivity {
         //Initially custom input text speak button is invisible
         mIvTts.setVisibility(View.INVISIBLE);
 
-        ViewCompat.setAccessibilityDelegate(mIvLike, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvYes, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvMore, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvDontLike, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvNo, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvLess, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvLike, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvYes, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvMore, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvDontLike, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvNo, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvLess, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(mIvKeyboard, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(mIvHome, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(mIvBack, new TalkbackHints_SingleClick());
@@ -684,6 +682,7 @@ public class LevelTwoActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     intent.putExtra(getString(R.string.goto_home), true);
                     startActivity(intent);
+                    setResult(RESULT_CANCELED);
                     finishAffinity();
                 }
             }
@@ -1860,12 +1859,12 @@ public class LevelTwoActivity extends AppCompatActivity {
         ImageView ivBack = mView.findViewById(R.id.back);
         ImageView ivHome = mView.findViewById(R.id.home);
         ImageView ivKeyboard = mView.findViewById(R.id.keyboard);
-        ViewCompat.setAccessibilityDelegate(ivLike, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(ivYes, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(ivAdd, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(ivDisLike, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(ivNo, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(ivMinus, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(ivLike, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(ivYes, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(ivAdd, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(ivDisLike, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(ivNo, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(ivMinus, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(ivBack, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(ivHome, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(ivKeyboard, new TalkbackHints_SingleClick());
@@ -2027,12 +2026,10 @@ public class LevelTwoActivity extends AppCompatActivity {
                 if(event.getEventType() != AccessibilityEvent.TYPE_VIEW_ACCESSIBILITY_FOCUSED) {
                     mView.findViewById(R.id.txTitleHidden).
                             setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-                }else {
-                    closeDialog.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
                 }
             }
         });
-        closeDialog.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+
         closeDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

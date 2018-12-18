@@ -388,10 +388,7 @@
     <string name="change_language">Language selected in Jellow is different from that of your device output language. Would you like to change your device language ?</string>
     <string name="talkback_lang_diag_disable">Never Show Again</string>
     <string name="talkback_single_click">select</string>
-    <string name="talkback_single_click_cat_last_level">select</string>
-    <string name="talkback_recycler_view">select category and for more options</string>
     <string name="talkback_dropdown_menu">access countries list</string>
-    <string name="talkback_double_click">single click. Tap again to double click</string>
     <string name="close_dialog">close dialog.</string>
     <string name="next">next</string>
     <string name="previous">previous</string>

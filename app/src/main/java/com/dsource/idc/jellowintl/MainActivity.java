@@ -37,7 +37,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_DoubleClick;
 import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
 import com.dsource.idc.jellowintl.models.LevelOneVerbiageModel;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
@@ -157,12 +156,9 @@ public class MainActivity extends AppCompatActivity {
         mStrYes = getString(R.string.yes);
         mStrNo = getString(R.string.no);
         mNeverShowAgain = getString(R.string.never_show_again);
-
+        sCheckVoiceData = getString(R.string.txt_actLangSel_complete_mainscreen_msg);
         initializeLayoutViews();
         initializeViewListeners();
-
-        if(getIntent().hasExtra(getString(R.string.goto_home)))
-            gotoHome(true);
         //This method is invoked when the activity is launched from the SearchActivity
         try {
             String s = getIntent().getExtras().getString(getString(R.string.from_search));
@@ -340,6 +336,9 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, session.getToastMessage(), Toast.LENGTH_SHORT).show();
             session.setToastMessage("");
         }
+
+        if(getIntent().hasExtra(getString(R.string.goto_home)))
+            gotoHome(true);
         getSpeechLanguage("");
     }
 
@@ -450,12 +449,12 @@ public class MainActivity extends AppCompatActivity {
         //Initially custom input text speak button is invisible
         mIvTTs.setVisibility(View.INVISIBLE);
 
-        ViewCompat.setAccessibilityDelegate(mIvLike, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvYes, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvMore, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvDontLike, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvNo, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvLess, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvLike, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvYes, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvMore, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvDontLike, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvNo, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvLess, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(mIvKeyboard, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(mIvHome, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(mIvBack, new TalkbackHints_SingleClick());
@@ -1259,13 +1258,15 @@ public class MainActivity extends AppCompatActivity {
             }else {
                 speakSpeech(mSpeechTxt[position]);
                 mMpu.playAudio(mMpu.getFilePath("CATL1_" + (position + 1)));
+                // create event bundle for firebase
+                mUec.createSendFbEventFromTappedView(12, mSpeechTxt[position], "");
             }
         }else{
             showAccessibleDialog(position, title, view);
             view.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+            // create event bundle for firebase
+            mUec.createSendFbEventFromTappedView(12, mSpeechTxt[position], "");
         }
-        // create event bundle for firebase
-        mUec.createSendFbEventFromTappedView(12, mSpeechTxt[position], "");
         mLevelOneItemPos = mRecyclerView.getChildLayoutPosition(view);
         mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
     }
@@ -1285,12 +1286,12 @@ public class MainActivity extends AppCompatActivity {
         ImageView ivBack = mView.findViewById(R.id.back);
         ImageView ivHome = mView.findViewById(R.id.home);
         ImageView ivKeyboard = mView.findViewById(R.id.keyboard);
-        ViewCompat.setAccessibilityDelegate(ivLike, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(ivYes, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(ivAdd, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(ivDisLike, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(ivNo, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(ivMinus, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(ivLike, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(ivYes, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(ivAdd, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(ivDisLike, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(ivNo, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(ivMinus, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(ivBack, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(ivHome, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(ivKeyboard, new TalkbackHints_SingleClick());
@@ -1379,23 +1380,10 @@ public class MainActivity extends AppCompatActivity {
                 if(event.getEventType() != AccessibilityEvent.TYPE_VIEW_ACCESSIBILITY_FOCUSED) {
                     mView.findViewById(R.id.txTitleHidden).
                             setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-                }else {
-                    closeDialog.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
                 }
             }
         });
 
-        /*mView.findViewById(R.id.txTitleHidden).setAccessibilityDelegate(new View.AccessibilityDelegate(){
-            @Override
-            public void onPopulateAccessibilityEvent(View host, AccessibilityEvent event) {
-                super.onPopulateAccessibilityEvent(host, event);
-                if(event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
-                    enterCategory.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
-                }
-            }
-        });*/
-
-        //closeDialog.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
         closeDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1690,31 +1678,31 @@ public class MainActivity extends AppCompatActivity {
                     SessionManager session = new SessionManager(context);
                     String appLang = session.getLanguage();
                     session.setLangSettingIsCorrect(true);
-                    String mSysTtsReg = intent.getStringExtra("systemTtsRegion");
+                    String sysTtsLang = intent.getStringExtra("systemTtsRegion");
                     //Below if is true when
                     //      1) app language is english India and tts language is hindi India
                     // or   2) app language is not english India and
                     //         app language and Text-to-speech language are different then
                     //         show error toast.
-                    if((Build.VERSION.SDK_INT < 21) && !session.getLanguage().equals(LangMap.get("मराठी")) &&
-                            ((appLang.equals(ENG_IN) && !mSysTtsReg.equals(HI_IN))
-                        || (appLang.equals(BN_IN) && !mSysTtsReg.equals(BN_IN)
-                             && !(mSysTtsReg.equals(BE_IN) )
-                                || (!appLang.equals(ENG_IN) &&
-                            ! appLang.equals(BN_IN) && !appLang.equals(mSysTtsReg))))) {
 
-                        Toast.makeText(context, getString(R.string.speech_engin_lang_sam),
-                                Toast.LENGTH_LONG).show();
-                        session.setLangSettingIsCorrect(false);
+                    if((Build.VERSION.SDK_INT < 21) && !session.getLanguage().equals(LangMap.get("मराठी"))) {
+                        if (sysTtsLang.equals("-r") ||
+                                (appLang.equals(ENG_IN) && !sysTtsLang.equals(HI_IN)) ||
+                                (appLang.equals(BN_IN) && !sysTtsLang.equals(BN_IN) && !(sysTtsLang.equals(BE_IN)) ||
+                                        (!appLang.equals(ENG_IN) && !appLang.equals(BN_IN) && !appLang.equals(sysTtsLang)))) {
+                            Toast.makeText(context, getString(R.string.speech_engin_lang_sam),
+                                    Toast.LENGTH_LONG).show();
+                            session.setLangSettingIsCorrect(false);
+                        }
                     }
 
                     if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE)) &&
                             !session.isChangeLanguageNeverAsk() ) {
-                        if (appLang.equals(ENG_IN) && mSysTtsReg.equals(HI_IN))
+                        if (appLang.equals(ENG_IN) && sysTtsLang.equals(HI_IN))
                         {}
-                        else if(appLang.equals(BN_IN) &&(mSysTtsReg.equals(BN_IN) || mSysTtsReg.equals(BE_IN)))
+                        else if(appLang.equals(BN_IN) &&(sysTtsLang.equals(BN_IN) || sysTtsLang.equals(BE_IN)))
                         {}
-                        else if(!appLang.equals(ENG_IN) && !appLang.equals(BN_IN) && appLang.equals(mSysTtsReg))
+                        else if(!appLang.equals(ENG_IN) && !appLang.equals(BN_IN) && appLang.equals(sysTtsLang))
                         {}
                         else {
                             showChangeLanguageDialog();

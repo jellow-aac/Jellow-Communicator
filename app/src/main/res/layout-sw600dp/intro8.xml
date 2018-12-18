@@ -54,7 +54,6 @@
                         android:id="@+id/img1_intro8"
                         android:layout_width="210dp"
                         android:layout_height="230dp"
-                        android:src="@drawable/tts_wifi_1"
                         android:contentDescription="@string/lang_setting_option1_cd"/>
                 </LinearLayout>
                 <LinearLayout
@@ -77,7 +76,6 @@
                         android:id="@+id/img2_intro8"
                         android:layout_width="210dp"
                         android:layout_height="230dp"
-                        android:src="@drawable/tts_wifi_2"
                         android:contentDescription="@string/lang_setting_option2_cd"/>
                 </LinearLayout>
                 <LinearLayout
@@ -98,7 +96,6 @@
                         android:id="@+id/img3_intro8"
                         android:layout_width="210dp"
                         android:layout_height="230dp"
-                        android:src="@drawable/tts_wifi_3"
                         android:contentDescription="@string/lang_setting_option3_cd"/>
                 </LinearLayout>
             </LinearLayout>

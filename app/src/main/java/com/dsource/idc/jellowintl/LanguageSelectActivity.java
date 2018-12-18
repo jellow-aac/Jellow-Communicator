@@ -52,7 +52,10 @@ import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
+import static com.dsource.idc.jellowintl.utility.SessionManager.BE_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangValueMap;
 import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
@@ -65,7 +68,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
     String[] offlineLanguages;
     String[] onlineLanguages;
     Spinner languageSelect;
-    String selectedLanguage, systemTtsLang, mLangChanged;
+    String selectedLanguage, sysTtsLang, mLangChanged;
     Button save,add,delete, changeTtsLang;
     ArrayAdapter<String> adapter_lan;
     boolean isOpenedTtsSett = false, isTtsLangChanged = false, shouldSaveLang = false;
@@ -694,19 +697,21 @@ public class LanguageSelectActivity extends AppCompatActivity{
         public void onReceive(final Context context, Intent intent) {
             switch (intent.getAction()){
                 case "com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES":
-                    isTtsLangChanged = (systemTtsLang != null &&
-                            !systemTtsLang.equals(intent.getStringExtra("systemTtsRegion")));
+                    isTtsLangChanged = (sysTtsLang != null &&
+                            !sysTtsLang.equals(intent.getStringExtra("systemTtsRegion")));
 
-                    systemTtsLang = intent.getStringExtra("systemTtsRegion");
+                    sysTtsLang = intent.getStringExtra("systemTtsRegion");
                     if(intent.getBooleanExtra("saveUserLanguage",false)){
                         saveLanguage();
                     }else if(intent.getBooleanExtra("showError",false))
                         //Change Toast here
                         Toast.makeText(context, mCompleteStep3, Toast.LENGTH_LONG).show();
-
                     if(isOpenedTtsSett && isTtsLangChanged && !mSession.getLangSettingIsCorrect())
-                        if((mSession.getLanguage().equals("en-rIN") && systemTtsLang.equals("hi-rIN")) ||
-                                (!mSession.getLanguage().equals("en-rIN") && mSession.getLanguage().equals(systemTtsLang)))
+                        if((!sysTtsLang.equals("-r")) &&
+                            (mSession.getLanguage().equals(ENG_IN) && sysTtsLang.equals(HI_IN)) ||
+                                (mSession.getLanguage().equals(BN_IN) && (sysTtsLang.equals(BN_IN) || (sysTtsLang.equals(BE_IN)))) ||
+                                    (!mSession.getLanguage().equals(ENG_IN) && !mSession.getLanguage().equals(BN_IN)
+                                        && mSession.getLanguage().equals(sysTtsLang)))
                             shouldSaveLang = true;
                     isOpenedTtsSett = isTtsLangChanged = false;
                     break;

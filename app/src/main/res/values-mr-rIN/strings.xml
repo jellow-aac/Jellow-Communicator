@@ -314,10 +314,7 @@
     <string name="intro6_3_cd">The third image is the third step in this process where now the user is at the “Google TTS voice data” screen. This screen provides multiple voice options including “French (France)”, “German (Germany)”, “Hindi (India)”, “Hungarian (Hungary)”, and “Indonesian (Indonesia)”. The “Hindi (India) voice” option is highlighted and shows an option of “Voice set 1” with a size of 19MB that is available for download. The user’s finger is seen to click on the download icon for the voice set 1 for the “Hindi (India)voice”.</string>
     <string name="talkback_lang_diag_disable">Never Show Again</string>
     <string name="talkback_single_click">select</string>
-    <string name="talkback_single_click_cat_last_level">select</string>
-    <string name="talkback_recycler_view">select category and for more options</string>
     <string name="talkback_dropdown_menu">access countries list</string>
-    <string name="talkback_double_click">single click. Tap again to double click</string>
     <string name="close_dialog">close dialog.</string>
     <string name="next">next</string>
     <string name="previous">previous</string>

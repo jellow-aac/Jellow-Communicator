@@ -3,20 +3,26 @@ package com.dsource.idc.jellowintl;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_CategoryIcon;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
 import com.dsource.idc.jellowintl.utility.SessionManager;
+
+import static android.content.Context.ACCESSIBILITY_SERVICE;
+import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
 
 /**
  * Created by ekalpa on 4/19/2016.
@@ -48,7 +54,7 @@ class MainActivityAdapter extends android.support.v7.widget.RecyclerView.Adapter
     public void onBindViewHolder(final MainActivityAdapter.MyViewHolder holder, final int position) {
         final int MODE_PICTURE_ONLY = 1;
         ViewCompat.setAccessibilityDelegate(holder.menuItemLinearLayout,
-                new TalkbackHints_CategoryIcon());
+                new TalkbackHints_SingleClick());
 
 
         if (mSession.getPictureViewMode() == MODE_PICTURE_ONLY)
@@ -56,6 +62,7 @@ class MainActivityAdapter extends android.support.v7.widget.RecyclerView.Adapter
 
         holder.menuItemBelowText.setAllCaps(true);
         holder.menuItemBelowText.setText(mBelowTextArray[position]);
+
         GlideApp.with(mContext)
                 .load(mIconArray.getDrawable(position))
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -81,6 +88,10 @@ class MainActivityAdapter extends android.support.v7.widget.RecyclerView.Adapter
             menuItemImage = view.findViewById(R.id.icon1);
             menuItemLinearLayout = view.findViewById(R.id.linearlayout_icon1);
             menuItemBelowText = view.findViewById(R.id.te1);
+            if(isAccessibilityTalkBackOn((AccessibilityManager) mContext.getSystemService(ACCESSIBILITY_SERVICE))) {
+                Typeface tf = ResourcesCompat.getFont(mContext, R.font.mukta_semibold);
+                menuItemBelowText.setTypeface(tf);
+            }
             menuItemBelowText.setTextColor(Color.rgb(64, 64, 64));
             GradientDrawable gd = (GradientDrawable) view.findViewById(R.id.borderView).getBackground();
             gd.setColor(ContextCompat.getColor(mContext, android.R.color.transparent));

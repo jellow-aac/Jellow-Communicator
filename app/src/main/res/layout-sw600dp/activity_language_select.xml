@@ -137,7 +137,7 @@
                 style="@style/defaultTextViewStyle"/>
             <Spinner
                 android:id="@+id/selectDownloadedLanguageSpinner"
-                android:layout_width="160dp"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:background="@drawable/custom_spinner_view"
                 android:textColor="@color/black_eighty"

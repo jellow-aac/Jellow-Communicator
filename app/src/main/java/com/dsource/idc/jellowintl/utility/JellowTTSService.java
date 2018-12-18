@@ -279,21 +279,28 @@ public class JellowTTSService extends Service{
     private void broadcastTtsData(TextToSpeech tts, Intent intent) {
         Intent dataIntent = new Intent("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES");
         String infoLang="", infoCountry="";
-        if(Build.VERSION.SDK_INT < 18) {
-            infoLang = tts.getLanguage().getLanguage();
-            infoCountry = tts.getLanguage().getCountry();
-        }else if(Build.VERSION.SDK_INT < 21) {
-            infoLang = tts.getDefaultLanguage().getLanguage().substring(0,2);
-            infoCountry = tts.getDefaultLanguage().getCountry().substring(0,2);
-        }else {
-        //When below if case is false then variables infoLang & infoCountry are empty.
-        //Keeping infoLang & infoCountry variables empty and sending them with broadcast have no
-        //impact. Whenever they are empty, the broadcast is sent only to {@LanguageSelectActivity}
-        //class. And these broadcast intent response is not used when api is Lollipop or above.
-            if(tts.getDefaultVoice() != null){
-                infoLang = tts.getDefaultVoice().getLocale().getLanguage();
-                infoCountry = tts.getDefaultVoice().getLocale().getCountry();
+        try {
+            if (Build.VERSION.SDK_INT < 18) {
+                infoLang = tts.getLanguage().getLanguage();
+                infoCountry = tts.getLanguage().getCountry();
+            } else if (Build.VERSION.SDK_INT < 21) {
+                infoLang = tts.getDefaultLanguage().getLanguage().substring(0, 2);
+                infoCountry = tts.getDefaultLanguage().getCountry().substring(0, 2);
+            } else {
+                //When below if case is false then variables infoLang & infoCountry are empty.
+                //Keeping infoLang & infoCountry variables empty and sending them with broadcast have no
+                //impact. Whenever they are empty, the broadcast is sent only to {@LanguageSelectActivity}
+                //class. And these broadcast intent response is not used when api is Lollipop or above.
+                if (tts.getDefaultVoice() != null) {
+                    infoLang = tts.getDefaultVoice().getLocale().getLanguage();
+                    infoCountry = tts.getDefaultVoice().getLocale().getCountry();
+                }
             }
+        }catch(Exception e){
+            //This error is ignored. Their might no language is set previously to text-to-speech
+            // engine and hence above retrieval of lang, country {infoLang, infoCountry} fails.
+            // If it is empty, the broadcast is sent to receiver with empty ("-r" value) tts language
+            // name and this gives error message to user in receiver code.
         }
         dataIntent.putExtra("systemTtsRegion", infoLang.concat("-r".concat(infoCountry)));
         if(infoLang.concat("-r".concat(infoCountry)).equals(HI_IN) &&

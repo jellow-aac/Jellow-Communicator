@@ -33,7 +33,6 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
-import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_DoubleClick;
 import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
 import com.dsource.idc.jellowintl.models.LevelThreeVerbiageModel;
 import com.dsource.idc.jellowintl.utility.CustomGridLayoutManager;
@@ -389,12 +388,12 @@ public class LevelThreeActivity extends AppCompatActivity {
         //Initially custom input text speak button is invisible
         mIvTTs.setVisibility(View.INVISIBLE);
 
-        ViewCompat.setAccessibilityDelegate(mIvLike, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvYes, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvMore, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvDontLike, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvNo, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(mIvLess, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(mIvLike, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvYes, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvMore, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvDontLike, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvNo, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(mIvLess, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(mIvKeyboard, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(mIvHome, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(mIvBack, new TalkbackHints_SingleClick());
@@ -1592,12 +1591,12 @@ public class LevelThreeActivity extends AppCompatActivity {
         ImageView ivBack = mView.findViewById(R.id.back);
         ImageView ivHome = mView.findViewById(R.id.home);
         ImageView ivKeyboard = mView.findViewById(R.id.keyboard);
-        ViewCompat.setAccessibilityDelegate(ivLike, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(ivYes, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(ivAdd, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(ivDisLike, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(ivNo, new TalkbackHints_DoubleClick());
-        ViewCompat.setAccessibilityDelegate(ivMinus, new TalkbackHints_DoubleClick());
+        ViewCompat.setAccessibilityDelegate(ivLike, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(ivYes, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(ivAdd, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(ivDisLike, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(ivNo, new TalkbackHints_SingleClick());
+        ViewCompat.setAccessibilityDelegate(ivMinus, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(ivBack, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(ivHome, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(ivKeyboard, new TalkbackHints_SingleClick());
@@ -1616,6 +1615,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                 mUec.createSendFbEventFromTappedView(12, mSpeechTxt[getTagPos()], "");
             }
         });
+
         enterCategory.setAccessibilityDelegate(new View.AccessibilityDelegate(){
             @Override
             public void onPopulateAccessibilityEvent(View host, AccessibilityEvent event) {
@@ -1623,12 +1623,9 @@ public class LevelThreeActivity extends AppCompatActivity {
                 if(event.getEventType() != AccessibilityEvent.TYPE_VIEW_ACCESSIBILITY_FOCUSED) {
                     mView.findViewById(R.id.txTitleHidden).
                             setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-                }else {
-                    closeDialog.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
                 }
             }
         });
-        closeDialog.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
         closeDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
