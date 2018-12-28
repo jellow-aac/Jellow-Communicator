@@ -47,12 +47,13 @@
                     android:ems="10"
                     android:imeOptions="actionDone"
                     style="@style/defaultTextViewStyle"
-                    android:inputType="textPersonName"/>
+                    android:inputType="textPersonName"
+                    android:contentDescription="@string/enter_child_s_name"/>
                 <TextView
                     android:id="@+id/tvCaregiverName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/careGiveName"
+                    android:text="@string/caregiverName"
                     android:fontFamily="@font/mukta_semibold"
                     style="@style/defaultTextViewStyle"/>
                 <EditText
@@ -65,7 +66,8 @@
                     android:ems="10"
                     style="@style/defaultTextViewStyle"
                     android:imeOptions="actionDone"
-                    android:inputType="textPersonName"/>
+                    android:inputType="textPersonName"
+                    android:contentDescription="@string/enter_caregiver_s_name"/>
                 <TextView
                     android:id="@+id/tvCaregiverNo"
                     android:layout_width="wrap_content"
@@ -73,7 +75,7 @@
                     android:text="@string/careGiverContact"
                     android:fontFamily="@font/mukta_semibold"
                     style="@style/defaultTextViewStyle"
-                    android:contentDescription="@string/caregiver_s_contact_number"/>
+                    android:contentDescription="@string/caregiver_s_contact_number_other_than_this_device_s_sim_number"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -99,7 +101,8 @@
                     android:textSize="14sp"
                     android:maxLength="12"
                     style="@style/defaultTextViewStyle"
-                    android:imeOptions="actionDone" />
+                    android:imeOptions="actionDone"
+                    android:contentDescription="@string/enter_caregiver_s_contact_number" />
             </LinearLayout>
                 <TextView
                     android:id="@+id/tvHomeAddress"
@@ -118,7 +121,8 @@
                     android:ems="10"
                     style="@style/defaultTextViewStyle"
                     android:imeOptions="actionDone"
-                    android:inputType="textPostalAddress"/>
+                    android:inputType="textPostalAddress"
+                    android:contentDescription="@string/enter_home_address"/>
                 <TextView
                     android:id="@+id/tvEmailAddress"
                     android:layout_width="wrap_content"
@@ -136,7 +140,8 @@
                     android:layout_marginStart="-4dp"
                     style="@style/defaultTextViewStyle"
                     android:imeOptions="actionDone"
-                    android:inputType="textEmailAddress"/>
+                    android:inputType="textEmailAddress"
+                    android:contentDescription="@string/enter_caregiver_s_email_address"/>
 
                 <TextView
                     android:id="@+id/tvUserGroup"
@@ -152,6 +157,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
+                    android:importantForAccessibility="no"
                     android:contentDescription="@string/user_s_group">
                     <RadioButton
                         android:id="@+id/radioTherapist"
@@ -159,14 +165,19 @@
                         android:layout_height="wrap_content"
                         android:textSize="14sp"
                         style="@style/defaultTextViewStyle"
-                        android:text="@string/groupTeacher"/>
+                        android:text="@string/groupTeacher"
+                        android:contentDescription="@string/therapist_or_teacher_cd"
+                        android:importantForAccessibility="yes"/>
                     <RadioButton
                         android:id="@+id/radioParent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="14sp"
+                        android:layout_marginBottom="10dp"
                         style="@style/defaultTextViewStyle"
-                        android:text="@string/groupParent"/>
+                        android:text="@string/groupParent"
+                        android:contentDescription="@string/parent_or_caregiver_cd"
+                        android:importantForAccessibility="yes"/>
                 </RadioGroup>
 
                 <TextView
@@ -179,9 +190,8 @@
                 <Spinner
                     android:id="@+id/bloodgroup"
                     android:layout_width="115dp"
-                    android:layout_height="30dp"
-                    android:background="@drawable/custom_spinner_view"
-                    android:textColor="@color/black_eighty"/>
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/custom_spinner_view"/>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="48dp" />
@@ -193,7 +203,8 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="#F7E2AC"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:importantForAccessibility="yes">
         <Button
             android:id="@+id/bSave"
             android:layout_width="wrap_content"
@@ -202,6 +213,6 @@
             android:text="@string/txtSave"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp" />
+            android:layout_marginStart="20dp"/>
     </LinearLayout>
 </RelativeLayout>

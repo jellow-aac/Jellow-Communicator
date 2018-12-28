@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.Toast;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
@@ -19,6 +20,7 @@ import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import static com.dsource.idc.jellowintl.LanguageSelectActivity.FINISH;
+import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.LCODE;
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.TUTORIAL;
@@ -163,15 +165,38 @@ public class LanguageDownloadActivity extends AppCompatActivity {
     }
 
     private String getShortenLangName(String langFullName) {
-        switch(langFullName){
-            case "English (India)":
-                return "English (IN)";
-            case "English (United Kingdom)":
-                return "English (UK)";
-            case "English (United States)":
-                return "English (US)";
-            default:
-                return  langFullName;
+        if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                switch (langFullName) {
+                    case "मराठी":
+                        return getString(R.string.acc_lang_marathi);
+                    case "हिंदी":
+                        return getString(R.string.acc_lang_hindi);
+                    case "বাঙালি":
+                        return getString(R.string.acc_lang_bengali);
+                    case "English (India)":
+                        return getString(R.string.acc_lang_eng_in);
+                    case "English (United Kingdom)":
+                        return getString(R.string.acc_lang_eng_gb);
+                    case "English (United States)":
+                        return getString(R.string.acc_lang_eng_us);
+                    case "English (Australia)":
+                        return getString(R.string.acc_lang_eng_au);
+                    default:
+                        return langFullName;
+                }
+            }else{
+                switch (langFullName) {
+                    case "English (India)":
+                        return "English (IN)";
+                    case "English (United Kingdom)":
+                        return "English (UK)";
+                    case "English (United States)":
+                        return "English (US)";
+                    case "English (Australia)":
+                        return "English (AU)";
+                    default:
+                        return langFullName;
+                }
         }
     }
 }

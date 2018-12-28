@@ -26,19 +26,19 @@
                     android:layout_width="106dp"
                     android:layout_height="100dp"
                     android:src="@drawable/like"
-                    android:contentDescription="like"/>
+                    android:contentDescription="@string/like"/>
                 <ImageView
                     android:id="@+id/ivyes"
                     android:layout_width="106dp"
                     android:layout_height="100dp"
                     android:src="@drawable/yes"
-                    android:contentDescription="yes"/>
+                    android:contentDescription="@string/yes"/>
                 <ImageView
                     android:id="@+id/ivadd"
                     android:layout_width="106dp"
                     android:layout_height="100dp"
                     android:src="@drawable/more"
-                    android:contentDescription="add"/>
+                    android:contentDescription="@string/more"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/expressiveTwo"
@@ -53,19 +53,19 @@
                     android:layout_width="106dp"
                     android:layout_height="100dp"
                     android:src="@drawable/dontlike"
-                    android:contentDescription="dont like"/>
+                    android:contentDescription="@string/dont_like"/>
                 <ImageView
                     android:id="@+id/ivno"
                     android:layout_width="106dp"
                     android:layout_height="100dp"
                     android:src="@drawable/no"
-                    android:contentDescription="no"/>
+                    android:contentDescription="@string/no"/>
                 <ImageView
                     android:id="@+id/ivminus"
                     android:layout_width="106dp"
                     android:layout_height="100dp"
                     android:src="@drawable/less"
-                    android:contentDescription="less"/>
+                    android:contentDescription="@string/less"/>
             </LinearLayout>
         </RelativeLayout>
         <android.support.v7.widget.RecyclerView
@@ -96,14 +96,14 @@
             android:layout_height="100dp"
             android:src="@drawable/keyboard"
             android:layout_toRightOf="@+id/ivhome"
-            android:contentDescription="keyboard"/>
+            android:contentDescription="@string/keyboard_open"/>
         <ImageView
             android:id="@+id/ivback"
             android:layout_width="100dp"
             android:layout_height="108dp"
             android:src="@drawable/back"
             android:layout_toLeftOf="@+id/ivhome"
-            android:contentDescription="back"/>
+            android:contentDescription="@string/back"/>
     </RelativeLayout>
     <LinearLayout
         android:layout_width="460dp"
@@ -114,16 +114,16 @@
             android:id="@+id/et"
             android:layout_width="410dp"
             android:layout_height="80dp"
-            android:imeOptions="flagNoExtractUi"
+            android:imeOptions="actionDone|flagNoExtractUi"
             android:textSize="20sp"
-            android:contentDescription="custom speech"/>
+            android:contentDescription="@string/edttxt_msg"/>
         <ImageView
             android:id="@+id/ttsbutton"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/ic_search_list_speaker"
             android:layout_gravity="center_vertical"
-            android:contentDescription="speak"/>
+            android:contentDescription="@string/speak"/>
     </LinearLayout>
     <ImageView
         android:layout_width="100dp"

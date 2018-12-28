@@ -77,5 +77,8 @@
     <color name="white">#FFFFFF</color>
     <color name="seq_btn_background_unpressed">#FFBEBCB6</color>
     <color name="seq_btn_background_pressed">#93918C</color>
+    <color name="colorSerialKeyboardBackground">#C9CED1</color>
+    <color name="colorSeriaKeyboardKeyText">#5D5D5D</color>
+    <color name="colorSerialKeyboardKeyBackground">#EDEEF2</color>
 
 </resources>

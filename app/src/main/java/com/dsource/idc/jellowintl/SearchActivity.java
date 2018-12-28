@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.IconDataBaseHelper;
 import com.dsource.idc.jellowintl.utility.JellowIcon;
@@ -30,6 +32,8 @@ import com.dsource.idc.jellowintl.utility.SessionManager;
 import java.io.File;
 import java.util.ArrayList;
 
+import static android.content.Context.ACCESSIBILITY_SERVICE;
+import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
@@ -76,13 +80,11 @@ public class SearchActivity extends AppCompatActivity {
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         setContentView(R.layout.activity_search);
         EditText SearchEditText = findViewById(R.id.search_auto_complete);
-        AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
-        boolean isAccessibilityEnabled = am.isEnabled();
-        boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
-        if (isAccessibilityEnabled && isExploreByTouchEnabled) {
+        if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
             SearchEditText.setContentDescription("Enter to search");
+            findViewById(R.id.close_button).setVisibility(View.GONE);
         } else {
-            SearchEditText.setHint("Search icon....");
+            SearchEditText.setHint("Search icon..");
         }
         getWindow().setGravity(Gravity.LEFT);
 
@@ -181,6 +183,10 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
+    public void closeActivity(View v){
+        finish();
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -246,6 +252,7 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
             iconImage =v.findViewById(R.id.search_icon_drawable);
             iconTitle = v.findViewById(R.id.search_icon_title);
             iconDir = v.findViewById(R.id.parent_directory);
+            ViewCompat.setAccessibilityDelegate(v.findViewById(R.id.llSearchParent), new TalkbackHints_SingleClick());
             speakIcon=v.findViewById(R.id.speak_button);
             speakIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -254,7 +261,7 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
                     //Firebase event to log the "SearchBar" event with
                     // "IconSpeak" parameter.
                     Bundle bundle = new Bundle();
-                    bundle.putString("IconSpeak",mDataSource.get(getAdapterPosition()).IconTitle);
+                    bundle.putString("IconSpeak",mDataSource.get(getAdapterPosition()).IconTitle.replace("…",""));
                     bundle.putString("IconOpened", "");
                     bundle.putString("IconNotFound", "");
                     bundleEvent("SearchBar", bundle);
@@ -278,7 +285,7 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
                 // "IconOpened" parameter.
                 Bundle bundle = new Bundle();
                 bundle.putString("IconSpeak", "");
-                bundle.putString("IconOpened", icon.IconTitle);
+                bundle.putString("IconOpened", icon.IconTitle.replace("…",""));
                 bundle.putString("IconNotFound", "");
                 bundleEvent("SearchBar", bundle);
                 target.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -410,7 +417,10 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
         else {
             String levelTitle = getIconTitleLevel2(thisIcon.parent0)[thisIcon.parent1].
                     replace("…", "");
-            dir=arr[thisIcon.parent0] + "->" + levelTitle;
+            if (!isAccessibilityTalkBackOn((AccessibilityManager) mContext.getSystemService(ACCESSIBILITY_SERVICE))) {
+                dir = arr[thisIcon.parent0] + "->" + levelTitle;
+            }else
+                dir = arr[thisIcon.parent0] + "/ " + levelTitle;
 
         }
         holder.iconDir.setText(dir);

@@ -2,20 +2,29 @@ package com.dsource.idc.jellowintl;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.io.File;
+
+import static android.content.Context.ACCESSIBILITY_SERVICE;
+import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
+import static com.dsource.idc.jellowintl.MainActivity.isNotchDevice;
 
 /**
  * Created by Sumeet on 19-04-2016.
@@ -26,11 +35,13 @@ class LevelTwoAdapter extends android.support.v7.widget.RecyclerView.Adapter<Lev
     private String[] mIconArray;
     private String[] mBelowTextArray;
     private String path;
+    private int mLevel1ItemPos;
 
-    LevelTwoAdapter(Context context, int levelTwoItemPos){
+    LevelTwoAdapter(Context context, int levelOneItemPos){
         mContext = context;
         mSession = new SessionManager(mContext);
-        loadArraysFromResources(levelTwoItemPos);
+        loadArraysFromResources(levelOneItemPos);
+        mLevel1ItemPos = levelOneItemPos;
         File en_dir = mContext.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
         path = en_dir.getAbsolutePath()+"/drawables";
     }
@@ -39,16 +50,24 @@ class LevelTwoAdapter extends android.support.v7.widget.RecyclerView.Adapter<Lev
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final int GRID_1BY3 = 0;
         View rowView;
-        if (mSession.getGridSize() == GRID_1BY3)
-            rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_3_icons, parent, false);
-        else
+        if(isNotchDevice(mContext) && mSession.getGridSize() != GRID_1BY3) {
+            rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_9_icons_notch, parent, false);
+        } else if(isNotchDevice(mContext) && mSession.getGridSize() == GRID_1BY3){
+            rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_3_icons_notch, parent, false);
+        }else if (mSession.getGridSize() != GRID_1BY3) {
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_9_icons, parent, false);
+        }else{
+            rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_3_icons, parent, false);
+        }
         return new LevelTwoAdapter.MyViewHolder(rowView);
     }
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         final int MODE_PICTURE_ONLY = 1;
+        ViewCompat.setAccessibilityDelegate(holder.menuItemLinearLayout,
+                    new TalkbackHints_SingleClick());
+
         if (mSession.getPictureViewMode() == MODE_PICTURE_ONLY)
             holder.menuItemBelowText.setVisibility(View.INVISIBLE);
         holder.menuItemBelowText.setText(mBelowTextArray[position]);
@@ -59,6 +78,7 @@ class LevelTwoAdapter extends android.support.v7.widget.RecyclerView.Adapter<Lev
                 .centerCrop()
                 .dontAnimate()
                 .into(holder.menuItemImage);
+        holder.menuItemLinearLayout.setContentDescription(mBelowTextArray[position]);
     }
 
     @Override
@@ -106,6 +126,10 @@ class LevelTwoAdapter extends android.support.v7.widget.RecyclerView.Adapter<Lev
             menuItemLinearLayout = view.findViewById(R.id.linearlayout_icon1);
             menuItemBelowText = view.findViewById(R.id.te1);
             menuItemBelowText.setTextColor(Color.rgb(64, 64, 64));
+            if(isAccessibilityTalkBackOn((AccessibilityManager) mContext.getSystemService(ACCESSIBILITY_SERVICE))) {
+                Typeface tf = ResourcesCompat.getFont(mContext, R.font.mukta_semibold);
+                menuItemBelowText.setTypeface(tf);
+            }
             GradientDrawable gd = (GradientDrawable) view.findViewById(R.id.borderView).getBackground();
             gd.setColor(ContextCompat.getColor(mContext, android.R.color.transparent));
         }

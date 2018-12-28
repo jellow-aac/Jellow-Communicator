@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="2dp">
         <TextView
             android:id="@+id/tv_intro_title"
             android:layout_width="wrap_content"
@@ -24,7 +25,6 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:textSize="20sp"
-            android:importantForAccessibility="yes"
             android:text="@string/txt_intro1_central9btn"/>
         <LinearLayout
             android:layout_width="match_parent"
@@ -55,8 +55,8 @@
                 android:paddingLeft="64dp"
                 android:paddingRight="64dp"
                 android:textSize="20sp"
-            android:importantForAccessibility="no"
-                android:text="@string/txt_intro1_categorybtn"/>
+                android:text="@string/txt_intro1_categorybtn"
+                android:importantForAccessibility="no"/>
         </LinearLayout>
         <TextView
             android:layout_width="match_parent"
@@ -71,5 +71,6 @@
         android:paddingRight="32dp"
         android:paddingEnd="32dp"
         android:src="@drawable/ic_chevron_right"
-        tools:ignore="RtlSymmetry" />
+        tools:ignore="RtlSymmetry"
+        android:contentDescription="@string/next_slide" />
 </FrameLayout>

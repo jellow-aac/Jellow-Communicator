@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.text.util.Linkify;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -20,6 +22,7 @@ import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.util.HashMap;
 
+import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
@@ -34,12 +37,12 @@ public class AboutJellowActivity extends AppCompatActivity {
     private Button mBtnSpeak, mBtnStop;
     private TextView tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8, tv9, tv10, tv11, tv12, tv13, tv14, tv15, tv16,
             tv17, tv18, tv19, tv20, tv21, tv22, tv23, tv24, tv25, tv26, tv27, tv28, tv29, tv30, tv31,
-            tv32, tv33, tv34, tv35;
+            tv32, tv33, tv34, tv35, tv36, tv37;
     private String mSpeechTxt, mGenInfo, mSoftInfo, mTermofUse, mCredits,
             mAppLink, mIntro1, mIntro2, mIntro3, mIntro4, mIntro5, mIntro6, mIntro7, mIntro8,
             mIntro9, mIntro10, mIntro11, mIntro12, mIntro13, mIntro14, mIntro15, mIntro16, mIntro17,
             mIntro18, mIntro19, mIntro20, mIntro21, mIntro22, mIntro23, mIntro24, mIntro25, mIntro26,
-            mIntro27, mIntro28, mIntro29, mIntro30, mSpeak, mStop;
+            mIntro27, mIntro28, mIntro29, mIntro30, mIntro31, mIntro32, mSpeak, mStop;
 
     /*Media Player playback Utility class for non-tts languages.*/
     private MediaPlayerUtils mMpu;
@@ -107,6 +110,9 @@ public class AboutJellowActivity extends AppCompatActivity {
         SessionManager session = new SessionManager(this);
         if(session.getLanguage().equals(BN_IN))
             menu.findItem(R.id.keyboardinput).setVisible(false);
+        if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+            menu.findItem(R.id.closePopup).setVisible(false);
+        }
         return true;
     }
 
@@ -114,35 +120,43 @@ public class AboutJellowActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.languageSelect:
-                startActivity(new Intent(this, LanguageSelectActivity.class));
+                if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                    startActivity(new Intent(this, LanguageSelectActivity.class));
+                } else {
+                    startActivity(new Intent(this, LanguageSelectTalkBackActivity.class));
+                }
+                finish();
                 break;
             case R.id.settings:
-                Intent intent = new Intent(AboutJellowActivity.this, SettingActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(AboutJellowActivity.this, SettingActivity.class));
                 finish();
                 break;
             case R.id.profile:
-                Intent intent1 = new Intent(AboutJellowActivity.this, ProfileFormActivity.class);
-                startActivity(intent1);
+                startActivity(new Intent(AboutJellowActivity.this, ProfileFormActivity.class));
                 finish();
                 break;
             case R.id.feedback:
-                startActivity(new Intent(this, FeedbackActivity.class));
+                if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                    startActivity(new Intent(this, FeedbackActivityTalkBack.class));
+                } else {
+                    startActivity(new Intent(this, FeedbackActivity.class));
+                }
                 finish();
                 break;
-            case R.id.usage: startActivity(new Intent(this, TutorialActivity.class)); finish(); break;
+            case R.id.usage:
+                startActivity(new Intent(this, TutorialActivity.class));
+                finish();
+                break;
             case R.id.reset:
-                Intent intent4 = new Intent(AboutJellowActivity.this, ResetPreferencesActivity.class);
-                startActivity(intent4);
+                startActivity(new Intent(AboutJellowActivity.this, ResetPreferencesActivity.class));
                 finish();
                 break;
             case android.R.id.home:
-                Intent intent5 = new Intent(AboutJellowActivity.this, MainActivity.class);
-                startActivity(intent5);
+                finish();
                 break;
             case R.id.keyboardinput:
-                Intent intent6 = new Intent(AboutJellowActivity.this, KeyboardInputActivity.class);
-                startActivity(intent6);
+                startActivity(new Intent(AboutJellowActivity.this, KeyboardInputActivity.class));
+                finish();
                 break;
             default:
                 return super.onOptionsItemSelected(item);
@@ -201,8 +215,14 @@ public class AboutJellowActivity extends AppCompatActivity {
         tv33= findViewById(R.id.tv33);
         tv34= findViewById(R.id.tv34);
         tv35= findViewById(R.id.tv35);
+        tv36= findViewById(R.id.tv36);
+        tv37= findViewById(R.id.tv37);
         mBtnSpeak = findViewById(R.id.speak);
         mBtnStop = findViewById(R.id.stop);
+
+        if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+            findViewById(R.id.bottomControls).setVisibility(View.GONE);
+        }
     }
 
     private void loadStrings() {
@@ -232,7 +252,7 @@ public class AboutJellowActivity extends AppCompatActivity {
         mIntro14 = getString(R.string.about_je_intro14);
         mIntro14 = mIntro14.concat(" "+
                 Html.fromHtml("<a href=\"mailto:ravi@iitb.ac.in\">ravi@iitb.ac.in</a>") +
-                " / "+ Html.fromHtml("<a href=\"mailto:jellowcommunicator@gmail.com\">jellowcommunicator@gmail.com</a>"));
+                " or "+ Html.fromHtml("<a href=\"mailto:jellowcommunicator@gmail.com\">jellowcommunicator@gmail.com</a>"));
         mCredits = getString(R.string.credits);
         mIntro15 = getString(R.string.about_je_intro15);
         mIntro16 = getString(R.string.about_je_intro16);
@@ -250,6 +270,8 @@ public class AboutJellowActivity extends AppCompatActivity {
         mIntro28 = getString(R.string.about_je_intro28);
         mIntro29 = getString(R.string.about_je_intro29);
         mIntro30 = getString(R.string.about_je_intro30);
+        mIntro31 = getString(R.string.about_je_intro31);
+        mIntro32 = getString(R.string.about_je_intro32);
         mSpeak = getString(R.string.speak);
         mStop = getString(R.string.stop);
 
@@ -262,35 +284,60 @@ public class AboutJellowActivity extends AppCompatActivity {
 
     private String prepareRegionalVersionCode(String language, String[] versionStArr) {
         StringBuilder newVsnStr = new StringBuilder();
-        switch (language) {
-            case HI_IN:
-                HashMap<String, String> eng2hindi = new HashMap<String, String>() {
-                    {
-                        put("0","०");put("1","१");put("2","२");put("3","३");put("4","४");
-                        put("5","५");put("6","६");put("7","७");put("8","८");put("9","९");
-                    }
-                };
-                newVsnStr.append(eng2hindi.get(versionStArr[0]));
-                newVsnStr.append(".");
-                newVsnStr.append(eng2hindi.get(versionStArr[1]));
-                newVsnStr.append(".");
-                newVsnStr.append(eng2hindi.get(versionStArr[2]));
-                break;
-            case BN_IN:
-                HashMap<String, String> eng2bangla = new HashMap<String, String>() {
-                    {
-                        put("0","০");put("1","১");put("2","২");put("3","৩");put("4","৪");
-                        put("5","৫");put("6","৬");put("7","৭");put("8","৮");put("9","৯");
-                    }
-                };
-                newVsnStr.append(eng2bangla.get(versionStArr[0]));
-                newVsnStr.append(".");
-                newVsnStr.append(eng2bangla.get(versionStArr[1]));
-                newVsnStr.append(".");
-                newVsnStr.append(eng2bangla.get(versionStArr[2]));
-                break;
-            default:
-                return BuildConfig.VERSION_NAME;
+        boolean isTalkbackOn = isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE));
+        if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+            newVsnStr.append(versionStArr[0]);
+            newVsnStr.append(" dot ");
+            newVsnStr.append(versionStArr[1]);
+            newVsnStr.append(" dot ");
+            newVsnStr.append(versionStArr[2]);
+        }else{
+            switch (language) {
+                case HI_IN:
+                    HashMap<String, String> eng2hindi = new HashMap<String, String>() {
+                        {
+                            put("0", "०");
+                            put("1", "१");
+                            put("2", "२");
+                            put("3", "३");
+                            put("4", "४");
+                            put("5", "५");
+                            put("6", "६");
+                            put("7", "७");
+                            put("8", "८");
+                            put("9", "९");
+                        }
+                    };
+                    newVsnStr.append(eng2hindi.get(versionStArr[0]));
+                    newVsnStr.append(".");
+                    newVsnStr.append(eng2hindi.get(versionStArr[1]));
+                    newVsnStr.append(".");
+                    newVsnStr.append(eng2hindi.get(versionStArr[2]));
+                    break;
+                case BN_IN:
+                    HashMap<String, String> eng2bangla = new HashMap<String, String>() {
+                        {
+                            put("0", "০");
+                            put("1", "১");
+                            put("2", "২");
+                            put("3", "৩");
+                            put("4", "৪");
+                            put("5", "৫");
+                            put("6", "৬");
+                            put("7", "৭");
+                            put("8", "৮");
+                            put("9", "৯");
+                        }
+                    };
+                    newVsnStr.append(eng2bangla.get(versionStArr[0]));
+                    newVsnStr.append(".");
+                    newVsnStr.append(eng2bangla.get(versionStArr[1]));
+                    newVsnStr.append(".");
+                    newVsnStr.append(eng2bangla.get(versionStArr[2]));
+                    break;
+                default:
+                    return BuildConfig.VERSION_NAME;
+            }
         }
         return newVsnStr.toString();
     }
@@ -329,8 +376,17 @@ public class AboutJellowActivity extends AppCompatActivity {
         tv31.setText(mIntro28);
         tv32.setText(mIntro29);
         tv33.setText(mIntro30);
-        tv34.setText(mAppLink);
+        if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+            mIntro13 = mIntro13.concat(" "+ mAppLink);
+            tv15.setText(mIntro13);
+            tv34.setVisibility(View.GONE);
+        }else {
+            tv34.setText(mAppLink);
+            Linkify.addLinks(tv16, Linkify.EMAIL_ADDRESSES);
+        }
         tv35.setText(mIntro6);
+        tv36.setText(mIntro31);
+        tv37.setText(mIntro32);
         mBtnSpeak.setText(mSpeak);
         mBtnStop.setText(mStop);
     }

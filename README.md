@@ -18,14 +18,13 @@ For further information on Jellow and FAQs, please visit www.jellow.org/
 
 Whats new
 ----
-
-- Addition of a new language: Bengali (India)
-- All items in the ‘Places’ category now have context-appropriate sub-categories. 
-- Addition of new content/icons pertaining to good and bad habits, socially appropriate behaviors and reporting of abuse.
-- Improved and colorful interface
-- Clear, step-wise instructions to enable users to add/delete and change default languages within the app 
-- Bug fixes in Emergency call functionality 
-- Fixed other issues.
+- Addition of Visual accessibility (TalkBack support).
+- Addition of new language: English (Australia)
+- New design for Serial Keyboard.
+- Addition of new language in Serial Keyboard : Bengali (India)
+- Addition of new layouts to support 19 : 9 notch screen ratio devices.
+- Corrected scrolls in intro screen.
+- Bug reported on Crashlytics.
 
 Translators
 ----

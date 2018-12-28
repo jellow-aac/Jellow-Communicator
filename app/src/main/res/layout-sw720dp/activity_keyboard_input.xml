@@ -34,7 +34,8 @@
                     android:textColor="@color/black_eighty"
                     android:scaleX=".7"
                     android:scaleY=".7"
-                    android:text="@string/bullet" />
+                    android:text="@string/bullet"
+                    android:importantForAccessibility="no"/>
                 <TextView
                     android:id="@+id/t2"
                     android:layout_width="match_parent"
@@ -85,7 +86,8 @@
                     android:textColor="@color/black_eighty"
                     android:scaleX=".7"
                     android:scaleY=".7"
-                    android:text="@string/bullet" />
+                    android:text="@string/bullet"
+                    android:importantForAccessibility="no"/>
                 <TextView
                     android:id="@+id/t3"
                     android:layout_width="match_parent"

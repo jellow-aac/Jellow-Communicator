@@ -17,10 +17,14 @@ public class SessionManager {
     public final static String ENG_US = "en-rUS";
     public final static String ENG_UK = "en-rGB";
     public final static String ENG_IN = "en-rIN";
+    public final static String ENG_AU = "en-rAU";
     public final static String HI_IN = "hi-rIN";
     public final static String BN_IN = "bn-rIN";    // BN_IN -> Bengali
-    public final static String BE_IN = "be-rIN";
-    public final static String MR_IN = "mr-rIN";    // BE_IN -> Bengali (for some old API devices which return be-rIN)
+    public final static String BE_IN = "be-rIN";    // BE_IN -> Bengali (for some old API devices which return be-rIN)
+    public final static String MR_IN = "mr-rIN";
+
+
+
 
     public final static HashMap<String,String> LangMap = new HashMap<String,String>(){
         {
@@ -29,6 +33,7 @@ public class SessionManager {
             put("मराठी", MR_IN);
             put("English (United Kingdom)", ENG_UK);
             put("English (United States)", ENG_US);
+            put("English (Australia)", ENG_AU);
             put("বাঙালি", BN_IN);
         }
     };
@@ -40,17 +45,14 @@ public class SessionManager {
             put(MR_IN,"मराठी");
             put(ENG_UK,"English (United Kingdom)");
             put(ENG_US,"English (United States)");
+            put(ENG_AU,"English (Australia)");
             put(BN_IN,"বাঙালি");
         }
     };
 
-
-
-
     private SharedPreferences mPreferences;
     private Editor mEditor;
     private Context mContext;
-
 
     private final String PREF_NAME = "AndroidHiveLogin";
     private final String KEY_IS_LOGGEDIN = "isLoggedIn";
@@ -198,35 +200,8 @@ public class SessionManager {
         return pitch;
     }
 
-    public void setScreenWidth(float dpWidth) {
-        storePreferenceKeyWithValue(Float.class.toString(), mContext.getString(R.string.screen_width), dpWidth);
-    }
-
-    public float getScreenWidth(){
-        return (Float) retrievePreferenceKeyWithValue(Float.class.toString(), mContext.getString(R.string.screen_width));
-    }
-
-    public void setScreenHeight(float dpHeight) {
-        storePreferenceKeyWithValue(Float.class.toString(), mContext.getString(R.string.screen_height), dpHeight);
-    }
-
-    public float getScreenHeight(){
-        return (Float) retrievePreferenceKeyWithValue(Float.class.toString(), mContext.getString(R.string.screen_height));
-    }
-
-    public void setShadowRadiusAndBorderWidth(int shadowRadius, int borderWidth) {
-        storePreferenceKeyWithValue(Integer.class.toString(), mContext.getString(R.string.shadow_radius), shadowRadius);
-        storePreferenceKeyWithValue(Integer.class.toString(), mContext.getString(R.string.border_width), borderWidth);
-    }
-
-    public String getShadowRadiusAndBorderWidth(){
-        String strSrBw = String.valueOf(retrievePreferenceKeyWithValue(Integer.class.toString(), mContext.getString(R.string.shadow_radius)));
-        strSrBw += "," + String.valueOf(retrievePreferenceKeyWithValue(Integer.class.toString(), mContext.getString(R.string.border_width)));
-        return strSrBw;
-    }
-
     public void setPeoplePreferences(String peoplePreferences) {
-        if(getLanguage().contains("en") || getLanguage().contains("bn"))
+        if(getLanguage().contains("en") || getLanguage().contains("bn") || getLanguage().contains("be"))
             storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_eng), peoplePreferences);
         else if(getLanguage().contains("hi"))
             storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_hindi), peoplePreferences);
@@ -235,7 +210,7 @@ public class SessionManager {
     }
 
     public String getPeoplePreferences() {
-        if(getLanguage().contains("en") || getLanguage().contains("bn"))
+        if(getLanguage().contains("en") || getLanguage().contains("bn") || getLanguage().contains("be"))
             return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_eng));
         else if(getLanguage().contains("hi"))
             return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_hindi));

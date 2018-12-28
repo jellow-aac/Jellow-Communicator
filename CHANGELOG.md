@@ -1,6 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+##[1.2.5]  - 27, December 2018
+- Addition of Visual accessibility (TalkBack support).
+- Addition of new language: English (Australia)
+- New design for Serial Keyboard.
+- Addition of new language in Serial Keyboard : Bengali (India)
+- Addition of new layouts to support 19 : 9 notch screen ratio devices.
+- Corrected scrolls in intro screen.
+- Bug reported on Crashlytics.
+
 ##[1.2.4]  - 16, October 2018
 - Addition of new language: Marathi (India)
 - Support for Android 9 devices (enable clear text traffic, disabled multi windows support)

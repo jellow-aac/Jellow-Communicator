@@ -1,12 +1,15 @@
 package com.dsource.idc.jellowintl;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.Html;
@@ -14,6 +17,8 @@ import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -23,6 +28,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_DropDownMenu;
 import com.dsource.idc.jellowintl.models.SecureKeys;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.SessionManager;
@@ -30,6 +36,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
@@ -49,6 +57,7 @@ import java.util.Random;
 
 import se.simbio.encryption.Encryption;
 
+import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.getAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.maskNumber;
@@ -72,7 +81,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
     private CountryCodePicker mCcp;
     private String mUserGroup;
     Spinner languageSelect;
-    String[] languagesCodes = new String[6], languageNames = new String[6];
+    String[] languagesCodes = new String[7], languageNames = new String[7];
     String selectedLanguage;
     String name, emergencyContact, eMailId;
 
@@ -86,46 +95,61 @@ public class UserRegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_registration);
         FirebaseMessaging.getInstance().subscribeToTopic("jellow_aac");
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"
-                + getString(R.string.menuUserRegistration)+"</font>"));
+                + getString(R.string.menuUserRegistration) + "</font>"));
 
         mSession = new SessionManager(this);
-        if(!mSession.getCaregiverNumber().equals("")) {
+        if (!mSession.getCaregiverNumber().equals("")) {
             getAnalytics(this, mSession.getCaregiverNumber().substring(1));
             mSession.setSessionCreatedAt(new Date().getTime());
             Crashlytics.setUserIdentifier(maskNumber(mSession.getCaregiverNumber().substring(1)));
         }
-        if (mSession.isUserLoggedIn() && !mSession.getLanguage().isEmpty())
-        {
-            if(mSession.isDownloaded(mSession.getLanguage()) && mSession.isCompletedIntro()) {
-                if(!mSession.getUpdatedFirebase())
+        if (mSession.isUserLoggedIn() && !mSession.getLanguage().isEmpty()) {
+            if (mSession.isDownloaded(mSession.getLanguage()) && mSession.isCompletedIntro()) {
+                if (!mSession.getUpdatedFirebase())
                     updateFirebaseDatabase();
-                mSession.setPackageUpdate(true);
                 startActivity(new Intent(this, SplashActivity.class));
-            }else if(mSession.isDownloaded(mSession.getLanguage()) && !mSession.isCompletedIntro()){
+            } else if (mSession.isDownloaded(mSession.getLanguage()) && !mSession.isCompletedIntro()) {
                 startActivity(new Intent(this, Intro.class));
-                mSession.setPackageUpdate(false);
-            }else {
+            } else {
                 startActivity(new Intent(UserRegistrationActivity.this,
                         LanguageDownloadActivity.class)
-                        .putExtra(LCODE,mSession.getLanguage()).putExtra(TUTORIAL,true));
-                mSession.setPackageUpdate(false);
+                        .putExtra(LCODE, mSession.getLanguage()).putExtra(TUTORIAL, true));
             }
             finish();
-        }else {
+        } else {
             mSession.setBlood(-1);
         }
 
         mDB = FirebaseDatabase.getInstance();
-        mRef = mDB.getReference(BuildConfig.DB_TYPE+"/users");
+        mRef = mDB.getReference(BuildConfig.DB_TYPE + "/users");
 
         LangMap.keySet().toArray(languagesCodes);
         LangMap.keySet().toArray(languageNames);
+        {
+            String lang = languageNames[0];
+            languagesCodes[0] = languageNames[0] = languageNames[3];
+            languagesCodes[3] = languageNames[3] = lang;
+        }
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         etName = findViewById(R.id.etName);
         etName.clearFocus();
+        //ViewCompat.setAccessibilityDelegate(etName, new TalkBackHints_EditText());
         etEmergencyContact = findViewById(R.id.etEmergencyContact);
         mCcp = findViewById(R.id.ccp);
+        if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE)))
+            mCcp.setCountryPreference(null);
+        ViewCompat.setAccessibilityDelegate(mCcp, new TalkbackHints_DropDownMenu());
         mCcp.registerCarrierNumberEditText(etEmergencyContact);
+        //This listener is useful only when Talkback accessibility is "ON".
+        mCcp.setDialogEventsListener(new CountryCodePicker.DialogEventsListener() {
+            @Override public void onCcpDialogOpen(Dialog dialog) {}
+
+            @Override
+            public void onCcpDialogDismiss(DialogInterface dialogInterface) {
+                etEmergencyContact.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
+            }
+            @Override public void onCcpDialogCancel(DialogInterface dialogInterface) {}
+        });
         etEmailId= findViewById(R.id.etEmailId);
         bRegister = findViewById(R.id.bRegister);
         bRegister.setAlpha(0.5f);
@@ -151,7 +175,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
         languageSelect = findViewById(R.id.langSelectSpinner);
 
         ArrayAdapter<String> adapter_lan = new ArrayAdapter<String>(this,
-                R.layout.simple_spinner_item, shortLangNameForDisplay(languageNames));
+                R.layout.simple_spinner_item, populateCountryNameByUserType(languageNames));
 
         adapter_lan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -259,20 +283,39 @@ public class UserRegistrationActivity extends AppCompatActivity {
         Crashlytics.log("Paused "+getLocalClassName());
     }
 
+    @Override
+    public void onUserInteraction() {
+        super.onUserInteraction();
+        addAccessibilityDelegateToSpinners();
+    }
+
+    private void addAccessibilityDelegateToSpinners() {
+        if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+            languageSelect.setAccessibilityDelegate(new View.AccessibilityDelegate() {
+                @Override
+                public void onInitializeAccessibilityEvent(View host, AccessibilityEvent event) {
+                    super.onInitializeAccessibilityEvent(host, event);
+                    if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED) {
+                         bRegister.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
+                    }
+                }
+            });
+        }
+    }
+
     private boolean isValidEmail(CharSequence target) {
         return target != null && Patterns.EMAIL_ADDRESS.matcher(target).matches();
     }
 
     private class NetworkConnectionTest extends AsyncTask<Void, Void, Boolean>{
         private Context mContext;
-        private String mName, mEmergencyContact, mEmailId, mUserGroup;
+        private String mName,  mEmailId, mUserGroup;
         private SessionManager mSession;
 
         public NetworkConnectionTest(Context context, String name, String emergencyContact,
                                      String eMailId, String userGroup) {
             mContext = context;
             mName = name;
-            mEmergencyContact = emergencyContact;
             mEmailId = eMailId;
             mUserGroup = userGroup;
             mSession = new SessionManager(mContext);
@@ -307,12 +350,24 @@ public class UserRegistrationActivity extends AppCompatActivity {
         protected void onPostExecute(Boolean isConnected) {
             super.onPostExecute(isConnected);
             if(isConnected){
-                mSession.setName(mName);
-                mSession.setCaregiverNumber("+".concat(emergencyContact));
-                mSession.setUserCountryCode(mCcp.getSelectedCountryCode());
-                mSession.setEmailId(mEmailId);
-                encryptStoreUserInfo(mName, emergencyContact, eMailId, mUserGroup);
-                Toast.makeText(mContext, getString(R.string.register_user), Toast.LENGTH_SHORT).show();
+                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                if(mAuth.getCurrentUser() == null) {
+                    mAuth.signInAnonymously()
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        mSession.setName(mName);
+                                        mSession.setCaregiverNumber("+" .concat(emergencyContact));
+                                        mSession.setUserCountryCode(mCcp.getSelectedCountryCode());
+                                        mSession.setEmailId(mEmailId);
+                                        encryptStoreUserInfo(mName, emergencyContact, eMailId, mUserGroup);
+                                        Toast.makeText(mContext, getString(R.string.register_user), Toast.LENGTH_SHORT).show();
+                                    }else
+                                        Toast.makeText(mContext, getString(R.string.error_in_registration), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                }
             }else{
                 bRegister.setEnabled(true);
                 Toast.makeText(mContext, getString(R.string.checkConnectivity), Toast.LENGTH_LONG).show();
@@ -371,6 +426,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
             mRef.child(userId).child("country").setValue(country);
             mRef.child(userId).child("firstLanguage").setValue(firstLang);
             mRef.child(userId).child("userGroup").setValue(userGroup);
+            mRef.child(userId).child("versionCode").setValue(BuildConfig.VERSION_CODE);
             mRef.child(userId).child("joinedOn").setValue(ServerValue.TIMESTAMP).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
@@ -416,22 +472,56 @@ public class UserRegistrationActivity extends AppCompatActivity {
         }
     }
 
-    private String[] shortLangNameForDisplay(String[] langNameToBeShorten) {
+    private String[] populateCountryNameByUserType(String[] langNameToBeShorten) {
         String[] shortenLanguageNames = new String[langNameToBeShorten.length];
-        for (int i=0; i < langNameToBeShorten.length; i++){
-            switch (langNameToBeShorten[i]){
-                case "English (India)":
-                    shortenLanguageNames[i] = "English (IN)";
-                    break;
-                case "English (United Kingdom)":
-                    shortenLanguageNames[i] = "English (UK)";
-                    break;
-                case "English (United States)":
-                    shortenLanguageNames[i] = "English (US)";
-                    break;
-                default:
-                    shortenLanguageNames[i] = langNameToBeShorten[i];
-                    break;
+        if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+            for (int i = 0; i < langNameToBeShorten.length; i++) {
+                switch (langNameToBeShorten[i]) {
+                    case "मराठी":
+                        shortenLanguageNames[i] = getString(R.string.acc_lang_marathi);
+                        break;
+                    case "हिंदी":
+                        shortenLanguageNames[i] = getString(R.string.acc_lang_hindi);
+                        break;
+                    case "বাঙালি":
+                        shortenLanguageNames[i] = getString(R.string.acc_lang_bengali);
+                        break;
+                    case "English (India)":
+                        shortenLanguageNames[i] = getString(R.string.acc_lang_eng_in);
+                        break;
+                    case "English (United Kingdom)":
+                        shortenLanguageNames[i] = getString(R.string.acc_lang_eng_gb);
+                        break;
+                    case "English (United States)":
+                        shortenLanguageNames[i] = getString(R.string.acc_lang_eng_us);
+                        break;
+                    case "English (Australia)":
+                        shortenLanguageNames[i] = getString(R.string.acc_lang_eng_au);
+                        break;
+                    default:
+                        shortenLanguageNames[i] = langNameToBeShorten[i];
+                        break;
+                }
+            }
+        }else{
+            for (int i = 0; i < langNameToBeShorten.length; i++) {
+                switch (langNameToBeShorten[i]) {
+                    case "English (India)":
+                        shortenLanguageNames[i] = "English (IN)";
+                        break;
+                    case "English (United Kingdom)":
+                        shortenLanguageNames[i] = "English (UK)";
+                        break;
+                    case "English (United States)":
+                        shortenLanguageNames[i] = "English (US)";
+                        break;
+                    case "English (Australia)":
+                        shortenLanguageNames[i] = "English (AU)";
+                        break;
+                    default:
+                        shortenLanguageNames[i] = langNameToBeShorten[i];
+                        break;
+                }
             }
         }
         return shortenLanguageNames;

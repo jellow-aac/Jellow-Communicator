@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.HashMap;
 
 import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_AU;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_UK;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_US;
@@ -44,6 +45,7 @@ public class MediaPlayerUtils {
             put(HI_IN, "04");
             put(MR_IN, "05");
             put(BN_IN, "06");
+            put(ENG_AU, "07");
         }
     };
 

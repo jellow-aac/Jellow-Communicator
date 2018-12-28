@@ -26,6 +26,7 @@ import java.util.Locale;
 
 import static com.dsource.idc.jellowintl.utility.SessionManager.BE_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_AU;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_UK;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_US;
@@ -101,12 +102,17 @@ public class JellowTTSService extends Service{
             case ENG_US:
                 tts.setLanguage(Locale.US);
                 break;
+            case ENG_AU:
+                tts.setLanguage(new Locale("en", "AU"));
+                break;
             case BN_IN:
             case BE_IN:
                 tts.setLanguage(new Locale("bn", "IN"));
                 break;
-            case SessionManager.HI_IN:
             case ENG_IN:
+                tts.setLanguage(new Locale("en","IN"));
+                break;
+            case HI_IN:
             case MR_IN:
             default:
                 tts.setLanguage(new Locale("hi","IN"));
@@ -275,24 +281,31 @@ public class JellowTTSService extends Service{
     private void broadcastTtsData(TextToSpeech tts, Intent intent) {
         Intent dataIntent = new Intent("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES");
         String infoLang="", infoCountry="";
-        if(Build.VERSION.SDK_INT < 18) {
-            infoLang = tts.getLanguage().getLanguage();
-            infoCountry = tts.getLanguage().getCountry();
-        }else if(Build.VERSION.SDK_INT < 21) {
-            infoLang = tts.getDefaultLanguage().getLanguage().substring(0,2);
-            infoCountry = tts.getDefaultLanguage().getCountry().substring(0,2);
-        }else {
-        //When below if case is false then variables infoLang & infoCountry are empty.
-        //Keeping infoLang & infoCountry variables empty and sending them with broadcast have no
-        //impact. Whenever they are empty, the broadcast is sent only to {@LanguageSelectActivity}
-        //class. And these broadcast intent response is not used when api is Lollipop or above.
-            if(tts.getDefaultVoice() != null){
-                infoLang = tts.getDefaultVoice().getLocale().getLanguage();
-                infoCountry = tts.getDefaultVoice().getLocale().getCountry();
+        try {
+            if (Build.VERSION.SDK_INT < 18) {
+                infoLang = tts.getLanguage().getLanguage();
+                infoCountry = tts.getLanguage().getCountry();
+            } else if (Build.VERSION.SDK_INT < 21) {
+                infoLang = tts.getDefaultLanguage().getLanguage().substring(0, 2);
+                infoCountry = tts.getDefaultLanguage().getCountry().substring(0, 2);
+            } else {
+                //When below if case is false then variables infoLang & infoCountry are empty.
+                //Keeping infoLang & infoCountry variables empty and sending them with broadcast have no
+                //impact. Whenever they are empty, the broadcast is sent only to {@LanguageSelectActivity}
+                //class. And these broadcast intent response is not used when api is Lollipop or above.
+                if (tts.getDefaultVoice() != null) {
+                    infoLang = tts.getDefaultVoice().getLocale().getLanguage();
+                    infoCountry = tts.getDefaultVoice().getLocale().getCountry();
+                }
             }
+        }catch(Exception e){
+            //This error is ignored. Their might no language is set previously to text-to-speech
+            // engine and hence above retrieval of lang, country {infoLang, infoCountry} fails.
+            // If it is empty, the broadcast is sent to receiver with empty ("-r" value) tts language
+            // name and this gives error message to user in receiver code.
         }
         dataIntent.putExtra("systemTtsRegion", infoLang.concat("-r".concat(infoCountry)));
-        if(infoLang.concat("-r".concat(infoCountry)).equals(HI_IN) &&
+        if(infoLang.concat("-r".concat(infoCountry)).equals(ENG_IN) &&
                 intent.getStringExtra("saveSelectedLanguage").equals(ENG_IN))
             dataIntent.putExtra("saveUserLanguage", true);
         else if(infoLang.concat("-r".concat(infoCountry)).equals(BE_IN) &&
@@ -301,8 +314,7 @@ public class JellowTTSService extends Service{
         else if(infoLang.concat("-r".concat(infoCountry)).equals(BN_IN) &&
                 intent.getStringExtra("saveSelectedLanguage").equals(BN_IN))
             dataIntent.putExtra("saveUserLanguage", true);
-        else if(!intent.getStringExtra("saveSelectedLanguage").equals(ENG_IN) &&
-                intent.getStringExtra("saveSelectedLanguage").
+        else if(intent.getStringExtra("saveSelectedLanguage").
                         equals(infoLang.concat("-r".concat(infoCountry))))
             dataIntent.putExtra("saveUserLanguage", true);
         else dataIntent.putExtra("saveUserLanguage", false);
@@ -383,6 +395,7 @@ public class JellowTTSService extends Service{
             switch(language){
                 case ENG_UK:
                 case ENG_US:
+                case ENG_AU:
                 case HI_IN:
                 case ENG_IN:
                 case BN_IN:
@@ -397,6 +410,7 @@ public class JellowTTSService extends Service{
             switch(language){
                 case ENG_UK:
                 case ENG_US:
+                case ENG_AU:
                 case HI_IN:
                 case ENG_IN:
                 case BN_IN:
@@ -411,6 +425,7 @@ public class JellowTTSService extends Service{
             switch(language){
                 case ENG_UK:
                 case ENG_US:
+                case ENG_AU:
                 case HI_IN:
                 case ENG_IN:
                 case BN_IN:

@@ -5,9 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
-    android:keyPreviewLayout ="@layout/preview"
-    android:keyTextSize="38dp"
+    android:background="@color/colorSerialKeyboardBackground"
+    android:keyPreviewLayout="@layout/preview"
+    android:paddingTop="8dp"
+    android:paddingBottom="4dp"
+    android:keyTextSize="32dp"
     android:labelTextSize="30dp"
-    android:keyTextColor="#000000"
-    android:keyBackground="@drawable/rectangle"
-    />
+    android:keyTextColor="@color/colorSeriaKeyboardKeyText"
+    android:keyBackground="@drawable/rectangle"/>

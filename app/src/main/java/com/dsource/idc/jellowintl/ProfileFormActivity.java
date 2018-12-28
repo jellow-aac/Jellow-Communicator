@@ -22,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -59,6 +60,7 @@ import java.util.Random;
 
 import se.simbio.encryption.Encryption;
 
+import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.maskNumber;
@@ -106,8 +108,7 @@ public class ProfileFormActivity extends AppCompatActivity {
         boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
         if(isAccessibilityEnabled && isExploreByTouchEnabled) {
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                    R.array.bloodgroup, android.R.layout.simple_spinner_item);
-            //adapter.getView(1,null,mBloodGroup).setContentDescription("A positive");
+                    R.array.bloodgroup_talkback, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             mBloodGroup.setAdapter(adapter);
         }
@@ -122,7 +123,6 @@ public class ProfileFormActivity extends AppCompatActivity {
         mDB = FirebaseDatabase.getInstance();
         mRef = mDB.getReference(BuildConfig.DB_TYPE+"/users/" +
                 maskNumber(mSession.getCaregiverNumber().substring(1)));
-
 
         etName.setText(mSession.getName());
         mCcp = findViewById(R.id.ccp);
@@ -206,6 +206,11 @@ public class ProfileFormActivity extends AppCompatActivity {
         // user preferred locale.
         mDetailSaved = getString(R.string.detailSaved);
         mCheckCon = getString(R.string.checkConnectivity);
+        if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+            findViewById(R.id.tvName).setFocusableInTouchMode(true);
+            findViewById(R.id.tvName).setFocusable(true);
+            mCcp.setCountryPreference(null);
+        }
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.dsource.idc.jellowintl.CREATE_ABOUT_ME_RECORDING_RES");
         registerReceiver(receiver, filter);
@@ -222,6 +227,9 @@ public class ProfileFormActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         if(mSession.getLanguage().equals(BN_IN))
             menu.findItem(R.id.keyboardinput).setVisible(false);
+        if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+            menu.findItem(R.id.closePopup).setVisible(false);
+        }
         return true;
     }
 
@@ -229,7 +237,11 @@ public class ProfileFormActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.languageSelect:
-                startActivity(new Intent(this, LanguageSelectActivity.class));
+                if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                    startActivity(new Intent(this, LanguageSelectActivity.class));
+                } else {
+                    startActivity(new Intent(this, LanguageSelectTalkBackActivity.class));
+                }
                 finish(); break;
             case R.id.info:
                 startActivity(new Intent(this, AboutJellowActivity.class));
@@ -247,7 +259,12 @@ public class ProfileFormActivity extends AppCompatActivity {
                 startActivity(new Intent(this, ResetPreferencesActivity.class));
                 finish(); break;
             case R.id.feedback:
-                startActivity(new Intent(this, FeedbackActivity.class));
+                if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                    startActivity(new Intent(this, FeedbackActivityTalkBack.class));
+                }
+                else {
+                    startActivity(new Intent(this, FeedbackActivity.class));
+                }
                 finish();
                 break;
             case android.R.id.home:
@@ -275,6 +292,44 @@ public class ProfileFormActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!isAnalyticsActive()){
+            resetAnalytics(this, mSession.getCaregiverNumber().substring(1));
+        }
+        if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
+            startService(new Intent(getApplication(), JellowTTSService.class));
+        }
+        startMeasuring();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(receiver);
+    }
+
+    @Override
+    public void onUserInteraction() {
+        super.onUserInteraction();
+        addAccessibilityDelegateToSpinners();
+    }
+
+    private void addAccessibilityDelegateToSpinners() {
+        if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+            mBloodGroup.setAccessibilityDelegate(new View.AccessibilityDelegate() {
+                @Override
+                public void onInitializeAccessibilityEvent(View host, AccessibilityEvent event) {
+                    super.onInitializeAccessibilityEvent(host, event);
+                    if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED) {
+                        bSave.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
+                    }
+                }
+            });
+        }
     }
 
     public static boolean isValidEmail(CharSequence target) {
@@ -310,18 +365,6 @@ public class ProfileFormActivity extends AppCompatActivity {
             default:
                 return "not selected";
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if(!isAnalyticsActive()){
-            resetAnalytics(this, mSession.getCaregiverNumber().substring(1));
-        }
-        if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
-            startService(new Intent(getApplication(), JellowTTSService.class));
-        }
-        startMeasuring();
     }
 
     private void encryptStoreUserInfo(final String name, final String contact,
@@ -371,6 +414,7 @@ public class ProfileFormActivity extends AppCompatActivity {
         mRef.child("bloodGroup").setValue(encrypt(bloodGroup, secureKey));
         mRef.child("userGroup").setValue(encrypt(userGroup, secureKey));
         mRef.child("updatedOn").setValue(ServerValue.TIMESTAMP);
+        mRef.child("versionCode").setValue(BuildConfig.VERSION_CODE);
         savedProfileDetails(userGroup);
     }
 
@@ -429,7 +473,7 @@ public class ProfileFormActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
-            }
+                }
         });
     }
 
@@ -451,12 +495,6 @@ public class ProfileFormActivity extends AppCompatActivity {
             // if old number doesn't have previous records then just copy it into 'new number -> prevrecords node'
             mNewRef.setValue(snapshot.getValue());
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unregisterReceiver(receiver);
     }
 
     private final BroadcastReceiver receiver = new BroadcastReceiver() {

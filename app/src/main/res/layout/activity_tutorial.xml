@@ -58,6 +58,7 @@
                         android:paddingBottom="4dp"
                         android:text="@string/catBtn"
                         android:fontFamily="@font/mukta_semibold"
+                        android:importantForAccessibility="yes"
                         style="@style/defaultTextViewStyle"/>
                     <ImageView
                         android:id="@+id/pic1"
@@ -74,6 +75,7 @@
                         android:layout_marginTop="19dp"
                         android:paddingBottom="4dp"
                         android:text="@string/expBtn"
+                        android:importantForAccessibility="yes"
                         android:fontFamily="@font/mukta_semibold"
                         style="@style/defaultTextViewStyle"/>
                     <ImageView
@@ -373,32 +375,6 @@
 
                 </RelativeLayout>
             </LinearLayout>
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="19dp">
-                <TextView
-                    android:id="@+id/bullet7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="4dp"
-                    android:layout_marginRight="4dp"
-                    android:textColor="@color/black_eighty"
-                    android:scaleX=".7"
-                    android:scaleY=".7"
-                    android:text="@string/bullet"
-                    android:importantForAccessibility="no"/>
-                <TextView
-                    android:id="@+id/tv6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/bullet7"
-                    android:layout_toRightOf="@+id/bullet7"
-                    android:paddingBottom="4dp"
-                    android:text="@string/softwareVersion"
-                    android:fontFamily="@font/mukta_semibold"
-                    style="@style/defaultTextViewStyle"/>
-            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

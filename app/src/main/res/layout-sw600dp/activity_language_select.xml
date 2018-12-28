@@ -41,27 +41,32 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <ImageView
+                    android:id="@+id/ivAddLang1"
                     android:layout_width="210dp"
                     android:layout_height="270dp"
-                    android:src="@drawable/tts_wifi_1" />
+                    android:contentDescription="@string/lang_setting_option1_cd" />
                 <ImageView
+                    android:id="@+id/ivArrow1"
                     android:layout_width="55dp"
                     android:layout_height="80dp"
-                    android:background="@drawable/arrow"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical"
+                    android:importantForAccessibility="no"/>
                 <ImageView
+                    android:id="@+id/ivAddLang2"
                     android:layout_width="210dp"
                     android:layout_height="270dp"
-                    android:src="@drawable/tts_wifi_2" />
+                    android:contentDescription="@string/lang_setting_option2_cd" />
                 <ImageView
+                    android:id="@+id/ivArrow2"
                     android:layout_width="55dp"
                     android:layout_height="80dp"
-                    android:background="@drawable/arrow"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical"
+                    android:importantForAccessibility="no"/>
                 <ImageView
+                    android:id="@+id/ivAddLang3"
                     android:layout_width="210dp"
                     android:layout_height="270dp"
-                    android:src="@drawable/tts_wifi_3"/>
+                    android:contentDescription="@string/lang_setting_option3_cd"/>
             </LinearLayout>
             <Button
                 android:id="@+id/btnTTsSetting"
@@ -94,8 +99,7 @@
                     android:layout_gravity="center_vertical"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
-                    android:text="@string/addLanguage"
-                    android:contentDescription="Add language" />
+                    android:text="@string/addLanguage" />
                 <Button
                     android:id="@+id/delBut"
                     android:layout_width="wrap_content"
@@ -133,10 +137,13 @@
                 style="@style/defaultTextViewStyle"/>
             <Spinner
                 android:id="@+id/selectDownloadedLanguageSpinner"
-                android:layout_width="160dp"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:background="@drawable/custom_spinner_view"
                 android:textColor="@color/black_eighty"
+                android:minWidth="98dp"
+                android:paddingRight="28dp"
+                android:paddingEnd="28dp"
                 android:layout_marginBottom="19dp"/>
             <TextView
                 android:id="@+id/tv4"
@@ -152,7 +159,7 @@
                 android:layout_marginLeft="-8dp"
                 android:layout_marginStart="-8dp"
                 android:layout_marginBottom="19dp"
-                android:src="@drawable/gtts3"/>
+                android:contentDescription="@string/gtts3"/>
             <Button
                 android:id="@+id/btnDownloadVoiceData"
                 android:layout_width="wrap_content"
@@ -181,27 +188,32 @@
                 android:layout_marginBottom="19dp"
                 android:orientation="horizontal">
                 <ImageView
+                    android:id="@+id/ivTtsSetting1"
                     android:layout_width="200dp"
                     android:layout_height="300dp"
-                    android:src="@drawable/gtts1"/>
+                    android:contentDescription="@string/gtts1"/>
                 <ImageView
+                    android:id="@+id/ivArrow3"
                     android:layout_width="55dp"
                     android:layout_height="80dp"
-                    android:background="@drawable/arrow"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical"
+                    android:importantForAccessibility="no"/>
                 <ImageView
+                    android:id="@+id/ivTtsSetting2"
                     android:layout_width="200dp"
                     android:layout_height="300dp"
-                    android:src="@drawable/gtts2"/>
+                    android:contentDescription="@string/gtts2"/>
                 <ImageView
+                    android:id="@+id/ivArrow4"
                     android:layout_width="55dp"
                     android:layout_height="80dp"
-                    android:background="@drawable/arrow"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical"
+                    android:importantForAccessibility="no"/>
                 <ImageView
+                    android:id="@+id/ivTtsSetting3"
                     android:layout_width="200dp"
                     android:layout_height="300dp"
-                    android:src="@drawable/gtts4"/>
+                    android:contentDescription="@string/lang_setting_option3_gtt3_cd"/>
             </LinearLayout>
             <Button
                 android:id="@+id/changeTtsLangBut"

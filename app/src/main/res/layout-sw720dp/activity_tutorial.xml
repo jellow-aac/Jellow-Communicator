@@ -11,10 +11,10 @@
         android:layout_height="wrap_content"
         android:fillViewport="true"
         android:layout_marginTop="30dp"
-        android:paddingLeft="32dp"
-        android:paddingStart="32dp"
-        android:paddingRight="16dp"
-        android:paddingEnd="16dp">
+        android:layout_marginLeft="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -60,8 +60,7 @@
                         android:layout_marginBottom="16dp"
                         android:text="@string/catBtn"
                         style="@style/defaultTextViewStyle"
-                        android:fontFamily="@font/mukta_semibold"
-                        android:importantForAccessibility="no"/>
+                        android:fontFamily="@font/mukta_semibold"/>
                         <ImageView
                         android:id="@+id/pic1"
                         android:layout_width="wrap_content"
@@ -77,8 +76,7 @@
                         android:layout_marginBottom="16dp"
                         android:text="@string/expBtn"
                         style="@style/defaultTextViewStyle"
-                        android:fontFamily="@font/mukta_semibold"
-                        android:importantForAccessibility="no"/>
+                        android:fontFamily="@font/mukta_semibold"/>
                     <ImageView
                         android:id="@+id/pic2"
                         android:layout_width="wrap_content"
@@ -374,36 +372,6 @@
 
                 </RelativeLayout>
             </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="16dp">
-                <TextView
-                    android:id="@+id/bullet7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="4dp"
-                    android:layout_marginRight="4dp"
-                    android:layout_marginTop="6dp"
-                    android:textColor="@color/black_eighty"
-                    android:scaleX=".7"
-                    android:scaleY=".7"
-                    android:text="@string/bullet"
-                    android:importantForAccessibility="no"/>
-
-                <TextView
-                    android:id="@+id/tv6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/bullet7"
-                    android:layout_toRightOf="@+id/bullet7"
-                    android:layout_marginBottom="16dp"
-                    android:text="@string/softwareVersion"
-                    style="@style/defaultTextViewStyle"
-                    android:fontFamily="@font/mukta_semibold"/>
-            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

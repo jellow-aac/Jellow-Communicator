@@ -4,20 +4,24 @@
     android:layout_height="wrap_content"
     android:elevation="@dimen/search_list_margin"
     android:layout_marginRight="4dp"
+    android:importantForAccessibility="no"
     >
     <RelativeLayout
 
         android:layout_width="match_parent"
         android:id="@+id/container"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:importantForAccessibility="no">
     <ImageView
         android:layout_centerVertical="true"
         android:layout_width="@dimen/search_list_icon_size"
         android:layout_height="@dimen/search_list_icon_size"
         android:id="@+id/search_icon_drawable"
         android:layout_margin="@dimen/search_list_margin"
+        android:importantForAccessibility="no"
         />
     <LinearLayout
+        android:id="@+id/llSearchParent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -25,7 +29,7 @@
         android:paddingRight="@dimen/search_list_icon_size"
         android:layout_centerVertical="true"
         android:layout_margin="@dimen/search_list_margin"
-        >
+        android:importantForAccessibility="yes">
     <TextView
 
         android:layout_width="wrap_content"
@@ -59,6 +63,7 @@
         android:layout_margin="@dimen/search_list_margin"
         android:id="@+id/speak_button"
         android:contentDescription="@string/speak"
+        android:importantForAccessibility="yes"
         />
     </RelativeLayout>
 

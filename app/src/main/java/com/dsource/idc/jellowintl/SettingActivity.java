@@ -19,7 +19,8 @@ import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
+import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -36,6 +37,7 @@ import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.MediaPlayerUtils;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
+import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
 import static com.dsource.idc.jellowintl.MainActivity.isDeviceReadyToCall;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
@@ -81,8 +83,13 @@ public class SettingActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinnerViewMode.setAdapter(adapter);
         mSpinnerGridSize = findViewById(R.id.spinner4);
-        adapter = ArrayAdapter.createFromResource
-                (this, R.array.grid_size, R.layout.simple_spinner_item);
+        if(!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+            adapter = ArrayAdapter.createFromResource
+                    (this, R.array.grid_size, R.layout.simple_spinner_item);
+        }else {
+            adapter = ArrayAdapter.createFromResource
+                    (this, R.array.acc_grid_size, R.layout.simple_spinner_item);
+        }
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinnerGridSize.setAdapter(adapter);
 
@@ -108,7 +115,7 @@ public class SettingActivity extends AppCompatActivity {
         }
 
         Button btnSave = findViewById(R.id.button4);
-        Button btnDemo = findViewById(R.id.demo);
+        final Button btnDemo = findViewById(R.id.demo);
         mSliderSpeed = findViewById(R.id.speed);
         mSliderPitch = findViewById(R.id.pitch);
         mSliderVolume = findViewById(R.id.volume);
@@ -144,15 +151,9 @@ public class SettingActivity extends AppCompatActivity {
                mTxtViewSpeechSpeed.setText(strSpeechSpeed.concat(": "+ String.valueOf(i / 5)));
            }
 
-           @Override
-           public void onStartTrackingTouch(SeekBar seekBar) {
+           @Override public void onStartTrackingTouch(SeekBar seekBar) {}
 
-           }
-
-           @Override
-           public void onStopTrackingTouch(SeekBar seekBar) {
-
-           }
+           @Override public void onStopTrackingTouch(SeekBar seekBar) {}
        });
 
         mSliderPitch.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -162,15 +163,9 @@ public class SettingActivity extends AppCompatActivity {
                 mTxtViewVoicePitch.setText(strSpeechPitch.concat(": "+ String.valueOf(i / 5)));
             }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
+            @Override public void onStartTrackingTouch(SeekBar seekBar) {}
 
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
+            @Override public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
         if(!(new MediaPlayerUtils(this).isTtsAvailForLang())){
@@ -191,29 +186,9 @@ public class SettingActivity extends AppCompatActivity {
 
             }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
+            @Override public void onStartTrackingTouch(SeekBar seekBar) {}
 
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-
-        mSpinnerViewMode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            }
-            @Override public void onNothingSelected(AdapterView<?> parent) {}
-        });
-
-        mSpinnerGridSize.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            }
-            @Override public void onNothingSelected(AdapterView<?> parent) {}
+            @Override public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -313,7 +288,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     /**
-     * <p> This function will create and display SnackBar with "Request" action button. It will
+     * <p> This function will create and display Dialog with "Request" action button. It will
      *  display message about why app requires the Call permission.</p>
      * */
     private void showSettingRequestDialog() {
@@ -415,6 +390,9 @@ public class SettingActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         if(mSession.getLanguage().equals(BN_IN))
             menu.findItem(R.id.keyboardinput).setVisible(false);
+        if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+            menu.findItem(R.id.closePopup).setVisible(false);
+        }
         return true;
     }
 
@@ -422,7 +400,11 @@ public class SettingActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.languageSelect:
-                startActivity(new Intent(this, LanguageSelectActivity.class));
+                if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                    startActivity(new Intent(this, LanguageSelectActivity.class));
+                } else {
+                    startActivity(new Intent(this, LanguageSelectTalkBackActivity.class));
+                }
                 finish();
                 break;
             case R.id.profile:
@@ -446,7 +428,12 @@ public class SettingActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.feedback:
-                startActivity(new Intent(this, FeedbackActivity.class));
+                if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                    startActivity(new Intent(this, FeedbackActivityTalkBack.class));
+                }
+                else {
+                    startActivity(new Intent(this, FeedbackActivity.class));
+                }
                 finish();
                 break;
             case android.R.id.home:
@@ -463,6 +450,36 @@ public class SettingActivity extends AppCompatActivity {
         setSpeechPitch(mSession.getPitch()/50);
         setSpeechRate(mSession.getSpeed()/50);
         finish();
+    }
+
+    @Override
+    public void onUserInteraction() {
+        super.onUserInteraction();
+        addAccessibilityDelegateToSpinners();
+    }
+
+    private void addAccessibilityDelegateToSpinners() {
+        if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+            mSpinnerViewMode.setAccessibilityDelegate(new View.AccessibilityDelegate() {
+                @Override
+                public void onInitializeAccessibilityEvent(View host, AccessibilityEvent event) {
+                    super.onInitializeAccessibilityEvent(host, event);
+                    if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED) {
+                        findViewById(R.id.tv4).sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
+                    }
+                }
+            });
+
+            mSpinnerGridSize.setAccessibilityDelegate(new View.AccessibilityDelegate() {
+                @Override
+                public void onInitializeAccessibilityEvent(View host, AccessibilityEvent event) {
+                    super.onInitializeAccessibilityEvent(host, event);
+                    if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED) {
+                        findViewById(R.id.demo).sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
+                    }
+                }
+            });
+        }
     }
 
     private void speakSpeech(String speechText){

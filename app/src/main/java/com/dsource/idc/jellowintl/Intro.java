@@ -12,10 +12,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.view.View;
+import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
@@ -25,9 +29,13 @@ import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.dsource.idc.jellowintl.utility.TextToSpeechErrorUtils;
 import com.github.paolorotolo.appintro.AppIntro;
 
+import java.util.Objects;
+
+import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BE_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_AU;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_UK;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_US;
@@ -96,6 +104,10 @@ public class Intro extends AppIntro {
         super.onResume();
         if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE)))
             startService(new Intent(getApplication(), JellowTTSService.class));
+        if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))
+                && isOpenedSettingFromIntro8){
+            findViewById(R.id.btnMoveRight).sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
+        }
     }
 
     @Override
@@ -120,7 +132,7 @@ public class Intro extends AppIntro {
     };
 
     @Override
-    public void onSlideChanged(@Nullable Fragment oldFragment, @Nullable Fragment newFragment) {
+    public void onSlideChanged(@Nullable Fragment oldFragment, @Nullable final Fragment newFragment) {
         super.onSlideChanged(oldFragment, newFragment);
         Crashlytics.log("Slide visible:"+((SampleSlideFragment) newFragment).getLayoutName());
         if (Build.VERSION.SDK_INT < 21
@@ -129,20 +141,21 @@ public class Intro extends AppIntro {
                     ((SampleSlideFragment) newFragment).getLayoutName().equals("intro7")){
                 getTextToSpeechEngineLanguage("");
         }
-        setStringsNextForSlide((SampleSlideFragment) newFragment);
+        setupNextSlide((SampleSlideFragment) newFragment);
     }
 
-    private String getSelectedLanguage(String replaceChar) {
+    private String getSelectedLanguage() {
         switch (new SessionManager(this).getLanguage()){
             case ENG_IN:
-                if(replaceChar.equals("-"))
-                    return "English (IN)";
+                return "English (IN)";
             case HI_IN:
                 return "Hindi (IN)";
             case ENG_UK:
                 return "English (UK)";
             case ENG_US:
                 return "English (US)";
+            case ENG_AU:
+                return "English (AU)";
             case BE_IN:
             case BN_IN:
                 return "Bengali (IN)";
@@ -156,11 +169,11 @@ public class Intro extends AppIntro {
             Toast.makeText(Intro.this, toastMsg, Toast.LENGTH_LONG).show();
             getPager().setCurrentItem(5, true);
         }else if(Build.VERSION.SDK_INT < 21) {
-            if ((session.getLanguage().equals(ENG_IN) && mTTsDefaultLanguage.equals(HI_IN)) ||
-                    (!session.getLanguage().equals(ENG_IN) && session.getLanguage().equals(mTTsDefaultLanguage)) ||
-                        (session.getLanguage().equals(BN_IN) &&
-                                ( mTTsDefaultLanguage.equals(BN_IN) || (mTTsDefaultLanguage.equals(BE_IN) ))) ||
-                                    session.getLanguage().equals(MR_IN)) {
+            if(!mTTsDefaultLanguage.equals("-r") ||
+                (session.getLanguage().equals(mTTsDefaultLanguage)) ||
+                    (session.getLanguage().equals(BN_IN) &&
+                        ( mTTsDefaultLanguage.equals(BN_IN) || (mTTsDefaultLanguage.equals(BE_IN) ))) ||
+                            session.getLanguage().equals(MR_IN)) {
                 session.setCompletedIntro(true);
                 Intent intent=new Intent(Intro.this, SplashActivity.class);
                 startActivity(intent);
@@ -230,8 +243,8 @@ public class Intro extends AppIntro {
 
     private void getViewResource() {
         selectedLanguage = getString(R.string.txt_intro6_skipActiveTtsDesc)
-                .replace("-", getSelectedLanguage("-"))
-                .replace("_", getSelectedLanguage("_"));
+                .replace("-", getSelectedLanguage())
+                .replace("_", getSelectedLanguage());
         toastMsg = getString(R.string.txt_set_tts_setup);
         intro_title = getString(R.string.txt_intro1_central9btn);
         intro_caption = getString(R.string.txt_intro1_categorybtn);
@@ -251,10 +264,10 @@ public class Intro extends AppIntro {
         intro6_imgTxt1 = getString(R.string.txt_intro6_ttsStep1);
         intro6_btn_bottom = getString(R.string.txt_intro6_activate);
         intro6_imgTxt2 = getString(R.string.txt_intro6_step2)
-                .replace("_",getSelectedLanguage("_"));
+                .replace("_",getSelectedLanguage());
         intro6_btn_bottom1 = getString(R.string.txt_intro6_changeLang);
         intro6_imgTxt3 = getString(R.string.txt_intro6_step3)
-                .replace("_",getSelectedLanguage("_"));
+                .replace("_",getSelectedLanguage());
         intro6_btn_bottom3 = getString(R.string.txt_intro6_download);
 
         intro7title = getString(R.string.txt_intro7_getStartedDesc);
@@ -267,48 +280,89 @@ public class Intro extends AppIntro {
         intro8_btn = getString(R.string.txt_tts_stting);
     }
 
-    public void setStringsNextForSlide(SampleSlideFragment newFragment) {
+    public void setupNextSlide(SampleSlideFragment newFragment) {
         switch(newFragment.getLayoutName()){
             case "intro":
-                ((TextView)findViewById(R.id.tv_intro_title)).setText(intro_title);
-                ((TextView)findViewById(R.id.tv_intro_caption)).setText(intro_caption);
+                setText2TextView(newFragment, R.id.tv_intro_title, intro_title);
+                setText2TextView(newFragment, R.id.tv_intro_caption, intro_caption);
                 break;
             case "intro2":
-                ((TextView)findViewById(R.id.tv_intro2_title)).setText(intro2_title);
-                ((TextView)findViewById(R.id.tv_intro2_caption)).setText(intro2_caption);
+                setText2TextView(newFragment, R.id.tv_intro2_title, intro2_title);
+                setText2TextView(newFragment, R.id.tv_intro2_caption, intro2_caption);
                 break;
             case "intro3":
-                ((TextView)findViewById(R.id.tv_intro3_title)).setText(intro3_title);
-                ((TextView)findViewById(R.id.tv_intro3_caption)).setText(intro3_caption);
+                setText2TextView(newFragment, R.id.tv_intro3_title, intro3_title);
+                setText2TextView(newFragment, R.id.tv_intro3_caption, intro3_caption);
                 break;
             case "intro4":
-                ((TextView)findViewById(R.id.tv_intro4_title)).setText(intro4_title);
-                ((TextView)findViewById(R.id.tv_intro4_caption)).setText(intro4_caption);
+                setText2TextView(newFragment, R.id.tv_intro4_title, intro4_title);
+                setText2TextView(newFragment, R.id.tv_intro4_caption, intro4_caption);
                 break;
             case "intro5":
-                ((TextView)findViewById(R.id.tv_intro5_title)).setText(intro5_title);
-                ((TextView)findViewById(R.id.tv_intro5_caption)).setText(intro5_caption);
+                setText2TextView(newFragment, R.id.tv_intro5_title, intro5_title);
+                setText2TextView(newFragment, R.id.tv_intro5_caption, intro5_caption);
                 break;
             case "intro6":
-                ((TextView) findViewById(R.id.tx_downloadMsg)).setText(selectedLanguage);
-                ((TextView)findViewById(R.id.tvtop)).setText(intro6_imgTxt1);
-                ((Button)findViewById(R.id.tvbottom)).setText(intro6_btn_bottom);
-                ((TextView)findViewById(R.id.tvtop1)).setText(intro6_imgTxt2);
-                ((Button)findViewById(R.id.tvbottom1)).setText(intro6_btn_bottom1);
-                ((TextView)findViewById(R.id.tvtop2)).setText(intro6_imgTxt3);
-                ((Button)findViewById(R.id.tvbottom3)).setText(intro6_btn_bottom3);
+                setText2TextView(newFragment, R.id.tx_downloadMsg, selectedLanguage);
+                setText2TextView(newFragment, R.id.tvtop, intro6_imgTxt1);
+                setText2Button(newFragment, R.id.tvbottom, intro6_btn_bottom);
+                setText2TextView(newFragment, R.id.tvtop1, intro6_imgTxt2);
+                setText2Button(newFragment, R.id.tvbottom1, intro6_btn_bottom1);
+                setText2TextView(newFragment, R.id.tvtop2, intro6_imgTxt3);
+                setText2Button(newFragment, R.id.tvbottom3, intro6_btn_bottom3);
                 break;
             case "intro7":
-                ((TextView)findViewById(R.id.intro7_tvtop)).setText(intro7title);
-                ((Button)findViewById(R.id.btn_getStarted)).setText(intro7_btn_getStarted);
+                setText2TextView(newFragment, R.id.intro7_tvtop, intro7title);
+                setText2Button(newFragment, R.id.btn_getStarted, intro7_btn_getStarted);
                 break;
             case "intro8":
-                ((TextView)findViewById(R.id.tv_intro8_title)).setText(intro8title);
-                ((TextView)findViewById(R.id.tv_intro8_imgTxt1)).setText(intro8_imgTxt1);
-                ((TextView)findViewById(R.id.tv_intro8_imgTxt2)).setText(intro8_imgTxt2);
-                ((TextView)findViewById(R.id.tv_intro8_imgTxt3)).setText(intro8_imgTxt3);
-                ((TextView)findViewById(R.id.btnTTsSetting)).setText(intro8_btn);
+                setText2TextView(newFragment, R.id.tv_intro8_title, intro8title);
+                setText2TextView(newFragment, R.id.tv_intro8_imgTxt1, intro8_imgTxt1);
+                setText2TextView(newFragment, R.id.tv_intro8_imgTxt2, intro8_imgTxt2);
+                setText2TextView(newFragment, R.id.tv_intro8_imgTxt3, intro8_imgTxt3);
+                setImgToImageView(newFragment, R.id.img1_intro8,R.drawable.tts_wifi_1);
+                setImgToImageView(newFragment, R.id.img2_intro8,R.drawable.tts_wifi_2);
+                setImgToImageView(newFragment, R.id.img3_intro8,R.drawable.tts_wifi_3);
+                setText2Button(newFragment, R.id.btnTTsSetting, intro8_btn);
                 break;
+        }
+    }
+
+    private void setText2TextView(SampleSlideFragment parent, int tv, String text) {
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                ((TextView) Objects.requireNonNull(parent.getView()).findViewById(tv)).setText(text);
+            } else {
+                ((TextView) parent.getView().findViewById(tv)).setText(text);
+            }
+        }catch(Exception e){
+            Crashlytics.logException(e);
+        }
+    }
+
+    private void setText2Button(SampleSlideFragment parent, int btn, String text) {
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                ((Button) Objects.requireNonNull(parent.getView()).findViewById(btn)).setText(text);
+            } else {
+                ((Button) parent.getView().findViewById(btn)).setText(text);
+            }
+        }catch(Exception e){
+            Crashlytics.logException(e);
+        }
+    }
+
+    private void setImgToImageView(SampleSlideFragment parent, int view, int drawable) {
+        try {
+            ImageView imageView = parent.getView().findViewById(view);
+            GlideApp.with(this)
+                    .load(drawable)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(false)
+                    .dontAnimate()
+                    .into(imageView);
+        }catch(Exception e){
+            Crashlytics.logException(e);
         }
     }
 }
