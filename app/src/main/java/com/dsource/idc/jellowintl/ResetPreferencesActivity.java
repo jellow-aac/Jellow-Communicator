@@ -90,7 +90,11 @@ public class ResetPreferencesActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.languageSelect:
-                startActivity(new Intent(this, LanguageSelectActivity.class));
+                if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                    startActivity(new Intent(this, LanguageSelectActivity.class));
+                } else {
+                    startActivity(new Intent(this, LanguageSelectTalkBackActivity.class));
+                }
                 finish(); break;
             case R.id.profile:
                 startActivity(new Intent(this, ProfileFormActivity.class));

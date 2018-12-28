@@ -95,37 +95,41 @@ public class UserRegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_registration);
         FirebaseMessaging.getInstance().subscribeToTopic("jellow_aac");
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"
-                + getString(R.string.menuUserRegistration)+"</font>"));
+                + getString(R.string.menuUserRegistration) + "</font>"));
 
         mSession = new SessionManager(this);
-        if(!mSession.getCaregiverNumber().equals("")) {
+        if (!mSession.getCaregiverNumber().equals("")) {
             getAnalytics(this, mSession.getCaregiverNumber().substring(1));
             mSession.setSessionCreatedAt(new Date().getTime());
             Crashlytics.setUserIdentifier(maskNumber(mSession.getCaregiverNumber().substring(1)));
         }
-        if (mSession.isUserLoggedIn() && !mSession.getLanguage().isEmpty())
-        {
-            if(mSession.isDownloaded(mSession.getLanguage()) && mSession.isCompletedIntro()) {
-                if(!mSession.getUpdatedFirebase())
+        if (mSession.isUserLoggedIn() && !mSession.getLanguage().isEmpty()) {
+            if (mSession.isDownloaded(mSession.getLanguage()) && mSession.isCompletedIntro()) {
+                if (!mSession.getUpdatedFirebase())
                     updateFirebaseDatabase();
                 startActivity(new Intent(this, SplashActivity.class));
-            }else if(mSession.isDownloaded(mSession.getLanguage()) && !mSession.isCompletedIntro()){
+            } else if (mSession.isDownloaded(mSession.getLanguage()) && !mSession.isCompletedIntro()) {
                 startActivity(new Intent(this, Intro.class));
-            }else {
+            } else {
                 startActivity(new Intent(UserRegistrationActivity.this,
                         LanguageDownloadActivity.class)
-                        .putExtra(LCODE,mSession.getLanguage()).putExtra(TUTORIAL,true));
+                        .putExtra(LCODE, mSession.getLanguage()).putExtra(TUTORIAL, true));
             }
             finish();
-        }else {
+        } else {
             mSession.setBlood(-1);
         }
 
         mDB = FirebaseDatabase.getInstance();
-        mRef = mDB.getReference(BuildConfig.DB_TYPE+"/users");
+        mRef = mDB.getReference(BuildConfig.DB_TYPE + "/users");
 
         LangMap.keySet().toArray(languagesCodes);
         LangMap.keySet().toArray(languageNames);
+        {
+            String lang = languageNames[0];
+            languagesCodes[0] = languageNames[0] = languageNames[3];
+            languagesCodes[3] = languageNames[3] = lang;
+        }
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         etName = findViewById(R.id.etName);
         etName.clearFocus();

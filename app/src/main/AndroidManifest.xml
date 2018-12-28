@@ -137,6 +137,10 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/Language"
             android:screenOrientation="landscape"/>
+        <activity android:name="com.dsource.idc.jellowintl.LanguageSelectTalkBackActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/Language"
+            android:screenOrientation="landscape"/>
         <activity android:name=".SearchActivity"
             android:label="@string/search_act_title"
             android:configChanges="keyboardHidden|orientation|screenSize"

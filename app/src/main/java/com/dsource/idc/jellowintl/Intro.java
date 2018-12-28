@@ -144,11 +144,10 @@ public class Intro extends AppIntro {
         setupNextSlide((SampleSlideFragment) newFragment);
     }
 
-    private String getSelectedLanguage(String replaceChar) {
+    private String getSelectedLanguage() {
         switch (new SessionManager(this).getLanguage()){
             case ENG_IN:
-                if(replaceChar.equals("-"))
-                    return "English (IN)";
+                return "English (IN)";
             case HI_IN:
                 return "Hindi (IN)";
             case ENG_UK:
@@ -171,11 +170,10 @@ public class Intro extends AppIntro {
             getPager().setCurrentItem(5, true);
         }else if(Build.VERSION.SDK_INT < 21) {
             if(!mTTsDefaultLanguage.equals("-r") ||
-                (session.getLanguage().equals(ENG_IN) && mTTsDefaultLanguage.equals(HI_IN)) ||
-                    (!session.getLanguage().equals(ENG_IN) && session.getLanguage().equals(mTTsDefaultLanguage)) ||
-                        (session.getLanguage().equals(BN_IN) &&
-                            ( mTTsDefaultLanguage.equals(BN_IN) || (mTTsDefaultLanguage.equals(BE_IN) ))) ||
-                                session.getLanguage().equals(MR_IN)) {
+                (session.getLanguage().equals(mTTsDefaultLanguage)) ||
+                    (session.getLanguage().equals(BN_IN) &&
+                        ( mTTsDefaultLanguage.equals(BN_IN) || (mTTsDefaultLanguage.equals(BE_IN) ))) ||
+                            session.getLanguage().equals(MR_IN)) {
                 session.setCompletedIntro(true);
                 Intent intent=new Intent(Intro.this, SplashActivity.class);
                 startActivity(intent);
@@ -245,8 +243,8 @@ public class Intro extends AppIntro {
 
     private void getViewResource() {
         selectedLanguage = getString(R.string.txt_intro6_skipActiveTtsDesc)
-                .replace("-", getSelectedLanguage("-"))
-                .replace("_", getSelectedLanguage("_"));
+                .replace("-", getSelectedLanguage())
+                .replace("_", getSelectedLanguage());
         toastMsg = getString(R.string.txt_set_tts_setup);
         intro_title = getString(R.string.txt_intro1_central9btn);
         intro_caption = getString(R.string.txt_intro1_categorybtn);
@@ -266,10 +264,10 @@ public class Intro extends AppIntro {
         intro6_imgTxt1 = getString(R.string.txt_intro6_ttsStep1);
         intro6_btn_bottom = getString(R.string.txt_intro6_activate);
         intro6_imgTxt2 = getString(R.string.txt_intro6_step2)
-                .replace("_",getSelectedLanguage("_"));
+                .replace("_",getSelectedLanguage());
         intro6_btn_bottom1 = getString(R.string.txt_intro6_changeLang);
         intro6_imgTxt3 = getString(R.string.txt_intro6_step3)
-                .replace("_",getSelectedLanguage("_"));
+                .replace("_",getSelectedLanguage());
         intro6_btn_bottom3 = getString(R.string.txt_intro6_download);
 
         intro7title = getString(R.string.txt_intro7_getStartedDesc);

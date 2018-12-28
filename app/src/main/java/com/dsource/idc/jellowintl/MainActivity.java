@@ -67,8 +67,6 @@ import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BE_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
-import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
-import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
 
 public class MainActivity extends AppCompatActivity {
@@ -133,7 +131,10 @@ public class MainActivity extends AppCompatActivity {
         // If any exception occurs during this activity usage,
         // handle it using default exception handler.
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
-        setContentView(R.layout.activity_levelx_layout);
+        if (isNotchDevice(this))
+            setContentView(R.layout.activity_levelx_layout_notch);
+        else
+            setContentView(R.layout.activity_levelx_layout);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
@@ -153,8 +154,8 @@ public class MainActivity extends AppCompatActivity {
         mHome = getString(R.string.action_bar_title);
         mTbackMsg = getString(R.string.change_language);
         mChgLang = getString(R.string.changeLanguage);
-        mStrYes = getString(R.string.yes);
-        mStrNo = getString(R.string.no);
+        mStrYes = getString(R.string.dialog_yes);
+        mStrNo = getString(R.string.dialog_no);
         mNeverShowAgain = getString(R.string.never_show_again);
         sCheckVoiceData = getString(R.string.txt_actLangSel_complete_mainscreen_msg);
         initializeLayoutViews();
@@ -387,7 +388,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, SearchActivity.class));
                 break;
             case R.id.languageSelect:
-                startActivity(new Intent(this, LanguageSelectActivity.class));
+                if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                    startActivity(new Intent(this, LanguageSelectActivity.class));
+                } else {
+                    startActivity(new Intent(this, LanguageSelectTalkBackActivity.class));
+                }
                 break;
             case R.id.profile:
                 startActivity(new Intent(this, ProfileFormActivity.class));
@@ -1301,40 +1306,48 @@ public class MainActivity extends AppCompatActivity {
         final AlertDialog dialog = mBuilder.create();
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
+        final ImageView[] expressiveBtns = {ivLike, ivYes, ivAdd, ivDisLike, ivNo, ivMinus};
+
         ivLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mIvLike.performClick();
+                setBorderToExpression(0, expressiveBtns);
             }
         });
         ivYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mIvYes.performClick();
+                setBorderToExpression(1, expressiveBtns);
             }
         });
         ivAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mIvMore.performClick();
+                setBorderToExpression(2, expressiveBtns);
             }
         });
         ivDisLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mIvDontLike.performClick();
+                setBorderToExpression(3, expressiveBtns);
             }
         });
         ivNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mIvNo.performClick();
+                setBorderToExpression(4, expressiveBtns);
             }
         });
         ivMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mIvLess.performClick();
+                setBorderToExpression(5, expressiveBtns);
             }
         });
 
@@ -1408,6 +1421,26 @@ public class MainActivity extends AppCompatActivity {
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.MATCH_PARENT;
         dialog.getWindow().setAttributes(lp);
+    }
+
+    private void setBorderToExpression(int btnPos, ImageView[] diagExprBtns) {
+        // clear previously selected any expressive button or home button
+        diagExprBtns[0].setImageResource(R.drawable.like);
+        diagExprBtns[1].setImageResource(R.drawable.yes);
+        diagExprBtns[2].setImageResource(R.drawable.more);
+        diagExprBtns[3].setImageResource(R.drawable.dontlike);
+        diagExprBtns[4].setImageResource(R.drawable.no);
+        diagExprBtns[5].setImageResource(R.drawable.less);
+        // set expressive button or home button to pressed state
+        switch (btnPos){
+            case 0: diagExprBtns[0].setImageResource(R.drawable.like_pressed); break;
+            case 1: diagExprBtns[1].setImageResource(R.drawable.yes_pressed); break;
+            case 2: diagExprBtns[2].setImageResource(R.drawable.more_pressed); break;
+            case 3: diagExprBtns[3].setImageResource(R.drawable.dontlike_pressed); break;
+            case 4: diagExprBtns[4].setImageResource(R.drawable.no_pressed); break;
+            case 5: diagExprBtns[5].setImageResource(R.drawable.less_pressed); break;
+            default: break;
+        }
     }
 
     private void clearSelectionAfterAccessibilityDialogClose() {
@@ -1687,9 +1720,8 @@ public class MainActivity extends AppCompatActivity {
 
                     if((Build.VERSION.SDK_INT < 21) && !session.getLanguage().equals(LangMap.get("मराठी"))) {
                         if (sysTtsLang.equals("-r") ||
-                                (appLang.equals(ENG_IN) && !sysTtsLang.equals(HI_IN)) ||
-                                (appLang.equals(BN_IN) && !sysTtsLang.equals(BN_IN) && !(sysTtsLang.equals(BE_IN)) ||
-                                        (!appLang.equals(ENG_IN) && !appLang.equals(BN_IN) && !appLang.equals(sysTtsLang)))) {
+                            (appLang.equals(BN_IN) && !sysTtsLang.equals(BN_IN) && !(sysTtsLang.equals(BE_IN)) ||
+                                (!appLang.equals(BN_IN) && !appLang.equals(sysTtsLang)))) {
                             Toast.makeText(context, getString(R.string.speech_engin_lang_sam),
                                     Toast.LENGTH_LONG).show();
                             session.setLangSettingIsCorrect(false);
@@ -1698,11 +1730,9 @@ public class MainActivity extends AppCompatActivity {
 
                     if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE)) &&
                             !session.isChangeLanguageNeverAsk() ) {
-                        if (appLang.equals(ENG_IN) && sysTtsLang.equals(HI_IN))
+                        if(appLang.equals(BN_IN) &&(sysTtsLang.equals(BN_IN) || sysTtsLang.equals(BE_IN)))
                         {}
-                        else if(appLang.equals(BN_IN) &&(sysTtsLang.equals(BN_IN) || sysTtsLang.equals(BE_IN)))
-                        {}
-                        else if(!appLang.equals(ENG_IN) && !appLang.equals(BN_IN) && appLang.equals(sysTtsLang))
+                        else if(!appLang.equals(BN_IN) && appLang.equals(sysTtsLang))
                         {}
                         else {
                             showChangeLanguageDialog();
@@ -1788,5 +1818,15 @@ public class MainActivity extends AppCompatActivity {
      * */
     public static boolean isAccessibilityTalkBackOn(AccessibilityManager am) {
         return am != null && am.isEnabled() && am.isTouchExplorationEnabled();
+    }
+
+    /**
+     * <p>This function gives screen aspect ratio.
+     * @return aspect ratio value in float.</p>
+     * */
+    public static boolean isNotchDevice(Context context){
+        float aspectRatio = (float)context.getResources().getDisplayMetrics().widthPixels /
+                ((float)context.getResources().getDisplayMetrics().heightPixels);
+        return (aspectRatio >= 2.0 && aspectRatio <= 2.15);
     }
 }

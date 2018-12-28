@@ -1781,7 +1781,7 @@
         <item>Earrings</item>
         <item>brace let</item>
         <item>Necklace</item>
-        <item>बिंदी</item>
+        <item>bindi</item>
         <item>Chappals</item>
         <item>My clothes are tight</item>
         <item>My clothes are loose</item>
@@ -1789,7 +1789,7 @@
         <item>I need help putting on clothes</item>
     </string-array>
     <string-array name="arrLevelThreeDailyActGetReadySpeechText">
-        <item>Comb हैर</item>
+        <item>Comb hair</item>
         <item>Face wash</item>
         <item>Cut nails</item>
         <item>Blow nose</item>
@@ -1869,7 +1869,7 @@
         <item>Dosaa</item>
         <item>Paraathaa</item>
         <item>Omlette</item>
-        <item>मेदुवड़ा</item>
+        <item>meduvada</item>
         <item>Porridge</item>
         <item>Sandwich</item>
         <item>Chutney</item>
@@ -2117,7 +2117,7 @@
     </string-array>
     <string-array name="arrLevelThreeLearningBodyPartsSpeechText">
         <item>Head</item>
-        <item>हैर</item>
+        <item>hair</item>
         <item>Eyes</item>
         <item>Nose</item>
         <item>Ears</item>
@@ -2493,7 +2493,7 @@
         <item>Ganesh chaturthi</item>
         <item>Christmas</item>
         <item>Dussehra</item>
-        <item>मकर संक्रांति</item>
+        <item>makker sankranti</item>
         <item>Holi</item>
         <item>Eid</item>
         <item>Good Friday</item>

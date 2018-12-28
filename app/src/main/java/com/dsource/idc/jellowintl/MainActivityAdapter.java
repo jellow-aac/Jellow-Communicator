@@ -23,6 +23,7 @@ import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import static android.content.Context.ACCESSIBILITY_SERVICE;
 import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
+import static com.dsource.idc.jellowintl.MainActivity.isNotchDevice;
 
 /**
  * Created by ekalpa on 4/19/2016.
@@ -43,10 +44,15 @@ class MainActivityAdapter extends android.support.v7.widget.RecyclerView.Adapter
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final int GRID_1BY3 = 0;
         View rowView;
-        if (mSession.getGridSize() == GRID_1BY3)
-            rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_3_icons, parent, false);
-        else
+        if(isNotchDevice(mContext) && mSession.getGridSize() != GRID_1BY3) {
+            rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_9_icons_notch, parent, false);
+        } else if(isNotchDevice(mContext) && mSession.getGridSize() == GRID_1BY3){
+            rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_3_icons_notch, parent, false);
+        }else if (mSession.getGridSize() != GRID_1BY3) {
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_9_icons, parent, false);
+        }else{
+            rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_3_icons, parent, false);
+        }
         return new MainActivityAdapter.MyViewHolder(rowView);
     }
 

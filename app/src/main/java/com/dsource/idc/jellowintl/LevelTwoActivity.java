@@ -50,6 +50,7 @@ import java.util.StringTokenizer;
 
 import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
 import static com.dsource.idc.jellowintl.MainActivity.isDeviceReadyToCall;
+import static com.dsource.idc.jellowintl.MainActivity.isNotchDevice;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
@@ -131,7 +132,10 @@ public class LevelTwoActivity extends AppCompatActivity {
         // If any exception occurs during this activity usage,
         // handle it using default exception handler.
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
-        setContentView(R.layout.activity_levelx_layout);
+        if (isNotchDevice(this))
+            setContentView(R.layout.activity_levelx_layout_notch);
+        else
+            setContentView(R.layout.activity_levelx_layout);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
         // Get index of category icons (position in recycler view) selected in level one.
@@ -336,7 +340,11 @@ public class LevelTwoActivity extends AppCompatActivity {
                 startActivity(new Intent(this, SearchActivity.class));
                 break;
             case R.id.languageSelect:
-                startActivity(new Intent(this, LanguageSelectActivity.class));
+                if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                    startActivity(new Intent(this, LanguageSelectActivity.class));
+                } else {
+                    startActivity(new Intent(this, LanguageSelectTalkBackActivity.class));
+                }
                 break;
             case R.id.profile:
                 startActivity(new Intent(this, ProfileFormActivity.class));
@@ -1874,40 +1882,49 @@ public class LevelTwoActivity extends AppCompatActivity {
         final AlertDialog dialog = mBuilder.create();
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
+
+        final ImageView[] expressiveBtns = {ivLike, ivYes, ivAdd, ivDisLike, ivNo, ivMinus};
+
         ivLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mIvLike.performClick();
+                setBorderToExpression(0, expressiveBtns);
             }
         });
         ivYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mIvYes.performClick();
+                setBorderToExpression(1, expressiveBtns);
             }
         });
         ivAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mIvMore.performClick();
+                setBorderToExpression(2, expressiveBtns);
             }
         });
         ivDisLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mIvDontLike.performClick();
+                setBorderToExpression(3, expressiveBtns);
             }
         });
         ivNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mIvNo.performClick();
+                setBorderToExpression(4, expressiveBtns);
             }
         });
         ivMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mIvLess.performClick();
+                setBorderToExpression(5, expressiveBtns);
             }
         });
         ivBack.setOnClickListener(new View.OnClickListener() {
@@ -2058,6 +2075,26 @@ public class LevelTwoActivity extends AppCompatActivity {
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.MATCH_PARENT;
         dialog.getWindow().setAttributes(lp);
+    }
+
+    private void setBorderToExpression(int btnPos, ImageView[] diagExprBtns) {
+        // clear previously selected any expressive button or home button
+        diagExprBtns[0].setImageResource(R.drawable.like);
+        diagExprBtns[1].setImageResource(R.drawable.yes);
+        diagExprBtns[2].setImageResource(R.drawable.more);
+        diagExprBtns[3].setImageResource(R.drawable.dontlike);
+        diagExprBtns[4].setImageResource(R.drawable.no);
+        diagExprBtns[5].setImageResource(R.drawable.less);
+        // set expressive button or home button to pressed state
+        switch (btnPos){
+            case 0: diagExprBtns[0].setImageResource(R.drawable.like_pressed); break;
+            case 1: diagExprBtns[1].setImageResource(R.drawable.yes_pressed); break;
+            case 2: diagExprBtns[2].setImageResource(R.drawable.more_pressed); break;
+            case 3: diagExprBtns[3].setImageResource(R.drawable.dontlike_pressed); break;
+            case 4: diagExprBtns[4].setImageResource(R.drawable.no_pressed); break;
+            case 5: diagExprBtns[5].setImageResource(R.drawable.less_pressed); break;
+            default: break;
+        }
     }
 
     /**

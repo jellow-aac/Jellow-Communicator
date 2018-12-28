@@ -26,17 +26,12 @@ public class KeyboardUtteranceDialogUtil {
 
     public void show() {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        final AlertDialog dialog = builder.create();
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        View dialogView = LayoutInflater.from(mContext).inflate(R.layout.keyboard_layout, null);
-        dialog.setView(dialogView);
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.setCancelable(false);
-        dialog.show();
-        dialog.findViewById(R.id.speak_button).setOnClickListener(new View.OnClickListener() {
+        final View dialogView = LayoutInflater.from(mContext).inflate(R.layout.keyboard_layout, null);
+
+        dialogView.findViewById(R.id.speak_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String speechText = ((EditText) dialog.findViewById(R.id.et_keyboard_utterances)).getText().toString();
+                String speechText = ((EditText) dialogView.findViewById(R.id.et_keyboard_utterances)).getText().toString();
                 Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_TEXT");
                 intent.putExtra("speechText", speechText.toLowerCase());
                 //Firebase event
@@ -50,7 +45,27 @@ public class KeyboardUtteranceDialogUtil {
 
             }
         });
-        dialog.findViewById(R.id.dialog_back).setOnClickListener(new View.OnClickListener() {
+        dialogView.findViewById(R.id.dialog_back).setAccessibilityDelegate( new View.AccessibilityDelegate(){
+            @Override
+            public void onPopulateAccessibilityEvent(View host, AccessibilityEvent event) {
+                super.onPopulateAccessibilityEvent(host, event);
+                if(event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED){
+                    dialogView.findViewById(R.id.et_keyboard_utterances).setFocusable(true);
+                    dialogView.findViewById(R.id.et_keyboard_utterances).setFocusableInTouchMode(true);
+                    dialogView.findViewById(R.id.dialogTitle).setVisibility(View.GONE);
+                    dialogView.findViewById(R.id.dialog_back).
+                            setContentDescription(mContext.getString(R.string.back));
+                }
+            }
+        });
+        builder.setView(dialogView);
+        final AlertDialog dialog = builder.create();
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //dialog.setView(dialogView);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
+        dialog.show();
+        dialogView.findViewById(R.id.dialog_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
@@ -59,15 +74,5 @@ public class KeyboardUtteranceDialogUtil {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         dialog.findViewById(R.id.dialog_back).sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
-        dialog.findViewById(R.id.dialog_back).setAccessibilityDelegate( new View.AccessibilityDelegate(){
-            @Override
-            public void onPopulateAccessibilityEvent(View host, AccessibilityEvent event) {
-                super.onPopulateAccessibilityEvent(host, event);
-                if(event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED){
-                    dialog.findViewById(R.id.et_keyboard_utterances).setFocusable(true);
-                    dialog.findViewById(R.id.et_keyboard_utterances).setFocusableInTouchMode(true);
-                }
-            }
-        });
     }
 }

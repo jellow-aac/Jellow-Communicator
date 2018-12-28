@@ -12,6 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+        <TextView
+            android:id="@+id/dialogTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/transparent"
+            android:text="@string/keyboard" />
         <ImageView
             android:id="@+id/dialog_back"
             android:layout_width="wrap_content"

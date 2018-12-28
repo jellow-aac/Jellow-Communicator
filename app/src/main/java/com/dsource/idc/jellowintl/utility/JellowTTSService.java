@@ -109,8 +109,10 @@ public class JellowTTSService extends Service{
             case BE_IN:
                 tts.setLanguage(new Locale("bn", "IN"));
                 break;
-            case SessionManager.HI_IN:
             case ENG_IN:
+                tts.setLanguage(new Locale("en","IN"));
+                break;
+            case HI_IN:
             case MR_IN:
             default:
                 tts.setLanguage(new Locale("hi","IN"));
@@ -303,7 +305,7 @@ public class JellowTTSService extends Service{
             // name and this gives error message to user in receiver code.
         }
         dataIntent.putExtra("systemTtsRegion", infoLang.concat("-r".concat(infoCountry)));
-        if(infoLang.concat("-r".concat(infoCountry)).equals(HI_IN) &&
+        if(infoLang.concat("-r".concat(infoCountry)).equals(ENG_IN) &&
                 intent.getStringExtra("saveSelectedLanguage").equals(ENG_IN))
             dataIntent.putExtra("saveUserLanguage", true);
         else if(infoLang.concat("-r".concat(infoCountry)).equals(BE_IN) &&
@@ -312,8 +314,7 @@ public class JellowTTSService extends Service{
         else if(infoLang.concat("-r".concat(infoCountry)).equals(BN_IN) &&
                 intent.getStringExtra("saveSelectedLanguage").equals(BN_IN))
             dataIntent.putExtra("saveUserLanguage", true);
-        else if(!intent.getStringExtra("saveSelectedLanguage").equals(ENG_IN) &&
-                intent.getStringExtra("saveSelectedLanguage").
+        else if(intent.getStringExtra("saveSelectedLanguage").
                         equals(infoLang.concat("-r".concat(infoCountry))))
             dataIntent.putExtra("saveUserLanguage", true);
         else dataIntent.putExtra("saveUserLanguage", false);

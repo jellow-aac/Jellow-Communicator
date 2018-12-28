@@ -305,8 +305,10 @@
     <string name="caregiver_s_email_address">কেয়ারগিভারের ইমেলের ঠিকানা। প্রয়োজনীয় ক্ষেত্র</string>
     <string name="txt_registration_usergrp_desc">এই ডিভাইসে জেলো ব্যবহার করা হবে ব্যক্তি নির্বাচন করুন</string>
     <string name="like">পছন্দ করি</string>
+    <string name="yes">হ্যাঁ</string>
     <string name="more">আরও</string>
     <string name="dont_like">পছন্দ করি না</string>
+    <string name="no">না</string>
     <string name="less">কম</string>
     <string name="back">পিছনে</string>
     <string name="enter_category">বিভাগ প্রবেশ করান</string>
@@ -318,7 +320,6 @@
     <string name="intro6_1_cd">প্রথম ছবি " text to speech " সংক্রান্ত, যেখানে দুটি পছন্দসই ইঞ্জিন দৃশ্যমান। প্রথমটি " samsung text to speech engine " এবং দ্বিতীয় " google text to speech engine "। ব্যবহারকারী দ্বিতীয় ইঞ্জিনটিকে প্রথম ধাপ হিসেবে নির্বাচন করেন।</string>
     <string name="intro6_2_cd">দ্বিতীয় ছবিটি এই প্রক্রিয়ার দ্বিতীয় ধাপ সংক্রান্ত, যেখানে ব্যবহারকারীকে দেখা যায় " গিয়ার " চিহ্নে ক্লিক করতে, যা আসলে " google text to speech " -এর " সেটিংস " সংক্রান্ত।</string>
     <string name="intro6_3_cd">তৃতীয় ছবিটি এই পদ্ধতির তৃতীয় ফহাও যেখানে ব্যবহারকারী রয়েছে " Google TTS voice data " স্ক্রিনে। তিন ধরনের সেটিংস স্ক্রিনে চোখে পড়ে, যথা - নামকরণ, google text-to-speech engine এবং install voice data. ব্যবহারকারীকে দেখা গেল ভাষার প্রথম অপশনটিকে নির্বাচন করে  TTS engine-এর মূল ভাষা হিন্দিকে প্রয়োগ করতে।</string>
-    <string name="talkback_lang_diag_disable">আর কখনও দেখাবে না</string>
     <string name="talkback_single_click">আলতো চাপুন</string>
     <string name="talkback_dropdown_menu">দেশের তালিকা ব্যবহার করতে</string>
     <string name="close_dialog">বন্ধ ডায়ালগ</string>
@@ -340,7 +341,6 @@
     <string name="lang_setting_option1_cd">“The image below shows the 3 steps involved in setting up the Google text-to-speech engine that is used by Jellow. The image is made up of 3 screenshots of the “Text to speech output” and “Google TTS settings” within a user’s device. In the first image corresponding to “Text-to-speech output”, there are 2 preferred engines visible, first, the “Samsung Text-to-Speech engine” and second, the “Google Text-to-Speech engine”. The user is seen to select the “Google Text-to-Speech engine” as the first step.</string>
     <string name="lang_setting_option2_cd">The second image corresponds to the second step in this process where the user is seen to now click on the “Gear” symbol corresponding to the “Settings” of the “Google Text-to-Speech engine”</string>
     <string name="lang_setting_option3_cd">The third image is the third step in this process where now the user is at the “Google TTS options” screen. The second item on this screen which is a toggle switch for “Use Wi-Fi only” has been highlighted in this image. The user is asked to turn off or disable this switch in this step.”</string>
-    <string name="checkTtsData_cd">This image shows the “Google TTS voice data” screen. This screen provides multiple voice options including “French (France)”, “German (Germany)”, “Hindi (India)”, “Hungarian (Hungary)”, and “Indonesian (Indonesia)”. The “Hindi (India) voice” option is highlighted and shows an option of “Voice set 1” with a size of 19MB that is available for download. The user’s finger is seen to click on the download icon for the voice set 1 for the “Hindi (India) voice”.</string>
     <string name="lang_setting_option3_gtt3_cd">The third image corresponds to the third step  in this process where the user is seen to  now click on the “Language\" option on the  Google TTS voice data page. The user is seen to set  \"Hindi(India)\" as the default language of the  Google Text-to-Speech engine.</string>
     <!--end content description-->
 
