@@ -156,7 +156,7 @@ public class Home extends AppCompatActivity {
     }
 
     private void prepareSpeech(JellowIcon jellowIcon) {
-        selectedIconVerbiage=verbiageDatabase.getVerbiageById(Nomenclature.getIconName(jellowIcon,mContext));
+        selectedIconVerbiage=verbiageDatabase.getVerbiageById(jellowIcon.IconDrawable);
         expIconManager.setAccordingVerbiage(selectedIconVerbiage);
         if(selectedIconVerbiage!=null)
         speakSpeech(selectedIconVerbiage.Speech_Label);

@@ -239,8 +239,7 @@ public class MyBoards extends AppCompatActivity {
             public void onSaveButtonClick(String name, Bitmap bitmap, JellowVerbiageModel verbiageList) {
                 currentMode = NORMAL_MODE;
                 invalidateOptionsMenu();
-                if(code==NEW_BOARD)
-                {
+                if(code==NEW_BOARD) {
                     String BoardId=Calendar.getInstance().getTime().getTime()+"";
                     saveNewBoard(name,bitmap,BoardId);
                     Intent intent=new Intent(ctx,IconSelectActivity.class);
@@ -269,171 +268,14 @@ public class MyBoards extends AppCompatActivity {
             }
         });
 
-        boardEditDialog.initAddEditDialog(null);
-
-        if(code==EDIT_BOARD)
-        {
+        if(code==EDIT_BOARD) {
+            boardEditDialog.initAddEditDialog(boardList.get(pos).getBoardTitle());
             boardEditDialog.setBoardImage(boardList.get(pos).getBoardID());
             boardEditDialog.setSaveButtonText("Next");
         }
-
+        else
+            boardEditDialog.initAddEditDialog("New Board");
         boardEditDialog.show();
-
-       /* final LayoutInflater dialogLayout = LayoutInflater.from(this);
-
-        @SuppressLint("InflateParams") View dialogContainerView = dialogLayout.inflate(R.layout.edit_board_dialog, null);
-        final Dialog dialogForBoardEditAdd = new Dialog(this,R.style.MyDialogBox);
-        dialogForBoardEditAdd.applyStyle(R.style.MyDialogBox);
-        dialogForBoardEditAdd.backgroundColor(getResources().getColor(R.color.transparent));
-
-        dialogForBoardEditAdd.setCancelable(false);
-        //List on the dialog.
-        final ListView listView=dialogContainerView.findViewById(R.id.camera_list);
-        final EditText boardTitleEditText=dialogContainerView.findViewById(R.id.board_name);
-        TextView saveBoard=dialogContainerView.findViewById(R.id.save_baord);
-        TextView cancelSaveBoard=dialogContainerView.findViewById(R.id.cancel_save_baord);
-        ImageView editBoardIconButton=dialogContainerView.findViewById(R.id.edit_board);
-        final ImageView BoardIcon=dialogContainerView.findViewById(R.id.board_icon);
-        listView.setVisibility(View.GONE);
-
-        if(code==EDIT_BOARD)
-        {
-            SessionManager mSession = new SessionManager(MyBoards.this);
-            File en_dir = MyBoards.this.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
-            String path = en_dir.getAbsolutePath() + "/boardicon";
-            GlideApp.with(MyBoards.this)
-                    .load(path+"/"+boardList.get(pos).getBoardID()+".png")
-                    .error(R.drawable.ic_board_person).skipMemoryCache(true)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(false)
-                    .centerCrop()
-                    .dontAnimate()
-                    .into(BoardIcon);
-            boardTitleEditText.setText(boardList.get(pos).boardTitle);
-            saveBoard.setText("Next");
-        }
-
-        //The list that will be shown with camera options
-        final ArrayList<ListItem> list=new ArrayList<>();
-        @SuppressLint("Recycle") TypedArray mArray=getResources().obtainTypedArray(R.array.add_photo_option);
-        list.add(new ListItem("Photos",mArray.getDrawable(0)));
-        list.add(new ListItem("Library ",mArray.getDrawable(2)));
-        SimpleListAdapter adapter=new SimpleListAdapter(this,list);
-        listView.setAdapter(adapter);
-        setOnPhotoSelectListener(new PhotoIntentResult() {
-            @Override
-            public void onPhotoIntentResult(Bitmap bitmap, int code,String FileName) {
-
-                iconImageSelected =true;
-                if(code!=LIBRARY_REQUEST)
-                {
-                    bitmap = cropToSquare(bitmap);
-                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 50, stream);
-                    Glide.with(MyBoards.this).load(stream.toByteArray())
-                            .apply(new RequestOptions().
-                                    transform(new RoundedCorners(50)).
-                                    error(R.drawable.ic_board_person).skipMemoryCache(true).
-                                    diskCacheStrategy(DiskCacheStrategy.NONE))
-                            .into(BoardIcon);
-                }
-                else
-                {
-                    SessionManager mSession = new SessionManager(MyBoards.this);
-                    File en_dir = MyBoards.this.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
-                    String path = en_dir.getAbsolutePath() + "/drawables";
-                    GlideApp.with(MyBoards.this)
-                            .load(path+"/"+FileName+".png")
-                            .diskCacheStrategy(DiskCacheStrategy.NONE)
-                            .skipMemoryCache(false)
-                            .centerCrop()
-                            .dontAnimate()
-                            .into(BoardIcon);
-                }
-
-            }
-        });
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                listView.setVisibility(View.GONE);
-                if(position==0)
-                {
-                    if(checkPermissionForCamera()&&checkPermissionForStorageRead()) {
-                        CropImage.activity()
-                                .setAspectRatio(1,1)
-                                .setGuidelines(CropImageView.Guidelines.ON)
-                                .setFixAspectRatio(true)
-                                .start(MyBoards.this);
-                    }
-                    else
-                    {
-                        final String [] permissions=new String []{ Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE};
-                        ActivityCompat.requestPermissions(MyBoards.this, permissions, CAMERA_REQUEST);
-                    }
-
-                }
-                else if(position==1)
-                {
-                    Intent intent = new Intent(MyBoards.this,BoardSearch.class);
-                    intent.putExtra(BoardSearch.SEARCH_MODE,BoardSearch.ICON_SEARCH);
-                    startActivityForResult(intent,LIBRARY_REQUEST);
-                }
-            }
-        });
-
-
-        saveBoard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String name=boardTitleEditText.getText().toString();
-                if(name.equals(""))
-                {
-                    Toast.makeText(MyBoards.this,"Please enter name",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                currentMode = NORMAL_MODE;
-                invalidateOptionsMenu();
-                Bitmap boardIcon=((BitmapDrawable)BoardIcon.getDrawable()).getBitmap();
-                if(code==NEW_BOARD)
-                {
-                    String BoardId=Calendar.getInstance().getTime().getTime()+"";
-                    saveNewBoard(name,boardIcon,BoardId);
-                    Intent intent=new Intent(ctx,IconSelectActivity.class);
-                    intent.putExtra(BOARD_ID,BoardId);
-                    startActivity(intent);
-                    finish();
-                }
-                else if(code==EDIT_BOARD) {
-                    updateBoardDetails(name, boardIcon, pos);
-                    Intent intent = new Intent(MyBoards.this,IconSelectActivity.class);
-                    intent.putExtra(BOARD_ID,boardList.get(pos).boardID);
-                    intent.putExtra(IS_EDIT_MODE,"YES");
-                    startActivity(intent);
-                    finish();
-                }
-                dialogForBoardEditAdd.dismiss();
-            }
-        });
-        cancelSaveBoard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogForBoardEditAdd.dismiss();
-            }
-        });
-        editBoardIconButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isVisible)
-                    listView.setVisibility(View.GONE);
-                else listView.setVisibility(View.VISIBLE);
-                isVisible=!isVisible;
-            }
-        });
-        dialogForBoardEditAdd.setContentView(dialogContainerView);
-        dialogForBoardEditAdd.show();*/
-
     }
 
     private void firePhotoIntent(int position) {
@@ -572,28 +414,28 @@ public class MyBoards extends AppCompatActivity {
                 break;
             case android.R.id.home: startActivity(new Intent(this, MainActivity.class));finish(); break;
             case R.id.languageSelect:
-                startActivity(new Intent(this, LanguageSelectActivity.class));
+                startActivity(new Intent(this, LanguageSelectActivity.class)); finish();
                 break;
             case R.id.profile:
-                startActivity(new Intent(this, ProfileFormActivity.class));
+                startActivity(new Intent(this, ProfileFormActivity.class));finish();
                 break;
             case R.id.info:
-                startActivity(new Intent(this, AboutJellowActivity.class));
+                startActivity(new Intent(this, AboutJellowActivity.class));finish();
                 break;
             case R.id.usage:
-                startActivity(new Intent(this, TutorialActivity.class));
+                startActivity(new Intent(this, TutorialActivity.class));finish();
                 break;
             case R.id.keyboardinput:
-                startActivity(new Intent(this, KeyboardInputActivity.class));
+                startActivity(new Intent(this, KeyboardInputActivity.class));finish();
                 break;
             case R.id.settings:
-                startActivity(new Intent(getApplication(), SettingActivity.class));
+                startActivity(new Intent(getApplication(), SettingActivity.class));finish();
                 break;
             case R.id.reset:
-                startActivity(new Intent(this, ResetPreferencesActivity.class));
+                startActivity(new Intent(this, ResetPreferencesActivity.class));finish();
                 break;
             case R.id.feedback:
-                startActivity(new Intent(this,FeedbackActivity.class));
+                startActivity(new Intent(this,FeedbackActivity.class));finish();
                 break;
             default:
                 return super.onOptionsItemSelected(item);

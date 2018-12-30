@@ -429,8 +429,16 @@ public class IconSelectActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.my_board_menu, menu);
         if(isEditMode&&previousSelection==0)
                 menu.findItem(R.id.filter).setVisible(false);
-        if(previousSelection==5||previousSelection==8)
-            menu.findItem(R.id.filter).setVisible(false);
+        if(!isEditMode)
+        {
+            if(previousSelection==5||previousSelection==8)
+                menu.findItem(R.id.filter).setVisible(false);
+        }
+        else
+        {
+            if(previousSelection==6||previousSelection==9)
+                menu.findItem(R.id.filter).setVisible(false);
+        }
         return true;
     }
 
@@ -466,8 +474,14 @@ public class IconSelectActivity extends AppCompatActivity {
             JellowIcon icon=iconList.get(i);
             if(icon.parent2!=-1)
                 continue;
-            if(icon.parent0==previousSelection&&icon.parent1!=-1)
-                list.add(icon.IconTitle);
+            if(!isEditMode) {
+                if (icon.parent0 == previousSelection && icon.parent1 != -1)
+                    list.add(icon.IconTitle);
+            }
+            else {
+                if (icon.parent0 == (previousSelection - 1) && icon.parent1 != -1)
+                    list.add(icon.IconTitle);
+            }
         }
 
         return list;
@@ -477,6 +491,9 @@ public class IconSelectActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.search:
+                if (dropDown.getVisibility() == View.VISIBLE) {
+                    dropDown.setVisibility(View.GONE);
+                }
                 //Remove listener if already present
                 if(scrollListener!=null)
                 iconRecycler.removeOnScrollListener(scrollListener);
