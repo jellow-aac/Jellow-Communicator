@@ -2,7 +2,6 @@ package com.dsource.idc.jellowboard.makemyboard.utility;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -57,14 +56,11 @@ public class ExpressiveIconManager implements View.OnClickListener{
     private void setSelection(int index) {
         for(int i=0;i<expIconList.size();i++) {
             if(i==index) {
-                Log.d("ButtonFlag","index: "+buttonFlags.get(i));
                 expIconList.get(i).setImageDrawable(pressed.getDrawable(i));
             }
             else {
                 expIconList.get(i).setImageDrawable(unPressed.getDrawable(i));
-                Log.d("ButtonFlag","IndexBefore "+buttonFlags.get(i));
                 buttonFlags.set(i,0);
-                Log.d("ButtonFlag","IndexAfter "+buttonFlags.get(i));
             }
 
         }
