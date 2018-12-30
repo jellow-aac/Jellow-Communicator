@@ -265,8 +265,26 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
        VerbiageEditor dialog =  new VerbiageEditor(this,VerbiageEditor.ADD_EDIT_ICON_MODE,new VerbiageEditorInterface() {
 
             @Override
-            public void onSaveButtonClick(String name, Bitmap bitmap, JellowVerbiageModel verbiage) {
-                saveEditedIcon(name, bitmap, parent1, parent2, parent3, thisIcon, verbiage);
+            public void onSaveButtonClick(final String name, final Bitmap bitmap, JellowVerbiageModel verbiage) {
+
+                new VerbiageEditor(AddEditIconAndCategory.this, VerbiageEditor.VERBIAGE_MODE, new VerbiageEditorInterface() {
+                    @Override
+                    public void onSaveButtonClick(String noString, Bitmap noBitmap, JellowVerbiageModel verbiageList) {
+                        //Don't use local scope name and bitmap because they are null
+                        saveEditedIcon(name,bitmap,parent1,parent2,parent3,thisIcon,verbiageList);
+                    }
+
+                    @Override
+                    public void onPhotoModeSelect(int position) {
+                        //DO NOTHING
+                    }
+
+                    @Override
+                    public void initPhotoResultListener(VerbiageEditorReverseInterface verbiageEditorReverseInterface) {
+                        //DO NOTHING
+                    }
+                }).presentVerbiage(verbiageDatbase.getVerbiageById(thisIcon.IconDrawable)).initVerbiageDialog(name).show();
+
             }
 
             @Override
@@ -281,7 +299,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         });
 
        dialog.initAddEditDialog(thisIcon.IconTitle);
-        dialog.setAlreadyPresentIcon(thisIcon);
+       dialog.setAlreadyPresentIcon(thisIcon);
        dialog.show();
     }
 
@@ -309,42 +327,8 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         prepareIconPane(selectedPosition,EDIT_ICON_MODE);
         modelManager.setModel(boardModel);
         currentBoard.setBoardIconModel(modelManager.getModel());
-        verbiageDatbase.addNewVerbiage(Nomenclature.getIconName(icon,this),getNewVerbiage(verbiage,name,prevIcon.IconTitle));
+        verbiageDatbase.addNewVerbiage(id+"",verbiage);
 
-    }
-
-    private JellowVerbiageModel getNewVerbiage(JellowVerbiageModel verbiageModel, String name, String iconTitle) {
-        String L = verbiageModel.L;
-        L = L.replace(iconTitle,name);
-        String LL = verbiageModel.LL;
-
-        LL = LL.replace(iconTitle,name);
-        String Y = verbiageModel.Y;
-        Y = Y.replace(iconTitle,name);
-        String YY = verbiageModel.YY;
-        YY = YY.replace(iconTitle,name);
-
-        String M = verbiageModel.M;
-        M = M.replace(iconTitle,name);
-        String MM = verbiageModel.MM;
-        MM = MM.replace(iconTitle,name);
-
-        String S = verbiageModel.S;
-        S = S.replace(iconTitle,name);
-        String SS = verbiageModel.SS;
-        SS = SS.replace(iconTitle,name);
-
-        String D = verbiageModel.D;
-        D = D.replace(iconTitle,name);
-        String DD = verbiageModel.DD;
-        DD = DD.replace(iconTitle,name);
-
-        String N = verbiageModel.N;
-        N = N.replace(iconTitle,name);
-        String NN = verbiageModel.NN;
-        NN = NN.replace(iconTitle,name);
-
-        return new JellowVerbiageModel(name,name,L,LL,Y,YY,M,MM,D,DD,N,NN,S,SS);
     }
 
     private int gridSize() {
@@ -393,11 +377,27 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
     private void initBoardEditAddDialog(final int mode,String editTextHint) {
         VerbiageEditor dialog = new VerbiageEditor(this, VerbiageEditor.ADD_EDIT_ICON_MODE, new VerbiageEditorInterface() {
             @Override
-            public void onSaveButtonClick(String name, Bitmap bitmap, JellowVerbiageModel verbiageList) {
-                if (mode == ADD_CATEGORY)
-                    addNewCategory(name, bitmap,verbiageList);
-                else if (mode == ADD_ICON)
-                    addNewIcon(name, bitmap, selectedPosition,verbiageList);
+            public void onSaveButtonClick(final String name, final Bitmap bitmap, JellowVerbiageModel verbiageList) {
+                new VerbiageEditor(AddEditIconAndCategory.this, VerbiageEditor.VERBIAGE_MODE, new VerbiageEditorInterface() {
+                    @Override
+                    public void onSaveButtonClick(String noName, Bitmap noBitmap, JellowVerbiageModel verbiageList) {
+                        //DON"T USE LOCAL SCOPE VARIABLE HERE BECAUSE THEY'RE NULL
+                        if (mode == ADD_CATEGORY)
+                            addNewCategory(name, bitmap,verbiageList);
+                        else if (mode == ADD_ICON)
+                            addNewIcon(name, bitmap, selectedPosition,verbiageList);
+                    }
+
+                    @Override
+                    public void onPhotoModeSelect(int position) {
+
+                    }
+
+                    @Override
+                    public void initPhotoResultListener(VerbiageEditorReverseInterface verbiageEditorReverseInterface) {
+
+                    }
+                }).initVerbiageDialog(name).show();
             }
 
             @Override
@@ -446,7 +446,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         boardModel.addChild(icon);
         categoryManager = new CategoryManager(boardModel);
         categories = categoryManager.getAllCategories();
-        verbiageDatbase.addNewVerbiage( Nomenclature.getIconName(icon,this),verbiage);
+        verbiageDatbase.addNewVerbiage( id+"",verbiage);
         modelManager.setModel(boardModel);
         currentBoard.setBoardIconModel(modelManager.getModel());
         targetLevelSelectPane();
@@ -469,7 +469,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         prepareIconPane(selectedPosition,ADD_EDIT_ICON_MODE);
         modelManager.setModel(boardModel);
         currentBoard.setBoardIconModel(modelManager.getModel());
-        verbiageDatbase.addNewVerbiage(Nomenclature.getIconName(icon,this),verbiage);
+        verbiageDatbase.addNewVerbiage(icon.IconDrawable,verbiage);
     }
 
     /**

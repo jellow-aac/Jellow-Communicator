@@ -2,108 +2,20 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/MyDialogBox"
-    android:layout_width="240dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/white_rounded_back"
     android:orientation="vertical">
-    <RelativeLayout
-        android:id="@+id/icon_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="@dimen/edit_baord_dialog_side_margin"
-        android:layout_marginRight="@dimen/edit_baord_dialog_side_margin"
-        android:layout_marginTop="@dimen/edit_baord_dialog_side_margin"
-        >
-        <ImageView
-            android:id="@+id/board_icon"
-            android:layout_width="136dp"
-            android:layout_height="136dp"
-            android:layout_centerHorizontal="true"
-            android:contentDescription="Icon"
-            android:padding="4dp"
-            android:src="@drawable/person_circular"
-            />
-        <ImageView
-            android:id="@+id/edit_board"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:background="@drawable/circular_background_red"
-            android:padding="4dp"
-            android:src="@drawable/ic_edit_board"
-            />
-        <ListView
-            android:id="@+id/camera_list"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/edit_board"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="-12dp"
-            android:divider="@drawable/divider"
-            android:visibility="gone"
-            />
-
-    </RelativeLayout>
-    <EditText
-        android:id="@+id/board_name"
-        android:layout_width="@dimen/dialog_width_verbiage"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/icon_container"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="@dimen/edit_baord_dialog_side_margin"
-        android:layout_marginRight="@dimen/edit_baord_dialog_side_margin"
-        android:layout_marginTop="@dimen/edit_board_dialog_internal_margin_top"
-        android:background="@drawable/edit_board_dialog_edit_text"
-        android:drawablePadding="4dp"
-        android:ems="10"
-        android:hint="Board Name"
-        android:inputType="textPersonName"
-        android:maxLength="20"
-        android:padding="6dp"
-        android:textAlignment="center"
-        android:textColor="@color/light_grey"
-        android:textColorHint="@color/dark_base"
-        />
-    <RelativeLayout
-        android:id="@+id/expressive_verbiage"
-        android:layout_width="@dimen/dialog_width_verbiage"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/board_name"
-        android:layout_marginLeft="@dimen/edit_baord_dialog_side_margin"
-        android:layout_marginRight="@dimen/edit_baord_dialog_side_margin"
-        android:layout_marginTop="@dimen/edit_board_dialog_internal_margin_top"
-        android:background="@drawable/edit_board_dialog_edit_text"
-        android:padding="6dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:clickable="false"
-            android:text="Expressive Icons"
-            android:textColor="#dc5252"
-            android:textStyle="bold"
-            />
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_alignParentRight="true"
-            android:clickable="false"
-            android:padding="2dp"
-            android:src="@drawable/ic_drop_down"
-            />
-    </RelativeLayout>
     <RelativeLayout
         android:id="@+id/expressive_verbiage_show"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/button_layout"
         android:layout_marginBottom="4dp"
-        android:layout_marginTop="12dp"
-        android:visibility="gone">
+        android:layout_marginTop="12dp">
         <RelativeLayout
             android:id="@+id/container"
-            android:layout_width="@dimen/dialog_width_verbiage"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="@dimen/edit_board_button_side_margin"
@@ -129,7 +41,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:clickable="false"
-            android:text="Expressive Icons"
+            android:text="Expressive Verbiage"
             android:textColor="#dc5252"
             android:textStyle="bold"
             />

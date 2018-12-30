@@ -48,9 +48,8 @@
     <ImageView
         android:layout_width="@dimen/add_edit_screen_edit_icon_size"
         android:layout_height="@dimen/add_edit_screen_edit_icon_size"
-        android:src="@drawable/ic_edit_board"
+        android:src="@drawable/ic_edit_icon_red_back"
         android:padding="4dp"
-        android:background="@drawable/circular_background_red"
         android:id="@+id/edit_icon"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
