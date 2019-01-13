@@ -91,18 +91,6 @@ public class MyBoards extends AppCompatActivity {
 
     }
 
-    public static Bitmap cropToSquare(Bitmap bitmap){
-        int width  = bitmap.getWidth();
-        int height = bitmap.getHeight();
-        int newWidth = (height > width) ? width : height;
-        int newHeight = (height > width)? height - ( height - width) : height;
-        int cropW = (width - height) / 2;
-        cropW = (cropW < 0)? 0: cropW;
-        int cropH = (height - width) / 2;
-        cropH = (cropH < 0)? 0: cropH;
-        return Bitmap.createBitmap(bitmap, cropW, cropH, newWidth, newHeight);
-    }
-
     private void checkDatabase() {
         new BoardDatabase(this).createTable();
     }
@@ -210,6 +198,8 @@ public class MyBoards extends AppCompatActivity {
                             public void onPositiveClickListener() {
                                 Board boardToDelete = boardList.get(Position);
                                 deleteImageFromStorage(boardToDelete.boardID);
+                               /* for(int i = 0 ; i<boardToDelete.getCustomIconLists().size();i++)
+                                    deleteImageFromStorage(boardToDelete.getCustomIconLists().get(i));*/
                                 database.deleteBoard(boardToDelete.boardID);
                                 boardList.remove(Position);
                                 if(boardList.size()<1)
@@ -236,7 +226,7 @@ public class MyBoards extends AppCompatActivity {
     private void initBoardEditAddDialog(final int code, final int pos) {
         VerbiageEditor boardEditDialog = new VerbiageEditor(this, VerbiageEditor.ADD_BOARD_MODE, new VerbiageEditorInterface() {
             @Override
-            public void onSaveButtonClick(String name, Bitmap bitmap, JellowVerbiageModel verbiageList) {
+            public void onPositiveButtonClick(String name, Bitmap bitmap, JellowVerbiageModel verbiageList) {
                 currentMode = NORMAL_MODE;
                 invalidateOptionsMenu();
                 if(code==NEW_BOARD) {
@@ -271,7 +261,8 @@ public class MyBoards extends AppCompatActivity {
         if(code==EDIT_BOARD) {
             boardEditDialog.initAddEditDialog(boardList.get(pos).getBoardTitle());
             boardEditDialog.setBoardImage(boardList.get(pos).getBoardID());
-            boardEditDialog.setSaveButtonText("Next");
+            boardEditDialog.setPositiveButtonText("Next");
+            boardEditDialog.setTitleText(boardList.get(pos).boardTitle);
         }
         else
             boardEditDialog.initAddEditDialog("New Board");
@@ -341,13 +332,14 @@ public class MyBoards extends AppCompatActivity {
     }
 
     public void storeImageToStorage(Bitmap bitmap, String fileID) {
-        FileOutputStream fos = null;
+        FileOutputStream fos;
         File en_dir = MyBoards.this.getDir(new SessionManager(this).getLanguage(), Context.MODE_PRIVATE);
         String path = en_dir.getAbsolutePath() + "/boardicon";
         String status = Environment.getExternalStorageState();
         if (status.equals(Environment.MEDIA_MOUNTED)) {
             File root = new File(path);
             if (!root.exists()) {
+                //noinspection ResultOfMethodCallIgnored
                 root.mkdirs();
             }
             Toast.makeText(this,""+root.getAbsolutePath(),Toast.LENGTH_LONG).show();
@@ -356,14 +348,13 @@ public class MyBoards extends AppCompatActivity {
             try {
                 if(file.exists())
                 {
+                    //noinspection ResultOfMethodCallIgnored
                     file.delete();//Delete the previous image if image is a replace
                     file = new File(root,fileID+".png");
                 }
                 fos = new FileOutputStream(file);
-                if (fos != null) {
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 70, fos);
-                    fos.close();
-                }
+                bitmap.compress(Bitmap.CompressFormat.PNG, 70, fos);
+                fos.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -371,7 +362,6 @@ public class MyBoards extends AppCompatActivity {
     }
 
     public void deleteImageFromStorage(String fileID) {
-        FileOutputStream fos = null;
         File en_dir = MyBoards.this.getDir(new SessionManager(this).getLanguage(), Context.MODE_PRIVATE);
         String path = en_dir.getAbsolutePath() + "/boardicon";
         String status = Environment.getExternalStorageState();
@@ -379,7 +369,8 @@ public class MyBoards extends AppCompatActivity {
             File root = new File(path);
             File file = new File(root, fileID+ ".png");
             if(file.exists())
-                 file.delete();//Delete the previous image
+                //noinspection ResultOfMethodCallIgnored
+                file.delete();//Delete the previous image
         }
 
     }

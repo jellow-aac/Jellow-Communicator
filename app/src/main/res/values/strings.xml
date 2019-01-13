@@ -379,6 +379,7 @@
     </array>
     <string name="title_activity_maps">Map</string>
     <string name="skip">Skip</string>
+    <string name="expressive_heading">Expressive Verbiage</string>
 
 
 </resources>

@@ -5,7 +5,7 @@ import com.dsource.idc.jellowboard.verbiage_model.JellowVerbiageModel;
 
 public interface VerbiageEditorInterface {
 
-    void onSaveButtonClick(String name, Bitmap bitmap, JellowVerbiageModel verbiageList);
+    void onPositiveButtonClick(String name, Bitmap bitmap, JellowVerbiageModel verbiageList);
     void onPhotoModeSelect(int position);
     void initPhotoResultListener(VerbiageEditorReverseInterface verbiageEditorReverseInterface);
 }

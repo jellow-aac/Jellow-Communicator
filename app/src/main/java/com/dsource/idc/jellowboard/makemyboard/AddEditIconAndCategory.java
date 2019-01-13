@@ -1,7 +1,6 @@
 package com.dsource.idc.jellowboard.makemyboard;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -25,7 +24,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-import com.dsource.idc.jellowboard.Nomenclature;
 import com.dsource.idc.jellowboard.R;
 import com.dsource.idc.jellowboard.makemyboard.interfaces.VerbiageEditorInterface;
 import com.dsource.idc.jellowboard.makemyboard.interfaces.VerbiageEditorReverseInterface;
@@ -40,7 +38,6 @@ import com.dsource.idc.jellowboard.makemyboard.utility.VerbiageEditor;
 import com.dsource.idc.jellowboard.utility.JellowIcon;
 import com.dsource.idc.jellowboard.utility.SessionManager;
 import com.dsource.idc.jellowboard.verbiage_model.JellowVerbiageModel;
-import com.dsource.idc.jellowboard.verbiage_model.Verbiage;
 import com.dsource.idc.jellowboard.verbiage_model.VerbiageDatabaseHelper;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -107,7 +104,6 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         }
         catch (NullPointerException e)
         {
-            Log.d("No board id found", boardId);
             Toast.makeText(this,"Some error occured",Toast.LENGTH_LONG).show();
         }
     }
@@ -137,10 +133,6 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
                     findViewById(R.id.touch_area).setVisibility(View.GONE);
                 }
 
-
-                if(currentMode==EDIT_ICON_MODE)
-                    Toast.makeText(AddEditIconAndCategory.this,"Please exit the Edit Mode first",Toast.LENGTH_SHORT).show();
-                else {
                     CustomDialog dialog = new CustomDialog(AddEditIconAndCategory.this, CustomDialog.GRID_SIZE);
                     dialog.show();
                     dialog.setCancelable(true);
@@ -156,7 +148,6 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
                             finish();
                         }
                     });
-                }
 
             }
         });
@@ -265,13 +256,15 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
        VerbiageEditor dialog =  new VerbiageEditor(this,VerbiageEditor.ADD_EDIT_ICON_MODE,new VerbiageEditorInterface() {
 
             @Override
-            public void onSaveButtonClick(final String name, final Bitmap bitmap, JellowVerbiageModel verbiage) {
+            public void onPositiveButtonClick(final String name, final Bitmap bitmap, JellowVerbiageModel verbiage) {
 
                 new VerbiageEditor(AddEditIconAndCategory.this, VerbiageEditor.VERBIAGE_MODE, new VerbiageEditorInterface() {
                     @Override
-                    public void onSaveButtonClick(String noString, Bitmap noBitmap, JellowVerbiageModel verbiageList) {
+                    public void onPositiveButtonClick(String noString, Bitmap noBitmap, JellowVerbiageModel verbiageList) {
                         //Don't use local scope name and bitmap because they are null
-                        saveEditedIcon(name,bitmap,parent1,parent2,parent3,thisIcon,verbiageList);
+                        saveEditedIcon(name,bitmap,parent1,parent2,parent3, verbiageList);
+                        if (thisIcon.isCustomIcon())
+                            deleteImageFromStorage(thisIcon.IconDrawable);
                     }
 
                     @Override
@@ -300,6 +293,9 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
 
        dialog.initAddEditDialog(thisIcon.IconTitle);
        dialog.setAlreadyPresentIcon(thisIcon);
+       dialog.setPositiveButtonText("Next");
+       dialog.setTitleText(thisIcon.IconTitle);
+
        dialog.show();
     }
 
@@ -310,9 +306,8 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
      * @param p1 parent 1
      * @param p2 parent 2
      * @param p3 parent 3
-     * @param prevIcon previous jellow Icon
      */
-    private void saveEditedIcon(String name, Bitmap bitmapArray, int p1, int p2,int p3, JellowIcon prevIcon,JellowVerbiageModel verbiage) {
+    private void saveEditedIcon(String name, Bitmap bitmapArray, int p1, int p2, int p3, JellowVerbiageModel verbiage) {
         int id  = (int)Calendar.getInstance().getTime().getTime();
         JellowIcon icon = new JellowIcon(name,id+"",-1,-1,id);
         storeImageToStorage(bitmapArray,id+"");
@@ -320,7 +315,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
             boardModel.getChildren().get(p1).setIcon(icon);
         else if(p3==-10)//If level two icon is being edited
             boardModel.getChildren().get(p1).getChildren().get(p2).setIcon(icon);
-        else // if level three icon is being deleted
+        else // if level three icon is being edited
             boardModel.getChildren().get(p1).getChildren().get(p2).getChildren().get(p3).setIcon(icon);
 
         categoryManager = new CategoryManager(boardModel);
@@ -328,6 +323,8 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         modelManager.setModel(boardModel);
         currentBoard.setBoardIconModel(modelManager.getModel());
         verbiageDatbase.addNewVerbiage(id+"",verbiage);
+        currentBoard.addCustomIconID(id+"");
+        targetLevelSelectPane();
 
     }
 
@@ -377,10 +374,10 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
     private void initBoardEditAddDialog(final int mode,String editTextHint) {
         VerbiageEditor dialog = new VerbiageEditor(this, VerbiageEditor.ADD_EDIT_ICON_MODE, new VerbiageEditorInterface() {
             @Override
-            public void onSaveButtonClick(final String name, final Bitmap bitmap, JellowVerbiageModel verbiageList) {
+            public void onPositiveButtonClick(final String name, final Bitmap bitmap, JellowVerbiageModel verbiageList) {
                 new VerbiageEditor(AddEditIconAndCategory.this, VerbiageEditor.VERBIAGE_MODE, new VerbiageEditorInterface() {
                     @Override
-                    public void onSaveButtonClick(String noName, Bitmap noBitmap, JellowVerbiageModel verbiageList) {
+                    public void onPositiveButtonClick(String noName, Bitmap noBitmap, JellowVerbiageModel verbiageList) {
                         //DON"T USE LOCAL SCOPE VARIABLE HERE BECAUSE THEY'RE NULL
                         if (mode == ADD_CATEGORY)
                             addNewCategory(name, bitmap,verbiageList);
@@ -449,6 +446,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         verbiageDatbase.addNewVerbiage( id+"",verbiage);
         modelManager.setModel(boardModel);
         currentBoard.setBoardIconModel(modelManager.getModel());
+        currentBoard.addCustomIconID(id+"");
         targetLevelSelectPane();
     }
 
@@ -470,6 +468,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         modelManager.setModel(boardModel);
         currentBoard.setBoardIconModel(modelManager.getModel());
         verbiageDatbase.addNewVerbiage(icon.IconDrawable,verbiage);
+        currentBoard.addCustomIconID(id+"");
     }
 
     /**
@@ -477,6 +476,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
      * @param bitmap image to be stored
      * @param fileID id of the targetImage
      */
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public void storeImageToStorage(Bitmap bitmap, String fileID) {
         FileOutputStream fos;
         File en_dir = this.getDir(new SessionManager(this).getLanguage(), Context.MODE_PRIVATE);
@@ -495,14 +495,25 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
                     file = new File(root, fileID + ".png");
                 }
                 fos = new FileOutputStream(file);
-                if (fos != null) {
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 70, fos);
-                    fos.close();
-                }
+                bitmap.compress(Bitmap.CompressFormat.PNG, 70, fos);
+                fos.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+    }
+    public void deleteImageFromStorage(String fileID) {
+        File en_dir = this.getDir(new SessionManager(this).getLanguage(), Context.MODE_PRIVATE);
+        String path = en_dir.getAbsolutePath() + "/boardicon";
+        String status = Environment.getExternalStorageState();
+        if (status.equals(Environment.MEDIA_MOUNTED)) {
+            File root = new File(path);
+            File file = new File(root, fileID+ ".png");
+            if(file.exists())
+                //noinspection ResultOfMethodCallIgnored
+                file.delete();//Delete the previous image
+        }
+
     }
 
     private boolean checkPermissionForStorageRead() {

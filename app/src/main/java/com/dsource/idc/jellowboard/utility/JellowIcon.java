@@ -11,7 +11,6 @@ public class JellowIcon extends AbstractDataProvider.Data implements Serializabl
     public String IconDrawable,IconTitle;
     @Keep
     public int parent0, parent1, parent2;
-    @Keep private boolean isCustomIcon = false;
 
     public JellowIcon(String iconTitle, String iconDrawable, int p1, int p2, int p3) {
         IconDrawable = iconDrawable;
@@ -27,9 +26,7 @@ public class JellowIcon extends AbstractDataProvider.Data implements Serializabl
 
     }
 
-    public void setCustomIcon(boolean isCustomIcon) { this.isCustomIcon = isCustomIcon; }
-
-    public boolean isCustomIcon() {return isCustomIcon;}
+    public boolean isCustomIcon() {return parent0==-1;}
 
     public void setIconTitle(String iconTitle) {
         this.IconTitle = iconTitle;

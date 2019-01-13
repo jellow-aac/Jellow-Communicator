@@ -1,7 +1,9 @@
 package com.dsource.idc.jellowboard.makemyboard;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,11 +29,13 @@ import com.dsource.idc.jellowboard.makemyboard.models.Board;
 import com.dsource.idc.jellowboard.makemyboard.models.DataProvider;
 import com.dsource.idc.jellowboard.utility.CustomGridLayoutManager;
 import com.dsource.idc.jellowboard.utility.JellowIcon;
+import com.dsource.idc.jellowboard.utility.SessionManager;
 import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager;
 import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import static com.dsource.idc.jellowboard.makemyboard.adapters.RepositionIconAdapter.DELETE_MODE;
@@ -89,7 +93,6 @@ public class RepositionIcons extends AppCompatActivity {
         initFields();
         defaultRecyclerParams =(RelativeLayout.LayoutParams)findViewById(R.id.recycler_view).getLayoutParams();
         updateList(NORMAL_MODE);
-        prepareRecyclerView();
     }
 
 
@@ -156,6 +159,8 @@ public class RepositionIcons extends AppCompatActivity {
             @Override
             public void onItemDelete(View view, int position) {
                 modelManager.deleteIconFromModel(Level,LevelOneParent,LevelTwoParent,position,currentBoard);
+                if(displayList.get(position).isCustomIcon())
+                    deleteImageFromStorage(displayList.get(position).IconDrawable);
                 displayList.remove(position);
                 if(displayList.size()<1&&Level!=0)
                     onBackPressed();
@@ -163,9 +168,17 @@ public class RepositionIcons extends AppCompatActivity {
             }
         });
     }
-
-    void prepareRecyclerView()
-    {
+    public void deleteImageFromStorage(String fileID) {
+        File en_dir = this.getDir(new SessionManager(this).getLanguage(), Context.MODE_PRIVATE);
+        String path = en_dir.getAbsolutePath() + "/boardicon";
+        String status = Environment.getExternalStorageState();
+        if (status.equals(Environment.MEDIA_MOUNTED)) {
+            File root = new File(path);
+            File file = new File(root, fileID+ ".png");
+            if(file.exists())
+                //noinspection ResultOfMethodCallIgnored
+                file.delete();//Delete the previous image
+        }
 
     }
 
@@ -323,7 +336,7 @@ public class RepositionIcons extends AppCompatActivity {
 
     boolean isDeleteModeOn=false;
     private void prepareIconDeleteMode() {
-        if(displayList.size()>1) {
+        if(displayList.size()>0) {
             if (!isDeleteModeOn)
             {
                 updateList(DELETE_MODE);
@@ -371,7 +384,6 @@ public class RepositionIcons extends AppCompatActivity {
 
     ViewTreeObserver.OnGlobalLayoutListener tempListener;
     private void highlightIcon(final ArrayList<Integer> iconPos) {
-        Log.d("SearchHighlight","Step 1: OnActivityResult->highlightIcon");
         if(iconPos.get(1)==-1)
         {
             //Level One

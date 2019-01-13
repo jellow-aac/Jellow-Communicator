@@ -32,7 +32,8 @@
             android:clickable="false"
             android:padding="2dp"
             android:src="@drawable/ic_drop_down"
-            />
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="6dp" />
         <TextView
             android:id="@+id/xyz"
             android:layout_width="wrap_content"
@@ -41,7 +42,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:clickable="false"
-            android:text="Expressive Verbiage"
+            android:text="@string/expressive_heading"
             android:textColor="#dc5252"
             android:textStyle="bold"
             />

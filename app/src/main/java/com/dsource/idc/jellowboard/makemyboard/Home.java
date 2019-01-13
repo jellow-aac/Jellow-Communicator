@@ -128,10 +128,8 @@ public class Home extends AppCompatActivity {
             case 5:if(time==0)verbiage=selectedIconVerbiage.S;else verbiage=selectedIconVerbiage.SS;break;
 
         }
-        else
-        {
-            if(time==0)verbiage=expIconVerbiage.get(expIconPos).L;else verbiage=expIconVerbiage.get(expIconPos).LL;
-        }
+        else if(time==0)verbiage=expIconVerbiage.get(expIconPos).L;else verbiage=expIconVerbiage.get(expIconPos).LL;
+
         if(!verbiage.equals("NA"))
         speakSpeech(verbiage);
     }

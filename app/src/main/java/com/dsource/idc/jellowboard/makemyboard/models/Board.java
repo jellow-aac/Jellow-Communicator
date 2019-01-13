@@ -5,6 +5,7 @@ import android.support.annotation.Keep;
 import com.dsource.idc.jellowboard.makemyboard.models.IconModel;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * This class is for storing the instance of the Board object
@@ -20,11 +21,13 @@ public class Board implements Serializable {
     private IconModel boardIconModel;
     private int gridSize=3;
     private boolean passedAddEditIconScreen=false;
+    private ArrayList<String> customIconIDs;
 
     @Keep
     public Board(String Uid, String boardTitle) {
         this.boardTitle = boardTitle;
         this.boardID = Uid;
+        customIconIDs = new ArrayList<>();
     }
 
     public String getBoardTitle() {
@@ -84,5 +87,11 @@ public class Board implements Serializable {
 
     public int getGridSize() {
         return gridSize;
+    }
+
+    public void addCustomIconID(String ID){customIconIDs.add(ID);}
+
+    public ArrayList<String> getCustomIconLists(){
+        return customIconIDs;
     }
 }
