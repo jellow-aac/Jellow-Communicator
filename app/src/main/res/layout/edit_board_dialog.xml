@@ -31,15 +31,14 @@
         android:id="@+id/edit_board"
         android:src="@drawable/ic_edit_icon_red_back"
         />
+
         <ListView
+            android:id="@+id/camera_list"
             android:layout_width="@dimen/camera_drop_down_width"
             android:layout_height="wrap_content"
-            android:layout_below="@id/edit_board"
-            android:layout_marginTop="-12dp"
-            android:layout_marginLeft="12dp"
-            android:divider="@drawable/divider"
-            android:id="@+id/camera_list"
-            />
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:divider="@drawable/divider" />
 
     </RelativeLayout>
     <EditText
@@ -76,7 +75,7 @@
 
     <Button
         android:layout_width="@dimen/edit_board_button_width"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/reg_button_height"
         android:id="@+id/save_baord"
         android:paddingTop="@dimen/edit_board_button_margin_top"
         android:paddingBottom="@dimen/edit_board_button_margin_top"
@@ -88,11 +87,12 @@
         android:background="@drawable/button_background"
         android:textColor="@color/colorIntro"
         android:layout_marginRight="8dp"
+        android:textAllCaps="false"
         android:layout_alignParentLeft="true"
         />
     <Button
         android:layout_width="@dimen/edit_board_button_width"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/reg_button_height"
         android:id="@+id/cancel_save_baord"
         android:text="Cancel"
         android:paddingTop="@dimen/edit_board_button_margin_top"
@@ -101,6 +101,7 @@
         android:paddingRight="@dimen/edit_board_button_side_margin"
         android:textSize="@dimen/edit_board_dialog_button_text_size"
         android:textAlignment="center"
+        android:textAllCaps="false"
         android:layout_alignParentRight="true"
         android:background="@drawable/button_background"
         android:textColor="@color/colorIntro"

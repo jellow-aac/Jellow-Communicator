@@ -73,7 +73,7 @@ public class SetupMMB extends AppCompatActivity {
         }*/
             progressBar = findViewById(R.id.pg);
             progressText = findViewById(R.id.progress_text);
-            progressText.setText("Downloading Icons.. please wait...(It happens for the first time only). Make sure you've active internet connection");
+            progressText.setText("Please wait while the icons are being downloaded. Do ensure there is an active internet connection at the time of download");
             progressBar.setMax(1);
 
             mCheckConn = getString(R.string.checkConnectivity);

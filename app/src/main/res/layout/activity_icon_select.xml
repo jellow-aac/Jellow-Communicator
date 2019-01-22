@@ -95,10 +95,11 @@
                 android:paddingRight="@dimen/nav_bar_button_padding"
                 android:paddingTop="4dp"
                 android:text="Reset"
+                android:textAllCaps="false"
                 android:textAlignment="center"
                 android:textColor="@color/colorIntro"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textSize="@dimen/edit_board_dialog_button_text_size"
+                />
 
             <Button
                 android:id="@+id/next_step"
@@ -115,10 +116,11 @@
                 android:paddingRight="12dp"
                 android:paddingTop="4dp"
                 android:text="Next"
+                android:textAllCaps="false"
                 android:textAlignment="center"
                 android:textColor="@color/colorIntro"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textSize="@dimen/edit_board_dialog_button_text_size"
+                />
 
             <CheckBox
                 android:id="@+id/select_deselect_check_box"

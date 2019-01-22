@@ -45,6 +45,7 @@
     <dimen name="custom_dialog_button_width">100dp</dimen>
     <dimen name="dialog_box_text_size">22sp</dimen>
     <dimen name="custom_dialog_width">300dp</dimen>
+    <dimen name="reg_button_height">42dp</dimen>
 
 
 </resources>
