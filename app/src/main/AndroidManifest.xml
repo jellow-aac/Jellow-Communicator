@@ -177,6 +177,7 @@
             android:name=".SetupMMB"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape" />
+        <activity android:name=".makemyboard.BoardLangaugeSelect"></activity>
     </application>
 
 </manifest>
