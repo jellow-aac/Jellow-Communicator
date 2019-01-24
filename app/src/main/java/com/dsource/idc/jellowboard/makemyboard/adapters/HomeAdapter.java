@@ -36,6 +36,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     int GridSize;
     public int selectedPosition=-1;
     public int expIconPos = -1;
+    public int highlightedIcon = -1;
 
     public HomeAdapter(List<JellowIcon> data, Context context, int gridSize) {
         this.data = data;
@@ -49,8 +50,12 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         JellowIcon thisIcon = data.get(position);
         holder.iconTitle.setText(thisIcon.IconTitle);
         setMenuImageBorder(holder.backGround,false,-1);
-        if(position==this.selectedPosition)
-        setMenuImageBorder(holder.backGround,true,expIconPos);
+        if(selectedPosition!=-1) highlightedIcon=-1;
+        if(position==this.selectedPosition) setMenuImageBorder(holder.backGround,true,expIconPos);
+        else if(highlightedIcon==position) setMenuImageBorder(holder.backGround,true,100);
+
+
+
 
         if(thisIcon.parent0==-1)
         {
@@ -87,6 +92,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                     .dontAnimate()
                     .into(holder.iconImage);
         }
+
+
+
 
 
     }
@@ -146,6 +154,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                     case 3: gd.setColor(ContextCompat.getColor(mContext,R.color.colorDontLike)); break;
                     case 4: gd.setColor(ContextCompat.getColor(mContext,R.color.colorNo)); break;
                     case 5: gd.setColor(ContextCompat.getColor(mContext,R.color.colorLess)); break;
+                case 100:   gd.setColor(ContextCompat.getColor(mContext,R.color.search_highlight)); break;
                 }
         } else
             gd.setColor(ContextCompat.getColor(mContext,android.R.color.transparent));

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
@@ -13,9 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -58,7 +56,7 @@ public class RepositionIcons extends AppCompatActivity {
     private RelativeLayout.LayoutParams defaultRecyclerParams;
     private int previousSelection = -1;
     private int currentMode;
-    RecyclerView recyclerView;
+    RecyclerView mRecyclerView;
     RepositionIconAdapter adapter;
 
     private RecyclerView.LayoutManager mLayoutManager;
@@ -99,7 +97,7 @@ public class RepositionIcons extends AppCompatActivity {
     private void updateList(int Mode) {
         invalidateOptionsMenu();
         adapter=new RepositionIconAdapter(new DataProvider(displayList),this,Mode,currentBoard.getGridSize());
-        recyclerView = findViewById(R.id.recycler_view);
+        mRecyclerView = findViewById(R.id.recycler_view);
         mLayoutManager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
         mRecyclerViewDragDropManager = new RecyclerViewDragDropManager();
         mRecyclerViewDragDropManager.setInitiateOnLongPress(true);
@@ -110,10 +108,10 @@ public class RepositionIcons extends AppCompatActivity {
         mRecyclerViewDragDropManager.setDraggingItemScale(1.3f);
         mWrappedAdapter = mRecyclerViewDragDropManager.createWrappedAdapter(adapter);
         GeneralItemAnimator animator = new RefactoredDefaultItemAnimator();//DraggableItemAnimator();
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setAdapter(mWrappedAdapter);
-        recyclerView.setItemAnimator(animator);
-        mRecyclerViewDragDropManager.attachRecyclerView(recyclerView);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(mWrappedAdapter);
+        mRecyclerView.setItemAnimator(animator);
+        mRecyclerViewDragDropManager.attachRecyclerView(mRecyclerView);
         //Parameters for centering the recycler view in the layout.
         RelativeLayout.LayoutParams centeredRecyclerParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         centeredRecyclerParams.addRule(RelativeLayout.ABOVE,findViewById(R.id.relativeLayoutNavigation).getId());
@@ -126,16 +124,19 @@ public class RepositionIcons extends AppCompatActivity {
 
             switch (GridSize)
             {
-                case 1:recyclerView.setLayoutParams(centeredRecyclerParams);break;
-                case 2:recyclerView.setLayoutParams(centeredRecyclerParams);break;
-                case 3:recyclerView.setLayoutParams(defaultRecyclerParams);break;
+                case 1:
+                    mRecyclerView.setLayoutParams(centeredRecyclerParams);break;
+                case 2:
+                    mRecyclerView.setLayoutParams(centeredRecyclerParams);break;
+                case 3:
+                    mRecyclerView.setLayoutParams(defaultRecyclerParams);break;
             }
-            recyclerView.setLayoutManager(new CustomGridLayoutManager(this,currentBoard.getGridSize(),3));
+            mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this,currentBoard.getGridSize(),3));
         }
         else
         {
-            recyclerView.setLayoutParams(defaultRecyclerParams);
-            recyclerView.setLayoutManager(new CustomGridLayoutManager(this,3,9));
+            mRecyclerView.setLayoutParams(defaultRecyclerParams);
+            mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this,3,9));
         }
         adapter.setOnItemClickListener(new onRecyclerItemClick() {
             @Override
@@ -305,8 +306,7 @@ public class RepositionIcons extends AppCompatActivity {
                 prepareIconDeleteMode();
                 break;
             case R.id.search:
-                Toast.makeText(this,"Not Implemented Yet",Toast.LENGTH_SHORT).show();
-                //searchInBoard();
+                searchInBoard();
                 break;
             case R.id.grid_size:
                 showGridDialog();break;
@@ -382,17 +382,26 @@ public class RepositionIcons extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    ViewTreeObserver.OnGlobalLayoutListener tempListener;
     private void highlightIcon(final ArrayList<Integer> iconPos) {
+        RecyclerView.SmoothScroller smoothScroller = new LinearSmoothScroller(this) {
+            @Override protected int getVerticalSnapPreference() {
+                return LinearSmoothScroller.SNAP_TO_END;
+            }
+        };
         if(iconPos.get(1)==-1)
         {
             //Level One
-            Level = 0;
-            displayList.clear();
-            displayList =modelManager.getLevelOneFromModel();
-            updateList(NORMAL_MODE);
-            recyclerView.addOnScrollListener(getListener(iconPos.get(0)));
-            recyclerView.getLayoutManager().smoothScrollToPosition(recyclerView,null,iconPos.get(0));
+            if(Level==0) {
+                Level = 0;
+                displayList.clear();
+                displayList = modelManager.getLevelOneFromModel();
+                updateList(NORMAL_MODE);
+            }
+
+            mRecyclerView.addOnScrollListener(getListener(iconPos.get(0)));
+            smoothScroller.setTargetPosition(iconPos.get(0));
+            mRecyclerView.getLayoutManager().startSmoothScroll(smoothScroller);
+            adapter.highlightIcon = iconPos.get(0);
         }
         else if(iconPos.get(2)==-1)
         {
@@ -401,8 +410,10 @@ public class RepositionIcons extends AppCompatActivity {
             displayList.clear();
             displayList =modelManager.getLevelTwoFromModel(iconPos.get(0));
             updateList(NORMAL_MODE);
-            recyclerView.addOnScrollListener(getListener(iconPos.get(1)));
-            recyclerView.getLayoutManager().smoothScrollToPosition(recyclerView,null,iconPos.get(1));
+            mRecyclerView.addOnScrollListener(getListener(iconPos.get(1)));
+            smoothScroller.setTargetPosition(iconPos.get(1));
+            mRecyclerView.getLayoutManager().startSmoothScroll(smoothScroller);
+            adapter.highlightIcon = iconPos.get(1);
 
         }
         else {
@@ -411,68 +422,45 @@ public class RepositionIcons extends AppCompatActivity {
             displayList.clear();
             displayList =modelManager.getLevelThreeFromModel(iconPos.get(0),iconPos.get(1));
             updateList(NORMAL_MODE);
-            recyclerView.addOnScrollListener(getListener(iconPos.get(2)));
-            recyclerView.getLayoutManager().smoothScrollToPosition(recyclerView,null,iconPos.get(2));
+            mRecyclerView.addOnScrollListener(getListener(iconPos.get(2)));
+            smoothScroller.setTargetPosition(iconPos.get(2));
+            mRecyclerView.getLayoutManager().startSmoothScroll(smoothScroller);
+            adapter.highlightIcon = iconPos.get(2);
 
         }
     }
-
-    /**
-     * This functions returns a scroll scrollListener which triggers the setHighlight function
-     * when the scrolling is done
-     * @Author Ayaz Alam
-     * */
     private RecyclerView.OnScrollListener getListener(final int index) {
+        final RecyclerView.SmoothScroller smoothScroller = new LinearSmoothScroller(this) {
+            @Override protected int getVerticalSnapPreference() {
+                return LinearSmoothScroller.SNAP_TO_END;
+            }
+        };
+
         scrollListener =new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-
-                Log.d("SearchHighlight","Step 2: Scroll Listener");
                 super.onScrollStateChanged(recyclerView, newState);
-                if(newState==RecyclerView.SCROLL_STATE_DRAGGING)
-                    ;//Wait untill scrolling
-                else if(newState==RecyclerView.SCROLL_STATE_IDLE)
+                if(newState==RecyclerView.SCROLL_STATE_IDLE)
                 {
-                    Log.d("SearchHighlight","Step 3: Scrolling Stopped");
-                    setSearchHighlight(index);//Try highlighting the view after scrolling
+                    if(itemDisplayed(index)){
+                        mRecyclerView.removeOnScrollListener(scrollListener);
+                        adapter.highlightIcon = -1;
+                    }
+                    else {smoothScroller.setTargetPosition(index); recyclerView.getLayoutManager().startSmoothScroll(smoothScroller);}
                 }
             }};
+
         return scrollListener;
     }
-
-    /**
-     * This function is responsible for highlighting the view
-     * @param pos is the postion of view to be highlighted
-     * */
-    ViewTreeObserver.OnGlobalLayoutListener populationDoneListener;
-    public void setSearchHighlight(final int pos)
-    {
-
-        Log.d("SearchHighlight","Step 4: setSearch "+populationDoneListener);
-        populationDoneListener=new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-
-                Log.d("SearchHighlight","Step 5: Inside OnGlobleLayout");
-                View searchedView = recyclerView.getChildAt(pos);
-                if(searchedView==null) {
-                    recyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(populationDoneListener);
-                    recyclerView.getLayoutManager().smoothScrollToPosition(recyclerView,null,pos );
-                    Log.d("SearchHighlight","Step -1: Null Starting again");
-                    return;
-                }
-
-
-                Animation wiggle = AnimationUtils.loadAnimation(RepositionIcons.this,R.anim.jiggle_determinate);
-                searchedView.startAnimation(wiggle);
-                Log.d("Ayaz", "Step 6: Background is set and removing the scrollListener");
-                recyclerView.removeOnScrollListener(scrollListener);
-                recyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(populationDoneListener);
-            }
-        };
-        //Adding the scrollListener to the mRecycler to listen onPopulated callBack
-        recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(populationDoneListener);
+    private boolean itemDisplayed(int index) {
+        int firstVisiblePos = ((CustomGridLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
+        int lastVisiblePos = ((CustomGridLayoutManager) mRecyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
+        if(lastVisiblePos==(index-1))
+            return true;
+        return index >= firstVisiblePos && index <= lastVisiblePos;
     }
+
+
 
     @Override
     protected void onPause() {
@@ -487,10 +475,10 @@ public class RepositionIcons extends AppCompatActivity {
             mRecyclerViewDragDropManager = null;
         }
 
-        if (recyclerView != null) {
-            recyclerView.setItemAnimator(null);
-            recyclerView.setAdapter(null);
-            recyclerView = null;
+        if (mRecyclerView != null) {
+            mRecyclerView.setItemAnimator(null);
+            mRecyclerView.setAdapter(null);
+            mRecyclerView = null;
         }
 
         if (mWrappedAdapter != null) {

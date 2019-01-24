@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -48,6 +50,7 @@ public class RepositionIconAdapter extends RecyclerView.Adapter<RepositionIconAd
     public final static int NORMAL_MODE=113;
     private onRecyclerItemClick onItemClickListener;
     private onItemMoveListener mOnItemMoveListener;
+    public int highlightIcon = -1;
 
     public void setOnItemClickListener(onRecyclerItemClick onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
@@ -74,6 +77,8 @@ public class RepositionIconAdapter extends RecyclerView.Adapter<RepositionIconAd
         ImageView iconImage;
         ImageView removeIcon;
         View holder;
+        GradientDrawable backGround;
+
 
         public MyViewHolder(View v) {
             super(v);
@@ -81,6 +86,7 @@ public class RepositionIconAdapter extends RecyclerView.Adapter<RepositionIconAd
             iconTitle = v.findViewById(R.id.icon_title);
             iconImage = v.findViewById(R.id.icon_image_view);
             removeIcon =itemView.findViewById(R.id.icon_remove_button);
+            backGround = (GradientDrawable)v.findViewById(R.id.borderView).getBackground();
             removeIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -153,6 +159,10 @@ public class RepositionIconAdapter extends RecyclerView.Adapter<RepositionIconAd
     public void onBindViewHolder(MyViewHolder holder, int position) {
         final AbstractDataProvider.Data item = mProvider.getItem(position);
         holder.iconTitle.setText(mProvider.getItem(position).getText());
+        holder.backGround.setColor(ContextCompat.getColor(mContext,R.color.transparent));
+        if(highlightIcon==position)
+            holder.backGround.setColor(ContextCompat.getColor(mContext,R.color.search_highlight));
+
 
         JellowIcon thisIcon = (JellowIcon)mProvider.getItem(position);
         holder.iconTitle.setText(thisIcon.IconTitle);

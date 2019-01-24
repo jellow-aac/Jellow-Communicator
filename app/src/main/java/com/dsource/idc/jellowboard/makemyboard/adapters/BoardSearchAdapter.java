@@ -101,7 +101,22 @@ public interface OnItemClickListener {
         if(icon.parent1==-1)
         {
             TypedArray mArray=mContext.getResources().obtainTypedArray(R.array.arrLevelOneIconAdapter);
+            if(!(icon.parent0==-1))
             holder.iconImage.setImageDrawable(mArray.getDrawable(icon.parent0));
+            else //if custom icon load from folder
+            {
+                SessionManager mSession = new SessionManager(mContext);
+                File en_dir = mContext.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
+                String path = en_dir.getAbsolutePath() + "/boardicon";
+                GlideApp.with(mContext)
+                        .load(path+"/"+ icon.IconDrawable+".png")
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(false)
+                        .centerCrop()
+                        .dontAnimate()
+                        .into(holder.iconImage);
+                holder.iconImage.setBackground(mContext.getResources().getDrawable(R.drawable.icon_back_grey));
+            }
         }
         else
         {
@@ -122,21 +137,22 @@ public interface OnItemClickListener {
          * To this, we are using the function same as in menuSelected path used
          * */
 
-        String[] arr=mContext.getResources().getStringArray(R.array.arrLevelOneActionBarTitle);
-        String dir="";
-        if(icon.parent1==-1)
-        {
-            dir=mContext.getResources().getString(R.string.home);
-        }
-        else if(icon.parent2==-1)
-        {
-            dir=arr[icon.parent0];
-        }
-        else {
-            dir=arr[icon.parent0] + "->" + getIconTitleLevel2(icon.parent0)[icon.parent1];
+        try {
+            String[] arr = mContext.getResources().getStringArray(R.array.arrLevelOneActionBarTitle);
+            String dir = "";
+            if (icon.parent1 == -1) {
+                dir = mContext.getResources().getString(R.string.home);
+            } else if (icon.parent2 == -1) {
+                dir = arr[icon.parent0];
+            } else {
 
-        }
-        holder.iconDir.setText(dir);
+                dir = arr[icon.parent0] + "->" + getIconTitleLevel2(icon.parent0)[icon.parent1];
+
+            }
+            holder.iconDir.setText(dir);
+        } catch(ArrayIndexOutOfBoundsException e){
+
+         }
 
 
     }
