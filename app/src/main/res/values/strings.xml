@@ -7,6 +7,18 @@
         <item>4</item>
         <item>5</item>
     </string-array>
+    <string-array name="arrSequenceActivityHeadingText">
+        <item>brushing</item>
+        <item>toilet</item>
+        <item>bathing</item>
+        <item>""</item>
+        <item>""</item>
+        <item>""</item>
+        <item>""</item>
+        <item>\tmorning routine</item>
+        <item>\tbed time routine</item>
+    </string-array>
+
     <string name="app_name">Jellow</string>
     <string name="action_settings">Settings</string>
     <string name="Profile">Profile</string>
@@ -129,7 +141,7 @@
     <string name="changeDefaultToHindi">2. Make preferred language as default</string>
     <string name="downloadVoiceTts">3.Download voice in preferred language</string>
     <string name="activate">ACTIVATE</string>
-    <string name="changeLanguage">Change Language</string>
+    <string name="changeLanguage" translatable="false">Change Language</string>
     <string name="download">DOWNLOAD</string>
     <string name="cancel">CANCEL</string>
     <string name="keyboardControl">Keyboard Control:</string>
@@ -177,7 +189,6 @@
     <string name="expBtnSeq">Expressive buttons in the sequence:</string>
     <string name="ttsDesc">To use Jellow in English, Hindi and Bengali, please activate <b>\'Google text-to-speech (TTS)\'</b> within <b>\'Language\'</b> settings of your device. Within Google TTS settings, first change the <b>default language</b> to preferred language and then download voice for preferred language through the <b>\'Install voice data\'</b> option</string>
     <string name="softwareVersion">Software version: </string>
-    <string name="customSpeakIcon">Press here to speak above text.</string>
     <string name="string_to_speak">Enter words here to speak.</string>
     <string name="speak_written_text">Speak written text</string>
     <string name="resetPrefPointOne">Jellow remembers the user’s “most-used or preferred” icons and displays them as the top choices on the screen</string>
@@ -248,7 +259,6 @@
     <string name="txt_actLangSel_complete_mainscreen_msg">Voice data not available. Please turn on internet and go to language settings of app.</string>
     <string name="language_downloaded">_ language downloaded</string>
     <string name="language_downloading">Downloading _ language</string>
-    <string name="welcome_msg">Hi</string>
     <string name="ok">OK</string>
     <string name="call_permission_info">Call permission is not available. Call permission is required to make a call in case of an emergency.</string>
     <string name="granted_call_permission_req">Call permission is granted.</string>
@@ -286,7 +296,6 @@
     @AyazAlam
     -->
     <string name="search_title">Search Icon…</string>
-    <string name="search_hint">Search icon....</string>
     <string name="search_parent_0" translatable="false">parent_0</string>
     <string name="search_parent_1" translatable="false">parent_1</string>
     <string name="search_parent_2" translatable="false">parent_2</string>
@@ -295,8 +304,6 @@
     <string name="search_tag" translatable="false">SEARCH</string>
     <string name="icon_not_found">Icon not found</string>
     <string name="not_found" translatable="false">NOT_FOUND</string>
-    <string name="no_internet">No Internet</string>
-    <string name="please_wait">Please wait…</string>
     <string name="goto_home" translatable="false">goto_home</string>
 
 
@@ -338,8 +345,8 @@
     <string name="about_je_intro28">Dr Sudha Srinivasan</string>
     <string name="about_je_intro29">Support:</string>
     <string name="about_je_intro30">E-kalpa project sponsored under NMEICT by MHRD, Microsoft Design Expo 2004 and a 1-year seed grant through the UNICEF Innovation Fund</string>
-    <string name="about_je_intro38" >Longitudinal user studies and field testing of Jellow Communicator:</string>
-    <string name="about_je_intro39" >Topiwala National Medical College and B.Y.L Nair Charitable Hospital (Departments of Psychiatry and Audiology and Speech Therapy)</string>
+    <string name="about_je_intro38">Longitudinal user studies and field testing of Jellow Communicator:</string>
+    <string name="about_je_intro39">Topiwala National Medical College and B.Y.L Nair Charitable Hospital (Departments of Psychiatry and Audiology and Speech Therapy)</string>
 
     <string name="feedback_talkback_heading">On a scale of 1 to 5, please rate the following</string>
     
@@ -390,7 +397,7 @@
     <string name="intro6_1_cd">In the first image corresponding to “Text-to-speech output”, there are 2 preferred engines visible, first, the, “Samsung Text-to-Speech engine” and second, the, “Google Text-to-Speech engine”. The user is seen to select the “Google Text-to-Speech engine”as the first step.</string>
     <string name="intro6_2_cd">The second image corresponds to the second step in this process where the user is seen to now click on the, “Gear” symbol corresponding to the, “Settings” of the, “Google Text-to-Speech engine</string>
     <string name="intro6_3_cd">The third image is the third step in this process where now the user is at the, “Google TTS voice data” screen. This screen provides multiple voice options including “French (France)”, “German (Germany)”, “Hindi (India)”, “Hungarian (Hungary)”, and “Indonesian (Indonesia)”. The “Hindi (India) voice” option is highlighted and shows an option of “Voice set 1” with a size of 19MB that is available for download. The user’s finger is seen to click on the download icon for the voice set 1 for the, “Hindi (India)voice”.</string>
-    <string name="change_language">Language selected in Jellow is different from that of your device output language. Would you like to change your device language ?</string>
+    <string name="change_language" translatable="false">Language selected in Jellow is different from that of your device output language. Would you like to change your device language ?</string>
     <string name="talkback_single_click">select</string>
     <string name="talkback_dropdown_menu">access countries list</string>
     <string name="close_dialog">close dialog.</string>

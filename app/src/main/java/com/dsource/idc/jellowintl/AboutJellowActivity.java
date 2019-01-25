@@ -17,8 +17,8 @@ import android.widget.TextView;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
-import com.dsource.idc.jellowintl.utility.MediaPlayerUtils;
 import com.dsource.idc.jellowintl.utility.SessionManager;
+import com.dsource.idc.jellowintl.utility.SpeechUtils;
 
 import java.util.HashMap;
 
@@ -44,9 +44,6 @@ public class AboutJellowActivity extends AppCompatActivity {
             mIntro18, mIntro19, mIntro20, mIntro21, mIntro22, mIntro23, mIntro24, mIntro25, mIntro26,
             mIntro27, mIntro28, mIntro29, mIntro30, mIntro31, mIntro32, mSpeak, mStop;
 
-    /*Media Player playback Utility class for non-tts languages.*/
-    private MediaPlayerUtils mMpu;
-
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext((LanguageHelper.onAttach(newBase)));
@@ -66,13 +63,11 @@ public class AboutJellowActivity extends AppCompatActivity {
         initializeViews();
         loadStrings();
         setTextToTextViews();
-        mMpu = new MediaPlayerUtils(this);
 
         mBtnSpeak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 speakSpeech(mSpeechTxt);
-                mMpu.playAudio(mMpu.getFilePath("MIS_06MSTT"));
             }
         });
 
@@ -397,11 +392,7 @@ public class AboutJellowActivity extends AppCompatActivity {
      * The string in {@param speechText} is speech output request string.</p>
      * */
     private void speakSpeech(String speechText){
-        if(mMpu.isTtsAvailForLang()) {
-            Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_TEXT");
-            intent.putExtra("speechText", speechText.toLowerCase());
-            sendBroadcast(intent);
-        }
+        SpeechUtils.speak(this,speechText);
     }
 
     private void stopAudio() {

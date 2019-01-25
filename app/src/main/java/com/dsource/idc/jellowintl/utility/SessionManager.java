@@ -10,6 +10,7 @@ import android.content.SharedPreferences.Editor;
 
 import com.dsource.idc.jellowintl.R;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SessionManager {
@@ -49,6 +50,10 @@ public class SessionManager {
             put(BN_IN,"বাঙালি");
         }
     };
+
+    public final static ArrayList<String> NoTTSLang = new ArrayList<String>(){{
+        add(MR_IN);
+    }};
 
     private SharedPreferences mPreferences;
     private Editor mEditor;

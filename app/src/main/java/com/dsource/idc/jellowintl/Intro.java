@@ -24,8 +24,8 @@ import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
-import com.dsource.idc.jellowintl.utility.MediaPlayerUtils;
 import com.dsource.idc.jellowintl.utility.SessionManager;
+import com.dsource.idc.jellowintl.utility.SpeechUtils;
 import com.dsource.idc.jellowintl.utility.TextToSpeechErrorUtils;
 import com.github.paolorotolo.appintro.AppIntro;
 
@@ -71,8 +71,7 @@ public class Intro extends AppIntro {
         addSlide(SampleSlideFragment.newInstance(R.layout.intro2, "intro2"));
         addSlide(SampleSlideFragment.newInstance(R.layout.intro3, "intro3"));
         addSlide(SampleSlideFragment.newInstance(R.layout.intro4, "intro4"));
-        MediaPlayerUtils mpu = new MediaPlayerUtils(this);
-        if(mpu.isTtsAvailForLang())
+        if(!SpeechUtils.isNoTTSLanguage(this))
             addSlide(SampleSlideFragment.newInstance(R.layout.intro8, "intro8"));
         else
             isOpenedSettingFromIntro8 = true;
@@ -136,7 +135,7 @@ public class Intro extends AppIntro {
         super.onSlideChanged(oldFragment, newFragment);
         Crashlytics.log("Slide visible:"+((SampleSlideFragment) newFragment).getLayoutName());
         if (Build.VERSION.SDK_INT < 21
-                && !(new SessionManager(this).getLanguage().equals(MR_IN)))
+                /*&& !(new SessionManager(this).getLanguage().equals(MR_IN))*/)
             if(((SampleSlideFragment) newFragment).getLayoutName().equals("intro6") ||
                     ((SampleSlideFragment) newFragment).getLayoutName().equals("intro7")){
                 getTextToSpeechEngineLanguage("");

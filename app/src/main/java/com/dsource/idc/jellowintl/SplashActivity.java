@@ -15,10 +15,15 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import com.crashlytics.android.Crashlytics;
+import com.dsource.idc.jellowintl.cache.CacheManager;
+import com.dsource.idc.jellowintl.factories.TextFactory;
+import com.dsource.idc.jellowintl.utility.CreateDataBase;
+import com.dsource.idc.jellowintl.utility.DataBaseHelper;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
+import com.dsource.idc.jellowintl.utility.SpeechUtils;
 import com.dsource.idc.jellowintl.utility.TextToSpeechErrorUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -88,6 +93,11 @@ public class SplashActivity extends AppCompatActivity {
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.dsource.idc.jellowintl.INIT_SERVICE");
         filter.addAction("com.dsource.idc.jellowintl.INIT_SERVICE_ERR");
+        if (mSession.isLanguageChanged() == 1) {
+            CacheManager.clearCache();
+            TextFactory.clearJson();
+            SpeechUtils.updateSpeechParam(this);
+        }
         registerReceiver(receiver, filter);
         iconDatabase=new CreateDataBase(this);
         iconDatabase.execute();
