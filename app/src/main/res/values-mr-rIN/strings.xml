@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="arrSequenceActivityHeadingText">
+        <item>दात घासणे</item>
+        <item>टॉयलेट</item>
+        <item>अंघोळ</item>
+        <item>""</item>
+        <item>""</item>
+        <item>""</item>
+        <item>""</item>
+        <item>सकाळची नियमित कार्ये</item>
+        <item>रात्रीची नियमित कार्ये</item>
+    </string-array>
     <string name="app_name">जेलो</string>
     <string name="action_settings">सेटिंग्स</string>
     <string name="Profile">प्रोफाइल</string>
@@ -227,11 +238,8 @@
     @AyazAlam
     -->
     <string name="search_title">आइकॉन्स शोधा…</string>
-    <string name="search_hint">आइकॉन्स शोधा....</string>
     <string name="home">Home</string>
     <string name="icon_not_found">आइकॉन सापडला नाही</string>
-    <string name="no_internet">इंटरनेट कनेक्शन नाही</string>
-    <string name="please_wait">कृपया प्रतीक्षा करा…</string>
 
     <!--About Jellow strings-->
     <string name="info">सामान्य माहिती</string>

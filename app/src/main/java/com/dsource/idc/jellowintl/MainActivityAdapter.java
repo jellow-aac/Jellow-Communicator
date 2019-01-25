@@ -1,7 +1,7 @@
 package com.dsource.idc.jellowintl;
 
 import android.content.Context;
-import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
@@ -17,13 +17,23 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.RequestManager;
 import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
+import com.dsource.idc.jellowintl.cache.MemoryCache;
+import com.dsource.idc.jellowintl.factories.IconFactory;
+import com.dsource.idc.jellowintl.factories.LanguageFactory;
+import com.dsource.idc.jellowintl.factories.TextFactory;
+import com.dsource.idc.jellowintl.models.Icon;
 import com.dsource.idc.jellowintl.utility.SessionManager;
+
+import java.io.File;
 
 import static android.content.Context.ACCESSIBILITY_SERVICE;
 import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
 import static com.dsource.idc.jellowintl.MainActivity.isNotchDevice;
+import static com.dsource.idc.jellowintl.factories.PathFactory.getIconDirectory;
+import static com.dsource.idc.jellowintl.factories.PathFactory.getIconPath;
+import static com.dsource.idc.jellowintl.factories.PathFactory.getJSONFile;
 
 /**
  * Created by ekalpa on 4/19/2016.
@@ -31,13 +41,24 @@ import static com.dsource.idc.jellowintl.MainActivity.isNotchDevice;
 class MainActivityAdapter extends android.support.v7.widget.RecyclerView.Adapter<MainActivityAdapter.MyViewHolder> {
     private Context mContext;
     private SessionManager mSession;
-    private TypedArray mIconArray;
+    private String[] icons;
     private String[] mBelowTextArray;
-    MainActivityAdapter(Context context) {
+    private RequestManager glide;
+
+    public MainActivityAdapter(Context context) {
         mContext = context;
+        glide = GlideApp.with(mContext);
         mSession = new SessionManager(mContext);
-        mIconArray = mContext.getResources().obtainTypedArray(R.array.arrLevelOneIconAdapter);
-        mBelowTextArray = mContext.getResources().getStringArray(R.array.arrLevelOneBelowText);
+
+        icons = IconFactory.getL1Icons(
+                getIconDirectory(context),
+                LanguageFactory.getCurrentLanguageCode(context)
+        );
+
+        File map = getJSONFile(context);
+        Icon[] iconObjects = TextFactory.getIconObjects(map, IconFactory.removeFileExtension(icons));
+        mBelowTextArray = TextFactory.getDisplayText(iconObjects);
+
     }
 
     @Override
@@ -69,19 +90,21 @@ class MainActivityAdapter extends android.support.v7.widget.RecyclerView.Adapter
         holder.menuItemBelowText.setAllCaps(true);
         holder.menuItemBelowText.setText(mBelowTextArray[position]);
 
-        GlideApp.with(mContext)
-                .load(mIconArray.getDrawable(position))
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(false)
-                .centerCrop()
-                .dontAnimate()
-                .into(holder.menuItemImage);
+        Bitmap iconBitmap = MemoryCache.getBitmapFromMemCache(icons[position]);
+
+        if (iconBitmap != null) {
+            holder.menuItemImage.setImageBitmap(iconBitmap);
+        } else {
+            glide.load(getIconPath(mContext, icons[position]))
+                    .into(holder.menuItemImage);
+        }
+
         holder.menuItemLinearLayout.setContentDescription(mBelowTextArray[position]);
     }
 
     @Override
     public int getItemCount() {
-        return mIconArray.length();
+        return icons.length;
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {

@@ -7,6 +7,17 @@
         <item>৪</item>
         <item>৫</item>
     </string-array>
+    <string-array name="arrSequenceActivityHeadingText">
+        <item>দাঁত মাজা </item>
+        <item>টইলেট</item>
+        <item>স্নান করা </item>
+        <item>""</item>
+        <item>""</item>
+        <item>""</item>
+        <item>""</item>
+        <item>\tসকালের কাজ </item>
+        <item>\tরাতের কাজ </item>
+    </string-array>
     <string name="app_name">জেলো</string>
     <string name="action_settings">সেটিংস্‌</string>
     <string name="Profile">প্রোফাইল</string>
@@ -202,7 +213,6 @@
     <string name="txt_actLangSel_complete_mainscreen_msg">ভয়েস ডেটা প্রাপ্ত হয়নি। ইন্টারনেট চালু করুন এবং অ্যাপ্লিকেশন ভাষা সেটিংস যান।</string>
     <string name="language_downloaded">_ ভাষা ডাউনলোড করা হল</string>
     <string name="language_downloading">_  ভাষা ডাউনলোড করা হচ্ছে</string>
-    <string name="welcome_msg">হাই</string>
     <string name="ok">ঠিক আছে</string>
     <string name="call_permission_info">কথা বলার অনুমতি উপলব্ধ নয়। আপৎকালীন প্রয়োজনে কথা বলার জন্য অনুমতি জরুরি</string>
     <string name="granted_call_permission_req">কথা বলার অনুমতি প্রদত্ত হল</string>
@@ -231,11 +241,8 @@
     @AyazAlam
     -->
     <string name="search_title">আইকন সন্ধান করুন…</string>
-    <string name="search_hint">আইকন সন্ধান করুন…</string>
     <string name="home">হোম</string>
     <string name="icon_not_found">আইকন পাওয়া যায়নি</string>
-    <string name="no_internet">ইন্টারনেট নেই</string>
-    <string name="please_wait">দয়া করে অপেক্ষা করুন…</string>
     <string name="info">সাধারণ তথ্য</string>
 
 

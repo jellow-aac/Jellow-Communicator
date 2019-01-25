@@ -34,8 +34,8 @@ import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
-import com.dsource.idc.jellowintl.utility.MediaPlayerUtils;
 import com.dsource.idc.jellowintl.utility.SessionManager;
+import com.dsource.idc.jellowintl.utility.SpeechUtils;
 
 import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
 import static com.dsource.idc.jellowintl.MainActivity.isDeviceReadyToCall;
@@ -58,8 +58,6 @@ public class SettingActivity extends AppCompatActivity {
     private boolean mOpenSetting;
     private String  mCalPerMsg, mCalPerGranted,mCalPerRejected, mSettings, mDismiss;
 
-    /*Media Player playback Utility class for non-tts languages.*/
-    private MediaPlayerUtils mMpu;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,7 +72,6 @@ public class SettingActivity extends AppCompatActivity {
                 getString(R.string.action_settings)+"</font>"));
         mSession = new SessionManager(this);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
-        mMpu = new MediaPlayerUtils(this);
 
         mOpenSetting = false;
         mSpinnerViewMode = findViewById(R.id.spinner3);
@@ -138,7 +135,6 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 speakSpeech(strDemoSpeech);
-                mMpu.playAudio(mMpu.getFilePath("MIS_07MSTT"));
                 Crashlytics.log("SettingAct Demo");
             }
         });
@@ -168,7 +164,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
-        if(!(new MediaPlayerUtils(this).isTtsAvailForLang())){
+        if(!SpeechUtils.isNoTTSLanguage(this)){
             mSliderSpeed.setVisibility(View.GONE);
             mTxtViewSpeechSpeed.setVisibility(View.GONE);
             mSliderPitch.setVisibility(View.GONE);
@@ -483,11 +479,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void speakSpeech(String speechText){
-        if(mMpu.isTtsAvailForLang()) {
-            Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_TEXT");
-            intent.putExtra("speechText", speechText);
-            sendBroadcast(intent);
-        }
+        SpeechUtils.speak(this,speechText);
     }
 
     private void setSpeechRate(float speechRate){

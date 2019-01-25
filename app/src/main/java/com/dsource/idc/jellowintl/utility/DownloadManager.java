@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
+import com.dsource.idc.jellowintl.BuildConfig;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -63,7 +64,7 @@ public class DownloadManager {
         StorageReference storageRef = storage.getReference(); // get a reference to a particular location
 
 
-        StorageReference pathReference = storageRef.child(localeCode+".zip"); // select a particular file from that reference location
+        StorageReference pathReference = storageRef.child(BuildConfig.DB_TYPE +"/"+localeCode+".zip"); // select a particular file from that reference location
 
         pathReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override

@@ -1,21 +1,12 @@
 package com.dsource.idc.jellowintl.utility;
 
-import android.content.Context;
 import android.os.Bundle;
 
-import com.dsource.idc.jellowintl.R;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
-import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_AU;
-import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_UK;
-import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_US;
-import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
-import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
 
 public class UserEventCollector {
     /*Firebase event variables. Variables are initialized to empty values.*/
@@ -174,7 +165,7 @@ public class UserEventCollector {
         mFirstEventNo = 99;
         mEventName = "";
     }
-
+/*
     public void setEventTag(Context context) {
         mEventTag = Arrays.asList(context.getResources().getStringArray(R.array.arrLvlOneTag));
     }
@@ -252,5 +243,5 @@ public class UserEventCollector {
                 break;
         }
         mEventTag = Arrays.asList(context.getResources().getStringArray(ar[l1Pos][l2Pos]));
-    }
+    }*/
 }

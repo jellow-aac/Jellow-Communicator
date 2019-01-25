@@ -18,6 +18,7 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.text.method.KeyListener;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,22 +37,28 @@ import android.widget.Toast;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
-import com.dsource.idc.jellowintl.models.SeqActivityVerbiageModel;
+import com.dsource.idc.jellowintl.factories.IconFactory;
+import com.dsource.idc.jellowintl.factories.LanguageFactory;
+import com.dsource.idc.jellowintl.factories.PathFactory;
+import com.dsource.idc.jellowintl.factories.TextFactory;
+import com.dsource.idc.jellowintl.models.ExpressiveIcon;
+import com.dsource.idc.jellowintl.models.Icon;
+import com.dsource.idc.jellowintl.models.MiscellaneousIcon;
+import com.dsource.idc.jellowintl.models.SeqNavigationButton;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.KeyboardUtteranceDialogUtil;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
-import com.dsource.idc.jellowintl.utility.MediaPlayerUtils;
 import com.dsource.idc.jellowintl.utility.SessionManager;
+import com.dsource.idc.jellowintl.utility.SpeechUtils;
 import com.dsource.idc.jellowintl.utility.UserEventCollector;
-import com.google.gson.Gson;
 
 import java.io.File;
-import java.util.ArrayList;
 
 import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
 import static com.dsource.idc.jellowintl.MainActivity.isNotchDevice;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
+import static com.dsource.idc.jellowintl.factories.PathFactory.getIconPath;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
@@ -94,22 +101,20 @@ public class SequenceActivity extends AppCompatActivity {
     private RelativeLayout mRelativeLayCategory;
     /*navigation next, back button in category*/
     private Button mBtnNext, mBtnBack;
-    private String mStrPath, mStrNext, mStrBack, mActionBarTitleTxt, accessDialogBtnTxt;
+    private String mActionBarTitleTxt;
     String[] mCategoryIconText;
     /*Below array stores the speech text, below text, expressive button speech text, heading,
      navigation button speech text, category navigation text respectively.*/
     private String[] mCategoryIconSpeechText, mCategoryIconBelowText, mHeading, mExprBtnTxt,
-            mNavigationBtnTxt, mCategoryNav;
-    /*Below list stores the verbiage that are spoken when category icon + expression buttons
-    pressed in conjunction*/
-    private ArrayList<ArrayList<String>> mSeqActSpeech;
+            mNavigationBtnTxt, mVerbCode;
     private SessionManager mSession;
 
     /*Firebase event Collector class instance.*/
     private UserEventCollector mUec;
 
-    /*Media Player playback Utility class for non-tts languages.*/
-    private MediaPlayerUtils mMpu;
+    private Icon[] level3SeqIconObjects;
+    private SeqNavigationButton[] seqNavigationButtonObjects;
+    private String[] l3SeqIcons;
 
     private String mSpeak;
 
@@ -134,13 +139,9 @@ public class SequenceActivity extends AppCompatActivity {
 
         mSession = new SessionManager(this);
         mUec = new UserEventCollector();
-        mMpu = new MediaPlayerUtils(this);
         /*get position of category icon selected in level two*/
         mLevelTwoItemPos = getIntent().getExtras().getInt(getString(R.string.level_2_item_pos_tag));
 
-        // Get icon set directory path
-        File en_dir = this.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
-        mStrPath = en_dir.getAbsolutePath()+"/drawables";
         mSpeak = getString(R.string.speak);
 
         loadArraysFromResources();
@@ -201,7 +202,7 @@ public class SequenceActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mSeqActSpeech = null;
+        //mSeqActSpeech = null;
         mCategoryIconText = null;
         mRelativeLayCategory = null;
         mCategoryIconSpeechText = null;
@@ -209,7 +210,6 @@ public class SequenceActivity extends AppCompatActivity {
         mHeading = null;
         mExprBtnTxt = null;
         mNavigationBtnTxt = null;
-        mCategoryNav = null;
     }
 
     @Override
@@ -383,8 +383,7 @@ public class SequenceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                    speakSpeech(mStrNext);
-                    mMpu.playAudio(mMpu.getFilePath("MIS_05MSTT"));
+                    speakSpeech(seqNavigationButtonObjects[1].getSpeech_Label());
                 }
                 mBtnBack.setEnabled(true);
                 mBtnBack.setAlpha(1f);
@@ -404,9 +403,9 @@ public class SequenceActivity extends AppCompatActivity {
                     // If activity sequence is "Brushing" or "Bathing", then in its last sequences
                     // only 2 items needed to load
                     if (mLevelTwoItemPos == 0 || mLevelTwoItemPos == 2) {
-                        setImageUsingGlide(mStrPath +"/"+ mCategoryIconText[count]+".png",
+                        setImageUsingGlide(getIconPath(SequenceActivity.this,l3SeqIcons[count]),
                                 mIvCategoryIcon1);
-                        setImageUsingGlide(mStrPath +"/"+ mCategoryIconText[count+1]+".png",
+                        setImageUsingGlide(getIconPath(SequenceActivity.this,l3SeqIcons[count+1]),
                                 mIvCategoryIcon2);
 
                         mIvCategoryIcon1.setContentDescription(mCategoryIconBelowText[count]);
@@ -423,7 +422,7 @@ public class SequenceActivity extends AppCompatActivity {
                     // If activity sequence is "Toilet", "Morning routine" or "Bedtime routine"
                     // then in its last sequences only 1 category item needs to be loaded
                     } else if (mLevelTwoItemPos == 1 || mLevelTwoItemPos == 7 || mLevelTwoItemPos == 8) {
-                        setImageUsingGlide(mStrPath +"/"+ mCategoryIconText[count]+".png",
+                        setImageUsingGlide(getIconPath(SequenceActivity.this,l3SeqIcons[count]),
                                 mIvCategoryIcon1);
 
                         mIvCategoryIcon1.setContentDescription(mCategoryIconBelowText[count]);
@@ -446,13 +445,13 @@ public class SequenceActivity extends AppCompatActivity {
                     mTvCategory2Caption.setText(mCategoryIconBelowText[count + 1]);
                     mTvCategory3Caption.setText(mCategoryIconBelowText[count + 2]);
 
-                    setImageUsingGlide(mStrPath +"/"+ mCategoryIconText[count]+".png",
+                    setImageUsingGlide(getIconPath(SequenceActivity.this,l3SeqIcons[count]),
                             mIvCategoryIcon1);
 
-                    setImageUsingGlide(mStrPath +"/"+ mCategoryIconText[count+1]+".png",
+                    setImageUsingGlide(getIconPath(SequenceActivity.this,l3SeqIcons[count+1]),
                             mIvCategoryIcon2);
 
-                    setImageUsingGlide(mStrPath +"/"+ mCategoryIconText[count+2]+".png",
+                    setImageUsingGlide(getIconPath(SequenceActivity.this,l3SeqIcons[count+2]),
                             mIvCategoryIcon3);
 
                     mIvCategoryIcon1.setContentDescription(mCategoryIconBelowText[count]);
@@ -486,8 +485,7 @@ public class SequenceActivity extends AppCompatActivity {
         mBtnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                speakSpeech(mStrBack);
-                mMpu.playAudio(mMpu.getFilePath( "MIS_04MSTT"));
+                speakSpeech(seqNavigationButtonObjects[0].getSpeech_Label());
                 mBtnNext.setEnabled(true);
                 mBtnNext.setAlpha(1f);
                 count = count - 3;
@@ -513,13 +511,13 @@ public class SequenceActivity extends AppCompatActivity {
                 mTvCategory2Caption.setText(mCategoryIconBelowText[count + 1]);
                 mTvCategory3Caption.setText(mCategoryIconBelowText[count + 2]);
                 //load images to category icons
-                setImageUsingGlide(mStrPath +"/"+ mCategoryIconText[count]+".png",
+                setImageUsingGlide(getIconPath(SequenceActivity.this,l3SeqIcons[count]),
                         mIvCategoryIcon1);
 
-                setImageUsingGlide(mStrPath +"/"+ mCategoryIconText[count+1]+".png",
+                setImageUsingGlide(getIconPath(SequenceActivity.this,l3SeqIcons[count+1]),
                         mIvCategoryIcon2);
 
-                setImageUsingGlide(mStrPath +"/"+ mCategoryIconText[count+2]+".png",
+                setImageUsingGlide(getIconPath(SequenceActivity.this,l3SeqIcons[count+2]),
                         mIvCategoryIcon3);
 
                 mIvCategoryIcon1.setContentDescription(mCategoryIconBelowText[count]);
@@ -582,8 +580,6 @@ public class SequenceActivity extends AppCompatActivity {
                         hideExpressiveBtn(false);
                     if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
                         speakSpeech(mCategoryIconSpeechText[count]);
-                        mMpu.playAudio(mMpu.getFilePath("CATSQ_" + mLevelTwoItemPos + "_" +
-                                (count + 1)));
                         mUec.createSendFbEventFromTappedView(12, "VisibleExpr " +
                                 mCategoryIconBelowText[count], mHeading[mLevelTwoItemPos].toLowerCase());
                     }
@@ -643,8 +639,6 @@ public class SequenceActivity extends AppCompatActivity {
                         hideExpressiveBtn(false);
                     if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
                         speakSpeech(mCategoryIconSpeechText[count + 1]);
-                        mMpu.playAudio(mMpu.getFilePath("CATSQ_" + mLevelTwoItemPos + "_" +
-                                (count + 2)));
                         mUec.createSendFbEventFromTappedView(12, "VisibleExpr " +
                                 mCategoryIconBelowText[count+1], mHeading[mLevelTwoItemPos].toLowerCase());
                     }
@@ -704,8 +698,6 @@ public class SequenceActivity extends AppCompatActivity {
                         hideExpressiveBtn(false);
                     if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
                         speakSpeech(mCategoryIconSpeechText[count + 2]);
-                        mMpu.playAudio(mMpu.getFilePath("CATSQ_" + mLevelTwoItemPos + "_" +
-                                (count + 3)));
                         mUec.createSendFbEventFromTappedView(12, "VisibleExpr " +
                                 mCategoryIconBelowText[count+2], mHeading[mLevelTwoItemPos].toLowerCase());
                     }
@@ -735,7 +727,6 @@ public class SequenceActivity extends AppCompatActivity {
         mIvBack.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 speakSpeech(mNavigationBtnTxt[1]);
-                mMpu.playAudio(mMpu.getFilePath( "MIS_02MSTT"));
                 //Firebase event
                 singleEvent("Navigation","Back");
                 mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
@@ -780,7 +771,6 @@ public class SequenceActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         speakSpeech(mNavigationBtnTxt[0]);
-                        mMpu.playAudio(mMpu.getFilePath( "MIS_01MSTT"));
                     }
                 }).start();
                 //When home is tapped in this activity it will close all other activities and
@@ -825,7 +815,6 @@ public class SequenceActivity extends AppCompatActivity {
                     new KeyboardUtteranceDialogUtil(SequenceActivity.this).show();
                 } else {
                     speakSpeech(mNavigationBtnTxt[2]);
-                    mMpu.playAudio(mMpu.getFilePath("MIS_03MSTT"));
                     mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
                     //when mFlgKeyboard is set to 1, it means user is using custom keyboard input
                     // text and system keyboard is visible.
@@ -903,13 +892,11 @@ public class SequenceActivity extends AppCompatActivity {
                 if (mFlgHideExpBtn == 0) {
                     if (mFlgLike == 1) {
                         speakSpeech(mExprBtnTxt[1]);
-                        mMpu.playAudio(mMpu.getFilePath( "EXP_01EELL"));
                         mFlgLike = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(1, "", "");
                     } else {
                         speakSpeech(mExprBtnTxt[0]);
-                        mMpu.playAudio(mMpu.getFilePath( "EXP_01EEL0"));
                         mFlgLike = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(0, "", "");
@@ -919,20 +906,15 @@ public class SequenceActivity extends AppCompatActivity {
                     setBorderToIcon(0);
                     if (mFlgLike == 1) {
                         //Firebase event
-                        mUec.createSendFbEventFromTappedView(14, getPrefixMsg()
-                            +"_"+mMpu.getIconCodeSeq(mLevelTwoItemPos,(count + mFlgHideExpBtn),"LL"), "");
-                        speakSpeech(mSeqActSpeech.get(count + mFlgHideExpBtn - 1).get(1));
-                        mMpu.playAudio(mMpu.getFilePath( "GRXSQ_"+mLevelTwoItemPos
-                                +"_"+(count + mFlgHideExpBtn) +"_LL"));
-
+                        mUec.createSendFbEventFromTappedView(14, getPrefixTag()
+                            +"_"+ mVerbCode[count + mFlgHideExpBtn]+"LL", "");
+                        speakSpeech(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getLL());
                         mFlgLike = 0;
                     } else {
                         //Firebase event
-                        mUec.createSendFbEventFromTappedView(13, getPrefixMsg()
-                            +"_"+mMpu.getIconCodeSeq(mLevelTwoItemPos,(count + mFlgHideExpBtn),"L0"), "");
-                        speakSpeech(mSeqActSpeech.get(count + mFlgHideExpBtn - 1).get(0));
-                        mMpu.playAudio(mMpu.getFilePath( "GRXSQ_"+mLevelTwoItemPos
-                                +"_"+(count + mFlgHideExpBtn) +"_L0"));
+                        mUec.createSendFbEventFromTappedView(13, getPrefixTag()
+                            +"_"+ mVerbCode[count + mFlgHideExpBtn]+"L0", "");
+                        speakSpeech(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getL());
                         mFlgLike = 1;
                     }
                 }
@@ -965,13 +947,11 @@ public class SequenceActivity extends AppCompatActivity {
                 if (mFlgHideExpBtn == 0) {
                     if (mFlgDontLike == 1) {
                         speakSpeech(mExprBtnTxt[7]);
-                        mMpu.playAudio(mMpu.getFilePath( "EXP_04EELL"));
                         mFlgDontLike = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(7, "", "");
                     } else {
                         speakSpeech(mExprBtnTxt[6]);
-                        mMpu.playAudio(mMpu.getFilePath( "EXP_04EEL0"));
                         mFlgDontLike = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(6, "", "");
@@ -981,19 +961,15 @@ public class SequenceActivity extends AppCompatActivity {
                     setBorderToIcon(1);
                     if (mFlgDontLike == 1) {
                         //Firebase event
-                        mUec.createSendFbEventFromTappedView(20, getPrefixMsg()
-                            +"_"+mMpu.getIconCodeSeq(mLevelTwoItemPos,(count + mFlgHideExpBtn),"DD"), "");
-                        speakSpeech(mSeqActSpeech.get(count + mFlgHideExpBtn - 1).get(7));
-                        mMpu.playAudio(mMpu.getFilePath( "GRXSQ_"+mLevelTwoItemPos
-                                +"_"+(count + mFlgHideExpBtn) +"_DD"));
+                        mUec.createSendFbEventFromTappedView(20, getPrefixTag()
+                            +"_"+ mVerbCode[count + mFlgHideExpBtn]+"DD", "");
+                        speakSpeech(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getDD());
                         mFlgDontLike = 0;
                     } else {
                         //Firebase event
-                        mUec.createSendFbEventFromTappedView(19, getPrefixMsg()
-                            +"_"+mMpu.getIconCodeSeq(mLevelTwoItemPos,(count + mFlgHideExpBtn),"D0"), "");
-                        speakSpeech(mSeqActSpeech.get(count + mFlgHideExpBtn - 1).get(6));
-                        mMpu.playAudio(mMpu.getFilePath( "GRXSQ_"+mLevelTwoItemPos
-                                +"_"+(count + mFlgHideExpBtn) +"_D0"));
+                        mUec.createSendFbEventFromTappedView(19, getPrefixTag()
+                            +"_"+ mVerbCode[count + mFlgHideExpBtn]+"D0", "");
+                        speakSpeech(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getD());
                         mFlgDontLike = 1;
                     }
                 }
@@ -1027,13 +1003,11 @@ public class SequenceActivity extends AppCompatActivity {
                 if (mFlgHideExpBtn == 0) {
                     if (mFlgYes == 1) {
                         speakSpeech(mExprBtnTxt[3]);
-                        mMpu.playAudio(mMpu.getFilePath( "EXP_02EELL"));
                         mFlgYes = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(3, "", "");
                     } else {
                         speakSpeech(mExprBtnTxt[2]);
-                        mMpu.playAudio(mMpu.getFilePath( "EXP_02EEL0"));
                         mFlgYes = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(2, "", "");
@@ -1043,19 +1017,15 @@ public class SequenceActivity extends AppCompatActivity {
                     setBorderToIcon(2);
                     if (mFlgYes == 1) {
                         //Firebase event
-                        mUec.createSendFbEventFromTappedView(16, getPrefixMsg()
-                            +"_"+mMpu.getIconCodeSeq(mLevelTwoItemPos,(count + mFlgHideExpBtn),"YY"), "");
-                        speakSpeech(mSeqActSpeech.get(count + mFlgHideExpBtn - 1).get(3));
-                        mMpu.playAudio(mMpu.getFilePath( "GRXSQ_"+mLevelTwoItemPos
-                                +"_"+(count + mFlgHideExpBtn) +"_YY"));
+                        mUec.createSendFbEventFromTappedView(16, getPrefixTag()
+                            +"_"+ mVerbCode[count + mFlgHideExpBtn]+"YY", "");
+                        speakSpeech(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getYY());
                         mFlgYes = 0;
                     } else {
                         //Firebase event
-                        mUec.createSendFbEventFromTappedView(15, getPrefixMsg()
-                            +"_"+mMpu.getIconCodeSeq(mLevelTwoItemPos,(count + mFlgHideExpBtn),"Y0"), "");
-                        speakSpeech(mSeqActSpeech.get(count + mFlgHideExpBtn - 1).get(2));
-                        mMpu.playAudio(mMpu.getFilePath( "GRXSQ_"+mLevelTwoItemPos
-                                +"_"+(count + mFlgHideExpBtn) +"_Y0"));
+                        mUec.createSendFbEventFromTappedView(15, getPrefixTag()
+                            +"_"+ mVerbCode[count + mFlgHideExpBtn]+"Y0", "");
+                        speakSpeech(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getY());
                         mFlgYes = 1;
                     }
                 }
@@ -1088,13 +1058,11 @@ public class SequenceActivity extends AppCompatActivity {
                 if (mFlgHideExpBtn == 0) {
                     if (mFlgNo == 1) {
                         speakSpeech(mExprBtnTxt[9]);
-                        mMpu.playAudio(mMpu.getFilePath( "EXP_05EELL"));
                         mFlgNo = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(9, "", "");
                     } else {
                         speakSpeech(mExprBtnTxt[8]);
-                        mMpu.playAudio(mMpu.getFilePath( "EXP_05EEL0"));
                         mFlgNo = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(8, "", "");
@@ -1104,19 +1072,15 @@ public class SequenceActivity extends AppCompatActivity {
                     setBorderToIcon(3);
                     if (mFlgNo == 1) {
                         //Firebase event
-                        mUec.createSendFbEventFromTappedView(22, getPrefixMsg()
-                            +"_"+mMpu.getIconCodeSeq(mLevelTwoItemPos,(count + mFlgHideExpBtn),"NN"), "");
-                        speakSpeech(mSeqActSpeech.get(count + mFlgHideExpBtn - 1).get(9));
-                        mMpu.playAudio(mMpu.getFilePath( "GRXSQ_"+mLevelTwoItemPos
-                                +"_"+(count + mFlgHideExpBtn) +"_NN"));
+                        mUec.createSendFbEventFromTappedView(22, getPrefixTag()
+                            +"_"+ mVerbCode[count + mFlgHideExpBtn]+"NN", "");
+                        speakSpeech(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getNN());
                         mFlgNo = 0;
                     } else {
                         //Firebase event
-                        mUec.createSendFbEventFromTappedView(21, getPrefixMsg()
-                            +"_"+mMpu.getIconCodeSeq(mLevelTwoItemPos,(count + mFlgHideExpBtn),"N0"), "");
-                        speakSpeech(mSeqActSpeech.get(count + mFlgHideExpBtn - 1).get(8));
-                        mMpu.playAudio(mMpu.getFilePath( "GRXSQ_"+mLevelTwoItemPos
-                                +"_"+(count + mFlgHideExpBtn) +"_N0"));
+                        mUec.createSendFbEventFromTappedView(21, getPrefixTag()
+                            +"_"+ mVerbCode[count + mFlgHideExpBtn]+"N0", "");
+                        speakSpeech(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getN());
                         mFlgNo = 1;
                     }
                 }
@@ -1149,13 +1113,11 @@ public class SequenceActivity extends AppCompatActivity {
                 if (mFlgHideExpBtn == 0) {
                     if (mFlgMore == 1) {
                         speakSpeech(mExprBtnTxt[5]);
-                        mMpu.playAudio(mMpu.getFilePath( "EXP_03EELL"));
                         mFlgMore = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(5, "", "");
                     } else {
                         speakSpeech(mExprBtnTxt[4]);
-                        mMpu.playAudio(mMpu.getFilePath( "EXP_03EEL0"));
                         mFlgMore = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(4, "", "");
@@ -1165,19 +1127,15 @@ public class SequenceActivity extends AppCompatActivity {
                     setBorderToIcon(4);
                     if (mFlgMore == 1) {
                         //Firebase event
-                        mUec.createSendFbEventFromTappedView(18, getPrefixMsg()
-                            +"_"+mMpu.getIconCodeSeq(mLevelTwoItemPos,(count + mFlgHideExpBtn),"MM"), "");
-                        speakSpeech(mSeqActSpeech.get(count + mFlgHideExpBtn - 1).get(5));
-                        mMpu.playAudio(mMpu.getFilePath( "GRXSQ_"+mLevelTwoItemPos
-                                +"_"+(count + mFlgHideExpBtn) +"_MM"));
+                        mUec.createSendFbEventFromTappedView(18, getPrefixTag()
+                            +"_"+ mVerbCode[count + mFlgHideExpBtn]+"MM", "");
+                        speakSpeech(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getMM());
                         mFlgMore = 0;
                     } else {
                         //Firebase event
-                        mUec.createSendFbEventFromTappedView(17, getPrefixMsg()
-                            +"_"+mMpu.getIconCodeSeq(mLevelTwoItemPos,(count + mFlgHideExpBtn),"M0"), "");
-                        mMpu.playAudio(mMpu.getFilePath( "GRXSQ_"+mLevelTwoItemPos
-                                +"_"+(count + mFlgHideExpBtn) +"_M0"));
-                        speakSpeech(mSeqActSpeech.get(count + mFlgHideExpBtn - 1).get(4));
+                        mUec.createSendFbEventFromTappedView(17, getPrefixTag()
+                            +"_"+ mVerbCode[count + mFlgHideExpBtn]+"M0", "");
+                        speakSpeech(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getM());
                         mFlgMore = 1;
                     }
                 }
@@ -1210,13 +1168,11 @@ public class SequenceActivity extends AppCompatActivity {
                 if (mFlgHideExpBtn == 0) {
                     if (mFlgLess == 1) {
                         speakSpeech(mExprBtnTxt[11]);
-                        mMpu.playAudio(mMpu.getFilePath( "EXP_06EELL"));
                         mFlgLess = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(11, "", "");
                     } else {
                         speakSpeech(mExprBtnTxt[10]);
-                        mMpu.playAudio(mMpu.getFilePath( "EXP_06EEL0"));
                         mFlgLess = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(10, "", "");
@@ -1226,19 +1182,15 @@ public class SequenceActivity extends AppCompatActivity {
                     setBorderToIcon(5);
                     if (mFlgLess == 1) {
                         //Firebase event
-                        mUec.createSendFbEventFromTappedView(24, getPrefixMsg()
-                            +"_"+mMpu.getIconCodeSeq(mLevelTwoItemPos,(count + mFlgHideExpBtn),"SS"), "");
-                        speakSpeech(mSeqActSpeech.get(count + mFlgHideExpBtn - 1).get(11));
-                        mMpu.playAudio(mMpu.getFilePath( "GRXSQ_"+mLevelTwoItemPos
-                                +"_"+(count + mFlgHideExpBtn) +"_SS"));
+                        mUec.createSendFbEventFromTappedView(24, getPrefixTag()
+                            +"_"+ mVerbCode[count + mFlgHideExpBtn]+"SS", "");
+                        speakSpeech(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getSS());
                         mFlgLess = 0;
                     } else {
                         //Firebase event
-                        mUec.createSendFbEventFromTappedView(23, getPrefixMsg()
-                            +"_"+mMpu.getIconCodeSeq(mLevelTwoItemPos,(count + mFlgHideExpBtn),"S0"), "");
-                        speakSpeech(mSeqActSpeech.get(count + mFlgHideExpBtn - 1).get(10));
-                        mMpu.playAudio(mMpu.getFilePath( "GRXSQ_"+mLevelTwoItemPos
-                                +"_"+(count + mFlgHideExpBtn) +"_S0"));
+                        mUec.createSendFbEventFromTappedView(23, getPrefixTag()
+                            +"_"+ mVerbCode[count + mFlgHideExpBtn]+"S0", "");
+                        speakSpeech(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getS());
                         mFlgLess = 1;
                     }
                 }
@@ -1247,13 +1199,13 @@ public class SequenceActivity extends AppCompatActivity {
         });
     }
 
-    private String getPrefixMsg() {
+    private String getPrefixTag() {
         if (mFlgHideExpBtn == 1)
-            return mUec.getEtTag(count);
+            return level3SeqIconObjects[count].getEvent_Tag();
         else if (mFlgHideExpBtn == 2)
-            return mUec.getEtTag(count+1);
+            return level3SeqIconObjects[count+1].getEvent_Tag();
         else if (mFlgHideExpBtn == 3)
-            return mUec.getEtTag(count+2);
+            return level3SeqIconObjects[count+2].getEvent_Tag();
         else return "";
     }
 
@@ -1265,7 +1217,7 @@ public class SequenceActivity extends AppCompatActivity {
     private void initTTsBtnListener() {
         mIvTTs.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                speakSpeech(mEtTTs.getText().toString(), true);
+                speakSpeech(mEtTTs.getText().toString());
                 //Firebase event
                 Bundle bundle = new Bundle();
                 bundle.putString("InputName", Settings.Secure.getString(getContentResolver(),
@@ -1317,19 +1269,7 @@ public class SequenceActivity extends AppCompatActivity {
      * The string in {@param speechText} is speech output request string.</p>
      * */
     private void speakSpeech(String speechText){
-        if(mMpu.isTtsAvailForLang()) {
-            Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_TEXT");
-            intent.putExtra("speechText", speechText.toLowerCase());
-            sendBroadcast(intent);
-        }
-    }
-
-    private void speakSpeech(String speechText, boolean skipSpeech) {
-        if(skipSpeech) {
-            Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_TEXT");
-            intent.putExtra("speechText", speechText.toLowerCase());
-            sendBroadcast(intent);
-        }
+        SpeechUtils.speak(this,speechText);
     }
 
     private void showAccessibleDialog(final int position, final View disabledView) {
@@ -1515,67 +1455,78 @@ public class SequenceActivity extends AppCompatActivity {
      * <p>This function will:
      *     a) Read speech text from arrays for expressive buttons.
      *     b) Read speech text from arrays for navigation buttons.
-     *     c) Read speech text from arrays for category  navigation buttons.
-     *     d) Read verbiage lines into {@link SeqActivityVerbiageModel} model.</p>
+     *     c) Read speech text from arrays for category  navigation buttons.</p>
      * */
     private void loadArraysFromResources() {
-        mExprBtnTxt = getResources().getStringArray(R.array.arrActionSpeech);
-        mNavigationBtnTxt = getResources().getStringArray(R.array.arrNavigationSpeech);
-        mCategoryNav = getResources().getStringArray(R.array.arrSeqActivityNavigationText);
-        mHeading = getResources().getStringArray(R.array.arrSeqActivityHeadingText);
-        mStrBack = mCategoryNav[0].substring(2, mCategoryNav[0].length());
-        mStrNext = mCategoryNav[1].substring(0, mCategoryNav[1].length()-2);
-        String verbString = getString(R.string.sequenceActVerbiage1) +
-                getString(R.string.sequenceActVerbiage2);
-        SeqActivityVerbiageModel verbiageModel = new Gson()
-                .fromJson(verbString, SeqActivityVerbiageModel.class);
-        mSeqActSpeech = verbiageModel.getVerbiageModel(mLevelTwoItemPos);
+        // As sequence is in Daily Activities. so it's index is fixed to position 1.
+        int levelOne = 1;
+        int levelTwo = mLevelTwoItemPos;
 
-        switch(mLevelTwoItemPos){
-            case 0:
-                mCategoryIconBelowText = getResources().getStringArray
-                        (R.array.arrSeqActivityBrushingBelowText);
-                mCategoryIconSpeechText = getResources().getStringArray
-                        (R.array.arrSeqActivityBrushingSpeechText);
-                mCategoryIconText = getResources().getStringArray
-                        (R.array.arrSeqActivityBrushingIcon);
-                break;
-            case 1:
-                mCategoryIconBelowText = getResources().getStringArray
-                        (R.array.arrSeqActivityToiletBelowText);
-                mCategoryIconSpeechText = getResources().getStringArray
-                        (R.array.arrSeqActivityToiletSpeechText);
-                mCategoryIconText = getResources().getStringArray
-                        (R.array.arrSeqActivityToiletIcon);
-                break;
-            case 2:
-                mCategoryIconBelowText = getResources().getStringArray
-                        (R.array.arrSeqActivityBathingBelowText);
-                mCategoryIconSpeechText = getResources().getStringArray
-                        (R.array.arrSeqActivityBathingSpeechText);
-                mCategoryIconText = getResources().getStringArray
-                        (R.array.arrSeqActivityBathingIcon);
-                break;
-            case 7:
-                mCategoryIconBelowText = getResources().getStringArray
-                        (R.array.arrSeqActivityMorningRoutineBelowText);
-                mCategoryIconSpeechText = getResources().getStringArray
-                        (R.array.arrSeqActivityMorningRoutineSpeechText);
-                mCategoryIconText = getResources().getStringArray
-                        (R.array.arrSeqActivityMorningRoutineIcon);
-                break;
-            case 8:
-                mCategoryIconBelowText = getResources().getStringArray
-                        (R.array.arrSeqActivityBedtimeRoutineBelowText);
-                mCategoryIconSpeechText = getResources().getStringArray
-                        (R.array.arrSeqActivityBedtimeRoutineSpeechText);
-                mCategoryIconText = getResources().getStringArray
-                        (R.array.arrSeqActivityBedtimeRoutineIcon);
-                break;
+        l3SeqIcons = IconFactory.getL3SeqIcons(
+                PathFactory.getIconDirectory(this),
+                LanguageFactory.getCurrentLanguageCode(this),
+                getLevel2_3IconCode(levelOne),
+                getLevel2_3IconCode(levelTwo)
+        );
+        mVerbCode = new String[l3SeqIcons.length];
+        for (int i = 0; i < mVerbCode.length; i++) {
+            mVerbCode[i] = l3SeqIcons[i].replace(".png","");
         }
-        mUec.setEventTag(this, new SessionManager(this).getLanguage(),1, mLevelTwoItemPos);
-        if(!mMpu.isTtsAvailForLang())
-            mSeqActSpeech = mMpu.getEmptyList(mCategoryIconBelowText.length);
+
+        level3SeqIconObjects = TextFactory.getIconObjects(
+                PathFactory.getJSONFile(this),
+                IconFactory.removeFileExtension(l3SeqIcons)
+        );
+
+
+        mCategoryIconBelowText = TextFactory.getDisplayText(level3SeqIconObjects);
+        mCategoryIconSpeechText = TextFactory.getSpeechText(level3SeqIconObjects);
+        mCategoryIconText = mCategoryIconSpeechText;
+
+        String[] expressiveIcons = IconFactory.getExpressiveIcons(
+                PathFactory.getIconDirectory(this),
+                LanguageFactory.getCurrentLanguageCode(this)
+        );
+
+        ExpressiveIcon[] expressiveIconObjects = TextFactory.getExpressiveIconObjects(
+                PathFactory.getJSONFile(this),
+                IconFactory.removeFileExtension(expressiveIcons)
+        );
+
+        mExprBtnTxt = TextFactory.getExpressiveSpeechText(expressiveIconObjects);
+
+
+        String[] miscellaneousIcons = IconFactory.getMiscellaneousIcons(
+                PathFactory.getIconDirectory(this),
+                LanguageFactory.getCurrentLanguageCode(this)
+        );
+
+        MiscellaneousIcon[] miscellaneousIconObjects = TextFactory.getMiscellaneousIconObjects(
+                PathFactory.getJSONFile(this),
+                IconFactory.removeFileExtension(miscellaneousIcons)
+        );
+
+        mNavigationBtnTxt = TextFactory.getTitle(miscellaneousIconObjects);
+        String[] categoryNavButton;
+            try {
+                // "categoryNavButton" variable initialized from files available in
+                // /audio folder.Only non tts language will load this variable from
+                // folder.
+                categoryNavButton = IconFactory.getCategoryNavigationButtons(
+                        new File(PathFactory.getAudioPath(this)),
+                        LanguageFactory.getCurrentLanguageCode(this)
+                );
+            } catch (Exception e) {
+                categoryNavButton = new String[] {
+                        LanguageFactory.getCurrentLanguageCode(this) + "04MS.mp3",
+                        LanguageFactory.getCurrentLanguageCode(this) + "05MS.mp3"
+                };
+            }
+            seqNavigationButtonObjects = TextFactory.getSeqNavigationButtonObjects(
+                    PathFactory.getJSONFile(this),
+                    IconFactory.removeFileExtension(categoryNavButton)
+            );
+        mHeading = getResources().getStringArray(R.array.arrSequenceActivityHeadingText);
     }
 
     /**
@@ -1586,8 +1537,8 @@ public class SequenceActivity extends AppCompatActivity {
      *     c) Hides category icon captions if picture only mode is enabled.</p>
      * */
     private void setValueToViews() {
-        mBtnNext.setText(mCategoryNav[1]);
-        mBtnBack.setText(mCategoryNav[0]);
+        mBtnBack.setText(Html.fromHtml("&lt;&lt;").toString().concat("  "+seqNavigationButtonObjects[0].getDisplay_Label()));
+        mBtnNext.setText(seqNavigationButtonObjects[1].getDisplay_Label().concat("  "+Html.fromHtml("&gt;&gt;").toString()));
         mBtnBack.setEnabled(false);
         mBtnBack.setAlpha(.5f);
         if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
@@ -1608,9 +1559,9 @@ public class SequenceActivity extends AppCompatActivity {
         mTvCategory2Caption.setText(mCategoryIconBelowText[1]);
         mTvCategory3Caption.setText(mCategoryIconBelowText[2]);
 
-        setImageUsingGlide(mStrPath +"/"+ mCategoryIconText[0]+".png",mIvCategoryIcon1);
-        setImageUsingGlide(mStrPath +"/"+ mCategoryIconText[1]+".png", mIvCategoryIcon2);
-        setImageUsingGlide(mStrPath +"/"+ mCategoryIconText[2]+".png", mIvCategoryIcon3);
+        setImageUsingGlide(getIconPath(SequenceActivity.this,l3SeqIcons[0]),mIvCategoryIcon1);
+        setImageUsingGlide(getIconPath(SequenceActivity.this,l3SeqIcons[1]), mIvCategoryIcon2);
+        setImageUsingGlide(getIconPath(SequenceActivity.this,l3SeqIcons[2]), mIvCategoryIcon3);
 
         final int MODE_PICTURE_ONLY = 1;
         if(mSession.getPictureViewMode() == MODE_PICTURE_ONLY){
@@ -1772,6 +1723,14 @@ public class SequenceActivity extends AppCompatActivity {
         gd.setColor(ContextCompat.getColor(this, android.R.color.transparent));
         gd = (GradientDrawable) (findViewById(R.id.borderView3)).getBackground();
         gd.setColor(ContextCompat.getColor(this, android.R.color.transparent));
+    }
+
+    private String getLevel2_3IconCode(int level2_3Position){
+        if(level2_3Position+1 <= 9){
+            return "0" + Integer.toString(level2_3Position+1);
+        } else {
+            return Integer.toString(level2_3Position+1);
+        }
     }
 
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
