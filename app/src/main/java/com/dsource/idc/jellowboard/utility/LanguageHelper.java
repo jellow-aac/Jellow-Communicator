@@ -25,6 +25,16 @@ public class LanguageHelper {
         return setLanguage(context, locale);
     }
 
+    public static Context onAttachCustom(Context context, String lang)
+    {
+        Locale locale;
+        if(!lang.isEmpty())
+            locale = new Locale(lang.split("-r")[0],lang.split("-r")[1]);
+        else
+            locale = new Locale("en","IN");
+        return setLanguage(context, locale);
+    }
+
     /**
      * <p>{@returns} the language code of a language saved by user.</p>
      * */

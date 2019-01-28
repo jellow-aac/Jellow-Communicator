@@ -1,56 +1,3 @@
-Todo and issue list for Make my board
-
-1. Camera Dialog have some issue, if a very large image is selected the whole database is being corrupted.
-   So, have a check to reduce the size.
-2. Save in the Dialog is directing the user to the IconSelect activity.
-3. Add back arrow thing.                                                                            DONE
-4. Filter crashed, see crash logs.                                                                  DONE
-5. Add search from the Edit Icon Activity.                                                          DONE
-6. Adjust the size of the Image when the grid size is changed.
-7. Grid Size 2X3 is not implemented yet.
-8. Add library search in board and add icon/category;                                               DONE
-9. Boards editBoard Icon issue fix.
-10.Highlighting issue in Board Home               (Must fix)                                        DONE
-11.Error in highlighting icons in category items. (Must fix)                                        DONE
-12.Fix the Grid Size inconsistency in Edit Board.                                                   DONE
-13.There are some crashes in the app, maybe due to verbiage.                                        DONE
-14.Work on drag and drop.                                                                           MUST-FIX
-15.Jellow Library icons are blurred.                                                                DONE
-
-
-
-
-//ISSUES
-
-1. Camera Intent result rotating the screen, thus all data is being lost.                           MUST-FIX
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//TEMP CHANGES
-
- Trying to implement Edit Board Functionality into the Make My Board.
- So, for that making some changes into the IconSelectActivity :
- Initial Approach:
- 1. Send a token to IconSelectActivity from MyBoard screen to Identify the Board Edit mode.
- 2. Use the token and set a global variable | EDIT_MODE = TRUE /FALSE
- 3. Fetch Board from the database and store all the present Icons into list current board list.
- 4. In left-hand-side category pane, start the list by showing current board icons.
- 5. There should be no Icon Selected and every icons is treated as a different icon with no linkage with already present icons,
-    So, the newly added Icon will be just appended into the already present IconModel.
- 6. Merge both models and start AddEditScreen with newly added icons.
-
 
 //23rd November | Step to solve the Save problem
 
@@ -73,9 +20,9 @@ Todo and issue list for Make my board
    //TODO Try to find a way to delete all the image of the custom icon of the board from the storage
 
 
-   ||| 17th December |||
-   Issue 1: While editing the board, the image and the title is not showing into the respective fields.
-   Issue 2:
+   ||| 25th January |||
+   Issue 1: Adding language dependencies, we need to update LanguageSelectAdapter whenever we include a new language
+   Issue 2: Adding language will also require you to include flag of the country into the typed array
 
 
 
@@ -83,26 +30,3 @@ Todo and issue list for Make my board
 
 
 
-
-
-
-VERBIAGE DATABASE
-
-Verbiage database is for storing the data of verbiage according to the new verbiage model.
-
-Basic blueprint of the database should have following data.
-
-
-=====================================================================
-COLUMN:          ICON_ID         ICON_TITLE      ICON_VERBIAGE_OBJECT
-=====================================================================
-
-FUNCTIONS:
-1. getVerbiageById(Icon id);                                                        DONE
-2. getVerbiageByTitle(Icon title);                                                  DONE
-3. getVerbiageForLevelOne();                                                        DEPRECATED
-4. getVerbiageForLevelTwo(int levelOneParent);                                      DEPRECATED
-5. getVerbiageForLevelThree(int levelOneParent, int levelTwoParent);                DEPRECATED
-6. createDatabase();                                                                DONE
-7. dropDatabase();                                                                  DONE
-8. updateDatabase();
