@@ -69,10 +69,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         getSupportActionBar().hide();
         mSession = new SessionManager(this);
-        if(mSession.isPackageUpdateIsSet()) {
-            updateLangPackagesIfUpdateAvail();
-            mSession.setPackageUpdate(false);
-        }
+        updateLangPackagesIfUpdateAvail();
         new DataBaseHelper(this).createDataBase();
 
         if(isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE)))
@@ -220,7 +217,7 @@ public class SplashActivity extends AppCompatActivity {
                         // After config data is successfully fetched, it must be activated before
                         // newly fetched values are returned.
                         frc.activateFetched();
-                        String updateLangPackageData = frc.getString("updateLangPackages");
+                        String updateLangPackageData = frc.getString("vcTwentyUpdateLanguagePackages");
                         if(updateLangPackageData.isEmpty())
                             return;
                         StringBuilder lang = new StringBuilder();
