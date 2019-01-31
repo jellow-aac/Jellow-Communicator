@@ -59,7 +59,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import static com.dsource.idc.jellowintl.factories.PathFactory.getIconDirectory;
@@ -225,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
                 super.onScrollStateChanged(recyclerView, newState);
                 if(newState==RecyclerView.SCROLL_STATE_DRAGGING)
                 {
-                    //Wait untill the scrolling is complete
+                    //Wait until the scrolling is complete
                 }
                 else if(newState==RecyclerView.SCROLL_STATE_IDLE) //Try highlighting if scrolling is done
                     setSearchHighlight(index);
@@ -1219,24 +1218,17 @@ public class MainActivity extends AppCompatActivity {
             // below condition is true when user tap same category icon twice.
             // i.e. user intends to open a sub-category of selected category icon.
             if (mLevelOneItemPos == position){
-                SessionManager session = new SessionManager(this);
-                // Get icon set directory path
-                File langDir = new File(getApplicationInfo().dataDir + "/app_" +
-                        session.getLanguage() + "/drawables");
-                // If icon sets are available for level two then open selected category in level two
-                if (langDir.exists() && langDir.isDirectory()) {
-                    // create event bundle for firebase
-                    Bundle bundle = new Bundle();
-                    bundle.putString("Icon", "Opened " + mDisplayText[position]);
-                    bundleEvent("Grid", bundle);
+                // create event bundle for firebase
+                Bundle bundle = new Bundle();
+                bundle.putString("Icon", "Opened " + mDisplayText[position]);
+                bundleEvent("Grid", bundle);
 
-                    // send current position in recycler view of selected category icon and bread
-                    // crumb path as extra intent data to LevelTwoActivity.
-                    Intent intent = new Intent(MainActivity.this, LevelTwoActivity.class);
-                    intent.putExtra(getString(R.string.level_one_intent_pos_tag), position);
-                    intent.putExtra(getString(R.string.intent_menu_path_tag), title + "/");
-                    startActivityForResult(intent, REQ_HOME);
-                }
+                // send current position in recycler view of selected category icon and bread
+                // crumb path as extra intent data to LevelTwoActivity.
+                Intent intent = new Intent(MainActivity.this, LevelTwoActivity.class);
+                intent.putExtra(getString(R.string.level_one_intent_pos_tag), position);
+                intent.putExtra(getString(R.string.intent_menu_path_tag), title + "/");
+                startActivityForResult(intent, REQ_HOME);
             }else {
                 speakSpeech(mSpeechText[position]);
                 // create event bundle for firebase
@@ -1701,8 +1693,6 @@ public class MainActivity extends AppCompatActivity {
         public void onReceive(final Context context, Intent intent) {
             switch (intent.getAction()){
                 case "com.dsource.idc.jellowintl.SPEECH_TTS_ERROR":
-                    //TODO: Add network check if exist ? if not found then show message "network error" or
-                    //TODO: if network exist then show message "redirect user to setting page."
                     //Text synthesize process failed third time then show TTs error.
                     if(++sTTsNotWorkingCount > 2)
                         Toast.makeText(context, sCheckVoiceData, Toast.LENGTH_LONG).show();
@@ -1712,12 +1702,12 @@ public class MainActivity extends AppCompatActivity {
                     String appLang = session.getLanguage();
                     session.setLangSettingIsCorrect(true);
                     String sysTtsLang = intent.getStringExtra("systemTtsRegion");
+
                     //Below if is true when
                     //      1) app language is english India and tts language is hindi India
                     // or   2) app language is not english India and
                     //         app language and Text-to-speech language are different then
                     //         show error toast.
-
                     if((Build.VERSION.SDK_INT < 21) && !session.getLanguage().equals(LangMap.get("मराठी"))) {
                         if (sysTtsLang.equals("-r") ||
                             (appLang.equals(BN_IN) && !sysTtsLang.equals(BN_IN) && !(sysTtsLang.equals(BE_IN)) ||

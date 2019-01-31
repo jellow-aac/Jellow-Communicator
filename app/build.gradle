@@ -13,12 +13,12 @@ android {
     buildTypes {
         debug {
             applicationIdSuffix ".debug"
-            buildConfigField("String", "DB_TYPE", '"testing"')
+            buildConfigField "String", "DB_TYPE", '"testing"'
         }
         release {
             minifyEnabled true
             shrinkResources true
-            buildConfigField("String", "DB_TYPE", '"production"')
+            buildConfigField "String", "DB_TYPE", '"production"'
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

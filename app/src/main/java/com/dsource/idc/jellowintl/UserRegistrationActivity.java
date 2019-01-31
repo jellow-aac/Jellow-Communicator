@@ -11,9 +11,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
 import android.text.Html;
-import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.View;
 import android.view.WindowManager;
@@ -48,10 +46,10 @@ import com.google.gson.Gson;
 import com.hbb20.CountryCodePicker;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.Random;
 
@@ -152,25 +150,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
         });
         etEmailId= findViewById(R.id.etEmailId);
         bRegister = findViewById(R.id.bRegister);
-        bRegister.setAlpha(0.5f);
-        bRegister.setEnabled(false);
         findViewById(R.id.childName).setFocusableInTouchMode(true);
         findViewById(R.id.childName).setFocusable(true);
-        etName.addTextChangedListener(new TextWatcher() {
-            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override public void afterTextChanged(Editable s) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (etName.getText().toString().isEmpty()){
-                    bRegister.setAlpha(0.5f);
-                    bRegister.setEnabled(false);
-                }else{
-                    bRegister.setAlpha(1f);
-                    bRegister.setEnabled(true);
-                }
-            }
-        });
 
         languageSelect = findViewById(R.id.langSelectSpinner);
 
@@ -197,13 +178,14 @@ public class UserRegistrationActivity extends AppCompatActivity {
             public void onClick(View v) {
                 bRegister.setEnabled(false);
 
-                name  = etName.getText().toString();
-                if (etName.getText().toString().equals("")) {
+                if (etName.getText().toString().trim().isEmpty()) {
                     bRegister.setEnabled(true);
                     Toast.makeText(UserRegistrationActivity.this,
                             getString(R.string.enterTheName), Toast.LENGTH_SHORT).show();
                     return;
                 }
+                name = etName.getText().toString().trim();
+
                 // Emergency contact is contact number of a caregiver/teacher/parent/therapist.
                 // of a child. The contact with country code without preceding '+' and succeding
                 // extra 3 random digits are added to emergency contact and is used as unique
@@ -212,15 +194,15 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 // max = 1000 and min = 100
                 // num = new Random().nextInt((max - min)+1) + min
                 // This will ensure 3 digit random number.
-                mSession.setExtraValToContact(String.valueOf(new Random().nextInt(900) + 100));
-                emergencyContact = mCcp.getFullNumber().concat(mSession.getExtraValToContact());
-                if(etEmergencyContact.getText().toString().isEmpty() ||
-                        !etEmergencyContact.getText().toString().matches("[0-9]*")){
+                if(!etEmergencyContact.getText().toString().matches("[0-9]+")){
                     bRegister.setEnabled(true);
                     Toast.makeText(UserRegistrationActivity.this,
                             getString(R.string.enternonemptycontact), Toast.LENGTH_SHORT).show();
                     return;
                 }
+                mSession.setExtraValToContact(String.valueOf(new Random().nextInt(900) + 100));
+                emergencyContact = mCcp.getFullNumber().concat(mSession.getExtraValToContact());
+
                 eMailId = etEmailId.getText().toString().trim();
                 if (!isValidEmail(eMailId)){
                     bRegister.setEnabled(true);
@@ -228,6 +210,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                     return;
                 }
+
                 RadioGroup radioGroup = findViewById(R.id.radioUserGroup);
                 if(radioGroup.getCheckedRadioButtonId() == -1){
                     bRegister.setEnabled(true);
@@ -235,7 +218,6 @@ public class UserRegistrationActivity extends AppCompatActivity {
                             getString(R.string.invalid_usergroup), Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 if(selectedLanguage == null)
                     return;
 
@@ -384,20 +366,16 @@ public class UserRegistrationActivity extends AppCompatActivity {
         pathReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
-                try {
-                    String jsonData = new String(bytes, "UTF-8");
-                    mSession.setEncryptionData(jsonData);
-                    SecureKeys secureKey = new Gson().
-                            fromJson(mSession.getEncryptedData(), SecureKeys.class);
-                    Crashlytics.log("Created secure key.");
-                    createUser(encrypt(name, secureKey), contact,
-                            encrypt(email, secureKey),
-                            encrypt(mCcp.getSelectedCountryEnglishName(), secureKey),
-                            encrypt(selectedLanguage, secureKey),
-                            encrypt(userGroup, secureKey), userGroup);
-                } catch (UnsupportedEncodingException e) {
-                    Crashlytics.logException(e);
-                }
+                String jsonData = new String(bytes, StandardCharsets.UTF_8);
+                mSession.setEncryptionData(jsonData);
+                SecureKeys secureKey = new Gson().
+                        fromJson(mSession.getEncryptedData(), SecureKeys.class);
+                Crashlytics.log("Created secure key.");
+                createUser(encrypt(name, secureKey), contact,
+                        encrypt(email, secureKey),
+                        encrypt(mCcp.getSelectedCountryEnglishName(), secureKey),
+                        encrypt(selectedLanguage, secureKey),
+                        encrypt(userGroup, secureKey), userGroup);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

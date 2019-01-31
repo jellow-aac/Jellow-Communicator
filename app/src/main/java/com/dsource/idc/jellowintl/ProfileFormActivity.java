@@ -15,9 +15,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
 import android.text.Html;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -52,10 +50,10 @@ import com.google.gson.Gson;
 import com.hbb20.CountryCodePicker;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
 import se.simbio.encryption.Encryption;
@@ -145,22 +143,6 @@ public class ProfileFormActivity extends AppCompatActivity {
         else
             ((RadioButton)findViewById(R.id.radioTherapist)).setChecked(true);
 
-        etName.addTextChangedListener(new TextWatcher() {
-            @Override   public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (etName.getText().toString().isEmpty()) {
-                    bSave.setAlpha(0.5f);
-                    bSave.setEnabled(false);
-                } else {
-                    bSave.setAlpha(1f);
-                    bSave.setEnabled(true);
-                }
-            }
-            @Override public void afterTextChanged(Editable s) {}
-        });
-
         final String strEnterName = getString(R.string.enterTheName);
         final String strInvalidEmail = getString(R.string.invalid_emailId);
         bSave.setOnClickListener(new View.OnClickListener() {
@@ -168,14 +150,13 @@ public class ProfileFormActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Crashlytics.log("Profile Save");
                 bSave.setEnabled(false);
-                if (etName.getText().toString().isEmpty()) {
+                if (etName.getText().toString().trim().isEmpty()) {
                     Toast.makeText(ProfileFormActivity.this,
                             strEnterName, Toast.LENGTH_SHORT).show();
                     bSave.setEnabled(true);
                     return;
                 }
-                if(etFatherContact.getText().toString().isEmpty() ||
-                        !etFatherContact.getText().toString().matches("[0-9]*")){
+                if(!etFatherContact.getText().toString().matches("[0-9]+")){
                     bSave.setEnabled(true);
                     Toast.makeText(ProfileFormActivity.this,
                             getString(R.string.enternonemptycontact), Toast.LENGTH_SHORT).show();
@@ -379,14 +360,10 @@ public class ProfileFormActivity extends AppCompatActivity {
             pathReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                 @Override
                 public void onSuccess(byte[] bytes) {
-                    try {
-                        String jsonData = new String(bytes, "UTF-8");
-                        SecureKeys secureKey = new Gson().fromJson(jsonData, SecureKeys.class);
-                        encryptStoreUserInfoUsingSecureKey(name, contact, email,
-                                caregiverName, address, bloodGroup, userGroup, secureKey);
-                    } catch (UnsupportedEncodingException e) {
-                        Crashlytics.logException(e);
-                    }
+                    String jsonData = new String(bytes, StandardCharsets.UTF_8);
+                    SecureKeys secureKey = new Gson().fromJson(jsonData, SecureKeys.class);
+                    encryptStoreUserInfoUsingSecureKey(name, contact, email,
+                            caregiverName, address, bloodGroup, userGroup, secureKey);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
