@@ -22,7 +22,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/custom_drawable_nocolor_3by3_notch"/>
+            android:background="@drawable/border_drawable_nocolor_nine_icon_notch"/>
     </FrameLayout>
     <TextView
         android:id="@+id/te1"

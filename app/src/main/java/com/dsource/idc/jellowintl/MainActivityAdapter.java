@@ -63,16 +63,28 @@ class MainActivityAdapter extends android.support.v7.widget.RecyclerView.Adapter
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        final int GRID_1BY3 = 0;
+        final int GRID_1BY1 = 0, GRID_1BY2 = 1, GRID_1BY3 = 2, GRID_2BY2 = 3;
         View rowView;
-        if(isNotchDevice(mContext) && mSession.getGridSize() != GRID_1BY3) {
-            rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_9_icons_notch, parent, false);
-        } else if(isNotchDevice(mContext) && mSession.getGridSize() == GRID_1BY3){
+        if(isNotchDevice(mContext) && mSession.getGridSize() == GRID_1BY1) {
+            rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_1_icon_notch, parent, false);
+        }else if(!isNotchDevice(mContext) && mSession.getGridSize() == GRID_1BY1){
+            rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_1_icon, parent, false);
+        }else if(isNotchDevice(mContext) && mSession.getGridSize() == GRID_1BY2){
+            rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_2_icons_notch, parent, false);
+        }else if(!isNotchDevice(mContext) && mSession.getGridSize() == GRID_1BY2){
+            rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_2_icons, parent, false);
+        }else if(isNotchDevice(mContext) && mSession.getGridSize() == GRID_1BY3){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_3_icons_notch, parent, false);
-        }else if (mSession.getGridSize() != GRID_1BY3) {
-            rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_9_icons, parent, false);
-        }else{
+        }else if(!isNotchDevice(mContext) && mSession.getGridSize() == GRID_1BY3){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_3_icons, parent, false);
+        }else if(isNotchDevice(mContext) && mSession.getGridSize() == GRID_2BY2){
+            rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_4_icons_notch, parent, false);
+        }else if(!isNotchDevice(mContext) && mSession.getGridSize() == GRID_2BY2){
+            rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_4_icons, parent, false);
+        }else if(isNotchDevice(mContext)){
+            rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_9_icons_notch, parent, false);
+        }else{
+            rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_9_icons, parent, false);
         }
         return new MainActivityAdapter.MyViewHolder(rowView);
     }

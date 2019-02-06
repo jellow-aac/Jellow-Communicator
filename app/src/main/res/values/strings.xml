@@ -61,12 +61,18 @@
     </string-array>
 
     <string-array name="grid_size">
+        <item>1</item>
+        <item>2</item>
         <item>3</item>
+        <item>4</item>
         <item>9</item>
     </string-array>
 
     <string-array name="acc_grid_size">
+        <item>One</item>
+        <item>Two</item>
         <item>Three</item>
+        <item>Four</item>
         <item>Nine</item>
     </string-array>
 
@@ -426,10 +432,10 @@
     <string name="txt_intro8_step1">1. Open Google TTS Engine</string>
     <string name="txt_intro8_step2">2. Go to \"Settings\" for Google TTS Engine</string>
     <string name="txt_intro8_step3">3. Turn off \"Use Wi-Fi only\"</string>
-    <string name="change_language_tts_wifi">Go to settings of Google TTS and turn off \'Use Wi-Fi only\'. If option is already disabled, please skip this step.</string>
+    <string name="change_language_tts_wifi">Go to settings of Google TTS and turn off \'Use Wi-Fi only\' by tapping below \'TTS SETTINGS\' button. If option is already disabled, please skip this step.</string>
     <string name="icon_update_msg">Updating icons for existing language(s):</string>
     <string name="add_new_language">Select a language to add/delete</string>
-    <string name="disable_wifi_only">Please complete previous step to turn off \'Use Wi-Fi only\' option</string>
+    <string name="disable_wifi_only">Please complete above process to turn off \'Use Wi-Fi only\' option</string>
     <string name="step3">Step 3:</string>
     <string name="txt_intro8_txtTitle">Please follow the steps below to setup Text-to-speech engine</string>
     <string name="txt_actLangSel_completestep2">Voice data not available. Please turn on internet and complete Step 2</string>
