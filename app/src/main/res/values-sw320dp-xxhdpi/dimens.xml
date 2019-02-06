@@ -1,39 +1,12 @@
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="text_size">10dp</dimen>
-    <dimen name="bar_height">30dp</dimen>
-
-
-    <dimen name="search_list_margin">2dp</dimen>
-    <dimen name="search_recycler_margin">2dp</dimen>
-    <dimen name="search_list_icon_size">40dp</dimen>
-    <dimen name="search_layout_padding">4dp</dimen>
-    <dimen name="search_edit_text_top_margin">5dp</dimen>
-    <dimen name="search_edit_margin_left">3dp</dimen>
-    <dimen name="searchView_padding">4dp</dimen>
-    <dimen name="search_bar_width">250dp</dimen>
-    <dimen name="search_edit_text_margin_bottom">2dp</dimen>
-    <dimen name="search_edit_text_size">16sp</dimen>
-    <dimen name="search_drawable_padding">6dp</dimen>
-
-    <dimen name="search_list_dir_text_size">10sp</dimen>
-    <dimen name="search_list_title_text_size">14sp</dimen>
-    <dimen name="divider_margin">1.5dp</dimen>
-    <dimen name="recycler_margin_right">4dp</dimen>
-    <dimen name="search_dir_width">120dp</dimen>
-    <dimen name="divider_height">1dp</dimen>
-
-
     <!--1 icons configuration-->
     <dimen name="oneIcon_parentHorizontal">56dp</dimen>
     <dimen name="oneIcon_parentVertical">32dp</dimen>
     <dimen name="oneIcon_parentPadding">0dp</dimen>
     <dimen name="oneIcon_width">144dp</dimen>
     <dimen name="oneIcon_textSize">18sp</dimen>
-    <dimen name="oneIcon_borderThickness">5dp</dimen>
-    <dimen name="oneIcon_innerRadius">48dp</dimen>
+    <dimen name="oneIcon_borderThickness">6dp</dimen>
+    <dimen name="oneIcon_innerRadius">66dp</dimen>
 
     <!--2 icons configuration-->
     <dimen name="twoIcon_parentHorizontal">22dp</dimen>
@@ -51,12 +24,10 @@
     <dimen name="threeIcon_textSize">12sp</dimen>
 
     <!--4 icons configuration-->
-    <dimen name="fourIcon_parentVertical">6dp</dimen>
+    <dimen name="fourIcon_parentVertical">4dp</dimen>
     <dimen name="fourIcon_width">94dp</dimen>
     <dimen name="fourIcon_textWidth">112dp</dimen>
     <dimen name="fourIcon_textSize">12sp</dimen>
-    <dimen name="fourIcon_borderThickness">5dp</dimen>
-    <dimen name="fourIcon_innerRadius">42dp</dimen>
 
     <!--Common resources for 2 icon, 3 icon & 4 icon layout-->
     <dimen name="twoIcon_borderThickness">5dp</dimen>
@@ -66,7 +37,7 @@
     <!--9 icons configuration-->
     <dimen name="nineIcon_parentHorizontal">0dp</dimen>
     <dimen name="nineIcon_width">64dp</dimen>
-    <dimen name="nineIcon_textWidth">168dp</dimen>
+    <dimen name="nineIcon_textWidth">120dp</dimen>
     <dimen name="nineIcon_textSize">10sp</dimen>
     <dimen name="nineIcon_borderThickness">5dp</dimen>
     <dimen name="nineIcon_innerRadius">27dp</dimen>

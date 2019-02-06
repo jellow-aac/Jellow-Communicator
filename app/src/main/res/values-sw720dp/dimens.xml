@@ -20,4 +20,48 @@
     <dimen name="search_list_title_text_size">20sp</dimen>
 
 
+    <!--1 icons configuration-->
+    <dimen name="oneIcon_parentHorizontal">112dp</dimen>
+    <dimen name="oneIcon_parentVertical">48dp</dimen>
+    <dimen name="oneIcon_parentPadding">48dp</dimen>
+    <dimen name="oneIcon_width">234dp</dimen>
+    <dimen name="oneIcon_textSize">28sp</dimen>
+    <dimen name="oneIcon_borderThickness">11dp</dimen>
+    <dimen name="oneIcon_innerRadius">105.2dp</dimen>
+
+    <!--2 icons configuration-->
+    <dimen name="twoIcon_parentHorizontal">60dp</dimen>
+    <dimen name="twoIcon_parentVertical">132dp</dimen>
+    <dimen name="twoIcon_parentPaddingHorizontal">8dp</dimen>
+    <dimen name="twoIcon_parentPaddingVertical">32dp</dimen>
+    <dimen name="twoIcon_width">195dp</dimen>
+    <dimen name="twoIcon_textSize">24sp</dimen>
+
+    <!--3 icons configuration-->
+    <dimen name="threeIcon_parentVertical">112dp</dimen>
+    <dimen name="threeIcon_parentPaddingVertical">16dp</dimen>
+    <dimen name="threeIcon_width">195dp</dimen>
+    <dimen name="threeIcon_textWidth">250dp</dimen>
+    <dimen name="threeIcon_textSize">22sp</dimen>
+
+    <!--4 icons configuration-->
+    <item name="custom_wrap_content" format="integer" type="dimen">-2</item>
+    <dimen name="fourIcon_parentVertical">12dp</dimen>
+    <dimen name="fourIcon_width">195dp</dimen>
+    <dimen name="fourIcon_textWidth">@dimen/custom_wrap_content</dimen>   <!--It has to be wrap content-->
+    <dimen name="fourIcon_textSize">20sp</dimen>
+
+    <!--Common resources for 2 icon, 3 icon & 4 icon layout-->
+    <dimen name="twoIcon_borderThickness">9dp</dimen>
+    <dimen name="twoIcon_innerRadius">88.2dp</dimen>
+    <!---->
+
+    <!--9 icons configuration-->
+    <dimen name="nineIcon_parentHorizontal">0dp</dimen>
+    <dimen name="nineIcon_width">132dp</dimen>
+    <dimen name="nineIcon_textWidth">245dp</dimen>
+    <dimen name="nineIcon_textSize">20sp</dimen>
+    <dimen name="nineIcon_borderThickness">8.5dp</dimen>
+    <dimen name="nineIcon_innerRadius">57.2dp</dimen>
+
 </resources>

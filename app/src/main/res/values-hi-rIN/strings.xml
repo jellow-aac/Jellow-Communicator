@@ -64,12 +64,18 @@
     </string-array>
 
     <string-array name="grid_size">
+        <item>१</item>
+        <item>२</item>
         <item>३</item>
+        <item>४</item>
         <item>९</item>
     </string-array>
 
     <string-array name="acc_grid_size">
+        <item>एक</item>
+        <item>दो</item>
         <item>तीन</item>
+        <item>चार</item>
         <item>नौ</item>
     </string-array>
 

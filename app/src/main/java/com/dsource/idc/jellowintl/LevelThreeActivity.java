@@ -15,6 +15,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.KeyListener;
 import android.util.Log;
@@ -417,11 +418,23 @@ public class LevelThreeActivity extends AppCompatActivity {
         //This code is to decide the speed of the Scrolling
         // which grid size is 3 then scrolling is fast as compared to the 9 .
         SessionManager sessionManager=new SessionManager(this);
-        int iconCount=sessionManager.getGridSize();
-        if(iconCount!=0)
-        mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this, 3,iconCount));
-        else //Default speed is 3 icons speed
-            mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this, 3,3));
+        switch (sessionManager.getGridSize()){
+            case 0:
+                mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this, 1,3));
+                break;
+            case 1:
+            case 3:
+                mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this, 2,3));
+                mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+                break;
+            case 2:
+                mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this, 3,3));
+                break;
+            case 4:
+                mRecyclerView.setLayoutManager(new CustomGridLayoutManager
+                        (this, 3, sessionManager.getGridSize()));
+                break;
+        }
         mRecyclerView.setVerticalScrollBarEnabled(true);
         mRecyclerView.setScrollbarFadingEnabled(false);
     }

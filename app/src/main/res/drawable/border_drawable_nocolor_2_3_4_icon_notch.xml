@@ -2,7 +2,7 @@
 <shape
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="ring"
-    android:thickness="7dp"
+    android:thickness="6dp"
     android:useLevel="false"
-    android:innerRadius="71dp">
+    android:innerRadius="46dp">
 </shape>

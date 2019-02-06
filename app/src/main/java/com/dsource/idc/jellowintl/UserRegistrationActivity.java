@@ -70,7 +70,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
     public static final String LCODE = "lcode";
     public static final String TUTORIAL = "tutorial";
 
-    final int GRID_3BY3 = 1;
+    final int GRID_3BY3 = 4;
     private Button bRegister;
     private EditText etName, etEmergencyContact, etEmailId;
     private SessionManager mSession;
@@ -335,20 +335,26 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 FirebaseAuth mAuth = FirebaseAuth.getInstance();
                 if(mAuth.getCurrentUser() == null) {
                     mAuth.signInAnonymously()
-                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        mSession.setName(mName);
-                                        mSession.setCaregiverNumber("+" .concat(emergencyContact));
-                                        mSession.setUserCountryCode(mCcp.getSelectedCountryCode());
-                                        mSession.setEmailId(mEmailId);
-                                        encryptStoreUserInfo(mName, emergencyContact, eMailId, mUserGroup);
-                                        Toast.makeText(mContext, getString(R.string.register_user), Toast.LENGTH_SHORT).show();
-                                    }else
-                                        Toast.makeText(mContext, getString(R.string.error_in_registration), Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    mSession.setName(mName);
+                                    mSession.setCaregiverNumber("+" .concat(emergencyContact));
+                                    mSession.setUserCountryCode(mCcp.getSelectedCountryCode());
+                                    mSession.setEmailId(mEmailId);
+                                    encryptStoreUserInfo(mName, emergencyContact, eMailId, mUserGroup);
+                                    Toast.makeText(mContext, getString(R.string.register_user), Toast.LENGTH_SHORT).show();
+                                }else
+                                    Toast.makeText(mContext, getString(R.string.error_in_registration), Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                bRegister.setEnabled(true);
+                            }
+                        });
                 }
             }else{
                 bRegister.setEnabled(true);

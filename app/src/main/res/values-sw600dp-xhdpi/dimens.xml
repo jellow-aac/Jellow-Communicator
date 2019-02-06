@@ -60,11 +60,11 @@
 
     <!--9 icons configuration-->
     <dimen name="nineIcon_parentHorizontal">0dp</dimen>
-    <dimen name="nineIcon_width">103dp</dimen>
-    <dimen name="nineIcon_textWidth">192dp</dimen>
+    <dimen name="nineIcon_width">94dp</dimen>
+    <dimen name="nineIcon_textWidth">172dp</dimen>
     <dimen name="nineIcon_textSize">16sp</dimen>
-    <dimen name="nineIcon_borderThickness">7dp</dimen>
-    <dimen name="nineIcon_innerRadius">44dp</dimen>
+    <dimen name="nineIcon_borderThickness">5dp</dimen>
+    <dimen name="nineIcon_innerRadius">42dp</dimen>
 
 
 </resources>

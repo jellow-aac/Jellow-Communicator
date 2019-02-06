@@ -164,7 +164,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
-        if(!SpeechUtils.isNoTTSLanguage(this)){
+        if(SpeechUtils.isNoTTSLanguage(this)){
             mSliderSpeed.setVisibility(View.GONE);
             mTxtViewSpeechSpeed.setVisibility(View.GONE);
             mSliderPitch.setVisibility(View.GONE);
@@ -203,10 +203,14 @@ public class SettingActivity extends AppCompatActivity {
                         mSession.setPictureViewMode(mSpinnerViewMode.getSelectedItemPosition());
                     }
                     if(mSession.getGridSize() != mSpinnerGridSize.getSelectedItemPosition()) {
-                        setUserProperty("GridSize",
-                                mSpinnerGridSize.getSelectedItemPosition() == 0 ? "3" : "9");
-                        setCrashlyticsCustomKey("GridSize",
-                                mSpinnerGridSize.getSelectedItemPosition() == 0 ? "3" : "9");
+                        switch(mSpinnerGridSize.getSelectedItemPosition()){
+                            case 0: setUserProperty("GridSize", "1"); break;
+                            case 1: setUserProperty("GridSize", "2"); break;
+                            case 2: setUserProperty("GridSize", "3"); break;
+                            case 3: setUserProperty("GridSize", "4"); break;
+                            case 4: setUserProperty("GridSize", "9"); break;
+
+                        }
                         mSession.setGridSize(mSpinnerGridSize.getSelectedItemPosition());
                     }
                     startActivity(new Intent(getApplicationContext(), SplashActivity.class));

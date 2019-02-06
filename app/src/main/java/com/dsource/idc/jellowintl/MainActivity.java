@@ -118,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
      navigation button speech text respectively.*/
     private String[] mSpeechText, mExprBtnTxt, mNavigationBtnTxt, mDisplayText, mVerbCode;
     private String mActionBarTitleTxt, mHome;
+    private SessionManager mSession;
 
     private String mTbackMsg, mChgLang, mStrYes, mStrNo, mNeverShowAgain;
 
@@ -142,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
         getSupportActionBar().setTitle(getString(R.string.action_bar_title));
         mUec = new UserEventCollector();
+        mSession = new SessionManager(this);
         loadRecyclerView();
         loadArraysFromResources();
         // Set the capacity of mRecyclerItemsViewList list to total number of category icons to be
@@ -191,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
     private void highlightSearchedItem() {
         //Referring to the Intent that invoked the activity
         final int iconIndex = getIntent().getExtras().getInt(getString(R.string.search_parent_0));
-        int gridCode=new SessionManager(this).getGridSize();
+        int gridCode=mSession.getGridSize();
         int gridSize;
         if(gridCode==1)
             gridSize=8;
@@ -270,7 +272,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void showChangeLanguageDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        final SessionManager sessionManager = new SessionManager(MainActivity.this);
         builder.setMessage(mTbackMsg)
                 .setTitle(mChgLang)
                 .setPositiveButton(mStrYes, new DialogInterface.OnClickListener() {
@@ -291,7 +292,7 @@ public class MainActivity extends AppCompatActivity {
                 .setNegativeButton(mNeverShowAgain, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int i) {
-                    sessionManager.setChangeLanguageNeverAsk(true);
+                    mSession.setChangeLanguageNeverAsk(true);
                 }
             });
 
@@ -319,9 +320,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        SessionManager session = new SessionManager(this);
         if(!isAnalyticsActive()){
-            resetAnalytics(this, session.getCaregiverNumber().substring(1));
+            resetAnalytics(this, mSession.getCaregiverNumber().substring(1));
         }
         if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
             startService(new Intent(getApplication(), JellowTTSService.class));
@@ -334,9 +334,9 @@ public class MainActivity extends AppCompatActivity {
         // Start measuring user app screen timer.
         startMeasuring();
 
-        if(!session.getToastMessage().isEmpty()) {
-            Toast.makeText(this, session.getToastMessage(), Toast.LENGTH_SHORT).show();
-            session.setToastMessage("");
+        if(!mSession.getToastMessage().isEmpty()) {
+            Toast.makeText(this, mSession.getToastMessage(), Toast.LENGTH_SHORT).show();
+            mSession.setToastMessage("");
         }
 
         if(getIntent().hasExtra(getString(R.string.goto_home)))
@@ -351,9 +351,8 @@ public class MainActivity extends AppCompatActivity {
         // If yes then create new pushId (user session)
         // If no then do not create new pushId instead user existing and
         // current session time is saved.
-        SessionManager session = new SessionManager(this);
-        long sessionTime = validatePushId(session.getSessionCreatedAt());
-        session.setSessionCreatedAt(sessionTime);
+        long sessionTime = validatePushId(mSession.getSessionCreatedAt());
+        mSession.setSessionCreatedAt(sessionTime);
 
         // Stop measuring user app screen timer.
         stopMeasuring("LevelOneActivity");
@@ -375,7 +374,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_main_with_search, menu);
-        SessionManager session = new SessionManager(this);
         if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
             menu.findItem(R.id.closePopup).setVisible(false);
         }
@@ -474,7 +472,19 @@ public class MainActivity extends AppCompatActivity {
     private void loadRecyclerView() {
         mRecyclerView = findViewById(R.id.recycler_view);
         // Initiate 3 columns in Recycler View.
-        mRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        switch (mSession.getGridSize()){
+            case 0:
+                mRecyclerView.setLayoutManager(new GridLayoutManager(this, 1));
+                break;
+            case 1:
+            case 3:
+                mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+                break;
+            case 2:
+            case 4:
+                mRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+                break;
+        }
         mRecyclerView.setAdapter(new MainActivityAdapter(this));
         mRecyclerView.setVerticalScrollBarEnabled(true);
         mRecyclerView.setScrollbarFadingEnabled(false);
@@ -1698,9 +1708,8 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(context, sCheckVoiceData, Toast.LENGTH_LONG).show();
                     break;
                 case "com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES":
-                    SessionManager session = new SessionManager(context);
-                    String appLang = session.getLanguage();
-                    session.setLangSettingIsCorrect(true);
+                    String appLang = mSession.getLanguage();
+                    mSession.setLangSettingIsCorrect(true);
                     String sysTtsLang = intent.getStringExtra("systemTtsRegion");
 
                     //Below if is true when
@@ -1708,18 +1717,18 @@ public class MainActivity extends AppCompatActivity {
                     // or   2) app language is not english India and
                     //         app language and Text-to-speech language are different then
                     //         show error toast.
-                    if((Build.VERSION.SDK_INT < 21) && !session.getLanguage().equals(LangMap.get("मराठी"))) {
+                    if((Build.VERSION.SDK_INT < 21) && !mSession.getLanguage().equals(LangMap.get("मराठी"))) {
                         if (sysTtsLang.equals("-r") ||
                             (appLang.equals(BN_IN) && !sysTtsLang.equals(BN_IN) && !(sysTtsLang.equals(BE_IN)) ||
                                 (!appLang.equals(BN_IN) && !appLang.equals(sysTtsLang)))) {
                             Toast.makeText(context, getString(R.string.speech_engin_lang_sam),
                                     Toast.LENGTH_LONG).show();
-                            session.setLangSettingIsCorrect(false);
+                            mSession.setLangSettingIsCorrect(false);
                         }
                     }
 
                     if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE)) &&
-                            !session.isChangeLanguageNeverAsk() ) {
+                            !mSession.isChangeLanguageNeverAsk() ) {
                         if(appLang.equals(BN_IN) &&(sysTtsLang.equals(BN_IN) || sysTtsLang.equals(BE_IN)))
                         {}
                         else if(!appLang.equals(BN_IN) && appLang.equals(sysTtsLang))
@@ -1751,8 +1760,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()){
-                        SessionManager session = new SessionManager(MainActivity.this);
-                        String userId = maskNumber(session.getCaregiverNumber().substring(1));
+                        String userId = maskNumber(mSession.getCaregiverNumber().substring(1));
                         FirebaseDatabase db = FirebaseDatabase.getInstance();
                         DatabaseReference ref = db.getReference(BuildConfig.DB_TYPE+"/users/" + userId);
                         ref.child("versionCode").setValue(BuildConfig.VERSION_CODE);

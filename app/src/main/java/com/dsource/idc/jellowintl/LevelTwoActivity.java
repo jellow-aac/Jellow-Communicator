@@ -15,6 +15,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.telephony.TelephonyManager;
 import android.text.method.KeyListener;
@@ -448,12 +449,29 @@ public class LevelTwoActivity extends AppCompatActivity {
      /**
       * if GridSize is 3 then scroll faster than GridSize 9
       * */
-        SessionManager sessionManager=new SessionManager(this);
-        int iconCount=sessionManager.getGridSize();
+        switch (mSession.getGridSize()){
+            case 0:
+                mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this, 1,3));
+                break;
+            case 1:
+            case 3:
+                mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this, 2,3));
+                mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+                break;
+            case 2:
+                mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this, 3,3));
+                break;
+            case 4:
+                mRecyclerView.setLayoutManager(new CustomGridLayoutManager
+                        (this, 3, mSession.getGridSize()));
+                break;
+        }
+
+        /*int iconCount=sessionManager.getGridSize();
         if(iconCount!=0)
             mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this, 3,iconCount));
         else //Default speed is 3 icons speed
-            mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this, 3,3));
+            mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this, 3,3));*/
 
 
         mRecyclerView.setVerticalScrollBarEnabled(true);
