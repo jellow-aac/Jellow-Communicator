@@ -37,6 +37,8 @@ import com.dsource.idc.jellowboard.makemyboard.utility.ModelManager;
 import com.dsource.idc.jellowboard.makemyboard.utility.UtilFunctions;
 import com.dsource.idc.jellowboard.utility.CustomGridLayoutManager;
 import com.dsource.idc.jellowboard.utility.JellowIcon;
+import com.dsource.idc.jellowboard.utility.LanguageHelper;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -139,8 +141,6 @@ public class IconSelectActivity extends AppCompatActivity {
                     intent.putExtra(BOARD_ID,boardId);
                     startActivity(intent);
                     finish();
-
-
                 }
                 else Toast.makeText(IconSelectActivity.this,"Some error occurred",Toast.LENGTH_LONG).show();
             }
@@ -675,6 +675,11 @@ public class IconSelectActivity extends AppCompatActivity {
         outState.putSerializable(LIST_OF_ICON,selectedIconList);
         outState.putInt(CURRENT_POSITION,previousSelection);
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext((LanguageHelper.onAttachCustom(newBase,"")));
     }
 
     private class simpleArrayAdapter extends ArrayAdapter<String>

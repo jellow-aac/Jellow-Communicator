@@ -36,10 +36,10 @@
             android:id="@+id/camera_list"
             android:layout_width="@dimen/camera_drop_down_width"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:divider="@drawable/divider"
-            android:layout_alignParentRight="true" />
+            android:layout_below="@id/edit_board"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="-12dp"
+            android:divider="@drawable/divider" />
 
     </RelativeLayout>
     <EditText

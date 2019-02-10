@@ -57,9 +57,7 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> 
              }
         else
             {
-
-                SessionManager mSession = new SessionManager(mContext);
-                File en_dir =mContext.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
+                File en_dir =mContext.getDir(SessionManager.ENG_IN, Context.MODE_PRIVATE);
                 String path = en_dir.getAbsolutePath() + "/boardicon";
                 GlideApp.with(mContext)
                         .load(path+"/"+board.getBoardID()+".png")

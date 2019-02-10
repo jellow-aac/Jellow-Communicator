@@ -458,7 +458,6 @@ public class Home extends AppCompatActivity {
                 return LinearSmoothScroller.SNAP_TO_END;
             }
         };
-        Log.d("Search","Step 2: Scroll listener attached");
         scrollListener =new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -467,7 +466,6 @@ public class Home extends AppCompatActivity {
                 {
                     if(itemDisplayed(index)) mRecycler.removeOnScrollListener(scrollListener);
                     else {smoothScroller.setTargetPosition(index); mRecycler.getLayoutManager().startSmoothScroll(smoothScroller);}
-                    Log.d("SearchSettled: ",itemDisplayed(index)+"");
                 }
             }};
 
@@ -478,7 +476,6 @@ public class Home extends AppCompatActivity {
         int lastVisiblePos = ((CustomGridLayoutManager)mRecycler.getLayoutManager()).findLastCompletelyVisibleItemPosition();
         if(lastVisiblePos==(index-1))
             return true;
-        Log.d("TagScreen","First Pos: "+firstVisiblePos+" Last Pos: "+lastVisiblePos+" Pos "+index);
         return index >= firstVisiblePos && index <= lastVisiblePos;
     }
 

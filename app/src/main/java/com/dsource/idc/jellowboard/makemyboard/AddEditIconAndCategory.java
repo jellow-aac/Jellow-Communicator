@@ -479,7 +479,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public void storeImageToStorage(Bitmap bitmap, String fileID) {
         FileOutputStream fos;
-        File en_dir = this.getDir(new SessionManager(this).getLanguage(), Context.MODE_PRIVATE);
+        File en_dir = this.getDir(SessionManager.ENG_IN, Context.MODE_PRIVATE);
         String path = en_dir.getAbsolutePath() + "/boardicon";
         String status = Environment.getExternalStorageState();
         if (status.equals(Environment.MEDIA_MOUNTED)) {
@@ -503,7 +503,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         }
     }
     public void deleteImageFromStorage(String fileID) {
-        File en_dir = this.getDir(new SessionManager(this).getLanguage(), Context.MODE_PRIVATE);
+        File en_dir = this.getDir(SessionManager.ENG_IN, Context.MODE_PRIVATE);
         String path = en_dir.getAbsolutePath() + "/boardicon";
         String status = Environment.getExternalStorageState();
         if (status.equals(Environment.MEDIA_MOUNTED)) {

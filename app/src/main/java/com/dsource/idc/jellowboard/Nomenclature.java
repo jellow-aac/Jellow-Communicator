@@ -8,7 +8,7 @@ import com.dsource.idc.jellowboard.utility.SessionManager;
 import static com.dsource.idc.jellowboard.utility.SessionManager.ENG_IN;
 import static com.dsource.idc.jellowboard.utility.SessionManager.ENG_US;
 import static com.dsource.idc.jellowboard.utility.SessionManager.HI_IN;
-import static com.dsource.idc.jellowboard.verbiage_model.Verbiage.ENG_UK;
+import static com.dsource.idc.jellowboard.utility.SessionManager.ENG_UK;
 
 public class Nomenclature {
 
@@ -92,7 +92,7 @@ public class Nomenclature {
         else return "";
     }
     public static String getLanguageCode(Context context) {
-        String lang=new SessionManager(context).getLanguage();
+        String lang=SessionManager.ENG_IN;
         int lang_code=1;
         if(lang.equals(ENG_IN))
             lang_code=1;

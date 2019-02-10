@@ -59,8 +59,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
         if(thisIcon.parent0==-1)
         {
-            SessionManager mSession = new SessionManager(mContext);
-            File en_dir = mContext.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
+            File en_dir = mContext.getDir(SessionManager.ENG_IN, Context.MODE_PRIVATE);
             String path = en_dir.getAbsolutePath() + "/boardicon";
             GlideApp.with(mContext)
                     .load(path+"/"+ thisIcon.IconDrawable+".png")
@@ -81,8 +80,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         }
         else
         {
-            SessionManager mSession = new SessionManager(mContext);
-            File en_dir = mContext.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
+            File en_dir = mContext.getDir(SessionManager.ENG_IN, Context.MODE_PRIVATE);
             String path = en_dir.getAbsolutePath() + "/drawables";
             GlideApp.with(mContext)
                     .load(path+"/"+ thisIcon.IconDrawable+".png")

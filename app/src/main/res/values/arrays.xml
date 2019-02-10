@@ -37,14 +37,6 @@
 </string-array>
     <string-array name="add_photo_option" >
         <item>@drawable/ic_photo_camera</item>
-        <item>@drawable/ic_photo_library</item>
-        <item>@drawable/ic_jellow</item>
+        <item>@drawable/ic_jellow_library</item>
     </string-array>
-
-    <array name="country_flags">
-        <item>@drawable/flag_india</item>
-        <item>@drawable/flag_india</item>
-        <item>@drawable/flag_united_states_of_america</item>
-        <item>@drawable/flag_united_kingdom</item>
-    </array>
 </resources>

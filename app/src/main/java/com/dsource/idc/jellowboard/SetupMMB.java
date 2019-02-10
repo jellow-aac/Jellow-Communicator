@@ -87,7 +87,7 @@ public class SetupMMB extends AppCompatActivity {
                 @Override
                 public void onComplete() {
                     mSession.setDownloaded(langCode);
-                    progressText.setText("Setting things up.... (Fetching verbiage from internet and saving it to local)");
+                    progressText.setText("Setting things up, Please wait...");
                     progressBar.setProgress(0);
                     progressBar.setMax(0);
                     createDatabase();
@@ -130,7 +130,7 @@ public class SetupMMB extends AppCompatActivity {
             public void onComplete() {
                 progressBar.setProgress(0);
                 progressBar.setVisibility(View.GONE);
-                progressText.setText("finalizing setup... Creating the verbiage database and storing data into SQL database");
+                progressText.setText("Finalizing setup, please wait...");
                 createIconDatabase();
             }
         });
@@ -173,7 +173,7 @@ public class SetupMMB extends AppCompatActivity {
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext((LanguageHelper.onAttach(newBase)));
+        super.attachBaseContext((LanguageHelper.onAttachCustom(newBase,"")));
     }
 
 }

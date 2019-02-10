@@ -67,8 +67,12 @@ public class VerbiageDatabaseHelper extends SQLiteOpenHelper{
         keyList=new ArrayList<>();
         otherIconList=new ArrayList<>();
         otherIconKeyList=new ArrayList<>();
+
+        //TODO testing needs to be removed before deployment
+        //TODO Session.ENG_IN needs to be changed to new SessionManager(context).getLanguage() to make it language independent
+
         mRef=FirebaseDatabase.getInstance().getReference("testing")
-        .child("verbiage_data").child(new SessionManager(context).getLanguage());
+        .child("verbiage_data").child(SessionManager.ENG_IN);
         mRef.keepSynced(false);
         mRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -78,7 +82,6 @@ public class VerbiageDatabaseHelper extends SQLiteOpenHelper{
                     if(onProgressChangedListener!=null)
                         onProgressChangedListener.onProgressChanged(0,max);
                     for(DataSnapshot d:dataSnapshot.getChildren()) {
-
                         try {
                             if(d.getKey().contains("EE")||d.getKey().contains("MS")) {
                                 otherIconList.add(d.getValue(MiscellaneousIcons.class));
@@ -146,8 +149,8 @@ public class VerbiageDatabaseHelper extends SQLiteOpenHelper{
         values.put(ICON_ID,holder.getIconID());
         values.put(ICON_TITLE,holder.getIconName());
         values.put(ICON_VERBIAGE,new Gson().toJson(holder.getIconVerbaige()));
-        db.insert(TABLE_NAME, null, values);
-        Log.d("VerbiageDatabase","Icon inserted into database "+holder.getIconName()+" ID "+holder.getIconID());
+        long d = db.insert(TABLE_NAME, null, values);
+        Log.d("VerbiageDatabase","Icon inserted into database "+holder.getIconName()+" ID "+holder.getIconID()+" LD: "+d);
     }
 
     public JellowVerbiageModel getVerbiageById(String IconID){
@@ -254,8 +257,8 @@ public class VerbiageDatabaseHelper extends SQLiteOpenHelper{
         values.put(ICON_ID,holder.getIconID());
         values.put(ICON_TITLE,holder.getIconName());
         values.put(ICON_VERBIAGE,new Gson().toJson(holder.getIconVerbaige()));
-        db.insert(TABLE_NAME, null, values);
-        Log.d("VerbiageDatabase","Icon inserted into database "+holder.getIconName()+" ID "+holder.getIconID());
+        long d = db.insert(TABLE_NAME, null, values);
+        Log.d("VerbiageDatabase","Icon inserted into database "+holder.getIconName()+" ID "+holder.getIconID()+" Status: "+d);
 
     }
 

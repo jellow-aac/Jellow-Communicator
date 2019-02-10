@@ -1,7 +1,6 @@
 package com.dsource.idc.jellowboard.makemyboard;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -25,7 +24,6 @@ import com.dsource.idc.jellowboard.makemyboard.adapters.BoardSearchAdapter;
 import com.dsource.idc.jellowboard.makemyboard.models.Board;
 import com.dsource.idc.jellowboard.makemyboard.models.IconModel;
 import com.dsource.idc.jellowboard.makemyboard.utility.ModelManager;
-import com.dsource.idc.jellowboard.utility.IconDataBaseHelper;
 import com.dsource.idc.jellowboard.utility.JellowIcon;
 import com.dsource.idc.jellowboard.utility.LanguageHelper;
 
@@ -89,7 +87,7 @@ public class BoardSearch extends AppCompatActivity {
         }
 
     private void searchForIcon() {
-        final IconDataBaseHelper iconDatabase=new IconDataBaseHelper(this);
+        final IconDatabase iconDatabase=new IconDatabase(this);
 
 
         EditText searchEditText
@@ -305,14 +303,6 @@ public class BoardSearch extends AppCompatActivity {
             mRecyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
     }
-
-        @Override
-        public void attachBaseContext(Context newBase) {
-            super.attachBaseContext((LanguageHelper.onAttach(newBase)));
-        }
-
-
-
 }
 
 

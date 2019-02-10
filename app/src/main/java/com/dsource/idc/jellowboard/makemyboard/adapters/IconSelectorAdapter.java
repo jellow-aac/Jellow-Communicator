@@ -144,7 +144,7 @@ public class IconSelectorAdapter extends RecyclerView.Adapter<IconSelectorAdapte
         if(thisIcon.parent0==-1)
         {
             SessionManager mSession = new SessionManager(mContext);
-            File en_dir = mContext.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
+            File en_dir = mContext.getDir(SessionManager.ENG_IN, Context.MODE_PRIVATE);
             String path = en_dir.getAbsolutePath() + "/boardicon";
             GlideApp.with(mContext)
                     .load(path+"/"+ thisIcon.IconDrawable+".png")
@@ -160,7 +160,7 @@ public class IconSelectorAdapter extends RecyclerView.Adapter<IconSelectorAdapte
         else //load from drawables in case of the normal icons
         {
             SessionManager mSession = new SessionManager(mContext);
-            File en_dir = mContext.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
+            File en_dir = mContext.getDir(SessionManager.ENG_IN, Context.MODE_PRIVATE);
             String path = en_dir.getAbsolutePath() + "/drawables";
             GlideApp.with(mContext)
                     .load(path+"/"+ thisIcon.IconDrawable+".png")

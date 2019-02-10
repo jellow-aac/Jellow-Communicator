@@ -23,6 +23,26 @@
    ||| 25th January |||
    Issue 1: Adding language dependencies, we need to update LanguageSelectAdapter whenever we include a new language
    Issue 2: Adding language will also require you to include flag of the country into the typed array
+   {DEPRICATED}
+
+   ||| 29th January 2019|||
+   * Language of the make my board is set to be English India for initial release.
+   * Changed Verbiage database helper class, changed the valueEventListener path to en-rIN always.
+   * Delete issue is still not implemented.
+
+
+   |||30th January 2019|||
+
+   Changes made:
+   Store & delete image @ MyBoard, AddEditIcon, Repositions
+   Adapters @ MyBoardAdapter, HomeAdapter, RepositionIconAdapter, IconSelectAdapter, AddEditIconAdapter.
+   Others @ Verbiage, Nomenclature,Verbiage Editor
+
+
+   ||6th Feb 2019||
+   Issue: What if eng_IN is already installed
+
+
 
 
 

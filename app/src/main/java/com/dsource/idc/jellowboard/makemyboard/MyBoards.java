@@ -333,7 +333,7 @@ public class MyBoards extends AppCompatActivity {
 
     public void storeImageToStorage(Bitmap bitmap, String fileID) {
         FileOutputStream fos;
-        File en_dir = MyBoards.this.getDir(new SessionManager(this).getLanguage(), Context.MODE_PRIVATE);
+        File en_dir = MyBoards.this.getDir(SessionManager.ENG_IN, Context.MODE_PRIVATE);
         String path = en_dir.getAbsolutePath() + "/boardicon";
         String status = Environment.getExternalStorageState();
         if (status.equals(Environment.MEDIA_MOUNTED)) {
@@ -362,7 +362,7 @@ public class MyBoards extends AppCompatActivity {
     }
 
     public void deleteImageFromStorage(String fileID) {
-        File en_dir = MyBoards.this.getDir(new SessionManager(this).getLanguage(), Context.MODE_PRIVATE);
+        File en_dir = MyBoards.this.getDir(SessionManager.ENG_IN, Context.MODE_PRIVATE);
         String path = en_dir.getAbsolutePath() + "/boardicon";
         String status = Environment.getExternalStorageState();
         if (status.equals(Environment.MEDIA_MOUNTED)) {

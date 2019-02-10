@@ -218,7 +218,7 @@ public class VerbiageEditor implements View.OnClickListener {
         final ArrayList<ListItem> list=new ArrayList<>();
         @SuppressLint("Recycle") TypedArray mArray=context.getResources().obtainTypedArray(R.array.add_photo_option);
         list.add(new ListItem("Photos",mArray.getDrawable(0)));
-        list.add(new ListItem("Library ",mArray.getDrawable(2)));
+        list.add(new ListItem("Library ",mArray.getDrawable(1)));
         SimpleListAdapter adapter=new SimpleListAdapter(context,list);
         listView.setAdapter(adapter);
         dialogInterface.initPhotoResultListener(new VerbiageEditorReverseInterface() {
@@ -244,8 +244,7 @@ public class VerbiageEditor implements View.OnClickListener {
                 }
                 else
                 {
-                    SessionManager mSession = new SessionManager(context);
-                    File en_dir = context.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
+                    File en_dir = context.getDir(SessionManager.ENG_IN, Context.MODE_PRIVATE);
                     String path = en_dir.getAbsolutePath() + "/drawables";
                     GlideApp.with(context)
                             .load(path+"/"+fileName+".png")
@@ -315,8 +314,7 @@ public class VerbiageEditor implements View.OnClickListener {
      */
     private void setIconImage(String id) {
 
-        SessionManager mSession = new SessionManager(context);
-        File en_dir = context.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
+        File en_dir = context.getDir(SessionManager.ENG_IN, Context.MODE_PRIVATE);
 
         if(id!=null)
         {
