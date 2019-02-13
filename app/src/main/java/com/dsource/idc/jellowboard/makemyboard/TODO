@@ -4,7 +4,7 @@
  * Trying to remove the Icon Image that I've added to the SQLite database, Instead of that try to save the image locally
    then fetch as all the other Icons.
  STEP 1: Initially, changing the board option only.
-   * Store the image into local storage /boardicon/boardID.png
+   * Store the image into local storage/boardicon/boardID.png
    * Replace the image when board is editing, first delete then again save with same name
    * On deleting the board delete the image from database
    * Keep track of all such images, and upload to firebase when needed.

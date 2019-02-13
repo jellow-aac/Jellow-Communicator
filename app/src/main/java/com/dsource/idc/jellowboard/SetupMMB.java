@@ -60,17 +60,9 @@ public class SetupMMB extends AppCompatActivity {
             startActivity(new Intent(this,MyBoards.class));
             finish();
         }
-        else
-            {
+        else {
 
 
-/* TODO Language Independent
-        try {
-            langCode =  getIntent().getExtras().getString(LCODE);
-        }catch (Exception e)
-        {
-            e.printStackTrace();
-        }*/
             progressBar = findViewById(R.id.pg);
             progressText = findViewById(R.id.progress_text);
             progressText.setText("Please wait while the icons are being downloaded. Do ensure there is an active internet connection at the time of download");
@@ -78,38 +70,47 @@ public class SetupMMB extends AppCompatActivity {
 
             mCheckConn = getString(R.string.checkConnectivity);
 
-            DownloadMan.ProgressReciever progressReciever = new DownloadMan.ProgressReciever() {
-                @Override
-                public void onprogress(int soFarBytes, int totalBytes) {
-                    progressBar.setProgress((float) soFarBytes / totalBytes);
-                }
 
-                @Override
-                public void onComplete() {
-                    mSession.setDownloaded(langCode);
-                    progressText.setText("Setting things up, Please wait...");
-                    progressBar.setProgress(0);
-                    progressBar.setMax(0);
-                    createDatabase();
-                }
-            };
-
-
-            if (langCode != null) {
-                try {
-                    isConnected = isConnected();
-                    if (isConnected) {
-                        manager = new DownloadMan(langCode, this, progressReciever);
-                        manager.start();
-                    } else {
-
-                        Toast.makeText(this, mCheckConn, Toast.LENGTH_SHORT).show();
+            if (!mSession.isDownloaded(SessionManager.ENG_IN)) {
+                DownloadMan.ProgressReciever progressReciever = new DownloadMan.ProgressReciever() {
+                    @Override
+                    public void onprogress(int soFarBytes, int totalBytes) {
+                        progressBar.setProgress((float) soFarBytes / totalBytes);
                     }
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                    @Override
+                    public void onComplete() {
+                        mSession.setDownloaded(langCode);
+                        progressText.setText("Setting things up, Please wait...");
+                        progressBar.setProgress(0);
+                        progressBar.setMax(0);
+                        createDatabase();
+                    }
+                };
 
+
+                if (langCode != null) {
+                    try {
+                        isConnected = isConnected();
+                        if (isConnected) {
+                            manager = new DownloadMan(langCode, this, progressReciever);
+                            manager.start();
+                        } else {
+
+                            Toast.makeText(this, mCheckConn, Toast.LENGTH_SHORT).show();
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+            else { // if language is already installed then skip downloading the image
+                createDatabase();
+                progressText.setText("Setting things up, Please wait...");
+                progressBar.setProgress(0);
+                progressBar.setMax(0);
             }
         }
 
