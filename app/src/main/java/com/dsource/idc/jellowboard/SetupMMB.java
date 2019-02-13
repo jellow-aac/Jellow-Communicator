@@ -71,6 +71,7 @@ public class SetupMMB extends AppCompatActivity {
             mCheckConn = getString(R.string.checkConnectivity);
 
 
+            // Download the language if it's not already present
             if (!mSession.isDownloaded(SessionManager.ENG_IN)) {
                 DownloadMan.ProgressReciever progressReciever = new DownloadMan.ProgressReciever() {
                     @Override
@@ -109,8 +110,8 @@ public class SetupMMB extends AppCompatActivity {
             else { // if language is already installed then skip downloading the image
                 createDatabase();
                 progressText.setText("Setting things up, Please wait...");
-                progressBar.setProgress(0);
-                progressBar.setMax(0);
+                progressBar.setProgress(100);
+                progressBar.setMax(100);
             }
         }
 
@@ -144,10 +145,7 @@ public class SetupMMB extends AppCompatActivity {
         iconDatabase.setOnProgressChangeListener(new IconDatabase.ProgressListener() {
             @Override
             public void onProgressChanged(int progress, int max) {
-/*
-                Log.d("Max",max+"");
-                progressBar.setMax(max);
-                progressBar.setProgress(progress);*/
+
             }
 
             @Override

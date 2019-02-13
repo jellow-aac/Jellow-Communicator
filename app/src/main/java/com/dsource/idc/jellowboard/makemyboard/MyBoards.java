@@ -88,6 +88,7 @@ public class MyBoards extends AppCompatActivity {
         initFields();
         prepareBoardList(NORMAL_MODE);
         currentMode  =NORMAL_MODE;
+        changeTTS(SessionManager.ENG_IN);
 
     }
 
@@ -375,6 +376,14 @@ public class MyBoards extends AppCompatActivity {
 
     }
 
+    private void changeTTS(String langCode)
+    {
+        Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_LANG");
+        intent.putExtra("speechLanguage",langCode);
+        sendBroadcast(intent);
+    }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -403,7 +412,9 @@ public class MyBoards extends AppCompatActivity {
             case R.id.delete_boards:
                 activateDeleteMode();
                 break;
-            case android.R.id.home: startActivity(new Intent(this, MainActivity.class));finish(); break;
+            case android.R.id.home: startActivity(new Intent(this, MainActivity.class));finish();
+            changeTTS(new SessionManager(this).getLanguage());
+            break;
             case R.id.languageSelect:
                 startActivity(new Intent(this, LanguageSelectActivity.class)); finish();
                 break;
