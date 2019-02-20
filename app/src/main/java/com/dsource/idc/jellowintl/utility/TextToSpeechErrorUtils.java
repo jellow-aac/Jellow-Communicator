@@ -4,10 +4,11 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AlertDialog;
 import android.widget.Button;
 
 import com.dsource.idc.jellowintl.R;
+
+import androidx.appcompat.app.AlertDialog;
 
 public class TextToSpeechErrorUtils {
     private Activity mActivity;

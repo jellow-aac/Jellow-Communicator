@@ -4,10 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +22,11 @@ import com.dsource.idc.jellowintl.utility.SessionManager;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
 import static android.content.Context.ACCESSIBILITY_SERVICE;
 import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
 import static com.dsource.idc.jellowintl.MainActivity.isNotchDevice;
@@ -34,7 +35,7 @@ import static com.dsource.idc.jellowintl.factories.PathFactory.getIconPath;
 /**
  * Created by HP on 22/01/2017.
  */
-class PeopleAdapter extends android.support.v7.widget.RecyclerView.Adapter<PeopleAdapter.MyViewHolder> {
+class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.MyViewHolder> {
     private Context mContext;
     private SessionManager mSession;
     private ArrayList<String> mIconNameList = new ArrayList<>();
@@ -78,7 +79,7 @@ class PeopleAdapter extends android.support.v7.widget.RecyclerView.Adapter<Peopl
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
 
         ViewCompat.setAccessibilityDelegate(holder.menuItemLinearLayout,
                 new TalkbackHints_SingleClick());
@@ -92,6 +93,12 @@ class PeopleAdapter extends android.support.v7.widget.RecyclerView.Adapter<Peopl
        glide.load(getIconPath(mContext, mIconNameList.get(position)))
                 .into(holder.menuItemImage);
         holder.menuItemLinearLayout.setContentDescription(mBelowTextList.get(position));
+        holder.menuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((LevelTwoActivity)mContext).tappedCategoryItemEvent(holder.menuItemLinearLayout, position);
+            }
+        });
     }
 
     @Override

@@ -284,6 +284,8 @@
     <string name="about_je_intro28">डॉ. सुधा श्रीनिवासन</string>
     <string name="about_je_intro29">समर्थन:</string>
     <string name="about_je_intro30">ई-कालपा प्रोजेक्ट NMEICT च्या अंतर्गत मानव संसाधन विकास मंत्रालय,  माइक्रोसॉफ्ट डिजाईन एक्सपो २००४ आणि यूनिसेफ इनोवेशन फंड (UNICEF) द्वारे प्रायोजित</string>
+    <string name="about_je_intro38">अनुदैर्ध्य वापरकर्ता अध्ययन आणि जेलो कम्युनिकेटरचे क्षेत्र परीक्षण:</string>
+    <string name="about_je_intro39">टोपीवाला नॅशनल मेडिकल कॉलेज आणि बी.वाय.एल. नायर चॅरिटेबल हॉस्पीटल (मनोचिकित्सा, ऑडिओलॉजी आणि भाषण चिकित्सा विभाग)</string>
 
     <!--Content description-->
     <string name="language_download_in_process">Language download in process</string>
@@ -338,6 +340,8 @@
     <string name="therapist_or_teacher_cd">Therapist or teacher</string>
     <string name="parent_or_caregiver_cd">Parent or caregiver</string>
     <string name="child_s_name_dialog_btn">My name</string>
+    <string name="caregiverName_dialog_btn">Caregiver\'s name</string>
+    <string name="caregiver_s_email_address_dialog_btn">Caregiver\'s email address</string>
     <string name="homeAddress_dialog_btn">My home address</string>
     <string name="caregiver_s_contact_number_dialog_btn">Caregiver\'s contact number</string>
     <string name="bloodGroup_dialog_btn">My blood group</string>
@@ -354,7 +358,7 @@
     <string name="txt_intro8_step1">१. गूगल टेक्स्ट-टू-स्पीच उघडा</string>
     <string name="txt_intro8_step2">२. गूगल टेक्स्ट-टू-स्पीच \"सेटिंग्स\" वर जा</string>
     <string name="txt_intro8_step3">३. \"केवळ वाय-फाय चा वापर करा\" या बटनाला बंद करा</string>
-    <string name="change_language_tts_wifi">गूगल टेक्स्ट-टू-स्पीच च्या सेटिंग्स वर जा आणि \"केवळ वाय-फाय चा वापर करा\" या बटनाला बंद करा. जर हे बटण सेटिंग्समध्ये आधीपासूनच बंद केले असेल तर, कृपया पुढे जा.</string>
+    <string name="change_language_tts_wifi">खाली दिलेल्या \'टेक्स्ट-टू-स्पीच सेटिंग्स\' बटनाला टॅप करून गूगल टेक्स्ट-टू-स्पीच च्या सेटिंग्स वर जा आणि \'केवळ वाय-फाय चा वापर करा\' या बटनाला बंद करा. जर हे बटण सेटिंग्समध्ये आधीपासूनच बंद केले असेल तर, कृपया पुढे जा.</string>
     <string name="icon_update_msg">अॅप्लिकेशनमधील भाषांसाठी आइकॉन्स अपडेट होत आहेत :</string>
     <string name="add_new_language">नवीन भाषा डाउनलोड करा किंवा उपस्थित भाषा डिलीट करा.</string>
     <string name="disable_wifi_only">कृपया मागील चरणात \"केवळ वाय-फाय चा वापर करा\" या बटनाला बंद करा.</string>
@@ -362,6 +366,8 @@
     <string name="txt_intro8_txtTitle">कृपया टेक्स्ट-टू-स्पीच इंजिन सक्रिय करण्यासाठी खालील चरण पूर्ण करा.</string>
     <string name="txt_actLangSel_completestep2">वॉयस डेटा उपलब्ध नाही. कृपया इंटरनेट चालू करा आणि चरण २ पूर्ण करा.</string>
     <string name="txtStep2">चरण २:</string>
+    <string name="close">close dialog</string>
+    <string name="access_dialog_title">dialog with options.</string>
 
     <string name="acc_lang_marathi">मराठी</string>
     <string name="acc_lang_hindi">हिंदी</string>

@@ -8,9 +8,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.util.Patterns;
 import android.view.View;
@@ -53,6 +50,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.Random;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
 import se.simbio.encryption.Encryption;
 
 import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
@@ -332,6 +332,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
         protected void onPostExecute(Boolean isConnected) {
             super.onPostExecute(isConnected);
             if(isConnected){
+                Toast.makeText(mContext, getString(R.string.register_user), Toast.LENGTH_SHORT).show();
                 FirebaseAuth mAuth = FirebaseAuth.getInstance();
                 if(mAuth.getCurrentUser() == null) {
                     mAuth.signInAnonymously()
@@ -344,7 +345,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
                                     mSession.setUserCountryCode(mCcp.getSelectedCountryCode());
                                     mSession.setEmailId(mEmailId);
                                     encryptStoreUserInfo(mName, emergencyContact, eMailId, mUserGroup);
-                                    Toast.makeText(mContext, getString(R.string.register_user), Toast.LENGTH_SHORT).show();
+                                    Crashlytics.log("User logged in");
                                 }else
                                     Toast.makeText(mContext, getString(R.string.error_in_registration), Toast.LENGTH_SHORT).show();
                             }

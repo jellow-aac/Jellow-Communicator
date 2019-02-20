@@ -12,10 +12,11 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,17 +30,21 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
@@ -197,7 +202,8 @@ public class LanguageSelectTalkBackActivity extends AppCompatActivity{
                 Crashlytics.log("LanguageSelect Add");
                 if(!mSession.isWifiOnlyBtnPressedOnce()){
                     Toast.makeText(LanguageSelectTalkBackActivity.this,
-                            "Please complete previous step to turn off \'Use Wi-Fi only\' option", Toast.LENGTH_SHORT).show();
+                            "Please complete previous step to turn off \'Use Wi-Fi only\' option",
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
                 try {
@@ -207,46 +213,37 @@ public class LanguageSelectTalkBackActivity extends AppCompatActivity{
                         return;
                     }
                     delete.setEnabled(false);
-                    if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                        new MaterialDialog.Builder(LanguageSelectTalkBackActivity.this)
-                                .title("Downloadable Languages")
-                                .items(populateCountryNameByUserType(onlineLanguages))
-                                .itemsCallbackSingleChoice(
-                                        0, new MaterialDialog.ListCallbackSingleChoice() {
-                                            @Override
-                                            public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
-                                                showAddLangDialog(dialog, which, "You are not connected to the Internet. Please turn on your Internet.");
-                                                return true;
-                                            }
-                                        })
-                                .positiveText("DOWNLOAD")
-                                .negativeText("CANCEL")
-                                .cancelListener(new DialogInterface.OnCancelListener() {
-                                    @Override
-                                    public void onCancel(DialogInterface dialog) {
-                                        delete.setEnabled(true);
-                                    }
-                                })
-                                .show();
-                    }else{
-                        new MaterialDialog.Builder(LanguageSelectTalkBackActivity.this)
-                            .title("Downloadable Languages")
-                            .items(populateCountryNameByUserType(onlineLanguages))
-                            .itemsCallback(new MaterialDialog.ListCallback() {
-                                        @Override
-                                        public void onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
-                                            showAddLangDialog(dialog, which, "You are not connected to the Internet. Please turn on your Internet.");
-                                        }
-                                    })
-                            .negativeText("CANCEL")
-                            .cancelListener(new DialogInterface.OnCancelListener() {
+                    SpannableString spannedDlStr = new SpannableString("Downloadable Languages");
+                    spannedDlStr.setSpan(new StyleSpan(Typeface.BOLD),0, spannedDlStr.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    SpannableString spannedCnlStr = new SpannableString("CANCEL");
+                    spannedCnlStr.setSpan(new StyleSpan(Typeface.BOLD),0, spannedCnlStr.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    MaterialAlertDialogBuilder builder =
+                            new MaterialAlertDialogBuilder(LanguageSelectTalkBackActivity.this);
+                    AlertDialog addLangDialog = builder
+                            .setTitle(spannedDlStr)
+                            .setSingleChoiceItems(populateCountryNameByUserType(onlineLanguages), 0, new DialogInterface.OnClickListener(){
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    delete.setEnabled(true);
+                                    showAddLangDialog(dialog, which,
+                                            "You are not connected to the Internet. Please turn on your Internet.");
+                                }
+                            })
+                            .setNegativeButton(spannedCnlStr, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    delete.setEnabled(true);
+                                }
+                            })
+                            .setOnCancelListener(new DialogInterface.OnCancelListener() {
                                 @Override
                                 public void onCancel(DialogInterface dialog) {
                                     delete.setEnabled(true);
                                 }
                             })
-                            .show();
-                    }
+                            .create();
+                    addLangDialog.show();
+                    customizeLanguageDialog(addLangDialog);
                 } catch (Exception e)
                 {
                     e.printStackTrace();
@@ -266,62 +263,43 @@ public class LanguageSelectTalkBackActivity extends AppCompatActivity{
                         return;
                     }
                     add.setEnabled(false);
-                    if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                        new MaterialDialog.Builder(LanguageSelectTalkBackActivity.this)
-                                .title("Downloaded Languages")
-                                .items(populateCountryNameByUserType(removeCurrentLangFromList(offlineLanguages)))
-                                .itemsCallbackSingleChoice(
-                                        0, new MaterialDialog.ListCallbackSingleChoice() {
-                                            @Override
-                                            public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
-                                                add.setEnabled(true);
-                                                String locale = LangMap.get(offlineLanguages[which]);
-                                                if (mSession.getLanguage().equals(locale)) {
-                                                    Toast.makeText(LanguageSelectTalkBackActivity.this,
-                                                            "Language is currently in use", Toast.LENGTH_SHORT).show();
-                                                    dialog.dismiss();
-                                                    return true;
-                                                }
-                                                showDeleteLangDialog(dialog, itemView, which, text, "Language removed");
-                                                return true;
-                                            }
-                                        })
-                                .positiveText("Downloaded Languages")
-                                .negativeText("CANCEL")
-                                .cancelListener(new DialogInterface.OnCancelListener() {
+                    SpannableString spannedDlStr = new SpannableString("Downloaded Languages");
+                    spannedDlStr.setSpan(new StyleSpan(Typeface.BOLD),0, spannedDlStr.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    SpannableString spannedCnlStr = new SpannableString("CANCEL");
+                    spannedCnlStr.setSpan(new StyleSpan(Typeface.BOLD),0, spannedCnlStr.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(LanguageSelectTalkBackActivity.this);
+                    AlertDialog delLangDialog = builder
+                        .setTitle(spannedDlStr)
+                        .setSingleChoiceItems(populateCountryNameByUserType(removeCurrentLangFromList(offlineLanguages))
+                                , 0, new DialogInterface.OnClickListener() {
                                     @Override
-                                    public void onCancel(DialogInterface dialog) {
+                                    public void onClick(DialogInterface dialog, int which) {
                                         add.setEnabled(true);
+                                        String locale = LangMap.get(offlineLanguages[which]);
+                                        if (mSession.getLanguage().equals(locale)) {
+                                            Toast.makeText(LanguageSelectTalkBackActivity.this,
+                                                    "Language is currently in use", Toast.LENGTH_SHORT).show();
+                                            dialog.dismiss();
+                                            return ;
+                                        }
+                                        showDeleteLangDialog(dialog, which, "Language removed");
                                     }
                                 })
-                                .show();
-                    }else{
-                        new MaterialDialog.Builder(LanguageSelectTalkBackActivity.this)
-                                .title("Downloaded Languages")
-                                .items(populateCountryNameByUserType(removeCurrentLangFromList(offlineLanguages)))
-                                .itemsCallback( new MaterialDialog.ListCallback() {
-                                            @Override
-                                            public void onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
-                                                add.setEnabled(true);
-                                                String locale = LangMap.get(offlineLanguages[which]);
-                                                if (mSession.getLanguage().equals(locale)) {
-                                                    Toast.makeText(LanguageSelectTalkBackActivity.this,
-                                                            "Language is currently in use", Toast.LENGTH_SHORT).show();
-                                                    dialog.dismiss();
-                                                    return;
-                                                }
-                                                showDeleteLangDialog(dialog, itemView, which, text, "Language removed");
-                                            }
-                                        })
-                                .negativeText("CANCEL")
-                                .cancelListener(new DialogInterface.OnCancelListener() {
-                                    @Override
-                                    public void onCancel(DialogInterface dialog) {
-                                        add.setEnabled(true);
-                                    }
-                                })
-                                .show();
-                    }
+                        .setNegativeButton(spannedCnlStr, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                add.setEnabled(true);
+                            }
+                        })
+                        .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                            @Override
+                            public void onCancel(DialogInterface dialog) {
+                                add.setEnabled(true);
+                            }
+                        })
+                        .create();
+                    delLangDialog.show();
+                    customizeLanguageDialog(delLangDialog);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -329,7 +307,19 @@ public class LanguageSelectTalkBackActivity extends AppCompatActivity{
         });
     }
 
-    private void showAddLangDialog(MaterialDialog dialog, int which, String strCheckConnectivity) {
+    private void customizeLanguageDialog(AlertDialog dialog) {
+        Button btnPos = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        Typeface tf = ResourcesCompat.getFont
+                (LanguageSelectTalkBackActivity.this, R.font.mukta_semibold);
+        btnPos.setTypeface(tf);
+        btnPos.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+        //TODO Add this part of code to mobile only device
+        /*Rect displayRectangle = new Rect();
+        Window window = dialog.getWindow();
+        window.getDecorView().getWindowVisibleDisplayFrame(displayRectangle);   */
+    }
+
+    private void showAddLangDialog(DialogInterface dialog, int which, String strCheckConnectivity) {
         delete.setEnabled(true);
         ConnectivityManager cm =
                 (ConnectivityManager) LanguageSelectTalkBackActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -348,12 +338,11 @@ public class LanguageSelectTalkBackActivity extends AppCompatActivity{
             startActivity(new Intent(getBaseContext(), LanguageDownloadActivity.class).putExtras(bundle));
             dialog.dismiss();
         } else {
-
             Toast.makeText(LanguageSelectTalkBackActivity.this, strCheckConnectivity, Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void showDeleteLangDialog(MaterialDialog dialog, View itemView, int which, CharSequence text, String strLangRemoved) {
+    private void showDeleteLangDialog(DialogInterface dialog, int which, String strLangRemoved) {
         String locale = LangMap.get(offlineLanguages[which]);
         File file = getBaseContext().getDir(locale, Context.MODE_PRIVATE);
         if (file.exists()) {

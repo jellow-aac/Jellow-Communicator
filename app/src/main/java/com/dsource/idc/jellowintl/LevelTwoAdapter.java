@@ -4,10 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +21,11 @@ import com.dsource.idc.jellowintl.factories.TextFactory;
 import com.dsource.idc.jellowintl.models.Icon;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
 import static android.content.Context.ACCESSIBILITY_SERVICE;
 import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
 import static com.dsource.idc.jellowintl.MainActivity.isNotchDevice;
@@ -33,7 +34,7 @@ import static com.dsource.idc.jellowintl.factories.PathFactory.getIconPath;
 /**
  * Created by Sumeet on 19-04-2016.
  */
-class LevelTwoAdapter extends android.support.v7.widget.RecyclerView.Adapter<LevelTwoAdapter.MyViewHolder> {
+class LevelTwoAdapter extends RecyclerView.Adapter<LevelTwoAdapter.MyViewHolder> {
     private Context mContext;
     private SessionManager mSession;
     private String[] icons;
@@ -88,6 +89,12 @@ class LevelTwoAdapter extends android.support.v7.widget.RecyclerView.Adapter<Lev
         glide.load(getIconPath(mContext, icons[position]))
                 .into(holder.menuItemImage);
         holder.menuItemLinearLayout.setContentDescription(mBelowTextArray[position]);
+        holder.menuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((LevelTwoActivity)mContext).tappedCategoryItemEvent(holder.menuItemLinearLayout, position);
+            }
+        });
     }
 
     @Override

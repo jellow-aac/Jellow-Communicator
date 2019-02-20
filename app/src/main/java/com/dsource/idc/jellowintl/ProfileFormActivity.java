@@ -13,8 +13,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -56,6 +54,8 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import se.simbio.encryption.Encryption;
 
 import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
