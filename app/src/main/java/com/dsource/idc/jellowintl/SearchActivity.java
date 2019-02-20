@@ -4,11 +4,6 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -18,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -35,6 +31,12 @@ import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
@@ -253,11 +255,13 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
         public TextView iconTitle;
         public TextView iconDir;
         public ImageView speakIcon;
+        public LinearLayout llSearchParent;
         public ViewHolder(View v) {
             super(v);
             iconImage =v.findViewById(R.id.search_icon_drawable);
             iconTitle = v.findViewById(R.id.search_icon_title);
             iconDir = v.findViewById(R.id.parent_directory);
+            llSearchParent = v.findViewById(R.id.llSearchParent);
             ViewCompat.setAccessibilityDelegate(v.findViewById(R.id.llSearchParent), new TalkbackHints_SingleClick());
             speakIcon=v.findViewById(R.id.speak_button);
             speakIcon.setOnClickListener(new View.OnClickListener() {
@@ -273,6 +277,7 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
                     bundleEvent("SearchBar", bundle);
                 }
             });
+            llSearchParent.setOnClickListener(this);
             v.setOnClickListener(this);
         }
 

@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.support.annotation.Nullable;
 
 import com.dsource.idc.jellowintl.factories.IconFactory;
 import com.dsource.idc.jellowintl.factories.LanguageFactory;
@@ -16,6 +15,8 @@ import com.dsource.idc.jellowintl.models.Icon;
 import com.dsource.idc.jellowintl.models.JellowIcon;
 
 import java.util.ArrayList;
+
+import androidx.annotation.Nullable;
 
 import static com.dsource.idc.jellowintl.factories.PathFactory.getIconDirectory;
 

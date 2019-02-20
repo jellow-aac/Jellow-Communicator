@@ -1,9 +1,10 @@
 package com.dsource.idc.jellowintl.TalkBack;
 
-import android.support.v4.view.AccessibilityDelegateCompat;
-import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
+
+import androidx.core.view.AccessibilityDelegateCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 
 public class TalkBackHints_EditText extends AccessibilityDelegateCompat {
     @Override

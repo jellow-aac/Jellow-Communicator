@@ -5,10 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +24,11 @@ import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.io.File;
 
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
 import static android.content.Context.ACCESSIBILITY_SERVICE;
 import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
 import static com.dsource.idc.jellowintl.MainActivity.isNotchDevice;
@@ -38,7 +39,7 @@ import static com.dsource.idc.jellowintl.factories.PathFactory.getJSONFile;
 /**
  * Created by ekalpa on 4/19/2016.
  */
-class MainActivityAdapter extends android.support.v7.widget.RecyclerView.Adapter<MainActivityAdapter.MyViewHolder> {
+class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapter.MyViewHolder> {
     private Context mContext;
     private SessionManager mSession;
     private String[] icons;
@@ -112,6 +113,12 @@ class MainActivityAdapter extends android.support.v7.widget.RecyclerView.Adapter
         }
 
         holder.menuItemLinearLayout.setContentDescription(mBelowTextArray[position]);
+        holder.menuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)mContext).tappedCategoryItemEvent(holder.menuItemLinearLayout, position);
+            }
+        });
     }
 
     @Override

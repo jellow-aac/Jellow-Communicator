@@ -18,9 +18,9 @@ import com.dsource.idc.jellowintl.R;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 
-public class KeyboardUtteranceDialogUtil {
+public class DialogKeyboardUtterance {
     private Context mContext;
-    public KeyboardUtteranceDialogUtil(Context context) {
+    public DialogKeyboardUtterance(Context context) {
         mContext = context;
     }
 

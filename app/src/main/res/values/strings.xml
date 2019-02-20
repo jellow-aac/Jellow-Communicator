@@ -355,7 +355,7 @@
     <string name="about_je_intro39">Topiwala National Medical College and B.Y.L Nair Charitable Hospital (Departments of Psychiatry and Audiology and Speech Therapy)</string>
 
     <string name="feedback_talkback_heading">On a scale of 1 to 5, please rate the following</string>
-    
+
     <!--Content description-->
     <string name="language_download_in_process">Language download in process</string>
     <string name="child_s_name">child\'s name. Required field</string>
@@ -366,7 +366,6 @@
     <string name="enter_caregiver_s_name">enter caregiver\'s name</string>
     <string name="enter_caregiver_s_email_address">enter caregiver\'s email address</string>
     <string name="email_address">email address</string>
-    <string name="please_wait_as_jellow_loads">please wait as jellow loads</string>
     <string name="category_cd">The image shows a screenshot of the home page of Jellow. The home page contains a central grid of 9 icons called category buttons that are arranged in 3 rows and 3 columns. The 9 category buttons are “Greet and feel”, “Daily activities”, “Eating”, “Fun”, “Learning”, “People”, “Places, “Time and weather”, and “Help”. Below the category buttons are 3 navigation buttons of “Back”, “Home” and “keyboard” arranged in that order at the bottom of the home screen. On the right and left sides of the central category icons are 3 expressive icons each. To the left of the central grid are 3 expressive buttons of “Like”, “Yes” and “More” arranged from top to bottom in that order. To the right of the central grid, are the remaining 3 expressive buttons of “Don’t like”, “No” and “Less” arranged from top to bottom. On the top right corner of the home screen is visible a settings icon. In this image the central grid of 9 icons has been highlighted with all other buttons faded out.</string>
     <string name="expressive_cd">This image again shows the screenshot of the home page of Jellow. In this image, the 6 expressive buttons arranged as 3 each of either side of the central category buttons have been highlighted with all other buttons faded out. To the left of the central grid of category buttons, arranged from top to bottom are the 3 expressive buttons of “Like” represented by a “Smiley face” icon, “Yes” represented by a “check mark” icon, and “More” represented by a “Plus sign” icon. To the right of the category buttons, arranged from top to bottom are the expressive icons of “Don’t like” represented by a sad face” icon, “No” represented by the, “cross” icon and “Less” represented by the, “Minus sign” icon. Also labeled in the image are the 3 navigational buttons at the bottom of the screen. From left to right these are “Back”, “Home”, and “Keyboard”.</string>
     <string name="pic4">This image has the home screen of Jellow with only 2 icons of “Eating” and “Yes” highlighted. The rest of the buttons are faded out. The image shows that to speak using Jellow, user has to first click on any category button, for instance, “Eating” and then on an expressive button, for example, “Yes”. In this way the user can speak using Jellow</string>
@@ -439,9 +438,9 @@
     <string name="step3">Step 3:</string>
     <string name="txt_intro8_txtTitle">Please follow the steps below to setup Text-to-speech engine</string>
     <string name="txt_actLangSel_completestep2">Voice data not available. Please turn on internet and complete Step 2</string>
-    <string name="error_in_registration">Registration process is failed, please retry.</string>
+    <string name="error_in_registration" translatable="false">Registration process is failed, please retry.</string>
     <string name="txtStep2">Step 2:</string>
-    <string name="retry">RETRY</string>
+    <string name="retry" translatable="false">RETRY</string>
     <string name="close">close dialog</string>
     <string name="access_dialog_title">dialog with options.</string>
 

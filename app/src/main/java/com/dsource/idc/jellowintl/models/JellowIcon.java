@@ -1,6 +1,6 @@
 package com.dsource.idc.jellowintl.models;
 
-import android.support.annotation.Keep;
+import androidx.annotation.Keep;
 
 public class JellowIcon {
     @Keep

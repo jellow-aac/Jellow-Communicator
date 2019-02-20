@@ -4,7 +4,6 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.util.Linkify;
 import android.view.Menu;
@@ -21,6 +20,8 @@ import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.dsource.idc.jellowintl.utility.SpeechUtils;
 
 import java.util.HashMap;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;

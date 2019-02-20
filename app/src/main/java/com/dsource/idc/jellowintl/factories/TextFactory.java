@@ -1,6 +1,5 @@
 package com.dsource.idc.jellowintl.factories;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.dsource.idc.jellowintl.models.ExpressiveIcon;
@@ -15,6 +14,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
 
 public class TextFactory {
 

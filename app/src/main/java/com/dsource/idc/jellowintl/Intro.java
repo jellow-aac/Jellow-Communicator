@@ -8,8 +8,6 @@ import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
@@ -30,6 +28,9 @@ import com.dsource.idc.jellowintl.utility.TextToSpeechErrorUtils;
 import com.github.paolorotolo.appintro.AppIntro;
 
 import java.util.Objects;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;

@@ -7,8 +7,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.Toast;
 
@@ -18,6 +16,9 @@ import com.dsource.idc.jellowintl.utility.DownloadManager;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import static com.dsource.idc.jellowintl.LanguageSelectActivity.FINISH;
 import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;

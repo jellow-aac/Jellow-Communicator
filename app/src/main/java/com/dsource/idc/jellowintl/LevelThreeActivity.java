@@ -11,12 +11,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.method.KeyListener;
 import android.util.Log;
 import android.view.Menu;
@@ -30,7 +24,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
@@ -45,9 +38,9 @@ import com.dsource.idc.jellowintl.models.MiscellaneousIcon;
 import com.dsource.idc.jellowintl.utility.CustomGridLayoutManager;
 import com.dsource.idc.jellowintl.utility.DataBaseHelper;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
+import com.dsource.idc.jellowintl.utility.DialogKeyboardUtterance;
 import com.dsource.idc.jellowintl.utility.IndexSorter;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
-import com.dsource.idc.jellowintl.utility.KeyboardUtteranceDialogUtil;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.dsource.idc.jellowintl.utility.SpeechUtils;
@@ -55,6 +48,13 @@ import com.dsource.idc.jellowintl.utility.UserEventCollector;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
 import static com.dsource.idc.jellowintl.MainActivity.isNotchDevice;
@@ -583,29 +583,13 @@ public class LevelThreeActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function initializes {@link RecyclerTouchListener} and
+     * <p>This function initializes
      * {@link RecyclerView.OnChildAttachStateChangeListener} for recycler view.
-     * {@link RecyclerTouchListener} is a custom defined Touch event scrollListener class.
      * {@link RecyclerView.OnChildAttachStateChangeListener} is defined to manage view state of
      * recycler child view. It is useful to retain current state of child, when recycler view is scrolled
      * and recycler child views are recycled for memory usage optimization.</p>
      * */
     private void initRecyclerViewListeners() {
-        mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(),
-                mRecyclerView, new RecyclerTouchListener.ClickListener() {
-            @Override
-            public void onClick(final View view, final int position) {
-                LinearLayout menuItemLinearLayout = view.findViewById(R.id.linearlayout_icon1);
-                menuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        tappedCategoryItemEvent(view, v, position);
-                    }
-                });
-            }
-            @Override public void onLongClick(View view, int position) {}
-        }));
-
         // When user scrolls into category, the child views are attached and detached from
         // recycler view. Also, the child views in recycler view have scrolled
         // off-screen are kept for reuse. Many times the reused view is assigned to
@@ -766,7 +750,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                 //Firebase event
                 singleEvent("Navigation", "Keyboard");
                 if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                    new KeyboardUtteranceDialogUtil(LevelThreeActivity.this).show();
+                    new DialogKeyboardUtterance(LevelThreeActivity.this).show();
                 } else {
                     speakSpeech(mNavigationBtnTxt[2]);
                     mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
@@ -1339,7 +1323,6 @@ public class LevelThreeActivity extends AppCompatActivity {
      * <p>This function is called when user taps a category icon. It will change the state of
      * category icon pressed. Also, it set the flag for app speak full verbiage sentence.
      * @param view is parent view in selected RecyclerView.
-     * @param v is parent relative layout of category icon tapped.
      * @param position is position of a tapped category icon in the RecyclerView.
      * This function
      *             a) Clear every expressive button flags
@@ -1348,7 +1331,7 @@ public class LevelThreeActivity extends AppCompatActivity {
      *             d) Set the border to selected category icon
      *             e) Increment preference mArrIconTapCount of tapped category icon.</p>
      * */
-    public void tappedCategoryItemEvent(View view, View v, int position) {
+    public void tappedCategoryItemEvent(View view, int position) {
         mFlgLike = mFlgYes = mFlgMore = mFlgDntLike = mFlgNo = mFlgLess = 0;
         // Clear the last expressive button selection. Set each expressive button to unpressed.
         resetExpressiveButtons(-1);
@@ -1356,7 +1339,7 @@ public class LevelThreeActivity extends AppCompatActivity {
         resetRecyclerAllItems();
         mActionBtnClickCount = 0;
         // set border to selected category icon
-        setMenuImageBorder(v, true);
+        setMenuImageBorder(view, true);
         // set true to speak verbiage associated with category icon
         mShouldReadFullSpeech = true;
         mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
@@ -1464,8 +1447,10 @@ public class LevelThreeActivity extends AppCompatActivity {
             if (tmp == 0) {
                 mIvNo.setAlpha(0.5f);
                 mIvNo.setEnabled(false);
+                mIvNo.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
                 mIvYes.setAlpha(1f);
                 mIvYes.setEnabled(true);
+                mIvYes.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
                 // if in feeling category icon having index (default position in recycler view)
                 // "tmp" = 1 (Sad), 2 (Angry), 3 (Afraid), 5 (Irritated)
                 //         6 (Confused), 7 (Ashamed), 8 (Disappointed),
@@ -1477,8 +1462,10 @@ public class LevelThreeActivity extends AppCompatActivity {
                     tmp == 16) {
                 mIvYes.setAlpha(0.5f);
                 mIvYes.setEnabled(false);
+                mIvYes.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
                 mIvNo.setAlpha(1f);
                 mIvNo.setEnabled(true);
+                mIvNo.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
                 // if in feeling category icon having index (default position in recycler view)
                 // other than "tmp" enable all expressive buttons
             } else
@@ -1794,6 +1781,12 @@ public class LevelThreeActivity extends AppCompatActivity {
             mIvNo.setEnabled(false);
             mIvMore.setEnabled(false);
             mIvLess.setEnabled(false);
+            mIvLike.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+            mIvDontLike.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+            mIvYes.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+            mIvNo.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+            mIvMore.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+            mIvLess.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
         }else{
             mIvLike.setAlpha(1f);
             mIvDontLike.setAlpha(1f);
@@ -1807,6 +1800,12 @@ public class LevelThreeActivity extends AppCompatActivity {
             mIvNo.setEnabled(true);
             mIvMore.setEnabled(true);
             mIvLess.setEnabled(true);
+            mIvLike.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
+            mIvDontLike.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
+            mIvYes.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
+            mIvNo.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
+            mIvMore.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
+            mIvLess.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
         }
     }
 

@@ -7,6 +7,8 @@ import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.FirebaseDatabase;
 
+import androidx.multidex.MultiDex;
+
 /**.
  * Created by ekalpa on 8/19/2016.
  */
@@ -31,5 +33,6 @@ public class AppController extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(LanguageHelper.onAttach(base));
+        MultiDex.install(this);
     }
 }
