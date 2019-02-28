@@ -1,6 +1,24 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+##[2.0]
+
+
+##[1.3.2-rc3]
+- Fixed the issue. The Model classes not able to serialize the json data on release build. Added the the annotation (@SerializedName(""))for every data variable in model class. 
+
+##[1.3.1-rc2]
+- Addition of Switch accessibility (Supports one switch, two switch with linear scanning or group scanning method).
+- Addition in number of icons per screen setting. Now, user can set one, two, four icons per screen also.
+- Addition of two new icons in Fun -> Indoor games:
+ 1) Play-doh
+ 2) Bubble
+- Internal icon loading process now uses json data from Firebase. The icon and json files are bundled together in language package.
+- Moved code base from support library to androidx library.
+- Added Multidex support.
+- Removed dialog library com.afollestad.material-dialogs. Now app uses native material dialog when downloading a language and deleting a language.
+- Removed xml data files from values folder.  
+
 ##[1.2.5]  - 27, December 2018
 - Addition of Visual accessibility (TalkBack support).
 - Addition of new language: English (Australia)

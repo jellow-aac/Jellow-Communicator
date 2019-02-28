@@ -51,6 +51,9 @@
     <dimen name="threeIcon_textSize">12sp</dimen>
 
     <!--4 icons configuration-->
+    <!--Below custom_wrap_content property will ge used only for 720dp resources-->
+    <item name="custom_wrap_content" format="integer" type="dimen">-2</item>
+
     <dimen name="fourIcon_parentVertical">6dp</dimen>
     <dimen name="fourIcon_width">94dp</dimen>
     <dimen name="fourIcon_textWidth">112dp</dimen>

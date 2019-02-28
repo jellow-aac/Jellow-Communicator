@@ -1,7 +1,9 @@
 package com.dsource.idc.jellowintl.models;
 
-public class MiscellaneousIcon {
+import com.google.gson.annotations.SerializedName;
 
+public class MiscellaneousIcon {
+    @SerializedName("Title")
     private String Title;
 
     public String getTitle() {

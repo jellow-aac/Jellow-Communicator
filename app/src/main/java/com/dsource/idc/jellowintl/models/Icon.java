@@ -1,5 +1,7 @@
 package com.dsource.idc.jellowintl.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Icon {
 
     /**
@@ -16,21 +18,35 @@ public class Icon {
      S - Less
      SS - Really Less
      */
-    
+    @SerializedName("Display_Label")
     private String Display_Label;
+    @SerializedName("Speech_Label")
     private String Speech_Label;
+    @SerializedName("Event_Tag")
     private String Event_Tag;
+    @SerializedName("L")
     private String L;
+    @SerializedName("LL")
     private String LL;
+    @SerializedName("Y")
     private String Y;
+    @SerializedName("YY")
     private String YY;
+    @SerializedName("M")
     private String M;
+    @SerializedName("MM")
     private String MM;
+    @SerializedName("D")
     private String D;
+    @SerializedName("DD")
     private String DD;
+    @SerializedName("N")
     private String N;
+    @SerializedName("NN")
     private String NN;
+    @SerializedName("S")
     private String S;
+    @SerializedName("SS")
     private String SS;
 
     public String getDisplay_Label() {

@@ -1,8 +1,11 @@
 package com.dsource.idc.jellowintl.models;
 
-public class SeqNavigationButton {
+import com.google.gson.annotations.SerializedName;
 
+public class SeqNavigationButton {
+    @SerializedName("Display_Label")
     private String Display_Label;
+    @SerializedName("Speech_Label")
     private String Speech_Label;
 
     public String getDisplay_Label() {

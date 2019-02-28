@@ -1,9 +1,14 @@
 package com.dsource.idc.jellowintl.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class ExpressiveIcon {
 
+    @SerializedName("L")
     private String L;
+    @SerializedName("LL")
     private String LL;
+    @SerializedName("Title")
     private String Title;
 
     public String getL() {

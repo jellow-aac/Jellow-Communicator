@@ -38,12 +38,13 @@ public class AboutJellowActivity extends AppCompatActivity {
     private Button mBtnSpeak, mBtnStop;
     private TextView tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8, tv9, tv10, tv11, tv12, tv13, tv14, tv15, tv16,
             tv17, tv18, tv19, tv20, tv21, tv22, tv23, tv24, tv25, tv26, tv27, tv28, tv29, tv30, tv31,
-            tv32, tv33, tv34, tv35, tv36, tv37;
+            tv32, tv33, tv34, tv35, tv36, tv37, tv38, tv39, tv40, tv41;
     private String mSpeechTxt, mGenInfo, mSoftInfo, mTermofUse, mCredits,
             mAppLink, mIntro1, mIntro2, mIntro3, mIntro4, mIntro5, mIntro6, mIntro7, mIntro8,
             mIntro9, mIntro10, mIntro11, mIntro12, mIntro13, mIntro14, mIntro15, mIntro16, mIntro17,
             mIntro18, mIntro19, mIntro20, mIntro21, mIntro22, mIntro23, mIntro24, mIntro25, mIntro26,
-            mIntro27, mIntro28, mIntro29, mIntro30, mIntro31, mIntro32, mSpeak, mStop;
+            mIntro27, mIntro28, mIntro29, mIntro30, mIntro31, mIntro32, mIntro33, mIntro34, mIntro35,
+            mIntro36, mSpeak, mStop, visualAccesLink;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -213,6 +214,10 @@ public class AboutJellowActivity extends AppCompatActivity {
         tv35= findViewById(R.id.tv35);
         tv36= findViewById(R.id.tv36);
         tv37= findViewById(R.id.tv37);
+        tv38= findViewById(R.id.tv40);
+        tv39= findViewById(R.id.tv41);
+        tv40= findViewById(R.id.tv42);
+        tv41= findViewById(R.id.tv43);
         mBtnSpeak = findViewById(R.id.speak);
         mBtnStop = findViewById(R.id.stop);
 
@@ -267,9 +272,15 @@ public class AboutJellowActivity extends AppCompatActivity {
         mIntro29 = getString(R.string.about_je_intro29);
         mIntro30 = getString(R.string.about_je_intro30);
         mIntro31 = getString(R.string.about_je_intro31);
-        mIntro32 = getString(R.string.about_je_intro32);
         mSpeak = getString(R.string.speak);
         mStop = getString(R.string.stop);
+        mIntro32 = getString(R.string.about_je_intro32);
+        mIntro33 = getString(R.string.about_je_serial_keyboard_title);
+        mIntro34 = getString(R.string.about_je_serial_keyboard_info);
+        mIntro35 = getString(R.string.about_je_visual_access_title);
+        visualAccesLink = getString(R.string.about_je_visual_access_link);
+        mIntro36 = getString(R.string.about_je_visual_acesss_info).
+                concat(" " + visualAccesLink);
 
         mSpeechTxt = getString(R.string.about_jellow_speech);
         if(session.getLanguage().equals(HI_IN))
@@ -372,6 +383,15 @@ public class AboutJellowActivity extends AppCompatActivity {
         tv31.setText(mIntro28);
         tv32.setText(mIntro29);
         tv33.setText(mIntro30);
+        tv35.setText(mIntro6);
+        tv36.setText(mIntro31);
+        tv37.setText(mIntro32);
+        mBtnSpeak.setText(mSpeak);
+        mBtnStop.setText(mStop);
+        tv38.setText(mIntro33);
+        tv39.setText(mIntro34);
+        tv40.setText(mIntro35);
+        tv41.setText(mIntro36);
         if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
             mIntro13 = mIntro13.concat(" "+ mAppLink);
             tv15.setText(mIntro13);
@@ -379,12 +399,8 @@ public class AboutJellowActivity extends AppCompatActivity {
         }else {
             tv34.setText(mAppLink);
             Linkify.addLinks(tv16, Linkify.EMAIL_ADDRESSES);
+            Linkify.addLinks(tv41, Linkify.WEB_URLS);
         }
-        tv35.setText(mIntro6);
-        tv36.setText(mIntro31);
-        tv37.setText(mIntro32);
-        mBtnSpeak.setText(mSpeak);
-        mBtnStop.setText(mStop);
     }
 
     /**
