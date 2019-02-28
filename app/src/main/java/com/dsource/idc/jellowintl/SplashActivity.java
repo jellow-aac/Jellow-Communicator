@@ -46,11 +46,13 @@ import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.setCrashlyticsCustomKey;
 import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
+import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_AU;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_UK;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_US;
 import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
 
 /**
  * Created by ekalpa on 7/12/2016.
@@ -268,6 +270,10 @@ public class SplashActivity extends AppCompatActivity {
             lang.add(ENG_UK);
         if(mSession.isDownloaded(HI_IN))
             lang.add(HI_IN);
+        if(mSession.isDownloaded(MR_IN))
+            lang.add(MR_IN);
+        if(mSession.isDownloaded(BN_IN))
+            lang.add(BN_IN);
         return lang.toArray(new String[lang.size()]);
     }
 }
