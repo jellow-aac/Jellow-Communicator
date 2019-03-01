@@ -2,11 +2,18 @@ package com.dsource.idc.jellowboard.makemyboard.utility;
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.dsource.idc.jellowboard.makemyboard.MyBoards;
 import com.dsource.idc.jellowboard.makemyboard.utility.IconDatabase;
 import com.dsource.idc.jellowboard.utility.JellowIcon;
+import com.dsource.idc.jellowboard.utility.SessionManager;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 /**
@@ -22,7 +29,7 @@ public class UtilFunctions {
      * @param iconList
      * @return
      */
-    public boolean getSelection(ArrayList<JellowIcon> selectedList,ArrayList<JellowIcon> iconList)
+    public static boolean getSelection(ArrayList<JellowIcon> selectedList,ArrayList<JellowIcon> iconList)
     {
         boolean isOkay=true;
         //return  false if selected icon list is shorter than icon list
@@ -44,7 +51,7 @@ public class UtilFunctions {
      * @param list
      * @return boolean
      */
-    public boolean listContainsIcon(JellowIcon icon, ArrayList<JellowIcon> list)
+    public static boolean listContainsIcon(JellowIcon icon, ArrayList<JellowIcon> list)
     {
         boolean present=false;
         for(int i=0;i<list.size();i++)
@@ -53,81 +60,47 @@ public class UtilFunctions {
         Log.d("Selection: ","Present "+present);
         return present;
     }
+    public static void storeImageToStorage(Bitmap bitmap, String fileID,Context context) {
+        FileOutputStream fos;
+        File en_dir = context.getDir(SessionManager.ENG_IN, Context.MODE_PRIVATE);
+        String path = en_dir.getAbsolutePath() + "/boardicon";
+        String status = Environment.getExternalStorageState();
+        if (status.equals(Environment.MEDIA_MOUNTED)) {
+            File root = new File(path);
+            if (!root.exists()) {
+                //noinspection ResultOfMethodCallIgnored
+                root.mkdirs();
+            }
+            File file = new File(root, fileID+ ".png");
 
-    /**
-     * Here I am using SQL to sort the list
-     * @param list
-     * @param Level
-     * @param context
-     * @return
-     */
-    public ArrayList<JellowIcon>sortUsingSQL(ArrayList<JellowIcon> list, int Level, Context context)
-    {
-        ArrayList<JellowIcon> levelList=new IconDatabase(context).myBoardQuery(Level,-1);
-        ArrayList<JellowIcon> sortedList=new ArrayList<>();
-        for(int i=0;i<levelList.size();i++)
-        {
-            if(listContainsIcon(levelList.get(i),list))
-                sortedList.add(levelList.get(i));
-
-            if(sortedList.size()==list.size())
-                break;
+            try {
+                if(file.exists())
+                {
+                    //noinspection ResultOfMethodCallIgnored
+                    file.delete();//Delete the previous image if image is a replace
+                    file = new File(root,fileID+".png");
+                }
+                fos = new FileOutputStream(file);
+                bitmap.compress(Bitmap.CompressFormat.PNG, 70, fos);
+                fos.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-
-       return sortedList;
     }
 
-    /**
-     * Here using SQL to sort the list
-     * @param list
-     * @param context
-     * @return
-     */
-    public ArrayList<JellowIcon>sortUsingSQL(ArrayList<JellowIcon> list, Context context)
-    {
-        ArrayList<JellowIcon> levelList=new IconDatabase(context).getAllIcons();
-        ArrayList<JellowIcon> sortedList=new ArrayList<>();
-        for(int i=0;i<levelList.size();i++)
-        {
-            if(listContainsIcon(levelList.get(i),list))
-                sortedList.add(levelList.get(i));
-
-            if(sortedList.size()==list.size())
-                break;
+    public static void deleteImageFromStorage(String fileID,Context context) {
+        File en_dir = context.getDir(SessionManager.ENG_IN, Context.MODE_PRIVATE);
+        String path = en_dir.getAbsolutePath() + "/boardicon";
+        String status = Environment.getExternalStorageState();
+        if (status.equals(Environment.MEDIA_MOUNTED)) {
+            File root = new File(path);
+            File file = new File(root, fileID+ ".png");
+            if(file.exists())
+                //noinspection ResultOfMethodCallIgnored
+                file.delete();//Delete the previous image
         }
 
-        return sortedList;
-    }
-
-    /**
-     * This functions returns the list of second level parents, even if the level two parents are not selected but the level three of that icon is selected.
-     * @param populatedList Current populated list
-     * @param parent_1_pos  Level 1 parent
-     * @param mContext Context
-     * @return a list of level second elements.
-     */
-    public static ArrayList<JellowIcon> getLevelTwoIcons(ArrayList<JellowIcon> populatedList, int parent_1_pos,Context mContext)
-    {
-        ArrayList<JellowIcon> finalList=new ArrayList<>();
-        ArrayList<Integer> level2IconPresent=new ArrayList<>();
-
-        for(int i=0;i<populatedList.size();i++)
-        {
-            Log.d("LEVEL_2","Level two Icon: "+populatedList.get(i).parent1);
-            int par=populatedList.get(i).parent1;
-            if(level2IconPresent.indexOf(par)==-1)
-                level2IconPresent.add(par);
-        }
-        IconDatabase data=new IconDatabase(mContext);
-
-        for(int i=0;i<level2IconPresent.size();i++)
-        {
-            Log.d("LEVEL_2","Icon: "+data.fetchIcon(parent_1_pos,level2IconPresent.get(i),-1));
-            JellowIcon icon=data.fetchIcon(parent_1_pos,level2IconPresent.get(i),-1);
-            if(icon.parent1!=-1)
-                finalList.add(icon);
-        }
-        return finalList;
     }
 
 

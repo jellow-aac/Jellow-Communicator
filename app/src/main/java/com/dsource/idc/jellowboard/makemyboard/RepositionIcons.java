@@ -25,6 +25,7 @@ import com.dsource.idc.jellowboard.makemyboard.adapters.RepositionIconAdapter;
 import com.dsource.idc.jellowboard.makemyboard.interfaces.onRecyclerItemClick;
 import com.dsource.idc.jellowboard.makemyboard.models.Board;
 import com.dsource.idc.jellowboard.makemyboard.models.DataProvider;
+import com.dsource.idc.jellowboard.makemyboard.utility.SaveBoardOnline;
 import com.dsource.idc.jellowboard.utility.CustomGridLayoutManager;
 import com.dsource.idc.jellowboard.utility.JellowIcon;
 import com.dsource.idc.jellowboard.utility.SessionManager;
@@ -189,6 +190,15 @@ public class RepositionIcons extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 currentBoard.setBoardCompleted();
+
+                new SaveBoardOnline(new SessionManager(RepositionIcons.this).getCaregiverNumber())
+                        .upload(currentBoard, new SaveBoardOnline.onUploadedListener() {
+                    @Override
+                    public void onUploadComplete(int code, String msg) {
+                        if(code==1) ;
+                        else ;
+                    }
+                });
                 database.updateBoardIntoDatabase(currentBoard);
                 Intent intent =new Intent(RepositionIcons.this,Home.class);
                 intent.putExtra(BOARD_ID,boardId);

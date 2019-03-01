@@ -1,7 +1,6 @@
 package com.dsource.idc.jellowboard.makemyboard;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -9,7 +8,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -36,27 +34,19 @@ import com.dsource.idc.jellowboard.makemyboard.models.IconModel;
 import com.dsource.idc.jellowboard.makemyboard.utility.ModelManager;
 import com.dsource.idc.jellowboard.makemyboard.utility.VerbiageEditor;
 import com.dsource.idc.jellowboard.utility.JellowIcon;
-import com.dsource.idc.jellowboard.utility.SessionManager;
 import com.dsource.idc.jellowboard.verbiage_model.JellowVerbiageModel;
 import com.dsource.idc.jellowboard.verbiage_model.VerbiageDatabaseHelper;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import static com.dsource.idc.jellowboard.makemyboard.adapters.IconSelectorAdapter.ADD_EDIT_ICON_MODE;
-import static com.dsource.idc.jellowboard.makemyboard.adapters.IconSelectorAdapter.EDIT_ICON_MODE;
-import static com.dsource.idc.jellowboard.makemyboard.MyBoards.BOARD_ID;
-import static com.dsource.idc.jellowboard.makemyboard.MyBoards.CAMERA_REQUEST;
-import static com.dsource.idc.jellowboard.makemyboard.MyBoards.LIBRARY_REQUEST;
+import static com.dsource.idc.jellowboard.makemyboard.utility.BoardConstants.*;
+import static com.dsource.idc.jellowboard.makemyboard.utility.UtilFunctions.deleteImageFromStorage;
+import static com.dsource.idc.jellowboard.makemyboard.utility.UtilFunctions.storeImageToStorage;
 
 public class AddEditIconAndCategory extends AppCompatActivity implements View.OnClickListener {
 
-    private static final int ADD_CATEGORY = 212;
-    private static final int ADD_ICON = 210;
-    private static final int EDIT_ICON = 211;
     private String boardId;
     private BoardDatabase database;
     private Board currentBoard;
@@ -80,12 +70,12 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_icon_select);
-        if(getSupportActionBar()!=null)
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#333333'>"+"Add/Edit Icons"+"</font>"));
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_button_board);
-
-        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_background));
+        if(getSupportActionBar()!=null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(Html.fromHtml("<font color='#333333'>" + "Add/Edit Icons" + "</font>"));
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_button_board);
+            getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_background));
+        }
         verbiageDatbase = new VerbiageDatabaseHelper(this);
 
         try{
@@ -224,6 +214,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
                 }
             }
         });
+        if(categoryRecycler.getLayoutManager()!=null)
         categoryRecycler.getLayoutManager().smoothScrollToPosition(categoryRecycler,null,(categories.size()-1));
         prepareIconPane(categoryAdapter.selectedPosition,currentMode);
 
@@ -264,7 +255,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
                         //Don't use local scope name and bitmap because they are null
                         saveEditedIcon(name,bitmap,parent1,parent2,parent3, verbiageList);
                         if (thisIcon.isCustomIcon())
-                            deleteImageFromStorage(thisIcon.IconDrawable);
+                            deleteImageFromStorage(thisIcon.IconDrawable,AddEditIconAndCategory.this);
                     }
 
                     @Override
@@ -310,7 +301,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
     private void saveEditedIcon(String name, Bitmap bitmapArray, int p1, int p2, int p3, JellowVerbiageModel verbiage) {
         int id  = (int)Calendar.getInstance().getTime().getTime();
         JellowIcon icon = new JellowIcon(name,id+"",-1,-1,id);
-        storeImageToStorage(bitmapArray,id+"");
+        storeImageToStorage(bitmapArray,id+"",this);
         if(p2==-1&&p3==-1)//if level one icon is being edited.
             boardModel.getChildren().get(p1).setIcon(icon);
         else if(p3==-10)//If level two icon is being edited
@@ -332,9 +323,6 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         int gridSize=6;
         if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
             gridSize=8;
-        }
-        else if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_NORMAL) {
-            gridSize=6;
         }
         else if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_SMALL) {
             gridSize=4;
@@ -439,7 +427,7 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
     private void addNewCategory(String name, Bitmap bitmap,JellowVerbiageModel verbiage) {
         int id  = (int)Calendar.getInstance().getTime().getTime();
         JellowIcon icon = new JellowIcon(name,""+id,-1,-1,id);
-        storeImageToStorage(bitmap,id+"");
+        storeImageToStorage(bitmap,id+"",this);
         boardModel.addChild(icon);
         categoryManager = new CategoryManager(boardModel);
         categories = categoryManager.getAllCategories();
@@ -460,8 +448,9 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
     private void addNewIcon(String name, Bitmap bitmap, int selectedPosition,JellowVerbiageModel verbiage) {
         int id  = (int)Calendar.getInstance().getTime().getTime();
         JellowIcon icon = new JellowIcon(name,id+"",-1,-1,id);
-        storeImageToStorage(bitmap,id+"");
+        storeImageToStorage(bitmap,id+"",this);
         boardModel.getChildren().get(selectedPosition).addChild(icon);
+        if(iconRecycler.getLayoutManager()!=null)
         iconRecycler.getLayoutManager().smoothScrollToPosition(iconRecycler,null,(boardModel.getChildren().get(selectedPosition).getChildren().size()-1));
         categoryManager = new CategoryManager(boardModel);
         prepareIconPane(selectedPosition,ADD_EDIT_ICON_MODE);
@@ -469,51 +458,6 @@ public class AddEditIconAndCategory extends AppCompatActivity implements View.On
         currentBoard.setBoardIconModel(modelManager.getModel());
         verbiageDatbase.addNewVerbiage(icon.IconDrawable,verbiage);
         currentBoard.addCustomIconID(id+"");
-    }
-
-    /**
-     * To store the bitmap Image into local storage
-     * @param bitmap image to be stored
-     * @param fileID id of the targetImage
-     */
-    @SuppressWarnings("ResultOfMethodCallIgnored")
-    public void storeImageToStorage(Bitmap bitmap, String fileID) {
-        FileOutputStream fos;
-        File en_dir = this.getDir(SessionManager.ENG_IN, Context.MODE_PRIVATE);
-        String path = en_dir.getAbsolutePath() + "/boardicon";
-        String status = Environment.getExternalStorageState();
-        if (status.equals(Environment.MEDIA_MOUNTED)) {
-            File root = new File(path);
-            if (!root.exists()) {
-                root.mkdirs();
-            }
-            File file = new File(root, fileID + ".png");
-
-            try {
-                if (file.exists()) {
-                    file.delete();//Delete the previous image if image is a replace
-                    file = new File(root, fileID + ".png");
-                }
-                fos = new FileOutputStream(file);
-                bitmap.compress(Bitmap.CompressFormat.PNG, 70, fos);
-                fos.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    public void deleteImageFromStorage(String fileID) {
-        File en_dir = this.getDir(SessionManager.ENG_IN, Context.MODE_PRIVATE);
-        String path = en_dir.getAbsolutePath() + "/boardicon";
-        String status = Environment.getExternalStorageState();
-        if (status.equals(Environment.MEDIA_MOUNTED)) {
-            File root = new File(path);
-            File file = new File(root, fileID+ ".png");
-            if(file.exists())
-                //noinspection ResultOfMethodCallIgnored
-                file.delete();//Delete the previous image
-        }
-
     }
 
     private boolean checkPermissionForStorageRead() {

@@ -17,25 +17,25 @@ public class ModelManager {
     private ArrayList<JellowIcon> levelTwoIcons;
     private ArrayList<JellowIcon> levelThreeIcons;
     @Keep public IconModel parentNode;
-    private Context context;
+    private BoardDatabase boardDatabase;
 
     @Keep
     public ModelManager(ArrayList<JellowIcon> mailIconList, Context context)
     {
         this.mailIconList = mailIconList;
-        this.context=context;
         levelOneIcons=new ArrayList<>();
         levelOneIndex=new ArrayList<>();
         levelTwoIcons=new ArrayList<>();
         levelThreeIcons=new ArrayList<>();
         parentNode=new IconModel(new JellowIcon("","",-1,-1,-1));
+        boardDatabase = new BoardDatabase(context);
         prepareLevels();
         prepareModel();
         refreshModel();
     }
     @Keep public ModelManager(Context context,IconModel parentNode)
     {
-        this.context=context;
+        boardDatabase = new BoardDatabase(context);
         this.parentNode=parentNode;
     }
     @Keep public ArrayList<JellowIcon> getAllIconsOfModel(){
@@ -213,7 +213,7 @@ public class ModelManager {
         if(updated)
         {
             board.setBoardIconModel(parentNode);
-            new BoardDatabase(context).updateBoardIntoDatabase(board);
+            boardDatabase.updateBoardIntoDatabase(board);
         }
         refreshModel();
 
@@ -333,7 +333,7 @@ public class ModelManager {
                     parentNode.getChildren().add(IconToMove);
                 }
                 board.setBoardIconModel(parentNode);
-                new BoardDatabase(context).updateBoardIntoDatabase(board);
+                boardDatabase.updateBoardIntoDatabase(board);
             }
             refreshModel();
 
@@ -464,7 +464,7 @@ public class ModelManager {
             }
 
             board.setBoardIconModel(parentNode);
-            new BoardDatabase(context).updateBoardIntoDatabase(board);
+            boardDatabase.updateBoardIntoDatabase(board);
             return true;
         }
         refreshModel();

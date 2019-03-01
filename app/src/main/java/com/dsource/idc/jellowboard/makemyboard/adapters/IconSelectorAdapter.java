@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.dsource.idc.jellowboard.GlideApp;
@@ -19,10 +17,10 @@ import com.dsource.idc.jellowboard.R;
 import com.dsource.idc.jellowboard.makemyboard.IconSelectActivity;
 import com.dsource.idc.jellowboard.utility.JellowIcon;
 import com.dsource.idc.jellowboard.utility.SessionManager;
-
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
+
+import static com.dsource.idc.jellowboard.makemyboard.utility.BoardConstants.*;
 
 public class IconSelectorAdapter extends RecyclerView.Adapter<IconSelectorAdapter.ViewHolder>{
 
@@ -30,9 +28,6 @@ public class IconSelectorAdapter extends RecyclerView.Adapter<IconSelectorAdapte
     // private LayoutInflater mInflater;
     private ArrayList<JellowIcon> mDataSource;
     IconSelectorAdapter.OnItemClickListener mItemClickListener;
-    public static final int ICON_SELECT_MODE = 111;
-    public static final int ADD_EDIT_ICON_MODE = 222;
-    public static final int EDIT_ICON_MODE = 333;
     public int mode;
     private IconSelectActivity activity;
     private OnIconEditListener mIconEditListener;

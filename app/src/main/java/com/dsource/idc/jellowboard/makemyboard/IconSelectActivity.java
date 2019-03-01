@@ -42,31 +42,31 @@ import com.dsource.idc.jellowboard.utility.LanguageHelper;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import static com.dsource.idc.jellowboard.makemyboard.MyBoards.IS_EDIT_MODE;
+import static com.dsource.idc.jellowboard.makemyboard.utility.BoardConstants.*;
 
 public class IconSelectActivity extends AppCompatActivity {
 
-    private static final int SEARCH_CODE = 121;
+    //Private Constants, to be used inside this class only
     private static final String LIST_OF_ICON = "selected_icon_list";
     private static final String CURRENT_POSITION = "current_postion";
-    RecyclerView levelSelecterRecycler;
-    RecyclerView iconRecycler;
-    IconSelectorAdapter iconSelectorAdapter;
-    ArrayList<JellowIcon> iconList;
-    ListView dropDown;
-    ArrayList<String> dropDownList;
+
+    private RecyclerView levelSelectorRecycler;
+    private RecyclerView iconRecycler;
+    private IconSelectorAdapter iconSelectorAdapter;
+    private ArrayList<JellowIcon> iconList;
+    private ListView dropDown;
+    private ArrayList<String> dropDownList;
     public ArrayList<JellowIcon> selectedIconList;
-    LevelSelectorAdapter levelSelectorAdapter;
-    CheckBox selectionCheckBox;
+    private LevelSelectorAdapter levelSelectorAdapter;
+    private CheckBox selectionCheckBox;
     int previousSelection=0;
-    UtilFunctions utilF;
-    String boardId;
-    public static final String BOARD_ID="Board_Id";
+    private String boardId;
     private Button nextButton;
     private Button resetButton;
     private RecyclerView.OnScrollListener scrollListener;
     private boolean isEditMode =false;
     private Board currentBoard;
+    private BoardDatabase boardDatabase;
 
 
     @Override
@@ -94,9 +94,9 @@ public class IconSelectActivity extends AppCompatActivity {
         else {
             selectedIconList=new ArrayList<>();
         }
-        currentBoard = new BoardDatabase(this).getBoardById(boardId);
+        boardDatabase = new BoardDatabase(this);
+        currentBoard = boardDatabase.getBoardById(boardId);
         ((TextView)(findViewById(R.id.icon_count))).setText("("+selectedIconList.size()+")");
-        utilF=new UtilFunctions();
         selectionCheckBox=findViewById(R.id.select_deselect_check_box);
         if(getSupportActionBar()!=null)
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -119,28 +119,30 @@ public class IconSelectActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final BoardDatabase database=new BoardDatabase(IconSelectActivity.this);
-                final Board board=database.getBoardById(boardId);
+                final Board board=boardDatabase.getBoardById(boardId);
                 if (board != null&&!isEditMode) {
                     board.setBoardIconModel(
                             new ModelManager(sortList(selectedIconList),IconSelectActivity.this).
                                     getModel());
-                    database.updateBoardIntoDatabase(board);
+                    boardDatabase.updateBoardIntoDatabase(board);
                     Intent intent =new Intent(IconSelectActivity.this,AddEditIconAndCategory.class);
                     intent.putExtra(BOARD_ID,boardId);
                     startActivity(intent);
                     finish();
+                    boardDatabase.close();
                 }
                 else if(isEditMode){
                     IconModel newModel = new ModelManager(sortList(selectedIconList),IconSelectActivity.this).getModel();
                     IconModel currentBoardModel = currentBoard.getBoardIconModel();
                     currentBoardModel.appendNewModelToPrevious(newModel);
                     currentBoard.setBoardIconModel(currentBoardModel);
-                    database.updateBoardIntoDatabase(currentBoard);
+                    boardDatabase.updateBoardIntoDatabase(currentBoard);
                     Intent intent =new Intent(IconSelectActivity.this,AddEditIconAndCategory.class);
                     intent.putExtra(BOARD_ID,boardId);
                     startActivity(intent);
                     finish();
+                    boardDatabase.close();
+
                 }
                 else Toast.makeText(IconSelectActivity.this,"Some error occurred",Toast.LENGTH_LONG).show();
             }
@@ -251,8 +253,8 @@ public class IconSelectActivity extends AppCompatActivity {
         dropDown= findViewById(R.id.filter_menu);
         iconRecycler.setLayoutManager(new CustomGridLayoutManager(this,gridSize(),9));
         iconRecycler.setAdapter(iconSelectorAdapter);
-        levelSelecterRecycler=findViewById(R.id.level_select_pane_recycler);
-        levelSelecterRecycler.setLayoutManager(new LinearLayoutManager(this));
+        levelSelectorRecycler =findViewById(R.id.level_select_pane_recycler);
+        levelSelectorRecycler.setLayoutManager(new LinearLayoutManager(this));
         resetButton = findViewById(R.id.reset_selection);
         if(selectedIconList.size()<1) {
             resetButton.setEnabled(false);
@@ -313,7 +315,7 @@ public class IconSelectActivity extends AppCompatActivity {
             iconSelectorAdapter = new IconSelectorAdapter(this, iconList, IconSelectorAdapter.ADD_EDIT_ICON_MODE);
             iconRecycler.setAdapter(iconSelectorAdapter);
             iconSelectorAdapter.notifyDataSetChanged();
-            selectionCheckBox.setChecked(utilF.getSelection(selectedIconList, iconList));
+            selectionCheckBox.setChecked(UtilFunctions.getSelection(selectedIconList, iconList));
             iconSelectorAdapter.setOnItemClickListner(new IconSelectorAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position, boolean checked) {
@@ -330,7 +332,7 @@ public class IconSelectActivity extends AppCompatActivity {
             iconSelectorAdapter = new IconSelectorAdapter(this, iconList, IconSelectorAdapter.ICON_SELECT_MODE);
             iconRecycler.setAdapter(iconSelectorAdapter);
             iconSelectorAdapter.notifyDataSetChanged();
-            selectionCheckBox.setChecked(utilF.getSelection(selectedIconList, iconList));
+            selectionCheckBox.setChecked(UtilFunctions.getSelection(selectedIconList, iconList));
             iconSelectorAdapter.setOnItemClickListner(new IconSelectorAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position, boolean checked) {
@@ -359,8 +361,8 @@ public class IconSelectActivity extends AppCompatActivity {
 
         ((TextView)(findViewById(R.id.icon_count))).setText("("+selectedIconList.size()+")");
 
-        Log.d("Selection: ","Selection List: "+selectedIconList.size()+" IconList: "+iconList.size()+" Selection: "+utilF.getSelection(selectedIconList,iconList));
-        selectionCheckBox.setChecked(utilF.getSelection(selectedIconList,iconList));
+        Log.d("Selection: ","Selection List: "+selectedIconList.size()+" IconList: "+iconList.size()+" Selection: "+UtilFunctions.getSelection(selectedIconList,iconList));
+        selectionCheckBox.setChecked(UtilFunctions.getSelection(selectedIconList,iconList));
 
         if (selectedIconList.size()>0)
             disableNextAndResetButtons(false);
@@ -398,9 +400,9 @@ public class IconSelectActivity extends AppCompatActivity {
         String levelOne[]=getResources().getStringArray(R.array.arrLevelOneActionBarTitle);
         Collections.addAll(levelSelectList, levelOne);
 
-        levelSelecterRecycler.hasFixedSize();
+        levelSelectorRecycler.hasFixedSize();
         levelSelectorAdapter =new LevelSelectorAdapter(this,levelSelectList);
-        levelSelecterRecycler.setAdapter(levelSelectorAdapter);
+        levelSelectorRecycler.setAdapter(levelSelectorAdapter);
         levelSelectorAdapter.selectedPosition = previousSelection;
         levelSelectorAdapter.setOnItemClickListner(new LevelSelectorAdapter.OnItemClickListener() {
             @Override
@@ -526,9 +528,9 @@ public class IconSelectActivity extends AppCompatActivity {
         {
             if(data.getExtras()!=null) {
                 JellowIcon icon = (JellowIcon) data.getExtras().getSerializable(getString(R.string.search_result));
-                if (icon != null && !utilF.listContainsIcon(icon, selectedIconList)) {
+                if (icon != null && !UtilFunctions.listContainsIcon(icon, selectedIconList)) {
                     addSearchedIcon(icon);
-                } else if (utilF.listContainsIcon(icon, selectedIconList))
+                } else if (UtilFunctions.listContainsIcon(icon, selectedIconList))
                     Toast.makeText(this, "Icon already selected", Toast.LENGTH_SHORT).show();
             }
         }
@@ -550,7 +552,7 @@ public class IconSelectActivity extends AppCompatActivity {
         disableNextAndResetButtons(false);
 
         ((TextView) (findViewById(R.id.icon_count))).setText("(" + selectedIconList.size() + ")");
-        selectionCheckBox.setChecked(utilF.getSelection(selectedIconList, iconList));
+        selectionCheckBox.setChecked(UtilFunctions.getSelection(selectedIconList, iconList));
         scrollListener =null;
         int position = getPosition(icon);
         Log.d("PositionToScroll",position+"");

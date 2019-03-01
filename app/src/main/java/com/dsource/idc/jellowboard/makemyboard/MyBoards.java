@@ -1,15 +1,18 @@
 package com.dsource.idc.jellowboard.makemyboard;
 
+/**
+ * Created by Ayaz Alam
+ * on 18 July 2018
+ * */
+
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -22,7 +25,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 import com.dsource.idc.jellowboard.AboutJellowActivity;
-import com.dsource.idc.jellowboard.DataBaseHelper;
 import com.dsource.idc.jellowboard.FeedbackActivity;
 import com.dsource.idc.jellowboard.KeyboardInputActivity;
 import com.dsource.idc.jellowboard.LanguageSelectActivity;
@@ -43,57 +45,49 @@ import com.dsource.idc.jellowboard.utility.SessionManager;
 import com.dsource.idc.jellowboard.verbiage_model.JellowVerbiageModel;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
-
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
+import static com.dsource.idc.jellowboard.makemyboard.utility.UtilFunctions.*;
+import static com.dsource.idc.jellowboard.makemyboard.utility.BoardConstants.*;
 
 public class MyBoards extends AppCompatActivity {
 
-    public static final int DELETE_MODE =333;
-    public static final int NORMAL_MODE =444;
-    public static final int CAMERA_REQUEST=211;
-    public static final int LIBRARY_REQUEST=411;
-    public static final String IS_EDIT_MODE = "is_edit_mode";
+
     public int currentMode =-1;
     RecyclerView mRecyclerView;
     BoardAdapter adapter;
     ArrayList<Board> boardList;
+    Context ctx;
+    // Holds the instance of BoardDatabase
+    private BoardDatabase database;
+    // This field is used to check whether the user has selected image or not in Dialog Box
+    // if selected then only save it to main board
+    private boolean iconImageSelected =false;
+    private VerbiageEditorReverseInterface revPhotoInterface;
     private final int NEW_BOARD=11;
     private final int EDIT_BOARD=22;
-    HashMap<String,Board> boardHashMap;
-    SQLiteDatabase db;
-    public static final String BOARD_ID="Board_Id";
-    Context ctx;
-    BoardDatabase database;
-    private VerbiageEditorReverseInterface revPhotoInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_boards);
-        checkDatabase();
-        boardHashMap =new HashMap<>();
-        ctx=MyBoards.this;
         database=new BoardDatabase(this);
+        //This function creates the table if not exists and
+        // does nothing if already created
+        database.createTable();
+        ctx=MyBoards.this;
+
         if(getSupportActionBar()!=null)
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#333333'>"+"My Boards"+"</font>"));
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_button_board);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_background));
-        db=new DataBaseHelper(this).getWritableDatabase();
         initFields();
         prepareBoardList(NORMAL_MODE);
         currentMode  =NORMAL_MODE;
         changeTTS(SessionManager.ENG_IN);
 
-    }
-
-    private void checkDatabase() {
-        new BoardDatabase(this).createTable();
     }
 
     /**
@@ -107,11 +101,9 @@ public class MyBoards extends AppCompatActivity {
         mRecyclerView.setAdapter(adapter);
     }
 
-    boolean iconImageSelected =false;
 
     /**
-     * Prepares the board list `
-     *
+     * @param mode Mode: whether it's Delete mode or normal mode
      */
     private void prepareBoardList(int mode) {
         boardList.clear();
@@ -198,9 +190,11 @@ public class MyBoards extends AppCompatActivity {
                             @Override
                             public void onPositiveClickListener() {
                                 Board boardToDelete = boardList.get(Position);
-                                deleteImageFromStorage(boardToDelete.boardID);
-                               /* for(int i = 0 ; i<boardToDelete.getCustomIconLists().size();i++)
-                                    deleteImageFromStorage(boardToDelete.getCustomIconLists().get(i));*/
+                                deleteImageFromStorage(boardToDelete.boardID,MyBoards.this);
+
+                                for(String id:boardToDelete.getCustomIconLists())
+                                    deleteImageFromStorage(id,MyBoards.this);
+
                                 database.deleteBoard(boardToDelete.boardID);
                                 boardList.remove(Position);
                                 if(boardList.size()<1)
@@ -310,7 +304,7 @@ public class MyBoards extends AppCompatActivity {
             if(!name.equals(""))
             board.setBoardTitle(name);
             if(iconImageSelected)
-            storeImageToStorage(boardIcon,board.boardID);
+            storeImageToStorage(boardIcon,board.boardID,this);
             database.updateBoardIntoDatabase(board);
             prepareBoardList(NORMAL_MODE);
         }
@@ -323,58 +317,15 @@ public class MyBoards extends AppCompatActivity {
 
     private void saveNewBoard(String boardName , Bitmap boardIcon, String boardID) {
         if(iconImageSelected)
-        storeImageToStorage(boardIcon,boardID);
+        storeImageToStorage(boardIcon,boardID,this);
         Board newBoard=new Board(boardID,boardName);
-        database=new BoardDatabase(this);
+        if (database==null) database=new BoardDatabase(this);
         boardList.add(newBoard);
         database.addBoardToDatabase(newBoard);
         prepareBoardList(NORMAL_MODE);
         iconImageSelected = false;
     }
 
-    public void storeImageToStorage(Bitmap bitmap, String fileID) {
-        FileOutputStream fos;
-        File en_dir = MyBoards.this.getDir(SessionManager.ENG_IN, Context.MODE_PRIVATE);
-        String path = en_dir.getAbsolutePath() + "/boardicon";
-        String status = Environment.getExternalStorageState();
-        if (status.equals(Environment.MEDIA_MOUNTED)) {
-            File root = new File(path);
-            if (!root.exists()) {
-                //noinspection ResultOfMethodCallIgnored
-                root.mkdirs();
-            }
-            Toast.makeText(this,""+root.getAbsolutePath(),Toast.LENGTH_LONG).show();
-            File file = new File(root, fileID+ ".png");
-
-            try {
-                if(file.exists())
-                {
-                    //noinspection ResultOfMethodCallIgnored
-                    file.delete();//Delete the previous image if image is a replace
-                    file = new File(root,fileID+".png");
-                }
-                fos = new FileOutputStream(file);
-                bitmap.compress(Bitmap.CompressFormat.PNG, 70, fos);
-                fos.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void deleteImageFromStorage(String fileID) {
-        File en_dir = MyBoards.this.getDir(SessionManager.ENG_IN, Context.MODE_PRIVATE);
-        String path = en_dir.getAbsolutePath() + "/boardicon";
-        String status = Environment.getExternalStorageState();
-        if (status.equals(Environment.MEDIA_MOUNTED)) {
-            File root = new File(path);
-            File file = new File(root, fileID+ ".png");
-            if(file.exists())
-                //noinspection ResultOfMethodCallIgnored
-                file.delete();//Delete the previous image
-        }
-
-    }
 
     private void changeTTS(String langCode)
     {
