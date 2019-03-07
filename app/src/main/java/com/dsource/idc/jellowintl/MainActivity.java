@@ -386,6 +386,18 @@ public class MainActivity extends AppCompatActivity {
             case R.id.search:
                 startActivity(new Intent(this, SearchActivity.class));
                 break;
+            case R.id.profile:
+                startActivity(new Intent(this, ProfileFormActivity.class));
+                break;
+            case R.id.aboutJellow:
+                startActivity(new Intent(this, AboutJellowActivity.class));
+                break;
+            case R.id.tutorial:
+                startActivity(new Intent(this, TutorialActivity.class));
+                break;
+            case R.id.keyboardInput:
+                startActivity(new Intent(this, KeyboardInputActivity.class));
+                break;
             case R.id.languageSelect:
                 if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
                     startActivity(new Intent(this, LanguageSelectActivity.class));
@@ -393,22 +405,13 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(new Intent(this, LanguageSelectTalkBackActivity.class));
                 }
                 break;
-            case R.id.profile:
-                startActivity(new Intent(this, ProfileFormActivity.class));
-                break;
-            case R.id.info:
-                startActivity(new Intent(this, AboutJellowActivity.class));
-                break;
-            case R.id.usage:
-                startActivity(new Intent(this, TutorialActivity.class));
-                break;
-            case R.id.keyboardinput:
-                startActivity(new Intent(this, KeyboardInputActivity.class));
-                break;
             case R.id.settings:
                 startActivity(new Intent(this, SettingActivity.class));
                 break;
-            case R.id.reset:
+            case R.id.accessibilitySetting:
+                startActivity(new Intent(this, AccessibilitySettingsActivity.class));
+                break;
+            case R.id.resetPreferences:
                 startActivity(new Intent(this, ResetPreferencesActivity.class));
                 break;
             case R.id.feedback:

@@ -636,8 +636,6 @@ public class LanguageSelectActivity extends AppCompatActivity{
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        if(mSession.getLanguage().equals(BN_IN))
-            menu.findItem(R.id.keyboardinput).setVisible(false);
         if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
             menu.findItem(R.id.closePopup).setVisible(false);
         }
@@ -647,22 +645,25 @@ public class LanguageSelectActivity extends AppCompatActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.settings:
-                startActivity(new Intent(this, SettingActivity.class));
-                finish(); break;
             case R.id.profile:
                 startActivity(new Intent(this, ProfileFormActivity.class));
                 finish(); break;
-            case R.id.info:
+            case R.id.aboutJellow:
                 startActivity(new Intent(this, AboutJellowActivity.class));
                 finish(); break;
-            case R.id.usage:
+            case R.id.tutorial:
                 startActivity(new Intent(this, TutorialActivity.class));
                 finish(); break;
-            case R.id.keyboardinput:
+            case R.id.keyboardInput:
                 startActivity(new Intent(this, KeyboardInputActivity.class));
                 finish(); break;
-            case R.id.reset:
+            case R.id.settings:
+                startActivity(new Intent(this, SettingActivity.class));
+                finish(); break;
+            case R.id.accessibilitySetting:
+                startActivity(new Intent(this, AccessibilitySettingsActivity.class));
+                finish(); break;
+            case R.id.resetPreferences:
                 startActivity(new Intent(this, ResetPreferencesActivity.class));
                 finish(); break;
             case R.id.feedback:
@@ -671,10 +672,9 @@ public class LanguageSelectActivity extends AppCompatActivity{
                 } else {
                     startActivity(new Intent(this, FeedbackActivity.class));
                 }
-                finish();
-                break;
+                finish(); break;
             case android.R.id.home:
-                onBackPressed(); break;
+                finish(); break;
             default:
                 return super.onOptionsItemSelected(item);
         }

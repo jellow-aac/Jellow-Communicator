@@ -38,13 +38,12 @@ public class AboutJellowActivity extends AppCompatActivity {
     private Button mBtnSpeak, mBtnStop;
     private TextView tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8, tv9, tv10, tv11, tv12, tv13, tv14, tv15, tv16,
             tv17, tv18, tv19, tv20, tv21, tv22, tv23, tv24, tv25, tv26, tv27, tv28, tv29, tv30, tv31,
-            tv32, tv33, tv34, tv35, tv36, tv37, tv38, tv39, tv40, tv41;
+            tv32, tv33, tv34, tv35, tv36, tv37;
     private String mSpeechTxt, mGenInfo, mSoftInfo, mTermofUse, mCredits,
             mAppLink, mIntro1, mIntro2, mIntro3, mIntro4, mIntro5, mIntro6, mIntro7, mIntro8,
             mIntro9, mIntro10, mIntro11, mIntro12, mIntro13, mIntro14, mIntro15, mIntro16, mIntro17,
             mIntro18, mIntro19, mIntro20, mIntro21, mIntro22, mIntro23, mIntro24, mIntro25, mIntro26,
-            mIntro27, mIntro28, mIntro29, mIntro30, mIntro31, mIntro32, mIntro33, mIntro34, mIntro35,
-            mIntro36, mSpeak, mStop, visualAccesLink;
+            mIntro27, mIntro28, mIntro29, mIntro30, mIntro31, mIntro32, mSpeak, mStop;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -104,9 +103,6 @@ public class AboutJellowActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        SessionManager session = new SessionManager(this);
-        if(session.getLanguage().equals(BN_IN))
-            menu.findItem(R.id.keyboardinput).setVisible(false);
         if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
             menu.findItem(R.id.closePopup).setVisible(false);
         }
@@ -116,45 +112,40 @@ public class AboutJellowActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
+            case R.id.profile:
+                startActivity(new Intent(this, ProfileFormActivity.class));
+                finish(); break;
+            case R.id.tutorial:
+                startActivity(new Intent(this, TutorialActivity.class));
+                finish(); break;
+            case R.id.keyboardInput:
+                startActivity(new Intent(this, KeyboardInputActivity.class));
+                finish(); break;
             case R.id.languageSelect:
                 if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
                     startActivity(new Intent(this, LanguageSelectActivity.class));
                 } else {
                     startActivity(new Intent(this, LanguageSelectTalkBackActivity.class));
                 }
-                finish();
-                break;
+                finish(); break;
             case R.id.settings:
-                startActivity(new Intent(AboutJellowActivity.this, SettingActivity.class));
-                finish();
-                break;
-            case R.id.profile:
-                startActivity(new Intent(AboutJellowActivity.this, ProfileFormActivity.class));
-                finish();
-                break;
+                startActivity(new Intent(this, SettingActivity.class));
+                finish(); break;
+            case R.id.accessibilitySetting:
+                startActivity(new Intent(this, AccessibilitySettingsActivity.class));
+                finish(); break;
+            case R.id.resetPreferences:
+                startActivity(new Intent(this, ResetPreferencesActivity.class));
+                finish(); break;
             case R.id.feedback:
                 if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
                     startActivity(new Intent(this, FeedbackActivityTalkBack.class));
                 } else {
                     startActivity(new Intent(this, FeedbackActivity.class));
                 }
-                finish();
-                break;
-            case R.id.usage:
-                startActivity(new Intent(this, TutorialActivity.class));
-                finish();
-                break;
-            case R.id.reset:
-                startActivity(new Intent(AboutJellowActivity.this, ResetPreferencesActivity.class));
-                finish();
-                break;
+                finish(); break;
             case android.R.id.home:
-                finish();
-                break;
-            case R.id.keyboardinput:
-                startActivity(new Intent(AboutJellowActivity.this, KeyboardInputActivity.class));
-                finish();
-                break;
+                finish(); break;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -214,10 +205,6 @@ public class AboutJellowActivity extends AppCompatActivity {
         tv35= findViewById(R.id.tv35);
         tv36= findViewById(R.id.tv36);
         tv37= findViewById(R.id.tv37);
-        tv38= findViewById(R.id.tv40);
-        tv39= findViewById(R.id.tv41);
-        tv40= findViewById(R.id.tv42);
-        tv41= findViewById(R.id.tv43);
         mBtnSpeak = findViewById(R.id.speak);
         mBtnStop = findViewById(R.id.stop);
 
@@ -275,12 +262,6 @@ public class AboutJellowActivity extends AppCompatActivity {
         mSpeak = getString(R.string.speak);
         mStop = getString(R.string.stop);
         mIntro32 = getString(R.string.about_je_intro32);
-        mIntro33 = getString(R.string.about_je_serial_keyboard_title);
-        mIntro34 = getString(R.string.about_je_serial_keyboard_info);
-        mIntro35 = getString(R.string.about_je_visual_access_title);
-        visualAccesLink = getString(R.string.about_je_visual_access_link);
-        mIntro36 = getString(R.string.about_je_visual_acesss_info).
-                concat(" " + visualAccesLink);
 
         mSpeechTxt = getString(R.string.about_jellow_speech);
         if(session.getLanguage().equals(HI_IN))
@@ -388,10 +369,6 @@ public class AboutJellowActivity extends AppCompatActivity {
         tv37.setText(mIntro32);
         mBtnSpeak.setText(mSpeak);
         mBtnStop.setText(mStop);
-        tv38.setText(mIntro33);
-        tv39.setText(mIntro34);
-        tv40.setText(mIntro35);
-        tv41.setText(mIntro36);
         if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
             mIntro13 = mIntro13.concat(" "+ mAppLink);
             tv15.setText(mIntro13);
@@ -399,7 +376,6 @@ public class AboutJellowActivity extends AppCompatActivity {
         }else {
             tv34.setText(mAppLink);
             Linkify.addLinks(tv16, Linkify.EMAIL_ADDRESSES);
-            Linkify.addLinks(tv41, Linkify.WEB_URLS);
         }
     }
 

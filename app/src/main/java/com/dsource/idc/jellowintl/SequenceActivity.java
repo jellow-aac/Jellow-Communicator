@@ -67,7 +67,6 @@ import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
-import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
 
 
 /**
@@ -217,9 +216,6 @@ public class SequenceActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_main_with_search, menu);
-        SessionManager session = new SessionManager(this);
-        if(session.getLanguage().equals(BN_IN))
-            menu.findItem(R.id.keyboardinput).setVisible(false);
         if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
             menu.findItem(R.id.closePopup).setVisible(false);
         }
@@ -230,7 +226,20 @@ public class SequenceActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.search:
-                startActivity(new Intent(this, SearchActivity.class));break;
+                startActivity(new Intent(this, SearchActivity.class));
+                break;
+            case R.id.profile:
+                startActivity(new Intent(this, ProfileFormActivity.class));
+                break;
+            case R.id.aboutJellow:
+                startActivity(new Intent(this, AboutJellowActivity.class));
+                break;
+            case R.id.tutorial:
+                startActivity(new Intent(this, TutorialActivity.class));
+                break;
+            case R.id.keyboardInput:
+                startActivity(new Intent(this, KeyboardInputActivity.class));
+                break;
             case R.id.languageSelect:
                 if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
                     startActivity(new Intent(this, LanguageSelectActivity.class));
@@ -238,16 +247,14 @@ public class SequenceActivity extends AppCompatActivity {
                     startActivity(new Intent(this, LanguageSelectTalkBackActivity.class));
                 }
                 break;
-            case R.id.profile:
-                startActivity(new Intent(this, ProfileFormActivity.class)); break;
-            case R.id.info:
-                startActivity(new Intent(this, AboutJellowActivity.class));
+            case R.id.settings:
+                startActivity(new Intent(this, SettingActivity.class));
                 break;
-            case R.id.usage:
-                startActivity(new Intent(this, TutorialActivity.class));
+            case R.id.accessibilitySetting:
+                startActivity(new Intent(this, AccessibilitySettingsActivity.class));
                 break;
-            case R.id.keyboardinput:
-                startActivity(new Intent(this, KeyboardInputActivity.class));
+            case R.id.resetPreferences:
+                startActivity(new Intent(this, ResetPreferencesActivity.class));
                 break;
             case R.id.feedback:
                 if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
@@ -256,12 +263,6 @@ public class SequenceActivity extends AppCompatActivity {
                 else {
                     startActivity(new Intent(this, FeedbackActivity.class));
                 }
-                break;
-            case R.id.settings:
-                startActivity(new Intent(this, SettingActivity.class));
-                break;
-            case R.id.reset:
-                startActivity(new Intent(this, ResetPreferencesActivity.class));
                 break;
             default:
                 return super.onOptionsItemSelected(item);
