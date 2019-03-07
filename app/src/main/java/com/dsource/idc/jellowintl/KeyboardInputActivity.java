@@ -103,6 +103,15 @@ public class KeyboardInputActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
+            case R.id.profile:
+                startActivity(new Intent(this, ProfileFormActivity.class));
+                finish(); break;
+            case R.id.aboutJellow:
+                startActivity(new Intent(this, AboutJellowActivity.class));
+                finish(); break;
+            case R.id.tutorial:
+                startActivity(new Intent(this, TutorialActivity.class));
+                finish(); break;
             case R.id.languageSelect:
                 if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
                     startActivity(new Intent(this, LanguageSelectActivity.class));
@@ -110,19 +119,13 @@ public class KeyboardInputActivity extends AppCompatActivity {
                     startActivity(new Intent(this, LanguageSelectTalkBackActivity.class));
                 }
                 finish(); break;
-            case R.id.profile:
-                startActivity(new Intent(this, ProfileFormActivity.class));
-                finish(); break;
-            case R.id.info:
-                startActivity(new Intent(this, AboutJellowActivity.class));
-                finish(); break;
-            case R.id.usage:
-                startActivity(new Intent(this, TutorialActivity.class));
-                finish(); break;
             case R.id.settings:
                 startActivity(new Intent(getApplication(), SettingActivity.class));
                 finish(); break;
-            case R.id.reset:
+            case R.id.accessibilitySetting:
+                startActivity(new Intent(this, AccessibilitySettingsActivity.class));
+                finish(); break;
+            case R.id.resetPreferences:
                 startActivity(new Intent(this, ResetPreferencesActivity.class));
                 finish(); break;
             case R.id.feedback:
@@ -132,8 +135,7 @@ public class KeyboardInputActivity extends AppCompatActivity {
                 else {
                     startActivity(new Intent(this, FeedbackActivity.class));
                 }
-                finish();
-                break;
+                finish(); break;
             case android.R.id.home:
                 finish(); break;
             default:

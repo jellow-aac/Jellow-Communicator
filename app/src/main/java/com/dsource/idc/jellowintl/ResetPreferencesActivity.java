@@ -24,7 +24,6 @@ import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
-import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
 
 /**
  * Created by ekalpa on 15-Jun-16.
@@ -79,9 +78,6 @@ public class ResetPreferencesActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        SessionManager session = new SessionManager(this);
-        if(session.getLanguage().equals(BN_IN))
-            menu.findItem(R.id.keyboardinput).setVisible(false);
         if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
             menu.findItem(R.id.closePopup).setVisible(false);
         }
@@ -91,6 +87,18 @@ public class ResetPreferencesActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
+            case R.id.profile:
+                startActivity(new Intent(this, ProfileFormActivity.class));
+                finish(); break;
+            case R.id.aboutJellow:
+                startActivity(new Intent(this, AboutJellowActivity.class));
+                finish(); break;
+            case R.id.tutorial:
+                startActivity(new Intent(this, TutorialActivity.class));
+                finish(); break;
+            case R.id.keyboardInput:
+                startActivity(new Intent(this, KeyboardInputActivity.class));
+                finish(); break;
             case R.id.languageSelect:
                 if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
                     startActivity(new Intent(this, LanguageSelectActivity.class));
@@ -98,20 +106,11 @@ public class ResetPreferencesActivity extends AppCompatActivity {
                     startActivity(new Intent(this, LanguageSelectTalkBackActivity.class));
                 }
                 finish(); break;
-            case R.id.profile:
-                startActivity(new Intent(this, ProfileFormActivity.class));
-                finish(); break;
-            case R.id.info:
-                startActivity(new Intent(this, AboutJellowActivity.class));
-                finish(); break;
-            case R.id.usage:
-                startActivity(new Intent(this, TutorialActivity.class));
-                finish(); break;
-            case R.id.keyboardinput:
-                startActivity(new Intent(this, KeyboardInputActivity.class));
-                finish(); break;
             case R.id.settings:
                 startActivity(new Intent(this, SettingActivity.class));
+                finish(); break;
+            case R.id.accessibilitySetting:
+                startActivity(new Intent(this, AccessibilitySettingsActivity.class));
                 finish(); break;
             case R.id.feedback:
                 if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
@@ -119,8 +118,7 @@ public class ResetPreferencesActivity extends AppCompatActivity {
                 } else {
                     startActivity(new Intent(this, FeedbackActivity.class));
                 }
-                finish();
-                break;
+                finish(); break;
             case android.R.id.home:
                 finish(); break;
             default: return super.onOptionsItemSelected(item);

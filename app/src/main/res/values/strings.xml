@@ -117,6 +117,7 @@
     <string name="menuResetPref">Reset Preferences</string>
     <string name="menuFeedback">Feedback</string>
     <string name="menuUserRegistration">Registration Page</string>
+    <string name="menuAccessibility">Accessibility</string>
     <string name="menuClosePopup">Close menu</string>
     <string name="language_download_screen" translatable="false">Jellow content download screen</string>
     <string name="labelSplash">Jellow is loading. Please wait!</string>
@@ -151,6 +152,8 @@
     <string name="download">DOWNLOAD</string>
     <string name="cancel">CANCEL</string>
     <string name="keyboardControl">Keyboard Control:</string>
+    <string name="serial_keyboard_title">Serial Keyboard:</string>
+    <string name="serial_keyboard_info">Jellow communicator is equipped with its own \'Serial Jellow keyboard\'. This keyboard was designed based on feedback from special educators and teachers and features alphabets placed in a serial manner starting form the alphabet \'A\'. The serial keyboard makes it easy for the user to anticipate the place of a particular alphabet on the keyboard and is especially very useful for children learning early literacy skills. Similarly, the keyboard also features numeral keys from 0–9 and symbols, which are most relevant to every day communication.</string>
     <string name="keyboardControlTxt">To enable a keyboard of your choice and make it as default, you need to complete 2 steps:</string>
     <string name="step1">Step 1: Enable Keyboard from device settings</string>
     <string name="qwertyKeyboard">QWERTY</string>
@@ -236,7 +239,7 @@
     <string name="enable_calling" translatable="false">com.dsource.idc.jellow.enable_calling</string>
     <string name="random_val" translatable="false">com.dsource.idc.jellow.random_val</string>
     <string name="string_msg" translatable="false">com.dsource.idc.jellow.string_message</string>
-    <string name="updated_user_data_on_firebase"  translatable="false">com.dsource.idc.jellow.update_on_fb</string>
+    <string name="updated_user_data_on_firebase" translatable="false">com.dsource.idc.jellow.update_on_fb</string>
     <string name="tts_default_name" translatable="false">com.dsource.idc.jellow.tts_default_lang_name</string>
     <string name="last_crash_reported" translatable="false">com.dsource.idc.jellow.last_crash_reported</string>
     <string name="updated_locale_package_from_firebase" translatable="false">com.dsource.idc.jellow.locale_package_updated</string>
@@ -322,11 +325,6 @@
     <string name="about_je_intro5">Jellow is conceived as children-friendly with an easy-to-learn interface.</string>
     <string name="about_je_intro6">The application is optimized for Android tablets.</string>
     <string name="about_je_intro7">Jellow is currently available in English, Hindi, Bengali and Marathi.</string>
-    <string name="about_je_serial_keyboard_title">Serial Keyboard:</string>
-    <string name="about_je_serial_keyboard_info">Jellow communicator is equipped with its own \'Serial Jellow keyboard\'. This keyboard was designed based on feedback from special educators and teachers and features alphabets placed in a serial manner starting form the alphabet \'A\'. The serial keyboard makes it easy for the user to anticipate the place of a particular alphabet on the keyboard and is especially very useful for children learning early literacy skills. Similarly, the keyboard also features numeral keys from 0–9 and symbols, which are most relevant to every day communication.</string>
-    <string name="about_je_visual_access_title">Visual Accessibility:</string>
-    <string name="about_je_visual_acesss_info">The Visual accessibility feature of Jellow now allows users with additional visual difficulties including low vision or blindness to use Jellow and communicate effectively with others. It utilizes the \'Talk back\' feature on the Android smartphone to help navigate through the application. With \'Talk back\' switched on in the user\'s device, the user will now be able to get audio input describing everything they touch on the screen. The user can also assign custom gestures or use the default gestures of \'Talk back\' as they interact with Jellow. For example, a right swipe gesture will allow the user to sequentially scroll through icons on the screen. Similarly, double tapping anywhere on the screen will allow the user to select an icon of their choice.</string>
-    <string name="about_je_visual_access_link" translatable="false">https://www.youtube.com/watch?v=QDU1Qp-u2Zs</string>
     <string name="software_info">Software Version: _</string>
     <string name="about_je_intro8">The current version of Jellow is _. The application is under further development. Therefore, if you have any suggestions for us, please submit it under the feedback tab or write to us at jellowcommunicator@gmail.com."</string>
     <string name="terms_of_use">Terms of Use</string>
@@ -353,7 +351,7 @@
     <string name="about_je_intro25">Translation:</string>
     <string name="about_je_intro26">Dr Rupak Misra, Sachin Sonawane, Dr Sudha Srinivasan</string>
     <string name="about_je_intro27">Research, Vocabulary Development, and User Studies:</string>
-    <string name="about_je_intro28">Dr Sudha Srinivasan, Pushkar Deshpande, Sakshi Pal</string>
+    <string name="about_je_intro28">Dr Sudha Srinivasan, Pushkar Deshpande, Sakshi Pal, Siddhi Patel</string>
     <string name="about_je_intro29">Support:</string>
     <string name="about_je_intro30">E-kalpa project sponsored under NMEICT by MHRD, Microsoft Design Expo 2004 and a 1-year seed grant through the UNICEF Innovation Fund</string>
     <string name="about_je_intro38">Longitudinal user studies and field testing of Jellow Communicator:</string>
@@ -462,4 +460,12 @@
     <string name="level_3_screen">Level three screen</string>
     <string name="sequence_screen">Activity sequence</string>
     <string name="close_searchbar">Close search bar</string>
+
+    <string name="txt_accessibility_setting">Accessibility Setting</string>
+    <string name="visual_access_title">Visual Accessibility:</string>
+    <string name="visual_acesss_info">The Visual accessibility feature of Jellow now allows users with additional visual difficulties including low vision or blindness to use Jellow and communicate effectively with others. It utilizes the \'Talk back\' feature on the Android smartphone to help navigate through the application. With \'Talk back\' switched on in the user\'s device, the user will now be able to get audio input describing everything they touch on the screen. The user can also assign custom gestures or use the default gestures of \'Talk back\' as they interact with Jellow. For example, a right swipe gesture will allow the user to sequentially scroll through icons on the screen. Similarly, double tapping anywhere on the screen will allow the user to select an icon of their choice.</string>
+    <string name="visual_access_link" translatable="false">https://www.youtube.com/watch?v=QDU1Qp-u2Zs</string>
+    <string name="switch_access_title">Switch Accessibility:</string>
+    <string name="switch_access_info">Information about Switch Accessibility.</string>
+    <string name="serial_access_link" translatable="false">This will be here</string>
 </resources>

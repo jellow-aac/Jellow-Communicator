@@ -30,7 +30,6 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
-import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
 
 public class FeedbackActivity extends AppCompatActivity {
     private RatingBar mRatingEasyToUse;
@@ -67,34 +66,35 @@ public class FeedbackActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        SessionManager session = new SessionManager(this);
         menu.findItem(R.id.closePopup).setVisible(false);
-        if(session.getLanguage().equals(BN_IN))
-            menu.findItem(R.id.keyboardinput).setVisible(false);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.languageSelect:
-                startActivity(new Intent(this, LanguageSelectActivity.class));
-                finish(); break;
             case R.id.profile:
                 startActivity(new Intent(this, ProfileFormActivity.class));
                 finish(); break;
-            case R.id.info:
+            case R.id.aboutJellow:
                 startActivity(new Intent(this, AboutJellowActivity.class));
                 finish(); break;
-            case R.id.usage:
+            case R.id.tutorial:
                 startActivity(new Intent(this, TutorialActivity.class));
                 finish(); break;
-            case R.id.keyboardinput:
+            case R.id.keyboardInput:
                 startActivity(new Intent(this, KeyboardInputActivity.class));
                 finish(); break;
-            case R.id.settings: startActivity(new Intent(this, SettingActivity.class));
+            case R.id.languageSelect:
+                startActivity(new Intent(this, LanguageSelectActivity.class));
                 finish(); break;
-            case R.id.reset:
+            case R.id.settings:
+                startActivity(new Intent(this, SettingActivity.class));
+                finish(); break;
+            case R.id.accessibilitySetting:
+                startActivity(new Intent(this, AccessibilitySettingsActivity.class));
+                finish(); break;
+            case R.id.resetPreferences:
                 startActivity(new Intent(this, ResetPreferencesActivity.class));
                 finish(); break;
             case android.R.id.home:
