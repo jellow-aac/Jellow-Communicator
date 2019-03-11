@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearlayout_icon1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:layout_marginTop="@dimen/three_icon_margin_top"
+    android:layout_marginBottom="@dimen/three_icon_margin_top"
+    android:paddingTop="@dimen/three_icon_padding"
+    android:paddingBottom="@dimen/three_icon_padding">
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/icon1"
+            android:layout_width="@dimen/three_icon_size"
+            android:layout_height="@dimen/three_icon_size"
+            android:layout_gravity="center_horizontal"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside" />
+        <View
+            android:id="@+id/borderView"
+            android:layout_width="@dimen/three_icon_size"
+            android:layout_height="@dimen/three_icon_size"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/custom_drawable_nocolor_1by3"/>
+    </FrameLayout>
+    <TextView
+        android:id="@+id/te1"
+        android:layout_width="@dimen/three_icon_textview_width"
+        android:layout_height="wrap_content"
+        android:text="TIME AND WEATHER"
+        android:gravity="center"
+        android:textSize="@dimen/three_icon_textview_textsize"
+        android:textAlignment="center"/>
+</LinearLayout>
