@@ -73,5 +73,134 @@
     <dimen name="nineIcon_textSize">10sp</dimen>
     <dimen name="nineIcon_borderThickness">5dp</dimen>
     <dimen name="nineIcon_innerRadius">27dp</dimen>
+    
+    <!--Dimensions related to the icon select in my board-->
+    <dimen name="icon_select_grid_size">70dp</dimen>
+    <dimen name="icon_select_icon_size">60dp</dimen>
+    <dimen name="my_board_button_width">70dp</dimen>
+    <dimen name="my_board_button_height">28dp</dimen>
+    <dimen name="level_select_pane_min_width">160dp</dimen>
+    <dimen name="drop_down_width">160dp</dimen>
+    <dimen name="bottom_nav_bar_padding">6dp</dimen>
+    <dimen name="nav_bar_button_padding">4dp</dimen>
+    <dimen name="icon_title_text_size">11sp</dimen>
 
+    <!--Dimensions related to the Icon select Activity-->
+    <dimen name="check_box_size">16dp</dimen>
+    <dimen name="level_select_pain_width">150dp</dimen>
+    <dimen name="level_select_pane_text_padding_left">8dp</dimen>
+    <dimen name="level_select_pain_padding_top_bottom">7dp</dimen>
+    <dimen name="level_select_pane_text_size">14sp</dimen>
+    <dimen name="demo_mar">28dp</dimen>
+    <dimen name="extra_mar">40dp</dimen>
+    <dimen name="icon_edit_grid_size">140dp</dimen>
+    <dimen name="icon_edit_icon_size">100dp</dimen>
+    <dimen name="icon_edit_text_size">16sp</dimen>
+    <dimen name="exp_icon_margin_bottom">24dp</dimen>
+    <dimen name="exp_icon_bottom_margin">36dp</dimen>
+    <dimen name="nav_bar_icons_width">90dp</dimen>
+    <dimen name="nav_bar_icon_height">80dp</dimen>
+
+
+
+    <!--Edit board dialog dimensions-->
+    <dimen name="board_edit_icon_size">160dp</dimen>
+    <dimen name="board_edit_dialog_width">180dp</dimen>
+    <dimen name="edit_baord_dialog_side_margin">16dp</dimen>
+    <dimen name="edit_board_button_margin_top">4dp</dimen>
+    <dimen name="edit_board_button_side_margin">4dp</dimen>
+    <dimen name="edit_board_button_width">76dp</dimen>
+    <dimen name="edit_board_dialog_button_text_size">12sp</dimen>
+    <dimen name="edit_board_dialog_internal_margin_top">10dp</dimen>
+
+
+    <!--Dimensions related to the Custom Dialog-->
+    <dimen name="custom_dialog_button_width">100dp</dimen>
+    <dimen name="dialog_box_text_size">22sp</dimen>
+    <dimen name="custom_dialog_width">300dp</dimen>
+
+
+    <!--Dimensions related to the My Board Card-->
+    <dimen name="my_board_four_grid_icon_size">160dp</dimen>
+    <dimen name="my_board_text_size">16sp</dimen>
+    <dimen name="my_board_edit_icon_size">36dp</dimen>
+    <dimen name="board_edit_edittext_size">170dp</dimen>
+    <dimen name="list_item_padding">6dp</dimen>
+    <dimen name="dialog_width">400dp</dimen>
+    <dimen name="dialog_height">500dp</dimen>
+    <dimen name="my_boards_card_margin">10dp</dimen>
+    <dimen name="my_board_title_top_margin">8dp</dimen>
+
+    <!--Dimensions Related to the Grid DialogBox-->
+    <dimen name="grid_dialog_padding">4dp</dimen>
+    <dimen name="grid_dialog_title_textsize">14sp</dimen>
+    <dimen name="grid_dialog_title_bottom_margin">8dp</dimen>
+    <dimen name="grid_dialog_icon_size">70dp</dimen>
+    <dimen name="grid_dialog_width">600dp</dimen>
+    <dimen name="grid_dialog_icon_margin">4dp</dimen>
+    <dimen name="grid_dialog_text_margin">4dp</dimen>
+
+
+    <dimen name="edit_option_text_size">16sp</dimen>
+    <dimen name="edit_option_width">170dp</dimen>
+
+
+    <!--generalized Jellow dimensions-->
+    <dimen name="exp_icon_width">82dp</dimen>
+    <dimen name="exp_icon_height">76dp</dimen>
+    <dimen name="recycler_view_width">375dp</dimen>
+    <dimen name="recycler_view_margin_bottom">64dp</dimen>
+    <dimen name="nav_bar_height">90dp</dimen>
+    <dimen name="nav_bar_margin_bottom">-16dp</dimen>
+    <dimen name="home_icon_height">80dp</dimen>
+    <dimen name="home_icon_width">88dp</dimen>
+    <dimen name="keyboard_icon_height">90dp</dimen>
+    <dimen name="keyboard_icon_width">90dp</dimen>
+    <dimen name="back_icon_width">90dp</dimen>
+    <dimen name="back_icon_height">90dp</dimen>
+    <dimen name="jellow_icon_width">100dp</dimen>
+    <dimen name="jellow_icon_height">50dp</dimen>
+    <dimen name="jellow_icon_margin_bottom">8dp</dimen>
+
+    <!--9 icons levelx dimensions generalization-->
+    <dimen name="nine_icon_size">64dp</dimen>
+    <dimen name="nine_icon_textview_width">168dp</dimen>
+    <dimen name="nine_icon_textview_textsize">10sp</dimen>
+
+    <!--3 icons levelx dimensions generalization-->
+    <dimen name="three_icon_margin_top">32dp</dimen>
+    <dimen name="three_icon_padding">32dp</dimen>
+    <dimen name="three_icon_size">94dp</dimen>
+    <dimen name="three_icon_textview_width">112dp</dimen>
+    <dimen name="three_icon_textview_textsize">12sp</dimen>
+
+    <!--Add Edit Screen dimensions-->
+    <dimen name="add_edit_screen_edit_icon_size">20dp</dimen>
+    <dimen name="two_by_two_rec_width">600</dimen>
+    <dimen name="list_item_text_size">18sp</dimen>
+    <dimen name="camera_drop_down_width">160dp</dimen>
+
+    <!--1by1 configuration-->
+    <dimen name="oneByOne_parentHorizontal">88dp</dimen>
+    <dimen name="oneByOne_parentVertical">30dp</dimen>
+    <dimen name="oneByOne_crossMargin">16dp</dimen>
+    <dimen name="oneByOne_width">144dp</dimen>
+    <dimen name="oneByOne_textSize">18sp</dimen>
+    <dimen name="oneByOne_borderThickness">9dp</dimen>
+    <dimen name="oneByOne_inerRadius">63dp</dimen>
+
+    <!--1by2 configuration-->
+    <dimen name="oneByTwo_parentHorizontal">12dp</dimen>
+    <dimen name="oneByTwo_parentVertical">48dp</dimen>
+    <dimen name="oneByTwo_crossMargin">28dp</dimen>
+    <dimen name="oneByTwo_width">94dp</dimen>
+    <dimen name="oneByTwo_textSize">16sp</dimen>
+    <dimen name="oneByTwo_borderThickness">7dp</dimen>
+    <dimen name="oneByTwo_inerRadius">40dp</dimen>
+
+
+
+    <dimen name="dialog_width_verbiage">220dp</dimen>
+    <dimen name="dialog_edit_text">12sp</dimen>
+    <dimen name="reg_button_height">38dp</dimen>
 </resources>
