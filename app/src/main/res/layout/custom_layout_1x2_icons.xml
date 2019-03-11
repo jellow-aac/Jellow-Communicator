@@ -1,0 +1,52 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/frame_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/oneByTwo_parentVertical"
+    android:layout_marginLeft="@dimen/oneByTwo_parentHorizontal"
+    android:layout_marginRight="@dimen/oneByTwo_parentHorizontal"
+    android:layout_marginTop="@dimen/oneByTwo_parentVertical"
+    >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_view"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+  >
+    <FrameLayout
+        android:id="@+id/icon_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true">
+        <ImageView
+            android:id="@+id/icon_image_view"
+            android:layout_width="@dimen/oneByTwo_width"
+            android:layout_height="@dimen/oneByTwo_width"
+            android:layout_gravity="center_horizontal"
+            android:scaleType="centerInside" />
+        <View
+            android:id="@+id/borderView"
+            android:layout_width="@dimen/oneByTwo_width"
+            android:layout_height="@dimen/oneByTwo_width"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/custom_drawable_nocolor_1by2"/>
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/icon_remove_button"
+        android:layout_width="@dimen/my_board_edit_icon_size"
+        android:layout_height="@dimen/my_board_edit_icon_size"
+        android:layout_alignTop="@+id/icon_container"
+        android:src="@drawable/ic_delete_icon_red_back"
+        android:layout_toEndOf="@id/icon_container"
+        android:layout_toRightOf="@id/icon_container"
+        android:visibility="gone" />
+    <TextView
+        android:id="@+id/icon_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/icon_container"
+        android:layout_centerHorizontal="true"
+        android:text="TIME AND WEATHER"
+        android:textSize="@dimen/oneByTwo_textSize"/>
+</RelativeLayout>
+</FrameLayout>

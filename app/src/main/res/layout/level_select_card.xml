@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/colorIntro"
+    android:layout_height="wrap_content">
+    <View
+        android:layout_width="@dimen/level_select_pane_min_width"
+        android:layout_height="1.5dp"
+        android:background="@color/dark_base"
+        />
+
+    <TextView
+        android:id="@+id/icon_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:paddingBottom="6dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="6dp"
+        android:textAlignment="center"
+        android:text="Times and weather"
+        android:textColor="@color/level_select_text_color"
+        android:textSize="@dimen/level_select_pane_text_size" />
+
+</RelativeLayout>

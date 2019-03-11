@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/frame_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginTop="3dp">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_view"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+    <ImageView
+        android:id="@+id/icon_remove_button"
+        android:layout_width="@dimen/my_board_edit_icon_size"
+        android:layout_height="@dimen/my_board_edit_icon_size"
+        android:padding="4dp"
+        android:layout_toRightOf="@id/icon_container"
+        android:layout_marginLeft="42dp"
+        android:visibility="gone"
+        android:src="@drawable/ic_delete_icon_red_back"/>
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:id="@+id/icon_container"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/icon_image_view"
+            android:layout_width="@dimen/nine_icon_size"
+            android:layout_height="@dimen/nine_icon_size"
+            android:src="@drawable/ic_board_person"
+            android:layout_gravity="center_horizontal"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside" />
+        <View
+            android:id="@+id/borderView"
+            android:layout_width="@dimen/nine_icon_size"
+            android:layout_height="@dimen/nine_icon_size"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/custom_drawable_nocolor_3by3"/>
+    </FrameLayout>
+    <TextView
+        android:layout_below="@id/icon_container"
+        android:id="@+id/icon_title"
+        android:layout_width="@dimen/nine_icon_textview_width"
+        android:layout_height="wrap_content"
+        android:text="festivals &amp; hodidays"
+        android:gravity="center"
+        android:textSize="@dimen/nine_icon_textview_textsize"
+        android:textAlignment="center"/>
+</RelativeLayout>
+</FrameLayout>
