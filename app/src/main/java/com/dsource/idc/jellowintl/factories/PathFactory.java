@@ -9,8 +9,7 @@ import java.io.File;
 public class PathFactory {
 
     public static final String JSON_FILE = "map.json";
-    public static final String
-            DRAWABLE_FOLDER = "drawables";
+    public static final String DRAWABLE_FOLDER = "drawables";
     public static final String AUDIO_FOLDER = "audio";
     public static String basePath;
     public static File iconDirectory;
