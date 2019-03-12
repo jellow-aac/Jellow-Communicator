@@ -3,6 +3,15 @@ All notable changes to this project will be documented in this file.
 
 ##[2.0]
 
+##[1.3.4-rc4]
+### Added
+- AccessibilitySettingsActivity and layout. This activity will has buttons that will take user to Accessibility settings directly. 
+  Also, this activity has description about Switch, Visual Accessibility with respective link.
+
+### Updates
+- Updated the credits in Research, Vocabulary Development and User Studies
+- Added the contents serial keyboard in KeyboardControlActivity.    
+
 
 ##[1.3.2-rc3]
 - Fixed the issue. The Model classes not able to serialize the json data on release build. Added the the annotation (@SerializedName(""))for every data variable in model class. 
