@@ -11,18 +11,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.CAMERA" />
-
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="true" />
-
-    <!--
-         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
-         Google Maps Android API v2, but you must specify either coarse or fine
-         location permissions for the 'MyLocation' functionality.
-    -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".app.AppController"
@@ -73,7 +61,6 @@
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -151,6 +138,12 @@
         <activity
             android:name=".LanguageSelectActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/Language"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".LanguageSelectTalkBackActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/Language"
             android:screenOrientation="landscape" />
         <activity
             android:name=".SearchActivity"
@@ -158,42 +151,21 @@
             android:label="@string/search_act_title"
             android:theme="@style/Theme.AppCompat.Translucent" />
         <activity
-            android:name=".makemyboard.MyBoards"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/my_boards"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".makemyboard.IconSelectActivity"
-            android:label="Select your icons"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".makemyboard.RepositionIcons"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/Language"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".makemyboard.BoardSearch"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:windowSoftInputMode="adjustNothing"
-            android:label="@string/search_act_title"
-            android:theme="@style/Theme.AppCompat.Translucent" />
-        <activity
-            android:name=".makemyboard.Home"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".makemyboard.AddEditIconAndCategory"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:name=".LanguagePackageUpdateActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
-            android:theme="@style/Base.Theme.AppCompat" />
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".makemyboard.utility.SetupMMB"
+            android:name=".FeedbackActivityTalkBack"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="landscape" />
+            android:label="@string/menuFeedback"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".AccessibilitySettingsActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/menuFeedback"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan" />
     </application>
 
 </manifest>
