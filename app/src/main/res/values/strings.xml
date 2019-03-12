@@ -409,6 +409,7 @@
     <string name="talkback_single_click">select</string>
     <string name="talkback_dropdown_menu">access countries list</string>
     <string name="close_dialog">close dialog.</string>
+    <string name="next">next</string>
     <string name="previous">previous</string>
     <string name="edttxt_msg">Type here to speak</string>
     <string name="keyboard_open">open keyboard</string>
@@ -460,53 +461,6 @@
     <string name="sequence_screen">Activity sequence</string>
     <string name="close_searchbar">Close search bar</string>
 
-    <string name="wait_text">Please wait...</string>
-    <string name="no_internet">No Internet</string>
-    <string name="please_wait">Please wait...</string>
-    <string name="my_boards" translatable="true">My Boards</string>
-    <string name="filter_text">Filter</string>
-    <string name="base_ref" translatable="false">jellow-3a90b</string>
-    <string name="testing" translatable="false">testing</string>
-    <string name="verbiage_ref" translatable="false">verbiage_data</string>
-    <string name="lang" translatable="false">En-IN</string>
-    <string name="delete_board" translatable="false">Delete Board</string>
-    <string name="no_board_to_delete">There are no board to delete</string>
-    <string name="icon_list" translatable="false">IconList</string>
-    <string name="search_result" translatable="false">search_result</string>
-    <string name="icon_select_mode" translatable="false">icon_select_mode</string>
-    <string name="delete_icons" translatable="false">Delete Icons</string>
-    <string name="add_edit_icons">Add Edit Icons</string>
-    <string name="icon_select_text">Select Icons</string>
-    <string name="next">Next</string>
-    <string name="done">Done</string>
-    <string-array name="entries">
-        <item>Camera</item>
-        <item>Gallery</item>
-        <item>Library</item>
-    </string-array>
-
-    <array name="expressive_icon_pressed">
-        <item>@drawable/like_pressed</item>
-        <item>@drawable/yes_pressed</item>
-        <item>@drawable/more_pressed</item>
-        <item>@drawable/dontlike_pressed</item>
-        <item>@drawable/no_pressed</item>
-        <item>@drawable/less_pressed</item>
-    </array>
-    <array name="expressive_icon_unpressed">
-        <item>@drawable/like</item>
-        <item>@drawable/yes</item>
-        <item>@drawable/more</item>
-        <item>@drawable/dontlike</item>
-        <item>@drawable/no</item>
-        <item>@drawable/less</item>
-    </array>
-    <string-array name="add_photo_option" >
-        <item>@drawable/ic_photo_camera</item>
-        <item>@drawable/ic_jellow_library</item>
-    </string-array>
-
-
     <string name="txt_accessibility_setting">Accessibility Setting</string>
     <string name="visual_access_title">Visual Accessibility:</string>
     <string name="visual_acesss_info">The Visual accessibility feature of Jellow now allows users with additional visual difficulties including low vision or blindness to use Jellow and communicate effectively with others. It utilizes the \'Talk back\' feature on the Android smartphone to help navigate through the application. With \'Talk back\' switched on in the user\'s device, the user will now be able to get audio input describing everything they touch on the screen. The user can also assign custom gestures or use the default gestures of \'Talk back\' as they interact with Jellow. For example, a right swipe gesture will allow the user to sequentially scroll through icons on the screen. Similarly, double tapping anywhere on the screen will allow the user to select an icon of their choice.</string>
@@ -514,7 +468,4 @@
     <string name="switch_access_title">Switch Accessibility:</string>
     <string name="switch_access_info">Information about Switch Accessibility.</string>
     <string name="serial_access_link" translatable="false">This will be here</string>
-    <string name="exit_warning">Are you sure you want to exit?</string>
-    <string name="expressive_heading">Expressive</string>
-    <string name="icon_select_exit_warning">Your selection will be lost</string>
 </resources>
