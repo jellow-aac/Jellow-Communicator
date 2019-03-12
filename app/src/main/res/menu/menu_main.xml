@@ -14,7 +14,6 @@
             android:id="@+id/tutorial"
             android:title="@string/menuTutorials"
             app:showAsAction="never"/>
-
     </group>
     <group android:id="@+id/menuGroupSettings">
         <item
