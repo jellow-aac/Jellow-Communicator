@@ -33,7 +33,6 @@ import com.dsource.idc.jellowintl.factories.IconFactory;
 import com.dsource.idc.jellowintl.factories.LanguageFactory;
 import com.dsource.idc.jellowintl.factories.PathFactory;
 import com.dsource.idc.jellowintl.factories.TextFactory;
-import com.dsource.idc.jellowintl.makemyboard.utility.SetupMMB;
 import com.dsource.idc.jellowintl.models.ExpressiveIcon;
 import com.dsource.idc.jellowintl.models.Icon;
 import com.dsource.idc.jellowintl.models.MiscellaneousIcon;
@@ -389,9 +388,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.profile:
                 startActivity(new Intent(this, ProfileFormActivity.class));
-                break;
-            case R.id.my_boards:
-                startActivity(new Intent(this, SetupMMB.class));
                 break;
             case R.id.aboutJellow:
                 startActivity(new Intent(this, AboutJellowActivity.class));
