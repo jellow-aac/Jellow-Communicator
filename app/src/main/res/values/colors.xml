@@ -8,7 +8,6 @@
     <color name="bg">#4aea00</color>
 
     <color name="colorIntro">#F7F3C6</color>
-    <color name="colorIntroSelected">#dc5252</color>
     <color name="colorControlNormal">#FF78909C</color>
     <color name="colorControlActivated">#FF03A9F4</color>
     <color name="colorSwitchThumbNormal">#FF78909C</color>
@@ -75,19 +74,11 @@
     <color name="black_eighty">#414042</color>
 
     <color name="yellow_silhouette">#ffcc14</color>
+    <color name="white">#FFFFFF</color>
     <color name="seq_btn_background_unpressed">#FFBEBCB6</color>
     <color name="seq_btn_background_pressed">#93918C</color>
     <color name="colorSerialKeyboardBackground">#C9CED1</color>
     <color name="colorSeriaKeyboardKeyText">#5D5D5D</color>
     <color name="colorSerialKeyboardKeyBackground">#EDEEF2</color>
-
-    <color name="green">#289702</color>
-    <color name="dark_base">#EDD99F</color>
-    <color name="light_black">#bf333333</color>
-    <color name="light_grey">#d37b7878</color>
-    <color name="transparent">#00d70202</color>
-    <color name="level_select_text_color">#767272</color>
-    <color name="indigo_500">#FF23FF</color>
-    <color name="white">#FFFFFF</color>
 
 </resources>
