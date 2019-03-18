@@ -32,8 +32,6 @@ import java.util.Objects;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
-import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BE_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_AU;
@@ -82,8 +80,8 @@ public class Intro extends AppIntro {
         }
         addSlide(SampleSlideFragment.newInstance(R.layout.intro7, "intro7"));
 
-        setBarColor(getResources().getColor(R.color.colorIntro));
-        setSeparatorColor(getResources().getColor(R.color.colorIntro));
+        setBarColor(getResources().getColor(R.color.app_background));
+        setSeparatorColor(getResources().getColor(R.color.app_background));
         setIndicatorColor(getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorPrimary));
         showSkipButton(false);
         setProgressButtonEnabled(false);
@@ -102,9 +100,10 @@ public class Intro extends AppIntro {
     @Override
     protected void onResume() {
         super.onResume();
-        if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE)))
+        BaseActivity ba = new BaseActivity();
+        if(!ba.isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE)))
             startService(new Intent(getApplication(), JellowTTSService.class));
-        if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))
+        if(ba.isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))
                 && isOpenedSettingFromIntro8){
             findViewById(R.id.btnMoveRight).sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
         }

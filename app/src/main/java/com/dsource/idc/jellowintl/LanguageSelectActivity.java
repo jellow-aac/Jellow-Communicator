@@ -12,12 +12,10 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
-import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
 import android.util.TypedValue;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
@@ -32,9 +30,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.crashlytics.android.Crashlytics;
-import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
-import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
@@ -43,11 +39,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
-import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
-import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.LCODE;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
@@ -65,11 +58,10 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangValueMap;
 import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
 
-public class LanguageSelectActivity extends AppCompatActivity{
+public class LanguageSelectActivity extends BaseActivity{
 
     public static final String FINISH = "finish";
     private final int ACT_CHECK_TTS_DATA = 1;
-    SessionManager mSession;
     String[] offlineLanguages;
     String[] onlineLanguages;
     Spinner languageSelect;
@@ -85,17 +77,10 @@ public class LanguageSelectActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Initialize default exception handler for this activity.
-        // If any exception occurs during this activity usage,
-        // handle it using default exception handler.
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         setContentView(R.layout.activity_language_select);
+        enableNavigationBack();
+        setActivityTitle(getString(R.string.Language));
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.Language)+"</font>"));
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
-
-        mSession = new SessionManager(this);
         mTitleEditLang = getString(R.string.editLanguage);
         mTitleChgLang = getString(R.string.txtChangeLanguage);
         mStep1 = getString(R.string.change_language_line2);
@@ -184,14 +169,14 @@ public class LanguageSelectActivity extends AppCompatActivity{
                 Crashlytics.log("LanguageSelect Apply");
                 //if current user language is not marathi and user want to change current language
                 // to marathi.
-                if (!mSession.getLanguage().equals(LangMap.get("मराठी"))
+                if (!getSession().getLanguage().equals(LangMap.get("मराठी"))
                         && selectedLanguage != null && selectedLanguage.equals("मराठी")){
                     saveLanguage();
-                    mSession.setLangSettingIsCorrect(true);
+                    getSession().setLangSettingIsCorrect(true);
                 }else if(selectedLanguage != null)
                 {
                     if(Build.VERSION.SDK_INT >= 21 &&
-                            mSession.getLanguage().equals(LangMap.get(selectedLanguage))) {
+                            getSession().getLanguage().equals(LangMap.get(selectedLanguage))) {
                         Toast.makeText(LanguageSelectActivity.this,
                                 strDefaultLangEr, Toast.LENGTH_SHORT).show();
                         return;
@@ -200,10 +185,10 @@ public class LanguageSelectActivity extends AppCompatActivity{
                         return;
                     }else if(shouldSaveLang) {
                         saveLanguage();
-                        mSession.setLangSettingIsCorrect(true);
+                        getSession().setLangSettingIsCorrect(true);
                         return;
                     }
-                    else if (mSession.getLanguage().equals(LangMap.get(selectedLanguage)) && !shouldSaveLang){
+                    else if (getSession().getLanguage().equals(LangMap.get(selectedLanguage)) && !shouldSaveLang){
                         Toast.makeText(LanguageSelectActivity.this,
                                 strDefaultLangEr, Toast.LENGTH_SHORT).show();
                         return;
@@ -227,7 +212,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 Crashlytics.log("LanguageSelect Add");
-                if(!mSession.isWifiOnlyBtnPressedOnce()){
+                if(!getSession().isWifiOnlyBtnPressedOnce()){
                     Toast.makeText(LanguageSelectActivity.this,
                             strDisableWifiOnly, Toast.LENGTH_SHORT).show();
                     return;
@@ -329,7 +314,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
                                 public void onClick(DialogInterface dialog, int which) {
                                     add.setEnabled(true);
                                     String locale = LangMap.get(offlineLanguages[item[0]]);
-                                    if (mSession.getLanguage().equals(locale)) {
+                                    if (getSession().getLanguage().equals(locale)) {
                                         Toast.makeText(LanguageSelectActivity.this, strLangCurrentlyInUse, Toast.LENGTH_SHORT).show();
                                         dialog.dismiss();
                                         return ;
@@ -382,7 +367,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
             bundle.putString(LCODE, LangMap.get(onlineLanguages[which]));
             bundle.putBoolean(FINISH, false);
             setSpeechLanguage(LangMap.get(onlineLanguages[which])); //To start TTS voice package download automatically.
-            setSpeechLanguage(mSession.getLanguage());              //To switch TTS voice package back.
+            setSpeechLanguage(getSession().getLanguage());              //To switch TTS voice package back.
             speakSpeech("");                              // Send empty string to TTS Engine to eliminate voice lag after user goes back without changing the language.
             startActivity(new Intent(getBaseContext(), LanguageDownloadActivity.class).putExtras(bundle));
             dialog.dismiss();
@@ -399,7 +384,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
             deleteRecursive(file);
         }
         file.delete();
-        mSession.setRemoved(locale);
+        getSession().setRemoved(locale);
         onlineLanguages = getOnlineLanguages();
         offlineLanguages = getOfflineLanguages();
         adapter_lan = new ArrayAdapter<String>(getBaseContext(),
@@ -408,11 +393,6 @@ public class LanguageSelectActivity extends AppCompatActivity{
         languageSelect.setAdapter(adapter_lan);
         dialog.dismiss();
         Toast.makeText(LanguageSelectActivity.this, strLangRemoved, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext((LanguageHelper.onAttach(newBase)));
     }
 
     private void hideViewsForNonTtsLang(boolean disableViews) {
@@ -436,11 +416,11 @@ public class LanguageSelectActivity extends AppCompatActivity{
 
     private void setViewsForNonTtsLang() {
         int subStrLen = 7;
-        if(mSession.getLanguage().equals(SessionManager.BN_IN))subStrLen = 12;
+        if(getSession().getLanguage().equals(SessionManager.BN_IN))subStrLen = 12;
         String stepStr = mRawStrStep2 +" "+ mStep4.substring(subStrLen);
         SpannableString spannedStr = new SpannableString(stepStr);
         int boldTxtLen = 7;
-        if(mSession.getLanguage().equals(SessionManager.BN_IN))boldTxtLen = 14;
+        if(getSession().getLanguage().equals(SessionManager.BN_IN))boldTxtLen = 14;
         spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, boldTxtLen, 0);
         ((TextView) findViewById(R.id.tv6)).setText(spannedStr);
     }
@@ -452,38 +432,38 @@ public class LanguageSelectActivity extends AppCompatActivity{
             findViewById(R.id.changeTtsLangBut).setVisibility(View.GONE);
         }
 
-        if(mSession.getLanguage().equals(BN_IN))
+        if(getSession().getLanguage().equals(BN_IN))
             boldTitleOnScreen();
 
         int boldTxtLen = 7;
         SpannableString spannedStr = new SpannableString(mStep1);
-        if(mSession.getLanguage().equals(BN_IN)) boldTxtLen = 10;
+        if(getSession().getLanguage().equals(BN_IN)) boldTxtLen = 10;
         spannedStr.setSpan(new StyleSpan(Typeface.BOLD),0,boldTxtLen,0);
         ((TextView)findViewById(R.id.tv2)).setText(spannedStr);
 
         spannedStr = new SpannableString(mStep2.replace("_",getTTsLanguage()));
-        if(mSession.getLanguage().equals(BN_IN)) boldTxtLen = 14;
+        if(getSession().getLanguage().equals(BN_IN)) boldTxtLen = 14;
         spannedStr.setSpan(new StyleSpan(Typeface.BOLD),0,boldTxtLen,0);
         ((TextView)findViewById(R.id.tv4)).setText(spannedStr);
 
         if(Build.VERSION.SDK_INT < 21) {
             spannedStr = new SpannableString(mStep3.replace("_", getTTsLanguage()));
-            if (mSession.getLanguage().equals(BN_IN)) boldTxtLen = 12;
+            if (getSession().getLanguage().equals(BN_IN)) boldTxtLen = 12;
             spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, boldTxtLen, 0);
             ((TextView) findViewById(R.id.tv5)).setText(spannedStr);
 
             spannedStr = new SpannableString(mStep4);
-            if (mSession.getLanguage().equals(BN_IN)) boldTxtLen = 12;
+            if (getSession().getLanguage().equals(BN_IN)) boldTxtLen = 12;
             spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, boldTxtLen, 0);
             ((TextView) findViewById(R.id.tv6)).setText(spannedStr);
         }else {
             int subStrLen = 8;
-            if(mSession.getLanguage().equals(SessionManager.BN_IN))subStrLen = 12;
-            else if(mSession.getLanguage().equals(HI_IN))subStrLen = 7;
-            else if(mSession.getLanguage().equals(SessionManager.MR_IN))subStrLen = 6;
+            if(getSession().getLanguage().equals(SessionManager.BN_IN))subStrLen = 12;
+            else if(getSession().getLanguage().equals(HI_IN))subStrLen = 7;
+            else if(getSession().getLanguage().equals(SessionManager.MR_IN))subStrLen = 6;
             String stepStr = mRawStr4Step3 +" "+ mStep4.substring(subStrLen);
             spannedStr = new SpannableString(stepStr);
-            if (mSession.getLanguage().equals(BN_IN)) boldTxtLen = 12;
+            if (getSession().getLanguage().equals(BN_IN)) boldTxtLen = 12;
             spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, boldTxtLen, 0);
             ((TextView) findViewById(R.id.tv6)).setText(spannedStr);
         }
@@ -517,7 +497,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
 
     public void openTextToSpeechSetting(View view){
         startActivity(new Intent().setAction("com.android.settings.TTS_SETTINGS"));
-        mSession.setWifiOnlyBtnPressedOnce(true);
+        getSession().setWifiOnlyBtnPressedOnce(true);
     }
 
     private void deleteRecursive(File fileObj) {
@@ -532,32 +512,32 @@ public class LanguageSelectActivity extends AppCompatActivity{
     {
         List<String> lang = new ArrayList<>();
 
-        String current = mSession.getLanguage();
-        if( mSession.isDownloaded(ENG_IN) &&
+        String current = getSession().getLanguage();
+        if( getSession().isDownloaded(ENG_IN) &&
                 !current.equals(ENG_IN))
             lang.add(LangValueMap.get(ENG_IN));
 
-        if( mSession.isDownloaded(SessionManager.ENG_US) &&
+        if( getSession().isDownloaded(SessionManager.ENG_US) &&
                 !current.equals(SessionManager.ENG_US))
             lang.add(LangValueMap.get(SessionManager.ENG_US));
 
-        if( mSession.isDownloaded(SessionManager.ENG_UK) &&
+        if( getSession().isDownloaded(SessionManager.ENG_UK) &&
                 !current.equals(SessionManager.ENG_UK))
             lang.add(LangValueMap.get(SessionManager.ENG_UK));
 
-        if( mSession.isDownloaded(SessionManager.ENG_AU) &&
+        if( getSession().isDownloaded(SessionManager.ENG_AU) &&
                 !current.equals(SessionManager.ENG_AU))
             lang.add(LangValueMap.get(SessionManager.ENG_AU));
 
-        if( mSession.isDownloaded(HI_IN) &&
+        if( getSession().isDownloaded(HI_IN) &&
                 !current.equals(HI_IN))
             lang.add(LangValueMap.get(HI_IN));
 
-        if(( mSession.isDownloaded(SessionManager.BN_IN) &&
+        if(( getSession().isDownloaded(SessionManager.BN_IN) &&
                 !current.equals(SessionManager.BN_IN)))
             lang.add(LangValueMap.get(SessionManager.BN_IN));
 
-        if( mSession.isDownloaded(SessionManager.MR_IN) &&
+        if( getSession().isDownloaded(SessionManager.MR_IN) &&
                 !current.equals(SessionManager.MR_IN))
             lang.add(LangValueMap.get(SessionManager.MR_IN));
 
@@ -569,19 +549,19 @@ public class LanguageSelectActivity extends AppCompatActivity{
     private String[] getOnlineLanguages()
     {
         List<String> lang = new ArrayList<>();
-        if( !mSession.isDownloaded(ENG_IN))
+        if( !getSession().isDownloaded(ENG_IN))
             lang.add(LangValueMap.get(ENG_IN));
-        if( !mSession.isDownloaded(SessionManager.ENG_US))
+        if( !getSession().isDownloaded(SessionManager.ENG_US))
             lang.add(LangValueMap.get(SessionManager.ENG_US));
-        if( !mSession.isDownloaded(SessionManager.ENG_UK))
+        if( !getSession().isDownloaded(SessionManager.ENG_UK))
             lang.add(LangValueMap.get(SessionManager.ENG_UK));
-        if( !mSession.isDownloaded(SessionManager.ENG_AU))
+        if( !getSession().isDownloaded(SessionManager.ENG_AU))
             lang.add(LangValueMap.get(SessionManager.ENG_AU));
-        if( !mSession.isDownloaded(HI_IN))
+        if( !getSession().isDownloaded(HI_IN))
             lang.add(LangValueMap.get(HI_IN));
-        if( !mSession.isDownloaded(SessionManager.BN_IN))
+        if( !getSession().isDownloaded(SessionManager.BN_IN))
             lang.add(LangValueMap.get(SessionManager.BN_IN));
-        if( !mSession.isDownloaded(SessionManager.MR_IN))
+        if( !getSession().isDownloaded(SessionManager.MR_IN))
             lang.add(LangValueMap.get(SessionManager.MR_IN));
         return lang.toArray(new String[lang.size()]);
     }
@@ -593,8 +573,8 @@ public class LanguageSelectActivity extends AppCompatActivity{
         // If yes then create new pushId (user session)
         // If no then do not create new pushId instead user existing and
         // current session time is saved.
-        long sessionTime = validatePushId(mSession.getSessionCreatedAt());
-        mSession.setSessionCreatedAt(sessionTime);
+        long sessionTime = validatePushId(getSession().getSessionCreatedAt());
+        getSession().setSessionCreatedAt(sessionTime);
 
         stopMeasuring("ChangeLanguageActivity");
     }
@@ -603,7 +583,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
     protected void onResume() {
         super.onResume();
         if(!isAnalyticsActive()){
-            resetAnalytics(this, mSession.getCaregiverNumber().substring(1));
+            resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
         }
         if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
             startService(new Intent(getApplication(), JellowTTSService.class));
@@ -620,9 +600,9 @@ public class LanguageSelectActivity extends AppCompatActivity{
         if(mSelectedItem != -1)
             languageSelect.setSelection(mSelectedItem);
 
-        if(!mSession.getToastMessage().isEmpty()) {
-            Toast.makeText(this, mSession.getToastMessage(), Toast.LENGTH_SHORT).show();
-            mSession.setToastMessage("");
+        if(!getSession().getToastMessage().isEmpty()) {
+            Toast.makeText(this, getSession().getToastMessage(), Toast.LENGTH_SHORT).show();
+            getSession().setToastMessage("");
         }
     }
 
@@ -630,16 +610,6 @@ public class LanguageSelectActivity extends AppCompatActivity{
     public void onBackPressed() {
         super.onBackPressed();
         finish();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-            menu.findItem(R.id.closePopup).setVisible(false);
-        }
-        return true;
     }
 
     @Override
@@ -711,11 +681,11 @@ public class LanguageSelectActivity extends AppCompatActivity{
                     }else if(intent.getBooleanExtra("showError",false))
                         //Change Toast here
                         Toast.makeText(context, mCompleteStep3, Toast.LENGTH_LONG).show();
-                    if(isOpenedTtsSett && isTtsLangChanged && !mSession.getLangSettingIsCorrect())
+                    if(isOpenedTtsSett && isTtsLangChanged && !getSession().getLangSettingIsCorrect())
                         if((!sysTtsLang.equals("-r")) &&
-                            (mSession.getLanguage().equals(BN_IN) && (sysTtsLang.equals(BN_IN) || (sysTtsLang.equals(BE_IN)))) ||
-                                (!mSession.getLanguage().equals(BN_IN)
-                                        && mSession.getLanguage().equals(sysTtsLang)))
+                            (getSession().getLanguage().equals(BN_IN) && (sysTtsLang.equals(BN_IN) || (sysTtsLang.equals(BE_IN)))) ||
+                                (!getSession().getLanguage().equals(BN_IN)
+                                        && getSession().getLanguage().equals(sysTtsLang)))
                             shouldSaveLang = true;
                     isOpenedTtsSett = isTtsLangChanged = false;
                     break;
@@ -753,7 +723,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
     }
 
     private void saveLanguage() {
-        mSession.setLanguage(LangMap.get(selectedLanguage));
+        getSession().setLanguage(LangMap.get(selectedLanguage));
         Bundle bundle = new Bundle();
         bundle.putString("LanguageSet", "Switched to "+ LangMap.get(selectedLanguage));
         bundleEvent("Language",bundle);
@@ -761,7 +731,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
         setCrashlyticsCustomKey("UserLanguage",  LangMap.get(selectedLanguage));
         Toast.makeText(this, mLangChanged, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
-        mSession.setLanguageChange(1);
+        getSession().setLanguageChange(1);
         startActivity(intent);
         finishAffinity();
     }
@@ -860,7 +830,7 @@ public class LanguageSelectActivity extends AppCompatActivity{
         String[] filteredList = new String[currentList.length-1];
         int j=-1;
         for (int i = 0; i < currentList.length; i++) {
-            if (currentList[i].equals(LangValueMap.get(mSession.getLanguage()))) {
+            if (currentList[i].equals(LangValueMap.get(getSession().getLanguage()))) {
             }else
                 filteredList[++j] = currentList[i];
         }

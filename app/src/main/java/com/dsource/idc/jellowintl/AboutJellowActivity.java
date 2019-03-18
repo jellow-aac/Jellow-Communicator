@@ -6,25 +6,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.util.Linkify;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
-import com.dsource.idc.jellowintl.utility.LanguageHelper;
-import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.dsource.idc.jellowintl.utility.SpeechUtils;
 
 import java.util.HashMap;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
-import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
@@ -34,7 +26,7 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
  * Created by user on 5/27/2016.
  */
 
-public class AboutJellowActivity extends AppCompatActivity {
+public class AboutJellowActivity extends BaseActivity {
     private Button mBtnSpeak, mBtnStop;
     private TextView tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8, tv9, tv10, tv11, tv12, tv13, tv14, tv15, tv16,
             tv17, tv18, tv19, tv20, tv21, tv22, tv23, tv24, tv25, tv26, tv27, tv28, tv29, tv30, tv31,
@@ -46,21 +38,11 @@ public class AboutJellowActivity extends AppCompatActivity {
             mIntro27, mIntro28, mIntro29, mIntro30, mIntro31, mIntro32, mSpeak, mStop;
 
     @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext((LanguageHelper.onAttach(newBase)));
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Initialize default exception handler for this activity.
-        // If any exception occurs during this activity usage,
-        // handle it using default exception handler.
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         setContentView(R.layout.activity_about_jellow);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.menuAbout)+"</font>"));
+        enableNavigationBack();
+        setActivityTitle(getString(R.string.menuAbout));
         initializeViews();
         loadStrings();
         setTextToTextViews();
@@ -92,21 +74,11 @@ public class AboutJellowActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if(!isAnalyticsActive()) {
-            resetAnalytics(this, new SessionManager(this).getCaregiverNumber().substring(1));
+            resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
         }
         if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
             startService(new Intent(getApplication(), JellowTTSService.class));
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-            menu.findItem(R.id.closePopup).setVisible(false);
-        }
-        return true;
     }
 
     @Override
@@ -214,8 +186,7 @@ public class AboutJellowActivity extends AppCompatActivity {
     }
 
     private void loadStrings() {
-        SessionManager session = new SessionManager(this);
-        String versionCode = prepareRegionalVersionCode(session.getLanguage(),
+        String versionCode = prepareRegionalVersionCode(getSession().getLanguage(),
                 String.valueOf(BuildConfig.VERSION_NAME).
                         replace(".","@").split("@"));
         mGenInfo = getString(R.string.info);
@@ -264,7 +235,7 @@ public class AboutJellowActivity extends AppCompatActivity {
         mIntro32 = getString(R.string.about_je_intro32);
 
         mSpeechTxt = getString(R.string.about_jellow_speech);
-        if(session.getLanguage().equals(HI_IN))
+        if(getSession().getLanguage().equals(HI_IN))
             versionCode = versionCode.replace(".", " दशम् लक ");
         mSpeechTxt = mSpeechTxt.contains("_") ?
                 mSpeechTxt.replace("_", versionCode) : mSpeechTxt;

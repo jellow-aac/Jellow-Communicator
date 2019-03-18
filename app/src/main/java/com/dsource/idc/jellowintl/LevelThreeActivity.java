@@ -1,11 +1,8 @@
 package com.dsource.idc.jellowintl;
 
-import android.app.ActivityManager;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.database.SQLException;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -13,8 +10,6 @@ import android.os.Handler;
 import android.provider.Settings;
 import android.text.method.KeyListener;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
@@ -37,28 +32,19 @@ import com.dsource.idc.jellowintl.models.Icon;
 import com.dsource.idc.jellowintl.models.MiscellaneousIcon;
 import com.dsource.idc.jellowintl.utility.CustomGridLayoutManager;
 import com.dsource.idc.jellowintl.utility.DataBaseHelper;
-import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.DialogKeyboardUtterance;
 import com.dsource.idc.jellowintl.utility.IndexSorter;
-import com.dsource.idc.jellowintl.utility.JellowTTSService;
-import com.dsource.idc.jellowintl.utility.LanguageHelper;
-import com.dsource.idc.jellowintl.utility.SessionManager;
-import com.dsource.idc.jellowintl.utility.SpeechUtils;
 import com.dsource.idc.jellowintl.utility.UserEventCollector;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
-import static com.dsource.idc.jellowintl.MainActivity.isNotchDevice;
-import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
@@ -70,7 +56,7 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_AU;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_UK;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_US;
 
-public class LevelThreeActivity extends AppCompatActivity {
+public class LevelThreeActivity extends LevelScreenBaseActivity implements TextToSpeechError {
     private final boolean DISABLE_EXPR_BTNS = true;
 
     /* This flags are used to identify respective expressive button is pressed either
@@ -124,17 +110,12 @@ public class LevelThreeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Initialize default exception handler for this activity.
-        // If any exception occurs during this activity usage,
-        // handle it using default exception handler.
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
-        if (isNotchDevice(this))
+        if (isNotchDevice())
             setContentView(R.layout.activity_levelx_layout_notch);
         else
             setContentView(R.layout.activity_levelx_layout);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
-        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
-        getSupportActionBar().setTitle(getIntent().getExtras().getString(getString(R.string.intent_menu_path_tag)));
+        setLevelActionBar(getIntent().getExtras().getString(getString(R.string.intent_menu_path_tag)));
+
         // when layout is loaded on activity, using the tag attribute of a parent view in layout
         // the device size is identified. If device size is large (10' tablets) enable the
         // hardware acceleration. As seen in testing device, scrolling recycler items on 10' tab
@@ -180,29 +161,16 @@ public class LevelThreeActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext((LanguageHelper.onAttach(newBase)));
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
-        SessionManager session = new SessionManager(this);
         if(!isAnalyticsActive()){
-            resetAnalytics(this, session.getCaregiverNumber().substring(1));
+            resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
         }
-        if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
-            startService(new Intent(getApplication(), JellowTTSService.class));
-        }
-        // broadcast receiver to get response messages from JellowTTsService.
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("com.dsource.idc.jellowintl.SPEECH_TTS_ERROR");
-        registerReceiver(receiver, filter);
         // Start measuring user app screen timer .
         startMeasuring();
-        if(!session.getToastMessage().isEmpty()) {
-            Toast.makeText(this, session.getToastMessage(), Toast.LENGTH_SHORT).show();
-            session.setToastMessage("");
+        if(!getSession().getToastMessage().isEmpty()) {
+            Toast.makeText(this, getSession().getToastMessage(), Toast.LENGTH_SHORT).show();
+            getSession().setToastMessage("");
         }
     }
 
@@ -218,7 +186,7 @@ public class LevelThreeActivity extends AppCompatActivity {
         final int sortedIndex=getSortedIndex(getIntent().getExtras().getInt(getString(R.string.search_parent_2)));
         //To get gridSize
                 int gridSize;
-                if(new SessionManager(this).getGridSize()==1)
+                if(getSession().getGridSize()==1)
                     gridSize=8;
                 else gridSize=2;
                 //Scroll to the position if the icon is not present in first grid
@@ -231,6 +199,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                 else
                     setSearchHighlight(sortedIndex);
     }
+
     /**
      * This functions returns a scroll scrollListener which triggers the setHighlight function
      * when the scrolling is done
@@ -287,84 +256,20 @@ public class LevelThreeActivity extends AppCompatActivity {
         // If yes then create new pushId (user session)
         // If no then do not create new pushId instead user existing and
         // current session time is saved.
-        SessionManager session = new SessionManager(this);
-        long sessionTime = validatePushId(session.getSessionCreatedAt());
-        session.setSessionCreatedAt(sessionTime);
+        long sessionTime = validatePushId(getSession().getSessionCreatedAt());
+        getSession().setSessionCreatedAt(sessionTime);
         // Stop measuring user app screen timer .
         stopMeasuring("LevelThreeActivity");
-        try{
-            unregisterReceiver(receiver);
-        } catch(IllegalArgumentException | NullPointerException | IllegalStateException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         mRecyclerView = null;
         mRecyclerItemsViewList = null;
         mSpeechText = mDisplayText = mExprBtnTxt = mNavigationBtnTxt = null;
         mArrSort = null; mArrIconTapCount = null;
         myDbHelper = null;
         super.onDestroy();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_main_with_search, menu);
-        if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-            menu.findItem(R.id.closePopup).setVisible(false);
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.search:
-                startActivity(new Intent(this, SearchActivity.class));
-                break;
-            case R.id.profile:
-                startActivity(new Intent(this, ProfileFormActivity.class));
-                break;
-            case R.id.aboutJellow:
-                startActivity(new Intent(this, AboutJellowActivity.class));
-                break;
-            case R.id.tutorial:
-                startActivity(new Intent(this, TutorialActivity.class));
-                break;
-            case R.id.keyboardInput:
-                startActivity(new Intent(this, KeyboardInputActivity.class));
-                break;
-            case R.id.languageSelect:
-                if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                    startActivity(new Intent(this, LanguageSelectActivity.class));
-                } else {
-                    startActivity(new Intent(this, LanguageSelectTalkBackActivity.class));
-                }
-                break;
-            case R.id.settings:
-                startActivity(new Intent(this, SettingActivity.class));
-                break;
-            case R.id.accessibilitySetting:
-                startActivity(new Intent(this, AccessibilitySettingsActivity.class));
-                break;
-            case R.id.resetPreferences:
-                startActivity(new Intent(this, ResetPreferencesActivity.class));
-                break;
-            case R.id.feedback:
-                if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                    startActivity(new Intent(this, FeedbackActivityTalkBack.class));
-                }
-                else {
-                    startActivity(new Intent(this, FeedbackActivity.class));
-                }
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return true;
     }
 
     @Override
@@ -415,9 +320,8 @@ public class LevelThreeActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.recycler_view);
         // Initiate 3 columns in Recycler View.
         //This code is to decide the speed of the Scrolling
-        // which grid size is 3 then scrolling is fast as compared to the 9 .
-        SessionManager sessionManager=new SessionManager(this);
-        switch (sessionManager.getGridSize()){
+        // which grid size is 3 then scrolling is fast as compared to the 9.
+        switch (getSession().getGridSize()){
             case 0:
                 mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this, 1,3));
                 break;
@@ -431,7 +335,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                 break;
             case 4:
                 mRecyclerView.setLayoutManager(new CustomGridLayoutManager
-                        (this, 3, sessionManager.getGridSize()));
+                        (this, 3, getSession().getGridSize()));
                 break;
         }
         mRecyclerView.setVerticalScrollBarEnabled(true);
@@ -638,7 +542,7 @@ public class LevelThreeActivity extends AppCompatActivity {
     private void initBackBtnListener() {
         mIvBack.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                speakSpeech(mNavigationBtnTxt[1]);
+                speak(mNavigationBtnTxt[1]);
                 mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
                 mIvBack.setImageResource(R.drawable.back_pressed);
                 //when mFlgKeyboardOpened is set to 1, it means user is using custom keyboard input
@@ -706,7 +610,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        speakSpeech(mNavigationBtnTxt[0]);
+                        speak(mNavigationBtnTxt[0]);
                     }
                 }).start();
                 //When home is tapped in this activity it will close all other activities and
@@ -751,7 +655,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                 if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
                     new DialogKeyboardUtterance(LevelThreeActivity.this).show();
                 } else {
-                    speakSpeech(mNavigationBtnTxt[2]);
+                    speak(mNavigationBtnTxt[2]);
                     mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
                     //when mFlgKeyboardOpened is set to 1, it means user is using custom keyboard input
                     // text and system keyboard is visible.
@@ -836,13 +740,13 @@ public class LevelThreeActivity extends AppCompatActivity {
                 if (!mShouldReadFullSpeech) {
                     // if value of mFlgLike is 1, then should speak "really like".
                     if (mFlgLike == 1) {
-                        speakSpeech(mExprBtnTxt[1]);
+                        speak(mExprBtnTxt[1]);
                         mFlgLike = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(1, "", "");
                     // if value of mFlgLike is 0, then should speak "like".
                     } else {
-                        speakSpeech(mExprBtnTxt[0]);
+                        speak(mExprBtnTxt[0]);
                         mFlgLike = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(0, "", "");
@@ -865,7 +769,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                 level3IconObjects[getTagPos()].getEvent_Tag()
                             +"_"+ mVerbCode[getTagPos()]+"LL","");
 
-                        speakSpeech(level3IconObjects[mArrSort[mLevelThreeItemPos]].getLL());
+                        speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getLL());
 
                         //reset mFlgLike to speak "like" expression
                         mFlgLike = 0;
@@ -877,7 +781,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                 level3IconObjects[getTagPos()].getEvent_Tag()
                             +"_"+ mVerbCode[getTagPos()]+"L0","");
 
-                        speakSpeech(level3IconObjects[mArrSort[mLevelThreeItemPos]].getL());
+                        speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getL());
                         //reset mFlgLike to speak "really like" expression
                         mFlgLike = 1;
                     }
@@ -915,13 +819,13 @@ public class LevelThreeActivity extends AppCompatActivity {
                 if (!mShouldReadFullSpeech) {
                     // if value of mFlgDntLike is 1, then should speak "really dont like".
                     if (mFlgDntLike == 1) {
-                        speakSpeech(mExprBtnTxt[7]);
+                        speak(mExprBtnTxt[7]);
                         mFlgDntLike = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(7, "", "");
                     // if value of mFlgDntLike is 0, then should speak " dont like".
                     } else {
-                        speakSpeech(mExprBtnTxt[6]);
+                        speak(mExprBtnTxt[6]);
                         mFlgDntLike = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(6, "", "");
@@ -944,7 +848,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                 level3IconObjects[getTagPos()].getEvent_Tag()
                             +"_"+ mVerbCode[getTagPos()]+"DD","");
 
-                        speakSpeech(level3IconObjects[mArrSort[mLevelThreeItemPos]].getDD());
+                        speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getDD());
                         //reset mFlgDntLike to speak "dont like" expression
                         mFlgDntLike = 0;
                     // if value of mFlgDntLike is 0 then Speak associated don't like expression
@@ -955,7 +859,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                 level3IconObjects[getTagPos()].getEvent_Tag()
                             +"_"+ mVerbCode[getTagPos()]+"D0","");
 
-                        speakSpeech(level3IconObjects[mArrSort[mLevelThreeItemPos]].getD());
+                        speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getD());
                         //reset mFlgDntLike to speak "really don't like" expression
                         mFlgDntLike = 1;
                     }
@@ -993,13 +897,13 @@ public class LevelThreeActivity extends AppCompatActivity {
                 if (!mShouldReadFullSpeech) {
                     // if value of mFlgYes is 1, then should speak "really yes".
                     if (mFlgYes == 1) {
-                        speakSpeech(mExprBtnTxt[3]);
+                        speak(mExprBtnTxt[3]);
                         mFlgYes = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(3, "", "");
                     // if value of mFlgYes is 0, then should speak "yes".
                     } else {
-                        speakSpeech(mExprBtnTxt[2]);
+                        speak(mExprBtnTxt[2]);
                         mFlgYes = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(2, "", "");
@@ -1021,7 +925,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                 level3IconObjects[getTagPos()].getEvent_Tag()
                             +"_"+ mVerbCode[getTagPos()]+"YY","");
 
-                        speakSpeech(level3IconObjects[mArrSort[mLevelThreeItemPos]].getYY());
+                        speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getYY());
                         //reset mFlgYes to speak "yes" expression
                         mFlgYes = 0;
                     // if value of mFlgYes is 0 then speak associated really yes expression
@@ -1032,7 +936,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                 level3IconObjects[getTagPos()].getEvent_Tag()
                             +"_"+ mVerbCode[getTagPos()]+"Y0","");
 
-                        speakSpeech(level3IconObjects[mArrSort[mLevelThreeItemPos]].getY());
+                        speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getY());
                         //reset mFlgYes to speak "really yes" expression
                         mFlgYes = 1;
                     }
@@ -1070,13 +974,13 @@ public class LevelThreeActivity extends AppCompatActivity {
                 if (!mShouldReadFullSpeech) {
                     // if value of mFlgNo is 1, then should speak "really no".
                     if (mFlgNo == 1) {
-                        speakSpeech(mExprBtnTxt[9]);
+                        speak(mExprBtnTxt[9]);
                         mFlgNo = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(9, "", "");
                     // if value of mFlgNo is 0, then should speak "no".
                     } else {
-                        speakSpeech(mExprBtnTxt[8]);
+                        speak(mExprBtnTxt[8]);
                         mFlgNo = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(8, "", "");
@@ -1098,7 +1002,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                 level3IconObjects[getTagPos()].getEvent_Tag()
                             +"_"+ mVerbCode[getTagPos()]+"NN","");
 
-                        speakSpeech(level3IconObjects[mArrSort[mLevelThreeItemPos]].getNN());
+                        speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getNN());
                         //reset mFlgNo to speak "no" expression
                         mFlgNo = 0;
                     // if value of mFlgNo is 0 then Speak associated no expression
@@ -1109,7 +1013,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                 level3IconObjects[getTagPos()].getEvent_Tag()
                             +"_"+ mVerbCode[getTagPos()]+"N0","");
 
-                        speakSpeech(level3IconObjects[mArrSort[mLevelThreeItemPos]].getN());
+                        speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getN());
                         //reset mFlgLike to speak "really no" expression
                         mFlgNo = 1;
                     }
@@ -1145,13 +1049,13 @@ public class LevelThreeActivity extends AppCompatActivity {
                 if (!mShouldReadFullSpeech) {
                     // if value of mFlgMore is 1, then should speak "really more".
                     if (mFlgMore == 1) {
-                        speakSpeech(mExprBtnTxt[5]);
+                        speak(mExprBtnTxt[5]);
                         mFlgMore = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(5, "", "");
                     // if value of mFlgMore is 0, then should speak "more".
                     } else {
-                        speakSpeech(mExprBtnTxt[4]);
+                        speak(mExprBtnTxt[4]);
                         mFlgMore = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(4, "", "");
@@ -1173,7 +1077,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                 level3IconObjects[getTagPos()].getEvent_Tag()
                             +"_"+ mVerbCode[getTagPos()]+"MM","");
 
-                        speakSpeech(level3IconObjects[mArrSort[mLevelThreeItemPos]].getMM());
+                        speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getMM());
                         //reset mFlgMore to speak "more" expression
                         mFlgMore = 0;
                     // if value of mFlgMore is 0, then should speak "more" expression
@@ -1184,7 +1088,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                 level3IconObjects[getTagPos()].getEvent_Tag()
                             +"_"+ mVerbCode[getTagPos()]+"M0","");
 
-                        speakSpeech(level3IconObjects[mArrSort[mLevelThreeItemPos]].getM());
+                        speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getM());
                         //reset mFlgMore to speak "really more" expression
                         mFlgMore = 1;
                     }
@@ -1222,13 +1126,13 @@ public class LevelThreeActivity extends AppCompatActivity {
                 if (!mShouldReadFullSpeech) {
                     // if value of mFlgLess is 1, then should speak "really less".
                     if (mFlgLess == 1) {
-                        speakSpeech(mExprBtnTxt[11]);
+                        speak(mExprBtnTxt[11]);
                         mFlgLess = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(11, "", "");
                     // if value of mFlgLess is 0, then should speak "less".
                     } else {
-                        speakSpeech(mExprBtnTxt[10]);
+                        speak(mExprBtnTxt[10]);
                         mFlgLess = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(10, "", "");
@@ -1250,7 +1154,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                 level3IconObjects[getTagPos()].getEvent_Tag()
                             +"_"+ mVerbCode[getTagPos()]+"SS","");
 
-                        speakSpeech(level3IconObjects[mArrSort[mLevelThreeItemPos]].getSS());
+                        speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getSS());
                         //reset mFlgLess to speak "less" expression
                         mFlgLess = 0;
                     // if value of mFlgLess is 0 then Speak associated less expression
@@ -1261,7 +1165,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                 level3IconObjects[getTagPos()].getEvent_Tag()
                             +"_"+ mVerbCode[getTagPos()]+"S0","");
 
-                        speakSpeech(level3IconObjects[mArrSort[mLevelThreeItemPos]].getS());
+                        speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getS());
                         //reset mFlgLess to speak "really less" expression
                         mFlgLess = 1;
                     }
@@ -1279,7 +1183,7 @@ public class LevelThreeActivity extends AppCompatActivity {
     private void initTTsBtnListener() {
         mIvTTs.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                speakSpeech(mEtTTs.getText().toString());
+                speak(mEtTTs.getText().toString());
                 //Firebase event
                 Bundle bundle = new Bundle();
                 bundle.putString("InputName", Settings.Secure.getString(getContentResolver(),
@@ -1360,9 +1264,9 @@ public class LevelThreeActivity extends AppCompatActivity {
                     (mLevelOneItemPos == 7 && (mLevelTwoItemPos == 0 || mLevelTwoItemPos == 1 ||
                             mLevelTwoItemPos == 2 || mLevelTwoItemPos == 3 || mLevelTwoItemPos == 4)) ||
                     (mLevelOneItemPos == 4 && mLevelTwoItemPos == 9)) {
-                speakSpeech(mSpeechText[mLevelThreeItemPos]);
+                speak(mSpeechText[mLevelThreeItemPos]);
             } else {
-                speakSpeech(mSpeechText[mArrSort[mLevelThreeItemPos]]);
+                speak(mSpeechText[mArrSort[mLevelThreeItemPos]]);
             }
             mUec.createSendFbEventFromTappedView(12, mDisplayText[getTagPos()], "");
         }
@@ -1386,15 +1290,6 @@ public class LevelThreeActivity extends AppCompatActivity {
             actionBarTitleTxt = getSupportActionBar().getTitle().toString();
             getSupportActionBar().setTitle("");
         }
-    }
-
-    /**
-     * <p>This function will send speech output request to
-     * {@link com.dsource.idc.jellowintl.utility.JellowTTSService} Text-to-speech Engine.
-     * The string in {@param speechText} is speech output request string.</p>
-     * */
-    private void speakSpeech(String speechText){
-        SpeechUtils.speak(this,speechText);
     }
 
     /**
@@ -1491,7 +1386,7 @@ public class LevelThreeActivity extends AppCompatActivity {
         // Daily activities -> clothes and more
         else if(mLevelOneItemPos == 1 && mLevelTwoItemPos == 3){
             int tmp = mArrSort[mLevelThreeItemPos];
-            String lang = new SessionManager(this).getLanguage();
+            String lang = getSession().getLanguage();
             // if any one of category icon from "My clothes are tight", "My clothes are loose",
             // "Help me remove clothes" and "Help put on clothes" is selected then all expressive
             // buttons are disabled.
@@ -1561,7 +1456,7 @@ public class LevelThreeActivity extends AppCompatActivity {
         enterCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                speakSpeech(mSpeechText[getTagPos()]);
+                speak(mSpeechText[getTagPos()]);
                 mUec.createSendFbEventFromTappedView(12, mDisplayText[getTagPos()], "");
             }
         });
@@ -1958,18 +1853,20 @@ public class LevelThreeActivity extends AppCompatActivity {
         }
     }
 
-    private final BroadcastReceiver receiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(final Context context, Intent intent) {
-            switch (intent.getAction()) {
-                case "com.dsource.idc.jellowintl.SPEECH_TTS_ERROR":
-                    //TODO: Add network check if exist ? if not found then show message "network error" or
-                    //TODO: if network exist then show message "redirect user to setting page."
-                    //Text synthesize process failed third time then show TTs error.
-                    if (++MainActivity.sTTsNotWorkingCount > 2)
-                        Toast.makeText(context, MainActivity.sCheckVoiceData, Toast.LENGTH_LONG).show();
-                    break;
-            }
-        }
-    };
+
+    /*Text-To-Speech Engine error callbacks are implemented below*/
+    @Override
+    public void sendFailedToSynthesizeError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void sendLanguageIncompatibleError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        getSession().setLangSettingIsCorrect(false);
+    }
+
+    @Override
+    public void sendLanguageIncompatibleForAccessibility() { }
+    /*-------------*/
 }
