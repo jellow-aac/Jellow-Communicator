@@ -24,22 +24,16 @@ import com.dsource.idc.jellowintl.factories.PathFactory;
 import com.dsource.idc.jellowintl.factories.TextFactory;
 import com.dsource.idc.jellowintl.models.Icon;
 import com.dsource.idc.jellowintl.models.JellowIcon;
-import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.IconDataBaseHelper;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
-import com.dsource.idc.jellowintl.utility.LanguageHelper;
-import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
-import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.factories.PathFactory.getIconDirectory;
 import static com.dsource.idc.jellowintl.factories.PathFactory.getIconPath;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
@@ -63,7 +57,7 @@ import static com.dsource.idc.jellowintl.utility.SpeechUtils.speak;
  * @Author AyazAlam
  * </p>
  */
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends BaseActivity {
 
     private RecyclerView mRecyclerView;
     private SearchViewIconAdapter adapter;
@@ -77,15 +71,9 @@ public class SearchActivity extends AppCompatActivity {
     private int afterTextChanged;
     private boolean firedEvent=false;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Initialize default exception handler for this activity.
-        // If any exception occurs during this activity usage,
-        // handle it using default exception handler.
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         setContentView(R.layout.activity_search);
         EditText SearchEditText = findViewById(R.id.search_auto_complete);
         if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
@@ -199,7 +187,7 @@ public class SearchActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if(!isAnalyticsActive()){
-            resetAnalytics(this, new SessionManager(this).getCaregiverNumber().substring(1));
+            resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
         }
         if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
             startService(new Intent(getApplication(), JellowTTSService.class));
@@ -215,9 +203,8 @@ public class SearchActivity extends AppCompatActivity {
         // If yes then create new pushId (user session)
         // If no then do not create new pushId instead user existing and
         // current session time is saved.
-        SessionManager session = new SessionManager(this);
-        long sessionTime = validatePushId(session.getSessionCreatedAt());
-        session.setSessionCreatedAt(sessionTime);
+        long sessionTime = validatePushId(getSession().getSessionCreatedAt());
+        getSession().setSessionCreatedAt(sessionTime);
 
         // Stop measuring user app screen timer.
         stopMeasuring("SearchActivity");
@@ -231,12 +218,6 @@ public class SearchActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
-
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext((LanguageHelper.onAttach(newBase)));
-    }
-
 }
 
 /**
@@ -316,13 +297,13 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
 
         if(icon.parent1==-1&&icon.parent2==-1)//Level 1
         {
-            activityIntent=new Intent(mContext,MainActivity.class);
+            activityIntent=new Intent(mContext, MainActivity.class);
             activityIntent.putExtra(mContext.getString(R.string.search_parent_0),icon.parent0);
             activityIntent.putExtra(mContext.getString(R.string.from_search),mContext.getString(R.string.search_tag));
         }
         else if(icon.parent0!=-1&&icon.parent1!=-1&&icon.parent2==-1)//Level 2
         {
-            activityIntent=new Intent(mContext,LevelTwoActivity.class);
+            activityIntent=new Intent(mContext, LevelTwoActivity.class);
             activityIntent.putExtra(mContext.getString(R.string.level_one_intent_pos_tag),icon.parent0);
             //Passing the index of the icon to be highlighted.
             activityIntent.putExtra(mContext.getString(R.string.search_parent_1),icon.parent1);
@@ -332,7 +313,7 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
         }
         else //Level 3
         {
-            activityIntent=new Intent(mContext,LevelThreeActivity.class);
+            activityIntent=new Intent(mContext, LevelThreeActivity.class);
             activityIntent.putExtra(mContext.getString(R.string.from_search),mContext.getString(R.string.search_tag));
             //Level 1 parent
             activityIntent.putExtra(mContext.getString(R.string.level_one_intent_pos_tag),icon.parent0);

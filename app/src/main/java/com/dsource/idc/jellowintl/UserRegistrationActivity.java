@@ -8,7 +8,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Patterns;
 import android.view.View;
 import android.view.WindowManager;
@@ -25,8 +24,6 @@ import android.widget.Toast;
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_DropDownMenu;
 import com.dsource.idc.jellowintl.models.SecureKeys;
-import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
-import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -51,11 +48,9 @@ import java.util.Date;
 import java.util.Random;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
 import se.simbio.encryption.Encryption;
 
-import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.getAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.maskNumber;
@@ -66,14 +61,13 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
 /**
  * Created by user on 5/25/2016.
  */
-public class UserRegistrationActivity extends AppCompatActivity {
+public class UserRegistrationActivity extends BaseActivity {
     public static final String LCODE = "lcode";
     public static final String TUTORIAL = "tutorial";
 
     final int GRID_3BY3 = 4;
     private Button bRegister;
     private EditText etName, etEmergencyContact, etEmailId;
-    private SessionManager mSession;
     private FirebaseDatabase mDB;
     private DatabaseReference mRef;
     private CountryCodePicker mCcp;
@@ -86,36 +80,30 @@ public class UserRegistrationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Initialize default exception handler for this activity.
-        // If any exception occurs during this activity usage,
-        // handle it using default exception handler.
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         setContentView(R.layout.activity_user_registration);
         FirebaseMessaging.getInstance().subscribeToTopic("jellow_aac");
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"
-                + getString(R.string.menuUserRegistration) + "</font>"));
+        setActivityTitle(getString(R.string.menuUserRegistration));
 
-        mSession = new SessionManager(this);
-        if (!mSession.getCaregiverNumber().equals("")) {
-            getAnalytics(this, mSession.getCaregiverNumber().substring(1));
-            mSession.setSessionCreatedAt(new Date().getTime());
-            Crashlytics.setUserIdentifier(maskNumber(mSession.getCaregiverNumber().substring(1)));
+        if (!getSession().getCaregiverNumber().equals("")) {
+            getAnalytics(this, getSession().getCaregiverNumber().substring(1));
+            getSession().setSessionCreatedAt(new Date().getTime());
+            Crashlytics.setUserIdentifier(maskNumber(getSession().getCaregiverNumber().substring(1)));
         }
-        if (mSession.isUserLoggedIn() && !mSession.getLanguage().isEmpty()) {
-            if (mSession.isDownloaded(mSession.getLanguage()) && mSession.isCompletedIntro()) {
-                if (!mSession.getUpdatedFirebase())
+        if (getSession().isUserLoggedIn() && !getSession().getLanguage().isEmpty()) {
+            if (getSession().isDownloaded(getSession().getLanguage()) && getSession().isCompletedIntro()) {
+                if (!getSession().getUpdatedFirebase())
                     updateFirebaseDatabase();
                 startActivity(new Intent(this, SplashActivity.class));
-            } else if (mSession.isDownloaded(mSession.getLanguage()) && !mSession.isCompletedIntro()) {
+            } else if (getSession().isDownloaded(getSession().getLanguage()) && !getSession().isCompletedIntro()) {
                 startActivity(new Intent(this, Intro.class));
             } else {
                 startActivity(new Intent(UserRegistrationActivity.this,
                         LanguageDownloadActivity.class)
-                        .putExtra(LCODE, mSession.getLanguage()).putExtra(TUTORIAL, true));
+                        .putExtra(LCODE, getSession().getLanguage()).putExtra(TUTORIAL, true));
             }
             finish();
         } else {
-            mSession.setBlood(-1);
+            getSession().setBlood(-1);
         }
 
         mDB = FirebaseDatabase.getInstance();
@@ -131,7 +119,6 @@ public class UserRegistrationActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         etName = findViewById(R.id.etName);
         etName.clearFocus();
-        //ViewCompat.setAccessibilityDelegate(etName, new TalkBackHints_EditText());
         etEmergencyContact = findViewById(R.id.etEmergencyContact);
         mCcp = findViewById(R.id.ccp);
         if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE)))
@@ -200,8 +187,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
                             getString(R.string.enternonemptycontact), Toast.LENGTH_SHORT).show();
                     return;
                 }
-                mSession.setExtraValToContact(String.valueOf(new Random().nextInt(900) + 100));
-                emergencyContact = mCcp.getFullNumber().concat(mSession.getExtraValToContact());
+                getSession().setExtraValToContact(String.valueOf(new Random().nextInt(900) + 100));
+                emergencyContact = mCcp.getFullNumber().concat(getSession().getExtraValToContact());
 
                 eMailId = etEmailId.getText().toString().trim();
                 if (!isValidEmail(eMailId)){
@@ -228,35 +215,35 @@ public class UserRegistrationActivity extends AppCompatActivity {
             }
         });
 
-        if(!mSession.getName().isEmpty()){
-            etName.setText(mSession.getName());
-            etEmergencyContact.setText(mSession.getCaregiverNumber());
-            etEmailId.setText(mSession.getEmailId());
+        if(!getSession().getName().isEmpty()){
+            etName.setText(getSession().getName());
+            etEmergencyContact.setText(getSession().getCaregiverNumber());
+            etEmailId.setText(getSession().getEmailId());
         }
     }
 
     private void updateFirebaseDatabase() {
-        String userId = maskNumber(mSession.getCaregiverNumber().substring(1));
+        String userId = maskNumber(getSession().getCaregiverNumber().substring(1));
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         DatabaseReference ref = db.getReference(BuildConfig.DB_TYPE+"/users/" + userId);
         SecureKeys secureKey = new Gson().
-                fromJson(mSession.getEncryptedData(), SecureKeys.class);
+                fromJson(getSession().getEncryptedData(), SecureKeys.class);
         if (secureKey == null)
             return;
-        ref.child("email").setValue(encrypt(mSession.getEmailId(),secureKey));
+        ref.child("email").setValue(encrypt(getSession().getEmailId(),secureKey));
         ref.child("emergencyContact").setValue(userId);
-        ref.child("name").setValue(encrypt(mSession.getName(), secureKey));
-        ref.child("userGroup").setValue(encrypt(mSession.getUserGroup(), secureKey));
-        ref.child("bloodGroup").setValue(encrypt(getBloodGroup(mSession.getBlood()), secureKey));
-        if(!mSession.getCaregiverNumber().isEmpty())
-            ref.child("caregiverName").setValue(encrypt(mSession.getCaregiverName(), secureKey));
+        ref.child("name").setValue(encrypt(getSession().getName(), secureKey));
+        ref.child("userGroup").setValue(encrypt(getSession().getUserGroup(), secureKey));
+        ref.child("bloodGroup").setValue(encrypt(getBloodGroup(getSession().getBlood()), secureKey));
+        if(!getSession().getCaregiverNumber().isEmpty())
+            ref.child("caregiverName").setValue(encrypt(getSession().getCaregiverName(), secureKey));
 
-        if(!mSession.getAddress().isEmpty())
-            ref.child("address").setValue(encrypt(mSession.getAddress(), secureKey));
+        if(!getSession().getAddress().isEmpty())
+            ref.child("address").setValue(encrypt(getSession().getAddress(), secureKey));
         ref.child("updatedOn").setValue(ServerValue.TIMESTAMP);
         setUserProperty("GridSize", "9");
         setUserProperty("PictureViewMode", "PictureText");
-        mSession.setUpdatedFirebase(true);
+        getSession().setUpdatedFirebase(true);
     }
 
     @Override
@@ -292,7 +279,6 @@ public class UserRegistrationActivity extends AppCompatActivity {
     private class NetworkConnectionTest extends AsyncTask<Void, Void, Boolean>{
         private Context mContext;
         private String mName,  mEmailId, mUserGroup;
-        private SessionManager mSession;
 
         public NetworkConnectionTest(Context context, String name, String emergencyContact,
                                      String eMailId, String userGroup) {
@@ -300,7 +286,6 @@ public class UserRegistrationActivity extends AppCompatActivity {
             mName = name;
             mEmailId = eMailId;
             mUserGroup = userGroup;
-            mSession = new SessionManager(mContext);
         }
 
         boolean isConnectedToNetwork(){
@@ -340,10 +325,10 @@ public class UserRegistrationActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    mSession.setName(mName);
-                                    mSession.setCaregiverNumber("+" .concat(emergencyContact));
-                                    mSession.setUserCountryCode(mCcp.getSelectedCountryCode());
-                                    mSession.setEmailId(mEmailId);
+                                    getSession().setName(mName);
+                                    getSession().setCaregiverNumber("+" .concat(emergencyContact));
+                                    getSession().setUserCountryCode(mCcp.getSelectedCountryCode());
+                                    getSession().setEmailId(mEmailId);
                                     encryptStoreUserInfo(mName, emergencyContact, eMailId, mUserGroup);
                                     Crashlytics.log("User logged in");
                                 }else
@@ -374,9 +359,9 @@ public class UserRegistrationActivity extends AppCompatActivity {
             @Override
             public void onSuccess(byte[] bytes) {
                 String jsonData = new String(bytes, StandardCharsets.UTF_8);
-                mSession.setEncryptionData(jsonData);
+                getSession().setEncryptionData(jsonData);
                 SecureKeys secureKey = new Gson().
-                        fromJson(mSession.getEncryptedData(), SecureKeys.class);
+                        fromJson(getSession().getEncryptedData(), SecureKeys.class);
                 Crashlytics.log("Created secure key.");
                 createUser(encrypt(name, secureKey), contact,
                         encrypt(email, secureKey),
@@ -404,7 +389,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
         try {
             final String userId = maskNumber(emergencyContact);
             getAnalytics(UserRegistrationActivity.this, emergencyContact);
-            mSession.setSessionCreatedAt(new Date().getTime());
+            getSession().setSessionCreatedAt(new Date().getTime());
             mRef.child(userId).child("email").setValue(eMailId);
             mRef.child(userId).child("emergencyContact").setValue(userId);
             mRef.child(userId).child("name").setValue(name);
@@ -416,10 +401,10 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        mSession.setUserLoggedIn(true);
-                        mSession.setLanguage(LangMap.get(selectedLanguage));
-                        mSession.setGridSize(GRID_3BY3);
-                        mSession.setUserGroup(decUserGroup);
+                        getSession().setUserLoggedIn(true);
+                        getSession().setLanguage(LangMap.get(selectedLanguage));
+                        getSession().setGridSize(GRID_3BY3);
+                        getSession().setUserGroup(decUserGroup);
                         Bundle bundle = new Bundle();
                         bundle.putString("LanguageSet", "First time "+ LangMap.get(selectedLanguage));
                         setUserProperty("UserId", userId);

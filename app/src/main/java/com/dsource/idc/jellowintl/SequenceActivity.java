@@ -1,12 +1,9 @@
 package com.dsource.idc.jellowintl;
 
 import android.annotation.SuppressLint;
-import android.app.ActivityManager;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
@@ -15,8 +12,6 @@ import android.os.Handler;
 import android.provider.Settings;
 import android.text.Html;
 import android.text.method.KeyListener;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
@@ -40,25 +35,16 @@ import com.dsource.idc.jellowintl.models.ExpressiveIcon;
 import com.dsource.idc.jellowintl.models.Icon;
 import com.dsource.idc.jellowintl.models.MiscellaneousIcon;
 import com.dsource.idc.jellowintl.models.SeqNavigationButton;
-import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.DialogKeyboardUtterance;
-import com.dsource.idc.jellowintl.utility.JellowTTSService;
-import com.dsource.idc.jellowintl.utility.LanguageHelper;
-import com.dsource.idc.jellowintl.utility.SessionManager;
-import com.dsource.idc.jellowintl.utility.SpeechUtils;
 import com.dsource.idc.jellowintl.utility.UserEventCollector;
 
 import java.io.File;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.ViewCompat;
 
-import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
-import static com.dsource.idc.jellowintl.MainActivity.isNotchDevice;
-import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.factories.PathFactory.getIconPath;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
@@ -72,7 +58,7 @@ import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 /**
  * Created by ekalpa on 6/22/2016.
  */
-public class SequenceActivity extends AppCompatActivity {
+public class SequenceActivity extends LevelScreenBaseActivity implements TextToSpeechError{
     private final boolean DISABLE_EXPR_BTNS = true;
     private final int MODE_PICTURE_ONLY = 1;
 
@@ -107,7 +93,6 @@ public class SequenceActivity extends AppCompatActivity {
      navigation button speech text, category navigation text respectively.*/
     private String[] mCategoryIconSpeechText, mCategoryIconBelowText, mHeading, mExprBtnTxt,
             mNavigationBtnTxt, mVerbCode;
-    private SessionManager mSession;
 
     /*Firebase event Collector class instance.*/
     private UserEventCollector mUec;
@@ -122,22 +107,12 @@ public class SequenceActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Initialize default exception handler for this activity.
-        // If any exception occurs during this activity usage,
-        // handle it using default exception handler.
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
-        if (isNotchDevice(this))
+        if (isNotchDevice())
             setContentView(R.layout.activity_sequence_notch);
         else
             setContentView(R.layout.activity_sequence);
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setBackgroundDrawable(getResources()
-                .getDrawable(R.drawable.yellow_bg));
-        // set bread crumb title from extra data from level two
-        getSupportActionBar().setTitle(getIntent().getExtras()
-                .getString(getString(R.string.intent_menu_path_tag)));
+        setLevelActionBar(getIntent().getExtras().getString(getString(R.string.intent_menu_path_tag)));
 
-        mSession = new SessionManager(this);
         mUec = new UserEventCollector();
         /*get position of category icon selected in level two*/
         mLevelTwoItemPos = getIntent().getExtras().getInt(getString(R.string.level_2_item_pos_tag));
@@ -154,29 +129,16 @@ public class SequenceActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext((LanguageHelper.onAttach(newBase)));
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
         if(!isAnalyticsActive()){
-            resetAnalytics(this, mSession.getCaregiverNumber().substring(1));
+            resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
         }
-        if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
-            startService(new Intent(getApplication(), JellowTTSService.class));
-        }
-        // broadcast receiver to get response messages from JellowTTsService.
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("com.dsource.idc.jellowintl.SPEECH_TTS_ERROR");
-        registerReceiver(receiver, filter);
-
         // Start measuring user app screen timer .
         startMeasuring();
-        if(!mSession.getToastMessage().isEmpty()) {
-            Toast.makeText(this, mSession.getToastMessage(), Toast.LENGTH_SHORT).show();
-            mSession.setToastMessage("");
+        if(!getSession().getToastMessage().isEmpty()) {
+            Toast.makeText(this, getSession().getToastMessage(), Toast.LENGTH_SHORT).show();
+            getSession().setToastMessage("");
         }
     }
 
@@ -187,22 +149,16 @@ public class SequenceActivity extends AppCompatActivity {
         // If yes then create new pushId (user session)
         // If no then do not create new pushId instead user existing and
         // current session time is saved.
-        long sessionTime = validatePushId(mSession.getSessionCreatedAt());
-        mSession.setSessionCreatedAt(sessionTime);
+        long sessionTime = validatePushId(getSession().getSessionCreatedAt());
+        getSession().setSessionCreatedAt(sessionTime);
 
         // Stop measuring user app screen timer .
         stopMeasuring("SequenceActivity");
-        try{
-            unregisterReceiver(receiver);
-        } catch(IllegalArgumentException | NullPointerException | IllegalStateException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
-        //mSeqActSpeech = null;
         mCategoryIconText = null;
         mRelativeLayCategory = null;
         mCategoryIconSpeechText = null;
@@ -210,64 +166,6 @@ public class SequenceActivity extends AppCompatActivity {
         mHeading = null;
         mExprBtnTxt = null;
         mNavigationBtnTxt = null;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_main_with_search, menu);
-        if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-            menu.findItem(R.id.closePopup).setVisible(false);
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.search:
-                startActivity(new Intent(this, SearchActivity.class));
-                break;
-            case R.id.profile:
-                startActivity(new Intent(this, ProfileFormActivity.class));
-                break;
-            case R.id.aboutJellow:
-                startActivity(new Intent(this, AboutJellowActivity.class));
-                break;
-            case R.id.tutorial:
-                startActivity(new Intent(this, TutorialActivity.class));
-                break;
-            case R.id.keyboardInput:
-                startActivity(new Intent(this, KeyboardInputActivity.class));
-                break;
-            case R.id.languageSelect:
-                if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                    startActivity(new Intent(this, LanguageSelectActivity.class));
-                } else {
-                    startActivity(new Intent(this, LanguageSelectTalkBackActivity.class));
-                }
-                break;
-            case R.id.settings:
-                startActivity(new Intent(this, SettingActivity.class));
-                break;
-            case R.id.accessibilitySetting:
-                startActivity(new Intent(this, AccessibilitySettingsActivity.class));
-                break;
-            case R.id.resetPreferences:
-                startActivity(new Intent(this, ResetPreferencesActivity.class));
-                break;
-            case R.id.feedback:
-                if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                    startActivity(new Intent(this, FeedbackActivityTalkBack.class));
-                }
-                else {
-                    startActivity(new Intent(this, FeedbackActivity.class));
-                }
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return true;
     }
 
     @Override
@@ -385,7 +283,7 @@ public class SequenceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                    speakSpeech(seqNavigationButtonObjects[1].getSpeech_Label());
+                    speak(seqNavigationButtonObjects[1].getSpeech_Label());
                 }
                 mBtnBack.setEnabled(true);
                 mBtnBack.setAlpha(1f);
@@ -487,7 +385,7 @@ public class SequenceActivity extends AppCompatActivity {
         mBtnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                speakSpeech(seqNavigationButtonObjects[0].getSpeech_Label());
+                speak(seqNavigationButtonObjects[0].getSpeech_Label());
                 mBtnNext.setEnabled(true);
                 mBtnNext.setAlpha(1f);
                 count = count - 3;
@@ -503,7 +401,7 @@ public class SequenceActivity extends AppCompatActivity {
                 mIvCategoryIcon3.setVisibility(View.VISIBLE);
                 mIvCategoryIcon2.setVisibility(View.VISIBLE);
                 mIvCategoryIcon1.setVisibility(View.VISIBLE);
-                if(mSession.getPictureViewMode() != MODE_PICTURE_ONLY) {
+                if(getSession().getPictureViewMode() != MODE_PICTURE_ONLY) {
                     mTvCategory1Caption.setVisibility(View.VISIBLE);
                     mTvCategory2Caption.setVisibility(View.VISIBLE);
                     mTvCategory3Caption.setVisibility(View.VISIBLE);
@@ -581,7 +479,7 @@ public class SequenceActivity extends AppCompatActivity {
                     else
                         hideExpressiveBtn(false);
                     if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                        speakSpeech(mCategoryIconSpeechText[count]);
+                        speak(mCategoryIconSpeechText[count]);
                         mUec.createSendFbEventFromTappedView(12, "VisibleExpr " +
                                 mCategoryIconBelowText[count], mHeading[mLevelTwoItemPos].toLowerCase());
                     }
@@ -640,7 +538,7 @@ public class SequenceActivity extends AppCompatActivity {
                     else
                         hideExpressiveBtn(false);
                     if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                        speakSpeech(mCategoryIconSpeechText[count + 1]);
+                        speak(mCategoryIconSpeechText[count + 1]);
                         mUec.createSendFbEventFromTappedView(12, "VisibleExpr " +
                                 mCategoryIconBelowText[count+1], mHeading[mLevelTwoItemPos].toLowerCase());
                     }
@@ -699,7 +597,7 @@ public class SequenceActivity extends AppCompatActivity {
                     else
                         hideExpressiveBtn(false);
                     if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                        speakSpeech(mCategoryIconSpeechText[count + 2]);
+                        speak(mCategoryIconSpeechText[count + 2]);
                         mUec.createSendFbEventFromTappedView(12, "VisibleExpr " +
                                 mCategoryIconBelowText[count+2], mHeading[mLevelTwoItemPos].toLowerCase());
                     }
@@ -728,7 +626,7 @@ public class SequenceActivity extends AppCompatActivity {
     private void initBackBtnListener() {
         mIvBack.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                speakSpeech(mNavigationBtnTxt[1]);
+                speak(mNavigationBtnTxt[1]);
                 //Firebase event
                 singleEvent("Navigation","Back");
                 mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
@@ -772,7 +670,7 @@ public class SequenceActivity extends AppCompatActivity {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        speakSpeech(mNavigationBtnTxt[0]);
+                        speak(mNavigationBtnTxt[0]);
                     }
                 }).start();
                 //When home is tapped in this activity it will close all other activities and
@@ -816,7 +714,7 @@ public class SequenceActivity extends AppCompatActivity {
                 if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
                     new DialogKeyboardUtterance(SequenceActivity.this).show();
                 } else {
-                    speakSpeech(mNavigationBtnTxt[2]);
+                    speak(mNavigationBtnTxt[2]);
                     mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
                     //when mFlgKeyboard is set to 1, it means user is using custom keyboard input
                     // text and system keyboard is visible.
@@ -893,12 +791,12 @@ public class SequenceActivity extends AppCompatActivity {
                 //if expressive buttons are hidden then speak expressive button name only
                 if (mFlgHideExpBtn == 0) {
                     if (mFlgLike == 1) {
-                        speakSpeech(mExprBtnTxt[1]);
+                        speak(mExprBtnTxt[1]);
                         mFlgLike = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(1, "", "");
                     } else {
-                        speakSpeech(mExprBtnTxt[0]);
+                        speak(mExprBtnTxt[0]);
                         mFlgLike = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(0, "", "");
@@ -910,13 +808,13 @@ public class SequenceActivity extends AppCompatActivity {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(14, getPrefixTag()
                             +"_"+ mVerbCode[count + mFlgHideExpBtn]+"LL", "");
-                        speakSpeech(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getLL());
+                        speak(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getLL());
                         mFlgLike = 0;
                     } else {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(13, getPrefixTag()
                             +"_"+ mVerbCode[count + mFlgHideExpBtn]+"L0", "");
-                        speakSpeech(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getL());
+                        speak(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getL());
                         mFlgLike = 1;
                     }
                 }
@@ -948,12 +846,12 @@ public class SequenceActivity extends AppCompatActivity {
                 //if expressive buttons are hidden then speak expressive button name only
                 if (mFlgHideExpBtn == 0) {
                     if (mFlgDontLike == 1) {
-                        speakSpeech(mExprBtnTxt[7]);
+                        speak(mExprBtnTxt[7]);
                         mFlgDontLike = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(7, "", "");
                     } else {
-                        speakSpeech(mExprBtnTxt[6]);
+                        speak(mExprBtnTxt[6]);
                         mFlgDontLike = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(6, "", "");
@@ -965,13 +863,13 @@ public class SequenceActivity extends AppCompatActivity {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(20, getPrefixTag()
                             +"_"+ mVerbCode[count + mFlgHideExpBtn]+"DD", "");
-                        speakSpeech(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getDD());
+                        speak(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getDD());
                         mFlgDontLike = 0;
                     } else {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(19, getPrefixTag()
                             +"_"+ mVerbCode[count + mFlgHideExpBtn]+"D0", "");
-                        speakSpeech(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getD());
+                        speak(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getD());
                         mFlgDontLike = 1;
                     }
                 }
@@ -1004,12 +902,12 @@ public class SequenceActivity extends AppCompatActivity {
                 //if expressive buttons are hidden then speak expressive button name only
                 if (mFlgHideExpBtn == 0) {
                     if (mFlgYes == 1) {
-                        speakSpeech(mExprBtnTxt[3]);
+                        speak(mExprBtnTxt[3]);
                         mFlgYes = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(3, "", "");
                     } else {
-                        speakSpeech(mExprBtnTxt[2]);
+                        speak(mExprBtnTxt[2]);
                         mFlgYes = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(2, "", "");
@@ -1021,13 +919,13 @@ public class SequenceActivity extends AppCompatActivity {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(16, getPrefixTag()
                             +"_"+ mVerbCode[count + mFlgHideExpBtn]+"YY", "");
-                        speakSpeech(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getYY());
+                        speak(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getYY());
                         mFlgYes = 0;
                     } else {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(15, getPrefixTag()
                             +"_"+ mVerbCode[count + mFlgHideExpBtn]+"Y0", "");
-                        speakSpeech(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getY());
+                        speak(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getY());
                         mFlgYes = 1;
                     }
                 }
@@ -1059,12 +957,12 @@ public class SequenceActivity extends AppCompatActivity {
                 //if expressive buttons are hidden then speak expressive button name only
                 if (mFlgHideExpBtn == 0) {
                     if (mFlgNo == 1) {
-                        speakSpeech(mExprBtnTxt[9]);
+                        speak(mExprBtnTxt[9]);
                         mFlgNo = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(9, "", "");
                     } else {
-                        speakSpeech(mExprBtnTxt[8]);
+                        speak(mExprBtnTxt[8]);
                         mFlgNo = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(8, "", "");
@@ -1076,13 +974,13 @@ public class SequenceActivity extends AppCompatActivity {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(22, getPrefixTag()
                             +"_"+ mVerbCode[count + mFlgHideExpBtn]+"NN", "");
-                        speakSpeech(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getNN());
+                        speak(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getNN());
                         mFlgNo = 0;
                     } else {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(21, getPrefixTag()
                             +"_"+ mVerbCode[count + mFlgHideExpBtn]+"N0", "");
-                        speakSpeech(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getN());
+                        speak(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getN());
                         mFlgNo = 1;
                     }
                 }
@@ -1114,12 +1012,12 @@ public class SequenceActivity extends AppCompatActivity {
                 //if expressive buttons are hidden then speak expressive button name only
                 if (mFlgHideExpBtn == 0) {
                     if (mFlgMore == 1) {
-                        speakSpeech(mExprBtnTxt[5]);
+                        speak(mExprBtnTxt[5]);
                         mFlgMore = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(5, "", "");
                     } else {
-                        speakSpeech(mExprBtnTxt[4]);
+                        speak(mExprBtnTxt[4]);
                         mFlgMore = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(4, "", "");
@@ -1131,13 +1029,13 @@ public class SequenceActivity extends AppCompatActivity {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(18, getPrefixTag()
                             +"_"+ mVerbCode[count + mFlgHideExpBtn]+"MM", "");
-                        speakSpeech(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getMM());
+                        speak(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getMM());
                         mFlgMore = 0;
                     } else {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(17, getPrefixTag()
                             +"_"+ mVerbCode[count + mFlgHideExpBtn]+"M0", "");
-                        speakSpeech(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getM());
+                        speak(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getM());
                         mFlgMore = 1;
                     }
                 }
@@ -1169,12 +1067,12 @@ public class SequenceActivity extends AppCompatActivity {
                 //if expressive buttons are hidden then speak expressive button name only
                 if (mFlgHideExpBtn == 0) {
                     if (mFlgLess == 1) {
-                        speakSpeech(mExprBtnTxt[11]);
+                        speak(mExprBtnTxt[11]);
                         mFlgLess = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(11, "", "");
                     } else {
-                        speakSpeech(mExprBtnTxt[10]);
+                        speak(mExprBtnTxt[10]);
                         mFlgLess = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(10, "", "");
@@ -1186,13 +1084,13 @@ public class SequenceActivity extends AppCompatActivity {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(24, getPrefixTag()
                             +"_"+ mVerbCode[count + mFlgHideExpBtn]+"SS", "");
-                        speakSpeech(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getSS());
+                        speak(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getSS());
                         mFlgLess = 0;
                     } else {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(23, getPrefixTag()
                             +"_"+ mVerbCode[count + mFlgHideExpBtn]+"S0", "");
-                        speakSpeech(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getS());
+                        speak(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getS());
                         mFlgLess = 1;
                     }
                 }
@@ -1219,7 +1117,7 @@ public class SequenceActivity extends AppCompatActivity {
     private void initTTsBtnListener() {
         mIvTTs.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                speakSpeech(mEtTTs.getText().toString());
+                speak(mEtTTs.getText().toString());
                 //Firebase event
                 Bundle bundle = new Bundle();
                 bundle.putString("InputName", Settings.Secure.getString(getContentResolver(),
@@ -1263,15 +1161,6 @@ public class SequenceActivity extends AppCompatActivity {
             mActionBarTitleTxt = getSupportActionBar().getTitle().toString();
             getSupportActionBar().setTitle("");
         }
-    }
-
-    /**
-     * <p>This function will send speech output request to
-     * {@link com.dsource.idc.jellowintl.utility.JellowTTSService} Text-to-speech Engine.
-     * The string in {@param speechText} is speech output request string.</p>
-     * */
-    private void speakSpeech(String speechText){
-        SpeechUtils.speak(this,speechText);
     }
 
     private void showAccessibleDialog(final int position, final View disabledView) {
@@ -1389,7 +1278,7 @@ public class SequenceActivity extends AppCompatActivity {
         enterCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                speakSpeech(mCategoryIconSpeechText[position]);
+                speak(mCategoryIconSpeechText[position]);
                 mUec.createSendFbEventFromTappedView(12, mCategoryIconBelowText[position],
                         mHeading[mLevelTwoItemPos].toLowerCase());
             }
@@ -1566,7 +1455,7 @@ public class SequenceActivity extends AppCompatActivity {
         setImageUsingGlide(getIconPath(SequenceActivity.this,l3SeqIcons[2]), mIvCategoryIcon3);
 
         final int MODE_PICTURE_ONLY = 1;
-        if(mSession.getPictureViewMode() == MODE_PICTURE_ONLY){
+        if(getSession().getPictureViewMode() == MODE_PICTURE_ONLY){
             mTvCategory1Caption.setVisibility(View.INVISIBLE);
             mTvCategory2Caption.setVisibility(View.INVISIBLE);
             mTvCategory3Caption.setVisibility(View.INVISIBLE);
@@ -1747,18 +1636,20 @@ public class SequenceActivity extends AppCompatActivity {
         }
     }
 
-    private final BroadcastReceiver receiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(final Context context, Intent intent) {
-            switch (intent.getAction()) {
-                case "com.dsource.idc.jellowintl.SPEECH_TTS_ERROR":
-                    //TODO: Add network check if exist ? if not found then show message "network error" or
-                    //TODO: if network exist then show message "redirect user to setting page."
-                    //Text synthesize process failed third time then show TTs error.
-                    if (++MainActivity.sTTsNotWorkingCount > 2)
-                        Toast.makeText(context, MainActivity.sCheckVoiceData, Toast.LENGTH_LONG).show();
-                    break;
-            }
-        }
-    };
+
+    /*Text-To-Speech Engine error callbacks are implemented below*/
+    @Override
+    public void sendFailedToSynthesizeError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void sendLanguageIncompatibleError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        getSession().setLangSettingIsCorrect(false);
+    }
+
+    @Override
+    public void sendLanguageIncompatibleForAccessibility() { }
+    /*-------------*/
 }

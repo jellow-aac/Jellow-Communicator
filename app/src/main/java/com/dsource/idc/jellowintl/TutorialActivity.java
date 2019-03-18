@@ -4,22 +4,13 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.ImageView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
-import com.dsource.idc.jellowintl.utility.LanguageHelper;
-import com.dsource.idc.jellowintl.utility.SessionManager;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
-import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
@@ -29,25 +20,15 @@ import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 /**
  * Created by user on 6/6/2016.
  */
-public class TutorialActivity extends AppCompatActivity {
+public class TutorialActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Initialize default exception handler for this activity.
-        // If any exception occurs during this activity usage,
-        // handle it using default exception handler.
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         setContentView(R.layout.activity_tutorial);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.menuTutorials)+"</font>"));
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
+        enableNavigationBack();
+        setActivityTitle(getString(R.string.menuTutorials));
         setImagesToImageViewUsingGlide();
-    }
-
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext((LanguageHelper.onAttach(newBase)));
     }
 
     private void setImagesToImageViewUsingGlide() {
@@ -72,16 +53,6 @@ public class TutorialActivity extends AppCompatActivity {
                 .skipMemoryCache(false)
                 .dontAnimate()
                 .into(imgView);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-            menu.findItem(R.id.closePopup).setVisible(false);
-        }
-        return true;
     }
 
     @Override
@@ -130,7 +101,7 @@ public class TutorialActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if(!isAnalyticsActive()){
-            resetAnalytics(this, new SessionManager(this).getCaregiverNumber().substring(1));
+            resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
         }
         if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
             startService(new Intent(getApplication(), JellowTTSService.class));
@@ -145,9 +116,8 @@ public class TutorialActivity extends AppCompatActivity {
         // If yes then create new pushId (user session)
         // If no then do not create new pushId instead user existing and
         // current session time is saved.
-        SessionManager session = new SessionManager(this);
-        long sessionTime = validatePushId(session.getSessionCreatedAt());
-        session.setSessionCreatedAt(sessionTime);
+        long sessionTime = validatePushId(getSession().getSessionCreatedAt());
+        getSession().setSessionCreatedAt(sessionTime);
 
         stopMeasuring("TutorialActivity");
     }
