@@ -9,6 +9,7 @@ android {
         targetSdkVersion 28
         versionCode 20
         versionName "1.2.5"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         debug {
@@ -55,6 +56,9 @@ dependencies {
     implementation 'com.github.paolorotolo:appintro:4.1.0'
     implementation 'com.hbb20:ccp:2.1.2'
     implementation 'com.google.android.gms:play-services-gcm:16.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
 }
 
 
