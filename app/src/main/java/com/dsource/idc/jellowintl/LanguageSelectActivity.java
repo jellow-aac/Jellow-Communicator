@@ -1,14 +1,10 @@
 package com.dsource.idc.jellowintl;
 
-import android.app.ActivityManager;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -16,7 +12,6 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
 import android.util.TypedValue;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
@@ -30,7 +25,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.crashlytics.android.Crashlytics;
-import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
@@ -58,17 +52,14 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangValueMap;
 import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
 
-public class LanguageSelectActivity extends BaseActivity{
-
+public class LanguageSelectActivity extends SpeechEngineBaseActivity {
     public static final String FINISH = "finish";
-    private final int ACT_CHECK_TTS_DATA = 1;
     String[] offlineLanguages;
     String[] onlineLanguages;
     Spinner languageSelect;
-    String selectedLanguage, sysTtsLang, mLangChanged;
+    String selectedLanguage, mLangChanged;
     Button save,add,delete, changeTtsLang;
     ArrayAdapter<String> adapter_lan;
-    boolean isOpenedTtsSett = false, isTtsLangChanged = false, shouldSaveLang = false;
     private int mSelectedItem = -1;
     // Variable hold strings from regional string.xml file.
     private String mStep1, mStep2, mStep3, mStep4, mTitleEditLang,
@@ -98,7 +89,7 @@ public class LanguageSelectActivity extends BaseActivity{
         setImageUsingGlide(R.drawable.gtts3, ((ImageView)findViewById(R.id.ivTtsVoiceDat)));
         setImageUsingGlide(R.drawable.arrow, ((ImageView)findViewById(R.id.ivArrow1)));
         setImageUsingGlide(R.drawable.arrow, ((ImageView)findViewById(R.id.ivArrow2)));
-        if(Build.VERSION.SDK_INT >= 21) {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             findViewById(R.id.tv5).setVisibility(View.GONE);
             findViewById(R.id.llImg).setVisibility(View.GONE);
             findViewById(R.id.changeTtsLangBut).setVisibility(View.GONE);
@@ -110,12 +101,6 @@ public class LanguageSelectActivity extends BaseActivity{
             setImageUsingGlide(R.drawable.arrow, ((ImageView)findViewById(R.id.ivArrow4)));
         }
 
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES");
-        filter.addAction("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_VOICE_AVAIL_RES");
-        registerReceiver(receiver, filter);
-
-        getSpeechLanguage("");
         offlineLanguages = getOfflineLanguages();
         onlineLanguages = getOnlineLanguages();
         languageSelect = findViewById(R.id.selectDownloadedLanguageSpinner);
@@ -150,7 +135,6 @@ public class LanguageSelectActivity extends BaseActivity{
             @Override
             public void onClick(View v) {
                 Crashlytics.log("LanguageSelect SetTTsEng");
-                isOpenedTtsSett = true;
                 Intent intent = new Intent();
                 intent.setAction("com.android.settings.TTS_SETTINGS");
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -169,31 +153,41 @@ public class LanguageSelectActivity extends BaseActivity{
                 Crashlytics.log("LanguageSelect Apply");
                 //if current user language is not marathi and user want to change current language
                 // to marathi.
-                if (!getSession().getLanguage().equals(LangMap.get("मराठी"))
-                        && selectedLanguage != null && selectedLanguage.equals("मराठी")){
+                if (!getSession().getLanguage().equals(MR_IN)
+                    && selectedLanguage != null &&
+                        selectedLanguage.equals(LangValueMap.get(MR_IN))){
                     saveLanguage();
                     getSession().setLangSettingIsCorrect(true);
-                }else if(selectedLanguage != null)
-                {
-                    if(Build.VERSION.SDK_INT >= 21 &&
+                }else if(selectedLanguage != null){
+                    /* If device is Lollipop or above and
+                    *   current app language is same as new selected language then
+                    *   Show Toast message string 'strDefaultLangEr'*/
+                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
                             getSession().getLanguage().equals(LangMap.get(selectedLanguage))) {
                         Toast.makeText(LanguageSelectActivity.this,
                                 strDefaultLangEr, Toast.LENGTH_SHORT).show();
-                        return;
-                    }else if(Build.VERSION.SDK_INT >= 21){
-                        checkIfVoiceAvail(LangMap.get(selectedLanguage));
-                        return;
-                    }else if(shouldSaveLang) {
+                    /* If device is Lollipop or above and
+                     *   voice data is available for selected language then
+                     *   Save selected language as app language else
+                     *   Show Toast message string 'mCompleteStep2'*/
+                    }else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        if (isVoiceAvailableForLanguage(LangMap.get(selectedLanguage)))
+                            saveLanguage();
+                        else
+                            Toast.makeText(LanguageSelectActivity.this,
+                                    mCompleteStep2, Toast.LENGTH_LONG).show();
+                    /* If device is below Lollipop and
+                     *   current app language is same as new selected language then
+                     *   Show Toast message string 'strDefaultLangEr'*/
+                    }else if(getSpeechEngineLanguage().equals(getSession().getLanguage()) ||
+                        (getSession().getLanguage().equals(BN_IN) &&
+                            getSpeechEngineLanguage().equals(BE_IN))){
                         saveLanguage();
                         getSession().setLangSettingIsCorrect(true);
-                        return;
-                    }
-                    else if (getSession().getLanguage().equals(LangMap.get(selectedLanguage)) && !shouldSaveLang){
+                    }else{
                         Toast.makeText(LanguageSelectActivity.this,
-                                strDefaultLangEr, Toast.LENGTH_SHORT).show();
-                        return;
+                                mCompleteStep3, Toast.LENGTH_SHORT).show();
                     }
-                    getSpeechLanguage(LangMap.get(selectedLanguage));
                 }
             }
         });
@@ -355,20 +349,19 @@ public class LanguageSelectActivity extends BaseActivity{
 
     private void showAddLangDialog(DialogInterface dialog, int which, String strCheckConnectivity) {
         delete.setEnabled(true);
-        ConnectivityManager cm =
-                (ConnectivityManager) LanguageSelectActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        boolean isConnected = activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();
-
-        if (isConnected) {
+        if (isConnectedToNetwork((ConnectivityManager) LanguageSelectActivity.this.
+                getSystemService(Context.CONNECTIVITY_SERVICE))) {
             Bundle bundle = new Bundle();
             bundle.putString(LCODE, LangMap.get(onlineLanguages[which]));
             bundle.putBoolean(FINISH, false);
-            setSpeechLanguage(LangMap.get(onlineLanguages[which])); //To start TTS voice package download automatically.
-            setSpeechLanguage(getSession().getLanguage());              //To switch TTS voice package back.
-            speakSpeech("");                              // Send empty string to TTS Engine to eliminate voice lag after user goes back without changing the language.
+            //To start TTS voice package download automatically.
+            setSpeechEngineLanguage(LangMap.get(onlineLanguages[which]));
+            //To switch TTS voice package back.
+            setSpeechEngineLanguage(getSession().getLanguage());
+            // Send empty string to TTS Engine to eliminate voice
+            // lag after user goes back without changing the language.
+            speak("");
             startActivity(new Intent(getBaseContext(), LanguageDownloadActivity.class).putExtras(bundle));
             dialog.dismiss();
         } else {
@@ -394,6 +387,7 @@ public class LanguageSelectActivity extends BaseActivity{
         dialog.dismiss();
         Toast.makeText(LanguageSelectActivity.this, strLangRemoved, Toast.LENGTH_SHORT).show();
     }
+
 
     private void hideViewsForNonTtsLang(boolean disableViews) {
         //TODO Hide views to when user selected non tts language.
@@ -426,7 +420,7 @@ public class LanguageSelectActivity extends BaseActivity{
     }
 
     private void updateViewsForNewLangSelect() {
-        if(Build.VERSION.SDK_INT >= 21) {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             findViewById(R.id.tv5).setVisibility(View.GONE);
             findViewById(R.id.llImg).setVisibility(View.GONE);
             findViewById(R.id.changeTtsLangBut).setVisibility(View.GONE);
@@ -446,7 +440,7 @@ public class LanguageSelectActivity extends BaseActivity{
         spannedStr.setSpan(new StyleSpan(Typeface.BOLD),0,boldTxtLen,0);
         ((TextView)findViewById(R.id.tv4)).setText(spannedStr);
 
-        if(Build.VERSION.SDK_INT < 21) {
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             spannedStr = new SpannableString(mStep3.replace("_", getTTsLanguage()));
             if (getSession().getLanguage().equals(BN_IN)) boldTxtLen = 12;
             spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, boldTxtLen, 0);
@@ -479,6 +473,7 @@ public class LanguageSelectActivity extends BaseActivity{
         ((TextView)findViewById(R.id.txt_title_chgLang)).setText(spannedStr);
     }
 
+
     private void setImageUsingGlide(int image, ImageView imgView) {
         GlideApp.with(this)
                 .load(image)
@@ -488,14 +483,14 @@ public class LanguageSelectActivity extends BaseActivity{
                 .into(imgView);
     }
 
-    public void checkTTSVoiceDataAvailable(View view){
+    public void openSpeechDataSetting(View view){
         Intent intent = new Intent();
         intent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
-    public void openTextToSpeechSetting(View view){
+    public void openSpeechSetting(View view){
         startActivity(new Intent().setAction("com.android.settings.TTS_SETTINGS"));
         getSession().setWifiOnlyBtnPressedOnce(true);
     }
@@ -582,11 +577,9 @@ public class LanguageSelectActivity extends BaseActivity{
     @Override
     protected void onResume() {
         super.onResume();
+        setVisibleAct(LanguageSelectActivity.class.getSimpleName());
         if(!isAnalyticsActive()){
             resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
-        }
-        if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
-            startService(new Intent(getApplication(), JellowTTSService.class));
         }
         startMeasuring();
         onlineLanguages = getOnlineLanguages();
@@ -595,8 +588,6 @@ public class LanguageSelectActivity extends BaseActivity{
                 R.layout.simple_spinner_item, populateCountryNameByUserType(offlineLanguages));
         adapter_lan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         languageSelect.setAdapter(adapter_lan);
-        if(isOpenedTtsSett)
-            getSpeechLanguage("");
         if(mSelectedItem != -1)
             languageSelect.setSelection(mSelectedItem);
 
@@ -613,94 +604,10 @@ public class LanguageSelectActivity extends BaseActivity{
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.profile:
-                startActivity(new Intent(this, ProfileFormActivity.class));
-                finish(); break;
-            case R.id.aboutJellow:
-                startActivity(new Intent(this, AboutJellowActivity.class));
-                finish(); break;
-            case R.id.tutorial:
-                startActivity(new Intent(this, TutorialActivity.class));
-                finish(); break;
-            case R.id.keyboardInput:
-                startActivity(new Intent(this, KeyboardInputActivity.class));
-                finish(); break;
-            case R.id.settings:
-                startActivity(new Intent(this, SettingActivity.class));
-                finish(); break;
-            case R.id.accessibilitySetting:
-                startActivity(new Intent(this, AccessibilitySettingsActivity.class));
-                finish(); break;
-            case R.id.resetPreferences:
-                startActivity(new Intent(this, ResetPreferencesActivity.class));
-                finish(); break;
-            case R.id.feedback:
-                if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                    startActivity(new Intent(this, FeedbackActivityTalkBack.class));
-                } else {
-                    startActivity(new Intent(this, FeedbackActivity.class));
-                }
-                finish(); break;
-            case android.R.id.home:
-                finish(); break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return true;
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(receiver);
+        //unregisterReceiver(receiver);
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ACT_CHECK_TTS_DATA)
-            if(resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_FAIL)
-                Toast.makeText(this, "Fail", Toast.LENGTH_SHORT).show();
-            else
-                Toast.makeText(this, "Pass", Toast.LENGTH_SHORT).show();
-    }
-
-    private final BroadcastReceiver receiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(final Context context, Intent intent) {
-            switch (intent.getAction()){
-                case "com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES":
-                    isTtsLangChanged = (sysTtsLang != null &&
-                            !sysTtsLang.equals(intent.getStringExtra("systemTtsRegion")));
-
-                    sysTtsLang = intent.getStringExtra("systemTtsRegion");
-                    if(intent.getBooleanExtra("saveUserLanguage",false)){
-                        saveLanguage();
-                    }else if(intent.getBooleanExtra("showError",false))
-                        //Change Toast here
-                        Toast.makeText(context, mCompleteStep3, Toast.LENGTH_LONG).show();
-                    if(isOpenedTtsSett && isTtsLangChanged && !getSession().getLangSettingIsCorrect())
-                        if((!sysTtsLang.equals("-r")) &&
-                            (getSession().getLanguage().equals(BN_IN) && (sysTtsLang.equals(BN_IN) || (sysTtsLang.equals(BE_IN)))) ||
-                                (!getSession().getLanguage().equals(BN_IN)
-                                        && getSession().getLanguage().equals(sysTtsLang)))
-                            shouldSaveLang = true;
-                    isOpenedTtsSett = isTtsLangChanged = false;
-                    break;
-                case "com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_VOICE_AVAIL_RES":
-                    // Only for 21 and above device
-                    if(intent.hasExtra("isVoiceAvail") &&
-                            intent.getBooleanExtra("isVoiceAvail", false))
-                        saveLanguage();
-                    else {
-                        Toast.makeText(context, mCompleteStep2, Toast.LENGTH_LONG).show();
-                    }
-                    break;
-            }
-        }
-    };
 
     @Override
     public void onUserInteraction() {
@@ -734,30 +641,6 @@ public class LanguageSelectActivity extends BaseActivity{
         getSession().setLanguageChange(1);
         startActivity(intent);
         finishAffinity();
-    }
-
-    private void setSpeechLanguage(String speechLang){
-        Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_LANG");
-        intent.putExtra("speechLanguage", speechLang);
-        sendBroadcast(intent);
-    }
-
-    private void speakSpeech(String speechText){
-        Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_TEXT");
-        intent.putExtra("speechText", speechText);
-        sendBroadcast(intent);
-    }
-
-    private void getSpeechLanguage(String saveLang){
-        Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_REQ");
-        intent.putExtra("saveSelectedLanguage", saveLang);
-        sendBroadcast(intent);
-    }
-
-    private void checkIfVoiceAvail(String language) {
-        Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_VOICE_AVAIL_REQ");
-        intent.putExtra("language", language);
-        sendBroadcast(intent);
     }
 
     private String getTTsLanguage() {

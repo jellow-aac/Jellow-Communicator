@@ -1,19 +1,12 @@
 package com.dsource.idc.jellowintl;
 
-import android.app.ActivityManager;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.util.Linkify;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.Button;
 import android.widget.TextView;
-
-import com.dsource.idc.jellowintl.utility.JellowTTSService;
-import com.dsource.idc.jellowintl.utility.SpeechUtils;
 
 import java.util.HashMap;
 
@@ -26,7 +19,7 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
  * Created by user on 5/27/2016.
  */
 
-public class AboutJellowActivity extends BaseActivity {
+public class AboutJellowActivity extends SpeechEngineBaseActivity {
     private Button mBtnSpeak, mBtnStop;
     private TextView tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8, tv9, tv10, tv11, tv12, tv13, tv14, tv15, tv16,
             tv17, tv18, tv19, tv20, tv21, tv22, tv23, tv24, tv25, tv26, tv27, tv28, tv29, tv30, tv31,
@@ -50,14 +43,14 @@ public class AboutJellowActivity extends BaseActivity {
         mBtnSpeak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                speakSpeech(mSpeechTxt);
+                speak(mSpeechTxt);
             }
         });
 
         mBtnStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                stopSpeech();
+                stopSpeaking();
                 stopAudio();
             }
         });
@@ -66,75 +59,31 @@ public class AboutJellowActivity extends BaseActivity {
     @Override
     protected void onPause(){
         super.onPause();
-        stopSpeech();
+
+        stopSpeaking();
         stopAudio();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        setVisibleAct(AboutJellowActivity.class.getSimpleName());
         if(!isAnalyticsActive()) {
             resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
         }
-        if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
-            startService(new Intent(getApplication(), JellowTTSService.class));
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.profile:
-                startActivity(new Intent(this, ProfileFormActivity.class));
-                finish(); break;
-            case R.id.tutorial:
-                startActivity(new Intent(this, TutorialActivity.class));
-                finish(); break;
-            case R.id.keyboardInput:
-                startActivity(new Intent(this, KeyboardInputActivity.class));
-                finish(); break;
-            case R.id.languageSelect:
-                if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                    startActivity(new Intent(this, LanguageSelectActivity.class));
-                } else {
-                    startActivity(new Intent(this, LanguageSelectTalkBackActivity.class));
-                }
-                finish(); break;
-            case R.id.settings:
-                startActivity(new Intent(this, SettingActivity.class));
-                finish(); break;
-            case R.id.accessibilitySetting:
-                startActivity(new Intent(this, AccessibilitySettingsActivity.class));
-                finish(); break;
-            case R.id.resetPreferences:
-                startActivity(new Intent(this, ResetPreferencesActivity.class));
-                finish(); break;
-            case R.id.feedback:
-                if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                    startActivity(new Intent(this, FeedbackActivityTalkBack.class));
-                } else {
-                    startActivity(new Intent(this, FeedbackActivity.class));
-                }
-                finish(); break;
-            case android.R.id.home:
-                finish(); break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return true;
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        stopSpeech();
+        stopSpeaking();
         stopAudio();
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        stopSpeech();
+        stopSpeaking();
         stopAudio();
         finish();
     }
@@ -243,7 +192,6 @@ public class AboutJellowActivity extends BaseActivity {
 
     private String prepareRegionalVersionCode(String language, String[] versionStArr) {
         StringBuilder newVsnStr = new StringBuilder();
-        boolean isTalkbackOn = isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE));
         if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
             newVsnStr.append(versionStArr[0]);
             newVsnStr.append(" dot ");
@@ -348,22 +296,5 @@ public class AboutJellowActivity extends BaseActivity {
             tv34.setText(mAppLink);
             Linkify.addLinks(tv16, Linkify.EMAIL_ADDRESSES);
         }
-    }
-
-    /**
-     * <p>This function will send speech output request to
-     * {@link com.dsource.idc.jellowintl.utility.JellowTTSService} Text-to-speech Engine.
-     * The string in {@param speechText} is speech output request string.</p>
-     * */
-    private void speakSpeech(String speechText){
-        SpeechUtils.speak(this,speechText);
-    }
-
-    private void stopAudio() {
-        sendBroadcast(new Intent("com.dsource.idc.jellowintl.AUDIO_STOP"));
-    }
-
-    private void stopSpeech() {
-        sendBroadcast(new Intent("com.dsource.idc.jellowintl.SPEECH_STOP"));
     }
 }

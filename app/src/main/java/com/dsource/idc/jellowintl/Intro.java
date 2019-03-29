@@ -1,6 +1,5 @@
 package com.dsource.idc.jellowintl;
 
-import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -24,7 +23,6 @@ import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.dsource.idc.jellowintl.utility.SpeechUtils;
-import com.dsource.idc.jellowintl.utility.TextToSpeechErrorUtils;
 import com.github.paolorotolo.appintro.AppIntro;
 
 import java.util.Objects;
@@ -101,8 +99,6 @@ public class Intro extends AppIntro {
     protected void onResume() {
         super.onResume();
         BaseActivity ba = new BaseActivity();
-        if(!ba.isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE)))
-            startService(new Intent(getApplication(), JellowTTSService.class));
         if(ba.isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))
                 && isOpenedSettingFromIntro8){
             findViewById(R.id.btnMoveRight).sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
@@ -121,10 +117,6 @@ public class Intro extends AppIntro {
             switch (intent.getAction()){
                 case "com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES":
                     mTTsDefaultLanguage = intent.getStringExtra("systemTtsRegion");
-                    break;
-                case "com.dsource.idc.jellowintl.INIT_SERVICE_ERR":
-                    new TextToSpeechErrorUtils(Intro.this)
-                            .showErrorDialog();
                     break;
             }
         }

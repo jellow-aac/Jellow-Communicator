@@ -23,6 +23,10 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
+        <activity android:name=".LevelBaseActivity" />
+        <activity android:name=".BaseActivity" />
+        <activity android:name=".SpeechEngineBaseActivity" />
+
         <service
             android:name=".SimpleIME"
             android:label="@string/simple_ime"
@@ -161,7 +165,8 @@
             android:label="@string/menuFeedback"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".AccessibilitySettingsActivity"
+        <activity
+            android:name=".AccessibilitySettingsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/menuFeedback"
             android:screenOrientation="landscape"

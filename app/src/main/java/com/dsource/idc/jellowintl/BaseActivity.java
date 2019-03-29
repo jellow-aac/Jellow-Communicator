@@ -1,17 +1,17 @@
 package com.dsource.idc.jellowintl;
 
-import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.text.Html;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.accessibility.AccessibilityManager;
 
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
-import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
@@ -19,7 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class BaseActivity extends AppCompatActivity{
     private static SessionManager mSession;
-    TextToSpeechEngineSetup mTtsSetupHandler;
+    private static String mVisibleAct;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -47,6 +47,85 @@ public class BaseActivity extends AppCompatActivity{
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(getVisibleAct().contains(getLevelClass()))
+            return false;
+        switch(item.getItemId()) {
+            case R.id.profile:
+                if(getVisibleAct().equals(ProfileFormActivity.class.getSimpleName()))
+                    break;
+                startActivity(new Intent(this, ProfileFormActivity.class));
+                finish();
+                break;
+            case R.id.aboutJellow:
+                if(getVisibleAct().equals(AboutJellowActivity.class.getSimpleName()))
+                    break;
+                startActivity(new Intent(this, AboutJellowActivity.class));
+                finish();
+                break;
+            case R.id.tutorial:
+                if(getVisibleAct().equals(TutorialActivity.class.getSimpleName()))
+                    break;
+                startActivity(new Intent(this, TutorialActivity.class));
+                finish();
+                break;
+            case R.id.keyboardInput:
+                if(getVisibleAct().equals(KeyboardInputActivity.class.getSimpleName()))
+                    break;
+                startActivity(new Intent(this, KeyboardInputActivity.class));
+                finish();
+                break;
+            case R.id.languageSelect:
+                if(getVisibleAct().equals(LanguageSelectActivity.class.getSimpleName()) ||
+                        getVisibleAct().equals(LanguageSelectTalkBackActivity.class.getSimpleName()) )
+                    break;
+                if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                    startActivity(new Intent(this, LanguageSelectActivity.class));
+                } else {
+                    startActivity(new Intent(this, LanguageSelectTalkBackActivity.class));
+                }
+                finish();
+                break;
+            case R.id.settings:
+                if(getVisibleAct().equals(SettingActivity.class.getSimpleName()))
+                    break;
+                startActivity(new Intent(this, SettingActivity.class));
+                finish();
+                break;
+            case R.id.accessibilitySetting:
+                if(getVisibleAct().equals(AccessibilitySettingsActivity.class.getSimpleName()))
+                    break;
+                startActivity(new Intent(this, AccessibilitySettingsActivity.class));
+                finish();
+                break;
+            case R.id.resetPreferences:
+                if(getVisibleAct().equals(ResetPreferencesActivity.class.getSimpleName()))
+                    break;
+                startActivity(new Intent(this, ResetPreferencesActivity.class));
+                finish();
+                break;
+            case R.id.feedback:
+                if(getVisibleAct().equals(FeedbackActivity.class.getSimpleName()) ||
+                        getVisibleAct().equals(FeedbackActivityTalkBack.class.getSimpleName()) )
+                    break;
+                if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
+                    startActivity(new Intent(this, FeedbackActivityTalkBack.class));
+                } else {
+                    startActivity(new Intent(this, FeedbackActivity.class));
+                }
+                finish();
+                break;
+            case android.R.id.home:
+                finish();
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
+
+
     protected SessionManager getSession(){
         return mSession;
     }
@@ -54,20 +133,6 @@ public class BaseActivity extends AppCompatActivity{
     boolean isConnectedToNetwork(ConnectivityManager connMgr){
         NetworkInfo activeNetworkInfo = connMgr.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
-
-    /**
-     * <p>This function check whether Text-to-speech service is running? It will
-     * return true if service is running else false is service is closed.</p>
-     * */
-    public boolean isTTSServiceRunning(ActivityManager manager) {
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            // JellowTTSService is name of TTS service class.
-            if (JellowTTSService.class.getName().equals(service.service.getClassName())) {
-                return true;
-            }
-        }
-        return false;
     }
 
     /**
@@ -106,6 +171,21 @@ public class BaseActivity extends AppCompatActivity{
     public void enableNavigationBack(){
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
+    }
+
+    private String getLevelClass() {
+        return MainActivity.class.getSimpleName() + "," +
+            LevelTwoActivity.class.getSimpleName() + "," +
+                LevelThreeActivity.class.getSimpleName() + "," +
+                    SequenceActivity.class.getSimpleName();
+    }
+
+    public String getVisibleAct() {
+        return mVisibleAct;
+    }
+
+    public void setVisibleAct(String visibleAct) {
+        mVisibleAct = visibleAct;
     }
 }
 

@@ -89,7 +89,7 @@
                     app:ccp_autoDetectCountry="true"
                     app:ccp_autoFormatNumber="false"
                     app:ccpDialog_keyboardAutoPopup="false"
-                    app:ccpDialog_backgroundColor="@color/colorIntro"/>
+                    app:ccpDialog_backgroundColor="@color/app_background"/>
                 <EditText
                     android:id="@+id/etFathercontact"
                     android:layout_width="match_parent"

@@ -1,7 +1,5 @@
 package com.dsource.idc.jellowintl;
 
-import android.app.ActivityManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.util.Linkify;
@@ -9,8 +7,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.TextView;
-
-import com.dsource.idc.jellowintl.utility.JellowTTSService;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
@@ -42,11 +38,9 @@ public class AccessibilitySettingsActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        setVisibleAct(AccessibilitySettingsActivity.class.getSimpleName());
         if(!isAnalyticsActive()) {
             resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
-        }
-        if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
-            startService(new Intent(getApplication(), JellowTTSService.class));
         }
     }
 

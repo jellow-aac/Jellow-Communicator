@@ -1,6 +1,5 @@
 package com.dsource.idc.jellowintl;
 
-import android.app.ActivityManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,7 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
@@ -25,7 +23,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
-import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.SpeechUtils;
 
 import androidx.appcompat.app.AlertDialog;
@@ -40,14 +37,13 @@ import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 
-public class SettingActivity extends BaseActivity {
+public class SettingActivity extends SpeechEngineBaseActivity {
     private final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 0;
     private Spinner mSpinnerViewMode, mSpinnerGridSize;
     private TextView mTxtViewSpeechSpeed, mTxtViewVoicePitch;
     private SeekBar mSliderSpeed, mSliderPitch, mSliderVolume;
     private boolean mOpenSetting;
     private String  mCalPerMsg, mCalPerGranted,mCalPerRejected, mSettings, mDismiss;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -117,7 +113,7 @@ public class SettingActivity extends BaseActivity {
         btnDemo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                speakSpeech(strDemoSpeech);
+                speak(strDemoSpeech);
                 Crashlytics.log("SettingAct Demo");
             }
         });
@@ -335,11 +331,9 @@ public class SettingActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        setVisibleAct(SettingActivity.class.getSimpleName());
         if(!isAnalyticsActive()){
             resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
-        }
-        if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
-            startService(new Intent(getApplication(), JellowTTSService.class));
         }
         startMeasuring();
 
@@ -358,51 +352,8 @@ public class SettingActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        sendBroadcast(new Intent("com.dsource.idc.jellowintl.SPEECH_STOP"));
+        stopSpeaking();
         super.onDestroy();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.profile:
-                startActivity(new Intent(this, ProfileFormActivity.class));
-                finish(); break;
-            case R.id.aboutJellow:
-                startActivity(new Intent(this, AboutJellowActivity.class));
-                finish(); break;
-            case R.id.tutorial:
-                startActivity(new Intent(this, TutorialActivity.class));
-                finish(); break;
-            case R.id.keyboardInput:
-                startActivity(new Intent(this, KeyboardInputActivity.class));
-                finish(); break;
-            case R.id.languageSelect:
-                if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                    startActivity(new Intent(this, LanguageSelectActivity.class));
-                } else {
-                    startActivity(new Intent(this, LanguageSelectTalkBackActivity.class));
-                }
-                finish(); break;
-            case R.id.accessibilitySetting:
-                startActivity(new Intent(this, AccessibilitySettingsActivity.class));
-                finish(); break;
-            case R.id.resetPreferences:
-                startActivity(new Intent(this, ResetPreferencesActivity.class));
-                finish(); break;
-            case R.id.feedback:
-                if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                    startActivity(new Intent(this, FeedbackActivityTalkBack.class));
-                }
-                else {
-                    startActivity(new Intent(this, FeedbackActivity.class));
-                }
-                finish(); break;
-            case android.R.id.home:
-                finish(); break;
-            default: return super.onOptionsItemSelected(item);
-        }
-        return true;
     }
 
     @Override
@@ -441,21 +392,5 @@ public class SettingActivity extends BaseActivity {
                 }
             });
         }
-    }
-
-    private void speakSpeech(String speechText){
-        SpeechUtils.speak(this,speechText);
-    }
-
-    private void setSpeechRate(float speechRate){
-        Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_SPEED");
-        intent.putExtra("speechSpeed", speechRate);
-        sendBroadcast(intent);
-    }
-
-    private void setSpeechPitch(float speechPitch){
-        Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_PITCH");
-        intent.putExtra("speechPitch", speechPitch);
-        sendBroadcast(intent);
     }
 }

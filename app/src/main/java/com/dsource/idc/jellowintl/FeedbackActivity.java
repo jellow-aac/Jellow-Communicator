@@ -1,13 +1,10 @@
 package com.dsource.idc.jellowintl;
 
-import android.app.ActivityManager;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -16,8 +13,6 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.Toast;
-
-import com.dsource.idc.jellowintl.utility.JellowTTSService;
 
 import androidx.core.graphics.drawable.DrawableCompat;
 
@@ -45,47 +40,11 @@ public class FeedbackActivity extends BaseActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.profile:
-                startActivity(new Intent(this, ProfileFormActivity.class));
-                finish(); break;
-            case R.id.aboutJellow:
-                startActivity(new Intent(this, AboutJellowActivity.class));
-                finish(); break;
-            case R.id.tutorial:
-                startActivity(new Intent(this, TutorialActivity.class));
-                finish(); break;
-            case R.id.keyboardInput:
-                startActivity(new Intent(this, KeyboardInputActivity.class));
-                finish(); break;
-            case R.id.languageSelect:
-                startActivity(new Intent(this, LanguageSelectActivity.class));
-                finish(); break;
-            case R.id.settings:
-                startActivity(new Intent(this, SettingActivity.class));
-                finish(); break;
-            case R.id.accessibilitySetting:
-                startActivity(new Intent(this, AccessibilitySettingsActivity.class));
-                finish(); break;
-            case R.id.resetPreferences:
-                startActivity(new Intent(this, ResetPreferencesActivity.class));
-                finish(); break;
-            case android.R.id.home:
-                finish(); break;
-            default: return super.onOptionsItemSelected(item);
-        }
-        return true;
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
+        setVisibleAct(FeedbackActivity.class.getSimpleName());
         if(!isAnalyticsActive()) {
             resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
-        }
-        if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
-            startService(new Intent(getApplication(), JellowTTSService.class));
         }
     }
 
