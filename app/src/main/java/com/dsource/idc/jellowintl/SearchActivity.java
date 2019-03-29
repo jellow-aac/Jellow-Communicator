@@ -1,6 +1,5 @@
 package com.dsource.idc.jellowintl;
 
-import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,7 +24,6 @@ import com.dsource.idc.jellowintl.factories.TextFactory;
 import com.dsource.idc.jellowintl.models.Icon;
 import com.dsource.idc.jellowintl.models.JellowIcon;
 import com.dsource.idc.jellowintl.utility.IconDataBaseHelper;
-import com.dsource.idc.jellowintl.utility.JellowTTSService;
 
 import java.util.ArrayList;
 
@@ -188,9 +186,6 @@ public class SearchActivity extends BaseActivity {
         super.onResume();
         if(!isAnalyticsActive()){
             resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
-        }
-        if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
-            startService(new Intent(getApplication(), JellowTTSService.class));
         }
         // Start measuring user app screen timer.
         startMeasuring();

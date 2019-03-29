@@ -58,7 +58,7 @@ import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 /**
  * Created by ekalpa on 6/22/2016.
  */
-public class SequenceActivity extends LevelScreenBaseActivity implements TextToSpeechError{
+public class SequenceActivity extends LevelBaseActivity{
     private final boolean DISABLE_EXPR_BTNS = true;
     private final int MODE_PICTURE_ONLY = 1;
 
@@ -131,6 +131,7 @@ public class SequenceActivity extends LevelScreenBaseActivity implements TextToS
     @Override
     protected void onResume() {
         super.onResume();
+        setVisibleAct(SequenceActivity.class.getSimpleName());
         if(!isAnalyticsActive()){
             resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
         }
@@ -1635,21 +1636,4 @@ public class SequenceActivity extends LevelScreenBaseActivity implements TextToS
             return Integer.toString(level2_3Position+1);
         }
     }
-
-
-    /*Text-To-Speech Engine error callbacks are implemented below*/
-    @Override
-    public void sendFailedToSynthesizeError(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void sendLanguageIncompatibleError(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-        getSession().setLangSettingIsCorrect(false);
-    }
-
-    @Override
-    public void sendLanguageIncompatibleForAccessibility() { }
-    /*-------------*/
 }

@@ -82,7 +82,7 @@
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:text="TTS SETTINGS"
-                android:onClick="openTextToSpeechSetting"
+                android:onClick="openSpeechSetting"
                 tools:ignore="HardcodedText" />
             <TextView
                 android:id="@+id/tv3"
@@ -182,7 +182,7 @@
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:text="Check voice data"
-                android:onClick="checkTTSVoiceDataAvailable"
+                android:onClick="openSpeechDataSetting"
                 tools:ignore="HardcodedText" />
             <TextView
                 android:id="@+id/tv5"

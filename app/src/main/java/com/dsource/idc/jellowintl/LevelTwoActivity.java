@@ -53,7 +53,7 @@ import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 
-public class LevelTwoActivity extends LevelScreenBaseActivity implements TextToSpeechError{
+public class LevelTwoActivity extends LevelBaseActivity{
     private final int REQ_HOME = 0;
     private final int CATEGORY_ICON_PEOPLE = 5;
     private final int CATEGORY_ICON_HELP = 8;
@@ -245,6 +245,7 @@ public class LevelTwoActivity extends LevelScreenBaseActivity implements TextToS
     @Override
     protected void onResume() {
         super.onResume();
+        setVisibleAct(LevelTwoActivity.class.getSimpleName());
         if(!isAnalyticsActive()){
             resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
         }
@@ -347,9 +348,9 @@ public class LevelTwoActivity extends LevelScreenBaseActivity implements TextToS
         mRecyclerView = findViewById(R.id.recycler_view);
         // Initiate 3 columns in Recycler View.
         //This code is to decide the speed of the Scrolling
-     /**
-      * if GridSize is 3 then scroll faster than GridSize 9
-      * */
+        /**
+         * if GridSize is 3 then scroll faster than GridSize 9
+         * */
         switch (getSession().getGridSize()){
             case 0:
                 mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this, 1,3));
@@ -367,13 +368,6 @@ public class LevelTwoActivity extends LevelScreenBaseActivity implements TextToS
                         (this, 3, getSession().getGridSize()));
                 break;
         }
-
-        /*int iconCount=sessionManager.getGridSize();
-        if(iconCount!=0)
-            mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this, 3,iconCount));
-        else //Default speed is 3 icons speed
-            mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this, 3,3));*/
-
 
         mRecyclerView.setVerticalScrollBarEnabled(true);
         mRecyclerView.setScrollbarFadingEnabled(false);
@@ -2420,21 +2414,4 @@ public class LevelTwoActivity extends LevelScreenBaseActivity implements TextToS
             return Integer.toString(level1Position + 1);
         }
     }
-
-
-    /*Text-To-Speech Engine error callbacks are implemented below*/
-    @Override
-    public void sendFailedToSynthesizeError(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void sendLanguageIncompatibleError(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-        getSession().setLangSettingIsCorrect(false);
-    }
-
-    @Override
-    public void sendLanguageIncompatibleForAccessibility() { }
-    /*-------------*/
 }

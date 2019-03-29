@@ -1,11 +1,8 @@
 package com.dsource.idc.jellowintl;
 
 import android.Manifest;
-import android.app.ActivityManager;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -16,9 +13,7 @@ import com.dsource.idc.jellowintl.cache.CacheManager;
 import com.dsource.idc.jellowintl.factories.TextFactory;
 import com.dsource.idc.jellowintl.utility.CreateDataBase;
 import com.dsource.idc.jellowintl.utility.DataBaseHelper;
-import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.SpeechUtils;
-import com.dsource.idc.jellowintl.utility.TextToSpeechErrorUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
@@ -64,9 +59,6 @@ public class SplashActivity extends BaseActivity {
         updateLangPackagesIfUpdateAvail();
         new DataBaseHelper(this).createDataBase();
 
-        if(isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE)))
-            stopTTsService();
-        startTTsService();
         PlayGifView pGif = findViewById(R.id.viewGif);
         pGif.setImageResource(R.drawable.jellow_j);
 
@@ -79,17 +71,15 @@ public class SplashActivity extends BaseActivity {
                 != PackageManager.PERMISSION_GRANTED))
             getSession().setEnableCalling(false);
 
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("com.dsource.idc.jellowintl.INIT_SERVICE");
-        filter.addAction("com.dsource.idc.jellowintl.INIT_SERVICE_ERR");
         if (getSession().isLanguageChanged() == 1) {
             CacheManager.clearCache();
             TextFactory.clearJson();
             SpeechUtils.updateSpeechParam(this);
         }
-        registerReceiver(receiver, filter);
+
         iconDatabase=new CreateDataBase(this);
         iconDatabase.execute();
+        checkIfDatabaseCreated();
      }
 
     @Override
@@ -100,21 +90,6 @@ public class SplashActivity extends BaseActivity {
         }
         setUserParameters();
     }
-
-    private final BroadcastReceiver receiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(final Context context, Intent intent) {
-            switch (intent.getAction()){
-                case "com.dsource.idc.jellowintl.INIT_SERVICE":
-                    checkIfDatabaseCreated();
-                    break;
-                case "com.dsource.idc.jellowintl.INIT_SERVICE_ERR":
-                    new TextToSpeechErrorUtils(SplashActivity.this)
-                            .showErrorDialog();
-                    break;
-            }
-        }
-    };
 
     private void setUserParameters() {
         final int GRID_3BY3 = 1, PICTURE_TEXT = 0;
@@ -164,11 +139,6 @@ public class SplashActivity extends BaseActivity {
 
     private void startJellow() {
         startActivity(new Intent(SplashActivity.this, MainActivity.class));
-        try{
-            unregisterReceiver(receiver);
-        } catch(IllegalArgumentException | NullPointerException | IllegalStateException e) {
-            e.printStackTrace();
-        }
         finishAffinity();
     }
 
@@ -176,15 +146,6 @@ public class SplashActivity extends BaseActivity {
         DataBaseHelper helper = new DataBaseHelper(this);
         helper.openDataBase();
         helper.addLanguageDataToDatabase();
-    }
-
-    private void startTTsService() {
-        startService(new Intent(getApplication(), JellowTTSService.class));
-    }
-
-    private void stopTTsService() {
-        Intent intent = new Intent("com.dsource.idc.jellowintl.STOP_SERVICE");
-        sendBroadcast(intent);
     }
 
     private void updateLangPackagesIfUpdateAvail() {

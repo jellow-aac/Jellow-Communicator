@@ -5,10 +5,10 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
-    android:paddingLeft="10dp"
-    android:paddingStart="10dp"
+    android:paddingTop="@dimen/user_reg_parent_padding"
+    android:paddingBottom="@dimen/user_reg_parent_padding"
+    android:paddingLeft="@dimen/user_reg_parent_padding"
+    android:paddingStart="@dimen/user_reg_parent_padding"
     android:background="@drawable/bg"
     tools:ignore="RtlSymmetry">
 
@@ -81,7 +81,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/select_country_code"
-                    app:ccpDialog_backgroundColor="@color/colorIntro"
+                    app:ccpDialog_backgroundColor="@color/app_background"
                     app:ccpDialog_keyboardAutoPopup="false"
                     app:ccpDialog_showCloseIcon="true"
                     app:ccpDialog_textColor="@color/black_eighty"

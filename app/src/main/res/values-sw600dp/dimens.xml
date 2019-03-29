@@ -66,5 +66,8 @@
     <dimen name="nineIcon_borderThickness">7dp</dimen>
     <dimen name="nineIcon_innerRadius">44dp</dimen>
 
+    <!--User Registration screen dimensions-->
+    <dimen name="user_reg_parent_padding">10dp</dimen>
+
 
 </resources>

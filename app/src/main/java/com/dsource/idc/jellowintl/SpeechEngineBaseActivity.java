@@ -10,8 +10,6 @@ import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.speech.tts.Voice;
 import android.util.Log;
-import android.view.MenuItem;
-import android.view.WindowManager;
 import android.view.accessibility.AccessibilityManager;
 
 import com.crashlytics.android.Crashlytics;
@@ -33,7 +31,7 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
 import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
 
-public class LevelScreenBaseActivity extends BaseActivity {
+public class SpeechEngineBaseActivity extends BaseActivity{
     private static TextToSpeech sTts;
     private static Boolean isNoTTSLang;
     private int mFailedToSynthesizeTextCount = 0;
@@ -65,77 +63,21 @@ public class LevelScreenBaseActivity extends BaseActivity {
         registerReceiver(receiver, filter);*/
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.search:
-                startActivity(new Intent(this, SearchActivity.class));
-                break;
-            case R.id.profile:
-                startActivity(new Intent(this, ProfileFormActivity.class));
-                break;
-            case R.id.aboutJellow:
-                startActivity(new Intent(this, AboutJellowActivity.class));
-                break;
-            case R.id.tutorial:
-                startActivity(new Intent(this, TutorialActivity.class));
-                break;
-            case R.id.keyboardInput:
-                startActivity(new Intent(this, KeyboardInputActivity.class));
-                break;
-            case R.id.languageSelect:
-                if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                    startActivity(new Intent(this, LanguageSelectActivity.class));
-                } else {
-                    startActivity(new Intent(this, LanguageSelectTalkBackActivity.class));
-                }
-                break;
-            case R.id.settings:
-                startActivity(new Intent(this, SettingActivity.class));
-                break;
-            case R.id.accessibilitySetting:
-                startActivity(new Intent(this, AccessibilitySettingsActivity.class));
-                break;
-            case R.id.resetPreferences:
-                startActivity(new Intent(this, ResetPreferencesActivity.class));
-                break;
-            case R.id.feedback:
-                if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                    startActivity(new Intent(this, FeedbackActivityTalkBack.class));
-                }
-                else {
-                    startActivity(new Intent(this, FeedbackActivity.class));
-                }
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return true;
-    }
-
-
-    public void setLevelActionBar(String title){
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
-        getSupportActionBar().setTitle(title);
-    }
-
-
     private void setupSpeechEngine() {
         sTts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
                 try {
                     if(status == TextToSpeech.ERROR || (sTts != null &&
-                            !sTts.getEngines().toString().contains(getTTsEngineName("")))){
+                            !sTts.getEngines().toString().contains(getTTsEngineNameForLanguage("")))){
+                        mErrorHandler.speechEngineNotFoundError();
                         return;
                     }
-                    setSpeechEngineLanguage(sTts, getSession().getLanguage());
+                    setSpeechEngineLanguage(getSession().getLanguage());
                     checkSpeechEngineLanguageInSettings();
                     checkSpeechEngineLanguageForAccessibility();
-                    sTts.setSpeechRate(getTTsSpeed(getSession().getLanguage()));
-                    sTts.setPitch(getTTsPitch(getSession().getLanguage()));
+                    sTts.setSpeechRate(getTTsSpeedForLanguage(getSession().getLanguage()));
+                    sTts.setPitch(getTTsPitchForLanguage(getSession().getLanguage()));
                     if (getSession().getLanguage().endsWith(MR_IN))
                         createUserProfileRecordingsUsingTTS();
                     /*sendBroadcast(new Intent("com.dsource.idc.jellowintl.INIT_SERVICE"));*/
@@ -143,16 +85,12 @@ public class LevelScreenBaseActivity extends BaseActivity {
                     Crashlytics.logException(e);
                 }
             }
-        }, getTTsEngineName(getSession().getLanguage()));
+        }, getTTsEngineNameForLanguage(getSession().getLanguage()));
 
         sTts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
-            @Override
-            public void onStart(String utteranceId) {
-            }
+            @Override public void onStart(String utteranceId) {}
 
-            @Override
-            public void onDone(String utteranceId) {
-            }
+            @Override public void onDone(String utteranceId) {}
 
             @Override
             public void onError(String utteranceId) {
@@ -164,32 +102,6 @@ public class LevelScreenBaseActivity extends BaseActivity {
 
     }
 
-    private void setSpeechEngineLanguage(TextToSpeech tts, String language) {
-        switch (language){
-            case ENG_UK:
-                tts.setLanguage(Locale.UK);
-                break;
-            case ENG_US:
-                tts.setLanguage(Locale.US);
-                break;
-            case ENG_AU:
-                tts.setLanguage(new Locale("en", "AU"));
-                break;
-            case BN_IN:
-            case BE_IN:
-                tts.setLanguage(new Locale("bn", "IN"));
-                break;
-            case ENG_IN:
-                tts.setLanguage(new Locale("en","IN"));
-                break;
-            case HI_IN:
-            case MR_IN:
-            default:
-                tts.setLanguage(new Locale("hi","IN"));
-                break;
-        }
-    }
-
     private void checkSpeechEngineLanguageInSettings() {
         //Below if is true when
         //      1) app language is equal to "-r" OR
@@ -197,7 +109,8 @@ public class LevelScreenBaseActivity extends BaseActivity {
         //         with every type of bengali language OR
         //      3) app language and Text-to-speech language are different THEN
         //         show error toast and set incorrect language setting to true.
-        if((Build.VERSION.SDK_INT < 21) && !getSession().getLanguage().equals(LangMap.get("मराठी"))) {
+        if((Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+                && !getSession().getLanguage().equals(LangMap.get("मराठी"))) {
             if (getSpeechEngineLanguage().equals("-r") ||
                     (getSession().getLanguage().equals(BN_IN) && !getSpeechEngineLanguage().equals(BN_IN) && !(getSpeechEngineLanguage().equals(BE_IN)) ||
                             (!getSession().getLanguage().equals(BN_IN) && !getSession().getLanguage().equals(getSpeechEngineLanguage())))) {
@@ -220,13 +133,17 @@ public class LevelScreenBaseActivity extends BaseActivity {
         }
     }
 
+    public void registerSpeechEngineErrorHandle(TextToSpeechError handler){
+        mErrorHandler = handler;
+    }
+
     public String getSpeechEngineLanguage(){
         String infoLang="", infoCountry="";
         try {
-            if (Build.VERSION.SDK_INT < 18) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
                 infoLang = sTts.getLanguage().getLanguage();
                 infoCountry = sTts.getLanguage().getCountry();
-            } else if (Build.VERSION.SDK_INT < 21) {
+            } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
                 infoLang = sTts.getDefaultLanguage().getLanguage().substring(0, 2);
                 infoCountry = sTts.getDefaultLanguage().getCountry().substring(0, 2);
             } else {
@@ -246,6 +163,32 @@ public class LevelScreenBaseActivity extends BaseActivity {
             // name and this gives error message to user in receiver code.
         }
         return infoLang.concat("-r".concat(infoCountry));
+    }
+
+    public void setSpeechEngineLanguage(String language) {
+        switch (language){
+            case ENG_UK:
+                sTts.setLanguage(Locale.UK);
+                break;
+            case ENG_US:
+                sTts.setLanguage(Locale.US);
+                break;
+            case ENG_AU:
+                sTts.setLanguage(new Locale("en", "AU"));
+                break;
+            case BN_IN:
+            case BE_IN:
+                sTts.setLanguage(new Locale("bn", "IN"));
+                break;
+            case ENG_IN:
+                sTts.setLanguage(new Locale("en","IN"));
+                break;
+            case HI_IN:
+            case MR_IN:
+            default:
+                sTts.setLanguage(new Locale("hi","IN"));
+                break;
+        }
     }
 
     public void speak(String speechText){
@@ -271,15 +214,25 @@ public class LevelScreenBaseActivity extends BaseActivity {
         sTts.setPitch(pitch);
     }
 
+    public boolean isVoiceAvailableForLanguage(String language) {
+        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH){
+            Locale locale = new Locale(language.split("-r")[0],language.split("-r")[1]);
+            for (Voice voice : sTts.getVoices())
+                if(voice.getLocale().equals(locale) && !voice.getFeatures().contains("notInstalled"))
+                    return true;
+        }
+        return  false;
+    }
+
 
     private void broadcastTtsData(TextToSpeech tts, Intent intent) {
         Intent dataIntent = new Intent("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES");
         String infoLang="", infoCountry="";
         try {
-            if (Build.VERSION.SDK_INT < 18) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
                 infoLang = tts.getLanguage().getLanguage();
                 infoCountry = tts.getLanguage().getCountry();
-            } else if (Build.VERSION.SDK_INT < 21) {
+            } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
                 infoLang = tts.getDefaultLanguage().getLanguage().substring(0, 2);
                 infoCountry = tts.getDefaultLanguage().getCountry().substring(0, 2);
             } else {
@@ -320,22 +273,10 @@ public class LevelScreenBaseActivity extends BaseActivity {
 
     private void broadcastTtsDataPostKitkatDevices(TextToSpeech tts, Intent intent){
         Intent responseIntent = new Intent("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_VOICE_AVAIL_RES");
-        boolean isVoiceAvail = isVoiceAvailableForLanguage(tts, intent.getStringExtra("language"));
+        boolean isVoiceAvail = isVoiceAvailableForLanguage(intent.getStringExtra("language"));
         responseIntent.putExtra("isVoiceAvail", isVoiceAvail);
-        setSpeechEngineLanguage(tts, intent.getStringExtra("language"));
+        setSpeechEngineLanguage(intent.getStringExtra("language"));
         sendBroadcast(responseIntent);
-    }
-
-    private boolean isVoiceAvailableForLanguage(TextToSpeech tts, String language) {
-        if(language.equals(ENG_IN))
-            language = HI_IN;
-        if(Build.VERSION.SDK_INT > 20){
-            Locale locale = new Locale(language.split("-r")[0],language.split("-r")[1]);
-            for (Voice voice : tts.getVoices())
-                if(voice.getLocale().equals(locale) && !voice.getFeatures().contains("notInstalled"))
-                    return true;
-        }
-        return  false;
     }
 
 
@@ -348,7 +289,7 @@ public class LevelScreenBaseActivity extends BaseActivity {
             String contactNo = session.getCaregiverNumber();
             contactNo = contactNo.substring(0, contactNo.length()-3);
             contactNo = contactNo.replaceAll(".", "$0 ").replace("+", "plus");
-            if(Build.VERSION.SDK_INT >= 21) {
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 File name = new File(path+ "name.mp3");
                 Log.e("File : ", String.valueOf(name.createNewFile()));
                 File email = new File(path+ "email.mp3");
@@ -375,7 +316,7 @@ public class LevelScreenBaseActivity extends BaseActivity {
                 sTts.synthesizeToFile(session.getAddress(), null, path + "address.mp3");
                 sTts.synthesizeToFile(getBloodGroup(session.getBlood()), null, path + "bloodGroup.mp3");
             }
-            setSpeechEngineLanguage(sTts, session.getLanguage());
+            setSpeechEngineLanguage(session.getLanguage());
             sendBroadcast(new Intent("com.dsource.idc.jellowintl.CREATE_ABOUT_ME_RECORDING_RES"));
         } catch (Exception e) {
             e.printStackTrace();
@@ -459,7 +400,7 @@ public class LevelScreenBaseActivity extends BaseActivity {
         return SessionManager.NoTTSLang.contains(getSession().getLanguage());
     }
 
-    private float getTTsPitch(String language) {
+    private float getTTsPitchForLanguage(String language) {
         switch(language){
             case ENG_UK:
             case ENG_US:
@@ -474,7 +415,7 @@ public class LevelScreenBaseActivity extends BaseActivity {
         }
     }
 
-    private float getTTsSpeed(String language){
+    private float getTTsSpeedForLanguage(String language){
         switch(language){
             case ENG_UK:
             case ENG_US:
@@ -489,7 +430,7 @@ public class LevelScreenBaseActivity extends BaseActivity {
         }
     }
 
-    private String getTTsEngineName(String language) {
+    private String getTTsEngineNameForLanguage(String language) {
         switch(language){
             case ENG_UK:
             case ENG_US:

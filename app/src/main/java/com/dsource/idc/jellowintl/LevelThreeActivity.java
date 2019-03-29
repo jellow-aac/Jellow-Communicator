@@ -56,7 +56,7 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_AU;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_UK;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_US;
 
-public class LevelThreeActivity extends LevelScreenBaseActivity implements TextToSpeechError {
+public class LevelThreeActivity extends LevelBaseActivity{
     private final boolean DISABLE_EXPR_BTNS = true;
 
     /* This flags are used to identify respective expressive button is pressed either
@@ -163,6 +163,7 @@ public class LevelThreeActivity extends LevelScreenBaseActivity implements TextT
     @Override
     protected void onResume() {
         super.onResume();
+        setVisibleAct(LevelThreeActivity.class.getSimpleName());
         if(!isAnalyticsActive()){
             resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
         }
@@ -1852,21 +1853,4 @@ public class LevelThreeActivity extends LevelScreenBaseActivity implements TextT
             return Integer.toString(level2_3Position+1);
         }
     }
-
-
-    /*Text-To-Speech Engine error callbacks are implemented below*/
-    @Override
-    public void sendFailedToSynthesizeError(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void sendLanguageIncompatibleError(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-        getSession().setLangSettingIsCorrect(false);
-    }
-
-    @Override
-    public void sendLanguageIncompatibleForAccessibility() { }
-    /*-------------*/
 }

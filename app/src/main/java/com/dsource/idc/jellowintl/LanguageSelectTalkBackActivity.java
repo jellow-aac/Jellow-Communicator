@@ -1,6 +1,5 @@
 package com.dsource.idc.jellowintl;
 
-import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -16,7 +15,6 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
 import android.util.TypedValue;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
@@ -30,7 +28,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.crashlytics.android.Crashlytics;
-import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
@@ -58,7 +55,7 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangValueMap;
 import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
 
-public class LanguageSelectTalkBackActivity extends BaseActivity{
+public class LanguageSelectTalkBackActivity extends SpeechEngineBaseActivity {
 
     public static final String FINISH = "finish";
     private final int ACT_CHECK_TTS_DATA = 1;
@@ -318,7 +315,7 @@ public class LanguageSelectTalkBackActivity extends BaseActivity{
             bundle.putBoolean(FINISH, false);
             setSpeechLanguage(LangMap.get(onlineLanguages[which])); //To start TTS voice package download automatically.
             setSpeechLanguage(getSession().getLanguage());              //To switch TTS voice package back.
-            speakSpeech("");                              // Send empty string to TTS Engine to eliminate voice lag after user goes back without changing the language.
+            speak("");                              // Send empty string to TTS Engine to eliminate voice lag after user goes back without changing the language.
             startActivity(new Intent(getBaseContext(), LanguageDownloadActivity.class).putExtras(bundle));
             dialog.dismiss();
         } else {
@@ -524,11 +521,9 @@ public class LanguageSelectTalkBackActivity extends BaseActivity{
     @Override
     protected void onResume() {
         super.onResume();
+        setVisibleAct(LanguageSelectTalkBackActivity.class.getSimpleName());
         if(!isAnalyticsActive()){
             resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
-        }
-        if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
-            startService(new Intent(getApplication(), JellowTTSService.class));
         }
         startMeasuring();
         onlineLanguages = getOnlineLanguages();
@@ -552,45 +547,6 @@ public class LanguageSelectTalkBackActivity extends BaseActivity{
     public void onBackPressed() {
         super.onBackPressed();
         finish();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.profile:
-                startActivity(new Intent(this, ProfileFormActivity.class));
-                finish(); break;
-            case R.id.aboutJellow:
-                startActivity(new Intent(this, AboutJellowActivity.class));
-                finish(); break;
-            case R.id.tutorial:
-                startActivity(new Intent(this, TutorialActivity.class));
-                finish(); break;
-            case R.id.keyboardInput:
-                startActivity(new Intent(this, KeyboardInputActivity.class));
-                finish(); break;
-            case R.id.settings:
-                startActivity(new Intent(this, SettingActivity.class));
-                finish(); break;
-            case R.id.accessibilitySetting:
-                startActivity(new Intent(this, AccessibilitySettingsActivity.class));
-                finish(); break;
-            case R.id.resetPreferences:
-                startActivity(new Intent(this, ResetPreferencesActivity.class));
-                finish(); break;
-            case R.id.feedback:
-                if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                    startActivity(new Intent(this, FeedbackActivityTalkBack.class));
-                } else {
-                    startActivity(new Intent(this, FeedbackActivity.class));
-                }
-                finish(); break;
-            case android.R.id.home:
-                finish(); break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return true;
     }
 
     @Override
@@ -684,11 +640,11 @@ public class LanguageSelectTalkBackActivity extends BaseActivity{
         sendBroadcast(intent);
     }
 
-    private void speakSpeech(String speechText){
+    /*private void speakSpeech(String speechText){
         Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_TEXT");
         intent.putExtra("speechText", speechText);
         sendBroadcast(intent);
-    }
+    }*/
 
     private void getSpeechLanguage(String saveLang){
         Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_REQ");
