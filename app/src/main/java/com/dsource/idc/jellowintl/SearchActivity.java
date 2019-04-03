@@ -40,7 +40,6 @@ import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
-import static com.dsource.idc.jellowintl.utility.SpeechUtils.speak;
 
 
 /*
@@ -55,7 +54,7 @@ import static com.dsource.idc.jellowintl.utility.SpeechUtils.speak;
  * @Author AyazAlam
  * </p>
  */
-public class SearchActivity extends BaseActivity {
+public class SearchActivity extends SpeechEngineBaseActivity {
 
     private RecyclerView mRecyclerView;
     private SearchViewIconAdapter adapter;
@@ -243,7 +242,7 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
             speakIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    speakSpeech(mDataSource.get(getAdapterPosition()).IconSpeech);
+                    ((SearchActivity)mContext).speak(mDataSource.get(getAdapterPosition()).IconSpeech);
                     //Firebase event to log the "SearchBar" event with
                     // "IconSpeak" parameter.
                     Bundle bundle = new Bundle();
@@ -455,9 +454,9 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
      * The string in {@param speechText} is speech output request string.</p>
      * */
 
-    private void speakSpeech(String speechText){
+    /*private void speakSpeech(String speechText){
         speak(mContext,speechText);
-    }
+    }*/
 
     private String getLevel2_3IconCode(int level1Position){
         if(level1Position+1 <= 9){

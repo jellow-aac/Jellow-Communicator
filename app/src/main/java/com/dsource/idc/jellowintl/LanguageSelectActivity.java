@@ -151,40 +151,42 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
             @Override
             public void onClick(View v) {
                 Crashlytics.log("LanguageSelect Apply");
+                /* If the current app language is same as new selected language then
+                 *   Show Toast message string 'strDefaultLangEr'*/
+                if(getSession().getLanguage().equals(LangMap.get(selectedLanguage))){
+                    Toast.makeText(LanguageSelectActivity.this,
+                            strDefaultLangEr, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 //if current user language is not marathi and user want to change current language
                 // to marathi.
                 if (!getSession().getLanguage().equals(MR_IN)
                     && selectedLanguage != null &&
                         selectedLanguage.equals(LangValueMap.get(MR_IN))){
                     saveLanguage();
-                    getSession().setLangSettingIsCorrect(true);
-                }else if(selectedLanguage != null){
-                    /* If device is Lollipop or above and
-                    *   current app language is same as new selected language then
-                    *   Show Toast message string 'strDefaultLangEr'*/
-                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
-                            getSession().getLanguage().equals(LangMap.get(selectedLanguage))) {
-                        Toast.makeText(LanguageSelectActivity.this,
-                                strDefaultLangEr, Toast.LENGTH_SHORT).show();
-                    /* If device is Lollipop or above and
-                     *   voice data is available for selected language then
-                     *   Save selected language as app language else
-                     *   Show Toast message string 'mCompleteStep2'*/
-                    }else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                }else if(selectedLanguage != null) {
+                    /* If device is Lollipop or above AND
+                     *   current app language is same as new selected language THEN
+                     *   Show Toast message string 'strDefaultLangEr'*/
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         if (isVoiceAvailableForLanguage(LangMap.get(selectedLanguage)))
                             saveLanguage();
                         else
                             Toast.makeText(LanguageSelectActivity.this,
                                     mCompleteStep2, Toast.LENGTH_LONG).show();
-                    /* If device is below Lollipop and
-                     *   current app language is same as new selected language then
-                     *   Show Toast message string 'strDefaultLangEr'*/
-                    }else if(getSpeechEngineLanguage().equals(getSession().getLanguage()) ||
-                        (getSession().getLanguage().equals(BN_IN) &&
-                            getSpeechEngineLanguage().equals(BE_IN))){
+                    /* If Speech Engine language is same as selected language OR
+                     *  Selected language is Bengali and Speech Engine language is
+                     *  either BN_IN or BE_IN form THEN
+                     *  save the language and set language setting to true.
+                     *  else
+                     *  show toast about Complete step 3.*/
+                    } else if (getSpeechEngineLanguage().equals(LangMap.get(selectedLanguage)) ||
+                        (LangMap.get(selectedLanguage).equals(BN_IN) &&
+                            (getSpeechEngineLanguage().equals(BN_IN) ||
+                                getSpeechEngineLanguage().equals(BE_IN)))) {
                         saveLanguage();
-                        getSession().setLangSettingIsCorrect(true);
-                    }else{
+                    } else {
                         Toast.makeText(LanguageSelectActivity.this,
                                 mCompleteStep3, Toast.LENGTH_SHORT).show();
                     }
@@ -387,7 +389,6 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
         dialog.dismiss();
         Toast.makeText(LanguageSelectActivity.this, strLangRemoved, Toast.LENGTH_SHORT).show();
     }
-
 
     private void hideViewsForNonTtsLang(boolean disableViews) {
         //TODO Hide views to when user selected non tts language.
@@ -601,12 +602,6 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        //unregisterReceiver(receiver);
     }
 
     @Override

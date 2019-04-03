@@ -22,7 +22,6 @@ import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.JellowTTSService;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
-import com.dsource.idc.jellowintl.utility.SpeechUtils;
 import com.github.paolorotolo.appintro.AppIntro;
 
 import java.util.Objects;
@@ -50,6 +49,7 @@ public class Intro extends AppIntro {
         intro5_title, intro5_caption, intro7title, intro6_imgTxt1, intro6_imgTxt2,
         intro6_imgTxt3, intro8title, intro8_imgTxt1, intro8_imgTxt2, intro8_imgTxt3, intro8_btn,
         intro6_btn_bottom, intro6_btn_bottom1,intro6_btn_bottom3, intro7_btn_getStarted;
+    private SpeechEngineBaseActivity ba;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,17 +62,18 @@ public class Intro extends AppIntro {
         //Set the language database create preference
         SessionManager manager = new SessionManager(this);
         manager.setLanguageChange(0);
+        ba = new SpeechEngineBaseActivity();
         startService(new Intent(getApplication(), JellowTTSService.class));
         addSlide(SampleSlideFragment.newInstance(R.layout.intro, "intro"));
         addSlide(SampleSlideFragment.newInstance(R.layout.intro5, "intro5"));
         addSlide(SampleSlideFragment.newInstance(R.layout.intro2, "intro2"));
         addSlide(SampleSlideFragment.newInstance(R.layout.intro3, "intro3"));
         addSlide(SampleSlideFragment.newInstance(R.layout.intro4, "intro4"));
-        if(!SpeechUtils.isNoTTSLanguage(this))
+        if(!ba.isNoTTSLanguage())
             addSlide(SampleSlideFragment.newInstance(R.layout.intro8, "intro8"));
         else
             isOpenedSettingFromIntro8 = true;
-        if(Build.VERSION.SDK_INT < 21
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP
                 && !(manager.getLanguage().equals(MR_IN))) {
             addSlide(SampleSlideFragment.newInstance(R.layout.intro6, "intro6"));
         }
@@ -98,7 +99,6 @@ public class Intro extends AppIntro {
     @Override
     protected void onResume() {
         super.onResume();
-        BaseActivity ba = new BaseActivity();
         if(ba.isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))
                 && isOpenedSettingFromIntro8){
             findViewById(R.id.btnMoveRight).sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
@@ -126,7 +126,7 @@ public class Intro extends AppIntro {
     public void onSlideChanged(@Nullable Fragment oldFragment, @Nullable final Fragment newFragment) {
         super.onSlideChanged(oldFragment, newFragment);
         Crashlytics.log("Slide visible:"+((SampleSlideFragment) newFragment).getLayoutName());
-        if (Build.VERSION.SDK_INT < 21
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP
                 /*&& !(new SessionManager(this).getLanguage().equals(MR_IN))*/)
             if(((SampleSlideFragment) newFragment).getLayoutName().equals("intro6") ||
                     ((SampleSlideFragment) newFragment).getLayoutName().equals("intro7")){
@@ -159,7 +159,7 @@ public class Intro extends AppIntro {
         if(!isOpenedSettingFromIntro8) {
             Toast.makeText(Intro.this, toastMsg, Toast.LENGTH_LONG).show();
             getPager().setCurrentItem(5, true);
-        }else if(Build.VERSION.SDK_INT < 21) {
+        }else if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             if(!mTTsDefaultLanguage.equals("-r") ||
                 (session.getLanguage().equals(mTTsDefaultLanguage)) ||
                     (session.getLanguage().equals(BN_IN) &&

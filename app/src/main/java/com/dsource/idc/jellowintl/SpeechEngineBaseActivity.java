@@ -80,7 +80,6 @@ public class SpeechEngineBaseActivity extends BaseActivity{
                     sTts.setPitch(getTTsPitchForLanguage(getSession().getLanguage()));
                     if (getSession().getLanguage().endsWith(MR_IN))
                         createUserProfileRecordingsUsingTTS();
-                    /*sendBroadcast(new Intent("com.dsource.idc.jellowintl.INIT_SERVICE"));*/
                 } catch (Exception e) {
                     Crashlytics.logException(e);
                 }
@@ -204,6 +203,7 @@ public class SpeechEngineBaseActivity extends BaseActivity{
 
     public void stopSpeaking(){
         sTts.stop();
+        stopAudio();
     }
 
     public void setSpeechRate(float rate){
@@ -395,8 +395,25 @@ public class SpeechEngineBaseActivity extends BaseActivity{
         }
     }
 
+    public void speakInQueue(String speechData){
+        speechData = getAudioPath(this)+ speechData;
+        if (speechData.contains("GGL")){
+            speechData = speechData+","+ getAudioPath(this)+ "name.mp3";
+        }else if (speechData.contains("GGY")){
+            speechData = speechData+","+ getAudioPath(this)+ "email.mp3";
+        }else if (speechData.contains("GGM")){
+            speechData = speechData+","+  getAudioPath(this)+ "contact.mp3";
+        }else if (speechData.contains("GGD")){
+            speechData = speechData+","+  getAudioPath(this)+ "caregiverName.mp3";
+        }else if (speechData.contains("GGN")){
+            speechData = speechData+","+  getAudioPath(this)+ "address.mp3";
+        }else {
+            speechData = speechData+","+  getAudioPath(this)+ "bloodGroup.mp3";
+        }
+        playInQueue(speechData);
+    }
 
-    private boolean isNoTTSLanguage(){
+    public boolean isNoTTSLanguage(){
         return SessionManager.NoTTSLang.contains(getSession().getLanguage());
     }
 

@@ -84,7 +84,6 @@ public class LevelBaseActivity extends SpeechEngineBaseActivity implements TextT
     }
 
 
-
     /*Text-To-Speech Engine error callbacks implementations are following*/
     @Override
     public void sendFailedToSynthesizeError(final String message) {
@@ -102,7 +101,6 @@ public class LevelBaseActivity extends SpeechEngineBaseActivity implements TextT
             @Override
             public void run() {
                 Toast.makeText(LevelBaseActivity.this, message, Toast.LENGTH_LONG).show();
-                getSession().setLangSettingIsCorrect(false);
             }
         });
     }

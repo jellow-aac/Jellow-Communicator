@@ -23,7 +23,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
-import com.dsource.idc.jellowintl.utility.SpeechUtils;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
@@ -143,7 +142,7 @@ public class SettingActivity extends SpeechEngineBaseActivity {
             @Override public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
-        if(SpeechUtils.isNoTTSLanguage(this)){
+        if(isNoTTSLanguage()){
             mSliderSpeed.setVisibility(View.GONE);
             mTxtViewSpeechSpeed.setVisibility(View.GONE);
             mSliderPitch.setVisibility(View.GONE);
