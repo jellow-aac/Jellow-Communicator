@@ -21,7 +21,7 @@ public class SessionManager {
     public final static String ENG_AU = "en-rAU";
     public final static String HI_IN = "hi-rIN";
     public final static String BN_IN = "bn-rIN";    // BN_IN -> Bengali
-    public final static String BE_IN = "be-rIN";    // BE_IN -> Bengali (for some old API devices which return be-rIN)
+    public final static String BE_IN = "be-rIN";    // BE_IN -> Bengali (for some old API devices which return Bengali locale as be-rIN)
     public final static String MR_IN = "mr-rIN";
 
 
@@ -265,10 +265,6 @@ public class SessionManager {
     // This flag is only for device who doesnt support direct switching between devices.
     public void setLangSettingIsCorrect(boolean settingStatus) {
         storePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.lang_setting_status), settingStatus);
-    }
-
-    public boolean getLangSettingIsCorrect() {
-        return ((Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.lang_setting_status)));
     }
 
     public void setSessionCreatedAt(long timeStamp) {

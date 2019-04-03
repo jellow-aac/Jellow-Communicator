@@ -40,7 +40,10 @@ public class BaseActivity extends AppCompatActivity{
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        if(getLevelClass().contains(getVisibleAct()))
+            getMenuInflater().inflate(R.menu.menu_main_with_search, menu);
+        else
+            getMenuInflater().inflate(R.menu.menu_main, menu);
         if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
             menu.findItem(R.id.closePopup).setVisible(false);
         }
@@ -49,7 +52,7 @@ public class BaseActivity extends AppCompatActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(getVisibleAct().contains(getLevelClass()))
+        if(getLevelClass().contains(getVisibleAct()))
             return false;
         switch(item.getItemId()) {
             case R.id.profile:

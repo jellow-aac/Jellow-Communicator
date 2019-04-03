@@ -33,7 +33,6 @@ import com.dsource.idc.jellowintl.utility.CustomGridLayoutManager;
 import com.dsource.idc.jellowintl.utility.DialogKeyboardUtterance;
 import com.dsource.idc.jellowintl.utility.IndexSorter;
 import com.dsource.idc.jellowintl.utility.SessionManager;
-import com.dsource.idc.jellowintl.utility.SpeechUtils;
 import com.dsource.idc.jellowintl.utility.UserEventCollector;
 
 import java.util.ArrayList;
@@ -763,9 +762,8 @@ public class LevelTwoActivity extends LevelBaseActivity{
                         // If Help -> About me category icon is selected,
                         // "really like" expression will speak child's name
                         }else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1) {
-                            if(SpeechUtils.isNoTTSLanguage(LevelTwoActivity.this)) {
-                                SpeechUtils.speakInQueue(LevelTwoActivity.this,
-                                        level2IconObjects[mLevelTwoItemPos].getLL());
+                            if(isNoTTSLanguage()) {
+                                speakInQueue(level2IconObjects[mLevelTwoItemPos].getLL());
                             }else{
                                 String speechTxt = level2IconObjects[mLevelTwoItemPos].getL()
                                         .replace("_", getSession().getName());
@@ -795,9 +793,8 @@ public class LevelTwoActivity extends LevelBaseActivity{
                             // If Help -> About me category icon is selected,
                             // "really like" expression will speak child's name
                         }else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1) {
-                            if(SpeechUtils.isNoTTSLanguage(LevelTwoActivity.this)) {
-                                SpeechUtils.speakInQueue(LevelTwoActivity.this,
-                                        level2IconObjects[mLevelTwoItemPos].getL());
+                            if(isNoTTSLanguage()) {
+                                speakInQueue(level2IconObjects[mLevelTwoItemPos].getL());
                             }else {
                                 String speechTxt = level2IconObjects[mLevelTwoItemPos].getL()
                                         .replace("_", getSession().getName());
@@ -887,9 +884,8 @@ public class LevelTwoActivity extends LevelBaseActivity{
                         // If Help -> About me category icon is selected,
                         // "really don't like" expression will speak child's caregiver's name
                         }else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1) {
-                            if(SpeechUtils.isNoTTSLanguage(LevelTwoActivity.this)) {
-                                SpeechUtils.speakInQueue(LevelTwoActivity.this,
-                                        level2IconObjects[mLevelTwoItemPos].getDD());
+                            if(isNoTTSLanguage()) {
+                                speakInQueue(level2IconObjects[mLevelTwoItemPos].getDD());
                             }else {
                                 String speechTxt = level2IconObjects[mLevelTwoItemPos].getDD()
                                         .replace("_", getSession().getCaregiverName());
@@ -919,9 +915,8 @@ public class LevelTwoActivity extends LevelBaseActivity{
                         // If Help -> About me category icon is selected,
                         // "really don't like" expression will speak child's caregiver name
                         }else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1) {
-                            if(SpeechUtils.isNoTTSLanguage(LevelTwoActivity.this)) {
-                                SpeechUtils.speakInQueue(LevelTwoActivity.this,
-                                        level2IconObjects[mLevelTwoItemPos].getDD());
+                            if(isNoTTSLanguage()) {
+                                speakInQueue(level2IconObjects[mLevelTwoItemPos].getDD());
                             }else {
                                 String speechTxt = level2IconObjects[mLevelTwoItemPos].getDD()
                                         .replace("_", getSession().getCaregiverName());
@@ -1010,9 +1005,8 @@ public class LevelTwoActivity extends LevelBaseActivity{
                         // If Help -> About me category icon is selected,
                         // "really yes" expression will speak caregivers email id
                         }else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1) {
-                            if(SpeechUtils.isNoTTSLanguage(LevelTwoActivity.this)) {
-                                SpeechUtils.speakInQueue(LevelTwoActivity.this,
-                                        level2IconObjects[mLevelTwoItemPos].getYY());
+                            if(isNoTTSLanguage()) {
+                                speakInQueue(level2IconObjects[mLevelTwoItemPos].getYY());
                             }else {
                                 String speechTxt = level2IconObjects[mLevelTwoItemPos].getYY();
                                 speechTxt = speechTxt.replace("_", getSession().getEmailId()
@@ -1043,9 +1037,8 @@ public class LevelTwoActivity extends LevelBaseActivity{
                         // If Help -> About me category icon is selected,
                         // "yes" expression will speak caregivers email id
                         }else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1) {
-                            if(SpeechUtils.isNoTTSLanguage(LevelTwoActivity.this)) {
-                                SpeechUtils.speakInQueue(LevelTwoActivity.this,
-                                        level2IconObjects[mLevelTwoItemPos].getY());
+                            if(isNoTTSLanguage()) {
+                                speakInQueue(level2IconObjects[mLevelTwoItemPos].getY());
                             }else {
                                 String speechTxt = level2IconObjects[mLevelTwoItemPos].getY();
                                 speechTxt = speechTxt.replace("_", getSession().getEmailId()
@@ -1135,9 +1128,8 @@ public class LevelTwoActivity extends LevelBaseActivity{
                             // If Help -> About me category icon is selected,
                             // "really no" expression will speak child's address
                         }else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1) {
-                            if(SpeechUtils.isNoTTSLanguage(LevelTwoActivity.this)) {
-                                SpeechUtils.speakInQueue(LevelTwoActivity.this,
-                                        level2IconObjects[mLevelTwoItemPos].getNN());
+                            if(isNoTTSLanguage()) {
+                                speakInQueue(level2IconObjects[mLevelTwoItemPos].getNN());
                             }else {
                                 String speechTxt = level2IconObjects[mLevelTwoItemPos].getNN()
                                         .replace("_", getSession().getAddress());
@@ -1167,9 +1159,8 @@ public class LevelTwoActivity extends LevelBaseActivity{
                             // If Help -> About me category icon is selected,
                             // "really no" expression will speak child's address
                         }else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1) {
-                            if(SpeechUtils.isNoTTSLanguage(LevelTwoActivity.this)) {
-                                SpeechUtils.speakInQueue(LevelTwoActivity.this,
-                                        level2IconObjects[mLevelTwoItemPos].getN());
+                            if(isNoTTSLanguage()) {
+                                speakInQueue(level2IconObjects[mLevelTwoItemPos].getN());
                             }else {
                                 String speechTxt = level2IconObjects[mLevelTwoItemPos].getNN()
                                         .replace("_", getSession().getAddress());
@@ -1258,9 +1249,8 @@ public class LevelTwoActivity extends LevelBaseActivity{
                         // If Help -> About me category icon is selected,
                         // "really more" expression will speak caregivers number
                         }else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1) {
-                            if(SpeechUtils.isNoTTSLanguage(LevelTwoActivity.this)) {
-                                SpeechUtils.speakInQueue(LevelTwoActivity.this,
-                                        level2IconObjects[mLevelTwoItemPos].getMM());
+                            if(isNoTTSLanguage()) {
+                                speakInQueue(level2IconObjects[mLevelTwoItemPos].getMM());
                             }else {
                                 String contact = getSession().getCaregiverNumber();
                                 contact = contact.substring(0, contact.length() - 3);
@@ -1291,9 +1281,8 @@ public class LevelTwoActivity extends LevelBaseActivity{
                     level2IconObjects[mArrSort[mLevelTwoItemPos]].getEvent_Tag()
                                 +"_"+ mVerbCode[mLevelTwoItemPos]+"M0","");
                         }else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1) {
-                            if(SpeechUtils.isNoTTSLanguage(LevelTwoActivity.this)) {
-                                SpeechUtils.speakInQueue(LevelTwoActivity.this,
-                                        level2IconObjects[mLevelTwoItemPos].getM());
+                            if(isNoTTSLanguage()) {
+                                speakInQueue(level2IconObjects[mLevelTwoItemPos].getM());
                             }else {
                                 String contact = getSession().getCaregiverNumber();
                                 contact = contact.substring(0, contact.length() - 3);
@@ -1386,9 +1375,8 @@ public class LevelTwoActivity extends LevelBaseActivity{
                         // If Help -> About me category icon is selected,
                         // "really less" expression will speak child's blood group
                         }else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1){
-                            if(SpeechUtils.isNoTTSLanguage(LevelTwoActivity.this)) {
-                                SpeechUtils.speakInQueue(LevelTwoActivity.this,
-                                        level2IconObjects[mLevelTwoItemPos].getSS());
+                            if(isNoTTSLanguage()) {
+                                speakInQueue(level2IconObjects[mLevelTwoItemPos].getSS());
                             }else {
                                 String speechTxt = level2IconObjects[mLevelTwoItemPos].getS()
                                         .replace("_", getBloodGroup());
@@ -1418,9 +1406,8 @@ public class LevelTwoActivity extends LevelBaseActivity{
                         // If Help -> About me category icon is selected,
                         // "really less" expression will speak child's blood group
                         }else if(mLevelOneItemPos == 8 && mLevelTwoItemPos == 1){
-                            if(SpeechUtils.isNoTTSLanguage(LevelTwoActivity.this)) {
-                                SpeechUtils.speakInQueue(LevelTwoActivity.this,
-                                        level2IconObjects[mLevelTwoItemPos].getS());
+                            if(isNoTTSLanguage()) {
+                                speakInQueue(level2IconObjects[mLevelTwoItemPos].getS());
                             }else {
                                 String speechTxt = level2IconObjects[mLevelTwoItemPos].getS()
                                         .replace("_", getBloodGroup());

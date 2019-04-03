@@ -13,7 +13,6 @@ import com.dsource.idc.jellowintl.cache.CacheManager;
 import com.dsource.idc.jellowintl.factories.TextFactory;
 import com.dsource.idc.jellowintl.utility.CreateDataBase;
 import com.dsource.idc.jellowintl.utility.DataBaseHelper;
-import com.dsource.idc.jellowintl.utility.SpeechUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
@@ -74,7 +73,6 @@ public class SplashActivity extends BaseActivity {
         if (getSession().isLanguageChanged() == 1) {
             CacheManager.clearCache();
             TextFactory.clearJson();
-            SpeechUtils.updateSpeechParam(this);
         }
 
         iconDatabase=new CreateDataBase(this);
