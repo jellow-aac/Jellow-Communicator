@@ -23,6 +23,10 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
+        <activity android:name=".LevelBaseActivity" />
+        <activity android:name=".BaseActivity" />
+        <activity android:name=".SpeechEngineBaseActivity" />
+
         <service
             android:name=".SimpleIME"
             android:label="@string/simple_ime"
@@ -122,7 +126,6 @@
             android:label="@string/level_3_screen"
             android:screenOrientation="landscape" />
 
-        <service android:name=".utility.JellowTTSService" />
         <service android:name=".utility.JellowFirebaseMessageService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -161,7 +164,8 @@
             android:label="@string/menuFeedback"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".AccessibilitySettingsActivity"
+        <activity
+            android:name=".AccessibilitySettingsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/menuFeedback"
             android:screenOrientation="landscape"

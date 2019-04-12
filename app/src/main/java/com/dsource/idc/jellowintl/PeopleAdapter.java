@@ -28,15 +28,13 @@ import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import static android.content.Context.ACCESSIBILITY_SERVICE;
-import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
-import static com.dsource.idc.jellowintl.MainActivity.isNotchDevice;
 import static com.dsource.idc.jellowintl.factories.PathFactory.getIconPath;
 
 /**
  * Created by HP on 22/01/2017.
  */
 class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.MyViewHolder> {
-    private Context mContext;
+    private LevelTwoActivity mAct;
     private SessionManager mSession;
     private ArrayList<String> mIconNameList = new ArrayList<>();
     private ArrayList<String> mBelowTextList = new ArrayList<>();
@@ -44,9 +42,9 @@ class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.MyViewHolder> {
 
 
     PeopleAdapter(Context context, int levelOneItemPos, String[] mArrAdapterTxt, Integer[] arrSort) {
-        mContext = context;
-        glide = GlideApp.with(mContext);
-        mSession = new SessionManager(mContext);
+        mAct = (LevelTwoActivity) context;
+        glide = GlideApp.with(mAct);
+        mSession = mAct.getSession();
         loadArraysFromResources(levelOneItemPos, mArrAdapterTxt, arrSort);
     }
 
@@ -54,23 +52,23 @@ class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.MyViewHolder> {
     public PeopleAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final int GRID_1BY1 = 0, GRID_1BY2 = 1, GRID_1BY3 = 2, GRID_2BY2 = 3;
         View rowView;
-        if(isNotchDevice(mContext) && mSession.getGridSize() == GRID_1BY1) {
+        if(mAct.isNotchDevice() && mSession.getGridSize() == GRID_1BY1) {
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_1_icon_notch, parent, false);
-        }else if(!isNotchDevice(mContext) && mSession.getGridSize() == GRID_1BY1){
+        }else if(!mAct.isNotchDevice() && mSession.getGridSize() == GRID_1BY1){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_1_icon, parent, false);
-        }else if(isNotchDevice(mContext) && mSession.getGridSize() == GRID_1BY2){
+        }else if(mAct.isNotchDevice() && mSession.getGridSize() == GRID_1BY2){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_2_icons_notch, parent, false);
-        }else if(!isNotchDevice(mContext) && mSession.getGridSize() == GRID_1BY2){
+        }else if(!mAct.isNotchDevice() && mSession.getGridSize() == GRID_1BY2){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_2_icons, parent, false);
-        }else if(isNotchDevice(mContext) && mSession.getGridSize() == GRID_1BY3){
+        }else if(mAct.isNotchDevice() && mSession.getGridSize() == GRID_1BY3){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_3_icons_notch, parent, false);
-        }else if(!isNotchDevice(mContext) && mSession.getGridSize() == GRID_1BY3){
+        }else if(!mAct.isNotchDevice() && mSession.getGridSize() == GRID_1BY3){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_3_icons, parent, false);
-        }else if(isNotchDevice(mContext) && mSession.getGridSize() == GRID_2BY2){
+        }else if(mAct.isNotchDevice() && mSession.getGridSize() == GRID_2BY2){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_4_icons_notch, parent, false);
-        }else if(!isNotchDevice(mContext) && mSession.getGridSize() == GRID_2BY2){
+        }else if(!mAct.isNotchDevice() && mSession.getGridSize() == GRID_2BY2){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_4_icons, parent, false);
-        }else if(isNotchDevice(mContext)){
+        }else if(mAct.isNotchDevice()){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_9_icons_notch, parent, false);
         }else{
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_9_icons, parent, false);
@@ -90,13 +88,13 @@ class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.MyViewHolder> {
             holder.menuItemBelowText.setVisibility(View.INVISIBLE);
         holder.menuItemBelowText.setText(mBelowTextList.get(position));
 
-       glide.load(getIconPath(mContext, mIconNameList.get(position)))
+       glide.load(getIconPath(mAct, mIconNameList.get(position)))
                 .into(holder.menuItemImage);
         holder.menuItemLinearLayout.setContentDescription(mBelowTextList.get(position));
         holder.menuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((LevelTwoActivity)mContext).tappedCategoryItemEvent(holder.menuItemLinearLayout, position);
+                mAct.tappedCategoryItemEvent(holder.menuItemLinearLayout, position);
             }
         });
     }
@@ -116,8 +114,8 @@ class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.MyViewHolder> {
         mBelowTextList.addAll(Arrays.asList(mArrAdapterTxt));
 
         tempIconList.addAll(Arrays.asList(IconFactory.getAllL2Icons(
-                    PathFactory.getIconDirectory(mContext),
-                    LanguageFactory.getCurrentLanguageCode(mContext),
+                    PathFactory.getIconDirectory(mAct),
+                    LanguageFactory.getCurrentLanguageCode(mAct),
                     getLevel2IconCode(levelOneItemPos)
         )));
 
@@ -146,12 +144,12 @@ class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.MyViewHolder> {
             menuItemLinearLayout = view.findViewById(R.id.linearlayout_icon1);
             menuItemBelowText = view.findViewById(R.id.te1);
             menuItemBelowText.setTextColor(Color.rgb(64, 64, 64));
-            if(isAccessibilityTalkBackOn((AccessibilityManager) mContext.getSystemService(ACCESSIBILITY_SERVICE))) {
-                Typeface tf = ResourcesCompat.getFont(mContext, R.font.mukta_semibold);
+            if(mAct.isAccessibilityTalkBackOn((AccessibilityManager) mAct.getSystemService(ACCESSIBILITY_SERVICE))) {
+                Typeface tf = ResourcesCompat.getFont(mAct, R.font.mukta_semibold);
                 menuItemBelowText.setTypeface(tf);
             }
             GradientDrawable gd = (GradientDrawable) view.findViewById(R.id.borderView).getBackground();
-            gd.setColor(ContextCompat.getColor(mContext, android.R.color.transparent));
+            gd.setColor(ContextCompat.getColor(mAct, android.R.color.transparent));
         }
     }
 }
