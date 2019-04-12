@@ -1,25 +1,15 @@
 package com.dsource.idc.jellowintl;
 
-import android.app.ActivityManager;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.database.SQLException;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.text.method.KeyListener;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
@@ -29,29 +19,32 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
-import com.dsource.idc.jellowintl.models.LevelThreeVerbiageModel;
+import com.dsource.idc.jellowintl.factories.IconFactory;
+import com.dsource.idc.jellowintl.factories.LanguageFactory;
+import com.dsource.idc.jellowintl.factories.PathFactory;
+import com.dsource.idc.jellowintl.factories.TextFactory;
+import com.dsource.idc.jellowintl.models.ExpressiveIcon;
+import com.dsource.idc.jellowintl.models.Icon;
+import com.dsource.idc.jellowintl.models.MiscellaneousIcon;
 import com.dsource.idc.jellowintl.utility.CustomGridLayoutManager;
-import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
+import com.dsource.idc.jellowintl.utility.DataBaseHelper;
+import com.dsource.idc.jellowintl.utility.DialogKeyboardUtterance;
 import com.dsource.idc.jellowintl.utility.IndexSorter;
-import com.dsource.idc.jellowintl.utility.JellowTTSService;
-import com.dsource.idc.jellowintl.utility.KeyboardUtteranceDialogUtil;
-import com.dsource.idc.jellowintl.utility.LanguageHelper;
-import com.dsource.idc.jellowintl.utility.MediaPlayerUtils;
-import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.dsource.idc.jellowintl.utility.UserEventCollector;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
-import static com.dsource.idc.jellowintl.MainActivity.isNotchDevice;
-import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
@@ -59,12 +52,11 @@ import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
-import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_AU;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_UK;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_US;
 
-public class LevelThreeActivity extends AppCompatActivity {
+public class LevelThreeActivity extends LevelBaseActivity{
     private final boolean DISABLE_EXPR_BTNS = true;
 
     /* This flags are used to identify respective expressive button is pressed either
@@ -107,32 +99,23 @@ public class LevelThreeActivity extends AppCompatActivity {
     private DataBaseHelper myDbHelper;
     /*Below array stores the speech text, below text, expressive button speech text,
      navigation button speech text respectively.*/
-    private String[] mSpeechTxt, mExprBtnTxt, mNavigationBtnTxt;
-    /*Below list stores the verbiage that are spoken when category icon + expression buttons
-    pressed in conjunction*/
-	ArrayList <ArrayList <String>> mNewVerbTxt;
+    private String[] mSpeechText,mDisplayText, mExprBtnTxt, mNavigationBtnTxt, mVerbCode;
     private String actionBarTitleTxt, mSpeak;
 
     /*Firebase event Collector class instance.*/
     private UserEventCollector mUec;
 
-    /*Media Player playback Utility class for non-tts languages.*/
-    private MediaPlayerUtils mMpu;
+    Icon[] level3IconObjects;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Initialize default exception handler for this activity.
-        // If any exception occurs during this activity usage,
-        // handle it using default exception handler.
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
-        if (isNotchDevice(this))
+        if (isNotchDevice())
             setContentView(R.layout.activity_levelx_layout_notch);
         else
             setContentView(R.layout.activity_levelx_layout);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
-        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
-        getSupportActionBar().setTitle(getIntent().getExtras().getString(getString(R.string.intent_menu_path_tag)));
+        setLevelActionBar(getIntent().getExtras().getString(getString(R.string.intent_menu_path_tag)));
+
         // when layout is loaded on activity, using the tag attribute of a parent view in layout
         // the device size is identified. If device size is large (10' tablets) enable the
         // hardware acceleration. As seen in testing device, scrolling recycler items on 10' tab
@@ -145,7 +128,6 @@ public class LevelThreeActivity extends AppCompatActivity {
         // set app locale which is set in settings by user.
         myDbHelper = new DataBaseHelper(this);
         mUec = new UserEventCollector();
-        mMpu = new MediaPlayerUtils(this);
         mLevelOneItemPos = getIntent().getExtras().getInt(getString(R.string.level_one_intent_pos_tag));
         mLevelTwoItemPos = getIntent().getExtras().getInt(getString(R.string.level_2_item_pos_tag));
         loadArraysFromResources();
@@ -179,29 +161,17 @@ public class LevelThreeActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext((LanguageHelper.onAttach(newBase)));
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
-        SessionManager session = new SessionManager(this);
+        setVisibleAct(LevelThreeActivity.class.getSimpleName());
         if(!isAnalyticsActive()){
-            resetAnalytics(this, session.getCaregiverNumber().substring(1));
+            resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
         }
-        if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
-            startService(new Intent(getApplication(), JellowTTSService.class));
-        }
-        // broadcast receiver to get response messages from JellowTTsService.
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("com.dsource.idc.jellowintl.SPEECH_TTS_ERROR");
-        registerReceiver(receiver, filter);
         // Start measuring user app screen timer .
         startMeasuring();
-        if(!session.getToastMessage().isEmpty()) {
-            Toast.makeText(this, session.getToastMessage(), Toast.LENGTH_SHORT).show();
-            session.setToastMessage("");
+        if(!getSession().getToastMessage().isEmpty()) {
+            Toast.makeText(this, getSession().getToastMessage(), Toast.LENGTH_SHORT).show();
+            getSession().setToastMessage("");
         }
     }
 
@@ -217,7 +187,7 @@ public class LevelThreeActivity extends AppCompatActivity {
         final int sortedIndex=getSortedIndex(getIntent().getExtras().getInt(getString(R.string.search_parent_2)));
         //To get gridSize
                 int gridSize;
-                if(new SessionManager(this).getGridSize()==1)
+                if(getSession().getGridSize()==1)
                     gridSize=8;
                 else gridSize=2;
                 //Scroll to the position if the icon is not present in first grid
@@ -230,6 +200,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                 else
                     setSearchHighlight(sortedIndex);
     }
+
     /**
      * This functions returns a scroll scrollListener which triggers the setHighlight function
      * when the scrolling is done
@@ -286,84 +257,20 @@ public class LevelThreeActivity extends AppCompatActivity {
         // If yes then create new pushId (user session)
         // If no then do not create new pushId instead user existing and
         // current session time is saved.
-        SessionManager session = new SessionManager(this);
-        long sessionTime = validatePushId(session.getSessionCreatedAt());
-        session.setSessionCreatedAt(sessionTime);
+        long sessionTime = validatePushId(getSession().getSessionCreatedAt());
+        getSession().setSessionCreatedAt(sessionTime);
         // Stop measuring user app screen timer .
         stopMeasuring("LevelThreeActivity");
-        try{
-            unregisterReceiver(receiver);
-        } catch(IllegalArgumentException | NullPointerException | IllegalStateException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         mRecyclerView = null;
         mRecyclerItemsViewList = null;
-        mSpeechTxt = mExprBtnTxt = mNavigationBtnTxt = null;
+        mSpeechText = mDisplayText = mExprBtnTxt = mNavigationBtnTxt = null;
         mArrSort = null; mArrIconTapCount = null;
         myDbHelper = null;
         super.onDestroy();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_main_with_search, menu);
-        SessionManager session = new SessionManager(this);
-        if(session.getLanguage().equals(BN_IN))
-            menu.findItem(R.id.keyboardinput).setVisible(false);
-        if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-            menu.findItem(R.id.closePopup).setVisible(false);
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.search:
-                startActivity(new Intent(this, SearchActivity.class));
-                break;
-            case R.id.languageSelect:
-                if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                    startActivity(new Intent(this, LanguageSelectActivity.class));
-                } else {
-                    startActivity(new Intent(this, LanguageSelectTalkBackActivity.class));
-                }
-                break;
-            case R.id.profile:
-                startActivity(new Intent(this, ProfileFormActivity.class));
-                break;
-            case R.id.info:
-                startActivity(new Intent(this, AboutJellowActivity.class));
-                break;
-            case R.id.usage:
-                startActivity(new Intent(this, TutorialActivity.class));
-                break;
-            case R.id.keyboardinput:
-                startActivity(new Intent(this, KeyboardInputActivity.class));
-                break;
-            case R.id.feedback:
-                if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                    startActivity(new Intent(this, FeedbackActivityTalkBack.class));
-                }
-                else {
-                    startActivity(new Intent(this, FeedbackActivity.class));
-                }
-                break;
-            case R.id.settings:
-                startActivity(new Intent(this, SettingActivity.class));
-                break;
-            case R.id.reset:
-                startActivity(new Intent(this, ResetPreferencesActivity.class));
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return true;
     }
 
     @Override
@@ -414,13 +321,24 @@ public class LevelThreeActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.recycler_view);
         // Initiate 3 columns in Recycler View.
         //This code is to decide the speed of the Scrolling
-        // which grid size is 3 then scrolling is fast as compared to the 9 .
-        SessionManager sessionManager=new SessionManager(this);
-        int iconCount=sessionManager.getGridSize();
-        if(iconCount!=0)
-        mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this, 3,iconCount));
-        else //Default speed is 3 icons speed
-            mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this, 3,3));
+        // which grid size is 3 then scrolling is fast as compared to the 9.
+        switch (getSession().getGridSize()){
+            case 0:
+                mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this, 1,3));
+                break;
+            case 1:
+            case 3:
+                mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this, 2,3));
+                mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+                break;
+            case 2:
+                mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this, 3,3));
+                break;
+            case 4:
+                mRecyclerView.setLayoutManager(new CustomGridLayoutManager
+                        (this, 3, getSession().getGridSize()));
+                break;
+        }
         mRecyclerView.setVerticalScrollBarEnabled(true);
         mRecyclerView.setScrollbarFadingEnabled(false);
     }
@@ -470,6 +388,9 @@ public class LevelThreeActivity extends AppCompatActivity {
                 savedString = savedString.concat("0,");
         }
 
+        // load speech array directly.
+        retrieveSpeechArrays(mLevelOneItemPos, mLevelTwoItemPos);
+
         // savedString is equal to "false" then load level three category icons without any sort/preferences
         if (!savedString.equals("false")) {
             count_flag = 1;
@@ -477,15 +398,15 @@ public class LevelThreeActivity extends AppCompatActivity {
             StringTokenizer st = new StringTokenizer(savedString, ",");
 
             // create tap count array (mArrIconTapCount) of user taps using individual tokens
-            mArrIconTapCount = new Integer[mNewVerbTxt.size()];
-            for (int j = 0; j < mNewVerbTxt.size(); j++) {
+            mArrIconTapCount = new Integer[level3IconObjects.length];
+            for (int j = 0; j < level3IconObjects.length; j++) {
                 mArrIconTapCount[j] = Integer.parseInt(st.nextToken());
             }
 
             //create sort array using tap count array (mArrIconTapCount)
             IndexSorter<Integer> is = new IndexSorter<Integer>(mArrIconTapCount);
             is.sort();
-            Integer[] indexes = new Integer[mNewVerbTxt.size()];
+            Integer[] indexes = new Integer[level3IconObjects.length];
 
             //get index array for given tap count array(mArrIconTapCount)
             int g = 0;
@@ -496,8 +417,6 @@ public class LevelThreeActivity extends AppCompatActivity {
             for (int j = 0; j < mArrIconTapCount.length; j++)
                 mArrSort[j] = indexes[j];
 
-            // load speech array directly.
-            //retrieveSpeechArrays(mLevelOneItemPos, mLevelTwoItemPos);
             //setup adapter.
             mRecyclerView.setAdapter(new LevelThreeAdapter(this, mLevelOneItemPos,
                     mLevelTwoItemPos, mArrSort));
@@ -511,17 +430,15 @@ public class LevelThreeActivity extends AppCompatActivity {
                 (mLevelOneItemPos == 7 && (mLevelTwoItemPos == 0 || mLevelTwoItemPos == 1 ||
                         mLevelTwoItemPos == 2 || mLevelTwoItemPos == 3 || mLevelTwoItemPos == 4))
                 || (mLevelOneItemPos == 4 && mLevelTwoItemPos == 9)) {
-              //retrieveSpeechArrays(mLevelOneItemPos, mLevelTwoItemPos);
 
             // create sort array to sequentially arrange icons without any preferences
-            for (int i=0; i< mNewVerbTxt.size();i++)
+            for (int i=0; i< level3IconObjects.length;i++)
                 mArrSort[i] = i;
             //setup adapter
             mRecyclerView.setAdapter(new LevelThreeAdapter(this, mLevelOneItemPos,
                     mLevelTwoItemPos, mArrSort));
         } else {
             count_flag = 0;
-            //retrieveSpeechArrays(mLevelOneItemPos, mLevelTwoItemPos);
         }
     }
 
@@ -570,29 +487,13 @@ public class LevelThreeActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function initializes {@link RecyclerTouchListener} and
+     * <p>This function initializes
      * {@link RecyclerView.OnChildAttachStateChangeListener} for recycler view.
-     * {@link RecyclerTouchListener} is a custom defined Touch event scrollListener class.
      * {@link RecyclerView.OnChildAttachStateChangeListener} is defined to manage view state of
      * recycler child view. It is useful to retain current state of child, when recycler view is scrolled
      * and recycler child views are recycled for memory usage optimization.</p>
      * */
     private void initRecyclerViewListeners() {
-        mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(),
-                mRecyclerView, new RecyclerTouchListener.ClickListener() {
-            @Override
-            public void onClick(final View view, final int position) {
-                LinearLayout menuItemLinearLayout = view.findViewById(R.id.linearlayout_icon1);
-                menuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        tappedCategoryItemEvent(view, v, position);
-                    }
-                });
-            }
-            @Override public void onLongClick(View view, int position) {}
-        }));
-
         // When user scrolls into category, the child views are attached and detached from
         // recycler view. Also, the child views in recycler view have scrolled
         // off-screen are kept for reuse. Many times the reused view is assigned to
@@ -642,8 +543,7 @@ public class LevelThreeActivity extends AppCompatActivity {
     private void initBackBtnListener() {
         mIvBack.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                speakSpeech(mNavigationBtnTxt[1]);
-                mMpu.playAudio(mMpu.getFilePath( "MIS_02MSTT"));
+                speak(mNavigationBtnTxt[1]);
                 mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
                 mIvBack.setImageResource(R.drawable.back_pressed);
                 //when mFlgKeyboardOpened is set to 1, it means user is using custom keyboard input
@@ -711,8 +611,7 @@ public class LevelThreeActivity extends AppCompatActivity {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        speakSpeech(mNavigationBtnTxt[0]);
-                        mMpu.playAudio(mMpu.getFilePath( "MIS_01MSTT"));
+                        speak(mNavigationBtnTxt[0]);
                     }
                 }).start();
                 //When home is tapped in this activity it will close all other activities and
@@ -755,10 +654,9 @@ public class LevelThreeActivity extends AppCompatActivity {
                 //Firebase event
                 singleEvent("Navigation", "Keyboard");
                 if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                    new KeyboardUtteranceDialogUtil(LevelThreeActivity.this).show();
+                    new DialogKeyboardUtterance(LevelThreeActivity.this).show();
                 } else {
-                    speakSpeech(mNavigationBtnTxt[2]);
-                    mMpu.playAudio(mMpu.getFilePath("MIS_03MSTT"));
+                    speak(mNavigationBtnTxt[2]);
                     mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
                     //when mFlgKeyboardOpened is set to 1, it means user is using custom keyboard input
                     // text and system keyboard is visible.
@@ -843,15 +741,13 @@ public class LevelThreeActivity extends AppCompatActivity {
                 if (!mShouldReadFullSpeech) {
                     // if value of mFlgLike is 1, then should speak "really like".
                     if (mFlgLike == 1) {
-                        speakSpeech(mExprBtnTxt[1]);
-                        mMpu.playAudio(mMpu.getFilePath( "EXP_01EELL"));
+                        speak(mExprBtnTxt[1]);
                         mFlgLike = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(1, "", "");
                     // if value of mFlgLike is 0, then should speak "like".
                     } else {
-                        speakSpeech(mExprBtnTxt[0]);
-                        mMpu.playAudio(mMpu.getFilePath( "EXP_01EEL0"));
+                        speak(mExprBtnTxt[0]);
                         mFlgLike = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(0, "", "");
@@ -870,12 +766,11 @@ public class LevelThreeActivity extends AppCompatActivity {
                     // verbiage for selected category icon.
                     if (mFlgLike == 1) {
                         //Firebase event
-                        mUec.createSendFbEventFromTappedView(14, mUec.getEtTag(getTagPos())
-                            +"_"+ mMpu.getIconCode(mLevelOneItemPos, mLevelTwoItemPos, getTagPos(), "LL"),"");
+                        mUec.createSendFbEventFromTappedView(14,
+                level3IconObjects[getTagPos()].getEvent_Tag()
+                            +"_"+ mVerbCode[getTagPos()]+"LL","");
 
-                        speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(1));
-                        mMpu.playAudio(mMpu.getFilePath( "GRXL3_"+(mLevelOneItemPos+1)+"_"+
-                                (mLevelTwoItemPos+1)+ "_"+(mArrSort[mLevelThreeItemPos]+1) +"_LL"));
+                        speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getLL());
 
                         //reset mFlgLike to speak "like" expression
                         mFlgLike = 0;
@@ -883,12 +778,11 @@ public class LevelThreeActivity extends AppCompatActivity {
                     // verbiage for selected category icon.
                     } else {
                         //Firebase event
-                        mUec.createSendFbEventFromTappedView(13, mUec.getEtTag(getTagPos())
-                            +"_"+ mMpu.getIconCode(mLevelOneItemPos, mLevelTwoItemPos, getTagPos(), "L0"),"");
+                        mUec.createSendFbEventFromTappedView(13,
+                level3IconObjects[getTagPos()].getEvent_Tag()
+                            +"_"+ mVerbCode[getTagPos()]+"L0","");
 
-                        speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(0));
-                        mMpu.playAudio(mMpu.getFilePath( "GRXL3_"+(mLevelOneItemPos+1)+"_"+
-                                (mLevelTwoItemPos+1)+ "_"+(mArrSort[mLevelThreeItemPos]+1) +"_L0"));
+                        speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getL());
                         //reset mFlgLike to speak "really like" expression
                         mFlgLike = 1;
                     }
@@ -926,15 +820,13 @@ public class LevelThreeActivity extends AppCompatActivity {
                 if (!mShouldReadFullSpeech) {
                     // if value of mFlgDntLike is 1, then should speak "really dont like".
                     if (mFlgDntLike == 1) {
-                        speakSpeech(mExprBtnTxt[7]);
-                        mMpu.playAudio(mMpu.getFilePath( "EXP_04EELL"));
+                        speak(mExprBtnTxt[7]);
                         mFlgDntLike = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(7, "", "");
                     // if value of mFlgDntLike is 0, then should speak " dont like".
                     } else {
-                        speakSpeech(mExprBtnTxt[6]);
-                        mMpu.playAudio(mMpu.getFilePath( "EXP_04EEL0"));
+                        speak(mExprBtnTxt[6]);
                         mFlgDntLike = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(6, "", "");
@@ -953,24 +845,22 @@ public class LevelThreeActivity extends AppCompatActivity {
                     // verbiage for selected category icon.
                     if (mFlgDntLike == 1) {
                         //Firebase event
-                        mUec.createSendFbEventFromTappedView(20, mUec.getEtTag(getTagPos())
-                            +"_"+ mMpu.getIconCode(mLevelOneItemPos, mLevelTwoItemPos, getTagPos(), "DD"),"");
+                        mUec.createSendFbEventFromTappedView(20,
+                level3IconObjects[getTagPos()].getEvent_Tag()
+                            +"_"+ mVerbCode[getTagPos()]+"DD","");
 
-                        speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(7));
-                        mMpu.playAudio(mMpu.getFilePath( "GRXL3_"+(mLevelOneItemPos+1)+"_"+
-                                (mLevelTwoItemPos+1)+ "_"+(mArrSort[mLevelThreeItemPos]+1) +"_DD"));
+                        speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getDD());
                         //reset mFlgDntLike to speak "dont like" expression
                         mFlgDntLike = 0;
                     // if value of mFlgDntLike is 0 then Speak associated don't like expression
                     // verbiage for selected category icon.
                     } else {
                         //Firebase event
-                        mUec.createSendFbEventFromTappedView(19, mUec.getEtTag(getTagPos())
-                            +"_"+ mMpu.getIconCode(mLevelOneItemPos, mLevelTwoItemPos, getTagPos(), "D0"),"");
+                        mUec.createSendFbEventFromTappedView(19,
+                level3IconObjects[getTagPos()].getEvent_Tag()
+                            +"_"+ mVerbCode[getTagPos()]+"D0","");
 
-                        speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(6));
-                        mMpu.playAudio(mMpu.getFilePath( "GRXL3_"+(mLevelOneItemPos+1)+"_"+
-                                (mLevelTwoItemPos+1)+ "_"+(mArrSort[mLevelThreeItemPos]+1) +"_D0"));
+                        speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getD());
                         //reset mFlgDntLike to speak "really don't like" expression
                         mFlgDntLike = 1;
                     }
@@ -1008,15 +898,13 @@ public class LevelThreeActivity extends AppCompatActivity {
                 if (!mShouldReadFullSpeech) {
                     // if value of mFlgYes is 1, then should speak "really yes".
                     if (mFlgYes == 1) {
-                        speakSpeech(mExprBtnTxt[3]);
-                        mMpu.playAudio(mMpu.getFilePath( "EXP_02EELL"));
+                        speak(mExprBtnTxt[3]);
                         mFlgYes = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(3, "", "");
                     // if value of mFlgYes is 0, then should speak "yes".
                     } else {
-                        speakSpeech(mExprBtnTxt[2]);
-                        mMpu.playAudio(mMpu.getFilePath( "EXP_02EEL0"));
+                        speak(mExprBtnTxt[2]);
                         mFlgYes = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(2, "", "");
@@ -1034,24 +922,22 @@ public class LevelThreeActivity extends AppCompatActivity {
                     // verbiage for selected category icon.
                     if (mFlgYes == 1) {
                         //Firebase event
-                        mUec.createSendFbEventFromTappedView(16, mUec.getEtTag(getTagPos())
-                            +"_"+ mMpu.getIconCode(mLevelOneItemPos, mLevelTwoItemPos, getTagPos(), "YY"),"");
+                        mUec.createSendFbEventFromTappedView(16,
+                level3IconObjects[getTagPos()].getEvent_Tag()
+                            +"_"+ mVerbCode[getTagPos()]+"YY","");
 
-                        speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(3));
-                        mMpu.playAudio(mMpu.getFilePath( "GRXL3_"+(mLevelOneItemPos+1)+"_"+
-                                (mLevelTwoItemPos+1)+ "_"+(mArrSort[mLevelThreeItemPos]+1) +"_YY"));
+                        speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getYY());
                         //reset mFlgYes to speak "yes" expression
                         mFlgYes = 0;
                     // if value of mFlgYes is 0 then speak associated really yes expression
                     // verbiage for selected category icon.
                     } else {
                         //Firebase event
-                        mUec.createSendFbEventFromTappedView(15, mUec.getEtTag(getTagPos())
-                            +"_"+ mMpu.getIconCode(mLevelOneItemPos, mLevelTwoItemPos, getTagPos(), "Y0"),"");
+                        mUec.createSendFbEventFromTappedView(15,
+                level3IconObjects[getTagPos()].getEvent_Tag()
+                            +"_"+ mVerbCode[getTagPos()]+"Y0","");
 
-                        speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(2));
-                        mMpu.playAudio(mMpu.getFilePath( "GRXL3_"+(mLevelOneItemPos+1)+"_"+
-                                (mLevelTwoItemPos+1)+ "_"+(mArrSort[mLevelThreeItemPos]+1) +"_Y0"));
+                        speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getY());
                         //reset mFlgYes to speak "really yes" expression
                         mFlgYes = 1;
                     }
@@ -1089,15 +975,13 @@ public class LevelThreeActivity extends AppCompatActivity {
                 if (!mShouldReadFullSpeech) {
                     // if value of mFlgNo is 1, then should speak "really no".
                     if (mFlgNo == 1) {
-                        speakSpeech(mExprBtnTxt[9]);
-                        mMpu.playAudio(mMpu.getFilePath( "EXP_05EELL"));
+                        speak(mExprBtnTxt[9]);
                         mFlgNo = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(9, "", "");
                     // if value of mFlgNo is 0, then should speak "no".
                     } else {
-                        speakSpeech(mExprBtnTxt[8]);
-                        mMpu.playAudio(mMpu.getFilePath( "EXP_05EEL0"));
+                        speak(mExprBtnTxt[8]);
                         mFlgNo = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(8, "", "");
@@ -1115,24 +999,22 @@ public class LevelThreeActivity extends AppCompatActivity {
                     // verbiage associated for selected category icon.
                     if (mFlgNo == 1) {
                         //Firebase event
-                        mUec.createSendFbEventFromTappedView(22, mUec.getEtTag(getTagPos())
-                            +"_"+ mMpu.getIconCode(mLevelOneItemPos, mLevelTwoItemPos, getTagPos(), "NN"),"");
+                        mUec.createSendFbEventFromTappedView(22,
+                level3IconObjects[getTagPos()].getEvent_Tag()
+                            +"_"+ mVerbCode[getTagPos()]+"NN","");
 
-                        speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(9));
-                        mMpu.playAudio(mMpu.getFilePath( "GRXL3_"+(mLevelOneItemPos+1)+"_"+
-                                (mLevelTwoItemPos+1)+ "_"+(mArrSort[mLevelThreeItemPos]+1) +"_NN"));
+                        speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getNN());
                         //reset mFlgNo to speak "no" expression
                         mFlgNo = 0;
                     // if value of mFlgNo is 0 then Speak associated no expression
                     // verbiage for selected category icon.
                     } else {
                         //Firebase event
-                        mUec.createSendFbEventFromTappedView(21, mUec.getEtTag(getTagPos())
-                            +"_"+ mMpu.getIconCode(mLevelOneItemPos, mLevelTwoItemPos, getTagPos(), "N0"),"");
+                        mUec.createSendFbEventFromTappedView(21,
+                level3IconObjects[getTagPos()].getEvent_Tag()
+                            +"_"+ mVerbCode[getTagPos()]+"N0","");
 
-                        speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(8));
-                        mMpu.playAudio(mMpu.getFilePath( "GRXL3_"+(mLevelOneItemPos+1)+"_"+
-                                (mLevelTwoItemPos+1)+ "_"+(mArrSort[mLevelThreeItemPos]+1) +"_N0"));
+                        speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getN());
                         //reset mFlgLike to speak "really no" expression
                         mFlgNo = 1;
                     }
@@ -1168,15 +1050,13 @@ public class LevelThreeActivity extends AppCompatActivity {
                 if (!mShouldReadFullSpeech) {
                     // if value of mFlgMore is 1, then should speak "really more".
                     if (mFlgMore == 1) {
-                        speakSpeech(mExprBtnTxt[5]);
-                        mMpu.playAudio(mMpu.getFilePath( "EXP_03EELL"));
+                        speak(mExprBtnTxt[5]);
                         mFlgMore = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(5, "", "");
                     // if value of mFlgMore is 0, then should speak "more".
                     } else {
-                        speakSpeech(mExprBtnTxt[4]);
-                        mMpu.playAudio(mMpu.getFilePath( "EXP_03EEL0"));
+                        speak(mExprBtnTxt[4]);
                         mFlgMore = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(4, "", "");
@@ -1194,24 +1074,22 @@ public class LevelThreeActivity extends AppCompatActivity {
                     // verbiage associated to selected category icon.
                     if (mFlgMore == 1) {
                         //Firebase event
-                        mUec.createSendFbEventFromTappedView(18, mUec.getEtTag(getTagPos())
-                            +"_"+ mMpu.getIconCode(mLevelOneItemPos, mLevelTwoItemPos, getTagPos(), "MM"),"");
+                        mUec.createSendFbEventFromTappedView(18,
+                level3IconObjects[getTagPos()].getEvent_Tag()
+                            +"_"+ mVerbCode[getTagPos()]+"MM","");
 
-                        speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(5));
-                        mMpu.playAudio(mMpu.getFilePath( "GRXL3_"+(mLevelOneItemPos+1)+"_"+
-                                (mLevelTwoItemPos+1)+ "_"+(mArrSort[mLevelThreeItemPos]+1) +"_MM"));
+                        speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getMM());
                         //reset mFlgMore to speak "more" expression
                         mFlgMore = 0;
                     // if value of mFlgMore is 0, then should speak "more" expression
                     // verbiage associated to selected category icon.
                     } else {
                         //Firebase event
-                        mUec.createSendFbEventFromTappedView(17, mUec.getEtTag(getTagPos())
-                            +"_"+ mMpu.getIconCode(mLevelOneItemPos, mLevelTwoItemPos, getTagPos(), "M0"),"");
+                        mUec.createSendFbEventFromTappedView(17,
+                level3IconObjects[getTagPos()].getEvent_Tag()
+                            +"_"+ mVerbCode[getTagPos()]+"M0","");
 
-                        speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(4));
-                        mMpu.playAudio(mMpu.getFilePath( "GRXL3_"+(mLevelOneItemPos+1)+"_"+
-                                (mLevelTwoItemPos+1)+ "_"+(mArrSort[mLevelThreeItemPos]+1) +"_M0"));
+                        speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getM());
                         //reset mFlgMore to speak "really more" expression
                         mFlgMore = 1;
                     }
@@ -1249,15 +1127,13 @@ public class LevelThreeActivity extends AppCompatActivity {
                 if (!mShouldReadFullSpeech) {
                     // if value of mFlgLess is 1, then should speak "really less".
                     if (mFlgLess == 1) {
-                        speakSpeech(mExprBtnTxt[11]);
-                        mMpu.playAudio(mMpu.getFilePath( "EXP_06EELL"));
+                        speak(mExprBtnTxt[11]);
                         mFlgLess = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(11, "", "");
                     // if value of mFlgLess is 0, then should speak "less".
                     } else {
-                        speakSpeech(mExprBtnTxt[10]);
-                        mMpu.playAudio(mMpu.getFilePath( "EXP_06EEL0"));
+                        speak(mExprBtnTxt[10]);
                         mFlgLess = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(10, "", "");
@@ -1275,24 +1151,22 @@ public class LevelThreeActivity extends AppCompatActivity {
                     // verbiage for selected category icon.
                     if (mFlgLess == 1) {
                         //Firebase event
-                        mUec.createSendFbEventFromTappedView(24, mUec.getEtTag(getTagPos())
-                            +"_"+ mMpu.getIconCode(mLevelOneItemPos, mLevelTwoItemPos, getTagPos(), "SS"),"");
+                        mUec.createSendFbEventFromTappedView(24,
+                level3IconObjects[getTagPos()].getEvent_Tag()
+                            +"_"+ mVerbCode[getTagPos()]+"SS","");
 
-                        speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(11));
-                        mMpu.playAudio(mMpu.getFilePath( "GRXL3_"+(mLevelOneItemPos+1)+"_"+
-                                (mLevelTwoItemPos+1)+ "_"+(mArrSort[mLevelThreeItemPos]+1) +"_SS"));
+                        speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getSS());
                         //reset mFlgLess to speak "less" expression
                         mFlgLess = 0;
                     // if value of mFlgLess is 0 then Speak associated less expression
                     // verbiage to selected category icon.
                     } else {
                         //Firebase event
-                        mUec.createSendFbEventFromTappedView(23, mUec.getEtTag(getTagPos())
-                            +"_"+ mMpu.getIconCode(mLevelOneItemPos, mLevelTwoItemPos, getTagPos(), "S0"),"");
+                        mUec.createSendFbEventFromTappedView(23,
+                level3IconObjects[getTagPos()].getEvent_Tag()
+                            +"_"+ mVerbCode[getTagPos()]+"S0","");
 
-                        speakSpeech(mNewVerbTxt.get(mArrSort[mLevelThreeItemPos]).get(10));
-                        mMpu.playAudio(mMpu.getFilePath( "GRXL3_"+(mLevelOneItemPos+1)+"_"+
-                                (mLevelTwoItemPos+1)+ "_"+(mArrSort[mLevelThreeItemPos]+1) +"_S0"));
+                        speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getS());
                         //reset mFlgLess to speak "really less" expression
                         mFlgLess = 1;
                     }
@@ -1310,7 +1184,7 @@ public class LevelThreeActivity extends AppCompatActivity {
     private void initTTsBtnListener() {
         mIvTTs.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                speakSpeech(mEtTTs.getText().toString(), true);
+                speak(mEtTTs.getText().toString());
                 //Firebase event
                 Bundle bundle = new Bundle();
                 bundle.putString("InputName", Settings.Secure.getString(getContentResolver(),
@@ -1353,7 +1227,6 @@ public class LevelThreeActivity extends AppCompatActivity {
      * <p>This function is called when user taps a category icon. It will change the state of
      * category icon pressed. Also, it set the flag for app speak full verbiage sentence.
      * @param view is parent view in selected RecyclerView.
-     * @param v is parent relative layout of category icon tapped.
      * @param position is position of a tapped category icon in the RecyclerView.
      * This function
      *             a) Clear every expressive button flags
@@ -1362,7 +1235,7 @@ public class LevelThreeActivity extends AppCompatActivity {
      *             d) Set the border to selected category icon
      *             e) Increment preference mArrIconTapCount of tapped category icon.</p>
      * */
-    public void tappedCategoryItemEvent(View view, View v, int position) {
+    public void tappedCategoryItemEvent(View view, int position) {
         mFlgLike = mFlgYes = mFlgMore = mFlgDntLike = mFlgNo = mFlgLess = 0;
         // Clear the last expressive button selection. Set each expressive button to unpressed.
         resetExpressiveButtons(-1);
@@ -1370,14 +1243,14 @@ public class LevelThreeActivity extends AppCompatActivity {
         resetRecyclerAllItems();
         mActionBtnClickCount = 0;
         // set border to selected category icon
-        setMenuImageBorder(v, true);
+        setMenuImageBorder(view, true);
         // set true to speak verbiage associated with category icon
         mShouldReadFullSpeech = true;
         mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
         mLevelThreeItemPos = mRecyclerView.getChildLayoutPosition(view);
 
         if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))){
-            mUec.accessibilityPopupOpenedEvent(mSpeechTxt[getTagPos()]);
+            mUec.accessibilityPopupOpenedEvent(mSpeechText[getTagPos()]);
             showAccessibleDialog(view);
             view.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
         }else {
@@ -1392,15 +1265,11 @@ public class LevelThreeActivity extends AppCompatActivity {
                     (mLevelOneItemPos == 7 && (mLevelTwoItemPos == 0 || mLevelTwoItemPos == 1 ||
                             mLevelTwoItemPos == 2 || mLevelTwoItemPos == 3 || mLevelTwoItemPos == 4)) ||
                     (mLevelOneItemPos == 4 && mLevelTwoItemPos == 9)) {
-                speakSpeech(mSpeechTxt[mLevelThreeItemPos]);
-                mMpu.playAudio(mMpu.getFilePath("CATL3_" + (mLevelOneItemPos + 1) + "_" +
-                        +(mLevelTwoItemPos + 1) + "_" + (mLevelThreeItemPos + 1)));
+                speak(mSpeechText[mLevelThreeItemPos]);
             } else {
-                speakSpeech(mSpeechTxt[mArrSort[mLevelThreeItemPos]]);
-                mMpu.playAudio(mMpu.getFilePath("CATL3_" + (mLevelOneItemPos + 1) + "_" +
-                        +(mLevelTwoItemPos + 1) + "_" + (mArrSort[mLevelThreeItemPos] + 1)));
+                speak(mSpeechText[mArrSort[mLevelThreeItemPos]]);
             }
-            mUec.createSendFbEventFromTappedView(12, mSpeechTxt[getTagPos()], "");
+            mUec.createSendFbEventFromTappedView(12, mDisplayText[getTagPos()], "");
         }
         // increment category item touch count
         incrementTouchCountOfItem(mLevelThreeItemPos);
@@ -1425,71 +1294,36 @@ public class LevelThreeActivity extends AppCompatActivity {
     }
 
     /**
-     * <p>This function will send speech output request to
-     * {@link com.dsource.idc.jellowintl.utility.JellowTTSService} Text-to-speech Engine.
-     * The string in {@param speechText} is speech output request string.</p>
-     * */
-    private void speakSpeech(String speechText){
-        if(mMpu.isTtsAvailForLang()) {
-            Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_TEXT");
-            intent.putExtra("speechText", speechText.toLowerCase());
-            sendBroadcast(intent);
-        }
-    }
-
-    private void speakSpeech(String speechText, boolean skipSpeech) {
-        if(skipSpeech) {
-            Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_TEXT");
-            intent.putExtra("speechText", speechText.toLowerCase());
-            sendBroadcast(intent);
-        }
-    }
-
-    /**
      * <p>This function will:
      *     a) Read speech text from arrays for expressive buttons.
-     *     b) Read speech text from arrays for navigation buttons.
-     *     c) Read verbiage lines into {@link LevelThreeVerbiageModel} model.</p>
+     *     b) Read speech text from arrays for navigation buttons.</p>
      * */
     private void loadArraysFromResources() {
-        mExprBtnTxt = getResources().getStringArray(R.array.arrActionSpeech);
-        mNavigationBtnTxt = getResources().getStringArray(R.array.arrNavigationSpeech);
-        String verbString = getString(R.string.levelThreeVerbiage1) +
-                getString(R.string.levelThreeVerbiage2) +
-                getString(R.string.levelThreeVerbiage3)+
-                getString(R.string.levelThreeVerbiage4) +
-                getString(R.string.levelThreeVerbiage5) +
-                getString(R.string.levelThreeVerbiage6) +
-                getString(R.string.levelThreeVerbiage7) +
-                getString(R.string.levelThreeVerbiage8) +
-                getString(R.string.levelThreeVerbiage9) +
-                getString(R.string.levelThreeVerbiage10) +
-                getString(R.string.levelThreeVerbiage11) +
-                getString(R.string.levelThreeVerbiage12) +
-                getString(R.string.levelThreeVerbiage13) +
-                getString(R.string.levelThreeVerbiage14) +
-                getString(R.string.levelThreeVerbiage15) +
-                getString(R.string.levelThreeVerbiage16) +
-                getString(R.string.levelThreeVerbiage17) +
-                getString(R.string.levelThreeVerbiage18) +
-                getString(R.string.levelThreeVerbiage19) +
-                getString(R.string.levelThreeVerbiage20) +
-                getString(R.string.levelThreeVerbiage21) +
-                getString(R.string.levelThreeVerbiage22) +
-                getString(R.string.levelThreeVerbiage23) +
-                getString(R.string.levelThreeVerbiage24) +
-                getString(R.string.levelThreeVerbiage25);
-        LevelThreeVerbiageModel mLevelThreeVerbiageModel = new Gson().
-                fromJson(verbString, LevelThreeVerbiageModel.class);
-        mNewVerbTxt = mLevelThreeVerbiageModel.getVerbiageModel(mLevelOneItemPos, mLevelTwoItemPos);
-        retrieveSpeechArrays(mLevelOneItemPos, mLevelTwoItemPos);
-        mUec.setEventTag(this, new SessionManager(this).getLanguage(),
-                mLevelOneItemPos, mLevelTwoItemPos);
-        if(!mMpu.isTtsAvailForLang()) {
-            // Speech array is non-tts language used for loading the below text.
-            mSpeechTxt = mMpu.getSizeForCode(mLevelOneItemPos, mLevelTwoItemPos);
-            mNewVerbTxt = mMpu.getEmptyList(mSpeechTxt.length);
-        }
+
+        String[] expressiveIcons = IconFactory.getExpressiveIcons(
+                PathFactory.getIconDirectory(this),
+                LanguageFactory.getCurrentLanguageCode(this)
+        );
+
+        ExpressiveIcon[] expressiveIconObjects = TextFactory.getExpressiveIconObjects(
+                PathFactory.getJSONFile(this),
+                IconFactory.removeFileExtension(expressiveIcons)
+        );
+
+        mExprBtnTxt = TextFactory.getExpressiveSpeechText(expressiveIconObjects);
+
+
+        String[] miscellaneousIcons = IconFactory.getMiscellaneousIcons(
+                PathFactory.getIconDirectory(this),
+                LanguageFactory.getCurrentLanguageCode(this)
+        );
+
+        MiscellaneousIcon[] miscellaneousIconObjects = TextFactory.getMiscellaneousIconObjects(
+                PathFactory.getJSONFile(this),
+                IconFactory.removeFileExtension(miscellaneousIcons)
+        );
+
+        mNavigationBtnTxt = TextFactory.getTitle(miscellaneousIconObjects);
     }
 
     /**
@@ -1508,8 +1342,10 @@ public class LevelThreeActivity extends AppCompatActivity {
             if (tmp == 0) {
                 mIvNo.setAlpha(0.5f);
                 mIvNo.setEnabled(false);
+                mIvNo.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
                 mIvYes.setAlpha(1f);
                 mIvYes.setEnabled(true);
+                mIvYes.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
                 // if in feeling category icon having index (default position in recycler view)
                 // "tmp" = 1 (Sad), 2 (Angry), 3 (Afraid), 5 (Irritated)
                 //         6 (Confused), 7 (Ashamed), 8 (Disappointed),
@@ -1521,8 +1357,10 @@ public class LevelThreeActivity extends AppCompatActivity {
                     tmp == 16) {
                 mIvYes.setAlpha(0.5f);
                 mIvYes.setEnabled(false);
+                mIvYes.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
                 mIvNo.setAlpha(1f);
                 mIvNo.setEnabled(true);
+                mIvNo.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
                 // if in feeling category icon having index (default position in recycler view)
                 // other than "tmp" enable all expressive buttons
             } else
@@ -1549,7 +1387,7 @@ public class LevelThreeActivity extends AppCompatActivity {
         // Daily activities -> clothes and more
         else if(mLevelOneItemPos == 1 && mLevelTwoItemPos == 3){
             int tmp = mArrSort[mLevelThreeItemPos];
-            String lang = new SessionManager(this).getLanguage();
+            String lang = getSession().getLanguage();
             // if any one of category icon from "My clothes are tight", "My clothes are loose",
             // "Help me remove clothes" and "Help put on clothes" is selected then all expressive
             // buttons are disabled.
@@ -1564,7 +1402,7 @@ public class LevelThreeActivity extends AppCompatActivity {
             if ((!lang.equals(ENG_US) && !lang.equals(ENG_UK) && !lang.equals(ENG_AU) &&
                     (tmp == 34 || tmp == 35 || tmp == 36 || tmp == 37))
                     ||
-                    ((lang.equals(ENG_US) || lang.equals(ENG_UK)) || lang.equals(ENG_AU) &&
+                    ((lang.equals(ENG_US) || lang.equals(ENG_UK) || lang.equals(ENG_AU)) &&
                             (tmp == 39 || tmp == 40 || tmp == 41 || tmp == 42) ))
                 changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
             else
@@ -1619,8 +1457,8 @@ public class LevelThreeActivity extends AppCompatActivity {
         enterCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                speakSpeech(mSpeechTxt[getTagPos()]);
-                mUec.createSendFbEventFromTappedView(12, mSpeechTxt[getTagPos()], "");
+                speak(mSpeechText[getTagPos()]);
+                mUec.createSendFbEventFromTappedView(12, mDisplayText[getTagPos()], "");
             }
         });
 
@@ -1718,22 +1556,43 @@ public class LevelThreeActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-        ImageView[] btns = {ivLike, ivYes, ivAdd, ivDisLike, ivNo, ivMinus};
-        if(mNewVerbTxt.get(getTagPos()).size() == 0) {
+        if(isVerbiageAvailable(getTagPos())) {
+            ImageView[] btns = {ivLike, ivYes, ivAdd, ivDisLike, ivNo, ivMinus};
             for (int i = 0; i < btns.length; i++) {
                 btns[i].setEnabled(false);
                 btns[i].setAlpha(0.5f);
                 btns[i].setOnClickListener(null);
             }
         }else {
-            int j=0;
-            for (int i = 0; i < mNewVerbTxt.get(getTagPos()).size()-1; i = i + 2) {
-                if( mNewVerbTxt.get(getTagPos()).get(i).isEmpty()) {
-                    btns[j].setEnabled(false);
-                    btns[j].setAlpha(0.5f);
-                    btns[j].setOnClickListener(null);
-                }
-                j++;
+            if(level3IconObjects[getTagPos()].getL().isEmpty()){
+                ivLike.setEnabled(false);
+                ivLike.setAlpha(0.5f);
+                ivLike.setOnClickListener(null);
+            }
+            if(level3IconObjects[getTagPos()].getY().isEmpty()){
+                ivYes.setEnabled(false);
+                ivYes.setAlpha(0.5f);
+                ivYes.setOnClickListener(null);
+            }
+            if(level3IconObjects[getTagPos()].getM().isEmpty()){
+                ivAdd.setEnabled(false);
+                ivAdd.setAlpha(0.5f);
+                ivAdd.setOnClickListener(null);
+            }
+            if(level3IconObjects[getTagPos()].getD().isEmpty()){
+                ivDisLike.setEnabled(false);
+                ivDisLike.setAlpha(0.5f);
+                ivDisLike.setOnClickListener(null);
+            }
+            if(level3IconObjects[getTagPos()].getN().isEmpty()){
+                ivNo.setEnabled(false);
+                ivNo.setAlpha(0.5f);
+                ivNo.setOnClickListener(null);
+            }
+            if(level3IconObjects[getTagPos()].getS().isEmpty()){
+                ivMinus.setEnabled(false);
+                ivMinus.setAlpha(0.5f);
+                ivMinus.setOnClickListener(null);
             }
         }
 
@@ -1758,6 +1617,15 @@ public class LevelThreeActivity extends AppCompatActivity {
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.MATCH_PARENT;
         dialog.getWindow().setAttributes(lp);
+    }
+
+    private boolean isVerbiageAvailable(int position) {
+        return level3IconObjects[position].getL().isEmpty() &&
+            level3IconObjects[position].getY().isEmpty() &&
+            level3IconObjects[position].getM().isEmpty() &&
+            level3IconObjects[position].getD().isEmpty() &&
+            level3IconObjects[position].getN().isEmpty() &&
+            level3IconObjects[position].getS().isEmpty();
     }
 
     private void setBorderToExpression(int btnPos, ImageView[] diagExprBtns) {
@@ -1808,6 +1676,12 @@ public class LevelThreeActivity extends AppCompatActivity {
             mIvNo.setEnabled(false);
             mIvMore.setEnabled(false);
             mIvLess.setEnabled(false);
+            mIvLike.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+            mIvDontLike.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+            mIvYes.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+            mIvNo.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+            mIvMore.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+            mIvLess.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
         }else{
             mIvLike.setAlpha(1f);
             mIvDontLike.setAlpha(1f);
@@ -1821,6 +1695,12 @@ public class LevelThreeActivity extends AppCompatActivity {
             mIvNo.setEnabled(true);
             mIvMore.setEnabled(true);
             mIvLess.setEnabled(true);
+            mIvLike.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
+            mIvDontLike.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
+            mIvYes.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
+            mIvNo.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
+            mIvMore.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
+            mIvLess.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
         }
     }
 
@@ -1930,195 +1810,24 @@ public class LevelThreeActivity extends AppCompatActivity {
      * of category icon selected in {@link LevelTwoActivity}.</p>
      * */
     private void retrieveSpeechArrays(int levelOneItemPos, int levelTwoItemPos) {
-        if (levelOneItemPos == 0) {
-            switch(levelTwoItemPos){
-                case 0:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeGreetFeelGreetingSpeechText);
-                    break;
-                case 1:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeGreetFeelFeelingsSpeechText);
-                    break;
-                case 2:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeGreetFeelRequestsSpeechText);
-                    break;
-                case 3:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeGreetFeelQuestionsSpeechText);
-                    break;
-            }
-        } else if (levelOneItemPos == 1) {
-            switch(levelTwoItemPos){
-                case 3:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeDailyActClothesAccSpeechText);
-                    break;
-                case 4:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeDailyActGetReadySpeechText);
-                    break;
-                case 5:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeDailyActSleepSpeechText);
-                    break;
-                case 6:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeDailyActTherapySpeechText);
-                    break;
-                case 9:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeDailyActHabitsSpeechText);
-                    break;
-            }
-        } else if (levelOneItemPos == 2) {
-            switch(levelTwoItemPos){
-                case 0:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksBreakfastSpeechText);
-                    break;
-                case 1:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksLunchDinnerSpeechText);
-                    break;
-                case 2:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksSweetsSpeechText);
-                    break;
-                case 3:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksSnacksSpeechText);
-                    break;
-                case 4:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksFruitsSpeechText);
-                    break;
-                case 5:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksDrinksSpeechText);
-                    break;
-                case 6:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksCutlerySpeechText);
-                    break;
-                case 7:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeFoodDrinksAddonSpeechText);
-                    break;
-            }
-        } else if (levelOneItemPos == 3){
-            switch(levelTwoItemPos){
-                case 0:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeFunInDGamesSpeechText);
-                    break;
-                case 1:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeFunOutDGamesSpeechText);
-                    break;
-                case 2:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeFunSportsSpeechText);
-                    break;
-                case 3:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeFunTvSpeechText);
-                    break;
-                case 4:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeFunMusicSpeechText);
-                    break;
-                case 5:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeFunActivitiesSpeechText);
-                    break;
-            }
-        } else if (levelOneItemPos == 4) {
-            switch(levelTwoItemPos){
-                case 0:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeLearningAnimBirdsSpeechText);
-                    break;
-                case 1:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeLearningBodyPartsSpeechText);
-                    break;
-                case 2:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeLearningBooksSpeechText);
-                    break;
-                case 3:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeLearningColorsSpeechText);
-                    break;
-                case 4:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeLearningShapesSpeechText);
-                    break;
-                case 5:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeLearningStationarySpeechText);
-                    break;
-                case 6:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeLearningSchoolObjSpeechText);
-                    break;
-                case 7:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeLearningHomeObjSpeechText);
-                    break;
-                case 8:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeLearningTransportSpeechText);
-                    break;
-                case 9:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeLearningMoneySpeechText);
-                    break;
-            }
-        } else if (levelOneItemPos == 6) {
-            switch(levelTwoItemPos){
-                case 0:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesMyHouseSpeechText);
-                    break;
-                case 1:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesSchoolSpeechText);
-                    break;
-                case 2:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesMallSpeechText);
-                    break;
-                case 3:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesMuseumSpeechText);
-                    break;
-                case 4:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesRestaurantSpeechText);
-                    break;
-                case 5:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesTheatreSpeechText);
-                    break;
-                case 6:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesPlaygroundSpeechText);
-                    break;
-                case 7:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesParkSpeechText);
-                    break;
-                case 8:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesStoreSpeechText);
-                    break;
-                case 9:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesFriendHouseSpeechText);
-                    break;
-                case 10:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesRelativeHouseSpeechText);
-                    break;
-                case 11:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesHospitalSpeechText);
-                    break;
-                case 12:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesClinicSpeechText);
-                    break;
-                case 13:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesLibrarySpeechText);
-                    break;
-                case 14:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesZooSpeechText);
-                    break;
-                case 15:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreePlacesWorshipSpeechText);
-                    break;
-            }
-        } else if (levelOneItemPos == 7) {
-            switch(levelTwoItemPos){
-                case 0:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeTimeWeaTimeSpeechText);
-                    break;
-                case 1:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeTimeWeaDaySpeechText);
-                    break;
-                case 2:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeTimeWeaMonthSpeechText);
-                    break;
-                case 3:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeTimeWeaWeatherSpeechText);
-                    break;
-                case 4:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeTimeWeaSeasonsSpeechText);
-                    break;
-                case 5:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeTimeWeaHoliFestSpeechText);
-                    break;
-                case 6:
-                    mSpeechTxt = getResources().getStringArray(R.array.arrLevelThreeTimeWeaBirthdaysSpeechText);
-                    break;
-            }
+
+        String[] icons = IconFactory.getL3Icons(
+                PathFactory.getIconDirectory(this),
+                LanguageFactory.getCurrentLanguageCode(this),
+                getLevel2_3IconCode(levelOneItemPos),
+                getLevel2_3IconCode(levelTwoItemPos)
+        );
+
+        level3IconObjects = TextFactory.getIconObjects(
+                PathFactory.getJSONFile(this),
+                IconFactory.removeFileExtension(icons)
+        );
+
+        mDisplayText = TextFactory.getDisplayText(level3IconObjects);
+        mSpeechText = TextFactory.getSpeechText(level3IconObjects);
+        mVerbCode = new  String[icons.length];
+        for (int i = 0; i < mVerbCode.length; i++) {
+            mVerbCode[i] = icons[i].replace(".png","");
         }
     }
 
@@ -2137,18 +1846,11 @@ public class LevelThreeActivity extends AppCompatActivity {
         return -1;
     }
 
-    private final BroadcastReceiver receiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(final Context context, Intent intent) {
-            switch (intent.getAction()) {
-                case "com.dsource.idc.jellowintl.SPEECH_TTS_ERROR":
-                    //TODO: Add network check if exist ? if not found then show message "network error" or
-                    //TODO: if network exist then show message "redirect user to setting page."
-                    //Text synthesize process failed third time then show TTs error.
-                    if (++MainActivity.sTTsNotWorkingCount > 2)
-                        Toast.makeText(context, MainActivity.sCheckVoiceData, Toast.LENGTH_LONG).show();
-                    break;
-            }
+    private String getLevel2_3IconCode(int level2_3Position){
+        if(level2_3Position+1 <= 9){
+            return "0" + Integer.toString(level2_3Position+1);
+        } else {
+            return Integer.toString(level2_3Position+1);
         }
-    };
+    }
 }

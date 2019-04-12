@@ -3,7 +3,7 @@
     android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorIntro"
+    android:background="@color/app_background"
     android:padding="@dimen/activity_vertical_margin">
     <TextView
         android:id="@+id/txTitleHidden"

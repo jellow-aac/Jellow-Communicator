@@ -3,9 +3,9 @@ package com.dsource.idc.jellowintl.utility;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.widget.Toast;
 
+import com.dsource.idc.jellowintl.BuildConfig;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,6 +17,7 @@ import com.liulishuo.filedownloader.FileDownloader;
 
 import java.io.File;
 
+import androidx.annotation.NonNull;
 import ir.mahdi.mzip.zip.ZipArchive;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
@@ -63,7 +64,7 @@ public class DownloadManager {
         StorageReference storageRef = storage.getReference(); // get a reference to a particular location
 
 
-        StorageReference pathReference = storageRef.child(localeCode+".zip"); // select a particular file from that reference location
+        StorageReference pathReference = storageRef.child(BuildConfig.DB_TYPE +"/"+localeCode+".zip"); // select a particular file from that reference location
 
         pathReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override

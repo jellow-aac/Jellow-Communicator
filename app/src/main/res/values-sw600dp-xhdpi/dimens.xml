@@ -1,0 +1,70 @@
+<resources>
+    <!-- Example customization of dimensions originally defined in res/values/dimens.xml
+         (such as screen margins) for screens with more than 820dp of available width. This
+         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively). -->
+    <dimen name="activity_horizontal_margin">44dp</dimen>
+
+    <dimen name="search_list_margin">2dp</dimen>
+    <dimen name="search_recycler_margin">2dp</dimen>
+    <dimen name="search_list_icon_size">60dp</dimen>
+    <dimen name="search_layout_padding">8dp</dimen>
+    <dimen name="search_edit_text_top_margin">10dp</dimen>
+    <dimen name="search_edit_margin_left">6dp</dimen>
+    <dimen name="searchView_padding">10dp</dimen>
+    <dimen name="search_bar_width">350dp</dimen>
+    <dimen name="search_edit_text_margin_bottom">4dp</dimen>
+    <dimen name="search_drawable_padding">12dp</dimen>
+    <dimen name="search_edit_text_size">16sp</dimen>
+    <dimen name="divider_margin">3dp</dimen>
+    <dimen name="search_list_dir_text_size">14sp</dimen>
+    <dimen name="search_list_title_text_size">18sp</dimen>
+    <dimen name="search_dir_width">200dp</dimen>
+    <dimen name="divider_height">1.5dp</dimen>
+
+
+    <!--1 icons configuration-->
+    <dimen name="oneIcon_parentHorizontal">112dp</dimen>
+    <dimen name="oneIcon_parentVertical">30dp</dimen>
+    <dimen name="oneIcon_parentPadding">48dp</dimen>
+    <dimen name="oneIcon_width">195dp</dimen>
+    <dimen name="oneIcon_textSize">24sp</dimen>
+    <dimen name="oneIcon_borderThickness">9dp</dimen>
+    <dimen name="oneIcon_innerRadius">88dp</dimen>
+
+    <!--2 icons configuration-->
+    <dimen name="twoIcon_parentHorizontal">60dp</dimen>
+    <dimen name="twoIcon_parentVertical">56dp</dimen>
+    <dimen name="twoIcon_parentPaddingHorizontal">8dp</dimen>
+    <dimen name="twoIcon_parentPaddingVertical">32dp</dimen>
+    <dimen name="twoIcon_width">156dp</dimen>
+    <dimen name="twoIcon_textSize">20sp</dimen>
+
+    <!--3 icons configuration-->
+    <dimen name="threeIcon_parentVertical">64dp</dimen>
+    <dimen name="threeIcon_parentPaddingVertical">32dp</dimen>
+    <dimen name="threeIcon_width">156dp</dimen>
+    <dimen name="threeIcon_textWidth">205dp</dimen>
+    <dimen name="threeIcon_textSize">20sp</dimen>
+
+    <!--4 icons configuration-->
+    <item name="custom_wrap_content" format="integer" type="dimen">-2</item>
+    <dimen name="fourIcon_parentVertical">6dp</dimen>
+    <dimen name="fourIcon_width">156dp</dimen>
+    <dimen name="fourIcon_textWidth">@dimen/custom_wrap_content</dimen>   <!--It has to be wrap content-->
+    <dimen name="fourIcon_textSize">20sp</dimen>
+
+    <!--Common resources for 2 icon, 3 icon & 4 icon layout-->
+    <dimen name="twoIcon_borderThickness">8dp</dimen>
+    <dimen name="twoIcon_innerRadius">70dp</dimen>
+    <!---->
+
+    <!--9 icons configuration-->
+    <dimen name="nineIcon_parentHorizontal">0dp</dimen>
+    <dimen name="nineIcon_width">94dp</dimen>
+    <dimen name="nineIcon_textWidth">172dp</dimen>
+    <dimen name="nineIcon_textSize">16sp</dimen>
+    <dimen name="nineIcon_borderThickness">5dp</dimen>
+    <dimen name="nineIcon_innerRadius">42dp</dimen>
+
+
+</resources>

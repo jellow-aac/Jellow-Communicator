@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="arrSequenceActivityHeadingText">
+        <item>दात घासणे</item>
+        <item>टॉयलेट</item>
+        <item>अंघोळ</item>
+        <item>""</item>
+        <item>""</item>
+        <item>""</item>
+        <item>""</item>
+        <item>सकाळची नियमित कार्ये</item>
+        <item>रात्रीची नियमित कार्ये</item>
+    </string-array>
     <string name="app_name">जेलो</string>
     <string name="action_settings">सेटिंग्स</string>
     <string name="Profile">प्रोफाइल</string>
@@ -42,12 +53,18 @@
     </string-array>
 
     <string-array name="grid_size">
+        <item>१</item>
+        <item>२</item>
         <item>३</item>
+        <item>४</item>
         <item>९</item>
     </string-array>
 
     <string-array name="acc_grid_size">
+        <item>एक</item>
+        <item>दोन</item>
         <item>तीन</item>
+        <item>चार</item>
         <item>नऊ</item>
     </string-array>
 
@@ -65,7 +82,8 @@
     <string name="txtNumOfPerPerScr">प्रति स्क्रीन आइकॉन संख्या</string>
     <string name="txtDemo">स्पीच डेमो</string>
     <string name="txtSave">सेट करा</string>
-    <string name="demoTtsSpeech">नमस्कार! आपण जेलो कम्युनिकेटर अॅप्लिकेशनचा वापर करत आहात.</string>
+    <!--<string name="demoTtsSpeech">नमस्कार! आपण जेलो कम्युनिकेटर अॅप्लिकेशनचा वापर करत आहात.</string>-->
+    <string name="demoTtsSpeech">0507MSTT.mp3</string>
     <string name="savedSettingsMessage">सेटिंग्स सेव झाल्या आहेत.</string>
     <string name="languageChanged">भाषा बदलली आहे.</string>
     <string name="no_more_lang_2_add">जेलो अॅप्लिकेशन मध्ये आणखी भाषा उपलब्ध नाहीत.</string>
@@ -105,6 +123,8 @@
     <string name="download">डाउनलोड करा</string>
     <string name="cancel">बंद करा</string>
     <string name="keyboardControl">कीबोर्ड नियंत्रण:</string>
+    <string name="serial_keyboard_title">सिरियल कीबोर्ड:</string>
+    <string name="serial_keyboard_info">जेलो कम्युनिकेटर ऍप्लिकेशनमध्ये सिरीयल कीबोर्ड उपलब्ध आहे. हा कीबोर्ड शिक्षकांच्या प्रतिक्रियांच्या आधारे तयार केला आहे. या कीबोर्डमध्ये वर्णमालेनुसार अक्षरांची क्रमवारी आहे. त्यामुळे, वापरकर्ते सिरीयल कीबोर्डवरील अक्षरांचा अंदाज सहजपणे लावू शकतात. हा कीबोर्ड नवीन भाषा शिकणाऱ्यांसाठी उपयुक्त आहे. अक्षरांच्या व्यतिरिक्त या सिरीयल कीबोर्डमध्ये ० ते ९ पर्यंत अंक आणि चिन्हे आहेत, जे दररोज बोलण्याच्या प्रक्रियेसाठी महत्वाचे आहेत.</string>
     <string name="keyboardControlTxt">आपल्या पसंतीचा कीबोर्ड निवडण्यासाठी आणि त्याला डिफ़ॉल्ट बनविण्यासाठी तुम्हाला २ चरण पूर्ण करावे लागतील:</string>
     <string name="step1">चरण १: टैबलेट/मोबाइल च्या सेटिंग्स मधून कीबोर्ड सक्रिय करा</string>
     <string name="qwertyKeyboard">डिफ़ॉल्ट देवनागरी कीबोर्ड</string>
@@ -134,7 +154,8 @@
     <string name="iconsHasBeenReset">आयकॉन रीसेट झाले आहेत.</string>
     <string name="speak">बोला</string>
     <string name="stop">थांबा</string>
-    <string name="about_jellow_speech">जेलो अॅप्लिकेशन आइकॉन आणि चिञ वापरुन संवाद साधण्यास मदत करते. जे बोलायला शिकत आहेत, किंवा ज्यांना बोलायला अडचण येत आहे, ते जेलोचा वापर करुन इतरांशी संवाद साधू शकतात. जेलो चा विकास, इंडियन इंस्टिट्यूट ऑफ टेक्नॉलॉजी बॉम्बे, मुंबई (आई आई टी-बी), च्या आईडीसी स्कूल ऑफ डिझाइन येथे झाला आहे. जेलो अॅप्लिकेशनची भाषा क्षमता वाढवण्यासाठी या प्रोजेक्टच्या प्रमुख संशोधकांनी एका नवीन इमोशनल लैंगग्विज प्रोटोकॉल (ELP) ची संकल्पना केली आहे. विज्युअल इमोशनल लैंगग्विज प्रोटोकॉल संकल्पनेत ६ भाववाहक आइकॉन आहेत, जे इंटरफेसचे मूलभूत भाग आहेत. या प्रमुख भाववाहक आइकॉनांच्या मदतीने जेलोचे वापरकर्ते त्यांच्या आवडी-निवडी आणि गरजा इतरांना सांगू शकतात. जेलो चा वापर मुले अत्यंत सहजपणे शिकु शकतात. जेलो अॅप्लिकेशन एंड्रॉयड टैबलेटसाठी अनुकूलित आहे. जेलो अॅप्लिकेशन सध्या इंग्रजी आणि हिंदी मध्ये उपलब्ध आहे. जेलो अॅप्लिकेशनची वर्तमान आवृत्ती _ आहे. जेलो अॅप्लिकेशनचा विकास सध्या चालू आहे. या संदर्भात आपले काही सल्ले असल्यास, कृपया \"अभिप्राय\" टॅब मध्ये सबमिट करा. जेलो अॅप्लिकेशनचे लाइसेंस क्रिएटिव कॉमन्स एटट्रिब्यूशन-नॉन-कमर्शियल- शेयर-ए-लाइक ४.० लाइसेंन्सच्या खाली प्राप्त आहे. जेलो अॅप्लिकेशन सबंधित सर्व कार्यांचे श्रेय इंडियन इंस्टिट्यूट ऑफ टेक्नॉलॉजी बॉम्बे यांना दिले जाते. जेलो अॅप्लिकेशनचे सर्व कन्टेन्ट (समाविष्ट केलेले चिन्ह, लेआउट, आर्किटेक्चर, व्हिज्युअल आइडेन्टिटी, भाषांतर आणि सॉफ्टवेयर कोड) शेयर किंवा समावून घेतला जाऊ शकतो परंतु व्यावसायिक उद्देशांसाठी वापरला जाऊ शकत नाही. जेंव्हा कन्टेन्टचा वापर केला जाईल तेंव्हा तुम्हाला विनंती आहे की, तुम्ही इंडियन इंस्टिट्यूट ऑफ टेक्नॉलॉजी बॉम्बे (आयआयटी-बी) प्रति आभार व्यक्त करा. जेलो अॅप्लिकेशन येथे डाउनलोड करण्यासाठी उपलब्ध आहे: http://www.jellow.org ! जर कोणाला जेलोचा विकास करायचा असेल तर, त्यांना विंनती आहे की, जेलो प्रोजेक्टचे प्रमुख संशोधक प्राध्यापक रवि पूवैया यांना r a v i @ i i t b . a c . i n ! किंवा ! j e l l o w c o m m u n i c a t o r @ g m a i l . c o m या ई-मेल आयडीवर संपर्क करा."Jellow is a communicator using icons to enable speech and can be used by those learning to speak or those who have difficulty with speech.  Jellow can also be used by toddlers and early learners to learn words and categories frequently used in their daily lives. Jellow\'s colourful and friendly icons can help children develop an association between pictures and their corresponding word labels. It is developed at IDC School of Design at the Indian Institute of Technology Bombay located in Mumbai. A novel Emotional Language Proto call or ELP was conceived and developed by the project investigators in order to enhance the language ability of Jellow. ELP represents the 6 expressive icons that form the core of the interface. Using these core icons, the child can communicate their likes, dislikes, and needs with others. Jellow is conceived as children-friendly with an easy-to-learn interface. The application is optimized for Android tablets.Jellow is currently available in English,Hindi and Bengali. The current version of Jellow is _. The application is under further development. Therefore, if you have any suggestions for us, please submit it under the feedback tab.  Jellow is licensed under a Creative Commons Attribution Non-commercial Share Alike 4.0 International License. Work on Jellow is attributed to the Indian Institute of Technology Bombay. The content in this application comprising icons, layout, architecture, visual identity, translation, and the software codes can be shared and adopted but cannot be used for commercial purposes. When the content is used, we request you to acknowledge Indian Institute of Technology Bombay. Jellow is available for download at www dot jellow dot o r g. If interested in further developing the code, please write to Professor Ravi Poovaiah at ravi @ i i t b dot a c.in or,! j e l l o w c o m m u n i c a t o r @ g m a i l . c o m</string>
+    <string name="about_jellow_speech">0506MSTT.mp3</string>
+    <!--<string name="about_jellow_speech">जेलो अॅप्लिकेशन आइकॉन आणि चिञ वापरुन संवाद साधण्यास मदत करते. जे बोलायला शिकत आहेत, किंवा ज्यांना बोलायला अडचण येत आहे, ते जेलोचा वापर करुन इतरांशी संवाद साधू शकतात. जेलो चा विकास, इंडियन इंस्टिट्यूट ऑफ टेक्नॉलॉजी बॉम्बे, मुंबई (आई आई टी-बी), च्या आईडीसी स्कूल ऑफ डिझाइन येथे झाला आहे. जेलो अॅप्लिकेशनची भाषा क्षमता वाढवण्यासाठी या प्रोजेक्टच्या प्रमुख संशोधकांनी एका नवीन इमोशनल लैंगग्विज प्रोटोकॉल (ELP) ची संकल्पना केली आहे. विज्युअल इमोशनल लैंगग्विज प्रोटोकॉल संकल्पनेत ६ भाववाहक आइकॉन आहेत, जे इंटरफेसचे मूलभूत भाग आहेत. या प्रमुख भाववाहक आइकॉनांच्या मदतीने जेलोचे वापरकर्ते त्यांच्या आवडी-निवडी आणि गरजा इतरांना सांगू शकतात. जेलो चा वापर मुले अत्यंत सहजपणे शिकु शकतात. जेलो अॅप्लिकेशन एंड्रॉयड टैबलेटसाठी अनुकूलित आहे. जेलो अॅप्लिकेशन सध्या इंग्रजी आणि हिंदी मध्ये उपलब्ध आहे. जेलो अॅप्लिकेशनची वर्तमान आवृत्ती _ आहे. जेलो अॅप्लिकेशनचा विकास सध्या चालू आहे. या संदर्भात आपले काही सल्ले असल्यास, कृपया \"अभिप्राय\" टॅब मध्ये सबमिट करा. जेलो अॅप्लिकेशनचे लाइसेंस क्रिएटिव कॉमन्स एटट्रिब्यूशन-नॉन-कमर्शियल- शेयर-ए-लाइक ४.० लाइसेंन्सच्या खाली प्राप्त आहे. जेलो अॅप्लिकेशन सबंधित सर्व कार्यांचे श्रेय इंडियन इंस्टिट्यूट ऑफ टेक्नॉलॉजी बॉम्बे यांना दिले जाते. जेलो अॅप्लिकेशनचे सर्व कन्टेन्ट (समाविष्ट केलेले चिन्ह, लेआउट, आर्किटेक्चर, व्हिज्युअल आइडेन्टिटी, भाषांतर आणि सॉफ्टवेयर कोड) शेयर किंवा समावून घेतला जाऊ शकतो परंतु व्यावसायिक उद्देशांसाठी वापरला जाऊ शकत नाही. जेंव्हा कन्टेन्टचा वापर केला जाईल तेंव्हा तुम्हाला विनंती आहे की, तुम्ही इंडियन इंस्टिट्यूट ऑफ टेक्नॉलॉजी बॉम्बे (आयआयटी-बी) प्रति आभार व्यक्त करा. जेलो अॅप्लिकेशन येथे डाउनलोड करण्यासाठी उपलब्ध आहे: http://www.jellow.org ! जर कोणाला जेलोचा विकास करायचा असेल तर, त्यांना विंनती आहे की, जेलो प्रोजेक्टचे प्रमुख संशोधक प्राध्यापक रवि पूवैया यांना r a v i @ i i t b . a c . i n ! किंवा ! j e l l o w c o m m u n i c a t o r @ g m a i l . c o m या ई-मेल आयडीवर संपर्क करा."Jellow is a communicator using icons to enable speech and can be used by those learning to speak or those who have difficulty with speech.  Jellow can also be used by toddlers and early learners to learn words and categories frequently used in their daily lives. Jellow\'s colourful and friendly icons can help children develop an association between pictures and their corresponding word labels. It is developed at IDC School of Design at the Indian Institute of Technology Bombay located in Mumbai. A novel Emotional Language Proto call or ELP was conceived and developed by the project investigators in order to enhance the language ability of Jellow. ELP represents the 6 expressive icons that form the core of the interface. Using these core icons, the child can communicate their likes, dislikes, and needs with others. Jellow is conceived as children-friendly with an easy-to-learn interface. The application is optimized for Android tablets.Jellow is currently available in English,Hindi and Bengali. The current version of Jellow is _. The application is under further development. Therefore, if you have any suggestions for us, please submit it under the feedback tab.  Jellow is licensed under a Creative Commons Attribution Non-commercial Share Alike 4.0 International License. Work on Jellow is attributed to the Indian Institute of Technology Bombay. The content in this application comprising icons, layout, architecture, visual identity, translation, and the software codes can be shared and adopted but cannot be used for commercial purposes. When the content is used, we request you to acknowledge Indian Institute of Technology Bombay. Jellow is available for download at www dot jellow dot o r g. If interested in further developing the code, please write to Professor Ravi Poovaiah at ravi @ i i t b dot a c.in or,! j e l l o w c o m m u n i c a t o r @ g m a i l . c o m</string>-->
     <string name="catBtnDesc">जेलो अॅप्लिकेशनच्या स्क्रीनच्या मध्यभागी मुख्य वर्गांचे ९ बटन आहेत आणि दोन्ही बाजूंना ६ भाववाहक बटन आहेत.</string>
     <string name="catBtn">मुख्य वर्गांचे बटन:</string>
     <string name="expBtn">भाववाहक बटन:</string>
@@ -227,11 +248,8 @@
     @AyazAlam
     -->
     <string name="search_title">आइकॉन्स शोधा…</string>
-    <string name="search_hint">आइकॉन्स शोधा....</string>
     <string name="home">Home</string>
     <string name="icon_not_found">आइकॉन सापडला नाही</string>
-    <string name="no_internet">इंटरनेट कनेक्शन नाही</string>
-    <string name="please_wait">कृपया प्रतीक्षा करा…</string>
 
     <!--About Jellow strings-->
     <string name="info">सामान्य माहिती</string>
@@ -259,17 +277,19 @@
     <string name="about_je_intro19">सॉफ्टवेयरचा विकास:</string>
     <string name="about_je_intro20">राहूल रूपचंद जिडगे, नारायना रेड्डी, निखील अहिरराव, अयाज़ आलम, हर्षित बुध्दराजा, सुमित अग्रवाल, रूप नारायन साहू, श्रुति गुप्ता, आस्था जोशी, धैर्य दण्ड, प्रीतम पेबम</string>
     <string name="about_je_intro31">सॉफ्टवेयर आणि उपयोगिता परीक्षण:</string>
-    <string name="about_je_intro32">डॉ. सुधा श्रीनिवासन, विनया तावड़े, सचिन सोनावणे, रूप नारायन साहू</string>
+    <string name="about_je_intro32">डॉ. सुधा श्रीनिवासन, विनया तावड़े, सचिन सोनावणे, रूप नारायन साहू, राहूल रूपचंद जिडगे</string>
     <string name="about_je_intro21">वेबसाइट डिजाइन:</string>
     <string name="about_je_intro22">प्राध्यापक. रवि पूवैया, योगेश मासये, सुमेध गरुड़, रूप नारायन साहू</string>
     <string name="about_je_intro23">आइकॉन, विज्युअल डिज़ाइन आणि आवाज:</string>
-    <string name="about_je_intro24">विनया तावड़े, अनीषा मल्होत्रा, निकिता अय्यर,  सिमोन सेन, गणेश गज्जेला</string>
+    <string name="about_je_intro24">विनया तावड़े, श्वेता गौरीश पाठारे, अनीषा मल्होत्रा, निकिता अय्यर, सिमोन सेन, गणेश गज्जेला</string>
     <string name="about_je_intro25">भाषांतर:</string>
     <string name="about_je_intro26">डॉ. रूपक मिश्रा, सचिन सोनावणे, डॉ. सुधा श्रीनिवासन</string>
     <string name="about_je_intro27">संशोधन, शब्दसंग्रह विकास आणि वापरकर्ता अभ्यास:</string>
-    <string name="about_je_intro28">डॉ. सुधा श्रीनिवासन</string>
+    <string name="about_je_intro28">डॉ. सुधा श्रीनिवासन, पुष्कर देशपांडे, साक्षी पाल, सिद्धी पटेल</string>
     <string name="about_je_intro29">समर्थन:</string>
     <string name="about_je_intro30">ई-कालपा प्रोजेक्ट NMEICT च्या अंतर्गत मानव संसाधन विकास मंत्रालय,  माइक्रोसॉफ्ट डिजाईन एक्सपो २००४ आणि यूनिसेफ इनोवेशन फंड (UNICEF) द्वारे प्रायोजित</string>
+    <string name="about_je_intro38">अनुदैर्ध्य वापरकर्ता अध्ययन आणि जेलो कम्युनिकेटरचे क्षेत्र परीक्षण:</string>
+    <string name="about_je_intro39">टोपीवाला नॅशनल मेडिकल कॉलेज आणि बी.वाय.एल. नायर चॅरिटेबल हॉस्पीटल (मनोचिकित्सा, ऑडिओलॉजी आणि भाषण चिकित्सा विभाग)</string>
 
     <!--Content description-->
     <string name="language_download_in_process">Language download in process</string>
@@ -324,6 +344,8 @@
     <string name="therapist_or_teacher_cd">Therapist or teacher</string>
     <string name="parent_or_caregiver_cd">Parent or caregiver</string>
     <string name="child_s_name_dialog_btn">My name</string>
+    <string name="caregiverName_dialog_btn">Caregiver\'s name</string>
+    <string name="caregiver_s_email_address_dialog_btn">Caregiver\'s email address</string>
     <string name="homeAddress_dialog_btn">My home address</string>
     <string name="caregiver_s_contact_number_dialog_btn">Caregiver\'s contact number</string>
     <string name="bloodGroup_dialog_btn">My blood group</string>
@@ -340,7 +362,7 @@
     <string name="txt_intro8_step1">१. गूगल टेक्स्ट-टू-स्पीच उघडा</string>
     <string name="txt_intro8_step2">२. गूगल टेक्स्ट-टू-स्पीच \"सेटिंग्स\" वर जा</string>
     <string name="txt_intro8_step3">३. \"केवळ वाय-फाय चा वापर करा\" या बटनाला बंद करा</string>
-    <string name="change_language_tts_wifi">गूगल टेक्स्ट-टू-स्पीच च्या सेटिंग्स वर जा आणि \"केवळ वाय-फाय चा वापर करा\" या बटनाला बंद करा. जर हे बटण सेटिंग्समध्ये आधीपासूनच बंद केले असेल तर, कृपया पुढे जा.</string>
+    <string name="change_language_tts_wifi">खाली दिलेल्या \'टेक्स्ट-टू-स्पीच सेटिंग्स\' बटनाला टॅप करून गूगल टेक्स्ट-टू-स्पीच च्या सेटिंग्स वर जा आणि \'केवळ वाय-फाय चा वापर करा\' या बटनाला बंद करा. जर हे बटण सेटिंग्समध्ये आधीपासूनच बंद केले असेल तर, कृपया पुढे जा.</string>
     <string name="icon_update_msg">अॅप्लिकेशनमधील भाषांसाठी आइकॉन्स अपडेट होत आहेत :</string>
     <string name="add_new_language">नवीन भाषा डाउनलोड करा किंवा उपस्थित भाषा डिलीट करा.</string>
     <string name="disable_wifi_only">कृपया मागील चरणात \"केवळ वाय-फाय चा वापर करा\" या बटनाला बंद करा.</string>
@@ -348,6 +370,8 @@
     <string name="txt_intro8_txtTitle">कृपया टेक्स्ट-टू-स्पीच इंजिन सक्रिय करण्यासाठी खालील चरण पूर्ण करा.</string>
     <string name="txt_actLangSel_completestep2">वॉयस डेटा उपलब्ध नाही. कृपया इंटरनेट चालू करा आणि चरण २ पूर्ण करा.</string>
     <string name="txtStep2">चरण २:</string>
+    <string name="close">close dialog</string>
+    <string name="access_dialog_title">dialog with options.</string>
 
     <string name="acc_lang_marathi">मराठी</string>
     <string name="acc_lang_hindi">हिंदी</string>
@@ -357,4 +381,7 @@
     <string name="acc_lang_eng_us">इंग्रजी (युनायटेड स्टेट्स)</string>
     <string name="acc_lang_eng_au">इंग्रजी (ऑस्ट्रेलिया)</string>
     <string name="close_searchbar">Close search bar</string>
+
+    <string name="visual_access_title">विजुअल एक्सेसिबिलिटी:</string>
+    <string name="visual_acesss_info">दृष्टीदोषीत वापरकर्ते आता जेलोच्या व्हिज्युअल ऍक्सेसिबिलिटी सुविधेचा वापर करु शकतात. एंड्रॉइड स्मार्टफोन वर \'टॉक बॅक\' बटण चालू करुन वापरकर्ते या सुविधेचा वापर करू शकतात. \'टॉक बॅक\' चालू असताना स्क्रीनला स्पर्श होणाऱ्या प्रत्येक गोष्टीचे वर्णन ऑडिओद्वारे वापरकर्त्याला ऐकायला मिळेल. वापरकर्ते \'टॉक बॅक\' चे डीफॉल्ट जेश्चर वापरू शकतात किंवा स्वत:च्या पसंतीचे जेश्चर देखील निवडू शकता. उदाहरणार्थ - उजव्या स्वाइप जेश्चरने, वापरकर्ते क्रमशः स्क्रीनचे ऑप्शन्स स्क्रॉल करू शकतात. अशाप्रकारे, वापरकर्ते स्क्रीनवर कुठेही डबल-टॅप करुन त्यांच्या पसंतीचे आइकॉन निवडू शकतात.</string>
 </resources>

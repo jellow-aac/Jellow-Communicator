@@ -7,6 +7,17 @@
         <item>৪</item>
         <item>৫</item>
     </string-array>
+    <string-array name="arrSequenceActivityHeadingText">
+        <item>দাঁত মাজা </item>
+        <item>টইলেট</item>
+        <item>স্নান করা </item>
+        <item>""</item>
+        <item>""</item>
+        <item>""</item>
+        <item>""</item>
+        <item>\tসকালের কাজ </item>
+        <item>\tরাতের কাজ </item>
+    </string-array>
     <string name="app_name">জেলো</string>
     <string name="action_settings">সেটিংস্‌</string>
     <string name="Profile">প্রোফাইল</string>
@@ -48,12 +59,18 @@
     </string-array>
 
     <string-array name="grid_size">
+        <item>১</item>
+        <item>২</item>
         <item>৩</item>
+        <item>৪</item>
         <item>৯</item>
     </string-array>
 
     <string-array name="acc_grid_size">
+        <item>এক</item>
+        <item>দুই</item>
         <item>তিন</item>
+        <item>চার</item>
         <item>নয়</item>
     </string-array>
 
@@ -107,6 +124,8 @@
     <string name="download">ডাউনলোড করা</string>
     <string name="cancel">বাতিল করা</string>
     <string name="keyboardControl">কীবোর্ড নিয়ন্ত্রণঃ</string>
+    <string name="serial_keyboard_title">Serial Keyboard:</string>
+    <string name="serial_keyboard_info">Jellow communicator is equipped with its own \'Serial Jellow keyboard\'. This keyboard was designed based on feedback from special educators and teachers and features alphabets placed in a serial manner starting form the alphabet \'A\'. The serial keyboard makes it easy for the user to anticipate the place of a particular alphabet on the keyboard and is especially very useful for children learning early literacy skills. Similarly, the keyboard also features numeral keys from 0–9 and symbols, which are most relevant to every day communication.</string>
     <string name="keyboardControlTxt">পছন্দের কীবোর্ড সক্রিয় করা এবং তাকে ডিফল্ট করার জন্য তোমাকে দুটি ধাপ পেরোতে হবেঃ</string>
     <string name="step1">প্রথম ধাপঃ সেটিংস-এর কীবোর্ডটিকে সক্রিয় করো</string>
     <string name="qwertyKeyboard">কোয়ার্টি</string>
@@ -202,7 +221,6 @@
     <string name="txt_actLangSel_complete_mainscreen_msg">ভয়েস ডেটা প্রাপ্ত হয়নি। ইন্টারনেট চালু করুন এবং অ্যাপ্লিকেশন ভাষা সেটিংস যান।</string>
     <string name="language_downloaded">_ ভাষা ডাউনলোড করা হল</string>
     <string name="language_downloading">_  ভাষা ডাউনলোড করা হচ্ছে</string>
-    <string name="welcome_msg">হাই</string>
     <string name="ok">ঠিক আছে</string>
     <string name="call_permission_info">কথা বলার অনুমতি উপলব্ধ নয়। আপৎকালীন প্রয়োজনে কথা বলার জন্য অনুমতি জরুরি</string>
     <string name="granted_call_permission_req">কথা বলার অনুমতি প্রদত্ত হল</string>
@@ -231,15 +249,12 @@
     @AyazAlam
     -->
     <string name="search_title">আইকন সন্ধান করুন…</string>
-    <string name="search_hint">আইকন সন্ধান করুন…</string>
     <string name="home">হোম</string>
     <string name="icon_not_found">আইকন পাওয়া যায়নি</string>
-    <string name="no_internet">ইন্টারনেট নেই</string>
-    <string name="please_wait">দয়া করে অপেক্ষা করুন…</string>
-    <string name="info">সাধারণ তথ্য</string>
 
 
     <!--About Jellow strings-->
+    <string name="info">সাধারণ তথ্য</string>
     <string name="about_je_intro1">জেলো হচ্ছে এমন একটি অ্যাপ্লিকেশন যার আইকনগুলি দ্বারা ভাষা সক্রিয় করা হয় এবং এটি সদ্য কথা বলতে শিখছে এমন শিশু কিংবা যাদের কথা বলার ক্ষেত্রে সমস্যা রয়েছে তারা ব্যবহার করতে পারে</string>
     <string name="about_je_intro2">অ্যাপ্লিকেশনটি বিকশিত হয়েছে ইন্ডিয়ান ইন্সটিটিউট অব টেকনোলোজি বোম্বে-র আই ডি সি স্কুল অফ ডিজাইন ( মুম্বই )-তে</string>
     <string name="about_je_intro3">জেলো-র ভাষিক দক্ষতা বা ক্ষমতা বাড়াতে প্রোজেক্টের তত্ত্বাবধায়কদের দ্বারা একটি নভেল ইমোশনাল ল্যাঙ্গুয়েজ প্রোটোকল ( ELP ) তৈরি ও তা বিকশিত করা হয়েছিল। ELP ছ-টি ভাবপূর্ণ আইকন, যা অ্যাপ্লিকেশনের ইন্টারফেসের মূল অংশটি গঠন করে, তার প্রকাশক।</string>
@@ -264,17 +279,19 @@
     <string name="about_je_intro19">সফটওয়্যারের বিকাশঃ</string>
     <string name="about_je_intro20">রাহুল রূপচাঁদ জিজ, নারায়ণ রেড্ডী, নিখিল অহিরাও, আয়াজ আলম, হারিশিত বুদ্রজা, সুমিত আগরওয়াল, রূপা নারায়ণ সাহু, শ্রুতি গুপ্ত, আস্থা জোশি, ধৈর্যদণ্ড, প্রীতম পিবাম</string>
     <string name="about_je_intro31">সফটওয়্যারের এবং ব্যবহারযোগ্যতা পরীক্ষা:</string>
-    <string name="about_je_intro32">ড. সুধা শ্রীনিবাসন, বিনয় তৌদে, সচিন সোনাওয়ানে, রূপ সাহু</string>
+    <string name="about_je_intro32">ড. সুধা শ্রীনিবাসন, বিনয় তৌদে, সচিন সোনাওয়ানে, রূপ সাহু, রাহুল রূপচাঁদ জিজ, রাহুল রূপচাঁদ জিজ</string>
     <string name="about_je_intro21">ওয়েবসাইট অলংকরণঃ</string>
     <string name="about_je_intro22">অধ্যাপক রবি পুভাইয়া, যোগেশ মাসায়ে, সুমেধ গারুর, রূপ সাহু</string>
     <string name="about_je_intro23">আইকন, দৃশ্যগত অলংকরণ এবং শব্দঃ</string>
-    <string name="about_je_intro24">বিনয় তৌদে, অনিষা মলখো, সিমোন সেন, নিকিতা আয়ার, গণেশ গাজীলা</string>
+    <string name="about_je_intro24">বিনয় তৌদে, শ্বেতা গৌরিশ পাঠের, অনিষা মলখো, সিমোন সেন, নিকিতা আয়ার, গণেশ গাজীলা</string>
     <string name="about_je_intro25">অনুবাদঃ</string>
     <string name="about_je_intro26">ড. রুপক মিসরা, সচিন সোনাওয়ানে, ড. সুধা শ্রীনিবাসন</string>
     <string name="about_je_intro27">গবেষণা, শব্দাবলির বিকাশসাধন এবং ব্যবহারিক বিশ্লেষণঃ</string>
-    <string name="about_je_intro28">ড. সুধা শ্রীনিবাসন</string>
+    <string name="about_je_intro28">ড. সুধা শ্রীনিবাসন, পুস্কর দেশপন্ধু, সাক্ষী পাল, সিদ্ধি প্যাটেল</string>
     <string name="about_je_intro29">সহায়তাঃ</string>
     <string name="about_je_intro30">ই-কল্প প্রোজেক্ট  MHRD-র NMEICT, মাইক্রোসফট ডিজাইন এক্সপো ২০০৪ এবং ইউনিসেফ-এর এক বছরের অনুদানপ্রাপ্ত।</string>
+    <string name="about_je_intro38">অনুদৈর্ঘ্য ব্যবহারকারী অধ্যয়ন এবং ক্ষেত্র পরীক্ষা জেলও:</string>
+    <string name="about_je_intro39">টুপিওয়ালা ন্যাশনাল মেডিকেল কলেজ এন্ড বা. যা. ল. নারী চারিটিবিলে হাসপাতাল (ডিপার্টমেন্ট সাইকিয়াট্রি এন্ড অডিওলজি এন্ড স্পিচ থেরাপি )</string>
 
 
     <!--Content description-->
@@ -350,7 +367,7 @@
     <string name="txt_intro8_step1">১. গুগল টেক্সট-টু-স্পীচ ইঞ্জিনের খোলো</string>
     <string name="txt_intro8_step2">২. গুগল টেক্সট-টু-স্পীচ ইঞ্জিনের-এর জন্য সেটিংস-এ যাও</string>
     <string name="txt_intro8_step3">৩. \"কেবল ওয়াই-ফাই ব্যবহার করো\" বন্ধ করো</string>
-    <string name="change_language_tts_wifi">গুগল টেক্সট-টু-স্পীচ- এর সেটিংস-এ যাও এবং \'কেবল ওয়াই-ফাই ব্যবহার করো\' বন্ধ করো। যদি অপশনটি ইতিমধ্যে নিস্ক্রিয় করা হয়ে থাকে তাহলে এই ধাপটি অগ্রাহ্য করো।</string>
+    <string name="change_language_tts_wifi">নীচের \'গুগল টিটিএস এর সেটিংসে\' বোতামে ট্যাপ করে গুগল টেক্সট টু স্পীচ সেটিংস যান এবং \'শুধুমাত্র ওয়াই-ফাই ব্যবহার করুন\' ব্যবহার করতে এই বোতামটি বন্ধ করুন। যদি অপশনটি ইতিমধ্যে নিস্ক্রিয় করা হয়ে থাকে তাহলে এই ধাপটি অগ্রাহ্য করো।। যদি অপশনটি ইতিমধ্যে নিস্ক্রিয় করা হয়ে থাকে তাহলে এই ধাপটি অগ্রাহ্য করো।</string>
     <string name="icon_update_msg">বর্তমান ভাষার আইকনগুলির সংযোজন:</string>
     <string name="editLanguage">১) ভাষা যুক্ত করো/মুছে দাওঃ</string>
     <string name="add_new_language">যোগ / মুছতে একটি ভাষা নির্বাচন করুন</string>
@@ -375,4 +392,7 @@
     <string name="level_3_screen">স্তর তিন</string>
     <string name="sequence_screen">কার্যকলাপ ক্রম</string>
     <string name="close_searchbar">Close search bar</string>
+
+    <string name="visual_access_title">Visual Accessibility:</string>
+    <string name="visual_acesss_info">The Visual accessibility feature of Jellow now allows users with additional visual difficulties including low vision or blindness to use Jellow and communicate effectively with others. It utilizes the \'Talk back\' feature on the Android smartphone to help navigate through the application. With \'Talk back\' switched on in the user\'s device, the user will now be able to get audio input describing everything they touch on the screen. The user can also assign custom gestures or use the default gestures of \'Talk back\' as they interact with Jellow. For example, a right swipe gesture will allow the user to sequentially scroll through icons on the screen. Similarly, double tapping anywhere on the screen will allow the user to select an icon of their choice.</string>
 </resources>

@@ -1,6 +1,5 @@
 package com.dsource.idc.jellowintl;
 
-import android.app.ActivityManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,14 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
-import android.text.Html;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
@@ -31,15 +23,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
-import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
-import com.dsource.idc.jellowintl.utility.JellowTTSService;
-import com.dsource.idc.jellowintl.utility.LanguageHelper;
-import com.dsource.idc.jellowintl.utility.MediaPlayerUtils;
-import com.dsource.idc.jellowintl.utility.SessionManager;
 
-import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
-import static com.dsource.idc.jellowintl.MainActivity.isDeviceReadyToCall;
-import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.setCrashlyticsCustomKey;
@@ -47,34 +35,21 @@ import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
-import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
 
-public class SettingActivity extends AppCompatActivity {
+public class SettingActivity extends SpeechEngineBaseActivity {
     private final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 0;
     private Spinner mSpinnerViewMode, mSpinnerGridSize;
-    private SessionManager mSession;
     private TextView mTxtViewSpeechSpeed, mTxtViewVoicePitch;
     private SeekBar mSliderSpeed, mSliderPitch, mSliderVolume;
     private boolean mOpenSetting;
     private String  mCalPerMsg, mCalPerGranted,mCalPerRejected, mSettings, mDismiss;
 
-    /*Media Player playback Utility class for non-tts languages.*/
-    private MediaPlayerUtils mMpu;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Initialize default exception handler for this activity.
-        // If any exception occurs during this activity usage,
-        // handle it using default exception handler.
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         setContentView(R.layout.activity_settings);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+
-                getString(R.string.action_settings)+"</font>"));
-        mSession = new SessionManager(this);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
-        mMpu = new MediaPlayerUtils(this);
+        enableNavigationBack();
+        setActivityTitle(getString(R.string.action_settings));
 
         mOpenSetting = false;
         mSpinnerViewMode = findViewById(R.id.spinner3);
@@ -95,7 +70,7 @@ public class SettingActivity extends AppCompatActivity {
 
         // If user have sim device and ready to call, only then show "enable call switch".
         if(isDeviceReadyToCall((TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE))) {
-            if(mSession.getEnableCalling())
+            if(getSession().getEnableCalling())
                 ((Switch) findViewById(R.id.switchEnableCall)).setChecked(true);
 
             ((Switch) findViewById(R.id.switchEnableCall)).setOnCheckedChangeListener
@@ -106,7 +81,7 @@ public class SettingActivity extends AppCompatActivity {
                                 //request call permission here.
                                 requestCallPermissionToUser();
                             else
-                                mSession.setEnableCalling(false);
+                                getSession().setEnableCalling(false);
                         }
                     });
         }else{
@@ -122,10 +97,10 @@ public class SettingActivity extends AppCompatActivity {
         mTxtViewSpeechSpeed = findViewById(R.id.speechspeed);
         mTxtViewVoicePitch = findViewById(R.id.voicepitch);
 
-        mSliderSpeed.setProgress(mSession.getSpeed());
-        mSliderPitch.setProgress(mSession.getPitch());
-        mSpinnerViewMode.setSelection(mSession.getPictureViewMode());
-        mSpinnerGridSize.setSelection(mSession.getGridSize());
+        mSliderSpeed.setProgress(getSession().getSpeed());
+        mSliderPitch.setProgress(getSession().getPitch());
+        mSpinnerViewMode.setSelection(getSession().getPictureViewMode());
+        mSpinnerGridSize.setSelection(getSession().getGridSize());
 
         //The variables below are defined because android os fall back to default locale
         // after activity restart. These variable will hold the value for variables initialized using
@@ -137,8 +112,7 @@ public class SettingActivity extends AppCompatActivity {
         btnDemo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                speakSpeech(strDemoSpeech);
-                mMpu.playAudio(mMpu.getFilePath("MIS_07MSTT"));
+                speak(strDemoSpeech);
                 Crashlytics.log("SettingAct Demo");
             }
         });
@@ -168,7 +142,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
-        if(!(new MediaPlayerUtils(this).isTtsAvailForLang())){
+        if(isNoTTSLanguage()){
             mSliderSpeed.setVisibility(View.GONE);
             mTxtViewSpeechSpeed.setVisibility(View.GONE);
             mSliderPitch.setVisibility(View.GONE);
@@ -195,36 +169,40 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 /*Identify if language is changed, to app needs to restart from splash*/
-                if(mSession.getPictureViewMode() != mSpinnerViewMode.getSelectedItemPosition() ||
-                            mSession.getGridSize() != mSpinnerGridSize.getSelectedItemPosition()) {
+                if(getSession().getPictureViewMode() != mSpinnerViewMode.getSelectedItemPosition() ||
+                            getSession().getGridSize() != mSpinnerGridSize.getSelectedItemPosition()) {
 
 
-                    if(mSession.getPictureViewMode() != mSpinnerViewMode.getSelectedItemPosition()) {
+                    if(getSession().getPictureViewMode() != mSpinnerViewMode.getSelectedItemPosition()) {
                         setUserProperty("PictureViewMode",
                                 mSpinnerViewMode.getSelectedItemPosition() == 0 ? "PictureText": "PictureOnly");
                         setCrashlyticsCustomKey("PictureViewMode",
                                 mSpinnerViewMode.getSelectedItemPosition() == 0 ? "PictureText": "PictureOnly");
-                        mSession.setPictureViewMode(mSpinnerViewMode.getSelectedItemPosition());
+                        getSession().setPictureViewMode(mSpinnerViewMode.getSelectedItemPosition());
                     }
-                    if(mSession.getGridSize() != mSpinnerGridSize.getSelectedItemPosition()) {
-                        setUserProperty("GridSize",
-                                mSpinnerGridSize.getSelectedItemPosition() == 0 ? "3" : "9");
-                        setCrashlyticsCustomKey("GridSize",
-                                mSpinnerGridSize.getSelectedItemPosition() == 0 ? "3" : "9");
-                        mSession.setGridSize(mSpinnerGridSize.getSelectedItemPosition());
+                    if(getSession().getGridSize() != mSpinnerGridSize.getSelectedItemPosition()) {
+                        switch(mSpinnerGridSize.getSelectedItemPosition()){
+                            case 0: setUserProperty("GridSize", "1"); break;
+                            case 1: setUserProperty("GridSize", "2"); break;
+                            case 2: setUserProperty("GridSize", "3"); break;
+                            case 3: setUserProperty("GridSize", "4"); break;
+                            case 4: setUserProperty("GridSize", "9"); break;
+
+                        }
+                        getSession().setGridSize(mSpinnerGridSize.getSelectedItemPosition());
                     }
                     startActivity(new Intent(getApplicationContext(), SplashActivity.class));
                     finishAffinity();
                 }
-                if(mSession.getSpeed() != mSliderSpeed.getProgress()) {
+                if(getSession().getSpeed() != mSliderSpeed.getProgress()) {
                     setSpeechRate((float)mSliderSpeed.getProgress()/50);
-                    mSession.setSpeed(mSliderSpeed.getProgress());
+                    getSession().setSpeed(mSliderSpeed.getProgress());
                 }
-                if(mSession.getPitch() != mSliderPitch.getProgress()) {
+                if(getSession().getPitch() != mSliderPitch.getProgress()) {
                     setSpeechPitch((float)mSliderPitch.getProgress()/ 50);
-                    mSession.setPitch(mSliderPitch.getProgress());
+                    getSession().setPitch(mSliderPitch.getProgress());
                 }
-                mSession.setToastMessage(strSettingSaved);
+                getSession().setToastMessage(strSettingSaved);
                 Crashlytics.log("SettingAct Save");
                 finish();
             }
@@ -243,7 +221,7 @@ public class SettingActivity extends AppCompatActivity {
     public void onRequestPermissionsResult (int requestCode, String Permissions[], int[] grantResults){
         if (requestCode == MY_PERMISSIONS_REQUEST_CALL_PHONE){
             if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                mSession.setEnableCalling(true);
+                getSession().setEnableCalling(true);
                 ((Switch) findViewById(R.id.switchEnableCall)).setChecked(true);
                 Toast.makeText(this, mCalPerGranted , Toast.LENGTH_SHORT).show();
             } else {
@@ -251,7 +229,7 @@ public class SettingActivity extends AppCompatActivity {
                         this, android.Manifest.permission.CALL_PHONE)){
                     showSettingRequestDialog();
                 }else{
-                    mSession.setEnableCalling(false);
+                    getSession().setEnableCalling(false);
                     Toast.makeText(this, mCalPerRejected, Toast.LENGTH_SHORT).show();
                 }
                 ((Switch) findViewById(R.id.switchEnableCall)).setChecked(false);
@@ -261,14 +239,14 @@ public class SettingActivity extends AppCompatActivity {
 
     private void requestCallPermissionToUser() {
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M){
-            mSession.setEnableCalling(true);
+            getSession().setEnableCalling(true);
             return;
         }
 
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE)
             == PackageManager.PERMISSION_GRANTED) {
             // Permission is granted
-            mSession.setEnableCalling(true);
+            getSession().setEnableCalling(true);
         } else {
             if (ActivityCompat.shouldShowRequestPermissionRationale(
                     this, android.Manifest.permission.CALL_PHONE)) {
@@ -326,19 +304,14 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext((LanguageHelper.onAttach(newBase)));
-    }
-
-    @Override
     protected void onPause() {
         super.onPause();
         ///Check if pushId is older than 24 hours (86400000 millisecond).
         // If yes then create new pushId (user session)
         // If no then do not create new pushId instead user existing and
         // current session time is saved.
-        long sessionTime = validatePushId(mSession.getSessionCreatedAt());
-        mSession.setSessionCreatedAt(sessionTime);
+        long sessionTime = validatePushId(getSession().getSessionCreatedAt());
+        getSession().setSessionCreatedAt(sessionTime);
 
         stopMeasuring("SettingsActivity");
     }
@@ -348,7 +321,7 @@ public class SettingActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 99 && ActivityCompat.checkSelfPermission(this,
                 android.Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
-            mSession.setEnableCalling(true);
+            getSession().setEnableCalling(true);
             ((Switch) findViewById(R.id.switchEnableCall)).setChecked(true);
             mOpenSetting = false;
         }
@@ -357,19 +330,18 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        setVisibleAct(SettingActivity.class.getSimpleName());
         if(!isAnalyticsActive()){
-            resetAnalytics(this, mSession.getCaregiverNumber().substring(1));
-        }
-        if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
-            startService(new Intent(getApplication(), JellowTTSService.class));
+            resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
         }
         startMeasuring();
 
         //This code executed when user denied permission from app and gone to app settings -> permission
         // and enabled call permission and came back.
-        if(mOpenSetting && Build.VERSION.SDK_INT > 22 && ActivityCompat.checkSelfPermission(this,
+        if(mOpenSetting && Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1
+            && ActivityCompat.checkSelfPermission(this,
                 android.Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
-            mSession.setEnableCalling(true);
+            getSession().setEnableCalling(true);
             ((Switch) findViewById(R.id.switchEnableCall)).setChecked(true);
             mOpenSetting = false;
         }
@@ -380,75 +352,15 @@ public class SettingActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        sendBroadcast(new Intent("com.dsource.idc.jellowintl.SPEECH_STOP"));
+        stopSpeaking();
         super.onDestroy();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        if(mSession.getLanguage().equals(BN_IN))
-            menu.findItem(R.id.keyboardinput).setVisible(false);
-        if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-            menu.findItem(R.id.closePopup).setVisible(false);
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.languageSelect:
-                if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                    startActivity(new Intent(this, LanguageSelectActivity.class));
-                } else {
-                    startActivity(new Intent(this, LanguageSelectTalkBackActivity.class));
-                }
-                finish();
-                break;
-            case R.id.profile:
-                startActivity(new Intent(this, ProfileFormActivity.class));
-                finish();
-                break;
-            case R.id.info:
-                startActivity(new Intent(this, AboutJellowActivity.class));
-                finish();
-                break;
-            case R.id.usage:
-                startActivity(new Intent(this, TutorialActivity.class));
-                finish();
-                break;
-            case R.id.keyboardinput:
-                startActivity(new Intent(this, KeyboardInputActivity.class));
-                finish();
-                break;
-            case R.id.reset:
-                startActivity(new Intent(this, ResetPreferencesActivity.class));
-                finish();
-                break;
-            case R.id.feedback:
-                if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                    startActivity(new Intent(this, FeedbackActivityTalkBack.class));
-                }
-                else {
-                    startActivity(new Intent(this, FeedbackActivity.class));
-                }
-                finish();
-                break;
-            case android.R.id.home:
-                onBackPressed();
-                break;
-            default: return super.onOptionsItemSelected(item);
-        }
-        return true;
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        setSpeechPitch(mSession.getPitch()/50);
-        setSpeechRate(mSession.getSpeed()/50);
+        setSpeechPitch(getSession().getPitch()/50);
+        setSpeechRate(getSession().getSpeed()/50);
         finish();
     }
 
@@ -480,25 +392,5 @@ public class SettingActivity extends AppCompatActivity {
                 }
             });
         }
-    }
-
-    private void speakSpeech(String speechText){
-        if(mMpu.isTtsAvailForLang()) {
-            Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_TEXT");
-            intent.putExtra("speechText", speechText);
-            sendBroadcast(intent);
-        }
-    }
-
-    private void setSpeechRate(float speechRate){
-        Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_SPEED");
-        intent.putExtra("speechSpeed", speechRate);
-        sendBroadcast(intent);
-    }
-
-    private void setSpeechPitch(float speechPitch){
-        Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_PITCH");
-        intent.putExtra("speechPitch", speechPitch);
-        sendBroadcast(intent);
     }
 }

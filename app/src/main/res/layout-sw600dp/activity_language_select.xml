@@ -79,7 +79,7 @@
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:text="@string/txt_tts_stting"
-                android:onClick="openTextToSpeechSetting"/>
+                android:onClick="openSpeechSetting"/>
             <TextView
                 android:id="@+id/tv3"
                 android:layout_width="match_parent"
@@ -171,7 +171,7 @@
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:text="@string/txt_actLangSel_downloadDat"
-                android:onClick="checkTTSVoiceDataAvailable"/>
+                android:onClick="openSpeechDataSetting"/>
             <TextView
                 android:id="@+id/tv5"
                 android:layout_width="match_parent"

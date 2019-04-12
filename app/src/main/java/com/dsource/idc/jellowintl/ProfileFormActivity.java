@@ -4,22 +4,10 @@ package com.dsource.idc.jellowintl;
  * Created by user on 5/25/2016.
  */
 
-import android.app.ActivityManager;
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.Html;
-import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
@@ -34,10 +22,6 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.models.SecureKeys;
-import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
-import com.dsource.idc.jellowintl.utility.JellowTTSService;
-import com.dsource.idc.jellowintl.utility.LanguageHelper;
-import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -52,16 +36,15 @@ import com.google.gson.Gson;
 import com.hbb20.CountryCodePicker;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
+import androidx.annotation.NonNull;
 import se.simbio.encryption.Encryption;
 
-import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
-import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.maskNumber;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
@@ -70,13 +53,11 @@ import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.updateSessionRef;
 import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
-import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
 
-public class ProfileFormActivity extends AppCompatActivity {
+public class ProfileFormActivity extends SpeechEngineBaseActivity {
     private Button bSave;
     private EditText etName, etFatherContact, etFathername, etAddress, etEmailId;
-    private SessionManager mSession;
     private String email, mUserGroup;
     private CountryCodePicker mCcp;
     private Spinner mBloodGroup;
@@ -87,15 +68,9 @@ public class ProfileFormActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Initialize default exception handler for this activity.
-        // If any exception occurs during this activity usage,
-        // handle it using default exception handler.
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         setContentView(R.layout.activity_profile_form);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+getString(R.string.menuProfile)+"</font>"));
-        mSession = new SessionManager(this);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
+        enableNavigationBack();
+        setActivityTitle(getString(R.string.menuProfile));
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         etName = findViewById(R.id.etName);
         etFathername = findViewById(R.id.etFathername);
@@ -103,10 +78,7 @@ public class ProfileFormActivity extends AppCompatActivity {
         etAddress = findViewById(R.id.etAddress);
         etEmailId = findViewById(R.id.etEmailId);
         mBloodGroup = findViewById(R.id.bloodgroup);
-        AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
-        boolean isAccessibilityEnabled = am.isEnabled();
-        boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
-        if(isAccessibilityEnabled && isExploreByTouchEnabled) {
+        if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))){
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                     R.array.bloodgroup_talkback, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -122,44 +94,28 @@ public class ProfileFormActivity extends AppCompatActivity {
 
         mDB = FirebaseDatabase.getInstance();
         mRef = mDB.getReference(BuildConfig.DB_TYPE+"/users/" +
-                maskNumber(mSession.getCaregiverNumber().substring(1)));
+                maskNumber(getSession().getCaregiverNumber().substring(1)));
 
-        etName.setText(mSession.getName());
+        etName.setText(getSession().getName());
         mCcp = findViewById(R.id.ccp);
-        mCcp.setCountryForPhoneCode(Integer.valueOf(mSession.getUserCountryCode()));
+        mCcp.setCountryForPhoneCode(Integer.valueOf(getSession().getUserCountryCode()));
         mCcp.registerCarrierNumberEditText(etFatherContact);
-        String contact = mSession.getCaregiverNumber().replace(
-                "+".concat(mSession.getUserCountryCode()),"");
+        String contact = getSession().getCaregiverNumber().replace(
+                "+".concat(getSession().getUserCountryCode()),"");
         //Extra 3 digits are taken out from contact.
         contact = contact.substring(0,contact.length()-3);
         etFatherContact.setText(contact);
-        etFathername.setText(mSession.getCaregiverName());
-        etAddress.setText(mSession.getAddress());
-        etEmailId.setText(mSession.getEmailId());
-        if(mSession.getBlood() != -1)
-            mBloodGroup.setSelection(mSession.getBlood());
+        etFathername.setText(getSession().getCaregiverName());
+        etAddress.setText(getSession().getAddress());
+        etEmailId.setText(getSession().getEmailId());
+        if(getSession().getBlood() != -1)
+            mBloodGroup.setSelection(getSession().getBlood());
 
-        if (!mSession.getUserGroup().isEmpty() &&
-                mSession.getUserGroup().equals(getString(R.string.groupParentOnly)))
+        if (!getSession().getUserGroup().isEmpty() &&
+                getSession().getUserGroup().equals(getString(R.string.groupParentOnly)))
             ((RadioButton)findViewById(R.id.radioParent)).setChecked(true);
         else
             ((RadioButton)findViewById(R.id.radioTherapist)).setChecked(true);
-
-        etName.addTextChangedListener(new TextWatcher() {
-            @Override   public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (etName.getText().toString().isEmpty()) {
-                    bSave.setAlpha(0.5f);
-                    bSave.setEnabled(false);
-                } else {
-                    bSave.setAlpha(1f);
-                    bSave.setEnabled(true);
-                }
-            }
-            @Override public void afterTextChanged(Editable s) {}
-        });
 
         final String strEnterName = getString(R.string.enterTheName);
         final String strInvalidEmail = getString(R.string.invalid_emailId);
@@ -168,14 +124,13 @@ public class ProfileFormActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Crashlytics.log("Profile Save");
                 bSave.setEnabled(false);
-                if (etName.getText().toString().isEmpty()) {
+                if (etName.getText().toString().trim().isEmpty()) {
                     Toast.makeText(ProfileFormActivity.this,
                             strEnterName, Toast.LENGTH_SHORT).show();
                     bSave.setEnabled(true);
                     return;
                 }
-                if(etFatherContact.getText().toString().isEmpty() ||
-                        !etFatherContact.getText().toString().matches("[0-9]*")){
+                if(!etFatherContact.getText().toString().matches("[0-9]+")){
                     bSave.setEnabled(true);
                     Toast.makeText(ProfileFormActivity.this,
                             getString(R.string.enternonemptycontact), Toast.LENGTH_SHORT).show();
@@ -211,68 +166,6 @@ public class ProfileFormActivity extends AppCompatActivity {
             findViewById(R.id.tvName).setFocusable(true);
             mCcp.setCountryPreference(null);
         }
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("com.dsource.idc.jellowintl.CREATE_ABOUT_ME_RECORDING_RES");
-        registerReceiver(receiver, filter);
-    }
-
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext((LanguageHelper.onAttach(newBase)));
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        if(mSession.getLanguage().equals(BN_IN))
-            menu.findItem(R.id.keyboardinput).setVisible(false);
-        if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-            menu.findItem(R.id.closePopup).setVisible(false);
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.languageSelect:
-                if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                    startActivity(new Intent(this, LanguageSelectActivity.class));
-                } else {
-                    startActivity(new Intent(this, LanguageSelectTalkBackActivity.class));
-                }
-                finish(); break;
-            case R.id.info:
-                startActivity(new Intent(this, AboutJellowActivity.class));
-                finish(); break;
-            case R.id.usage:
-                startActivity(new Intent(this, TutorialActivity.class));
-                finish(); break;
-            case R.id.keyboardinput:
-                startActivity(new Intent(this, KeyboardInputActivity.class));
-                finish(); break;
-            case R.id.settings:
-                startActivity(new Intent(this, SettingActivity.class));
-                finish(); break;
-            case R.id.reset:
-                startActivity(new Intent(this, ResetPreferencesActivity.class));
-                finish(); break;
-            case R.id.feedback:
-                if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                    startActivity(new Intent(this, FeedbackActivityTalkBack.class));
-                }
-                else {
-                    startActivity(new Intent(this, FeedbackActivity.class));
-                }
-                finish();
-                break;
-            case android.R.id.home:
-                finish(); break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return true;
     }
 
     @Override
@@ -282,8 +175,8 @@ public class ProfileFormActivity extends AppCompatActivity {
         // If yes then create new pushId (user session)
         // If no then do not create new pushId instead user existing and
         // current session time is saved.
-        long sessionTime = validatePushId(mSession.getSessionCreatedAt());
-        mSession.setSessionCreatedAt(sessionTime);
+        long sessionTime = validatePushId(getSession().getSessionCreatedAt());
+        getSession().setSessionCreatedAt(sessionTime);
 
         stopMeasuring("ProfileFormActivity");
     }
@@ -297,19 +190,11 @@ public class ProfileFormActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        setVisibleAct(ProfileFormActivity.class.getSimpleName());
         if(!isAnalyticsActive()){
-            resetAnalytics(this, mSession.getCaregiverNumber().substring(1));
-        }
-        if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
-            startService(new Intent(getApplication(), JellowTTSService.class));
+            resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
         }
         startMeasuring();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unregisterReceiver(receiver);
     }
 
     @Override
@@ -371,7 +256,7 @@ public class ProfileFormActivity extends AppCompatActivity {
                                       final String email, final String caregiverName,
                                       final String address, final String bloodGroup,
                                       final String userGroup) {
-        if(mSession.getEncryptedData().isEmpty()) {
+        if(getSession().getEncryptedData().isEmpty()) {
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageRef = storage.getReference();
             StorageReference pathReference = storageRef.child("jellow-json.json");
@@ -379,14 +264,10 @@ public class ProfileFormActivity extends AppCompatActivity {
             pathReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                 @Override
                 public void onSuccess(byte[] bytes) {
-                    try {
-                        String jsonData = new String(bytes, "UTF-8");
-                        SecureKeys secureKey = new Gson().fromJson(jsonData, SecureKeys.class);
-                        encryptStoreUserInfoUsingSecureKey(name, contact, email,
-                                caregiverName, address, bloodGroup, userGroup, secureKey);
-                    } catch (UnsupportedEncodingException e) {
-                        Crashlytics.logException(e);
-                    }
+                    String jsonData = new String(bytes, StandardCharsets.UTF_8);
+                    SecureKeys secureKey = new Gson().fromJson(jsonData, SecureKeys.class);
+                    encryptStoreUserInfoUsingSecureKey(name, contact, email,
+                            caregiverName, address, bloodGroup, userGroup, secureKey);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -395,7 +276,7 @@ public class ProfileFormActivity extends AppCompatActivity {
                 }
             });
         }else {
-            SecureKeys secureKey = new Gson().fromJson(mSession.getEncryptedData(), SecureKeys.class);
+            SecureKeys secureKey = new Gson().fromJson(getSession().getEncryptedData(), SecureKeys.class);
             encryptStoreUserInfoUsingSecureKey(name, contact, email,
                         caregiverName, address, bloodGroup, userGroup, secureKey);
         }
@@ -425,22 +306,21 @@ public class ProfileFormActivity extends AppCompatActivity {
     }
 
     private void savedProfileDetails(String userGroup) {
-        mSession.setCaregiverName(etFathername.getText().toString());
-        mSession.setAddress(etAddress.getText().toString());
-        mSession.setName(etName.getText().toString());
-        mSession.setCaregiverNumber(mCcp.getFullNumberWithPlus() + mSession.getExtraValToContact());
-        mSession.setUserCountryCode(mCcp.getSelectedCountryCode());
-        mSession.setEmailId(email);
+        getSession().setCaregiverName(etFathername.getText().toString());
+        getSession().setAddress(etAddress.getText().toString());
+        getSession().setName(etName.getText().toString());
+        getSession().setCaregiverNumber(mCcp.getFullNumberWithPlus() + getSession().getExtraValToContact());
+        getSession().setUserCountryCode(mCcp.getSelectedCountryCode());
+        getSession().setEmailId(email);
         if(mBloodGroup.getSelectedItemPosition() > 0)
-            mSession.setBlood(mBloodGroup.getSelectedItemPosition());
+            getSession().setBlood(mBloodGroup.getSelectedItemPosition());
         else
-            mSession.setBlood(-1);
-        mSession.setUserGroup(userGroup);
+            getSession().setBlood(-1);
+        getSession().setUserGroup(userGroup);
         setUserProperty("userGroup", userGroup);
-        mSession.setToastMessage(mDetailSaved);
-        if(mSession.getLanguage().endsWith(MR_IN)) {
-            sendBroadcast(new Intent("com.dsource.idc.jellowintl.CREATE_ABOUT_ME_RECORDING_REQ"));
-            return;
+        getSession().setToastMessage(mDetailSaved);
+        if(getSession().getLanguage().endsWith(MR_IN)) {
+            createUserProfileRecordingsUsingTTS();
         }
         finish();
     }
@@ -455,15 +335,15 @@ public class ProfileFormActivity extends AppCompatActivity {
                 processPreviousRecordsNode(dataSnapshot,toPath);
                 mRef.setValue(null);
 
-                mSession.setCaregiverNumber(mCcp.getFullNumberWithPlus() +
-                                    mSession.getExtraValToContact());
+                getSession().setCaregiverNumber(mCcp.getFullNumberWithPlus() +
+                                    getSession().getExtraValToContact());
                 mRef = mDB.getReference(BuildConfig.DB_TYPE + "/users/" +
-                        maskNumber(mSession.getCaregiverNumber().substring(1)));
+                        maskNumber(getSession().getCaregiverNumber().substring(1)));
                 mRef.removeEventListener(this);
-                Crashlytics.setUserIdentifier(maskNumber(mSession.getCaregiverNumber().substring(1)));
-                updateSessionRef(mSession.getCaregiverNumber().substring(1));
+                Crashlytics.setUserIdentifier(maskNumber(getSession().getCaregiverNumber().substring(1)));
+                updateSessionRef(getSession().getCaregiverNumber().substring(1));
                 encryptStoreUserInfo(etName.getText().toString(),
-                        mSession.getCaregiverNumber().substring(1),
+                        getSession().getCaregiverNumber().substring(1),
                         email,
                         etFathername.getText().toString(),
                         etAddress.getText().toString(),
@@ -497,21 +377,9 @@ public class ProfileFormActivity extends AppCompatActivity {
         }
     }
 
-    private final BroadcastReceiver receiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(final Context context, Intent intent) {
-            switch (intent.getAction()){
-                case "com.dsource.idc.jellowintl.CREATE_ABOUT_ME_RECORDING_RES":
-                    finish();
-                    break;
-            }
-        }
-    };
-
     private class NetworkConnectionTest extends AsyncTask<Void, Void, Boolean> {
         private Context mContext;
         private String mName, mContact, mEmailId, mCaregiverName, mAddress, mUserGroup;
-        private SessionManager mSession;
 
         public NetworkConnectionTest(Context context, String name, String contact,
                                      String email, String caregiverName, String address,
@@ -523,18 +391,11 @@ public class ProfileFormActivity extends AppCompatActivity {
             mCaregiverName = caregiverName;
             mAddress = address;
             mUserGroup = userGroup;
-            mSession = new SessionManager(mContext);
-        }
-
-        boolean isConnectedToNetwork(){
-            final ConnectivityManager connMgr = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo activeNetworkInfo = connMgr.getActiveNetworkInfo();
-            return activeNetworkInfo != null && activeNetworkInfo.isConnected();
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            if(!isConnectedToNetwork())
+            if (!isConnectedToNetwork((ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE)))
                 return false;
             try {
                 URL url = new URL("http://www.google.com");
@@ -555,13 +416,13 @@ public class ProfileFormActivity extends AppCompatActivity {
         protected void onPostExecute(Boolean isConnected) {
             super.onPostExecute(isConnected);
             String extraValContact = mCcp.getFullNumberWithPlus() +
-                    mSession.getExtraValToContact();
+                    getSession().getExtraValToContact();
             //If user not changed the mobile number and encryption data is
             // available then directly encrypt the data and store it to firebase
-            if(extraValContact.equals(mSession.getCaregiverNumber()) &&
-                !mSession.getEncryptedData().isEmpty()) {
+            if(extraValContact.equals(getSession().getCaregiverNumber()) &&
+                !getSession().getEncryptedData().isEmpty()) {
                 encryptStoreUserInfo(etName.getText().toString(),
-                        mSession.getCaregiverNumber().substring(1),
+                        getSession().getCaregiverNumber().substring(1),
                         email,
                         etFathername.getText().toString(),
                         etAddress.getText().toString(),
@@ -569,10 +430,10 @@ public class ProfileFormActivity extends AppCompatActivity {
             //If user not changed the mobile number and encryption data is
             // unavailable and user is connected to Internet then
             // download encryption data and then encrypt the data and store it to firebase
-            }else if(extraValContact.equals(mSession.getCaregiverNumber()) &&
-                        mSession.getEncryptedData().isEmpty() && isConnected){
+            }else if(extraValContact.equals(getSession().getCaregiverNumber()) &&
+                        getSession().getEncryptedData().isEmpty() && isConnected){
                 encryptStoreUserInfo(etName.getText().toString(),
-                        mSession.getCaregiverNumber().substring(1),
+                        getSession().getCaregiverNumber().substring(1),
                         email,
                         etFathername.getText().toString(),
                         etAddress.getText().toString(),
@@ -580,22 +441,22 @@ public class ProfileFormActivity extends AppCompatActivity {
             //If user not changed the mobile number and encryption data is
             // unavailable and user is not connected to Internet then
             // show error message.
-            }else if(extraValContact.equals(mSession.getCaregiverNumber()) &&
-                    mSession.getEncryptedData().isEmpty() && !isConnected){
+            }else if(extraValContact.equals(getSession().getCaregiverNumber()) &&
+                    getSession().getEncryptedData().isEmpty() && !isConnected){
                 bSave.setEnabled(true);
                 Toast.makeText(mContext, mCheckCon, Toast.LENGTH_LONG).show();
             //If user changed the mobile number user is connected to Internet then
             // then encrypt the data and store it to firebase
-            }else if(!extraValContact.equals(mSession.getCaregiverNumber()) && isConnected){
-                mSession.setExtraValToContact(String.valueOf(new Random().nextInt(900) + 100));
-                String newContact = mContact.concat(mSession.getExtraValToContact());
+            }else if(!extraValContact.equals(getSession().getCaregiverNumber()) && isConnected){
+                getSession().setExtraValToContact(String.valueOf(new Random().nextInt(900) + 100));
+                String newContact = mContact.concat(getSession().getExtraValToContact());
                 DatabaseReference mNewRef = mDB.getReference(BuildConfig.DB_TYPE
                         + "/users/" + maskNumber(newContact)
-                        + "/previousRecords/" + maskNumber(mSession.getCaregiverNumber().substring(1)));
+                        + "/previousRecords/" + maskNumber(getSession().getCaregiverNumber().substring(1)));
                 moveFirebaseRecord(mRef, mNewRef);
             //If user changed the mobile number user is not connected to Internet then
             // show error message.
-            }else if(!extraValContact.equals(mSession.getCaregiverNumber()) && !isConnected){
+            }else if(!extraValContact.equals(getSession().getCaregiverNumber()) && !isConnected){
                 bSave.setEnabled(true);
                 Toast.makeText(mContext, mCheckCon, Toast.LENGTH_LONG).show();
             }

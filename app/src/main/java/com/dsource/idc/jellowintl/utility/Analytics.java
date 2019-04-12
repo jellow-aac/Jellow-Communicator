@@ -2,7 +2,6 @@ package com.dsource.idc.jellowintl.utility;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.BuildConfig;
@@ -12,6 +11,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 
 import java.util.Date;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by ekalpa on 6/14/2017.

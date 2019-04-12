@@ -1,14 +1,10 @@
 package com.dsource.idc.jellowintl;
 
 import android.content.Context;
-import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,41 +13,77 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.RequestManager;
 import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
+import com.dsource.idc.jellowintl.cache.MemoryCache;
+import com.dsource.idc.jellowintl.factories.IconFactory;
+import com.dsource.idc.jellowintl.factories.LanguageFactory;
+import com.dsource.idc.jellowintl.factories.TextFactory;
+import com.dsource.idc.jellowintl.models.Icon;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
+import java.io.File;
+
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
 import static android.content.Context.ACCESSIBILITY_SERVICE;
-import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
-import static com.dsource.idc.jellowintl.MainActivity.isNotchDevice;
+import static com.dsource.idc.jellowintl.factories.PathFactory.getIconDirectory;
+import static com.dsource.idc.jellowintl.factories.PathFactory.getIconPath;
+import static com.dsource.idc.jellowintl.factories.PathFactory.getJSONFile;
 
 /**
  * Created by ekalpa on 4/19/2016.
  */
-class MainActivityAdapter extends android.support.v7.widget.RecyclerView.Adapter<MainActivityAdapter.MyViewHolder> {
-    private Context mContext;
+class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapter.MyViewHolder> {
+    private MainActivity mAct;
     private SessionManager mSession;
-    private TypedArray mIconArray;
+    private String[] icons;
     private String[] mBelowTextArray;
-    MainActivityAdapter(Context context) {
-        mContext = context;
-        mSession = new SessionManager(mContext);
-        mIconArray = mContext.getResources().obtainTypedArray(R.array.arrLevelOneIconAdapter);
-        mBelowTextArray = mContext.getResources().getStringArray(R.array.arrLevelOneBelowText);
+    private RequestManager glide;
+
+    public MainActivityAdapter(Context context) {
+        mAct = ((MainActivity) context);
+        glide = GlideApp.with(mAct);
+        mSession = mAct.getSession();
+
+        icons = IconFactory.getL1Icons(
+                getIconDirectory(context),
+                LanguageFactory.getCurrentLanguageCode(context)
+        );
+
+        File map = getJSONFile(context);
+        Icon[] iconObjects = TextFactory.getIconObjects(map, IconFactory.removeFileExtension(icons));
+        mBelowTextArray = TextFactory.getDisplayText(iconObjects);
+
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        final int GRID_1BY3 = 0;
+        final int GRID_1BY1 = 0, GRID_1BY2 = 1, GRID_1BY3 = 2, GRID_2BY2 = 3;
         View rowView;
-        if(isNotchDevice(mContext) && mSession.getGridSize() != GRID_1BY3) {
-            rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_9_icons_notch, parent, false);
-        } else if(isNotchDevice(mContext) && mSession.getGridSize() == GRID_1BY3){
+        if(mAct.isNotchDevice() && mSession.getGridSize() == GRID_1BY1) {
+            rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_1_icon_notch, parent, false);
+        }else if(!mAct.isNotchDevice() && mSession.getGridSize() == GRID_1BY1){
+            rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_1_icon, parent, false);
+        }else if(mAct.isNotchDevice() && mSession.getGridSize() == GRID_1BY2){
+            rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_2_icons_notch, parent, false);
+        }else if(!mAct.isNotchDevice() && mSession.getGridSize() == GRID_1BY2){
+            rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_2_icons, parent, false);
+        }else if(mAct.isNotchDevice() && mSession.getGridSize() == GRID_1BY3){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_3_icons_notch, parent, false);
-        }else if (mSession.getGridSize() != GRID_1BY3) {
-            rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_9_icons, parent, false);
-        }else{
+        }else if(!mAct.isNotchDevice() && mSession.getGridSize() == GRID_1BY3){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_3_icons, parent, false);
+        }else if(mAct.isNotchDevice() && mSession.getGridSize() == GRID_2BY2){
+            rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_4_icons_notch, parent, false);
+        }else if(!mAct.isNotchDevice() && mSession.getGridSize() == GRID_2BY2){
+            rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_4_icons, parent, false);
+        }else if(mAct.isNotchDevice()){
+            rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_9_icons_notch, parent, false);
+        }else{
+            rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_9_icons, parent, false);
         }
         return new MainActivityAdapter.MyViewHolder(rowView);
     }
@@ -69,19 +101,27 @@ class MainActivityAdapter extends android.support.v7.widget.RecyclerView.Adapter
         holder.menuItemBelowText.setAllCaps(true);
         holder.menuItemBelowText.setText(mBelowTextArray[position]);
 
-        GlideApp.with(mContext)
-                .load(mIconArray.getDrawable(position))
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(false)
-                .centerCrop()
-                .dontAnimate()
-                .into(holder.menuItemImage);
+        Bitmap iconBitmap = MemoryCache.getBitmapFromMemCache(icons[position]);
+
+        if (iconBitmap != null) {
+            holder.menuItemImage.setImageBitmap(iconBitmap);
+        } else {
+            glide.load(getIconPath(mAct, icons[position]))
+                    .into(holder.menuItemImage);
+        }
+
         holder.menuItemLinearLayout.setContentDescription(mBelowTextArray[position]);
+        holder.menuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAct.tappedCategoryItemEvent(holder.menuItemLinearLayout, position);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return mIconArray.length();
+        return icons.length;
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
@@ -94,13 +134,13 @@ class MainActivityAdapter extends android.support.v7.widget.RecyclerView.Adapter
             menuItemImage = view.findViewById(R.id.icon1);
             menuItemLinearLayout = view.findViewById(R.id.linearlayout_icon1);
             menuItemBelowText = view.findViewById(R.id.te1);
-            if(isAccessibilityTalkBackOn((AccessibilityManager) mContext.getSystemService(ACCESSIBILITY_SERVICE))) {
-                Typeface tf = ResourcesCompat.getFont(mContext, R.font.mukta_semibold);
+            if(mAct.isAccessibilityTalkBackOn((AccessibilityManager) mAct.getSystemService(ACCESSIBILITY_SERVICE))) {
+                Typeface tf = ResourcesCompat.getFont(mAct, R.font.mukta_semibold);
                 menuItemBelowText.setTypeface(tf);
             }
             menuItemBelowText.setTextColor(Color.rgb(64, 64, 64));
             GradientDrawable gd = (GradientDrawable) view.findViewById(R.id.borderView).getBackground();
-            gd.setColor(ContextCompat.getColor(mContext, android.R.color.transparent));
+            gd.setColor(ContextCompat.getColor(mAct, android.R.color.transparent));
         }
     }
 }
