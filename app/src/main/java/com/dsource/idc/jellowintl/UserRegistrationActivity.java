@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -61,7 +60,7 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
 /**
  * Created by user on 5/25/2016.
  */
-public class UserRegistrationActivity extends BaseActivity {
+public class UserRegistrationActivity extends SpeechEngineBaseActivity {
     public static final String LCODE = "lcode";
     public static final String TUTORIAL = "tutorial";
 
@@ -222,6 +221,12 @@ public class UserRegistrationActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setVisibleAct(UserRegistrationActivity.class.getSimpleName());
+    }
+
     private void updateFirebaseDatabase() {
         String userId = maskNumber(getSession().getCaregiverNumber().substring(1));
         FirebaseDatabase db = FirebaseDatabase.getInstance();
@@ -288,15 +293,9 @@ public class UserRegistrationActivity extends BaseActivity {
             mUserGroup = userGroup;
         }
 
-        boolean isConnectedToNetwork(){
-            final ConnectivityManager connMgr = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo activeNetworkInfo = connMgr.getActiveNetworkInfo();
-            return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-        }
-
         @Override
         protected Boolean doInBackground(Void... params) {
-            if(!isConnectedToNetwork())
+            if(!isConnectedToNetwork((ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE)))
                 return false;
             try {
                 URL url = new URL("http://www.google.com");
@@ -379,7 +378,7 @@ public class UserRegistrationActivity extends BaseActivity {
 
     private String encrypt(String plainText, SecureKeys secureKey) {
         Encryption encryption = Encryption.getDefault(secureKey.getKey(), secureKey.getSalt(), new byte[16]);
-        return encryption.encryptOrNull(plainText).trim();
+        return encryption.encryptOrNull(plainText);
     }
 
     private void createUser(final String name, final String emergencyContact, String eMailId,

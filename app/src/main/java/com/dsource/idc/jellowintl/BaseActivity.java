@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class BaseActivity extends AppCompatActivity{
     private static SessionManager mSession;
     private static String mVisibleAct;
+    protected boolean isAlive;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -108,6 +109,12 @@ public class BaseActivity extends AppCompatActivity{
                 startActivity(new Intent(this, ResetPreferencesActivity.class));
                 finish();
                 break;
+            case R.id.languagePackUpdate:
+                if(getVisibleAct().equals(LanguagePackUpdateActivity.class.getSimpleName()))
+                    break;
+                startActivity(new Intent(this, LanguagePackUpdateActivity.class));
+                finish();
+                break;
             case R.id.feedback:
                 if(getVisibleAct().equals(FeedbackActivity.class.getSimpleName()) ||
                         getVisibleAct().equals(FeedbackActivityTalkBack.class.getSimpleName()) )
@@ -183,12 +190,26 @@ public class BaseActivity extends AppCompatActivity{
                     SequenceActivity.class.getSimpleName();
     }
 
+
     public String getVisibleAct() {
         return mVisibleAct;
     }
 
     public void setVisibleAct(String visibleAct) {
         mVisibleAct = visibleAct;
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isAlive = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isAlive = false;
     }
 }
 

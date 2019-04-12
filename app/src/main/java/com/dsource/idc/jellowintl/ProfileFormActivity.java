@@ -4,12 +4,8 @@ package com.dsource.idc.jellowintl;
  * Created by user on 5/25/2016.
  */
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -59,7 +55,7 @@ import static com.dsource.idc.jellowintl.utility.Analytics.updateSessionRef;
 import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
 
-public class ProfileFormActivity extends BaseActivity {
+public class ProfileFormActivity extends SpeechEngineBaseActivity {
     private Button bSave;
     private EditText etName, etFatherContact, etFathername, etAddress, etEmailId;
     private String email, mUserGroup;
@@ -82,10 +78,7 @@ public class ProfileFormActivity extends BaseActivity {
         etAddress = findViewById(R.id.etAddress);
         etEmailId = findViewById(R.id.etEmailId);
         mBloodGroup = findViewById(R.id.bloodgroup);
-        AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
-        boolean isAccessibilityEnabled = am.isEnabled();
-        boolean isExploreByTouchEnabled = am.isTouchExplorationEnabled();
-        if(isAccessibilityEnabled && isExploreByTouchEnabled) {
+        if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))){
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                     R.array.bloodgroup_talkback, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -173,9 +166,6 @@ public class ProfileFormActivity extends BaseActivity {
             findViewById(R.id.tvName).setFocusable(true);
             mCcp.setCountryPreference(null);
         }
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("com.dsource.idc.jellowintl.CREATE_ABOUT_ME_RECORDING_RES");
-        registerReceiver(receiver, filter);
     }
 
     @Override
@@ -205,12 +195,6 @@ public class ProfileFormActivity extends BaseActivity {
             resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
         }
         startMeasuring();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unregisterReceiver(receiver);
     }
 
     @Override
@@ -336,8 +320,7 @@ public class ProfileFormActivity extends BaseActivity {
         setUserProperty("userGroup", userGroup);
         getSession().setToastMessage(mDetailSaved);
         if(getSession().getLanguage().endsWith(MR_IN)) {
-            sendBroadcast(new Intent("com.dsource.idc.jellowintl.CREATE_ABOUT_ME_RECORDING_REQ"));
-            return;
+            createUserProfileRecordingsUsingTTS();
         }
         finish();
     }
@@ -394,17 +377,6 @@ public class ProfileFormActivity extends BaseActivity {
         }
     }
 
-    private final BroadcastReceiver receiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(final Context context, Intent intent) {
-            switch (intent.getAction()){
-                case "com.dsource.idc.jellowintl.CREATE_ABOUT_ME_RECORDING_RES":
-                    finish();
-                    break;
-            }
-        }
-    };
-
     private class NetworkConnectionTest extends AsyncTask<Void, Void, Boolean> {
         private Context mContext;
         private String mName, mContact, mEmailId, mCaregiverName, mAddress, mUserGroup;
@@ -421,15 +393,9 @@ public class ProfileFormActivity extends BaseActivity {
             mUserGroup = userGroup;
         }
 
-        boolean isConnectedToNetwork(){
-            final ConnectivityManager connMgr = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo activeNetworkInfo = connMgr.getActiveNetworkInfo();
-            return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-        }
-
         @Override
         protected Boolean doInBackground(Void... params) {
-            if(!isConnectedToNetwork())
+            if (!isConnectedToNetwork((ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE)))
                 return false;
             try {
                 URL url = new URL("http://www.google.com");

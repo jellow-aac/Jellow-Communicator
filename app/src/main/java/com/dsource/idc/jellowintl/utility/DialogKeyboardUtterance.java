@@ -2,7 +2,6 @@ package com.dsource.idc.jellowintl.utility;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -14,6 +13,7 @@ import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.EditText;
 
+import com.dsource.idc.jellowintl.LevelBaseActivity;
 import com.dsource.idc.jellowintl.R;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
@@ -32,8 +32,6 @@ public class DialogKeyboardUtterance {
             @Override
             public void onClick(View v) {
                 String speechText = ((EditText) dialogView.findViewById(R.id.et_keyboard_utterances)).getText().toString();
-                Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_TEXT");
-                intent.putExtra("speechText", speechText.toLowerCase());
                 //Firebase event
                 Bundle bundle = new Bundle();
                 bundle.putString("InputName", Settings.Secure.getString(mContext.getContentResolver(),
@@ -41,7 +39,7 @@ public class DialogKeyboardUtterance {
                 bundle.putString("utterence", speechText);
                 if (!speechText.isEmpty())
                     bundleEvent("Keyboard", bundle);
-                mContext.sendBroadcast(intent);
+                ((LevelBaseActivity)mContext).speak(speechText.toLowerCase());
 
             }
         });
