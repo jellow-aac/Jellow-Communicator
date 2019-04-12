@@ -5,33 +5,32 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    android:paddingTop="32dp"
-    android:paddingBottom="32dp"
-    android:layout_marginTop="32dp"
-    android:layout_marginBottom="32dp">
+    android:paddingTop="@dimen/threeIcon_parentPaddingVertical"
+    android:paddingBottom="@dimen/threeIcon_parentPaddingVertical"
+    android:layout_marginTop="@dimen/threeIcon_parentVertical"
+    android:layout_marginBottom="@dimen/threeIcon_parentVertical">
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/icon1"
-            android:layout_width="94dp"
-            android:layout_height="94dp"
+            android:layout_width="@dimen/threeIcon_width"
+            android:layout_height="@dimen/threeIcon_width"
             android:layout_gravity="center_horizontal"
-            android:background="@android:color/transparent"
-            android:scaleType="centerInside" />
+            android:background="@android:color/transparent"/>
         <View
             android:id="@+id/borderView"
-            android:layout_width="94dp"
-            android:layout_height="94dp"
+            android:layout_width="@dimen/threeIcon_width"
+            android:layout_height="@dimen/threeIcon_width"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/custom_drawable_nocolor_1by3"/>
+            android:background="@drawable/border_drawable_nocolor_2_3_4_icon"/>
     </FrameLayout>
     <TextView
         android:id="@+id/te1"
-        android:layout_width="112dp"
+        android:layout_width="@dimen/threeIcon_textWidth"
         android:layout_height="wrap_content"
         android:text="TIME AND WEATHER"
         android:gravity="center"
-        android:textSize="12sp"
+        android:textSize="@dimen/threeIcon_textSize"
         android:textAlignment="center"/>
 </LinearLayout>

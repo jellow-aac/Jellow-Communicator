@@ -3,14 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.dsource.idc.jellowintl">
 
-    <uses-feature android:name="android.hardware.telephony" android:required="false" />
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
-        android:name="com.dsource.idc.jellowintl.app.AppController"
+        android:name=".app.AppController"
         android:allowBackup="true"
         android:fullBackupContent="@null"
         android:hardwareAccelerated="false"
@@ -19,10 +22,13 @@
         android:largeHeap="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        android:resizeableActivity="false"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
+        <activity android:name=".LevelBaseActivity" />
+        <activity android:name=".BaseActivity" />
+        <activity android:name=".SpeechEngineBaseActivity" />
+
         <service
-            android:name="com.dsource.idc.jellowintl.SimpleIME"
+            android:name=".SimpleIME"
             android:label="@string/simple_ime"
             android:permission="android.permission.BIND_INPUT_METHOD">
             <meta-data
@@ -35,7 +41,7 @@
         </service>
 
         <activity
-            android:name="com.dsource.idc.jellowintl.MainActivity"
+            android:name=".MainActivity"
             android:configChanges="keyboardHidden|orientation|screenLayout"
             android:label="@string/level_1_screen"
             android:screenOrientation="landscape">
@@ -44,17 +50,17 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity
-            android:name="com.dsource.idc.jellowintl.Intro"
+            android:name=".Intro"
             android:configChanges="keyboardHidden|orientation|screenLayout"
             android:label="@string/intro_to_jellow"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.dsource.idc.jellowintl.SequenceActivity"
+            android:name=".SequenceActivity"
             android:configChanges="keyboardHidden|orientation|screenLayout"
             android:label="@string/sequence_screen"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.dsource.idc.jellowintl.UserRegistrationActivity"
+            android:name=".UserRegistrationActivity"
             android:configChanges="keyboardHidden|orientation|screenLayout"
             android:screenOrientation="landscape">
             <intent-filter>
@@ -63,44 +69,44 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.dsource.idc.jellowintl.SettingActivity"
+            android:name=".SettingActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/action_settings"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.dsource.idc.jellowintl.KeyboardInputActivity"
+            android:name=".KeyboardInputActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/menuKeyboardInput"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.dsource.idc.jellowintl.AboutJellowActivity"
+            android:name=".AboutJellowActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/menuAbout"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.dsource.idc.jellowintl.ProfileFormActivity"
+            android:name=".ProfileFormActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/menuProfile"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.dsource.idc.jellowintl.FeedbackActivity"
+            android:name=".FeedbackActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/menuFeedback"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.dsource.idc.jellowintl.TutorialActivity"
+            android:name=".TutorialActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/menuTutorials"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.dsource.idc.jellowintl.ResetPreferencesActivity"
+            android:name=".ResetPreferencesActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/menuResetPref"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.dsource.idc.jellowintl.SplashActivity"
+            android:name=".SplashActivity"
             android:label="@string/labelSplash"
             android:screenOrientation="landscape" />
         <!--
@@ -112,45 +118,54 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name="com.dsource.idc.jellowintl.LevelTwoActivity"
+            android:name=".LevelTwoActivity"
             android:label="@string/level_2_screen"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.dsource.idc.jellowintl.LevelThreeActivity"
+            android:name=".LevelThreeActivity"
             android:label="@string/level_3_screen"
             android:screenOrientation="landscape" />
 
-        <service android:name="com.dsource.idc.jellowintl.utility.JellowTTSService" />
         <service android:name=".utility.JellowFirebaseMessageService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
         <activity
-            android:name="com.dsource.idc.jellowintl.LanguageDownloadActivity"
+            android:name=".LanguageDownloadActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="landscape"
             android:label="@string/language_download_screen"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name="com.dsource.idc.jellowintl.LanguageSelectActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/Language"
-            android:screenOrientation="landscape"/>
-        <activity android:name="com.dsource.idc.jellowintl.LanguageSelectTalkBackActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/Language"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".SearchActivity"
-            android:label="@string/search_act_title"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:theme="@style/Theme.AppCompat.Translucent"/>
         <activity
-            android:name="com.dsource.idc.jellowintl.LanguagePackageUpdateActivity"
+            android:name=".LanguageSelectActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/Language"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".LanguageSelectTalkBackActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/Language"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".SearchActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/search_act_title"
+            android:theme="@style/Theme.AppCompat.Translucent" />
+        <activity
+            android:name=".LanguagePackageUpdateActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".FeedbackActivityTalkBack"
+        <activity
+            android:name=".FeedbackActivityTalkBack"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/menuFeedback"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AccessibilitySettingsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/menuFeedback"
             android:screenOrientation="landscape"

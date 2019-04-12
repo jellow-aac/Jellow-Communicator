@@ -1,25 +1,18 @@
 package com.dsource.idc.jellowintl;
 
 import android.Manifest;
-import android.app.ActivityManager;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 
 import com.crashlytics.android.Crashlytics;
-import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
-import com.dsource.idc.jellowintl.utility.JellowTTSService;
-import com.dsource.idc.jellowintl.utility.LanguageHelper;
-import com.dsource.idc.jellowintl.utility.SessionManager;
-import com.dsource.idc.jellowintl.utility.TextToSpeechErrorUtils;
+import com.dsource.idc.jellowintl.cache.CacheManager;
+import com.dsource.idc.jellowintl.factories.TextFactory;
+import com.dsource.idc.jellowintl.utility.CreateDataBase;
+import com.dsource.idc.jellowintl.utility.DataBaseHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
@@ -35,97 +28,71 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.setCrashlyticsCustomKey;
 import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
+import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_AU;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_UK;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_US;
 import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
 
 /**
  * Created by ekalpa on 7/12/2016.
  */
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseActivity {
     //Field to create IconDatabase
     CreateDataBase iconDatabase;
-    SessionManager mSession;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Initialize default exception handler for this activity.
-        // If any exception occurs during this activity usage,
-        // handle it using default exception handler.
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         setContentView(R.layout.activity_splash);
         getSupportActionBar().hide();
-        mSession = new SessionManager(this);
-        if(mSession.isPackageUpdateIsSet()) {
-            updateLangPackagesIfUpdateAvail();
-            mSession.setPackageUpdate(false);
-        }
+        updateLangPackagesIfUpdateAvail();
         new DataBaseHelper(this).createDataBase();
 
-        if(isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE)))
-            stopTTsService();
-        startTTsService();
         PlayGifView pGif = findViewById(R.id.viewGif);
         pGif.setImageResource(R.drawable.jellow_j);
 
-        if (mSession.isRequiredToPerformDbOperations()) {
+        if (getSession().isRequiredToPerformDbOperations()) {
             performDatabaseOperations();
-            mSession.setCompletedDbOperations(true);
+            getSession().setCompletedDbOperations(true);
         }
         if((Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) &&
             (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
                 != PackageManager.PERMISSION_GRANTED))
-            mSession.setEnableCalling(false);
+            getSession().setEnableCalling(false);
 
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("com.dsource.idc.jellowintl.INIT_SERVICE");
-        filter.addAction("com.dsource.idc.jellowintl.INIT_SERVICE_ERR");
-        registerReceiver(receiver, filter);
+        if (getSession().isLanguageChanged() == 1) {
+            CacheManager.clearCache();
+            TextFactory.clearJson();
+        }
+
         iconDatabase=new CreateDataBase(this);
         iconDatabase.execute();
+        checkIfDatabaseCreated();
      }
-
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext((LanguageHelper.onAttach(newBase)));
-    }
 
     @Override
     protected void onResume() {
         super.onResume();
         if(!isAnalyticsActive()) {
-            resetAnalytics(this, mSession.getCaregiverNumber().substring(1));
+            resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
         }
         setUserParameters();
     }
 
-    private final BroadcastReceiver receiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(final Context context, Intent intent) {
-            switch (intent.getAction()){
-                case "com.dsource.idc.jellowintl.INIT_SERVICE":
-                    checkIfDatabaseCreated();
-                    break;
-                case "com.dsource.idc.jellowintl.INIT_SERVICE_ERR":
-                    new TextToSpeechErrorUtils(SplashActivity.this)
-                            .showErrorDialog();
-                    break;
-            }
-        }
-    };
-
     private void setUserParameters() {
         final int GRID_3BY3 = 1, PICTURE_TEXT = 0;
-        if(mSession.isGridSizeKeyExist()) {
-            if(mSession.getGridSize() == GRID_3BY3){
+        if(getSession().isGridSizeKeyExist()) {
+            if(getSession().getGridSize() == GRID_3BY3){
                 setUserProperty("GridSize", "9");
                 setCrashlyticsCustomKey("GridSize", "9");
             }else{
@@ -137,7 +104,7 @@ public class SplashActivity extends AppCompatActivity {
             setCrashlyticsCustomKey("GridSize", "9");
         }
 
-        if(mSession.getPictureViewMode() == PICTURE_TEXT) {
+        if(getSession().getPictureViewMode() == PICTURE_TEXT) {
             setUserProperty("PictureViewMode", "PictureText");
             setCrashlyticsCustomKey("PictureViewMode", "PictureText");
         }else{
@@ -148,7 +115,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private void checkIfDatabaseCreated()
     {
-        if(!(mSession.isLanguageChanged()==2))
+        if(!(getSession().isLanguageChanged()==2))
             startApp();//if changes are their in the app then check whether the data base is created or not
         else
             startJellow();//If no change in language then simply start the app.
@@ -170,11 +137,6 @@ public class SplashActivity extends AppCompatActivity {
 
     private void startJellow() {
         startActivity(new Intent(SplashActivity.this, MainActivity.class));
-        try{
-            unregisterReceiver(receiver);
-        } catch(IllegalArgumentException | NullPointerException | IllegalStateException e) {
-            e.printStackTrace();
-        }
         finishAffinity();
     }
 
@@ -182,15 +144,6 @@ public class SplashActivity extends AppCompatActivity {
         DataBaseHelper helper = new DataBaseHelper(this);
         helper.openDataBase();
         helper.addLanguageDataToDatabase();
-    }
-
-    private void startTTsService() {
-        startService(new Intent(getApplication(), JellowTTSService.class));
-    }
-
-    private void stopTTsService() {
-        Intent intent = new Intent("com.dsource.idc.jellowintl.STOP_SERVICE");
-        sendBroadcast(intent);
     }
 
     private void updateLangPackagesIfUpdateAvail() {
@@ -210,7 +163,7 @@ public class SplashActivity extends AppCompatActivity {
                         // After config data is successfully fetched, it must be activated before
                         // newly fetched values are returned.
                         frc.activateFetched();
-                        String updateLangPackageData = frc.getString("updateLangPackages");
+                        String updateLangPackageData = frc.getString("vcTwentyUpdateLanguagePackages");
                         if(updateLangPackageData.isEmpty())
                             return;
                         StringBuilder lang = new StringBuilder();
@@ -250,16 +203,20 @@ public class SplashActivity extends AppCompatActivity {
 
     private String[] getOfflineLanguages(){
         List<String> lang = new ArrayList<>();
-        if(mSession.isDownloaded(ENG_IN))
+        if(getSession().isDownloaded(ENG_IN))
             lang.add(ENG_IN);
-        if(mSession.isDownloaded(ENG_US))
+        if(getSession().isDownloaded(ENG_US))
             lang.add(ENG_US);
-        if(mSession.isDownloaded(ENG_AU))
+        if(getSession().isDownloaded(ENG_AU))
             lang.add(ENG_AU);
-        if(mSession.isDownloaded(ENG_UK))
+        if(getSession().isDownloaded(ENG_UK))
             lang.add(ENG_UK);
-        if(mSession.isDownloaded(HI_IN))
+        if(getSession().isDownloaded(HI_IN))
             lang.add(HI_IN);
+        if(getSession().isDownloaded(MR_IN))
+            lang.add(MR_IN);
+        if(getSession().isDownloaded(BN_IN))
+            lang.add(BN_IN);
         return lang.toArray(new String[lang.size()]);
     }
 }

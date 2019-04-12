@@ -1,37 +1,28 @@
 package com.dsource.idc.jellowintl;
 
-import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.Toast;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
-import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.DownloadManager;
-import com.dsource.idc.jellowintl.utility.JellowTTSService;
-import com.dsource.idc.jellowintl.utility.LanguageHelper;
-import com.dsource.idc.jellowintl.utility.SessionManager;
+
+import androidx.core.content.ContextCompat;
 
 import static com.dsource.idc.jellowintl.LanguageSelectActivity.FINISH;
-import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
-import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.LCODE;
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.TUTORIAL;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangValueMap;
 
-public class LanguageDownloadActivity extends AppCompatActivity {
+public class LanguageDownloadActivity extends BaseActivity {
     DownloadManager manager;
     RoundCornerProgressBar progressBar;
-    private SessionManager mSession;
     String langCode;
     private String mCheckConn;
     Boolean tutorial = false;
@@ -40,10 +31,6 @@ public class LanguageDownloadActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Initialize default exception handler for this activity.
-        // If any exception occurs during this activity usage,
-        // handle it using default exception handler.
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         setContentView(R.layout.activity_language_download);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -63,8 +50,6 @@ public class LanguageDownloadActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.pg);
         progressBar.setMax(1);
 
-        mSession = new SessionManager(this);
-
         final String strLanguageDownloaded = getString(R.string.language_downloaded);
         final String strLanguageDownloading = getString(R.string.language_downloading);
         mCheckConn = getString(R.string.checkConnectivity);
@@ -76,9 +61,9 @@ public class LanguageDownloadActivity extends AppCompatActivity {
 
             @Override
             public void onComplete() {
-                mSession.setDownloaded(langCode);
+                getSession().setDownloaded(langCode);
                 if(!tutorial)
-                    mSession.setToastMessage(strLanguageDownloaded
+                    getSession().setToastMessage(strLanguageDownloaded
                         .replace("_", getShortenLangName(LangValueMap.get(langCode))));
                 if(tutorial) {
                     Toast.makeText(LanguageDownloadActivity.this, strLanguageDownloaded
@@ -99,7 +84,7 @@ public class LanguageDownloadActivity extends AppCompatActivity {
 
         if(langCode != null) {
             try {
-                isConnected = isConnected();
+                isConnected = isConnectedToNetwork((ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE));
                 if(isConnected)
                 {
                     manager = new DownloadManager(langCode, this, progressReciever);
@@ -120,35 +105,13 @@ public class LanguageDownloadActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext((LanguageHelper.onAttach(newBase)));
-    }
-
-
-    private boolean isConnected()
-    {
-        ConnectivityManager cm =
-                (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        boolean isConnected = activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();
-        return isConnected;
-    }
-
-
-
-
-    @Override
     protected void onResume() {
         super.onResume();
+        setVisibleAct(LanguageDownloadActivity.class.getSimpleName());
         if(!isAnalyticsActive()) {
-            resetAnalytics(this, mSession.getCaregiverNumber().substring(1));
+            resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
         }
-        if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
-            startService(new Intent(getApplication(), JellowTTSService.class));
-        }
-        isConnected = isConnected();
+        isConnected = isConnectedToNetwork((ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE));
         if(isConnected) {
             if (manager != null)
                 manager.resume();

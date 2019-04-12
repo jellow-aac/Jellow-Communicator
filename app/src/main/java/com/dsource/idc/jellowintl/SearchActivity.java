@@ -1,14 +1,8 @@
 package com.dsource.idc.jellowintl;
 
-import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -18,23 +12,28 @@ import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
-import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
+import com.dsource.idc.jellowintl.factories.IconFactory;
+import com.dsource.idc.jellowintl.factories.LanguageFactory;
+import com.dsource.idc.jellowintl.factories.PathFactory;
+import com.dsource.idc.jellowintl.factories.TextFactory;
+import com.dsource.idc.jellowintl.models.Icon;
+import com.dsource.idc.jellowintl.models.JellowIcon;
 import com.dsource.idc.jellowintl.utility.IconDataBaseHelper;
-import com.dsource.idc.jellowintl.utility.JellowIcon;
-import com.dsource.idc.jellowintl.utility.JellowTTSService;
-import com.dsource.idc.jellowintl.utility.LanguageHelper;
-import com.dsource.idc.jellowintl.utility.SessionManager;
 
-import java.io.File;
 import java.util.ArrayList;
 
-import static android.content.Context.ACCESSIBILITY_SERVICE;
-import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
-import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
+import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import static com.dsource.idc.jellowintl.factories.PathFactory.getIconDirectory;
+import static com.dsource.idc.jellowintl.factories.PathFactory.getIconPath;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
@@ -55,7 +54,7 @@ import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
  * @Author AyazAlam
  * </p>
  */
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends SpeechEngineBaseActivity {
 
     private RecyclerView mRecyclerView;
     private SearchViewIconAdapter adapter;
@@ -69,15 +68,9 @@ public class SearchActivity extends AppCompatActivity {
     private int afterTextChanged;
     private boolean firedEvent=false;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Initialize default exception handler for this activity.
-        // If any exception occurs during this activity usage,
-        // handle it using default exception handler.
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         setContentView(R.layout.activity_search);
         EditText SearchEditText = findViewById(R.id.search_auto_complete);
         if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
@@ -140,7 +133,7 @@ public class SearchActivity extends AppCompatActivity {
                 {
                     iconNotFound=true;
                     notFoundIconText=s.toString();
-                    JellowIcon noIconFound=new JellowIcon(getString(R.string.not_found),"NULL",-1,-1,-1);
+                    JellowIcon noIconFound=new JellowIcon(getString(R.string.not_found),"NULL","NULL",-1,-1,-1);
                     iconList.add(noIconFound);
                 }
 
@@ -191,10 +184,7 @@ public class SearchActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if(!isAnalyticsActive()){
-            resetAnalytics(this, new SessionManager(this).getCaregiverNumber().substring(1));
-        }
-        if(!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
-            startService(new Intent(getApplication(), JellowTTSService.class));
+            resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
         }
         // Start measuring user app screen timer.
         startMeasuring();
@@ -207,9 +197,8 @@ public class SearchActivity extends AppCompatActivity {
         // If yes then create new pushId (user session)
         // If no then do not create new pushId instead user existing and
         // current session time is saved.
-        SessionManager session = new SessionManager(this);
-        long sessionTime = validatePushId(session.getSessionCreatedAt());
-        session.setSessionCreatedAt(sessionTime);
+        long sessionTime = validatePushId(getSession().getSessionCreatedAt());
+        getSession().setSessionCreatedAt(sessionTime);
 
         // Stop measuring user app screen timer.
         stopMeasuring("SearchActivity");
@@ -223,12 +212,6 @@ public class SearchActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
-
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext((LanguageHelper.onAttach(newBase)));
-    }
-
 }
 
 /**
@@ -247,17 +230,19 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
         public TextView iconTitle;
         public TextView iconDir;
         public ImageView speakIcon;
+        public LinearLayout llSearchParent;
         public ViewHolder(View v) {
             super(v);
             iconImage =v.findViewById(R.id.search_icon_drawable);
             iconTitle = v.findViewById(R.id.search_icon_title);
             iconDir = v.findViewById(R.id.parent_directory);
+            llSearchParent = v.findViewById(R.id.llSearchParent);
             ViewCompat.setAccessibilityDelegate(v.findViewById(R.id.llSearchParent), new TalkbackHints_SingleClick());
             speakIcon=v.findViewById(R.id.speak_button);
             speakIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    speakSpeech(mDataSource.get(getAdapterPosition()).IconTitle);
+                    ((SearchActivity)mContext).speak(mDataSource.get(getAdapterPosition()).IconSpeech);
                     //Firebase event to log the "SearchBar" event with
                     // "IconSpeak" parameter.
                     Bundle bundle = new Bundle();
@@ -267,6 +252,7 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
                     bundleEvent("SearchBar", bundle);
                 }
             });
+            llSearchParent.setOnClickListener(this);
             v.setOnClickListener(this);
         }
 
@@ -305,13 +291,13 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
 
         if(icon.parent1==-1&&icon.parent2==-1)//Level 1
         {
-            activityIntent=new Intent(mContext,MainActivity.class);
+            activityIntent=new Intent(mContext, MainActivity.class);
             activityIntent.putExtra(mContext.getString(R.string.search_parent_0),icon.parent0);
             activityIntent.putExtra(mContext.getString(R.string.from_search),mContext.getString(R.string.search_tag));
         }
         else if(icon.parent0!=-1&&icon.parent1!=-1&&icon.parent2==-1)//Level 2
         {
-            activityIntent=new Intent(mContext,LevelTwoActivity.class);
+            activityIntent=new Intent(mContext, LevelTwoActivity.class);
             activityIntent.putExtra(mContext.getString(R.string.level_one_intent_pos_tag),icon.parent0);
             //Passing the index of the icon to be highlighted.
             activityIntent.putExtra(mContext.getString(R.string.search_parent_1),icon.parent1);
@@ -321,7 +307,7 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
         }
         else //Level 3
         {
-            activityIntent=new Intent(mContext,LevelThreeActivity.class);
+            activityIntent=new Intent(mContext, LevelThreeActivity.class);
             activityIntent.putExtra(mContext.getString(R.string.from_search),mContext.getString(R.string.search_tag));
             //Level 1 parent
             activityIntent.putExtra(mContext.getString(R.string.level_one_intent_pos_tag),icon.parent0);
@@ -342,7 +328,8 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
      * @return the actionbarTitle string.</p>
      * */
     private String getActionBarTitle(int position) {
-        String[] tempTextArr = mContext.getResources().getStringArray(R.array.arrLevelOneActionBarTitle);
+
+        String[] tempTextArr = getLevel1IconLabels();
         return tempTextArr[position]+"/";
     }
     public SearchViewIconAdapter(Context context, ArrayList<JellowIcon> items) {
@@ -380,31 +367,27 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
         holder.speakIcon.setVisibility(View.VISIBLE);
         holder.iconDir.setVisibility(View.VISIBLE);
         holder.iconTitle.setText(thisIcon.IconTitle.replace("…",""));
-        if(thisIcon.parent1==-1)
-        {
-            TypedArray mArray=mContext.getResources().obtainTypedArray(R.array.arrLevelOneIconAdapter);
-            holder.iconImage.setImageDrawable(mArray.getDrawable(thisIcon.parent0));
-        }
-        else
-        {
-            SessionManager mSession = new SessionManager(mContext);
-            File en_dir = mContext.getDir(mSession.getLanguage(), Context.MODE_PRIVATE);
-            String path = en_dir.getAbsolutePath() + "/drawables";
+
             GlideApp.with(mContext)
-                    .load(path+"/"+ thisIcon.IconDrawable+".png")
+                    .load(getIconPath(mContext,thisIcon.IconDrawable))
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(false)
                     .centerCrop()
                     .dontAnimate()
                     .into(holder.iconImage);
-        }
 
         /*
         * Adding the directory hint in the search list item
         * To this, we are using the function same as in menuSelected path used
         * */
 
-        String[] arr=mContext.getResources().getStringArray(R.array.arrLevelOneActionBarTitle);
+
+        String[] arr = getLevel1IconLabels();
+
+        for(int i=0;i<arr.length;i++){
+            arr[i] = arr[i].split("…")[0];
+        }
+
         String dir="";
         if(thisIcon.parent1==-1)
         {
@@ -415,15 +398,31 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
             dir=arr[thisIcon.parent0];
         }
         else {
-            String levelTitle = getIconTitleLevel2(thisIcon.parent0)[thisIcon.parent1].
-                    replace("…", "");
-            if (!isAccessibilityTalkBackOn((AccessibilityManager) mContext.getSystemService(ACCESSIBILITY_SERVICE))) {
-                dir = arr[thisIcon.parent0] + "->" + levelTitle;
-            }else
-                dir = arr[thisIcon.parent0] + "/ " + levelTitle;
+            try {
+                String levelTitle = getIconTitleLevel2(thisIcon.parent0)[thisIcon.parent1].
+                        replace("…", "");
+                dir=arr[thisIcon.parent0] + "->" + levelTitle;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         }
         holder.iconDir.setText(dir);
+    }
+
+    @NonNull
+    private String[] getLevel1IconLabels() {
+        String[] level1Icons = IconFactory.getL1Icons(
+                getIconDirectory(mContext),
+                LanguageFactory.getCurrentLanguageCode(mContext)
+        );
+
+        Icon[] level1IconObjects = TextFactory.getIconObjects(
+                PathFactory.getJSONFile(mContext),
+                IconFactory.removeFileExtension(level1Icons)
+        );
+
+        return TextFactory.getDisplayText(level1IconObjects);
     }
 
     /**
@@ -432,32 +431,16 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
      * */
     private String[] getIconTitleLevel2(int pos)
     {
-        String arr[]=null;
-        switch (pos)
-        {
-            case 0:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoGreetFeelAdapterText);
-                break;
-            case 1:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoDailyActAdapterText);
-                break;
-            case 2:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoEatAdapterText);
-                break;
-            case 3:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoFunAdapterText);
-                break;
-            case 4:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoLearningAdapterText);
-                break;
-            case 5:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoPeopleAdapterText);
-                break;
-            case 6:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoPlacesAdapterText);
-                break;
-            case 7:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoTimeWeatherAdapterText);
-                break;
-            case 8:arr=mContext.getResources().getStringArray(R.array.arrLevelTwoHelpAdapterText);
-                break;
-            default:
-        }
+        Icon[] iconObjects = TextFactory.getIconObjects(
+                PathFactory.getJSONFile(mContext),
+                IconFactory.removeFileExtension(IconFactory.getAllL2Icons(
+                        PathFactory.getIconDirectory(mContext),
+                        LanguageFactory.getCurrentLanguageCode(mContext),
+                        getLevel2_3IconCode(pos)
+                ))
+        );
 
-
-        return arr;
+        return TextFactory.getDisplayText(iconObjects);
     }
 
     @Override
@@ -465,15 +448,12 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
         return mDataSource.size();
     }
 
-    /**
-     * <p>This function will send speech output request to
-     * {@link com.dsource.idc.jellowintl.utility.JellowTTSService} Text-to-speech Engine.
-     * The string in {@param speechText} is speech output request string.</p>
-     * */
-
-    private void speakSpeech(String speechText){
-        Intent intent = new Intent("com.dsource.idc.jellowintl.SPEECH_TEXT");
-        intent.putExtra("speechText", speechText.toLowerCase());
-        mContext.sendBroadcast(intent);
+    private String getLevel2_3IconCode(int level1Position){
+        if(level1Position+1 <= 9){
+            return "0" + Integer.toString(level1Position+1);
+        } else {
+            return Integer.toString(level1Position+1);
+        }
     }
+
 }

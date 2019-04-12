@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearlayout_icon1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:paddingTop="32dp"
+    android:paddingBottom="32dp"
+    android:layout_margin="56dp">
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/icon1"
+            android:layout_width="104dp"
+            android:layout_height="104dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside" />
+        <View
+            android:id="@+id/borderView"
+            android:layout_width="104dp"
+            android:layout_height="104dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/border_drawable_nocolor_2_3_4_icon_notch"/>
+    </FrameLayout>
+    <TextView
+        android:id="@+id/te1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TIME AND WEATHER"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textAlignment="center"/>
+</LinearLayout>

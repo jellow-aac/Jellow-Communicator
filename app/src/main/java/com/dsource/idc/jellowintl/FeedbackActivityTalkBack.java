@@ -1,34 +1,20 @@
 package com.dsource.idc.jellowintl;
 
-import android.app.ActivityManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
-import android.view.accessibility.AccessibilityManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
-import com.dsource.idc.jellowintl.utility.JellowTTSService;
-import com.dsource.idc.jellowintl.utility.LanguageHelper;
-import com.dsource.idc.jellowintl.utility.SessionManager;
-
-import static com.dsource.idc.jellowintl.MainActivity.isAccessibilityTalkBackOn;
-import static com.dsource.idc.jellowintl.MainActivity.isTTSServiceRunning;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 
-public class FeedbackActivityTalkBack extends AppCompatActivity{
+public class FeedbackActivityTalkBack extends BaseActivity{
 
     Spinner mEasyToUse, mClearPictures, mClearVoice, mNavigate;
     Button mBtnSubmit;
@@ -37,15 +23,10 @@ public class FeedbackActivityTalkBack extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Initialize default exception handler for this activity.
-        // If any exception occurs during this activity usage,
-        // handle it using default exception handler.
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         setContentView(R.layout.activity_feedback_talkback);
+        enableNavigationBack();
+        setActivityTitle(getString(R.string.menuFeedback));
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>" + getString(R.string.menuFeedback) + "</font>"));
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         findViewById(R.id.comments).clearFocus();
         findViewById(R.id.tv1).setFocusable(true);
@@ -57,69 +38,11 @@ public class FeedbackActivityTalkBack extends AppCompatActivity{
     }
 
     @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext((LanguageHelper.onAttach(newBase)));
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.languageSelect:
-                if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                    startActivity(new Intent(this, LanguageSelectActivity.class));
-                } else {
-                    startActivity(new Intent(this, LanguageSelectTalkBackActivity.class));
-                }
-                finish();
-                break;
-            case R.id.profile:
-                startActivity(new Intent(FeedbackActivityTalkBack.this, ProfileFormActivity.class));
-                finish();
-                break;
-            case R.id.info:
-                startActivity(new Intent(FeedbackActivityTalkBack.this, AboutJellowActivity.class));
-                finish();
-                break;
-            case R.id.usage:
-                startActivity(new Intent(FeedbackActivityTalkBack.this, TutorialActivity.class));
-                finish();
-                break;
-            case R.id.keyboardinput:
-                startActivity(new Intent(FeedbackActivityTalkBack.this, KeyboardInputActivity.class));
-                finish();
-                break;
-            case R.id.settings:
-                startActivity(new Intent(FeedbackActivityTalkBack.this, SettingActivity.class));
-                finish();
-                break;
-            case R.id.reset:
-                startActivity(new Intent(FeedbackActivityTalkBack.this, ResetPreferencesActivity.class));
-                finish();
-                break;
-            case android.R.id.home:
-                finish();
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return true;
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
+        setVisibleAct(FeedbackActivityTalkBack.class.getSimpleName());
         if(!isAnalyticsActive()) {
-            resetAnalytics(this, new SessionManager(this).getCaregiverNumber().substring(1));
-        }
-        if (!isTTSServiceRunning((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))) {
-            startService(new Intent(getApplication(), JellowTTSService.class));
+            resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
         }
     }
 

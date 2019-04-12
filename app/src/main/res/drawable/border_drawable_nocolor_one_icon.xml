@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="ring"
+    android:thickness="@dimen/oneIcon_borderThickness"
+    android:useLevel="false"
+    android:innerRadius="@dimen/oneIcon_innerRadius">
+</shape>

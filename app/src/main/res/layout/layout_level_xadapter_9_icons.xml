@@ -4,30 +4,31 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:layout_marginLeft="@dimen/nineIcon_parentHorizontal"
+    android:layout_marginRight="@dimen/nineIcon_parentHorizontal"
     android:gravity="center_horizontal">
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/icon1"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="@dimen/nineIcon_width"
+            android:layout_height="@dimen/nineIcon_width"
             android:layout_gravity="center_horizontal"
-            android:background="@android:color/transparent"
-            android:scaleType="centerInside" />
+            android:background="@android:color/transparent"/>
         <View
             android:id="@+id/borderView"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="@dimen/nineIcon_width"
+            android:layout_height="@dimen/nineIcon_width"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/custom_drawable_nocolor_3by3"/>
+            android:background="@drawable/border_drawable_nocolor_nine_icon"/>
     </FrameLayout>
     <TextView
         android:id="@+id/te1"
-        android:layout_width="168dp"
+        android:layout_width="@dimen/nineIcon_textWidth"
         android:layout_height="wrap_content"
         android:text="festivals &amp; hodidays"
         android:gravity="center"
-        android:textSize="10sp"
+        android:textSize="@dimen/nineIcon_textSize"
         android:textAlignment="center"/>
 </LinearLayout>
