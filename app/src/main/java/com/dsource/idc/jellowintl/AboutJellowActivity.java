@@ -77,14 +77,12 @@ public class AboutJellowActivity extends SpeechEngineBaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         stopSpeaking();
-        stopAudio();
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         stopSpeaking();
-        stopAudio();
         finish();
     }
 

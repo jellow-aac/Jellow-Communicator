@@ -80,9 +80,11 @@ public class SessionManager {
         mPreferences = mContext.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         mEditor = mPreferences.edit();
     }
+
     public void setChangeLanguageNeverAsk(boolean ChangeLang){
         storePreferenceKeyWithValue(Boolean.class.toString(), ChangeLanguageNeverAsk, ChangeLang);
     }
+
     public boolean isChangeLanguageNeverAsk(){
         return (Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(), ChangeLanguageNeverAsk);
     }

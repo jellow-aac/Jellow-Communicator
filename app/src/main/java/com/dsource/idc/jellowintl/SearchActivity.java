@@ -448,16 +448,6 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
         return mDataSource.size();
     }
 
-    /**
-     * <p>This function will send speech output request to
-     * {@link com.dsource.idc.jellowintl.utility.JellowTTSService} Text-to-speech Engine.
-     * The string in {@param speechText} is speech output request string.</p>
-     * */
-
-    /*private void speakSpeech(String speechText){
-        speak(mContext,speechText);
-    }*/
-
     private String getLevel2_3IconCode(int level1Position){
         if(level1Position+1 <= 9){
             return "0" + Integer.toString(level1Position+1);

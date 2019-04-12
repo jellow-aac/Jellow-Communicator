@@ -1,7 +1,6 @@
 package com.dsource.idc.jellowintl;
 
 import android.content.Context;
-import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -33,8 +32,7 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
 
 public class SpeechEngineBaseActivity extends BaseActivity{
     private static TextToSpeech sTts;
-    private static Boolean isNoTTSLang;
-    private int mFailedToSynthesizeTextCount = 0;
+    private static int mFailedToSynthesizeTextCount = 0;
     private final String UTTERANCE_ID = "com.dsource.idc.jellowintl.utterence.id";
     private HashMap<String, String> map;
     private TextToSpeechError mErrorHandler;
@@ -47,20 +45,6 @@ public class SpeechEngineBaseActivity extends BaseActivity{
         setupSpeechEngine();
         map = new HashMap<>();
         map.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, UTTERANCE_ID);
-        /*IntentFilter filter = new IntentFilter();
-        filter.addAction("com.dsource.idc.jellowintl.SPEECH_TEXT");
-        filter.addAction("com.dsource.idc.jellowintl.SPEECH_STOP");
-        filter.addAction("com.dsource.idc.jellowintl.SPEECH_PITCH");
-        filter.addAction("com.dsource.idc.jellowintl.SPEECH_SPEED");
-        filter.addAction("com.dsource.idc.jellowintl.SPEECH_LANG");
-        filter.addAction("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_REQ");
-        filter.addAction("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_VOICE_AVAIL_REQ");
-        filter.addAction("com.dsource.idc.jellowintl.STOP_SERVICE");
-        filter.addAction("com.dsource.idc.jellowintl.AUDIO_PATH");
-        filter.addAction("com.dsource.idc.jellowintl.AUDIO_IN_QUEUE");
-        filter.addAction("com.dsource.idc.jellowintl.CREATE_ABOUT_ME_RECORDING_REQ");
-        filter.addAction("com.dsource.idc.jellowintl.AUDIO_STOP");
-        registerReceiver(receiver, filter);*/
     }
 
     private void setupSpeechEngine() {
@@ -192,10 +176,7 @@ public class SpeechEngineBaseActivity extends BaseActivity{
 
     public void speak(String speechText){
         stopSpeaking();
-        if(isNoTTSLang == null){
-            isNoTTSLang = isNoTTSLanguage();
-        }
-        if(isNoTTSLang)
+        if(isNoTTSLanguage())
             playAudio(getAudioPath(this)+speechText);
         else
             sTts.speak(speechText, TextToSpeech.QUEUE_FLUSH, map);
@@ -224,69 +205,12 @@ public class SpeechEngineBaseActivity extends BaseActivity{
         return  false;
     }
 
-
-    private void broadcastTtsData(TextToSpeech tts, Intent intent) {
-        Intent dataIntent = new Intent("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_RES");
-        String infoLang="", infoCountry="";
-        try {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                infoLang = tts.getLanguage().getLanguage();
-                infoCountry = tts.getLanguage().getCountry();
-            } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                infoLang = tts.getDefaultLanguage().getLanguage().substring(0, 2);
-                infoCountry = tts.getDefaultLanguage().getCountry().substring(0, 2);
-            } else {
-                //When below if case is false then variables infoLang & infoCountry are empty.
-                //Keeping infoLang & infoCountry variables empty and sending them with broadcast have no
-                //impact. Whenever they are empty, the broadcast is sent only to {@LanguageSelectActivity}
-                //class. And these broadcast intent response is not used when api is Lollipop or above.
-                if (tts.getDefaultVoice() != null) {
-                    infoLang = tts.getDefaultVoice().getLocale().getLanguage();
-                    infoCountry = tts.getDefaultVoice().getLocale().getCountry();
-                }
-            }
-        }catch(Exception e){
-            //This error is ignored. Their might no language is set previously to text-to-speech
-            // engine and hence above retrieval of lang, country {infoLang, infoCountry} fails.
-            // If it is empty, the broadcast is sent to receiver with empty ("-r" value) tts language
-            // name and this gives error message to user in receiver code.
-        }
-        dataIntent.putExtra("systemTtsRegion", infoLang.concat("-r".concat(infoCountry)));
-        if(infoLang.concat("-r".concat(infoCountry)).equals(ENG_IN) &&
-                intent.getStringExtra("saveSelectedLanguage").equals(ENG_IN))
-            dataIntent.putExtra("saveUserLanguage", true);
-        else if(infoLang.concat("-r".concat(infoCountry)).equals(BE_IN) &&
-                intent.getStringExtra("saveSelectedLanguage").equals(BN_IN))
-            dataIntent.putExtra("saveUserLanguage", true);
-        else if(infoLang.concat("-r".concat(infoCountry)).equals(BN_IN) &&
-                intent.getStringExtra("saveSelectedLanguage").equals(BN_IN))
-            dataIntent.putExtra("saveUserLanguage", true);
-        else if(intent.getStringExtra("saveSelectedLanguage").
-                equals(infoLang.concat("-r".concat(infoCountry))))
-            dataIntent.putExtra("saveUserLanguage", true);
-        else dataIntent.putExtra("saveUserLanguage", false);
-
-        if(!intent.getStringExtra("saveSelectedLanguage").equals(""))
-            dataIntent.putExtra("showError", true);
-        sendBroadcast(dataIntent);
-    }
-
-    private void broadcastTtsDataPostKitkatDevices(TextToSpeech tts, Intent intent){
-        Intent responseIntent = new Intent("com.dsource.idc.jellowintl.SPEECH_SYSTEM_LANG_VOICE_AVAIL_RES");
-        boolean isVoiceAvail = isVoiceAvailableForLanguage(intent.getStringExtra("language"));
-        responseIntent.putExtra("isVoiceAvail", isVoiceAvail);
-        setSpeechEngineLanguage(intent.getStringExtra("language"));
-        sendBroadcast(responseIntent);
-    }
-
-
-    private void createUserProfileRecordingsUsingTTS() {
-        SessionManager session = new SessionManager(this);
-        final String path = getDir("mr-rIN", Context.MODE_PRIVATE).getAbsolutePath() + "/audio/";
+    public void createUserProfileRecordingsUsingTTS() {
+        final String path = getDir(MR_IN, Context.MODE_PRIVATE).getAbsolutePath() + "/audio/";
         sTts.setLanguage(new Locale("hi", "IN"));
         try {
-            String emailId = session.getEmailId().replaceAll(".", "$0 ").replace(".", "dot");
-            String contactNo = session.getCaregiverNumber();
+            String emailId = getSession().getEmailId().replaceAll(".", "$0 ").replace(".", "dot");
+            String contactNo = getSession().getCaregiverNumber();
             contactNo = contactNo.substring(0, contactNo.length()-3);
             contactNo = contactNo.replaceAll(".", "$0 ").replace("+", "plus");
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -302,26 +226,26 @@ public class SpeechEngineBaseActivity extends BaseActivity{
                 Log.e("File : ", String.valueOf(address.createNewFile()));
                 File bloodGroup = new File(path+ "bloodGroup.mp3");
                 Log.e("File : ", String.valueOf(bloodGroup.createNewFile()));
-                sTts.synthesizeToFile(session.getName(), null, name, UTTERANCE_ID);
+                sTts.synthesizeToFile(getSession().getName(), null, name, UTTERANCE_ID);
                 sTts.synthesizeToFile(emailId, null, email, UTTERANCE_ID);
                 sTts.synthesizeToFile(contactNo, null, contact, UTTERANCE_ID);
-                sTts.synthesizeToFile(session.getCaregiverName(), null, caregiverName, UTTERANCE_ID);
-                sTts.synthesizeToFile(session.getAddress(), null, address, UTTERANCE_ID);
-                sTts.synthesizeToFile(getBloodGroup(session.getBlood()), null, bloodGroup, UTTERANCE_ID);
+                sTts.synthesizeToFile(getSession().getCaregiverName(), null, caregiverName, UTTERANCE_ID);
+                sTts.synthesizeToFile(getSession().getAddress(), null, address, UTTERANCE_ID);
+                sTts.synthesizeToFile(getBloodGroup(getSession().getBlood()), null, bloodGroup, UTTERANCE_ID);
             }else {
-                sTts.synthesizeToFile(session.getName(), null, path + "name.mp3");
+                sTts.synthesizeToFile(getSession().getName(), null, path + "name.mp3");
                 sTts.synthesizeToFile(emailId, null, path + "email.mp3");
                 sTts.synthesizeToFile(contactNo, null, path + "contact.mp3");
-                sTts.synthesizeToFile(session.getCaregiverName(), null, path + "caregiverName.mp3");
-                sTts.synthesizeToFile(session.getAddress(), null, path + "address.mp3");
-                sTts.synthesizeToFile(getBloodGroup(session.getBlood()), null, path + "bloodGroup.mp3");
+                sTts.synthesizeToFile(getSession().getCaregiverName(), null, path + "caregiverName.mp3");
+                sTts.synthesizeToFile(getSession().getAddress(), null, path + "address.mp3");
+                sTts.synthesizeToFile(getBloodGroup(getSession().getBlood()), null, path + "bloodGroup.mp3");
             }
-            setSpeechEngineLanguage(session.getLanguage());
-            sendBroadcast(new Intent("com.dsource.idc.jellowintl.CREATE_ABOUT_ME_RECORDING_RES"));
+            setSpeechEngineLanguage(getSession().getLanguage());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
     /**
      * <p>This function will find and return the blood group of user

@@ -126,7 +126,6 @@
             android:label="@string/level_3_screen"
             android:screenOrientation="landscape" />
 
-        <service android:name=".utility.JellowTTSService" />
         <service android:name=".utility.JellowFirebaseMessageService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

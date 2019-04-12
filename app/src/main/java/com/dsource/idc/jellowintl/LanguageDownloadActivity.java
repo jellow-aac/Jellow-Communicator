@@ -107,6 +107,7 @@ public class LanguageDownloadActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        setVisibleAct(LanguageDownloadActivity.class.getSimpleName());
         if(!isAnalyticsActive()) {
             resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
         }

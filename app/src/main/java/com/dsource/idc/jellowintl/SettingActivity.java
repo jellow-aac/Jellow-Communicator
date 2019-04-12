@@ -338,7 +338,8 @@ public class SettingActivity extends SpeechEngineBaseActivity {
 
         //This code executed when user denied permission from app and gone to app settings -> permission
         // and enabled call permission and came back.
-        if(mOpenSetting && Build.VERSION.SDK_INT > 22 && ActivityCompat.checkSelfPermission(this,
+        if(mOpenSetting && Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1
+            && ActivityCompat.checkSelfPermission(this,
                 android.Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
             getSession().setEnableCalling(true);
             ((Switch) findViewById(R.id.switchEnableCall)).setChecked(true);
