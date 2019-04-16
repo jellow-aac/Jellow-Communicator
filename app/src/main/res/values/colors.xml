@@ -71,7 +71,7 @@
     <color name="app_background">#F7F3C6</color>
     <color name="text_color">#404040</color>
     <color name="black_eighty">#414042</color>
-
+    <color name="menu_screen_bottom_bar">#F7E2AC</color>
     <color name="yellow_silhouette">#ffcc14</color>
     <color name="white">#FFFFFF</color>
     <color name="seq_btn_background_unpressed">#FFBEBCB6</color>

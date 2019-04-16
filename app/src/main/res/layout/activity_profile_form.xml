@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:background="#F7F3C6"
+    android:background="@color/app_background"
     android:isScrollContainer="false">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginLeft="19dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginBottom="19dp">
+        android:layout_marginLeft="@dimen/profile_parent_margin_left"
+        android:layout_marginStart="@dimen/profile_parent_margin_left"
+        android:layout_marginTop="@dimen/profile_parent_margin_vertical"
+        android:layout_marginBottom="@dimen/profile_parent_margin_vertical"
+        android:layout_marginRight="@dimen/profile_parent_margin_right"
+        android:layout_marginEnd="@dimen/profile_parent_margin_right">
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -23,7 +22,7 @@
             android:fadeScrollbars="false"
             android:scrollbarStyle="outsideInset"
             android:scrollbarAlwaysDrawVerticalTrack="true"
-            android:scrollbarSize="10dp"
+            android:scrollbarSize="@dimen/profile_scroll_size"
             android:isScrollContainer="false">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -36,15 +35,15 @@
                     android:text="@string/childName"
                     android:fontFamily="@font/mukta_semibold"
                     style="@style/defaultTextViewStyle"
-                    android:contentDescription="@string/child_s_name"/>
+                    android:contentDescription="@string/child_s_name"
+                    android:importantForAccessibility="yes"/>
                 <EditText
                     android:id="@+id/etName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="-4dp"
-                    android:layout_marginStart="-4dp"
-                    android:ems="10"
+                    android:layout_marginBottom="@dimen/profile_view_margin_bottom"
+                    android:layout_marginLeft="@dimen/profile_et_margin_left"
+                    android:layout_marginStart="@dimen/profile_et_margin_left"
                     android:imeOptions="actionDone"
                     style="@style/defaultTextViewStyle"
                     android:inputType="textPersonName"
@@ -60,10 +59,9 @@
                     android:id="@+id/etFathername"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="-4dp"
-                    android:layout_marginStart="-4dp"
-                    android:ems="10"
+                    android:layout_marginBottom="@dimen/profile_view_margin_bottom"
+                    android:layout_marginLeft="@dimen/profile_et_margin_left"
+                    android:layout_marginStart="@dimen/profile_et_margin_left"
                     style="@style/defaultTextViewStyle"
                     android:imeOptions="actionDone"
                     android:inputType="textPersonName"
@@ -79,12 +77,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="@dimen/profile_view_margin_bottom">
                 <com.hbb20.CountryCodePicker
                     android:id="@+id/ccp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:ccp_textSize="14dp"
+                    app:ccp_textSize="@dimen/profile_ccp_txt_size"
                     app:ccpDialog_textColor="@color/black_eighty"
                     app:ccpDialog_showCloseIcon="true"
                     app:ccp_countryPreference="IN,US,GB"
@@ -98,7 +96,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="phone"
-                    android:textSize="14sp"
                     android:maxLength="12"
                     style="@style/defaultTextViewStyle"
                     android:imeOptions="actionDone"
@@ -115,10 +112,9 @@
                     android:id="@+id/etAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="-4dp"
-                    android:layout_marginStart="-4dp"
-                    android:ems="10"
+                    android:layout_marginBottom="@dimen/profile_view_margin_bottom"
+                    android:layout_marginLeft="@dimen/profile_et_margin_left"
+                    android:layout_marginStart="@dimen/profile_et_margin_left"
                     style="@style/defaultTextViewStyle"
                     android:imeOptions="actionDone"
                     android:inputType="textPostalAddress"
@@ -135,14 +131,13 @@
                     android:id="@+id/etEmailId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="-4dp"
-                    android:layout_marginStart="-4dp"
+                    android:layout_marginBottom="@dimen/profile_view_margin_bottom"
+                    android:layout_marginLeft="@dimen/profile_et_margin_left"
+                    android:layout_marginStart="@dimen/profile_et_margin_left"
                     style="@style/defaultTextViewStyle"
                     android:imeOptions="actionDone"
                     android:inputType="textEmailAddress"
                     android:contentDescription="@string/enter_caregiver_s_email_address"/>
-
                 <TextView
                     android:id="@+id/tvUserGroup"
                     android:layout_width="wrap_content"
@@ -151,20 +146,18 @@
                     android:fontFamily="@font/mukta_semibold"
                     style="@style/defaultTextViewStyle"
                     android:contentDescription="@string/user_s_group"/>
-
                 <RadioGroup
                     android:id="@+id/radioUserGroup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:importantForAccessibility="no"
-                    android:contentDescription="@string/user_s_group">
+                    android:layout_marginBottom="@dimen/profile_view_margin_bottom"
+                    android:importantForAccessibility="no">
                     <RadioButton
                         android:id="@+id/radioTherapist"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
                         style="@style/defaultTextViewStyle"
+                        android:textSize="@dimen/profile_radio_btn_txt_size"
                         android:text="@string/groupTeacher"
                         android:contentDescription="@string/therapist_or_teacher_cd"
                         android:importantForAccessibility="yes"/>
@@ -172,9 +165,9 @@
                         android:id="@+id/radioParent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
-                        android:layout_marginBottom="10dp"
                         style="@style/defaultTextViewStyle"
+                        android:textSize="@dimen/profile_radio_btn_txt_size"
+                        android:layout_marginBottom="@dimen/profile_radio_btn_margin_bottom"
                         android:text="@string/groupParent"
                         android:contentDescription="@string/parent_or_caregiver_cd"
                         android:importantForAccessibility="yes"/>
@@ -189,30 +182,30 @@
                     style="@style/defaultTextViewStyle"/>
                 <Spinner
                     android:id="@+id/bloodgroup"
-                    android:layout_width="115dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/profile_spinner_width"
+                    android:layout_height="@dimen/profile_spinner_height"
                     android:background="@drawable/custom_spinner_view"/>
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="48dp" />
+                    android:layout_height="@dimen/profile_view_height" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/ll"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="#F7E2AC"
+        android:layout_height="@dimen/profile_view_height"
+        android:background="@color/menu_screen_bottom_bar"
         android:layout_alignParentBottom="true"
         android:importantForAccessibility="yes">
         <Button
             android:id="@+id/bSave"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:textSize="14sp"
+            android:layout_height="@dimen/profile_save_btn_height"
+            android:textSize="@dimen/profile_save_btn_txt_size"
             android:text="@string/txtSave"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"/>
+            android:layout_marginLeft="@dimen/profile_btn_save_margin_left"
+            android:layout_marginStart="@dimen/profile_btn_save_margin_left"/>
     </LinearLayout>
 </RelativeLayout>

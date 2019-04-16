@@ -9,21 +9,21 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="96dp"
-        android:layout_marginRight="96dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginLeft="@dimen/lang_dl_parent_margin_lr"
+        android:layout_marginRight="@dimen/lang_dl_parent_margin_lr"
+        android:layout_marginBottom="@dimen/lang_dl_parent_margin_bottom"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:orientation="vertical">
         <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
             android:id="@+id/pg"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginBottom="32dp"
+            android:layout_height="@dimen/lang_dl_pbar_height"
+            android:layout_marginBottom="@dimen/lang_dl_parent_margin_bottom"
             app:rcBackgroundColor="@color/colorPrimary"
-            app:rcBackgroundPadding="2dp"
+            app:rcBackgroundPadding="@dimen/lang_dl_pbar_bg_padding"
             app:rcProgressColor="@color/app_background"
-            app:rcRadius="10dp"
+            app:rcRadius="@dimen/lang_dl_pbar_radius"
             app:rcReverse="false"
             app:rcSecondaryProgressColor="@color/app_background"
             android:contentDescription="@string/language_download_in_process" />
@@ -32,8 +32,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="-26dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginTop="@dimen/lang_dl_txt_margin_top"
+            android:layout_marginBottom="@dimen/lang_dl_parent_margin_bottom"
             android:visibility="gone"
             style="@style/defaultTextViewStyle"/>
         <TextView
