@@ -4,23 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F7F3C6">
+    android:background="@color/app_background">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="19dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginBottom="19dp">
+        android:layout_marginLeft="@dimen/access_parent_margin_left"
+        android:layout_marginStart="@dimen/access_parent_margin_left"
+        android:layout_marginRight="@dimen/access_parent_margin_right"
+        android:layout_marginEnd="@dimen/access_parent_margin_right"
+        android:layout_marginTop="@dimen/access_parent_margin_vertical"
+        android:layout_marginBottom="@dimen/access_parent_margin_vertical">
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fillViewport="true"
             android:fadeScrollbars="false">
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="@dimen/access_scroll_margin_end"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <LinearLayout
@@ -43,9 +43,9 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/black_eighty"
                             android:text="@string/bullet"
-                            android:scaleX=".7"
-                            android:scaleY=".7"
-                            android:layout_marginTop="8dp"
+                            android:scaleX="@dimen/access_bullet_scale"
+                            android:scaleY="@dimen/access_bullet_scale"
+                            android:layout_marginTop="@dimen/access_bullet_margin_top"
                             android:gravity="center"
                             android:importantForAccessibility="no"/>
                         <TextView
@@ -54,17 +54,17 @@
                             android:layout_height="wrap_content"
                             android:text="@string/visual_acesss_info"
                             style="@style/defaultTextViewStyle"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginStart="8dp"
-                            android:paddingBottom="2dp"/>
+                            android:layout_marginTop="@dimen/access_tv_margin_top"
+                            android:layout_marginLeft="@dimen/access_tv_margin_left"
+                            android:layout_marginStart="@dimen/access_tv_margin_left"
+                            android:paddingBottom="@dimen/access_tv_margin_bottom"/>
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginTop="19dp">
+                    android:layout_marginTop="@dimen/access_ll_margin_top">
                     <TextView
                         android:id="@+id/title_switch_access"
                         android:layout_width="wrap_content"
@@ -81,43 +81,146 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/black_eighty"
                             android:text="@string/bullet"
-                            android:scaleX=".7"
-                            android:scaleY=".7"
-                            android:layout_marginTop="8dp"
+                            android:scaleX="@dimen/access_bullet_scale"
+                            android:scaleY="@dimen/access_bullet_scale"
+                            android:layout_marginTop="@dimen/access_bullet_margin_top"
                             android:gravity="center"
                             android:importantForAccessibility="no"/>
                         <TextView
-                            android:id="@+id/info_switch_access"
+                            android:id="@+id/info_switch_access_one"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/switch_access_info"
+                            android:text="@string/switch_access_info_one"
                             style="@style/defaultTextViewStyle"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginStart="8dp"
-                            android:paddingBottom="2dp"/>
+                            android:layout_marginTop="@dimen/access_tv_margin_top"
+                            android:layout_marginLeft="@dimen/access_tv_margin_left"
+                            android:layout_marginStart="@dimen/access_tv_margin_left"
+                            android:paddingBottom="@dimen/access_tv_margin_bottom"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black_eighty"
+                            android:text="@string/bullet"
+                            android:scaleX="@dimen/access_bullet_scale"
+                            android:scaleY="@dimen/access_bullet_scale"
+                            android:layout_marginTop="@dimen/access_bullet_margin_top"
+                            android:gravity="center"
+                            android:importantForAccessibility="no"/>
+                        <TextView
+                            android:id="@+id/info_switch_access_two"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/switch_access_info_two"
+                            style="@style/defaultTextViewStyle"
+                            android:layout_marginTop="@dimen/access_tv_margin_top"
+                            android:layout_marginLeft="@dimen/access_tv_margin_left"
+                            android:layout_marginStart="@dimen/access_tv_margin_left"
+                            android:paddingBottom="@dimen/access_tv_margin_bottom"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black_eighty"
+                            android:text="@string/bullet"
+                            android:scaleX="@dimen/access_bullet_scale"
+                            android:scaleY="@dimen/access_bullet_scale"
+                            android:layout_marginTop="@dimen/access_bullet_margin_top"
+                            android:gravity="center"
+                            android:importantForAccessibility="no"/>
+                        <TextView
+                            android:id="@+id/info_switch_access_three"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/switch_access_info_three"
+                            style="@style/defaultTextViewStyle"
+                            android:layout_marginTop="@dimen/access_tv_margin_top"
+                            android:layout_marginLeft="@dimen/access_tv_margin_left"
+                            android:layout_marginStart="@dimen/access_tv_margin_left"
+                            android:paddingBottom="@dimen/access_tv_margin_bottom"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black_eighty"
+                            android:text="@string/bullet"
+                            android:scaleX="@dimen/access_bullet_scale"
+                            android:scaleY="@dimen/access_bullet_scale"
+                            android:layout_marginTop="@dimen/access_bullet_margin_top"
+                            android:gravity="center"
+                            android:importantForAccessibility="no"/>
+                        <TextView
+                            android:id="@+id/info_switch_access_four"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/switch_access_info_four"
+                            style="@style/defaultTextViewStyle"
+                            android:layout_marginTop="@dimen/access_tv_margin_top"
+                            android:layout_marginLeft="@dimen/access_tv_margin_left"
+                            android:layout_marginStart="@dimen/access_tv_margin_left"
+                            android:paddingBottom="@dimen/access_tv_margin_bottom"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black_eighty"
+                            android:text="@string/bullet"
+                            android:scaleX="@dimen/access_bullet_scale"
+                            android:scaleY="@dimen/access_bullet_scale"
+                            android:layout_marginTop="@dimen/access_bullet_margin_top"
+                            android:gravity="center"
+                            android:importantForAccessibility="no"/>
+                        <TextView
+                            android:id="@+id/info_switch_access_five"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/switch_access_info_five"
+                            style="@style/defaultTextViewStyle"
+                            android:layout_marginTop="@dimen/access_tv_margin_top"
+                            android:layout_marginLeft="@dimen/access_tv_margin_left"
+                            android:layout_marginStart="@dimen/access_tv_margin_left"
+                            android:paddingBottom="@dimen/access_tv_margin_bottom"/>
                     </LinearLayout>
                 </LinearLayout>
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/access_setting_extra_space"/>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="@dimen/access_ll_margin_bottom"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:background="#f7e2ac"
+        android:background="@color/menu_screen_bottom_bar"
         android:gravity="center_vertical"
         android:importantForAccessibility="yes">
         <Button
             android:id="@+id/btnAccessibilitySetting"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="@dimen/access_btn_height"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
+            android:layout_marginLeft="@dimen/access_btn_margin_left"
+            android:layout_marginStart="@dimen/access_btn_margin_left"
+            android:paddingLeft="@dimen/access_btn_padding_horizontal"
+            android:paddingRight="@dimen/access_btn_padding_horizontal"
             android:text="@string/txt_accessibility_setting"
             android:onClick="openSystemAccessibilitySetting"/>
     </LinearLayout>

@@ -29,10 +29,10 @@ public class AccessibilitySettingsActivity extends BaseActivity {
 
         ((TextView)findViewById(R.id.title_switch_access)).setText
                 (getString(R.string.switch_access_title));
-        ((TextView)findViewById(R.id.info_switch_access)).setText
-                (getString(R.string.switch_access_info).
+        ((TextView)findViewById(R.id.info_switch_access_five)).setText
+                (getString(R.string.switch_access_info_five).
                         concat(" "+ getString(R.string.serial_access_link)));
-        Linkify.addLinks(((TextView)findViewById(R.id.info_switch_access)), Linkify.WEB_URLS);
+        Linkify.addLinks(((TextView)findViewById(R.id.info_switch_access_five)), Linkify.WEB_URLS);
     }
 
     @Override
