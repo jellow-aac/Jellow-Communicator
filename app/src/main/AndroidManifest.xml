@@ -11,6 +11,18 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".app.AppController"
@@ -170,6 +182,44 @@
             android:label="@string/menuFeedback"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".makemyboard.MyBoardsActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/my_boards"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".makemyboard.IconSelectActivity"
+            android:label="Select your icons"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".makemyboard.RepositionIconsActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/Language"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".makemyboard.BoardSearchActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="adjustNothing"
+            android:label="@string/search_act_title"
+            android:theme="@style/Theme.AppCompat.Translucent" />
+        <activity
+            android:name=".makemyboard.HomeActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".makemyboard.AddEditIconAndCategoryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@style/Base.Theme.AppCompat" />
+        <activity
+            android:name=".makemyboard.utility.SetupMMB"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

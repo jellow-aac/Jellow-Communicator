@@ -140,4 +140,26 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="8dp"
         android:importantForAccessibility="no"/>
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/reg_button_height"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="8dp"
+        android:minWidth="@dimen/my_board_button_width"
+        android:paddingBottom="4dp"
+        android:layout_marginBottom="16dp"
+        android:paddingLeft="@dimen/nav_bar_button_padding"
+        android:paddingRight="8dp"
+        android:paddingTop="4dp"
+        android:visibility="gone"
+        android:textAlignment="center"
+        android:background="@drawable/edit_board_dialog_edit_text"
+        android:text="Save"
+        android:textAllCaps="false"
+        android:textSize="@dimen/edit_board_dialog_button_text_size"
+        android:textStyle="normal"
+        android:textColor="@color/colorPrimary" />
 </RelativeLayout>

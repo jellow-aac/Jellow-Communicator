@@ -104,6 +104,7 @@
     <string name="menuResetPref">পছন্দগুলি রিসেট করো</string>
     <string name="menuFeedback">প্রতিক্রিয়া</string>
     <string name="menuUserRegistration">নিবন্ধন পৃষ্ঠা</string>
+    <string name="menuAccessibility">অভিগম্যতা</string>
     <string name="labelSplash">জেলো লোড হচ্ছে। অনুগ্রহপূর্বক অপেক্ষা করুন!</string>
     <string name="menuClosePopup">বন্ধ মেনু</string>
 
@@ -393,6 +394,14 @@
     <string name="sequence_screen">কার্যকলাপ ক্রম</string>
     <string name="close_searchbar">Close search bar</string>
 
+
+    <string name="txt_accessibility_setting">Accessibility Setting</string>
     <string name="visual_access_title">Visual Accessibility:</string>
     <string name="visual_acesss_info">The Visual accessibility feature of Jellow now allows users with additional visual difficulties including low vision or blindness to use Jellow and communicate effectively with others. It utilizes the \'Talk back\' feature on the Android smartphone to help navigate through the application. With \'Talk back\' switched on in the user\'s device, the user will now be able to get audio input describing everything they touch on the screen. The user can also assign custom gestures or use the default gestures of \'Talk back\' as they interact with Jellow. For example, a right swipe gesture will allow the user to sequentially scroll through icons on the screen. Similarly, double tapping anywhere on the screen will allow the user to select an icon of their choice.</string>
+    <string name="switch_access_title">Switch Accessibility:</string>
+    <string name="switch_access_info_one">Switch accessibility makes navigation in the app easy for people with motor disabilities. The feature allows navigation using one or two switches.</string>
+    <string name="switch_access_info_two">To enable this feature the user has to turn on the \"switch access\" in the accessibility category in the phone setting.</string>
+    <string name="switch_access_info_three">Samsung users can find the switch access in  “dexterity and interaction” option in the accessibility category in the phone setting.</string>
+    <string name="switch_access_info_four">To use switch accessibility with one switch - Open settings -> Go to accessibility -> Turn on the switch access -> Choose switches either USB or Bluetooth switches -> Go to settings and Choose number of switches as one switch.</string>
+    <string name="switch_access_info_five">To use switch accessibility with two switches - Open settings -> Go to accessibility -> Turn on the switch access -> Choose switches either USB or Bluetooth switches -> Go to settings and Choose number of switches as two switches, then Choose the type of scanning, Click on next and Assign the action to both the switches and complete the process by testing the switches.</string>
 </resources>

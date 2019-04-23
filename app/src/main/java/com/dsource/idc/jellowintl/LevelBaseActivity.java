@@ -9,6 +9,7 @@ import android.view.accessibility.AccessibilityManager;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.dsource.idc.jellowintl.makemyboard.utility.SetupMMB;
 import com.dsource.idc.jellowintl.utility.TextToSpeechErrorUtils;
 
 import androidx.appcompat.app.AlertDialog;
@@ -35,6 +36,9 @@ public class LevelBaseActivity extends SpeechEngineBaseActivity implements TextT
                 break;
             case R.id.profile:
                 startActivity(new Intent(this, ProfileFormActivity.class));
+                break;
+            case R.id.my_boards:
+                startActivity(new Intent(this, SetupMMB.class));
                 break;
             case R.id.aboutJellow:
                 startActivity(new Intent(this, AboutJellowActivity.class));

@@ -18,6 +18,68 @@
 
     <dimen name="search_list_dir_text_size">16sp</dimen>
     <dimen name="search_list_title_text_size">20sp</dimen>
+  
+    <!--Dimensions related to the Icon select Activity-->
+    <dimen name="check_box_size">16dp</dimen>
+    <dimen name="level_select_pain_width">340dp</dimen>
+    <dimen name="level_select_pane_text_size">24sp</dimen>
+    <dimen name="level_select_pane_text_padding_left">12dp</dimen>
+    <dimen name="level_select_pain_padding_top_bottom">16dp</dimen>
+
+    <dimen name="demo_mar">28dp</dimen>
+    <dimen name="extra_mar">40dp</dimen>
+    <dimen name="icon_edit_grid_size">140dp</dimen>
+    <dimen name="icon_edit_icon_size">100dp</dimen>
+    <dimen name="icon_edit_text_size">16sp</dimen>
+    <dimen name="exp_icon_margin_bottom">24dp</dimen>
+    <dimen name="exp_icon_bottom_margin">36dp</dimen>
+    <dimen name="nav_bar_icons_width">90dp</dimen>
+    <dimen name="nav_bar_icon_height">80dp</dimen>
+    <dimen name="icon_select_grid_size">90dp</dimen>
+    <dimen name="icon_select_icon_size">75dp</dimen>
+    <dimen name="my_board_button_width">70dp</dimen>
+    <dimen name="my_board_button_height">28dp</dimen>
+    <dimen name="level_select_pane_min_width">200dp</dimen>
+    <dimen name="drop_down_width">100dp</dimen>
+    <dimen name="bottom_nav_bar_padding">6dp</dimen>
+    <dimen name="nav_bar_button_padding">4dp</dimen>
+    <dimen name="icon_title_text_size">17sp</dimen>
+
+    <dimen name="board_edit_icon_size">200dp</dimen>
+    <dimen name="board_edit_dialog_width">240dp</dimen>
+    <dimen name="edit_board_button_margin_top">8dp</dimen>
+    <dimen name="edit_board_button_side_margin">10dp</dimen>
+    <dimen name="edit_board_button_width">86dp</dimen>
+    <dimen name="edit_board_dialog_button_text_size">16sp</dimen>
+    <dimen name="edit_board_dialog_internal_margin_top">16dp</dimen>
+
+    <!--Dimensions related to the My Board Card-->
+    <dimen name="my_board_four_grid_icon_size">200dp</dimen>
+    <dimen name="my_board_text_size">24sp</dimen>
+    <dimen name="my_board_edit_icon_size">48dp</dimen>
+    <dimen name="board_edit_edittext_size">170dp</dimen>
+    <dimen name="list_item_padding">6dp</dimen>
+    <dimen name="dialog_width">400dp</dimen>
+    <dimen name="dialog_height">500dp</dimen>
+    <dimen name="my_boards_card_margin">16dp</dimen>
+    <dimen name="my_board_title_top_margin">14dp</dimen>
+
+    <!--Dimensions Related to the Grid DialogBox-->
+    <dimen name="grid_dialog_padding">24dp</dimen>
+    <dimen name="grid_dialog_title_textsize">20sp</dimen>
+    <dimen name="grid_dialog_title_bottom_margin">24dp</dimen>
+    <dimen name="grid_dialog_icon_size">120dp</dimen>
+    <dimen name="grid_dialog_width">410</dimen>
+    <dimen name="grid_dialog_icon_margin">16dp</dimen>
+    <dimen name="grid_dialog_text_margin">8dp</dimen>
+    
+    
+    <!--Dimensions related to the Custom Dialog-->
+    <dimen name="custom_dialog_button_width">100dp</dimen>
+    <dimen name="dialog_box_text_size">22sp</dimen>
+    <dimen name="custom_dialog_width">300dp</dimen>
+    <dimen name="dialog_edit_text">16sp</dimen>
+    <dimen name="reg_button_height">46dp</dimen>
 
 
     <!--1 icons configuration-->
@@ -46,7 +108,6 @@
 
     <!--4 icons configuration-->
     <item name="custom_wrap_content" format="integer" type="dimen">-2</item>
-
     <dimen name="fourIcon_parentVertical">12dp</dimen>
     <dimen name="fourIcon_width">195dp</dimen>
     <dimen name="fourIcon_textWidth">@dimen/custom_wrap_content</dimen>   <!--It has to be wrap content-->

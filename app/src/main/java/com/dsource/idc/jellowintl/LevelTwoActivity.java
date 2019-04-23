@@ -285,7 +285,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
         super.onActivityResult(requestCode, resultCode, data);
         // If user pressed home button in level three, it indicate that user be redirected to level
         // one (MainActivity). When this activity receives RESULT_CANCELED as resultCode it
-        // understands Home request is generated, so it closes itself.
+        // understands HomeActivity request is generated, so it closes itself.
         if(requestCode == REQ_HOME && resultCode == RESULT_CANCELED)
             finish();
     }

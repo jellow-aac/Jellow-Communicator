@@ -1300,7 +1300,7 @@ public class MainActivity extends LevelBaseActivity{
         }
         mIvHome.setImageResource(R.drawable.home_pressed);
         //Firebase event
-        singleEvent("Navigation","Home");
+        singleEvent("Navigation","HomeActivity");
         if(!isUserRedirected) {
             speak(mNavigationBtnTxt[0]);
         }
