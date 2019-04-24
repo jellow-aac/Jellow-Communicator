@@ -68,6 +68,7 @@ public class CustomDialog extends Dialog {
         final ImageView GridSize2=dialogContainerView.findViewById(R.id.grid_size_1X2);
         final ImageView GridSize3=dialogContainerView.findViewById(R.id.grid_size_1X3);
         final ImageView GridSize6=dialogContainerView.findViewById(R.id.grid_size_3X3);
+        final ImageView GridSize4=dialogContainerView.findViewById(R.id.grid_size_2x2);
 
 
         GridSize1.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +90,13 @@ public class CustomDialog extends Dialog {
             public void onClick(View v) {
                 dialog.dismiss();
                 mGridSizeSelectListener.onGridSelectListener(3);
+            }
+        });
+        GridSize4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                mGridSizeSelectListener.onGridSelectListener(4);
             }
         });
         GridSize6.setOnClickListener(new View.OnClickListener() {

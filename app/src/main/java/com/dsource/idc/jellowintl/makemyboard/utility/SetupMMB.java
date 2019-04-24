@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
+import com.dsource.idc.jellowintl.BuildConfig;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.MyBoardsActivity;
 import com.dsource.idc.jellowintl.makemyboard.verbiage_model.VerbiageDatabaseHelper;
@@ -206,8 +207,8 @@ class DownloadMan {
 
        StorageReference storageRef = storage.getReference(); // get a reference to a particular location
 
-
-       StorageReference pathReference = storageRef.child("en-rIN_Icons"+".zip"); // select a particular file from that reference location
+        //TODO Change the storage reference before launch
+       StorageReference pathReference = storageRef.child(BuildConfig.DB_TYPE+"/en-rIN"+".zip"); // select a particular file from that reference location
 
        pathReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
            @Override

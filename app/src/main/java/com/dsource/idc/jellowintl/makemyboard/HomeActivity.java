@@ -77,7 +77,7 @@ public class HomeActivity extends SpeechEngineBaseActivity {
             enableNavigationBack();
             setActivityTitle("HomeActivity");
             //TODO Check color to keep or remove.
-            /*getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));*/
+            getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
         }
         try{
             if(getIntent().getExtras()!=null)
@@ -197,6 +197,8 @@ public class HomeActivity extends SpeechEngineBaseActivity {
                 break;
             case 2:
                 mRecycler.setLayoutManager(new GridLayoutManager(this, 2));
+                break;
+            case 4: mRecycler.setLayoutManager(new GridLayoutManager(this,2));
                 break;
             case 3:
             default :

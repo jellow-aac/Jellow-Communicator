@@ -20,7 +20,7 @@ public class JellowVerbiageModel {
      */
 
     @Keep
-    public String Display_Label,Speech_Label,L,LL,Y,YY,M,MM,D,DD,N,NN,S,SS;
+    public String Display_Label,Speech_Label,Event_Tag,L,LL,Y,YY,M,MM,D,DD,N,NN,S,SS;
 
     public JellowVerbiageModel(String Display_Label, String Speech_Label, String L,
                                String LL, String Y,

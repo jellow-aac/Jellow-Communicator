@@ -136,6 +136,8 @@ public class RepositionIconsActivity extends BaseActivity {
             case 2:
                 mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
                 break;
+            case 4:mRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
+                break;
             case 3:
             default :
                 mRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
