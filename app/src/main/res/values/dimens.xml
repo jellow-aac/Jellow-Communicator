@@ -138,7 +138,7 @@
     <dimen name="grid_dialog_title_bottom_margin">8dp</dimen>
     <dimen name="grid_dialog_icon_size">70dp</dimen>
     <dimen name="grid_dialog_width">600dp</dimen>
-    <dimen name="grid_dialog_icon_margin">4dp</dimen>
+    <dimen name="grid_dialog_icon_margin">12dp</dimen>
     <dimen name="grid_dialog_text_margin">4dp</dimen>
 
 

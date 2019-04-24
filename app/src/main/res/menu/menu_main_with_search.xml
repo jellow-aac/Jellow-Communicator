@@ -9,15 +9,15 @@
             android:checked="true"
             app:showAsAction="ifRoom"
             android:orderInCategory="1"/>
+        <item
+            android:id="@+id/profile"
+            android:title="@string/menuProfile"
+            app:showAsAction="never"/>
         <item android:id="@+id/my_boards"
             android:visible="true"
             android:title="@string/my_boards"
             app:showAsAction="never"
             />
-        <item
-            android:id="@+id/profile"
-            android:title="@string/menuProfile"
-            app:showAsAction="never"/>
         <item
             android:id="@+id/aboutJellow"
             android:title="@string/menuAbout"

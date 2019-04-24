@@ -111,7 +111,6 @@ public class IconSelectActivity extends BaseActivity {
         initViews();
         prepareLevelSelectPane();
         prepareIconPane(0,-1);
-        dropDownList= getCurrentChildren();
         initNavBarButtons();
     }
 
@@ -350,6 +349,7 @@ public class IconSelectActivity extends BaseActivity {
                             updateSelectionList(position, checked);
                         }
                     });
+                    dropDownList= getCurrentChildren();
                 }
             });
             databaseThread.execute(level_1,level_2);
@@ -408,7 +408,6 @@ public class IconSelectActivity extends BaseActivity {
                     scrollingPopulationListener=null;
                     scrollCount = 0;
                     prepareIconPane(position, -1);
-                    dropDownList = getCurrentChildren();
                     if (dropDown.getVisibility() == View.VISIBLE)
                         dropDown.setVisibility(View.GONE);
                 }
@@ -541,7 +540,6 @@ public class IconSelectActivity extends BaseActivity {
         levelSelectorAdapter.selectedPosition = category;
         levelSelectorAdapter.notifyDataSetChanged();
         selectedIconList.add(icon);
-        dropDownList = getCurrentChildren();
         ((TextView) (findViewById(R.id.icon_count))).setText("(" + selectedIconList.size() + ")");
         selectionCheckBox.setChecked(UtilFunctions.getSelection(selectedIconList, iconList));
         scrollListener =null;

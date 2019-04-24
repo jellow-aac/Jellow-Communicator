@@ -1,6 +1,7 @@
 package com.dsource.idc.jellowintl.makemyboard.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -124,6 +125,7 @@ public class IconSelectorAdapter extends RecyclerView.Adapter<IconSelectorAdapte
         holder.iconTitle.setText(thisIcon.IconTitle);
         holder.iconSelected.setChecked(false);
 
+        holder.iconTitle.setTextColor(Color.rgb(64, 64, 64));
         //Some logic to regain the check
         boolean found=false;
         if(mode==ICON_SELECT_MODE)

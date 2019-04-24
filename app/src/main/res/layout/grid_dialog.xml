@@ -7,9 +7,10 @@
         android:layout_width="wrap_content"
         android:layout_centerHorizontal="true"
         android:padding="@dimen/grid_dialog_padding"
+        android:minHeight="200dp"
+        android:minWidth="400dp"
         android:layout_height="wrap_content">
     <TextView
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -18,18 +19,19 @@
         android:layout_marginBottom="@dimen/grid_dialog_title_bottom_margin"
         android:id="@+id/text_heading"
         />
-        <ScrollView
+        <HorizontalScrollView
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:layout_below="@id/text_heading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-    <GridLayout
-        android:layout_width="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:columnCount="1"
-        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
         <RelativeLayout
-
             android:layout_width="wrap_content"
             android:layout_marginRight="@dimen/grid_dialog_icon_margin"
             android:layout_height="wrap_content">
@@ -45,10 +47,11 @@
                 android:layout_height="@dimen/grid_dialog_icon_size" />
             <TextView
                 android:layout_below="@id/grid_size_1x1"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/grid_dialog_icon_size"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="1 icons per screen"
+                android:text="1 icon per screen"
+                android:textAlignment="center"
                 android:textSize="@dimen/grid_dialog_title_textsize"
                 />
 
@@ -69,10 +72,11 @@
             android:layout_height="@dimen/grid_dialog_icon_size" />
         <TextView
             android:layout_below="@id/grid_size_1X2"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/grid_dialog_icon_size"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="2 icons per screen"
+            android:textAlignment="center"
             android:textSize="@dimen/grid_dialog_title_textsize"
             />
 
@@ -93,11 +97,12 @@
                 android:layout_height="@dimen/grid_dialog_icon_size" />
             <TextView
                 android:layout_below="@id/grid_size_1X3"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/grid_dialog_icon_size"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:text="3 icons per screen"
                 android:textSize="@dimen/grid_dialog_title_textsize"
+                android:textAlignment="center"
                 />
 
         </RelativeLayout>
@@ -117,10 +122,11 @@
                 android:layout_height="@dimen/grid_dialog_icon_size" />
             <TextView
                 android:layout_below="@id/grid_size_2x2"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/grid_dialog_icon_size"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:text="4 icons per screen"
+                android:textAlignment="center"
                 android:textSize="@dimen/grid_dialog_title_textsize"
                 />
 
@@ -142,16 +148,17 @@
                 android:layout_height="@dimen/grid_dialog_icon_size" />
             <TextView
                 android:layout_below="@id/grid_size_3X3"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/grid_dialog_icon_size"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:text="9 icons per screen"
+                android:textAlignment="center"
                 android:textSize="@dimen/grid_dialog_title_textsize"
                 />
 
         </RelativeLayout>
-    </GridLayout>
-        </ScrollView>
+    </LinearLayout>
+        </HorizontalScrollView>
     </RelativeLayout>
 
 </RelativeLayout>

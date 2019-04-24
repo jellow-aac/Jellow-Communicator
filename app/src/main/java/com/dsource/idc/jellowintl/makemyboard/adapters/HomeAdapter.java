@@ -2,6 +2,7 @@ package com.dsource.idc.jellowintl.makemyboard.adapters;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +46,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(HomeAdapter.ViewHolder holder, int position) {
 
+        holder.iconTitle.setTextColor(Color.rgb(64, 64, 64));
         JellowIcon thisIcon = data.get(position);
         holder.iconTitle.setText(thisIcon.IconTitle);
         setMenuImageBorder(holder.backGround,false,-1);

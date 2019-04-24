@@ -1,6 +1,7 @@
 package com.dsource.idc.jellowintl.makemyboard.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -158,6 +159,8 @@ public class RepositionIconAdapter extends RecyclerView.Adapter<RepositionIconAd
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
+
+        holder.iconTitle.setTextColor(Color.rgb(64, 64, 64));
         final AbstractDataProvider.Data item = mProvider.getItem(position);
         holder.iconTitle.setText(mProvider.getItem(position).getText());
         holder.backGround.setColor(ContextCompat.getColor(mAct,R.color.transparent));

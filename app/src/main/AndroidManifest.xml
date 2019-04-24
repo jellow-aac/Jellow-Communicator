@@ -187,15 +187,18 @@
             android:name=".makemyboard.MyBoardsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/my_boards"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="landscape" />
         <activity
             android:name=".makemyboard.IconSelectActivity"
             android:label="Select your icons"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="landscape" />
         <activity
             android:name=".makemyboard.RepositionIconsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/Language"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="landscape" />
         <activity
             android:name=".makemyboard.BoardSearchActivity"
@@ -206,9 +209,11 @@
         <activity
             android:name=".makemyboard.HomeActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="landscape" />
         <activity
             android:name=".makemyboard.AddEditIconAndCategoryActivity"
+            android:windowSoftInputMode="adjustPan"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape" />
         <activity
