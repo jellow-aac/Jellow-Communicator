@@ -45,7 +45,7 @@ public class BaseActivity extends AppCompatActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if(getBoardClass().contains(getVisibleAct()))
+        if(getBoardClass().contains(getVisibleAct()) || getNonMenuClass().contains(getVisibleAct()))
             return false;
         super.onCreateOptionsMenu(menu);
         if(getLevelClass().contains(getVisibleAct()))
@@ -199,6 +199,10 @@ public class BaseActivity extends AppCompatActivity{
                         IconSelectActivity.class.getSimpleName() + ","+
                         MyBoardsActivity.class.getSimpleName() + ","+
                         RepositionIconsActivity.class.getSimpleName();
+    }
+
+    private String getNonMenuClass() {
+        return UserRegistrationActivity.class.getSimpleName();
     }
 
     public String getVisibleAct() {

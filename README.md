@@ -1,4 +1,5 @@
 # Jellow 
+[![Build Status](https://travis-ci.com/jellow-aac/Jellow-Communicator.svg?branch=master)](https://travis-ci.com/jellow-aac/Jellow-Communicator)
 
 [Jellow Communicator](http://jellow.org/) is a friendly Augmentative and Alternative Communication (AAC) app that uses icons/images to enable speech. This freely downloadable Android app can be used for communication by those learning to speak or those having difficulty with speech. Jellow can also be used by toddlers and early learners to learn words and categories frequently used in their daily lives. Jellow’s colourful and friendly icons can help children develop an association between pictures and their corresponding word labels.
                                                           

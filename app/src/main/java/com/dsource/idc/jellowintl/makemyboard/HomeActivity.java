@@ -75,7 +75,7 @@ public class HomeActivity extends SpeechEngineBaseActivity {
 
         if(getSupportActionBar()!=null) {
             enableNavigationBack();
-            setActivityTitle("HomeActivity");
+            getSupportActionBar().setTitle("HomeActivity");
             //TODO Check color to keep or remove.
             getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
         }
@@ -351,7 +351,6 @@ public class HomeActivity extends SpeechEngineBaseActivity {
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         getMenuInflater().inflate(R.menu.board_home_menu, menu);
         super.onCreateOptionsMenu(menu);
         return true;
