@@ -17,7 +17,7 @@
             android:title="@string/menuProfile"
             app:showAsAction="never"/>
         <item android:id="@+id/my_boards"
-            android:title="@string/my_boards"
+            android:title="@string/menuMyBards"
             app:showAsAction="never"
             />
         <item

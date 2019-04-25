@@ -305,6 +305,7 @@
     <dimen name="access_ll_margin_top">19dp</dimen>
     <dimen name="access_ll_margin_bottom">58dp</dimen>
     <dimen name="access_btn_height">40dp</dimen>
+    <dimen name="access_btn_txt_size">22sp</dimen>
     <dimen name="access_btn_margin_left">30dp</dimen>
     <dimen name="access_btn_padding_horizontal">8dp</dimen>
 

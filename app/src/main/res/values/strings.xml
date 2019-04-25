@@ -111,6 +111,7 @@
 
 
     <string name="menuProfile">Profile</string>
+    <string name="menuMyBards">My Boards</string>
     <string name="menuAbout">About Jellow</string>
     <string name="menuTutorials">Tutorial</string>
     <string name="menuKeyboardInput">Keyboard Control</string>

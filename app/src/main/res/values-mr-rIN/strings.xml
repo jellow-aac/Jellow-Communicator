@@ -94,6 +94,7 @@
 
 
     <string name="menuProfile">प्रोफाइल</string>
+    <string name="menuMyBards">माझे बोर्ड</string>
     <string name="menuAbout">जेलोची माहिती</string>
     <string name="menuTutorials">ट्यूटोरियल</string>
     <string name="menuKeyboardInput">कीबोर्ड नियंत्रण</string>

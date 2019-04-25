@@ -96,6 +96,7 @@
     <string name="savedSettingsMessage">सेटिंग्स रक्षित हो गये हैं</string>
 
     <string name="menuProfile">प्रोफाइल</string>
+    <string name="menuMyBards">मेरे बोर्ड</string>
     <string name="menuAbout">जेलो के बारे में</string>
     <string name="menuTutorials">ट्यूटोरियल</string>
     <string name="menuKeyboardInput">कीबोर्ड नियंत्रण</string>

@@ -336,6 +336,7 @@
     <dimen name="access_tv_margin_bottom">2dp</dimen>
     <dimen name="access_ll_margin_top">19dp</dimen>
     <dimen name="access_ll_margin_bottom">48dp</dimen>
+    <dimen name="access_btn_txt_size">14sp</dimen>
     <dimen name="access_btn_height">30dp</dimen>
     <dimen name="access_btn_margin_left">20dp</dimen>
     <dimen name="access_btn_padding_horizontal">8dp</dimen>

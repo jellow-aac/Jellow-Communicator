@@ -98,6 +98,7 @@
 
 
     <string name="menuProfile">প্রোফাইল</string>
+    <string name="menuMyBards">আমার বোর্ড</string>
     <string name="menuAbout">জেলো সম্পর্কে</string>
     <string name="menuTutorials">টিউটোরিয়াল</string>
     <string name="menuKeyboardInput">কীবোর্ড নিয়ন্ত্রণ</string>

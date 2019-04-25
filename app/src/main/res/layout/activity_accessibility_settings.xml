@@ -217,6 +217,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/access_btn_height"
             android:layout_gravity="center_vertical"
+            android:textSize="@dimen/access_btn_txt_size"
             android:layout_marginLeft="@dimen/access_btn_margin_left"
             android:layout_marginStart="@dimen/access_btn_margin_left"
             android:paddingLeft="@dimen/access_btn_padding_horizontal"
