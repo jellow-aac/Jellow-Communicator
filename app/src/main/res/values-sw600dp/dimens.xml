@@ -54,7 +54,7 @@
     <dimen name="edit_board_button_margin_top">8dp</dimen>
     <dimen name="edit_board_button_side_margin">10dp</dimen>
     <dimen name="edit_board_button_width">86dp</dimen>
-    <dimen name="edit_board_dialog_button_text_size">14sp</dimen>
+    <dimen name="edit_board_dialog_button_text_size">16sp</dimen>
     <dimen name="edit_board_dialog_internal_margin_top">16dp</dimen>
 
     <!--Dimensions related to the My Board Card-->
@@ -70,7 +70,8 @@
 
     <!--Dimensions Related to the Grid DialogBox-->
     <dimen name="grid_dialog_padding">24dp</dimen>
-    <dimen name="grid_dialog_title_textsize">20sp</dimen>
+    <dimen name="grid_dialog_title_textsize">24sp</dimen>
+    <dimen name="add_edit_screen_edit_icon_size">34dp</dimen>
     <dimen name="grid_dialog_title_bottom_margin">24dp</dimen>
     <dimen name="grid_dialog_icon_size">120dp</dimen>
     <dimen name="grid_dialog_width">410</dimen>

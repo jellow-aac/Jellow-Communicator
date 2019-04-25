@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<RelativeLayout android:padding="8dp"
+<RelativeLayout
+    android:padding="8dp"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@color/app_background"
@@ -14,6 +15,7 @@
         android:layout_width="@dimen/my_board_four_grid_icon_size"
         android:padding="@dimen/my_boards_card_margin"
         android:layout_height="@dimen/my_board_four_grid_icon_size"
+        android:layout_centerHorizontal="true"
         android:src="@drawable/ic_board_person"
         android:id="@+id/board_icon"
         android:background="@drawable/board_list_back"
@@ -31,15 +33,17 @@
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/my_board_text_size"
         />
-
-    <ImageView
-        android:layout_width="@dimen/my_board_edit_icon_size"
-        android:layout_height="@dimen/my_board_edit_icon_size"
-        android:layout_marginLeft="-6dp"
-        android:layout_marginStart="-6dp"
-        android:layout_marginTop="-6dp"
-        android:id="@+id/edit_board"
-        android:src="@drawable/ic_edit_icon_red_back" />
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="-4dp"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="@dimen/my_board_edit_icon_size"
+            android:layout_height="@dimen/my_board_edit_icon_size"
+            android:src="@drawable/ic_edit_icon_red_back"
+            android:id="@+id/edit_board"/>
+    </FrameLayout>
     <ImageView
         android:layout_width="@dimen/my_board_edit_icon_size"
         android:layout_height="@dimen/my_board_edit_icon_size"

@@ -140,7 +140,6 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
 
                 if(currentBoard.getBoardIconModel().getAllIcons().size()>0) {
                     CustomDialog dialog = new CustomDialog(AddEditIconAndCategoryActivity.this, CustomDialog.GRID_SIZE);
-                    dialog.show();
                     dialog.setCancelable(true);
                     dialog.setGridSelectListener(new CustomDialog.GridSelectListener() {
                         @Override

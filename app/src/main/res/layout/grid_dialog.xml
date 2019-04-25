@@ -7,23 +7,18 @@
         android:layout_width="wrap_content"
         android:layout_centerHorizontal="true"
         android:padding="@dimen/grid_dialog_padding"
-        android:minHeight="200dp"
-        android:minWidth="400dp"
         android:layout_height="wrap_content">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Select grid size"
+        android:text="Select grid size(per screen)"
         android:textSize="@dimen/grid_dialog_title_textsize"
         android:layout_marginBottom="@dimen/grid_dialog_title_bottom_margin"
         android:id="@+id/text_heading"
         />
         <HorizontalScrollView
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_margin="8dp"
             android:layout_below="@id/text_heading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -50,7 +45,7 @@
                 android:layout_width="@dimen/grid_dialog_icon_size"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="1 icon per screen"
+                android:text="1 icon"
                 android:textAlignment="center"
                 android:textSize="@dimen/grid_dialog_title_textsize"
                 />
@@ -75,7 +70,7 @@
             android:layout_width="@dimen/grid_dialog_icon_size"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="2 icons per screen"
+            android:text="2 icons"
             android:textAlignment="center"
             android:textSize="@dimen/grid_dialog_title_textsize"
             />
@@ -100,7 +95,7 @@
                 android:layout_width="@dimen/grid_dialog_icon_size"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="3 icons per screen"
+                android:text="3 icons"
                 android:textSize="@dimen/grid_dialog_title_textsize"
                 android:textAlignment="center"
                 />
@@ -125,7 +120,7 @@
                 android:layout_width="@dimen/grid_dialog_icon_size"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="4 icons per screen"
+                android:text="4 icons"
                 android:textAlignment="center"
                 android:textSize="@dimen/grid_dialog_title_textsize"
                 />
@@ -151,7 +146,7 @@
                 android:layout_width="@dimen/grid_dialog_icon_size"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="9 icons per screen"
+                android:text="9 icons"
                 android:textAlignment="center"
                 android:textSize="@dimen/grid_dialog_title_textsize"
                 />

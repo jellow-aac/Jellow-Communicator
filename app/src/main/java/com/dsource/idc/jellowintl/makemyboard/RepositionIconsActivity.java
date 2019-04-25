@@ -393,7 +393,6 @@ public class RepositionIconsActivity extends BaseActivity {
                 else updateList(NORMAL_MODE);
             }
         });
-        dialog.show();
         dialog.setCancelable(true);
     }
 

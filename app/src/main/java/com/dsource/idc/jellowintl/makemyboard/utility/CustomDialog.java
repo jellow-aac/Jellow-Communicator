@@ -4,10 +4,14 @@ package com.dsource.idc.jellowintl.makemyboard.utility;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+
+import com.dsource.idc.jellowintl.MainActivity;
 import com.dsource.idc.jellowintl.R;
 import com.rey.material.app.Dialog;
 
@@ -56,19 +60,20 @@ public class CustomDialog extends Dialog {
     }
 
     private void prepareGridDialog() {
-        final LayoutInflater dialogLayout = LayoutInflater.from(context);
-        View dialogContainerView = dialogLayout.inflate(R.layout.grid_dialog, null);
-        dialog = new Dialog(context,R.style.MyDialogBox);
-        dialog.applyStyle(R.style.MyDialogBox);
-        dialog.backgroundColor(context.getResources().getColor(R.color.transparent));
-        dialog.setContentView(dialogContainerView);
-        dialog.setCancelable(true);
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(context);
+        final View mView = getLayoutInflater().inflate(R.layout.grid_dialog, null);
+        mBuilder.setView(mView);
+        final AlertDialog dialog = mBuilder.create();
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.getWindow().setBackgroundDrawable(context.getResources().getDrawable(R.color.transparent));
 
-        final ImageView GridSize1=dialogContainerView.findViewById(R.id.grid_size_1x1);
-        final ImageView GridSize2=dialogContainerView.findViewById(R.id.grid_size_1X2);
-        final ImageView GridSize3=dialogContainerView.findViewById(R.id.grid_size_1X3);
-        final ImageView GridSize6=dialogContainerView.findViewById(R.id.grid_size_3X3);
-        final ImageView GridSize4=dialogContainerView.findViewById(R.id.grid_size_2x2);
+
+        final ImageView GridSize1=mView.findViewById(R.id.grid_size_1x1);
+        final ImageView GridSize2=mView.findViewById(R.id.grid_size_1X2);
+        final ImageView GridSize3=mView.findViewById(R.id.grid_size_1X3);
+        final ImageView GridSize6=mView.findViewById(R.id.grid_size_3X3);
+        final ImageView GridSize4=mView.findViewById(R.id.grid_size_2x2);
 
 
         GridSize1.setOnClickListener(new View.OnClickListener() {
@@ -106,6 +111,15 @@ public class CustomDialog extends Dialog {
                 mGridSizeSelectListener.onGridSelectListener(6);
             }
         });
+
+
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation_2; //style id
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        dialog.getWindow().setAttributes(lp);
+        dialog.show();
 
     }
 
@@ -172,7 +186,8 @@ public class CustomDialog extends Dialog {
 
     public void show()
     {
-        dialog.show();
+        if(dialog!=null)
+            dialog.show();
     }
     public void setText(String text)
     {
