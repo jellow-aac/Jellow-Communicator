@@ -21,6 +21,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.dsource.idc.jellowintl.BaseActivity;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.adapters.IconSelectorAdapter;
@@ -37,10 +41,6 @@ import com.dsource.idc.jellowintl.models.JellowIcon;
 import com.dsource.idc.jellowintl.utility.CustomGridLayoutManager;
 
 import java.util.ArrayList;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.ADD_EDIT_ICON_MODE;
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.BOARD_ID;
@@ -104,7 +104,7 @@ public class IconSelectActivity extends BaseActivity {
         selectionCheckBox=findViewById(R.id.select_deselect_check_box);
         if(getSupportActionBar()!=null) {
             enableNavigationBack();
-            setActivityTitle(getString(R.string.icon_select_text));
+            getSupportActionBar().setTitle(getString(R.string.icon_select_text));
             //TODO Check color to keep or remove.
             getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_background));
         }

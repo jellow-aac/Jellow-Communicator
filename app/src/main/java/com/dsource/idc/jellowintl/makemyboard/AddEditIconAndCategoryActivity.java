@@ -16,6 +16,12 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.dsource.idc.jellowintl.BaseActivity;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.adapters.IconSelectorAdapter;
@@ -37,12 +43,6 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
-
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.ADD_CATEGORY;
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.ADD_EDIT_ICON_MODE;
@@ -82,7 +82,7 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
         setContentView(R.layout.activity_icon_select);
         if(getSupportActionBar()!=null) {
             enableNavigationBack();
-            setActivityTitle("Add/Edit Icons");
+            getSupportActionBar().setTitle("Add/Edit Icons");
             getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_background));
         }
         verbiageDatbase = new VerbiageDatabaseHelper(this);
