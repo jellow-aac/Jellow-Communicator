@@ -211,6 +211,7 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
         });
 
     }
+
     /**
      * Creates and fetches the left pane for icon select
      */
@@ -218,8 +219,7 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
 
         categoryAdapter =new LevelSelectorAdapter(this,categories);
         categoryRecycler.setAdapter(categoryAdapter);
-        categoryAdapter.selectedPosition = (categories.size()-1);
-        selectedPosition = categoryAdapter.selectedPosition;
+        categoryAdapter.selectedPosition = selectedPosition;
         categoryAdapter.notifyDataSetChanged();
         categoryAdapter.setOnItemClickListner(new LevelSelectorAdapter.OnItemClickListener() {
             @Override
@@ -455,6 +455,7 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
         modelManager.setModel(boardModel);
         currentBoard.setBoardIconModel(modelManager.getModel());
         currentBoard.addCustomIconID(id+"");
+        selectedPosition = categories.size()-1;
         targetLevelSelectPane();
     }
 

@@ -152,6 +152,7 @@ public class IconSelectorAdapter extends RecyclerView.Adapter<IconSelectorAdapte
                             circleCropTransform())
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(false)
+                    .placeholder(mContext.getResources().getDrawable(R.drawable.ic_board_person))
                     .centerCrop()
                     .dontAnimate()
                     .into(holder.iconImage);
