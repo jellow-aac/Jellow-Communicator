@@ -554,7 +554,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
                     // a) set keyboard button to unpressed state.
                     // b) set back button to pressed state.
                     // c) hide custom keyboard input text view.
-                    // d) show category icons.
+                    // d) showDialog category icons.
                     // e) set flag mFlgKeyboardOpened = false, as user not using custom keyboard input
                     //    anymore.
                     // e) retain expressive button state as they were before custom keyboard input text
@@ -665,7 +665,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
                         // user intent to close custom keyboard input text so below steps will follow:
                         // a) set keyboard button to unpressed state.
                         // b) hide custom keyboard input text.
-                        // c) show category icons
+                        // c) showDialog category icons
                         // d) hide custom keyboard input text
                         mIvKeyboard.setImageResource(R.drawable.keyboard);
                         mEtTTs.setVisibility(View.INVISIBLE);
@@ -680,7 +680,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
                         //keyboard input text so below steps will follow:
                     } else {
                         // a) keyboard button to pressed state
-                        // c) show custom keyboard input text and speak button view
+                        // c) showDialog custom keyboard input text and speak button view
                         // b) set back button unpressed state
                         // d) hide category icons
                         // e) disable expressive buttons

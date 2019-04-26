@@ -415,7 +415,7 @@ public class MainActivity extends LevelBaseActivity{
                     // As user is using custom keyboard input text and then back button is pressed,
                     // user intent to close custom keyboard input text so below steps will follow:
                     // a) hide custom input text and speak button views
-                    // b) show category icons
+                    // b) showDialog category icons
                     // c) set back button to pressed state
                     // d) set flag mFlgKeyboardOpened = false, as user not using custom keyboard input
                     // anymore.
@@ -480,7 +480,7 @@ public class MainActivity extends LevelBaseActivity{
                         // user intent to close custom keyboard input text so below steps will follow:
                         // a) set keyboard button to unpressed state.
                         // b) disable back button
-                        // c) show category icons
+                        // c) showDialog category icons
                         // d) hide custom keyboard input text and speak button views
                         // e) set flag mFlgKeyboardOpened = false, as user not using custom keyboard input
                         //    anymore.
@@ -500,7 +500,7 @@ public class MainActivity extends LevelBaseActivity{
                     } else {
                         // a) keyboard button to press
                         // b) set back button unpressed state
-                        // c) show custom keyboard input text and speak button view
+                        // c) showDialog custom keyboard input text and speak button view
                         // d) hide category icons
                         mIvKeyboard.setImageResource(R.drawable.keyboard_pressed);
                         mIvBack.setImageResource(R.drawable.back);
@@ -1284,7 +1284,7 @@ public class MainActivity extends LevelBaseActivity{
             // a) set keyboard button to unpressed state.
             // b) disable back button
             // c) hide custom input text and speak button views
-            // d) show category icons
+            // d) showDialog category icons
             // e) set flag mFlgKeyboardOpened = false, as user not using custom keyboard input
             //    anymore.
             // f) disable back button as no more back process available in this level.

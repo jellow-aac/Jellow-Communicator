@@ -47,7 +47,7 @@
     <dimen name="bottom_nav_bar_padding">12dp</dimen>
     <dimen name="nav_bar_button_padding">10dp</dimen>
     <dimen name="icon_title_text_size">16sp</dimen>
-    <dimen name="dialog_box_text_size">24sp</dimen>
+    <dimen name="dialog_box_text_size">20sp</dimen>
 
     <dimen name="board_edit_icon_size">200dp</dimen>
     <dimen name="board_edit_dialog_width">240dp</dimen>

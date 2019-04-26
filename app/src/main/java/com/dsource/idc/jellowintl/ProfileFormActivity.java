@@ -440,7 +440,7 @@ public class ProfileFormActivity extends SpeechEngineBaseActivity {
                         getBloodGroup(), mUserGroup);
             //If user not changed the mobile number and encryption data is
             // unavailable and user is not connected to Internet then
-            // show error message.
+            // showDialog error message.
             }else if(extraValContact.equals(getSession().getCaregiverNumber()) &&
                     getSession().getEncryptedData().isEmpty() && !isConnected){
                 bSave.setEnabled(true);
@@ -455,7 +455,7 @@ public class ProfileFormActivity extends SpeechEngineBaseActivity {
                         + "/previousRecords/" + maskNumber(getSession().getCaregiverNumber().substring(1)));
                 moveFirebaseRecord(mRef, mNewRef);
             //If user changed the mobile number user is not connected to Internet then
-            // show error message.
+            // showDialog error message.
             }else if(!extraValContact.equals(getSession().getCaregiverNumber()) && !isConnected){
                 bSave.setEnabled(true);
                 Toast.makeText(mContext, mCheckCon, Toast.LENGTH_LONG).show();

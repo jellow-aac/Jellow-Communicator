@@ -67,6 +67,12 @@ public class CustomDialog extends Dialog {
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
         dialog.getWindow().setBackgroundDrawable(context.getResources().getDrawable(R.color.transparent));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation_2; //style id
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        dialog.getWindow().setAttributes(lp);
 
 
         final ImageView GridSize1=mView.findViewById(R.id.grid_size_1x1);
@@ -112,13 +118,6 @@ public class CustomDialog extends Dialog {
             }
         });
 
-
-        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation_2; //style id
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        lp.copyFrom(dialog.getWindow().getAttributes());
-        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        dialog.getWindow().setAttributes(lp);
         dialog.show();
 
     }

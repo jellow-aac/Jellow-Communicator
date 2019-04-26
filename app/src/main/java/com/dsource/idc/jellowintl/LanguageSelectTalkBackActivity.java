@@ -162,7 +162,7 @@ public class LanguageSelectTalkBackActivity extends SpeechEngineBaseActivity {
                      *  either BN_IN or BE_IN form THEN
                      *  save the language and set language setting to true.
                      *  else
-                     *  show toast about Complete step 3.*/
+                     *  showDialog toast about Complete step 3.*/
                     } else if (getSpeechEngineLanguage().equals(LangMap.get(selectedLanguage)) ||
                         (LangMap.get(selectedLanguage).equals(BN_IN) &&
                             (getSpeechEngineLanguage().equals(BN_IN) ||

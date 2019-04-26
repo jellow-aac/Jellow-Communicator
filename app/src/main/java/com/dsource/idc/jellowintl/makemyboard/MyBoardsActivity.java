@@ -283,7 +283,7 @@ public class MyBoardsActivity extends SpeechEngineBaseActivity {
         }
         else
             boardEditDialog.initAddEditDialog("New Board");
-        boardEditDialog.show();
+        boardEditDialog.showDialog();
     }
 
     private void firePhotoIntent(int position) {

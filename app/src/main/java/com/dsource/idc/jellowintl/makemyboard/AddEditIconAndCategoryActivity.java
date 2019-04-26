@@ -285,7 +285,7 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
                     public void initPhotoResultListener(VerbiageEditorReverseInterface verbiageEditorReverseInterface) {
                         //DO NOTHING
                     }
-                }).presentVerbiage(verbiageDatbase.getVerbiageById(thisIcon.IconDrawable)).initVerbiageDialog(name).show();
+                }).presentVerbiage(verbiageDatbase.getVerbiageById(thisIcon.IconDrawable)).initVerbiageDialog(name).showDialog();
 
             }
 
@@ -305,7 +305,7 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
        dialog.setPositiveButtonText("Next");
        dialog.setTitleText(thisIcon.IconTitle);
 
-       dialog.show();
+       dialog.showDialog();
     }
 
     /**
@@ -401,7 +401,7 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
                     public void initPhotoResultListener(VerbiageEditorReverseInterface verbiageEditorReverseInterface) {
 
                     }
-                }).initVerbiageDialog(name).show();
+                }).initVerbiageDialog(name).showDialog();
             }
 
             @Override
@@ -415,7 +415,7 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
             }
         });
         dialog.initAddEditDialog(editTextHint);
-        dialog.show();
+        dialog.showDialog();
     }
 
     private void firePhotoIntent(int position) {

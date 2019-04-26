@@ -77,7 +77,7 @@ public class SpeechEngineBaseActivity extends BaseActivity{
 
             @Override
             public void onError(String utteranceId) {
-                //Text synthesize process failed third time then show TTs error.
+                //Text synthesize process failed third time then showDialog TTs error.
                 if(++mFailedToSynthesizeTextCount > 2)
                     mErrorHandler.sendFailedToSynthesizeError(getString(R.string.txt_actLangSel_complete_mainscreen_msg));
             }
@@ -91,7 +91,7 @@ public class SpeechEngineBaseActivity extends BaseActivity{
         //      2) app language is bengali and tts language does matches
         //         with every type of bengali language OR
         //      3) app language and Text-to-speech language are different THEN
-        //         show error toast and set incorrect language setting to true.
+        //         showDialog error toast and set incorrect language setting to true.
         if((Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
                 && !getSession().getLanguage().equals(LangMap.get("मराठी"))) {
             if (getSpeechEngineLanguage().equals("-r") ||

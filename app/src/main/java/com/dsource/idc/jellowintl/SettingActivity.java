@@ -68,7 +68,7 @@ public class SettingActivity extends SpeechEngineBaseActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinnerGridSize.setAdapter(adapter);
 
-        // If user have sim device and ready to call, only then show "enable call switch".
+        // If user have sim device and ready to call, only then showDialog "enable call switch".
         if(isDeviceReadyToCall((TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE))) {
             if(getSession().getEnableCalling())
                 ((Switch) findViewById(R.id.switchEnableCall)).setChecked(true);

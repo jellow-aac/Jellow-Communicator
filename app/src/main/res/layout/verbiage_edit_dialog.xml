@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/MyDialogBox"
-    android:layout_width="match_parent"
+    android:layout_width="20dp"
     android:layout_height="wrap_content"
-    android:background="@drawable/white_rounded_back"
-    android:orientation="vertical">
+    android:background="@color/transparent"
+    >
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:paddingBottom="24dp"
+        android:background="@drawable/white_rounded_back">
     <RelativeLayout
         android:id="@+id/expressive_verbiage_show"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/button_layout"
         android:layout_marginBottom="4dp"
@@ -43,17 +48,18 @@
             android:layout_centerVertical="true"
             android:clickable="false"
             android:text="@string/expressive_heading"
-            android:textColor="#dc5252"
-            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:fontFamily="@font/mukta_semibold"
             />
         </RelativeLayout>
 
         <ScrollView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/container"
             android:layout_marginTop="4dp"
             android:fadeScrollbars="false"
+            android:layout_centerHorizontal="true"
             android:scrollbars="vertical">
         <LinearLayout
             android:id="@+id/exp_verbiage_list"
@@ -76,36 +82,33 @@
         android:layout_marginLeft="@dimen/edit_baord_dialog_side_margin"
         android:layout_marginRight="@dimen/edit_baord_dialog_side_margin"
         android:layout_marginTop="@dimen/edit_board_dialog_internal_margin_top"
-        android:background="@color/white"
         >
 
 
         <Button
             android:id="@+id/save_baord"
-            android:layout_width="@dimen/edit_board_button_width"
-            android:layout_height="30dp"
             android:layout_alignParentLeft="true"
-            android:layout_marginRight="8dp"
-            android:background="@drawable/button_background"
-            android:paddingLeft="@dimen/edit_board_button_side_margin"
-            android:paddingRight="@dimen/edit_board_button_side_margin"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
             android:text="Save"
-            android:textAlignment="center"
-            android:textColor="@color/app_background"
-            android:textSize="@dimen/edit_board_dialog_button_text_size"
+            android:textAllCaps="false"
+            android:layout_gravity="center_vertical"
+            android:layout_height="@dimen/profile_save_btn_height"
+            android:textSize="@dimen/profile_save_btn_txt_size"
             />
         <Button
             android:id="@+id/cancel_save_baord"
-            android:layout_width="@dimen/edit_board_button_width"
-            android:layout_height="30dp"
             android:layout_alignParentRight="true"
-            android:background="@drawable/button_background"
-            android:paddingLeft="@dimen/edit_board_button_side_margin"
-            android:paddingRight="@dimen/edit_board_button_side_margin"
-            android:text="Cancel"
-            android:textAlignment="center"
-            android:textColor="@color/app_background"
-            android:textSize="@dimen/edit_board_dialog_button_text_size"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:text="Reset"
+            android:textAllCaps="false"
+            android:layout_gravity="center_vertical"
+            android:layout_height="@dimen/profile_save_btn_height"
+            android:textSize="@dimen/profile_save_btn_txt_size"
             />
     </RelativeLayout>
+</RelativeLayout>
 </RelativeLayout>

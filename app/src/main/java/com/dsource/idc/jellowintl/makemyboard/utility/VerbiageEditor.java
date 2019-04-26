@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -16,7 +17,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.appcompat.app.AlertDialog;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
@@ -31,20 +32,19 @@ import com.dsource.idc.jellowintl.makemyboard.verbiage_model.JellowVerbiageModel
 import com.dsource.idc.jellowintl.models.JellowIcon;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.rey.material.app.Dialog;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 
+import static android.view.Gravity.CENTER;
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.LIBRARY_REQUEST;
 
-public class VerbiageEditor implements View.OnClickListener {
+public class VerbiageEditor extends android.app.Dialog implements View.OnClickListener {
 
     //Static variables to set the modes
     public static final int ADD_BOARD_MODE =111;
     public static final int ADD_EDIT_ICON_MODE=222;
     public static final int VERBIAGE_MODE = 333;
-
     private Context context;
     private boolean isVisible=false;
     private TextView saveButton;
@@ -64,8 +64,10 @@ public class VerbiageEditor implements View.OnClickListener {
     private boolean verbiageDialog=false;
     private String name;
     private JellowVerbiageModel presentVerbiage=null;
+    private AlertDialog verbiageAlertDialog;
 
     public VerbiageEditor(Context context,int mode,VerbiageEditorInterface dialogInterface) {
+        super(context);
         this.dialogInterface=dialogInterface;
         this.context = context;
         this.mode = mode;
@@ -77,23 +79,30 @@ public class VerbiageEditor implements View.OnClickListener {
 
     private void initVerbiageViews() {
         verbiageDialog=true;
-        View dialogContainerView;
         int resFile= R.layout.verbiage_edit_dialog;
-        dialogContainerView = LayoutInflater.from(context).inflate(resFile, null);
-        dialog = new Dialog(context,R.style.MyDialogBox);
-        dialog.applyStyle(R.style.MyDialogBox);
-        dialog.backgroundColor(context.getResources().getColor(R.color.transparent));
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(context);
+        final View mView = getLayoutInflater().inflate(resFile, null);
+        mBuilder.setView(mView);
+        final AlertDialog dialog = mBuilder.create();
         dialog.setCancelable(false);
-        dialog.setContentView(dialogContainerView);
-        if(dialog.getWindow()!=null)
-        dialog.getWindow().setLayout(1200,RelativeLayout.LayoutParams.MATCH_PARENT);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.getWindow().setBackgroundDrawable(context.getResources().getDrawable(R.color.transparent));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation_2; //style id
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        dialog.getWindow().setAttributes(lp);
+
         //Views related to the Dialogs
-        saveButton=dialogContainerView.findViewById(R.id.save_baord);
-        cancelSaveBoard=dialogContainerView.findViewById(R.id.cancel_save_baord);
-        expList = dialogContainerView.findViewById(R.id.exp_verbiage_list);
+        saveButton=mView.findViewById(R.id.save_baord);
+        cancelSaveBoard=mView.findViewById(R.id.cancel_save_baord);
+        expList = mView.findViewById(R.id.exp_verbiage_list);
         //Click Listeners
         saveButton.setOnClickListener(this);
         cancelSaveBoard.setOnClickListener(this);
+        dialog.show();
+        verbiageAlertDialog =dialog;
         verbiageRelatedViews();
     }
 
@@ -276,7 +285,10 @@ public class VerbiageEditor implements View.OnClickListener {
 
     public void setBoardImage(String boardID){setIconImage(boardID);}
 
-    public Dialog show(){dialog.show();return dialog;}
+    public void showDialog(){
+        if(dialog!=null)
+        dialog.show();
+    }
 
     public void setTitleText(String name){if(titleText!=null)titleText.setText(name);}
 
@@ -455,7 +467,9 @@ public class VerbiageEditor implements View.OnClickListener {
         else if(mode==ADD_BOARD_MODE)
             dialogInterface.onPositiveButtonClick(titleText.getText().toString(),
                     ((BitmapDrawable) iconImage.getDrawable()).getBitmap(),null);
-        dialog.dismiss();
+        if(dialog!=null)
+            dialog.dismiss();
+        else if(verbiageAlertDialog!=null) verbiageAlertDialog.dismiss();
     }
 
     private JellowVerbiageModel saveVerbiage() {

@@ -34,27 +34,27 @@
 
         <Button
             android:id="@+id/positive"
-            android:layout_marginLeft="4dp"
-            android:layout_width="@dimen/custom_dialog_button_width"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:background="@drawable/button_background"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
             android:text="Yes"
             android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:layout_gravity="center_vertical"
+            android:layout_height="@dimen/profile_save_btn_height"
+            android:textSize="@dimen/profile_save_btn_txt_size"
+            />
 
         <Button
             android:id="@+id/negative"
-            android:layout_marginRight="4dp"
-            android:layout_width="@dimen/custom_dialog_button_width"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
             android:layout_alignParentRight="true"
-            android:background="@drawable/button_background"
             android:text="No"
             android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:layout_gravity="center_vertical"
+            android:layout_height="@dimen/profile_save_btn_height"
+            android:textSize="@dimen/profile_save_btn_txt_size"/>
     </RelativeLayout>
 
 

@@ -642,7 +642,7 @@ public class IconSelectActivity extends BaseActivity {
                     Animation jiggleOnce = AnimationUtils.loadAnimation(IconSelectActivity.this,R.anim.jiggle_determinate);
                     if(v!=null)
                     v.startAnimation(jiggleOnce);
-                    else Toast.makeText(IconSelectActivity.this,"Cannot Jiggle",Toast.LENGTH_SHORT).show();*/
+                    else Toast.makeText(IconSelectActivity.this,"Cannot Jiggle",Toast.LENGTH_SHORT).showDialog();*/
                     Log.d("Search","Step 6: Completed");
                 }
                 else {

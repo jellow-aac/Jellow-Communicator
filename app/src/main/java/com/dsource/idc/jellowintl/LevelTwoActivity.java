@@ -476,7 +476,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                     // a) set keyboard button to unpressed state.
                     // b) set back button to pressed state.
                     // c) hide custom keyboard input text view.
-                    // d) show category icons.
+                    // d) showDialog category icons.
                     // e) set flag mFlgKeyboardOpened = false, as user not using custom keyboard input
                     //    anymore.
                     // e) retain expressive button state as they were before custom keyboard input text
@@ -621,7 +621,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                         // a) set keyboard button to unpressed state.
                         // b) set back button to unpressed state
                         // c) hide custom keyboard input text.
-                        // d) show category icons
+                        // d) showDialog category icons
                         // e) hide custom keyboard input text speak button
                         mIvKeyboard.setImageResource(R.drawable.keyboard);
                         mEtTTs.setVisibility(View.INVISIBLE);
@@ -667,7 +667,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                         //keyboard input text so below steps will follow:
                     } else {
                         // a) keyboard button to pressed state
-                        // c) show custom keyboard input text and speak button view
+                        // c) showDialog custom keyboard input text and speak button view
                         // b) set back button unpressed state
                         // d) hide category icons
                         // e) disable expressive buttons
@@ -719,7 +719,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                 mFlgYes = mFlgMore = mFlgDntLike = mFlgNo = mFlgLess = 0;
                 //Value of mFlgImage = 0, indicates like expressive button is pressed
                 mFlgImage = 0;
-                // If selected category icon is Help -> About me, then show
+                // If selected category icon is Help -> About me, then showDialog
                 // expressive icons of About me category.
                 // and set like button icon to pressed using mFlgImage.
                 if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
@@ -840,7 +840,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                 mFlgLike = 0; mFlgYes = 0; mFlgMore = 0; mFlgNo = 0; mFlgLess = 0;
                 //Value of mFlgImage = 1, indicates don't like expressive button is pressed
                 mFlgImage = 1;
-                // If selected category icon is Help -> About me, then show
+                // If selected category icon is Help -> About me, then showDialog
                 // expressive icons of About me category.
                 // and set don't like button icon to pressed using mFlgImage.
                 if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
@@ -962,7 +962,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                 mFlgLike = 0; mFlgMore = 0; mFlgDntLike = 0; mFlgNo = 0; mFlgLess = 0;
                 //Value of mFlgImage = 2, indicates yes expressive button is pressed
                 mFlgImage = 2;
-                // If selected category icon is Help -> About me, then show
+                // If selected category icon is Help -> About me, then showDialog
                 // expressive icons of About me category.
                 // and set yes button icon to pressed using mFlgImage.
                 if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
@@ -1085,7 +1085,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                 mFlgLike = 0; mFlgYes = 0; mFlgMore = 0; mFlgDntLike = 0; mFlgLess = 0;
                 //Value of mFlgImage = 3, indicates no expressive button is pressed
                 mFlgImage = 3;
-                // If selected category icon is Help -> About me, then show
+                // If selected category icon is Help -> About me, then showDialog
                 // expressive icons of About me category.
                 // and set no button icon to pressed using mFlgImage.
                 if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
@@ -1206,7 +1206,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                 mFlgLike = 0; mFlgYes = 0; mFlgDntLike = 0; mFlgNo = 0; mFlgLess = 0;
                 //Value of mFlgImage = 4, indicates more expressive button is pressed
                 mFlgImage = 4;
-                // If selected category icon is Help -> About me, then show
+                // If selected category icon is Help -> About me, then showDialog
                 // expressive icons of About me category.
                 // and set more button icon to pressed using mFlgImage.
                 if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
@@ -1331,7 +1331,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                 mFlgLike = 0; mFlgYes = 0; mFlgMore = 0; mFlgDntLike = 0; mFlgNo = 0;
                 //Value of mFlgImage = 5, indicates less expressive button is pressed
                 mFlgImage = 5;
-                // If selected category icon is Help -> About me, then show
+                // If selected category icon is Help -> About me, then showDialog
                 // expressive icons of About me category.
                 // and set less button icon to pressed using mFlgImage.
                 if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)

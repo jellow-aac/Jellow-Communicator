@@ -83,45 +83,29 @@
             <Button
                 android:id="@+id/reset_selection"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/my_board_button_height"
                 android:layout_centerVertical="true"
-                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="8dp"
                 android:layout_toLeftOf="@id/next_step"
-                android:background="@drawable/button_background"
-                android:minWidth="@dimen/my_board_button_width"
-                android:gravity="center"
-                android:paddingBottom="4dp"
-                android:paddingLeft="@dimen/nav_bar_button_padding"
-                android:paddingRight="@dimen/nav_bar_button_padding"
-                android:paddingTop="4dp"
                 android:text="Reset"
                 android:textAllCaps="false"
-                android:textAlignment="center"
-                android:textColor="@color/app_background"
-                android:textSize="@dimen/edit_board_dialog_button_text_size"
+                android:layout_gravity="center_vertical"
+                android:layout_height="@dimen/profile_save_btn_height"
+                android:textSize="@dimen/profile_save_btn_txt_size"
                 />
 
             <Button
                 android:id="@+id/next_step"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/my_board_button_height"
+                android:layout_marginLeft="8dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="8dp"
-                android:background="@drawable/button_background"
-                android:minWidth="@dimen/my_board_button_width"
-                android:paddingBottom="4dp"
-                android:paddingLeft="@dimen/nav_bar_button_padding"
-                android:paddingRight="12dp"
-                android:paddingTop="4dp"
-                android:text="Next"
-                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_toLeftOf="@id/next_step"
                 android:textAllCaps="false"
-                android:textAlignment="center"
-                android:textColor="@color/app_background"
-                android:textSize="@dimen/edit_board_dialog_button_text_size"
+                android:text="Next"
+                android:layout_gravity="center_vertical"
+                android:layout_height="@dimen/profile_save_btn_height"
+                android:textSize="@dimen/profile_save_btn_txt_size"
+
                 />
 
             <CheckBox
@@ -275,7 +259,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:clickable="false"
-                android:src="@drawable/ic_edit_icon" />
+                android:src="@drawable/edit_icon" />
 
             <TextView
                 android:id="@+id/list_item_title3"
