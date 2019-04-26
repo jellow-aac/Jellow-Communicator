@@ -55,6 +55,7 @@
         android:layout_width="@dimen/board_edit_icon_size"
         android:hint="Board Name"
         android:textAlignment="center"
+        android:focusedByDefault="false"
         android:textColorHint="@color/dark_base"
         android:layout_height="wrap_content"
         android:textColor="@color/light_grey"

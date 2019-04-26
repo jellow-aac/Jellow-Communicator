@@ -112,6 +112,9 @@ public class IconSelectActivity extends BaseActivity {
         prepareLevelSelectPane();
         prepareIconPane(0,-1);
         initNavBarButtons();
+        if(!isEditMode)
+            disableNextAndResetButtons(true);
+        else disableNextAndResetButtons(false);
     }
 
     @Override
@@ -162,6 +165,7 @@ public class IconSelectActivity extends BaseActivity {
                 selectedIconList.clear();
                 selectionCheckBox.setChecked(false);
                 iconSelectorAdapter.notifyDataSetChanged();
+				disableNextAndResetButtons(true);
                 ((TextView)(findViewById(R.id.icon_count))).setText("("+selectedIconList.size()+")");
             }
         });
@@ -266,6 +270,10 @@ public class IconSelectActivity extends BaseActivity {
             resetButton.setEnabled(false);
             resetButton.setAlpha(.5f);
         }
+        else{
+            resetButton.setEnabled(true);
+            resetButton.setAlpha(1f);
+        }
         selectionCheckBox.setOnCheckedChangeListener(null);
         selectionCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -273,6 +281,9 @@ public class IconSelectActivity extends BaseActivity {
                 if(selectionCheckBox.isChecked())
                     selectAll(0);
                 else selectAll(1);
+                 if(selectedIconList.size()>0)
+                disableNextAndResetButtons(false);
+                else disableNextAndResetButtons(true);
             }
         });
     }
@@ -364,18 +375,35 @@ public class IconSelectActivity extends BaseActivity {
      */
     private void updateSelectionList(int position, boolean checked) {
 
-        if(dropDown.getVisibility()==View.VISIBLE)
+        if (dropDown.getVisibility() == View.VISIBLE)
             dropDown.setVisibility(View.GONE);
 
-        if(checked)
+        if (checked)
             addIconToList(iconList.get(position));
         else
             removeIconFromList(iconList.get(position));
 
-        ((TextView)(findViewById(R.id.icon_count))).setText("("+selectedIconList.size()+")");
+        ((TextView) (findViewById(R.id.icon_count))).setText("(" + selectedIconList.size() + ")");
 
-        Log.d("Selection: ","Selection List: "+selectedIconList.size()+" IconList: "+iconList.size()+" Selection: "+UtilFunctions.getSelection(selectedIconList,iconList));
-        selectionCheckBox.setChecked(UtilFunctions.getSelection(selectedIconList,iconList));
+        Log.d("Selection: ", "Selection List: " + selectedIconList.size() + " IconList: " + iconList.size() + " Selection: " + UtilFunctions.getSelection(selectedIconList, iconList));
+        selectionCheckBox.setChecked(UtilFunctions.getSelection(selectedIconList, iconList));
+        if (selectedIconList.size() > 0)
+            disableNextAndResetButtons(false);
+        else disableNextAndResetButtons(true);
+    }
+        
+    private void disableNextAndResetButtons(boolean disable)
+    {
+
+        if(!disable){
+            resetButton.setEnabled(true);
+            resetButton.setAlpha(1f);
+        }
+        else{
+            resetButton.setEnabled(false);
+            resetButton.setAlpha(.5f);
+        }
+
     }
 
     /**
@@ -696,6 +724,7 @@ public class IconSelectActivity extends BaseActivity {
         @Override
         public View getView(int position, View convertView, @NonNull ViewGroup parent) {
             String title = getItem(position);
+            title.replaceAll("…","");
             ViewHolder viewHolder; // view lookup cache stored in tag
             if (convertView == null) {
                 viewHolder = new ViewHolder();

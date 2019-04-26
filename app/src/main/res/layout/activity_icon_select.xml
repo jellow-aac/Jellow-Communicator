@@ -133,6 +133,7 @@
                 android:layout_marginRight="4dp"
                 android:buttonTint="@color/light_grey"
                 android:text="Select All"
+                android:textSize="@dimen/select_text_size"
                 android:textColor="@color/light_black"
                 android:visibility="visible" />
 
@@ -149,7 +150,7 @@
                     android:text="(0)"
                     android:textAlignment="center"
                     android:textColor="@color/light_black"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/select_text_size"
                     android:textStyle="bold" />
 
         </RelativeLayout>

@@ -12,17 +12,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Select grid size(per screen)"
+        android:text="Select icons per screen"
+        android:fontFamily="@font/mukta_semibold"
         android:textSize="@dimen/grid_dialog_title_textsize"
         android:layout_marginBottom="@dimen/grid_dialog_title_bottom_margin"
         android:id="@+id/text_heading"
         />
-        <HorizontalScrollView
-            android:layout_margin="8dp"
-            android:layout_below="@id/text_heading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
         <LinearLayout
+            android:layout_below="@id/text_heading"
             android:layout_width="wrap_content"
             android:orientation="horizontal"
             android:layout_height="wrap_content">
@@ -153,7 +150,6 @@
 
         </RelativeLayout>
     </LinearLayout>
-        </HorizontalScrollView>
     </RelativeLayout>
 
 </RelativeLayout>
