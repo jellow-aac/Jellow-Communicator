@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@drawable/board_list_back"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_centerHorizontal="true"
         android:padding="@dimen/grid_dialog_padding"
+        android:background="@drawable/board_list_back"
         android:layout_height="wrap_content">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Select icons per screen"
+        android:text="Icons per screen"
         android:fontFamily="@font/mukta_semibold"
         android:textSize="@dimen/grid_dialog_title_textsize"
         android:layout_marginBottom="@dimen/grid_dialog_title_bottom_margin"
         android:id="@+id/text_heading"
         />
         <LinearLayout
+            android:layout_centerHorizontal="true"
             android:layout_below="@id/text_heading"
             android:layout_width="wrap_content"
             android:orientation="horizontal"
@@ -26,6 +27,7 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_marginRight="@dimen/grid_dialog_icon_margin"
+            android:layout_marginLeft="@dimen/grid_dialog_icon_margin"
             android:layout_height="wrap_content">
             <ImageView
                 android:background="@drawable/base_color_rounded_back"

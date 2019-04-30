@@ -143,18 +143,26 @@
 
 
     <dimen name="edit_option_text_size">16sp</dimen>
-    <dimen name="edit_option_width">170dp</dimen>
+    <dimen name="edit_option_width">180dp</dimen>
 
     <!--Add Edit Screen dimensions-->
     <dimen name="add_edit_screen_edit_icon_size">28dp</dimen>
     <dimen name="two_by_two_rec_width">600</dimen>
     <dimen name="list_item_text_size">18sp</dimen>
     <dimen name="camera_drop_down_width">160dp</dimen>
-
     <dimen name="dialog_width_verbiage">220dp</dimen>
     <dimen name="dialog_edit_text">12sp</dimen>
     <dimen name="reg_button_height">38dp</dimen>
     <dimen name="def_margin_flt">-3dp</dimen>
+
+    <!--Dimensions related to the verbiage item-->
+    <dimen name="verbiage_list_item_width">130dp</dimen>
+    <dimen name="verbiage_list_item_height">42dp</dimen>
+    <dimen name="verbiage_list_et_text">14sp</dimen>
+    <dimen name="verbiage_item_add_remove">32dp</dimen>
+    <dimen name="vl_exp_icon_width">52dp</dimen>
+    <dimen name="vl_exp_icon_height">40dp</dimen>
+    <dimen name="vl_padding">10dp</dimen>
 
 
     <!--activity_user_registration.xml dimensions-->
@@ -378,4 +386,6 @@
     <dimen name="fb_tb_spinner_width">90dp</dimen>
     <dimen name="fb_tb_et_margin_left">-2dp</dimen>
     <dimen name="select_text_size" >14sp</dimen>
+    <dimen name="nav_mar_right">8dp</dimen>
+
 </resources>

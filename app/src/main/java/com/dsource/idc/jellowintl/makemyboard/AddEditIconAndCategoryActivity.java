@@ -214,8 +214,9 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
 
     /**
      * Creates and fetches the left pane for icon select
+     * @param mode defines the mode which decides whether to scroll or not
      */
-    private void targetLevelSelectPane() {
+    private void targetLevelSelectPane(int mode) {
 
         categoryAdapter =new LevelSelectorAdapter(this,categories);
         categoryRecycler.setAdapter(categoryAdapter);
@@ -230,7 +231,7 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
                 }
             }
         });
-        if(categoryRecycler.getLayoutManager()!=null)
+        if(categoryRecycler.getLayoutManager()!=null&&mode==ADD_CATEGORY)
         categoryRecycler.getLayoutManager().smoothScrollToPosition(categoryRecycler,null,(categories.size()-1));
         prepareIconPane(categoryAdapter.selectedPosition,currentMode);
 
@@ -333,7 +334,7 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
         currentBoard.setBoardIconModel(modelManager.getModel());
         verbiageDatbase.addNewVerbiage(id+"",verbiage);
         currentBoard.addCustomIconID(id+"");
-        targetLevelSelectPane();
+        targetLevelSelectPane(EDIT_ICON);
 
     }
 
@@ -456,7 +457,7 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
         currentBoard.setBoardIconModel(modelManager.getModel());
         currentBoard.addCustomIconID(id+"");
         selectedPosition = categories.size()-1;
-        targetLevelSelectPane();
+        targetLevelSelectPane(ADD_CATEGORY);
     }
 
     /**

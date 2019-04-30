@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -37,6 +38,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import static android.view.Gravity.CENTER;
+import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.EDIT_ICON;
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.LIBRARY_REQUEST;
 
 public class VerbiageEditor extends android.app.Dialog implements View.OnClickListener {
@@ -65,6 +67,7 @@ public class VerbiageEditor extends android.app.Dialog implements View.OnClickLi
     private String name;
     private JellowVerbiageModel presentVerbiage=null;
     private AlertDialog verbiageAlertDialog;
+    private Button verbiageDialogCancel;
 
     public VerbiageEditor(Context context,int mode,VerbiageEditorInterface dialogInterface) {
         super(context);
@@ -96,11 +99,11 @@ public class VerbiageEditor extends android.app.Dialog implements View.OnClickLi
 
         //Views related to the Dialogs
         saveButton=mView.findViewById(R.id.save_baord);
-        cancelSaveBoard=mView.findViewById(R.id.cancel_save_baord);
+        verbiageDialogCancel=mView.findViewById(R.id.cancel_save_baord);
         expList = mView.findViewById(R.id.exp_verbiage_list);
         //Click Listeners
         saveButton.setOnClickListener(this);
-        cancelSaveBoard.setOnClickListener(this);
+        verbiageDialogCancel.setOnClickListener(this);
         dialog.show();
         verbiageAlertDialog =dialog;
         verbiageRelatedViews();
@@ -420,8 +423,11 @@ public class VerbiageEditor extends android.app.Dialog implements View.OnClickLi
         }
         else if(v==saveButton)
             initSave();
-        else if(v==cancelSaveBoard)
-            dialog.cancel();
+        else if(v==cancelSaveBoard) {
+            if(dialog!=null)dialog.cancel();
+        }
+        else if(v==verbiageDialogCancel)
+            resetVerbiages();
 
             //For add/remove of the verbiage
         if(verbiageDialog)
@@ -449,6 +455,27 @@ public class VerbiageEditor extends android.app.Dialog implements View.OnClickLi
             }
         }
 
+    }
+
+    private void resetVerbiages() {
+        if(presentVerbiage!=null){
+            presentVerbiage(presentVerbiage);
+        }
+        else{
+            initVerbiageDialog(name);
+            enableAllViews();
+        }
+    }
+
+    private void enableAllViews() {
+        for(int i = 0 ;i<6;i++) {
+            expListLayouts.get(i).findViewById(R.id.verbiage_text).setEnabled(true);
+            expListLayouts.get(i).findViewById(R.id.verbiage_text).setAlpha(1.0f);
+            expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setEnabled(true);
+            expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setAlpha(1.0f);
+            ((ImageView) expListLayouts.get(i).findViewById(R.id.add_remove)).
+                    setImageDrawable(context.getResources().getDrawable(R.drawable.minus));
+        }
     }
 
     private void initSave() {

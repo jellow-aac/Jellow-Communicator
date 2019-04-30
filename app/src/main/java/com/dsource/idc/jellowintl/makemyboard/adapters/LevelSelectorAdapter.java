@@ -84,7 +84,7 @@ public class LevelSelectorAdapter extends RecyclerView.Adapter<LevelSelectorAdap
             ((TextView)holder.holder.findViewById(R.id.icon_title)).setTextColor(mContext.getResources().getColor(R.color.level_select_text_color));
             holder.holder.setBackgroundColor(mContext.getResources().getColor(R.color.app_background));
         }
-        holder.levelTitle.setText(title);
+        holder.levelTitle.setText(title.replaceAll("…",""));
     }
 
     @Override

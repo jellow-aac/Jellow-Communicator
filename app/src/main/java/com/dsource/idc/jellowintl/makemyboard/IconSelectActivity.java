@@ -724,7 +724,6 @@ public class IconSelectActivity extends BaseActivity {
         @Override
         public View getView(int position, View convertView, @NonNull ViewGroup parent) {
             String title = getItem(position);
-            title.replaceAll("…","");
             ViewHolder viewHolder; // view lookup cache stored in tag
             if (convertView == null) {
                 viewHolder = new ViewHolder();
@@ -735,7 +734,7 @@ public class IconSelectActivity extends BaseActivity {
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
-            viewHolder.name.setText(title);
+            viewHolder.name.setText(title.replaceAll("…",""));
             return convertView;
         }
 

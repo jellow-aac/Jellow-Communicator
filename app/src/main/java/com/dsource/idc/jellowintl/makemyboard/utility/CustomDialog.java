@@ -70,7 +70,8 @@ public class CustomDialog extends Dialog {
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation_2; //style id
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         lp.copyFrom(dialog.getWindow().getAttributes());
-        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT
+        ;
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         dialog.getWindow().setAttributes(lp);
 
