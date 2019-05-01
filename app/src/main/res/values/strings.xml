@@ -501,7 +501,7 @@
         <item>@drawable/no</item>
         <item>@drawable/less</item>
     </array>
-    <string-array name="add_photo_option" >
+    <string-array name="add_photo_option">
         <item>@drawable/ic_photo_camera</item>
         <item>@drawable/ic_jellow_library</item>
     </string-array>

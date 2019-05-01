@@ -383,17 +383,15 @@ public class RepositionIconsActivity extends BaseActivity {
     }
 
     private void showGridDialog() {
-        CustomDialog dialog=new CustomDialog(this,CustomDialog.GRID_SIZE);
-        dialog.setGridSelectListener(new CustomDialog.GridSelectListener() {
+        new CustomDialog(this, new CustomDialog.GridSelectListener() {
             @Override
             public void onGridSelectListener(int size) {
                 currentBoard.setGridSize(size);
                 if(isDeleteModeOn)
-                updateList(DELETE_MODE);
+                    updateList(DELETE_MODE);
                 else updateList(NORMAL_MODE);
             }
         });
-        dialog.setCancelable(true);
     }
 
     @Override

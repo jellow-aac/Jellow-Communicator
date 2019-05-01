@@ -8,6 +8,7 @@
         android:layout_width="@dimen/level_select_pane_min_width"
         android:layout_height="1.5dp"
         android:background="@color/dark_base"
+        android:layout_centerHorizontal="true"
         />
 
     <TextView
@@ -15,8 +16,10 @@
         android:layout_width="@dimen/level_select_pane_min_width"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:paddingBottom="6dp"
         android:paddingLeft="12dp"
+        android:layout_centerInParent="true"
         android:paddingRight="12dp"
         android:paddingTop="6dp"
         android:textAlignment="center"

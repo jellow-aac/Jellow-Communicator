@@ -63,7 +63,7 @@
         <ListView
             android:id="@+id/filter_menu"
             android:layout_width="@dimen/drop_down_width"
-            android:background="@color/transparent"
+            android:background="@color/app_background"
             android:paddingRight="4dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

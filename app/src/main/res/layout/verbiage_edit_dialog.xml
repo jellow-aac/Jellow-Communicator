@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/transparent"
     >
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/dialog_height"
         android:layout_centerInParent="true"
-        android:layout_marginBottom="24dp"
         android:background="@drawable/white_rounded_back">
     <RelativeLayout
         android:id="@+id/expressive_verbiage_show"
@@ -30,10 +29,11 @@
             android:paddingTop="6dp"
             >
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="@dimen/drop_icon_size"
+            android:layout_height="@dimen/drop_icon_size"
             android:layout_alignParentRight="true"
             android:layout_marginRight="6dp"
+            android:layout_centerVertical="true"
             android:clickable="false"
             android:padding="2dp"
             android:src="@drawable/ic_drop_down"
@@ -48,6 +48,7 @@
             android:layout_centerVertical="true"
             android:clickable="false"
             android:text="@string/expressive_heading"
+            android:textSize="@dimen/text_size"
             android:textColor="@color/colorPrimary"
             android:fontFamily="@font/mukta_semibold"
             />

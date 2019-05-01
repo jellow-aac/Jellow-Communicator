@@ -40,7 +40,7 @@
     <dimen name="my_board_button_width">70dp</dimen>
     <dimen name="my_board_button_height">40dp</dimen>
     <dimen name="level_select_pane_min_width">200dp</dimen>
-    <dimen name="drop_down_width">280dp</dimen>
+    <dimen name="drop_down_width">240dp</dimen>
     <dimen name="bottom_nav_bar_padding">6dp</dimen>
     <dimen name="nav_bar_button_padding">4dp</dimen>
     <dimen name="icon_title_text_size">17sp</dimen>
@@ -56,12 +56,13 @@
 
     <!--Dimensions related to the verbiage item-->
     <dimen name="verbiage_list_item_width">180dp</dimen>
-    <dimen name="verbiage_list_item_height">80dp</dimen>
+    <dimen name="verbiage_list_item_height">60dp</dimen>
     <dimen name="verbiage_list_et_text">22sp</dimen>
     <dimen name="verbiage_item_add_remove">48dp</dimen>
     <dimen name="vl_exp_icon_width">72dp</dimen>
     <dimen name="vl_exp_icon_height">56dp</dimen>
     <dimen name="vl_padding">18dp</dimen>
+    <dimen name="drop_icon_size">32dp</dimen>
 
     <!--Dimensions related to the My Board Card-->
     <dimen name="my_board_four_grid_icon_size">200dp</dimen>
@@ -79,7 +80,7 @@
     <dimen name="grid_dialog_title_textsize">28sp</dimen>
     <dimen name="add_edit_screen_edit_icon_size">38dp</dimen>
     <dimen name="grid_dialog_title_bottom_margin">24dp</dimen>
-    <dimen name="grid_dialog_icon_size">120dp</dimen>
+    <dimen name="grid_dialog_icon_size">100dp</dimen>
     <dimen name="grid_dialog_width">410</dimen>
     <dimen name="grid_dialog_icon_margin">28dp</dimen>
     <dimen name="grid_dialog_text_margin">8dp</dimen>

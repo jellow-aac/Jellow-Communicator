@@ -2,6 +2,9 @@ package com.dsource.idc.jellowintl.makemyboard.utility;
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -15,6 +18,10 @@ import com.dsource.idc.jellowintl.MainActivity;
 import com.dsource.idc.jellowintl.R;
 import com.rey.material.app.Dialog;
 
+import java.io.Serializable;
+
+import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.DIALOG_TYPE;
+
 public class CustomDialog extends Dialog {
 
     private Context context;
@@ -24,42 +31,31 @@ public class CustomDialog extends Dialog {
     private Button postiveButton, negativeButton;
     private TextView dialogText;
     public static final int NORMAL=111;
-    public static final int GRID_SIZE=222;
-    public static final int ICON_EDIT=333;
-    public static final int BOARD_EDIT=444;
+    public static final int ICON_EDIT=333;;
 
     public CustomDialog(Context context,int Code){
         super(context);
         this.context=context;
-        if(Code==GRID_SIZE)
-        {
-            prepareGridDialog();
-        }
-        else if(Code==ICON_EDIT)
-        {
-            prepareIconEditDialog();
-        }
-        else if(Code==NORMAL)
+        if(Code==NORMAL)
         {
             prepareDialog();
         }
 
 
     }
-
-    private void prepareIconEditDialog() {
-        final LayoutInflater dialogLayout = LayoutInflater.from(context);
-        View dialogContainerView = dialogLayout.inflate(R.layout.edit_board_dialog, null);
-        dialog = new Dialog(context,R.style.MyDialogBox);
-        dialog.applyStyle(R.style.MyDialogBox);
-        dialog.backgroundColor(context.getResources().getColor(R.color.transparent));
-        dialog.setContentView(dialogContainerView);
-        dialog.setCancelable(true);
-
-
+    public CustomDialog(Context context, GridSelectListener mGridSizeSelectListener){
+        super(context);
+        this.context=context;
+        prepareGridDialog(mGridSizeSelectListener);
     }
 
-    private void prepareGridDialog() {
+    private void prepareGridDialog(GridSelectListener mGridSizeSelectListener) {
+        Intent dialog =new Intent(context,DialogBox.class);
+        dialog.putExtra(DIALOG_TYPE,BoardConstants.GRID_DIALOG);
+        DialogBox.mGridSelectionListener =mGridSizeSelectListener;
+        context.startActivity(dialog);
+
+        /*
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(context);
         final View mView = getLayoutInflater().inflate(R.layout.grid_dialog, null);
         mBuilder.setView(mView);
@@ -119,17 +115,11 @@ public class CustomDialog extends Dialog {
             }
         });
 
-        dialog.show();
+        dialog.show();*/
 
     }
 
-    private GridSelectListener mGridSizeSelectListener;
-    public Dialog setGridSelectListener(GridSelectListener mListener)
-    {
-        this.mGridSizeSelectListener =mListener;
-        return dialog;
-    }
-    public interface GridSelectListener
+    public interface GridSelectListener extends Serializable
     {
         void onGridSelectListener(int size);
     }

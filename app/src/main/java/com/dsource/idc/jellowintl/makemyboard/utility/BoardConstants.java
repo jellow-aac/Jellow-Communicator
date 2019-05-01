@@ -18,6 +18,8 @@ public class BoardConstants {
     public static final int EDIT_ICON_MODE = 333;
 
 
-
-
+    public static final String DIALOG_TYPE ="dialog_type";
+    public static final String GRID_DIALOG = "grid_dialog";
+    public static final String VERBIAGE_DIALOG = "verbiage_dialog";
+    public static final String LISTENER = "listener";
 }

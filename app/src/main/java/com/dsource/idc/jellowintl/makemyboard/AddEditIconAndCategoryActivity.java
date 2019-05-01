@@ -139,9 +139,7 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
                 }
 
                 if(currentBoard.getBoardIconModel().getAllIcons().size()>0) {
-                    CustomDialog dialog = new CustomDialog(AddEditIconAndCategoryActivity.this, CustomDialog.GRID_SIZE);
-                    dialog.setCancelable(true);
-                    dialog.setGridSelectListener(new CustomDialog.GridSelectListener() {
+                    CustomDialog dialog = new CustomDialog(AddEditIconAndCategoryActivity.this, new CustomDialog.GridSelectListener() {
                         @Override
                         public void onGridSelectListener(int size) {
                             currentBoard.setGridSize(size);
@@ -153,6 +151,7 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
                             finish();
                         }
                     });
+                    dialog.setCancelable(true);
                 }
                 else Toast.makeText(AddEditIconAndCategoryActivity.this,"Please make atleast one icon",Toast.LENGTH_LONG).show();
             }

@@ -325,8 +325,7 @@ public class HomeActivity extends SpeechEngineBaseActivity {
     }
 
     private void showGridDialog() {
-        CustomDialog dialog=new CustomDialog(this,CustomDialog.GRID_SIZE);
-        dialog.setGridSelectListener(new CustomDialog.GridSelectListener() {
+        new CustomDialog(this, new CustomDialog.GridSelectListener() {
             @Override
             public void onGridSelectListener(int size) {
                 currentBoard.setGridSize(size);
@@ -334,8 +333,6 @@ public class HomeActivity extends SpeechEngineBaseActivity {
                 changeGridSize();
             }
         });
-        dialog.show();
-        dialog.setCancelable(true);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

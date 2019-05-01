@@ -122,7 +122,7 @@ public class IconSelectorAdapter extends RecyclerView.Adapter<IconSelectorAdapte
     public void onBindViewHolder(IconSelectorAdapter.ViewHolder holder, int position) {
 
         JellowIcon thisIcon = mDataSource.get(position);
-        holder.iconTitle.setText(thisIcon.IconTitle.replaceAll("…",""));
+        holder.iconTitle.setText(thisIcon.IconTitle);
         holder.iconSelected.setChecked(false);
 
         holder.iconTitle.setTextColor(Color.rgb(64, 64, 64));
