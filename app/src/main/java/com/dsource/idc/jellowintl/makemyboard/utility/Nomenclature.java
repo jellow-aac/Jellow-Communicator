@@ -3,6 +3,9 @@ package com.dsource.idc.jellowintl.makemyboard.utility;
 import android.content.Context;
 
 import com.dsource.idc.jellowintl.models.JellowIcon;
+import com.dsource.idc.jellowintl.utility.LanguageHelper;
+
+import java.util.Locale;
 
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_UK;
@@ -23,7 +26,7 @@ public class Nomenclature {
     }
 
     public static String getIconName(int p1,int p2,int p3,Context context) {
-
+        context = LanguageHelper.setLanguage(context, new Locale("en", "IN"));
         String LC = getLanguageCode(context);
         String L1 = getLevelOneCode(p1);
         String L2 = getLevelTwoCode(p1,p2,p3);
@@ -32,6 +35,7 @@ public class Nomenclature {
             return LC+L1+L2+L3+getIconType(p1,p2);
         else return LC+L1+L2+L3+"CC";
     }
+
     //Just to know which icons are of Sequence category.
     public static String getIconType(int p1,int p2)
     {
