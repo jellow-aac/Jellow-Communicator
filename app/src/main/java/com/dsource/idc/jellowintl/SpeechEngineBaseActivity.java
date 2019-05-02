@@ -176,10 +176,14 @@ public class SpeechEngineBaseActivity extends BaseActivity{
 
     public void speak(String speechText){
         stopSpeaking();
-        if(isNoTTSLanguage())
-            playAudio(getAudioPath(this)+speechText);
-        else
+        /*Extra symbol '_' is appended to end of every string from custom keyboard utterances.
+        *Extra symbol '-' is appended to end of every string from make my board speak request.
+        * Hence utterances will use tts engine to speak irrespective of type of language
+        * (tts language or non tts) */
+        if (speechText.contains("_") || speechText.contains("-") || !isNoTTSLanguage())
             sTts.speak(speechText, TextToSpeech.QUEUE_FLUSH, map);
+        else
+            playAudio(getAudioPath(this)+speechText);
     }
 
     public void stopSpeaking(){
@@ -279,6 +283,7 @@ public class SpeechEngineBaseActivity extends BaseActivity{
     }
 
     public void playInQueue(final String speechTextInQueue) {
+        stopAudio();
         try {
             final int[] count = {0};
             mMediaPlayer = new MediaPlayer();

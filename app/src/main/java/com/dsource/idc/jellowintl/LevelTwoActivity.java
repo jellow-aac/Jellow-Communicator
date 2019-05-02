@@ -21,6 +21,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
 import com.dsource.idc.jellowintl.factories.IconFactory;
 import com.dsource.idc.jellowintl.factories.LanguageFactory;
@@ -37,12 +43,6 @@ import com.dsource.idc.jellowintl.utility.UserEventCollector;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.ViewCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
@@ -1439,7 +1439,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
     private void initTTsBtnListener() {
         mIvTts.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                speak(mEtTTs.getText().toString());
+                speak(mEtTTs.getText().toString().concat("_"));
                 //Firebase event
                 Bundle bundle = new Bundle();
                 bundle.putString("InputName", Settings.Secure.getString(getContentResolver(),
@@ -2396,7 +2396,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
 
     private String getLevel2IconCode(int level1Position) {
         if (level1Position + 1 <= 9) {
-            return "0" + Integer.toString(level1Position + 1);
+            return "0" + (level1Position + 1);
         } else {
             return Integer.toString(level1Position + 1);
         }

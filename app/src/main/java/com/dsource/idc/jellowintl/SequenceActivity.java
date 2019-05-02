@@ -24,6 +24,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.view.ViewCompat;
+
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
@@ -39,11 +44,6 @@ import com.dsource.idc.jellowintl.utility.DialogKeyboardUtterance;
 import com.dsource.idc.jellowintl.utility.UserEventCollector;
 
 import java.io.File;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.core.view.ViewCompat;
 
 import static com.dsource.idc.jellowintl.factories.PathFactory.getIconPath;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
@@ -1118,7 +1118,7 @@ public class SequenceActivity extends LevelBaseActivity{
     private void initTTsBtnListener() {
         mIvTTs.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                speak(mEtTTs.getText().toString());
+                speak(mEtTTs.getText().toString().concat("_"));
                 //Firebase event
                 Bundle bundle = new Bundle();
                 bundle.putString("InputName", Settings.Secure.getString(getContentResolver(),
@@ -1631,7 +1631,7 @@ public class SequenceActivity extends LevelBaseActivity{
 
     private String getLevel2_3IconCode(int level2_3Position){
         if(level2_3Position+1 <= 9){
-            return "0" + Integer.toString(level2_3Position+1);
+            return "0" + (level2_3Position + 1);
         } else {
             return Integer.toString(level2_3Position+1);
         }

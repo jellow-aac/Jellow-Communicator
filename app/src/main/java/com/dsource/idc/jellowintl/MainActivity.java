@@ -20,6 +20,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
 import com.dsource.idc.jellowintl.factories.IconFactory;
 import com.dsource.idc.jellowintl.factories.LanguageFactory;
@@ -39,13 +46,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.ViewCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import static com.dsource.idc.jellowintl.factories.PathFactory.getIconDirectory;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
@@ -980,7 +980,7 @@ public class MainActivity extends LevelBaseActivity{
     private void initTTsBtnListener() {
         mIvTTs.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                speak(mEtTTs.getText().toString());
+                speak(mEtTTs.getText().toString().concat("_"));
                 //Firebase event
                 Bundle bundle = new Bundle();
                 bundle.putString("InputName", Settings.Secure.getString(getContentResolver(),
