@@ -635,4 +635,9 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
 
     }
 
+    @Override
+    public void onBackPressed() {
+
+        super.onBackPressed();
+    }
 }

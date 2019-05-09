@@ -6,8 +6,6 @@ import android.widget.ImageView;
 
 import com.dsource.idc.jellowintl.BaseActivity;
 import com.dsource.idc.jellowintl.R;
-
-import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.*;
 
 public class DialogBox extends BaseActivity {
@@ -23,14 +21,9 @@ public class DialogBox extends BaseActivity {
             setContentView(R.layout.grid_dialog);
             setUpGridDialog();
         }
-        getWindow().setFlags(FLAG_FULLSCREEN,FLAG_FULLSCREEN);
-
     }
 
     private void setUpGridDialog() {
-
-        //final CustomDialog.GridSelectListener mGridSizeSelectListener= (CustomDialog.GridSelectListener)extras.getSerializable(LISTENER);
-
 
         final ImageView GridSize1=findViewById(R.id.grid_size_1x1);
         final ImageView GridSize2=findViewById(R.id.grid_size_1X2);
@@ -42,6 +35,7 @@ public class DialogBox extends BaseActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                if(mGridSelectionListener!=null)
                 mGridSelectionListener.onGridSelectListener(1);
             }
         });

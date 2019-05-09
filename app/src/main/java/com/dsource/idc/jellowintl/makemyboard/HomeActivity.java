@@ -72,13 +72,6 @@ public class HomeActivity extends SpeechEngineBaseActivity {
         verbiageDatabase=new VerbiageDatabaseHelper(this);
 
         database=new BoardDatabase(this);
-
-        if(getSupportActionBar()!=null) {
-            enableNavigationBack();
-            getSupportActionBar().setTitle("HomeActivity");
-            //TODO Check color to keep or remove.
-            getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
-        }
         try{
             if(getIntent().getExtras()!=null)
             boardId =getIntent().getExtras().getString(BOARD_ID);
@@ -107,6 +100,14 @@ public class HomeActivity extends SpeechEngineBaseActivity {
         loadExpressiveIconVerbiage();
         //ActivateView(home,false);
         ActivateView(back,false);
+
+
+        if(getSupportActionBar()!=null) {
+            enableNavigationBack();
+            getSupportActionBar().setTitle(currentBoard.getBoardTitle());
+            //TODO Check color to keep or remove.
+            getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
+        }
     }
 
     private void loadExpressiveIconVerbiage() {
@@ -244,7 +245,9 @@ public class HomeActivity extends SpeechEngineBaseActivity {
                 updateList();
                 selectedIconVerbiage=null;
             }
-            else Toast.makeText(HomeActivity.this,"No sub category",Toast.LENGTH_SHORT).show();
+            else {
+                speak(displayList.get(position).IconTitle);
+            }
         }
         else if(Level==1){
             //ActivateView(home,true);
@@ -259,13 +262,15 @@ public class HomeActivity extends SpeechEngineBaseActivity {
                     updateList();
                     LevelTwoParent=position;
                     selectedIconVerbiage=null;
-                } else Toast.makeText(HomeActivity.this, "No sub category", Toast.LENGTH_SHORT).show();
+                } else{
+                    speak(displayList.get(position).IconTitle);
+                }
 
             }
         }
         else if(Level==2)
         {
-            Toast.makeText(HomeActivity.this,"No sub category",Toast.LENGTH_SHORT).show();
+            speak(displayList.get(position).IconTitle);
         }
 
     }

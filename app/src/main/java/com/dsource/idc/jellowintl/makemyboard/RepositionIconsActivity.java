@@ -21,7 +21,6 @@ import com.dsource.idc.jellowintl.makemyboard.utility.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.utility.CustomDialog;
 import com.dsource.idc.jellowintl.makemyboard.utility.ModelManager;
 import com.dsource.idc.jellowintl.models.JellowIcon;
-import com.dsource.idc.jellowintl.utility.CustomGridLayoutManager;
 import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager;
@@ -482,8 +481,8 @@ public class RepositionIconsActivity extends BaseActivity {
         return scrollListener;
     }
     private boolean itemDisplayed(int index) {
-        int firstVisiblePos = ((CustomGridLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
-        int lastVisiblePos = ((CustomGridLayoutManager) mRecyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
+        int firstVisiblePos = ((GridLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
+        int lastVisiblePos = ((GridLayoutManager) mRecyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
         if(lastVisiblePos==(index-1))
             return true;
         return index >= firstVisiblePos && index <= lastVisiblePos;

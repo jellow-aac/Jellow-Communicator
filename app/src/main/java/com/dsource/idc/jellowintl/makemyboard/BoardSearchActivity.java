@@ -137,7 +137,7 @@ public class BoardSearchActivity extends SpeechEngineBaseActivity {
                 assert icon != null;
                 if(icon.size()==0)
                 {
-                    JellowIcon noIconFound=new JellowIcon(getString(R.string.not_found),"NULL",-1,-1,-1);
+                    JellowIcon noIconFound=new JellowIcon("Icon not found","NULL",-1,-1,-1);
                     iconList.add(noIconFound);
                 }
 

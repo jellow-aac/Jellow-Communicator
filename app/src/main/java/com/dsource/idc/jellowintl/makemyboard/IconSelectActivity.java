@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -70,6 +69,7 @@ public class IconSelectActivity extends BaseActivity {
     private Board currentBoard;
     private BoardDatabase boardDatabase;
     private IconDatabase iconDatabase;
+    private Button nextButton;
 
 
     @Override
@@ -86,7 +86,6 @@ public class IconSelectActivity extends BaseActivity {
         }
         catch (NullPointerException e)
         {
-            Log.d("No board id found", boardId);
             return;
         }
         if(savedInstanceState!=null)
@@ -113,8 +112,8 @@ public class IconSelectActivity extends BaseActivity {
         prepareIconPane(0,-1);
         initNavBarButtons();
         if(!isEditMode)
-            disableNextAndResetButtons(true);
-        else disableNextAndResetButtons(false);
+            disableNextAndResetButtons();
+        else disableNextAndResetButtons();
     }
 
     @Override
@@ -165,7 +164,7 @@ public class IconSelectActivity extends BaseActivity {
                 selectedIconList.clear();
                 selectionCheckBox.setChecked(false);
                 iconSelectorAdapter.notifyDataSetChanged();
-				disableNextAndResetButtons(true);
+				disableNextAndResetButtons();
                 ((TextView)(findViewById(R.id.icon_count))).setText("("+selectedIconList.size()+")");
             }
         });
@@ -266,13 +265,12 @@ public class IconSelectActivity extends BaseActivity {
         levelSelectorRecycler =findViewById(R.id.level_select_pane_recycler);
         levelSelectorRecycler.setLayoutManager(new LinearLayoutManager(this));
         resetButton = findViewById(R.id.reset_selection);
+        nextButton =findViewById(R.id.next_step);
         if(selectedIconList.size()<1) {
-            resetButton.setEnabled(false);
-            resetButton.setAlpha(.5f);
+            disableNextAndResetButtons();
         }
         else{
-            resetButton.setEnabled(true);
-            resetButton.setAlpha(1f);
+            disableNextAndResetButtons();
         }
         selectionCheckBox.setOnCheckedChangeListener(null);
         selectionCheckBox.setOnClickListener(new View.OnClickListener() {
@@ -282,8 +280,8 @@ public class IconSelectActivity extends BaseActivity {
                     selectAll(0);
                 else selectAll(1);
                  if(selectedIconList.size()>0)
-                disableNextAndResetButtons(false);
-                else disableNextAndResetButtons(true);
+                disableNextAndResetButtons();
+                else disableNextAndResetButtons();
             }
         });
     }
@@ -384,24 +382,26 @@ public class IconSelectActivity extends BaseActivity {
             removeIconFromList(iconList.get(position));
 
         ((TextView) (findViewById(R.id.icon_count))).setText("(" + selectedIconList.size() + ")");
-
-        Log.d("Selection: ", "Selection List: " + selectedIconList.size() + " IconList: " + iconList.size() + " Selection: " + UtilFunctions.getSelection(selectedIconList, iconList));
         selectionCheckBox.setChecked(UtilFunctions.getSelection(selectedIconList, iconList));
         if (selectedIconList.size() > 0)
-            disableNextAndResetButtons(false);
-        else disableNextAndResetButtons(true);
+            disableNextAndResetButtons();
+        else disableNextAndResetButtons();
     }
         
-    private void disableNextAndResetButtons(boolean disable)
+    private void disableNextAndResetButtons()
     {
 
-        if(!disable){
+        if(selectedIconList.size()>0){
             resetButton.setEnabled(true);
             resetButton.setAlpha(1f);
+            nextButton.setEnabled(true);
+            nextButton.setAlpha(1f);
         }
         else{
             resetButton.setEnabled(false);
             resetButton.setAlpha(.5f);
+            nextButton.setEnabled(false);
+            nextButton.setAlpha(.5f);
         }
 
     }
@@ -572,14 +572,13 @@ public class IconSelectActivity extends BaseActivity {
         selectionCheckBox.setChecked(UtilFunctions.getSelection(selectedIconList, iconList));
         scrollListener =null;
         int position = getPosition(icon);
-        Log.d("PositionToScroll",position+"");
         if(position>(gridSize()*numberOfRows())) {
-            Log.d("Search","Step 1: scrolling");
             scrollListener = getListener(position);
             iconRecycler.addOnScrollListener(scrollListener);
             iconRecycler.getLayoutManager().smoothScrollToPosition(iconRecycler, null, position);
         }
         iconSelectorAdapter.notifyDataSetChanged();
+        disableNextAndResetButtons();
     }
 
     private void showCheckBox(boolean show)
@@ -609,16 +608,14 @@ public class IconSelectActivity extends BaseActivity {
 
 
     private RecyclerView.OnScrollListener getListener(final int index) {
-        Log.d("Search","Step 2: Scroll listener attached");
+
         scrollListener =new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 if(newState==RecyclerView.SCROLL_STATE_IDLE)
-                {
-                    Log.d("Search","Step 3: scrolling stopped");
                     setSearchHighlight(index);//Try highlighting the view after scrolling
-                }
+
             }};
 
         return scrollListener;
@@ -627,29 +624,24 @@ public class IconSelectActivity extends BaseActivity {
     int scrollCount = 0;
     private ViewTreeObserver.OnGlobalLayoutListener scrollingPopulationListener;
     private void setSearchHighlight(final int index) {
-        Log.d("Search","Step 4: Trying to highlight : (Attaching layout listener)");
+
         scrollingPopulationListener = new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
 
                 iconRecycler.getViewTreeObserver().removeOnGlobalLayoutListener(scrollingPopulationListener);
                 scrollingPopulationListener = null;
-                Log.d("Search","Step 5: Inside Global layout");
+
                 if(itemDisplayed(index)) {
                     iconRecycler.removeOnScrollListener(scrollListener);
-                    scrollListener=null;/*
-                    View v = iconRecycler.getChildAt(index);
-                    Animation jiggleOnce = AnimationUtils.loadAnimation(IconSelectActivity.this,R.anim.jiggle_determinate);
-                    if(v!=null)
-                    v.startAnimation(jiggleOnce);
-                    else Toast.makeText(IconSelectActivity.this,"Cannot Jiggle",Toast.LENGTH_SHORT).showDialog();*/
-                    Log.d("Search","Step 6: Completed");
+                    scrollListener=null;
+
                 }
                 else {
                     if(scrollCount<5) {
                         iconRecycler.getLayoutManager().smoothScrollToPosition(iconRecycler, null, index);
                         scrollCount++;
-                        Log.d("Search", "Step 0: Not found, scrolling again");
+
                     }
                     else {
                         iconRecycler.removeOnScrollListener(scrollListener);
@@ -672,7 +664,7 @@ public class IconSelectActivity extends BaseActivity {
         int lastVisiblePos = ((CustomGridLayoutManager)iconRecycler.getLayoutManager()).findLastCompletelyVisibleItemPosition();
         if(lastVisiblePos==(index-1))
             return true;
-        Log.d("TagScreen","First Pos: "+firstVisiblePos+" Last Pos: "+lastVisiblePos+" Pos "+index);
+
         return index >= firstVisiblePos && index <= lastVisiblePos;
     }
 
