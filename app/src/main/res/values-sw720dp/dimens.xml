@@ -185,6 +185,7 @@
     <dimen name="profile_scroll_size">10dp</dimen>
     <dimen name="profile_view_margin_bottom">19dp</dimen>
     <dimen name="profile_et_margin_left">-4dp</dimen>
+    <dimen name="profile_parent_ll_margin_right">0dp</dimen>
     <dimen name="profile_ccp_txt_size">22dp</dimen>
     <dimen name="profile_radio_btn_txt_size">22sp</dimen>
     <dimen name="profile_radio_btn_margin_bottom">0dp</dimen>
@@ -320,6 +321,8 @@
     <dimen name="access_btn_txt_size">22sp</dimen>
     <dimen name="access_btn_margin_left">30dp</dimen>
     <dimen name="access_btn_padding_horizontal">8dp</dimen>
+    <dimen name="access_yt_thumbnail_width">190dp</dimen>
+    <dimen name="access_yt_thumbnail_height">90dp</dimen>
 
     <!--activity_accessibility_settings.xml dimensions-->
     <dimen name="access_setting_extra_space">58dp</dimen>
@@ -341,11 +344,14 @@
     <dimen name="feedback_scroll_margin_top">19dp</dimen>
     <dimen name="feedback_scroll_margin_left">30dp</dimen>
     <dimen name="feedback_scroll_margin_right">16dp</dimen>
+    <dimen name="feedback_parent_margin_right">16dp</dimen>
     <dimen name="feedback_tv_height">@dimen/custom_wrap_content</dimen>
     <item name="feedback_rb_scale_size" type="dimen" format="float">0.8</item>
     <dimen name="feedback_rb_margin_left">-28dp</dimen>
     <dimen name="feedback_extra_space_height">48dp</dimen>
     <dimen name="feedback_et_margin_left">-2dp</dimen>
+    <dimen name="feedback_et_height">120dp</dimen>
+    <dimen name="feedback_et_text_padding">8dp</dimen>
     <dimen name="feedback_bottom_bar_height">58dp</dimen>
     <dimen name="feedback_btn_height">40dp</dimen>
     <dimen name="feedback_btn_txt_size">22sp</dimen>

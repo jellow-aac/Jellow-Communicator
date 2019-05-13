@@ -19,6 +19,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/feedback_parent_margin_right"
+            android:layout_marginEnd="@dimen/feedback_parent_margin_right"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/tv1"
@@ -97,12 +99,15 @@
             <EditText
                 android:id="@+id/comments"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="@dimen/feedback_et_height"
                 android:layout_marginLeft="@dimen/feedback_et_margin_left"
                 android:layout_marginStart="@dimen/feedback_et_margin_left"
-                android:ems="10"
+                android:padding="@dimen/feedback_et_text_padding"
+                android:textAlignment="textStart"
+                android:gravity="start"
                 android:inputType="textMultiLine"
-                style="@style/defaultTextViewStyle"/>
+                android:imeOptions="actionDone"
+                android:background="@drawable/rounded_back"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/feedback_extra_space_height"/>

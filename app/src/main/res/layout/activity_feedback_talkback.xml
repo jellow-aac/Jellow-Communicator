@@ -91,10 +91,12 @@
                 <EditText
                     android:id="@+id/comments"
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
+                    android:layout_height="@dimen/feedback_et_height"
                     android:layout_marginLeft="@dimen/fb_tb_et_margin_left"
                     android:layout_marginStart="@dimen/fb_tb_et_margin_left"
-                    android:ems="10"
+                    android:padding="@dimen/feedback_et_text_padding"
+                    android:textAlignment="textStart"
+                    android:gravity="start"
                     android:inputType="textMultiLine"
                     android:imeOptions="actionDone"
                     style="@style/defaultTextViewStyle"/>
