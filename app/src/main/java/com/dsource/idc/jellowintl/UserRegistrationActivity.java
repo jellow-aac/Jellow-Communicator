@@ -361,7 +361,7 @@ public class UserRegistrationActivity extends SpeechEngineBaseActivity {
                 getSession().setEncryptionData(jsonData);
                 SecureKeys secureKey = new Gson().
                         fromJson(getSession().getEncryptedData(), SecureKeys.class);
-                Crashlytics.log("Created secure key.");
+                Crashlytics.log("Created secure fileName.");
                 createUser(encrypt(name, secureKey), contact,
                         encrypt(email, secureKey),
                         encrypt(mCcp.getSelectedCountryEnglishName(), secureKey),
@@ -378,7 +378,7 @@ public class UserRegistrationActivity extends SpeechEngineBaseActivity {
 
     private String encrypt(String plainText, SecureKeys secureKey) {
         Encryption encryption = Encryption.getDefault(secureKey.getKey(), secureKey.getSalt(), new byte[16]);
-        return encryption.encryptOrNull(plainText).trim();
+        return encryption.encryptOrNull(plainText);
     }
 
     private void createUser(final String name, final String emergencyContact, String eMailId,

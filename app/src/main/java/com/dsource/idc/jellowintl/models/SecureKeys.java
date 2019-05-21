@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class SecureKeys {
-    @SerializedName("key")
+    @SerializedName("fileName")
     private String mKey;
 
     @SerializedName("salt")

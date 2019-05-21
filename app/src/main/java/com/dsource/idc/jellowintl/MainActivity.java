@@ -83,7 +83,7 @@ public class MainActivity extends LevelBaseActivity{
      different than mLevelOneItemPos. */
     private int mSelectedItemAdapterPos = -1;
     /* This flag identifies that user is pressed a category icon and which border should appear
-      on pressed category icon. If flag value = 0, then brown (initial border) will appear.*/
+      on pressed category icon. If flag fileDownloadTask = 0, then brown (initial border) will appear.*/
     private int mActionBtnClickCount = -1;
     /* This flag is set to true, when user press the category icon and reset when user press the home
      button. When user presses expressive button and mShouldReadFullSpeech = true, it means that user
@@ -121,7 +121,7 @@ public class MainActivity extends LevelBaseActivity{
         while (mRecyclerItemsViewList.size() < mSpeechText.length)
             mRecyclerItemsViewList.add(null);
         //The variables below are defined because android os fall back to default locale
-        // after activity restart. These variable will hold the value for variables initialized using
+        // after activity restart. These variable will hold the fileDownloadTask for variables initialized using
         // user preferred locale.
         mHome = getString(R.string.action_bar_title);
         initializeLayoutViews();
@@ -563,22 +563,22 @@ public class MainActivity extends LevelBaseActivity{
                 mFlgImage = 0;
                 // Set like button icon to pressed using mFlgImage.
                 resetExpressiveButtons(mFlgImage);
-                // if value of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
+                // if fileDownloadTask of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
                 if (!mShouldReadFullSpeech) {
-                    // if value of mFlgLike is 1 then should speak "really like".
+                    // if fileDownloadTask of mFlgLike is 1 then should speak "really like".
                     if (mFlgLike == 1) {
                         speak(mExprBtnTxt[1]);
                         mFlgLike = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(1, "", "");
-                    // if value of mFlgLike is 0, then should speak "like".
+                    // if fileDownloadTask of mFlgLike is 0, then should speak "like".
                     } else {
                         speak(mExprBtnTxt[0]);
                         mFlgLike = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(0, "", "");
                     }
-                // if value of mShouldReadFullSpeech is true, then speak associated like
+                // if fileDownloadTask of mShouldReadFullSpeech is true, then speak associated like
                 // expression verbiage to selected category icon.
                 } else {
                     ++mActionBtnClickCount;
@@ -588,7 +588,7 @@ public class MainActivity extends LevelBaseActivity{
                         setMenuImageBorder(mRecyclerItemsViewList.
                                 get(mSelectedItemAdapterPos), true);
                     }
-                    // if value of mFlgLike is 1 then speak associated really like expression
+                    // if fileDownloadTask of mFlgLike is 1 then speak associated really like expression
                     // verbiage for selected category icon.
                     if (mFlgLike == 1) {
                         speak(level1IconObjects[mLevelOneItemPos].getLL());
@@ -597,7 +597,7 @@ public class MainActivity extends LevelBaseActivity{
                         mUec.createSendFbEventFromTappedView(14,
                 level1IconObjects[mLevelOneItemPos].getEvent_Tag()+"_"+
                             mVerbCode[mLevelOneItemPos]+"LL","");
-                    // if value of mFlgLike is 0 then Speak associated like expression
+                    // if fileDownloadTask of mFlgLike is 0 then Speak associated like expression
                     // verbiage to selected category icon.
                     } else {
                         speak(level1IconObjects[mLevelOneItemPos].getL());
@@ -636,22 +636,22 @@ public class MainActivity extends LevelBaseActivity{
                 mFlgImage = 1;
                 // Set don't like button icon to pressed using mFlgImage.
                 resetExpressiveButtons(mFlgImage);
-                // if value of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
+                // if fileDownloadTask of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
                 if (!mShouldReadFullSpeech) {
-                // if value of mFlgDntLike is 1 then should speak "really don't like".
+                // if fileDownloadTask of mFlgDntLike is 1 then should speak "really don't like".
                     if (mFlgDntLike == 1) {
                         speak(mExprBtnTxt[7]);
                         mFlgDntLike = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(7, "", "");
-                    // if value of mFlgDntLike is 0, then should speak "don't like".
+                    // if fileDownloadTask of mFlgDntLike is 0, then should speak "don't like".
                     } else {
                         speak(mExprBtnTxt[6]);
                         mFlgDntLike = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(6, "", "");
                     }
-                // if value of mShouldReadFullSpeech is true, then speak associated don't like
+                // if fileDownloadTask of mShouldReadFullSpeech is true, then speak associated don't like
                 // expression verbiage to selected category icon.
                 } else {
                     ++mActionBtnClickCount;
@@ -660,7 +660,7 @@ public class MainActivity extends LevelBaseActivity{
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.
                                 get(mSelectedItemAdapterPos), true);
-                    // if value of mFlgDntLike is 1 then speak associated really don't like expression
+                    // if fileDownloadTask of mFlgDntLike is 1 then speak associated really don't like expression
                     // verbiage for selected category icon.
                     if (mFlgDntLike == 1) {
                         speak(level1IconObjects[mLevelOneItemPos].getDD());
@@ -669,7 +669,7 @@ public class MainActivity extends LevelBaseActivity{
                         mUec.createSendFbEventFromTappedView(20,
                 level1IconObjects[mLevelOneItemPos].getEvent_Tag()+"_"+
                             mVerbCode[mLevelOneItemPos]+"DD","");
-                    // if value of mFlgDntLike is 0 then Speak associated don't like expression
+                    // if fileDownloadTask of mFlgDntLike is 0 then Speak associated don't like expression
                     // verbiage to selected category icon.
                     } else {
                         speak(level1IconObjects[mLevelOneItemPos].getD());
@@ -708,22 +708,22 @@ public class MainActivity extends LevelBaseActivity{
                 mFlgImage = 2;
                 // Set yes button icon to pressed using mFlgImage.
                 resetExpressiveButtons(mFlgImage);
-                // if value of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
+                // if fileDownloadTask of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
                 if (!mShouldReadFullSpeech) {
-                    // if value of mFlgYes is 1, then should speak "really yes".
+                    // if fileDownloadTask of mFlgYes is 1, then should speak "really yes".
                     if (mFlgYes == 1) {
                         speak(mExprBtnTxt[3]);
                         mFlgYes = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(3, "", "");
-                    // if value of mFlgYes is 0, then should speak "yes".
+                    // if fileDownloadTask of mFlgYes is 0, then should speak "yes".
                     } else {
                         speak(mExprBtnTxt[2]);
                         mFlgYes = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(2, "", "");
                     }
-                // if value of mShouldReadFullSpeech is true, then speak associated yes
+                // if fileDownloadTask of mShouldReadFullSpeech is true, then speak associated yes
                 // expression verbiage to selected category icon.
                 } else {
                     ++mActionBtnClickCount;
@@ -732,7 +732,7 @@ public class MainActivity extends LevelBaseActivity{
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.
                                 get(mSelectedItemAdapterPos), true);
-                    // if value of mFlgYes is 1 then speak associated really yes expression
+                    // if fileDownloadTask of mFlgYes is 1 then speak associated really yes expression
                     // verbiage for selected category icon.
                     if (mFlgYes == 1) {
                         speak(level1IconObjects[mLevelOneItemPos].getYY());
@@ -741,7 +741,7 @@ public class MainActivity extends LevelBaseActivity{
                         mUec.createSendFbEventFromTappedView(16,
                 level1IconObjects[mLevelOneItemPos].getEvent_Tag()+"_"+
                             mVerbCode[mLevelOneItemPos]+"YY","");
-                    // if value of mFlgYes is 0 then speak associated yes expression
+                    // if fileDownloadTask of mFlgYes is 0 then speak associated yes expression
                     // verbiage for selected category icon.
                     } else {
                         speak(level1IconObjects[mLevelOneItemPos].getY());
@@ -780,22 +780,22 @@ public class MainActivity extends LevelBaseActivity{
                 mFlgImage = 3;
                 // Sets no button icon to pressed using mFlgImage.
                 resetExpressiveButtons(mFlgImage);
-                // if value of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
+                // if fileDownloadTask of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
                 if (!mShouldReadFullSpeech) {
                     if (mFlgNo == 1) {
-                        // if value of mFlgNo is 1, then should speak "really no".
+                        // if fileDownloadTask of mFlgNo is 1, then should speak "really no".
                         speak(mExprBtnTxt[9]);
                         mFlgNo = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(9, "", "");
                     } else {
-                        // if value of mFlgNo is 0, then should speak "no".
+                        // if fileDownloadTask of mFlgNo is 0, then should speak "no".
                         speak(mExprBtnTxt[8]);
                         mFlgNo = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(8, "", "");
                     }
-                // if value of mShouldReadFullSpeech is true, then it should speak associated no
+                // if fileDownloadTask of mShouldReadFullSpeech is true, then it should speak associated no
                 // expression verbiage to selected category icon.
                 } else {
                     ++mActionBtnClickCount;
@@ -804,7 +804,7 @@ public class MainActivity extends LevelBaseActivity{
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.
                                 get(mSelectedItemAdapterPos), true);
-                    // if value of mFlgNo is 1 then speak associated really no expression
+                    // if fileDownloadTask of mFlgNo is 1 then speak associated really no expression
                     // verbiage for selected category icon.
                     if (mFlgNo == 1) {
                         speak(level1IconObjects[mLevelOneItemPos].getNN());
@@ -813,7 +813,7 @@ public class MainActivity extends LevelBaseActivity{
                         mUec.createSendFbEventFromTappedView(22,
                 level1IconObjects[mLevelOneItemPos].getEvent_Tag()+"_"+
                             mVerbCode[mLevelOneItemPos]+"NN","");
-                    // if value of mFlgNo is 0 then Speak associated no expression
+                    // if fileDownloadTask of mFlgNo is 0 then Speak associated no expression
                     // verbiage to selected category icon.
                     } else {
                         speak(level1IconObjects[mLevelOneItemPos].getN());
@@ -852,22 +852,22 @@ public class MainActivity extends LevelBaseActivity{
                 mFlgImage = 4;
                 // Sets more button icon to pressed using mFlgImage.
                 resetExpressiveButtons(mFlgImage);
-                // if value of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
+                // if fileDownloadTask of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
                 if (!mShouldReadFullSpeech) {
-                    // if value of mFlgMore is 1, then should speak "really more".
+                    // if fileDownloadTask of mFlgMore is 1, then should speak "really more".
                     if (mFlgMore == 1) {
                         speak(mExprBtnTxt[5]);
                         mFlgMore = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(5, "", "");
-                    // if value of mFlgMore is 0, then should speak "more".
+                    // if fileDownloadTask of mFlgMore is 0, then should speak "more".
                     } else {
                         speak(mExprBtnTxt[4]);
                         mFlgMore = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(4, "", "");
                     }
-                // if value of mShouldReadFullSpeech is true, then it should speak associated more
+                // if fileDownloadTask of mShouldReadFullSpeech is true, then it should speak associated more
                 // expression verbiage to selected category icon.
                 } else {
                     ++mActionBtnClickCount;
@@ -876,7 +876,7 @@ public class MainActivity extends LevelBaseActivity{
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.
                                 get(mSelectedItemAdapterPos), true);
-                    // if value of mFlgMore is 1, then should speak "really more" expression
+                    // if fileDownloadTask of mFlgMore is 1, then should speak "really more" expression
                     // verbiage associated to selected category icon.
                     if (mFlgMore == 1) {
                         speak(level1IconObjects[mLevelOneItemPos].getMM());
@@ -885,7 +885,7 @@ public class MainActivity extends LevelBaseActivity{
                         mUec.createSendFbEventFromTappedView(18,
                 level1IconObjects[mLevelOneItemPos].getEvent_Tag()+"_"+
                             mVerbCode[mLevelOneItemPos]+"MM","");
-                    // if value of mFlgMore is 0, then should speak "more" expression
+                    // if fileDownloadTask of mFlgMore is 0, then should speak "more" expression
                     // verbiage associated to selected category icon.
                     } else {
                         speak(level1IconObjects[mLevelOneItemPos].getM());
@@ -924,22 +924,22 @@ public class MainActivity extends LevelBaseActivity{
                 mFlgImage = 5;
                 // Sets less button icon to pressed using mFlgImage.
                 resetExpressiveButtons(mFlgImage);
-                // if value of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
+                // if fileDownloadTask of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
                 if (!mShouldReadFullSpeech) {
-                    // if value of mFlgLess is 1, then should speak "really less".
+                    // if fileDownloadTask of mFlgLess is 1, then should speak "really less".
                     if (mFlgLess == 1) {
                         speak(mExprBtnTxt[11]);
                         mFlgLess = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(11, "", "");
-                    // if value of mFlgLess is 0, then should speak "less".
+                    // if fileDownloadTask of mFlgLess is 0, then should speak "less".
                     } else {
                         speak(mExprBtnTxt[10]);
                         mFlgLess = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(10, "", "");
                     }
-                // if value of mShouldReadFullSpeech is true, then speak associated less
+                // if fileDownloadTask of mShouldReadFullSpeech is true, then speak associated less
                 // expression verbiage to selected category icon.
                 } else {
                     ++mActionBtnClickCount;
@@ -948,7 +948,7 @@ public class MainActivity extends LevelBaseActivity{
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.
                                 get(mSelectedItemAdapterPos), true);
-                    // if value of mFlgLess is 1 then speak associated really less expression
+                    // if fileDownloadTask of mFlgLess is 1 then speak associated really less expression
                     // verbiage for selected category icon.
                     if (mFlgLess == 1) {
                         speak(level1IconObjects[mLevelOneItemPos].getSS());
@@ -957,7 +957,7 @@ public class MainActivity extends LevelBaseActivity{
                         mUec.createSendFbEventFromTappedView(24,
                 level1IconObjects[mLevelOneItemPos].getEvent_Tag()+"_"+
                             mVerbCode[mLevelOneItemPos]+"SS","");
-                    // if value of mFlgLess is 0 then Speak associated less expression
+                    // if fileDownloadTask of mFlgLess is 0 then Speak associated less expression
                     // verbiage to selected category icon.
                     } else {
                         speak(level1IconObjects[mLevelOneItemPos].getS());
@@ -1380,7 +1380,7 @@ public class MainActivity extends LevelBaseActivity{
     /**
      * <p>This function will reset :
      *     a) Reset expressive button pressed if any. To set home button to pressed
-     *        6 value is sent to resetExpressiveButtons(6).
+     *        6 fileDownloadTask is sent to resetExpressiveButtons(6).
      *     b) Reset category icons pressed if any.
      *     c) Setting mLevelOneItemPos = -1 means, no category icon is selected.</p>
      **/
@@ -1485,7 +1485,7 @@ public class MainActivity extends LevelBaseActivity{
      * clear previously pressed expressive button state and home button state (if pressed).
      * {@param image_flag} is a index of expressive button.
      * e.g. From top to bottom 0 - like button, 1 - don't like button likewise.
-     * To set home button to pressed state image_flag value must be 6</p>
+     * To set home button to pressed state image_flag fileDownloadTask must be 6</p>
      **/
     private void resetExpressiveButtons(int image_flag) {
         // clear previously selected any expressive button or home button

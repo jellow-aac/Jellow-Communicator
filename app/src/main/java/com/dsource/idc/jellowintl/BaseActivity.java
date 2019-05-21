@@ -7,9 +7,11 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.accessibility.AccessibilityManager;
+import android.widget.Toast;
 
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
@@ -20,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class BaseActivity extends AppCompatActivity{
     private static SessionManager mSession;
     private static String mVisibleAct;
+    protected boolean isAlive;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -52,8 +55,6 @@ public class BaseActivity extends AppCompatActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(getLevelClass().contains(getVisibleAct()))
-            return false;
         switch(item.getItemId()) {
             case R.id.profile:
                 if(getVisibleAct().equals(ProfileFormActivity.class.getSimpleName()))
@@ -108,6 +109,12 @@ public class BaseActivity extends AppCompatActivity{
                 startActivity(new Intent(this, ResetPreferencesActivity.class));
                 finish();
                 break;
+            case R.id.languagePackUpdate:
+                if(getVisibleAct().equals(LanguagePackUpdateActivityv2.class.getSimpleName()))
+                    break;
+                startActivity(new Intent(this, LanguagePackUpdateActivityv2.class));
+                finish();
+                break;
             case R.id.feedback:
                 if(getVisibleAct().equals(FeedbackActivity.class.getSimpleName()) ||
                         getVisibleAct().equals(FeedbackActivityTalkBack.class.getSimpleName()) )
@@ -125,6 +132,8 @@ public class BaseActivity extends AppCompatActivity{
             default:
                 return super.onOptionsItemSelected(item);
         }
+        if(getLevelClass().contains(getVisibleAct()))
+            return false;
         return true;
     }
 
@@ -159,7 +168,7 @@ public class BaseActivity extends AppCompatActivity{
 
     /**
      * <p>This function gives screen aspect ratio.
-     * @return aspect ratio value in float.</p>
+     * @return aspect ratio fileDownloadTask in float.</p>
      * */
     public boolean isNotchDevice(){
         float aspectRatio = (float)this.getResources().getDisplayMetrics().widthPixels /
@@ -189,6 +198,19 @@ public class BaseActivity extends AppCompatActivity{
 
     public void setVisibleAct(String visibleAct) {
         mVisibleAct = visibleAct;
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isAlive = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isAlive = false;
     }
 }
 

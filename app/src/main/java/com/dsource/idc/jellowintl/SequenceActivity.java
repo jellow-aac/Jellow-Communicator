@@ -704,7 +704,7 @@ public class SequenceActivity extends LevelBaseActivity{
      * */
     private void initKeyboardBtnListener() {
         //The variables below are defined because android os fall back to default locale
-        // after activity restart. These variable will hold the value for variables initialized using
+        // after activity restart. These variable will hold the fileDownloadTask for variables initialized using
         // user preferred locale.
         final String strKeyboard = getString(R.string.keyboard);
         mIvKeyboard.setOnClickListener(new View.OnClickListener() {

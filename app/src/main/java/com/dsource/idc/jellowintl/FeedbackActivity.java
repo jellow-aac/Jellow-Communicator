@@ -100,7 +100,7 @@ public class FeedbackActivity extends BaseActivity {
         mEtComments = findViewById(R.id.comments);
         mBtnSubmit = findViewById(R.id.bSubmit);
         //The variables below are defined because android os fall back to default locale
-        // after activity restart. These variable will hold the value for variables initialized using
+        // after activity restart. These variable will hold the fileDownloadTask for variables initialized using
         // user preferred locale.
         final String strRateJellow = getString(R.string.rate_jellow);
         mBtnSubmit.setOnClickListener(new OnClickListener() {

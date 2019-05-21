@@ -192,7 +192,7 @@ public class SessionManager {
     public int getSpeed(){
         int speed = (Integer) retrievePreferenceKeyWithValue(Integer.class.toString(), Speed);
         if(speed == 0)
-            return 50;              //50 is default value for speed of speech to keep.
+            return 50;              //50 is default fileDownloadTask for speed of speech to keep.
         return  speed;
     }
 
@@ -203,7 +203,7 @@ public class SessionManager {
     public int getPitch(){
         int pitch = (Integer) retrievePreferenceKeyWithValue(Integer.class.toString(), Pitch);
         if(pitch == 0)
-            return 50;              //50 is default value for pitch of speech to keep.
+            return 50;              //50 is default fileDownloadTask for pitch of speech to keep.
         return pitch;
     }
 

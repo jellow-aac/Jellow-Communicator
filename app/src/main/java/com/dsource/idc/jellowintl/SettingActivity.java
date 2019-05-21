@@ -103,7 +103,7 @@ public class SettingActivity extends SpeechEngineBaseActivity {
         mSpinnerGridSize.setSelection(getSession().getGridSize());
 
         //The variables below are defined because android os fall back to default locale
-        // after activity restart. These variable will hold the value for variables initialized using
+        // after activity restart. These variable will hold the fileDownloadTask for variables initialized using
         // user preferred locale.
         final String strSpeechSpeed = getString(R.string.txtSpeechSpeed);
         final String strDemoSpeech = getString(R.string.demoTtsSpeech);
@@ -208,7 +208,7 @@ public class SettingActivity extends SpeechEngineBaseActivity {
             }
         });
         //The variables below are defined because android os fall back to default locale
-        // after activity restart. These variable will hold the value for variables initialized using
+        // after activity restart. These variable will hold the fileDownloadTask for variables initialized using
         // user preferred locale.
         mCalPerMsg = getString(R.string.grant_permission_from_settings);
         mCalPerGranted = getString(R.string.granted_call_permission_req);

@@ -142,7 +142,7 @@ public class SpeechEngineBaseActivity extends BaseActivity{
         }catch(Exception e){
             //This error is ignored. Their might no language is set previously to text-to-speech
             // engine and hence above retrieval of lang, country {infoLang, infoCountry} fails.
-            // If it is empty, the broadcast is sent to receiver with empty ("-r" value) tts language
+            // If it is empty, the broadcast is sent to receiver with empty ("-r" fileDownloadTask) tts language
             // name and this gives error message to user in receiver code.
         }
         return infoLang.concat("-r".concat(infoCountry));

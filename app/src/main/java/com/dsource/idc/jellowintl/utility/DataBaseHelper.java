@@ -240,7 +240,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
      * <p>In older version of Jellow app. It has "more" icon at index 8 in category icon. It will
      *  load next 8 cateogry icons when pressed. In later version, more button is removed with
      *  scroll function. But, the old installations has older data strings. In old data string
-     *  every 9th value represent more. When scroll is added, the removal of "more" values from
+     *  every 9th fileDownloadTask represent more. When scroll is added, the removal of "more" values from
      *  database is must. The following function will remove the values.</p>
      * */
     private void removeMoreFromDatabasePreferences(int layer_1_id, int layer_2_id) {

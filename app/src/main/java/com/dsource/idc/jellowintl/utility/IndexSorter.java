@@ -40,7 +40,7 @@ public class IndexSorter<T extends Comparable<T>> implements Comparator<Integer>
     }
 
     /**
-     * Sorts the underlying index array based upon the values provided in the constructor. The underlying value array is not sorted.
+     * Sorts the underlying index array based upon the values provided in the constructor. The underlying fileDownloadTask array is not sorted.
      */
     public void sort(){
         Arrays.sort(indexes, this);

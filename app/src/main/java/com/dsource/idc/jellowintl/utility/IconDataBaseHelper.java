@@ -31,7 +31,7 @@ public class IconDataBaseHelper extends SQLiteOpenHelper {
     private static final String ICON_LIST_TABLE = "icons";
     private static final String DATABASE_NAME = "level3.db";
     // Column names...
-    public static final String ICON_ID = "_id";//Icon Primary key ID
+    public static final String ICON_ID = "_id";//Icon Primary fileName ID
     public static final String ICON_TITLE = "icon_title";//Icon Title
     public static final String ICON_SPEECH = "icon_speech";//Icon Drawable
     public static final String ICON_DRAWABLE = "icon_drawable";//Icon Drawable
@@ -97,7 +97,7 @@ public class IconDataBaseHelper extends SQLiteOpenHelper {
 
         //Level 1 JellowIcon
         for (int i = 0; i < level1Icons.length; i++) {
-            // Put column/value pairs into the container. put() overwrites existing values.
+            // Put column/fileDownloadTask pairs into the container. put() overwrites existing values.
             values.put(ICON_TITLE, levelOneTitles[i]);
             values.put(ICON_SPEECH,levelOneSpeech[i]);
             values.put(ICON_DRAWABLE, level1Icons[i]);
@@ -112,7 +112,7 @@ public class IconDataBaseHelper extends SQLiteOpenHelper {
             String[] levelTwoTitles = getIconTitleLevel2(i,context);
             String[] levelTwoSpeech = getIconSpeechLevel2(i,context);
             for (int j = 0; j < levelTwoIcons.length; j++) {
-                // Put column/value pairs into the container. put() overwrites existing values.
+                // Put column/fileDownloadTask pairs into the container. put() overwrites existing values.
                 values.put(ICON_TITLE, levelTwoTitles[j]);
                 values.put(ICON_SPEECH,levelTwoSpeech[j]);
                 values.put(ICON_DRAWABLE, levelTwoIcons[j]);
@@ -134,7 +134,7 @@ public class IconDataBaseHelper extends SQLiteOpenHelper {
                         String[] levelThreeTitle = thirdLevelTitles;
                         String[] levelThreeSpeech = thirdLevelSpeech;
                         for (int k = 0; k < thirdLevelTitles.length; k++) {
-                            // Put column/value pairs into the container. put() overwrites existing values.
+                            // Put column/fileDownloadTask pairs into the container. put() overwrites existing values.
                             if (noChildInThird)
                                 break;
                             values.put(ICON_TITLE, levelThreeTitle[k]);

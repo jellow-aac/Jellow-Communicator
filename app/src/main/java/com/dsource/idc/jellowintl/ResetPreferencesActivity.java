@@ -31,7 +31,7 @@ public class ResetPreferencesActivity extends BaseActivity {
             }
         });
         //The variables below are defined because android os fall back to default locale
-        // after activity restart. These variable will hold the value for variables initialized using
+        // after activity restart. These variable will hold the fileDownloadTask for variables initialized using
         // user preferred locale.
         final String strIconsResetMsg = getString(R.string.iconsHasBeenReset);
         findViewById(R.id.yes).setOnClickListener(new View.OnClickListener() {

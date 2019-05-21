@@ -157,7 +157,7 @@ public class ProfileFormActivity extends SpeechEngineBaseActivity {
             }
         });
         //The variables below are defined because android os fall back to default locale
-        // after activity restart. These variable will hold the value for variables initialized using
+        // after activity restart. These variable will hold the fileDownloadTask for variables initialized using
         // user preferred locale.
         mDetailSaved = getString(R.string.detailSaved);
         mCheckCon = getString(R.string.checkConnectivity);
@@ -363,9 +363,9 @@ public class ProfileFormActivity extends SpeechEngineBaseActivity {
 
             // get the previous records node of the old number
             Object o = snapshot.child("previousRecords").getValue();
-            // set the entire 'old number -> previous records node' value to 'new number -> prevrecords node'
+            // set the entire 'old number -> previous records node' fileDownloadTask to 'new number -> prevrecords node'
             mNewRef.getParent().setValue(o);
-            // set the entire value of 'old number' node to 'new number -> prevrecords node'
+            // set the entire fileDownloadTask of 'old number' node to 'new number -> prevrecords node'
             mNewRef.setValue(snapshot.getValue());
             // remove the 'prevRecords' node from the copied 'old number' node in the 'new number -> prevrecords -> old number'
             mNewRef.child("previousRecords").setValue(null);

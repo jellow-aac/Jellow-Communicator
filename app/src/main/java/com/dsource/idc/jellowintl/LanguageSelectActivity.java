@@ -144,7 +144,7 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
 
         save = findViewById(R.id.saveBut);
         //The variables below are defined because android os fall back to default locale
-        // after activity restart. These variable will hold the value for variables initialized using
+        // after activity restart. These variable will hold the fileDownloadTask for variables initialized using
         // user preferred locale.
         final String strDefaultLangEr = getString(R.string.txt_save_same_lang_def);
         save.setOnClickListener(new View.OnClickListener() {
@@ -196,7 +196,7 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
 
         add = findViewById(R.id.addBut);
         //The variables below are defined because android os fall back to default locale
-        // after activity restart. These variable will hold the value for variables initialized using
+        // after activity restart. These variable will hold the fileDownloadTask for variables initialized using
         // user preferred locale.
         final String strNoMoreLang2Add = getString(R.string.no_more_lang_2_add);
         final String strCheckConnectivity = getString(R.string.checkConnectivity);
@@ -265,7 +265,7 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
 
         delete = findViewById(R.id.delBut);
         //The variables below are defined because android os fall back to default locale
-        // after activity restart. These variable will hold the value for variables initialized using
+        // after activity restart. These variable will hold the fileDownloadTask for variables initialized using
         // user preferred locale.
         final String strLangCurrentlyInUse = getString(R.string.languageCurrentlyInUse);
         final String strNoMoreLang2Del =  getString(R.string.no_more_lang_2_del);

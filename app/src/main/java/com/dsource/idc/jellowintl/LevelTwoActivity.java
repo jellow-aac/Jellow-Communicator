@@ -67,7 +67,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
     /* This flag indicates custom keyboard input text layout is open or not, 0 indicates is not open.*/
     private int mFlgKeyboard = 0;
     /* This flag identifies that user is pressed a category icon and which border should appear
-      on pressed category icon. If flag value = 0, then brown (initial border) will appear.*/
+      on pressed category icon. If flag fileDownloadTask = 0, then brown (initial border) will appear.*/
     private int mActionBtnClickCount;
     /*Image views which are visible on the layout such as six expressive buttons, below navigation
       buttons and speak button when keyboard is open.*/
@@ -129,7 +129,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                 WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
                     WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
         mUec = new UserEventCollector();
-        // The below string has value "" in english (all regions) and "है।" in Hindi (India).
+        // The below string has fileDownloadTask "" in english (all regions) and "है।" in Hindi (India).
         // It is used when user select category "Help" -> "About me".
         // To complete full sentence verbiage in Hindi below text is used.
         loadArraysFromResources();
@@ -726,22 +726,22 @@ public class LevelTwoActivity extends LevelBaseActivity{
                     setExpressiveButtonToAboutMe(mFlgImage);
                 else
                     resetExpressiveButtons(mFlgImage);
-                // if value of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
+                // if fileDownloadTask of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
                 if (!mShouldReadFullSpeech) {
-                    // if value of mFlgLike is 1, then should speak "really like".
+                    // if fileDownloadTask of mFlgLike is 1, then should speak "really like".
                     if (mFlgLike == 1) {
                         speak(mExprBtnTxt[1]);
                         mFlgLike = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(1, "", "");
-                    // if value of mFlgLike is 0, then should speak "like".
+                    // if fileDownloadTask of mFlgLike is 0, then should speak "like".
                     } else {
                         speak(mExprBtnTxt[0]);
                         mFlgLike = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(0, "", "");
                     }
-                // if value of mShouldReadFullSpeech is true, then speak associated like
+                // if fileDownloadTask of mShouldReadFullSpeech is true, then speak associated like
                 // expression verbiage to selected category icon.
                 } else {
                     ++mActionBtnClickCount;
@@ -749,7 +749,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                     // border color is applied using mActionBtnClickCount and mFlgImage.
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
-                    // if value of mFlgLike is 1, then should speak "really like" expression
+                    // if fileDownloadTask of mFlgLike is 1, then should speak "really like" expression
                     // verbiage associated to selected category icon.
                     if (mFlgLike == 1) {
                         // People and places will have preferences. To speak the correct speech text
@@ -780,7 +780,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                         }
                         //reset mFlgLike to speak "like" expression
                         mFlgLike = 0;
-                    // if value of mFlgLike is 0 then Speak associated like expression
+                    // if fileDownloadTask of mFlgLike is 0 then Speak associated like expression
                     // verbiage to selected category icon.
                     } else {
                         // People and places will have preferences. To speak the correct speech text
@@ -847,22 +847,22 @@ public class LevelTwoActivity extends LevelBaseActivity{
                     setExpressiveButtonToAboutMe(mFlgImage);
                 else
                     resetExpressiveButtons(mFlgImage);
-                // if value of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
+                // if fileDownloadTask of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
                 if (!mShouldReadFullSpeech) {
-                    // if value of mFlgDntLike is 1, then should speak "really dont like".
+                    // if fileDownloadTask of mFlgDntLike is 1, then should speak "really dont like".
                     if (mFlgDntLike == 1) {
                         speak(mExprBtnTxt[7]);
                         mFlgDntLike = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(7, "", "");
-                    // if value of mFlgDntLike is 0, then should speak " dont like".
+                    // if fileDownloadTask of mFlgDntLike is 0, then should speak " dont like".
                     } else {
                         speak(mExprBtnTxt[6]);
                         mFlgDntLike = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(6, "", "");
                     }
-                // if value of mShouldReadFullSpeech is true, then speak associated don't like
+                // if fileDownloadTask of mShouldReadFullSpeech is true, then speak associated don't like
                 // expression verbiage to selected category icon.
                 } else {
                     ++mActionBtnClickCount;
@@ -871,7 +871,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
 
-                    // if value of mFlgDntLike is 1, then should speak "really don't like" expression
+                    // if fileDownloadTask of mFlgDntLike is 1, then should speak "really don't like" expression
                     // verbiage associated to selected category icon.
                     if (mFlgDntLike == 1) {
                         // People and places will have preferences. To speak the correct speech text
@@ -902,7 +902,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                         }
                         //reset mFlgDntLike to speak "don't like" expression
                         mFlgDntLike = 0;
-                    // if value of mFlgDntLike is 0 then Speak associated don't like expression
+                    // if fileDownloadTask of mFlgDntLike is 0 then Speak associated don't like expression
                     // verbiage to selected category icon.
                     } else {
                         // People and places will have preferences. To get correct speech text sort
@@ -969,22 +969,22 @@ public class LevelTwoActivity extends LevelBaseActivity{
                     setExpressiveButtonToAboutMe(mFlgImage);
                 else
                     resetExpressiveButtons(mFlgImage);
-                // if value of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
+                // if fileDownloadTask of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
                 if (!mShouldReadFullSpeech) {
-                    // if value of mFlgYes is 1, then should speak "really yes".
+                    // if fileDownloadTask of mFlgYes is 1, then should speak "really yes".
                     if (mFlgYes == 1) {
                         speak(mExprBtnTxt[3]);
                         mFlgYes = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(3, "", "");
-                    // if value of mFlgYes is 0, then should speak "yes".
+                    // if fileDownloadTask of mFlgYes is 0, then should speak "yes".
                     } else {
                         speak(mExprBtnTxt[2]);
                         mFlgYes = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(2, "", "");
                     }
-                // if value of mShouldReadFullSpeech is true, then speak associated yes
+                // if fileDownloadTask of mShouldReadFullSpeech is true, then speak associated yes
                 // expression verbiage to selected category icon.
                 } else  {
                     ++mActionBtnClickCount;
@@ -992,7 +992,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                     // border color is applied using mActionBtnClickCount and mFlgImage.
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
-                    // if value of mFlgYes is 1, then should speak "really yes" expression
+                    // if fileDownloadTask of mFlgYes is 1, then should speak "really yes" expression
                     // verbiage associated to selected category icon.
                     if (mFlgYes == 1) {
                         // People and places will have preferences. To speak the correct speech text
@@ -1024,7 +1024,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                         }
                         //reset mFlgYes to speak "yes" expression
                         mFlgYes = 0;
-                    // if value of mFlgYes is 0 then Speak associated yes expression
+                    // if fileDownloadTask of mFlgYes is 0 then Speak associated yes expression
                     // verbiage to selected category icon.
                     } else {
                         // People and places will have preferences. To speak the correct speech text
@@ -1092,22 +1092,22 @@ public class LevelTwoActivity extends LevelBaseActivity{
                     setExpressiveButtonToAboutMe(mFlgImage);
                 else
                     resetExpressiveButtons(mFlgImage);
-                // if value of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
+                // if fileDownloadTask of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
                 if (!mShouldReadFullSpeech) {
-                    // if value of mFlgNo is 1, then should speak "really no".
+                    // if fileDownloadTask of mFlgNo is 1, then should speak "really no".
                     if (mFlgNo == 1) {
                         speak(mExprBtnTxt[9]);
                         mFlgNo = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(9, "", "");
-                    // if value of mFlgNo is 0, then should speak "no".
+                    // if fileDownloadTask of mFlgNo is 0, then should speak "no".
                     } else {
                         speak(mExprBtnTxt[8]);
                         mFlgNo = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(8, "", "");
                     }
-                // if value of mShouldReadFullSpeech is true, then speak associated no
+                // if fileDownloadTask of mShouldReadFullSpeech is true, then speak associated no
                 // expression verbiage to selected category icon.
                 } else {
                     ++mActionBtnClickCount;
@@ -1115,7 +1115,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                     // border color is applied using mActionBtnClickCount and mFlgImage.
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
-                    // if value of mFlgNo is 1, then should speak "really no" expression
+                    // if fileDownloadTask of mFlgNo is 1, then should speak "really no" expression
                     // verbiage associated to selected category icon.
                     if (mFlgNo == 1) {
                         // People and places will have preferences. To speak the correct speech text
@@ -1146,7 +1146,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                         }
                         //reset mFlgNo to speak "no" expression
                         mFlgNo = 0;
-                    // if value of mFlgNo is 0 then Speak associated like expression
+                    // if fileDownloadTask of mFlgNo is 0 then Speak associated like expression
                     // verbiage to selected category icon.
                     } else {
                         // People and places will have preferences. To speak the correct speech text
@@ -1213,22 +1213,22 @@ public class LevelTwoActivity extends LevelBaseActivity{
                     setExpressiveButtonToAboutMe(mFlgImage);
                 else
                     resetExpressiveButtons(mFlgImage);
-                // if value of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
+                // if fileDownloadTask of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
                 if (!mShouldReadFullSpeech) {
-                    // if value of mFlgMore is 1, then should speak "really more".
+                    // if fileDownloadTask of mFlgMore is 1, then should speak "really more".
                     if (mFlgMore == 1) {
                         speak(mExprBtnTxt[5]);
                         mFlgMore = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(5, "", "");
-                    // if value of mFlgMore is 0, then should speak "more".
+                    // if fileDownloadTask of mFlgMore is 0, then should speak "more".
                     } else {
                         speak(mExprBtnTxt[4]);
                         mFlgMore = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(4, "", "");
                     }
-                // if value of mShouldReadFullSpeech is true, then speak associated more
+                // if fileDownloadTask of mShouldReadFullSpeech is true, then speak associated more
                 // expression verbiage to selected category icon.
                 } else {
                     ++mActionBtnClickCount;
@@ -1236,7 +1236,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                     // border color is applied using mActionBtnClickCount and mFlgImage.
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
-                    // if value of mFlgmore is 1, then should speak "really more" expression
+                    // if fileDownloadTask of mFlgmore is 1, then should speak "really more" expression
                     // verbiage associated to selected category icon.
                     if (mFlgMore == 1) {
                         // People and places will have preferences. To speak the correct speech text
@@ -1270,7 +1270,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                         }
                         //reset mFlgMore to speak "more" expression
                         mFlgMore = 0;
-                    // if value of mFlgMore is 0 then Speak associated more expression
+                    // if fileDownloadTask of mFlgMore is 0 then Speak associated more expression
                     // verbiage to selected category icon.
                     } else {
                         // People and places will have preferences. To speak the correct speech text
@@ -1338,22 +1338,22 @@ public class LevelTwoActivity extends LevelBaseActivity{
                     setExpressiveButtonToAboutMe(mFlgImage);
                 else
                     resetExpressiveButtons(mFlgImage);
-                // if value of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
+                // if fileDownloadTask of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
                 if (!mShouldReadFullSpeech) {
-                    // if value of mFlgLess is 1, then should speak "really less".
+                    // if fileDownloadTask of mFlgLess is 1, then should speak "really less".
                     if (mFlgLess == 1) {
                         speak(mExprBtnTxt[11]);
                         mFlgLess = 0;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(11, "", "");
-                    // if value of mFlgLess is 0, then should speak "less".
+                    // if fileDownloadTask of mFlgLess is 0, then should speak "less".
                     } else {
                         speak(mExprBtnTxt[10]);
                         mFlgLess = 1;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(10, "", "");
                     }
-                // if value of mShouldReadFullSpeech is true, then speak associated less
+                // if fileDownloadTask of mShouldReadFullSpeech is true, then speak associated less
                 // expression verbiage to selected category icon.
                 } else {
                     ++mActionBtnClickCount;
@@ -1362,7 +1362,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
                         setMenuImageBorder(mRecyclerItemsViewList.get(mSelectedItemAdapterPos), true);
 
-                    // if value of mFlgLess is 1, then should speak "really less" expression
+                    // if fileDownloadTask of mFlgLess is 1, then should speak "really less" expression
                     // verbiage associated to selected category icon.
                     if (mFlgLess == 1) {
                         // People and places will have preferences. To speak the correct speech text
@@ -1393,7 +1393,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                         }
                         //reset mFlgLess to speak "less" expression
                         mFlgLess = 0;
-                    // if value of mFlgLess is 0 then Speak associated less expression
+                    // if fileDownloadTask of mFlgLess is 0 then Speak associated less expression
                     // verbiage to selected category icon.
                     } else {
                         // People and places will have preferences. To speak the correct speech text
@@ -1590,7 +1590,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
 
         // Help -> About me category have different set of expressive buttons. If user selected
         // About me category then all expressive button icons are changed.
-        // sending -1 value to setExpressiveButtonToAboutMe(-1), will only change expressive
+        // sending -1 fileDownloadTask to setExpressiveButtonToAboutMe(-1), will only change expressive
         // button icons to About me icons.
         if(mLevelOneItemPos == CATEGORY_ICON_HELP && mLevelTwoItemPos == 1)
             setExpressiveButtonToAboutMe(-1);
@@ -2133,7 +2133,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
      * clear previously pressed expressive button state and home button state (if pressed).
      * {@param image_flag} is a index of expressive button.
      *  e.g. From top to bottom 0 - like button, 1 - don't like button likewise.
-     *  To set home button to pressed state image_flag value must be 6</p>
+     *  To set home button to pressed state image_flag fileDownloadTask must be 6</p>
      * */
     private void resetExpressiveButtons(int image_flag) {
         // clear previously selected any expressive button or home button
@@ -2191,7 +2191,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
      * clear previously pressed expressive button state and home button state (if pressed).
      * {@param image_flag} is a index of expressive button.
      *  e.g. From top to bottom 0 - like button, 1 - don't like button likewise.
-     *  To set home button to pressed state image_flag value must be 6</p>
+     *  To set home button to pressed state image_flag fileDownloadTask must be 6</p>
      * */
     private void setExpressiveButtonToAboutMe(int image_flag){
         //change icon images of expressive button to about me expressive button icons
@@ -2273,14 +2273,14 @@ public class LevelTwoActivity extends LevelBaseActivity{
      * then this function is not used.
      * As per the category icon selected in the level one {@link MainActivity}
      * category icons are populated in this level using preferences.
-     * "Most tapped category icon will have highest preference value",
+     * "Most tapped category icon will have highest preference fileDownloadTask",
      * in this fashion preferences are defined for category icons.
      * In level two, all category icon preferences are stored in session
      * preferences (shared preferences). Preferences are stored in the
      * from comma separated values string.
      *  e.g. "5,4,9,2,5"
      * This preference string is retrieved using {@link SessionManager} class.
-     * Then each value in preference string is converted into individual tokens and
+     * Then each fileDownloadTask in preference string is converted into individual tokens and
      * followed by storing it into arrays. This array is known as Tap count array. Value
      * in 0th index of tap count array is tap count (number of times user tapped) for 0th element
      * in adapter array/speech array.
@@ -2323,7 +2323,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
             mArrSort[i] = i;
         }
 
-        // Each value in savedString is now converted into individual tokens.
+        // Each fileDownloadTask in savedString is now converted into individual tokens.
         if(!savedString.equals("")){
             StringTokenizer st = new StringTokenizer(savedString, ",");
 
