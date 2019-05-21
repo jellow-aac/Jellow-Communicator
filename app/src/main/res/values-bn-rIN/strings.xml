@@ -126,8 +126,8 @@
     <string name="download">ডাউনলোড করা</string>
     <string name="cancel">বাতিল করা</string>
     <string name="keyboardControl">কীবোর্ড নিয়ন্ত্রণঃ</string>
-    <string name="serial_keyboard_title">Serial Keyboard:</string>
-    <string name="serial_keyboard_info">Jellow communicator is equipped with its own \'Serial Jellow keyboard\'. This keyboard was designed based on feedback from special educators and teachers and features alphabets placed in a serial manner starting form the alphabet \'A\'. The serial keyboard makes it easy for the user to anticipate the place of a particular alphabet on the keyboard and is especially very useful for children learning early literacy skills. Similarly, the keyboard also features numeral keys from 0–9 and symbols, which are most relevant to every day communication.</string>
+    <string name="serial_keyboard_title">ধারাবাহিক কীবোর্ড</string>
+    <string name="serial_keyboard_info">জেলো কমিউনিকেটর তার নিজস্ব \' ধারাবাহিক জেলো কীবোর্ড \' দ্বারা সজ্জিত। বিশেষ শিক্ষাবিদ এবং শিক্ষাবিদদের মতামত অনুসারে এই কীবোর্ড নির্মিত এবং এতে ' A ' থেকে বাকি কী-গুলি ক্রমানুসারে সাজানো রয়েছে। এই ধারাবাহিক কীবোর্ড ব্যবহারকারীর পক্ষে নির্দিষ্ট কী খোঁজার জন্য বিশেষভাবে সহায়ক এবং শিশুদের পক্ষে আদি ভাষাজ্ঞান দক্ষতা অর্জনের জন্য অত্যন্ত উপযোগী। একইভাবে এই কীবোর্ডে গণনাঙ্কের কী ক্রমান্বয়ে 0–9 এবং দৈনন্দিন কাজের পক্ষে সুবিধেজনক চিহ্ন মজুত রয়েছে।</string>
     <string name="keyboardControlTxt">পছন্দের কীবোর্ড সক্রিয় করা এবং তাকে ডিফল্ট করার জন্য তোমাকে দুটি ধাপ পেরোতে হবেঃ</string>
     <string name="step1">প্রথম ধাপঃ সেটিংস-এর কীবোর্ডটিকে সক্রিয় করো</string>
     <string name="qwertyKeyboard">কোয়ার্টি</string>
@@ -354,13 +354,13 @@
     <string name="homeAddress_dialog_btn">আমার বাড়ির ঠিকানা</string>
     <string name="caregiver_s_contact_number_dialog_btn">কেয়ারগিভারের যোগাযোগের নম্বর</string>
     <string name="bloodGroup_dialog_btn">আমার রক্তের গ্রুপ</string>
-    <string name="seekbar_speed_cd">Please use your device’s volume b uttons to change speech speed.</string>
-    <string name="seekbar_pitch_cd">Please use your device’s volume buttons to change voice pitch</string>
-    <string name="seekbar_volume_cd">Please use your device’s volume buttons to change speech volume</string>
-    <string name="lang_setting_option1_cd">“The image below shows the 3 steps involved in setting up the Google text-to-speech engine that is used by Jellow. The image is made up of 3 screenshots of the “Text to speech output” and “Google TTS settings” within a user’s device. In the first image corresponding to “Text-to-speech output”, there are 2 preferred engines visible, first, the “Samsung Text-to-Speech engine” and second, the “Google Text-to-Speech engine”. The user is seen to select the “Google Text-to-Speech engine” as the first step.</string>
-    <string name="lang_setting_option2_cd">The second image corresponds to the second step in this process where the user is seen to now click on the “Gear” symbol corresponding to the “Settings” of the “Google Text-to-Speech engine”</string>
-    <string name="lang_setting_option3_cd">The third image is the third step in this process where now the user is at the “Google TTS options” screen. The second item on this screen which is a toggle switch for “Use Wi-Fi only” has been highlighted in this image. The user is asked to turn off or disable this switch in this step.”</string>
-    <string name="lang_setting_option3_gtt3_cd">The third image corresponds to the third step  in this process where the user is seen to  now click on the “Language\" option on the  Google TTS voice data page. The user is seen to set  \"Hindi(India)\" as the default language of the  Google Text-to-Speech engine.</string>
+    <string name="seekbar_speed_cd">দয়া করে স্পিচের গতিবেগ পরিবর্তন করতে তোমার যন্ত্রের ভলিউম বাটন ব্যবহার করো।</string>
+    <string name="seekbar_pitch_cd">ভয়েস স্পিচ পরবর্তন করতে ডিভাইসের ভলিউম বাটন ব্যবহার করো।</string>
+    <string name="seekbar_volume_cd">স্পিচ বদলাতে দয়া করে ডিভাইসের ভলিউম বাটন ব্যবহার করো।</string>
+    <string name="lang_setting_option1_cd">নীচের ছবিটি জেলোর ব্যবহৃত গুগল টেক্সট টু স্পিচ ইঞ্জিন গঠনের তিনটি পর্যায় ফুটিয়ে তোলে। ছবিটি ব্যবহারকারীর ডিভাইসের "" টেক্সট টু স্পিচ আউটপুট "" এবং "" গুগল টিটিএস সেটিংস ""-এর তিনটি স্ক্রিনশটের সমন্বয়ে তৈরি। প্রথম ছবি অর্থাৎ "" টেক্সট টু স্পীচ আউটপুট ""-এ দুটি পছন্দসই ইঞ্জিন দৃশ্যমান। প্রথমটি "" স্যামসাং টেক্সট টু স্পিচ ইঞ্জিন "" এবং দ্বিতীয় "" গুগল টেক্সট টু স্পিচ ইঞ্জিন ""। ব্যবহারকারীকে প্রথম ধাপে "" গুগল টেক্সট টু স্পিচ ইঞ্জিন "" নির্বাচন করতে দেখা যায়।</string>
+    <string name="lang_setting_option2_cd">দ্বিতীয় ছবি হচ্ছে প্রক্রিয়ার দ্বিতীয় ধাপ যেখানে ব্যবহারকারীকে " গুগল টেক্সট টু স্পিচ ইঞ্জিনের " সেটিংসের " গিয়ার " সিম্বলে ক্লিক করতে দেখা যায়। </string>
+    <string name="lang_setting_option3_cd">তৃতীয় ছবিটি হচ্ছে প্রক্রিয়ার তৃতীয় ধাপ, যেখানে ব্যবহারকারীকে " গুগল টিটিএস অপশনস ''-এর স্ক্রিনে দেখা যায়। স্কিনের দ্বিতীয় বিষয়, যা " কেবল ওয়াই-ফাই ব্যবহার করো " অপশনের সংযোগসূত্র, তা ছবিতে স্পষ্টভাবে ফুটে ওঠে। ব্যবহারকারীকে এই সংযোগসূত্রটি বন্ধ অথবা নিস্ক্রিয় করতে বলা হয়।</string>
+    <string name="lang_setting_option3_gtt3_cd">তৃতীয় ছবিটি প্রক্রিয়ার তৃতীয় ধাপের অনুরূপ, যেখানে ব্যবহারকারীকে গুগল টিটিএস ভয়েস ডেটা পেজের " ভাষা\ " অপশনটি ক্লিক করতে দেখা যায়। তাঁকে দেখা যায় গুগল টেক্সট-টু-স্পিচ ইঞ্জিনে " হিন্দি ( ভারত) "-কে মূল ভাষা হিসেবে নির্বাচন করতে।</string>
     <!--end content description-->
 
 
@@ -369,7 +369,7 @@
     <string name="txt_intro8_step1">১. গুগল টেক্সট-টু-স্পীচ ইঞ্জিনের খোলো</string>
     <string name="txt_intro8_step2">২. গুগল টেক্সট-টু-স্পীচ ইঞ্জিনের-এর জন্য সেটিংস-এ যাও</string>
     <string name="txt_intro8_step3">৩. \"কেবল ওয়াই-ফাই ব্যবহার করো\" বন্ধ করো</string>
-    <string name="change_language_tts_wifi">নীচের \'গুগল টিটিএস এর সেটিংসে\' বোতামে ট্যাপ করে গুগল টেক্সট টু স্পীচ সেটিংস যান এবং \'শুধুমাত্র ওয়াই-ফাই ব্যবহার করুন\' ব্যবহার করতে এই বোতামটি বন্ধ করুন। যদি অপশনটি ইতিমধ্যে নিস্ক্রিয় করা হয়ে থাকে তাহলে এই ধাপটি অগ্রাহ্য করো।। যদি অপশনটি ইতিমধ্যে নিস্ক্রিয় করা হয়ে থাকে তাহলে এই ধাপটি অগ্রাহ্য করো।</string>
+    <string name="change_language_tts_wifi">গুগলের টিটিএসের সেটংস-এ গিয়ে \' টিটিএস সেটিংস \' বোতামটি স্পর্শ করে \' শুধু ওয়াই-ফাই \' অপশনটি চালু করুন। যদি অপশনটি ইতিমধ্যে নিস্ক্রিয় থাকে, তাহলে এই পর্যায়টি এড়িয়ে যান।</string>
     <string name="icon_update_msg">বর্তমান ভাষার আইকনগুলির সংযোজন:</string>
     <string name="editLanguage">১) ভাষা যুক্ত করো/মুছে দাওঃ</string>
     <string name="add_new_language">যোগ / মুছতে একটি ভাষা নির্বাচন করুন</string>
@@ -397,12 +397,12 @@
 
 
     <string name="txt_accessibility_setting">Accessibility Setting</string>
-    <string name="visual_access_title">Visual Accessibility:</string>
-    <string name="visual_acesss_info">The Visual accessibility feature of Jellow now allows users with additional visual difficulties including low vision or blindness to use Jellow and communicate effectively with others. It utilizes the \'Talk back\' feature on the Android smartphone to help navigate through the application. With \'Talk back\' switched on in the user\'s device, the user will now be able to get audio input describing everything they touch on the screen. The user can also assign custom gestures or use the default gestures of \'Talk back\' as they interact with Jellow. For example, a right swipe gesture will allow the user to sequentially scroll through icons on the screen. Similarly, double tapping anywhere on the screen will allow the user to select an icon of their choice.</string>
-    <string name="switch_access_title">Switch Accessibility:</string>
-    <string name="switch_access_info_one">Switch accessibility makes navigation in the app easy for people with motor disabilities. The feature allows navigation using one or two switches.</string>
+    <string name="visual_access_title">দৃশ্যগত ব্যবহারযোগ্যতা</string>
+    <string name="visual_acesss_info">জেলোর দৃশ্যগত ব্যবহারযোগ্যতার বৈশিষ্ট্যটি এখন স্বল্প দৃষ্টিশক্তিমান অথবা পুরোপুরি অন্ধ অতিরিক্ত দৃষ্টিশক্তিহীন ব্যবহারকারীকে জেলো ব্যবহার করতে ও অন্যদের সঙ্গে সংযোগ তৈরিতে সাহায্য করে। এটি অ্যান্ড্রয়েড ফোনের \' টক ব্যাক \' বিষয়টির সাহায্য নিয়ে অ্যাপ্লিকেশনের মাধ্যমে চলাফেরার কাজে ফলপ্রসু হয়। মোবাইলে টক ব্যাক বিষয়টি চালু থাকলে ব্যবহারকারী স্ক্রিন স্পর্শ করামাত্র অডিয়ো বিবরণ শুনতে পারবে। এখন ব্যবহারকারী জেলোর সঙ্গে সংযোগ করামাত্র টক ব্যাকের বৈশিষ্ট্যসমূহ বদলাতে পারবে অথবা পূর্ববর্তী বৈশিষ্ট্যগুলির সুবিধে নিতে পারবে। উদাহরণ হিসেবে বলা যায়, ডান দিকে ঘোরানোর বৈশিষ্ট্যটি ব্যবহারকারীকে স্ক্রিনের আইকনগুলি বরাবর চলাচলের সুযোগ করে দেবে। একইভাবে স্ক্রিনের যে-কোথাও দুবার স্পর্শ করলে ব্যবহারকারী তার নিজের পছন্দসই আইকন ব্যবহারের সুযোগ পাবে।</string>
+    <string name="switch_access_title">ব্যবহারযোগ্যতার বদল</string>
+    <string name="switch_access_info_one">অ্যাপের নেভিগেশনে ব্যবহারযোগ্যতার বদল শারীরিকভাবে অক্ষম ব্যক্তিদের কাজ সহজ করে। এই বৈশিষ্ট্যটি একটি কিংবা দুটি ধাপের মাধ্যমে নেভিগেশন ব্যবহার করার অনুমতি দেয়।</string>
     <string name="switch_access_info_two">To enable this feature the user has to turn on the \"switch access\" in the accessibility category in the phone setting.</string>
-    <string name="switch_access_info_three">Samsung users can find the switch access in  “dexterity and interaction” option in the accessibility category in the phone setting.</string>
-    <string name="switch_access_info_four">To use switch accessibility with one switch - Open settings -> Go to accessibility -> Turn on the switch access -> Choose switches either USB or Bluetooth switches -> Go to settings and Choose number of switches as one switch.</string>
-    <string name="switch_access_info_five">To use switch accessibility with two switches - Open settings -> Go to accessibility -> Turn on the switch access -> Choose switches either USB or Bluetooth switches -> Go to settings and Choose number of switches as two switches, then Choose the type of scanning, Click on next and Assign the action to both the switches and complete the process by testing the switches.</string>
+    <string name="switch_access_info_three">স্যামসাং ব্যবহারকারী ফোনের সেটিংসের \' ব্যবহার‍যোগ্যতা \' শ্রেণির " ডেক্সটারিটি অ্যান্ড ইন্টেরাকশন " অপশনে বদলের অনুমতি পেতে পারে।</string>
+    <string name="switch_access_info_four">ব্যবহারযোগ্যতা একবার প্রয়োগে বদলাতে — সেটিংস খুলুন — অ্যাকসেসিবিলিটি-তে যান — সুইচ অ্যাকসেস খুলুন — ইউএসবি অথবা ব্লুটুথ সুইচেস নির্বাচন করুন — সেটিংসে গিয়ে একবার স্পর্শ করে সুইচের সংখ্যা নির্বাচন করুন।</string>
+    <string name="switch_access_info_five">দুটো সুইচ দিয়ে ব্যবহারযোগ্যতা বদলাতে — সেটিংস খুলুন — অ্যাকসিসিবিলিটিতে যান — সুইচ অ্যসসেস চালু করুন — হয় ইউএসবি অথবা ব্লুটুথের সুইচ নির্বাচন করুন — সেটিংসে গিয়ে দুটো সুইচের নাম্বার নির্বাচন করুন — স্ক্যানিং-এর টাইপ বেছে নিয়ে পরবর্তী ধাপে যেতে ক্লিক করুন এবং দুটো সুইচের কাজগুলি নির্বাচন করে সুইচগুলি পরীক্ষার মাধ্যমে প্রক্রিয়াটি সম্পন্ন করুন।</string>
 </resources>
