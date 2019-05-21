@@ -16,6 +16,7 @@ android {
         debug {
             minifyEnabled false
             shrinkResources false
+            testCoverageEnabled true
             applicationIdSuffix ".debug"
             buildConfigField "String", "DB_TYPE", '"testing"'
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -29,6 +30,9 @@ android {
     }
     lintOptions {
         abortOnError false
+    }
+    dataBinding {
+        enabled = true
     }
 }
 
@@ -76,3 +80,12 @@ dependencies {
 
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'io.fabric'
+apply plugin: 'jacoco-android'
+
+jacoco {
+    toolVersion = "0.8.3"
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+}
