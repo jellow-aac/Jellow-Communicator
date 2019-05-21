@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class BaseActivity extends AppCompatActivity{
     private static SessionManager mSession;
     private static String mVisibleAct;
+    protected boolean isAlive;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -39,6 +40,8 @@ public class BaseActivity extends AppCompatActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        if(getNonMenuClass().contains(getVisibleAct()))
+            return false;
         super.onCreateOptionsMenu(menu);
         if(getLevelClass().contains(getVisibleAct()))
             getMenuInflater().inflate(R.menu.menu_main_with_search, menu);
@@ -106,6 +109,12 @@ public class BaseActivity extends AppCompatActivity{
                 if(getVisibleAct().equals(ResetPreferencesActivity.class.getSimpleName()))
                     break;
                 startActivity(new Intent(this, ResetPreferencesActivity.class));
+                finish();
+                break;
+            case R.id.languagePackUpdate:
+                if(getVisibleAct().equals(LanguagePackUpdateActivity.class.getSimpleName()))
+                    break;
+                startActivity(new Intent(this, LanguagePackUpdateActivity.class));
                 finish();
                 break;
             case R.id.feedback:
@@ -183,12 +192,30 @@ public class BaseActivity extends AppCompatActivity{
                     SequenceActivity.class.getSimpleName();
     }
 
+    private String getNonMenuClass() {
+        return UserRegistrationActivity.class.getSimpleName();
+    }
+
+
     public String getVisibleAct() {
         return mVisibleAct;
     }
 
     public void setVisibleAct(String visibleAct) {
         mVisibleAct = visibleAct;
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isAlive = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isAlive = false;
     }
 }
 
