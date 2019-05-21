@@ -57,7 +57,7 @@ public class LanguagePackUpdateActivityv2 extends BaseActivity implements Progre
         updateManager.startDownload();
 
         //TODO: change layout files for this v2 activity with separate files for different screen sizes
-        //TODO: if possible add a pause method for update
+        //TODO: if possible add a pause method for update manager
         //TODO: check for internet connection before starting a update
 
         /* lpuTextView.setText("Starting Downloads...");
