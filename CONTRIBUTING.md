@@ -66,7 +66,7 @@ Here's a guide on [how to squash commits in a GitHub pull request][squash-commit
 
 ### Deployment
 
-- Usually, we ship/deploy code to play store. We manually sign and  create relesae build.
+- Usually, we ship/deploy code to play store. We manually sign and  create release build.
 - Contributors work will get added to next public release.
 
 
