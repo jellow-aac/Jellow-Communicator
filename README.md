@@ -32,8 +32,8 @@ Contributing to Jellow
 ---
 There are many ways to contribute to Jellow, and only a few of them involve writing code, language translations, promotions.
 
-- Want to help translate Jellow Communicator to your language? Submit your requests at jellowcommunicator@gmail.com
-- Want to help to promote Jellow Communicator relevant community. Let us know what is your idea  at jellowcommunicator@gmail.com
+- Want to help to translate Jellow app content in your language? Contact us at jellowcommunicator@gmail.com
+- Want to help to promote Jellow Communicator relevant forums, community. Let us know what is your idea at jellowcommunicator@gmail.com
 - Want to contribute to Jellow app development check [Contributing Guide](https://github.com/jellow-aac/Jellow-Communicator/blob/master/CONTRIBUTING.md)
 
 License
