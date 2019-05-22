@@ -23,6 +23,7 @@ before_script:
 script:
   - ./gradlew build jacocoTestReport assembleAndroidTest
   - ./gradlew connectedAndroidTest
+  - bash <(curl -s https://codecov.io/bash)
 
 before_install:
   - chmod +x gradlew
