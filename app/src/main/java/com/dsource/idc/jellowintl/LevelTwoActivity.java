@@ -21,6 +21,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
 import com.dsource.idc.jellowintl.factories.IconFactory;
 import com.dsource.idc.jellowintl.factories.LanguageFactory;
@@ -37,12 +43,6 @@ import com.dsource.idc.jellowintl.utility.UserEventCollector;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.ViewCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
@@ -285,7 +285,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
         super.onActivityResult(requestCode, resultCode, data);
         // If user pressed home button in level three, it indicate that user be redirected to level
         // one (MainActivity). When this activity receives RESULT_CANCELED as resultCode it
-        // understands Home request is generated, so it closes itself.
+        // understands HomeActivity request is generated, so it closes itself.
         if(requestCode == REQ_HOME && resultCode == RESULT_CANCELED)
             finish();
     }
@@ -476,7 +476,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                     // a) set keyboard button to unpressed state.
                     // b) set back button to pressed state.
                     // c) hide custom keyboard input text view.
-                    // d) show category icons.
+                    // d) showDialog category icons.
                     // e) set flag mFlgKeyboardOpened = false, as user not using custom keyboard input
                     //    anymore.
                     // e) retain expressive button state as they were before custom keyboard input text
@@ -621,7 +621,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                         // a) set keyboard button to unpressed state.
                         // b) set back button to unpressed state
                         // c) hide custom keyboard input text.
-                        // d) show category icons
+                        // d) showDialog category icons
                         // e) hide custom keyboard input text speak button
                         mIvKeyboard.setImageResource(R.drawable.keyboard);
                         mEtTTs.setVisibility(View.INVISIBLE);
@@ -667,7 +667,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                         //keyboard input text so below steps will follow:
                     } else {
                         // a) keyboard button to pressed state
-                        // c) show custom keyboard input text and speak button view
+                        // c) showDialog custom keyboard input text and speak button view
                         // b) set back button unpressed state
                         // d) hide category icons
                         // e) disable expressive buttons
@@ -719,7 +719,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                 mFlgYes = mFlgMore = mFlgDntLike = mFlgNo = mFlgLess = 0;
                 //Value of mFlgImage = 0, indicates like expressive button is pressed
                 mFlgImage = 0;
-                // If selected category icon is Help -> About me, then show
+                // If selected category icon is Help -> About me, then showDialog
                 // expressive icons of About me category.
                 // and set like button icon to pressed using mFlgImage.
                 if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
@@ -840,7 +840,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                 mFlgLike = 0; mFlgYes = 0; mFlgMore = 0; mFlgNo = 0; mFlgLess = 0;
                 //Value of mFlgImage = 1, indicates don't like expressive button is pressed
                 mFlgImage = 1;
-                // If selected category icon is Help -> About me, then show
+                // If selected category icon is Help -> About me, then showDialog
                 // expressive icons of About me category.
                 // and set don't like button icon to pressed using mFlgImage.
                 if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
@@ -962,7 +962,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                 mFlgLike = 0; mFlgMore = 0; mFlgDntLike = 0; mFlgNo = 0; mFlgLess = 0;
                 //Value of mFlgImage = 2, indicates yes expressive button is pressed
                 mFlgImage = 2;
-                // If selected category icon is Help -> About me, then show
+                // If selected category icon is Help -> About me, then showDialog
                 // expressive icons of About me category.
                 // and set yes button icon to pressed using mFlgImage.
                 if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
@@ -1085,7 +1085,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                 mFlgLike = 0; mFlgYes = 0; mFlgMore = 0; mFlgDntLike = 0; mFlgLess = 0;
                 //Value of mFlgImage = 3, indicates no expressive button is pressed
                 mFlgImage = 3;
-                // If selected category icon is Help -> About me, then show
+                // If selected category icon is Help -> About me, then showDialog
                 // expressive icons of About me category.
                 // and set no button icon to pressed using mFlgImage.
                 if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
@@ -1206,7 +1206,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                 mFlgLike = 0; mFlgYes = 0; mFlgDntLike = 0; mFlgNo = 0; mFlgLess = 0;
                 //Value of mFlgImage = 4, indicates more expressive button is pressed
                 mFlgImage = 4;
-                // If selected category icon is Help -> About me, then show
+                // If selected category icon is Help -> About me, then showDialog
                 // expressive icons of About me category.
                 // and set more button icon to pressed using mFlgImage.
                 if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
@@ -1331,7 +1331,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                 mFlgLike = 0; mFlgYes = 0; mFlgMore = 0; mFlgDntLike = 0; mFlgNo = 0;
                 //Value of mFlgImage = 5, indicates less expressive button is pressed
                 mFlgImage = 5;
-                // If selected category icon is Help -> About me, then show
+                // If selected category icon is Help -> About me, then showDialog
                 // expressive icons of About me category.
                 // and set less button icon to pressed using mFlgImage.
                 if (mLevelOneItemPos == 8 && mLevelTwoItemPos == 1)
@@ -1439,7 +1439,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
     private void initTTsBtnListener() {
         mIvTts.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                speak(mEtTTs.getText().toString());
+                speak(mEtTTs.getText().toString().concat("_"));
                 //Firebase event
                 Bundle bundle = new Bundle();
                 bundle.putString("InputName", Settings.Secure.getString(getContentResolver(),
@@ -2396,7 +2396,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
 
     private String getLevel2IconCode(int level1Position) {
         if (level1Position + 1 <= 9) {
-            return "0" + Integer.toString(level1Position + 1);
+            return "0" + (level1Position + 1);
         } else {
             return Integer.toString(level1Position + 1);
         }

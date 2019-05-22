@@ -20,6 +20,9 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
+
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_DropDownMenu;
 import com.dsource.idc.jellowintl.models.SecureKeys;
@@ -39,15 +42,22 @@ import com.google.gson.Gson;
 import com.hbb20.CountryCodePicker;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.Date;
 import java.util.Random;
 
-import androidx.annotation.NonNull;
-import androidx.core.view.ViewCompat;
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+
 import se.simbio.encryption.Encryption;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
@@ -210,7 +220,7 @@ public class UserRegistrationActivity extends SpeechEngineBaseActivity {
                 mUserGroup = (radioGroup.getCheckedRadioButtonId() == R.id.radioParent) ?
                         getString(R.string.groupParentOnly): getString(R.string.groupTeacherOnly);
                 new NetworkConnectionTest(UserRegistrationActivity.this, name,
-                    emergencyContact, eMailId, mUserGroup).execute();
+                        emergencyContact, eMailId, mUserGroup).execute();
             }
         });
 
@@ -225,30 +235,6 @@ public class UserRegistrationActivity extends SpeechEngineBaseActivity {
     protected void onResume() {
         super.onResume();
         setVisibleAct(UserRegistrationActivity.class.getSimpleName());
-    }
-
-    private void updateFirebaseDatabase() {
-        String userId = maskNumber(getSession().getCaregiverNumber().substring(1));
-        FirebaseDatabase db = FirebaseDatabase.getInstance();
-        DatabaseReference ref = db.getReference(BuildConfig.DB_TYPE+"/users/" + userId);
-        SecureKeys secureKey = new Gson().
-                fromJson(getSession().getEncryptedData(), SecureKeys.class);
-        if (secureKey == null)
-            return;
-        ref.child("email").setValue(encrypt(getSession().getEmailId(),secureKey));
-        ref.child("emergencyContact").setValue(userId);
-        ref.child("name").setValue(encrypt(getSession().getName(), secureKey));
-        ref.child("userGroup").setValue(encrypt(getSession().getUserGroup(), secureKey));
-        ref.child("bloodGroup").setValue(encrypt(getBloodGroup(getSession().getBlood()), secureKey));
-        if(!getSession().getCaregiverNumber().isEmpty())
-            ref.child("caregiverName").setValue(encrypt(getSession().getCaregiverName(), secureKey));
-
-        if(!getSession().getAddress().isEmpty())
-            ref.child("address").setValue(encrypt(getSession().getAddress(), secureKey));
-        ref.child("updatedOn").setValue(ServerValue.TIMESTAMP);
-        setUserProperty("GridSize", "9");
-        setUserProperty("PictureViewMode", "PictureText");
-        getSession().setUpdatedFirebase(true);
     }
 
     @Override
@@ -270,7 +256,7 @@ public class UserRegistrationActivity extends SpeechEngineBaseActivity {
                 public void onInitializeAccessibilityEvent(View host, AccessibilityEvent event) {
                     super.onInitializeAccessibilityEvent(host, event);
                     if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED) {
-                         bRegister.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
+                        bRegister.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
                     }
                 }
             });
@@ -281,70 +267,39 @@ public class UserRegistrationActivity extends SpeechEngineBaseActivity {
         return target != null && Patterns.EMAIL_ADDRESS.matcher(target).matches();
     }
 
-    private class NetworkConnectionTest extends AsyncTask<Void, Void, Boolean>{
-        private Context mContext;
-        private String mName,  mEmailId, mUserGroup;
+    private void updateFirebaseDatabase() {
+        String userId = maskNumber(getSession().getCaregiverNumber().substring(1));
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference ref = db.getReference(BuildConfig.DB_TYPE+"/users/" + userId);
+        {
+            SecureKeys secureKey = new Gson().fromJson(getSession().getEncryptedData(), SecureKeys.class);
+            if (secureKey == null)
+                return;
+            Encryption encryption = Encryption.getDefault(secureKey.getKey(), secureKey.getSalt(), new byte[16]);
+            String encryptedEmailId = encrypt(getSession().getEmailId(), encryption),
+                    encryptedName = encrypt(getSession().getName(), encryption),
+                    encryptedUserGroup = encrypt(getSession().getUserGroup(), encryption),
+                    encryptedBloodGroup = encrypt(getBloodGroup(getSession().getBlood()), encryption),
+                    encryptedCareGiverName = encrypt(getSession().getCaregiverName(), encryption),
+                    encryptedAddress = encrypt(getSession().getAddress(), encryption);
+            if (encryptedEmailId.isEmpty() || encryptedName.isEmpty() ||
+                    encryptedUserGroup.isEmpty() || encryptedBloodGroup.isEmpty() ||
+                    encryptedCareGiverName.isEmpty() || encryptedAddress.isEmpty())
+                return;
+            ref.child("email").setValue(encryptedEmailId);
+            ref.child("emergencyContact").setValue(userId);
+            ref.child("name").setValue(encryptedName);
+            ref.child("userGroup").setValue(encryptedUserGroup);
+            ref.child("bloodGroup").setValue(encryptedBloodGroup);
+            if (!getSession().getCaregiverNumber().isEmpty())
+                ref.child("caregiverName").setValue(encryptedCareGiverName);
 
-        public NetworkConnectionTest(Context context, String name, String emergencyContact,
-                                     String eMailId, String userGroup) {
-            mContext = context;
-            mName = name;
-            mEmailId = eMailId;
-            mUserGroup = userGroup;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            if(!isConnectedToNetwork((ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE)))
-                return false;
-            try {
-                URL url = new URL("http://www.google.com");
-                HttpURLConnection urlc = (HttpURLConnection) url.openConnection();
-                urlc.setConnectTimeout(3000);
-                urlc.connect();
-                if (urlc.getResponseCode() == HttpURLConnection.HTTP_OK)
-                    return true;
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return false;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean isConnected) {
-            super.onPostExecute(isConnected);
-            if(isConnected){
-                Toast.makeText(mContext, getString(R.string.register_user), Toast.LENGTH_SHORT).show();
-                FirebaseAuth mAuth = FirebaseAuth.getInstance();
-                if(mAuth.getCurrentUser() == null) {
-                    mAuth.signInAnonymously()
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    getSession().setName(mName);
-                                    getSession().setCaregiverNumber("+" .concat(emergencyContact));
-                                    getSession().setUserCountryCode(mCcp.getSelectedCountryCode());
-                                    getSession().setEmailId(mEmailId);
-                                    encryptStoreUserInfo(mName, emergencyContact, eMailId, mUserGroup);
-                                    Crashlytics.log("User logged in");
-                                }else
-                                    Toast.makeText(mContext, getString(R.string.error_in_registration), Toast.LENGTH_SHORT).show();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_SHORT).show();
-                                bRegister.setEnabled(true);
-                            }
-                        });
-                }
-            }else{
-                bRegister.setEnabled(true);
-                Toast.makeText(mContext, getString(R.string.checkConnectivity), Toast.LENGTH_LONG).show();
-            }
+            if (!getSession().getAddress().isEmpty())
+                ref.child("address").setValue(encryptedAddress);
+            ref.child("updatedOn").setValue(ServerValue.TIMESTAMP);
+            setUserProperty("GridSize", "9");
+            setUserProperty("PictureViewMode", "PictureText");
+            getSession().setUpdatedFirebase(true);
         }
     }
 
@@ -362,23 +317,59 @@ public class UserRegistrationActivity extends SpeechEngineBaseActivity {
                 SecureKeys secureKey = new Gson().
                         fromJson(getSession().getEncryptedData(), SecureKeys.class);
                 Crashlytics.log("Created secure key.");
-                createUser(encrypt(name, secureKey), contact,
-                        encrypt(email, secureKey),
-                        encrypt(mCcp.getSelectedCountryEnglishName(), secureKey),
-                        encrypt(selectedLanguage, secureKey),
-                        encrypt(userGroup, secureKey), userGroup);
+                {
+                    Encryption encryption = Encryption.getDefault(secureKey.getKey(), secureKey.getSalt(), new byte[16]);
+                    String encryptedName = encrypt(name, encryption),
+                            encryptedEmail = encrypt(email, encryption),
+                            encryptedCountry = encrypt(mCcp.getSelectedCountryEnglishName(), encryption),
+                            encryptedLang = encrypt(selectedLanguage, encryption),
+                            encryptedUserGroup = encrypt(userGroup, encryption);
+
+                    if(encryptedName.isEmpty() || encryptedEmail.isEmpty() ||
+                            encryptedCountry.isEmpty() || encryptedLang.isEmpty() ||
+                            encryptedUserGroup.isEmpty()){
+                        bRegister.setEnabled(true);
+                        Toast.makeText(UserRegistrationActivity.this,
+                                getString(R.string.error_in_registration), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    createUser(encryptedName, contact,
+                            encryptedEmail,
+                            encryptedCountry,
+                            encryptedLang,
+                            encryptedUserGroup, userGroup);
+                }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 Crashlytics.logException(exception);
+                bRegister.setEnabled(true);
             }
         });
     }
 
-    private String encrypt(String plainText, SecureKeys secureKey) {
-        Encryption encryption = Encryption.getDefault(secureKey.getKey(), secureKey.getSalt(), new byte[16]);
-        return encryption.encryptOrNull(plainText).trim();
+    private String encrypt(String plainText, Encryption encryption) {
+        try {
+            return encryption.encrypt(plainText).trim();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+        } catch (InvalidAlgorithmParameterException e) {
+            e.printStackTrace();
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     private void createUser(final String name, final String emergencyContact, String eMailId,
@@ -507,6 +498,72 @@ public class UserRegistrationActivity extends SpeechEngineBaseActivity {
             case 7: return "O+ve";
             case 8: return "O-ve";
             default: return "not selected";
+        }
+    }
+
+    private class NetworkConnectionTest extends AsyncTask<Void, Void, Boolean>{
+        private Context mContext;
+        private String mName,  mEmailId, mUserGroup;
+
+        public NetworkConnectionTest(Context context, String name, String emergencyContact,
+                                     String eMailId, String userGroup) {
+            mContext = context;
+            mName = name;
+            mEmailId = eMailId;
+            mUserGroup = userGroup;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            if(!isConnectedToNetwork((ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE)))
+                return false;
+            try {
+                URL url = new URL("http://www.google.com");
+                HttpURLConnection urlc = (HttpURLConnection) url.openConnection();
+                urlc.setConnectTimeout(3000);
+                urlc.connect();
+                if (urlc.getResponseCode() == HttpURLConnection.HTTP_OK)
+                    return true;
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean isConnected) {
+            super.onPostExecute(isConnected);
+            if(isConnected){
+                Toast.makeText(mContext, getString(R.string.register_user), Toast.LENGTH_SHORT).show();
+                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                mAuth.signOut();
+                mAuth.signInAnonymously()
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    getSession().setName(mName);
+                                    getSession().setCaregiverNumber("+".concat(emergencyContact));
+                                    getSession().setUserCountryCode(mCcp.getSelectedCountryCode());
+                                    getSession().setEmailId(mEmailId);
+                                    encryptStoreUserInfo(mName, emergencyContact, eMailId, mUserGroup);
+                                    Crashlytics.log("User logged in");
+                                }else
+                                    Toast.makeText(mContext, getString(R.string.error_in_registration), Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        bRegister.setEnabled(true);
+                    }
+                });
+            }else{
+                bRegister.setEnabled(true);
+                Toast.makeText(mContext, getString(R.string.checkConnectivity), Toast.LENGTH_LONG).show();
+            }
         }
     }
 }

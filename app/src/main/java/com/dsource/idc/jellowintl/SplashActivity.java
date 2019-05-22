@@ -4,9 +4,11 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.cache.CacheManager;
@@ -25,11 +27,6 @@ import org.json.JSONObject;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
@@ -75,9 +72,13 @@ public class SplashActivity extends BaseActivity {
             TextFactory.clearJson();
         }
 
-        iconDatabase=new CreateDataBase(this);
-        iconDatabase.execute();
-        checkIfDatabaseCreated();
+        if(getSession().isLanguageChanged()!=2) {
+            iconDatabase = new CreateDataBase(this);
+            iconDatabase.execute();
+        }else {
+            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+            finishAffinity();
+        }
      }
 
     @Override
@@ -111,33 +112,6 @@ public class SplashActivity extends BaseActivity {
             setUserProperty("PictureViewMode", "PictureOnly");
             setCrashlyticsCustomKey("PictureViewMode", "PictureOnly");
         }
-    }
-
-    private void checkIfDatabaseCreated()
-    {
-        if(!(getSession().isLanguageChanged()==2))
-            startApp();//if changes are their in the app then check whether the data base is created or not
-        else
-            startJellow();//If no change in language then simply start the app.
-    }
-
-    private void startApp() {
-        final Timer timer=new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                if(iconDatabase.getStatus()== AsyncTask.Status.FINISHED)
-                {
-                    startJellow();
-                    timer.cancel();
-                }
-            }
-        },0,100);
-    }
-
-    private void startJellow() {
-        startActivity(new Intent(SplashActivity.this, MainActivity.class));
-        finishAffinity();
     }
 
     private void performDatabaseOperations() {

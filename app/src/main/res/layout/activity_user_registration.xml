@@ -2,57 +2,56 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:paddingTop="@dimen/user_reg_parent_padding"
-    android:paddingBottom="@dimen/user_reg_parent_padding"
-    android:paddingLeft="@dimen/user_reg_parent_padding"
-    android:paddingStart="@dimen/user_reg_parent_padding"
-    android:background="@drawable/bg"
-    tools:ignore="RtlSymmetry">
+    android:padding="@dimen/user_reg_parent_padding"
+    android:background="@drawable/bg">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="9dp"
-        android:layout_marginLeft="9dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:fadeScrollbars="false"
         android:fillViewport="true"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp">
+        android:layout_marginTop="@dimen/user_reg_scroll_margin_top"
+        android:layout_marginBottom="@dimen/user_reg_scroll_margin_bottom"
+        android:layout_marginLeft="@dimen/user_reg_scroll_margin_left"
+        android:layout_marginStart="@dimen/user_reg_scroll_margin_left"
+        android:layout_marginRight="@dimen/user_reg_scroll_margin_right"
+        android:layout_marginEnd="@dimen/user_reg_scroll_margin_right"
+        android:paddingTop="@dimen/user_reg_scroll_padding_top"
+        android:paddingBottom="@dimen/user_reg_scroll_padding_bottom"
+        android:paddingLeft="@dimen/user_reg_scroll_padding_left"
+        android:paddingStart="@dimen/user_reg_scroll_padding_left"
+        android:paddingRight="@dimen/user_reg_scroll_padding_right"
+        android:paddingEnd="@dimen/user_reg_scroll_padding_right"
+        android:fadeScrollbars="false">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:paddingLeft="@dimen/user_reg_scroll_parent_padding_left"
+            android:paddingStart="@dimen/user_reg_scroll_parent_padding_left"
             tools:ignore="RtlSymmetry">
 
             <TextView
                 android:id="@+id/childName"
-                style="@style/defaultTextViewStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:text="@string/childName"
                 android:contentDescription="@string/child_s_name"
                 android:fontFamily="@font/mukta_semibold"
                 android:importantForAccessibility="yes"
-                android:text="@string/childName" />
+                style="@style/defaultTextViewStyle" />
 
             <TextView
                 style="@style/defaultTextViewStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/txt_registration_jellowCalluDesc" />
+                android:text="@string/txt_registration_jellowCalluDesc"
+                android:textSize="@dimen/user_reg_subhead"/>
 
             <EditText
                 android:id="@+id/etName"
                 style="@style/defaultTextViewStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="@dimen/user_reg_etName"
                 android:contentDescription="@string/enter_child_s_name"
                 android:ems="10"
                 android:imeOptions="actionDone"
@@ -70,7 +69,8 @@
                 style="@style/defaultTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/txt_registration_emergencynoDesc" />
+                android:text="@string/txt_registration_emergencynoDesc"
+                android:textSize="@dimen/user_reg_subhead"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -80,22 +80,22 @@
                     android:id="@+id/ccp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/select_country_code"
-                    app:ccpDialog_backgroundColor="@color/app_background"
-                    app:ccpDialog_keyboardAutoPopup="false"
-                    app:ccpDialog_showCloseIcon="true"
+                    app:ccp_textSize="@dimen/user_reg_ccp"
                     app:ccpDialog_textColor="@color/black_eighty"
+                    app:ccpDialog_showCloseIcon="true"
+                    app:ccp_countryPreference="IN,US,GB"
                     app:ccp_autoDetectCountry="true"
                     app:ccp_autoFormatNumber="false"
-                    app:ccp_countryPreference="IN,US,GB"
-                    app:ccp_textSize="14sp" />
+                    app:ccpDialog_keyboardAutoPopup="false"
+                    app:ccpDialog_backgroundColor="@color/app_background"
+                    android:contentDescription="@string/select_country_code" />
 
                 <EditText
                     android:id="@+id/etEmergencyContact"
                     style="@style/defaultTextViewStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="@dimen/user_reg_et_bottom"
                     android:contentDescription="@string/enter_caregiver_s_contact_number"
                     android:imeOptions="actionDone"
                     android:inputType="phone"
@@ -114,14 +114,15 @@
                 style="@style/defaultTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/txt_registration_emailDesc" />
+                android:text="@string/txt_registration_emailDesc"
+                android:textSize="@dimen/user_reg_subhead" />
 
             <EditText
                 android:id="@+id/etEmailId"
                 style="@style/defaultTextViewStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="@dimen/user_reg_et_bottom"
                 android:contentDescription="@string/enter_caregiver_s_email_address"
                 android:ems="10"
                 android:imeOptions="actionDone"
@@ -138,13 +139,14 @@
                 style="@style/defaultTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/txt_registration_usergrp_desc" />
+                android:text="@string/txt_registration_usergrp_desc"
+                android:textSize="@dimen/user_reg_subhead"/>
 
             <RadioGroup
                 android:id="@+id/radioUserGroup"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="@dimen/user_reg_et_bottom"
                 android:contentDescription="@string/user_s_group"
                 android:importantForAccessibility="no">
 
@@ -171,7 +173,7 @@
                 style="@style/defaultTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
+                android:layout_marginBottom="@dimen/user_reg_tv_group"
                 android:fontFamily="@font/mukta_semibold"
                 android:text="@string/txt_registration_selectLangDesc"
                 android:contentDescription="@string/txt_registration_selectLangDesc_contentDesc"/>
@@ -179,24 +181,24 @@
             <Spinner
                 android:id="@+id/langSelectSpinner"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:minWidth="98dp"
-                android:paddingRight="28dp"
-                android:paddingEnd="28dp"
-                android:layout_marginBottom="10dp"
+                android:layout_height="@dimen/user_reg_spinner_height"
+                android:minWidth="@dimen/user_reg_spinner_min_width"
+                android:paddingRight="@dimen/user_reg_spinner_right_padding"
+                android:paddingEnd="@dimen/user_reg_spinner_right_padding"
+                android:layout_marginBottom="@dimen/user_reg_et_bottom"
                 android:background="@drawable/custom_spinner_view"/>
 
             <Button
                 android:id="@+id/bRegister"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_height="@dimen/user_reg_btn_reg"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="8dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
+                android:layout_marginTop="@dimen/user_reg_btn_margin_top"
+                android:layout_marginBottom="@dimen/user_reg_btn_8_dp"
+                android:paddingLeft="@dimen/user_reg_btn_8_dp"
+                android:paddingRight="@dimen/user_reg_btn_8_dp"
                 android:text="@string/txt_registration_registerBtn"
-                android:textSize="14sp" />
+                android:textSize="@dimen/user_reg_btn_reg_txt" />
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

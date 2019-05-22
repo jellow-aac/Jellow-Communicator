@@ -2,12 +2,23 @@ package com.dsource.idc.jellowintl.utility;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
+
+import com.dsource.idc.jellowintl.MainActivity;
+import com.dsource.idc.jellowintl.SplashActivity;
 
 public class CreateDataBase extends AsyncTask {
     Context mContext;
     public CreateDataBase(Context context) {
         mContext=context;
+    }
+
+    @Override
+    protected void onPostExecute(Object o) {
+        super.onPostExecute(o);
+        mContext.startActivity(new Intent(mContext, MainActivity.class));
+        ((SplashActivity)mContext).finishAffinity();
     }
 
     @Override

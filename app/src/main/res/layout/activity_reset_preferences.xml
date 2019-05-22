@@ -2,21 +2,23 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F7F3C6">
+    android:background="@color/app_background">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fillViewport="false"
         android:fadeScrollbars="false"
-        android:layout_marginLeft="19dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginBottom="19dp">
+        android:layout_marginTop="@dimen/reset_pref_parent_margin_vertical"
+        android:layout_marginBottom="@dimen/reset_pref_parent_margin_vertical"
+        android:layout_marginLeft="@dimen/reset_pref_parent_margin_left"
+        android:layout_marginStart="@dimen/reset_pref_parent_margin_left"
+        android:layout_marginRight="@dimen/reset_pref_parent_margin_right"
+        android:layout_marginEnd="@dimen/reset_pref_parent_margin_right">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/reset_pref_ll_margin_right"
+            android:layout_marginEnd="@dimen/reset_pref_ll_margin_right"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -25,10 +27,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="4dp"
-                    android:layout_marginRight="4dp"
-                    android:scaleX=".7"
-                    android:scaleY=".7"
+                    android:layout_marginEnd="@dimen/reset_pref_bullet_margin_right"
+                    android:layout_marginRight="@dimen/reset_pref_bullet_margin_right"
+                    android:scaleX="@dimen/reset_pref_bullet_scale"
+                    android:scaleY="@dimen/reset_pref_bullet_scale"
                     android:importantForAccessibility="no"
                     android:text="@string/bullet" />
                 <TextView
@@ -41,17 +43,17 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="19dp"
-                android:layout_marginBottom="19dp"
+                android:layout_marginTop="@dimen/reset_pref_ll_margin_top"
+                android:layout_marginBottom="@dimen/reset_pref_ll_margin_top"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="4dp"
-                    android:layout_marginRight="4dp"
+                    android:layout_marginEnd="@dimen/reset_pref_bullet_margin_right"
+                    android:layout_marginRight="@dimen/reset_pref_bullet_margin_right"
+                    android:scaleX="@dimen/reset_pref_bullet_scale"
+                    android:scaleY="@dimen/reset_pref_bullet_scale"
                     android:importantForAccessibility="no"
-                    android:scaleX=".7"
-                    android:scaleY=".7"
                     android:text="@string/bullet" />
                 <TextView
                     android:id="@+id/tv2"
@@ -67,10 +69,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="4dp"
-                    android:layout_marginRight="4dp"
-                    android:scaleX=".7"
-                    android:scaleY=".7"
+                    android:layout_marginEnd="@dimen/reset_pref_bullet_margin_right"
+                    android:layout_marginRight="@dimen/reset_pref_bullet_margin_right"
+                    android:scaleX="@dimen/reset_pref_bullet_scale"
+                    android:scaleY="@dimen/reset_pref_bullet_scale"
                     android:importantForAccessibility="no"
                     android:text="@string/bullet" />
                 <TextView
@@ -84,28 +86,30 @@
     </ScrollView>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="@dimen/reset_pref_bottom_bar_height"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:background="#f7e2ac"
+        android:background="@color/menu_screen_bottom_bar"
         android:gravity="center_vertical"
         android:importantForAccessibility="yes">
 
         <Button
             android:id="@+id/yes"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="@dimen/reset_pref_btn_height"
             android:text="@string/yes"
+            android:textSize="@dimen/reset_pref_btn_txt_size"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp" />
+            android:layout_marginLeft="@dimen/reset_pref_btn_margin_left"
+            android:layout_marginStart="@dimen/reset_pref_btn_margin_left" />
         <Button
             android:id="@+id/no"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="@dimen/reset_pref_btn_height"
             android:text="@string/no"
+            android:textSize="@dimen/reset_pref_btn_txt_size"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp" />
+            android:layout_marginLeft="@dimen/reset_pref_btn_margin_left"
+            android:layout_marginStart="@dimen/reset_pref_btn_margin_left" />
     </LinearLayout>
 </RelativeLayout>
