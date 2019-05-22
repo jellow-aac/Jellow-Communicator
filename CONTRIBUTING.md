@@ -66,7 +66,9 @@ Here's a guide on [how to squash commits in a GitHub pull request][squash-commit
 
 ### Deployment
 
-After your pull request is merged, the functionality will get added to next release.
+- Usually, we ship/deploy code to play store. We manually sign and  create relesae build.
+- Contributors work will get added to next public release.
+
 
 [coc]: https://github.com/jellow-aac/Jellow-Communicator/blob/master/CODE_OF_CONDUCT.md
 [coding-style]: https://source.android.com/setup/contribute/code-style
