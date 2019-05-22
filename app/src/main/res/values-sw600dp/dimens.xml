@@ -20,6 +20,78 @@
     <dimen name="search_list_title_text_size">18sp</dimen>
     <dimen name="search_dir_width">200dp</dimen>
     <dimen name="divider_height">1.5dp</dimen>
+	
+    <!--Dimensions related to the Icon select Activity-->
+    <dimen name="check_box_size">24dp</dimen>
+    <dimen name="level_select_pain_width">340dp</dimen>
+    <dimen name="level_select_pane_text_size">24sp</dimen>
+    <dimen name="level_select_pane_text_padding_left">12dp</dimen>
+    <dimen name="level_select_pain_padding_top_bottom">16dp</dimen>
+    <dimen name="nav_mar_right">12dp</dimen>
+    <dimen name="demo_mar">28dp</dimen>
+    <dimen name="extra_mar">40dp</dimen>
+    <dimen name="icon_edit_grid_size">140dp</dimen>
+    <dimen name="icon_edit_icon_size">100dp</dimen>
+    <dimen name="icon_edit_text_size">16sp</dimen>
+    <dimen name="exp_icon_margin_bottom">24dp</dimen>
+    <dimen name="exp_icon_bottom_margin">36dp</dimen>
+    <dimen name="nav_bar_icons_width">90dp</dimen>
+    <dimen name="nav_bar_icon_height">80dp</dimen>
+    <dimen name="edit_option_width">200dp</dimen>
+    <dimen name="edit_option_text_size">20sp</dimen>
+    <dimen name="icon_select_grid_size">90dp</dimen>
+    <dimen name="icon_select_icon_size">70dp</dimen>
+    <dimen name="my_board_button_width">100dp</dimen>
+    <dimen name="my_board_button_height">36dp</dimen>
+    <dimen name="level_select_pane_min_width">200dp</dimen>
+    <dimen name="drop_down_width">200dp</dimen>
+    <dimen name="bottom_nav_bar_padding">12dp</dimen>
+    <dimen name="nav_bar_button_padding">10dp</dimen>
+    <dimen name="icon_title_text_size">16sp</dimen>
+    <dimen name="dialog_box_text_size">20sp</dimen>
+
+    <dimen name="board_edit_icon_size">200dp</dimen>
+    <dimen name="board_edit_dialog_width">240dp</dimen>
+    <dimen name="edit_baord_dialog_margin_bottom">28dp</dimen>
+    <dimen name="edit_board_button_margin_top">8dp</dimen>
+    <dimen name="edit_board_button_side_margin">10dp</dimen>
+    <dimen name="edit_board_button_width">86dp</dimen>
+    <dimen name="edit_board_dialog_button_text_size">16sp</dimen>
+    <dimen name="edit_board_dialog_internal_margin_top">16dp</dimen>
+
+    <!--Dimensions related to the verbiage item-->
+    <dimen name="verbiage_list_item_width">160dp</dimen>
+    <dimen name="verbiage_list_item_height">60dp</dimen>
+    <dimen name="verbiage_list_et_text">18sp</dimen>
+    <dimen name="verbiage_item_add_remove">40dp</dimen>
+    <dimen name="vl_exp_icon_width">64dp</dimen>
+    <dimen name="vl_exp_icon_height">50dp</dimen>
+    <dimen name="vl_padding">14dp</dimen>
+    <dimen name="edit_baord_dialog_side_margin">24dp</dimen>
+    <dimen name="drop_icon_size">28dp</dimen>
+
+    <!--Dimensions related to the My Board Card-->
+    <dimen name="my_board_four_grid_icon_size">200dp</dimen>
+    <dimen name="my_board_text_size">24sp</dimen>
+    <dimen name="my_board_edit_icon_size">40dp</dimen>
+    <dimen name="board_edit_edittext_size">170dp</dimen>
+    <dimen name="list_item_padding">6dp</dimen>
+    <dimen name="dialog_width">400dp</dimen>
+    <dimen name="dialog_height">500dp</dimen>
+    <dimen name="my_boards_card_margin">16dp</dimen>
+    <dimen name="my_board_title_top_margin">14dp</dimen>
+
+    <!--Dimensions Related to the Grid DialogBox-->
+    <dimen name="grid_dialog_padding">24dp</dimen>
+    <dimen name="grid_dialog_title_textsize">24sp</dimen>
+    <dimen name="add_edit_screen_edit_icon_size">34dp</dimen>
+    <dimen name="grid_dialog_title_bottom_margin">24dp</dimen>
+    <dimen name="grid_dialog_icon_size">120dp</dimen>
+    <dimen name="grid_dialog_width">410</dimen>
+    <dimen name="grid_dialog_icon_margin">24dp</dimen>
+    <dimen name="grid_dialog_text_margin">8dp</dimen>
+
+
 
 
     <!--1 icons configuration-->
@@ -66,8 +138,231 @@
     <dimen name="nineIcon_borderThickness">7dp</dimen>
     <dimen name="nineIcon_innerRadius">44dp</dimen>
 
-    <!--User Registration screen dimensions-->
+    <!--activity_user_registration.xml dimensions-->
     <dimen name="user_reg_parent_padding">10dp</dimen>
+    <dimen name="user_reg_scroll_margin_left">0dp</dimen>
+    <dimen name="user_reg_scroll_margin_right">16dp</dimen>
+    <dimen name="user_reg_scroll_margin_top">0dp</dimen>
+    <dimen name="user_reg_scroll_margin_bottom">0dp</dimen>
+    <dimen name="user_reg_scroll_padding_left">5dp</dimen>
+    <dimen name="user_reg_scroll_padding_right">0dp</dimen>
+    <dimen name="user_reg_scroll_padding_top">12dp</dimen>
+    <dimen name="user_reg_scroll_padding_bottom">0dp</dimen>
+    <dimen name="user_reg_scroll_parent_padding_left">7dp</dimen>
+    <dimen name="user_reg_subhead">17sp</dimen>
+    <dimen name="user_reg_etName">10dp</dimen>
+    <dimen name="user_reg_ccp">20sp</dimen>
+    <dimen name="user_reg_et_bottom">10dp</dimen>
+    <dimen name="user_reg_tv_group">8dp</dimen>
+    <dimen name="user_reg_spinner_height">40dp</dimen>
+    <dimen name="user_reg_spinner_min_width">98dp</dimen>
+    <dimen name="user_reg_spinner_right_padding">28dp</dimen>
+    <dimen name="user_reg_btn_reg">@dimen/custom_wrap_content</dimen>
+    <dimen name="user_reg_btn_margin_top">50dp</dimen>
+    <dimen name="user_reg_btn_8_dp">8dp</dimen>
+    <dimen name="user_reg_btn_reg_txt">20sp</dimen>
+
+    <!--activity_language_download.xml dimensions-->
+    <dimen name="lang_dl_parent_margin_lr">144dp</dimen>
+    <dimen name="lang_dl_parent_margin_bottom">48dp</dimen>
+    <dimen name="lang_dl_pbar_height">30dp</dimen>
+    <dimen name="lang_dl_pbar_bg_padding">2dp</dimen>
+    <dimen name="lang_dl_pbar_radius">10dp</dimen>
+    <dimen name="lang_dl_txt_margin_top">48dp</dimen>
+
+    <!--activity_splash.xml dimensions-->
+    <dimen name="splash_margin_top">-120dp</dimen>
+    <dimen name="splash_anim_scale">.3</dimen>
+    <dimen name="splash_anim_margin_top">-100dp</dimen>
+    <dimen name="splash_img_margin_bottom">83dp</dimen>
+    <dimen name="splash_img_scale">.5</dimen>
+
+    <!--activity_profile_form.xml dimensions-->
+    <dimen name="profile_parent_margin_left">30dp</dimen>
+    <dimen name="profile_parent_margin_vertical">19dp</dimen>
+    <dimen name="profile_parent_margin_right">16dp</dimen>
+    <dimen name="profile_scroll_size">4dp</dimen>
+    <dimen name="profile_view_margin_bottom">19dp</dimen>
+    <dimen name="profile_et_margin_left">-4dp</dimen>
+    <dimen name="profile_parent_ll_margin_right">0dp</dimen>
+    <dimen name="profile_ccp_txt_size">20sp</dimen>
+    <dimen name="profile_radio_btn_txt_size">20sp</dimen>
+    <dimen name="profile_radio_btn_margin_bottom">0dp</dimen>
+    <dimen name="profile_spinner_width">175dp</dimen>
+    <dimen name="profile_spinner_height">40dp</dimen>
+    <dimen name="profile_view_height">58dp</dimen>
+    <dimen name="profile_save_btn_height">40dp</dimen>
+    <dimen name="profile_save_btn_txt_size">20sp</dimen>
+    <dimen name="profile_btn_save_margin_left">30dp</dimen>
+
+    <!--activity_about_jellow.xml dimensions-->
+    <dimen name="about_parent_margin_left">30dp</dimen>
+    <dimen name="about_parent_margin_right">16dp</dimen>
+    <dimen name="about_parent_margin_top">19dp</dimen>
+    <dimen name="about_parent_margin_bottom">58dp</dimen>
+    <dimen name="about_scroll_width">855dp</dimen>
+    <dimen name="about_bullet_margin_top">8dp</dimen>
+    <dimen name="about_bullet_scale">.7</dimen>
+    <dimen name="about_tv_margin">8dp</dimen>
+    <dimen name="about_tv_padding_bottom">0dp</dimen>
+    <dimen name="about_ll_margin_top">19dp</dimen>
+    <dimen name="about_credits_ll_margin_bottom">8dp</dimen>
+    <dimen name="about_credit_tv_margin_left">6dp</dimen>
+    <dimen name="about_credit_name_margin_left">14dp</dimen>
+    <dimen name="about_credit_title_ll_margin_bottom">14dp</dimen>
+    <dimen name="about_extra_margin_bottom">32dp</dimen>
+    <dimen name="about_bottom_bar_height">58dp</dimen>
+    <dimen name="about_btn_height">40dp</dimen>
+    <dimen name="about_btn_txt_size">20sp</dimen>
+    <dimen name="about_btn_margin_left">30dp</dimen>
+
+    <!--activity_tutorial.xml dimensions-->
+    <dimen name="tutorial_scroll_margin_left">30dp</dimen>
+    <dimen name="tutorial_scroll_margin_right">16dp</dimen>
+    <dimen name="tutorial_scroll_margin_top">30dp</dimen>
+    <dimen name="tutorial_scroll_margin_bottom">0dp</dimen>
+    <dimen name="tutorial_parent_margin_right">168dp</dimen>
+    <dimen name="tutorial_parent_ll_margin_bottom">0dp</dimen>
+    <dimen name="tutorial_bullet_margin_right">6dp</dimen>
+    <dimen name="tutorial_bullet_margin_top">6dp</dimen>
+    <dimen name="tutorial_bullet_scale">.7</dimen>
+    <dimen name="tutorial_tv_padding_bottom">0dp</dimen>
+    <dimen name="tutorial_tv_text_margin_vertical">0dp</dimen>
+    <dimen name="tutorial_pic_height">500dp</dimen>
+    <dimen name="tutorial_pic_margin_top">0dp</dimen>
+    <dimen name="tutorial_tts_pic_height">300dp</dimen>
+    <dimen name="tutorial_tts_pic_margin_bottom">16dp</dimen>
+
+    <!--activity_keyboard_input.xml dimensions-->
+    <dimen name="key_set_scroll_margin_left">30dp</dimen>
+    <dimen name="key_set_scroll_margin_right">30dp</dimen>
+    <dimen name="key_set_scroll_margin_vertical">19dp</dimen>
+    <dimen name="key_set_bullet_scale">.7</dimen>
+    <dimen name="key_set_bullet_margin_top">8dp</dimen>
+    <dimen name="key_set_tv_margin_top">8dp</dimen>
+    <dimen name="key_set_tv_margin_left">8dp</dimen>
+    <dimen name="key_set_tv_padding_bottom">0dp</dimen>
+    <dimen name="key_set_ll_margin_top">57dp</dimen>
+    <dimen name="key_set_tv1_margin_left">8dp</dimen>
+    <dimen name="key_set_t2_margin_top">8dp</dimen>
+    <dimen name="key_set_ll_margin_bottom">0dp</dimen>
+    <dimen name="key_set_btn_height">@dimen/custom_wrap_content</dimen>
+    <dimen name="key_set_btn_margin_vertical">8dp</dimen>
+    <dimen name="key_set_btn_padding_left">8dp</dimen>
+    <dimen name="key_set_btn_txt_size">20sp</dimen>
+    <dimen name="key_set_btn_margin_left">32dp</dimen>
+
+    <!--activity_language_select.xml dimensions-->
+    <dimen name="lang_sel_scroll_margin_vertical">19dp</dimen>
+    <dimen name="lang_sel_scroll_margin_left">30dp</dimen>
+    <dimen name="lang_sel_scroll_margin_right">16dp</dimen>
+    <dimen name="lang_sel_parent_margin_right">168dp</dimen>
+    <dimen name="lang_sel_tv_margin_bottom">19dp</dimen>
+    <dimen name="lang_sel_ll_margin_top">0dp</dimen>
+    <dimen name="lang_sel_img_width">210dp</dimen>
+    <dimen name="lang_sel_img_height">270dp</dimen>
+    <dimen name="lang_sel_img_ar_width">55dp</dimen>
+    <dimen name="lang_sel_img_ar_height">80dp</dimen>
+    <dimen name="lang_sel_btn_height">@dimen/custom_wrap_content</dimen>
+    <dimen name="lang_sel_btn_txt_size">20sp</dimen>
+    <dimen name="lang_sel_btn_margin_top">8dp</dimen>
+    <dimen name="lang_sel_btn_margin_bottom">19dp</dimen>
+    <dimen name="lang_sel_btn_padding_horizontal">8dp</dimen>
+    <dimen name="lang_sel_btn_margin_right">30dp</dimen>
+    <dimen name="lang_sel_head_margin_top">57dp</dimen>
+    <dimen name="lang_sel_head_margin_bottom">19dp</dimen>
+    <dimen name="lang_sel_tv_margin_vertical_top">19dp</dimen>
+    <dimen name="lang_sel_tv_step_margin_bottom">10dp</dimen>
+    <dimen name="lang_sel_spiner_height">40dp</dimen>
+    <dimen name="lang_sel_spiner_min_width">98dp</dimen>
+    <dimen name="lang_sel_spiner_padding_right">28dp</dimen>
+    <dimen name="lang_sel_voice_img_width">200dp</dimen>
+    <dimen name="lang_sel_voice_img_height">300dp</dimen>
+    <dimen name="lang_sel_voice_img_margin_left">-8dp</dimen>
+    <dimen name="lang_sel_btn_voice_margin_top">8dp</dimen>
+    <dimen name="lang_sel_btn_voice_margin_bottom">19dp</dimen>
+    <dimen name="lang_sel_ll_margin_left">-8dp</dimen>
+    <dimen name="lang_sel_btn_tts_margin_top">8dp</dimen>
+
+    <!--activity_settings.xml dimensions-->
+    <dimen name="setting_scroll_margin_top">19dp</dimen>
+    <dimen name="setting_scroll_margin_left">30dp</dimen>
+    <dimen name="setting_scroll_margin_right">16dp</dimen>
+    <dimen name="setting_tv_margin_bottom">0dp</dimen>
+    <dimen name="setting_seekbar_width">370dp</dimen>
+    <dimen name="setting_seekbar_margin_bottom">12dp</dimen>
+    <dimen name="setting_spinner_width">175dp</dimen>
+    <dimen name="setting_spinner_height">40dp</dimen>
+    <dimen name="setting_spinner_margin_bottom">12dp</dimen>
+    <dimen name="setting_spinner_min_width">0dp</dimen>
+    <dimen name="setting_spinner_padding_right">0dp</dimen>
+    <dimen name="setting_spinner_icon_width">90dp</dimen>
+    <dimen name="setting_spinner_icon_height">40dp</dimen>
+    <dimen name="setting_extra_space_height">58dp</dimen>
+    <dimen name="setting_btn_height">40dp</dimen>
+    <dimen name="setting_btn_txt_size">20sp</dimen>
+    <dimen name="setting_btn_padding_horizontal">8dp</dimen>
+    <dimen name="setting_btn_margin_left">30dp</dimen>
+
+    <!--activity_accessibility_settings.xml dimensions-->
+    <dimen name="access_parent_margin_left">19dp</dimen>
+    <dimen name="access_parent_margin_right">8dp</dimen>
+    <dimen name="access_parent_margin_vertical">19dp</dimen>
+    <dimen name="access_scroll_margin_end">855dp</dimen>
+    <dimen name="access_bullet_scale">.7</dimen>
+    <dimen name="access_bullet_margin_top">8dp</dimen>
+    <dimen name="access_tv_margin_top">8dp</dimen>
+    <dimen name="access_tv_margin_left">8dp</dimen>
+    <dimen name="access_tv_margin_bottom">2dp</dimen>
+    <dimen name="access_ll_margin_top">19dp</dimen>
+    <dimen name="access_ll_margin_bottom">58dp</dimen>
+    <dimen name="access_btn_txt_size">20sp</dimen>
+    <dimen name="access_btn_height">40dp</dimen>
+    <dimen name="access_btn_margin_left">30dp</dimen>
+    <dimen name="access_btn_padding_horizontal">8dp</dimen>
+    <dimen name="access_yt_thumbnail_width">190dp</dimen>
+    <dimen name="access_yt_thumbnail_height">90dp</dimen>
+
+    <!--activity_accessibility_settings.xml dimensions-->
+    <dimen name="access_setting_extra_space">58dp</dimen>
+
+    <!--activity_reset_preferences.xml dimensions-->
+    <dimen name="reset_pref_parent_margin_vertical">19dp</dimen>
+    <dimen name="reset_pref_parent_margin_left">30dp</dimen>
+    <dimen name="reset_pref_parent_margin_right">16dp</dimen>
+    <dimen name="reset_pref_ll_margin_right">168dp</dimen>
+    <dimen name="reset_pref_bullet_margin_right">4dp</dimen>
+    <dimen name="reset_pref_bullet_scale">.7</dimen>
+    <dimen name="reset_pref_ll_margin_top">19dp</dimen>
+    <dimen name="reset_pref_bottom_bar_height">58dp</dimen>
+    <dimen name="reset_pref_btn_height">40dp</dimen>
+    <dimen name="reset_pref_btn_txt_size">20sp</dimen>
+    <dimen name="reset_pref_btn_margin_left">30dp</dimen>
+
+    <!--activity_feedback.xml dimensions-->
+    <dimen name="feedback_scroll_margin_top">19dp</dimen>
+    <dimen name="feedback_scroll_margin_left">30dp</dimen>
+    <dimen name="feedback_scroll_margin_right">16dp</dimen>
+    <dimen name="feedback_parent_margin_right">16dp</dimen>
+    <dimen name="feedback_tv_height">@dimen/custom_wrap_content</dimen>
+    <item name="feedback_rb_scale_size"  type="dimen" format="float">0.8</item>
+    <dimen name="feedback_rb_margin_left">-28dp</dimen>
+    <dimen name="feedback_extra_space_height">48dp</dimen>
+    <dimen name="feedback_et_margin_left">-2dp</dimen>
+    <dimen name="feedback_et_height">120dp</dimen>
+    <dimen name="feedback_et_text_padding">8dp</dimen>
+    <dimen name="feedback_bottom_bar_height">58dp</dimen>
+    <dimen name="feedback_btn_height">40dp</dimen>
+    <dimen name="feedback_btn_txt_size">20sp</dimen>
+    <dimen name="feedback_btn_padding_left">0dp</dimen>
+    <dimen name="feedback_btn_margin_left">30dp</dimen>
+
+    <!--activity_feedback_talkback.xml dimensions-->
+    <dimen name="fb_tb_margin_bottom">8dp</dimen>
+    <dimen name="fb_tb_spinner_height">40dp</dimen>
+    <dimen name="fb_tb_spinner_width">90dp</dimen>
+    <dimen name="fb_tb_et_margin_left">-2dp</dimen>
+    <dimen name="select_text_size" >16sp</dimen>
 
 
 </resources>

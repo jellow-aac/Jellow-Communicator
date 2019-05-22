@@ -77,7 +77,7 @@ public class SpeechEngineBaseActivity extends BaseActivity{
 
             @Override
             public void onError(String utteranceId) {
-                //Text synthesize process failed third time then show TTs error.
+                //Text synthesize process failed third time then showDialog TTs error.
                 if(++mFailedToSynthesizeTextCount > 2)
                     mErrorHandler.sendFailedToSynthesizeError(getString(R.string.txt_actLangSel_complete_mainscreen_msg));
             }
@@ -91,7 +91,7 @@ public class SpeechEngineBaseActivity extends BaseActivity{
         //      2) app language is bengali and tts language does matches
         //         with every type of bengali language OR
         //      3) app language and Text-to-speech language are different THEN
-        //         show error toast and set incorrect language setting to true.
+        //         showDialog error toast and set incorrect language setting to true.
         if((Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
                 && !getSession().getLanguage().equals(LangMap.get("मराठी"))) {
             if (getSpeechEngineLanguage().equals("-r") ||
@@ -176,10 +176,14 @@ public class SpeechEngineBaseActivity extends BaseActivity{
 
     public void speak(String speechText){
         stopSpeaking();
-        if(isNoTTSLanguage())
-            playAudio(getAudioPath(this)+speechText);
-        else
+        /*Extra symbol '_' is appended to end of every string from custom keyboard utterances.
+        *Extra symbol '-' is appended to end of every string from make my board speak request.
+        * Hence utterances will use tts engine to speak irrespective of type of language
+        * (tts language or non tts) */
+        if (speechText.contains("_") || speechText.contains("-") || !isNoTTSLanguage())
             sTts.speak(speechText, TextToSpeech.QUEUE_FLUSH, map);
+        else
+            playAudio(getAudioPath(this)+speechText);
     }
 
     public void stopSpeaking(){
@@ -279,6 +283,7 @@ public class SpeechEngineBaseActivity extends BaseActivity{
     }
 
     public void playInQueue(final String speechTextInQueue) {
+        stopAudio();
         try {
             final int[] count = {0};
             mMediaPlayer = new MediaPlayer();

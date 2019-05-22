@@ -134,4 +134,23 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="8dp"/>
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/profile_save_btn_height"
+        android:layout_gravity="center_vertical"
+        android:textSize="@dimen/profile_save_btn_txt_size"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"
+        android:textAlignment="center"
+        android:background="@drawable/edit_board_dialog_edit_text"
+        android:layout_marginLeft="8dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:textAllCaps="false"
+        android:text="Save"
+        android:visibility="gone"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginStart="8dp"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

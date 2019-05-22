@@ -39,7 +39,7 @@ public class DialogKeyboardUtterance {
                 bundle.putString("utterence", speechText);
                 if (!speechText.isEmpty())
                     bundleEvent("Keyboard", bundle);
-                ((LevelBaseActivity)mContext).speak(speechText.toLowerCase());
+                ((LevelBaseActivity)mContext).speak(speechText.toLowerCase().concat("_"));
 
             }
         });
