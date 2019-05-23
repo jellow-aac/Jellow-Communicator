@@ -34,6 +34,12 @@ android {
     dataBinding {
         enabled = true
     }
+    variantFilter { variant ->
+        def names = variant.flavors*.name
+        if(variant.buildType.name == 'release' && names.contains("myforbiddenflavor")) {
+            setIgnore(true)
+        }
+    }
 }
 
 dependencies {

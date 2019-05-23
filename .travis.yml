@@ -19,7 +19,6 @@ before_script:
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
-  - openssl aes-256-cbc -K $encrypted_f2ee35e3f026_key -iv $encrypted_f2ee35e3f026_iv -in google-services.json.enc -out google-services.json -d
 
 script:
   - ./gradlew build jacocoTestReport assembleAndroidTest
