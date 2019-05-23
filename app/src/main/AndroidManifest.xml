@@ -23,17 +23,13 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
-        <activity android:name=".LanguagePackUpdateActivityv2"
+
+        <activity android:name=".LanguagePackUpdateActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.NoActionBar">
 
         </activity>
-        <activity
-            android:name=".LanguagePackUpdateActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="landscape"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
         <activity android:name=".LevelBaseActivity" />
         <activity android:name=".BaseActivity" />
         <activity android:name=".SpeechEngineBaseActivity" />

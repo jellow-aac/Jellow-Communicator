@@ -1,4 +1,4 @@
-package com.dsource.idc.jellowintl.utility;
+package com.dsource.idc.jellowintl.packageUpdate;
 
 import android.content.Context;
 
@@ -7,7 +7,7 @@ import com.dsource.idc.jellowintl.factories.LanguageFactory;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import static com.dsource.idc.jellowintl.utility.LogUtils.logGeneralEvents;
+import static com.dsource.idc.jellowintl.packageUpdate.LogUtils.logGeneralEvents;
 
 public class FirebaseUtils {
 

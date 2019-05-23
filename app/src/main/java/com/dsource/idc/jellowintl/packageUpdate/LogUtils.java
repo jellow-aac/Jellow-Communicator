@@ -1,10 +1,10 @@
-package com.dsource.idc.jellowintl.utility;
+package com.dsource.idc.jellowintl.packageUpdate;
 
 import android.util.Log;
 
 public class LogUtils {
 
-    private static final String TAG = "batchDown";
+    private static final String TAG = "jellowDebug";
 
     public static void logFileNotFound(String fileName){
         Log.d(TAG,"Error: "+ fileName + " file not found");

@@ -4,8 +4,8 @@ import android.content.Context;
 
 import com.google.firebase.storage.StorageReference;
 
-import static com.dsource.idc.jellowintl.utility.FirebaseUtils.getBaseUpdateStorageRef;
-import static com.dsource.idc.jellowintl.utility.LogUtils.logGeneralEvents;
+import static com.dsource.idc.jellowintl.packageUpdate.FirebaseUtils.getBaseUpdateStorageRef;
+import static com.dsource.idc.jellowintl.packageUpdate.LogUtils.logGeneralEvents;
 
 public class UpdateRefFactory {
     private static final String FB_SHA256MAP_JSON = "hmap.json";

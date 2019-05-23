@@ -1,4 +1,4 @@
-package com.dsource.idc.jellowintl.utility;
+package com.dsource.idc.jellowintl.packageUpdate;
 
 import android.content.Context;
 import android.util.Log;
@@ -14,7 +14,7 @@ import ir.mahdi.mzip.zip.ZipArchive;
 
 public class FileUtils {
 
-    private static final String TAG = "batchDown";
+    private static final String TAG = "jellowDebug";
     private static final String UPDATE_DIR = "update";
 
     public static File getUpdateDir(Context context){

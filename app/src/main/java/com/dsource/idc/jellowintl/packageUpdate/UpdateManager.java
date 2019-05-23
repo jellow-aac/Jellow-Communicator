@@ -29,15 +29,15 @@ import static com.dsource.idc.jellowintl.packageUpdate.UpdateFileFactory.getVerb
 import static com.dsource.idc.jellowintl.packageUpdate.UpdateRefFactory.getDrawablesUpdateStorageRef;
 import static com.dsource.idc.jellowintl.packageUpdate.UpdateRefFactory.getSHA256MapJSONRef;
 import static com.dsource.idc.jellowintl.packageUpdate.UpdateRefFactory.getVerbiageMapJSONRef;
-import static com.dsource.idc.jellowintl.utility.FileUtils.deleteDir;
-import static com.dsource.idc.jellowintl.utility.FileUtils.doesExist;
-import static com.dsource.idc.jellowintl.utility.FileUtils.getUpdateDir;
-import static com.dsource.idc.jellowintl.utility.FileUtils.renameFile;
-import static com.dsource.idc.jellowintl.utility.FileUtils.writeToFile;
-import static com.dsource.idc.jellowintl.utility.LogUtils.logFileDownloadFailed;
-import static com.dsource.idc.jellowintl.utility.LogUtils.logFileDownloadSuccess;
-import static com.dsource.idc.jellowintl.utility.LogUtils.logFileNotFound;
-import static com.dsource.idc.jellowintl.utility.LogUtils.logGeneralEvents;
+import static com.dsource.idc.jellowintl.packageUpdate.FileUtils.deleteDir;
+import static com.dsource.idc.jellowintl.packageUpdate.FileUtils.doesExist;
+import static com.dsource.idc.jellowintl.packageUpdate.FileUtils.getUpdateDir;
+import static com.dsource.idc.jellowintl.packageUpdate.FileUtils.renameFile;
+import static com.dsource.idc.jellowintl.packageUpdate.FileUtils.writeToFile;
+import static com.dsource.idc.jellowintl.packageUpdate.LogUtils.logFileDownloadFailed;
+import static com.dsource.idc.jellowintl.packageUpdate.LogUtils.logFileDownloadSuccess;
+import static com.dsource.idc.jellowintl.packageUpdate.LogUtils.logFileNotFound;
+import static com.dsource.idc.jellowintl.packageUpdate.LogUtils.logGeneralEvents;
 
 
 public class UpdateManager implements UpdateContract {
@@ -135,6 +135,7 @@ public class UpdateManager implements UpdateContract {
     private void downloadStage3(){
         File fUpdateDir = getUpdateDir(context);
         StorageReference drawablesRef = getDrawablesUpdateStorageRef(context);
+        updateStatusText("Downloading Icons...");
         downloadIconFiles(fUpdateDir,drawablesRef);
         logGeneralEvents("Downloading Icon Files");
     }
@@ -216,7 +217,7 @@ public class UpdateManager implements UpdateContract {
         return refSHA256MapJSON.getFile(fSHA256MapJSON);
     }
 
-    public void generateHashMaps(File fSHA256MapJSON,File fOldSHA256MapJSON){
+    private void generateHashMaps(File fSHA256MapJSON,File fOldSHA256MapJSON){
         this.mapIconSHA256 = getHashMap(fSHA256MapJSON);
         this.mapOldIconSHA256 = getHashMap(fOldSHA256MapJSON);
     }
@@ -331,9 +332,9 @@ public class UpdateManager implements UpdateContract {
         boolean updateFilesCleaned = deleteDir(updateDir);
 
         if(updateFilesCleaned){
-            logGeneralEvents("Update directory deletion success");
+            logGeneralEvents("Success: Cleaned update cache");
         } else {
-            logGeneralEvents("Update directory deletion failed");
+            logGeneralEvents("Failed: Unable to clean update cache");
         }
 
         return updateFilesCleaned;
@@ -410,6 +411,10 @@ public class UpdateManager implements UpdateContract {
         progressReceiver.showUpdateInfo(message);
     }
 
+    private void notifyIconsModified(boolean modified){
+        progressReceiver.iconsModified(modified);
+    }
+
     private void onUpdateTaskResult(UpdateTaskResult updateTaskResult){
 
         cleanUpdateFiles();
@@ -417,24 +422,30 @@ public class UpdateManager implements UpdateContract {
         switch (updateTaskResult){
             case ICONS_SUCCESSFULLY_UPDATED:
                 logGeneralEvents("Update task Successfully executed");
-                updateStatusText("Language pack successfully updated");
+                updateStatusText("Language pack successfully updated!!");
                 showUpdateInfo("Update Success!!");
+                notifyIconsModified(true);
                 break;
             case NO_UPDATES_FOUND:
                 logGeneralEvents("No new/updated icons found");
-                updateStatusText("No updates found");
+                updateStatusText("No updates found!!");
                 showUpdateInfo("Update Check Success!!");
+                notifyIconsModified(false);
                 break;
             case FAILED:
                 logGeneralEvents("Update task execution failed!!");
                 updateStatusText("Error completing update!! Please try again.");
                 showUpdateInfo("Update Failed!!");
+                notifyIconsModified(false);
                 break;
         }
     }
 
     private void onStageDownloadResult(UpdateTaskStage stage,boolean success){
         if(success){
+
+            logGeneralEvents("Successfully Completed: " + stage);
+
             switch (stage){
                 case STAGE_1:
                     downloadStage2();
@@ -453,6 +464,7 @@ public class UpdateManager implements UpdateContract {
                     break;
             }
         } else {
+            logGeneralEvents("Failed: " + stage);
             onUpdateTaskResult(UpdateTaskResult.FAILED);
         }
     }

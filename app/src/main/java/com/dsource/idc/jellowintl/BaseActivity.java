@@ -7,11 +7,9 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.text.Html;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.accessibility.AccessibilityManager;
-import android.widget.Toast;
 
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
@@ -110,9 +108,9 @@ public class BaseActivity extends AppCompatActivity{
                 finish();
                 break;
             case R.id.languagePackUpdate:
-                if(getVisibleAct().equals(LanguagePackUpdateActivityv2.class.getSimpleName()))
+                if(getVisibleAct().equals(LanguagePackUpdateActivity.class.getSimpleName()))
                     break;
-                startActivity(new Intent(this, LanguagePackUpdateActivityv2.class));
+                startActivity(new Intent(this, LanguagePackUpdateActivity.class));
                 finish();
                 break;
             case R.id.feedback:

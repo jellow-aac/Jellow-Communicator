@@ -4,8 +4,8 @@ import android.content.Context;
 
 import java.io.File;
 
-import static com.dsource.idc.jellowintl.utility.FileUtils.getFile;
-import static com.dsource.idc.jellowintl.utility.FileUtils.getUpdateFile;
+import static com.dsource.idc.jellowintl.packageUpdate.FileUtils.getFile;
+import static com.dsource.idc.jellowintl.packageUpdate.FileUtils.getUpdateFile;
 
 public class UpdateFileFactory {
 
