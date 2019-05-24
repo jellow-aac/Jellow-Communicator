@@ -2,7 +2,7 @@ package com.dsource.idc.jellowintl.packageUpdate;
 
 
 
-import com.google.firebase.storage.value;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
@@ -10,11 +10,11 @@ import java.io.File;
 public interface UpdateContract {
 
 
-    value downloadSHA256MapJSON(File fSHA256MapJSON, StorageReference refSHA256MapJSON);
+    FileDownloadTask downloadSHA256MapJSON(File fSHA256MapJSON, StorageReference refSHA256MapJSON);
 
     int generateIconDownloadQueue();
 
-    value downloadVerbiageMapJSON(File fVerbiageMapJSON, StorageReference refVerbiageMapJSON);
+    FileDownloadTask downloadVerbiageMapJSON(File fVerbiageMapJSON, StorageReference refVerbiageMapJSON);
 
     void downloadIconFiles(File fIconDownloadDir, StorageReference refIconsDir);
 

@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.storage.value;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -74,10 +74,10 @@ public class UpdateManager implements UpdateContract {
     private void downloadStage1(){
         StorageReference refSHA256MapJSON = getSHA256MapJSONRef(context);
         File fSHA256MapJSON = getSHA256MapJSON(context);
-        value downloadSHA256MapJSON = downloadSHA256MapJSON(fSHA256MapJSON,refSHA256MapJSON);
-        downloadSHA256MapJSON.addOnCompleteListener(new OnCompleteListener<value.TaskSnapshot>() {
+        FileDownloadTask downloadSHA256MapJSON = downloadSHA256MapJSON(fSHA256MapJSON,refSHA256MapJSON);
+        downloadSHA256MapJSON.addOnCompleteListener(new OnCompleteListener<FileDownloadTask.TaskSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<value.TaskSnapshot> task) {
+            public void onComplete(@NonNull Task<FileDownloadTask.TaskSnapshot> task) {
                 if(task.isSuccessful()){
                     logFileDownloadSuccess("New HashMap JSON");
                     updateStatusText("Parsing Download data...");
@@ -144,10 +144,10 @@ public class UpdateManager implements UpdateContract {
         updateStatusText("Updating Icon Data...");
         StorageReference refVerbiageMapJSON = getVerbiageMapJSONRef(context);
         File fVerbiageMapJSON = getVerbiageMapJSON(context);
-        value downloadVerbiageMapJSON= downloadVerbiageMapJSON(fVerbiageMapJSON,refVerbiageMapJSON);
-        downloadVerbiageMapJSON.addOnCompleteListener(new OnCompleteListener<value.TaskSnapshot>() {
+        FileDownloadTask downloadVerbiageMapJSON= downloadVerbiageMapJSON(fVerbiageMapJSON,refVerbiageMapJSON);
+        downloadVerbiageMapJSON.addOnCompleteListener(new OnCompleteListener<FileDownloadTask.TaskSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<value.TaskSnapshot> task) {
+            public void onComplete(@NonNull Task<FileDownloadTask.TaskSnapshot> task) {
                 if(task.isSuccessful()){
                     logFileDownloadSuccess("New VerbiageMap JSON");
                     onStageDownloadResult(UpdateTaskStage.STAGE_4,SUCCESS);
@@ -213,7 +213,7 @@ public class UpdateManager implements UpdateContract {
 
 
     @Override
-    public value downloadSHA256MapJSON(File fSHA256MapJSON, StorageReference refSHA256MapJSON) {
+    public FileDownloadTask downloadSHA256MapJSON(File fSHA256MapJSON, StorageReference refSHA256MapJSON) {
         return refSHA256MapJSON.getFile(fSHA256MapJSON);
     }
 
@@ -223,7 +223,7 @@ public class UpdateManager implements UpdateContract {
     }
 
     @Override
-    public value downloadVerbiageMapJSON(File fVerbiageMapJSON, StorageReference refVerbiageMapJSON) {
+    public FileDownloadTask downloadVerbiageMapJSON(File fVerbiageMapJSON, StorageReference refVerbiageMapJSON) {
         return refVerbiageMapJSON.getFile(fVerbiageMapJSON);
     }
 
@@ -253,10 +253,10 @@ public class UpdateManager implements UpdateContract {
             final String iconName = iconDownloadQueue.poll();
             StorageReference refIconFile = refIconsDir.child(iconName);
             File fIcon = new File(fIconDownloadDir.getAbsolutePath(),iconName);
-            value iconvalue = refIconFile.getFile(fIcon);
-            iconvalue.addOnCompleteListener(new OnCompleteListener<value.TaskSnapshot>() {
+            FileDownloadTask iconvalue = refIconFile.getFile(fIcon);
+            iconvalue.addOnCompleteListener(new OnCompleteListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
-                public void onComplete(@NonNull Task<value.TaskSnapshot> task) {
+                public void onComplete(@NonNull Task<FileDownloadTask.TaskSnapshot> task) {
                     if(task.isSuccessful()){
                         downloadedIcons.add(iconName);
                         progressReceiver.onDownloadProgress(downloadedIcons.size(),iconDownloadQueueSize);
@@ -276,10 +276,10 @@ public class UpdateManager implements UpdateContract {
             final String iconName = failedDownloadsQueue.poll();
             StorageReference refIconFile = refIconsDir.child(iconName);
             File fIcon = new File(fIconDownloadDir.getAbsolutePath(),iconName);
-            value iconvalue = refIconFile.getFile(fIcon);
-            iconvalue.addOnCompleteListener(new OnCompleteListener<value.TaskSnapshot>() {
+            FileDownloadTask iconvalue = refIconFile.getFile(fIcon);
+            iconvalue.addOnCompleteListener(new OnCompleteListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
-                public void onComplete(@NonNull Task<value.TaskSnapshot> task) {
+                public void onComplete(@NonNull Task<FileDownloadTask.TaskSnapshot> task) {
                     if(task.isSuccessful()){
                         downloadedIcons.add(iconName);
                         progressReceiver.onDownloadProgress(downloadedIcons.size(),iconDownloadQueueSize);

@@ -378,7 +378,7 @@ public class UserRegistrationActivity extends SpeechEngineBaseActivity {
 
     private String encrypt(String plainText, SecureKeys secureKey) {
         Encryption encryption = Encryption.getDefault(secureKey.getKey(), secureKey.getSalt(), new byte[16]);
-        return encryption.encryptOrNull(plainText);
+        return encryption.encryptOrNull(plainText).trim();
     }
 
     private void createUser(final String name, final String emergencyContact, String eMailId,
