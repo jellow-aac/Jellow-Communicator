@@ -35,10 +35,10 @@
                 android:numStars="5"
                 style="?android:attr/ratingBarStyle"
                 android:theme="@style/RatingBar"
-                android:scaleX="0.6"
-                android:scaleY="0.6"
-                android:layout_marginLeft="-50dp"
-                android:layout_marginStart="-50dp"/>
+                android:scaleX="@dimen/feedback_rb_scale_size"
+                android:scaleY="@dimen/feedback_rb_scale_size"
+                android:layout_marginLeft="@dimen/feedback_rb_margin_left"
+                android:layout_marginStart="@dimen/feedback_rb_margin_left"/>
             <TextView
                 android:id="@+id/tv2"
                 android:layout_width="wrap_content"

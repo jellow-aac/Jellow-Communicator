@@ -79,9 +79,23 @@ dependencies {
         transitive = true
     }
 
-    testImplementation 'junit:junit:4.13-beta-3'
-    androidTestImplementation 'androidx.test:runner:1.2.0-beta01'
+
+    // Optional -- JUnit test framework
+    androidTestImplementation 'junit:junit:4.13-beta-3'
+    // Optional -- Robolectric environment
+    androidTestImplementation 'androidx.test:core:1.1.0'
+    /* Required for Espresso library*/
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-beta01'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test:rules:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.1.1'
+
+
+    testImplementation 'androidx.test.espresso:espresso-intents:3.1.1'
+
+    // Optional -- Mockito framework
+    testImplementation 'org.mockito:mockito-core:1.10.19'
+    testImplementation 'org.testng:testng:6.9.6'
 }
 
 apply plugin: 'com.google.gms.google-services'
