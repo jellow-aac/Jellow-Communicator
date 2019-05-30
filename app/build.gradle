@@ -68,7 +68,7 @@ dependencies {
     implementation('com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.11.0@aar') {
         transitive = true
     }
-    implementation 'androidx.room:room-runtime:2.1.0-beta01'
+    implementation 'androidx.room:room-runtime:2.1.0-rc01'
     annotationProcessor 'android.arch.persistence.room:compiler:2.1.0-beta01'
 
 

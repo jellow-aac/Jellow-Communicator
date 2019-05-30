@@ -26,6 +26,7 @@ import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 public class BaseActivity extends AppCompatActivity{
+    final private String APP_DB_NAME = "jellow_app_database";
     private static SessionManager sSession;
     private static String sVisibleAct;
     private static AppDatabase sAppDatabase;
@@ -45,7 +46,7 @@ public class BaseActivity extends AppCompatActivity{
         if (sSession == null)
             sSession = new SessionManager(this);
         if(sAppDatabase == null)
-        sAppDatabase = Room.databaseBuilder(this, AppDatabase.class, "category_preferences").build();
+            sAppDatabase = Room.databaseBuilder(this, AppDatabase.class, APP_DB_NAME).build();
 
     }
 

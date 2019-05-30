@@ -1,6 +1,9 @@
 package com.dsource.idc.jellowintl.Presentor;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
+import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.dsource.idc.jellowintl.models.CategoryPreference;
@@ -8,10 +11,12 @@ import com.dsource.idc.jellowintl.models.CategoryPreference;
 @Dao
 public interface CategoryPreferencesDao {
 
-    @Query("SELECT * FROM category_pref WHERE language IN (:language) AND levelOne IN (:levelOne) AND levelTwo IN (:levelTwo)")
-    CategoryPreference getCategoryPreference(String language, String levelOne, String levelTwo);
+    @Query("SELECT * FROM CategoryPreference WHERE category_position=(:catPos)")
+    CategoryPreference getCategoryPreference(String catPos);
 
-    @Query("SELECT * FROM category_pref WHERE language IN (:language) AND levelOne IN (:levelOne)")
-    CategoryPreference getCategoryPreference(String language, String levelOne);
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertPreferences(CategoryPreference preferences);
 
+    @Query("DELETE FROM CategoryPreference")
+    void clearPreferences();
 }
