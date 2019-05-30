@@ -8,10 +8,10 @@ import android.os.Bundle;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
+
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.dsource.idc.jellowintl.utility.DownloadManager;
-
-import androidx.core.content.ContextCompat;
 
 import static com.dsource.idc.jellowintl.LanguageSelectActivity.FINISH;
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.LCODE;
@@ -144,6 +144,12 @@ public class LanguageDownloadActivity extends BaseActivity {
                         return getString(R.string.acc_lang_eng_us);
                     case "English (Australia)":
                         return getString(R.string.acc_lang_eng_au);
+                    case "Spanish (Spain)":
+                        return getString(R.string.acc_lang_span_span);
+                    case "தமிழ்":
+                        return getString(R.string.acc_lang_tamil_in);
+                    case "Deutsch (Deutschland)":
+                        return getString(R.string.acc_lang_german_ger);
                     default:
                         return langFullName;
                 }
@@ -157,6 +163,12 @@ public class LanguageDownloadActivity extends BaseActivity {
                         return "English (US)";
                     case "English (Australia)":
                         return "English (AU)";
+                    case "Spanish (Spain)":
+                        return "Spanish (ES)";
+                    case "Tamil (India)":
+                        return "Tamil (IN)";
+                    case "Deutsch (Deutschland)":
+                        return "Deutsch (DE)";
                     default:
                         return langFullName;
                 }

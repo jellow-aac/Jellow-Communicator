@@ -23,6 +23,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.res.ResourcesCompat;
+
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.utility.SessionManager;
@@ -31,9 +34,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.res.ResourcesCompat;
 
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.LCODE;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
@@ -89,17 +89,17 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
         setImageUsingGlide(R.drawable.gtts3, ((ImageView)findViewById(R.id.ivTtsVoiceDat)));
         setImageUsingGlide(R.drawable.arrow, ((ImageView)findViewById(R.id.ivArrow1)));
         setImageUsingGlide(R.drawable.arrow, ((ImageView)findViewById(R.id.ivArrow2)));
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        /*if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             findViewById(R.id.tv5).setVisibility(View.GONE);
             findViewById(R.id.llImg).setVisibility(View.GONE);
             findViewById(R.id.changeTtsLangBut).setVisibility(View.GONE);
-        }else{
+        }else{*/
             setImageUsingGlide(R.drawable.gtts1, ((ImageView)findViewById(R.id.ivTtsSetting1)));
             setImageUsingGlide(R.drawable.gtts2, ((ImageView)findViewById(R.id.ivTtsSetting2)));
             setImageUsingGlide(R.drawable.gtts4, ((ImageView)findViewById(R.id.ivTtsSetting3)));
             setImageUsingGlide(R.drawable.arrow, ((ImageView)findViewById(R.id.ivArrow3)));
             setImageUsingGlide(R.drawable.arrow, ((ImageView)findViewById(R.id.ivArrow4)));
-        }
+        //}
 
         offlineLanguages = getOfflineLanguages();
         onlineLanguages = getOnlineLanguages();
@@ -421,11 +421,11 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
     }
 
     private void updateViewsForNewLangSelect() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        /*if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             findViewById(R.id.tv5).setVisibility(View.GONE);
             findViewById(R.id.llImg).setVisibility(View.GONE);
             findViewById(R.id.changeTtsLangBut).setVisibility(View.GONE);
-        }
+        }*/
 
         if(getSession().getLanguage().equals(BN_IN))
             boldTitleOnScreen();
@@ -441,7 +441,7 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
         spannedStr.setSpan(new StyleSpan(Typeface.BOLD),0,boldTxtLen,0);
         ((TextView)findViewById(R.id.tv4)).setText(spannedStr);
 
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+        //if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             spannedStr = new SpannableString(mStep3.replace("_", getTTsLanguage()));
             if (getSession().getLanguage().equals(BN_IN)) boldTxtLen = 12;
             spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, boldTxtLen, 0);
@@ -451,7 +451,7 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
             if (getSession().getLanguage().equals(BN_IN)) boldTxtLen = 12;
             spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, boldTxtLen, 0);
             ((TextView) findViewById(R.id.tv6)).setText(spannedStr);
-        }else {
+       /* }else {
             int subStrLen = 8;
             if(getSession().getLanguage().equals(SessionManager.BN_IN))subStrLen = 12;
             else if(getSession().getLanguage().equals(HI_IN))subStrLen = 7;
@@ -461,7 +461,7 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
             if (getSession().getLanguage().equals(BN_IN)) boldTxtLen = 12;
             spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, boldTxtLen, 0);
             ((TextView) findViewById(R.id.tv6)).setText(spannedStr);
-        }
+        }*/
     }
 
     private void boldTitleOnScreen() {
@@ -537,6 +537,18 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
                 !current.equals(SessionManager.MR_IN))
             lang.add(LangValueMap.get(SessionManager.MR_IN));
 
+        if( getSession().isDownloaded(SessionManager.ES_ES)  &&
+                !current.equals(SessionManager.ES_ES))
+            lang.add(LangValueMap.get(SessionManager.ES_ES));
+
+        if( getSession().isDownloaded(SessionManager.TA_IN)  &&
+                !current.equals(SessionManager.TA_IN))
+            lang.add(LangValueMap.get(SessionManager.TA_IN));
+
+        if( getSession().isDownloaded(SessionManager.DE_DE)  &&
+                !current.equals(SessionManager.DE_DE))
+            lang.add(LangValueMap.get(SessionManager.DE_DE));
+
         lang.add(LangValueMap.get(current));
 
         return lang.toArray(new String[lang.size()]);
@@ -559,6 +571,12 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
             lang.add(LangValueMap.get(SessionManager.BN_IN));
         if( !getSession().isDownloaded(SessionManager.MR_IN))
             lang.add(LangValueMap.get(SessionManager.MR_IN));
+        if( !getSession().isDownloaded(SessionManager.ES_ES))
+            lang.add(LangValueMap.get(SessionManager.ES_ES));
+        if( !getSession().isDownloaded(SessionManager.TA_IN))
+            lang.add(LangValueMap.get(SessionManager.TA_IN));
+        if( !getSession().isDownloaded(SessionManager.DE_DE))
+            lang.add(LangValueMap.get(SessionManager.DE_DE));
         return lang.toArray(new String[lang.size()]);
     }
 
@@ -675,6 +693,15 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
                     case "English (Australia)":
                         shortenLanguageNames[i] = getString(R.string.acc_lang_eng_au);
                         break;
+                    case "Spanish (Spain)":
+                        shortenLanguageNames[i] = getString(R.string.acc_lang_span_span);
+                        break;
+                    case "தமிழ்":
+                        shortenLanguageNames[i] = getString(R.string.acc_lang_tamil_in);
+                        break;
+                    case "Deutsch (Deutschland)":
+                        shortenLanguageNames[i] = getString(R.string.acc_lang_german_ger);
+                        break;
                     default:
                         shortenLanguageNames[i] = langNameToBeShorten[i];
                         break;
@@ -694,6 +721,15 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
                         break;
                     case "English (Australia)":
                         shortenLanguageNames[i] = "English (AU)";
+                        break;
+                    case "Spanish (Spain)":
+                        shortenLanguageNames[i] = "Spanish (ES)";
+                        break;
+                    case "Tamil (India)":
+                        shortenLanguageNames[i] = "Tamil (IN)";
+                        break;
+                    case "Deutsch (Deutschland)":
+                        shortenLanguageNames[i] = "Deutsch (DE)";
                         break;
                     default:
                         shortenLanguageNames[i] = langNameToBeShorten[i];

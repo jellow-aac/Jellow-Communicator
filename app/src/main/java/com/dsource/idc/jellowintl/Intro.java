@@ -14,6 +14,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
@@ -23,17 +26,17 @@ import com.github.paolorotolo.appintro.AppIntro;
 
 import java.util.Objects;
 
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import static com.dsource.idc.jellowintl.utility.SessionManager.BE_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.DE_DE;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_AU;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_UK;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_US;
+import static com.dsource.idc.jellowintl.utility.SessionManager.ES_ES;
 import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.TA_IN;
 
 /**
  * Created by Shruti on 09-08-2016.
@@ -116,9 +119,15 @@ public class Intro extends AppIntro {
                 return "English (US)";
             case ENG_AU:
                 return "English (AU)";
+            case ES_ES:
+                return "Spanish (ES)";
+            case TA_IN:
+                return "Tamil (IN)";
             case BE_IN:
             case BN_IN:
                 return "Bengali (IN)";
+            case DE_DE:
+                return "Deutsch (DE)";
             default: return "";
         }
     }
@@ -247,7 +256,6 @@ public class Intro extends AppIntro {
             Crashlytics.logException(e);
         }
     }
-
 
     public void getStarted(View view) {
         if(!isOpenedSettingFromIntro8) {

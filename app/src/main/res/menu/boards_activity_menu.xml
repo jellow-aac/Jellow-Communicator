@@ -17,7 +17,7 @@
             android:title="@string/menuProfile"
             app:showAsAction="never"/>
         <item android:id="@+id/my_boards"
-            android:title="@string/menuMyBards"
+            android:title="@string/menuMyBoards"
             app:showAsAction="never"
             />
         <item
@@ -41,6 +41,10 @@
         <item
             android:id="@+id/settings"
             android:title="@string/action_settings"
+            app:showAsAction="never"/>
+        <item
+            android:id="@+id/accessibilitySetting"
+            android:title="@string/menuAccessibility"
             app:showAsAction="never"/>
         <item
             android:id="@+id/reset"

@@ -35,6 +35,12 @@ public class LanguageFactory {
                 return "06";
             case SessionManager.ENG_AU:
                 return  "07";
+            case SessionManager.ES_ES:
+                return "08";
+            case SessionManager.TA_IN:
+                return  "09";
+            case SessionManager.DE_DE:
+                return  "10";
             default:
                 return null;
 

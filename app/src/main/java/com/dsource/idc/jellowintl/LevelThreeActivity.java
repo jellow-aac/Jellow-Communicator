@@ -52,9 +52,11 @@ import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
+import static com.dsource.idc.jellowintl.utility.SessionManager.DE_DE;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_AU;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_UK;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_US;
+import static com.dsource.idc.jellowintl.utility.SessionManager.ES_ES;
 
 public class LevelThreeActivity extends LevelBaseActivity{
     private final boolean DISABLE_EXPR_BTNS = true;
@@ -1399,11 +1401,11 @@ public class LevelThreeActivity extends LevelBaseActivity{
             // have index (default position in recycler view) 39, 40, 41, 42 in English (US, UK).
             // So to disable expressive buttons for above category icon it required to check the
             // user language and index (default position in recycler view) of category icon.
-            if ((!lang.equals(ENG_US) && !lang.equals(ENG_UK) && !lang.equals(ENG_AU) &&
+            if ((!lang.equals(ENG_US) && !lang.equals(ENG_UK) && !lang.equals(ENG_AU) && !lang.equals(ES_ES) && !lang.equals(DE_DE) &&
                     (tmp == 34 || tmp == 35 || tmp == 36 || tmp == 37))
                     ||
-                    ((lang.equals(ENG_US) || lang.equals(ENG_UK) || lang.equals(ENG_AU)) &&
-                            (tmp == 39 || tmp == 40 || tmp == 41 || tmp == 42) ))
+                    ((lang.equals(ENG_US) || lang.equals(ENG_UK) || lang.equals(ENG_AU) || lang.equals(ES_ES) || lang.equals(DE_DE)) &&
+            (tmp == 39 || tmp == 40 || tmp == 41 || tmp == 42) ))
                 changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
             else
                 changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);

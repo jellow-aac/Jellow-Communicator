@@ -59,6 +59,14 @@
                             android:layout_marginStart="@dimen/access_tv_margin_left"
                             android:paddingBottom="@dimen/access_tv_margin_bottom"/>
                     </LinearLayout>
+                    <com.google.android.youtube.player.YouTubeThumbnailView
+                        android:id="@+id/thumbnailVisualAccess"
+                        android:layout_width="@dimen/access_yt_thumbnail_width"
+                        android:layout_height="@dimen/access_yt_thumbnail_height"
+                        android:src="@drawable/no_thumbnail"
+                        android:layout_marginTop="@dimen/access_tv_margin_top"
+                        android:paddingBottom="@dimen/access_tv_margin_bottom"
+                        android:onClick="startVideoIntent"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -197,6 +205,14 @@
                             android:layout_marginStart="@dimen/access_tv_margin_left"
                             android:paddingBottom="@dimen/access_tv_margin_bottom"/>
                     </LinearLayout>
+                    <com.google.android.youtube.player.YouTubeThumbnailView
+                        android:id="@+id/thumbnailSwitchAccess"
+                        android:layout_width="190dp"
+                        android:layout_height="90dp"
+                        android:src="@drawable/no_thumbnail"
+                        android:layout_marginTop="@dimen/access_tv_margin_top"
+                        android:paddingBottom="@dimen/access_tv_margin_bottom"
+                        android:onClick="startVideoIntent"/>
                 </LinearLayout>
                 <View
                     android:layout_width="wrap_content"

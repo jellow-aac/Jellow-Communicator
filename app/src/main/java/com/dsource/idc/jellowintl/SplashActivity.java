@@ -33,12 +33,15 @@ import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.setCrashlyticsCustomKey;
 import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.DE_DE;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_AU;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_UK;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_US;
+import static com.dsource.idc.jellowintl.utility.SessionManager.ES_ES;
 import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.TA_IN;
 
 /**
  * Created by ekalpa on 7/12/2016.
@@ -191,6 +194,13 @@ public class SplashActivity extends BaseActivity {
             lang.add(MR_IN);
         if(getSession().isDownloaded(BN_IN))
             lang.add(BN_IN);
+        if(getSession().isDownloaded(ES_ES))
+            lang.add(ES_ES);
+        if(getSession().isDownloaded(TA_IN))
+            lang.add(TA_IN);
+        if(getSession().isDownloaded(DE_DE))
+            lang.add(DE_DE);
+
         return lang.toArray(new String[lang.size()]);
     }
 }

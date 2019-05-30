@@ -25,7 +25,7 @@
 
     <application
         android:name=".app.AppController"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:fullBackupContent="@null"
         android:hardwareAccelerated="false"
         android:icon="@drawable/ic_launcher"
@@ -33,7 +33,8 @@
         android:largeHeap="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
+        tools:ignore="GoogleAppIndexingWarning,UnusedAttribute"
+        tools:replace="android:allowBackup">
         <activity android:name=".makemyboard.utility.DialogBox"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
@@ -81,7 +82,6 @@
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
