@@ -8,7 +8,7 @@ This contributing guide is specifically about contributing to the Jellow Communi
 
 * [Code of Conduct](#code-of-conduct)
 * [Submitting Content Changes](#submitting-content-changes)
-* [Cloning or Forking Code first time](#cloning-forking-code)
+* [Cloning or Forking Code for first time](#cloning-forking-code)
 * [Submitting Code Changes](#submitting-code-changes)
     - [Git Workflow](#git-workflow)
     - [Issues](#issues)
@@ -22,13 +22,13 @@ Help us keep Jellow Communicator team welcoming. Please read and abide by the [C
 
 Please email us at <jellowcommunicator@gmail.com>
 
-## Cloning or Forking Code first time
+## Cloning or Forking Code for first time
 
 To setup project locally follow below steps:
 1. Clone repository or Fork the repository then clone to local machine.
-2. Open Android Studio then choose option "Opne an existing Android Studio project". Give the path of cloned folder and say "OK".
-3. Android studio will download automatically download necessary library and dependancies for project.
-4. Once project successfuly built, then try running it on any physical device or emulator.
+2. Open Android Studio then choose option "Open an existing Android Studio project". Give the path to cloned folder and press "OK".
+3. Android studio will download automatically the necessary libraries and dependancies for the project.
+4. Once project successfuly is built, then try running it on any physical device or emulator.
 
 ## Submitting Code Changes
 
