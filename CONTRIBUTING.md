@@ -8,7 +8,7 @@ This contributing guide is specifically about contributing to the Jellow Communi
 
 * [Code of Conduct](#code-of-conduct)
 * [Submitting Content Changes](#submitting-content-changes)
-* [Cloning or Forking Code for first time](#cloning-forking-code)
+* [Cloning or Forking Code for first time](#cloning-or-forking-code-for-first-time)
 * [Submitting Code Changes](#submitting-code-changes)
     - [Git Workflow](#git-workflow)
     - [Issues](#issues)
