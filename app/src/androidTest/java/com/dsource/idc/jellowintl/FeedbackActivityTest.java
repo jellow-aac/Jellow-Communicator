@@ -79,7 +79,7 @@ public class FeedbackActivityTest {
 
     @Test
     public void validateAddedComments(){
-        onView(withId(R.id.easy_to_use)).perform(click(), swipeUp());
+        onView(withId(R.id.easy_to_use)).perform(closeSoftKeyboard(), click(), swipeUp());
         onView(withId(R.id.pictures)).perform(click(), swipeUp());
         onView(withId(R.id.voice)).perform(click(), swipeUp());
         onView(withId(R.id.navigate)).perform(click(), swipeUp());
