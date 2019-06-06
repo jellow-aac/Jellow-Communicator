@@ -31,7 +31,7 @@ public class FeedbackActivityTest {
         onView(withId(R.id.comments)).perform(closeSoftKeyboard());
         onView(withId(R.id.pictures)).perform(click(), swipeUp());
         onView(withId(R.id.voice)).perform(click(), swipeUp());
-        onView(withId(R.id.navigate)).perform(click());
+        onView(withId(R.id.navigate)).perform(click(), swipeUp());
         onView(withId(R.id.comments)).perform(typeText("Awesome app"), closeSoftKeyboard());
         onView(withId(R.id.bSubmit)).perform(click());
         onView(withText(R.string.rate_jellow))
@@ -85,7 +85,7 @@ public class FeedbackActivityTest {
         onView(withId(R.id.pictures)).perform(click(), swipeUp());
         onView(withId(R.id.voice)).perform(click(), swipeUp());
         onView(withId(R.id.navigate)).perform(click(), swipeUp());
-        onView(withId(R.id.bSubmit)).perform(click(), swipeUp());
+        onView(withId(R.id.bSubmit)).perform(click());
         onView(withText(R.string.rate_jellow))
             .inRoot(new ToastMatcher())
                 .check(matches(isDisplayed()));
