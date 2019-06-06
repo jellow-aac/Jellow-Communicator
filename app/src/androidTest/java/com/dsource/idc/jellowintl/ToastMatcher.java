@@ -1,6 +1,5 @@
 package com.dsource.idc.jellowintl;
 
-import android.os.IBinder;
 import android.view.WindowManager;
 
 import androidx.test.espresso.Root;
@@ -13,9 +12,8 @@ public class ToastMatcher extends TypeSafeMatcher<Root> {
     protected boolean matchesSafely(Root item) {
         int type = item.getWindowLayoutParams().get().type;
         if(type == WindowManager.LayoutParams.TYPE_TOAST){
-            IBinder windowToken = item.getDecorView().getWindowToken();
-            IBinder appToken = item.getDecorView().getApplicationWindowToken();
-            return windowToken == appToken;
+            return item.getDecorView().getWindowToken() ==
+                    item.getDecorView().getApplicationWindowToken();
         }
         return false;
     }
