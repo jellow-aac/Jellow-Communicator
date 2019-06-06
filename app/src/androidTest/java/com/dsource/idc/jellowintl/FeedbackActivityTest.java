@@ -90,20 +90,4 @@ public class FeedbackActivityTest {
             .inRoot(new ToastMatcher())
                 .check(matches(isDisplayed()));
     }
-
-    /*@Test
-    public void validateSubmittedFeedback(){
-        onView(withId(R.id.easy_to_use)).perform(click());
-        onView(withId(R.id.pictures)).perform(click());
-        onView(withId(R.id.voice)).perform(click());
-        onView(withId(R.id.navigate)).perform(click());
-        onView(withId(R.id.comments)).perform(typeText("Awesome app"));
-        onView(withId(R.id.bSubmit)).perform(click());
-        //intended(toPackage(Intent.ACTION_SEND));
-        Intent receivedIntent = Iterables.getOnlyElement(Intents.getIntents());
-        assertThat(receivedIntent).hasAction(Intent.ACTION_SEND);
-        *//*onView(withText(R.string.rate_jellow))
-            .inRoot(withDecorView(not(is(activityRule.getActivity().getWindow().getDecorView()))))
-                .check(matches(not(isDisplayed())));*//*
-    }*/
 }
