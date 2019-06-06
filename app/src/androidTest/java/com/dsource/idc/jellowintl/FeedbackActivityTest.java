@@ -28,7 +28,8 @@ public class FeedbackActivityTest {
 
     @Test
     public void validateRatedEasyToUse(){
-        onView(withId(R.id.pictures)).perform(closeSoftKeyboard(), click(), swipeUp());
+        onView(withId(R.id.comments)).perform(closeSoftKeyboard());
+        onView(withId(R.id.pictures)).perform(click(), swipeUp());
         onView(withId(R.id.voice)).perform(click(), swipeUp());
         onView(withId(R.id.navigate)).perform(click());
         onView(withId(R.id.comments)).perform(typeText("Awesome app"), closeSoftKeyboard());
@@ -40,7 +41,8 @@ public class FeedbackActivityTest {
 
     @Test
     public void validateRatedClearPictures(){
-        onView(withId(R.id.easy_to_use)).perform(closeSoftKeyboard(), click(), swipeUp());
+        onView(withId(R.id.comments)).perform(closeSoftKeyboard());
+        onView(withId(R.id.easy_to_use)).perform(click(), swipeUp());
         onView(withId(R.id.voice)).perform(click(), swipeUp());
         onView(withId(R.id.navigate)).perform(click(), swipeUp());
         onView(withId(R.id.comments)).perform(typeText("Awesome app"), closeSoftKeyboard());
@@ -52,7 +54,8 @@ public class FeedbackActivityTest {
 
     @Test
     public void validateRatedClearVoice(){
-        onView(withId(R.id.easy_to_use)).perform(closeSoftKeyboard(), click(), swipeUp());
+        onView(withId(R.id.comments)).perform(closeSoftKeyboard());
+        onView(withId(R.id.easy_to_use)).perform(click(), swipeUp());
         onView(withId(R.id.pictures)).perform(click(), swipeUp());
         onView(withId(R.id.navigate)).perform(click(), swipeUp());
         onView(withId(R.id.comments)).perform(typeText("Awesome app"), closeSoftKeyboard());
@@ -64,7 +67,8 @@ public class FeedbackActivityTest {
 
     @Test
     public void validateRatedEasyToNavigate(){
-        onView(withId(R.id.easy_to_use)).perform(closeSoftKeyboard(), click(), swipeUp());
+        onView(withId(R.id.comments)).perform(closeSoftKeyboard());
+        onView(withId(R.id.easy_to_use)).perform(click(), swipeUp());
         onView(withId(R.id.pictures)).perform(click(), swipeUp());
         onView(withId(R.id.voice)).perform(click(), swipeUp());
         onView(withId(R.id.comments)).perform(typeText("Awesome app"), closeSoftKeyboard());
@@ -76,7 +80,8 @@ public class FeedbackActivityTest {
 
     @Test
     public void validateAddedComments(){
-        onView(withId(R.id.easy_to_use)).perform(closeSoftKeyboard(), click(), swipeUp());
+        onView(withId(R.id.comments)).perform(closeSoftKeyboard());
+        onView(withId(R.id.easy_to_use)).perform(click(), swipeUp());
         onView(withId(R.id.pictures)).perform(click(), swipeUp());
         onView(withId(R.id.voice)).perform(click(), swipeUp());
         onView(withId(R.id.navigate)).perform(click(), swipeUp());
