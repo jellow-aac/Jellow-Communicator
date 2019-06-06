@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static androidx.test.espresso.action.ViewActions.swipeDown;
 import static androidx.test.espresso.action.ViewActions.swipeUp;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
@@ -31,7 +32,8 @@ public class FeedbackActivityTest {
 
     @Test
     public void validateRatedEasyToUse(){
-        onView(withId(R.id.pictures)).perform(closeSoftKeyboard(), click(), swipeUp());
+        onView(withId(R.id.comments)).perform(swipeUp(), closeSoftKeyboard());
+        onView(withId(R.id.pictures)).perform(swipeDown(), swipeDown(), click(), swipeUp());
         onView(withId(R.id.voice)).perform(click(), swipeUp());
         onView(withId(R.id.navigate)).perform(click());
         onView(withId(R.id.comments)).perform(typeText("Awesome app"), closeSoftKeyboard());
@@ -43,7 +45,8 @@ public class FeedbackActivityTest {
 
     @Test
     public void validateRatedClearPictures(){
-        onView(withId(R.id.easy_to_use)).perform(closeSoftKeyboard(), click(), swipeUp());
+        onView(withId(R.id.comments)).perform(swipeUp(), closeSoftKeyboard());
+        onView(withId(R.id.easy_to_use)).perform(swipeDown(), swipeDown(), click(), swipeUp());
         onView(withId(R.id.voice)).perform(click(), swipeUp());
         onView(withId(R.id.navigate)).perform(click(), swipeUp());
         onView(withId(R.id.comments)).perform(typeText("Awesome app"), closeSoftKeyboard());
@@ -55,7 +58,8 @@ public class FeedbackActivityTest {
 
     @Test
     public void validateRatedClearVoice(){
-        onView(withId(R.id.easy_to_use)).perform(closeSoftKeyboard(), click(), swipeUp());
+        onView(withId(R.id.comments)).perform(swipeUp(), closeSoftKeyboard());
+        onView(withId(R.id.easy_to_use)).perform(swipeDown(), swipeDown(), click(), swipeUp());
         onView(withId(R.id.pictures)).perform(click(), swipeUp());
         onView(withId(R.id.navigate)).perform(click(), swipeUp());
         onView(withId(R.id.comments)).perform(typeText("Awesome app"), closeSoftKeyboard());
@@ -67,7 +71,8 @@ public class FeedbackActivityTest {
 
     @Test
     public void validateRatedEasyToNavigate(){
-        onView(withId(R.id.easy_to_use)).perform(closeSoftKeyboard(), click(), swipeUp());
+        onView(withId(R.id.comments)).perform(swipeUp(), closeSoftKeyboard());
+        onView(withId(R.id.easy_to_use)).perform(swipeDown(), swipeDown(), click(), swipeUp());
         onView(withId(R.id.pictures)).perform(click(), swipeUp());
         onView(withId(R.id.voice)).perform(click(), swipeUp());
         onView(withId(R.id.comments)).perform(typeText("Awesome app"), closeSoftKeyboard());
@@ -79,7 +84,8 @@ public class FeedbackActivityTest {
 
     @Test
     public void validateAddedComments(){
-        onView(withId(R.id.easy_to_use)).perform(closeSoftKeyboard(), click(), swipeUp());
+        onView(withId(R.id.comments)).perform(swipeUp(), closeSoftKeyboard());
+        onView(withId(R.id.easy_to_use)).perform(swipeDown(), swipeDown(), click(), swipeUp());
         onView(withId(R.id.pictures)).perform(click(), swipeUp());
         onView(withId(R.id.voice)).perform(click(), swipeUp());
         onView(withId(R.id.navigate)).perform(click(), swipeUp());
