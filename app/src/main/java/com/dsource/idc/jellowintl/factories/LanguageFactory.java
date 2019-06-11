@@ -30,7 +30,6 @@ public class LanguageFactory {
             case SessionManager.MR_IN:
                 return "05";
             case SessionManager.BN_IN:
-                return "06";
             case SessionManager.BE_IN:
                 return "06";
             case SessionManager.ENG_AU:

@@ -8,26 +8,27 @@ import androidx.room.PrimaryKey;
 import java.io.Serializable;
 
 @Entity
-public class SearchIcons implements Serializable {
+public class SearchIcon implements Serializable {
 
-    @NonNull
     @ColumnInfo(name = "icon_title")
     private String iconTitle;
 
     @ColumnInfo(name = "icon_speech")
     private String iconSpeech;
 
+    @PrimaryKey
+    @NonNull
     @ColumnInfo(name = "icon_drawable")
     private String iconDrawable;
 
     @ColumnInfo(name = "icon_p1")
-    private String levelOne;
+    private int levelOne;
 
     @ColumnInfo(name = "icon_p2")
-    private String levelTwo;
+    private int levelTwo;
 
     @ColumnInfo(name = "icon_p3")
-    private String levelThree;
+    private int levelThree;
 
     @NonNull
     public String getIconTitle() {
@@ -54,27 +55,27 @@ public class SearchIcons implements Serializable {
         this.iconDrawable = iconDrawable;
     }
 
-    public String getLevelOne() {
+    public int getLevelOne() {
         return levelOne;
     }
 
-    public void setLevelOne(String levelOne) {
+    public void setLevelOne(int levelOne) {
         this.levelOne = levelOne;
     }
 
-    public String getLevelTwo() {
+    public int getLevelTwo() {
         return levelTwo;
     }
 
-    public void setLevelTwo(String levelTwo) {
+    public void setLevelTwo(int levelTwo) {
         this.levelTwo = levelTwo;
     }
 
-    public String getLevelThree() {
+    public int getLevelThree() {
         return levelThree;
     }
 
-    public void setLevelThree(String levelThree) {
+    public void setLevelThree(int levelThree) {
         this.levelThree = levelThree;
     }
 

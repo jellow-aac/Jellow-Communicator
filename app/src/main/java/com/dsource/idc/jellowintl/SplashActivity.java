@@ -76,7 +76,7 @@ public class SplashActivity extends BaseActivity {
         }
 
         if(getSession().isLanguageChanged()!=2) {
-            iconDatabase = new CreateDataBase(this);
+            iconDatabase = new CreateDataBase(this, getAppDatabase());
             iconDatabase.execute();
         }else {
             startActivity(new Intent(SplashActivity.this, MainActivity.class));

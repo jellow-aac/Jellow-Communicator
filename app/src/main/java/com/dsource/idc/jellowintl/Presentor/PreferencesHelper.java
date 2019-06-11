@@ -5,8 +5,9 @@ import com.dsource.idc.jellowintl.models.CategoryPreference;
 
 public class PreferencesHelper {
 
-    public static CategoryPreference getPrefString(AppDatabase appDatabase, CategoryPreference cPref){
-        return appDatabase.categoryPreferenceDao().getCategoryPreference(cPref.getCategoryPosition());
+    public static String getPrefString(AppDatabase appDatabase, String iconCode){
+        CategoryPreference catPref = appDatabase.categoryPreferenceDao().getCategoryPreference(iconCode);
+        return  catPref != null ? catPref.getPrefString() : "";
     }
 
     public static void setPrefString(AppDatabase appDatabase, CategoryPreference cPref){

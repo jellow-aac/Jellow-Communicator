@@ -31,8 +31,7 @@
     <string name="editLanguage">மொழியை சேர்க்க/நீக்க</string>
 
     <string-array name="bloodgroup">
-        <!--not translated-->
-        <item>not selected</item>
+        <item>தேர்ந்தெடுக்கவில்லை</item>
         <item>ஏ+</item>
         <item>ஏ-</item>
         <item>பி+</item>
@@ -44,15 +43,15 @@
     </string-array>
 
     <string-array name="bloodgroup_talkback">
-        <item>not selected</item>
-        <item>A positive</item>
-        <item>A negative</item>
-        <item>B positive</item>
-        <item>B negative</item>
-        <item>A B positive</item>
-        <item>A B negative</item>
-        <item>O positive</item>
-        <item>O negative</item>
+        <item>தேர்ந்தெடுக்கவில்லை</item>
+        <item>ஏ பாசிடிவ்</item>
+        <item>ஏ நெகடிவ்</item>
+        <item>பி பாசிடிவ்</item>
+        <item>பி நெகடிவ்</item>
+        <item>ஏ பி பாசிடிவ்</item>
+        <item>ஏ பி நெகடிவ்</item>
+        <item>ஓ பாசிடிவ்</item>
+        <item>ஓ நெகடிவ்</item>
     </string-array>
 
     <string-array name="picture_view_mode">
@@ -88,21 +87,18 @@
     <string name="txtNumOfPerPerScr">திரையில் வகைச் சின்னங்களின் எண்ணிக்கை</string>
     <string name="txtDemo">பேச்சு மாதிரி</string>
     <string name="txtSave">செமி</string>
-    <!--not translated-->
-    <string name="demoTtsSpeech">Hello! you are using Jellow Communicator.</string>
+    <string name="demoTtsSpeech">ஹலோ, நீங்கள் உபயோகிப்பது ஜெல்லோ தகவல் தொடர்பாளர்.</string>
     <string name="savedSettingsMessage">அமைப்புகள் சேமிக்கப்பட்டன</string>
     <string name="languageChanged">மொழி மாற்றப்பட்டது</string>
     <string name="no_more_lang_2_add">சேர்ப்பதற்கு மொழிகள் எதுவும் இல்லை</string>
     <string name="no_more_lang_2_del">நீக்குவதற்கு மொழிகள் எதுவும் இல்லை</string>
-    <!--not translated-->
-    <string name="checkConnectivity">You are not connected to the Internet. Please turn on your Internet.</string>
+    <string name="checkConnectivity">நீங்கள் இணையத் தொடர்பில் இல்லை. தயவுகூர்த்து இணையத்தை இயக்கவும்</string>
     <string name="languageCurrentlyInUse">மொழி தற்போது உபயோகத்தில் உள்ளது</string>
     <string name="languageRemoved">Lமொழி நீக்கப்பட்டது</string>
 
     <string name="menuProfile">சுயவிவரங்கள்</string>
-    <!--not translated-->
-    <string name="menuMyBoards">My Boards</string>
-    <string name="menuAbout">About Jellow</string>
+    <string name="menuMyBoards">எனது பலகைகள்</string>
+    <string name="menuAbout">ஜெல்லோவை பற்றி</string>
     <string name="menuTutorials">பயிற்சி</string>
     <string name="menuKeyboardInput">விசைப்பலகை கட்டுப்பாடு</string>
     <string name="menuResetPref">விருபங்களை மீட்டமைக்க</string>
@@ -160,21 +156,20 @@
     <string name="iconsHasBeenReset">விருப்பங்கள் மறு அமைப்பு செய்யப்பட்டன.</string>
     <string name="speak">பேசு </string>
     <string name="stop">நிறுத்து</string>
-    <string name="about_jellow_speech">"ஜெல்லோ  சின்னங்களில் இருந்து பேச்சை வெளிப்படுத்தும்  தகவல் தொடர்பாளர்  ஆகும். இது பேசுவதற்கு பயிற்சி எடுப்போருக்கும் மற்றும் பேச சிரமப்படுவோர்  பயன்படுத்தும் வகையில் உருவாக்கப்பட்டது இது  மும்பையில் உள்ள பாம்பே இந்திய தொழில்நுட்ப நிறுவனத்தின் தொழில்துறை வடிவமைப்பு மையத்தில் உருவாக்கப்பட்டது ஒரு உணர்ச்சி மொழி நெறிமுறை(Emotional language proto call) நாவல் திட்ட மேலாளர்களால் கற்பனை செய்யப்பட்டு ஜெல்லோவின் மொழியாற்றலை மேம்படுத்த உருவாக்கப்பட்டது. உணர்ச்சி மொழி நெறிமுறை இடைமுகத்தின் மையத்தை உருவாக்குகின்ற 6 அடிப்படையான சின்னங்களைக் குறிக்கிறது. இந்த அடிப்படை சின்னங்களைக் கொண்டு குழந்தைகள் தங்கள் விருப்பு, வெறுப்பு,மற்றும் தேவைகளை மற்றவர்களுடன் தொடர்புகொள்ள முடியும். ஜெல்லோ எளிதாக கற்கும் வண்ணம் குழந்தைக்கு நட்புரீதியான இடைமுகத்துடன் கருவாக்கப்பட்டுள்ளது. இந்த செயலி Andoid Tablet களுக்கு  உகந்ததாக வடிவமைக்கப்பட்டுள்ளது.\"</string>
-    <!--not translated-->
-    <string name="catBtnDesc">Jellow has 9 central category buttons and 6 expressive side buttons:</string>
+    <string name="about_jellow_speech">ஜெல்லோ சின்னங்களில் இருந்து பேச்சை வெளிப்படுத்தும்  தகவல் தொடர்பாளர்  ஆகும். இது பேசுவதற்கு பயிற்சி எடுப்போருக்கும் மற்றும் பேச சிரமப்படுவோர்  பயன்படுத்தும் வகையில் உருவாக்கப்பட்டது இது  மும்பையில் உள்ள பாம்பே இந்திய தொழில்நுட்ப நிறுவனத்தின் தொழில்துறை வடிவமைப்பு மையத்தில் உருவாக்கப்பட்டது ஒரு உணர்ச்சி மொழி நெறிமுறை(Emotional language proto call) நாவல் திட்ட மேலாளர்களால் கற்பனை செய்யப்பட்டு ஜெல்லோவின் மொழியாற்றலை மேம்படுத்த உருவாக்கப்பட்டது. உணர்ச்சி மொழி நெறிமுறை இடைமுகத்தின் மையத்தை உருவாக்குகின்ற 6 அடிப்படையான சின்னங்களைக் குறிக்கிறது. இந்த அடிப்படை சின்னங்களைக் கொண்டு குழந்தைகள் தங்கள் விருப்பு, வெறுப்பு,மற்றும் தேவைகளை மற்றவர்களுடன் தொடர்புகொள்ள முடியும். ஜெல்லோ எளிதாக கற்கும் வண்ணம் குழந்தைக்கு நட்புரீதியான இடைமுகத்துடன் கருவாக்கப்பட்டுள்ளது. இந்த செயலி Andoid Tablet களுக்கு  உகந்ததாக வடிவமைக்கப்பட்டுள்ளது.</string>
+    <string name="catBtnDesc">ஜெல்லோ 9 வகைப் பொத்தான்களையும் 6 வெளிப்பாட்டுப் பொத்தான்களையும் கொண்டுள்ளது</string>
     <string name="catBtn">வகை பொத்தான்</string>
     <string name="expBtn">வெளிப்பாட்டு பொத்தான்</string>
     <string name="jellowUsageDesc">ஜெல்லோவைப் பயன்படுத்தி பேசுவதற்கு பயனர் முதலில் ஏதேனுமொரு வகைப்போத்த்தானில் சொடுக்கி பின் வெளிப்பாட்டுப் பொத்தானில் சொடுக்க வேண்டும். உதரணமாக ஜெல்லோ \"நன் சாப்பிட வேண்டும்\" என்று கீழ்காணும்படி தேர்ந்தெடுப்பின் சொல்லும்.</string>
     <string name="jellowUsageSubCat">வகை பொத்தானில் இருமுறை சொடுக்குவதன் மூலம் பயனர் மற்ற துணை வகைகளையும், பயன்படுத்திக்கொள்ள முடியும்</string>
+    <string name="levelOneCat">நிலை 1 இன் வகைகள்:</string>
+    <string name="levelTwoCat">நிலை 2 இன் வகைகள்:</string>
+    <string name="levelThreeCat">நிலை 3 இன் சின்னங்கள்:</string>
+    <string name="settingDesc">பயனர் தங்களது சுய விவரங்களை மாற்றியமைக்க முடியும் மற்றும் திரையின் மேல்பக்கத்தில் வலது புறத்தில் சொடுக்குவதன் மூலம் குரல் அமைப்புகளைப் பெறலாம்</string>
+    <string name="seqActDesc">ஜெல்லோ குழந்தைகளுக்கு அவர்களின் தினசரி தொடர்நிகழ்வுகளின் நிலைகளை கற்பிப்பதற்கும் உதவுகிறது. தனிப்பட்ட எந்த நிலையிலும் பயனர் வெளிப்பாட்டுப் பொத்தான்களைக் காண முடியும்:</string>
+    <string name="toiletSeq">கழிப்பறை தொடர்நிகழ்வு:</string>
+    <string name="expBtnSeq">தொடர்நிகழ்வில் உள்ள வெளிப்பாட்டுப் பொத்தான்</string>
     <!--not translated-->
-    <string name="levelOneCat">Level 1 categories:</string>
-    <string name="levelTwoCat">Level 2 categories:</string>
-    <string name="levelThreeCat">Level 3 icons:</string>
-    <string name="settingDesc">The user can customize their profile and adjust the basic voice settings of the application by clicking on the top right corner of the screen:</string>
-    <string name="seqActDesc">Jellow can also be used to teach children sequential steps of daily activities. By clicking on any individual step, the user may view the expressive buttons:</string>
-    <string name="toiletSeq">Toilet sequence:</string>
-    <string name="expBtnSeq">Expressive buttons in the sequence:</string>
     <string name="ttsDesc">To use Jellow in English, Hindi and Bengali, please activate <b>\'Google text-to-speech (TTS)\'</b> within <b>\'Language\'</b> settings of your device. Within Google TTS settings, first change the <b>default language</b> to preferred language and then download voice for preferred language through the <b>\'Install voice data\'</b> option</string>
     <string name="softwareVersion">மென்பொருள் பதிப்பு: </string>
     <string name="string_to_speak">பேசுவதற்கான வார்த்தைகளை இங்கு உள்ளிடவும்</string>
@@ -216,10 +211,9 @@
     <string name="enternonemptycontact">சரியான தொடர்பு எண்ணை உள்ளிடவும்</string>
     <string name="change_tts_lang">டிஎஸ்எஸ் இயந்திரதிற்க்கான மொழியை அமை</string>
     <string name="txt_actLangSel_completestep3">தயவுகூர்ந்து உங்கள் இணையத்தை செயல்படுத்திவிட்டு படி 3 ஐ முடிக்கவும்</string>
-    <!--not translated-->
-    <string name="change_language_line5">Step 2: Check if voice data for _ is available on your device. If not please turn on internet and download voice data for selected language. In case process is stalled please check your internet connection and retry</string>
-    <string name="change_language_line4">Step 3: Set \'Google Text-to-speech (TTS)\' as default TTS engine and set _ as default language of the engine.</string>
-    <string name="txtChangeLanguage">2) Change Default Language:</string>
+    <string name="change_language_line5">படி 2: உங்கள் சாதனத்தில் _ மொழிக்கான குரல் தரவு உள்ளதா எனக் காண்க. இல்லையெனில் தேர்ந்தெடுத்த மொழிக்கான குரல் தரவினை பதிவிறக்கம் செய்க.</string>
+    <string name="change_language_line4">படி 3: \'Google Text-to-speech (TTS)\' ஐ முதன்மையாக மாற்றி _ வை முதன்மை மொழியாக மாற்றவும்</string>
+    <string name="txtChangeLanguage">2) முதன்மை மொழியை மாற்று</string>
 
     <string name="txtApplyChanges">படி 4: புதிய மொழியை இயல்பான மொழியாக மாற்ற \'மாற்றங்களை பயன்படுத்தவும்\' வில் சொடுக்கவும்</string>
     <string name="change_language_line6">நீங்கள் கீழுள்ள படிநிலைகளை பின்பற்றி புதிதாக சேர்க்கப்பட்ட மொழியை ஜெல்லோவிற்கான இயல்பு மொழியாக மாற்றலாம் </string>
@@ -228,13 +222,11 @@
     <string name="speech_engin_lang_sam">தயவுகூர்ந்து செயலியின் மொழி அமைப்பினை சரிபார்க்கவும்</string>
     <string name="txt_intro6_skipTtsSetup">கூகுள் டிஎஸ்எஸ் ஏற்க்கனவே செயல்பாட்டில் உள்ள சாதனங்கள்: இந்த படிநிலையைத்  தவிர்க்கவும்</string>
     <string name="txt_actLangSel_downloadDat">குரல் தரவினை சரிபார்க்கவும்</string>
-    <!--not translated-->
-    <string name="txt_actLangSel_complete_mainscreen_msg">Voice data not available. Please turn on internet and go to language settings of app.</string>
+    <string name="txt_actLangSel_complete_mainscreen_msg">குரல் தரவு கிடைக்கவில்லை. இணைத்தை இயக்கி, செயலியின் மொழி அமைப்பிற்குச் செல்லவும்</string>
     <string name="language_downloaded">_ மொழி பதிவிறக்கப்பட்டது</string>
     <string name="language_downloading">_ மொழி பதிவிறக்கப்படுகிறது</string>
     <string name="ok">சரி</string>
-    <!--not translated-->
-    <string name="call_permission_info">Call permission is not available. Call permission is required to make a call in case of an emergency.</string>
+    <string name="call_permission_info">அழைப்பிற்கான  அனுமதி கிடைக்கவில்லை. அவசர காலங்களில் அழைப்பினை விடுக்க அழைப்பிற்கான  அனுமதி தேவைப்படுகிறது.</string>
     <string name="granted_call_permission_req">அழைப்பிற்கான அனுமதி தரப்பட்டது</string>
     <string name="rejected_call_permission_req">அழைப்பிற்கான அனுமதி மறுக்கப்பட்டுள்ளது</string>
     <string name="grant_permission_from_settings">அமைப்பிலிருந்து அழைப்பிற்கான அனுமதியை செயல்படுத்து</string>
@@ -264,8 +256,7 @@
 
     <!--About Jellow strings-->
     <string name="info">பொதுவான தகவல் </string>
-    <!--not translated-->
-    <string name="about_je_intro1">Jellow is a communicator using icons to enable speech and can be used by those learning to speak or those who have difficulty with speech. Jellow can also be used by toddlers and early learners to learn words and categories frequently used in their daily lives. Jellow’s colourful and friendly icons can help children develop an association between pictures and their corresponding word labels.</string>
+    <string name="about_je_intro1">ஜெல்லோ  சின்னங்களில் இருந்து பேச்சை வெளிப்படுத்தும்  தகவல் தொடர்பாளர்  ஆகும். இது பேசுவதற்கு பயிற்சி எடுப்போருக்கும் மற்றும் பேச சிரமப்படுவோர்  பயன்படுத்தும் வகையில் உருவாக்கப்பட்டது. மேலும் இது குழந்தைகளுக்கும் மற்றும் கற்க தொடங்கி இருப்போருக்கும் தங்களது அன்றாட வாழ்வில் உபயோகிக்கும் வார்த்தைகளையும், வகைகளையும் அறிய உதவுகிறது. ஜெல்லோவின் வண்ணமிகு மற்றும் நட்புரீதியான சின்னங்கள் குழந்தைகளுக்கு படத்துடன் அதற்க்கான பெயர்களையும் தொடர்பு படுத்தி அறிய குழந்தைகளுக்கு உதவுகிறது.</string>
     <string name="about_je_intro2">இது  மும்பையில் உள்ள பாம்பே இந்திய தொழில்நுட்ப நிறுவனத்தின் தொழில்துறை வடிவமைப்பு மையத்தில் உருவாக்கப்பட்டது</string>
     <string name="about_je_intro3">ஒரு உணர்ச்சி மொழி நெறிமுறை(Emotional language proto call) நாவல் திட்ட மேலாளர்களால் கற்பனை செய்யப்பட்டு ஜெல்லோவின் மொழியாற்றலை மேம்படுத்த உருவாக்கப்பட்டது. உணர்ச்சி மொழி நெறிமுறை இடைமுகத்தின் மையத்தை உருவாக்குகின்ற 6 அடிப்படையான சின்னங்களைக் குறிக்கிறது</string>
     <string name="about_je_intro4">. இந்த அடிப்படை சின்னங்களைக் கொண்டு குழந்தைகள் தங்கள் விருப்பு, வெறுப்பு,மற்றும் தேவைகளை மற்றவர்களுடன் தொடர்புகொள்ள முடியும்.</string>
@@ -274,8 +265,7 @@
     <!--not translated-->
     <string name="about_je_intro7">Jellow is currently available in English, Hindi, Bengali and Marathi.</string>
     <string name="software_info">மென்பொருள் பதிப்பு: _</string>
-    <!--not translated-->
-    <string name="about_je_intro8">The current version of Jellow is _. The application is under further development. Therefore, if you have any suggestions for us, please submit it under the feedback tab or write to us at jellowcommunicator@gmail.com.</string>
+    <string name="about_je_intro8">ஜெல்லோவின் தற்போதைய மென்பொருள் பதிப்பு _. செயலி மேம்பாட்டின் கீழ் உள்ளது. செயலிக்கான உங்களது பரிந்துரைகளை \'பின்னூட்டத்தை\' பயன்படுத்தி தெரிவிக்கவும் அல்லது jellowcommunicator@gmail.com என்ற மின்னஞ்சல் முகவரிக்கு மின்னஞ்சல் அனுப்பவும்</string>
     <string name="terms_of_use">உபயோகித்தளுக்கான விதிமுறைகள்</string>
     <string name="about_je_intro9">ஜெல்லோ செயலியானது க்ரியேடிவ் காம்மென்ஸ் அட்ரிபுயூஷன்-இன் வணிகம் அல்லாத பங்கு மாதிரி  4.0 சர்வதேச உரிமத்தின் கீழ் உரிமம் பெற்றுள்ளது</string>
     <string name="about_je_intro10">ஜெல்லோவிற்கான அனைத்து வேலைகளும் இந்திய தொழில்நுற்ப நிறுவனத்தால் நடைபெறுகிறது</string>
@@ -295,13 +285,11 @@
     <string name="about_je_intro21">இணையதள வடிவமைப்பு:</string>
     <string name="about_je_intro22">பேராசிரியர் ரவி பூவையா, யோகேஷ் மசாயே, சுமேத் கருது, ரூப் சாஹு</string>
     <string name="about_je_intro23">சின்னம், சப்தம் மற்றும் கட்சி வடிவமைப்பு:</string>
-    <!--not translated-->
-    <string name="about_je_intro24">Vinaya Tawde, Shweta Gaurish Pathare, Anisha Malhotra, Simone Sen, Nikita Iyer, Ganesh Gajjela</string>
+    <string name="about_je_intro24">வினையா தவ்டே, ஸ்வேத்தா கௌரிஷ் பத்தரே, அனிஷா மல்ஹோத்ரா, சைமன் சென், நிகிதா ஐயர், கணேஷ் கஜேலா</string>
     <string name="about_je_intro25">மொழிபெயர்ப்பு:</string>
     <string name="about_je_intro26">டாக்டர் ரூபக் மிஸ்ரா, சச்சின் சோனவனே, டாக்டர் சுதா சீனிவாசன்</string>
     <string name="about_je_intro27">ஆராய்ச்சி, சொற்களஞ்சிய மேம்பாடு மற்றும் பயனர் ஆய்வுகள்:</string>
-    <!--not translated-->
-    <string name="about_je_intro28">Dr Sudha Srinivasan, Pushkar Deshpande, Sakshi Pal, Siddhi Patel</string>
+    <string name="about_je_intro28">டாக்டர் சுதா ஸ்ரீநிவாசன், புஷ்கர் தேஷ்பாண்டே, சாக்ஷி பால், சித்தி படேல்"</string>
     <string name="about_je_intro29">ஆதரிதோர்:</string>
     <string name="about_je_intro30">மத்திய மனிதவள மேம்பாட்டு அமைச்சகம் ., மைக்ரோசாஃப்ட் டிசைன் எக்ஸ்போ 2004 மற்றும் யுனிசெப் கண்டுபிடிப்புகளுக்கான நிதி  மூலம் ஒரு வருட விதை மானியத்தால் NMEICT இன் கீழ் இ-கல்பா விற்கு  ஆதரவளிப்பட்டுள்ளது.</string>
     <string name="about_je_intro38">நீண்டகால பயனர் படிப்புகள் மற்றும் ஜெல்லோ தொடர்பாளரின் புல பரிசோதனை:</string>
@@ -341,8 +329,7 @@
     <string name="dont_like">நன்றாக இல்லை</string>
     <string name="no">இல்லை</string>
     <string name="less">குறைவு</string>
-    <!--not translated-->
-    <string name="back">back</string>
+    <string name="back">பின் செல்</string>
     <string name="enter_category">வகையை உள்ளிடவும்</string>
     <string name="intro_cd">முகப்பு பக்கம் 3 வரிசை மற்றும் 3 பத்தியில் அமைந்த வகை வகை பொத்தான்கள் எனப்படும் சின்னங்களைக் கொண்ட மத்திய கட்டத்தைக் கொண்டுள்ளது. அந்த 9 வகை பொத்தான்கள் ஆவன: “வாழ்த்து மற்றும் உணர்வு”, அன்றாட வேலைகள், சாப்பிடுதல், கேளிக்கையில் மகிழ்ந்திருத்தல், கற்றல், மக்கள், இடங்கள், நேரம் மற்றும் வானிலை மற்றும் உதவி ஆகும். வகை போத்தங்களுக்குக் கீழ் வழிசெல்லும் பொத்தான்களாகிய பின்செல் முகப்பு விசைப்பலகை ஆகியவை முகப்பு திரையின் கீழ் அதே வரிசையில் அமைக்கப்ப்பட்டுள்ளன. மத்திய வகை சின்னங்களுக்கு வலது மற்றும் இடது பக்கங்களிலும் மூன்று வெளிப்படைச் சின்னங்கள் உள்ளன. மத்திய கட்டத்தின் இடது பக்கத்தில் உள்ள 3 வெளிப்பாட்டு பொத்தான்கள் “விருப்பம்” “ஆம்” மற்றும் “மேலும்” ஆகியன மேலிருந்து கீழாக அமைக்கப்பட்டு உள்ளன. மத்திய கட்டத்தின் வலது புறத்தில் மீதமுள்ள வெளிப்பாட்டு போத்தான்களாகிய “விருப்பமில்லை” “இல்லை” மற்றும் “குறைவாக” ஆகியன மேலிருந்து கீழாக அமைக்கப்பட்டுள்ளன. முகப்புத் திரையின் மேல் புறத்தில் வலப்பக்க மூலையில் தெரியும்படி ஒரு அமைப்புச் சின்னம் உள்ளது.இந்த படத்தில் மத்திய கட்டத்தின் 9 சின்னங்களும் உயர்த்தி காட்டப்பட்டுள்ளன மற்றவை மங்கலாக காட்டப்பட்டுள்ளன</string>
     <string name="intro2_cd">இந்தப் படம் செல்லாவின் முகப்பு பக்கத்தில் உள்ள 2 சின்னங்களாகிய சாப்பிடுதல் மற்றும் வேண்டும் ஆகியவை முக்கியமாக கட்டப்பட்டுள்ளன மற்றவை மங்கலாக்கபட்டுள்ளன. இப்படம் ஜெல்லோவை பயன்படுத்தி பேசுவதற்கு முதலில் பயனர் ஏதேனுமொரு வகை பொத்தானை சொடுக்குமாறு காண்பிக்கிறது. உதாரணமாக முதலில் சாப்பிடுதல் பொத்தான் அடுத்து ஏதேனுமொரு வெளிப்பாடு பொத்தான்-ஐ சொடுக்க வேண்டும் எடுத்துக்காட்டு “வேண்டும்”. இவ்வழியில் பயனர் ஜெல்லோவை பயன்படுத்தி பேசலாம்.</string>
@@ -389,8 +376,7 @@
     <string name="txt_actLangSel_completestep2">குரல் தரவு கிடைக்கவில்லை. இணைத்தை இயக்கி, படிநிலை 2 ஐ முடிக்கவும்</string>
     <string name="txtStep2">படிநிலை 2:</string>
     <string name="close">உரையாடலை மூடு</string>
-    <!--not translated-->
-    <string name="access_dialog_title">dialog with options.</string>
+    <string name="access_dialog_title">விருப்பங்களோடு கூடிய உரையாடல்</string>
 
     <string name="acc_lang_marathi">மராத்தி (இந்தியா)</string>
     <string name="acc_lang_hindi">இந்தி (இந்தியா)</string>
@@ -399,11 +385,11 @@
     <string name="acc_lang_eng_gb">ஆங்கிலம் (யுனைட்டட் கிங்டம்)</string>
     <string name="acc_lang_eng_us">அமெரிக்க ஆங்கிலம்</string>
     <string name="acc_lang_eng_au">ஆங்கிலம் (ஆஸ்திரேலியா)</string>
+    <string name="acc_lang_span_span">ஸ்பானிஷ்(ஸ்பெயின்)</string>
+    <string name="acc_lang_tamil_in">தமிழ்(இந்தியா)</string>
+    <string name="acc_lang_german_ger">ஜேர்மன்(ஜெர்மனி)</string>
+    <string name="acc_lang_french_fr">பிரெஞ்சு(பிரான்ஸ்)</string>
     <!--not translated-->
-    <string name="acc_lang_span_span">Spanish (Spain)</string>
-    <string name="acc_lang_tamil_in">Tamil (India)</string>
-    <string name="acc_lang_german_ger">German (Germany)</string>
-    <string name="acc_lang_french_fr">French (France)</string>
     <string name="acc_lang_italian_it">Italiano (Italian)</string>
 
     <string name="level_1_screen">முதலாவது நிலையின் திரை</string>

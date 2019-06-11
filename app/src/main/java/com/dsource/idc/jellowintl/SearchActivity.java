@@ -15,22 +15,23 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.dsource.idc.jellowintl.Presentor.SearchHelper;
 import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
 import com.dsource.idc.jellowintl.factories.IconFactory;
 import com.dsource.idc.jellowintl.factories.LanguageFactory;
 import com.dsource.idc.jellowintl.factories.PathFactory;
 import com.dsource.idc.jellowintl.factories.TextFactory;
 import com.dsource.idc.jellowintl.models.Icon;
-import com.dsource.idc.jellowintl.models.JellowIcon;
-import com.dsource.idc.jellowintl.utility.IconDataBaseHelper;
+import com.dsource.idc.jellowintl.models.SearchIcon;
 
 import java.util.ArrayList;
-
-import androidx.annotation.NonNull;
-import androidx.core.view.ViewCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import java.util.List;
 
 import static com.dsource.idc.jellowintl.factories.PathFactory.getIconDirectory;
 import static com.dsource.idc.jellowintl.factories.PathFactory.getIconPath;
@@ -58,7 +59,7 @@ public class SearchActivity extends SpeechEngineBaseActivity {
 
     private RecyclerView mRecyclerView;
     private SearchViewIconAdapter adapter;
-    private ArrayList<JellowIcon> iconList;
+    private ArrayList<SearchIcon> iconList;
     //This variable holds the event "Icon not found"
     private boolean iconNotFound=false;
     //This variable holds the text that user has searched
@@ -80,9 +81,6 @@ public class SearchActivity extends SpeechEngineBaseActivity {
             SearchEditText.setHint("Search icon..");
         }
         getWindow().setGravity(Gravity.LEFT);
-
-        // Reference to the icon database to get access to the Icon list.
-        final IconDataBaseHelper iconDatabase=new IconDataBaseHelper(this);
 
         // To Close on touch outside
         (findViewById(R.id.search_layout)).setOnClickListener(new View.OnClickListener() {
@@ -117,23 +115,25 @@ public class SearchActivity extends SpeechEngineBaseActivity {
                 //Getting the string to search in the database
                 String query=s.toString().trim();
 
-                /**
-                 * {@link IconDataBaseHelper.query(String)} returns a {@link ArrayList< JellowIcon >}  object
-                 * having all the JellowIcon matching the database
-                 * */
-                ArrayList<JellowIcon> icon  =iconDatabase.query(query);
+                List<SearchIcon> icon  = SearchHelper.getSearchIconsList(getAppDatabase(), query.concat("%"));
                 //Clear the current list
                 iconList.clear();
                 //Prepare the list
                 if(icon!=null&&icon.size()>0)
-                for(int i=0;i<icon.size();i++)
-                    iconList.add(icon.get(i));
+                    for(int i=0;i<icon.size();i++)
+                        iconList.add(icon.get(i));
                 //when no Icon matches the searched string then "Icon not found" condition occurs
                 if(icon.size()==0)
                 {
                     iconNotFound=true;
                     notFoundIconText=s.toString();
-                    JellowIcon noIconFound=new JellowIcon(getString(R.string.not_found),"NULL","NULL",-1,-1,-1);
+                    SearchIcon noIconFound = new SearchIcon();
+                    noIconFound.setIconTitle(getString(R.string.not_found));
+                    noIconFound.setIconDrawable("NULL");
+                    noIconFound.setIconSpeech("NULL");
+                    noIconFound.setLevelOne(-1);
+                    noIconFound.setLevelTwo(-1);
+                    noIconFound.setLevelThree(-1);
                     iconList.add(noIconFound);
                 }
 
@@ -223,7 +223,7 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
 
     private Context mContext;
     // private LayoutInflater mInflater;
-    private ArrayList<JellowIcon> mDataSource;
+    private ArrayList<SearchIcon> mDataSource;
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         //Each data item is just a string in this case
         public ImageView iconImage;
@@ -242,11 +242,11 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
             speakIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((SearchActivity)mContext).speak(mDataSource.get(getAdapterPosition()).IconSpeech);
+                    ((SearchActivity)mContext).speak(mDataSource.get(getAdapterPosition()).getIconSpeech());
                     //Firebase event to log the "SearchBar" event with
                     // "IconSpeak" parameter.
                     Bundle bundle = new Bundle();
-                    bundle.putString("IconSpeak",mDataSource.get(getAdapterPosition()).IconTitle.replace("…",""));
+                    bundle.putString("IconSpeak",mDataSource.get(getAdapterPosition()).getIconTitle().replace("…",""));
                     bundle.putString("IconOpened", "");
                     bundle.putString("IconNotFound", "");
                     bundleEvent("SearchBar", bundle);
@@ -259,8 +259,8 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
         @Override
         public void onClick(View view) {
 
-            JellowIcon icon=mDataSource.get(getAdapterPosition());
-            if(icon.parent0==-1&&icon.IconTitle.equals(mContext.getString(R.string.not_found)))//No icon found
+            SearchIcon icon=mDataSource.get(getAdapterPosition());
+            if(icon.getLevelOne()==-1&&icon.getIconTitle().equals(mContext.getString(R.string.not_found)))//No icon found
             {
                 //Do nothing when icon is not found
             }
@@ -271,7 +271,7 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
                 // "IconOpened" parameter.
                 Bundle bundle = new Bundle();
                 bundle.putString("IconSpeak", "");
-                bundle.putString("IconOpened", icon.IconTitle.replace("…",""));
+                bundle.putString("IconOpened", icon.getIconTitle().replace("…",""));
                 bundle.putString("IconNotFound", "");
                 bundleEvent("SearchBar", bundle);
                 target.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -282,26 +282,26 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
     }
 
 /**
- * This code is to get activity from JellowIcon Class object
+ * This code is to get activity from SearchIcon Class object
  * */
     String menuPath;
-    private Intent getActivityFromIcon(JellowIcon icon) {
+    private Intent getActivityFromIcon(SearchIcon icon) {
         menuPath=mContext.getString(R.string.intent_menu_path_tag);
         Intent activityIntent=null;
 
-        if(icon.parent1==-1&&icon.parent2==-1)//Level 1
+        if(icon.getLevelTwo()==-1&&icon.getLevelThree()==-1)//Level 1
         {
             activityIntent=new Intent(mContext, MainActivity.class);
-            activityIntent.putExtra(mContext.getString(R.string.search_parent_0),icon.parent0);
+            activityIntent.putExtra(mContext.getString(R.string.search_parent_0),icon.getLevelOne());
             activityIntent.putExtra(mContext.getString(R.string.from_search),mContext.getString(R.string.search_tag));
         }
-        else if(icon.parent0!=-1&&icon.parent1!=-1&&icon.parent2==-1)//Level 2
+        else if(icon.getLevelOne()!=-1&&icon.getLevelTwo()!=-1&&icon.getLevelThree()==-1)//Level 2
         {
             activityIntent=new Intent(mContext, LevelTwoActivity.class);
-            activityIntent.putExtra(mContext.getString(R.string.level_one_intent_pos_tag),icon.parent0);
+            activityIntent.putExtra(mContext.getString(R.string.level_one_intent_pos_tag),icon.getLevelOne());
             //Passing the index of the icon to be highlighted.
-            activityIntent.putExtra(mContext.getString(R.string.search_parent_1),icon.parent1);
-            activityIntent.putExtra(menuPath,getActionBarTitle(icon.parent0));
+            activityIntent.putExtra(mContext.getString(R.string.search_parent_1),icon.getLevelTwo());
+            activityIntent.putExtra(menuPath,getActionBarTitle(icon.getLevelOne()));
             activityIntent.putExtra(mContext.getString(R.string.from_search),mContext.getString(R.string.search_tag));
 
         }
@@ -310,14 +310,14 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
             activityIntent=new Intent(mContext, LevelThreeActivity.class);
             activityIntent.putExtra(mContext.getString(R.string.from_search),mContext.getString(R.string.search_tag));
             //Level 1 parent
-            activityIntent.putExtra(mContext.getString(R.string.level_one_intent_pos_tag),icon.parent0);
+            activityIntent.putExtra(mContext.getString(R.string.level_one_intent_pos_tag),icon.getLevelOne());
             //Level 2 parent
-            activityIntent.putExtra(mContext.getString(R.string.level_2_item_pos_tag),icon.parent1);
+            activityIntent.putExtra(mContext.getString(R.string.level_2_item_pos_tag),icon.getLevelTwo());
             //Level 3 Icon reference to be highlighted
-            activityIntent.putExtra(mContext.getString(R.string.search_parent_2),icon.parent2);
-            String levelTitle = getIconTitleLevel2(icon.parent0)[icon.parent1].replace("…", "");
+            activityIntent.putExtra(mContext.getString(R.string.search_parent_2),icon.getLevelThree());
+            String levelTitle = getIconTitleLevel2(icon.getLevelOne())[icon.getLevelTwo()].replace("…", "");
             //Bread crumb paths
-            activityIntent.putExtra(menuPath,getActionBarTitle(icon.parent0)+""+levelTitle+"/");
+            activityIntent.putExtra(menuPath,getActionBarTitle(icon.getLevelOne())+""+levelTitle+"/");
         }
         return activityIntent;
     }
@@ -332,7 +332,7 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
         String[] tempTextArr = getLevel1IconLabels();
         return tempTextArr[position]+"/";
     }
-    public SearchViewIconAdapter(Context context, ArrayList<JellowIcon> items) {
+    public SearchViewIconAdapter(Context context, ArrayList<SearchIcon> items) {
         mContext = context;
         mDataSource = items;
     }
@@ -348,14 +348,14 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
     @Override
     public void onBindViewHolder(SearchViewIconAdapter.ViewHolder holder, int position) {
 
-        JellowIcon thisIcon = mDataSource.get(position);
+        SearchIcon thisIcon = mDataSource.get(position);
         /*
         * Loading image to the search list, load directly from asset if MainActivity
         * else if LevelTwoActivity or LevelThreeActivity then use glide to load from storage
         * */
 
         //If the "No icon found" condition comes the remove speaker
-       if(thisIcon.IconDrawable.equals("NULL")&&thisIcon.IconTitle.equals(mContext.getString(R.string.not_found)))
+       if(thisIcon.getIconDrawable().equals("NULL")&&thisIcon.getIconTitle().equals(mContext.getString(R.string.not_found)))
         {
             holder.iconTitle.setText(R.string.icon_not_found);
             holder.speakIcon.setVisibility(View.GONE);
@@ -366,10 +366,10 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
 
         holder.speakIcon.setVisibility(View.VISIBLE);
         holder.iconDir.setVisibility(View.VISIBLE);
-        holder.iconTitle.setText(thisIcon.IconTitle.replace("…",""));
+        holder.iconTitle.setText(thisIcon.getIconTitle().replace("…",""));
 
             GlideApp.with(mContext)
-                    .load(getIconPath(mContext,thisIcon.IconDrawable))
+                    .load(getIconPath(mContext,thisIcon.getIconDrawable()))
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(false)
                     .centerCrop()
@@ -389,19 +389,19 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
         }
 
         String dir="";
-        if(thisIcon.parent1==-1)
+        if(thisIcon.getLevelOne()==-1)
         {
             dir=mContext.getResources().getString(R.string.home);
         }
-        else if(thisIcon.parent2==-1)
+        else if(thisIcon.getLevelTwo()==-1)
         {
-            dir=arr[thisIcon.parent0];
+            dir=arr[thisIcon.getLevelOne()];
         }
         else {
             try {
-                String levelTitle = getIconTitleLevel2(thisIcon.parent0)[thisIcon.parent1].
+                String levelTitle = getIconTitleLevel2(thisIcon.getLevelOne())[thisIcon.getLevelTwo()].
                         replace("…", "");
-                dir=arr[thisIcon.parent0] + "->" + levelTitle;
+                dir=arr[thisIcon.getLevelOne()] + "->" + levelTitle;
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -450,7 +450,7 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
 
     private String getLevel2_3IconCode(int level1Position){
         if(level1Position+1 <= 9){
-            return "0" + Integer.toString(level1Position+1);
+            return "0" + (level1Position + 1);
         } else {
             return Integer.toString(level1Position+1);
         }

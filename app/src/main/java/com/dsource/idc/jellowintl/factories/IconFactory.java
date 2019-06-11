@@ -1,13 +1,13 @@
 package com.dsource.idc.jellowintl.factories;
 
+import androidx.annotation.NonNull;
+
 import com.dsource.idc.jellowintl.cache.IconCache;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-
-import androidx.annotation.NonNull;
 
 public class IconFactory {
 
@@ -233,4 +233,18 @@ public class IconFactory {
         return iconNames;
     }
 
+    public static String getIconCode(String langCode, int levelOne, int levelTwo){
+        String iconCode = langCode.concat("AABB0000GG");
+        if((levelOne+1) < 10)
+            iconCode = iconCode.replace("AA","0"+(levelOne+1));
+        else
+            iconCode = iconCode.replace("AA", String.valueOf(levelOne+1));
+        if(levelTwo == -1)
+            iconCode = iconCode.replace("BB","00");
+        else if((levelTwo+1) < 10)
+            iconCode = iconCode.replace("BB","0"+(levelTwo+1));
+        else
+            iconCode = iconCode.replace("BB", String.valueOf((levelTwo+1)));
+        return iconCode;
+    }
 }

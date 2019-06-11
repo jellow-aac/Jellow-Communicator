@@ -46,8 +46,9 @@ public class BaseActivity extends AppCompatActivity{
         if (sSession == null)
             sSession = new SessionManager(this);
         if(sAppDatabase == null)
-            sAppDatabase = Room.databaseBuilder(this, AppDatabase.class, APP_DB_NAME).build();
-
+            sAppDatabase = Room.databaseBuilder(this, AppDatabase.class, APP_DB_NAME)
+                    .allowMainThreadQueries()
+                    .build();
     }
 
     @Override
@@ -147,7 +148,7 @@ public class BaseActivity extends AppCompatActivity{
         return sSession;
     }
 
-    protected AppDatabase getsAppDatabase(){
+    protected AppDatabase getAppDatabase(){
         return sAppDatabase;
     }
 

@@ -89,17 +89,17 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
         setImageUsingGlide(R.drawable.gtts3, ((ImageView)findViewById(R.id.ivTtsVoiceDat)));
         setImageUsingGlide(R.drawable.arrow, ((ImageView)findViewById(R.id.ivArrow1)));
         setImageUsingGlide(R.drawable.arrow, ((ImageView)findViewById(R.id.ivArrow2)));
-        /*if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             findViewById(R.id.tv5).setVisibility(View.GONE);
             findViewById(R.id.llImg).setVisibility(View.GONE);
             findViewById(R.id.changeTtsLangBut).setVisibility(View.GONE);
-        }else{*/
+        }else{
             setImageUsingGlide(R.drawable.gtts1, ((ImageView)findViewById(R.id.ivTtsSetting1)));
             setImageUsingGlide(R.drawable.gtts2, ((ImageView)findViewById(R.id.ivTtsSetting2)));
             setImageUsingGlide(R.drawable.gtts4, ((ImageView)findViewById(R.id.ivTtsSetting3)));
             setImageUsingGlide(R.drawable.arrow, ((ImageView)findViewById(R.id.ivArrow3)));
             setImageUsingGlide(R.drawable.arrow, ((ImageView)findViewById(R.id.ivArrow4)));
-        //}
+        }
 
         offlineLanguages = getOfflineLanguages();
         onlineLanguages = getOnlineLanguages();
@@ -421,11 +421,11 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
     }
 
     private void updateViewsForNewLangSelect() {
-        /*if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             findViewById(R.id.tv5).setVisibility(View.GONE);
             findViewById(R.id.llImg).setVisibility(View.GONE);
             findViewById(R.id.changeTtsLangBut).setVisibility(View.GONE);
-        }*/
+        }
 
         if(getSession().getLanguage().equals(BN_IN))
             boldTitleOnScreen();
@@ -441,7 +441,7 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
         spannedStr.setSpan(new StyleSpan(Typeface.BOLD),0,boldTxtLen,0);
         ((TextView)findViewById(R.id.tv4)).setText(spannedStr);
 
-        //if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             spannedStr = new SpannableString(mStep3.replace("_", getTTsLanguage()));
             if (getSession().getLanguage().equals(BN_IN)) boldTxtLen = 12;
             spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, boldTxtLen, 0);
@@ -451,7 +451,7 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
             if (getSession().getLanguage().equals(BN_IN)) boldTxtLen = 12;
             spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, boldTxtLen, 0);
             ((TextView) findViewById(R.id.tv6)).setText(spannedStr);
-       /* }else {
+        }else {
             int subStrLen = 8;
             if(getSession().getLanguage().equals(SessionManager.BN_IN))subStrLen = 12;
             else if(getSession().getLanguage().equals(HI_IN))subStrLen = 7;
@@ -461,7 +461,7 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
             if (getSession().getLanguage().equals(BN_IN)) boldTxtLen = 12;
             spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, boldTxtLen, 0);
             ((TextView) findViewById(R.id.tv6)).setText(spannedStr);
-        }*/
+        }
     }
 
     private void boldTitleOnScreen() {

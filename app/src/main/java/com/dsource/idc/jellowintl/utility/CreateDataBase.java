@@ -6,12 +6,16 @@ import android.content.Intent;
 import android.os.AsyncTask;
 
 import com.dsource.idc.jellowintl.MainActivity;
+import com.dsource.idc.jellowintl.Presentor.SearchHelper;
 import com.dsource.idc.jellowintl.SplashActivity;
+import com.dsource.idc.jellowintl.models.AppDatabase;
 
 public class CreateDataBase extends AsyncTask {
-    Context mContext;
-    public CreateDataBase(Context context) {
+    private Context mContext;
+    private AppDatabase mAppDatabase;
+    public CreateDataBase(Context context, AppDatabase appDatabase) {
         mContext=context;
+        mAppDatabase=appDatabase;
     }
 
     @Override
@@ -23,16 +27,14 @@ public class CreateDataBase extends AsyncTask {
 
     @Override
     protected Object doInBackground(Object[] objects) {
-
-        final IconDataBaseHelper iconDatabase=new IconDataBaseHelper(mContext);
         if(new SessionManager(mContext).isLanguageChanged()==0)//First Time
         {
-            iconDatabase.createTable(new DataBaseHelper(mContext).getWritableDatabase());
+            SearchHelper.insertSearchData(mContext, mAppDatabase);
         }
         else if(new SessionManager(mContext).isLanguageChanged()==1)//Language Change
         {
-            iconDatabase.dropTable(new DataBaseHelper(mContext).getWritableDatabase());
-            iconDatabase.createTable(new DataBaseHelper(mContext).getWritableDatabase());
+            SearchHelper.clearSearchDatabase(mAppDatabase);
+            SearchHelper.insertSearchData(mContext, mAppDatabase);
         }
 
         return null;
