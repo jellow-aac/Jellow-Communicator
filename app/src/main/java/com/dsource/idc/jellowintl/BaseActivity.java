@@ -45,6 +45,8 @@ public class BaseActivity extends AppCompatActivity{
         super.onCreateOptionsMenu(menu);
         if(getLevelClass().contains(getVisibleAct()))
             getMenuInflater().inflate(R.menu.menu_main_with_search, menu);
+        else if(getLanguageSettingsActivity().equals(getVisibleAct()))
+            getMenuInflater().inflate(R.menu.menu_main_with_language_pack_update, menu);
         else
             getMenuInflater().inflate(R.menu.menu_main, menu);
         if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
@@ -194,6 +196,10 @@ public class BaseActivity extends AppCompatActivity{
 
     private String getNonMenuClass() {
         return UserRegistrationActivity.class.getSimpleName();
+    }
+
+    private String getLanguageSettingsActivity(){
+        return LanguageSelectActivity.class.getSimpleName();
     }
 
 

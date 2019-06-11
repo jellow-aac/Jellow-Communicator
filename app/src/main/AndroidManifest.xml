@@ -162,11 +162,6 @@
             android:label="@string/search_act_title"
             android:theme="@style/Theme.AppCompat.Translucent" />
         <activity
-            android:name=".LanguagePackageUpdateActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="landscape"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity
             android:name=".FeedbackActivityTalkBack"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/menuFeedback"

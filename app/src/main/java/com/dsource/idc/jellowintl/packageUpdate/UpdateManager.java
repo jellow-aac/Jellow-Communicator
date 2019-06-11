@@ -4,6 +4,7 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
+import com.dsource.idc.jellowintl.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FileDownloadTask;
@@ -67,7 +68,7 @@ public class UpdateManager implements UpdateContract {
     }
 
     public void startDownload(){
-        updateStatusText("Starting Update...");
+        updateStatusText(context.getString(R.string.lpu_start_update));
         downloadStage1();
     }
 
@@ -80,7 +81,7 @@ public class UpdateManager implements UpdateContract {
             public void onComplete(@NonNull Task<FileDownloadTask.TaskSnapshot> task) {
                 if(task.isSuccessful()){
                     logFileDownloadSuccess("New HashMap JSON");
-                    updateStatusText("Parsing Download data...");
+                    updateStatusText(context.getString(R.string.lpu_parse_update));
                     onStageDownloadResult(UpdateTaskStage.STAGE_1,SUCCESS);
                 } else {
                     logFileDownloadFailed("New HashMap JSON");
@@ -135,13 +136,13 @@ public class UpdateManager implements UpdateContract {
     private void downloadStage3(){
         File fUpdateDir = getUpdateDir(context);
         StorageReference drawablesRef = getDrawablesUpdateStorageRef(context);
-        updateStatusText("Downloading Icons...");
+        updateStatusText(context.getString(R.string.lpu_download_icons));
         downloadIconFiles(fUpdateDir,drawablesRef);
         logGeneralEvents("Downloading Icon Files");
     }
 
     private void downloadStage4() {
-        updateStatusText("Updating Icon Data...");
+        updateStatusText(context.getString(R.string.lpu_update_icon_data));
         StorageReference refVerbiageMapJSON = getVerbiageMapJSONRef(context);
         File fVerbiageMapJSON = getVerbiageMapJSON(context);
         FileDownloadTask downloadVerbiageMapJSON= downloadVerbiageMapJSON(fVerbiageMapJSON,refVerbiageMapJSON);
@@ -361,7 +362,6 @@ public class UpdateManager implements UpdateContract {
                 } else {
                     onIconDownloadTaskCompleted(false);
                     logGeneralEvents("Failed Downloads Retry limit reached");
-
                 }
             }
         }
@@ -422,20 +422,20 @@ public class UpdateManager implements UpdateContract {
         switch (updateTaskResult){
             case ICONS_SUCCESSFULLY_UPDATED:
                 logGeneralEvents("Update task Successfully executed");
-                updateStatusText("Language pack successfully updated!!");
-                showUpdateInfo("Update Success!!");
+                updateStatusText(context.getString(R.string.lpu_update_success));
+                showUpdateInfo(context.getString(R.string.lpu_toast_update_success));
                 notifyIconsModified(true);
                 break;
             case NO_UPDATES_FOUND:
                 logGeneralEvents("No new/updated icons found");
-                updateStatusText("No updates found!!");
-                showUpdateInfo("Update Check Success!!");
+                updateStatusText(context.getString(R.string.lpu_no_updates_found));
+                showUpdateInfo(context.getString(R.string.lpu_toast_check_success));
                 notifyIconsModified(false);
                 break;
             case FAILED:
                 logGeneralEvents("Update task execution failed!!");
-                updateStatusText("Error completing update!! Please try again.");
-                showUpdateInfo("Update Failed!!");
+                updateStatusText(context.getString(R.string.lpu_update_error));
+                showUpdateInfo(context.getString(R.string.lpu_toast_check_error));
                 notifyIconsModified(false);
                 break;
         }

@@ -35,9 +35,8 @@ public class LanguagePackUpdateActivity extends BaseActivity implements Progress
         if(ConnectionUtils.isConnected(this)){
             updateManager.startDownload();
         } else {
-            statusText.setText("Please Check Your Internet Connection!!");
+            statusText.setText(getString(R.string.lpu_connectivity_error));
         }
-
     }
 
     @Override

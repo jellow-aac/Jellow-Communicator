@@ -25,11 +25,6 @@
             android:title="@string/Language"
             app:showAsAction="never"/>
         <item
-            android:id="@+id/languagePackUpdate"
-            android:title="@string/Update"
-            app:showAsAction="never"/>
-
-        <item
             android:id="@+id/settings"
             android:title="@string/action_settings"
             app:showAsAction="never"/>

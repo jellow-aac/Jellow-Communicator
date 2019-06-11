@@ -3,13 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <group android:id="@+id/menuGroupInfo">
         <item
-            android:id="@+id/search"
-            android:title="@string/search_title"
-            android:icon="@drawable/ic_search_large"
-            android:checked="true"
-            app:showAsAction="ifRoom"
-            android:orderInCategory="1"/>
-        <item
             android:id="@+id/profile"
             android:title="@string/menuProfile"
             app:showAsAction="never"/>
@@ -27,6 +20,13 @@
             android:id="@+id/keyboardInput"
             android:title="@string/menuKeyboardInput"
             app:showAsAction="never"/>
+        <item
+            android:id="@+id/languagePackUpdate"
+            android:title="@string/lpu"
+            android:icon="@drawable/ic_system_update_large"
+            android:checked="true"
+            app:showAsAction="ifRoom"
+            android:orderInCategory="1"/>
         <item
             android:id="@+id/languageSelect"
             android:title="@string/Language"
