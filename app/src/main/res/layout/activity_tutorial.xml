@@ -1,30 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ll"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F7F3C6">
+    android:orientation="vertical"
+    android:background="@color/app_background">
     <ScrollView
         android:id="@+id/sv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fillViewport="true"
         android:fadeScrollbars="false"
-        android:layout_marginLeft="19dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginBottom="19dp">
+        android:layout_marginLeft="@dimen/tutorial_scroll_margin_left"
+        android:layout_marginStart="@dimen/tutorial_scroll_margin_left"
+        android:layout_marginRight="@dimen/tutorial_scroll_margin_right"
+        android:layout_marginEnd="@dimen/tutorial_scroll_margin_right"
+        android:layout_marginTop="@dimen/tutorial_scroll_margin_top"
+        android:layout_marginBottom="@dimen/tutorial_scroll_margin_bottom">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginRight="@dimen/tutorial_parent_margin_right"
+            android:layout_marginEnd="@dimen/tutorial_parent_margin_right">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="19dp">
+                android:layout_marginBottom="@dimen/tutorial_parent_ll_margin_bottom">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -32,11 +35,12 @@
                         android:id="@+id/bullet1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
-                        android:layout_marginRight="4dp"
+                        android:layout_marginEnd="@dimen/tutorial_bullet_margin_right"
+                        android:layout_marginRight="@dimen/tutorial_bullet_margin_right"
+                        android:layout_marginTop="@dimen/tutorial_bullet_margin_top"
                         android:textColor="@color/black_eighty"
-                        android:scaleX=".7"
-                        android:scaleY=".7"
+                        android:scaleX="@dimen/tutorial_bullet_scale"
+                        android:scaleY="@dimen/tutorial_bullet_scale"
                         android:importantForAccessibility="no"
                         android:text="@string/bullet" />
                     <TextView
@@ -47,15 +51,17 @@
                         android:layout_toRightOf="@+id/bullet1"
                         android:text="@string/catBtnDesc"
                         style="@style/defaultTextViewStyle"
-                        android:paddingBottom="4dp"/>
+                        android:layout_marginBottom="@dimen/tutorial_tv_margin_bottom"
+                        android:paddingBottom="@dimen/tutorial_tv_padding_bottom"
+                        android:importantForAccessibility="yes"/>
                     <TextView
                         android:id="@+id/tv7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/tv1"
-                        android:layout_marginBottom="19dp"
-                        android:layout_marginTop="19dp"
-                        android:paddingBottom="4dp"
+                        android:layout_marginBottom="@dimen/tutorial_tv_text_margin_vertical"
+                        android:layout_marginTop="@dimen/tutorial_tv_text_margin_vertical"
+                        android:paddingBottom="@dimen/tutorial_tv_text_padding_bottom"
                         android:text="@string/catBtn"
                         android:fontFamily="@font/mukta_semibold"
                         android:importantForAccessibility="yes"
@@ -63,7 +69,7 @@
                     <ImageView
                         android:id="@+id/pic1"
                         android:layout_width="wrap_content"
-                        android:layout_height="200dp"
+                        android:layout_height="@dimen/tutorial_pic_height"
                         android:layout_below="@+id/tv7"
                         android:contentDescription="@string/category_cd"/>
                     <TextView
@@ -71,9 +77,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/pic1"
-                        android:layout_marginBottom="19dp"
-                        android:layout_marginTop="19dp"
-                        android:paddingBottom="4dp"
+                        android:layout_marginBottom="@dimen/tutorial_tv_text_margin_vertical"
+                        android:layout_marginTop="@dimen/tutorial_tv_text_margin_vertical"
+                        android:paddingBottom="@dimen/tutorial_tv_text_padding_bottom"
                         android:text="@string/expBtn"
                         android:importantForAccessibility="yes"
                         android:fontFamily="@font/mukta_semibold"
@@ -81,9 +87,10 @@
                     <ImageView
                         android:id="@+id/pic2"
                         android:layout_width="wrap_content"
-                        android:layout_height="200dp"
+                        android:layout_height="@dimen/tutorial_pic_height"
                         android:layout_below="@+id/tv8"
-                        android:contentDescription="@string/expressive_cd"/>
+                        android:contentDescription="@string/expressive_cd"
+                        android:importantForAccessibility="yes"/>
                 </RelativeLayout>
             </LinearLayout>
 
@@ -91,19 +98,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="19dp">
+                android:layout_marginBottom="@dimen/tutorial_parent_ll_margin_bottom">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
                         android:id="@+id/bullet2"
                         android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:layout_marginEnd="4dp"
-                        android:layout_marginRight="4dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/tutorial_bullet_margin_right"
+                        android:layout_marginRight="@dimen/tutorial_bullet_margin_right"
+                        android:layout_marginTop="@dimen/tutorial_bullet_margin_top"
                         android:textColor="@color/black_eighty"
-                        android:scaleX=".7"
-                        android:scaleY=".7"
+                        android:scaleX="@dimen/tutorial_bullet_scale"
+                        android:scaleY="@dimen/tutorial_bullet_scale"
                         android:text="@string/bullet"
                         android:importantForAccessibility="no"/>
                     <TextView
@@ -112,15 +120,16 @@
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@+id/bullet2"
                         android:layout_toRightOf="@+id/bullet2"
-                        android:paddingBottom="4dp"
+                        android:layout_marginBottom="@dimen/tutorial_tv_margin_bottom"
+                        android:paddingBottom="@dimen/tutorial_tv_padding_bottom"
                         android:text="@string/jellowUsageDesc"
                         style="@style/defaultTextViewStyle"/>
                     <ImageView
                         android:id="@+id/pic4"
                         android:layout_width="wrap_content"
-                        android:layout_height="200dp"
+                        android:layout_height="@dimen/tutorial_pic_height"
                         android:layout_below="@+id/tv2"
-                        android:layout_marginTop="19dp"
+                        android:layout_marginTop="@dimen/tutorial_pic_margin_top"
                         android:contentDescription="@string/pic4"/>
                 </RelativeLayout>
             </LinearLayout>
@@ -129,7 +138,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="19dp">
+                android:layout_marginBottom="@dimen/tutorial_parent_ll_margin_bottom">
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -138,20 +147,22 @@
                         android:id="@+id/bullet3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
-                        android:layout_marginRight="4dp"
+                        android:layout_marginEnd="@dimen/tutorial_bullet_margin_right"
+                        android:layout_marginRight="@dimen/tutorial_bullet_margin_right"
+                        android:layout_marginTop="@dimen/tutorial_bullet_margin_top"
                         android:textColor="@color/black_eighty"
-                        android:scaleX=".7"
-                        android:scaleY=".7"
-                        android:importantForAccessibility="no"
-                        android:text="@string/bullet" />
+                        android:scaleX="@dimen/tutorial_bullet_scale"
+                        android:scaleY="@dimen/tutorial_bullet_scale"
+                        android:text="@string/bullet"
+                        android:importantForAccessibility="no"/>
                     <TextView
                         android:id="@+id/tv3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@+id/bullet3"
                         android:layout_toRightOf="@+id/bullet3"
-                        android:paddingBottom="4dp"
+                        android:layout_marginBottom="@dimen/tutorial_tv_margin_bottom"
+                        android:paddingBottom="@dimen/tutorial_tv_padding_bottom"
                         android:text="@string/jellowUsageSubCat"
                         style="@style/defaultTextViewStyle"/>
                     <TextView
@@ -159,16 +170,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv3"
-                        android:layout_marginBottom="19dp"
-                        android:layout_marginTop="19dp"
-                        android:paddingBottom="4dp"
+                        android:layout_marginBottom="@dimen/tutorial_tv_text_margin_vertical"
+                        android:layout_marginTop="@dimen/tutorial_tv_text_margin_vertical"
+                        android:paddingBottom="@dimen/tutorial_tv_text_padding_bottom"
                         android:text="@string/levelOneCat"
                         android:fontFamily="@font/mukta_semibold"
                         style="@style/defaultTextViewStyle"/>
                     <ImageView
                         android:id="@+id/pic5"
                         android:layout_width="wrap_content"
-                        android:layout_height="200dp"
+                        android:layout_height="@dimen/tutorial_pic_height"
                         android:layout_below="@+id/tv9"
                         android:contentDescription="@string/pic5"/>
                     <TextView
@@ -176,16 +187,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/pic5"
-                        android:layout_marginBottom="19dp"
-                        android:layout_marginTop="19dp"
-                        android:paddingBottom="4dp"
+                        android:layout_marginBottom="@dimen/tutorial_tv_text_margin_vertical"
+                        android:layout_marginTop="@dimen/tutorial_tv_text_margin_vertical"
+                        android:paddingBottom="@dimen/tutorial_tv_text_padding_bottom"
                         android:text="@string/levelTwoCat"
                         android:fontFamily="@font/mukta_semibold"
                         style="@style/defaultTextViewStyle"/>
                     <ImageView
                         android:id="@+id/pic6"
                         android:layout_width="wrap_content"
-                        android:layout_height="200dp"
+                        android:layout_height="@dimen/tutorial_pic_height"
                         android:layout_below="@+id/tv10"
                         android:contentDescription="@string/pic6"/>
                     <TextView
@@ -193,16 +204,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/pic6"
-                        android:layout_marginBottom="19dp"
-                        android:layout_marginTop="19dp"
-                        android:paddingBottom="4dp"
+                        android:layout_marginBottom="@dimen/tutorial_tv_text_margin_vertical"
+                        android:layout_marginTop="@dimen/tutorial_tv_text_margin_vertical"
+                        android:paddingBottom="@dimen/tutorial_tv_text_padding_bottom"
                         android:text="@string/levelThreeCat"
                         android:fontFamily="@font/mukta_semibold"
                         style="@style/defaultTextViewStyle"/>
                     <ImageView
                         android:id="@+id/pic7"
                         android:layout_width="wrap_content"
-                        android:layout_height="200dp"
+                        android:layout_height="@dimen/tutorial_pic_height"
                         android:layout_below="@+id/tv11"
                         android:contentDescription="@string/pic7"/>
                 </RelativeLayout>
@@ -212,7 +223,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="19dp">
+                android:layout_marginBottom="@dimen/tutorial_parent_ll_margin_bottom">
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -221,26 +232,27 @@
                         android:id="@+id/bullet4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
-                        android:layout_marginRight="4dp"
+                        android:layout_marginEnd="@dimen/tutorial_bullet_margin_right"
+                        android:layout_marginRight="@dimen/tutorial_bullet_margin_right"
+                        android:layout_marginTop="@dimen/tutorial_bullet_margin_top"
                         android:textColor="@color/black_eighty"
-                        android:scaleX=".7"
-                        android:scaleY=".7"
+                        android:scaleX="@dimen/tutorial_bullet_scale"
+                        android:scaleY="@dimen/tutorial_bullet_scale"
                         android:text="@string/bullet"
                         android:importantForAccessibility="no"/>
                     <TextView
                         android:id="@+id/tv4"
                         android:layout_width="wrap_content"
-                        android:layout_height="58dp"
+                        android:layout_height="wrap_content"
                         android:layout_toEndOf="@+id/bullet4"
                         android:layout_toRightOf="@+id/bullet4"
-                        android:paddingBottom="4dp"
+                        android:paddingBottom="@dimen/tutorial_tv_text_padding_bottom"
                         android:text="@string/settingDesc"
                         style="@style/defaultTextViewStyle"/>
                     <ImageView
                         android:id="@+id/pic8"
                         android:layout_width="wrap_content"
-                        android:layout_height="200dp"
+                        android:layout_height="@dimen/tutorial_pic_height"
                         android:layout_below="@+id/tv4"
                         android:contentDescription="@string/pic8"/>
                 </RelativeLayout>
@@ -258,11 +270,12 @@
                         android:id="@+id/bullet5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
-                        android:layout_marginRight="4dp"
+                        android:layout_marginEnd="@dimen/tutorial_bullet_margin_right"
+                        android:layout_marginRight="@dimen/tutorial_bullet_margin_right"
+                        android:layout_marginTop="@dimen/tutorial_bullet_margin_top"
                         android:textColor="@color/black_eighty"
-                        android:scaleX=".7"
-                        android:scaleY=".7"
+                        android:scaleX="@dimen/tutorial_bullet_scale"
+                        android:scaleY="@dimen/tutorial_bullet_scale"
                         android:text="@string/bullet"
                         android:importantForAccessibility="no"/>
                     <TextView
@@ -271,7 +284,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@+id/bullet5"
                         android:layout_toRightOf="@+id/bullet5"
-                        android:paddingBottom="4dp"
+                        android:paddingBottom="@dimen/tutorial_tv_text_padding_bottom"
                         android:text="@string/seqActDesc"
                         style="@style/defaultTextViewStyle"/>
                     <TextView
@@ -279,16 +292,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv5"
-                        android:layout_marginBottom="19dp"
-                        android:layout_marginTop="19dp"
-                        android:paddingBottom="4dp"
+                        android:layout_marginBottom="@dimen/tutorial_tv_text_margin_vertical"
+                        android:layout_marginTop="@dimen/tutorial_tv_text_margin_vertical"
+                        android:paddingBottom="@dimen/tutorial_tv_text_padding_bottom"
                         android:text="@string/toiletSeq"
                         android:fontFamily="@font/mukta_semibold"
                         style="@style/defaultTextViewStyle"/>
                     <ImageView
                         android:id="@+id/pic9"
                         android:layout_width="wrap_content"
-                        android:layout_height="200dp"
+                        android:layout_height="@dimen/tutorial_pic_height"
                         android:layout_below="@id/tv12"
                         android:contentDescription="@string/pic9"/>
                     <TextView
@@ -296,16 +309,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/pic9"
-                        android:layout_marginBottom="19dp"
-                        android:layout_marginTop="19dp"
-                        android:paddingBottom="4dp"
+                        android:layout_marginBottom="@dimen/tutorial_tv_text_margin_vertical"
+                        android:layout_marginTop="@dimen/tutorial_tv_text_margin_vertical"
+                        android:paddingBottom="@dimen/tutorial_tv_text_padding_bottom"
                         android:text="@string/expBtnSeq"
                         android:fontFamily="@font/mukta_semibold"
                         style="@style/defaultTextViewStyle"/>
                     <ImageView
                         android:id="@+id/pic10"
                         android:layout_width="wrap_content"
-                        android:layout_height="200dp"
+                        android:layout_height="@dimen/tutorial_pic_height"
                         android:layout_below="@+id/tv13"
                         android:contentDescription="@string/pic10"/>
                 </RelativeLayout>
@@ -318,18 +331,18 @@
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginBottom="@dimen/tutorial_tv_text_margin_vertical">
                     <TextView
                         android:id="@+id/bullet6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="19dp"
-                        android:layout_marginTop="19dp"
-                        android:layout_marginEnd="4dp"
-                        android:layout_marginRight="4dp"
+                        android:layout_marginEnd="@dimen/tutorial_bullet_margin_right"
+                        android:layout_marginRight="@dimen/tutorial_bullet_margin_right"
+                        android:layout_marginTop="@dimen/tutorial_bullet_margin_top"
                         android:textColor="@color/black_eighty"
-                        android:scaleX=".7"
-                        android:scaleY=".7"
+                        android:scaleX="@dimen/tutorial_bullet_scale"
+                        android:scaleY="@dimen/tutorial_bullet_scale"
                         android:text="@string/bullet"
                         android:importantForAccessibility="no"/>
                     <TextView
@@ -338,15 +351,16 @@
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@+id/bullet6"
                         android:layout_toRightOf="@+id/bullet6"
-                        android:layout_marginBottom="19dp"
-                        android:layout_marginTop="19dp"
-                        android:paddingBottom="4dp"
+                        android:layout_marginBottom="@dimen/tutorial_tv_text_margin_vertical"
+                        android:layout_marginTop="@dimen/tutorial_tv_text_margin_vertical"
+                        android:paddingBottom="@dimen/tutorial_tv_text_padding_bottom"
                         android:text="@string/ttsDesc"
                         style="@style/defaultTextViewStyle"/>
                     <LinearLayout
                         android:layout_below="@+id/tvtts"
-                        android:layout_width="fill_parent"
-                        android:layout_height="185dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/tutorial_tts_pic_height"
+                        android:layout_marginBottom="@dimen/tutorial_tts_pic_margin_bottom"
                         android:orientation="horizontal"
                         android:gravity="center"
                         android:weightSum="3">

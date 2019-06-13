@@ -24,6 +24,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.view.ViewCompat;
+
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
@@ -39,11 +44,6 @@ import com.dsource.idc.jellowintl.utility.DialogKeyboardUtterance;
 import com.dsource.idc.jellowintl.utility.UserEventCollector;
 
 import java.io.File;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.core.view.ViewCompat;
 
 import static com.dsource.idc.jellowintl.factories.PathFactory.getIconPath;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
@@ -66,7 +66,7 @@ public class SequenceActivity extends LevelBaseActivity{
       once or twice. eg. mFlgLike used to identify Like expressive button pressed once or twice.*/
     private int mFlgLike = 0, mFlgYes = 0, mFlgMore = 0, mFlgDontLike = 0, mFlgNo = 0,
             mFlgLess = 0;
-    /* This flag identifies either hide/show expressive buttons.*/
+    /* This flag identifies either hide/showDialog expressive buttons.*/
     private int mFlgHideExpBtn = -1;
     /* This flag indicates keyboard is open or not, 0 indicates is not open.*/
     private int mFlgKeyboard = 0;
@@ -468,7 +468,7 @@ public class SequenceActivity extends LevelBaseActivity{
                                 mHeading[mLevelTwoItemPos].toLowerCase());
                     }
                 // If expressive buttons are hidden or category icon 1 is in unpressed state then
-                // set the border of category icon 1 and show expressive buttons
+                // set the border of category icon 1 and showDialog expressive buttons
                 } else {
                     mFlgHideExpBtn = 1;
                     // If new current sequence is the last sequence and category icon 1 is
@@ -527,7 +527,7 @@ public class SequenceActivity extends LevelBaseActivity{
                                 mCategoryIconBelowText[count + 1], mHeading[mLevelTwoItemPos].toLowerCase());
                     }
                     // If expressive buttons are hidden or category icon 2 is in unpressed state then
-                    // set the border of category icon 2 and show expressive buttons
+                    // set the border of category icon 2 and showDialog expressive buttons
                 } else {
                     mFlgHideExpBtn = 2;
                     // If new current sequence is the last sequence and category icon 2 is
@@ -586,7 +586,7 @@ public class SequenceActivity extends LevelBaseActivity{
                                 mCategoryIconBelowText[count+2], mHeading[mLevelTwoItemPos].toLowerCase());
                     }
                     // If expressive buttons are hidden or category icon 3 is in unpressed state then
-                    // set the border of category icon 3 and show expressive buttons
+                    // set the border of category icon 3 and showDialog expressive buttons
                 } else {
                     mFlgHideExpBtn = 3;
                     // If new current sequence is the last sequence and category icon 3 is
@@ -724,7 +724,7 @@ public class SequenceActivity extends LevelBaseActivity{
                         // user intent to close custom keyboard input text so below steps will follow:
                         // a) set keyboard button to unpressed state.
                         // b) hide custom input text and speak button views
-                        // c) show category icons
+                        // c) showDialog category icons
                         // d) enable expressive button
                         // e) set category icon next and back button visible
                         mIvKeyboard.setImageResource(R.drawable.keyboard);
@@ -740,7 +740,7 @@ public class SequenceActivity extends LevelBaseActivity{
                         //keyboard input text so below steps will follow:
                     } else {
                         // a) keyboard button to press
-                        // b) show custom keyboard input text and speak button view
+                        // b) showDialog custom keyboard input text and speak button view
                         // c) hide category icons
                         // d) disable expressive buttons
                         // e) hide category icon next and back buttons
@@ -1118,7 +1118,7 @@ public class SequenceActivity extends LevelBaseActivity{
     private void initTTsBtnListener() {
         mIvTTs.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                speak(mEtTTs.getText().toString());
+                speak(mEtTTs.getText().toString().concat("_"));
                 //Firebase event
                 Bundle bundle = new Bundle();
                 bundle.putString("InputName", Settings.Secure.getString(getContentResolver(),
@@ -1152,7 +1152,7 @@ public class SequenceActivity extends LevelBaseActivity{
     }
 
     /**
-     * <p>This function will show/hide action bar title.
+     * <p>This function will showDialog/hide action bar title.
      * If {@param showTitle} is set then title is displayed otherwise not.</p>
      * */
     private void showActionBarTitle(boolean showTitle){
@@ -1480,7 +1480,7 @@ public class SequenceActivity extends LevelBaseActivity{
     }
 
     /**
-     * <p>This function will show/hide expressive buttons.
+     * <p>This function will showDialog/hide expressive buttons.
      * @param  hideBtn, is set then expressive buttons visibility is changed to invisible
      * otherwise the buttons are visible.</p>
      * */
@@ -1631,7 +1631,7 @@ public class SequenceActivity extends LevelBaseActivity{
 
     private String getLevel2_3IconCode(int level2_3Position){
         if(level2_3Position+1 <= 9){
-            return "0" + Integer.toString(level2_3Position+1);
+            return "0" + (level2_3Position + 1);
         } else {
             return Integer.toString(level2_3Position+1);
         }

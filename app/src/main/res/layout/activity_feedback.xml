@@ -3,27 +3,29 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F7F3C6">
+    android:background="@color/app_background">
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fadeScrollbars="false"
         android:fillViewport="false"
-        android:layout_marginLeft="19dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginBottom="19dp">
+        android:layout_marginTop="@dimen/feedback_scroll_margin_top"
+        android:layout_marginBottom="@dimen/feedback_scroll_margin_top"
+        android:layout_marginLeft="@dimen/feedback_scroll_margin_left"
+        android:layout_marginStart="@dimen/feedback_scroll_margin_left"
+        android:layout_marginRight="@dimen/feedback_scroll_margin_right"
+        android:layout_marginEnd="@dimen/feedback_scroll_margin_right">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/feedback_parent_margin_right"
+            android:layout_marginEnd="@dimen/feedback_parent_margin_right"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/tv1"
                 android:layout_width="wrap_content"
-                android:layout_height="22dp"
+                android:layout_height="@dimen/feedback_tv_height"
                 android:text="@string/easyToUse"
                 style="@style/defaultTextViewStyle"/>
             <RatingBar
@@ -40,7 +42,7 @@
             <TextView
                 android:id="@+id/tv2"
                 android:layout_width="wrap_content"
-                android:layout_height="22dp"
+                android:layout_height="@dimen/feedback_tv_height"
                 android:text="@string/clearPictures"
                 style="@style/defaultTextViewStyle"/>
             <RatingBar
@@ -50,14 +52,14 @@
                 android:numStars="5"
                 style="?android:attr/ratingBarStyle"
                 android:theme="@style/RatingBar"
-                android:scaleX="0.6"
-                android:scaleY="0.6"
-                android:layout_marginLeft="-50dp"
-                android:layout_marginStart="-50dp"/>
+                android:scaleX="@dimen/feedback_rb_scale_size"
+                android:scaleY="@dimen/feedback_rb_scale_size"
+                android:layout_marginLeft="@dimen/feedback_rb_margin_left"
+                android:layout_marginStart="@dimen/feedback_rb_margin_left"/>
             <TextView
                 android:id="@+id/tv3"
                 android:layout_width="wrap_content"
-                android:layout_height="22dp"
+                android:layout_height="@dimen/feedback_tv_height"
                 android:text="@string/clearVoice"
                 style="@style/defaultTextViewStyle"/>
             <RatingBar
@@ -67,14 +69,14 @@
                 android:numStars="5"
                 style="?android:attr/ratingBarStyle"
                 android:theme="@style/RatingBar"
-                android:scaleX="0.6"
-                android:scaleY="0.6"
-                android:layout_marginLeft="-50dp"
-                android:layout_marginStart="-50dp"/>
+                android:scaleX="@dimen/feedback_rb_scale_size"
+                android:scaleY="@dimen/feedback_rb_scale_size"
+                android:layout_marginLeft="@dimen/feedback_rb_margin_left"
+                android:layout_marginStart="@dimen/feedback_rb_margin_left"/>
             <TextView
                 android:id="@+id/tv4"
                 android:layout_width="wrap_content"
-                android:layout_height="22dp"
+                android:layout_height="@dimen/feedback_tv_height"
                 android:text="@string/easyToNavigate"
                 style="@style/defaultTextViewStyle"/>
             <RatingBar
@@ -84,45 +86,48 @@
                 android:numStars="5"
                 style="?android:attr/ratingBarStyle"
                 android:theme="@style/RatingBar"
-                android:scaleX="0.6"
-                android:scaleY="0.6"
-                android:layout_marginLeft="-50dp"
-                android:layout_marginStart="-50dp"/>
+                android:scaleX="@dimen/feedback_rb_scale_size"
+                android:scaleY="@dimen/feedback_rb_scale_size"
+                android:layout_marginLeft="@dimen/feedback_rb_margin_left"
+                android:layout_marginStart="@dimen/feedback_rb_margin_left"/>
             <TextView
                 android:id="@+id/tv5"
                 android:layout_width="wrap_content"
-                android:layout_height="22dp"
+                android:layout_height="@dimen/feedback_tv_height"
                 android:text="@string/commentSuggestions"
                 style="@style/defaultTextViewStyle"/>
             <EditText
                 android:id="@+id/comments"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:layout_marginLeft="-2dp"
-                android:layout_marginStart="-2dp"
-                android:ems="10"
+                android:layout_height="@dimen/feedback_et_height"
+                android:layout_marginLeft="@dimen/feedback_et_margin_left"
+                android:layout_marginStart="@dimen/feedback_et_margin_left"
+                android:padding="@dimen/feedback_et_text_padding"
+                android:textAlignment="textStart"
+                android:gravity="start"
                 android:inputType="textMultiLine"
-                style="@style/defaultTextViewStyle"/>
+                android:imeOptions="actionDone"
+                android:background="@drawable/rounded_back"/>
             <View
                 android:layout_width="match_parent"
-                android:layout_height="48dp"/>
+                android:layout_height="@dimen/feedback_extra_space_height"/>
         </LinearLayout>
     </ScrollView>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="#f7e2ac"
+        android:layout_height="@dimen/feedback_bottom_bar_height"
+        android:background="@color/menu_screen_bottom_bar"
         android:layout_alignParentBottom="true">
         <Button
             android:id="@+id/bSubmit"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="@dimen/feedback_btn_height"
             android:text="@string/submit"
-            android:textSize="14sp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
+            android:textSize="@dimen/feedback_btn_txt_size"
+            android:paddingLeft="@dimen/feedback_btn_padding_left"
+            android:paddingRight="@dimen/feedback_btn_padding_left"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp" />
+            android:layout_marginLeft="@dimen/feedback_btn_margin_left"
+            android:layout_marginStart="@dimen/feedback_btn_margin_left" />
     </LinearLayout>
 </RelativeLayout>

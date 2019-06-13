@@ -94,12 +94,14 @@
 
 
     <string name="menuProfile">प्रोफाइल</string>
+    <string name="menuMyBards">माझे बोर्ड</string>
     <string name="menuAbout">जेलोची माहिती</string>
     <string name="menuTutorials">ट्यूटोरियल</string>
     <string name="menuKeyboardInput">कीबोर्ड नियंत्रण</string>
     <string name="menuResetPref">आइकॉन रीसेट करा</string>
     <string name="menuFeedback">प्रतिक्रिया</string>
     <string name="menuUserRegistration">रजिस्ट्रेशन स्क्रीन</string>
+    <string name="menuAccessibility">ऍक्सेसिबिलिटी</string>
     <string name="labelSplash">Jellow is loading. Please wait!</string>
     <string name="level_1_screen">Level one screen</string>
     <string name="level_2_screen">Level two screen</string>
@@ -382,6 +384,13 @@
     <string name="acc_lang_eng_au">इंग्रजी (ऑस्ट्रेलिया)</string>
     <string name="close_searchbar">Close search bar</string>
 
+    <string name="txt_accessibility_setting">ऍक्सेसिबिलिटी सेटिंग</string>
     <string name="visual_access_title">विजुअल एक्सेसिबिलिटी:</string>
     <string name="visual_acesss_info">दृष्टीदोषीत वापरकर्ते आता जेलोच्या व्हिज्युअल ऍक्सेसिबिलिटी सुविधेचा वापर करु शकतात. एंड्रॉइड स्मार्टफोन वर \'टॉक बॅक\' बटण चालू करुन वापरकर्ते या सुविधेचा वापर करू शकतात. \'टॉक बॅक\' चालू असताना स्क्रीनला स्पर्श होणाऱ्या प्रत्येक गोष्टीचे वर्णन ऑडिओद्वारे वापरकर्त्याला ऐकायला मिळेल. वापरकर्ते \'टॉक बॅक\' चे डीफॉल्ट जेश्चर वापरू शकतात किंवा स्वत:च्या पसंतीचे जेश्चर देखील निवडू शकता. उदाहरणार्थ - उजव्या स्वाइप जेश्चरने, वापरकर्ते क्रमशः स्क्रीनचे ऑप्शन्स स्क्रॉल करू शकतात. अशाप्रकारे, वापरकर्ते स्क्रीनवर कुठेही डबल-टॅप करुन त्यांच्या पसंतीचे आइकॉन निवडू शकतात.</string>
+    <string name="switch_access_title">ऍक्सेसिबिलिटी स्विच</string>
+    <string name="switch_access_info_one">स्विच ऍक्सेसिबिलिटी सुविधा वापरून अपंग लोक अॅप्लिकेशन मध्ये सहजपणे नेव्हिगेशन करू शकतात. या सुविधेने वापरकर्ते एक किंवा दोन स्विच वापरून अॅप्लिकेशन मध्ये सहजपणे नेव्हिगेशन करू शकतात.</string>
+    <string name="switch_access_info_two">या सुविधेला सक्षम करण्यासाठी, वापरकर्त्यास फोनच्या सेटिंग्स मध्ये ऍक्सेसिबिलिटी श्रेणी मध्ये जाऊन स्विच एक्सेस चालू करावा लागेल.</string>
+    <string name="switch_access_info_three">सॅमसंग वापरकर्ते फोनच्या सेटिंग्स मध्ये ऍक्सेसिबिलिटी श्रेणी मध्ये  "डेक्स्टेरिटी आणि इंटरैक्शन" पर्याया मध्ये  स्विच एक्सेस सुविधा पाहू शकतात.</string>
+    <string name="switch_access_info_four">एक स्विचसह स्विच ऍक्सेसिबिलिटी वापरण्यासाठी - सेटिंग्स  उघडा -> ऍक्सेसिबिलिटी वर जा -> स्विच एक्सेस चालू करा -> यूएसबी किंवा ब्लूटूथ स्विच निवडा -> सेटिंग्स मध्ये जा आणि स्विचची संख्या एक निवडा.</string>
+    <string name="switch_access_info_five">दोन स्विचसह स्विच ऍक्सेसिबिलिटी वापरण्यासाठी - सेटिंग्स  उघडा -> ऍक्सेसिबिलिटी वर जा -> स्विच एक्सेस चालू करा -> यूएसबी किंवा ब्लूटूथ स्विच निवडा -> सेटिंग्स मध्ये जा आणि स्विचची संख्या दोन निवडा. नंतर स्कॅनिंगचा प्रकार निवडा आणि पुढे क्लिक करून दोन्ही स्विचसाठी क्रिया निवडा. त्यानंतर स्विचची चाचणी करून प्रक्रिया पूर्ण करा.</string>
 </resources>

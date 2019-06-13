@@ -3,30 +3,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#F7F3C6"
+    android:background="@color/app_background"
     tools:context="com.dsource.idc.jellowintl.LanguageSelectActivity">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fadeScrollbars="false"
         android:fillViewport="true"
-        android:layout_marginLeft="19dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginBottom="19dp">
+        android:layout_marginTop="@dimen/lang_sel_scroll_margin_vertical"
+        android:layout_marginBottom="@dimen/lang_sel_scroll_margin_vertical"
+        android:layout_marginLeft="@dimen/lang_sel_scroll_margin_left"
+        android:layout_marginStart="@dimen/lang_sel_scroll_margin_left"
+        android:layout_marginRight="@dimen/lang_sel_scroll_margin_right"
+        android:layout_marginEnd="@dimen/lang_sel_scroll_margin_right">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginRight="@dimen/lang_sel_parent_margin_right"
+            android:layout_marginEnd="@dimen/lang_sel_parent_margin_right">
             <TextView
                 android:id="@+id/txt_title_editLang"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/editLanguage"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="@dimen/lang_sel_tv_margin_bottom"
                 style="@style/defaultTextViewStyle"
                 android:fontFamily="@font/mukta_semibold"/>
             <TextView
@@ -37,45 +38,46 @@
                 style="@style/defaultTextViewStyle"/>
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/lang_sel_ll_margin_top">
                 <ImageView
                     android:id="@+id/ivAddLang1"
-                    android:layout_width="120dp"
-                    android:layout_height="150dp"
+                    android:layout_width="@dimen/lang_sel_img_width"
+                    android:layout_height="@dimen/lang_sel_img_height"
                     android:contentDescription="@string/lang_setting_option1_cd"/>
                 <ImageView
                     android:id="@+id/ivArrow1"
-                    android:layout_width="55dp"
-                    android:layout_height="80dp"
+                    android:layout_width="@dimen/lang_sel_img_ar_width"
+                    android:layout_height="@dimen/lang_sel_img_ar_height"
                     android:layout_gravity="center_vertical"
                     android:importantForAccessibility="no"/>
                 <ImageView
                     android:id="@+id/ivAddLang2"
-                    android:layout_width="120dp"
-                    android:layout_height="150dp"
+                    android:layout_width="@dimen/lang_sel_img_width"
+                    android:layout_height="@dimen/lang_sel_img_height"
                     android:contentDescription="@string/lang_setting_option2_cd"/>
                 <ImageView
                     android:id="@+id/ivArrow2"
-                    android:layout_width="55dp"
-                    android:layout_height="80dp"
+                    android:layout_width="@dimen/lang_sel_img_ar_width"
+                    android:layout_height="@dimen/lang_sel_img_ar_height"
                     android:layout_gravity="center_vertical"
                     android:importantForAccessibility="no"/>
                 <ImageView
                     android:id="@+id/ivAddLang3"
-                    android:layout_width="120dp"
-                    android:layout_height="150dp"
+                    android:layout_width="@dimen/lang_sel_img_width"
+                    android:layout_height="@dimen/lang_sel_img_height"
                     android:contentDescription="@string/lang_setting_option3_cd"/>
             </LinearLayout>
             <Button
                 android:id="@+id/btnTTsSetting"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:textSize="14sp"
+                android:layout_height="@dimen/lang_sel_btn_height"
+                android:textSize="@dimen/lang_sel_btn_txt_size"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="10dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
+                android:layout_marginTop="@dimen/lang_sel_btn_margin_top"
+                android:layout_marginBottom="@dimen/lang_sel_btn_margin_bottom"
+                android:paddingLeft="@dimen/lang_sel_btn_padding_horizontal"
+                android:paddingRight="@dimen/lang_sel_btn_padding_horizontal"
                 android:text="@string/txt_tts_stting"
                 android:onClick="openSpeechSetting"/>
             <TextView
@@ -83,32 +85,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="5"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="@dimen/lang_sel_tv_margin_bottom"
                 android:text="@string/add_new_language"
                 style="@style/defaultTextViewStyle"/>
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/lang_sel_ll_margin_top">
                 <Button
                     android:id="@+id/addBut"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:textSize="14sp"
+                    android:layout_height="@dimen/lang_sel_btn_height"
+                    android:textSize="@dimen/lang_sel_btn_txt_size"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginEnd="8dp"
-
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
+                    android:layout_marginRight="@dimen/lang_sel_btn_margin_right"
+                    android:layout_marginEnd="@dimen/lang_sel_btn_margin_right"
+                    android:paddingLeft="@dimen/lang_sel_btn_padding_horizontal"
+                    android:paddingRight="@dimen/lang_sel_btn_padding_horizontal"
                     android:text="@string/addLanguage"/>
                 <Button
                     android:id="@+id/delBut"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:textSize="14sp"
+                    android:layout_height="@dimen/lang_sel_btn_height"
+                    android:textSize="@dimen/lang_sel_btn_txt_size"
                     android:layout_gravity="center_vertical"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
+                    android:paddingLeft="@dimen/lang_sel_btn_padding_horizontal"
+                    android:paddingRight="@dimen/lang_sel_btn_padding_horizontal"
                     android:text="@string/deleteLanguage" />
             </LinearLayout>
             <TextView
@@ -116,8 +118,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/txtChangeLanguage"
-                android:layout_marginTop="28dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="@dimen/lang_sel_head_margin_top"
+                android:layout_marginBottom="@dimen/lang_sel_head_margin_bottom"
                 style="@style/defaultTextViewStyle"
                 android:fontFamily="@font/mukta_semibold"/>
             <TextView
@@ -125,8 +127,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="2"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="@dimen/lang_sel_tv_margin_vertical_top"
+                android:layout_marginBottom="@dimen/lang_sel_tv_step_margin_bottom"
                 android:text="@string/change_language_line6"
                 style="@style/defaultTextViewStyle"/>
             <TextView
@@ -134,40 +136,42 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/change_language_line2"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="@dimen/lang_sel_tv_margin_bottom"
                 style="@style/defaultTextViewStyle"/>
             <Spinner
                 android:id="@+id/selectDownloadedLanguageSpinner"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_height="@dimen/lang_sel_spiner_height"
                 android:background="@drawable/custom_spinner_view"
-                android:minWidth="98dp"
-                android:paddingRight="28dp"
-                android:paddingEnd="28dp"
-                android:layout_marginBottom="10dp"/>
+                android:minWidth="@dimen/lang_sel_spiner_min_width"
+                android:paddingRight="@dimen/lang_sel_spiner_padding_right"
+                android:paddingEnd="@dimen/lang_sel_spiner_padding_right"
+                android:layout_marginBottom="@dimen/lang_sel_tv_margin_bottom"/>
             <TextView
                 android:id="@+id/tv4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/change_language_line5"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="@dimen/lang_sel_tv_margin_bottom"
                 style="@style/defaultTextViewStyle"/>
             <ImageView
                 android:id="@+id/ivTtsVoiceDat"
-                android:layout_width="120dp"
-                android:layout_height="150dp"
-                android:layout_marginBottom="10dp"
+                android:layout_width="@dimen/lang_sel_voice_img_width"
+                android:layout_height="@dimen/lang_sel_voice_img_height"
+                android:layout_marginBottom="@dimen/lang_sel_tv_margin_bottom"
+                android:layout_marginLeft="@dimen/lang_sel_voice_img_margin_left"
+                android:layout_marginStart="@dimen/lang_sel_voice_img_margin_left"
                 android:contentDescription="@string/gtts3" />
             <Button
                 android:id="@+id/btnDownloadVoiceData"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:textSize="14sp"
+                android:layout_height="@dimen/lang_sel_btn_height"
+                android:textSize="@dimen/lang_sel_btn_txt_size"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="10dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
+                android:layout_marginTop="@dimen/lang_sel_btn_voice_margin_top"
+                android:layout_marginBottom="@dimen/lang_sel_btn_voice_margin_bottom"
+                android:paddingLeft="@dimen/lang_sel_btn_padding_horizontal"
+                android:paddingRight="@dimen/lang_sel_btn_padding_horizontal"
                 android:text="@string/txt_actLangSel_downloadDat"
                 android:onClick="openSpeechDataSetting"/>
             <TextView
@@ -175,68 +179,70 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/change_language_line4"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="@dimen/lang_sel_tv_margin_bottom"
                 style="@style/defaultTextViewStyle"/>
             <LinearLayout
                 android:id="@+id/llImg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="-14dp"
-                android:layout_marginStart="-14dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="@dimen/lang_sel_ll_margin_left"
+                android:layout_marginStart="@dimen/lang_sel_ll_margin_left"
+                android:layout_marginBottom="@dimen/lang_sel_tv_margin_bottom"
                 android:orientation="horizontal">
                 <ImageView
                     android:id="@+id/ivTtsSetting1"
-                    android:layout_width="120dp"
-                    android:layout_height="150dp"
+                    android:layout_width="@dimen/lang_sel_img_width"
+                    android:layout_height="@dimen/lang_sel_img_height"
                     android:contentDescription="@string/gtts1"/>
                 <ImageView
                     android:id="@+id/ivArrow3"
-                    android:layout_width="55dp"
-                    android:layout_height="80dp"
+                    android:layout_width="@dimen/lang_sel_img_ar_width"
+                    android:layout_height="@dimen/lang_sel_img_ar_height"
                     android:layout_gravity="center_vertical"
                     android:importantForAccessibility="no"/>
                 <ImageView
                     android:id="@+id/ivTtsSetting2"
-                    android:layout_width="120dp"
-                    android:layout_height="150dp"
+                    android:layout_width="@dimen/lang_sel_img_width"
+                    android:layout_height="@dimen/lang_sel_img_height"
                     android:contentDescription="@string/gtts2"/>
                 <ImageView
                     android:id="@+id/ivArrow4"
-                    android:layout_width="55dp"
-                    android:layout_height="80dp"
+                    android:layout_width="@dimen/lang_sel_img_ar_width"
+                    android:layout_height="@dimen/lang_sel_img_ar_height"
                     android:layout_gravity="center_vertical"
                     android:importantForAccessibility="no"/>
                 <ImageView
                     android:id="@+id/ivTtsSetting3"
-                    android:layout_width="120dp"
-                    android:layout_height="150dp"
+                    android:layout_width="@dimen/lang_sel_img_width"
+                    android:layout_height="@dimen/lang_sel_img_height"
                     android:contentDescription="@string/lang_setting_option3_gtt3_cd"/>
             </LinearLayout>
             <Button
                 android:id="@+id/changeTtsLangBut"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_marginBottom="10dp"
+                android:layout_height="@dimen/lang_sel_btn_height"
+                android:textSize="@dimen/lang_sel_btn_txt_size"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="8dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
+                android:layout_marginTop="@dimen/lang_sel_btn_tts_margin_top"
+                android:layout_marginBottom="@dimen/lang_sel_btn_voice_margin_bottom"
+                android:paddingLeft="@dimen/lang_sel_btn_padding_horizontal"
+                android:paddingRight="@dimen/lang_sel_btn_padding_horizontal"
                 android:text="@string/change_tts_lang"/>
             <TextView
                 android:id="@+id/tv6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/txtApplyChanges"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="@dimen/lang_sel_tv_margin_bottom"
                 style="@style/defaultTextViewStyle"/>
             <Button
                 android:id="@+id/saveBut"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_marginBottom="10dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
+                android:layout_height="@dimen/lang_sel_btn_height"
+                android:textSize="@dimen/lang_sel_btn_txt_size"
+                android:layout_marginBottom="@dimen/lang_sel_tv_margin_bottom"
+                android:paddingLeft="@dimen/lang_sel_btn_padding_horizontal"
+                android:paddingRight="@dimen/lang_sel_btn_padding_horizontal"
                 android:text="@string/saveLanguage" />
         </LinearLayout>
     </ScrollView>

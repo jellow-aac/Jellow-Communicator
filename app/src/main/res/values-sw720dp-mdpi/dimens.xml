@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--activity_splash.xml dimensions-->
+    <dimen name="splash_margin_top">-120dp</dimen>
+    <dimen name="splash_anim_scale">.5</dimen>
+    <dimen name="splash_anim_margin_top">-100dp</dimen>
+    <dimen name="splash_img_margin_bottom">83dp</dimen>
+    <dimen name="splash_img_scale">.8</dimen>
+</resources>

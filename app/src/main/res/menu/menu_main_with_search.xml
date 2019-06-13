@@ -13,6 +13,11 @@
             android:id="@+id/profile"
             android:title="@string/menuProfile"
             app:showAsAction="never"/>
+        <item android:id="@+id/my_boards"
+            android:visible="true"
+            android:title="@string/menuMyBards"
+            app:showAsAction="never"
+            />
         <item
             android:id="@+id/aboutJellow"
             android:title="@string/menuAbout"
