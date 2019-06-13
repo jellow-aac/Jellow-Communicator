@@ -11,6 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.accessibility.AccessibilityManager;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.dsource.idc.jellowintl.makemyboard.AddEditIconAndCategoryActivity;
 import com.dsource.idc.jellowintl.makemyboard.BoardSearchActivity;
 import com.dsource.idc.jellowintl.makemyboard.HomeActivity;
@@ -20,8 +22,6 @@ import com.dsource.idc.jellowintl.makemyboard.RepositionIconsActivity;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 public class BaseActivity extends AppCompatActivity{
     private static SessionManager mSession;
@@ -208,10 +208,6 @@ public class BaseActivity extends AppCompatActivity{
                         IconSelectActivity.class.getSimpleName() + ","+
                         MyBoardsActivity.class.getSimpleName() + ","+
                         RepositionIconsActivity.class.getSimpleName();
-    }
-
-    private String getNonMenuClass() {
-        return UserRegistrationActivity.class.getSimpleName();
     }
 
     private String getNonMenuClass() {
