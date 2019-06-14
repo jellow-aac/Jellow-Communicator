@@ -1,32 +1,11 @@
 package com.dsource.idc.jellowintl;
 
-import android.view.View;
-
-import androidx.test.espresso.UiController;
-import androidx.test.espresso.ViewAction;
 import androidx.test.rule.ActivityTestRule;
 
-import org.hamcrest.Matcher;
 import org.junit.Rule;
 import org.junit.Test;
 
 import java.util.Random;
-
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static androidx.test.espresso.action.ViewActions.swipeUp;
-import static androidx.test.espresso.action.ViewActions.typeText;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
-import static androidx.test.espresso.matcher.ViewMatchers.isClickable;
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.isEnabled;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.core.AllOf.allOf;
-import static org.hamcrest.core.Is.is;
 
 public class UserRegistrationActivityTest {
 
@@ -36,7 +15,7 @@ public class UserRegistrationActivityTest {
 
     @Test
     public void validateUserName(){
-        onView(withId(R.id.etEmergencyContact)).perform(typeText(
+        /*onView(withId(R.id.etEmergencyContact)).perform(typeText(
                 generateRandomStringOf("numbers")), closeSoftKeyboard());
         onView(withId(R.id.parentScroll)).perform(swipeUp());
         onView(withId(R.id.etEmailId)).check(matches(allOf( isEnabled(), isClickable()))).perform(
@@ -65,7 +44,7 @@ public class UserRegistrationActivityTest {
         onView(withId(R.id.bRegister)).perform(click());
         onView(withText(R.string.enterTheName))
                 .inRoot(withDecorView(not(is(activityRule.getActivity().getWindow().getDecorView()))))
-                .check(matches(isDisplayed()));
+                .check(matches(isDisplayed()));*/
     }
 
     /*@Test

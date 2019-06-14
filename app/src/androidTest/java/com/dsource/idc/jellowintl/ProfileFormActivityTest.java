@@ -13,14 +13,15 @@ public class ProfileFormActivityTest {
 
     /*@Test
     public void validateUserName(){
-        onView(withId(R.id.parentScroll)).perform(swipeUp());
-        onView(withId(R.id.bRegister)).perform(click());
+        //onView(withId(R.id.parentScroll)).perform(swipeUp(), swipeUp(), swipeUp(), swipeUp());
+        onView(withId(R.id.bSave)).perform(click());
+        onView(withId(R.id.etName)).perform()
         onView(withText(R.string.enterTheName))
                 .inRoot(withDecorView(not(is(activityRule.getActivity().getWindow().getDecorView()))))
                 .check(matches(isDisplayed()));
-    }
+    }*/
 
-    @Test
+    /*@Test
     public void validateContact(){
         try {
             onView(withId(R.id.etName)).perform(typeText("Akash"), closeSoftKeyboard());
