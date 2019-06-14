@@ -30,7 +30,7 @@ public class UserRegistrationActivityTest {
     public void validateUserName(){
         onView(withId(R.id.etEmergencyContact)).perform(typeText(
                 generateRandomStringOf("numbers")), closeSoftKeyboard());
-        onView(withId(R.id.parentScroll)).perform(swipeUp());
+        //onView(withId(R.id.parentScroll)).perform(swipeUp());
         onView(withId(R.id.etEmailId)).perform(
                 typeText("jellowcommunicator@gmail.com"), closeSoftKeyboard());
         onView(withId(R.id.parentScroll)).perform(swipeUp());
