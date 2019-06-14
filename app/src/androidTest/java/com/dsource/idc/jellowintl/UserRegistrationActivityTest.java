@@ -1,7 +1,12 @@
 package com.dsource.idc.jellowintl;
 
+import android.view.View;
+
+import androidx.test.espresso.UiController;
+import androidx.test.espresso.ViewAction;
 import androidx.test.rule.ActivityTestRule;
 
+import org.hamcrest.Matcher;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -14,10 +19,13 @@ import static androidx.test.espresso.action.ViewActions.swipeUp;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
+import static androidx.test.espresso.matcher.ViewMatchers.isClickable;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.isEnabled;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.Is.is;
 
 public class UserRegistrationActivityTest {
@@ -30,7 +38,26 @@ public class UserRegistrationActivityTest {
     public void validateUserName(){
         onView(withId(R.id.etEmergencyContact)).perform(typeText(
                 generateRandomStringOf("numbers")), closeSoftKeyboard());
-        //onView(withId(R.id.parentScroll)).perform(swipeUp());
+
+        onView(withId(R.id.etEmailId)).check(matches(allOf( isEnabled(), isClickable()))).perform(
+                new ViewAction() {
+                    @Override
+                    public Matcher<View> getConstraints() {
+                        return isEnabled(); // no constraints, they are checked above
+                    }
+
+                    @Override
+                    public String getDescription() {
+                        return "click plus button";
+                    }
+
+                    @Override
+                    public void perform(UiController uiController, View view) {
+                        view.performClick();
+                    }
+                }
+        );
+
         onView(withId(R.id.etEmailId)).perform(
                 typeText("jellowcommunicator@gmail.com"), closeSoftKeyboard());
         onView(withId(R.id.parentScroll)).perform(swipeUp());
@@ -145,6 +172,33 @@ public class UserRegistrationActivityTest {
                     .inRoot(withDecorView(not(is(activityRule.getActivity().getWindow().getDecorView()))))
                     .check(matches(isDisplayed()));
     }*/
+
+    @Test
+    public void validateAppRegistrationProcess(){
+        //Fill form data
+        /*try {
+            onView(withId(R.id.etName)).perform(typeText("Akash"), closeSoftKeyboard());
+            onView(withId(R.id.etEmergencyContact)).perform(typeText(
+                    generateRandomStringOf("numbers")), closeSoftKeyboard());
+            onView(withId(R.id.etEmailId)).perform(
+                    typeText("jellowcommunicator@gmail.com"), closeSoftKeyboard());
+            onView(withId(R.id.parentScroll)).perform(swipeUp());
+            onView(withId(R.id.radioTherapist)).perform(click(), closeSoftKeyboard());
+            onView(withId(R.id.parentScroll)).perform(swipeUp());
+            onView(withId(R.id.bRegister)).perform(click());
+            Thread.sleep(1000);
+            try {
+                onView(withText(R.string.checkConnectivity))
+                        .inRoot(withDecorView(not(is(activityRule.getActivity().getWindow().getDecorView()))))
+                        .check(matches(isDisplayed()));
+            }catch (Exception e){
+                return;
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
+
+    }
 
     private String generateRandomStringOf(String pattern){
         StringBuilder sb;
