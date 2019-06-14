@@ -38,7 +38,7 @@ public class UserRegistrationActivityTest {
     public void validateUserName(){
         onView(withId(R.id.etEmergencyContact)).perform(typeText(
                 generateRandomStringOf("numbers")), closeSoftKeyboard());
-
+        onView(withId(R.id.parentScroll)).perform(swipeUp());
         onView(withId(R.id.etEmailId)).check(matches(allOf( isEnabled(), isClickable()))).perform(
                 new ViewAction() {
                     @Override
@@ -57,7 +57,6 @@ public class UserRegistrationActivityTest {
                     }
                 }
         );
-
         onView(withId(R.id.etEmailId)).perform(
                 typeText("jellowcommunicator@gmail.com"), closeSoftKeyboard());
         onView(withId(R.id.parentScroll)).perform(swipeUp());
