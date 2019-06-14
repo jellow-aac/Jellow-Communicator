@@ -34,6 +34,9 @@ android {
     dataBinding {
         enabled = true
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -88,6 +91,8 @@ dependencies {
     // Optional -- Mockito framework
     testImplementation 'org.mockito:mockito-core:2.25.0'
     testImplementation 'org.testng:testng:6.9.6'
+    testImplementation 'org.robolectric:robolectric:4.0.2'
+
 }
 
 apply plugin: 'com.google.gms.google-services'
