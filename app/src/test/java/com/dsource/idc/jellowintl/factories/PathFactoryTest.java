@@ -37,15 +37,14 @@ public class PathFactoryTest {
         String path = PathFactory.getIconPath(mContext, iconName);
         assert  path.equals(
           mContext.getDir(ENG_IN, Context.MODE_PRIVATE).getAbsolutePath()
-          .concat("//" + DRAWABLE_FOLDER + "/" + iconName));
+          .concat("/" + DRAWABLE_FOLDER + "/" + iconName));
     }
 
     @Test
     public void getBaseDirectoryPathTest(){
         String path = PathFactory.getBaseDirectoryPath(mContext);
         assert  path.equals(
-                mContext.getDir(ENG_IN, Context.MODE_PRIVATE).getAbsolutePath()
-                        .concat("/"));
+                mContext.getDir(ENG_IN, Context.MODE_PRIVATE).getAbsolutePath().concat("/"));
     }
 
     @Test
