@@ -8,7 +8,7 @@ public class MemoryCache {
 
     private static LruCache<String, Bitmap> bitmapLruCache;
 
-    public static void init(int cacheSize){
+    /*public static void init(int cacheSize){
         bitmapLruCache = new LruCache<String, Bitmap>(cacheSize) {
             @Override
             protected int sizeOf(String key, Bitmap bitmap) {
@@ -17,23 +17,23 @@ public class MemoryCache {
                 return bitmap.getByteCount() / 1024;
             }
         };
-    }
+    }*/
 
-    public static void addBitmapToMemoryCache(String key, Bitmap bitmap) {
+    /*public static void addBitmapToMemoryCache(String key, Bitmap bitmap) {
         if (getBitmapFromMemCache(key) == null) {
             if(bitmapLruCache != null)
             bitmapLruCache.put(key, bitmap);
         }
-    }
+    }*/
 
-    public static Bitmap getBitmapFromMemCache(String key) {
+    /*public static Bitmap getBitmapFromMemCache(String key) {
         if(bitmapLruCache != null)
         return bitmapLruCache.get(key);
         else return null;
-    }
+    }*/
 
-    public static void clearMemoryCache(){
+    /*public static void clearMemoryCache(){
         bitmapLruCache = null;
-    }
+    }*/
 
 }
