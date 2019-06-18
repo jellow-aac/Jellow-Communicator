@@ -17,6 +17,7 @@ import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 public class FeedbackActivityTalkBack extends BaseActivity{
 
     Spinner mEasyToUse, mClearPictures, mClearVoice, mNavigate;
+    private EditText mEtComments;
     Button mBtnSubmit;
     ArrayAdapter<CharSequence> adapter;
 
@@ -32,6 +33,7 @@ public class FeedbackActivityTalkBack extends BaseActivity{
         findViewById(R.id.tv1).setFocusable(true);
         findViewById(R.id.tv1).setFocusableInTouchMode(true);
 
+        mEtComments = findViewById(R.id.comments);
         mBtnSubmit = findViewById(R.id.bSubmit);
         addListenerOnSpinner();
         addListenerOnButton();
@@ -77,7 +79,8 @@ public class FeedbackActivityTalkBack extends BaseActivity{
         mBtnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ((mEasyToUse != null) && (mClearPictures != null) && (mClearVoice != null) && (mNavigate != null)) {
+                if ((mEasyToUse != null) && (mClearPictures != null) && (mClearVoice != null) && (mNavigate != null)
+                && !mEtComments.getText().toString().isEmpty()) {
                     String cs = ((EditText)findViewById(R.id.comments)).getText().toString();
                     Intent email = new Intent(Intent.ACTION_SEND);
                     email.putExtra(Intent.EXTRA_EMAIL, new String[]{"dsource.in@gmail.com"});

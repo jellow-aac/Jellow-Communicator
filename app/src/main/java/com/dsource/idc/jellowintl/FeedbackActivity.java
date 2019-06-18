@@ -16,6 +16,9 @@ import android.widget.Toast;
 
 import androidx.core.graphics.drawable.DrawableCompat;
 
+import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
+import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
+
 public class FeedbackActivity extends BaseActivity {
     private RatingBar mRatingEasyToUse;
     private Button mBtnSubmit;
@@ -40,9 +43,9 @@ public class FeedbackActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         setVisibleAct(FeedbackActivity.class.getSimpleName());
-        /*if(!isAnalyticsActive()) {
+        if(!isAnalyticsActive()) {
             resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
-        }*/
+        }
     }
 
     @Override

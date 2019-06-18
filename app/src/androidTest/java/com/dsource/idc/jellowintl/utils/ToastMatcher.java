@@ -1,4 +1,4 @@
-package com.dsource.idc.jellowintl;
+package com.dsource.idc.jellowintl.utils;
 
 import android.view.WindowManager;
 
