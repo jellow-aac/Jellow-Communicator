@@ -52,7 +52,7 @@
                             android:id="@+id/info_visual_access"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/visual_acesss_info"
+                            android:text="@string/visual_access_info"
                             style="@style/defaultTextViewStyle"
                             android:layout_marginTop="@dimen/access_tv_margin_top"
                             android:layout_marginLeft="@dimen/access_tv_margin_left"
