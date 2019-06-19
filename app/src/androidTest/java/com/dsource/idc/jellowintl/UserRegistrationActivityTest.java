@@ -1,38 +1,15 @@
 package com.dsource.idc.jellowintl;
 
-import android.content.Context;
-
 import androidx.test.filters.LargeTest;
-import androidx.test.rule.ActivityTestRule;
 
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-
 import java.util.Random;
-
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.clearText;
-import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static androidx.test.espresso.action.ViewActions.swipeDown;
-import static androidx.test.espresso.action.ViewActions.swipeUp;
-import static androidx.test.espresso.action.ViewActions.typeText;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 
 @LargeTest
 public class UserRegistrationActivityTest {
     private SessionManager manager;
-    @Rule
+    /*@Rule
     public ActivityTestRule<UserRegistrationActivity> activityRule =
             new ActivityTestRule<>(UserRegistrationActivity.class, false, false);
 
@@ -111,7 +88,7 @@ public class UserRegistrationActivityTest {
         try {
             //Check if email id is not empty.
             onView(withId(R.id.etEmergencyContact)).perform(swipeUp(), swipeUp(), swipeUp());
-            onView(withId(R.id.etEmailId)).perform(click(), clearText(),closeSoftKeyboard());
+            onView(withId(R.id.etEmailId)).perform(click(), clearText(), closeSoftKeyboard());
             onView(withId(R.id.parentScroll)).perform(swipeDown());
             onView(withId(R.id.etName)).perform(clearText(), typeText("Akash"), closeSoftKeyboard());
             onView(withId(R.id.etEmergencyContact)).perform(clearText(), typeText(
@@ -219,7 +196,7 @@ public class UserRegistrationActivityTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     private String generateRandomStringOf(String pattern){
         StringBuilder sb;
