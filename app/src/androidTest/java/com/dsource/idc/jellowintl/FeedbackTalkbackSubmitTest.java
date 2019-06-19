@@ -5,6 +5,7 @@ import android.app.Instrumentation;
 import android.content.Intent;
 
 import androidx.test.espresso.intent.rule.IntentsTestRule;
+import androidx.test.filters.LargeTest;
 import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
@@ -32,6 +33,7 @@ import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.AllOf.allOf;
 
 @RunWith(AndroidJUnit4.class)
+@LargeTest
 public class FeedbackTalkbackSubmitTest {
     @Rule
     public IntentsTestRule<FeedbackActivityTalkBack> intentRule =

@@ -2,13 +2,16 @@ package com.dsource.idc.jellowintl;
 
 import android.content.Context;
 
+import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
+import androidx.test.runner.AndroidJUnit4;
 
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.clearText;
@@ -25,6 +28,8 @@ import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentat
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 
+@RunWith(AndroidJUnit4.class)
+@LargeTest
 public class ProfileFormActivityTest {
 
     @Rule

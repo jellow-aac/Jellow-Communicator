@@ -3,6 +3,7 @@ package com.dsource.idc.jellowintl;
 
 import android.content.Context;
 
+import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
@@ -31,6 +32,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.AllOf.allOf;
 
 @RunWith(AndroidJUnit4.class)
+@LargeTest
 public class FeedbackTalkbackActivityTest {
     @Rule
     public ActivityTestRule<FeedbackActivityTalkBack> activityRule =

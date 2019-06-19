@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import androidx.test.espresso.intent.rule.IntentsTestRule;
+import androidx.test.filters.LargeTest;
 
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
@@ -27,6 +28,7 @@ import static com.dsource.idc.jellowintl.UserRegistrationActivityTest.customSwip
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.AllOf.allOf;
 
+@LargeTest
 public class FeedbackActivitySubmitTest {
     @Rule
     public IntentsTestRule<FeedbackActivity> intentRule =

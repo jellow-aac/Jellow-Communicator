@@ -5,6 +5,7 @@ import androidx.test.espresso.action.GeneralLocation;
 import androidx.test.espresso.action.GeneralSwipeAction;
 import androidx.test.espresso.action.Press;
 import androidx.test.espresso.action.Swipe;
+import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.Rule;
@@ -27,6 +28,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 
+@LargeTest
 public class UserRegistrationActivityTest {
 
     @Rule
@@ -209,6 +211,6 @@ public class UserRegistrationActivityTest {
 
     public static ViewAction customSwipeUp() {
         return new GeneralSwipeAction(Swipe.SLOW, GeneralLocation.BOTTOM_CENTER,
-                GeneralLocation.TOP_CENTER, Press.FINGER);
+                GeneralLocation.CENTER, Press.FINGER);
     }
 }
