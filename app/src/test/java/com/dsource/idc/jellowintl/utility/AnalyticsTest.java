@@ -1,11 +1,10 @@
-package com.dsource.idc.jellowintl;
+package com.dsource.idc.jellowintl.utility;
 
 import android.content.Context;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
-import com.dsource.idc.jellowintl.utility.Analytics;
 import com.google.firebase.FirebaseApp;
 
 import org.junit.Before;

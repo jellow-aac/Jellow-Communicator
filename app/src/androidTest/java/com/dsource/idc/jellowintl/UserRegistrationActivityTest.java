@@ -157,15 +157,16 @@ public class UserRegistrationActivityTest {
                 .check(matches(isDisplayed()));
     }
 
-   /* @Test
+    @Test
     public void validateAppRegistrationProcess(){
         //Fill form data
-        /*try {
+        try {
             onView(withId(R.id.etName)).perform(typeText("Akash"), closeSoftKeyboard());
             onView(withId(R.id.etEmergencyContact)).perform(typeText(
                     generateRandomStringOf("numbers")), closeSoftKeyboard());
-            onView(withId(R.id.etEmailId)).perform(
-                    typeText("jellowcommunicator@gmail.com"), closeSoftKeyboard());
+            onView(withId(R.id.parentScroll)).perform(customSwipeUp());
+            onView(withId(R.id.etEmailId)).perform(click(), typeText(
+                    "jellowcommunicator@gmail.com"), closeSoftKeyboard());
             onView(withId(R.id.parentScroll)).perform(swipeUp());
             onView(withId(R.id.radioTherapist)).perform(click(), closeSoftKeyboard());
             onView(withId(R.id.parentScroll)).perform(swipeUp());
@@ -180,7 +181,8 @@ public class UserRegistrationActivityTest {
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }}*/
+        }
+    }
 
 
     private String generateRandomStringOf(String pattern){

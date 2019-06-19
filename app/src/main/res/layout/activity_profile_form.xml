@@ -16,6 +16,7 @@
         android:layout_marginRight="@dimen/profile_parent_margin_right"
         android:layout_marginEnd="@dimen/profile_parent_margin_right">
         <ScrollView
+            android:id="@+id/parentScroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"

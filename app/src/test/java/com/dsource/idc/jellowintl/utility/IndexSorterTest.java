@@ -1,12 +1,11 @@
-package com.dsource.idc.jellowintl;
+package com.dsource.idc.jellowintl.utility;
 
-import androidx.test.filters.SmallTest;
-
-import com.dsource.idc.jellowintl.utility.IndexSorter;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-@SmallTest
+@RunWith(AndroidJUnit4.class)
 public class IndexSorterTest {
 
     @Test
