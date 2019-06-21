@@ -43,7 +43,7 @@ public class MainActivityTest {
         SessionManager manager = new SessionManager(context);
         manager.setCaregiverNumber("9653238072");
         manager.setLanguage(ENG_IN);
-        manager.setGridSize(3);
+        manager.setGridSize(0);
         copyAssetsToInternalStorage(context);
         extractLanguagePackageZipFile(context);
         activityRule.launchActivity(null);
@@ -51,7 +51,7 @@ public class MainActivityTest {
 
     @Test
     public void validateTappedCategoryItemEvent(){
-        View v = activityRule.getActivity().mRecyclerView.getChildAt(3);
+        View v = activityRule.getActivity().mRecyclerView.getChildAt(0);
         onView(withId(v.getId())).perform(click());
     }
 
