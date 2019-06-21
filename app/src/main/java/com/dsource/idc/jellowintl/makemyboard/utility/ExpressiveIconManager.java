@@ -84,22 +84,22 @@ public class ExpressiveIconManager implements View.OnClickListener{
 
     public void setAccordingVerbiage(JellowVerbiageModel selectedIconVerbiage) {
         resetSelection();
-        if(selectedIconVerbiage.L.equals("NA"))
+        if(selectedIconVerbiage.getL().equals("NA"))
             disableButton(expIconList.get(0),true);
         else disableButton(expIconList.get(0),false);
-        if(selectedIconVerbiage.Y.equals("NA"))
+        if(selectedIconVerbiage.getY().equals("NA"))
             disableButton(expIconList.get(1),true);
         else disableButton(expIconList.get(1),false);
-        if(selectedIconVerbiage.M.equals("NA"))
+        if(selectedIconVerbiage.getM().equals("NA"))
             disableButton(expIconList.get(2),true);
         else disableButton(expIconList.get(2),false);
-        if(selectedIconVerbiage.D.equals("NA"))
+        if(selectedIconVerbiage.getD().equals("NA"))
             disableButton(expIconList.get(3),true);
         else disableButton(expIconList.get(3),false);
-        if(selectedIconVerbiage.N.equals("NA"))
+        if(selectedIconVerbiage.getN().equals("NA"))
             disableButton(expIconList.get(4),true);
         else disableButton(expIconList.get(4),false);
-        if(selectedIconVerbiage.S.equals("NA"))
+        if(selectedIconVerbiage.getS().equals("NA"))
             disableButton(expIconList.get(5),true);
         else disableButton(expIconList.get(5),false);
     }

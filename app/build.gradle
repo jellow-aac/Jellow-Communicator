@@ -39,6 +39,12 @@ android {
     testOptions {
         unitTests.returnDefaultValues = true
     }
+
+    sourceSets{
+        androidTest{
+            assets.srcDirs = ['src/androidTest/assets/']
+        }
+    }
 }
 
 dependencies {

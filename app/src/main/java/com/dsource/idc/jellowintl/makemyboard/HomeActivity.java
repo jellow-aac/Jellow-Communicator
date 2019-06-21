@@ -12,6 +12,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearSmoothScroller;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.SpeechEngineBaseActivity;
 import com.dsource.idc.jellowintl.makemyboard.adapters.HomeAdapter;
@@ -28,10 +32,6 @@ import com.dsource.idc.jellowintl.models.JellowIcon;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 
 import java.util.ArrayList;
-
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearSmoothScroller;
-import androidx.recyclerview.widget.RecyclerView;
 
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.BOARD_ID;
 
@@ -122,15 +122,15 @@ public class HomeActivity extends SpeechEngineBaseActivity {
         if(selectedIconVerbiage!=null)
         switch (expIconPos)
         {
-            case 0:if(time==0)verbiage=selectedIconVerbiage.L;else verbiage=selectedIconVerbiage.LL;break;
-            case 1:if(time==0)verbiage=selectedIconVerbiage.Y;else verbiage=selectedIconVerbiage.YY;break;
-            case 2:if(time==0)verbiage=selectedIconVerbiage.M;else verbiage=selectedIconVerbiage.MM;break;
-            case 3:if(time==0)verbiage=selectedIconVerbiage.D;else verbiage=selectedIconVerbiage.DD;break;
-            case 4:if(time==0)verbiage=selectedIconVerbiage.N;else verbiage=selectedIconVerbiage.NN;break;
-            case 5:if(time==0)verbiage=selectedIconVerbiage.S;else verbiage=selectedIconVerbiage.SS;break;
+            case 0:if(time==0)verbiage=selectedIconVerbiage.getL();else verbiage=selectedIconVerbiage.getLL();break;
+            case 1:if(time==0)verbiage=selectedIconVerbiage.getY();else verbiage=selectedIconVerbiage.getYY();break;
+            case 2:if(time==0)verbiage=selectedIconVerbiage.getM();else verbiage=selectedIconVerbiage.getMM();break;
+            case 3:if(time==0)verbiage=selectedIconVerbiage.getD();else verbiage=selectedIconVerbiage.getDD();break;
+            case 4:if(time==0)verbiage=selectedIconVerbiage.getN();else verbiage=selectedIconVerbiage.getNN();break;
+            case 5:if(time==0)verbiage=selectedIconVerbiage.getS();else verbiage=selectedIconVerbiage.getSS();break;
 
         }
-        else if(time==0)verbiage=expIconVerbiage.get(expIconPos).L;else verbiage=expIconVerbiage.get(expIconPos).LL;
+        else if(time==0)verbiage=expIconVerbiage.get(expIconPos).getL();else verbiage=expIconVerbiage.get(expIconPos).getLL();
 
         if(!verbiage.equals("NA"))
         speak(verbiage);
@@ -147,7 +147,7 @@ public class HomeActivity extends SpeechEngineBaseActivity {
         selectedIconVerbiage=verbiageDatabase.getVerbiageById(jellowIcon.IconDrawable);
         expIconManager.setAccordingVerbiage(selectedIconVerbiage);
         if(selectedIconVerbiage!=null)
-        speak(selectedIconVerbiage.Speech_Label);
+        speak(selectedIconVerbiage.getSpeech_Label());
     }
 
     private void initViews(){

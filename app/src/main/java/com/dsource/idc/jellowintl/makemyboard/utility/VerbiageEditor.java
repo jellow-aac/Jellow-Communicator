@@ -18,7 +18,9 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AlertDialog;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
@@ -33,12 +35,11 @@ import com.dsource.idc.jellowintl.makemyboard.verbiage_model.JellowVerbiageModel
 import com.dsource.idc.jellowintl.models.JellowIcon;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.rey.material.app.Dialog;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 
-import static android.view.Gravity.CENTER;
-import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.EDIT_ICON;
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.LIBRARY_REQUEST;
 
 public class VerbiageEditor extends android.app.Dialog implements View.OnClickListener {
@@ -112,7 +113,7 @@ public class VerbiageEditor extends android.app.Dialog implements View.OnClickLi
     public VerbiageEditor presentVerbiage(JellowVerbiageModel verbiageModel){
         this.presentVerbiage =verbiageModel;
         if(verbiageModel!=null) {
-            if (verbiageModel.L.equals("NA"))
+            if (verbiageModel.getL().equals("NA"))
             {
                 expListLayouts.get(0).findViewById(R.id.verbiage_text).setEnabled(false);
                 expListLayouts.get(0).findViewById(R.id.verbiage_text).setAlpha(.6f);
@@ -124,10 +125,10 @@ public class VerbiageEditor extends android.app.Dialog implements View.OnClickLi
             }
             else
             {
-                ((EditText)expListLayouts.get(0).findViewById(R.id.verbiage_text)).setText(verbiageModel.L);
-                ((EditText)expListLayouts.get(0).findViewById(R.id.verbiage_really_text)).setText(verbiageModel.LL);
+                ((EditText)expListLayouts.get(0).findViewById(R.id.verbiage_text)).setText(verbiageModel.getL());
+                ((EditText)expListLayouts.get(0).findViewById(R.id.verbiage_really_text)).setText(verbiageModel.getLL());
             }
-            if (verbiageModel.Y.equals("NA"))
+            if (verbiageModel.getY().equals("NA"))
             {
                 expListLayouts.get(1).findViewById(R.id.verbiage_text).setEnabled(false);
                 expListLayouts.get(1).findViewById(R.id.verbiage_text).setAlpha(.6f);
@@ -139,9 +140,9 @@ public class VerbiageEditor extends android.app.Dialog implements View.OnClickLi
             }
             else
             {
-                ((EditText)expListLayouts.get(1).findViewById(R.id.verbiage_text)).setText(verbiageModel.Y);
-                ((EditText)expListLayouts.get(1).findViewById(R.id.verbiage_really_text)).setText(verbiageModel.YY);}
-            if (verbiageModel.M.equals("NA"))
+                ((EditText)expListLayouts.get(1).findViewById(R.id.verbiage_text)).setText(verbiageModel.getY());
+                ((EditText)expListLayouts.get(1).findViewById(R.id.verbiage_really_text)).setText(verbiageModel.getYY());}
+            if (verbiageModel.getM().equals("NA"))
             {
                 expListLayouts.get(2).findViewById(R.id.verbiage_text).setEnabled(false);
                 expListLayouts.get(2).findViewById(R.id.verbiage_text).setAlpha(.6f);
@@ -153,10 +154,10 @@ public class VerbiageEditor extends android.app.Dialog implements View.OnClickLi
             }
             else
             {
-                ((EditText)expListLayouts.get(2).findViewById(R.id.verbiage_text)).setText(verbiageModel.M);
-                ((EditText)expListLayouts.get(2).findViewById(R.id.verbiage_really_text)).setText(verbiageModel.MM);
+                ((EditText)expListLayouts.get(2).findViewById(R.id.verbiage_text)).setText(verbiageModel.getM());
+                ((EditText)expListLayouts.get(2).findViewById(R.id.verbiage_really_text)).setText(verbiageModel.getMM());
             }
-            if (verbiageModel.D.equals("NA"))
+            if (verbiageModel.getD().equals("NA"))
             {
                 expListLayouts.get(3).findViewById(R.id.verbiage_text).setEnabled(false);
                 expListLayouts.get(3).findViewById(R.id.verbiage_text).setAlpha(.6f);
@@ -168,11 +169,11 @@ public class VerbiageEditor extends android.app.Dialog implements View.OnClickLi
             }
             else
             {
-                ((EditText)expListLayouts.get(3).findViewById(R.id.verbiage_text)).setText(verbiageModel.D);
-                ((EditText)expListLayouts.get(3).findViewById(R.id.verbiage_really_text)).setText(verbiageModel.DD);
+                ((EditText)expListLayouts.get(3).findViewById(R.id.verbiage_text)).setText(verbiageModel.getD());
+                ((EditText)expListLayouts.get(3).findViewById(R.id.verbiage_really_text)).setText(verbiageModel.getDD());
             }
 
-            if (verbiageModel.N.equals("NA"))
+            if (verbiageModel.getN().equals("NA"))
             {
                 expListLayouts.get(4).findViewById(R.id.verbiage_text).setEnabled(false);
                 expListLayouts.get(4).findViewById(R.id.verbiage_text).setAlpha(.6f);
@@ -185,10 +186,10 @@ public class VerbiageEditor extends android.app.Dialog implements View.OnClickLi
             else
             {
 
-                ((EditText)expListLayouts.get(4).findViewById(R.id.verbiage_text)).setText(verbiageModel.N);
-                ((EditText)expListLayouts.get(4).findViewById(R.id.verbiage_really_text)).setText(verbiageModel.NN);
+                ((EditText)expListLayouts.get(4).findViewById(R.id.verbiage_text)).setText(verbiageModel.getN());
+                ((EditText)expListLayouts.get(4).findViewById(R.id.verbiage_really_text)).setText(verbiageModel.getNN());
             }
-            if (verbiageModel.S.equals("NA"))
+            if (verbiageModel.getS().equals("NA"))
             {
                 expListLayouts.get(5).findViewById(R.id.verbiage_text).setEnabled(false);
                 expListLayouts.get(5).findViewById(R.id.verbiage_text).setAlpha(.6f);
@@ -200,8 +201,8 @@ public class VerbiageEditor extends android.app.Dialog implements View.OnClickLi
             }
             else
             {
-                ((EditText)expListLayouts.get(5).findViewById(R.id.verbiage_text)).setText(verbiageModel.S);
-                ((EditText)expListLayouts.get(5).findViewById(R.id.verbiage_really_text)).setText(verbiageModel.SS);
+                ((EditText)expListLayouts.get(5).findViewById(R.id.verbiage_text)).setText(verbiageModel.getS());
+                ((EditText)expListLayouts.get(5).findViewById(R.id.verbiage_really_text)).setText(verbiageModel.getSS());
             }
         }
         return this;

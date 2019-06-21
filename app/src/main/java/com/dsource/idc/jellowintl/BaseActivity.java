@@ -11,6 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.accessibility.AccessibilityManager;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.dsource.idc.jellowintl.makemyboard.AddEditIconAndCategoryActivity;
 import com.dsource.idc.jellowintl.makemyboard.BoardSearchActivity;
 import com.dsource.idc.jellowintl.makemyboard.HomeActivity;
@@ -20,8 +22,6 @@ import com.dsource.idc.jellowintl.makemyboard.RepositionIconsActivity;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 public class BaseActivity extends AppCompatActivity{
     private static SessionManager mSession;
@@ -141,7 +141,7 @@ public class BaseActivity extends AppCompatActivity{
         return mSession;
     }
 
-    boolean isConnectedToNetwork(ConnectivityManager connMgr){
+    public boolean isConnectedToNetwork(ConnectivityManager connMgr){
         NetworkInfo activeNetworkInfo = connMgr.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
@@ -184,14 +184,14 @@ public class BaseActivity extends AppCompatActivity{
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
     }
 
-    private String getLevelClass() {
+    public String getLevelClass() {
         return MainActivity.class.getSimpleName() + "," +
             LevelTwoActivity.class.getSimpleName() + "," +
             LevelThreeActivity.class.getSimpleName() + "," +
             SequenceActivity.class.getSimpleName();
     }
 
-    private String getBoardClass() {
+    public String getBoardClass() {
         return
                 AddEditIconAndCategoryActivity.class.getSimpleName()+ ","+
                         BoardSearchActivity.class.getSimpleName() + ","+
@@ -201,7 +201,7 @@ public class BaseActivity extends AppCompatActivity{
                         RepositionIconsActivity.class.getSimpleName();
     }
 
-    private String getNonMenuClass() {
+    public String getNonMenuClass() {
         return UserRegistrationActivity.class.getSimpleName();
     }
 

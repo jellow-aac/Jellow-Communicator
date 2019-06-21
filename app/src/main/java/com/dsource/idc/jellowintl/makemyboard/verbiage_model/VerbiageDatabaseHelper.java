@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.dsource.idc.jellowintl.makemyboard.utility.Nomenclature;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.google.firebase.database.DataSnapshot;
@@ -17,8 +19,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-
-import androidx.annotation.NonNull;
 
 public class VerbiageDatabaseHelper extends SQLiteOpenHelper{
 
@@ -121,12 +121,12 @@ public class VerbiageDatabaseHelper extends SQLiteOpenHelper{
         {
             ContentValues values = new ContentValues();
             values.put(ICON_ID,otherIconKeyList.get(i));
-            values.put(ICON_TITLE,otherIconList.get(i).Title);
+            values.put(ICON_TITLE,otherIconList.get(i).getTitle());
             values.put(ICON_VERBIAGE,new Gson().toJson(otherIconList.get(i)));
             db.insert(TABLE_NAME, null, values);
             if(onProgressChangedListener!=null)
                 onProgressChangedListener.onProgressChanged(++current,max);
-            Log.d("VerbiageDatabase","ExpressiveIconAdded"+otherIconList.get(i).Title+" "+otherIconList.get(i).L);
+            Log.d("VerbiageDatabase","ExpressiveIconAdded"+otherIconList.get(i).getTitle()+" "+otherIconList.get(i).getL());
         }
         if(onProgressChangedListener!=null)
             onProgressChangedListener.onComplete();
@@ -139,7 +139,7 @@ public class VerbiageDatabaseHelper extends SQLiteOpenHelper{
         for(int i=0;i<iconList.size();i++)
         {
             JellowVerbiageModel model=iconList.get(i);
-            holder=new VerbiageHolder(keyList.get(i),model.Display_Label,model);
+            holder=new VerbiageHolder(keyList.get(i),model.getDisplay_Label(),model);
             addIconToDatabase(holder);
         }
 
@@ -253,7 +253,7 @@ public class VerbiageDatabaseHelper extends SQLiteOpenHelper{
     }
 
     public void addNewVerbiage(String id, JellowVerbiageModel jellowVerbiageModel) {
-        VerbiageHolder holder = new VerbiageHolder(id+"",jellowVerbiageModel.Display_Label,jellowVerbiageModel);
+        VerbiageHolder holder = new VerbiageHolder(id+"",jellowVerbiageModel.getDisplay_Label(),jellowVerbiageModel);
         ContentValues values = new ContentValues();
         values.put(ICON_ID,holder.getIconID());
         values.put(ICON_TITLE,holder.getIconName());

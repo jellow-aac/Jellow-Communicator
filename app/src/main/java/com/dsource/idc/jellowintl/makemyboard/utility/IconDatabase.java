@@ -7,13 +7,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+
 import com.dsource.idc.jellowintl.makemyboard.verbiage_model.VerbiageDatabaseHelper;
 import com.dsource.idc.jellowintl.models.JellowIcon;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.util.ArrayList;
-
-import androidx.annotation.Nullable;
 
 /**
  * Created by Ayaz Alam on 31/05/2018.
@@ -94,7 +94,7 @@ public class IconDatabase extends SQLiteOpenHelper {
         for (int i = 0; i < databaseHelper.getLevelOneIconCount(); i++) {
             // Put column/value pairs into the container. put() overwrites existing values.
             String ID = Nomenclature.getIconName(i,-1,-1,context);
-            values.put(ICON_TITLE, databaseHelper.getVerbiageById(ID).Display_Label);
+            values.put(ICON_TITLE, databaseHelper.getVerbiageById(ID).getDisplay_Label());
             values.put(ICON_DRAWABLE, ID);
             values.put(KEY_P1, i);
             values.put(KEY_P2, -1);
@@ -109,7 +109,7 @@ public class IconDatabase extends SQLiteOpenHelper {
                 // Put column/value pairs into the container. put() overwrites existing values.
                 String ID = Nomenclature.getIconName(i,j,-1,context);
                 Log.d("ID",""+ID);
-                values.put(ICON_TITLE, databaseHelper.getVerbiageById(ID).Display_Label);
+                values.put(ICON_TITLE, databaseHelper.getVerbiageById(ID).getDisplay_Label());
                 values.put(ICON_DRAWABLE, ID);
                 values.put(KEY_P1, i);
                 values.put(KEY_P2, j);
@@ -126,7 +126,7 @@ public class IconDatabase extends SQLiteOpenHelper {
                         for (int k = 0; k < databaseHelper.getLevelThreeIconCount(i,j); k++) {
 
                             String ID = Nomenclature.getIconName(i,j,k,context);
-                            values.put(ICON_TITLE, databaseHelper.getVerbiageById(ID).Display_Label);
+                            values.put(ICON_TITLE, databaseHelper.getVerbiageById(ID).getDisplay_Label());
                             values.put(ICON_DRAWABLE, ID);
                             values.put(KEY_P1, i);
                             values.put(KEY_P2, j);
