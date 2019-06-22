@@ -11,8 +11,10 @@ import androidx.test.filters.LargeTest;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -28,6 +30,7 @@ import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.AllOf.allOf;
 
 @LargeTest
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class FeedbackActivitySubmitTest {
     @Rule
     public IntentsTestRule<FeedbackActivity> intentRule =
@@ -46,7 +49,7 @@ public class FeedbackActivitySubmitTest {
     }
 
     @Test
-    public void validateSubmittedFeedback(){
+    public void _01validateSubmittedFeedback(){
         try {
             onView(withId(R.id.easy_to_use)).perform(click());
             onView(withId(R.id.pictures)).perform(click());
