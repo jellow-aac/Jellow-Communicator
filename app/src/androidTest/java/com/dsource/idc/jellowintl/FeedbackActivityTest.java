@@ -9,13 +9,14 @@ import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.dsource.idc.jellowintl.utils.ToastMatcher;
 
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static androidx.test.espresso.action.ViewActions.swipeUp;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -24,6 +25,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 
 @LargeTest
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class FeedbackActivityTest {
     @Rule
     public ActivityTestRule<FeedbackActivity> activityRule =
@@ -38,15 +40,14 @@ public class FeedbackActivityTest {
     }
 
     @Test
-    public void validateRatedEasyToUse(){
+    public void _01validateRatedEasyToUse(){
         try {
-            onView(withId(R.id.pictures)).perform(click(), swipeUp());
+            onView(withId(R.id.pictures)).perform(click());
+            onView(withId(R.id.voice)).perform(click());
+            onView(withId(R.id.navigate)).perform(click());
+            onView(withId(R.id.comments)).perform(typeText("Awesome app")
+                    , closeSoftKeyboard());
             Thread.sleep(500);
-            onView(withId(R.id.voice)).perform(click(), swipeUp());
-            Thread.sleep(500);
-            onView(withId(R.id.navigate)).perform(click(), swipeUp(), swipeUp());
-            Thread.sleep(500);
-            onView(withId(R.id.comments)).perform(typeText("Awesome app"), closeSoftKeyboard());
             onView(withId(R.id.bSubmit)).perform(click());
             onView(withText(R.string.rate_jellow))
                     .inRoot(new ToastMatcher())
@@ -58,15 +59,14 @@ public class FeedbackActivityTest {
     }
 
     @Test
-    public void validateRatedClearPictures(){
+    public void _02validateRatedClearPictures(){
         try {
-            onView(withId(R.id.easy_to_use)).perform(click(), swipeUp());
+            onView(withId(R.id.easy_to_use)).perform(click());
+            onView(withId(R.id.voice)).perform(click());
+            onView(withId(R.id.navigate)).perform(click());
+            onView(withId(R.id.comments)).perform(typeText("Awesome app"),
+                    closeSoftKeyboard());
             Thread.sleep(500);
-            onView(withId(R.id.voice)).perform(click(), swipeUp());
-            Thread.sleep(500);
-            onView(withId(R.id.navigate)).perform(click(), swipeUp(), swipeUp());
-            Thread.sleep(500);
-            onView(withId(R.id.comments)).perform(typeText("Awesome app"), closeSoftKeyboard());
             onView(withId(R.id.bSubmit)).perform(click());
             onView(withText(R.string.rate_jellow))
                     .inRoot(new ToastMatcher())
@@ -78,16 +78,15 @@ public class FeedbackActivityTest {
     }
 
     @Test
-    public void validateRatedClearVoice(){
+    public void _03validateRatedClearVoice(){
         try {
             onView(withId(R.id.comments)).perform(closeSoftKeyboard());
-            onView(withId(R.id.easy_to_use)).perform(click(), swipeUp());
+            onView(withId(R.id.easy_to_use)).perform(click());
+            onView(withId(R.id.pictures)).perform(click());
+            onView(withId(R.id.navigate)).perform(click());
+            onView(withId(R.id.comments)).perform(typeText("Awesome app"),
+                    closeSoftKeyboard());
             Thread.sleep(500);
-            onView(withId(R.id.pictures)).perform(click(), swipeUp());
-            Thread.sleep(500);
-            onView(withId(R.id.navigate)).perform(click(), swipeUp(), swipeUp());
-            Thread.sleep(500);
-            onView(withId(R.id.comments)).perform(typeText("Awesome app"), closeSoftKeyboard());
             onView(withId(R.id.bSubmit)).perform(click());
             onView(withText(R.string.rate_jellow))
                     .inRoot(new ToastMatcher())
@@ -99,16 +98,15 @@ public class FeedbackActivityTest {
     }
 
     @Test
-    public void validateRatedEasyToNavigate(){
+    public void _04validateRatedEasyToNavigate(){
         try {
             onView(withId(R.id.comments)).perform(closeSoftKeyboard());
-            onView(withId(R.id.easy_to_use)).perform(click(), swipeUp());
+            onView(withId(R.id.easy_to_use)).perform(click());
+            onView(withId(R.id.pictures)).perform(click());
+            onView(withId(R.id.voice)).perform(click());
+            onView(withId(R.id.comments)).perform(typeText("Awesome app"),
+                    closeSoftKeyboard());
             Thread.sleep(500);
-            onView(withId(R.id.pictures)).perform(click(), swipeUp());
-            Thread.sleep(500);
-            onView(withId(R.id.voice)).perform(click(), swipeUp(), swipeUp());
-            Thread.sleep(500);
-            onView(withId(R.id.comments)).perform(typeText("Awesome app"), closeSoftKeyboard());
             onView(withId(R.id.bSubmit)).perform(click());
             onView(withText(R.string.rate_jellow))
                     .inRoot(new ToastMatcher())
@@ -120,23 +118,15 @@ public class FeedbackActivityTest {
     }
 
     @Test
-    public void validateAddedComments(){
-        try {
-            onView(withId(R.id.easy_to_use)).perform(click(), swipeUp());
-            Thread.sleep(500);
-            onView(withId(R.id.pictures)).perform(click(), swipeUp());
-            Thread.sleep(500);
-            onView(withId(R.id.voice)).perform(click(), swipeUp());
-            Thread.sleep(500);
-            onView(withId(R.id.navigate)).perform(click(), swipeUp());
-            Thread.sleep(500);
+    public void _05validateAddedComments(){
+            onView(withId(R.id.easy_to_use)).perform(click());
+            onView(withId(R.id.pictures)).perform(click());
+            onView(withId(R.id.voice)).perform(click());
+            onView(withId(R.id.navigate)).perform(click());
             onView(withId(R.id.bSubmit)).perform(click());
             onView(withText(R.string.rate_jellow))
                     .inRoot(new ToastMatcher())
                     .check(matches(isDisplayed()));
             activityRule.finishActivity();
-        }catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 }
