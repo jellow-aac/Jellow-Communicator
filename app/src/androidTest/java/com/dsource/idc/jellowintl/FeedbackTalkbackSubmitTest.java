@@ -17,7 +17,6 @@ import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static androidx.test.espresso.action.ViewActions.swipeUp;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.intent.Intents.intended;
@@ -49,21 +48,26 @@ public class FeedbackTalkbackSubmitTest {
 
     @Test
     public void validateSubmittedFeedback(){
-        onView(withId(R.id.easytouse)).perform(click());
-        onData(allOf(is(instanceOf(String.class)), is("2"))).perform(click());
-        onView(withId(R.id.easytouse)).check(matches(withSpinnerText(containsString("2"))));
-        onView(withId(R.id.clearpictures)).perform(click());
-        onData(allOf(is(instanceOf(String.class)), is("2"))).perform(click());
-        onView(withId(R.id.clearpictures)).check(matches(withSpinnerText(containsString("2"))));
-        onView(withId(R.id.clearvoice)).perform(click());
-        onData(allOf(is(instanceOf(String.class)), is("2"))).perform(click());
-        onView(withId(R.id.clearvoice)).check(matches(withSpinnerText(containsString("2"))));
-        onView(withId(R.id.navigate)).perform(click());
-        onData(allOf(is(instanceOf(String.class)), is("2"))).perform(click());
-        onView(withId(R.id.scrollView2)).perform(swipeUp());
-        onView(withId(R.id.navigate)).check(matches(withSpinnerText(containsString("2"))));
-        onView(withId(R.id.comments)).perform(typeText("Awesome app"), closeSoftKeyboard());
-        onView(withId(R.id.bSubmit)).perform(click());
-        intended(allOf(hasAction(Intent.ACTION_CHOOSER)));
+        try {
+            onView(withId(R.id.easytouse)).perform(click());
+            onData(allOf(is(instanceOf(String.class)), is("2"))).perform(click());
+            onView(withId(R.id.easytouse)).check(matches(withSpinnerText(containsString("2"))));
+            onView(withId(R.id.clearpictures)).perform(click());
+            onData(allOf(is(instanceOf(String.class)), is("2"))).perform(click());
+            onView(withId(R.id.clearpictures)).check(matches(withSpinnerText(containsString("2"))));
+            onView(withId(R.id.clearvoice)).perform(click());
+            onData(allOf(is(instanceOf(String.class)), is("2"))).perform(click());
+            onView(withId(R.id.clearvoice)).check(matches(withSpinnerText(containsString("2"))));
+            onView(withId(R.id.navigate)).perform(click());
+            onData(allOf(is(instanceOf(String.class)), is("2"))).perform(click());
+            onView(withId(R.id.navigate)).check(matches(withSpinnerText(containsString("2"))));
+            onView(withId(R.id.comments)).perform(typeText("Awesome app"),
+                    closeSoftKeyboard());
+            Thread.sleep(500);
+            onView(withId(R.id.bSubmit)).perform(click());
+            intended(allOf(hasAction(Intent.ACTION_CHOOSER)));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
