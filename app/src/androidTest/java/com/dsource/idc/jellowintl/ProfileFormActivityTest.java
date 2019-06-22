@@ -4,20 +4,19 @@ import android.content.Context;
 
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.clearText;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static androidx.test.espresso.action.ViewActions.swipeUp;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
@@ -28,8 +27,8 @@ import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentat
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 
-@RunWith(AndroidJUnit4.class)
 @LargeTest
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ProfileFormActivityTest {
 
     @Rule
@@ -46,9 +45,8 @@ public class ProfileFormActivityTest {
     }
 
     @Test
-    public void validateUserName(){
+    public void _01validateUserName(){
     onView(withId(R.id.etName)).perform(clearText());
-    onView(withId(R.id.parentScroll)).perform(swipeUp(), swipeUp());
     onView(withId(R.id.bSave)).perform(click());
     onView(withText(R.string.enterTheName))
             .inRoot(withDecorView(not(is(activityRule.getActivity().getWindow().getDecorView()))))
@@ -56,7 +54,7 @@ public class ProfileFormActivityTest {
     }
 
     @Test
-    public void validateCaregiverNumber(){
+    public void _02validateCaregiverNumber(){
         try {
             onView(withId(R.id.etName)).perform(clearText(), typeText("Akash"), closeSoftKeyboard());
             onView(withId(R.id.etFathercontact)).perform(clearText());
@@ -98,16 +96,16 @@ public class ProfileFormActivityTest {
     }
 
     @Test
-    public void validateEmailId(){
+    public void _03validateEmailId(){
         try {
             onView(withId(R.id.etName)).perform(typeText("Akash"), closeSoftKeyboard());
             onView(withId(R.id.etFathercontact)).perform(typeText("9653238072"), closeSoftKeyboard());
+            onView(withId(R.id.etEmailId)).perform(clearText());
             onView(withId(R.id.bSave)).perform(click());
             onView(withText(R.string.invalid_emailId)).inRoot(withDecorView(not(is(
                     activityRule.getActivity().getWindow().getDecorView()))))
                     .check(matches(isDisplayed()));
             Thread.sleep(1500);
-            onView(withId(R.id.parentScroll)).perform(swipeUp());
             onView(withId(R.id.etEmailId)).perform(typeText("jellowcommunicatorgmail.com"), closeSoftKeyboard());
             onView(withId(R.id.bSave)).perform(click());
             onView(withText(R.string.invalid_emailId)).inRoot(withDecorView(not(is(
@@ -138,21 +136,20 @@ public class ProfileFormActivityTest {
     }
 
     @Test
-    public void validateAppRegistrationProcess(){
+    public void _04validateAppRegistrationProcess(){
         //Fill form data
         try {
             onView(withId(R.id.etName)).perform(typeText("Akash"), closeSoftKeyboard());
             onView(withId(R.id.etFathercontact)).perform(typeText("9653238072"),
                     closeSoftKeyboard());
-            onView(withId(R.id.parentScroll)).perform(swipeUp());
             onView(withId(R.id.etEmailId)).perform(click(), typeText(
                     "jellowcommunicator@gmail.com"), closeSoftKeyboard());
             onView(withId(R.id.radioTherapist)).perform(click(), closeSoftKeyboard());
             onView(withId(R.id.bSave)).perform(click());
             Thread.sleep(500);
-            onView(withText(R.string.checkConnectivity)).inRoot(withDecorView(not(is(
-                    activityRule.getActivity().getWindow().getDecorView()))))
-                    .check(matches(isDisplayed()));
+            onView(withText(R.string.checkConnectivity)).
+                    inRoot(withDecorView(not(is(activityRule.getActivity().getWindow().
+                    getDecorView())))).check(matches(isDisplayed()));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }catch (Exception e){

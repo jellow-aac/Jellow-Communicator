@@ -19,6 +19,7 @@ import org.junit.runners.MethodSorters;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static androidx.test.espresso.action.ViewActions.swipeUp;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.Intents.intending;
@@ -55,6 +56,7 @@ public class FeedbackActivitySubmitTest {
             onView(withId(R.id.pictures)).perform(click());
             onView(withId(R.id.voice)).perform(click());
             onView(withId(R.id.navigate)).perform(click());
+            onView(withId(R.id.parentScroll)).perform(swipeUp());
             onView(withId(R.id.comments)).perform(click(), typeText("Awesome app"),
                     closeSoftKeyboard());
             Thread.sleep(500);
