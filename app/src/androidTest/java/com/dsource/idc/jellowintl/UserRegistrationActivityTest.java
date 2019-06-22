@@ -54,6 +54,7 @@ public class UserRegistrationActivityTest {
         onView(withId(R.id.etEmailId)).perform(click(), clearText(), typeText
                 ("jellowcommunicator@gmail.com"), closeSoftKeyboard());
         onView(withId(R.id.radioParent)).perform(click());
+        onView(withId(R.id.parentScroll)).perform(swipeUp());
         onView(withId(R.id.bRegister)).perform(click());
         onView(withText(R.string.enterTheName)).inRoot(withDecorView(not(is
                 (activityRule.getActivity().getWindow().getDecorView()))))
@@ -72,6 +73,7 @@ public class UserRegistrationActivityTest {
             onView(withId(R.id.etEmailId)).perform(click(), clearText(),
                     typeText("jellowcommunicator@gmail.com"), closeSoftKeyboard());
             onView(withId(R.id.radioParent)).perform(click());
+            onView(withId(R.id.parentScroll)).perform(swipeUp());
             onView(withId(R.id.bRegister)).perform(click());
             onView(withText(R.string.enternonemptycontact))
                     .inRoot(withDecorView(not(
@@ -83,6 +85,7 @@ public class UserRegistrationActivityTest {
             //Check if mobile number do not contain special symbols
             onView(withId(R.id.etEmergencyContact)).perform(clearText(),
                     typeText(generateRandomStringOf("text")), closeSoftKeyboard());
+            onView(withId(R.id.parentScroll)).perform(swipeUp());
             onView(withId(R.id.bRegister)).perform(click());
             onView(withText(R.string.enternonemptycontact)).inRoot(withDecorView(not(is(
                     activityRule.getActivity().getWindow().getDecorView()))))
@@ -156,6 +159,7 @@ public class UserRegistrationActivityTest {
                 generateRandomStringOf("numbers")), closeSoftKeyboard());
         onView(withId(R.id.etEmailId)).perform(clearText(), click(), typeText(
                 "jellowcommunicator@gmail.com"), closeSoftKeyboard());
+        onView(withId(R.id.parentScroll)).perform(swipeUp());
         onView(withId(R.id.bRegister)).perform(click());
         onView(withText(R.string.invalid_usergroup)).inRoot(withDecorView(not(is(
                         activityRule.getActivity().getWindow().getDecorView()))))

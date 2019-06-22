@@ -56,7 +56,7 @@ public class FeedbackActivitySubmitTest {
             onView(withId(R.id.pictures)).perform(click());
             onView(withId(R.id.voice)).perform(click());
             onView(withId(R.id.navigate)).perform(click());
-            onView(withId(R.id.parentScroll)).perform(swipeUp());
+            onView(withId(R.id.scrollView2)).perform(swipeUp());
             onView(withId(R.id.comments)).perform(click(), typeText("Awesome app"),
                     closeSoftKeyboard());
             Thread.sleep(500);
