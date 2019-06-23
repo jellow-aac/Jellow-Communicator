@@ -46,17 +46,18 @@ public class ProfileFormActivityTest {
 
     @Test
     public void _01validateUserName(){
-    onView(withId(R.id.etName)).perform(clearText());
-    onView(withId(R.id.bSave)).perform(click());
-    onView(withText(R.string.enterTheName))
-            .inRoot(withDecorView(not(is(activityRule.getActivity().getWindow().getDecorView()))))
-            .check(matches(isDisplayed()));
+        onView(withId(R.id.etName)).perform(clearText());
+        onView(withId(R.id.bSave)).perform(click());
+        onView(withText(R.string.enterTheName))
+                .inRoot(withDecorView(not(is(activityRule.getActivity().getWindow().getDecorView()))))
+                .check(matches(isDisplayed()));
     }
 
     @Test
     public void _02validateCaregiverNumber(){
         try {
-            onView(withId(R.id.etName)).perform(clearText(), typeText("Akash"), closeSoftKeyboard());
+            onView(withId(R.id.etName)).perform(clearText(), typeText("Akash"),
+                    closeSoftKeyboard());
             onView(withId(R.id.etFathercontact)).perform(clearText());
             onView(withId(R.id.bSave)).perform(click());
             onView(withText(R.string.enternonemptycontact))

@@ -1,11 +1,6 @@
 package com.dsource.idc.jellowintl.utility;
 
 
-import androidx.test.runner.AndroidJUnit4;
-
-import org.junit.runner.RunWith;
-
-@RunWith(AndroidJUnit4.class)
 public class JellowFirebaseMessageServiceTest {
     /*private Context mContext;
     private RemoteMessage remoteMessage;

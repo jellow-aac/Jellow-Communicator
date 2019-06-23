@@ -419,7 +419,24 @@ public class LevelTwoActivityActivityUITest {
 
 
     @Test
-    public void _03_01validateHomeButtonTapEvent() {
+    public void _04_00validatePeopleIconLoadingPreferences() {
+        activityRule.getActivity().finish();
+        final int helpPos = 5;
+        final String category = "Help";
+        String preferencesString = "1,2,3,4,5,6,7,8,9,0,11,23,45,12,3,4,7,2";
+        activityRule.getActivity().getSession().setPeoplePreferences(preferencesString);
+        Intent intent = new Intent();
+        intent.putExtra(mContext.getString(R.string.level_one_intent_pos_tag), helpPos);
+        intent.putExtra(mContext.getString(R.string.intent_menu_path_tag),category + "/");
+        activityRule.launchActivity(intent);
+        View v = activityRule.getActivity().mRecyclerView.getChildAt(0);
+        String itemOneBelowText = ((TextView)v.findViewById(R.id.te1)).getText().toString();
+        assert "Doctor".equals(itemOneBelowText);
+
+    }
+
+    @Test
+    public void _05_01validateHomeButtonTapEvent() {
         Intents.init();
         onView(withId(R.id.ivhome)).perform(click());
         onView(withId(R.id.ivhome)).check(matches(withDrawable(R.drawable.home_pressed)));
@@ -427,7 +444,7 @@ public class LevelTwoActivityActivityUITest {
     }
 
     @Test
-    public void _04_01validateKeyboardButtonTapEvent(){
+    public void _05_02validateKeyboardButtonTapEvent(){
         onView(withId(R.id.keyboard)).perform(click());
         onView(withId(R.id.et)).perform(closeSoftKeyboard());
         onView(withId(R.id.keyboard)).check(matches(withDrawable(R.drawable.keyboard_pressed)));
@@ -461,7 +478,7 @@ public class LevelTwoActivityActivityUITest {
     }
 
     @Test
-    public void _05_01validateBackButtonTapEvent(){
+    public void _05_03validateBackButtonTapEvent(){
         onView(withId(R.id.keyboard)).perform(click());
         onView(withId(R.id.et)).perform(closeSoftKeyboard());
         onView(withId(R.id.ivback)).perform(click());
@@ -479,5 +496,27 @@ public class LevelTwoActivityActivityUITest {
         onView(withId(R.id.ivdislike)).check(matches(isEnabled()));
         onView(withId(R.id.ivno)).check(matches(isEnabled()));
         onView(withId(R.id.ivminus)).check(matches(isEnabled()));
+    }
+
+
+    @Test
+    public void _06validateAdapterClass() {
+        activityRule.getActivity().finish();
+        int helpPos = 5;
+        String category = "Help";
+        Intent intent = new Intent();
+        intent.putExtra(mContext.getString(R.string.level_one_intent_pos_tag), helpPos);
+        intent.putExtra(mContext.getString(R.string.intent_menu_path_tag),category + "/");
+        activityRule.launchActivity(intent);
+        assert activityRule.getActivity().mRecyclerView.getAdapter() instanceof PeopleAdapter;
+        activityRule.getActivity().finish();
+
+        helpPos = 7;
+        category = "Time And Weather";
+        intent = new Intent();
+        intent.putExtra(mContext.getString(R.string.level_one_intent_pos_tag), helpPos);
+        intent.putExtra(mContext.getString(R.string.intent_menu_path_tag),category + "/");
+        activityRule.launchActivity(intent);
+        assert activityRule.getActivity().mRecyclerView.getAdapter() instanceof LevelTwoAdapter;
     }
 }

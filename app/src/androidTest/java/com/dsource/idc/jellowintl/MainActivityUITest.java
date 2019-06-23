@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
+import androidx.test.espresso.Espresso;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
@@ -80,6 +81,7 @@ public class MainActivityUITest {
         onView(allOf(instanceOf(TextView.class),
                 withParent(withResourceName("action_bar"))))
                 .check(matches(withText(R.string.keyboard)));
+        Espresso.closeSoftKeyboard();
     }
 
     @Test
@@ -101,7 +103,7 @@ public class MainActivityUITest {
     }
 
     @Test
-    public void _02_1validateExpressiveLikeButtonTapEvent() {
+    public void _02_01validateExpressiveLikeButtonTapEvent() {
         onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
                 actionOnItemAtPosition(3, click()));
         onView(withId(R.id.ivlike)).check(matches(withDrawable(R.drawable.like)));
@@ -119,7 +121,7 @@ public class MainActivityUITest {
     }
 
     @Test
-    public void _02_2validateExpressiveDontLikeButtonTapEvent() {
+    public void _02_02validateExpressiveDontLikeButtonTapEvent() {
         onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
                 actionOnItemAtPosition(3, click()));
         onView(withId(R.id.ivdislike)).check(matches(withDrawable(R.drawable.dontlike)));
@@ -137,7 +139,7 @@ public class MainActivityUITest {
     }
 
     @Test
-    public void _02_3validateExpressiveYesButtonTapEvent() {
+    public void _02_03validateExpressiveYesButtonTapEvent() {
         onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
                 actionOnItemAtPosition(3, click()));
         onView(withId(R.id.ivyes)).check(matches(withDrawable(R.drawable.yes)));
@@ -155,7 +157,7 @@ public class MainActivityUITest {
     }
 
     @Test
-    public void _02_4validateExpressiveNoButtonTapEvent() {
+    public void _02_04validateExpressiveNoButtonTapEvent() {
         onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
                 actionOnItemAtPosition(3, click()));
         onView(withId(R.id.ivno)).check(matches(withDrawable(R.drawable.no)));
@@ -173,7 +175,7 @@ public class MainActivityUITest {
     }
 
     @Test
-    public void _02_5validateExpressiveMoreButtonTapEvent() {
+    public void _02_05validateExpressiveMoreButtonTapEvent() {
         onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
                 actionOnItemAtPosition(3, click()));
         onView(withId(R.id.ivadd)).check(matches(withDrawable(R.drawable.more)));
@@ -191,7 +193,7 @@ public class MainActivityUITest {
     }
 
     @Test
-    public void _02_6validateExpressiveLessButtonTapEvent() {
+    public void _02_06validateExpressiveLessButtonTapEvent() {
         onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
                 actionOnItemAtPosition(3, click()));
         onView(withId(R.id.ivminus)).check(matches(withDrawable(R.drawable.less)));
@@ -290,14 +292,14 @@ public class MainActivityUITest {
     }
 
     @Test
-    public void _08validateVisibleActivity(){
+    public void _08_00validateVisibleActivity(){
         activityRule.getActivity().setVisibleAct(MainActivity.class.getSimpleName());
         assert activityRule.getActivity().getVisibleAct().
                 equals(MainActivity.class.getSimpleName());
     }
 
     @Test
-    public void _09authenticationTest(){
+    public void _09_00authenticationTest(){
         try {
             FirebaseAuth mAuth = FirebaseAuth.getInstance();
             mAuth.signOut();
@@ -320,13 +322,13 @@ public class MainActivityUITest {
     }
 
     @Test
-    public void _010firstBreadCrumb(){
+    public void _10_00firstBreadCrumb(){
         assert activityRule.getActivity().getActionBar().getTitle().
                 equals(activityRule.getActivity().getString(R.string.action_bar_title));
     }
 
     @Test
-    public void _011sessionManagerTest() {
+    public void _11_00sessionManagerTest() {
         assert activityRule.getActivity().getSession() != null;
     }
 }
