@@ -2,6 +2,7 @@ package com.dsource.idc.jellowintl;
 
 import android.content.Context;
 
+import androidx.test.espresso.Espresso;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
@@ -49,6 +50,7 @@ public class UserRegistrationActivityTest {
     @Test
     public void _01validateUserName(){
         onView(withId(R.id.etName)).perform(clearText());
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.etEmergencyContact)).perform(clearText(),
                 typeText(generateRandomStringOf("numbers")), closeSoftKeyboard());
         onView(withId(R.id.etEmailId)).perform(click(), clearText(), typeText
@@ -67,9 +69,9 @@ public class UserRegistrationActivityTest {
     public void _02validateCaregiverNumber(){
         try {
             //Check if mobile number is empty
-            onView(withId(R.id.etName)).perform(clearText(), typeText("Akash"),
-                    closeSoftKeyboard());
-            onView(withId(R.id.etEmergencyContact)).perform(clearText());
+            onView(withId(R.id.etName)).perform(clearText(), typeText("Akash"));
+            Espresso.closeSoftKeyboard();
+            onView(withId(R.id.etEmergencyContact)).perform(clearText(), closeSoftKeyboard());
             onView(withId(R.id.etEmailId)).perform(click(), clearText(),
                     typeText("jellowcommunicator@gmail.com"), closeSoftKeyboard());
             onView(withId(R.id.radioParent)).perform(click());
@@ -156,7 +158,8 @@ public class UserRegistrationActivityTest {
         onView(withId(R.id.etName)).perform(clearText(), typeText("Akash"),
                 closeSoftKeyboard());
         onView(withId(R.id.etEmergencyContact)).perform(clearText(), typeText(
-                generateRandomStringOf("numbers")), closeSoftKeyboard());
+                generateRandomStringOf("numbers")));
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.etEmailId)).perform(clearText(), click(), typeText(
                 "jellowcommunicator@gmail.com"), closeSoftKeyboard());
         onView(withId(R.id.parentScroll)).perform(swipeUp());
@@ -215,3 +218,4 @@ public class UserRegistrationActivityTest {
         }
     }
 }
+/*54, 73 & 160*/

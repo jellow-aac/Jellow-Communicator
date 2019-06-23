@@ -304,10 +304,7 @@ public class LevelTwoActivityActivityUITest {
 
 
     @Test
-    public void _03_01validateExpressiveIconStateForHelpSpecialIcon() {
-        activityRule.getActivity().finish();
-        final int helpPos = 8;
-        final String cat = "Help";
+    public void _03_01validateExpressiveIconStateForHelpSpecialIcons() {
         int[] helpCategoryItems = {
                 /*Emergency*/           0,
                 /*iFeelSick*/           2,
@@ -325,30 +322,17 @@ public class LevelTwoActivityActivityUITest {
                 /*IWasTouchedIn*/       21,
                 /*IWasMadeFunOf*/       22
         };
-        Intent intent = new Intent();
-        intent.putExtra(mContext.getString(R.string.level_one_intent_pos_tag),
-                helpPos);
-        intent.putExtra(mContext.getString(R.string.intent_menu_path_tag),
-                cat + "/");
-        activityRule.launchActivity(intent);
+        createHelpIntentLaunchActivity();
 
         for (int itemPos : helpCategoryItems) {
             onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
                     actionOnItemAtPosition(itemPos, click()));
-            onView(withId(R.id.ivlike)).check(matches(not(isEnabled())));
-            onView(withId(R.id.ivyes)).check(matches(not(isEnabled())));
-            onView(withId(R.id.ivadd)).check(matches(not(isEnabled())));
-            onView(withId(R.id.ivdislike)).check(matches(not(isEnabled())));
-            onView(withId(R.id.ivno)).check(matches(not(isEnabled())));
-            onView(withId(R.id.ivminus)).check(matches(not(isEnabled())));
+            expressiveIconStateForHelpSpecialIcons();
         }
     }
 
     @Test
     public void _03_02validateExpressiveIconStateForHelpRestIcons() {
-        activityRule.getActivity().finish();
-        final int helpPos = 8;
-        final String cat = "Help";
         int[] helpCategoryItems = {
                 /*Medicine*/            6,
                 /*Bandage*/             7,
@@ -356,22 +340,12 @@ public class LevelTwoActivityActivityUITest {
                 /*Toilet*/              9,
                 /*SanitaryNapkins*/     11
         };
-        Intent intent = new Intent();
-        intent.putExtra(mContext.getString(R.string.level_one_intent_pos_tag),
-                helpPos);
-        intent.putExtra(mContext.getString(R.string.intent_menu_path_tag),
-                cat + "/");
-        activityRule.launchActivity(intent);
+        createHelpIntentLaunchActivity();
 
         for (int itemPos : helpCategoryItems) {
             onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
                     actionOnItemAtPosition(itemPos, click()));
-            onView(withId(R.id.ivlike)).check(matches(isEnabled()));
-            onView(withId(R.id.ivyes)).check(matches(isEnabled()));
-            onView(withId(R.id.ivadd)).check(matches(isEnabled()));
-            onView(withId(R.id.ivdislike)).check(matches(isEnabled()));
-            onView(withId(R.id.ivno)).check(matches(isEnabled()));
-            onView(withId(R.id.ivminus)).check(matches(isEnabled()));
+            expressiveIconStateForHelpRestIcons();
         }
     }
 
@@ -388,12 +362,7 @@ public class LevelTwoActivityActivityUITest {
         activityRule.launchActivity(intent);
         onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
                 actionOnItemAtPosition(itemPos, click()));
-        onView(withId(R.id.ivlike)).check(matches(not(isEnabled())));
-        onView(withId(R.id.ivyes)).check(matches(not(isEnabled())));
-        onView(withId(R.id.ivadd)).check(matches(not(isEnabled())));
-        onView(withId(R.id.ivdislike)).check(matches(isEnabled()));
-        onView(withId(R.id.ivno)).check(matches(isEnabled()));
-        onView(withId(R.id.ivminus)).check(matches(isEnabled()));
+        expressiveIconStateForHelpUnsafeTouchIcon();
     }
 
     @Test
@@ -409,12 +378,7 @@ public class LevelTwoActivityActivityUITest {
         activityRule.launchActivity(intent);
         onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
                 actionOnItemAtPosition(itemPos, click()));
-        onView(withId(R.id.ivlike)).check(matches(isEnabled()));
-        onView(withId(R.id.ivyes)).check(matches(isEnabled()));
-        onView(withId(R.id.ivadd)).check(matches(isEnabled()));
-        onView(withId(R.id.ivdislike)).check(matches(isEnabled()));
-        onView(withId(R.id.ivno)).check(matches(not(isEnabled())));
-        onView(withId(R.id.ivminus)).check(matches(isEnabled()));
+        expressiveIconStateForHelpSafetyIcon();
     }
 
 
@@ -435,6 +399,7 @@ public class LevelTwoActivityActivityUITest {
 
     }
 
+
     @Test
     public void _05_01validateHomeButtonTapEvent() {
         Intents.init();
@@ -443,8 +408,9 @@ public class LevelTwoActivityActivityUITest {
         intended(hasComponent(MainActivity.class.getName()));
     }
 
+
     @Test
-    public void _05_02validateKeyboardButtonTapEvent(){
+    public void _06_01validateKeyboardButtonTapEvent(){
         onView(withId(R.id.keyboard)).perform(click());
         onView(withId(R.id.et)).perform(closeSoftKeyboard());
         onView(withId(R.id.keyboard)).check(matches(withDrawable(R.drawable.keyboard_pressed)));
@@ -466,9 +432,6 @@ public class LevelTwoActivityActivityUITest {
         onView(allOf(instanceOf(TextView.class),
                 withParent(withResourceName("action_bar"))))
                 .check(matches(not(withText(R.string.keyboard))));
-        onView(withId(R.id.ttsbutton)).check(matches(not(isDisplayed())));
-        onView(withId(R.id.et)).check(matches(not(isDisplayed())));
-        onView(withId(R.id.recycler_view)).check(matches(isDisplayed()));
         onView(withId(R.id.ivlike)).check(matches(isEnabled()));
         onView(withId(R.id.ivyes)).check(matches(isEnabled()));
         onView(withId(R.id.ivadd)).check(matches(isEnabled()));
@@ -478,11 +441,117 @@ public class LevelTwoActivityActivityUITest {
     }
 
     @Test
-    public void _05_03validateBackButtonTapEvent(){
+    public void _06_01validateKeyboardButtonTapExpressiveIconRetainHelpSpecialIcons(){
+        int[] helpCategoryItems = {
+                /*Emergency*/           0,
+                /*iFeelSick*/           2,
+                /*iamHurt*/             3,
+                /*iFeelTired*/          4,
+                /*helpMeDoThis*/        5,
+                /*Allergy*/             12,
+                /*Danger*/              13,
+                /*Hazards*/             14,
+                /*IAmInPain*/           16,
+                /*IWasPinched*/         17,
+                /*IWasPushed*/          18,
+                /*IWasScolded*/         19,
+                /*IWasHit*/             20,
+                /*IWasTouchedIn*/       21,
+                /*IWasMadeFunOf*/       22
+        };
+        createHelpIntentLaunchActivity();
+        for (int itemPos : helpCategoryItems) {
+            onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
+                    actionOnItemAtPosition(itemPos, click()));
+            onView(withId(R.id.keyboard)).perform(click());
+            onView(withId(R.id.et)).perform(closeSoftKeyboard());
+            onView(withId(R.id.keyboard)).perform(click());
+            onView(allOf(instanceOf(TextView.class),
+                    withParent(withResourceName("action_bar"))))
+                    .check(matches(not(withText(R.string.keyboard))));
+            expressiveIconStateForHelpSpecialIcons();
+        }
+    }
+
+    @Test
+    public void _06_02validateKeyboardButtonTapExpressiveIconRetainHelpRestIcons(){
+        int[] helpCategoryItems = {
+                /*Medicine*/            6,
+                /*Bandage*/             7,
+                /*Water*/               8,
+                /*Toilet*/              9,
+                /*SanitaryNapkins*/     11
+        };
+        createHelpIntentLaunchActivity();
+        for (int itemPos : helpCategoryItems) {
+            onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
+                    actionOnItemAtPosition(itemPos, click()));
+            onView(withId(R.id.keyboard)).perform(click());
+            onView(withId(R.id.et)).perform(closeSoftKeyboard());
+            onView(withId(R.id.keyboard)).perform(click());
+            onView(allOf(instanceOf(TextView.class),
+                    withParent(withResourceName("action_bar"))))
+                    .check(matches(not(withText(R.string.keyboard))));
+            expressiveIconStateForHelpRestIcons();
+        }
+    }
+
+    @Test
+    public void _06_03validateKeyboardButtonTapExpressiveIconRetainHelpUnsafeTouchIcon(){
+        final int itemPos = 10;
+        createHelpIntentLaunchActivity();
+        onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
+                actionOnItemAtPosition(itemPos, click()));
+        onView(withId(R.id.keyboard)).perform(click());
+        onView(withId(R.id.et)).perform(closeSoftKeyboard());
+        onView(withId(R.id.keyboard)).perform(click());
+        onView(allOf(instanceOf(TextView.class),
+                withParent(withResourceName("action_bar"))))
+                .check(matches(not(withText(R.string.keyboard))));
+        expressiveIconStateForHelpUnsafeTouchIcon();
+    }
+
+    @Test
+    public void _06_04validateKeyboardButtonTapExpressiveIconRetainHelpSafetyIcon(){
+        final int itemPos = 15;
+        createHelpIntentLaunchActivity();
+        onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
+                actionOnItemAtPosition(itemPos, click()));
+        onView(withId(R.id.keyboard)).perform(click());
+        onView(withId(R.id.et)).perform(closeSoftKeyboard());
+        onView(withId(R.id.keyboard)).perform(click());
+        onView(allOf(instanceOf(TextView.class),
+                withParent(withResourceName("action_bar"))))
+                .check(matches(not(withText(R.string.keyboard))));
+        expressiveIconStateForHelpSafetyIcon();
+    }
+
+
+    @Test
+    public void _07_01validateBackButtonSimpleTapEvent(){
+        String intentString = activityRule.getActivity().getIntent().getStringExtra(
+                activityRule.getActivity().getString(R.string.from_search));
+        if(intentString == null)
+            return;
+        if(intentString.isEmpty())
+            return;
+        try{
+            Intents.init();
+            assert intentString.equals(activityRule.getActivity().getString(R.string.search_tag));
+            intended(hasComponent(MainActivity.class.getName()));
+        }catch (Exception e){
+            return;
+        }
+        Intents.release();
+    }
+
+    @Test
+    public void _07_02validateBackButtonTapEvent(){
         onView(withId(R.id.keyboard)).perform(click());
         onView(withId(R.id.et)).perform(closeSoftKeyboard());
         onView(withId(R.id.ivback)).perform(click());
         onView(withId(R.id.keyboard)).check(matches(withDrawable(R.drawable.keyboard)));
+        onView(withId(R.id.ivback)).check(matches(withDrawable(R.drawable.back_pressed)));
         onView(allOf(instanceOf(TextView.class),
                 withParent(withResourceName("action_bar"))))
                 .check(matches(not(withText(R.string.keyboard))));
@@ -498,9 +567,96 @@ public class LevelTwoActivityActivityUITest {
         onView(withId(R.id.ivminus)).check(matches(isEnabled()));
     }
 
+    @Test
+    public void _07_03validateBackButtonTapExpressiveIconRetainHelpSpecialIcons(){
+        int[] helpCategoryItems = {
+                /*Emergency*/           0,
+                /*iFeelSick*/           2,
+                /*iamHurt*/             3,
+                /*iFeelTired*/          4,
+                /*helpMeDoThis*/        5,
+                /*Allergy*/             12,
+                /*Danger*/              13,
+                /*Hazards*/             14,
+                /*IAmInPain*/           16,
+                /*IWasPinched*/         17,
+                /*IWasPushed*/          18,
+                /*IWasScolded*/         19,
+                /*IWasHit*/             20,
+                /*IWasTouchedIn*/       21,
+                /*IWasMadeFunOf*/       22
+        };
+        createHelpIntentLaunchActivity();
+
+        for (int itemPos : helpCategoryItems) {
+            onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
+                    actionOnItemAtPosition(itemPos, click()));
+            onView(withId(R.id.keyboard)).perform(click());
+            onView(withId(R.id.et)).perform(closeSoftKeyboard());
+            onView(withId(R.id.ivback)).perform(click());
+            onView(allOf(instanceOf(TextView.class),
+                    withParent(withResourceName("action_bar"))))
+                    .check(matches(not(withText(R.string.keyboard))));
+            expressiveIconStateForHelpSpecialIcons();
+        }
+    }
 
     @Test
-    public void _06validateAdapterClass() {
+    public void _07_04validateBackButtonTapExpressiveIconRetainHelpUnsafeTouchIcon(){
+        final int itemPos = 10;
+        createHelpIntentLaunchActivity();
+        onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
+                actionOnItemAtPosition(itemPos, click()));
+        onView(withId(R.id.keyboard)).perform(click());
+        onView(withId(R.id.et)).perform(closeSoftKeyboard());
+        onView(withId(R.id.ivback)).perform(click());
+        onView(allOf(instanceOf(TextView.class),
+                withParent(withResourceName("action_bar"))))
+                .check(matches(not(withText(R.string.keyboard))));
+        expressiveIconStateForHelpUnsafeTouchIcon();
+    }
+
+    @Test
+    public void _07_05validateBackButtonTapExpressiveIconRetainHelpRestIcons(){
+        int[] helpCategoryItems = {
+                /*Medicine*/            6,
+                /*Bandage*/             7,
+                /*Water*/               8,
+                /*Toilet*/              9,
+                /*SanitaryNapkins*/     11
+        };
+        createHelpIntentLaunchActivity();
+        for (int itemPos : helpCategoryItems) {
+            onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
+                    actionOnItemAtPosition(itemPos, click()));
+            onView(withId(R.id.keyboard)).perform(click());
+            onView(withId(R.id.et)).perform(closeSoftKeyboard());
+            onView(withId(R.id.ivback)).perform(click());
+            onView(allOf(instanceOf(TextView.class),
+                    withParent(withResourceName("action_bar"))))
+                    .check(matches(not(withText(R.string.keyboard))));
+            expressiveIconStateForHelpRestIcons();
+        }
+    }
+
+    @Test
+    public void _07_06validateBackButtonTapExpressiveIconRetainHelpSafetyIcon(){
+        final int itemPos = 15;
+        createHelpIntentLaunchActivity();
+        onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
+                actionOnItemAtPosition(itemPos, click()));
+        onView(withId(R.id.keyboard)).perform(click());
+        onView(withId(R.id.et)).perform(closeSoftKeyboard());
+        onView(withId(R.id.ivback)).perform(click());
+        onView(allOf(instanceOf(TextView.class),
+                withParent(withResourceName("action_bar"))))
+                .check(matches(not(withText(R.string.keyboard))));
+        expressiveIconStateForHelpSafetyIcon();
+    }
+
+
+    @Test
+    public void _08_00validateAdapterClass() {
         activityRule.getActivity().finish();
         int helpPos = 5;
         String category = "Help";
@@ -518,5 +674,55 @@ public class LevelTwoActivityActivityUITest {
         intent.putExtra(mContext.getString(R.string.intent_menu_path_tag),category + "/");
         activityRule.launchActivity(intent);
         assert activityRule.getActivity().mRecyclerView.getAdapter() instanceof LevelTwoAdapter;
+    }
+
+
+    private void createHelpIntentLaunchActivity(){
+        activityRule.getActivity().finish();
+        final int helpPos = 8;
+        final String cat = "Help";
+        Intent intent = new Intent();
+        intent.putExtra(mContext.getString(R.string.level_one_intent_pos_tag),
+                helpPos);
+        intent.putExtra(mContext.getString(R.string.intent_menu_path_tag),
+                cat + "/");
+        activityRule.launchActivity(intent);
+    }
+
+    private void expressiveIconStateForHelpSpecialIcons(){
+        onView(withId(R.id.ivlike)).check(matches(not(isEnabled())));
+        onView(withId(R.id.ivyes)).check(matches(not(isEnabled())));
+        onView(withId(R.id.ivadd)).check(matches(not(isEnabled())));
+        onView(withId(R.id.ivdislike)).check(matches(not(isEnabled())));
+        onView(withId(R.id.ivno)).check(matches(not(isEnabled())));
+        onView(withId(R.id.ivminus)).check(matches(not(isEnabled())));
+
+    }
+
+    private void expressiveIconStateForHelpRestIcons(){
+        onView(withId(R.id.ivlike)).check(matches(isEnabled()));
+        onView(withId(R.id.ivyes)).check(matches(isEnabled()));
+        onView(withId(R.id.ivadd)).check(matches(isEnabled()));
+        onView(withId(R.id.ivdislike)).check(matches(isEnabled()));
+        onView(withId(R.id.ivno)).check(matches(isEnabled()));
+        onView(withId(R.id.ivminus)).check(matches(isEnabled()));
+    }
+
+    private void expressiveIconStateForHelpUnsafeTouchIcon(){
+        onView(withId(R.id.ivlike)).check(matches(not(isEnabled())));
+        onView(withId(R.id.ivyes)).check(matches(not(isEnabled())));
+        onView(withId(R.id.ivadd)).check(matches(not(isEnabled())));
+        onView(withId(R.id.ivdislike)).check(matches(isEnabled()));
+        onView(withId(R.id.ivno)).check(matches(isEnabled()));
+        onView(withId(R.id.ivminus)).check(matches(isEnabled()));
+    }
+
+    private void expressiveIconStateForHelpSafetyIcon(){
+        onView(withId(R.id.ivlike)).check(matches(isEnabled()));
+        onView(withId(R.id.ivyes)).check(matches(isEnabled()));
+        onView(withId(R.id.ivadd)).check(matches(isEnabled()));
+        onView(withId(R.id.ivdislike)).check(matches(isEnabled()));
+        onView(withId(R.id.ivno)).check(matches(not(isEnabled())));
+        onView(withId(R.id.ivminus)).check(matches(isEnabled()));
     }
 }
