@@ -1,12 +1,10 @@
 package com.dsource.idc.jellowintl.models;
 
-import com.dsource.idc.jellowintl.makemyboard.interfaces.AbstractDataProvider;
+import androidx.annotation.Keep;
 
 import java.io.Serializable;
 
-import androidx.annotation.Keep;
-
-public class JellowIcon extends AbstractDataProvider.Data implements Serializable{
+public class JellowIcon implements Serializable{
     @Keep
     public String IconDrawable,IconTitle,IconSpeech;
     @Keep
@@ -38,37 +36,5 @@ public class JellowIcon extends AbstractDataProvider.Data implements Serializabl
 
     public void setIconTitle(String iconTitle) {
         this.IconTitle = iconTitle;
-    }
-
-    @Override
-    public long getId() {
-        int numA=10;
-        int numB=50;
-        return  (numA*parent0+parent1)*numB+parent2;
-    }
-
-    @Override
-    public boolean isSectionHeader() {
-        return false;
-    }
-
-    @Override
-    public int getViewType() {
-        return 0;
-    }
-
-    @Override
-    public String getText() {
-        return IconTitle;
-    }
-
-    @Override
-    public boolean isPinned() {
-        return false;
-    }
-
-    @Override
-    public void setPinned(boolean pinned) {
-
     }
 }

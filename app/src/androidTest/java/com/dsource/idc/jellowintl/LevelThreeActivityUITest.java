@@ -1,53 +1,17 @@
 package com.dsource.idc.jellowintl;
 
-import android.content.Context;
-import android.graphics.drawable.GradientDrawable;
-import android.net.ConnectivityManager;
-import android.view.View;
-import android.widget.TextView;
-
-import androidx.core.content.ContextCompat;
-import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.filters.LargeTest;
-import androidx.test.rule.ActivityTestRule;
 
-import com.dsource.idc.jellowintl.utility.SessionManager;
-import com.google.firebase.auth.FirebaseAuth;
-
-import org.junit.Before;
 import org.junit.FixMethodOrder;
-import org.junit.Rule;
-import org.junit.Test;
 import org.junit.runners.MethodSorters;
-
-import java.util.Random;
-
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.isEnabled;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withParent;
-import static androidx.test.espresso.matcher.ViewMatchers.withResourceName;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
-import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
-import static com.dsource.idc.jellowintl.utils.EspressoTestMatchers.withDrawable;
-import static com.dsource.idc.jellowintl.utils.FileOperations.copyAssetsToInternalStorage;
-import static com.dsource.idc.jellowintl.utils.FileOperations.extractLanguagePackageZipFile;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.core.AllOf.allOf;
-import static org.hamcrest.core.IsInstanceOf.instanceOf;
 
 @LargeTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class MainActivityUITest {
-    private Context mContext;
+public class LevelThreeActivityUITest {
+    /*private Context mContext;
     @Rule
-    public ActivityTestRule<MainActivity> activityRule =
-            new ActivityTestRule<>(MainActivity.class, false, false);
+    public ActivityTestRule<LevelThreeActivity> activityRule =
+            new ActivityTestRule<>(LevelThreeActivity.class, false, false);
 
     @Before
     public void setup(){
@@ -237,9 +201,6 @@ public class MainActivityUITest {
         onView(withId(R.id.keyboard)).perform(click());
         onView(withId(R.id.et)).perform(closeSoftKeyboard());
         onView(withId(R.id.keyboard)).check(matches(withDrawable(R.drawable.keyboard_pressed)));
-        onView(allOf(instanceOf(TextView.class),
-                withParent(withResourceName("action_bar"))))
-                .check(matches(withText(R.string.keyboard)));
         onView(withId(R.id.ivback)).check(matches(isEnabled()));
         onView(withId(R.id.ttsbutton)).check(matches(isDisplayed()));
         onView(withId(R.id.et)).check(matches(isDisplayed()));
@@ -253,9 +214,6 @@ public class MainActivityUITest {
 
         onView(withId(R.id.keyboard)).perform(click());
         onView(withId(R.id.keyboard)).check(matches(withDrawable(R.drawable.keyboard)));
-        onView(allOf(instanceOf(TextView.class),
-                withParent(withResourceName("action_bar"))))
-                .check(matches(not(withText(R.string.keyboard))));
         onView(withId(R.id.ivback)).check(matches(not(isEnabled())));
         onView(withId(R.id.ttsbutton)).check(matches(not(isDisplayed())));
         onView(withId(R.id.et)).check(matches(not(isDisplayed())));
@@ -329,4 +287,45 @@ public class MainActivityUITest {
     public void _011sessionManagerTest() {
         assert activityRule.getActivity().getSession() != null;
     }
+
+    private void copyAssetsToInternalStorage(Context appContext) {
+        Context testContext = getInstrumentation().getContext();
+        AssetManager assets = testContext.getAssets();
+        InputStream in = null;
+        OutputStream out = null;
+        try {
+            in = assets.open(ENG_IN+".zip", Context.MODE_PRIVATE);
+            File outFile = appContext.getDir(ENG_IN, Context.MODE_PRIVATE);
+            outFile.mkdir();
+            out = new FileOutputStream(outFile+"/"+ENG_IN+".zip");
+            copyFile(in, out);
+            in.close();
+            in = null;
+            out.flush();
+            out.close();
+            out.flush();
+            out = null;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void copyFile(InputStream in, OutputStream out) {
+        byte[] buffer = new byte[1024];
+        int read;
+        try {
+            while ((read = in.read(buffer)) != -1) {
+                out.write(buffer, 0, read);
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    private void extractLanguagePackageZipFile(Context context) {
+        File en_dir = context.getDir(ENG_IN, Context.MODE_PRIVATE);
+        ZipArchive.unzip(en_dir.getPath()+"/"+ENG_IN+".zip",en_dir.getPath(),"");
+        File zip = new File(en_dir.getPath(),ENG_IN+".zip");
+        if(zip.exists()) zip.delete();
+    }*/
 }

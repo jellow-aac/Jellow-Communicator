@@ -77,7 +77,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
     private EditText mEtTTs;
     private KeyListener originalKeyListener;
     /*Recycler view which will populate category icons.*/
-    private RecyclerView mRecyclerView;
+    public RecyclerView mRecyclerView;
 
     /*This variable indicates index of category icon selected in level one and two respectively.*/
     private int mLevelOneItemPos, mLevelTwoItemPos = -1;
