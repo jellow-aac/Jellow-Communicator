@@ -31,7 +31,7 @@ env:
     - ANDROID_TARGET=android-22 ANDROID_ABI=armeabi-v7a
 
 before_install:
-  - yes | sdkmanager --licenses && sdkmanager --update
+  - yes | sdkmanager "platforms;android-28"
   - chmod +x gradlew
 
 after_success:
