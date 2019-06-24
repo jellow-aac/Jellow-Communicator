@@ -1,11 +1,14 @@
-package com.dsource.idc.jellowintl;
+package com.dsource.idc.jellowintl.suite3;
 
 import android.content.Context;
 
 import androidx.test.espresso.Espresso;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
+import com.dsource.idc.jellowintl.R;
+import com.dsource.idc.jellowintl.UserRegistrationActivity;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import org.junit.Before;
@@ -49,7 +52,7 @@ public class UserRegistrationActivityTest {
 
     @Test
     public void _01validateUserName(){
-        onView(withId(R.id.etName)).perform(clearText());
+        onView(ViewMatchers.withId(R.id.etName)).perform(clearText());
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.etEmergencyContact)).perform(clearText(),
                 typeText(generateRandomStringOf("numbers")), closeSoftKeyboard());
@@ -102,6 +105,7 @@ public class UserRegistrationActivityTest {
     @Test
     public void _03validateEmail(){
         try {
+            closeSoftKeyboard();
             //Check if email id is not empty.
             onView(withId(R.id.etName)).perform(clearText(), typeText("Akash"),
                     closeSoftKeyboard());
@@ -155,6 +159,7 @@ public class UserRegistrationActivityTest {
     @Test
     public void _04validateUserGroup(){
         //Check if no user group Selected is not empty.
+        closeSoftKeyboard();
         onView(withId(R.id.etName)).perform(clearText(), typeText("Akash"),
                 closeSoftKeyboard());
         onView(withId(R.id.etEmergencyContact)).perform(clearText(), typeText(
