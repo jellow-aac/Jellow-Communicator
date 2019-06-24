@@ -10,10 +10,6 @@ android:
     - android-22
     - sys-img-armeabi-v7a-android-22
     - extra-android-m2repository
-  licenses:
-    - 'android-sdk-preview-.+'
-    - 'android-sdk-license-.+'
-    - 'google-gdk-license-.+'
 
 before_script:
   # Create and start emulator
@@ -35,6 +31,7 @@ env:
     - ANDROID_TARGET=android-22 ANDROID_ABI=armeabi-v7a
 
 before_install:
+  - yes | sdkmanager --licenses && sdkmanager --update
   - chmod +x gradlew
 
 after_success:
