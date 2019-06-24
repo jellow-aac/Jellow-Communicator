@@ -23,6 +23,17 @@ script:
   - ./gradlew build jacocoTestReport assembledebugAndroidTest
   - ./gradlew connecteddebugAndroidTest
 
+env:
+  - TESTFOLDER=com/dsource/idc/jellow/androidTest/suite1
+  - TESTFOLDER=com/dsource/idc/jellow/androidTest/suite2
+  - TESTFOLDER=com/dsource/idc/jellow/androidTest/suite3
+  - TESTFOLDER=units
+  - matrix:
+    - ANDROID_TARGET=android-22 ANDROID_ABI=armeabi-v7a
+    - ANDROID_TARGET=android-22 ANDROID_ABI=armeabi-v7a
+    - ANDROID_TARGET=android-22 ANDROID_ABI=armeabi-v7a
+    - ANDROID_TARGET=android-22 ANDROID_ABI=armeabi-v7a
+
 before_install:
   - yes | sdkmanager "platforms;android-28"
   - chmod +x gradlew
