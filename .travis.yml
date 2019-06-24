@@ -32,7 +32,7 @@ env:
 matrix:
   fast_finish: true
   allow_failures:
-    - env: ANDROID_TARGET=android-22 TEST_PART=1of11 ANDROID_ABI=armeabi-v7a
+    - env: ANDROID_TARGET=android-22 TEST_PART=FeedbackActivityTest ANDROID_ABI=armeabi-v7a
 before_install:
   - yes | sdkmanager "platforms;android-28"
   - chmod +x gradlew
