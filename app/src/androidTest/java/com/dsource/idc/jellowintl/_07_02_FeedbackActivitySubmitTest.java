@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import androidx.test.espresso.intent.rule.IntentsTestRule;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 
 import com.dsource.idc.jellowintl.utility.SessionManager;
@@ -32,7 +33,7 @@ import static org.hamcrest.core.AllOf.allOf;
 
 @LargeTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class FeedbackActivitySubmitTest {
+public class _07_02_FeedbackActivitySubmitTest {
     @Rule
     public IntentsTestRule<FeedbackActivity> intentRule =
             new IntentsTestRule<>(FeedbackActivity.class, false, false);
@@ -52,7 +53,7 @@ public class FeedbackActivitySubmitTest {
     @Test
     public void _01validateSubmittedFeedback(){
         try {
-            onView(withId(R.id.easy_to_use)).perform(click());
+            onView(ViewMatchers.withId(R.id.easy_to_use)).perform(click());
             onView(withId(R.id.pictures)).perform(click());
             onView(withId(R.id.voice)).perform(click());
             onView(withId(R.id.navigate)).perform(click());

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.contrib.RecyclerViewActions;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
@@ -44,7 +45,7 @@ import static org.hamcrest.core.IsInstanceOf.instanceOf;
 
 @LargeTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class MainActivityUITest {
+public class _02_MainActivityUITest {
     private Context mContext;
     @Rule
     public ActivityTestRule<MainActivity> activityRule =
@@ -66,7 +67,7 @@ public class MainActivityUITest {
     public void _01_01validateActionBarTitleEvent(){
         Random randomGenerator = new Random();
         int itemPos = randomGenerator.nextInt(9);
-        onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
+        onView(ViewMatchers.withId(R.id.recycler_view)).perform(RecyclerViewActions.
                 actionOnItemAtPosition(itemPos, click()));
         View view = activityRule.getActivity().mRecyclerView.getChildAt(itemPos);
         String title = ((TextView)view.findViewById(R.id.te1)).getText().toString();
@@ -327,8 +328,8 @@ public class MainActivityUITest {
                 equals(activityRule.getActivity().getString(R.string.action_bar_title));
     }
 
-    @Test
+    /*@Test
     public void _11_00sessionManagerTest() {
         assert activityRule.getActivity().getSession() != null;
-    }
+    }*/
 }

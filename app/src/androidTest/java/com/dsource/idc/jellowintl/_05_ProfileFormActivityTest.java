@@ -2,6 +2,7 @@ package com.dsource.idc.jellowintl;
 
 import android.content.Context;
 
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
@@ -29,7 +30,7 @@ import static org.hamcrest.CoreMatchers.not;
 
 @LargeTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class ProfileFormActivityTest {
+public class _05_ProfileFormActivityTest {
 
     @Rule
     public ActivityTestRule<ProfileFormActivity> activityRule =
@@ -46,7 +47,7 @@ public class ProfileFormActivityTest {
 
     @Test
     public void _01validateUserName(){
-        onView(withId(R.id.etName)).perform(clearText());
+        onView(ViewMatchers.withId(R.id.etName)).perform(clearText());
         onView(withId(R.id.bSave)).perform(click());
         onView(withText(R.string.enterTheName))
                 .inRoot(withDecorView(not(is(activityRule.getActivity().getWindow().getDecorView()))))

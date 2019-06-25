@@ -33,7 +33,7 @@ import static org.hamcrest.core.AllOf.allOf;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class FeedbackTalkbackSubmitTest {
+public class _08_02_FeedbackTalkbackSubmitTest {
     @Rule
     public IntentsTestRule<FeedbackActivityTalkBack> intentRule =
             new IntentsTestRule<>(FeedbackActivityTalkBack.class);

@@ -3,7 +3,7 @@ package com.dsource.idc.jellowintl;
 import androidx.test.filters.LargeTest;
 
 @LargeTest
-public class AboutJellowActivityTest {
+public class _06_AboutJellowActivityTest {
     /*@Rule
     public IntentsTestRule<AboutJellowActivity> intentRule =
             new IntentsTestRule<>(AboutJellowActivity.class);

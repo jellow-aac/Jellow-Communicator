@@ -12,6 +12,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.RequestManager;
 import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
 import com.dsource.idc.jellowintl.factories.IconFactory;
@@ -21,11 +26,6 @@ import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.core.view.ViewCompat;
-import androidx.recyclerview.widget.RecyclerView;
 
 import static android.content.Context.ACCESSIBILITY_SERVICE;
 import static com.dsource.idc.jellowintl.factories.PathFactory.getIconPath;
@@ -127,7 +127,7 @@ class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.MyViewHolder> {
 
     private String getLevel2IconCode(int level1Position){
         if(level1Position+1 <= 9){
-            return "0" + Integer.toString(level1Position+1);
+            return "0" + (level1Position + 1);
         } else {
             return Integer.toString(level1Position+1);
         }

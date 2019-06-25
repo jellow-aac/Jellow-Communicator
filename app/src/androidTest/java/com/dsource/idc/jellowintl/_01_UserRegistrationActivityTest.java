@@ -1,4 +1,4 @@
-package com.dsource.idc.jellowintl.suite3;
+package com.dsource.idc.jellowintl;
 
 import android.content.Context;
 
@@ -7,8 +7,6 @@ import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
-import com.dsource.idc.jellowintl.R;
-import com.dsource.idc.jellowintl.UserRegistrationActivity;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import org.junit.Before;
@@ -36,7 +34,7 @@ import static org.hamcrest.CoreMatchers.not;
 
 @LargeTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class UserRegistrationActivityTest {
+public class _01_UserRegistrationActivityTest {
     private SessionManager manager;
     @Rule
     public ActivityTestRule<UserRegistrationActivity> activityRule =

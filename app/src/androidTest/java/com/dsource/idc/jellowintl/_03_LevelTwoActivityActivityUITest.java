@@ -43,7 +43,7 @@ import static org.hamcrest.core.IsInstanceOf.instanceOf;
 
 @LargeTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class LevelTwoActivityActivityUITest {
+public class _03_LevelTwoActivityActivityUITest {
     private Context mContext;
     private final String l1Title = "Fun";
     private final int levelOneItemPos = 3;
@@ -401,7 +401,7 @@ public class LevelTwoActivityActivityUITest {
 
 
     @Test
-    public void _05_01validateHomeButtonTapEvent() {
+    public void _05_00validateHomeButtonTapEvent() {
         Intents.init();
         onView(withId(R.id.ivhome)).perform(click());
         onView(withId(R.id.ivhome)).check(matches(withDrawable(R.drawable.home_pressed)));
@@ -441,7 +441,7 @@ public class LevelTwoActivityActivityUITest {
     }
 
     @Test
-    public void _06_01validateKeyboardButtonTapExpressiveIconRetainHelpSpecialIcons(){
+    public void _06_02validateKeyboardButtonTapExpressiveIconRetainHelpSpecialIcons(){
         int[] helpCategoryItems = {
                 /*Emergency*/           0,
                 /*iFeelSick*/           2,
@@ -474,7 +474,7 @@ public class LevelTwoActivityActivityUITest {
     }
 
     @Test
-    public void _06_02validateKeyboardButtonTapExpressiveIconRetainHelpRestIcons(){
+    public void _06_03validateKeyboardButtonTapExpressiveIconRetainHelpRestIcons(){
         int[] helpCategoryItems = {
                 /*Medicine*/            6,
                 /*Bandage*/             7,
@@ -497,7 +497,7 @@ public class LevelTwoActivityActivityUITest {
     }
 
     @Test
-    public void _06_03validateKeyboardButtonTapExpressiveIconRetainHelpUnsafeTouchIcon(){
+    public void _06_04validateKeyboardButtonTapExpressiveIconRetainHelpUnsafeTouchIcon(){
         final int itemPos = 10;
         createHelpIntentLaunchActivity();
         onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
@@ -512,7 +512,7 @@ public class LevelTwoActivityActivityUITest {
     }
 
     @Test
-    public void _06_04validateKeyboardButtonTapExpressiveIconRetainHelpSafetyIcon(){
+    public void _06_05validateKeyboardButtonTapExpressiveIconRetainHelpSafetyIcon(){
         final int itemPos = 15;
         createHelpIntentLaunchActivity();
         onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
@@ -546,7 +546,7 @@ public class LevelTwoActivityActivityUITest {
     }
 
     @Test
-    public void _07_02validateBackButtonTapEvent(){
+    public void _07_02validateBackButtonTapUiTestEvent(){
         onView(withId(R.id.keyboard)).perform(click());
         onView(withId(R.id.et)).perform(closeSoftKeyboard());
         onView(withId(R.id.ivback)).perform(click());
@@ -659,7 +659,7 @@ public class LevelTwoActivityActivityUITest {
     public void _08_00validateAdapterClass() {
         activityRule.getActivity().finish();
         int helpPos = 5;
-        String category = "Help";
+        String category = "People";
         Intent intent = new Intent();
         intent.putExtra(mContext.getString(R.string.level_one_intent_pos_tag), helpPos);
         intent.putExtra(mContext.getString(R.string.intent_menu_path_tag),category + "/");
