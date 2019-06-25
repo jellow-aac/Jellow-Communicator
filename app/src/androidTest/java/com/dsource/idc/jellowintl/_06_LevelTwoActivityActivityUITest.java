@@ -400,12 +400,14 @@ public class _06_LevelTwoActivityActivityUITest {
     }
 
 
-    @Test
+    /*@Test
     public void _05_00validateHomeButtonTapEvent() {
         onView(withId(R.id.ivhome)).perform(click());
         onView(withId(R.id.ivhome)).check(matches(withDrawable(R.drawable.home_pressed)));
+        Intents.init();
         intended(hasComponent(MainActivity.class.getName()));
-    }
+        Intents.release();
+    }*/
 
 
     @Test

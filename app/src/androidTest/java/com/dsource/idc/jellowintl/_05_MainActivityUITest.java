@@ -61,6 +61,7 @@ public class _05_MainActivityUITest {
         copyAssetsToInternalStorage(mContext);
         extractLanguagePackageZipFile(mContext);
         activityRule.launchActivity(null);
+        closeSoftKeyboard();
     }
 
     @Test
@@ -328,8 +329,8 @@ public class _05_MainActivityUITest {
                 equals(activityRule.getActivity().getString(R.string.action_bar_title));
     }
 
-    /*@Test
+    @Test
     public void _11_00sessionManagerTest() {
         assert activityRule.getActivity().getSession() != null;
-    }*/
+    }
 }

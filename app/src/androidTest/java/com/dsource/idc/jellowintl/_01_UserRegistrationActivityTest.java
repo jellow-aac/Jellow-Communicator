@@ -176,8 +176,7 @@ public class _01_UserRegistrationActivityTest {
         onView(withId(R.id.etName)).perform(clearText(), typeText("Akash"),
                 closeSoftKeyboard());
         onView(withId(R.id.etEmergencyContact)).perform(clearText(), typeText(
-                generateRandomStringOf("numbers")));
-        Espresso.closeSoftKeyboard();
+                generateRandomStringOf("numbers")), closeSoftKeyboard());
         onView(withId(R.id.etEmailId)).perform(clearText(), click(), typeText(
                 "jellowcommunicator@gmail.com"), closeSoftKeyboard());
         onView(withId(R.id.parentScroll)).perform(swipeUp());
