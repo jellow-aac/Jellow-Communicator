@@ -21,7 +21,6 @@ before_script:
 
 script:
   - ./gradlew build jacocoTestReport assembledebugAndroidTest
-  - bundle exec rspec $TESTFOLDER
   - ./gradlew connecteddebugAndroidTest
 
 before_install:
