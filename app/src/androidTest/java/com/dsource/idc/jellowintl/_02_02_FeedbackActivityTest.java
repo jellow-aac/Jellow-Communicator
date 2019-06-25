@@ -2,7 +2,6 @@ package com.dsource.idc.jellowintl;
 
 import android.content.Context;
 
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
@@ -27,7 +26,7 @@ import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentat
 
 @LargeTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class _07_01FeedbackActivityTest {
+public class _02_02_FeedbackActivityTest {
     @Rule
     public ActivityTestRule<FeedbackActivity> activityRule =
             new ActivityTestRule<>(FeedbackActivity.class, false, false);
@@ -43,7 +42,7 @@ public class _07_01FeedbackActivityTest {
     @Test
     public void _01validateRatedEasyToUse(){
         try {
-            onView(ViewMatchers.withId(R.id.pictures)).perform(click());
+            onView(withId(R.id.pictures)).perform(click());
             onView(withId(R.id.voice)).perform(click());
             onView(withId(R.id.navigate)).perform(click());
             onView(withId(R.id.comments)).perform(typeText("Awesome app")

@@ -43,7 +43,7 @@ import static org.hamcrest.core.IsInstanceOf.instanceOf;
 
 @LargeTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class _03_LevelTwoActivityActivityUITest {
+public class _06_LevelTwoActivityActivityUITest {
     private Context mContext;
     private final String l1Title = "Fun";
     private final int levelOneItemPos = 3;
@@ -402,7 +402,6 @@ public class _03_LevelTwoActivityActivityUITest {
 
     @Test
     public void _05_00validateHomeButtonTapEvent() {
-        Intents.init();
         onView(withId(R.id.ivhome)).perform(click());
         onView(withId(R.id.ivhome)).check(matches(withDrawable(R.drawable.home_pressed)));
         intended(hasComponent(MainActivity.class.getName()));

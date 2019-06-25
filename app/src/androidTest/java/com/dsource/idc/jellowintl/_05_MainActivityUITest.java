@@ -45,7 +45,7 @@ import static org.hamcrest.core.IsInstanceOf.instanceOf;
 
 @LargeTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class _02_MainActivityUITest {
+public class _05_MainActivityUITest {
     private Context mContext;
     @Rule
     public ActivityTestRule<MainActivity> activityRule =

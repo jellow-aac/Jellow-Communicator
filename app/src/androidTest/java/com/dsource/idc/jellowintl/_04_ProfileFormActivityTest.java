@@ -18,6 +18,7 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.clearText;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static androidx.test.espresso.action.ViewActions.swipeDown;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
@@ -30,7 +31,7 @@ import static org.hamcrest.CoreMatchers.not;
 
 @LargeTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class _05_ProfileFormActivityTest {
+public class _04_ProfileFormActivityTest {
 
     @Rule
     public ActivityTestRule<ProfileFormActivity> activityRule =
@@ -47,6 +48,7 @@ public class _05_ProfileFormActivityTest {
 
     @Test
     public void _01validateUserName(){
+        onView(withId(R.id.parentScroll)).perform(swipeDown());
         onView(ViewMatchers.withId(R.id.etName)).perform(clearText());
         onView(withId(R.id.bSave)).perform(click());
         onView(withText(R.string.enterTheName))
