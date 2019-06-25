@@ -66,11 +66,9 @@ public class _05_MainActivityUITest {
 
     @Test
     public void _01_01validateActionBarTitleEvent(){
-        Random randomGenerator = new Random();
-        int itemPos = randomGenerator.nextInt(9);
         onView(ViewMatchers.withId(R.id.recycler_view)).perform(RecyclerViewActions.
-                actionOnItemAtPosition(itemPos, click()));
-        View view = activityRule.getActivity().mRecyclerView.getChildAt(itemPos);
+                actionOnItemAtPosition(3, click()));
+        View view = activityRule.getActivity().mRecyclerView.getChildAt(3);
         String title = ((TextView)view.findViewById(R.id.te1)).getText().toString();
         onView(allOf(instanceOf(TextView.class),
                 withParent(withResourceName("action_bar"))))
