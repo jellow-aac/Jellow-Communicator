@@ -20,8 +20,7 @@ before_script:
   - adb install /home/travis/build/jellow-aac/Jellow-Communicator/app/src/debug/tts.apk
 
 script:
-  - ./gradlew build jacocoTestReport assembledebugAndroidTest
-  - ./gradlew connecteddebugAndroidTest
+  - ./gradlew clean build jacocoTestDebugUnitTestReport
 
 before_install:
   - yes | sdkmanager "platforms;android-28"
