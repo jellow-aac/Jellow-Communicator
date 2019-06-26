@@ -8,6 +8,7 @@ import androidx.test.espresso.intent.Intents;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
+import androidx.test.runner.AndroidJUnit4;
 
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
@@ -15,6 +16,7 @@ import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 
 import java.util.Random;
@@ -40,6 +42,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.core.AllOf.allOf;
 
+@RunWith(AndroidJUnit4.class)
 @LargeTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class _01_UserRegistrationActivityTest {

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
+import androidx.test.runner.AndroidJUnit4;
 
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.dsource.idc.jellowintl.utils.ToastMatcher;
@@ -12,6 +13,7 @@ import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 
 import static androidx.test.espresso.Espresso.onView;
@@ -24,6 +26,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 
+@RunWith(AndroidJUnit4.class)
 @LargeTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class _02_02_FeedbackActivityTest {
