@@ -7,21 +7,20 @@ android:
     - platform-tools
     - tools
     - build-tools-28.0.3
-    - android-24
-    - sys-img-armeabi-v7a-android-24
+    - android-22
+    - sys-img-armeabi-v7a-android-22
     - extra-android-m2repository
 
 before_script:
   # Create and start emulator
-  - echo no | android create avd --force -n test -t android-24 --abi armeabi-v7a
+  - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
   - emulator -avd test -skindir /home/travis/build/jellow-aac/Jellow-Communicator/app/src/debug/ -skin 800x1280 -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
   - adb install /home/travis/build/jellow-aac/Jellow-Communicator/app/src/debug/tts.apk
 
 script:
-  - ./gradlew build test connectedAndroidTest
-  - ./gradlew createDebugCoverageReport createReleaseCoverageReport jacocoTestReport
+  - ./gradlew build jacocoUnifiedUnitInstrumentationTestReport
 
 before_install:
   - yes | sdkmanager "platforms;android-28"
