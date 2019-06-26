@@ -1,13 +1,13 @@
 package com.dsource.idc.jellowintl.factories;
 
+import androidx.annotation.NonNull;
+
 import com.dsource.idc.jellowintl.cache.IconCache;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-
-import androidx.annotation.NonNull;
 
 public class IconFactory {
 

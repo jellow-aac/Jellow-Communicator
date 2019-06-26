@@ -11,17 +11,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.accessibility.AccessibilityManager;
 
-import com.dsource.idc.jellowintl.makemyboard.AddEditIconAndCategoryActivity;
-import com.dsource.idc.jellowintl.makemyboard.BoardSearchActivity;
-import com.dsource.idc.jellowintl.makemyboard.HomeActivity;
-import com.dsource.idc.jellowintl.makemyboard.IconSelectActivity;
-import com.dsource.idc.jellowintl.makemyboard.MyBoardsActivity;
-import com.dsource.idc.jellowintl.makemyboard.RepositionIconsActivity;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 public class BaseActivity extends AppCompatActivity{
     private static SessionManager mSession;
@@ -45,8 +39,6 @@ public class BaseActivity extends AppCompatActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if(getBoardClass().contains(getVisibleAct()) || getNonMenuClass().contains(getVisibleAct()))
-            return false;
         super.onCreateOptionsMenu(menu);
         if(getLevelClass().contains(getVisibleAct()))
             getMenuInflater().inflate(R.menu.menu_main_with_search, menu);
@@ -141,7 +133,7 @@ public class BaseActivity extends AppCompatActivity{
         return mSession;
     }
 
-    boolean isConnectedToNetwork(ConnectivityManager connMgr){
+    public boolean isConnectedToNetwork(ConnectivityManager connMgr){
         NetworkInfo activeNetworkInfo = connMgr.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
@@ -184,24 +176,14 @@ public class BaseActivity extends AppCompatActivity{
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
     }
 
-    private String getLevelClass() {
+    public String getLevelClass() {
         return MainActivity.class.getSimpleName() + "," +
             LevelTwoActivity.class.getSimpleName() + "," +
             LevelThreeActivity.class.getSimpleName() + "," +
             SequenceActivity.class.getSimpleName();
     }
 
-    private String getBoardClass() {
-        return
-                AddEditIconAndCategoryActivity.class.getSimpleName()+ ","+
-                        BoardSearchActivity.class.getSimpleName() + ","+
-                        HomeActivity.class.getSimpleName() + ","+
-                        IconSelectActivity.class.getSimpleName() + ","+
-                        MyBoardsActivity.class.getSimpleName() + ","+
-                        RepositionIconsActivity.class.getSimpleName();
-    }
-
-    private String getNonMenuClass() {
+    public String getNonMenuClass() {
         return UserRegistrationActivity.class.getSimpleName();
     }
 

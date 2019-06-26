@@ -3,6 +3,8 @@ package com.dsource.idc.jellowintl.utility;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.BuildConfig;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -11,8 +13,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 
 import java.util.Date;
-
-import androidx.annotation.NonNull;
 
 /**
  * Created by ekalpa on 6/14/2017.
@@ -73,7 +73,7 @@ public class Analytics {
     }
 
 
-    public  static void singleEvent(String EventName, String EventValue){
+    public static void singleEvent(String EventName, String EventValue){
         bundle.clear();
         bundle.putString(EventName,EventValue);
         mFirebaseAnalytics.logEvent(EventName,bundle);
@@ -127,5 +127,10 @@ public class Analytics {
         mRef = mDb.getReference(BuildConfig.DB_TYPE+"/users/"+maskNumber(contact)+"/sessions");
         pushId = mRef.push().getKey();
         bundle = new Bundle();
+    }
+
+
+    public static String getSessionRef(){
+        return mRef.toString();
     }
 }

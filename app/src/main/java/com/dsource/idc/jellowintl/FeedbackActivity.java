@@ -108,10 +108,11 @@ public class FeedbackActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if((strEaseOfUse != null) && (mClearPicture != null) && (mClearVoice != null) && (mEaseToNav != null) &&
-                        (!strEaseOfUse.equals("0.0")) && (!mClearPicture.equals("0.0")) && (!mClearVoice.equals("0.0")) && (!mEaseToNav.equals("0.0"))) {
+                        (!strEaseOfUse.equals("0.0")) && (!mClearPicture.equals("0.0")) && (!mClearVoice.equals("0.0")) && (!mEaseToNav.equals("0.0"))
+                    && !mEtComments.getText().toString().isEmpty()) {
                     String cs = mEtComments.getText().toString();
                     Intent email = new Intent(Intent.ACTION_SEND);
-                    email.putExtra(Intent.EXTRA_EMAIL, new String[]{"dsource.in@gmail.com"});
+                    email.putExtra(Intent.EXTRA_EMAIL, new String[]{"jellowcommunicator@gmail.com"});
                     email.putExtra(Intent.EXTRA_SUBJECT, "Jellow Feedback");
                     email.putExtra(Intent.EXTRA_TEXT, "Easy to use: " + strEaseOfUse + "\nClear Pictures: " + mClearPicture + "\nClear Voices: " + mClearVoice + "\nEasy to Navigate: " + mEaseToNav + "\n\nComments and Suggestions:-\n" + cs);
                     email.setType("message/rfc822");

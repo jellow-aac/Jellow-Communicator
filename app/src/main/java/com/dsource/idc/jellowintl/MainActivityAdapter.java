@@ -1,7 +1,6 @@
 package com.dsource.idc.jellowintl;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
@@ -13,9 +12,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.RequestManager;
 import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
-import com.dsource.idc.jellowintl.cache.MemoryCache;
 import com.dsource.idc.jellowintl.factories.IconFactory;
 import com.dsource.idc.jellowintl.factories.LanguageFactory;
 import com.dsource.idc.jellowintl.factories.TextFactory;
@@ -23,11 +26,6 @@ import com.dsource.idc.jellowintl.models.Icon;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.io.File;
-
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.core.view.ViewCompat;
-import androidx.recyclerview.widget.RecyclerView;
 
 import static android.content.Context.ACCESSIBILITY_SERVICE;
 import static com.dsource.idc.jellowintl.factories.PathFactory.getIconDirectory;
@@ -101,14 +99,14 @@ class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapter.MyVie
         holder.menuItemBelowText.setAllCaps(true);
         holder.menuItemBelowText.setText(mBelowTextArray[position]);
 
-        Bitmap iconBitmap = MemoryCache.getBitmapFromMemCache(icons[position]);
+        //Bitmap iconBitmap = MemoryCache.getBitmapFromMemCache(icons[position]);
 
-        if (iconBitmap != null) {
-            holder.menuItemImage.setImageBitmap(iconBitmap);
-        } else {
+        /*if (iconBitmap != null) {
+            holder.menuItemImage.setImageBitmap(iconBitmap);*/
+        //} else {
             glide.load(getIconPath(mAct, icons[position]))
                     .into(holder.menuItemImage);
-        }
+        //}
 
         holder.menuItemLinearLayout.setContentDescription(mBelowTextArray[position]);
         holder.menuItemLinearLayout.setOnClickListener(new View.OnClickListener() {

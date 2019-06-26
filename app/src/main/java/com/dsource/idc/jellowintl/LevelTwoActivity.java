@@ -77,7 +77,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
     private EditText mEtTTs;
     private KeyListener originalKeyListener;
     /*Recycler view which will populate category icons.*/
-    private RecyclerView mRecyclerView;
+    public RecyclerView mRecyclerView;
 
     /*This variable indicates index of category icon selected in level one and two respectively.*/
     private int mLevelOneItemPos, mLevelTwoItemPos = -1;
@@ -508,9 +508,12 @@ public class LevelTwoActivity extends LevelBaseActivity{
                     //disable all expressive buttons.
                     }else if(mLevelOneItemPos == CATEGORY_ICON_HELP &&
                             ((mLevelTwoItemPos == 0) ||(mLevelTwoItemPos == 2) || (mLevelTwoItemPos == 3) ||
-                                    (mLevelTwoItemPos == 4) ||(mLevelTwoItemPos == 5) ||
-                                    (mLevelTwoItemPos == 12) ||(mLevelTwoItemPos == 13) ||
-                                    (mLevelTwoItemPos == 14)))
+                                    (mLevelTwoItemPos == 4)  || (mLevelTwoItemPos == 5) ||
+                                    (mLevelTwoItemPos == 12) || (mLevelTwoItemPos == 13) ||
+                                    (mLevelTwoItemPos == 14) || (mLevelTwoItemPos == 16)||
+                                    (mLevelTwoItemPos == 17) || (mLevelTwoItemPos == 18) ||
+                                    (mLevelTwoItemPos == 19) || (mLevelTwoItemPos == 20) ||
+                                    (mLevelTwoItemPos == 21) || (mLevelTwoItemPos == 22)))
                         changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
                     //Below if check that selected category icon is Help -> Unsafe touch.
                     // If yes, then enable only don't like, no, less expressive buttons.
@@ -649,7 +652,10 @@ public class LevelTwoActivity extends LevelBaseActivity{
                                 ((mLevelTwoItemPos == 0) || (mLevelTwoItemPos == 2) || (mLevelTwoItemPos == 3) ||
                                         (mLevelTwoItemPos == 4) || (mLevelTwoItemPos == 5) ||
                                         (mLevelTwoItemPos == 12) || (mLevelTwoItemPos == 13) ||
-                                        (mLevelTwoItemPos == 14)))
+                                        (mLevelTwoItemPos == 14 || (mLevelTwoItemPos == 16)||
+                                        (mLevelTwoItemPos == 17) || (mLevelTwoItemPos == 18) ||
+                                        (mLevelTwoItemPos == 19) || (mLevelTwoItemPos == 20) ||
+                                        (mLevelTwoItemPos == 21) || (mLevelTwoItemPos == 22))))
                             changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
                             //Below if check that selected category icon is Help -> Unsafe touch.
                             // If yes, then enable only don't like, no, less expressive buttons.

@@ -78,7 +78,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
     private EditText mEtTTs;
     private KeyListener originalKeyListener;
     /*This variable hold the views populated in recycler view (category icon) list.*/
-    private RecyclerView mRecyclerView;
+    public RecyclerView mRecyclerView;
     /*This variable indicates index of category icon selected in level one, two and three respectively*/
     private int mLevelOneItemPos, mLevelTwoItemPos, mLevelThreeItemPos = -1;
     /*This variable indicates index of category icon in adapter in level 1. This variable is

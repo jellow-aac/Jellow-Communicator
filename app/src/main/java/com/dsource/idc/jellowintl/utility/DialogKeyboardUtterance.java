@@ -20,11 +20,13 @@ import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 
 public class DialogKeyboardUtterance {
     private Context mContext;
+    private AlertDialog mDialog;
     public DialogKeyboardUtterance(Context context) {
         mContext = context;
     }
 
-    public void show() {
+
+    public AlertDialog show() {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         final View dialogView = LayoutInflater.from(mContext).inflate(R.layout.keyboard_layout, null);
 
@@ -57,20 +59,25 @@ public class DialogKeyboardUtterance {
             }
         });
         builder.setView(dialogView);
-        final AlertDialog dialog = builder.create();
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        mDialog = builder.create();
+        mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         //dialog.setView(dialogView);
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.setCancelable(false);
-        dialog.show();
+        mDialog.setCanceledOnTouchOutside(false);
+        mDialog.setCancelable(false);
+        mDialog.show();
         dialogView.findViewById(R.id.dialog_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
+                mDialog.dismiss();
             }
         });
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        dialog.findViewById(R.id.dialog_back).sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
+        mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        mDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        mDialog.findViewById(R.id.dialog_back).sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
+        return mDialog;
+    }
+
+    public AlertDialog getDialog(){
+        return mDialog;
     }
 }
