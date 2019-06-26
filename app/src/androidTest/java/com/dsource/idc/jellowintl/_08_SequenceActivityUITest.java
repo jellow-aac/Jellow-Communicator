@@ -363,11 +363,11 @@ public class _08_SequenceActivityUITest {
                 getIconPath(mContext, iconNames[pos] + ".png")));
         ImageView icon2 = activityRule.getActivity().findViewById(R.id.image2);
         Bitmap bmIcon2 = Bitmap.createBitmap(icon2.getDrawable().getIntrinsicWidth(),
-                icon1.getDrawable().getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+                icon2.getDrawable().getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
         assert bmIcon2.sameAs(BitmapFactory.decodeFile(
                 getIconPath(mContext, iconNames[pos+1] + ".png")));
         ImageView icon3 = activityRule.getActivity().findViewById(R.id.image3);
-        Bitmap bmIcon3 = Bitmap.createBitmap(icon1.getDrawable().getIntrinsicWidth(),
+        Bitmap bmIcon3 = Bitmap.createBitmap(icon3.getDrawable().getIntrinsicWidth(),
                 icon3.getDrawable().getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
         assert bmIcon3.sameAs(BitmapFactory.decodeFile(
                 getIconPath(mContext, iconNames[pos+2] + ".png")));
