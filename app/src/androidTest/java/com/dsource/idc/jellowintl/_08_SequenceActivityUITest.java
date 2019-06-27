@@ -2,11 +2,8 @@ package com.dsource.idc.jellowintl;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.GradientDrawable;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
@@ -18,8 +15,10 @@ import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import org.hamcrest.core.IsInstanceOf;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 
 import java.util.Random;
 
@@ -34,7 +33,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withResourceName;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
-import static com.dsource.idc.jellowintl.factories.PathFactory.getIconPath;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
 import static com.dsource.idc.jellowintl.utils.EspressoTestMatchers.withDrawable;
 import static com.dsource.idc.jellowintl.utils.FileOperations.copyAssetsToInternalStorage;
@@ -45,15 +43,13 @@ import static org.hamcrest.core.AllOf.allOf;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class _08_SequenceActivityUITest {
     private Context mContext;
     private final String l1Title = "Daily Activities";
     private final String l2Title = "Toilet";
-    private final int levelOneItemPos = 1;
-    private final int levelTwoItemPos = 1;
 
-
-    ActivityTestRule<SequenceActivity> activityRule =
+    private ActivityTestRule<SequenceActivity> activityRule =
             new ActivityTestRule<>(SequenceActivity.class, false, false);
 
     @Before
@@ -65,6 +61,8 @@ public class _08_SequenceActivityUITest {
         manager.setGridSize(4);
         copyAssetsToInternalStorage(mContext);
         extractLanguagePackageZipFile(mContext);
+        int levelOneItemPos = 1;
+        int levelTwoItemPos = 1;
         launchActivityWithCustomIntent(levelOneItemPos, levelTwoItemPos,
                 l1Title.concat("/ " + l2Title + "/ "));
         closeSoftKeyboard();
@@ -272,18 +270,19 @@ public class _08_SequenceActivityUITest {
         String[] belowText = { "1. Close door" , "2. Pull pants down", "3. Sit on toilet",
                 "4. Wash bottom", "5. Flush toilet", "6. Pull pants up",
                 "7. Wash hands", "8. Open door", "9. All done" };
-        String[] iconNames = { "0102020001SS", "0102020002SS", "0102020003SS",
-                "0102020004SS", "0102020005SS", "0102020006SS",
-                "0102020007SS", "0102020008SS", "0102020009SS"};
         int i = 0;
         do {
-            checkIconImageAndBelowText(i, textView, belowText, iconNames);
+            onView(withId(textView[0])).check(matches(withText(belowText[i])));
+            onView(withId(textView[1])).check(matches(withText(belowText[i + 1])));
+            onView(withId(textView[2])).check(matches(withText(belowText[i + 2])));
             onView(withId(R.id.forward)).perform(click());
             i += 3;
         } while (i < 9);
         i-=3;
         do {
-            checkIconImageAndBelowText(i, textView, belowText, iconNames);
+            onView(withId(textView[0])).check(matches(withText(belowText[i])));
+            onView(withId(textView[1])).check(matches(withText(belowText[i + 1])));
+            onView(withId(textView[2])).check(matches(withText(belowText[i + 2])));
             onView(withId(R.id.backward)).perform(click());
             i -= 3;
         } while (i > 0);
@@ -349,28 +348,6 @@ public class _08_SequenceActivityUITest {
         onView(withId(R.id.image2)).check(matches(isDisplayed()));
         onView(withId(R.id.image3)).check(matches(isDisplayed()));
         checkAllExpressiveIconEnabled();
-    }
-
-
-    private void checkIconImageAndBelowText(int pos, int[] textView, String[] belowText, String[] iconNames) {
-        onView(withId(textView[0])).check(matches(withText(belowText[pos])));
-        onView(withId(textView[1])).check(matches(withText(belowText[pos + 1])));
-        onView(withId(textView[2])).check(matches(withText(belowText[pos + 2])));
-        ImageView icon1 = activityRule.getActivity().findViewById(R.id.image1);
-        Bitmap bmIcon1 = Bitmap.createBitmap(icon1.getDrawable().getIntrinsicWidth(),
-                icon1.getDrawable().getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        assert bmIcon1.sameAs(BitmapFactory.decodeFile(
-                getIconPath(mContext, iconNames[pos] + ".png")));
-        ImageView icon2 = activityRule.getActivity().findViewById(R.id.image2);
-        Bitmap bmIcon2 = Bitmap.createBitmap(icon2.getDrawable().getIntrinsicWidth(),
-                icon2.getDrawable().getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        assert bmIcon2.sameAs(BitmapFactory.decodeFile(
-                getIconPath(mContext, iconNames[pos+1] + ".png")));
-        ImageView icon3 = activityRule.getActivity().findViewById(R.id.image3);
-        Bitmap bmIcon3 = Bitmap.createBitmap(icon3.getDrawable().getIntrinsicWidth(),
-                icon3.getDrawable().getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        assert bmIcon3.sameAs(BitmapFactory.decodeFile(
-                getIconPath(mContext, iconNames[pos+2] + ".png")));
     }
 
     private boolean checkAllExpressiveIconVisible(){
