@@ -29,4 +29,10 @@ allprojects {
         jcenter()
         maven { url 'https://jitpack.io' }
     }
+    //Gradle build execution Test time. It will run test in parallel.
+    subprojects {
+        tasks.withType(Test) {
+            maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
+        }
+    }
 }
