@@ -240,4 +240,3 @@ public class _01_UserRegistrationActivityTest {
         }
     }
 }
-/*54, 73 & 160*/

@@ -12,20 +12,19 @@ import java.io.OutputStream;
 import ir.mahdi.mzip.zip.ZipArchive;
 
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
-import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
 
 public class FileOperations {
 
-    public static void copyAssetsToInternalStorage(Context appContext) {
+    public static void copyAssetsToInternalStorage(Context appContext, String language) {
         Context testContext = getInstrumentation().getContext();
         AssetManager assets = testContext.getAssets();
         InputStream in = null;
         OutputStream out = null;
         try {
-            in = assets.open(ENG_IN+".zip", Context.MODE_PRIVATE);
-            File outFile = appContext.getDir(ENG_IN, Context.MODE_PRIVATE);
+            in = assets.open(language+".zip", Context.MODE_PRIVATE);
+            File outFile = appContext.getDir(language, Context.MODE_PRIVATE);
             outFile.mkdir();
-            out = new FileOutputStream(outFile+"/"+ENG_IN+".zip");
+            out = new FileOutputStream(outFile+"/"+language+".zip");
             copyFile(in, out);
             in.close();
             in = null;
@@ -50,10 +49,26 @@ public class FileOperations {
         }
     }
 
-    public static void extractLanguagePackageZipFile(Context context) {
-        File en_dir = context.getDir(ENG_IN, Context.MODE_PRIVATE);
-        ZipArchive.unzip(en_dir.getPath()+"/"+ENG_IN+".zip",en_dir.getPath(),"");
-        File zip = new File(en_dir.getPath(),ENG_IN+".zip");
+    public static void extractLanguagePackageZipFile(Context context, String language) {
+        File en_dir = context.getDir(language, Context.MODE_PRIVATE);
+        ZipArchive.unzip(en_dir.getPath()+"/"+language+".zip",en_dir.getPath(),"");
+        File zip = new File(en_dir.getPath(),language+".zip");
         if(zip.exists()) zip.delete();
+    }
+
+    public static void deletePackageZipFile(Context context, String language) {
+        File file = context.getDir(language, Context.MODE_PRIVATE);
+        if (file.exists()) {
+            deleteRecursive(file);
+        }
+        file.delete();
+    }
+
+    private static void deleteRecursive(File fileObj) {
+        if (fileObj.isDirectory())
+            for (File child : fileObj.listFiles())
+                deleteRecursive(child);
+
+        fileObj.delete();
     }
 }

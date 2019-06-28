@@ -35,6 +35,7 @@ import static org.hamcrest.CoreMatchers.not;
 @LargeTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class _04_ProfileFormActivityTest {
+    SessionManager mSession;
 
     @Rule
     public ActivityTestRule<ProfileFormActivity> activityRule =
@@ -43,9 +44,9 @@ public class _04_ProfileFormActivityTest {
     @Before
     public void setup(){
         Context context = getInstrumentation().getTargetContext();
-        SessionManager manager = new SessionManager(context);
-        manager.setCaregiverNumber("9653238072");
-        manager.setUserCountryCode("91");
+        mSession = new SessionManager(context);
+        mSession.setCaregiverNumber("9653238072");
+        mSession.setUserCountryCode("91");
         activityRule.launchActivity(null);
     }
 
@@ -143,13 +144,13 @@ public class _04_ProfileFormActivityTest {
     }
 
     @Test
-    public void _04validateAppRegistrationProcess(){
+    public void _04validateDataSave(){
         //Fill form data
         try {
-            onView(withId(R.id.etName)).perform(typeText("Akash"), closeSoftKeyboard());
-            onView(withId(R.id.etFathercontact)).perform(typeText("9653238072"),
+            onView(withId(R.id.etName)).perform(clearText(), typeText("Akash"), closeSoftKeyboard());
+            onView(withId(R.id.etFathercontact)).perform(clearText(), typeText("9653238072"),
                     closeSoftKeyboard());
-            onView(withId(R.id.etEmailId)).perform(click(), typeText(
+            onView(withId(R.id.etEmailId)).perform(click(), clearText(), typeText(
                     "jellowcommunicator@gmail.com"), closeSoftKeyboard());
             onView(withId(R.id.radioTherapist)).perform(click(), closeSoftKeyboard());
             onView(withId(R.id.bSave)).perform(click());
@@ -160,7 +161,9 @@ public class _04_ProfileFormActivityTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }catch (Exception e){
+            mSession.setToastMessage("");
             return;
         }
+        mSession.setToastMessage("");
     }
 }
