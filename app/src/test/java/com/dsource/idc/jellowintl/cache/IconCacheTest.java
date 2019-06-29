@@ -97,4 +97,9 @@ public class IconCacheTest {
         IconCache.setMiscellaneousIcons(miscellaneousIcons);
         assert IconCache.getMiscellaneousIcons() != null;
     }
+
+    @Test
+    public void legacyTests(){
+        IconCache iconCache = new IconCache();
+    }
 }

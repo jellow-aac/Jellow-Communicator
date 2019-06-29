@@ -16,6 +16,11 @@ public class CacheManagerTest {
         assert isIconCacheCleared() && isPathCacheCleared() && isMemoryCacheCleared();
     }
 
+    @Test
+    public void legacytests(){
+        CacheManager cacheManager = new CacheManager();
+    }
+
     private boolean isIconCacheCleared() {
         return IconCache.getL1Icons() == null &&
                 IconCache.getAllL2Icons() == null &&

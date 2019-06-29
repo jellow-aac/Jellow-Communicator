@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class CustomGridLayoutManager extends GridLayoutManager {
+public class  CustomGridLayoutManager extends GridLayoutManager {
     private static final float MILLISECONDS_PER_INCH_9_ICONS = 50f;
     private static final float MILLISECONDS_PER_INCH_3_ICONS=25f;
     private Context mContext;

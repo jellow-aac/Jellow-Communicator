@@ -51,4 +51,33 @@ public class AnalyticsTest {
         Analytics.updateSessionRef("9653238071");
         assert !oldRef.equals(Analytics.getSessionRef());
     }
+
+    @Test
+    public void resetAnalyticsTest(){
+        Analytics.resetAnalytics(mContext, "9999999999");
+    }
+
+    @Test
+    public void setUserPropertyTest(){
+        Analytics.setUserProperty("testName","testValue");
+    }
+
+    @Test
+    public void measuringTest(){
+        Analytics.startMeasuring();
+        try{
+            Analytics.stopMeasuring("Test");
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void analyticsActiveTest(){
+        assert Analytics.isAnalyticsActive();
+    }
+    @Test
+    public void legacyTests(){
+        Analytics analytics = new Analytics();
+    }
 }
