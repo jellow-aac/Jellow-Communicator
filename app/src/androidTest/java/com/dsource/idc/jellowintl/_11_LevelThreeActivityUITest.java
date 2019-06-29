@@ -1,6 +1,5 @@
 package com.dsource.idc.jellowintl;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.view.View;
@@ -13,7 +12,6 @@ import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
 import com.dsource.idc.jellowintl.utility.DataBaseHelper;
-import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import org.hamcrest.core.IsInstanceOf;
 import org.junit.Before;
@@ -37,7 +35,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withResourceName;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
@@ -45,6 +42,8 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
 import static com.dsource.idc.jellowintl.utils.EspressoTestMatchers.withDrawable;
 import static com.dsource.idc.jellowintl.utils.FileOperations.copyAssetsToInternalStorage;
 import static com.dsource.idc.jellowintl.utils.FileOperations.extractLanguagePackageZipFile;
+import static com.dsource.idc.jellowintl.utils.TestClassUtils.getContext;
+import static com.dsource.idc.jellowintl.utils.TestClassUtils.getSession;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.core.AllOf.allOf;
@@ -52,7 +51,6 @@ import static org.hamcrest.core.AllOf.allOf;
 @LargeTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class _11_LevelThreeActivityUITest {
-    private Context mContext;
     private final String l1Title = "Fun";
     private final String l2Title = "Outdoor Games";
     private final int levelOneItemPos = 3;
@@ -64,26 +62,24 @@ public class _11_LevelThreeActivityUITest {
 
     @Before
     public void setup(){
-        mContext = getInstrumentation().getTargetContext();
-        SessionManager manager = new SessionManager(mContext);
-        manager.setCaregiverNumber("9653238072");
-        manager.setLanguage(ENG_IN);
-        manager.setGridSize(4);
-        copyAssetsToInternalStorage(mContext, ENG_IN);
-        extractLanguagePackageZipFile(mContext, ENG_IN);
-        DataBaseHelper dbHelper = new DataBaseHelper(mContext);
+        getSession().setCaregiverNumber("9653238072");
+        getSession().setLanguage(ENG_IN);
+        getSession().setGridSize(4);
+        copyAssetsToInternalStorage(getContext(), ENG_IN);
+        extractLanguagePackageZipFile(getContext(), ENG_IN);
+        DataBaseHelper dbHelper = new DataBaseHelper(getContext());
         dbHelper.delete();
-        dbHelper = new DataBaseHelper(mContext);
+        dbHelper = new DataBaseHelper(getContext());
         dbHelper.createDataBase();
         dbHelper.openDataBase();
         dbHelper.addLanguageDataToDatabase();
         dbHelper.setLevel(levelOneItemPos,levelTwoItemPos,"0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
         Intent intent = new Intent();
-        intent.putExtra(mContext.getString(R.string.level_one_intent_pos_tag),
+        intent.putExtra(getContext().getString(R.string.level_one_intent_pos_tag),
                 levelOneItemPos);
-        intent.putExtra(mContext.getString(R.string.level_2_item_pos_tag),
+        intent.putExtra(getContext().getString(R.string.level_2_item_pos_tag),
                 levelTwoItemPos);
-        intent.putExtra(mContext.getString(R.string.intent_menu_path_tag),
+        intent.putExtra(getContext().getString(R.string.intent_menu_path_tag),
                 l1Title.concat("/ " + l2Title + "/ "));
         activityRule.launchActivity(intent);
     }
@@ -117,7 +113,7 @@ public class _11_LevelThreeActivityUITest {
                 actionOnItemAtPosition(levelTwoItemPos, click()));
         View view = activityRule.getActivity().mRecyclerView.getChildAt(levelTwoItemPos);
         GradientDrawable gd = (GradientDrawable) view.findViewById(R.id.borderView).getBackground();
-        assert gd.getColor().equals(ContextCompat.getColor(mContext, R.color.colorSelect));
+        assert gd.getColor().equals(ContextCompat.getColor(getContext(), R.color.colorSelect));
         onView(withId(R.id.ivlike)).check(matches(withDrawable(R.drawable.like)));
         onView(withId(R.id.ivyes)).check(matches(withDrawable(R.drawable.yes)));
         onView(withId(R.id.ivadd)).check(matches(withDrawable(R.drawable.more)));
@@ -395,7 +391,7 @@ public class _11_LevelThreeActivityUITest {
     public void _04_02validateCategoryPreferencesIncrement() {
         View v = activityRule.getActivity().mRecyclerView.getChildAt(1);
         String itemOneBelowText = ((TextView)v.findViewById(R.id.te1)).getText().toString();
-        DataBaseHelper dbHelper = new DataBaseHelper(mContext);
+        DataBaseHelper dbHelper = new DataBaseHelper(getContext());
         dbHelper.openDataBase();
         String prefString = dbHelper.getLevel(levelOneItemPos, levelTwoItemPos);
         assert "Park".equals(itemOneBelowText);
@@ -709,9 +705,9 @@ public class _11_LevelThreeActivityUITest {
     private void createIntentLaunchActivity(int l1Pos, int l2Pos){
         activityRule.getActivity().finish();
         Intent intent = new Intent();
-        intent.putExtra(mContext.getString(R.string.level_one_intent_pos_tag), l1Pos);
-        intent.putExtra(mContext.getString(R.string.level_2_item_pos_tag), l2Pos);
-        intent.putExtra(mContext.getString(R.string.intent_menu_path_tag), "dummyForTest");
+        intent.putExtra(getContext().getString(R.string.level_one_intent_pos_tag), l1Pos);
+        intent.putExtra(getContext().getString(R.string.level_2_item_pos_tag), l2Pos);
+        intent.putExtra(getContext().getString(R.string.intent_menu_path_tag), "dummyForTest");
         activityRule.launchActivity(intent);
     }
 

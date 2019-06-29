@@ -1,66 +1,70 @@
 package com.dsource.idc.jellowintl;
 
-import android.content.Context;
-
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 
-import com.dsource.idc.jellowintl.utility.SessionManager;
+import com.dsource.idc.jellowintl.cache.CacheManager;
+import com.dsource.idc.jellowintl.factories.TextFactory;
+import com.dsource.idc.jellowintl.utility.DataBaseHelper;
 
-import org.junit.Before;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
+import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 
-import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
+import static com.dsource.idc.jellowintl.utils.FileOperations.copyAssetsToInternalStorage;
+import static com.dsource.idc.jellowintl.utils.FileOperations.extractLanguagePackageZipFile;
+import static com.dsource.idc.jellowintl.utils.TestClassUtils.getContext;
+import static com.dsource.idc.jellowintl.utils.TestClassUtils.getSession;
 import static junit.framework.TestCase.assertTrue;
 
-@RunWith(AndroidJUnit4.class)
+//@RunWith(AndroidJUnit4.class)
 @LargeTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class _07_ResetPreferencesActivityTest {
-    private Context mContext;
+    @Rule
+    public ActivityTestRule<ResetPreferencesActivity> activityRule =
+            new ActivityTestRule<>(ResetPreferencesActivity.class);
 
-    ActivityTestRule<ResetPreferencesActivity> activityRule =
-            new ActivityTestRule<>(ResetPreferencesActivity.class, false, false);
-
-    @Before
-    public void setup(){
-        mContext = getInstrumentation().getTargetContext();
-        SessionManager manager = new SessionManager(mContext);
-        manager.setCaregiverNumber("9653238072");
-        manager.setLanguage(ENG_IN);
-        manager.setGridSize(4);
-        /*DataBaseHelper dbHelper = new DataBaseHelper(mContext);
+    @BeforeClass
+    public static void setup(){
+        getSession().setCaregiverNumber("9653238072");
+        getSession().setLanguage(ENG_IN);
+        getSession().setGridSize(4);
+        copyAssetsToInternalStorage(getContext(), ENG_IN);
+        extractLanguagePackageZipFile(getContext(), ENG_IN);
+        DataBaseHelper dbHelper = new DataBaseHelper(getContext());
         dbHelper.createDataBase();
         dbHelper.openDataBase();
-        copyAssetsToInternalStorage(mContext, ENG_IN);
-        extractLanguagePackageZipFile(mContext, ENG_IN);*/
-        activityRule.launchActivity(null);
-        closeSoftKeyboard();
     }
 
-    /*@Test
+    @AfterClass
+    public static void cleanUp(){
+        getSession().setCaregiverNumber("");
+        CacheManager.clearCache();
+        TextFactory.clearJson();
+    }
+
+    @Test
     public void _01_preferencesResetTest(){
         onView(withId(R.id.yes)).perform(click());
         try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {
+            assert getSession().isLanguageChanged() == 0;
+            assert !getSession().isRequiredToPerformDbOperations();
+            assert getSession().getPeoplePreferences().isEmpty();
+            assertTrue(activityRule.getActivity().isDestroyed());
+        }catch(Exception e){
             e.printStackTrace();
         }
-        SessionManager manager = new SessionManager(mContext);
-        manager.setLanguageChange(2);
-        //assert manager.isLanguageChanged() == 0;
-        assert !manager.isRequiredToPerformDbOperations();
-        assert manager.getPeoplePreferences().isEmpty();
-        assertTrue(activityRule.getActivity().isDestroyed());
-    }*/
+    }
 
-    @Test
+    /*@Test
     public void _02_backPressedTest(){
         activityRule.getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -75,5 +79,5 @@ public class _07_ResetPreferencesActivityTest {
             e.printStackTrace();
         }
         assertTrue(activityRule.getActivity().isDestroyed());
-    }
+    }*/
 }

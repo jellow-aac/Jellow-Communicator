@@ -1,14 +1,11 @@
 package com.dsource.idc.jellowintl;
 
-import android.content.Context;
-
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
-import com.dsource.idc.jellowintl.utility.SessionManager;
-
-import org.junit.Before;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,34 +14,34 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
-import static junit.framework.TestCase.assertTrue;
+import static com.dsource.idc.jellowintl.utils.TestClassUtils.getContext;
+import static com.dsource.idc.jellowintl.utils.TestClassUtils.getSession;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class _08_AboutJellowActivityTest {
     @Rule
     public ActivityTestRule<AboutJellowActivity> activityRule =
-            new ActivityTestRule<>(AboutJellowActivity.class, false, false);
+            new ActivityTestRule<>(AboutJellowActivity.class);
 
-    @Before
-    public void stubAllExternalIntents() {
-        final Context context = getInstrumentation().getTargetContext();
-        //private TextToSpeech ttsEngine;
-        SessionManager mSession = new SessionManager(context);
-        mSession.setCaregiverNumber("9653238072");
-        activityRule.launchActivity(null);
+    @BeforeClass
+    public static void setup(){
+        getSession().setCaregiverNumber("9653238072");
+    }
+
+    @AfterClass
+    public static void cleanUp(){
+        getSession().setCaregiverNumber("");
     }
 
     @Test
     public void _01_validateSoftwareVersionInfo(){
-        final Context context = getInstrumentation().getTargetContext();
-        String versionInfo = context.getString(R.string.software_info)
+        String versionInfo = getContext().getString(R.string.software_info)
                 .replace("_", BuildConfig.VERSION_NAME);
         onView(withId(R.id.tv8)).check(matches(withText(versionInfo)));
     }
 
-    @Test
+    /*@Test
     public void _02_backPressedTest(){
         activityRule.getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -59,7 +56,7 @@ public class _08_AboutJellowActivityTest {
             e.printStackTrace();
         }
         assertTrue(activityRule.getActivity().isDestroyed());
-    }
+    }*/
 
     /*@Test
     public void _01_isTtsSynthesizeInProcess(){

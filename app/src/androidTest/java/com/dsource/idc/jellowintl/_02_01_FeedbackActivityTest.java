@@ -1,15 +1,13 @@
 package com.dsource.idc.jellowintl;
 
-import android.content.Context;
-
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
-import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.dsource.idc.jellowintl.utils.ToastMatcher;
 
-import org.junit.Before;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
@@ -24,7 +22,7 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+import static com.dsource.idc.jellowintl.utils.TestClassUtils.getSession;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -32,14 +30,16 @@ import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentat
 public class _02_01_FeedbackActivityTest {
     @Rule
     public ActivityTestRule<FeedbackActivity> activityRule =
-            new ActivityTestRule<>(FeedbackActivity.class, false, false);
+            new ActivityTestRule<>(FeedbackActivity.class);
 
-    @Before
-    public void setup(){
-        Context context = getInstrumentation().getTargetContext();
-        SessionManager manager = new SessionManager(context);
-        manager.setCaregiverNumber("9653238072");
-        activityRule.launchActivity(null);
+    @BeforeClass
+    public static void setup(){
+        getSession().setCaregiverNumber("9653238072");
+    }
+
+    @AfterClass
+    public static void cleanUp(){
+        getSession().setCaregiverNumber("");
     }
 
     @Test
@@ -55,7 +55,6 @@ public class _02_01_FeedbackActivityTest {
             onView(withText(R.string.rate_jellow))
                     .inRoot(new ToastMatcher())
                     .check(matches(isDisplayed()));
-            activityRule.finishActivity();
         }catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -74,7 +73,6 @@ public class _02_01_FeedbackActivityTest {
             onView(withText(R.string.rate_jellow))
                     .inRoot(new ToastMatcher())
                     .check(matches(isDisplayed()));
-            activityRule.finishActivity();
         }catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -94,7 +92,6 @@ public class _02_01_FeedbackActivityTest {
             onView(withText(R.string.rate_jellow))
                     .inRoot(new ToastMatcher())
                     .check(matches(isDisplayed()));
-            activityRule.finishActivity();
         }catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -114,7 +111,6 @@ public class _02_01_FeedbackActivityTest {
             onView(withText(R.string.rate_jellow))
                     .inRoot(new ToastMatcher())
                     .check(matches(isDisplayed()));
-            activityRule.finishActivity();
         }catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -122,14 +118,12 @@ public class _02_01_FeedbackActivityTest {
 
     @Test
     public void _05validateAddedComments(){
-            onView(withId(R.id.easy_to_use)).perform(click());
-            onView(withId(R.id.pictures)).perform(click());
-            onView(withId(R.id.voice)).perform(click());
-            onView(withId(R.id.navigate)).perform(click());
-            onView(withId(R.id.bSubmit)).perform(click());
-            onView(withText(R.string.rate_jellow))
-                    .inRoot(new ToastMatcher())
-                    .check(matches(isDisplayed()));
-            activityRule.finishActivity();
+        onView(withId(R.id.easy_to_use)).perform(click());
+        onView(withId(R.id.pictures)).perform(click());
+        onView(withId(R.id.voice)).perform(click());
+        onView(withId(R.id.navigate)).perform(click());
+        onView(withId(R.id.bSubmit)).perform(click());
+        onView(withText(R.string.rate_jellow))
+            .inRoot(new ToastMatcher()).check(matches(isDisplayed()));
     }
 }

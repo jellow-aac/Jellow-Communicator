@@ -1,15 +1,14 @@
 package com.dsource.idc.jellowintl;
 
-import android.content.Context;
-
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
-import com.dsource.idc.jellowintl.utility.SessionManager;
+import com.dsource.idc.jellowintl.utils.ToastMatcher;
 
-import org.junit.Before;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
@@ -27,7 +26,7 @@ import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+import static com.dsource.idc.jellowintl.utils.TestClassUtils.getSession;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 
@@ -35,19 +34,21 @@ import static org.hamcrest.CoreMatchers.not;
 @LargeTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class _04_ProfileFormActivityTest {
-    SessionManager mSession;
-
     @Rule
     public ActivityTestRule<ProfileFormActivity> activityRule =
-            new ActivityTestRule<>(ProfileFormActivity.class, false, false);
+            new ActivityTestRule<>(ProfileFormActivity.class);
 
-    @Before
-    public void setup(){
-        Context context = getInstrumentation().getTargetContext();
-        mSession = new SessionManager(context);
-        mSession.setCaregiverNumber("9653238072");
-        mSession.setUserCountryCode("91");
-        activityRule.launchActivity(null);
+    @BeforeClass
+    public static void setup(){
+        getSession().setUserCountryCode("91");
+        getSession().setCaregiverNumber("9653238072");
+    }
+
+    @AfterClass
+    public static void cleanUp(){
+        getSession().setCaregiverNumber("");
+        getSession().setUserCountryCode("");
+        getSession().setToastMessage("");
     }
 
     @Test
@@ -55,8 +56,7 @@ public class _04_ProfileFormActivityTest {
         onView(withId(R.id.parentScroll)).perform(swipeDown());
         onView(ViewMatchers.withId(R.id.etName)).perform(clearText());
         onView(withId(R.id.bSave)).perform(click());
-        onView(withText(R.string.enterTheName))
-                .inRoot(withDecorView(not(is(activityRule.getActivity().getWindow().getDecorView()))))
+        onView(withText(R.string.enterTheName)).inRoot(new ToastMatcher())
                 .check(matches(isDisplayed()));
     }
 
@@ -67,26 +67,19 @@ public class _04_ProfileFormActivityTest {
                     closeSoftKeyboard());
             onView(withId(R.id.etFathercontact)).perform(clearText());
             onView(withId(R.id.bSave)).perform(click());
-            onView(withText(R.string.enternonemptycontact))
-                    .inRoot(withDecorView(not(is(
-                            activityRule.getActivity().getWindow().getDecorView()))))
+            onView(withText(R.string.enternonemptycontact)).inRoot(new ToastMatcher())
                     .check(matches(isDisplayed()));
             Thread.sleep(1500);
             onView(withId(R.id.etFathercontact)).perform(typeText("("), closeSoftKeyboard());
             onView(withId(R.id.bSave)).perform(click());
-            onView(withText(R.string.enternonemptycontact))
-                    .inRoot(withDecorView(not(is(
-                            activityRule.getActivity().getWindow().getDecorView()))))
+            onView(withText(R.string.enternonemptycontact)).inRoot(new ToastMatcher())
                     .check(matches(isDisplayed()));
             Thread.sleep(1500);
-            onView(withId(R.id.etFathercontact)).perform(
-                    clearText(),
-                    typeText("number in text"),
-                    closeSoftKeyboard());
+            onView(withId(R.id.etFathercontact)).perform(clearText(),
+                    typeText("number in text"),closeSoftKeyboard());
             onView(withId(R.id.bSave)).perform(click());
             onView(withText(R.string.enternonemptycontact))
-                    .inRoot(withDecorView(not(is(
-                            activityRule.getActivity().getWindow().getDecorView()))))
+                    .inRoot(new ToastMatcher())
                     .check(matches(isDisplayed()));
             Thread.sleep(1500);
             onView(withId(R.id.etFathercontact)).perform(
@@ -95,9 +88,7 @@ public class _04_ProfileFormActivityTest {
                     closeSoftKeyboard());
             onView(withId(R.id.bSave)).perform(click());
             onView(withText(R.string.enternonemptycontact))
-                    .inRoot(withDecorView(not(is(
-                            activityRule.getActivity().getWindow().getDecorView()))))
-                    .check(matches(isDisplayed()));
+                    .inRoot(new ToastMatcher()).check(matches(isDisplayed()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -107,35 +98,36 @@ public class _04_ProfileFormActivityTest {
     public void _03validateEmailId(){
         try {
             onView(withId(R.id.etName)).perform(typeText("Akash"), closeSoftKeyboard());
-            onView(withId(R.id.etFathercontact)).perform(typeText("9653238072"), closeSoftKeyboard());
+            onView(withId(R.id.etFathercontact)).perform(
+                    typeText("9653238072"), closeSoftKeyboard());
             onView(withId(R.id.etEmailId)).perform(clearText());
             onView(withId(R.id.bSave)).perform(click());
-            onView(withText(R.string.invalid_emailId)).inRoot(withDecorView(not(is(
-                    activityRule.getActivity().getWindow().getDecorView()))))
+            onView(withText(R.string.invalid_emailId)).inRoot(new ToastMatcher())
                     .check(matches(isDisplayed()));
             Thread.sleep(1500);
-            onView(withId(R.id.etEmailId)).perform(typeText("jellowcommunicatorgmail.com"), closeSoftKeyboard());
+            onView(withId(R.id.etEmailId)).perform(typeText(
+                    "jellowcommunicatorgmail.com"), closeSoftKeyboard());
+            onView(withId(R.id.bSave)).perform(click());
+            onView(withText(R.string.invalid_emailId)).inRoot(new ToastMatcher())
+                    .check(matches(isDisplayed()));
+            Thread.sleep(1500);
+            onView(withId(R.id.etEmailId)).perform(clearText(), typeText(
+                    "jellowcommunicator@gmailcom"), closeSoftKeyboard());
             onView(withId(R.id.bSave)).perform(click());
             onView(withText(R.string.invalid_emailId)).inRoot(withDecorView(not(is(
                     activityRule.getActivity().getWindow().getDecorView()))))
                     .check(matches(isDisplayed()));
             Thread.sleep(1500);
-            onView(withId(R.id.etEmailId)).perform(clearText(), typeText("jellowcommunicator@gmailcom"), closeSoftKeyboard());
+            onView(withId(R.id.etEmailId)).perform(clearText(), typeText(
+                    "jellowcommunicator@gmail"), closeSoftKeyboard());
             onView(withId(R.id.bSave)).perform(click());
-            onView(withText(R.string.invalid_emailId)).inRoot(withDecorView(not(is(
-                    activityRule.getActivity().getWindow().getDecorView()))))
+            onView(withText(R.string.invalid_emailId)).inRoot(new ToastMatcher())
                     .check(matches(isDisplayed()));
             Thread.sleep(1500);
-            onView(withId(R.id.etEmailId)).perform(clearText(), typeText("jellowcommunicator@gmail"), closeSoftKeyboard());
+            onView(withId(R.id.etEmailId)).perform(clearText(), typeText(
+                    "@gmail.com"), closeSoftKeyboard());
             onView(withId(R.id.bSave)).perform(click());
-            onView(withText(R.string.invalid_emailId)).inRoot(withDecorView(not(is(
-                    activityRule.getActivity().getWindow().getDecorView()))))
-                    .check(matches(isDisplayed()));
-            Thread.sleep(1500);
-            onView(withId(R.id.etEmailId)).perform(clearText(), typeText("@gmail.com"), closeSoftKeyboard());
-            onView(withId(R.id.bSave)).perform(click());
-            onView(withText(R.string.invalid_emailId)).inRoot(withDecorView(not(is(
-                    activityRule.getActivity().getWindow().getDecorView()))))
+            onView(withText(R.string.invalid_emailId)).inRoot(new ToastMatcher())
                     .check(matches(isDisplayed()));
             Thread.sleep(1500);
         } catch (InterruptedException e) {
@@ -147,23 +139,19 @@ public class _04_ProfileFormActivityTest {
     public void _04validateDataSave(){
         //Fill form data
         try {
-            onView(withId(R.id.etName)).perform(clearText(), typeText("Akash"), closeSoftKeyboard());
-            onView(withId(R.id.etFathercontact)).perform(clearText(), typeText("9653238072"),
+            onView(withId(R.id.etName)).perform(clearText(), typeText("Akash"),
+                    closeSoftKeyboard());
+            onView(withId(R.id.etFathercontact)).perform(clearText(),
+                    typeText("9653238072"),
                     closeSoftKeyboard());
             onView(withId(R.id.etEmailId)).perform(click(), clearText(), typeText(
                     "jellowcommunicator@gmail.com"), closeSoftKeyboard());
             onView(withId(R.id.radioTherapist)).perform(click(), closeSoftKeyboard());
             onView(withId(R.id.bSave)).perform(click());
-            Thread.sleep(500);
             onView(withText(R.string.checkConnectivity)).
-                    inRoot(withDecorView(not(is(activityRule.getActivity().getWindow().
-                    getDecorView())))).check(matches(isDisplayed()));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+                    inRoot(new ToastMatcher()).check(matches(not(isDisplayed())));
         }catch (Exception e){
-            mSession.setToastMessage("");
             return;
         }
-        mSession.setToastMessage("");
     }
 }

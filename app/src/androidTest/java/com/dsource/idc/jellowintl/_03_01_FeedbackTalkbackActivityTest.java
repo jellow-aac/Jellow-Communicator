@@ -1,16 +1,14 @@
 package com.dsource.idc.jellowintl;
 
 
-import android.content.Context;
-
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
-import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.dsource.idc.jellowintl.utils.ToastMatcher;
 
-import org.junit.Before;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
@@ -26,7 +24,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+import static com.dsource.idc.jellowintl.utils.TestClassUtils.getSession;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
@@ -38,14 +36,16 @@ import static org.hamcrest.core.AllOf.allOf;
 public class _03_01_FeedbackTalkbackActivityTest {
     @Rule
     public ActivityTestRule<FeedbackActivityTalkBack> activityRule =
-            new ActivityTestRule<>(FeedbackActivityTalkBack.class, false, false);
+            new ActivityTestRule<>(FeedbackActivityTalkBack.class);
 
-    @Before
-    public void setup(){
-        Context context = getInstrumentation().getTargetContext();
-        SessionManager manager = new SessionManager(context);
-        manager.setCaregiverNumber("9653238072");
-        activityRule.launchActivity(null);
+    @BeforeClass
+    public static void setup(){
+        getSession().setCaregiverNumber("9653238072");
+    }
+
+    @AfterClass
+    public static void cleanUp(){
+        getSession().setCaregiverNumber("");
     }
 
     @Test

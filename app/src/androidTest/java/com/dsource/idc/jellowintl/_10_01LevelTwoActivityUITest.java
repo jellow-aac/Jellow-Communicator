@@ -1,6 +1,5 @@
 package com.dsource.idc.jellowintl;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.view.View;
@@ -12,8 +11,6 @@ import androidx.test.espresso.intent.Intents;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
-
-import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -34,11 +31,12 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withResourceName;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
 import static com.dsource.idc.jellowintl.utils.EspressoTestMatchers.withDrawable;
 import static com.dsource.idc.jellowintl.utils.FileOperations.copyAssetsToInternalStorage;
 import static com.dsource.idc.jellowintl.utils.FileOperations.extractLanguagePackageZipFile;
+import static com.dsource.idc.jellowintl.utils.TestClassUtils.getContext;
+import static com.dsource.idc.jellowintl.utils.TestClassUtils.getSession;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
@@ -47,7 +45,6 @@ import static org.hamcrest.core.IsInstanceOf.instanceOf;
 @LargeTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class _10_01LevelTwoActivityUITest {
-    private Context mContext;
     private final String l1Title = "Fun";
     private final int levelOneItemPos = 3;
     @Rule
@@ -56,17 +53,15 @@ public class _10_01LevelTwoActivityUITest {
 
     @Before
     public void setup(){
-        mContext = getInstrumentation().getTargetContext();
-        SessionManager manager = new SessionManager(mContext);
-        manager.setCaregiverNumber("9653238072");
-        manager.setLanguage(ENG_IN);
-        manager.setGridSize(4);
-        copyAssetsToInternalStorage(mContext, ENG_IN);
-        extractLanguagePackageZipFile(mContext, ENG_IN);
+        getSession().setCaregiverNumber("9653238072");
+        getSession().setLanguage(ENG_IN);
+        getSession().setGridSize(4);
+        copyAssetsToInternalStorage(getContext(), ENG_IN);
+        extractLanguagePackageZipFile(getContext(), ENG_IN);
         Intent intent = new Intent();
-        intent.putExtra(mContext.getString(R.string.level_one_intent_pos_tag),
+        intent.putExtra(getContext().getString(R.string.level_one_intent_pos_tag),
                 levelOneItemPos);
-        intent.putExtra(mContext.getString(R.string.intent_menu_path_tag),
+        intent.putExtra(getContext().getString(R.string.intent_menu_path_tag),
                 l1Title + "/");
         activityRule.launchActivity(intent);
     }
@@ -97,7 +92,7 @@ public class _10_01LevelTwoActivityUITest {
                 actionOnItemAtPosition(levelOneItemPos, click()));
         View view = activityRule.getActivity().mRecyclerView.getChildAt(levelOneItemPos);
         GradientDrawable gd = (GradientDrawable) view.findViewById(R.id.borderView).getBackground();
-        assert gd.getColor().equals(ContextCompat.getColor(mContext, R.color.colorSelect));
+        assert gd.getColor().equals(ContextCompat.getColor(getContext(), R.color.colorSelect));
         onView(withId(R.id.ivlike)).check(matches(withDrawable(R.drawable.like)));
         onView(withId(R.id.ivyes)).check(matches(withDrawable(R.drawable.yes)));
         onView(withId(R.id.ivadd)).check(matches(withDrawable(R.drawable.more)));
@@ -224,9 +219,9 @@ public class _10_01LevelTwoActivityUITest {
         final int helpPos = 8, aboutMePos = 1;
         final String cat = "Help";
         Intent intent = new Intent();
-        intent.putExtra(mContext.getString(R.string.level_one_intent_pos_tag),
+        intent.putExtra(getContext().getString(R.string.level_one_intent_pos_tag),
                 helpPos);
-        intent.putExtra(mContext.getString(R.string.intent_menu_path_tag),
+        intent.putExtra(getContext().getString(R.string.intent_menu_path_tag),
                 cat + "/");
         activityRule.launchActivity(intent);
         //Tapped on Help -> About me
@@ -358,9 +353,9 @@ public class _10_01LevelTwoActivityUITest {
         final int helpPos = 8, itemPos = 10;
         final String cat = "Help";
         Intent intent = new Intent();
-        intent.putExtra(mContext.getString(R.string.level_one_intent_pos_tag),
+        intent.putExtra(getContext().getString(R.string.level_one_intent_pos_tag),
                 helpPos);
-        intent.putExtra(mContext.getString(R.string.intent_menu_path_tag),
+        intent.putExtra(getContext().getString(R.string.intent_menu_path_tag),
                 cat + "/");
         activityRule.launchActivity(intent);
         onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
@@ -374,9 +369,9 @@ public class _10_01LevelTwoActivityUITest {
         final int helpPos = 8, itemPos = 15;
         final String cat = "Help";
         Intent intent = new Intent();
-        intent.putExtra(mContext.getString(R.string.level_one_intent_pos_tag),
+        intent.putExtra(getContext().getString(R.string.level_one_intent_pos_tag),
                 helpPos);
-        intent.putExtra(mContext.getString(R.string.intent_menu_path_tag),
+        intent.putExtra(getContext().getString(R.string.intent_menu_path_tag),
                 cat + "/");
         activityRule.launchActivity(intent);
         onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
@@ -393,8 +388,8 @@ public class _10_01LevelTwoActivityUITest {
         String preferencesString = "1,2,3,4,5,6,7,8,9,0,11,23,45,12,3,4,7,2";
         activityRule.getActivity().getSession().setPeoplePreferences(preferencesString);
         Intent intent = new Intent();
-        intent.putExtra(mContext.getString(R.string.level_one_intent_pos_tag), helpPos);
-        intent.putExtra(mContext.getString(R.string.intent_menu_path_tag),category + "/");
+        intent.putExtra(getContext().getString(R.string.level_one_intent_pos_tag), helpPos);
+        intent.putExtra(getContext().getString(R.string.intent_menu_path_tag),category + "/");
         activityRule.launchActivity(intent);
         View v = activityRule.getActivity().mRecyclerView.getChildAt(0);
         String itemOneBelowText = ((TextView)v.findViewById(R.id.te1)).getText().toString();
@@ -667,8 +662,8 @@ public class _10_01LevelTwoActivityUITest {
         int helpPos = 5;
         String category = "People";
         Intent intent = new Intent();
-        intent.putExtra(mContext.getString(R.string.level_one_intent_pos_tag), helpPos);
-        intent.putExtra(mContext.getString(R.string.intent_menu_path_tag),category + "/");
+        intent.putExtra(getContext().getString(R.string.level_one_intent_pos_tag), helpPos);
+        intent.putExtra(getContext().getString(R.string.intent_menu_path_tag),category + "/");
         activityRule.launchActivity(intent);
         assert activityRule.getActivity().mRecyclerView.getAdapter() instanceof PeopleAdapter;
         activityRule.getActivity().finish();
@@ -676,8 +671,8 @@ public class _10_01LevelTwoActivityUITest {
         helpPos = 7;
         category = "Time And Weather";
         intent = new Intent();
-        intent.putExtra(mContext.getString(R.string.level_one_intent_pos_tag), helpPos);
-        intent.putExtra(mContext.getString(R.string.intent_menu_path_tag),category + "/");
+        intent.putExtra(getContext().getString(R.string.level_one_intent_pos_tag), helpPos);
+        intent.putExtra(getContext().getString(R.string.intent_menu_path_tag),category + "/");
         activityRule.launchActivity(intent);
         assert activityRule.getActivity().mRecyclerView.getAdapter() instanceof LevelTwoAdapter;
     }
@@ -688,9 +683,9 @@ public class _10_01LevelTwoActivityUITest {
         final int helpPos = 8;
         final String cat = "Help";
         Intent intent = new Intent();
-        intent.putExtra(mContext.getString(R.string.level_one_intent_pos_tag),
+        intent.putExtra(getContext().getString(R.string.level_one_intent_pos_tag),
                 helpPos);
-        intent.putExtra(mContext.getString(R.string.intent_menu_path_tag),
+        intent.putExtra(getContext().getString(R.string.intent_menu_path_tag),
                 cat + "/");
         activityRule.launchActivity(intent);
     }

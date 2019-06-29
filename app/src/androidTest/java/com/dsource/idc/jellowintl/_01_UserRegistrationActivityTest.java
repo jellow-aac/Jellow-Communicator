@@ -1,7 +1,5 @@
 package com.dsource.idc.jellowintl;
 
-import android.content.Context;
-
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.NoMatchingRootException;
 import androidx.test.espresso.intent.Intents;
@@ -10,9 +8,8 @@ import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
-import com.dsource.idc.jellowintl.utility.SessionManager;
-
-import org.junit.Before;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
@@ -36,7 +33,7 @@ import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+import static com.dsource.idc.jellowintl.utils.TestClassUtils.getSession;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
@@ -46,17 +43,18 @@ import static org.hamcrest.core.AllOf.allOf;
 @LargeTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class _01_UserRegistrationActivityTest {
-    private SessionManager manager;
     @Rule
     public ActivityTestRule<UserRegistrationActivity> activityRule =
-            new ActivityTestRule<>(UserRegistrationActivity.class, false, false);
+            new ActivityTestRule<>(UserRegistrationActivity.class);
 
-    @Before
-    public void setup(){
-        Context context = getInstrumentation().getTargetContext();
-        manager = new SessionManager(context);
-        manager.setUserLoggedIn(false);
-        activityRule.launchActivity(null);
+    @BeforeClass
+    public static void setup(){
+        getSession().setUserLoggedIn(false);
+    }
+
+    @AfterClass
+    public static void cleanUp(){
+        getSession().setUserLoggedIn(false);
     }
 
     @Test
@@ -78,8 +76,7 @@ public class _01_UserRegistrationActivityTest {
             e.printStackTrace();
             return;
         }
-        manager.setUserLoggedIn(false);
-        activityRule.finishActivity();
+        getSession().setUserLoggedIn(false);
     }
 
     @Test
@@ -109,8 +106,7 @@ public class _01_UserRegistrationActivityTest {
             onView(withText(R.string.enternonemptycontact)).inRoot(withDecorView(not(is(
                     activityRule.getActivity().getWindow().getDecorView()))))
                     .check(matches(isDisplayed()));
-            manager.setUserLoggedIn(false);
-            activityRule.finishActivity();
+            getSession().setUserLoggedIn(false);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -164,8 +160,7 @@ public class _01_UserRegistrationActivityTest {
             onView(withText(R.string.invalid_emailId)).inRoot(withDecorView(not(is(
                     activityRule.getActivity().getWindow().getDecorView()))))
                     .check(matches(isDisplayed()));
-            manager.setUserLoggedIn(false);
-            activityRule.finishActivity();
+            getSession().setUserLoggedIn(false);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -187,7 +182,7 @@ public class _01_UserRegistrationActivityTest {
         onView(withText(R.string.invalid_usergroup)).inRoot(withDecorView(not(is(
                         activityRule.getActivity().getWindow().getDecorView()))))
                 .check(matches(isDisplayed()));
-        manager.setUserLoggedIn(false);
+        getSession().setUserLoggedIn(false);
         activityRule.finishActivity();
     }
 
@@ -214,7 +209,7 @@ public class _01_UserRegistrationActivityTest {
             return;
         }
         Intents.release();
-        manager.setUserLoggedIn(false);
+        getSession().setUserLoggedIn(false);
         activityRule.finishActivity();
     }
 

@@ -14,10 +14,9 @@ import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
-import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.google.firebase.auth.FirebaseAuth;
 
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
@@ -36,11 +35,12 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withResourceName;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
 import static com.dsource.idc.jellowintl.utils.EspressoTestMatchers.withDrawable;
 import static com.dsource.idc.jellowintl.utils.FileOperations.copyAssetsToInternalStorage;
 import static com.dsource.idc.jellowintl.utils.FileOperations.extractLanguagePackageZipFile;
+import static com.dsource.idc.jellowintl.utils.TestClassUtils.getContext;
+import static com.dsource.idc.jellowintl.utils.TestClassUtils.getSession;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
@@ -53,23 +53,20 @@ public class _09_MainActivityUITest {
     private Context mContext;
     @Rule
     public ActivityTestRule<MainActivity> activityRule =
-            new ActivityTestRule<>(MainActivity.class, false, false);
+            new ActivityTestRule<>(MainActivity.class);
 
-    @Before
-    public void setup(){
-        mContext = getInstrumentation().getTargetContext();
-        SessionManager manager = new SessionManager(mContext);
-        manager.setCaregiverNumber("9653238072");
-        manager.setLanguage(ENG_IN);
-        manager.setGridSize(4);
-        copyAssetsToInternalStorage(mContext, ENG_IN);
-        extractLanguagePackageZipFile(mContext, ENG_IN);
-        activityRule.launchActivity(null);
-        Espresso.closeSoftKeyboard();
+    @BeforeClass
+    public static void setup(){
+        getSession().setCaregiverNumber("9653238072");
+        getSession().setLanguage(ENG_IN);
+        getSession().setGridSize(4);
+        copyAssetsToInternalStorage(getContext(), ENG_IN);
+        extractLanguagePackageZipFile(getContext(), ENG_IN);
     }
 
     @Test
     public void _01_01validateActionBarTitleEvent(){
+        Espresso.closeSoftKeyboard();
         onView(ViewMatchers.withId(R.id.recycler_view)).perform(RecyclerViewActions.
                 actionOnItemAtPosition(3, click()));
         View view = activityRule.getActivity().mRecyclerView.getChildAt(3);
@@ -89,6 +86,7 @@ public class _09_MainActivityUITest {
 
     @Test
     public void _01_02validateTappedCategoryItemEvent(){
+        Espresso.closeSoftKeyboard();
         Random randomGenerator = new Random();
         int itemPos = randomGenerator.nextInt(9);
         onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
@@ -107,6 +105,7 @@ public class _09_MainActivityUITest {
 
     @Test
     public void _02_01validateExpressiveLikeButtonTapEvent() {
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
                 actionOnItemAtPosition(3, click()));
         onView(withId(R.id.ivlike)).check(matches(withDrawable(R.drawable.like)));
@@ -125,6 +124,7 @@ public class _09_MainActivityUITest {
 
     @Test
     public void _02_02validateExpressiveDontLikeButtonTapEvent() {
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
                 actionOnItemAtPosition(3, click()));
         onView(withId(R.id.ivdislike)).check(matches(withDrawable(R.drawable.dontlike)));
@@ -143,6 +143,7 @@ public class _09_MainActivityUITest {
 
     @Test
     public void _02_03validateExpressiveYesButtonTapEvent() {
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
                 actionOnItemAtPosition(3, click()));
         onView(withId(R.id.ivyes)).check(matches(withDrawable(R.drawable.yes)));
@@ -161,6 +162,7 @@ public class _09_MainActivityUITest {
 
     @Test
     public void _02_04validateExpressiveNoButtonTapEvent() {
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
                 actionOnItemAtPosition(3, click()));
         onView(withId(R.id.ivno)).check(matches(withDrawable(R.drawable.no)));
@@ -179,6 +181,7 @@ public class _09_MainActivityUITest {
 
     @Test
     public void _02_05validateExpressiveMoreButtonTapEvent() {
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
                 actionOnItemAtPosition(3, click()));
         onView(withId(R.id.ivadd)).check(matches(withDrawable(R.drawable.more)));
@@ -197,6 +200,7 @@ public class _09_MainActivityUITest {
 
     @Test
     public void _02_06validateExpressiveLessButtonTapEvent() {
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
                 actionOnItemAtPosition(3, click()));
         onView(withId(R.id.ivminus)).check(matches(withDrawable(R.drawable.less)));
@@ -215,6 +219,7 @@ public class _09_MainActivityUITest {
 
     @Test
     public void _03_01validateHomeButtonTapEvent() {
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.ivhome)).perform(click());
         onView(allOf(instanceOf(TextView.class),
                 withParent(withResourceName("action_bar"))))
@@ -239,6 +244,7 @@ public class _09_MainActivityUITest {
 
     @Test
     public void _04_01validateKeyboardButtonTapEvent(){
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.keyboard)).perform(click());
         onView(withId(R.id.et)).perform(closeSoftKeyboard());
         onView(withId(R.id.keyboard)).check(matches(withDrawable(R.drawable.keyboard_pressed)));
@@ -275,6 +281,7 @@ public class _09_MainActivityUITest {
 
     @Test
     public void _05_01validateBackButtonTapEvent(){
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.ivback)).check(matches(not(isEnabled())));
         onView(withId(R.id.keyboard)).perform(click());
         onView(withId(R.id.et)).perform(closeSoftKeyboard());
@@ -293,6 +300,28 @@ public class _09_MainActivityUITest {
         onView(withId(R.id.ivminus)).check(matches(isEnabled()));
         onView(withId(R.id.ivback)).check(matches(not(isEnabled())));
     }
+
+    /*@Test
+    public void _06_01_validateAccessibilityDialog(){
+        activityRule.finishActivity();
+        AccessibilityChecks.enable()
+                .setRunChecksFromRootView(true);
+                //.setSuppressingResultMatcher(matchingViews(withId(R.id.recycler_view)));
+        AccessibilityCheckResultUtils.matchesViews(withId(R.id.recycler_view))
+        activityRule.launchActivity(null);
+        onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
+                actionOnItemAtPosition(2, click()));
+        onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
+                actionOnItemAtPosition(2, click()));
+
+        onView(withId(R.id.ivlike)).check(matches(isDisplayed()));
+        onView(withId(R.id.ivyes)).check(matches(isDisplayed()));
+        onView(withId(R.id.ivadd)).check(matches(isDisplayed()));
+        onView(withId(R.id.ivdislike)).check(matches(isDisplayed()));
+        onView(withId(R.id.ivno)).check(matches(isDisplayed()));
+        onView(withId(R.id.ivminus)).check(matches(isDisplayed()));
+        onView(withId(R.id.ivback)).check(matches(not(isDisplayed())));
+    }*/
 
     @Test
     public void _08_00validateVisibleActivity(){

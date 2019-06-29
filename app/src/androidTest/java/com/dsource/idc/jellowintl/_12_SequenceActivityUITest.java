@@ -1,6 +1,5 @@
 package com.dsource.idc.jellowintl;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.view.View;
@@ -32,11 +31,12 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withResourceName;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
 import static com.dsource.idc.jellowintl.utils.EspressoTestMatchers.withDrawable;
 import static com.dsource.idc.jellowintl.utils.FileOperations.copyAssetsToInternalStorage;
 import static com.dsource.idc.jellowintl.utils.FileOperations.extractLanguagePackageZipFile;
+import static com.dsource.idc.jellowintl.utils.TestClassUtils.getContext;
+import static com.dsource.idc.jellowintl.utils.TestClassUtils.getSession;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.core.AllOf.allOf;
@@ -45,7 +45,6 @@ import static org.hamcrest.core.AllOf.allOf;
 @LargeTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class _12_SequenceActivityUITest {
-    private Context mContext;
     private final String l1Title = "Daily Activities";
     private final String l2Title = "Toilet";
 
@@ -54,13 +53,12 @@ public class _12_SequenceActivityUITest {
 
     @Before
     public void setup(){
-        mContext = getInstrumentation().getTargetContext();
-        SessionManager manager = new SessionManager(mContext);
-        manager.setCaregiverNumber("9653238072");
-        manager.setLanguage(ENG_IN);
-        manager.setGridSize(4);
-        copyAssetsToInternalStorage(mContext, ENG_IN);
-        extractLanguagePackageZipFile(mContext, ENG_IN);
+        SessionManager manager = new SessionManager(getContext());
+        getSession().setCaregiverNumber("9653238072");
+        getSession().setLanguage(ENG_IN);
+        getSession().setGridSize(4);
+        copyAssetsToInternalStorage(getContext(), ENG_IN);
+        extractLanguagePackageZipFile(getContext(), ENG_IN);
         int levelOneItemPos = 1;
         int levelTwoItemPos = 1;
         launchActivityWithCustomIntent(levelOneItemPos, levelTwoItemPos,
@@ -106,7 +104,7 @@ public class _12_SequenceActivityUITest {
             onView(withId(categoryIcons[i])).perform(click());
             View view = activityRule.getActivity().findViewById(parent[i]);
             GradientDrawable gd = (GradientDrawable) view.findViewById(borderView[i]).getBackground();
-            assert gd.getColor().equals(ContextCompat.getColor(mContext, R.color.colorSelect));
+            assert gd.getColor().equals(ContextCompat.getColor(getContext(), R.color.colorSelect));
             checkAllExpressiveIconVisible();
             onView(withId(categoryIcons[i])).perform(click());
             checkAllExpressiveIconInvisible();
@@ -391,9 +389,9 @@ public class _12_SequenceActivityUITest {
 
     private void launchActivityWithCustomIntent(int levelOneItemPos, int levelTwoItemPos, String title) {
         Intent intent = new Intent();
-        intent.putExtra(mContext.getString(R.string.level_one_intent_pos_tag), levelOneItemPos);
-        intent.putExtra(mContext.getString(R.string.level_2_item_pos_tag), levelTwoItemPos);
-        intent.putExtra(mContext.getString(R.string.intent_menu_path_tag), title);
+        intent.putExtra(getContext().getString(R.string.level_one_intent_pos_tag), levelOneItemPos);
+        intent.putExtra(getContext().getString(R.string.level_2_item_pos_tag), levelTwoItemPos);
+        intent.putExtra(getContext().getString(R.string.intent_menu_path_tag), title);
         activityRule.launchActivity(intent);
     }
 }
