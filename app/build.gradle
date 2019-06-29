@@ -39,6 +39,7 @@ android {
     }
     testOptions {
         unitTests.returnDefaultValues = true
+        animationsDisabled = true
     }
 
     sourceSets{
@@ -103,6 +104,7 @@ dependencies {
     testImplementation 'org.testng:testng:6.9.6'
     testImplementation 'org.robolectric:robolectric:4.0.2'
     testImplementation "org.robolectric:shadows-multidex:4.0.1"
+    androidTestImplementation 'org.mockito:mockito-android:2.7.22'
 
 }
 

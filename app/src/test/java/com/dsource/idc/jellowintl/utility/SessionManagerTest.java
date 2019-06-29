@@ -102,4 +102,82 @@ public class SessionManagerTest {
         mSession.setPitch(0);
         assert mSession.getPitch() == 50;
     }
+
+    @Test
+    public void langDownloadTest(){
+        mSession.setDownloaded("Test");
+        assert mSession.isDownloaded("Test");
+        mSession.setRemoved("Test");
+        assert !mSession.isDownloaded("Test");
+    }
+
+    @Test
+    public void addressTest(){
+        String address = "Test";
+        mSession.setAddress(address);
+        assert mSession.getAddress().equals(address);
+    }
+
+    @Test
+    public void legacyTests(){
+
+        assert !mSession.isGridSizeKeyExist();
+
+        String peoplePref = "testPref";
+        mSession.setPeoplePreferences(peoplePref);
+        mSession.getPeoplePreferences().equals(peoplePref);
+        mSession.resetUserPeoplePlacesPreferences();
+        assert mSession.getPeoplePreferences().equals("");
+
+        mSession.setCompletedDbOperations(true);
+        assert !mSession.isRequiredToPerformDbOperations();
+
+        String countryCode = "testCode";
+        mSession.setUserCountryCode(countryCode);
+        assert mSession.getUserCountryCode().equals(countryCode);
+
+        mSession.setCompletedIntro(true);
+        assert mSession.isCompletedIntro();
+
+        String encryptedData = "testCryptedData";
+        mSession.setEncryptionData(encryptedData);
+        assert mSession.getEncryptedData().equals(encryptedData);
+
+        long sessionCreationTime = 999L;
+        mSession.setSessionCreatedAt(sessionCreationTime);
+        assert mSession.getSessionCreatedAt().equals(sessionCreationTime);
+
+        String userGroup = "testUserGroup";
+        mSession.setUserGroup(userGroup);
+        assert mSession.getUserGroup().equals(userGroup);
+
+        mSession.setEnableCalling(true);
+        assert mSession.getEnableCalling();
+
+        String toastMsg = "testTosatMsg";
+        mSession.setToastMessage(toastMsg);
+        assert mSession.getToastMessage().equals(toastMsg);
+
+        mSession.setUpdatedFirebase(true);
+        assert mSession.getUpdatedFirebase();
+
+
+        long lastCrashReported = 999L;
+        mSession.setLastCrashReported(lastCrashReported);
+        assert mSession.getLastCrashReported().equals(lastCrashReported);
+
+        mSession.setWifiOnlyBtnPressedOnce(true);
+        assert mSession.isWifiOnlyBtnPressedOnce();
+
+
+
+
+
+
+
+
+
+
+
+    }
 }
