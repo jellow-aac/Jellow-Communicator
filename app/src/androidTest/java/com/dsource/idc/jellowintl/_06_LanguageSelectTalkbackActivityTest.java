@@ -27,7 +27,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_AU;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
-import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_UK;
 import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
 import static com.dsource.idc.jellowintl.utils.FileOperations.copyAssetsToInternalStorage;
 import static com.dsource.idc.jellowintl.utils.FileOperations.deletePackageZipFile;
@@ -54,15 +53,16 @@ public class _06_LanguageSelectTalkbackActivityTest {
         copyAssetsToInternalStorage(getContext(), ENG_IN);
         extractLanguagePackageZipFile(getContext(), ENG_IN);
         getSession().setDownloaded(ENG_IN);
+        getSession().setToastMessage("");
     }
 
     @AfterClass
     public static void cleanUp(){
         getSession().setCaregiverNumber("");
         deletePackageZipFile(getContext(), ENG_IN);
-        deletePackageZipFile(getContext(), ENG_UK);
+        deletePackageZipFile(getContext(), ENG_AU);
         getSession().setRemoved(ENG_IN);
-        getSession().setRemoved(ENG_UK);
+        getSession().setRemoved(ENG_AU);
         getSession().setRemoved(MR_IN);
         getSession().setWifiOnlyBtnPressedOnce(false);
         CacheManager.clearCache();
@@ -157,7 +157,7 @@ public class _06_LanguageSelectTalkbackActivityTest {
     @Test
     public void _04_validateUiForNonTtsLanguage(){
         getSession().setRemoved(ENG_IN);
-        getSession().setRemoved(ENG_UK);
+        getSession().setRemoved(ENG_AU);
         getSession().setDownloaded(MR_IN);
         activityRule.finishActivity();
         activityRule.launchActivity(null);
