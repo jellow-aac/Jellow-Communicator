@@ -20,7 +20,7 @@ before_script:
   - adb install /home/travis/build/jellow-aac/Jellow-Communicator/app/src/debug/tts.apk
 
 script:
-  - ./travis_script.sh
+  - ./home/travis/build/jellow-aac/Jellow-Communicator/app/src/debug/travis_script.sh
 
 env:
   - RUN_SCRIPT=language_pref
