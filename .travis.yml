@@ -22,20 +22,19 @@ before_script:
 script:
   - ./travis_script.sh
 
-
 env:
   - RUN_SCRIPT=language_pref
   - RUN_SCRIPT=feedback_profile
   - RUN_SCRIPT=main_class_one
   - RUN_SCRIPT=main_class_two
-  matrix:
-    - ANDROID_TARGET=android-22 ANDROID_ABI=armeabi-v7a
-    - ANDROID_TARGET=android-22 ANDROID_ABI=armeabi-v7a
-    - ANDROID_TARGET=android-22 ANDROID_ABI=armeabi-v7a
-    - ANDROID_TARGET=android-22 ANDROID_ABI=armeabi-v7a
 
 matrix:
   fast_finish: true
+  allow_failures:
+  - env: RUN_SCRIPT ANDROID_TARGET=android-22 ANDROID_ABI=armeabi-v7a
+  - env: RUN_SCRIPT ANDROID_TARGET=android-22 ANDROID_ABI=armeabi-v7a
+  - env: RUN_SCRIPT ANDROID_TARGET=android-22 ANDROID_ABI=armeabi-v7a
+  - env: RUN_SCRIPT ANDROID_TARGET=android-22 ANDROID_ABI=armeabi-v7a
 
 before_install:
   - yes | sdkmanager "platforms;android-28"
