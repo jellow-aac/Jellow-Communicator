@@ -1,6 +1,6 @@
 # Contributing to Jellow Communicator
 
-Welome to Jellow family and **thank you** for helping with Jellow Communicator
+Welcome to Jellow family and **thank you** for helping with Jellow Communicator
 
 This contributing guide is specifically about contributing to the Jellow Communicator app. Their are many ways you can contribute to Jellow.
 
@@ -28,7 +28,7 @@ To setup project locally follow below steps:
 1. Clone repository or Fork the repository then clone to local machine.
 2. Open Android Studio then choose option "Open an existing Android Studio project". Give the path to cloned folder and press "OK".
 3. Android studio will download automatically the necessary libraries and dependancies for the project.
-4. Once project successfuly is built, then try running it on any physical device or emulator.
+4. Once project successfully is built, then try running it on any physical device or emulator.
 
 ## Submitting Code Changes
 
