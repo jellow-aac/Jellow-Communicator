@@ -25,7 +25,8 @@ before_script:
   - chmod +x /home/travis/build/jellow-aac/Jellow-Communicator/scripts/test_script_four.sh
 
 script:
-  - ./scripts/RUN_SCRIPT
+  - ./scripts/$RUN_SCRIPT
+  - ./scripts/travis_script_main.sh
 
 env:
   - RUN_SCRIPT=test_script_one.sh
