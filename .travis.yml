@@ -18,7 +18,6 @@ before_script:
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
   - adb install /home/travis/build/jellow-aac/Jellow-Communicator/app/src/debug/tts.apk
-  - chmod +x /home/travis/build/jellow-aac/Jellow-Communicator/scripts/travis_script_main.sh
   - chmod +x /home/travis/build/jellow-aac/Jellow-Communicator/scripts/test_script_one.sh
   - chmod +x /home/travis/build/jellow-aac/Jellow-Communicator/scripts/test_script_two.sh
   - chmod +x /home/travis/build/jellow-aac/Jellow-Communicator/scripts/test_script_three.sh
@@ -26,7 +25,6 @@ before_script:
 
 script:
   - ./scripts/$RUN_SCRIPT
-  - ./scripts/travis_script_main.sh
 
 env:
   - RUN_SCRIPT=test_script_one.sh
@@ -45,3 +43,6 @@ matrix:
 before_install:
   - yes | sdkmanager "platforms;android-28"
   - chmod +x gradlew
+
+  after_success:
+    - bash <(curl -s https://codecov.io/bash)
