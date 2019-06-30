@@ -28,11 +28,6 @@ env:
   - TESTFOLDER2=./feedback_profile_test.sh
   - TESTFOLDER3=./main_class_test_one.sh
   - TESTFOLDER4=./main_class_test_two.sh
-  - matrix:
-      - ANDROID_TARGET=android-22 ANDROID_ABI=armeabi-v7a
-      - ANDROID_TARGET=android-22 ANDROID_ABI=armeabi-v7a
-      - ANDROID_TARGET=android-22 ANDROID_ABI=armeabi-v7a
-      - ANDROID_TARGET=android-22 ANDROID_ABI=armeabi-v7a
 
 matrix:
   fast_finish: true

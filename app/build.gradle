@@ -120,7 +120,7 @@ tasks.withType(Test) {
     jacoco.includeNoLocationClasses = true
 }
 
-task jacocoUnifiedUnitInstrumentationTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
+task jacocoUnifiedUnitInstrumentationTestReport(type: JacocoReport, dependsOn: ['createDebugCoverageReport']) {
     reports {
         xml.enabled = true
         html.enabled = true
