@@ -18,11 +18,11 @@ before_script:
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
   - adb install /home/travis/build/jellow-aac/Jellow-Communicator/app/src/debug/tts.apk
-  - chmod +x /scripts/travis_script.sh
-  - chmod +x /scripts/feedback_profile_test.sh
-  - chmod +x /scripts/language_reset_pref_about_jellow_test.sh
-  - chmod +x /scripts/main_class_test_one.sh
-  - chmod +x /scripts/main_class_test_two.sh
+  - chmod +x /home/travis/build/jellow-aac/Jellow-Communicator/scripts/travis_script.sh
+  - chmod +x /home/travis/build/jellow-aac/Jellow-Communicator/scripts/feedback_profile_test.sh
+  - chmod +x /home/travis/build/jellow-aac/Jellow-Communicator/scripts/language_reset_pref_about_jellow_test.sh
+  - chmod +x /home/travis/build/jellow-aac/Jellow-Communicator/scripts/main_class_test_one.sh
+  - chmod +x /home/travis/build/jellow-aac/Jellow-Communicator/scripts/main_class_test_two.sh
 
 script:
   - ./scripts/travis_script.sh
