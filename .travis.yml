@@ -18,20 +18,20 @@ before_script:
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
   - adb install /home/travis/build/jellow-aac/Jellow-Communicator/app/src/debug/tts.apk
-  - chmod +x /home/travis/build/jellow-aac/Jellow-Communicator/scripts/travis_script.sh
-  - chmod +x /home/travis/build/jellow-aac/Jellow-Communicator/scripts/feedback_profile_test.sh
-  - chmod +x /home/travis/build/jellow-aac/Jellow-Communicator/scripts/language_reset_pref_about_jellow_test.sh
-  - chmod +x /home/travis/build/jellow-aac/Jellow-Communicator/scripts/main_class_test_one.sh
-  - chmod +x /home/travis/build/jellow-aac/Jellow-Communicator/scripts/main_class_test_two.sh
+  - chmod +x /home/travis/build/jellow-aac/Jellow-Communicator/scripts/travis_script_main.sh
+  - chmod +x /home/travis/build/jellow-aac/Jellow-Communicator/scripts/test_script_one.sh
+  - chmod +x /home/travis/build/jellow-aac/Jellow-Communicator/scripts/test_script_two.sh
+  - chmod +x /home/travis/build/jellow-aac/Jellow-Communicator/scripts/test_script_three.sh
+  - chmod +x /home/travis/build/jellow-aac/Jellow-Communicator/scripts/test_script_four.sh
 
 script:
-  - ./scripts/travis_script.sh
+  - ./scripts/RUN_SCRIPT
 
 env:
-  - RUN_SCRIPT=language_pref
-  - RUN_SCRIPT=feedback_profile
-  - RUN_SCRIPT=main_class_one
-  - RUN_SCRIPT=main_class_two
+  - RUN_SCRIPT=test_script_one.sh
+  - RUN_SCRIPT=test_script_two.sh
+  - RUN_SCRIPT=test_script_three.sh
+  - RUN_SCRIPT=test_script_four.sh
 
 matrix:
   fast_finish: true
