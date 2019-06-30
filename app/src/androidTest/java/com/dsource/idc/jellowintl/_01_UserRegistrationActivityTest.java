@@ -76,6 +76,7 @@ public class _01_UserRegistrationActivityTest {
             e.printStackTrace();
             return;
         }
+
         getSession().setUserLoggedIn(false);
     }
 
