@@ -84,6 +84,7 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        setVisibleAct(AboutJellowActivity.class.getSimpleName());
         if(!isAnalyticsActive()) {
             resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
         }
