@@ -1,13 +1,16 @@
 package com.dsource.idc.jellowintl;
 
 
-import android.content.Intent;
 import android.widget.TextView;
 
+import androidx.test.espresso.Espresso;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
+
+import com.dsource.idc.jellowintl.utility.DataBaseHelper;
+import com.dsource.idc.jellowintl.utility.IconDataBaseHelper;
 
 import org.hamcrest.core.IsInstanceOf;
 import org.junit.AfterClass;
@@ -43,8 +46,8 @@ import static org.hamcrest.core.AllOf.allOf;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class _16_SearchActivityTest {
     @Rule
-    public ActivityTestRule<SplashActivity> activityRule =
-            new ActivityTestRule<>(SplashActivity.class);
+    public ActivityTestRule<SearchActivity> activityRule =
+            new ActivityTestRule<>(SearchActivity.class);
 
     @BeforeClass
     public static void setup(){
@@ -56,6 +59,14 @@ public class _16_SearchActivityTest {
         getSession().setDownloaded(ENG_IN);
         getSession().setToastMessage("");
         getSession().setLanguageChange(0);
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(getContext());
+        dataBaseHelper.delete();
+        dataBaseHelper.createDataBase();
+        dataBaseHelper.openDataBase();
+        dataBaseHelper.addLanguageDataToDatabase();
+        getSession().setCompletedDbOperations(true);
+        dataBaseHelper.setLevel(0,0,"0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
+        new IconDataBaseHelper(getContext()).createTable(dataBaseHelper.getWritableDatabase());
     }
 
     @AfterClass
@@ -68,57 +79,20 @@ public class _16_SearchActivityTest {
 
     @Test
     public void _01_searchInvalidInputTest(){
-        String visibleAct = "";
-        while (!visibleAct.equals(MainActivity.class.getSimpleName())){
-            visibleAct = activityRule.getActivity().getVisibleAct();
-            if (visibleAct == null)
-                visibleAct = "";
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        activityRule.getActivity().startActivity(
-                new Intent(activityRule.getActivity(),SearchActivity.class));
         onView(withId(R.id.search_auto_complete)).perform(typeText("asdfg"));
         onView(withId(R.id.search_icon_title)).check(matches(withText(R.string.icon_not_found)));
+        Espresso.closeSoftKeyboard();
     }
 
     @Test
     public void _02_searchKeywordTest(){
-        String visibleAct = "";
-        while (!visibleAct.equals(MainActivity.class.getSimpleName())){
-            visibleAct = activityRule.getActivity().getVisibleAct();
-            if (visibleAct == null)
-                visibleAct = "";
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        activityRule.getActivity().startActivity(
-                new Intent(activityRule.getActivity(),SearchActivity.class));
         onView(withId(R.id.search_auto_complete)).perform(typeText("apple"));
         onData(allOf(is(instanceOf(String.class)), containsString("Apple")));
+        Espresso.closeSoftKeyboard();
     }
 
     @Test
     public void _03_searchTapLevelOneTest(){
-        String visibleAct = "";
-        while (!visibleAct.equals(MainActivity.class.getSimpleName())){
-            visibleAct = activityRule.getActivity().getVisibleAct();
-            if (visibleAct == null)
-                visibleAct = "";
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        activityRule.getActivity().startActivity(
-                new Intent(activityRule.getActivity(),SearchActivity.class));
         onView(withId(R.id.search_auto_complete)).perform(typeText("help"));
         onView(withId(R.id.icon_search_recycler_view)).perform(RecyclerViewActions.
                 actionOnItemAtPosition(0, click()));
@@ -130,23 +104,11 @@ public class _16_SearchActivityTest {
         onView(allOf(IsInstanceOf.instanceOf(TextView.class),
                 withParent(withResourceName("action_bar"))))
                 .check(matches(withText("Home")));
+        Espresso.closeSoftKeyboard();
     }
 
     @Test
     public void _04_searchTapLevelTwoTest(){
-        String visibleAct = "";
-        while (!visibleAct.equals(MainActivity.class.getSimpleName())){
-            visibleAct = activityRule.getActivity().getVisibleAct();
-            if (visibleAct == null)
-                visibleAct = "";
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        activityRule.getActivity().startActivity(
-                new Intent(activityRule.getActivity(),SearchActivity.class));
         onView(withId(R.id.search_auto_complete)).perform(typeText("medi"));
         onView(withId(R.id.icon_search_recycler_view)).perform(RecyclerViewActions.
                 actionOnItemAtPosition(0, click()));
@@ -158,33 +120,27 @@ public class _16_SearchActivityTest {
         onView(allOf(IsInstanceOf.instanceOf(TextView.class),
                 withParent(withResourceName("action_bar"))))
                 .check(matches(withText("Help…/")));
+        Espresso.closeSoftKeyboard();
     }
 
     @Test
     public void _05_searchTapLevelThreeTest(){
-        String visibleAct = "";
-        while (!visibleAct.equals(MainActivity.class.getSimpleName())){
-            visibleAct = activityRule.getActivity().getVisibleAct();
-            if (visibleAct == null)
-                visibleAct = "";
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        activityRule.getActivity().startActivity(
-                new Intent(activityRule.getActivity(),SearchActivity.class));
-        onView(withId(R.id.search_auto_complete)).perform(typeText("pear"));
+        onView(withId(R.id.search_auto_complete)).perform(typeText("hi"));
         onView(withId(R.id.icon_search_recycler_view)).perform(RecyclerViewActions.
                 actionOnItemAtPosition(0, click()));
         try {
-            Thread.sleep(1000);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         onView(allOf(IsInstanceOf.instanceOf(TextView.class),
                 withParent(withResourceName("action_bar"))))
-                .check(matches(withText("Eating…/Fruits/")));
+                .check(matches(withText("Greet and Feel…/Greetings/")));
+        Espresso.closeSoftKeyboard();
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

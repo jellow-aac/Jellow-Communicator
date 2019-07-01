@@ -86,10 +86,12 @@ public class _05_LanguageSelectActivityTest {
         onView(withId(R.id.saveBut)).perform(click());
         try {
             Thread.sleep(1500);
+            assertTrue(activityRule.getActivity().isDestroyed());
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        assertTrue(activityRule.getActivity().isDestroyed());
     }
 
     @Test

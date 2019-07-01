@@ -1,17 +1,21 @@
 package com.dsource.idc.jellowintl;
 
+import androidx.test.espresso.Espresso;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
+import androidx.test.runner.AndroidJUnit4;
 
 import com.dsource.idc.jellowintl.cache.CacheManager;
 import com.dsource.idc.jellowintl.factories.TextFactory;
 import com.dsource.idc.jellowintl.utility.DataBaseHelper;
 
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 
 import static androidx.test.espresso.Espresso.onView;
@@ -24,7 +28,7 @@ import static com.dsource.idc.jellowintl.utils.TestClassUtils.getContext;
 import static com.dsource.idc.jellowintl.utils.TestClassUtils.getSession;
 import static junit.framework.TestCase.assertTrue;
 
-//@RunWith(AndroidJUnit4.class)
+@RunWith(AndroidJUnit4.class)
 @LargeTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class _07_ResetPreferencesActivityTest {
@@ -49,6 +53,11 @@ public class _07_ResetPreferencesActivityTest {
         getSession().setCaregiverNumber("");
         CacheManager.clearCache();
         TextFactory.clearJson();
+    }
+
+    @Before
+    public void closeKeyboard(){
+        Espresso.closeSoftKeyboard();
     }
 
     @Test

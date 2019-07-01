@@ -1,60 +1,70 @@
 package com.dsource.idc.jellowintl;
 
-import android.content.Context;
+import android.app.Activity;
+import android.app.Instrumentation;
+import android.provider.MediaStore;
 
+import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.filters.LargeTest;
-import androidx.test.rule.ActivityTestRule;
 
-import com.dsource.idc.jellowintl.utility.DataBaseHelper;
-import com.dsource.idc.jellowintl.utility.SessionManager;
+import com.dsource.idc.jellowintl.utility.DeveloperKey;
+import com.google.android.youtube.player.YouTubeStandalonePlayer;
 
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.runners.MethodSorters;
 
-import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+import static androidx.test.espresso.intent.Intents.intending;
+import static androidx.test.espresso.intent.matcher.IntentMatchers.hasAction;
+import static com.dsource.idc.jellowintl.ThumbnailListener.VISUAL_ACCESS_VIDEO_ID;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
-import static com.dsource.idc.jellowintl.utils.FileOperations.copyAssetsToInternalStorage;
-import static com.dsource.idc.jellowintl.utils.FileOperations.extractLanguagePackageZipFile;
+import static com.dsource.idc.jellowintl.utils.TestClassUtils.getContext;
+import static com.dsource.idc.jellowintl.utils.TestClassUtils.getSession;
 
 //@RunWith(AndroidJUnit4.class)
 @LargeTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class _14_AccessibilitySettingsActivityTest {
-    private Context mContext;
+    //@Rule
+    IntentsTestRule<AccessibilitySettingsActivity> activityRule =
+            new IntentsTestRule<>(AccessibilitySettingsActivity.class);
+    @BeforeClass
+    public static void setup(){
+        getSession().setCaregiverNumber("9653238072");
+        getSession().setLanguage(ENG_IN);
+    }
 
-    ActivityTestRule<AccessibilitySettingsActivity> activityRule =
-            new ActivityTestRule<>(AccessibilitySettingsActivity.class, false, false);
+    @AfterClass
+    public static void cleanUp(){
+        getSession().setCaregiverNumber("");
+    }
 
     @Before
-    public void setup(){
-        mContext = getInstrumentation().getTargetContext();
-        SessionManager manager = new SessionManager(mContext);
-        manager.setCaregiverNumber("9653238072");
-        manager.setLanguage(ENG_IN);
-        manager.setGridSize(4);
-        DataBaseHelper dbHelper = new DataBaseHelper(mContext);
-        dbHelper.createDataBase();
-        dbHelper.openDataBase();
-        copyAssetsToInternalStorage(mContext, ENG_IN);
-        extractLanguagePackageZipFile(mContext, ENG_IN);
-        activityRule.launchActivity(null);
-        closeSoftKeyboard();
+    public void stubCameraIntent() {
+        Instrumentation.ActivityResult result = createYoutTubeActivityResultStub();
+        // Stub the Intent.
+        intending(hasAction(MediaStore.ACTION_IMAGE_CAPTURE)).respondWith(result);
     }
+
 
     /*@Test
     public void _01_validateVideoIntentTest(){
         onView(withId(R.id.thumbnailVisualAccess)).perform(click());
-        Intent intentOne = YouTubeStandalonePlayer.createVideoIntent(
+        *//*Intent intentOne = YouTubeStandalonePlayer.createVideoIntent(
                 activityRule.getActivity(), DeveloperKey.DEVELOPER_KEY,
-                VISUAL_ACCESS_VIDEO_ID, 0, false, false);
+                VISUAL_ACCESS_VIDEO_ID, 0, false, false);*//*
 
-        onView(withId(R.id.thumbnailSwitchAccess)).perform(click());
+        *//*onView(withId(R.id.thumbnailSwitchAccess)).perform(click());
         Intent intentTwo = YouTubeStandalonePlayer.createVideoIntent(
                 activityRule.getActivity(), DeveloperKey.DEVELOPER_KEY,
-                SWITCH_ACCESS_VIDEO_ID, 0, false, false);
+                SWITCH_ACCESS_VIDEO_ID, 0, false, false);*//*
     }*/
 
-
+    private Instrumentation.ActivityResult createYoutTubeActivityResultStub() {
+        return new Instrumentation.ActivityResult(Activity.RESULT_OK, YouTubeStandalonePlayer
+            .createVideoIntent((Activity) getContext(), DeveloperKey.DEVELOPER_KEY,
+                VISUAL_ACCESS_VIDEO_ID, 0, false, false));
+    }
 }
