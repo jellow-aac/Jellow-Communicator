@@ -11,7 +11,8 @@ The current branch (jellow-test-case-module-part-two) define second part of test
 * ResetPreferencesActivity
 * AboutJellowActivity
 * LanguageDownloadActivity
-* TutorialActivity
-* AccessibilitySettingActivity
+* AccessibilitySettingsActivity
 * LanguagePackageUpdateActivity
 * SearchActivity
+* SettingActivity
+* TutorialActivity
