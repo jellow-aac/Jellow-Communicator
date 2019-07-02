@@ -90,10 +90,10 @@ public class _05_LanguageSelectActivityTest {
 
     @Test
     public void _02_validateDeleteExistingLanguageTest(){
+        getSession().setDownloaded(ENG_AU);
         activityRule.getActivity().startActivity(new Intent
                 (activityRule.getActivity(), LanguageSelectActivity.class));
         onView(withId(R.id.delBut)).perform(click());
-        onView(withText("English (IN)")).perform(click());
         onView(withText(R.string.remove)).perform(click());
         onView(withText(R.string.languageRemoved)).inRoot(new ToastMatcher()).
                 check(matches(isDisplayed()));
@@ -135,7 +135,6 @@ public class _05_LanguageSelectActivityTest {
         onView(withId(R.id.delBut)).check(matches(isEnabled()));
         onView(withId(R.id.addBut)).perform(click());
         onView(withText(R.string.downloadableLang)).check(matches(isDisplayed()));
-        onView(withText("English (IN)")).perform(click());
         onView(withText(R.string.download)).perform(click());
         assert getSession().isDownloaded(ENG_IN);
         deletePackageZipFile(getContext(), ENG_IN);
