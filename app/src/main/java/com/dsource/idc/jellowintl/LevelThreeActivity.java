@@ -1564,32 +1564,32 @@ public class LevelThreeActivity extends LevelBaseActivity{
                 btns[i].setOnClickListener(null);
             }
         }else {
-            if(level3IconObjects[getTagPos()].getL().isEmpty()){
+            if(level3IconObjects[getTagPos()].getL().equals("NA")){
                 ivLike.setEnabled(false);
                 ivLike.setAlpha(0.5f);
                 ivLike.setOnClickListener(null);
             }
-            if(level3IconObjects[getTagPos()].getY().isEmpty()){
+            if(level3IconObjects[getTagPos()].getY().equals("NA")){
                 ivYes.setEnabled(false);
                 ivYes.setAlpha(0.5f);
                 ivYes.setOnClickListener(null);
             }
-            if(level3IconObjects[getTagPos()].getM().isEmpty()){
+            if(level3IconObjects[getTagPos()].getM().equals("NA")){
                 ivAdd.setEnabled(false);
                 ivAdd.setAlpha(0.5f);
                 ivAdd.setOnClickListener(null);
             }
-            if(level3IconObjects[getTagPos()].getD().isEmpty()){
+            if(level3IconObjects[getTagPos()].getD().equals("NA")){
                 ivDisLike.setEnabled(false);
                 ivDisLike.setAlpha(0.5f);
                 ivDisLike.setOnClickListener(null);
             }
-            if(level3IconObjects[getTagPos()].getN().isEmpty()){
+            if(level3IconObjects[getTagPos()].getN().equals("NA")){
                 ivNo.setEnabled(false);
                 ivNo.setAlpha(0.5f);
                 ivNo.setOnClickListener(null);
             }
-            if(level3IconObjects[getTagPos()].getS().isEmpty()){
+            if(level3IconObjects[getTagPos()].getS().equals("NA")){
                 ivMinus.setEnabled(false);
                 ivMinus.setAlpha(0.5f);
                 ivMinus.setOnClickListener(null);
@@ -1620,12 +1620,12 @@ public class LevelThreeActivity extends LevelBaseActivity{
     }
 
     private boolean isVerbiageAvailable(int position) {
-        return level3IconObjects[position].getL().isEmpty() &&
-            level3IconObjects[position].getY().isEmpty() &&
-            level3IconObjects[position].getM().isEmpty() &&
-            level3IconObjects[position].getD().isEmpty() &&
-            level3IconObjects[position].getN().isEmpty() &&
-            level3IconObjects[position].getS().isEmpty();
+        return level3IconObjects[position].getL().equals("NA") &&
+            level3IconObjects[position].getY().equals("NA") &&
+            level3IconObjects[position].getM().equals("NA") &&
+            level3IconObjects[position].getD().equals("NA") &&
+            level3IconObjects[position].getN().equals("NA") &&
+            level3IconObjects[position].getS().equals("NA");
     }
 
     private void setBorderToExpression(int btnPos, ImageView[] diagExprBtns) {
