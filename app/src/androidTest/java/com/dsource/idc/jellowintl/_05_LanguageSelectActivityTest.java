@@ -1,6 +1,9 @@
 package com.dsource.idc.jellowintl;
 
+import android.content.Intent;
+
 import androidx.test.espresso.Espresso;
+import androidx.test.espresso.action.ViewActions;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
@@ -21,6 +24,7 @@ import static androidx.test.espresso.action.ViewActions.swipeUp;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isEnabled;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_AU;
@@ -31,7 +35,6 @@ import static com.dsource.idc.jellowintl.utils.FileOperations.deletePackageZipFi
 import static com.dsource.idc.jellowintl.utils.FileOperations.extractLanguagePackageZipFile;
 import static com.dsource.idc.jellowintl.utils.TestClassUtils.getContext;
 import static com.dsource.idc.jellowintl.utils.TestClassUtils.getSession;
-import static junit.framework.TestCase.assertTrue;
 import static org.hamcrest.CoreMatchers.not;
 
 @RunWith(AndroidJUnit4.class)
@@ -39,8 +42,8 @@ import static org.hamcrest.CoreMatchers.not;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class _05_LanguageSelectActivityTest {
     @Rule
-    public ActivityTestRule<LanguageSelectActivity> activityRule =
-            new ActivityTestRule<>(LanguageSelectActivity.class);
+    public ActivityTestRule<MainActivity> activityRule =
+            new ActivityTestRule<>(MainActivity.class);
 
     @BeforeClass
     public static void setup(){
@@ -68,34 +71,27 @@ public class _05_LanguageSelectActivityTest {
     @Test
     public void _01_validateSaveLanguageTest(){
         Espresso.closeSoftKeyboard();
+        activityRule.getActivity().startActivity(new Intent
+                (activityRule.getActivity(), LanguageSelectActivity.class));
         onView(withId(R.id.parentScroll)).perform(swipeUp());
         onView(withId(R.id.saveBut)).perform(click());
         onView(withText(R.string.txt_save_same_lang_def)).inRoot(new ToastMatcher()).
                 check(matches(isDisplayed()));
-        try{
-            Thread.sleep(400);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        onView(isRoot()).perform(ViewActions.pressBack());
         copyAssetsToInternalStorage(getContext(), ENG_AU);
         extractLanguagePackageZipFile(getContext(), ENG_AU);
         getSession().setDownloaded(ENG_AU);
-        activityRule.finishActivity();
-        activityRule.launchActivity(null);
+        activityRule.getActivity().startActivity(new Intent
+                (activityRule.getActivity(), LanguageSelectActivity.class));
         onView(withId(R.id.parentScroll)).perform(swipeUp());
         onView(withId(R.id.saveBut)).perform(click());
-        try {
-            Thread.sleep(1500);
-            assertTrue(activityRule.getActivity().isDestroyed());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        getSession().getLanguage().equals(ENG_AU);
     }
 
     @Test
     public void _02_validateDeleteExistingLanguageTest(){
+        activityRule.getActivity().startActivity(new Intent
+                (activityRule.getActivity(), LanguageSelectActivity.class));
         onView(withId(R.id.delBut)).perform(click());
         onView(withText("English (IN)")).perform(click());
         onView(withText(R.string.remove)).perform(click());
@@ -106,22 +102,22 @@ public class _05_LanguageSelectActivityTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        onView(withId(R.id.addBut)).check(matches(isEnabled()));
-        activityRule.finishActivity();
-        activityRule.launchActivity(null);
+        assert !getSession().isDownloaded(ENG_IN);
+        /*onView(withId(R.id.addBut)).check(matches(isEnabled()));
+        onView(isRoot()).perform(ViewActions.pressBack());
+        activityRule.getActivity().startActivity(new Intent
+                (activityRule.getActivity(), LanguageSelectActivity.class));
         onView(withId(R.id.delBut)).perform(click());
         onView(withText(R.string.no_more_lang_2_del)).inRoot(new ToastMatcher()).
-                check(matches(isDisplayed()));
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+                check(matches(isDisplayed()));*/
+
     }
 
     @Test
     public void _03_validateAddNewLanguageTest(){
         getSession().setWifiOnlyBtnPressedOnce(false);
+        activityRule.getActivity().startActivity(new Intent
+                (activityRule.getActivity(), LanguageSelectActivity.class));
         onView(withId(R.id.addBut)).perform(click());
         onView(withText(R.string.disable_wifi_only)).inRoot(new ToastMatcher()).
                 check(matches(isDisplayed()));
@@ -131,8 +127,9 @@ public class _05_LanguageSelectActivityTest {
             e.printStackTrace();
         }
         getSession().setWifiOnlyBtnPressedOnce(true);
-        activityRule.finishActivity();
-        activityRule.launchActivity(null);
+        onView(isRoot()).perform(ViewActions.pressBack());
+        activityRule.getActivity().startActivity(new Intent
+                (activityRule.getActivity(), LanguageSelectActivity.class));
         onView(withId(R.id.addBut)).perform(click());
         onView(withText(R.string.cancel)).perform(click());
         onView(withId(R.id.delBut)).check(matches(isEnabled()));
@@ -140,16 +137,7 @@ public class _05_LanguageSelectActivityTest {
         onView(withText(R.string.downloadableLang)).check(matches(isDisplayed()));
         onView(withText("English (IN)")).perform(click());
         onView(withText(R.string.download)).perform(click());
-        String str = getContext().getString(R.string.language_downloading)
-                .replace("_","English (IN)");
-        try{
-            onView(withText(str)).inRoot(new ToastMatcher()).check(matches(isDisplayed()));
-            Thread.sleep(20000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        assert getSession().isDownloaded(ENG_IN);
         deletePackageZipFile(getContext(), ENG_IN);
         getSession().setRemoved(ENG_IN);
     }
@@ -159,8 +147,8 @@ public class _05_LanguageSelectActivityTest {
         getSession().setRemoved(ENG_IN);
         getSession().setRemoved(ENG_AU);
         getSession().setDownloaded(MR_IN);
-        activityRule.finishActivity();
-        activityRule.launchActivity(null);
+        activityRule.getActivity().startActivity(new Intent
+                (activityRule.getActivity(), LanguageSelectActivity.class));
         onView(withId(R.id.parentScroll)).perform(swipeUp());
         onView(withId(R.id.tv4)).check(matches(not(isDisplayed())));
         onView(withId(R.id.ivTtsVoiceDat)).check(matches(not(isDisplayed())));

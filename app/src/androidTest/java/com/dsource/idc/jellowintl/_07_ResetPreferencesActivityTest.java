@@ -1,5 +1,7 @@
 package com.dsource.idc.jellowintl;
 
+import android.content.Intent;
+
 import androidx.test.espresso.Espresso;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
@@ -10,7 +12,6 @@ import com.dsource.idc.jellowintl.factories.TextFactory;
 import com.dsource.idc.jellowintl.utility.DataBaseHelper;
 
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
@@ -26,15 +27,14 @@ import static com.dsource.idc.jellowintl.utils.FileOperations.copyAssetsToIntern
 import static com.dsource.idc.jellowintl.utils.FileOperations.extractLanguagePackageZipFile;
 import static com.dsource.idc.jellowintl.utils.TestClassUtils.getContext;
 import static com.dsource.idc.jellowintl.utils.TestClassUtils.getSession;
-import static junit.framework.TestCase.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class _07_ResetPreferencesActivityTest {
     @Rule
-    public ActivityTestRule<ResetPreferencesActivity> activityRule =
-            new ActivityTestRule<>(ResetPreferencesActivity.class);
+    public ActivityTestRule<MainActivity> activityRule =
+            new ActivityTestRule<>(MainActivity.class);
 
     @BeforeClass
     public static void setup(){
@@ -43,9 +43,11 @@ public class _07_ResetPreferencesActivityTest {
         getSession().setGridSize(4);
         copyAssetsToInternalStorage(getContext(), ENG_IN);
         extractLanguagePackageZipFile(getContext(), ENG_IN);
-        DataBaseHelper dbHelper = new DataBaseHelper(getContext());
+        getSession().setDownloaded(ENG_IN);
+        /*DataBaseHelper dbHelper = new DataBaseHelper(getContext());
         dbHelper.createDataBase();
-        dbHelper.openDataBase();
+        dbHelper.addLanguageDataToDatabase();
+        dbHelper.openDataBase();*/
     }
 
     @AfterClass
@@ -55,22 +57,23 @@ public class _07_ResetPreferencesActivityTest {
         TextFactory.clearJson();
     }
 
-    @Before
-    public void closeKeyboard(){
-        Espresso.closeSoftKeyboard();
-    }
-
     @Test
     public void _01_preferencesResetTest(){
+        String pref= "1,0,6,0,3,0,60,2,89";
+        Espresso.closeSoftKeyboard();
+        getSession().setPeoplePreferences(pref);
+        DataBaseHelper dbHelper = new DataBaseHelper(getContext());
+        dbHelper.delete();
+        dbHelper.createDataBase();
+        dbHelper.openDataBase();
+        dbHelper.addLanguageDataToDatabase();
+        dbHelper.setLevel(0,3, pref);
+        assert getSession().getPeoplePreferences().equals(pref);
+        activityRule.getActivity().startActivity(new Intent
+                (activityRule.getActivity(), ResetPreferencesActivity.class));
         onView(withId(R.id.yes)).perform(click());
-        try {
-            assert getSession().isLanguageChanged() == 0;
-            assert !getSession().isRequiredToPerformDbOperations();
-            assert getSession().getPeoplePreferences().isEmpty();
-            assertTrue(activityRule.getActivity().isDestroyed());
-        }catch(Exception e){
-            e.printStackTrace();
-        }
+        assert getSession().getPeoplePreferences().isEmpty();
+        assert !dbHelper.getLevel(0, 3).equals(pref);
     }
 
     /*@Test
