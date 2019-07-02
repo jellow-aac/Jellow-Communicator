@@ -1,11 +1,7 @@
 package com.dsource.idc.jellowintl;
 
-import android.content.Intent;
-
-import androidx.test.espresso.Espresso;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 
 import com.dsource.idc.jellowintl.cache.CacheManager;
 import com.dsource.idc.jellowintl.factories.TextFactory;
@@ -15,20 +11,15 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
 import static com.dsource.idc.jellowintl.utils.FileOperations.copyAssetsToInternalStorage;
 import static com.dsource.idc.jellowintl.utils.FileOperations.extractLanguagePackageZipFile;
 import static com.dsource.idc.jellowintl.utils.TestClassUtils.getContext;
 import static com.dsource.idc.jellowintl.utils.TestClassUtils.getSession;
 
-@RunWith(AndroidJUnit4.class)
+//@RunWith(AndroidJUnit4.class)
 @LargeTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class _07_ResetPreferencesActivityTest {
@@ -60,7 +51,7 @@ public class _07_ResetPreferencesActivityTest {
         TextFactory.clearJson();
     }
 
-    @Test
+    /*@Test
     public void _01_preferencesResetTest(){
         String pref= "1,0,6,0,3,0,60,2,89";
         Espresso.closeSoftKeyboard();
@@ -72,7 +63,7 @@ public class _07_ResetPreferencesActivityTest {
         onView(withId(R.id.yes)).perform(click());
         assert getSession().getPeoplePreferences().isEmpty();
         assert !dbHelper.getLevel(0, 3).equals(pref);
-    }
+    }*/
 
     /*@Test
     public void _02_backPressedTest(){
