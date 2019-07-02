@@ -38,16 +38,19 @@ public class _07_ResetPreferencesActivityTest {
 
     @BeforeClass
     public static void setup(){
+        String pref= "1,0,6,0,3,0,60,2,89";
         getSession().setCaregiverNumber("9653238072");
         getSession().setLanguage(ENG_IN);
         getSession().setGridSize(4);
         copyAssetsToInternalStorage(getContext(), ENG_IN);
         extractLanguagePackageZipFile(getContext(), ENG_IN);
         getSession().setDownloaded(ENG_IN);
-        /*DataBaseHelper dbHelper = new DataBaseHelper(getContext());
+        DataBaseHelper dbHelper = new DataBaseHelper(getContext());
+        dbHelper.delete();
         dbHelper.createDataBase();
+        dbHelper.openDataBase();
         dbHelper.addLanguageDataToDatabase();
-        dbHelper.openDataBase();*/
+        dbHelper.setLevel(0,3, pref);
     }
 
     @AfterClass
@@ -63,12 +66,7 @@ public class _07_ResetPreferencesActivityTest {
         Espresso.closeSoftKeyboard();
         getSession().setPeoplePreferences(pref);
         DataBaseHelper dbHelper = new DataBaseHelper(getContext());
-        dbHelper.delete();
-        dbHelper.createDataBase();
         dbHelper.openDataBase();
-        dbHelper.addLanguageDataToDatabase();
-        dbHelper.setLevel(0,3, pref);
-        assert getSession().getPeoplePreferences().equals(pref);
         activityRule.getActivity().startActivity(new Intent
                 (activityRule.getActivity(), ResetPreferencesActivity.class));
         onView(withId(R.id.yes)).perform(click());
