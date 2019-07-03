@@ -75,6 +75,7 @@ public class _19_MainActivityAccessibilityTest {
     public void _02_validateExpressiveStateOnTap(){
         onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
                 actionOnItemAtPosition(2, doubleClick()));
+        onView(withId(R.id.enterCategory)).check(matches(isDisplayed()));
         onView(withId(R.id.ivlike)).perform(doubleClick());
         onView(withId(R.id.ivlike)).check(matches(withDrawable(R.drawable.like_pressed)));
         onView(withId(R.id.ivyes)).check(matches(withDrawable(R.drawable.yes)));
