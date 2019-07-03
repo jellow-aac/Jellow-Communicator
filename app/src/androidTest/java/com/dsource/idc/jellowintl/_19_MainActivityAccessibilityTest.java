@@ -124,10 +124,10 @@ public class _19_MainActivityAccessibilityTest {
         onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
                 actionOnItemAtPosition(3, doubleClick()));
         onView(withId(R.id.enterCategory)).perform(doubleClick());
-
+        onView(withId(R.id.btnClose)).perform(doubleClick());
         onView(allOf(instanceOf(TextView.class),
                 withParent(withResourceName("action_bar"))))
-                .check(matches(withText("Fun")));
+                .check(matches(withText("Fun/ Outdoor Games")));
     }
 
     @Test
