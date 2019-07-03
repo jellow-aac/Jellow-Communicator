@@ -1,5 +1,7 @@
 package com.dsource.idc.jellowintl;
 
+import android.content.Intent;
+
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
@@ -29,7 +31,7 @@ public class _24_Intro {
 
     @BeforeClass
     public static void setup(){
-        getSession().setUserLoggedIn(true);
+        getSession().setUserLoggedIn(false);
         getSession().setCompletedIntro(false);
         getSession().setCaregiverNumber("9653238072");
         getSession().setLanguage(ENG_IN);
@@ -38,6 +40,8 @@ public class _24_Intro {
 
     @Test
     public void _01_validateSlideTitles(){
+        activityRule.getActivity().startActivity(new Intent(activityRule.getActivity(),
+                Intro.class));
         onView(withId(R.id.tv_intro_title)).check(matches(withText(R.string.txt_intro1_central9btn)));
         onView(withId(R.id.intro_img)).perform(swipeLeft());
         onView(withId(R.id.tv_intro5_title)).check(matches(withText(R.string.txt_intro5_jellowUsageDesc)));
