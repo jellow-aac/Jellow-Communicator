@@ -19,10 +19,10 @@ before_script:
   - adb shell input keyevent 82 &
   - adb install /home/travis/build/jellow-aac/Jellow-Communicator/app/src/debug/tts.apk
   - adb install /home/travis/build/jellow-aac/Jellow-Communicator/app/src/debug/talkback.apk
-  - adb shell settings put secure enabled_accessibility_services com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService
-  - adb shell input keyevent 3 &
 
 script:
+  - adb shell settings put secure enabled_accessibility_services com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService
+  - adb shell input keyevent 3 &
   - ./gradlew build jacocoUnifiedUnitInstrumentationTestReport
 
 before_install:
