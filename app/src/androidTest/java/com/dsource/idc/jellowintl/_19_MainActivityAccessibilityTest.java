@@ -18,6 +18,7 @@ import org.junit.runners.MethodSorters;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.doubleClick;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.RootMatchers.isDialog;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withParent;
@@ -59,16 +60,16 @@ public class _19_MainActivityAccessibilityTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        onView(withId(R.id.enterCategory)).check(matches(isDisplayed()));
-        onView(withId(R.id.btnClose)).check(matches(isDisplayed()));
-        onView(withId(R.id.ivlike)).check(matches(isDisplayed()));
-        onView(withId(R.id.ivyes)).check(matches(isDisplayed()));
-        onView(withId(R.id.ivadd)).check(matches(isDisplayed()));
-        onView(withId(R.id.ivdislike)).check(matches(isDisplayed()));
-        onView(withId(R.id.ivno)).check(matches(isDisplayed()));
-        onView(withId(R.id.ivminus)).check(matches(isDisplayed()));
-        onView(withId(R.id.home)).check(matches(isDisplayed()));
-        onView(withId(R.id.keyboard)).check(matches(isDisplayed()));
+        onView(withId(R.id.enterCategory)).inRoot(isDialog()).check(matches(isDisplayed()));
+        onView(withId(R.id.btnClose)).inRoot(isDialog()).check(matches(isDisplayed()));
+        onView(withId(R.id.ivlike)).inRoot(isDialog()).check(matches(isDisplayed()));
+        onView(withId(R.id.ivyes)).inRoot(isDialog()).check(matches(isDisplayed()));
+        onView(withId(R.id.ivadd)).inRoot(isDialog()).check(matches(isDisplayed()));
+        onView(withId(R.id.ivdislike)).inRoot(isDialog()).check(matches(isDisplayed()));
+        onView(withId(R.id.ivno)).inRoot(isDialog()).check(matches(isDisplayed()));
+        onView(withId(R.id.ivminus)).inRoot(isDialog()).check(matches(isDisplayed()));
+        onView(withId(R.id.home)).inRoot(isDialog()).check(matches(isDisplayed()));
+        onView(withId(R.id.keyboard)).inRoot(isDialog()).check(matches(isDisplayed()));
     }
 
     @Test
