@@ -45,6 +45,7 @@ public class SpeechEngineBaseActivity extends BaseActivity{
         setupSpeechEngine();
         map = new HashMap<>();
         map.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, UTTERANCE_ID);
+        setVisibleAct(SpeechEngineBaseActivity.class.getSimpleName());
     }
 
     private void setupSpeechEngine() {
