@@ -1,7 +1,10 @@
 package com.dsource.idc.jellowintl;
 
+import android.widget.TextView;
+
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
+import androidx.test.runner.AndroidJUnit4;
 
 import com.dsource.idc.jellowintl.cache.CacheManager;
 import com.dsource.idc.jellowintl.factories.TextFactory;
@@ -11,15 +14,24 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.withParent;
+import static androidx.test.espresso.matcher.ViewMatchers.withResourceName;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
 import static com.dsource.idc.jellowintl.utils.FileOperations.copyAssetsToInternalStorage;
 import static com.dsource.idc.jellowintl.utils.FileOperations.extractLanguagePackageZipFile;
 import static com.dsource.idc.jellowintl.utils.TestClassUtils.getContext;
 import static com.dsource.idc.jellowintl.utils.TestClassUtils.getSession;
+import static org.hamcrest.core.AllOf.allOf;
+import static org.hamcrest.core.IsInstanceOf.instanceOf;
 
-//@RunWith(AndroidJUnit4.class)
+@RunWith(AndroidJUnit4.class)
 @LargeTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class _07_ResetPreferencesActivityTest {
@@ -64,6 +76,13 @@ public class _07_ResetPreferencesActivityTest {
         assert getSession().getPeoplePreferences().isEmpty();
         assert !dbHelper.getLevel(0, 3).equals(pref);
     }*/
+
+    @Test
+    public void _02_ActionbarTitleTest(){
+        onView(allOf(instanceOf(TextView.class),
+                withParent(withResourceName("action_bar"))))
+                .check(matches(withText(R.string.menuResetPref)));
+    }
 
     /*@Test
     public void _02_backPressedTest(){
