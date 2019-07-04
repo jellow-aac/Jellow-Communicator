@@ -1214,13 +1214,13 @@ public class MainActivity extends LevelBaseActivity{
             }
         });
 
-        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation_2; //style id
+        //dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation_2; //style id
         dialog.show();
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        /*WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         lp.copyFrom(dialog.getWindow().getAttributes());
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.MATCH_PARENT;
-        dialog.getWindow().setAttributes(lp);
+        dialog.getWindow().setAttributes(lp);*/
     }
 
     private void setBorderToExpression(int btnPos, ImageView[] diagExprBtns) {
