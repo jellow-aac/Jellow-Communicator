@@ -16,26 +16,25 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.ViewCompat;
 
 import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class DialogActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dialog);
+        setContentView(R.layout.activity_levelx_layout);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        /*FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showCustomDialog(DialogActivity.this);
-                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*/
+                *//*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*//*
             }
-        });
+        });*/
     }
 
     public void showCustomDialog(Context context) {
@@ -75,47 +74,47 @@ public class DialogActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(DialogActivity.this, "like", Toast.LENGTH_SHORT).show();
                 //mIvLike.performClick();
-                //setBorderToExpression(0, expressiveBtns);
+                setBorderToExpression(0, expressiveBtns);
             }
         });
         ivYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(DialogActivity.this, "Yes", Toast.LENGTH_SHORT).show();
-                /*mIvYes.performClick();
-                setBorderToExpression(1, expressiveBtns);*/
+                //mIvYes.performClick();
+                setBorderToExpression(1, expressiveBtns);
             }
         });
         ivAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(DialogActivity.this, "Add", Toast.LENGTH_SHORT).show();
-                /*mIvMore.performClick();
-                setBorderToExpression(2, expressiveBtns);*/
+                //mIvMore.performClick();
+                setBorderToExpression(2, expressiveBtns);
             }
         });
         ivDisLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(DialogActivity.this, "Dislike", Toast.LENGTH_SHORT).show();
-                /*mIvDontLike.performClick();
-                setBorderToExpression(3, expressiveBtns);*/
+                //mIvDontLike.performClick();
+                setBorderToExpression(3, expressiveBtns);
             }
         });
         ivNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(DialogActivity.this, "No", Toast.LENGTH_SHORT).show();
-                /*mIvNo.performClick();
-                setBorderToExpression(4, expressiveBtns);*/
+                //mIvNo.performClick();
+                setBorderToExpression(4, expressiveBtns);
             }
         });
         ivMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(DialogActivity.this, "Less", Toast.LENGTH_SHORT).show();
-                /*mIvLess.performClick();
-                setBorderToExpression(5, expressiveBtns);*/
+                //mIvLess.performClick();
+                setBorderToExpression(5, expressiveBtns);
             }
         });
 
@@ -173,7 +172,7 @@ public class DialogActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(DialogActivity.this, "Clsoe", Toast.LENGTH_SHORT).show();
                 //clear all selection
-                //clearSelectionAfterAccessibilityDialogClose();
+                clearSelectionAfterAccessibilityDialogClose();
                 //dismiss dialog
                 dialog.dismiss();
             }
@@ -193,5 +192,34 @@ public class DialogActivity extends AppCompatActivity {
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.MATCH_PARENT;
         dialog.getWindow().setAttributes(lp);
+    }
+
+    private void setBorderToExpression(int btnPos, ImageView[] diagExprBtns) {
+        // clear previously selected any expressive button or home button
+        diagExprBtns[0].setImageResource(R.drawable.like);
+        diagExprBtns[1].setImageResource(R.drawable.yes);
+        diagExprBtns[2].setImageResource(R.drawable.more);
+        diagExprBtns[3].setImageResource(R.drawable.dontlike);
+        diagExprBtns[4].setImageResource(R.drawable.no);
+        diagExprBtns[5].setImageResource(R.drawable.less);
+        // set expressive button or home button to pressed state
+        switch (btnPos){
+            case 0: diagExprBtns[0].setImageResource(R.drawable.like_pressed); break;
+            case 1: diagExprBtns[1].setImageResource(R.drawable.yes_pressed); break;
+            case 2: diagExprBtns[2].setImageResource(R.drawable.more_pressed); break;
+            case 3: diagExprBtns[3].setImageResource(R.drawable.dontlike_pressed); break;
+            case 4: diagExprBtns[4].setImageResource(R.drawable.no_pressed); break;
+            case 5: diagExprBtns[5].setImageResource(R.drawable.less_pressed); break;
+            default: break;
+        }
+    }
+
+    private void clearSelectionAfterAccessibilityDialogClose() {
+        //resetRecyclerMenuItemsAndFlags();
+        //Send pending grid event
+      //  mUec.sendEventIfAny("");
+    //    resetExpressiveButtons(-1);
+  //      mShouldReadFullSpeech = false;
+//        mFlgImage = -1;
     }
 }

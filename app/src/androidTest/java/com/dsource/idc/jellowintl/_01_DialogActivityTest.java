@@ -29,7 +29,6 @@ public class _01_DialogActivityTest {
 
     @Test
     public void dialogTest(){
-        //onView(withId(R.id.fab)).perform(click());
         activityRule.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -41,7 +40,6 @@ public class _01_DialogActivityTest {
 
     @Test
     public void dialogTest2(){
-        //onView(withId(R.id.fab)).perform(click());
         activityRule.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -53,7 +51,6 @@ public class _01_DialogActivityTest {
 
     @Test
     public void dialogTest3(){
-        //onView(withId(R.id.fab)).perform(click());
         activityRule.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
