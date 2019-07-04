@@ -70,7 +70,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
      * Check if the database already exist to avoid re-copying the file each time you open the application.
      * @return true if it exists, false if it doesn't
      */
-    private boolean checkDataBase(){
+    public boolean checkDataBase(){
         SQLiteDatabase checkDB = null;
         try{
             checkDB = SQLiteDatabase.openDatabase(mDbPath, null, SQLiteDatabase.OPEN_READWRITE);
@@ -219,7 +219,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         for (int i = 0; i < levelOneIds.size(); i++) {
             for (int j = 0; j < levelTwoIds.size(); j++) {
                 if(i != j) continue;
-                String ids[] = levelTwoIds.get(j).split(",");
+                String[] ids = levelTwoIds.get(j).split(",");
                 for (int k = 0; k < ids.length; k++) {
                     ContentValues cv = new ContentValues();
                     cv.put("layer_1_id",levelOneIds.get(i));

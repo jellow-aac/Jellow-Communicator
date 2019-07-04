@@ -1,35 +1,37 @@
 package com.dsource.idc.jellowintl;
 
-import android.app.Activity;
-import android.app.Instrumentation;
-import android.provider.MediaStore;
+import android.widget.TextView;
 
-import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.filters.LargeTest;
-
-import com.dsource.idc.jellowintl.utility.DeveloperKey;
-import com.google.android.youtube.player.YouTubeStandalonePlayer;
+import androidx.test.rule.ActivityTestRule;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 
-import static androidx.test.espresso.intent.Intents.intending;
-import static androidx.test.espresso.intent.matcher.IntentMatchers.hasAction;
-import static com.dsource.idc.jellowintl.ThumbnailListener.VISUAL_ACCESS_VIDEO_ID;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.withParent;
+import static androidx.test.espresso.matcher.ViewMatchers.withResourceName;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
-import static com.dsource.idc.jellowintl.utils.TestClassUtils.getContext;
 import static com.dsource.idc.jellowintl.utils.TestClassUtils.getSession;
+import static org.hamcrest.core.AllOf.allOf;
+import static org.hamcrest.core.IsInstanceOf.instanceOf;
 
-//@RunWith(AndroidJUnit4.class)
+@RunWith(AndroidJUnit4.class)
 @LargeTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class _14_AccessibilitySettingsActivityTest {
-    //@Rule
-    IntentsTestRule<AccessibilitySettingsActivity> activityRule =
-            new IntentsTestRule<>(AccessibilitySettingsActivity.class);
+    @Rule
+    public ActivityTestRule<AccessibilitySettingsActivity> activityRule =
+            new ActivityTestRule<>(AccessibilitySettingsActivity.class);
+
     @BeforeClass
     public static void setup(){
         getSession().setCaregiverNumber("9653238072");
@@ -41,12 +43,12 @@ public class _14_AccessibilitySettingsActivityTest {
         getSession().setCaregiverNumber("");
     }
 
-    @Before
+    /*@Before
     public void stubCameraIntent() {
         Instrumentation.ActivityResult result = createYoutTubeActivityResultStub();
         // Stub the Intent.
         intending(hasAction(MediaStore.ACTION_IMAGE_CAPTURE)).respondWith(result);
-    }
+    }*/
 
 
     /*@Test
@@ -62,9 +64,17 @@ public class _14_AccessibilitySettingsActivityTest {
                 SWITCH_ACCESS_VIDEO_ID, 0, false, false);*//*
     }*/
 
-    private Instrumentation.ActivityResult createYoutTubeActivityResultStub() {
+
+    @Test
+    public void _02_ActionbarTitleTest(){
+        onView(allOf(instanceOf(TextView.class),
+                withParent(withResourceName("action_bar"))))
+                .check(matches(withText(R.string.menuAccessibility)));
+    }
+
+    /*private Instrumentation.ActivityResult createYoutTubeActivityResultStub() {
         return new Instrumentation.ActivityResult(Activity.RESULT_OK, YouTubeStandalonePlayer
             .createVideoIntent((Activity) getContext(), DeveloperKey.DEVELOPER_KEY,
                 VISUAL_ACCESS_VIDEO_ID, 0, false, false));
-    }
+    }*/
 }
