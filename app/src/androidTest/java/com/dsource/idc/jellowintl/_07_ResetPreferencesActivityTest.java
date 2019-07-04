@@ -8,7 +8,6 @@ import androidx.test.runner.AndroidJUnit4;
 
 import com.dsource.idc.jellowintl.cache.CacheManager;
 import com.dsource.idc.jellowintl.factories.TextFactory;
-import com.dsource.idc.jellowintl.utility.DataBaseHelper;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -24,9 +23,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withResourceName;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
-import static com.dsource.idc.jellowintl.utils.FileOperations.copyAssetsToInternalStorage;
-import static com.dsource.idc.jellowintl.utils.FileOperations.extractLanguagePackageZipFile;
-import static com.dsource.idc.jellowintl.utils.TestClassUtils.getContext;
 import static com.dsource.idc.jellowintl.utils.TestClassUtils.getSession;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
@@ -36,15 +32,15 @@ import static org.hamcrest.core.IsInstanceOf.instanceOf;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class _07_ResetPreferencesActivityTest {
     @Rule
-    public ActivityTestRule<MainActivity> activityRule =
-            new ActivityTestRule<>(MainActivity.class);
+    public ActivityTestRule<ResetPreferencesActivity> activityRule =
+            new ActivityTestRule<>(ResetPreferencesActivity.class);
 
     @BeforeClass
     public static void setup(){
-        String pref= "1,0,6,0,3,0,60,2,89";
+        //String pref= "1,0,6,0,3,0,60,2,89";
         getSession().setCaregiverNumber("9653238072");
         getSession().setLanguage(ENG_IN);
-        getSession().setGridSize(4);
+        /*getSession().setGridSize(4);
         copyAssetsToInternalStorage(getContext(), ENG_IN);
         extractLanguagePackageZipFile(getContext(), ENG_IN);
         getSession().setDownloaded(ENG_IN);
@@ -53,7 +49,7 @@ public class _07_ResetPreferencesActivityTest {
         dbHelper.createDataBase();
         dbHelper.openDataBase();
         dbHelper.addLanguageDataToDatabase();
-        dbHelper.setLevel(0,3, pref);
+        dbHelper.setLevel(0,3, pref);*/
     }
 
     @AfterClass
