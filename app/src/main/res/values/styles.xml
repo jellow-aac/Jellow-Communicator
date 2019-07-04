@@ -15,6 +15,7 @@
         <item name="android:textAppearanceLargePopupMenu">@style/defaultTextViewStyle</item>
         <item name="materialAlertDialogTheme">@style/materialDialogStyle</item>
     </style>
+
     <style name="CustomSeekbar" parent="Widget.AppCompat.SeekBar">
         <item name="colorAccent">#dc5252</item>
         <item name="android:width">30dp</item>
@@ -66,6 +67,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+
     <style name="MyDialogBox" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:background">@color/transparent</item>
         <item name="android:windowFrame">@null</item>
@@ -79,7 +81,8 @@
         <item name="windowNoTitle">true</item>
         <item name="android:backgroundDimEnabled">false</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
-	</style>
+    </style>
+
     <style name="Material.Widget.Slider">
         <item name="sl_trackSize">2dp</item>
         <item name="sl_trackCap">square</item>
@@ -150,4 +153,13 @@
         <item name="android:textColor">@color/black_eighty</item>
         <item name="android:textColorAlertDialogListItem">@color/black_eighty</item>
     </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

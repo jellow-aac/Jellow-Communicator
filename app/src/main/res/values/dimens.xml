@@ -74,7 +74,7 @@
     <dimen name="nineIcon_textSize">10sp</dimen>
     <dimen name="nineIcon_borderThickness">5dp</dimen>
     <dimen name="nineIcon_innerRadius">27dp</dimen>
-    
+
     <!--Dimensions related to the icon select in my board-->
     <dimen name="icon_select_grid_size">70dp</dimen>
     <dimen name="icon_select_icon_size">60dp</dimen>
@@ -101,7 +101,6 @@
     <dimen name="exp_icon_bottom_margin">36dp</dimen>
     <dimen name="nav_bar_icons_width">90dp</dimen>
     <dimen name="nav_bar_icon_height">80dp</dimen>
-
 
 
     <!--Edit board dialog dimensions-->
@@ -375,7 +374,7 @@
     <dimen name="feedback_scroll_margin_right">8dp</dimen>
     <dimen name="feedback_parent_margin_right">16dp</dimen>
     <dimen name="feedback_tv_height">22dp</dimen>
-    <item name="feedback_rb_scale_size" type="dimen" format="float">0.6</item>
+    <item name="feedback_rb_scale_size" format="float" type="dimen">0.6</item>
     <dimen name="feedback_rb_margin_left">-50dp</dimen>
     <dimen name="feedback_extra_space_height">48dp</dimen>
     <dimen name="feedback_et_margin_left">-2dp</dimen>
@@ -392,7 +391,8 @@
     <dimen name="fb_tb_spinner_height">22dp</dimen>
     <dimen name="fb_tb_spinner_width">90dp</dimen>
     <dimen name="fb_tb_et_margin_left">-2dp</dimen>
-    <dimen name="select_text_size" >14sp</dimen>
+    <dimen name="select_text_size">14sp</dimen>
     <dimen name="nav_mar_right">8dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 
 </resources>
