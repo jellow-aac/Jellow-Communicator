@@ -1,42 +1,23 @@
 package com.dsource.idc.jellowintl;
 
-import android.content.Intent;
-
-import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 
-import org.junit.BeforeClass;
-import org.junit.FixMethodOrder;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
-
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.swipeLeft;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
-import static com.dsource.idc.jellowintl.utils.TestClassUtils.getSession;
-
-@RunWith(AndroidJUnit4.class)
-@LargeTest
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+//@RunWith(AndroidJUnit4.class)
+//@LargeTest
+//@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class _24_Intro {
-    @Rule
+    //@Rule
     public ActivityTestRule<KeyboardInputActivity> activityRule =
             new ActivityTestRule<>(KeyboardInputActivity.class);
 
-    @BeforeClass
+    /*@BeforeClass
     public static void setup(){
         getSession().setCaregiverNumber("9653238072");
         getSession().setLanguage(ENG_IN);
         getSession().setDownloaded(ENG_IN);
-    }
+    }*/
 
-    @Test
+    /*@Test
     public void _01_validateSlideTitles(){
         activityRule.getActivity().startActivity(new Intent(activityRule.getActivity(),
                 Intro.class));
@@ -53,5 +34,5 @@ public class _24_Intro {
         onView(withId(R.id.tv_intro8_title)).check(matches(withText(R.string.txt_intro8_txtTitle)));
         onView(withId(R.id.img2_intro8)).perform(swipeLeft());
         onView(withId(R.id.intro7_tvtop)).check(matches(withText(R.string.txt_intro7_getStartedDesc)));
-    }
+    }*/
 }
