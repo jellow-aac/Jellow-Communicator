@@ -38,7 +38,8 @@
         <activity
             android:name=".DialogActivity"
             android:label="Dialog Activity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:configChanges="keyboardHidden|orientation|screenLayout"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
