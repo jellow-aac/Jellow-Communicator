@@ -26,13 +26,11 @@ import static com.dsource.idc.jellowintl.utils.TestClassUtils.getSession;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class _24_Intro {
     @Rule
-    public ActivityTestRule<UserRegistrationActivity> activityRule =
-            new ActivityTestRule<>(UserRegistrationActivity.class);
+    public ActivityTestRule<KeyboardInputActivity> activityRule =
+            new ActivityTestRule<>(KeyboardInputActivity.class);
 
     @BeforeClass
     public static void setup(){
-        getSession().setUserLoggedIn(true);
-        getSession().setCompletedIntro(false);
         getSession().setCaregiverNumber("9653238072");
         getSession().setLanguage(ENG_IN);
         getSession().setDownloaded(ENG_IN);
