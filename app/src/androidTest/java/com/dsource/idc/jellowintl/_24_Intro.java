@@ -31,7 +31,7 @@ public class _24_Intro {
 
     @BeforeClass
     public static void setup(){
-        getSession().setUserLoggedIn(false);
+        getSession().setUserLoggedIn(true);
         getSession().setCompletedIntro(false);
         getSession().setCaregiverNumber("9653238072");
         getSession().setLanguage(ENG_IN);
