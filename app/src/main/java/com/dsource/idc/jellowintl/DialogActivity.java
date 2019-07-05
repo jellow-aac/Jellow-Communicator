@@ -212,6 +212,12 @@ public class DialogActivity extends LevelBaseActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        setVisibleAct(DialogActivity.class.getSimpleName());
+        super.onResume();
+    }
+
     private void clearSelectionAfterAccessibilityDialogClose() {
         //resetRecyclerMenuItemsAndFlags();
         //Send pending grid event
