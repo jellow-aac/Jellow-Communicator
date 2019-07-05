@@ -489,7 +489,7 @@ public class SequenceActivity extends LevelBaseActivity{
                 }
                 mIvBack.setImageResource(R.drawable.back);
                 if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                    showAccessibleDialog(count, v);
+                    showAccessibleDialog(count, v, SequenceActivity.this);
                     v.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
                     mUec.accessibilityPopupOpenedEvent(mCategoryIconSpeechText[count]);
                 }
@@ -548,7 +548,7 @@ public class SequenceActivity extends LevelBaseActivity{
                 }
                 mIvBack.setImageResource(R.drawable.back);
                 if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                    showAccessibleDialog(count + 1, v);
+                    showAccessibleDialog(count + 1, v, SequenceActivity.this);
                     v.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
                     mUec.accessibilityPopupOpenedEvent(mCategoryIconSpeechText[count+1]);
                 }
@@ -607,7 +607,7 @@ public class SequenceActivity extends LevelBaseActivity{
                 }
                 mIvBack.setImageResource(R.drawable.back);
                 if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                    showAccessibleDialog(count + 2, v);
+                    showAccessibleDialog(count + 2, v, SequenceActivity.this);
                     v.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
                     mUec.accessibilityPopupOpenedEvent(mCategoryIconSpeechText[count+2]);
                 }
@@ -1164,8 +1164,8 @@ public class SequenceActivity extends LevelBaseActivity{
         }
     }
 
-    private void showAccessibleDialog(final int position, final View disabledView) {
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(SequenceActivity.this);
+    public void showAccessibleDialog(final int position, final View disabledView, Context context) {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(context);
         final View mView = getLayoutInflater().inflate(R.layout.dialog_layout, null);
 
         Button enterCategory = mView.findViewById(R.id.enterCategory);
