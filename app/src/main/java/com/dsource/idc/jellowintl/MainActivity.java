@@ -1067,7 +1067,7 @@ public class MainActivity extends LevelBaseActivity{
                 mUec.createSendFbEventFromTappedView(12, mDisplayText[position], "");
             }
         }else{
-            showAccessibleDialog(position, title, view, MainActivity.this);
+            showAccessibleDialog(position, title, view);
             view.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
             // create event bundle for firebase
             mUec.createSendFbEventFromTappedView(12,mDisplayText[position], "");
@@ -1076,8 +1076,8 @@ public class MainActivity extends LevelBaseActivity{
         mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
     }
 
-    public void showAccessibleDialog(final int position, final String title, final View disabledView, Context context) {
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(context);
+    private void showAccessibleDialog(final int position, final String title, final View disabledView) {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
         final View mView = getLayoutInflater().inflate(R.layout.dialog_layout, null);
 
         final Button enterCategory = mView.findViewById(R.id.enterCategory);

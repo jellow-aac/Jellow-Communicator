@@ -18,6 +18,9 @@ before_script:
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
   - adb install /home/travis/build/jellow-aac/Jellow-Communicator/app/src/debug/tts.apk
+  - adb install /home/travis/build/jellow-aac/Jellow-Communicator/app/src/debug/talkback.apk
+  - adb shell settings put secure enabled_accessibility_services com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService
+  - adb shell input keyevent 3 &
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock

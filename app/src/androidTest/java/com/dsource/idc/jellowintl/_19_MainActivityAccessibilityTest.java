@@ -1,9 +1,9 @@
 package com.dsource.idc.jellowintl;
 
 
-import android.view.View;
 import android.widget.TextView;
 
+import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
@@ -53,9 +53,9 @@ public class _19_MainActivityAccessibilityTest {
     @Test
     public void _01_validateAccessibilityDialog(){
         /*onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
-                actionOnItemAtPosition(2, click()));
+                actionOnItemAtPosition(2, click()));*/
         onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
-                actionOnItemAtPosition(2, doubleClick()));*/
+                actionOnItemAtPosition(2, doubleClick()));
         showAndWaitForDialog();
         onView(withId(R.id.enterCategory)).check(matches(isDisplayed()));
         onView(withId(R.id.btnClose)).check(matches(isDisplayed()));
@@ -71,8 +71,8 @@ public class _19_MainActivityAccessibilityTest {
 
     @Test
     public void _02_validateExpressiveStateOnTap(){
-        /*onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
-                actionOnItemAtPosition(2, doubleClick()));*/
+        onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
+                actionOnItemAtPosition(2, doubleClick()));
         showAndWaitForDialog();
         onView(withId(R.id.enterCategory)).check(matches(isDisplayed()));
         onView(withId(R.id.ivlike)).perform(doubleClick());
@@ -121,8 +121,8 @@ public class _19_MainActivityAccessibilityTest {
 
     @Test
     public void _03_validateEnterButtonTap(){
-        /*onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
-                actionOnItemAtPosition(3, doubleClick()));*/
+        onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
+                actionOnItemAtPosition(3, doubleClick()));
         showAndWaitForDialog();
         onView(withId(R.id.enterCategory)).perform(doubleClick());
         onView(allOf(instanceOf(TextView.class),
@@ -141,8 +141,8 @@ public class _19_MainActivityAccessibilityTest {
 
     @Test
     public void _04_validateHomeButtonTap(){
-        /*onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
-                actionOnItemAtPosition(3, doubleClick()));*/
+        onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
+                actionOnItemAtPosition(3, doubleClick()));
         showAndWaitForDialog();
         onView(withId(R.id.home)).perform(doubleClick());
         onView(withId(R.id.ivhome)).check(matches(withDrawable(R.drawable.home_pressed)));
@@ -150,8 +150,8 @@ public class _19_MainActivityAccessibilityTest {
 
     @Test
     public void _05_validateCloseButtonTap(){
-        /*onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
-                actionOnItemAtPosition(3, doubleClick()));*/
+        onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
+                actionOnItemAtPosition(3, doubleClick()));
         showAndWaitForDialog();
         onView(withId(R.id.btnClose)).perform(doubleClick());
         onView(allOf(instanceOf(TextView.class),
@@ -160,14 +160,14 @@ public class _19_MainActivityAccessibilityTest {
     }
 
     private void showAndWaitForDialog() {
-        activityRule.getActivity().runOnUiThread(new Runnable() {
+        /*activityRule.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 View v = activityRule.getActivity().mRecyclerView.getChildAt(1);
                 activityRule.getActivity().showAccessibleDialog(1, "title", v,
                         activityRule.getActivity());
             }
-        });
+        });*/
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
