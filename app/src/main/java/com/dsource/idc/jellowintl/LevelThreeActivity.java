@@ -1251,7 +1251,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
 
         if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))){
             mUec.accessibilityPopupOpenedEvent(mSpeechText[getTagPos()]);
-            showAccessibleDialog(view);
+            showAccessibleDialog(view, LevelThreeActivity.this);
             view.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
         }else {
             // Below categories which does not have preferences enabled, their speech text directly
@@ -1422,8 +1422,8 @@ public class LevelThreeActivity extends LevelBaseActivity{
             changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
     }
 
-    private void showAccessibleDialog(final View disabledView) {
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(LevelThreeActivity.this);
+    public void showAccessibleDialog(final View disabledView, Context context) {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(context);
         final View mView = getLayoutInflater().inflate(R.layout.dialog_layout, null);
 
         Button enterCategory = mView.findViewById(R.id.enterCategory);
