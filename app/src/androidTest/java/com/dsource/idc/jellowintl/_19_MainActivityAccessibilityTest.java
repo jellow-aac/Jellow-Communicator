@@ -1,6 +1,7 @@
 package com.dsource.idc.jellowintl;
 
 
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.test.espresso.contrib.RecyclerViewActions;
@@ -16,10 +17,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.doubleClick;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.RootMatchers.isDialog;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withParent;
@@ -54,25 +53,33 @@ public class _19_MainActivityAccessibilityTest {
 
     @Test
     public void _01_validateAccessibilityDialog(){
-        onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
+        /*onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
                 actionOnItemAtPosition(2, click()));
         onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
-                actionOnItemAtPosition(2, doubleClick()));
+                actionOnItemAtPosition(2, doubleClick()));*/
+        activityRule.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                View v = activityRule.getActivity().mRecyclerView.getChildAt(1);
+                activityRule.getActivity().showAccessibleDialog(1, "title", v,
+                        activityRule.getActivity());
+            }
+        });
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        onView(withId(R.id.enterCategory)).inRoot(isDialog()).check(matches(isDisplayed()));
-        onView(withId(R.id.btnClose)).inRoot(isDialog()).check(matches(isDisplayed()));
-        onView(withId(R.id.ivlike)).inRoot(isDialog()).check(matches(isDisplayed()));
-        onView(withId(R.id.ivyes)).inRoot(isDialog()).check(matches(isDisplayed()));
-        onView(withId(R.id.ivadd)).inRoot(isDialog()).check(matches(isDisplayed()));
-        onView(withId(R.id.ivdislike)).inRoot(isDialog()).check(matches(isDisplayed()));
-        onView(withId(R.id.ivno)).inRoot(isDialog()).check(matches(isDisplayed()));
-        onView(withId(R.id.ivminus)).inRoot(isDialog()).check(matches(isDisplayed()));
-        onView(withId(R.id.home)).inRoot(isDialog()).check(matches(isDisplayed()));
-        onView(withId(R.id.keyboard)).inRoot(isDialog()).check(matches(isDisplayed()));
+        onView(withId(R.id.enterCategory)).check(matches(isDisplayed()));
+        onView(withId(R.id.btnClose)).check(matches(isDisplayed()));
+        onView(withId(R.id.ivlike)).check(matches(isDisplayed()));
+        onView(withId(R.id.ivyes)).check(matches(isDisplayed()));
+        onView(withId(R.id.ivadd)).check(matches(isDisplayed()));
+        onView(withId(R.id.ivdislike)).check(matches(isDisplayed()));
+        onView(withId(R.id.ivno)).check(matches(isDisplayed()));
+        onView(withId(R.id.ivminus)).check(matches(isDisplayed()));
+        onView(withId(R.id.home)).check(matches(isDisplayed()));
+        onView(withId(R.id.keyboard)).check(matches(isDisplayed()));
     }
 
     @Test

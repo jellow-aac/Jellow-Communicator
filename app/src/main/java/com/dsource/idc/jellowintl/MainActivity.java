@@ -114,20 +114,20 @@ public class MainActivity extends LevelBaseActivity{
         setLevelActionBar(getString(R.string.action_bar_title));
         mUec = new UserEventCollector();
         loadRecyclerView();
-        loadArraysFromResources();
+        //loadArraysFromResources();
         // Set the capacity of mRecyclerItemsViewList list to total number of category icons to be
         // populated on the screen.
-        mRecyclerItemsViewList = new ArrayList<>(mSpeechText.length);
+        /*mRecyclerItemsViewList = new ArrayList<>(mSpeechText.length);
         while (mRecyclerItemsViewList.size() < mSpeechText.length)
-            mRecyclerItemsViewList.add(null);
+            mRecyclerItemsViewList.add(null);*/
         //The variables below are defined because android os fall back to default locale
         // after activity restart. These variable will hold the value for variables initialized using
         // user preferred locale.
         mHome = getString(R.string.action_bar_title);
-        initializeLayoutViews();
-        initializeViewListeners();
+        //initializeLayoutViews();
+        //initializeViewListeners();
         //This method is invoked when the activity is launched from the SearchActivity
-        try {
+        /*try {
             String s = getIntent().getExtras().getString(getString(R.string.from_search));
             if (s != null)
                 if (s.equals(getString(R.string.search_tag))) {
@@ -137,7 +137,7 @@ public class MainActivity extends LevelBaseActivity{
         catch (NullPointerException e)
         {
             //Not from Search Activity
-        }
+        }*/
     }
 
     @Override
@@ -1067,7 +1067,7 @@ public class MainActivity extends LevelBaseActivity{
                 mUec.createSendFbEventFromTappedView(12, mDisplayText[position], "");
             }
         }else{
-            showAccessibleDialog(position, title, view);
+            showAccessibleDialog(position, title, view, MainActivity.this);
             view.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
             // create event bundle for firebase
             mUec.createSendFbEventFromTappedView(12,mDisplayText[position], "");
@@ -1076,8 +1076,8 @@ public class MainActivity extends LevelBaseActivity{
         mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
     }
 
-    private void showAccessibleDialog(final int position, final String title, final View disabledView) {
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
+    public void showAccessibleDialog(final int position, final String title, final View disabledView, Context context) {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(context);
         final View mView = getLayoutInflater().inflate(R.layout.dialog_layout, null);
 
         final Button enterCategory = mView.findViewById(R.id.enterCategory);
