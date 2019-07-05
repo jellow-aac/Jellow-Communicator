@@ -125,20 +125,19 @@ public class _19_MainActivityAccessibilityTest {
                 actionOnItemAtPosition(3, doubleClick()));*/
         showAndWaitForDialog();
         onView(withId(R.id.enterCategory)).perform(doubleClick());
-        onView(withId(R.id.btnClose)).perform(doubleClick());
         onView(allOf(instanceOf(TextView.class),
                 withParent(withResourceName("action_bar"))))
                 .check(matches(withText("Fun/ Outdoor Games")));
     }
 
-    @Test
+    /*@Test
     public void _04_validateKeyboardButtonTap(){
-        /*onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
-                actionOnItemAtPosition(3, doubleClick()));*/
+        onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
+                actionOnItemAtPosition(3, doubleClick()));
         showAndWaitForDialog();
         onView(withId(R.id.keyboard)).perform(doubleClick());
         onView(withId(R.id.et_keyboard_utterances)).check(matches(isDisplayed()));
-    }
+    }*/
 
     @Test
     public void _04_validateHomeButtonTap(){
@@ -157,7 +156,7 @@ public class _19_MainActivityAccessibilityTest {
         onView(withId(R.id.btnClose)).perform(doubleClick());
         onView(allOf(instanceOf(TextView.class),
                 withParent(withResourceName("action_bar"))))
-                .check(matches(withText("Fun")));
+                .check(matches(withText("Home")));
     }
 
     private void showAndWaitForDialog() {
