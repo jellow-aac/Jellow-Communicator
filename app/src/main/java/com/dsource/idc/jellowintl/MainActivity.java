@@ -234,7 +234,7 @@ public class MainActivity extends LevelBaseActivity{
     @Override
     protected void onStart() {
         super.onStart();
-        authenticateUserIfNot();
+        //authenticateUserIfNot();
     }
 
     @Override
