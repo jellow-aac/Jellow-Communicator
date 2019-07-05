@@ -22,7 +22,7 @@ import static org.hamcrest.core.Is.is;
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class _01_DialogActivityTest {
+public class _20_DialogActivityTest {
     @Rule
     public ActivityTestRule<DialogActivity> activityRule =
             new ActivityTestRule<>(DialogActivity.class);
