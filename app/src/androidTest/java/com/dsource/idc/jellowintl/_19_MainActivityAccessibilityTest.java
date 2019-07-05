@@ -16,6 +16,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.doubleClick;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -52,8 +53,8 @@ public class _19_MainActivityAccessibilityTest {
 
     @Test
     public void _01_validateAccessibilityDialog(){
-        /*onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
-                actionOnItemAtPosition(2, click()));*/
+        onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
+                actionOnItemAtPosition(2, click()));
         onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
                 actionOnItemAtPosition(2, doubleClick()));
         showAndWaitForDialog();
@@ -71,6 +72,8 @@ public class _19_MainActivityAccessibilityTest {
 
     @Test
     public void _02_validateExpressiveStateOnTap(){
+        onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
+                actionOnItemAtPosition(2, click()));
         onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
                 actionOnItemAtPosition(2, doubleClick()));
         showAndWaitForDialog();
@@ -122,6 +125,8 @@ public class _19_MainActivityAccessibilityTest {
     @Test
     public void _03_validateEnterButtonTap(){
         onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
+                actionOnItemAtPosition(3, click()));
+        onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
                 actionOnItemAtPosition(3, doubleClick()));
         showAndWaitForDialog();
         onView(withId(R.id.enterCategory)).perform(doubleClick());
@@ -142,6 +147,8 @@ public class _19_MainActivityAccessibilityTest {
     @Test
     public void _04_validateHomeButtonTap(){
         onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
+                actionOnItemAtPosition(3, click()));
+        onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
                 actionOnItemAtPosition(3, doubleClick()));
         showAndWaitForDialog();
         onView(withId(R.id.home)).perform(doubleClick());
@@ -150,6 +157,8 @@ public class _19_MainActivityAccessibilityTest {
 
     @Test
     public void _05_validateCloseButtonTap(){
+        onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
+                actionOnItemAtPosition(3, click()));
         onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.
                 actionOnItemAtPosition(3, doubleClick()));
         showAndWaitForDialog();
