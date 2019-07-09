@@ -15,7 +15,7 @@
             app:showAsAction="never"/>
         <item android:id="@+id/my_boards"
             android:visible="true"
-            android:title="@string/menuMyBards"
+            android:title="@string/menuMyBoards"
             app:showAsAction="never"
             />
         <item

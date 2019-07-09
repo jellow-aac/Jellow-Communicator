@@ -7,16 +7,17 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import androidx.annotation.Nullable;
+
 import com.dsource.idc.jellowintl.factories.IconFactory;
 import com.dsource.idc.jellowintl.factories.LanguageFactory;
 import com.dsource.idc.jellowintl.factories.PathFactory;
 import com.dsource.idc.jellowintl.factories.TextFactory;
 import com.dsource.idc.jellowintl.models.Icon;
 import com.dsource.idc.jellowintl.models.JellowIcon;
+import com.dsource.idc.jellowintl.models.SearchIcon;
 
 import java.util.ArrayList;
-
-import androidx.annotation.Nullable;
 
 import static com.dsource.idc.jellowintl.factories.PathFactory.getIconDirectory;
 
@@ -94,17 +95,27 @@ public class IconDataBaseHelper extends SQLiteOpenHelper {
 
         String[] levelOneTitles = TextFactory.getDisplayText(level1IconObjects);
         String[] levelOneSpeech = TextFactory.getSpeechText(level1IconObjects);
+        ArrayList<SearchIcon> searchIcons = new ArrayList<>();
 
         //Level 1 JellowIcon
         for (int i = 0; i < level1Icons.length; i++) {
             // Put column/value pairs into the container. put() overwrites existing values.
-            values.put(ICON_TITLE, levelOneTitles[i]);
+            /*values.put(ICON_TITLE, levelOneTitles[i]);
             values.put(ICON_SPEECH,levelOneSpeech[i]);
             values.put(ICON_DRAWABLE, level1Icons[i]);
             values.put(KEY_P1, i);
             values.put(KEY_P2, -1);
             values.put(KEY_P3, -1);
-            db.insert(ICON_LIST_TABLE, null, values);
+            db.insert(ICON_LIST_TABLE, null, values);*/
+            /*TODO ROOM*/
+            SearchIcon si = new SearchIcon();
+            si.setIconTitle(levelOneTitles[i]);
+            si.setIconSpeech(levelOneSpeech[i]);
+            si.setIconDrawable(level1Icons[i]);
+            si.setLevelOne(i);
+            si.setLevelTwo(-1);
+            si.setLevelThree(-1);
+            searchIcons.add(si);
         }
         //Filling the database for Level 2
         for (int i = 0; i < level1Icons.length; i++) {
@@ -113,14 +124,22 @@ public class IconDataBaseHelper extends SQLiteOpenHelper {
             String[] levelTwoSpeech = getIconSpeechLevel2(i,context);
             for (int j = 0; j < levelTwoIcons.length; j++) {
                 // Put column/value pairs into the container. put() overwrites existing values.
-                values.put(ICON_TITLE, levelTwoTitles[j]);
+                /*values.put(ICON_TITLE, levelTwoTitles[j]);
                 values.put(ICON_SPEECH,levelTwoSpeech[j]);
                 values.put(ICON_DRAWABLE, levelTwoIcons[j]);
                 values.put(KEY_P1, i);
                 values.put(KEY_P2, j);
                 values.put(KEY_P3, -1);
-                db.insert(ICON_LIST_TABLE, null, values);
-
+                db.insert(ICON_LIST_TABLE, null, values);*/
+                /*TODO ROOM*/
+                SearchIcon si = new SearchIcon();
+                si.setIconTitle(levelTwoTitles[j]);
+                si.setIconSpeech(levelTwoSpeech[j]);
+                si.setIconDrawable(levelTwoIcons[j]);
+                si.setLevelOne(i);
+                si.setLevelTwo(j);
+                si.setLevelThree(-1);
+                searchIcons.add(si);
             }
         }
         //Filling the database for Level Three
@@ -137,13 +156,23 @@ public class IconDataBaseHelper extends SQLiteOpenHelper {
                             // Put column/value pairs into the container. put() overwrites existing values.
                             if (noChildInThird)
                                 break;
-                            values.put(ICON_TITLE, levelThreeTitle[k]);
+                            /*values.put(ICON_TITLE, levelThreeTitle[k]);
                             values.put(ICON_SPEECH,levelThreeSpeech[k]);
                             values.put(ICON_DRAWABLE, levelThreeIcons[k]);
                             values.put(KEY_P1, i);
                             values.put(KEY_P2, j);
                             values.put(KEY_P3, k);
-                            db.insert(ICON_LIST_TABLE, null, values);
+                            db.insert(ICON_LIST_TABLE, null, values);*/
+                            /*TODO ROOM*/
+
+                            SearchIcon si = new SearchIcon();
+                            si.setIconTitle(levelThreeTitle[k]);
+                            si.setIconSpeech(levelThreeSpeech[k]);
+                            si.setIconDrawable(levelThreeIcons[k]);
+                            si.setLevelOne(i);
+                            si.setLevelTwo(j);
+                            si.setLevelThree(k);
+                            searchIcons.add(si);
                         }
 
                     }
@@ -151,6 +180,7 @@ public class IconDataBaseHelper extends SQLiteOpenHelper {
 
             }
         }
+        //SearchHelper.insertSearchData(context.getAppDatabase(), searchIcons);
         //Reset the language code
         new SessionManager(context).setLanguageChange(2);
     }
@@ -318,7 +348,7 @@ public class IconDataBaseHelper extends SQLiteOpenHelper {
 
     private String getLevel2_3IconCode(int level1Position){
         if(level1Position+1 <= 9){
-            return "0" + Integer.toString(level1Position+1);
+            return "0" + (level1Position + 1);
         } else {
             return Integer.toString(level1Position+1);
         }

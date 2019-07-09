@@ -126,6 +126,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void delete() {
         mContext.deleteDatabase(DB_NAME);
     }
+
     // Getting single contact
     public String getLevel(int layer_1_id, int layer_2_id) {
         String userLang = "";
@@ -219,7 +220,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         for (int i = 0; i < levelOneIds.size(); i++) {
             for (int j = 0; j < levelTwoIds.size(); j++) {
                 if(i != j) continue;
-                String ids[] = levelTwoIds.get(j).split(",");
+                String[] ids = levelTwoIds.get(j).split(",");
                 for (int k = 0; k < ids.length; k++) {
                     ContentValues cv = new ContentValues();
                     cv.put("layer_1_id",levelOneIds.get(i));

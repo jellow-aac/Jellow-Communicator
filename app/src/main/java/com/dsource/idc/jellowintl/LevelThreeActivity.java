@@ -28,11 +28,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.crashlytics.android.Crashlytics;
+import com.dsource.idc.jellowintl.Presentor.PreferencesHelper;
 import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
 import com.dsource.idc.jellowintl.factories.IconFactory;
 import com.dsource.idc.jellowintl.factories.LanguageFactory;
 import com.dsource.idc.jellowintl.factories.PathFactory;
 import com.dsource.idc.jellowintl.factories.TextFactory;
+import com.dsource.idc.jellowintl.models.CategoryPreference;
 import com.dsource.idc.jellowintl.models.ExpressiveIcon;
 import com.dsource.idc.jellowintl.models.Icon;
 import com.dsource.idc.jellowintl.models.MiscellaneousIcon;
@@ -45,6 +47,7 @@ import com.dsource.idc.jellowintl.utility.UserEventCollector;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+import static com.dsource.idc.jellowintl.factories.IconFactory.getIconCode;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
@@ -52,9 +55,11 @@ import static com.dsource.idc.jellowintl.utility.Analytics.singleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
+import static com.dsource.idc.jellowintl.utility.SessionManager.DE_DE;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_AU;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_UK;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_US;
+import static com.dsource.idc.jellowintl.utility.SessionManager.ES_ES;
 
 public class LevelThreeActivity extends LevelBaseActivity{
     private final boolean DISABLE_EXPR_BTNS = true;
@@ -379,20 +384,23 @@ public class LevelThreeActivity extends LevelBaseActivity{
         // Retrieve preference string stored in SQlite db for given category using category icons
         // selected in level one and level two. Database will return preference string if exist
         // otherwise it will return value "false".
-        String savedString = myDbHelper.getLevel(mLevelOneItemPos, mLevelTwoItemPos);
-
-        if(savedString.equals("false") &&
-                checkNewIfNewCategory(mLevelOneItemPos+"," + mLevelTwoItemPos)) {
-            savedString = "";
-            for (int i = 0; i < 100; ++i)
-                savedString = savedString.concat("0,");
-        }
 
         // load speech array directly.
         retrieveSpeechArrays(mLevelOneItemPos, mLevelTwoItemPos);
 
+        String savedString = PreferencesHelper.getPrefString(getAppDatabase(),
+                getIconCode(LanguageFactory.getCurrentLanguageCode(this ),
+                mLevelOneItemPos, mLevelTwoItemPos));
+
+        // Extra 0's are concat ed at the end of "savedString" variable. This
+        // will make length of array and length of savedString to equal to load category.
+        if(savedString.isEmpty() && savedString.split(",").length != level3IconObjects.length){
+            while (savedString.split(",").length != level3IconObjects.length)
+                savedString = savedString.concat("0,");
+        }
+
         // savedString is equal to "false" then load level three category icons without any sort/preferences
-        if (!savedString.equals("false")) {
+        if (isCategoryWithPreference()) {
             count_flag = 1;
             // convert savedString into individual tokens.
             StringTokenizer st = new StringTokenizer(savedString, ",");
@@ -442,29 +450,23 @@ public class LevelThreeActivity extends LevelBaseActivity{
         }
     }
 
-    private boolean checkNewIfNewCategory(String newCatIndices) {
-        switch(newCatIndices){
-            case"1,9":
-            case"6,0":
-            case"6,1":
-            case"6,2":
-            case"6,3":
-            case"6,4":
-            case"6,5":
-            case"6,6":
-            case"6,7":
-            case"6,8":
-            case"6,9":
-            case"6,10":
-            case"6,11":
-            case"6,12":
-            case"6,13":
-            case"6,14":
-            case"6,15":
-             return true;
-            default:
-                return false;
-        }
+    private boolean isCategoryWithPreference() {
+        String iconCode = IconFactory.getIconCode(
+                LanguageFactory.getCurrentLanguageCode(this), mLevelOneItemPos, mLevelTwoItemPos);
+        
+        return ("01010000GG,01020000GG,01030000GG,01040000GG,"+
+                "02040000GG,02050000GG,02060000GG,02070000GG,"+
+                "03010000GG,03020000GG,03030000GG,03040000GG,"+
+                "03050000GG,03060000GG,03070000GG,03080000GG,"+
+                "04010000GG,04020000GG,04030000GG,04060000GG,"+
+                "05010000GG,05020000GG,05030000GG,05040000GG,"+
+                "05050000GG,05060000GG,05070000GG,05080000GG,"+
+                "05090000GG,05100000GG,07010000GG,07020000GG,"+
+                "07030000GG,07040000GG,07050000GG,07060000GG,"+
+                "07070000GG,07080000GG,07090000GG,07100000GG,"+
+                "07110000GG,07120000GG,07130000GG,07140000GG,"+
+                "07150000GG,07160000GG,08060000GG,08070000GG,")
+                .contains(iconCode.substring(2));
     }
 
     /**
@@ -1399,11 +1401,11 @@ public class LevelThreeActivity extends LevelBaseActivity{
             // have index (default position in recycler view) 39, 40, 41, 42 in English (US, UK).
             // So to disable expressive buttons for above category icon it required to check the
             // user language and index (default position in recycler view) of category icon.
-            if ((!lang.equals(ENG_US) && !lang.equals(ENG_UK) && !lang.equals(ENG_AU) &&
+            if ((!lang.equals(ENG_US) && !lang.equals(ENG_UK) && !lang.equals(ENG_AU) && !lang.equals(ES_ES) && !lang.equals(DE_DE) &&
                     (tmp == 34 || tmp == 35 || tmp == 36 || tmp == 37))
                     ||
-                    ((lang.equals(ENG_US) || lang.equals(ENG_UK) || lang.equals(ENG_AU)) &&
-                            (tmp == 39 || tmp == 40 || tmp == 41 || tmp == 42) ))
+                    ((lang.equals(ENG_US) || lang.equals(ENG_UK) || lang.equals(ENG_AU) || lang.equals(ES_ES) || lang.equals(DE_DE)) &&
+            (tmp == 39 || tmp == 40 || tmp == 41 || tmp == 42) ))
                 changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
             else
                 changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
@@ -1790,13 +1792,12 @@ public class LevelThreeActivity extends LevelBaseActivity{
             for(int i = 0; i< mArrIconTapCount.length; ++i)
                 str.append(mArrIconTapCount[i]).append(",");
 
-            // To make preference string uniform length, "0" is appended to the end of string
-            // till total number of tokens in string reaches to 100.
-            for(int i = mArrIconTapCount.length; i < 100; ++i)
-                str.append("0,");
-
             // store preference string of category into database.
-            myDbHelper.setLevel(mLevelOneItemPos, mLevelTwoItemPos, str.toString());
+            CategoryPreference categoryPref = new CategoryPreference();
+            categoryPref.setCategoryPosition(getIconCode( LanguageFactory
+                    .getCurrentLanguageCode(this),mLevelOneItemPos, mLevelTwoItemPos));
+            categoryPref.setPrefString(str.toString());
+            PreferencesHelper.setPrefString(getAppDatabase(), categoryPref);
         }
     }
 

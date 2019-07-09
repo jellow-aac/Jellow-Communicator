@@ -22,13 +22,16 @@ import java.util.Locale;
 import static com.dsource.idc.jellowintl.factories.PathFactory.getAudioPath;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BE_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.DE_DE;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_AU;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_UK;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_US;
+import static com.dsource.idc.jellowintl.utility.SessionManager.ES_ES;
 import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
 import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.TA_IN;
 
 public class SpeechEngineBaseActivity extends BaseActivity{
     private static TextToSpeech sTts;
@@ -163,8 +166,17 @@ public class SpeechEngineBaseActivity extends BaseActivity{
             case BE_IN:
                 sTts.setLanguage(new Locale("bn", "IN"));
                 break;
+            case ES_ES:
+                sTts.setLanguage(new Locale("es","ES"));
+                break;
             case ENG_IN:
-                sTts.setLanguage(new Locale("en","IN"));
+            sTts.setLanguage(new Locale("en","IN"));
+            break;
+            case TA_IN:
+                sTts.setLanguage(new Locale("ta","IN"));
+                break;
+            case DE_DE:
+                sTts.setLanguage(Locale.GERMANY);
                 break;
             case HI_IN:
             case MR_IN:
@@ -356,6 +368,9 @@ public class SpeechEngineBaseActivity extends BaseActivity{
             case BN_IN:
             case BE_IN:
             case MR_IN:
+            case ES_ES:
+            case TA_IN:
+            case DE_DE:
             default:
                 return (float) getSession().getPitch()/50;
         }
@@ -371,6 +386,9 @@ public class SpeechEngineBaseActivity extends BaseActivity{
             case BN_IN:
             case BE_IN:
             case MR_IN:
+            case ES_ES:
+            case TA_IN:
+            case DE_DE:
             default:
                 return (float) (getSession().getSpeed()/50);
         }
@@ -386,6 +404,9 @@ public class SpeechEngineBaseActivity extends BaseActivity{
             case BN_IN:
             case BE_IN:
             case MR_IN:
+            case ES_ES:
+            case TA_IN:
+            case DE_DE:
             default:
                 return "com.google.android.tts";
         }

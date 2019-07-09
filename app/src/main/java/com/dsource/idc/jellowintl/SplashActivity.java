@@ -33,12 +33,15 @@ import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.setCrashlyticsCustomKey;
 import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.DE_DE;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_AU;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_UK;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_US;
+import static com.dsource.idc.jellowintl.utility.SessionManager.ES_ES;
 import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.TA_IN;
 
 /**
  * Created by ekalpa on 7/12/2016.
@@ -73,7 +76,7 @@ public class SplashActivity extends BaseActivity {
         }
 
         if(getSession().isLanguageChanged()!=2) {
-            iconDatabase = new CreateDataBase(this);
+            iconDatabase = new CreateDataBase(this, getAppDatabase());
             iconDatabase.execute();
         }else {
             startActivity(new Intent(SplashActivity.this, MainActivity.class));
@@ -119,5 +122,4 @@ public class SplashActivity extends BaseActivity {
         helper.openDataBase();
         helper.addLanguageDataToDatabase();
     }
-
 }

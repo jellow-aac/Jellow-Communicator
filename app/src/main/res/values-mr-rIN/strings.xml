@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="ratings">
+        <item>१</item>
+        <item>२</item>
+        <item>३</item>
+        <item>४</item>
+        <item>५</item>
+    </string-array>
     <string-array name="arrSequenceActivityHeadingText">
         <item>दात घासणे</item>
         <item>टॉयलेट</item>
@@ -11,6 +18,7 @@
         <item>सकाळची नियमित कार्ये</item>
         <item>रात्रीची नियमित कार्ये</item>
     </string-array>
+
     <string name="app_name">जेलो</string>
     <string name="action_settings">सेटिंग्स</string>
     <string name="Profile">प्रोफाइल</string>
@@ -69,7 +77,6 @@
     </string-array>
 
     <string name="change_language_line2">चरण १: डाउनलोड केलेल्या भाषांपैकी एक भाषा निवडा:</string>
-
     <string name="simple_ime">जेलो कीबोर्ड</string>
     <string name="subtype_en_US">क्रमिक \'कखग\' कीबोर्ड</string>
 
@@ -94,7 +101,7 @@
 
 
     <string name="menuProfile">प्रोफाइल</string>
-    <string name="menuMyBards">माझे बोर्ड</string>
+    <string name="menuMyBoards">माझे बोर्ड</string>
     <string name="menuAbout">जेलोची माहिती</string>
     <string name="menuTutorials">ट्यूटोरियल</string>
     <string name="menuKeyboardInput">कीबोर्ड नियंत्रण</string>
@@ -102,16 +109,12 @@
     <string name="menuFeedback">प्रतिक्रिया</string>
     <string name="menuUserRegistration">रजिस्ट्रेशन स्क्रीन</string>
     <string name="menuAccessibility">ऍक्सेसिबिलिटी</string>
-    <string name="labelSplash">Jellow is loading. Please wait!</string>
-    <string name="level_1_screen">Level one screen</string>
-    <string name="level_2_screen">Level two screen</string>
-    <string name="level_3_screen">Level three screen</string>
-    <string name="sequence_screen">Activity sequence</string>
     <string name="menuClosePopup">मेनू बंद करा</string>
+    <string name="labelSplash">जेलो अॅप्लिकेशन चालू होत आहे. कृपया प्रतीक्षा करा!</string>
 
     <string name="endString"> </string>
+
     <string name="easyToUse">वापरण्यास सोपे</string>
-    <string name="feedback_talkback_heading">On a scale of 1 to 5, please rate the following</string>
     <string name="clearPictures">स्पष्ट चित्र</string>
     <string name="clearVoice">स्पष्ट आवाज</string>
     <string name="easyToNavigate">मार्गनिर्देशन करण्यास सोपे</string>
@@ -157,7 +160,7 @@
     <string name="speak">बोला</string>
     <string name="stop">थांबा</string>
     <string name="about_jellow_speech">0506MSTT.mp3</string>
-    <!--<string name="about_jellow_speech">जेलो अॅप्लिकेशन आइकॉन आणि चिञ वापरुन संवाद साधण्यास मदत करते. जे बोलायला शिकत आहेत, किंवा ज्यांना बोलायला अडचण येत आहे, ते जेलोचा वापर करुन इतरांशी संवाद साधू शकतात. जेलो चा विकास, इंडियन इंस्टिट्यूट ऑफ टेक्नॉलॉजी बॉम्बे, मुंबई (आई आई टी-बी), च्या आईडीसी स्कूल ऑफ डिझाइन येथे झाला आहे. जेलो अॅप्लिकेशनची भाषा क्षमता वाढवण्यासाठी या प्रोजेक्टच्या प्रमुख संशोधकांनी एका नवीन इमोशनल लैंगग्विज प्रोटोकॉल (ELP) ची संकल्पना केली आहे. विज्युअल इमोशनल लैंगग्विज प्रोटोकॉल संकल्पनेत ६ भाववाहक आइकॉन आहेत, जे इंटरफेसचे मूलभूत भाग आहेत. या प्रमुख भाववाहक आइकॉनांच्या मदतीने जेलोचे वापरकर्ते त्यांच्या आवडी-निवडी आणि गरजा इतरांना सांगू शकतात. जेलो चा वापर मुले अत्यंत सहजपणे शिकु शकतात. जेलो अॅप्लिकेशन एंड्रॉयड टैबलेटसाठी अनुकूलित आहे. जेलो अॅप्लिकेशन सध्या इंग्रजी आणि हिंदी मध्ये उपलब्ध आहे. जेलो अॅप्लिकेशनची वर्तमान आवृत्ती _ आहे. जेलो अॅप्लिकेशनचा विकास सध्या चालू आहे. या संदर्भात आपले काही सल्ले असल्यास, कृपया \"अभिप्राय\" टॅब मध्ये सबमिट करा. जेलो अॅप्लिकेशनचे लाइसेंस क्रिएटिव कॉमन्स एटट्रिब्यूशन-नॉन-कमर्शियल- शेयर-ए-लाइक ४.० लाइसेंन्सच्या खाली प्राप्त आहे. जेलो अॅप्लिकेशन सबंधित सर्व कार्यांचे श्रेय इंडियन इंस्टिट्यूट ऑफ टेक्नॉलॉजी बॉम्बे यांना दिले जाते. जेलो अॅप्लिकेशनचे सर्व कन्टेन्ट (समाविष्ट केलेले चिन्ह, लेआउट, आर्किटेक्चर, व्हिज्युअल आइडेन्टिटी, भाषांतर आणि सॉफ्टवेयर कोड) शेयर किंवा समावून घेतला जाऊ शकतो परंतु व्यावसायिक उद्देशांसाठी वापरला जाऊ शकत नाही. जेंव्हा कन्टेन्टचा वापर केला जाईल तेंव्हा तुम्हाला विनंती आहे की, तुम्ही इंडियन इंस्टिट्यूट ऑफ टेक्नॉलॉजी बॉम्बे (आयआयटी-बी) प्रति आभार व्यक्त करा. जेलो अॅप्लिकेशन येथे डाउनलोड करण्यासाठी उपलब्ध आहे: http://www.jellow.org ! जर कोणाला जेलोचा विकास करायचा असेल तर, त्यांना विंनती आहे की, जेलो प्रोजेक्टचे प्रमुख संशोधक प्राध्यापक रवि पूवैया यांना r a v i @ i i t b . a c . i n ! किंवा ! j e l l o w c o m m u n i c a t o r @ g m a i l . c o m या ई-मेल आयडीवर संपर्क करा."Jellow is a communicator using icons to enable speech and can be used by those learning to speak or those who have difficulty with speech.  Jellow can also be used by toddlers and early learners to learn words and categories frequently used in their daily lives. Jellow\'s colourful and friendly icons can help children develop an association between pictures and their corresponding word labels. It is developed at IDC School of Design at the Indian Institute of Technology Bombay located in Mumbai. A novel Emotional Language Proto call or ELP was conceived and developed by the project investigators in order to enhance the language ability of Jellow. ELP represents the 6 expressive icons that form the core of the interface. Using these core icons, the child can communicate their likes, dislikes, and needs with others. Jellow is conceived as children-friendly with an easy-to-learn interface. The application is optimized for Android tablets.Jellow is currently available in English,Hindi and Bengali. The current version of Jellow is _. The application is under further development. Therefore, if you have any suggestions for us, please submit it under the feedback tab.  Jellow is licensed under a Creative Commons Attribution Non-commercial Share Alike 4.0 International License. Work on Jellow is attributed to the Indian Institute of Technology Bombay. The content in this application comprising icons, layout, architecture, visual identity, translation, and the software codes can be shared and adopted but cannot be used for commercial purposes. When the content is used, we request you to acknowledge Indian Institute of Technology Bombay. Jellow is available for download at www dot jellow dot o r g. If interested in further developing the code, please write to Professor Ravi Poovaiah at ravi @ i i t b dot a c.in or,! j e l l o w c o m m u n i c a t o r @ g m a i l . c o m</string>-->
+    <!--<string name="about_jellow_speech">जेलो अॅप्लिकेशन आइकॉन आणि चिञ वापरुन संवाद साधण्यास मदत करते. जे बोलायला शिकत आहेत, किंवा ज्यांना बोलायला अडचण येत आहे, ते जेलोचा वापर करुन इतरांशी संवाद साधू शकतात. जेलो चा विकास, इंडियन इंस्टिट्यूट ऑफ टेक्नॉलॉजी बॉम्बे, मुंबई (आई आई टी-बी), च्या आईडीसी स्कूल ऑफ डिझाइन येथे झाला आहे. जेलो अॅप्लिकेशनची भाषा क्षमता वाढवण्यासाठी या प्रोजेक्टच्या प्रमुख संशोधकांनी एका नवीन इमोशनल लैंगग्विज प्रोटोकॉल (ELP) ची संकल्पना केली आहे. विज्युअल इमोशनल लैंगग्विज प्रोटोकॉल संकल्पनेत ६ भाववाहक आइकॉन आहेत, जे इंटरफेसचे मूलभूत भाग आहेत. या प्रमुख भाववाहक आइकॉनांच्या मदतीने जेलोचे वापरकर्ते त्यांच्या आवडी-निवडी आणि गरजा इतरांना सांगू शकतात. जेलो चा वापर मुले अत्यंत सहजपणे शिकु शकतात. जेलो अॅप्लिकेशन एंड्रॉयड टैबलेटसाठी अनुकूलित आहे. जेलो अॅप्लिकेशन सध्या इंग्रजी, हिंदी, बंगाली, मराठी, तमिळ, स्पॅनिश, जर्मन, फ्रेंच आणि इटालियन या भाषांमध्ये उपलब्ध आहे. जेलो अॅप्लिकेशनची वर्तमान आवृत्ती _ आहे. जेलो अॅप्लिकेशनचा विकास सध्या चालू आहे. या संदर्भात आपले काही सल्ले असल्यास, कृपया \"अभिप्राय\" टॅब मध्ये सबमिट करा. जेलो अॅप्लिकेशनचे लाइसेंस क्रिएटिव कॉमन्स एटट्रिब्यूशन-नॉन-कमर्शियल- शेयर-ए-लाइक ४.० लाइसेंन्सच्या खाली प्राप्त आहे. जेलो अॅप्लिकेशन सबंधित सर्व कार्यांचे श्रेय इंडियन इंस्टिट्यूट ऑफ टेक्नॉलॉजी बॉम्बे यांना दिले जाते. जेलो अॅप्लिकेशनचे सर्व कन्टेन्ट (समाविष्ट केलेले चिन्ह, लेआउट, आर्किटेक्चर, व्हिज्युअल आइडेन्टिटी, भाषांतर आणि सॉफ्टवेयर कोड) शेयर किंवा समावून घेतला जाऊ शकतो परंतु व्यावसायिक उद्देशांसाठी वापरला जाऊ शकत नाही. जेंव्हा कन्टेन्टचा वापर केला जाईल तेंव्हा तुम्हाला विनंती आहे की, तुम्ही इंडियन इंस्टिट्यूट ऑफ टेक्नॉलॉजी बॉम्बे (आयआयटी-बी) प्रति आभार व्यक्त करा. जेलो अॅप्लिकेशन येथे डाउनलोड करण्यासाठी उपलब्ध आहे: http://www.jellow.org ! जर कोणाला जेलोचा विकास करायचा असेल तर, त्यांना विंनती आहे की, जेलो प्रोजेक्टचे प्रमुख संशोधक प्राध्यापक रवि पूवैया यांना r a v i @ i i t b . a c . i n ! किंवा ! j e l l o w c o m m u n i c a t o r @ g m a i l . c o m या ई-मेल आयडीवर संपर्क करा."Jellow is a communicator using icons to enable speech and can be used by those learning to speak or those who have difficulty with speech.  Jellow can also be used by toddlers and early learners to learn words and categories frequently used in their daily lives. Jellow\'s colourful and friendly icons can help children develop an association between pictures and their corresponding word labels. It is developed at IDC School of Design at the Indian Institute of Technology Bombay located in Mumbai. A novel Emotional Language Proto call or ELP was conceived and developed by the project investigators in order to enhance the language ability of Jellow. ELP represents the 6 expressive icons that form the core of the interface. Using these core icons, the child can communicate their likes, dislikes, and needs with others. Jellow is conceived as children-friendly with an easy-to-learn interface. The application is optimized for Android tablets.Jellow is currently available in English,Hindi and Bengali. The current version of Jellow is _. The application is under further development. Therefore, if you have any suggestions for us, please submit it under the feedback tab.  Jellow is licensed under a Creative Commons Attribution Non-commercial Share Alike 4.0 International License. Work on Jellow is attributed to the Indian Institute of Technology Bombay. The content in this application comprising icons, layout, architecture, visual identity, translation, and the software codes can be shared and adopted but cannot be used for commercial purposes. When the content is used, we request you to acknowledge Indian Institute of Technology Bombay. Jellow is available for download at www dot jellow dot o r g. If interested in further developing the code, please write to Professor Ravi Poovaiah at ravi @ i i t b dot a c.in or,! j e l l o w c o m m u n i c a t o r @ g m a i l . c o m</string>-->
     <string name="catBtnDesc">जेलो अॅप्लिकेशनच्या स्क्रीनच्या मध्यभागी मुख्य वर्गांचे ९ बटन आहेत आणि दोन्ही बाजूंना ६ भाववाहक बटन आहेत.</string>
     <string name="catBtn">मुख्य वर्गांचे बटन:</string>
     <string name="expBtn">भाववाहक बटन:</string>
@@ -261,7 +264,7 @@
     <string name="about_je_intro4">या प्रमुख भाववाहक आइकॉनांच्या मदतीने जेलोचे वापरकर्ते त्यांच्या आवडी-निवडी आणि गरजा इतरांना सांगू शकतात.</string>
     <string name="about_je_intro5">जेलो चा वापर मुले अत्यंत सहजपणे शिकु शकतात.</string>
     <string name="about_je_intro6">जेलो अॅप्लिकेशन एंड्रॉयड टैबलेटसाठी अनुकूलित आहे.</string>
-    <string name="about_je_intro7">जेलो अॅप्लिकेशन सध्या इंग्रजी, हिंदी, बंगाली आणि मराठी मध्ये उपलब्ध आहे.</string>
+    <string name="about_je_intro7">जेलो अॅप्लिकेशन सध्या इंग्रजी, हिंदी, बंगाली, मराठी, तमिळ, स्पॅनिश, जर्मन, फ्रेंच आणि इटालियन या भाषांमध्ये उपलब्ध आहे.</string>
     <string name="software_info">सॉफ्टवेयर आवृत्ती: _</string>
     <string name="about_je_intro8">जेलो अॅप्लिकेशनची वर्तमान आवृत्ती _ आहे. जेलो अॅप्लिकेशनचा विकास सध्या चालू आहे. या संदर्भात आपले काही सल्ले असल्यास, कृपया "अभिप्राय" टॅब मध्ये सबमिट करा.</string>
     <string name="terms_of_use">वापरण्याच्या अटी आणि नियम</string>
@@ -285,7 +288,7 @@
     <string name="about_je_intro23">आइकॉन, विज्युअल डिज़ाइन आणि आवाज:</string>
     <string name="about_je_intro24">विनया तावड़े, श्वेता गौरीश पाठारे, अनीषा मल्होत्रा, निकिता अय्यर, सिमोन सेन, गणेश गज्जेला</string>
     <string name="about_je_intro25">भाषांतर:</string>
-    <string name="about_je_intro26">डॉ. रूपक मिश्रा, सचिन सोनावणे, डॉ. सुधा श्रीनिवासन</string>
+    <string name="about_je_intro26">सचिन सोनावणे, डॉ. सुधा श्रीनिवासन, कौस्तुभ राजवाडे, शशांक खोब्रागडे, जीवा कन्नन मुथुकुमार, दिपल शेठीया, डॉ. रूपक मिश्रा</string>
     <string name="about_je_intro27">संशोधन, शब्दसंग्रह विकास आणि वापरकर्ता अभ्यास:</string>
     <string name="about_je_intro28">डॉ. सुधा श्रीनिवासन, पुष्कर देशपांडे, साक्षी पाल, सिद्धी पटेल</string>
     <string name="about_je_intro29">समर्थन:</string>
@@ -293,16 +296,18 @@
     <string name="about_je_intro38">अनुदैर्ध्य वापरकर्ता अध्ययन आणि जेलो कम्युनिकेटरचे क्षेत्र परीक्षण:</string>
     <string name="about_je_intro39">टोपीवाला नॅशनल मेडिकल कॉलेज आणि बी.वाय.एल. नायर चॅरिटेबल हॉस्पीटल (मनोचिकित्सा, ऑडिओलॉजी आणि भाषण चिकित्सा विभाग)</string>
 
+    <string name="feedback_talkback_heading">१ ते ५ च्या प्रमाणात, कृपया खाली रेट करा</string>
+
     <!--Content description-->
     <string name="language_download_in_process">Language download in process</string>
     <string name="child_s_name">child\'s name</string>
     <string name="caregiver_s_contact_number">केयर गिवरचा संपर्क नंबर| या डिवाईसच्या सिम नंबर पेक्षा वेगळा असावा </string>
     <string name="user_s_group">user\'s group</string>
-    <string name="txt_registration_usergrp_desc">(Choose the person who will be using Jellow on this device)</string>
-    <string name="enter_caregiver_s_contact_number">enter caregiver\'s contact number</string>
     <string name="enter_home_address">enter home address</string>
-    <string name="email_address">email address</string>
+    <string name="enter_caregiver_s_contact_number">enter caregiver\'s contact number</string>
+    <string name="enter_caregiver_s_name">enter caregiver\'s name</string>
     <string name="enter_caregiver_s_email_address">enter caregiver\'s email address</string>
+    <string name="email_address">email address</string>
     <string name="category_cd">The image shows a screenshot of the home page of Jellow. The home page contains a central grid of 9 icons called category buttons that are arranged in 3 rows and 3 columns. The 9 category buttons are “Greet and feel”, “Daily activities”, “Eating”, “Fun”, “Learning”, “People”, “Places, “Time and weather”, and “Help”. Below the category buttons are 3 navigation buttons of “Back”, “Home” and “keyboard” arranged in that order at the bottom of the home screen. On the right and left sides of the central category icons are 3 expressive icons each. To the left of the central grid are 3 expressive buttons of “Like”, “Yes” and “More” arranged from top to bottom in that order. To the right of the central grid, are the remaining 3 expressive buttons of “Don’t like”, “No” and “Less” arranged from top to bottom. On the top right corner of the home screen is visible a settings icon. In this image the central grid of 9 icons has been highlighted with all other buttons faded out.</string>
     <string name="expressive_cd">This image again shows the screenshot of the home page of Jellow. In this image, the 6 expressive buttons arranged as 3 each of either side of the central category buttons have been highlighted with all other buttons faded out. To the left of the central grid of category buttons, arranged from top to bottom are the 3 expressive buttons of “Like” represented by a “Smiley face” icon, “Yes” represented by a “check mark” icon, and “More” represented by a “Plus sign” icon. To the right of the category buttons, arranged from top to bottom are the expressive icons of “Don’t like” represented by a sad face” icon, “No” represented by the “cross” icon and “Less” represented by the “Minus sign” icon. Also labeled in the image are the 3 navigational buttons at the bottom of the screen. From left to right these are “Back”, “Home”, and “Keyboard”.</string>
     <string name="pic4">This image has the home screen of Jellow with only 2 icons of “Eating” and “Yes” highlighted. The rest of the buttons are faded out. The image shows that to speak using Jellow, user has to first click on any category button, for instance, “Eating” and then on an expressive button, for example, “Yes”. In this way the user can speak using Jellow</string>
@@ -317,9 +322,9 @@
     <string name="gtts3">The third image is the third step in this process where now the user is at the “Google TTS voice data” screen. This screen provides multiple voice options including “French (France)”, “German (Germany)”, “Hindi (India)”, “Hungarian (Hungary)”, and “Indonesian (Indonesia)”. The “Hindi (India) voice” option is highlighted and shows an option of “Voice set 1” with a size of 19MB that is available for download. The user’s finger is seen to click on the download icon for the voice set 1 for the “Hindi (India)voice”.</string>
     <string name="enter_child_s_name">enter child\'s name</string>
     <string name="caregiver_s_contact_number_other_than_this_device_s_sim_number">Caregiver\'s Contact number other than this device\'s sim number</string>
-    <string name="enter_caregiver_s_name">enter caregiver\'s name</string>
     <string name="select_country_code">select country code</string>
     <string name="caregiver_s_email_address">caregiver\'s email address</string>
+    <string name="txt_registration_usergrp_desc">(Choose the person who will be using Jellow on this device)</string>
     <string name="like">आवडते</string>
     <string name="yes">हो</string>
     <string name="more">जास्तं</string>
@@ -358,6 +363,7 @@
     <string name="lang_setting_option2_cd">The second image corresponds to the second step in this process where the user is seen to now click on the “Gear” symbol corresponding to the “Settings” of the “Google Text-to-Speech engine”</string>
     <string name="lang_setting_option3_cd">The third image is the third step in this process where now the user is at the “Google TTS options” screen. The second item on this screen which is a toggle switch for “Use Wi-Fi only” has been highlighted in this image. The user is asked to turn off or disable this switch in this step.”</string>
     <string name="lang_setting_option3_gtt3_cd">The third image corresponds to the third step  in this process where the user is seen to  now click on the “Language\" option on the  Google TTS voice data page. The user is seen to set  \"Hindi(India)\" as the default language of the  Google Text-to-Speech engine.</string>
+    <!--end content description-->
 
     <string name="intro8_step2">\"केवळ वाय-फाय चा वापर करा\" ला बंद करा</string>
     <string name="txt_tts_stting">टेक्स्ट-टू-स्पीच सेटिंग्स</string>
@@ -382,11 +388,21 @@
     <string name="acc_lang_eng_gb">इंग्रजी (युनायटेड किंगडम)</string>
     <string name="acc_lang_eng_us">इंग्रजी (युनायटेड स्टेट्स)</string>
     <string name="acc_lang_eng_au">इंग्रजी (ऑस्ट्रेलिया)</string>
+    <string name="acc_lang_span_span">स्पॅनिश (स्पेन)</string>
+    <string name="acc_lang_tamil_in">तमिळ</string>
+    <string name="acc_lang_german_ger">जर्मन (जर्मनी)</string>
+    <string name="acc_lang_french_fr">फ्रेंच (फ्रांस)</string>
+    <string name="acc_lang_italian_it">इटालियन (इटली)</string>
+
+    <string name="level_1_screen">Level one screen</string>
+    <string name="level_2_screen">Level two screen</string>
+    <string name="level_3_screen">Level three screen</string>
+    <string name="sequence_screen">Activity sequence</string>
     <string name="close_searchbar">Close search bar</string>
 
     <string name="txt_accessibility_setting">ऍक्सेसिबिलिटी सेटिंग</string>
     <string name="visual_access_title">विजुअल एक्सेसिबिलिटी:</string>
-    <string name="visual_acesss_info">दृष्टीदोषीत वापरकर्ते आता जेलोच्या व्हिज्युअल ऍक्सेसिबिलिटी सुविधेचा वापर करु शकतात. एंड्रॉइड स्मार्टफोन वर \'टॉक बॅक\' बटण चालू करुन वापरकर्ते या सुविधेचा वापर करू शकतात. \'टॉक बॅक\' चालू असताना स्क्रीनला स्पर्श होणाऱ्या प्रत्येक गोष्टीचे वर्णन ऑडिओद्वारे वापरकर्त्याला ऐकायला मिळेल. वापरकर्ते \'टॉक बॅक\' चे डीफॉल्ट जेश्चर वापरू शकतात किंवा स्वत:च्या पसंतीचे जेश्चर देखील निवडू शकता. उदाहरणार्थ - उजव्या स्वाइप जेश्चरने, वापरकर्ते क्रमशः स्क्रीनचे ऑप्शन्स स्क्रॉल करू शकतात. अशाप्रकारे, वापरकर्ते स्क्रीनवर कुठेही डबल-टॅप करुन त्यांच्या पसंतीचे आइकॉन निवडू शकतात.</string>
+    <string name="visual_access_info">दृष्टीदोषीत वापरकर्ते आता जेलोच्या व्हिज्युअल ऍक्सेसिबिलिटी सुविधेचा वापर करु शकतात. एंड्रॉइड स्मार्टफोन वर \'टॉक बॅक\' बटण चालू करुन वापरकर्ते या सुविधेचा वापर करू शकतात. \'टॉक बॅक\' चालू असताना स्क्रीनला स्पर्श होणाऱ्या प्रत्येक गोष्टीचे वर्णन ऑडिओद्वारे वापरकर्त्याला ऐकायला मिळेल. वापरकर्ते \'टॉक बॅक\' चे डीफॉल्ट जेश्चर वापरू शकतात किंवा स्वत:च्या पसंतीचे जेश्चर देखील निवडू शकता. उदाहरणार्थ - उजव्या स्वाइप जेश्चरने, वापरकर्ते क्रमशः स्क्रीनचे ऑप्शन्स स्क्रॉल करू शकतात. अशाप्रकारे, वापरकर्ते स्क्रीनवर कुठेही डबल-टॅप करुन त्यांच्या पसंतीचे आइकॉन निवडू शकतात.</string>
     <string name="switch_access_title">ऍक्सेसिबिलिटी स्विच</string>
     <string name="switch_access_info_one">स्विच ऍक्सेसिबिलिटी सुविधा वापरून अपंग लोक अॅप्लिकेशन मध्ये सहजपणे नेव्हिगेशन करू शकतात. या सुविधेने वापरकर्ते एक किंवा दोन स्विच वापरून अॅप्लिकेशन मध्ये सहजपणे नेव्हिगेशन करू शकतात.</string>
     <string name="switch_access_info_two">या सुविधेला सक्षम करण्यासाठी, वापरकर्त्यास फोनच्या सेटिंग्स मध्ये ऍक्सेसिबिलिटी श्रेणी मध्ये जाऊन स्विच एक्सेस चालू करावा लागेल.</string>

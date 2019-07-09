@@ -23,6 +23,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.res.ResourcesCompat;
+
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.utility.SessionManager;
@@ -31,9 +34,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.res.ResourcesCompat;
 
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.LCODE;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
@@ -479,6 +479,19 @@ public class LanguageSelectTalkBackActivity extends SpeechEngineBaseActivity {
                 !current.equals(SessionManager.MR_IN))
             lang.add(LangValueMap.get(SessionManager.MR_IN));
 
+        if( getSession().isDownloaded(SessionManager.ES_ES)  &&
+                !current.equals(SessionManager.ES_ES))
+            lang.add(LangValueMap.get(SessionManager.ES_ES));
+
+        if( getSession().isDownloaded(SessionManager.TA_IN)  &&
+                !current.equals(SessionManager.TA_IN))
+            lang.add(LangValueMap.get(SessionManager.TA_IN));
+
+        if( getSession().isDownloaded(SessionManager.DE_DE)  &&
+                !current.equals(SessionManager.DE_DE))
+            lang.add(LangValueMap.get(SessionManager.DE_DE));
+
+
         lang.add(LangValueMap.get(current));
 
         return lang.toArray(new String[lang.size()]);
@@ -501,6 +514,12 @@ public class LanguageSelectTalkBackActivity extends SpeechEngineBaseActivity {
             lang.add(LangValueMap.get(SessionManager.BN_IN));
         if( !getSession().isDownloaded(SessionManager.MR_IN))
             lang.add(LangValueMap.get(SessionManager.MR_IN));
+        if( !getSession().isDownloaded(SessionManager.ES_ES))
+            lang.add(LangValueMap.get(SessionManager.ES_ES));
+        if( !getSession().isDownloaded(SessionManager.TA_IN))
+            lang.add(LangValueMap.get(SessionManager.TA_IN));
+        if( !getSession().isDownloaded(SessionManager.DE_DE))
+            lang.add(LangValueMap.get(SessionManager.DE_DE));
         return lang.toArray(new String[lang.size()]);
     }
 
@@ -606,6 +625,15 @@ public class LanguageSelectTalkBackActivity extends SpeechEngineBaseActivity {
                     case "English (Australia)":
                         shortenLanguageNames[i] = "English (Australia)";
                         break;
+                    case "Spanish (Spain)":
+                        shortenLanguageNames[i] = "Spanish (Spain)";
+                        break;
+                    case "தமிழ்":
+                        shortenLanguageNames[i] = "Tamil (India)";
+                        break;
+                    case "Deutsch (Deutschland)":
+                        shortenLanguageNames[i] = getString(R.string.acc_lang_german_ger);
+                        break;
                     default:
                         shortenLanguageNames[i] = langNameToBeShorten[i];
                         break;
@@ -625,6 +653,15 @@ public class LanguageSelectTalkBackActivity extends SpeechEngineBaseActivity {
                         break;
                     case "English (Australia)":
                         shortenLanguageNames[i] = "English (AU)";
+                        break;
+                    case "Spanish (Spain)":
+                        shortenLanguageNames[i] = "Spanish (ES)";
+                        break;
+                    case "Tamil (India)":
+                        shortenLanguageNames[i] = "Tamil (IN)";
+                        break;
+                    case "Deutsch (Deutschland)":
+                        shortenLanguageNames[i] = "Deutsch (DE)";
                         break;
                     default:
                         shortenLanguageNames[i] = langNameToBeShorten[i];

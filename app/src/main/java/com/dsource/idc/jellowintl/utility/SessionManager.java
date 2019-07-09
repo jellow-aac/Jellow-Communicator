@@ -23,19 +23,23 @@ public class SessionManager {
     public final static String BN_IN = "bn-rIN";    // BN_IN -> Bengali
     public final static String BE_IN = "be-rIN";    // BE_IN -> Bengali (for some old API devices which return Bengali locale as be-rIN)
     public final static String MR_IN = "mr-rIN";
-
-
-
+    public final static String ES_ES = "es-rES";    // ES_ES -> Spanish
+    //public final static String SP_ES = "sp-rES";    // SP_ES -> Spanish (for some old API devices which return Spanish locale as sp-rES)
+    public final static String TA_IN = "ta-rIN";
+    public final static String DE_DE = "de-rDE";
 
     public final static HashMap<String,String> LangMap = new HashMap<String,String>(){
         {
             put("English (India)", ENG_IN);
             put("हिंदी", HI_IN);
             put("मराठी", MR_IN);
+	        put("தமிழ்", TA_IN);
             put("English (United Kingdom)", ENG_UK);
             put("English (United States)", ENG_US);
             put("English (Australia)", ENG_AU);
+            put("Spanish (Spain)", ES_ES);
             put("বাঙালি", BN_IN);
+            put ("Deutsch (Deutschland)", DE_DE);
         }
     };
 
@@ -44,10 +48,13 @@ public class SessionManager {
             put(ENG_IN,"English (India)");
             put(HI_IN,"हिंदी");
             put(MR_IN,"मराठी");
+	        put(TA_IN, "தமிழ்");
             put(ENG_UK,"English (United Kingdom)");
             put(ENG_US,"English (United States)");
             put(ENG_AU,"English (Australia)");
+            put(ES_ES, "Spanish (Spain)");
             put(BN_IN,"বাঙালি");
+            put(DE_DE, "Deutsch (Deutschland)");
         }
     };
 
@@ -364,9 +371,9 @@ public class SessionManager {
         return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.package_name_comma_separated));
     }
 
- /**
-  * Ayaz
-  * */
+    /**
+     * Ayaz
+     **/
     public void setLanguageChange(int code)
     {
         final int CHANGED=1;
@@ -378,9 +385,6 @@ public class SessionManager {
             storePreferenceKeyWithValue(String.class.toString(),mContext.getString(R.string.lang_change_code),"Create");
         else if(code==NO_CHANGE)
             storePreferenceKeyWithValue(String.class.toString(),mContext.getString(R.string.lang_change_code),"No");
-
-
-
     }
 
     public int isLanguageChanged()
@@ -395,9 +399,27 @@ public class SessionManager {
         else if(lang_change.equals("Create"))
             return CREATE_DATABASE;
         else return NO_CHANGE;
-
     }
 
+    public boolean
+    isBoardDatabaseCreated() {
+        String board_code=(String)retrievePreferenceKeyWithValue(String.class.toString(),"Board_Database");
+        return board_code.equals("Yes");
+    }
+
+    /**
+     * Ayaz
+     **/
+    public void setBoardDatabaseStatus(int code)
+    {
+        String Tag="Board_Database";
+        final int DatabaseCreated=1;
+        final int DatabaseNotCreated=-1;
+        if(code==DatabaseCreated)
+            storePreferenceKeyWithValue(String.class.toString(),Tag,"Yes");
+        else if(code==DatabaseNotCreated)
+            storePreferenceKeyWithValue(String.class.toString(),Tag,"No");
+    }
 
     private void storePreferenceKeyWithValue(String classType, String key, Object val){
         if (classType.equals(Integer.class.toString()))
@@ -425,24 +447,5 @@ public class SessionManager {
         else if(classType.equals(String.class.toString()))
             valueOfKey = mPreferences.getString(key, "");
         return valueOfKey;
-    }
-
-    public boolean
-    isBoardDatabaseCreated() {
-        String board_code=(String)retrievePreferenceKeyWithValue(String.class.toString(),"Board_Database");
-        return board_code.equals("Yes");
-    }
-    /**
-     * Ayaz
-     * */
-    public void setBoardDatabaseStatus(int code)
-    {
-        String Tag="Board_Database";
-        final int DatabaseCreated=1;
-        final int DatabaseNotCreated=-1;
-        if(code==DatabaseCreated)
-            storePreferenceKeyWithValue(String.class.toString(),Tag,"Yes");
-        else if(code==DatabaseNotCreated)
-            storePreferenceKeyWithValue(String.class.toString(),Tag,"No");
     }
 }

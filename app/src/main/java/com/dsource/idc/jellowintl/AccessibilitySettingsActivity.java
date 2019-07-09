@@ -5,9 +5,10 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.accessibility.AccessibilityManager;
-
 import com.dsource.idc.jellowintl.utility.DeveloperKey;
+import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubeStandalonePlayer;
+import com.google.android.youtube.player.YouTubeThumbnailLoader;
 import com.google.android.youtube.player.YouTubeThumbnailView;
 
 import static com.dsource.idc.jellowintl.ThumbnailListener.SWITCH_ACCESS_VIDEO_ID;
@@ -16,6 +17,9 @@ import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 
 public class AccessibilitySettingsActivity extends BaseActivity {
+    private final String VISUAL_ACCESS_VIDEO_ID = "QDU1Qp-u2Zs";
+    private final String SWITCH_ACCESS_VIDEO_ID = "OJiOC0Wkvlk";
+    ThumbnailListener thumbnailListener = new ThumbnailListener();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +27,6 @@ public class AccessibilitySettingsActivity extends BaseActivity {
         setContentView(R.layout.activity_accessibility_settings);
         enableNavigationBack();
         setActivityTitle(getString(R.string.menuAccessibility));
-
-        ThumbnailListener thumbnailListener = new ThumbnailListener(this);
         ((YouTubeThumbnailView)findViewById(R.id.thumbnailVisualAccess)).
                 initialize(DeveloperKey.DEVELOPER_KEY, thumbnailListener);
         ((YouTubeThumbnailView)findViewById(R.id.thumbnailSwitchAccess)).
@@ -105,6 +107,37 @@ public class AccessibilitySettingsActivity extends BaseActivity {
             startActivity(new Intent().setAction("android.settings.ACCESSIBILITY_SETTINGS"));
         }catch (Exception e){
             e.printStackTrace();
+        }
+    }
+
+
+    private final class ThumbnailListener implements
+            YouTubeThumbnailView.OnInitializedListener,
+            YouTubeThumbnailLoader.OnThumbnailLoadedListener {
+
+        @Override
+        public void onInitializationSuccess(
+                YouTubeThumbnailView view, YouTubeThumbnailLoader loader) {
+            loader.setOnThumbnailLoadedListener(this);
+            if(view.equals(findViewById(R.id.thumbnailVisualAccess)))
+                loader.setVideo(VISUAL_ACCESS_VIDEO_ID);
+            else
+                loader.setVideo(SWITCH_ACCESS_VIDEO_ID);
+        }
+
+        @Override
+        public void onInitializationFailure(
+                YouTubeThumbnailView view, YouTubeInitializationResult loader) {
+            view.setImageResource(R.drawable.no_thumbnail);
+        }
+
+        @Override
+        public void onThumbnailLoaded(YouTubeThumbnailView view, String videoId) {
+        }
+
+        @Override
+        public void onThumbnailError(YouTubeThumbnailView view, YouTubeThumbnailLoader.ErrorReason errorReason) {
+            view.setImageResource(R.drawable.no_thumbnail);
         }
     }
 }

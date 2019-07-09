@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.dsource.idc.jellowintl.Presentor.PreferencesHelper;
 import com.dsource.idc.jellowintl.utility.DataBaseHelper;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
@@ -38,10 +39,7 @@ public class ResetPreferencesActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(ResetPreferencesActivity.this, strIconsResetMsg, Toast.LENGTH_SHORT).show();
-                myDbHelper.delete();
-                getSession().resetUserPeoplePlacesPreferences();
-                getSession().setCompletedDbOperations(false);
-                getSession().setLanguageChange(0);
+                PreferencesHelper.clearPreferences(getAppDatabase());
                 startActivity(new Intent(getApplicationContext(), SplashActivity.class));
                 Crashlytics.log("ResetPref Yes");
                 finishAffinity();

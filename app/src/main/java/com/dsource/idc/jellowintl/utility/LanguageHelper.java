@@ -21,7 +21,7 @@ public class LanguageHelper {
         if(!lang.isEmpty())
             locale = new Locale(lang.split("-r")[0],lang.split("-r")[1]);
         else
-            locale = new Locale("en","IN");
+            locale = context.getResources().getConfiguration().locale;
         return setLanguage(context, locale);
     }
 

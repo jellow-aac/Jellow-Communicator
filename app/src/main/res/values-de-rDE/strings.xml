@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="ratings">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+    <string-array name="arrSequenceActivityHeadingText">
+        <item>Zähneputzen</item>
+        <item>Toilette</item>
+        <item>Duschen</item>
+        <item>""</item>
+        <item>""</item>
+        <item>""</item>
+        <item>""</item>
+        <item>\tMorgenroutine</item>
+        <item>\tSchlafenszeitroutine</item>
+    </string-array>
+
+    <string name="app_name">Jellow</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="Profile">Profil</string>
+
+    <string name="Language">Sprache</string>
+    <string name="ChangeLanguage">Sprache ändern</string>
+    <string name="saveLanguage">Änderungen speichern</string>
+    <string name="addLanguage">Sprache hinzufügen</string>
+    <string name="deleteLanguage">Sprache löschen</string>
+    <string name="editLanguage">1) Sprache(n) hinzufügen / löschen</string>
+
+    <string-array name="bloodgroup">
+        <item>nicht gewählt</item>
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+        <item>O+</item>
+        <item>O-</item>
+    </string-array>
+
+    <string-array name="bloodgroup_talkback">
+        <item>nicht gewählt</item>
+        <item>A positiv</item>
+        <item>A negativ</item>
+        <item>B positiv</item>
+        <item>B negativ</item>
+        <item>A B positiv</item>
+        <item>A B negativ</item>
+        <item>O positiv</item>
+        <item>O negativ</item>
+    </string-array>
+
+    <string-array name="picture_view_mode">
+        <item>Bild + Text</item>
+        <item>Nur Bild</item>
+    </string-array>
+
+    <string-array name="grid_size">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>9</item>
+    </string-array>
+
+    <string-array name="acc_grid_size">
+        <item>eins</item>
+        <item>zwei</item>
+        <item>drei</item>
+        <item>vier</item>
+        <item>neun</item>
+    </string-array>
+
+    <string name="change_language_line2">Schritt 1: Wählen Sie eine heruntergeladene Sprache im Dropdownmenü:</string>
+    <string name="simple_ime">Jellow Tastatur</string>
+    <string name="subtype_en_US">Serie ABC</string>
+
+    <string name="action_bar_title">Home</string>
+    <string name="txtLanguage">Sprache</string>
+    <string name="txtSpeechSpeed">Sprechgeschwindigkeit</string>
+    <string name="txtVoiceSpeech">Stimmlage</string>
+    <string name="txtDisplayMode">Anzeigemodus</string>
+    <string name="txtVoiceVolume">Sprechlautstärke</string>
+    <string name="txtNumOfPerPerScr">Anzahl von Icons auf dem Bildschirm</string>
+    <string name="txtDemo">Sprech demo</string>
+    <string name="txtSave">Speichern</string>
+    <string name="demoTtsSpeech">Hallo! Sie benutzen Jellow Communicator.</string>
+    <string name="savedSettingsMessage">Einstellungen gespeichert</string>
+    <string name="languageChanged">Sprache gespeichert</string>
+    <string name="no_more_lang_2_add">Keine Sprache zum Hinzufügen verfügbar</string>
+    <string name="no_more_lang_2_del">Keine Sprache zum Löschen verfügbar</string>
+    <string name="checkConnectivity">Keine Internetverbindung. Schalten Sie bitte das Internet an.</string>
+    <string name="languageCurrentlyInUse">Sprache wird zurzeit benutzt</string>
+    <string name="languageRemoved">Sprache entfernt</string>
+
+    <string name="menuProfile">Profil</string>
+    <string name="menuAbout">Über Jellow</string>
+    <string name="menuMyBoards">My Boards</string>
+    <string name="menuTutorials">Tutorial</string>
+    <string name="menuKeyboardInput">Tastatursteuerung</string>
+    <string name="menuResetPref">Einstellungen zurücksetzen</string>
+    <string name="menuFeedback">Feedback</string>
+    <string name="menuUserRegistration">Anmeldeseite</string>
+    <string name="menuAccessibility">Zugänglichkeits</string>
+    <string name="menuClosePopup">Menü schließen</string>
+    <string name="labelSplash">Jellow wird geladen, bitte warten!</string>
+
+    <string name="endString"> </string>
+
+    <string name="easyToUse">benutzerfreundlich</string>
+    <string name="clearPictures">scharfe Bilder</string>
+    <string name="clearVoice">klare Stimme</string>
+    <string name="easyToNavigate">einfach zu navigieren</string>
+    <string name="commentSuggestions">Kommentare / Anregungen</string>
+    <string name="submit">Absenden</string>
+    <string name="appLoading">App wird geladen…</string>
+    <string name="activateGoogleTts">1. Google TTS aktivieren</string>
+    <string name="changeDefaultToHindi">2. Gewünschte Sprache als Standard setzen</string>
+    <string name="downloadVoiceTts">3. Stimme in gewünschter Sprache herunterladen</string>
+    <string name="activate">Aktivieren</string>
+    <string name="download">Herunterladen</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="keyboardControl">Tastatursteuerung:</string>
+    <string name="serial_keyboard_title">Serielle Tastatur:</string>
+    <string name="serial_keyboard_info">Jellow Communicator ist mit eigener \'Serielle Jellow-Tastatur\' ausgestattet. Die Tastatur wurde aufgrund des Feedbacks von besonderen Pädagogen und Lehrern gestaltet und bietet in eine Serie angeordnete Alphabete dar, die mit dem Alphabet \'A\' beginnt. Die serielle Tastatur ermöglicht dem Benutzer, die Lage eines bestimmten Alphabets auf der Tastatur vorauszuahnen, und ist für diejenigen Kinder sehr hilfreich, die gerade erst mit dem Lernen begonnen haben. Ebenso bietet die Tastatur die Zahlen-Tasten von 0 bis 9 und jene Symbole dar, die bei alltäglicher Kommunikation von Belang sind.</string>
+    <string name="keyboardControlTxt">Um Ihre gewünschte Tastatur zu wählen und sie als Standard zu setzen, müssen Sie die folgenden 2 Schritte durchführen:</string>
+    <string name="step1">Schritt 1: Tastatur in Geräteeinstellungen aktivieren</string>
+    <string name="qwertyKeyboard">Deutsche (QWERTZ) Tastatur</string>
+    <string name="serialKeyboard">Serie ABC</string>
+    <string name="step2">Schritt 2: Gewählte Tastatur als Standard sichern</string>
+    <string name="saveAsDefault">Als Standard sichern</string>
+    <string name="voiceControl">Sprachsteuerung:</string>
+    <string name="getKeyboardControl">Tastatursteuerung</string>
+    <string name="childName">Name des Kindes: *</string>
+    <string name="caregiverName">Name der Bezugsperson</string>
+    <string name="careGiverContact">Kontakt der Bezugsperson außer der SIM-Handyummer dieses Geräts *</string>
+    <string name="homeAddress">Adresse</string>
+    <string name="emailAddress">Email-Adresse *</string>
+    <string name="bloodGroup">Blutgruppe</string>
+    <string name="detailSaved">Daten gespeichert</string>
+    <string name="invalid_emailId">ungültige Email-Adresse</string>
+    <string name="invalidContactNumber">ungültige Handynummer</string>
+    <string name="enterTheName">Namen Ihres Kindes eingeben</string>
+    <string name="search_act_title">Icons in Jellow durchsuchen</string>
+    <string name="resetPreferenceMessage">
+       <![CDATA[ <ul>
+            <li>Die von den Benutzern \"meistbenutzten und bevorzugten\" Icons werden von Jellow gespeichert und auf dem Bildschirm als \"Top-Icons\" wiedergegeben.</li><br/>
+            <li>Beim Zurücksetzen der Benutzerpräferenzen werden die Icons in ihre originelle Reihenfolge zurückgebracht.</li><br/>
+            <li>Wollen Sie die Benutzerpräferenzen zurücksetzen?</li><br/><br/>
+       </ul>]]>
+    </string>
+    <string name="iconsHasBeenReset">Benutzerpräferenzen zurückgesezt</string>
+    <string name="speak">Sprechen</string>
+    <string name="stop">Halten</string>
+    <string name="about_jellow_speech">Jellow ist eine kommunikative App, die durch Gebrauch von Icons und Bildern das Sprechen ermöglicht. Die App ist geeignet sowohl für diejenigen, die das Sprechen lernen als auch für diejenigen, die Schwierigkeiten beim Sprechen haben. Jellow kann von Kleinkindern sowie von denjenigen benutzt werden, die gerade erst mit dem Lernen begonnen haben, um Wörter, Begriffe und Ausdrücke zu lernen, die sorgfältig in unterschiedlichen Kategorien eingeordnet worden sind. Die farbigen und benutzerfreundlichen Icons Jellows ermöglichen und vereinfachen den Kindern das Lernen, indem sie einen Zusammenhang zwischen Bildern und dementsprechenden Begriffen herstellen. Jellow wird in \"IDC School of Design\" an Indian Institute of Technology Bombay (Mumbai) entwickelt. Um Jellows Lernfähigkeit zu verbessern, wurde von den Projekt-Forschern ein neuartiges \"Emotional Language Protokoll (ELP)\" entworfen und entwickelt. Das ELP führt 6 expressive Icons ein, die als Grundlage für das ganze Interface dienen. Der Benutzer kann mithilfe dieser Icons seine Vorlieben, Abneigungen und Bedürfnisse vermitteln. Jellow wird als eine kinderfreundliche App mit leicht erlernbarem Interface entworfen. Jellow wird für Android-Tablets optimiert und ist zurzeit auf Englisch, Hindi, Bengali, Marathi, Tamil, Spanisch, Deutsch, Französisch und Italienisch verfügbar. Die aktuelle Version Jellows ist _. Die App wird allerdings weiterentwickelt. Falls Sie Vorschläge oder Bemerkungen haben, teilen Sie uns diese in dem Feedback-Tab mit oder schreiben Sie uns an jellowcommunicator@gmail.com. Jellow wird unter der Lizenz der Creative-Common-Attribution Share Alike 4.0 veröffentlicht und Indian Institute of Technology Bombay zugeschrieben. Der Inhalt dieser App inklusiv der Icons, Gestaltung, Übersetzung, visuellen Identität, des Aufbaus und der Softwarecodes kann zu gemeinnützigen, nicht gewerblichen Zwecken geteilt und übernommen werden, in welchem Fall wird es Sie um die Anerkennung von Indian Institute of Technology Bombay gebeten. Jellow ist auf www dot jellow dot org zum Downloaden vorhanden. Bei Interesse an Weiterentwicklung des Codes, können Sie an Professor Ravi Poovaiah schreiben: ravi@ i i t b dot a c . i n ; j e l l o w c o m m u n i c a t o r @ g m a i l . c o m </string>
+    <string name="catBtnDesc">Jellow hat 9 Hauptkategorien-Tasten und 6 expressive Tastenstring</string>
+    <string name="catBtn">Kategorien-Tasten:</string>
+    <string name="expBtn">Expressive Tasten:</string>
+    <string name="jellowUsageDesc">Um mithilfe Jellows zu sprechen, drücken Sie zuerst eine Kategorien-Taste und danach eine expressive Taste. Zum Beispiel, Jellow wird die Aussage \"Ich habe Hunger\" folgenderweise zum Sprechen bringen:</string>
+    <string name="jellowUsageSubCat">Mit Doppelklick auf eine Kategorien-Taste können weitere Kategorien und ihre Unterkategorien abgerufen werden</string>
+    <string name="levelOneCat">Kategorien auf Stufe 1</string>
+    <string name="levelTwoCat">Kategorien auf Stufe 2</string>
+    <string name="levelThreeCat">Icons auf Stufe 3</string>
+    <string name="settingDesc">Der Benutzer kann in der oberen rechten Bildschirmecke das Profil individuell einrichten sowie die Stimmeinstellungen der App steuern</string>
+    <string name="seqActDesc">Mithilfe Jellows kann den Kindern die Vorgangsreihe einer Alltagsaktivität beigebracht werden. Beim Doppelklicken auf einen individuellen Schritt kann der Benutzer die expressiven Tasten ansehen.</string>
+    <string name="toiletSeq">Die Abfolge \"Toilette\"</string>
+    <string name="expBtnSeq">Expressive Tasten der Abfolge \"Toilette\"</string>
+    <string name="ttsDesc">Um Jellow auf Englisch, Hindi, Bengali, Tamil, Spanisch, Deutsch, Französisch und Italienisch zu benutzen, aktivieren Sie \"Google Text-to-Speech (TTS)\" unter Spracheinstellung Ihres Geräts. Innerhalb der Google TTS-Einstellungen, wechseln Sie die Standardsprache auf gewünschte Sprache und dann laden Sie die Stimme für diese Sprache unter \"Sprachdaten installieren\" herunter</string>
+    <string name="softwareVersion">Softwareversion:</string>
+    <string name="string_to_speak">Text eingeben, den Sie zum Sprechen bringen wollen</string>
+    <string name="speak_written_text">Das Geschriebene zum Sprechen bringen</string>
+    <string name="resetPrefPointOne">Die von den Benutzern \"meistbenutzten und bevorzugten\" Icons werden von Jellow gespeichert und auf dem Bildschirm als \"Top-Icons\" wiedergegeben.</string>
+    <string name="resetPrefPointTwo">Beim Zurücksetzen der Benutzerpräferenzen werden die Icons in ihre originelle Reihenfolge zurückgebracht.</string>
+    <string name="resetPrefPointThree">Wollen Sie die Benutzerpräferenzen zurücksetzen?</string>
+    <string name="downloadErrorMsg">Stellen Sie sicher, dass Sie beim Downloaden mit dem Internet verbunden sind. Falls der Download-Vorgang angehalten wird, starten Sie die App erneut.</string>
+    <string name="intro_to_jellow">Einführung in Jellow</string>
+    <string name="rate_jellow">Bewerten Sie bitte Jellow in allen Feldern</string>
+    <string name="keyboard">Tastatur</string>
+    <string name="txt_intro1_central9btn">Jellow hat 9 Hauptkategorien-Tasten</string>
+    <string name="txt_intro1_categorybtn">Kategorien-Tasten</string>
+    <string name="txt_intro5_jellowUsageDesc">Die App hat 6 expressive Tasten</string>
+    <string name="txt_intro5_expressiveBtn">Expressive Tasten</string>
+    <string name="txt_intro2_appUsageDesc">Zunächst eine Kategorien-Taste und danach eine expressive Taste drücken</string>
+    <string name="txt_intro2_speakUsingJellow">Sprechen mithilfe Jellows</string>
+    <string name="txt_intro3_level2CatDesc">Mit Doppelklick auf eine Kategorie können Sie weitere Kategorien sowie Unterkategorien abrufen</string>
+    <string name="txt_intro3_navWithJellow">Innnerhalb Jellows navigieren</string>
+    <string name="txt_intro4_customizeAppDesc">Die App-Einstellungen können in der oberen rechten Bildschirmecke individuell eingerichtet werden</string>
+    <string name="txt_intro4_customizeJellow">Jellow Einstellungen</string>
+    <string name="txt_intro6_skipActiveTtsDesc">Um - zu benutzen, setzen Sie die Sprache als _</string>
+    <string name="txt_intro6_ttsStep1">1. Google TTS aktivieren</string>
+    <string name="txt_intro6_activate">Aktivieren</string>
+    <string name="txt_intro6_step2">2. _ als Standard-Sprache setzen</string>
+    <string name="txt_intro6_changeLang">Sprache ändern</string>
+    <string name="txt_intro6_step3">3. Stimme auf _ herunterladen</string>
+    <string name="txt_intro6_download">Herunterladen</string>
+    <string name="txt_intro7_getStartedDesc">Jellow ist jetzt startbereit</string>
+    <string name="txt_intro7_getStarted">Starten</string>
+    <string name="txt_registration_jellowCalluDesc">(So nennt Sie Jellow)</string>
+    <string name="txt_registration_emergencynoDesc">(Zum Kontaktieren im Notfall bezüglich des Kindes)</string>
+    <string name="txt_registration_emailDesc">(Sich über die Jellow-Aktualisierungen informieren lassen)</string>
+    <string name="txt_registration_selectLangDesc">Sprache für Jellow setzen *</string>
+    <string name="txt_registration_selectLangDesc_contentDesc">Sprache für Jellow setzen. Pflichtfeld</string>
+    <string name="txt_registration_registerBtn">Registrieren</string>
+    <string name="enternonemptycontact">Eine gültige Handynummer eingeben</string>
+    <string name="change_tts_lang">Die TTS-Sprache festlegen</string>
+    <string name="txt_actLangSel_completestep3">Mit dem Internet verbinden und den 3. Schritt durchführen</string>
+    <string name="change_language_line5">Schritt 2: Die Verfügbarkeit der Stimme für Deutsch prüfen. Wenn nicht vorhanden, dann herunterladen. Falls der Download-Vorgang angehalten wird, wiederholen.</string>
+    <string name="change_language_line4">Schritt 3: \'Google Text-to-Speech\' als Standard-TTS setzen sowie _ als Standardsprache setzen</string>
+    <string name="txtChangeLanguage">2) Standard-Sprache ändern:</string>
+    <string name="txtApplyChanges">Schritt 4:  \"Einstellungen ändern\" klicken, um die neue Sprache als Standard zu setzen</string>
+    <string name="change_language_line6">Den Schritten unten folgen, um die neu gewählte Sprache als Standard zu setzen</string>
+    <string name="txt_set_tts_setup">Bitte führen Sie die Einrichtung von Text-to-Speech vom voherigen Bildschirm durch</string>
+    <string name="txt_save_same_lang_def">Die gewählte Sprache ist bereits die Standard-Sprache</string>
+    <string name="speech_engin_lang_sam">Bitte prüfen Sie die Spracheinstellungen</string>
+    <string name="txt_intro6_skipTtsSetup">Geräte mit schon aktivierten Google Text-to-Speech: Bitte wischen Sie, um diesen Schritt zu überspringen</string>
+    <string name="txt_actLangSel_downloadDat">Sprachdaten prüfen</string>
+    <string name="txt_actLangSel_complete_mainscreen_msg">Sprachedaten nicht vorhanden. Bitte verbinden Sie mit dem Internet, um Sprachdaten herunterzuladen</string>
+    <string name="language_downloaded">_ Sprachdaten heruntergeladen</string>
+    <string name="language_downloading">Deutsch (Deutschland)_ wird heruntergeladen</string>
+    <string name="ok">Weiter</string>
+    <string name="call_permission_info">Anrufberechtigungen nicht vorhanden. Die Anrufberechtigungen sind für Notruf erforderlich.</string>
+    <string name="granted_call_permission_req">Anrufberechtigungen erteilt</string>
+    <string name="rejected_call_permission_req">Anrufberechtigungen abgelehnt</string>
+    <string name="grant_permission_from_settings">Anrufberechtigungen in Einstellungen erteilen</string>
+    <string name="request">Zulassen</string>
+    <string name="userGroup">Benutzergruppe *</string>
+    <string name="groupTeacher">Therapeut/-in oder Lehrer/-in</string>
+    <string name="groupParent">Eltern/Bezugsperson</string>
+    <string name="invalid_usergroup">Wählen Sie bitte eine Benutzergruppe</string>
+    <string name="txtEnableBuiltInCalling">Notanruf von Jellow aktivieren</string>
+    <string name="downloadableLang">verfügbare Sprachen</string>
+    <string name="downloadedLang">heruntergeladene Sprachen</string>
+    <string name="remove">Entfernen</string>
+    <string name="dismiss">Ausblenden</string>
+    <string name="register_user">Bitte warten, Registrierung in Arbeit…</string>
+    <string name="exit">Beenden</string>
+    <string name="err_dialog_msg">Google TTS-Engine ist auf Ihrem Gerät nicht installiert. Möchten Sie TTS-Engine installieren?</string>
+    <string name="exit_dialog_msg">Jellow funktioniert ohne Google Text-to-Speech nicht. Möchten Sie Jellow wirklich verlassen?</string>
+    <string name="next_slide">Nächste Anzeige</string>
+    <string name="previous_slide">Vorherige Anzeige</string>
+
+    <!--Strings related to the Searching capability
+    @AyazAlam
+    -->
+    <string name="search_title">Icon suchen…</string>
+    <string name="home">Home</string>
+    <string name="icon_not_found">Icon nicht gefunden</string>
+
+    <!--About Jellow strings-->
+    <string name="info">Allgemeine Informationen</string>
+    <string name="about_je_intro1">Jellow ist eine kommunikative App, die durch Gebrauch von Icons und Bildern das Sprechen ermöglicht. Die App ist geeignet sowohl für diejenigen, die das Sprechen lernen als auch für diejenigen, die Schwierigkeiten beim Sprechen haben. Jellow kann von Kleinkindern sowie von denjenigen benutzt werden, die gerade erst mit dem Lernen begonnen haben, um Wörter, Begriffe und Ausdrücke zu lernen, die im Alltag häufig vorkommen. Die farbigen und benutzerfreundlichen Icons Jellows helfen den Kindern dabei, einen Zusammenhang zwischen Bildern und dementsprechenden Begriffen herzustellen.</string>
+    <string name="about_je_intro2">Jellow wird in "IDC School of Design" an Indian Institute of Technology Bombay, Mumbai entwickelt.</string>
+    <string name="about_je_intro3">Um Jellows Lernfähigkeit zu verbessern, wurde von den Projekt-Forschern ein neuartiges "Emotional Language Protokoll (ELP)" entworfen und entwickelt. Das ELP führt  6 expressive Icons ein, die als Grundlage für das ganze Interface dienen.</string>
+    <string name="about_je_intro4">Der Benutzer kann mithilfe dieser Icons seine Vorlieben, Abneigungen und Bedürfnisse vermitteln.</string>
+    <string name="about_je_intro5">Jellow wird als eine kinderfreundliche App mit leicht erlernbarem Interface entworfen.</string>
+    <string name="about_je_intro6">Die App ist für Android-Tablets optimiert.</string>
+    <string name="about_je_intro7">Jellow ist zurzeit auf Deutsch, Englisch, Hindi, Bengali und Marathi verfügbar.</string>
+    <string name="software_info">Softwareversion: _</string>
+    <string name="about_je_intro8">Die aktuelle Version Jellows ist _. Die App wird allerdings weiterentwickelt. Falls Sie Vorschläge oder Bemerkungen haben, teilen Sie diese im Feedback-Tab mit oder schreiben Sie uns an jellowcommunicator@gmail.com</string>
+    <string name="terms_of_use">Nutzungsbedingungen</string>
+    <string name="about_je_intro9">Jellow wird unter der Lizenz der Creative-Common-Attribution Share Alike 4.0 veröffentlicht.</string>
+    <string name="about_je_intro10">Die Erstellung und Entwicklung von Jellow wird Indian Institute of Technology Bombay zugeschrieben.</string>
+    <string name="about_je_intro11">Der Inhalt dieser App inklusive der Icons, visuellen Identität, Übersetzung, Softwarecodes und des Aufbaus kann zu gemeinnützigen, nicht gewerblichen Zwecken geteilt und übernommen werden.</string>
+    <string name="about_je_intro12">Wenn der Inhalt gebraucht wird, wird Sie um die Anerkennung von Indian Institute of Technology Bombay gebeten.</string>
+    <string name="about_je_intro13">Jellow kann auf www.jellow.org heruntergeladen werden.</string>
+    <string name="about_je_intro14">Bei Interesse an Weiterentwicklung der Codes können Sie an Professor Ravi Poovaiah an ravi@iitb.ac.in schreiben.</string>
+    <string name="credits">Credits:</string>
+    <string name="about_je_intro15">Ideekonzeption, Projektforschung und Projektbeaufsichtigung:</string>
+    <string name="about_je_intro16">Prof. Dr. Ravi Poovaiah, Dr. Ajanta Sen</string>
+    <string name="about_je_intro17">Erstentwicklung des Konzepts:</string>
+    <string name="about_je_intro18">Anchal Kumar, Samraat Sardesai, Peter Joseph, Antara Hazarika</string>
+    <string name="about_je_intro19">Softwareentwicklung:</string>
+    <string name="about_je_intro20">Rahul Rupchand Jidge, Narayana Reddy, Nikhil Ahirrao, Ayaz Alam, Harshit Budhraja, Sumeet Agrawal, Roopa Narayan Sahoo, Shruti Gupta, Aastha Joshi, Dhairya Dand, Pritam Pebam</string>
+    <string name="about_je_intro31">Software- und Gebrauchstauglichkeitsprüfung:</string>
+    <string name="about_je_intro32">Dr. Sudha Srinivasan, Vinaya Tawde, Sachin Sonawane, Roopa Narayan Sahoo, Rahul Rupchand Jidge</string>
+    <string name="about_je_intro21">Webseitengestaltung:</string>
+    <string name="about_je_intro22">Professor Ravi Poovaiah, Yogesh Masaye, Sumedh Garud, Roopa Narayan Sahoo</string>
+    <string name="about_je_intro23">Icon-, Stimm- und visuelles Design:</string>
+    <string name="about_je_intro24">Vinaya Tawde, Shweta Gaurish Pathare, Anisha Malhotra, Simone Sen, Nikita Iyer, Ganesh Gajjela</string>
+    <string name="about_je_intro25">Übersetzung:</string>
+    <string name="about_je_intro26">Sachin Sonawane, Dr Sudha Srinivasan, Kaustubh Rajwade, Shashank Khobragade, Jeeva Kannan Muthukumar, Deepal Shethia, Dr Rupak Misra</string>
+    <string name="about_je_intro27">Forschung, Wortschatzentwicklung und Nutzerstudie:</string>
+    <string name="about_je_intro28">Dr Sudha Srinivasan, Pushkar Deshpande, Sakshi Pal, Siddhi Patel</string>
+    <string name="about_je_intro29">Förderung:</string>
+    <string name="about_je_intro30">E-Kalpa Projekt gestiftet unter NMEICT von MHRD, Indien; Microsoft Design Expo 2004 und 1-jährige Anschubfinanzierung von UNICEF.</string>
+    <string name="about_je_intro38">Longitudinalnutzerstudie und Feldversuche von Jellow Communicator:</string>
+    <string name="about_je_intro39">Topiwala National Medical College and B.Y.L Nair Charitable Hospital (Departments of Psychiatry and Audiology and Speech Therapy), Mumbai, Indien</string>
+    <string name="feedback_talkback_heading">Bewerten Sie bitte auf einer Skala von 1 bis 5</string>
+
+    <!--Content description-->
+    <string name="language_download_in_process">Sprache wird heruntergeladen</string>
+    <string name="child_s_name">Name des Kindes. Pflichtfeld</string>
+    <string name="caregiver_s_contact_number">Kontakt der Bezugsperson *</string>
+    <string name="user_s_group">Benutzergruppe. Pflichtfeld</string>
+    <string name="enter_home_address">Adresse eingeben</string>
+    <string name="enter_caregiver_s_contact_number">Handynummer der Bezugsperson eingeben</string>
+    <string name="enter_caregiver_s_name">Name der Bezugsperson eingeben</string>
+    <string name="enter_caregiver_s_email_address">Email-Adresse der Bezugsperson eingeben</string>
+    <string name="email_address">Email-Adresse</string>
+    <string name="category_cd">Das Bild zeigt die Bildschirmaufnahme von der Startseite Jellows auf. Sie beinhaltet ein Gitternetz von 9 Icons namens Kategorien-Tasten, die in 3 Spalten und 3 Reihen angeordnet sind. Die 9 Kategorien-Tasten sind \"Begrüßungen und Gefühle\", \"Tägliche Aktivitäten\", \"Essen und Trinken\", \"Spaß\", \"Lernen\", \"Leute\", \"Orte\", \"Zeit und Wetter\" und \"Hilfe\". Darunter stehen die 3 Tasten zum Navigieren nämlich \"Zurück\", \"Startseite\" und \"Tastatur\". Auf der linken und der rechten Seite der zentralen Kategorien-Tasten gibt es je 3 expressive Icons. Auf der linken Seite gibt es die drei expressiven Tasten nämlich \"Gefällt mir\", \"Ja\" und \"Mehr\" bzw. auf der linken Seite die Tasten \"Gefällt mir nicht\", \"Nein\" und \"Weniger\". In der oberen rechten Ecke steht das Icon \"Einstellungen\\". Auf diesem Bild wird das zentrale Gitternetz hervorgehoben, während die anderen Icons abgeblendet worden sind.</string>
+    <string name="expressive_cd">Dieses Bild zeigt nochmals die Bildschirmaufnahme von der Startseite Jellows auf. Auf diesem Bild werden die 6 expressive Tasten hervorgehoben, die je 3 auf linken und rechten Seite des zentralen Gitternetz stehen, während das zentrale Gitternetz abgeblendet worden ist. Die 3 von oben nach unten angeordneten Tasten auf der linken Seite sind - \"Gefällt mir\" dargestellt mit einem \"Smiley\" Icon, \"Ja\" dargestellt mit einem \"Häkchen\" Icon und \"Mehr\" dargestellt mit \"Plus\" Icon. Ebenso sind die 3 von oben nach unten angeordneten Tasten auf der rechten Seite - \"Gefällt mir nicht\" dargestellt mit einem "traurigen Gesicht" Icon, "Nein" dargestellt mit einem "Kreuz" Icon und "Weniger" dargestellt mit einem "Minus" Icon. Darüber hinaus sind die 3 Tasten zum Navigieren unten eingefügt, die jeweils von links nach rechts \"Zurück\", \"Startseite\" und \"Tastatur\" kennzeichnen.</string>
+    <string name="pic4">Das Bild zeigt die Startseite Jellows auf, auf dem die zwei Icons \"Essen und Trinken\" und \"Ja\" hervorgehoben worden sind. Die anderen Tasten sind abgeblendet. Auf dem Bild wird es beschrieben, dass der Benutzer zuerst die Taste einer Kategorie zum Beispiel \"Essen\" und dann eine expressive Taste zum Beispiel \"Ja\" klicken muss, um Jellow zum Sprechen zu bringen.</string>
+    <string name="pic5">Das Bild zeigt die Startseite Jellows auf, auf dem nur das Icon \"Essen und Trinken\" hervorgehoben worden ist. Alle anderen Icons auf Stufe 1 sind abgeblendet. Auf dem Bild ist ein Finger beim Doppelklicken auf \"Essen\" zu sehen. Das beschreibt, wie man die Unterkategorien einer Hauptkategorie abrufen kann.</string>
+    <string name="pic6">Das Bild zeigt eine Bildschirmaufnahme der Unterkategorien auf, die nach dem Doppelklicken auf "Essen" im vorherigen Schritt abgerufen worden ist. Die sichtbaren Icons in dieser Stufe 2 sind in ein Gitternetz von 3 Spalten und 3 Reihen angeordnet. Die Icons sind: \"Frühstück\", \"Mittag-/Abendessen\", \"Süßigkeiten\", \"Snacks\", \"Obst\", \"Getränke\", \"Besteck\" und \"Add-on\". Auf dem Bild ist auch ein Finger beim Doppelklicken auf \"Das Frühstück\" zu sehen. Das beschreibt, wie man auf Unteroptionen zugreifen kann.</string>
+    <string name="pic7">Das Bild zeigt eine Bildschirmaufnahme der Stufe 3 auf, die nach dem Doppelklicken auf der Unterkategorie \"Frühstück\" unter der Hauptkategorie \"Essen und Trinken\" abgerufen worden ist. Die sichtbaren Icons auf diesem Bild sind \"Brötchen\", \"Brot\", \"Wurst\", \"Eier\", \"Müsli\", \"Sandwich\" und \"Croissant\". Darüber hinaus sind auch die expressiven Icons auf beiden Seiten des Bildschirms, die Tasten zum Navigieren unterhalb des Bildschirms und das Einstellungsicon in der oberen rechten Ecke des Bildschirms zu sehen.</string>
+    <string name="pic8">Das Bild zeigt die Startseite Jellows mit einem Drop-Down Menü in der oberen rechten Ecke des Bildschirms auf. Das Drop-Down Menü beinhaltet die Optionen \"Profil\", \"Über Jellow\", \"Tutorial\", \"Tastatursteuerung\", \"Sprache\", \"Einstellungen\", \"Präferenzen zurücksetzen\" und \"Feedback\". Mit einem Klick auf diesen Optionen kann der Benutzer die Einstellungen an seine Wünsche anpassen.</string>
+    <string name="pic9">Das Bild zeigt die Bildschirmaufnahme einer Vorgangsreihe in Jellow auf, das eine spezifische Abfolge \"Toilette\" darstellt, die in Jellow unter der Hauptkategorie \"Tägliche Aktivitäten\" zugänglich ist. Auf dem Bild gibt es 3 Icons, die Vorgangsschritte aufzeigen, wie man auf die Toilette kommt. Schritt 1 ist \"Sich die Hose herunterziehen\", Schritt 2 ist \"Sich auf die Toilette hinsetzen\" und Schritt 3 ist \"Den Po abwischen\". Diese drei Icons sind durch Pfeile getrennt, die den Prozess andeuten. Unter den drei Vorgangsicons stehen 2 Tasten \"Zurück\" und \"Weiter\". Die Taste \"Zurück\" ist deaktiviert, da es der erste Schritt der Vorgangsreihe \"Toilette\" ist. Ein Finger wird beim Weitergehen zum nächsten Bildschirm auf dem Icon \"Weiter\" aufgezeigt, was die nächsten Schritte des Vorgangs darstellt. Die expressiven Tasten sind auf dem Bild nicht sichtbar, während die drei Tasten zum Navigieren \"Zurück\", \"Startseite\" und \"Tastatur\" unten zu sehen sind.</string>
+    <string name="pic10">Das ist das gleiche Bild mit den ersten drei Schritten der Vorgangsreihe \"Toilette\" unter der Hauptkategorie \"Tägliche Aktivitäten\", das oben zu sehen ist. Allerdings ist der Finger auf diesem Bild beim Klicken des Icons des Schritts 2 aufgezeigt, was dem Schritt \"Sich auf die Toilette setzen\" entspricht. Nach dem Klicken des Icons sind nun die expressiven Tasten auf beiden Seiten des Bildschirms sichtbar.</string>
+    <string name="gtts1">TDas Bild umfasst drei Bildschirmaufnahmen von \"Text-to-Speech Ausgabe\" und \"Google TTS-Sprachdaten\" Einstellungen auf dem Gerät. Auf dem ersten, \"Text-to-Speech\" entsprechenden Bild sind zwei bevorzugte Engines nämlich \"Samsung Text-to-Speech\" und \"Google Text-to-Speech\" zu sehen. Als erster Schritt ist der Benutzer beim Wählen der \"Google Text-to-Speech\"-Engine sichtbar.</string>
+    <string name="gtts2">Das zweite Bild zeigt den Schritt 2 des Vorgangs auf, wo der Benutzer beim Klicken des \"Zahnradsymbols\" ist, das der \"Google Text-to-Speech-Engine\"-Einstellungen kennzeichnet.</string>
+    <string name="gtts3">Das dritte Bild beschreibt den Schritt 3 des Vorgangs, wo der Benutzer vor dem \"Google TTS-Sprachdaten\"-Bildschirm ist. Dieser Schritt stellt mehrere Stimmoptionen inklusive \"Deutsch (Deutschland)\", \"Französisch (Frankreich)\", \"Hindi (Indien)\", \"Indonesisch (Indonesien)\" und \"Ungarisch (Ungarn)\" zum Herunterladen bereit. Die Sprache \"Deutsch (Deutschland)\" wird hervorgehoben, wobei das \"Stimm-Set 1\" mit einer Datengröße von ____MB zum Herunterladen bereit ist.</string>
+    <string name="enter_child_s_name">Name des Kindes eingeben</string>
+    <string name="caregiver_s_contact_number_other_than_this_device_s_sim_number">Kontakt der Bezugsperson außer der SIM-Handyummer dieses Geräts. Pflichtfeld</string>
+    <string name="select_country_code">Ihre Landesvorwahl wählen</string>
+    <string name="caregiver_s_email_address">Email-Adresse der Bezugsperson. Pflichtfeld</string>
+    <string name="txt_registration_usergrp_desc">(Die Person wählen, die auf diesem Gerät Jellow benutzt)</string>
+    <string name="like">mögen</string>
+    <string name="yes">Ja</string>
+    <string name="more">Mehr</string>
+    <string name="dont_like">mag nicht</string>
+    <string name="no">Nein</string>
+    <string name="less">Weniger</string>
+    <string name="back">Zurück</string>
+    <string name="enter_category">Kategorie abrufen</string>
+    <string name="intro_cd">Das Bild zeigt die Bildschirmaufnahme von der Startseite Jellows auf. Sie beinhaltet ein Gitternetz von 9 Icons namens Kategorien-Tasten, die in 3 Spalten und 3 Reihen angeordnet sind. Die 9 Kategorien-Tasten sind \"Begrüßungen und Gefühle\", \"Tägliche Aktivitäten\", \"Essen und Trinken\", \"Spaß\", \"Lernen\", \"Leute\", \"Orte\", \"Zeit und Wetter\" und \"Hilfe\". Darunter stehen die 3 Tasten zum Navigieren nämlich \"Zurück\", \"Startseite\" und \"Tastatur\". Auf der linken und der rechten Seite der zentralen Kategorien-Tasten gibt es je 3 expressive Icons. Auf der linken Seite gibt es die drei expressiven Tasten nämlich \"Gefällt mir\", \"Ja\" und \"Mehr\" bzw. auf der linken Seite die Tasten \"Gefällt mir nicht\", \"Nein\" und \"Weniger\". In der oberen rechten Ecke steht das Icon \"Einstellungen\". Auf diesem Bild wird das zentrale Gitternetz hervorgehoben, während die anderen Icons abgeblendet worden sind.</string>
+    <string name="intro2_cd">Das Bild zeigt die Startseite Jellows auf, auf dem die zwei Icons \"Essen und Trinken\" und \"Ja\" hervorgehoben worden sind. Die anderen Tasten sind abgeblendet. Auf dem Bild wird es beschrieben, dass der Benutzer zuerst die Taste einer Kategorie zum Beispiel \"Essen\" und dann eine expressive Taste zum Beispiel \"Ja\" klicken muss, um Jellow zum Sprechen zu bringen.</string>
+    <string name="intro3_cd">Das Bild zeigt eine Bildschirmaufnahme der Unterkategorien unter der Kategorie \"Essen\" auf. Die sichtbaren Icons sind in ein Gitternetz von 3 Spalten und 3 Reihen angeordnet. Die Icons sind: \"Frühstück\", \"Mittag-/Abendessen\", \"Süßigkeiten\", \"Snacks\", \"Obst\", \"Getränke\", \"Besteck\" und \"Add-on\". Auf dem Bild ist auch ein Finger beim Doppelklicken auf \"Das Frühstück\" zu sehen, um auf Unteroptionen zuzugreifen.</string>
+    <string name="intro4_cd">Das Bild zeigt die Startseite Jellows mit einem Drop-Down Menü in der oberen rechten Ecke des Bildschirms auf. Das Drop-Down Menü beinhaltet die Optionen \"Profil\", \"Über Jellow\", \"Tutorial\", \"Tastatursteuerung\", \"Sprache\", \"Einstellungen\", \"Präferenzen zurücksetzen\" und \"Feedback\". Mit einem Klick auf diesen Optionen kann der Benutzer die Einstellungen an seine Wünsche anpassen.</string>
+    <string name="intro5_cd">Dieses Bild zeigt nochmals die Bildschirmaufnahme von der Startseite Jellows auf. Auf diesem Bild werden die 6 expressive Tasten hervorgehoben, die je 3 auf linken und rechten Seite des zentralen Gitternetz stehen, während das zentrale Gitternetz abgeblendet. Die 3 von oben nach unten angeordneten Tasten auf der linken Seite sind - \"Gefällt mir\" dargestellt mit einem \"Smiley\" Icon, \"Ja\" dargestellt mit einem \"Häkchen\" Icon und \"Mehr\" dargestellt mit \"Plus\" Icon. Ebenso sind die 3 von oben nach unten angeordneten Tasten auf der rechten Seite - \"Gefällt mir nicht\" dargestellt mit einem \"traurigen Gesicht\" Icon, \"Nein\" dargestellt mit einem \"Kreuz\" Icon und \"Weniger\" dargestellt mit einem \"Minus\" Icon. Darüber hinaus sind die 3 Tasten zum Navigieren unten eingefügt, die jeweils von links nach rechts \"Zurück\", \"Startseite\" und \"Tastatur\" kennzeichnen.</string>
+    <string name="intro6_1_cd">Auf dem ersten, \"Text-to-Speech\" entsprechenden Bild sind zwei bevorzugte Engines nämlich \"Samsung Text-to-Speech\" und \"Google Text-to-Speech\" zu sehen. Als erster Schritt ist der Benutzer beim Wählen der \"Google Text-to-Speech\"-Engine zu sehen.</string>
+    <string name="intro6_2_cd">Das zweite Bild zeigt den Schritt 2 des Vorgangs auf, wo der Benutzer beim Klicken des \"Zahnradsymbols\" ist, das der \"Google Text-to-Speech-Engine\"-Einstellungen kennzeichnet.</string>
+    <string name="intro6_3_cd">Das dritte Bild beschreibt den Schritt 3 des Vorgangs, wo der Benutzer sich vor dem \"Google TTS-Sprachdaten\"-Bildschirm befindet. Dieser Schritt stellt mehrere Stimmoptionen inklusive \"Deutsch (Deutschland)\", \"Französisch (Frankreich)\", \"Hindi (Indien)\", \"Indonesisch (Indonesien)\" und \"Ungarisch (Ungarn)\" zum Herunterladen bereit. Die Sprache \"Deutsch (Deutschland)\" wird hervorgehoben, wobei das \"Stimm-Set 1\" mit einer Datengröße von ____MB zum Herunterladen bereit ist. Der Finger auf dem Bild ist beim Klicken des Icons \"Herunterladen\" von Stimm-Set 1.</string>
+    <string name="talkback_single_click">Wählen</string>
+    <string name="talkback_dropdown_menu">Die Länderliste abrufen</string>
+    <string name="close_dialog">Gespräch beenden</string>
+    <string name="next">Weiter</string>
+    <string name="previous">Zurück</string>
+    <string name="edttxt_msg">Zum Sprechen hier tippen</string>
+    <string name="keyboard_open">Tastatur öffnen</string>
+    <string name="therapist_or_teacher_cd">Therapeut/Therapeutin oder Lehrer/Lehrerin</string>
+    <string name="parent_or_caregiver_cd">Eltern oder Bezugsperson</string>
+    <string name="child_s_name_dialog_btn">Mein Name</string>
+    <string name="caregiverName_dialog_btn">Name der Bezugsperson</string>
+    <string name="caregiver_s_email_address_dialog_btn">Email-Adresse der Bezugsperson</string>
+    <string name="homeAddress_dialog_btn">Meine Adresse</string>
+    <string name="caregiver_s_contact_number_dialog_btn">Handynummer der Bezugsperson</string>
+    <string name="bloodGroup_dialog_btn">Meine Blutgruppe</string>
+    <string name="seekbar_speed_cd">Zur Steuerung der Sprechgeschwindigkeit verwenden Sie bitte die Lautstärketasten Ihres Handys.</string>
+    <string name="seekbar_pitch_cd">Zur Steuerung der Stimmlage verwenden Sie bitte die Lautstärketasten Ihres Handys</string>
+    <string name="seekbar_volume_cd">Zur Steuerung der Lautstärke verwenden Sie bitte die Lautstärketasten Ihres Handys</string>
+    <string name="lang_setting_option1_cd">Das Bild unten zeigt die drei Schritten zur Einrichtung der Google Text-to-Speech-Engine auf, die den Gebrauch von Jellow ermöglicht. Das Bild umfasst drei Bildschirmaufnahmen von \"Text-to-Speech Ausgabe\" und \"Google TTS-Einstellungen\" auf dem Gerät. Auf dem ersten, \"Text-to-Speech\" entsprechenden Bild sind zwei bevorzugte Engines nämlich \"Samsung Text-to-Speech\" und \"Google Text-to-Speech\" zu sehen. Als erster Schritt ist der Benutzer beim Wählen der \"Google Text-to-Speech\"-Engine zu sehen.</string>
+    <string name="lang_setting_option2_cd">Das zweite Bild zeigt den Schritt 2 des Vorgangs auf, wo der Benutzer beim Klicken des \"Zahnradsymbols\" ist, das der \"Google Text-to-Speech-Engine\"-Einstellungen entspricht.</string>
+    <string name="lang_setting_option3_cd">Das dritte Bild ist der Schritt 3 des Vorgangs, wo der Benutzer sich vor dem Bildschirm \"Google TTS-Optionen\" befindet. Der zweite Eintrag auf dem Bildschirm, was der Umschalter für \"Nur WLAN nutzen\" ist, wird hervorgehoben. In diesem Schritt wird der Benutzer um die Deaktivierung des Schalters gebeten.</string>
+    <string name="lang_setting_option3_gtt3_cd">Das dritte Bild entspricht dem Schritt 3 des Vorgangs, wo der Benutzer sich beim Klicken auf "\Sprache\" auf dem Google TTS-Sprachdaten-Bildschirm befindet. Der Benutzer wird beim Setzen der Sprache \"Deutsch (Deutschland)\" als Standard-Sprache der Google Text-to-Speech-Engine aufgezeigt.</string>
+    <!--end content description-->
+
+    <string name="intro8_step2">\"Nur WLAN nutzen\" ausschalten</string>
+    <string name="txt_tts_stting">TTS-Einstellungen</string>
+    <string name="txt_intro8_step1">1. Google TTS-Engine öffnen</string>
+    <string name="txt_intro8_step2">2. Google TTS-Einstellungen</string>
+    <string name="txt_intro8_step3">3. \"Nur WLAN nutzen\"</string>
+    <string name="change_language_tts_wifi">Google TTS-Einstellungen öffnen und \"Nur WLAN nutzen\" ausschalten. Falls schon ausgeschaltet, diesen Schritt überspringen</string>
+    <string name="icon_update_msg">Icon(s) für die verfügbaren Sprachen werden aktualisiert:</string>
+    <string name="add_new_language">Sprache zum Herunterladen/Löschen wählen</string>
+    <string name="disable_wifi_only">Den vorherigen Schritt des Ausschaltens von \"Nur WLAN nutzen\" durchführen</string>
+    <string name="step3">Schritt 3:</string>
+    <string name="txt_intro8_txtTitle">Zur Einrichtung der Google Text-to-Speech-Engine den folgenden Schritten durchführen</string>
+    <string name="txt_actLangSel_completestep2">Sprachdaten nicht vorhanden. Mit dem Internet verbinden und den Schritt 2 durchführen</string>
+    <string name="txtStep2">Schritt 2:</string>
+    <string name="close">Gespräch beenden</string>
+    <string name="access_dialog_title">Dialoge mit Optionen</string>
+
+    <string name="acc_lang_marathi">Marathi (Indien)</string>
+    <string name="acc_lang_hindi">Hindi (Indien)</string>
+    <string name="acc_lang_bengali">Bengali (Indien)</string>
+    <string name="acc_lang_eng_in">Englisch (Indien)</string>
+    <string name="acc_lang_eng_gb">Englisch (Vereinigtes Königreich)</string>
+    <string name="acc_lang_eng_us">Englisch (USA)</string>
+    <string name="acc_lang_eng_au">Englisch (Australien)</string>
+    <string name="acc_lang_span_span">Spanisch (Spanien)</string>
+    <string name="acc_lang_tamil_in">Tamil (Indien)</string>
+    <string name="acc_lang_german_ger">Deutsch (Deutschland)</string>
+    <string name="acc_lang_french_fr">Französisch (Frankreich)</string>
+    <string name="acc_lang_italian_it">Italienisch (Italien)</string>
+
+
+    <string name="level_1_screen">Stufe 1</string>
+    <string name="level_2_screen">Stufe 2</string>
+    <string name="level_3_screen">Stufe 3</string>
+    <string name="sequence_screen">Vorgangsreihenfolge</string>
+    <string name="close_searchbar">Suchleiste schließen</string>
+
+    <string name="txt_accessibility_setting">Barrierefreiheit Einstellungen</string>
+    <string name="visual_access_title">Visuelle Barrierefreiheit:</string>
+    <string name="visual_access_info">Die visuelle Barrierefreiheitsfunktion Jellows ermöglicht den Benutzern mit Sehbehinderung oder Blindheit den Gebrauch von Jellow sowie eine wirksame Kommunikation mit anderen. Sie verwendet die \'Talk-Back-Funktion\' auf Android-Smartphones innerhalb der App zu navigieren. Wenn die \'Talk-Back-Funktion\' des Geräts eingeschaltet ist, kann der Benutzer die Audiobeschreibung von allem erhalten, was er auf dem Bildschirm berührt. Der Benutzer kann sogar benutzerdefinierte Gesten erstellen oder die voreingestellten Gesten von \'Talk Back\' bei Interaktion mit Jellow verwenden. Zum Beispiel, das Doppelklicken irgendwo auf dem Bildschirm wird den Benutzern die Auswahl eines gewünschten Icons ermöglichen.</string>
+    <string name="switch_access_title">Schalterzugriff:</string>
+    <string name="switch_access_info_one">Der Schalterzugriff vereinfacht den Personen mit motorischen Einschränkungen das Navigieren in der App. Die Funktion ermöglicht das Navigieren mithilfe eines oder zwei Schalter/s.</string>
+    <string name="switch_access_info_two">Um diese Funktion zu aktivieren, muss der Benutzer \"Schalterzugriff\" in Bedienungshilfen in Telefoneinstellungen einschalten.</string>
+    <string name="switch_access_info_three">Samsung-Benutzer können den Schalterzugriff  in Option in  den Zugänglichkeitseinstellungen-Kategorie der Telefoneinstellungen finden.</string>
+    <string name="switch_access_info_four">Um den Schalterzugriff mit einem Schalter nutzen zu können: 1. Einstellungen öffnen, 2. in die Schalterzugriff-Einstellungen kommen 3. Schalterzugriff aktivieren, 4. Entweder \"USB\"- oder \"Bluetooth\"-Schalter wählen, 5. In die Einstellungen kommen und Zahl des Schalters als \"ein Schalter\" wählen.</string>
+    <string name="switch_access_info_five">Um den Schalterzugriff mit zwei Schaltern nutzen zu können: 1. Einstellungen öffnen, 2. in die Barrierefreiheit Einstellungen kommen, 3. Schalterzugriff aktivieren, 4. Entweder "USB"- oder "Bluetooth"-Schalter wählen, 5. In die Einstellungen kommen und Zahl des Schalters als "zwei Schalter" wählen, 6. "Weiter" klicken und beide Schalter markieren und den Prozess durchführen, nachdem die Schalter getestet worden sind.</string>
+</resources>

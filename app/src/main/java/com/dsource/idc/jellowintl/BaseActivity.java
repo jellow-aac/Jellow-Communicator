@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.accessibility.AccessibilityManager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import com.dsource.idc.jellowintl.makemyboard.AddEditIconAndCategoryActivity;
 import com.dsource.idc.jellowintl.makemyboard.BoardSearchActivity;
@@ -19,14 +20,16 @@ import com.dsource.idc.jellowintl.makemyboard.HomeActivity;
 import com.dsource.idc.jellowintl.makemyboard.IconSelectActivity;
 import com.dsource.idc.jellowintl.makemyboard.MyBoardsActivity;
 import com.dsource.idc.jellowintl.makemyboard.RepositionIconsActivity;
+import com.dsource.idc.jellowintl.models.AppDatabase;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 public class BaseActivity extends AppCompatActivity{
-    private static SessionManager mSession;
-    private static String mVisibleAct;
-    protected boolean isAlive;
+    final private String APP_DB_NAME = "jellow_app_database";
+    private static SessionManager sSession;
+    private static String sVisibleAct;
+    private static AppDatabase sAppDatabase;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -40,8 +43,12 @@ public class BaseActivity extends AppCompatActivity{
         // If any exception occurs during this activity usage,
         // handle it using default exception handler.
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
-        if (mSession == null)
-            mSession = new SessionManager(this);
+        if (sSession == null)
+            sSession = new SessionManager(this);
+        if(sAppDatabase == null)
+            sAppDatabase = Room.databaseBuilder(this, AppDatabase.class, APP_DB_NAME)
+                    .allowMainThreadQueries()
+                    .build();
     }
 
     @Override
@@ -145,9 +152,12 @@ public class BaseActivity extends AppCompatActivity{
         return true;
     }
 
-
     protected SessionManager getSession(){
-        return mSession;
+        return sSession;
+    }
+
+    protected AppDatabase getAppDatabase(){
+        return sAppDatabase;
     }
 
     boolean isConnectedToNetwork(ConnectivityManager connMgr){
@@ -220,11 +230,11 @@ public class BaseActivity extends AppCompatActivity{
 
 
     public String getVisibleAct() {
-        return mVisibleAct;
+        return sVisibleAct;
     }
 
     public void setVisibleAct(String visibleAct) {
-        mVisibleAct = visibleAct;
+        sVisibleAct = visibleAct;
     }
 
 

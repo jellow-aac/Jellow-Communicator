@@ -27,11 +27,13 @@ import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.dsource.idc.jellowintl.Presentor.PreferencesHelper;
 import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
 import com.dsource.idc.jellowintl.factories.IconFactory;
 import com.dsource.idc.jellowintl.factories.LanguageFactory;
 import com.dsource.idc.jellowintl.factories.PathFactory;
 import com.dsource.idc.jellowintl.factories.TextFactory;
+import com.dsource.idc.jellowintl.models.CategoryPreference;
 import com.dsource.idc.jellowintl.models.ExpressiveIcon;
 import com.dsource.idc.jellowintl.models.Icon;
 import com.dsource.idc.jellowintl.models.MiscellaneousIcon;
@@ -44,6 +46,7 @@ import com.dsource.idc.jellowintl.utility.UserEventCollector;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+import static com.dsource.idc.jellowintl.factories.IconFactory.getIconCode;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
@@ -2178,8 +2181,13 @@ public class LevelTwoActivity extends LevelBaseActivity{
         // create preference string.
         for (Integer countPeople : mArrPeopleTapCount)
             stringBuilder.append(countPeople).append(",");
+
         // store preference string in session preferences.
-        getSession().setPeoplePreferences(stringBuilder.toString());
+        CategoryPreference categoryPref = new CategoryPreference();
+        categoryPref.setCategoryPosition(getIconCode(
+                LanguageFactory.getCurrentLanguageCode(this), mLevelOneItemPos, -1));
+        categoryPref.setPrefString(stringBuilder.toString());
+        PreferencesHelper.setPrefString(getAppDatabase(), categoryPref);
     }
 
     /**
@@ -2303,7 +2311,8 @@ public class LevelTwoActivity extends LevelBaseActivity{
      * @param level2Icons */
     private void useSortToLoadArray(String[] arrSpeechTxt, String[] arrAdapterTxt, String[] level2Icons) {
         // Get preference string from shared preferences into "savedString" variable
-        String savedString = getSession().getPeoplePreferences();
+        String savedString = PreferencesHelper.getPrefString(getAppDatabase(), getIconCode(
+                LanguageFactory.getCurrentLanguageCode(this), mLevelOneItemPos, -1));
 
         // Extra 0's are concat ed at the end of "savedString" variable. This
         // will make length of array and length of savedString to equal to load category.

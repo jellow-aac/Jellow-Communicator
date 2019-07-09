@@ -27,7 +27,7 @@
     <string name="saveLanguage">বদলগুলি প্রয়োগ করো</string>
     <string name="addLanguage">ভাষা যুক্ত করো</string>
     <string name="deleteLanguage">ভাষা মুছে দাও</string>
-
+    <string name="editLanguage">১) ভাষা যুক্ত করো/মুছে দাওঃ</string>
 
     <string-array name="bloodgroup">
         <item>নির্বাচিত হয়নি</item>
@@ -77,7 +77,6 @@
     <string name="change_language_line2">প্রথম ধাপঃ নীচের ডাউনলোড করা ভাষাগুলি থেকে যে-কোনো একটি ভাষা নির্বাচন করো</string>
     <string name="simple_ime">জেলো কীবোর্ড</string>
     <string name="subtype_en_US">সিরিয়াল এবিসি</string>
-
     <string name="action_bar_title">হোম</string>
     <string name="txtLanguage">ভাষা</string>
     <string name="txtSpeechSpeed">কথার গতি</string>
@@ -96,9 +95,8 @@
     <string name="languageCurrentlyInUse">ভাষা বর্তমানে ব্যবহার করা হচ্ছে</string>
     <string name="languageRemoved">ভাষা মুছে ফেলা হয়েছে</string>
 
-
     <string name="menuProfile">প্রোফাইল</string>
-    <string name="menuMyBards">আমার বোর্ড</string>
+    <string name="menuMyBoards">আমার বোর্ড</string>
     <string name="menuAbout">জেলো সম্পর্কে</string>
     <string name="menuTutorials">টিউটোরিয়াল</string>
     <string name="menuKeyboardInput">কীবোর্ড নিয়ন্ত্রণ</string>
@@ -106,13 +104,12 @@
     <string name="menuFeedback">প্রতিক্রিয়া</string>
     <string name="menuUserRegistration">নিবন্ধন পৃষ্ঠা</string>
     <string name="menuAccessibility">অভিগম্যতা</string>
-    <string name="labelSplash">জেলো লোড হচ্ছে। অনুগ্রহপূর্বক অপেক্ষা করুন!</string>
     <string name="menuClosePopup">বন্ধ মেনু</string>
+    <string name="labelSplash">জেলো লোড হচ্ছে। অনুগ্রহপূর্বক অপেক্ষা করুন!</string>
 
     <string name="endString"> </string>
 
     <string name="easyToUse">সহজেই ব্যবহৃত</string>
-    <string name="feedback_talkback_heading">১ থেকে ৫ স্কেলে, অনুগ্রহ করে অনুসরণ করুন</string>
     <string name="clearPictures">স্পষ্ট ছবি</string>
     <string name="clearVoice">স্পষ্ট আওয়াজ</string>
     <string name="easyToNavigate">সহজেই সঠিক পথ খুঁজে পাওয়া</string>
@@ -139,7 +136,7 @@
     <string name="childName">শিশুর নাম *</string>
     <string name="caregiverName">কেয়ারগিভারের নাম </string>
     <string name="careGiverContact">এই ডিভাইসের সিম নম্বর ছাড়া অন্যের তত্ত্বাবধানকারীর যোগাযোগ নম্বর দিন *</string>
-<string name="homeAddress">বাড়ির ঠিকানা</string>
+    <string name="homeAddress">বাড়ির ঠিকানা</string>
     <string name="emailAddress">ই-মেলের ঠিকানা *</string>
     <string name="bloodGroup">রক্তের গ্রুপ</string>
     <string name="detailSaved">খুঁটিনাটি তথ্যগুলি সেভ করা হল</string>
@@ -287,7 +284,8 @@
     <string name="about_je_intro23">আইকন, দৃশ্যগত অলংকরণ এবং শব্দঃ</string>
     <string name="about_je_intro24">বিনয় তৌদে, শ্বেতা গৌরিশ পাঠের, অনিষা মলখো, সিমোন সেন, নিকিতা আয়ার, গণেশ গাজীলা</string>
     <string name="about_je_intro25">অনুবাদঃ</string>
-    <string name="about_je_intro26">ড. রুপক মিসরা, সচিন সোনাওয়ানে, ড. সুধা শ্রীনিবাসন</string>
+    <!--not translated-->
+    <string name="about_je_intro26"> সচিন সোনাওয়ানে, ড. সুধা শ্রীনিবাসন, কৌস্তুভ রাজবাদে, শশাঙ্ক খোবরাগাড়ে, জীব কান্নান মুথুকুমার, দীপালি শেঠিয়া, ড. রুপক মিসরা</string>
     <string name="about_je_intro27">গবেষণা, শব্দাবলির বিকাশসাধন এবং ব্যবহারিক বিশ্লেষণঃ</string>
     <string name="about_je_intro28">ড. সুধা শ্রীনিবাসন, পুস্কর দেশপন্ধু, সাক্ষী পাল, সিদ্ধি প্যাটেল</string>
     <string name="about_je_intro29">সহায়তাঃ</string>
@@ -295,16 +293,18 @@
     <string name="about_je_intro38">অনুদৈর্ঘ্য ব্যবহারকারী অধ্যয়ন এবং ক্ষেত্র পরীক্ষা জেলও:</string>
     <string name="about_je_intro39">টুপিওয়ালা ন্যাশনাল মেডিকেল কলেজ এন্ড বা. যা. ল. নারী চারিটিবিলে হাসপাতাল (ডিপার্টমেন্ট সাইকিয়াট্রি এন্ড অডিওলজি এন্ড স্পিচ থেরাপি )</string>
 
+    <string name="feedback_talkback_heading">১ থেকে ৫ স্কেলে, অনুগ্রহ করে অনুসরণ করুন</string>
 
     <!--Content description-->
     <string name="language_download_in_process">ভাষা ডাউনলোড করা হচ্ছে</string>
     <string name="child_s_name">শিশুর নাম। প্রয়োজনীয় ক্ষেত্র</string>
     <string name="caregiver_s_contact_number">েয়ারগিভারের যোগাযোগের নাম্বার</string>
     <string name="user_s_group">ব্যবহারকারীর গ্রুপ। প্রয়োজনীয় ক্ষেত্র</string>
-    <string name="enter_caregiver_s_contact_number">কেয়ারগিভারের যোগাযোগের নাম্বার লিখুন</string>
     <string name="enter_home_address">বাড়ির ঠিকানা লিখুন</string>
-    <string name="email_address">কেয়ারগিভারের ইমেলের ঠিকানা লিখুন</string>
+    <string name="enter_caregiver_s_contact_number">কেয়ারগিভারের যোগাযোগের নাম্বার লিখুন</string>
+    <string name="enter_caregiver_s_name">কেয়ারগিভারের লিখুন</string>
     <string name="enter_caregiver_s_email_address">কেয়ারগিভারের ইমেলের ঠিকানা লিখুন</string>
+    <string name="email_address">কেয়ারগিভারের ইমেলের ঠিকানা লিখুন</string>
     <string name="category_cd">এই ছবি জেলোর মূল পাতার একটি স্ক্রিনশট। এই মূল পাতাটিতে রয়েছে নয়টি আইকন, যাদের বলা হয় ক্যাটাগরি বাটন এবং তা তিনটি রো ও তিনটি কলামে সজ্জিত। উল্লিখিত নয়টি ক্যাটাগরি বাটন হল - " অভিবাদন এবং অনুভূতি ", " দৈনন্দিন কাজ ", " খাওয়া ", " মজা ", " শেখা ", " লোকজন ", " জায়গা ", " সময় এবং আবহাওয়া " এবং " সাহায্য "। নীচে যে ক্যাটাগরি বাটন আছে সেগুলি আসলে তিনটি নেভিগেশন বাটন, যথা - ফেরা, মূল পাতা এবং কীবোর্ড। এগুলি মূল পাতায় নির্দিষ্ট ক্রমে সজ্জিত। মূল ক্যাটাগরির আইকনের ডান দিক এবং বাম দিকে রয়েছে তিনটি করে অনুভূতিসূচক আইকন। মূল সজ্জার বাম দিকে তিনটি অনুভূতিসূচক বাটন হচ্ছে - পছন্দ, হ্যাঁ এবং আরও, যেগুলি ওপর থেকে নীচ বরাবর সজ্জিত রয়েছে। মূল সজ্জার ডান দিকে রয়েছে বাকি তিনটি অনুভূতিসূচক বাটন - পছন্দ করি না, না এবং কম, যেগুলি ওপর থেকে নীচ বরাবর সাজানো। মূল স্ক্রিনের ওপরের ডান দিকের কোণে দেখতে পাবেন সেটিংস আইকন। এই ছবিতে নয়টি আইকনের সজ্জা রঙযুক্ত এবং বাদবাকি আইকনগুলি বিবর্ণ।</string>
     <string name="expressive_cd">এই ছবি জেলোর মূল পাতার স্ক্রিনশট। এই ছবিতে রয়েছে ছটি ভাবপ্রকাশক বাটন। মূল শ্রেণির বাটনগুলি রঙিন রূপে উভয়দিকে তিনটি করে সাজানো রয়েছে। বাকি বাটনগুলি রঙহীন। ওপর থেকে নীচে শ্রেণিগত বাটনের মূল সজ্জার বাম দিকে রয়েছে তিনটি ভাবপ্রকাশক বাটন, যথা - " হাসিমুখ " আইকন "। এটি " চিহ্ন পরীক্ষা করুন " দ্বারা প্রকাশ করা হয়েছে। একইভাবে " হ্যাঁ " সূচিত হয়েছে " যোগ চিহ্ন "-এর মাধ্যমে। শ্রেণিগত বাটনের ডান দিকে রয়েছে আরও কিছু ভাবপ্রকাশক আইকন, যথা - " পছন্দ করি না ", যা সূচিত হয়েছে দু:খিত মুখের দ্বারা। " না " প্রকাশিত হয়েছে " ক্রস " চিহ্নের দ্বারা। " কম " " বিয়োগ চিহ্নের " মাধ্যমে প্রকাশ পেয়েছে। ছবিতে তিনটি নেভিগেশন বাটন রয়েছে - স্ক্রিনের নীচে, বাম দিক থেকে ডান দিকে, যথা - " পেছনে ", " মূল পাতা " এবং " কীবোর্ড "।</string>
     <string name="pic4">এই ছবিতে জেলোর মূল পাতা ফুটে উঠেছে, যেখানে দুটি আইকন " খাওয়া " এবং " হ্যাঁ "-কে রঙিন করা হয়েছে। বাকি বাটনগুলি রংহীন। এই ছবিতে একথা স্পষ্ট যে, জেলোর মাধ্যমে কথা বলতে গেলে ব্যবহারকারীকে প্রথমে যে-কোনো শ্রেণির বাটনে ক্লিক করতে হবে। যেমন - প্রথমে " খাওয়া " এবং তারপর কোনো অভিব্যক্তিমূলক বাটন, ধরা যাক " হ্যাঁ "-এ ক্লিক করতে হবে। এইভাবে ব্যবহারকারী জেলোর মাধ্যমে কথা বলতে পারেন।</string>
@@ -320,7 +320,6 @@
     <string name="enter_child_s_name">শিশুর নাম লিখুন</string>
     <string name="caregiver_s_contact_number_other_than_this_device_s_sim_number">এই ডিভাইসের সিম নম্বর ছাড়া অন্যের তত্ত্বাবধানকারীর যোগাযোগ নম্বর দিন। প্রয়োজনীয় ক্ষেত্র</string>
     <string name="select_country_code">দেশের কোড লিখুন</string>
-    <string name="enter_caregiver_s_name">কেয়ারগিভারের লিখুন</string>
     <string name="caregiver_s_email_address">কেয়ারগিভারের ইমেলের ঠিকানা। প্রয়োজনীয় ক্ষেত্র</string>
     <string name="txt_registration_usergrp_desc">এই ডিভাইসে জেলো ব্যবহার করা হবে ব্যক্তি নির্বাচন করুন</string>
     <string name="like">পছন্দ করি</string>
@@ -363,7 +362,6 @@
     <string name="lang_setting_option3_gtt3_cd">তৃতীয় ছবিটি প্রক্রিয়ার তৃতীয় ধাপের অনুরূপ, যেখানে ব্যবহারকারীকে গুগল টিটিএস ভয়েস ডেটা পেজের " ভাষা\ " অপশনটি ক্লিক করতে দেখা যায়। তাঁকে দেখা যায় গুগল টেক্সট-টু-স্পিচ ইঞ্জিনে " হিন্দি ( ভারত) "-কে মূল ভাষা হিসেবে নির্বাচন করতে।</string>
     <!--end content description-->
 
-
     <string name="intro8_step2">বন্ধ করো \"কেবল ওয়াই-ফাই ব্যবহার করো\" </string>
     <string name="txt_tts_stting">টেক্সট-টু-স্পীচ সেটিংস</string>
     <string name="txt_intro8_step1">১. গুগল টেক্সট-টু-স্পীচ ইঞ্জিনের খোলো</string>
@@ -371,7 +369,6 @@
     <string name="txt_intro8_step3">৩. \"কেবল ওয়াই-ফাই ব্যবহার করো\" বন্ধ করো</string>
     <string name="change_language_tts_wifi">গুগলের টিটিএসের সেটংস-এ গিয়ে \' টিটিএস সেটিংস \' বোতামটি স্পর্শ করে \' শুধু ওয়াই-ফাই \' অপশনটি চালু করুন। যদি অপশনটি ইতিমধ্যে নিস্ক্রিয় থাকে, তাহলে এই পর্যায়টি এড়িয়ে যান।</string>
     <string name="icon_update_msg">বর্তমান ভাষার আইকনগুলির সংযোজন:</string>
-    <string name="editLanguage">১) ভাষা যুক্ত করো/মুছে দাওঃ</string>
     <string name="add_new_language">যোগ / মুছতে একটি ভাষা নির্বাচন করুন</string>
     <string name="disable_wifi_only">গুগল টেক্সট-টু-স্পীচ- এর সেটিংস-এ যাও এবং \'কেবল ওয়াই-ফাই ব্যবহার করো\' বন্ধ করো।</string>
     <string name="step3">তৃতীয় ধাপঃ</string>
@@ -388,6 +385,11 @@
     <string name="acc_lang_eng_gb">ইংরেজি (যুক্তরাজ্য)</string>
     <string name="acc_lang_eng_us">ইংরেজি (মার্কিন যুক্তরাষ্ট্র)</string>
     <string name="acc_lang_eng_au">ইংরেজি (অস্ট্রেলিয়া)</string>
+    <string name="acc_lang_span_span">ஸ்பானிஷ் (ஸ்பெயின்)</string>
+    <string name="acc_lang_tamil_in">தமிழ்</string>
+    <string name="acc_lang_german_ger">German (Germany)</string>
+    <string name="acc_lang_french_fr">French (France)</string>
+    <string name="acc_lang_italian_it">Italiano (Italian)</string>
 
     <string name="level_1_screen">স্তর এক</string>
     <string name="level_2_screen">স্তর দুই</string>

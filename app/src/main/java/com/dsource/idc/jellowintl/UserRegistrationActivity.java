@@ -82,7 +82,7 @@ public class UserRegistrationActivity extends SpeechEngineBaseActivity {
     private CountryCodePicker mCcp;
     private String mUserGroup;
     Spinner languageSelect;
-    String[] languagesCodes = new String[7], languageNames = new String[7];
+    String[] languagesCodes = new String[10], languageNames = new String[10];
     String selectedLanguage;
     String name, emergencyContact, eMailId;
 
@@ -458,6 +458,15 @@ public class UserRegistrationActivity extends SpeechEngineBaseActivity {
                     case "English (Australia)":
                         shortenLanguageNames[i] = getString(R.string.acc_lang_eng_au);
                         break;
+                    case "Spanish (Spain)":
+                        shortenLanguageNames[i] = getString(R.string.acc_lang_span_span);
+                        break;
+                    case "தமிழ்":
+                        shortenLanguageNames[i] = getString(R.string.acc_lang_tamil_in);
+                        break;
+                    case "Deutsch (Deutschland)":
+                        shortenLanguageNames[i] = getString(R.string.acc_lang_german_ger);
+                        break;
                     default:
                         shortenLanguageNames[i] = langNameToBeShorten[i];
                         break;
@@ -477,6 +486,15 @@ public class UserRegistrationActivity extends SpeechEngineBaseActivity {
                         break;
                     case "English (Australia)":
                         shortenLanguageNames[i] = "English (AU)";
+                        break;
+                    case "Spanish (Spain)":
+                        shortenLanguageNames[i] = "Spanish (ES)";
+                        break;
+                    case "Tamil (India)":
+                        shortenLanguageNames[i] = "Tamil (IN)";
+                        break;
+                    case "Deutsch (Deutschland)":
+                        shortenLanguageNames[i] = "Deutsch (DE)";
                         break;
                     default:
                         shortenLanguageNames[i] = langNameToBeShorten[i];
