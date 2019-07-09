@@ -241,13 +241,14 @@ public class BaseActivity extends AppCompatActivity{
     @Override
     protected void onResume() {
         super.onResume();
-        isAlive = true;
+        //isAlive = true;
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        isAlive = false;
+        /*The variable can be used to get does app is in fore ground or in background*/
+        //isAlive = false;
     }
 }
 
