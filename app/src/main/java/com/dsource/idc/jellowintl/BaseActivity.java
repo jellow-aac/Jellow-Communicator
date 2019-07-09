@@ -58,6 +58,8 @@ public class BaseActivity extends AppCompatActivity{
         super.onCreateOptionsMenu(menu);
         if(getLevelClass().contains(getVisibleAct()))
             getMenuInflater().inflate(R.menu.menu_main_with_search, menu);
+        else if(getLanguageSettingsActivity().equals(getVisibleAct()))
+            getMenuInflater().inflate(R.menu.menu_main_with_language_pack_update, menu);
         else
             getMenuInflater().inflate(R.menu.menu_main, menu);
         if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
@@ -122,6 +124,12 @@ public class BaseActivity extends AppCompatActivity{
                 if(getVisibleAct().equals(ResetPreferencesActivity.class.getSimpleName()))
                     break;
                 startActivity(new Intent(this, ResetPreferencesActivity.class));
+                finish();
+                break;
+            case R.id.languagePackUpdate:
+                if(getVisibleAct().equals(LanguagePackUpdateActivity.class.getSimpleName()))
+                    break;
+                startActivity(new Intent(this, LanguagePackUpdateActivity.class));
                 finish();
                 break;
             case R.id.feedback:
@@ -216,12 +224,31 @@ public class BaseActivity extends AppCompatActivity{
         return UserRegistrationActivity.class.getSimpleName();
     }
 
+    private String getLanguageSettingsActivity(){
+        return LanguageSelectActivity.class.getSimpleName();
+    }
+
+
     public String getVisibleAct() {
         return sVisibleAct;
     }
 
     public void setVisibleAct(String visibleAct) {
         sVisibleAct = visibleAct;
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //isAlive = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        /*The variable can be used to get does app is in fore ground or in background*/
+        //isAlive = false;
     }
 }
 

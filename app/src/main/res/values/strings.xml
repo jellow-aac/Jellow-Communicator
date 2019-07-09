@@ -24,6 +24,7 @@
     <string name="Profile">Profile</string>
 
     <string name="Language">Language</string>
+    <string name="Update">Update Language Pack</string>
     <string name="ChangeLanguage">Change Language</string>
     <string name="saveLanguage">Apply Changes</string>
     <string name="addLanguage">Add Language</string>
@@ -520,4 +521,18 @@
     <string name="switch_access_info_three">Samsung users can find the switch access in  “dexterity and interaction” option in the accessibility category in the phone setting.</string>
     <string name="switch_access_info_four">To use switch accessibility with one switch - Open settings -> Go to accessibility -> Turn on the switch access -> Choose switches either USB or Bluetooth switches -> Go to settings and Choose number of switches as one switch.</string>
     <string name="switch_access_info_five">To use switch accessibility with two switches - Open settings -> Go to accessibility -> Turn on the switch access -> Choose switches either USB or Bluetooth switches -> Go to settings and Choose number of switches as two switches, then Choose the type of scanning, Click on next and Assign the action to both the switches and complete the process by testing the switches.</string>
+  
+  <!--Language package update strings are here-->
+    <string name="lpu">Language Pack Update</string>
+    <string name="lpu_start_update">Starting Update &#8230;</string>
+    <string name="lpu_parse_update">Parsing Download data &#8230;</string>
+    <string name="lpu_download_icons">Downloading Icons &#8230;</string>
+    <string name="lpu_update_icon_data">Updating Icon Data &#8230;</string>
+    <string name="lpu_update_success">Language pack successfully updated!!</string>
+    <string name="lpu_toast_update_success">Update Success!!</string>
+    <string name="lpu_toast_check_success">Update Check Success!!</string>
+    <string name="lpu_no_updates_found">No updates found!!</string>
+    <string name="lpu_update_error">Error completing update!! Please try again.</string>
+    <string name="lpu_toast_check_error">Update Failed!!</string>
+    <string name="lpu_connectivity_error">Please Check Your Internet Connection!!</string>
 </resources>

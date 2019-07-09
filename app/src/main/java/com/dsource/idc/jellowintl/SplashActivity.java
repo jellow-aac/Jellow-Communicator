@@ -55,7 +55,7 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         getSupportActionBar().hide();
-        updateLangPackagesIfUpdateAvail();
+
         new DataBaseHelper(this).createDataBase();
 
         PlayGifView pGif = findViewById(R.id.viewGif);
@@ -121,86 +121,5 @@ public class SplashActivity extends BaseActivity {
         DataBaseHelper helper = new DataBaseHelper(this);
         helper.openDataBase();
         helper.addLanguageDataToDatabase();
-    }
-
-    private void updateLangPackagesIfUpdateAvail() {
-        //This function will check if any language package is updated at Firebase. Then
-        // user required to download that package.
-        final FirebaseRemoteConfig frc = FirebaseRemoteConfig.getInstance();
-        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
-                .setDeveloperModeEnabled(BuildConfig.DEBUG)
-                .build();
-        frc.setConfigSettings(configSettings);
-        frc.setDefaults(R.xml.remote_config_default);
-        frc.fetch(1)
-            .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
-                        // After config data is successfully fetched, it must be activated before
-                        // newly fetched values are returned.
-                        frc.activateFetched();
-                        String updateLangPackageData = frc.getString("vcTwentyUpdateLanguagePackages");
-                        if(updateLangPackageData.isEmpty())
-                            return;
-                        StringBuilder lang = new StringBuilder();
-                        //1)Get local packages list.
-                        //2)Compare which package from local list has updates.
-                        //3)Add language name to update list.
-                        try {
-                            JSONObject jObj = new JSONObject(updateLangPackageData);
-                            for (String langName: getOfflineLanguages()) {
-                                try {
-                                    JSONArray jArray = jObj.getJSONArray(langName);
-                                    String path = getBaseContext().getDir(langName, Context.MODE_PRIVATE).getPath();
-                                    for (int i = 0; i < jArray.length(); i++) {
-                                        if (!(new File(path + jArray.get(i))).exists()) {
-                                            lang.append(langName+",");
-                                            break;
-                                        }
-                                    }
-                                }catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        if (lang.toString().isEmpty())
-                            return;
-                        startActivity(new Intent(SplashActivity.this,
-                                LanguagePackageUpdateActivity.class).putExtra("packageList", lang.toString()));
-                        finish();
-                    } else {
-                        Crashlytics.log("RemoteConfigFetchFailed");
-                    }
-                }
-            });
-    }
-
-    private String[] getOfflineLanguages(){
-        List<String> lang = new ArrayList<>();
-        if(getSession().isDownloaded(ENG_IN))
-            lang.add(ENG_IN);
-        if(getSession().isDownloaded(ENG_US))
-            lang.add(ENG_US);
-        if(getSession().isDownloaded(ENG_AU))
-            lang.add(ENG_AU);
-        if(getSession().isDownloaded(ENG_UK))
-            lang.add(ENG_UK);
-        if(getSession().isDownloaded(HI_IN))
-            lang.add(HI_IN);
-        if(getSession().isDownloaded(MR_IN))
-            lang.add(MR_IN);
-        if(getSession().isDownloaded(BN_IN))
-            lang.add(BN_IN);
-        if(getSession().isDownloaded(ES_ES))
-            lang.add(ES_ES);
-        if(getSession().isDownloaded(TA_IN))
-            lang.add(TA_IN);
-        if(getSession().isDownloaded(DE_DE))
-            lang.add(DE_DE);
-
-        return lang.toArray(new String[lang.size()]);
     }
 }

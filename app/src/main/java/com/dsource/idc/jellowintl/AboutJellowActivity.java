@@ -8,8 +8,13 @@ import android.view.accessibility.AccessibilityManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.dsource.idc.jellowintl.utility.DeveloperKey;
+import com.google.android.youtube.player.YouTubeStandalonePlayer;
+import com.google.android.youtube.player.YouTubeThumbnailView;
+
 import java.util.HashMap;
 
+import static com.dsource.idc.jellowintl.ThumbnailListener.JELLOW_INFO_VIDEO_ID;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
@@ -54,6 +59,9 @@ public class AboutJellowActivity extends SpeechEngineBaseActivity {
                 stopAudio();
             }
         });
+
+        ((YouTubeThumbnailView)findViewById(R.id.thumbnailJellowInfo)).
+                initialize(DeveloperKey.DEVELOPER_KEY, new ThumbnailListener(this));
     }
 
     @Override
@@ -84,6 +92,13 @@ public class AboutJellowActivity extends SpeechEngineBaseActivity {
         super.onBackPressed();
         stopSpeaking();
         finish();
+    }
+
+    public void startVideoIntent(View view){
+        startActivityForResult(YouTubeStandalonePlayer.createVideoIntent(
+                AboutJellowActivity.this, DeveloperKey.DEVELOPER_KEY,
+                JELLOW_INFO_VIDEO_ID, 0, false, false), 0);
+
     }
 
     private void initializeViews() {
@@ -134,7 +149,7 @@ public class AboutJellowActivity extends SpeechEngineBaseActivity {
 
     private void loadStrings() {
         String versionCode = prepareRegionalVersionCode(getSession().getLanguage(),
-                String.valueOf(BuildConfig.VERSION_NAME).
+                BuildConfig.VERSION_NAME.
                         replace(".","@").split("@"));
         mGenInfo = getString(R.string.info);
         mIntro1 = getString(R.string.about_je_intro1);

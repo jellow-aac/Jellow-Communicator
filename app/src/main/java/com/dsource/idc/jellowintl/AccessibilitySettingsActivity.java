@@ -5,13 +5,14 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.accessibility.AccessibilityManager;
-
 import com.dsource.idc.jellowintl.utility.DeveloperKey;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubeStandalonePlayer;
 import com.google.android.youtube.player.YouTubeThumbnailLoader;
 import com.google.android.youtube.player.YouTubeThumbnailView;
 
+import static com.dsource.idc.jellowintl.ThumbnailListener.SWITCH_ACCESS_VIDEO_ID;
+import static com.dsource.idc.jellowintl.ThumbnailListener.VISUAL_ACCESS_VIDEO_ID;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 
@@ -26,7 +27,6 @@ public class AccessibilitySettingsActivity extends BaseActivity {
         setContentView(R.layout.activity_accessibility_settings);
         enableNavigationBack();
         setActivityTitle(getString(R.string.menuAccessibility));
-
         ((YouTubeThumbnailView)findViewById(R.id.thumbnailVisualAccess)).
                 initialize(DeveloperKey.DEVELOPER_KEY, thumbnailListener);
         ((YouTubeThumbnailView)findViewById(R.id.thumbnailSwitchAccess)).

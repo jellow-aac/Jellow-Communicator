@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background"
+    tools:context="com.dsource.idc.jellowintl.LanguagePackUpdateActivity">
+
+    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+        android:id="@+id/pg"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="95dp"
+        android:layout_marginRight="95dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        app:rcBackgroundColor="@color/colorPrimary"
+        app:rcBackgroundPadding="2dp"
+        app:rcProgressColor="@color/app_background"
+        app:rcRadius="10dp"
+        app:rcReverse="false"
+        app:rcSecondaryProgressColor="@color/app_background"
+        android:contentDescription="@string/language_download_in_process" />
+
+    <TextView
+        android:id="@+id/status"
+        style="@style/defaultTextViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pg"
+        android:layout_marginLeft="95dp"
+        android:layout_marginRight="95dp"
+        android:layout_marginBottom="20dp"
+        android:layout_centerInParent="true"
+        android:text="Language Pack Update"
+        android:textAlignment="center"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="95dp"
+        android:layout_marginRight="95dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:layout_alignParentBottom="true"
+        style="@style/defaultTextViewStyle"
+        android:text="@string/downloadErrorMsg"/>
+
+</RelativeLayout>

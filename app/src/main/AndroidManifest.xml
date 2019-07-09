@@ -171,11 +171,6 @@
             android:label="@string/search_act_title"
             android:theme="@style/Theme.AppCompat.Translucent" />
         <activity
-            android:name=".LanguagePackageUpdateActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="landscape"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity
             android:name=".FeedbackActivityTalkBack"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/menuFeedback"
@@ -229,6 +224,16 @@
             android:name=".makemyboard.utility.SetupMMB"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape" />
+      
+        <activity android:name=".LanguagePackUpdateActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+        </activity>
+        <activity android:name=".makemyboard.utility.DialogBox"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
     </application>
 
 </manifest>

@@ -15,10 +15,9 @@ public class LanguageFactory {
      */
     public static String getCurrentLanguageCode(Context context){
 
-        SessionManager sessionManager = new SessionManager(context);
-        String langCode = sessionManager.getLanguage();
+        String localeCode = getCurrentLocaleCode(context);
 
-        switch (langCode){
+        switch (localeCode){
             case SessionManager.ENG_IN:
                 return "01";
             case SessionManager.ENG_US:
@@ -44,6 +43,10 @@ public class LanguageFactory {
                 return null;
 
         }
+    }
 
+    public static String getCurrentLocaleCode(Context context){
+        SessionManager sessionManager = new SessionManager(context);
+        return sessionManager.getLanguage();
     }
 }

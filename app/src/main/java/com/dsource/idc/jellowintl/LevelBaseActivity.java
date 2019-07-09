@@ -57,6 +57,9 @@ public class LevelBaseActivity extends SpeechEngineBaseActivity implements TextT
             case R.id.settings:
                 startActivity(new Intent(this, SettingActivity.class));
                 break;
+            case R.id.languagePackUpdate:
+                startActivity(new Intent(this, LanguagePackUpdateActivity.class));
+                break;
             case R.id.accessibilitySetting:
                 startActivity(new Intent(this, AccessibilitySettingsActivity.class));
                 break;
@@ -159,4 +162,5 @@ public class LevelBaseActivity extends SpeechEngineBaseActivity implements TextT
         });
     }
     /*-------------*/
+
 }
