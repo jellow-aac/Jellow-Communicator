@@ -6,9 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
@@ -21,9 +19,9 @@ import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 
 public class FeedbackActivity extends BaseActivity {
     private RatingBar mRatingEasyToUse;
-    private Button mBtnSubmit;
     private EditText mEtComments;
     private String strEaseOfUse, mClearPicture, mClearVoice, mEaseToNav;
+    private String strRateJellow;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,9 +32,13 @@ public class FeedbackActivity extends BaseActivity {
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         findViewById(R.id.comments).clearFocus();
-        mBtnSubmit = findViewById(R.id.bSubmit);
+        mRatingEasyToUse = findViewById(R.id.easy_to_use);
+        mEtComments = findViewById(R.id.comments);
+        strRateJellow = getString(R.string.rate_jellow);
         addListenerOnRatingBar();
-        addListenerOnButton();
+        //The variables below are defined because android os fall back to default locale
+        // after activity restart. These variable will hold the value for variables initialized using
+        // user preferred locale.
     }
 
     @Override
@@ -95,31 +97,36 @@ public class FeedbackActivity extends BaseActivity {
         });
     }
 
-    public void addListenerOnButton() {
-        mRatingEasyToUse = findViewById(R.id.easy_to_use);
-        mEtComments = findViewById(R.id.comments);
-        mBtnSubmit = findViewById(R.id.bSubmit);
-        //The variables below are defined because android os fall back to default locale
-        // after activity restart. These variable will hold the value for variables initialized using
-        // user preferred locale.
-        final String strRateJellow = getString(R.string.rate_jellow);
-        mBtnSubmit.setOnClickListener(new OnClickListener() {
+    public void sendEmailFeedback(View v){
+        if((strEaseOfUse != null) && (mClearPicture != null) && (mClearVoice != null) && (mEaseToNav != null) &&
+            (!strEaseOfUse.equals("0.0")) && (!mClearPicture.equals("0.0")) && (!mClearVoice.equals("0.0")) && (!mEaseToNav.equals("0.0"))) {
+        String cs = mEtComments.getText().toString();
+        Intent email = new Intent(Intent.ACTION_SEND);
+        email.putExtra(Intent.EXTRA_EMAIL, new String[]{"dsource.in@gmail.com"});
+        email.putExtra(Intent.EXTRA_SUBJECT, "Jellow Feedback");
+        email.putExtra(Intent.EXTRA_TEXT, "Easy to use: " + strEaseOfUse + "\nClear Pictures: " + mClearPicture + "\nClear Voices: " + mClearVoice + "\nEasy to Navigate: " + mEaseToNav + "\n\nComments and Suggestions:-\n" + cs);
+        email.setType("message/rfc822");
+        startActivity(Intent.createChooser(email, "Choose an Email client :"));
+        }else{
+            Toast.makeText(FeedbackActivity.this, strRateJellow, Toast.LENGTH_SHORT).show();
+        }
+    }
 
-            @Override
-            public void onClick(View v) {
-                if((strEaseOfUse != null) && (mClearPicture != null) && (mClearVoice != null) && (mEaseToNav != null) &&
-                        (!strEaseOfUse.equals("0.0")) && (!mClearPicture.equals("0.0")) && (!mClearVoice.equals("0.0")) && (!mEaseToNav.equals("0.0"))) {
-                    String cs = mEtComments.getText().toString();
-                    Intent email = new Intent(Intent.ACTION_SEND);
-                    email.putExtra(Intent.EXTRA_EMAIL, new String[]{"dsource.in@gmail.com"});
-                    email.putExtra(Intent.EXTRA_SUBJECT, "Jellow Feedback");
-                    email.putExtra(Intent.EXTRA_TEXT, "Easy to use: " + strEaseOfUse + "\nClear Pictures: " + mClearPicture + "\nClear Voices: " + mClearVoice + "\nEasy to Navigate: " + mEaseToNav + "\n\nComments and Suggestions:-\n" + cs);
-                    email.setType("message/rfc822");
-                    startActivity(Intent.createChooser(email, "Choose an Email client :"));
-                }else{
-                    Toast.makeText(FeedbackActivity.this, strRateJellow, Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+    public void sendWhatsAppFeedback(View v){
+        if((strEaseOfUse != null) && (mClearPicture != null) && (mClearVoice != null) && (mEaseToNav != null) &&
+            (!strEaseOfUse.equals("0.0")) && (!mClearPicture.equals("0.0")) && (!mClearVoice.equals("0.0")) && (!mEaseToNav.equals("0.0"))) {
+        String message = "Jellow Feedback\n Easy to use: " + strEaseOfUse + "\nClear Pictures: "
+                + mClearPicture + "\nClear Voices: " + mClearVoice +
+                "\nEasy to Navigate: " + mEaseToNav + "\n\nComments and Suggestions:-\n"
+                + mEtComments.getText().toString();
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, message);
+        sendIntent.setType("text/plain");
+        sendIntent.setPackage("com.whatsapp");
+        startActivity(sendIntent);
+        }else{
+            Toast.makeText(FeedbackActivity.this, strRateJellow, Toast.LENGTH_SHORT).show();
+        }
     }
 }

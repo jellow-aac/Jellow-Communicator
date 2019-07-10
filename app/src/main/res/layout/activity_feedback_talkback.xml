@@ -120,6 +120,20 @@
             android:textSize="@dimen/feedback_btn_txt_size"
             android:paddingLeft="@dimen/feedback_btn_padding_left"
             android:paddingRight="@dimen/feedback_btn_padding_left"
+            android:onClick="sendEmailFeedback"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/feedback_btn_margin_left"
+            android:layout_marginStart="@dimen/feedback_btn_margin_left" />
+        <ImageButton
+            android:id="@+id/bWhatsApp"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/feedback_btn_height"
+            android:text="@string/submit"
+            android:src="@android:drawable/sym_action_email"
+            android:textSize="@dimen/feedback_btn_txt_size"
+            android:paddingLeft="@dimen/feedback_btn_padding_left"
+            android:paddingRight="@dimen/feedback_btn_padding_left"
+            android:onClick="sendWhatsAppFeedback"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/feedback_btn_margin_left"
             android:layout_marginStart="@dimen/feedback_btn_margin_left" />

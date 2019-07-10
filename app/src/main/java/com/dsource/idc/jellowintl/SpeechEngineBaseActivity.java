@@ -213,10 +213,19 @@ public class SpeechEngineBaseActivity extends BaseActivity{
 
     public boolean isVoiceAvailableForLanguage(String language) {
         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH){
-            Locale locale = new Locale(language.split("-r")[0],language.split("-r")[1]);
-            for (Voice voice : sTts.getVoices())
-                if(voice.getLocale().equals(locale) && !voice.getFeatures().contains("notInstalled"))
-                    return true;
+            if(language.equals(TA_IN)){
+                /*Tamil language uses English (India) voice*/
+                Locale locale = new Locale("en","IN");
+                for (Voice voice : sTts.getVoices())
+                    if(voice.getLocale().equals(locale) && !voice.getFeatures().contains("notInstalled"))
+                        return true;
+            }else {
+                /*For other languages voice should match to their locales*/
+                Locale locale = new Locale(language.split("-r")[0], language.split("-r")[1]);
+                for (Voice voice : sTts.getVoices())
+                    if (voice.getLocale().equals(locale) && !voice.getFeatures().contains("notInstalled"))
+                        return true;
+            }
         }
         return  false;
     }

@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -15,10 +14,9 @@ import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 
 public class FeedbackActivityTalkBack extends BaseActivity{
-
     Spinner mEasyToUse, mClearPictures, mClearVoice, mNavigate;
-    Button mBtnSubmit;
     ArrayAdapter<CharSequence> adapter;
+    private String strRateJellow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +29,8 @@ public class FeedbackActivityTalkBack extends BaseActivity{
         findViewById(R.id.comments).clearFocus();
         findViewById(R.id.tv1).setFocusable(true);
         findViewById(R.id.tv1).setFocusableInTouchMode(true);
-
-        mBtnSubmit = findViewById(R.id.bSubmit);
+        strRateJellow = getString(R.string.rate_jellow);
         addListenerOnSpinner();
-        addListenerOnButton();
     }
 
     @Override
@@ -72,29 +68,40 @@ public class FeedbackActivityTalkBack extends BaseActivity{
         mNavigate.setAdapter(adapter);
     }
 
-    public void addListenerOnButton() {
-        final String strRateJellow = getString(R.string.rate_jellow);
-        mBtnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if ((mEasyToUse != null) && (mClearPictures != null) && (mClearVoice != null) && (mNavigate != null)) {
-                    String cs = ((EditText)findViewById(R.id.comments)).getText().toString();
-                    Intent email = new Intent(Intent.ACTION_SEND);
-                    email.putExtra(Intent.EXTRA_EMAIL, new String[]{"dsource.in@gmail.com"});
-                    email.putExtra(Intent.EXTRA_SUBJECT, "Jellow Feedback");
-                    email.putExtra(Intent.EXTRA_TEXT, "Easy to use: " + mEasyToUse.getSelectedItem() +
-                            "\nClear Pictures: " + mClearPictures.getSelectedItem() + "\nClear Voices: "
-                            + mClearVoice.getSelectedItem() + "\nEasy to Navigate: " + mNavigate.getSelectedItem() +
-                            "\n\nComments and Suggestions:-\n" + cs);
-                    email.setType("message/rfc822");
-                    startActivity(Intent.createChooser(email, "Choose an Email client :"));
+    public void sendEmailFeedback(View v){
+        if((mEasyToUse != null) && (mClearPictures != null) && (mClearVoice != null) && (mNavigate != null)) {
+            Intent email = new Intent(Intent.ACTION_SEND);
+            email.putExtra(Intent.EXTRA_EMAIL, new String[]{"dsource.in@gmail.com"});
+            email.putExtra(Intent.EXTRA_SUBJECT, "Jellow Feedback");
+            email.putExtra(Intent.EXTRA_TEXT, "Easy to use: " + mEasyToUse.getSelectedItem() +
+                    "\nClear Pictures: " + mClearPictures.getSelectedItem() + "\nClear Voices: "
+                    + mClearVoice.getSelectedItem() + "\nEasy to Navigate: " + mNavigate.getSelectedItem() +
+                    "\n\nComments and Suggestions:-\n" + ((EditText)findViewById(R.id.comments))
+                        .getText().toString());
+            email.setType("message/rfc822");
+            startActivity(Intent.createChooser(email, "Choose an Email client :"));
+        } else {
+            Toast.makeText(FeedbackActivityTalkBack.this,
+                    strRateJellow, Toast.LENGTH_SHORT).show();
+        }
+    }
 
-                } else {
-                    Toast.makeText(FeedbackActivityTalkBack.this,
-                            strRateJellow, Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+    public void sendWhatsAppFeedback(View v){
+        if((mEasyToUse != null) && (mClearPictures != null) && (mClearVoice != null) && (mNavigate != null)) {
+            String message = "Jellow Feedback\n Easy to use: " + mEasyToUse.getSelectedItem() +
+            "\nClear Pictures: " + mClearPictures.getSelectedItem() + "\nClear Voices: "
+                + mClearVoice.getSelectedItem() + "\nEasy to Navigate: " + mNavigate.getSelectedItem() +
+                    "\n\nComments and Suggestions:-\n" + ((EditText)findViewById(R.id.comments))
+                        .getText().toString();
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, message);
+            sendIntent.setType("text/plain");
+            sendIntent.setPackage("com.whatsapp");
+            startActivity(sendIntent);
+        }else{
+            Toast.makeText(FeedbackActivityTalkBack.this, strRateJellow, Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void addAccessibilityDelegateToSpinners() {

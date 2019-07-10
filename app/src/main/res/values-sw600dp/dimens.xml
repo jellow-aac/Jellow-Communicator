@@ -354,7 +354,7 @@
     <dimen name="feedback_bottom_bar_height">58dp</dimen>
     <dimen name="feedback_btn_height">40dp</dimen>
     <dimen name="feedback_btn_txt_size">20sp</dimen>
-    <dimen name="feedback_btn_padding_left">0dp</dimen>
+    <dimen name="feedback_btn_padding_left">8dp</dimen>
     <dimen name="feedback_btn_margin_left">30dp</dimen>
 
     <!--activity_feedback_talkback.xml dimensions-->
