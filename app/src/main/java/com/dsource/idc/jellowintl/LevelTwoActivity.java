@@ -98,7 +98,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
 
     /*Below array stores the speech text, below text, expressive button speech text,
      navigation button speech text respectively.*/
-    private String[] /*mSpeechText, mDisplayText,*/ mExprBtnTxt,
+    private String[] mSpeechText, mDisplayText, mExprBtnTxt,
             mNavigationBtnTxt, mIconCode;
     /*Below array stores tap count and index sort array respectively. This variables are used
      only, when in level one people or places category is
@@ -1508,11 +1508,10 @@ public class LevelTwoActivity extends LevelBaseActivity{
             if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))){
                 showAccessibleDialog(position, title, view);
                 view.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-                mUec.accessibilityPopupOpenedEvent(level2IconObjects[position].getSpeech_Label());
+                mUec.accessibilityPopupOpenedEvent(mSpeechText[position]);
             }else {
-                speak(level2IconObjects[position].getSpeech_Label());
-                mUec.createSendFbEventFromTappedView(12,
-                        level2IconObjects[position].getDisplay_Label(), "");
+                speak(mSpeechText[position]);
+                mUec.createSendFbEventFromTappedView(12, mDisplayText[position], "");
             }
         // In below if category icon selected in level one is neither people nor help.
         // Also, mLevelTwoItemPos == position is true it means user taps twice on same category icon.
@@ -1538,8 +1537,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                                 mLevelTwoItemPos == 7 || mLevelTwoItemPos == 8))
                     intent = new Intent(LevelTwoActivity.this, SequenceActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("Icon", "Opened " + level2IconObjects[position].
-                        getDisplay_Label().replace("…", ""));
+                bundle.putString("Icon", "Opened " + mDisplayText[position].replace("…", ""));
                 bundleEvent("Grid", bundle);
                 //intent to open new activity have extra data such position of level one category icon,
                 // level two category icon and action bar title (bread crumb)
@@ -1562,15 +1560,15 @@ public class LevelTwoActivity extends LevelBaseActivity{
                         mLevelOneItemPos == CATEGORY_ICON_HELP){
                     showAccessibleDialog(position, title, view);
                     view.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-                    mUec.accessibilityPopupOpenedEvent(level2IconObjects[position].getDisplay_Label());
+                    mUec.accessibilityPopupOpenedEvent(mDisplayText[position]);
                 }else if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))){
                     showAccessibleDialog(position, title, view);
                     view.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-                    mUec.createSendFbEventFromTappedView(12, level2IconObjects[position].getDisplay_Label()
+                    mUec.createSendFbEventFromTappedView(12, mDisplayText[position]
                             .replace("…",""), "");
                 }else {
-                    speak(level2IconObjects[position].getSpeech_Label());
-                    mUec.createSendFbEventFromTappedView(12, level2IconObjects[position].getDisplay_Label()
+                    speak(mSpeechText[position]);
+                    mUec.createSendFbEventFromTappedView(12, mDisplayText[position]
                             .replace("…",""), "");
                 }
             }
@@ -1581,10 +1579,10 @@ public class LevelTwoActivity extends LevelBaseActivity{
         // set title to breadcrumb (or actionbar) of activity.
         if(mLevelOneItemPos == CATEGORY_ICON_PEOPLE ||
                 mLevelOneItemPos == CATEGORY_ICON_HELP)
-            title += level2IconObjects[mLevelTwoItemPos].getDisplay_Label();
+            title += mDisplayText[mLevelTwoItemPos];
         else
-            title += level2IconObjects[mLevelTwoItemPos].getDisplay_Label().substring
-                    (0, level2IconObjects[mLevelTwoItemPos].getDisplay_Label().length()-1);
+            title += mDisplayText[mLevelTwoItemPos].substring
+                    (0, mDisplayText[mLevelTwoItemPos].length()-1);
         mActionBarTitle = title;
         getSupportActionBar().setTitle(mActionBarTitle);
 
@@ -1649,7 +1647,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
      * Array is selected based on category icon opened in {@link MainActivity}</p>
      * */
     private void initializeArrayListOfRecycler() {
-        int size = level2IconObjects.length;
+        int size = mDisplayText.length;
         // Set the capacity of mRecyclerItemsViewList list to total number of category icons to be
         // populated on the screen.
         mRecyclerItemsViewList = new ArrayList<>(size);
@@ -1691,11 +1689,15 @@ public class LevelTwoActivity extends LevelBaseActivity{
         );
 
         level2IconObjects = TextFactory.getIconObjects(mIconCode);
+        mDisplayText = TextFactory.getDisplayText(level2IconObjects);
+        mSpeechText = TextFactory.getSpeechText(level2IconObjects);
 
         if(mLevelOneItemPos == 5){
-            useSortToLoadArray(mIconCode);
+            useSortToLoadArray(mSpeechText, mDisplayText, mIconCode);
         }
 
+
+        //retrieveSpeechAndAdapterArrays(mLevelOneItemPos);
 
         //Retrieve expressive icons text
         String[] expressiveIcons = IconFactory.getExpressiveIconCodes(
@@ -1834,7 +1836,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
         //If user opened the People or Help category.
         if(mLevelOneItemPos == CATEGORY_ICON_PEOPLE || mLevelOneItemPos == CATEGORY_ICON_HELP){
             if(mLevelOneItemPos == CATEGORY_ICON_HELP && position == 0){
-                enterCategory.setText(level2IconObjects[position].getDisplay_Label());
+                enterCategory.setText(mDisplayText[position]);
             }else {
                 enterCategory.setText(mSpeak);
             }
@@ -1896,10 +1898,9 @@ public class LevelTwoActivity extends LevelBaseActivity{
             enterCategory.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    speak(level2IconObjects[position].getSpeech_Label());
+                    speak(mSpeechText[position]);
                     //Send People and Help categories events directly to Firebase.
-                    mUec.createSendFbEventFromTappedView(12,
-                            level2IconObjects[position].getDisplay_Label().replace("…", ""), "");
+                    mUec.createSendFbEventFromTappedView(12, mDisplayText[position].replace("…", ""), "");
                 }
             });
         }else {
@@ -1908,8 +1909,7 @@ public class LevelTwoActivity extends LevelBaseActivity{
                 @Override
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
-                    bundle.putString("Icon", "Opened " + level2IconObjects[position].
-                            getDisplay_Label().replace("…", ""));
+                    bundle.putString("Icon", "Opened " + mDisplayText[position].replace("…", ""));
                     bundleEvent("Grid", bundle);
                     Intent intent = new Intent(LevelTwoActivity.this, LevelThreeActivity.class);
                     if (mLevelOneItemPos == 1 &&
@@ -2291,25 +2291,25 @@ public class LevelTwoActivity extends LevelBaseActivity{
      * @param arrSpeechTxt, raw speech text array,  used to sort the speech elements.
      * @param arrAdapterTxt, raw below text array,  used to sort the below text elements.</p>
      * @param level2Icons */
-    private void useSortToLoadArray(String[] level2Icons) {
+    private void useSortToLoadArray(String[] arrSpeechTxt, String[] arrAdapterTxt, String[] level2Icons) {
         // Get preference string from shared preferences into "savedString" variable
         String savedString = PreferencesHelper.getPrefString(getAppDatabase(), getIconCode(
                 LanguageFactory.getCurrentLanguageCode(this), mLevelOneItemPos, -1));
 
         // Extra 0's are concat ed at the end of "savedString" variable. This
         // will make length of array and length of savedString to equal to load category.
-        if(!savedString.isEmpty() && savedString.split(",").length != level2IconObjects.length){
-            while (savedString.split(",").length != level2IconObjects.length)
+        if(!savedString.isEmpty() && savedString.split(",").length != arrAdapterTxt.length){
+            while (savedString.split(",").length != arrAdapterTxt.length)
                 savedString = savedString.concat("0,");
         }
 
         // Create temporary array of user taps on category icons
-        Integer[]  mArrIconTapCount = new Integer[level2IconObjects.length];
-        mArrSort = new Integer[level2IconObjects.length];
+        Integer[]  mArrIconTapCount = new Integer[arrAdapterTxt.length];
+        mArrSort = new Integer[arrAdapterTxt.length];
 
         //initialize mArrIconTapCount[i] = 0 so that every category icon have same preference.
         //mArrSort array is global index sort array.
-        for (int i = 0; i < level2IconObjects.length; ++i) {
+        for (int i = 0; i < arrAdapterTxt.length; ++i) {
             mArrIconTapCount[i] = 0;
             mArrSort[i] = i;
         }
@@ -2319,14 +2319,14 @@ public class LevelTwoActivity extends LevelBaseActivity{
             StringTokenizer st = new StringTokenizer(savedString, ",");
 
             // create tap count array (mArrIconTapCount) of user taps using individual these tokens
-            for (int i = 0; i < level2IconObjects.length; ++i)
+            for (int i = 0; i < arrAdapterTxt.length; ++i)
                 mArrIconTapCount[i] = Integer.parseInt(st.nextToken());
         }
 
         //mArrPeopleTapCount is global variable to activity;
         // It holds tap count of each sub-category icon within People or places categories.
-        mArrPeopleTapCount = new Integer[level2IconObjects.length];
-        for(int i = 0; i< level2IconObjects.length ; ++i)
+        mArrPeopleTapCount = new Integer[arrAdapterTxt.length];
+        for(int i = 0; i< arrAdapterTxt.length ; ++i)
             mArrPeopleTapCount[i] = mArrIconTapCount[i];
 
         //create index sort array using tap count array (mArrIconTapCount)
@@ -2340,6 +2340,8 @@ public class LevelTwoActivity extends LevelBaseActivity{
             mArrSort[++j] = i;
         }
 
+        mSpeechText = new String[mArrIconTapCount.length];
+        mDisplayText = new String[mArrIconTapCount.length];
         mIconCode = new String[mArrIconTapCount.length];
         int idx;
         // arrange speech and adapter icons using preferences.
