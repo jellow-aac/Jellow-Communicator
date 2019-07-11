@@ -12,19 +12,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.RequestManager;
-import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
-import com.dsource.idc.jellowintl.factories.IconFactory;
-import com.dsource.idc.jellowintl.factories.LanguageFactory;
-import com.dsource.idc.jellowintl.factories.PathFactory;
-import com.dsource.idc.jellowintl.factories.TextFactory;
-import com.dsource.idc.jellowintl.models.Icon;
-import com.dsource.idc.jellowintl.utility.SessionManager;
-
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.RequestManager;
+import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
+import com.dsource.idc.jellowintl.factories.IconFactory;
+import com.dsource.idc.jellowintl.factories.TextFactory;
+import com.dsource.idc.jellowintl.models.Icon;
+import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import static android.content.Context.ACCESSIBILITY_SERVICE;
 import static com.dsource.idc.jellowintl.factories.PathFactory.getIconPath;
@@ -35,15 +33,16 @@ import static com.dsource.idc.jellowintl.factories.PathFactory.getIconPath;
 class LevelTwoAdapter extends RecyclerView.Adapter<LevelTwoAdapter.MyViewHolder> {
     private LevelTwoActivity mAct;
     private SessionManager mSession;
-    private String[] icons;
-    private String[] mBelowTextArray;
+    private String[] iconNameArray;
+    private String[] belowTextArray;
     private RequestManager glide;
 
-    LevelTwoAdapter(Context context, int levelTwoItemPos){
+    LevelTwoAdapter(Context context, Icon[] level2IconObjects){
         mAct = (LevelTwoActivity) context;
         glide = GlideApp.with(mAct);
         mSession = mAct.getSession();
-        loadArraysFromResources(levelTwoItemPos);
+        iconNameArray = IconFactory.getIconNames(level2IconObjects);
+        belowTextArray = TextFactory.getDisplayText(level2IconObjects);
     }
 
     @Override
@@ -82,11 +81,11 @@ class LevelTwoAdapter extends RecyclerView.Adapter<LevelTwoAdapter.MyViewHolder>
 
         if (mSession.getPictureViewMode() == MODE_PICTURE_ONLY)
             holder.menuItemBelowText.setVisibility(View.INVISIBLE);
-        holder.menuItemBelowText.setText(mBelowTextArray[position]);
+        holder.menuItemBelowText.setText(belowTextArray[position]);
 
-        glide.load(getIconPath(mAct, icons[position]))
+        glide.load(getIconPath(mAct, iconNameArray[position]+".png"))
                 .into(holder.menuItemImage);
-        holder.menuItemLinearLayout.setContentDescription(mBelowTextArray[position]);
+        holder.menuItemLinearLayout.setContentDescription(belowTextArray[position]);
         holder.menuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,11 +96,11 @@ class LevelTwoAdapter extends RecyclerView.Adapter<LevelTwoAdapter.MyViewHolder>
 
     @Override
     public int getItemCount() {
-        return icons.length;
+        return iconNameArray.length;
     }
 
-    private void loadArraysFromResources(int levelTwoItemPos) {
-        icons = IconFactory.getAllL2Icons(
+    /*private void loadArraysFromResources(int levelTwoItemPos) {
+        iconNameArray = IconFactory.getAllL2Icons(
                 PathFactory.getIconDirectory(mAct),
                 LanguageFactory.getCurrentLanguageCode(mAct),
                 getLevel2IconCode(levelTwoItemPos)
@@ -109,10 +108,10 @@ class LevelTwoAdapter extends RecyclerView.Adapter<LevelTwoAdapter.MyViewHolder>
 
         Icon[] iconObjects = TextFactory.getIconObjects(
                 PathFactory.getJSONFile(mAct),
-                IconFactory.removeFileExtension(icons)
+                IconFactory.removeFileExtension(iconNameArray)
         );
 
-        mBelowTextArray = TextFactory.getDisplayText(iconObjects);
+        belowTextArray = TextFactory.getDisplayText(iconObjects);
 
     }
 
@@ -122,7 +121,7 @@ class LevelTwoAdapter extends RecyclerView.Adapter<LevelTwoAdapter.MyViewHolder>
         } else {
             return Integer.toString(level1Position+1);
         }
-    }
+    }*/
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         private LinearLayout menuItemLinearLayout;

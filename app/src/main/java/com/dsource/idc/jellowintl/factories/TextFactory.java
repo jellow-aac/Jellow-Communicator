@@ -2,10 +2,13 @@ package com.dsource.idc.jellowintl.factories;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.dsource.idc.jellowintl.models.ExpressiveIcon;
 import com.dsource.idc.jellowintl.models.Icon;
 import com.dsource.idc.jellowintl.models.MiscellaneousIcon;
 import com.dsource.idc.jellowintl.models.SeqNavigationButton;
+import com.google.firebase.database.annotations.NotNull;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
@@ -15,11 +18,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 
-import androidx.annotation.NonNull;
-
 public class TextFactory {
 
     static JSONObject JSON = null;
+
+    private static final String EXTENSION = ".png";
+    private static final char EXTENSION_SEPARATOR = '.';
 
     public static void clearJson(){
         JSON = null;
@@ -62,7 +66,6 @@ public class TextFactory {
 
         return generalIconObjects;
     }
-
 
     public static ExpressiveIcon[] getExpressiveIconObjects(@NonNull File file, @NonNull String[] iconNames) {
         if (JSON == null) {
@@ -153,7 +156,7 @@ public class TextFactory {
     }
 
 
-    private static String getStringFromFile(@NonNull File file) {
+    public static String getStringFromFile(@NonNull File file) {
 
         StringBuilder text = new StringBuilder();
         try {
@@ -210,7 +213,6 @@ public class TextFactory {
         return title.toArray(titleArray);
     }
 
-
     public static String[] getSpeechText(Icon[] iconObjects){
 
         ArrayList<String> speechText = new ArrayList<>();
@@ -223,4 +225,56 @@ public class TextFactory {
         return speechText.toArray(speechTextArray);
     }
 
+
+    /*RAHUL*/
+    public static Icon[] getIconObjects(@NotNull String[] iconNames) {
+        ArrayList<Icon> iconObjects = new ArrayList<>();
+        for (String iconName : iconNames) {
+            try {
+                String jsonString = JSON.getJSONObject(iconName).toString();
+                Icon icon = new Gson().fromJson(jsonString, Icon.class);
+                iconObjects.add(icon);
+            } catch (Exception e) {
+                Log.d("JSON", e.getMessage());
+            }
+        }
+
+        Icon[] generalIconObjects = new Icon[iconObjects.size()];
+        iconObjects.toArray(generalIconObjects);
+        return generalIconObjects;
+    }
+
+    public static MiscellaneousIcon[] getMiscellaneousIconObjects(@NotNull String[] iconNames) {
+        ArrayList<MiscellaneousIcon> iconObjects = new ArrayList<>();
+        for (String iconName : iconNames) {
+            try {
+                String jsonString = JSON.getJSONObject(iconName).toString();
+                MiscellaneousIcon icon = new Gson().fromJson(jsonString, MiscellaneousIcon.class);
+                iconObjects.add(icon);
+            } catch (Exception e) {
+                Log.d("JSON", e.getMessage());
+            }
+        }
+
+        MiscellaneousIcon[] miscellaneousIconObjects = new MiscellaneousIcon[iconObjects.size()];
+        iconObjects.toArray(miscellaneousIconObjects);
+        return miscellaneousIconObjects;
+    }
+
+    public static ExpressiveIcon[] getExpressiveIconObjects(@NotNull String[] iconNames){
+        ArrayList<ExpressiveIcon> iconObjects = new ArrayList<>();
+        for (String iconName : iconNames) {
+            try {
+                String jsonString = JSON.getJSONObject(iconName).toString();
+                ExpressiveIcon icon = new Gson().fromJson(jsonString, ExpressiveIcon.class);
+                iconObjects.add(icon);
+            } catch (Exception e) {
+                Log.d("JSON", e.getMessage());
+            }
+        }
+
+        ExpressiveIcon[] expressiveIconObjects = new ExpressiveIcon[iconObjects.size()];
+        iconObjects.toArray(expressiveIconObjects);
+        return expressiveIconObjects;
+    }
 }

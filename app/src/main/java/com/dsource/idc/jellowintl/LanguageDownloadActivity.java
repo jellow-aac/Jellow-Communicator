@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.accessibility.AccessibilityManager;
 import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
@@ -18,7 +17,6 @@ import static com.dsource.idc.jellowintl.UserRegistrationActivity.LCODE;
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.TUTORIAL;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
-import static com.dsource.idc.jellowintl.utility.SessionManager.LangValueMap;
 
 public class LanguageDownloadActivity extends BaseActivity {
     DownloadManager manager;
@@ -53,7 +51,7 @@ public class LanguageDownloadActivity extends BaseActivity {
         final String strLanguageDownloaded = getString(R.string.language_downloaded);
         final String strLanguageDownloading = getString(R.string.language_downloading);
         mCheckConn = getString(R.string.checkConnectivity);
-        DownloadManager.ProgressReciever progressReciever = new DownloadManager.ProgressReciever() {
+        DownloadManager.ProgressReciever progressReceiver = new DownloadManager.ProgressReciever() {
             @Override
             public void onprogress(int soFarBytes, int totalBytes) {
                 progressBar.setProgress((float)soFarBytes/totalBytes);
@@ -62,13 +60,12 @@ public class LanguageDownloadActivity extends BaseActivity {
             @Override
             public void onComplete() {
                 getSession().setDownloaded(langCode);
+                getSession().setDownloaded(getSession().getLanguage());
                 if(!tutorial)
-                    getSession().setToastMessage(strLanguageDownloaded
-                        .replace("_", getShortenLangName(LangValueMap.get(langCode))));
+                    getSession().setToastMessage(strLanguageDownloaded.replace("_", langCode));
                 if(tutorial) {
                     Toast.makeText(LanguageDownloadActivity.this, strLanguageDownloaded
-                            .replace("_", getShortenLangName(LangValueMap.get(langCode))),
-                            Toast.LENGTH_SHORT).show();
+                            .replace("_", langCode), Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(LanguageDownloadActivity.this, Intro.class));
                 }else if(finish)
                 {
@@ -80,14 +77,14 @@ public class LanguageDownloadActivity extends BaseActivity {
         };
 
         Toast.makeText(this, strLanguageDownloading.replace("_",
-                getShortenLangName(LangValueMap.get(langCode))), Toast.LENGTH_SHORT).show();
+                langCode), Toast.LENGTH_SHORT).show();
 
         if(langCode != null) {
             try {
                 isConnected = isConnectedToNetwork((ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE));
                 if(isConnected)
                 {
-                    manager = new DownloadManager(langCode, this, progressReciever);
+                    manager = new DownloadManager(langCode, this, progressReceiver);
                     manager.start();
                 }else {
 
@@ -98,10 +95,7 @@ public class LanguageDownloadActivity extends BaseActivity {
             {
                 e.printStackTrace();
             }
-
         }
-
-
     }
 
     @Override
@@ -125,53 +119,5 @@ public class LanguageDownloadActivity extends BaseActivity {
         super.onPause();
         if(manager != null)
             manager.pause();
-    }
-
-    private String getShortenLangName(String langFullName) {
-        if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                switch (langFullName) {
-                    case "मराठी":
-                        return getString(R.string.acc_lang_marathi);
-                    case "हिंदी":
-                        return getString(R.string.acc_lang_hindi);
-                    case "বাঙালি":
-                        return getString(R.string.acc_lang_bengali);
-                    case "English (India)":
-                        return getString(R.string.acc_lang_eng_in);
-                    case "English (United Kingdom)":
-                        return getString(R.string.acc_lang_eng_gb);
-                    case "English (United States)":
-                        return getString(R.string.acc_lang_eng_us);
-                    case "English (Australia)":
-                        return getString(R.string.acc_lang_eng_au);
-                    case "Spanish (Spain)":
-                        return getString(R.string.acc_lang_span_span);
-                    case "தமிழ்":
-                        return getString(R.string.acc_lang_tamil_in);
-                    case "Deutsch (Deutschland)":
-                        return getString(R.string.acc_lang_german_ger);
-                    default:
-                        return langFullName;
-                }
-            }else{
-                switch (langFullName) {
-                    case "English (India)":
-                        return "English (IN)";
-                    case "English (United Kingdom)":
-                        return "English (UK)";
-                    case "English (United States)":
-                        return "English (US)";
-                    case "English (Australia)":
-                        return "English (AU)";
-                    case "Spanish (Spain)":
-                        return "Spanish (ES)";
-                    case "Tamil (India)":
-                        return "Tamil (IN)";
-                    case "Deutsch (Deutschland)":
-                        return "Deutsch (DE)";
-                    default:
-                        return langFullName;
-                }
-        }
     }
 }

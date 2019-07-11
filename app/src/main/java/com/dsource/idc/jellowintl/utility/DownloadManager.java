@@ -5,10 +5,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import com.dsource.idc.jellowintl.BuildConfig;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.liulishuo.filedownloader.BaseDownloadTask;
@@ -17,7 +18,6 @@ import com.liulishuo.filedownloader.FileDownloader;
 
 import java.io.File;
 
-import androidx.annotation.NonNull;
 import ir.mahdi.mzip.zip.ZipArchive;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
@@ -33,19 +33,12 @@ public class DownloadManager {
     String localeCode;
     Context context;
     ProgressReciever progressReciever;
-    FirebaseAuth mAuth;
-
-
-
-
-
 
 
     public DownloadManager(String localeCode, Context context, ProgressReciever progressReciever) {
         this.localeCode = localeCode;
         this.context = context;
         this.progressReciever = progressReciever;
-        //FirebaseApp.initializeApp(context);
 
     }
 

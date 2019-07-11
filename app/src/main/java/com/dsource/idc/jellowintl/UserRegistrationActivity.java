@@ -72,6 +72,7 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
  */
 public class UserRegistrationActivity extends SpeechEngineBaseActivity {
     public static final String LCODE = "lcode";
+    public static final String PACKAGE_NAME = "universal";
     public static final String TUTORIAL = "tutorial";
 
     final int GRID_3BY3 = 4;
@@ -98,7 +99,7 @@ public class UserRegistrationActivity extends SpeechEngineBaseActivity {
             getSession().setSessionCreatedAt(new Date().getTime());
             Crashlytics.setUserIdentifier(maskNumber(getSession().getCaregiverNumber().substring(1)));
         }
-        if (getSession().isUserLoggedIn() && !getSession().getLanguage().isEmpty()) {
+        if (getSession().isUserLoggedIn() && getSession().isDownloaded(PACKAGE_NAME)) {
             if (getSession().isDownloaded(getSession().getLanguage()) && getSession().isCompletedIntro()) {
                 if (!getSession().getUpdatedFirebase())
                     updateFirebaseDatabase();
@@ -108,7 +109,7 @@ public class UserRegistrationActivity extends SpeechEngineBaseActivity {
             } else {
                 startActivity(new Intent(UserRegistrationActivity.this,
                         LanguageDownloadActivity.class)
-                        .putExtra(LCODE, getSession().getLanguage()).putExtra(TUTORIAL, true));
+                        .putExtra(LCODE, PACKAGE_NAME).putExtra(TUTORIAL, true));
             }
             finish();
         } else {
@@ -407,8 +408,8 @@ public class UserRegistrationActivity extends SpeechEngineBaseActivity {
                         setCrashlyticsCustomKey("GridSize", "9");
                         setCrashlyticsCustomKey("PictureViewMode", "PictureText");
                         bundle.clear();
-                        bundle.putString(LCODE,LangMap.get(selectedLanguage));
-                        bundle.putBoolean(TUTORIAL,true);
+                        bundle.putString(LCODE, PACKAGE_NAME);
+                        bundle.putBoolean(TUTORIAL, true);
                         startActivity(new Intent(UserRegistrationActivity.this,
                                 LanguageDownloadActivity.class).putExtras(bundle));
                         finish();

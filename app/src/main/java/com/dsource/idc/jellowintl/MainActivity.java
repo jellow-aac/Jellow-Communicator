@@ -47,7 +47,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-import static com.dsource.idc.jellowintl.factories.PathFactory.getIconDirectory;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.maskNumber;
@@ -96,7 +95,7 @@ public class MainActivity extends LevelBaseActivity{
     private ArrayList<View> mRecyclerItemsViewList;
     /*Below array stores the speech text, below text, expressive button speech text,
      navigation button speech text respectively.*/
-    private String[] mSpeechText, mExprBtnTxt, mNavigationBtnTxt, mDisplayText, mVerbCode;
+    private String[] mExprBtnTxt, mNavigationBtnTxt, mIconCode;
     private String mActionBarTitleTxt, mHome;
 
     /*Firebase event Collector class instance.*/
@@ -113,12 +112,11 @@ public class MainActivity extends LevelBaseActivity{
             setContentView(R.layout.activity_levelx_layout);
         setLevelActionBar(getString(R.string.action_bar_title));
         mUec = new UserEventCollector();
-        loadRecyclerView();
         loadArraysFromResources();
         // Set the capacity of mRecyclerItemsViewList list to total number of category icons to be
         // populated on the screen.
-        mRecyclerItemsViewList = new ArrayList<>(mSpeechText.length);
-        while (mRecyclerItemsViewList.size() < mSpeechText.length)
+        mRecyclerItemsViewList = new ArrayList<>(level1IconObjects.length);
+        while (mRecyclerItemsViewList.size() < level1IconObjects.length)
             mRecyclerItemsViewList.add(null);
         //The variables below are defined because android os fall back to default locale
         // after activity restart. These variable will hold the value for variables initialized using
@@ -331,7 +329,7 @@ public class MainActivity extends LevelBaseActivity{
                 mRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
                 break;
         }
-        mRecyclerView.setAdapter(new MainActivityAdapter(this));
+        mRecyclerView.setAdapter(new MainActivityAdapter(this, level1IconObjects));
         mRecyclerView.setVerticalScrollBarEnabled(true);
         mRecyclerView.setScrollbarFadingEnabled(false);
         mRecyclerView.requestFocus();
@@ -596,7 +594,7 @@ public class MainActivity extends LevelBaseActivity{
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(14,
                 level1IconObjects[mLevelOneItemPos].getEvent_Tag()+"_"+
-                            mVerbCode[mLevelOneItemPos]+"LL","");
+                            mIconCode[mLevelOneItemPos]+"LL","");
                     // if value of mFlgLike is 0 then Speak associated like expression
                     // verbiage to selected category icon.
                     } else {
@@ -605,7 +603,7 @@ public class MainActivity extends LevelBaseActivity{
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(13,
                 level1IconObjects[mLevelOneItemPos].getEvent_Tag()+"_"+
-                            mVerbCode[mLevelOneItemPos]+"L0","");
+                            mIconCode[mLevelOneItemPos]+"L0","");
                     }
                 }
             }
@@ -668,7 +666,7 @@ public class MainActivity extends LevelBaseActivity{
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(20,
                 level1IconObjects[mLevelOneItemPos].getEvent_Tag()+"_"+
-                            mVerbCode[mLevelOneItemPos]+"DD","");
+                            mIconCode[mLevelOneItemPos]+"DD","");
                     // if value of mFlgDntLike is 0 then Speak associated don't like expression
                     // verbiage to selected category icon.
                     } else {
@@ -677,7 +675,7 @@ public class MainActivity extends LevelBaseActivity{
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(19,
                 level1IconObjects[mLevelOneItemPos].getEvent_Tag()+"_"+
-                            mVerbCode[mLevelOneItemPos]+"D0","");
+                            mIconCode[mLevelOneItemPos]+"D0","");
                     }
                 }
             }
@@ -740,7 +738,7 @@ public class MainActivity extends LevelBaseActivity{
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(16,
                 level1IconObjects[mLevelOneItemPos].getEvent_Tag()+"_"+
-                            mVerbCode[mLevelOneItemPos]+"YY","");
+                            mIconCode[mLevelOneItemPos]+"YY","");
                     // if value of mFlgYes is 0 then speak associated yes expression
                     // verbiage for selected category icon.
                     } else {
@@ -749,7 +747,7 @@ public class MainActivity extends LevelBaseActivity{
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(15,
                 level1IconObjects[mLevelOneItemPos].getEvent_Tag()+"_"+
-                            mVerbCode[mLevelOneItemPos]+"Y0","");
+                            mIconCode[mLevelOneItemPos]+"Y0","");
                     }
                 }
             }
@@ -812,7 +810,7 @@ public class MainActivity extends LevelBaseActivity{
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(22,
                 level1IconObjects[mLevelOneItemPos].getEvent_Tag()+"_"+
-                            mVerbCode[mLevelOneItemPos]+"NN","");
+                            mIconCode[mLevelOneItemPos]+"NN","");
                     // if value of mFlgNo is 0 then Speak associated no expression
                     // verbiage to selected category icon.
                     } else {
@@ -821,7 +819,7 @@ public class MainActivity extends LevelBaseActivity{
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(21,
                 level1IconObjects[mLevelOneItemPos].getEvent_Tag()+"_"+
-                            mVerbCode[mLevelOneItemPos]+"N0","");
+                            mIconCode[mLevelOneItemPos]+"N0","");
                     }
                 }
             }
@@ -884,7 +882,7 @@ public class MainActivity extends LevelBaseActivity{
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(18,
                 level1IconObjects[mLevelOneItemPos].getEvent_Tag()+"_"+
-                            mVerbCode[mLevelOneItemPos]+"MM","");
+                            mIconCode[mLevelOneItemPos]+"MM","");
                     // if value of mFlgMore is 0, then should speak "more" expression
                     // verbiage associated to selected category icon.
                     } else {
@@ -893,7 +891,7 @@ public class MainActivity extends LevelBaseActivity{
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(17,
                 level1IconObjects[mLevelOneItemPos].getEvent_Tag()+"_"+
-                            mVerbCode[mLevelOneItemPos]+"M0","");
+                            mIconCode[mLevelOneItemPos]+"M0","");
                     }
                 }
             }
@@ -956,7 +954,7 @@ public class MainActivity extends LevelBaseActivity{
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(24,
                 level1IconObjects[mLevelOneItemPos].getEvent_Tag()+"_"+
-                            mVerbCode[mLevelOneItemPos]+"SS","");
+                            mIconCode[mLevelOneItemPos]+"SS","");
                     // if value of mFlgLess is 0 then Speak associated less expression
                     // verbiage to selected category icon.
                     } else {
@@ -965,7 +963,7 @@ public class MainActivity extends LevelBaseActivity{
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(23,
                 level1IconObjects[mLevelOneItemPos].getEvent_Tag()+"_"+
-                            mVerbCode[mLevelOneItemPos]+"S0","");
+                            mIconCode[mLevelOneItemPos]+"S0","");
                     }
                 }
             }
@@ -1044,7 +1042,7 @@ public class MainActivity extends LevelBaseActivity{
         setMenuImageBorder(view, true);
         // set true to speak verbiage associated with category icon
         mShouldReadFullSpeech = true;
-        String title = mDisplayText[position];
+        String title = level1IconObjects[position].getDisplay_Label().replace("…","");
         getSupportActionBar().setTitle(title);
         if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))){
             // below condition is true when user tap same category icon twice.
@@ -1052,7 +1050,8 @@ public class MainActivity extends LevelBaseActivity{
             if (mLevelOneItemPos == position){
                 // create event bundle for firebase
                 Bundle bundle = new Bundle();
-                bundle.putString("Icon", "Opened " + mDisplayText[position]);
+                bundle.putString("Icon", "Opened " + level1IconObjects[position].
+                        getDisplay_Label().replace("…",""));
                 bundleEvent("Grid", bundle);
 
                 // send current position in recycler view of selected category icon and bread
@@ -1062,15 +1061,17 @@ public class MainActivity extends LevelBaseActivity{
                 intent.putExtra(getString(R.string.intent_menu_path_tag), title + "/");
                 startActivityForResult(intent, REQ_HOME);
             }else {
-                speak(mSpeechText[position]);
+                speak(level1IconObjects[position].getSpeech_Label());
                 // create event bundle for firebase
-                mUec.createSendFbEventFromTappedView(12, mDisplayText[position], "");
+                mUec.createSendFbEventFromTappedView(12,
+                        level1IconObjects[position].getDisplay_Label(), "");
             }
         }else{
             showAccessibleDialog(position, title, view);
             view.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
             // create event bundle for firebase
-            mUec.createSendFbEventFromTappedView(12,mDisplayText[position], "");
+            mUec.createSendFbEventFromTappedView(12, level1IconObjects[position].
+                    getDisplay_Label(), "");
         }
         mLevelOneItemPos = mRecyclerView.getChildLayoutPosition(view);
         mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
@@ -1175,7 +1176,7 @@ public class MainActivity extends LevelBaseActivity{
             public void onClick(View v) {
                 // create event bundle for firebase
                 Bundle bundle = new Bundle();
-                bundle.putString("Icon", "Opened " + mSpeechText[position]);
+                bundle.putString("Icon", "Opened " + level1IconObjects[position].getDisplay_Label());
                 bundleEvent("Grid", bundle);
 
                 Intent intent = new Intent(MainActivity.this, LevelTwoActivity.class);
@@ -1328,53 +1329,34 @@ public class MainActivity extends LevelBaseActivity{
      * */
     private void loadArraysFromResources() {
         //Retrieve icon names from json file for Level 1
-        String[] level1Icons = IconFactory.getL1Icons(
-                getIconDirectory(this),
-                LanguageFactory.getCurrentLanguageCode(this)
-        );
-        //Retrieve Level 1 verbiage including below text, speech text
-        level1IconObjects = TextFactory.getIconObjects(
+        mIconCode = IconFactory.getL1IconCodes(
                 PathFactory.getJSONFile(this),
-                IconFactory.removeFileExtension(level1Icons)
-        );
-        mVerbCode = new String[level1Icons.length];
-        for (int i = 0; i < mVerbCode.length; i++) {
-            mVerbCode[i] = level1Icons[i].replace(".png","");
-        }
-        //Extract Level 1 speech text from level1IconObjects
-        mSpeechText = TextFactory.getSpeechText(level1IconObjects);
-        //Extract Level 1 title text from level1IconObjects
-        mDisplayText = TextFactory.getDisplayText(level1IconObjects);
-
-        for(int i = 0; i< mDisplayText.length; i++){
-            mDisplayText[i] = mDisplayText[i].replace("…","");
-        }
-
-        //Retrieve Navigation icon text
-        String[] miscellaneousIcons = IconFactory.getMiscellaneousIcons(
-                PathFactory.getIconDirectory(this),
                 LanguageFactory.getCurrentLanguageCode(this)
         );
 
-        MiscellaneousIcon[] miscellaneousIconObjects = TextFactory.getMiscellaneousIconObjects(
-                PathFactory.getJSONFile(this),
-                IconFactory.removeFileExtension(miscellaneousIcons)
-        );
-        //Extract Navigation icon text from miscellaneousIconObjects
-        mNavigationBtnTxt = TextFactory.getTitle(miscellaneousIconObjects);
+        level1IconObjects = TextFactory.getIconObjects(mIconCode);
+        loadRecyclerView();
+
         //Retrieve expressive icons text
-        String[] expressiveIcons = IconFactory.getExpressiveIcons(
+        String[] expressiveIcons = IconFactory.getExpressiveIconCodes(
                 PathFactory.getIconDirectory(this),
                 LanguageFactory.getCurrentLanguageCode(this)
         );
         //Extract expressive icon text from expressiveIconObjects
         ExpressiveIcon[] expressiveIconObjects = TextFactory.getExpressiveIconObjects(
-                PathFactory.getJSONFile(this),
-                IconFactory.removeFileExtension(expressiveIcons)
-        );
-
+                expressiveIcons);
         mExprBtnTxt = TextFactory.getExpressiveSpeechText(expressiveIconObjects);
 
+        //Retrieve Navigation icon text
+        String[] miscellaneousIcons = IconFactory.getMiscellaneousIconCodes(
+                PathFactory.getIconDirectory(this),
+                LanguageFactory.getCurrentLanguageCode(this)
+        );
+        MiscellaneousIcon[] miscellaneousIconObjects = TextFactory.getMiscellaneousIconObjects(
+                miscellaneousIcons
+        );
+        //Extract Navigation icon text from miscellaneousIconObjects
+        mNavigationBtnTxt = TextFactory.getTitle(miscellaneousIconObjects);
     }
 
     /**

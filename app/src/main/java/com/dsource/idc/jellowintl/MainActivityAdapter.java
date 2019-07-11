@@ -13,26 +13,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.RequestManager;
-import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
-import com.dsource.idc.jellowintl.cache.MemoryCache;
-import com.dsource.idc.jellowintl.factories.IconFactory;
-import com.dsource.idc.jellowintl.factories.LanguageFactory;
-import com.dsource.idc.jellowintl.factories.TextFactory;
-import com.dsource.idc.jellowintl.models.Icon;
-import com.dsource.idc.jellowintl.utility.SessionManager;
-
-import java.io.File;
-
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.RequestManager;
+import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
+import com.dsource.idc.jellowintl.cache.MemoryCache;
+import com.dsource.idc.jellowintl.factories.IconFactory;
+import com.dsource.idc.jellowintl.factories.TextFactory;
+import com.dsource.idc.jellowintl.models.Icon;
+import com.dsource.idc.jellowintl.utility.SessionManager;
+
 import static android.content.Context.ACCESSIBILITY_SERVICE;
-import static com.dsource.idc.jellowintl.factories.PathFactory.getIconDirectory;
 import static com.dsource.idc.jellowintl.factories.PathFactory.getIconPath;
-import static com.dsource.idc.jellowintl.factories.PathFactory.getJSONFile;
 
 /**
  * Created by ekalpa on 4/19/2016.
@@ -40,24 +35,17 @@ import static com.dsource.idc.jellowintl.factories.PathFactory.getJSONFile;
 class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapter.MyViewHolder> {
     private MainActivity mAct;
     private SessionManager mSession;
-    private String[] icons;
-    private String[] mBelowTextArray;
+    private String[] iconNameArray;
+    private String[] belowTextArray;
     private RequestManager glide;
 
-    public MainActivityAdapter(Context context) {
+    public MainActivityAdapter(Context context, Icon[] level1IconObjects) {
         mAct = ((MainActivity) context);
         glide = GlideApp.with(mAct);
         mSession = mAct.getSession();
 
-        icons = IconFactory.getL1Icons(
-                getIconDirectory(context),
-                LanguageFactory.getCurrentLanguageCode(context)
-        );
-
-        File map = getJSONFile(context);
-        Icon[] iconObjects = TextFactory.getIconObjects(map, IconFactory.removeFileExtension(icons));
-        mBelowTextArray = TextFactory.getDisplayText(iconObjects);
-
+        belowTextArray = TextFactory.getDisplayText(level1IconObjects);
+        iconNameArray = IconFactory.getIconNames(level1IconObjects);
     }
 
     @Override
@@ -99,18 +87,18 @@ class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapter.MyVie
             holder.menuItemBelowText.setVisibility(View.INVISIBLE);
 
         holder.menuItemBelowText.setAllCaps(true);
-        holder.menuItemBelowText.setText(mBelowTextArray[position]);
+        holder.menuItemBelowText.setText(belowTextArray[position]);
 
-        Bitmap iconBitmap = MemoryCache.getBitmapFromMemCache(icons[position]);
+        Bitmap iconBitmap = MemoryCache.getBitmapFromMemCache(iconNameArray[position]+".png");
 
         if (iconBitmap != null) {
             holder.menuItemImage.setImageBitmap(iconBitmap);
         } else {
-            glide.load(getIconPath(mAct, icons[position]))
+            glide.load(getIconPath(mAct, iconNameArray[position]+".png"))
                     .into(holder.menuItemImage);
         }
 
-        holder.menuItemLinearLayout.setContentDescription(mBelowTextArray[position]);
+        holder.menuItemLinearLayout.setContentDescription(belowTextArray[position]);
         holder.menuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,7 +109,7 @@ class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapter.MyVie
 
     @Override
     public int getItemCount() {
-        return icons.length;
+        return iconNameArray.length;
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {

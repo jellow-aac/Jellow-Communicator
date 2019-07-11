@@ -12,20 +12,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.RequestManager;
-import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
-import com.dsource.idc.jellowintl.factories.IconFactory;
-import com.dsource.idc.jellowintl.factories.LanguageFactory;
-import com.dsource.idc.jellowintl.factories.PathFactory;
-import com.dsource.idc.jellowintl.utility.SessionManager;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.RequestManager;
+import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
+import com.dsource.idc.jellowintl.factories.IconFactory;
+import com.dsource.idc.jellowintl.factories.TextFactory;
+import com.dsource.idc.jellowintl.models.Icon;
+import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import static android.content.Context.ACCESSIBILITY_SERVICE;
 import static com.dsource.idc.jellowintl.factories.PathFactory.getIconPath;
@@ -36,16 +33,22 @@ import static com.dsource.idc.jellowintl.factories.PathFactory.getIconPath;
 class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.MyViewHolder> {
     private LevelTwoActivity mAct;
     private SessionManager mSession;
-    private ArrayList<String> mIconNameList = new ArrayList<>();
-    private ArrayList<String> mBelowTextList = new ArrayList<>();
+    private String[] iconNameArray, belowTextArray;
     private RequestManager glide;
 
 
-    PeopleAdapter(Context context, int levelOneItemPos, String[] mArrAdapterTxt, Integer[] arrSort) {
+    PeopleAdapter(Context context, Icon[] level2IconObjects, Integer[] arrSort) {
         mAct = (LevelTwoActivity) context;
         glide = GlideApp.with(mAct);
         mSession = mAct.getSession();
-        loadArraysFromResources(levelOneItemPos, mArrAdapterTxt, arrSort);
+
+        Icon[] tempIconArray = new Icon[level2IconObjects.length];
+        for (int i = 0; i < level2IconObjects.length; i++) {
+            tempIconArray[i] = level2IconObjects[arrSort[i]];
+        }
+
+        iconNameArray = IconFactory.getIconNames(tempIconArray);
+        belowTextArray = TextFactory.getDisplayText(tempIconArray);
     }
 
     @Override
@@ -86,11 +89,11 @@ class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.MyViewHolder> {
 
         if (mSession.getPictureViewMode() == MODE_PICTURE_ONLY)
             holder.menuItemBelowText.setVisibility(View.INVISIBLE);
-        holder.menuItemBelowText.setText(mBelowTextList.get(position));
+        holder.menuItemBelowText.setText(belowTextArray[position]);
 
-       glide.load(getIconPath(mAct, mIconNameList.get(position)))
+       glide.load(getIconPath(mAct, iconNameArray[position]+".png"))
                 .into(holder.menuItemImage);
-        holder.menuItemLinearLayout.setContentDescription(mBelowTextList.get(position));
+        holder.menuItemLinearLayout.setContentDescription(belowTextArray[position]);
         holder.menuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,31 +109,7 @@ class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.MyViewHolder> {
 
     @Override
     public int getItemCount() {
-        return mIconNameList.size();
-    }
-
-    private void loadArraysFromResources(int levelOneItemPos, String[] mArrAdapterTxt, Integer[] arrSort) {
-        ArrayList<String> tempIconList = new ArrayList<>();
-        mBelowTextList.addAll(Arrays.asList(mArrAdapterTxt));
-
-        tempIconList.addAll(Arrays.asList(IconFactory.getAllL2Icons(
-                    PathFactory.getIconDirectory(mAct),
-                    LanguageFactory.getCurrentLanguageCode(mAct),
-                    getLevel2IconCode(levelOneItemPos)
-        )));
-
-
-        for (int i = 0; i < tempIconList.size(); i++) {
-            mIconNameList.add(tempIconList.get(arrSort[i]));
-        }
-    }
-
-    private String getLevel2IconCode(int level1Position){
-        if(level1Position+1 <= 9){
-            return "0" + Integer.toString(level1Position+1);
-        } else {
-            return Integer.toString(level1Position+1);
-        }
+        return iconNameArray.length;
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {

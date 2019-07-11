@@ -1,13 +1,22 @@
 package com.dsource.idc.jellowintl.factories;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.dsource.idc.jellowintl.cache.IconCache;
+import com.dsource.idc.jellowintl.models.Icon;
+
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
+
+import static com.dsource.idc.jellowintl.factories.TextFactory.JSON;
+import static com.dsource.idc.jellowintl.factories.TextFactory.getStringFromFile;
 
 public class IconFactory {
 
@@ -50,7 +59,6 @@ public class IconFactory {
         return IconCache.getL1Icons();
     }
 
-
     public static String[] getAllL2Icons(@NonNull File dir, String langCode, String level1IconCode) {
 
         if (!(IconCache.getAllL2Icons() == null || IconCache.getAllL2Icons().isEmpty())) {
@@ -83,8 +91,6 @@ public class IconFactory {
 
         return level2Icons;
     }
-
-
 
     public static String[] getL3Icons(@NonNull File dir, String langCode, String level1IconCode, String level2IconCode) {
 
@@ -157,6 +163,7 @@ public class IconFactory {
         return level3SeqIcons;
     }
 
+
     public static String[] getExpressiveIcons(@NonNull File dir, String langCode) {
 
         if (IconCache.getExpressiveIcons() != null && IconCache.getExpressiveIcons().length != 0) {
@@ -179,7 +186,6 @@ public class IconFactory {
         IconCache.setExpressiveIcons(expressiveIcons);
         return IconCache.getExpressiveIcons();
     }
-
 
     public static String[] getMiscellaneousIcons(@NonNull File dir, String langCode) {
 
@@ -224,6 +230,7 @@ public class IconFactory {
         return categoryNavigationButtons;
     }
 
+
     public static String[] removeFileExtension(String[] iconNamesWithExtension) {
         String[] iconNames = iconNamesWithExtension.clone();
         for (int i = 0; i < iconNames.length; i++) {
@@ -246,5 +253,122 @@ public class IconFactory {
         else
             iconCode = iconCode.replace("BB", String.valueOf((levelTwo+1)));
         return iconCode;
+    }
+
+
+
+    /*RAHUL*/
+    public static String[] getIconNames(Icon[] iconObjects) {
+        ArrayList<String> iconName = new ArrayList<>();
+        for(Icon icon : iconObjects){
+            iconName.add(icon.getEvent_Tag());
+        }
+
+        String[] iconNameArray = new String[iconName.size()];
+
+        return iconName.toArray(iconNameArray);
+    }
+
+    public static String[] getL1IconCodes(File file, String langCode){
+        if (JSON == null) {
+            try {
+                JSON = new JSONObject(getStringFromFile(file));
+            } catch (Exception e) {
+                Log.d("JSON", e.getMessage());
+            }
+        }
+
+        String regex = langCode + "[0-9]{2}" + "0{6}GG";
+        ArrayList<String> iconNames = new ArrayList<>();
+        Iterator<String> it = JSON.keys();
+        while (it.hasNext()){
+            String key = it.next();
+            if(key.matches(regex))
+                iconNames.add(key);
+        }
+
+        String[] iconNameArray = new String[iconNames.size()];
+        return iconNames.toArray(iconNameArray);
+    }
+
+    public static String[] getL2IconCodes(File file, String langCode, String level1IconCode){
+        if (JSON == null) {
+            try {
+                JSON = new JSONObject(getStringFromFile(file));
+            } catch (Exception e) {
+                Log.d("JSON", e.getMessage());
+            }
+        }
+
+        String regex = langCode + level1IconCode +
+                "([1-9][1-9]|[0-9][1-9]|[1-9][0-9])" + "0{4}(GG|SS)";
+        ArrayList<String> iconNames = new ArrayList<>();
+        Iterator<String> it = JSON.keys();
+        while (it.hasNext()){
+            String key = it.next();
+            if(key.matches(regex))
+                iconNames.add(key);
+        }
+
+        String[] iconNameArray = new String[iconNames.size()];
+        return iconNames.toArray(iconNameArray);
+    }
+
+    public static String[] getMiscellaneousIconCodes(File file, String langCode){
+
+        /*if (IconCache.getMiscellaneousIcons() != null && IconCache.getMiscellaneousIcons().length != 0) {
+            return IconCache.getMiscellaneousIcons();
+        }*/
+
+        if (JSON == null) {
+            try {
+                JSON = new JSONObject(getStringFromFile(file));
+            } catch (Exception e) {
+                Log.d("JSON", e.getMessage());
+            }
+        }
+
+        String regex = langCode + "[0-9]{2}" + "MS";
+        ArrayList<String> iconNames = new ArrayList<>();
+        Iterator<String> it = JSON.keys();
+        while (it.hasNext()){
+            String key = it.next();
+            if(key.matches(regex))
+                iconNames.add(key);
+        }
+
+        Collections.sort(iconNames);
+        String[] miscellaneousIcons = new String[iconNames.size()];
+        return iconNames.toArray(miscellaneousIcons);
+        /*IconCache.setMiscellaneousIcons(miscellaneousIcons);
+        return IconCache.getMiscellaneousIcons();*/
+    }
+
+    public static String[] getExpressiveIconCodes(File file, String langCode){
+
+        /*if (IconCache.getExpressiveIcons() != null && IconCache.getExpressiveIcons().length != 0) {
+            return IconCache.getExpressiveIcons();
+        }*/
+        if (JSON == null) {
+            try {
+                JSON = new JSONObject(getStringFromFile(file));
+            } catch (Exception e) {
+                Log.d("JSON", e.getMessage());
+            }
+        }
+
+        String regex = langCode + "[0-9]{2}" + "EE";
+        ArrayList<String> iconNames = new ArrayList<>();
+        Iterator<String> it = JSON.keys();
+        while (it.hasNext()){
+            String key = it.next();
+            if(key.matches(regex))
+                iconNames.add(key);
+        }
+        Collections.sort(iconNames);
+        String[] expressiveIcons = new String[iconNames.size()];
+        return iconNames.toArray(expressiveIcons);
+        /*IconCache.setExpressiveIcons(expressiveIcons);
+        return IconCache.getExpressiveIcons();*/
     }
 }
