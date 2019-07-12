@@ -25,6 +25,7 @@ import com.dsource.idc.jellowintl.models.Icon;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import static android.content.Context.ACCESSIBILITY_SERVICE;
+import static com.dsource.idc.jellowintl.factories.IconFactory.EXTENSION;
 import static com.dsource.idc.jellowintl.factories.PathFactory.getIconPath;
 
 /**
@@ -91,7 +92,7 @@ class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.MyViewHolder> {
             holder.menuItemBelowText.setVisibility(View.INVISIBLE);
         holder.menuItemBelowText.setText(belowTextArray[position]);
 
-       glide.load(getIconPath(mAct, iconNameArray[position]+".png"))
+       glide.load(getIconPath(mAct, iconNameArray[position]+EXTENSION))
                 .into(holder.menuItemImage);
         holder.menuItemLinearLayout.setContentDescription(belowTextArray[position]);
         holder.menuItemLinearLayout.setOnClickListener(new View.OnClickListener() {

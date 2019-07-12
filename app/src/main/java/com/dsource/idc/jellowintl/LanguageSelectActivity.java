@@ -1,10 +1,8 @@
 package com.dsource.idc.jellowintl;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -35,7 +33,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.dsource.idc.jellowintl.UserRegistrationActivity.LCODE;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
@@ -199,7 +196,6 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
         // after activity restart. These variable will hold the value for variables initialized using
         // user preferred locale.
         final String strNoMoreLang2Add = getString(R.string.no_more_lang_2_add);
-        final String strCheckConnectivity = getString(R.string.checkConnectivity);
         final String strDownloadableLang = getString(R.string.downloadableLang);
         final String strDownload = getString(R.string.download);
         final String strCancel = getString(R.string.cancel);
@@ -244,7 +240,14 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             delete.setEnabled(true);
-                            showAddLangDialog(dialog, item[0], strCheckConnectivity);
+                            //To start TTS voice package download automatically.
+                            setSpeechEngineLanguage(LangMap.get(onlineLanguages[which]));
+                            //To switch TTS voice package back.
+                            setSpeechEngineLanguage(getSession().getLanguage());
+                            // Send empty string to TTS Engine to eliminate voice
+                            // lag after user goes back without changing the language.
+                            speak("");
+                            dialog.dismiss();
                         }
                     })
                     .setNegativeButton(spannedCnlStr, new DialogInterface.OnClickListener() {
@@ -315,7 +318,15 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
                                         dialog.dismiss();
                                         return ;
                                     }
-                                    showDeleteLangDialog(dialog, item[0], strLangRemoved);
+                                    getSession().setRemoved(locale);
+                                    onlineLanguages = getOnlineLanguages();
+                                    offlineLanguages = getOfflineLanguages();
+                                    adapter_lan = new ArrayAdapter<String>(getBaseContext(),
+                                            R.layout.simple_spinner_item, populateCountryNameByUserType(offlineLanguages));
+                                    adapter_lan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                    languageSelect.setAdapter(adapter_lan);
+                                    dialog.dismiss();
+                                    Toast.makeText(LanguageSelectActivity.this, strLangRemoved, Toast.LENGTH_SHORT).show();
                                 }
                             })
                             .setNegativeButton(spannedCnlStr,new DialogInterface.OnClickListener() {
@@ -349,45 +360,7 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
         window.getDecorView().getWindowVisibleDisplayFrame(displayRectangle);   */
     }
 
-    private void showAddLangDialog(DialogInterface dialog, int which, String strCheckConnectivity) {
-        delete.setEnabled(true);
-
-        if (isConnectedToNetwork((ConnectivityManager) LanguageSelectActivity.this.
-                getSystemService(Context.CONNECTIVITY_SERVICE))) {
-            Bundle bundle = new Bundle();
-            bundle.putString(LCODE, LangMap.get(onlineLanguages[which]));
-            bundle.putBoolean(FINISH, false);
-            //To start TTS voice package download automatically.
-            setSpeechEngineLanguage(LangMap.get(onlineLanguages[which]));
-            //To switch TTS voice package back.
-            setSpeechEngineLanguage(getSession().getLanguage());
-            // Send empty string to TTS Engine to eliminate voice
-            // lag after user goes back without changing the language.
-            speak("");
-            startActivity(new Intent(getBaseContext(), LanguageDownloadActivity.class).putExtras(bundle));
-            dialog.dismiss();
-        } else {
-
-            Toast.makeText(LanguageSelectActivity.this, strCheckConnectivity, Toast.LENGTH_SHORT).show();
-        }
-    }
-
     private void showDeleteLangDialog(DialogInterface dialog, int which, String strLangRemoved) {
-        String locale = LangMap.get(offlineLanguages[which]);
-        File file = getBaseContext().getDir(locale, Context.MODE_PRIVATE);
-        if (file.exists()) {
-            deleteRecursive(file);
-        }
-        file.delete();
-        getSession().setRemoved(locale);
-        onlineLanguages = getOnlineLanguages();
-        offlineLanguages = getOfflineLanguages();
-        adapter_lan = new ArrayAdapter<String>(getBaseContext(),
-                R.layout.simple_spinner_item, populateCountryNameByUserType(offlineLanguages));
-        adapter_lan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        languageSelect.setAdapter(adapter_lan);
-        dialog.dismiss();
-        Toast.makeText(LanguageSelectActivity.this, strLangRemoved, Toast.LENGTH_SHORT).show();
     }
 
     private void hideViewsForNonTtsLang(boolean disableViews) {

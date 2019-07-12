@@ -27,6 +27,7 @@ import com.dsource.idc.jellowintl.models.Icon;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import static android.content.Context.ACCESSIBILITY_SERVICE;
+import static com.dsource.idc.jellowintl.factories.IconFactory.EXTENSION;
 import static com.dsource.idc.jellowintl.factories.PathFactory.getIconPath;
 
 /**
@@ -89,12 +90,12 @@ class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapter.MyVie
         holder.menuItemBelowText.setAllCaps(true);
         holder.menuItemBelowText.setText(belowTextArray[position]);
 
-        Bitmap iconBitmap = MemoryCache.getBitmapFromMemCache(iconNameArray[position]+".png");
+        Bitmap iconBitmap = MemoryCache.getBitmapFromMemCache(iconNameArray[position]+EXTENSION);
 
         if (iconBitmap != null) {
             holder.menuItemImage.setImageBitmap(iconBitmap);
         } else {
-            glide.load(getIconPath(mAct, iconNameArray[position]+".png"))
+            glide.load(getIconPath(mAct, iconNameArray[position]+EXTENSION))
                     .into(holder.menuItemImage);
         }
 

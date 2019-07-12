@@ -25,6 +25,7 @@ import com.dsource.idc.jellowintl.models.Icon;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import static android.content.Context.ACCESSIBILITY_SERVICE;
+import static com.dsource.idc.jellowintl.factories.IconFactory.EXTENSION;
 import static com.dsource.idc.jellowintl.factories.PathFactory.getIconPath;
 
 /**
@@ -83,7 +84,7 @@ class LevelTwoAdapter extends RecyclerView.Adapter<LevelTwoAdapter.MyViewHolder>
             holder.menuItemBelowText.setVisibility(View.INVISIBLE);
         holder.menuItemBelowText.setText(belowTextArray[position]);
 
-        glide.load(getIconPath(mAct, iconNameArray[position]+".png"))
+        glide.load(getIconPath(mAct, iconNameArray[position]+EXTENSION))
                 .into(holder.menuItemImage);
         holder.menuItemLinearLayout.setContentDescription(belowTextArray[position]);
         holder.menuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
@@ -98,30 +99,6 @@ class LevelTwoAdapter extends RecyclerView.Adapter<LevelTwoAdapter.MyViewHolder>
     public int getItemCount() {
         return iconNameArray.length;
     }
-
-    /*private void loadArraysFromResources(int levelTwoItemPos) {
-        iconNameArray = IconFactory.getAllL2Icons(
-                PathFactory.getIconDirectory(mAct),
-                LanguageFactory.getCurrentLanguageCode(mAct),
-                getLevel2IconCode(levelTwoItemPos)
-        );
-
-        Icon[] iconObjects = TextFactory.getIconObjects(
-                PathFactory.getJSONFile(mAct),
-                IconFactory.removeFileExtension(iconNameArray)
-        );
-
-        belowTextArray = TextFactory.getDisplayText(iconObjects);
-
-    }
-
-    private String getLevel2IconCode(int level1Position){
-        if(level1Position+1 <= 9){
-            return "0" + Integer.toString(level1Position+1);
-        } else {
-            return Integer.toString(level1Position+1);
-        }
-    }*/
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         private LinearLayout menuItemLinearLayout;

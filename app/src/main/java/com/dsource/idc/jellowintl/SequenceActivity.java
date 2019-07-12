@@ -43,8 +43,7 @@ import com.dsource.idc.jellowintl.models.SeqNavigationButton;
 import com.dsource.idc.jellowintl.utility.DialogKeyboardUtterance;
 import com.dsource.idc.jellowintl.utility.UserEventCollector;
 
-import java.io.File;
-
+import static com.dsource.idc.jellowintl.factories.IconFactory.EXTENSION;
 import static com.dsource.idc.jellowintl.factories.PathFactory.getIconPath;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
@@ -88,18 +87,15 @@ public class SequenceActivity extends LevelBaseActivity{
     /*navigation next, back button in category*/
     private Button mBtnNext, mBtnBack;
     private String mActionBarTitleTxt;
-    String[] mCategoryIconText;
-    /*Below array stores the speech text, below text, expressive button speech text, heading,
+    /*Below array stores the expressive button speech text, heading,
      navigation button speech text, category navigation text respectively.*/
-    private String[] mCategoryIconSpeechText, mCategoryIconBelowText, mHeading, mExprBtnTxt,
-            mNavigationBtnTxt, mVerbCode;
+    private String[] mHeading, mExprBtnTxt, mNavigationBtnTxt, mIconCode;
 
     /*Firebase event Collector class instance.*/
     private UserEventCollector mUec;
 
-    private Icon[] level3SeqIconObjects;
+    private Icon[] seqIconObjects;
     private SeqNavigationButton[] seqNavigationButtonObjects;
-    private String[] l3SeqIcons;
 
     private String mSpeak;
 
@@ -160,10 +156,7 @@ public class SequenceActivity extends LevelBaseActivity{
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mCategoryIconText = null;
         mRelativeLayCategory = null;
-        mCategoryIconSpeechText = null;
-        mCategoryIconBelowText = null;
         mHeading = null;
         mExprBtnTxt = null;
         mNavigationBtnTxt = null;
@@ -221,9 +214,9 @@ public class SequenceActivity extends LevelBaseActivity{
         mIvArrowLeft = findViewById(R.id.arrow1);
         mIvArrowRight = findViewById(R.id.arrow2);
 
-        mIvCategoryIcon1.setContentDescription(mCategoryIconBelowText[count]);
-        mIvCategoryIcon2.setContentDescription(mCategoryIconBelowText[count + 1]);
-        mIvCategoryIcon3.setContentDescription(mCategoryIconBelowText[count + 2]);
+        mIvCategoryIcon1.setContentDescription(seqIconObjects[count].getDisplay_Label());
+        mIvCategoryIcon2.setContentDescription(seqIconObjects[count+1].getDisplay_Label());
+        mIvCategoryIcon3.setContentDescription(seqIconObjects[count+2].getDisplay_Label());
 
         ViewCompat.setAccessibilityDelegate(mIvLike, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(mIvYes, new TalkbackHints_SingleClick());
@@ -295,42 +288,46 @@ public class SequenceActivity extends LevelBaseActivity{
                 resetExpressiveButton();
                 mFlgHideExpBtn = 0;
                 //if reached to end of sequence disable next button
-                if (mCategoryIconText.length == count + 3) {
+                if (seqIconObjects.length == count + 3) {
                     mBtnNext.setAlpha(.5f);
                     mBtnNext.setEnabled(false);
                 }
                 //if the next set of category items to be loaded are less than 3
-                if (mCategoryIconText.length < count + 3) {
+                if (seqIconObjects.length < count + 3) {
                     // If activity sequence is "Brushing" or "Bathing", then in its last sequences
                     // only 2 items needed to load
                     if (mLevelTwoItemPos == 0 || mLevelTwoItemPos == 2) {
-                        setImageUsingGlide(getIconPath(SequenceActivity.this,l3SeqIcons[count]),
+                        setImageUsingGlide(getIconPath(SequenceActivity.this,
+                                seqIconObjects[count].getEvent_Tag()),
                                 mIvCategoryIcon1);
-                        setImageUsingGlide(getIconPath(SequenceActivity.this,l3SeqIcons[count+1]),
+                        setImageUsingGlide(getIconPath(SequenceActivity.this,
+                                seqIconObjects[count+1].getEvent_Tag()),
                                 mIvCategoryIcon2);
 
-                        mIvCategoryIcon1.setContentDescription(mCategoryIconBelowText[count]);
-                        mIvCategoryIcon2.setContentDescription(mCategoryIconBelowText[count + 1]);
+                        mIvCategoryIcon1.setContentDescription(seqIconObjects[count].
+                                getDisplay_Label());
+                        mIvCategoryIcon2.setContentDescription(seqIconObjects[count+1].
+                                getDisplay_Label());
 
                         // only first two category icons are populated so third icon and its
                         // caption set to invisible and therefore second arrow also set to invisible.
                         mIvArrowRight.setVisibility(View.INVISIBLE);
                         mIvCategoryIcon3.setVisibility(View.INVISIBLE);
                         mTvCategory3Caption.setVisibility(View.INVISIBLE);
-                        mTvCategory1Caption.setText(mCategoryIconBelowText[count]);
-                        mTvCategory2Caption.setText(mCategoryIconBelowText[count + 1]);
+                        mTvCategory1Caption.setText(seqIconObjects[count].getDisplay_Label());
+                        mTvCategory2Caption.setText(seqIconObjects[count+1].getDisplay_Label());
 
                     // If activity sequence is "Toilet", "Morning routine" or "Bedtime routine"
                     // then in its last sequences only 1 category item needs to be loaded
                     } else if (mLevelTwoItemPos == 1 || mLevelTwoItemPos == 7 || mLevelTwoItemPos == 8) {
-                        setImageUsingGlide(getIconPath(SequenceActivity.this,l3SeqIcons[count]),
-                                mIvCategoryIcon1);
+                        setImageUsingGlide(getIconPath(SequenceActivity.this,
+                                seqIconObjects[count].getEvent_Tag()), mIvCategoryIcon1);
 
-                        mIvCategoryIcon1.setContentDescription(mCategoryIconBelowText[count]);
+                        mIvCategoryIcon1.setContentDescription(seqIconObjects[count].getDisplay_Label());
 
                         // only one category icon is populated so second & third icons and their
                         // captions are set to invisible and hence all arrows are set to invisible.
-                        mTvCategory1Caption.setText(mCategoryIconBelowText[count]);
+                        mTvCategory1Caption.setText(seqIconObjects[count].getDisplay_Label());
                         mIvCategoryIcon2.setVisibility(View.INVISIBLE);
                         mIvCategoryIcon3.setVisibility(View.INVISIBLE);
                         mIvArrowLeft.setVisibility(View.INVISIBLE);
@@ -342,22 +339,22 @@ public class SequenceActivity extends LevelBaseActivity{
                     mBtnNext.setEnabled(false);
                 // if next items to be loaded are 3 or more then load next 3 icons in the sequence.
                 } else {
-                    mTvCategory1Caption.setText(mCategoryIconBelowText[count]);
-                    mTvCategory2Caption.setText(mCategoryIconBelowText[count + 1]);
-                    mTvCategory3Caption.setText(mCategoryIconBelowText[count + 2]);
+                    mTvCategory1Caption.setText(seqIconObjects[count].getDisplay_Label());
+                    mTvCategory2Caption.setText(seqIconObjects[count+1].getDisplay_Label());
+                    mTvCategory3Caption.setText(seqIconObjects[count+2].getDisplay_Label());
 
-                    setImageUsingGlide(getIconPath(SequenceActivity.this,l3SeqIcons[count]),
-                            mIvCategoryIcon1);
+                    setImageUsingGlide(getIconPath(SequenceActivity.this,
+                            seqIconObjects[count].getEvent_Tag()), mIvCategoryIcon1);
 
-                    setImageUsingGlide(getIconPath(SequenceActivity.this,l3SeqIcons[count+1]),
-                            mIvCategoryIcon2);
+                    setImageUsingGlide(getIconPath(SequenceActivity.this,
+                            seqIconObjects[count+1].getEvent_Tag()), mIvCategoryIcon2);
 
-                    setImageUsingGlide(getIconPath(SequenceActivity.this,l3SeqIcons[count+2]),
-                            mIvCategoryIcon3);
+                    setImageUsingGlide(getIconPath(SequenceActivity.this,
+                            seqIconObjects[count+2].getEvent_Tag()), mIvCategoryIcon3);
 
-                    mIvCategoryIcon1.setContentDescription(mCategoryIconBelowText[count]);
-                    mIvCategoryIcon2.setContentDescription(mCategoryIconBelowText[count + 1]);
-                    mIvCategoryIcon3.setContentDescription(mCategoryIconBelowText[count + 2]);
+                    mIvCategoryIcon1.setContentDescription(seqIconObjects[count].getDisplay_Label());
+                    mIvCategoryIcon2.setContentDescription(seqIconObjects[count+1].getDisplay_Label());
+                    mIvCategoryIcon3.setContentDescription(seqIconObjects[count+2].getDisplay_Label());
                 }
                 mIvCategoryIcon1.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
                 // once sequence is loaded, initially all category icons have no border/ no category
@@ -408,22 +405,22 @@ public class SequenceActivity extends LevelBaseActivity{
                     mTvCategory3Caption.setVisibility(View.VISIBLE);
                 }
                 //set caption to category icons
-                mTvCategory1Caption.setText(mCategoryIconBelowText[count]);
-                mTvCategory2Caption.setText(mCategoryIconBelowText[count + 1]);
-                mTvCategory3Caption.setText(mCategoryIconBelowText[count + 2]);
+                mTvCategory1Caption.setText(seqIconObjects[count].getDisplay_Label());
+                mTvCategory2Caption.setText(seqIconObjects[count+1].getDisplay_Label());
+                mTvCategory3Caption.setText(seqIconObjects[count+2].getDisplay_Label());
                 //load images to category icons
-                setImageUsingGlide(getIconPath(SequenceActivity.this,l3SeqIcons[count]),
-                        mIvCategoryIcon1);
+                setImageUsingGlide(getIconPath(SequenceActivity.this,
+                        seqIconObjects[count].getEvent_Tag()), mIvCategoryIcon1);
 
-                setImageUsingGlide(getIconPath(SequenceActivity.this,l3SeqIcons[count+1]),
-                        mIvCategoryIcon2);
+                setImageUsingGlide(getIconPath(SequenceActivity.this,
+                        seqIconObjects[count+1].getEvent_Tag()), mIvCategoryIcon2);
 
-                setImageUsingGlide(getIconPath(SequenceActivity.this,l3SeqIcons[count+2]),
-                        mIvCategoryIcon3);
+                setImageUsingGlide(getIconPath(SequenceActivity.this,
+                        seqIconObjects[count+2].getEvent_Tag()), mIvCategoryIcon3);
 
-                mIvCategoryIcon1.setContentDescription(mCategoryIconBelowText[count]);
-                mIvCategoryIcon2.setContentDescription(mCategoryIconBelowText[count + 1]);
-                mIvCategoryIcon3.setContentDescription(mCategoryIconBelowText[count + 2]);
+                mIvCategoryIcon1.setContentDescription(seqIconObjects[count].getDisplay_Label());
+                mIvCategoryIcon2.setContentDescription(seqIconObjects[count+1].getDisplay_Label());
+                mIvCategoryIcon3.setContentDescription(seqIconObjects[count+2].getDisplay_Label());
                 mIvCategoryIcon1.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
 
                 // previous items to be loaded are less = 0 then disable back button
@@ -464,8 +461,8 @@ public class SequenceActivity extends LevelBaseActivity{
                     setBorderToView(findViewById(R.id.borderView1),-1);
                     mFlgHideExpBtn = 0;
                     if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                        mUec.createSendFbEventFromTappedView(12, mCategoryIconBelowText[count],
-                                mHeading[mLevelTwoItemPos].toLowerCase());
+                        mUec.createSendFbEventFromTappedView(12, seqIconObjects[count].
+                                    getDisplay_Label(),mHeading[mLevelTwoItemPos].toLowerCase());
                     }
                 // If expressive buttons are hidden or category icon 1 is in unpressed state then
                 // set the border of category icon 1 and showDialog expressive buttons
@@ -475,14 +472,15 @@ public class SequenceActivity extends LevelBaseActivity{
                     // last item in sequence then hide expressive buttons.
                     // The last item in sequence do not have any expression (so all expressive
                     // buttons are hidden).
-                    if (count + mFlgHideExpBtn == mCategoryIconText.length)
+                    if (count + mFlgHideExpBtn == seqIconObjects.length)
                         hideExpressiveBtn(true);
                     else
                         hideExpressiveBtn(false);
                     if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                        speak(mCategoryIconSpeechText[count]);
+                        speak(seqIconObjects[count].getSpeech_Label());
                         mUec.createSendFbEventFromTappedView(12, "VisibleExpr " +
-                                mCategoryIconBelowText[count], mHeading[mLevelTwoItemPos].toLowerCase());
+                                seqIconObjects[count].getDisplay_Label()
+                                    , mHeading[mLevelTwoItemPos].toLowerCase());
                     }
                     resetExpressiveButton();
                     setBorderToView(findViewById(R.id.borderView1), 6);
@@ -491,7 +489,7 @@ public class SequenceActivity extends LevelBaseActivity{
                 if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
                     showAccessibleDialog(count, v);
                     v.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-                    mUec.accessibilityPopupOpenedEvent(mCategoryIconSpeechText[count]);
+                    mUec.accessibilityPopupOpenedEvent(seqIconObjects[count].getSpeech_Label());
                 }
             }
         });
@@ -524,7 +522,8 @@ public class SequenceActivity extends LevelBaseActivity{
                     mFlgHideExpBtn = 0;
                     if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
                         mUec.createSendFbEventFromTappedView(12,
-                                mCategoryIconBelowText[count + 1], mHeading[mLevelTwoItemPos].toLowerCase());
+                                seqIconObjects[count+1].getDisplay_Label(),
+                                mHeading[mLevelTwoItemPos].toLowerCase());
                     }
                     // If expressive buttons are hidden or category icon 2 is in unpressed state then
                     // set the border of category icon 2 and showDialog expressive buttons
@@ -534,14 +533,15 @@ public class SequenceActivity extends LevelBaseActivity{
                     // last item in sequence then hide expressive buttons.
                     // The last item in sequence do not have any expression (so all expressive
                     // buttons are hidden).
-                    if (count + mFlgHideExpBtn == mCategoryIconText.length)
+                    if (count + mFlgHideExpBtn == seqIconObjects.length)
                         hideExpressiveBtn(true);
                     else
                         hideExpressiveBtn(false);
                     if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                        speak(mCategoryIconSpeechText[count + 1]);
+                        speak(seqIconObjects[count+1].getSpeech_Label());
                         mUec.createSendFbEventFromTappedView(12, "VisibleExpr " +
-                                mCategoryIconBelowText[count+1], mHeading[mLevelTwoItemPos].toLowerCase());
+                                seqIconObjects[count+1].getDisplay_Label()
+                                , mHeading[mLevelTwoItemPos].toLowerCase());
                     }
                     resetExpressiveButton();
                     setBorderToView(findViewById(R.id.borderView2),6);
@@ -550,7 +550,7 @@ public class SequenceActivity extends LevelBaseActivity{
                 if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
                     showAccessibleDialog(count + 1, v);
                     v.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-                    mUec.accessibilityPopupOpenedEvent(mCategoryIconSpeechText[count+1]);
+                    mUec.accessibilityPopupOpenedEvent(seqIconObjects[count+1].getSpeech_Label());
                 }
             }
         });
@@ -583,7 +583,8 @@ public class SequenceActivity extends LevelBaseActivity{
                     mFlgHideExpBtn = 0;
                     if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
                         mUec.createSendFbEventFromTappedView(12,
-                                mCategoryIconBelowText[count+2], mHeading[mLevelTwoItemPos].toLowerCase());
+                            seqIconObjects[count+2].getDisplay_Label(),
+                                mHeading[mLevelTwoItemPos].toLowerCase());
                     }
                     // If expressive buttons are hidden or category icon 3 is in unpressed state then
                     // set the border of category icon 3 and showDialog expressive buttons
@@ -593,14 +594,15 @@ public class SequenceActivity extends LevelBaseActivity{
                     // last item in sequence then hide expressive buttons.
                     // The last item in sequence do not have any expression (so all expressive
                     // buttons are hidden).
-                    if (count + mFlgHideExpBtn == mCategoryIconText.length)
+                    if (count + mFlgHideExpBtn == seqIconObjects.length)
                         hideExpressiveBtn(true);
                     else
                         hideExpressiveBtn(false);
                     if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                        speak(mCategoryIconSpeechText[count + 2]);
+                        speak(seqIconObjects[count+2].getSpeech_Label());
                         mUec.createSendFbEventFromTappedView(12, "VisibleExpr " +
-                                mCategoryIconBelowText[count+2], mHeading[mLevelTwoItemPos].toLowerCase());
+                                seqIconObjects[count+2].getDisplay_Label(),
+                                mHeading[mLevelTwoItemPos].toLowerCase());
                     }
                     resetExpressiveButton();
                     setBorderToView(findViewById(R.id.borderView3), 6);
@@ -609,7 +611,7 @@ public class SequenceActivity extends LevelBaseActivity{
                 if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
                     showAccessibleDialog(count + 2, v);
                     v.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-                    mUec.accessibilityPopupOpenedEvent(mCategoryIconSpeechText[count+2]);
+                    mUec.accessibilityPopupOpenedEvent(seqIconObjects[count+2].getSpeech_Label());
                 }
             }
         });
@@ -808,14 +810,14 @@ public class SequenceActivity extends LevelBaseActivity{
                     if (mFlgLike == 1) {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(14, getPrefixTag()
-                            +"_"+ mVerbCode[count + mFlgHideExpBtn]+"LL", "");
-                        speak(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getLL());
+                            +"_"+ mIconCode[count + mFlgHideExpBtn]+"LL", "");
+                        speak(seqIconObjects[count + mFlgHideExpBtn - 1].getLL());
                         mFlgLike = 0;
                     } else {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(13, getPrefixTag()
-                            +"_"+ mVerbCode[count + mFlgHideExpBtn]+"L0", "");
-                        speak(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getL());
+                            +"_"+ mIconCode[count + mFlgHideExpBtn]+"L0", "");
+                        speak(seqIconObjects[count + mFlgHideExpBtn - 1].getL());
                         mFlgLike = 1;
                     }
                 }
@@ -863,14 +865,14 @@ public class SequenceActivity extends LevelBaseActivity{
                     if (mFlgDontLike == 1) {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(20, getPrefixTag()
-                            +"_"+ mVerbCode[count + mFlgHideExpBtn]+"DD", "");
-                        speak(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getDD());
+                            +"_"+ mIconCode[count + mFlgHideExpBtn]+"DD", "");
+                        speak(seqIconObjects[count + mFlgHideExpBtn - 1].getDD());
                         mFlgDontLike = 0;
                     } else {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(19, getPrefixTag()
-                            +"_"+ mVerbCode[count + mFlgHideExpBtn]+"D0", "");
-                        speak(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getD());
+                            +"_"+ mIconCode[count + mFlgHideExpBtn]+"D0", "");
+                        speak(seqIconObjects[count + mFlgHideExpBtn - 1].getD());
                         mFlgDontLike = 1;
                     }
                 }
@@ -919,14 +921,14 @@ public class SequenceActivity extends LevelBaseActivity{
                     if (mFlgYes == 1) {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(16, getPrefixTag()
-                            +"_"+ mVerbCode[count + mFlgHideExpBtn]+"YY", "");
-                        speak(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getYY());
+                            +"_"+ mIconCode[count + mFlgHideExpBtn]+"YY", "");
+                        speak(seqIconObjects[count + mFlgHideExpBtn - 1].getYY());
                         mFlgYes = 0;
                     } else {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(15, getPrefixTag()
-                            +"_"+ mVerbCode[count + mFlgHideExpBtn]+"Y0", "");
-                        speak(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getY());
+                            +"_"+ mIconCode[count + mFlgHideExpBtn]+"Y0", "");
+                        speak(seqIconObjects[count + mFlgHideExpBtn - 1].getY());
                         mFlgYes = 1;
                     }
                 }
@@ -974,14 +976,14 @@ public class SequenceActivity extends LevelBaseActivity{
                     if (mFlgNo == 1) {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(22, getPrefixTag()
-                            +"_"+ mVerbCode[count + mFlgHideExpBtn]+"NN", "");
-                        speak(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getNN());
+                            +"_"+ mIconCode[count + mFlgHideExpBtn]+"NN", "");
+                        speak(seqIconObjects[count + mFlgHideExpBtn - 1].getNN());
                         mFlgNo = 0;
                     } else {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(21, getPrefixTag()
-                            +"_"+ mVerbCode[count + mFlgHideExpBtn]+"N0", "");
-                        speak(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getN());
+                            +"_"+ mIconCode[count + mFlgHideExpBtn]+"N0", "");
+                        speak(seqIconObjects[count + mFlgHideExpBtn - 1].getN());
                         mFlgNo = 1;
                     }
                 }
@@ -1029,14 +1031,14 @@ public class SequenceActivity extends LevelBaseActivity{
                     if (mFlgMore == 1) {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(18, getPrefixTag()
-                            +"_"+ mVerbCode[count + mFlgHideExpBtn]+"MM", "");
-                        speak(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getMM());
+                            +"_"+ mIconCode[count + mFlgHideExpBtn]+"MM", "");
+                        speak(seqIconObjects[count + mFlgHideExpBtn - 1].getMM());
                         mFlgMore = 0;
                     } else {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(17, getPrefixTag()
-                            +"_"+ mVerbCode[count + mFlgHideExpBtn]+"M0", "");
-                        speak(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getM());
+                            +"_"+ mIconCode[count + mFlgHideExpBtn]+"M0", "");
+                        speak(seqIconObjects[count + mFlgHideExpBtn - 1].getM());
                         mFlgMore = 1;
                     }
                 }
@@ -1084,14 +1086,14 @@ public class SequenceActivity extends LevelBaseActivity{
                     if (mFlgLess == 1) {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(24, getPrefixTag()
-                            +"_"+ mVerbCode[count + mFlgHideExpBtn]+"SS", "");
-                        speak(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getSS());
+                            +"_"+ mIconCode[count + mFlgHideExpBtn]+"SS", "");
+                        speak(seqIconObjects[count + mFlgHideExpBtn - 1].getSS());
                         mFlgLess = 0;
                     } else {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(23, getPrefixTag()
-                            +"_"+ mVerbCode[count + mFlgHideExpBtn]+"S0", "");
-                        speak(level3SeqIconObjects[count + mFlgHideExpBtn - 1].getS());
+                            +"_"+ mIconCode[count + mFlgHideExpBtn]+"S0", "");
+                        speak(seqIconObjects[count + mFlgHideExpBtn - 1].getS());
                         mFlgLess = 1;
                     }
                 }
@@ -1102,11 +1104,11 @@ public class SequenceActivity extends LevelBaseActivity{
 
     private String getPrefixTag() {
         if (mFlgHideExpBtn == 1)
-            return level3SeqIconObjects[count].getEvent_Tag();
+            return seqIconObjects[count].getEvent_Tag();
         else if (mFlgHideExpBtn == 2)
-            return level3SeqIconObjects[count+1].getEvent_Tag();
+            return seqIconObjects[count+1].getEvent_Tag();
         else if (mFlgHideExpBtn == 3)
-            return level3SeqIconObjects[count+2].getEvent_Tag();
+            return seqIconObjects[count+2].getEvent_Tag();
         else return "";
     }
 
@@ -1267,7 +1269,7 @@ public class SequenceActivity extends LevelBaseActivity{
             }
         });
 
-        if(position == (mCategoryIconSpeechText.length-1)) {
+        if(position == (seqIconObjects.length-1)) {
             ImageView[] btns = {ivLike, ivYes, ivAdd, ivDisLike, ivNo, ivMinus};
             for (int i = 0; i < btns.length; i++) {
                 btns[i].setEnabled(false);
@@ -1279,9 +1281,9 @@ public class SequenceActivity extends LevelBaseActivity{
         enterCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                speak(mCategoryIconSpeechText[position]);
-                mUec.createSendFbEventFromTappedView(12, mCategoryIconBelowText[position],
-                        mHeading[mLevelTwoItemPos].toLowerCase());
+                speak(seqIconObjects[position].getSpeech_Label());
+                mUec.createSendFbEventFromTappedView(12, seqIconObjects[count].
+                    getDisplay_Label(), mHeading[mLevelTwoItemPos].toLowerCase());
             }
         });
 
@@ -1351,61 +1353,46 @@ public class SequenceActivity extends LevelBaseActivity{
      * */
     private void loadArraysFromResources() {
         // As sequence is in Daily Activities. so it's index is fixed to position 1.
-        int levelOne = 1;
-        int levelTwo = mLevelTwoItemPos;
+        //int levelTwo = mLevelTwoItemPos;
 
-        l3SeqIcons = IconFactory.getL3SeqIcons(
+        mIconCode = IconFactory.getSequenceIconCodes(
                 PathFactory.getIconDirectory(this),
                 LanguageFactory.getCurrentLanguageCode(this),
-                getLevel2_3IconCode(levelOne),
-                getLevel2_3IconCode(levelTwo)
-        );
-        mVerbCode = new String[l3SeqIcons.length];
-        for (int i = 0; i < mVerbCode.length; i++) {
-            mVerbCode[i] = l3SeqIcons[i].replace(".png","");
-        }
-
-        level3SeqIconObjects = TextFactory.getIconObjects(
-                PathFactory.getJSONFile(this),
-                IconFactory.removeFileExtension(l3SeqIcons)
+                getLevel2_3IconCode(mLevelTwoItemPos)
         );
 
+        seqIconObjects = TextFactory.getIconObjects(mIconCode);
 
-        mCategoryIconBelowText = TextFactory.getDisplayText(level3SeqIconObjects);
-        mCategoryIconSpeechText = TextFactory.getSpeechText(level3SeqIconObjects);
-        mCategoryIconText = mCategoryIconSpeechText;
 
-        String[] expressiveIcons = IconFactory.getExpressiveIcons(
+        //Retrieve expressive icons text
+        String[] expressiveIcons = IconFactory.getExpressiveIconCodes(
                 PathFactory.getIconDirectory(this),
                 LanguageFactory.getCurrentLanguageCode(this)
         );
-
+        //Extract expressive icon text from expressiveIconObjects
         ExpressiveIcon[] expressiveIconObjects = TextFactory.getExpressiveIconObjects(
-                PathFactory.getJSONFile(this),
-                IconFactory.removeFileExtension(expressiveIcons)
-        );
-
+                expressiveIcons);
         mExprBtnTxt = TextFactory.getExpressiveSpeechText(expressiveIconObjects);
 
 
-        String[] miscellaneousIcons = IconFactory.getMiscellaneousIcons(
+        //Retrieve Navigation icon text
+        String[] miscellaneousIcons = IconFactory.getMiscellaneousIconCodes(
                 PathFactory.getIconDirectory(this),
                 LanguageFactory.getCurrentLanguageCode(this)
         );
-
         MiscellaneousIcon[] miscellaneousIconObjects = TextFactory.getMiscellaneousIconObjects(
-                PathFactory.getJSONFile(this),
-                IconFactory.removeFileExtension(miscellaneousIcons)
+                miscellaneousIcons
         );
-
+        //Extract Navigation icon text from miscellaneousIconObjects
         mNavigationBtnTxt = TextFactory.getTitle(miscellaneousIconObjects);
+
         String[] categoryNavButton;
             try {
                 // "categoryNavButton" variable initialized from files available in
                 // /audio folder.Only non tts language will load this variable from
                 // folder.
-                categoryNavButton = IconFactory.getCategoryNavigationButtons(
-                        new File(PathFactory.getAudioPath(this)),
+                categoryNavButton = IconFactory.getMiscellaneousNavigationIconCodes(
+                        PathFactory.getIconDirectory(this),
                         LanguageFactory.getCurrentLanguageCode(this)
                 );
             } catch (Exception e) {
@@ -1414,9 +1401,8 @@ public class SequenceActivity extends LevelBaseActivity{
                         LanguageFactory.getCurrentLanguageCode(this) + "05MS.mp3"
                 };
             }
-            seqNavigationButtonObjects = TextFactory.getSeqNavigationButtonObjects(
-                    PathFactory.getJSONFile(this),
-                    IconFactory.removeFileExtension(categoryNavButton)
+            seqNavigationButtonObjects = TextFactory.getMiscellaneousNavigationIconObjects(
+                    categoryNavButton
             );
         mHeading = getResources().getStringArray(R.array.arrSequenceActivityHeadingText);
     }
@@ -1429,8 +1415,10 @@ public class SequenceActivity extends LevelBaseActivity{
      *     c) Hides category icon captions if picture only mode is enabled.</p>
      * */
     private void setValueToViews() {
-        mBtnBack.setText(Html.fromHtml("&lt;&lt;").toString().concat("  "+seqNavigationButtonObjects[0].getDisplay_Label()));
-        mBtnNext.setText(seqNavigationButtonObjects[1].getDisplay_Label().concat("  "+Html.fromHtml("&gt;&gt;").toString()));
+        mBtnBack.setText(Html.fromHtml("&lt;&lt;").toString().
+                concat("  "+seqNavigationButtonObjects[0].getDisplay_Label()));
+        mBtnNext.setText(seqNavigationButtonObjects[1].getDisplay_Label().
+                concat("  "+Html.fromHtml("&gt;&gt;").toString()));
         mBtnBack.setEnabled(false);
         mBtnBack.setAlpha(.5f);
         if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
@@ -1447,13 +1435,16 @@ public class SequenceActivity extends LevelBaseActivity{
 
         mTvCategory3Caption.setTextColor(Color.rgb(64, 64, 64));
 
-        mTvCategory1Caption.setText(mCategoryIconBelowText[0]);
-        mTvCategory2Caption.setText(mCategoryIconBelowText[1]);
-        mTvCategory3Caption.setText(mCategoryIconBelowText[2]);
+        mTvCategory1Caption.setText(seqIconObjects[0].getDisplay_Label());
+        mTvCategory2Caption.setText(seqIconObjects[1].getDisplay_Label());
+        mTvCategory3Caption.setText(seqIconObjects[2].getDisplay_Label());
 
-        setImageUsingGlide(getIconPath(SequenceActivity.this,l3SeqIcons[0]),mIvCategoryIcon1);
-        setImageUsingGlide(getIconPath(SequenceActivity.this,l3SeqIcons[1]), mIvCategoryIcon2);
-        setImageUsingGlide(getIconPath(SequenceActivity.this,l3SeqIcons[2]), mIvCategoryIcon3);
+        setImageUsingGlide(getIconPath(SequenceActivity.this,
+                seqIconObjects[0].getEvent_Tag()),mIvCategoryIcon1);
+        setImageUsingGlide(getIconPath(SequenceActivity.this,
+                seqIconObjects[1].getEvent_Tag()), mIvCategoryIcon2);
+        setImageUsingGlide(getIconPath(SequenceActivity.this,
+                seqIconObjects[2].getEvent_Tag()), mIvCategoryIcon3);
 
         final int MODE_PICTURE_ONLY = 1;
         if(getSession().getPictureViewMode() == MODE_PICTURE_ONLY){
@@ -1471,7 +1462,7 @@ public class SequenceActivity extends LevelBaseActivity{
      * */
     private void setImageUsingGlide(String path, ImageView imgView) {
         GlideApp.with(SequenceActivity.this)
-                .load(path)
+                .load(path+EXTENSION)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(false)
                 .centerCrop()

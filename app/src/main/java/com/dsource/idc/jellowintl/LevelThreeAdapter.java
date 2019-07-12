@@ -12,23 +12,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.RequestManager;
-import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
-import com.dsource.idc.jellowintl.factories.IconFactory;
-import com.dsource.idc.jellowintl.factories.LanguageFactory;
-import com.dsource.idc.jellowintl.factories.PathFactory;
-import com.dsource.idc.jellowintl.factories.TextFactory;
-import com.dsource.idc.jellowintl.models.Icon;
-import com.dsource.idc.jellowintl.utility.SessionManager;
-
-import java.util.ArrayList;
-
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.RequestManager;
+import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
+import com.dsource.idc.jellowintl.factories.TextFactory;
+import com.dsource.idc.jellowintl.models.Icon;
+import com.dsource.idc.jellowintl.utility.SessionManager;
+
 import static android.content.Context.ACCESSIBILITY_SERVICE;
+import static com.dsource.idc.jellowintl.factories.IconFactory.EXTENSION;
 import static com.dsource.idc.jellowintl.factories.PathFactory.getIconPath;
 
 /**
@@ -37,15 +33,29 @@ import static com.dsource.idc.jellowintl.factories.PathFactory.getIconPath;
 class LevelThreeAdapter extends RecyclerView.Adapter<LevelThreeAdapter.MyViewHolder>{
     private LevelThreeActivity mAct;
     private SessionManager mSession;
-    private ArrayList<String> mIconList = new ArrayList<>();
-    private ArrayList<String> mBelowTextList = new ArrayList<>();
+    private String[] iconNameArray, belowTextArray;
     private RequestManager glide;
 
-    LevelThreeAdapter(Context context, int levelOneItemPos, int levelTwoItemPos, int sort[]){
+    LevelThreeAdapter(Context context, String[] iconCodes, Icon[] level3IconObjects, int[] sort){
         mAct = (LevelThreeActivity) context;
         glide = GlideApp.with(mAct);
         mSession = mAct.getSession();
-        loadArraysFromResources(levelOneItemPos, levelTwoItemPos, sort);
+
+        String[] iconsText = TextFactory.getDisplayText(level3IconObjects);
+        iconNameArray = new String[iconCodes.length];
+        belowTextArray = new String[iconCodes.length];
+
+        if(mAct.isCategoryWithPreference()){
+            for (int i = 0; i < iconCodes.length; i++) {
+                iconNameArray[i] = level3IconObjects[sort[i]].getEvent_Tag();
+                belowTextArray[i] = iconsText[sort[i]];
+            }
+        } else {
+            for (int i = 0; i < iconCodes.length; i++) {
+                iconNameArray[i] =  level3IconObjects[i].getEvent_Tag();
+                belowTextArray[i] = iconsText[i];
+            }
+        }
     }
 
     @Override
@@ -84,11 +94,11 @@ class LevelThreeAdapter extends RecyclerView.Adapter<LevelThreeAdapter.MyViewHol
         final int MODE_PICTURE_ONLY = 1;
         if (mSession.getPictureViewMode() == MODE_PICTURE_ONLY)
             holder.menuItemBelowText.setVisibility(View.INVISIBLE);
-        holder.menuItemBelowText.setText(mBelowTextList.get(position));
+        holder.menuItemBelowText.setText(belowTextArray[position]);
 
-        glide.load(getIconPath(mAct, mIconList.get(position)))
+        glide.load(getIconPath(mAct, iconNameArray[position]+EXTENSION))
                 .into(holder.menuItemImage);
-        holder.menuItemLinearLayout.setContentDescription(mBelowTextList.get(position));
+        holder.menuItemLinearLayout.setContentDescription(belowTextArray[position]);
         holder.menuItemLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,75 +114,7 @@ class LevelThreeAdapter extends RecyclerView.Adapter<LevelThreeAdapter.MyViewHol
 
     @Override
     public int getItemCount() {
-        return mIconList.size();
-    }
-
-    private void loadArraysFromResources(int levelOneItemPos, int levelTwoItemPos, int[] sort) {
-
-        String[] icons = IconFactory.getL3Icons(
-                PathFactory.getIconDirectory(mAct),
-                LanguageFactory.getCurrentLanguageCode(mAct),
-                getLevel2_3IconCode(levelOneItemPos),
-                getLevel2_3IconCode(levelTwoItemPos)
-        );
-
-        Icon[] iconObjects = TextFactory.getIconObjects(
-                PathFactory.getJSONFile(mAct),
-                IconFactory.removeFileExtension(icons)
-        );
-
-        String[] iconsText = TextFactory.getDisplayText(iconObjects);
-
-        if(levelOneItemPos == 3 && (levelTwoItemPos == 3 || levelTwoItemPos == 4)){
-
-            loadAdapterMenuTextIconsWithoutSort(icons,iconsText);
-
-        } else if(levelOneItemPos == 4 && levelTwoItemPos == 9){
-
-            loadAdapterMenuTextIconsWithoutSort(icons,iconsText);
-
-        } else if(levelOneItemPos == 7 && (levelTwoItemPos == 0 || levelTwoItemPos == 1 ||
-                levelTwoItemPos == 2 || levelTwoItemPos == 3 || levelTwoItemPos == 4)){
-
-            loadAdapterMenuTextIconsWithoutSort(icons,iconsText);
-
-        } else {
-            loadAdapterMenuTextIconsWithSort(icons,iconsText,sort);
-        }
-    }
-
-    private void loadAdapterMenuTextIconsWithoutSort(String[] typeIconArray, String[] stringBelowTextArray) {
-        ArrayList<String> tempIconArr = new ArrayList<>();
-        ArrayList<String> tempBelowTextArr = new ArrayList<>();
-
-        for (int j = 0; j < typeIconArray.length; j++) {
-
-            tempIconArr.add(typeIconArray[j]);
-            tempBelowTextArr.add(stringBelowTextArray[j]);
-        }
-        mIconList = tempIconArr;
-        mBelowTextList = tempBelowTextArr;
-    }
-
-    private void loadAdapterMenuTextIconsWithSort(String[] typeIconArray, String[] stringBelowTextArray, int[] sort) {
-
-        ArrayList<String> tempIconArr = new ArrayList<>();
-        ArrayList<String> tempBelowTextArr = new ArrayList<>();
-        for (int j = 0; j < typeIconArray.length; j++) {
-
-            tempIconArr.add(typeIconArray[sort[j]]);
-            tempBelowTextArr.add(stringBelowTextArray[sort[j]]);
-        }
-        mIconList = tempIconArr;
-        mBelowTextList = tempBelowTextArr;
-    }
-
-    private String getLevel2_3IconCode(int level2_3Position){
-        if(level2_3Position+1 <= 9){
-            return "0" + Integer.toString(level2_3Position+1);
-        } else {
-            return Integer.toString(level2_3Position+1);
-        }
+        return iconNameArray.length;
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder  {

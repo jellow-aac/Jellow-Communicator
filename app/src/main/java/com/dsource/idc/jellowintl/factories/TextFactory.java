@@ -277,4 +277,21 @@ public class TextFactory {
         iconObjects.toArray(expressiveIconObjects);
         return expressiveIconObjects;
     }
+
+    public static SeqNavigationButton[] getMiscellaneousNavigationIconObjects(@NotNull String[] iconNames){
+        ArrayList<SeqNavigationButton> iconObjects = new ArrayList<>();
+        for (String iconName : iconNames) {
+            try {
+                String jsonString = JSON.getJSONObject(iconName).toString();
+                SeqNavigationButton icon = new Gson().fromJson(jsonString, SeqNavigationButton.class);
+                iconObjects.add(icon);
+            } catch (Exception e) {
+                Log.d("JSON", e.getMessage());
+            }
+        }
+
+        SeqNavigationButton[] expressiveIconObjects = new SeqNavigationButton[iconObjects.size()];
+        iconObjects.toArray(expressiveIconObjects);
+        return expressiveIconObjects;
+    }
 }

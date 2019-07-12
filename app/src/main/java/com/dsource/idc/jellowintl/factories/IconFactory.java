@@ -20,7 +20,7 @@ import static com.dsource.idc.jellowintl.factories.TextFactory.getStringFromFile
 
 public class IconFactory {
 
-    private static final String EXTENSION = ".png";
+    public static final String EXTENSION = ".png";
     private static final char EXTENSION_SEPARATOR = '.';
 
     // L3 : "[0-9]{6}([1-9][0-9]{3}|[0-9][1-9][0-9]{2}|[0-9]{2}[1-9][0-9]|[0-9]{3}[1-9])GG"
@@ -269,7 +269,7 @@ public class IconFactory {
         return iconName.toArray(iconNameArray);
     }
 
-    public static String[] getL1IconCodes(File file, String langCode){
+    public static String[] getL1IconCodes(@NonNull File file, String langCode){
         if (JSON == null) {
             try {
                 JSON = new JSONObject(getStringFromFile(file));
@@ -291,7 +291,7 @@ public class IconFactory {
         return iconNames.toArray(iconNameArray);
     }
 
-    public static String[] getL2IconCodes(File file, String langCode, String level1IconCode){
+    public static String[] getL2IconCodes(@NonNull File file, String langCode, String level1IconCode){
         if (JSON == null) {
             try {
                 JSON = new JSONObject(getStringFromFile(file));
@@ -314,7 +314,54 @@ public class IconFactory {
         return iconNames.toArray(iconNameArray);
     }
 
-    public static String[] getMiscellaneousIconCodes(File file, String langCode){
+    public static String[] getL3IconCodes(@NonNull File file, String langCode, String level1IconCode, String level2IconCode){
+        if (JSON == null) {
+            try {
+                JSON = new JSONObject(getStringFromFile(file));
+            } catch (Exception e) {
+                Log.d("JSON", e.getMessage());
+            }
+        }
+
+        String regex = langCode + level1IconCode + level2IconCode +
+                "([1-9][0-9]{3}|[0-9][1-9][0-9]{2}|[0-9]{2}[1-9][0-9]|[0-9]{3}[1-9])GG";
+        ArrayList<String> iconNames = new ArrayList<>();
+        Iterator<String> it = JSON.keys();
+        while (it.hasNext()){
+            String key = it.next();
+            if(key.matches(regex))
+                iconNames.add(key);
+        }
+
+        String[] iconNameArray = new String[iconNames.size()];
+        return iconNames.toArray(iconNameArray);
+    }
+
+    public static String[] getSequenceIconCodes(@NonNull File file, String langCode, String level2IconCode){
+        final String level1IconCode = "02";
+        if (JSON == null) {
+            try {
+                JSON = new JSONObject(getStringFromFile(file));
+            } catch (Exception e) {
+                Log.d("JSON", e.getMessage());
+            }
+        }
+
+        String regex = langCode + level1IconCode + level2IconCode +
+                "([1-9][0-9]{3}|[0-9][1-9][0-9]{2}|[0-9]{2}[1-9][0-9]|[0-9]{3}[1-9])SS";
+        ArrayList<String> iconNames = new ArrayList<>();
+        Iterator<String> it = JSON.keys();
+        while (it.hasNext()){
+            String key = it.next();
+            if(key.matches(regex))
+                iconNames.add(key);
+        }
+
+        String[] iconNameArray = new String[iconNames.size()];
+        return iconNames.toArray(iconNameArray);
+    }
+
+    public static String[] getMiscellaneousIconCodes(@NonNull File file, String langCode){
 
         /*if (IconCache.getMiscellaneousIcons() != null && IconCache.getMiscellaneousIcons().length != 0) {
             return IconCache.getMiscellaneousIcons();
@@ -344,7 +391,7 @@ public class IconFactory {
         return IconCache.getMiscellaneousIcons();*/
     }
 
-    public static String[] getExpressiveIconCodes(File file, String langCode){
+    public static String[] getExpressiveIconCodes(@NonNull File file, String langCode){
 
         /*if (IconCache.getExpressiveIcons() != null && IconCache.getExpressiveIcons().length != 0) {
             return IconCache.getExpressiveIcons();
@@ -370,5 +417,26 @@ public class IconFactory {
         return iconNames.toArray(expressiveIcons);
         /*IconCache.setExpressiveIcons(expressiveIcons);
         return IconCache.getExpressiveIcons();*/
+    }
+
+    public static String[] getMiscellaneousNavigationIconCodes(@NonNull File file, String langCode){
+        if (JSON == null) {
+            try {
+                JSON = new JSONObject(getStringFromFile(file));
+            } catch (Exception e) {
+                Log.d("JSON", e.getMessage());
+            }
+        }
+        String regex = langCode + "0[4-5]MS";
+        ArrayList<String> iconNames = new ArrayList<>();
+        Iterator<String> it = JSON.keys();
+        while (it.hasNext()){
+            String key = it.next();
+            if(key.matches(regex))
+                iconNames.add(key);
+        }
+        Collections.sort(iconNames);
+        String[] expressiveIcons = new String[iconNames.size()];
+        return iconNames.toArray(expressiveIcons);
     }
 }

@@ -104,7 +104,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
     private DataBaseHelper myDbHelper;
     /*Below array stores the speech text, below text, expressive button speech text,
      navigation button speech text respectively.*/
-    private String[] mSpeechText,mDisplayText, mExprBtnTxt, mNavigationBtnTxt, mVerbCode;
+    private String[] mSpeechText,mDisplayText, mExprBtnTxt, mNavigationBtnTxt, mIconCode;
     private String actionBarTitleTxt, mSpeak;
 
     /*Firebase event Collector class instance.*/
@@ -143,10 +143,6 @@ public class LevelThreeActivity extends LevelBaseActivity{
             Crashlytics.logException(e);
         }
 
-        // Set the capacity of mRecyclerItemsViewList list to total number of category icons to be
-        // populated on the screen.
-        mRecyclerItemsViewList = new ArrayList<>(100);
-        while(mRecyclerItemsViewList.size() <= 100) mRecyclerItemsViewList.add(null);
         initializeLayoutViews();
         initializeRecyclerViewAdapter();
         initializeViewListeners();
@@ -388,6 +384,13 @@ public class LevelThreeActivity extends LevelBaseActivity{
         // load speech array directly.
         retrieveSpeechArrays(mLevelOneItemPos, mLevelTwoItemPos);
 
+
+        // Set the capacity of mRecyclerItemsViewList list to total number of category icons to be
+        // populated on the screen.
+        mRecyclerItemsViewList = new ArrayList<>(level3IconObjects.length);
+        while(mRecyclerItemsViewList.size() <= level3IconObjects.length) mRecyclerItemsViewList.add(null);
+
+
         String savedString = PreferencesHelper.getPrefString(getAppDatabase(),
                 getIconCode(LanguageFactory.getCurrentLanguageCode(this ),
                 mLevelOneItemPos, mLevelTwoItemPos));
@@ -426,8 +429,8 @@ public class LevelThreeActivity extends LevelBaseActivity{
                 mArrSort[j] = indexes[j];
 
             //setup adapter.
-            mRecyclerView.setAdapter(new LevelThreeAdapter(this, mLevelOneItemPos,
-                    mLevelTwoItemPos, mArrSort));
+            mRecyclerView.setAdapter(new LevelThreeAdapter(this, mIconCode,
+                    level3IconObjects, mArrSort));
 
         // saved string is == "false" then load level three category icons without sort/preferences.
         // Categories given below are in if condition respectively:
@@ -443,14 +446,14 @@ public class LevelThreeActivity extends LevelBaseActivity{
             for (int i=0; i< level3IconObjects.length;i++)
                 mArrSort[i] = i;
             //setup adapter
-            mRecyclerView.setAdapter(new LevelThreeAdapter(this, mLevelOneItemPos,
-                    mLevelTwoItemPos, mArrSort));
+            mRecyclerView.setAdapter(new LevelThreeAdapter(this, mIconCode,
+                    level3IconObjects, mArrSort));
         } else {
             count_flag = 0;
         }
     }
 
-    private boolean isCategoryWithPreference() {
+    public boolean isCategoryWithPreference() {
         String iconCode = IconFactory.getIconCode(
                 LanguageFactory.getCurrentLanguageCode(this), mLevelOneItemPos, mLevelTwoItemPos);
         
@@ -770,7 +773,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(14,
                 level3IconObjects[getTagPos()].getEvent_Tag()
-                            +"_"+ mVerbCode[getTagPos()]+"LL","");
+                            +"_"+ mIconCode[getTagPos()]+"LL","");
 
                         speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getLL());
 
@@ -782,7 +785,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(13,
                 level3IconObjects[getTagPos()].getEvent_Tag()
-                            +"_"+ mVerbCode[getTagPos()]+"L0","");
+                            +"_"+ mIconCode[getTagPos()]+"L0","");
 
                         speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getL());
                         //reset mFlgLike to speak "really like" expression
@@ -849,7 +852,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(20,
                 level3IconObjects[getTagPos()].getEvent_Tag()
-                            +"_"+ mVerbCode[getTagPos()]+"DD","");
+                            +"_"+ mIconCode[getTagPos()]+"DD","");
 
                         speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getDD());
                         //reset mFlgDntLike to speak "dont like" expression
@@ -860,7 +863,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(19,
                 level3IconObjects[getTagPos()].getEvent_Tag()
-                            +"_"+ mVerbCode[getTagPos()]+"D0","");
+                            +"_"+ mIconCode[getTagPos()]+"D0","");
 
                         speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getD());
                         //reset mFlgDntLike to speak "really don't like" expression
@@ -926,7 +929,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(16,
                 level3IconObjects[getTagPos()].getEvent_Tag()
-                            +"_"+ mVerbCode[getTagPos()]+"YY","");
+                            +"_"+ mIconCode[getTagPos()]+"YY","");
 
                         speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getYY());
                         //reset mFlgYes to speak "yes" expression
@@ -937,7 +940,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(15,
                 level3IconObjects[getTagPos()].getEvent_Tag()
-                            +"_"+ mVerbCode[getTagPos()]+"Y0","");
+                            +"_"+ mIconCode[getTagPos()]+"Y0","");
 
                         speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getY());
                         //reset mFlgYes to speak "really yes" expression
@@ -1003,7 +1006,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(22,
                 level3IconObjects[getTagPos()].getEvent_Tag()
-                            +"_"+ mVerbCode[getTagPos()]+"NN","");
+                            +"_"+ mIconCode[getTagPos()]+"NN","");
 
                         speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getNN());
                         //reset mFlgNo to speak "no" expression
@@ -1014,7 +1017,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(21,
                 level3IconObjects[getTagPos()].getEvent_Tag()
-                            +"_"+ mVerbCode[getTagPos()]+"N0","");
+                            +"_"+ mIconCode[getTagPos()]+"N0","");
 
                         speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getN());
                         //reset mFlgLike to speak "really no" expression
@@ -1078,7 +1081,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(18,
                 level3IconObjects[getTagPos()].getEvent_Tag()
-                            +"_"+ mVerbCode[getTagPos()]+"MM","");
+                            +"_"+ mIconCode[getTagPos()]+"MM","");
 
                         speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getMM());
                         //reset mFlgMore to speak "more" expression
@@ -1089,7 +1092,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(17,
                 level3IconObjects[getTagPos()].getEvent_Tag()
-                            +"_"+ mVerbCode[getTagPos()]+"M0","");
+                            +"_"+ mIconCode[getTagPos()]+"M0","");
 
                         speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getM());
                         //reset mFlgMore to speak "really more" expression
@@ -1155,7 +1158,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(24,
                 level3IconObjects[getTagPos()].getEvent_Tag()
-                            +"_"+ mVerbCode[getTagPos()]+"SS","");
+                            +"_"+ mIconCode[getTagPos()]+"SS","");
 
                         speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getSS());
                         //reset mFlgLess to speak "less" expression
@@ -1166,7 +1169,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(23,
                 level3IconObjects[getTagPos()].getEvent_Tag()
-                            +"_"+ mVerbCode[getTagPos()]+"S0","");
+                            +"_"+ mIconCode[getTagPos()]+"S0","");
 
                         speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getS());
                         //reset mFlgLess to speak "really less" expression
@@ -1302,29 +1305,26 @@ public class LevelThreeActivity extends LevelBaseActivity{
      * */
     private void loadArraysFromResources() {
 
-        String[] expressiveIcons = IconFactory.getExpressiveIcons(
+        //Retrieve expressive icons text
+        String[] expressiveIcons = IconFactory.getExpressiveIconCodes(
                 PathFactory.getIconDirectory(this),
                 LanguageFactory.getCurrentLanguageCode(this)
         );
-
+        //Extract expressive icon text from expressiveIconObjects
         ExpressiveIcon[] expressiveIconObjects = TextFactory.getExpressiveIconObjects(
-                PathFactory.getJSONFile(this),
-                IconFactory.removeFileExtension(expressiveIcons)
-        );
-
+                expressiveIcons);
         mExprBtnTxt = TextFactory.getExpressiveSpeechText(expressiveIconObjects);
 
 
-        String[] miscellaneousIcons = IconFactory.getMiscellaneousIcons(
+        //Retrieve Navigation icon text
+        String[] miscellaneousIcons = IconFactory.getMiscellaneousIconCodes(
                 PathFactory.getIconDirectory(this),
                 LanguageFactory.getCurrentLanguageCode(this)
         );
-
         MiscellaneousIcon[] miscellaneousIconObjects = TextFactory.getMiscellaneousIconObjects(
-                PathFactory.getJSONFile(this),
-                IconFactory.removeFileExtension(miscellaneousIcons)
+                miscellaneousIcons
         );
-
+        //Extract Navigation icon text from miscellaneousIconObjects
         mNavigationBtnTxt = TextFactory.getTitle(miscellaneousIconObjects);
     }
 
@@ -1812,24 +1812,18 @@ public class LevelThreeActivity extends LevelBaseActivity{
      * */
     private void retrieveSpeechArrays(int levelOneItemPos, int levelTwoItemPos) {
 
-        String[] icons = IconFactory.getL3Icons(
+        //Retrieve icon names from json file for Level 1
+        mIconCode = IconFactory.getL3IconCodes(
                 PathFactory.getIconDirectory(this),
                 LanguageFactory.getCurrentLanguageCode(this),
                 getLevel2_3IconCode(levelOneItemPos),
                 getLevel2_3IconCode(levelTwoItemPos)
         );
 
-        level3IconObjects = TextFactory.getIconObjects(
-                PathFactory.getJSONFile(this),
-                IconFactory.removeFileExtension(icons)
-        );
+        level3IconObjects = TextFactory.getIconObjects(mIconCode);
 
         mDisplayText = TextFactory.getDisplayText(level3IconObjects);
         mSpeechText = TextFactory.getSpeechText(level3IconObjects);
-        mVerbCode = new  String[icons.length];
-        for (int i = 0; i < mVerbCode.length; i++) {
-            mVerbCode[i] = icons[i].replace(".png","");
-        }
     }
 
     /**<p> This function will returns the index of the item searched item in the sorted list
