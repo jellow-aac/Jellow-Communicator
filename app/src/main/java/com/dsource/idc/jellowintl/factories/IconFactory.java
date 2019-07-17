@@ -286,7 +286,7 @@ public class IconFactory {
             if(key.matches(regex))
                 iconNames.add(key);
         }
-
+        Collections.sort(iconNames);
         String[] iconNameArray = new String[iconNames.size()];
         return iconNames.toArray(iconNameArray);
     }
@@ -303,6 +303,7 @@ public class IconFactory {
         String regex = langCode + level1IconCode +
                 "([1-9][1-9]|[0-9][1-9]|[1-9][0-9])" + "0{4}(GG|SS)";
         ArrayList<String> iconNames = new ArrayList<>();
+
         Iterator<String> it = JSON.keys();
         while (it.hasNext()){
             String key = it.next();
@@ -310,6 +311,7 @@ public class IconFactory {
                 iconNames.add(key);
         }
 
+        Collections.sort(iconNames);
         String[] iconNameArray = new String[iconNames.size()];
         return iconNames.toArray(iconNameArray);
     }
@@ -333,6 +335,7 @@ public class IconFactory {
                 iconNames.add(key);
         }
 
+        Collections.sort(iconNames);
         String[] iconNameArray = new String[iconNames.size()];
         return iconNames.toArray(iconNameArray);
     }
@@ -356,7 +359,7 @@ public class IconFactory {
             if(key.matches(regex))
                 iconNames.add(key);
         }
-
+        Collections.sort(iconNames);
         String[] iconNameArray = new String[iconNames.size()];
         return iconNames.toArray(iconNameArray);
     }

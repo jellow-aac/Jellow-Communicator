@@ -11,7 +11,6 @@ import android.text.SpannableString;
 import android.text.style.StyleSpan;
 import android.util.TypedValue;
 import android.view.View;
-import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -29,7 +28,6 @@ import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -241,7 +239,19 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             delete.setEnabled(true);
                             //To start TTS voice package download automatically.
-                            setSpeechEngineLanguage(LangMap.get(onlineLanguages[which]));
+                            setSpeechEngineLanguage(LangMap.get(onlineLanguages[item[0]]));
+                            getSession().setDownloaded(LangMap.get(onlineLanguages[item[0]]));
+                            String lang = LangValueMap.get(LangMap.get(onlineLanguages[item[0]]));
+                            String message = getString(R.string.language_downloaded).
+                                    replace("_",lang);
+                            Toast.makeText(LanguageSelectActivity.this, message,
+                                    Toast.LENGTH_SHORT).show();
+                            onlineLanguages = getOnlineLanguages();
+                            offlineLanguages = getOfflineLanguages();
+                            adapter_lan = new ArrayAdapter<String>(LanguageSelectActivity.this,
+                                    R.layout.simple_spinner_item, populateCountryNameByUserType(offlineLanguages));
+                            adapter_lan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            languageSelect.setAdapter(adapter_lan);
                             //To switch TTS voice package back.
                             setSpeechEngineLanguage(getSession().getLanguage());
                             // Send empty string to TTS Engine to eliminate voice
@@ -360,9 +370,6 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
         window.getDecorView().getWindowVisibleDisplayFrame(displayRectangle);   */
     }
 
-    private void showDeleteLangDialog(DialogInterface dialog, int which, String strLangRemoved) {
-    }
-
     private void hideViewsForNonTtsLang(boolean disableViews) {
         //TODO Hide views to when user selected non tts language.
         if(disableViews) {
@@ -467,14 +474,6 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
     public void openSpeechSetting(View view){
         startActivity(new Intent().setAction("com.android.settings.TTS_SETTINGS"));
         getSession().setWifiOnlyBtnPressedOnce(true);
-    }
-
-    private void deleteRecursive(File fileObj) {
-        if (fileObj.isDirectory())
-            for (File child : fileObj.listFiles())
-                deleteRecursive(child);
-
-        fileObj.delete();
     }
 
     private String[] getOfflineLanguages()
@@ -598,21 +597,6 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
     @Override
     public void onUserInteraction() {
         super.onUserInteraction();
-        addAccessibilityDelegateToSpinners();
-    }
-
-    private void addAccessibilityDelegateToSpinners() {
-        if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))){
-            languageSelect.setAccessibilityDelegate(new View.AccessibilityDelegate() {
-                @Override
-                public void onInitializeAccessibilityEvent(View host, AccessibilityEvent event) {
-                    super.onInitializeAccessibilityEvent(host, event);
-                    if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED) {
-                        findViewById(R.id.tv4).sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_HOVER_ENTER);
-                    }
-                }
-            });
-        }
     }
 
     private void saveLanguage() {

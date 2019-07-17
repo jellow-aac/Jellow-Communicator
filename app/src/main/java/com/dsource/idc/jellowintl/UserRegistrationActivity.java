@@ -83,7 +83,7 @@ public class UserRegistrationActivity extends SpeechEngineBaseActivity {
     private CountryCodePicker mCcp;
     private String mUserGroup;
     Spinner languageSelect;
-    String[] languagesCodes = new String[10], languageNames = new String[10];
+    String[] languagesCodes = new String[10], languageNames = new String[LangMap.size()];
     String selectedLanguage;
     String name, emergencyContact, eMailId;
 

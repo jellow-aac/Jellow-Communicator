@@ -49,4 +49,13 @@ public class LanguageFactory {
         SessionManager sessionManager = new SessionManager(context);
         return sessionManager.getLanguage();
     }
+
+    public static boolean isIndianLanguage(String language){
+        return language.equals(SessionManager.ENG_IN) ||
+                language.equals(SessionManager.HI_IN) ||
+                language.equals(SessionManager.MR_IN) ||
+                language.equals(SessionManager.BE_IN) ||
+                language.equals(SessionManager.BN_IN) ||
+                language.equals(SessionManager.TA_IN);
+    }
 }
