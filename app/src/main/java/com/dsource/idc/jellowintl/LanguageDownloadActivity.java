@@ -12,11 +12,16 @@ import androidx.core.content.ContextCompat;
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.dsource.idc.jellowintl.utility.DownloadManager;
 
+import java.io.File;
+
 import static com.dsource.idc.jellowintl.LanguageSelectActivity.FINISH;
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.LCODE;
+import static com.dsource.idc.jellowintl.UserRegistrationActivity.PACKAGE_NAME;
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.TUTORIAL;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
+import static com.dsource.idc.jellowintl.utility.SessionManager.LangValueMap;
+import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
 
 public class LanguageDownloadActivity extends BaseActivity {
     DownloadManager manager;
@@ -26,6 +31,9 @@ public class LanguageDownloadActivity extends BaseActivity {
     Boolean tutorial = false;
     Boolean finish = true;
     Boolean isConnected;
+    private String strLanguageDownloaded;
+    private String strLanguageDownloading;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,11 +55,25 @@ public class LanguageDownloadActivity extends BaseActivity {
 
         progressBar = findViewById(R.id.pg);
         progressBar.setMax(1);
+        {
+            String str = getString(R.string.language_downloaded);
+            if (langCode.equals(MR_IN)){
+                str = str.replace("_", LangValueMap.get(langCode));
+                strLanguageDownloaded = str;
+                str = getString(R.string.language_downloading);
+                str = str.replace("_",  LangValueMap.get(langCode));
+                strLanguageDownloading = str;
+            }else{
+                str = str.replace("_", langCode);
+                strLanguageDownloaded = str;
+                str = getString(R.string.language_downloading);
+                str = str.replace("_",  langCode);
+                strLanguageDownloading = str;
+            }
+        }
 
-        final String strLanguageDownloaded = getString(R.string.language_downloaded);
-        final String strLanguageDownloading = getString(R.string.language_downloading);
         mCheckConn = getString(R.string.checkConnectivity);
-        DownloadManager.ProgressReciever progressReceiver = new DownloadManager.ProgressReciever() {
+        final DownloadManager.ProgressReciever progressReceiver = new DownloadManager.ProgressReciever() {
             @Override
             public void onprogress(int soFarBytes, int totalBytes) {
                 progressBar.setProgress((float)soFarBytes/totalBytes);
@@ -61,23 +83,38 @@ public class LanguageDownloadActivity extends BaseActivity {
             public void onComplete() {
                 getSession().setDownloaded(langCode);
                 getSession().setDownloaded(getSession().getLanguage());
-                if(!tutorial)
-                    getSession().setToastMessage(strLanguageDownloaded.replace("_", langCode));
-                if(tutorial) {
-                    Toast.makeText(LanguageDownloadActivity.this, strLanguageDownloaded
-                            .replace("_", langCode), Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(LanguageDownloadActivity.this, Intro.class));
-                }else if(finish)
-                {
-                    Intent intent=new Intent(LanguageDownloadActivity.this,SplashActivity.class);
-                    startActivity(intent);
+                if(!tutorial) {
+                    getSession().setToastMessage(strLanguageDownloaded);
+                    finish();
+                    return;
                 }
-                finish();
+                Toast.makeText(LanguageDownloadActivity.this, strLanguageDownloaded,
+                        Toast.LENGTH_SHORT).show();
+                File file = getBaseContext().getDir(MR_IN, Context.MODE_PRIVATE);
+                if(!getSession().isAudioPackageDownloaded() && getSession().isDownloaded(MR_IN)
+                        && file.list().length == 0){
+                    progressBar.setProgress(0);
+                    progressBar.invalidate();
+                    manager.setLanguage(MR_IN);
+                    strLanguageDownloading = strLanguageDownloading.replace(PACKAGE_NAME,
+                            LangValueMap.get(MR_IN));
+                    Toast.makeText(LanguageDownloadActivity.this, strLanguageDownloading,
+                            Toast.LENGTH_SHORT).show();
+                    strLanguageDownloaded = strLanguageDownloaded.replace(PACKAGE_NAME,
+                            LangValueMap.get(MR_IN));
+                    manager.start();
+                }else if(tutorial) {
+                    getSession().setAudioExtraPackage(true);
+                    startActivity(new Intent(LanguageDownloadActivity.this, Intro.class));
+                    finish();
+                }else if(finish) {
+                    startActivity(new Intent(LanguageDownloadActivity.this,SplashActivity.class));
+                    finish();
+                }
             }
         };
 
-        Toast.makeText(this, strLanguageDownloading.replace("_",
-                langCode), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, strLanguageDownloading, Toast.LENGTH_SHORT).show();
 
         if(langCode != null) {
             try {

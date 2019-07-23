@@ -1,8 +1,10 @@
 package com.dsource.idc.jellowintl;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -28,9 +30,11 @@ import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.dsource.idc.jellowintl.UserRegistrationActivity.LCODE;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
@@ -194,6 +198,7 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
         // after activity restart. These variable will hold the value for variables initialized using
         // user preferred locale.
         final String strNoMoreLang2Add = getString(R.string.no_more_lang_2_add);
+        final String strCheckConnectivity = getString(R.string.checkConnectivity);
         final String strDownloadableLang = getString(R.string.downloadableLang);
         final String strDownload = getString(R.string.download);
         final String strCancel = getString(R.string.cancel);
@@ -238,6 +243,26 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             delete.setEnabled(true);
+                            if (LangMap.get(onlineLanguages[item[0]]).equals(MR_IN)){
+                                if (isConnectedToNetwork((ConnectivityManager) LanguageSelectActivity.this.
+                                        getSystemService(Context.CONNECTIVITY_SERVICE))) {
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString(LCODE, MR_IN);
+                                    bundle.putBoolean(FINISH, false);
+                                    //To start TTS voice package download automatically.
+                                    setSpeechEngineLanguage(onlineLanguages[item[0]]);
+                                    //To switch TTS voice package back.
+                                    setSpeechEngineLanguage(getSession().getLanguage());
+                                    // Send empty string to TTS Engine to eliminate voice
+                                    // lag after user goes back without changing the language.
+                                    speak("");
+                                    startActivity(new Intent(getBaseContext(), LanguageDownloadActivity.class).putExtras(bundle));
+                                    dialog.dismiss();
+                                } else {
+                                    Toast.makeText(LanguageSelectActivity.this, strCheckConnectivity, Toast.LENGTH_SHORT).show();
+                                }
+                                return;
+                            }
                             //To start TTS voice package download automatically.
                             setSpeechEngineLanguage(LangMap.get(onlineLanguages[item[0]]));
                             getSession().setDownloaded(LangMap.get(onlineLanguages[item[0]]));
@@ -322,6 +347,13 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     add.setEnabled(true);
+                                    if(LangMap.get(offlineLanguages[item[0]]).equals(MR_IN)){
+                                        File file = getBaseContext().getDir(MR_IN, Context.MODE_PRIVATE);
+                                        if (file.exists()) {
+                                            deleteRecursive(file);
+                                        }
+                                        file.delete();
+                                    }
                                     String locale = LangMap.get(offlineLanguages[item[0]]);
                                     if (getSession().getLanguage().equals(locale)) {
                                         Toast.makeText(LanguageSelectActivity.this, strLangCurrentlyInUse, Toast.LENGTH_SHORT).show();
@@ -474,6 +506,14 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
     public void openSpeechSetting(View view){
         startActivity(new Intent().setAction("com.android.settings.TTS_SETTINGS"));
         getSession().setWifiOnlyBtnPressedOnce(true);
+    }
+
+    private void deleteRecursive(File fileObj) {
+        if (fileObj.isDirectory())
+            for (File child : fileObj.listFiles())
+                deleteRecursive(child);
+
+        fileObj.delete();
     }
 
     private String[] getOfflineLanguages()

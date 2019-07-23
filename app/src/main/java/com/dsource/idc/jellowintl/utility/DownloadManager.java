@@ -42,6 +42,10 @@ public class DownloadManager {
 
     }
 
+    public void setLanguage(String localeCode){
+        this.localeCode = localeCode;
+    }
+
     // any class using DownloadManager should implement this ProgressReciever for getting callbacks
     public interface ProgressReciever{
         void onprogress(int soFarBytes, int totalBytes);

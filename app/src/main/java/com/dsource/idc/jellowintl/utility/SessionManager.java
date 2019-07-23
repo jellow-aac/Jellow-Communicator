@@ -214,31 +214,6 @@ public class SessionManager {
         return pitch;
     }
 
-    public void setPeoplePreferences(String peoplePreferences) {
-        if(getLanguage().contains("en") || getLanguage().contains("bn") || getLanguage().contains("be"))
-            storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_eng), peoplePreferences);
-        else if(getLanguage().contains("hi"))
-            storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_hindi), peoplePreferences);
-        else if(getLanguage().contains("mr"))
-            storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_marathi), peoplePreferences);
-    }
-
-    public String getPeoplePreferences() {
-        if(getLanguage().contains("en") || getLanguage().contains("bn") || getLanguage().contains("be"))
-            return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_eng));
-        else if(getLanguage().contains("hi"))
-            return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_hindi));
-        else if(getLanguage().contains("mr"))
-            return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_marathi));
-        return "";
-    }
-
-    public void resetUserPeoplePlacesPreferences(){
-        storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_eng), "");
-        storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_hindi), "");
-        storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.people_pref_count_marathi), "");
-    }
-
     public boolean isRequiredToPerformDbOperations() {
         return !((Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.perform_db_update)));
     }
@@ -269,11 +244,6 @@ public class SessionManager {
 
     public String getEncryptedData() {
         return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.encrypt_data));
-    }
-
-    // This flag is only for device who doesnt support direct switching between devices.
-    public void setLangSettingIsCorrect(boolean settingStatus) {
-        storePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.lang_setting_status), settingStatus);
     }
 
     public void setSessionCreatedAt(long timeStamp) {
@@ -333,15 +303,6 @@ public class SessionManager {
     public Long getLastCrashReported() {
         return ((Long) retrievePreferenceKeyWithValue(Long.class.toString(), mContext.getString(R.string.last_crash_reported)));
     }
-    //This flag is used for v1.2.3
-    public void setLanguagePackageUpdated(boolean updateFlag) {
-        storePreferenceKeyWithValue(Boolean.class.toString(),
-                mContext.getString(R.string.updated_locale_package_from_firebase), updateFlag);
-    }
-    public boolean isLanguagePackageUpdated() {
-        return ((Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(),
-                mContext.getString(R.string.updated_locale_package_from_firebase)));
-    }
 
     public void setPackageUpdate(boolean updateFlag) {
         storePreferenceKeyWithValue(Boolean.class.toString(),
@@ -363,12 +324,12 @@ public class SessionManager {
                 mContext.getString(R.string.wifi_only_pressed_in_LangSettings)));
     }
 
-    public void packages2Update(String packages2Download) {
-        storePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.package_name_comma_separated), packages2Download);
+    public void setAudioExtraPackage(boolean value) {
+        storePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.download_marathi_extra_package), value);
     }
 
-    public String getPackages2Update(){
-        return (String) retrievePreferenceKeyWithValue(String.class.toString(), mContext.getString(R.string.package_name_comma_separated));
+    public boolean isAudioPackageDownloaded(){
+        return (Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.download_marathi_extra_package));
     }
 
     /**

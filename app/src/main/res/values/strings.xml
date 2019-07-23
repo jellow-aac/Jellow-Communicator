@@ -84,6 +84,7 @@
     <string name="shadow_radius" translatable="false">com.dsource.idc.jellow.shadow_radius</string>
     <string name="border_width" translatable="false">com.dsource.idc.jellow.border_width</string>
     <string name="perform_db_update" translatable="false">com.dsource.idc.jellow.perform_db_update</string>
+    <string name="download_marathi_extra_package" translatable="false">com.dsource.idc.jellow.download_audio_marathi_package</string>
 
     <string name="people_pref_count_eng" translatable="false">people_count</string>
     <string name="people_pref_count_hindi" translatable="false">people_count_hindi</string>

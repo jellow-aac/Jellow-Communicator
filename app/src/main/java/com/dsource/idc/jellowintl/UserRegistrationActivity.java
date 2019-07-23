@@ -66,6 +66,7 @@ import static com.dsource.idc.jellowintl.utility.Analytics.maskNumber;
 import static com.dsource.idc.jellowintl.utility.Analytics.setCrashlyticsCustomKey;
 import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
+import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
 
 /**
  * Created by user on 5/25/2016.
@@ -99,18 +100,26 @@ public class UserRegistrationActivity extends SpeechEngineBaseActivity {
             getSession().setSessionCreatedAt(new Date().getTime());
             Crashlytics.setUserIdentifier(maskNumber(getSession().getCaregiverNumber().substring(1)));
         }
-        if (getSession().isUserLoggedIn() && getSession().isDownloaded(PACKAGE_NAME)) {
+        if (getSession().isUserLoggedIn()) {
             if (getSession().isDownloaded(getSession().getLanguage()) && getSession().isCompletedIntro()) {
                 if (!getSession().getUpdatedFirebase())
                     updateFirebaseDatabase();
                 startActivity(new Intent(this, SplashActivity.class));
-            } else if (getSession().isDownloaded(getSession().getLanguage()) && !getSession().isCompletedIntro()) {
-                startActivity(new Intent(this, Intro.class));
-            } else {
+            }else if(!getSession().isDownloaded(PACKAGE_NAME)){
                 startActivity(new Intent(UserRegistrationActivity.this,
                         LanguageDownloadActivity.class)
                         .putExtra(LCODE, PACKAGE_NAME).putExtra(TUTORIAL, true));
-            }
+            }else if(getSession().getLanguage().equals(MR_IN) && !getSession().isAudioPackageDownloaded()){
+                startActivity(new Intent(UserRegistrationActivity.this,
+                        LanguageDownloadActivity.class)
+                        .putExtra(LCODE, MR_IN).putExtra(TUTORIAL, true));
+            } else if (getSession().isDownloaded(getSession().getLanguage()) && !getSession().isCompletedIntro()) {
+                startActivity(new Intent(this, Intro.class));
+            } /*else {
+                startActivity(new Intent(UserRegistrationActivity.this,
+                        LanguageDownloadActivity.class)
+                        .putExtra(LCODE, PACKAGE_NAME).putExtra(TUTORIAL, true));
+            }*/
             finish();
         } else {
             getSession().setBlood(-1);
@@ -409,6 +418,8 @@ public class UserRegistrationActivity extends SpeechEngineBaseActivity {
                         setCrashlyticsCustomKey("PictureViewMode", "PictureText");
                         bundle.clear();
                         bundle.putString(LCODE, PACKAGE_NAME);
+                        if(getSession().getLanguage().equals(MR_IN))
+                            getSession().setAudioExtraPackage(false);
                         bundle.putBoolean(TUTORIAL, true);
                         startActivity(new Intent(UserRegistrationActivity.this,
                                 LanguageDownloadActivity.class).putExtras(bundle));
@@ -541,8 +552,10 @@ public class UserRegistrationActivity extends SpeechEngineBaseActivity {
                 HttpURLConnection urlc = (HttpURLConnection) url.openConnection();
                 urlc.setConnectTimeout(3000);
                 urlc.connect();
-                if (urlc.getResponseCode() == HttpURLConnection.HTTP_OK)
+                if (urlc.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                    urlc.disconnect();
                     return true;
+                }
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {

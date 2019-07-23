@@ -1,8 +1,10 @@
 package com.dsource.idc.jellowintl;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -29,9 +31,11 @@ import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.dsource.idc.jellowintl.UserRegistrationActivity.LCODE;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
@@ -202,6 +206,28 @@ public class LanguageSelectTalkBackActivity extends SpeechEngineBaseActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     delete.setEnabled(true);
+                                    if (LangMap.get(onlineLanguages[which]).equals(MR_IN)){
+                                        if (isConnectedToNetwork((ConnectivityManager) LanguageSelectTalkBackActivity.this.
+                                                getSystemService(Context.CONNECTIVITY_SERVICE))) {
+                                            Bundle bundle = new Bundle();
+                                            bundle.putString(LCODE, MR_IN);
+                                            bundle.putBoolean(FINISH, false);
+                                            //To start TTS voice package download automatically.
+                                            setSpeechEngineLanguage(onlineLanguages[which]);
+                                            //To switch TTS voice package back.
+                                            setSpeechEngineLanguage(getSession().getLanguage());
+                                            // Send empty string to TTS Engine to eliminate voice
+                                            // lag after user goes back without changing the language.
+                                            speak("");
+                                            startActivity(new Intent(getBaseContext(), LanguageDownloadActivity.class).putExtras(bundle));
+                                            dialog.dismiss();
+                                        } else {
+                                            Toast.makeText(LanguageSelectTalkBackActivity.this,
+                                            "You are not connected to the Internet. Please turn on " +
+                                                    "your Internet.", Toast.LENGTH_SHORT).show();
+                                        }
+                                        return;
+                                    }
                                     //To start TTS voice package download automatically.
                                     setSpeechEngineLanguage(LangMap.get(onlineLanguages[which]));
                                     getSession().setDownloaded(LangMap.get(onlineLanguages[which]));
@@ -271,6 +297,19 @@ public class LanguageSelectTalkBackActivity extends SpeechEngineBaseActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         add.setEnabled(true);
                                         String locale = LangMap.get(offlineLanguages[which]);
+                                        if (getSession().getLanguage().equals(locale)) {
+                                            Toast.makeText(LanguageSelectTalkBackActivity.this,
+                                                    "Language is currently in use", Toast.LENGTH_SHORT).show();
+                                            dialog.dismiss();
+                                            return ;
+                                        }
+                                        if(LangMap.get(offlineLanguages[which]).equals(MR_IN)){
+                                            File file = getBaseContext().getDir(MR_IN, Context.MODE_PRIVATE);
+                                            if (file.exists()) {
+                                                deleteRecursive(file);
+                                            }
+                                            file.delete();
+                                        }
                                         if (getSession().getLanguage().equals(locale)) {
                                             Toast.makeText(LanguageSelectTalkBackActivity.this,
                                                     "Language is currently in use", Toast.LENGTH_SHORT).show();
@@ -419,6 +458,14 @@ public class LanguageSelectTalkBackActivity extends SpeechEngineBaseActivity {
     public void openSpeechSetting(View view){
         startActivity(new Intent().setAction("com.android.settings.TTS_SETTINGS"));
         getSession().setWifiOnlyBtnPressedOnce(true);
+    }
+
+    private void deleteRecursive(File fileObj) {
+        if (fileObj.isDirectory())
+            for (File child : fileObj.listFiles())
+                deleteRecursive(child);
+
+        fileObj.delete();
     }
 
     private String[] getOfflineLanguages()
