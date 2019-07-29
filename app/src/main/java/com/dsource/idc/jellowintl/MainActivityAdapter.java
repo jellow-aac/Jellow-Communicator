@@ -87,7 +87,6 @@ class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapter.MyVie
         if (mSession.getPictureViewMode() == MODE_PICTURE_ONLY)
             holder.menuItemBelowText.setVisibility(View.INVISIBLE);
 
-        holder.menuItemBelowText.setAllCaps(true);
         holder.menuItemBelowText.setText(belowTextArray[position]);
 
         Bitmap iconBitmap = MemoryCache.getBitmapFromMemCache(iconNameArray[position]+EXTENSION);
@@ -123,6 +122,11 @@ class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapter.MyVie
             menuItemImage = view.findViewById(R.id.icon1);
             menuItemLinearLayout = view.findViewById(R.id.linearlayout_icon1);
             menuItemBelowText = view.findViewById(R.id.te1);
+            if (mSession.getLanguage().equals(SessionManager.DE_DE)) {
+                menuItemBelowText.setAllCaps(false);
+            }else {
+                menuItemBelowText.setAllCaps(true);
+            }
             if(mAct.isAccessibilityTalkBackOn((AccessibilityManager) mAct.getSystemService(ACCESSIBILITY_SERVICE))) {
                 Typeface tf = ResourcesCompat.getFont(mAct, R.font.mukta_semibold);
                 menuItemBelowText.setTypeface(tf);

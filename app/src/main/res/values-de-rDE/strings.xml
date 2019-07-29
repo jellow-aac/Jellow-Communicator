@@ -105,7 +105,7 @@
     <string name="menuResetPref">Einstellungen zurücksetzen</string>
     <string name="menuFeedback">Feedback</string>
     <string name="menuUserRegistration">Anmeldeseite</string>
-    <string name="menuAccessibility">Zugänglichkeits</string>
+    <string name="menuAccessibility">Bedienungshilfen</string>
     <string name="menuClosePopup">Menü schließen</string>
     <string name="labelSplash">Jellow wird geladen, bitte warten!</string>
 
@@ -394,11 +394,11 @@
     <string name="sequence_screen">Vorgangsreihenfolge</string>
     <string name="close_searchbar">Suchleiste schließen</string>
 
-    <string name="txt_accessibility_setting">Barrierefreiheit Einstellungen</string>
+    <string name="txt_accessibility_setting">Bedienungshilfen</string>
     <string name="visual_access_title">Visuelle Barrierefreiheit:</string>
     <string name="visual_access_info">Die visuelle Barrierefreiheitsfunktion Jellows ermöglicht den Benutzern mit Sehbehinderung oder Blindheit den Gebrauch von Jellow sowie eine wirksame Kommunikation mit anderen. Sie verwendet die \'Talk-Back-Funktion\' auf Android-Smartphones innerhalb der App zu navigieren. Wenn die \'Talk-Back-Funktion\' des Geräts eingeschaltet ist, kann der Benutzer die Audiobeschreibung von allem erhalten, was er auf dem Bildschirm berührt. Der Benutzer kann sogar benutzerdefinierte Gesten erstellen oder die voreingestellten Gesten von \'Talk Back\' bei Interaktion mit Jellow verwenden. Zum Beispiel, das Doppelklicken irgendwo auf dem Bildschirm wird den Benutzern die Auswahl eines gewünschten Icons ermöglichen.</string>
     <string name="switch_access_title">Schalterzugriff:</string>
-    <string name="switch_access_info_one">Der Schalterzugriff vereinfacht den Personen mit motorischen Einschränkungen das Navigieren in der App. Die Funktion ermöglicht das Navigieren mithilfe eines oder zwei Schalter/s.</string>
+    <string name="switch_access_info_one">Der Schalterzugriff vereinfacht den Personen mit motorischen Einschränkungen das Navigieren in der App. Die Funktion ermöglicht das Navigieren mithilfe eines Schalters oder zwei Schalter.</string>
     <string name="switch_access_info_two">Um diese Funktion zu aktivieren, muss der Benutzer \"Schalterzugriff\" in Bedienungshilfen in Telefoneinstellungen einschalten.</string>
     <string name="switch_access_info_three">Samsung-Benutzer können den Schalterzugriff  in Option in  den Zugänglichkeitseinstellungen-Kategorie der Telefoneinstellungen finden.</string>
     <string name="switch_access_info_four">Um den Schalterzugriff mit einem Schalter nutzen zu können: 1. Einstellungen öffnen, 2. in die Schalterzugriff-Einstellungen kommen 3. Schalterzugriff aktivieren, 4. Entweder \"USB\"- oder \"Bluetooth\"-Schalter wählen, 5. In die Einstellungen kommen und Zahl des Schalters als \"ein Schalter\" wählen.</string>

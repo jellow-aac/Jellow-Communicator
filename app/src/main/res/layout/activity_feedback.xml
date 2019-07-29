@@ -113,7 +113,7 @@
                 android:layout_height="@dimen/feedback_extra_space_height"/>
         </LinearLayout>
     </ScrollView>
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/feedback_bottom_bar_height"
         android:background="@color/menu_screen_bottom_bar"
@@ -133,15 +133,12 @@
         <ImageButton
             android:id="@+id/bWhatsApp"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/feedback_btn_height"
-            android:text="@string/submit"
-            android:src="@android:drawable/sym_action_email"
-            android:textSize="@dimen/feedback_btn_txt_size"
-            android:paddingLeft="@dimen/feedback_btn_padding_left"
-            android:paddingRight="@dimen/feedback_btn_padding_left"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/feedback_btn_margin_left"
+            android:layout_marginEnd="@dimen/feedback_btn_margin_left"
+            android:src="@drawable/ic_whatsapp"
             android:onClick="sendWhatsAppFeedback"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/feedback_btn_margin_left"
-            android:layout_marginStart="@dimen/feedback_btn_margin_left" />
-    </LinearLayout>
+            android:background="@android:color/transparent"
+            android:layout_gravity="center_vertical|end" />
+    </FrameLayout>
 </RelativeLayout>
