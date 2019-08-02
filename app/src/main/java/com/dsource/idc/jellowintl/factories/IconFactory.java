@@ -127,110 +127,6 @@ public class IconFactory {
         return level3Icons;
     }
 
-    public static String[] getL3SeqIcons(@NonNull File dir, String langCode, String level1IconCode, String level2IconCode) {
-
-        if (!(IconCache.getL3SeqIcons() == null || IconCache.getL3SeqIcons().isEmpty())) {
-            String key = langCode + level1IconCode + level2IconCode;
-
-            if (IconCache.getL3SeqIcons().containsKey(key)) {
-                return IconCache.getL3SeqIcons().get(key);
-            }
-        }
-
-        String regex = langCode + level1IconCode + level2IconCode +
-                "([1-9][0-9]{3}|[0-9][1-9][0-9]{2}|[0-9]{2}[1-9][0-9]|[0-9]{3}[1-9])SS" + EXTENSION;
-        ArrayList<String> iconNames = new ArrayList<>();
-        for (String fileName : dir.list()) {
-            if (fileName.matches(regex)) {
-                iconNames.add(fileName);
-            }
-        }
-
-        Collections.sort(iconNames);
-
-        String[] level3SeqIcons = new String[iconNames.size()];
-
-        iconNames.toArray(level3SeqIcons);
-
-        if (IconCache.getL3SeqIcons() == null) {
-            IconCache.setL3SeqIcons(new HashMap<String, String[]>());
-        }
-
-        String key = langCode + level1IconCode + level2IconCode;
-
-        IconCache.getL3SeqIcons().put(key, level3SeqIcons);
-
-        return level3SeqIcons;
-    }
-
-
-    public static String[] getExpressiveIcons(@NonNull File dir, String langCode) {
-
-        if (IconCache.getExpressiveIcons() != null && IconCache.getExpressiveIcons().length != 0) {
-            return IconCache.getExpressiveIcons();
-        }
-
-        String regex = langCode + "[0-9]{2}" + "EE" + EXTENSION;
-        ArrayList<String> iconNames = new ArrayList<>();
-        for (String fileName : dir.list()) {
-            if (fileName.matches(regex)) {
-                iconNames.add(fileName);
-            }
-        }
-
-        Collections.sort(iconNames);
-
-        String[] expressiveIcons = new String[iconNames.size()];
-
-        iconNames.toArray(expressiveIcons);
-        IconCache.setExpressiveIcons(expressiveIcons);
-        return IconCache.getExpressiveIcons();
-    }
-
-    public static String[] getMiscellaneousIcons(@NonNull File dir, String langCode) {
-
-        if (IconCache.getMiscellaneousIcons() != null && IconCache.getMiscellaneousIcons().length != 0) {
-            return IconCache.getMiscellaneousIcons();
-        }
-
-        String regex = langCode + "[0-9]{2}" + "MS" + EXTENSION;
-        ArrayList<String> iconNames = new ArrayList<>();
-        for (String fileName : dir.list()) {
-            if (fileName.matches(regex)) {
-                iconNames.add(fileName);
-            }
-        }
-
-        Collections.sort(iconNames);
-
-        String[] miscellaneousIcons = new String[iconNames.size()];
-
-        iconNames.toArray(miscellaneousIcons);
-        IconCache.setMiscellaneousIcons(miscellaneousIcons);
-        return IconCache.getMiscellaneousIcons();
-    }
-
-    /** This function used when a non-TTs language parsing the data
-     *  for previous and next buttons in Sequence activity.
-     ***/
-    public static String[] getCategoryNavigationButtons(@NonNull File dir, String langCode) {
-        String regex = langCode + "0[4-5]" + "MSTT.mp3";
-        ArrayList<String> fileNames = new ArrayList<>();
-        for (String fileName : dir.list()) {
-            if (fileName.matches(regex)) {
-                fileNames.add(fileName.replace("TT", ""));
-            }
-        }
-
-        Collections.sort(fileNames);
-
-        String[] categoryNavigationButtons = new String[fileNames.size()];
-
-        fileNames.toArray(categoryNavigationButtons);
-        return categoryNavigationButtons;
-    }
-
-
     public static String[] removeFileExtension(String[] iconNamesWithExtension) {
         String[] iconNames = iconNamesWithExtension.clone();
         for (int i = 0; i < iconNames.length; i++) {
@@ -254,7 +150,6 @@ public class IconFactory {
             iconCode = iconCode.replace("BB", String.valueOf((levelTwo+1)));
         return iconCode;
     }
-
 
 
     /*RAHUL*/

@@ -73,7 +73,7 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
  */
 public class UserRegistrationActivity extends SpeechEngineBaseActivity {
     public static final String LCODE = "lcode";
-    public static final String PACKAGE_NAME = "universal";
+    public static final String UNIVERSAL_PACKAGE = "universal";
     public static final String TUTORIAL = "tutorial";
 
     final int GRID_3BY3 = 4;
@@ -94,7 +94,7 @@ public class UserRegistrationActivity extends SpeechEngineBaseActivity {
         setContentView(R.layout.activity_user_registration);
         FirebaseMessaging.getInstance().subscribeToTopic("jellow_aac");
         setActivityTitle(getString(R.string.menuUserRegistration));
-
+        getSession().changePreferencesFile(this);
         if (!getSession().getCaregiverNumber().equals("")) {
             getAnalytics(this, getSession().getCaregiverNumber().substring(1));
             getSession().setSessionCreatedAt(new Date().getTime());
@@ -105,21 +105,17 @@ public class UserRegistrationActivity extends SpeechEngineBaseActivity {
                 if (!getSession().getUpdatedFirebase())
                     updateFirebaseDatabase();
                 startActivity(new Intent(this, SplashActivity.class));
-            }else if(!getSession().isDownloaded(PACKAGE_NAME)){
+            }else if(!getSession().isDownloaded(UNIVERSAL_PACKAGE)){
                 startActivity(new Intent(UserRegistrationActivity.this,
                         LanguageDownloadActivity.class)
-                        .putExtra(LCODE, PACKAGE_NAME).putExtra(TUTORIAL, true));
+                        .putExtra(LCODE, UNIVERSAL_PACKAGE).putExtra(TUTORIAL, true));
             }else if(getSession().getLanguage().equals(MR_IN) && !getSession().isAudioPackageDownloaded()){
                 startActivity(new Intent(UserRegistrationActivity.this,
                         LanguageDownloadActivity.class)
                         .putExtra(LCODE, MR_IN).putExtra(TUTORIAL, true));
             } else if (getSession().isDownloaded(getSession().getLanguage()) && !getSession().isCompletedIntro()) {
                 startActivity(new Intent(this, Intro.class));
-            } /*else {
-                startActivity(new Intent(UserRegistrationActivity.this,
-                        LanguageDownloadActivity.class)
-                        .putExtra(LCODE, PACKAGE_NAME).putExtra(TUTORIAL, true));
-            }*/
+            }
             finish();
         } else {
             getSession().setBlood(-1);
@@ -417,7 +413,7 @@ public class UserRegistrationActivity extends SpeechEngineBaseActivity {
                         setCrashlyticsCustomKey("GridSize", "9");
                         setCrashlyticsCustomKey("PictureViewMode", "PictureText");
                         bundle.clear();
-                        bundle.putString(LCODE, PACKAGE_NAME);
+                        bundle.putString(LCODE, UNIVERSAL_PACKAGE);
                         if(getSession().getLanguage().equals(MR_IN))
                             getSession().setAudioExtraPackage(false);
                         bundle.putBoolean(TUTORIAL, true);

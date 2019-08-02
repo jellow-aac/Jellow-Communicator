@@ -1,9 +1,12 @@
 package com.dsource.idc.jellowintl;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.widget.ImageView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.dsource.idc.jellowintl.utility.LanguageHelper;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
@@ -25,22 +28,27 @@ public class TutorialActivity extends BaseActivity {
         setImagesToImageViewUsingGlide();
     }
 
-    private void setImagesToImageViewUsingGlide() {
-        setImageUsingGlide(R.drawable.categorybuttons, ((ImageView)findViewById(R.id.pic1)));
-        setImageUsingGlide(R.drawable.expressivebuttons, ((ImageView)findViewById(R.id.pic2)));
-        setImageUsingGlide(R.drawable.speakingwithjellowimage2, ((ImageView)findViewById(R.id.pic4)));
-        setImageUsingGlide(R.drawable.eatingcategory1, ((ImageView)findViewById(R.id.pic5)));
-        setImageUsingGlide(R.drawable.eatingcategory2, ((ImageView)findViewById(R.id.pic6)));
-        setImageUsingGlide(R.drawable.eatingcategory3, ((ImageView)findViewById(R.id.pic7)));
-        setImageUsingGlide(R.drawable.settings, ((ImageView)findViewById(R.id.pic8)));
-        setImageUsingGlide(R.drawable.sequencewithoutexpressivebuttons, ((ImageView)findViewById(R.id.pic9)));
-        setImageUsingGlide(R.drawable.sequencewithexpressivebuttons, ((ImageView)findViewById(R.id.pic10)));
-        setImageUsingGlide(R.drawable.gtts1, ((ImageView)findViewById(R.id.gtts1)));
-        setImageUsingGlide(R.drawable.gtts2, ((ImageView)findViewById(R.id.gtts2)));
-        setImageUsingGlide(R.drawable.gtts3, ((ImageView)findViewById(R.id.gtts3)));
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext((LanguageHelper.onAttach(newBase)));
     }
 
-    private void setImageUsingGlide(int image, ImageView imgView) {
+    private void setImagesToImageViewUsingGlide() {
+        setImageUsingGlide(getResources().getDrawable(R.drawable.categorybuttons), ((ImageView)findViewById(R.id.pic1)));
+        setImageUsingGlide(getResources().getDrawable(R.drawable.expressivebuttons), ((ImageView)findViewById(R.id.pic2)));
+        setImageUsingGlide(getResources().getDrawable(R.drawable.speakingwithjellowimage2), ((ImageView)findViewById(R.id.pic4)));
+        setImageUsingGlide(getResources().getDrawable(R.drawable.eatingcategory1), ((ImageView)findViewById(R.id.pic5)));
+        setImageUsingGlide(getResources().getDrawable(R.drawable.eatingcategory2), ((ImageView)findViewById(R.id.pic6)));
+        setImageUsingGlide(getResources().getDrawable(R.drawable.eatingcategory3), ((ImageView)findViewById(R.id.pic7)));
+        setImageUsingGlide(getResources().getDrawable(R.drawable.settings), ((ImageView)findViewById(R.id.pic8)));
+        setImageUsingGlide(getResources().getDrawable(R.drawable.sequencewithoutexpressivebuttons), ((ImageView)findViewById(R.id.pic9)));
+        setImageUsingGlide(getResources().getDrawable(R.drawable.sequencewithexpressivebuttons), ((ImageView)findViewById(R.id.pic10)));
+        setImageUsingGlide(getResources().getDrawable(R.drawable.gtts1), ((ImageView)findViewById(R.id.gtts1)));
+        setImageUsingGlide(getResources().getDrawable(R.drawable.gtts2), ((ImageView)findViewById(R.id.gtts2)));
+        setImageUsingGlide(getResources().getDrawable(R.drawable.gtts3), ((ImageView)findViewById(R.id.gtts3)));
+    }
+
+    private void setImageUsingGlide(Drawable image, ImageView imgView) {
         GlideApp.with(this)
                 .load(image)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)

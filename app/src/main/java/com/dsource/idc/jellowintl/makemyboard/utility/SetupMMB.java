@@ -13,6 +13,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.dsource.idc.jellowintl.BuildConfig;
 import com.dsource.idc.jellowintl.R;
@@ -31,9 +35,6 @@ import com.liulishuo.filedownloader.FileDownloader;
 
 import java.io.File;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import ir.mahdi.mzip.zip.ZipArchive;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
@@ -193,7 +194,7 @@ class DownloadMan {
        this.progressReciever = progressReciever;
    }
 
-   // any class using DownloadManager should implement this ProgressReciever for getting callbacks
+   // any class using DownloadManager should implement this ProgressReceiver for getting callbacks
    public interface ProgressReciever{
        void onprogress(int soFarBytes, int totalBytes);
 

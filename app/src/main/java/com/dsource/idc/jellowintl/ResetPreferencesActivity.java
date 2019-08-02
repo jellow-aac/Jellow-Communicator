@@ -7,7 +7,6 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.Presentor.PreferencesHelper;
-import com.dsource.idc.jellowintl.utility.DataBaseHelper;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
@@ -23,7 +22,6 @@ public class ResetPreferencesActivity extends BaseActivity {
         setContentView(R.layout.activity_reset_preferences);
         enableNavigationBack();
         setActivityTitle(getString(R.string.menuResetPref));
-        final DataBaseHelper myDbHelper = new DataBaseHelper(this);
 
         findViewById(R.id.no).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -220,7 +220,7 @@
     <string name="txt_actLangSel_downloadDat">Sprachdaten prüfen</string>
     <string name="txt_actLangSel_complete_mainscreen_msg">Sprachedaten nicht vorhanden. Bitte verbinden Sie mit dem Internet, um Sprachdaten herunterzuladen</string>
     <string name="language_downloaded">_ Sprachdaten heruntergeladen</string>
-    <string name="language_downloading">Deutsch (Deutschland)_ wird heruntergeladen</string>
+    <string name="language_downloading">_ wird heruntergeladen</string>
     <string name="ok">Weiter</string>
     <string name="call_permission_info">Anrufberechtigungen nicht vorhanden. Die Anrufberechtigungen sind für Notruf erforderlich.</string>
     <string name="granted_call_permission_req">Anrufberechtigungen erteilt</string>

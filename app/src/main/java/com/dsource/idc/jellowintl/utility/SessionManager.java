@@ -12,6 +12,7 @@ import com.dsource.idc.jellowintl.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class SessionManager {
 
@@ -66,7 +67,7 @@ public class SessionManager {
     private Editor mEditor;
     private Context mContext;
 
-    private final String PREF_NAME = "AndroidHiveLogin";
+    private final String PREF_NAME = "JellowPreferences";
     private final String KEY_IS_LOGGEDIN = "isLoggedIn";
     public final String Name = "name";
     private final String EmergencyContact = "number";
@@ -212,14 +213,6 @@ public class SessionManager {
         if(pitch == 0)
             return 50;              //50 is default value for pitch of speech to keep.
         return pitch;
-    }
-
-    public boolean isRequiredToPerformDbOperations() {
-        return !((Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.perform_db_update)));
-    }
-
-    public void setCompletedDbOperations(boolean value) {
-        storePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.perform_db_update), value);
     }
 
     public void setUserCountryCode(String selectedCountryCode) {
@@ -381,6 +374,27 @@ public class SessionManager {
         else if(code==DatabaseNotCreated)
             storePreferenceKeyWithValue(String.class.toString(),Tag,"No");
     }
+
+
+    public void changePreferencesFile(Context context){
+        SharedPreferences settingsOld = context.getSharedPreferences("AndroidHiveLogin", Context.MODE_PRIVATE);
+        settingsOld.edit().remove(mContext.getString(R.string.perform_db_update)).apply();
+        SharedPreferences settingsNew = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editorNew = settingsNew.edit();
+        Map<String, ?> all = settingsOld.getAll();
+        for (Map.Entry<String, ?> x : all.entrySet()) {
+
+            if      (x.getValue().getClass().equals(Boolean.class)) editorNew.putBoolean(x.getKey(), (Boolean)x.getValue());
+            else if (x.getValue().getClass().equals(Float.class))   editorNew.putFloat(x.getKey(),   (Float)x.getValue());
+            else if (x.getValue().getClass().equals(Integer.class)) editorNew.putInt(x.getKey(),     (Integer)x.getValue());
+            else if (x.getValue().getClass().equals(Long.class))    editorNew.putLong(x.getKey(),    (Long)x.getValue());
+            else if (x.getValue().getClass().equals(String.class))  editorNew.putString(x.getKey(),  (String)x.getValue());
+
+        }
+        editorNew.apply();
+        settingsOld.edit().clear().apply();
+    }
+
 
     private void storePreferenceKeyWithValue(String classType, String key, Object val){
         if (classType.equals(Integer.class.toString()))

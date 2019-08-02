@@ -30,8 +30,7 @@ public class PathFactory {
     }
 
     public static String getAudioPath(Context context){
-        String path = context.getDir(SessionManager.MR_IN, Context.MODE_PRIVATE).getAbsolutePath() + "/";
-        return path + AUDIO_FOLDER + "/";
+        return getBaseDirectoryPath(context) +  AUDIO_FOLDER + "/";
     }
 
     public static File getIconDirectory(Context context){

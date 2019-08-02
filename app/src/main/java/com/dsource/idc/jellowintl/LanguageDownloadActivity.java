@@ -10,14 +10,15 @@ import android.widget.Toast;
 import androidx.core.content.ContextCompat;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
+import com.dsource.idc.jellowintl.factories.PathFactory;
 import com.dsource.idc.jellowintl.utility.DownloadManager;
 
 import java.io.File;
 
 import static com.dsource.idc.jellowintl.LanguageSelectActivity.FINISH;
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.LCODE;
-import static com.dsource.idc.jellowintl.UserRegistrationActivity.PACKAGE_NAME;
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.TUTORIAL;
+import static com.dsource.idc.jellowintl.UserRegistrationActivity.UNIVERSAL_PACKAGE;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangValueMap;
@@ -64,16 +65,16 @@ public class LanguageDownloadActivity extends BaseActivity {
                 str = str.replace("_",  LangValueMap.get(langCode));
                 strLanguageDownloading = str;
             }else{
-                str = str.replace("_", langCode);
+                str = str.replace("_", "");
                 strLanguageDownloaded = str;
                 str = getString(R.string.language_downloading);
-                str = str.replace("_",  langCode);
+                str = str.replace("_",  "");
                 strLanguageDownloading = str;
             }
         }
 
         mCheckConn = getString(R.string.checkConnectivity);
-        final DownloadManager.ProgressReciever progressReceiver = new DownloadManager.ProgressReciever() {
+        final DownloadManager.ProgressReceiver progressReceiver = new DownloadManager.ProgressReceiver() {
             @Override
             public void onprogress(int soFarBytes, int totalBytes) {
                 progressBar.setProgress((float)soFarBytes/totalBytes);
@@ -90,17 +91,18 @@ public class LanguageDownloadActivity extends BaseActivity {
                 }
                 Toast.makeText(LanguageDownloadActivity.this, strLanguageDownloaded,
                         Toast.LENGTH_SHORT).show();
-                File file = getBaseContext().getDir(MR_IN, Context.MODE_PRIVATE);
+                File file = new File(getBaseContext().getDir(PathFactory.UNIVERSAL_FOLDER,
+                        Context.MODE_PRIVATE).getAbsolutePath()+"/audio");
                 if(!getSession().isAudioPackageDownloaded() && getSession().isDownloaded(MR_IN)
-                        && file.list().length == 0){
+                        && !file.exists()){
                     progressBar.setProgress(0);
                     progressBar.invalidate();
                     manager.setLanguage(MR_IN);
-                    strLanguageDownloading = strLanguageDownloading.replace(PACKAGE_NAME,
+                    strLanguageDownloading = strLanguageDownloading.replace(UNIVERSAL_PACKAGE,
                             LangValueMap.get(MR_IN));
                     Toast.makeText(LanguageDownloadActivity.this, strLanguageDownloading,
                             Toast.LENGTH_SHORT).show();
-                    strLanguageDownloaded = strLanguageDownloaded.replace(PACKAGE_NAME,
+                    strLanguageDownloaded = strLanguageDownloaded.replace(UNIVERSAL_PACKAGE,
                             LangValueMap.get(MR_IN));
                     manager.start();
                 }else if(tutorial) {

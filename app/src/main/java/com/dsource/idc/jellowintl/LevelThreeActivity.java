@@ -3,7 +3,6 @@ package com.dsource.idc.jellowintl;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.SQLException;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,7 +26,6 @@ import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.Presentor.PreferencesHelper;
 import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
 import com.dsource.idc.jellowintl.factories.IconFactory;
@@ -39,7 +37,6 @@ import com.dsource.idc.jellowintl.models.ExpressiveIcon;
 import com.dsource.idc.jellowintl.models.Icon;
 import com.dsource.idc.jellowintl.models.MiscellaneousIcon;
 import com.dsource.idc.jellowintl.utility.CustomGridLayoutManager;
-import com.dsource.idc.jellowintl.utility.DataBaseHelper;
 import com.dsource.idc.jellowintl.utility.DialogKeyboardUtterance;
 import com.dsource.idc.jellowintl.utility.IndexSorter;
 import com.dsource.idc.jellowintl.utility.UserEventCollector;
@@ -97,7 +94,6 @@ public class LevelThreeActivity extends LevelBaseActivity{
     /*This variable stores array of index of category icons sorted by tap count*/
     private int[] mArrSort = new int[100];
     private int count_flag = 0;
-    private DataBaseHelper myDbHelper;
     /*Below array stores the speech text, below text, expressive button speech text,
      navigation button speech text respectively.*/
     private String[] mSpeechText,mDisplayText, mExprBtnTxt, mNavigationBtnTxt, mIconCode;
@@ -127,17 +123,10 @@ public class LevelThreeActivity extends LevelBaseActivity{
                         WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
 
         // set app locale which is set in settings by user.
-        myDbHelper = new DataBaseHelper(this);
         mUec = new UserEventCollector();
         mLevelOneItemPos = getIntent().getExtras().getInt(getString(R.string.level_one_intent_pos_tag));
         mLevelTwoItemPos = getIntent().getExtras().getInt(getString(R.string.level_2_item_pos_tag));
         loadArraysFromResources();
-
-        try {
-            myDbHelper.openDataBase();
-        } catch (SQLException e) {
-            Crashlytics.logException(e);
-        }
 
         initializeLayoutViews();
         initializeRecyclerViewAdapter();
@@ -266,7 +255,6 @@ public class LevelThreeActivity extends LevelBaseActivity{
         mRecyclerItemsViewList = null;
         mSpeechText = mDisplayText = mExprBtnTxt = mNavigationBtnTxt = null;
         mArrSort = null; mArrIconTapCount = null;
-        myDbHelper = null;
         super.onDestroy();
     }
 
@@ -454,7 +442,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
                 LanguageFactory.getCurrentLanguageCode(this), mLevelOneItemPos, mLevelTwoItemPos);
         
         return ("01010000GG,01020000GG,01030000GG,01040000GG,"+
-                "02040000GG,02050000GG,02060000GG,02070000GG,"+
+                "02040000GG,02050000GG,02060000GG,02070000GG,02100000GG"+
                 "03010000GG,03020000GG,03030000GG,03040000GG,"+
                 "03050000GG,03060000GG,03070000GG,03080000GG,"+
                 "04010000GG,04020000GG,04030000GG,04060000GG,"+
