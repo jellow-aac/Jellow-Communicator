@@ -15,7 +15,6 @@ import com.dsource.idc.jellowintl.utility.DownloadManager;
 
 import java.io.File;
 
-import static com.dsource.idc.jellowintl.LanguageSelectActivity.FINISH;
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.LCODE;
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.TUTORIAL;
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.UNIVERSAL_PACKAGE;
@@ -25,6 +24,7 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.LangValueMap;
 import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
 
 public class LanguageDownloadActivity extends BaseActivity {
+    public static final String FINISH = "finish";
     DownloadManager manager;
     RoundCornerProgressBar progressBar;
     String langCode;

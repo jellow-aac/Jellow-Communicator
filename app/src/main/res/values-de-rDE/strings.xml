@@ -26,9 +26,6 @@
     <string name="Language">Sprache</string>
     <string name="ChangeLanguage">Sprache ändern</string>
     <string name="saveLanguage">Änderungen speichern</string>
-    <string name="addLanguage">Sprache hinzufügen</string>
-    <string name="deleteLanguage">Sprache löschen</string>
-    <string name="editLanguage">1) Sprache(n) hinzufügen / löschen</string>
 
     <string-array name="bloodgroup">
         <item>nicht gewählt</item>
@@ -91,11 +88,7 @@
     <string name="demoTtsSpeech">Hallo! Sie benutzen Jellow Communicator.</string>
     <string name="savedSettingsMessage">Einstellungen gespeichert</string>
     <string name="languageChanged">Sprache gespeichert</string>
-    <string name="no_more_lang_2_add">Keine Sprache zum Hinzufügen verfügbar</string>
-    <string name="no_more_lang_2_del">Keine Sprache zum Löschen verfügbar</string>
     <string name="checkConnectivity">Keine Internetverbindung. Schalten Sie bitte das Internet an.</string>
-    <string name="languageCurrentlyInUse">Sprache wird zurzeit benutzt</string>
-    <string name="languageRemoved">Sprache entfernt</string>
 
     <string name="menuProfile">Profil</string>
     <string name="menuAbout">Über Jellow</string>
@@ -210,7 +203,7 @@
     <string name="txt_actLangSel_completestep3">Mit dem Internet verbinden und den 3. Schritt durchführen</string>
     <string name="change_language_line5">Schritt 2: Die Verfügbarkeit der Stimme für Deutsch prüfen. Wenn nicht vorhanden, dann herunterladen. Falls der Download-Vorgang angehalten wird, wiederholen.</string>
     <string name="change_language_line4">Schritt 3: \'Google Text-to-Speech\' als Standard-TTS setzen sowie _ als Standardsprache setzen</string>
-    <string name="txtChangeLanguage">2) Standard-Sprache ändern:</string>
+    <string name="txtChangeLanguage">Standard-Sprache ändern:</string>
     <string name="txtApplyChanges">Schritt 4:  \"Einstellungen ändern\" klicken, um die neue Sprache als Standard zu setzen</string>
     <string name="change_language_line6">Den Schritten unten folgen, um die neu gewählte Sprache als Standard zu setzen</string>
     <string name="txt_set_tts_setup">Bitte führen Sie die Einrichtung von Text-to-Speech vom voherigen Bildschirm durch</string>
@@ -232,9 +225,6 @@
     <string name="groupParent">Eltern/Bezugsperson</string>
     <string name="invalid_usergroup">Wählen Sie bitte eine Benutzergruppe</string>
     <string name="txtEnableBuiltInCalling">Notanruf von Jellow aktivieren</string>
-    <string name="downloadableLang">verfügbare Sprachen</string>
-    <string name="downloadedLang">heruntergeladene Sprachen</string>
-    <string name="remove">Entfernen</string>
     <string name="dismiss">Ausblenden</string>
     <string name="register_user">Bitte warten, Registrierung in Arbeit…</string>
     <string name="exit">Beenden</string>
@@ -365,7 +355,6 @@
     <string name="txt_intro8_step3">3. \"Nur WLAN nutzen\"</string>
     <string name="change_language_tts_wifi">Google TTS-Einstellungen öffnen und \"Nur WLAN nutzen\" ausschalten. Falls schon ausgeschaltet, diesen Schritt überspringen</string>
     <string name="icon_update_msg">Icon(s) für die verfügbaren Sprachen werden aktualisiert:</string>
-    <string name="add_new_language">Sprache zum Herunterladen/Löschen wählen</string>
     <string name="disable_wifi_only">Den vorherigen Schritt des Ausschaltens von \"Nur WLAN nutzen\" durchführen</string>
     <string name="step3">Schritt 3:</string>
     <string name="txt_intro8_txtTitle">Zur Einrichtung der Google Text-to-Speech-Engine den folgenden Schritten durchführen</string>

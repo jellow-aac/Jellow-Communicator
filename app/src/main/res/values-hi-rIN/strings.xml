@@ -26,9 +26,6 @@
     <string name="Language">भाषा</string>
     <string name="ChangeLanguage">भाषा बदलो</string>
     <string name="saveLanguage">भाषा बदलें</string>
-    <string name="addLanguage">भाषा जोड़ें</string>
-    <string name="deleteLanguage">भाषा डिलीट करें</string>
-    <string name="editLanguage">१) भाषा जोड़ें/डिलीट करें:</string>
 
     <string-array name="bloodgroup">
         <item>सेट नहीं</item>
@@ -90,11 +87,7 @@
     <string name="demoTtsSpeech">नमस्तें! आप जेलो कम्युनिकेटर का उपयोग कर रहे हैं.</string>
     <string name="savedSettingsMessage">सेटिंग्स रक्षित हो गये हैं</string>
     <string name="languageChanged">भाषा रक्षित की गई हैं</string>
-    <string name="no_more_lang_2_add">जेलों में अधिक भाषाएँ उपलब्ध नहीं है</string>
-    <string name="no_more_lang_2_del">डिलीट करने के लिये भाषाएँ उपलब्ध नहीं है</string>
     <string name="checkConnectivity">कृपया अपने इंटरनेट कनेक्टिविटी की जांच करें</string>
-    <string name="languageCurrentlyInUse">भाषा फिलहाल उपयोग में हैं</string>
-    <string name="languageRemoved">भाषा डिलीट की गई हैं</string>
 
     <string name="menuProfile">प्रोफाइल</string>
     <string name="menuMyBoards">मेरे बोर्ड</string>
@@ -210,7 +203,7 @@
     <string name="txt_actLangSel_completestep3">कृपया इंटरनेट चालू करें और चरण ३ को पूरा करें</string>
     <string name="change_language_line5">चरण २: देखिये, _ के लिये वॉइस डेटा उपलब्ध है क्या? यदि वॉइस डेटा उपलब्ध नहीं हैं, तो कृपया इंटरनेट चालू करें और चुनी हुई भाषा के लिए वॉयस डेटा डाउनलोड करें। यदि प्रक्रिया रुक गई हैं, तो कृपया अपने इंटरनेट कनेक्शन की जाँच करें और फिर से कोशिश करें.</string>
     <string name="change_language_line4">चरण ३: \'गूगल टेक्स्ट-टू-स्पीच इंजन \' को डिफ़ॉल्ट इंजन बनाएँ और _ भाषा को इंजन की डिफ़ॉल्ट भाषा बनाएँ</string>
-    <string name="txtChangeLanguage">२) डिफ़ॉल्ट भाषा बदलें:</string>
+    <string name="txtChangeLanguage">डिफ़ॉल्ट भाषा बदलें:</string>
     <string name="txtApplyChanges">चरण ४: नई भाषा को डिफ़ॉल्ट बनाने के लिये \'भाषा बदलें\' पर क्लिक करें</string>
     <string name="change_language_line6">डाउनलोड की गई नई भाषा को डिफ़ॉल्ट बनाने के लिये नीचे दिये गये चरणोंका पालन करें</string>
     <string name="txt_set_tts_setup">कृपया इस स्क्रीन पर दिए गए टेक्स्ट-टू-स्पीच इंजिन संबंधित चरणों को पूरा करें</string>
@@ -232,9 +225,6 @@
     <string name="groupParent">पालक/केयर गिवर</string>
     <string name="invalid_usergroup">कृपया प्रयोगकर्ता का वर्ग चुनें।</string>
     <string name="txtEnableBuiltInCalling">आपातकालीन स्थिति में जेलो से कॉल करने की अनुमति दें</string>
-    <string name="downloadableLang">उपलब्ध भाषाएँ</string>
-    <string name="downloadedLang">डाउनलोड की गई भाषाएँ</string>
-    <string name="remove">डिलीट करें</string>
     <string name="dismiss">बंद करें</string>
     <string name="register_user">कृपया प्रतीक्षा करें, रजिस्ट्रेशन प्रक्रिया चालू हैं।</string>
     <string name="exit">बंद करें</string>
@@ -366,7 +356,6 @@
     <string name="txt_intro8_step3">३. \"केवल वाई-फाई का उपयोग करें\" इस बटन को बंद करें</string>
     <string name="change_language_tts_wifi">नीचे दिए गए \'टेक्स्ट-टू-स्पीच सेटिंग्स\' के बटन पर टैप करके गूगल टेक्स्ट-टू-स्पीच सेटिंग्स पर जाएँ और \'केवल वाई-फाई का उपयोग करें\' इस बटन को बंद करें। यदि सेटिंग्स में पहले से ही यह बटन बंद हैं, तो कृपया इस चरण को छोड़ दें।</string>
     <string name="icon_update_msg">मौजूदा भाषाओं के लिए आइकॉन्स अपडेट हो रहें हैं:</string>
-    <string name="add_new_language">नई भाषा को डाउनलोड करें या मौजूदा भाषा को डिलीट करें।</string>
     <string name="disable_wifi_only">कृपया पिछले चरण से "केवल वाई-फाई का उपयोग करें\" इस बटन को बंद करें</string>
     <string name="step3">चरण ३:</string>
     <string name="txt_intro8_txtTitle">कृपया टेक्स्ट-टू-स्पीच इंजन को सक्रीय करने के लिए निचे दिए गए चरण पूरे करें।</string>

@@ -26,9 +26,6 @@
     <string name="Language">மொழி</string>
     <string name="ChangeLanguage">மொழியை மாற்ற</string>
     <string name="saveLanguage">மாற்றங்களைப் பயன்படுத்து</string>
-    <string name="addLanguage">மொழியைச் சேர்க்க</string>
-    <string name="deleteLanguage">மொழியை நீக்க</string>
-    <string name="editLanguage">மொழியை சேர்க்க/நீக்க</string>
 
     <string-array name="bloodgroup">
         <item>தேர்ந்தெடுக்கவில்லை</item>
@@ -90,11 +87,7 @@
     <string name="demoTtsSpeech">ஹலோ, நீங்கள் உபயோகிப்பது ஜெல்லோ தகவல் தொடர்பாளர்.</string>
     <string name="savedSettingsMessage">அமைப்புகள் சேமிக்கப்பட்டன</string>
     <string name="languageChanged">மொழி மாற்றப்பட்டது</string>
-    <string name="no_more_lang_2_add">சேர்ப்பதற்கு மொழிகள் எதுவும் இல்லை</string>
-    <string name="no_more_lang_2_del">நீக்குவதற்கு மொழிகள் எதுவும் இல்லை</string>
     <string name="checkConnectivity">நீங்கள் இணையத் தொடர்பில் இல்லை. தயவுகூர்த்து இணையத்தை இயக்கவும்</string>
-    <string name="languageCurrentlyInUse">மொழி தற்போது உபயோகத்தில் உள்ளது</string>
-    <string name="languageRemoved">Lமொழி நீக்கப்பட்டது</string>
 
     <string name="menuProfile">சுயவிவரங்கள்</string>
     <string name="menuMyBoards">எனது பலகைகள்</string>
@@ -213,7 +206,7 @@
     <string name="txt_actLangSel_completestep3">தயவுகூர்ந்து உங்கள் இணையத்தை செயல்படுத்திவிட்டு படி 3 ஐ முடிக்கவும்</string>
     <string name="change_language_line5">படி 2: உங்கள் சாதனத்தில் _ மொழிக்கான குரல் தரவு உள்ளதா எனக் காண்க. இல்லையெனில் தேர்ந்தெடுத்த மொழிக்கான குரல் தரவினை பதிவிறக்கம் செய்க.</string>
     <string name="change_language_line4">படி 3: \'Google Text-to-speech (TTS)\' ஐ முதன்மையாக மாற்றி _ வை முதன்மை மொழியாக மாற்றவும்</string>
-    <string name="txtChangeLanguage">2) முதன்மை மொழியை மாற்று</string>
+    <string name="txtChangeLanguage">முதன்மை மொழியை மாற்று</string>
 
     <string name="txtApplyChanges">படி 4: புதிய மொழியை இயல்பான மொழியாக மாற்ற \'மாற்றங்களை பயன்படுத்தவும்\' வில் சொடுக்கவும்</string>
     <string name="change_language_line6">நீங்கள் கீழுள்ள படிநிலைகளை பின்பற்றி புதிதாக சேர்க்கப்பட்ட மொழியை ஜெல்லோவிற்கான இயல்பு மொழியாக மாற்றலாம் </string>
@@ -236,9 +229,6 @@
     <string name="groupParent">பெற்றோர்/பாதுகாவலர்</string>
     <string name="invalid_usergroup">தயவுகூர்ந்து பயனர் தொகுதியை தேர்ந்தெடுக்கவும்</string>
     <string name="txtEnableBuiltInCalling">ஜெல்லோவிலிருந்து அவரச அழைப்பை அனுமதி</string>
-    <string name="downloadableLang">பதிவிறக்கம் செய்யத்தக்க மொழிகள்</string>
-    <string name="downloadedLang">பதிவிறக்கப்பட்ட மொழிகள்</string>
-    <string name="remove">நீக்கு</string>
     <string name="dismiss">வெளியேற்று</string>
     <string name="register_user">காத்திருக்கவும்,பதிவு நடைபெற்றுக்கொண்டு இருக்கிறது…</string>
     <string name="exit">வெளியேறு</string>
@@ -369,7 +359,6 @@
     <string name="txt_intro8_step3">3"யூஸ் வை-பை ஒன்லி" ஐ அணை</string>
     <string name="change_language_tts_wifi">கூகுள் டிஎஸ்எஸ் இயக்கியின் அமைப்பிற்க்குச் சென்று "யூஸ் வை-பை ஒன்லி" ஐ அணை. ஏற்க்கனவே இது செய்யப்பட்டிருப்பின் இந்த நிலையைக் கைவிடவும்.</string>
     <string name="icon_update_msg">இருக்கும் மொழி (கள்) க்கான சின்னங்களை புதுப்பிக்கிறது:</string>
-    <string name="add_new_language">சேர்க்க / நீக்க ஒரு மொழியைத் தேர்ந்தெடுக்கவும்</string>
     <string name="disable_wifi_only">\"யூஸ் வை-பை ஒன்லி\" ஐ அணைக்க முந்தைய படிநிலையை முடிக்கவும்</string>
     <string name="step3">படிநிலை 3:</string>
     <string name="txt_intro8_txtTitle">கூகுள் டெக்ஸ்ட் டு ஸ்பீச் இயக்கியை அமைக்க கீழ்காணும் படிநிலைகளை முடிக்கவும்</string>

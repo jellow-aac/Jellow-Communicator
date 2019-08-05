@@ -2,7 +2,16 @@ package com.dsource.idc.jellowintl.factories;
 
 import android.content.Context;
 
+import com.dsource.idc.jellowintl.utility.PackageRemoverAsync;
 import com.dsource.idc.jellowintl.utility.SessionManager;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.dsource.idc.jellowintl.UserRegistrationActivity.UNIVERSAL_PACKAGE;
+import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
+import static com.dsource.idc.jellowintl.utility.SessionManager.LangValueMap;
 
 public class LanguageFactory {
 
@@ -57,5 +66,22 @@ public class LanguageFactory {
                 language.equals(SessionManager.BE_IN) ||
                 language.equals(SessionManager.BN_IN) ||
                 language.equals(SessionManager.TA_IN);
+    }
+
+    public static void deleteOldLanguagePackagesInBackground(Context context){
+        new PackageRemoverAsync().execute(context);
+    }
+
+    public static String[] getAvailableLanguages(Context context){
+        List<String> lang = new ArrayList<>();
+        for (String language : LangMap.values()) {
+            File file = new File(context.getDir(UNIVERSAL_PACKAGE, Context.MODE_PRIVATE)
+                    .getAbsolutePath()+"/"+language+".json");
+            if (file.exists() && file.isFile()) {
+                lang.add(LangValueMap.get(language));
+            }
+        }
+
+        return lang.toArray(new String[lang.size()]);
     }
 }

@@ -26,9 +26,6 @@
     <string name="Language">Idioma</string>
     <string name="ChangeLanguage">Cambiar Idioma</string>
     <string name="saveLanguage">Guardar cambios</string>
-    <string name="addLanguage">Añadir idioma</string>
-    <string name="deleteLanguage">Eliminar idioma</string>
-    <string name="editLanguage">1) Añadir/Eliminar idioma(s)</string>
 
     <string-array name="bloodgroup">
         <item>No seleccionado</item>
@@ -91,11 +88,7 @@
     <string name="demoTtsSpeech">¡Hola! Estás utilizando Jellow Communicator.</string>
     <string name="savedSettingsMessage">Ajustes guardados</string>
     <string name="languageChanged">Idioma cambiado</string>
-    <string name="no_more_lang_2_add">No más idiomas para añadir</string>
-    <string name="no_more_lang_2_del">No más idiomas para eliminar</string>
     <string name="checkConnectivity">Sin conexión a Internet. Por favor, active la conexión a Internet</string>
-    <string name="languageCurrentlyInUse">Idioma activo</string>
-    <string name="languageRemoved">Idioma eliminado</string>
 
     <string name="menuProfile">Perfil</string>
     <string name="menuMyBoards">Mis pizarras</string>
@@ -211,7 +204,7 @@
     <string name="txt_actLangSel_completestep3">Por favor, enciende Internet y completa el 3º paso</string>
     <string name="change_language_line5">2º paso: Comprueba si los datos de voz para _ están disponibles en tu dispositivo. Si no, por favor, descarga los datos de voz para el idioma seleccionado.</string>
     <string name="change_language_line4">3º paso: Selecciona como predeterminado el Texto a voz de Google y establece _ como el idioma predeterminado.</string>
-    <string name="txtChangeLanguage">2) Cambiar idioma predeterminado:</string>
+    <string name="txtChangeLanguage">Cambiar idioma predeterminado:</string>
     <string name="txtApplyChanges">4º paso: Haz clic en "Guardar cambios" para establecer el nuevo idioma predeterminado.</string>
     <string name="change_language_line6">Puedes seguir los siguientes pasos para establecer un idioma recientemente añadido como predeterminado para Jellow</string>
     <string name="txt_set_tts_setup">Por favor, completa la configuración del Texto a voz en esta página</string>
@@ -233,9 +226,6 @@
     <string name="groupParent">Padre/Cuidador</string>
     <string name="invalid_usergroup">Por favor, elige grupo de usuario</string>
     <string name="txtEnableBuiltInCalling">Activar llamadas de emergencia por Jellow</string>
-    <string name="downloadableLang">Idiomas disponibles</string>
-    <string name="downloadedLang">Idiomas descargados</string>
-    <string name="remove">Eliminar</string>
     <string name="dismiss">Descartar</string>
     <string name="register_user">Espera por favor, registro en proceso…</string>
     <string name="exit">Salir</string>
@@ -366,7 +356,6 @@
     <string name="txt_intro8_step3">3. Apaga "Solo Wi-Fi"</string>
     <string name="change_language_tts_wifi">Ve a Ajustes de Texto a voz de Google y apaga "Solo Wi-Fi". Si esta opción ya está desactivada, salta este paso"</string>
     <string name="icon_update_msg">Actualizando iconos para los idiomas actuales.</string>
-    <string name="add_new_language">Selecciona un idioma para añadir/eliminar</string>
     <string name="disable_wifi_only">Complete el paso anterior para apagar la opción "Solo Wi-Fi"</string>
     <string name="step3">3º paso:</string>
     <string name="txt_intro8_txtTitle">Sigue los pasos que se enumeran a continuación para configurar Texto a voz</string>

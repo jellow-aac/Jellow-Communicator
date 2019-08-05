@@ -23,14 +23,6 @@
             android:layout_marginRight="@dimen/lang_sel_parent_margin_right"
             android:layout_marginEnd="@dimen/lang_sel_parent_margin_right">
             <TextView
-                android:id="@+id/txt_title_editLang"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/editLanguage"
-                android:layout_marginBottom="@dimen/lang_sel_tv_margin_bottom"
-                style="@style/defaultTextViewStyle"
-                android:fontFamily="@font/mukta_semibold"/>
-            <TextView
                 android:id="@+id/tv7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -80,39 +72,6 @@
                 android:paddingRight="@dimen/lang_sel_btn_padding_horizontal"
                 android:text="@string/txt_tts_stting"
                 android:onClick="openSpeechSetting"/>
-            <TextView
-                android:id="@+id/tv3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLines="5"
-                android:layout_marginBottom="@dimen/lang_sel_tv_margin_bottom"
-                android:text="@string/add_new_language"
-                style="@style/defaultTextViewStyle"/>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/lang_sel_ll_margin_top">
-                <Button
-                    android:id="@+id/addBut"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/lang_sel_btn_height"
-                    android:textSize="@dimen/lang_sel_btn_txt_size"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginRight="@dimen/lang_sel_btn_margin_right"
-                    android:layout_marginEnd="@dimen/lang_sel_btn_margin_right"
-                    android:paddingLeft="@dimen/lang_sel_btn_padding_horizontal"
-                    android:paddingRight="@dimen/lang_sel_btn_padding_horizontal"
-                    android:text="@string/addLanguage"/>
-                <Button
-                    android:id="@+id/delBut"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/lang_sel_btn_height"
-                    android:textSize="@dimen/lang_sel_btn_txt_size"
-                    android:layout_gravity="center_vertical"
-                    android:paddingLeft="@dimen/lang_sel_btn_padding_horizontal"
-                    android:paddingRight="@dimen/lang_sel_btn_padding_horizontal"
-                    android:text="@string/deleteLanguage" />
-            </LinearLayout>
             <TextView
                 android:id="@+id/txt_title_chgLang"
                 android:layout_width="match_parent"

@@ -25,10 +25,6 @@
     <string name="Language">ভাষা</string>
     <string name="ChangeLanguage">ভাষা বদলাও</string>
     <string name="saveLanguage">বদলগুলি প্রয়োগ করো</string>
-    <string name="addLanguage">ভাষা যুক্ত করো</string>
-    <string name="deleteLanguage">ভাষা মুছে দাও</string>
-    <string name="editLanguage">১) ভাষা যুক্ত করো/মুছে দাওঃ</string>
-
     <string-array name="bloodgroup">
         <item>নির্বাচিত হয়নি</item>
         <item>এ+</item>
@@ -89,11 +85,7 @@
     <string name="demoTtsSpeech">নমস্কার! তুমি জেলো কমিউনিকেটর ব্যবহার করছ।</string>
     <string name="savedSettingsMessage">সেটিংস সেভ করা হল</string>
     <string name="languageChanged">ভাষা সেভ করা হল</string>
-    <string name="no_more_lang_2_add">যোগ করার জন্য আর কোনো ভাষা নেই</string>
-    <string name="no_more_lang_2_del">আর কোন ভাষা মুছে ফেলা হয় না</string>
     <string name="checkConnectivity">দয়া করে ইন্টারনেট সংযোগ যাচাই করো</string>
-    <string name="languageCurrentlyInUse">ভাষা বর্তমানে ব্যবহার করা হচ্ছে</string>
-    <string name="languageRemoved">ভাষা মুছে ফেলা হয়েছে</string>
 
     <string name="menuProfile">প্রোফাইল</string>
     <string name="menuMyBoards">আমার বোর্ড</string>
@@ -209,7 +201,7 @@
     <string name="txt_actLangSel_completestep3">দয়া করে ইন্টারনেট চালু করুন এবং তৃতীয় ধাপ সম্পূর্ণ করুন।</string>
     <string name="change_language_line5">দ্বিতীয় ধাপঃ যাচাই করে দেখুন _-র জন্য ভয়েস ডেটা আপনার যন্ত্রে মজুত আছে কি না। ইন্টারনেটে তীর্থযাত্রী চালু করুন এবং নির্বাচিত ভাষাতে ভয়েস ডেটা ডাউনলোড করুন। প্রক্রিয়াটি স্থগিত হলে দয়া করে আপনার ইন্টারনেট সংযোগ চেক করুন এবং পুনরায় চেষ্টা করুন।</string>
     <string name="change_language_line4">তৃতীয় ধাপঃ \'গুগল টেক্সট-টু-স্পীচ ইঞ্জিনের\'-কে টেক্সট-টু-স্পীচ ইঞ্জিনের হিসেবে নির্বাচন করুন এবং ইঞ্জিনের ডিফল্ট ভাষা হিসাবে _ সেট করুন</string>
-    <string name="txtChangeLanguage">২) মূল ভাষা বদল করুনঃ</string>
+    <string name="txtChangeLanguage">মূল ভাষা বদল করুনঃ</string>
     <string name="txtApplyChanges">চতুর্থ ধাপঃ নতুন ভাষাকে মূল ভাষা হিসেবে প্রয়োগ করতে \'বদলগুলি প্রয়োগ করুন\' বাটনটি ক্লিক করুন।</string>
     <string name="change_language_line6">নতুন যুক্ত হওয়া ভাষা মূল ভাষা হিসেবে প্রয়োগ করতে আপনি নিম্নলিখিত ধাপগুলি অনুসরণ করতে পারেন।</string>
     <string name="txt_set_tts_setup">দয়া করে টেক্সট-টু-স্পীচ ইঞ্জিনের সেট আপ, যা আগের পাতায় দেওয়া রয়েছে, তা সমাপ্ত করুন।</string>
@@ -231,9 +223,6 @@
     <string name="groupParent">অভিভাবক/ কেয়ারগিভার</string>
     <string name="invalid_usergroup">ব্যবহারকারী গোষ্ঠীকে নির্বাচন করুন</string>
     <string name="txtEnableBuiltInCalling">জেলো থেকে জরুরি অবস্থায় কল গ্রহণ সক্রিয় করুন</string>
-    <string name="downloadableLang">ডাউনলোড উপযোগী ভাষা</string>
-    <string name="downloadedLang">ডাউনলোড করা ভাষা</string>
-    <string name="remove">অপসারণ করুন</string>
     <string name="dismiss">বাদ দিন</string>
     <string name="register_user">রেজিস্ট্রেশন চলাকালীন দয়া করে অপেক্ষা করুন…</string>
     <string name="exit">প্রস্থান</string>
@@ -369,7 +358,6 @@
     <string name="txt_intro8_step3">৩. \"কেবল ওয়াই-ফাই ব্যবহার করো\" বন্ধ করো</string>
     <string name="change_language_tts_wifi">গুগলের টিটিএসের সেটংস-এ গিয়ে \' টিটিএস সেটিংস \' বোতামটি স্পর্শ করে \' শুধু ওয়াই-ফাই \' অপশনটি চালু করুন। যদি অপশনটি ইতিমধ্যে নিস্ক্রিয় থাকে, তাহলে এই পর্যায়টি এড়িয়ে যান।</string>
     <string name="icon_update_msg">বর্তমান ভাষার আইকনগুলির সংযোজন:</string>
-    <string name="add_new_language">যোগ / মুছতে একটি ভাষা নির্বাচন করুন</string>
     <string name="disable_wifi_only">গুগল টেক্সট-টু-স্পীচ- এর সেটিংস-এ যাও এবং \'কেবল ওয়াই-ফাই ব্যবহার করো\' বন্ধ করো।</string>
     <string name="step3">তৃতীয় ধাপঃ</string>
     <string name="txt_intro8_txtTitle">নীচের পদক্ষেপগুলি সম্পন্ন করুনঃ</string>

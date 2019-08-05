@@ -27,9 +27,6 @@
     <string name="Update">Update Language Pack</string>
     <string name="ChangeLanguage">Change Language</string>
     <string name="saveLanguage">Apply Changes</string>
-    <string name="addLanguage">Add Language</string>
-    <string name="deleteLanguage">Delete Language</string>
-    <string name="editLanguage">1) Add/delete Language(s)</string>
 
     <string-array name="bloodgroup">
         <item>not selected</item>
@@ -102,11 +99,7 @@
     <string name="demoTtsSpeech">Hello! you are using Jellow Communicator.</string>
     <string name="savedSettingsMessage">Settings saved.</string>
     <string name="languageChanged">Language Changed</string>
-    <string name="no_more_lang_2_add">No more languages to add</string>
-    <string name="no_more_lang_2_del">No more languages to delete</string>
     <string name="checkConnectivity">You are not connected to the Internet. Please turn on your Internet.</string>
-    <string name="languageCurrentlyInUse">Language is currently in use</string>
-    <string name="languageRemoved">Language removed</string>
 
     <string name="menuProfile">Profile</string>
     <string name="menuMyBoards">My Boards</string>
@@ -148,8 +141,6 @@
     <string name="downloadVoiceTts">3.Download voice in preferred language</string>
     <string name="activate">ACTIVATE</string>
     <string name="changeLanguage" translatable="false">Change Language</string>
-    <string name="download">DOWNLOAD</string>
-    <string name="cancel">CANCEL</string>
     <string name="keyboardControl">Keyboard Control:</string>
     <string name="serial_keyboard_title">Serial Keyboard:</string>
     <string name="serial_keyboard_info">Jellow communicator is equipped with its own \'Serial Jellow keyboard\'. This keyboard was designed based on feedback from special educators and teachers and features alphabets placed in a serial manner starting form the alphabet \'A\'. The serial keyboard makes it easy for the user to anticipate the place of a particular alphabet on the keyboard and is especially very useful for children learning early literacy skills. Similarly, the keyboard also features numeral keys from 0–9 and symbols, which are most relevant to every day communication.</string>
@@ -256,7 +247,7 @@
     <string name="txt_actLangSel_completestep3">Please turn on internet and complete Step 3</string>
     <string name="change_language_line5">Step 2: Check if voice data for _ is available on your device. If not please turn on internet and download voice data for selected language. In case process is stalled please check your internet connection and retry</string>
     <string name="change_language_line4">Step 3: Set \'Google Text-to-speech (TTS)\' as default TTS engine and set _ as default language of the engine.</string>
-    <string name="txtChangeLanguage">2) Change Default Language:</string>
+    <string name="txtChangeLanguage">Change Default Language:</string>
     <string name="txtApplyChanges">Step 4: Click \'Apply changes\' to set new language as default</string>
     <string name="change_language_line6">You can follow the steps listed below to set a newly added language as the default for Jellow</string>
     <string name="txt_set_tts_setup">Please complete Text-to-Speech engine setup given in this page</string>
@@ -280,9 +271,6 @@
     <string name="groupTeacherOnly" translatable="false">Therapist</string>
     <string name="invalid_usergroup">Please choose user group.</string>
     <string name="txtEnableBuiltInCalling">Enable emergency calling from Jellow</string>
-    <string name="downloadableLang">Downloadable Languages</string>
-    <string name="downloadedLang">Downloaded Languages</string>
-    <string name="remove">Remove</string>
     <string name="dismiss">Dismiss</string>
     <string name="mukta_regular" translatable="false">Mukta-Regular.ttf</string>
     <string name="register_user">Please wait registration is in process…</string>
@@ -436,7 +424,6 @@
     <string name="txt_intro8_step3">3. Turn off \"Use Wi-Fi only\"</string>
     <string name="change_language_tts_wifi">Go to settings of Google TTS and turn off \'Use Wi-Fi only\' by tapping below \'TTS SETTINGS\' button. If option is already disabled, please skip this step.</string>
     <string name="icon_update_msg">Updating icons for existing language(s):</string>
-    <string name="add_new_language">Select a language to add/delete</string>
     <string name="disable_wifi_only">Please complete above process to turn off \'Use Wi-Fi only\' option</string>
     <string name="step3">Step 3:</string>
     <string name="txt_intro8_txtTitle">Please follow the steps below to setup Text-to-speech engine</string>
@@ -522,18 +509,5 @@
     <string name="switch_access_info_three">Samsung users can find the switch access in  “dexterity and interaction” option in the accessibility category in the phone setting.</string>
     <string name="switch_access_info_four">To use switch accessibility with one switch - Open settings -> Go to accessibility -> Turn on the switch access -> Choose switches either USB or Bluetooth switches -> Go to settings and Choose number of switches as one switch.</string>
     <string name="switch_access_info_five">To use switch accessibility with two switches - Open settings -> Go to accessibility -> Turn on the switch access -> Choose switches either USB or Bluetooth switches -> Go to settings and Choose number of switches as two switches, then Choose the type of scanning, Click on next and Assign the action to both the switches and complete the process by testing the switches.</string>
-  
-  <!--Language package update strings are here-->
-    <string name="lpu">Language Pack Update</string>
-    <string name="lpu_start_update">Starting Update &#8230;</string>
-    <string name="lpu_parse_update">Parsing Download data &#8230;</string>
-    <string name="lpu_download_icons">Downloading Icons &#8230;</string>
-    <string name="lpu_update_icon_data">Updating Icon Data &#8230;</string>
-    <string name="lpu_update_success">Language pack successfully updated!!</string>
-    <string name="lpu_toast_update_success">Update Success!!</string>
-    <string name="lpu_toast_check_success">Update Check Success!!</string>
-    <string name="lpu_no_updates_found">No updates found!!</string>
-    <string name="lpu_update_error">Error completing update!! Please try again.</string>
-    <string name="lpu_toast_check_error">Update Failed!!</string>
-    <string name="lpu_connectivity_error">Please Check Your Internet Connection!!</string>
+
 </resources>

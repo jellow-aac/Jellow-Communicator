@@ -1,17 +1,12 @@
 package com.dsource.idc.jellowintl;
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
-import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
@@ -23,19 +18,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.res.ResourcesCompat;
-
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.crashlytics.android.Crashlytics;
-import com.dsource.idc.jellowintl.utility.SessionManager;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.dsource.idc.jellowintl.factories.LanguageFactory;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.dsource.idc.jellowintl.UserRegistrationActivity.LCODE;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
@@ -46,20 +32,15 @@ import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BE_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
-import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
-import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangValueMap;
 import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
 
 public class LanguageSelectTalkBackActivity extends SpeechEngineBaseActivity {
-
-    public static final String FINISH = "finish";
-    String[] offlineLanguages;
-    String[] onlineLanguages;
+    String[] availableLanguges;
     Spinner languageSelect;
     String selectedLanguage;
-    Button save,add,delete, changeTtsLang;
+    Button save, changeTtsLang;
     ArrayAdapter<String> adapter_lan;
     private int mSelectedItem = -1;
 
@@ -69,6 +50,7 @@ public class LanguageSelectTalkBackActivity extends SpeechEngineBaseActivity {
         setContentView(R.layout.activity_language_select_accessible);
         enableNavigationBack();
         setActivityTitle("Language");
+        LanguageFactory.deleteOldLanguagePackagesInBackground(this);
 
         setImageUsingGlide(R.drawable.tts_wifi_1, ((ImageView)findViewById(R.id.ivAddLang1)));
         setImageUsingGlide(R.drawable.tts_wifi_2, ((ImageView)findViewById(R.id.ivAddLang2)));
@@ -88,19 +70,18 @@ public class LanguageSelectTalkBackActivity extends SpeechEngineBaseActivity {
             setImageUsingGlide(R.drawable.arrow, ((ImageView)findViewById(R.id.ivArrow4)));
         }
 
-        offlineLanguages = getOfflineLanguages();
-        onlineLanguages = getOnlineLanguages();
+        availableLanguges = LanguageFactory.getAvailableLanguages(this);
         languageSelect = findViewById(R.id.selectDownloadedLanguageSpinner);
 
         adapter_lan = new ArrayAdapter<String>(this,
-                R.layout.simple_spinner_item, populateCountryNameByUserType(offlineLanguages));
+                R.layout.simple_spinner_item, populateCountryNameByUserType(availableLanguges));
         adapter_lan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         languageSelect.setAdapter(adapter_lan);
         languageSelect.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedLanguage = offlineLanguages[i];
+                selectedLanguage = availableLanguges[i];
                 mSelectedItem = i;
                 if(selectedLanguage.equals(LangValueMap.get(MR_IN))) {
                     hideViewsForNonTtsLang(true);
@@ -175,191 +156,6 @@ public class LanguageSelectTalkBackActivity extends SpeechEngineBaseActivity {
                 }
             }
         });
-
-        add = findViewById(R.id.addBut);
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Crashlytics.log("LanguageSelect Add");
-                if(!getSession().isWifiOnlyBtnPressedOnce()){
-                    Toast.makeText(LanguageSelectTalkBackActivity.this,
-                            "Please complete previous step to turn off \'Use Wi-Fi only\' option",
-                            Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                try {
-                    if (onlineLanguages.length == 0) {
-                        Toast.makeText(LanguageSelectTalkBackActivity.this, "No more languages to add",
-                                Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    delete.setEnabled(false);
-                    SpannableString spannedDlStr = new SpannableString("Downloadable Languages");
-                    spannedDlStr.setSpan(new StyleSpan(Typeface.BOLD),0, spannedDlStr.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    SpannableString spannedCnlStr = new SpannableString("CANCEL");
-                    spannedCnlStr.setSpan(new StyleSpan(Typeface.BOLD),0, spannedCnlStr.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    MaterialAlertDialogBuilder builder =
-                            new MaterialAlertDialogBuilder(LanguageSelectTalkBackActivity.this);
-                    AlertDialog addLangDialog = builder
-                            .setTitle(spannedDlStr)
-                            .setSingleChoiceItems(populateCountryNameByUserType(onlineLanguages), 0, new DialogInterface.OnClickListener(){
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    delete.setEnabled(true);
-                                    if (LangMap.get(onlineLanguages[which]).equals(MR_IN)){
-                                        if (isConnectedToNetwork((ConnectivityManager) LanguageSelectTalkBackActivity.this.
-                                                getSystemService(Context.CONNECTIVITY_SERVICE))) {
-                                            Bundle bundle = new Bundle();
-                                            bundle.putString(LCODE, MR_IN);
-                                            bundle.putBoolean(FINISH, false);
-                                            //To start TTS voice package download automatically.
-                                            setSpeechEngineLanguage(onlineLanguages[which]);
-                                            //To switch TTS voice package back.
-                                            setSpeechEngineLanguage(getSession().getLanguage());
-                                            // Send empty string to TTS Engine to eliminate voice
-                                            // lag after user goes back without changing the language.
-                                            speak("");
-                                            startActivity(new Intent(getBaseContext(), LanguageDownloadActivity.class).putExtras(bundle));
-                                            dialog.dismiss();
-                                        } else {
-                                            Toast.makeText(LanguageSelectTalkBackActivity.this,
-                                            "You are not connected to the Internet. Please turn on " +
-                                                    "your Internet.", Toast.LENGTH_SHORT).show();
-                                        }
-                                        return;
-                                    }
-                                    //To start TTS voice package download automatically.
-                                    setSpeechEngineLanguage(LangMap.get(onlineLanguages[which]));
-                                    getSession().setDownloaded(LangMap.get(onlineLanguages[which]));
-                                    String lang = LangValueMap.get(LangMap.get(onlineLanguages[which]));
-                                    String message = getString(R.string.language_downloaded).
-                                            replace("_", lang);
-                                    Toast.makeText(LanguageSelectTalkBackActivity.this, message,
-                                            Toast.LENGTH_SHORT).show();
-                                    onlineLanguages = getOnlineLanguages();
-                                    offlineLanguages = getOfflineLanguages();
-                                    adapter_lan = new ArrayAdapter<String>(LanguageSelectTalkBackActivity.this,
-                                            R.layout.simple_spinner_item, populateCountryNameByUserType(offlineLanguages));
-                                    adapter_lan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                    languageSelect.setAdapter(adapter_lan);
-                                    //To switch TTS voice package back.
-                                    setSpeechEngineLanguage(getSession().getLanguage());
-                                    // Send empty string to TTS Engine to eliminate voice
-                                    // lag after user goes back without changing the language.
-                                    speak("");
-                                    dialog.dismiss();
-                                }
-                            })
-                            .setNegativeButton(spannedCnlStr, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    delete.setEnabled(true);
-                                }
-                            })
-                            .setOnCancelListener(new DialogInterface.OnCancelListener() {
-                                @Override
-                                public void onCancel(DialogInterface dialog) {
-                                    delete.setEnabled(true);
-                                }
-                            })
-                            .create();
-                    addLangDialog.show();
-                    customizeLanguageDialog(addLangDialog);
-                } catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        delete = findViewById(R.id.delBut);
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Crashlytics.log("LanguageSelect Delete");
-                try {
-                    if (offlineLanguages.length == 1) {
-                        Toast.makeText(LanguageSelectTalkBackActivity.this, "No more languages to delete",
-                                Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    add.setEnabled(false);
-                    SpannableString spannedDlStr = new SpannableString("Downloaded Languages");
-                    spannedDlStr.setSpan(new StyleSpan(Typeface.BOLD),0, spannedDlStr.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    SpannableString spannedCnlStr = new SpannableString("CANCEL");
-                    spannedCnlStr.setSpan(new StyleSpan(Typeface.BOLD),0, spannedCnlStr.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(LanguageSelectTalkBackActivity.this);
-                    AlertDialog delLangDialog = builder
-                        .setTitle(spannedDlStr)
-                        .setSingleChoiceItems(populateCountryNameByUserType(removeCurrentLangFromList(offlineLanguages))
-                                , 0, new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        add.setEnabled(true);
-                                        String locale = LangMap.get(offlineLanguages[which]);
-                                        if (getSession().getLanguage().equals(locale)) {
-                                            Toast.makeText(LanguageSelectTalkBackActivity.this,
-                                                    "Language is currently in use", Toast.LENGTH_SHORT).show();
-                                            dialog.dismiss();
-                                            return ;
-                                        }
-                                        if(LangMap.get(offlineLanguages[which]).equals(MR_IN)){
-                                            File file = getBaseContext().getDir(MR_IN, Context.MODE_PRIVATE);
-                                            if (file.exists()) {
-                                                deleteRecursive(file);
-                                            }
-                                            file.delete();
-                                        }
-                                        if (getSession().getLanguage().equals(locale)) {
-                                            Toast.makeText(LanguageSelectTalkBackActivity.this,
-                                                    "Language is currently in use", Toast.LENGTH_SHORT).show();
-                                            dialog.dismiss();
-                                            return ;
-                                        }
-                                        getSession().setRemoved(locale);
-                                        onlineLanguages = getOnlineLanguages();
-                                        offlineLanguages = getOfflineLanguages();
-                                        adapter_lan = new ArrayAdapter<String>(getBaseContext(),
-                                                R.layout.simple_spinner_item, populateCountryNameByUserType(offlineLanguages));
-                                        adapter_lan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                        languageSelect.setAdapter(adapter_lan);
-                                        dialog.dismiss();
-                                        Toast.makeText(LanguageSelectTalkBackActivity.this,
-                                                "Language removed", Toast.LENGTH_SHORT).show();
-                                    }
-                                })
-                        .setNegativeButton(spannedCnlStr, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                add.setEnabled(true);
-                            }
-                        })
-                        .setOnCancelListener(new DialogInterface.OnCancelListener() {
-                            @Override
-                            public void onCancel(DialogInterface dialog) {
-                                add.setEnabled(true);
-                            }
-                        })
-                        .create();
-                    delLangDialog.show();
-                    customizeLanguageDialog(delLangDialog);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    private void customizeLanguageDialog(AlertDialog dialog) {
-        Button btnPos = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-        Typeface tf = ResourcesCompat.getFont
-                (LanguageSelectTalkBackActivity.this, R.font.mukta_semibold);
-        btnPos.setTypeface(tf);
-        btnPos.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-        //TODO Add this part of code to mobile only device
-        /*Rect displayRectangle = new Rect();
-        Window window = dialog.getWindow();
-        window.getDecorView().getWindowVisibleDisplayFrame(displayRectangle);   */
     }
 
     private void hideViewsForNonTtsLang(boolean disableViews) {
@@ -460,91 +256,6 @@ public class LanguageSelectTalkBackActivity extends SpeechEngineBaseActivity {
         getSession().setWifiOnlyBtnPressedOnce(true);
     }
 
-    private void deleteRecursive(File fileObj) {
-        if (fileObj.isDirectory())
-            for (File child : fileObj.listFiles())
-                deleteRecursive(child);
-
-        fileObj.delete();
-    }
-
-    private String[] getOfflineLanguages()
-    {
-        List<String> lang = new ArrayList<>();
-
-        String current = getSession().getLanguage();
-        if( getSession().isDownloaded(ENG_IN) &&
-                !current.equals(ENG_IN))
-            lang.add(LangValueMap.get(ENG_IN));
-
-        if( getSession().isDownloaded(SessionManager.ENG_US) &&
-                !current.equals(SessionManager.ENG_US))
-            lang.add(LangValueMap.get(SessionManager.ENG_US));
-
-        if( getSession().isDownloaded(SessionManager.ENG_UK) &&
-                !current.equals(SessionManager.ENG_UK))
-            lang.add(LangValueMap.get(SessionManager.ENG_UK));
-
-        if( getSession().isDownloaded(SessionManager.ENG_AU) &&
-                !current.equals(SessionManager.ENG_AU))
-            lang.add(LangValueMap.get(SessionManager.ENG_AU));
-
-        if( getSession().isDownloaded(HI_IN) &&
-                !current.equals(HI_IN))
-            lang.add(LangValueMap.get(HI_IN));
-
-        if(( getSession().isDownloaded(SessionManager.BN_IN) &&
-                !current.equals(SessionManager.BN_IN)))
-            lang.add(LangValueMap.get(SessionManager.BN_IN));
-
-        if( getSession().isDownloaded(SessionManager.MR_IN) &&
-                !current.equals(SessionManager.MR_IN))
-            lang.add(LangValueMap.get(SessionManager.MR_IN));
-
-        if( getSession().isDownloaded(SessionManager.ES_ES)  &&
-                !current.equals(SessionManager.ES_ES))
-            lang.add(LangValueMap.get(SessionManager.ES_ES));
-
-        if( getSession().isDownloaded(SessionManager.TA_IN)  &&
-                !current.equals(SessionManager.TA_IN))
-            lang.add(LangValueMap.get(SessionManager.TA_IN));
-
-        if( getSession().isDownloaded(SessionManager.DE_DE)  &&
-                !current.equals(SessionManager.DE_DE))
-            lang.add(LangValueMap.get(SessionManager.DE_DE));
-
-
-        lang.add(LangValueMap.get(current));
-
-        return lang.toArray(new String[lang.size()]);
-    }
-
-    private String[] getOnlineLanguages()
-    {
-        List<String> lang = new ArrayList<>();
-        if( !getSession().isDownloaded(ENG_IN))
-            lang.add(LangValueMap.get(ENG_IN));
-        if( !getSession().isDownloaded(SessionManager.ENG_US))
-            lang.add(LangValueMap.get(SessionManager.ENG_US));
-        if( !getSession().isDownloaded(SessionManager.ENG_UK))
-            lang.add(LangValueMap.get(SessionManager.ENG_UK));
-        if( !getSession().isDownloaded(SessionManager.ENG_AU))
-            lang.add(LangValueMap.get(SessionManager.ENG_AU));
-        if( !getSession().isDownloaded(HI_IN))
-            lang.add(LangValueMap.get(HI_IN));
-        if( !getSession().isDownloaded(SessionManager.BN_IN))
-            lang.add(LangValueMap.get(SessionManager.BN_IN));
-        if( !getSession().isDownloaded(SessionManager.MR_IN))
-            lang.add(LangValueMap.get(SessionManager.MR_IN));
-        if( !getSession().isDownloaded(SessionManager.ES_ES))
-            lang.add(LangValueMap.get(SessionManager.ES_ES));
-        if( !getSession().isDownloaded(SessionManager.TA_IN))
-            lang.add(LangValueMap.get(SessionManager.TA_IN));
-        if( !getSession().isDownloaded(SessionManager.DE_DE))
-            lang.add(LangValueMap.get(SessionManager.DE_DE));
-        return lang.toArray(new String[lang.size()]);
-    }
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -566,10 +277,9 @@ public class LanguageSelectTalkBackActivity extends SpeechEngineBaseActivity {
             resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
         }
         startMeasuring();
-        onlineLanguages = getOnlineLanguages();
-        offlineLanguages = getOfflineLanguages();
+        availableLanguges = LanguageFactory.getAvailableLanguages(this);
         adapter_lan = new ArrayAdapter<String>(this,
-                R.layout.simple_spinner_item, populateCountryNameByUserType(offlineLanguages));
+                R.layout.simple_spinner_item, populateCountryNameByUserType(availableLanguges));
         adapter_lan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         languageSelect.setAdapter(adapter_lan);
         if(mSelectedItem != -1)
@@ -689,16 +399,5 @@ public class LanguageSelectTalkBackActivity extends SpeechEngineBaseActivity {
             }
         }
         return shortenLanguageNames;
-    }
-
-    private String[] removeCurrentLangFromList(String[] currentList) {
-        String[] filteredList = new String[currentList.length-1];
-        int j=-1;
-        for (int i = 0; i < currentList.length; i++) {
-            if (currentList[i].equals(LangValueMap.get(getSession().getLanguage()))) {
-            }else
-                filteredList[++j] = currentList[i];
-        }
-        return filteredList;
     }
 }
