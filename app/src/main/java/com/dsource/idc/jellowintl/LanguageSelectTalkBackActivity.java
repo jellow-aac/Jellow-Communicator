@@ -22,6 +22,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.factories.LanguageFactory;
 
+import static com.dsource.idc.jellowintl.LanguageDownloadActivity.CLOSE;
+import static com.dsource.idc.jellowintl.UserRegistrationActivity.LCODE;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
@@ -115,6 +117,14 @@ public class LanguageSelectTalkBackActivity extends SpeechEngineBaseActivity {
             @Override
             public void onClick(View v) {
                 Crashlytics.log("LanguageSelect Apply");
+
+                if(selectedLanguage.equals(LangValueMap.get(MR_IN)) && !LanguageFactory.isMarathiPackageAvailable
+                        (LanguageSelectTalkBackActivity.this)){
+                    startActivity(new Intent(LanguageSelectTalkBackActivity.this,
+                            LanguageDownloadActivity.class)
+                            .putExtra(LCODE, MR_IN).putExtra(CLOSE, true));
+                    return;
+                }
                 /* If the current app language is same as new selected language then
                  *   Show Toast message string 'strDefaultLangEr'*/
                 if(getSession().getLanguage().equals(LangMap.get(selectedLanguage))){
@@ -253,7 +263,6 @@ public class LanguageSelectTalkBackActivity extends SpeechEngineBaseActivity {
 
     public void openSpeechSetting(View view){
         startActivity(new Intent().setAction("com.android.settings.TTS_SETTINGS"));
-        getSession().setWifiOnlyBtnPressedOnce(true);
     }
 
     @Override

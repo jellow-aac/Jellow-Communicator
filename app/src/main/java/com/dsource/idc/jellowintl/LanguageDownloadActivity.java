@@ -10,27 +10,27 @@ import android.widget.Toast;
 import androidx.core.content.ContextCompat;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
-import com.dsource.idc.jellowintl.factories.PathFactory;
+import com.dsource.idc.jellowintl.factories.LanguageFactory;
 import com.dsource.idc.jellowintl.utility.DownloadManager;
-
-import java.io.File;
+import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.LCODE;
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.TUTORIAL;
-import static com.dsource.idc.jellowintl.UserRegistrationActivity.UNIVERSAL_PACKAGE;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangValueMap;
 import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
 
 public class LanguageDownloadActivity extends BaseActivity {
-    public static final String FINISH = "finish";
+    public static final String SPLASH = "SPLASH";
+    public static final String CLOSE = "CLOSE";
     DownloadManager manager;
     RoundCornerProgressBar progressBar;
     String langCode;
     private String mCheckConn;
     Boolean tutorial = false;
     Boolean finish = true;
+    Boolean close = false;
     Boolean isConnected;
     private String strLanguageDownloaded;
     private String strLanguageDownloading;
@@ -46,9 +46,9 @@ public class LanguageDownloadActivity extends BaseActivity {
         try {
 
            langCode =  getIntent().getExtras().getString(LCODE);
-           finish = getIntent().getBooleanExtra(FINISH,true);
+           finish = getIntent().getBooleanExtra(SPLASH,true);
            tutorial = getIntent().getBooleanExtra(TUTORIAL,false);
-
+           close = getIntent().getBooleanExtra(CLOSE,false);
         }catch (Exception e)
         {
             e.printStackTrace();
@@ -84,30 +84,25 @@ public class LanguageDownloadActivity extends BaseActivity {
             public void onComplete() {
                 getSession().setDownloaded(langCode);
                 getSession().setDownloaded(getSession().getLanguage());
-                if(!tutorial) {
-                    getSession().setToastMessage(strLanguageDownloaded);
-                    finish();
-                    return;
-                }
                 Toast.makeText(LanguageDownloadActivity.this, strLanguageDownloaded,
                         Toast.LENGTH_SHORT).show();
-                File file = new File(getBaseContext().getDir(PathFactory.UNIVERSAL_FOLDER,
-                        Context.MODE_PRIVATE).getAbsolutePath()+"/audio");
-                if(!getSession().isAudioPackageDownloaded() && getSession().isDownloaded(MR_IN)
-                        && !file.exists()){
+
+                if(getSession().isDownloaded(MR_IN) && !LanguageFactory.isMarathiPackageAvailable
+                        (LanguageDownloadActivity.this)){
                     progressBar.setProgress(0);
                     progressBar.invalidate();
                     manager.setLanguage(MR_IN);
-                    strLanguageDownloading = strLanguageDownloading.replace(UNIVERSAL_PACKAGE,
+                    strLanguageDownloading = strLanguageDownloading.replace(SessionManager.UNIVERSAL_PACKAGE,
                             LangValueMap.get(MR_IN));
                     Toast.makeText(LanguageDownloadActivity.this, strLanguageDownloading,
                             Toast.LENGTH_SHORT).show();
-                    strLanguageDownloaded = strLanguageDownloaded.replace(UNIVERSAL_PACKAGE,
+                    strLanguageDownloaded = strLanguageDownloaded.replace(SessionManager.UNIVERSAL_PACKAGE,
                             LangValueMap.get(MR_IN));
                     manager.start();
                 }else if(tutorial) {
-                    getSession().setAudioExtraPackage(true);
                     startActivity(new Intent(LanguageDownloadActivity.this, Intro.class));
+                    finish();
+                }else if(close){
                     finish();
                 }else if(finish) {
                     startActivity(new Intent(LanguageDownloadActivity.this,SplashActivity.class));

@@ -21,6 +21,7 @@ import com.bumptech.glide.RequestManager;
 import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_SingleClick;
 import com.dsource.idc.jellowintl.factories.IconFactory;
 import com.dsource.idc.jellowintl.factories.TextFactory;
+import com.dsource.idc.jellowintl.models.GlobalConstants;
 import com.dsource.idc.jellowintl.models.Icon;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
@@ -54,23 +55,22 @@ class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.MyViewHolder> {
 
     @Override
     public PeopleAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        final int GRID_1BY1 = 0, GRID_1BY2 = 1, GRID_1BY3 = 2, GRID_2BY2 = 3;
         View rowView;
-        if(mAct.isNotchDevice() && mSession.getGridSize() == GRID_1BY1) {
+        if(mAct.isNotchDevice() && mSession.getGridSize() == GlobalConstants.GRID_ONE_BY_ONE) {
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_1_icon_notch, parent, false);
-        }else if(!mAct.isNotchDevice() && mSession.getGridSize() == GRID_1BY1){
+        }else if(!mAct.isNotchDevice() && mSession.getGridSize() == GlobalConstants.GRID_ONE_BY_ONE){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_1_icon, parent, false);
-        }else if(mAct.isNotchDevice() && mSession.getGridSize() == GRID_1BY2){
+        }else if(mAct.isNotchDevice() && mSession.getGridSize() == GlobalConstants.GRID_ONE_BY_TWO){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_2_icons_notch, parent, false);
-        }else if(!mAct.isNotchDevice() && mSession.getGridSize() == GRID_1BY2){
+        }else if(!mAct.isNotchDevice() && mSession.getGridSize() == GlobalConstants.GRID_ONE_BY_TWO){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_2_icons, parent, false);
-        }else if(mAct.isNotchDevice() && mSession.getGridSize() == GRID_1BY3){
+        }else if(mAct.isNotchDevice() && mSession.getGridSize() == GlobalConstants.GRID_ONE_BY_THREE){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_3_icons_notch, parent, false);
-        }else if(!mAct.isNotchDevice() && mSession.getGridSize() == GRID_1BY3){
+        }else if(!mAct.isNotchDevice() && mSession.getGridSize() == GlobalConstants.GRID_ONE_BY_THREE){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_3_icons, parent, false);
-        }else if(mAct.isNotchDevice() && mSession.getGridSize() == GRID_2BY2){
+        }else if(mAct.isNotchDevice() && mSession.getGridSize() == GlobalConstants.GRID_TWO_BY_TWO){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_4_icons_notch, parent, false);
-        }else if(!mAct.isNotchDevice() && mSession.getGridSize() == GRID_2BY2){
+        }else if(!mAct.isNotchDevice() && mSession.getGridSize() == GlobalConstants.GRID_TWO_BY_TWO){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_4_icons, parent, false);
         }else if(mAct.isNotchDevice()){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_9_icons_notch, parent, false);
@@ -86,9 +86,7 @@ class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.MyViewHolder> {
         ViewCompat.setAccessibilityDelegate(holder.menuItemLinearLayout,
                 new TalkbackHints_SingleClick());
 
-        final int MODE_PICTURE_ONLY = 1;
-
-        if (mSession.getPictureViewMode() == MODE_PICTURE_ONLY)
+        if (mSession.getPictureViewMode() == GlobalConstants.DISPLAY_PICTURE_ONLY)
             holder.menuItemBelowText.setVisibility(View.INVISIBLE);
         holder.menuItemBelowText.setText(belowTextArray[position]);
 

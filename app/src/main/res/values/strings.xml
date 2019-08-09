@@ -81,7 +81,6 @@
     <string name="shadow_radius" translatable="false">com.dsource.idc.jellow.shadow_radius</string>
     <string name="border_width" translatable="false">com.dsource.idc.jellow.border_width</string>
     <string name="perform_db_update" translatable="false">com.dsource.idc.jellow.perform_db_update</string>
-    <string name="download_marathi_extra_package" translatable="false">com.dsource.idc.jellow.download_audio_marathi_package</string>
 
     <string name="people_pref_count_eng" translatable="false">people_count</string>
     <string name="people_pref_count_hindi" translatable="false">people_count_hindi</string>
@@ -234,7 +233,6 @@
     <string name="last_crash_reported" translatable="false">com.dsource.idc.jellow.last_crash_reported</string>
     <string name="updated_locale_package_from_firebase" translatable="false">com.dsource.idc.jellow.locale_package_updated</string>
     <string name="package_name_comma_separated" translatable="false">com.dsource.idc.jellow.comma_separated_pkg_names</string>
-    <string name="wifi_only_pressed_in_LangSettings" translatable="false">com.dsource.idc.jellow.wifi_only_pressed_in_LangSettings</string>
     <string name="locale_package_update_from_firebase" translatable="false">com.dsource.idc.jellow.update_local_packages</string>
     <string name="txt_registration_jellowCalluDesc">(This is how Jellow calls you)</string>
     <string name="txt_registration_emergencynoDesc">(To be used for correspondence in case of an emergency involving the child.)</string>

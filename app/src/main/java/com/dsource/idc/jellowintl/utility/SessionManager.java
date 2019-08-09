@@ -28,6 +28,7 @@ public class SessionManager {
     //public final static String SP_ES = "sp-rES";    // SP_ES -> Spanish (for some old API devices which return Spanish locale as sp-rES)
     public final static String TA_IN = "ta-rIN";
     public final static String DE_DE = "de-rDE";
+    public static final String UNIVERSAL_PACKAGE = "universal";
 
     public final static HashMap<String,String> LangMap = new HashMap<String,String>(){
         {
@@ -259,7 +260,7 @@ public class SessionManager {
         storePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.enable_calling), enableCalling);
     }
 
-    public boolean getEnableCalling() {
+    public boolean isCallingEnabled() {
         return ((Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.enable_calling)));
     }
 
@@ -295,34 +296,6 @@ public class SessionManager {
 
     public Long getLastCrashReported() {
         return ((Long) retrievePreferenceKeyWithValue(Long.class.toString(), mContext.getString(R.string.last_crash_reported)));
-    }
-
-    public void setPackageUpdate(boolean updateFlag) {
-        storePreferenceKeyWithValue(Boolean.class.toString(),
-                mContext.getString(R.string.locale_package_update_from_firebase), updateFlag);
-    }
-
-    public boolean isPackageUpdateIsSet() {
-        return ((Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(),
-                mContext.getString(R.string.locale_package_update_from_firebase)));
-    }
-
-    public void setWifiOnlyBtnPressedOnce(boolean isPressed) {
-        storePreferenceKeyWithValue(Boolean.class.toString(),
-            mContext.getString(R.string.wifi_only_pressed_in_LangSettings), isPressed);
-    }
-
-    public boolean isWifiOnlyBtnPressedOnce() {
-        return ((Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(),
-                mContext.getString(R.string.wifi_only_pressed_in_LangSettings)));
-    }
-
-    public void setAudioExtraPackage(boolean value) {
-        storePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.download_marathi_extra_package), value);
-    }
-
-    public boolean isAudioPackageDownloaded(){
-        return (Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(), mContext.getString(R.string.download_marathi_extra_package));
     }
 
     /**

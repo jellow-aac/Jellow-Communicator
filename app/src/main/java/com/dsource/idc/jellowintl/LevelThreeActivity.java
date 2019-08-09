@@ -32,20 +32,20 @@ import com.dsource.idc.jellowintl.factories.IconFactory;
 import com.dsource.idc.jellowintl.factories.LanguageFactory;
 import com.dsource.idc.jellowintl.factories.PathFactory;
 import com.dsource.idc.jellowintl.factories.TextFactory;
-import com.dsource.idc.jellowintl.models.CategoryPreference;
 import com.dsource.idc.jellowintl.models.ExpressiveIcon;
+import com.dsource.idc.jellowintl.models.GlobalConstants;
 import com.dsource.idc.jellowintl.models.Icon;
 import com.dsource.idc.jellowintl.models.MiscellaneousIcon;
 import com.dsource.idc.jellowintl.utility.CustomGridLayoutManager;
 import com.dsource.idc.jellowintl.utility.DialogKeyboardUtterance;
 import com.dsource.idc.jellowintl.utility.IndexSorter;
+import com.dsource.idc.jellowintl.utility.LevelUiUtils;
 import com.dsource.idc.jellowintl.utility.UserEventCollector;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import static com.dsource.idc.jellowintl.factories.IconFactory.getIconCode;
-import static com.dsource.idc.jellowintl.factories.LanguageFactory.isIndianLanguage;
 import static com.dsource.idc.jellowintl.utility.Analytics.bundleEvent;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
@@ -55,16 +55,16 @@ import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 
 public class LevelThreeActivity extends LevelBaseActivity{
-    private final boolean DISABLE_EXPR_BTNS = true;
 
     /* This flags are used to identify respective expressive button is pressed either
       once or twice. eg. mFlgLike used to identify Like expressive button pressed once or twice.*/
-    private int mFlgLike = 0, mFlgYes = 0, mFlgMore = 0, mFlgDntLike = 0, mFlgNo = 0,
-            mFlgLess = 0;
+    private int mFlgLike = GlobalConstants.SHORT_SPEECH, mFlgYes = GlobalConstants.SHORT_SPEECH,
+            mFlgMore = GlobalConstants.SHORT_SPEECH, mFlgDntLike = GlobalConstants.SHORT_SPEECH,
+            mFlgNo = GlobalConstants.SHORT_SPEECH, mFlgLess = GlobalConstants.SHORT_SPEECH;
     /* This flag identifies which expressive button is pressed.*/
-    private int mFlgImage = -1;
+    private int mFlgImage = GlobalConstants.NO_EXPR;
     /* This flag indicates keyboard is open or not, 0 indicates is not open.*/
-    private int mFlgKeyboard = 0;
+    private boolean mKeyState = GlobalConstants.KEY_CLOSE;
     /* This flag identifies that user is pressed a category icon and which border should appear
       on pressed category icon. If flag value = 0, then brown (initial border) will appear.*/
     private int mActionBtnClickCount;
@@ -78,10 +78,10 @@ public class LevelThreeActivity extends LevelBaseActivity{
     /*This variable hold the views populated in recycler view (category icon) list.*/
     private RecyclerView mRecyclerView;
     /*This variable indicates index of category icon selected in level one, two and three respectively*/
-    private int mLevelOneItemPos, mLevelTwoItemPos, mLevelThreeItemPos = -1;
+    private int mLevelOneItemPos, mLevelTwoItemPos, mLevelThreeItemPos = GlobalConstants.NOT_SELECTED;
     /*This variable indicates index of category icon in adapter in level 1. This variable is
      different than mLevelOneItemPos. */
-    private int mSelectedItemAdapterPos = -1;
+    private int mSelectedItemAdapterPos = GlobalConstants.NOT_SELECTED;
     /* This flag is set to true, when user press the category icon and reset when user press the home
      button. When user presses expressive button and mShouldReadFullSpeech = true, it means that user
      is already selected a category icon and user intend to speak full sentence verbiage for a
@@ -90,9 +90,8 @@ public class LevelThreeActivity extends LevelBaseActivity{
     /*This variable hold the views populated in recycler view (category icon) list.*/
     private ArrayList<View> mRecyclerItemsViewList;
     /*This variable stores current tap mArrIconTapCount to every category icon populated in recycler view.*/
-    private Integer[] mArrIconTapCount = new Integer[100];
     /*This variable stores array of index of category icons sorted by tap count*/
-    private int[] mArrSort = new int[100];
+    private Integer[] mArrIconTapCount, mArrSort;
     private int count_flag = 0;
     /*Below array stores the speech text, below text, expressive button speech text,
      navigation button speech text respectively.*/
@@ -103,6 +102,8 @@ public class LevelThreeActivity extends LevelBaseActivity{
     private UserEventCollector mUec;
 
     Icon[] level3IconObjects;
+
+    private ImageView[] expressiveBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,7 +174,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
         final int sortedIndex=getSortedIndex(getIntent().getExtras().getInt(getString(R.string.search_parent_2)));
         //To get gridSize
                 int gridSize;
-                if(getSession().getGridSize()==1)
+                if(getSession().getGridSize()== GlobalConstants.GRID_THREE_BY_THREE)
                     gridSize=8;
                 else gridSize=2;
                 //Scroll to the position if the icon is not present in first grid
@@ -308,24 +309,25 @@ public class LevelThreeActivity extends LevelBaseActivity{
         //This code is to decide the speed of the Scrolling
         // which grid size is 3 then scrolling is fast as compared to the 9.
         switch (getSession().getGridSize()){
-            case 0:
+            case GlobalConstants.GRID_ONE_BY_ONE:
                 mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this, 1,3));
                 break;
-            case 1:
-            case 3:
+            case GlobalConstants.GRID_ONE_BY_TWO:
+            case GlobalConstants.GRID_TWO_BY_TWO:
                 mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this, 2,3));
                 mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
                 break;
-            case 2:
+            case GlobalConstants.GRID_ONE_BY_THREE:
                 mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this, 3,3));
                 break;
-            case 4:
+            case GlobalConstants.GRID_THREE_BY_THREE:
                 mRecyclerView.setLayoutManager(new CustomGridLayoutManager
                         (this, 3, getSession().getGridSize()));
                 break;
         }
         mRecyclerView.setVerticalScrollBarEnabled(true);
         mRecyclerView.setScrollbarFadingEnabled(false);
+        expressiveBtn = new ImageView[]{ mIvLike, mIvYes, mIvMore, mIvDontLike, mIvNo, mIvLess };
     }
 
     /**
@@ -385,10 +387,11 @@ public class LevelThreeActivity extends LevelBaseActivity{
             while (savedString.split(",").length != level3IconObjects.length)
                 savedString = savedString.concat("0,");
         }
-
+        mArrSort = new Integer[level3IconObjects.length];
         // savedString is equal to "false" then load level three category icons without any sort/preferences
         if (isCategoryWithPreference()) {
             count_flag = 1;
+            mArrIconTapCount = new Integer[level3IconObjects.length];
             // convert savedString into individual tokens.
             StringTokenizer st = new StringTokenizer(savedString, ",");
 
@@ -507,14 +510,16 @@ public class LevelThreeActivity extends LevelBaseActivity{
             @Override
             public void onChildViewAttachedToWindow(View view) {
                 mRecyclerItemsViewList.set(mRecyclerView.getChildLayoutPosition(view), view);
-                if(mRecyclerItemsViewList.contains(view) && mSelectedItemAdapterPos > -1 &&
+                if(mRecyclerItemsViewList.contains(view) && mSelectedItemAdapterPos > GlobalConstants.NOT_SELECTED &&
                         mRecyclerView.getChildLayoutPosition(view) == mSelectedItemAdapterPos)
-                    setMenuImageBorder(view, true);
+                        LevelUiUtils.setBorderToCategoryIcon(LevelThreeActivity.this, view,
+                                true, mActionBtnClickCount, mFlgImage);
             }
 
             @Override
             public void onChildViewDetachedFromWindow(View view) {
-                setMenuImageBorder(view, false);
+                LevelUiUtils.setBorderToCategoryIcon(LevelThreeActivity.this, view,
+                        false, mActionBtnClickCount, mFlgImage);
                 mRecyclerItemsViewList.set(mRecyclerView.getChildLayoutPosition(view), null);
             }
         });
@@ -535,9 +540,9 @@ public class LevelThreeActivity extends LevelBaseActivity{
                 speak(mNavigationBtnTxt[1]);
                 mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
                 mIvBack.setImageResource(R.drawable.back_pressed);
-                //when mFlgKeyboardOpened is set to 1, it means user is using custom keyboard input
+                //when mKeyState is true, it means user is using custom keyboard input
                 // text and system keyboard is visible.
-                if (mFlgKeyboard == 1) {
+                if (mKeyState) {
                     // As user is using custom keyboard input text and then back button is pressed,
                     // user intent to close custom keyboard input text so below steps will follow:
                     // a) set keyboard button to unpressed state.
@@ -553,12 +558,14 @@ public class LevelThreeActivity extends LevelBaseActivity{
                     mEtTTs.setVisibility(View.INVISIBLE);
                     mRecyclerView.setVisibility(View.VISIBLE);
                     mIvTTs.setVisibility(View.INVISIBLE);
-                    mFlgKeyboard = 0;
+                    mKeyState = GlobalConstants.KEY_CLOSE;
                     // after closing keyboard, then enable all expressive buttons
-                    changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
-                    if(mLevelThreeItemPos != -1)
-                        retainExpressiveButtonStates();
-                //when back button is pressed and if mFlgKeyboard == 0, then custom keyboard
+                    if(mLevelThreeItemPos == GlobalConstants.NOT_SELECTED)
+                        LevelUiUtils.enableAllExpressiveIcon(expressiveBtn);
+                    else
+                        LevelUiUtils.setExpressiveIconConditionally(expressiveBtn,
+                                level3IconObjects[mLevelThreeItemPos]);
+                //when back button is pressed and if mKeyState is false, then custom keyboard
                 // input text is not open and user intends to close current screen. Then simply
                 // close activity and after setting result code. The result code is useful
                 // to identify for returning activity that user is returned by pressing "back" button.
@@ -647,9 +654,9 @@ public class LevelThreeActivity extends LevelBaseActivity{
                 } else {
                     speak(mNavigationBtnTxt[2]);
                     mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
-                    //when mFlgKeyboardOpened is set to 1, it means user is using custom keyboard input
+                    //when mKeyState is true, it means user is using custom keyboard input
                     // text and system keyboard is visible.
-                    if (mFlgKeyboard == 1) {
+                    if (mKeyState) {
                         // As user is using custom keyboard input text and then press the keyboard button,
                         // user intent to close custom keyboard input text so below steps will follow:
                         // a) set keyboard button to unpressed state.
@@ -660,10 +667,12 @@ public class LevelThreeActivity extends LevelBaseActivity{
                         mEtTTs.setVisibility(View.INVISIBLE);
                         mRecyclerView.setVisibility(View.VISIBLE);
                         mIvTTs.setVisibility(View.INVISIBLE);
-                        mFlgKeyboard = 0;
-                        changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
-                        if (mLevelThreeItemPos != -1)
-                            retainExpressiveButtonStates();
+                        mKeyState = GlobalConstants.KEY_CLOSE;
+                        if(mLevelThreeItemPos == GlobalConstants.NOT_SELECTED)
+                            LevelUiUtils.enableAllExpressiveIcon(expressiveBtn);
+                        else
+                            LevelUiUtils.setExpressiveIconConditionally(expressiveBtn,
+                                    level3IconObjects[mLevelThreeItemPos]);
                         showActionBarTitle(true);
                         //when mFlgKeyboardOpened is set to 0, it means user intent to use custom
                         //keyboard input text so below steps will follow:
@@ -678,7 +687,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
                         // Focus to the field.
                         mEtTTs.setKeyListener(originalKeyListener);
                         mRecyclerView.setVisibility(View.INVISIBLE);
-                        changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
+                        LevelUiUtils.disableAllExpressiveIcon(expressiveBtn);
                         mEtTTs.requestFocus();
                         mIvTTs.setVisibility(View.VISIBLE);
                         // when user intend to use custom keyboard input text system keyboard should
@@ -686,7 +695,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
                         // InputMethodManager to InputMethodManager.HIDE_NOT_ALWAYS does this task.
                         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
-                        mFlgKeyboard = 1;
+                        mKeyState = GlobalConstants.KEY_OPEN;
                         showActionBarTitle(false);
                         getSupportActionBar().setTitle(strKeyboard);
                     }
@@ -721,23 +730,22 @@ public class LevelThreeActivity extends LevelBaseActivity{
             public void onClick(View v) {
                 // When user press the like button all expressive button speech flag (except like)
                 // are set to reset.
-                mFlgYes = mFlgMore = mFlgDntLike = mFlgNo = mFlgLess = 0;
-                //Value of mFlgImage = 0, indicates like expressive button is pressed
-                mFlgImage = 0;
+                mFlgYes = mFlgMore = mFlgDntLike = mFlgNo = mFlgLess = GlobalConstants.SHORT_SPEECH;
+                mFlgImage = GlobalConstants.LIKE;
                 // Set like button icon to pressed using mFlgImage.
-                resetExpressiveButtons(mFlgImage);
+                LevelUiUtils.setExpressiveIconPressedState(expressiveBtn, mFlgImage);
                 // if value of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
                 if (!mShouldReadFullSpeech) {
                     // if value of mFlgLike is 1, then should speak "really like".
-                    if (mFlgLike == 1) {
+                    if (mFlgLike == GlobalConstants.LONG_SPEECH) {
                         speak(mExprBtnTxt[1]);
-                        mFlgLike = 0;
+                        mFlgLike = GlobalConstants.SHORT_SPEECH;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(1, "", "");
                     // if value of mFlgLike is 0, then should speak "like".
                     } else {
                         speak(mExprBtnTxt[0]);
-                        mFlgLike = 1;
+                        mFlgLike = GlobalConstants.LONG_SPEECH;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(0, "", "");
                     }
@@ -748,12 +756,13 @@ public class LevelThreeActivity extends LevelBaseActivity{
                     // Set like button color border to selected category icon.
                     // border color is applied using mActionBtnClickCount and mFlgImage.
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
-                        setMenuImageBorder(mRecyclerItemsViewList.
-                                get(mSelectedItemAdapterPos), true);
+                        LevelUiUtils.setBorderToCategoryIcon(LevelThreeActivity.this,
+                                mRecyclerItemsViewList.get(mSelectedItemAdapterPos),
+                                true, mActionBtnClickCount, mFlgImage);
 
                     // if value of mFlgLike is 1 then speak associated really like expression
                     // verbiage for selected category icon.
-                    if (mFlgLike == 1) {
+                    if (mFlgLike == GlobalConstants.LONG_SPEECH) {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(14,
                 level3IconObjects[getTagPos()].getEvent_Tag()
@@ -762,7 +771,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
                         speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getLL());
 
                         //reset mFlgLike to speak "like" expression
-                        mFlgLike = 0;
+                        mFlgLike = GlobalConstants.SHORT_SPEECH;
                     // if value of mFlgLike is 0 then Speak associated like expression
                     // verbiage for selected category icon.
                     } else {
@@ -773,7 +782,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
 
                         speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getL());
                         //reset mFlgLike to speak "really like" expression
-                        mFlgLike = 1;
+                        mFlgLike = GlobalConstants.LONG_SPEECH;
                     }
                 }
                 mIvBack.setImageResource(R.drawable.back);
@@ -800,23 +809,22 @@ public class LevelThreeActivity extends LevelBaseActivity{
             public void onClick(View v) {
                 // When user press the don't like button all expressive button speech flag (except don't like)
                 // are set to reset.
-                mFlgLike = mFlgYes = mFlgMore = mFlgNo = mFlgLess = 0;
-                //Value of mFlgImage = 1, indicates dont like expressive button is pressed
-                mFlgImage = 1;
+                mFlgLike = mFlgYes = mFlgMore = mFlgNo = mFlgLess = GlobalConstants.SHORT_SPEECH;
+                mFlgImage = GlobalConstants.DONT_LIKE;
                 // Set don't like button icon to pressed using mFlgImage.
-                resetExpressiveButtons(mFlgImage);
+                LevelUiUtils.setExpressiveIconPressedState(expressiveBtn, mFlgImage);
                 // if value of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
                 if (!mShouldReadFullSpeech) {
                     // if value of mFlgDntLike is 1, then should speak "really dont like".
-                    if (mFlgDntLike == 1) {
+                    if (mFlgDntLike == GlobalConstants.LONG_SPEECH) {
                         speak(mExprBtnTxt[7]);
-                        mFlgDntLike = 0;
+                        mFlgDntLike = GlobalConstants.SHORT_SPEECH;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(7, "", "");
                     // if value of mFlgDntLike is 0, then should speak " dont like".
                     } else {
                         speak(mExprBtnTxt[6]);
-                        mFlgDntLike = 1;
+                        mFlgDntLike = GlobalConstants.LONG_SPEECH;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(6, "", "");
                     }
@@ -827,12 +835,13 @@ public class LevelThreeActivity extends LevelBaseActivity{
                     // Set don't like button color border to selected category icon.
                     // border color is applied using mActionBtnClickCount and mFlgImage
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
-                        setMenuImageBorder(mRecyclerItemsViewList.
-                                get(mSelectedItemAdapterPos), true);
+                        LevelUiUtils.setBorderToCategoryIcon(LevelThreeActivity.this,
+                                mRecyclerItemsViewList.get(mSelectedItemAdapterPos),
+                                true, mActionBtnClickCount, mFlgImage);
 
                     // if value of mFlgDntLike is 1 then speak associated really don't like expression
                     // verbiage for selected category icon.
-                    if (mFlgDntLike == 1) {
+                    if (mFlgDntLike == GlobalConstants.LONG_SPEECH) {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(20,
                 level3IconObjects[getTagPos()].getEvent_Tag()
@@ -840,7 +849,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
 
                         speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getDD());
                         //reset mFlgDntLike to speak "dont like" expression
-                        mFlgDntLike = 0;
+                        mFlgDntLike = GlobalConstants.SHORT_SPEECH;
                     // if value of mFlgDntLike is 0 then Speak associated don't like expression
                     // verbiage for selected category icon.
                     } else {
@@ -851,7 +860,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
 
                         speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getD());
                         //reset mFlgDntLike to speak "really don't like" expression
-                        mFlgDntLike = 1;
+                        mFlgDntLike = GlobalConstants.LONG_SPEECH;
                     }
                 }
                 mIvBack.setImageResource(R.drawable.back);
@@ -878,23 +887,22 @@ public class LevelThreeActivity extends LevelBaseActivity{
             public void onClick(View v) {
                 // When user press the yes button all expressive button speech flag (except yes)
                 // are set to reset.
-                mFlgLike = mFlgMore = mFlgDntLike = mFlgNo = mFlgLess = 0;
-                //Value of mFlgImage = 2, indicates yes expressive button is pressed
-                mFlgImage = 2;
+                mFlgLike = mFlgMore = mFlgDntLike = mFlgNo = mFlgLess = GlobalConstants.SHORT_SPEECH;
+                mFlgImage = GlobalConstants.YES;
                 // Set like button icon to pressed using mFlgImage.
-                resetExpressiveButtons(mFlgImage);
+                LevelUiUtils.setExpressiveIconPressedState(expressiveBtn, mFlgImage);
                 // if value of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
                 if (!mShouldReadFullSpeech) {
                     // if value of mFlgYes is 1, then should speak "really yes".
-                    if (mFlgYes == 1) {
+                    if (mFlgYes == GlobalConstants.LONG_SPEECH) {
                         speak(mExprBtnTxt[3]);
-                        mFlgYes = 0;
+                        mFlgYes = GlobalConstants.SHORT_SPEECH;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(3, "", "");
                     // if value of mFlgYes is 0, then should speak "yes".
                     } else {
                         speak(mExprBtnTxt[2]);
-                        mFlgYes = 1;
+                        mFlgYes = GlobalConstants.LONG_SPEECH;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(2, "", "");
                     }
@@ -905,11 +913,12 @@ public class LevelThreeActivity extends LevelBaseActivity{
                     // Set yes button color border to selected category icon.
                     // border color is applied using mActionBtnClickCount and mFlgImage
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
-                        setMenuImageBorder(mRecyclerItemsViewList.
-                                get(mSelectedItemAdapterPos), true);
+                        LevelUiUtils.setBorderToCategoryIcon(LevelThreeActivity.this,
+                                mRecyclerItemsViewList.get(mSelectedItemAdapterPos),
+                                true, mActionBtnClickCount, mFlgImage);
                     // if value of mFlgYes is 1 then speak associated really yes expression
                     // verbiage for selected category icon.
-                    if (mFlgYes == 1) {
+                    if (mFlgYes == GlobalConstants.LONG_SPEECH) {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(16,
                 level3IconObjects[getTagPos()].getEvent_Tag()
@@ -917,7 +926,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
 
                         speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getYY());
                         //reset mFlgYes to speak "yes" expression
-                        mFlgYes = 0;
+                        mFlgYes = GlobalConstants.SHORT_SPEECH;
                     // if value of mFlgYes is 0 then speak associated really yes expression
                     // verbiage for selected category icon.
                     } else {
@@ -928,7 +937,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
 
                         speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getY());
                         //reset mFlgYes to speak "really yes" expression
-                        mFlgYes = 1;
+                        mFlgYes = GlobalConstants.LONG_SPEECH;
                     }
                 }
                 mIvBack.setImageResource(R.drawable.back);
@@ -955,23 +964,22 @@ public class LevelThreeActivity extends LevelBaseActivity{
             public void onClick(View v) {
                 // When user press the no button all expressive button speech flag (except no)
                 // are set to reset.
-                mFlgLike = mFlgYes = mFlgMore = mFlgDntLike = mFlgLess = 0;
-                //Value of mFlgImage = 3, indicates no expressive button is pressed
-                mFlgImage = 3;
+                mFlgLike = mFlgYes = mFlgMore = mFlgDntLike = mFlgLess = GlobalConstants.SHORT_SPEECH;
+                mFlgImage = GlobalConstants.NO;
                 // Sets no button icon to pressed using mFlgImage.
-                resetExpressiveButtons(mFlgImage);
+                LevelUiUtils.setExpressiveIconPressedState(expressiveBtn, mFlgImage);
                 // if value of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
                 if (!mShouldReadFullSpeech) {
                     // if value of mFlgNo is 1, then should speak "really no".
-                    if (mFlgNo == 1) {
+                    if (mFlgNo == GlobalConstants.LONG_SPEECH) {
                         speak(mExprBtnTxt[9]);
-                        mFlgNo = 0;
+                        mFlgNo = GlobalConstants.SHORT_SPEECH;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(9, "", "");
                     // if value of mFlgNo is 0, then should speak "no".
                     } else {
                         speak(mExprBtnTxt[8]);
-                        mFlgNo = 1;
+                        mFlgNo = GlobalConstants.LONG_SPEECH;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(8, "", "");
                     }
@@ -982,11 +990,12 @@ public class LevelThreeActivity extends LevelBaseActivity{
                     // Set no button color border to selected category icon.
                     // border color is applied using mActionBtnClickCount and mFlgImage.
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
-                        setMenuImageBorder(mRecyclerItemsViewList.
-                                get(mSelectedItemAdapterPos), true);
+                        LevelUiUtils.setBorderToCategoryIcon(LevelThreeActivity.this,
+                                mRecyclerItemsViewList.get(mSelectedItemAdapterPos),
+                                true, mActionBtnClickCount, mFlgImage);
                     // if value of mFlgNo is 1, then should speak "really no" expression
                     // verbiage associated for selected category icon.
-                    if (mFlgNo == 1) {
+                    if (mFlgNo == GlobalConstants.LONG_SPEECH) {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(22,
                 level3IconObjects[getTagPos()].getEvent_Tag()
@@ -994,7 +1003,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
 
                         speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getNN());
                         //reset mFlgNo to speak "no" expression
-                        mFlgNo = 0;
+                        mFlgNo = GlobalConstants.SHORT_SPEECH;
                     // if value of mFlgNo is 0 then Speak associated no expression
                     // verbiage for selected category icon.
                     } else {
@@ -1005,7 +1014,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
 
                         speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getN());
                         //reset mFlgLike to speak "really no" expression
-                        mFlgNo = 1;
+                        mFlgNo = GlobalConstants.LONG_SPEECH;
                     }
                 }
                 mIvBack.setImageResource(R.drawable.back);
@@ -1030,23 +1039,22 @@ public class LevelThreeActivity extends LevelBaseActivity{
             public void onClick(View v) {
                 // When user press the more button all expressive button speech flag (except more)
                 // are set to reset.
-                mFlgLike = mFlgYes = mFlgDntLike = mFlgNo = mFlgLess = 0;
-                //Value of mFlgImage = 4, indicates more expressive button is pressed
-                mFlgImage = 4;
+                mFlgLike = mFlgYes = mFlgDntLike = mFlgNo = mFlgLess = GlobalConstants.SHORT_SPEECH;
+                mFlgImage = GlobalConstants.MORE;
                 // Sets more button icon to pressed using mFlgImage.
-                resetExpressiveButtons(mFlgImage);
+                LevelUiUtils.setExpressiveIconPressedState(expressiveBtn, mFlgImage);
                 // if value of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
                 if (!mShouldReadFullSpeech) {
                     // if value of mFlgMore is 1, then should speak "really more".
-                    if (mFlgMore == 1) {
+                    if (mFlgMore == GlobalConstants.LONG_SPEECH) {
                         speak(mExprBtnTxt[5]);
-                        mFlgMore = 0;
+                        mFlgMore = GlobalConstants.SHORT_SPEECH;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(5, "", "");
                     // if value of mFlgMore is 0, then should speak "more".
                     } else {
                         speak(mExprBtnTxt[4]);
-                        mFlgMore = 1;
+                        mFlgMore = GlobalConstants.LONG_SPEECH;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(4, "", "");
                     }
@@ -1057,11 +1065,12 @@ public class LevelThreeActivity extends LevelBaseActivity{
                     // Set border to category icon, border color is applied using
                     // mActionBtnClickCount and mFlgImage
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
-                        setMenuImageBorder(mRecyclerItemsViewList.
-                                get(mSelectedItemAdapterPos), true);
+                        LevelUiUtils.setBorderToCategoryIcon(LevelThreeActivity.this,
+                                mRecyclerItemsViewList.get(mSelectedItemAdapterPos),
+                                true, mActionBtnClickCount, mFlgImage);
                     // if value of mFlgMore is 1, then should speak "really more" expression
                     // verbiage associated to selected category icon.
-                    if (mFlgMore == 1) {
+                    if (mFlgMore == GlobalConstants.LONG_SPEECH) {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(18,
                 level3IconObjects[getTagPos()].getEvent_Tag()
@@ -1069,7 +1078,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
 
                         speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getMM());
                         //reset mFlgMore to speak "more" expression
-                        mFlgMore = 0;
+                        mFlgMore = GlobalConstants.SHORT_SPEECH;
                     // if value of mFlgMore is 0, then should speak "more" expression
                     // verbiage associated to selected category icon.
                     } else {
@@ -1080,7 +1089,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
 
                         speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getM());
                         //reset mFlgMore to speak "really more" expression
-                        mFlgMore = 1;
+                        mFlgMore = GlobalConstants.LONG_SPEECH;
                     }
                 }
                 mIvBack.setImageResource(R.drawable.back);
@@ -1107,23 +1116,22 @@ public class LevelThreeActivity extends LevelBaseActivity{
             public void onClick(View v) {
                 // When user press the less button all expressive button speech flag (except less)
                 // are set to reset.
-                mFlgLike = mFlgYes = mFlgMore = mFlgDntLike = mFlgNo = 0;
-                //Value of mFlgImage = 5, indicates less expressive button is pressed
-                mFlgImage = 5;
+                mFlgLike = mFlgYes = mFlgMore = mFlgDntLike = mFlgNo = GlobalConstants.SHORT_SPEECH;
+                mFlgImage = GlobalConstants.LESS;
                 // Sets less button icon to pressed using mFlgImage.
-                resetExpressiveButtons(mFlgImage);
+                LevelUiUtils.setExpressiveIconPressedState(expressiveBtn, mFlgImage);
                 // if value of mShouldReadFullSpeech is false then do not speak full sentence verbiage.
                 if (!mShouldReadFullSpeech) {
                     // if value of mFlgLess is 1, then should speak "really less".
-                    if (mFlgLess == 1) {
+                    if (mFlgLess == GlobalConstants.LONG_SPEECH) {
                         speak(mExprBtnTxt[11]);
-                        mFlgLess = 0;
+                        mFlgLess = GlobalConstants.SHORT_SPEECH;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(11, "", "");
                     // if value of mFlgLess is 0, then should speak "less".
                     } else {
                         speak(mExprBtnTxt[10]);
-                        mFlgLess = 1;
+                        mFlgLess = GlobalConstants.LONG_SPEECH;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(10, "", "");
                     }
@@ -1134,11 +1142,12 @@ public class LevelThreeActivity extends LevelBaseActivity{
                     // Set less button color border to selected category icon.
                     // border color is applied using mActionBtnClickCount and mFlgImage.
                     if(mRecyclerItemsViewList.get(mSelectedItemAdapterPos) != null)
-                        setMenuImageBorder(mRecyclerItemsViewList.
-                                get(mSelectedItemAdapterPos), true);
+                        LevelUiUtils.setBorderToCategoryIcon(LevelThreeActivity.this,
+                                mRecyclerItemsViewList.get(mSelectedItemAdapterPos),
+                                true, mActionBtnClickCount, mFlgImage);
                     // if value of mFlgLess is 1 then speak associated really less expression
                     // verbiage for selected category icon.
-                    if (mFlgLess == 1) {
+                    if (mFlgLess == GlobalConstants.LONG_SPEECH) {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(24,
                 level3IconObjects[getTagPos()].getEvent_Tag()
@@ -1146,7 +1155,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
 
                         speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getSS());
                         //reset mFlgLess to speak "less" expression
-                        mFlgLess = 0;
+                        mFlgLess = GlobalConstants.SHORT_SPEECH;
                     // if value of mFlgLess is 0 then Speak associated less expression
                     // verbiage to selected category icon.
                     } else {
@@ -1157,7 +1166,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
 
                         speak(level3IconObjects[mArrSort[mLevelThreeItemPos]].getS());
                         //reset mFlgLess to speak "really less" expression
-                        mFlgLess = 1;
+                        mFlgLess = GlobalConstants.LONG_SPEECH;
                     }
                 }
                 mIvBack.setImageResource(R.drawable.back);
@@ -1216,7 +1225,6 @@ public class LevelThreeActivity extends LevelBaseActivity{
      * <p>This function is called when user taps a category icon. It will change the state of
      * category icon pressed. Also, it set the flag for app speak full verbiage sentence.
      * @param view is parent view in selected RecyclerView.
-     * @param position is position of a tapped category icon in the RecyclerView.
      * This function
      *             a) Clear every expressive button flags
      *             b) Reset expressive button icons
@@ -1224,15 +1232,17 @@ public class LevelThreeActivity extends LevelBaseActivity{
      *             d) Set the border to selected category icon
      *             e) Increment preference mArrIconTapCount of tapped category icon.</p>
      * */
-    public void tappedCategoryItemEvent(View view, int position) {
-        mFlgLike = mFlgYes = mFlgMore = mFlgDntLike = mFlgNo = mFlgLess = 0;
+    public void tappedCategoryItemEvent(View view) {
+        mFlgLike = mFlgYes = mFlgMore = mFlgDntLike = mFlgNo = mFlgLess = GlobalConstants.SHORT_SPEECH;
         // Clear the last expressive button selection. Set each expressive button to unpressed.
-        resetExpressiveButtons(-1);
+        LevelUiUtils.setExpressiveIconPressedState(expressiveBtn, GlobalConstants.NO_EXPR);
         // reset every populated category icon before setting the border to selected icon.
-        resetRecyclerAllItems();
+        LevelUiUtils.resetRecyclerAllItems(LevelThreeActivity.this, mRecyclerView,
+                mActionBtnClickCount, mFlgImage);
         mActionBtnClickCount = 0;
         // set border to selected category icon
-        setMenuImageBorder(view, true);
+        LevelUiUtils.setBorderToCategoryIcon(LevelThreeActivity.this, view,true,
+                mActionBtnClickCount, mFlgImage);
         // set true to speak verbiage associated with category icon
         mShouldReadFullSpeech = true;
         mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);
@@ -1261,11 +1271,12 @@ public class LevelThreeActivity extends LevelBaseActivity{
             mUec.createSendFbEventFromTappedView(12, mDisplayText[getTagPos()], "");
         }
         // increment category item touch count
-        incrementTouchCountOfItem(mLevelThreeItemPos);
+        if (count_flag == 1)
+            LevelUiUtils.incrementTouchCountOfItem(mArrIconTapCount, mArrSort,
+                mLevelThreeItemPos, mLevelOneItemPos, mLevelTwoItemPos,
+                    LanguageFactory.getCurrentLanguageCode(this), getAppDatabase());
         // retain state of expressive button when particular type category icon pressed
-        retainExpressiveButtonStates();
-
-
+        LevelUiUtils.setExpressiveIconConditionally(expressiveBtn, level3IconObjects[mLevelThreeItemPos]);
         mIvBack.setImageResource(R.drawable.back);
     }
 
@@ -1310,99 +1321,6 @@ public class LevelThreeActivity extends LevelBaseActivity{
         );
         //Extract Navigation icon text from miscellaneousIconObjects
         mNavigationBtnTxt = TextFactory.getTitle(miscellaneousIconObjects);
-    }
-
-    /**
-     * <p>In level three, several category icons have associated multiple expressive buttons are
-     * disabled/enabled.
-     * This function will provide these enabled/disabled states for expressive buttons for a
-     * selected category icon in level three.</p>
-     * */
-    private void retainExpressiveButtonStates() {
-        //if category Greet and feel -> feelings is selected
-        if(mLevelOneItemPos == 0 && mLevelTwoItemPos == 1) {
-            int tmp = mArrSort[mLevelThreeItemPos];
-            // if in feeling category icon having index (default position in recycler view)
-            // "tmp" = 0 (category icon is Happy) then disable no expressive button and keep all
-            // other expressive button enabled.
-            if (tmp == 0) {
-                mIvNo.setAlpha(0.5f);
-                mIvNo.setEnabled(false);
-                mIvNo.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-                mIvYes.setAlpha(1f);
-                mIvYes.setEnabled(true);
-                mIvYes.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
-                // if in feeling category icon having index (default position in recycler view)
-                // "tmp" = 1 (Sad), 2 (Angry), 3 (Afraid), 5 (Irritated)
-                //         6 (Confused), 7 (Ashamed), 8 (Disappointed),
-                //         9 (Bored), 10 (Worried), 11 (Stressed),
-                //         12 (Tired), 15 (Sick) & 16 (Hurt)
-                // then disable yes expressive button and keep all other expressive button enabled.
-            } else if (tmp == 1 || tmp == 2 || tmp == 3 || tmp == 5 || tmp == 6 || tmp == 7 ||
-                    tmp == 8 || tmp == 9 || tmp == 10 || tmp == 11 || tmp == 12 || tmp == 15 ||
-                    tmp == 16) {
-                mIvYes.setAlpha(0.5f);
-                mIvYes.setEnabled(false);
-                mIvYes.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-                mIvNo.setAlpha(1f);
-                mIvNo.setEnabled(true);
-                mIvNo.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
-                // if in feeling category icon having index (default position in recycler view)
-                // other than "tmp" enable all expressive buttons
-            } else
-                changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
-
-        //If in Places -> Hospital -> I am hurt
-        //      Places -> Hospital -> I feel sick
-        // all expressive buttons are disabled as they are simple expressions
-        // otherwise all expressive buttons are enabled.
-        }else if(mLevelOneItemPos == 6 && (mLevelTwoItemPos == 11)){
-            if (mArrSort[mLevelThreeItemPos] == 0 || mArrSort[mLevelThreeItemPos] == 1)
-                changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
-            else
-                changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
-        //If in feeling -> greetings,
-        //      feeling -> requests
-        //      feeling -> questions
-        //      Daily Activities -> Habits
-        // all expressive buttons are disabled as they are simple expressions
-        }else if((mLevelOneItemPos == 0 && (mLevelTwoItemPos == 0 || mLevelTwoItemPos == 2 ||
-                mLevelTwoItemPos == 3)) ||
-                (mLevelOneItemPos == 1 && mLevelTwoItemPos == 9))
-            changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
-        // Daily activities -> clothes and more
-        else if(mLevelOneItemPos == 1 && mLevelTwoItemPos == 3){
-            int tmp = mArrSort[mLevelThreeItemPos];
-            String lang = getSession().getLanguage();
-            // if any one of category icon from "My clothes are tight", "My clothes are loose",
-            // "Help me remove clothes" and "Help put on clothes" is selected then all expressive
-            // buttons are disabled.
-            // Number of icons in category "daily activities" -> "clothes and  more" for app
-            // language Hindi, English (India) is different than app language English (US, UK).
-            // So category icons "My clothes are tight", "My clothes are loose", "Help me remove clothes"
-            // and "Help put on clothes" have index (default position in recycler view)
-            // 34, 35, 36, 37 in Hindi, English (India) and
-            // have index (default position in recycler view) 39, 40, 41, 42 in English (US, UK).
-            // So to disable expressive buttons for above category icon it required to check the
-            // user language and index (default position in recycler view) of category icon.
-            if (isIndianLanguage(lang) && (tmp == 34 || tmp == 35 || tmp == 36 || tmp == 37) ||
-                    (!isIndianLanguage(lang) && (tmp == 39 || tmp == 40 || tmp == 41 || tmp == 42)))
-                changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
-            else
-                changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
-        //if in time and weather -> time
-        //  time and weather -> day
-        //  time and weather -> month,
-        //  time and weather -> weather
-        // in each above category first category icon will have expressive buttons disabled.
-        } else if (mLevelOneItemPos == 7 && (mLevelTwoItemPos == 0 || mLevelTwoItemPos == 1 ||
-                mLevelTwoItemPos == 2 || mLevelTwoItemPos == 3 || mLevelTwoItemPos == 4)) {
-            if (mLevelThreeItemPos == 0)
-                changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
-            else
-                changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
-        }else
-            changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
     }
 
     private void showAccessibleDialog(final View disabledView) {
@@ -1474,42 +1392,42 @@ public class LevelThreeActivity extends LevelBaseActivity{
             @Override
             public void onClick(View v) {
                 mIvLike.performClick();
-                setBorderToExpression(0, expressiveBtns);
+                LevelUiUtils.setExpressiveIconPressedState(expressiveBtns, GlobalConstants.LIKE);
             }
         });
         ivYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mIvYes.performClick();
-                setBorderToExpression(1, expressiveBtns);
+                LevelUiUtils.setExpressiveIconPressedState(expressiveBtns, GlobalConstants.YES);
             }
         });
         ivAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mIvMore.performClick();
-                setBorderToExpression(2, expressiveBtns);
+                LevelUiUtils.setExpressiveIconPressedState(expressiveBtns, GlobalConstants.MORE);
             }
         });
         ivDisLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mIvDontLike.performClick();
-                setBorderToExpression(3, expressiveBtns);
+                LevelUiUtils.setExpressiveIconPressedState(expressiveBtns, GlobalConstants.DONT_LIKE);
             }
         });
         ivNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mIvNo.performClick();
-                setBorderToExpression(4, expressiveBtns);
+                LevelUiUtils.setExpressiveIconPressedState(expressiveBtns, GlobalConstants.NO);
             }
         });
         ivMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mIvLess.performClick();
-                setBorderToExpression(5, expressiveBtns);
+                LevelUiUtils.setExpressiveIconPressedState(expressiveBtns, GlobalConstants.LESS);
             }
         });
         ivBack.setOnClickListener(new View.OnClickListener() {
@@ -1543,38 +1461,38 @@ public class LevelThreeActivity extends LevelBaseActivity{
             ImageView[] btns = {ivLike, ivYes, ivAdd, ivDisLike, ivNo, ivMinus};
             for (int i = 0; i < btns.length; i++) {
                 btns[i].setEnabled(false);
-                btns[i].setAlpha(0.5f);
+                btns[i].setAlpha(GlobalConstants.DISABLE_ALPHA);
                 btns[i].setOnClickListener(null);
             }
         }else {
             if(level3IconObjects[getTagPos()].getL().isEmpty()){
                 ivLike.setEnabled(false);
-                ivLike.setAlpha(0.5f);
+                ivLike.setAlpha(GlobalConstants.DISABLE_ALPHA);
                 ivLike.setOnClickListener(null);
             }
             if(level3IconObjects[getTagPos()].getY().isEmpty()){
                 ivYes.setEnabled(false);
-                ivYes.setAlpha(0.5f);
+                ivYes.setAlpha(GlobalConstants.DISABLE_ALPHA);
                 ivYes.setOnClickListener(null);
             }
             if(level3IconObjects[getTagPos()].getM().isEmpty()){
                 ivAdd.setEnabled(false);
-                ivAdd.setAlpha(0.5f);
+                ivAdd.setAlpha(GlobalConstants.DISABLE_ALPHA);
                 ivAdd.setOnClickListener(null);
             }
             if(level3IconObjects[getTagPos()].getD().isEmpty()){
                 ivDisLike.setEnabled(false);
-                ivDisLike.setAlpha(0.5f);
+                ivDisLike.setAlpha(GlobalConstants.DISABLE_ALPHA);
                 ivDisLike.setOnClickListener(null);
             }
             if(level3IconObjects[getTagPos()].getN().isEmpty()){
                 ivNo.setEnabled(false);
-                ivNo.setAlpha(0.5f);
+                ivNo.setAlpha(GlobalConstants.DISABLE_ALPHA);
                 ivNo.setOnClickListener(null);
             }
             if(level3IconObjects[getTagPos()].getS().isEmpty()){
                 ivMinus.setEnabled(false);
-                ivMinus.setAlpha(0.5f);
+                ivMinus.setAlpha(GlobalConstants.DISABLE_ALPHA);
                 ivMinus.setOnClickListener(null);
             }
         }
@@ -1611,175 +1529,14 @@ public class LevelThreeActivity extends LevelBaseActivity{
             level3IconObjects[position].getS().isEmpty();
     }
 
-    private void setBorderToExpression(int btnPos, ImageView[] diagExprBtns) {
-        // clear previously selected any expressive button or home button
-        diagExprBtns[0].setImageResource(R.drawable.like);
-        diagExprBtns[1].setImageResource(R.drawable.yes);
-        diagExprBtns[2].setImageResource(R.drawable.more);
-        diagExprBtns[3].setImageResource(R.drawable.dontlike);
-        diagExprBtns[4].setImageResource(R.drawable.no);
-        diagExprBtns[5].setImageResource(R.drawable.less);
-        // set expressive button or home button to pressed state
-        switch (btnPos){
-            case 0: diagExprBtns[0].setImageResource(R.drawable.like_pressed); break;
-            case 1: diagExprBtns[1].setImageResource(R.drawable.yes_pressed); break;
-            case 2: diagExprBtns[2].setImageResource(R.drawable.more_pressed); break;
-            case 3: diagExprBtns[3].setImageResource(R.drawable.dontlike_pressed); break;
-            case 4: diagExprBtns[4].setImageResource(R.drawable.no_pressed); break;
-            case 5: diagExprBtns[5].setImageResource(R.drawable.less_pressed); break;
-            default: break;
-        }
-    }
-
     private void clearSelectionAfterAccessibilityDialogClose() {
-        resetExpressiveButtons(-1);
-        mLevelThreeItemPos= -1;
-        changeTheExpressiveButtons(false);
-        resetRecyclerAllItems();
+        LevelUiUtils.setExpressiveIconPressedState(expressiveBtn, GlobalConstants.NO_EXPR);
+        mLevelThreeItemPos= GlobalConstants.NOT_SELECTED;
+        LevelUiUtils.disableAllExpressiveIcon(expressiveBtn);
+        LevelUiUtils.resetRecyclerAllItems(LevelThreeActivity.this, mRecyclerView,
+                mActionBtnClickCount, mFlgImage);
         mShouldReadFullSpeech = false;
-        mFlgImage = -1;
-    }
-
-    /**
-     * <p>This function enable or disable the expressive buttons using {@param setDisable}.
-     * {@param setDisable}, if setDisable = true, buttons are disabled otherwise
-     * enabled.</p>
-     * */
-    private void changeTheExpressiveButtons(boolean setDisable) {
-        if(setDisable) {
-            mIvLike.setAlpha(0.5f);
-            mIvDontLike.setAlpha(0.5f);
-            mIvYes.setAlpha(0.5f);
-            mIvNo.setAlpha(0.5f);
-            mIvMore.setAlpha(0.5f);
-            mIvLess.setAlpha(0.5f);
-            mIvLike.setEnabled(false);
-            mIvDontLike.setEnabled(false);
-            mIvYes.setEnabled(false);
-            mIvNo.setEnabled(false);
-            mIvMore.setEnabled(false);
-            mIvLess.setEnabled(false);
-            mIvLike.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-            mIvDontLike.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-            mIvYes.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-            mIvNo.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-            mIvMore.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-            mIvLess.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-        }else{
-            mIvLike.setAlpha(1f);
-            mIvDontLike.setAlpha(1f);
-            mIvYes.setAlpha(1f);
-            mIvNo.setAlpha(1f);
-            mIvMore.setAlpha(1f);
-            mIvLess.setAlpha(1f);
-            mIvLike.setEnabled(true);
-            mIvDontLike.setEnabled(true);
-            mIvYes.setEnabled(true);
-            mIvNo.setEnabled(true);
-            mIvMore.setEnabled(true);
-            mIvLess.setEnabled(true);
-            mIvLike.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
-            mIvDontLike.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
-            mIvYes.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
-            mIvNo.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
-            mIvMore.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
-            mIvLess.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
-        }
-    }
-
-    /**
-     * <p>This function set the border to category icons. This function first extracts the view to
-     * which border should applied then apply the border.
-     * {@param recyclerChildView} is a parent view extracted from recycler view when category icon is tapped.
-     * {@param setBorder} is set if category icon tapped and a color border should appear on the view other wise
-     *  transparent color is set to border.
-     * </p>
-     * */
-    private void setMenuImageBorder(View recyclerChildView, boolean setBorder) {
-        GradientDrawable gd = (GradientDrawable) recyclerChildView.findViewById(R.id.borderView).getBackground();
-        if(setBorder){
-            // mActionBtnClickCount = 0, brown color border is set.
-            if (mActionBtnClickCount > 0) {
-                // mFlgImage define color of border.
-                switch (mFlgImage) {
-                    case 0: gd.setColor(ContextCompat.getColor(this,R.color.colorLike)); break;
-                    case 1: gd.setColor(ContextCompat.getColor(this,R.color.colorDontLike)); break;
-                    case 2: gd.setColor(ContextCompat.getColor(this,R.color.colorYes)); break;
-                    case 3: gd.setColor(ContextCompat.getColor(this,R.color.colorNo)); break;
-                    case 4: gd.setColor(ContextCompat.getColor(this,R.color.colorMore)); break;
-                    case 5: gd.setColor(ContextCompat.getColor(this,R.color.colorLess)); break;
-                }
-            } else
-                gd.setColor(ContextCompat.getColor(this,R.color.colorSelect));
-        } else
-            gd.setColor(ContextCompat.getColor(this,android.R.color.transparent));
-    }
-
-    /**
-     * <p>This function first reset if any expressive button is pressed. Then set an
-     * expressive button to pressed. {@param image_flag} identifies which expressive button
-     * is pressed.
-     * If user had previously pressed any expressive button (i.e. state of any expressive
-     * button is pressed) and then user presses some other expressive button, it is needed to
-     * clear previously pressed expressive button state and home button state (if pressed).
-     * {@param image_flag} is a index of expressive button.
-     *  e.g. From top to bottom 0 - like button, 1 - don't like button likewise.
-     *  To set home button to pressed state image_flag value must be 6</p>
-     * */
-    private void resetExpressiveButtons(int image_flag) {
-        // clear previously selected any expressive button or home button
-        mIvLike.setImageResource(R.drawable.like);
-        mIvDontLike.setImageResource(R.drawable.dontlike);
-        mIvYes.setImageResource(R.drawable.yes);
-        mIvNo.setImageResource(R.drawable.no);
-        mIvMore.setImageResource(R.drawable.more);
-        mIvLess.setImageResource(R.drawable.less);
-        mIvHome.setImageResource(R.drawable.home);
-        // set expressive button or home button to pressed state
-        switch (image_flag){
-            case 0: mIvLike.setImageResource(R.drawable.like_pressed); break;
-            case 1: mIvDontLike.setImageResource(R.drawable.dontlike_pressed); break;
-            case 2: mIvYes.setImageResource(R.drawable.yes_pressed); break;
-            case 3: mIvNo.setImageResource(R.drawable.no_pressed); break;
-            case 4: mIvMore.setImageResource(R.drawable.more_pressed); break;
-            case 5: mIvLess.setImageResource(R.drawable.less_pressed); break;
-            case 6: mIvHome.setImageResource(R.drawable.home_pressed); break;
-            default: break;
-        }
-    }
-
-    /**
-     * <p>This function reset the border for all category icons that are populated
-     * in recycler view.</p>
-     * */
-    private void resetRecyclerAllItems() {
-        for(int i = 0; i< mRecyclerView.getChildCount(); ++i){
-            setMenuImageBorder(mRecyclerView.getChildAt(i), false);
-        }
-    }
-
-    /**
-     * <p>This function increment the touch mArrIconTapCount for the selected category icon.
-     * In {@link LevelThreeActivity}, several categories has enabled preferences.
-     * This function will store these preferences into local SQLite database.</p>
-     * */
-    private void incrementTouchCountOfItem(int levelThreeItemPos) {
-        if (count_flag == 1) {
-            // increment tap count of selected category icon
-            mArrIconTapCount[mArrSort[levelThreeItemPos]] =
-                    mArrIconTapCount[mArrSort[levelThreeItemPos]] + 1;
-            // build preference string for current category
-            StringBuilder str = new StringBuilder();
-            for(int i = 0; i< mArrIconTapCount.length; ++i)
-                str.append(mArrIconTapCount[i]).append(",");
-
-            // store preference string of category into database.
-            CategoryPreference categoryPref = new CategoryPreference();
-            categoryPref.setCategoryPosition(getIconCode( LanguageFactory
-                    .getCurrentLanguageCode(this),mLevelOneItemPos, mLevelTwoItemPos));
-            categoryPref.setPrefString(str.toString());
-            PreferencesHelper.setPrefString(getAppDatabase(), categoryPref);
-        }
+        mFlgImage = GlobalConstants.NO_EXPR;
     }
 
     /**

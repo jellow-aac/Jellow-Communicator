@@ -37,10 +37,12 @@ import com.dsource.idc.jellowintl.factories.LanguageFactory;
 import com.dsource.idc.jellowintl.factories.PathFactory;
 import com.dsource.idc.jellowintl.factories.TextFactory;
 import com.dsource.idc.jellowintl.models.ExpressiveIcon;
+import com.dsource.idc.jellowintl.models.GlobalConstants;
 import com.dsource.idc.jellowintl.models.Icon;
 import com.dsource.idc.jellowintl.models.MiscellaneousIcon;
 import com.dsource.idc.jellowintl.models.SeqNavigationButton;
 import com.dsource.idc.jellowintl.utility.DialogKeyboardUtterance;
+import com.dsource.idc.jellowintl.utility.LevelUiUtils;
 import com.dsource.idc.jellowintl.utility.UserEventCollector;
 
 import static com.dsource.idc.jellowintl.factories.IconFactory.EXTENSION;
@@ -58,17 +60,15 @@ import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
  * Created by ekalpa on 6/22/2016.
  */
 public class SequenceActivity extends LevelBaseActivity{
-    private final boolean DISABLE_EXPR_BTNS = true;
-    private final int MODE_PICTURE_ONLY = 1;
-
     /* This flags are used to identify respective expressive button is pressed either
       once or twice. eg. mFlgLike used to identify Like expressive button pressed once or twice.*/
-    private int mFlgLike = 0, mFlgYes = 0, mFlgMore = 0, mFlgDontLike = 0, mFlgNo = 0,
-            mFlgLess = 0;
+    private int mFlgLike = GlobalConstants.SHORT_SPEECH, mFlgYes = GlobalConstants.SHORT_SPEECH,
+            mFlgMore = GlobalConstants.SHORT_SPEECH, mFlgDontLike = GlobalConstants.SHORT_SPEECH,
+            mFlgNo = GlobalConstants.SHORT_SPEECH, mFlgLess = GlobalConstants.SHORT_SPEECH;
     /* This flag identifies either hide/showDialog expressive buttons.*/
     private int mFlgHideExpBtn = -1;
     /* This flag indicates keyboard is open or not, 0 indicates is not open.*/
-    private int mFlgKeyboard = 0;
+    private boolean mKeyState = GlobalConstants.KEY_CLOSE;
     /*This variable indicates index of category icon selected in level one*/
     private int mLevelTwoItemPos, count = 0;
     /*Image views which are visible on the layout such as six expressive buttons, below navigation
@@ -98,6 +98,8 @@ public class SequenceActivity extends LevelBaseActivity{
     private SeqNavigationButton[] seqNavigationButtonObjects;
 
     private String mSpeak;
+
+    private ImageView[] expressiveBtn;
 
     @SuppressLint("ResourceType")
     @Override
@@ -232,6 +234,7 @@ public class SequenceActivity extends LevelBaseActivity{
         ViewCompat.setAccessibilityDelegate(mIvCategoryIcon1, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(mIvCategoryIcon2, new TalkbackHints_SingleClick());
         ViewCompat.setAccessibilityDelegate(mIvCategoryIcon3, new TalkbackHints_SingleClick());
+        expressiveBtn = new ImageView[]{ mIvLike, mIvYes, mIvMore, mIvDontLike, mIvNo, mIvLess };
     }
 
     /**
@@ -280,16 +283,17 @@ public class SequenceActivity extends LevelBaseActivity{
                     speak(seqNavigationButtonObjects[1].getSpeech_Label());
                 }
                 mBtnBack.setEnabled(true);
-                mBtnBack.setAlpha(1f);
+                mBtnBack.setAlpha(GlobalConstants.ENABLE_ALPHA);
                 count = count + 3;
                 // On every next sequence load, all expressive buttons are
                 // reset and hidden.
                 hideExpressiveBtn(true);
-                resetExpressiveButton();
+                resetCategoryIconBorders();
+                LevelUiUtils.setExpressiveIconPressedState(expressiveBtn, GlobalConstants.NO_EXPR);
                 mFlgHideExpBtn = 0;
                 //if reached to end of sequence disable next button
                 if (seqIconObjects.length == count + 3) {
-                    mBtnNext.setAlpha(.5f);
+                    mBtnNext.setAlpha(GlobalConstants.DISABLE_ALPHA);
                     mBtnNext.setEnabled(false);
                 }
                 //if the next set of category items to be loaded are less than 3
@@ -335,7 +339,7 @@ public class SequenceActivity extends LevelBaseActivity{
                         mTvCategory2Caption.setVisibility(View.INVISIBLE);
                         mTvCategory3Caption.setVisibility(View.INVISIBLE);
                     }
-                    mBtnNext.setAlpha(.5f);
+                    mBtnNext.setAlpha(GlobalConstants.DISABLE_ALPHA);
                     mBtnNext.setEnabled(false);
                 // if next items to be loaded are 3 or more then load next 3 icons in the sequence.
                 } else {
@@ -385,12 +389,13 @@ public class SequenceActivity extends LevelBaseActivity{
             public void onClick(View v) {
                 speak(seqNavigationButtonObjects[0].getSpeech_Label());
                 mBtnNext.setEnabled(true);
-                mBtnNext.setAlpha(1f);
+                mBtnNext.setAlpha(GlobalConstants.ENABLE_ALPHA);
                 count = count - 3;
                 // On every previous sequence load, all expressive buttons are
                 // reset and hidden.
                 hideExpressiveBtn(true);
-                resetExpressiveButton();
+                resetCategoryIconBorders();
+                LevelUiUtils.setExpressiveIconPressedState(expressiveBtn, GlobalConstants.NO_EXPR);
                 mFlgHideExpBtn = 0;
                 // loading previous sequence will always have all category icons populated
                 // therefore all category icons, their caption, and arrows set to visible.
@@ -399,7 +404,7 @@ public class SequenceActivity extends LevelBaseActivity{
                 mIvCategoryIcon3.setVisibility(View.VISIBLE);
                 mIvCategoryIcon2.setVisibility(View.VISIBLE);
                 mIvCategoryIcon1.setVisibility(View.VISIBLE);
-                if(getSession().getPictureViewMode() != MODE_PICTURE_ONLY) {
+                if(getSession().getPictureViewMode() != GlobalConstants.DISPLAY_PICTURE_ONLY) {
                     mTvCategory1Caption.setVisibility(View.VISIBLE);
                     mTvCategory2Caption.setVisibility(View.VISIBLE);
                     mTvCategory3Caption.setVisibility(View.VISIBLE);
@@ -426,7 +431,7 @@ public class SequenceActivity extends LevelBaseActivity{
                 // previous items to be loaded are less = 0 then disable back button
                 if (count == 0) {
                     mBtnBack.setEnabled(false);
-                    mBtnBack.setAlpha(.5f);
+                    mBtnBack.setAlpha(GlobalConstants.DISABLE_ALPHA);
                 }
                 // once sequence is loaded, initially all category icons have no border/no category
                 // icon in sequence have initial border
@@ -458,7 +463,7 @@ public class SequenceActivity extends LevelBaseActivity{
                 // reset the border of category icon 1 and hide expressive buttons
                 if (mFlgHideExpBtn == 1) {
                     hideExpressiveBtn(true);
-                    setBorderToView(findViewById(R.id.borderView1),-1);
+                    setBorderToView(findViewById(R.id.borderView1),GlobalConstants.NOT_SELECTED);
                     mFlgHideExpBtn = 0;
                     if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
                         mUec.createSendFbEventFromTappedView(12, seqIconObjects[count].
@@ -482,7 +487,8 @@ public class SequenceActivity extends LevelBaseActivity{
                                 seqIconObjects[count].getDisplay_Label()
                                     , mHeading[mLevelTwoItemPos].toLowerCase());
                     }
-                    resetExpressiveButton();
+                    resetCategoryIconBorders();
+                    LevelUiUtils.setExpressiveIconPressedState(expressiveBtn, GlobalConstants.NO_EXPR);
                     setBorderToView(findViewById(R.id.borderView1), 6);
                 }
                 mIvBack.setImageResource(R.drawable.back);
@@ -518,7 +524,7 @@ public class SequenceActivity extends LevelBaseActivity{
                 // reset the border of category icon 2 and hide expressive buttons
                 if (mFlgHideExpBtn == 2) {
                     hideExpressiveBtn(true);
-                    setBorderToView(findViewById(R.id.borderView2),-1);
+                    setBorderToView(findViewById(R.id.borderView2),GlobalConstants.NOT_SELECTED);
                     mFlgHideExpBtn = 0;
                     if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
                         mUec.createSendFbEventFromTappedView(12,
@@ -543,7 +549,8 @@ public class SequenceActivity extends LevelBaseActivity{
                                 seqIconObjects[count+1].getDisplay_Label()
                                 , mHeading[mLevelTwoItemPos].toLowerCase());
                     }
-                    resetExpressiveButton();
+                    resetCategoryIconBorders();
+                    LevelUiUtils.setExpressiveIconPressedState(expressiveBtn, GlobalConstants.NO_EXPR);
                     setBorderToView(findViewById(R.id.borderView2),6);
                 }
                 mIvBack.setImageResource(R.drawable.back);
@@ -579,7 +586,7 @@ public class SequenceActivity extends LevelBaseActivity{
                 // reset the border of category icon 3 and hide expressive buttons
                 if (mFlgHideExpBtn == 3) {
                     hideExpressiveBtn(true);
-                    setBorderToView(findViewById(R.id.borderView3), -1);
+                    setBorderToView(findViewById(R.id.borderView3), GlobalConstants.NOT_SELECTED);
                     mFlgHideExpBtn = 0;
                     if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
                         mUec.createSendFbEventFromTappedView(12,
@@ -604,7 +611,8 @@ public class SequenceActivity extends LevelBaseActivity{
                                 seqIconObjects[count+2].getDisplay_Label(),
                                 mHeading[mLevelTwoItemPos].toLowerCase());
                     }
-                    resetExpressiveButton();
+                    resetCategoryIconBorders();
+                    LevelUiUtils.setExpressiveIconPressedState(expressiveBtn, GlobalConstants.NO_EXPR);
                     setBorderToView(findViewById(R.id.borderView3), 6);
                 }
                 mIvBack.setImageResource(R.drawable.back);
@@ -633,7 +641,7 @@ public class SequenceActivity extends LevelBaseActivity{
                 //Firebase event
                 singleEvent("Navigation","Back");
                 mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
-                if (mFlgKeyboard == 1) {
+                if (mKeyState) {
                     // When keyboard is open, close it and retain expressive button,
                     // category icon states as they are before keyboard opened.
                     mIvKeyboard.setImageResource(R.drawable.keyboard);
@@ -641,10 +649,10 @@ public class SequenceActivity extends LevelBaseActivity{
                     mEtTTs.setVisibility(View.INVISIBLE);
                     mRelativeLayCategory.setVisibility(View.VISIBLE);
                     mIvTTs.setVisibility(View.INVISIBLE);
-                    mFlgKeyboard = 0;
+                    mKeyState = GlobalConstants.KEY_CLOSE;
                     // after closing keyboard, then enable all expressive buttons and set visible
                     // category icon navigation icons
-                    changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
+                    LevelUiUtils.enableAllExpressiveIcon(expressiveBtn);
                     mBtnNext.setVisibility(View.VISIBLE);
                     mBtnBack.setVisibility(View.VISIBLE);
                 } else {
@@ -719,9 +727,9 @@ public class SequenceActivity extends LevelBaseActivity{
                 } else {
                     speak(mNavigationBtnTxt[2]);
                     mIvTTs.setImageResource(R.drawable.ic_search_list_speaker);
-                    //when mFlgKeyboard is set to 1, it means user is using custom keyboard input
+                    //when mKeyState is true, it means user is using custom keyboard input
                     // text and system keyboard is visible.
-                    if (mFlgKeyboard == 1) {
+                    if (mKeyState) {
                         // As user is using custom keyboard input text and then press the keyboard button,
                         // user intent to close custom keyboard input text so below steps will follow:
                         // a) set keyboard button to unpressed state.
@@ -733,12 +741,12 @@ public class SequenceActivity extends LevelBaseActivity{
                         mEtTTs.setVisibility(View.INVISIBLE);
                         mRelativeLayCategory.setVisibility(View.VISIBLE);
                         mIvTTs.setVisibility(View.INVISIBLE);
-                        mFlgKeyboard = 0;
-                        changeTheExpressiveButtons(!DISABLE_EXPR_BTNS);
+                        mKeyState = GlobalConstants.KEY_CLOSE;
+                        LevelUiUtils.enableAllExpressiveIcon(expressiveBtn);
                         mBtnBack.setVisibility(View.VISIBLE);
                         mBtnNext.setVisibility(View.VISIBLE);
                         showActionBarTitle(true);
-                        //when mFlgKeyboard is set to 0, it means user intent to use custom
+                        //when mKeyState is false, it means user intent to use custom
                         //keyboard input text so below steps will follow:
                     } else {
                         // a) keyboard button to press
@@ -751,7 +759,7 @@ public class SequenceActivity extends LevelBaseActivity{
                         mEtTTs.setKeyListener(originalKeyListener);
                         // Focus the field.
                         mRelativeLayCategory.setVisibility(View.INVISIBLE);
-                        changeTheExpressiveButtons(DISABLE_EXPR_BTNS);
+                        LevelUiUtils.disableAllExpressiveIcon(expressiveBtn);
                         mEtTTs.requestFocus();
                         mIvTTs.setVisibility(View.VISIBLE);
                         // when user intend to use custom keyboard input text system keyboard should
@@ -761,7 +769,7 @@ public class SequenceActivity extends LevelBaseActivity{
                         imm.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
                         mBtnBack.setVisibility(View.INVISIBLE);
                         mBtnNext.setVisibility(View.INVISIBLE);
-                        mFlgKeyboard = 1;
+                        mKeyState = GlobalConstants.KEY_OPEN;
                         showActionBarTitle(false);
                         getSupportActionBar().setTitle(strKeyboard);
                     }
@@ -789,36 +797,37 @@ public class SequenceActivity extends LevelBaseActivity{
             @Override
             public void onClick(View v) {
                 // All expressive button speech flag (except like) are set to reset.
-                mFlgYes = mFlgMore = mFlgDontLike = mFlgNo = mFlgLess = 0;
-                resetExpressiveButton();
+                mFlgYes = mFlgMore = mFlgDontLike = mFlgNo = mFlgLess = GlobalConstants.SHORT_SPEECH;
+                resetCategoryIconBorders();
+                LevelUiUtils.setExpressiveIconPressedState(expressiveBtn, GlobalConstants.NO_EXPR);
                 //if expressive buttons are hidden then speak expressive button name only
                 if (mFlgHideExpBtn == 0) {
-                    if (mFlgLike == 1) {
+                    if (mFlgLike == GlobalConstants.LONG_SPEECH) {
                         speak(mExprBtnTxt[1]);
-                        mFlgLike = 0;
+                        mFlgLike = GlobalConstants.SHORT_SPEECH;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(1, "", "");
                     } else {
                         speak(mExprBtnTxt[0]);
-                        mFlgLike = 1;
+                        mFlgLike = GlobalConstants.LONG_SPEECH;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(0, "", "");
                     }
                 //if expressive buttons are visible then speak category icon verbiage + like expression
                 } else {
                     setBorderToIcon(0);
-                    if (mFlgLike == 1) {
+                    if (mFlgLike == GlobalConstants.LONG_SPEECH) {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(14, getPrefixTag()
                             +"_"+ mIconCode[count + mFlgHideExpBtn]+"LL", "");
                         speak(seqIconObjects[count + mFlgHideExpBtn - 1].getLL());
-                        mFlgLike = 0;
+                        mFlgLike = GlobalConstants.SHORT_SPEECH;
                     } else {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(13, getPrefixTag()
                             +"_"+ mIconCode[count + mFlgHideExpBtn]+"L0", "");
                         speak(seqIconObjects[count + mFlgHideExpBtn - 1].getL());
-                        mFlgLike = 1;
+                        mFlgLike = GlobalConstants.LONG_SPEECH;
                     }
                 }
                 mIvBack.setImageResource(R.drawable.back);
@@ -844,36 +853,37 @@ public class SequenceActivity extends LevelBaseActivity{
             @Override
             public void onClick(View v) {
                 // All expressive button speech flag (except don't like) are set to reset.
-                mFlgLike = mFlgYes = mFlgMore = mFlgNo = mFlgLess = 0;
-                resetExpressiveButton();
+                mFlgLike = mFlgYes = mFlgMore = mFlgNo = mFlgLess = GlobalConstants.SHORT_SPEECH;
+                resetCategoryIconBorders();
+                LevelUiUtils.setExpressiveIconPressedState(expressiveBtn, GlobalConstants.NO_EXPR);
                 //if expressive buttons are hidden then speak expressive button name only
                 if (mFlgHideExpBtn == 0) {
-                    if (mFlgDontLike == 1) {
+                    if (mFlgDontLike == GlobalConstants.LONG_SPEECH) {
                         speak(mExprBtnTxt[7]);
-                        mFlgDontLike = 0;
+                        mFlgDontLike = GlobalConstants.SHORT_SPEECH;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(7, "", "");
                     } else {
                         speak(mExprBtnTxt[6]);
-                        mFlgDontLike = 1;
+                        mFlgDontLike = GlobalConstants.LONG_SPEECH;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(6, "", "");
                     }
                 //if expressive buttons are visible then speak category icon verbiage + don't like expression
                 } else {
                     setBorderToIcon(1);
-                    if (mFlgDontLike == 1) {
+                    if (mFlgDontLike == GlobalConstants.LONG_SPEECH) {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(20, getPrefixTag()
                             +"_"+ mIconCode[count + mFlgHideExpBtn]+"DD", "");
                         speak(seqIconObjects[count + mFlgHideExpBtn - 1].getDD());
-                        mFlgDontLike = 0;
+                        mFlgDontLike = GlobalConstants.SHORT_SPEECH;
                     } else {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(19, getPrefixTag()
-                            +"_"+ mIconCode[count + mFlgHideExpBtn]+"D0", "");
+                            +"_"+ mIconCode[count + mFlgHideExpBtn]+"DGlobalConstants.SHORT_SPEECH", "");
                         speak(seqIconObjects[count + mFlgHideExpBtn - 1].getD());
-                        mFlgDontLike = 1;
+                        mFlgDontLike = GlobalConstants.LONG_SPEECH;
                     }
                 }
                 mIvBack.setImageResource(R.drawable.back);
@@ -900,36 +910,37 @@ public class SequenceActivity extends LevelBaseActivity{
             @Override
             public void onClick(View v) {
                 // All expressive button speech flag (except yes) are set to reset.
-                mFlgLike = mFlgMore = mFlgDontLike = mFlgNo = mFlgLess = 0;
-                resetExpressiveButton();
+                mFlgLike = mFlgMore = mFlgDontLike = mFlgNo = mFlgLess = GlobalConstants.SHORT_SPEECH;
+                resetCategoryIconBorders();
+                LevelUiUtils.setExpressiveIconPressedState(expressiveBtn, GlobalConstants.NO_EXPR);
                 //if expressive buttons are hidden then speak expressive button name only
                 if (mFlgHideExpBtn == 0) {
-                    if (mFlgYes == 1) {
+                    if (mFlgYes == GlobalConstants.LONG_SPEECH) {
                         speak(mExprBtnTxt[3]);
-                        mFlgYes = 0;
+                        mFlgYes = GlobalConstants.SHORT_SPEECH;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(3, "", "");
                     } else {
                         speak(mExprBtnTxt[2]);
-                        mFlgYes = 1;
+                        mFlgYes = GlobalConstants.LONG_SPEECH;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(2, "", "");
                     }
                 //if expressive buttons are visible then speak category icon verbiage + yes expression
                 } else {
                     setBorderToIcon(2);
-                    if (mFlgYes == 1) {
+                    if (mFlgYes == GlobalConstants.LONG_SPEECH) {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(16, getPrefixTag()
                             +"_"+ mIconCode[count + mFlgHideExpBtn]+"YY", "");
                         speak(seqIconObjects[count + mFlgHideExpBtn - 1].getYY());
-                        mFlgYes = 0;
+                        mFlgYes = GlobalConstants.SHORT_SPEECH;
                     } else {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(15, getPrefixTag()
                             +"_"+ mIconCode[count + mFlgHideExpBtn]+"Y0", "");
                         speak(seqIconObjects[count + mFlgHideExpBtn - 1].getY());
-                        mFlgYes = 1;
+                        mFlgYes = GlobalConstants.LONG_SPEECH;
                     }
                 }
                 mIvBack.setImageResource(R.drawable.back);
@@ -955,36 +966,37 @@ public class SequenceActivity extends LevelBaseActivity{
             @Override
             public void onClick(View v) {
                 // All expressive button speech flag (except no) are set to reset.
-                mFlgLike = mFlgYes = mFlgMore = mFlgDontLike = mFlgLess = 0;
-                resetExpressiveButton();
+                mFlgLike = mFlgYes = mFlgMore = mFlgDontLike = mFlgLess = GlobalConstants.SHORT_SPEECH;
+                resetCategoryIconBorders();
+                LevelUiUtils.setExpressiveIconPressedState(expressiveBtn, GlobalConstants.NO_EXPR);
                 //if expressive buttons are hidden then speak expressive button name only
                 if (mFlgHideExpBtn == 0) {
-                    if (mFlgNo == 1) {
+                    if (mFlgNo == GlobalConstants.LONG_SPEECH) {
                         speak(mExprBtnTxt[9]);
-                        mFlgNo = 0;
+                        mFlgNo = GlobalConstants.SHORT_SPEECH;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(9, "", "");
                     } else {
                         speak(mExprBtnTxt[8]);
-                        mFlgNo = 1;
+                        mFlgNo = GlobalConstants.LONG_SPEECH;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(8, "", "");
                     }
                 //if expressive buttons are visible then speak category icon verbiage + no expression
                 } else {
                     setBorderToIcon(3);
-                    if (mFlgNo == 1) {
+                    if (mFlgNo == GlobalConstants.LONG_SPEECH) {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(22, getPrefixTag()
                             +"_"+ mIconCode[count + mFlgHideExpBtn]+"NN", "");
                         speak(seqIconObjects[count + mFlgHideExpBtn - 1].getNN());
-                        mFlgNo = 0;
+                        mFlgNo = GlobalConstants.SHORT_SPEECH;
                     } else {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(21, getPrefixTag()
                             +"_"+ mIconCode[count + mFlgHideExpBtn]+"N0", "");
                         speak(seqIconObjects[count + mFlgHideExpBtn - 1].getN());
-                        mFlgNo = 1;
+                        mFlgNo = GlobalConstants.LONG_SPEECH;
                     }
                 }
                 mIvBack.setImageResource(R.drawable.back);
@@ -1010,36 +1022,37 @@ public class SequenceActivity extends LevelBaseActivity{
             @Override
             public void onClick(View v) {
                 // All expressive button speech flag (except more) are set to reset.
-                mFlgLike = mFlgYes = mFlgDontLike = mFlgNo = mFlgLess = 0;
-                resetExpressiveButton();
+                mFlgLike = mFlgYes = mFlgDontLike = mFlgNo = mFlgLess = GlobalConstants.SHORT_SPEECH;
+                resetCategoryIconBorders();
+                LevelUiUtils.setExpressiveIconPressedState(expressiveBtn, GlobalConstants.NO_EXPR);
                 //if expressive buttons are hidden then speak expressive button name only
                 if (mFlgHideExpBtn == 0) {
-                    if (mFlgMore == 1) {
+                    if (mFlgMore == GlobalConstants.LONG_SPEECH) {
                         speak(mExprBtnTxt[5]);
-                        mFlgMore = 0;
+                        mFlgMore = GlobalConstants.SHORT_SPEECH;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(5, "", "");
                     } else {
                         speak(mExprBtnTxt[4]);
-                        mFlgMore = 1;
+                        mFlgMore = GlobalConstants.LONG_SPEECH;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(4, "", "");
                     }
                     //if expressive buttons are visible then speak category icon verbiage + more expression
                 } else {
                     setBorderToIcon(4);
-                    if (mFlgMore == 1) {
+                    if (mFlgMore == GlobalConstants.LONG_SPEECH) {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(18, getPrefixTag()
                             +"_"+ mIconCode[count + mFlgHideExpBtn]+"MM", "");
                         speak(seqIconObjects[count + mFlgHideExpBtn - 1].getMM());
-                        mFlgMore = 0;
+                        mFlgMore = GlobalConstants.SHORT_SPEECH;
                     } else {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(17, getPrefixTag()
                             +"_"+ mIconCode[count + mFlgHideExpBtn]+"M0", "");
                         speak(seqIconObjects[count + mFlgHideExpBtn - 1].getM());
-                        mFlgMore = 1;
+                        mFlgMore = GlobalConstants.LONG_SPEECH;
                     }
                 }
                 mIvBack.setImageResource(R.drawable.back);
@@ -1065,36 +1078,37 @@ public class SequenceActivity extends LevelBaseActivity{
             @Override
             public void onClick(View v) {
                 // All expressive button speech flag (except less) are set to reset.
-                mFlgLike = mFlgYes = mFlgMore = mFlgDontLike = mFlgNo = 0;
-                resetExpressiveButton();
+                mFlgLike = mFlgYes = mFlgMore = mFlgDontLike = mFlgNo = GlobalConstants.SHORT_SPEECH;
+                resetCategoryIconBorders();
+                LevelUiUtils.setExpressiveIconPressedState(expressiveBtn, GlobalConstants.NO_EXPR);
                 //if expressive buttons are hidden then speak expressive button name only
                 if (mFlgHideExpBtn == 0) {
-                    if (mFlgLess == 1) {
+                    if (mFlgLess == GlobalConstants.LONG_SPEECH) {
                         speak(mExprBtnTxt[11]);
-                        mFlgLess = 0;
+                        mFlgLess = GlobalConstants.SHORT_SPEECH;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(11, "", "");
                     } else {
                         speak(mExprBtnTxt[10]);
-                        mFlgLess = 1;
+                        mFlgLess = GlobalConstants.LONG_SPEECH;
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(10, "", "");
                     }
                 //if expressive buttons are visible then speak category icon verbiage + less expression
                 } else {
                     setBorderToIcon(5);
-                    if (mFlgLess == 1) {
+                    if (mFlgLess == GlobalConstants.LONG_SPEECH) {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(24, getPrefixTag()
                             +"_"+ mIconCode[count + mFlgHideExpBtn]+"SS", "");
                         speak(seqIconObjects[count + mFlgHideExpBtn - 1].getSS());
-                        mFlgLess = 0;
+                        mFlgLess = GlobalConstants.SHORT_SPEECH;
                     } else {
                         //Firebase event
                         mUec.createSendFbEventFromTappedView(23, getPrefixTag()
                             +"_"+ mIconCode[count + mFlgHideExpBtn]+"S0", "");
                         speak(seqIconObjects[count + mFlgHideExpBtn - 1].getS());
-                        mFlgLess = 1;
+                        mFlgLess = GlobalConstants.LONG_SPEECH;
                     }
                 }
                 mIvBack.setImageResource(R.drawable.back);
@@ -1203,42 +1217,42 @@ public class SequenceActivity extends LevelBaseActivity{
             @Override
             public void onClick(View v) {
                 mIvLike.performClick();
-                setBorderToExpression(0, expressiveBtns);
+                LevelUiUtils.setExpressiveIconPressedState(expressiveBtns, GlobalConstants.LIKE);
             }
         });
         ivYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mIvYes.performClick();
-                setBorderToExpression(1, expressiveBtns);
+                LevelUiUtils.setExpressiveIconPressedState(expressiveBtns, GlobalConstants.YES);
             }
         });
         ivAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mIvMore.performClick();
-                setBorderToExpression(2, expressiveBtns);
+                LevelUiUtils.setExpressiveIconPressedState(expressiveBtns, GlobalConstants.MORE);
             }
         });
         ivDisLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mIvDontLike.performClick();
-                setBorderToExpression(3, expressiveBtns);
+                LevelUiUtils.setExpressiveIconPressedState(expressiveBtns, GlobalConstants.DONT_LIKE);
             }
         });
         ivNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mIvNo.performClick();
-                setBorderToExpression(4, expressiveBtns);
+                LevelUiUtils.setExpressiveIconPressedState(expressiveBtns, GlobalConstants.NO);
             }
         });
         ivMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mIvLess.performClick();
-                setBorderToExpression(5, expressiveBtns);
+                LevelUiUtils.setExpressiveIconPressedState(expressiveBtns, GlobalConstants.LESS);
             }
         });
         ivBack.setOnClickListener(new View.OnClickListener() {
@@ -1273,7 +1287,7 @@ public class SequenceActivity extends LevelBaseActivity{
             ImageView[] btns = {ivLike, ivYes, ivAdd, ivDisLike, ivNo, ivMinus};
             for (int i = 0; i < btns.length; i++) {
                 btns[i].setEnabled(false);
-                btns[i].setAlpha(0.5f);
+                btns[i].setAlpha(GlobalConstants.DISABLE_ALPHA);
                 btns[i].setOnClickListener(null);
             }
         }
@@ -1311,7 +1325,8 @@ public class SequenceActivity extends LevelBaseActivity{
             @Override
             public void onDismiss(DialogInterface dialog) {
                 //clear all selection
-                resetExpressiveButton();
+                resetCategoryIconBorders();
+                LevelUiUtils.setExpressiveIconPressedState(expressiveBtn, GlobalConstants.NO_EXPR);
                 disabledView.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
             }
         });
@@ -1323,26 +1338,6 @@ public class SequenceActivity extends LevelBaseActivity{
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.MATCH_PARENT;
         dialog.getWindow().setAttributes(lp);
-    }
-
-    private void setBorderToExpression(int btnPos, ImageView[] diagExprBtns) {
-        // clear previously selected any expressive button or home button
-        diagExprBtns[0].setImageResource(R.drawable.like);
-        diagExprBtns[1].setImageResource(R.drawable.yes);
-        diagExprBtns[2].setImageResource(R.drawable.more);
-        diagExprBtns[3].setImageResource(R.drawable.dontlike);
-        diagExprBtns[4].setImageResource(R.drawable.no);
-        diagExprBtns[5].setImageResource(R.drawable.less);
-        // set expressive button or home button to pressed state
-        switch (btnPos){
-            case 0: diagExprBtns[0].setImageResource(R.drawable.like_pressed); break;
-            case 1: diagExprBtns[1].setImageResource(R.drawable.yes_pressed); break;
-            case 2: diagExprBtns[2].setImageResource(R.drawable.more_pressed); break;
-            case 3: diagExprBtns[3].setImageResource(R.drawable.dontlike_pressed); break;
-            case 4: diagExprBtns[4].setImageResource(R.drawable.no_pressed); break;
-            case 5: diagExprBtns[5].setImageResource(R.drawable.less_pressed); break;
-            default: break;
-        }
     }
 
     /**
@@ -1420,7 +1415,7 @@ public class SequenceActivity extends LevelBaseActivity{
         mBtnNext.setText(seqNavigationButtonObjects[1].getDisplay_Label().
                 concat("  "+Html.fromHtml("&gt;&gt;").toString()));
         mBtnBack.setEnabled(false);
-        mBtnBack.setAlpha(.5f);
+        mBtnBack.setAlpha(GlobalConstants.DISABLE_ALPHA);
         if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
             mTvHeading.setAllCaps(true);
         }else{
@@ -1446,8 +1441,7 @@ public class SequenceActivity extends LevelBaseActivity{
         setImageUsingGlide(getIconPath(SequenceActivity.this,
                 seqIconObjects[2].getEvent_Tag()), mIvCategoryIcon3);
 
-        final int MODE_PICTURE_ONLY = 1;
-        if(getSession().getPictureViewMode() == MODE_PICTURE_ONLY){
+        if(getSession().getPictureViewMode() == GlobalConstants.DISPLAY_PICTURE_ONLY){
             mTvCategory1Caption.setVisibility(View.INVISIBLE);
             mTvCategory2Caption.setVisibility(View.INVISIBLE);
             mTvCategory3Caption.setVisibility(View.INVISIBLE);
@@ -1476,7 +1470,7 @@ public class SequenceActivity extends LevelBaseActivity{
      * otherwise the buttons are visible.</p>
      * */
     private void hideExpressiveBtn(boolean hideBtn) {
-        if(hideBtn) {
+        if(hideBtn) {/*HERE*/
             mIvLike.setVisibility(View.INVISIBLE);
             mIvDontLike.setVisibility(View.INVISIBLE);
             mIvMore.setVisibility(View.INVISIBLE);
@@ -1494,74 +1488,13 @@ public class SequenceActivity extends LevelBaseActivity{
     }
 
     /**
-     * <p>This function will enable/disable expressive buttons.
-     * @param  setDisable, is set then expressive buttons are disabled
-     * otherwise they remain enabled.</p>
-     * */
-    private void changeTheExpressiveButtons(boolean setDisable) {
-        if(setDisable) {
-            mIvLike.setAlpha(0.5f);
-            mIvDontLike.setAlpha(0.5f);
-            mIvYes.setAlpha(0.5f);
-            mIvNo.setAlpha(0.5f);
-            mIvMore.setAlpha(0.5f);
-            mIvLess.setAlpha(0.5f);
-            mIvLike.setEnabled(false);
-            mIvDontLike.setEnabled(false);
-            mIvYes.setEnabled(false);
-            mIvNo.setEnabled(false);
-            mIvMore.setEnabled(false);
-            mIvLess.setEnabled(false);
-            mIvLike.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-            mIvDontLike.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-            mIvYes.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-            mIvNo.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-            mIvMore.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-            mIvLess.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-        }else{
-            mIvLike.setAlpha(1f);
-            mIvDontLike.setAlpha(1f);
-            mIvYes.setAlpha(1f);
-            mIvNo.setAlpha(1f);
-            mIvMore.setAlpha(1f);
-            mIvLess.setAlpha(1f);
-            mIvLike.setEnabled(true);
-            mIvDontLike.setEnabled(true);
-            mIvYes.setEnabled(true);
-            mIvNo.setEnabled(true);
-            mIvMore.setEnabled(true);
-            mIvLess.setEnabled(true);
-            mIvLike.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
-            mIvDontLike.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
-            mIvMore.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
-            mIvYes.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
-            mIvNo.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
-            mIvLess.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
-        }
-    }
-
-    /**
-     * <p>This function will reset expressive buttons to original state. Also, it clears
-     * any border to category icon 1,2 and 3.</p>
-     * */
-    private void resetExpressiveButton() {
-        resetCategoryIconBorders();
-        mIvLike.setImageResource(R.drawable.like);
-        mIvDontLike.setImageResource(R.drawable.dontlike);
-        mIvYes.setImageResource(R.drawable.yes);
-        mIvNo.setImageResource(R.drawable.no);
-        mIvMore.setImageResource(R.drawable.more);
-        mIvLess.setImageResource(R.drawable.less);
-    }
-
-    /**
      * <p>This function selects the category icon for which the border needs to be set. Also, it will
      * apply selected 'pressed' image to the selected expressive button using {@param actionBtnIdx}
      * {@param actionBtnIdx} is a index of expressive button.
      *  e.g. From top to bottom 0 - like button, 1 - don't like button likewise.</p>
      * */
     private void setBorderToIcon(int actionBtnIdx) {
-        if (mFlgHideExpBtn == 1) {
+        if (mFlgHideExpBtn == 1) {/*HERE*/
             setBorderToView(findViewById(R.id.borderView1), actionBtnIdx);
         } else if (mFlgHideExpBtn == 2) {
             setBorderToView(findViewById(R.id.borderView2), actionBtnIdx);
@@ -1588,7 +1521,7 @@ public class SequenceActivity extends LevelBaseActivity{
      *  e.g. From top to bottom 0 - like button, 1 - don't like button likewise.</p>
      * */
     private void setBorderToView(View borderView, int actionBtnIdx) {
-        resetCategoryIconBorders();
+        resetCategoryIconBorders();/*HERE*/
         GradientDrawable gd = (GradientDrawable) borderView.getBackground();
         //actionBtnIdx expressive button index from left top to right bottom
         // eg like = 0, don't like = 1.

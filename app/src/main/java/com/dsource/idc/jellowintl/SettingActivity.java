@@ -22,11 +22,11 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import com.crashlytics.android.Crashlytics;
 
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
@@ -70,7 +70,7 @@ public class SettingActivity extends SpeechEngineBaseActivity {
 
         // If user have sim device and ready to call, only then showDialog "enable call switch".
         if(isDeviceReadyToCall((TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE))) {
-            if(getSession().getEnableCalling())
+            if(getSession().isCallingEnabled())
                 ((Switch) findViewById(R.id.switchEnableCall)).setChecked(true);
 
             ((Switch) findViewById(R.id.switchEnableCall)).setOnCheckedChangeListener
@@ -122,7 +122,7 @@ public class SettingActivity extends SpeechEngineBaseActivity {
            @Override
            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                setSpeechRate((float) i / 50);
-               mTxtViewSpeechSpeed.setText(strSpeechSpeed.concat(": "+ String.valueOf(i / 5)));
+               mTxtViewSpeechSpeed.setText(strSpeechSpeed.concat(": "+ i / 5));
            }
 
            @Override public void onStartTrackingTouch(SeekBar seekBar) {}
@@ -134,7 +134,7 @@ public class SettingActivity extends SpeechEngineBaseActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 setSpeechPitch((float) i / 50);
-                mTxtViewVoicePitch.setText(strSpeechPitch.concat(": "+ String.valueOf(i / 5)));
+                mTxtViewVoicePitch.setText(strSpeechPitch.concat(": "+ i / 5));
             }
 
             @Override public void onStartTrackingTouch(SeekBar seekBar) {}
@@ -218,7 +218,7 @@ public class SettingActivity extends SpeechEngineBaseActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult (int requestCode, String Permissions[], int[] grantResults){
+    public void onRequestPermissionsResult (int requestCode, String[] Permissions, int[] grantResults){
         if (requestCode == MY_PERMISSIONS_REQUEST_CALL_PHONE){
             if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 getSession().setEnableCalling(true);

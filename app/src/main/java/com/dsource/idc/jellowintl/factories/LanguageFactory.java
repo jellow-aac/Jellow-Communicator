@@ -9,7 +9,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.dsource.idc.jellowintl.UserRegistrationActivity.UNIVERSAL_PACKAGE;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangValueMap;
 
@@ -75,7 +74,7 @@ public class LanguageFactory {
     public static String[] getAvailableLanguages(Context context){
         List<String> lang = new ArrayList<>();
         for (String language : LangMap.values()) {
-            File file = new File(context.getDir(UNIVERSAL_PACKAGE, Context.MODE_PRIVATE)
+            File file = new File(context.getDir(SessionManager.UNIVERSAL_PACKAGE, Context.MODE_PRIVATE)
                     .getAbsolutePath()+"/"+language+".json");
             if (file.exists() && file.isFile()) {
                 lang.add(LangValueMap.get(language));
@@ -83,5 +82,11 @@ public class LanguageFactory {
         }
 
         return lang.toArray(new String[lang.size()]);
+    }
+
+    public static boolean isMarathiPackageAvailable(Context context){
+        File file = new File(context.getDir(PathFactory.UNIVERSAL_FOLDER,
+                Context.MODE_PRIVATE).getAbsolutePath()+"/audio");
+        return file.exists();
     }
 }

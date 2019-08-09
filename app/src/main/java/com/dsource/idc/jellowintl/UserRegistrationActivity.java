@@ -25,6 +25,8 @@ import androidx.core.view.ViewCompat;
 
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.TalkBack.TalkbackHints_DropDownMenu;
+import com.dsource.idc.jellowintl.factories.LanguageFactory;
+import com.dsource.idc.jellowintl.models.GlobalConstants;
 import com.dsource.idc.jellowintl.models.SecureKeys;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -67,16 +69,15 @@ import static com.dsource.idc.jellowintl.utility.Analytics.setCrashlyticsCustomK
 import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
 import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.UNIVERSAL_PACKAGE;
 
 /**
  * Created by user on 5/25/2016.
  */
 public class UserRegistrationActivity extends SpeechEngineBaseActivity {
     public static final String LCODE = "lcode";
-    public static final String UNIVERSAL_PACKAGE = "universal";
     public static final String TUTORIAL = "tutorial";
 
-    final int GRID_3BY3 = 4;
     private Button bRegister;
     private EditText etName, etEmergencyContact, etEmailId;
     private FirebaseDatabase mDB;
@@ -84,7 +85,8 @@ public class UserRegistrationActivity extends SpeechEngineBaseActivity {
     private CountryCodePicker mCcp;
     private String mUserGroup;
     Spinner languageSelect;
-    String[] languagesCodes = new String[10], languageNames = new String[LangMap.size()];
+    String[] languagesCodes = new String[LangMap.size()],
+            languageNames = new String[LangMap.size()];
     String selectedLanguage;
     String name, emergencyContact, eMailId;
 
@@ -109,7 +111,8 @@ public class UserRegistrationActivity extends SpeechEngineBaseActivity {
                 startActivity(new Intent(UserRegistrationActivity.this,
                         LanguageDownloadActivity.class)
                         .putExtra(LCODE, UNIVERSAL_PACKAGE).putExtra(TUTORIAL, true));
-            }else if(getSession().getLanguage().equals(MR_IN) && !getSession().isAudioPackageDownloaded()){
+            }else if(getSession().getLanguage().equals(MR_IN) && !LanguageFactory.isMarathiPackageAvailable
+                    (UserRegistrationActivity.this)){
                 startActivity(new Intent(UserRegistrationActivity.this,
                         LanguageDownloadActivity.class)
                         .putExtra(LCODE, MR_IN).putExtra(TUTORIAL, true));
@@ -399,7 +402,7 @@ public class UserRegistrationActivity extends SpeechEngineBaseActivity {
                     if (task.isSuccessful()) {
                         getSession().setUserLoggedIn(true);
                         getSession().setLanguage(LangMap.get(selectedLanguage));
-                        getSession().setGridSize(GRID_3BY3);
+                        getSession().setGridSize(GlobalConstants.GRID_ONE_BY_ONE);
                         getSession().setUserGroup(decUserGroup);
                         Bundle bundle = new Bundle();
                         bundle.putString("LanguageSet", "First time "+ LangMap.get(selectedLanguage));
@@ -414,8 +417,6 @@ public class UserRegistrationActivity extends SpeechEngineBaseActivity {
                         setCrashlyticsCustomKey("PictureViewMode", "PictureText");
                         bundle.clear();
                         bundle.putString(LCODE, UNIVERSAL_PACKAGE);
-                        if(getSession().getLanguage().equals(MR_IN))
-                            getSession().setAudioExtraPackage(false);
                         bundle.putBoolean(TUTORIAL, true);
                         startActivity(new Intent(UserRegistrationActivity.this,
                                 LanguageDownloadActivity.class).putExtras(bundle));

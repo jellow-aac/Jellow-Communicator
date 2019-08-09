@@ -17,6 +17,7 @@ public class PackageRemoverAsync extends AsyncTask<Context, Void, Void> {
                 if (file != null && file.exists() && file.isDirectory()) {
                     deleteRecursive(file);
                 }
+                file.delete();
             }
         }catch (NullPointerException e){
             e.printStackTrace();

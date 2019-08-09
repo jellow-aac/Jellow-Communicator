@@ -10,15 +10,16 @@ import androidx.core.content.ContextCompat;
 
 import com.dsource.idc.jellowintl.cache.CacheManager;
 import com.dsource.idc.jellowintl.factories.TextFactory;
+import com.dsource.idc.jellowintl.models.GlobalConstants;
 import com.dsource.idc.jellowintl.utility.CreateDataBase;
+import com.dsource.idc.jellowintl.utility.SessionManager;
 
+import static com.dsource.idc.jellowintl.LanguageDownloadActivity.SPLASH;
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.LCODE;
-import static com.dsource.idc.jellowintl.UserRegistrationActivity.UNIVERSAL_PACKAGE;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 import static com.dsource.idc.jellowintl.utility.Analytics.setCrashlyticsCustomKey;
 import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
-import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
 
 /**
  * Created by ekalpa on 7/12/2016.
@@ -43,14 +44,16 @@ public class SplashActivity extends BaseActivity {
             CacheManager.clearCache();
             TextFactory.clearJson();
         }
-        if(!getSession().isDownloaded(UNIVERSAL_PACKAGE)){
-            if (getSession().isDownloaded(MR_IN))
-                startActivity(new Intent(this, LanguageDownloadActivity.class)
-                        .putExtra(LCODE, MR_IN));
+        if(!getSession().isDownloaded(SessionManager.UNIVERSAL_PACKAGE)){
+            /* 0 represents old value of one by three config*/
+            if(getSession().getGridSize() == 0)
+                 getSession().setGridSize(GlobalConstants.GRID_ONE_BY_THREE);
             else
-                startActivity(new Intent(this, LanguageDownloadActivity.class)
-                        .putExtra(LCODE, UNIVERSAL_PACKAGE));
-        }if(getSession().isLanguageChanged()!=2) {
+                 getSession().setGridSize(GlobalConstants.GRID_THREE_BY_THREE);
+            startActivity(new Intent(this, LanguageDownloadActivity.class)
+                    .putExtra(LCODE, SessionManager.UNIVERSAL_PACKAGE)
+                    .putExtra(SPLASH, true));
+        }else if(getSession().isLanguageChanged()!=2) {
             new CreateDataBase(this, getAppDatabase()).execute();
         }else {
 
@@ -69,9 +72,8 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void setUserParameters() {
-        final int GRID_3BY3 = 1, PICTURE_TEXT = 0;
         if(getSession().isGridSizeKeyExist()) {
-            if(getSession().getGridSize() == GRID_3BY3){
+            if(getSession().getGridSize() == GlobalConstants.GRID_THREE_BY_THREE){
                 setUserProperty("GridSize", "9");
                 setCrashlyticsCustomKey("GridSize", "9");
             }else{
@@ -83,7 +85,7 @@ public class SplashActivity extends BaseActivity {
             setCrashlyticsCustomKey("GridSize", "9");
         }
 
-        if(getSession().getPictureViewMode() == PICTURE_TEXT) {
+        if(getSession().getPictureViewMode() == GlobalConstants.DISPLAY_PICTURE_TEXT) {
             setUserProperty("PictureViewMode", "PictureText");
             setCrashlyticsCustomKey("PictureViewMode", "PictureText");
         }else{
