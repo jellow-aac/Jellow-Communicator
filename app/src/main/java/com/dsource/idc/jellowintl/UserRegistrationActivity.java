@@ -402,7 +402,7 @@ public class UserRegistrationActivity extends SpeechEngineBaseActivity {
                     if (task.isSuccessful()) {
                         getSession().setUserLoggedIn(true);
                         getSession().setLanguage(LangMap.get(selectedLanguage));
-                        getSession().setGridSize(GlobalConstants.GRID_ONE_BY_ONE);
+                        getSession().setGridSize(GlobalConstants.GRID_THREE_BY_THREE);
                         getSession().setUserGroup(decUserGroup);
                         Bundle bundle = new Bundle();
                         bundle.putString("LanguageSet", "First time "+ LangMap.get(selectedLanguage));

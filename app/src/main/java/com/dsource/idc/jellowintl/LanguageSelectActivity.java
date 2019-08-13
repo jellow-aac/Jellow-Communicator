@@ -34,10 +34,12 @@ import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BE_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.ES_ES;
 import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangValueMap;
 import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.SP_ES;
 
 public class LanguageSelectActivity extends SpeechEngineBaseActivity {
     String[] availableLanguages;
@@ -169,14 +171,19 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
                                     mCompleteStep2, Toast.LENGTH_LONG).show();
                         /* If Speech Engine language is same as selected language OR
                          *  Selected language is Bengali and Speech Engine language is
-                         *  either BN_IN or BE_IN form THEN
+                         *  either BN_IN or BE_IN form THEN OR
+                         *  Selected language is Spanish and Speech Engine language is
+                         *  either ES_ES or SP_ES form THEN
                          *  save the language and set language setting to true.
                          *  else
                          *  showDialog toast about Complete step 3.*/
                     } else if (getSpeechEngineLanguage().equals(LangMap.get(selectedLanguage)) ||
                             (LangMap.get(selectedLanguage).equals(BN_IN) &&
                                     (getSpeechEngineLanguage().equals(BN_IN) ||
-                                            getSpeechEngineLanguage().equals(BE_IN)))) {
+                                            getSpeechEngineLanguage().equals(BE_IN))) ||
+                            (LangMap.get(selectedLanguage).equals(ES_ES) &&
+                                    (getSpeechEngineLanguage().equals(ES_ES) ||
+                                            getSpeechEngineLanguage().equals(SP_ES))) ) {
                         saveLanguage();
                     } else {
                         Toast.makeText(LanguageSelectActivity.this,

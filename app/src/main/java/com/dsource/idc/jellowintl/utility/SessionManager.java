@@ -25,7 +25,7 @@ public class SessionManager {
     public final static String BE_IN = "be-rIN";    // BE_IN -> Bengali (for some old API devices which return Bengali locale as be-rIN)
     public final static String MR_IN = "mr-rIN";
     public final static String ES_ES = "es-rES";    // ES_ES -> Spanish
-    //public final static String SP_ES = "sp-rES";    // SP_ES -> Spanish (for some old API devices which return Spanish locale as sp-rES)
+    public final static String SP_ES = "sp-rES";    // SP_ES -> Spanish (for some old API devices which return Spanish locale as sp-rES)
     public final static String TA_IN = "ta-rIN";
     public final static String DE_DE = "de-rDE";
     public static final String UNIVERSAL_PACKAGE = "universal";

@@ -82,7 +82,7 @@
     <string name="txtVoiceSpeech">Tono de voz</string>
     <string name="txtDisplayMode">Modo de pantalla</string>
     <string name="txtVoiceVolume">Volumen de sonido</string>
-    <string name="txtNumOfPerPerScr">Número de iconos de categoria por pantalla</string>
+    <string name="txtNumOfPerPerScr">Número de iconos de categoría por pantalla</string>
     <string name="txtDemo">DEMOSTRACIÓN DE HABLA</string>
     <string name="txtSave">GUARDAR</string>
     <string name="demoTtsSpeech">¡Hola! Estás utilizando Jellow Communicator.</string>
@@ -115,8 +115,6 @@
     <string name="changeDefaultToHindi">2. Elegir el idioma favorito como predeterminado</string>
     <string name="downloadVoiceTts">3. Descargar voz en el idioma favorito </string>
     <string name="activate">ACTIVAR</string>
-    <string name="download">DESCARGAR</string>
-    <string name="cancel">CANCELAR</string>
     <string name="keyboardControl">Gestión de teclado:</string>
     <string name="serial_keyboard_title">Teclado en orden alfabético</string>
     <string name="serial_keyboard_info">Jellow también tiene su propio teclado en orden alfabético. El diseño de este teclado está basado en la retroalimentación de los educadores y docentes y tiene las letras arregladas de manera serial, empezando con la \'A\'. Este teclado hace fácil al usuario para anticipar la ubicación de una letra particular en el teclado y además es muy útil para niños. De la misma manera, el teclado también tiene los números de 0 a 9 y símbolos, que son muy relevantes a la comunicación cotidiana.</string>
@@ -148,8 +146,8 @@
     </string>
     <string name="iconsHasBeenReset">Las preferencias han sido restablecidas.</string>
     <string name="speak">Hablar</string>
-    <string name="stop">Parar</string>
-    <string name="about_jellow_speech">Jellow es un comunicador que utiliza iconos para activar el habla y también se puede usar para aprender a hablar o por quienes tienen dificultades de habla. Se ha desarrollado en IDC School of Design, IIT-Bombay, Mumbai. Los Investigadores concibieron y desarrollaron un innovador Protocolo de Idioma Emocional (Emotional Language Protocol o ELP) para mejorar la habilidad de lenguaje de Jellow. ELP representa los 6 iconos expresivos que forman el núcleo de la interfaz. Con estos iconos principales, el niño puede comunicar lo que le gusta o no le gusta y sus necesidades. Jellow es apto para menores y tiene una interfaz fácil de entender. La aplicación está diseñada para tabletas de Android. Actualmente, Jellow está disponible en inglés, hindi, bengali, marathi, tamil, español, alemán, frances e italiano. La versión actual de Jellow es _ . La versión actual de Jellow es 5.0. La aplicación está en desarrollo. Por eso, si tienes alguna sugerencia, por favor envíala en la página de retroalimentación o a jellowcommunicator@gmail.com. Jellow se distribuye bajo licencia de Creative Commons Attribution Non-commercial Share Alike 4.0 International License. Jellow es una aplicación creada por Indian Institute of Technology Bombay. El contenido (iconos, plano, arquitectura, diseño, traducción y códigos) puede ser compartido y adoptado pero no puede ser usado con objetivos comerciales. Cuando uses el contenido, agradeceríamos que valoraras la labor de Indian Institute of Technology, Bombay. Jellow está disponible para descargar en w w w dot j e l l o w dot o r g. Si tienes interés en desarrollar más el código, por favor escribe al Profesor Ravi Poovaiah, r a v i @ i i t b dot a c dot i n o al j e l l o w c o m m u n i c a t o r @ g m a i l dot c o m</string>
+    <string name="stop">Para</string>
+    <string name="about_jellow_speech">Jellow es un comunicador que utiliza iconos para activar el habla y también se puede usar para aprender a hablar o por quienes tienen dificultades de habla. Jellow es apto para menores para aprender palabras y categorias comúnes de su vida cotidiana. Los iconos de Jellow son coloridos y pueden ayudar a los niños para desarrollar una relación entre las imagenes y sus etiquetas corespondientes. Se ha desarrollado en IDC School of Design, IIT-Bombay, Mumbai. Los Investigadores concibieron y desarrollaron un innovador Protocolo de Idioma Emocional (Emotional Language Protocol o ELP) para mejorar la habilidad de lenguaje de Jellow. ELP representa los 6 iconos expresivos que forman el núcleo de la interfaz. Con estos iconos principales, el niño puede comunicar lo que le gusta o no le gusta y sus necesidades. Jellow es apto para menores y tiene una interfaz fácil de entender. La aplicación está diseñada para tabletas de Android. Actualmente, Jellow está disponible en inglés, hindi, bengali, marathi, tamil, español, alemán, frances e italiano. La versión actual de Jellow es _ . La versión actual de Jellow es 5.0. La aplicación está en desarrollo. Por eso, si tienes alguna sugerencia, por favor envíala en la página de retroalimentación o a jellowcommunicator@gmail.com. Jellow se distribuye bajo licencia de Creative Commons Attribution Non-commercial Share Alike 4.0 International License. Jellow es una aplicación creada por Indian Institute of Technology Bombay. El contenido (iconos, plano, arquitectura, diseño, traducción y códigos) puede ser compartido y adoptado pero no puede ser usado con objetivos comerciales. Cuando uses el contenido, agradeceríamos que valoraras la labor de Indian Institute of Technology, Bombay. Jellow está disponible para descargar en w w w dot j e l l o w dot o r g. Si tienes interés en desarrollar más el código, por favor escribe al Profesor Ravi Poovaiah, r a v i @ i i t b dot a c dot i n o al j e l l o w c o m m u n i c a t o r @ g m a i l dot c o m</string>
     <string name="catBtnDesc">Jellow tiene 9 botones de categorías principales y 6 botones expresivos laterales</string>
     <string name="catBtn">Botones de categoría :</string>
     <string name="expBtn">Botones expresivos :</string>
@@ -202,7 +200,7 @@
     <string name="enternonemptycontact">Por favor, escribe un número de contacto válido</string>
     <string name="change_tts_lang">Establecer el idioma del Texto a voz</string>
     <string name="txt_actLangSel_completestep3">Por favor, enciende Internet y completa el 3º paso</string>
-    <string name="change_language_line5">2º paso: Comprueba si los datos de voz para _ están disponibles en tu dispositivo. Si no, por favor, descarga los datos de voz para el idioma seleccionado.</string>
+    <string name="change_language_line5">2º paso: Comprueba si los datos de voz para _ están disponibles en tu dispositivo. Si no, por favor, descarga los datos de voz para el idioma seleccionado. En caso de que la barra de progreso se atasque, por favor reinica la aplicación o inténtalo de nuevo.</string>
     <string name="change_language_line4">3º paso: Selecciona como predeterminado el Texto a voz de Google y establece _ como el idioma predeterminado.</string>
     <string name="txtChangeLanguage">Cambiar idioma predeterminado:</string>
     <string name="txtApplyChanges">4º paso: Haz clic en "Guardar cambios" para establecer el nuevo idioma predeterminado.</string>
