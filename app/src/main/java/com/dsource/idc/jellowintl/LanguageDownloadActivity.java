@@ -82,13 +82,11 @@ public class LanguageDownloadActivity extends BaseActivity {
 
             @Override
             public void onComplete() {
-                getSession().setDownloaded(langCode);
-                getSession().setDownloaded(getSession().getLanguage());
                 Toast.makeText(LanguageDownloadActivity.this, strLanguageDownloaded,
                         Toast.LENGTH_SHORT).show();
 
-                if(getSession().isDownloaded(MR_IN) && !LanguageFactory.isMarathiPackageAvailable
-                        (LanguageDownloadActivity.this)){
+                if(getSession().getLanguage().equals(MR_IN) && !LanguageFactory.
+                        isMarathiPackageAvailable(LanguageDownloadActivity.this)){
                     progressBar.setProgress(0);
                     progressBar.invalidate();
                     manager.setLanguage(MR_IN);

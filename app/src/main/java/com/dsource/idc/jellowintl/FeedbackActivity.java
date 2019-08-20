@@ -1,5 +1,6 @@
 package com.dsource.idc.jellowintl;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -124,7 +125,11 @@ public class FeedbackActivity extends BaseActivity {
         sendIntent.putExtra(Intent.EXTRA_TEXT, message);
         sendIntent.setType("text/plain");
         sendIntent.setPackage("com.whatsapp");
-        startActivity(sendIntent);
+        try {
+            startActivity(sendIntent);
+        }catch (ActivityNotFoundException e){
+            e.printStackTrace();
+        }
         }else{
             Toast.makeText(FeedbackActivity.this, strRateJellow, Toast.LENGTH_SHORT).show();
         }

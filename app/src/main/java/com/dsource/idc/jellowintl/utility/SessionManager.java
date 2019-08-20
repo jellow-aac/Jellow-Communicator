@@ -114,18 +114,6 @@ public class SessionManager {
         return (Integer) retrievePreferenceKeyWithValue(Integer.class.toString(), Blood);
     }
 
-    public void setDownloaded(String lang) {
-        storePreferenceKeyWithValue(Boolean.class.toString(), lang, true);
-    }
-
-    public void setRemoved(String lang) {
-        storePreferenceKeyWithValue(Boolean.class.toString(), lang, false);
-    }
-
-    public Boolean isDownloaded(String lang){
-        return (Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(), lang);
-    }
-
     public void setName(String name) {
         storePreferenceKeyWithValue(String.class.toString(), Name, name);
     }

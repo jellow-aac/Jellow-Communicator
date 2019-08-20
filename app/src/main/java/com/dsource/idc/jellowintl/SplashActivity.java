@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.core.content.ContextCompat;
 
 import com.dsource.idc.jellowintl.cache.CacheManager;
+import com.dsource.idc.jellowintl.factories.LanguageFactory;
 import com.dsource.idc.jellowintl.factories.TextFactory;
 import com.dsource.idc.jellowintl.models.GlobalConstants;
 import com.dsource.idc.jellowintl.utility.CreateDataBase;
@@ -44,7 +45,7 @@ public class SplashActivity extends BaseActivity {
             CacheManager.clearCache();
             TextFactory.clearJson();
         }
-        if(!getSession().isDownloaded(SessionManager.UNIVERSAL_PACKAGE)){
+        if(!LanguageFactory.isLanguageDataAvailable(this)){
             /* 0 represents old value of one by three config*/
             if(getSession().getGridSize() == 0)
                  getSession().setGridSize(GlobalConstants.GRID_ONE_BY_THREE);
@@ -56,7 +57,6 @@ public class SplashActivity extends BaseActivity {
         }else if(getSession().isLanguageChanged()!=2) {
             new CreateDataBase(this, getAppDatabase()).execute();
         }else {
-
             startActivity(new Intent(SplashActivity.this, MainActivity.class));
             finishAffinity();
         }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="ratings">
+    <!--<string-array name="ratings">
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -20,16 +20,14 @@
     </string-array>
 
     <string name="app_name">Jellow</string>
-    <string name="action_settings">Settings</string>
-    <string name="Profile">Profile</string>
-
-    <string name="Language">Language</string>
-    <string name="Update">Update Language Pack</string>
-    <string name="ChangeLanguage">Change Language</string>
-    <string name="saveLanguage">Apply Changes</string>
+    <string name="action_settings">Réglage</string>
+    <string name="Profile">Profil</string>
+    <string name="Language">Langue</string>
+    <string name="ChangeLanguage">Changer la langue</string>
+    <string name="saveLanguage">Apply Appliquer les changements</string>
 
     <string-array name="bloodgroup">
-        <item>not selected</item>
+        <item>N\'est pas sélectionné</item>
         <item>A+ve</item>
         <item>A-ve</item>
         <item>B+ve</item>
@@ -41,20 +39,20 @@
     </string-array>
 
     <string-array name="bloodgroup_talkback">
-        <item>not selected</item>
+        <item>N\'est pas sélectionné</item>
         <item>A positive</item>
-        <item>A negative</item>
+        <item>A négative</item>
         <item>B positive</item>
-        <item>B negative</item>
+        <item>B négative</item>
         <item>A B positive</item>
-        <item>A B negative</item>
+        <item>A B négative</item>
         <item>O positive</item>
-        <item>O negative</item>
+        <item>O négative</item>
     </string-array>
 
     <string-array name="picture_view_mode">
-        <item>Picture and Text</item>
-        <item>Picture only</item>
+        <item>Image et texte</item>
+        <item>Image seulement</item>
     </string-array>
 
     <string-array name="grid_size">
@@ -66,118 +64,100 @@
     </string-array>
 
     <string-array name="acc_grid_size">
-        <item>One</item>
-        <item>Two</item>
-        <item>Three</item>
-        <item>Four</item>
-        <item>Nine</item>
+        <item>Un</item>
+        <item>Deux</item>
+        <item>Trois</item>
+        <item>Quatre</item>
+        <item>Neuf</item>
     </string-array>
 
-    <string name="change_language_line2">Step 1: Select any downloaded language from the dropdown below:</string>
-    <string name="simple_ime">Jellow Keyboard</string>
-    <string name="subtype_en_US">Serial ABC</string>
-    <string name="screen_width" translatable="false">com.dsource.idc.jellow.screen_width</string>
-    <string name="screen_height" translatable="false">com.dsource.idc.jellow.screen_height</string>
-    <string name="shadow_radius" translatable="false">com.dsource.idc.jellow.shadow_radius</string>
-    <string name="border_width" translatable="false">com.dsource.idc.jellow.border_width</string>
-    <string name="perform_db_update" translatable="false">com.dsource.idc.jellow.perform_db_update</string>
+    <string name="change_language_line2">1ère étape: sélectionnez la langue que vous avez téléchargé</string>
+    <string name="simple_ime">Clavier de Jellow</string>
+    <string name="subtype_en_US">La série ABC</string>
 
-    <string name="people_pref_count_eng" translatable="false">people_count</string>
-    <string name="people_pref_count_hindi" translatable="false">people_count_hindi</string>
-    <string name="people_pref_count_marathi" translatable="false">people_count_marathi</string>
+    <string name="action_bar_title">Accueil</string>
+    <string name="txtLanguage">Langue</string>
+    <string name="txtSpeechSpeed">Le débit de parole</string>
+    <string name="txtVoiceSpeech">La fréquence de la voix</string>
+    <string name="txtDisplayMode">Le mode d\'affichage</string>
+    <string name="txtVoiceVolume">Le sonore de parole</string>
+    <string name="txtNumOfPerPerScr">Le nombre des icônes de catégories à l\'écran</string>
+    <string name="txtDemo">La démonstration du discours</string>
+    <string name="txtSave">Sauvgarder</string>
+    <string name="demoTtsSpeech">Salut! vous utilisez le Jellow Communicator</string>
+    <string name="savedSettingsMessage">Réglages sauvegardés</string>
+    <string name="languageChanged">Changement de la langue</string>
+    <string name="checkConnectivity">Vous n\'êtes pas connecté à l\'internet. Veuillez activer votre l\'internet</string>
 
-    <string name="action_bar_title">Home</string>
-    <string name="txtLanguage">Language</string>
-    <string name="txtSpeechSpeed">Speech Speed</string>
-    <string name="txtVoiceSpeech">Voice Pitch</string>
-    <string name="txtDisplayMode">Display Mode</string>
-    <string name="txtVoiceVolume">Speech Volume</string>
-    <string name="txtNumOfPerPerScr">Number of category icons per screen</string>
-    <string name="txtDemo">SPEECH DEMO</string>
-    <string name="txtSave">SAVE</string>
-    <string name="demoTtsSpeech">Hello! you are using Jellow Communicator.</string>
-    <string name="savedSettingsMessage">Settings saved.</string>
-    <string name="languageChanged">Language Changed</string>
-    <string name="checkConnectivity">You are not connected to the Internet. Please turn on your Internet.</string>
+    <string name="menuProfile">Le profil</string>
 
-    <string name="menuProfile">Profile</string>
+    &lt;!&ndash;not translated&ndash;&gt;
     <string name="menuMyBoards">My Boards</string>
-    <string name="menuAbout">About Jellow</string>
-    <string name="menuTutorials">Tutorial</string>
-    <string name="menuKeyboardInput">Keyboard Control</string>
-    <string name="menuResetPref">Reset Preferences</string>
-    <string name="menuFeedback">Feedback</string>
-    <string name="menuUserRegistration">Registration Page</string>
-    <string name="menuAccessibility">Accessibility</string>
-    <string name="menuClosePopup">Close menu</string>
-    <string name="language_download_screen" translatable="false">Jellow content download screen</string>
-    <string name="labelSplash">Jellow is loading. Please wait!</string>
 
+    <string name="menuAbout">À propos de Jellow</string>
+    <string name="menuTutorials">Le tutoriel</string>
+    <string name="menuKeyboardInput">le contrôle du clavier</string>
+    <string name="menuResetPref">Réinitialiser les préférences</string>
+    <string name="menuFeedback">Les commentaires</string>
+    <string name="menuUserRegistration">La page d\'inscription</string>
+    <string name="menuAccessibility">Accessibilité</string>
+    <string name="menuClosePopup">Quittez le menu</string>
+    <string name="labelSplash">Chargement de Jellow est en cours. Veuillez patienter!</string>
     <string name="endString"> </string>
-
-    <string name="locale_reg_IN" translatable="false">IN</string>
-    <string name="locale_lang_hi" translatable="false">hi</string>
-    <string name="locale_reg_us" translatable="false">US</string>
-    <string name="locale_lang_en" translatable="false">en</string>
-
-    <string name="aPos" translatable="false">\'A\' Positive</string>
-    <string name="aNeg" translatable="false">\'A\' Negative</string>
-    <string name="bPos" translatable="false">B Positive</string>
-    <string name="bNeg" translatable="false">B Negative</string>
-    <string name="abPos" translatable="false">A B Positive</string>
-    <string name="abNeg" translatable="false">A B Negative</string>
-    <string name="oPos" translatable="false">O Positive</string>
-    <string name="oNeg" translatable="false">O Negative</string>
-    <string name="easyToUse">Easy to Use</string>
-    <string name="clearPictures">Clear Pictures</string>
-    <string name="clearVoice">Clear Voice</string>
-    <string name="easyToNavigate">Easy to Navigate</string>
-    <string name="commentSuggestions">Comments and Suggestions</string>
-    <string name="submit">SUBMIT</string>
-    <string name="appLoading">App is loading…</string>
-    <string name="activateGoogleTts">1. Activate Google TTS</string>
-    <string name="changeDefaultToHindi">2. Make preferred language as default</string>
-    <string name="downloadVoiceTts">3.Download voice in preferred language</string>
-    <string name="activate">ACTIVATE</string>
-    <string name="changeLanguage" translatable="false">Change Language</string>
-    <string name="keyboardControl">Keyboard Control:</string>
-    <string name="serial_keyboard_title">Serial Keyboard:</string>
-    <string name="serial_keyboard_info">Jellow communicator is equipped with its own \'Serial Jellow keyboard\'. This keyboard was designed based on feedback from special educators and teachers and features alphabets placed in a serial manner starting form the alphabet \'A\'. The serial keyboard makes it easy for the user to anticipate the place of a particular alphabet on the keyboard and is especially very useful for children learning early literacy skills. Similarly, the keyboard also features numeral keys from 0–9 and symbols, which are most relevant to every day communication.</string>
-    <string name="keyboardControlTxt">To enable a keyboard of your choice and make it as default, you need to complete 2 steps:</string>
-    <string name="step1">Step 1: Enable Keyboard from device settings</string>
-    <string name="qwertyKeyboard">QWERTY</string>
-    <string name="serialKeyboard">SERIAL ABC</string>
-    <string name="step2">Step 2: Save Keyboard as default option</string>
-    <string name="saveAsDefault">SAVE AS DEFAULT</string>
-    <string name="voiceControl">Voice Control:</string>
-    <string name="getKeyboardControl">Keyboard Control</string>
-    <string name="childName">Child\'s Name *</string>
-    <string name="caregiverName">Caregiver\'s Name</string>
-    <string name="careGiverContact">Caregiver\'s Contact number other than this device\'s sim number *</string>
-    <string name="homeAddress">Home Address</string>
-    <string name="emailAddress">Email Address *</string>
-    <string name="bloodGroup">Blood Group</string>
-    <string name="detailSaved">Details saved</string>
-    <string name="invalid_emailId">Invalid email address</string>
-    <string name="invalidContactNumber">Invalid contact number</string>
-    <string name="enterTheName">Please enter your Child\'s name</string>
-    <string name="search_act_title">Search Icons in Jellow</string>
+    <string name="easyToUse">Facile d\'utilisation</string>
+    <string name="clearPictures">Les images nettes</string>
+    <string name="clearVoice">La voix claire</string>
+    <string name="easyToNavigate">Une navigation facile</string>
+    <string name="commentSuggestions">Les commentaires / les suggestions</string>
+    <string name="submit">Soumettre</string>
+    <string name="appLoading">Chargement l\'application en cours…</string>
+    <string name="activateGoogleTts">1. Activer Google TTS</string>
+    <string name="changeDefaultToHindi">2. Régler la langue souhaitée par défaut</string>
+    <string name="downloadVoiceTts">3. Téléchargez la voix dans la langue préféree</string>
+    <string name="activate">Activer</string>
+    <string name="keyboardControl">Le contrôle du clavier</string>
+    <string name="serial_keyboard_title">Clavier ABCDEF:</string>
+    <string name="serial_keyboard_info">JJellow est équipée pour cela de son propre \'Clavier ABCDEF\'. Cet clavier a conçus en fonction des commentaires des éducateurs spécialisés et les enseignants et inclure les alphabets qui sont placés de manière en série commençant par l\'alphabet \'A\'. Le clavier ABCDEF permet les utilisateurs d\'anticiper plus facilement la place d\'un alphabet spécifique sur le clavier et sera très utile pour les enfants qui apprennent des compétences précoces en alphabétisation. De même, le clavier consiste de clefs numérales de 0 à 9 et symboles, qui semblent les plus pertinents à la communication au quotidien.</string>
+    <string name="keyboardControlTxt">Pour activer le clavier de votre choix et rendre par défaut, vous devez completer 2 étapes</string>
+    <string name="step1">1ère étape: Activer le clavier dans les réglages appareil</string>
+    <string name="qwertyKeyboard">Le clavier QUERTY</string>
+    <string name="serialKeyboard">La série ABC</string>
+    <string name="step2">2ème étape: Sauvegarder le clavier par défaut</string>
+    <string name="saveAsDefault">Sauvgarder par défaut</string>
+    <string name="voiceControl">La contrôle vocal</string>
+    <string name="getKeyboardControl">Le contrôle du clavier</string>
+    <string name="childName">Nom de l\'enfant *</string>
+    <string name="caregiverName">nom du soignant</string>
+    <string name="careGiverContact">Numéro de contact de soignant d\'un autre appareil que le numéro de cette appareil *</string>
+    <string name="homeAddress">L\'addresse</string>
+    <string name="emailAddress">L\'addresse courriel *</string>
+    <string name="bloodGroup">Le groupe sanguin</string>
+    <string name="detailSaved">Les détailes sont sauvegardées</string>
+    <string name="invalid_emailId">Adresse courriel invalide</string>
+    <string name="invalidContactNumber">Numéro de téléphone non valide</string>
+    <string name="enterTheName">Veuillez saisir le nom de votre enfant</string>
+    <string name="search_act_title">Rechercher les icônes</string>
     <string name="resetPreferenceMessage">
        <![CDATA[ <ul>
-            <li>Jellow remembers the user\'s \"most-used/preferred\" icons and displays them as the top choices on the screen</li><br/>
-            <li>By resetting preferences, the icons will be set to the original order in which they were displayed the first time the application was opened</li><br/>
-            <li>Do you want to reset preferences?</li><br/><br/>
+            <li>Jellow se souvient les icônes "le plus utilisé ou préféré" d\'utilisateur et les affiche comme les premiers choix sur l\'écran</li><br/>
+            <li>En déplaçant les préférences, les icônes seront placées dans l\'ordonnance initiale dans lequel elles étaient affichées lors de la première ouverture de l\'application</li><br/>
+            <li>Souhaitez vous le réinitialiser les préférences?</li><br/><br/>
        </ul>]]>
     </string>
-    <string name="iconsHasBeenReset">Preferences have been reset.</string>
-    <string name="speak">Speak</string>
-    <string name="stop">Stop</string>
-    <string name="about_jellow_speech">Jellow is a communicator using icons to enable speech and can be used by those learning to speak or those who have difficulty with speech.  Jellow can also be used by toddlers and early learners to learn words and categories frequently used in their daily lives. Jellow\'s colourful and friendly icons can help children develop an association between pictures and their corresponding word labels. It is developed at IDC School of Design at the Indian Institute of Technology Bombay located in Mumbai. A novel Emotional Language Proto call or ELP was conceived and developed by the project investigators in order to enhance the language ability of Jellow. ELP represents the 6 expressive icons that form the core of the interface. Using these core icons, the child can communicate their likes, dislikes, and needs with others. Jellow is conceived as children-friendly with an easy-to-learn interface. The application is optimized for Android tablets.Jellow is currently available in English, Hindi, Bengali, Marathi, Tamil, Spanish, German, French and Italian. The current version of Jellow is _. The application is under further development. Therefore, if you have any suggestions for us, please submit it under the feedback tab or write to us at jellowcommunicator@gmail.com. Jellow is licensed under a Creative Commons Attribution Non-commercial Share Alike 4.0 International License. Work on Jellow is attributed to the Indian Institute of Technology Bombay. The content in this application comprising icons, layout, architecture, visual identity, translation, and the software codes can be shared and adopted but cannot be used for commercial purposes. When the content is used, we request you to acknowledge Indian Institute of Technology Bombay. Jellow is available for download at www dot jellow dot o r g. If interested in further developing the code, please write to Professor Ravi Poovaiah at ravi @ i i t b dot a c.in or at j e l l o w c o m m u n i c a t o r @ g m a i l . c o m</string>
+    <string name="iconsHasBeenReset">Les préférences ont été réinitialisées.</string>
+    <string name="speak">Parler</string>
+    <string name="stop">Arrêter</string>
+    <string name="about_jellow_speech">Jellow est un communicateur qui utilise les icônes pour autoriser la parole et il peut être utilisé par les gens qui apprendent à parler ou ceux qui ont des problèmes d\'élocution. Jellow peut aussi être mis à profit par les enfants et les jeunes apprenants à apprendre les mots et les catégories préférés utilisés dans leur vie quotidienne. Les icônes colorés et conviviaux de Jellow peuvent aider les enfants dévélopper une association entre les mots qui correspondants aux images. C\'est dévéloppé à IDC School of Design dans le "Indian Institute of Technology Bombay" à Mumbai. Un nouveau protocole qui s\'appelle "Emotional Language Proto call" ou "ELP" a été conçu et dévéloppé par les gestionnaires de projet en vue de renforcer la compétence linguistique de Jellow. ELP représente 6 icônes expressives qui forme la partie centrale de l\'interface. En utilisant ces icônes principales, l\'enfant peut communiquer avec les autres, de ce qu\'il aime, n\'aime pas et ses besoins. Jellow est conçu comme favorable aux enfants avec une interface conviviale. L\'application est optimisé pour les tablettes Android. Jellow est actuellement disponible en anglais, hindi, bengali et marathi. La version actuelle de Jellow est __. L\'application est en cours de mise au point complémentaire. Donc, si vous avez des suggestions que vous pouvez nous fournir veuillez envoyer vos commentaires dans la partie de "Feedback" ou de nous écrire à l\'adresse : jellowcommunicator@gmail.com . Jellow est en vertu de "Creative Commons Attribution Non-commercial Share Alike 4.0 International License". Les travaux sur Jellow est attribué à Indian Institute of Technology Bombay. Le contenu de l\'application comprenant les icônes, l\'agencement, l\'architecture l\'identité visuelle, la traduction et les codes logieciel pourront être partagés et adoptés mais ne peuvent être utilisés à des fins commerciales. Lorsque le contenu est utilisé, nous vous demanderons de reconnaître Indian Institute of Technology Bombay. Jellow est disponible en téléchargement sur le site www dot jellow dot o r g . Si vous souhaitez en coopérer davantage, veuillez écrire à Prof. Ravi Poovaiah : r a v i @ i i t b . a c . i n ou à j e l l o w c o m m u n i c a t o r @ g m a i l . c o m</string>
+
+    &lt;!&ndash;not translated&ndash;&gt;
     <string name="catBtnDesc">Jellow has 9 central category buttons and 6 expressive side buttons:</string>
-    <string name="catBtn">Category buttons:</string>
-    <string name="expBtn">Expressive buttons:</string>
-    <string name="jellowUsageDesc">To speak using Jellow, the user first clicks on any category button and then on an expressive button in that order. For instance, Jellow will say, “I want to eat” using the selection below:</string>
-    <string name="jellowUsageSubCat">By double-clicking on a category button, the user can access further sub-categories:</string>
+
+    <string name="catBtn">Boutons de Catégories:</string>
+    <string name="expBtn">Boutons d\'Expression:</string>
+    <string name="jellowUsageDesc">Parler utilisant Jellow, l\'utilisateur clique d\'abord sur n\'import quel bouton de Catégorie et puis sur le bouton d\'Expression dans cet ordre. Par exemple, Jellow va dire "Je veux manger" à l\'aide de la sélection ci-dessous:</string>
+    <string name="jellowUsageSubCat">En double-cliquant sur le bouton d\'Expression, l\'utilisateur peut obtenir plus des catégories et les sous catégories</string>
+
+    &lt;!&ndash;not translated&ndash;&gt;
     <string name="levelOneCat">Level 1 categories:</string>
     <string name="levelTwoCat">Level 2 categories:</string>
     <string name="levelThreeCat">Level 3 icons:</string>
@@ -186,174 +166,153 @@
     <string name="toiletSeq">Toilet sequence:</string>
     <string name="expBtnSeq">Expressive buttons in the sequence:</string>
     <string name="ttsDesc">To use Jellow in English, Hindi, Bengali, Tamil, Spanish, German, French, Italian, please activate <b>\'Google text-to-speech (TTS)\'</b> within <b>\'Language\'</b> settings of your device. Within Google TTS settings, first change the <b>default language</b> to preferred language and then download voice for preferred language through the <b>\'Install voice data\'</b> option</string>
-    <string name="softwareVersion">Software version: </string>
-    <string name="string_to_speak">Enter words here to speak.</string>
-    <string name="speak_written_text">Speak written text</string>
-    <string name="resetPrefPointOne">Jellow remembers the user’s “most-used or preferred” icons and displays them as the top choices on the screen</string>
-    <string name="resetPrefPointTwo">By resetting preferences, the icons will be set to the original order in which they were displayed the first time the application was opened</string>
-    <string name="resetPrefPointThree">Do you want to reset preferences?</string>
-    <string name="bullet" translatable="false">●</string>
 
-    <string name="downloadErrorMsg">Please ensure an active Internet connection during the entire download process. In case the progress bar is stalled, kindly restart the app or try again</string>
-    <string name="default_lang_folder_name" translatable="false">com.dsource.idc.jellow.lang_folder_name</string>
-    <string name="intro_to_jellow">Introduction to Jellow</string>
-    <string name="rate_jellow">Kindly rate Jellow in all fields.</string>
-    <string name="keyboard">Keyboard</string>
-    <string name="user_country_code" translatable="false">com.dsource.idc.jellow.user_country_code</string>
-    <string name="txt_intro1_central9btn">Jellow has 9 central category buttons</string>
-    <string name="txt_intro1_categorybtn">Category buttons</string>
-    <string name="txt_intro5_jellowUsageDesc">The application also has 6 expressive side buttons</string>
-    <string name="txt_intro5_expressiveBtn">Expressive buttons</string>
-    <string name="txt_intro2_appUsageDesc">The user first clicks on a category button and then on an expressive button</string>
-    <string name="txt_intro2_speakUsingJellow">Speaking using Jellow</string>
-    <string name="txt_intro3_level2CatDesc">By double-clicking on a category button, user can access further categories and sub-categories</string>
-    <string name="txt_intro3_navWithJellow">Navigating within Jellow</string>
-    <string name="txt_intro4_customizeAppDesc">User can customize application settings by clicking on top right corner of the application</string>
-    <string name="txt_intro4_customizeJellow">Settings within Jellow</string>
-    <string name="txt_intro6_skipActiveTtsDesc">For - accent set language as _.</string>
-    <string name="txt_intro6_ttsStep1">1.Activate Google TTS</string>
-    <string name="txt_intro6_activate">ACTIVATE</string>
-    <string name="txt_intro6_step2">2. Set _ language as default</string>
-    <string name="txt_intro6_changeLang">CHANGE LANGUAGE</string>
-    <string name="txt_intro6_step3">3. Download _ voice</string>
-    <string name="txt_intro6_download">DOWNLOAD</string>
-    <string name="txt_intro7_getStartedDesc">Now you are ready to get started with Jellow</string>
-    <string name="txt_intro7_getStarted">GET STARTED</string>
-    <string name="completed_intro" translatable="false">com.dsource.idc.jellow.completed_intro</string>
-    <string name="lang_setting_status" translatable="false">com.dsource.idc.jellow.lang_setting_status</string>
-    <string name="unique_identifier" translatable="false">com.dsource.idc.jellow.unique_identifier</string>
-    <string name="encrypt_data" translatable="false">com.dsource.idc.jellow.encrypt_data</string>
-    <string name="last_session_created" translatable="false">com.dsource.idc.jellow.last_session_created</string>
-    <string name="user_group" translatable="false">com.dsource.idc.jellow.user_group</string>
-    <string name="enable_calling" translatable="false">com.dsource.idc.jellow.enable_calling</string>
-    <string name="random_val" translatable="false">com.dsource.idc.jellow.random_val</string>
-    <string name="string_msg" translatable="false">com.dsource.idc.jellow.string_message</string>
-    <string name="updated_user_data_on_firebase" translatable="false">com.dsource.idc.jellow.update_on_fb</string>
-    <string name="tts_default_name" translatable="false">com.dsource.idc.jellow.tts_default_lang_name</string>
-    <string name="last_crash_reported" translatable="false">com.dsource.idc.jellow.last_crash_reported</string>
-    <string name="updated_locale_package_from_firebase" translatable="false">com.dsource.idc.jellow.locale_package_updated</string>
-    <string name="package_name_comma_separated" translatable="false">com.dsource.idc.jellow.comma_separated_pkg_names</string>
-    <string name="locale_package_update_from_firebase" translatable="false">com.dsource.idc.jellow.update_local_packages</string>
-    <string name="txt_registration_jellowCalluDesc">(This is how Jellow calls you)</string>
-    <string name="txt_registration_emergencynoDesc">(To be used for correspondence in case of an emergency involving the child.)</string>
-    <string name="txt_registration_emailDesc">(To notify you about the release of Jellow updates)</string>
-    <string name="txt_registration_selectLangDesc">Select a Language for Jellow *</string>
-    <string name="txt_registration_selectLangDesc_contentDesc">Select a Language for Jellow. Required field</string>
-    <string name="txt_registration_registerBtn">REGISTER</string>
-    <string name="enternonemptycontact">Please enter valid contact number</string>
-    <string name="change_tts_lang">Set TTS engine language</string>
-    <string name="txt_actLangSel_completestep3">Please turn on internet and complete Step 3</string>
+    <string name="softwareVersion">Version de logiciel:</string>
+    <string name="string_to_speak">Taper les mots ici pour parler</string>
+    <string name="speak_written_text">Lire le texte écrit</string>
+    <string name="resetPrefPointOne">Jellow se souvient les icônes "le plus utilisé ou préféré" d\'utilisateur et les affiche comme les premiers choix sur l\'écran</string>
+    <string name="resetPrefPointTwo">En déplaçant les préférences, les icônes seront placées dans l\'ordonnance initiale dans lequel elles étaient affichées lors de la première ouverture de l\'application</string>
+    <string name="resetPrefPointThree">Souhaitez vous le réinitialiser les préférences?</string>
+    <string name="downloadErrorMsg">Assurez-vous un active connexion d\'internet tout au long du processus de téléchargement. Si la barre de progression est retardée, relancer l\'application ou réessayez</string>
+    <string name="intro_to_jellow">L\'introduction de Jellow</string>
+    <string name="rate_jellow">Bien vouloir evaluer le Jellow dans tous les domaines</string>
+    <string name="keyboard">Clavier</string>
+    <string name="txt_intro1_central9btn">Jellow a 9 boutons de category</string>
+    <string name="txt_intro1_categorybtn">Boutons de catégories</string>
+    <string name="txt_intro5_jellowUsageDesc">L\'application propose aussi 6 Boutons d\'Expression sur les côtés  </string>
+    <string name="txt_intro5_expressiveBtn">Boutons d\'Expression:</string>
+    <string name="txt_intro2_appUsageDesc">L\'utilisateur clique d\'abord sur le bouton de Catégorie et puis sur le bouton d\'Expression</string>
+    <string name="txt_intro2_speakUsingJellow">Parler au moyen de Jellow</string>
+    <string name="txt_intro3_level2CatDesc">En double-cliquant sur le bouton d\'Expression, l\'utilisateur peut obtenir plus des catégories et les sous catégories</string>
+    <string name="txt_intro3_navWithJellow">Navigation à l\'intérieur de Jellow</string>
+    <string name="txt_intro4_customizeAppDesc">L\'utilisateur pouvez personaliser les réglages d\'application en cliquant sur le coin supérieur droit d\'application</string>
+    <string name="txt_intro4_customizeJellow">Les réglages au sein de Jellow</string>
+    <string name="txt_intro6_skipActiveTtsDesc">Misez Google TTS par défaut le moteur vocal ensuite régler la langue comme Anglais (Inde).</string>
+    <string name="txt_intro6_ttsStep1">1. Activer Google TTS</string>
+    <string name="txt_intro6_activate">ACTIVER</string>
+    <string name="txt_intro6_step2">2. Régler _ par défaut </string>
+    <string name="txt_intro6_changeLang">Changer la langue</string>
+    <string name="txt_intro6_step3">3) Télécharger la vocal d\'_</string>
+    <string name="txt_intro6_download">Télécharger</string>
+    <string name="txt_intro7_getStartedDesc">Maintenant vous êtes prêt à démarrer avec Jellow</string>
+    <string name="txt_intro7_getStarted">Commencez-vous</string>
+    <string name="txt_registration_jellowCalluDesc">(C\'est de cette façon que Jellow vous appelle)</string>
+    <string name="txt_registration_emergencynoDesc">(À utiliser pour la correspondance en cas d\'urgence dans lequel l\'enfant est concerné)</string>
+    <string name="txt_registration_emailDesc">(Avertir vous de la diffusion des mises à jour)</string>
+    <string name="txt_registration_selectLangDesc">Sélectionner la langue pour Jellow *</string>
+    <string name="txt_registration_selectLangDesc_contentDesc">Sélectionner la langue pour Jellow. Le champ requis</string>
+    <string name="txt_registration_registerBtn">Inscrivez-vous</string>
+    <string name="enternonemptycontact">Veuillez entrez votre numèro de téléphone</string>
+    <string name="change_tts_lang">Définir TTS comme la langue du système</string>
+    <string name="txt_actLangSel_completestep3">Veuillez activer votre l\'internet et complètent la troisième étape</string>
+
+    &lt;!&ndash;not translated&ndash;&gt;
     <string name="change_language_line5">Step 2: Check if voice data for _ is available on your device. If not please turn on internet and download voice data for selected language. In case process is stalled please check your internet connection and retry</string>
     <string name="change_language_line4">Step 3: Set \'Google Text-to-speech (TTS)\' as default TTS engine and set _ as default language of the engine.</string>
-    <string name="txtChangeLanguage">Change Default Language:</string>
-    <string name="txtApplyChanges">Step 4: Click \'Apply changes\' to set new language as default</string>
-    <string name="change_language_line6">You can follow the steps listed below to set a newly added language as the default for Jellow</string>
-    <string name="txt_set_tts_setup">Please complete Text-to-Speech engine setup given in this page</string>
-    <string name="txt_save_same_lang_def">Selected language is already default language</string>
-    <string name="speech_engin_lang_sam">Please check the \'Language\' settings of the app</string>
-    <string name="txt_intro6_skipTtsSetup">Devices with active Google TTS engine: Please swipe to skip current step</string>
-    <string name="txt_actLangSel_downloadDat">Check voice data</string>
+
+    <string name="txtChangeLanguage">Modification de la langue par défaut:</string>
+    <string name="txtApplyChanges">4ème étape: Cliquez sur \'Appliquer les changements\' pour définir la nouvelle langue par défaut</string>
+    <string name="change_language_line6">Vous pouvez suivre les étapes ci-dessous pour définir une nouvelle langue par défaut pour Jellow</string>
+    <string name="txt_set_tts_setup">Veuillez compléter la configuration du système Texte-vers-Voix fournies dans les pages précédentes</string>
+    <string name="txt_save_same_lang_def">La langue sélectionnée est déjà la langue par défaut</string>
+    <string name="speech_engin_lang_sam">Veuillez vérifier les paramètres de la \'Langue\' de l\'application</string>
+    <string name="txt_intro6_skipTtsSetup">Les appareils avec un active système de Google TTS: Veuillez faire glisser pour omettre cette étape</string>
+    <string name="txt_actLangSel_downloadDat">Vérifier la donnée vocale</string>
+    &lt;!&ndash;not translated&ndash;&gt;
     <string name="txt_actLangSel_complete_mainscreen_msg">Voice data not available. Please turn on internet and go to language settings of app.</string>
-    <string name="language_downloaded">_ language downloaded</string>
-    <string name="language_downloading">Downloading _ language</string>
+
+    <string name="language_downloaded">_ La langue est télécharger</string>
+    <string name="language_downloading">Téléchargement de la Langue _</string>
     <string name="ok">OK</string>
+
+    &lt;!&ndash;not translated&ndash;&gt;
     <string name="call_permission_info">Call permission is not available. Call permission is required to make a call in case of an emergency.</string>
-    <string name="granted_call_permission_req">Call permission is granted.</string>
-    <string name="rejected_call_permission_req">Call permission is denied.</string>
-    <string name="grant_permission_from_settings">Enable call permission from settings.</string>
-    <string name="request">Request</string>
-    <string name="userGroup">User Group *</string>
-    <string name="groupTeacher">Therapist/Teacher</string>
-    <string name="groupParent">Parent/Caregiver</string>
-    <string name="groupParentOnly" translatable="false">Parent</string>
-    <string name="groupTeacherOnly" translatable="false">Therapist</string>
-    <string name="invalid_usergroup">Please choose user group.</string>
-    <string name="txtEnableBuiltInCalling">Enable emergency calling from Jellow</string>
-    <string name="dismiss">Dismiss</string>
-    <string name="mukta_regular" translatable="false">Mukta-Regular.ttf</string>
-    <string name="register_user">Please wait registration is in process…</string>
-    <string name="exit">Exit</string>
-    <string name="err_dialog_msg">Google TTS engine is not installed on your device. Do you want to install TTS engine?</string>
-    <string name="exit_dialog_msg">Jellow will not work without Google Text-to-speech engine. Do you really want to exit?</string>
 
-    <string name="lang_change_code" translatable="false">Language_change</string>
-    <string name="lang_change" translatable="false">lang_change</string>
-    <string name="level_one_intent_pos_tag" translatable="false">mLevelOneItemPos</string>
-    <string name="intent_menu_path_tag" translatable="false">selectedMenuItemPath</string>
-    <string name="level_2_item_pos_tag" translatable="false">mLevelTwoItemPos</string>
-    <string name="first_time_login" translatable="false">create_database</string>
+    <string name="granted_call_permission_req">La permission d\'appel est accordée.</string>
+    <string name="rejected_call_permission_req">La permission d\'appel est refusée.</string>
+    <string name="grant_permission_from_settings">Activer la permission d\'appel dans le réglage</string>
+    <string name="request">La demande</string>
+    <string name="userGroup">La groupe d\'utilisateurs *</string>
+    <string name="groupTeacher">Un thérapeute/ un professeur</string>
+    <string name="groupParent">Le parent/ le gardien</string>
+    <string name="invalid_usergroup">Veuillez choisir le groupe d\'utilisateurs</string>
+    <string name="txtEnableBuiltInCalling">Permettre les appels d\'urgence sur Jellow</string>
+    <string name="dismiss">Rejeter</string>
+    <string name="register_user">Veuillez attendre l\'inscription est en cours d\'affichage…</string>
+    <string name="exit">Quitter</string>
+    <string name="err_dialog_msg">Le système de Google TTS n\'est pas installé sur votre appareil?</string>
+    <string name="exit_dialog_msg">Jellow ne va pas marcher sans le système de Google \'Texte-vers-Voix\'. Souhaitez-vous vraiment quitter l\'application?</string>
 
-    <string name="next_slide">Next slide</string>
-    <string name="previous_slide">Previous slide</string>
+    <string name="next_slide">La prochaine diapositive</string>
+    <string name="previous_slide">La diapositive précédente</string>
 
-    <!--Strings related to the Searching capability
+    &lt;!&ndash;Strings related to the Searching capability
     @AyazAlam
-    -->
-    <string name="search_title">Search Icon…</string>
-    <string name="search_parent_0" translatable="false">parent_0</string>
-    <string name="search_parent_1" translatable="false">parent_1</string>
-    <string name="search_parent_2" translatable="false">parent_2</string>
-    <string name="home">Home</string>
-    <string name="from_search" translatable="false">FROM_SEARCH</string>
-    <string name="search_tag" translatable="false">SEARCH</string>
-    <string name="icon_not_found">Icon not found</string>
-    <string name="not_found" translatable="false">NOT_FOUND</string>
-    <string name="goto_home" translatable="false">goto_home</string>
+    &ndash;&gt;
+    <string name="search_title">L\'icône de recherche…</string>
+    <string name="home">Accueil</string>
+    <string name="icon_not_found">L\'icône n\'est pas trouvée</string>
 
+    &lt;!&ndash;About Jellow strings&ndash;&gt;
+    <string name="info">Les informations générales</string>
 
-    <!--About Jellow strings-->
-    <string name="info">General Information</string>
+    &lt;!&ndash;not translated&ndash;&gt;
     <string name="about_je_intro1">Jellow is a communicator using icons to enable speech and can be used by those learning to speak or those who have difficulty with speech. Jellow can also be used by toddlers and early learners to learn words and categories frequently used in their daily lives. Jellow’s colourful and friendly icons can help children develop an association between pictures and their corresponding word labels.</string>
-    <string name="about_je_intro2">It is developed at IDC School of Design at the Indian Institute of Technology Bombay located in Mumbai.</string>
-    <string name="about_je_intro3">A novel Emotional Language Protocol or ELP was conceived and developed by the project investigators in order to enhance the language ability of Jellow. ELP represents the 6 expressive icons that form the core of the interface.</string>
-    <string name="about_je_intro4">Using these core icons, the child can communicate their likes, dislikes, and needs with others.</string>
-    <string name="about_je_intro5">Jellow is conceived as children-friendly with an easy-to-learn interface.</string>
-    <string name="about_je_intro6">The application is optimized for Android tablets.</string>
+
+    <string name="about_je_intro2">C\'est dévéloppé à IDC School of Design dans le "Indian Institute of Technology Bombay" à Mumbai.</string>
+    <string name="about_je_intro3">Un nouveau protocole qui s\'appelle "Emotional Language Proto call" ou "ELP" a été conçu et dévéloppé par les gestionnaires de projet en vue de renforcer la compétence linguistique de Jellow. ELP représente 6 icônes expressives qui forme la partie centrale de l\'interface.</string>
+    <string name="about_je_intro4">En utilisant ces icônes principales, l\'enfant peut communiquer avec les autres, de ce qu\'il aime, n\'aime pas et ses besoins.</string>
+    <string name="about_je_intro5">Jellow est conçu comme favorable aux enfants avec une interface conviviale.</string>
+    <string name="about_je_intro6">L\'application est optimisé pour les tablettes Android.</string>
+
+    &lt;!&ndash;not translated&ndash;&gt;
     <string name="about_je_intro7">Jellow is currently available in English, Bengali, Marathi, Tamil, Spanish, German, French und Italian</string>
     <string name="software_info">Software Version: _</string>
-    <string name="about_je_intro8">The current version of Jellow is _. The application is under further development. Therefore, if you have any suggestions for us, please submit it under the feedback tab or write to us at jellowcommunicator@gmail.com."</string>
-    <string name="terms_of_use">Terms of Use</string>
-    <string name="about_je_intro9">Jellow is licensed under a Creative Commons Attribution Non-commercial Share Alike 4.0 International License.</string>
-    <string name="about_je_intro10">Work on Jellow is attributed to the Indian Institute of Technology Bombay.</string>
-    <string name="about_je_intro11">The content in this application comprising icons, layout, architecture, visual identity, translation, and the software codes can be shared and adopted but cannot be used for commercial purposes.</string>
-    <string name="about_je_intro12">When the content is used, we request you to acknowledge Indian Institute of Technology Bombay.</string>
-    <string name="about_je_intro13">Jellow is available for download at</string>
-    <string name="about_je_link" translatable="false">http://www.jellow.org</string>
-    <string name="about_je_intro14">If interested in further developing the code, please write to Professor Ravi Poovaiah at</string>
-    <string name="credits">Credits:</string>
-    <string name="about_je_intro15">Idea Conception, Project Investigation and Supervision:</string>
-    <string name="about_je_intro16">Professor Ravi Poovaiah and Dr Ajanta Sen</string>
-    <string name="about_je_intro17">Initial Concept Development:</string>
+
+    <string name="about_je_intro8">La version actuelle de Jellow est _ L\'application est en cours de mise au point complémentaire. Donc, si vous avez des suggestions que vous pouvez nous fournir veuillez envoyer vos commentaires dans la partie de "Feedback" or écrivez-nous à jellowcommunicator@gmail.com."</string>
+    <string name="terms_of_use">Les conditions d\'utilisation</string>
+    <string name="about_je_intro9"> Jellow est en vertu de "Creative Commons Attribution Non-commercial Share Alike 4.0 International License".</string>
+    <string name="about_je_intro10">Les travaux sur Jellow est attribué à Indian Institute of Technology Bombay.</string>
+    <string name="about_je_intro11">Le contenu de l\'application comprenant les icônes, l\'agencement, l\'architecture l\'identité visuelle, la traduction et les codes logieciel pourront être partagés et adoptés mais ne peuvent être utilisés à des fins commerciales.</string>
+    <string name="about_je_intro12">Lorsque le contenu est utilisé, nous vous demanderons de reconnaître Indian Institute of Technology Bombay.</string>
+    <string name="about_je_intro13">Jellow est disponible en téléchargement sur le site</string>
+    <string name="about_je_intro14">Si vous souhaitez en coopérer davantage, veuillez écrire à Prof. Ravi Poovaiah: </string>
+    <string name="credits">Crédits:</string>
+    <string name="about_je_intro15">La conception de l\'idée, l\'enquête et la supervision du projet:</string>
+    <string name="about_je_intro16">Professor Ravi Poovaiah et Dr Ajanta Sen</string>
+    <string name="about_je_intro17">Initiale du développement du concept:</string>
     <string name="about_je_intro18">Anchal Kumar, Samraat Sardesai, Peter Joseph, Antara Hazarika</string>
-    <string name="about_je_intro19">Software Development:</string>
+    <string name="about_je_intro19">Le développement logiciel:</string>
     <string name="about_je_intro20">Rahul Rupchand Jidge, Narayana Reddy, Nikhil Ahirrao, Ayaz Alam, Harshit Budhraja, Sumeet Agrawal, Roopa Narayan Sahoo, Shruti Gupta, Aastha Joshi, Dhairya Dand, Pritam Pebam</string>
-    <string name="about_je_intro31">Software and usability testing:</string>
+    <string name="about_je_intro31">Vérification de logiciels et de convivialité:</string>
     <string name="about_je_intro32">Dr. Sudha Srinivasan, Vinaya Tawde, Sachin Sonawane, Roopa Narayan Sahoo, Rahul Rupchand Jidge</string>
-    <string name="about_je_intro21">Website Design:</string>
+    <string name="about_je_intro21">Design du site:</string>
     <string name="about_je_intro22">Professor Ravi Poovaiah, Yogesh Masaye, Sumedh Garud, Roopa Narayan Sahoo</string>
-    <string name="about_je_intro23">Icons, Sound and Visual Design:</string>
+    <string name="about_je_intro23">Design des icônes, des audiovisuels et du système visuel:</string>
     <string name="about_je_intro24">Vinaya Tawde, Shweta Gaurish Pathare, Anisha Malhotra, Simone Sen, Nikita Iyer, Ganesh Gajjela</string>
-    <string name="about_je_intro25">Translation:</string>
+    <string name="about_je_intro25">Traduction:</string>
     <string name="about_je_intro26">Sachin Sonawane, Dr Sudha Srinivasan, Kaustubh Rajwade, Shashank Khobragade, Jeeva Kannan Muthukumar, Deepal Shethia, Dr Rupak Misra</string>
-    <string name="about_je_intro27">Research, Vocabulary Development, and User Studies:</string>
+    <string name="about_je_intro27">La recherche , le développement du vocabulaire et les études sur les utilisateurs:</string>
     <string name="about_je_intro28">Dr Sudha Srinivasan, Pushkar Deshpande, Sakshi Pal, Siddhi Patel</string>
-    <string name="about_je_intro29">Support:</string>
-    <string name="about_je_intro30">E-kalpa project sponsored under NMEICT by MHRD, Microsoft Design Expo 2004 and a 1-year seed grant through the UNICEF Innovation Fund</string>
-    <string name="about_je_intro38">Longitudinal user studies and field testing of Jellow Communicator:</string>
-    <string name="about_je_intro39">Topiwala National Medical College and B.Y.L Nair Charitable Hospital (Departments of Psychiatry and Audiology and Speech Therapy)</string>
+    <string name="about_je_intro29">Soutien:</string>
+    <string name="about_je_intro30">Le projet de E-kalpa être parrainés en NMEICT par le Ministère du développement des ressources humaines du Gouvernement (MHRD), Microsoft Design Expo 2004 et  une subvention d\'un an par le UNICEF le Fonds d\'innovation.</string>
+    <string name="about_je_intro38">Les études longitudinales d\'utilisateur et les essais sur Jellow Communicator:</string>
+    <string name="about_je_intro39">Topiwala National Medical College et B.Y.L Nair Charitable Hospital (les départements de psychiatrie, d\'audiologie et d\'orthophonie)</string>
 
-    <string name="feedback_talkback_heading">On a scale of 1 to 5, please rate the following</string>
+    <string name="feedback_talkback_heading">Sur une échelle de 1 à 5, veuillez évaluer les aspects suivants</string>
 
-    <!--Content description-->
-    <string name="language_download_in_process">Language download in process</string>
-    <string name="child_s_name">child\'s name. Required field</string>
-    <string name="caregiver_s_contact_number">Caregiver\'s Contact number</string>
-    <string name="user_s_group">user group. Required field</string>
-    <string name="enter_home_address">enter home address</string>
-    <string name="enter_caregiver_s_contact_number">enter caregiver\'s contact number</string>
-    <string name="enter_caregiver_s_name">enter caregiver\'s name</string>
-    <string name="enter_caregiver_s_email_address">enter caregiver\'s email address</string>
-    <string name="email_address">email address</string>
+    &lt;!&ndash;Content description&ndash;&gt;
+    <string name="language_download_in_process">Téléchargement de la langue est en cours</string>
+    <string name="child_s_name">nom de l\'enfant. Le champ requis</string>
+    <string name="caregiver_s_contact_number">numéro de contact du soignant</string>
+    <string name="user_s_group">La groupe d\'utilisateurs. Le champ requis</string>
+    <string name="enter_home_address">Entrez votre adresse de domicile</string>
+    <string name="enter_caregiver_s_contact_number">Entrez le numéro de contact d\'aidant</string>
+    <string name="enter_caregiver_s_name">Entrez le nom d\'aidant</string>
+    <string name="enter_caregiver_s_email_address">Entrez l\'adresse électronique d\'aidant</string>
+    <string name="email_address">adresse électronique</string>
+
+    &lt;!&ndash;not translated&ndash;&gt;
     <string name="category_cd">The image shows a screenshot of the home page of Jellow. The home page contains a central grid of 9 icons called category buttons that are arranged in 3 rows and 3 columns. The 9 category buttons are “Greet and feel”, “Daily activities”, “Eating”, “Fun”, “Learning”, “People”, “Places, “Time and weather”, and “Help”. Below the category buttons are 3 navigation buttons of “Back”, “Home” and “keyboard” arranged in that order at the bottom of the home screen. On the right and left sides of the central category icons are 3 expressive icons each. To the left of the central grid are 3 expressive buttons of “Like”, “Yes” and “More” arranged from top to bottom in that order. To the right of the central grid, are the remaining 3 expressive buttons of “Don’t like”, “No” and “Less” arranged from top to bottom. On the top right corner of the home screen is visible a settings icon. In this image the central grid of 9 icons has been highlighted with all other buttons faded out.</string>
     <string name="expressive_cd">This image again shows the screenshot of the home page of Jellow. In this image, the 6 expressive buttons arranged as 3 each of either side of the central category buttons have been highlighted with all other buttons faded out. To the left of the central grid of category buttons, arranged from top to bottom are the 3 expressive buttons of “Like” represented by a “Smiley face” icon, “Yes” represented by a “check mark” icon, and “More” represented by a “Plus sign” icon. To the right of the category buttons, arranged from top to bottom are the expressive icons of “Don’t like” represented by a sad face” icon, “No” represented by the, “cross” icon and “Less” represented by the, “Minus sign” icon. Also labeled in the image are the 3 navigational buttons at the bottom of the screen. From left to right these are “Back”, “Home”, and “Keyboard”.</string>
     <string name="pic4">This image has the home screen of Jellow with only 2 icons of “Eating” and “Yes” highlighted. The rest of the buttons are faded out. The image shows that to speak using Jellow, user has to first click on any category button, for instance, “Eating” and then on an expressive button, for example, “Yes”. In this way the user can speak using Jellow</string>
@@ -367,10 +326,13 @@
     <string name="gtts2">The second image corresponds to the second step in this process where the user is seen to now click on the, “Gear” symbol corresponding to the, “Settings” of the, “Google Text-to-Speech engine”</string>
     <string name="gtts3">The third image is the third step in this process where now the user is at the, “Google TTS voice data” screen. This screen provides multiple voice options including “French (France)”, “German (Germany)”, “Hindi (India)”, “Hungarian (Hungary)”, and “Indonesian (Indonesia)”. The, “Hindi (India) voice” option is highlighted and shows an option of “Voice set 1” with a size of 19MB that is available for download. The user’s finger is seen to click on the download icon for the voice set 1 for the, “Hindi (India)voice”.</string>
     <string name="enter_child_s_name">Enter child\'s name</string>
-    <string name="caregiver_s_contact_number_other_than_this_device_s_sim_number">Caregiver\'s Contact number other than this device\'s sim number. Required field</string>
-    <string name="select_country_code">select country code</string>
-    <string name="caregiver_s_email_address">caregiver\'s email address. Required field</string>
-    <string name="txt_registration_usergrp_desc">(Choose the person who will be using Jellow on this device)</string>
+    <string name="caregiver_s_contact_number_other_than_this_device_s_sim_number">Caregiver\'s Contact number other than this device\'s sim number. Le champ requis</string>
+
+    <string name="select_country_code">Sélectionner l\'indicatif du pays</string>
+    <string name="caregiver_s_email_address">adresse électronique du soignant. Le champ requis</string>
+    <string name="txt_registration_usergrp_desc">(Choisir la personne qui utilisera Jellow sur cet appareil)</string>
+
+    &lt;!&ndash;not translated&ndash;&gt;
     <string name="like">like</string>
     <string name="yes">yes</string>
     <string name="more">more</string>
@@ -378,10 +340,10 @@
     <string name="no">no</string>
     <string name="less">less</string>
     <string name="back">back</string>
-    <string name="dialog_yes" translatable="false">yes</string>
-    <string name="dialog_no" translatable="false">no</string>
-    <string name="never_show_again" translatable="false">Never show again</string>
-    <string name="enter_category">enter category</string>
+
+    <string name="enter_category">Saisissez la catégorie</string>
+
+    &lt;!&ndash;not translated&ndash;&gt;
     <string name="intro_cd">The image shows a screenshot of the home page of Jellow. The home page contains a central grid of 9 icons called category buttons that are arranged in 3 rows and 3 columns. The 9 category buttons are “Greet and feel”, “Daily activities”, “Eating”, “Fun”, “Learning”, “People”, “Places, “Time and weather”, and “Help”. Below the category buttons are 3 navigation buttons of “Back”, “Home” and “keyboard” arranged in that order at the bottom of the home screen. On the right and left sides of the central category icons are 3 expressive icons each. To the left of the central grid are 3 expressive buttons of “Like”, “Yes” and “More” arranged from top to bottom in that order. To the right of the central grid, are the remaining 3 expressive buttons of “Don’t like”, “No” and “Less” arranged from top to bottom. On the top right corner of the home screen is visible a settings icon. In this image the central grid of 9 icons has been highlighted with all other buttons faded out.</string>
     <string name="intro2_cd">This image has the home screen of Jellow with only 2 icons of “Eating” and “Yes” highlighted. The rest of the buttons are faded out. The image shows that to speak using Jellow, user has to first click on any category button, for instance, “Eating” and then on an expressive button, for example, “Yes”. In this way the user can speak using Jellow.</string>
     <string name="intro3_cd">This image shows a screenshot of Jellow sub-categories within the, “Eating” category. The icons visible in the central grid arranged in a 3 by 3 grid format are “Breakfast”, “Lunch/Dinner”, “Sweets”, “Snacks”, “Fruits”, “Drinks”, “Cutlery”, and “Add-ons”. The image shows the user’s finger double-clicking on “Breakfast” icon to access further sub-options.</string>
@@ -390,122 +352,88 @@
     <string name="intro6_1_cd">In the first image corresponding to “Text-to-speech output”, there are 2 preferred engines visible, first, the, “Samsung Text-to-Speech engine” and second, the, “Google Text-to-Speech engine”. The user is seen to select the “Google Text-to-Speech engine”as the first step.</string>
     <string name="intro6_2_cd">The second image corresponds to the second step in this process where the user is seen to now click on the, “Gear” symbol corresponding to the, “Settings” of the, “Google Text-to-Speech engine</string>
     <string name="intro6_3_cd">The third image is the third step in this process where now the user is at the, “Google TTS voice data” screen. This screen provides multiple voice options including “French (France)”, “German (Germany)”, “Hindi (India)”, “Hungarian (Hungary)”, and “Indonesian (Indonesia)”. The “Hindi (India) voice” option is highlighted and shows an option of “Voice set 1” with a size of 19MB that is available for download. The user’s finger is seen to click on the download icon for the voice set 1 for the, “Hindi (India)voice”.</string>
-    <string name="change_language" translatable="false">Language selected in Jellow is different from that of your device output language. Would you like to change your device language ?</string>
-    <string name="talkback_single_click">select</string>
-    <string name="talkback_dropdown_menu">access countries list</string>
-    <string name="close_dialog">close dialog.</string>
-    <string name="next">next</string>
-    <string name="previous">previous</string>
-    <string name="edttxt_msg">Type here to speak</string>
-    <string name="keyboard_open">open keyboard</string>
-    <string name="therapist_or_teacher_cd">Therapist or teacher</string>
-    <string name="parent_or_caregiver_cd">Parent or caregiver</string>
-    <string name="child_s_name_dialog_btn">My name</string>
-    <string name="caregiverName_dialog_btn">Caregiver\'s name</string>
-    <string name="caregiver_s_email_address_dialog_btn">Caregiver\'s email address</string>
-    <string name="homeAddress_dialog_btn">My home address</string>
-    <string name="caregiver_s_contact_number_dialog_btn">Caregiver\'s contact number</string>
-    <string name="bloodGroup_dialog_btn">My blood group</string>
-    <string name="seekbar_speed_cd">Please use your device’s volume buttons to change speech speed.</string>
-    <string name="seekbar_pitch_cd">Please use your device’s volume buttons to change voice pitch</string>
-    <string name="seekbar_volume_cd">Please use your device’s volume buttons to change speech volume</string>
+
+    <string name="talkback_single_click">Sélectionner</string>
+    <string name="talkback_dropdown_menu">Accéder la liste des pays</string>
+    <string name="close_dialog">Fermer la boîte de dialogue</string>
+    <string name="next">Prochain</string>
+    <string name="previous">Précédent</string>
+    <string name="edttxt_msg">Entrez ici pour parler</string>
+    <string name="keyboard_open">Ouvrir le clavier</string>
+    <string name="therapist_or_teacher_cd">Un orthophoniste ou un professeur</string>
+    <string name="parent_or_caregiver_cd">Un parent ou un gardien</string>
+    <string name="child_s_name_dialog_btn">Mon nom</string>
+    <string name="caregiverName_dialog_btn">nom du soignant</string>
+    <string name="caregiver_s_email_address_dialog_btn">adresse électronique du soignant</string>
+    <string name="homeAddress_dialog_btn">Mon addresse</string>
+    <string name="caregiver_s_contact_number_dialog_btn">numéro de contact du soignant</string>
+    <string name="bloodGroup_dialog_btn">Mon groupe sanguin</string>
+    <string name="seekbar_speed_cd">Veuillez utiliser les boutons de volume de votre appareil pour changer la vitesse de la voix</string>
+    <string name="seekbar_pitch_cd">Veuillez utiliser les boutons de volume de votre appareil pour changer le ton de la voix</string>
+    <string name="seekbar_volume_cd">Veuillez utiliser les boutons de volume de votre appareil pour changer sonore de parole</string>
+
+    &lt;!&ndash;not translated&ndash;&gt;
     <string name="lang_setting_option1_cd">“The image below shows the 3 steps involved in setting up the Google text-to-speech engine that is used by Jellow. The image is made up of 3 screenshots of the, “Text to speech output” and “Google TTS settings” within a user’s device. In the first image corresponding to “Text-to-speech output”, there are 2 preferred engines visible, first, the, “Samsung Text-to-Speech engine” and second, the, “Google Text-to-Speech engine”. The user is seen to select the, “Google Text-to-Speech engine” as the first step.</string>
     <string name="lang_setting_option2_cd">The second image corresponds to the second step in this process where the user is seen to now click on the, “Gear” symbol corresponding to the, “Settings” of the, “Google Text-to-Speech engine”</string>
     <string name="lang_setting_option3_cd">The third image is the third step in this process where now the user is at the, “Google TTS options” screen. The second item on this screen which is a toggle switch for “Use Wi-Fi only” has been highlighted in this image. The user is asked to turn off or disable this switch in this step.”</string>
     <string name="lang_setting_option3_gtt3_cd">The third image corresponds to the third step in this process where the user is seen to now click on the, “Language\" option on the Google TTS voice data page. The user is seen to set \"Hindi(India)\" as the default language of the Google Text-to-Speech engine.</string>
-    <!--end content description-->
-
+    &lt;!&ndash;end content description&ndash;&gt;
     <string name="intro8_step2">Turn off \"Use Wi-Fi only\"</string>
-    <string name="txt_tts_stting">TTS SETTINGS</string>
-    <string name="txt_intro8_step1">1. Open Google TTS Engine</string>
-    <string name="txt_intro8_step2">2. Go to \"Settings\" for Google TTS Engine</string>
+
+    <string name="txt_tts_stting">Réglages du TTS</string>
+    <string name="txt_intro8_step1">1. Ouvrir le système de Google TTS</string>
+    <string name="txt_intro8_step2">2. Allez dans "Réglages" pour Google TTS</string>
+
+    &lt;!&ndash;not translated&ndash;&gt;
     <string name="txt_intro8_step3">3. Turn off \"Use Wi-Fi only\"</string>
     <string name="change_language_tts_wifi">Go to settings of Google TTS and turn off \'Use Wi-Fi only\' by tapping below \'TTS SETTINGS\' button. If option is already disabled, please skip this step.</string>
-    <string name="icon_update_msg">Updating icons for existing language(s):</string>
-    <string name="disable_wifi_only">Please complete above process to turn off \'Use Wi-Fi only\' option</string>
-    <string name="step3">Step 3:</string>
+
+    <string name="icon_update_msg">L\'actualisation des icônes la/les langage(s) existants:</string>
+    <string name="disable_wifi_only">Remplir la partie précédente pour désactiver l\'option d\'utilisation uniquement WiFi</string>
+    <string name="step3">Étape 3:</string>
+
+    &lt;!&ndash;not translated&ndash;&gt;
     <string name="txt_intro8_txtTitle">Please follow the steps below to setup Text-to-speech engine</string>
-    <string name="txt_actLangSel_completestep2">Voice data not available. Please turn on internet and complete Step 2</string>
-    <string name="error_in_registration" translatable="false">Registration process is failed, please retry.</string>
-    <string name="txtStep2">Step 2:</string>
-    <string name="retry" translatable="false">RETRY</string>
-    <string name="close">close dialog</string>
+
+    <string name="txt_actLangSel_completestep2">La donnée vocale n\'est pas disponible. Veuillez activer votre l\'internet et complètent la deuxième étape</string>
+    <string name="txtStep2">Étape 2:</string>
+    <string name="close">Fermer la boîte de dialogue</string>
+
+    &lt;!&ndash;not translated&ndash;&gt;
     <string name="access_dialog_title">dialog with options.</string>
 
-    <string name="acc_lang_marathi">Marathi (India)</string>
-    <string name="acc_lang_hindi">Hindi (India)</string>
-    <string name="acc_lang_bengali">Bengali (India)</string>
-    <string name="acc_lang_eng_in">English (India)</string>
-    <string name="acc_lang_eng_gb">English (United Kingdom)</string>
-    <string name="acc_lang_eng_us">English (United States)</string>
-    <string name="acc_lang_eng_au">English (Australia)</string>
+    <string name="acc_lang_marathi">Marathi (Inde)</string>
+    <string name="acc_lang_hindi">Hindi (Inde)</string>
+    <string name="acc_lang_bengali">Bengali (Inde)</string>
+    <string name="acc_lang_eng_in">Anglais (Inde)</string>
+    <string name="acc_lang_eng_gb">Anglais (Royaume-Uni)</string>
+    <string name="acc_lang_eng_us">Anglais (États-Unis)</string>
+    <string name="acc_lang_eng_au">Anglais (Australie)</string>
+
+    &lt;!&ndash;not translated&ndash;&gt;
     <string name="acc_lang_span_span">Spanish (Spain)</string>
     <string name="acc_lang_tamil_in">Tamil (India)</string>
     <string name="acc_lang_german_ger">Deutsch (Deutschland)</string>
     <string name="acc_lang_french_fr">French (France)</string>
     <string name="acc_lang_italian_it">Italiano (Italian)</string>
 
-    <string name="level_1_screen">Level one screen</string>
-    <string name="level_2_screen">Level two screen</string>
-    <string name="level_3_screen">Level three screen</string>
-    <string name="sequence_screen">Activity sequence</string>
-    <string name="close_searchbar">Close search bar</string>
+    <string name="level_1_screen">L\'écran de niveau un</string>
+    <string name="level_2_screen">L\'écran de niveau deux</string>
+    <string name="level_3_screen">L\'écran de niveau trois</string>
+    <string name="sequence_screen">La séquence d\'événement</string>
+    <string name="close_searchbar">Fermer la barre de recherche</string>
 
-    <string name="wait_text" translatable="false">Please wait...</string>
-    <string name="no_internet" translatable="false">No Internet</string>
-    <string name="my_boards" translatable="false">My Boards</string>
-    <string name="filter_text" translatable="false">Filter</string>
-    <string name="base_ref" translatable="false">jellow-3a90b</string>
-    <string name="testing" translatable="false">testing</string>
-    <string name="verbiage_ref" translatable="false">verbiage_data</string>
-    <string name="lang" translatable="false">En-IN</string>
-    <string name="delete_board" translatable="false">Delete Board</string>
-    <string name="no_board_to_delete" translatable="false">There are no board to delete</string>
-    <string name="icon_list" translatable="false">IconList</string>
-    <string name="search_result" translatable="false">search_result</string>
-    <string name="icon_select_mode" translatable="false">icon_select_mode</string>
-    <string name="delete_icons" translatable="false">Delete Icons</string>
-    <string name="add_edit_icons" translatable="false">Add Edit Icons</string>
-    <string name="icon_select_text" translatable="false">Select Icons</string>
-    <string name="done" translatable="false">Done</string>
-    <string-array name="entries">
-        <item>Camera</item>
-        <item>Gallery</item>
-        <item>Library</item>
-    </string-array>
+    <string name="txt_accessibility_setting">Paramètres Accesibilité</string>
+    <string name="visual_access_title">Accessibilité visuelle:</string>
+    <string name="visual_access_info">La fonction d\'accessibilité visuelle de Jellow permettent maintenant les utilisateurs avec les troubles de la vision notamment les personnes aveugles ou malvoyantes, d\'utiliser Jellow et communiquer efficacement avec les autres. Elle utilise le système de << Talk Back >> sur le Smartphone Android, il vous permet de découvrir dans l\'application. Quand ce système est mis en marche l\'utilisateur pourra avoir l\'entrée audio détaillant toutes les choses qu\'il touche sur l\'écran. L\'utilisateur peut aussi assigner les gestes personnalisés ou utiliser les gestes par défaut dans << Talk Back >> lorsqu\'ils interagissent avec Jellow. Par exemple, une glisse vers la droite permet l\'utilisateur défile simultanément les icônes sur l\'écran. De la même façon, en appuyant deux fois n\'importe où sur l\'écran permet l\'utilisateur de choisir un icône de leur choix.</string>
+    <string name="switch_access_title">Contrôle de Séléction:</string>
+    <string name="switch_access_info_one">Contrôle de Séléction facilitent la navigation dans l\'application pour les personnes handicapées moteur. La fonction permet la navigation en utilisant un ou deux commutateurs.</string>
 
-    <array name="expressive_icon_pressed">
-        <item>@drawable/like_pressed</item>
-        <item>@drawable/yes_pressed</item>
-        <item>@drawable/more_pressed</item>
-        <item>@drawable/dontlike_pressed</item>
-        <item>@drawable/no_pressed</item>
-        <item>@drawable/less_pressed</item>
-    </array>
-    <array name="expressive_icon_unpressed">
-        <item>@drawable/like</item>
-        <item>@drawable/yes</item>
-        <item>@drawable/more</item>
-        <item>@drawable/dontlike</item>
-        <item>@drawable/no</item>
-        <item>@drawable/less</item>
-    </array>
-    <string-array name="add_photo_option">
-        <item>@drawable/ic_photo_camera</item>
-        <item>@drawable/ic_jellow_library</item>
-    </string-array>
-    <string name="exit_warning" translatable="false">Are you sure you want to exit?</string>
-    <string name="expressive_heading" translatable="false">Expressive</string>
-    <string name="icon_select_exit_warning" translatable="false">Your selection will be lost</string>
-
-    <string name="txt_accessibility_setting">Accessibility Setting</string>
-    <string name="visual_access_title">Visual Accessibility:</string>
-    <string name="visual_access_info">The Visual accessibility feature of Jellow now allows users with additional visual difficulties including low vision or blindness to use Jellow and communicate effectively with others. It utilizes the \'Talk back\' feature on the Android smartphone to help navigate through the application. With \'Talk back\' switched on in the user\'s device, the user will now be able to get audio input describing everything they touch on the screen. The user can also assign custom gestures or use the default gestures of \'Talk back\' as they interact with Jellow. For example, a right swipe gesture will allow the user to sequentially scroll through icons on the screen. Similarly, double tapping anywhere on the screen will allow the user to select an icon of their choice.</string>
-    <string name="switch_access_title">Switch Accessibility:</string>
-    <string name="switch_access_info_one">Switch accessibility makes navigation in the app easy for people with motor disabilities. The feature allows navigation using one or two switches.</string>
+    &lt;!&ndash;not translated&ndash;&gt;
     <string name="switch_access_info_two">To enable this feature the user has to turn on the \"switch access\" in the accessibility category in the phone setting.</string>
     <string name="switch_access_info_three">Samsung users can find the switch access in  “dexterity and interaction” option in the accessibility category in the phone setting.</string>
-    <string name="switch_access_info_four">To use switch accessibility with one switch - Open settings -> Go to accessibility -> Turn on the switch access -> Choose switches either USB or Bluetooth switches -> Go to settings and Choose number of switches as one switch.</string>
-    <string name="switch_access_info_five">To use switch accessibility with two switches - Open settings -> Go to accessibility -> Turn on the switch access -> Choose switches either USB or Bluetooth switches -> Go to settings and Choose number of switches as two switches, then Choose the type of scanning, Click on next and Assign the action to both the switches and complete the process by testing the switches.</string>
+
+    <string name="switch_access_info_four">Pour utiliser Contrôle de Séléction avec un commutateur- Ouvrir Réglages -> Aller à Accésibilité -> Activer le Contrôle de Séléction -> Choisissez l\'interrupteur un USB ou une liaison Bluetooth -> Allez à Réglages et choissisez le nombre de commutateurs comme un commutateur.</string>
+    <string name="switch_access_info_five">Pour utiliser Contrôle de Séléction avec deux commutateurs- Ouvrir Réglages -> Aller à Accésibilité -> Activer le Contrôle de Séléction -> Choisissez l\'interrupteur un USB ou une liaison Bluetooth -> Allez à Réglages et choissisez le nombre de commutateurs comme deux commutateurs, ensuite choissisez le type de numérisation, cliquez sur Suivant et assignez l\'action aux deux commutateurs et complétez la processus en testant les commutateurs</string>-->
 
 </resources>

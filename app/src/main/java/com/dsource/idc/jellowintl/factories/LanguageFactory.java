@@ -85,8 +85,35 @@ public class LanguageFactory {
     }
 
     public static boolean isMarathiPackageAvailable(Context context){
-        File file = new File(context.getDir(PathFactory.UNIVERSAL_FOLDER,
-                Context.MODE_PRIVATE).getAbsolutePath()+"/audio");
-        return file.exists();
+        try{
+            File file = context.getDir(SessionManager.UNIVERSAL_PACKAGE, Context.MODE_PRIVATE);
+            File packageZip = new File(file.getPath(),SessionManager.MR_IN+".zip");
+            File packageZipTemp = new File(file.getPath(),SessionManager.MR_IN+".zip.temp");
+            File audioFolder = new File(context.getDir(PathFactory.UNIVERSAL_FOLDER,
+                    Context.MODE_PRIVATE).getAbsolutePath()+"/"+PathFactory.AUDIO_FOLDER);
+            return !packageZip.exists() && !packageZipTemp.exists() && audioFolder.exists();
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /** If zip is exist then data is not completely extracted from zip.
+     *  If zip does is exist then data is extracted from zip successfully, the zip file is deleted.
+     *  So when zip is exist we can consider the data is unavailable and when zip does not exist then
+     *  data is available.
+     *  **/
+    public static boolean isLanguageDataAvailable(Context context){
+        try{
+            File file = context.getDir(SessionManager.UNIVERSAL_PACKAGE, Context.MODE_PRIVATE);
+            File packageZip = new File(file.getPath(),SessionManager.UNIVERSAL_PACKAGE+".zip");
+            File packageZipTemp = new File(file.getPath(),SessionManager.UNIVERSAL_PACKAGE+".zip.temp");
+            File drawableFolder = new File(context.getDir(PathFactory.UNIVERSAL_FOLDER,
+                    Context.MODE_PRIVATE).getAbsolutePath()+"/"+PathFactory.DRAWABLE_FOLDER);
+            return !packageZip.exists() && !packageZipTemp.exists() && drawableFolder.exists();
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+        return false;
     }
 }

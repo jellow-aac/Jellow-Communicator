@@ -103,20 +103,21 @@ public class UserRegistrationActivity extends SpeechEngineBaseActivity {
             Crashlytics.setUserIdentifier(maskNumber(getSession().getCaregiverNumber().substring(1)));
         }
         if (getSession().isUserLoggedIn()) {
-            if (getSession().isDownloaded(getSession().getLanguage()) && getSession().isCompletedIntro()) {
+            if (LanguageFactory.isLanguageDataAvailable(this) && getSession().isCompletedIntro()) {
                 if (!getSession().getUpdatedFirebase())
                     updateFirebaseDatabase();
                 startActivity(new Intent(this, SplashActivity.class));
-            }else if(!getSession().isDownloaded(UNIVERSAL_PACKAGE)){
+            }else if(!LanguageFactory.isLanguageDataAvailable(this)){
                 startActivity(new Intent(UserRegistrationActivity.this,
                         LanguageDownloadActivity.class)
                         .putExtra(LCODE, UNIVERSAL_PACKAGE).putExtra(TUTORIAL, true));
-            }else if(getSession().getLanguage().equals(MR_IN) && !LanguageFactory.isMarathiPackageAvailable
-                    (UserRegistrationActivity.this)){
+            }else if(getSession().getLanguage().equals(MR_IN) && !LanguageFactory.
+                    isMarathiPackageAvailable(this)){
                 startActivity(new Intent(UserRegistrationActivity.this,
                         LanguageDownloadActivity.class)
                         .putExtra(LCODE, MR_IN).putExtra(TUTORIAL, true));
-            } else if (getSession().isDownloaded(getSession().getLanguage()) && !getSession().isCompletedIntro()) {
+            } else if (LanguageFactory.isLanguageDataAvailable(this) &&
+                    !getSession().isCompletedIntro()) {
                 startActivity(new Intent(this, Intro.class));
             }
             finish();

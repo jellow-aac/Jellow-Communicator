@@ -31,6 +31,7 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.ES_ES;
 import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
 import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.SP_ES;
 import static com.dsource.idc.jellowintl.utility.SessionManager.TA_IN;
 
 public class SpeechEngineBaseActivity extends BaseActivity{
@@ -97,13 +98,19 @@ public class SpeechEngineBaseActivity extends BaseActivity{
         //         showDialog error toast and set incorrect language setting to true.
         if((Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
                 && !getSession().getLanguage().equals(LangMap.get("मराठी"))) {
-            if (getSpeechEngineLanguage().equals("-r") ||
-                    (getSession().getLanguage().equals(BN_IN) && !getSpeechEngineLanguage().equals(BN_IN) && !(getSpeechEngineLanguage().equals(BE_IN)) ||
-                            (!getSession().getLanguage().equals(BN_IN) && !getSession().getLanguage().equals(getSpeechEngineLanguage())))) {
+            if (getSpeechEngineLanguage().equals("-r")) {
+                mErrorHandler.sendLanguageIncompatibleError(getString(R.string.speech_engin_lang_sam));
+                return;
+            }else if(getSession().getLanguage().equals(BN_IN) && !getSpeechEngineLanguage().equals(BN_IN) && !(getSpeechEngineLanguage().equals(BE_IN))) {
+                mErrorHandler.sendLanguageIncompatibleError(getString(R.string.speech_engin_lang_sam));
+                return;
+            }else if(getSession().getLanguage().equals(ES_ES) && !getSpeechEngineLanguage().equals(SP_ES) && !(getSpeechEngineLanguage().equals(ES_ES))){
+                mErrorHandler.sendLanguageIncompatibleError(getString(R.string.speech_engin_lang_sam));
+                return;
+            }else if(getSession().getLanguage().equals(getSpeechEngineLanguage())){
                 mErrorHandler.sendLanguageIncompatibleError(getString(R.string.speech_engin_lang_sam));
             }
         }
-
     }
 
     private void checkSpeechEngineLanguageForAccessibility() {
@@ -111,7 +118,9 @@ public class SpeechEngineBaseActivity extends BaseActivity{
                 !getSession().isChangeLanguageNeverAsk() ) {
             if(getSession().getLanguage().equals(BN_IN) &&(getSpeechEngineLanguage().equals(BN_IN) || getSpeechEngineLanguage().equals(BE_IN)))
             {}
-            else if(!getSession().getLanguage().equals(BN_IN) && getSession().getLanguage().equals(getSpeechEngineLanguage()))
+            else if(getSession().getLanguage().equals(ES_ES) && getSpeechEngineLanguage().equals(SP_ES) || (getSpeechEngineLanguage().equals(ES_ES)))
+            {}
+            else if(getSession().getLanguage().equals(getSpeechEngineLanguage()))
             {}
             else {
                 mErrorHandler.sendLanguageIncompatibleForAccessibility();

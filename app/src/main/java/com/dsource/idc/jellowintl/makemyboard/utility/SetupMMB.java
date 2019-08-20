@@ -58,14 +58,14 @@ public class SetupMMB extends AppCompatActivity {
         mSession = new SessionManager(this);
         progressBar = findViewById(R.id.pg);
         progressText = findViewById(R.id.progress_text);
-        if(mSession.isDownloaded(SessionManager.ENG_IN)&&!mSession.isBoardDatabaseCreated())
+        /*if(mSession.isDownloaded(SessionManager.ENG_IN)&&!mSession.isBoardDatabaseCreated())
         {
             progressText.setText("Setting things up, Please wait...");
             progressBar.setProgress(0);
             progressBar.setMax(0);
             createDatabase();
             return;
-        }
+        }*/
         if(mSession.isBoardDatabaseCreated())
         {
             startActivity(new Intent(this, MyBoardsActivity.class));
@@ -79,7 +79,7 @@ public class SetupMMB extends AppCompatActivity {
 
 
             // Download the language if it's not already present
-            if (!mSession.isDownloaded(SessionManager.ENG_IN)) {
+            /*if (!mSession.isDownloaded(SessionManager.ENG_IN)) {
                 DownloadMan.ProgressReciever progressReciever = new DownloadMan.ProgressReciever() {
                     @Override
                     public void onprogress(int soFarBytes, int totalBytes) {
@@ -88,7 +88,7 @@ public class SetupMMB extends AppCompatActivity {
 
                     @Override
                     public void onComplete() {
-                        mSession.setDownloaded(langCode);
+                        //mSession.setDownloaded(langCode);
                         progressText.setText("Setting things up, Please wait...");
                         progressBar.setProgress(0);
                         progressBar.setMax(0);
@@ -119,7 +119,7 @@ public class SetupMMB extends AppCompatActivity {
                 progressText.setText("Setting things up, Please wait...");
                 progressBar.setProgress(100);
                 progressBar.setMax(100);
-            }
+            }*/
         }
 
     }
