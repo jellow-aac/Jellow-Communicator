@@ -10,59 +10,62 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.dsource.idc.jellowintl.GlideApp;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.HomeActivity;
+import com.dsource.idc.jellowintl.makemyboard.interfaces.onRecyclerItemClick;
 import com.dsource.idc.jellowintl.models.JellowIcon;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.io.File;
 import java.util.List;
 
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
+import static com.dsource.idc.jellowintl.factories.IconFactory.EXTENSION;
+import static com.dsource.idc.jellowintl.factories.PathFactory.getIconPath;
 
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
 
-    public List<JellowIcon> data;
-    private onDoubleTapListener onDoubleTapListener;
-    private OnItemSelectListener onItemSelectListener;
+    public List<JellowIcon> iconList;
+    private onRecyclerItemClick clickListener;
     private HomeActivity mAct;
-    int GridSize;
+    private int gridSize;
     public int selectedPosition=-1;
     public int expIconPos = -1;
     public int highlightedIcon = -1;
+    private String langCode;
 
-    public HomeAdapter(List<JellowIcon> data, Context context, int gridSize) {
-        this.data = data;
+    public HomeAdapter(List<JellowIcon> list, Context context, int gridSize,String langCode) {
+        this.iconList = list;
         mAct = (HomeActivity) context;
-        this.GridSize=gridSize;
+        this.gridSize =gridSize;
+        this.langCode = langCode;
     }
 
     @Override
     public void onBindViewHolder(HomeAdapter.ViewHolder holder, int position) {
 
         holder.iconTitle.setTextColor(Color.rgb(64, 64, 64));
-        JellowIcon thisIcon = data.get(position);
-        holder.iconTitle.setText(thisIcon.IconTitle);
+        JellowIcon thisIcon = iconList.get(position);
+        holder.iconTitle.setText(thisIcon.getIconTitle());
         setMenuImageBorder(holder.backGround,false,-1);
         if(selectedPosition!=-1) highlightedIcon=-1;
         if(position==this.selectedPosition) setMenuImageBorder(holder.backGround,true,expIconPos);
         else if(highlightedIcon==position) setMenuImageBorder(holder.backGround,true,100);
 
-
-
-
-        if(thisIcon.parent0==-1)
+        if(thisIcon.getParent0()==-1)
         {
-            File en_dir = mAct.getDir(SessionManager.ENG_IN, Context.MODE_PRIVATE);
-            String path = en_dir.getAbsolutePath() + "/boardicon";
+            File en_dir = mAct.getDir(SessionManager.BOARD_ICON_LOCATION,Context.MODE_PRIVATE);
+            String path = en_dir.getAbsolutePath();
             GlideApp.with(mAct)
-                    .load(path+"/"+ thisIcon.IconDrawable+".png")
+                    .load(path+"/"+ thisIcon.getIconDrawable()+".png")
                     .apply(RequestOptions.
                             circleCropTransform())
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -74,14 +77,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         }
         else
         {
-            File en_dir = mAct.getDir(SessionManager.ENG_IN, Context.MODE_PRIVATE);
-            String path = en_dir.getAbsolutePath() + "/drawables";
-            GlideApp.with(mAct)
-                    .load(path+"/"+ thisIcon.IconDrawable+".png")
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(false)
-                    .centerCrop()
-                    .dontAnimate()
+            GlideApp.with(mAct).load(getIconPath(mAct, thisIcon.getIconDrawable()+EXTENSION))
                     .into(holder.iconImage);
         }
 
@@ -91,44 +87,32 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
     }
 
-
-    public interface onDoubleTapListener {
-        void onItemDoubleTap(View view, int position);
-    }
-    public interface OnItemSelectListener {
-        void onItemSelected(View view, int position);
+    public void setOnItemSelectListener(final onRecyclerItemClick mItemClickListener) {
+        this.clickListener = mItemClickListener;
     }
 
-
-
-    public void setOnDoubleTapListner(final onDoubleTapListener mItemClickListener) {
-        this.onDoubleTapListener = mItemClickListener;
-    }
-
-    public void setOnItemSelectListner(final HomeAdapter.OnItemSelectListener mItemClickListener) {
-        this.onItemSelectListener = mItemClickListener;
-    }
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         final int GRID_1BY1 = 1, GRID_1BY2 = 2, GRID_1BY3 = 3,GRID_2BY2 =4;
         View rowView;
-        if(mAct.isNotchDevice() && GridSize == GRID_1BY1) {
+        if(mAct.isNotchDevice() && gridSize == GRID_1BY1) {
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_1_icon_notch, parent, false);
-        }else if(!mAct.isNotchDevice() && GridSize == GRID_1BY1){
+        }else if(!mAct.isNotchDevice() && gridSize == GRID_1BY1){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_1_icon, parent, false);
-        }else if(mAct.isNotchDevice() && GridSize == GRID_1BY2){
+        }else if(mAct.isNotchDevice() && gridSize == GRID_1BY2){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_2_icons_notch, parent, false);
-        }else if(!mAct.isNotchDevice() && GridSize == GRID_1BY2){
+        }else if(!mAct.isNotchDevice() && gridSize == GRID_1BY2){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_2_icons, parent, false);
-        }else if(mAct.isNotchDevice() && GridSize == GRID_1BY3){
+        }else if(mAct.isNotchDevice() && gridSize == GRID_1BY3){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_3_icons_notch, parent, false);
-        }else if(mAct.isNotchDevice() && GridSize == GRID_2BY2){
+        }else if(mAct.isNotchDevice() && gridSize == GRID_2BY2){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_4_icons_notch, parent, false);
-        }else if(!mAct.isNotchDevice() && GridSize == GRID_2BY2){
+        }else if(!mAct.isNotchDevice() && gridSize == GRID_2BY2){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_4_icons, parent, false);
         }
-        else if(!mAct.isNotchDevice() && GridSize == GRID_1BY3){
+        else if(!mAct.isNotchDevice() && gridSize == GRID_1BY3){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_3_icons, parent, false);
         }else if(mAct.isNotchDevice()){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_9_icons_notch, parent, false);
@@ -160,9 +144,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
 
-        public TextView iconTitle;
-        public ImageView iconImage;
-        public GradientDrawable backGround;
+        TextView iconTitle;
+        ImageView iconImage;
+        GradientDrawable backGround;
 
         public ViewHolder(final View v) {
             super(v);
@@ -175,9 +159,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         @Override
         public void onClick(View view) {
             if(getAdapterPosition()!=selectedPosition)
-                onItemSelectListener.onItemSelected(view,getAdapterPosition());
+                clickListener.onClick(getAdapterPosition());
             else
-                onDoubleTapListener.onItemDoubleTap(view,getAdapterPosition());
+                clickListener.onDoubleTap(getAdapterPosition());
 
         }
     }
@@ -185,7 +169,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return iconList.size();
     }
 
 

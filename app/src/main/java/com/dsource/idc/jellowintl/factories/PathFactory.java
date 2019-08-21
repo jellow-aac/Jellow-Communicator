@@ -49,6 +49,14 @@ public class PathFactory {
         return jsonMap;
     }
 
+    public static File getJSONFile(Context context,String LCode){
+        if(jsonMap == null){
+            String path = context.getDir(UNIVERSAL_FOLDER, Context.MODE_PRIVATE).getAbsolutePath();
+            jsonMap = new File(path + "/" + LCode+JSON_EXTENSION);
+        }
+        return jsonMap;
+    }
+
     public static void clearPathCache(){
         basePath = null;
         iconDirectory = null;

@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
 import com.dsource.idc.jellowintl.R;
+import com.dsource.idc.jellowintl.models.GlobalConstants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +30,7 @@ public class SessionManager {
     public final static String TA_IN = "ta-rIN";
     public final static String DE_DE = "de-rDE";
     public static final String UNIVERSAL_PACKAGE = "universal";
+    public final static String BOARD_ICON_LOCATION = "board_icons";
 
     public final static HashMap<String,String> LangMap = new HashMap<String,String>(){
         {
@@ -291,50 +293,36 @@ public class SessionManager {
      **/
     public void setLanguageChange(int code)
     {
-        final int CHANGED=1;
-        final int CREATE_DATABASE=0;
-        final int NO_CHANGE=2;
-        if(code==CHANGED)
+        if(code==GlobalConstants.LANGUAGE_STATE_CHANGED)
             storePreferenceKeyWithValue(String.class.toString(),mContext.getString(R.string.lang_change_code),"Yes");
-        else if(code==CREATE_DATABASE)
+        else if(code==GlobalConstants.LANGUAGE_STATE_DB_CREATE)
             storePreferenceKeyWithValue(String.class.toString(),mContext.getString(R.string.lang_change_code),"Create");
-        else if(code==NO_CHANGE)
+        else
             storePreferenceKeyWithValue(String.class.toString(),mContext.getString(R.string.lang_change_code),"No");
     }
 
     public int isLanguageChanged()
     {
-        final int CHANGED=1;
-        final int CREATE_DATABASE=0;
-        final int NO_CHANGE=2;
-
         String lang_change=(String)retrievePreferenceKeyWithValue(String.class.toString(),mContext.getString(R.string.lang_change_code));
         if(lang_change.equals("Yes"))
-            return CHANGED;
+            return GlobalConstants.LANGUAGE_STATE_CHANGED;
         else if(lang_change.equals("Create"))
-            return CREATE_DATABASE;
-        else return NO_CHANGE;
-    }
-
-    public boolean
-    isBoardDatabaseCreated() {
-        String board_code=(String)retrievePreferenceKeyWithValue(String.class.toString(),"Board_Database");
-        return board_code.equals("Yes");
+            return GlobalConstants.LANGUAGE_STATE_DB_CREATE;
+        else return GlobalConstants.LANGUAGE_STATE_NO_CHANGE;
     }
 
     /**
      * Ayaz
      **/
-    public void setBoardDatabaseStatus(int code)
+    public void setBoardDatabaseStatus(boolean set,String language)
     {
-        String Tag="Board_Database";
-        final int DatabaseCreated=1;
-        final int DatabaseNotCreated=-1;
-        if(code==DatabaseCreated)
+        String Tag="Board_Database"+language;
+        if(set)
             storePreferenceKeyWithValue(String.class.toString(),Tag,"Yes");
-        else if(code==DatabaseNotCreated)
+        else
             storePreferenceKeyWithValue(String.class.toString(),Tag,"No");
     }
+
 
 
     public void changePreferencesFile(Context context){
@@ -354,6 +342,16 @@ public class SessionManager {
         }
         editorNew.apply();
         settingsOld.edit().clear().apply();
+    }
+
+    public String getCurrentBoardLanguage() {
+        String Tag = "cur_board_lang";
+        return retrievePreferenceKeyWithValue(String.class.toString(),Tag).toString();
+    }
+
+    public void setCurrentBoardLanguage(String language){
+        String Tag = "cur_board_lang";
+        storePreferenceKeyWithValue(String.class.toString(),Tag,language);
     }
 
 

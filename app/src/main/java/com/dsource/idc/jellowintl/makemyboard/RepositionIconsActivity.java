@@ -1,26 +1,33 @@
 package com.dsource.idc.jellowintl.makemyboard;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearSmoothScroller;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.dsource.idc.jellowintl.BaseActivity;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.adapters.RepositionIconAdapter;
+import com.dsource.idc.jellowintl.makemyboard.databases.BoardDatabase;
+import com.dsource.idc.jellowintl.makemyboard.interfaces.GridSelectListener;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.onRecyclerItemClick;
-import com.dsource.idc.jellowintl.makemyboard.models.Board;
+import com.dsource.idc.jellowintl.makemyboard.models.BoardModel;
 import com.dsource.idc.jellowintl.makemyboard.models.DataProvider;
 import com.dsource.idc.jellowintl.makemyboard.models.IconModel;
-import com.dsource.idc.jellowintl.makemyboard.utility.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.utility.CustomDialog;
 import com.dsource.idc.jellowintl.makemyboard.utility.ModelManager;
 import com.dsource.idc.jellowintl.models.JellowIcon;
+import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager;
@@ -28,10 +35,7 @@ import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils;
 
 import java.util.ArrayList;
 
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearSmoothScroller;
-import androidx.recyclerview.widget.RecyclerView;
-
+import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.BOARD_ID;
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.DELETE_MODE;
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.NORMAL_MODE;
 import static com.dsource.idc.jellowintl.makemyboard.utility.ImageStorageHelper.deleteAllCustomImage;
@@ -43,14 +47,12 @@ public class RepositionIconsActivity extends BaseActivity {
     //RecyclerView mRecyclerView;
     private ModelManager modelManager;
     private String boardId;
-    public static final String BOARD_ID="Board_Id";
     private BoardDatabase database;
     private int Level=0;
     private int LevelOneParent=-1;
     private int LevelTwoParent=-1;
-    private Board currentBoard;
+    private BoardModel currentBoard;
     private RecyclerView.OnScrollListener scrollListener;
-    private RelativeLayout.LayoutParams defaultRecyclerParams;
     private int previousSelection = -1;
     private int currentMode;
     RecyclerView mRecyclerView;
@@ -61,6 +63,7 @@ public class RepositionIconsActivity extends BaseActivity {
     private RecyclerViewDragDropManager mRecyclerViewDragDropManager;
     private ImageView home;
     private ImageView back;
+    private SessionManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +75,7 @@ public class RepositionIconsActivity extends BaseActivity {
         //Disable Expressive Icons for this activity
         findViewById(R.id.expressiveOne).setAlpha(.5f);
         findViewById(R.id.expressiveTwo).setAlpha(.5f);
+        manager = new SessionManager(this);
 
         //Instantiating the board database object
         database=new BoardDatabase(this);
@@ -88,16 +92,11 @@ public class RepositionIconsActivity extends BaseActivity {
         currentBoard=database.getBoardById(boardId);
 
         enableNavigationBack();
-        setActivityTitle("Reposition icons");
-
         //TODO Check color to keep or remove.
-        /*getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#333333'>"+"Reposition icons"+"</font>"));
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);*/
-        modelManager =new ModelManager(this,currentBoard.getBoardIconModel());
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#333333'>"+getResources().getString(R.string.rep_activity_title)+"</font>"));
+        modelManager =new ModelManager(this,currentBoard.getIconModel());
         displayList= modelManager.getLevelOneFromModel();
         initFields();
-        defaultRecyclerParams =(RelativeLayout.LayoutParams)findViewById(R.id.recycler_view).getLayoutParams();
         updateList(NORMAL_MODE);
         ActivateView(home,true);
         ActivateView(back,false);
@@ -109,10 +108,14 @@ public class RepositionIconsActivity extends BaseActivity {
         setVisibleAct(RepositionIconsActivity.class.getSimpleName());
     }
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(BoardLanguageHelper.getInstance().changeLanguage(newBase));
+    }
 
     private void updateList(int Mode) {
         invalidateOptionsMenu();
-        adapter=new RepositionIconAdapter(new DataProvider(displayList),this,Mode,currentBoard.getGridSize());
+        adapter=new RepositionIconAdapter(new DataProvider(displayList),this,Mode,currentBoard.getGridSize(),currentBoard.getLanguage());
         mRecyclerView = findViewById(R.id.recycler_view);
         mLayoutManager = new GridLayoutManager(this, 3, RecyclerView.VERTICAL, false);
         mRecyclerViewDragDropManager = new RecyclerViewDragDropManager();
@@ -151,6 +154,11 @@ public class RepositionIconsActivity extends BaseActivity {
                     notifyItemClicked(pos,currentMode);
                 }
                 else previousSelection =pos;
+            }
+
+            @Override
+            public void onDoubleTap(int pos) {
+                //DO NOTHING
             }
         });
 
@@ -197,7 +205,7 @@ public class RepositionIconsActivity extends BaseActivity {
         findViewById(R.id.save_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentBoard.setBoardCompleted();
+                currentBoard.setSetupStatus(BoardModel.STATUS_L3);
                 database.updateBoardIntoDatabase(currentBoard);
                 Intent intent =new Intent(RepositionIconsActivity.this, HomeActivity.class);
                 intent.putExtra(BOARD_ID,boardId);
@@ -304,12 +312,13 @@ public class RepositionIconsActivity extends BaseActivity {
         }
         else if(Level==0)
         {
-            CustomDialog dialog=new CustomDialog(this,CustomDialog.NORMAL);
-            dialog.setText(getString(R.string.exit_warning));
-            dialog.setOnPositiveClickListener(new CustomDialog.onPositiveClickListener() {
+            CustomDialog dialog=new CustomDialog(this,CustomDialog.NORMAL,currentBoard.getLanguage());
+            dialog.setText(getResources().getString(R.string.exit_warning));
+            dialog.setOnPositiveClickListener(new CustomDialog.OnPositiveClickListener() {
                 @Override
                 public void onPositiveClickListener() {
                     finish();
+                    if(manager!=null) manager.setCurrentBoardLanguage("");
                 }
             });
             dialog.show();
@@ -342,12 +351,12 @@ public class RepositionIconsActivity extends BaseActivity {
             case R.id.grid_size:
                 showGridDialog();break;
             case android.R.id.home:
-                CustomDialog dialog=new CustomDialog(this,CustomDialog.NORMAL);
+                CustomDialog dialog=new CustomDialog(this,CustomDialog.NORMAL,currentBoard.getLanguage());
                 dialog.setText(getString(R.string.exit_warning));
-                dialog.setOnPositiveClickListener(new CustomDialog.onPositiveClickListener() {
+                dialog.setOnPositiveClickListener(new CustomDialog.OnPositiveClickListener() {
                     @Override
                     public void onPositiveClickListener() {
-                        startActivity(new Intent(RepositionIconsActivity.this, MyBoardsActivity.class));finish();
+                       finish();
                     }
                 });
                 dialog.show();
@@ -361,7 +370,7 @@ public class RepositionIconsActivity extends BaseActivity {
     private void searchInBoard() {
         Intent searchIntent = new Intent(this, BoardSearchActivity.class);
         searchIntent.putExtra(BoardSearchActivity.SEARCH_MODE, BoardSearchActivity.SEARCH_IN_BOARD);
-        searchIntent.putExtra(BOARD_ID,currentBoard.getBoardID());
+        searchIntent.putExtra(BOARD_ID,currentBoard.getBoardId());
         startActivityForResult(searchIntent,SEARCH);
     }
 
@@ -382,7 +391,7 @@ public class RepositionIconsActivity extends BaseActivity {
     }
 
     private void showGridDialog() {
-        new CustomDialog(this, new CustomDialog.GridSelectListener() {
+        new CustomDialog(this, currentBoard.getLanguage(),new GridSelectListener() {
             @Override
             public void onGridSelectListener(int size) {
                 currentBoard.setGridSize(size);

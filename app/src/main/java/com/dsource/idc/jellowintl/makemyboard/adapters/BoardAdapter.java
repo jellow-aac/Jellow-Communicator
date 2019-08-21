@@ -4,79 +4,55 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.dsource.idc.jellowintl.GlideApp;
 import com.dsource.idc.jellowintl.R;
-import com.dsource.idc.jellowintl.makemyboard.models.Board;
+import com.dsource.idc.jellowintl.makemyboard.models.BoardModel;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.io.File;
 import java.util.ArrayList;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import static android.view.View.GONE;
-import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.DELETE_MODE;
-import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.NORMAL_MODE;
 
 public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> {
 
     public static final int OPEN_ADD_BOARD = 121;
     public static final int EDIT_BOARD = 212;
     private Context mContext;
-    private int mode;
 // private LayoutInflater mInflater;
-    private ArrayList<Board> mDataSource;
+    private ArrayList<BoardModel> mDataSource;
     private OnItemClickListener mItemClickListener;
 
     @Override
     public void onBindViewHolder(BoardAdapter.ViewHolder holder, int position) {
-        Board board=mDataSource.get(position);
-        //To control visibility of the icons according to the mode
-        if(mode==NORMAL_MODE)
-        {
-            holder.editBoard.setVisibility(View.VISIBLE);
-            holder.deleteBoard.setVisibility(GONE);
-        }
-        else
-        {
-            holder.editBoard.setVisibility(GONE);
-            holder.deleteBoard.setVisibility(View.VISIBLE);
-        }
-        if(board.boardID.equals("-1")&&mode==NORMAL_MODE)
-             {
-                     holder.boardIcon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_plus));
-                     holder.boardTitle.setText(mDataSource.get(position).boardTitle);
-                     holder.editBoard.setVisibility(GONE);
-             }
-        else
-            {
-                File en_dir =mContext.getDir(SessionManager.ENG_IN, Context.MODE_PRIVATE);
-                String path = en_dir.getAbsolutePath() + "/boardicon";
-                GlideApp.with(mContext)
-                        .load(path+"/"+board.getBoardID()+".png")
-                        .apply(new RequestOptions().transform(new RoundedCorners(50)))
-                        .error(R.drawable.ic_board_person)
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
-                        .skipMemoryCache(true)
-                        .centerCrop()
-                        .dontAnimate()
-                        .into(holder.boardIcon);
-                holder.boardTitle.setText(board.boardTitle);
-            }
-
-
+        BoardModel board=mDataSource.get(position);
+        File en_dir =mContext.getDir(SessionManager.BOARD_ICON_LOCATION, Context.MODE_PRIVATE);
+        String path = en_dir.getAbsolutePath();
+        GlideApp.with(mContext)
+                .load(path+"/"+board.getBoardId()+".png")
+                .apply(new RequestOptions().transform(new RoundedCorners(50)))
+                .error(R.drawable.ic_board_person)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .centerCrop()
+                .dontAnimate()
+                .into(holder.boardIcon);
+        StringBuilder titleText = new StringBuilder(board.getBoardName());
+        titleText.append(" (");
+        titleText.append(board.getLanguage());
+        titleText.append(")");
+        holder.boardTitle.setText(titleText.toString());
     }
     public interface OnItemClickListener {
         void onItemClick(View view, int Position, int code);
+        void onItemDelete(int position);
+        void onBoardEdit(int position);
     }
 
     public void setOnItemClickListener(final BoardAdapter.OnItemClickListener mItemClickListener) {
@@ -88,10 +64,9 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> 
      * @param context
      * @param items
      */
-    public BoardAdapter(Context context, ArrayList<Board> items,int mode) {
+    public BoardAdapter(Context context, ArrayList<BoardModel> items) {
         mContext = context;
         mDataSource = items;
-        this.mode=mode;
     }
 
 
@@ -105,7 +80,7 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    //each data item is just a string in this case
+    //each iconList item is just a string in this case
     TextView boardTitle;
     ImageView boardIcon;
     ImageView editBoard;
@@ -116,46 +91,29 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> 
         boardTitle =v.findViewById(R.id.board_title);
         boardIcon=v.findViewById(R.id.board_icon);
         deleteBoard=v.findViewById(R.id.remove_board);
-        boardIcon.setOnClickListener(this);
         editBoard = v.findViewById(R.id.edit_board);
-        if(mode==NORMAL_MODE) {
-            editBoard.setOnClickListener(this);
-            deleteBoard.setVisibility(GONE);
-        }
-         if(mode==DELETE_MODE)
-        {
-            editBoard.setVisibility(GONE);
-            deleteBoard.setVisibility(View.VISIBLE);
-            deleteBoard.setOnClickListener(this);
-        }
-        v.setOnClickListener(this);
+        deleteBoard.setVisibility(View.VISIBLE);
+        deleteBoard.setOnClickListener(this);
+        boardIcon.setOnClickListener(this);
+        editBoard.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         if(view==editBoard)
         {
-            mItemClickListener.onItemClick(view,getAdapterPosition(),EDIT_BOARD);
+            mItemClickListener.onBoardEdit(getAdapterPosition());
         }
         else if(view==boardIcon)
         {
-            mItemClickListener.onItemClick(view,getAdapterPosition(),OPEN_ADD_BOARD);
+            mItemClickListener.onItemClick(view,getAdapterPosition(),EDIT_BOARD);
         }
         else if(view==deleteBoard)
         {
-            mItemClickListener.onItemClick(view,getAdapterPosition(),DELETE_MODE);
+            mItemClickListener.onItemDelete(getAdapterPosition());
         }
     }
-}
-
-    @Override
-    public void onViewAttachedToWindow(@NonNull ViewHolder holder) {
-        if(mode==DELETE_MODE) {
-            Animation jiggle = AnimationUtils.loadAnimation(mContext, R.anim.jiggle);
-            holder.boardIcon.startAnimation(jiggle);
-        }
     }
-
     @Override
     public int getItemCount() {
         return mDataSource.size();

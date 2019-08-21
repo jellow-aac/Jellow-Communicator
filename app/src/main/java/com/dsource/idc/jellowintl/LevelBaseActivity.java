@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
+import com.dsource.idc.jellowintl.makemyboard.BoardActivity;
 import com.dsource.idc.jellowintl.utility.TextToSpeechErrorUtils;
 
 public class LevelBaseActivity extends SpeechEngineBaseActivity implements TextToSpeechError{
@@ -37,6 +38,7 @@ public class LevelBaseActivity extends SpeechEngineBaseActivity implements TextT
                 startActivity(new Intent(this, ProfileFormActivity.class));
                 break;
             case R.id.my_boards:
+                startActivity(new Intent(this, BoardActivity.class));
                 break;
             case R.id.aboutJellow:
                 startActivity(new Intent(this, AboutJellowActivity.class));

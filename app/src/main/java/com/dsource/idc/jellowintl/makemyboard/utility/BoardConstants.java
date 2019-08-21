@@ -2,7 +2,7 @@ package com.dsource.idc.jellowintl.makemyboard.utility;
 
 public class BoardConstants {
 
-    //MyBoardsActivity
+    //BoardActivity
     public static final int DELETE_MODE =333;
     public static final int NORMAL_MODE =444;
     public static final int CAMERA_REQUEST=211;
@@ -20,6 +20,14 @@ public class BoardConstants {
 
     public static final String DIALOG_TYPE ="dialog_type";
     public static final String GRID_DIALOG = "grid_dialog";
+    public static final String ADD_BOARD ="add_board";
     public static final String VERBIAGE_DIALOG = "verbiage_dialog";
     public static final String LISTENER = "listener";
+    public static final String English ="English IN";
+    public static final String Hindi ="Hindi IN";
+    public static final String EnglishUS ="English US";
+    public static final String EnglishUK = "English UK";
+    public static final String FROM_MMB = "from_mmb";
+    public static final String CURRENT_VERBIAGE = "current_verbiage";
+
 }

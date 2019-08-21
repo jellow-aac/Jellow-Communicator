@@ -12,52 +12,57 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearSmoothScroller;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.SpeechEngineBaseActivity;
 import com.dsource.idc.jellowintl.makemyboard.adapters.HomeAdapter;
-import com.dsource.idc.jellowintl.makemyboard.models.Board;
-import com.dsource.idc.jellowintl.makemyboard.utility.BoardDatabase;
+import com.dsource.idc.jellowintl.makemyboard.databases.BoardDatabase;
+import com.dsource.idc.jellowintl.makemyboard.databases.TextDatabase;
+import com.dsource.idc.jellowintl.makemyboard.interfaces.GridSelectListener;
+import com.dsource.idc.jellowintl.makemyboard.interfaces.onRecyclerItemClick;
+import com.dsource.idc.jellowintl.makemyboard.models.BoardModel;
 import com.dsource.idc.jellowintl.makemyboard.utility.CustomDialog;
 import com.dsource.idc.jellowintl.makemyboard.utility.ExpressiveIconManager;
 import com.dsource.idc.jellowintl.makemyboard.utility.ModelManager;
 import com.dsource.idc.jellowintl.makemyboard.utility.Nomenclature;
-import com.dsource.idc.jellowintl.makemyboard.verbiage_model.JellowVerbiageModel;
-import com.dsource.idc.jellowintl.makemyboard.verbiage_model.MiscellaneousIcons;
-import com.dsource.idc.jellowintl.makemyboard.verbiage_model.VerbiageDatabaseHelper;
+import com.dsource.idc.jellowintl.models.ExpressiveIcon;
+import com.dsource.idc.jellowintl.models.Icon;
 import com.dsource.idc.jellowintl.models.JellowIcon;
-import com.dsource.idc.jellowintl.utility.LanguageHelper;
+import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.util.ArrayList;
-
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearSmoothScroller;
-import androidx.recyclerview.widget.RecyclerView;
 
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.BOARD_ID;
 
 public class HomeActivity extends SpeechEngineBaseActivity {
 
     private static final int SEARCH = 1221;
-    RecyclerView mRecycler;
-    ImageView home,back,keyboardButton;
-    ModelManager modelManager;
-    ArrayList<JellowIcon> displayList;
-    int Level=0;
+    private RecyclerView rvRecycler;
+    private ImageView ivHome, ivBack;
+    private ModelManager modelManager;
+    private ArrayList<JellowIcon> displayList;
+    private int Level=0;
     private String boardId;
     private BoardDatabase database;
-    private Board currentBoard;
+    private BoardModel currentBoard;
     private HomeAdapter adapter;
     private int LevelOneParent=-1;
     private int LevelTwoParent=-1;
     private Context mContext;
-    private JellowVerbiageModel selectedIconVerbiage;
-    private VerbiageDatabaseHelper verbiageDatabase;
+    private Icon selectedIconVerbiage;
+    private TextDatabase verbiageDatabase;
     private ExpressiveIconManager expIconManager;
-    private ArrayList<MiscellaneousIcons> expIconVerbiage;
+    private ArrayList<ExpressiveIcon> expIconVerbiage;
     private RecyclerView.OnScrollListener scrollListener;
     private ViewGroup.LayoutParams defaultRecyclerParams;
-    private EditText editText;
-    private ImageView speakerButton;
+    private EditText etSpeechTextInput;
+    private ImageView ivSpeakerButton;
+    private ImageView ivKeyboard;
+    private boolean isKeyboardVisible=false;
+    private SessionManager manager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,8 +73,8 @@ public class HomeActivity extends SpeechEngineBaseActivity {
             setContentView(R.layout.activity_levelx_layout);
         findViewById(R.id.save_button).setVisibility(View.GONE);
 
+        manager = new SessionManager(this);
         mContext=this;
-        verbiageDatabase=new VerbiageDatabaseHelper(this);
 
         database=new BoardDatabase(this);
         try{
@@ -83,8 +88,8 @@ public class HomeActivity extends SpeechEngineBaseActivity {
         defaultRecyclerParams = findViewById(R.id.recycler_view).getLayoutParams();
 
         currentBoard=database.getBoardById(boardId);
-
-        modelManager =new ModelManager(this,currentBoard.getBoardIconModel());
+        verbiageDatabase=new TextDatabase(this,currentBoard.getLanguage(), getAppDatabase());
+        modelManager =new ModelManager(this,currentBoard.getIconModel());
         displayList= modelManager.getLevelOneFromModel();
         initViews();
         updateList();
@@ -98,23 +103,25 @@ public class HomeActivity extends SpeechEngineBaseActivity {
             }
         });
         loadExpressiveIconVerbiage();
-        //ActivateView(home,false);
-        ActivateView(back,false);
+        //ActivateView(ivHome,false);
+        ActivateView(ivBack,false);
 
 
         if(getSupportActionBar()!=null) {
             enableNavigationBack();
-            getSupportActionBar().setTitle(currentBoard.getBoardTitle());
+            getSupportActionBar().setTitle(currentBoard.getBoardName());
             //TODO Check color to keep or remove.
             getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
         }
+
+        manageKeyboard();
     }
 
     private void loadExpressiveIconVerbiage() {
         expIconVerbiage=new ArrayList<>();
-        for(int i=0;i<6;i++) {
-            expIconVerbiage.add(verbiageDatabase.getMiscellaneousIconsById(Nomenclature.getNameForExpressiveIcons(this, i)));
-           }
+        for(int i=0;i<6;i++)
+            expIconVerbiage.add(verbiageDatabase.getExpressiveIconsById(Nomenclature.getNameForExpressiveIcons(i,currentBoard.getLanguage())));
+
     }
 
     private void speakVerbiage(int expIconPos, int time) {
@@ -122,50 +129,98 @@ public class HomeActivity extends SpeechEngineBaseActivity {
         if(selectedIconVerbiage!=null)
         switch (expIconPos)
         {
-            case 0:if(time==0)verbiage=selectedIconVerbiage.L;else verbiage=selectedIconVerbiage.LL;break;
-            case 1:if(time==0)verbiage=selectedIconVerbiage.Y;else verbiage=selectedIconVerbiage.YY;break;
-            case 2:if(time==0)verbiage=selectedIconVerbiage.M;else verbiage=selectedIconVerbiage.MM;break;
-            case 3:if(time==0)verbiage=selectedIconVerbiage.D;else verbiage=selectedIconVerbiage.DD;break;
-            case 4:if(time==0)verbiage=selectedIconVerbiage.N;else verbiage=selectedIconVerbiage.NN;break;
-            case 5:if(time==0)verbiage=selectedIconVerbiage.S;else verbiage=selectedIconVerbiage.SS;break;
+            case 0:if(time==0)verbiage=selectedIconVerbiage.getL();else verbiage=selectedIconVerbiage.getLL();break;
+            case 1:if(time==0)verbiage=selectedIconVerbiage.getY();else verbiage=selectedIconVerbiage.getYY();break;
+            case 2:if(time==0)verbiage=selectedIconVerbiage.getM();else verbiage=selectedIconVerbiage.getMM();break;
+            case 3:if(time==0)verbiage=selectedIconVerbiage.getD();else verbiage=selectedIconVerbiage.getDD();break;
+            case 4:if(time==0)verbiage=selectedIconVerbiage.getN();else verbiage=selectedIconVerbiage.getNN();break;
+            case 5:if(time==0)verbiage=selectedIconVerbiage.getS();else verbiage=selectedIconVerbiage.getSS();break;
 
         }
-        else if(time==0)verbiage=expIconVerbiage.get(expIconPos).L;else verbiage=expIconVerbiage.get(expIconPos).LL;
+        else if(time==0)verbiage=expIconVerbiage.get(expIconPos).getL();else verbiage=expIconVerbiage.get(expIconPos).getLL();
 
         if(!verbiage.equals("NA"))
         speak(verbiage);
     }
 
+    private void manageKeyboard(){
+        ivKeyboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                speak(getResources().getString(R.string.keyboard));
+                isKeyboardVisible = !isKeyboardVisible;
+                enableKeyboardView();
+            }
+        });
+    }
+
+    private void enableKeyboardView(){
+        if(isKeyboardVisible) {
+            ivHome.setImageDrawable(getResources().getDrawable(R.drawable.home));
+            ivKeyboard.setImageDrawable(getResources().getDrawable(R.drawable.keyboard_pressed));
+            rvRecycler.setVisibility(View.GONE);
+            etSpeechTextInput.setVisibility(View.VISIBLE);
+            etSpeechTextInput.requestFocus();
+            ivSpeakerButton.setVisibility(View.VISIBLE);
+            expIconManager.resetExpressiveButtons(true);
+            ActivateView(ivBack,true);
+        }
+        else{
+            ivKeyboard.setImageDrawable(getResources().getDrawable(R.drawable.keyboard));
+            rvRecycler.setVisibility(View.VISIBLE);
+            etSpeechTextInput.setVisibility(View.GONE);
+            ivSpeakerButton.setVisibility(View.GONE);
+            expIconManager.resetExpressiveButtons(false);
+        }
+        invalidateOptionsMenu();
+    }
+
     private void updateList() {
         changeGridSize();
-        mRecycler.setAdapter(adapter);
+        rvRecycler.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-        home.setImageDrawable(getResources().getDrawable(R.drawable.home));
+        ivHome.setImageDrawable(getResources().getDrawable(R.drawable.home));
     }
 
     private void prepareSpeech(JellowIcon jellowIcon) {
-        selectedIconVerbiage=verbiageDatabase.getVerbiageById(jellowIcon.IconDrawable);
+        selectedIconVerbiage=verbiageDatabase.getVerbiageById(jellowIcon.getVerbiageId());
         expIconManager.setAccordingVerbiage(selectedIconVerbiage);
         if(selectedIconVerbiage!=null)
-        speak(selectedIconVerbiage.Speech_Label);
+        speak(selectedIconVerbiage.getSpeech_Label());
     }
 
     private void initViews(){
-        editText = findViewById(R.id.et);
-        editText.setVisibility(View.GONE);
-        speakerButton = findViewById(R.id.ttsbutton);
-        speakerButton.setVisibility(View.GONE);
-
-
-        mRecycler=findViewById(R.id.recycler_view);
-        changeGridSize();
-        home=findViewById(R.id.ivhome);
-        home.setOnClickListener(new View.OnClickListener() {
+        etSpeechTextInput = findViewById(R.id.et);
+        etSpeechTextInput.setVisibility(View.GONE);
+        ivSpeakerButton = findViewById(R.id.ttsbutton);
+        ivSpeakerButton.setVisibility(View.GONE);
+        ivKeyboard = findViewById(R.id.keyboard);
+        ivKeyboard.setVisibility(View.VISIBLE);
+        ivSpeakerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(etSpeechTextInput.getText().toString().equals("")) {
+                    if(currentBoard.getLanguage().equals(SessionManager.HI_IN))
+                        Toast.makeText(mContext,"कृपया क्षेत्र भरें।",Toast.LENGTH_LONG).show();
+                    else
+                        Toast.makeText(mContext,"Please input something in field",Toast.LENGTH_LONG).show();
+                    etSpeechTextInput.requestFocus();
+                }else speak(etSpeechTextInput.getText().toString());
+            }
+        });
+
+
+        rvRecycler =findViewById(R.id.recycler_view);
+        changeGridSize();
+        ivHome =findViewById(R.id.ivhome);
+        ivHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isKeyboardVisible = false;
+                enableKeyboardView();
                 speak(getString(R.string.home));
-                ActivateView(home,true);
-                ActivateView(back,false);
+                ActivateView(ivHome,true);
+                ActivateView(ivBack,false);
                 LevelOneParent = -1;
                 LevelTwoParent = -1;
                 adapter.selectedPosition = -1;
@@ -173,59 +228,60 @@ public class HomeActivity extends SpeechEngineBaseActivity {
                 displayList = modelManager.getLevelOneFromModel();
                 Level = 0;
                 updateList();
-                home.setImageDrawable(getResources().getDrawable(R.drawable.home_pressed));
+                ivHome.setImageDrawable(getResources().getDrawable(R.drawable.home_pressed));
             }
         });
-        back=findViewById(R.id.ivback);
-        back.setOnClickListener(new View.OnClickListener() {
+        ivBack =findViewById(R.id.ivback);
+        ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                speak("Back");onBackPressed();
+                speak(getResources().getString(R.string.back));
+                if(isKeyboardVisible){
+                    isKeyboardVisible = false;
+                    enableKeyboardView();
+                    if(Level==0) ActivateView(ivBack,false);
+                }else onBackPressed();
             }
         });
-        keyboardButton=findViewById(R.id.keyboard);
-        keyboardButton.setAlpha(.5f);
-
     }
 
 
     private void changeGridSize()
     {
-        adapter=new HomeAdapter(displayList,this,currentBoard.getGridSize());
+        adapter=new HomeAdapter(displayList,this,currentBoard.getGridSize(),currentBoard.getLanguage());
         switch (currentBoard.getGridSize()){
             case 1:
-                mRecycler.setLayoutManager(new GridLayoutManager(this, 1));
+                rvRecycler.setLayoutManager(new GridLayoutManager(this, 1));
                 break;
             case 2:
-                mRecycler.setLayoutManager(new GridLayoutManager(this, 2));
+                rvRecycler.setLayoutManager(new GridLayoutManager(this, 2));
                 break;
-            case 4: mRecycler.setLayoutManager(new GridLayoutManager(this,2));
+            case 4: rvRecycler.setLayoutManager(new GridLayoutManager(this,2));
                 break;
             case 3:
             default :
-                mRecycler.setLayoutManager(new GridLayoutManager(this, 3));
+                rvRecycler.setLayoutManager(new GridLayoutManager(this, 3));
                 break;
         }
-        adapter.setOnDoubleTapListner(new HomeAdapter.onDoubleTapListener() {
+
+        adapter.setOnItemSelectListener(new onRecyclerItemClick() {
             @Override
-            public void onItemDoubleTap(View view, int position) {
-                adapter.notifyDataSetChanged();
-                notifyItemClicked(position);
-            }
-        });
-        adapter.setOnItemSelectListner(new HomeAdapter.OnItemSelectListener() {
-            @Override
-            public void onItemSelected(View view, int position) {
+            public void onClick(int pos) {
                 adapter.expIconPos =-1;
-                home.setImageDrawable(getResources().getDrawable(R.drawable.home));
-                adapter.selectedPosition = position;
+                ivHome.setImageDrawable(getResources().getDrawable(R.drawable.home));
+                adapter.selectedPosition = pos;
                 adapter.notifyDataSetChanged();
-                prepareSpeech(displayList.get(position));
+                prepareSpeech(displayList.get(pos));
+            }
 
+            @Override
+            public void onDoubleTap(int pos) {
+                adapter.notifyDataSetChanged();
+                notifyItemClicked(pos);
             }
         });
 
-        mRecycler.setAdapter(adapter);
+        rvRecycler.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
 
@@ -235,8 +291,8 @@ public class HomeActivity extends SpeechEngineBaseActivity {
 
             ArrayList<JellowIcon> temp= modelManager.getLevelTwoFromModel(position);
             if(temp.size()>0) {
-                ActivateView(home,true);
-                ActivateView(back,true);
+                ActivateView(ivHome,true);
+                ActivateView(ivBack,true);
                 adapter.expIconPos =-1;
                 adapter.selectedPosition = -1;
                 displayList = temp;
@@ -246,12 +302,12 @@ public class HomeActivity extends SpeechEngineBaseActivity {
                 selectedIconVerbiage=null;
             }
             else {
-                speak(displayList.get(position).IconTitle);
+                speak(displayList.get(position).getIconTitle());
             }
         }
         else if(Level==1){
-            //ActivateView(home,true);
-            ActivateView(back,true);
+            //ActivateView(ivHome,true);
+            ActivateView(ivBack,true);
             if(LevelOneParent!=-1) {
                 ArrayList<JellowIcon> temp = modelManager.getLevelThreeFromModel(LevelOneParent, position);
                 if (temp.size() > 0) {
@@ -263,14 +319,14 @@ public class HomeActivity extends SpeechEngineBaseActivity {
                     LevelTwoParent=position;
                     selectedIconVerbiage=null;
                 } else{
-                    speak(displayList.get(position).IconTitle);
+                    speak(displayList.get(position).getIconTitle());
                 }
 
             }
         }
         else if(Level==2)
         {
-            speak(displayList.get(position).IconTitle);
+            speak(displayList.get(position).getIconTitle());
         }
 
     }
@@ -299,13 +355,12 @@ public class HomeActivity extends SpeechEngineBaseActivity {
             LevelOneParent=-1;
             updateList();
             Level--;
-            ActivateView(back,false);
+            ActivateView(ivBack,false);
         }
         else if(Level==0)
         {
-            ActivateView(back,false);
-            home.setImageDrawable(getResources().getDrawable(R.drawable.home_pressed));
-            super.onBackPressed();
+            ActivateView(ivBack,false);
+            ivHome.setImageDrawable(getResources().getDrawable(R.drawable.home_pressed));
         }
 
     }
@@ -324,13 +379,14 @@ public class HomeActivity extends SpeechEngineBaseActivity {
     }
 
 
+
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext((LanguageHelper.onAttach(newBase)));
+        super.attachBaseContext(BoardLanguageHelper.getInstance().changeLanguage(newBase));
     }
 
     private void showGridDialog() {
-        new CustomDialog(this, new CustomDialog.GridSelectListener() {
+        new CustomDialog(this,currentBoard.getLanguage(), new GridSelectListener() {
             @Override
             public void onGridSelectListener(int size) {
                 currentBoard.setGridSize(size);
@@ -342,7 +398,8 @@ public class HomeActivity extends SpeechEngineBaseActivity {
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home:startActivity(new Intent(this, MyBoardsActivity.class));finish(); break;
+            case android.R.id.home:startActivity(new Intent(this, BoardActivity.class));finish();
+            if(manager!=null) manager.setCurrentBoardLanguage(""); break;
             case R.id.grid_size:
                 showGridDialog();break;
             case R.id.search:searchInBoard();break;
@@ -353,14 +410,14 @@ public class HomeActivity extends SpeechEngineBaseActivity {
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.board_home_menu, menu);
-        super.onCreateOptionsMenu(menu);
+        if(!isKeyboardVisible)
+            getMenuInflater().inflate(R.menu.board_home_menu, menu);
         return true;
     }
     private void searchInBoard() {
         Intent searchIntent = new Intent(this, BoardSearchActivity.class);
         searchIntent.putExtra(BoardSearchActivity.SEARCH_MODE, BoardSearchActivity.SEARCH_IN_BOARD);
-        searchIntent.putExtra(BOARD_ID,currentBoard.getBoardID());
+        searchIntent.putExtra(BOARD_ID,currentBoard.getBoardId());
         startActivityForResult(searchIntent,SEARCH);
     }
 
@@ -374,6 +431,7 @@ public class HomeActivity extends SpeechEngineBaseActivity {
                 ArrayList<Integer> iconPos = modelManager.getIconPositionInModel(icon);
                 if(!(iconPos.size()<1))
                     highlightIcon(iconPos);
+                selectedIconVerbiage = null;
 
             }
         }
@@ -422,15 +480,15 @@ public class HomeActivity extends SpeechEngineBaseActivity {
                 LevelTwoParent = iconPos.get(1);
 
         }
-        ActivateView(back,Level>0);
-        if(Level==0) home.setImageDrawable(getResources().getDrawable(R.drawable.home_pressed));
+        ActivateView(ivBack,Level>0);
+        if(Level==0) ivHome.setImageDrawable(getResources().getDrawable(R.drawable.home_pressed));
         adapter.highlightedIcon = pos;
         if(currentBoard.getGridSize()>pos)
             adapter.notifyDataSetChanged();
         else {
-            mRecycler.addOnScrollListener(getListener(pos));
+            rvRecycler.addOnScrollListener(getListener(pos));
             smoothScroller.setTargetPosition(pos);
-            mRecycler.getLayoutManager().startSmoothScroll(smoothScroller);
+            rvRecycler.getLayoutManager().startSmoothScroll(smoothScroller);
         }
     }
 
@@ -446,16 +504,16 @@ public class HomeActivity extends SpeechEngineBaseActivity {
                 super.onScrollStateChanged(recyclerView, newState);
                 if(newState==RecyclerView.SCROLL_STATE_IDLE)
                 {
-                    if(itemDisplayed(index)) mRecycler.removeOnScrollListener(scrollListener);
-                    else {smoothScroller.setTargetPosition(index); mRecycler.getLayoutManager().startSmoothScroll(smoothScroller);}
+                    if(itemDisplayed(index)) rvRecycler.removeOnScrollListener(scrollListener);
+                    else {smoothScroller.setTargetPosition(index); rvRecycler.getLayoutManager().startSmoothScroll(smoothScroller);}
                 }
             }};
 
         return scrollListener;
     }
     private boolean itemDisplayed(int index) {
-        int firstVisiblePos = ((GridLayoutManager)mRecycler.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
-        int lastVisiblePos = ((GridLayoutManager)mRecycler.getLayoutManager()).findLastCompletelyVisibleItemPosition();
+        int firstVisiblePos = ((GridLayoutManager) rvRecycler.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
+        int lastVisiblePos = ((GridLayoutManager) rvRecycler.getLayoutManager()).findLastCompletelyVisibleItemPosition();
         if(lastVisiblePos==(index-1))
             return true;
         return index >= firstVisiblePos && index <= lastVisiblePos;
@@ -464,6 +522,12 @@ public class HomeActivity extends SpeechEngineBaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if(!getSpeechEngineLanguage().equals(currentBoard.getLanguage())) {
+            if (getSession().getCurrentBoardLanguage() == null || getSession().getCurrentBoardLanguage().equals(""))
+                setSpeechEngineLanguage(SessionManager.ENG_IN);
+            else setSpeechEngineLanguage(getSession().getCurrentBoardLanguage());
+            /*setupSpeechEngine();*/
+        }
         setVisibleAct(HomeActivity.class.getSimpleName());
         if(!getSession().getToastMessage().isEmpty()) {
             Toast.makeText(getApplicationContext(),

@@ -3,125 +3,54 @@ package com.dsource.idc.jellowintl.makemyboard.utility;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
-
-import com.dsource.idc.jellowintl.MainActivity;
 import com.dsource.idc.jellowintl.R;
+import com.dsource.idc.jellowintl.makemyboard.interfaces.GridSelectListener;
 import com.rey.material.app.Dialog;
 
-import java.io.Serializable;
-
+import static com.dsource.idc.jellowintl.UserRegistrationActivity.LCODE;
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.DIALOG_TYPE;
 
 public class CustomDialog extends Dialog {
 
     private Context context;
     private Dialog dialog;
-    private onPositiveClickListener mPositiveClickListener;
-    private onNegativeClickListener mNegativeClickListener;
+    private OnPositiveClickListener mPositiveClickListener;
+    private OnNegativeClickListener mNegativeClickListener;
     private Button postiveButton, negativeButton;
     private TextView dialogText;
     public static final int NORMAL=111;
-    public static final int ICON_EDIT=333;;
+    public static final int ICON_EDIT=333;
+    private String langCode;
 
-    public CustomDialog(Context context,int Code){
+    public CustomDialog(Context context,int code,String langCode){
         super(context);
         this.context=context;
-        if(Code==NORMAL)
+        this.langCode = langCode;
+        if(code==NORMAL)
         {
             prepareDialog();
         }
 
 
     }
-    public CustomDialog(Context context, GridSelectListener mGridSizeSelectListener){
+    public CustomDialog(Context context,String langCode, GridSelectListener mGridSizeSelectListener){
         super(context);
         this.context=context;
+        this.langCode = langCode;
         prepareGridDialog(mGridSizeSelectListener);
     }
 
     private void prepareGridDialog(GridSelectListener mGridSizeSelectListener) {
         Intent dialog =new Intent(context,DialogBox.class);
         dialog.putExtra(DIALOG_TYPE,BoardConstants.GRID_DIALOG);
+        dialog.putExtra(LCODE,langCode);
         DialogBox.mGridSelectionListener =mGridSizeSelectListener;
         context.startActivity(dialog);
-
-        /*
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(context);
-        final View mView = getLayoutInflater().inflate(R.layout.grid_dialog, null);
-        mBuilder.setView(mView);
-        final AlertDialog dialog = mBuilder.create();
-        dialog.setCancelable(false);
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.getWindow().setBackgroundDrawable(context.getResources().getDrawable(R.color.transparent));
-        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation_2; //style id
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        lp.copyFrom(dialog.getWindow().getAttributes());
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT
-        ;
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        dialog.getWindow().setAttributes(lp);
-
-
-        final ImageView GridSize1=mView.findViewById(R.id.grid_size_1x1);
-        final ImageView GridSize2=mView.findViewById(R.id.grid_size_1X2);
-        final ImageView GridSize3=mView.findViewById(R.id.grid_size_1X3);
-        final ImageView GridSize6=mView.findViewById(R.id.grid_size_3X3);
-        final ImageView GridSize4=mView.findViewById(R.id.grid_size_2x2);
-
-
-        GridSize1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                mGridSizeSelectListener.onGridSelectListener(1);
-            }
-        });
-        GridSize2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                mGridSizeSelectListener.onGridSelectListener(2);
-            }
-        });
-        GridSize3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                mGridSizeSelectListener.onGridSelectListener(3);
-            }
-        });
-        GridSize4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                mGridSizeSelectListener.onGridSelectListener(4);
-            }
-        });
-        GridSize6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                mGridSizeSelectListener.onGridSelectListener(6);
-            }
-        });
-
-        dialog.show();*/
-
-    }
-
-    public interface GridSelectListener extends Serializable
-    {
-        void onGridSelectListener(int size);
     }
 
 
@@ -131,6 +60,8 @@ public class CustomDialog extends Dialog {
         View dialogContainerView = dialogLayout.inflate(R.layout.custom_dialog, null);
         postiveButton =dialogContainerView.findViewById(R.id.positive);
         negativeButton =dialogContainerView.findViewById(R.id.negative);
+        postiveButton.setText(R.string.yes);
+        negativeButton.setText(R.string.no);
         postiveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,21 +86,21 @@ public class CustomDialog extends Dialog {
     }
 
 
-    public void setOnPositiveClickListener(final CustomDialog.onPositiveClickListener mPositiveClickListener) {
+    public void setOnPositiveClickListener(final OnPositiveClickListener mPositiveClickListener) {
         this.mPositiveClickListener = mPositiveClickListener;
     }
 
-    public void setOnNegativeClickListener(final CustomDialog.onNegativeClickListener mNegativeClickListener) {
+    public void setOnNegativeClickListener(final OnNegativeClickListener mNegativeClickListener) {
         this.mNegativeClickListener = mNegativeClickListener;
     }
 
 
-    public interface onPositiveClickListener
+    public interface OnPositiveClickListener
     {
         void onPositiveClickListener();
     }
 
-    public interface onNegativeClickListener
+    public interface OnNegativeClickListener
     {
         void onNegativeClickListener();
     }

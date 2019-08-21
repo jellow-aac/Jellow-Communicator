@@ -41,7 +41,7 @@ public class SplashActivity extends BaseActivity {
                 != PackageManager.PERMISSION_GRANTED))
             getSession().setEnableCalling(false);
 
-        if (getSession().isLanguageChanged() == 1) {
+        if (getSession().isLanguageChanged() == GlobalConstants.LANGUAGE_STATE_CHANGED) {
             CacheManager.clearCache();
             TextFactory.clearJson();
         }
@@ -54,7 +54,7 @@ public class SplashActivity extends BaseActivity {
             startActivity(new Intent(this, LanguageDownloadActivity.class)
                     .putExtra(LCODE, SessionManager.UNIVERSAL_PACKAGE)
                     .putExtra(SPLASH, true));
-        }else if(getSession().isLanguageChanged()!=2) {
+        }else if(getSession().isLanguageChanged()!= GlobalConstants.LANGUAGE_STATE_DB_CREATE) {
             new CreateDataBase(this, getAppDatabase()).execute();
         }else {
             startActivity(new Intent(SplashActivity.this, MainActivity.class));

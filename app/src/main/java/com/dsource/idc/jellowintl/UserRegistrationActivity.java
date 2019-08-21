@@ -97,6 +97,9 @@ public class UserRegistrationActivity extends SpeechEngineBaseActivity {
         FirebaseMessaging.getInstance().subscribeToTopic("jellow_aac");
         setActivityTitle(getString(R.string.menuUserRegistration));
         getSession().changePreferencesFile(this);
+        //Reset Board Language
+        getSession().setCurrentBoardLanguage("");
+
         if (!getSession().getCaregiverNumber().equals("")) {
             getAnalytics(this, getSession().getCaregiverNumber().substring(1));
             getSession().setSessionCreatedAt(new Date().getTime());

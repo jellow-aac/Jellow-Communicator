@@ -6,11 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.dsource.idc.jellowintl.R;
 
 import java.util.ArrayList;
-
-import androidx.recyclerview.widget.RecyclerView;
 
 public class LevelSelectorAdapter extends RecyclerView.Adapter<LevelSelectorAdapter.ViewHolder>{
 
@@ -22,7 +22,7 @@ public class LevelSelectorAdapter extends RecyclerView.Adapter<LevelSelectorAdap
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        //Each data item is just a string in this case
+        //Each iconList item is just a string in this case
         TextView levelTitle;
         View holder;
         public ViewHolder(View v) {
@@ -34,8 +34,8 @@ public class LevelSelectorAdapter extends RecyclerView.Adapter<LevelSelectorAdap
 
         @Override
         public void onClick(View view) {
-            mItemClickListener.onItemClick(view,getAdapterPosition());
             selectedPosition = getAdapterPosition();
+            mItemClickListener.onItemClick(view,getAdapterPosition());
             notifyDataSetChanged();
         }
     }

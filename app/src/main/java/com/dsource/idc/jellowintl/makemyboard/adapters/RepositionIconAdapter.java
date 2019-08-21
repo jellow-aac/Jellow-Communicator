@@ -12,6 +12,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.dsource.idc.jellowintl.GlideApp;
@@ -30,10 +34,8 @@ import com.h6ah4i.android.widget.advrecyclerview.utils.AbstractDraggableItemView
 
 import java.io.File;
 
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
-
+import static com.dsource.idc.jellowintl.factories.IconFactory.EXTENSION;
+import static com.dsource.idc.jellowintl.factories.PathFactory.getIconPath;
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.DELETE_MODE;
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.NORMAL_MODE;
 
@@ -48,6 +50,16 @@ public class RepositionIconAdapter extends RecyclerView.Adapter<RepositionIconAd
     private onRecyclerItemClick onItemClickListener;
     private onItemMoveListener mOnItemMoveListener;
     public int highlightIcon = -1;
+    private String langCode;
+
+    public RepositionIconAdapter(AbstractDataProvider dataProvider, Context context, int mode, int gridSize,String langCode) {
+        mProvider = dataProvider;
+        mAct = (RepositionIconsActivity) context;
+        this.mode =mode;
+        this.gridSize = gridSize;
+        this.langCode = langCode;
+        setHasStableIds(true);
+    }
 
     public void setOnItemClickListener(onRecyclerItemClick onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
@@ -102,21 +114,6 @@ public class RepositionIconAdapter extends RecyclerView.Adapter<RepositionIconAd
         }
     }
 
-    public RepositionIconAdapter(AbstractDataProvider dataProvider, Context context, int mode, int gridSize) {
-        mProvider = dataProvider;
-        mAct = (RepositionIconsActivity) context;
-        this.mode =mode;
-        this.gridSize = gridSize;
-
-        // DraggableItemAdapter requires stable ID, and also
-        // have to implement the getItemId() method appropriately.
-        setHasStableIds(true);
-    }
-
-    public void setItemMoveMode(int itemMoveMode) {
-        mItemMoveMode = itemMoveMode;
-    }
-
     @Override
     public long getItemId(int position) {
         return mProvider.getItem(position).getId();
@@ -169,13 +166,13 @@ public class RepositionIconAdapter extends RecyclerView.Adapter<RepositionIconAd
 
 
         JellowIcon thisIcon = (JellowIcon)mProvider.getItem(position);
-        holder.iconTitle.setText(thisIcon.IconTitle);
-        if(thisIcon.parent0==-1)
+        holder.iconTitle.setText(thisIcon.getIconTitle());
+        if(thisIcon.getParent0()==-1)
         {
-            File en_dir = mAct.getDir(SessionManager.ENG_IN, Context.MODE_PRIVATE);
-            String path = en_dir.getAbsolutePath() + "/boardicon";
+            File en_dir = mAct.getDir(SessionManager.BOARD_ICON_LOCATION, Context.MODE_PRIVATE);
+            String path = en_dir.getAbsolutePath();
             GlideApp.with(mAct)
-                    .load(path+"/"+ thisIcon.IconDrawable+".png")
+                    .load(path+"/"+ thisIcon.getIconDrawable()+".png")
                     .apply(RequestOptions.
                             circleCropTransform())
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -187,14 +184,7 @@ public class RepositionIconAdapter extends RecyclerView.Adapter<RepositionIconAd
         }
         else
         {
-            File en_dir = mAct.getDir(SessionManager.ENG_IN, Context.MODE_PRIVATE);
-            String path = en_dir.getAbsolutePath() + "/drawables";
-            GlideApp.with(mAct)
-                    .load(path+"/"+ thisIcon.IconDrawable+".png")
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(false)
-                    .centerCrop()
-                    .dontAnimate()
+            GlideApp.with(mAct).load(getIconPath(mAct, thisIcon.getIconDrawable()+EXTENSION))
                     .into(holder.iconImage);
         }
 

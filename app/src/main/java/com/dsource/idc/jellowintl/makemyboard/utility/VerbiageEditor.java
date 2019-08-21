@@ -8,17 +8,14 @@ import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.appcompat.app.AlertDialog;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
@@ -29,26 +26,25 @@ import com.dsource.idc.jellowintl.makemyboard.adapters.SimpleListAdapter;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.VerbiageEditorInterface;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.VerbiageEditorReverseInterface;
 import com.dsource.idc.jellowintl.makemyboard.models.ListItem;
-import com.dsource.idc.jellowintl.makemyboard.verbiage_model.JellowVerbiageModel;
 import com.dsource.idc.jellowintl.models.JellowIcon;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.rey.material.app.Dialog;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 
-import static android.view.Gravity.CENTER;
-import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.EDIT_ICON;
+import static com.dsource.idc.jellowintl.factories.IconFactory.EXTENSION;
+import static com.dsource.idc.jellowintl.factories.PathFactory.getIconPath;
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.LIBRARY_REQUEST;
 
 public class VerbiageEditor extends android.app.Dialog implements View.OnClickListener {
 
     //Static variables to set the modes
-    public static final int ADD_BOARD_MODE =111;
-    public static final int ADD_EDIT_ICON_MODE=222;
-    public static final int VERBIAGE_MODE = 333;
+    public static final int ADD_BOARD_MODE = 111;
+    public static final int ADD_EDIT_ICON_MODE = 222;
     private Context context;
-    private boolean isVisible=false;
+    private boolean isVisible = false;
     private TextView saveButton;
     private Dialog dialog;
     private EditText titleText;
@@ -57,167 +53,19 @@ public class VerbiageEditor extends android.app.Dialog implements View.OnClickLi
     private ImageView iconImage;
     private ListView listView;
     private VerbiageEditorInterface dialogInterface;
-    private LinearLayout expList;
-    private ArrayList<RelativeLayout> expListLayouts;
-    private ArrayList<String> verbiageList;
-    private ArrayList<String> defaultVerbiage;
-    private JellowIcon thisIcon=null;
+    private JellowIcon thisIcon = null;
     private int mode;
-    private boolean verbiageDialog=false;
     private String name;
-    private JellowVerbiageModel presentVerbiage=null;
-    private AlertDialog verbiageAlertDialog;
-    private Button verbiageDialogCancel;
 
-    public VerbiageEditor(Context context,int mode,VerbiageEditorInterface dialogInterface) {
+    public VerbiageEditor(Context context, int mode, VerbiageEditorInterface dialogInterface,String languageCode) {
         super(context);
-        this.dialogInterface=dialogInterface;
+        this.dialogInterface = dialogInterface;
         this.context = context;
         this.mode = mode;
-        if(mode==VERBIAGE_MODE)
-            initVerbiageViews();
-        else
+        String langCode = languageCode;
         initViews();
     }
 
-    private void initVerbiageViews() {
-        verbiageDialog=true;
-        int resFile= R.layout.verbiage_edit_dialog;
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(context);
-        final View mView = getLayoutInflater().inflate(resFile, null);
-        mBuilder.setView(mView);
-        final AlertDialog dialog = mBuilder.create();
-        dialog.setCancelable(false);
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.getWindow().setBackgroundDrawable(context.getResources().getDrawable(R.color.transparent));
-        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation_2; //style id
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        lp.copyFrom(dialog.getWindow().getAttributes());
-        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        dialog.getWindow().setAttributes(lp);
-
-        //Views related to the Dialogs
-        saveButton=mView.findViewById(R.id.save_baord);
-        verbiageDialogCancel=mView.findViewById(R.id.cancel_save_baord);
-        expList = mView.findViewById(R.id.exp_verbiage_list);
-        //Click Listeners
-        saveButton.setOnClickListener(this);
-        verbiageDialogCancel.setOnClickListener(this);
-        dialog.show();
-        verbiageAlertDialog =dialog;
-        verbiageRelatedViews();
-    }
-
-    public VerbiageEditor presentVerbiage(JellowVerbiageModel verbiageModel){
-        this.presentVerbiage =verbiageModel;
-        if(verbiageModel!=null) {
-            if (verbiageModel.L.equals("NA"))
-            {
-                expListLayouts.get(0).findViewById(R.id.verbiage_text).setEnabled(false);
-                expListLayouts.get(0).findViewById(R.id.verbiage_text).setAlpha(.6f);
-                expListLayouts.get(0).findViewById(R.id.verbiage_really_text).setEnabled(false);
-                expListLayouts.get(0).findViewById(R.id.verbiage_really_text).setAlpha(.6f);
-                ((ImageView) expListLayouts.get(0).findViewById(R.id.add_remove)).
-                        setImageDrawable(context.getResources().getDrawable(R.drawable.plus));
-
-            }
-            else
-            {
-                ((EditText)expListLayouts.get(0).findViewById(R.id.verbiage_text)).setText(verbiageModel.L);
-                ((EditText)expListLayouts.get(0).findViewById(R.id.verbiage_really_text)).setText(verbiageModel.LL);
-            }
-            if (verbiageModel.Y.equals("NA"))
-            {
-                expListLayouts.get(1).findViewById(R.id.verbiage_text).setEnabled(false);
-                expListLayouts.get(1).findViewById(R.id.verbiage_text).setAlpha(.6f);
-                expListLayouts.get(1).findViewById(R.id.verbiage_really_text).setEnabled(false);
-                expListLayouts.get(1).findViewById(R.id.verbiage_really_text).setAlpha(.6f);
-                ((ImageView) expListLayouts.get(1).findViewById(R.id.add_remove)).
-                        setImageDrawable(context.getResources().getDrawable(R.drawable.plus));
-
-            }
-            else
-            {
-                ((EditText)expListLayouts.get(1).findViewById(R.id.verbiage_text)).setText(verbiageModel.Y);
-                ((EditText)expListLayouts.get(1).findViewById(R.id.verbiage_really_text)).setText(verbiageModel.YY);}
-            if (verbiageModel.M.equals("NA"))
-            {
-                expListLayouts.get(2).findViewById(R.id.verbiage_text).setEnabled(false);
-                expListLayouts.get(2).findViewById(R.id.verbiage_text).setAlpha(.6f);
-                expListLayouts.get(2).findViewById(R.id.verbiage_really_text).setEnabled(false);
-                expListLayouts.get(2).findViewById(R.id.verbiage_really_text).setAlpha(.6f);
-                ((ImageView) expListLayouts.get(2).findViewById(R.id.add_remove)).
-                        setImageDrawable(context.getResources().getDrawable(R.drawable.plus));
-
-            }
-            else
-            {
-                ((EditText)expListLayouts.get(2).findViewById(R.id.verbiage_text)).setText(verbiageModel.M);
-                ((EditText)expListLayouts.get(2).findViewById(R.id.verbiage_really_text)).setText(verbiageModel.MM);
-            }
-            if (verbiageModel.D.equals("NA"))
-            {
-                expListLayouts.get(3).findViewById(R.id.verbiage_text).setEnabled(false);
-                expListLayouts.get(3).findViewById(R.id.verbiage_text).setAlpha(.6f);
-                expListLayouts.get(3).findViewById(R.id.verbiage_really_text).setEnabled(false);
-                expListLayouts.get(3).findViewById(R.id.verbiage_really_text).setAlpha(.6f);
-                ((ImageView) expListLayouts.get(3).findViewById(R.id.add_remove)).
-                        setImageDrawable(context.getResources().getDrawable(R.drawable.plus));
-
-            }
-            else
-            {
-                ((EditText)expListLayouts.get(3).findViewById(R.id.verbiage_text)).setText(verbiageModel.D);
-                ((EditText)expListLayouts.get(3).findViewById(R.id.verbiage_really_text)).setText(verbiageModel.DD);
-            }
-
-            if (verbiageModel.N.equals("NA"))
-            {
-                expListLayouts.get(4).findViewById(R.id.verbiage_text).setEnabled(false);
-                expListLayouts.get(4).findViewById(R.id.verbiage_text).setAlpha(.6f);
-                expListLayouts.get(4).findViewById(R.id.verbiage_really_text).setEnabled(false);
-                expListLayouts.get(4).findViewById(R.id.verbiage_really_text).setAlpha(.6f);
-                ((ImageView) expListLayouts.get(4).findViewById(R.id.add_remove)).
-                        setImageDrawable(context.getResources().getDrawable(R.drawable.plus));
-
-            }
-            else
-            {
-
-                ((EditText)expListLayouts.get(4).findViewById(R.id.verbiage_text)).setText(verbiageModel.N);
-                ((EditText)expListLayouts.get(4).findViewById(R.id.verbiage_really_text)).setText(verbiageModel.NN);
-            }
-            if (verbiageModel.S.equals("NA"))
-            {
-                expListLayouts.get(5).findViewById(R.id.verbiage_text).setEnabled(false);
-                expListLayouts.get(5).findViewById(R.id.verbiage_text).setAlpha(.6f);
-                expListLayouts.get(5).findViewById(R.id.verbiage_really_text).setEnabled(false);
-                expListLayouts.get(5).findViewById(R.id.verbiage_really_text).setAlpha(.6f);
-                ((ImageView) expListLayouts.get(5).findViewById(R.id.add_remove)).
-                        setImageDrawable(context.getResources().getDrawable(R.drawable.plus));
-
-            }
-            else
-            {
-                ((EditText)expListLayouts.get(5).findViewById(R.id.verbiage_text)).setText(verbiageModel.S);
-                ((EditText)expListLayouts.get(5).findViewById(R.id.verbiage_really_text)).setText(verbiageModel.SS);
-            }
-        }
-        return this;
-    }
-
-    public VerbiageEditor initVerbiageDialog(String name){
-        this.name =name;
-        if(presentVerbiage==null)/* This skips below codes for editing a icon's verbiage */ {
-            int j = 0;
-            for (int i = 0; i < 6; i++) {
-                ((EditText) expListLayouts.get(i).findViewById(R.id.verbiage_text)).setText(String.format("%s%s", defaultVerbiage.get(j++), name));
-                ((EditText) expListLayouts.get(i).findViewById(R.id.verbiage_really_text)).setText(String.format("%s%s", defaultVerbiage.get(j++), name));
-            }
-        }
-        return this;
-    }
 
     public void setAlreadyPresentIcon(JellowIcon Icon){this.thisIcon = Icon;setIconImage(null);}
 
@@ -229,8 +77,8 @@ public class VerbiageEditor extends android.app.Dialog implements View.OnClickLi
         //The list that will be shown with camera options
         final ArrayList<ListItem> list=new ArrayList<>();
         @SuppressLint("Recycle") TypedArray mArray=context.getResources().obtainTypedArray(R.array.add_photo_option);
-        list.add(new ListItem("Photos",mArray.getDrawable(0)));
-        list.add(new ListItem("Library ",mArray.getDrawable(1)));
+        list.add(new ListItem(context.getResources().getString(R.string.photos),mArray.getDrawable(0)));
+        list.add(new ListItem(context.getResources().getString(R.string.library),mArray.getDrawable(1)));
         SimpleListAdapter adapter=new SimpleListAdapter(context,list);
         listView.setAdapter(adapter);
         dialogInterface.initPhotoResultListener(new VerbiageEditorReverseInterface() {
@@ -244,26 +92,21 @@ public class VerbiageEditor extends android.app.Dialog implements View.OnClickLi
                         Glide.with(context)
                             .asBitmap()
                             .load(stream.toByteArray())
-                            .apply(RequestOptions.
-                                    circleCropTransform()).into(iconImage);
+                                .placeholder(R.drawable.ic_board_person)
+                                .apply(RequestOptions
+                                        .circleCropTransform()).into(iconImage);
                     else if(mode==ADD_BOARD_MODE)
                         Glide.with(context).load(stream.toByteArray())
                             .apply(new RequestOptions().
                                     transform(new RoundedCorners(50)).
+                                    placeholder(R.drawable.ic_board_person).
                                     error(R.drawable.ic_board_person).skipMemoryCache(true).
                                     diskCacheStrategy(DiskCacheStrategy.NONE))
                             .into(iconImage);
                 }
                 else
                 {
-                    File en_dir = context.getDir(SessionManager.ENG_IN, Context.MODE_PRIVATE);
-                    String path = en_dir.getAbsolutePath() + "/drawables";
-                    GlideApp.with(context)
-                            .load(path+"/"+fileName+".png")
-                            .diskCacheStrategy(DiskCacheStrategy.NONE)
-                            .skipMemoryCache(false)
-                            .centerCrop()
-                            .dontAnimate()
+                    GlideApp.with(context).load(getIconPath(context, fileName+EXTENSION))
                             .into(iconImage);
                 }
                 if(mode== ADD_EDIT_ICON_MODE)
@@ -312,7 +155,6 @@ public class VerbiageEditor extends android.app.Dialog implements View.OnClickLi
         editBoardIconButton=dialogContainerView.findViewById(R.id.edit_board);
         iconImage =dialogContainerView.findViewById(R.id.board_icon);
         listView=dialogContainerView.findViewById(R.id.camera_list);
-        expList = dialogContainerView.findViewById(R.id.exp_verbiage_list);
         //Setting the image icon
         if(thisIcon!=null)
         setIconImage(null);
@@ -329,11 +171,12 @@ public class VerbiageEditor extends android.app.Dialog implements View.OnClickLi
      */
     private void setIconImage(String id) {
 
-        File en_dir = context.getDir(SessionManager.ENG_IN, Context.MODE_PRIVATE);
+
 
         if(id!=null)
         {
-            String path = en_dir.getAbsolutePath() + "/boardicon";
+            File en_dir = context.getDir(SessionManager.BOARD_ICON_LOCATION, Context.MODE_PRIVATE);
+            String path = en_dir.getAbsolutePath();
             GlideApp.with(context)
                     .load(path+"/"+id+".png")
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -343,11 +186,12 @@ public class VerbiageEditor extends android.app.Dialog implements View.OnClickLi
                     .placeholder(R.drawable.ic_board_person)
                     .into(iconImage);
         }
-        else if(thisIcon.parent0==-1)//Is a custom Icon
+        else if(thisIcon.isCustomIcon())//Is a custom Icon
         {
-            String path = en_dir.getAbsolutePath() + "/boardicon";
+            File en_dir = context.getDir(SessionManager.BOARD_ICON_LOCATION, Context.MODE_PRIVATE);
+            String path = en_dir.getAbsolutePath();
             GlideApp.with(context)
-                    .load(path+"/"+ thisIcon.IconDrawable+".png")
+                    .load(path+"/"+ thisIcon.getIconDrawable()+".png")
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)
                     .centerCrop()
@@ -357,183 +201,48 @@ public class VerbiageEditor extends android.app.Dialog implements View.OnClickLi
         }
         else
         {
-            String path = en_dir.getAbsolutePath() + "/drawables";
-            GlideApp.with(context)
-                    .load(path+"/"+ thisIcon.IconDrawable+".png")
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(false)
-                    .centerCrop()
-                    .dontAnimate()
-                    .placeholder(R.drawable.ic_board_person)
+            GlideApp.with(context).load(getIconPath(context, thisIcon.getIconDrawable()+EXTENSION))
+                    .skipMemoryCache(true)
                     .into(iconImage);
         }
 
     }
 
-    private void verbiageRelatedViews()
-    {
-
-        defaultVerbiage = new ArrayList<>();
-        verbiageList = new ArrayList<>();
-        //Feeding default verbiage heads
-        defaultVerbiage.add("I like ");
-        defaultVerbiage.add("I really like ");
-        defaultVerbiage.add("I want ");
-        defaultVerbiage.add("I really want ");
-        defaultVerbiage.add("I want more ");
-        defaultVerbiage.add("I really want more ");
-        defaultVerbiage.add("I don't like ");
-        defaultVerbiage.add("I really don't like ");
-        defaultVerbiage.add("I don't want ");
-        defaultVerbiage.add("I really don't want ");
-        defaultVerbiage.add("I don't want more ");
-        defaultVerbiage.add("I really don't want more ");
-        //Loading expressive icons
-        @SuppressLint("Recycle")
-        TypedArray iconImages = context.getResources().obtainTypedArray(R.array.expressive_icon_unpressed);
-
-        expListLayouts = new ArrayList<>();
-        //Populating the list item of verbiage
-        for(int i = 0 ; i<6;i++)
-        {
-            @SuppressLint("InflateParams")
-            View view  = LayoutInflater.from(context).inflate(R.layout.vebiage_list_item,null);
-            view.setOnClickListener(this);
-            expListLayouts.add((RelativeLayout)view);
-            view.findViewById(R.id.add_remove).setOnClickListener(this);
-            ((ImageView)view.findViewById(R.id.icon)).setImageDrawable(iconImages.getDrawable(i));
-            expList.addView(view);
-        }
-
-    }
-
-
-
-
 
     @Override
     public void onClick(View v) {
-        if(v==editBoardIconButton)
-        {
-            if(isVisible)
+        if (v == editBoardIconButton) {
+            if (isVisible)
                 listView.setVisibility(View.GONE);
             else
                 listView.setVisibility(View.VISIBLE);
-            isVisible=!isVisible;
-        }
-        else if(v==saveButton)
+            isVisible = !isVisible;
+        } else if (v == saveButton)
             initSave();
-        else if(v==cancelSaveBoard) {
-            if(dialog!=null)dialog.cancel();
-        }
-        else if(v==verbiageDialogCancel)
-            resetVerbiages();
+        else if (v == cancelSaveBoard) {
+            if (dialog != null) dialog.cancel();
 
-            //For add/remove of the verbiage
-        if(verbiageDialog)
-        for(int i = 0 ;i<6;i++)
-        {
-
-            if(v==expListLayouts.get(i).findViewById(R.id.add_remove))
-            {
-                 if(expListLayouts.get(i).findViewById(R.id.verbiage_text).isEnabled()) {
-                    expListLayouts.get(i).findViewById(R.id.verbiage_text).setEnabled(false);
-                    expListLayouts.get(i).findViewById(R.id.verbiage_text).setAlpha(.6f);
-                    expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setEnabled(false);
-                    expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setAlpha(.6f);
-                    ((ImageView) expListLayouts.get(i).findViewById(R.id.add_remove)).setImageDrawable(context.getResources().getDrawable(R.drawable.plus));
-                }
-                else
-                {
-                    expListLayouts.get(i).findViewById(R.id.verbiage_text).setEnabled(true);
-                    expListLayouts.get(i).findViewById(R.id.verbiage_text).setAlpha(1.0f);
-                    expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setEnabled(true);
-                    expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setAlpha(1.0f);
-                    ((ImageView)expListLayouts.get(i).findViewById(R.id.add_remove)).
-                            setImageDrawable(context.getResources().getDrawable(R.drawable.minus));
-                }
-            }
         }
 
-    }
 
-    private void resetVerbiages() {
-        if(presentVerbiage!=null){
-            presentVerbiage(presentVerbiage);
-        }
-        else{
-            initVerbiageDialog(name);
-            enableAllViews();
-        }
-    }
-
-    private void enableAllViews() {
-        for(int i = 0 ;i<6;i++) {
-            expListLayouts.get(i).findViewById(R.id.verbiage_text).setEnabled(true);
-            expListLayouts.get(i).findViewById(R.id.verbiage_text).setAlpha(1.0f);
-            expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setEnabled(true);
-            expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setAlpha(1.0f);
-            ((ImageView) expListLayouts.get(i).findViewById(R.id.add_remove)).
-                    setImageDrawable(context.getResources().getDrawable(R.drawable.minus));
-        }
     }
 
     private void initSave() {
-        if(!verbiageDialog)
+
         if(titleText.getText().toString().equals("")) {
-            Toast.makeText(context, "Please enter name", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, context.getResources().getString(R.string.please_enter_name), Toast.LENGTH_SHORT).show();
             return;
         }
 
         if(mode==ADD_EDIT_ICON_MODE)
             dialogInterface.onPositiveButtonClick(titleText.getText().toString(),
                 ((BitmapDrawable) iconImage.getDrawable()).getBitmap(),null);
-        else if(mode ==VERBIAGE_MODE)
-            dialogInterface.onPositiveButtonClick(null,
-                    null,saveVerbiage());
         else if(mode==ADD_BOARD_MODE)
             dialogInterface.onPositiveButtonClick(titleText.getText().toString(),
                     ((BitmapDrawable) iconImage.getDrawable()).getBitmap(),null);
         if(dialog!=null)
             dialog.dismiss();
-        else if(verbiageAlertDialog!=null) verbiageAlertDialog.dismiss();
     }
 
-    private JellowVerbiageModel saveVerbiage() {
-
-    for(int i = 0;i<6;i++) {
-            //if view is enabled use it's verbiage
-            if((expListLayouts.get(i).findViewById(R.id.verbiage_text)).isEnabled())
-            {
-                verbiageList.add(((EditText)expListLayouts.
-                        get(i).findViewById(R.id.verbiage_text))
-                        .getText().toString());
-                verbiageList.add(((EditText)expListLayouts.
-                        get(i).findViewById(R.id.verbiage_really_text))
-                        .getText().toString());
-            }
-            else // if view is disabled, write NA in place of that
-            {
-                verbiageList.add("NA");
-                verbiageList.add("NA");
-            }
-        }
-
-        return new JellowVerbiageModel(
-                name,name,
-                verbiageList.get(0),
-                verbiageList.get(1),
-                verbiageList.get(2),
-                verbiageList.get(3),
-                verbiageList.get(4),
-                verbiageList.get(5),
-                verbiageList.get(6),
-                verbiageList.get(7),
-                verbiageList.get(8),
-                verbiageList.get(9),
-                verbiageList.get(10),
-                verbiageList.get(11)
-        );
-    }
 
 }

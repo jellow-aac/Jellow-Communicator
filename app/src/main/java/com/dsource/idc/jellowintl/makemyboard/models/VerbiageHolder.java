@@ -1,14 +1,16 @@
-package com.dsource.idc.jellowintl.makemyboard.verbiage_model;
+package com.dsource.idc.jellowintl.makemyboard.models;
 
 
 import androidx.annotation.Keep;
 
+import com.dsource.idc.jellowintl.models.Icon;
+
 public class VerbiageHolder {
     private String IconID,IconName;
-    private JellowVerbiageModel IconVerbaige;
+    private Icon IconVerbaige;
 
     @Keep
-    public VerbiageHolder(String iconID, String iconName, JellowVerbiageModel iconVerbaige) {
+    public VerbiageHolder(String iconID, String iconName, Icon iconVerbaige) {
         IconID = iconID;
         IconName = iconName;
         IconVerbaige = iconVerbaige;
@@ -30,11 +32,11 @@ public class VerbiageHolder {
         IconName = iconName;
     }
 
-    public JellowVerbiageModel getIconVerbaige() {
+    public Icon getIconVerbaige() {
         return IconVerbaige;
     }
 
-    public void setIconVerbaige(JellowVerbiageModel iconVerbaige) {
+    public void setIconVerbaige(Icon iconVerbaige) {
         IconVerbaige = iconVerbaige;
     }
 }

@@ -17,26 +17,26 @@ public class ImageStorageHelper {
         //if parent node itself is a custom icon
         if(iconModel.getIcon()!=null)
         if(iconModel.getIcon().isCustomIcon())
-            deleteImageFromStorage(iconModel.getIcon().IconDrawable,context);
+            deleteImageFromStorage(iconModel.getIcon().getIconDrawable(),context);
 
         //Deleting all the custom icons of level two
         for(IconModel mod:iconModel.getChildren())
             if(mod.getIcon().isCustomIcon())
-                deleteImageFromStorage(mod.getIcon().IconDrawable,context);
+                deleteImageFromStorage(mod.getIcon().getIconDrawable(),context);
 
          //Deleting all the custom icons of level three
         for(IconModel mod:iconModel.getChildren())
             for(IconModel model:mod.getChildren())
                 if(model.getIcon().isCustomIcon())
-                     deleteImageFromStorage(model.getIcon().IconDrawable,context);
+                     deleteImageFromStorage(model.getIcon().getIconDrawable(),context);
 
 
     }
 
     public static void storeImageToStorage(Bitmap bitmap, String fileID, Context context) {
         FileOutputStream fos;
-        File en_dir = context.getDir(SessionManager.ENG_IN, Context.MODE_PRIVATE);
-        String path = en_dir.getAbsolutePath() + "/boardicon";
+        File en_dir = context.getDir(SessionManager.BOARD_ICON_LOCATION, Context.MODE_PRIVATE);
+        String path = en_dir.getAbsolutePath();
         String status = Environment.getExternalStorageState();
         if (status.equals(Environment.MEDIA_MOUNTED)) {
             File root = new File(path);
@@ -62,9 +62,9 @@ public class ImageStorageHelper {
         }
     }
 
-    public static void deleteImageFromStorage(String fileID,Context context) {
-        File en_dir = context.getDir(SessionManager.ENG_IN, Context.MODE_PRIVATE);
-        String path = en_dir.getAbsolutePath() + "/boardicon";
+    private static void deleteImageFromStorage(String fileID, Context context) {
+        File en_dir = context.getDir(SessionManager.BOARD_ICON_LOCATION, Context.MODE_PRIVATE);
+        String path = en_dir.getAbsolutePath();
         String status = Environment.getExternalStorageState();
         if (status.equals(Environment.MEDIA_MOUNTED)) {
             File root = new File(path);

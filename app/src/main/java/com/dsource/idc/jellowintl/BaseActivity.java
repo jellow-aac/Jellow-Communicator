@@ -15,11 +15,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import com.dsource.idc.jellowintl.makemyboard.AddEditIconAndCategoryActivity;
+import com.dsource.idc.jellowintl.makemyboard.BoardActivity;
+import com.dsource.idc.jellowintl.makemyboard.BoardListActivity;
 import com.dsource.idc.jellowintl.makemyboard.BoardSearchActivity;
 import com.dsource.idc.jellowintl.makemyboard.HomeActivity;
-import com.dsource.idc.jellowintl.makemyboard.IconSelectActivity;
-import com.dsource.idc.jellowintl.makemyboard.MyBoardsActivity;
 import com.dsource.idc.jellowintl.makemyboard.RepositionIconsActivity;
+import com.dsource.idc.jellowintl.makemyboard.icon_select_module.view.activity.IconSelectActivity;
 import com.dsource.idc.jellowintl.models.AppDatabase;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
@@ -33,7 +34,10 @@ public class BaseActivity extends AppCompatActivity{
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext((LanguageHelper.onAttach(newBase)));
+       SessionManager s = new SessionManager(newBase);
+       if(s.getCurrentBoardLanguage()==null||s.getCurrentBoardLanguage().equals(""))
+           super.attachBaseContext((LanguageHelper.onAttach(newBase)));
+       else super.attachBaseContext(LanguageHelper.onAttach(newBase,s.getCurrentBoardLanguage()));
     }
 
     @Override
@@ -210,7 +214,8 @@ public class BaseActivity extends AppCompatActivity{
                         BoardSearchActivity.class.getSimpleName() + ","+
                         HomeActivity.class.getSimpleName() + ","+
                         IconSelectActivity.class.getSimpleName() + ","+
-                        MyBoardsActivity.class.getSimpleName() + ","+
+                        BoardActivity.class.getSimpleName() + ","+
+                        BoardListActivity.class.getSimpleName() + ","+
                         RepositionIconsActivity.class.getSimpleName();
     }
 

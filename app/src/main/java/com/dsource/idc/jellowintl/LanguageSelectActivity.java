@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.factories.LanguageFactory;
+import com.dsource.idc.jellowintl.models.GlobalConstants;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import static com.dsource.idc.jellowintl.LanguageDownloadActivity.CLOSE;
@@ -350,7 +351,7 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
         setCrashlyticsCustomKey("UserLanguage",  LangMap.get(selectedLanguage));
         Toast.makeText(this, mLangChanged, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
-        getSession().setLanguageChange(1);
+        getSession().setLanguageChange(GlobalConstants.LANGUAGE_STATE_CHANGED);
         startActivity(intent);
         finishAffinity();
     }

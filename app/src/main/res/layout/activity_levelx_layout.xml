@@ -148,7 +148,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:textAllCaps="false"
-        android:text="Save"
+        android:text="@string/txtSave"
         android:visibility="gone"
         android:textColor="@color/colorPrimary"
         android:layout_marginStart="8dp"

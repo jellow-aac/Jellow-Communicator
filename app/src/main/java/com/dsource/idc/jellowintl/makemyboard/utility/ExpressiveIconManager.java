@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.dsource.idc.jellowintl.R;
-import com.dsource.idc.jellowintl.makemyboard.verbiage_model.JellowVerbiageModel;
+import com.dsource.idc.jellowintl.models.Icon;
 
 import java.util.ArrayList;
 
@@ -69,6 +69,10 @@ public class ExpressiveIconManager implements View.OnClickListener{
     }
 
 
+    public void resetExpressiveButtons(boolean disable){
+        for(ImageView button:expIconList)
+            disableButton(button,disable);
+    }
     public void resetSelection(){
         for(int i=0;i<expIconList.size();i++) {
             expIconList.get(i).setImageDrawable(unPressed.getDrawable(i));
@@ -82,24 +86,24 @@ public class ExpressiveIconManager implements View.OnClickListener{
         this.mExpIconClickListener=expIconClickListener;
     }
 
-    public void setAccordingVerbiage(JellowVerbiageModel selectedIconVerbiage) {
+    public void setAccordingVerbiage(Icon selectedIconVerbiage) {
         resetSelection();
-        if(selectedIconVerbiage.L.equals("NA"))
+        if(selectedIconVerbiage.getL().equals("NA"))
             disableButton(expIconList.get(0),true);
         else disableButton(expIconList.get(0),false);
-        if(selectedIconVerbiage.Y.equals("NA"))
+        if(selectedIconVerbiage.getY().equals("NA"))
             disableButton(expIconList.get(1),true);
         else disableButton(expIconList.get(1),false);
-        if(selectedIconVerbiage.M.equals("NA"))
+        if(selectedIconVerbiage.getM().equals("NA"))
             disableButton(expIconList.get(2),true);
         else disableButton(expIconList.get(2),false);
-        if(selectedIconVerbiage.D.equals("NA"))
+        if(selectedIconVerbiage.getD().equals("NA"))
             disableButton(expIconList.get(3),true);
         else disableButton(expIconList.get(3),false);
-        if(selectedIconVerbiage.N.equals("NA"))
+        if(selectedIconVerbiage.getN().equals("NA"))
             disableButton(expIconList.get(4),true);
         else disableButton(expIconList.get(4),false);
-        if(selectedIconVerbiage.S.equals("NA"))
+        if(selectedIconVerbiage.getS().equals("NA"))
             disableButton(expIconList.get(5),true);
         else disableButton(expIconList.get(5),false);
     }

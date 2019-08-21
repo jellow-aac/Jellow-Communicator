@@ -1,25 +1,28 @@
 package com.dsource.idc.jellowintl.makemyboard.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dsource.idc.jellowintl.GlideApp;
 import com.dsource.idc.jellowintl.R;
-import com.dsource.idc.jellowintl.makemyboard.utility.IconDatabase;
+import com.dsource.idc.jellowintl.makemyboard.databases.IconDatabase;
+import com.dsource.idc.jellowintl.models.AppDatabase;
 import com.dsource.idc.jellowintl.models.JellowIcon;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.io.File;
 import java.util.ArrayList;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+import static com.dsource.idc.jellowintl.factories.IconFactory.EXTENSION;
+import static com.dsource.idc.jellowintl.factories.PathFactory.getIconPath;
 
 public class BoardSearchAdapter extends RecyclerView.Adapter<BoardSearchAdapter.ViewHolder>{
 
@@ -27,14 +30,14 @@ private Context mContext;
 private IconDatabase iconDatabase;
 // private LayoutInflater mInflater;
 private ArrayList<JellowIcon> mDataSource;
-        BoardSearchAdapter.OnItemClickListener mItemClickListener=null;
-
+private BoardSearchAdapter.OnItemClickListener mItemClickListener=null;
 public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     private TextView iconTitle;
-    public ImageView iconImage;
-    public TextView iconDir;
-    public ImageView speakIcon;
+    ImageView iconImage;
+    TextView iconDir;
+    ImageView speakIcon;
+
     public ViewHolder(View v) {
         super(v);
         iconImage =v.findViewById(R.id.search_icon_drawable);
@@ -66,15 +69,17 @@ public interface OnItemClickListener {
      * @param context
      * @param items
      */
-    public BoardSearchAdapter(Context context, ArrayList<JellowIcon> items) {
+    public BoardSearchAdapter(Context context, ArrayList<JellowIcon> items, String langCode, AppDatabase appDatabase) {
         mContext = context;
         mDataSource = items;
-        iconDatabase = new IconDatabase(context);
+        if(!langCode.equals(""))
+            iconDatabase = new IconDatabase(langCode, appDatabase);
     }
 
 
+    @NonNull
     @Override
-    public BoardSearchAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BoardSearchAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView;
 
         itemView = LayoutInflater.from(parent.getContext())
@@ -86,12 +91,11 @@ public interface OnItemClickListener {
 
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         JellowIcon icon = mDataSource.get(position);
-        holder.iconTitle.setText(icon.IconTitle);
-        Log.d("Adapter","IconAdaper: "+icon.IconTitle);
+        holder.iconTitle.setText(icon.getIconTitle());
         //If the "No icon found" condition comes the remove speakButton
-        if(icon.IconDrawable.equals("NULL")&&icon.IconTitle.equals(mContext.getString(R.string.not_found)))
+        if(icon.getIconDrawable().equals("NULL")||icon.getIconTitle().equals(mContext.getResources().getString(R.string.not_found)))
         {
             holder.iconTitle.setText(R.string.icon_not_found);
             holder.iconDir.setVisibility(View.GONE);
@@ -102,15 +106,15 @@ public interface OnItemClickListener {
 
 
         holder.iconDir.setVisibility(View.VISIBLE);
-        holder.iconTitle.setText(icon.IconTitle);
-        if((icon.parent0==-1))//if custom icon load from folder
+        holder.iconTitle.setText(icon.getIconTitle());
+        if((icon.getParent0()==-1))//if custom icon load from folder
             {
-                File en_dir = mContext.getDir(SessionManager.ENG_IN, Context.MODE_PRIVATE);
-                String path = en_dir.getAbsolutePath() + "/boardicon";
+                File en_dir = mContext.getDir(SessionManager.BOARD_ICON_LOCATION, Context.MODE_PRIVATE);
+                String path = en_dir.getAbsolutePath();
                 GlideApp.with(mContext)
-                        .load(path+"/"+ icon.IconDrawable+".png")
+                        .load(path+"/"+ icon.getIconDrawable()+".png")
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
-                        .skipMemoryCache(false)
+                        .skipMemoryCache(true)
                         .centerCrop()
                         .dontAnimate()
                         .into(holder.iconImage);
@@ -119,14 +123,7 @@ public interface OnItemClickListener {
         }
         else
         {
-            File en_dir = mContext.getDir(SessionManager.ENG_IN, Context.MODE_PRIVATE);
-            String path = en_dir.getAbsolutePath() + "/drawables";
-            GlideApp.with(mContext)
-                    .load(path+"/"+ icon.IconDrawable+".png")
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(false)
-                    .centerCrop()
-                    .dontAnimate()
+            GlideApp.with(mContext).load(getIconPath(mContext, icon.getIconDrawable()+EXTENSION))
                     .into(holder.iconImage);
         }
 
@@ -135,31 +132,31 @@ public interface OnItemClickListener {
          * To this, we are using the function same as in menuSelected path used
          * */
 
+        String dir="";
   try {
             String[] arr = getLevel1IconLabels();
       for(int i=0;i<arr.length;i++){
           arr[i] = arr[i].split("…")[0];
       }
-            String dir = "";
-            if(icon.parent1==-1&&icon.parent2!=-1)
+
+            if(icon.getLevelOne()==-1&&icon.getLevelTwo()==-1)
             {
-                dir = "Custom Icon";
-            }
-            if (icon.parent1 == -1) {
+                dir = mContext.getResources().getString(R.string.custom_icon);
+            }else if (icon.getLevelTwo() == -1) {
                 dir = mContext.getResources().getString(R.string.home);
-            } else if (icon.parent2 == -1) {
-                dir = arr[icon.parent0];
+            } else if (icon.getLevelThree() == -1) {
+                dir = arr[icon.getParent0()];
             } else {
-                String levelTitle = getIconTitleLevel2(icon.parent0)[icon.parent1].
+                String levelTitle = getIconTitleLevel2(icon.getParent0())[icon.getParent1()].
                         replace("…", "");
-                dir = arr[icon.parent0] + "->" + levelTitle;
+                dir = arr[icon.getParent0()] + "->" + levelTitle;
 
             }
-            holder.iconDir.setText(dir);
-        } catch(ArrayIndexOutOfBoundsException e){
-
+        } catch(ArrayIndexOutOfBoundsException ignored){
+            ignored.printStackTrace();
          }
 
+        holder.iconDir.setText(dir);
 
     }
 
@@ -169,12 +166,16 @@ public interface OnItemClickListener {
      * */
   private String[] getIconTitleLevel2(int pos)
     {
+        if(iconDatabase==null) return new String[]{""};
         ArrayList<String> list = iconDatabase.getLevelTwoIconsTitles(pos);
+        if(list!=null&&list.size()>0)
+            list.remove(0);
         return list.toArray(new String[list.size()]);
     }
 
     @NonNull
     private String[] getLevel1IconLabels() {
+        if(iconDatabase==null) return new String[]{""};
         ArrayList<String> list = iconDatabase.getLevelOneIconsTitles();
         return list.toArray(new String[list.size()]);
     }

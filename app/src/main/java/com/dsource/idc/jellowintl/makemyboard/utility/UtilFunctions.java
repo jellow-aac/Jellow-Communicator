@@ -52,5 +52,14 @@ public class UtilFunctions {
         return present;
     }
 
+    public static boolean doReset(ArrayList<JellowIcon> list,ArrayList<JellowIcon> selectedList){
+        for(JellowIcon icon : list){
+            if(listContainsIcon(icon,selectedList))
+                return true;
+        }
+        return false;
+    }
+
+
 
 }

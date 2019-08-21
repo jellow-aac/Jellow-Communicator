@@ -30,7 +30,7 @@
         android:layout_height="@dimen/my_board_edit_icon_size"
         android:layout_marginLeft="-4dp"
         android:id="@+id/edit_board"
-        android:src="@drawable/ic_edit_icon_red_back"
+        android:src="@drawable/camera_symbol"
         />
 
         <ListView
@@ -80,7 +80,7 @@
     <Button
         android:layout_width="@dimen/edit_board_button_width"
         android:layout_centerVertical="true"
-        android:text="Save"
+        android:text="@string/txtSave"
         android:textAllCaps="false"
         android:layout_gravity="center_vertical"
         android:layout_height="@dimen/profile_save_btn_height"
@@ -90,7 +90,7 @@
         />
     <Button
         android:id="@+id/cancel_save_baord"
-        android:text="Cancel"
+        android:text="@string/cancel"
         android:layout_width="@dimen/edit_board_button_width"
         android:layout_centerVertical="true"
         android:layout_marginLeft="16dp"

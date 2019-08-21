@@ -2,10 +2,8 @@
 
 
 <RelativeLayout
-    android:padding="8dp"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/app_background"
     android:layout_marginTop="@dimen/my_boards_card_margin"
     android:layout_marginLeft="@dimen/my_boards_card_margin"
     android:layout_marginRight="@dimen/my_boards_card_margin"
@@ -44,12 +42,20 @@
             android:src="@drawable/ic_edit_icon_red_back"
             android:id="@+id/edit_board"/>
     </FrameLayout>
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/board_icon"
+        android:layout_toRightOf="@id/board_icon"
+        android:layout_marginLeft="-24dp"
+        android:layout_marginTop="-24dp"
+        >
     <ImageView
         android:layout_width="@dimen/my_board_edit_icon_size"
         android:layout_height="@dimen/my_board_edit_icon_size"
         android:src="@drawable/ic_delete_icon_red_back"
-        android:layout_toRightOf="@id/board_icon"
-        android:layout_marginLeft="-16dp"
         android:id="@+id/remove_board"
          />
+    </FrameLayout>
+
 </RelativeLayout>

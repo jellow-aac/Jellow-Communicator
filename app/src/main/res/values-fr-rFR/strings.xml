@@ -117,7 +117,7 @@
     <string name="activate">Activer</string>
     <string name="keyboardControl">Le contrôle du clavier</string>
     <string name="serial_keyboard_title">Clavier ABCDEF:</string>
-    <string name="serial_keyboard_info">JJellow est équipée pour cela de son propre \'Clavier ABCDEF\'. Cet clavier a conçus en fonction des commentaires des éducateurs spécialisés et les enseignants et inclure les alphabets qui sont placés de manière en série commençant par l\'alphabet \'A\'. Le clavier ABCDEF permet les utilisateurs d\'anticiper plus facilement la place d\'un alphabet spécifique sur le clavier et sera très utile pour les enfants qui apprennent des compétences précoces en alphabétisation. De même, le clavier consiste de clefs numérales de 0 à 9 et symboles, qui semblent les plus pertinents à la communication au quotidien.</string>
+    <string name="serial_keyboard_info">Jellow est équipée pour cela de son propre \'Clavier ABCDEF\'. Cet clavier a conçus en fonction des commentaires des éducateurs spécialisés et les enseignants et inclure les alphabets qui sont placés de manière en série commençant par l\'alphabet \'A\'. Le clavier ABCDEF permet les utilisateurs d\'anticiper plus facilement la place d\'un alphabet spécifique sur le clavier et sera très utile pour les enfants qui apprennent des compétences précoces en alphabétisation. De même, le clavier consiste de clefs numérales de 0 à 9 et symboles, qui semblent les plus pertinents à la communication au quotidien.</string>
     <string name="keyboardControlTxt">Pour activer le clavier de votre choix et rendre par défaut, vous devez completer 2 étapes</string>
     <string name="step1">1ère étape: Activer le clavier dans les réglages appareil</string>
     <string name="qwertyKeyboard">Le clavier QUERTY</string>
@@ -187,7 +187,7 @@
     <string name="txt_intro3_navWithJellow">Navigation à l\'intérieur de Jellow</string>
     <string name="txt_intro4_customizeAppDesc">L\'utilisateur pouvez personaliser les réglages d\'application en cliquant sur le coin supérieur droit d\'application</string>
     <string name="txt_intro4_customizeJellow">Les réglages au sein de Jellow</string>
-    <string name="txt_intro6_skipActiveTtsDesc">Misez Google TTS par défaut le moteur vocal ensuite régler la langue comme Anglais (Inde).</string>
+    <string name="txt_intro6_skipActiveTtsDesc">Pour avoir l’accent d’- régler la langue comme _</string>
     <string name="txt_intro6_ttsStep1">1. Activer Google TTS</string>
     <string name="txt_intro6_activate">ACTIVER</string>
     <string name="txt_intro6_step2">2. Régler _ par défaut </string>
@@ -205,9 +205,9 @@
     <string name="enternonemptycontact">Veuillez entrez votre numèro de téléphone</string>
     <string name="change_tts_lang">Définir TTS comme la langue du système</string>
     <string name="txt_actLangSel_completestep3">Veuillez activer votre l\'internet et complètent la troisième étape</string>
+    <string name="change_language_line5">2ème étape: Assurez-vous que la donnée vocale d\'_ est disponibles sur votre terminal. Si non, veuillez télécharger la donnée vocale  pour la langue choisie. Au cas où la processus aurait retardé, veuillez vérifier votre connexion Internet et réessayez</string>
 
     &lt;!&ndash;not translated&ndash;&gt;
-    <string name="change_language_line5">Step 2: Check if voice data for _ is available on your device. If not please turn on internet and download voice data for selected language. In case process is stalled please check your internet connection and retry</string>
     <string name="change_language_line4">Step 3: Set \'Google Text-to-speech (TTS)\' as default TTS engine and set _ as default language of the engine.</string>
 
     <string name="txtChangeLanguage">Modification de la langue par défaut:</string>
@@ -218,16 +218,11 @@
     <string name="speech_engin_lang_sam">Veuillez vérifier les paramètres de la \'Langue\' de l\'application</string>
     <string name="txt_intro6_skipTtsSetup">Les appareils avec un active système de Google TTS: Veuillez faire glisser pour omettre cette étape</string>
     <string name="txt_actLangSel_downloadDat">Vérifier la donnée vocale</string>
-    &lt;!&ndash;not translated&ndash;&gt;
-    <string name="txt_actLangSel_complete_mainscreen_msg">Voice data not available. Please turn on internet and go to language settings of app.</string>
-
+    <string name="txt_actLangSel_complete_mainscreen_msg">La donnée vocale est indisponible. Veuillez activer votre Internet et allez aux paramètres de la langue de l’application</string>
     <string name="language_downloaded">_ La langue est télécharger</string>
     <string name="language_downloading">Téléchargement de la Langue _</string>
     <string name="ok">OK</string>
-
-    &lt;!&ndash;not translated&ndash;&gt;
-    <string name="call_permission_info">Call permission is not available. Call permission is required to make a call in case of an emergency.</string>
-
+    <string name="call_permission_info">La permission d\'appel n\'est pas accessible. La permission d’appeler est requis de faire un appel en cas d’urgence.</string>
     <string name="granted_call_permission_req">La permission d\'appel est accordée.</string>
     <string name="rejected_call_permission_req">La permission d\'appel est refusée.</string>
     <string name="grant_permission_from_settings">Activer la permission d\'appel dans le réglage</string>
@@ -255,10 +250,7 @@
 
     &lt;!&ndash;About Jellow strings&ndash;&gt;
     <string name="info">Les informations générales</string>
-
-    &lt;!&ndash;not translated&ndash;&gt;
-    <string name="about_je_intro1">Jellow is a communicator using icons to enable speech and can be used by those learning to speak or those who have difficulty with speech. Jellow can also be used by toddlers and early learners to learn words and categories frequently used in their daily lives. Jellow’s colourful and friendly icons can help children develop an association between pictures and their corresponding word labels.</string>
-
+    <string name="about_je_intro1">Jellow est un communicateur qui utilise les icônes pour autoriser la parole et il peut être utilisé par les gens qui apprendent à parler ou ceux qui ont des problèmes d\'élocution. Jellow peut utiliser aussi par les tout-petits et les jeunes apprenants d’apprendre les mots et les catégories utilisés dans leurs vies quotidiennes. Les icônes colorées et conviviales de Jelloe peuvent aider les enfants créer une association entre les images et leurs motsétiquettes correspondants</string>
     <string name="about_je_intro2">C\'est dévéloppé à IDC School of Design dans le "Indian Institute of Technology Bombay" à Mumbai.</string>
     <string name="about_je_intro3">Un nouveau protocole qui s\'appelle "Emotional Language Proto call" ou "ELP" a été conçu et dévéloppé par les gestionnaires de projet en vue de renforcer la compétence linguistique de Jellow. ELP représente 6 icônes expressives qui forme la partie centrale de l\'interface.</string>
     <string name="about_je_intro4">En utilisant ces icônes principales, l\'enfant peut communiquer avec les autres, de ce qu\'il aime, n\'aime pas et ses besoins.</string>
@@ -311,10 +303,10 @@
     <string name="enter_caregiver_s_name">Entrez le nom d\'aidant</string>
     <string name="enter_caregiver_s_email_address">Entrez l\'adresse électronique d\'aidant</string>
     <string name="email_address">adresse électronique</string>
+    <string name="category_cd">L\'image montre la capture d\'écran de la page d\'accueil. La page d\'accueil contiens une grille centrale avec 9 icônes qui s\'appelle Boutons de catégories qui ont arrangé en 3 rangées et en 3 colonnes. Les 9 boutons de catégories sont "Saluer et sentir", "Les activités quotidiennes", "Manger", "Amusement", "Apprendre", "Les gens", "Les lieux", "Le temps et la météo" et "L\'aide". Ci-dessous des boutons de catégories sont les 3 boutons de navigation, ils sont "Retour", "Accueil" et "Clavier" classées dans cet ordre en bas de l\'écran. Á droite et à gauche des icônes de la catégorie centrale, sont les 3 boutons d'expréssion. Á la gauche de la grille centrale sont 3 boutons d'expréssion de "Aime", "Oui" et "Encore" qui sont organisés de haut en bas. Á la droite de la grille centrale sont les 3 boutons d'expréssion restants de "N'aimer pas", "Ne vouloir pas" et "Moins" qui sont organisés de haut en bas. L'icône de réglage est apparaitre dans le coin droit de l'écran. Dans cette image, le grille centrale avec 9 icônes a été souligné avec les autres sont éliminés.</string>
+    <string name="expressive_cd">Cette image illustre encore la capture d\'écran de la page d\'accueil de Jellow. Dans cette image, les 6 boutons d\'expréssion sont arrangés comme 3 à chaque côté des boutons des catégorie centrale ont souligné avec les autres sont éliminés. Á la gauche de la grille centrale de boutons de categories sont 3 boutons d\'expression de "Aimer" représenté par l\'icône d\'un "Visage souriant", "Oui" représenté par l\'icône de "Coche" et "Encore" représenté par l\'icône de "Plus (+)" qui sont organisés de haut en bas. Á la droite de la grille centrale de boutons de categories sont 3 boutons d'expression de "N'aimer pas" représenté par l'icône de la "visage triste", "Non" représenté par l'icône de la "Croix" et "Moins" représenté par l'icône de "Signe moins (-)". Également identifié, les 3 boutons de la navigation sont placées en bas de l'écran. De gauche à droite qui sont "Retour", "Accueil" et "Clavier".</string>
 
     &lt;!&ndash;not translated&ndash;&gt;
-    <string name="category_cd">The image shows a screenshot of the home page of Jellow. The home page contains a central grid of 9 icons called category buttons that are arranged in 3 rows and 3 columns. The 9 category buttons are “Greet and feel”, “Daily activities”, “Eating”, “Fun”, “Learning”, “People”, “Places, “Time and weather”, and “Help”. Below the category buttons are 3 navigation buttons of “Back”, “Home” and “keyboard” arranged in that order at the bottom of the home screen. On the right and left sides of the central category icons are 3 expressive icons each. To the left of the central grid are 3 expressive buttons of “Like”, “Yes” and “More” arranged from top to bottom in that order. To the right of the central grid, are the remaining 3 expressive buttons of “Don’t like”, “No” and “Less” arranged from top to bottom. On the top right corner of the home screen is visible a settings icon. In this image the central grid of 9 icons has been highlighted with all other buttons faded out.</string>
-    <string name="expressive_cd">This image again shows the screenshot of the home page of Jellow. In this image, the 6 expressive buttons arranged as 3 each of either side of the central category buttons have been highlighted with all other buttons faded out. To the left of the central grid of category buttons, arranged from top to bottom are the 3 expressive buttons of “Like” represented by a “Smiley face” icon, “Yes” represented by a “check mark” icon, and “More” represented by a “Plus sign” icon. To the right of the category buttons, arranged from top to bottom are the expressive icons of “Don’t like” represented by a sad face” icon, “No” represented by the, “cross” icon and “Less” represented by the, “Minus sign” icon. Also labeled in the image are the 3 navigational buttons at the bottom of the screen. From left to right these are “Back”, “Home”, and “Keyboard”.</string>
     <string name="pic4">This image has the home screen of Jellow with only 2 icons of “Eating” and “Yes” highlighted. The rest of the buttons are faded out. The image shows that to speak using Jellow, user has to first click on any category button, for instance, “Eating” and then on an expressive button, for example, “Yes”. In this way the user can speak using Jellow</string>
     <string name="pic5">This image has the home screen of Jellow with only the icon for “Eating” highlighted. The rest of the buttons on the level 1 screen are faded out. The image shows a finger double-clicking on the, “Eating” icon to access sub-categories within this main category.</string>
     <string name="pic6">This image shows a screenshot of Jellow sub-categories accessed by double-clicking on the, “Eating” icon as shown in the image above. The Level 2 sub-category icons visible in the central grid arranged in a 3 by 3 grid format are “Breakfast”, “Lunch/Dinner”, “Sweets”, “Snacks”, “Fruits”, “Drinks”, “Cutlery”, and “Add-ons”. The image shows the user’s finger double-clicking on “Breakfast” icon to access further sub-options.</string>
@@ -425,12 +417,12 @@
 
     <string name="txt_accessibility_setting">Paramètres Accesibilité</string>
     <string name="visual_access_title">Accessibilité visuelle:</string>
-    <string name="visual_access_info">La fonction d\'accessibilité visuelle de Jellow permettent maintenant les utilisateurs avec les troubles de la vision notamment les personnes aveugles ou malvoyantes, d\'utiliser Jellow et communiquer efficacement avec les autres. Elle utilise le système de << Talk Back >> sur le Smartphone Android, il vous permet de découvrir dans l\'application. Quand ce système est mis en marche l\'utilisateur pourra avoir l\'entrée audio détaillant toutes les choses qu\'il touche sur l\'écran. L\'utilisateur peut aussi assigner les gestes personnalisés ou utiliser les gestes par défaut dans << Talk Back >> lorsqu\'ils interagissent avec Jellow. Par exemple, une glisse vers la droite permet l\'utilisateur défile simultanément les icônes sur l\'écran. De la même façon, en appuyant deux fois n\'importe où sur l\'écran permet l\'utilisateur de choisir un icône de leur choix.</string>
+    <string name="visual_access_info">La fonction d\'accessibilité visuelle de Jellow permettent maintenant les utilisateurs avec les troubles de la vision notamment les personnes aveugles ou malvoyantes, d\'utiliser Jellow et communiquer efficacement avec les autres. Elle utilise le système de "Talk Back" sur le Smartphone Android, il vous permet de découvrir dans l\'application. Quand ce système est mis en marche l\'utilisateur pourra avoir l\'entrée audio détaillant toutes les choses qu\'il touche sur l\'écran. L\'utilisateur peut aussi assigner les gestes personnalisés ou utiliser les gestes par défaut dans "Talk Back" lorsqu\'ils interagissent avec Jellow. Par exemple, une glisse vers la droite permet l\'utilisateur défile simultanément les icônes sur l\'écran. De la même façon, en appuyant deux fois n\'importe où sur l\'écran permet l\'utilisateur de choisir un icône de leur choix.</string>
     <string name="switch_access_title">Contrôle de Séléction:</string>
     <string name="switch_access_info_one">Contrôle de Séléction facilitent la navigation dans l\'application pour les personnes handicapées moteur. La fonction permet la navigation en utilisant un ou deux commutateurs.</string>
 
     &lt;!&ndash;not translated&ndash;&gt;
-    <string name="switch_access_info_two">To enable this feature the user has to turn on the \"switch access\" in the accessibility category in the phone setting.</string>
+    <string name="switch_access_info_two">To enable this feature the user has to turn on the "switch access" in the accessibility category in the phone setting.</string>
     <string name="switch_access_info_three">Samsung users can find the switch access in  “dexterity and interaction” option in the accessibility category in the phone setting.</string>
 
     <string name="switch_access_info_four">Pour utiliser Contrôle de Séléction avec un commutateur- Ouvrir Réglages -> Aller à Accésibilité -> Activer le Contrôle de Séléction -> Choisissez l\'interrupteur un USB ou une liaison Bluetooth -> Allez à Réglages et choissisez le nombre de commutateurs comme un commutateur.</string>

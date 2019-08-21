@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.crashlytics.android.Crashlytics;
+import com.dsource.idc.jellowintl.models.GlobalConstants;
 import com.dsource.idc.jellowintl.utility.DefaultExceptionHandler;
 import com.dsource.idc.jellowintl.utility.LanguageHelper;
 import com.dsource.idc.jellowintl.utility.SessionManager;
@@ -62,7 +63,7 @@ public class Intro extends AppIntro {
         parentAct = new SpeechEngineBaseActivity();
         parentAct.setVisibleAct(Intro.class.getSimpleName());
         //Set the language database create preference
-        parentAct.getSession().setLanguageChange(0);
+        parentAct.getSession().setLanguageChange(GlobalConstants.LANGUAGE_STATE_NO_CHANGE);
         addSlide(SampleSlideFragment.newInstance(R.layout.intro, "intro"));
         addSlide(SampleSlideFragment.newInstance(R.layout.intro5, "intro5"));
         addSlide(SampleSlideFragment.newInstance(R.layout.intro2, "intro2"));

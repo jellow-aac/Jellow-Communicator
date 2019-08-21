@@ -29,7 +29,7 @@ public class SimpleListAdapter extends ArrayAdapter<ListItem> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // Get the data item for this position
+        // Get the iconList item for this position
         ListItem user = list.get(position);
         // Check if an existing view is being reused, otherwise inflate the view
         ViewHolder viewHolder; // view lookup cache stored in tag
@@ -46,7 +46,7 @@ public class SimpleListAdapter extends ArrayAdapter<ListItem> {
             // View is being recycled, retrieve the viewHolder object from tag
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        // Populate the data from the data object via the viewHolder object
+        // Populate the iconList from the iconList object via the viewHolder object
         // into the template view.
         viewHolder.name.setText(user.title);
         viewHolder.home.setImageDrawable(user.drawable);

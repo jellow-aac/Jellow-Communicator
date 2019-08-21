@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.factories.LanguageFactory;
+import com.dsource.idc.jellowintl.models.GlobalConstants;
 
 import static com.dsource.idc.jellowintl.LanguageDownloadActivity.CLOSE;
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.LCODE;
@@ -335,7 +336,7 @@ public class LanguageSelectTalkBackActivity extends SpeechEngineBaseActivity {
         setCrashlyticsCustomKey("UserLanguage",  LangMap.get(selectedLanguage));
         Toast.makeText(this, "Language Changed", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
-        getSession().setLanguageChange(1);
+        getSession().setLanguageChange(GlobalConstants.LANGUAGE_STATE_CHANGED);
         startActivity(intent);
         finishAffinity();
     }

@@ -1,43 +1,84 @@
 package com.dsource.idc.jellowintl.models;
 
+import androidx.annotation.Keep;
+
 import com.dsource.idc.jellowintl.makemyboard.interfaces.AbstractDataProvider;
 
 import java.io.Serializable;
 
-import androidx.annotation.Keep;
-
 public class JellowIcon extends AbstractDataProvider.Data implements Serializable{
     @Keep
-    public String IconDrawable,IconTitle,IconSpeech;
+    private String verbiageId, iconDrawable, iconTitle, iconSpeech;
     @Keep
-    public int parent0, parent1, parent2;
+    private int parent0, parent1, parent2;
 
     public JellowIcon(String iconTitle, String iconDrawable, int p1, int p2, int p3) {
-        IconDrawable = iconDrawable;
-        IconTitle = iconTitle;
+        this.iconDrawable = iconDrawable;
+        this.iconTitle = iconTitle;
         this.parent0 = p1;
         this.parent1 = p2;
         this.parent2 = p3;
     }
     public JellowIcon(String iconTitle,String speechText, String iconDrawable, int p1, int p2, int p3) {
-        IconDrawable = iconDrawable;
-        IconTitle = iconTitle;
-        IconSpeech = speechText;
+        this.iconDrawable = iconDrawable;
+        this.iconTitle = iconTitle;
+        iconSpeech = speechText;
         this.parent0 = p1;
         this.parent1 = p2;
         this.parent2 = p3;
     }
 
-    public boolean isEqual(JellowIcon icon)
-    {
-        return parent0 == icon.parent0 && parent1 == icon.parent1 && parent2 == icon.parent2;
-
+    public JellowIcon(String verbiageID,String IconTitle,String drawable){
+        this.iconDrawable = drawable;
+        this.iconTitle =IconTitle;
+        this.iconSpeech = IconTitle;
+        this.verbiageId=verbiageID;
+        try {
+            parent0 = Integer.parseInt(verbiageID.substring(2,4))-1;
+            parent1 = Integer.parseInt(verbiageID.substring(4,6))-1;
+            parent2 = Integer.parseInt(verbiageID.substring(6,10))-1;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
-    public boolean isCustomIcon() {return parent0==-1;}
+    public String getIconDrawable() {
+        return iconDrawable;
+    }
+
+    public String getIconTitle() {
+        return iconTitle;
+    }
+
+    public String getIconSpeech() {
+        return iconSpeech;
+    }
+    public void setIconSpeech(String iconSpeech) {
+        this.iconSpeech = iconSpeech;
+    }
+
+    public int getParent0() {
+        return parent0;
+    }
+
+    public int getParent1() {
+        return parent1;
+    }
+
+    public int getParent2() {
+        return parent2;
+    }
+
+    public boolean isEqual(JellowIcon icon){
+        return icon.getIconDrawable().equals(iconDrawable);
+    }
+
+    public boolean isCustomIcon() {
+        return parent0==-1&&verbiageId.length()<12;
+    }
 
     public void setIconTitle(String iconTitle) {
-        this.IconTitle = iconTitle;
+        this.iconTitle = iconTitle;
     }
 
     @Override
@@ -59,7 +100,7 @@ public class JellowIcon extends AbstractDataProvider.Data implements Serializabl
 
     @Override
     public String getText() {
-        return IconTitle;
+        return iconTitle;
     }
 
     @Override
@@ -71,4 +112,28 @@ public class JellowIcon extends AbstractDataProvider.Data implements Serializabl
     public void setPinned(boolean pinned) {
 
     }
+
+    public String getVerbiageId() {
+        return verbiageId;
+    }
+
+    public void setVerbiageId(String verbiageId) {
+        this.verbiageId = verbiageId;
+    }
+
+    public void setDrawable(String iconDrawable) {
+        this.iconDrawable=iconDrawable;
+    }
+
+    public int getLevelOne() {
+        return parent0;
+    }
+
+    public int getLevelTwo() {
+        return parent1;
+    }
+    public int getLevelThree() {
+        return parent2;
+    }
+
 }

@@ -3,7 +3,6 @@ package com.dsource.idc.jellowintl.utility;
 import android.content.Context;
 import android.graphics.PointF;
 import android.util.DisplayMetrics;
-import android.util.Log;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearSmoothScroller;
@@ -51,12 +50,7 @@ public class CustomGridLayoutManager extends GridLayoutManager {
                         return speed;
                     }
                 };
-
         smoothScroller.setTargetPosition(position);
-        Log.d("Ayaz: MyCustomScroller","In Custom scroller pos: "+position);
         startSmoothScroll(smoothScroller);
     }
-
-
-
 }

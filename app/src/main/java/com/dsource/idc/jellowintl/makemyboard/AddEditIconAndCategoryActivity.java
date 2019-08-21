@@ -1,6 +1,7 @@
 package com.dsource.idc.jellowintl.makemyboard;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -13,30 +14,35 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dsource.idc.jellowintl.BaseActivity;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.adapters.IconSelectorAdapter;
-import com.dsource.idc.jellowintl.makemyboard.adapters.LevelSelectorAdapter;
+import com.dsource.idc.jellowintl.makemyboard.databases.BoardDatabase;
+import com.dsource.idc.jellowintl.makemyboard.databases.TextDatabase;
+import com.dsource.idc.jellowintl.makemyboard.icon_select_module.presenters.GenCallback;
+import com.dsource.idc.jellowintl.makemyboard.icon_select_module.view.managers.LevelManager;
+import com.dsource.idc.jellowintl.makemyboard.interfaces.GridSelectListener;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.VerbiageEditorInterface;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.VerbiageEditorReverseInterface;
-import com.dsource.idc.jellowintl.makemyboard.models.Board;
+import com.dsource.idc.jellowintl.makemyboard.models.BoardModel;
 import com.dsource.idc.jellowintl.makemyboard.models.IconModel;
-import com.dsource.idc.jellowintl.makemyboard.utility.BoardDatabase;
+import com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants;
 import com.dsource.idc.jellowintl.makemyboard.utility.CustomDialog;
 import com.dsource.idc.jellowintl.makemyboard.utility.ModelManager;
 import com.dsource.idc.jellowintl.makemyboard.utility.VerbiageEditor;
-import com.dsource.idc.jellowintl.makemyboard.verbiage_model.JellowVerbiageModel;
-import com.dsource.idc.jellowintl.makemyboard.verbiage_model.VerbiageDatabaseHelper;
+import com.dsource.idc.jellowintl.models.Icon;
 import com.dsource.idc.jellowintl.models.JellowIcon;
+import com.dsource.idc.jellowintl.utility.SessionManager;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -44,6 +50,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import static com.dsource.idc.jellowintl.makemyboard.AddVerbiageDialog.JELLOW_ID;
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.ADD_CATEGORY;
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.ADD_EDIT_ICON_MODE;
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.ADD_ICON;
@@ -52,54 +59,55 @@ import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.CAME
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.EDIT_ICON;
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.EDIT_ICON_MODE;
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.LIBRARY_REQUEST;
-import static com.dsource.idc.jellowintl.makemyboard.utility.ImageStorageHelper.deleteImageFromStorage;
 import static com.dsource.idc.jellowintl.makemyboard.utility.ImageStorageHelper.storeImageToStorage;
 
 public class AddEditIconAndCategoryActivity extends BaseActivity implements View.OnClickListener {
 
     private String boardId;
     private BoardDatabase database;
-    private Board currentBoard;
+    private BoardModel currentBoard;
     private IconModel boardModel;
     private ModelManager modelManager;
-    private RecyclerView categoryRecycler;
     private RecyclerView iconRecycler;
     private ArrayList<String> categories;
     private CategoryManager categoryManager;
-    private LevelSelectorAdapter categoryAdapter;
     private IconSelectorAdapter iconAdapter;
     private ArrayList<JellowIcon> iconList;
     private RelativeLayout addCategory,addIcon,editIcon;
     private int selectedPosition=0;
-    private VerbiageDatabaseHelper verbiageDatbase;
+    private TextDatabase verbiageDatbase;
     private int currentMode = ADD_EDIT_ICON_MODE;
-
+    private LevelManager levelManager;
     public VerbiageEditorReverseInterface revListener;
+    private SessionManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_icon_select);
+        manager = new SessionManager(this);
         if(getSupportActionBar()!=null) {
-            enableNavigationBack();
-            getSupportActionBar().setTitle("Add/Edit Icons");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
+            getSupportActionBar().setTitle(getResources().getString(R.string.addicon_title));
             getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_background));
         }
-        verbiageDatbase = new VerbiageDatabaseHelper(this);
 
         try{
             if(getIntent().getExtras()!=null)
             boardId =getIntent().getExtras().getString(BOARD_ID);
             database=new BoardDatabase(this);
             currentBoard=database.getBoardById(boardId);
-            if(currentBoard!=null)
-            boardModel = currentBoard.getBoardIconModel();
-            modelManager =new ModelManager(this,boardModel);
-            iconList = new ArrayList<>();
-            categoryManager = new CategoryManager(boardModel);
-            categories = categoryManager.getAllCategories();
-            iconList = categoryManager.getAllChildOfCategory(0);
-            initViews();
+            if(currentBoard!=null) {
+                verbiageDatbase = new TextDatabase(this,currentBoard.getLanguage(), getAppDatabase());
+                boardModel = currentBoard.getIconModel();
+                modelManager = new ModelManager(this, boardModel);
+                iconList = new ArrayList<>();
+                categoryManager = new CategoryManager(boardModel);
+                categories = categoryManager.getAllCategories();
+                iconList = categoryManager.getAllChildOfCategory(0);
+                initViews();
+            }
         }
         catch (NullPointerException e)
         {
@@ -110,25 +118,44 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
     @Override
     protected void onResume() {
         super.onResume();
-        setVisibleAct(AddEditIconAndCategoryActivity.class.getSimpleName());
+    }
+
+    private void setupLevelSelect() {
+        levelManager= new LevelManager((RecyclerView) (findViewById(R.id.level_select_pane_recycler)), this, new GenCallback<Integer>() {
+            @Override
+            public void callBack(Integer position) {
+                prepareLevelSelectPane(position);
+            }
+        }).setList(getLevelPaneList());
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(BoardLanguageHelper.getInstance().changeLanguage(newBase));
+    }
+
+    private ArrayList<String> getLevelPaneList() {
+        ArrayList<String> list = new ArrayList<>();
+        list.addAll(categories);
+        return list;
     }
 
     private void initViews() {
-
-        categoryRecycler = findViewById(R.id.level_select_pane_recycler);
-        categoryRecycler.setLayoutManager(new LinearLayoutManager(this));
-        prepareLevelSelectPane();
         iconRecycler = findViewById(R.id.icon_select_pane_recycler);
         iconRecycler.setLayoutManager(new GridLayoutManager(this,gridSize()));
         iconAdapter = new IconSelectorAdapter(this,
                 categoryManager.getAllChildOfCategory(0),
-                ADD_EDIT_ICON_MODE);
+                ADD_EDIT_ICON_MODE,currentBoard.getLanguage());
         iconRecycler.setAdapter(iconAdapter);
         iconAdapter.notifyDataSetChanged();
+
+        setupLevelSelect();
+
         /*
             Hiding unwanted views of the layout
          */
         findViewById(R.id.reset_selection).setVisibility(View.GONE);
+        ((Button)findViewById(R.id.next_step)).setText(R.string.next);
         findViewById(R.id.next_step).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,12 +165,12 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
                     findViewById(R.id.touch_area).setVisibility(View.GONE);
                 }
 
-                if(currentBoard.getBoardIconModel().getAllIcons().size()>0) {
-                    CustomDialog dialog = new CustomDialog(AddEditIconAndCategoryActivity.this, new CustomDialog.GridSelectListener() {
+                if(currentBoard.getIconModel().getAllIcons().size()>0) {
+                    CustomDialog dialog = new CustomDialog(AddEditIconAndCategoryActivity.this,currentBoard.getLanguage(), new GridSelectListener() {
                         @Override
                         public void onGridSelectListener(int size) {
                             currentBoard.setGridSize(size);
-                            currentBoard.setAddEditIconScreenPassed();
+                            currentBoard.setSetupStatus(BoardModel.STATUS_L2);
                             database.updateBoardIntoDatabase(currentBoard);
                             Intent intent = new Intent(AddEditIconAndCategoryActivity.this, RepositionIconsActivity.class);
                             intent.putExtra(BOARD_ID, boardId);
@@ -195,20 +222,11 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
     /**
      * Creates and fetches the left pane for icon select
      */
-    private void prepareLevelSelectPane() {
-
-        categoryAdapter =new LevelSelectorAdapter(this,categories);
-        categoryRecycler.setAdapter(categoryAdapter);
-        categoryAdapter.setOnItemClickListner(new LevelSelectorAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(final View view, final int position) {
-                if(selectedPosition!=position) {
-                            selectedPosition = position;
-                            prepareIconPane(position,currentMode);
-                }
-            }
-        });
-
+    private void prepareLevelSelectPane(int position) {
+        if(selectedPosition!=position) {
+            selectedPosition = position;
+            prepareIconPane(position,currentMode);
+        }
     }
 
     /**
@@ -217,31 +235,20 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
      */
     private void targetLevelSelectPane(int mode) {
 
-        categoryAdapter =new LevelSelectorAdapter(this,categories);
-        categoryRecycler.setAdapter(categoryAdapter);
-        categoryAdapter.selectedPosition = selectedPosition;
-        categoryAdapter.notifyDataSetChanged();
-        categoryAdapter.setOnItemClickListner(new LevelSelectorAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(final View view, final int position) {
-                if(selectedPosition!=position) {
-                    selectedPosition = position;
-                    prepareIconPane(position,currentMode);
-                }
-            }
-        });
-        if(categoryRecycler.getLayoutManager()!=null&&mode==ADD_CATEGORY)
-        categoryRecycler.getLayoutManager().smoothScrollToPosition(categoryRecycler,null,(categories.size()-1));
-        prepareIconPane(categoryAdapter.selectedPosition,currentMode);
+        levelManager.setList(categories);
+        levelManager.updateSelection(selectedPosition);
+        if(levelManager.getRecycler().getLayoutManager()!=null&&mode==ADD_CATEGORY)
+            levelManager.getRecycler().getLayoutManager().smoothScrollToPosition(levelManager.getRecycler(),null,(categories.size()-1));
+        prepareIconPane(selectedPosition,currentMode);
 
     }
     private void prepareIconPane(int position,int mode) {
         iconList = categoryManager.getAllChildOfCategory(position);
         if(iconList.size()>0)
         if(mode==ADD_EDIT_ICON_MODE)
-            iconAdapter = new IconSelectorAdapter(this,iconList, ADD_EDIT_ICON_MODE);
+            iconAdapter = new IconSelectorAdapter(this,iconList, ADD_EDIT_ICON_MODE,currentBoard.getLanguage());
         else if(mode ==EDIT_ICON_MODE)
-            iconAdapter = new IconSelectorAdapter(this,iconList,EDIT_ICON_MODE);
+            iconAdapter = new IconSelectorAdapter(this,iconList,EDIT_ICON_MODE,currentBoard.getLanguage());
 
         iconAdapter.setOnIconEditListener(new IconSelectorAdapter.OnIconEditListener() {
             @Override
@@ -261,32 +268,33 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
 
     private boolean iconImageSelected =false;
     private void initEditModeDialog(final int parent1, final int parent2, final int parent3, final JellowIcon thisIcon) {
+
        iconImageSelected =false;
         VerbiageEditor dialog =  new VerbiageEditor(this,VerbiageEditor.ADD_EDIT_ICON_MODE,new VerbiageEditorInterface() {
 
             @Override
-            public void onPositiveButtonClick(final String name, final Bitmap bitmap, JellowVerbiageModel verbiage) {
+            public void onPositiveButtonClick(final String name, final Bitmap bitmap, Icon verbiage) {
 
-                new VerbiageEditor(AddEditIconAndCategoryActivity.this, VerbiageEditor.VERBIAGE_MODE, new VerbiageEditorInterface() {
+                //Setting new id if base icon is being edited, if not done then it will replace main verbiage
+                final JellowIcon icon  = thisIcon;
+                if(!thisIcon.isCustomIcon()) {
+                    int id  = (int)Calendar.getInstance().getTime().getTime();
+                    icon.setDrawable(id+"");
+                }
+                Intent intent  = new Intent(AddEditIconAndCategoryActivity.this,AddVerbiageDialog.class);
+                Bundle bundle = new Bundle();
+                intent.putExtra(BOARD_ID,currentBoard.getBoardId());
+                intent.putExtra(BoardConstants.CURRENT_VERBIAGE,icon.getVerbiageId());
+                bundle.putSerializable(JELLOW_ID,icon);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                AddVerbiageDialog.callback = new OnSuccessListener<String>() {
                     @Override
-                    public void onPositiveButtonClick(String noString, Bitmap noBitmap, JellowVerbiageModel verbiageList) {
-                        //Don't use local scope name and bitmap because they are null
-                        saveEditedIcon(name,bitmap,parent1,parent2,parent3, verbiageList);
-                        if (thisIcon.isCustomIcon())
-                            deleteImageFromStorage(thisIcon.IconDrawable, AddEditIconAndCategoryActivity.this);
+                    public void onSuccess(String s) {
+                        saveEditedIcon(icon.getIconDrawable(),name,bitmap,parent1,parent2,parent3);
+                        prepareIconPane(parent1,EDIT_ICON_MODE);
                     }
-
-                    @Override
-                    public void onPhotoModeSelect(int position) {
-                        //DO NOTHING
-                    }
-
-                    @Override
-                    public void initPhotoResultListener(VerbiageEditorReverseInterface verbiageEditorReverseInterface) {
-                        //DO NOTHING
-                    }
-                }).presentVerbiage(verbiageDatbase.getVerbiageById(thisIcon.IconDrawable)).initVerbiageDialog(name).showDialog();
-
+                };
             }
 
             @Override
@@ -298,27 +306,29 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
             public void initPhotoResultListener(VerbiageEditorReverseInterface verbiageEditorReverseInterface) {
                     revListener = verbiageEditorReverseInterface;
             }
-        });
-
-       dialog.initAddEditDialog(thisIcon.IconTitle);
+        },currentBoard.getLanguage());
+       dialog.initAddEditDialog(thisIcon.getIconTitle());
        dialog.setAlreadyPresentIcon(thisIcon);
-       dialog.setPositiveButtonText("Next");
-       dialog.setTitleText(thisIcon.IconTitle);
+       dialog.setPositiveButtonText(getResources().getString(R.string.next));
+       dialog.setTitleText(thisIcon.getIconTitle());
 
        dialog.showDialog();
     }
 
+
     /**
      * This function will save the edited Icon
+     * @param id
      * @param name Name of the Icon
      * @param bitmapArray image of the Icon
      * @param p1 parent 1
      * @param p2 parent 2
      * @param p3 parent 3
      */
-    private void saveEditedIcon(String name, Bitmap bitmapArray, int p1, int p2, int p3, JellowVerbiageModel verbiage) {
-        int id  = (int)Calendar.getInstance().getTime().getTime();
-        JellowIcon icon = new JellowIcon(name,id+"",-1,-1,id);
+    private void saveEditedIcon(String id, String name, Bitmap bitmapArray, int p1, int p2, int p3) {
+
+        JellowIcon icon = new JellowIcon(name,id,-1,-1,Integer.parseInt(id));
+        icon.setVerbiageId(id);
         storeImageToStorage(bitmapArray,id+"",this);
         if(p2==-1&&p3==-1)//if level one icon is being edited.
             boardModel.getChildren().get(p1).setIcon(icon);
@@ -330,8 +340,7 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
         categoryManager = new CategoryManager(boardModel);
         prepareIconPane(selectedPosition,EDIT_ICON_MODE);
         modelManager.setModel(boardModel);
-        currentBoard.setBoardIconModel(modelManager.getModel());
-        verbiageDatbase.addNewVerbiage(id+"",verbiage);
+        currentBoard.setIconModel(modelManager.getModel());
         currentBoard.addCustomIconID(id+"");
         targetLevelSelectPane(EDIT_ICON);
 
@@ -365,9 +374,9 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
         if(mode!=-1)
         {
             if(mode==ADD_ICON)
-                initBoardEditAddDialog(mode,"Icon Name");
+                initAddNewIconCategoryDialog(mode,getResources().getString(R.string.icon_name));
             else if(mode==ADD_CATEGORY)
-                initBoardEditAddDialog(mode,"Category Name");
+                initAddNewIconCategoryDialog(mode,getResources().getString(R.string.category_name));
             else if(mode==EDIT_ICON)
             {
                 prepareIconPane(selectedPosition,EDIT_ICON_MODE);
@@ -377,31 +386,28 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
         }
     }
 
-    private void initBoardEditAddDialog(final int mode,String editTextHint) {
+    private void initAddNewIconCategoryDialog(final int mode, String editTextHint) {
         iconImageSelected =false;
+        final int id  = (int)Calendar.getInstance().getTime().getTime();
         VerbiageEditor dialog = new VerbiageEditor(this, VerbiageEditor.ADD_EDIT_ICON_MODE, new VerbiageEditorInterface() {
             @Override
-            public void onPositiveButtonClick(final String name, final Bitmap bitmap, JellowVerbiageModel verbiageList) {
-                new VerbiageEditor(AddEditIconAndCategoryActivity.this, VerbiageEditor.VERBIAGE_MODE, new VerbiageEditorInterface() {
+            public void onPositiveButtonClick(final String name, final Bitmap bitmap, Icon verbiageList) {
+                Intent intent  = new Intent(AddEditIconAndCategoryActivity.this,AddVerbiageDialog.class);
+                Bundle bundle = new Bundle();
+                intent.putExtra(BOARD_ID,currentBoard.getBoardId());
+                bundle.putSerializable(JELLOW_ID,new JellowIcon(name,""+id,-1,-1,id));
+                intent.putExtras(bundle);
+                startActivity(intent);
+                AddVerbiageDialog.callback = new OnSuccessListener<String>() {
                     @Override
-                    public void onPositiveButtonClick(String noName, Bitmap noBitmap, JellowVerbiageModel verbiageList) {
-                        //DON"T USE LOCAL SCOPE VARIABLE HERE BECAUSE THEY'RE NULL
-                        if (mode == ADD_CATEGORY)
-                            addNewCategory(name, bitmap,verbiageList);
-                        else if (mode == ADD_ICON)
-                            addNewIcon(name, bitmap, selectedPosition,verbiageList);
+                    public void onSuccess(String s) {
+                        if(mode==ADD_ICON)
+                            addNewIcon(id,name,bitmap,selectedPosition);
+                        else
+                            addNewCategory(id,name,bitmap);
+                        Toast.makeText(getApplicationContext(),"Successfully saved",Toast.LENGTH_LONG).show();
                     }
-
-                    @Override
-                    public void onPhotoModeSelect(int position) {
-
-                    }
-
-                    @Override
-                    public void initPhotoResultListener(VerbiageEditorReverseInterface verbiageEditorReverseInterface) {
-
-                    }
-                }).initVerbiageDialog(name).showDialog();
+                };
             }
 
             @Override
@@ -413,7 +419,7 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
             public void initPhotoResultListener(VerbiageEditorReverseInterface verbiageEditorReverseInterface) {
                         revListener = verbiageEditorReverseInterface;
             }
-        });
+        },currentBoard.getLanguage());
         dialog.initAddEditDialog(editTextHint);
         dialog.showDialog();
     }
@@ -439,21 +445,21 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
         {
             Intent intent = new Intent(AddEditIconAndCategoryActivity.this, BoardSearchActivity.class);
             intent.putExtra(BoardSearchActivity.SEARCH_MODE, BoardSearchActivity.ICON_SEARCH);
+            intent.putExtra(BOARD_ID,currentBoard.getBoardId());
             startActivityForResult(intent,LIBRARY_REQUEST);
         }
     }
 
-    private void addNewCategory(String name, Bitmap bitmap,JellowVerbiageModel verbiage) {
-        int id  = (int)Calendar.getInstance().getTime().getTime();
+    private void addNewCategory(int id, String name, Bitmap bitmap) {
         JellowIcon icon = new JellowIcon(name,""+id,-1,-1,id);
+        icon.setVerbiageId(id+"");
         if(iconImageSelected)
         storeImageToStorage(bitmap,id+"",this);
         boardModel.addChild(icon);
         categoryManager = new CategoryManager(boardModel);
         categories = categoryManager.getAllCategories();
-        verbiageDatbase.addNewVerbiage( id+"",verbiage);
         modelManager.setModel(boardModel);
-        currentBoard.setBoardIconModel(modelManager.getModel());
+        currentBoard.setIconModel(modelManager.getModel());
         currentBoard.addCustomIconID(id+"");
         selectedPosition = categories.size()-1;
         targetLevelSelectPane(ADD_CATEGORY);
@@ -466,9 +472,9 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
      * @param bitmap bitmap array holding the image
      * @param selectedPosition postion on which new icon is to be added.
      */
-    private void addNewIcon(String name, Bitmap bitmap, int selectedPosition,JellowVerbiageModel verbiage) {
-        int id  = (int)Calendar.getInstance().getTime().getTime();
+    private void addNewIcon(int id, String name, Bitmap bitmap, int selectedPosition) {
         JellowIcon icon = new JellowIcon(name,id+"",-1,-1,id);
+        icon.setVerbiageId(id+"");
         if(iconImageSelected)
         storeImageToStorage(bitmap,id+"",this);
         boardModel.getChildren().get(selectedPosition).addChild(icon);
@@ -477,8 +483,7 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
         categoryManager = new CategoryManager(boardModel);
         prepareIconPane(selectedPosition,ADD_EDIT_ICON_MODE);
         modelManager.setModel(boardModel);
-        currentBoard.setBoardIconModel(modelManager.getModel());
-        verbiageDatbase.addNewVerbiage(icon.IconDrawable,verbiage);
+        currentBoard.setIconModel(modelManager.getModel());
         currentBoard.addCustomIconID(id+"");
     }
 
@@ -512,11 +517,14 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode==RESULT_OK) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
             if (requestCode == LIBRARY_REQUEST) {
                 String fileName = data.getStringExtra("result");
-                if(fileName!=null)
-                    revListener.onPhotoResult(null,requestCode,fileName);//mPhotoIntentResult.onPhotoIntentResult(null, requestCode, fileName);
+                if (fileName != null) {
+                    iconImageSelected = true;
+                    revListener.onPhotoResult(null, requestCode, fileName);//mPhotoIntentResult.onPhotoIntentResult(null, requestCode, fileName);
+                }
             }
         }
 
@@ -525,24 +533,22 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
             if (resultCode == RESULT_OK) {
                 Uri resultUri = result.getUri();
                 Bitmap bitmap1 = result.getBitmap();
-                if(bitmap1!=null)
-                {
-                    revListener.onPhotoResult(result.getBitmap(),requestCode,null);
-                    iconImageSelected =true;
+                if (bitmap1 != null) {
+                    revListener.onPhotoResult(result.getBitmap(), requestCode, null);
+                    iconImageSelected = true;
                     //mPhotoIntentResult.onPhotoIntentResult(result.getBitmap(), requestCode,null);
-                }
-                else {
+                } else {
                     try {
-                        iconImageSelected =true;
+                        iconImageSelected = true;
                         bitmap1 = MediaStore.Images.Media.getBitmap(getContentResolver(), resultUri);
-                        revListener.onPhotoResult(bitmap1,requestCode,null);// mPhotoIntentResult.onPhotoIntentResult(bitmap1,requestCode,null);
+                        revListener.onPhotoResult(bitmap1, requestCode, null);// mPhotoIntentResult.onPhotoIntentResult(bitmap1,requestCode,null);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
-                Log.d("CROP_IMAGE_ERROR",error.getMessage());
+                Log.d("CROP_IMAGE_ERROR", error.getMessage());
             }
         }
 
@@ -550,7 +556,6 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.add_edit_icon_screen_menu, menu);
         MenuItem item = menu.findItem(R.id.done);
         MenuItem showOption = menu.findItem(R.id.add_edit_icons);
@@ -574,7 +579,8 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
                 toggleOptionLayout();
                 break;
             case R.id.done:currentMode=ADD_EDIT_ICON_MODE;prepareIconPane(selectedPosition,ADD_EDIT_ICON_MODE);invalidateOptionsMenu();break;
-            case android.R.id.home: startActivity(new Intent(this, MyBoardsActivity.class));finish(); break;
+            case android.R.id.home: startActivity(new Intent(this, BoardActivity.class));finish();
+                if(manager!=null) manager.setCurrentBoardLanguage("");break;
 
         }
         return super.onOptionsItemSelected(item);
@@ -592,7 +598,7 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
         private ArrayList<String> getAllCategories() {
             ArrayList<String> list = new ArrayList<>();
             for(int i=0;i<model.getChildren().size();i++)
-                list.add(model.getChildren().get(i).getIcon().IconTitle);
+                list.add(model.getChildren().get(i).getIcon().getIconTitle());
             return list;
         }
 
@@ -637,7 +643,9 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
 
     @Override
     public void onBackPressed() {
-
+        if(manager!=null) manager.setCurrentBoardLanguage("");
         super.onBackPressed();
     }
+
+
 }

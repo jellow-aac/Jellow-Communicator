@@ -58,13 +58,34 @@ public class LanguageFactory {
         return sessionManager.getLanguage();
     }
 
-    public static boolean isIndianLanguage(String language){
-        return language.equals(SessionManager.ENG_IN) ||
-                language.equals(SessionManager.HI_IN) ||
-                language.equals(SessionManager.MR_IN) ||
-                language.equals(SessionManager.BE_IN) ||
-                language.equals(SessionManager.BN_IN) ||
-                language.equals(SessionManager.TA_IN);
+    public static String getLanguageCode(String langCode){
+        switch (langCode){
+            case SessionManager.ENG_IN:
+                return "01";
+            case SessionManager.ENG_US:
+                return "02";
+            case SessionManager.ENG_UK:
+                return "03";
+            case SessionManager.HI_IN:
+                return "04";
+            case SessionManager.MR_IN:
+                return "05";
+            case SessionManager.BN_IN:
+            case SessionManager.BE_IN:
+                return "06";
+            case SessionManager.ENG_AU:
+                return  "07";
+            case SessionManager.ES_ES:
+                return "08";
+            case SessionManager.TA_IN:
+                return  "09";
+            case SessionManager.DE_DE:
+                return  "10";
+            default:
+                return null;
+
+        }
+
     }
 
     public static void deleteOldLanguagePackagesInBackground(Context context){

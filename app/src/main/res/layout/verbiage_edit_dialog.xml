@@ -3,7 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/white_rounded_back"
+    android:background="@color/translucent"
+    android:id="@+id/parent"
+    android:padding="24dp"
     >
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -28,17 +30,6 @@
             android:paddingBottom="6dp"
             android:paddingTop="6dp"
             >
-        <ImageView
-            android:layout_width="@dimen/drop_icon_size"
-            android:layout_height="@dimen/drop_icon_size"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="6dp"
-            android:layout_centerVertical="true"
-            android:clickable="false"
-            android:padding="2dp"
-            android:src="@drawable/ic_drop_down"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="6dp" />
         <TextView
             android:id="@+id/xyz"
             android:layout_width="wrap_content"
@@ -87,24 +78,26 @@
 
 
         <Button
-            android:id="@+id/save_baord"
+            android:id="@+id/save_button"
             android:layout_alignParentLeft="true"
             android:layout_width="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
-            android:text="Save"
+            android:text="@string/txtSave"
             android:textAllCaps="false"
+            android:background="@drawable/button_background"
             android:layout_gravity="center_vertical"
             android:layout_height="@dimen/profile_save_btn_height"
             android:textSize="@dimen/profile_save_btn_txt_size"
             />
         <Button
-            android:id="@+id/cancel_save_baord"
+            android:id="@+id/cancel_button"
+            android:background="@drawable/button_background"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
-            android:text="Reset"
+            android:text="@string/reset"
             android:textAllCaps="false"
             android:layout_gravity="center_vertical"
             android:layout_height="@dimen/profile_save_btn_height"

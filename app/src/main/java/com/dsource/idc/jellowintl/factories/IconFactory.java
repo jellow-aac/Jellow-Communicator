@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import com.dsource.idc.jellowintl.cache.IconCache;
 import com.dsource.idc.jellowintl.models.Icon;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -336,5 +337,25 @@ public class IconFactory {
         Collections.sort(iconNames);
         String[] expressiveIcons = new String[iconNames.size()];
         return iconNames.toArray(expressiveIcons);
+    }
+
+
+    public static String[] getAllIconsCodes(@NonNull File file){
+
+         try {
+            JSON = new JSONObject(getStringFromFile(file));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        ArrayList<String> iconNames = new ArrayList<>();
+
+        Iterator<String> it = JSON.keys();
+        while (it.hasNext()){
+                    iconNames.add(it.next());
+        }
+        Collections.sort(iconNames);
+        String[] iconCodes = new String[iconNames.size()];
+        return iconNames.toArray(iconCodes);
     }
 }

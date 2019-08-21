@@ -53,4 +53,10 @@ public class GlobalConstants {
     public final static boolean KEY_OPEN = true;
 
     public final static boolean KEY_CLOSE = false;
+
+    public final static int LANGUAGE_STATE_NO_CHANGE = 0;
+
+    public final static int LANGUAGE_STATE_CHANGED = 1;
+
+    public final static int LANGUAGE_STATE_DB_CREATE = 2;
 }

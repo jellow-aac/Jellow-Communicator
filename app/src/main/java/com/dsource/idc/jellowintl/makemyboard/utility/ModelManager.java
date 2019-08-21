@@ -3,13 +3,14 @@ package com.dsource.idc.jellowintl.makemyboard.utility;
 import android.content.Context;
 import android.util.Log;
 
-import com.dsource.idc.jellowintl.makemyboard.models.Board;
+import androidx.annotation.Keep;
+
+import com.dsource.idc.jellowintl.makemyboard.databases.BoardDatabase;
+import com.dsource.idc.jellowintl.makemyboard.models.BoardModel;
 import com.dsource.idc.jellowintl.makemyboard.models.IconModel;
 import com.dsource.idc.jellowintl.models.JellowIcon;
 
 import java.util.ArrayList;
-
-import androidx.annotation.Keep;
 
 public class ModelManager {
     private ArrayList<JellowIcon> mailIconList;
@@ -17,13 +18,11 @@ public class ModelManager {
     private ArrayList<Integer> levelOneIndex;
     private ArrayList<JellowIcon> levelTwoIcons;
     private ArrayList<JellowIcon> levelThreeIcons;
-    @Keep
-    public IconModel parentNode;
+    @Keep private IconModel parentNode;
     private BoardDatabase boardDatabase;
 
     @Keep
-    public ModelManager(ArrayList<JellowIcon> mailIconList, Context context)
-    {
+    public ModelManager(ArrayList<JellowIcon> mailIconList, Context context) {
         this.mailIconList = mailIconList;
         levelOneIcons=new ArrayList<>();
         levelOneIndex=new ArrayList<>();
@@ -35,8 +34,7 @@ public class ModelManager {
         prepareModel();
         refreshModel();
     }
-    @Keep public ModelManager(Context context,IconModel parentNode)
-    {
+    @Keep public ModelManager(Context context,IconModel parentNode){
         boardDatabase = new BoardDatabase(context);
         this.parentNode=parentNode;
     }
@@ -73,12 +71,12 @@ public class ModelManager {
         for(int i=0;i<mailIconList.size();i++)
         {
             JellowIcon icon=mailIconList.get(i);
-            if(icon.parent1==-1)//level one icon
+            if(icon.getParent1()==-1)//level one icon
             {
                 levelOneIcons.add(icon);
-                levelOneIndex.add(icon.parent0);
+                levelOneIndex.add(icon.getParent0());
             }
-            else if(icon.parent2==-1)//level two
+            else if(icon.getParent2()==-1)//level two
             {
                 levelTwoIcons.add(icon);
             }
@@ -117,17 +115,17 @@ public class ModelManager {
     @Keep public ArrayList<JellowIcon> getLevelTwoIcons(JellowIcon icon)
     {
         ArrayList<JellowIcon> subList=new ArrayList<>();
-        if(icon.parent2!=-1)
+        if(icon.getParent2()!=-1)
             return subList;
-        if(icon.parent1==-1)//if the Icon is of level one then it could have both level two icons and level three icons
+        if(icon.getParent1()==-1)//if the Icon is of level one then it could have both level two icons and level three icons
             {
                 ArrayList<Integer> levelTwoParents=new ArrayList<>();
                 for(int i=0;i<levelTwoIcons.size();i++)
                     {
-                        if(levelTwoIcons.get(i).parent0==icon.parent0)
+                        if(levelTwoIcons.get(i).getParent0()==icon.getParent0())
                             {
                                 subList.add(levelTwoIcons.get(i));
-                                levelTwoParents.add(levelTwoIcons.get(i).parent1);
+                                levelTwoParents.add(levelTwoIcons.get(i).getParent1());
                             }
 
                     }
@@ -135,17 +133,17 @@ public class ModelManager {
                 for(int i=0;i<levelThreeIcons.size();i++)
                     {
 
-                        if((!levelTwoParents.contains(levelThreeIcons.get(i).parent1))&&levelThreeIcons.get(i).parent0==icon.parent0)
+                        if((!levelTwoParents.contains(levelThreeIcons.get(i).getParent1()))&&levelThreeIcons.get(i).getParent0()==icon.getParent0())
                         {
                             subList.add(levelThreeIcons.get(i));
                         }
                     }
         }
         else
-        if(icon.parent2==-1)//if the icon is of level two then the child can be only of level three
+        if(icon.getParent2()==-1)//if the icon is of level two then the child can be only of level three
         {
             for(int i=0;i<levelThreeIcons.size();i++) {
-                if (levelThreeIcons.get(i).parent0 == icon.parent0&&levelThreeIcons.get(i).parent1==icon.parent1)
+                if (levelThreeIcons.get(i).getParent0() == icon.getParent0()&&levelThreeIcons.get(i).getParent1()==icon.getParent1())
                     subList.add(levelThreeIcons.get(i));
             }
         }
@@ -160,10 +158,10 @@ public class ModelManager {
     @Keep public ArrayList<JellowIcon> getLevelThreeIcons(JellowIcon icon)
     {
         ArrayList<JellowIcon> subList=new ArrayList<>();
-        if (icon.parent2!=-1)
+        if (icon.getParent2()!=-1)
             return subList;
         for(int i=0;i<levelThreeIcons.size();i++)
-            if(levelThreeIcons.get(i).parent0==icon.parent0&&levelThreeIcons.get(i).parent1==icon.parent1)
+            if(levelThreeIcons.get(i).getParent0()==icon.getParent0()&&levelThreeIcons.get(i).getParent1()==icon.getParent1())
                 subList.add(levelThreeIcons.get(i));
         return subList;
     }
@@ -174,18 +172,18 @@ public class ModelManager {
         for(int i=0;i<levelTwoIcons.size();i++)
         {
             JellowIcon icon=levelTwoIcons.get(i);
-            if(!levelOneIndex.contains(icon.parent0))
+            if(!levelOneIndex.contains(icon.getParent0()))
             {
                 subList.add(icon);
-                presentItemList.add(new indexHolder(icon.parent0,icon.parent1));
+                presentItemList.add(new indexHolder(icon.getParent0(),icon.getParent1()));
             }
         }
 
         for(int i=0;i<levelThreeIcons.size();i++)
         {
             JellowIcon icon=levelThreeIcons.get(i);
-            indexHolder obj=new indexHolder(icon.parent0,icon.parent1);
-            if(!levelOneIndex.contains(icon.parent0))
+            indexHolder obj=new indexHolder(icon.getParent0(),icon.getParent1());
+            if(!levelOneIndex.contains(icon.getParent0()))
                 if(!obj.presentInList(presentItemList))
                     subList.add(icon);
         }
@@ -193,7 +191,7 @@ public class ModelManager {
         return subList;
     }
 
-    @Keep public void deleteIconFromModel(int level, int levelOnePos, int levelTwoPos, int pos, Board board)
+    @Keep public void deleteIconFromModel(int level, int levelOnePos, int levelTwoPos, int pos, BoardModel board)
     {
         boolean updated=false;
         if(level==0)
@@ -214,13 +212,13 @@ public class ModelManager {
 
         if(updated)
         {
-            board.setBoardIconModel(parentNode);
+            board.setIconModel(parentNode);
             boardDatabase.updateBoardIntoDatabase(board);
         }
         refreshModel();
 
     }
-    @Keep public void updateItemMoved(int level, int levelOneParent, int levelTwoParent, int fromPosition, int toPosition, Board currentBoard) {
+    @Keep public void updateItemMoved(int level, int levelOneParent, int levelTwoParent, int fromPosition, int toPosition, BoardModel currentBoard) {
 
         boolean updated=false;
         if(level==0)
@@ -245,7 +243,7 @@ public class ModelManager {
 
         if(updated)
         {
-            currentBoard.setBoardIconModel(parentNode);
+            currentBoard.setIconModel(parentNode);
         }
         refreshModel();
     }
@@ -311,7 +309,7 @@ public class ModelManager {
         return parentNode.getChildren().get(parent1).getChildren().get(parent2).getSubList();
     }
 
-    @Keep public void moveIconToFrom(int fromLevel, int toLevel, int levelOneParent, int levelTwoParent, int levelThreeParent,Board board) {
+    @Keep public void moveIconToFrom(int fromLevel, int toLevel, int levelOneParent, int levelTwoParent, int levelThreeParent,BoardModel board) {
             IconModel IconToMove=null;
             if(fromLevel==2)
             {
@@ -334,7 +332,7 @@ public class ModelManager {
                 {
                     parentNode.getChildren().add(IconToMove);
                 }
-                board.setBoardIconModel(parentNode);
+                board.setIconModel(parentNode);
                 boardDatabase.updateBoardIntoDatabase(board);
             }
             refreshModel();
@@ -349,14 +347,14 @@ public class ModelManager {
     @Keep public ArrayList<JellowIcon> searchIconsForText(String s) {
         ArrayList<JellowIcon> list = new ArrayList<>();
         for(int i=0;i<parentNode.getChildren().size();i++)
-            if(parentNode.getChildren().get(i).getIcon().IconTitle.toLowerCase().startsWith(s.toLowerCase()))
+            if(parentNode.getChildren().get(i).getIcon().getIconTitle().toLowerCase().startsWith(s.toLowerCase()))
                 list.add(parentNode.getChildren().get(i).getIcon());
 
         for(int i= 0;i<parentNode.getChildren().size();i++)
         {
             IconModel levelTwo = parentNode.getChildren().get(i);
             for(int j = 0;j < levelTwo.getChildren().size();j++)
-                if(levelTwo.getChildren().get(j).getIcon().IconTitle.toLowerCase().startsWith(s.toLowerCase()))
+                if(levelTwo.getChildren().get(j).getIcon().getIconTitle().toLowerCase().startsWith(s.toLowerCase()))
                     list.add(levelTwo.getChildren().get(j).getIcon());
 
         }
@@ -368,7 +366,7 @@ public class ModelManager {
             {
                 IconModel levelThree = levelTwo.getChildren().get(j);
                 for(int k = 0;k < levelThree.getChildren().size();k++)
-                    if(levelThree.getChildren().get(k).getIcon().IconTitle.toLowerCase().startsWith(s.toLowerCase()))
+                    if(levelThree.getChildren().get(k).getIcon().getIconTitle().toLowerCase().startsWith(s.toLowerCase()))
                          list.add(levelThree.getChildren().get(k).getIcon());
             }
 
@@ -428,7 +426,7 @@ public class ModelManager {
     return position;
     }
 
-    @Keep public boolean moveIconIntoCategory(int level, int levelOneParent, int levelTwoParent, int fromPosition, int position, Board board) {
+    @Keep public boolean moveIconIntoCategory(int level, int levelOneParent, int levelTwoParent, int fromPosition, int position, BoardModel board) {
         IconModel iconModel = null;
 
         if(level==0)
@@ -465,7 +463,7 @@ public class ModelManager {
                 parentNode.getChildren().get(levelOneParent).getChildren().get(position).getChildren().add(iconModel);
             }
 
-            board.setBoardIconModel(parentNode);
+            board.setIconModel(parentNode);
             boardDatabase.updateBoardIntoDatabase(board);
             return true;
         }
@@ -483,14 +481,14 @@ public class ModelManager {
         {
             if(parentNode.getChildren().get(i).getChildren().size()>0)
             {
-                String iconTitle = parentNode.getChildren().get(i).getIcon().IconTitle;
+                String iconTitle = parentNode.getChildren().get(i).getIcon().getIconTitle();
                 if(!iconTitle.contains("…"))
                     parentNode.getChildren().get(i).getIcon().setIconTitle(iconTitle+"…");
 
             }
             else
             {
-                String iconTitle = parentNode.getChildren().get(i).getIcon().IconTitle;
+                String iconTitle = parentNode.getChildren().get(i).getIcon().getIconTitle();
                 iconTitle = iconTitle.replaceAll("…","");
                 parentNode.getChildren().get(i).getIcon().setIconTitle(iconTitle);
             }
@@ -504,13 +502,13 @@ public class ModelManager {
             {
                 if(levelTwoModel.getChildren().get(j).getChildren().size()>0)
                 {
-                    String iconTitle = levelTwoModel.getChildren().get(j).getIcon().IconTitle;
+                    String iconTitle = levelTwoModel.getChildren().get(j).getIcon().getIconTitle();
                     if(!iconTitle.contains("…"))
                         levelTwoModel.getChildren().get(j).getIcon().setIconTitle(iconTitle+"…");
                 }
                 else
                 {
-                    String iconTitle = levelTwoModel.getChildren().get(j).getIcon().IconTitle;
+                    String iconTitle = levelTwoModel.getChildren().get(j).getIcon().getIconTitle();
                     iconTitle = iconTitle.replaceAll("…","");
                     levelTwoModel.getChildren().get(j).getIcon().setIconTitle(iconTitle);
                 }
@@ -529,13 +527,13 @@ public class ModelManager {
                 {
                     if(levelThreeModel.getChildren().get(k).getChildren().size()>0)
                     {
-                        String iconTitle = levelThreeModel.getChildren().get(k).getIcon().IconTitle;
+                        String iconTitle = levelThreeModel.getChildren().get(k).getIcon().getIconTitle();
                         if(!iconTitle.contains("…"))
                             levelThreeModel.getChildren().get(k).getIcon().setIconTitle(iconTitle+"…");
                     }
                     else
                     {
-                        String iconTitle = levelThreeModel.getChildren().get(k).getIcon().IconTitle;
+                        String iconTitle = levelThreeModel.getChildren().get(k).getIcon().getIconTitle();
                         iconTitle = iconTitle.replaceAll("…","");
                         levelThreeModel.getChildren().get(k).getIcon().setIconTitle(iconTitle);
                     }

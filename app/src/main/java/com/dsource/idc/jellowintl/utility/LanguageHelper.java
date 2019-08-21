@@ -26,6 +26,18 @@ public class LanguageHelper {
     }
 
     /**
+     * <p>{@returns} the Context having application given locale for all activities</p>
+     * */
+    public static Context onAttach(Context context,String language) {
+        Locale locale;
+        if(!language.isEmpty())
+            locale = new Locale(language.split("-r")[0],language.split("-r")[1]);
+        else
+            locale = new Locale("en","IN");
+        return setLanguage(context, locale);
+    }
+
+    /**
      * <p>{@returns} the language code of a language saved by user.</p>
      * */
     /*public static String getLanguage(Context context) {
