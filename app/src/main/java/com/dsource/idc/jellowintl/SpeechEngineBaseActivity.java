@@ -28,6 +28,7 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_UK;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_US;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ES_ES;
+import static com.dsource.idc.jellowintl.utility.SessionManager.FR_FR;
 import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
 import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
@@ -186,6 +187,9 @@ public class SpeechEngineBaseActivity extends BaseActivity{
                 break;
             case DE_DE:
                 sTts.setLanguage(Locale.GERMANY);
+                break;
+            case FR_FR:
+                sTts.setLanguage(Locale.FRANCE);
                 break;
             case HI_IN:
             case MR_IN:
@@ -387,6 +391,7 @@ public class SpeechEngineBaseActivity extends BaseActivity{
             case ES_ES:
             case TA_IN:
             case DE_DE:
+            case FR_FR:
             default:
                 return (float) getSession().getPitch()/50;
         }
@@ -405,6 +410,7 @@ public class SpeechEngineBaseActivity extends BaseActivity{
             case ES_ES:
             case TA_IN:
             case DE_DE:
+            case FR_FR:
             default:
                 return (float) (getSession().getSpeed()/50);
         }
@@ -423,6 +429,7 @@ public class SpeechEngineBaseActivity extends BaseActivity{
             case ES_ES:
             case TA_IN:
             case DE_DE:
+            case FR_FR:
             default:
                 return "com.google.android.tts";
         }

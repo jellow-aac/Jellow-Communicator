@@ -114,7 +114,6 @@
     <string name="changeDefaultToHindi">२. पसंदीदा भाषा को डिफ़ॉल्ट बनाएँ</string>
     <string name="downloadVoiceTts">३. पसंदीदा आवाज डाउनलोड करें</string>
     <string name="activate">सक्रिय करें</string>
-    <string name="download">डाउनलोड करें</string>
     <string name="cancel">बंद करें</string>
     <string name="keyboardControl">कीबोर्ड नियंत्रण :</string>
     <string name="serial_keyboard_title">सिरियल कीबोर्ड:</string>
@@ -394,7 +393,10 @@
     <string name="switch_access_info_five">दो स्विच के साथ स्विच एक्सेसिबिलिटी का उपयोग करने के लिए - सेटिंग्स खोलें -> एक्सेसिबिलिटी पर जाएँ -> स्विच एक्सेस को चालू करें -> यू एस बी अथवा ब्लूटूथ स्विच चुनें -> सेटिंग पर जाएँ और स्विच की संख्या को दो चुनें। फिर स्कैनिंग का प्रकार का चुनें और आगे क्लिक करके दोनों स्विच के लिए क्रिया चुनें।इसके बाद स्विच का परीक्षण करके प्रक्रिया को पूरा करें।</string>
 
 
-   <!--String resources for MMB-->
+    <!--String resources for MMB-->
+    <string name="exit_warning">क्या आप वास्तव मे बाहर जाना चाहते हैं?</string>
+    <string name="expressive_heading">भाववाहक</string>
+    <string name="icon_select_exit_warning">आपका चयन नष्ट हो जाएगा</string>
     <string name="current_board">वर्तमान बोर्ड</string>
     <string name="place_holder_text">आपके द्वारा चयनित आइकन यहां दिखाई देगा</string>
     <string name="board_name">बोर्ड का नाम</string>
@@ -407,14 +409,12 @@
     <string name="select_all">सभी का चयन करे</string>
     <string name="reset">रीसेट करें</string>
     <string name="select_icon_title">आइकन चुनें</string>
-    <string name="icon_select_exit_warning">आपका चयन नष्ट हो जाएगा</string>
     <string name="default_text" >Default</string>
     <string name="add_category">कैटेगरी जोड़े</string>
     <string name="add_icon">आइकन जोड़ें</string>
     <string name="edit_icon">आइकन संपादित करें</string>
     <string name="addicon_title">आइकन जोड़ें/संपादित करें</string>
     <string name="rep_activity_title">आइकन का स्थान बदलें</string>
-    <string name="expressive_heading">भाववाहक</string>
     <string name="i_like">मुझे पसंद है</string>
     <string name="really_like">मैं सच में पसंद है</string>
     <string name="i_want">मुझे चाहिए</string>
@@ -432,7 +432,6 @@
     <string name="library">संग्रह</string>
     <string name="icon_name">आइकन का नाम</string>
     <string name="category_name">श्रेणी नाम</string>
-    <string name="exit_warning">क्या आप वास्तव मे बाहर जाना चाहते हैं?</string>
     <string name="all_boards" >सभी भाषा</string>
     <string name="add_board">बोर्ड जोड़ें</string>
     <string name="boards_count">सभी बोर्ड</string>

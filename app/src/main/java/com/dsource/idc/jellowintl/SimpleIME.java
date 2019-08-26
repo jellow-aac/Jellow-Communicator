@@ -18,6 +18,7 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_UK;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_US;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ES_ES;
+import static com.dsource.idc.jellowintl.utility.SessionManager.FR_FR;
 import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.TA_IN;
@@ -84,6 +85,7 @@ public class SimpleIME extends InputMethodService
             case TA_IN:
             case ES_ES:
             case DE_DE:
+            case FR_FR:
             default:
                 kv.setKeyboard(keyEnglishAlphabetSmallLetters);
                 break;

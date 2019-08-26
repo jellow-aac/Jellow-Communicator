@@ -117,7 +117,6 @@
     <string name="changeDefaultToHindi">२. आवडीची भाषा डिफ़ॉल्ट बनवा</string>
     <string name="downloadVoiceTts">३. आवडीच्या भाषेचा व्हॉइस डेटा डाउनलोड करा</string>
     <string name="activate">सक्रिय करा</string>
-    <string name="download">डाउनलोड करा</string>
     <string name="cancel">बंद करा</string>
     <string name="keyboardControl">कीबोर्ड नियंत्रण:</string>
     <string name="serial_keyboard_title">सिरियल कीबोर्ड:</string>
@@ -398,4 +397,49 @@
     <string name="switch_access_info_three">सॅमसंग वापरकर्ते फोनच्या सेटिंग्स मध्ये ऍक्सेसिबिलिटी श्रेणी मध्ये  "डेक्स्टेरिटी आणि इंटरैक्शन" पर्याया मध्ये  स्विच एक्सेस सुविधा पाहू शकतात.</string>
     <string name="switch_access_info_four">एक स्विचसह स्विच ऍक्सेसिबिलिटी वापरण्यासाठी - सेटिंग्स  उघडा -> ऍक्सेसिबिलिटी वर जा -> स्विच एक्सेस चालू करा -> यूएसबी किंवा ब्लूटूथ स्विच निवडा -> सेटिंग्स मध्ये जा आणि स्विचची संख्या एक निवडा.</string>
     <string name="switch_access_info_five">दोन स्विचसह स्विच ऍक्सेसिबिलिटी वापरण्यासाठी - सेटिंग्स  उघडा -> ऍक्सेसिबिलिटी वर जा -> स्विच एक्सेस चालू करा -> यूएसबी किंवा ब्लूटूथ स्विच निवडा -> सेटिंग्स मध्ये जा आणि स्विचची संख्या दोन निवडा. नंतर स्कॅनिंगचा प्रकार निवडा आणि पुढे क्लिक करून दोन्ही स्विचसाठी क्रिया निवडा. त्यानंतर स्विचची चाचणी करून प्रक्रिया पूर्ण करा.</string>
+
+
+    <!--String resources for MMB-->
+    <string name="exit_warning">तुम्हाला मागे जायचे आहे का?</string>
+    <string name="expressive_heading">भाववाहक</string>
+    <string name="icon_select_exit_warning" >आपण सेलेक्ट केलेल्या श्रेणी डिलीट होऊ शकतात</string>
+    <string name="current_board">वर्तमान बोर्ड</string>
+    <string name="place_holder_text">आपण निवडलेले आयकॉन येथे दिसेल</string>
+    <string name="board_name">बोर्डचे नाव </string>
+    <string name="_1_icon">१ आयकॉन</string>
+    <string name="_2_icons">२ आयकॉन</string>
+    <string name="_3_icons">३ आयकॉन</string>
+    <string name="_4_icons">४ आयकॉन</string>
+    <string name="_9_icons">९ आयकॉन</string>
+    <string name="number_of_icons_per_screen">प्रति स्क्रीन आइकॉन संख्या</string>
+    <string name="select_all">सर्व निवडा</string>
+    <string name="reset">रीसेट करा</string>
+    <string name="select_icon_title">आयकॉन निवडा</string>
+    <string name="default_text" >डिफ़ॉल्ट</string>
+    <string name="add_category">श्रेणी जोडा</string>
+    <string name="add_icon">आयकॉन जोडा</string>
+    <string name="edit_icon">आयकॉन संपादित करा</string>
+    <string name="addicon_title">आयकॉन जोडा/संपादित करा</string>
+    <string name="rep_activity_title">आयकॉन चे स्थान बदला</string>
+    <string name="i_like">मला आवडते</string>
+    <string name="really_like">मला खरोखर आवडते</string>
+    <string name="i_want">मला पाहिजे</string>
+    <string name="really_want">मला खरोखर पाहिजे</string>
+    <string name="want_more">मला अजुन पाहिजे</string>
+    <string name="really_want_more">मला खरोखर अजुन जास्त पाहिजे</string>
+    <string name="i_dont_like">मला आवडत नाही</string>
+    <string name="really_dont_like">मला खरोखर आवडत नाही</string>
+    <string name="dont_want">मला नको</string>
+    <string name="really_dont_want">मला खरोखर नको</string>
+    <string name="dont_want_more">मला आणखी नको</string>
+    <string name="really_dont_want_more">मला खरोखर आणखी जास्त नको</string>
+    <string name="please_enter_name">कृपया नाव दाखिल करा</string>
+    <string name="photos">फोटो</string>
+    <string name="library">जेलो चे आयकॉन</string>
+    <string name="icon_name">आयकॉन चे नाव</string>
+    <string name="category_name">श्रेणीचे नाव</string>
+    <string name="all_boards">सर्व भाषा</string>
+    <string name="add_board">बोर्ड जोडा</string>
+    <string name="boards_count">बोर्ड</string>
+    <string name="custom_icon">कस्टम आयकॉन</string>
 </resources>

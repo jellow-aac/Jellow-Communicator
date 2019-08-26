@@ -431,6 +431,9 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
                     case "Deutsch (Deutschland)":
                         shortenLanguageNames[i] = "Deutsch (DE)";
                         break;
+                    case "French (France)":
+                        shortenLanguageNames[i] = "French (FR)";
+                        break;
                     default:
                         shortenLanguageNames[i] = langNameToBeShorten[i];
                         break;

@@ -29,6 +29,7 @@ public class SessionManager {
     public final static String SP_ES = "sp-rES";    // SP_ES -> Spanish (for some old API devices which return Spanish locale as sp-rES)
     public final static String TA_IN = "ta-rIN";
     public final static String DE_DE = "de-rDE";
+    public final static String FR_FR = "fr-rFR";
     public static final String UNIVERSAL_PACKAGE = "universal";
     public final static String BOARD_ICON_LOCATION = "board_icons";
 
@@ -44,6 +45,7 @@ public class SessionManager {
             put("Spanish (Spain)", ES_ES);
             put("বাঙালি", BN_IN);
             put ("Deutsch (Deutschland)", DE_DE);
+            put ("French (France)", FR_FR);
         }
     };
 
@@ -59,6 +61,7 @@ public class SessionManager {
             put(ES_ES, "Spanish (Spain)");
             put(BN_IN,"বাঙালি");
             put(DE_DE, "Deutsch (Deutschland)");
+            put(FR_FR, "French (France)");
         }
     };
 

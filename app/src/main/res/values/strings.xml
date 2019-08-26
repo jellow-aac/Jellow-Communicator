@@ -507,7 +507,6 @@
 
 
     <!--String resources for MMB-->
-
     <string name="exit_warning">Are you sure you want to exit?</string>
     <string name="expressive_heading">Expressive</string>
     <string name="icon_select_exit_warning" >Your selection will be lost</string>

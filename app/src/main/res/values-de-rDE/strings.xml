@@ -115,7 +115,6 @@
     <string name="changeDefaultToHindi">2. Gewünschte Sprache als Standard setzen</string>
     <string name="downloadVoiceTts">3. Stimme in gewünschter Sprache herunterladen</string>
     <string name="activate">Aktivieren</string>
-    <string name="download">Herunterladen</string>
     <string name="cancel">Abbrechen</string>
     <string name="keyboardControl">Tastatursteuerung:</string>
     <string name="serial_keyboard_title">Serielle Tastatur:</string>
