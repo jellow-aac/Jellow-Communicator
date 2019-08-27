@@ -117,6 +117,7 @@
     <dimen name="profile_spinner_height">40dp</dimen>
     <dimen name="profile_view_height">58dp</dimen>
     <dimen name="profile_save_btn_height">40dp</dimen>
+    <dimen name="profile_save_btn_padding_left">8dp</dimen>
     <dimen name="profile_save_btn_txt_size">22sp</dimen>
     <dimen name="profile_btn_save_margin_left">32dp</dimen>
 
@@ -138,6 +139,7 @@
     <dimen name="about_extra_margin_bottom">32dp</dimen>
     <dimen name="about_bottom_bar_height">58dp</dimen>
     <dimen name="about_btn_height">40dp</dimen>
+    <dimen name="about_btn_padding_left">8dp</dimen>
     <dimen name="about_btn_txt_size">22sp</dimen>
     <dimen name="about_btn_margin_left">32dp</dimen>
 

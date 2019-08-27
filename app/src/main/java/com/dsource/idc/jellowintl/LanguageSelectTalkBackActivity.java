@@ -40,7 +40,7 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.LangValueMap;
 import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
 
 public class LanguageSelectTalkBackActivity extends SpeechEngineBaseActivity {
-    String[] availableLanguges;
+    String[] availableLanguages;
     Spinner languageSelect;
     String selectedLanguage;
     Button save, changeTtsLang;
@@ -73,18 +73,18 @@ public class LanguageSelectTalkBackActivity extends SpeechEngineBaseActivity {
             setImageUsingGlide(R.drawable.arrow, ((ImageView)findViewById(R.id.ivArrow4)));
         }
 
-        availableLanguges = LanguageFactory.getAvailableLanguages(this);
+        availableLanguages = LanguageFactory.getAvailableLanguages();
         languageSelect = findViewById(R.id.selectDownloadedLanguageSpinner);
 
         adapter_lan = new ArrayAdapter<String>(this,
-                R.layout.simple_spinner_item, populateCountryNameByUserType(availableLanguges));
+                R.layout.simple_spinner_item, populateCountryNameByUserType(availableLanguages));
         adapter_lan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         languageSelect.setAdapter(adapter_lan);
         languageSelect.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedLanguage = availableLanguges[i];
+                selectedLanguage = availableLanguages[i];
                 mSelectedItem = i;
                 if(selectedLanguage.equals(LangValueMap.get(MR_IN))) {
                     hideViewsForNonTtsLang(true);
@@ -287,9 +287,9 @@ public class LanguageSelectTalkBackActivity extends SpeechEngineBaseActivity {
             resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
         }
         startMeasuring();
-        availableLanguges = LanguageFactory.getAvailableLanguages(this);
+        availableLanguages = LanguageFactory.getAvailableLanguages();
         adapter_lan = new ArrayAdapter<String>(this,
-                R.layout.simple_spinner_item, populateCountryNameByUserType(availableLanguges));
+                R.layout.simple_spinner_item, populateCountryNameByUserType(availableLanguages));
         adapter_lan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         languageSelect.setAdapter(adapter_lan);
         if(mSelectedItem != -1)

@@ -131,13 +131,8 @@ public class UserRegistrationActivity extends SpeechEngineBaseActivity {
         mDB = FirebaseDatabase.getInstance();
         mRef = mDB.getReference(BuildConfig.DB_TYPE + "/users");
 
-        LangMap.keySet().toArray(languagesCodes);
-        LangMap.keySet().toArray(languageNames);
-        {
-            String lang = languageNames[0];
-            languagesCodes[0] = languageNames[0] = languageNames[3];
-            languagesCodes[3] = languageNames[3] = lang;
-        }
+        languagesCodes = LanguageFactory.getAvailableLanguages();
+        languageNames = LanguageFactory.getAvailableLanguages();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         etName = findViewById(R.id.etName);
         etName.clearFocus();
@@ -292,7 +287,7 @@ public class UserRegistrationActivity extends SpeechEngineBaseActivity {
             String encryptedEmailId = encrypt(getSession().getEmailId(), encryption),
                     encryptedName = encrypt(getSession().getName(), encryption),
                     encryptedUserGroup = encrypt(getSession().getUserGroup(), encryption),
-                    encryptedBloodGroup = encrypt(getBloodGroup(getSession().getBlood()), encryption),
+                    encryptedBloodGroup = encrypt(getShortBloodGroup(getSession().getBlood()), encryption),
                     encryptedCareGiverName = encrypt(getSession().getCaregiverName(), encryption),
                     encryptedAddress = encrypt(getSession().getAddress(), encryption);
             if (encryptedEmailId.isEmpty() || encryptedName.isEmpty() ||
@@ -519,20 +514,6 @@ public class UserRegistrationActivity extends SpeechEngineBaseActivity {
             }
         }
         return shortenLanguageNames;
-    }
-
-    private String getBloodGroup(int bloodGroup) {
-        switch(bloodGroup){
-            case 1: return "A+ve";
-            case 2: return "A-ve";
-            case 3: return "B+ve";
-            case 4: return "B-ve";
-            case 5: return "AB+ve";
-            case 6: return "AB-ve";
-            case 7: return "O+ve";
-            case 8: return "O-ve";
-            default: return "not selected";
-        }
     }
 
     private class NetworkConnectionTest extends AsyncTask<Void, Void, Boolean>{

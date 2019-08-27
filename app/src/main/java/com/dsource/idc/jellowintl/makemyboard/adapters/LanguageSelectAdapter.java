@@ -31,7 +31,7 @@ public class LanguageSelectAdapter {
     public LanguageSelectAdapter(Context context,RecyclerView recyclerView) {
         this.context  =context;
         this.recyclerView = recyclerView;
-        langList = new ArrayList<>(Arrays.asList(LanguageFactory.getAvailableLanguages(context)));
+        langList = new ArrayList<>(Arrays.asList(LanguageFactory.getAvailableLanguages()));
         langList.addAll(SessionManager.LangMap.values());
         langList.removeAll(SessionManager.NoTTSLang);
         boardCount = new ArrayList<>(langList.size()+1);
@@ -148,7 +148,7 @@ class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.ViewHolder>{
         mContext = context;
         mLanguageList = new ArrayList<>();
         mLanguageList.add(context.getResources().getString(R.string.all_boards));
-        mLanguageList.addAll(Arrays.asList(LanguageFactory.getAvailableLanguages(context)));
+        mLanguageList.addAll(Arrays.asList(LanguageFactory.getAvailableLanguages()));
         for(String lang:SessionManager.NoTTSLang)
             mLanguageList.remove(SessionManager.LangValueMap.get(lang));
     }

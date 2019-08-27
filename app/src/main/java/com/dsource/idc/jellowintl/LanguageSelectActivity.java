@@ -89,7 +89,7 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
             setImageUsingGlide(R.drawable.arrow, ((ImageView) findViewById(R.id.ivArrow4)));
         }
 
-        availableLanguages = LanguageFactory.getAvailableLanguages(this);
+        availableLanguages = LanguageFactory.getAvailableLanguages();
         languageSelect = findViewById(R.id.selectDownloadedLanguageSpinner);
 
         adapter_lan = new ArrayAdapter<String>(this,
@@ -196,7 +196,7 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
     }
 
     private void hideViewsForNonTtsLang(boolean disableViews) {
-        //TODO Hide views to when user selected non tts language.
+        //Hide views to when user selected non tts language.
         if(disableViews) {
             findViewById(R.id.tv4).setVisibility(View.GONE);
             findViewById(R.id.ivTtsVoiceDat).setVisibility(View.GONE);
@@ -317,7 +317,7 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
             resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
         }
         startMeasuring();
-        availableLanguages = LanguageFactory.getAvailableLanguages(this);
+        availableLanguages = LanguageFactory.getAvailableLanguages();
         adapter_lan = new ArrayAdapter<String>(this, R.layout.simple_spinner_item,
                 populateCountryNameByUserType(availableLanguages));
         adapter_lan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

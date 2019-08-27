@@ -207,6 +207,8 @@
             android:textSize="@dimen/profile_save_btn_txt_size"
             android:text="@string/txtSave"
             android:layout_gravity="center_vertical"
+            android:paddingLeft="@dimen/profile_save_btn_padding_left"
+            android:paddingRight="@dimen/profile_save_btn_padding_left"
             android:layout_marginLeft="@dimen/profile_btn_save_margin_left"
             android:layout_marginStart="@dimen/profile_btn_save_margin_left"/>
     </LinearLayout>

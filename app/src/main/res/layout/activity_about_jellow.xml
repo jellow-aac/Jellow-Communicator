@@ -862,6 +862,8 @@
             android:textSize="@dimen/about_btn_txt_size"
             android:text="@string/speak"
             android:layout_gravity="center_vertical"
+            android:paddingLeft="@dimen/about_btn_padding_left"
+            android:paddingRight="@dimen/about_btn_padding_left"
             android:layout_marginLeft="@dimen/about_btn_margin_left"
             android:layout_marginStart="@dimen/about_btn_margin_left"/>
         <Button
@@ -871,6 +873,8 @@
             android:textSize="@dimen/about_btn_txt_size"
             android:text="@string/stop"
             android:layout_gravity="center_vertical"
+            android:paddingLeft="@dimen/about_btn_padding_left"
+            android:paddingRight="@dimen/about_btn_padding_left"
             android:layout_marginLeft="@dimen/about_btn_margin_left"
             android:layout_marginStart="@dimen/about_btn_margin_left"/>
     </LinearLayout>

@@ -205,8 +205,8 @@ public class BaseActivity extends AppCompatActivity{
      * <p>This function will find and return the blood group of user
      * @return blood group of user.</p>
      * */
-    public String getBloodGroup(int blood) {
-        switch(blood){
+    public String getBloodGroup(int bloodGroup) {
+        switch(bloodGroup){
             case  1: return getString(R.string.aPos);
             case  2: return getString(R.string.aNeg);
             case  3: return getString(R.string.bPos);
@@ -216,6 +216,20 @@ public class BaseActivity extends AppCompatActivity{
             case  7: return getString(R.string.oPos);
             case  8: return getString(R.string.oNeg);
             default: return "";
+        }
+    }
+
+    public String getShortBloodGroup(int bloodGroup) {
+        switch(bloodGroup){
+            case 1: return "A+ve";
+            case 2: return "A-ve";
+            case 3: return "B+ve";
+            case 4: return "B-ve";
+            case 5: return "AB+ve";
+            case 6: return "AB-ve";
+            case 7: return "O+ve";
+            case 8: return "O-ve";
+            default: return "not selected";
         }
     }
 

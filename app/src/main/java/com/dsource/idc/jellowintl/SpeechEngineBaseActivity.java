@@ -101,14 +101,14 @@ public class SpeechEngineBaseActivity extends BaseActivity{
                 && !getSession().getLanguage().equals(LangMap.get("मराठी"))) {
             if (getSpeechEngineLanguage().equals("-r")) {
                 mErrorHandler.sendLanguageIncompatibleError(getString(R.string.speech_engin_lang_sam));
-                return;
-            }else if(getSession().getLanguage().equals(BN_IN) && !getSpeechEngineLanguage().equals(BN_IN) && !(getSpeechEngineLanguage().equals(BE_IN))) {
+            }else if(getSession().getLanguage().equals(BN_IN) && !getSpeechEngineLanguage().equals(BN_IN)
+                    && !(getSpeechEngineLanguage().equals(BE_IN))) {
                 mErrorHandler.sendLanguageIncompatibleError(getString(R.string.speech_engin_lang_sam));
-                return;
-            }else if(getSession().getLanguage().equals(ES_ES) && !getSpeechEngineLanguage().equals(SP_ES) && !(getSpeechEngineLanguage().equals(ES_ES))){
+            }else if(getSession().getLanguage().equals(ES_ES) && !getSpeechEngineLanguage().equals(SP_ES)
+                    && !(getSpeechEngineLanguage().equals(ES_ES))){
                 mErrorHandler.sendLanguageIncompatibleError(getString(R.string.speech_engin_lang_sam));
-                return;
-            }else if(getSession().getLanguage().equals(getSpeechEngineLanguage())){
+            }else if(!getSession().getLanguage().equals(BN_IN) && !getSession().getLanguage().equals(ES_ES)
+                    && !getSession().getLanguage().equals(getSpeechEngineLanguage())){
                 mErrorHandler.sendLanguageIncompatibleError(getString(R.string.speech_engin_lang_sam));
             }
         }
@@ -121,7 +121,9 @@ public class SpeechEngineBaseActivity extends BaseActivity{
             {}
             else if(getSession().getLanguage().equals(ES_ES) && getSpeechEngineLanguage().equals(SP_ES) || (getSpeechEngineLanguage().equals(ES_ES)))
             {}
-            else if(getSession().getLanguage().equals(getSpeechEngineLanguage()))
+            else if(!getSession().getLanguage().equals(BN_IN) &&
+                    !getSession().getLanguage().equals(ES_ES) &&
+                    getSession().getLanguage().equals(getSpeechEngineLanguage()))
             {}
             else {
                 mErrorHandler.sendLanguageIncompatibleForAccessibility();

@@ -6,11 +6,9 @@ import com.dsource.idc.jellowintl.utility.PackageRemoverAsync;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
-import static com.dsource.idc.jellowintl.utility.SessionManager.LangValueMap;
 
 public class LanguageFactory {
 
@@ -94,17 +92,11 @@ public class LanguageFactory {
         new PackageRemoverAsync().execute(context);
     }
 
-    public static String[] getAvailableLanguages(Context context){
-        List<String> lang = new ArrayList<>();
-        for (String language : LangMap.values()) {
-            File file = new File(context.getDir(SessionManager.UNIVERSAL_PACKAGE, Context.MODE_PRIVATE)
-                    .getAbsolutePath()+"/"+language+".json");
-            if (file.exists() && file.isFile()) {
-                lang.add(LangValueMap.get(language));
-            }
-        }
-
-        return lang.toArray(new String[lang.size()]);
+    public static String[] getAvailableLanguages(){
+        String[] languages = new String[LangMap.size()];
+        LangMap.keySet().toArray(languages);
+        Arrays.sort(languages);
+        return languages;
     }
 
     public static boolean isMarathiPackageAvailable(Context context){

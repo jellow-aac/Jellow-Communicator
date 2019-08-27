@@ -35,33 +35,33 @@ public class SessionManager {
 
     public final static HashMap<String,String> LangMap = new HashMap<String,String>(){
         {
+            put ("Deutsch (Deutschland)", DE_DE);
+            put("English (Australia)", ENG_AU);
             put("English (India)", ENG_IN);
-            put("हिंदी", HI_IN);
-            put("मराठी", MR_IN);
-	        put("தமிழ்", TA_IN);
             put("English (United Kingdom)", ENG_UK);
             put("English (United States)", ENG_US);
-            put("English (Australia)", ENG_AU);
-            put("Spanish (Spain)", ES_ES);
-            put("বাঙালি", BN_IN);
-            put ("Deutsch (Deutschland)", DE_DE);
             put ("French (France)", FR_FR);
+            put("Spanish (Spain)", ES_ES);
+            put("मराठी", MR_IN);
+            put("हिंदी", HI_IN);
+            put("বাঙালি", BN_IN);
+            put("தமிழ்", TA_IN);
         }
     };
 
     public final static HashMap<String,String> LangValueMap = new HashMap<String,String>(){
         {
+            put(DE_DE, "Deutsch (Deutschland)");
+            put(ENG_AU,"English (Australia)");
             put(ENG_IN,"English (India)");
-            put(HI_IN,"हिंदी");
-            put(MR_IN,"मराठी");
-	        put(TA_IN, "தமிழ்");
             put(ENG_UK,"English (United Kingdom)");
             put(ENG_US,"English (United States)");
-            put(ENG_AU,"English (Australia)");
-            put(ES_ES, "Spanish (Spain)");
-            put(BN_IN,"বাঙালি");
-            put(DE_DE, "Deutsch (Deutschland)");
             put(FR_FR, "French (France)");
+            put(ES_ES, "Spanish (Spain)");
+            put(MR_IN,"मराठी");
+            put(HI_IN,"हिंदी");
+            put(BN_IN,"বাঙালি");
+            put(TA_IN, "தமிழ்");
         }
     };
 

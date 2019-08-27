@@ -152,6 +152,8 @@
             android:text="@string/txtSave"
             android:textSize="@dimen/setting_btn_txt_size"
             android:layout_gravity="center_vertical"
+            android:paddingLeft="@dimen/setting_btn_padding_horizontal"
+            android:paddingRight="@dimen/setting_btn_padding_horizontal"
             android:layout_marginLeft="@dimen/setting_btn_margin_left"
             android:layout_marginStart="@dimen/setting_btn_margin_left"/>
     </LinearLayout>

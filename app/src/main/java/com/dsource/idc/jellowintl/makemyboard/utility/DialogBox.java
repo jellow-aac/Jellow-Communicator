@@ -107,7 +107,7 @@ public class DialogBox extends BaseActivity {
         final EditText boardName = findViewById(R.id.board_name);
         final Spinner languageSelect =findViewById(R.id.langSelectSpinner);
         final ListView listView =findViewById(R.id.camera_list);
-        ArrayList<String> languageList = new ArrayList<>(Arrays.asList(LanguageFactory.getAvailableLanguages(this)));
+        ArrayList<String> languageList = new ArrayList<>(Arrays.asList(LanguageFactory.getAvailableLanguages()));
         for(String lang:SessionManager.NoTTSLang)
             languageList.remove(SessionManager.LangValueMap.get(lang));
 
