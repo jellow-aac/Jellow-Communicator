@@ -47,12 +47,12 @@ public class SpeechEngineBaseActivity extends BaseActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setupSpeechEngine();
+        setupSpeechEngine(getSession().getLanguage());
         map = new HashMap<>();
         map.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, UTTERANCE_ID);
     }
 
-    private void setupSpeechEngine() {
+    private void setupSpeechEngine(final String language) {
         sTts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
@@ -62,18 +62,18 @@ public class SpeechEngineBaseActivity extends BaseActivity{
                         mErrorHandler.speechEngineNotFoundError();
                         return;
                     }
-                    setSpeechEngineLanguage(getSession().getLanguage());
+                    setSpeechEngineLanguage(language);
                     checkSpeechEngineLanguageInSettings();
                     checkSpeechEngineLanguageForAccessibility();
-                    sTts.setSpeechRate(getTTsSpeedForLanguage(getSession().getLanguage()));
-                    sTts.setPitch(getTTsPitchForLanguage(getSession().getLanguage()));
-                    if (getSession().getLanguage().endsWith(MR_IN))
+                    sTts.setSpeechRate(getTTsSpeedForLanguage(language));
+                    sTts.setPitch(getTTsPitchForLanguage(language));
+                    if (language.endsWith(MR_IN))
                         createUserProfileRecordingsUsingTTS();
                 } catch (Exception e) {
                     Crashlytics.logException(e);
                 }
             }
-        }, getTTsEngineNameForLanguage(getSession().getLanguage()));
+        }, getTTsEngineNameForLanguage(language));
 
         sTts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
             @Override public void onStart(String utteranceId) {}
@@ -128,6 +128,64 @@ public class SpeechEngineBaseActivity extends BaseActivity{
             }
         }
     }
+
+    private float getTTsPitchForLanguage(String language) {
+        switch(language){
+            case ENG_UK:
+            case ENG_US:
+            case ENG_AU:
+            case HI_IN:
+            case ENG_IN:
+            case BN_IN:
+            case BE_IN:
+            case MR_IN:
+            case ES_ES:
+            case TA_IN:
+            case DE_DE:
+            case FR_FR:
+            default:
+                return (float) getSession().getPitch()/50;
+        }
+    }
+
+    private float getTTsSpeedForLanguage(String language){
+        switch(language){
+            case ENG_UK:
+            case ENG_US:
+            case ENG_AU:
+            case HI_IN:
+            case ENG_IN:
+            case BN_IN:
+            case BE_IN:
+            case MR_IN:
+            case ES_ES:
+            case TA_IN:
+            case DE_DE:
+            case FR_FR:
+            default:
+                return (float) (getSession().getSpeed()/50);
+        }
+    }
+
+    private String getTTsEngineNameForLanguage(String language) {
+        switch(language){
+            case ENG_UK:
+            case ENG_US:
+            case ENG_AU:
+            case HI_IN:
+            case ENG_IN:
+            case BN_IN:
+            case BE_IN:
+            case MR_IN:
+            case ES_ES:
+            case TA_IN:
+            case DE_DE:
+            case FR_FR:
+            default:
+                return "com.google.android.tts";
+        }
+    }
+
 
     public void registerSpeechEngineErrorHandle(TextToSpeechError handler){
         mErrorHandler = handler;
@@ -206,7 +264,7 @@ public class SpeechEngineBaseActivity extends BaseActivity{
         * Hence utterances will use tts engine to speak irrespective of type of language
         * (tts language or non tts) */
         if (speechText.contains("_") || speechText.contains("-") || !isNoTTSLanguage())
-            sTts.speak(speechText, TextToSpeech.QUEUE_FLUSH, map);
+            sTts.speak(speechText.replace("_","").replace("-",""), TextToSpeech.QUEUE_FLUSH, map);
         else
             playAudio(getAudioPath(this)+speechText);
     }
@@ -267,37 +325,20 @@ public class SpeechEngineBaseActivity extends BaseActivity{
                 sTts.synthesizeToFile(contactNo, null, contact, UTTERANCE_ID);
                 sTts.synthesizeToFile(getSession().getCaregiverName(), null, caregiverName, UTTERANCE_ID);
                 sTts.synthesizeToFile(getSession().getAddress(), null, address, UTTERANCE_ID);
-                sTts.synthesizeToFile(getBloodGroup(getSession().getBlood()), null, bloodGroup, UTTERANCE_ID);
+                sTts.synthesizeToFile(getBloodGroup(getSession().getBlood()), null,
+                        bloodGroup, UTTERANCE_ID);
             }else {
                 sTts.synthesizeToFile(getSession().getName(), null, path + "name.mp3");
                 sTts.synthesizeToFile(emailId, null, path + "email.mp3");
                 sTts.synthesizeToFile(contactNo, null, path + "contact.mp3");
                 sTts.synthesizeToFile(getSession().getCaregiverName(), null, path + "caregiverName.mp3");
                 sTts.synthesizeToFile(getSession().getAddress(), null, path + "address.mp3");
-                sTts.synthesizeToFile(getBloodGroup(getSession().getBlood()), null, path + "bloodGroup.mp3");
+                sTts.synthesizeToFile(getBloodGroup(getSession().getBlood()), null,
+                        path + "bloodGroup.mp3");
             }
             setSpeechEngineLanguage(getSession().getLanguage());
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-
-    /**
-     * <p>This function will find and return the blood group of user
-     * @return blood group of user.</p>
-     * */
-    private String getBloodGroup(int blood) {
-        switch(blood){
-            case  1: return getString(R.string.aPos);
-            case  2: return getString(R.string.aNeg);
-            case  3: return getString(R.string.bPos);
-            case  4: return getString(R.string.bNeg);
-            case  5: return getString(R.string.abPos);
-            case  6: return getString(R.string.abNeg);
-            case  7: return getString(R.string.oPos);
-            case  8: return getString(R.string.oNeg);
-            default: return "";
         }
     }
 
@@ -378,61 +419,8 @@ public class SpeechEngineBaseActivity extends BaseActivity{
         return SessionManager.NoTTSLang.contains(getSession().getLanguage());
     }
 
-    private float getTTsPitchForLanguage(String language) {
-        switch(language){
-            case ENG_UK:
-            case ENG_US:
-            case ENG_AU:
-            case HI_IN:
-            case ENG_IN:
-            case BN_IN:
-            case BE_IN:
-            case MR_IN:
-            case ES_ES:
-            case TA_IN:
-            case DE_DE:
-            case FR_FR:
-            default:
-                return (float) getSession().getPitch()/50;
-        }
-    }
-
-    private float getTTsSpeedForLanguage(String language){
-        switch(language){
-            case ENG_UK:
-            case ENG_US:
-            case ENG_AU:
-            case HI_IN:
-            case ENG_IN:
-            case BN_IN:
-            case BE_IN:
-            case MR_IN:
-            case ES_ES:
-            case TA_IN:
-            case DE_DE:
-            case FR_FR:
-            default:
-                return (float) (getSession().getSpeed()/50);
-        }
-    }
-
-    private String getTTsEngineNameForLanguage(String language) {
-        switch(language){
-            case ENG_UK:
-            case ENG_US:
-            case ENG_AU:
-            case HI_IN:
-            case ENG_IN:
-            case BN_IN:
-            case BE_IN:
-            case MR_IN:
-            case ES_ES:
-            case TA_IN:
-            case DE_DE:
-            case FR_FR:
-            default:
-                return "com.google.android.tts";
-        }
+    public void initiateSpeechEngineWithLanguage(String language){
+        setupSpeechEngine(language);
     }
 }
 

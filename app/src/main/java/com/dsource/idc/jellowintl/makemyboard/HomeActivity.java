@@ -525,8 +525,8 @@ public class HomeActivity extends SpeechEngineBaseActivity {
         if(!getSpeechEngineLanguage().equals(currentBoard.getLanguage())) {
             if (getSession().getCurrentBoardLanguage() == null || getSession().getCurrentBoardLanguage().equals(""))
                 setSpeechEngineLanguage(SessionManager.ENG_IN);
-            else setSpeechEngineLanguage(getSession().getCurrentBoardLanguage());
-            /*setupSpeechEngine();*/
+            else
+                initiateSpeechEngineWithLanguage(getSession().getCurrentBoardLanguage());
         }
         setVisibleAct(HomeActivity.class.getSimpleName());
         if(!getSession().getToastMessage().isEmpty()) {

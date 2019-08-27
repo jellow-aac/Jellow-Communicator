@@ -390,4 +390,49 @@
     <string name="switch_access_info_three">Los usuarios de Samsung puede encontrar la Accesibilidad mediante interruptores en "dexterity and interaction" en la Accesibilidad de los Ajustes de aparato</string>
     <string name="switch_access_info_four">Para usar la Accesibilidad mediante interruptores con un interruptor - Abre los Ajustes > la Accesibilidad > Activa la Accesibilidad mediante interruptores > Elije interruptores USB o de Bluetooth > En los Ajustes, elije \"Un interruptor\" el número de interruptores.</string>
     <string name="switch_access_info_five">Para usar la Accesibilidad mediante interruptores con un interruptor - Abre los Ajustes > la Accesibilidad > Activa la Accesibilidad mediante interruptores > Elije interruptores USB o de Bluetooth > En los Ajustes, elije \"Dos interruptores\" el número de interruptores.</string>
+
+
+    <!--String resources for MMB-->
+    <string name="exit_warning">Are you sure you want to exit?</string>
+    <string name="expressive_heading">Expressive</string>
+    <string name="icon_select_exit_warning" >Your selection will be lost</string>
+    <string name="current_board">Current Board</string>
+    <string name="place_holder_text">Icon selected by you will appear here</string>
+    <string name="board_name">Board Name</string>
+    <string name="_1_icon">1 icon</string>
+    <string name="_2_icons">2 icons</string>
+    <string name="_3_icons">3 icons</string>
+    <string name="_4_icons">4 icons</string>
+    <string name="_9_icons">9 icons</string>
+    <string name="number_of_icons_per_screen">Number of icons per screen</string>
+    <string name="select_all">Select All</string>
+    <string name="reset">RESET</string>
+    <string name="select_icon_title">Select icons</string>
+    <string name="default_text" >Default</string>
+    <string name="add_category">Add Category</string>
+    <string name="add_icon">Add Icon</string>
+    <string name="edit_icon">Edit Icon</string>
+    <string name="addicon_title">Add/Edit Icons</string>
+    <string name="rep_activity_title">Reposition icons</string>
+    <string name="i_like">I like</string>
+    <string name="really_like">I really like</string>
+    <string name="i_want">I want</string>
+    <string name="really_want">I really want</string>
+    <string name="want_more">I want more</string>
+    <string name="really_want_more">I really want more</string>
+    <string name="i_dont_like">I don\'t like</string>
+    <string name="really_dont_like">I really don\'t like</string>
+    <string name="dont_want">I don\'t want</string>
+    <string name="really_dont_want">I really don\'t want</string>
+    <string name="dont_want_more">I don\'t want more</string>
+    <string name="really_dont_want_more">I really don\'t want more</string>
+    <string name="please_enter_name">Please enter name</string>
+    <string name="photos">Photos</string>
+    <string name="library">Library</string>
+    <string name="icon_name">Icon Name</string>
+    <string name="category_name">Category Name</string>
+    <string name="all_boards">All Language</string>
+    <string name="add_board">Add Board</string>
+    <string name="boards_count">Boards</string>
+    <string name="custom_icon">Custom Icon</string>
 </resources>
