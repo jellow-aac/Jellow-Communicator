@@ -201,6 +201,24 @@ public class BaseActivity extends AppCompatActivity{
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
     }
 
+    /**
+     * <p>This function will find and return the blood group of user
+     * @return blood group of user.</p>
+     * */
+    public String getBloodGroup(int blood) {
+        switch(blood){
+            case  1: return getString(R.string.aPos);
+            case  2: return getString(R.string.aNeg);
+            case  3: return getString(R.string.bPos);
+            case  4: return getString(R.string.bNeg);
+            case  5: return getString(R.string.abPos);
+            case  6: return getString(R.string.abNeg);
+            case  7: return getString(R.string.oPos);
+            case  8: return getString(R.string.oNeg);
+            default: return "";
+        }
+    }
+
     private String getLevelClass() {
         return MainActivity.class.getSimpleName() + "," +
             LevelTwoActivity.class.getSimpleName() + "," +
