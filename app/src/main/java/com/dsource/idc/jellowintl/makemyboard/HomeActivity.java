@@ -398,7 +398,7 @@ public class HomeActivity extends SpeechEngineBaseActivity {
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home:startActivity(new Intent(this, BoardActivity.class));finish();
+            case android.R.id.home:startActivity(new Intent(this, BoardListActivity.class));finishAffinity();
             if(manager!=null) manager.setCurrentBoardLanguage(""); break;
             case R.id.grid_size:
                 showGridDialog();break;

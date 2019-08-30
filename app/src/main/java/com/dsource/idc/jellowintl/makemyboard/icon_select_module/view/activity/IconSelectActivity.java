@@ -194,7 +194,7 @@ public class IconSelectActivity extends BaseActivity implements iPresenterIconMa
             startActivityForResult(searchIntent,SEARCH_CODE);
         }
 
-        return super.onOptionsItemSelected(item);
+        return false;
     }
 
     private void showFilter(){
@@ -355,7 +355,7 @@ public class IconSelectActivity extends BaseActivity implements iPresenterIconMa
                 SelectionManager.getInstance().delete();
                 if(manager!=null) manager.setCurrentBoardLanguage("");
                 startActivity(new Intent(IconSelectActivity.this, BoardListActivity.class));
-                finish();
+                finishAffinity();
             }
         });
         dialog.setOnNegativeClickListener(new CustomDialog.OnNegativeClickListener() {

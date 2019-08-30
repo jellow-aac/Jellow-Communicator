@@ -19,10 +19,13 @@ import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
 public class LanguageSelectAdapter {
     private Context context;
     private RecyclerView recyclerView;
+    //Stores the language code for the database transactions
     private ArrayList<String> langList;
     private ArrayList<Integer> boardCount;
     private LanguageAdapter adapter;
@@ -31,9 +34,17 @@ public class LanguageSelectAdapter {
     public LanguageSelectAdapter(Context context,RecyclerView recyclerView) {
         this.context  =context;
         this.recyclerView = recyclerView;
-        langList = new ArrayList<>(Arrays.asList(LanguageFactory.getAvailableLanguages()));
-        langList.addAll(SessionManager.LangMap.values());
-        langList.removeAll(SessionManager.NoTTSLang);
+        //Retrieving all the language codes from the SessionManager Class
+
+        ArrayList<String> mLanguageList = new ArrayList<>(Arrays.asList(LanguageFactory.getAvailableLanguages()));
+        //Removing codes of non tts language
+        for(String lang:SessionManager.NoTTSLang)
+            mLanguageList.remove(SessionManager.LangValueMap.get(lang));
+        langList = new ArrayList<>();
+        for(String lang: mLanguageList)
+            langList.add(SessionManager.LangMap.get(lang));
+
+
         boardCount = new ArrayList<>(langList.size()+1);
         for (int i = 0; i <= langList.size(); i++) {
             boardCount.add(0);
@@ -71,11 +82,14 @@ public class LanguageSelectAdapter {
             });
         }
         adapter.updateBoardCount(boardCount);
+        setUp();
     }
     private void setUp(){
         adapter = new LanguageAdapter(context);
+        adapter.updateBoardCount(boardCount);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(adapter);
+
         adapter.setOnItemClickListner(new LevelSelectorAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -99,7 +113,7 @@ class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.ViewHolder>{
     // private LayoutInflater mInflater;
     private ArrayList<String> mLanguageList;
     private ArrayList<Integer> mBoardCount;
-    LevelSelectorAdapter.OnItemClickListener mItemClickListener=null;
+    private LevelSelectorAdapter.OnItemClickListener mItemClickListener=null;
     private int selectedPosition = 0 ;
 
     public void updateBoardCount(ArrayList<Integer> boardCount) {

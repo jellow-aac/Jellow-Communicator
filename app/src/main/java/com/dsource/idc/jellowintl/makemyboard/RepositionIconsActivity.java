@@ -356,7 +356,8 @@ public class RepositionIconsActivity extends BaseActivity {
                 dialog.setOnPositiveClickListener(new CustomDialog.OnPositiveClickListener() {
                     @Override
                     public void onPositiveClickListener() {
-                       finish();
+                        startActivity(new Intent(RepositionIconsActivity.this,BoardListActivity.class));
+                        finishAffinity();
                     }
                 });
                 dialog.show();

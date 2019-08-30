@@ -37,7 +37,6 @@ import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.IS_E
 public class BoardListActivity extends BaseActivity {
 
     private BoardDatabase database;
-    private ImageView addBoard;
     private ArrayList<BoardModel> boardList;
     private RecyclerView recyclerView;
     private BoardAdapter adapter;
@@ -81,7 +80,7 @@ public class BoardListActivity extends BaseActivity {
         });
 
 
-        addBoard=findViewById(R.id.add_board);
+        ImageView addBoard = findViewById(R.id.add_board);
         addBoard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,6 +137,7 @@ public class BoardListActivity extends BaseActivity {
 
                 }
             });
+
         else database.getAllBoards(language,new iDataPresenter<ArrayList<BoardModel>>() {
                 @Override
                 public void onSuccess(ArrayList<BoardModel> object) {

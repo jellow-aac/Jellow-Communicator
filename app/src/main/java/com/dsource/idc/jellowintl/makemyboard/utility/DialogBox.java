@@ -40,7 +40,9 @@ import com.dsource.idc.jellowintl.makemyboard.interfaces.AddBoardListener;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.GridSelectListener;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.VerbiageEditorReverseInterface;
 import com.dsource.idc.jellowintl.makemyboard.models.BoardModel;
+import com.dsource.idc.jellowintl.makemyboard.models.IconModel;
 import com.dsource.idc.jellowintl.makemyboard.models.ListItem;
+import com.dsource.idc.jellowintl.models.JellowIcon;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -129,6 +131,7 @@ public class DialogBox extends BaseActivity {
                     .dontAnimate()
                     .into(boardIcon);
             languageSelect.setSelection(BoardLanguageManager.getPosition(board.getLanguage()));
+            languageSelect.setEnabled(false);
         }
 
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -330,6 +333,7 @@ public class DialogBox extends BaseActivity {
         newBoard.setBoardName(boardName);
         newBoard.setBoardId(boardID);
         newBoard.setLanguage(SessionManager.LangMap.get(langCode));
+        newBoard.setIconModel(new IconModel(new JellowIcon("","",-1,-1,-1)));
         if (database==null) database=new BoardDatabase(this);
         database.addBoardToDatabase(newBoard);
         iconImageSelected = false;

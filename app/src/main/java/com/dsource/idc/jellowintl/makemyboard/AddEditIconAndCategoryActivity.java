@@ -579,7 +579,7 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
                 toggleOptionLayout();
                 break;
             case R.id.done:currentMode=ADD_EDIT_ICON_MODE;prepareIconPane(selectedPosition,ADD_EDIT_ICON_MODE);invalidateOptionsMenu();break;
-            case android.R.id.home: startActivity(new Intent(this, BoardActivity.class));finish();
+            case android.R.id.home: startActivity(new Intent(this, BoardListActivity.class));finishAffinity();
                 if(manager!=null) manager.setCurrentBoardLanguage("");break;
 
         }
