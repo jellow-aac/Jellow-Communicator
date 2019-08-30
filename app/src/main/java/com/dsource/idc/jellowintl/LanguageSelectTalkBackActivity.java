@@ -189,12 +189,11 @@ public class LanguageSelectTalkBackActivity extends SpeechEngineBaseActivity {
     }
 
     private void setViewsForNonTtsLang() {
-        int subStrLen = 7;
+        int spanLen = ((TextView) findViewById(R.id.tv6)).getText().toString().indexOf(":");
         String stepStr = "Step 2: "+ ((TextView) findViewById(R.id.tv6))
-                .getText().toString().substring(subStrLen);
+                .getText().toString().substring(spanLen);
         SpannableString spannedStr = new SpannableString(stepStr);
-        int boldTxtLen = 7;
-        spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, boldTxtLen, 0);
+        spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, spanLen, 0);
         ((TextView) findViewById(R.id.tv6)).setText(spannedStr);
     }
 
@@ -205,32 +204,35 @@ public class LanguageSelectTalkBackActivity extends SpeechEngineBaseActivity {
             findViewById(R.id.changeTtsLangBut).setVisibility(View.GONE);
         }
 
-        int boldTxtLen = 7;
+        int spanLen = ((TextView)findViewById(R.id.tv2)).getText().toString().indexOf(":");
         SpannableString spannedStr = new SpannableString(((TextView)findViewById(R.id.tv2))
                 .getText().toString());
-        spannedStr.setSpan(new StyleSpan(Typeface.BOLD),0,boldTxtLen,0);
+        spannedStr.setSpan(new StyleSpan(Typeface.BOLD),0,spanLen,0);
         ((TextView)findViewById(R.id.tv2)).setText(spannedStr);
         String str = "Step 2: Check if voice data for _ is available on your device. If not please turn on internet and download voice data for selected language. In case process is stalled please check your internet connection and retry";
+        spanLen = str.indexOf(":");
         spannedStr = new SpannableString(str.replace("_",getLangShortenName(selectedLanguage)));
-        spannedStr.setSpan(new StyleSpan(Typeface.BOLD),0,boldTxtLen,0);
+        spannedStr.setSpan(new StyleSpan(Typeface.BOLD),0,spanLen,0);
         ((TextView)findViewById(R.id.tv4)).setText(spannedStr);
 
         if(Build.VERSION.SDK_INT < 21) {
             str = "Step 3: Set \'Google Text-to-speech (TTS)\' as default TTS engine and set _ as default language of the engine.";
+            spanLen = str.indexOf(":");
             spannedStr = new SpannableString(str.replace("_", getLangShortenName(selectedLanguage)));
-            spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, boldTxtLen, 0);
+            spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, spanLen, 0);
             ((TextView) findViewById(R.id.tv5)).setText(spannedStr);
 
             spannedStr = new SpannableString(((TextView) findViewById(R.id.tv6))
                     .getText().toString());
-            spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, boldTxtLen, 0);
+            spanLen = ((TextView) findViewById(R.id.tv6)).getText().toString().indexOf(":");
+            spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, spanLen, 0);
             ((TextView) findViewById(R.id.tv6)).setText(spannedStr);
         }else {
-            int subStrLen = 8;
+            spanLen = ((TextView) findViewById(R.id.tv6)).getText().toString().indexOf(":");
             String stepStr = "Step 3: "+ ((TextView) findViewById(R.id.tv6)).
-                    getText().toString().substring(subStrLen);
+                    getText().toString().substring(spanLen);
             spannedStr = new SpannableString(stepStr);
-            spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, boldTxtLen, 0);
+            spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, spanLen, 0);
             ((TextView) findViewById(R.id.tv6)).setText(spannedStr);
         }
     }

@@ -71,7 +71,7 @@
         <item>Neuf</item>
     </string-array>
 
-    <string name="change_language_line2">1ère étape: sélectionnez la langue que vous avez téléchargé</string>
+    <string name="change_language_line2">Étape 1: sélectionnez la langue que vous avez téléchargé</string>
     <string name="simple_ime">Clavier de Jellow</string>
     <string name="subtype_en_US">La série ABC</string>
 
@@ -107,7 +107,7 @@
     <string name="commentSuggestions">Les commentaires / les suggestions</string>
     <string name="submit">Soumettre</string>
     <string name="appLoading">Chargement l\'application en cours…</string>
-    <string name="activateGoogleTts">1. Activer Google TTS</string>
+    <string name="activateGoogleTts">1. Activer Les données vocales</string>
     <string name="changeDefaultToHindi">2. Régler la langue souhaitée par défaut</string>
     <string name="downloadVoiceTts">3. Téléchargez la voix dans la langue préféree</string>
     <string name="activate">Activer</string>
@@ -115,10 +115,10 @@
     <string name="serial_keyboard_title">Clavier ABCDEF:</string>
     <string name="serial_keyboard_info">Jellow est équipée pour cela de son propre \'Clavier ABCDEF\'. Cet clavier a conçus en fonction des commentaires des éducateurs spécialisés et les enseignants et inclure les alphabets qui sont placés de manière en série commençant par l\'alphabet \'A\'. Le clavier ABCDEF permet les utilisateurs d\'anticiper plus facilement la place d\'un alphabet spécifique sur le clavier et sera très utile pour les enfants qui apprennent des compétences précoces en alphabétisation. De même, le clavier consiste de clefs numérales de 0 à 9 et symboles, qui semblent les plus pertinents à la communication au quotidien.</string>
     <string name="keyboardControlTxt">Pour activer le clavier de votre choix et rendre par défaut, vous devez completer 2 étapes</string>
-    <string name="step1">1ère étape: Activer le clavier dans les réglages appareil</string>
+    <string name="step1">Étape 1: Activer le clavier dans les réglages appareil</string>
     <string name="qwertyKeyboard">Le clavier QUERTY</string>
     <string name="serialKeyboard">La série ABC</string>
-    <string name="step2">2ème étape: Sauvegarder le clavier par défaut</string>
+    <string name="step2">Étape 2: Sauvegarder le clavier par défaut</string>
     <string name="saveAsDefault">Sauvgarder par défaut</string>
     <string name="voiceControl">La contrôle vocal</string>
     <string name="getKeyboardControl">Le contrôle du clavier</string>
@@ -156,7 +156,7 @@
     <string name="seqActDesc">Jellow peut aussi utiliser pour enseigner les enfants des étapes séquentielles des activités quotidiennes. En cliquant sur un étape individuelle, l\'utilisateur peut voir les boutons d\'expression:</string>
     <string name="toiletSeq">La séquence de la toilette:</string>
     <string name="expBtnSeq">Les boutons d\'expression dans la séquence:</string>
-    <string name="ttsDesc">Pour utiliser Jellow en Anglais, Bengali, Marathi, Tamil, Espagnol, Allemagne, Français, Italien, veuillez activer <b>"La fonction Texte-vers-Voix de Google"</b> dans les paramètres de la langue dans votre appareil. Dans la fonction Texte-vers-Voix de Google, premièrement changer la langue par défaut à la langue préféré ensuite télécharger la voix de la langue préférée par <b>"télécharger la donnée vocale"</b> option.</string>
+    <string name="ttsDesc">Pour utiliser Jellow en Anglais, Bengali, Marathi, Tamil, Espagnol, Allemagne, Français, Italien, veuillez activer "Synthèse vocale Google" dans les paramètres de la langue dans votre appareil. Dans le Synthèse vocale Google, premièrement changer la langue par défaut à la langue préféré ensuite télécharger la voix de la langue préférée par <b>"télécharger la donnée vocale" </b>option.</string>
     <string name="softwareVersion">Version de logiciel:</string>
     <string name="string_to_speak">Taper les mots ici pour parler</string>
     <string name="speak_written_text">Lire le texte écrit</string>
@@ -178,7 +178,7 @@
     <string name="txt_intro4_customizeAppDesc">L\'utilisateur pouvez personaliser les réglages d\'application en cliquant sur le coin supérieur droit d\'application</string>
     <string name="txt_intro4_customizeJellow">Les réglages au sein de Jellow</string>
     <string name="txt_intro6_skipActiveTtsDesc">Pour avoir l’accent d’- régler la langue comme _</string>
-    <string name="txt_intro6_ttsStep1">1. Activer Google TTS</string>
+    <string name="txt_intro6_ttsStep1">1. Activer Les données vocales</string>
     <string name="txt_intro6_activate">ACTIVER</string>
     <string name="txt_intro6_step2">2. Régler _ par défaut </string>
     <string name="txt_intro6_changeLang">Changer la langue</string>
@@ -195,15 +195,15 @@
     <string name="enternonemptycontact">Veuillez entrez votre numèro de téléphone</string>
     <string name="change_tts_lang">Définir TTS comme la langue du système</string>
     <string name="txt_actLangSel_completestep3">Veuillez activer votre l\'internet et complètent la troisième étape</string>
-    <string name="change_language_line5">2ème étape: Assurez-vous que la donnée vocale d\'_ est disponibles sur votre terminal. Si non, veuillez télécharger la donnée vocale  pour la langue choisie. Au cas où la processus aurait retardé, veuillez vérifier votre connexion Internet et réessayez</string>
-    <string name="change_language_line4">3ème étape: Définie "La fonction Texte-vers-Voix de Google" par défaut le moteur TTS et définissez _ comme la langue par défaut du moteur</string>
+    <string name="change_language_line5">Étape 2: Assurez-vous que la donnée vocale d\'_ est disponibles sur votre terminal. Si non, veuillez télécharger la donnée vocale  pour la langue choisie. Au cas où la processus aurait retardé, veuillez vérifier votre connexion Internet et réessayez</string>
+    <string name="change_language_line4">Étape 3: Définie "Synthèse vocale Google" par défaut le moteur Syntèse vocale et définissez _ comme la langue par défaut du moteur.</string>
     <string name="txtChangeLanguage">Modification de la langue par défaut:</string>
-    <string name="txtApplyChanges">4ème étape: Cliquez sur \'Appliquer les changements\' pour définir la nouvelle langue par défaut</string>
+    <string name="txtApplyChanges">Étape 4: Cliquez sur \'Appliquer les changements\' pour définir la nouvelle langue par défaut</string>
     <string name="change_language_line6">Vous pouvez suivre les étapes ci-dessous pour définir une nouvelle langue par défaut pour Jellow</string>
-    <string name="txt_set_tts_setup">Veuillez compléter la configuration du système "Texte-vers-Voix" fournies donnée dans cette page</string>
+    <string name="txt_set_tts_setup">Veuillez compléter la configuration du système "Synthèse vocale" fournies donnée dans cette page</string>
     <string name="txt_save_same_lang_def">La langue sélectionnée est déjà la langue par défaut</string>
     <string name="speech_engin_lang_sam">Veuillez vérifier les paramètres de la \'Langue\' de l\'application</string>
-    <string name="txt_intro6_skipTtsSetup">Les appareils avec un active système de Google TTS: Veuillez faire glisser pour omettre cette étape</string>
+    <string name="txt_intro6_skipTtsSetup">Les appareils avec un active système des données vocales: Veuillez faire glisser pour omettre cette étape</string>
     <string name="txt_actLangSel_downloadDat">Vérifier la donnée vocale</string>
     <string name="txt_actLangSel_complete_mainscreen_msg">La donnée vocale est indisponible. Veuillez activer votre Internet et allez aux paramètres de la langue de l’application</string>
     <string name="language_downloaded">_ La langue est télécharger</string>
@@ -222,8 +222,8 @@
     <string name="dismiss">Rejeter</string>
     <string name="register_user">Veuillez attendre l\'inscription est en cours d\'affichage…</string>
     <string name="exit">Quitter</string>
-    <string name="err_dialog_msg">Le système de Google TTS n\'est pas installé sur votre appareil?</string>
-    <string name="exit_dialog_msg">Jellow ne va pas marcher sans le système de Google \'Texte-vers-Voix\'. Souhaitez-vous vraiment quitter l\'application?</string>
+    <string name="err_dialog_msg">Le système de Données vocales n\'est pas installé sur votre terminal</string>
+    <string name="exit_dialog_msg">Jellow ne va pas marcher sans le système de Synthèse vocale Google. Souhaitez-vous vraiment quitter l\'application?</string>
     <string name="next_slide">La prochaine diapositive</string>
     <string name="previous_slide">La diapositive précédente</string>
 
@@ -292,11 +292,11 @@
     <string name="pic6">Cette capture d\'écran de Jellow illustre les sous-catégories ouvre en double-cliquant sur l\'icône "Manger" comme indiqué sur l\'image ci-dessous. Les icônes de sous-catégories de la deuxième niveau sont visible dans la grille centrale qui sont classés dans la grille de trois carrés sur trois, ils sont "Petit-djeuner", "Déjeuner/Dîner", "Sucreries", "Goûter", "Fruits", "Boisson", "Couverts" et "Ajouts". L\'image montre l\'un des doigt d\'utilisateur double-cliquer sur l\'icône de "Petit-déjeuner" pour avoir l\'accès aux autres sous-catégories.</string>
     <string name="pic7">Cette image montre la capture d\'écran de l\'écran de niveau 3 accède en cliquant sur l\'icône de sous-catégories "Petit-déjeuner" dans la catégorie principale "Manger". Les icônes visible dans la grille centrale sur l\'écran sont "Pain", "Cornflakes", "Aloo Poori", "œufs", "Poha", "Upma", "Khichdi", et "Idli". De plus les icônes d\'expréssion à chaque côté de l\'écran, les boutons de la navigation en bas de l\'écran et la réglages en haut à droite sur l\'écran sont aussi visible.</string>
     <string name="pic8">Cette image a page d\'acceuil de Jellow avec le menu déroulant situé en haut à droite sur Jellow. Ce menu montre les options de "Profil", "Á propos de Jellow", "Tutorial", "Contrôle du clavier", "Langue", "Réglages", "Réinitialiser les préférences" et "Commentaires". En cliquant sur ces options ci-dessous l\'utilisateur peut personnaliser les réglages de l\'application à leurs besoins.</string>
-    <string name="pic9">Voici donc la capture d\'écran des activités séquentielle dans Jellow. L\'image spécifiquement montre l\'ordre de "Toilettes" qui est accessible dans la catégorie principale de "Activités quotidienne". L\'image montre les 3 icônes des étapes à suivre d\'aller au toilette. L\'étape 1 est "Abaisser le pantalon", l\'étape 2 est "S\'asseoir sur la toilette", l\'étape 3 est "Laver les fesses". Il y a des flèches entre ces icônes individuelles pour indiquer la nature séquentielle de ce processus. Sous les 3 icônes séquentielles sont 2 boutons de "Précédent" et "Prochain". Le bouton de "Précédent" est désactivé comme il s\'agit de la première écran des étapes à suivre de la séquence de "Toilette". Un doigt est montré qui clique sur le bouton de "Prochain" pour passer à l\'écran suivant représantant les étapes suivantes de cette séquence. Les boutons d\'expréssion ne sont pas visibles dans cette image. Les boutons "Retour", "Accueil" et "Clavier" de la navigation sont placées en bas de l\'écran.</string>
+    <string name="pic9">Voici donc la capture d\'écran des activités séquentielle dans Jellow. L\'image spécifiquement montre l\'ordre de "Toilettes" qui est accessible dans la catégorie principale de "Activités quotidienne". L\'image montre les 3 icônes des étapes à suivre d\'aller au toilette. Étape 1 est "Abaisser le pantalon", Étape 2 est "S\'asseoir sur la toilette", Étape 3 est "Laver les fesses". Il y a des flèches entre ces icônes individuelles pour indiquer la nature séquentielle de ce processus. Sous les 3 icônes séquentielles sont 2 boutons de "Précédent" et "Prochain". Le bouton de "Précédent" est désactivé comme il s\'agit de la première écran des étapes à suivre de la séquence de "Toilette". Un doigt est montré qui clique sur le bouton de "Prochain" pour passer à l\'écran suivant représantant les étapes suivantes de cette séquence. Les boutons d\'expréssion ne sont pas visibles dans cette image. Les boutons "Retour", "Accueil" et "Clavier" de la navigation sont placées en bas de l\'écran.</string>
     <string name="pic10">Cette image est la même que celle montre ci-dessus répresantant les 3 premières étapes de l\'ordre de "Toilettes" dans la catégorie principale de "Activités quotidienne". Or dans cette image, un doigt d\'utilisateur est vu en cliquant l\'icône d\'étape 2 qui corresponds à "S\'asseoir sur la toilette". En cliquant sur cet icône, les boutons d\'expréssion sont maintenant visibles à chaque côté de l\'écran dans l\'application.</string>
-    <string name="gtts1">L\'image ci-dessous vous indique les 3 capture d\'écrans du réglages de "Texte-vers-Voix" et "Google TTS" dans l\'appareil d\'utilisateur. La 1ère image correspondent aux "messages vocaux de Texte-vers-Voix", il y a 2 systèmes visible et préféres, le premier "la fonction Texte-vers-Voix de Samsung" et le deuxiem "la fonction Texte-vers-Voix de Google". C\'est vu qu\'utilisateurs séléctioner l\'option de "la fonction Texte-vers-Voix de Google" comme le premier étape.</string>
-    <string name="gtts2">La deuxième image correspends à le deuxiem étape dans cet processus où c\'est vu qu\'utilisateur maintenant choisir le symbol d\' "équipement" qui correspends au "Réglages" dans le système de Google "Texte-vers-Voix"</string>
-    <string name="gtts3">La troisième étape correspends au troisiem étape dans cet processus où l\'utilisateur est sur l\'écran de "la donnée vocale de Google TTS". Cet écran propose plusieurs options de la voix dont "Français (France)", "Allemand (Allmagne)", "Hindi (Inde)", "Hongoris (Hongrie)" et "Indonésien (Indonésie)". L\'option de "Voix de Hindi (Inde)" est  souligné et indique un option de "Ensemble vocal 1" avec une taille de 19 Mb qui peut être téléchargé. Un doigt d\'utilisateur est vu en cliquent l\'icône de télécharger pour ensemble vocal 1 de "Voix de Hindi (Inde)"</string>
+    <string name="gtts1">L\'image ci-dessous vous indique les 3 capture d\' écrans du réglages de "Synthèse vocale" et "Les donnés vocales" dans l\'appareil d\'utilisateur. Dans la 1ère image correspondent aux "Synthèse vocale", il y a 2 systèmes visible et préféres, le premier "Synthèse vocale Samsung" et le deuxiem "Synthèse vocale Google". C\'est vu qu\'utilisateurs séléctionez l\'option de "Synthèse vocale Google" comme le premier étape.</string>
+    <string name="gtts2">La deuxième image correspends au deuxiem étape dans cet processus où c\'est vu qu\'utilisateur maintenant choisir le symbol d\' "équipement" qui correspends au "Réglages" dans le système "Synthèse vocale Google"</string>
+    <string name="gtts3">La troisième image correspends au troisiem étape dans cet processus où l\'utilisateur est sur l\'écran de "Synthèse vocale". Cet écran propose plusieurs options des données vocales dont "Français (France)", "Allemand (Allmagne)", "Hindi (Inde)", "Hongoris (Hongrie)" et "Indonésien (Indonésie)". L'option de "Voix de Hindi (Inde)" est  souligné et indique un option de "Ensemble vocal 1" avec une taille de 19 Mb qui peut être téléchargé. Un doigt d\'utilisateur est vu en cliquent l\'icône de télécharger pour ensemble vocal 1 de "Voix de Hindi (Inde)"</string>
     <string name="enter_child_s_name">Entrez le nom de l\'enfant:</string>
     <string name="caregiver_s_contact_number_other_than_this_device_s_sim_number">Numéro de contact de soignant d\'un autre appareil que le numéro de cette appareil. Le champ requis</string>
     <string name="select_country_code">Sélectionner l\'indicatif du pays</string>
@@ -315,9 +315,9 @@
     <string name="intro3_cd">Cette capture d\'écran de Jellow illustre les sous-catégories ouvre en double-cliquant sur l\'icône "Manger" comme indiqué sur l\'image ci-dessous. Les icônes de sous-catégories de la deuxième niveau sont visible dans la grille centrale qui sont classés dans la grille de trois carrés sur trois, ils sont "Petit-djeuner", "Déjeuner/Dîner", "Sucreries", "Goûter", "Fruits", "Boisson", "Couverts" et "Ajouts". L\'image montre l\'un des doigt d\'utilisateur double-cliquer sur l\'icône de "Petit-déjeuner" pour avoir l\'accès aux autres sous-catégories.</string>
     <string name="intro4_cd">Cette image a page d\'acceuil de Jellow avec le menu déroulant situé en haut à droite sur Jellow. Ce menu montre les options de "Profil", "Á propos de Jellow", "Tutorial", "Contrôle du clavier", "Langue", "Réglages", "Réinitialiser les préférences" et "Commentaires". En cliquant sur ces options ci-dessous l\'utilisateur peut personnaliser les réglages de l\'application à leurs besoins.</string>
     <string name="intro5_cd">Cette image illustre encore la capture d\'écran de la page d\'accueil de Jellow. Dans cette image, les 6 boutons d\'expréssion sont arrangés comme 3 à chaque côté des boutons des catégorie centrale ont souligné avec les autres sont éliminés. Á la gauche de la grille centrale de boutons de categories sont 3 boutons d\'expression de "Aimer" représenté par l\'icône d\'un "Visage souriant" , "Oui" représenté par l\'icône de "Coche" et "Encore" représenté par l\'icône de "Plus (+)" qui sont organisés de haut en bas. Á la droite de la grille centrale de boutons de categories sont 3 boutons d\'expression de "N\'aimer pas" représenté par l\'icône de la "visage triste", "Non" représenté par l\'icône de la "Croix" et "Moins" représenté par l\'icône de "Signe moins (-)". Également identifié, les 3 boutons de la navigation sont placées en bas de l\'écran. De gauche à droite qui sont "Retour", "Accueil" et "Clavier".</string>
-    <string name="intro6_1_cd">Le 1ère image correspondent aux "messages vocaux de Texte-vers-Voix", il y a 2 systèmes visible et préféres, le premier "la fonction Texte-vers-Voix de Samsung" et le deuxiem "la fonction Texte-vers-Voix de Google". C\'est vu qu\'utilisateurs séléctioner l\'option de "la fonction Texte-vers-Voix de Google" comme le premier étape.</string>
-    <string name="intro6_2_cd">La deuxième image correspends au deuxiem étape dans cet processus où c\'est vu qu\'utilisateur maintenant choisir le symbol d\' "équipement>> qui correspends au "Réglages" dans le système de Google "Texte-vers-Voix>></string>
-    <string name="intro6_3_cd">La troisième étape correspends au troisiem étape dans cet processus où l\'utilisateur est sur l\'écran de "la donnée vocale de Google TTS". Cet écran propose plusieurs options de la voix dont "Français (France)", "Allemand (Allmagne)", "Hindi (Inde)", "Hongoris (Hongrie)>> et "Indonésien (Indonésie)>>. L\'option de "Voix de Hindi (Inde)" est  souligné et indique un option de "Ensemble vocal 1" avec une taille de 19 Mb qui peut être téléchargé. Un doigt d\'utilisateur est vu en cliquent l\'icône de télécharger pour ensemble vocal 1 de "Voix de Hindi (Inde)" </string>
+    <string name="intro6_1_cd">La 1ère image correspondent aux "Synthèse vocale", il y a 2 systèmes visible et préféres, le premier "Synthèse vocale Samsung" et le deuxiem "Synthèse vocale Google". C\'est vu qu\'utilisateurs séléctionez l\'option de "Synthèse vocale Google" comme le premier étape.</string>
+    <string name="intro6_2_cd">La deuxième image correspends au deuxiem étape dans cet processus où c\'est vu qu\'utilisateur maintenant choisir le symbol d\' "équipement" qui correspends au "Réglages" dans le système "Synthèse vocale Google"</string>
+    <string name="intro6_3_cd">La troisième image correspends au troisiem étape dans cet processus où l\'utilisateur est sur l\'écran de "donnée vocale". Cet écran propose plusieurs options de la voix dont "Français (France)", "Allemand (Allmagne)", "Hindi (Inde)", "Hongoris (Hongrie)" et "Indonésien (Indonésie)". L\'option de "Voix de Hindi (Inde)" est  souligné et indique un option de "Ensemble vocal 1" avec une taille de 19 Mb qui peut être téléchargé. Un doigt d\'utilisateur est vu en cliquent l\'icône de télécharger pour ensemble vocal 1 de "Voix de Hindi (Inde)"</string>
     <string name="talkback_single_click">Sélectionner</string>
     <string name="talkback_dropdown_menu">Accéder la liste des pays</string>
     <string name="close_dialog">Fermer la boîte de dialogue</string>
@@ -336,23 +336,23 @@
     <string name="seekbar_speed_cd">Veuillez utiliser les boutons de volume de votre appareil pour changer la vitesse de la voix</string>
     <string name="seekbar_pitch_cd">Veuillez utiliser les boutons de volume de votre appareil pour changer le ton de la voix</string>
     <string name="seekbar_volume_cd">Veuillez utiliser les boutons de volume de votre appareil pour changer sonore de parole</string>
-    <string name="lang_setting_option1_cd">"L\'image ci-dessous vous indique les 3 étapes lesquels contribués à mettre en place le système de Google "Texte-vers-Voix" qui est utilisé par Jellow. l\'image est composée des 3 captures d\'écran de "les messages vocaux de Texte-vers-Voix" et "Les réglages de Google TTS>> dans le dispositif de l\'utilisateur. Le 1ère image correspondent aux "messages vocaux de Texte-vers-Voix", il y a 2 systèmes visible et préféres, le premier "la fonction Texte-vers-Voix de Samsung" et le deuxiem "la fonction Texte-vers-Voix de Google". C\'est vu qu\'utilisateurs séléctioner l\'option de "la fonction Texte-vers-Voix de Google" comme le premier étape.</string>
-    <string name="lang_setting_option2_cd">La deuxième image correspends à le deuxiem étape dans cet processus où c\'est vu qu\'utilisateur maintenant choisir le symbol d\' "équipement>> qui correspends au "Réglages" dans le système de Google "Texte-vers-Voix"</string>
-    <string name="lang_setting_option3_cd">La troisième image correspends à le troisiem étape dans cet processus où l\'utilisateur est sur l\'écran de "les options de Google TTS". Le deuxième point sur l\'écran qui est souligné, est un interrupteur de basculement "Seulement utilisez la connexion de Wi-Fi>>. Dans cet étape, l\'utilisateur est demandé de désactiver cet interrupteur.</string>
-    <string name="lang_setting_option3_gtt3_cd">La troisième image correspends à le troisiem étape dans cet processus où c\'est vu qu\'utilisateur maintenant choisir l\'option "Langue" sur la page de la donnée vocale de Google TTS. C\'est vu qu\'utilisateurs régler la langue "Hindi" par défaut du système de Google "Texte-vers-Voix"</string>
+    <string name="lang_setting_option1_cd">L\'image ci-dessous vous indique les 3 capture d\'écrans du réglages de "Synthèse vocale" et "Les donnés vocales" dans l\'appareil d\'utilisateur. Dans la 1ère image correspondent aux "Synthèse vocale", il y a 2 systèmes visible et préféres, le premier "Synthèse vocale Samsung" et le deuxiem "Synthèse vocale Google". C\'est vu qu\'utilisateurs séléctionez l\'option de "Synthèse vocale Google" comme le premier étape.</string>
+    <string name="lang_setting_option2_cd">La deuxième image correspends au deuxiem étape dans cet processus où c\'est vu qu\'utilisateur maintenant choisir le symbol d\' "équipement" qui correspends au "Réglages" dans le système "Synthèse vocale Google"</string>
+    <string name="lang_setting_option3_cd">La troisième image correspends au troisiem étape dans cet processus où l\'utilisateur est sur l\'écran de "Les données vocales". Le deuxième point sur l\'écran qui est souligné, est un interrupteur de basculement "Seulement utilisez la connexion de Wi-Fi". Dans cet étape, l\'utilisateur est demandé de désactiver cet interrupteur.</string>
+    <string name="lang_setting_option3_gtt3_cd">La troisième image correspends au troisiem étape dans cet processus où c\'est vu qu\'utilisateur maintenant choisir l\'option "Langue" sur la page de la donnée vocale. C\'est vu qu\'utilisateurs régler la langue "Hindi (Inde)" par défaut du système de Synthèse vocale Google</string>
     <!--end content description-->
 
     <string name="intro8_step2">Désactiver "l\'utilisation uniquement WiFi"</string>
     <string name="txt_tts_stting">Réglages du TTS</string>
-    <string name="txt_intro8_step1">1. Ouvrir le système de Google TTS</string>
-    <string name="txt_intro8_step2">2. Allez dans "Réglages" pour Google TTS</string>
+    <string name="txt_intro8_step1">1. Ouvrir la système de la donnée vocale</string>
+    <string name="txt_intro8_step2">2. Allez dans "Réglages" pour la système de la Donées Vocales</string>
     <string name="txt_intro8_step3">3. Désactiver "l\'utilisation uniquement WiFi"</string>
-    <string name="change_language_tts_wifi">Allez aux Réglages de Google TTS et Désactiver "l\'utilisation uniquement WiFi". Si, l\'option est déjà désactivée, passez à l\'étape suivante.</string>
+    <string name="change_language_tts_wifi">Allez aux Réglages de la Données vocales et désactiver "l\'utilisation uniquement WiFi". Si, l\'option est déjà désactivée, passez à l\'étape suivante.</string>
     <string name="icon_update_msg">L\'actualisation des icônes la/les langage(s) existants:</string>
     <string name="disable_wifi_only">Remplir la partie précédente pour désactiver l\'option d\'utilisation uniquement WiFi</string>
     <string name="step3">Étape 3:</string>
-    <string name="txt_intro8_txtTitle">Veuillez suivre les étapes indiquées pour configurer le système de "Texte-vers-Voix"</string>
-    <string name="txt_actLangSel_completestep2">La donnée vocale n\'est pas disponible. Veuillez activer votre l\'internet et complètent la deuxième étape</string>
+    <string name="txt_intro8_txtTitle">Veuillez suivre les étapes indiquées pour configurer le système du Synthèse vocale Google</string>
+    <string name="txt_actLangSel_completestep2">La donnée vocale n\'est pas disponible. Veuillez activer votre l\'internet et complétez la deuxième étape</string>
     <string name="txtStep2">Étape 2:</string>
     <string name="close">Fermer la boîte de dialogue</string>
     <string name="access_dialog_title">Les icônes du niveau 3:</string>

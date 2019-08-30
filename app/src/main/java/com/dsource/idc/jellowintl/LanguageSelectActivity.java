@@ -21,7 +21,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.factories.LanguageFactory;
 import com.dsource.idc.jellowintl.models.GlobalConstants;
-import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import static com.dsource.idc.jellowintl.LanguageDownloadActivity.CLOSE;
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.LCODE;
@@ -36,7 +35,6 @@ import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BE_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ES_ES;
-import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangValueMap;
 import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
@@ -104,7 +102,10 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
                 mSelectedItem = i;
                 if (selectedLanguage.equals(LangValueMap.get(MR_IN))) {
                     hideViewsForNonTtsLang(true);
-                    setViewsForNonTtsLang();
+                    String stepStr = mRawStrStep2 +" "+ mStep4.substring(getDelimitedStringLength(mStep4));
+                    SpannableString spannedStr = new SpannableString(stepStr);
+                    spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, getDelimitedStringLength(stepStr), 0);
+                    ((TextView) findViewById(R.id.tv6)).setText(spannedStr);
                 } else {
                     hideViewsForNonTtsLang(false);
                     updateViewsForNewLangSelect();
@@ -214,17 +215,6 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
         }
     }
 
-    private void setViewsForNonTtsLang() {
-        int subStrLen = 7;
-        if(getSession().getLanguage().equals(SessionManager.BN_IN))subStrLen = 12;
-        String stepStr = mRawStrStep2 +" "+ mStep4.substring(subStrLen);
-        SpannableString spannedStr = new SpannableString(stepStr);
-        int boldTxtLen = 7;
-        if(getSession().getLanguage().equals(SessionManager.BN_IN))boldTxtLen = 14;
-        spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, boldTxtLen, 0);
-        ((TextView) findViewById(R.id.tv6)).setText(spannedStr);
-    }
-
     private void updateViewsForNewLangSelect() {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             findViewById(R.id.tv5).setVisibility(View.GONE);
@@ -235,36 +225,30 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
         if(getSession().getLanguage().equals(BN_IN))
             boldTitleOnScreen();
 
-        int boldTxtLen = 7;
         SpannableString spannedStr = new SpannableString(mStep1);
-        if(getSession().getLanguage().equals(BN_IN)) boldTxtLen = 10;
-        spannedStr.setSpan(new StyleSpan(Typeface.BOLD),0,boldTxtLen,0);
+        spannedStr.setSpan(new StyleSpan(Typeface.BOLD),0, getDelimitedStringLength(mStep1),0);
+        /*tv2 step 1*/
         ((TextView)findViewById(R.id.tv2)).setText(spannedStr);
 
         spannedStr = new SpannableString(mStep2.replace("_",getTTsLanguage()));
-        if(getSession().getLanguage().equals(BN_IN)) boldTxtLen = 14;
-        spannedStr.setSpan(new StyleSpan(Typeface.BOLD),0,boldTxtLen,0);
+        spannedStr.setSpan(new StyleSpan(Typeface.BOLD),0, getDelimitedStringLength(mStep2),0);
+        /*tv4 step 2*/
         ((TextView)findViewById(R.id.tv4)).setText(spannedStr);
 
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             spannedStr = new SpannableString(mStep3.replace("_", getTTsLanguage()));
-            if (getSession().getLanguage().equals(BN_IN)) boldTxtLen = 12;
-            spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, boldTxtLen, 0);
+            spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, getDelimitedStringLength(mStep3), 0);
+            /*tv5 step 3*/
             ((TextView) findViewById(R.id.tv5)).setText(spannedStr);
 
             spannedStr = new SpannableString(mStep4);
-            if (getSession().getLanguage().equals(BN_IN)) boldTxtLen = 12;
-            spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, boldTxtLen, 0);
+            spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, getDelimitedStringLength(mStep4), 0);
+            /*tv6 step 4*/
             ((TextView) findViewById(R.id.tv6)).setText(spannedStr);
         }else {
-            int subStrLen = 8;
-            if(getSession().getLanguage().equals(SessionManager.BN_IN))subStrLen = 12;
-            else if(getSession().getLanguage().equals(HI_IN))subStrLen = 7;
-            else if(getSession().getLanguage().equals(SessionManager.MR_IN))subStrLen = 6;
-            String stepStr = mRawStr4Step3 +" "+ mStep4.substring(subStrLen);
+            String stepStr = mRawStr4Step3 +" "+ mStep4.substring(getDelimitedStringLength(mStep4));
             spannedStr = new SpannableString(stepStr);
-            if (getSession().getLanguage().equals(BN_IN)) boldTxtLen = 12;
-            spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, boldTxtLen, 0);
+            spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, getDelimitedStringLength(stepStr), 0);
             ((TextView) findViewById(R.id.tv6)).setText(spannedStr);
         }
     }
@@ -441,5 +425,10 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
             }
         }
         return shortenLanguageNames;
+    }
+
+    private int getDelimitedStringLength(String text){
+        return getSession().getLanguage().equals(BN_IN) ?
+                text.indexOf("ঃ")+1 : text.indexOf(":")+1;
     }
 }
