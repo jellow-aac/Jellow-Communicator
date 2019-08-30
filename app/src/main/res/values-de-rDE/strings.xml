@@ -203,7 +203,7 @@
     <string name="change_language_line5">Schritt 2: Die Verfügbarkeit der Stimme für Deutsch prüfen. Wenn nicht vorhanden, dann herunterladen. Falls der Download-Vorgang angehalten wird, wiederholen.</string>
     <string name="change_language_line4">Schritt 3: \'Google Text-to-Speech\' als Standard-TTS setzen sowie _ als Standardsprache setzen</string>
     <string name="txtChangeLanguage">Standard-Sprache ändern:</string>
-    <string name="txtApplyChanges">Schritt 4:  \"Einstellungen ändern\" klicken, um die neue Sprache als Standard zu setzen</string>
+    <string name="txtApplyChanges">Schritt 4:\"Einstellungen ändern\" klicken, um die neue Sprache als Standard zu setzen</string>
     <string name="change_language_line6">Den Schritten unten folgen, um die neu gewählte Sprache als Standard zu setzen</string>
     <string name="txt_set_tts_setup">Bitte führen Sie die Einrichtung von Text-to-Speech vom voherigen Bildschirm durch</string>
     <string name="txt_save_same_lang_def">Die gewählte Sprache ist bereits die Standard-Sprache</string>

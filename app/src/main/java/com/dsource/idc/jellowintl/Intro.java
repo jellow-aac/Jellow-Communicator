@@ -38,6 +38,7 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.ES_ES;
 import static com.dsource.idc.jellowintl.utility.SessionManager.FR_FR;
 import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
+import static com.dsource.idc.jellowintl.utility.SessionManager.SP_ES;
 import static com.dsource.idc.jellowintl.utility.SessionManager.TA_IN;
 
 /**
@@ -266,11 +267,13 @@ public class Intro extends AppIntro {
             Toast.makeText(Intro.this, toastMsg, Toast.LENGTH_LONG).show();
             getPager().setCurrentItem(5, true);
         }else if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            if(!parentAct.getSpeechEngineLanguage().equals("-r") ||
-                    (parentAct.getSession().getLanguage().equals(parentAct.getSpeechEngineLanguage())) ||
+            if(!parentAct.getSpeechEngineLanguage().equals("-r") &&
+                    ((parentAct.getSession().getLanguage().equals(parentAct.getSpeechEngineLanguage())) ||
                     (parentAct.getSession().getLanguage().equals(BN_IN) &&
                             (parentAct.getSpeechEngineLanguage().equals(BN_IN) || (parentAct.getSpeechEngineLanguage().equals(BE_IN) ))) ||
-                    parentAct.getSession().getLanguage().equals(MR_IN)) {
+                    (parentAct.getSession().getLanguage().equals(ES_ES) &&
+                    (parentAct.getSpeechEngineLanguage().equals(SP_ES) || (parentAct.getSpeechEngineLanguage().equals(ES_ES) ))) ||
+                    parentAct.getSession().getLanguage().equals(MR_IN))) {
                 parentAct.getSession().setCompletedIntro(true);
                 Intent intent=new Intent(Intro.this, SplashActivity.class);
                 startActivity(intent);
