@@ -1,25 +1,25 @@
 package com.dsource.idc.jellowintl.makemyboard.icon_select_module.view.managers;
 
 import android.content.Context;
-import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.dsource.idc.jellowintl.makemyboard.adapters.LevelSelectorAdapter;
-import com.dsource.idc.jellowintl.makemyboard.icon_select_module.presenters.GenCallback;
+import com.dsource.idc.jellowintl.makemyboard.icon_select_module.view.adapters.LevelAdapter;
+import com.dsource.idc.jellowintl.makemyboard.icon_select_module.bean.LevelParent;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class LevelManager {
     private RecyclerView recyclerView;
-    private LevelSelectorAdapter adapter;
+    private LevelAdapter adapter;
     private Context context;
-    private GenCallback<Integer> positionCallback;
-    private ArrayList<String> list;
+    private LevelAdapter.onLevelClickListener  positionCallback;
+    private ArrayList<LevelParent> list;
 
-    public LevelManager(@NonNull RecyclerView recyclerView,@NonNull Context context,@NonNull GenCallback<Integer> positionCallback) {
+    public LevelManager(@NonNull RecyclerView recyclerView,@NonNull Context context,@NonNull LevelAdapter.onLevelClickListener positionCallback) {
         this.recyclerView = recyclerView;
         this.context = context;
         this.positionCallback = positionCallback;
@@ -28,37 +28,39 @@ public class LevelManager {
         setUpAdapter();
     }
     @NonNull
-    public LevelManager setList(@NonNull ArrayList<String> list){
+    public LevelManager setList(@NonNull ArrayList<LevelParent> list){
         this.list =list;
         setUpAdapter();
         return this;
     }
 
     private void setUpAdapter() {
-        adapter = new LevelSelectorAdapter(context,list);
+        List<LevelParent> genres = list;
+        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+        //instantiate your adapter with the list of genres
+        adapter = new LevelAdapter(genres)
+                            .setContext(context);
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-        adapter.setOnItemClickListner(new LevelSelectorAdapter.OnItemClickListener() {
+        adapter.setOnClickListener(new LevelAdapter.onLevelClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
+            public void onClick(int parent, int child) {
                 if(positionCallback!=null)
-                    positionCallback.callBack(position);
+                    positionCallback.onClick(parent,child);
+                Toast.makeText(context,"Parent : "+parent+" Child: "+child,Toast.LENGTH_LONG).show();
             }
         });
     }
-    public boolean hideFilter(){
-        return adapter.selectedPosition==0||adapter.selectedPosition==6||adapter.selectedPosition==9;
-    }
+
     public void updateSelection(int position){
-        this.adapter.selectedPosition = position;
-        adapter.notifyDataSetChanged();
+        this.adapter.setSelectedPosition(position);
     }
     public int getSelectedPosition(){
-        return adapter.selectedPosition;
+        return adapter.getSelectedPosition();
     }
 
     public int getLevel(){
-        return (adapter.selectedPosition-1);
+        return (adapter.getSelectedPosition()-1);
     }
 
     public RecyclerView getRecycler(){return recyclerView;}

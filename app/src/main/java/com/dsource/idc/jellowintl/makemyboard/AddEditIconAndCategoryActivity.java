@@ -121,12 +121,12 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
     }
 
     private void setupLevelSelect() {
-        levelManager= new LevelManager((RecyclerView) (findViewById(R.id.level_select_pane_recycler)), this, new GenCallback<Integer>() {
+      /*  TODO levelManager= new LevelManager((RecyclerView) (findViewById(R.id.level_select_pane_recycler)), this, new GenCallback<Integer>() {
             @Override
             public void callBack(Integer position) {
                 prepareLevelSelectPane(position);
             }
-        }).setList(getLevelPaneList());
+        }).setList(getLevelPaneList());*/
     }
 
     @Override
@@ -235,7 +235,7 @@ public class AddEditIconAndCategoryActivity extends BaseActivity implements View
      */
     private void targetLevelSelectPane(int mode) {
 
-        levelManager.setList(categories);
+//  TODO      levelManager.setList(categories);
         levelManager.updateSelection(selectedPosition);
         if(levelManager.getRecycler().getLayoutManager()!=null&&mode==ADD_CATEGORY)
             levelManager.getRecycler().getLayoutManager().smoothScrollToPosition(levelManager.getRecycler(),null,(categories.size()-1));

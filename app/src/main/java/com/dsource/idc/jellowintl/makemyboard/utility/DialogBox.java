@@ -110,9 +110,9 @@ public class DialogBox extends BaseActivity {
         final Spinner languageSelect =findViewById(R.id.langSelectSpinner);
         final ListView listView =findViewById(R.id.camera_list);
         ArrayList<String> languageList = new ArrayList<>(Arrays.asList(LanguageFactory.getAvailableLanguages()));
+
         for(String lang:SessionManager.NoTTSLang)
             languageList.remove(SessionManager.LangValueMap.get(lang));
-
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, languageList);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -169,12 +169,9 @@ public class DialogBox extends BaseActivity {
             }
         });
 
-
-
         //List on the dialog.
         listView.setVisibility(View.GONE);
-        if(board!=null)
-        {
+        if(board!=null){
             boardName.setText(board.getBoardName());
         }
         //The list that will be shown with camera options

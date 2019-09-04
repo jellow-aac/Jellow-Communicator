@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -19,10 +17,11 @@ import com.dsource.idc.jellowintl.makemyboard.AddEditIconAndCategoryActivity;
 import com.dsource.idc.jellowintl.makemyboard.BoardLanguageHelper;
 import com.dsource.idc.jellowintl.makemyboard.BoardListActivity;
 import com.dsource.idc.jellowintl.makemyboard.BoardSearchActivity;
-import com.dsource.idc.jellowintl.makemyboard.adapters.SimpleArrayAdapter;
 import com.dsource.idc.jellowintl.makemyboard.databases.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.databases.IconDatabase;
-import com.dsource.idc.jellowintl.makemyboard.icon_select_module.presenters.GenCallback;
+import com.dsource.idc.jellowintl.makemyboard.icon_select_module.view.adapters.LevelAdapter;
+import com.dsource.idc.jellowintl.makemyboard.icon_select_module.bean.LevelChild;
+import com.dsource.idc.jellowintl.makemyboard.icon_select_module.bean.LevelParent;
 import com.dsource.idc.jellowintl.makemyboard.icon_select_module.presenters.iPresenterIconManager;
 import com.dsource.idc.jellowintl.makemyboard.icon_select_module.view.managers.IconListManager;
 import com.dsource.idc.jellowintl.makemyboard.icon_select_module.view.managers.LevelManager;
@@ -37,6 +36,7 @@ import com.dsource.idc.jellowintl.models.JellowIcon;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.BOARD_ID;
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.IS_EDIT_MODE;
@@ -94,17 +94,48 @@ public class IconSelectActivity extends BaseActivity implements iPresenterIconMa
         initViews();
     }
 
-    private void setupLevelSelect() {
-        levelManager= new LevelManager((RecyclerView) (findViewById(R.id.level_select_pane_recycler)), this, new GenCallback<Integer>() {
-            @Override
-            public void callBack(Integer position) {
-                selectionUpdated(position);
-                invalidateOptionsMenu();
-                searchManager.clear();
-                if(!levelManager.hideFilter())
-                    prepareFilterMenu();
+    private ArrayList<LevelParent> getLevels() {
+        ArrayList<LevelParent> list = new ArrayList<>();
+
+
+        ArrayList<String> levelOne = new ArrayList<>();
+        levelOne.add(getResources().getString(R.string.current_board));
+        list.add(new LevelParent(levelOne.get(0),new ArrayList<LevelChild>()));
+        levelOne.addAll(new IconDatabase(currentBoard.getLanguage(), getAppDatabase()).getLevelOneIconsTitles());
+
+        for(int i=1;i<=9;i++){
+
+            ArrayList<String> dropDownList = new IconDatabase(currentBoard.getLanguage(), getAppDatabase()).
+                    getLevelTwoIconsTitles(i-1);
+            if(i==6||i==9)
+                list.add(new LevelParent(levelOne.get(i),new ArrayList<LevelChild>()));
+            else if(dropDownList !=null&& dropDownList.size()>1)
+            {
+                dropDownList.remove(0);
+                list.add(new LevelParent(levelOne.get(i), getChildren(dropDownList)));
             }
-        }).setList(getLevelPaneList());
+
+        }
+
+        return list;
+    }
+
+    private List<LevelChild> getChildren(ArrayList<String> dropDownList) {
+        ArrayList<LevelChild> list = new ArrayList<>();
+        for(int i=0;i<dropDownList.size();i++)
+            list.add(new LevelChild(dropDownList.get(i)));
+        return list;
+    }
+
+    private void setupLevelSelect() {
+        levelManager = new LevelManager(((RecyclerView) findViewById(R.id.level_select_pane_recycler)), this, new LevelAdapter.onLevelClickListener() {
+            @Override
+            public void onClick(int parent, int child) {
+                searchManager.clear();
+                iconListManager.updateIcons(parent,child);
+            }
+        });
+        levelManager.setList(getLevels());
     }
 
     @Override
@@ -112,28 +143,16 @@ public class IconSelectActivity extends BaseActivity implements iPresenterIconMa
         super.attachBaseContext(BoardLanguageHelper.getInstance().changeLanguage(newBase));
     }
 
-    private ArrayList<String> getLevelPaneList() {
-        ArrayList<String> list = new ArrayList<>();
-        list.add(getResources().getString(R.string.current_board));
-        list.addAll(new IconDatabase(currentBoard.getLanguage(), getAppDatabase()).getLevelOneIconsTitles());
-        return list;
-    }
-
-    private void selectionUpdated(Integer position) {
-        iconListManager.updateIcons(position,-1);
-    }
 
     @Override
     protected void onResume() {
         super.onResume();
-        //setVisibleAct(IconSelectActivity.class.getSimpleName());
-        //BoardLanguageHelper.getInstance().changeLanguage(this);
+        setVisibleAct(IconSelectActivity.class.getSimpleName());
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-       // LanguageHelper.onAttach(this);
     }
 
     /**
@@ -175,8 +194,6 @@ public class IconSelectActivity extends BaseActivity implements iPresenterIconMa
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.my_board_menu, menu);
-        if(levelManager.hideFilter())
-            menu.findItem(R.id.filter).setVisible(false);
         return true;
     }
 
@@ -184,8 +201,6 @@ public class IconSelectActivity extends BaseActivity implements iPresenterIconMa
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId()==android.R.id.home)
             onBackPressed();
-        else if(item.getItemId()==R.id.filter)
-            showFilter();
         else if(item.getItemId()==R.id.search) {
             searchManager.clear();
             Intent searchIntent  =  new Intent(this, BoardSearchActivity.class);
@@ -197,35 +212,6 @@ public class IconSelectActivity extends BaseActivity implements iPresenterIconMa
         return false;
     }
 
-    private void showFilter(){
-        searchManager.clear();
-        View view = findViewById(R.id.touch_area);
-        findViewById(R.id.filter_menu).setVisibility(View.VISIBLE);
-        if(view.getVisibility()==View.VISIBLE) findViewById(R.id.touch_area).setVisibility(View.GONE);
-        else findViewById(R.id.touch_area).setVisibility(View.VISIBLE);
-    }
-
-    private void prepareFilterMenu(){
-        ArrayList<String> dropDownList = new IconDatabase(currentBoard.getLanguage(), getAppDatabase()).
-                getLevelTwoIconsTitles(levelManager.getLevel());
-        if(dropDownList !=null&& dropDownList.size()>1)
-            dropDownList.remove(0);
-        else return;
-        ListView dropDown = findViewById(R.id.filter_menu);
-        dropDown.setBackground(getResources().getDrawable(R.color.white));
-        dropDown.setVisibility(View.VISIBLE);
-        dropDown.bringToFront();
-        dropDown.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                iconListManager.updateIcons((levelManager.getLevel()+1),position);
-                showFilter();
-            }
-        });
-
-        SimpleArrayAdapter simpleArrayAdapter=new SimpleArrayAdapter(this, dropDownList);
-        dropDown.setAdapter(simpleArrayAdapter);
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -239,7 +225,6 @@ public class IconSelectActivity extends BaseActivity implements iPresenterIconMa
                     iconListManager.updateIcons(icon.getParent0()+1,-1);
                     searchManager.setFromSearch(icon);
                     levelManager.updateSelection((icon.getParent0()+1));
-                    prepareFilterMenu();
                 }else
                     Toast.makeText(this, "Icon already selected", Toast.LENGTH_SHORT).show();
             }
