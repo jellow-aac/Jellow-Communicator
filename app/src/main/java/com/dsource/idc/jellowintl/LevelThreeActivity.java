@@ -174,7 +174,7 @@ public class LevelThreeActivity extends LevelBaseActivity{
         final int sortedIndex=getSortedIndex(getIntent().getExtras().getInt(getString(R.string.search_parent_2)));
         //To get gridSize
                 int gridSize;
-                if(getSession().getGridSize()== GlobalConstants.GRID_THREE_BY_THREE)
+                if(getSession().getGridSize()== GlobalConstants.NINE_ICONS_PER_SCREEN)
                     gridSize=8;
                 else gridSize=2;
                 //Scroll to the position if the icon is not present in first grid
@@ -309,18 +309,18 @@ public class LevelThreeActivity extends LevelBaseActivity{
         //This code is to decide the speed of the Scrolling
         // which grid size is 3 then scrolling is fast as compared to the 9.
         switch (getSession().getGridSize()){
-            case GlobalConstants.GRID_ONE_BY_ONE:
+            case GlobalConstants.ONE_ICON_PER_SCREEN:
                 mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this, 1,3));
                 break;
-            case GlobalConstants.GRID_ONE_BY_TWO:
-            case GlobalConstants.GRID_TWO_BY_TWO:
+            case GlobalConstants.TWO_ICONS_PER_SCREEN:
+            case GlobalConstants.FOUR_ICONS_PER_SCREEN:
                 mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this, 2,3));
                 mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
                 break;
-            case GlobalConstants.GRID_ONE_BY_THREE:
+            case GlobalConstants.THREE_ICONS_PER_SCREEN:
                 mRecyclerView.setLayoutManager(new CustomGridLayoutManager(this, 3,3));
                 break;
-            case GlobalConstants.GRID_THREE_BY_THREE:
+            case GlobalConstants.NINE_ICONS_PER_SCREEN:
                 mRecyclerView.setLayoutManager(new CustomGridLayoutManager
                         (this, 3, getSession().getGridSize()));
                 break;

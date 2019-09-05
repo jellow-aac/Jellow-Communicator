@@ -42,6 +42,7 @@ import com.dsource.idc.jellowintl.makemyboard.interfaces.VerbiageEditorReverseIn
 import com.dsource.idc.jellowintl.makemyboard.models.BoardModel;
 import com.dsource.idc.jellowintl.makemyboard.models.IconModel;
 import com.dsource.idc.jellowintl.makemyboard.models.ListItem;
+import com.dsource.idc.jellowintl.models.GlobalConstants;
 import com.dsource.idc.jellowintl.models.JellowIcon;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -349,12 +350,14 @@ public class DialogBox extends BaseActivity {
         final ImageView GridSize6=findViewById(R.id.grid_size_3X3);
         final ImageView GridSize4=findViewById(R.id.grid_size_2x2);
 
+
+        //TODO: @Ayaz please change/update the code, wherever onGridSelectListener() is callback value is provided in MakeMyBoard module only.
         GridSize1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
                 if(mGridSelectionListener!=null)
-                mGridSelectionListener.onGridSelectListener(1);
+                mGridSelectionListener.onGridSelectListener(GlobalConstants.ONE_ICON_PER_SCREEN);
             }
         });
         GridSize2.setOnClickListener(new View.OnClickListener() {
@@ -362,7 +365,7 @@ public class DialogBox extends BaseActivity {
             public void onClick(View v) {
                 finish();
                 if(mGridSelectionListener!=null)
-                mGridSelectionListener.onGridSelectListener(2);
+                mGridSelectionListener.onGridSelectListener(GlobalConstants.TWO_ICONS_PER_SCREEN);
             }
         });
         GridSize3.setOnClickListener(new View.OnClickListener() {
@@ -370,7 +373,7 @@ public class DialogBox extends BaseActivity {
             public void onClick(View v) {
                 finish();
                 if(mGridSelectionListener!=null)
-                mGridSelectionListener.onGridSelectListener(3);
+                mGridSelectionListener.onGridSelectListener(GlobalConstants.THREE_ICONS_PER_SCREEN);
             }
         });
         GridSize4.setOnClickListener(new View.OnClickListener() {
@@ -378,7 +381,7 @@ public class DialogBox extends BaseActivity {
             public void onClick(View v) {
                 finish();
                 if(mGridSelectionListener!=null)
-                mGridSelectionListener.onGridSelectListener(4);
+                mGridSelectionListener.onGridSelectListener(GlobalConstants.FOUR_ICONS_PER_SCREEN);
             }
         });
         GridSize6.setOnClickListener(new View.OnClickListener() {
@@ -386,7 +389,7 @@ public class DialogBox extends BaseActivity {
             public void onClick(View v) {
                 finish();
                 if(mGridSelectionListener!=null)
-                mGridSelectionListener.onGridSelectListener(6);
+                mGridSelectionListener.onGridSelectListener(GlobalConstants.NINE_ICONS_PER_SCREEN);
             }
         });
     }

@@ -56,21 +56,21 @@ class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.MyViewHolder> {
     @Override
     public PeopleAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View rowView;
-        if(mAct.isNotchDevice() && mSession.getGridSize() == GlobalConstants.GRID_ONE_BY_ONE) {
+        if(mAct.isNotchDevice() && mSession.getGridSize() == GlobalConstants.ONE_ICON_PER_SCREEN) {
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_1_icon_notch, parent, false);
-        }else if(!mAct.isNotchDevice() && mSession.getGridSize() == GlobalConstants.GRID_ONE_BY_ONE){
+        }else if(!mAct.isNotchDevice() && mSession.getGridSize() == GlobalConstants.ONE_ICON_PER_SCREEN){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_1_icon, parent, false);
-        }else if(mAct.isNotchDevice() && mSession.getGridSize() == GlobalConstants.GRID_ONE_BY_TWO){
+        }else if(mAct.isNotchDevice() && mSession.getGridSize() == GlobalConstants.TWO_ICONS_PER_SCREEN){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_2_icons_notch, parent, false);
-        }else if(!mAct.isNotchDevice() && mSession.getGridSize() == GlobalConstants.GRID_ONE_BY_TWO){
+        }else if(!mAct.isNotchDevice() && mSession.getGridSize() == GlobalConstants.TWO_ICONS_PER_SCREEN){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_2_icons, parent, false);
-        }else if(mAct.isNotchDevice() && mSession.getGridSize() == GlobalConstants.GRID_ONE_BY_THREE){
+        }else if(mAct.isNotchDevice() && mSession.getGridSize() == GlobalConstants.THREE_ICONS_PER_SCREEN){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_3_icons_notch, parent, false);
-        }else if(!mAct.isNotchDevice() && mSession.getGridSize() == GlobalConstants.GRID_ONE_BY_THREE){
+        }else if(!mAct.isNotchDevice() && mSession.getGridSize() == GlobalConstants.THREE_ICONS_PER_SCREEN){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_3_icons, parent, false);
-        }else if(mAct.isNotchDevice() && mSession.getGridSize() == GlobalConstants.GRID_TWO_BY_TWO){
+        }else if(mAct.isNotchDevice() && mSession.getGridSize() == GlobalConstants.FOUR_ICONS_PER_SCREEN){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_4_icons_notch, parent, false);
-        }else if(!mAct.isNotchDevice() && mSession.getGridSize() == GlobalConstants.GRID_TWO_BY_TWO){
+        }else if(!mAct.isNotchDevice() && mSession.getGridSize() == GlobalConstants.FOUR_ICONS_PER_SCREEN){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_4_icons, parent, false);
         }else if(mAct.isNotchDevice()){
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_9_icons_notch, parent, false);

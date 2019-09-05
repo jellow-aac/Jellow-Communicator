@@ -158,7 +158,7 @@ public class MainActivity extends LevelBaseActivity{
         final int iconIndex = getIntent().getExtras().getInt(getString(R.string.search_parent_0));
         int gridCode= getSession().getGridSize();
         int gridSize;
-        if(gridCode == GlobalConstants.GRID_THREE_BY_THREE)
+        if(gridCode == GlobalConstants.NINE_ICONS_PER_SCREEN)
             gridSize=8;
         else gridSize=2;
         //Scroll to the position if the icon is not present in first grid
@@ -322,15 +322,15 @@ public class MainActivity extends LevelBaseActivity{
         mRecyclerView = findViewById(R.id.recycler_view);
         // Initiate 3 columns in Recycler View.
         switch (getSession().getGridSize()){
-            case GlobalConstants.GRID_ONE_BY_ONE:
+            case GlobalConstants.ONE_ICON_PER_SCREEN:
                 mRecyclerView.setLayoutManager(new GridLayoutManager(this, 1));
                 break;
-            case GlobalConstants.GRID_ONE_BY_TWO:
-            case GlobalConstants.GRID_TWO_BY_TWO:
+            case GlobalConstants.TWO_ICONS_PER_SCREEN:
+            case GlobalConstants.FOUR_ICONS_PER_SCREEN:
                 mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
                 break;
-            case GlobalConstants.GRID_ONE_BY_THREE:
-            case GlobalConstants.GRID_THREE_BY_THREE:
+            case GlobalConstants.THREE_ICONS_PER_SCREEN:
+            case GlobalConstants.NINE_ICONS_PER_SCREEN:
                 mRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
                 break;
         }

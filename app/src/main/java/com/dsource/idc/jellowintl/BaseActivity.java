@@ -6,12 +6,15 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
-import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.accessibility.AccessibilityManager;
+import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MenuCompat;
 import androidx.room.Room;
 
 import com.dsource.idc.jellowintl.makemyboard.AddEditIconAndCategoryActivity;
@@ -60,6 +63,7 @@ public class BaseActivity extends AppCompatActivity{
         if(getBoardClass().contains(getVisibleAct()) || getNonMenuClass().contains(getVisibleAct()))
             return false;
         super.onCreateOptionsMenu(menu);
+        MenuCompat.setGroupDividerEnabled(menu, true);
         if(getLevelClass().contains(getVisibleAct()))
             getMenuInflater().inflate(R.menu.menu_main_with_search, menu);
         else if(getLanguageSettingsActivity().equals(getVisibleAct()))
@@ -193,12 +197,19 @@ public class BaseActivity extends AppCompatActivity{
     }
 
     public void setActivityTitle(String title){
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+title+"</font>"));
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.action_bar_layout);
+        ((TextView)findViewById(R.id.tvActionbarTitle)).setText(title);
+        //getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+title+"</font>"));
     }
 
     public void enableNavigationBack(){
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
+    }
+
+    public void finishCurrentActivity(View view) {
+        finish();
     }
 
     /**

@@ -32,19 +32,9 @@ public class BoardActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         manager = new SessionManager(this);
         setContentView(R.layout.activity_my_boards);
-        findViewById(R.id.board).setVisibility(View.VISIBLE);
-       if(getSupportActionBar()!=null) {
-            getSupportActionBar().setTitle(getResources().getString(R.string.menuMyBoards));
-            //TODO Check color to keep or remove.
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_background));
-            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
-        }
-
+       setActivityTitle(getString(R.string.menuMyBoards));
        setUpViews();
        updateBoardCount();
-
-
     }
 
     private void setUpViews() {

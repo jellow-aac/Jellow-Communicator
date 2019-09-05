@@ -3,15 +3,15 @@ package com.dsource.idc.jellowintl.models;
 public class GlobalConstants {
 
     /*GLOBAL APP SETTINGS*/
-    public final static int GRID_ONE_BY_ONE = 0;
+    public final static int ONE_ICON_PER_SCREEN = 0;
 
-    public final static int GRID_ONE_BY_TWO = 1;
+    public final static int TWO_ICONS_PER_SCREEN = 1;
 
-    public final static int GRID_ONE_BY_THREE = 2;
+    public final static int THREE_ICONS_PER_SCREEN = 2;
 
-    public final static int GRID_TWO_BY_TWO = 3;
+    public final static int FOUR_ICONS_PER_SCREEN = 3;
 
-    public final static int GRID_THREE_BY_THREE = 4;
+    public final static int NINE_ICONS_PER_SCREEN = 4;
 
 
     public final static int DISPLAY_PICTURE_TEXT = 0;

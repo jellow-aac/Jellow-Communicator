@@ -73,7 +73,7 @@ public class SearchActivity extends SpeechEngineBaseActivity {
 	//TODO: Add strings from strings.xml
         if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
             searchEditText.setContentDescription("Enter to search");
-            findViewById(R.id.close_button).setVisibility(View.GONE);
+            //findViewById(R.id.close_button).setVisibility(View.GONE);
         } else {
             searchEditText.setHint("Search icon..");
         }
@@ -158,15 +158,9 @@ public class SearchActivity extends SpeechEngineBaseActivity {
 
             }
         });
-
-
-
-
-
-
     }
 
-    public void closeActivity(View v){
+    public void closeSearchBar(View v){
         finish();
     }
 
@@ -312,16 +306,6 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
         return activityIntent;
     }
 
-    /**
-     * <p>This function will provide action bar title to be set.
-     * @param position, position of the category icon pressed.
-     * @return the actionbarTitle string.</p>
-     * */
-    private String getActionBarTitle(int position) {
-
-        String[] tempTextArr = getLevel1IconLabels();
-        return tempTextArr[position]+"/";
-    }
     public IconDatabase database;
     public SearchViewIconAdapter(Context context, ArrayList<JellowIcon> items, AppDatabase appDatabase) {
         mContext = context;
@@ -427,13 +411,4 @@ class SearchViewIconAdapter extends RecyclerView.Adapter<SearchViewIconAdapter.V
     public int getItemCount() {
         return mDataSource.size();
     }
-
-    private String getLevel2_3IconCode(int level1Position){
-        if(level1Position+1 <= 9){
-            return "0" + (level1Position + 1);
-        } else {
-            return Integer.toString(level1Position+1);
-        }
-    }
-
 }

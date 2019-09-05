@@ -376,6 +376,11 @@ public class BoardSearchActivity extends SpeechEngineBaseActivity {
             mRecyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
     }
+
+    //TODO @Ayaz INFO: Added this function to get close functionality on search bar. Please remove this todo once you verify the effect of this code.
+    public void closeSearchBar(View view) {
+        finish();
+    }
 }
 
 

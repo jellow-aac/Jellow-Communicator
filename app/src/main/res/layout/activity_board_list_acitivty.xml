@@ -14,7 +14,7 @@
         android:layout_alignParentLeft="true">
         <ImageView
             android:layout_gravity="center"
-            android:background="@drawable/add_board_back"
+            android:background="@drawable/board_list_back"
             android:layout_marginTop="12dp"
             android:layout_width="@dimen/add_board_icon_size"
             android:layout_height="@dimen/add_board_icon_size"

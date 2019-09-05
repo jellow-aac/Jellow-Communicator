@@ -58,15 +58,7 @@ public class BoardListActivity extends BaseActivity {
         setSelection("All");
         updateBoardCount();
         ctx =this;
-        if(getSupportActionBar()!=null) {
-            getSupportActionBar().setTitle(getResources().getString(R.string.menuMyBoards));
-            //TODO Check color to keep or remove.
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_background));
-            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
-        }
-
-
+        setActivityTitle(getString(R.string.menuMyBoards));
     }
 
     //Instantiates all the views

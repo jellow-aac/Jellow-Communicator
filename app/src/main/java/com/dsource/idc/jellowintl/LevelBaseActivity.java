@@ -12,6 +12,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 
 import com.dsource.idc.jellowintl.makemyboard.BoardActivity;
+import com.dsource.idc.jellowintl.makemyboard.interfaces.GridSelectListener;
+import com.dsource.idc.jellowintl.makemyboard.utility.CustomDialog;
 import com.dsource.idc.jellowintl.utility.TextToSpeechErrorUtils;
 
 public class LevelBaseActivity extends SpeechEngineBaseActivity implements TextToSpeechError{
@@ -34,11 +36,22 @@ public class LevelBaseActivity extends SpeechEngineBaseActivity implements TextT
             case R.id.search:
                 startActivity(new Intent(this, SearchActivity.class));
                 break;
-            case R.id.profile:
-                startActivity(new Intent(this, ProfileFormActivity.class));
-                break;
+            case R.id.my_boards_icon:
             case R.id.my_boards:
                 startActivity(new Intent(this, BoardActivity.class));
+                break;
+            case R.id.number_of_icons:
+                new CustomDialog(this,getSession().getLanguage(), new GridSelectListener() {
+                @Override
+                public void onGridSelectListener(int size) {
+                    getSession().setGridSize(size);
+                    startActivity(new Intent(getApplicationContext(), SplashActivity.class));
+                    finish();
+                }
+            });
+                break;
+            case R.id.profile:
+                startActivity(new Intent(this, ProfileFormActivity.class));
                 break;
             case R.id.aboutJellow:
                 startActivity(new Intent(this, AboutJellowActivity.class));

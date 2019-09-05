@@ -48,9 +48,9 @@ public class SplashActivity extends BaseActivity {
         if(!LanguageFactory.isLanguageDataAvailable(this)){
             /* 0 represents old value of one by three config*/
             if(getSession().getGridSize() == 0)
-                 getSession().setGridSize(GlobalConstants.GRID_ONE_BY_THREE);
+                 getSession().setGridSize(GlobalConstants.THREE_ICONS_PER_SCREEN);
             else
-                 getSession().setGridSize(GlobalConstants.GRID_THREE_BY_THREE);
+                 getSession().setGridSize(GlobalConstants.NINE_ICONS_PER_SCREEN);
             startActivity(new Intent(this, LanguageDownloadActivity.class)
                     .putExtra(LCODE, SessionManager.UNIVERSAL_PACKAGE)
                     .putExtra(SPLASH, true));
@@ -73,7 +73,7 @@ public class SplashActivity extends BaseActivity {
 
     private void setUserParameters() {
         if(getSession().isGridSizeKeyExist()) {
-            if(getSession().getGridSize() == GlobalConstants.GRID_THREE_BY_THREE){
+            if(getSession().getGridSize() == GlobalConstants.NINE_ICONS_PER_SCREEN){
                 setUserProperty("GridSize", "9");
                 setCrashlyticsCustomKey("GridSize", "9");
             }else{
