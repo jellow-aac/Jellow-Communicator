@@ -19,8 +19,6 @@ import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 
 public class LanguageSelectAdapter {
     private Context context;
@@ -90,7 +88,7 @@ public class LanguageSelectAdapter {
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(adapter);
 
-        adapter.setOnItemClickListner(new LevelSelectorAdapter.OnItemClickListener() {
+        adapter.setOnItemClickListner(new LanguageAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 if(callback!=null) {
@@ -113,7 +111,7 @@ class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.ViewHolder>{
     // private LayoutInflater mInflater;
     private ArrayList<String> mLanguageList;
     private ArrayList<Integer> mBoardCount;
-    private LevelSelectorAdapter.OnItemClickListener mItemClickListener=null;
+    private OnItemClickListener mItemClickListener=null;
     private int selectedPosition = 0 ;
 
     public void updateBoardCount(ArrayList<Integer> boardCount) {
@@ -149,7 +147,7 @@ class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.ViewHolder>{
         void onItemClick(View view, int position);
     }
 
-    public void setOnItemClickListner(final LevelSelectorAdapter.OnItemClickListener mItemClickListener) {
+    public void setOnItemClickListner(final OnItemClickListener mItemClickListener) {
         this.mItemClickListener = mItemClickListener;
     }
 
