@@ -74,7 +74,7 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.UNIVERSAL_PACKAG
 /**
  * Created by user on 5/25/2016.
  */
-public class UserRegistrationActivity extends SpeechEngineBaseActivity {
+public class UserRegistrationActivity extends BaseActivity {
     public static final String LCODE = "lcode";
     public static final String TUTORIAL = "tutorial";
 
@@ -96,6 +96,7 @@ public class UserRegistrationActivity extends SpeechEngineBaseActivity {
         setContentView(R.layout.activity_user_registration);
         FirebaseMessaging.getInstance().subscribeToTopic("jellow_aac");
         setActivityTitle(getString(R.string.menuUserRegistration));
+        findViewById(R.id.iv_action_bar_back).setVisibility(View.GONE);
         getSession().changePreferencesFile(this);
         //Reset Board Language
         getSession().setCurrentBoardLanguage("");

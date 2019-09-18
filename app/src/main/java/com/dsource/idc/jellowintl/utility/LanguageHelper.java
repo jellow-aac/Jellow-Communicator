@@ -56,7 +56,7 @@ public class LanguageHelper {
     }
 
     /**
-     * For android device versions above Nougat (7.0) updates application default
+     * For android device versions Nougat (7.0) and above updates application default
      * locale configurations and {@returns} new {@Context} object for the current
      * Context but whose resources are adjusted to match the given Configuration
      * **/
@@ -76,7 +76,6 @@ public class LanguageHelper {
      * locale configurations and {@return} new {@Context} object for the current
      * Context but whose resources are adjusted to match the given Configuration
      * **/
-    @SuppressWarnings("deprecation")
     private static Context updateResourcesLegacy(Context context, Locale locale) {
 
         Locale.setDefault(locale);

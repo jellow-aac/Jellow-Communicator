@@ -24,7 +24,6 @@
     <string name="Profile">Profile</string>
 
     <string name="Language">Language</string>
-    <string name="ChangeLanguage">Change Language</string>
     <string name="saveLanguage">Apply Changes</string>
 
     <string-array name="bloodgroup">
@@ -72,7 +71,7 @@
         <item>Nine</item>
     </string-array>
 
-    <string name="change_language_line2">Step 1: Select any downloaded language from the dropdown below:</string>
+    <string name="change_language_line2">Step 1: Select any language from the dropdown below:</string>
     <string name="simple_ime">Jellow Keyboard</string>
     <string name="subtype_en_US">Serial ABC</string>
     <string name="screen_width" translatable="false">com.dsource.idc.jellow.screen_width</string>
@@ -93,7 +92,7 @@
     <string name="txtVoiceVolume">Speech Volume</string>
     <string name="txtNumOfPerPerScr">Number of category icons per screen</string>
     <string name="txtDemo">SPEECH DEMO</string>
-    <string name="txtSave">SAVE</string>
+    <string name="txtSave">Save</string>
     <string name="demoTtsSpeech">Hello! you are using Jellow Communicator.</string>
     <string name="savedSettingsMessage">Settings saved.</string>
     <string name="languageChanged">Language Changed</string>
@@ -138,7 +137,6 @@
     <string name="changeDefaultToHindi">2. Make preferred language as default</string>
     <string name="downloadVoiceTts">3.Download voice in preferred language</string>
     <string name="activate">ACTIVATE</string>
-    <string name="changeLanguage" translatable="false">Change Language</string>
     <string name="keyboardControl">Keyboard Control:</string>
     <string name="serial_keyboard_title">Serial Keyboard:</string>
     <string name="serial_keyboard_info">Jellow communicator is equipped with its own \'Serial Jellow keyboard\'. This keyboard was designed based on feedback from special educators and teachers and features alphabets placed in a serial manner starting form the alphabet \'A\'. The serial keyboard makes it easy for the user to anticipate the place of a particular alphabet on the keyboard and is especially very useful for children learning early literacy skills. Similarly, the keyboard also features numeral keys from 0–9 and symbols, which are most relevant to every day communication.</string>
@@ -210,13 +208,6 @@
     <string name="txt_intro3_navWithJellow">Navigating within Jellow</string>
     <string name="txt_intro4_customizeAppDesc">User can customize application settings by clicking on top right corner of the application</string>
     <string name="txt_intro4_customizeJellow">Settings within Jellow</string>
-    <string name="txt_intro6_skipActiveTtsDesc">For - accent set language as _.</string>
-    <string name="txt_intro6_ttsStep1">1.Activate Google TTS</string>
-    <string name="txt_intro6_activate">ACTIVATE</string>
-    <string name="txt_intro6_step2">2. Set _ language as default</string>
-    <string name="txt_intro6_changeLang">CHANGE LANGUAGE</string>
-    <string name="txt_intro6_step3">3. Download _ voice</string>
-    <string name="txt_intro6_download">DOWNLOAD</string>
     <string name="txt_intro7_getStartedDesc">Now you are ready to get started with Jellow</string>
     <string name="txt_intro7_getStarted">GET STARTED</string>
     <string name="completed_intro" translatable="false">com.dsource.idc.jellow.completed_intro</string>
@@ -241,19 +232,11 @@
     <string name="txt_registration_selectLangDesc_contentDesc">Select a Language for Jellow. Required field</string>
     <string name="txt_registration_registerBtn">REGISTER</string>
     <string name="enternonemptycontact">Please enter valid contact number</string>
-    <string name="change_tts_lang">Set TTS engine language</string>
-    <string name="txt_actLangSel_completestep3">Please turn on internet and complete Step 3</string>
-    <string name="change_language_line5">Step 2: Check if voice data for _ is available on your device. If not please turn on internet and download voice data for selected language. In case process is stalled please check your internet connection and retry</string>
-    <string name="change_language_line4">Step 3: Set \'Google Text-to-speech (TTS)\' as default TTS engine and set _ as default language of the engine.</string>
+    <string name="change_language_line5">Step 3: Check if voice data for _ is available on your device. If not please turn on internet and download voice data for selected language. In case process is stalled please check your internet connection and retry</string>
     <string name="txtChangeLanguage">Change Default Language:</string>
     <string name="txtApplyChanges">Step 4: Click \'Apply changes\' to set new language as default</string>
-    <string name="change_language_line6">You can follow the steps listed below to set a newly added language as the default for Jellow</string>
-    <string name="txt_set_tts_setup">Please complete Text-to-Speech engine setup given in this page</string>
-    <string name="txt_save_same_lang_def">Selected language is already default language</string>
-    <string name="speech_engin_lang_sam">Please check the \'Language\' settings of the app</string>
     <string name="txt_intro6_skipTtsSetup">Devices with active Google TTS engine: Please swipe to skip current step</string>
     <string name="txt_actLangSel_downloadDat">Check voice data</string>
-    <string name="txt_actLangSel_complete_mainscreen_msg">Voice data not available. Please turn on internet and go to language settings of app.</string>
     <string name="language_downloaded">_ language downloaded</string>
     <string name="language_downloading">Downloading _ language</string>
     <string name="ok">OK</string>
@@ -378,19 +361,16 @@
     <string name="no">No</string>
     <string name="less">less</string>
     <string name="back">back</string>
-    <string name="dialog_yes" translatable="false">yes</string>
-    <string name="dialog_no" translatable="false">no</string>
-    <string name="never_show_again" translatable="false">Never show again</string>
+    <string name="langauge_correction_message"> \'"-"\' language is not setup correctly. Press \'"_"\' to fix the language. \n Or you can switch to default language by pressing \'"$"\'.</string>
+    <string name="changeLanguage">Fix The Language</string>
+    <string name="dialog_default_language_option">Default Language</string>
+    <string name="dialog_never_show_again_option">Never show again</string>
     <string name="enter_category">enter category</string>
     <string name="intro_cd">The image shows a screenshot of the home page of Jellow. The home page contains a central grid of 9 icons called category buttons that are arranged in 3 rows and 3 columns. The 9 category buttons are “Greet and feel”, “Daily activities”, “Eating”, “Fun”, “Learning”, “People”, “Places, “Time and weather”, and “Help”. Below the category buttons are 3 navigation buttons of “Back”, “Home” and “keyboard” arranged in that order at the bottom of the home screen. On the right and left sides of the central category icons are 3 expressive icons each. To the left of the central grid are 3 expressive buttons of “Like”, “Yes” and “More” arranged from top to bottom in that order. To the right of the central grid, are the remaining 3 expressive buttons of “Don’t like”, “No” and “Less” arranged from top to bottom. On the top right corner of the home screen is visible a settings icon. In this image the central grid of 9 icons has been highlighted with all other buttons faded out.</string>
     <string name="intro2_cd">This image has the home screen of Jellow with only 2 icons of “Eating” and “Yes” highlighted. The rest of the buttons are faded out. The image shows that to speak using Jellow, user has to first click on any category button, for instance, “Eating” and then on an expressive button, for example, “Yes”. In this way the user can speak using Jellow.</string>
     <string name="intro3_cd">This image shows a screenshot of Jellow sub-categories within the, “Eating” category. The icons visible in the central grid arranged in a 3 by 3 grid format are “Breakfast”, “Lunch/Dinner”, “Sweets”, “Snacks”, “Fruits”, “Drinks”, “Cutlery”, and “Add-ons”. The image shows the user’s finger double-clicking on “Breakfast” icon to access further sub-options.</string>
     <string name="intro4_cd">This image shows the home screen of Jellow with a drop-down at the top right corner of Jellow. This drop-down shows options of “Profile”, “About Jellow”, “Tutorial”, “Keyboard Control”, “Language”, “Settings”, “Reset preferences”, and “Feedback”. By clicking on any of these options the user can customize the app’s settings to their needs.</string>
     <string name="intro5_cd">This image again shows the screenshot of the home page of Jellow. In this image, the 6 expressive buttons arranged as 3 each of either side of the central category buttons have been highlighted with all other buttons faded out. To the left of the central grid of category buttons, arranged from top to bottom are the 3 expressive buttons of “Like” represented by a “Smiley face” icon, “Yes” represented by a “check mark” icon, and “More” represented by a “Plus sign” icon. To the right of the category buttons, arranged from top to bottom are the expressive icons of “Don’t like” represented by a sad face” icon, “No” represented by the “cross” icon and “Less” represented by the “Minus sign” icon. Also labeled in the image are the 3 navigational buttons at the bottom of the screen. From left to right these are “Back”, “Home”, and “Keyboard”</string>
-    <string name="intro6_1_cd">In the first image corresponding to “Text-to-speech output”, there are 2 preferred engines visible, first, the, “Samsung Text-to-Speech engine” and second, the, “Google Text-to-Speech engine”. The user is seen to select the “Google Text-to-Speech engine”as the first step.</string>
-    <string name="intro6_2_cd">The second image corresponds to the second step in this process where the user is seen to now click on the, “Gear” symbol corresponding to the, “Settings” of the, “Google Text-to-Speech engine</string>
-    <string name="intro6_3_cd">The third image is the third step in this process where now the user is at the, “Google TTS voice data” screen. This screen provides multiple voice options including “French (France)”, “German (Germany)”, “Hindi (India)”, “Hungarian (Hungary)”, and “Indonesian (Indonesia)”. The “Hindi (India) voice” option is highlighted and shows an option of “Voice set 1” with a size of 19MB that is available for download. The user’s finger is seen to click on the download icon for the voice set 1 for the, “Hindi (India)voice”.</string>
-    <string name="change_language" translatable="false">Language selected in Jellow is different from that of your device output language. Would you like to change your device language ?</string>
     <string name="talkback_single_click">select</string>
     <string name="talkback_dropdown_menu">access countries list</string>
     <string name="close_dialog">close dialog.</string>
@@ -409,25 +389,19 @@
     <string name="seekbar_speed_cd">Please use your device’s volume buttons to change speech speed.</string>
     <string name="seekbar_pitch_cd">Please use your device’s volume buttons to change voice pitch</string>
     <string name="seekbar_volume_cd">Please use your device’s volume buttons to change speech volume</string>
-    <string name="lang_setting_option1_cd">“The image below shows the 3 steps involved in setting up the Google text-to-speech engine that is used by Jellow. The image is made up of 3 screenshots of the, “Text to speech output” and “Google TTS settings” within a user’s device. In the first image corresponding to “Text-to-speech output”, there are 2 preferred engines visible, first, the, “Samsung Text-to-Speech engine” and second, the, “Google Text-to-Speech engine”. The user is seen to select the, “Google Text-to-Speech engine” as the first step.</string>
-    <string name="lang_setting_option2_cd">The second image corresponds to the second step in this process where the user is seen to now click on the, “Gear” symbol corresponding to the, “Settings” of the, “Google Text-to-Speech engine”</string>
-    <string name="lang_setting_option3_cd">The third image is the third step in this process where now the user is at the, “Google TTS options” screen. The second item on this screen which is a toggle switch for “Use Wi-Fi only” has been highlighted in this image. The user is asked to turn off or disable this switch in this step.”</string>
     <string name="lang_setting_option3_gtt3_cd">The third image corresponds to the third step in this process where the user is seen to now click on the, “Language\" option on the Google TTS voice data page. The user is seen to set \"Hindi(India)\" as the default language of the Google Text-to-Speech engine.</string>
     <!--end content description-->
 
-    <string name="intro8_step2">Turn off \"Use Wi-Fi only\"</string>
     <string name="txt_tts_stting">TTS SETTINGS</string>
-    <string name="txt_intro8_step1">1. Open Google TTS Engine</string>
-    <string name="txt_intro8_step2">2. Go to \"Settings\" for Google TTS Engine</string>
-    <string name="txt_intro8_step3">3. Turn off \"Use Wi-Fi only\"</string>
-    <string name="change_language_tts_wifi">Go to settings of Google TTS and turn off \'Use Wi-Fi only\' by tapping below \'TTS SETTINGS\' button. If option is already disabled, please skip this step.</string>
+    <string name="change_language_tts_wifi">Step 2: Go to settings of Google TTS and turn off \'Use Wi-Fi only\' by tapping below \'TTS SETTINGS\' button. If option is already disabled, please skip this step.</string>
     <string name="icon_update_msg">Updating icons for existing language(s):</string>
     <string name="disable_wifi_only">Please complete above process to turn off \'Use Wi-Fi only\' option</string>
-    <string name="step3">Step 3:</string>
-    <string name="txt_intro8_txtTitle">Please follow the steps below to setup Text-to-speech engine</string>
-    <string name="txt_actLangSel_completestep2">Voice data not available. Please turn on internet and complete Step 2</string>
+    <string name="txt_actLangSel_completestep2">Voice data not available. Please turn on internet and complete Step 3</string>
     <string name="error_in_registration" translatable="false">Registration process is failed, please retry.</string>
     <string name="txtStep2">Step 2:</string>
+    <string name="lang_setting_option1_cd">“The image below shows the 3 steps involved in setting up the Google text-to-speech engine that is used by Jellow. The image is made up of 3 screenshots of the, “Text to speech output” and “Google TTS settings” within a user’s device. In the first image corresponding to “Text-to-speech output”, there are 2 preferred engines visible, first, the, “Samsung Text-to-Speech engine” and second, the, “Google Text-to-Speech engine”. The user is seen to select the, “Google Text-to-Speech engine” as the first step.</string>
+    <string name="lang_setting_option2_cd">The second image corresponds to the second step in this process where the user is seen to now click on the, “Gear” symbol corresponding to the, “Settings” of the, “Google Text-to-Speech engine”</string>
+    <string name="lang_setting_option3_cd">The third image is the third step in this process where now the user is at the, “Google TTS options” screen. The second item on this screen which is a toggle switch for “Use Wi-Fi only” has been highlighted in this image. The user is asked to turn off or disable this switch in this step.”</string>
     <string name="retry" translatable="false">RETRY</string>
     <string name="close">close dialog</string>
     <string name="access_dialog_title">dialog with options.</string>

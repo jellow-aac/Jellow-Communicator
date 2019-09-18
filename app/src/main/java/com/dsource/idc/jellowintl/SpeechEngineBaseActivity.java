@@ -9,7 +9,6 @@ import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.speech.tts.Voice;
 import android.util.Log;
-import android.view.accessibility.AccessibilityManager;
 
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.utility.SessionManager;
@@ -30,14 +29,13 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.ENG_US;
 import static com.dsource.idc.jellowintl.utility.SessionManager.ES_ES;
 import static com.dsource.idc.jellowintl.utility.SessionManager.FR_FR;
 import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
-import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
 import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
-import static com.dsource.idc.jellowintl.utility.SessionManager.SP_ES;
 import static com.dsource.idc.jellowintl.utility.SessionManager.TA_IN;
 
 public class SpeechEngineBaseActivity extends BaseActivity{
     private static TextToSpeech sTts;
     private static int mFailedToSynthesizeTextCount = 0;
+
     private final String UTTERANCE_ID = "com.dsource.idc.jellowintl.utterence.id";
     private HashMap<String, String> map;
     private TextToSpeechError mErrorHandler;
@@ -47,7 +45,6 @@ public class SpeechEngineBaseActivity extends BaseActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setupSpeechEngine(getSession().getLanguage());
         map = new HashMap<>();
         map.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, UTTERANCE_ID);
     }
@@ -63,8 +60,6 @@ public class SpeechEngineBaseActivity extends BaseActivity{
                         return;
                     }
                     setSpeechEngineLanguage(language);
-                    checkSpeechEngineLanguageInSettings();
-                    checkSpeechEngineLanguageForAccessibility();
                     sTts.setSpeechRate(getTTsSpeedForLanguage(language));
                     sTts.setPitch(getTTsPitchForLanguage(language));
                     if (language.endsWith(MR_IN))
@@ -82,53 +77,18 @@ public class SpeechEngineBaseActivity extends BaseActivity{
 
             @Override
             public void onError(String utteranceId) {
-                //Text synthesize process failed third time then showDialog TTs error.
-                if(++mFailedToSynthesizeTextCount > 2)
-                    mErrorHandler.sendFailedToSynthesizeError(getString(R.string.txt_actLangSel_complete_mainscreen_msg));
+                /***
+                 * Text synthesize process failed two times and voice data not available for
+                 * user selected language then
+                 * send error callback to user to correct language setting for selected language
+                 * from Language menu.
+                 ***/
+                if(++mFailedToSynthesizeTextCount > 1 &&
+                        !isVoiceAvailableForLanguage(getSession().getLanguage())) {
+                    mErrorHandler.sendSpeechEngineLanguageNotSetCorrectlyError();
+                }
             }
         });
-
-    }
-
-    private void checkSpeechEngineLanguageInSettings() {
-        //Below if is true when
-        //      1) app language is equal to "-r" OR
-        //      2) app language is bengali and tts language does matches
-        //         with every type of bengali language OR
-        //      3) app language and Text-to-speech language are different THEN
-        //         showDialog error toast and set incorrect language setting to true.
-        if((Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-                && !getSession().getLanguage().equals(LangMap.get("मराठी"))) {
-            if (getSpeechEngineLanguage().equals("-r")) {
-                mErrorHandler.sendLanguageIncompatibleError(getString(R.string.speech_engin_lang_sam));
-            }else if(getSession().getLanguage().equals(BN_IN) && !getSpeechEngineLanguage().equals(BN_IN)
-                    && !(getSpeechEngineLanguage().equals(BE_IN))) {
-                mErrorHandler.sendLanguageIncompatibleError(getString(R.string.speech_engin_lang_sam));
-            }else if(getSession().getLanguage().equals(ES_ES) && !getSpeechEngineLanguage().equals(SP_ES)
-                    && !(getSpeechEngineLanguage().equals(ES_ES))){
-                mErrorHandler.sendLanguageIncompatibleError(getString(R.string.speech_engin_lang_sam));
-            }else if(!getSession().getLanguage().equals(BN_IN) && !getSession().getLanguage().equals(ES_ES)
-                    && !getSession().getLanguage().equals(getSpeechEngineLanguage())){
-                mErrorHandler.sendLanguageIncompatibleError(getString(R.string.speech_engin_lang_sam));
-            }
-        }
-    }
-
-    private void checkSpeechEngineLanguageForAccessibility() {
-        if(isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE)) &&
-                !getSession().isChangeLanguageNeverAsk() ) {
-            if(getSession().getLanguage().equals(BN_IN) &&(getSpeechEngineLanguage().equals(BN_IN) || getSpeechEngineLanguage().equals(BE_IN)))
-            {}
-            else if(getSession().getLanguage().equals(ES_ES) && getSpeechEngineLanguage().equals(SP_ES) || (getSpeechEngineLanguage().equals(ES_ES)))
-            {}
-            else if(!getSession().getLanguage().equals(BN_IN) &&
-                    !getSession().getLanguage().equals(ES_ES) &&
-                    getSession().getLanguage().equals(getSpeechEngineLanguage()))
-            {}
-            else {
-                mErrorHandler.sendLanguageIncompatibleForAccessibility();
-            }
-        }
     }
 
     private float getTTsPitchForLanguage(String language) {
@@ -425,4 +385,3 @@ public class SpeechEngineBaseActivity extends BaseActivity{
         setupSpeechEngine(language);
     }
 }
-

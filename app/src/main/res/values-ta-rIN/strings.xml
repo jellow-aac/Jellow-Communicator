@@ -24,7 +24,6 @@
     <string name="Profile">சுயவிவரங்கள்</string>
 
     <string name="Language">மொழி</string>
-    <string name="ChangeLanguage">மொழியை மாற்ற</string>
     <string name="saveLanguage">மாற்றங்களைப் பயன்படுத்து</string>
 
     <string-array name="bloodgroup">
@@ -114,7 +113,6 @@
     <string name="changeDefaultToHindi">தேர்ந்தெடுக்கப்பட்ட மொழியை வழக்கமான மொழியாக மாற்றுக</string>
     <string name="downloadVoiceTts">தேர்ந்தெடுத்த மொழியில் குரலை பதிவிறக்குக</string>
     <string name="activate">செயல்படுத்து</string>
-    <string name="changeLanguage" translatable="false">செயல்படுத்து</string>
     <string name="cancel">இல்லை</string>
     <string name="keyboardControl">விசைப்பலகை கட்டுப்பாடு</string>
     <string name="serial_keyboard_title">வரிசை விசைபலகை:</string>
@@ -183,15 +181,6 @@
     <string name="txt_intro3_navWithJellow">ஜெல்லோவிற்க்குள் செல்லவும்</string>
     <string name="txt_intro4_customizeAppDesc">பயனர் தங்கள் விருப்பதிற்கு ஏற்ப செயலியின் அமைப்பினை மாற்ற, செயலியின் மேற்புற வலது மூலையில் சொடுக்கவும்</string>
     <string name="txt_intro4_customizeJellow">ஜெல்லோவிலுள்ள அமைப்புகள்</string>
-    <!--not translated-->
-    <string name="txt_intro6_skipActiveTtsDesc">For - accent set language as _.</string>
-
-    <string name="txt_intro6_ttsStep1">1.கூகுள் டிஎஸ்எஸ்-ஐ செயல்படுத்து</string>
-    <string name="txt_intro6_activate">செயல்படுத்து</string>
-    <string name="txt_intro6_step2">2._ மொழியை இயல்பான மொழியாக மாற்றுக </string>
-    <string name="txt_intro6_changeLang">மொழியை மாற்று</string>
-    <string name="txt_intro6_step3">3._ மொழியில் குரலை பதிவிறக்குக</string>
-    <string name="txt_intro6_download">பதிவிறக்கு</string>
     <string name="txt_intro7_getStartedDesc">நீங்கள் இப்போது ஜெல்லோவுடன் தொடங்க தயாராகிவிட்டீர்கள்</string>
     <string name="txt_intro7_getStarted">துவங்கு</string>
     <string name="txt_registration_jellowCalluDesc">(இப்படித்தான் ஜெல்லோ உங்களை அழைக்கும்)</string>
@@ -201,20 +190,12 @@
     <string name="txt_registration_selectLangDesc_contentDesc">ஜெல்லோவிற்கான மொழியை தேர்ந்தெடுக்கவும். தேவையான பகுதி</string>
     <string name="txt_registration_registerBtn">பதிவுசெய்</string>
     <string name="enternonemptycontact">சரியான தொடர்பு எண்ணை உள்ளிடவும்</string>
-    <string name="change_tts_lang">டிஎஸ்எஸ் இயந்திரதிற்க்கான மொழியை அமை</string>
-    <string name="txt_actLangSel_completestep3">தயவுகூர்ந்து உங்கள் இணையத்தை செயல்படுத்திவிட்டு படி 3 ஐ முடிக்கவும்</string>
     <string name="change_language_line5">படி 2: உங்கள் சாதனத்தில் _ மொழிக்கான குரல் தரவு உள்ளதா எனக் காண்க. இல்லையெனில் தேர்ந்தெடுத்த மொழிக்கான குரல் தரவினை பதிவிறக்கம் செய்க.</string>
-    <string name="change_language_line4">படி 3: \'Google Text-to-speech (TTS)\' ஐ முதன்மையாக மாற்றி _ வை முதன்மை மொழியாக மாற்றவும்</string>
     <string name="txtChangeLanguage">முதன்மை மொழியை மாற்று</string>
 
     <string name="txtApplyChanges">படி 4: புதிய மொழியை இயல்பான மொழியாக மாற்ற \'மாற்றங்களை பயன்படுத்தவும்\' வில் சொடுக்கவும்</string>
-    <string name="change_language_line6">நீங்கள் கீழுள்ள படிநிலைகளை பின்பற்றி புதிதாக சேர்க்கப்பட்ட மொழியை ஜெல்லோவிற்கான இயல்பு மொழியாக மாற்றலாம் </string>
-    <string name="txt_set_tts_setup">தயவுகூந்து முந்தைய பக்கத்தில் கொடுக்கப்பட்டுள்ள டேக்ஸ்ட் டு ஸ்ப்பீச் அமைப்பினை முடிக்கவும்</string>
-    <string name="txt_save_same_lang_def">தேந்தெடுத்த மொழி ஏற்கனவே இயல்பான மொழியாக உள்ளது</string>
-    <string name="speech_engin_lang_sam">தயவுகூர்ந்து செயலியின் மொழி அமைப்பினை சரிபார்க்கவும்</string>
     <string name="txt_intro6_skipTtsSetup">கூகுள் டிஎஸ்எஸ் ஏற்க்கனவே செயல்பாட்டில் உள்ள சாதனங்கள்: இந்த படிநிலையைத்  தவிர்க்கவும்</string>
     <string name="txt_actLangSel_downloadDat">குரல் தரவினை சரிபார்க்கவும்</string>
-    <string name="txt_actLangSel_complete_mainscreen_msg">குரல் தரவு கிடைக்கவில்லை. இணைத்தை இயக்கி, செயலியின் மொழி அமைப்பிற்குச் செல்லவும்</string>
     <string name="language_downloaded">_ மொழி பதிவிறக்கப்பட்டது</string>
     <string name="language_downloading">_ மொழி பதிவிறக்கப்படுகிறது</string>
     <string name="ok">சரி</string>
@@ -325,9 +306,6 @@
     <string name="intro3_cd">இந்த படம் ஜெல்லோவில் உள்ள சாப்பிடுதல் வகையின்  துணை வகைகளை காட்டுகிறது. மத்திய கட்டத்தில் காணப்படும் 3 க்கு 3 க்கு கட்டத்தில் அமைந்த சின்னங்கள் காலை உணவு, மதிய உணவு/ இரவு உணவு, இனிப்புகள், சிற்றுண்டி, பழங்கள், பானங்கள், கட்லேரி மற்றும் கூட்டுறுப்பு ஆகும்  . இந்த படம் பயனர் இருமுறை "காலை உணவு" சின்னத்தில் சொடுக்கும்போது அச்சின்னதின் துணை தெரிவுகளை செயல்படுத்துவதை காட்டுகிறது.</string>
     <string name="intro4_cd">இப்படம் ஜெல்லோவின் முகப்பு திரையின் வளதுபுறத்தின் மேல்பக்கத்தில் ஒரு கீழிறக்கத்தைக் காட்டுகிறது. அந்த கீழிறக்கம் "சுயவிவரங்கள்", "ஜெல்லோவைப் பற்றி", "பயிற்சி", "விசைபலகை", "கட்டுப்பாடு", "மொழி" ,"அமைப்புகள்" ,"விருப்பத்தை மாற்றியமை" மற்றும் "பின்னூட்டம்" ஆகிய தெரிவுகளைக் காட்டுகிறது. இதில் ஏதேனுமொரு தெரிவினை சொடுக்குவதன் மூலம் பயனர் தேவைக்கு ஏற்றவாறு செயலியின் அமைப்பினை மாற்றலாம்.</string>
     <string name="intro5_cd">இப்படம் மறுபடியும் ஜெல்லோவின் முகப்பு பக்கத்தின் திரை பிடிப்பையே காட்டுகிறது. இப்படத்தில் 6 வெளிப்பாடு போத்தங்களும் மத்திய வகை போத்தங்களுக்கு இருபுறத்திலும் முன்மூன்றாக இருப்பதை உயர்த்திக் காட்டுகிறது மாற்ற [பொத்தான்கள் மங்கலாக்கப்பட்டுள்ளன. மத்திய வகை போதன்களுக்கு இடப்புறத்தில் மேலிருந்து கீழாக அமைக்கப்பட்டுள்ள "விருப்பம்" வகையின் 3 வெளிப்பாடு பொத்தான்களும்  சிரிப்புமுகச் சின்னத்தால் குறித்து காட்டப்பட்டுள்ளன, "வேண்டும்" வகை சரிபார்த்தல் குறியீட்டால் குறித்து காட்டப்பட்டு உள்ளது மட்டும் "மேலும்" வகையானது கூட்டல் சின்னத்தால் குறித்து கட்டப்பட்டு உள்ளது. வகைப்போத்தங்களின் வலது புறத்தில் மெலிந்து கீழாக அமையகப்பட்டுள்ள வெளிப்படை சின்னங்கலாவன "விருப்பமில்லை"  என்பது "சோக முகத்துடனும்", "வேண்டாம்" என்பது "பெருக்கல்" குறியீட்டிலும், மற்றும் "குறைவாக" என்பது "கழித்தல்" குறியீட்டிலும் காட்டப்பட்டுள்ளது. மேலும் 3 வழிசெல்லும் பொத்தான்கள் திரையின் கீழ் காட்டப்பட்டுள்ளன. இடமிருந்து வலமாக உள்ள அவையாவன "பின்செல்", "முகப்பு", "விசைப்பலகை"</string>
-    <string name="intro6_1_cd">டெக்ஸ்ட் டு ஸ்பீச் வெளிப்பாடு க்கான முதல் படத்தில் 2 விருப்பமான இயக்கிகள் காட்டப்பட்டுள்ளன. முதலாவதாக" சாம்சுங் டெக்ஸ்ட் டு ஸ்பீச் இயக்கி " மற்றும் இரண்டாவதாக "கூகுள் டெக்ஸ்ட் டு ஸ்பீச் இயக்கி" ஆகியவை காட்டப்பட்டுள்ளன. பயனர் முதல் படியில் "கூகுள் டெக்ஸ்ட் டு ஸ்பீச் இயக்கி" ஐ தேர்ந்தெடுப்பதாக காட்டப்பட்டுள்ளது.</string>
-    <string name="intro6_2_cd">இரண்டாவது படம் இரண்டாவது படிநிலைக்கானது. இங்கு பயனர் கூகுள் டெக்ஸ்ட் டு ஸ்பீச் இயக்கியின் "அமைப்பு" க்கு செல்ல உதவும் "கியர்" குறியீட்டை சொடுக்குவது போல காட்டப்பட்டுள்ளது</string>
-    <string name="intro6_3_cd">மூன்றாவது படமானது மூன்றாவது படிநிலையைக் காட்டுகிறது. இங்கு பயனர்  “Google TTS voice data” திரையில் உள்ளார். இந்த திரையானது பல தேர்வுகளைக் கொண்டுள்ளது. இதில் "“French (France)”, “German (Germany)”, “Hindi (India)”, “Hungarian (Hungary)”, மற்றும்  “Indonesian (Indonesia)” ஆகியனவும் அடக்கம்.  “Hindi (India) voice” ஆனது உயர்த்திக்காட்டப்பட்டு, அளவுள்ள "“Voice set 1”  பதிவிறக்கம் செய்வதற்கு கிடைப்பதாக காட்டப்பட்டுள்ளது. பயனரின் கையானது  Hindi (India)voice”க்கான  voice set 1 ஐ பெற பதிவிறக்கச் சின்னத்தில் சொடுக்குவது போல் கட்டப்பட்டுள்ளது.</string>
     <string name="talkback_single_click">தேர்ந்தெடு</string>
     <string name="talkback_dropdown_menu">நாடுகளின் பட்டியலைப் பெற</string>
     <string name="close_dialog">உரையாடலை மூடு</string>
@@ -351,16 +329,10 @@
     <string name="lang_setting_option3_cd">மூன்றாவது படம் மூன்றாவது படிநிலையைக் காட்டுகிறது. இப்படத்தில் பயனர் , “Google TTS options” திரையில் உள்ளார். இப்படத்தில் இரண்டாவதாக “Use Wi-Fi only” ஐ மாற்றுவதரற்க்கான பொத்தான் உயர்த்திக் கட்டப்பட்டுள்ளது.பயனர் இப்படிநிலையில் இந்த பொத்தானை turn off or disable செய்யுமாறு கேட்டுக்கொள்ளப் படுகிறார்.</string>
     <string name="lang_setting_option3_gtt3_cd">மூன்றாவது படம் மூன்றாவது படிநிலையைக் காட்டுகிறது. இப்படத்தில் பயனர்  Google TTS voice data பக்கத்தில் \"Language\" தெரிவில் சொடுக்குமாறு காட்டப்பட்டுள்ளது. பயனர்  Google Text-to-Speech இயக்கிக்கான இயல்பு மொழியாக \"Hindi(India)\"  ஐ தேர்ந்தெடுப்பதாக காட்டப்பட்டுள்ளது</string>
 
-    <string name="intro8_step2">\"யூஸ் வை-பை ஒன்லி\" ஐ அணை</string>
     <string name="txt_tts_stting">டிஎஸ்எஸ் அமைப்புகள்</string>
-    <string name="txt_intro8_step1">1.கூகுள் டிஎஸ்எஸ் இயக்கியைத் திற</string>
-    <string name="txt_intro8_step2">2.கூகுள் டிஎஸ்எஸ் இயக்கியின் அமைப்பிற்க்குச் செல்</string>
-    <string name="txt_intro8_step3">3"யூஸ் வை-பை ஒன்லி" ஐ அணை</string>
     <string name="change_language_tts_wifi">கூகுள் டிஎஸ்எஸ் இயக்கியின் அமைப்பிற்க்குச் சென்று "யூஸ் வை-பை ஒன்லி" ஐ அணை. ஏற்க்கனவே இது செய்யப்பட்டிருப்பின் இந்த நிலையைக் கைவிடவும்.</string>
     <string name="icon_update_msg">இருக்கும் மொழி (கள்) க்கான சின்னங்களை புதுப்பிக்கிறது:</string>
     <string name="disable_wifi_only">\"யூஸ் வை-பை ஒன்லி\" ஐ அணைக்க முந்தைய படிநிலையை முடிக்கவும்</string>
-    <string name="step3">படிநிலை 3:</string>
-    <string name="txt_intro8_txtTitle">கூகுள் டெக்ஸ்ட் டு ஸ்பீச் இயக்கியை அமைக்க கீழ்காணும் படிநிலைகளை முடிக்கவும்</string>
     <string name="txt_actLangSel_completestep2">குரல் தரவு கிடைக்கவில்லை. இணைத்தை இயக்கி, படிநிலை 2 ஐ முடிக்கவும்</string>
     <string name="txtStep2">படிநிலை 2:</string>
     <string name="close">உரையாடலை மூடு</string>

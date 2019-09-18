@@ -69,13 +69,9 @@ public class SessionManager {
         add(MR_IN);
     }};
 
-    private SharedPreferences mPreferences;
-    private Editor mEditor;
-    private Context mContext;
-
     private final String PREF_NAME = "JellowPreferences";
     private final String KEY_IS_LOGGEDIN = "isLoggedIn";
-    public final String Name = "name";
+    private final String Name = "name";
     private final String EmergencyContact = "number";
     private final String Blood = "blood" ;
     private final String Father_name = "father";
@@ -86,7 +82,11 @@ public class SessionManager {
     private final String Pitch = "voicepitch";
     private final String PictureViewMode = "PictureViewMode";
     private final String GridSize = "GridSize";
-    public static final String ChangeLanguageNeverAsk = "ChangeLang";
+    private final String FixLanguageNeverAsk = "FixLanguage";
+
+    private SharedPreferences mPreferences;
+    private Editor mEditor;
+    private Context mContext;
 
 
     public SessionManager(Context context) {
@@ -95,12 +95,12 @@ public class SessionManager {
         mEditor = mPreferences.edit();
     }
 
-    public void setChangeLanguageNeverAsk(boolean ChangeLang){
-        storePreferenceKeyWithValue(Boolean.class.toString(), ChangeLanguageNeverAsk, ChangeLang);
+    public void setFixLanguageNeverAsk(boolean ChangeLang){
+        storePreferenceKeyWithValue(Boolean.class.toString(), FixLanguageNeverAsk, ChangeLang);
     }
 
-    public boolean isChangeLanguageNeverAsk(){
-        return (Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(), ChangeLanguageNeverAsk);
+    public boolean isFixLanguageNeverAsk(){
+        return (Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(), FixLanguageNeverAsk);
     }
 
     public void setUserLoggedIn(boolean isLoggedIn) {

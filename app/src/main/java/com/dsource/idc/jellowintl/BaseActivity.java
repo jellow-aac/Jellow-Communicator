@@ -200,7 +200,6 @@ public class BaseActivity extends AppCompatActivity{
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
         ((TextView)findViewById(R.id.tvActionbarTitle)).setText(title);
-        //getSupportActionBar().setTitle(Html.fromHtml("<font color='#F7F3C6'>"+title+"</font>"));
     }
 
     public void enableNavigationBack(){
@@ -283,14 +282,11 @@ public class BaseActivity extends AppCompatActivity{
     @Override
     protected void onResume() {
         super.onResume();
-        //isAlive = true;
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        /*The variable can be used to get does app is in fore ground or in background*/
-        //isAlive = false;
     }
 }
 

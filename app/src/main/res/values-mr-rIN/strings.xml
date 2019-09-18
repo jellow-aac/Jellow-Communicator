@@ -24,7 +24,6 @@
     <string name="Profile">प्रोफाइल</string>
 
     <string name="Language">भाषा</string>
-    <string name="ChangeLanguage">भाषा बदला</string>
     <string name="saveLanguage">भाषा बदला</string>
 
 
@@ -186,13 +185,6 @@
     <string name="txt_intro3_navWithJellow">जेलो अॅप्लिकेशनमध्ये मार्गनिर्देशन</string>
     <string name="txt_intro4_customizeAppDesc">अॅप्लिकेशनच्या वरच्या उजव्या कोपऱ्यावर क्लिक करून, वापरकर्ते अॅप्लिकेशनचे मुख्य सेटिंग्स बदलू शकतात.</string>
     <string name="txt_intro4_customizeJellow">जेलोचे सेटिंग्स</string>
-    <string name="txt_intro6_skipActiveTtsDesc">गूगल टीटीएस ला डीफॉल्ट भाषा इंजिन सेट करा आणि नंतर भाषा _ सेट करा.</string>
-    <string name="txt_intro6_ttsStep1">१.गूगल टेक्स्ट-टू-स्पीच इंजिन निवडा</string>
-    <string name="txt_intro6_activate">सक्रिय करा</string>
-    <string name="txt_intro6_step2">२. _ भाषा डीफॉल्ट बनवा</string>
-    <string name="txt_intro6_changeLang">डीफॉल्ट बनवा</string>
-    <string name="txt_intro6_step3">३. _ आवाज डाउनलोड करा</string>
-    <string name="txt_intro6_download">डाउनलोड करा</string>
     <string name="txt_intro7_getStartedDesc">आपण आता जेलो अॅप्लिकेशन वापरण्यासाठी तयार आहात.</string>
     <string name="txt_intro7_getStarted">सुरू करा</string>
     <string name="txt_registration_jellowCalluDesc">(जेलो अॅप्लिकेशन आपल्याला या नावाने ओळखते)</string>
@@ -202,19 +194,11 @@
     <string name="txt_registration_selectLangDesc_contentDesc">जेलो साठी भाषा निवडा</string>
     <string name="txt_registration_registerBtn">नोदंणी करा</string>
     <string name="enternonemptycontact">कृपया संपर्क नंबर नोदंवा</string>
-    <string name="change_tts_lang">टेक्स्ट-टू-स्पीच इंजिनची भाषा सेट करा</string>
-    <string name="txt_actLangSel_completestep3">कृपया इंटरनेट चालू करा आणि चरण ३ पूर्ण करा.</string>
     <string name="change_language_line5">चरण २: आपल्या डिव्हाइसवर _ साठी व्हॉइस डेटा उपलब्ध आहे का हे तपासा. नसल्यास व्हॉइस डेटा डाउनलोड करा. व्हॉइस डेटा उपलब्ध नसल्यास, कृपया इंटरनेट चालू करा आणि निवडलेल्या भाषेसाठी व्हॉइस डेटा डाउनलोड करा. प्रक्रिया थांबली असेल तर, कृपया आपले इंटरनेट कनेक्शन तपासा आणि पुन्हा प्रयत्न करा.</string>
-    <string name="change_language_line4">चरण ३: \'गूगल टेक्स्ट-टू-स्पीच इंजन \' ला डीफॉल्ट इंजिन बनवा आणि _ भाषेला इंजनची डीफॉल्ट भाषा सेट करा</string>
     <string name="txtChangeLanguage">डिफॉल्ट भाषा बदला:</string>
     <string name="txtApplyChanges">चरण ४: नवीन भाषा डीफॉल्ट बनविण्यासाठी \'भाषा बदला\' बटनावर क्लिक करा</string>
-    <string name="change_language_line6">डाउनलोड केलेली नवीन भाषा डिफॉल्ट बनविण्यासाठी खालील चरण पूर्ण करा</string>
-    <string name="txt_set_tts_setup">कृपया या स्क्रीनवरील टेक्स्ट-टू-स्पीच इंजिन संबंधित चरण पूर्ण करा</string>
-    <string name="txt_save_same_lang_def">निवडलेली भाषा आधीपासूनच डिफॉल्ट भाषा आहे</string>
-    <string name="speech_engin_lang_sam">कृपया अॅप्लिकेशनचे \'भाषा\' सेटिंग्स तपासा</string>
     <string name="txt_intro6_skipTtsSetup">ज्या उपकरणांमध्ये गूगल टेक्स्ट-टू-स्पीच इंजिन आधीपासूनच सक्रिय आहे, अशा उपकरणांमध्ये वापरकर्ते या स्क्रीनला स्वाइप करुन पुढे जाऊ शकतात.</string>
     <string name="txt_actLangSel_downloadDat">व्हॉइस डेटा तपासा</string>
-    <string name="txt_actLangSel_complete_mainscreen_msg">वॉयस डेटा उपलब्ध नाही. कृपया इंटरनेट चालू करा आणि अॅप्लिकेशनच्या भाषा सेटिंग्स मध्ये जा.</string>
     <string name="language_downloaded">_ भाषा डाउनलोड झाली आहे</string>
     <string name="language_downloading">_ भाषा डाउनलोड होत आहे</string>
     <string name="ok">पुढे जा</string>
@@ -326,9 +310,6 @@
     <string name="intro3_cd">This image shows a screenshot of Jellow sub-categories within the “Eating” category. The icons visible in the central grid arranged in a 3 by 3 grid format are “Breakfast”, “Lunch/Dinner”, “Sweets”, “Snacks”, “Fruits”, “Drinks”, “Cutlery”, and “Add-ons”. The image shows the user’s finger double-clicking on “Breakfast” icon to access further sub-options.</string>
     <string name="intro4_cd">This image shows the home screen of Jellow with a drop-down at the top right corner of Jellow. This drop-down shows options of “Profile”, “About Jellow”, “Tutorial”, “Keyboard Control”, “Language”, “Settings”, “Reset preferences”, and “Feedback”. By clicking on any of these options the user can customize the app’s settings to their needs.</string>
     <string name="intro5_cd">This image again shows the screenshot of the home page of Jellow. In this image, the 6 expressive buttons arranged as 3 each of either side of the central category buttons have been highlighted with all other buttons faded out. To the left of the central grid of category buttons, arranged from top to bottom are the 3 expressive buttons of “Like” represented by a “Smiley face” icon, “Yes” represented by a “check mark” icon, and “More” represented by a “Plus sign” icon. To the right of the category buttons, arranged from top to bottom are the expressive icons of “Don’t like” represented by a sad face” icon, “No” represented by the “cross” icon and “Less” represented by the “Minus sign” icon. Also labeled in the image are the 3 navigational buttons at the bottom of the screen. From left to right these are “Back”, “Home”, and “Keyboard”</string>
-    <string name="intro6_1_cd">In the first image corresponding to “Text-to-speech output”, there are 2 preferred engines visible, first, the “Samsung Text-to-Speech engine” and second, the “Google Text-to-Speech engine”. The user is seen to select the “Google Text-to-Speech engine”as the first step.</string>
-    <string name="intro6_2_cd">The second image corresponds to the second step in this process where the user is seen to now click on the “Gear” symbol corresponding to the “Settings” of the “Google Text-to-Speech engine</string>
-    <string name="intro6_3_cd">The third image is the third step in this process where now the user is at the “Google TTS voice data” screen. This screen provides multiple voice options including “French (France)”, “German (Germany)”, “Hindi (India)”, “Hungarian (Hungary)”, and “Indonesian (Indonesia)”. The “Hindi (India) voice” option is highlighted and shows an option of “Voice set 1” with a size of 19MB that is available for download. The user’s finger is seen to click on the download icon for the voice set 1 for the “Hindi (India)voice”.</string>
     <string name="talkback_single_click">select</string>
     <string name="talkback_dropdown_menu">access countries list</string>
     <string name="close_dialog">close dialog.</string>
@@ -353,17 +334,11 @@
     <string name="lang_setting_option3_gtt3_cd">The third image corresponds to the third step  in this process where the user is seen to  now click on the “Language\" option on the  Google TTS voice data page. The user is seen to set  \"Hindi(India)\" as the default language of the  Google Text-to-Speech engine.</string>
     <!--end content description-->
 
-    <string name="intro8_step2">\"केवळ वाय-फाय चा वापर करा\" ला बंद करा</string>
     <string name="txt_tts_stting">टेक्स्ट-टू-स्पीच सेटिंग्स</string>
-    <string name="txt_intro8_step1">१. गूगल टेक्स्ट-टू-स्पीच उघडा</string>
-    <string name="txt_intro8_step2">२. गूगल टेक्स्ट-टू-स्पीच \"सेटिंग्स\" वर जा</string>
-    <string name="txt_intro8_step3">३. \"केवळ वाय-फाय चा वापर करा\" या बटनाला बंद करा</string>
     <string name="change_language_tts_wifi">खाली दिलेल्या \'टेक्स्ट-टू-स्पीच सेटिंग्स\' बटनाला टॅप करून गूगल टेक्स्ट-टू-स्पीच च्या सेटिंग्स वर जा आणि \'केवळ वाय-फाय चा वापर करा\' या बटनाला बंद करा. जर हे बटण सेटिंग्समध्ये आधीपासूनच बंद केले असेल तर, कृपया पुढे जा.</string>
     <string name="icon_update_msg">अॅप्लिकेशनमधील भाषांसाठी आइकॉन्स अपडेट होत आहेत :</string>
     <!--<string name="add_new_language">नवीन भाषा डाउनलोड करा किंवा उपस्थित भाषा डिलीट करा.</string>-->
     <string name="disable_wifi_only">कृपया मागील चरणात \"केवळ वाय-फाय चा वापर करा\" या बटनाला बंद करा.</string>
-    <string name="step3">चरण ३:</string>
-    <string name="txt_intro8_txtTitle">कृपया टेक्स्ट-टू-स्पीच इंजिन सक्रिय करण्यासाठी खालील चरण पूर्ण करा.</string>
     <string name="txt_actLangSel_completestep2">वॉयस डेटा उपलब्ध नाही. कृपया इंटरनेट चालू करा आणि चरण २ पूर्ण करा.</string>
     <string name="txtStep2">चरण २:</string>
     <string name="close">close dialog</string>

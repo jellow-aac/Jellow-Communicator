@@ -23,12 +23,37 @@
             android:layout_marginRight="@dimen/lang_sel_parent_margin_right"
             android:layout_marginEnd="@dimen/lang_sel_parent_margin_right">
             <TextView
-                android:id="@+id/tv7"
+                android:id="@+id/txt_title_chgLang"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/txtChangeLanguage"
+                android:layout_marginBottom="@dimen/lang_sel_head_margin_bottom"
+                style="@style/defaultTextViewStyle"
+                android:fontFamily="@font/mukta_semibold"/>
+            <TextView
+                android:id="@+id/tv_step1_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/change_language_line2"
+                android:layout_marginBottom="@dimen/lang_sel_tv_margin_bottom"
+                style="@style/defaultTextViewStyle"/>
+            <Spinner
+                android:id="@+id/selectDownloadedLanguageSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/lang_sel_spiner_height"
+                android:background="@drawable/custom_spinner_view"
+                android:minWidth="@dimen/lang_sel_spiner_min_width"
+                android:paddingRight="@dimen/lang_sel_spiner_padding_right"
+                android:paddingEnd="@dimen/lang_sel_spiner_padding_right"
+                android:layout_marginBottom="@dimen/lang_sel_tv_margin_bottom"/>
+            <TextView
+                android:id="@+id/tv_step2_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/change_language_tts_wifi"
                 style="@style/defaultTextViewStyle"/>
             <LinearLayout
+                android:id="@+id/ll_wifi_only_setting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/lang_sel_ll_margin_top">
@@ -66,48 +91,14 @@
                 android:layout_height="@dimen/lang_sel_btn_height"
                 android:textSize="@dimen/lang_sel_btn_txt_size"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="@dimen/lang_sel_btn_margin_top"
+                android:layout_marginTop="@dimen/lang_sel_ll_margin_top"
                 android:layout_marginBottom="@dimen/lang_sel_btn_margin_bottom"
                 android:paddingLeft="@dimen/lang_sel_btn_padding_horizontal"
                 android:paddingRight="@dimen/lang_sel_btn_padding_horizontal"
                 android:text="@string/txt_tts_stting"
                 android:onClick="openSpeechSetting"/>
             <TextView
-                android:id="@+id/txt_title_chgLang"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/txtChangeLanguage"
-                android:layout_marginTop="@dimen/lang_sel_head_margin_top"
-                android:layout_marginBottom="@dimen/lang_sel_head_margin_bottom"
-                style="@style/defaultTextViewStyle"
-                android:fontFamily="@font/mukta_semibold"/>
-            <TextView
-                android:id="@+id/txt_followSteps"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLines="2"
-                android:layout_marginTop="@dimen/lang_sel_tv_margin_vertical_top"
-                android:layout_marginBottom="@dimen/lang_sel_tv_step_margin_bottom"
-                android:text="@string/change_language_line6"
-                style="@style/defaultTextViewStyle"/>
-            <TextView
-                android:id="@+id/tv2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/change_language_line2"
-                android:layout_marginBottom="@dimen/lang_sel_tv_margin_bottom"
-                style="@style/defaultTextViewStyle"/>
-            <Spinner
-                android:id="@+id/selectDownloadedLanguageSpinner"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/lang_sel_spiner_height"
-                android:background="@drawable/custom_spinner_view"
-                android:minWidth="@dimen/lang_sel_spiner_min_width"
-                android:paddingRight="@dimen/lang_sel_spiner_padding_right"
-                android:paddingEnd="@dimen/lang_sel_spiner_padding_right"
-                android:layout_marginBottom="@dimen/lang_sel_tv_margin_bottom"/>
-            <TextView
-                android:id="@+id/tv4"
+                android:id="@+id/tv_step3_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/change_language_line5"
@@ -134,61 +125,7 @@
                 android:text="@string/txt_actLangSel_downloadDat"
                 android:onClick="openSpeechDataSetting"/>
             <TextView
-                android:id="@+id/tv5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/change_language_line4"
-                android:layout_marginBottom="@dimen/lang_sel_tv_margin_bottom"
-                style="@style/defaultTextViewStyle"/>
-            <LinearLayout
-                android:id="@+id/llImg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/lang_sel_ll_margin_left"
-                android:layout_marginStart="@dimen/lang_sel_ll_margin_left"
-                android:layout_marginBottom="@dimen/lang_sel_tv_margin_bottom"
-                android:orientation="horizontal">
-                <ImageView
-                    android:id="@+id/ivTtsSetting1"
-                    android:layout_width="@dimen/lang_sel_img_width"
-                    android:layout_height="@dimen/lang_sel_img_height"
-                    android:contentDescription="@string/gtts1"/>
-                <ImageView
-                    android:id="@+id/ivArrow3"
-                    android:layout_width="@dimen/lang_sel_img_ar_width"
-                    android:layout_height="@dimen/lang_sel_img_ar_height"
-                    android:layout_gravity="center_vertical"
-                    android:importantForAccessibility="no"/>
-                <ImageView
-                    android:id="@+id/ivTtsSetting2"
-                    android:layout_width="@dimen/lang_sel_img_width"
-                    android:layout_height="@dimen/lang_sel_img_height"
-                    android:contentDescription="@string/gtts2"/>
-                <ImageView
-                    android:id="@+id/ivArrow4"
-                    android:layout_width="@dimen/lang_sel_img_ar_width"
-                    android:layout_height="@dimen/lang_sel_img_ar_height"
-                    android:layout_gravity="center_vertical"
-                    android:importantForAccessibility="no"/>
-                <ImageView
-                    android:id="@+id/ivTtsSetting3"
-                    android:layout_width="@dimen/lang_sel_img_width"
-                    android:layout_height="@dimen/lang_sel_img_height"
-                    android:contentDescription="@string/lang_setting_option3_gtt3_cd"/>
-            </LinearLayout>
-            <Button
-                android:id="@+id/changeTtsLangBut"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/lang_sel_btn_height"
-                android:textSize="@dimen/lang_sel_btn_txt_size"
-                android:layout_gravity="center_vertical"
-                android:layout_marginTop="@dimen/lang_sel_btn_tts_margin_top"
-                android:layout_marginBottom="@dimen/lang_sel_btn_voice_margin_bottom"
-                android:paddingLeft="@dimen/lang_sel_btn_padding_horizontal"
-                android:paddingRight="@dimen/lang_sel_btn_padding_horizontal"
-                android:text="@string/change_tts_lang"/>
-            <TextView
-                android:id="@+id/tv6"
+                android:id="@+id/tv_step4_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/txtApplyChanges"

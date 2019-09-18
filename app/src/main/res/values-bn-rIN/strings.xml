@@ -23,7 +23,6 @@
     <string name="Profile">প্রোফাইল</string>
 
     <string name="Language">ভাষা</string>
-    <string name="ChangeLanguage">ভাষা বদলাও</string>
     <string name="saveLanguage">বদলগুলি প্রয়োগ করো</string>
     <string-array name="bloodgroup">
         <item>নির্বাচিত হয়নি</item>
@@ -180,13 +179,6 @@
     <string name="txt_intro3_navWithJellow">জেলোর মধ্যে চলাচল করা</string>
     <string name="txt_intro4_customizeAppDesc">অ্যাপ্লিকেশনের ডান দিকের ওপরের অংশটি ক্লিক করে অ্যাপ্লিকেশনের সেটিংস সাজানো যেতে পারে</string>
     <string name="txt_intro4_customizeJellow">জেলো-র সেটিংস</string>
-    <string name="txt_intro6_skipActiveTtsDesc">- উচ্চারণের জন্য _ ভাষা নির্বাচন করুন</string>
-    <string name="txt_intro6_ttsStep1">১। গুগল টেক্সট-টু-স্পীচ সক্রিয় করুন</string>
-    <string name="txt_intro6_activate">সক্রিয় করুন</string>
-    <string name="txt_intro6_step2">২। পছন্দের ভাষাকে মূল ভাষা হিসেবে নির্বাচন করুন</string>
-    <string name="txt_intro6_changeLang">ভাষা বদল করুন</string>
-    <string name="txt_intro6_step3">৩। _আওয়াজ ডাউনলোড করুন</string>
-    <string name="txt_intro6_download">ডাউনলোড</string>
     <string name="txt_intro7_getStartedDesc">এবার আপনি জেলোর সঙ্গে কাজ শুরু করতে প্রস্তুত আছেন</string>
     <string name="txt_intro7_getStarted">শুরু করো</string>
     <string name="txt_registration_jellowCalluDesc">( এভাবেই জেলো আপনাকে সম্বোধন করে )</string>
@@ -196,19 +188,11 @@
     <string name="txt_registration_selectLangDesc_contentDesc">জেলো-র জন্য একটি ভাষা বেছে নিন। প্রয়োজনীয় ক্ষেত্র</string>
     <string name="txt_registration_registerBtn">নথিভুক্ত করুন</string>
     <string name="enternonemptycontact">কার্যকরী যোগাযোগের নাম্বার দিন</string>
-    <string name="change_tts_lang">টেক্সট-টু-স্পীচ প্রয়োগ করুন।</string>
-    <string name="txt_actLangSel_completestep3">দয়া করে ইন্টারনেট চালু করুন এবং তৃতীয় ধাপ সম্পূর্ণ করুন।</string>
     <string name="change_language_line5">দ্বিতীয় ধাপঃ যাচাই করে দেখুন _-র জন্য ভয়েস ডেটা আপনার যন্ত্রে মজুত আছে কি না। ইন্টারনেটে তীর্থযাত্রী চালু করুন এবং নির্বাচিত ভাষাতে ভয়েস ডেটা ডাউনলোড করুন। প্রক্রিয়াটি স্থগিত হলে দয়া করে আপনার ইন্টারনেট সংযোগ চেক করুন এবং পুনরায় চেষ্টা করুন।</string>
-    <string name="change_language_line4">তৃতীয় ধাপঃ \'গুগল টেক্সট-টু-স্পীচ ইঞ্জিনের\'-কে টেক্সট-টু-স্পীচ ইঞ্জিনের হিসেবে নির্বাচন করুন এবং ইঞ্জিনের ডিফল্ট ভাষা হিসাবে _ সেট করুন</string>
     <string name="txtChangeLanguage">মূল ভাষা বদল করুনঃ</string>
     <string name="txtApplyChanges">চতুর্থ ধাপঃ নতুন ভাষাকে মূল ভাষা হিসেবে প্রয়োগ করতে \'বদলগুলি প্রয়োগ করুন\' বাটনটি ক্লিক করুন।</string>
-    <string name="change_language_line6">নতুন যুক্ত হওয়া ভাষা মূল ভাষা হিসেবে প্রয়োগ করতে আপনি নিম্নলিখিত ধাপগুলি অনুসরণ করতে পারেন।</string>
-    <string name="txt_set_tts_setup">দয়া করে টেক্সট-টু-স্পীচ ইঞ্জিনের সেট আপ, যা আগের পাতায় দেওয়া রয়েছে, তা সমাপ্ত করুন।</string>
-    <string name="txt_save_same_lang_def">নির্বাচিত ভাষাটি ইতিমধ্যে আপনার মূল ভাষা হয়ে রয়েছে।</string>
-    <string name="speech_engin_lang_sam">দয়া করে অ্যাপের \'ভাষা\' সেটিং-টি পরীক্ষা করুন</string>
     <string name="txt_intro6_skipTtsSetup">যে-সমস্ত যন্ত্রে গুগল টিটিএস ইঞ্জিন সক্রিয় রয়েছেঃ দয়া করে বর্তমান ধাপটি অগ্রাহ্য করুন।</string>
     <string name="txt_actLangSel_downloadDat">ভয়েস ডেটা পরীক্ষা করুন।</string>
-    <string name="txt_actLangSel_complete_mainscreen_msg">ভয়েস ডেটা প্রাপ্ত হয়নি। ইন্টারনেট চালু করুন এবং অ্যাপ্লিকেশন ভাষা সেটিংস যান।</string>
     <string name="language_downloaded">_ ভাষা ডাউনলোড করা হল</string>
     <string name="language_downloading">_  ভাষা ডাউনলোড করা হচ্ছে</string>
     <string name="ok">ঠিক আছে</string>
@@ -323,9 +307,6 @@
     <string name="intro3_cd">এই ছবি " খাওয়া " ক্যাটাগরির অন্তর্ভুক্ত উপ-ক্যাটাগরিগুলিকে চিহ্নিত করে। এই আইকনগুলি মূল সজ্জায় দৃশ্যমান এবং সজ্জাটি তিনটি বনাম তিনটি শ্রেণিতে বিভক্ত, যথা - " সকালের জলখাবার ", " দুপুরের খাবার ও রাতের খাবার ", " মিষ্টি ", " স্ন্যাক্স ", " ফল ", " পানীয় ", " ছুরিচামচ " এবং " আরও কিছু "। এই ছবিতে বোঝা যায়, ব্যবহারকারীর আঙুল " সকালের জলখাবার " আইকনে দু-বার ক্লিক করলে এর অধীনে থাকা অন্যান্য অপশনগুলি সে ব্যবহার করতে পারবে।</string>
     <string name="intro4_cd">এই ছবিতে দেখা যায় জেলোর মূল পাতার ওপর দিকের ডান হাতের অংশ নেমে এসেছে। এই নেমে আসার ফলে কয়েকটি অপশন চোখে পড়ে, যেমন - " প্রোফাইল ", " জেলো সম্পর্কে ", " টিউটোরিয়াল ", " কীবোর্ড নিয়ন্ত্রণ ", " ভাষা ", " সেটিংস ", " পছন্দের পুনর্বিন্যাস " এবং " ফিডব্যাক "। ওপরের যে-কোনো একটি অপশনে ক্লিক করে ব্যবহারকারী অ্যাপের সেটিংস নিয়ন্ত্রণ করতে পারে।</string>
     <string name="intro5_cd">এই ছবি জেলোর মূল পাতার স্ক্রিনশট। এই ছবিতে রয়েছে ছটি ভাবপ্রকাশক বাটন। মূল শ্রেণির বাটনগুলি রঙিন রূপে উভয়দিকে তিনটি করে সাজানো রয়েছে। বাকি বাটনগুলি রঙহীন। ওপর থেকে নীচে শ্রেণিগত বাটনের মূল সজ্জার বাম দিকে রয়েছে তিনটি ভাবপ্রকাশক বাটন, যথা - " হাসিমুখ " আইকন "। এটি " চিহ্ন পরীক্ষা করুন " দ্বারা প্রকাশ করা হয়েছে। একইভাবে " হ্যাঁ " সূচিত হয়েছে " যোগ চিহ্ন "-এর মাধ্যমে। শ্রেণিগত বাটনের ডান দিকে রয়েছে আরও কিছু ভাবপ্রকাশক আইকন, যথা - " পছন্দ করি না ", যা সূচিত হয়েছে দু:খিত মুখের দ্বারা। " না " প্রকাশিত হয়েছে " ক্রস " চিহ্নের দ্বারা। " কম " " বিয়োগ চিহ্নের " মাধ্যমে প্রকাশ পেয়েছে। ছবিতে তিনটি নেভিগেশন বাটন রয়েছে - স্ক্রিনের নীচে, বাম দিক থেকে ডান দিকে, যথা - " পেছনে ", " মূল পাতা " এবং " কীবোর্ড "।</string>
-    <string name="intro6_1_cd">প্রথম ছবি " text to speech " সংক্রান্ত, যেখানে দুটি পছন্দসই ইঞ্জিন দৃশ্যমান। প্রথমটি " samsung text to speech engine " এবং দ্বিতীয় " google text to speech engine "। ব্যবহারকারী দ্বিতীয় ইঞ্জিনটিকে প্রথম ধাপ হিসেবে নির্বাচন করেন।</string>
-    <string name="intro6_2_cd">দ্বিতীয় ছবিটি এই প্রক্রিয়ার দ্বিতীয় ধাপ সংক্রান্ত, যেখানে ব্যবহারকারীকে দেখা যায় " গিয়ার " চিহ্নে ক্লিক করতে, যা আসলে " google text to speech " -এর " সেটিংস " সংক্রান্ত।</string>
-    <string name="intro6_3_cd">তৃতীয় ছবিটি এই পদ্ধতির তৃতীয় ফহাও যেখানে ব্যবহারকারী রয়েছে " Google TTS voice data " স্ক্রিনে। তিন ধরনের সেটিংস স্ক্রিনে চোখে পড়ে, যথা - নামকরণ, google text-to-speech engine এবং install voice data. ব্যবহারকারীকে দেখা গেল ভাষার প্রথম অপশনটিকে নির্বাচন করে  TTS engine-এর মূল ভাষা হিন্দিকে প্রয়োগ করতে।</string>
     <string name="talkback_single_click">আলতো চাপুন</string>
     <string name="talkback_dropdown_menu">দেশের তালিকা ব্যবহার করতে</string>
     <string name="close_dialog">বন্ধ ডায়ালগ</string>
@@ -350,16 +331,10 @@
     <string name="lang_setting_option3_gtt3_cd">তৃতীয় ছবিটি প্রক্রিয়ার তৃতীয় ধাপের অনুরূপ, যেখানে ব্যবহারকারীকে গুগল টিটিএস ভয়েস ডেটা পেজের " ভাষা\ " অপশনটি ক্লিক করতে দেখা যায়। তাঁকে দেখা যায় গুগল টেক্সট-টু-স্পিচ ইঞ্জিনে " হিন্দি ( ভারত) "-কে মূল ভাষা হিসেবে নির্বাচন করতে।</string>
     <!--end content description-->
 
-    <string name="intro8_step2">বন্ধ করো \"কেবল ওয়াই-ফাই ব্যবহার করো\" </string>
     <string name="txt_tts_stting">টেক্সট-টু-স্পীচ সেটিংস</string>
-    <string name="txt_intro8_step1">১. গুগল টেক্সট-টু-স্পীচ ইঞ্জিনের খোলো</string>
-    <string name="txt_intro8_step2">২. গুগল টেক্সট-টু-স্পীচ ইঞ্জিনের-এর জন্য সেটিংস-এ যাও</string>
-    <string name="txt_intro8_step3">৩. \"কেবল ওয়াই-ফাই ব্যবহার করো\" বন্ধ করো</string>
     <string name="change_language_tts_wifi">গুগলের টিটিএসের সেটংস-এ গিয়ে \' টিটিএস সেটিংস \' বোতামটি স্পর্শ করে \' শুধু ওয়াই-ফাই \' অপশনটি চালু করুন। যদি অপশনটি ইতিমধ্যে নিস্ক্রিয় থাকে, তাহলে এই পর্যায়টি এড়িয়ে যান।</string>
     <string name="icon_update_msg">বর্তমান ভাষার আইকনগুলির সংযোজন:</string>
     <string name="disable_wifi_only">গুগল টেক্সট-টু-স্পীচ- এর সেটিংস-এ যাও এবং \'কেবল ওয়াই-ফাই ব্যবহার করো\' বন্ধ করো।</string>
-    <string name="step3">তৃতীয় ধাপঃ</string>
-    <string name="txt_intro8_txtTitle">নীচের পদক্ষেপগুলি সম্পন্ন করুনঃ</string>
     <string name="txt_actLangSel_completestep2">ভয়েস ডেটা প্রাপ্ত হয়নি। দয়া করে ইন্টারনেট চালু করুন এবং দ্বিতীয় ধাপ সম্পূর্ণ করুন।</string>
     <string name="txtStep2">দ্বিতীয় ধাপঃ</string>
     <string name="close">বন্ধ ডায়ালগ</string>

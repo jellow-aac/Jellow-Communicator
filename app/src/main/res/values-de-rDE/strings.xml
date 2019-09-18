@@ -24,7 +24,6 @@
     <string name="Profile">Profil</string>
 
     <string name="Language">Sprache</string>
-    <string name="ChangeLanguage">Sprache ändern</string>
     <string name="saveLanguage">Änderungen speichern</string>
 
     <string-array name="bloodgroup">
@@ -182,13 +181,6 @@
     <string name="txt_intro3_navWithJellow">Innnerhalb Jellows navigieren</string>
     <string name="txt_intro4_customizeAppDesc">Die App-Einstellungen können in der oberen rechten Bildschirmecke individuell eingerichtet werden</string>
     <string name="txt_intro4_customizeJellow">Jellow Einstellungen</string>
-    <string name="txt_intro6_skipActiveTtsDesc">Um - zu benutzen, setzen Sie die Sprache als _</string>
-    <string name="txt_intro6_ttsStep1">1. Google TTS aktivieren</string>
-    <string name="txt_intro6_activate">Aktivieren</string>
-    <string name="txt_intro6_step2">2. _ als Standard-Sprache setzen</string>
-    <string name="txt_intro6_changeLang">Sprache ändern</string>
-    <string name="txt_intro6_step3">3. Stimme auf _ herunterladen</string>
-    <string name="txt_intro6_download">Herunterladen</string>
     <string name="txt_intro7_getStartedDesc">Jellow ist jetzt startbereit</string>
     <string name="txt_intro7_getStarted">Starten</string>
     <string name="txt_registration_jellowCalluDesc">(So nennt Sie Jellow)</string>
@@ -198,19 +190,11 @@
     <string name="txt_registration_selectLangDesc_contentDesc">Sprache für Jellow setzen. Pflichtfeld</string>
     <string name="txt_registration_registerBtn">Registrieren</string>
     <string name="enternonemptycontact">Eine gültige Handynummer eingeben</string>
-    <string name="change_tts_lang">Die TTS-Sprache festlegen</string>
-    <string name="txt_actLangSel_completestep3">Mit dem Internet verbinden und den 3. Schritt durchführen</string>
     <string name="change_language_line5">Schritt 2: Die Verfügbarkeit der Stimme für Deutsch prüfen. Wenn nicht vorhanden, dann herunterladen. Falls der Download-Vorgang angehalten wird, wiederholen.</string>
-    <string name="change_language_line4">Schritt 3: \'Google Text-to-Speech\' als Standard-TTS setzen sowie _ als Standardsprache setzen</string>
     <string name="txtChangeLanguage">Standard-Sprache ändern:</string>
     <string name="txtApplyChanges">Schritt 4:\"Einstellungen ändern\" klicken, um die neue Sprache als Standard zu setzen</string>
-    <string name="change_language_line6">Den Schritten unten folgen, um die neu gewählte Sprache als Standard zu setzen</string>
-    <string name="txt_set_tts_setup">Bitte führen Sie die Einrichtung von Text-to-Speech vom voherigen Bildschirm durch</string>
-    <string name="txt_save_same_lang_def">Die gewählte Sprache ist bereits die Standard-Sprache</string>
-    <string name="speech_engin_lang_sam">Bitte prüfen Sie die Spracheinstellungen</string>
     <string name="txt_intro6_skipTtsSetup">Geräte mit schon aktivierten Google Text-to-Speech: Bitte wischen Sie, um diesen Schritt zu überspringen</string>
     <string name="txt_actLangSel_downloadDat">Sprachdaten prüfen</string>
-    <string name="txt_actLangSel_complete_mainscreen_msg">Sprachedaten nicht vorhanden. Bitte verbinden Sie mit dem Internet, um Sprachdaten herunterzuladen</string>
     <string name="language_downloaded">_ Sprachdaten heruntergeladen</string>
     <string name="language_downloading">_ wird heruntergeladen</string>
     <string name="ok">Weiter</string>
@@ -320,9 +304,6 @@
     <string name="intro3_cd">Das Bild zeigt eine Bildschirmaufnahme der Unterkategorien unter der Kategorie \"Essen\" auf. Die sichtbaren Icons sind in ein Gitternetz von 3 Spalten und 3 Reihen angeordnet. Die Icons sind: \"Frühstück\", \"Mittag-/Abendessen\", \"Süßigkeiten\", \"Snacks\", \"Obst\", \"Getränke\", \"Besteck\" und \"Add-on\". Auf dem Bild ist auch ein Finger beim Doppelklicken auf \"Das Frühstück\" zu sehen, um auf Unteroptionen zuzugreifen.</string>
     <string name="intro4_cd">Das Bild zeigt die Startseite Jellows mit einem Drop-Down Menü in der oberen rechten Ecke des Bildschirms auf. Das Drop-Down Menü beinhaltet die Optionen \"Profil\", \"Über Jellow\", \"Tutorial\", \"Tastatursteuerung\", \"Sprache\", \"Einstellungen\", \"Präferenzen zurücksetzen\" und \"Feedback\". Mit einem Klick auf diesen Optionen kann der Benutzer die Einstellungen an seine Wünsche anpassen.</string>
     <string name="intro5_cd">Dieses Bild zeigt nochmals die Bildschirmaufnahme von der Startseite Jellows auf. Auf diesem Bild werden die 6 expressive Tasten hervorgehoben, die je 3 auf linken und rechten Seite des zentralen Gitternetz stehen, während das zentrale Gitternetz abgeblendet. Die 3 von oben nach unten angeordneten Tasten auf der linken Seite sind - \"Gefällt mir\" dargestellt mit einem \"Smiley\" Icon, \"Ja\" dargestellt mit einem \"Häkchen\" Icon und \"Mehr\" dargestellt mit \"Plus\" Icon. Ebenso sind die 3 von oben nach unten angeordneten Tasten auf der rechten Seite - \"Gefällt mir nicht\" dargestellt mit einem \"traurigen Gesicht\" Icon, \"Nein\" dargestellt mit einem \"Kreuz\" Icon und \"Weniger\" dargestellt mit einem \"Minus\" Icon. Darüber hinaus sind die 3 Tasten zum Navigieren unten eingefügt, die jeweils von links nach rechts \"Zurück\", \"Startseite\" und \"Tastatur\" kennzeichnen.</string>
-    <string name="intro6_1_cd">Auf dem ersten, \"Text-to-Speech\" entsprechenden Bild sind zwei bevorzugte Engines nämlich \"Samsung Text-to-Speech\" und \"Google Text-to-Speech\" zu sehen. Als erster Schritt ist der Benutzer beim Wählen der \"Google Text-to-Speech\"-Engine zu sehen.</string>
-    <string name="intro6_2_cd">Das zweite Bild zeigt den Schritt 2 des Vorgangs auf, wo der Benutzer beim Klicken des \"Zahnradsymbols\" ist, das der \"Google Text-to-Speech-Engine\"-Einstellungen kennzeichnet.</string>
-    <string name="intro6_3_cd">Das dritte Bild beschreibt den Schritt 3 des Vorgangs, wo der Benutzer sich vor dem \"Google TTS-Sprachdaten\"-Bildschirm befindet. Dieser Schritt stellt mehrere Stimmoptionen inklusive \"Deutsch (Deutschland)\", \"Französisch (Frankreich)\", \"Hindi (Indien)\", \"Indonesisch (Indonesien)\" und \"Ungarisch (Ungarn)\" zum Herunterladen bereit. Die Sprache \"Deutsch (Deutschland)\" wird hervorgehoben, wobei das \"Stimm-Set 1\" mit einer Datengröße von ____MB zum Herunterladen bereit ist. Der Finger auf dem Bild ist beim Klicken des Icons \"Herunterladen\" von Stimm-Set 1.</string>
     <string name="talkback_single_click">Wählen</string>
     <string name="talkback_dropdown_menu">Die Länderliste abrufen</string>
     <string name="close_dialog">Gespräch beenden</string>
@@ -347,16 +328,10 @@
     <string name="lang_setting_option3_gtt3_cd">Das dritte Bild entspricht dem Schritt 3 des Vorgangs, wo der Benutzer sich beim Klicken auf "\Sprache\" auf dem Google TTS-Sprachdaten-Bildschirm befindet. Der Benutzer wird beim Setzen der Sprache \"Deutsch (Deutschland)\" als Standard-Sprache der Google Text-to-Speech-Engine aufgezeigt.</string>
     <!--end content description-->
 
-    <string name="intro8_step2">\"Nur WLAN nutzen\" ausschalten</string>
     <string name="txt_tts_stting">TTS-Einstellungen</string>
-    <string name="txt_intro8_step1">1. Google TTS-Engine öffnen</string>
-    <string name="txt_intro8_step2">2. Google TTS-Einstellungen</string>
-    <string name="txt_intro8_step3">3. \"Nur WLAN nutzen\"</string>
     <string name="change_language_tts_wifi">Google TTS-Einstellungen öffnen und \"Nur WLAN nutzen\" ausschalten. Falls schon ausgeschaltet, diesen Schritt überspringen</string>
     <string name="icon_update_msg">Icon(s) für die verfügbaren Sprachen werden aktualisiert:</string>
     <string name="disable_wifi_only">Den vorherigen Schritt des Ausschaltens von \"Nur WLAN nutzen\" durchführen</string>
-    <string name="step3">Schritt 3:</string>
-    <string name="txt_intro8_txtTitle">Zur Einrichtung der Google Text-to-Speech-Engine den folgenden Schritten durchführen</string>
     <string name="txt_actLangSel_completestep2">Sprachdaten nicht vorhanden. Mit dem Internet verbinden und den Schritt 2 durchführen</string>
     <string name="txtStep2">Schritt 2:</string>
     <string name="close">Gespräch beenden</string>

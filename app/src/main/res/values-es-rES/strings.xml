@@ -24,7 +24,6 @@
     <string name="Profile">Perfil</string>
 
     <string name="Language">Idioma</string>
-    <string name="ChangeLanguage">Cambiar Idioma</string>
     <string name="saveLanguage">Guardar cambios</string>
 
     <string-array name="bloodgroup">
@@ -182,13 +181,6 @@
     <string name="txt_intro3_navWithJellow">Navegar en Jellow</string>
     <string name="txt_intro4_customizeAppDesc">El usuario puede personalizar los ajustes de la aplicación al hacer clic en la esquina superior derecha</string>
     <string name="txt_intro4_customizeJellow">Ajustes en Jellow</string>
-    <string name="txt_intro6_skipActiveTtsDesc">Para el acento - establece el idioma como "_"</string>
-    <string name="txt_intro6_ttsStep1">1. Activar Texto a voz de Google</string>
-    <string name="txt_intro6_activate">ACTIVAR</string>
-    <string name="txt_intro6_step2">2. Establece _ como idioma predeterminado</string>
-    <string name="txt_intro6_changeLang">CAMBIAR IDIOMA</string>
-    <string name="txt_intro6_step3">3. Descargar voz _</string>
-    <string name="txt_intro6_download">DESCARGAR</string>
     <string name="txt_intro7_getStartedDesc">Ahora estás listo para empezar con Jellow</string>
     <string name="txt_intro7_getStarted">EMPEZAR</string>
     <string name="txt_registration_jellowCalluDesc">(Así es como te llama Jellow)</string>
@@ -198,19 +190,11 @@
     <string name="txt_registration_selectLangDesc_contentDesc">Selecciona un idioma para Jellow. Campo obligatorio.</string>
     <string name="txt_registration_registerBtn">REGISTRARSE</string>
     <string name="enternonemptycontact">Por favor, escribe un número de contacto válido</string>
-    <string name="change_tts_lang">Establecer el idioma del Texto a voz</string>
-    <string name="txt_actLangSel_completestep3">Por favor, enciende Internet y completa el 3º paso</string>
     <string name="change_language_line5">2º paso: Comprueba si los datos de voz para _ están disponibles en tu dispositivo. Si no, por favor, descarga los datos de voz para el idioma seleccionado. En caso de que la barra de progreso se atasque, por favor reinica la aplicación o inténtalo de nuevo.</string>
-    <string name="change_language_line4">3º paso: Selecciona como predeterminado el Texto a voz de Google y establece _ como el idioma predeterminado.</string>
     <string name="txtChangeLanguage">Cambiar idioma predeterminado:</string>
     <string name="txtApplyChanges">4º paso: Haz clic en "Guardar cambios" para establecer el nuevo idioma predeterminado.</string>
-    <string name="change_language_line6">Puedes seguir los siguientes pasos para establecer un idioma recientemente añadido como predeterminado para Jellow</string>
-    <string name="txt_set_tts_setup">Por favor, completa la configuración del Texto a voz en esta página</string>
-    <string name="txt_save_same_lang_def">El idioma seleccionado ya es el predeterminado</string>
-    <string name="speech_engin_lang_sam">Por favor, comprueba los ajustes de "Idioma" de la aplicación</string>
     <string name="txt_intro6_skipTtsSetup">Dispositivo con el Texto a voz de Google activado: Por favor, desliza para saltarte el paso actual</string>
     <string name="txt_actLangSel_downloadDat">Comprueba los datos de voz</string>
-    <string name="txt_actLangSel_complete_mainscreen_msg">No se dispone los datos de voz. Enciende internet y comprueba los ajustes de idioma de la aplicación</string>
     <string name="language_downloaded">_ Idioma descargado</string>
     <string name="language_downloading">Descargando _</string>
     <string name="ok">Aceptar</string>
@@ -321,9 +305,6 @@
     <string name="intro3_cd">Esta imagen muestra una captura de pantalla de las sub-categorías de Jellow, que se accede al hacer doble clic en el icono de "Comer", como muestra la figura. Los iconos de sub-categoría del Nivel 2 son visibles en el cuadro central y son "Desayuno", "Almuerzo/Cena", "Postre", "Aperitivos", "Frutas", "Bebidas", "Cubertería" y "Extras". La imagen muestra el dedo de usuario que hace doble clic en el icono de "Desayuno" para acceder más opciones.</string>
     <string name="intro4_cd">La imagen muestra la página de inicio de Jellow con una lista desplegable en la esquina derecha superior. Esta lista tiene opciones de "Perfil", "Sobre Jellow", "Tutorial", "Gestión de Teclado", "Idioma", "Ajustes" y "Retroalimentación". Al hacer clic en cualquier opción , el usuario puede personalizar los ajustes de aplicación según sus necesidades.</string>
     <string name="intro5_cd">Esta imagen muestra la captura de pantalla de la página de inicio de Jellow. En esta imagen, los 6 botones expresivos están ubicados a cada lado de los botones centrales de categoría y están resaltados y los demás están borrosos. A la izquierda, se disponen de arriba abajo los 3 botones expresivos de "Me gusta", simbolizado por un icono de "Cara sonriente", "Sí" simbolizado por un "Visto" y "Más" simbolizado por un "Signo más". A la derecha, se disponen de arriba abajo los 3 botones expresivos de "No me gusta" simbolizado por una "Cara triste" , "No" simbolizado por una "Cruz" y "Menos" simbolizado por un "Signo menos". Además, se pueden ver los 3 botones de navegación al fondo de la pantalla, que son "Atrás", "Inicio" y "Teclado", de izquiereda a derecha.</string>
-    <string name="intro6_1_cd">La primera imagen, que corresponde al "Resultado de Texto a voz", hay 2 opciones visibles favoritas, primera "Texto a voz de Samsung" y la segunda "Texto a voz de Google". En el primer paso, se puede ver el usuario al seleccionar el "Texto a voz de Google".</string>
-    <string name="intro6_2_cd">La segunda imagen muestra el segundo paso en este proceso donde se puede ver el usuario a hacer clic en el símbolo de un "Engranaje" que representa los "Ajustes" del "Texto a voz de Google"</string>
-    <string name="intro6_3_cd">La tercera imagen es el 3º paso en este proceso donde el usuario está en la pantalla de "Los datos de voz de Texto a voz de Google". La pantalla dispone varias opciones de voz, que incluye "frances", "alemán", "hindi", "húngaro" y "indonesio". La opción de "Voz español" está resaltado y muestra una opción de "1º set de Voz" de 19MB que está disponible para descargar. Se puede ver el usuario al hacer clic en el icono de descargar para el 1º set voz para el "Voz español".</string>
     <string name="talkback_single_click">Seleccionar</string>
     <string name="talkback_dropdown_menu">Acceder la lista de países</string>
     <string name="close_dialog">Cerrar diálogo</string>
@@ -347,16 +328,10 @@
     <string name="lang_setting_option3_cd">La tercera imagen es el tercer paso en este proceso donde el usuario está en la pantalla de las "Opciones de Texto a voz de Google". El conmutador de "Solo Wi-Fi" está resaltado en esta imagen. Se pide al usuario que apague o desactive este conmutador este paso.</string>
     <string name="lang_setting_option3_gtt3_cd">La tercera imagen es el tercer paso en este proceso donde se puede ver el usuario al hacer clic en la opción de "Idioma\" en la página de datos de voz de Texto a voz de Google. Se puede ver el usuario al establecer "\español\" como el idioma predeterminado del Texto a voz de Google.</string>
 
-    <string name="intro8_step2">Apaga "Solo Wi-Fi"</string>
     <string name="txt_tts_stting">Ajustes de Texto a voz</string>
-    <string name="txt_intro8_step1">1. Abre Texto a voz de Google</string>
-    <string name="txt_intro8_step2">2. Ve a "Ajustes" para Texto a voz de Google</string>
-    <string name="txt_intro8_step3">3. Apaga "Solo Wi-Fi"</string>
     <string name="change_language_tts_wifi">Ve a Ajustes de Texto a voz de Google y apaga "Solo Wi-Fi". Si esta opción ya está desactivada, salta este paso"</string>
     <string name="icon_update_msg">Actualizando iconos para los idiomas actuales.</string>
     <string name="disable_wifi_only">Complete el paso anterior para apagar la opción "Solo Wi-Fi"</string>
-    <string name="step3">3º paso:</string>
-    <string name="txt_intro8_txtTitle">Sigue los pasos que se enumeran a continuación para configurar Texto a voz</string>
     <string name="txt_actLangSel_completestep2">No se dispone los datos de voz. Enciende internet y complete el 2º paso.</string>
     <string name="txtStep2">2º paso:</string>
     <string name="close">Cerrar diálogo</string>

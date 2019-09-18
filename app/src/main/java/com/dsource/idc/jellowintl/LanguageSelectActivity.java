@@ -2,7 +2,6 @@ package com.dsource.idc.jellowintl;
 
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.text.SpannableString;
@@ -32,24 +31,22 @@ import static com.dsource.idc.jellowintl.utility.Analytics.setUserProperty;
 import static com.dsource.idc.jellowintl.utility.Analytics.startMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.stopMeasuring;
 import static com.dsource.idc.jellowintl.utility.Analytics.validatePushId;
-import static com.dsource.idc.jellowintl.utility.SessionManager.BE_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.BN_IN;
-import static com.dsource.idc.jellowintl.utility.SessionManager.ES_ES;
+import static com.dsource.idc.jellowintl.utility.SessionManager.HI_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangMap;
 import static com.dsource.idc.jellowintl.utility.SessionManager.LangValueMap;
 import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
-import static com.dsource.idc.jellowintl.utility.SessionManager.SP_ES;
+import static com.dsource.idc.jellowintl.utility.SessionManager.TA_IN;
 
 public class LanguageSelectActivity extends SpeechEngineBaseActivity {
     String[] availableLanguages;
     Spinner languageSelect;
     String selectedLanguage, mLangChanged;
-    Button save, changeTtsLang;
+    Button save;
     ArrayAdapter<String> adapter_lan;
     private int mSelectedItem = -1;
     // Variable hold strings from regional string.xml file.
-    private String mStep1, mStep2, mStep3, mStep4, mTitleChgLang, mRawStr4Step3,
-            mCompleteStep2, mCompleteStep3, mRawStrStep2;
+    private String mStep1, mStep2, mRawStrStep2, mStep3, mStep4,mCompleteStep3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,15 +55,12 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
         enableNavigationBack();
         setActivityTitle(getString(R.string.Language));
         LanguageFactory.deleteOldLanguagePackagesInBackground(this);
-        mTitleChgLang = getString(R.string.txtChangeLanguage);
         mStep1 = getString(R.string.change_language_line2);
-        mStep2 = getString(R.string.change_language_line5);
-        mStep3 = getString(R.string.change_language_line4);
-        mStep4 = getString(R.string.txtApplyChanges);
-        mRawStr4Step3 = getString(R.string.step3);
-        mCompleteStep2 = getString(R.string.txt_actLangSel_completestep2);
-        mCompleteStep3 = getString(R.string.txt_actLangSel_completestep3);
+        mStep2 = getString(R.string.change_language_tts_wifi);
         mRawStrStep2 = getString(R.string.txtStep2);
+        mStep3 = getString(R.string.change_language_line5);
+        mStep4 = getString(R.string.txtApplyChanges);
+        mCompleteStep3 = getString(R.string.txt_actLangSel_completestep2);
         mLangChanged = getString(R.string.languageChanged);
 
         setImageUsingGlide(R.drawable.tts_wifi_1, ((ImageView) findViewById(R.id.ivAddLang1)));
@@ -75,23 +69,12 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
         setImageUsingGlide(R.drawable.gtts3, ((ImageView) findViewById(R.id.ivTtsVoiceDat)));
         setImageUsingGlide(R.drawable.arrow, ((ImageView) findViewById(R.id.ivArrow1)));
         setImageUsingGlide(R.drawable.arrow, ((ImageView) findViewById(R.id.ivArrow2)));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            findViewById(R.id.tv5).setVisibility(View.GONE);
-            findViewById(R.id.llImg).setVisibility(View.GONE);
-            findViewById(R.id.changeTtsLangBut).setVisibility(View.GONE);
-        } else {
-            setImageUsingGlide(R.drawable.gtts1, ((ImageView) findViewById(R.id.ivTtsSetting1)));
-            setImageUsingGlide(R.drawable.gtts2, ((ImageView) findViewById(R.id.ivTtsSetting2)));
-            setImageUsingGlide(R.drawable.gtts4, ((ImageView) findViewById(R.id.ivTtsSetting3)));
-            setImageUsingGlide(R.drawable.arrow, ((ImageView) findViewById(R.id.ivArrow3)));
-            setImageUsingGlide(R.drawable.arrow, ((ImageView) findViewById(R.id.ivArrow4)));
-        }
 
         availableLanguages = LanguageFactory.getAvailableLanguages();
         languageSelect = findViewById(R.id.selectDownloadedLanguageSpinner);
 
-        adapter_lan = new ArrayAdapter<String>(this,
-                R.layout.simple_spinner_item, populateCountryNameByUserType(availableLanguages));
+        adapter_lan = new ArrayAdapter<>(this, R.layout.simple_spinner_item,
+                populateCountryNameByUserType(availableLanguages));
         adapter_lan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         languageSelect.setAdapter(adapter_lan);
@@ -105,7 +88,7 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
                     String stepStr = mRawStrStep2 +" "+ mStep4.substring(getDelimitedStringLength(mStep4));
                     SpannableString spannedStr = new SpannableString(stepStr);
                     spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, getDelimitedStringLength(stepStr), 0);
-                    ((TextView) findViewById(R.id.tv6)).setText(spannedStr);
+                    ((TextView) findViewById(R.id.tv_step4_info)).setText(spannedStr);
                 } else {
                     hideViewsForNonTtsLang(false);
                     updateViewsForNewLangSelect();
@@ -118,80 +101,28 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
             }
         });
 
-        changeTtsLang = findViewById(R.id.changeTtsLangBut);
-        changeTtsLang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Crashlytics.log("LanguageSelect SetTTsEng");
-                Intent intent = new Intent();
-                intent.setAction("com.android.settings.TTS_SETTINGS");
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            }
-        });
-
         save = findViewById(R.id.saveBut);
-        //The variables below are defined because android os fall back to default locale
-        // after activity restart. These variable will hold the value for variables initialized using
-        // user preferred locale.
-        final String strDefaultLangEr = getString(R.string.txt_save_same_lang_def);
+        /***The variables below are defined because android os fall back to default locale
+         * after activity restart. These variable will hold the value for variables initialized using
+         * user preferred locale.
+         ***/
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isVoiceAvailableForLanguage(LangMap.get(selectedLanguage));
                 Crashlytics.log("LanguageSelect Apply");
-
                 if(selectedLanguage.equals(LangValueMap.get(MR_IN)) && !LanguageFactory.isMarathiPackageAvailable
                         (LanguageSelectActivity.this)){
                     startActivity(new Intent(LanguageSelectActivity.this,
                             LanguageDownloadActivity.class)
                             .putExtra(LCODE, MR_IN).putExtra(CLOSE, true));
-                    return;
-                }
-                /* If the current app language is same as new selected language then
-                 *   Show Toast message string 'strDefaultLangEr'*/
-                if (getSession().getLanguage().equals(LangMap.get(selectedLanguage))) {
-                    Toast.makeText(LanguageSelectActivity.this,
-                            strDefaultLangEr, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                //if current user language is not marathi and user want to change current language
-                // to marathi.
-                if (!getSession().getLanguage().equals(MR_IN)
-                        && selectedLanguage != null &&
-                        selectedLanguage.equals(LangValueMap.get(MR_IN))) {
+                } else {
                     saveLanguage();
-                } else if (selectedLanguage != null) {
-                    /* If device is Lollipop or above AND
-                     *   current app language is same as new selected language THEN
-                     *   Show Toast message string 'strDefaultLangEr'*/
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        if (isVoiceAvailableForLanguage(LangMap.get(selectedLanguage)))
-                            saveLanguage();
-                        else
-                            Toast.makeText(LanguageSelectActivity.this,
-                                    mCompleteStep2, Toast.LENGTH_LONG).show();
-                        /* If Speech Engine language is same as selected language OR
-                         *  Selected language is Bengali and Speech Engine language is
-                         *  either BN_IN or BE_IN form THEN OR
-                         *  Selected language is Spanish and Speech Engine language is
-                         *  either ES_ES or SP_ES form THEN
-                         *  save the language and set language setting to true.
-                         *  else
-                         *  showDialog toast about Complete step 3.*/
-                    } else if (getSpeechEngineLanguage().equals(LangMap.get(selectedLanguage)) ||
-                            (LangMap.get(selectedLanguage).equals(BN_IN) &&
-                                    (getSpeechEngineLanguage().equals(BN_IN) ||
-                                            getSpeechEngineLanguage().equals(BE_IN))) ||
-                            (LangMap.get(selectedLanguage).equals(ES_ES) &&
-                                    (getSpeechEngineLanguage().equals(ES_ES) ||
-                                            getSpeechEngineLanguage().equals(SP_ES))) ) {
-                        saveLanguage();
-                    } else {
-                        Toast.makeText(LanguageSelectActivity.this,
-                                mCompleteStep3, Toast.LENGTH_SHORT).show();
-                    }
-                }
+                }/*else if (isVoiceAvailableForLanguage(LangMap.get(selectedLanguage)))*/
+                  //  saveLanguage();
+                /*else
+                    Toast.makeText(LanguageSelectActivity.this, mCompleteStep3,
+                            Toast.LENGTH_LONG).show();*/
             }
         });
     }
@@ -199,66 +130,46 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
     private void hideViewsForNonTtsLang(boolean disableViews) {
         //Hide views to when user selected non tts language.
         if(disableViews) {
-            findViewById(R.id.tv4).setVisibility(View.GONE);
+            findViewById(R.id.tv_step2_info).setVisibility(View.GONE);
+            findViewById(R.id.ll_wifi_only_setting).setVisibility(View.GONE);
+            findViewById(R.id.btnTTsSetting).setVisibility(View.GONE);
+            findViewById(R.id.tv_step3_info).setVisibility(View.GONE);
             findViewById(R.id.ivTtsVoiceDat).setVisibility(View.GONE);
             findViewById(R.id.btnDownloadVoiceData).setVisibility(View.GONE);
-            findViewById(R.id.tv5).setVisibility(View.GONE);
-            findViewById(R.id.llImg).setVisibility(View.GONE);
-            findViewById(R.id.changeTtsLangBut).setVisibility(View.GONE);
         }else{
-            findViewById(R.id.tv4).setVisibility(View.VISIBLE);
+            findViewById(R.id.tv_step2_info).setVisibility(View.VISIBLE);
+            findViewById(R.id.ll_wifi_only_setting).setVisibility(View.VISIBLE);
+            findViewById(R.id.btnTTsSetting).setVisibility(View.VISIBLE);
+            findViewById(R.id.tv_step3_info).setVisibility(View.VISIBLE);
             findViewById(R.id.ivTtsVoiceDat).setVisibility(View.VISIBLE);
             findViewById(R.id.btnDownloadVoiceData).setVisibility(View.VISIBLE);
-            findViewById(R.id.tv5).setVisibility(View.VISIBLE);
-            findViewById(R.id.llImg).setVisibility(View.VISIBLE);
-            findViewById(R.id.changeTtsLangBut).setVisibility(View.VISIBLE);
         }
     }
 
     private void updateViewsForNewLangSelect() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            findViewById(R.id.tv5).setVisibility(View.GONE);
-            findViewById(R.id.llImg).setVisibility(View.GONE);
-            findViewById(R.id.changeTtsLangBut).setVisibility(View.GONE);
-        }
-
-        if(getSession().getLanguage().equals(BN_IN))
-            boldTitleOnScreen();
-
+        /* step 1*/
         SpannableString spannedStr = new SpannableString(mStep1);
         spannedStr.setSpan(new StyleSpan(Typeface.BOLD),0, getDelimitedStringLength(mStep1),0);
-        /*tv2 step 1*/
-        ((TextView)findViewById(R.id.tv2)).setText(spannedStr);
+        ((TextView)findViewById(R.id.tv_step1_info)).setText(spannedStr);
 
-        spannedStr = new SpannableString(mStep2.replace("_",getTTsLanguage()));
+        /*step 2*/
+        spannedStr = new SpannableString(mStep2);
         spannedStr.setSpan(new StyleSpan(Typeface.BOLD),0, getDelimitedStringLength(mStep2),0);
-        /*tv4 step 2*/
-        ((TextView)findViewById(R.id.tv4)).setText(spannedStr);
+        ((TextView)findViewById(R.id.tv_step2_info)).setText(spannedStr);
 
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            spannedStr = new SpannableString(mStep3.replace("_", getTTsLanguage()));
-            spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, getDelimitedStringLength(mStep3), 0);
-            /*tv5 step 3*/
-            ((TextView) findViewById(R.id.tv5)).setText(spannedStr);
+        /*step 3*/
+        spannedStr = new SpannableString(mStep3.replace("_", getTTsLanguage()));
+        spannedStr.setSpan(new StyleSpan(Typeface.BOLD),0, getDelimitedStringLength(mStep3),0);
+        int start = spannedStr.toString().indexOf(getTTsLanguage()),
+            end = start + getTTsLanguage().length();
+        spannedStr.setSpan(new StyleSpan(Typeface.BOLD), start, end,0);
+        ((TextView)findViewById(R.id.tv_step3_info)).setText(spannedStr);
 
-            spannedStr = new SpannableString(mStep4);
-            spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, getDelimitedStringLength(mStep4), 0);
-            /*tv6 step 4*/
-            ((TextView) findViewById(R.id.tv6)).setText(spannedStr);
-        }else {
-            String stepStr = mRawStr4Step3 +" "+ mStep4.substring(getDelimitedStringLength(mStep4));
-            spannedStr = new SpannableString(stepStr);
-            spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, getDelimitedStringLength(stepStr), 0);
-            ((TextView) findViewById(R.id.tv6)).setText(spannedStr);
-        }
+        /*step 4*/
+        spannedStr = new SpannableString(mStep4);
+        spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, getDelimitedStringLength(mStep4), 0);
+        ((TextView) findViewById(R.id.tv_step4_info)).setText(spannedStr);
     }
-
-    private void boldTitleOnScreen() {
-        SpannableString spannedStr = new SpannableString(mTitleChgLang);
-        spannedStr.setSpan(new StyleSpan(Typeface.BOLD),0,spannedStr.length(),0);
-        ((TextView)findViewById(R.id.txt_title_chgLang)).setText(spannedStr);
-    }
-
 
     private void setImageUsingGlide(int image, ImageView imgView) {
         GlideApp.with(this)
@@ -334,20 +245,19 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
         setUserProperty("UserLanguage", LangMap.get(selectedLanguage));
         setCrashlyticsCustomKey("UserLanguage",  LangMap.get(selectedLanguage));
         Toast.makeText(this, mLangChanged, Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
         getSession().setLanguageChange(GlobalConstants.LANGUAGE_STATE_CHANGED);
-        startActivity(intent);
+        startActivity(new Intent(getApplicationContext(), SplashActivity.class));
         finishAffinity();
     }
 
     private String getTTsLanguage() {
         String language = selectedLanguage;
-        if(language.equals("English (India)"))
-            return  "English (India)";
-        else if(language.equals("हिंदी"))
+        if(language.equals(LangValueMap.get(HI_IN)))
             return  "Hindi (India)";
-        else if(language.equals("বাঙালি"))
+        else if(language.equals(LangValueMap.get(BN_IN)))
             return "Bengali (India)";
+        else if(language.equals(LangValueMap.get(TA_IN)))
+            return "English (India)";
         return selectedLanguage;
     }
 

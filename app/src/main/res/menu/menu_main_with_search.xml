@@ -12,7 +12,7 @@
         <item
             android:id="@+id/my_boards_icon"
             android:title="@string/menuMyBoards"
-            android:icon="@android:drawable/ic_menu_add"
+            android:icon="@drawable/ic_my_boards"
             android:checked="true"
             app:showAsAction="always"
             android:orderInCategory="2"/>

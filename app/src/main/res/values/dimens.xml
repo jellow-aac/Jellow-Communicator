@@ -347,7 +347,7 @@
 
 
     <!--Edit board dialog dimensions-->
-    <dimen name="board_edit_icon_size">160dp</dimen>
+    <dimen name="board_edit_icon_size">120dp</dimen>
     <dimen name="board_edit_dialog_width">180dp</dimen>
     <dimen name="edit_baord_dialog_side_margin">16dp</dimen>
     <dimen name="edit_board_button_margin_top">4dp</dimen>

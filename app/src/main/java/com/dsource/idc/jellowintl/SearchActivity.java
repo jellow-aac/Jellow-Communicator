@@ -73,7 +73,6 @@ public class SearchActivity extends SpeechEngineBaseActivity {
 	//TODO: Add strings from strings.xml
         if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
             searchEditText.setContentDescription("Enter to search");
-            //findViewById(R.id.close_button).setVisibility(View.GONE);
         } else {
             searchEditText.setHint("Search icon..");
         }

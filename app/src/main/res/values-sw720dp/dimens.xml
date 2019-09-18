@@ -185,7 +185,7 @@
     <dimen name="lang_sel_scroll_margin_right">16dp</dimen>
     <dimen name="lang_sel_parent_margin_right">280dp</dimen>
     <dimen name="lang_sel_tv_margin_bottom">19dp</dimen>
-    <dimen name="lang_sel_ll_margin_top">-19dp</dimen>
+    <dimen name="lang_sel_ll_margin_top">-57dp</dimen>
     <dimen name="lang_sel_img_width">270dp</dimen>
     <dimen name="lang_sel_img_height">410dp</dimen>
     <dimen name="lang_sel_img_ar_width">55dp</dimen>
@@ -318,7 +318,7 @@
     <dimen name="icon_title_text_size">17sp</dimen>
     <dimen name="edit_option_width">240dp</dimen>
     <dimen name="edit_option_text_size">24sp</dimen>
-    <dimen name="board_edit_icon_size">200dp</dimen>
+    <dimen name="board_edit_icon_size">160dp</dimen>
     <dimen name="board_edit_dialog_width">240dp</dimen>
     <dimen name="edit_board_button_margin_top">8dp</dimen>
     <dimen name="edit_board_button_side_margin">10dp</dimen>
