@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,11 +39,9 @@ import static com.dsource.idc.jellowintl.factories.IconFactory.EXTENSION;
 import static com.dsource.idc.jellowintl.factories.PathFactory.getIconPath;
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.LIBRARY_REQUEST;
 
-public class VerbiageEditor extends android.app.Dialog implements View.OnClickListener {
+public class AddEditIconDialog extends android.app.Dialog implements View.OnClickListener {
 
     //Static variables to set the modes
-    public static final int ADD_BOARD_MODE = 111;
-    public static final int ADD_EDIT_ICON_MODE = 222;
     private Context context;
     private boolean isVisible = false;
     private TextView saveButton;
@@ -54,26 +53,24 @@ public class VerbiageEditor extends android.app.Dialog implements View.OnClickLi
     private ListView listView;
     private VerbiageEditorInterface dialogInterface;
     private JellowIcon thisIcon = null;
-    private int mode;
-    private String name;
+    private RadioGroup rgIconType;
 
-    public VerbiageEditor(Context context, int mode, VerbiageEditorInterface dialogInterface,String languageCode) {
+    public AddEditIconDialog(Context context,VerbiageEditorInterface dialogInterface) {
         super(context);
         this.dialogInterface = dialogInterface;
         this.context = context;
-        this.mode = mode;
-        String langCode = languageCode;
         initViews();
     }
 
 
-    public void setAlreadyPresentIcon(JellowIcon Icon){this.thisIcon = Icon;setIconImage(null);}
+    public void setAlreadyPresentIcon(JellowIcon Icon){this.thisIcon = Icon;setIconImage();}
 
     @SuppressLint("ResourceType")
-    public void initAddEditDialog(String edittextHint) {
+    public void initAddEditDialog() {
+
         //List on the dialog.
         listView.setVisibility(View.GONE);
-        titleText.setHint(edittextHint);
+        titleText.setHint(context.getResources().getString(R.string.icon_name));
         //The list that will be shown with camera options
         final ArrayList<ListItem> list=new ArrayList<>();
         @SuppressLint("Recycle") TypedArray mArray=context.getResources().obtainTypedArray(R.array.add_photo_option);
@@ -84,33 +81,21 @@ public class VerbiageEditor extends android.app.Dialog implements View.OnClickLi
         dialogInterface.initPhotoResultListener(new VerbiageEditorReverseInterface() {
             @Override
             public void onPhotoResult(Bitmap bitmap, int code, String fileName) {
-                if(code!=LIBRARY_REQUEST)
-                {
+                if(code!=LIBRARY_REQUEST) {
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                    if(mode==ADD_EDIT_ICON_MODE)
-                        Glide.with(context)
+                    Glide.with(context)
                             .asBitmap()
                             .load(stream.toByteArray())
                                 .placeholder(R.drawable.ic_board_person)
                                 .apply(RequestOptions
                                         .circleCropTransform()).into(iconImage);
-                    else if(mode==ADD_BOARD_MODE)
-                        Glide.with(context).load(stream.toByteArray())
-                            .apply(new RequestOptions().
-                                    transform(new RoundedCorners(50)).
-                                    placeholder(R.drawable.ic_board_person).
-                                    error(R.drawable.ic_board_person).skipMemoryCache(true).
-                                    diskCacheStrategy(DiskCacheStrategy.NONE))
-                            .into(iconImage);
                 }
-                else
-                {
+                else{
                     GlideApp.with(context).load(getIconPath(context, fileName+EXTENSION))
                             .into(iconImage);
                 }
-                if(mode== ADD_EDIT_ICON_MODE)
-                    iconImage.setBackground(context.getResources().getDrawable(R.drawable.icon_back_grey));
+                iconImage.setBackground(context.getResources().getDrawable(R.drawable.icon_back_grey));
             }
         });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -128,8 +113,6 @@ public class VerbiageEditor extends android.app.Dialog implements View.OnClickLi
     }
 
     public void setPositiveButtonText(String name){saveButton.setText(name);}
-
-    public void setBoardImage(String boardID){setIconImage(boardID);}
 
     public void showDialog(){
         if(dialog!=null)
@@ -157,7 +140,10 @@ public class VerbiageEditor extends android.app.Dialog implements View.OnClickLi
         listView=dialogContainerView.findViewById(R.id.camera_list);
         //Setting the image icon
         if(thisIcon!=null)
-        setIconImage(null);
+        setIconImage();
+
+        //RadioGroup for Icon Type
+        rgIconType = dialogContainerView.findViewById(R.id.radioParent);
 
         //Click Listeners
         saveButton.setOnClickListener(this);
@@ -167,26 +153,11 @@ public class VerbiageEditor extends android.app.Dialog implements View.OnClickLi
 
     /**
      * Sets image for the Dialog
-     * @param id URI
+     *
      */
-    private void setIconImage(String id) {
+    private void setIconImage() {
 
-
-
-        if(id!=null)
-        {
-            File en_dir = context.getDir(SessionManager.BOARD_ICON_LOCATION, Context.MODE_PRIVATE);
-            String path = en_dir.getAbsolutePath();
-            GlideApp.with(context)
-                    .load(path+"/"+id+".png")
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true)
-                    .centerCrop()
-                    .dontAnimate()
-                    .placeholder(R.drawable.ic_board_person)
-                    .into(iconImage);
-        }
-        else if(thisIcon.isCustomIcon())//Is a custom Icon
+        if(thisIcon.isCustomIcon())//Is a custom Icon
         {
             File en_dir = context.getDir(SessionManager.BOARD_ICON_LOCATION, Context.MODE_PRIVATE);
             String path = en_dir.getAbsolutePath();
@@ -228,18 +199,15 @@ public class VerbiageEditor extends android.app.Dialog implements View.OnClickLi
     }
 
     private void initSave() {
-
         if(titleText.getText().toString().equals("")) {
             Toast.makeText(context, context.getResources().getString(R.string.please_enter_name), Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if(mode==ADD_EDIT_ICON_MODE)
-            dialogInterface.onPositiveButtonClick(titleText.getText().toString(),
-                ((BitmapDrawable) iconImage.getDrawable()).getBitmap(),null);
-        else if(mode==ADD_BOARD_MODE)
-            dialogInterface.onPositiveButtonClick(titleText.getText().toString(),
-                    ((BitmapDrawable) iconImage.getDrawable()).getBitmap(),null);
+        int iconType = rgIconType.getCheckedRadioButtonId()==R.id.rb_category ? BoardConstants.CATEGORY_TYPE : BoardConstants.NORMAL_TYPE;
+
+        dialogInterface.onPositiveButtonClick(titleText.getText().toString(),
+                    ((BitmapDrawable) iconImage.getDrawable()).getBitmap(),iconType);
         if(dialog!=null)
             dialog.dismiss();
     }

@@ -35,6 +35,7 @@
 
         <ListView
             android:id="@+id/camera_list"
+            android:visibility="gone"
             android:layout_width="@dimen/camera_drop_down_width"
             android:layout_height="wrap_content"
             android:layout_below="@id/edit_board"
@@ -64,6 +65,33 @@
         android:ems="10"
         android:inputType="textPersonName"
          />
+    <RadioGroup
+        android:layout_width="@dimen/board_edit_icon_size"
+        android:layout_height="wrap_content"
+        android:id="@+id/radioParent"
+        android:orientation="horizontal"
+        android:layout_below="@+id/board_name"
+        android:checkedButton="@id/rb_icon"
+        android:layout_marginTop="@dimen/edit_board_dialog_internal_margin_top"
+        android:layout_marginRight="@dimen/edit_baord_dialog_side_margin"
+        android:layout_marginLeft="@dimen/edit_baord_dialog_side_margin"
+        >
+        <RadioButton
+            android:id="@+id/rb_icon"
+            android:text="@string/icon"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            />
+        <RadioButton
+            android:id="@+id/rb_category"
+            android:text="@string/category"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+    </RadioGroup>
     <RelativeLayout
         android:layout_marginBottom="@dimen/edit_baord_dialog_side_margin"
         android:layout_marginTop="@dimen/edit_board_dialog_internal_margin_top"
@@ -73,7 +101,7 @@
         android:layout_marginLeft="@dimen/edit_baord_dialog_side_margin"
         android:layout_marginRight="@dimen/edit_baord_dialog_side_margin"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/board_name"
+        android:layout_below="@id/radioParent"
         >
 
 

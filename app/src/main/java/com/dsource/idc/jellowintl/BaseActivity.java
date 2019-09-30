@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuCompat;
 import androidx.room.Room;
 
-import com.dsource.idc.jellowintl.makemyboard.AddEditIconAndCategoryActivity;
+import com.dsource.idc.jellowintl.makemyboard.edit_reposition_module.ui.activity.AddEditIconAndCategoryActivity;
 import com.dsource.idc.jellowintl.makemyboard.BoardActivity;
 import com.dsource.idc.jellowintl.makemyboard.BoardListActivity;
 import com.dsource.idc.jellowintl.makemyboard.BoardSearchActivity;

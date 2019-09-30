@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import com.dsource.idc.jellowintl.LanguageDownloadActivity;
-import com.dsource.idc.jellowintl.makemyboard.AddEditIconAndCategoryActivity;
+import com.dsource.idc.jellowintl.makemyboard.edit_reposition_module.ui.activity.AddEditIconAndCategoryActivity;
 import com.dsource.idc.jellowintl.makemyboard.HomeActivity;
 import com.dsource.idc.jellowintl.makemyboard.RepositionIconsActivity;
 import com.dsource.idc.jellowintl.makemyboard.databases.TextDatabase;

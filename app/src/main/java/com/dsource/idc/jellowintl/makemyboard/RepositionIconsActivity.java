@@ -92,7 +92,6 @@ public class RepositionIconsActivity extends BaseActivity {
         currentBoard=database.getBoardById(boardId);
 
         enableNavigationBack();
-        //TODO Check color to keep or remove.
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#333333'>"+getResources().getString(R.string.rep_activity_title)+"</font>"));
         modelManager =new ModelManager(this,currentBoard.getIconModel());
         displayList= modelManager.getLevelOneFromModel();

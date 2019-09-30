@@ -375,5 +375,12 @@
     <dimen name="edit_text_width_add_board">130dp</dimen>
     <dimen name="board_dialog_edit_text">16sp</dimen>
 
+    <!--Dimensions related to Icon Edit/Remove button-->
+    <dimen name="oneIcon_remove_btn">30dp</dimen>
+    <dimen name="twoIcon_remove_btn">28dp</dimen>
+    <dimen name="threeIcon_remove_btn">26dp</dimen>
+    <dimen name="fourIcon_remove_btn">24dp</dimen>
+    <dimen name="nineIcon_remove_btn">22dp</dimen>
+
 
 </resources>

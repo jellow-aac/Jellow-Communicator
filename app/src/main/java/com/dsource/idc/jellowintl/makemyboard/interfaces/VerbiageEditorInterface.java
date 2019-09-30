@@ -6,7 +6,7 @@ import com.dsource.idc.jellowintl.models.Icon;
 
 public interface VerbiageEditorInterface {
 
-    void onPositiveButtonClick(String name, Bitmap bitmap, Icon verbiageList);
+    void onPositiveButtonClick(String name, Bitmap bitmap, int iconType);
     void onPhotoModeSelect(int position);
     void initPhotoResultListener(VerbiageEditorReverseInterface verbiageEditorReverseInterface);
 }

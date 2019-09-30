@@ -180,7 +180,6 @@ public class DialogBox extends BaseActivity {
         @SuppressLint("Recycle") TypedArray mArray=getResources().obtainTypedArray(R.array.add_photo_option);
         list.add(new ListItem(getResources().getString(R.string.photos),mArray.getDrawable(0)));
         list.add(new ListItem(getResources().getString(R.string.library),mArray.getDrawable(1)));
-        //TODO discuss it with the sir list.add(new ListItem("Library ",mArray.getDrawable(1)));
         SimpleListAdapter adapter=new SimpleListAdapter(this,list);
         listView.setAdapter(adapter);
         reverseInterface =new VerbiageEditorReverseInterface() {

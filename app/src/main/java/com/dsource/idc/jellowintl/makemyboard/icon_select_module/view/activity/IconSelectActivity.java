@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dsource.idc.jellowintl.BaseActivity;
 import com.dsource.idc.jellowintl.R;
-import com.dsource.idc.jellowintl.makemyboard.AddEditIconAndCategoryActivity;
+import com.dsource.idc.jellowintl.makemyboard.edit_reposition_module.ui.activity.AddEditIconAndCategoryActivity;
 import com.dsource.idc.jellowintl.makemyboard.BoardLanguageHelper;
 import com.dsource.idc.jellowintl.makemyboard.BoardListActivity;
 import com.dsource.idc.jellowintl.makemyboard.BoardSearchActivity;
@@ -88,7 +88,6 @@ public class IconSelectActivity extends BaseActivity implements iPresenterIconMa
             getSupportActionBar().setTitle(R.string.select_icon_title);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
-            //TODO Check color to keep or remove.
             getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_background));
         }
         initViews();
@@ -258,10 +257,8 @@ public class IconSelectActivity extends BaseActivity implements iPresenterIconMa
     public void onNextPressed() {
         searchManager.clear();
         if (!isEditMode) {
-            currentBoard.setIconModel(
-                    new ModelManager(sortList(SelectionManager.getInstance().getList()), this).
-                            getModel());
-
+            currentBoard.setIconModel(new IconModel(new JellowIcon("","",-1,-1,-1)));
+            currentBoard.getIconModel().addAllChild(sortList(SelectionManager.getInstance().getList()));
             currentBoard.setSetupStatus(BoardModel.STATUS_L1);
             boardDatabase.updateBoardIntoDatabase(currentBoard);
             Intent intent =new Intent(this, AddEditIconAndCategoryActivity.class);

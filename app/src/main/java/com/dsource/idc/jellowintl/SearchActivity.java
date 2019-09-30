@@ -70,7 +70,6 @@ public class SearchActivity extends SpeechEngineBaseActivity {
         setContentView(R.layout.activity_search);
         database = new IconDatabase(getSession().getLanguage(), getAppDatabase());
         EditText searchEditText = findViewById(R.id.search_auto_complete);
-	//TODO: Add strings from strings.xml
         if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
             searchEditText.setContentDescription("Enter to search");
         } else {

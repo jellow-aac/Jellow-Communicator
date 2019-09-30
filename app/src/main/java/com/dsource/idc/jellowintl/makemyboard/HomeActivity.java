@@ -57,7 +57,6 @@ public class HomeActivity extends SpeechEngineBaseActivity {
     private ExpressiveIconManager expIconManager;
     private ArrayList<ExpressiveIcon> expIconVerbiage;
     private RecyclerView.OnScrollListener scrollListener;
-    private ViewGroup.LayoutParams defaultRecyclerParams;
     private EditText etSpeechTextInput;
     private ImageView ivSpeakerButton;
     private ImageView ivKeyboard;
@@ -71,7 +70,6 @@ public class HomeActivity extends SpeechEngineBaseActivity {
             setContentView(R.layout.activity_levelx_layout_notch);
         else
             setContentView(R.layout.activity_levelx_layout);
-        findViewById(R.id.save_button).setVisibility(View.GONE);
 
         manager = new SessionManager(this);
         mContext=this;
@@ -85,7 +83,6 @@ public class HomeActivity extends SpeechEngineBaseActivity {
         {
             Log.d("No board id found", boardId);
         }
-        defaultRecyclerParams = findViewById(R.id.recycler_view).getLayoutParams();
 
         currentBoard=database.getBoardById(boardId);
         verbiageDatabase=new TextDatabase(this,currentBoard.getLanguage(), getAppDatabase());
@@ -110,7 +107,6 @@ public class HomeActivity extends SpeechEngineBaseActivity {
         if(getSupportActionBar()!=null) {
             enableNavigationBack();
             getSupportActionBar().setTitle(currentBoard.getBoardName());
-            //TODO Check color to keep or remove.
             getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
         }
 

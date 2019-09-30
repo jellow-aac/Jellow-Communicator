@@ -231,37 +231,6 @@
                     android:textAlignment="center"
                     android:textColor="@color/light_grey"
                     android:textSize="@dimen/edit_option_text_size" />
-
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/edit_icon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/list_item_padding">
-
-                <ImageView
-                    android:id="@+id/list_item_icon3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:clickable="false"
-                    android:src="@drawable/edit_icon" />
-
-                <TextView
-                    android:id="@+id/list_item_title3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@id/list_item_icon3"
-                    android:clickable="false"
-                    android:text="@string/edit_icon"
-                    android:textAlignment="center"
-                    android:textColor="@color/light_grey"
-                    android:textSize="@dimen/edit_option_text_size" />
             </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>

@@ -3,26 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.dsource.idc.jellowintl">
 
-    <uses-feature
-        android:name="android.hardware.telephony"
-        android:required="false" />
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.CAMERA" />
-
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="true" />
-    <!--
-         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
-         Google Maps Android API v2, but you must specify either coarse or fine
-         location permissions for the 'MyLocation' functionality.
-    -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <application
         android:name=".app.AppController"
         android:allowBackup="false"
@@ -39,19 +19,6 @@
         <activity android:name=".BaseActivity" />
         <activity android:name=".SpeechEngineBaseActivity" />
 
-        <service
-            android:name=".SimpleIME"
-            android:label="@string/simple_ime"
-            android:permission="android.permission.BIND_INPUT_METHOD">
-            <meta-data
-                android:name="android.view.im"
-                android:resource="@xml/method" />
-
-            <intent-filter>
-                <action android:name="android.view.InputMethod" />
-            </intent-filter>
-        </service>
-
         <activity
             android:name=".MainActivity"
             android:configChanges="keyboardHidden|orientation|screenLayout"
@@ -61,6 +28,7 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
+
         <activity
             android:name=".Intro"
             android:configChanges="keyboardHidden|orientation|screenLayout"
@@ -77,6 +45,7 @@
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -121,28 +90,18 @@
             android:name=".SplashActivity"
             android:label="@string/labelSplash"
             android:screenOrientation="landscape" />
-        <!--
- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
-        -->
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-
         <activity
             android:name=".LevelTwoActivity"
             android:label="@string/level_2_screen"
             android:screenOrientation="landscape" />
+        <!--
+ ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
         <activity
             android:name=".LevelThreeActivity"
             android:label="@string/level_3_screen"
             android:screenOrientation="landscape" />
-
-        <service android:name=".utility.JellowFirebaseMessageService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
 
         <activity
             android:name=".LanguageDownloadActivity"
@@ -155,11 +114,13 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/Language"
             android:screenOrientation="landscape" />
+
         <activity
             android:name=".LanguageSelectTalkBackActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/Language"
             android:screenOrientation="landscape" />
+
         <activity
             android:name=".SearchActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -177,7 +138,6 @@
             android:label="@string/menuFeedback"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
-   
         <activity
             android:name=".makemyboard.RepositionIconsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -196,7 +156,7 @@
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".makemyboard.AddEditIconAndCategoryActivity"
+            android:name=".makemyboard.edit_reposition_module.ui.activity.AddEditIconAndCategoryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
@@ -209,19 +169,17 @@
             android:name=".makemyboard.utility.SetupMMB"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape" />
-
- 	<activity 
-	    android:name=".makemyboard.icon_select_module.view.activity.IconSelectActivity"
+        <activity
+            android:name=".makemyboard.icon_select_module.view.activity.IconSelectActivity"
             android:label="Select your icons"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustPan"
-            />
-  	<activity
+            android:windowSoftInputMode="adjustPan" />
+        <activity
             android:name=".makemyboard.AddVerbiageDialog"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Translucent" />
-       <activity
+        <activity
             android:name=".makemyboard.BoardListActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/my_boards"
@@ -238,5 +196,46 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Translucent" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <service
+            android:name=".SimpleIME"
+            android:label="@string/simple_ime"
+            android:permission="android.permission.BIND_INPUT_METHOD">
+            <intent-filter>
+                <action android:name="android.view.InputMethod" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.view.im"
+                android:resource="@xml/method" />
+        </service>
+        <service android:name=".utility.JellowFirebaseMessageService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
 </manifest>

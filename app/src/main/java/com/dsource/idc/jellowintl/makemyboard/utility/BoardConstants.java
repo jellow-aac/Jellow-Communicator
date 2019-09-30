@@ -10,24 +10,17 @@ public class BoardConstants {
     public static final String IS_EDIT_MODE = "is_edit_mode";
     public static final String BOARD_ID="Board_Id";
     public static final int SEARCH_CODE = 121;
-    public static final int ADD_CATEGORY = 212;
-    public static final int ADD_ICON = 210;
-    public static final int EDIT_ICON = 211;
     public static final int ICON_SELECT_MODE = 111;
     public static final int ADD_EDIT_ICON_MODE = 222;
     public static final int EDIT_ICON_MODE = 333;
 
 
     public static final String DIALOG_TYPE ="dialog_type";
-    public static final String GRID_DIALOG = "grid_dialog";
+    static final String GRID_DIALOG = "grid_dialog";
     public static final String ADD_BOARD ="add_board";
-    public static final String VERBIAGE_DIALOG = "verbiage_dialog";
-    public static final String LISTENER = "listener";
-    public static final String English ="English IN";
-    public static final String Hindi ="Hindi IN";
-    public static final String EnglishUS ="English US";
-    public static final String EnglishUK = "English UK";
-    public static final String FROM_MMB = "from_mmb";
+    static final String FROM_MMB = "from_mmb";
     public static final String CURRENT_VERBIAGE = "current_verbiage";
 
+    public static final int NORMAL_TYPE = 1251;
+    public static final int CATEGORY_TYPE = 9509;
 }

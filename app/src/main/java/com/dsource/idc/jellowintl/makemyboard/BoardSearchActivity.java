@@ -215,7 +215,10 @@ public class BoardSearchActivity extends SpeechEngineBaseActivity {
         adapter.setOnItemClickListner(new BoardSearchAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-
+                if(position==-1) {
+                    setResult(Activity.RESULT_CANCELED);
+                    return;
+                }
                 JellowIcon icon=iconList.get(position);
                 if(icon.getParent0()!=-1) {
                     Intent returnIntent = new Intent();

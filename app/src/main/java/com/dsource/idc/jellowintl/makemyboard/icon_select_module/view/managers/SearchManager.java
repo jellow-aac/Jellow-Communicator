@@ -90,8 +90,6 @@ public class SearchManager {
         return index >= firstVisiblePos && index <= lastVisiblePos;
     }
 
-
-    //TODO Make it screen independent
     private int numberOfRows() {
         return 2;
     }

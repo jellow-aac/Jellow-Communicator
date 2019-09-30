@@ -3,6 +3,7 @@ package com.dsource.idc.jellowintl.models;
 import androidx.annotation.Keep;
 
 import com.dsource.idc.jellowintl.makemyboard.interfaces.AbstractDataProvider;
+import com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants;
 
 import java.io.Serializable;
 
@@ -11,6 +12,14 @@ public class JellowIcon extends AbstractDataProvider.Data implements Serializabl
     private String verbiageId, iconDrawable, iconTitle, iconSpeech;
     @Keep
     private int parent0, parent1, parent2;
+
+    /**
+     * @iconType stores the type of the icon
+     * Normal Icon : BoardConstants.NORMAL_TYPE
+     * Category Icon : BoardConstants.CATEGORY_TYPE
+     * */
+    @Keep
+    private int iconType= BoardConstants.NORMAL_TYPE;
 
     public JellowIcon(String iconTitle, String iconDrawable, int p1, int p2, int p3) {
         this.iconDrawable = iconDrawable;
@@ -136,4 +145,11 @@ public class JellowIcon extends AbstractDataProvider.Data implements Serializabl
         return parent2;
     }
 
+    public boolean isCategory() {
+        return iconType==BoardConstants.CATEGORY_TYPE;
+    }
+
+    public void setType(int iconType) {
+        this.iconType =iconType;
+    }
 }
