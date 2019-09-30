@@ -71,7 +71,7 @@
         <item>ஒன்பது</item>
     </string-array>
 
-    <string name="change_language_line2">நிலை : பதிவிறக்கம் செய்யப்பட கீழிறங்கும் மொழிகளில் ஏதேனும் ஒன்றைத்  தேர்ந்தெடுக்க</string>
+    <string name="change_language_line2">நிலை: பதிவிறக்கம் செய்யப்பட கீழிறங்கும் மொழிகளில் ஏதேனும் ஒன்றைத்  தேர்ந்தெடுக்க</string>
     <string name="simple_ime">ஜெல்லோ விசைப்பலகை</string>
     <string name="subtype_en_US">அகரவரிசை</string>
     <string name="action_bar_title">முகப்பு</string>
@@ -333,7 +333,6 @@
     <string name="change_language_tts_wifi">கூகுள் டிஎஸ்எஸ் இயக்கியின் அமைப்பிற்க்குச் சென்று "யூஸ் வை-பை ஒன்லி" ஐ அணை. ஏற்க்கனவே இது செய்யப்பட்டிருப்பின் இந்த நிலையைக் கைவிடவும்.</string>
     <string name="icon_update_msg">இருக்கும் மொழி (கள்) க்கான சின்னங்களை புதுப்பிக்கிறது:</string>
     <string name="disable_wifi_only">\"யூஸ் வை-பை ஒன்லி\" ஐ அணைக்க முந்தைய படிநிலையை முடிக்கவும்</string>
-    <string name="txt_actLangSel_completestep2">குரல் தரவு கிடைக்கவில்லை. இணைத்தை இயக்கி, படிநிலை 2 ஐ முடிக்கவும்</string>
     <string name="txtStep2">படிநிலை 2:</string>
     <string name="close">உரையாடலை மூடு</string>
     <string name="access_dialog_title">விருப்பங்களோடு கூடிய உரையாடல்</string>

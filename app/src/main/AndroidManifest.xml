@@ -156,11 +156,6 @@
             android:label="@string/Language"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".LanguageSelectTalkBackActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/Language"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".SearchActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/search_act_title"

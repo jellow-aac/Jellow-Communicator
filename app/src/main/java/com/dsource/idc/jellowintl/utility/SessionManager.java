@@ -82,7 +82,6 @@ public class SessionManager {
     private final String Pitch = "voicepitch";
     private final String PictureViewMode = "PictureViewMode";
     private final String GridSize = "GridSize";
-    private final String FixLanguageNeverAsk = "FixLanguage";
 
     private SharedPreferences mPreferences;
     private Editor mEditor;
@@ -93,14 +92,6 @@ public class SessionManager {
         this.mContext = context;
         mPreferences = mContext.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         mEditor = mPreferences.edit();
-    }
-
-    public void setFixLanguageNeverAsk(boolean ChangeLang){
-        storePreferenceKeyWithValue(Boolean.class.toString(), FixLanguageNeverAsk, ChangeLang);
-    }
-
-    public boolean isFixLanguageNeverAsk(){
-        return (Boolean) retrievePreferenceKeyWithValue(Boolean.class.toString(), FixLanguageNeverAsk);
     }
 
     public void setUserLoggedIn(boolean isLoggedIn) {

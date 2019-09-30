@@ -1,25 +1,40 @@
 package com.dsource.idc.jellowintl;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
+import android.text.style.UnderlineSpan;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.view.accessibility.AccessibilityManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.Spinner;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.ListViewCompat;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.crashlytics.android.Crashlytics;
 import com.dsource.idc.jellowintl.factories.LanguageFactory;
 import com.dsource.idc.jellowintl.models.GlobalConstants;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static com.dsource.idc.jellowintl.LanguageDownloadActivity.CLOSE;
 import static com.dsource.idc.jellowintl.UserRegistrationActivity.LCODE;
@@ -39,14 +54,12 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.MR_IN;
 import static com.dsource.idc.jellowintl.utility.SessionManager.TA_IN;
 
 public class LanguageSelectActivity extends SpeechEngineBaseActivity {
-    String[] availableLanguages;
-    Spinner languageSelect;
     String selectedLanguage, mLangChanged;
-    Button save;
-    ArrayAdapter<String> adapter_lan;
-    private int mSelectedItem = -1;
+    Button save, languageSelect;
+    CustomArrayAdapter adapter_lan;
     // Variable hold strings from regional string.xml file.
-    private String mStep1, mStep2, mRawStrStep2, mStep3, mStep4,mCompleteStep3;
+    private String mStep1, mStep2, mRawStrStep2, mStep3, mStep4;
+    private AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +73,17 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
         mRawStrStep2 = getString(R.string.txtStep2);
         mStep3 = getString(R.string.change_language_line5);
         mStep4 = getString(R.string.txtApplyChanges);
-        mCompleteStep3 = getString(R.string.txt_actLangSel_completestep2);
         mLangChanged = getString(R.string.languageChanged);
+
+        languageSelect = findViewById(R.id.btn_lang_select);
+        ArrayList<String> langList = new ArrayList<>();
+        langList.addAll(Arrays.asList(LanguageFactory.getAvailableLanguages()));
+        langList.remove(LangValueMap.get(getSession().getLanguage()));
+        langList.add(0, LangValueMap.get(getSession().getLanguage()));
+        adapter_lan = new CustomArrayAdapter(this, R.layout.simple_spinner_dropdown_item,
+                /*populateCountryNameByUserType(*/langList/*)*/);
+        languageSelect.setText(langList.get(0));
+        selectedLanguage = langList.get(0);
 
         setImageUsingGlide(R.drawable.tts_wifi_1, ((ImageView) findViewById(R.id.ivAddLang1)));
         setImageUsingGlide(R.drawable.tts_wifi_2, ((ImageView) findViewById(R.id.ivAddLang2)));
@@ -70,39 +92,9 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
         setImageUsingGlide(R.drawable.arrow, ((ImageView) findViewById(R.id.ivArrow1)));
         setImageUsingGlide(R.drawable.arrow, ((ImageView) findViewById(R.id.ivArrow2)));
 
-        availableLanguages = LanguageFactory.getAvailableLanguages();
-        languageSelect = findViewById(R.id.selectDownloadedLanguageSpinner);
-
-        adapter_lan = new ArrayAdapter<>(this, R.layout.simple_spinner_item,
-                populateCountryNameByUserType(availableLanguages));
-        adapter_lan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        languageSelect.setAdapter(adapter_lan);
-        languageSelect.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedLanguage = availableLanguages[i];
-                mSelectedItem = i;
-                if (selectedLanguage.equals(LangValueMap.get(MR_IN))) {
-                    hideViewsForNonTtsLang(true);
-                    String stepStr = mRawStrStep2 +" "+ mStep4.substring(getDelimitedStringLength(mStep4));
-                    SpannableString spannedStr = new SpannableString(stepStr);
-                    spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, getDelimitedStringLength(stepStr), 0);
-                    ((TextView) findViewById(R.id.tv_step4_info)).setText(spannedStr);
-                } else {
-                    hideViewsForNonTtsLang(false);
-                    updateViewsForNewLangSelect();
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                selectedLanguage = null;
-            }
-        });
-
         save = findViewById(R.id.saveBut);
-        /***The variables below are defined because android os fall back to default locale
+        /* **
+         * The variables below are defined because android os fall back to default locale
          * after activity restart. These variable will hold the value for variables initialized using
          * user preferred locale.
          ***/
@@ -118,11 +110,7 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
                             .putExtra(LCODE, MR_IN).putExtra(CLOSE, true));
                 } else {
                     saveLanguage();
-                }/*else if (isVoiceAvailableForLanguage(LangMap.get(selectedLanguage)))*/
-                  //  saveLanguage();
-                /*else
-                    Toast.makeText(LanguageSelectActivity.this, mCompleteStep3,
-                            Toast.LENGTH_LONG).show();*/
+                }
             }
         });
     }
@@ -150,16 +138,19 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
         /* step 1*/
         SpannableString spannedStr = new SpannableString(mStep1);
         spannedStr.setSpan(new StyleSpan(Typeface.BOLD),0, getDelimitedStringLength(mStep1),0);
+        spannedStr.setSpan(new UnderlineSpan(), 0, getDelimitedStringLength(mStep1), 0);
         ((TextView)findViewById(R.id.tv_step1_info)).setText(spannedStr);
 
         /*step 2*/
         spannedStr = new SpannableString(mStep2);
         spannedStr.setSpan(new StyleSpan(Typeface.BOLD),0, getDelimitedStringLength(mStep2),0);
+        spannedStr.setSpan(new UnderlineSpan(), 0, getDelimitedStringLength(mStep2), 0);
         ((TextView)findViewById(R.id.tv_step2_info)).setText(spannedStr);
 
         /*step 3*/
         spannedStr = new SpannableString(mStep3.replace("_", getTTsLanguage()));
         spannedStr.setSpan(new StyleSpan(Typeface.BOLD),0, getDelimitedStringLength(mStep3),0);
+        spannedStr.setSpan(new UnderlineSpan(), 0, getDelimitedStringLength(mStep3), 0);
         int start = spannedStr.toString().indexOf(getTTsLanguage()),
             end = start + getTTsLanguage().length();
         spannedStr.setSpan(new StyleSpan(Typeface.BOLD), start, end,0);
@@ -168,6 +159,7 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
         /*step 4*/
         spannedStr = new SpannableString(mStep4);
         spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, getDelimitedStringLength(mStep4), 0);
+        spannedStr.setSpan(new UnderlineSpan(), 0, getDelimitedStringLength(mStep4), 0);
         ((TextView) findViewById(R.id.tv_step4_info)).setText(spannedStr);
     }
 
@@ -212,13 +204,6 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
             resetAnalytics(this, getSession().getCaregiverNumber().substring(1));
         }
         startMeasuring();
-        availableLanguages = LanguageFactory.getAvailableLanguages();
-        adapter_lan = new ArrayAdapter<String>(this, R.layout.simple_spinner_item,
-                populateCountryNameByUserType(availableLanguages));
-        adapter_lan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        languageSelect.setAdapter(adapter_lan);
-        if(mSelectedItem != -1)
-            languageSelect.setSelection(mSelectedItem);
 
         if(!getSession().getToastMessage().isEmpty()) {
             Toast.makeText(this, getSession().getToastMessage(), Toast.LENGTH_SHORT).show();
@@ -261,11 +246,86 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
         return selectedLanguage;
     }
 
-    private String[] populateCountryNameByUserType(String[] langNameToBeShorten) {
-        String[] shortenLanguageNames = new String[langNameToBeShorten.length];
+    private int getDelimitedStringLength(String text){
+        return getSession().getLanguage().equals(BN_IN) ?
+                text.indexOf("ঃ")+1 : text.indexOf(":")+1;
+    }
+
+    public void showAvailableLanguageDialog(View view) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final View dialogView = LayoutInflater.from(this).inflate(R.layout.language_select_list_parent, null);
+        ((ListViewCompat)dialogView.findViewById(R.id.list_language_list)).setAdapter(adapter_lan);
+        builder.setView(dialogView);
+        dialog = builder.create();
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.show();
+    }
+
+    private class CustomArrayAdapter extends ArrayAdapter{
+        Context context;
+        int layout;
+        List arrayList;
+
+        public CustomArrayAdapter(Context context, int layout, List<String> arrayList) {
+            super(context, layout, arrayList);
+            this.context = context;
+            this.layout = layout;
+            this.arrayList = arrayList;
+        }
+
+        @Override
+        public View getDropDownView(final int position, @Nullable View convertView, @NonNull final ViewGroup parent) {
+            LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            return vi.inflate(R.layout.simple_spinner_dropdown_item, null);
+        }
+
+        @SuppressLint({"ViewHolder", "InflateParams"})
+        @Override
+        public View getView(final int position, View convertView, final ViewGroup parent) {
+            LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = vi.inflate(R.layout.simple_spinner_dropdown_item, null);
+            final RadioButton rb = convertView.findViewById(R.id.rb_select_lang);
+            ((TextView)convertView.findViewById(R.id.tv_lang_name)).setText(arrayList.get(position).toString());
+            convertView.findViewById(R.id.ll_parent_language_list_item).
+                    setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            rb.setChecked(true);
+                            performLanguageSelection(arrayList.get(position).toString());
+                        }
+                    });
+            rb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    performLanguageSelection(arrayList.get(position).toString());
+                }
+            });
+            return convertView;
+        }
+    }
+
+    private void performLanguageSelection(String selectedLanguage) {
+        this.selectedLanguage = selectedLanguage;
+        if (selectedLanguage.equals(LangValueMap.get(MR_IN))) {
+            hideViewsForNonTtsLang(true);
+            String stepStr = mRawStrStep2 +" "+ mStep4.substring(getDelimitedStringLength(mStep4));
+            SpannableString spannedStr = new SpannableString(stepStr);
+            spannedStr.setSpan(new StyleSpan(Typeface.BOLD), 0, getDelimitedStringLength(stepStr), 0);
+            spannedStr.setSpan(new UnderlineSpan(), 0, getDelimitedStringLength(stepStr), 0);
+            ((TextView) findViewById(R.id.tv_step4_info)).setText(spannedStr);
+        } else {
+            hideViewsForNonTtsLang(false);
+            updateViewsForNewLangSelect();
+        }
+        languageSelect.setText(selectedLanguage);
+        dialog.dismiss();
+    }
+
+    private List<String> populateCountryNameByUserType(ArrayList<String> langNameToBeShorten) {
+        String[] shortenLanguageNames = new String[langNameToBeShorten.size()];
         if (isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-            for (int i = 0; i < langNameToBeShorten.length; i++) {
-                switch (langNameToBeShorten[i]) {
+            for (int i = 0; i < langNameToBeShorten.size(); i++) {
+                switch (langNameToBeShorten.get(i)) {
                     case "मराठी":
                         shortenLanguageNames[i] = getString(R.string.acc_lang_marathi);
                         break;
@@ -297,13 +357,13 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
                         shortenLanguageNames[i] = getString(R.string.acc_lang_german_ger);
                         break;
                     default:
-                        shortenLanguageNames[i] = langNameToBeShorten[i];
+                        shortenLanguageNames[i] = langNameToBeShorten.get(i);
                         break;
                 }
             }
         }else {
-            for (int i = 0; i < langNameToBeShorten.length; i++) {
-                switch (langNameToBeShorten[i]) {
+            for (int i = 0; i < langNameToBeShorten.size(); i++) {
+                switch (langNameToBeShorten.get(i)) {
                     case "English (India)":
                         shortenLanguageNames[i] = "English (IN)";
                         break;
@@ -329,16 +389,11 @@ public class LanguageSelectActivity extends SpeechEngineBaseActivity {
                         shortenLanguageNames[i] = "French (FR)";
                         break;
                     default:
-                        shortenLanguageNames[i] = langNameToBeShorten[i];
+                        shortenLanguageNames[i] = langNameToBeShorten.get(i);
                         break;
                 }
             }
         }
-        return shortenLanguageNames;
-    }
-
-    private int getDelimitedStringLength(String text){
-        return getSession().getLanguage().equals(BN_IN) ?
-                text.indexOf("ঃ")+1 : text.indexOf(":")+1;
+        return Arrays.asList(shortenLanguageNames);
     }
 }

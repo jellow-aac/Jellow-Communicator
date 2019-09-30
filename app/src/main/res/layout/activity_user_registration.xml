@@ -187,13 +187,30 @@
                 android:paddingEnd="@dimen/user_reg_spinner_right_padding"
                 android:layout_marginBottom="@dimen/user_reg_et_bottom"
                 android:background="@drawable/custom_spinner_view"/>
-
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/user_reg_btn_margin_top"
+                android:layout_marginBottom="@dimen/user_reg_tv_group"
+                android:importantForAccessibility="yes">
+                <TextView
+                    style="@style/defaultTextViewStyle"
+                    android:text="@string/privacy_link"
+                    android:layout_marginEnd="@dimen/user_reg_tv_group"
+                    android:layout_marginRight="@dimen/user_reg_tv_group" />
+                <TextView
+                    style="@style/defaultTextViewStyle"
+                    android:layout_marginBottom="@dimen/user_reg_tv_group"
+                    android:fontFamily="@font/mukta_semibold"
+                    android:text="@string/click_here"
+                    android:onClick="openPrivacyPolicyPage"/>
+            </LinearLayout>
             <Button
                 android:id="@+id/bRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/user_reg_btn_reg"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="@dimen/user_reg_btn_margin_top"
                 android:layout_marginBottom="@dimen/user_reg_btn_8_dp"
                 android:paddingLeft="@dimen/user_reg_btn_8_dp"
                 android:paddingRight="@dimen/user_reg_btn_8_dp"

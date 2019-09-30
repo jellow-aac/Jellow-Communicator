@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -75,6 +76,7 @@ import static com.dsource.idc.jellowintl.utility.SessionManager.UNIVERSAL_PACKAG
  * Created by user on 5/25/2016.
  */
 public class UserRegistrationActivity extends BaseActivity {
+    private final String privacyLink = "http://www.jellow.org/privacypolicy/index.php";
     public static final String LCODE = "lcode";
     public static final String TUTORIAL = "tutorial";
 
@@ -515,6 +517,10 @@ public class UserRegistrationActivity extends BaseActivity {
             }
         }
         return shortenLanguageNames;
+    }
+
+    public void openPrivacyPolicyPage(View view){
+        startActivity(new Intent("android.intent.action.VIEW", Uri.parse(privacyLink)));
     }
 
     private class NetworkConnectionTest extends AsyncTask<Void, Void, Boolean>{

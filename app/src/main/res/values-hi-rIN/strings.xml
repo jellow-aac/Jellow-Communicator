@@ -71,7 +71,7 @@
         <item>नौ</item>
     </string-array>
 
-    <string name="change_language_line2">चरण १: डाउनलोड की गई भाषाओं मे से एक चुने:</string>
+    <string name="change_language_line2">चरण १: नीचे दी गई भाषाओं में से एक चुने:</string>
     <string name="simple_ime">जेलो कीबोर्ड</string>
     <string name="subtype_en_US">सिरियल अबक</string>
     <string name="action_bar_title">होम</string>
@@ -190,7 +190,7 @@
     <string name="txt_registration_selectLangDesc_contentDesc">जेलो के लिए भाषा चुनें</string>
     <string name="txt_registration_registerBtn">रजिस्टर करें</string>
     <string name="enternonemptycontact">कृपया संपर्क सही नंबर दर्ज करें</string>
-    <string name="change_language_line5">चरण २: देखिये, _ के लिये वॉइस डेटा उपलब्ध है क्या? यदि वॉइस डेटा उपलब्ध नहीं हैं, तो कृपया इंटरनेट चालू करें और चुनी हुई भाषा के लिए वॉयस डेटा डाउनलोड करें। यदि प्रक्रिया रुक गई हैं, तो कृपया अपने इंटरनेट कनेक्शन की जाँच करें और फिर से कोशिश करें.</string>
+    <string name="change_language_line5">चरण ३: देखिये, _ के लिये वॉइस डेटा उपलब्ध है क्या? यदि वॉइस डेटा उपलब्ध नहीं हैं, तो कृपया इंटरनेट चालू करें और चुनी हुई भाषा के लिए वॉयस डेटा डाउनलोड करें। यदि प्रक्रिया रुक गई हैं, तो कृपया अपने इंटरनेट कनेक्शन की जाँच करें और फिर से कोशिश करें.</string>
     <string name="txtChangeLanguage">डिफ़ॉल्ट भाषा बदलें:</string>
     <string name="txtApplyChanges">चरण ४: नई भाषा को डिफ़ॉल्ट बनाने के लिये \'भाषा बदलें\' पर क्लिक करें</string>
     <string name="txt_intro6_skipTtsSetup">जिन उपकरणों में गूगल टेक्स्ट-टू-स्पीच पहले से ही सक्रिय है, प्रयोगकर्ता इस स्क्रीन को स्वाइप करके आगे बढ़ सकते हैं।</string>
@@ -264,6 +264,11 @@
     <string name="about_je_intro39">टोपीवाला नेशनल मेडिकल कॉलेज और बी.वाई.एल. नायर चैरिटेबल अस्पताल (मनोरोग तथा ऑडियोलॉजी और भाषण चिकित्सा विभाग)</string>
 
     <string name="feedback_talkback_heading">१ से ५ के स्तर पर, कृपया रेट करें</string>
+    <string name="langauge_correction_message"> \'"-"\' भाषा का सेटअप सही नहीं है। भाषा का सेटअप  ठीक करने के लिए \'"_"\' बटन दबाएँ। या फिर आप \'"$"\ का बटन दबाकर डिफ़ॉल्ट भाषा चुने।</string>
+    <string name="changeLanguage">भाषा की सेटिंग ठीक करें</string>
+    <string name="dialog_default_language_option">डिफ़ॉल्ट भाषा</string>
+    <string name="privacy_link">जेलो की प्राइवसी पॉलिसी देखें।</string>
+    <string name="click_here"><u>यहाँ टैप करें</u></string>
 
     <!--Content description-->
     <string name="language_download_in_process">भाषा डाउनलोड हो रही हैं</string>
@@ -330,10 +335,9 @@
     <!--end content description-->
 
     <string name="txt_tts_stting">टेक्स्ट-टू-स्पीच सेटिंग्स</string>
-    <string name="change_language_tts_wifi">नीचे दिए गए \'टेक्स्ट-टू-स्पीच सेटिंग्स\' के बटन पर टैप करके गूगल टेक्स्ट-टू-स्पीच सेटिंग्स पर जाएँ और \'केवल वाई-फाई का उपयोग करें\' इस बटन को बंद करें। यदि सेटिंग्स में पहले से ही यह बटन बंद हैं, तो कृपया इस चरण को छोड़ दें।</string>
+    <string name="change_language_tts_wifi">चरण २: नीचे दिए गए \'टेक्स्ट-टू-स्पीच सेटिंग्स\' के बटन पर टैप करके गूगल टेक्स्ट-टू-स्पीच सेटिंग्स पर जाएँ और \'केवल वाई-फाई का उपयोग करें\' इस बटन को बंद करें। यदि सेटिंग्स में पहले से ही यह बटन बंद हैं, तो कृपया इस चरण को छोड़ दें।</string>
     <string name="icon_update_msg">मौजूदा भाषाओं के लिए आइकॉन्स अपडेट हो रहें हैं:</string>
     <string name="disable_wifi_only">कृपया पिछले चरण से "केवल वाई-फाई का उपयोग करें\" इस बटन को बंद करें</string>
-    <string name="txt_actLangSel_completestep2">वॉयस डेटा अनुपलब्ध है। कृपया इंटरनेट चालू करें और चरण २ को पूरा करें</string>
     <string name="txtStep2">चरण २:</string>
     <string name="close">विंडो बंद करें</string>
     <string name="access_dialog_title">अधिक ऑप्शन विंडो</string>
@@ -375,11 +379,11 @@
     <string name="current_board">वर्तमान बोर्ड</string>
     <string name="place_holder_text">आपके द्वारा चयनित आइकन यहां दिखाई देगा</string>
     <string name="board_name">बोर्ड का नाम</string>
-    <string name="_1_icon">1 आइकन</string>
-    <string name="_2_icons">2 आइकन</string>
-    <string name="_3_icons">3 आइकन</string>
-    <string name="_4_icons">4 आइकन</string>
-    <string name="_9_icons">9 आइकन</string>
+    <string name="_1_icon">१ आइकन</string>
+    <string name="_2_icons">२ आइकन</string>
+    <string name="_3_icons">३ आइकन</string>
+    <string name="_4_icons">४ आइकन</string>
+    <string name="_9_icons">९ आइकन</string>
     <string name="number_of_icons_per_screen">आइकन प्रति स्क्रीन की संख्या</string>
     <string name="select_all">सभी का चयन करे</string>
     <string name="reset">रीसेट करें</string>

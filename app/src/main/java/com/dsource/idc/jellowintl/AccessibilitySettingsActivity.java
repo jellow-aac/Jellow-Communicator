@@ -5,14 +5,13 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.accessibility.AccessibilityManager;
+
 import com.dsource.idc.jellowintl.utility.DeveloperKey;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubeStandalonePlayer;
 import com.google.android.youtube.player.YouTubeThumbnailLoader;
 import com.google.android.youtube.player.YouTubeThumbnailView;
 
-import static com.dsource.idc.jellowintl.ThumbnailListener.SWITCH_ACCESS_VIDEO_ID;
-import static com.dsource.idc.jellowintl.ThumbnailListener.VISUAL_ACCESS_VIDEO_ID;
 import static com.dsource.idc.jellowintl.utility.Analytics.isAnalyticsActive;
 import static com.dsource.idc.jellowintl.utility.Analytics.resetAnalytics;
 
@@ -64,11 +63,7 @@ public class AccessibilitySettingsActivity extends BaseActivity {
                 startActivity(new Intent(this, KeyboardInputActivity.class));
                 finish(); break;
             case R.id.languageSelect:
-                if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                    startActivity(new Intent(this, LanguageSelectActivity.class));
-                } else {
-                    startActivity(new Intent(this, LanguageSelectTalkBackActivity.class));
-                }
+                startActivity(new Intent(this, LanguageSelectActivity.class));
                 finish(); break;
             case R.id.settings:
                 startActivity(new Intent(this, SettingActivity.class));

@@ -1073,14 +1073,14 @@ public class MainActivity extends LevelBaseActivity{
                 speak(level1IconObjects[position].getSpeech_Label());
                 // create event bundle for firebase
                 mUec.createSendFbEventFromTappedView(12,
-                        level1IconObjects[position].getDisplay_Label(), "");
+                        level1IconObjects[position].getDisplay_Label().replace("…",""), "");
             }
         }else{
             showAccessibleDialog(position, title, view);
             view.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
             // create event bundle for firebase
             mUec.createSendFbEventFromTappedView(12, level1IconObjects[position].
-                    getDisplay_Label(), "");
+                    getDisplay_Label().replace("…",""), "");
         }
         mLevelOneItemPos = mRecyclerView.getChildLayoutPosition(view);
         mSelectedItemAdapterPos = mRecyclerView.getChildAdapterPosition(view);

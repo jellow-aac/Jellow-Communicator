@@ -202,7 +202,7 @@
     <dimen name="lang_sel_head_margin_bottom">19dp</dimen>
     <dimen name="lang_sel_tv_margin_vertical_top">19dp</dimen>
     <dimen name="lang_sel_tv_step_margin_bottom">10dp</dimen>
-    <dimen name="lang_sel_spiner_height">40dp</dimen>
+    <dimen name="lang_sel_spinner_height">40dp</dimen>
     <dimen name="lang_sel_spiner_min_width">98dp</dimen>
     <dimen name="lang_sel_spiner_padding_right">28dp</dimen>
     <dimen name="lang_sel_voice_img_width">200dp</dimen>

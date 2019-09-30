@@ -335,7 +335,6 @@
     <string name="change_language_tts_wifi">গুগলের টিটিএসের সেটংস-এ গিয়ে \' টিটিএস সেটিংস \' বোতামটি স্পর্শ করে \' শুধু ওয়াই-ফাই \' অপশনটি চালু করুন। যদি অপশনটি ইতিমধ্যে নিস্ক্রিয় থাকে, তাহলে এই পর্যায়টি এড়িয়ে যান।</string>
     <string name="icon_update_msg">বর্তমান ভাষার আইকনগুলির সংযোজন:</string>
     <string name="disable_wifi_only">গুগল টেক্সট-টু-স্পীচ- এর সেটিংস-এ যাও এবং \'কেবল ওয়াই-ফাই ব্যবহার করো\' বন্ধ করো।</string>
-    <string name="txt_actLangSel_completestep2">ভয়েস ডেটা প্রাপ্ত হয়নি। দয়া করে ইন্টারনেট চালু করুন এবং দ্বিতীয় ধাপ সম্পূর্ণ করুন।</string>
     <string name="txtStep2">দ্বিতীয় ধাপঃ</string>
     <string name="close">বন্ধ ডায়ালগ</string>
     <string name="access_dialog_title">অপশন সঙ্গে ডায়ালগ</string>

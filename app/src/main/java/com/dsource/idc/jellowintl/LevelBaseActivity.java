@@ -19,7 +19,7 @@ import com.dsource.idc.jellowintl.utility.TextToSpeechErrorUtils;
 import java.util.Objects;
 
 public class LevelBaseActivity extends SpeechEngineBaseActivity implements TextToSpeechError{
-    private String mErrorMessage, mDialogTitle, mLanguageSetting, mSwitchLang, mNeverShowAgain;
+    private String mErrorMessage, mDialogTitle, mLanguageSetting, mSwitchLang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,6 @@ public class LevelBaseActivity extends SpeechEngineBaseActivity implements TextT
         mDialogTitle = getString(R.string.changeLanguage);
         mLanguageSetting = getString(R.string.Language);
         mSwitchLang = getString(R.string.dialog_default_language_option);
-        mNeverShowAgain = getString(R.string.dialog_never_show_again_option);
     }
 
     @Override
@@ -75,11 +74,7 @@ public class LevelBaseActivity extends SpeechEngineBaseActivity implements TextT
                 startActivity(new Intent(this, KeyboardInputActivity.class));
                 break;
             case R.id.languageSelect:
-                if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                    startActivity(new Intent(this, LanguageSelectActivity.class));
-                } else {
-                    startActivity(new Intent(this, LanguageSelectTalkBackActivity.class));
-                }
+                startActivity(new Intent(this, LanguageSelectActivity.class));
                 break;
             case R.id.settings:
                 startActivity(new Intent(this, SettingActivity.class));
@@ -116,55 +111,41 @@ public class LevelBaseActivity extends SpeechEngineBaseActivity implements TextT
     /**Text-To-Speech Engine error callbacks implementations are following**/
     @Override
     public void sendSpeechEngineLanguageNotSetCorrectlyError() {
-        if (!getSession().isFixLanguageNeverAsk()) {
-            LevelBaseActivity.this.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(LevelBaseActivity.this);
-                    builder.setMessage(mErrorMessage)
-                            .setTitle(mDialogTitle)
-                            .setPositiveButton(mLanguageSetting, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    Intent intent;
-                                    if (isAccessibilityTalkBackOn((AccessibilityManager)
-                                            getSystemService(ACCESSIBILITY_SERVICE))) {
-                                        intent = new Intent(LevelBaseActivity.this,
-                                                LanguageSelectTalkBackActivity.class);
-                                    } else
-                                        intent = new Intent(LevelBaseActivity.this,
-                                                LanguageSelectActivity.class);
-                                    startActivity(intent);
-                                    dialogInterface.dismiss();
-                                }
-                            })
-                            .setNeutralButton(mSwitchLang, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    getSession().setLanguage(SessionManager.ENG_US);
-                                    startActivity(new Intent(LevelBaseActivity.this,
-                                            SplashActivity.class));
-                                    finishAffinity();
-                                }
-                            })
-                            .setNegativeButton(mNeverShowAgain, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int i) {
-                                    getSession().setFixLanguageNeverAsk(true);
-                                }
-                            });
+        LevelBaseActivity.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                AlertDialog.Builder builder = new AlertDialog.Builder(LevelBaseActivity.this);
+                builder.setMessage(mErrorMessage)
+                        .setTitle(mDialogTitle)
+                        .setPositiveButton(mLanguageSetting, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                startActivity(new Intent(LevelBaseActivity.this,
+                                        LanguageSelectActivity.class));
+                                dialogInterface.dismiss();
+                            }
+                        })
+                        .setNeutralButton(mSwitchLang, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                getSession().setLanguage(SessionManager.ENG_US);
+                                startActivity(new Intent(LevelBaseActivity.this,
+                                        SplashActivity.class));
+                                finishAffinity();
+                            }
+                        });
 
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                    Button positive = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
-                    positive.setTextColor(LevelBaseActivity.this.getResources().getColor(R.color.colorAccent));
-                    Button negative = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
-                    negative.setTextColor(LevelBaseActivity.this.getResources().getColor(R.color.colorAccent));
-                    Button neutral = dialog.getButton(DialogInterface.BUTTON_NEUTRAL);
-                    neutral.setTextColor(LevelBaseActivity.this.getResources().getColor(R.color.colorAccent));
-                }
-            });
-        }
+                AlertDialog dialog = builder.create();
+                dialog.setCancelable(false);
+                dialog.show();
+                Button positive = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                positive.setTextColor(LevelBaseActivity.this.getResources().getColor(R.color.colorAccent));
+                Button negative = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+                negative.setTextColor(LevelBaseActivity.this.getResources().getColor(R.color.colorAccent));
+                Button neutral = dialog.getButton(DialogInterface.BUTTON_NEUTRAL);
+                neutral.setTextColor(LevelBaseActivity.this.getResources().getColor(R.color.colorAccent));
+            }
+        });
     }
 
     @Override

@@ -326,6 +326,11 @@
     <string name="about_je_intro39">Topiwala National Medical College and B.Y.L Nair Charitable Hospital (Departments of Psychiatry and Audiology and Speech Therapy)</string>
 
     <string name="feedback_talkback_heading">On a scale of 1 to 5, please rate the following</string>
+    <string name="langauge_correction_message"> \'"-"\' language is not setup correctly. Press \'"_"\' to fix the language. \n Or you can switch to default language by pressing \'"$"\'.</string>
+    <string name="changeLanguage">Fix The Language</string>
+    <string name="dialog_default_language_option">Default Language</string>
+    <string name="privacy_link">To view Jellow\'s privacy policy.</string>
+    <string name="click_here"><u>Tap here</u></string>
 
     <!--Content description-->
     <string name="language_download_in_process">Language download in process</string>
@@ -361,10 +366,6 @@
     <string name="no">No</string>
     <string name="less">less</string>
     <string name="back">back</string>
-    <string name="langauge_correction_message"> \'"-"\' language is not setup correctly. Press \'"_"\' to fix the language. \n Or you can switch to default language by pressing \'"$"\'.</string>
-    <string name="changeLanguage">Fix The Language</string>
-    <string name="dialog_default_language_option">Default Language</string>
-    <string name="dialog_never_show_again_option">Never show again</string>
     <string name="enter_category">enter category</string>
     <string name="intro_cd">The image shows a screenshot of the home page of Jellow. The home page contains a central grid of 9 icons called category buttons that are arranged in 3 rows and 3 columns. The 9 category buttons are “Greet and feel”, “Daily activities”, “Eating”, “Fun”, “Learning”, “People”, “Places, “Time and weather”, and “Help”. Below the category buttons are 3 navigation buttons of “Back”, “Home” and “keyboard” arranged in that order at the bottom of the home screen. On the right and left sides of the central category icons are 3 expressive icons each. To the left of the central grid are 3 expressive buttons of “Like”, “Yes” and “More” arranged from top to bottom in that order. To the right of the central grid, are the remaining 3 expressive buttons of “Don’t like”, “No” and “Less” arranged from top to bottom. On the top right corner of the home screen is visible a settings icon. In this image the central grid of 9 icons has been highlighted with all other buttons faded out.</string>
     <string name="intro2_cd">This image has the home screen of Jellow with only 2 icons of “Eating” and “Yes” highlighted. The rest of the buttons are faded out. The image shows that to speak using Jellow, user has to first click on any category button, for instance, “Eating” and then on an expressive button, for example, “Yes”. In this way the user can speak using Jellow.</string>
@@ -396,7 +397,6 @@
     <string name="change_language_tts_wifi">Step 2: Go to settings of Google TTS and turn off \'Use Wi-Fi only\' by tapping below \'TTS SETTINGS\' button. If option is already disabled, please skip this step.</string>
     <string name="icon_update_msg">Updating icons for existing language(s):</string>
     <string name="disable_wifi_only">Please complete above process to turn off \'Use Wi-Fi only\' option</string>
-    <string name="txt_actLangSel_completestep2">Voice data not available. Please turn on internet and complete Step 3</string>
     <string name="error_in_registration" translatable="false">Registration process is failed, please retry.</string>
     <string name="txtStep2">Step 2:</string>
     <string name="lang_setting_option1_cd">“The image below shows the 3 steps involved in setting up the Google text-to-speech engine that is used by Jellow. The image is made up of 3 screenshots of the, “Text to speech output” and “Google TTS settings” within a user’s device. In the first image corresponding to “Text-to-speech output”, there are 2 preferred engines visible, first, the, “Samsung Text-to-Speech engine” and second, the, “Google Text-to-Speech engine”. The user is seen to select the, “Google Text-to-Speech engine” as the first step.</string>
