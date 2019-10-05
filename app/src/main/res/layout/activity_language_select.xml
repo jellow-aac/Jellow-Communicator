@@ -37,15 +37,17 @@
                 android:text="@string/change_language_line2"
                 android:layout_marginBottom="@dimen/lang_sel_tv_margin_bottom"
                 style="@style/defaultTextViewStyle"/>
-            <Spinner
-                android:id="@+id/selectDownloadedLanguageSpinner"
+            <Button
+                android:id="@+id/btn_lang_select"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/lang_sel_spiner_height"
-                android:background="@drawable/custom_spinner_view"
-                android:minWidth="@dimen/lang_sel_spiner_min_width"
-                android:paddingRight="@dimen/lang_sel_spiner_padding_right"
-                android:paddingEnd="@dimen/lang_sel_spiner_padding_right"
-                android:layout_marginBottom="@dimen/lang_sel_tv_margin_bottom"/>
+                android:layout_height="@dimen/lang_sel_spinner_height"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:layout_marginBottom="@dimen/lang_sel_tv_margin_bottom"
+                android:textSize="@dimen/lang_sel_btn_txt_size"
+                android:onClick="showAvailableLanguageDialog"
+                android:drawableEnd="@drawable/sharp_arrow_drop_down_black_18dp"
+                android:drawableRight="@drawable/sharp_arrow_drop_down_black_18dp" />
             <TextView
                 android:id="@+id/tv_step2_info"
                 android:layout_width="match_parent"

@@ -327,7 +327,6 @@
     <string name="change_language_tts_wifi">Allez aux Réglages de la Données vocales et désactiver "l\'utilisation uniquement WiFi". Si, l\'option est déjà désactivée, passez à l\'étape suivante.</string>
     <string name="icon_update_msg">L\'actualisation des icônes la/les langage(s) existants:</string>
     <string name="disable_wifi_only">Remplir la partie précédente pour désactiver l\'option d\'utilisation uniquement WiFi</string>
-    <string name="txt_actLangSel_completestep2">La donnée vocale n\'est pas disponible. Veuillez activer votre l\'internet et complétez la deuxième étape</string>
     <string name="txtStep2">Étape 2:</string>
     <string name="close">Fermer la boîte de dialogue</string>
     <string name="access_dialog_title">Les icônes du niveau 3:</string>

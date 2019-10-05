@@ -106,14 +106,9 @@ public class BaseActivity extends AppCompatActivity{
                 finish();
                 break;
             case R.id.languageSelect:
-                if(getVisibleAct().equals(LanguageSelectActivity.class.getSimpleName()) ||
-                        getVisibleAct().equals(LanguageSelectTalkBackActivity.class.getSimpleName()) )
+                if(getVisibleAct().equals(LanguageSelectActivity.class.getSimpleName()) )
                     break;
-                if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
-                    startActivity(new Intent(this, LanguageSelectActivity.class));
-                } else {
-                    startActivity(new Intent(this, LanguageSelectTalkBackActivity.class));
-                }
+                startActivity(new Intent(this, LanguageSelectActivity.class));
                 finish();
                 break;
             case R.id.settings:

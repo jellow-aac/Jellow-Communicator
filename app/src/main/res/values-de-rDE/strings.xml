@@ -190,7 +190,7 @@
     <string name="txt_registration_selectLangDesc_contentDesc">Sprache für Jellow setzen. Pflichtfeld</string>
     <string name="txt_registration_registerBtn">Registrieren</string>
     <string name="enternonemptycontact">Eine gültige Handynummer eingeben</string>
-    <string name="change_language_line5">Schritt 2: Die Verfügbarkeit der Stimme für Deutsch prüfen. Wenn nicht vorhanden, dann herunterladen. Falls der Download-Vorgang angehalten wird, wiederholen.</string>
+    <string name="change_language_line5">Schritt 2: Die Verfügbarkeit der Stimme für _ prüfen. Wenn nicht vorhanden, dann herunterladen. Falls der Download-Vorgang angehalten wird, wiederholen.</string>
     <string name="txtChangeLanguage">Standard-Sprache ändern:</string>
     <string name="txtApplyChanges">Schritt 4:\"Einstellungen ändern\" klicken, um die neue Sprache als Standard zu setzen</string>
     <string name="txt_intro6_skipTtsSetup">Geräte mit schon aktivierten Google Text-to-Speech: Bitte wischen Sie, um diesen Schritt zu überspringen</string>
@@ -332,7 +332,6 @@
     <string name="change_language_tts_wifi">Google TTS-Einstellungen öffnen und \"Nur WLAN nutzen\" ausschalten. Falls schon ausgeschaltet, diesen Schritt überspringen</string>
     <string name="icon_update_msg">Icon(s) für die verfügbaren Sprachen werden aktualisiert:</string>
     <string name="disable_wifi_only">Den vorherigen Schritt des Ausschaltens von \"Nur WLAN nutzen\" durchführen</string>
-    <string name="txt_actLangSel_completestep2">Sprachdaten nicht vorhanden. Mit dem Internet verbinden und den Schritt 2 durchführen</string>
     <string name="txtStep2">Schritt 2:</string>
     <string name="close">Gespräch beenden</string>
     <string name="access_dialog_title">Dialoge mit Optionen</string>

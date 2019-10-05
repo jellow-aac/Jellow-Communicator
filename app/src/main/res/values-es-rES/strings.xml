@@ -71,7 +71,7 @@
         <item>nueve</item>
     </string-array>
 
-    <string name="change_language_line2">1º paso : Selecciona un idioma disponible de la siguiente lista :</string>
+    <string name="change_language_line2">1º paso: Selecciona un idioma disponible de la siguiente lista :</string>
     <string name="simple_ime">Teclado de Jellow</string>
     <string name="subtype_en_US">Teclado en orden alfabético</string>
 
@@ -332,7 +332,6 @@
     <string name="change_language_tts_wifi">Ve a Ajustes de Texto a voz de Google y apaga "Solo Wi-Fi". Si esta opción ya está desactivada, salta este paso"</string>
     <string name="icon_update_msg">Actualizando iconos para los idiomas actuales.</string>
     <string name="disable_wifi_only">Complete el paso anterior para apagar la opción "Solo Wi-Fi"</string>
-    <string name="txt_actLangSel_completestep2">No se dispone los datos de voz. Enciende internet y complete el 2º paso.</string>
     <string name="txtStep2">2º paso:</string>
     <string name="close">Cerrar diálogo</string>
     <string name="access_dialog_title">Diálogo con opciones</string>
