@@ -48,8 +48,8 @@ public class SimpleListAdapter extends ArrayAdapter<ListItem> {
         }
         // Populate the iconList from the iconList object via the viewHolder object
         // into the template view.
-        viewHolder.name.setText(user.title);
-        viewHolder.home.setImageDrawable(user.drawable);
+        viewHolder.name.setText(user.getTitle());
+        viewHolder.home.setImageDrawable(user.getDrawable());
         // Return the completed view to render on screen
         return convertView;
     }

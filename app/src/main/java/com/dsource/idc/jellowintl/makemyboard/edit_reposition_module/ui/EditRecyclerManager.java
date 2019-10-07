@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dsource.idc.jellowintl.makemyboard.edit_reposition_module.presentors.EditAdapterCallback;
 import com.dsource.idc.jellowintl.makemyboard.icon_select_module.presenters.GenCallback;
+import com.dsource.idc.jellowintl.makemyboard.interfaces.DragAndDropListener;
 import com.dsource.idc.jellowintl.makemyboard.models.BoardModel;
 import com.dsource.idc.jellowintl.models.JellowIcon;
 
@@ -34,14 +35,13 @@ public class EditRecyclerManager implements EditAdapterCallback {
 
     private void initiate(){
         switch (currentBoard.getGridSize()){
-            case 1:
+            case 0:
                 recycler.setLayoutManager(new GridLayoutManager(context, 1));
                 break;
-            case 2:
-            case 4:
+            case 1:
+            case 3:
                 recycler.setLayoutManager(new GridLayoutManager(context, 2));
                 break;
-            case 3:
             default :
                 recycler.setLayoutManager(new GridLayoutManager(context, 3));
                 break;
@@ -51,7 +51,12 @@ public class EditRecyclerManager implements EditAdapterCallback {
         adapter.setCallbacks(this);
 
 
-        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter,context);
+        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(new DragAndDropListener() {
+            @Override
+            public void onDrop(int fromPosition, int toPosition) {
+                adapter.removeItem(fromPosition);
+            }
+        });
         ItemTouchHelper mItemTouchHelper = new ItemTouchHelper(callback);
         mItemTouchHelper.attachToRecyclerView(recycler);
 

@@ -100,7 +100,7 @@ public class DragAndDropAdapter extends RecyclerView.Adapter<DragAndDropAdapter.
 
     @Override
     public DragAndDropAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        final int GRID_1BY1 = 1, GRID_1BY2 = 2, GRID_1BY3 = 3,GRID_2BY2=4;
+        final int GRID_1BY1 = 0, GRID_1BY2 = 1, GRID_1BY3 = 2,GRID_2BY2=3;
         View rowView;
         if(mAct.isNotchDevice() && gridSize == GRID_1BY1) {
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_1_icon_notch, parent, false);
@@ -129,6 +129,11 @@ public class DragAndDropAdapter extends RecyclerView.Adapter<DragAndDropAdapter.
 
     void setCallbacks(EditAdapterCallback callBacks) {
         this.callBacks = callBacks;
+    }
+
+    public void removeItem(int fromPosition) {
+        icons.remove(fromPosition);
+        notifyItemRemoved(fromPosition);
     }
 
 
@@ -169,11 +174,25 @@ public class DragAndDropAdapter extends RecyclerView.Adapter<DragAndDropAdapter.
         }
 
         void onItemSelected() {
+            editIcon.setVisibility(View.INVISIBLE);
+            removeIcon.setVisibility(View.INVISIBLE);
 
         }
 
         void onItemClear() {
 
+            editIcon.setVisibility(View.VISIBLE);
+            removeIcon.setVisibility(View.VISIBLE);
+        }
+
+        public void setSelected(boolean b) {
+            if(b){
+                backGround.setColor(ContextCompat.getColor(mAct,R.color.search_highlight));
+
+            }else{
+
+                backGround.setColor(ContextCompat.getColor(mAct,R.color.transparent));
+            }
         }
     }
 

@@ -523,4 +523,6 @@
     <string name="add_board">Add Board</string>
     <string name="boards_count">Existing Boards</string>
     <string name="custom_icon">Custom Icon</string>
+    <string name="icon">Icon</string>
+    <string name="category">category</string>
 </resources>
