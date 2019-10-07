@@ -95,7 +95,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        final int GRID_1BY1 = 1, GRID_1BY2 = 2, GRID_1BY3 = 3,GRID_2BY2 =4;
+        final int GRID_1BY1 = 0, GRID_1BY2 = 1, GRID_1BY3 = 2,GRID_2BY2 = 3;
         View rowView;
         if(mAct.isNotchDevice() && gridSize == GRID_1BY1) {
             rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_level_xadapter_1_icon_notch, parent, false);

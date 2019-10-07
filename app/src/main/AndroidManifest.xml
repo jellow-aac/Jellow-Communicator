@@ -180,7 +180,7 @@
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Translucent" />
         <activity
-            android:name=".makemyboard.BoardListActivity"
+            android:name=".makemyboard.iActivity.BoardListActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/my_boards"
             android:screenOrientation="landscape"
@@ -196,6 +196,8 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Translucent" />
+        <activity android:name=".makemyboard.DemActivtiy" />
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

@@ -15,7 +15,7 @@ import com.dsource.idc.jellowintl.BaseActivity;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.edit_reposition_module.ui.activity.AddEditIconAndCategoryActivity;
 import com.dsource.idc.jellowintl.makemyboard.BoardLanguageHelper;
-import com.dsource.idc.jellowintl.makemyboard.BoardListActivity;
+import com.dsource.idc.jellowintl.makemyboard.iActivity.BoardListActivity;
 import com.dsource.idc.jellowintl.makemyboard.BoardSearchActivity;
 import com.dsource.idc.jellowintl.makemyboard.databases.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.databases.IconDatabase;
@@ -80,7 +80,7 @@ public class IconSelectActivity extends BaseActivity implements iPresenterIconMa
             previousSelection = savedInstanceState.getInt(CURRENT_POSITION);
         }
 
-        boardDatabase = new BoardDatabase(this);
+        boardDatabase = new BoardDatabase(getAppDatabase());
         currentBoard = boardDatabase.getBoardById(boardId);
 
         if(getSupportActionBar()!=null) {
@@ -268,7 +268,7 @@ public class IconSelectActivity extends BaseActivity implements iPresenterIconMa
             finish();
         }
         else{
-            IconModel newModel = new ModelManager(sortList(SelectionManager.getInstance().getList()),this).getModel();
+            IconModel newModel = new ModelManager(sortList(SelectionManager.getInstance().getList()),getAppDatabase()).getModel();
             IconModel currentBoardModel = currentBoard.getIconModel();
             currentBoardModel.appendNewModelToPrevious(newModel);
             currentBoard.setIconModel(currentBoardModel);

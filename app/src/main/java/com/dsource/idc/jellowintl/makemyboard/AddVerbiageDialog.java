@@ -62,7 +62,7 @@ public class AddVerbiageDialog extends BaseActivity implements View.OnClickListe
 
     private void setUpFields() {
 
-        BoardDatabase  database = new BoardDatabase(this);
+        BoardDatabase  database = new BoardDatabase(getAppDatabase());
         BoardModel thisBoard = database.getBoardById(id);
         this.database = new TextDatabase(this,thisBoard.getLanguage(), getAppDatabase());
         if(getIntent().getStringExtra(CURRENT_VERBIAGE)!=null)

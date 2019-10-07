@@ -19,6 +19,7 @@ import com.dsource.idc.jellowintl.BaseActivity;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.adapters.RepositionIconAdapter;
 import com.dsource.idc.jellowintl.makemyboard.databases.BoardDatabase;
+import com.dsource.idc.jellowintl.makemyboard.iActivity.BoardListActivity;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.GridSelectListener;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.onRecyclerItemClick;
 import com.dsource.idc.jellowintl.makemyboard.models.BoardModel;
@@ -78,7 +79,7 @@ public class RepositionIconsActivity extends BaseActivity {
         manager = new SessionManager(this);
 
         //Instantiating the board database object
-        database=new BoardDatabase(this);
+        database=new BoardDatabase(getAppDatabase());
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
         try{
             boardId =getIntent().getExtras().getString(BOARD_ID);
@@ -93,7 +94,7 @@ public class RepositionIconsActivity extends BaseActivity {
 
         enableNavigationBack();
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#333333'>"+getResources().getString(R.string.rep_activity_title)+"</font>"));
-        modelManager =new ModelManager(this,currentBoard.getIconModel());
+        modelManager =new ModelManager(getAppDatabase(),currentBoard.getIconModel());
         displayList= modelManager.getLevelOneFromModel();
         initFields();
         updateList(NORMAL_MODE);
@@ -355,7 +356,7 @@ public class RepositionIconsActivity extends BaseActivity {
                 dialog.setOnPositiveClickListener(new CustomDialog.OnPositiveClickListener() {
                     @Override
                     public void onPositiveClickListener() {
-                        startActivity(new Intent(RepositionIconsActivity.this,BoardListActivity.class));
+                        startActivity(new Intent(RepositionIconsActivity.this, BoardListActivity.class));
                         finishAffinity();
                     }
                 });

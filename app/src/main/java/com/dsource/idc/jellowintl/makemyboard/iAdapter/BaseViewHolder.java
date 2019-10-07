@@ -1,19 +1,23 @@
-package com.dsource.idc.jellowintl.makemyboard.adapters;
+package com.dsource.idc.jellowintl.makemyboard.iAdapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.util.SparseArray;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.dsource.idc.jellowintl.GlideApp;
+import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.OnItemClickListener;
+import com.dsource.idc.jellowintl.utility.SessionManager;
+
+import java.io.File;
 
 public class BaseViewHolder extends RecyclerView.ViewHolder  {
 
@@ -37,12 +41,6 @@ public class BaseViewHolder extends RecyclerView.ViewHolder  {
     public BaseViewHolder setText(int viewId, CharSequence value) {
         TextView view = getView(viewId);
         view.setText(value);
-        return this;
-    }
-
-    public BaseViewHolder setImageResource(int viewId, int imageResId) {
-        ImageView view = getView(viewId);
-        view.setImageResource(imageResId);
         return this;
     }
 
@@ -70,18 +68,6 @@ public class BaseViewHolder extends RecyclerView.ViewHolder  {
         return this;
     }
 
-    public BaseViewHolder setImageDrawable(int viewId, Drawable drawable) {
-        ImageView view = getView(viewId);
-        view.setImageDrawable(drawable);
-        return this;
-    }
-
-    public BaseViewHolder setImageUrl(int viewId, String imageUrl) {
-        ImageView view = getView(viewId);
-        Glide.with(context).load(imageUrl).into(view);
-        return this;
-    }
-
     public BaseViewHolder setImageUrl(int viewId, String imageUrl, int defResourceId) {
         ImageView view = getView(viewId);
         Glide.with(context).load(imageUrl).placeholder(defResourceId).into(view);
@@ -92,18 +78,6 @@ public class BaseViewHolder extends RecyclerView.ViewHolder  {
         ImageView view = getView(viewId);
         Glide.with(context).load(imageUrl).placeholder(defResourceId).transform(transformations).into(view);
         return this;
-    }
-
-
-    public BaseViewHolder setImageBitmap(int viewId, Bitmap bitmap) {
-        ImageView view = getView(viewId);
-        view.setImageBitmap(bitmap);
-        return this;
-    }
-
-    public void setCheckBoxText(int viewId, String text) {
-        CheckBox checkBox = getView(viewId);
-        checkBox.setText(text);
     }
 
     public View setVisible(int viewId, boolean visible) {
@@ -142,5 +116,20 @@ public class BaseViewHolder extends RecyclerView.ViewHolder  {
                 listener.onItemClick(getAdapterPosition());
             }
         });
+    }
+
+    public void setImageFromBoard(int viewId, String imageURL) {
+        ImageView imageView = getView(viewId);
+        File en_dir =context.getDir(SessionManager.BOARD_ICON_LOCATION, Context.MODE_PRIVATE);
+        String path = en_dir.getAbsolutePath();
+        GlideApp.with(context)
+                .load(path+"/"+imageURL+".png")
+                .transform(new CircleCrop())
+                .error(R.drawable.ic_board_person)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .centerCrop()
+                .dontAnimate()
+                .into(imageView);
     }
 }

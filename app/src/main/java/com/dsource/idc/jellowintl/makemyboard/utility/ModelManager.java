@@ -8,6 +8,7 @@ import androidx.annotation.Keep;
 import com.dsource.idc.jellowintl.makemyboard.databases.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.models.BoardModel;
 import com.dsource.idc.jellowintl.makemyboard.models.IconModel;
+import com.dsource.idc.jellowintl.models.AppDatabase;
 import com.dsource.idc.jellowintl.models.JellowIcon;
 
 import java.util.ArrayList;
@@ -22,20 +23,20 @@ public class ModelManager {
     private BoardDatabase boardDatabase;
 
     @Keep
-    public ModelManager(ArrayList<JellowIcon> mailIconList, Context context) {
+    public ModelManager(ArrayList<JellowIcon> mailIconList, AppDatabase appdatabase) {
         this.mailIconList = mailIconList;
         levelOneIcons=new ArrayList<>();
         levelOneIndex=new ArrayList<>();
         levelTwoIcons=new ArrayList<>();
         levelThreeIcons=new ArrayList<>();
         parentNode=new IconModel(new JellowIcon("","",-1,-1,-1));
-        boardDatabase = new BoardDatabase(context);
+        boardDatabase = new BoardDatabase(appdatabase);
         prepareLevels();
         prepareModel();
         refreshModel();
     }
-    @Keep public ModelManager(Context context,IconModel parentNode){
-        boardDatabase = new BoardDatabase(context);
+    @Keep public ModelManager(AppDatabase addDatabase,IconModel parentNode){
+        boardDatabase = new BoardDatabase(addDatabase);
         this.parentNode=parentNode;
     }
     @Keep public ArrayList<JellowIcon> getAllIconsOfModel(){

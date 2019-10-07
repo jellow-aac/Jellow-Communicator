@@ -48,7 +48,7 @@ public class BoardSearchActivity extends SpeechEngineBaseActivity {
         getWindow().setGravity(Gravity.LEFT);
         setContentView(R.layout.activity_search);
         EditText SearchEditText = findViewById(R.id.search_auto_complete);
-        currentBoard = new BoardDatabase(this).getBoardById(getIntent().getStringExtra(BOARD_ID));
+        currentBoard = new BoardDatabase(getAppDatabase()).getBoardById(getIntent().getStringExtra(BOARD_ID));
         if (!isAccessibilityTalkBackOn((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))) {
             SearchEditText.setContentDescription("Enter to search");
             findViewById(R.id.close_button).setVisibility(View.GONE);
@@ -237,7 +237,7 @@ public class BoardSearchActivity extends SpeechEngineBaseActivity {
         if(currentBoard!=null)
         {
             IconModel model = currentBoard.getIconModel();
-            final ModelManager modelManager  = new ModelManager(this,model);
+            final ModelManager modelManager  = new ModelManager(getAppDatabase(),model);
             searchBox.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {

@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -21,6 +20,7 @@ import com.dsource.idc.jellowintl.SpeechEngineBaseActivity;
 import com.dsource.idc.jellowintl.makemyboard.adapters.HomeAdapter;
 import com.dsource.idc.jellowintl.makemyboard.databases.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.databases.TextDatabase;
+import com.dsource.idc.jellowintl.makemyboard.iActivity.BoardListActivity;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.GridSelectListener;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.onRecyclerItemClick;
 import com.dsource.idc.jellowintl.makemyboard.models.BoardModel;
@@ -74,7 +74,7 @@ public class HomeActivity extends SpeechEngineBaseActivity {
         manager = new SessionManager(this);
         mContext=this;
 
-        database=new BoardDatabase(this);
+        database=new BoardDatabase(getAppDatabase());
         try{
             if(getIntent().getExtras()!=null)
             boardId =getIntent().getExtras().getString(BOARD_ID);
@@ -86,7 +86,7 @@ public class HomeActivity extends SpeechEngineBaseActivity {
 
         currentBoard=database.getBoardById(boardId);
         verbiageDatabase=new TextDatabase(this,currentBoard.getLanguage(), getAppDatabase());
-        modelManager =new ModelManager(this,currentBoard.getIconModel());
+        modelManager =new ModelManager(getAppDatabase(),currentBoard.getIconModel());
         displayList= modelManager.getLevelOneFromModel();
         initViews();
         updateList();
@@ -246,15 +246,13 @@ public class HomeActivity extends SpeechEngineBaseActivity {
     {
         adapter=new HomeAdapter(displayList,this,currentBoard.getGridSize(),currentBoard.getLanguage());
         switch (currentBoard.getGridSize()){
-            case 1:
+            case 0:
                 rvRecycler.setLayoutManager(new GridLayoutManager(this, 1));
                 break;
-            case 2:
+            case 1:
+            case 3:
                 rvRecycler.setLayoutManager(new GridLayoutManager(this, 2));
                 break;
-            case 4: rvRecycler.setLayoutManager(new GridLayoutManager(this,2));
-                break;
-            case 3:
             default :
                 rvRecycler.setLayoutManager(new GridLayoutManager(this, 3));
                 break;

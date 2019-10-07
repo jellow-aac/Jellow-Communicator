@@ -78,7 +78,7 @@ public class DialogBox extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        database = new BoardDatabase(this);
+        database = new BoardDatabase(getAppDatabase());
         if(getIntent().getStringExtra(DIALOG_TYPE).equals(GRID_DIALOG))
         {
             setContentView(R.layout.grid_dialog);
@@ -331,7 +331,7 @@ public class DialogBox extends BaseActivity {
         newBoard.setBoardId(boardID);
         newBoard.setLanguage(SessionManager.LangMap.get(langCode));
         newBoard.setIconModel(new IconModel(new JellowIcon("","",-1,-1,-1)));
-        if (database==null) database=new BoardDatabase(this);
+        if (database==null) database=new BoardDatabase(getAppDatabase());
         database.addBoardToDatabase(newBoard);
         iconImageSelected = false;
         if(mAddBoardListener!=null)

@@ -19,7 +19,7 @@ import androidx.room.Room;
 
 import com.dsource.idc.jellowintl.makemyboard.edit_reposition_module.ui.activity.AddEditIconAndCategoryActivity;
 import com.dsource.idc.jellowintl.makemyboard.BoardActivity;
-import com.dsource.idc.jellowintl.makemyboard.BoardListActivity;
+import com.dsource.idc.jellowintl.makemyboard.iActivity.BoardListActivity;
 import com.dsource.idc.jellowintl.makemyboard.BoardSearchActivity;
 import com.dsource.idc.jellowintl.makemyboard.HomeActivity;
 import com.dsource.idc.jellowintl.makemyboard.RepositionIconsActivity;

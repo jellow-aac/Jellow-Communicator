@@ -1,16 +1,12 @@
-package com.dsource.idc.jellowintl.makemyboard.adapters;
+package com.dsource.idc.jellowintl.makemyboard.iAdapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.OnItemClickListener;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,10 +32,10 @@ public abstract class BaseRecyclerAdapter<T>
         }
     }
 
-    abstract void bindData(BaseViewHolder viewHolder, T item, int
+    public abstract void bindData(BaseViewHolder viewHolder, T item, int
             position);
 
-    abstract void updateDataOnTouch(int position);
+    public abstract void updateDataOnTouch(int position);
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

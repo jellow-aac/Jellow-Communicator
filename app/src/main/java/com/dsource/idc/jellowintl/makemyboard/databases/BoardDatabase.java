@@ -1,9 +1,5 @@
 package com.dsource.idc.jellowintl.makemyboard.databases;
 
-import android.content.Context;
-
-import androidx.room.Room;
-
 import com.dsource.idc.jellowintl.makemyboard.icon_select_module.presenters.iDataPresenter;
 import com.dsource.idc.jellowintl.makemyboard.models.BoardModel;
 import com.dsource.idc.jellowintl.models.AppDatabase;
@@ -16,10 +12,10 @@ import java.util.ArrayList;
 public class BoardDatabase{
 
 
-    private static final String DATABASE_NAME ="board_database";
     private AppDatabase database;
-    public BoardDatabase(Context context) {
-        database = Room.databaseBuilder(context,AppDatabase.class,DATABASE_NAME).allowMainThreadQueries().build();
+
+    public BoardDatabase(AppDatabase context) {
+        this.database = context;
     }
 
     public void addBoardToDatabase(final BoardModel board) {

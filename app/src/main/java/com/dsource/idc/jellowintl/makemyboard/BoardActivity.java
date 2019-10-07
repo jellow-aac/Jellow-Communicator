@@ -10,6 +10,7 @@ import com.dsource.idc.jellowintl.BaseActivity;
 import com.dsource.idc.jellowintl.MainActivity;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.databases.BoardDatabase;
+import com.dsource.idc.jellowintl.makemyboard.iActivity.BoardListActivity;
 import com.dsource.idc.jellowintl.makemyboard.icon_select_module.presenters.iDataPresenter;
 import com.dsource.idc.jellowintl.makemyboard.icon_select_module.view.managers.SelectionManager;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.AddBoardListener;
@@ -30,6 +31,8 @@ public class BoardActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        startActivity(new Intent(this,DemActivtiy.class));
         manager = new SessionManager(this);
         setContentView(R.layout.activity_my_boards);
        setActivityTitle(getString(R.string.menuMyBoards));
@@ -51,7 +54,7 @@ public class BoardActivity extends BaseActivity {
         findViewById(R.id.open_list).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),BoardListActivity.class));
+                startActivity(new Intent(getApplicationContext(), BoardListActivity.class));
             }
         });
 
@@ -77,7 +80,7 @@ public class BoardActivity extends BaseActivity {
 
 
     private void updateBoardCount() {
-        BoardDatabase database = new BoardDatabase(this);
+        BoardDatabase database = new BoardDatabase(getAppDatabase());
         database.getAllBoards(new iDataPresenter<ArrayList<BoardModel>>() {
             @Override
             public void onSuccess(ArrayList<BoardModel> object) {
