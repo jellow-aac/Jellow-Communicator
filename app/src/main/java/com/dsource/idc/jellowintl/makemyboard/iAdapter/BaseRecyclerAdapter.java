@@ -13,11 +13,10 @@ import java.util.List;
 public abstract class BaseRecyclerAdapter<T>
         extends RecyclerView.Adapter<BaseViewHolder> {
 
-    public static final int LOADING_VIEW_TYPE = 124;
-    private Context mContext;
+    private Context context;
     private int mLayoutResId;
     private LayoutInflater mLayoutInflater;
-    private List<T> mData;
+    public List<T> mData;
     private OnItemClickListener itemClickListener;
     private int selectedPosition = -1;
 
@@ -25,7 +24,7 @@ public abstract class BaseRecyclerAdapter<T>
     public BaseRecyclerAdapter(Context context, int layoutResId, List<T> data) {
         super();
         mData = data;
-        mContext = context;
+        this.context = context;
         mLayoutInflater = LayoutInflater.from(context);
         if (layoutResId != 0) {
             mLayoutResId = layoutResId;
@@ -40,7 +39,7 @@ public abstract class BaseRecyclerAdapter<T>
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         BaseViewHolder baseViewHolder = null;
-        baseViewHolder = new BaseViewHolder(mContext,
+        baseViewHolder = new BaseViewHolder(context,
                 mLayoutInflater.inflate(mLayoutResId, parent, false));
         initClickListener(baseViewHolder);
         return baseViewHolder;
@@ -120,5 +119,9 @@ public abstract class BaseRecyclerAdapter<T>
     public void clear(){
         mData = new ArrayList<T>();
         notifyDataSetChanged();
+    }
+
+    public Context getContext(){
+        return context;
     }
 }

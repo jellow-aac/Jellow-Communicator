@@ -41,4 +41,14 @@ public class LangSelectAdapter extends BaseRecyclerAdapter<MyPair<String, Intege
         selectedPosition = position;
         notifyItemChanged(selectedPosition);
     }
+
+    public void increaseBoardCount() {
+        mData.get(selectedPosition).setSecond(mData.get(selectedPosition).getSecond()+1);
+        notifyItemChanged(selectedPosition);
+    }
+
+    public void decreaseBoardCount() {
+        mData.get(selectedPosition).setSecond(mData.get(selectedPosition).getSecond()-1);
+        notifyItemChanged(selectedPosition);
+    }
 }

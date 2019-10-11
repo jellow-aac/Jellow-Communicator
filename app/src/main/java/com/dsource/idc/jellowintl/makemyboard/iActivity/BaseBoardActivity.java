@@ -80,14 +80,6 @@ public abstract class BaseBoardActivity<V extends IBaseView,P extends IBasePrese
     @Override
     protected void onResume() {
         super.onResume();
-        setVisibleAct(BaseBoardActivity.class.getSimpleName());
-        SelectionManager.getInstance().delete();
-        if(getSession()!=null) getSession().setCurrentBoardLanguage("");
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        if(getSession()!=null) getSession().setCurrentBoardLanguage("");
+        //TODO once all activity inherit base class, then uncomment this line,setVisibleAct(BaseBoardActivity.class.getSimpleName());
     }
 }

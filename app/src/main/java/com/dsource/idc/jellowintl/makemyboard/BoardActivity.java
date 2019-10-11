@@ -45,7 +45,7 @@ public class BoardActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent in  = new Intent(getApplicationContext(), DialogBox.class);
-                DialogBox.mAddBoardListener =addListener();
+                DialogBox.setAddBoardListener(addListener());
                 in.putExtra(DIALOG_TYPE,ADD_BOARD);
                 startActivity(in);
             }

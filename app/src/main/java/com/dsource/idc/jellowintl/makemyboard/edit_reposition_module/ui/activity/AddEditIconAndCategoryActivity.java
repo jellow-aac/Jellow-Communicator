@@ -22,8 +22,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dsource.idc.jellowintl.BaseActivity;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.AddVerbiageDialog;
-import com.dsource.idc.jellowintl.makemyboard.BoardListActivity;
+import com.dsource.idc.jellowintl.makemyboard.iActivity.BoardListActivity;
 import com.dsource.idc.jellowintl.makemyboard.BoardSearchActivity;
+import com.dsource.idc.jellowintl.makemyboard.HomeActivity;
 import com.dsource.idc.jellowintl.makemyboard.databases.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.edit_reposition_module.ui.EditRecyclerManager;
 import com.dsource.idc.jellowintl.makemyboard.icon_select_module.presenters.GenCallback;
@@ -60,19 +61,14 @@ public class AddEditIconAndCategoryActivity extends BaseActivity {
             setContentView(R.layout.activity_levelx_layout_notch);
         else
             setContentView(R.layout.activity_levelx_layout);
-        //Disable Expressive Icons for this activity
-        findViewById(R.id.expressiveOne).setAlpha(.5f);
-        findViewById(R.id.expressiveTwo).setAlpha(.5f);
 
-        findViewById(R.id.et).setVisibility(View.GONE);
-        findViewById(R.id.ttsbutton).setVisibility(View.GONE);
 
         try{
             String boardId="";
 
             if(getIntent().getExtras()!=null)
                 boardId =getIntent().getExtras().getString(BOARD_ID);
-            BoardDatabase database=new BoardDatabase(this);
+            BoardDatabase database=new BoardDatabase(getAppDatabase());
             currentBoard=database.getBoardById(boardId);
             if(currentBoard!=null) {
                 setUpIconManager();
@@ -89,6 +85,26 @@ public class AddEditIconAndCategoryActivity extends BaseActivity {
             getSupportActionBar().setTitle(currentBoard.getBoardName());
             getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_bg));
         }
+
+        //Disable Expressive Icons for this activity
+        findViewById(R.id.save_button).setVisibility(View.VISIBLE);
+        findViewById(R.id.keyboard).setAlpha(.5f);
+        findViewById(R.id.save_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentBoard.setSetupStatus(BoardModel.STATUS_L3);
+                BoardDatabase database = new BoardDatabase(getAppDatabase());
+                database.updateBoardIntoDatabase(currentBoard);
+                Intent intent =new Intent(getApplicationContext(), HomeActivity.class);
+                intent.putExtra(BOARD_ID,currentBoard.getBoardId());
+                startActivity(intent);
+                finish();
+
+            }
+        });
+
+        findViewById(R.id.et).setVisibility(View.GONE);
+        findViewById(R.id.ttsbutton).setVisibility(View.GONE);
     }
 
 

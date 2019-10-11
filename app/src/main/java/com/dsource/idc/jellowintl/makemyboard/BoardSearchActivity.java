@@ -19,6 +19,7 @@ import com.dsource.idc.jellowintl.SpeechEngineBaseActivity;
 import com.dsource.idc.jellowintl.makemyboard.adapters.BoardSearchAdapter;
 import com.dsource.idc.jellowintl.makemyboard.databases.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.databases.IconDatabase;
+import com.dsource.idc.jellowintl.makemyboard.interfaces.OnItemClickListener;
 import com.dsource.idc.jellowintl.makemyboard.models.BoardModel;
 import com.dsource.idc.jellowintl.makemyboard.models.IconModel;
 import com.dsource.idc.jellowintl.makemyboard.utility.ModelManager;
@@ -138,9 +139,9 @@ public class BoardSearchActivity extends SpeechEngineBaseActivity {
             }
         });
 
-        adapter.setOnItemClickListner(new BoardSearchAdapter.OnItemClickListener() {
+        adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
+            public void onItemClick(int position) {
 
                 JellowIcon icon=iconList.get(position);
                 if(icon.getParent0()!=-1) {
@@ -212,9 +213,9 @@ public class BoardSearchActivity extends SpeechEngineBaseActivity {
             }
         });
 
-        adapter.setOnItemClickListner(new BoardSearchAdapter.OnItemClickListener() {
+        adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
+            public void onItemClick(int position) {
                 if(position==-1) {
                     setResult(Activity.RESULT_CANCELED);
                     return;
@@ -262,9 +263,9 @@ public class BoardSearchActivity extends SpeechEngineBaseActivity {
                     if(iconList.size()>0) {
                         adapter = new BoardSearchAdapter(BoardSearchActivity.this,
                                 iconList,currentBoard.getLanguage(), getAppDatabase());
-                        adapter.setOnItemClickListner(new BoardSearchAdapter.OnItemClickListener() {
+                        adapter.setOnItemClickListener(new OnItemClickListener() {
                             @Override
-                            public void onItemClick(View view, int position) {
+                            public void onItemClick(int position) {
                                 if(!iconList.get(position).getIconTitle().equals(getString(R.string.not_found)))
                                 {
                                     Intent returnIntent = new Intent();
@@ -349,9 +350,9 @@ public class BoardSearchActivity extends SpeechEngineBaseActivity {
             }
         });
 
-        adapter.setOnItemClickListner(new BoardSearchAdapter.OnItemClickListener() {
+        adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
+            public void onItemClick(int position) {
                 Intent returnIntent = new Intent();
                 JellowIcon icon=iconList.get(position);
                 if(icon.getParent0()!=-1) {

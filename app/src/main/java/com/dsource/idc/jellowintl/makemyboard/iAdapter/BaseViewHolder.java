@@ -1,6 +1,7 @@
 package com.dsource.idc.jellowintl.makemyboard.iAdapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,6 +19,9 @@ import com.dsource.idc.jellowintl.makemyboard.interfaces.OnItemClickListener;
 import com.dsource.idc.jellowintl.utility.SessionManager;
 
 import java.io.File;
+
+import static com.dsource.idc.jellowintl.factories.IconFactory.EXTENSION;
+import static com.dsource.idc.jellowintl.factories.PathFactory.getIconPath;
 
 public class BaseViewHolder extends RecyclerView.ViewHolder  {
 
@@ -130,6 +134,22 @@ public class BaseViewHolder extends RecyclerView.ViewHolder  {
                 .skipMemoryCache(true)
                 .centerCrop()
                 .dontAnimate()
+                .into(imageView);
+    }
+
+    public void setImageDrawable(int viewId, Drawable drawable) {
+        ImageView imageView = getView(viewId);
+        imageView.setImageDrawable(drawable);
+    }
+
+    public void setBackgroundDrawable(int viewId, Drawable drawable) {
+        ImageView imageView = getView(viewId);
+        imageView.setBackground(drawable);
+    }
+
+    public void setImageFromLibrary(int viewId,String drawableId){
+        ImageView imageView = getView(viewId);
+        GlideApp.with(context).load(getIconPath(context, drawableId+EXTENSION))
                 .into(imageView);
     }
 }

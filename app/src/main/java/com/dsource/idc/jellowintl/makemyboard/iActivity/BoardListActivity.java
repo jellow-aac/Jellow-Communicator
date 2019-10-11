@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dsource.idc.jellowintl.R;
+import com.dsource.idc.jellowintl.makemyboard.BoardActivity;
 import com.dsource.idc.jellowintl.makemyboard.MyPair;
 import com.dsource.idc.jellowintl.makemyboard.iAdapter.BoardAdapter;
 import com.dsource.idc.jellowintl.makemyboard.iAdapter.LangSelectAdapter;
@@ -17,6 +18,7 @@ import com.dsource.idc.jellowintl.makemyboard.iModels.BoardListModel;
 import com.dsource.idc.jellowintl.makemyboard.iView.IBoardListView;
 import com.dsource.idc.jellowintl.makemyboard.iPresenter.IBoardListPresenter;
 import com.dsource.idc.jellowintl.makemyboard.icon_select_module.view.activity.IconSelectActivity;
+import com.dsource.idc.jellowintl.makemyboard.icon_select_module.view.managers.SelectionManager;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.AddBoardListener;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.BoardClickListener;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.OnItemClickListener;
@@ -32,7 +34,7 @@ import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.BOAR
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.DIALOG_TYPE;
 import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.IS_EDIT_MODE;
 
-public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardListPresenter, BoardAdapter> implements IBoardListView,BoardClickListener{
+public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardListPresenter, BoardAdapter> implements IBoardListView, BoardClickListener, AddBoardListener {
 
 
     private LangSelectAdapter leftPaneAdapter;
@@ -45,7 +47,7 @@ public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardL
 
     @Override
     public BoardAdapter getAdapter() {
-        return new BoardAdapter(this, R.layout.my_board_card, new ArrayList<BoardModel>());
+        return new BoardAdapter(mContext, R.layout.my_board_card, new ArrayList<BoardModel>());
     }
 
     @Override
@@ -64,7 +66,7 @@ public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardL
 
     @Override
     public void setLayoutManager(RecyclerView recyclerView) {
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        recyclerView.setLayoutManager(new GridLayoutManager(mContext, 3));
     }
 
     //Instantiates all the views
@@ -73,40 +75,12 @@ public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardL
             @Override
             public void onClick(View v) {
                 Intent in = new Intent(getApplicationContext(), DialogBox.class);
-                DialogBox.mAddBoardListener = addListener();
+                DialogBox.setAddBoardListener(BoardListActivity.this);
                 in.putExtra(DIALOG_TYPE, ADD_BOARD);
                 startActivity(in);
             }
         });
     }
-
-    private AddBoardListener addListener() {
-        return new AddBoardListener() {
-            @Override
-            public void onBoardCreated(BoardModel board) {
-                mAdapter.add(board);
-                mPresenter.openBoard(mContext,board);
-                Toast.makeText(BoardListActivity.this, "Successfully created", Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onCancel() {
-                Toast.makeText(BoardListActivity.this, "Cancelled", Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onBoardUpdated(BoardModel board) {
-                Intent in = new Intent(getApplicationContext(), IconSelectActivity.class);
-                DialogBox.mAddBoardListener = addListener();
-                in.putExtra(DIALOG_TYPE, ADD_BOARD);
-                in.putExtra(IS_EDIT_MODE, "YES");
-                in.putExtra(BOARD_ID, board.getBoardId());
-                startActivity(in);
-
-            }
-        };
-    }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -131,8 +105,7 @@ public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardL
 
     private void setupLeftRecycler() {
         final RecyclerView leftRV = findViewById(R.id.left_recycler_view);
-        ArrayList<MyPair<String, Integer>> languageVsCountList = new ArrayList<>();
-        leftPaneAdapter = new LangSelectAdapter(mContext, R.layout.lang_list_item, languageVsCountList);
+        leftPaneAdapter = new LangSelectAdapter(mContext, R.layout.lang_list_item, new ArrayList<MyPair<String, Integer>>());
         leftRV.setLayoutManager(new LinearLayoutManager(mContext));
         leftRV.setAdapter(leftPaneAdapter);
         mPresenter.loadLanguageVsBoardCount(mContext);
@@ -157,7 +130,7 @@ public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardL
 
     @Override
     public void onItemDelete(final int position) {
-        final CustomDialog dialog = new CustomDialog(BoardListActivity.this, CustomDialog.NORMAL, SessionManager.ENG_IN);
+        final CustomDialog dialog = new CustomDialog(mContext, CustomDialog.NORMAL, SessionManager.ENG_IN);
         dialog.setText("Are you sure you want to delete this board?");
         dialog.setOnNegativeClickListener(new CustomDialog.OnNegativeClickListener() {
             @Override
@@ -169,6 +142,7 @@ public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardL
             @Override
             public void onPositiveClickListener() {
                 mPresenter.deleteBoard(mAdapter.getItem(position));
+                leftPaneAdapter.decreaseBoardCount();
                 mAdapter.remove(position);
                 dialog.dismiss();
             }
@@ -178,11 +152,48 @@ public class BoardListActivity extends BaseBoardActivity<IBoardListView, IBoardL
 
     @Override
     public void onBoardEdit(int position) {
-            Intent in = new Intent(getApplicationContext(), DialogBox.class);
-            DialogBox.mAddBoardListener = addListener();
-            in.putExtra(DIALOG_TYPE, ADD_BOARD);
-            in.putExtra(IS_EDIT_MODE, "YES");
-            in.putExtra(BOARD_ID, mAdapter.getItem(position).getBoardId());
-            startActivity(in);
+        Intent in = new Intent(getApplicationContext(), DialogBox.class);
+        DialogBox.setAddBoardListener(BoardListActivity.this);
+        in.putExtra(DIALOG_TYPE, ADD_BOARD);
+        in.putExtra(IS_EDIT_MODE, "YES");
+        in.putExtra(BOARD_ID, mAdapter.getItem(position).getBoardId());
+        startActivity(in);
+    }
+
+    @Override
+    public void onBoardCreated(BoardModel board) {
+
+        mAdapter.add(board);
+        leftPaneAdapter.increaseBoardCount();
+        mPresenter.openBoard(mContext, board);
+        Toast.makeText(mContext, "Successfully created", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onCancel() {
+        Toast.makeText(mContext, "Cancelled", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onBoardUpdated(BoardModel board) {
+        Intent in = new Intent(getApplicationContext(), IconSelectActivity.class);
+        DialogBox.setAddBoardListener(BoardListActivity.this);
+        in.putExtra(DIALOG_TYPE, ADD_BOARD);
+        in.putExtra(IS_EDIT_MODE, "YES");
+        in.putExtra(BOARD_ID, board.getBoardId());
+        startActivity(in);
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setVisibleAct(BoardListActivity.class.getSimpleName());
+        SelectionManager.getInstance().delete();
+        getSession().setCurrentBoardLanguage("");
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        getSession().setCurrentBoardLanguage("");
     }
 }

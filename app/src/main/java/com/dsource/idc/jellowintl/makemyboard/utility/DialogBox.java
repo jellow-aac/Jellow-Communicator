@@ -37,6 +37,7 @@ import com.dsource.idc.jellowintl.makemyboard.BoardSearchActivity;
 import com.dsource.idc.jellowintl.makemyboard.adapters.SimpleListAdapter;
 import com.dsource.idc.jellowintl.makemyboard.databases.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.AddBoardListener;
+import com.dsource.idc.jellowintl.makemyboard.interfaces.BoardClickListener;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.GridSelectListener;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.VerbiageEditorReverseInterface;
 import com.dsource.idc.jellowintl.makemyboard.models.BoardModel;
@@ -69,7 +70,7 @@ public class DialogBox extends BaseActivity {
 
 
     public static GridSelectListener mGridSelectionListener;
-    public static AddBoardListener mAddBoardListener;
+    private static AddBoardListener mAddBoardListener;
     private VerbiageEditorReverseInterface reverseInterface;
     private boolean iconImageSelected=false;
     private BoardDatabase database;
@@ -388,6 +389,10 @@ public class DialogBox extends BaseActivity {
                 mGridSelectionListener.onGridSelectListener(GlobalConstants.NINE_ICONS_PER_SCREEN);
             }
         });
+    }
+
+    public static void setAddBoardListener(AddBoardListener listener){
+        mAddBoardListener = listener;
     }
 
 }

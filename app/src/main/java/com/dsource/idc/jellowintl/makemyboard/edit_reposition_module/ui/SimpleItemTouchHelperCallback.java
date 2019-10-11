@@ -1,6 +1,7 @@
 package com.dsource.idc.jellowintl.makemyboard.edit_reposition_module.ui;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,7 +14,7 @@ class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
     private RecyclerView.ViewHolder previousVH = null;
     private DragAndDropListener callback;
-    private int fromPosition =-1,toPosition = -1;
+    private int fromPosition = -1, toPosition = -1;
 
     public SimpleItemTouchHelperCallback(DragAndDropListener dragAndDropListener) {
         this.callback = dragAndDropListener;
@@ -52,7 +53,7 @@ class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
         previousVH = target;
 
         ((DragAndDropAdapter.ViewHolder) previousVH).setSelected(true);
-        if(fromPosition==-1) fromPosition = viewHolder.getAdapterPosition();
+        if (fromPosition == -1) fromPosition = viewHolder.getAdapterPosition();
         toPosition = target.getAdapterPosition();
         return true;
     }
@@ -80,6 +81,8 @@ class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
         }
     }
 
+
+    //Called when dragging is done and we need to bring everything back to normal
     @Override
     public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
         if (viewHolder instanceof DragAndDropAdapter.ViewHolder) {
@@ -91,8 +94,14 @@ class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
                         .setSelected(false);
         }
 
-        if (fromPosition!=-1&&toPosition!=-1&&fromPosition!=toPosition)
+        if (fromPosition != -1 && toPosition != -1 && fromPosition != toPosition)
             callback.onDrop(fromPosition, toPosition);
+        fromPosition = toPosition = -1;
+    }
 
+    @Override
+    public int interpolateOutOfBoundsScroll(@NonNull RecyclerView recyclerView, int viewSize, int viewSizeOutOfBounds, int totalSize, long msSinceStartScroll) {
+        Log.d("Scrolled out: ", "Scrolled out");
+        return super.interpolateOutOfBoundsScroll(recyclerView, viewSize, viewSizeOutOfBounds, totalSize, msSinceStartScroll);
     }
 }

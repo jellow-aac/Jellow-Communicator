@@ -19,6 +19,7 @@ import androidx.room.Room;
 
 import com.dsource.idc.jellowintl.makemyboard.edit_reposition_module.ui.activity.AddEditIconAndCategoryActivity;
 import com.dsource.idc.jellowintl.makemyboard.BoardActivity;
+import com.dsource.idc.jellowintl.makemyboard.iActivity.BaseBoardActivity;
 import com.dsource.idc.jellowintl.makemyboard.iActivity.BoardListActivity;
 import com.dsource.idc.jellowintl.makemyboard.BoardSearchActivity;
 import com.dsource.idc.jellowintl.makemyboard.HomeActivity;
@@ -253,6 +254,7 @@ public class BaseActivity extends AppCompatActivity{
                         IconSelectActivity.class.getSimpleName() + ","+
                         BoardActivity.class.getSimpleName() + ","+
                         BoardListActivity.class.getSimpleName() + ","+
+                        BaseBoardActivity.class.getSimpleName() + ","+
                         RepositionIconsActivity.class.getSimpleName();
     }
 
