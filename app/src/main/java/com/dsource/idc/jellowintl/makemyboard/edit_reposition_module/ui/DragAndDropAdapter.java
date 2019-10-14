@@ -3,6 +3,7 @@ package com.dsource.idc.jellowintl.makemyboard.edit_reposition_module.ui;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +50,7 @@ public class DragAndDropAdapter extends RecyclerView.Adapter<DragAndDropAdapter.
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.iconTitle.setTextColor(Color.rgb(64, 64, 64));
         final JellowIcon item = icons.get(position);
         holder.iconTitle.setText(item.getIconTitle());
@@ -87,6 +88,18 @@ public class DragAndDropAdapter extends RecyclerView.Adapter<DragAndDropAdapter.
             GlideApp.with(mAct).load(getIconPath(mAct, thisIcon.getIconDrawable()+EXTENSION))
                     .into(holder.iconImage);
         }
+        if(position==highlightPosition) {
+            holder.setSelected(true);
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    holder.setSelected(false);
+                }
+            }, 1000);
+        }
+        else holder.setSelected(false);
+
 
     }
 
@@ -134,6 +147,19 @@ public class DragAndDropAdapter extends RecyclerView.Adapter<DragAndDropAdapter.
     public void removeItem(int fromPosition) {
         icons.remove(fromPosition);
         notifyItemRemoved(fromPosition);
+    }
+
+    public int removeItem(JellowIcon jellowIcon) {
+        for (int i = 0; i < icons.size(); i++)
+            if (icons.get(i).isEqual(jellowIcon)) {
+                icons.remove(i);
+                return i;
+            }
+        return -1;
+    }
+
+    public void setHighlightedIcon(int highlightPosition) {
+        this.highlightPosition = highlightPosition;
     }
 
 

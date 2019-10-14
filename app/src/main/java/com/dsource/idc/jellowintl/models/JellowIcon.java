@@ -23,6 +23,8 @@ public class JellowIcon extends AbstractDataProvider.Data implements Serializabl
 
     public JellowIcon(String iconTitle, String iconDrawable, int p1, int p2, int p3) {
         this.iconDrawable = iconDrawable;
+        this.verbiageId = iconDrawable;
+        this.iconSpeech = iconTitle;
         this.iconTitle = iconTitle;
         this.parent0 = p1;
         this.parent1 = p2;

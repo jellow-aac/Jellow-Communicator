@@ -4,15 +4,20 @@ import android.content.Context;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.dsource.idc.jellowintl.makemyboard.MyPair;
 import com.dsource.idc.jellowintl.makemyboard.edit_reposition_module.presentors.EditAdapterCallback;
 import com.dsource.idc.jellowintl.makemyboard.icon_select_module.presenters.GenCallback;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.DragAndDropListener;
+import com.dsource.idc.jellowintl.makemyboard.interfaces.EditIconCallback;
 import com.dsource.idc.jellowintl.makemyboard.models.BoardModel;
 import com.dsource.idc.jellowintl.models.JellowIcon;
 
 import java.util.ArrayList;
+
+import static com.dsource.idc.jellowintl.makemyboard.utility.BoardConstants.NORMAL_MODE;
 
 
 public class EditRecyclerManager implements EditAdapterCallback {
@@ -22,8 +27,10 @@ public class EditRecyclerManager implements EditAdapterCallback {
     private ArrayList<JellowIcon> iconList;
     private GenCallback<Void> initDialog;
     private DragAndDropAdapter adapter;
-    private GenCallback<JellowIcon> onIconEditCallback;
+    private EditIconCallback onIconEditCallback;
     private int levelOneParent = -1;
+    private int Level = 0;
+    private RecyclerView.OnScrollListener scrollListener;
 
 
     public EditRecyclerManager(Context context, RecyclerView recyclerView, BoardModel currentBoard){
@@ -49,7 +56,7 @@ public class EditRecyclerManager implements EditAdapterCallback {
         iconList = fetchIcons();
         adapter = new DragAndDropAdapter(iconList,context,currentBoard.getGridSize());
         adapter.setCallbacks(this);
-
+/*
 
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(new DragAndDropListener() {
             @Override
@@ -58,7 +65,7 @@ public class EditRecyclerManager implements EditAdapterCallback {
             }
         });
         ItemTouchHelper mItemTouchHelper = new ItemTouchHelper(callback);
-        mItemTouchHelper.attachToRecyclerView(recycler);
+        mItemTouchHelper.attachToRecyclerView(recycler);*/
 
         recycler.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -92,7 +99,7 @@ public class EditRecyclerManager implements EditAdapterCallback {
     @Override
     public void onIconEdit(int adapterPosition) {
        JellowIcon icon = iconList.get(adapterPosition);
-       onIconEditCallback.callBack(icon);
+       onIconEditCallback.onIconEditClicked(icon,adapterPosition-1);
     }
 
     @Override
@@ -119,11 +126,86 @@ public class EditRecyclerManager implements EditAdapterCallback {
         initiate();
     }
 
-    public void setOnIconEditCallback(GenCallback<JellowIcon> onIconGenCallback) {
+    public void setOnIconEditCallback(EditIconCallback onIconGenCallback) {
         this.onIconEditCallback = onIconGenCallback;
     }
 
-    public void remove(JellowIcon thisIcon) {
-        //TODO remove the edited Icon from the list
+    public int remove(JellowIcon thisIcon) {
+        return adapter.removeItem(thisIcon);
     }
+
+    public void scrollToPosition(int positionInTheList) {
+        recycler.smoothScrollToPosition(positionInTheList);
+    }
+
+    public void openLevel(int level) {
+        if(Level!=level){
+            //TODO, when category is added, change list accordingly
+        }
+
+    }
+
+    public void highlightIcon(final MyPair<Integer, Integer>  iconPos) {
+        RecyclerView.SmoothScroller smoothScroller = new LinearSmoothScroller(context) {
+            @Override protected int getVerticalSnapPreference() {
+                return LinearSmoothScroller.SNAP_TO_END;
+            }
+        };
+        if(iconPos.getSecond()==-1)
+        {
+            //Level One
+            if(Level!=0) {
+                Level = 0;
+                openLevel(Level);
+            }
+            recycler.addOnScrollListener(getListener(iconPos.getFirst()+1));
+            smoothScroller.setTargetPosition(iconPos.getFirst()+1);
+            recycler.getLayoutManager().startSmoothScroll(smoothScroller);
+            adapter.setHighlightedIcon(iconPos.getFirst()+1);
+        }
+        else
+        {
+            //Level Two
+            if(Level!=1) {
+                Level = 1;
+                openLevel(Level);
+            }
+            recycler.addOnScrollListener(getListener(iconPos.getSecond()+1));
+            smoothScroller.setTargetPosition(iconPos.getSecond()+1);
+            recycler.getLayoutManager().startSmoothScroll(smoothScroller);
+            adapter.setHighlightedIcon(iconPos.getSecond()+1);
+
+        }
+    }
+    private RecyclerView.OnScrollListener getListener(final int index) {
+        final RecyclerView.SmoothScroller smoothScroller = new LinearSmoothScroller(context) {
+            @Override protected int getVerticalSnapPreference() {
+                return LinearSmoothScroller.SNAP_TO_END;
+            }
+        };
+
+        scrollListener =new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(newState==RecyclerView.SCROLL_STATE_IDLE)
+                {
+                    if(itemDisplayed(index)){
+                        recycler.removeOnScrollListener(scrollListener);
+                        adapter.setHighlightedIcon(-1);
+                    }
+                    else {smoothScroller.setTargetPosition(index); recyclerView.getLayoutManager().startSmoothScroll(smoothScroller);}
+                }
+            }};
+
+        return scrollListener;
+    }
+    private boolean itemDisplayed(int index) {
+        int firstVisiblePos = ((GridLayoutManager) recycler.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
+        int lastVisiblePos = ((GridLayoutManager) recycler.getLayoutManager()).findLastCompletelyVisibleItemPosition();
+        if(lastVisiblePos==(index-1))
+            return true;
+        return index >= firstVisiblePos && index <= lastVisiblePos;
+    }
+
 }

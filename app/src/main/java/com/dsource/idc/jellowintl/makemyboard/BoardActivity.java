@@ -31,8 +31,6 @@ public class BoardActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        startActivity(new Intent(this,DemActivtiy.class));
         manager = new SessionManager(this);
         setContentView(R.layout.activity_my_boards);
        setActivityTitle(getString(R.string.menuMyBoards));

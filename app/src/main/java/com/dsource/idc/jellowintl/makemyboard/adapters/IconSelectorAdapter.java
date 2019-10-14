@@ -33,7 +33,7 @@ public class IconSelectorAdapter extends RecyclerView.Adapter<IconSelectorAdapte
     private Context mContext;
     // private LayoutInflater mInflater;
     private ArrayList<JellowIcon> mDataSource;
-    IconSelectorAdapter.OnItemClickListener mItemClickListener;
+    private IconSelectorAdapter.OnItemClickListener mItemClickListener;
     private int mode;
     private OnIconEditListener mIconEditListener;
     private String langCode;

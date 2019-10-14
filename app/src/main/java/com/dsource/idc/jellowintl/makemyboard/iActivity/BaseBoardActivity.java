@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dsource.idc.jellowintl.BaseActivity;
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.makemyboard.databases.BoardDatabase;
+import com.dsource.idc.jellowintl.makemyboard.iAdapter.BoardSearchAdapter;
 import com.dsource.idc.jellowintl.makemyboard.icon_select_module.view.managers.SelectionManager;
 import com.dsource.idc.jellowintl.makemyboard.models.BoardModel;
 import com.dsource.idc.jellowintl.makemyboard.iPresenter.IBasePresenter;

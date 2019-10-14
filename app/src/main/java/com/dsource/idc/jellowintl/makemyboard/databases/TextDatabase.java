@@ -147,7 +147,8 @@ public class TextDatabase {
 
     public Icon getVerbiageById(String verbiageID){
         VerbiageModel model = database.verbiageDao().getVerbiageById(verbiageID,langCode);
-        Icon icon = new Gson().fromJson(model.getIcon(),Icon.class);
-        return icon;
+        if(model!=null)
+        return new Gson().fromJson(model.getIcon(),Icon.class);
+        else return null;
     }
 }

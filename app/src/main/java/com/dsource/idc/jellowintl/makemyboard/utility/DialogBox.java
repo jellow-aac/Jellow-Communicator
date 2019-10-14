@@ -27,6 +27,7 @@ import androidx.core.app.ActivityCompat;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.dsource.idc.jellowintl.BaseActivity;
@@ -72,7 +73,7 @@ public class DialogBox extends BaseActivity {
     public static GridSelectListener mGridSelectionListener;
     private static AddBoardListener mAddBoardListener;
     private VerbiageEditorReverseInterface reverseInterface;
-    private boolean iconImageSelected=false;
+    private boolean iconImageSelected = false;
     private BoardDatabase database;
     private BoardModel currentBoard;
 
@@ -80,21 +81,19 @@ public class DialogBox extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         database = new BoardDatabase(getAppDatabase());
-        if(getIntent().getStringExtra(DIALOG_TYPE).equals(GRID_DIALOG))
-        {
+        if (getIntent().getStringExtra(DIALOG_TYPE).equals(GRID_DIALOG)) {
             setContentView(R.layout.grid_dialog);
             setUpGridDialog();
-        }
-        else if (getIntent().getStringExtra(DIALOG_TYPE).equals(ADD_BOARD)){
+        } else if (getIntent().getStringExtra(DIALOG_TYPE).equals(ADD_BOARD)) {
             setContentView(R.layout.add_board_layout);
-            if(getIntent().getStringExtra(BOARD_ID)!=null){
+            if (getIntent().getStringExtra(BOARD_ID) != null) {
                 String id = getIntent().getStringExtra(BOARD_ID);
                 currentBoard = database.getBoardById(id);
             }
             setUpAddBoardDialog(currentBoard);
         }
-        View v =findViewById(R.id.touch_outside);
-        if(v!=null) v.setOnClickListener(new View.OnClickListener() {
+        View v = findViewById(R.id.touch_outside);
+        if (v != null) v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -105,22 +104,22 @@ public class DialogBox extends BaseActivity {
     @SuppressLint("ResourceType")
     private void setUpAddBoardDialog(final BoardModel board) {
         final ImageView boardIcon = findViewById(R.id.board_icon);
-        final Button saveButton =findViewById(R.id.save_button);
-        final Button cancel =findViewById(R.id.cancel_button);
-        final ImageView imageChange =findViewById(R.id.edit_image);
+        final Button saveButton = findViewById(R.id.save_button);
+        final Button cancel = findViewById(R.id.cancel_button);
+        final ImageView imageChange = findViewById(R.id.edit_image);
         final EditText boardName = findViewById(R.id.board_name);
-        final Spinner languageSelect =findViewById(R.id.langSelectSpinner);
-        final ListView listView =findViewById(R.id.camera_list);
+        final Spinner languageSelect = findViewById(R.id.langSelectSpinner);
+        final ListView listView = findViewById(R.id.camera_list);
         ArrayList<String> languageList = new ArrayList<>(Arrays.asList(LanguageFactory.getAvailableLanguages()));
 
-        for(String lang:SessionManager.NoTTSLang)
+        for (String lang : SessionManager.NoTTSLang)
             languageList.remove(SessionManager.LangValueMap.get(lang));
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, languageList);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, languageList);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         languageSelect.setAdapter(arrayAdapter);
 
-        if(board!=null){
+        if (board != null) {
             boardName.setText(board.getBoardName());
             File en_dir = DialogBox.this.getDir(SessionManager.BOARD_ICON_LOCATION, Context.MODE_PRIVATE);
             String path = en_dir.getAbsolutePath();
@@ -130,6 +129,7 @@ public class DialogBox extends BaseActivity {
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(false)
                     .centerCrop()
+                    .transform(new CircleCrop())
                     .dontAnimate()
                     .into(boardIcon);
             languageSelect.setSelection(BoardLanguageManager.getPosition(board.getLanguage()));
@@ -139,24 +139,23 @@ public class DialogBox extends BaseActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(boardName.getText().toString().equals(""))
-                {
-                    Toast.makeText(DialogBox.this,getResources().getString(R.string.please_enter_name),Toast.LENGTH_LONG).show();
+                if (boardName.getText().toString().equals("")) {
+                    Toast.makeText(DialogBox.this, getResources().getString(R.string.please_enter_name), Toast.LENGTH_LONG).show();
                     return;
                 }
                 //Returns code for each language in board
                 String langCode = languageSelect.getSelectedItem().toString();
-                if(board==null)
-                saveNewBoard(boardName.getText().toString(),((BitmapDrawable)boardIcon.getDrawable()).getBitmap(),null,langCode);
+                if (board == null)
+                    saveNewBoard(boardName.getText().toString(), ((BitmapDrawable) boardIcon.getDrawable()).getBitmap(), null, langCode);
                 else
-                   updateBoardDetails(board,boardName.getText().toString(),((BitmapDrawable)boardIcon.getDrawable()).getBitmap(),langCode);
+                    updateBoardDetails(board, boardName.getText().toString(), ((BitmapDrawable) boardIcon.getDrawable()).getBitmap(), langCode);
                 finish();
             }
         });
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mAddBoardListener!=null)
+                if (mAddBoardListener != null)
                     mAddBoardListener.onCancel();
                 finish();
             }
@@ -165,40 +164,39 @@ public class DialogBox extends BaseActivity {
         imageChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(listView.getVisibility()==View.VISIBLE)
-                listView.setVisibility(View.INVISIBLE);
+                if (listView.getVisibility() == View.VISIBLE)
+                    listView.setVisibility(View.INVISIBLE);
                 else listView.setVisibility(View.VISIBLE);
             }
         });
 
         //List on the dialog.
         listView.setVisibility(View.GONE);
-        if(board!=null){
+        if (board != null) {
             boardName.setText(board.getBoardName());
         }
         //The list that will be shown with camera options
-        final ArrayList<ListItem> list=new ArrayList<>();
-        @SuppressLint("Recycle") TypedArray mArray=getResources().obtainTypedArray(R.array.add_photo_option);
-        list.add(new ListItem(getResources().getString(R.string.photos),mArray.getDrawable(0)));
-        list.add(new ListItem(getResources().getString(R.string.library),mArray.getDrawable(1)));
-        SimpleListAdapter adapter=new SimpleListAdapter(this,list);
+        final ArrayList<ListItem> list = new ArrayList<>();
+        @SuppressLint("Recycle") TypedArray mArray = getResources().obtainTypedArray(R.array.add_photo_option);
+        list.add(new ListItem(getResources().getString(R.string.photos), mArray.getDrawable(0)));
+        list.add(new ListItem(getResources().getString(R.string.library), mArray.getDrawable(1)));
+        SimpleListAdapter adapter = new SimpleListAdapter(this, list);
         listView.setAdapter(adapter);
-        reverseInterface =new VerbiageEditorReverseInterface() {
+        reverseInterface = new VerbiageEditorReverseInterface() {
             @Override
             public void onPhotoResult(Bitmap bitmap, int code, String fileName) {
                 if (code != LIBRARY_REQUEST) {
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                        Glide.with(DialogBox.this).load(stream.toByteArray())
-                                .apply(new RequestOptions().
-                                        transform(new RoundedCorners(50)).
-                                        placeholder(R.drawable.ic_board_person).
-                                        error(R.drawable.ic_board_person).skipMemoryCache(true).
-                                        diskCacheStrategy(DiskCacheStrategy.NONE))
-                                .into(boardIcon);
+                    GlideApp.with(DialogBox.this).load(stream.toByteArray()).
+                            transform(new CircleCrop()).
+                            placeholder(R.drawable.ic_board_person).
+                            error(R.drawable.ic_board_person).skipMemoryCache(true).
+                            diskCacheStrategy(DiskCacheStrategy.NONE).
+                            into(boardIcon);
                 } else {
 
-                    GlideApp.with(DialogBox.this).load(getIconPath(DialogBox.this, fileName+EXTENSION))
+                    GlideApp.with(DialogBox.this).load(getIconPath(DialogBox.this, fileName + EXTENSION))
                             .into(boardIcon);
                 }
             }
@@ -216,27 +214,22 @@ public class DialogBox extends BaseActivity {
 
 
     private void firePhotoIntent(int position) {
-        if(position==0)
-        {
-            if(checkPermissionForCamera()&&checkPermissionForStorageRead()) {
+        if (position == 0) {
+            if (checkPermissionForCamera() && checkPermissionForStorageRead()) {
                 CropImage.activity()
-                        .setAspectRatio(1,1)
+                        .setAspectRatio(1, 1)
                         .setGuidelines(CropImageView.Guidelines.ON)
                         .setFixAspectRatio(true)
                         .start(this);
-            }
-            else
-            {
-                final String [] permissions=new String []{ Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE};
+            } else {
+                final String[] permissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE};
                 ActivityCompat.requestPermissions(this, permissions, CAMERA_REQUEST);
             }
 
-        }
-        else if(position==1)
-        {
+        } else if (position == 1) {
             Intent intent = new Intent(this, BoardSearchActivity.class);
             intent.putExtra(BoardSearchActivity.SEARCH_MODE, BoardSearchActivity.BASE_ICON_SEARCH);
-            startActivityForResult(intent,LIBRARY_REQUEST);
+            startActivityForResult(intent, LIBRARY_REQUEST);
         }
     }
 
@@ -254,12 +247,12 @@ public class DialogBox extends BaseActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
 
-        if(requestCode==CAMERA_REQUEST)
+        if (requestCode == CAMERA_REQUEST)
             // If request is cancelled, the result arrays are empty.
             if (grantResults.length > 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED&&grantResults[1]==PackageManager.PERMISSION_GRANTED) {
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                 CropImage.activity()
-                        .setAspectRatio(1,1)
+                        .setAspectRatio(1, 1)
                         .setGuidelines(CropImageView.Guidelines.ON)
                         .setFixAspectRatio(true)
                         .start(this);
@@ -306,46 +299,45 @@ public class DialogBox extends BaseActivity {
 
     }
 
-    private void updateBoardDetails(BoardModel board,String name, Bitmap boardIcon, String langCode) {
+    private void updateBoardDetails(BoardModel board, String name, Bitmap boardIcon, String langCode) {
 
-        if(board!=null)
-        {
-            if(!name.equals(""))
+        if (board != null) {
+            if (!name.equals(""))
                 board.setBoardName(name);
-            if(iconImageSelected)
-                storeImageToStorage(boardIcon,board.getBoardId(),this);
+            if (iconImageSelected)
+                storeImageToStorage(boardIcon, board.getBoardId(), this);
             board.setLanguage(SessionManager.LangMap.get(langCode));
             database.updateBoardIntoDatabase(board);
-            if(mAddBoardListener!=null)
+            if (mAddBoardListener != null)
                 mAddBoardListener.onBoardUpdated(board);
         }
     }
 
     private void saveNewBoard(String boardName, Bitmap boardIcon, String boardID, String langCode) {
-        if(boardID==null)
-            boardID = (int) Calendar.getInstance().getTime().getTime()+"";
+        if (boardID == null)
+            boardID = (int) Calendar.getInstance().getTime().getTime() + "";
 
-        if(iconImageSelected)
-            storeImageToStorage(boardIcon,boardID,this);
-        BoardModel newBoard=new BoardModel();
+        if (iconImageSelected)
+            storeImageToStorage(boardIcon, boardID, this);
+        BoardModel newBoard = new BoardModel();
         newBoard.setBoardName(boardName);
         newBoard.setBoardId(boardID);
         newBoard.setLanguage(SessionManager.LangMap.get(langCode));
-        newBoard.setIconModel(new IconModel(new JellowIcon("","",-1,-1,-1)));
-        if (database==null) database=new BoardDatabase(getAppDatabase());
+        newBoard.setIconModel(new IconModel(new JellowIcon("", "", -1, -1, -1)));
+        if (database == null) database = new BoardDatabase(getAppDatabase());
         database.addBoardToDatabase(newBoard);
         iconImageSelected = false;
-        if(mAddBoardListener!=null)
+        if (mAddBoardListener != null)
             mAddBoardListener.onBoardCreated(newBoard);
     }
 
     private void setUpGridDialog() {
 
-        final ImageView GridSize1=findViewById(R.id.grid_size_1x1);
-        final ImageView GridSize2=findViewById(R.id.grid_size_1X2);
-        final ImageView GridSize3=findViewById(R.id.grid_size_1X3);
-        final ImageView GridSize6=findViewById(R.id.grid_size_3X3);
-        final ImageView GridSize4=findViewById(R.id.grid_size_2x2);
+        final ImageView GridSize1 = findViewById(R.id.grid_size_1x1);
+        final ImageView GridSize2 = findViewById(R.id.grid_size_1X2);
+        final ImageView GridSize3 = findViewById(R.id.grid_size_1X3);
+        final ImageView GridSize6 = findViewById(R.id.grid_size_3X3);
+        final ImageView GridSize4 = findViewById(R.id.grid_size_2x2);
 
 
         //TODO: @Ayaz please change/update the code, wherever onGridSelectListener() is callback value is provided in MakeMyBoard module only.
@@ -353,45 +345,45 @@ public class DialogBox extends BaseActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                if(mGridSelectionListener!=null)
-                mGridSelectionListener.onGridSelectListener(GlobalConstants.ONE_ICON_PER_SCREEN);
+                if (mGridSelectionListener != null)
+                    mGridSelectionListener.onGridSelectListener(GlobalConstants.ONE_ICON_PER_SCREEN);
             }
         });
         GridSize2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
-                if(mGridSelectionListener!=null)
-                mGridSelectionListener.onGridSelectListener(GlobalConstants.TWO_ICONS_PER_SCREEN);
+                if (mGridSelectionListener != null)
+                    mGridSelectionListener.onGridSelectListener(GlobalConstants.TWO_ICONS_PER_SCREEN);
             }
         });
         GridSize3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
-                if(mGridSelectionListener!=null)
-                mGridSelectionListener.onGridSelectListener(GlobalConstants.THREE_ICONS_PER_SCREEN);
+                if (mGridSelectionListener != null)
+                    mGridSelectionListener.onGridSelectListener(GlobalConstants.THREE_ICONS_PER_SCREEN);
             }
         });
         GridSize4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
-                if(mGridSelectionListener!=null)
-                mGridSelectionListener.onGridSelectListener(GlobalConstants.FOUR_ICONS_PER_SCREEN);
+                if (mGridSelectionListener != null)
+                    mGridSelectionListener.onGridSelectListener(GlobalConstants.FOUR_ICONS_PER_SCREEN);
             }
         });
         GridSize6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
-                if(mGridSelectionListener!=null)
-                mGridSelectionListener.onGridSelectListener(GlobalConstants.NINE_ICONS_PER_SCREEN);
+                if (mGridSelectionListener != null)
+                    mGridSelectionListener.onGridSelectListener(GlobalConstants.NINE_ICONS_PER_SCREEN);
             }
         });
     }
 
-    public static void setAddBoardListener(AddBoardListener listener){
+    public static void setAddBoardListener(AddBoardListener listener) {
         mAddBoardListener = listener;
     }
 

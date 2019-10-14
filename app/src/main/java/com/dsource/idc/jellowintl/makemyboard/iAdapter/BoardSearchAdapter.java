@@ -1,4 +1,4 @@
-package com.dsource.idc.jellowintl.makemyboard.adapters;
+package com.dsource.idc.jellowintl.makemyboard.iAdapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

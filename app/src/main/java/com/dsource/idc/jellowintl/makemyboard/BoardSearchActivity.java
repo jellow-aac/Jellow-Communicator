@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dsource.idc.jellowintl.R;
 import com.dsource.idc.jellowintl.SpeechEngineBaseActivity;
-import com.dsource.idc.jellowintl.makemyboard.adapters.BoardSearchAdapter;
+import com.dsource.idc.jellowintl.makemyboard.iAdapter.BoardSearchAdapter;
 import com.dsource.idc.jellowintl.makemyboard.databases.BoardDatabase;
 import com.dsource.idc.jellowintl.makemyboard.databases.IconDatabase;
 import com.dsource.idc.jellowintl.makemyboard.interfaces.OnItemClickListener;

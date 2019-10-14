@@ -31,6 +31,15 @@ public class AddVerbiageDialog extends BaseActivity implements View.OnClickListe
 
 
     public static final String JELLOW_ID = "icon";
+
+    public static final String FETCH_FLAG = "fetch_flag";
+
+    public static final String IS_PRIMARY_FLAG = "is_primary_flag";
+
+    private String fetchFlag = "NULL";
+    private String primaryFlag = "NULL";
+
+
     //This class saves the verbiage
     private String id;
     private Context context;
@@ -38,11 +47,11 @@ public class AddVerbiageDialog extends BaseActivity implements View.OnClickListe
     private ArrayList<RelativeLayout> expListLayouts;
     private ArrayList<String> verbiageList;
     private ArrayList<String> defaultVerbiage;
-    private JellowIcon thisIcon=null;
-    private Icon presentVerbiage=null;
+    private JellowIcon thisIcon = null;
+    private Icon presentVerbiage = null;
     private TextDatabase database;
     public static OnSuccessListener<String> callback;
-    private Button btnReset;
+    private boolean iconUpdate = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,23 +59,53 @@ public class AddVerbiageDialog extends BaseActivity implements View.OnClickListe
         setContentView(R.layout.verbiage_edit_dialog);
         context = this;
 
-        if(getIntent().getStringExtra(BOARD_ID)!=null){
-          id = getIntent().getStringExtra(BOARD_ID);
-          Bundle d = getIntent().getExtras();
-          thisIcon =(JellowIcon)d.getSerializable(JELLOW_ID);
-          setUpFields();
-          initViews();
+        if (getIntent().getStringExtra(BOARD_ID) != null) {
+            id = getIntent().getStringExtra(BOARD_ID);
+            Bundle d = getIntent().getExtras();
+            thisIcon = (JellowIcon) d.getSerializable(JELLOW_ID);
+            initViews();
+            setUpFields();
         }
 
     }
 
     private void setUpFields() {
+        //Setup database
+        BoardDatabase boardDatabase = new BoardDatabase(getAppDatabase());
+        BoardModel thisBoard = boardDatabase.getBoardById(id);
+        this.database = new TextDatabase(this, thisBoard.getLanguage(), getAppDatabase());
 
-        BoardDatabase  database = new BoardDatabase(getAppDatabase());
-        BoardModel thisBoard = database.getBoardById(id);
-        this.database = new TextDatabase(this,thisBoard.getLanguage(), getAppDatabase());
-        if(getIntent().getStringExtra(CURRENT_VERBIAGE)!=null)
-             presentVerbiage = this.database.getVerbiageById(getIntent().getStringExtra(BoardConstants.CURRENT_VERBIAGE));
+        fetchFlag = getIntent().getStringExtra(FETCH_FLAG);
+        primaryFlag = getIntent().getStringExtra(IS_PRIMARY_FLAG);
+
+        //Condition one: New icon or category to be saved
+        if (fetchFlag.equals("NULL") && primaryFlag.equals("NULL")) {
+            presentVerbiage = null;
+            updateUI(null);
+            iconUpdate = false;
+        }
+        //Condition two: Custom icon is being edited
+        else if (!fetchFlag.equals("NULL") && primaryFlag.equals("NULL")) {
+            presentVerbiage = database.getVerbiageById(fetchFlag);
+            updateUI(presentVerbiage);
+            iconUpdate = true;
+        }
+        //Condition three: Primary icon is being edited
+        else {
+            presentVerbiage = database.getVerbiageById(fetchFlag);
+            updateUI(presentVerbiage);
+            iconUpdate = false;
+        }
+    }
+
+    private void updateUI(Icon currentVerbiage) {
+        if (currentVerbiage == null) {
+            initVerbiageDialog();
+            enableAllViews(false);
+        } else {
+            presentVerbiage(currentVerbiage);
+        }
+
     }
 
     @Override
@@ -76,15 +115,9 @@ public class AddVerbiageDialog extends BaseActivity implements View.OnClickListe
 
     private void initViews() {
         Button save = findViewById(R.id.save_button);
-        btnReset = findViewById(R.id.cancel_button);
-        expList= findViewById(R.id.exp_verbiage_list);
+        Button btnReset = findViewById(R.id.cancel_button);
+        expList = findViewById(R.id.exp_verbiage_list);
         verbiageRelatedViews();
-        initVerbiageDialog();
-        //Fetch and fill already present verbiage.
-        if(presentVerbiage!=null)
-            presentVerbiage(presentVerbiage);
-        else enableAllViews(false);
-
         //To close on touch outside
         findViewById(R.id.parent).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,7 +128,7 @@ public class AddVerbiageDialog extends BaseActivity implements View.OnClickListe
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetVerbiages();
+                updateUI(presentVerbiage);
             }
         });
         save.setText(getResources().getString(R.string.txtSave));
@@ -103,15 +136,19 @@ public class AddVerbiageDialog extends BaseActivity implements View.OnClickListe
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                database.addNewVerbiage(thisIcon.getIconDrawable(),saveVerbiage());
-                callback.onSuccess("Success");
+                saveToDatabase();
                 finish();
             }
         });
+    }
 
-
-
-
+    private void saveToDatabase() {
+        //If icon is new and to be inserted to database
+        if(!iconUpdate){
+            database.addNewVerbiage(thisIcon.getVerbiageId(), saveVerbiage());
+        }else //if the icon is already a custom icon and need to updated
+            database.updateVerbiage(thisIcon.getVerbiageId(),saveVerbiage());
+        callback.onSuccess("Success");
     }
 
 
@@ -138,92 +175,84 @@ public class AddVerbiageDialog extends BaseActivity implements View.OnClickListe
 
         expListLayouts = new ArrayList<>();
         //Populating the list item of verbiage
-        for(int i = 0 ; i<6;i++)
-        {
+        for (int i = 0; i < 6; i++) {
             @SuppressLint("InflateParams")
-            View view  = LayoutInflater.from(context).inflate(R.layout.verbiage_list_item,null);
-            expListLayouts.add((RelativeLayout)view);
+            View view = LayoutInflater.from(context).inflate(R.layout.verbiage_list_item, null);
+            expListLayouts.add((RelativeLayout) view);
             view.findViewById(R.id.add_remove).setOnClickListener(this);
-            ((ImageView)view.findViewById(R.id.icon)).setImageDrawable(iconImages.getDrawable(i));
+            ((ImageView) view.findViewById(R.id.icon)).setImageDrawable(iconImages.getDrawable(i));
             expList.addView(view);
         }
 
     }
 
-    public void initVerbiageDialog(){
+    public void initVerbiageDialog() {
         String name = thisIcon.getIconTitle();
-        if(presentVerbiage==null)/* This skips below codes for editing a icon'getS() verbiage */ {
-            int j = 0;
-            for (int i = 0; i < 6; i++) {
-                ((EditText) expListLayouts.get(i).findViewById(R.id.verbiage_text)).setText(defaultVerbiage.get(j++)+" " +name);
-                ((EditText) expListLayouts.get(i).findViewById(R.id.verbiage_really_text)).setText(defaultVerbiage.get(j++)+" " +name);
-            }
+        /* This skips below codes for editing a icon'getS() verbiage */
+        int j = 0;
+        for (int i = 0; i < 6; i++) {
+            ((EditText) expListLayouts.get(i).findViewById(R.id.verbiage_text)).setText(defaultVerbiage.get(j++) + " " + name);
+            ((EditText) expListLayouts.get(i).findViewById(R.id.verbiage_really_text)).setText(defaultVerbiage.get(j++) + " " + name);
         }
+
     }
 
     @Override
     public void onClick(View v) {
-            for(int i = 0 ;i<6;i++)
-            {
+        for (int i = 0; i < 6; i++) {
 
-                if(v==expListLayouts.get(i).findViewById(R.id.add_remove))
-                {
-                    if(expListLayouts.get(i).findViewById(R.id.verbiage_text).isEnabled()) {
-                        expListLayouts.get(i).findViewById(R.id.verbiage_text).setEnabled(false);
-                        expListLayouts.get(i).findViewById(R.id.verbiage_text).setAlpha(.6f);
-                        expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setEnabled(false);
-                        expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setAlpha(.6f);
-                        ((ImageView) expListLayouts.get(i).findViewById(R.id.add_remove)).setImageDrawable(context.getResources().getDrawable(R.drawable.plus));
-                    }
-                    else
-                    {
-                        expListLayouts.get(i).findViewById(R.id.verbiage_text).setEnabled(true);
-                        expListLayouts.get(i).findViewById(R.id.verbiage_text).setAlpha(1.0f);
-                        expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setEnabled(true);
-                        expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setAlpha(1.0f);
-                        ((ImageView)expListLayouts.get(i).findViewById(R.id.add_remove)).
-                                setImageDrawable(context.getResources().getDrawable(R.drawable.minus));
-                    }
+            if (v == expListLayouts.get(i).findViewById(R.id.add_remove)) {
+                if (expListLayouts.get(i).findViewById(R.id.verbiage_text).isEnabled()) {
+                    expListLayouts.get(i).findViewById(R.id.verbiage_text).setEnabled(false);
+                    expListLayouts.get(i).findViewById(R.id.verbiage_text).setAlpha(.6f);
+                    expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setEnabled(false);
+                    expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setAlpha(.6f);
+                    ((ImageView) expListLayouts.get(i).findViewById(R.id.add_remove)).setImageDrawable(context.getResources().getDrawable(R.drawable.plus));
+                } else {
+                    expListLayouts.get(i).findViewById(R.id.verbiage_text).setEnabled(true);
+                    expListLayouts.get(i).findViewById(R.id.verbiage_text).setAlpha(1.0f);
+                    expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setEnabled(true);
+                    expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setAlpha(1.0f);
+                    ((ImageView) expListLayouts.get(i).findViewById(R.id.add_remove)).
+                            setImageDrawable(context.getResources().getDrawable(R.drawable.minus));
                 }
             }
+        }
     }
-
 
 
     private Icon saveVerbiage() {
 
-        for(int i = 0;i<6;i++) {
+        for (int i = 0; i < 6; i++) {
             //if view is enabled use it'getS() verbiage
-            if((expListLayouts.get(i).findViewById(R.id.verbiage_text)).isEnabled())
-            {
+            if ((expListLayouts.get(i).findViewById(R.id.verbiage_text)).isEnabled()) {
 
 
-                if(((EditText)expListLayouts.// IF USER DID NOT ENTER ANYTHING IN THE FIELD
+                if (((EditText) expListLayouts.// IF USER DID NOT ENTER ANYTHING IN THE FIELD
                         get(i).findViewById(R.id.verbiage_text))
                         .getText().toString().equals(""))
                     verbiageList.add("NA");
                 else
-                    verbiageList.add(((EditText)expListLayouts.
-                        get(i).findViewById(R.id.verbiage_text))
-                        .getText().toString());
+                    verbiageList.add(((EditText) expListLayouts.
+                            get(i).findViewById(R.id.verbiage_text))
+                            .getText().toString());
 
-                if(((EditText)expListLayouts.// IF USER DID NOT ENTER ANYTHING IN THE FIELD
+                if (((EditText) expListLayouts.// IF USER DID NOT ENTER ANYTHING IN THE FIELD
                         get(i).findViewById(R.id.verbiage_really_text))
                         .getText().toString().equals(""))
                     verbiageList.add("NA");
                 else
-                    verbiageList.add(((EditText)expListLayouts.
-                        get(i).findViewById(R.id.verbiage_really_text))
-                        .getText().toString());
-            }
-            else // if view is disabled, write NA in place of that
+                    verbiageList.add(((EditText) expListLayouts.
+                            get(i).findViewById(R.id.verbiage_really_text))
+                            .getText().toString());
+            } else // if view is disabled, write NA in place of that
             {
                 verbiageList.add("NA");
                 verbiageList.add("NA");
             }
         }
 
-        Icon newIcon  = new Icon();
+        Icon newIcon = new Icon();
         newIcon.setDisplay_Label(thisIcon.getText());
         newIcon.setSpeech_Label(thisIcon.getText());
         newIcon.setL(verbiageList.get(0));
@@ -242,29 +271,18 @@ public class AddVerbiageDialog extends BaseActivity implements View.OnClickListe
         return newIcon;
     }
 
-
-    private void resetVerbiages() {
-        if(presentVerbiage!=null){
-            presentVerbiage(presentVerbiage);
-        }
-        else{
-            initVerbiageDialog();
-            enableAllViews(false);
-        }
-    }
-
     private void enableAllViews(boolean disable) {
-        if(disable)
-        for(int i = 0 ;i<6;i++) {
-            expListLayouts.get(i).findViewById(R.id.verbiage_text).setEnabled(true);
-            expListLayouts.get(i).findViewById(R.id.verbiage_text).setAlpha(1.0f);
-            expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setEnabled(true);
-            expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setAlpha(1.0f);
-            ((ImageView) expListLayouts.get(i).findViewById(R.id.add_remove)).
-                    setImageDrawable(context.getResources().getDrawable(R.drawable.minus));
-        }
+        if (disable)
+            for (int i = 0; i < 6; i++) {
+                expListLayouts.get(i).findViewById(R.id.verbiage_text).setEnabled(true);
+                expListLayouts.get(i).findViewById(R.id.verbiage_text).setAlpha(1.0f);
+                expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setEnabled(true);
+                expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setAlpha(1.0f);
+                ((ImageView) expListLayouts.get(i).findViewById(R.id.add_remove)).
+                        setImageDrawable(context.getResources().getDrawable(R.drawable.minus));
+            }
         else
-            for(int i = 0 ;i<6;i++) {
+            for (int i = 0; i < 6; i++) {
                 expListLayouts.get(i).findViewById(R.id.verbiage_text).setEnabled(false);
                 expListLayouts.get(i).findViewById(R.id.verbiage_text).setAlpha(.6f);
                 expListLayouts.get(i).findViewById(R.id.verbiage_really_text).setEnabled(false);
@@ -276,76 +294,59 @@ public class AddVerbiageDialog extends BaseActivity implements View.OnClickListe
     }
 
 
-    public void presentVerbiage(Icon verbiageModel){
-        this.presentVerbiage =verbiageModel;
-        if(verbiageModel!=null) {
-            if (verbiageModel.getL().equals("NA"))
-            {
-                disableVerbiage(0,true);
+    public void presentVerbiage(Icon verbiageModel) {
+        this.presentVerbiage = verbiageModel;
+        if (verbiageModel != null) {
+            if (verbiageModel.getL().equals("NA")) {
+                disableVerbiage(0, true);
 
+            } else {
+                disableVerbiage(0, false);
+                ((EditText) expListLayouts.get(0).findViewById(R.id.verbiage_text)).setText(verbiageModel.getL());
+                ((EditText) expListLayouts.get(0).findViewById(R.id.verbiage_really_text)).setText(verbiageModel.getLL());
             }
-            else
-            {
-                disableVerbiage(0,false);
-                ((EditText)expListLayouts.get(0).findViewById(R.id.verbiage_text)).setText(verbiageModel.getL());
-                ((EditText)expListLayouts.get(0).findViewById(R.id.verbiage_really_text)).setText(verbiageModel.getLL());
+            if (verbiageModel.getY().equals("NA")) {
+                disableVerbiage(1, true);
+            } else {
+                disableVerbiage(1, false);
+                ((EditText) expListLayouts.get(1).findViewById(R.id.verbiage_text)).setText(verbiageModel.getY());
+                ((EditText) expListLayouts.get(1).findViewById(R.id.verbiage_really_text)).setText(verbiageModel.getYY());
             }
-            if (verbiageModel.getY().equals("NA"))
-            {
-                disableVerbiage(1,true);
-            }
-            else
-            {
-                disableVerbiage(1,false);
-                ((EditText)expListLayouts.get(1).findViewById(R.id.verbiage_text)).setText(verbiageModel.getY());
-                ((EditText)expListLayouts.get(1).findViewById(R.id.verbiage_really_text)).setText(verbiageModel.getYY());}
-            if (verbiageModel.getM().equals("NA"))
-            {
-                disableVerbiage(2,true);
-            }
-            else
-            {
+            if (verbiageModel.getM().equals("NA")) {
+                disableVerbiage(2, true);
+            } else {
 
-                disableVerbiage(2,false);
-                ((EditText)expListLayouts.get(2).findViewById(R.id.verbiage_text)).setText(verbiageModel.getM());
-                ((EditText)expListLayouts.get(2).findViewById(R.id.verbiage_really_text)).setText(verbiageModel.getMM());
+                disableVerbiage(2, false);
+                ((EditText) expListLayouts.get(2).findViewById(R.id.verbiage_text)).setText(verbiageModel.getM());
+                ((EditText) expListLayouts.get(2).findViewById(R.id.verbiage_really_text)).setText(verbiageModel.getMM());
             }
-            if (verbiageModel.getDD().equals("NA"))
-            {
-                disableVerbiage(3,true);
-            }
-            else
-            {
-                disableVerbiage(3,false);
-                ((EditText)expListLayouts.get(3).findViewById(R.id.verbiage_text)).setText(verbiageModel.getDD());
-                ((EditText)expListLayouts.get(3).findViewById(R.id.verbiage_really_text)).setText(verbiageModel.getDD());
+            if (verbiageModel.getDD().equals("NA")) {
+                disableVerbiage(3, true);
+            } else {
+                disableVerbiage(3, false);
+                ((EditText) expListLayouts.get(3).findViewById(R.id.verbiage_text)).setText(verbiageModel.getDD());
+                ((EditText) expListLayouts.get(3).findViewById(R.id.verbiage_really_text)).setText(verbiageModel.getDD());
             }
 
-            if (verbiageModel.getN().equals("NA"))
-            {
-                disableVerbiage(4,true);
+            if (verbiageModel.getN().equals("NA")) {
+                disableVerbiage(4, true);
+            } else {
+                disableVerbiage(4, false);
+                ((EditText) expListLayouts.get(4).findViewById(R.id.verbiage_text)).setText(verbiageModel.getN());
+                ((EditText) expListLayouts.get(4).findViewById(R.id.verbiage_really_text)).setText(verbiageModel.getNN());
             }
-            else
-            {
-                disableVerbiage(4,false);
-                ((EditText)expListLayouts.get(4).findViewById(R.id.verbiage_text)).setText(verbiageModel.getN());
-                ((EditText)expListLayouts.get(4).findViewById(R.id.verbiage_really_text)).setText(verbiageModel.getNN());
-            }
-            if (verbiageModel.getS().equals("NA"))
-            {
-                disableVerbiage(5,true);
-            }
-            else
-            {
-                disableVerbiage(5,false);
-                ((EditText)expListLayouts.get(5).findViewById(R.id.verbiage_text)).setText(verbiageModel.getS());
-                ((EditText)expListLayouts.get(5).findViewById(R.id.verbiage_really_text)).setText(verbiageModel.getSS());
+            if (verbiageModel.getS().equals("NA")) {
+                disableVerbiage(5, true);
+            } else {
+                disableVerbiage(5, false);
+                ((EditText) expListLayouts.get(5).findViewById(R.id.verbiage_text)).setText(verbiageModel.getS());
+                ((EditText) expListLayouts.get(5).findViewById(R.id.verbiage_really_text)).setText(verbiageModel.getSS());
             }
         }
     }
 
-    public void disableVerbiage(int index,boolean disable){
-        if(disable){
+    public void disableVerbiage(int index, boolean disable) {
+        if (disable) {
             expListLayouts.get(index).findViewById(R.id.verbiage_text).setEnabled(false);
             expListLayouts.get(index).findViewById(R.id.verbiage_text).setAlpha(.6f);
             expListLayouts.get(index).findViewById(R.id.verbiage_really_text).setEnabled(false);
@@ -353,7 +354,7 @@ public class AddVerbiageDialog extends BaseActivity implements View.OnClickListe
             ((ImageView) expListLayouts.get(index).findViewById(R.id.add_remove)).
                     setImageDrawable(context.getResources().getDrawable(R.drawable.plus));
 
-        }else{
+        } else {
             expListLayouts.get(index).findViewById(R.id.verbiage_text).setEnabled(true);
             expListLayouts.get(index).findViewById(R.id.verbiage_text).setAlpha(1f);
             expListLayouts.get(index).findViewById(R.id.verbiage_really_text).setEnabled(true);
