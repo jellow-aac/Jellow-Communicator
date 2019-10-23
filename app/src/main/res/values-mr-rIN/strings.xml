@@ -267,13 +267,13 @@
     <string name="about_je_intro30">ई-कालपा प्रोजेक्ट NMEICT च्या अंतर्गत मानव संसाधन विकास मंत्रालय,  माइक्रोसॉफ्ट डिजाईन एक्सपो २००४ आणि यूनिसेफ इनोवेशन फंड (UNICEF) द्वारे प्रायोजित</string>
     <string name="about_je_intro38">अनुदैर्ध्य वापरकर्ता अध्ययन आणि जेलो कम्युनिकेटरचे क्षेत्र परीक्षण:</string>
     <string name="about_je_intro39">टोपीवाला नॅशनल मेडिकल कॉलेज आणि बी.वाय.एल. नायर चॅरिटेबल हॉस्पीटल (मनोचिकित्सा, ऑडिओलॉजी आणि भाषण चिकित्सा विभाग)</string>
-
     <string name="feedback_talkback_heading">१ ते ५ च्या प्रमाणात, कृपया खाली रेट करा</string>
+
     <string name="langauge_correction_message"> \'"-"\' भाषेचा सेटअप चुकलेला आहे. भाषेचा सेटअप  अचूक करण्यासाठी \'"_"\' बटन दाबा. किंवा \'"$"\' बटण दाबून तुम्ही डीफॉल्ट भाषा निवडू शकता.</string>
     <string name="changeLanguage">भाषेची सेटिंग अचूक करा</string>
     <string name="dialog_default_language_option">डिफ़ॉल्ट भाषा</string>
-    <string name="privacy_link">जेलोची प्रायव्हसी पॉलिसी पहा.</string>
-    <string name="click_here"><u>येथे टॅप करा</u></string>
+    <string name="privacy_link">मी जेलोची <font color="#dc5252"><b><u>प्रायव्हसी पॉलिसी</u></b></font> वाचली आहे.</string>
+    <string name="consent_privacy">कृपया वाचा आणि प्रायव्हसी पॉलिसीच्या चेक बॉक्सवर क्लिक करा.</string>
 
     <!--Content description-->
     <string name="language_download_in_process">Language download in process</string>

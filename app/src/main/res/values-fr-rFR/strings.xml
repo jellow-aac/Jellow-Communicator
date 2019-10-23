@@ -70,7 +70,7 @@
         <item>Neuf</item>
     </string-array>
 
-    <string name="change_language_line2">Étape 1: sélectionnez la langue que vous avez téléchargé</string>
+    <string name="change_language_line2">Étape 1: Seléctionnez une langue dans la liste ci-dessous:</string>
     <string name="simple_ime">Clavier de Jellow</string>
     <string name="subtype_en_US">La série ABC</string>
 
@@ -185,7 +185,7 @@
     <string name="txt_registration_selectLangDesc_contentDesc">Sélectionner la langue pour Jellow. Le champ requis</string>
     <string name="txt_registration_registerBtn">Inscrivez-vous</string>
     <string name="enternonemptycontact">Veuillez entrez votre numèro de téléphone</string>
-    <string name="change_language_line5">Étape 2: Assurez-vous que la donnée vocale d\'_ est disponibles sur votre terminal. Si non, veuillez télécharger la donnée vocale  pour la langue choisie. Au cas où la processus aurait retardé, veuillez vérifier votre connexion Internet et réessayez</string>
+    <string name="change_language_line5">Étape 3: Assurez-vous que la donnée vocale d\'_ est disponibles sur votre terminal. Si non, veuillez télécharger la donnée vocale  pour la langue choisie. Au cas où la processus aurait retardé, veuillez vérifier votre connexion Internet et réessayez</string>
     <string name="txtChangeLanguage">Modification de la langue par défaut:</string>
     <string name="txtApplyChanges">Étape 4: Cliquez sur \'Appliquer les changements\' pour définir la nouvelle langue par défaut</string>
     <string name="txt_intro6_skipTtsSetup">Les appareils avec un active système des données vocales: Veuillez faire glisser pour omettre cette étape</string>
@@ -259,6 +259,12 @@
     <string name="about_je_intro39">Topiwala National Medical College et B.Y.L Nair Charitable Hospital (les départements de psychiatrie, d\'audiologie et d\'orthophonie)</string>
     <string name="feedback_talkback_heading">Sur une échelle de 1 à 5, veuillez évaluer les aspects suivants</string>
 
+    <string name="langauge_correction_message"> La langue \'"-"\' n\'est pas configurée correctement. Veuillez appuyer sur \'"_"\' pour fixer la langage. Ou vous pouvez passer par la langue défaut en appuyant \'"$"\'.</string>
+    <string name="changeLanguage">Fixer la langue</string>
+    <string name="dialog_default_language_option">La langue par défaut</string>
+    <string name="privacy_link">J\'ai lu <font color="#dc5252"><b><u>la Politique de Confidentialité</u></b></font> de Jellow.</string>
+    <string name="consent_privacy">Veuillez lire et donc accepter les conditions.</string>
+
     <!--Content description-->
     <string name="language_download_in_process">Téléchargement de la langue est en cours</string>
     <string name="child_s_name">nom de l\'enfant. Le champ requis</string>
@@ -324,7 +330,7 @@
     <!--end content description-->
 
     <string name="txt_tts_stting">Réglages du TTS</string>
-    <string name="change_language_tts_wifi">Allez aux Réglages de la Données vocales et désactiver "l\'utilisation uniquement WiFi". Si, l\'option est déjà désactivée, passez à l\'étape suivante.</string>
+    <string name="change_language_tts_wifi">Étape 2: Allez aux Réglages de la Données vocales et désactiver \"l\'utilisation uniquement WiFi\". Si, l\'option est déjà désactivée, passez à l\'étape suivante.</string>
     <string name="icon_update_msg">L\'actualisation des icônes la/les langage(s) existants:</string>
     <string name="disable_wifi_only">Remplir la partie précédente pour désactiver l\'option d\'utilisation uniquement WiFi</string>
     <string name="txtStep2">Étape 2:</string>

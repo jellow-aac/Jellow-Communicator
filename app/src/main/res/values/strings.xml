@@ -147,6 +147,7 @@
     <string name="step2">Step 2: Save Keyboard as default option</string>
     <string name="saveAsDefault">SAVE AS DEFAULT</string>
     <string name="voiceControl">Voice Control:</string>
+    <!--spanish, french version not available-->
     <string name="cancel">Cancel</string>
     <string name="getKeyboardControl">Keyboard Control</string>
     <string name="childName">Child\'s Name *</string>
@@ -232,7 +233,7 @@
     <string name="txt_registration_selectLangDesc_contentDesc">Select a Language for Jellow. Required field</string>
     <string name="txt_registration_registerBtn">REGISTER</string>
     <string name="enternonemptycontact">Please enter valid contact number</string>
-    <string name="change_language_line5">Step 3: Check if voice data for _ is available on your device. If not please turn on internet and download voice data for selected language. In case process is stalled please check your internet connection and retry</string>
+    <string name="change_language_line5">Schritt 3: Die Verfügbarkeit der Stimme für _ prüfen. Wenn nicht vorhanden, dann herunterladen. Falls der Download-Vorgang angehalten wird, dann wiederholen.</string>
     <string name="txtChangeLanguage">Change Default Language:</string>
     <string name="txtApplyChanges">Step 4: Click \'Apply changes\' to set new language as default</string>
     <string name="txt_intro6_skipTtsSetup">Devices with active Google TTS engine: Please swipe to skip current step</string>
@@ -324,13 +325,13 @@
     <string name="about_je_intro30">E-kalpa project sponsored under NMEICT by MHRD, Microsoft Design Expo 2004 and a 1-year seed grant through the UNICEF Innovation Fund</string>
     <string name="about_je_intro38">Longitudinal user studies and field testing of Jellow Communicator:</string>
     <string name="about_je_intro39">Topiwala National Medical College and B.Y.L Nair Charitable Hospital (Departments of Psychiatry and Audiology and Speech Therapy)</string>
-
     <string name="feedback_talkback_heading">On a scale of 1 to 5, please rate the following</string>
+
     <string name="langauge_correction_message"> \'"-"\' language is not setup correctly. Press \'"_"\' to fix the language. \n Or you can switch to default language by pressing \'"$"\'.</string>
     <string name="changeLanguage">Fix The Language</string>
     <string name="dialog_default_language_option">Default Language</string>
-    <string name="privacy_link">To view Jellow\'s privacy policy.</string>
-    <string name="click_here"><u>Tap here</u></string>
+    <string name="privacy_link">I have read Jellow\'s <font color="#dc5252"><b><u>privacy policy.</u></b></font></string>
+    <string name="consent_privacy">Please read and then check privacy policy consent.</string>
 
     <!--Content description-->
     <string name="language_download_in_process">Language download in process</string>
@@ -471,6 +472,7 @@
 
     <string name="txt_accessibility_setting">Accessibility Setting</string>
     <string name="visual_access_title">Visual Accessibility:</string>
+    <!--Bengali version unavailable-->
     <string name="visual_access_info">The Visual accessibility feature of Jellow now allows users with additional visual difficulties including low vision or blindness to use Jellow and communicate effectively with others. It utilizes the \'Talk back\' feature on the Android smartphone to help navigate through the application. With \'Talk back\' switched on in the user\'s device, the user will now be able to get audio input describing everything they touch on the screen. The user can also assign custom gestures or use the default gestures of \'Talk back\' as they interact with Jellow. For example, a right swipe gesture will allow the user to sequentially scroll through icons on the screen. Similarly, double tapping anywhere on the screen will allow the user to select an icon of their choice.</string>
     <string name="switch_access_title">Switch Accessibility:</string>
     <string name="switch_access_info_one">Switch accessibility makes navigation in the app easy for people with motor disabilities. The feature allows navigation using one or two switches.</string>

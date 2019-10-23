@@ -71,7 +71,7 @@
         <item>ஒன்பது</item>
     </string-array>
 
-    <string name="change_language_line2">நிலை: பதிவிறக்கம் செய்யப்பட கீழிறங்கும் மொழிகளில் ஏதேனும் ஒன்றைத்  தேர்ந்தெடுக்க</string>
+    <string name="change_language_line2">நிலை 1: பதிவிறக்கம் செய்யப்பட கீழிறங்கும் மொழிகளில் ஏதேனும் ஒன்றைத்  தேர்ந்தெடுக்க</string>
     <string name="simple_ime">ஜெல்லோ விசைப்பலகை</string>
     <string name="subtype_en_US">அகரவரிசை</string>
     <string name="action_bar_title">முகப்பு</string>
@@ -190,7 +190,7 @@
     <string name="txt_registration_selectLangDesc_contentDesc">ஜெல்லோவிற்கான மொழியை தேர்ந்தெடுக்கவும். தேவையான பகுதி</string>
     <string name="txt_registration_registerBtn">பதிவுசெய்</string>
     <string name="enternonemptycontact">சரியான தொடர்பு எண்ணை உள்ளிடவும்</string>
-    <string name="change_language_line5">படி 2: உங்கள் சாதனத்தில் _ மொழிக்கான குரல் தரவு உள்ளதா எனக் காண்க. இல்லையெனில் தேர்ந்தெடுத்த மொழிக்கான குரல் தரவினை பதிவிறக்கம் செய்க.</string>
+    <string name="change_language_line5">படி 3: உங்கள் சாதனத்தில் _ மொழிக்கான குரல் தரவு உள்ளதா எனக் காண்க. இல்லையெனில் தேர்ந்தெடுத்த மொழிக்கான குரல் தரவினை பதிவிறக்கம் செய்க.</string>
     <string name="txtChangeLanguage">முதன்மை மொழியை மாற்று</string>
 
     <string name="txtApplyChanges">படி 4: புதிய மொழியை இயல்பான மொழியாக மாற்ற \'மாற்றங்களை பயன்படுத்தவும்\' வில் சொடுக்கவும்</string>
@@ -266,6 +266,13 @@
     <string name="about_je_intro39">டோபிவலா தேசிய மருத்துவக் கல்லூரி மற்றும் பி.ஒய்.எல்.நாயர் தொண்டு மருத்துவமனை(மனநல, ஒலி மற்றும் பேச்சு சிகிச்சைத்  துறை)</string>
     <string name="feedback_talkback_heading">ஒன்றிலிருந்து ஐந்து நட்சத்திரங்கள் வரை கீழ்காண்பவைகளை மதிப்பிடவும்</string>
 
+    <string name="langauge_correction_message"> \'"-"\' மொழி சரியாக அமைக்கப்படவில்லை. மொழியை சரி செய்ய, \'"_"\' ஐ சொடுக்கவும். அல்லது, நீங்கள் உங்களின் இயல்பான மொழிக்கு \'"$"\' ஐ அழுத்தி மாறலாம்.</string>
+    <string name="changeLanguage">மொழியை சரிசெய்</string>
+    <string name="dialog_default_language_option">இயல்பான மொழி</string>
+    <string name="privacy_link">நான் ஜெல்லோவின் <font color="#dc5252"><b><u>தனியுரிமை கொள்கையை</u></b></font> படித்துவிட்டேன்</string>
+    <string name="consent_privacy">தனியுரிமை கொள்கை ஒப்புதலை படித்து சரிபார்க்கவும்</string>
+
+
     <!--Content description-->
     <string name="language_download_in_process">மொழி பதிவிறக்கம் நடைபெறுகிறது</string>
     <string name="child_s_name">குழந்தையின் பெயர். தேவையான பகுதி </string>
@@ -330,7 +337,7 @@
     <string name="lang_setting_option3_gtt3_cd">மூன்றாவது படம் மூன்றாவது படிநிலையைக் காட்டுகிறது. இப்படத்தில் பயனர்  Google TTS voice data பக்கத்தில் \"Language\" தெரிவில் சொடுக்குமாறு காட்டப்பட்டுள்ளது. பயனர்  Google Text-to-Speech இயக்கிக்கான இயல்பு மொழியாக \"Hindi(India)\"  ஐ தேர்ந்தெடுப்பதாக காட்டப்பட்டுள்ளது</string>
 
     <string name="txt_tts_stting">டிஎஸ்எஸ் அமைப்புகள்</string>
-    <string name="change_language_tts_wifi">கூகுள் டிஎஸ்எஸ் இயக்கியின் அமைப்பிற்க்குச் சென்று "யூஸ் வை-பை ஒன்லி" ஐ அணை. ஏற்க்கனவே இது செய்யப்பட்டிருப்பின் இந்த நிலையைக் கைவிடவும்.</string>
+    <string name="change_language_tts_wifi">படி 2: கூகுள் டிஎஸ்எஸ் இயக்கியின் அமைப்பிற்க்குச் சென்று "யூஸ் வை-பை ஒன்லி" ஐ அணை. ஏற்க்கனவே இது செய்யப்பட்டிருப்பின் இந்த நிலையைக் கைவிடவும்.</string>
     <string name="icon_update_msg">இருக்கும் மொழி (கள்) க்கான சின்னங்களை புதுப்பிக்கிறது:</string>
     <string name="disable_wifi_only">\"யூஸ் வை-பை ஒன்லி\" ஐ அணைக்க முந்தைய படிநிலையை முடிக்கவும்</string>
     <string name="txtStep2">படிநிலை 2:</string>
@@ -375,11 +382,11 @@
     <string name="current_board">தற்போதைய பலகை</string>
     <string name="place_holder_text">நீங்கள் தேர்வு செய்த சின்னம் இங்கு காண்பிக்கப்படும்</string>
     <string name="board_name">பலகையின் பெயர்</string>
-    <string name="_1_icon">௧ சின்னம்</string>
-    <string name="_2_icons">௨ சின்னங்கள்</string>
-    <string name="_3_icons">௩ சின்னங்கள்</string>
-    <string name="_4_icons">௪ சின்னங்கள்</string>
-    <string name="_9_icons">௯ சின்னங்கள்</string>
+    <string name="_1_icon">1 சின்னம்</string>
+    <string name="_2_icons">2 சின்னங்கள்</string>
+    <string name="_3_icons">3 சின்னங்கள்</string>
+    <string name="_4_icons">4 சின்னங்கள்</string>
+    <string name="_9_icons">9 சின்னங்கள்</string>
     <string name="number_of_icons_per_screen">ஒரு திரையில் எத்தனை சின்னங்கள் வேண்டும்?</string>
     <string name="select_all">அனைத்தையும் தேர்ந்தெடு</string>
     <string name="reset">மீட்டு அமை</string>

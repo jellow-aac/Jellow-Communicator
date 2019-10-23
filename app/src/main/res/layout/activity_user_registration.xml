@@ -193,17 +193,18 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="@dimen/user_reg_btn_margin_top"
                 android:layout_marginBottom="@dimen/user_reg_tv_group"
-                android:importantForAccessibility="yes">
+                android:importantForAccessibility="yes"
+                android:layout_gravity="center_vertical">
+                <CheckBox
+                    android:id="@+id/cb_privacy_consent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"/>
                 <TextView
                     style="@style/defaultTextViewStyle"
                     android:text="@string/privacy_link"
                     android:layout_marginEnd="@dimen/user_reg_tv_group"
-                    android:layout_marginRight="@dimen/user_reg_tv_group" />
-                <TextView
-                    style="@style/defaultTextViewStyle"
-                    android:layout_marginBottom="@dimen/user_reg_tv_group"
-                    android:fontFamily="@font/mukta_semibold"
-                    android:text="@string/click_here"
+                    android:layout_marginRight="@dimen/user_reg_tv_group"
                     android:onClick="openPrivacyPolicyPage"/>
             </LinearLayout>
             <Button

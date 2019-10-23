@@ -44,7 +44,7 @@ public class SessionManager {
             put("Spanish (Spain)", ES_ES);
             put("मराठी", MR_IN);
             put("हिंदी", HI_IN);
-            put("বাঙালি", BN_IN);
+            put("বাংলা", BN_IN);
             put("தமிழ்", TA_IN);
         }
     };
@@ -60,7 +60,7 @@ public class SessionManager {
             put(ES_ES, "Spanish (Spain)");
             put(MR_IN,"मराठी");
             put(HI_IN,"हिंदी");
-            put(BN_IN,"বাঙালি");
+            put(BN_IN,"বাংলা");
             put(TA_IN, "தமிழ்");
         }
     };

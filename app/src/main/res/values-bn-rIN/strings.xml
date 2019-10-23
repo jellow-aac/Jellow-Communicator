@@ -69,7 +69,7 @@
         <item>নয়</item>
     </string-array>
 
-    <string name="change_language_line2">প্রথম ধাপঃ নীচের ডাউনলোড করা ভাষাগুলি থেকে যে-কোনো একটি ভাষা নির্বাচন করো</string>
+    <string name="change_language_line2">প্রথম ধাপঃ নিচের ড্রপডাউন থেকে যেকোনো একটি ভাষা সিলেক্ট করুন</string>
     <string name="simple_ime">জেলো কীবোর্ড</string>
     <string name="subtype_en_US">সিরিয়াল এবিসি</string>
     <string name="action_bar_title">হোম</string>
@@ -78,7 +78,7 @@
     <string name="txtVoiceSpeech">আওয়াজের গতি</string>
     <string name="txtDisplayMode">প্রদর্শনের প্রকার</string>
     <string name="txtVoiceVolume">কথার আওয়াজ</string>
-    <string name="txtNumOfPerPerScr">প্রতি স্ক্রিনে আইকনের সংখ্যা</string>
+    <string name="txtNumOfPerPerScr">স্ক্রিন প্রতি ইকোনের সংখ্যা</string>
     <string name="txtDemo">কথার নমুনা</string>
     <string name="txtSave">সেভ</string>
     <string name="demoTtsSpeech">নমস্কার! তুমি জেলো কমিউনিকেটর ব্যবহার করছ।</string>
@@ -188,7 +188,7 @@
     <string name="txt_registration_selectLangDesc_contentDesc">জেলো-র জন্য একটি ভাষা বেছে নিন। প্রয়োজনীয় ক্ষেত্র</string>
     <string name="txt_registration_registerBtn">নথিভুক্ত করুন</string>
     <string name="enternonemptycontact">কার্যকরী যোগাযোগের নাম্বার দিন</string>
-    <string name="change_language_line5">দ্বিতীয় ধাপঃ যাচাই করে দেখুন _-র জন্য ভয়েস ডেটা আপনার যন্ত্রে মজুত আছে কি না। ইন্টারনেটে তীর্থযাত্রী চালু করুন এবং নির্বাচিত ভাষাতে ভয়েস ডেটা ডাউনলোড করুন। প্রক্রিয়াটি স্থগিত হলে দয়া করে আপনার ইন্টারনেট সংযোগ চেক করুন এবং পুনরায় চেষ্টা করুন।</string>
+    <string name="change_language_line5">তৃতীয় ধাপঃ যাচাই করে দেখুন _-র জন্য ভয়েস ডেটা আপনার যন্ত্রে মজুত আছে কি না। ইন্টারনেটে তীর্থযাত্রী চালু করুন এবং নির্বাচিত ভাষাতে ভয়েস ডেটা ডাউনলোড করুন। প্রক্রিয়াটি স্থগিত হলে দয়া করে আপনার ইন্টারনেট সংযোগ চেক করুন এবং পুনরায় চেষ্টা করুন।</string>
     <string name="txtChangeLanguage">মূল ভাষা বদল করুনঃ</string>
     <string name="txtApplyChanges">চতুর্থ ধাপঃ নতুন ভাষাকে মূল ভাষা হিসেবে প্রয়োগ করতে \'বদলগুলি প্রয়োগ করুন\' বাটনটি ক্লিক করুন।</string>
     <string name="txt_intro6_skipTtsSetup">যে-সমস্ত যন্ত্রে গুগল টিটিএস ইঞ্জিন সক্রিয় রয়েছেঃ দয়া করে বর্তমান ধাপটি অগ্রাহ্য করুন।</string>
@@ -264,8 +264,14 @@
     <string name="about_je_intro30">ই-কল্প প্রোজেক্ট  MHRD-র NMEICT, মাইক্রোসফট ডিজাইন এক্সপো ২০০৪ এবং ইউনিসেফ-এর এক বছরের অনুদানপ্রাপ্ত।</string>
     <string name="about_je_intro38">অনুদৈর্ঘ্য ব্যবহারকারী অধ্যয়ন এবং ক্ষেত্র পরীক্ষা জেলও:</string>
     <string name="about_je_intro39">টুপিওয়ালা ন্যাশনাল মেডিকেল কলেজ এন্ড বা. যা. ল. নারী চারিটিবিলে হাসপাতাল (ডিপার্টমেন্ট সাইকিয়াট্রি এন্ড অডিওলজি এন্ড স্পিচ থেরাপি )</string>
-
     <string name="feedback_talkback_heading">১ থেকে ৫ স্কেলে, অনুগ্রহ করে অনুসরণ করুন</string>
+
+    <string name="langauge_correction_message">\'"-"\' ভাষাটি ঠিকমতো সেটআপ করা হয়নি। ভাষার সেটিং ঠিক করার জন্য \'"_"\' বাটনটা প্রেস করুন। অথবা, ডিফল্ট ভাষায় সুইচ করুন। এটা  করতে \'"$"\' প্রেস করুন।</string>
+    <string name="changeLanguage">ভাষার সেটিং ঠিক করুন।</string>
+    <string name="dialog_default_language_option">ডিফল্ট ল্যাংগুয়েজ</string>
+    <string name="privacy_link">আমি জেল্লোর <font color="#dc5252"><b><u>প্রাইভেসী পলিসি</u></b></font> পড়েছি।</string>
+    <string name="consent_privacy">অনুগ্রহ করে জিল্লুর প্রাইভেসি পলিসি পড়ুন এবং সেই হিসেবে চেক করুন</string>
+
 
     <!--Content description-->
     <string name="language_download_in_process">ভাষা ডাউনলোড করা হচ্ছে</string>
@@ -332,7 +338,7 @@
     <!--end content description-->
 
     <string name="txt_tts_stting">টেক্সট-টু-স্পীচ সেটিংস</string>
-    <string name="change_language_tts_wifi">গুগলের টিটিএসের সেটংস-এ গিয়ে \' টিটিএস সেটিংস \' বোতামটি স্পর্শ করে \' শুধু ওয়াই-ফাই \' অপশনটি চালু করুন। যদি অপশনটি ইতিমধ্যে নিস্ক্রিয় থাকে, তাহলে এই পর্যায়টি এড়িয়ে যান।</string>
+    <string name="change_language_tts_wifi">দ্বিতীয় ধাপঃ গুগলের টিটিএসের সেটংস-এ গিয়ে \' টিটিএস সেটিংস \' বোতামটি স্পর্শ করে \' শুধু ওয়াই-ফাই \' অপশনটি চালু করুন। যদি অপশনটি ইতিমধ্যে নিস্ক্রিয় হয়ে গিয়ে থাকে, তাহলে এই পর্যায়টি এড়িয়ে যান।</string>
     <string name="icon_update_msg">বর্তমান ভাষার আইকনগুলির সংযোজন:</string>
     <string name="disable_wifi_only">গুগল টেক্সট-টু-স্পীচ- এর সেটিংস-এ যাও এবং \'কেবল ওয়াই-ফাই ব্যবহার করো\' বন্ধ করো।</string>
     <string name="txtStep2">দ্বিতীয় ধাপঃ</string>

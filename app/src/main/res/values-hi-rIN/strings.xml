@@ -262,13 +262,13 @@
     <string name="about_je_intro30">ई-कल्पा प्रोजेक्ट NMEICT के अंतर्गत मानव संसाधन विकास मंत्रालय एवं माइक्रोसॉफ्ट डिजाईन एक्सपो २००४ द्वारा प्रायोजित। हमें यूनिसेफ (UNICEF) से १ साल के लिए सीड ग्रांट मिला है।</string>
     <string name="about_je_intro38">अनुदैर्ध्य उपयोगकर्ता अध्ययन और जेलो कम्युनिकेटर का क्षेत्र परीक्षण:</string>
     <string name="about_je_intro39">टोपीवाला नेशनल मेडिकल कॉलेज और बी.वाई.एल. नायर चैरिटेबल अस्पताल (मनोरोग तथा ऑडियोलॉजी और भाषण चिकित्सा विभाग)</string>
-
     <string name="feedback_talkback_heading">१ से ५ के स्तर पर, कृपया रेट करें</string>
+
     <string name="langauge_correction_message"> \'"-"\' भाषा का सेटअप सही नहीं है। भाषा का सेटअप  ठीक करने के लिए \'"_"\' बटन दबाएँ। या फिर आप \'"$"\ का बटन दबाकर डिफ़ॉल्ट भाषा चुने।</string>
     <string name="changeLanguage">भाषा की सेटिंग ठीक करें</string>
     <string name="dialog_default_language_option">डिफ़ॉल्ट भाषा</string>
-    <string name="privacy_link">जेलो की प्राइवसी पॉलिसी देखें।</string>
-    <string name="click_here"><u>यहाँ टैप करें</u></string>
+    <string name="privacy_link">मैंने जेलो की <font color="#dc5252"><b><u>प्राइवेसी पॉलिसी</u></b></font> को पढ़ा है।</string>
+    <string name="consent_privacy">कृपया पढ़ें और प्राइवेसी पॉलिसी के चेक बॉक्स पर क्लिक करें।</string>
 
     <!--Content description-->
     <string name="language_download_in_process">भाषा डाउनलोड हो रही हैं</string>

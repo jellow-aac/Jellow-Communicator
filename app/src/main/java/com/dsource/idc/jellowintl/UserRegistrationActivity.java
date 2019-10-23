@@ -16,6 +16,7 @@ import android.view.accessibility.AccessibilityManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -55,6 +56,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Random;
 
 import javax.crypto.BadPaddingException;
@@ -225,6 +227,14 @@ public class UserRegistrationActivity extends BaseActivity {
                             getString(R.string.invalid_usergroup), Toast.LENGTH_SHORT).show();
                     return;
                 }
+                CheckBox cb = findViewById(R.id.cb_privacy_consent);
+                if (!cb.isChecked()){
+                    bRegister.setEnabled(true);
+                    Toast.makeText(UserRegistrationActivity.this,
+                            getString(R.string.consent_privacy), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 if(selectedLanguage == null)
                     return;
 
@@ -391,14 +401,16 @@ public class UserRegistrationActivity extends BaseActivity {
             final String userId = maskNumber(emergencyContact);
             getAnalytics(UserRegistrationActivity.this, emergencyContact);
             getSession().setSessionCreatedAt(new Date().getTime());
-            mRef.child(userId).child("email").setValue(eMailId);
-            mRef.child(userId).child("emergencyContact").setValue(userId);
-            mRef.child(userId).child("name").setValue(name);
-            mRef.child(userId).child("country").setValue(country);
-            mRef.child(userId).child("firstLanguage").setValue(firstLang);
-            mRef.child(userId).child("userGroup").setValue(userGroup);
-            mRef.child(userId).child("versionCode").setValue(BuildConfig.VERSION_CODE);
-            mRef.child(userId).child("joinedOn").setValue(ServerValue.TIMESTAMP).addOnCompleteListener(new OnCompleteListener<Void>() {
+            HashMap<String, Object> map = new HashMap<String, Object>();
+            map.put("email", eMailId);
+            map.put("emergencyContact", userId);
+            map.put("name", name);
+            map.put("country", country);
+            map.put("firstLanguage", firstLang);
+            map.put("userGroup", userGroup);
+            map.put("versionCode", BuildConfig.VERSION_CODE);
+            map.put("joinedOn", ServerValue.TIMESTAMP);
+            mRef.child(userId).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
